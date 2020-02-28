@@ -13,8 +13,11 @@ django_db_apply() {
   aws_login "${user}"
 
   sops_env "secrets-${user}.yaml" default \
-    TF_VAR_db_user \
-    TF_VAR_db_password
+    DB_USER \
+    DB_PASSWD
+
+  export TF_VAR_db_user="${DB_USER}"
+  export TF_VAR_db_password="${DB_PASSWD}"
 
   pushd "${folder}" || return 1
 
@@ -37,8 +40,11 @@ django_db_test() {
   aws_login "${user}"
 
   sops_env "secrets-${user}.yaml" default \
-    TF_VAR_db_user \
-    TF_VAR_db_password
+    DB_USER \
+    DB_PASSWD
+
+  export TF_VAR_db_user="${DB_USER}"
+  export TF_VAR_db_password="${DB_PASSWD}"
 
   pushd "${folder}" || return 1
 

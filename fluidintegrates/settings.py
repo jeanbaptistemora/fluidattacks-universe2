@@ -131,23 +131,7 @@ DATABASES = {
             'CHARSET': 'utf8',
             'COLLATION': 'utf8_general_ci',
         },
-    },
-    'integrates': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fluidintegrates',
-        'USER': FI_DB_USER,
-        'PASSWORD': FI_DB_PASSWD,
-        'HOST': FI_DB_HOST,
-        'PORT': '3306',
-        'OPTIONS': {
-            'sql_mode': 'STRICT_TRANS_TABLES',
-        },
-        'TEST': {
-            'NAME': f'test_integrates_{CI_COMMIT_REF_NAME}',
-            'CHARSET': 'utf8',
-            'COLLATION': 'utf8_general_ci',
-        },
-    },
+    }
 }
 
 # Rollbar configuration
