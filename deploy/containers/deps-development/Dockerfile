@@ -63,6 +63,7 @@ RUN pip3 install --no-cache-dir -r /tmp/reqs_prod.txt \
 
 ADD front/package.json /tmp/front/package.json
 RUN npm install -g secure-spreadsheet@0.1.0 \
+  && npm install -g graphql-schema-linter \
   && mkdir -p /npm-deps/front \
   && npm install --prefix /tmp/front --only=production \
   && npm install --prefix /tmp/front --only=development \

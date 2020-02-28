@@ -2,6 +2,228 @@ scalar Upload
 scalar GenericScalar
 scalar DateTime
 
+type Mutation {
+    acceptLegal(remember: Boolean): SimplePayload!
+
+    updateAccessToken(expiration_time: Int!): UpdateAccessTokenPayload!
+    invalidateAccessToken: SimplePayload!
+
+    addResources(
+        resource_data: String!,
+        project_name: String!,
+        res_type: String!): ResourcesPayload!
+    updateResources(
+        resource_data: String!,
+        project_name: String!,
+        res_type: String!): ResourcesPayload!
+    addFiles(
+        file: Upload!,
+        files_data: String!,
+        project_name: String!): ResourcesPayload!
+    removeFiles(
+        files_data: String!,
+        project_name: String!): ResourcesPayload!
+    downloadFile(
+        files_data: String!,
+        project_name: String!): DownloadFilePayload!
+
+    uploadFile(
+        file: Upload!,
+        finding_id: String!,
+        origin: String): SimplePayload!
+    approveVulnerability(
+        uuid: String,
+        finding_id: String!,
+        approval_status: Boolean!): SimplePayload!
+    updateTreatmentVuln(
+        acceptance_date: String,
+        bts_url: String,
+        finding_id: String!,
+        treatment: String,
+        treatment_manager: String,
+        treatment_justification: String,
+        vulnerabilities: [String!]!,
+        severity: Int, tag: String): SimplePayload!
+    deleteVulnerability(
+        id: String!,
+        finding_id: String!,
+        justification: DeleteVulnerabilityJustification!): SimplePayload!
+    deleteTags(
+        finding_id: String!,
+        vulnerabilities: [String!]!): SimplePayload!
+    requestVerificationVuln(
+        finding_id: String!,
+        justification: String!,
+        vulnerabilities: [String!]!): SimplePayload!
+    verifyRequestVuln(
+        finding_id: String!,
+        justification: String!,
+        open_vulns: [String!]!,
+        closed_vulns: [String!]!): SimplePayload!
+
+    grantUserAccess(
+        project_name: String,
+        email: String!,
+        organization: String!,
+        responsability: String,
+        role: String!,
+        phone_number: String): GrantUserAccessPayload!
+    removeUserAccess(
+        project_name: String!,
+        user_email: String!): RemoveUserAccessPayload!
+    editUser(
+        project_name: String!,
+        email: String!,
+        organization: String!,
+        responsability: String!,
+        role: String!,
+        phone_number: String!): EditUserPayload!
+    addUser(
+        email: String!,
+        organization: String!,
+        role: String!,
+        phone_number: String): AddUserPayload!
+    updateEvidence(
+        file: Upload!,
+        finding_id: String!,
+        evidence_id: EvidenceType!): SimplePayload!
+    removeEvidence(
+        finding_id: String!,
+        evidence_id: EvidenceType!): SimpleFindingPayload!
+    updateEvidenceDescription(
+        description: String!,
+        evidence_id: EvidenceDescriptionType!,
+        finding_id: String!): SimplePayload!
+
+    updateSeverity(
+        finding_id: String!,
+        data: GenericScalar!): SimpleFindingPayload!
+
+    addAllProjectAccess(project_name: String!): SimplePayload!
+    removeAllProjectAccess(project_name: String!): SimplePayload!
+    addProjectComment(
+        content: String!,
+        parent: String!,
+        project_name: String!): AddCommentPayload!
+    createProject(
+        companies: [String!]!,
+        description: String!,
+        project_name: String!,
+        subscription: SubscriptionType): SimplePayload!
+    removeProject(project_name: String!): RemoveProjectPayload!
+    addFindingComment(
+        content: String!,
+        finding_id: String!,
+        parent: String!,
+        type: String!): AddCommentPayload!
+    requestRemoveProject(project_name: String!): SimplePayload!
+    rejectRemoveProject(project_name: String!): SimplePayload!
+
+    verifyFinding(
+        finding_id: String!,
+        justification: String!): SimplePayload!
+    handleAcceptation(
+        finding_id: String!,
+        observations: String!,
+        project_name: String!,
+        response: String!): SimplePayload!
+    requestVerification(
+        finding_id: String!,
+        justification: String!): SimplePayload!
+    updateDescription(
+        actor: String!,
+        affected_systems: String!,
+        attack_vector_desc: String!,
+        cwe: String!,
+        description: String!,
+        finding_id: String!,
+        recommendation: String!,
+        records: String,
+        records_number: Int!,
+        requirements: String!,
+        risk: String,
+        scenario: String!,
+        threat: String!,
+        title: String!,
+        finding_type: String): SimpleFindingPayload!
+    updateClientDescription(
+        acceptance_date: String,
+        bts_url: String,
+        finding_id: String!,
+        treatment: UpdateClientDescriptionTreatment!,
+        justification: String!,
+        acceptance_status: String!): SimpleFindingPayload!
+
+    approveDraft(draft_id: String!): ApproveDraftPayload!
+    create_draft(
+        cwe: String,
+        description: String,
+        origin: String,
+        project_name: String!,
+        recommendation: String,
+        requirements: String,
+        risk: String,
+        threat: String,
+        title: String!,
+        type: FindingType): SimplePayload!
+    rejectDraft(finding_id: String!): SimplePayload!
+    deleteFinding(
+        finding_id: String!,
+        justification: DeleteFindingJustification!): SimplePayload!
+    submit_draft(finding_id: String!): SimplePayload!
+
+    add_event_comment(
+        content: String!,
+        event_id: String!,
+        parent: String!): AddCommentPayload!
+    create_event(
+        action_after_blocking: ActionsAfterBlocking!,
+        action_before_blocking: ActionsBeforeBlocking!,
+        accessibility: EventAccessibility!,
+        affected_components: AffectedComponents,
+        blocking_hours: Int,
+        context: EventContext!,
+        detail: String!,
+        event_date: DateTime!,
+        event_type: EventType!,
+        file: Upload,
+        image: Upload,
+        project_name: String!): SimplePayload!
+    download_event_file(
+        event_id: String!,
+        file_name: String!): DownloadFilePayload!
+    update_event(event_id: String!): SimplePayload!
+    update_event_evidence(
+        event_id: String!,
+        evidence_type: EventEvidenceType!,
+        file: Upload!): SimplePayload!
+    remove_event_evidence(
+        event_id: String!,
+        evidence_type: EventEvidenceType!): SimplePayload!
+    solve_event(
+        event_id: String!,
+        affectation: Int!,
+        date: DateTime!): SimplePayload!
+
+    removeTag(
+        project_name: String!,
+        tag: String!): SimpleProjectPayload!
+    addTags(
+        project_name: String!,
+        tags: String): SimpleProjectPayload!
+
+    setAlert(
+        company: String!,
+        message: String!,
+        project_name: String!): SimplePayload!
+    sign_in(
+        auth_token: String!,
+        provider: String!,
+        push_token: String): SignInPayload!
+
+    invalidateCache(pattern: String!): SimplePayload!
+}
+
 interface Payload {
     success: Boolean!
 }
@@ -191,98 +413,3 @@ enum EventEvidenceType {
     IMAGE
     FILE
 }
-
-type Mutation {
-    acceptLegal(remember: Boolean): SimplePayload!
-
-    updateAccessToken(expiration_time: Int!): UpdateAccessTokenPayload!
-    invalidateAccessToken: SimplePayload!
-
-    addResources(resource_data: String!, project_name: String!, res_type: String!): ResourcesPayload!
-    updateResources(resource_data: String!, project_name: String!, res_type: String!): ResourcesPayload!
-    addFiles(file: Upload!, files_data: String!, project_name: String!): ResourcesPayload!
-    removeFiles(files_data: String!, project_name: String!): ResourcesPayload!
-    downloadFile(files_data: String!, project_name: String!): DownloadFilePayload!
-
-    uploadFile(file: Upload!, finding_id: String!, origin: String): SimplePayload!
-    approveVulnerability(uuid: String, finding_id: String!, approval_status: Boolean!): SimplePayload!
-    updateTreatmentVuln(acceptance_date: String, bts_url: String, finding_id: String!, treatment: String, treatment_manager: String, treatment_justification: String, vulnerabilities: [String!]!, severity: Int, tag: String): SimplePayload!
-    deleteVulnerability(id: String!, finding_id: String!, justification: DeleteVulnerabilityJustification!): SimplePayload!
-    deleteTags(finding_id: String!, vulnerabilities: [String!]!): SimplePayload!
-    requestVerificationVuln(finding_id: String!, justification: String!, vulnerabilities: [String!]!): SimplePayload!
-    verifyRequestVuln(finding_id: String!, justification: String!, open_vulns: [String!]!, closed_vulns: [String!]!): SimplePayload!
-
-    grantUserAccess(project_name: String, email: String!, organization: String!, responsability: String, role: String!, phone_number: String): GrantUserAccessPayload!
-    removeUserAccess(project_name: String!, user_email: String!): RemoveUserAccessPayload!
-    editUser(project_name: String!, email: String!, organization: String!, responsability: String!, role: String!, phone_number: String!): EditUserPayload!
-    addUser(email: String!, organization: String!, role: String!, phone_number: String): AddUserPayload!
-    updateEvidence(file: Upload!, finding_id: String!, evidence_id: EvidenceType!): SimplePayload!
-    removeEvidence(finding_id: String!, evidence_id: EvidenceType!): SimpleFindingPayload!
-    updateEvidenceDescription(description: String!, evidence_id: EvidenceDescriptionType!, finding_id: String!): SimplePayload!
-
-    updateSeverity(finding_id: String!, data: GenericScalar!): SimpleFindingPayload!
-
-    addAllProjectAccess(project_name: String!): SimplePayload!
-    removeAllProjectAccess(project_name: String!): SimplePayload!
-    addProjectComment(content: String!,
-        parent: String!,
-        project_name: String!): AddCommentPayload!
-    createProject(companies: [String!]!,
-        description: String!,
-        project_name: String!,
-        subscription: SubscriptionType): SimplePayload!
-    removeProject(project_name: String!): RemoveProjectPayload!
-    addFindingComment(content: String!,
-        finding_id: String!,
-        parent: String!,
-        type: String!): AddCommentPayload!
-    requestRemoveProject(project_name: String!): SimplePayload!
-    rejectRemoveProject(project_name: String!): SimplePayload!
-
-    verifyFinding(finding_id: String!, justification: String!): SimplePayload!
-    handleAcceptation(finding_id: String!,
-        observations: String!,
-        project_name: String!,
-        response: String!): SimplePayload!
-    requestVerification(finding_id: String!, justification: String!): SimplePayload!
-    updateDescription(actor: String!,
-        affected_systems: String!,
-        attack_vector_desc: String!,
-        cwe: String!,
-        description: String!,
-        finding_id: String!,
-        recommendation: String!,
-        records: String,
-        records_number: Int!,
-        requirements: String!,
-        risk: String,
-        scenario: String!,
-        threat: String!,
-        title: String!,
-        finding_type: String): SimpleFindingPayload!
-    updateClientDescription(acceptance_date: String, bts_url: String, finding_id: String!, treatment: UpdateClientDescriptionTreatment!, justification: String!, acceptance_status: String!): SimpleFindingPayload!
-
-    approveDraft(draft_id: String!): ApproveDraftPayload!
-    create_draft(cwe: String, description: String, origin: String, project_name: String!, recommendation: String, requirements: String, risk: String, threat: String, title: String!, type: FindingType): SimplePayload!
-    rejectDraft(finding_id: String!): SimplePayload!
-    deleteFinding(finding_id: String!, justification: DeleteFindingJustification!): SimplePayload!
-    submit_draft(finding_id: String!): SimplePayload!
-
-    add_event_comment(content: String!, event_id: String!, parent: String!): AddCommentPayload!
-    create_event(action_after_blocking: ActionsAfterBlocking!, action_before_blocking: ActionsBeforeBlocking!, accessibility: EventAccessibility!, affected_components: AffectedComponents, blocking_hours: Int, context: EventContext!, detail: String!, event_date: DateTime!, event_type: EventType!, file: Upload, image: Upload, project_name: String!): SimplePayload!
-    download_event_file(event_id: String!, file_name: String!): DownloadFilePayload!
-    update_event(event_id: String!): SimplePayload!
-    update_event_evidence(event_id: String!, evidence_type: EventEvidenceType!, file: Upload!): SimplePayload!
-    remove_event_evidence(event_id: String!, evidence_type: EventEvidenceType!): SimplePayload!
-    solve_event(event_id: String!, affectation: Int!, date: DateTime!): SimplePayload!
-
-    removeTag(project_name: String!,
-              tag: String!): SimpleProjectPayload!
-    addTags(project_name: String!, tags: String): SimpleProjectPayload!
-
-    setAlert(company: String!, message: String!, project_name: String!): SimplePayload!
-    sign_in(auth_token: String!, provider: String!, push_token: String): SignInPayload!
-
-    invalidateCache(pattern: String!): SimplePayload!
-}
-

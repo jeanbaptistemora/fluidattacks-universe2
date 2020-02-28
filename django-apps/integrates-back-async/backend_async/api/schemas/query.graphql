@@ -1,15 +1,42 @@
+"Main Query object"
 type Query {
+    "Get alerts from project"
     alert(project_name: String!, organization: String!): Alert
+
+    "Get event"
     event(identifier: String!): Event
+
+    "List of events of a project"
     events(project_name: String!): [Event]
+
+    "Finding entity"
     finding(identifier: String!): Finding
+
+    "InternalProject entity"
     internal_project_names: InternalProject
+
+    "List of alive projects"
     alive_projects: [Project]
+
+    "Get resources from project"
     resources(project_name: String!): Resource
+
+    "Get user info from project"
     user(project_name: String!, user_email: String!): User
+
+    "List projects a user is subscribed to"
     user_list_projects(user_email: String!): [Project]
+
+    "Project entity"
     project(project_name: String!): Project
-    break_build_executions(project_name: String!, from_date: String, to_date: String): BreakBuildExecutions
+
+    "Get BreakBuild executions"
+    break_build_executions(
+        project_name: String!,
+        from_date: String,
+        to_date: String): BreakBuildExecutions
+
+    "Me entity"
     me: Me
 }
 

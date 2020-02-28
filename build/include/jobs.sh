@@ -221,6 +221,7 @@ function job_serve_back_dev {
 }
 
 function job_lint_back {
+      graphql-schema-linter django-apps/integrates-back-async/backend_async/api/schemas/ || true
       prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s high -u django -i node_modules django-apps \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
