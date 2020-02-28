@@ -2,6 +2,7 @@
 
 
 from collections import namedtuple
+from typing import Any, Dict, List
 import base64
 import datetime
 import threading
@@ -25,7 +26,7 @@ from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
                       FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_RESOURCERS)
 
 
-def rsa_signer(message) -> bool:
+def rsa_signer(message: str) -> bool:
     private_key = serialization.load_pem_private_key(
         base64.b64decode(FI_CLOUDFRONT_PRIVATE_KEY),
         password=None,
@@ -34,7 +35,7 @@ def rsa_signer(message) -> bool:
     return private_key.sign(message, asymmetric.padding.PKCS1v15(), hashes.SHA1())
 
 
-def sign_url(domain, file_name, expire_mins):
+def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
     filename = urllib.parse.quote_plus(str(file_name))
     url = domain + "/" + filename
     key_id = FI_CLOUDFRONT_ACCESS_KEY
@@ -46,7 +47,8 @@ def sign_url(domain, file_name, expire_mins):
     return signed_url
 
 
-def format_resource(resource_list, resource_type):
+def format_resource(
+        resource_list: List[Dict[str, Any]], resource_type: str) -> List[Dict[str, Any]]:
     resource_description = []
     for resource_item in resource_list:
         if resource_type == 'repository':
@@ -55,14 +57,15 @@ def format_resource(resource_list, resource_type):
             resource_text = 'Repository: {repository!s} Branch: {branch!s}'\
                             .format(repository=repo_url, branch=repo_branch)
         elif resource_type == 'environment':
-            resource_text = resource_item.get('urlEnv')
+            resource_text = resource_item.get('urlEnv')  # type: ignore
         elif resource_type == 'file':
-            resource_text = resource_item.get('fileName')
+            resource_text = resource_item.get('fileName')  # type: ignore
         resource_description.append({'resource_description': resource_text})
     return resource_description
 
 
-def send_mail(project_name, user_email, resource_list, action, resource_type):
+def send_mail(project_name: str, user_email: str,
+              resource_list: List[Any], action: str, resource_type: str):
     recipients = set(project_dal.list_project_managers(project_name))
     recipients.add(user_email)
     recipients.update(FI_MAIL_RESOURCERS.split(','))
@@ -89,7 +92,7 @@ def send_mail(project_name, user_email, resource_list, action, resource_type):
                      args=(list(recipients), context,)).start()
 
 
-def validate_file_size(uploaded_file, file_size):
+def validate_file_size(uploaded_file: Any, file_size: int) -> bool:
     """Validate if uploaded file size is less than a given file size."""
     mib = 1048576
     if uploaded_file.size > file_size * mib:
@@ -97,7 +100,8 @@ def validate_file_size(uploaded_file, file_size):
     return True
 
 
-def create_file(files_data, uploaded_file, project_name, user_email):
+def create_file(files_data: List[Dict[str, Any]], uploaded_file: Any,
+                project_name: str, user_email: str) -> bool:
     project_name = project_name.lower()
     json_data = []
     for file_info in files_data:
@@ -136,7 +140,7 @@ File already exists', 'error')
     return False
 
 
-def remove_file(file_name, project_name):
+def remove_file(file_name: str, project_name: str) -> bool:
     project_name = project_name.lower()
     file_list = project_dal.get(project_name)[0]['files']
     index = -1
@@ -158,7 +162,7 @@ def remove_file(file_name, project_name):
     return False
 
 
-def download_file(file_info, project_name):
+def download_file(file_info: str, project_name: str) -> str:
     project_name = project_name.lower()
     file_url = project_name + "/" + file_info
     minutes_until_expire = 1.0 / 6
@@ -166,7 +170,8 @@ def download_file(file_info, project_name):
                     file_url, minutes_until_expire)
 
 
-def create_resource(res_data, project_name, res_type, user_email):
+def create_resource(res_data: List[Dict[str, Any]], project_name: str,
+                    res_type: str, user_email: str) -> bool:
     project_name = project_name.lower()
     if res_type == 'repository':
         res_id = 'urlRepo'
@@ -204,7 +209,8 @@ An error occurred adding repository', 'error')
     return resources_dal.create(json_data, project_name, res_name)
 
 
-def update_resource(res_data, project_name, res_type, user_email):
+def update_resource(
+        res_data: Dict[str, Any], project_name: str, res_type: str, user_email: str) -> bool:
     project_name = project_name.lower()
     if res_type == 'repository':
         resource_url = res_data.get('urlRepo')
@@ -239,7 +245,7 @@ def update_resource(res_data, project_name, res_type, user_email):
     return resources_dal.update(res_list, project_name, res_name)
 
 
-def mask(project_name):
+def mask(project_name: str) -> Any:
     project_name = project_name.lower()
     project = project_dal.get_attributes(project_name, ['environments', 'files', 'repositories'])
     Status = namedtuple(

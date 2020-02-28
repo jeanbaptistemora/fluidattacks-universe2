@@ -254,7 +254,7 @@ def add_comment(
     return success
 
 
-def get_evidence_link(event_id: str, file_name: str) -> bool:
+def get_evidence_link(event_id: str, file_name: str) -> str:
     project_name = get_event(event_id).get('project_name')
     file_url = f'{project_name}/{event_id}/{file_name}'
     minutes_until_expire = 1.0 / 6

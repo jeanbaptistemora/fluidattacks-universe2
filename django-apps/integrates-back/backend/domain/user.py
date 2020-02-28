@@ -1,16 +1,17 @@
 from datetime import datetime
+from typing import Any, Dict, List
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
 from backend.utils.user import validate_email_address, validate_field, validate_phone_field
 
 
-def add_phone_to_user(email, phone):
+def add_phone_to_user(email: str, phone: str) -> bool:
     """ Update user phone number. """
     return user_dal.update(email, {'phone': phone})
 
 
-def assign_role(email, role):
+def assign_role(email: str, role: str) -> bool:
     if role not in ('analyst', 'customer', 'admin', 'customeradmin'):
         resp = False
     else:
@@ -18,51 +19,51 @@ def assign_role(email, role):
     return resp
 
 
-def get_admins():
+def get_admins() -> List[Any]:
     return user_dal.get_admins()
 
 
-def get_all_companies():
+def get_all_companies() -> List[str]:
     return user_dal.get_all_companies()
 
 
-def get_all_inactive_users(final_date):
+def get_all_inactive_users(final_date: str) -> List[Any]:
     return user_dal.get_all_inactive_users(final_date)
 
 
-def get_all_users(company_name):
+def get_all_users(company_name: str) -> int:
     return user_dal.get_all_users(company_name.lower())
 
 
-def get_all_users_report(company_name, finish_date):
+def get_all_users_report(company_name: str, finish_date: str) -> int:
     return user_dal.get_all_users_report(company_name.lower(), finish_date)
 
 
-def get_current_date():
-    tzn = pytz.timezone(settings.TIME_ZONE)
+def get_current_date() -> str:
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     return today
 
 
-def get_data(email, attr):
+def get_data(email: str, attr: str) -> Any:
     data_attr = get_attributes(email, [attr])
     data = ''
     if data_attr and data_attr.get(attr):
-        data = data_attr.get(attr)
+        data = data_attr.get(attr)  # type: ignore
     else:
         # User not found or without attribute
         pass
     return data
 
 
-def get_projects(user_email, active=True):
+def get_projects(user_email: str, active: bool = True) -> List[str]:
     projects = user_dal.get_projects(user_email, active)
     projects = [project for project in projects
                 if project_dal.is_request_deletion_user(project, user_email)]
     return projects
 
 
-def get_project_access(email, project_name):
+def get_project_access(email: str, project_name: str) -> bool:
     has_access_attr = project_dal.get_user_access(email, project_name)
     resp = False
     if has_access_attr and has_access_attr[0].get('has_access'):
@@ -73,12 +74,12 @@ def get_project_access(email, project_name):
     return resp
 
 
-def get_attributes(email, data):
+def get_attributes(email: str, data: List[str]) -> Dict[str, Any]:
     """ Get attributes of a user. """
     return user_dal.get_attributes(email, data)
 
 
-def is_registered(email):
+def is_registered(email: str) -> bool:
     is_registered_attr = get_attributes(email, ['registered'])
     registered = False
     if is_registered_attr and is_registered_attr.get('registered'):
@@ -89,29 +90,29 @@ def is_registered(email):
     return registered
 
 
-def logging_users_report(company_name, init_date, finish_date):
+def logging_users_report(company_name: str, init_date: str, finish_date: str) -> int:
     return user_dal.logging_users_report(company_name, init_date, finish_date)
 
 
-def register(email):
+def register(email: str) -> bool:
     return user_dal.update(email, {'registered': True})
 
 
-def remove_access_token(email):
+def remove_access_token(email: str) -> bool:
     """ Remove access token attribute """
     return user_dal.remove_attribute(email, 'access_token')
 
 
-def remove_user(email):
+def remove_user(email: str) -> bool:
     return user_dal.delete(email.lower())
 
 
-def update_legal_remember(email, remember):
+def update_legal_remember(email: str, remember: bool) -> bool:
     """ Remember legal notice acceptance """
     return user_dal.update(email, {'legal_remember': remember})
 
 
-def update_access_token(email, token_data):
+def update_access_token(email: str, token_data: Dict[str, Any]) -> bool:
     """ Update access token """
     access_token = {
         'iat': int(datetime.utcnow().timestamp()),
@@ -121,27 +122,27 @@ def update_access_token(email, token_data):
     return user_dal.update(email, {'access_token': access_token})
 
 
-def update_last_login(email):
+def update_last_login(email: str) -> bool:
     return user_dal.update(str(email), {'last_login': get_current_date()})
 
 
-def update_project_access(email, project_name, access):
+def update_project_access(email: str, project_name: str, access: bool) -> bool:
     return project_dal.add_access(email, project_name, 'has_access', access)
 
 
-def update_multiple_user_attributes(email, data_dict):
+def update_multiple_user_attributes(email: str, data_dict: Dict[str, Any]) -> bool:
     return user_dal.update(email, data_dict)
 
 
-def create(email, data):
+def create(email: str, data: Dict[str, Any]) -> bool:
     return user_dal.create(email, data)
 
 
-def update(email, data_attr, name_attr):
+def update(email: str, data_attr: str, name_attr: str) -> bool:
     return user_dal.update(email, {name_attr: data_attr})
 
 
-def create_without_project(user_data):
+def create_without_project(user_data: Dict[str, Any]) -> bool:
     phone_number = ''
     success = False
     if (
@@ -152,7 +153,7 @@ def create_without_project(user_data):
         if not get_data(user_data['email'], 'email'):
             user_data.update({'registered': True})
             if user_data.get('phone_number'):
-                phone_number = user_data.get('phone_number')
+                phone_number = user_data.get('phone_number')  # type: ignore
                 del user_data['phone_number']
             success = create(
                 user_data['email'].lower(), user_data)

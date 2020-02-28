@@ -23,7 +23,7 @@ from backend import util
 from __init__ import FI_MAIL_REPLYERS
 
 
-def get_email_recipients(project_name):
+def get_email_recipients(project_name: str) -> List[str]:
     """Get the recipients of the comment email."""
     recipients = [str(user) for user in get_users(project_name)]
     replyers = FI_MAIL_REPLYERS.split(',')
@@ -32,28 +32,26 @@ def get_email_recipients(project_name):
     return recipients
 
 
-def add_comment(project_name, email, comment_data):
+def add_comment(project_name: str, email: str, comment_data: Any) -> bool:
     """Add comment in a project."""
     send_comment_mail(comment_data, 'project', email, 'project', project_name)
-    return project_dal.add_comment(project_name,
-                                   email,
-                                   comment_data)
+    return project_dal.add_comment(project_name, email, comment_data)
 
 
-def create_project(user_email, user_role, **kwargs):
+def create_project(user_email: str, user_role: str, **kwargs: Any) -> bool:
     is_user_admin = user_role == 'admin'
     if is_user_admin:
-        companies = [company.lower() for company in kwargs.get('companies')]
+        companies = [company.lower() for company in kwargs.get('companies')]  # type: ignore
     else:
         companies = [user_domain.get_data(user_email, 'company')]
     description = kwargs.get('description')
-    project_name = kwargs.get('project_name').lower()
+    project_name = kwargs.get('project_name').lower()  # type: ignore
     if kwargs.get('subscription'):
         subscription = kwargs.get('subscription')
     else:
         subscription = 'continuous'
     resp = False
-    if not (not description.strip() or not project_name.strip() or
+    if not (not description.strip() or not project_name.strip() or  # type: ignore
        not all([company.strip() for company in companies]) or
        not companies):
         if not project_dal.exists(project_name):
@@ -79,29 +77,29 @@ def create_project(user_email, user_role, **kwargs):
     return resp
 
 
-def add_user(project_name, user_email, role):
+def add_user(project_name: str, user_email: str, role: str) -> bool:
     return project_dal.add_user(project_name, user_email, role)
 
 
-def add_access(user_email, project_name, project_attr, attr_value):
+def add_access(user_email: str, project_name: str, project_attr: str, attr_value: Any) -> bool:
     return project_dal.add_access(user_email, project_name, project_attr, attr_value)
 
 
-def remove_access(user_email, project_name):
+def remove_access(user_email: str, project_name: str) -> bool:
     return project_dal.remove_access(user_email, project_name)
 
 
-def get_pending_to_delete():
+def get_pending_to_delete() -> List[Dict[str, Any]]:
     return project_dal.get_pending_to_delete()
 
 
-def get_historic_deletion(project_name):
+def get_historic_deletion(project_name: str) -> List[Any]:
     historic_deletion = project_dal.get_attributes(
         project_name.lower(), ['historic_deletion'])
     return historic_deletion.get('historic_deletion', [])
 
 
-def request_deletion(project_name, user_email):
+def request_deletion(project_name: str, user_email: str) -> bool:
     project = project_name.lower()
     response = False
     if user_domain.get_project_access(user_email, project) and project_name == project:
@@ -129,7 +127,7 @@ def request_deletion(project_name, user_email):
     return response
 
 
-def reject_deletion(project_name, user_email):
+def reject_deletion(project_name: str, user_email: str) -> bool:
     response = False
     project = project_name.lower()
     if is_request_deletion_user(project, user_email) and project_name == project:
@@ -156,7 +154,7 @@ def reject_deletion(project_name, user_email):
     return response
 
 
-def remove_project(project_name, user_email):
+def remove_project(project_name: str, user_email: str) -> Any:
     """Delete project information."""
     project = project_name.lower()
     Status = namedtuple(
@@ -176,7 +174,7 @@ def remove_project(project_name, user_email):
             finding_domain.mask_finding(finding_id)
             for finding_id in list_findings(project) + list_drafts(project)]
         if are_findings_masked == []:
-            are_findings_masked = True
+            are_findings_masked = True  # type: ignore
         data = {
             'project_status': 'FINISHED',
             'deletion_date': today
@@ -192,7 +190,7 @@ def remove_project(project_name, user_email):
     return response
 
 
-def remove_all_users_access(project):
+def remove_all_users_access(project: str) -> bool:
     """Remove user access to project."""
     user_active = get_users(project)
     user_suspended = get_users(project, active=False)
@@ -208,13 +206,13 @@ def remove_all_users_access(project):
     return are_users_removed
 
 
-def remove_user_access(project, user_email, role):
+def remove_user_access(project: str, user_email: str, role: str) -> bool:
     """Remove user access to project."""
     project_dal.remove_user_role(project, user_email, role)
     return project_dal.remove_access(user_email, project)
 
 
-def validate_tags(tags):
+def validate_tags(tags: List[str]) -> List[str]:
     """Validate tags array."""
     tags_validated = []
     pattern = re.compile('^[a-z0-9]+(?:-[a-z0-9]+)*$')
@@ -227,15 +225,15 @@ def validate_tags(tags):
     return tags_validated
 
 
-def is_alive(project):
+def is_alive(project: str) -> bool:
     return project_dal.is_alive(project)
 
 
-def is_request_deletion_user(project, user_email):
+def is_request_deletion_user(project: str, user_email: str) -> bool:
     return project_dal.is_request_deletion_user(project, user_email)
 
 
-def total_vulnerabilities(finding_id):
+def total_vulnerabilities(finding_id: str) -> Dict[str, Any]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     if finding_domain.validate_finding(finding_id):
@@ -252,16 +250,16 @@ def total_vulnerabilities(finding_id):
     return finding
 
 
-def get_vulnerabilities(findings, vuln_type):
+def get_vulnerabilities(findings: List[Dict[str, Any]], vuln_type: str) -> Any:
     """Get total vulnerabilities by type."""
     vulnerabilities = \
         [total_vulnerabilities(fin['finding_id']).get(vuln_type)
          for fin in findings]
-    vulnerabilities = sum(vulnerabilities)
-    return vulnerabilities
+    vulnerabilities_sum = sum(vulnerabilities)
+    return vulnerabilities_sum
 
 
-def get_pending_closing_check(project):
+def get_pending_closing_check(project: str) -> int:
     """Check for pending closing checks."""
     pending_closing = len(
         project_dal.get_pending_verification_findings(project))
@@ -335,7 +333,8 @@ def get_max_open_severity(findings: List[Dict[str, Any]]) -> Decimal:
     """Get maximum severity of project with open vulnerabilities."""
     total_severity = \
         [fin.get('cvss_temporal') for fin in findings
-         if total_vulnerabilities(fin['finding_id']).get('openVulnerabilities') > 0]
+         if total_vulnerabilities(fin['finding_id'])  # type: ignore
+         .get('openVulnerabilities') > 0]  # type: ignore
     if total_severity:
         max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))  # type: ignore
     else:
@@ -403,11 +402,11 @@ def get_total_treatment(findings: List[Dict[str, Any]]) -> Dict[str, int]:
             open_vulns = total_vulnerabilities(
                 finding['finding_id']).get('openVulnerabilities')
             if fin_treatment == 'ACCEPTED':
-                accepted_vuln += open_vulns
+                accepted_vuln += open_vulns  # type: ignore
             elif fin_treatment == 'IN PROGRESS':
-                in_progress_vuln += open_vulns
+                in_progress_vuln += open_vulns  # type: ignore
             else:
-                undefined_treatment += open_vulns
+                undefined_treatment += open_vulns  # type: ignore
     treatment = {
         'accepted': accepted_vuln,
         'inProgress': in_progress_vuln,
