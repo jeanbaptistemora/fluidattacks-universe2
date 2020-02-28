@@ -20,8 +20,8 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
 
   const canEditDescription: boolean =
   (props.isEditing && _.includes(["admin", "analyst"], props.userRole));
-
-  const validateEmptyField: boolean = !props.isEditing || canEditDescription;
+  const isRequestingVerification: boolean = props.isRequestingVerification || props.isVerifyingRequest;
+  const validateEmptyField: boolean = (!props.isEditing || canEditDescription) && !isRequestingVerification;
   const validRole: boolean = _.includes(["admin", "analyst", "customer", "customeradmin"], props.userRole);
   const nTreatmentState: number = props.dataset.historicTreatment.length;
 
@@ -51,7 +51,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             name="analyst"
             renderAsEditable={false}
             validate={[required]}
-            visible={!props.isEditing && _.includes(["analyst", "admin"], props.userRole)}
+            visible={!props.isEditing && _.includes(["analyst", "admin"], props.userRole) && !isRequestingVerification}
           />
         </Col>
       </Row>
@@ -104,6 +104,8 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             <VulnerabilitiesView
               editMode={props.isEditing && validRole}
               findingId={props.findingId}
+              isRequestVerification={props.isRequestingVerification}
+              isVerifyRequest={props.isVerifyingRequest}
               state="open"
               userRole={props.userRole}
               renderAsEditable={props.isEditing}
@@ -185,7 +187,8 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
       </Row>
       <Row>
         {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
-        {(!_.isEmpty(props.dataset.compromisedAttributes) && !props.isEditing) || canEditDescription ?
+        {(!_.isEmpty(props.dataset.compromisedAttributes) && !props.isEditing && !isRequestingVerification)
+          || canEditDescription ?
         <Col md={6} sm={12} xs={12}>
           <EditableField
             className={globalStyle.noResize}
@@ -261,7 +264,8 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
 
 export const renderFormFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
   const canEditTreatment: boolean = _.includes(["customer", "customeradmin"], props.userRole);
-  const shouldRenderEditable: boolean = !props.isEditing || (props.isEditing && canEditTreatment);
+  const shouldRenderEditable: boolean = (!props.isEditing || (props.isEditing && canEditTreatment))
+    && !(props.isRequestingVerification || props.isVerifyingRequest);
 
   return (
     <React.Fragment>

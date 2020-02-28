@@ -82,7 +82,9 @@ export interface IDescriptionViewProps {
   };
   isEditing: boolean;
   isRemediationOpen: boolean;
+  isRequestingVerification: boolean;
   isTreatmentModal: boolean;
+  isVerifyingRequest: boolean;
   projectName: string;
   userRole: string;
 }

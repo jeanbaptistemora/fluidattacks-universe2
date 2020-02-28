@@ -56,7 +56,9 @@ describe("DescriptionView", () => {
     },
     isEditing: false,
     isRemediationOpen: false,
+    isRequestingVerification: false,
     isTreatmentModal: false,
+    isVerifyingRequest: false,
     projectName: "TEST",
     userRole: "analyst",
   };
