@@ -1,0 +1,11 @@
+:slug: rules/184/
+:category: data
+:description: This document details the security guidelines and requirements related to the importance of obfuscating all those data that contain sensitive or relevant information for the business model within the organization, when the application is not the main focus.
+:keywords: Requirement, Security, Data, Focus, Obfuscate, Application
+:rules: yes
+
+= REQ.184 Obfuscate Application Data
+
+== Requirement
+
+The system must obfuscate the data if the application is not in focus.
