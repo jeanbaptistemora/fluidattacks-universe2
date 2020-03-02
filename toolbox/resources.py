@@ -283,6 +283,58 @@ def edit_secrets(subs: str) -> bool:
     return status
 
 
+def vpn(subs: str) -> bool:
+    """ using subscription vpn """
+
+    success: bool = True
+    config_file = f'break-build/packages/toolbox/vpns/{subs}'
+    vpn_list = ("artega\n"
+                "hiachsbol\n"
+                "hiachmov\n"
+                "hiachson\n"
+                "shimk\n"
+                "tabbasa-bogota\n"
+                "tabbasa-medellin\n"
+                "targon-bogota\n"
+                "targon-medellin\n"
+                "triana-bogota\n"
+                "triana-medellin\n"
+                "troitsk-bogota\n"
+                "troitsk-medellin\n"
+                "turtwig-bogota\n"
+                "turtwig-medellin\n"
+                "vilachuaga")
+    subscriptions = ["tabbasa", "targon", "triana", "troitsk", "turtwig"]
+
+    if subs in subscriptions:
+        city = input(('Do you want to use bogota\'s or medellin\'s'
+                      ' VPN? [1: Bogota - 2: Medellin]: '))
+        if city == '1':
+            utils.aws_login(f'continuous-{subs}')
+            subprocess.call(
+                f'bash {config_file}-bogota.sh',
+                shell=True
+            )
+        else:
+            utils.aws_login(f'continuous-{subs}')
+            subprocess.call(
+                f'bash {config_file}-medellin.sh',
+                shell=True
+            )
+    else:
+        if not os.path.isfile(f'{config_file}.sh'):
+            logger.error("No VPN file found")
+            logger.info(f'Available VPNs:\n{vpn_list}')
+            success = False
+        else:
+            utils.aws_login(f'continuous-{subs}')
+            subprocess.call(
+                f'bash {config_file}.sh',
+                shell=True
+            )
+    return success
+
+
 def read_secrets(subs: str) -> bool:
     """
     Print config/secrets.yaml file of a project to stdout

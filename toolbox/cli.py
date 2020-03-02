@@ -161,6 +161,9 @@ def main():  # noqa
         metavar='subs',
         default=subs,
         required=False)
+    parser.add_argument(
+        '--vpn',
+        action='store_true')
     args = parser.parse_args()
 
     if args.fill_with_mocks:
@@ -246,6 +249,8 @@ def main():  # noqa
             elif args.check_repos:
                 sys.exit(0 if resources.check_repositories(
                     args.subs, args.email) else 1)
+            elif args.vpn:
+                sys.exit(0 if resources.vpn(args.subs) else 1)
         parser.print_help()
         print()
         print('Note: some methods need the "--subs" flag, or being')
