@@ -86,9 +86,6 @@ query GetEnvironmentsQuery($projectName: String!) {
   resources (projectName: $projectName) {
     environments
   }
-  project(projectName: $projectName){
-    deletionDate
-  }
 }
 `;
 
@@ -96,6 +93,22 @@ export const GET_PROJECT_DATA: DocumentNode = gql`
   query GetProjectDataQuery($projectName: String!) {
     project(projectName: $projectName){
       deletionDate
+    }
+  }
+`;
+
+export const GET_FILES: DocumentNode = gql`
+  query GetFilesQuery($projectName: String!) {
+    resources(projectName: $projectName) {
+      files
+    }
+  }
+`;
+
+export const UPLOAD_FILE_MUTATION: DocumentNode = gql`
+  mutation UploadFileMutation($file: Upload!, $filesData: JSONString!, $projectName: String!) {
+    addFiles(file: $file, filesData: $filesData, projectName: $projectName) {
+      success
     }
   }
 `;
