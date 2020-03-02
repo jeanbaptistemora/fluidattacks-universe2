@@ -1,0 +1,63 @@
+"""Setup package."""
+
+# Standard imports
+from datetime import datetime
+
+try:
+    import distutils.core
+except ImportError:
+    import distutils
+
+
+def get_minor_version() -> int:
+    """Number of seconds since the beginning of the month."""
+    utc_now = \
+        datetime.utcnow()
+    utc_beginning_of_month = \
+        datetime.utcnow().replace(day=1, hour=0, minute=0, second=0)
+    return int((utc_now - utc_beginning_of_month).total_seconds())
+
+
+def get_version():
+    """Return the package version."""
+    return datetime.utcnow().strftime(f'%Y.%m.{get_minor_version()}')
+
+
+_EXTRAS_REQUIRE = {
+    'with_fluidasserts': [
+        'fluidasserts',
+    ]
+}
+
+distutils.core.setup(
+    name='continuous-toolbox',
+    version=get_version(),
+    description='Continuous Toolbox',
+    author='Fluid Attacks',
+    author_email='engineering@fluidattacks.com',
+    packages=[
+        'toolbox',
+        'toolbox.analytics',
+        'toolbox.api',
+        'toolbox.helper',
+    ],
+    install_requires=[
+        'awscli==1.17.9',
+        'frozendict==1.2',
+        'okta-awscli==0.4.0',
+        'progress==1.5',
+        'prospector[with_everything]==1.2.0',
+        'pynamodb==4.3.1',
+        'python-jose==3.0.1',
+        'requests==2.22.0',
+        'ruamel.yaml==0.16.5',
+        'simplejson==3.16.0',
+        'mandrill-really-maintained==1.2.4',
+    ],
+    extras_require=_EXTRAS_REQUIRE,
+    entry_points={
+        'console_scripts': [
+            'toolbox=toolbox.cli:main',
+        ],
+    },
+)
