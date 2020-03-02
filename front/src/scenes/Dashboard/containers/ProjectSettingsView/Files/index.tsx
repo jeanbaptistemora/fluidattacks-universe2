@@ -181,7 +181,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         bordered={true}
         dataset={filesDataset}
         defaultSorted={sortValue}
-        exportCsv={true}
+        exportCsv={false}
         search={true}
         headers={tableHeaders}
         id="tblFiles"

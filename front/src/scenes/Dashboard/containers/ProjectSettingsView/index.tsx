@@ -25,6 +25,7 @@ import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 import { Environments } from "./Environments";
 import { Files } from "./Files";
+import { Portfolio } from "./Portfolio";
 import {
   ADD_TAGS_MUTATION, GET_PROJECT_DATA, GET_TAGS, REMOVE_TAG_MUTATION,
 } from "./queries";
@@ -346,7 +347,8 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
       <Repositories projectName={props.match.params.projectName} />
       <Environments projectName={props.match.params.projectName} />
       <Files projectName={props.match.params.projectName} />
-      {renderTagsView(props)}
+      {false ? renderTagsView(props) : undefined}
+      <Portfolio projectName={props.match.params.projectName} />
       {_.includes(["admin"], (window as typeof window & { userRole: string }).userRole) ? renderDeleteBtn(props)
         : undefined}
     </div>
