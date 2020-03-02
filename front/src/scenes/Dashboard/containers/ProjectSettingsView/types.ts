@@ -1,5 +1,4 @@
 import { RouteComponentProps } from "react-router";
-import { IDashboardState } from "../../reducer";
 
 export interface IProjectTagsAttr {
   project: {
@@ -106,14 +105,4 @@ export interface IGetProjectData {
   };
 }
 
-export type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-export type IResourcesViewStateProps = IDashboardState["resources"] & IDashboardState["tags"];
-
-export interface IResourcesViewDispatchProps {
-  onCloseTagsModal(): void;
-  onOpenTagsModal(): void;
-  onSort(newValues: {}): void;
-}
-
-export type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps & IResourcesViewDispatchProps);
+export type ISettingsViewProps = RouteComponentProps<{ projectName: string }>;

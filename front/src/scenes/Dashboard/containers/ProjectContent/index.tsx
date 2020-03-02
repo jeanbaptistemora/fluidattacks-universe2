@@ -12,7 +12,7 @@ import { ProjectDraftsView } from "../ProjectDraftsView";
 import { ProjectEventsView } from "../ProjectEventsView/index";
 import { ProjectFindingsView } from "../ProjectFindingsView/index";
 import { ProjectForcesView } from "../ProjectForcesView";
-import ProjectResourcesView from "../ProjectSettingsView/index";
+import { ProjectSettingsView } from "../ProjectSettingsView/index";
 import ProjectUsersView from "../ProjectUsersView/index";
 import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
@@ -106,7 +106,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
                   <Route path={`${props.match.path}/forces`} component={ProjectForcesView} exact={true} />
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
-                  <Route path={`${props.match.path}/resources`} component={ProjectResourcesView} exact={true} />
+                  <Route path={`${props.match.path}/resources`} component={ProjectSettingsView} exact={true} />
                   <Route path={`${props.match.path}/users`} component={ProjectUsersView} exact={true} />
                   <Route path={`${props.match.path}/comments`} component={ProjectCommentsView} exact={true} />
                   <Redirect to={`${props.match.path}/indicators`} />

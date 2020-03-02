@@ -8,31 +8,34 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
-import ProjectResourcesView from "./index";
+import { ProjectSettingsView } from "./index";
 import { GET_ENVIRONMENTS, GET_REPOSITORIES, GET_TAGS } from "./queries";
-import { IResourcesViewProps } from "./types";
+import { ISettingsViewProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => void) = (): void => undefined;
+describe("ProjectSettingsView", () => {
 
-describe("Resources view", () => {
-
-  const mockProps: IResourcesViewProps = {
-    defaultSort: {
-      tags: {},
+  const mockProps: ISettingsViewProps = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
     },
+    location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
       params: {projectName: "TEST"},
       path: "/",
       url: "",
-    },
-    onCloseTagsModal: functionMock,
-    onOpenTagsModal: functionMock,
-    onSort: functionMock,
-    tagsModal: {
-      open: false,
     },
   };
 
@@ -126,9 +129,9 @@ describe("Resources view", () => {
     },
   ];
 
-  it("should return a object", () => {
-    expect(typeof (ProjectResourcesView))
-      .toEqual("object");
+  it("should return a function", () => {
+    expect(typeof (ProjectSettingsView))
+      .toEqual("function");
   });
 
   it("should render tags component", async () => {
@@ -136,7 +139,7 @@ describe("Resources view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksTags} addTypename={true}>
-          <ProjectResourcesView {...mockProps} />
+          <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -150,7 +153,7 @@ describe("Resources view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksRepositories} addTypename={true}>
-          <ProjectResourcesView {...mockProps} />
+          <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -189,7 +192,7 @@ describe("Resources view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksEnvironments} addTypename={true}>
-          <ProjectResourcesView {...mockProps} />
+          <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -218,7 +221,7 @@ describe("Resources view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
-          <ProjectResourcesView {...mockProps} />
+          <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -232,7 +235,7 @@ describe("Resources view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksTags} addTypename={true}>
-          <ProjectResourcesView {...mockProps} />
+          <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );

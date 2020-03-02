@@ -4,7 +4,6 @@ import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionType
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
-import * as resourcesActions from "./containers/ProjectSettingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 
 export interface IDashboardState {
@@ -142,39 +141,6 @@ actionMap[vulnerabilitiesActions.CHANGE_SORTS] =
     vulnerabilities: {
       ...state.vulnerabilities,
       sorts: action.payload.sorts,
-    },
-  });
-
-actionMap[resourcesActions.CHANGE_SORTED] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      defaultSort: action.payload.defaultSort,
-    },
-  });
-
-actionMap[resourcesActions.OPEN_TAGS_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    tags: {
-      ...state.tags,
-      tagsModal: {
-        ...state.tags.tagsModal,
-        open: true,
-      },
-    },
-  });
-
-actionMap[resourcesActions.CLOSE_TAGS_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    tags: {
-      ...state.tags,
-      tagsModal: initialState.tags.tagsModal,
     },
   });
 

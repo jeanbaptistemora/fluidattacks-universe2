@@ -10,36 +10,18 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import translate from "../../../../utils/translations/translate";
 import { RemoveProjectModal } from "../../components/RemoveProjectModal";
-import { IDashboardState } from "../../reducer";
-import * as actions from "./actions";
 import { Environments } from "./Environments";
 import { Files } from "./Files";
 import { Portfolio } from "./Portfolio";
 import { GET_PROJECT_DATA } from "./queries";
 import { Repositories } from "./Repositories";
-import {
-  IGetProjectData, IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
-  IResourcesViewStateProps,
-} from "./types";
+import { IGetProjectData, ISettingsViewProps } from "./types";
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
-  componentDidMount(): void {
-    mixpanel.track(
-      "ProjectResources",
-      {
-        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-        User: (window as typeof window & { userName: string }).userName,
-      });
-  },
-});
-
-const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
+const renderDeleteBtn: ((props: ISettingsViewProps) => JSX.Element) = (props: ISettingsViewProps): JSX.Element => {
   const projectName: string = props.match.params.projectName;
   const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
   const openRemoveProjectModal: (() => void) = (): void => {
@@ -95,33 +77,25 @@ const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: I
   );
 };
 
-const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
-  (props: IResourcesViewProps): JSX.Element =>
-  (
+const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewProps): JSX.Element => {
+  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("ProjectResources", { Organization: userOrganization, User: userName });
+  };
+  React.useEffect(onMount, []);
+
+  return (
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
       <Repositories projectName={props.match.params.projectName} />
       <Environments projectName={props.match.params.projectName} />
       <Files projectName={props.match.params.projectName} />
       <Portfolio projectName={props.match.params.projectName} />
-      {_.includes(["admin"], (window as typeof window & { userRole: string }).userRole) ? renderDeleteBtn(props)
-        : undefined}
+      {_.includes(["admin"], userRole) ? renderDeleteBtn(props) : undefined}
     </div>
   </React.StrictMode>
   );
+};
 
-interface IState { dashboard: IDashboardState; }
-const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
-  (state: IState): IResourcesViewStateProps => ({
-    defaultSort: state.dashboard.resources.defaultSort,
-    tagsModal: state.dashboard.tags.tagsModal,
-  });
-
-const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResourcesViewBaseProps> =
-  (dispatch: actions.ThunkDispatcher): IResourcesViewDispatchProps => ({
-      onCloseTagsModal: (): void => { dispatch(actions.closeTagsModal()); },
-      onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
-      onSort: (newValues: {}): void => {dispatch(actions.changeSortedValues(newValues)); },
-    });
-
-export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectResourcesView));
+export { projectSettingsView as ProjectSettingsView };
