@@ -567,3 +567,14 @@ resource "aws_kms_key" "a" {
   deletion_window_in_days = 10
   enable_key_rotation = false
 }
+
+resource "aws_lb_target_group" "test" {
+  name     = "tf-example-lb-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = "${aws_vpc.main.id}"
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
