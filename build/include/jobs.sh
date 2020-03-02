@@ -611,11 +611,6 @@ function _job_infra_monolith {
         NRIA_LICENSE_KEY \
         ONELOGIN_FINANCE_SSO \
         ONELOGIN_SSO \
-        TF_VAR_dbName \
-        TF_VAR_dbPass \
-        TF_VAR_dbSnapId \
-        TF_VAR_dbUser \
-        TF_VAR_engineVersion \
         TILLER_CERT \
         TILLER_KEY \
   &&  pushd infrastructure/ \
@@ -644,7 +639,6 @@ function _job_infra_monolith {
                 | grep -E 'integrates-prod' \
                   | head -n 1)
           echo "fiS3Arn = ${users_integrates}"
-          terraform output 'dbEndpoint'
           terraform output 'fwBucket'
         } >> dns/terraform.tfvars \
     &&  pushd dns/ \

@@ -51,14 +51,6 @@ resource "aws_route53_record" "env_cname" {
   records = ["fluidattacks.com"]
 }
 
-resource "aws_route53_record" "database" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "database.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = [var.dbInstance]
-}
-
 resource "aws_route53_record" "emailmkt" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "emailmkt.${aws_route53_zone.fs_maindomain.name}"

@@ -3,7 +3,6 @@ variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "region" {}
 variable "sNetRegion" {}
-variable "dbRegion" {}
 
 # S3 vars
 variable "fsBucket" {}
@@ -17,17 +16,6 @@ variable "clusterInstanceType" {}
 variable "cidr" {}
 variable "vpcSecondaryCidr" {}
 variable "vpcId" {}
-
-# DB Vars
-variable "dbVpcId" {}
-variable "storageType" {}
-variable "engine" {}
-variable "engineVersion" {}
-variable "instanceClass" {}
-variable "dbName" {}
-variable "dbUser" {}
-variable "dbPass" {}
-variable "dbSnapId" {}
 
 # EKS Vars
 variable "clusterName" {}

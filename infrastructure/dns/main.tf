@@ -9,7 +9,6 @@ terraform {
 
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
-variable "dbInstance" {}
 variable "elbDns" {}
 variable "elbZone" {}
 variable "domain" {}
@@ -67,4 +66,3 @@ resource "aws_route53_record" "old_domains_www" {
   ttl     = "300"
   records = [aws_route53_zone.fs_old_domains[count.index].name]
 }
-

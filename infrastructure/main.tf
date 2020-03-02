@@ -51,25 +51,6 @@ output "vaultKmsKey" {
   sensitive = true
 }
 
-# Create with existing DB
-module "database" {
-  source        = "./database"
-  dbRegion      = var.dbRegion
-  dbVpcId       = var.dbVpcId
-  storageType   = var.storageType
-  engine        = var.engine
-  engineVersion = var.engineVersion
-  instanceClass = var.instanceClass
-  dbName        = var.dbName
-  dbUser        = var.dbUser
-  dbPass        = var.dbPass
-  dbSnapId      = var.dbSnapId
-}
-
-output "dbEndpoint" {
-  value = "dbInstance=\"${module.database.endpoint}\""
-}
-
 output "fwBucket" {
   value = "fwBucket=\"${module.bucket.webName}\""
 }

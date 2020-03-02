@@ -65,11 +65,6 @@ sops_env secrets-prod.yaml default \
   HELM_KEY \
   HELM_CERT \
   HELM_CA \
-  TF_VAR_dbName \
-  TF_VAR_dbPass \
-  TF_VAR_dbSnapId \
-  TF_VAR_dbUser \
-  TF_VAR_engineVersion \
   FLUIDATTACKS_TLS_CERT \
   FLUID_TLS_KEY \
   FA_RUNNER_TOKEN \
@@ -102,7 +97,6 @@ fi
 {
   echo 'fiS3Arn = '"$(aws iam list-users | jq '.Users[].Arn' | \
     grep -E 'integrates-prod' | head -n 1)"
-  terraform output dbEndpoint
   terraform output fwBucket
 } >> dns/terraform.tfvars
 
