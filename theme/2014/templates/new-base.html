@@ -162,10 +162,14 @@
         mixPanelDashboard.trackPageView ("Page View", document.title, window.location.pathname);
       </script>
     <!-- End Mixpanel Event -->
+    {% assets output="static/js/contentHome.min.js", "js/tmp/contentHome.min.js" %}
+      <script type="text/javascript"
+              src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets %}
     <!-- Navigation -->
       {% include "new-menu.html" %}
       {% block header %}
-      <div class="flex-ns flex-wrap-ns justify-between-m banner-bg cover h50-l h6-m h40-s">
+      <div class="flex-ns flex-wrap-ns justify-between-m banner-bg bg-banner-sz coverm cover-s h50-l h6-m h40-s">
         <div class="ba1 mb3 relative dt-ns mt0-ns pr3-ns pl3-ns pt3 ma-auto pt6-l pt4 mw9 ml-auto mr-auto">
           <!-- Banner Image-->
           <div class="fr-l w-45-l w100-m w90-s center">

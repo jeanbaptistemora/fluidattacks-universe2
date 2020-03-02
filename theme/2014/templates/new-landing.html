@@ -36,6 +36,179 @@
 {% endblock canonical %}
 
 {% block content %}
+
+<div class="mw9 center h6">
+  <div class="tl">
+    <h1 class="center roboto w-100 tl-l tc ph5">
+      How Continuous Hacking Works
+    </h1>
+  </div>
+  <div class="flex flex-wrap ph5">
+    <div class="fixes">
+      <ul class="list fl pl0">
+        <li>
+          <h2 class="roboto fw4">
+            Fixes
+          </h2>
+        </li>
+        <li>
+          <h3 class="roboto fw4">
+            Facilitates the Manage of Vulnerabilities
+          </h3>
+        </li>
+        <li>
+          <p class="roboto fw1">
+            Fixes is a platform that stores vulnerabilities and gives<br>
+            you access to their evidence in different phases and in<br>
+            real-time. You can easily and quickly classify and<br>
+            prioritize them, define their treatments, and check the<br>
+            status and progress of their remediation.
+          </p>
+        </li>
+      </ul>
+      <ul class="list fr">
+        <li>
+          <img
+          class="fr-l w-image"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-fixes.png"
+          alt="{{ gettext('Header-img-alt') }}">
+        </li>
+      </ul>
+    </div>
+    <div class="skims dn">
+      <ul class="list fl pl0">
+        <li>
+          <h2 class="roboto fw4">
+            Skims
+          </h2>
+        </li>
+        <li>
+          <h3 class="roboto fw4">
+            Automates the search of superficial<br>
+            vulnerabilities
+          </h3>
+        </li>
+        <li>
+          <p class="roboto fw1">
+            Look for deterministic and peripheral vulnerabilities.<br>
+            Skims helps in the construction of exploits that break the<br>
+            build. It is executable in phases of pre-commit,<br>
+            CI time and post-deploy (CI compatible).<br>
+            Skims works for code (SAST), applications (DAST),<br>
+            infrastructure and cloud (AWS, Azure)<br>
+            and can be executed unlimited times.
+          </p>
+        </li>
+      </ul>
+      <ul class="list fr">
+        <li>
+          <img
+          class="fr-l w-image"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-skims.png"
+          alt="{{ gettext('Header-img-alt') }}">
+        </li>
+      </ul>
+    </div>
+    <div class="drills dn">
+      <ul class="list fl pl0">
+        <li>
+          <h2 class="roboto fw4">
+            Drills
+          </h2>
+        </li>
+        <li>
+          <h3 class="roboto fw4">
+            Finds deep vulnerabilities
+          </h3>
+        </li>
+        <li>
+          <p class="roboto fw1">
+            Drills, through human creativity and intelligence, finds<br>
+            deep and zero-day vulnerabilities during software<br>
+            development. Forget about false positives and get detailed<br>
+            evidence, accurate attack vectors, and log extraction.
+          </p>
+        </li>
+      </ul>
+      <ul class="list fr">
+        <li>
+          <img
+          class="fr-l w-image"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-drills.png"
+          alt="{{ gettext('Header-img-alt') }}">
+        </li>
+      </ul>
+    </div>
+    <div class="forces dn">
+      <ul class="list fl pl0">
+        <li>
+          <h2 class="roboto fw4">
+            Forces
+          </h2>
+        </li>
+        <li>
+          <h3 class="roboto fw4">
+            Obliges the remediation of vulnerabilities
+          </h3>
+        </li>
+        <li>
+          <p class="roboto fw1">
+            Forces, making use of human skills for the creation of<br>
+            exploits, breaks your build to force remediation of<br>
+            confirmed deep vulnerabilities, re-opened vulnerabilities,<br>
+            and new peripheral vulnerabilities.<br>
+            It can also verify your post-deploy production status.
+          </p>
+        </li>
+      </ul>
+      <ul class="list fr">
+        <li>
+          <img
+          class="fr-l w-image"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-forces.png"
+          alt="{{ gettext('Header-img-alt') }}">
+        </li>
+      </ul>
+    </div>
+    <div class="ph4">
+      <ul class="list pl0 fr">
+        <li>
+          <input type="radio" id="op1" class="dn" name="menu1" checked />
+          <label class="index1 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op1">
+            <img
+            class="line-menu w2 fl nl4 pt3 pr2 relative"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+            alt="{{ gettext('Header-img-alt') }}">1. Fixes</label>
+        </li>
+        <li>
+          <input type="radio" id="op2" class="dn" name="menu1"/>
+          <label class="index2 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op2">
+            <img
+            class="line-menu w2 fl nl4 pt3 pr2 relative"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+            alt="{{ gettext('Header-img-alt') }}">2. Skims</label>
+        </li>
+        <li>
+          <input type="radio" id="op3" class="dn" name="menu1"/>
+          <label class="index3 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op3">
+            <img
+            class="line-menu w2 fl nl4 pt3 pr2 relative"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+            alt="{{ gettext('Header-img-alt') }}">3. Drills</label>
+        </li>
+        <li>
+          <input type="radio" id="op4" class="dn" name="menu1"/>
+          <label class="index4 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op4">
+            <img
+            class="line-menu w2 fl nl4 pt3 pr2 relative"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+            alt="{{ gettext('Header-img-alt') }}">4. Forces</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Location -->
 <div class="bg-dk-red mb4 pb3">
   <div class="mb3 mw9 tc mr-auto ml-auto flex-l flex-wrap pv4 pv0-ns w-100-l w-60-m">
     <div class="flex-l ma0-ns pa0-ns w-40-l h4-l">

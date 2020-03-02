@@ -125,6 +125,9 @@ $codeyellow: rgba(230, 219, 116, 1);
 .lh-2 { line-height: 2; }
 .shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
 .fw-max { font-weight: 999; }
+.line-menu { display: none; }
+.w-image { width: 37em; }
+.fadein { animation: fadein .7s; }
 
 // Tachyons custom responsive classes
 
@@ -139,6 +142,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .pv-4-m { padding-bottom: 1.6; padding-top: 1.6rem; }
   .w90-s { width: 90%; }
   .fheader-s { font-size: 4rem; }
+  .cover-s { background-size: cover; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -149,6 +153,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .pv-3-m { padding-bottom: 1.3; padding-top: 1.3rem; }
   .pv-4-m { padding-bottom: 1.6; padding-top: 1.6rem; }
   .w-logo { width: 6rem; }
+  .coverm { background-size: cover; }
 }
 
 //Large screens
@@ -164,6 +169,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-45-l { width: 45%; }
   .h-menu { height: 9rem; }
   .fheader-l { font-size: 7.5rem; }
+  .bg-banner-sz { background-size: 100% 100%; }
 }
 
 //Very large screens
@@ -542,6 +548,68 @@ $codeyellow: rgba(230, 219, 116, 1);
         border-top: 0;
       }
     }
+  }
+}
+
+// How continuous hacking works section
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+//scss-lint:disable IdSelector
+#op1:checked~.index1 {
+  color: $fluid-black;
+  font-size: 1.25rem;
+  font-weight: 400;
+  transition: .5s;
+
+  .line-menu {
+    animation: fadein .7s;
+    display: block;
+    float: left;
+  }
+}
+
+//scss-lint:disable IdSelector
+#op2:checked~.index2 {
+  color: $fluid-black;
+  font-size: 1.25rem;
+  font-weight: 400;
+  transition: .5s;
+
+  .line-menu {
+    animation: fadein .7s;
+    display: block;
+    float: left;
+  }
+}
+
+//scss-lint:disable IdSelector
+#op3:checked~.index3 {
+  color: $fluid-black;
+  font-size: 1.25rem;
+  font-weight: 400;
+  transition: .5s;
+
+  .line-menu {
+    animation: fadein .7s;
+    display: block;
+    float: left;
+  }
+}
+
+//scss-lint:disable IdSelector
+#op4:checked~.index4 {
+  color: $fluid-black;
+  font-size: 1.25rem;
+  font-weight: 400;
+  transition: .5s;
+
+  .line-menu {
+    animation: fadein .7s;
+    display: block;
+    float: left;
   }
 }
 
