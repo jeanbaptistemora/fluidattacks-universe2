@@ -262,6 +262,7 @@ const enTranslations: Dictionary = {
       status: {
         secure: "Secure",
         title: "Status",
+        vulnerabilities: "Vulnerabilities",
         vulnerable: "Vulnerable",
       },
       strictness: "Strictness",

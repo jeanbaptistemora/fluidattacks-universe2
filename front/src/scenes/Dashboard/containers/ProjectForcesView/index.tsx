@@ -170,6 +170,11 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState, width: "13%", wrapped: true,
     },
     {
+      align: "center", dataField: "foundVulnerabilities.total",
+      header: translate.t("project.forces.status.vulnerabilities"),
+      onSort: onSortState, width: "6%", wrapped: true,
+    },
+    {
       align: "center", dataField: "strictness", header: translate.t("project.forces.strictness"),
       onSort: onSortState, width: "5%", wrapped: true,
     },
@@ -246,8 +251,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               const date: string = formatDate(execution.date);
               const kind: string = toTitleCase(translate.t(
                 execution.kind === "static" ? "project.forces.kind.static" : "project.forces.kind.dynamic"));
-              const status: ReactElement = statusFormatter(translate.t(
-                execution.exitCode === "0" ? "project.forces.status.secure" : "project.forces.status.vulnerable"));
               const strictness: string = toTitleCase(execution.strictness);
               const foundVulnerabilities: IFoundVulnerabilities = {
                 accepted: execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
@@ -257,6 +260,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   + execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits
                   + execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
               };
+              const status: ReactElement = statusFormatter(translate.t(
+                foundVulnerabilities.total === 0
+                  ? "project.forces.status.secure"
+                  : "project.forces.status.vulnerable"));
 
               return {...execution, date, foundVulnerabilities, kind, status, strictness};
             });
