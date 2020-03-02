@@ -142,9 +142,21 @@ def test_leaks_technical_information_open():
         JAVA_BAD, 'e.printStackTrace()').is_open()
 
 
+def test_has_insecure_settings_open():
+    """Test if code has insecure settings."""
+    assert core.has_insecure_settings(
+        JAVA_BAD, '"RSA/CBC/PkCS1Padding"').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_has_insecure_settings_closed():
+    """Test if code has insecure settings."""
+    assert core.has_insecure_settings(
+        JAVA_GOOD, '"RSA/CBC/PkCS1Padding"').is_closed()
 
 
 def test_leaks_technical_information_close():

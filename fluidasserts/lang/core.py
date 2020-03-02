@@ -576,3 +576,40 @@ def leaks_technical_information(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def has_insecure_settings(code_dest: str,
+                          settting: str,
+                          use_regex: bool = False,
+                          exclude: list = None,
+                          lang_specs: dict = None):
+    """
+    Check if the code has services with insecure settings.
+
+    Unsafe settings of a service can open several security breaches that
+    could affect the service.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param setting: Setting to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(settting) if use_regex else Literal(settting)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Insecure settings found in the code.',
+            CLOSED: 'Insecure settings not found in the code.',
+        },
+        spec=lang_specs,
+        excl=exclude)
