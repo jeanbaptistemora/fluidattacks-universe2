@@ -25,6 +25,7 @@ function cli {
   env_prepare_environment_variables
   env_prepare_ephemeral_vars
   env_prepare_dynamodb_local
+  env_prepare_nodejs_modules
   env_prepare_python_packages
 
   echo "[INFO] Executing function: job_${function_to_call}"

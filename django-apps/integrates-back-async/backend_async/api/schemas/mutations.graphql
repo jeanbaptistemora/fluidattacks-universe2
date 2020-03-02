@@ -332,14 +332,14 @@ enum SubscriptionType {
 }
 
 enum UpdateClientDescriptionTreatment {
-    IN_PROGRESS
     ACCEPTED
     ACCEPTED_UNDEFINED
+    IN_PROGRESS
 }
 
 enum FindingType {
-    SECURITY
     HYGIENE
+    SECURITY
 }
 
 enum DeleteFindingJustification {
@@ -349,8 +349,8 @@ enum DeleteFindingJustification {
 }
 
 enum ActionsAfterBlocking {
-    EXECUTE_OTHER_PROJECT_SAME_CLIENT
     EXECUTE_OTHER_PROJECT_OTHER_CLIENT
+    EXECUTE_OTHER_PROJECT_SAME_CLIENT
     NONE
     OTHER
     TRAINING
@@ -369,24 +369,24 @@ enum EventAccessibility {
 }
 
 enum AffectedComponents {
-    FLUID_STATION
     CLIENT_STATION
-    TOE_EXCLUSSION
+    COMPILE_ERROR
     DOCUMENTATION
-    LOCAL_CONNECTION
+    FLUID_STATION
     INTERNET_CONNECTION
-    VPN_CONNECTION
-    TOE_LOCATION
-    TOE_CREDENTIALS
-    TOE_PRIVILEGES
+    LOCAL_CONNECTION
+    OTHER
+    SOURCE_CODE
     TEST_DATA
-    TOE_UNSTABLE
+    TOE_ALTERATION
+    TOE_CREDENTIALS
+    TOE_EXCLUSSION
+    TOE_LOCATION
+    TOE_PRIVILEGES
     TOE_UNACCESSIBLE
     TOE_UNAVAILABLE
-    TOE_ALTERATION
-    SOURCE_CODE
-    COMPILE_ERROR
-    OTHER
+    TOE_UNSTABLE
+    VPN_CONNECTION
 }
 
 enum EventContext {
@@ -410,6 +410,6 @@ enum EventType {
 }
 
 enum EventEvidenceType {
-    IMAGE
     FILE
+    IMAGE
 }

@@ -85,6 +85,16 @@ stages:
     - ./build.sh "${CI_JOB_NAME}"
   interruptible: true
 
+build_front:
+  <<: *with_nix
+  stage: build
+  retry: 1
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - app/assets/
+    when: on_success
+
 build_lambdas:
   <<: *with_nix
   <<: *in_dev_and_master_branch
@@ -232,20 +242,6 @@ test_mobile:
   <<: *in_dev_branch
   stage: test-code
 
-build-front:
-  stage: build
-  needs: [deploy_container_deps_development]
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/build-front.sh
-  retry: 1
-  artifacts:
-    expire_in: 1 day
-    paths:
-    - app/assets/
-    when: on_success
-
 forces_static:
   stage: test-code
   tags: [autoscaling]
@@ -267,7 +263,7 @@ forces_static:
   interruptible: true
   <<: *in_dev_and_master_branch
 
-commitlint:
+lint_commit_msg:
   stage: test-code
   tags: [autoscaling]
   needs: []
@@ -327,7 +323,7 @@ stop-ephemeral-app:
 deploy-front:
   stage: deploy-app
   tags: [autoscaling]
-  needs: [build-front]
+  needs: [build_front]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/deploy-front.sh
@@ -369,24 +365,7 @@ test-driver-dev:
       - screenshots/
     when: always
   interruptible: true
-  <<: *in_dev_branch
-
-test-driver-prod:
-  stage: post-deploy
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:master
-  script:
-    - pip3 install -U django-apps/packages/*.zip
-    - ./ci-scripts/jobs/test-driver.sh
-  parallel: 5
-  retry: 1
-  artifacts:
-    name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
-    paths:
-      - screenshots/
-    when: always
-  interruptible: true
-  <<: *in_master_branch
+  <<: *in_dev_and_master_branch
 
 forces_dynamic:
   stage: post-deploy

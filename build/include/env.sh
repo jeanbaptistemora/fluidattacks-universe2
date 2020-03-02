@@ -1,10 +1,13 @@
 # shellcheck shell=bash
 
 source "${srcIncludeHelpers}"
+source "${srcCiScriptsHelpersOthers}"
 
 function env_prepare_environment_variables {
   export IS_NIX='true'
   export IS_LOCAL_BUILD
+  export ENVIRONMENT_NAME
+  export FI_VERSION
 
       echo '[INFO] Sourcing .envrc.public' \
   &&  source './.envrc.public' \
@@ -15,7 +18,17 @@ function env_prepare_environment_variables {
       else
             echo '[INFO] In local build system' \
         && IS_LOCAL_BUILD="${TRUE}"
-      fi
+      fi \
+  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+      then
+            echo '[INFO] In productive environment' \
+        &&  ENVIRONMENT_NAME="production"
+      else
+            echo '[INFO] In development environment' \
+        &&  ENVIRONMENT_NAME="development"
+      fi \
+  &&  FI_VERSION=$(app_version) \
+  &&  echo "[INFO] FI_VERSION: ${FI_VERSION}"
 }
 
 function env_prepare_ephemeral_vars {
@@ -44,6 +57,21 @@ function env_prepare_python_packages {
     echo "  [${pkg}] ${!pkg}"
     PATH="${PATH}:${!pkg}/site-packages/bin"
     PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
+  done < "${TEMP_FILE1}"
+}
+
+function env_prepare_nodejs_modules {
+  export NODE_PATH
+  local module
+
+  echo '[INFO] Preparing Node.js modules'
+
+  helper_list_vars_with_regex 'nodejsModule[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+
+  while read -r module
+  do
+    echo "  [${module}] ${!module}"
+    NODE_PATH="${PYTHONPATH}:${!module}/node_modules"
   done < "${TEMP_FILE1}"
 }
 

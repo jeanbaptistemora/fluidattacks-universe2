@@ -4,7 +4,6 @@ source "${srcIncludeHelpers}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcExternalSops}"
-source "${srcCiScriptsHelpersOthers}"
 source "${srcCiScriptsHelpersSops}"
 
 function job_build_django_apps {
@@ -17,6 +16,19 @@ function job_build_django_apps {
     &&  popd
   done \
   ||  return 1
+}
+
+function job_build_front {
+      echo '[INFO] Logging in to AWS' \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  sops_vars "${ENVIRONMENT_NAME}" \
+  &&  pushd front \
+    &&  npm install \
+    &&  npm run build \
+  &&  popd \
+  &&  sed --in-place \
+        "s/integrates_version/v. ${FI_VERSION}/g" \
+        'app/assets/dashboard/app-bundle.min.js'
 }
 
 function job_build_lambdas {
@@ -125,8 +137,6 @@ function job_deploy_container_deps_production {
 }
 
 function job_deploy_container_app {
-  local environment_name
-  local fi_version
   local context='.'
   local dockerfile='deploy/containers/app/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
@@ -134,18 +144,10 @@ function job_deploy_container_app {
       echo '[INFO] Remember that this job needs: build_lambdas' \
   &&  echo '[INFO] Remember that this job needs: build_django_apps' \
   &&  echo '[INFO] Computing Fluid Integrates version' \
-  &&  fi_version=$(app_version) \
-  &&  echo -n "${fi_version}" > 'version.txt' \
-  &&  echo "[INFO] Version: ${fi_version}" \
-  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
-      then
-        environment_name="production"
-      else
-        environment_name="development"
-      fi \
+  &&  echo -n "${FI_VERSION}" > 'version.txt' \
   &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${environment_name}" \
-  &&  sops_env "secrets-${environment_name}.yaml" 'default' \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         SSL_KEY \
         SSL_CERT \
         DRIVE_AUTHORIZATION \
@@ -158,10 +160,10 @@ function job_deploy_container_app {
         'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
         'CI_PROJECT_ID' "${CI_PROJECT_ID}" \
         'CI_REPOSITORY_URL' "${CI_REPOSITORY_URL}" \
-        'ENV_NAME' "${environment_name}" \
+        'ENV_NAME' "${ENVIRONMENT_NAME}" \
         'SSL_CERT' "${SSL_CERT}" \
         'SSL_KEY' "${SSL_KEY}" \
-        'VERSION' "${fi_version}"
+        'VERSION' "${FI_VERSION}"
 }
 
 function job_serve_dynamodb_local {
@@ -221,7 +223,6 @@ function job_serve_back_dev {
 }
 
 function job_lint_back {
-      graphql-schema-linter django-apps/integrates-back-async/backend_async/api/schemas/ || true
       prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s high -u django -i node_modules django-apps \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
@@ -237,7 +238,10 @@ function job_lint_back {
         django-apps/integrates-back/backend/entity/user.py \
         django-apps/integrates-back/backend/entity/vulnerability.py \
         django-apps/integrates-back/backend/dal/* \
-        django-apps/integrates-back/backend/utils/*
+        django-apps/integrates-back/backend/utils/* \
+  &&  npx graphql-schema-linter \
+        --except 'enum-values-all-caps,enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions' \
+        django-apps/integrates-back-async/backend_async/api/schemas/*
 }
 
 function job_lint_build_system {

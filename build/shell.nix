@@ -1,5 +1,6 @@
 let
   pkgs = import ./pkgs/stable.nix;
+  builders.nodejsModule = import ./builders/nodejs-module pkgs;
   builders.pythonPackage = import ./builders/python-package pkgs;
   builders.pythonPackageLocal = import ./builders/python-package-local pkgs;
   builders.pythonRequirements = import ./builders/python-requirements pkgs;
@@ -9,6 +10,8 @@ in
 
     buildInputs = import ./dependencies pkgs;
 
+    nodejsModuleGraphqlSchemaLinter =
+      builders.nodejsModule "graphql-schema-linter@0.2.4";
     pyPkgIntegratesBack =
       builders.pythonPackageLocal ../django-apps/integrates-back;
     pyPkgReqsDevelopment =
