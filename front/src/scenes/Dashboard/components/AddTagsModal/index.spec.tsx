@@ -3,7 +3,7 @@ import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
-import { addTagsModal as AddTagsModal } from "./index";
+import { AddTagsModal } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 

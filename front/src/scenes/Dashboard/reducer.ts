@@ -9,16 +9,6 @@ import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 export interface IDashboardState {
   addUserModal: { addUserOpen: boolean };
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
-  resources: {
-    defaultSort: {
-      tags: {};
-    };
-  };
-  tags: {
-    tagsModal: {
-      open: boolean;
-    };
-  };
   updateAccessTokenModal: { open: boolean };
   user: {
     role: string;
@@ -83,16 +73,6 @@ const initialState: IDashboardState = {
     },
     isEditing: false,
     isRemediationOpen : false,
-  },
-  resources: {
-    defaultSort: {
-      tags: {},
-    },
-  },
-  tags: {
-    tagsModal: {
-      open: false,
-    },
   },
   updateAccessTokenModal: { open: false },
   user: {
@@ -225,12 +205,6 @@ actionMap[projectActions.LOAD_PROJECT] =
 
 actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashboardState => ({
   ...state,
-  resources: {
-    ...initialState.resources,
-    defaultSort: {
-      ...state.resources.defaultSort,
-    },
-  },
   users: initialState.users,
 });
 
