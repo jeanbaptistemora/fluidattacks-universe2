@@ -277,31 +277,24 @@ export const validTag: Validator = (value: string): string | undefined => {
   }
 };
 
-export const isValidFileName: ((arg1: string) => boolean) =
-  (fileName: string): boolean => {
-    let valid: boolean; valid = false;
-    let name: string[]; name = fileName.split(".");
-    const validCharacters: RegExp = /^[A-Za-z0-9!\-_.*'()&$@=;:+,?\s]*$/;
+export const isValidFileName: Validator = (file: FileList): string | undefined => {
+  const fileName: string = _.isEmpty(file) ? "" : file[0].name;
+  const name: string[] = fileName.split(".");
+  const validCharacters: RegExp = /^[A-Za-z0-9!\-_.*'()&$@=;:+,?\s]*$/;
 
-    if (name.length <= 2) {
-      valid = validCharacters.test(fileName);
-    }
-
-    return valid;
-  };
-
-export const isValidFileSize: ((file: File, fileSize: number) => boolean) = (file: File, fileSize: number): boolean => {
-
-  let MIB: number; MIB = 1048576;
-  let isValid: boolean; isValid = false;
-  if (file.size > MIB * fileSize) {
-    msgError(translate.t("validations.file_size", { count: fileSize }));
-  } else {
-    isValid = true;
-  }
-
-  return isValid;
+  return name.length <= 2 && validCharacters.test(fileName)
+    ? undefined
+    : translate.t("search_findings.tab_resources.invalid_chars");
 };
+
+export const isValidFileSize: ((maxSize: number) => Validator) = (maxSize: number): Validator =>
+  (file: FileList): string | undefined => {
+    const MIB: number = 1048576;
+
+    return file[0].size > MIB * maxSize
+      ? translate.t("validations.file_size", { count: maxSize })
+      : undefined;
+  };
 
 export const isValidDate: ((arg1: string) => string | undefined) = (value: string): string | undefined => {
   let date: Date; date = new Date(value);

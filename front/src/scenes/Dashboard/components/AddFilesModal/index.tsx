@@ -4,12 +4,12 @@
 
 import React from "react";
 import { ButtonToolbar, Col, ProgressBar, Row } from "react-bootstrap";
-import { Field, InjectedFormProps } from "redux-form";
+import { Field, InjectedFormProps, Validator } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
+import { isValidFileName, isValidFileSize, required } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 
 export interface IAddFilesModalProps {
@@ -32,6 +32,8 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
   const handleClose: (() => void) = (): void => { props.onClose(); };
   const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onSubmit(values); };
 
+  const maxFileSize: Validator = isValidFileSize(100);
+
   return (
     <React.StrictMode>
       <Modal
@@ -51,7 +53,12 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
                     <label style={{ color: "#f22" }}>* </label>
                     {translate.t("validations.file_size", { count: 100 })}
                   </label>
-                  <Field component={fileInputField} id="file" name="file" validate={required} />
+                  <Field
+                    component={fileInputField}
+                    id="file"
+                    name="file"
+                    validate={[required, isValidFileName, maxFileSize]}
+                  />
                 </Col>
                 <Col md={12}>
                   <label>

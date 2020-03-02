@@ -259,33 +259,59 @@ describe("Validations", () => {
   });
 
   it("should be a valid fileName", () => {
-    const fileName: boolean = isValidFileName("filename");
+    const MIB: number = 1048576;
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "filename.pdf",
+      size: MIB * 2,
+      slice: jest.fn(),
+      type: "application/pdf",
+    };
+    const fileName: string | undefined = isValidFileName([file]);
     expect(fileName)
-      .toEqual(true);
+      .toEqual(undefined);
   });
 
   it("shouldn't be a valid fileName", () => {
-    const fileName: boolean = isValidFileName("badFile{name");
-    expect(fileName)
-      .toEqual(false);
+    const MIB: number = 1048576;
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "badFile{name.pdf.exe",
+      size: MIB * 2,
+      slice: jest.fn(),
+      type: "application/octet-stream",
+    };
+    const fileName: string | undefined = isValidFileName([file]);
+    expect(typeof fileName)
+      .toEqual("string");
   });
 
   it("should be a valid file size", () => {
-    const file: File = new File(["foo"], "foo.gif", {
-      type: "image/gif",
-    });
-    const fileSize: boolean = isValidFileSize(file, 2);
+    const MIB: number = 1048576;
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "badFile.exe",
+      size: MIB * 1,
+      slice: jest.fn(),
+      type: "application/octet-stream",
+    };
+    const fileSize: string | undefined = isValidFileSize(2)([file]);
     expect(fileSize)
-      .toEqual(true);
+      .toEqual(undefined);
   });
 
   it("shouldn't be a valid file size", () => {
-    const file: File = new File(["foo"], "foo.gif", {
-      type: "image/gif",
-    });
-    const fileSize: boolean = isValidFileSize(file, 0);
-    expect(fileSize)
-      .toEqual(false);
+    const MIB: number = 1048576;
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "badFile.exe",
+      size: MIB * 5,
+      slice: jest.fn(),
+      type: "application/octet-stream",
+    };
+    const fileSize: string | undefined = isValidFileSize(2)([file]);
+    expect(typeof fileSize)
+      .toEqual("string");
   });
 
   it("should be a valid date", () => {
