@@ -103,11 +103,11 @@ def validate_file_size(uploaded_file: Any, file_size: int) -> bool:
 def create_file(files_data: List[Dict[str, Any]], uploaded_file: Any,
                 project_name: str, user_email: str) -> bool:
     project_name = project_name.lower()
-    json_data = []
+    json_data: List[resources_dal.ResourceType] = []
     for file_info in files_data:
         json_data.append({
-            'fileName': file_info.get('fileName'),
-            'description': file_info.get('description'),
+            'fileName': file_info.get('fileName', ''),
+            'description': file_info.get('description', ''),
             'uploadDate': str(datetime.datetime.now().replace(second=0, microsecond=0))[:-3],
             'uploader': user_email,
         })
@@ -179,7 +179,7 @@ def create_resource(res_data: List[Dict[str, Any]], project_name: str,
     elif res_type == 'environment':
         res_id = 'urlEnv'
         res_name = 'environments'
-    json_data = []
+    json_data: List[resources_dal.ResourceType] = []
     for res in res_data:
         if res_id in res:
             new_state = {
@@ -189,17 +189,17 @@ def create_resource(res_data: List[Dict[str, Any]], project_name: str,
                 'state': 'ACTIVE'
             }
             if res_type == 'repository':
-                res_object = {
-                    'urlRepo': res.get('urlRepo'),
-                    'branch': res.get('branch'),
-                    'protocol': res.get('protocol'),
+                res_object: resources_dal.ResourceType = {
+                    'urlRepo': res.get('urlRepo', ''),
+                    'branch': res.get('branch', ''),
+                    'protocol': res.get('protocol', ''),
                     'uploadDate': str(
                         datetime.datetime.now().replace(second=0, microsecond=0))[:-3],
                     'historic_state': [new_state],
                 }
             elif res_type == 'environment':
                 res_object = {
-                    'urlEnv': res.get('urlEnv'),
+                    'urlEnv': res.get('urlEnv', ''),
                     'historic_state': [new_state],
                 }
             json_data.append(res_object)

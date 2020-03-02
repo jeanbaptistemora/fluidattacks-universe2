@@ -1,5 +1,5 @@
 
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, cast
 from datetime import datetime
 from time import time
 
@@ -13,7 +13,7 @@ from backend.dal import comment as comment_dal, finding as finding_dal, vulnerab
 
 
 def _get_comments(comment_type: str, finding_id: str, user_role: str) -> List[Dict[str, str]]:
-    comments = [fill_comment_data(user_role, comment)
+    comments = [fill_comment_data(user_role, cast(Dict[str, str], comment))
                 for comment in comment_dal.get_comments(comment_type, int(finding_id))]
     return comments
 
@@ -56,7 +56,7 @@ def get_fullname(user_role: str, data: Dict[str, str]) -> str:
 
 
 def fill_vuln_info(comment: Dict[str, str], vulns_ids: List[str],
-                   vulns: List[Dict[str, Any]]) -> Dict[str, str]:
+                   vulns: List[Dict[str, finding_dal.FindingType]]) -> Dict[str, str]:
     selected_vulns = [vuln.get('where') for vuln in vulns if vuln.get('UUID') in vulns_ids]
     wheres = ', '.join(selected_vulns)  # type: ignore
     comment['content'] = f'Regarding vulnerabilities {wheres}: ' + comment.get('content', '')
