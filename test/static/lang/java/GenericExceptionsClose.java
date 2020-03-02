@@ -8,6 +8,7 @@ class GenericExceptionsClose{
          int a[]=new int[7];
          SecureRandom random = new SecureRandom();
          byte bytes[] = new byte[20];
+         android.permission.BLUETOOTH
          a[0]=random.nextBytes(bytes);
          a[4]=30/0;
          System.out.println("First print statement in try block");

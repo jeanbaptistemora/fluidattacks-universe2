@@ -457,3 +457,41 @@ def uses_unencrypted_sockets(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def has_unnecessary_permissions(code_dest: str,
+                                permission: str,
+                                use_regex: bool = False,
+                                exclude: list = None,
+                                lang_specs: dict = None) -> tuple:
+    """
+    Check if the application has unnecessary permissions.
+
+    Granting unnecessary permissions to the application could allow the
+    attacker to escalate privileges through the permissions that have been
+    granted to the application.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param permission: permission format to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(permission) if use_regex else Literal(permission)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Permmission found in the code.',
+            CLOSED: 'Permission not found in the code.',
+        },
+        spec=lang_specs,
+        excl=exclude)

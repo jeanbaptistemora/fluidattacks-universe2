@@ -121,9 +121,23 @@ def test_open_is_file_hash_in_list():
     ]).is_open()
 
 
+def test_has_unnecessary_permissions_open():
+    """Test if code has unnecessary permissions."""
+    assert core.has_unnecessary_permissions(
+        'test/static/lang/java/GenericExceptionsOpen.java',
+        'android.permission.WRITE_SECURE_SETTINGS').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_has_unnecessary_permissions_close():
+    """Test if code has unnecessary permissions."""
+    assert core.has_unnecessary_permissions(
+        'test/static/lang/java/GenericExceptionsClose.java',
+        'android.permission.WRITE_FILE_SYSTEM').is_closed()
 
 
 def test_close_has_text():

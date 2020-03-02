@@ -79,7 +79,7 @@ class GenericExceptionsOpen{
                /* A comment */
                TheProviderAsAVar /* A comment */
                );
-
+               android.permission.WRITE_SECURE_SETTINGS
                SSLContext.getInstance( // a comment
                "SSL" // a comment
                /* A comment */);
