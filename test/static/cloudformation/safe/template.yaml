@@ -93,6 +93,13 @@ Resources:
         - AllocationId: mock
           SubnetId: mock
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  TargetGroup1:
+    Properties:
+      HealthCheckEnabled: true
+      Name: MyTargets
+      TargetType: ip
+      Port: '443'
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
   fileSystem1:
     Properties:
       FileSystemType: LUSTRE

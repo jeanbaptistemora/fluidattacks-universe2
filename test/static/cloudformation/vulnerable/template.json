@@ -169,6 +169,15 @@
       },
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
     },
+    "TargetGroup1": {
+      "Properties": {
+        "Name": "MyTargets",
+        "TargetType": "ip",
+        "Port": 80,
+        "HealthCheckEnabled": false
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+    },
     "fileSystem1": {
       "Properties": {
         "FileSystemType": "LUSTRE",
