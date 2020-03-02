@@ -1,0 +1,13 @@
+:slug: rules/205/
+:category: mobile-devices
+:description: This document details the security requirements related to the management of devices that make use of the mobile cellular network. In this requirement it is recommended that these devices have a personal identification number or PIN configured on the SIM Card.
+:keywords: Device, Cellular network, Requirement, PIN, SIM Card, Security
+:rules: yes
+
+= REQ.205 Configure PIN
+
+== Requirement
+
+Devices that connect to the mobile network
+must have a personal identification number (+PIN+)
+configured on the +SIM+ card.
