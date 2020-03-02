@@ -68,7 +68,11 @@ type Finding {
     title: String
     tracking: [GenericScalar]
     type: String
-    vulnerabilities: [Vulnerabilities!]
+    vulnerabilities(
+        vuln_type: String,
+        state: String,
+        approval_status: String
+    ): [Vulnerabilities!]
 }
 
 "InternalProject type definition"
@@ -78,18 +82,49 @@ type InternalProject {
 
 "Resource type definition"
 type Resource {
-    project_name: String!
+    project_name: String
+    repositories: JSONString
+    environments: JSONString
+    files: JSONString
 }
 
 "User type definition"
 type User {
-    project_name: String!
-    user_email: String!
+    email: String
+    role: String
+    responsability: String
+    phone_number: String
+    organization: String
+    first_login: String
+    last_login: String
+    list_projects: [String!]
 }
 
 "Project type definition"
 type Project {
-    project_name: String!
+    name: String
+    findings: [Finding!]
+    open_vulnerabilities: Int
+    closed_vulnerabilities: Int
+    current_month_authors: Int
+    current_month_commits: Int
+    subscription: String
+    comments: [Comment!]
+    tags: [String!]
+    deletion_date: String
+    pending_closing_check: Int
+    last_closing_vuln: Int
+    max_severity: Float
+    max_open_severity: Float
+    mean_remediate: Int
+    total_findings: Int
+    users: [User!]
+    total_treatment: GenericScalar
+    drafts: [Finding!]
+    description: String
+    remediated_over_time: String
+    events: [Event!]
+    user_deletion: String
 }
 
 "BreakBuildExecutions type definition"
@@ -97,11 +132,16 @@ type BreakBuildExecutions {
     project_name: String!
     from_date: String
     to_date: String
+    executions: [BreakBuildExecution]
 }
 
 "Me type definition"
 type Me {
-    user_email: String!
+    access_token: String
+    authorized: Boolean
+    projects: [Project!]
+    remember: Boolean
+    role(project_name: String): String
 }
 
 "Comment type definition"
@@ -137,6 +177,37 @@ type Vulnerabilities {
     tag: String
     tags: [String!]
     remediated: Boolean
+    verification: String
+}
+
+type BreakBuildExecution {
+    project_name: String
+    identifier: String
+    date: DateTime
+    exit_code: String
+    git_branch: String
+    git_commit: String
+    git_origin: String
+    git_repo: String
+    kind: String
+    log: String
+    strictness: String
+    vulnerabilities: ExecutionVulnerabilities
+}
+
+type ExecutionVulnerabilities {
+    exploits: [ExploitResult!]
+    mocked_exploits: [ExploitResult!]
+    accepted_exploits: [ExploitResult!]
+    num_of_vulnerabilities_in_exploits: Int
+    num_of_vulnerabilities_in_mocked_exploits: Int
+    num_of_vulnerabilities_in_accepted_exploits: Int
+}
+
+type ExploitResult {
+    kind: String
+    where: String
+    who: String
 }
 
 enum DeleteVulnerabilityJustification {

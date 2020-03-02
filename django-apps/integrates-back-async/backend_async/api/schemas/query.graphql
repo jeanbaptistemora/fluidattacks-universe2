@@ -34,7 +34,8 @@ type Query {
     break_build_executions(
         project_name: String!,
         from_date: String,
-        to_date: String): BreakBuildExecutions
+        to_date: String
+    ): BreakBuildExecutions
 
     "Me entity"
     me: Me

@@ -1,6 +1,8 @@
 # pylint: disable=import-error
 
-from ariadne import make_executable_schema, load_schema_from_path
+from ariadne import (
+    make_executable_schema, load_schema_from_path, upload_scalar
+)
 
 from backend_async.api.entity.query import QUERY
 from backend_async.api.entity.alert import ALERT
@@ -12,7 +14,7 @@ from backend_async.api.entity.user import USER
 from backend_async.api.entity.project import PROJECT
 from backend_async.api.entity.break_build import BREAK_BUILD_EXECUTIONS
 from backend_async.api.entity.me import ME
-from backend_async.api.scalars import datetime, jsonstring
+from backend_async.api.scalars import datetime, jsonstring, genericscalar
 
 
 TYPE_DEFS = load_schema_from_path('schemas/')
@@ -30,9 +32,9 @@ SCHEMA = make_executable_schema(
         PROJECT,
         BREAK_BUILD_EXECUTIONS,
         ME,
-    ],
-    [
         datetime.DATETIME_SCALAR,
-        jsonstring.JSON_STRING_SCALAR
+        jsonstring.JSON_STRING_SCALAR,
+        genericscalar.GENERIC_SCALAR,
+        upload_scalar
     ]
 )
