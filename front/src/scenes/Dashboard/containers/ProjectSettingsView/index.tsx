@@ -19,10 +19,7 @@ import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
-import { AddFilesModal } from "../../components/AddFilesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
-import { FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { RemoveProjectModal } from "../../components/RemoveProjectModal";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
@@ -46,45 +43,8 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {
         Organization: (window as typeof window & { userOrganization: string }).userOrganization,
         User: (window as typeof window & { userName: string }).userName,
       });
-    this.props.onLoad();
   },
 });
-
-const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesViewProps) => void) =
-  (files: IResourcesViewProps["files"], props: IResourcesViewProps): void => {
-    const selected: FileList | null = (document.querySelector("#file") as HTMLInputElement).files;
-    if (_.isNil(selected) || selected.length === 0) {
-      msgError(translate.t("proj_alerts.no_file_selected"));
-      throw new Error();
-    } else {
-      files[0].fileName = selected[0].name;
-    }
-    let fileSize: number; fileSize = 100;
-    if (isValidFileName(files[0].fileName)) {
-      if (isValidFileSize(selected[0], fileSize)) {
-        mixpanel.track(
-          "AddProjectFiles",
-          {
-            Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-            User: (window as typeof window & { userName: string }).userName,
-          });
-        let containsRepeated: boolean;
-        containsRepeated = files.filter(
-          (newItem: IResourcesViewProps["files"][0]) => _.findIndex(
-            props.files,
-            (currentItem: IResourcesViewProps["files"][0]) =>
-              currentItem.fileName === newItem.fileName,
-          ) > -1).length > 0;
-        if (containsRepeated) {
-          msgError(translate.t("search_findings.tab_resources.repeated_item"));
-        } else {
-          props.onSaveFiles(files);
-        }
-      }
-    } else {
-      msgError(translate.t("search_findings.tab_resources.invalid_chars"));
-    }
-  };
 
 const containsRepeatedTags: (
   (currTags: IProjectTagsAttr["project"]["tags"], tags: IProjectTagsAttr["project"]["tags"]) => boolean) =
@@ -322,123 +282,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
   );
 };
 
-const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
-  (props: IResourcesViewProps): JSX.Element => {
-    const { userRole: currUserRole } = (window as typeof window & Dictionary<string>);
-    const [sortValueFiles, setSortValueFiles] = React.useState(props.defaultSort.files);
-    const handleAddFileClick: (() => void) = (): void => { props.onOpenFilesModal(); };
-    const handleCloseFilesModalClick: (() => void) = (): void => { props.onCloseFilesModal(); };
-    const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
-    const handleDeleteFileClick: (() => void) = (): void => {
-      mixpanel.track(
-        "RemoveProjectFiles",
-        {
-          Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-          User: (window as typeof window & { userName: string }).userName,
-        });
-      props.onDeleteFile(props.optionsModal.rowInfo.fileName);
-    };
-    const handleDownloadFileClick: (() => void) = (): void => {
-      props.onDownloadFile(props.optionsModal.rowInfo.fileName);
-    };
-    const handleFileRowClick: ((event: React.FormEvent<HTMLButtonElement>, row: string) => void) =
-    (event: React.FormEvent<HTMLButtonElement>, row: string): void => { props.onOpenOptionsModal(row); };
-
-    const handleAddFile: ((values: IResourcesViewProps["files"][0]) => void) = (
-      values: IResourcesViewProps["files"][0]): void => {
-      handleSaveFiles([{ description: values.description, fileName: "", uploadDate: "" }], props);
-    };
-    const onSortStateFiles: ((dataField: string, order: SortOrder) => void) =
-    (dataField: string, order: SortOrder): void => {
-      const newSorted: Sorted = {dataField,  order};
-      setSortValueFiles(newSorted);
-      const newValues: {} = {...props.defaultSort, files: newSorted};
-      props.onSort(newValues);
-    };
-
-    return (
-      <React.Fragment>
-        <hr/>
-        <Row>
-          <Col md={12} sm={12}>
-            <DataTableNext
-              bordered={true}
-              dataset={props.files}
-              defaultSorted={sortValueFiles}
-              exportCsv={false}
-              search={true}
-              headers={[
-                {
-                  dataField: "fileName",
-                  header: translate.t("search_findings.files_table.file"),
-                  onSort: onSortStateFiles,
-                  width: "25%",
-                  wrapped: true,
-                },
-                {
-                  dataField: "description",
-                  header: translate.t("search_findings.files_table.description"),
-                  onSort: onSortStateFiles,
-                  width: "50%",
-                  wrapped: true,
-                },
-                {
-                  dataField: "uploadDate",
-                  header: translate.t("search_findings.files_table.upload_date"),
-                  onSort: onSortStateFiles,
-                  width: "25%",
-                  wrapped: true,
-                },
-              ]}
-              id="tblFiles"
-              pageSize={15}
-              remote={false}
-              rowEvents={{onClick: handleFileRowClick}}
-              striped={true}
-              title={translate.t("search_findings.tab_resources.files_title")}
-            />
-          </Col>
-          <Col md={12}>
-            <br />
-            <Col mdOffset={5} md={2} sm={6}>
-              {allowedRoles.includes(currUserRole) ?
-              <Button
-                id="addFile"
-                block={true}
-                bsStyle="primary"
-                onClick={handleAddFileClick}
-              >
-                <Glyphicon glyph="plus"/>&nbsp;
-                {translate.t("search_findings.tab_resources.add_repository")}
-              </Button> : undefined}
-            </Col>
-          </Col>
-          <Col md={12}>
-            <br />
-            <label style={{fontSize: "15px"}}>
-              <b>{translate.t("search_findings.tab_resources.total_files")}</b>
-              {props.files.length}
-            </label>
-          </Col>
-        </Row>
-        <AddFilesModal
-          isOpen={props.filesModal.open}
-          onClose={handleCloseFilesModalClick}
-          onSubmit={handleAddFile}
-          showUploadProgress={props.showUploadProgress}
-          uploadProgress={props.uploadProgress}
-        />
-        <FileOptionsModal
-          canRemove={allowedRoles.includes(currUserRole) ? true : false}
-          fileName={props.optionsModal.rowInfo.fileName}
-          isOpen={props.optionsModal.open}
-          onClose={handleCloseOptionsModalClick}
-          onDelete={handleDeleteFileClick}
-          onDownload={handleDownloadFileClick}
-        />
-      </React.Fragment>
-    );
-};
 const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
   const projectName: string = props.match.params.projectName;
   const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
@@ -502,7 +345,6 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     <div id="resources" className="tab-pane cont active">
       <Repositories projectName={props.match.params.projectName} />
       <Environments projectName={props.match.params.projectName} />
-      {false ? renderFiles(props) : undefined}
       <Files projectName={props.match.params.projectName} />
       {renderTagsView(props)}
       {_.includes(["admin"], (window as typeof window & { userRole: string }).userRole) ? renderDeleteBtn(props)
