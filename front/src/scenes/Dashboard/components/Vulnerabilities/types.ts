@@ -17,7 +17,7 @@ export interface IVulnRow {
   acceptanceDate: string; analyst: string; currentApprovalStatus: string; currentState: string; externalBts: string;
   id: string; isNew: string; lastAnalyst: string; lastApprovedStatus: string; remediated: boolean; severity: string;
   specific: string; tag: string; treatment: string; treatmentJustification: string; treatmentManager: string;
-  vulnType: string; where: string;
+  verification: string; vulnType: string; where: string;
 }
 
 export interface IApproveVulnAttr {

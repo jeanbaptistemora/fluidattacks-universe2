@@ -56,6 +56,7 @@ interface ICategoryVulnType {
 interface IVunlDataType {
   currentState: string;
   id: string;
+  specific: string;
   treatments: {
     acceptanceDate: string;
     btsUrl: string;
@@ -177,6 +178,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         treatmentManager: Array.from(new Set(line.map(getTreatmentManager)))
           .filter(Boolean)
           .join(", "),
+        verification: "",
         vulnType: line[0].vulnType,
         where: line[0].where,
     }));
@@ -205,6 +207,7 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         treatment: line.treatment,
         treatmentJustification: line.treatmentJustification,
         treatmentManager: line.treatmentManager,
+        verification: line.verification,
         vulnType: line.vulnType,
         where: line.where,
       })));
@@ -230,6 +233,7 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
         vulnData.push({
           currentState: vuln.currentState,
           id: vuln.id,
+          specific: vuln.specific,
           treatments: {
             acceptanceDate: vuln.acceptanceDate,
             btsUrl: vuln.externalBts,
@@ -591,6 +595,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               inputsHeader.push(
                 {
                   align: "left",
+                  dataField: "verification",
+                  formatter: statusFormatter,
+                  header: translate.t("search_findings.tab_description.verification"),
+                  onSort: onSortInputs,
+                  visible: false,
+                  width: "20%",
+                },
+                {
+                  align: "left",
                   dataField: "tag",
                   header: translate.t("search_findings.tab_description.tag"),
                   onSort: onSortInputs,
@@ -617,6 +630,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               linesHeader.push(
                 {
                   align: "left",
+                  dataField: "verification",
+                  formatter: statusFormatter,
+                  header: translate.t("search_findings.tab_description.verification"),
+                  onSort: onSortLines,
+                  visible: false,
+                  width: "20%",
+                },
+                {
+                  align: "left",
                   dataField: "tag",
                   header: translate.t("search_findings.tab_description.tag"),
                   onSort: onSortLines,
@@ -641,6 +663,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 },
               );
               portsHeader.push(
+                {
+                  align: "left",
+                  dataField: "verification",
+                  formatter: statusFormatter,
+                  header: translate.t("search_findings.tab_description.verification"),
+                  onSort: onSortPorts,
+                  visible: false,
+                  width: "20%",
+                },
                 {
                   align: "left",
                   dataField: "tag",
@@ -820,6 +851,24 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const numberRowSelected: boolean = rowsSelected.oneRowSelected;
             const vulnsSelected: string [] = rowsSelected.vulnerabilities;
 
+            const inputVulnsRemediated: number[] = dataInputs.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (vuln.remediated ? [...acc, index] : acc), []);
+            const lineVulnsRemediated: number[] = dataLines.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (vuln.remediated ? [...acc, index] : acc), []);
+            const portVulnsRemediated: number[] = dataPorts.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (vuln.remediated ? [...acc, index] : acc), []);
+            const inputVulnsVerified: number[] = dataInputs.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (!vuln.remediated ? [...acc, index] : acc), []);
+            const lineVulnsVerified: number[] = dataLines.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (!vuln.remediated ? [...acc, index] : acc), []);
+            const portVulnsVerified: number[] = dataPorts.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (!vuln.remediated ? [...acc, index] : acc), []);
+            const calculateNewIndex: ((rows: IVulnRow[], vulns: IVulnRow[]) => number[]) =
+              (rows: IVulnRow[], vulns: IVulnRow[]): number[] => (vulns.reduce(
+                (acc: number[], vuln: IVulnRow, indexReduce: number) =>
+                  _.includes(rows.map((row: IVulnRow) => row.id), vuln.id) ? [...acc, indexReduce] : acc,
+                []));
+
             return (
               <Mutation mutation={APPROVE_VULN_MUTATION} onCompleted={handleMtPendingVulnRes}>
               { (approveVulnerability: MutationFunction<IApproveVulnAttr, {
@@ -939,8 +988,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   if (isSelect) {
                     const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
                     setArraySelectedRows(Array.from(newSet));
-                    const newArray: number[] = [...Array(dataInputs.length)
-                      .keys()];
+                    let newArray: number[] = calculateNewIndex(rows, dataInputs);
+                    if (props.isRequestVerification === true) {
+                      newArray = newArray.filter((indexFilter: number) =>
+                        !_.includes(inputVulnsRemediated, indexFilter));
+                    } else if (props.isVerifyRequest === true) {
+                      newArray = newArray.filter((indexFilter: number) =>
+                        !_.includes(inputVulnsVerified, indexFilter));
+                    }
                     setSelectRowsInputs([...newArray]);
                   } else {
                     const newSet: Set<string> = new Set(arraySelectedRows);
@@ -968,8 +1023,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   if (isSelect) {
                     const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
                     setArraySelectedRows(Array.from(newSet));
-                    const newArray: number[] = [...Array(dataLines.length)
-                      .keys()];
+                    let newArray: number[] = calculateNewIndex(rows, dataLines);
+                    if (props.isRequestVerification === true) {
+                      newArray = newArray.filter((indexFilter: number) =>
+                        !_.includes(lineVulnsRemediated, indexFilter));
+                    } else if (props.isVerifyRequest === true) {
+                      newArray = newArray.filter((indexFilter: number) =>
+                        !_.includes(lineVulnsVerified, indexFilter));
+                    }
                     setSelectRowsLines([...newArray]);
                   } else {
                     const newSet: Set<string> = new Set(arraySelectedRows);
@@ -997,8 +1058,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   if (isSelect) {
                     const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
                     setArraySelectedRows(Array.from(newSet));
-                    const newArray: number[] = [...Array(dataPorts.length)
-                      .keys()];
+                    let newArray: number[] = calculateNewIndex(rows, dataPorts);
+                    if (props.isRequestVerification === true) {
+                      newArray = newArray.filter((indexFilter: number) =>
+                        !_.includes(portVulnsRemediated, indexFilter));
+                    } else if (props.isVerifyRequest === true) {
+                      newArray = newArray.filter((indexFilter: number) =>
+                        !_.includes(portVulnsVerified, indexFilter));
+                    }
                     setSelectRowsPorts([...newArray]);
                   } else {
                     const newSet: Set<string> = new Set(arraySelectedRows);
@@ -1011,6 +1078,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   clickToSelect: false,
                   hideSelectColumn: hideSelectionColumn,
                   mode: "checkbox",
+                  nonSelectable: props.isRequestVerification === true ? inputVulnsRemediated :
+                  props.isVerifyRequest === true ? inputVulnsVerified : undefined,
                   onSelect: handleOnSelectInputs,
                   onSelectAll: handleOnSelectAllInputs,
                   selected: selectRowsInputs,
@@ -1019,6 +1088,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   clickToSelect: false,
                   hideSelectColumn: hideSelectionColumn,
                   mode: "checkbox",
+                  nonSelectable: props.isRequestVerification === true ? lineVulnsRemediated :
+                  props.isVerifyRequest === true ? lineVulnsVerified : undefined,
                   onSelect: handleOnSelectLines,
                   onSelectAll: handleOnSelectAllLines,
                   selected: selectRowsLines,
@@ -1027,6 +1098,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   clickToSelect: false,
                   hideSelectColumn: hideSelectionColumn,
                   mode: "checkbox",
+                  nonSelectable: props.isRequestVerification === true ? portVulnsRemediated :
+                  props.isVerifyRequest === true ? portVulnsVerified : undefined,
                   onSelect: handleOnSelectPorts,
                   onSelectAll: handleOnSelectAllPorts,
                   selected: selectRowsPorts,

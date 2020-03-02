@@ -19,6 +19,7 @@ import { IRequestVerificationVulnResult, IVerifyRequestVulnResult } from "./type
 interface IVulnData {
   currentState: string;
   id: string;
+  specific: string;
   where: string;
 }
 export interface IUpdateVerificationModal {
@@ -127,11 +128,10 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       setVulnerabilities([...newVulnList]);
     };
     const vulnsHeader: IHeader[] = [
-      { align: "left", dataField: "where", header: "Where", width: "70%",
-        wrapped: true },
+      { align: "left", dataField: "where", header: "Where", width: "55%", wrapped: true },
+      { align: "left", dataField: "specific", header: "Specific", width: "25%", wrapped: true },
       { align: "left", changeFunction: handleUpdateRepo, dataField: "currentState", formatter: changeVulnStateFormatter,
-        header: "State", width: "30%", wrapped: true }];
-    const remote: RemoteProps = { cellEdit: false, filter: false, pagination: false, sort: false };
+        header: "State", width: "20%", wrapped: true }];
 
     return (
       <DataTableNext
@@ -142,7 +142,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         headers={vulnsHeader}
         onClickRow={undefined}
         pageSize={10}
-        remote={remote}
+        remote={false}
         search={false}
         title=""
         tableBody={style.tableBody}

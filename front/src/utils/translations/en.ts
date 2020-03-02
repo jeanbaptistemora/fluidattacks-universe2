@@ -437,6 +437,7 @@ const enTranslations: Dictionary = {
       },
       update: "Update",
       update_vulnerabilities: "Update Vulnerabilities",
+      verification: "Verification",
       vulnDeleted: "Vulnerability deleted",
       vuln_approval: "Vulnerability approval status was changed",
       weakness: "Weakness",
