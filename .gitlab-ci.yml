@@ -5,7 +5,7 @@ stages:
   - build
   - test-code
   - test-infra
-  - mr-check
+  - merge-request
   - deploy-infra
   - deploy-app
   - post-deploy
@@ -115,6 +115,12 @@ build_django_apps:
       - django-apps/packages/
     when: on_success
 
+coverage_report:
+  <<: *with_nix
+  <<: *in_mrs
+  stage: merge-request
+  retry: 1
+
 deploy_container_deps_mobile:
   <<: *with_nix
   tags: [autoscaling-large]
@@ -217,6 +223,11 @@ lint_mobile:
   <<: *in_dev_branch
   stage: test-code
 
+send_new_release_email:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: post-deploy
+
 test_back:
   <<: *with_nix
   <<: *in_dev_branch_and_mrs
@@ -274,23 +285,11 @@ lint_commit_msg:
   <<: *in_dev_branch
 
 danger:
-  stage: mr-check
+  stage: merge-request
   tags: [autoscaling]
   image: fluidattacks/danger-ruby
   script:
     - ./ci-scripts/jobs/danger.sh
-  <<: *in_mrs
-
-coverage-report:
-  stage: mr-check
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  dependencies:
-    - test_back
-    - test_front
-  script:
-    - ./ci-scripts/jobs/coverage-report.sh
-  retry: 1
   <<: *in_mrs
 
 deploy-back-ephemeral:
@@ -350,10 +349,9 @@ deploy-mobile:
     name: "mobile-review/$CI_COMMIT_REF_NAME"
     url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
 
-test-driver-dev:
+functional-tests:
   stage: post-deploy
   tags: [autoscaling]
-  needs: [deploy-back-ephemeral]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-driver.sh
@@ -384,17 +382,6 @@ forces_dynamic:
               --gitlab-docker-socket-binding
              )
   interruptible: true
-  <<: *in_master_branch
-
-new-version-mail:
-  stage: post-deploy
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
-  dependencies:
-    - deploy_container_app
-  script:
-    - pip3 install -U gitpython wheel mandrill-really-maintained
-    - ./ci-scripts/jobs/new-version-mail.sh
   <<: *in_master_branch
 
 clean-registry-caches:

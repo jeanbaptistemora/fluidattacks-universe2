@@ -84,6 +84,10 @@ function helper_get_gitlab_var {
       | jq -r '.value'
 }
 
+function helper_is_today_wednesday {
+  test "$(date +%A)" == 'Wednesday'
+}
+
 function helper_list_declared_jobs {
   declare -F | sed 's/declare -f //' | grep -P '^job_[a-z_]+' | sed 's/job_//' | sort
 }

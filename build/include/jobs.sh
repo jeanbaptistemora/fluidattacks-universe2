@@ -72,6 +72,14 @@ function job_build_lambdas {
   &&  _job_build_lambdas 'project_to_pdf'
 }
 
+function job_coverage_report {
+      echo '[INFO] Logging in to AWS' \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+        CODECOV_TOKEN \
+  &&  codecov
+}
+
 function job_deploy_container_nix_cache {
   local context='.'
   local dockerfile='build/Dockerfile'
@@ -186,6 +194,21 @@ function job_serve_dynamodb_local {
   &&  echo "[INFO] DynamoDB is ready and listening on port ${port}!" \
   &&  echo "[INFO] Hit Ctrl+C to exit" \
   &&  fg %1
+}
+
+function job_send_new_release_email {
+      CI_COMMIT_REF_NAME=master aws_login 'production' \
+  &&  sops_env "secrets-production.yaml" default \
+        MANDRILL_APIKEY \
+        MANDRILL_EMAIL_TO \
+  &&  curl -Lo \
+        "${TEMP_FILE1}" \
+        'https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py' \
+  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
+        context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
+          'version': _get_version_date(), 'message': _get_message()},
+        tags=['general'])" >> "${TEMP_FILE1}" \
+  &&  python3 "${TEMP_FILE1}"
 }
 
 function job_serve_front {

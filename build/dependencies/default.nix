@@ -15,6 +15,7 @@ in
     pkgs.git
     pkgs.hostname
     pkgs.jq
+    pkgs.kubectl
     pkgs.nix-linter
     pkgs.nodejs
     pkgs.openjdk

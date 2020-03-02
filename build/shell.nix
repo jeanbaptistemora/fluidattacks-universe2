@@ -12,8 +12,12 @@ in
 
     nodejsModuleGraphqlSchemaLinter =
       builders.nodejsModule "graphql-schema-linter@0.2.4";
+    pyPkgCodecov =
+      builders.pythonPackage "codecov==2.0.16";
     pyPkgIntegratesBack =
       builders.pythonPackageLocal ../django-apps/integrates-back;
+    pyPkgMandrill =
+      builders.pythonPackage "mandrill-really-maintained==1.2.4";
     pyPkgReqsDevelopment =
       builders.pythonRequirements ../deploy/containers/deps-development/requirements.txt;
     pyPkgReqsProduction =

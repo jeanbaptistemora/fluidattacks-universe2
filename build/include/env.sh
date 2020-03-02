@@ -71,7 +71,7 @@ function env_prepare_nodejs_modules {
   while read -r module
   do
     echo "  [${module}] ${!module}"
-    NODE_PATH="${PYTHONPATH}:${!module}/node_modules"
+    NODE_PATH="${NODE_PATH}:${!module}/node_modules"
   done < "${TEMP_FILE1}"
 }
 
