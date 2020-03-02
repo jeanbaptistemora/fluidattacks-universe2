@@ -1,0 +1,12 @@
+:slug: rules/203/
+:category: physical-devices
+:description: This document details the security requirements related to the proper management of the organization's physical devices. In this requirement it is recommended that every device should be capable of preventing a third party from observing the information entered.
+:keywords: Device, Entry, Information, Confidential, Observing, Security
+:rules: yes
+
+= REQ.203 Hide Information Entry
+
+== Requirement
+
+The device must impede that
+the entry of information can be observed by a third party (cover).
