@@ -1,7 +1,3 @@
-scalar Upload
-scalar GenericScalar
-scalar DateTime
-
 type Mutation {
     acceptLegal(remember: Boolean): SimplePayload!
 
@@ -11,26 +7,26 @@ type Mutation {
     invalidateAccessToken: SimplePayload!
 
     addResources(
-        resource_data: String!,
+        resource_data: JSONString!,
         project_name: String!,
         res_type: String!
     ): ResourcesPayload!
     updateResources(
-        resource_data: String!,
+        resource_data: JSONString!,
         project_name: String!,
         res_type: String!
     ): ResourcesPayload!
     addFiles(
         file: Upload!,
-        files_data: String!,
+        files_data: JSONString!,
         project_name: String!
     ): ResourcesPayload!
     removeFiles(
-        files_data: String!,
+        files_data: JSONString!,
         project_name: String!
     ): ResourcesPayload!
     downloadFile(
-        files_data: String!,
+        files_data: JSONString!,
         project_name: String!
     ): DownloadFilePayload!
 
@@ -250,7 +246,7 @@ type Mutation {
     ): SimpleProjectPayload!
     addTags(
         project_name: String!,
-        tags: String
+        tags: JSONString
     ): SimpleProjectPayload!
 
     setAlert(

@@ -12,6 +12,7 @@ from backend_async.api.entity.user import USER
 from backend_async.api.entity.project import PROJECT
 from backend_async.api.entity.break_build import BREAK_BUILD_EXECUTIONS
 from backend_async.api.entity.me import ME
+from backend_async.api.scalars import DATETIME_SCALAR, JSON_STRING_SCALAR
 
 
 TYPE_DEFS = load_schema_from_path('schemas/')
@@ -29,5 +30,9 @@ SCHEMA = make_executable_schema(
         PROJECT,
         BREAK_BUILD_EXECUTIONS,
         ME,
+    ],
+    [
+        DATETIME_SCALAR,
+        JSON_STRING_SCALAR
     ]
 )
