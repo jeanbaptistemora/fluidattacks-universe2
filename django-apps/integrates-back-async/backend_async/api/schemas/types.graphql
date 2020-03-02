@@ -1,0 +1,254 @@
+"Alert type definition"
+type Alert {
+    message: String
+    project: String
+    organization: String
+    status: Int
+}
+
+"Event type definition"
+type Event {
+    id: String
+    analyst: String
+    client: String
+    comments: [Comment!]
+    project_name: String
+    client_project: String
+    detail: String
+    event_type: String
+    event_date: String
+    historic_state: [GenericScalar]
+    affectation: String
+    accessibility: String
+    affected_components: String
+    context: String
+    subscription: String
+    evidence_file: String
+    closing_date: String
+}
+
+"Finding type definition"
+type Finding {
+    actor: String!
+    affected_systems: String
+    age: Int
+    analyst: String
+    attack_vector_desc: String
+    bts_url: String
+    closed_vulnerabilities: Int
+    comments: [Comment!]
+    compromised_attributes: String
+    compromised_records: Int
+    current_state: String
+    cvss_version: String
+    cwe_url: String
+    description: String
+    evidence: GenericScalar
+    exploit: String
+    id: String
+    is_exploitable: Boolean
+    last_vulnerability: Int
+    observations: [Comment!]
+    open_vulnerabilities: Int
+    project_name: String
+    recommendation: String
+    records: JSONString
+    release_date: String
+    remediated: Boolean
+    report_date: String
+    requirements: String
+    risk: String
+    scenario: String
+    severity: GenericScalar
+    severity_score: Float
+    state: String
+    historic_state: [GenericScalar]
+    historic_treatment: [GenericScalar]
+    threat: String
+    title: String
+    tracking: [GenericScalar]
+    type: String
+    vulnerabilities: [Vulnerabilities!]
+}
+
+"InternalProject type definition"
+type InternalProject {
+    project_name: String!
+}
+
+"Resource type definition"
+type Resource {
+    project_name: String!
+}
+
+"User type definition"
+type User {
+    project_name: String!
+    user_email: String!
+}
+
+"Project type definition"
+type Project {
+    project_name: String!
+}
+
+"BreakBuildExecutions type definition"
+type BreakBuildExecutions {
+    project_name: String!
+    from_date: String
+    to_date: String
+}
+
+"Me type definition"
+type Me {
+    user_email: String!
+}
+
+"Comment type definition"
+type Comment {
+    id: String
+    content: String
+    created: String
+    email: String
+    fullname: String
+    modified: String
+    parent: String
+}
+
+"Vulnerabilities type definition"
+type Vulnerabilities {
+    id: String
+    analyst: String
+    finding_id: String
+    vuln_type: String
+    where: String
+    specific: String
+    historic_state: [GenericScalar]
+    current_state: String
+    current_approval_status: String
+    last_analyst: String
+    last_approved_status: String
+    acceptance_date: String
+    treatment: String
+    external_bts: String
+    treatment_justification: String
+    treatment_manager: String
+    severity: String
+    tag: String
+    tags: [String!]
+    remediated: Boolean
+}
+
+enum DeleteVulnerabilityJustification {
+    DUPLICATED
+    FALSE_POSITIVE
+    REPORTING_ERROR
+}
+
+enum EvidenceType {
+    ANIMATION
+    EVIDENCE1
+    EVIDENCE2
+    EVIDENCE3
+    EVIDENCE4
+    EVIDENCE5
+    EXPLOIT
+    EXPLOITATION
+    RECORDS
+}
+
+enum EvidenceDescriptionType {
+    EVIDENCE1
+    EVIDENCE2
+    EVIDENCE3
+    EVIDENCE4
+    EVIDENCE5
+}
+
+enum SubscriptionType {
+    Continuous
+    Oneshot
+}
+
+enum UpdateClientDescriptionTreatment {
+    ACCEPTED
+    ACCEPTED_UNDEFINED
+    IN_PROGRESS
+}
+
+enum FindingType {
+    HYGIENE
+    SECURITY
+}
+
+enum DeleteFindingJustification {
+    DUPLICATED
+    FALSE_POSITIVE
+    NOT_REQUIRED
+}
+
+enum ActionsAfterBlocking {
+    EXECUTE_OTHER_PROJECT_OTHER_CLIENT
+    EXECUTE_OTHER_PROJECT_SAME_CLIENT
+    NONE
+    OTHER
+    TRAINING
+}
+
+enum ActionsBeforeBlocking {
+    DOCUMENT_PROJECT
+    NONE
+    OTHER
+    TEST_OTHER_PART_TOE
+}
+
+enum EventAccessibility {
+    ENVIRONMENT
+    REPOSITORY
+}
+
+enum AffectedComponents {
+    CLIENT_STATION
+    COMPILE_ERROR
+    DOCUMENTATION
+    FLUID_STATION
+    INTERNET_CONNECTION
+    LOCAL_CONNECTION
+    OTHER
+    SOURCE_CODE
+    TEST_DATA
+    TOE_ALTERATION
+    TOE_CREDENTIALS
+    TOE_EXCLUSSION
+    TOE_LOCATION
+    TOE_PRIVILEGES
+    TOE_UNACCESSIBLE
+    TOE_UNAVAILABLE
+    TOE_UNSTABLE
+    VPN_CONNECTION
+}
+
+enum EventContext {
+    CLIENT
+    FLUID
+    OTHER
+    PLANNING
+    TELECOMMUTING
+}
+
+enum EventType {
+    AUTHORIZATION_SPECIAL_ATTACK
+    CLIENT_APPROVES_CHANGE_TOE
+    CLIENT_CANCELS_PROJECT_MILESTONE
+    CLIENT_DETECTS_ATTACK
+    CLIENT_EXPLICITLY_SUSPENDS_PROJECT
+    HIGH_AVAILABILITY_APPROVAL
+    INCORRECT_MISSING_SUPPLIES
+    OTHER
+    TOE_DIFFERS_APPROVED
+}
+
+enum EventEvidenceType {
+    FILE
+    IMAGE
+}
