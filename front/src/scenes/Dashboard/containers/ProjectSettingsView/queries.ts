@@ -8,12 +8,6 @@ export const REMOVE_TAG_MUTATION: DocumentNode = gql`
       projectName: $projectName,
     ) {
       success
-      project {
-        deletionDate
-        subscription
-        tags
-        name
-      }
     }
   }
   `;
@@ -21,10 +15,7 @@ export const REMOVE_TAG_MUTATION: DocumentNode = gql`
 export const GET_TAGS: DocumentNode = gql`
   query GetTagsQuery($projectName: String!) {
     project(projectName: $projectName){
-      deletionDate
-      subscription
       tags
-      name
     }
   }
   `;
@@ -35,12 +26,6 @@ export const ADD_TAGS_MUTATION: DocumentNode = gql`
       tags: $tagsData,
       projectName: $projectName) {
       success
-      project {
-        deletionDate
-        name
-        subscription
-        tags
-      }
     }
   }
   `;
@@ -60,9 +45,6 @@ export const UPDATE_RESOURCE_MUTATION: DocumentNode = gql`
       projectName: $projectName,
       resType: $resType) {
       success
-      resources {
-        repositories
-      }
     }
   }
   `;
@@ -74,9 +56,6 @@ export const ADD_RESOURCE_MUTATION: DocumentNode = gql`
       projectName: $projectName,
       resType: $resType) {
       success
-      resources {
-        repositories
-      }
     }
   }
   `;

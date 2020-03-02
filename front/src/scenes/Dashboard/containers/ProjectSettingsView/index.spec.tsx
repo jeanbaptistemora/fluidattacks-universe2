@@ -5,11 +5,13 @@ import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
 import * as React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
 import { ProjectSettingsView } from "./index";
-import { GET_ENVIRONMENTS, GET_REPOSITORIES, GET_TAGS } from "./queries";
+import { GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_REPOSITORIES, GET_TAGS } from "./queries";
 import { ISettingsViewProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -39,8 +41,17 @@ describe("ProjectSettingsView", () => {
     },
   };
 
-  const mocksTags: ReadonlyArray<MockedResponse> = [
-    {
+  const mockProject: Readonly<MockedResponse> = {
+    request: {
+      query: GET_PROJECT_DATA,
+      variables: {
+        projectName: "TEST",
+      },
+    },
+    result: { data: { project: { __typename: "Project", deletionDate: "" } } },
+  };
+
+  const mocksTags: Readonly<MockedResponse> = {
       request: {
         query: GET_TAGS,
         variables: {
@@ -51,17 +62,13 @@ describe("ProjectSettingsView", () => {
         data: {
           project: {
             __typename: "Project",
-            deletionDate: "",
-            name: "oneshottest",
-            subscription: "oneshot",
             tags: ["test"],
           },
         },
       },
-  }];
+  };
 
-  const mocksRepositories: ReadonlyArray<MockedResponse> = [
-    {
+  const mocksRepositories: Readonly<MockedResponse> = {
       request: {
         query: GET_REPOSITORIES,
         variables: {
@@ -70,14 +77,6 @@ describe("ProjectSettingsView", () => {
       },
       result: {
         data: {
-          me: {
-            __typename: "Me",
-            role: "customer",
-          },
-          project: {
-            __typename: "Project",
-            deletionDate: "",
-          },
           resources: {
             __typename: "Resource",
             repositories: JSON.stringify([{
@@ -89,10 +88,9 @@ describe("ProjectSettingsView", () => {
           },
         },
       },
-  }];
+  };
 
-  const mocksEnvironments: ReadonlyArray<MockedResponse> = [
-    {
+  const mocksEnvironments: Readonly<MockedResponse> = {
       request: {
         query: GET_ENVIRONMENTS,
         variables: {
@@ -101,10 +99,6 @@ describe("ProjectSettingsView", () => {
       },
       result: {
         data: {
-          project: {
-            __typename: "Project",
-            deletionDate: "",
-          },
           resources: {
             __typename: "Resource",
             environments: JSON.stringify([{
@@ -113,7 +107,7 @@ describe("ProjectSettingsView", () => {
           },
         },
       },
-  }];
+  };
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -138,7 +132,7 @@ describe("ProjectSettingsView", () => {
     (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksTags} addTypename={true}>
+        <MockedProvider mocks={[mockProject, mocksTags]} addTypename={true}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
@@ -152,13 +146,12 @@ describe("ProjectSettingsView", () => {
     (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksRepositories} addTypename={true}>
+        <MockedProvider mocks={[mockProject, mocksRepositories]} addTypename={true}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
-    wrapper.update();
+    await act(async () => { await wait(80); wrapper.update(); });
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
                                  .find("RowPureContent")
@@ -191,13 +184,12 @@ describe("ProjectSettingsView", () => {
     (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksEnvironments} addTypename={true}>
+        <MockedProvider mocks={[mockProject, mocksEnvironments]} addTypename={true}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
-    wrapper.update();
+    await act(async () => { await wait(80); wrapper.update(); });
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
                                  .find("RowPureContent")
@@ -234,7 +226,7 @@ describe("ProjectSettingsView", () => {
     (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksTags} addTypename={true}>
+        <MockedProvider mocks={[mockProject, mocksTags]} addTypename={true}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,

@@ -3,8 +3,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { QueryResult } from "@apollo/react-common";
-import { Query } from "@apollo/react-components";
+import { useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -19,30 +18,43 @@ import { Files } from "./Files";
 import { Portfolio } from "./Portfolio";
 import { GET_PROJECT_DATA } from "./queries";
 import { Repositories } from "./Repositories";
-import { IGetProjectData, ISettingsViewProps } from "./types";
+import { ISettingsViewProps } from "./types";
 
-const renderDeleteBtn: ((props: ISettingsViewProps) => JSX.Element) = (props: ISettingsViewProps): JSX.Element => {
-  const projectName: string = props.match.params.projectName;
-  const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
-  const openRemoveProjectModal: (() => void) = (): void => {
-    setProjectModalOpen(true);
+const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewProps): JSX.Element => {
+  const { projectName } = props.match.params;
+  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+
+  // Side effects
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("ProjectResources", { Organization: userOrganization, User: userName });
   };
-  const closeRemoveProjectModal: (() => void) = (): void => {
-    setProjectModalOpen(false);
-  };
+  React.useEffect(onMount, []);
+
+  // State management
+  const [isRemoveModalOpen, setRemoveModalOpen] = React.useState(false);
+  const openRemoveModal: (() => void) = (): void => { setRemoveModalOpen(true); };
+  const closeRemoveModal: (() => void) = (): void => { setRemoveModalOpen(false); };
+
+  // GraphQL operations
+  const { data } = useQuery(GET_PROJECT_DATA, { variables: { projectName } });
+
+  if (_.isUndefined(data) || _.isEmpty(data) || !_.isEmpty(data.project.deletionDate)) {
+    return <React.Fragment />;
+  }
 
   return (
-    <Query query={GET_PROJECT_DATA} variables={{ projectName }}>
-    {
-      ({ data }: QueryResult<IGetProjectData>): JSX.Element => {
-        if (_.isUndefined(data) || _.isEmpty(data)
-        || (!_.isUndefined(data) && !_.isEmpty(data.project.deletionDate))) {
-          return <React.Fragment />;
-        }
-        if (!_.isUndefined(data) && _.isEmpty(data.project.deletionDate)) {
-          return (
+    <React.StrictMode>
+      <div id="resources" className="tab-pane cont active">
+        <Repositories projectName={props.match.params.projectName} />
+        <hr />
+        <Environments projectName={props.match.params.projectName} />
+        <hr />
+        <Files projectName={props.match.params.projectName} />
+        <hr />
+        <Portfolio projectName={props.match.params.projectName} />
+          {userRole === "admin" ? (
             <React.Fragment>
-              <hr/>
+              <hr />
               <Row>
                 <Col md={12}>
                   <h3 className={globalStyle.title}>{translate.t("search_findings.tab_resources.removeProject")}</h3>
@@ -57,44 +69,21 @@ const renderDeleteBtn: ((props: ISettingsViewProps) => JSX.Element) = (props: IS
                 <br />
                 <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
-                      <Button onClick={openRemoveProjectModal}>
+                      <Button onClick={openRemoveModal}>
                         <Glyphicon glyph="minus" />&nbsp;{translate.t("search_findings.tab_resources.removeProject")}
                       </Button>
                     </ButtonToolbar>
                     <RemoveProjectModal
-                      isOpen={isProjectModalOpen}
-                      onClose={closeRemoveProjectModal}
+                      isOpen={isRemoveModalOpen}
+                      onClose={closeRemoveModal}
                       projectName={projectName.toLowerCase()}
                     />
                 </Col>
               </Row>
             </React.Fragment>
-          );
-        } else { return <React.Fragment />; }
-      }}
-    </Query>
-
-  );
-};
-
-const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewProps): JSX.Element => {
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
-
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("ProjectResources", { Organization: userOrganization, User: userName });
-  };
-  React.useEffect(onMount, []);
-
-  return (
-  <React.StrictMode>
-    <div id="resources" className="tab-pane cont active">
-      <Repositories projectName={props.match.params.projectName} />
-      <Environments projectName={props.match.params.projectName} />
-      <Files projectName={props.match.params.projectName} />
-      <Portfolio projectName={props.match.params.projectName} />
-      {_.includes(["admin"], userRole) ? renderDeleteBtn(props) : undefined}
-    </div>
-  </React.StrictMode>
+          ) : undefined}
+      </div>
+    </React.StrictMode>
   );
 };
 

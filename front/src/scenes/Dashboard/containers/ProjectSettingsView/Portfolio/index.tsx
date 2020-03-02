@@ -66,10 +66,11 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     return <React.Fragment />;
   }
 
-  const tagsDataset: string[] = data.project.tags.map((tag: string) => ({ tagName: tag }));
+  const tagsDataset: Array<{ tagName: string }> = data.project.tags.map((tag: string) => ({ tagName: tag }));
 
   const isRepeated: ((newTag: string) => boolean) = (newTag: string): boolean => {
-    const repeatedItems: string[] = tagsDataset.filter((tag: string): boolean => tag === newTag);
+    const repeatedItems: Array<{ tagName: string }> = tagsDataset.filter((item: { tagName: string }): boolean =>
+      item.tagName === newTag);
 
     return repeatedItems.length > 0;
   };
