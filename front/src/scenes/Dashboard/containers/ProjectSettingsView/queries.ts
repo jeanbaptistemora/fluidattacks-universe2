@@ -105,6 +105,23 @@ export const GET_FILES: DocumentNode = gql`
   }
 `;
 
+export const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
+  mutation DownloadFileMutation($filesData: JSONString!, $projectName: String!) {
+    downloadFile(filesData: $filesData, projectName: $projectName) {
+      success
+      url
+    }
+  }
+`;
+
+export const REMOVE_FILE_MUTATION: DocumentNode = gql`
+  mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
+    removeFiles(filesData: $filesData, projectName: $projectName) {
+      success
+    }
+  }
+`;
+
 export const UPLOAD_FILE_MUTATION: DocumentNode = gql`
   mutation UploadFileMutation($file: Upload!, $filesData: JSONString!, $projectName: String!) {
     addFiles(file: $file, filesData: $filesData, projectName: $projectName) {

@@ -27,6 +27,7 @@ import { RemoveProjectModal } from "../../components/RemoveProjectModal";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 import { Environments } from "./Environments";
+import { Files } from "./Files";
 import {
   ADD_TAGS_MUTATION, GET_PROJECT_DATA, GET_TAGS, REMOVE_TAG_MUTATION,
 } from "./queries";
@@ -501,7 +502,8 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     <div id="resources" className="tab-pane cont active">
       <Repositories projectName={props.match.params.projectName} />
       <Environments projectName={props.match.params.projectName} />
-      {renderFiles(props)}
+      {false ? renderFiles(props) : undefined}
+      <Files projectName={props.match.params.projectName} />
       {renderTagsView(props)}
       {_.includes(["admin"], (window as typeof window & { userRole: string }).userRole) ? renderDeleteBtn(props)
         : undefined}

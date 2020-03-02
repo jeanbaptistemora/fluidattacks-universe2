@@ -9,10 +9,11 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
-import { msgSuccess } from "../../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { AddFilesModal } from "../../../components/AddFilesModal";
-import { GET_FILES, UPLOAD_FILE_MUTATION } from "../queries";
+import { FileOptionsModal } from "../../../components/FileOptionsModal";
+import { DOWNLOAD_FILE_MUTATION, GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
 
 interface IFilesProps {
   projectName: string;
@@ -26,10 +27,53 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const openAddModal: (() => void) = (): void => { setAddModalOpen(true); };
   const closeAddModal: (() => void) = (): void => { setAddModalOpen(false); };
 
+  const [isOptionsModalOpen, setOptionsModalOpen] = React.useState(false);
+  const closeOptionsModal: (() => void) = (): void => { setOptionsModalOpen(false); };
+
+  const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
+  const handleRowClick: ((_0: React.FormEvent, row: Dictionary<string>) => void) = (
+    _0: React.FormEvent, row: Dictionary<string>,
+  ): void => {
+    setCurrentRow(row);
+    setOptionsModalOpen(true);
+  };
+
   const [sortValue, setSortValue] = React.useState({});
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FILES, { variables: { projectName: props.projectName } });
+
+  const [downloadFile] = useMutation(DOWNLOAD_FILE_MUTATION, {
+    onCompleted: (downloadData: { downloadFile: { url: string } }): void => {
+      const newTab: Window | null = window.open(downloadData.downloadFile.url);
+      (newTab as Window).opener = undefined;
+    },
+    variables: {
+      filesData: JSON.stringify(currentRow.fileName),
+      projectName: props.projectName,
+    },
+  });
+
+  const [removeFile] = useMutation(REMOVE_FILE_MUTATION, {
+    onCompleted: (): void => {
+      refetch()
+        .catch();
+      mixpanel.track("RemoveProjectFiles", { Organization: userOrganization, User: userName });
+      msgSuccess(
+        translate.t("search_findings.tab_resources.success_remove"),
+        translate.t("search_findings.tab_users.title_success"),
+      );
+    },
+  });
+  const handleRemoveFile: (() => void) = (): void => {
+    closeOptionsModal();
+    removeFile({
+      variables: {
+        filesData: JSON.stringify({ fileName: currentRow.fileName }), projectName: props.projectName,
+      },
+    })
+      .catch();
+  };
 
   const [uploadFile] = useMutation(UPLOAD_FILE_MUTATION, {
     onCompleted: (): void => {
@@ -42,22 +86,6 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       );
     },
   });
-  const handleUpload: ((values: { description: string; file: FileList }) => void) = (
-    values: { description: string; file: FileList },
-  ): void => {
-    closeAddModal();
-    uploadFile({
-      variables: {
-        file: values.file[0],
-        filesData: JSON.stringify([{
-          description: values.description,
-          fileName: values.file[0].name,
-        }]),
-        projectName: props.projectName,
-      },
-    })
-      .catch();
-  };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.Fragment />;
@@ -70,6 +98,36 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   }
 
   const filesDataset: IFile[] = JSON.parse(data.resources.files);
+
+  const isRepeated: ((newFile: File) => boolean) = (newFile: File): boolean => {
+    const repeatedItems: IFile[] = filesDataset.filter((file: IFile): boolean =>
+      file.fileName === newFile.name);
+
+    return repeatedItems.length > 0;
+  };
+
+  const handleUpload: ((values: { description: string; file: FileList }) => void) = (
+    values: { description: string; file: FileList },
+  ): void => {
+    const containsRepeated: boolean = isRepeated(values.file[0]);
+
+    if (containsRepeated) {
+      msgError(translate.t("search_findings.tab_resources.repeated_item"));
+    } else {
+      closeAddModal();
+      uploadFile({
+        variables: {
+          file: values.file[0],
+          filesData: JSON.stringify([{
+            description: values.description,
+            fileName: values.file[0].name,
+          }]),
+          projectName: props.projectName,
+        },
+      })
+        .catch();
+    }
+  };
 
   const sortState: ((dataField: string, order: SortOrder) => void) = (
     dataField: string, order: SortOrder,
@@ -129,6 +187,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         id="tblFiles"
         pageSize={15}
         remote={false}
+        rowEvents={{ onClick: handleRowClick }}
         striped={true}
       />
       <label>
@@ -140,6 +199,14 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         onSubmit={handleUpload}
         showUploadProgress={false}
         uploadProgress={0}
+      />
+      <FileOptionsModal
+        canRemove={_.includes(["admin", "customer"], userRole)}
+        fileName={currentRow.fileName}
+        isOpen={isOptionsModalOpen}
+        onClose={closeOptionsModal}
+        onDelete={handleRemoveFile}
+        onDownload={downloadFile}
       />
     </React.StrictMode>
   );

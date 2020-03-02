@@ -1,6 +1,5 @@
-/* tslint:disable jsx-no-multiline-js
- * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
- * readability of the code that renders the form
+/* tslint:disable:jsx-no-multiline-js
+ * Disabling this rule is necessary for using components with render props
  */
 
 import React from "react";
@@ -8,10 +7,9 @@ import { ButtonToolbar, Col, ProgressBar, Row } from "react-bootstrap";
 import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
-import { textAreaField } from "../../../../utils/forms/fields";
+import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
-import { FileInput } from "../../components/FileInput/index";
 import { GenericForm } from "../GenericForm";
 
 export interface IAddFilesModalProps {
@@ -49,9 +47,11 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
             <React.Fragment>
               <Row>
                 <Col md={12}>
-                  <div>
-                    <FileInput fileSize={100} icon="search" id="file" type="" visible={true} />
-                  </div>
+                  <label>
+                    <label style={{ color: "#f22" }}>* </label>
+                    {translate.t("validations.file_size", { count: 100 })}
+                  </label>
+                  <Field component={fileInputField} id="file" name="file" validate={required} />
                 </Col>
                 <Col md={12}>
                   <label>
