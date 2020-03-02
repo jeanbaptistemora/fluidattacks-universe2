@@ -536,3 +536,43 @@ def has_generic_exceptions(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def leaks_technical_information(code_dest: str,
+                                pattern: str,
+                                use_regex: bool = False,
+                                exclude: list = None,
+                                lang_specs: dict = None):
+    """
+    Check if there are code that leaks technical information.
+
+    The leak of technical information can inform the attacker of sensitive
+    information about the environment where the application is executed and
+    reveal a possible attack surface.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param pattern: Text pattern to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(pattern) if use_regex else Literal(pattern)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: ('Text pattern that generates leakage of'
+                   ' technical information found in the code.'),
+            CLOSED: ('No text patterns that generate leaks of technical'
+                     ' information were found in code'),
+        },
+        spec=lang_specs,
+        excl=exclude)

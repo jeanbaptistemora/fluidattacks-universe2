@@ -136,9 +136,21 @@ def test_has_generic_exceptions_open():
         JAVA_BAD, 'catch(Exception except)').is_open()
 
 
+def test_leaks_technical_information_open():
+    """Test if code generates leak of technical information."""
+    assert core.leaks_technical_information(
+        JAVA_BAD, 'e.printStackTrace()').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_leaks_technical_information_close():
+    """Test if code generates leak of technical information."""
+    assert core.leaks_technical_information(
+        JAVA_GOOD, 'e.printStackTrace()').is_closed()
 
 
 def test_has_generic_exceptions_close():
