@@ -366,24 +366,10 @@ const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewB
   });
 
 const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResourcesViewBaseProps> =
-  (dispatch: actions.ThunkDispatcher, ownProps: IResourcesViewBaseProps): IResourcesViewDispatchProps => {
-    const { projectName } = ownProps.match.params;
-
-    return ({
-      onCloseFilesModal: (): void => { dispatch(actions.closeAddFilesModal()); },
-      onCloseOptionsModal: (): void => { dispatch(actions.closeOptionsModal()); },
+  (dispatch: actions.ThunkDispatcher): IResourcesViewDispatchProps => ({
       onCloseTagsModal: (): void => { dispatch(actions.closeTagsModal()); },
-      onDeleteFile: (fileName: string): void => { dispatch(actions.deleteFile(projectName, fileName)); },
-      onDownloadFile: (fileName: string): void => { dispatch(actions.downloadFile(projectName, fileName)); },
-      onLoad: (): void => {
-        dispatch(actions.loadResources(projectName));
-      },
-      onOpenFilesModal: (): void => { dispatch(actions.openAddFilesModal()); },
-      onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
-      onSaveFiles: (files: IResourcesViewProps["files"]): void => { dispatch(actions.saveFiles(projectName, files)); },
       onSort: (newValues: {}): void => {dispatch(actions.changeSortedValues(newValues)); },
     });
-  };
 
 export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectResourcesView));

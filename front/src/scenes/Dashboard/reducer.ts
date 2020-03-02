@@ -177,67 +177,6 @@ actionMap[resourcesActions.CHANGE_SORTED] =
     },
   });
 
-actionMap[resourcesActions.LOAD_RESOURCES] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      files: action.payload.files,
-    },
-  });
-
-actionMap[resourcesActions.OPEN_FILES_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      filesModal: {
-        ...state.resources.filesModal,
-        open: true,
-      },
-    },
-  });
-
-actionMap[resourcesActions.CLOSE_FILES_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      filesModal: {
-        ...initialState.resources.filesModal,
-      },
-    },
-  });
-
-actionMap[resourcesActions.OPEN_OPTIONS_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      optionsModal: {
-        ...state.resources.optionsModal,
-        open: true,
-        rowInfo: action.payload.rowInfo,
-      },
-    },
-  });
-
-actionMap[resourcesActions.CLOSE_OPTIONS_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      optionsModal: {
-        ...initialState.resources.optionsModal,
-      },
-    },
-  });
-
 actionMap[resourcesActions.OPEN_TAGS_MODAL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -258,26 +197,6 @@ actionMap[resourcesActions.CLOSE_TAGS_MODAL] =
     tags: {
       ...state.tags,
       tagsModal: initialState.tags.tagsModal,
-    },
-  });
-
-actionMap[resourcesActions.UPDATE_UPLOAD_PROGRESS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      uploadProgress: action.payload.percentCompleted,
-    },
-  });
-
-actionMap[resourcesActions.SHOW_UPLOAD_PROGRESS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      showUploadProgress: !state.resources.showUploadProgress,
     },
   });
 
