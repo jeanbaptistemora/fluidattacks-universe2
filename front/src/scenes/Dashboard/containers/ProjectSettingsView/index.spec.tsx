@@ -20,16 +20,7 @@ describe("Resources view", () => {
 
   const mockProps: IResourcesViewProps = {
     defaultSort: {
-      files: {},
       tags: {},
-    },
-    files: [{
-      description: "test",
-      fileName: "fileTest",
-      uploadDate: "",
-    }],
-    filesModal: {
-      open: false,
     },
     match: {
       isExact: true,
@@ -40,15 +31,9 @@ describe("Resources view", () => {
     onCloseTagsModal: functionMock,
     onOpenTagsModal: functionMock,
     onSort: functionMock,
-    optionsModal: {
-      open: false,
-      rowInfo: { fileName: "fileTest"},
-    },
-    showUploadProgress: false,
     tagsModal: {
       open: false,
     },
-    uploadProgress: 0,
   };
 
   const mocksTags: ReadonlyArray<MockedResponse> = [

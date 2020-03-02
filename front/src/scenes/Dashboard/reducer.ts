@@ -12,19 +12,8 @@ export interface IDashboardState {
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   resources: {
     defaultSort: {
-      files: {};
       tags: {};
     };
-    files: Array<{ description: string; fileName: string; uploadDate: string}>;
-    filesModal: {
-      open: boolean;
-    };
-    optionsModal: {
-      open: boolean;
-      rowInfo: { fileName: string };
-    };
-    showUploadProgress: boolean;
-    uploadProgress: number;
   };
   tags: {
     tagsModal: {
@@ -98,19 +87,8 @@ const initialState: IDashboardState = {
   },
   resources: {
     defaultSort: {
-      files: {},
       tags: {},
     },
-    files: [],
-    filesModal: {
-      open: false,
-    },
-    optionsModal: {
-      open: false,
-      rowInfo: {fileName: ""},
-    },
-    showUploadProgress: false,
-    uploadProgress: 0,
   },
   tags: {
     tagsModal: {

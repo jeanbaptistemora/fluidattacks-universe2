@@ -357,12 +357,7 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
   (state: IState): IResourcesViewStateProps => ({
     defaultSort: state.dashboard.resources.defaultSort,
-    files: state.dashboard.resources.files,
-    filesModal: state.dashboard.resources.filesModal,
-    optionsModal: state.dashboard.resources.optionsModal,
-    showUploadProgress: state.dashboard.resources.showUploadProgress,
     tagsModal: state.dashboard.tags.tagsModal,
-    uploadProgress: state.dashboard.resources.uploadProgress,
   });
 
 const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResourcesViewBaseProps> =
