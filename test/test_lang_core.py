@@ -18,6 +18,8 @@ CODE_DIR = 'test/static/lang/c/'
 GOOD_CODE = 'test/static/lang/c/secure.c'
 BAD_CODE = 'test/static/lang/c/insecure.c'
 NO_CODE = 'test/static/lang/c/notexistant.c'
+JAVA_BAD = 'test/static/lang/java/GenericExceptionsOpen.java'
+JAVA_GOOD = 'test/static/lang/java/GenericExceptionsClose.java'
 
 SECURE_SOCKETS = 'test/static/lang/javascript/ConsoleLogClose.js'
 INSECURE_SOCKETS = 'test/static/lang/javascript/ConsoleLogOpen.js'
@@ -128,9 +130,21 @@ def test_has_unnecessary_permissions_open():
         'android.permission.WRITE_SECURE_SETTINGS').is_open()
 
 
+def test_has_generic_exceptions_open():
+    """Test if code has generic exceptions."""
+    assert core.has_generic_exceptions(
+        JAVA_BAD, 'catch(Exception except)').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_has_generic_exceptions_close():
+    """Test if code has generic exceptions."""
+    assert core.has_generic_exceptions(
+        JAVA_GOOD, 'catch(Exception except)').is_closed()
 
 
 def test_has_unnecessary_permissions_close():

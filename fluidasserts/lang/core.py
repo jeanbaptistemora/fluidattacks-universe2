@@ -495,3 +495,44 @@ def has_unnecessary_permissions(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW,
+     kind=SAST,
+     standards={
+         'CWE': '396',
+     },)
+def has_generic_exceptions(code_dest: str,
+                           exception: str,
+                           use_regex: bool = False,
+                           exclude: list = None,
+                           lang_specs: dict = None) -> tuple:
+    """
+    Check if a generic exception is present in given source file.
+
+    The software does not properly anticipate or handle exceptional conditions
+    that rarely occur during normal operation of the software.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param secret: Generic Exception format to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(exception) if use_regex else Literal(exception)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Generic exception found in the code.',
+            CLOSED: 'Generic exception not found in the code.',
+        },
+        spec=lang_specs,
+        excl=exclude)
