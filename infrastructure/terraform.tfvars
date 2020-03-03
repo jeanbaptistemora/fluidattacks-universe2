@@ -16,11 +16,11 @@ vpcSecondaryCidr = "192.168.104.0/21"
 vpcId            = "vpc-53ea4637"
 
 # EKS Vars
-rtbId               = "rtb-a74ad5c3"
-clusterName         = "FluidServes"
-eksAmiId            = "ami-0abcb9f9190e867ab"
-nodeStorageSize     = "200"
-eksSnetReg          = [
+rtbId           = "rtb-a74ad5c3"
+clusterName     = "FluidServes"
+eksAmiId        = "ami-0abcb9f9190e867ab"
+nodeStorageSize = "200"
+eksSnetReg = [
   "us-east-1d",
   "us-east-1e",
 ]

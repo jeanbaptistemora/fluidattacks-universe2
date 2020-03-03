@@ -35,8 +35,8 @@ check_interval = 20
       BucketLocation = "us-east-1"
   [runners.machine]
     IdleCount = 40
-    IdleTime = 600
-    MaxBuilds = 3
+    IdleTime = 900
+    MaxBuilds = 4
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-ci-%s"
     MachineOptions = [
@@ -61,7 +61,7 @@ check_interval = 20
     ]
     OffPeakTimezone = "America/Bogota"
     OffPeakIdleCount = 0
-    OffPeakIdleTime = 600
+    OffPeakIdleTime = 900
 
 [[runners]]
   name = "autoscaling-large-ci"
@@ -154,8 +154,8 @@ check_interval = 20
       BucketLocation = "us-east-1"
   [runners.machine]
     IdleCount = 6
-    IdleTime = 0
-    MaxBuilds = 1
+    IdleTime = 900
+    MaxBuilds = 4
     MachineDriver = "amazonec2"
     MachineName = "autonomic-ci-%s"
     MachineOptions = [
@@ -172,7 +172,7 @@ check_interval = 20
       "amazonec2-ami=ami-075b5fce6712726ed",
       "amazonec2-instance-type=t3a.medium",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=20"
+      "amazonec2-root-size=30"
     ]
     OffPeakPeriods = [
       "* * 0-6,18-23 * * mon-fri *",
@@ -180,4 +180,4 @@ check_interval = 20
     ]
     OffPeakTimezone = "America/Bogota"
     OffPeakIdleCount = 0
-    OffPeakIdleTime = 0
+    OffPeakIdleTime = 900
