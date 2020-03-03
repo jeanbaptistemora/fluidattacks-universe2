@@ -154,6 +154,20 @@ deploy_container_app:
       - version.txt
     when: on_success
 
+deploy_container_app_async:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: build
+  needs:
+    - build_django_apps
+    - deploy_container_deps_development
+  retry: 1
+  artifacts:
+    expire_in: 1 day
+    paths:
+    - version.txt
+    when: on_success
+
 deploy_container_nix_cache:
   <<: *with_nix
   <<: *in_schedule_nightly_build
