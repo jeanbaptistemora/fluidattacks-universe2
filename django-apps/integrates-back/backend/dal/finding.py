@@ -12,7 +12,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
 
-FindingType = Union[List[Dict[str, str]], str]
+FindingType = Union[List[Dict[str, str]], str, Dict[str, str], List[str]]
 
 
 def _escape_alnum(string: str) -> str:
@@ -115,11 +115,11 @@ def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
 
 def get_attributes(finding_id: str, attributes: List[str]) -> Dict[str, FindingType]:
     """ Get a group of attributes of a finding. """
-    item_attrs = {
+    item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
         'Key': {'finding_id': finding_id},
     }
     if attributes:
-        item_attrs['AttributesToGet'] = attributes  # type: ignore
+        item_attrs['AttributesToGet'] = attributes
     response = TABLE.get_item(**item_attrs)
     return response.get('Item', {})
 

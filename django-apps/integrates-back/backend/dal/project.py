@@ -161,7 +161,7 @@ def get_description(project: str) -> str:
     description = get_attributes(project, ['description'])
     project_description = ''
     if description:
-        project_description = description.get('description')  # type: ignore
+        project_description = str(description.get('description', ''))
     else:
         # project without description
         pass
@@ -246,11 +246,11 @@ def list_project_managers(project_name: str) -> List[str]:
 
 def get_attributes(
         project_name: str, attributes: List[str] = None) -> Dict[str, Union[str, List[str]]]:
-    item_attrs = {
+    item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
         'Key': {'project_name': project_name},
     }
     if attributes:
-        item_attrs['AttributesToGet'] = attributes  # type: ignore
+        item_attrs['AttributesToGet'] = attributes
     response = TABLE.get_item(**item_attrs)
     return response.get('Item', {})
 

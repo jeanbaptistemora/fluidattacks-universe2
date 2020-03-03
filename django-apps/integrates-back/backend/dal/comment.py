@@ -44,12 +44,12 @@ def get_comments(comment_type: str, finding_id: int) -> List[CommentType]:
     """Get comments of the given finding"""
     key_exp = Key('finding_id').eq(finding_id)
     if comment_type == 'comment':
-        filter_exp = Attr('comment_type').eq('comment') \
+        filter_exp: object = Attr('comment_type').eq('comment') \
             | Attr('comment_type').eq('verification')
     elif comment_type == 'observation':
-        filter_exp = Attr('comment_type').eq('observation')  # type: ignore
+        filter_exp = Attr('comment_type').eq('observation')
     elif comment_type == 'event':
-        filter_exp = Attr('comment_type').eq('event')  # type: ignore
+        filter_exp = Attr('comment_type').eq('event')
 
     response = TABLE.query(
         FilterExpression=filter_exp, KeyConditionExpression=key_exp)

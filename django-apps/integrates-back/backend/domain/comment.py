@@ -25,7 +25,7 @@ def get_comments(finding_id: str, user_role: str) -> List[Dict[str, str]]:
              finding_id, ['historic_verification']).get('historic_verification', []))
     verified = [verification for verification in historic_verification
                 if verification.get('status') == 'VERIFIED'
-                and verification.get('vulns', [])]
+                and cast(List[str], verification.get('vulns', []))]
     if verified:
         vulns = vuln_dal.get_vulnerabilities(finding_id)
         comments = [fill_vuln_info(comment, cast(List[str], verification.get('vulns', [])), vulns)
@@ -59,7 +59,7 @@ def get_fullname(user_role: str, data: Dict[str, str]) -> str:
 def fill_vuln_info(comment: Dict[str, str], vulns_ids: List[str],
                    vulns: List[Dict[str, finding_dal.FindingType]]) -> Dict[str, str]:
     selected_vulns = [vuln.get('where') for vuln in vulns if vuln.get('UUID') in vulns_ids]
-    wheres = ', '.join(selected_vulns)  # type: ignore
+    wheres = ', '.join(cast(List[str], selected_vulns))
     comment['content'] = f'Regarding vulnerabilities {wheres}: ' + comment.get('content', '')
 
     return comment

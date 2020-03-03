@@ -49,7 +49,7 @@ def get_data(email: str, attr: str) -> Any:
     data_attr = get_attributes(email, [attr])
     data = ''
     if data_attr and data_attr.get(attr):
-        data = data_attr.get(attr)  # type: ignore
+        data = data_attr.get(attr, '')
     else:
         # User not found or without attribute
         pass
@@ -153,7 +153,7 @@ def create_without_project(user_data: Dict[str, Any]) -> bool:
         if not get_data(user_data['email'], 'email'):
             user_data.update({'registered': True})
             if user_data.get('phone_number'):
-                phone_number = user_data.get('phone_number')  # type: ignore
+                phone_number = user_data.get('phone_number', '')
                 del user_data['phone_number']
             success = create(
                 user_data['email'].lower(), user_data)

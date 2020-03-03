@@ -24,7 +24,7 @@ def get_admins() -> List[str]:
 def get_all_companies() -> List[str]:
     filter_exp = Attr('company').exists()
     users = get_all(filter_exp)
-    companies = [user.get('company').strip().upper() for user in users]  # type: ignore
+    companies = [user.get('company', '').strip().upper() for user in users]
     return list(set(companies))
 
 
@@ -54,8 +54,8 @@ def get_all_users_report(company_name: str, finish_date: str) -> int:
         Attr('registered').eq(True) & Attr('company').ne(company_name)
     attribute = 'email'
     users = get_all(filter_exp, data_attr=attribute)
-    users = [user.get('email') for user in users]  # type: ignore
-    users_filtered = project_users.intersection(users)
+    users_mails = [user.get('email', '') for user in users]
+    users_filtered = project_users.intersection(users_mails)
     return len(users_filtered)
 
 

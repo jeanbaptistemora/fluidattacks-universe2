@@ -8,7 +8,7 @@ import logging
 import logging.config
 import re
 import secrets
-from typing import Any, Dict, List
+from typing import Any, Dict, List, cast
 import pytz
 import rollbar
 import requests
@@ -162,8 +162,8 @@ def get_last_vuln(finding: Dict[str, str]) -> datetime:
         finding["releaseDate"].split(" ")[0],
         '%Y-%m-%d'
     )
-    finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()  # type: ignore
-    return finding_last_vuln
+    finding_last_vuln_date = finding_last_vuln.replace(tzinfo=tzn).date()
+    return cast(datetime, finding_last_vuln_date)
 
 
 def validate_release_date(finding: Dict[str, str]) -> bool:
@@ -314,7 +314,7 @@ def format_comment_date(date_string: str) -> str:
 def calculate_datediff_since(start_date: datetime) -> timedelta:
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     start_date = datetime.strptime(str(start_date).split(' ')[0], '%Y-%m-%d')
-    start_date = start_date.replace(tzinfo=tzn).date()  # type: ignore
+    start_date = cast(datetime, start_date.replace(tzinfo=tzn).date())
     final_date = (datetime.now(tz=tzn).date() - start_date)
     return final_date
 

@@ -103,7 +103,7 @@ class User(ObjectType):
     def resolve_email(self, info: Any) -> String:
         """ Resolve user email """
         del info
-        return self.email.lower()  # type: ignore
+        return self.email.lower()
 
     def resolve_role(self, info: Any) -> String:
         """ Resolve user role """

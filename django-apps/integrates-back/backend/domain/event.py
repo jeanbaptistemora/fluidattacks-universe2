@@ -32,7 +32,7 @@ def update_event(event_id: str, **kwargs) -> bool:
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'SOLVED':  # type: ignore
+    if event.get('historic_state', [])[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     success = event_dal.update(event_id, kwargs)
@@ -44,13 +44,13 @@ def solve_event(event_id: str, affectation: str, analyst_email: str, date: datet
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'SOLVED':  # type: ignore
+    if event.get('historic_state', [])[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today()
-    history = event.get('historic_state')
-    history += [  # type: ignore
+    history = event.get('historic_state', [])
+    history += [
         {
             'analyst': analyst_email,
             'date': date.strftime('%Y-%m-%d %H:%M:%S'),
@@ -73,7 +73,7 @@ def update_evidence(event_id: str, evidence_type: str, file: Any) -> bool:
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'SOLVED':  # type: ignore
+    if event.get('historic_state', [])[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     project_name = event.get('project_name')
