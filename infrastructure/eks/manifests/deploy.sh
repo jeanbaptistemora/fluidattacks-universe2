@@ -212,11 +212,6 @@ sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
 install_amazon_vpc_plugin
 kubectl apply -f review-apps/network-policies.yaml
 
-pushd ../../../
-  . ci-scripts/helpers/others.sh
-  deploy_integrates
-popd
-
 deploy_application deployments/exams.yaml
 deploy_application deployments/vpn.yaml
 deploy_application daemonsets/newrelic-infra.yaml
