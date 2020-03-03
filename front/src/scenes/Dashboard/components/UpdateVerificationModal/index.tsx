@@ -4,6 +4,7 @@
 import { useMutation } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
+import _ from "lodash";
 import React from "react";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
@@ -11,6 +12,7 @@ import { IHeader } from "../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
+import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { remediationModal as RemediationModal } from "../RemediationModal/index";
 import { default as style } from "./index.css";
 import { REQUEST_VERIFICATION_VULN, VERIFY_VULNERABILITIES } from "./queries";
@@ -26,6 +28,7 @@ export interface IUpdateVerificationModal {
   findingId: string;
   isOpen: boolean;
   remediationType: "request" | "verify";
+  userRole: string;
   vulns: IVulnData[];
   clearSelected(): void;
   handleCloseModal(): void;
@@ -36,6 +39,7 @@ export interface IUpdateVerificationModal {
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
   const [vulnerabilitiesList, setVulnerabilities] = React.useState(props.vulns);
   const closeRemediationModal: (() => void) = (): void => { props.handleCloseModal(); };
+  const canEdit: boolean = _.includes(["admin", "analyst"], props.userRole);
 
   const [requestVerification, {loading: submittingRequest}] = useMutation(REQUEST_VERIFICATION_VULN, {
     onCompleted: (data: IRequestVerificationVulnResult): void => {
@@ -94,6 +98,9 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         }
       });
     },
+    refetchQueries: [
+      { query: GET_FINDING_HEADER, variables: { findingId: props.findingId, submissionField: canEdit } },
+    ],
   });
 
   const handleSubmit: ((values: { treatmentJustification: string }) => void) =
@@ -137,7 +144,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       <DataTableNext
         id="vulnstoverify"
         bordered={false}
-        dataset={props.vulns}
+        dataset={vulnerabilitiesList}
         exportCsv={false}
         headers={vulnsHeader}
         onClickRow={undefined}

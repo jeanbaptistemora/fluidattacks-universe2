@@ -10,6 +10,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store";
+import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { UpdateVerificationModal } from "./index";
 import { REQUEST_VERIFICATION_VULN, VERIFY_VULNERABILITIES } from "./queries";
 
@@ -40,6 +41,7 @@ describe("update verification component", () => {
             vulns={[{currentState: "open", id: "test", specific: "", where: ""}]}
             clearSelected={jest.fn()}
             handleCloseModal={handleOnClose}
+            userRole={""}
             setRequestState={handleRequestState}
             setVerifyState={jest.fn()}
           />
@@ -91,6 +93,7 @@ describe("update verification component", () => {
             vulns={[{currentState: "open", id: "test_error", specific: "", where: ""}]}
             clearSelected={jest.fn()}
             handleCloseModal={handleOnClose}
+            userRole={""}
             setRequestState={handleRequestState}
             setVerifyState={jest.fn()}
           />
@@ -115,18 +118,44 @@ describe("update verification component", () => {
   it("should handle verify a request", async () => {
     const handleOnClose: jest.Mock = jest.fn();
     const handleVerifyState: jest.Mock = jest.fn();
-    const mocksMutation: MockedResponse[] = [{
-      request: {
-        query: VERIFY_VULNERABILITIES,
-        variables: {
-          closedVulns: ["test"],
-          findingId: "",
-          justification: "This is a commenting test of a verifying request verification in vulns",
-          openVulns: [],
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: VERIFY_VULNERABILITIES,
+          variables: {
+            closedVulns: ["test"],
+            findingId: "",
+            justification: "This is a commenting test of a verifying request verification in vulns",
+            openVulns: [],
+          },
+        },
+        result: { data: { verifyRequestVuln : { success: true } } },
+      },
+      {
+        request: {
+          query: GET_FINDING_HEADER,
+          variables: {
+            findingId: "",
+            submissionField: false,
+          },
+        },
+        result: {
+          data: {
+            finding: {
+              closedVulns: 0,
+              historicState: [],
+              id: "",
+              openVulns: 0,
+              releaseDate: "",
+              reportDate: "",
+              severityScore: 0,
+              state: "",
+              title: "",
+            },
+          },
         },
       },
-      result: { data: { verifyRequestVuln : { success: true } } },
-    }];
+    ];
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksMutation} addTypename={false}>
@@ -137,6 +166,7 @@ describe("update verification component", () => {
             vulns={[{currentState: "open", id: "test", specific: "", where: ""}]}
             clearSelected={jest.fn()}
             handleCloseModal={handleOnClose}
+            userRole={""}
             setRequestState={jest.fn()}
             setVerifyState={handleVerifyState}
           />
@@ -193,6 +223,7 @@ describe("update verification component", () => {
             vulns={[{currentState: "open", id: "test_error", specific: "", where: ""}]}
             clearSelected={jest.fn()}
             handleCloseModal={handleOnClose}
+            userRole={""}
             setRequestState={jest.fn()}
             setVerifyState={handleVerifyState}
           />
