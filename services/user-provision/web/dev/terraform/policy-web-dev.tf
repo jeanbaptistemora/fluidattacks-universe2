@@ -8,7 +8,8 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
       "s3:Get*"
     ]
     resources = [
-      "arn:aws:s3:::web.fluidattacks.com/*"
+      "arn:aws:s3:::web.fluidattacks.com/*",
+      "arn:aws:s3:::web.fluidattacks.com"
     ]
   }
 

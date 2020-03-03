@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket  = "fluidattacks-terraform-states-dev"
+    bucket  = "fluidattacks-terraform-states-prod"
     key     = "user-provision-web-dev.tfstate"
     region  = "us-east-1"
     encrypt = true
