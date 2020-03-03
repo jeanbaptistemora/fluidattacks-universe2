@@ -444,10 +444,14 @@ def get_active_missing_repos(subs):
     """ Get inactive and missing repositories in the config file """
     path = f"subscriptions/{subs}"
     repos: tuple = (None, None)
+    config_file = f'subscriptions/{subs}/config/config.yml'
     if not os.path.exists(path):
         logger.error(f"There is no project with the name: {subs}")
         return (None, None)
-    config_file = f'subscriptions/{subs}/config/config.yml'
+    with open(config_file) as config_handle:
+        config = yaml.safe_load(config_handle.read())
+        if not config.get('code'):
+            return (None, None)
     repositories = helper.integrates.get_project_repos(subs)
     integrates_active: list = []
     # Filter active repositories
@@ -550,16 +554,14 @@ def check_repositories(subs, email)-> bool:
             }
         </style>
     '''
-    exceptions = ['lasnee', 'aldak']
     for project in projects:
-        if project not in exceptions:
-            logger.info(f'Checking {project} repositories ...\n')
-            inactive_repos, missing_repos = get_active_missing_repos(project)
-            if inactive_repos or missing_repos:
-                html += html_formatter(project, inactive_repos, missing_repos)
-                print_inactive_missing_repos(inactive_repos, missing_repos)
-            elif subs != 'all':
-                return False
+        logger.info(f'Checking {project} repositories ...\n')
+        inactive_repos, missing_repos = get_active_missing_repos(project)
+        if inactive_repos or missing_repos:
+            html += html_formatter(project, inactive_repos, missing_repos)
+            print_inactive_missing_repos(inactive_repos, missing_repos)
+        elif subs != 'all':
+            return False
     if email:
         send_mail(html, email.split(','))
     return True
