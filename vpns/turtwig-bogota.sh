@@ -8,6 +8,6 @@ set -o errexit
 set -o nounset
 
 # shellcheck disable=SC1091
-source toolbox/vpns/include/proteccion-bogota.sh
+source toolbox/vpns/include/generic-p-b.sh
 
 start_vpn

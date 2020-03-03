@@ -8,6 +8,6 @@ set -o errexit
 set -o nounset
 
 # shellcheck disable=SC1091
-source toolbox/vpns/include/banesco.sh
+source toolbox/vpns/include/generic-b.sh
 
 start_vpn

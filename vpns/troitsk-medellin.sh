@@ -8,6 +8,6 @@ set -o errexit
 set -o nounset
 
 # shellcheck disable=SC1091
-source toolbox/vpns/include/proteccion-medellin.sh
+source toolbox/vpns/include/generic-p-m.sh
 
 start_vpn

@@ -287,26 +287,12 @@ def vpn(subs: str) -> bool:
     """ using subscription vpn """
 
     success: bool = True
-    config_file = f'break-build/packages/toolbox/vpns/{subs}'
-    vpn_list = ("artega\n"
-                "hiachsbol\n"
-                "hiachmov\n"
-                "hiachson\n"
-                "shimk\n"
-                "tabbasa-bogota\n"
-                "tabbasa-medellin\n"
-                "targon-bogota\n"
-                "targon-medellin\n"
-                "triana-bogota\n"
-                "triana-medellin\n"
-                "troitsk-bogota\n"
-                "troitsk-medellin\n"
-                "turtwig-bogota\n"
-                "turtwig-medellin\n"
-                "vilachuaga")
-    subscriptions = ["tabbasa", "targon", "triana", "troitsk", "turtwig"]
+    config_file = f'toolbox/vpns/{subs}'
+    vpn_list = [f for f in os.listdir('toolbox/vpns/')
+                if os.path.isfile(os.path.join('toolbox/vpns/', f))]
 
-    if subs in subscriptions:
+    if (os.path.exists(f'{config_file}-bogota.sh') and
+            os.path.exists(f'{config_file}-medellin.sh')):
         city = input(('Do you want to use bogota\'s or medellin\'s'
                       ' VPN? [1: Bogota - 2: Medellin]: '))
         if city == '1':

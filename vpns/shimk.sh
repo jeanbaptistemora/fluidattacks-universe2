@@ -8,6 +8,6 @@ set -o errexit
 set -o nounset
 
 # shellcheck disable=SC1091
-source toolbox/vpns/include/simplexity.sh
+source toolbox/vpns/include/generic-s.sh
 
 start_vpn
