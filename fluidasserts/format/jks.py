@@ -26,15 +26,18 @@ def has_no_password_protection(path: str) -> tuple:
     if not os.path.exists(path):
         return UNKNOWN, 'Path does not exist'
 
-    msg_open: str = 'JKS is not password protected'
-    msg_closed: str = 'JKS is password protected'
+    msg_open: str = 'Keystore is not password protected'
+    msg_closed: str = 'Keystore is password protected'
 
     safes: List[Unit] = []
     vulns: List[Unit] = []
-    for full_path in get_paths(path, endswith=('.jks',)):
+    for full_path in get_paths(path, endswith=('.jks', '.bks',)):
         vulnerable: bool = True
         try:
-            jks.KeyStore.load(full_path, '')
+            if full_path.endswith('.jks'):
+                jks.KeyStore.load(full_path, '')
+            elif full_path.endswith('.bks'):
+                jks.BksKeyStore.load(full_path, '')
         except jks.util.KeystoreSignatureException:
             vulnerable = False
 
@@ -59,19 +62,22 @@ def _use_passwords(path: str, passwords: list) -> tuple:
     if not os.path.exists(path):
         return UNKNOWN, 'Path does not exist'
 
-    msg_open: str = 'JKS is protected by a weak password'
-    msg_closed: str = 'JKS is protected by a strong password'
+    msg_open: str = 'Keystore is protected by a weak password'
+    msg_closed: str = 'Keystore is protected by a strong password'
 
     safes: List[Unit] = []
     vulns: List[Unit] = []
 
     passwords = ['', *(p for p in set(passwords))]
 
-    for full_path in get_paths(path, endswith=('.jks',)):
+    for full_path in get_paths(path, endswith=('.jks', '.bks',)):
         vulnerable: bool = False
         for password in passwords:
             try:
-                jks.KeyStore.load(full_path, password)
+                if full_path.endswith('.jks'):
+                    jks.KeyStore.load(full_path, password)
+                elif full_path.endswith('.bks'):
+                    jks.BksKeyStore.load(full_path, password)
             except jks.util.KeystoreSignatureException:
                 # wrong password
                 continue
