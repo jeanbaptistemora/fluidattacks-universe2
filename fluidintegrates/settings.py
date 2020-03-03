@@ -328,7 +328,7 @@ CACHES = {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': 'redis://{}:6379'.format(FI_REDIS_SERVER),
         'OPTIONS': CACHE_OPTIONS,
-        'KEY_PREFIX': 'fi'
+        'KEY_PREFIX': 'integrates'
     }
 }
 
