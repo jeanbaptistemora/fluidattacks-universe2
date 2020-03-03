@@ -20,6 +20,7 @@ in
     pkgs.nodejs
     pkgs.openjdk
     pkgs.redis
+    pkgs.rpl
     pkgs.shellcheck
     pkgs.sops
     pkgs.terraform

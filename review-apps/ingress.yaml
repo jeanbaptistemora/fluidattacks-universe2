@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: review-$CI_COMMIT_REF_SLUG
+  name: review-__DEPLOYMENT_NAME__
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/configuration-snippet: |
@@ -19,21 +19,21 @@ metadata:
 spec:
   tls:
   - hosts:
-    - $CI_COMMIT_REF_SLUG.integrates.env.fluidattacks.com
+    - __DEPLOYMENT_NAME__.integrates.env.fluidattacks.com
     secretName: ssl-certificate
   rules:
-  - host: $CI_COMMIT_REF_SLUG.integrates.env.fluidattacks.com
+  - host: __DEPLOYMENT_NAME__.integrates.env.fluidattacks.com
     http:
       paths:
       - backend:
-          serviceName: service-$CI_COMMIT_REF_SLUG
+          serviceName: service-__DEPLOYMENT_NAME__
           servicePort: 80
         path: /integrates(/|$)(.*)
       - backend:
-          serviceName: service-$CI_COMMIT_REF_SLUG
+          serviceName: service-__DEPLOYMENT_NAME__
           servicePort: 80
         path: /(assets.*|oauth.*|index.*|registration.*|silk.*|errors.*)(.*)
       - backend:
-          serviceName: service-$CI_COMMIT_REF_SLUG
+          serviceName: service-__DEPLOYMENT_NAME__
           servicePort: 80
         path: /

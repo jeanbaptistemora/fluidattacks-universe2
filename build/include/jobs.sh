@@ -5,7 +5,6 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcExternalSops}"
 source "${srcCiScriptsHelpersSops}"
-source "${srcEnv}"
 
 function job_build_django_apps {
   local app
@@ -465,6 +464,30 @@ function job_infra_secret_management_test {
   || return 1
 }
 
+function job_rotate_jwt_token {
+  local integrates_repo_id='4620828'
+  local var_name='JWT_TOKEN'
+  local var_value
+  local bytes_of_entropy='32'
+  local set_as_masked='true'
+  local set_as_protected='false'
+
+      echo "[INFO] Extracting ${bytes_of_entropy} bytes of pseudo random entropy" \
+  &&  var_value=$(head -c "${bytes_of_entropy}" /dev/urandom | base64) \
+  &&  echo '[INFO] Extracting secrets' \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+        GITLAB_API_TOKEN \
+  &&  echo '[INFO] Updating var in GitLab' \
+  &&  set_project_variable \
+        "${GITLAB_API_TOKEN}" \
+        "${integrates_repo_id}" \
+        "${var_name}" \
+        "${var_value}" \
+        "${set_as_protected}" \
+        "${set_as_masked}"
+}
+
 function job_test_back {
   local processes_to_kill=()
   local port_dynamo='8022'
@@ -561,4 +584,58 @@ function job_test_mobile {
     &&  npm test \
   &&  popd \
   ||  return 1
+}
+
+function job_deploy_back_ephemeral {
+  export B64_AWS_ACCESS_KEY_ID
+  export B64_AWS_SECRET_ACCESS_KEY
+  export B64_JWT_TOKEN
+  export DATE
+  export DEPLOYMENT_NAME
+  local files=(
+    review-apps/variables.yaml
+    review-apps/ingress.yaml
+    review-apps/deploy-integrates.yaml
+  )
+  local vars_to_replace_in_manifest=(
+    DATE
+    B64_AWS_ACCESS_KEY_ID
+    B64_AWS_SECRET_ACCESS_KEY
+    B64_JWT_TOKEN
+    DEPLOYMENT_NAME
+  )
+
+      aws_login 'development' \
+  &&  helper_use_pristine_workdir \
+  &&  echo "[INFO] Setting namespace preferences..." \
+  &&  kubectl config \
+        set-context "$(kubectl config current-context)" \
+        --namespace="${CI_PROJECT_NAME}" \
+  &&  echo '[INFO] Computing environment variables' \
+  &&  B64_AWS_ACCESS_KEY_ID=$(
+        echo -n "${AWS_ACCESS_KEY_ID}" | base64 --wrap=0) \
+  &&  B64_AWS_SECRET_ACCESS_KEY=$(
+        echo -n "${AWS_SECRET_ACCESS_KEY}" | base64 --wrap=0) \
+  &&  B64_JWT_TOKEN=$(
+        echo -n "${JWT_TOKEN}" | base64 --wrap=0) \
+  &&  DATE="$(date)" \
+  &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
+  &&  for file in "${files[@]}"
+      do
+        for var in "${vars_to_replace_in_manifest[@]}"
+        do
+              echo "[INFO] Replacing ${var} in: ${file}" \
+          &&  rpl "__${var}__" "${!var}" "${file}" \
+          |& grep 'Replacing' \
+          |& sed -E 's/with.*$//g' \
+          || return 1
+        done
+      done \
+  &&  echo '[INFO] Applying: review-apps/variables.yaml' \
+  &&  kubectl apply -f 'review-apps/variables.yaml' \
+  &&  echo '[INFO] Applying: review-apps/ingress.yaml' \
+  &&  kubectl apply -f 'review-apps/ingress.yaml' \
+  &&  echo '[INFO] Applying: review-apps/deploy-integrates.yaml' \
+  &&  kubectl apply -f 'review-apps/deploy-integrates.yaml' \
+  &&  kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}" --timeout=5m
 }

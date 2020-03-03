@@ -121,6 +121,17 @@ coverage_report:
   stage: merge-request
   retry: 1
 
+deploy_back_ephemeral:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: deploy-app
+  needs: [deploy_container_app]
+  retry: 1
+  environment:
+    name: "review/$CI_COMMIT_REF_SLUG"
+    url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com/integrates"
+    on_stop: stop-ephemeral-app
+
 deploy_container_deps_mobile:
   <<: *with_nix
   tags: [autoscaling-large]
@@ -252,6 +263,11 @@ lint_mobile:
   <<: *in_dev_branch
   stage: test-code
 
+rotate_jwt_token:
+  <<: *with_nix
+  <<: *in_schedule_nightly_build
+  stage: rotation
+
 send_new_release_email:
   <<: *with_nix
   <<: *in_master_branch
@@ -261,6 +277,7 @@ test_back:
   <<: *with_nix
   <<: *in_dev_branch_and_mrs
   stage: test-code
+  retry: 1
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -320,20 +337,6 @@ danger:
   script:
     - ./ci-scripts/jobs/danger.sh
   <<: *in_mrs
-
-deploy-back-ephemeral:
-  stage: deploy-app
-  tags: [autoscaling]
-  needs: [deploy_container_app]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./review-apps/cluster-config.sh
-  retry: 1
-  environment:
-    name: "review/$CI_COMMIT_REF_SLUG"
-    url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com/integrates"
-    on_stop: stop-ephemeral-app
-  <<: *in_dev_branch
 
 stop-ephemeral-app:
   stage: deploy-app
@@ -411,14 +414,6 @@ clean-registry-caches:
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/clean-registry-caches.sh
-  <<: *in_schedule_nightly_build
-
-rotate-jwt-token:
-  stage: rotation
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/rotate-jwt-token.sh
   <<: *in_schedule_nightly_build
 
 renew-review-certificate:

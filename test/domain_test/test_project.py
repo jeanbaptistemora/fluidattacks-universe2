@@ -4,6 +4,7 @@ from datetime import datetime
 from django.test import TestCase
 from pytz import timezone
 from freezegun import freeze_time
+import pytest
 
 from backend.domain.project import (
     get_email_recipients, validate_tags, is_alive, get_vulnerabilities,
@@ -55,6 +56,8 @@ class ProjectTest(TestCase):
         expected_output = 1
         assert test_data == expected_output
 
+    @pytest.mark.skip(
+        reason="https://gitlab.com/fluidattacks/integrates/issues/1761")
     def test_get_last_closing_vuln(self):
         findings_to_get = ['463558592', '422286126']
         findings = [
