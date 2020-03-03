@@ -99,6 +99,7 @@ Resources:
       Name: MyTargets
       TargetType: ip
       Port: '443'
+      Protocol: 'HTTPS'
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
   fileSystem1:
     Properties:

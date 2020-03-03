@@ -150,3 +150,48 @@ def uses_insecure_port(
         vulnerabilities=vulnerabilities,
         msg_open='Target Group does not use secure port',
         msg_closed='Target Group uses secure port')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def uses_insecure_protocol(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if ``TargetGroup`` uses **HTTP** protocol.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if *Port** attribute in the
+                **LoadBalancerAttributes** section is not **443**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    unsafe_protos = ('HTTP',)
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::ElasticLoadBalancingV2::TargetGroup',
+            ],
+            exclude=exclude):
+
+        proto = res_props.get('Protocol', 'HTTP')
+        unsafe_proto = proto in unsafe_protos
+
+        is_proto_required = not res_props.get('TargetType', '') == 'lambda'
+
+        if is_proto_required and unsafe_proto:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=(f'AWS::ElasticLoadBalancingV2::TargetGroup'
+                            f'/protocol'
+                            f'/{proto}'),
+                    identifier=res_name,
+                    reason='is not secure'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Target Group does not use secure protocol',
+        msg_closed='Target Group uses secure protocol')

@@ -109,6 +109,7 @@ Resources:
       Name: MyTargets
       TargetType: ip
       Port: '80'
+      Protocol: 'HTTP'
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
   fileSystem1:
     Properties:

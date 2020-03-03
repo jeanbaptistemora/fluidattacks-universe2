@@ -38,3 +38,12 @@ def test_uses_insecure_port():
     assert result.get_vulns_number() == 2 * 1
     assert elb2.uses_insecure_port(SAFE).is_closed()
     assert elb2.uses_insecure_port(NOT_EXISTS).is_unknown()
+
+
+def test_uses_insecure_protocol():
+    """test elb2.uses_insecure_protocol."""
+    result = elb2.uses_insecure_protocol(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 1
+    assert elb2.uses_insecure_protocol(SAFE).is_closed()
+    assert elb2.uses_insecure_protocol(NOT_EXISTS).is_unknown()

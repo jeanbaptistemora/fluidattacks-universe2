@@ -164,6 +164,7 @@
         "Name": "MyTargets",
         "TargetType": "ip",
         "Port": 443,
+        "Protocol": "HTTPS",
         "HealthCheckEnabled": true
       },
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
