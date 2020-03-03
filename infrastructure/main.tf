@@ -54,13 +54,3 @@ output "vaultKmsKey" {
 output "fwBucket" {
   value = "fwBucket=\"${module.bucket.webName}\""
 }
-
-# Create ElastiCache Redis Cluster
-module "cache" {
-  source                = "./cache"
-  cacheGroupId          = var.cacheGroupId
-  cacheGroupDescription = var.cacheGroupDescription
-  cacheNodeType         = var.cacheNodeType
-  cacheParamGroupName   = var.cacheParamGroupName
-  k8sSubnet             = module.eks.k8sSubnet
-}

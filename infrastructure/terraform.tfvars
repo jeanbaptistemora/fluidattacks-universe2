@@ -28,9 +28,3 @@ eksSnetRegSecondary = [
   "us-east-1a",
   "us-east-1b",
 ]
-
-# ElastiCache Vars
-cacheGroupId          = "tf-redis-cluster"
-cacheGroupDescription = "Redis Cluster Cache"
-cacheNodeType         = "cache.t2.medium"
-cacheParamGroupName   = "default.redis5.0.cluster.on"

@@ -28,9 +28,3 @@ variable "eksSnetReg" {
 variable "eksSnetRegSecondary" {
   type = list(string)
 }
-
-# ElastiCache Vars
-variable "cacheGroupId" {}
-variable "cacheGroupDescription" {}
-variable "cacheNodeType" {}
-variable "cacheParamGroupName" {}
