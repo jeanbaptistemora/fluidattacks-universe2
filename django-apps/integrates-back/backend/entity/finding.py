@@ -54,7 +54,9 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     recommendation = String()
     records = JSONString()
     release_date = String()
+    new_remediated = Boolean()
     remediated = Boolean()
+    verified = Boolean()
     report_date = String()
     requirements = String()
     risk = String()
@@ -354,6 +356,16 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """Resolve vulnerabilities attribute."""
         del info
         return self.current_state
+
+    def resolve_new_remediated(self, info):
+        """ Resolve new_remediated attribute """
+        del info
+        return self.new_remediated
+
+    def resolve_verified(self, info):
+        """ Resolve verified attribute """
+        del info
+        return self.verified
 
 
 EVIDENCE_TYPE = Enum('EvidenceType', [

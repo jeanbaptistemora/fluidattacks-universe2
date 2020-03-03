@@ -34,6 +34,8 @@ def _batch_load_fn(finding_ids):
             records=finding.get('records', {}),
             release_date=finding.get('releaseDate', ''),
             remediated=finding.get('remediated', False),
+            new_remediated=finding.get('newRemediated', False),
+            verified=finding.get('verified', False),
             report_date=finding.get('reportDate', ''),
             requirements=finding.get('requirements', ''),
             risk=finding.get('risk', ''),

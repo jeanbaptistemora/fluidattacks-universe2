@@ -55,6 +55,8 @@ type Finding {
     records: JSONString
     release_date: String
     remediated: Boolean
+    new_remediated: Boolean
+    verified: Boolean
     report_date: String
     requirements: String
     risk: String

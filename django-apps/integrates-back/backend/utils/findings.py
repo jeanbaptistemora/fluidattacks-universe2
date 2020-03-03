@@ -2,7 +2,7 @@ import io
 import itertools
 
 import threading
-from typing import Any, Dict, List
+from typing import Any, Dict, List, cast
 import rollbar
 from backports import csv  # type: ignore
 from magic import Magic
@@ -10,7 +10,7 @@ from magic import Magic
 from backend import util
 from backend.utils import cvss, forms as forms_utils
 
-from backend.dal import finding as finding_dal, project as project_dal
+from backend.dal import finding as finding_dal, project as project_dal, vulnerability as vuln_dal
 from backend.mailer import (
     send_mail_verified_finding, send_mail_remediate_finding, send_mail_delete_finding,
     send_mail_accepted_finding, send_mail_reject_draft, send_mail_new_draft
@@ -109,8 +109,21 @@ def format_data(finding: Dict[Any, Any]) -> Dict[str, str]:
         float(finding['exploitability']), finding['cvssVersion']) == 'Si'
 
     historic_verification = finding.get('historicVerification', [{}])
-    finding['remediated'] = historic_verification[-1].get('status') == 'REQUESTED'
+    finding['remediated'] = \
+        (historic_verification[-1].get('status') == 'REQUESTED' and
+         not historic_verification[-1].get('vulns', []))
 
+    vulns = vuln_dal.get_vulnerabilities(finding.get('findingId', ''))
+    open_vulns = \
+        [vuln for vuln in vulns
+         if cast(List[Dict[str, str]], vuln.get('historic_state', [{}]))[-1].get(
+             'state') == 'open']
+    remediated_vulns = \
+        [vuln for vuln in open_vulns
+         if cast(List[Dict[str, str]], vuln.get('historic_verification', [{}]))[-1].get(
+             'status') == 'REQUESTED']
+    finding['newRemediated'] = len(open_vulns) == len(remediated_vulns)
+    finding['verified'] = len(remediated_vulns) == 0
     finding['evidence'] = {
         'animation': _get_evidence('animation', finding['files']),
         'evidence1': _get_evidence('evidence_route_1', finding['files']),
