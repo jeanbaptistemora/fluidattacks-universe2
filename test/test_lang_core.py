@@ -154,9 +154,21 @@ def test_has_code_injection_open():
         JAVA_BAD, 'messageDigest2.update(data.getBytes())').is_open()
 
 
+def test_has_vulnerable_dependencies_open():
+    """Test if code has patterns that generate code injections."""
+    assert core.has_vulnerable_dependencies(
+        'test/static/sca/maven/open/pom.xml', '<id>Jboss</id>').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_has_vulnerable_dependencies_close():
+    """Test if code has patterns that generate code injections."""
+    assert core.has_vulnerable_dependencies(
+        'test/static/sca/maven/close/pom.xml', '<id>Jboss</id>').is_closed()
 
 
 def test_has_code_injection_close():

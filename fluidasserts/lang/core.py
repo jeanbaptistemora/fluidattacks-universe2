@@ -647,3 +647,37 @@ def has_code_injection(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def has_vulnerable_dependencies(code_dest: str,
+                                dependence: str,
+                                use_regex: bool = False,
+                                exclude: list = None,
+                                lang_specs: dict = None):
+    """
+    Check if there are vulnerable dependencies.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param dependency: Dependence to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(dependence) if use_regex else Literal(dependence)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Vulnerable dependencies are present.',
+            CLOSED: 'There are no vulnerable dependencies.',
+        },
+        spec=lang_specs,
+        excl=exclude)
