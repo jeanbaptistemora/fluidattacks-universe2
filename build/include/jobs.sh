@@ -205,6 +205,12 @@ function job_deploy_container_app_async {
         'VERSION' "${FI_VERSION}"
 }
 
+function job_deploy_front {
+        aws_login "${ENVIRONMENT_NAME}" \
+    &&  sops_vars "${ENVIRONMENT_NAME}" \
+    &&  ./manage.py collectstatic --no-input
+}
+
 function job_serve_dynamodb_local {
   local port=8022
 

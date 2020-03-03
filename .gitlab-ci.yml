@@ -177,6 +177,11 @@ deploy_container_nix_cache:
   before_script:
     - apk add --no-cache bash
 
+deploy_front:
+  <<: *with_nix
+  stage: deploy-app
+  needs: [build_front]
+
 infra_backup_deploy:
   <<: *with_nix
   <<: *in_master_branch
@@ -342,14 +347,6 @@ stop-ephemeral-app:
   retry: 1
   when: manual
   <<: *in_dev_branch
-
-deploy-front:
-  stage: deploy-app
-  tags: [autoscaling]
-  needs: [build_front]
-  image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/deploy-front.sh
 
 deploy-back:
   stage: deploy-app
