@@ -75,6 +75,16 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     resources = ["*"]
   }
 
+  # Elasticache
+  statement {
+    effect = "Allow"
+    actions = [
+      "elasticache:Describe*",
+      "elasticache:List*"
+    ]
+    resources = ["*"]
+  }
+
   # Lambda
   statement {
     effect  = "Allow"

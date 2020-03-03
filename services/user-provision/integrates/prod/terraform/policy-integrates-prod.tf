@@ -88,6 +88,26 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     resources = ["*"]
   }
 
+  # Elasticache
+  statement {
+    effect = "Allow"
+    actions = [
+      "elasticache:Describe*",
+      "elasticache:List*",
+      "elasticache:CreateReplicationGroup",
+      "elasticache:CreateCacheSecurityGroup",
+      "elasticache:CreateCacheSubnetGroup",
+      "elasticache:DeleteCacheSecurityGroup",
+      "elasticache:AuthorizeCacheSecurityGroupIngress",
+      "elasticache:RevokeCacheSecurityGroupIngress",
+      "elasticache:ModifyCacheCluster",
+      "elasticache:RebootCacheCluster",
+      "elasticache:ModifyCacheParameterGroup",
+      "elasticache:ResetCacheParameterGroup",
+    ]
+    resources = ["*"]
+  }
+
   # Lambda
   statement {
     effect  = "Allow"
