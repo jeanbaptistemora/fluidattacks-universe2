@@ -613,3 +613,37 @@ def has_insecure_settings(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def has_code_injection(code_dest: str,
+                       pattern: str,
+                       use_regex: bool = False,
+                       exclude: list = None,
+                       lang_specs: dict = None):
+    """
+    Check if the code has patterns that generate code injections.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param setting: Pattern to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(pattern) if use_regex else Literal(pattern)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Pattern found in code.',
+            CLOSED: 'Pattern not found in code.',
+        },
+        spec=lang_specs,
+        excl=exclude)

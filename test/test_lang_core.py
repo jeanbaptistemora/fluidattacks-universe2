@@ -148,9 +148,21 @@ def test_has_insecure_settings_open():
         JAVA_BAD, '"RSA/CBC/PkCS1Padding"').is_open()
 
 
+def test_has_code_injection_open():
+    """Test if code has patterns that generate code injections."""
+    assert core.has_code_injection(
+        JAVA_BAD, 'messageDigest2.update(data.getBytes())').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_has_code_injection_close():
+    """Test if code has patterns that generate code injections."""
+    assert core.has_code_injection(
+        JAVA_GOOD, 'messageDigest2.update(data.getBytes())').is_closed()
 
 
 def test_has_insecure_settings_closed():
