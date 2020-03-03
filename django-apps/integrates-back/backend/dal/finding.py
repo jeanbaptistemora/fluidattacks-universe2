@@ -12,7 +12,13 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
 
-FindingType = Union[List[Dict[str, str]], str, Dict[str, str], List[str]]
+FindingType = Union[
+    str, list,
+    List[str],
+    List[Dict[str, str]],
+    Dict[str, str],
+    None
+]
 
 
 def _escape_alnum(string: str) -> str:
