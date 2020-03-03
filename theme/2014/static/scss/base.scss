@@ -123,7 +123,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w2-5 { width: 2.25rem; }
 .f-footer { font-size: 1.65rem; }
 .lh-2 { line-height: 2; }
-.shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
 .fw-max { font-weight: 999; }
 .line-menu { display: none; }
 .w-image { width: 37em; }
@@ -143,6 +142,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w90-s { width: 90%; }
   .fheader-s { font-size: 4rem; }
   .cover-s { background-size: cover; }
+  .shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
