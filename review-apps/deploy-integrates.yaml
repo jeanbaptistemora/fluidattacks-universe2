@@ -51,3 +51,57 @@ spec:
           failureThreshold: 10
       imagePullSecrets:
       - name: gitlab-reg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-async-$CI_COMMIT_REF_SLUG
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: integrates-async-$CI_COMMIT_REF_SLUG
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: review-async-$CI_COMMIT_REF_SLUG
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: integrates-async-$CI_COMMIT_REF_SLUG
+    spec:
+      containers:
+      - name: integrates-async
+        image: registry.gitlab.com/fluidattacks/integrates/app-async:$CI_COMMIT_REF_SLUG
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 250m
+            memory: 1Gi
+          limits:
+            cpu: 500m
+            memory: 2Gi
+        env:
+          - name: DEPLOYMENT_DATE
+            value: "$DATE"
+        envFrom:
+          - secretRef:
+              name: env-secret-$CI_COMMIT_REF_SLUG
+        ports:
+        - containerPort: 443
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -ce
+              - "curl -sS http://localhost | grep 'FluidIntegrates'"
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          successThreshold: 3
+          failureThreshold: 10
+      imagePullSecrets:
+      - name: gitlab-reg

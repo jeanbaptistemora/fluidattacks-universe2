@@ -1,3 +1,4 @@
 include LICENSE
 include README.rst
-include backend_async/entity/schema.yaml
+include backend/entity/schema.yaml
+recursive-include backend/api/schemas/* *

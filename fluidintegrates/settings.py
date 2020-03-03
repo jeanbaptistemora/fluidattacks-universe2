@@ -30,6 +30,13 @@ from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
     FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, \
     FI_JWT_SECRET_API, FI_REDIS_SERVER
 
+
+def get_installed_packages():
+    """Retrieve a list of installed python packages."""
+    reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
+    return [r.decode().split('==')[0] for r in reqs.split()]
+
+
 sys.path.append('/usr/src/app')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -68,11 +75,13 @@ INSTALLED_APPS = [
     'django_crontab',
     'analytical',
     'django_intercom',
-    'graphene_django',
     'storages',
     'channels',
     'backend',
 ]
+
+if 'integrates-back' in get_installed_packages():
+    INSTALLED_APPS.append('graphene_django')
 
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',

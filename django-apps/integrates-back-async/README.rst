@@ -8,9 +8,9 @@ to Integrates data.
 Quick start
 -----------
 
-1. Add "backend_async" to your INSTALLED_APPS setting like this::
+1. Add "backend" to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = [
         ...
-        'backend_async',
+        'backend',
     ]
