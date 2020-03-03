@@ -303,7 +303,7 @@ def get_last_closing_date(vulnerability: Dict[str, Any]) -> Any:
 
     if current_state and current_state.get('state') == 'closed':
         last_closing_date = datetime.strptime(
-            current_state.get('date').split(' ')[0],
+            current_state.get('date', '').split(' ')[0],
             '%Y-%m-%d'
         )
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore

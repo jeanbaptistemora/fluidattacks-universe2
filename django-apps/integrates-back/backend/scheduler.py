@@ -6,7 +6,7 @@ import logging.config
 from collections import OrderedDict, defaultdict
 from datetime import datetime, timedelta
 
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, cast
 import rollbar
 from botocore.exceptions import ClientError
 from django.conf import settings
@@ -147,7 +147,8 @@ def get_by_time_range(
     count = 0
     if finding['finding_id'] == vuln['finding_id']:
 
-        history = vuln_domain.get_last_approved_state(vuln)
+        history = vuln_domain.get_last_approved_state(
+            cast(Dict[str, finding_dal.FindingType], vuln))
         if history and first_day <= history['date'] <= last_day and \
            history['state'] == 'open':
             count += 1
