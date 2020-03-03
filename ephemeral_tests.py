@@ -36,6 +36,7 @@ class ViewTestCase(unittest.TestCase):
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-setuid-sandbox')
         options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--window-size=1366,768')
         options.headless = True
         self.delay = 20
         self.selenium = webdriver.Chrome('/usr/bin/chromedriver',
@@ -395,10 +396,70 @@ class ViewTestCase(unittest.TestCase):
 
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Repositories')]")))
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Environments')]")))
 
-        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '14-02-resources.png')
+
+        selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[1]/div[2]/div/button').click()
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Add repository')]")))
+        time.sleep(1)
+        selenium.save_screenshot(SCR_PATH + '14-03-resources.png')
+        selenium.find_element_by_xpath(
+            '//*[contains(text(), "Cancel")]').click()
+
+        selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[3]/div[2]/div/button').click()
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Add environment')]")))
+        time.sleep(1)
+        selenium.save_screenshot(SCR_PATH + '14-04-resources.png')
+        selenium.find_element_by_xpath(
+            '//*[contains(text(), "Cancel")]').click()
+        time.sleep(1)
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Files')]")))
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Portfolio')]")))
+
+        selenium.execute_script(
+            'window.scrollTo(0, 680);')
+        selenium.save_screenshot(SCR_PATH + '14-05-resources.png')
+
+        selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[5]/div[2]/div/button').click()
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Add file')]")))
+        time.sleep(1)
+        selenium.save_screenshot(SCR_PATH + '14-06-resources.png')
+        selenium.find_element_by_xpath(
+            '//*[contains(text(), "Cancel")]').click()
+
+        selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[7]/div[2]/div/button[1]').click()
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Add tags')]")))
+        time.sleep(1)
+        selenium.save_screenshot(SCR_PATH + '14-07-resources.png')
+        selenium.find_element_by_xpath(
+            '//*[contains(text(), "Cancel")]').click()
+
+        total_tables = len(selenium.find_elements_by_tag_name("table"))
+        assert total_tables == 4
         assert 'https://fluidattacks.com' in selenium.page_source
 
     def test_15_project_comments(self):
