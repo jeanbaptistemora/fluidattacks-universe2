@@ -10,7 +10,7 @@ twine_export_credentials() {
           --aws-profile continuous-admin \
           --decrypt \
           --extract '["TOOLBOX_PYPI_API_KEY"]' \
-          ../../../../secrets-prod.yaml) \
+          ../secrets-prod.yaml) \
       twine upload dist/*
 }
 
