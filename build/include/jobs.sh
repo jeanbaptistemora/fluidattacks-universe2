@@ -554,9 +554,6 @@ function job_test_back {
         --cov='app' \
         --cov="${pyExtraPkgIntegratesBackAsync}/site-packages/backend" \
         --cov-report='term' \
-        --cov-report='html:build/coverage/html' \
-        --cov-report='xml:build/coverage/results.xml' \
-        --cov-report='annotate:build/coverage/annotate' \
         --disable-warnings \
         'test_async' \
   &&  {

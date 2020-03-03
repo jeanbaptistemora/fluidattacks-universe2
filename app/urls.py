@@ -6,8 +6,12 @@ from django.conf.urls import (
 from django.views.decorators.csrf import csrf_exempt
 
 from backend import services
-from backend.api.view import APIView
+from backend.api.schema import SCHEMA
 from backend.decorators import verify_csrf
+try:
+    from backend.api.view import APIView
+except ImportError:
+    from ariadne.contrib.django.views import GraphQLView as APIView
 
 from app import views
 
@@ -32,7 +36,7 @@ urlpatterns = [
     url(r'^/?dashboard/?$', views.app, name='dashboard'),
     url(r'^/?registration/?$', views.app, name='registration'),
     url(r'^/?oauth/', include('social_django.urls', namespace='social')),
-    url(r'^/?api/?\.*$', csrf_exempt(verify_csrf(APIView.as_view()))),
+    url(r'^/?api/?\.*$', csrf_exempt(verify_csrf(APIView.as_view(schema=SCHEMA)))),
     # Use of Formstack services.
     url(r'^/?project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',

@@ -4,7 +4,6 @@ from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.middleware import ExecutorBackend
-from backend.api.schema import SCHEMA
 
 
 class APIView(FileUploadGraphQLView):
@@ -24,12 +23,11 @@ class APIView(FileUploadGraphQLView):
     @classmethod
     def as_view(cls, **kwargs):
         """Applies custom configs to the GraphQL view"""
-        del kwargs
         options = {
             'backend': ExecutorBackend(),
             'graphiql': True,
-            'schema': SCHEMA
         }
+        options.update(kwargs)
         view = super(APIView, cls).as_view(**options)
 
         return view

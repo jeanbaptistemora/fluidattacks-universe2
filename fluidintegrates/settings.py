@@ -82,6 +82,8 @@ INSTALLED_APPS = [
 
 if 'integrates-back' in get_installed_packages():
     INSTALLED_APPS.append('graphene_django')
+else:
+    INSTALLED_APPS.append('ariadne.contrib.django')
 
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
@@ -454,7 +456,7 @@ CASBIN_ACTION_POLICY_MODEL_FILE = \
 
 
 ENFORCER_BASIC = casbin.Enforcer(CASBIN_BASIC_POLICY_MODEL_FILE,
-                                 enable_log=DEBUG)
+                                 enable_log=False)
 
 ENFORCER_ACTION = casbin.Enforcer(CASBIN_ACTION_POLICY_MODEL_FILE,
-                                  enable_log=DEBUG)
+                                  enable_log=False)
