@@ -20,14 +20,15 @@ def _get_comments(comment_type: str, finding_id: str, user_role: str) -> List[Di
 
 def get_comments(finding_id: str, user_role: str) -> List[Dict[str, str]]:
     comments = _get_comments('comment', finding_id, user_role)
-    historic_verification = finding_dal.get_attributes(
-        finding_id, ['historic_verification']).get('historic_verification', [])
+    historic_verification = \
+        cast(List[Dict[str, finding_dal.FindingType]], finding_dal.get_attributes(
+             finding_id, ['historic_verification']).get('historic_verification', []))
     verified = [verification for verification in historic_verification
                 if verification.get('status') == 'VERIFIED'
                 and verification.get('vulns', [])]
     if verified:
         vulns = vuln_dal.get_vulnerabilities(finding_id)
-        comments = [fill_vuln_info(comment, verification.get('vulns', []), vulns)
+        comments = [fill_vuln_info(comment, cast(List[str], verification.get('vulns', [])), vulns)
                     if comment.get('id') == verification.get('comment') else comment
                     for comment in comments
                     for verification in verified]

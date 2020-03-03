@@ -1,6 +1,6 @@
 """DAL functions for alerts."""
 
-from typing import Any, Dict, List
+from typing import Dict, List
 import rollbar
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
@@ -12,18 +12,18 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
 
 
-def get(company_name: str, project_name: str) -> List[Dict[str, Any]]:
+def get(company_name: str, project_name: str) -> List[Dict[str, str]]:
     """ Get alerts of a company. """
     company_name = company_name.lower()
     project_name = project_name.lower()
     filter_key = 'company_name'
     filter_sort = 'project_name'
     if project_name == 'all':
-        filtering_exp = Key(filter_key).eq(company_name)
+        filtering_exp: object = Key(filter_key).eq(company_name)
         response = TABLE.query(
             KeyConditionExpression=filtering_exp)
     else:
-        filtering_exp = (Key(filter_key).eq(company_name) &  # type: ignore
+        filtering_exp = (Key(filter_key).eq(company_name) &
                          Key(filter_sort).eq(project_name))
         response = TABLE.query(KeyConditionExpression=filtering_exp)
     items = response['Items']

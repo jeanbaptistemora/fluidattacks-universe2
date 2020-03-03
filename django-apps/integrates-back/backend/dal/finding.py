@@ -1,6 +1,6 @@
 """DAL functions for findings."""
 
-from typing import Any, Dict, List, Union
+from typing import Dict, List, Union
 import rollbar
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
@@ -20,7 +20,7 @@ def _escape_alnum(string: str) -> str:
     return ''.join([char for char in string if char.isalnum()])
 
 
-def create(finding_id: str, project_name: str, finding_attrs: Any) -> bool:
+def create(finding_id: str, project_name: str, finding_attrs: Dict[str, FindingType]) -> bool:
     success = False
     try:
         finding_attrs.update({
@@ -35,7 +35,7 @@ def create(finding_id: str, project_name: str, finding_attrs: Any) -> bool:
     return success
 
 
-def update(finding_id: str, data: Dict[str, Any]) -> bool:
+def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
     success = False
     primary_keys = {'finding_id': finding_id}
     try:
@@ -65,7 +65,7 @@ def update(finding_id: str, data: Dict[str, Any]) -> bool:
     return success
 
 
-def list_append(finding_id: str, attr: str, data: Any) -> bool:
+def list_append(finding_id: str, attr: str, data: List[FindingType]) -> bool:
     """
     Adds elements to the end of a list attribute
 
@@ -100,7 +100,7 @@ def delete(finding_id: str) -> bool:
     return success
 
 
-def get_vulnerabilities(finding_id: str) -> List[Dict[str, Any]]:
+def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
     """Get vulnerabilities of a finding."""
     filtering_exp = Key('finding_id').eq(finding_id)
     response = TABLE_VULNS.query(KeyConditionExpression=filtering_exp)
@@ -113,7 +113,7 @@ def get_vulnerabilities(finding_id: str) -> List[Dict[str, Any]]:
     return items
 
 
-def get_attributes(finding_id: str, attributes: List[str]) -> Dict[str, Any]:
+def get_attributes(finding_id: str, attributes: List[str]) -> Dict[str, FindingType]:
     """ Get a group of attributes of a finding. """
     item_attrs = {
         'Key': {'finding_id': finding_id},
@@ -124,14 +124,14 @@ def get_attributes(finding_id: str, attributes: List[str]) -> Dict[str, Any]:
     return response.get('Item', {})
 
 
-def get_finding(finding_id: str) -> Dict[str, Any]:
+def get_finding(finding_id: str) -> Dict[str, FindingType]:
     """ Retrieve all attributes from a finding """
     response = TABLE.get_item(Key={'finding_id': finding_id})
 
     return response.get('Item', {})
 
 
-def save_evidence(file_object: Any, file_name: str) -> bool:
+def save_evidence(file_object: object, file_name: str) -> bool:
     return s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)  # type: ignore
 
 

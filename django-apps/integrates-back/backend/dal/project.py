@@ -440,9 +440,9 @@ def get_comments(project_name: str) -> List[Dict[str, str]]:
             KeyConditionExpression=key_expression,
             ExclusiveStartKey=response['LastEvaluatedKey'])
         items += response['Items']
-    comment_fullnames = {
+    comment_fullnames = cast(Dict[str, List[str]], {
         mail: list(get_user_attributes(mail, ['last_name', 'first_name']).values())
-        for mail in set(item['email'] for item in items)}
+        for mail in set(item['email'] for item in items)})
     for item in items:
         item['fullname'] = ' '.join(filter(None, comment_fullnames[item['email']][::-1]))
     return items

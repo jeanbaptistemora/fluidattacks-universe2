@@ -1,5 +1,5 @@
 
-from typing import Any, List
+from typing import Dict, List
 from botocore.exceptions import ClientError
 import rollbar
 
@@ -8,7 +8,7 @@ from backend.dal.helpers import dynamodb
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
-def add_finding_comment_dynamo(finding_id: str, email: str, comment_data: Any) -> bool:
+def add_finding_comment_dynamo(finding_id: str, email: str, comment_data: Dict[str, str]) -> bool:
     """ Add a comment in a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_comments')
     resp = False
@@ -27,8 +27,8 @@ def add_finding_comment_dynamo(finding_id: str, email: str, comment_data: Any) -
     return resp
 
 
-def weekly_report_dynamo(init_date: str, finish_date: str, registered_users: List[Any],
-                         logged_users: List[Any], companies: List[Any]) -> bool:
+def weekly_report_dynamo(init_date: str, finish_date: str, registered_users: List[str],
+                         logged_users: List[str], companies: List[str]) -> bool:
     """ Save the number of registered and logged users weekly. """
     table = DYNAMODB_RESOURCE.Table('FI_weekly_report')
     resp = False

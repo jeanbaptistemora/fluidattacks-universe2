@@ -1,5 +1,5 @@
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
@@ -12,11 +12,13 @@ TABLE = 'FI_users'
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 
+UserType = Dict[str, Union[str, List[str]]]
 
-def get_admins() -> List[Any]:
+
+def get_admins() -> List[str]:
     filter_exp = Attr('role').exists() & Attr('role').eq('admin')
     admins = get_all(filter_exp)
-    return [user.get('email') for user in admins]
+    return [user.get('email', '') for user in admins]
 
 
 def get_all_companies() -> List[str]:
@@ -26,14 +28,13 @@ def get_all_companies() -> List[str]:
     return list(set(companies))
 
 
-def get_all_inactive_users(final_date: str) -> List[Any]:
+def get_all_inactive_users(final_date: str) -> List[str]:
     filtering_exp = Attr('registered').exists() & \
         Attr('registered').eq(False) & \
         (Attr('last_login').not_exists() |
          (Attr('last_login').exists() & Attr('last_login').lte(final_date)))
     users = get_all(filtering_exp)
-    users_data = [user.get('email') for user in users]
-    return users_data
+    return [user.get('email', '') for user in users]
 
 
 def get_all_users(company_name: str) -> int:
@@ -58,7 +59,7 @@ def get_all_users_report(company_name: str, finish_date: str) -> int:
     return len(users_filtered)
 
 
-def get_all(filter_exp: Any, data_attr: str = '') -> List[Dict[str, Any]]:
+def get_all(filter_exp: object, data_attr: str = '') -> List[Dict[str, str]]:
     table = DYNAMODB_RESOURCE.Table(TABLE)
     scan_attrs = {}
     scan_attrs['FilterExpression'] = filter_exp
@@ -74,7 +75,7 @@ def get_all(filter_exp: Any, data_attr: str = '') -> List[Dict[str, Any]]:
     return items
 
 
-def get_attributes(email: str, attributes: List[str]) -> Dict[str, Any]:
+def get_attributes(email: str, attributes: List[str]) -> UserType:
     table = DYNAMODB_RESOURCE.Table(TABLE)
     items = {}
     try:
@@ -103,7 +104,7 @@ def remove_attribute(email: str, name_attribute: str) -> bool:
     return update(email.lower(), {name_attribute: None})
 
 
-def create(email: str, data: Any) -> bool:
+def create(email: str, data: UserType) -> bool:
     resp = False
     table = DYNAMODB_RESOURCE.Table(TABLE)
     try:
@@ -188,7 +189,7 @@ def get_projects(user_email: str, active: bool) -> List[str]:
     return projects_filtered
 
 
-def get_platform_users() -> List[Dict[str, Any]]:
+def get_platform_users() -> List[Dict[str, UserType]]:
     filter_exp = Attr('has_access').eq(True) \
         & Not(Attr('user_email').contains('@fluidattacks.com')) \
         & Not(Attr('project_name').is_in(FI_TEST_PROJECTS.split(',')))
