@@ -16,6 +16,8 @@ in
       builders.pythonPackage "codecov==2.0.16";
     pyPkgIntegratesBack =
       builders.pythonPackageLocal ../django-apps/integrates-back;
+    pyExtraPkgIntegratesBackAsync =
+        builders.pythonPackageLocal ../django-apps/integrates-back-async;
     pyPkgMandrill =
       builders.pythonPackage "mandrill-really-maintained==1.2.4";
     pyPkgReqsDevelopment =

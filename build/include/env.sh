@@ -60,6 +60,24 @@ function env_prepare_python_packages {
   done < "${TEMP_FILE1}"
 }
 
+function env_prepare_python_extra_packages {
+  export PATH
+  export PYTHONPATH
+  local pkg
+
+  echo '[INFO] Preparing python packages'
+
+  helper_list_vars_with_regex 'pyExtraPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+
+  while read -r pkg
+  do
+    echo "  [${pkg}] ${!pkg}"
+    PATH="${PATH}:${!pkg}/site-packages/bin"
+    PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
+  done < "${TEMP_FILE1}"
+}
+
+
 function env_prepare_nodejs_modules {
   export NODE_PATH
   local module

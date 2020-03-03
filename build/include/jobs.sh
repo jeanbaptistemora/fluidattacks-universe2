@@ -5,6 +5,7 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcExternalSops}"
 source "${srcCiScriptsHelpersSops}"
+source "${srcEnv}"
 
 function job_build_django_apps {
   local app
@@ -505,7 +506,7 @@ function job_test_back {
         --maxfail='20' \
         --cov='fluidintegrates' \
         --cov='app' \
-        --cov="${pyPkgIntegratesBack}/site-packages/back-end" \
+        --cov="${pyPkgIntegratesBack}/site-packages/backend" \
         --cov-report='term' \
         --cov-report='html:build/coverage/html' \
         --cov-report='xml:build/coverage/results.xml' \
@@ -513,6 +514,22 @@ function job_test_back {
         --disable-warnings \
         'test' \
   &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
+  &&  env_prepare_python_extra_packages \
+  &&  pytest \
+        -n auto \
+        --ds='fluidintegrates.settings' \
+        --dist='loadscope' \
+        --verbose \
+        --maxfail='20' \
+        --cov='fluidintegrates' \
+        --cov='app' \
+        --cov="${pyExtraPkgIntegratesBackAsync}/site-packages/backend" \
+        --cov-report='term' \
+        --cov-report='html:build/coverage/html' \
+        --cov-report='xml:build/coverage/results.xml' \
+        --cov-report='annotate:build/coverage/annotate' \
+        --disable-warnings \
+        'test_async' \
   &&  {
         kill_processes
         return 0
