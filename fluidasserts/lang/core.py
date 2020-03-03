@@ -681,3 +681,40 @@ def has_vulnerable_dependencies(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def use_insecure_methods(code_dest: str,
+                         method: str,
+                         use_regex: bool = False,
+                         exclude: list = None,
+                         lang_specs: dict = None):
+    """
+    Check if the code uses insecure methods.
+
+    The use of insecure methods can generate security breaches that can be
+    exploited by attackers who are aware of the vulnerabilities of the methods.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param method: Method to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(method) if use_regex else Literal(method)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Insecure methods are present.',
+            CLOSED: 'There are no insecure methods present.',
+        },
+        spec=lang_specs,
+        excl=exclude)

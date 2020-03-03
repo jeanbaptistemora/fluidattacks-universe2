@@ -160,9 +160,21 @@ def test_has_vulnerable_dependencies_open():
         'test/static/sca/maven/open/pom.xml', '<id>Jboss</id>').is_open()
 
 
+def test_use_insecure_methods_open():
+    """Test if code has patterns that generate code injections."""
+    assert core.use_insecure_methods(
+        JAVA_BAD, 'des.doFinal(input.getBytes("UTF-8"));').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_use_insecure_methods_close():
+    """Test if code has patterns that generate code injections."""
+    assert core.use_insecure_methods(
+        JAVA_GOOD, 'des.doFinal(input.getBytes("UTF-8"));').is_closed()
 
 
 def test_has_vulnerable_dependencies_close():
