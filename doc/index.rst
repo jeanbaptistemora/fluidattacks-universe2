@@ -219,13 +219,13 @@ you have to:
 
 As commit messages must follow a
 `standard <https://gitlab.com/fluidattacks/continuous/wikis/Commit-and-MR-Messages>`_,
-The ``evaluated-so-far.py`` script automatically generates
+The ``evaluated_so_far.py`` script automatically generates
 a valid commit message based on chages made
 to the ``lines.csv`` and ``inputs.csv`` files during tests.
 
 .. code:: bash
 
-  user@PC:~/continuous/subscriptions/subscription$ ../../tools/evaluated-so-far.py
+  user@PC:~/continuous/subscriptions/subscription$ ../../tools3/evaluated_so_far.py
 
 
 ++++++++++++++
