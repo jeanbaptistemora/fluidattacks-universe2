@@ -52,7 +52,7 @@ describe("ForcesView", () => {
       },
       result: {
         data: {
-          breakBuildExecutions: {
+          forcesExecutions: {
             executions: [
               {
                 date: "2020-02-19T19:31:18+00:00",

@@ -289,8 +289,8 @@ forces_static:
   script:
     - bash <(docker run fluidattacks/break-build
               --static
-              --id ${BREAK_BUILD_ID}
-              --secret ${BREAK_BUILD_SECRET}
+              --id ${FORCES_ID}
+              --secret ${FORCES_SECRET}
               --gitlab-docker-socket-binding
              ) || true
   except:
@@ -401,8 +401,8 @@ forces_dynamic:
   script:
     - bash <(docker run fluidattacks/break-build
               --dynamic
-              --id ${BREAK_BUILD_ID}
-              --secret ${BREAK_BUILD_SECRET}
+              --id ${FORCES_ID}
+              --secret ${FORCES_SECRET}
               --gitlab-docker-socket-binding
              )
   interruptible: true

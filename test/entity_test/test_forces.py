@@ -12,7 +12,7 @@ from jose import jwt
 from backend.api.schema import SCHEMA
 
 
-class BreakBuildExecutionsTests(TestCase):
+class ForcesExecutionsTests(TestCase):
 
     def _get_result(self, query, testing_client):
         request = RequestFactory().get('/')
@@ -43,7 +43,7 @@ class BreakBuildExecutionsTests(TestCase):
         valid_project_name = 'unittesting'
         query = f'''
           query {{
-            breakBuildExecutions(
+            forcesExecutions(
                 projectName: "{valid_project_name}",
             ) {{
               projectName
@@ -53,14 +53,14 @@ class BreakBuildExecutionsTests(TestCase):
         testing_client = Client(SCHEMA)
         result = self._get_result(query, testing_client)
         assert not result.get('errors')
-        assert result['data']['breakBuildExecutions']['projectName'] \
+        assert result['data']['forcesExecutions']['projectName'] \
             == valid_project_name
 
     def test_executions(self):
         project_name = 'unittesting'
         query = """
           query {
-            breakBuildExecutions(
+            forcesExecutions(
                 projectName: "unittesting",
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
@@ -103,7 +103,7 @@ class BreakBuildExecutionsTests(TestCase):
         """
         testing_client = Client(SCHEMA)
         result = self._get_result(query, testing_client)
-        executions = result['data']['breakBuildExecutions']['executions']
+        executions = result['data']['forcesExecutions']['executions']
 
         assert not result.get('errors')
 

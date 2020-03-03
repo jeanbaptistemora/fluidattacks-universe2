@@ -30,12 +30,12 @@ type Query {
     "Project entity"
     project(project_name: String!): Project
 
-    "Get BreakBuild executions"
-    break_build_executions(
+    "Get Forces executions"
+    forces_executions(
         project_name: String!,
         from_date: String,
         to_date: String
-    ): BreakBuildExecutions
+    ): ForcesExecutions
 
     "Me entity"
     me: Me

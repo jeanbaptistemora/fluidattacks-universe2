@@ -2,4 +2,4 @@
 
 from ariadne import ObjectType
 
-BREAK_BUILD_EXECUTIONS = ObjectType('BreakBuildExecutions')
+FORCES_EXECUTIONS = ObjectType('ForcesExecutions')

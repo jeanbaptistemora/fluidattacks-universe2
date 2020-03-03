@@ -129,12 +129,12 @@ type Project {
     user_deletion: String
 }
 
-"BreakBuildExecutions type definition"
-type BreakBuildExecutions {
+"ForcesExecutions type definition"
+type ForcesExecutions {
     project_name: String!
     from_date: String
     to_date: String
-    executions: [BreakBuildExecution]
+    executions: [ForcesExecution]
 }
 
 "Me type definition"
@@ -182,7 +182,7 @@ type Vulnerabilities {
     verification: String
 }
 
-type BreakBuildExecution {
+type ForcesExecution {
     project_name: String
     identifier: String
     date: DateTime

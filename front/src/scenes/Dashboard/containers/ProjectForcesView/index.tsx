@@ -247,7 +247,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
             return <React.Fragment />;
           }
           if (!_.isUndefined(data)) {
-            const executions: IExecution[] = data.breakBuildExecutions.executions.map((execution: IExecution) => {
+            const executions: IExecution[] = data.forcesExecutions.executions.map((execution: IExecution) => {
               const date: string = formatDate(execution.date);
               const kind: string = toTitleCase(translate.t(
                 execution.kind === "static" ? "project.forces.kind.static" : "project.forces.kind.dynamic"));

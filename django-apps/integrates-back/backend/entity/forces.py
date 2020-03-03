@@ -10,7 +10,7 @@ from graphene import DateTime, Int, Field, List, ObjectType, String
 
 # Local libraries
 from backend.util import get_current_time_minus_delta
-from backend.dal import break_build as break_build_dal
+from backend.dal import forces as forces_dal
 
 # pylint: disable=super-init-not-called
 # pylint: disable=too-many-instance-attributes
@@ -67,8 +67,8 @@ class Vulnerabilities(ObjectType):
             vulnerability_count_accepted_exploits
 
 
-class BreakBuildExecution(ObjectType):
-    """ GraphQL Entity for a Break Build Execution """
+class ForcesExecution(ObjectType):
+    """ GraphQL Entity for a Forces Execution """
     project_name = String()
     identifier = String()
     date = DateTime()
@@ -111,15 +111,15 @@ class BreakBuildExecution(ObjectType):
             Vulnerabilities(**vulnerabilities)
 
     def __str__(self):
-        return f'BreakBuildExecution({self.project_name}, {self.identifier})'
+        return f'ForcesExecution({self.project_name}, {self.identifier})'
 
 
-class BreakBuildExecutions(ObjectType):
-    """ GraphQL Entity for the Break Build Executions """
+class ForcesExecutions(ObjectType):
+    """ GraphQL Entity for the Forces Executions """
     project_name = String()
     from_date = DateTime()
     to_date = DateTime()
-    executions = List(BreakBuildExecution)
+    executions = List(ForcesExecution)
 
     def __init__(self,
                  project_name: str,
@@ -132,7 +132,7 @@ class BreakBuildExecutions(ObjectType):
             to_date or datetime.utcnow()
 
     def __str__(self):
-        return f'BreakBuildExecutions({self.project_name})'
+        return f'ForcesExecutions({self.project_name})'
 
     def resolve_project_name(self, info):
         """ Resolve project_name """
@@ -153,12 +153,12 @@ class BreakBuildExecutions(ObjectType):
         """ Resolve executions """
         del info
 
-        executions_iterator = break_build_dal.yield_executions(
+        executions_iterator = forces_dal.yield_executions(
             project_name=self.project_name,
             from_date=self.from_date,
             to_date=self.to_date)
 
         return [
-            BreakBuildExecution(**execution)
+            ForcesExecution(**execution)
             for execution in executions_iterator
         ]

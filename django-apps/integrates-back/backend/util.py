@@ -28,9 +28,9 @@ from backend.exceptions import (InvalidAuthorization, InvalidDate,
                                 InvalidDateFormat)
 from __init__ import (
     FI_ENVIRONMENT,
-    BREAK_BUILD_TRIGGER_URL,
-    BREAK_BUILD_TRIGGER_REF,
-    BREAK_BUILD_TRIGGER_TOKEN
+    FORCES_TRIGGER_URL,
+    FORCES_TRIGGER_REF,
+    FORCES_TRIGGER_TOKEN
 )
 
 logging.config.dictConfig(settings.LOGGING)  # type: ignore
@@ -384,7 +384,7 @@ def is_valid_format(date: str) -> bool:
     return resp
 
 
-def break_build_trigger_deployment(project_name: str) -> bool:
+def forces_trigger_deployment(project_name: str) -> bool:
     success = False
 
     exceptions = (
@@ -403,14 +403,14 @@ def break_build_trigger_deployment(project_name: str) -> bool:
     )
 
     parameters = {
-        'ref': BREAK_BUILD_TRIGGER_REF,
-        'token': BREAK_BUILD_TRIGGER_TOKEN,
+        'ref': FORCES_TRIGGER_REF,
+        'token': FORCES_TRIGGER_TOKEN,
         'variables[subs]': project_name,
     }
 
     try:
         requests.post(
-            url=BREAK_BUILD_TRIGGER_URL,
+            url=FORCES_TRIGGER_URL,
             files={
                 param: (None, value) for param, value in list(parameters.items())
             })

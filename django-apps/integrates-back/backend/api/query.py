@@ -14,7 +14,7 @@ from backend.decorators import (
 from backend.domain import project as project_domain
 from backend.entity.me import Me
 from backend.entity.alert import Alert
-from backend.entity.break_build import BreakBuildExecutions
+from backend.entity.forces import ForcesExecutions
 from backend.entity.event import Event
 from backend.entity.resource import Resource
 from backend.entity.user import User
@@ -53,10 +53,10 @@ class Query(ObjectType):
 
     project = Field(Project, project_name=String(required=True))
 
-    break_build_executions = Field(BreakBuildExecutions,
-                                   project_name=String(required=True),
-                                   from_date=DateTime(required=False),
-                                   to_date=DateTime(required=False))
+    forces_executions = Field(ForcesExecutions,
+                              project_name=String(required=True),
+                              from_date=DateTime(required=False),
+                              to_date=DateTime(required=False))
 
     # pylint: disable=invalid-name
     me = Field(Me)
@@ -73,15 +73,15 @@ class Query(ObjectType):
     @require_login
     @enforce_authz
     @require_project_access
-    def resolve_break_build_executions(
+    def resolve_forces_executions(
             self, info,
             project_name: str,
             from_date: datetime = None,
             to_date: datetime = None):
-        """Resolve for break build execution."""
+        """Resolve for forces executions."""
         del info
         project_name = project_name.lower()
-        return BreakBuildExecutions(project_name, from_date, to_date)
+        return ForcesExecutions(project_name, from_date, to_date)
 
     @require_login
     @enforce_authz

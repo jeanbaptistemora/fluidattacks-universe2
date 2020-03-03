@@ -13,7 +13,7 @@ from backend.api.entity.internal_project import INTERNAL_PROJECT_NAME
 from backend.api.entity.resource import RESOURCE
 from backend.api.entity.user import USER
 from backend.api.entity.project import PROJECT
-from backend.api.entity.break_build import BREAK_BUILD_EXECUTIONS
+from backend.api.entity.forces import FORCES_EXECUTIONS
 from backend.api.entity.me import ME
 from backend.api.scalars import datetime, jsonstring, genericscalar
 
@@ -27,11 +27,11 @@ SCHEMA = make_executable_schema(
         ALERT,
         EVENT,
         FINDING,
+        FORCES_EXECUTIONS,
         INTERNAL_PROJECT_NAME,
         RESOURCE,
         USER,
         PROJECT,
-        BREAK_BUILD_EXECUTIONS,
         ME,
         datetime.DATETIME_SCALAR,
         jsonstring.JSON_STRING_SCALAR,

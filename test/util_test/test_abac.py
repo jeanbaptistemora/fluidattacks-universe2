@@ -78,7 +78,7 @@ class ActionAbacTest(TestCase):
     global_actions = {
         'backend_api_query_Query_resolve_resources',
         'backend_api_query_Query_resolve_alert',
-        'backend_api_query_Query_resolve_break_build_executions',
+        'backend_api_query_Query_resolve_forces_executions',
         'backend_api_query_Query_resolve_project',
         'backend_api_query_Query_resolve_finding',
         'backend_api_query_Query_resolve_event',
@@ -142,7 +142,7 @@ class ActionAbacTest(TestCase):
     analyst_allowed_actions = {
         'backend_api_query_Query_resolve_resources',
         'backend_api_query_Query_resolve_alert',
-        'backend_api_query_Query_resolve_break_build_executions',
+        'backend_api_query_Query_resolve_forces_executions',
         'backend_api_query_Query_resolve_project',
         'backend_api_query_Query_resolve_finding',
         'backend_api_query_Query_resolve_event',
@@ -183,7 +183,7 @@ class ActionAbacTest(TestCase):
     customer_allowed_actions = {
         'backend_api_query_Query_resolve_resources',
         'backend_api_query_Query_resolve_alert',
-        'backend_api_query_Query_resolve_break_build_executions',
+        'backend_api_query_Query_resolve_forces_executions',
         'backend_api_query_Query_resolve_project',
         'backend_api_query_Query_resolve_finding',
         'backend_api_query_Query_resolve_event',
