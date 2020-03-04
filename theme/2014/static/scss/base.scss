@@ -143,6 +143,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .fheader-s { font-size: 4rem; }
   .cover-s { background-size: cover; }
   .shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
+  .w-100-s { width: 100%; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -170,6 +171,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .h-menu { height: 9rem; }
   .fheader-l { font-size: 7.5rem; }
   .bg-banner-sz { background-size: 100% 100%; }
+  .w-15-l { width: 15%; }
 }
 
 //Very large screens

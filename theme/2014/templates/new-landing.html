@@ -39,13 +39,49 @@
 
 <div class="mw9 center h6">
   <div class="tl">
-    <h1 class="center roboto w-100 tl-l tc ph5">
+    <h1 class="center roboto w-100 tl-l tc ph5-ns ph3 f2-ns f4">
       How Continuous Hacking Works
     </h1>
   </div>
-  <div class="flex flex-wrap pl3-l pr0-l">
-    <div class="fixes w-80-l w-100 mh0-l ph3-l center">
-      <ul class="list fl-l w-auto-l w-50-m w-100 pl0 center">
+  <div class="pl3-l pr0-l dib w-100">
+    <div class="ph4-l pt6-l w-15-l w-100-s tc h-auto-l h3 mw9-m w-100-m fr-l">
+      <ul class="list pl0 tl-l tc">
+        <li class="ph2 db-l di ph2">
+          <input type="radio" id="op1" class="dn" name="menu1" checked />
+          <label class="index1 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op1">
+            <img
+            class="line-menu w2-l w1 fl nl4 pt3 pr2 relative"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+            alt="{{ gettext('Header-img-alt') }}">1. Fixes</label>
+        </li>
+        <li class="ph2 db-l di ph2">
+          <input type="radio" id="op2" class="dn" name="menu1"/>
+          <label class="index2 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op2">
+            <img
+            class="line-menu w2-l w1 fl nl4 pt3 pr2 relative"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+            alt="{{ gettext('Header-img-alt') }}">2. Skims</label>
+        </li>
+        <li class="ph2 db-l di ph2">
+          <input type="radio" id="op3" class="dn" name="menu1"/>
+          <label class="index3 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op3">
+            <img
+            class="line-menu w2-l w1 fl nl4 pt3 pr2 relative"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+            alt="{{ gettext('Header-img-alt') }}">3. Drills</label>
+        </li>
+        <li class="ph2 db-l di ph2">
+          <input type="radio" id="op4" class="dn" name="menu1"/>
+          <label class="index4 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op4">
+            <img
+            class="line-menu w2-l w1 fl nl4 pt3 pr2 relative"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+            alt="{{ gettext('Header-img-alt') }}">4. Forces</label>
+        </li>
+      </ul>
+    </div>
+    <div class="fixes w-80-l w-100 mh0-l ph3-l center fl">
+      <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
         <li>
           <h2 class="roboto fw4">
             Fixes
@@ -57,26 +93,26 @@
           </h3>
         </li>
         <li>
-          <p class="roboto fw1">
-            Fixes is a platform that stores vulnerabilities and gives<br>
-            you access to their evidence in different phases and in<br>
-            real-time. You can easily and quickly classify and<br>
-            prioritize them, define their treatments, and check the<br>
+          <p class="roboto fw1 tl f5-ns f7 lh-2">
+            Fixes is a platform that stores vulnerabilities and gives
+            you access to their evidence in different phases and in
+            real-time. You can easily and quickly classify and
+            prioritize them, define their treatments, and check the
             status and progress of their remediation.
           </p>
         </li>
       </ul>
-      <ul class="list fr center w-50-m pl0">
+      <ul class="list fr center w-50-l w-100 pl0-l">
         <li>
           <img
-          class="fr-l w-image"
+          class="fr overflow-hidden nr0-ns nr5"
           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-fixes.png"
           alt="{{ gettext('Header-img-alt') }}">
         </li>
       </ul>
     </div>
-    <div class="skims w-80-l w-100 mh0-l ph3-l center dn">
-      <ul class="list fl-l w-auto-l w-50-m w-100 pl0 center">
+    <div class="skims w-80-l w-100 mh0-l ph3-l center dn fl">
+      <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
         <li>
           <h2 class="roboto fw4">
             Skims
@@ -89,28 +125,28 @@
           </h3>
         </li>
         <li>
-          <p class="roboto fw1">
-            Look for deterministic and peripheral vulnerabilities.<br>
-            Skims helps in the construction of exploits that break the<br>
-            build. It is executable in phases of pre-commit,<br>
-            CI time and post-deploy (CI compatible).<br>
-            Skims works for code (SAST), applications (DAST),<br>
-            infrastructure and cloud (AWS, Azure)<br>
+          <p class="roboto fw1 tl f5-ns f7 lh-2">
+            Look for deterministic and peripheral vulnerabilities.
+            Skims helps in the construction of exploits that break the
+            build. It is executable in phases of pre-commit,
+            CI time and post-deploy (CI compatible).
+            Skims works for code (SAST), applications (DAST),
+            infrastructure and cloud (AWS, Azure)
             and can be executed unlimited times.
           </p>
         </li>
       </ul>
-      <ul class="list fr center w-50-m pl0">
+      <ul class="list fr center w-50-l w-100 pl0-l">
         <li>
           <img
-          class="fr-l w-image"
+          class="fr overflow-hidden nr0-ns nr5"
           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-skims.png"
           alt="{{ gettext('Header-img-alt') }}">
         </li>
       </ul>
     </div>
-    <div class="drills w-80-l w-100 mh0-l ph3-l center dn">
-      <ul class="list fl-l w-auto-l w-50-m w-100 pl0 center">
+    <div class="drills w-80-l w-100 mh0-l ph3-l center dn fl">
+      <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
         <li>
           <h2 class="roboto fw4">
             Drills
@@ -122,25 +158,25 @@
           </h3>
         </li>
         <li>
-          <p class="roboto fw1">
-            Drills, through human creativity and intelligence, finds<br>
-            deep and zero-day vulnerabilities during software<br>
-            development. Forget about false positives and get detailed<br>
+          <p class="roboto fw1 tl f5-ns f7 lh-2">
+            Drills, through human creativity and intelligence, finds
+            deep and zero-day vulnerabilities during software
+            development. Forget about false positives and get detailed
             evidence, accurate attack vectors, and log extraction.
           </p>
         </li>
       </ul>
-      <ul class="list fr center w-50-m pl0">
+      <ul class="list fr center w-50-l w-100 pl0-l">
         <li>
           <img
-          class="fr-l w-image"
+          class="fr overflow-hidden nr0-ns nr5"
           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-drills.png"
           alt="{{ gettext('Header-img-alt') }}">
         </li>
       </ul>
     </div>
-    <div class="forces w-80-l w-100 mh0-l ph3-l center dn">
-      <ul class="list fl-l w-auto-l w-50-m w-100 pl0 center">
+    <div class="forces w-80-l w-100 mh0-l ph3-l center dn fl">
+      <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
         <li>
           <h2 class="roboto fw4">
             Forces
@@ -152,57 +188,21 @@
           </h3>
         </li>
         <li>
-          <p class="roboto fw1">
-            Forces, making use of human skills for the creation of<br>
-            exploits, breaks your build to force remediation of<br>
-            confirmed deep vulnerabilities, re-opened vulnerabilities,<br>
-            and new peripheral vulnerabilities.<br>
+          <p class="roboto fw1 tl f5-ns f7 lh-2">
+            Forces, making use of human skills for the creation of
+            exploits, breaks your build to force remediation of
+            confirmed deep vulnerabilities, re-opened vulnerabilities,
+            and new peripheral vulnerabilities.
             It can also verify your post-deploy production status.
           </p>
         </li>
       </ul>
-      <ul class="list fr center w-50-m pl0">
+      <ul class="list fr center w-50-l w-100 pl0-l">
         <li>
           <img
-          class="fr-l w-image"
+          class="fr overflow-hidden nr0-ns nr5"
           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-forces.png"
           alt="{{ gettext('Header-img-alt') }}">
-        </li>
-      </ul>
-    </div>
-    <div class="ph4 pt6-l">
-      <ul class="list pl0 fr">
-        <li>
-          <input type="radio" id="op1" class="dn" name="menu1" checked />
-          <label class="index1 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op1">
-            <img
-            class="line-menu w2 fl nl4 pt3 pr2 relative"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="{{ gettext('Header-img-alt') }}">1. Fixes</label>
-        </li>
-        <li>
-          <input type="radio" id="op2" class="dn" name="menu1"/>
-          <label class="index2 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op2">
-            <img
-            class="line-menu w2 fl nl4 pt3 pr2 relative"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="{{ gettext('Header-img-alt') }}">2. Skims</label>
-        </li>
-        <li>
-          <input type="radio" id="op3" class="dn" name="menu1"/>
-          <label class="index3 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op3">
-            <img
-            class="line-menu w2 fl nl4 pt3 pr2 relative"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="{{ gettext('Header-img-alt') }}">3. Drills</label>
-        </li>
-        <li>
-          <input type="radio" id="op4" class="dn" name="menu1"/>
-          <label class="index4 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op4">
-            <img
-            class="line-menu w2 fl nl4 pt3 pr2 relative"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="{{ gettext('Header-img-alt') }}">4. Forces</label>
         </li>
       </ul>
     </div>
