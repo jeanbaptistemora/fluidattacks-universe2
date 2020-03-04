@@ -3,6 +3,7 @@
 from ariadne import ObjectType
 
 from backend.api.entity.query import QUERY
+from backend.domain import alert as alert_domain
 
 ALERT = ObjectType('Alert')
 
@@ -23,16 +24,9 @@ class Alert():
         """ Class constructor """
         self.message, self.project = "", ""
         self.organization, self.status = "", 0
-        resp = [
-            {
-                'message': 'unittest',
-                'project_name': 'unittesting',
-                'company_name': 'fluid',
-                'status_act': 0
-            }
-        ]
+        resp = alert_domain.get_company_alert(organization, project_name)
         # Mock response
-        if resp and project_name and organization:
+        if resp:
             self.message = resp[0]['message']
             self.project = resp[0]['project_name']
             self.organization = resp[0]['company_name']

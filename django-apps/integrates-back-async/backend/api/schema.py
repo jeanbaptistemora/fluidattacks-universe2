@@ -25,21 +25,19 @@ TYPE_DEFS = load_schema_from_path(os.path.join(BASE_DIR, 'api', 'schemas'))
 
 SCHEMA = make_executable_schema(
     TYPE_DEFS,
-    [
-        QUERY,
-        ALERT,
-        EVENT,
-        FINDING,
-        FORCES_EXECUTIONS,
-        INTERNAL_PROJECT_NAME,
-        RESOURCE,
-        USER,
-        PROJECT,
-        ME,
-        datetime.DATETIME_SCALAR,
-        jsonstring.JSON_STRING_SCALAR,
-        genericscalar.GENERIC_SCALAR,
-        upload_scalar
-    ],
+    QUERY,
+    ALERT,
+    EVENT,
+    FINDING,
+    FORCES_EXECUTIONS,
+    INTERNAL_PROJECT_NAME,
+    RESOURCE,
+    USER,
+    PROJECT,
+    ME,
+    datetime.DATETIME_SCALAR,
+    jsonstring.JSON_STRING_SCALAR,
+    genericscalar.GENERIC_SCALAR,
+    upload_scalar,
     snake_case_fallback_resolvers
 )

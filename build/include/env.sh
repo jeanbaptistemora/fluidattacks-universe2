@@ -77,6 +77,12 @@ function env_prepare_python_extra_packages {
     # shellcheck disable=SC2001
     PYTHONPATH=$(echo "${PYTHONPATH}" |  sed -e 's|:[a-z0-9/]\+-python-package-local/site-packages:||g')
   done < "${TEMP_FILE1}"
+  for cursrc in dal decorators.py domain exceptions.py mailer.py \
+        scheduler.py services.py util.py utils; do
+    echo "  [MIGRATION] Copying ${cursrc}..."
+    cp -a "${pyPkgIntegratesBack}"/site-packages/backend/${cursrc} \
+        "${pyExtraPkgIntegratesBackAsync}"/site-packages/backend/
+    done
 }
 
 
