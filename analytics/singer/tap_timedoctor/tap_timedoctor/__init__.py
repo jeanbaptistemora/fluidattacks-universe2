@@ -5,6 +5,7 @@ import sys
 import json
 import argparse
 import datetime
+import unicodedata
 
 from typing import Tuple, List, Any
 
@@ -19,12 +20,15 @@ _TYPE_NUMBER: JSON = {"type": "number"}
 _TYPE_DATE: JSON = {"type": "string", "format": "date-time"}
 
 
-def standard_name(name: str) -> str:
+def standard_name(name: Any):
     """Remove heading and trailing whitespaces.
 
-    Puts exactly one space between words.
+    Puts exactly one space between words and get rid of ñ and accent marks.
     """
-    return " ".join(name.split())
+    unic = unicodedata.normalize
+    std = " ".join(name.split())
+    std = (unic('NFKD', std).encode('ASCII', 'ignore')).lower().decode('utf-8')
+    return std
 
 
 def get_users_list(timedoctor_users_str: str) -> List[Tuple[str, str]]:
@@ -295,11 +299,9 @@ def main():
     # get the id of all users in the company
     (status_code, response) = api_worker.get_users(company_id)
     ensure_200(status_code)
-    users_list: List[Tuple[str, str]] = get_users_list(response)
 
     # sync
     sync_worklogs(api_worker, company_id)
-    sync_computer_activity(api_worker, company_id, users_list)
 
 
 if __name__ == "__main__":
