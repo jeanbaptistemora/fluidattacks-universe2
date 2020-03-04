@@ -22,3 +22,6 @@ parser-preset.js
 
 # Webpack
 theme/2014/static/js/tmp/
+
+# Terraform
+.terraform
