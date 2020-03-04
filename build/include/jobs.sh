@@ -79,6 +79,28 @@ function job_coverage_report {
   &&  codecov
 }
 
+function job_clean_registries {
+  local registry_name='deps-production'
+  local registry_id
+
+  if helper_is_today_first_day_of_month
+  then
+        echo '[INFO] Cleaning registries' \
+    &&  CI_COMMIT_REF_NAME='master' aws_login 'production' \
+    &&  sops_env 'secrets-production.yaml' 'default' \
+          GITLAB_API_TOKEN \
+    &&  echo "[INFO] Computing registry ID for: ${registry_name}" \
+    &&  registry_id=$(helper_get_gitlab_registry_id "${registry_name}") \
+    &&  echo "[INFO] Deleting registry ID: ${registry_id}" \
+    &&  curl "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/registry/repositories/${registry_id}" \
+          --request 'DELETE' \
+          --header "private-token: ${GITLAB_API_TOKEN}"
+  else
+        echo '[INFO] Skipping, this is only meant to be run on first of each month' \
+    &&  return 0
+  fi
+}
+
 function job_deploy_container_nix_cache {
   local context='.'
   local dockerfile='build/Dockerfile'
@@ -709,7 +731,7 @@ function job_deploy_back {
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  kubectl config \
         set-context "$(kubectl config current-context)" \
-        --namespace="${CI_PROJECT_NAME}" \
+        --namespace='serves' \
   &&  echo '[INFO] Computing environment variables' \
   &&  B64_AWS_ACCESS_KEY_ID=$(
         echo -n "${AWS_ACCESS_KEY_ID}" | base64 --wrap=0) \

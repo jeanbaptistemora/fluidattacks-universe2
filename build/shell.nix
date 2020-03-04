@@ -16,12 +16,6 @@ in
       builders.pythonPackage "codecov==2.0.16";
     pyPkgIntegratesBack =
       builders.pythonPackageLocal ../django-apps/integrates-back;
-    pyExtraPkgIntegratesBackAsync =
-        builders.pythonPackageLocal ../django-apps/integrates-back-async;
-    pyExtraPkgAriadne =
-      builders.pythonPackage "ariadne==0.10.0";
-    pyExtraPkgGraphql =
-      builders.pythonPackage "graphql-core==3.0.3";
     pyPkgMandrill =
       builders.pythonPackage "mandrill-really-maintained==1.2.4";
     pyPkgReqsDevelopment =
@@ -30,6 +24,13 @@ in
       builders.pythonRequirements ../deploy/containers/deps-production/requirements.txt;
     pyPkgUvicorn =
       builders.pythonPackage "uvicorn==0.11.3";
+
+    pyExtraPkgAriadne =
+      builders.pythonPackage "ariadne==0.10.0";
+    pyExtraPkgGraphql =
+      builders.pythonPackage "graphql-core==3.0.3";
+    pyExtraPkgIntegratesBackAsync =
+      builders.pythonPackageLocal ../django-apps/integrates-back-async;
 
     srcCiScriptsHelpersOthers = ../ci-scripts/helpers/others.sh;
     srcCiScriptsHelpersSops = ../ci-scripts/helpers/sops.sh;

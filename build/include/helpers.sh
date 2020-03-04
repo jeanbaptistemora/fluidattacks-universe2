@@ -84,8 +84,19 @@ function helper_get_gitlab_var {
       | jq -r '.value'
 }
 
+function helper_get_gitlab_registry_id {
+  local registry_name="${1}"
+
+  wget -O - "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/registry/repositories" \
+    | jq ".[] | select (.name == \"${registry_name}\") | .id"
+}
+
 function helper_is_today_wednesday {
   test "$(date +%A)" == 'Wednesday'
+}
+
+function helper_is_today_first_day_of_month {
+  test "$(date +%d)" == '01'
 }
 
 function helper_list_declared_jobs {
@@ -103,9 +114,8 @@ function helper_set_dev_secrets {
   export AWS_SECRET_ACCESS_KEY
   export AWS_DEFAULT_REGION
 
-      JWT_TOKEN=$(helper_get_gitlab_var JWT_TOKEN) \
-  &&  AWS_ACCESS_KEY_ID=$(helper_get_gitlab_var DEV_AWS_ACCESS_KEY_ID) \
-  &&  AWS_SECRET_ACCESS_KEY=$(helper_get_gitlab_var DEV_AWS_SECRET_ACCESS_KEY) \
+      AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
+  &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}" \
   &&  AWS_DEFAULT_REGION='us-east-1' \
   &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \

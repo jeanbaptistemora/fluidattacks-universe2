@@ -26,5 +26,6 @@ in
     pkgs.terraform
     pkgs.tflint
     pkgs.unzip
+    pkgs.wget
     pkgs.zip
   ]

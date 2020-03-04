@@ -121,6 +121,11 @@ coverage_report:
   stage: merge-request
   retry: 1
 
+clean_registries:
+  <<: *with_nix
+  <<: *in_schedule_nightly_build
+  stage: post-deploy
+
 deploy_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch
@@ -336,6 +341,25 @@ forces_static:
   interruptible: true
   <<: *in_dev_and_master_branch
 
+forces_dynamic:
+  stage: post-deploy
+  tags: [autoscaling]
+  needs: []
+  image:
+    name: fluidattacks/break-build
+    entrypoint: [""]
+  before_script:
+    - docker pull fluidattacks/break-build
+  script:
+    - bash <(docker run fluidattacks/break-build
+              --dynamic
+              --id ${FORCES_ID}
+              --secret ${FORCES_SECRET}
+              --gitlab-docker-socket-binding
+             )
+  interruptible: true
+  <<: *in_master_branch
+
 lint_commit_msg:
   stage: test-code
   tags: [autoscaling]
@@ -353,6 +377,8 @@ danger:
   script:
     - ./ci-scripts/jobs/danger.sh
   <<: *in_mrs
+
+### Jobs below are pending to migrate
 
 stop-ephemeral-app:
   stage: deploy-app
@@ -393,41 +419,3 @@ functional-tests:
     when: always
   interruptible: true
   <<: *in_dev_and_master_branch
-
-forces_dynamic:
-  stage: post-deploy
-  tags: [autoscaling]
-  needs: []
-  image:
-    name: fluidattacks/break-build
-    entrypoint: [""]
-  before_script:
-    - docker pull fluidattacks/break-build
-  script:
-    - bash <(docker run fluidattacks/break-build
-              --dynamic
-              --id ${FORCES_ID}
-              --secret ${FORCES_SECRET}
-              --gitlab-docker-socket-binding
-             )
-  interruptible: true
-  <<: *in_master_branch
-
-clean-registry-caches:
-  stage: post-deploy
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/clean-registry-caches.sh
-  <<: *in_schedule_nightly_build
-
-renew-review-certificate:
-  stage: post-deploy
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/renew-review-certificate.sh
-  environment:
-    name: "review/renew-review-cert"
-    auto_stop_in: 1 hour
-  <<: *in_schedule_nightly_build
