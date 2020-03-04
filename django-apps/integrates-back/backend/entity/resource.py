@@ -7,7 +7,10 @@
 from typing import Any, Dict, List as _List
 import rollbar
 from mixpanel import Mixpanel
-from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
+from graphene import (
+    Boolean, Field, InputObjectType, JSONString, List, Mutation, ObjectType,
+    String
+)
 from graphene_file_upload.scalars import Upload
 from django.conf import settings
 
@@ -108,6 +111,90 @@ An error occurred adding resource', 'error', info.context)
         ret = AddResources(success=success,
                            resources=Resource(project_name))
         return ret
+
+
+class RepositoryInput(InputObjectType):
+    branch = String(required=True)
+    protocol = String(required=True)
+    urlRepo = String(required=True)
+
+
+class AddRepositories(Mutation):
+    """Add repositories to a project."""
+
+    class Arguments:
+        repos = List(RepositoryInput, required=True)
+        project_name = String()
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @enforce_authz
+    @require_project_access
+    def mutate(_, info, repos: _List[Dict[str, str]],
+               project_name: str) -> object:
+        user_email = util.get_jwt_content(info.context)['user_email']
+        success = resources.create_resource(
+            repos, project_name, 'repository', user_email)
+
+        if success:
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Added repos to {project_name} project succesfully')
+            resources.send_mail(
+                project_name, user_email, repos, 'added', 'repository')
+        else:
+            rollbar.report_message(
+                'An error occurred adding repositories',
+                level='error',
+                payload_data=locals())
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Attempted to add repos to {project_name} project')
+
+        return AddRepositories(success=success)
+
+
+class EnvironmentInput(InputObjectType):
+    urlEnv = String(required=True)
+
+
+class AddEnvironments(Mutation):
+    """Add environments to a project."""
+
+    class Arguments:
+        envs = List(EnvironmentInput, required=True)
+        project_name = String()
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @enforce_authz
+    @require_project_access
+    def mutate(_, info, envs: _List[Dict[str, str]],
+               project_name: str) -> object:
+        user_email = util.get_jwt_content(info.context)['user_email']
+        success = resources.create_resource(
+            envs, project_name, 'environment', user_email)
+
+        if success:
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Added envs to {project_name} project succesfully')
+            resources.send_mail(
+                project_name, user_email, envs, 'added', 'environment')
+        else:
+            rollbar.report_message(
+                'An error occurred adding environments',
+                level='error',
+                payload_data=locals())
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Attempted to add envs to {project_name} project')
+
+        return AddRepositories(success=success)
 
 
 class UpdateResources(Mutation):

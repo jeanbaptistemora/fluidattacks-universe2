@@ -16,7 +16,7 @@ import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/index";
-import { ADD_RESOURCE_MUTATION, GET_ENVIRONMENTS, UPDATE_RESOURCE_MUTATION } from "../queries";
+import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_RESOURCE_MUTATION } from "../queries";
 import { IEnvironmentsAttr, IHistoricState } from "../types";
 
 interface IEnvironmentsProps {
@@ -36,7 +36,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_ENVIRONMENTS, { variables: { projectName: props.projectName } });
-  const [addEnvironments] = useMutation(ADD_RESOURCE_MUTATION, { onCompleted: refetch });
+  const [addEnvironments] = useMutation(ADD_ENVIRONMENTS_MUTATION, { onCompleted: refetch });
   const [updateEnvironments] = useMutation(UPDATE_RESOURCE_MUTATION, {
     onCompleted: (): void => {
       refetch()
@@ -81,9 +81,8 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
       closeAddModal();
       addEnvironments({
         variables: {
+          envs: values.resources,
           projectName: props.projectName,
-          resData: JSON.stringify(values.resources),
-          resType: "environment",
         },
       })
         .catch();

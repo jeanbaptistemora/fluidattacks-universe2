@@ -170,7 +170,7 @@ def download_file(file_info: str, project_name: str) -> str:
                     file_url, minutes_until_expire)
 
 
-def create_resource(res_data: List[Dict[str, Any]], project_name: str,
+def create_resource(res_data: List[Dict[str, str]], project_name: str,
                     res_type: str, user_email: str) -> bool:
     project_name = project_name.lower()
     if res_type == 'repository':

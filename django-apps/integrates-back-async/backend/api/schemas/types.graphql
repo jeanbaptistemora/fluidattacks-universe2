@@ -212,6 +212,20 @@ type ExploitResult {
     who: String
 }
 
+input EnvironmentInput {
+    "Environment URL"
+    urlEnv: String!
+}
+
+input RepositoryInput {
+    "Repository branch"
+    branch: String!
+    "Repository protocol for cloning"
+    protocol: String!
+    "Repository URL"
+    urlRepo: String!
+}
+
 enum DeleteVulnerabilityJustification {
     DUPLICATED
     FALSE_POSITIVE

@@ -6,11 +6,23 @@ type Mutation {
     ): UpdateAccessTokenPayload!
     invalidateAccessToken: SimplePayload!
 
+    addEnvironments(
+        project_name: String!,
+        envs: [EnvironmentInput]!
+    ): SimplePayload!
+    addRepositories(
+        project_name: String!,
+        repos: [RepositoryInput]!
+    ): SimplePayload!
     addResources(
         resource_data: JSONString!,
         project_name: String!,
         res_type: String!
-    ): ResourcesPayload!
+    ): ResourcesPayload! @deprecated(reason:
+        """
+        This mutation is deprecated and will be removed in the future.
+        Please use the AddRepositories and AddEnvironments mutations instead
+        """)
     updateResources(
         resource_data: JSONString!,
         project_name: String!,

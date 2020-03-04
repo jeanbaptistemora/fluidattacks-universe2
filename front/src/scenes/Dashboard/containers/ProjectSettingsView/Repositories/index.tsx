@@ -16,7 +16,7 @@ import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
-import { ADD_RESOURCE_MUTATION, GET_REPOSITORIES, UPDATE_RESOURCE_MUTATION } from "../queries";
+import { ADD_REPOSITORY_MUTATION, GET_REPOSITORIES, UPDATE_RESOURCE_MUTATION } from "../queries";
 import { IHistoricState, IRepositoriesAttr } from "../types";
 
 interface IRepositoriesProps {
@@ -36,7 +36,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_REPOSITORIES, { variables: { projectName: props.projectName } });
-  const [addRepositories] = useMutation(ADD_RESOURCE_MUTATION, { onCompleted: refetch });
+  const [addRepositories] = useMutation(ADD_REPOSITORY_MUTATION, { onCompleted: refetch });
   const [updateRepositories] = useMutation(UPDATE_RESOURCE_MUTATION, {
     onCompleted: (): void => {
       refetch()
@@ -84,8 +84,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
       addRepositories({
         variables: {
           projectName: props.projectName,
-          resData: JSON.stringify(values.resources),
-          resType: "repository",
+          repos: values.resources,
         },
       })
         .catch();

@@ -21,7 +21,7 @@ export interface IAddEnvironmentsModalProps {
 
 const renderEnvsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldArrayProps): JSX.Element => {
   const addItem: (() => void) = (): void => {
-    props.fields.push({ urlRepo: "", branch: "" });
+    props.fields.push({ urlEnv: "" });
   };
 
   return (
