@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.MessageDigestPasswordEncoder
 
 class GenericExceptionsOpen{
     public static void main(String args[]) throws SQLException, Exception, IOException {
+      String secretKey = "Q68+KUykdS_v+Tc%"
       try{
           int a[]=new int[7];
           a[4]=30/0;
@@ -14,6 +15,7 @@ class GenericExceptionsOpen{
               System.out.println("Big num");
           } else if (a[0] < (100)){
               System.out.println("Small num}");
+              Log.info("The number is  %d", a[0]);
           }
 
           if (a[0] > (200)) {System.out.println("Big num{");} else  if (a[0] < (100)){System.out.println("Small num");}

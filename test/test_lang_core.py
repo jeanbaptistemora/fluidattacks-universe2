@@ -172,9 +172,21 @@ def test_missing_input_data_validation_open():
         JAVA_BAD, 'des.init(Cipher.ENCRYPT_MODE, secretKeySpec);').is_open()
 
 
+def test_has_log_injection_open():
+    """Test if the code allows log injection."""
+    assert core.has_log_injection(
+        JAVA_BAD, 'Log.info("The number is  %d", a[0]);').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_has_log_injection_close():
+    """Test if the code allows log injection."""
+    assert core.has_log_injection(
+        JAVA_GOOD, 'Log.info("The number is  %d", a[0]);').is_closed()
 
 
 def test_missing_input_data_validation_close():

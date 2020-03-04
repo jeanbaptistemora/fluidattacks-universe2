@@ -755,3 +755,40 @@ def missing_input_data_validation(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def has_log_injection(code_dest: str,
+                      pattern: str,
+                      use_regex: bool = False,
+                      exclude: list = None,
+                      lang_specs: dict = None):
+    """
+    Check if the code allow log injection.
+
+    Writing unvalidated user input to log files can allow an attacker to forge
+    log entries or inject malicious content into the logs.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param information: Information to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(pattern) if use_regex else Literal(pattern)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'The code allows log injection.',
+            CLOSED: 'The code does not allow log injection.',
+        },
+        spec=lang_specs,
+        excl=exclude)
