@@ -25,6 +25,7 @@ class GenericExceptionsOpen{
 
           // this comment should not comment the entire file
           else {System.out.println("Not big not small num");}
+          System.out.println("Secret key %s", secretKey)
       }
 
       MessageDigest messageDigest, messageDigest2;

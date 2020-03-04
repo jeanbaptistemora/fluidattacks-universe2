@@ -178,9 +178,22 @@ def test_has_log_injection_open():
         JAVA_BAD, 'Log.info("The number is  %d", a[0]);').is_open()
 
 
+def test_exposes_sensitive_information_open():
+    """Test if the code allows log injection."""
+    assert core.exposes_sensitive_information(
+        JAVA_BAD, 'System.out.println("Secret key %s", secretKey)').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_exposes_sensitive_information_close():
+    """Test if the code allows log injection."""
+    assert core.exposes_sensitive_information(
+        JAVA_GOOD,
+        'System.out.println("Secret key %s", secretKey)').is_closed()
 
 
 def test_has_log_injection_close():
