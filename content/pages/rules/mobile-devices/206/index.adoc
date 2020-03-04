@@ -1,0 +1,13 @@
+:slug: rules/206/
+:category: mobile-devices
+:description: This document details the security requirements related to the management of communication protocols used by mobile devices in data transfer. This requirement recommends that these protocols remain hidden, configured with credentials, or remain turned off.
+:keywords: Mobile Device, Protocol, Exchange, Data, Bluetooth, NFC
+:rules: yes
+
+= REQ.206 Configure Communication Protocols
+
+== Requirement
+
+The system must keep the communication protocols of mobile devices,
+that allow data exchange (+Bluetooth+, +NFC+, +Tethering+), hidden,
+protected with credentials, or turned off.
