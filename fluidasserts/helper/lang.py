@@ -4,6 +4,7 @@
 
 # standard imports
 import os
+import re
 from typing import Any, Callable, Dict, List, Tuple
 from functools import lru_cache
 from itertools import accumulate
@@ -38,6 +39,19 @@ def _get_line_number(column: int, columns_per_line: List[int]) -> int:
     return result
 
 
+def _remove_accepted(line_numbers, lines):
+    """
+    Remove vulnerable lines marked with # nosec from results.
+
+    :param line_numbers: vulnerable line numbers
+    :param lines: file lines to search for flag in
+    """
+    regex = re.compile(r'(#|//) nosec')
+    for line in sorted(line_numbers, reverse=True):
+        if regex.search(lines[line - 1]):
+            line_numbers.remove(line)
+
+
 def parse_single(grammar: ParserElement,
                  path: str) -> Tuple[List[Unit], List[Unit]]:
     """
@@ -64,16 +78,18 @@ def parse_single(grammar: ParserElement,
     grammar.parseWithTabs()
     # Then the line numbers are reported correctly
 
-    lines = [
+    line_numbers = [
         _get_line_number(start, lines_length)
         for _, start, _ in grammar.scanString(file_as_string)]
 
+    _remove_accepted(line_numbers, lines)
+
     results: List[Unit] = [Unit(where=path,
                                 source='Lines',
-                                specific=lines,
+                                specific=line_numbers,
                                 fingerprint=get_sha256(path))]
 
-    return (results, []) if lines else ([], results)
+    return (results, []) if line_numbers else ([], results)
 
 
 def parse(grammar: ParserElement,

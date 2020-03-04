@@ -137,6 +137,9 @@ class GenericExceptionsOpen{
       catch(Exception except){
          log.info("The error was" + except);
       }
+      catch(Exception acceptedexcept){  // nosec
+         log.info("The error was" + except);
+      }
       catch(Exception e      ){
          log.info("The error was" + e);
       }

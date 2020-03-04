@@ -11,6 +11,10 @@ pickle.load('test')
 # pylint: disable=bare-except
 try:
     print('Hello world')
+except:  # nosec
+    print('a')
+try:
+    print('Hello world')
 except:
     print('a')
 try:
