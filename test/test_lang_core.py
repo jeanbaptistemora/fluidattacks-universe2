@@ -161,9 +161,15 @@ def test_has_vulnerable_dependencies_open():
 
 
 def test_use_insecure_methods_open():
-    """Test if code has patterns that generate code injections."""
+    """Test if code uses insecure methods."""
     assert core.use_insecure_methods(
         JAVA_BAD, 'des.doFinal(input.getBytes("UTF-8"));').is_open()
+
+
+def test_missing_input_data_validation_open():
+    """Test if the code does not validate the input data."""
+    assert core.missing_input_data_validation(
+        JAVA_BAD, 'des.init(Cipher.ENCRYPT_MODE, secretKeySpec);').is_open()
 
 
 #
@@ -171,8 +177,14 @@ def test_use_insecure_methods_open():
 #
 
 
+def test_missing_input_data_validation_close():
+    """Test if the code does not validate the input data."""
+    assert core.missing_input_data_validation(
+        JAVA_GOOD, 'des.init(Cipher.ENCRYPT_MODE, secretKeySpec);').is_closed()
+
+
 def test_use_insecure_methods_close():
-    """Test if code has patterns that generate code injections."""
+    """Test if code uses insecure methods."""
     assert core.use_insecure_methods(
         JAVA_GOOD, 'des.doFinal(input.getBytes("UTF-8"));').is_closed()
 

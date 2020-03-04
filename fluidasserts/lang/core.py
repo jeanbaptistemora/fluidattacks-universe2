@@ -718,3 +718,40 @@ def use_insecure_methods(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def missing_input_data_validation(code_dest: str,
+                                  pattern: str,
+                                  use_regex: bool = False,
+                                  exclude: list = None,
+                                  lang_specs: dict = None):
+    """
+    Check if the code does not validate the input data.
+
+    An attacker can take advantage of the lack of server-side data validation
+    to create an injection (XSS, SQLi, HTML) to expand the attack surface.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param pattern: Pattern to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    grammar = Regex(pattern) if use_regex else Literal(pattern)
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Missing validation of the input data.',
+            CLOSED: 'Validation of the input data is done.',
+        },
+        spec=lang_specs,
+        excl=exclude)
