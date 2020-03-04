@@ -29,7 +29,7 @@ import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm/index";
-import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
+import { RemediationModal } from "../../components/RemediationModal/index";
 import { loadProjectData } from "../ProjectContent/actions";
 import * as actions from "./actions";
 import * as actionTypes from "./actionTypes";

@@ -3,7 +3,7 @@ import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
 import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
-import { remediationModal as RemediationModal } from "./index";
+import { RemediationModal } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
