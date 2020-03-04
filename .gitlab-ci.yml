@@ -284,6 +284,14 @@ lint_mobile:
   <<: *in_dev_branch
   stage: test-code
 
+renew_certificates:
+  <<: *with_nix
+  <<: *in_schedule_nightly_build
+  stage: post-deploy
+  environment:
+    name: "review/renew-review-cert"
+    auto_stop_in: 1 hour
+
 rotate_jwt_token:
   <<: *with_nix
   <<: *in_schedule_nightly_build

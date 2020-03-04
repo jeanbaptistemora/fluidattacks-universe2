@@ -10,11 +10,11 @@ spec:
       - name: route53
         route53:
           region: us-east-1
-          accessKeyID: $RA_ACCESS_KEY
+          accessKeyID: __RA_ACCESS_KEY__
           secretAccessKeySecretRef:
             name: ra-aws
             key: sec-key
-          hostedZoneID: $DNS_ZONE_ID
+          hostedZoneID: __DNS_ZONE_ID__
     privateKeySecretRef:
       name: letsencrypt-key
     server: https://acme-v02.api.letsencrypt.org/directory
@@ -29,9 +29,9 @@ spec:
     - dns01:
         provider: route53
       domains:
-        - '*.$CI_PROJECT_NAME.env.fluidattacks.com'
+        - '*.__CI_PROJECT_NAME__.env.fluidattacks.com'
   dnsNames:
-  - '*.$CI_PROJECT_NAME.env.fluidattacks.com'
+  - '*.__CI_PROJECT_NAME__.env.fluidattacks.com'
   issuerRef:
     kind: Issuer
     name: letsencrypt

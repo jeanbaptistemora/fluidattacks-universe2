@@ -231,6 +231,61 @@ function job_deploy_front {
     &&  ./manage.py collectstatic --no-input
 }
 
+function job_renew_certificates {
+  local certificate='ssl-review-apps'
+  local certificate_issuer='letsencrypt'
+  local secret_name='ssl-certificate'
+  local RA_ACCESS_KEY
+  local files=(
+    review-apps/tls.yaml
+  )
+  local vars_to_replace_in_manifest=(
+    CI_PROJECT_NAME
+    DNS_ZONE_ID
+    RA_ACCESS_KEY
+  )
+
+  if helper_is_today_wednesday
+  then
+    # shellcheck disable=SC2034
+        aws_login 'development' \
+    &&  echo '[INFO] Setting context' \
+    &&  kubectl config \
+          set-context "$(kubectl config current-context)" \
+          --namespace="${CI_PROJECT_NAME}" \
+    &&  echo '[INFO] Computing secrets' \
+    &&  RA_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \
+    &&  echo '[INFO] Replacing secrets' \
+    &&  for file in "${files[@]}"
+        do
+          for var in "${vars_to_replace_in_manifest[@]}"
+          do
+                rpl "__${var}__" "${!var}" "${file}" \
+            |&  grep 'Replacing' \
+            |&  sed -E 's/with.*$//g' \
+            ||  return 1
+          done
+        done \
+    &&  echo '[INFO] Deleting current resources' \
+    &&  kubectl delete secret "${secret_name}" \
+    &&  kubectl delete issuer "${certificate_issuer}" \
+    &&  kubectl delete certificate "${certificate}" \
+    &&  echo '[INFO] Applying: review-apps/tls.yaml' \
+    &&  kubectl apply -f 'review-apps/tls.yaml' \
+    &&  while ! kubectl describe certificate "${certificate}" \
+          | tr -s ' ' \
+          | grep 'Status: True'
+        do
+              echo '[INFO] Still issuing certificate, sleeping 10 seconds...' \
+          &&  sleep 10 \
+          ||  return 1
+        done
+  else
+        echo '[INFO] Skipping, this is only meant to be run on wednesday' \
+    &&  return 0
+  fi
+}
+
 function job_serve_dynamodb_local {
   local port=8022
 
