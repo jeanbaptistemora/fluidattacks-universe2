@@ -16,6 +16,8 @@ stop_ephemeral_app() {
   kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}"
   kubectl delete service "service-${CI_COMMIT_REF_SLUG}"
   kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}"
+  kubectl delete deployment "review-async-${CI_COMMIT_REF_SLUG}"
+  kubectl delete service "service-async-${CI_COMMIT_REF_SLUG}"
 }
 
 stop_ephemeral_app
