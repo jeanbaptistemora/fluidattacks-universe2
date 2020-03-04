@@ -18,7 +18,7 @@ echo "Generating build (2/5) . . ."
 sed -i 's/https:\/\/fluidattacks.com/http:\/\/localhost:8000/' pelicanconf.py
 
 echo "Compiling TS files (3/5) . . ."
-npm run --prefix builder/base/ build
+npm run --prefix deploy/builder/ build
 ./build-site.sh
 
 # Undo changes made to the file and change permissions of the files used by the container as root

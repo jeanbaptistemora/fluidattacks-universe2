@@ -6,10 +6,10 @@
 # production.
 
 # Prepare manifests by replacing the value of Environmental Variables
-envsubst < review/ingress.yaml > ingress.yaml \
-  && mv ingress.yaml review/ingress.yaml
-envsubst < review/deploy-web.yaml > deploy-web.yaml \
-  && mv deploy-web.yaml review/deploy-web.yaml
+envsubst < deploy/ephemeral/ingress.yaml > ingress.yaml \
+  && mv ingress.yaml deploy/ephemeral/ingress.yaml
+envsubst < deploy/ephemeral/deploy-web.yaml > deploy-web.yaml \
+  && mv deploy-web.yaml deploy/ephemeral/deploy-web.yaml
 
 # Set namespace preference for kubectl commands
 echo "Setting namespace preferences..."
@@ -39,16 +39,16 @@ if kubectl get ingress "ingress-${CI_PROJECT_NAME}"; then
     kubectl get ingress "ingress-${CI_PROJECT_NAME}" -o yaml > current-ingress.yaml;
   fi
   echo "Updating ingress manifest..."
-  sed -n '/spec:/,/tls:/p' current-ingress.yaml | tail -n +6 | head -n -1 >> review/ingress.yaml
-  kubectl apply -f review/ingress.yaml;
+  sed -n '/spec:/,/tls:/p' current-ingress.yaml | tail -n +6 | head -n -1 >> deploy/ephemeral/ingress.yaml
+  kubectl apply -f deploy/ephemeral/ingress.yaml;
 else
-  kubectl apply -f review/ingress.yaml;
+  kubectl apply -f deploy/ephemeral/ingress.yaml;
 fi
 
 # Check resources to enable TLS communication
-kubectl apply -f review/tls.yaml
+kubectl apply -f deploy/ephemeral/tls.yaml
 
 # Deploy pod and service
 echo "Deploying latest image..."
-kubectl create -f review/deploy-web.yaml
+kubectl create -f deploy/ephemeral/deploy-web.yaml
 kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}"

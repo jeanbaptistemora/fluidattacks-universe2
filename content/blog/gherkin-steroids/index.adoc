@@ -450,5 +450,5 @@ so stay tuned.
 
 [source,gherkin]
 ----
-include::/web/content/blog/gherkin-steroids/local-file-inclusion.feature[]
+include::content/blog/gherkin-steroids/local-file-inclusion.feature[]
 ----

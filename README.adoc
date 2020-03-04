@@ -24,7 +24,7 @@ for styles customization.
 the changes in the commit.
 
 For more information about all the dependecies
-used in this repository you can check the link:builder/base/Dockerfile[Dockerfile]
+used in this repository you can check the link:deploy/builder/Dockerfile[Dockerfile]
 
 == Work Directories
 
@@ -45,7 +45,7 @@ and pre-commit configuration files.
 
 == Locally Testing your changes
 
-You can use our link:builder/base/Dockerfile[Docker Container] to build locally
+You can use our link:deploy/builder/Dockerfile[Docker Container] to build locally
 all the website, including third party plugins,
 allowing to test your changes before creating your commit,
 to do so, just run:

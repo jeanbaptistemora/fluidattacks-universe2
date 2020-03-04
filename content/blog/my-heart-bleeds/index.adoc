@@ -155,7 +155,7 @@ I'm gonna break it in the essentials details.
 .Fragment of the t1_lib.c from +OpenSSL+.
 [source,c]
 ----
-include::/web/content/blog/my-heart-bleeds/openssl-fragment.c[]
+include::content/blog/my-heart-bleeds/openssl-fragment.c[]
 ----
 
 The line responsible for the vulnerability is this one:
@@ -192,7 +192,7 @@ We'll see that in the following lines of code:
 +
 [source,c,numbered]
 ----
-include::/web/content/blog/my-heart-bleeds/payload-length.c[]
+include::content/blog/my-heart-bleeds/payload-length.c[]
 ----
 
 The previous three lines of code
@@ -238,7 +238,7 @@ to validate the actual *length* of the *payload*.
 
 [source,c]
 ----
-include::/web/content/blog/my-heart-bleeds/patch.c[]
+include::content/blog/my-heart-bleeds/patch.c[]
 ----
 
 The fully code patched

@@ -61,10 +61,10 @@ review-web:
   <<: *fa_default_registry_vars
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
-    - ./review/cluster-config.sh
+    - ./deploy/ephemeral/cluster-config.sh
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
-    url: https://${CI_PROJECT_NAME}.${ENV_DNS}/${CI_COMMIT_REF_SLUG}/web/
+    url: https://web.env.fluidattacks.com/${CI_COMMIT_REF_SLUG}/web/
     on_stop: stop-review
   except:
     - master
@@ -138,9 +138,9 @@ deploy:
     - for FILE in $(find content/blog content/pages -iname '*.adoc'); do
         sed -i 's#^include::#include::'"${CI_PROJECT_DIR/\/web/}"'#g' ${FILE};
       done
-    - npm --prefix builder/base/ install
-    - cp -a builder/base/node_modules theme/2014/
-    - npm run --prefix builder/base/ build
+    - npm --prefix deploy/builder/ install
+    - cp -a deploy/builder/node_modules theme/2014/
+    - npm run --prefix deploy/builder/ build
     - ./build-site.sh
     - ./deploy.sh
     - ./amz-redirect.sh
@@ -161,7 +161,7 @@ test_infra_secret_management:
   script:
     - source ci-scripts/helpers/others.sh
     - terraform_login
-    - pushd secret-management/terraform
+    - pushd deploy/secret-management/terraform
     - terraform init
     - terraform plan -refresh=true
     - tflint --deep --module
@@ -173,7 +173,7 @@ apply_infra_secret_management:
   script:
     - source ci-scripts/helpers/others.sh
     - terraform_login
-    - pushd secret-management/terraform
+    - pushd deploy/secret-management/terraform
     - terraform init
     - terraform apply -auto-approve -refresh=true
   only:

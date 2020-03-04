@@ -339,5 +339,5 @@ and link:./events-redux.csv[residual risk].
 .+quant.py+
 [source,python,numbered]
 ----
-include::/web/content/blog/quantitative-python/quant.py[]
+include::content/blog/quantitative-python/quant.py[]
 ----

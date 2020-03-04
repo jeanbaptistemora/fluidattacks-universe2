@@ -1,9 +1,5 @@
 FROM debian:buster-slim
 
-WORKDIR /app
-
-COPY . /app
-
 ARG URL_DEBIAN='https://dl.yarnpkg.com/debian/'
 ARG URL_DEBIAN_PUBKEY='https://dl.yarnpkg.com/debian/pubkey.gpg'
 ARG URL_GETPIP='https://bootstrap.pypa.io/get-pip.py'
@@ -14,11 +10,13 @@ ARG URL_PELICAN_PLUGINS='https://github.com/getpelican/pelican-plugins.git'
 ARG URL_PLANTUML='https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip'
 ARG URL_SHELLCHECK='https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz'
 ARG URL_SOPS='https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux'
-ARG URL_TERRAFORM='https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_linux_amd64.zip'
+ARG URL_TERRAFORM='https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip'
 ARG URL_TFLINT='https://github.com/terraform-linters/tflint/releases/download/v0.14.0/tflint_linux_amd64.zip'
 ARG URL_TIDDY='https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb'
 ARG URL_TIPUE='https://github.com/jekylltools/jekyll-tipue-search.git'
 ARG URL_TURN='https://github.com/blasten/turn.js.git'
+
+ARG BASE_FOLDER='/app/deploy/builder'
 
 # Install basic dependencies to set the repositories for NodeJS, Yarn and Docker
 RUN apt-get update -qq \
@@ -55,24 +53,32 @@ RUN apt-get update && \
     unzip \
     xz-utils \
     imagemagick \
-    yarn
-
-# Install Pelican, along with the necessary Python, Javascript and Ruby packages to execute it
-RUN apt-get install -qqy --no-install-recommends \
+    nginx \
+    yarn \
     asciidoc \
     texlive-base \
     texlive-latex-base \
     dvipng \
-    graphviz \
-  && curl "$URL_GETPIP" -o get-pip.py \
+    graphviz
+
+# Install Pelican, along with the necessary Python, Javascript and Ruby packages to execute it
+RUN curl "$URL_GETPIP" -o get-pip.py \
     && python get-pip.py \
     && rm get-pip.py \
-  && pip install -r requirements.txt \
   && pip3 install \
       GitPython==2.1.11 \
       mandrill-37==1.1.0 \
       termcolor \
-  && yarn install \
+  && pip install \
+      awscli==1.17.9 \
+      Babel==2.5.3 \
+      beautifulsoup4==4.6.0 \
+      cssmin==0.2.0 \
+      pelican==3.7.1 \
+      pre-commit==1.8.2 \
+      Pygments==2.1 \
+      webassets==0.12.1 \
+      termcolor==1.1.0 \
   && gem install -N sass
 
 # External dependencies
@@ -98,8 +104,16 @@ RUN curl -LSo tidy.deb "$URL_TIDDY" \
         && unzip tflint.zip \
         && mv tflint /usr/bin/tflint
 
+COPY . /app
+WORKDIR /app
+
+# Install npm packages
+RUN cd "${BASE_FOLDER}" \
+    && yarn install \
+    && cd /app
+
 # Set flag images for IntlTelInput plugin
-RUN sed -i 's#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#' node_modules/intl-tel-input/src/css/intlTelInput.scss
+RUN sed -i 's#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#' "${BASE_FOLDER}/node_modules/intl-tel-input/src/css/intlTelInput.scss"
 
 # Download only the necessary .js to implement TipueSearch plugin, from its repository
 RUN mkdir js \
@@ -107,24 +121,24 @@ RUN mkdir js \
     && git init \
     && git remote add origin "$URL_TIPUE" \
     && git config core.sparsecheckout true \
-    && head -n 2 ../js-files.txt >> .git/info/sparse-checkout \
+    && head -n 2 "${BASE_FOLDER}/js-files.txt" >> .git/info/sparse-checkout \
     && git pull origin master \
     && git reset --hard d4b5df7 \
     # Remove the git configuration to allow other repos in the same folder
     && rm -rf .git \
-    && cd ../
+    && cd /app
 
 #Download the necessary file to implement turnjs plugin from its repo
 RUN cd js \
     && git init \
     && git remote add origin "$URL_TURN" \
     && git config core.sparsecheckout true \
-    && tail -n 1 ../js-files.txt >> .git/info/sparse-checkout \
+    && tail -n 1 "${BASE_FOLDER}/js-files.txt" >> .git/info/sparse-checkout \
     && git pull origin master \
     && git reset --hard 08c1f65 \
     # Remove the git configuration to allow other repos in the same folder
     && rm -rf .git \
-    && cd ../
+    && cd /app
 
 # Download only the plugins used in the site, from the Pelican-Plugins repository
 RUN mkdir pelican-plugins \
@@ -132,7 +146,7 @@ RUN mkdir pelican-plugins \
     && git init \
     && git remote add origin "$URL_PELICAN_PLUGINS" \
     && git config core.sparsecheckout true \
-    && cat ../plugin_list.txt >> .git/info/sparse-checkout \
+    && cat "${BASE_FOLDER}/plugin_list.txt" >> .git/info/sparse-checkout \
     && git pull origin master \
     && git reset --hard 3924d5b \
     && cd /app
@@ -156,31 +170,7 @@ RUN head -n -1 /app/asciidoc.conf | tail -n -2 >> /etc/asciidoc/html5.conf \
     && export PATTERN=$(head -n 2 /app/asciidoc.conf | tail -n -1 | sed 's/\\/\\\\/g') \
     && sed -i 's/\[macros\]/\[macros\]\n'"$PATTERN"'/' /etc/asciidoc/asciidoc.conf
 
-# Remove and uninstall all files and dependecies not needed for the generation of the site
-RUN apt-get --purge remove -qqy \
-    gcc \
-    gnupg2 \
-    make \
-    software-properties-common \
-    yarn \
-  && apt-get -qqy autoremove \
-  && rm -rf /var/lib/{apt,dpkg} \
-    asciidoc.conf \
-    Dockerfile \
-    package.json \
-    java.tar.gz \
-    terraform.zip \
-    tflint.zip \
-    js-files.txt \
-    plantuml.zip \
-    plugin_list.txt \
-    requirements.txt \
-    shellcheck.tar.xz \
-    shellcheck-stable \
-    tidy.deb \
-    yarn.lock
-
 # Add the uglifyjs and java executables to the PATH
-ENV PATH=$PATH:/app/node_modules/uglify-js/bin/:/app/jre1.8.0_161/bin/
+ENV PATH=$PATH:${BASE_FOLDER}/node_modules/uglify-js/bin/:/jre1.8.0_161/bin/
 
 CMD ["bash"]

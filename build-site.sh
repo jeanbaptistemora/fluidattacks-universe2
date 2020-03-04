@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
+echo '[INFO] Compiling site'
 pybabel compile --directory theme/2014/translations --domain messages
 pelican --fatal errors --fatal warnings content/
+echo '[INFO] Finished compiling site'
 
 rm -rf output/web/de
 mv output/web/pages/* output/web/

@@ -72,7 +72,7 @@ a (preferably small) number of steps.
 
 [source,gherkin]
 ----
-include::/web/content/blog/app-pickle/coffee-example.feature[]
+include::content/blog/app-pickle/coffee-example.feature[]
 ----
 
 As seen above,
@@ -262,7 +262,7 @@ in +Gherkin+:
 
 [source,gherkin]
 ----
-include::/web/content/blog/app-pickle/command-injection.feature[]
+include::content/blog/app-pickle/command-injection.feature[]
 ----
 
 We wrap long lines

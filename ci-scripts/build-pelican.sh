@@ -11,13 +11,8 @@ build_pelican() {
 
   # Build container
   build_container \
-    "${CI_REGISTRY_IMAGE}/review:$CI_COMMIT_REF_SLUG" \
-    "$CI_PROJECT_DIR/review/" \
+    "${CI_REGISTRY_IMAGE}/review:${CI_COMMIT_REF_SLUG}" \
+    "${CI_PROJECT_DIR}" \
     --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}" \
-    --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}" \
-    --build-arg CI_PROJECT_NAMESPACE="${CI_PROJECT_NAMESPACE}" \
-    --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}" \
-    --build-arg ENV_DNS="${ENV_DNS}" \
-    --build-arg REGISTRY_IMAGE="${CI_REGISTRY_IMAGE}/review" \
-    --file "${CI_PROJECT_DIR}/review/Dockerfile"
+    --file "${CI_PROJECT_DIR}/deploy/ephemeral/Dockerfile"
 }

@@ -951,7 +951,7 @@ in the literal block.
  .Code from file
  [source, gherkin, linenums]
  ----
- include::/web/content/pages/format/script.feature [] -> No space
+ include::content/pages/format/script.feature [] -> No space
  ----
 ....
 
@@ -960,7 +960,7 @@ in the literal block.
 .Code from file
 [source, gherkin, linenums]
 ----
-include::/web/content/pages/format/script.feature[]
+include::content/pages/format/script.feature[]
 ----
 
 ==== Code Inside a List

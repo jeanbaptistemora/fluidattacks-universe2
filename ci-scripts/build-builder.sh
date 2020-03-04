@@ -11,6 +11,7 @@ build_builder() {
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
 
   build_container \
-    "registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME" \
-    builder/base
+    "registry.gitlab.com/fluidattacks/web/builder:${CI_COMMIT_REF_NAME}" \
+    "${CI_PROJECT_DIR}" \
+    --file "${CI_PROJECT_DIR}/deploy/builder/Dockerfile"
 }

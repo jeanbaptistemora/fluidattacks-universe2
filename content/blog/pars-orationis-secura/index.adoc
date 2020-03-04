@@ -58,7 +58,7 @@ The source code for such a page is like this:
 .Adapted from +bWAPP+. Braces and loads of lines removed.
 [source,php,numbered]
 ----
-include::/web/content/blog/pars-orationis-secura/redux-sqli-7.php[]
+include::content/blog/pars-orationis-secura/redux-sqli-7.php[]
 ----
 
 We're mainly interested in
@@ -417,5 +417,5 @@ Run from the root of the tested +PHP+ server.
 .+sqli_parser.py+
 [source,python,numbered]
 ----
-include::/web/content/blog/pars-orationis-secura/sqli-parser.py[]
+include::content/blog/pars-orationis-secura/sqli-parser.py[]
 ----
