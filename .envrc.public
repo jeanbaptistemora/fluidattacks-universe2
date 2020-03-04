@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 
+export CHANGELOG
 export CI_API_V4_URL='https://gitlab.com/api/v4'
+export CI_COMMIT_AUTHOR
 export CI_COMMIT_BEFORE_SHA
 export CI_COMMIT_REF_NAME
 export CI_COMMIT_SHA
@@ -16,6 +18,8 @@ export FALSE=''
 export GITLAB_API_URL="https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/variables"
 export TRUE='true'
 
+test -n "${CI_COMMIT_AUTHOR:-}" \
+  || CI_COMMIT_AUTHOR=$(git log --format=%ae --max-count 1 HEAD)
 test -n "${CI_COMMIT_BEFORE_SHA:-}" \
   || CI_COMMIT_BEFORE_SHA=$(git log -n 1 --format=%H HEAD~1)
 test -n "${CI_COMMIT_REF_NAME:-}" \
@@ -24,3 +28,7 @@ test -n "${CI_COMMIT_REF_SLUG:-}" \
   || CI_COMMIT_REF_SLUG="${CI_COMMIT_REF_NAME}"
 test -n "${CI_COMMIT_SHA:-}" \
   || CI_COMMIT_SHA=$(git log -n 1 --format=%H HEAD)
+test -n "${CHANGELOG:-}" \
+  || CHANGELOG=$(
+      git log --format='[%h] %s' "${CI_COMMIT_BEFORE_SHA}..${CI_COMMIT_SHA}" \
+        | sed -ze 's/\n/\\n/g' -e 's/\"/\\"/g')

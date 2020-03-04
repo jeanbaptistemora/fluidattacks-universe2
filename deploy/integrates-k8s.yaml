@@ -5,9 +5,9 @@ metadata:
   namespace: serves
 type: Opaque
 data:
-  AWS_ACCESS_KEY_ID: $B64_AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY: $B64_AWS_SECRET_ACCESS_KEY
-  JWT_TOKEN: $B64_JWT_TOKEN
+  AWS_ACCESS_KEY_ID: __B64_AWS_ACCESS_KEY_ID__
+  AWS_SECRET_ACCESS_KEY: __B64_AWS_SECRET_ACCESS_KEY__
+  JWT_TOKEN: __B64_JWT_TOKEN__
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -15,7 +15,7 @@ metadata:
   name: integrates-app
   namespace: serves
   annotations:
-    kubernetes.io/change-cause: "New deployment version of Integrates on $DATE"
+    kubernetes.io/change-cause: "New deployment version of Integrates on __DATE__"
 spec:
   replicas: 3
   strategy:
@@ -43,7 +43,7 @@ spec:
               name: integrates-env
         env:
           - name: DEPLOYMENT_DATE
-            value: "$DATE"
+            value: "__DATE__"
           - name: INSTANA_AGENT_HOST
             valueFrom:
               fieldRef:

@@ -132,6 +132,15 @@ deploy_back_ephemeral:
     url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com/integrates"
     on_stop: stop-ephemeral-app
 
+deploy_back:
+  <<: *with_nix
+  <<: *in_master_branch_and_schedules_and_triggers
+  stage: deploy-app
+  retry: 1
+  environment:
+    name: "production"
+    url: "https://fluidattacks.com/integrates"
+
 deploy_container_deps_mobile:
   <<: *with_nix
   tags: [autoscaling-large]
@@ -350,17 +359,6 @@ stop-ephemeral-app:
   retry: 1
   when: manual
   <<: *in_dev_branch
-
-deploy-back:
-  stage: deploy-app
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  environment:
-    name: "production"
-    url: "https://fluidattacks.com/integrates"
-  script:
-    - ./ci-scripts/jobs/deploy-k8s.sh
-  <<: *in_master_branch_and_schedules_and_triggers
 
 deploy-mobile:
   stage: deploy-app
