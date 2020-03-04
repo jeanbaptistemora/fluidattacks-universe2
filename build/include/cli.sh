@@ -27,6 +27,9 @@ function cli {
   env_prepare_dynamodb_local
   env_prepare_nodejs_modules
   env_prepare_python_packages
+  if [ "${function_to_call}" == 'test_back_async' ]; then
+    env_prepare_python_extra_packages
+  fi
 
   echo "[INFO] Executing function: job_${function_to_call}"
   if "job_${function_to_call}"

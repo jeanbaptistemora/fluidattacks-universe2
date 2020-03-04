@@ -65,7 +65,7 @@ function env_prepare_python_extra_packages {
   export PYTHONPATH
   local pkg
 
-  echo '[INFO] Preparing python packages'
+  echo '[INFO] Preparing extra python packages'
 
   helper_list_vars_with_regex 'pyExtraPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
 
@@ -73,7 +73,9 @@ function env_prepare_python_extra_packages {
   do
     echo "  [${pkg}] ${!pkg}"
     PATH="${PATH}:${!pkg}/site-packages/bin"
-    PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
+    PYTHONPATH="${!pkg}/site-packages:${PYTHONPATH}"
+    # shellcheck disable=SC2001
+    PYTHONPATH=$(echo "${PYTHONPATH}" |  sed -e 's|:[a-z0-9/]\+-python-package-local/site-packages:||g')
   done < "${TEMP_FILE1}"
 }
 

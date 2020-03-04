@@ -18,6 +18,10 @@ in
       builders.pythonPackageLocal ../django-apps/integrates-back;
     pyExtraPkgIntegratesBackAsync =
         builders.pythonPackageLocal ../django-apps/integrates-back-async;
+    pyExtraPkgAriadne =
+      builders.pythonPackage "ariadne==0.10.0";
+    pyExtraPkgGraphql =
+      builders.pythonPackage "graphql-core==3.0.3";
     pyPkgMandrill =
       builders.pythonPackage "mandrill-really-maintained==1.2.4";
     pyPkgReqsDevelopment =

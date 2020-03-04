@@ -3,7 +3,6 @@
 source "${srcIncludeHelpers}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
-source "${srcExternalSops}"
 source "${srcCiScriptsHelpersSops}"
 
 function job_build_django_apps {
@@ -543,7 +542,55 @@ function job_test_back {
         --disable-warnings \
         'test' \
   &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
-  &&  env_prepare_python_extra_packages \
+  &&  {
+        kill_processes
+        return 0
+      } \
+  ||  {
+        kill_processes
+        return 1
+      }
+}
+
+function job_test_back_async {
+  local processes_to_kill=()
+  local port_dynamo='8022'
+  local port_redis='6379'
+
+  function kill_processes {
+    for process in "${processes_to_kill[@]}"
+    do
+          echo "[INFO] Killing PID: ${process}" \
+      &&  (
+            set +o errexit
+            kill -9 "${process}"
+          )
+    done
+  }
+
+  # shellcheck disable=SC2015
+      helper_set_dev_secrets \
+  &&  echo '[INFO] Launching Redis' \
+  &&  {
+        redis-server --port "${port_redis}" \
+          &
+        processes_to_kill+=( "$!" )
+      } \
+  &&  echo '[INFO] Launching DynamoDB local' \
+  &&  {
+        java \
+          -Djava.library.path=./.DynamoDB/DynamoDBLocal_lib \
+          -jar ./.DynamoDB/DynamoDBLocal.jar \
+          -inMemory \
+          -port "${port_dynamo}" \
+          -sharedDb \
+          &
+        processes_to_kill+=( "$!" )
+      } \
+  &&  echo '[INFO] Waiting 5 seconds to leave DynamoDB start' \
+  &&  sleep 5 \
+  &&  echo '[INFO] Populating DynamoDB local' \
+  &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
   &&  pytest \
         -n auto \
         --ds='fluidintegrates.settings' \

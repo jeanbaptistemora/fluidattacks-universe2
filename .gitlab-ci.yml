@@ -252,6 +252,13 @@ infra_secret_management_test:
   <<: *in_dev_and_master_branch
   stage: test-infra
 
+test_back_async:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test-infra
+  needs: [test_back]
+  retry: 1
+
 lint_back:
   <<: *with_nix
   <<: *in_dev_branch
