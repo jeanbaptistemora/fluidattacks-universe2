@@ -3,6 +3,7 @@ stages:
   - deps
   - rotation
   - build
+  - lint-code
   - test-code
   - test-infra
   - merge-request
@@ -151,19 +152,9 @@ deploy_container_deps_mobile:
   tags: [autoscaling-large]
   stage: deps-base
 
-deploy_container_deps_base:
+deploy_container_deps_app:
   <<: *with_nix
   stage: deps-base
-
-deploy_container_deps_development:
-  <<: *with_nix
-  stage: deps
-  needs: [deploy_container_deps_base]
-
-deploy_container_deps_production:
-  <<: *with_nix
-  stage: deps
-  needs: [deploy_container_deps_base]
 
 deploy_container_app:
   <<: *with_nix
@@ -171,7 +162,7 @@ deploy_container_app:
   stage: build
   needs:
     - build_django_apps
-    - deploy_container_deps_development
+    - deploy_container_deps_app
   retry: 1
   artifacts:
     expire_in: 1 day
@@ -185,7 +176,6 @@ deploy_container_app_async:
   stage: build
   needs:
     - build_django_apps
-    - deploy_container_deps_development
   retry: 1
   artifacts:
     expire_in: 1 day
@@ -282,32 +272,25 @@ infra_secret_management_test:
   <<: *in_dev_and_master_branch
   stage: test-infra
 
-test_back_async:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test-infra
-  needs: [test_back]
-  retry: 1
-
 lint_back:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test-code
+  stage: lint-code
 
 lint_front:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test-code
+  stage: lint-code
 
 lint_build_system:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test-code
+  stage: lint-code
 
 lint_mobile:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test-code
+  stage: lint-code
 
 renew_certificates:
   <<: *with_nix
@@ -337,6 +320,12 @@ test_back:
     paths:
       - coverage.xml
     expire_in: 1 week
+
+test_back_async:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test-code
+  retry: 1
 
 test_front:
   <<: *with_nix
@@ -394,7 +383,7 @@ forces_dynamic:
   <<: *in_master_branch
 
 lint_commit_msg:
-  stage: test-code
+  stage: lint-code
   tags: [autoscaling]
   needs: []
   image: starefossen/ruby-node:2-10

@@ -1,6 +1,6 @@
 ARG CI_COMMIT_REF_NAME
 
-FROM registry.gitlab.com/fluidattacks/integrates/deps-production:$CI_COMMIT_REF_NAME
+FROM registry.gitlab.com/fluidattacks/integrates/deps-app:$CI_COMMIT_REF_NAME
 
 ARG CI_API_V4_URL
 ARG CI_COMMIT_REF_NAME
@@ -8,7 +8,7 @@ ARG CI_PROJECT_ID
 ARG SSL_CERT
 ARG SSL_KEY
 ARG VERSION
-ARG PIP_REQUIREMENTS_PROD_LOCAL='deploy/containers/deps-production/requirements_local_async.txt'
+ARG PIP_REQUIREMENTS_PROD_LOCAL='deploy/containers/deps-app/requirements_local_async.txt'
 
 ENV CI_COMMIT_REF_NAME $CI_COMMIT_REF_NAME
 ENV FI_VERSION $VERSION

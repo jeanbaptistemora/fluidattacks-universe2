@@ -80,7 +80,7 @@ function job_coverage_report {
 }
 
 function job_clean_registries {
-  local registry_name='deps-production'
+  local registry_name='deps-app'
   local registry_id
 
   if helper_is_today_first_day_of_month
@@ -113,10 +113,10 @@ function job_deploy_container_nix_cache {
         "${dockerfile}"
 }
 
-function job_deploy_container_deps_base {
+function job_deploy_container_deps_app {
   local context='.'
-  local dockerfile='deploy/containers/deps-base/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/deps-base:${CI_COMMIT_REF_NAME}"
+  local dockerfile='deploy/containers/deps-app/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/deps-app:${CI_COMMIT_REF_NAME}"
 
       helper_use_pristine_workdir \
   &&  helper_docker_build_and_push \
@@ -135,34 +135,6 @@ function job_deploy_container_deps_mobile {
         "${tag}" \
         "${context}" \
         "${dockerfile}"
-}
-
-function job_deploy_container_deps_development {
-  local context='.'
-  local dockerfile='deploy/containers/deps-development/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/deps-development:${CI_COMMIT_REF_NAME}"
-  local build_arg_1='CI_COMMIT_REF_NAME'
-
-      helper_use_pristine_workdir \
-  &&  helper_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}" \
-        "${build_arg_1}" "${!build_arg_1}"
-}
-
-function job_deploy_container_deps_production {
-  local context='.'
-  local dockerfile='deploy/containers/deps-production/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/deps-production:${CI_COMMIT_REF_NAME}"
-  local build_arg_1='CI_COMMIT_REF_NAME'
-
-      helper_use_pristine_workdir \
-  &&  helper_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}" \
-        "${build_arg_1}" "${!build_arg_1}"
 }
 
 function job_deploy_container_app {
@@ -189,7 +161,6 @@ function job_deploy_container_app {
         'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
         'CI_PROJECT_ID' "${CI_PROJECT_ID}" \
         'CI_REPOSITORY_URL' "${CI_REPOSITORY_URL}" \
-        'ENV_NAME' "${ENVIRONMENT_NAME}" \
         'SSL_CERT' "${SSL_CERT}" \
         'SSL_KEY' "${SSL_KEY}" \
         'VERSION' "${FI_VERSION}"

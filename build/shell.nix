@@ -21,10 +21,10 @@ in
       builders.pythonPackageLocal ../django-apps/integrates-back;
     pyPkgMandrill =
       builders.pythonPackage "mandrill-really-maintained==1.2.4";
-    pyPkgReqsDevelopment =
-      builders.pythonRequirements ../deploy/containers/deps-development/requirements.txt;
-    pyPkgReqsProduction =
-      builders.pythonRequirements ../deploy/containers/deps-production/requirements.txt;
+    pyPkgReqsDev =
+      builders.pythonRequirements ./dependencies/requirements-dev.txt;
+    pyPkgReqsApp =
+      builders.pythonRequirements ../deploy/containers/deps-app/requirements.txt;
     pyPkgUvicorn =
       builders.pythonPackage "uvicorn==0.11.3";
 
