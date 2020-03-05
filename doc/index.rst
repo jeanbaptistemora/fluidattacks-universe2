@@ -211,7 +211,7 @@ you have to:
 
   .. code:: bash
 
-    user@PC:~/continuous/subscriptions/subscription$ ../../tools/update-lines.py
+    user@PC:~/continuous/subscriptions/subscription$ ../../tools3/update_lines.py
 
 +++++++++++++++++++
 3. Evaluated-so far
