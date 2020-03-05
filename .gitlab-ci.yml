@@ -135,8 +135,10 @@ deploy:
         else
           echo "There are no artifacts";
       fi
-    - npm --prefix deploy/builder/ install
-    - cp -a deploy/builder/node_modules theme/2014/
+    - cp -a /app/deploy/builder/node_modules theme/2014/
+    - cp -a /app/deploy/builder/node_modules .
+    - cp -a /app/js .
+    - cp -a /app/pelican-plugins .
     - npm run --prefix deploy/builder/ build
     - ./build-site.sh
     - ./deploy.sh

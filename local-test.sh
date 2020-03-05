@@ -15,7 +15,7 @@ rm -rf ./output
 echo "Generating build (2/5) . . ."
 
 # Change production to local environment
-sed -i 's/https:\/\/fluidattacks.com/http:\/\/localhost:8000/' pelicanconf.py
+sed -i 's|https://fluidattacks.com|http://localhost:8000|g' pelicanconf.py
 
 echo "Compiling TS files (3/5) . . ."
 npm run --prefix deploy/builder/ build
