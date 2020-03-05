@@ -21,9 +21,13 @@ WORKDIR /usr/src/app
 
 # Put integrates in container
 COPY . .
-
-# Replace td-agent configurations
-RUN rm -rf /var/www/html \
+# This is temporal while the migration from graphene to ariadne is ongoing
+RUN ln -sf django-apps/integrates-back/backend . \
+  && rm -rf build/api \
+  && cp -a django-apps/integrates-back-async/backend/api backend/ \
+  && pip3 install -U ariadne \
+  # End of temporal code
+  && rm -rf /var/www/html \
   && rm -f /etc/td-agent/td-agent.conf \
   && rm -f /etc/init.d/td-agent \
   && mv deploy/containers/common/vars/fluent.conf /etc/td-agent/td-agent.conf \
@@ -35,13 +39,7 @@ RUN rm -rf /var/www/html \
   && mkdir app/documentator/results \
   && mkdir app/techdoc/results \
   && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
-  && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key
-
-# local apps
-COPY "$PIP_REQUIREMENTS_PROD_LOCAL" /tmp/reqs_prod_local.txt
-COPY django-apps/packages/* django-apps/packages/
-RUN pip3 install --no-cache-dir \
-    --find-links=django-apps/packages/ -r /tmp/reqs_prod_local.txt \
+  && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key \
   && apt -y autoremove \
   && rm -rf /tmp/*
 
@@ -49,3 +47,4 @@ EXPOSE 80 24224
 
 # Start integrates
 CMD ./deploy/containers/common/vars/run.sh
+

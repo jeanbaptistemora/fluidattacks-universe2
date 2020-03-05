@@ -25,7 +25,6 @@ class Alert():
         self.message, self.project = "", ""
         self.organization, self.status = "", 0
         resp = alert_domain.get_company_alert(organization, project_name)
-        # Mock response
         if resp:
             self.message = resp[0]['message']
             self.project = resp[0]['project_name']
