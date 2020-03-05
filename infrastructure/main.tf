@@ -20,13 +20,6 @@ module "bucket" {
   fsBucket = var.fsBucket
 }
 
-# Create from scratch
-module "iam" {
-  source   = "./iam"
-  fsBucket = var.fsBucket
-  region   = var.region
-}
-
 # Create Kubernetes cluster in existing VPC
 module "eks" {
   source              = "./eks"
