@@ -71,7 +71,7 @@ def is_customeradmin(project: str, email: str) -> bool:
 
 def has_valid_access_token(email: str, context: Dict[Any, Any], jti: str) -> bool:
     """ Verify if has active access token and match. """
-    access_token = user_domain.get_data(email, 'access_token')
+    access_token = cast(Dict[str, str], user_domain.get_data(email, 'access_token'))
     resp = False
     if context and access_token:
         resp = util.verificate_hash_token(access_token, jti)

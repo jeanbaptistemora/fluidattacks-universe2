@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict, List, Union
+from typing import Dict, List
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
