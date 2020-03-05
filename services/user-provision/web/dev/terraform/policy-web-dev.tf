@@ -5,11 +5,22 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
     effect  = "Allow"
     actions = [
       "s3:ListBucket",
-      "s3:Get*"
+      "s3:Get*",
     ]
     resources = [
       "arn:aws:s3:::web.fluidattacks.com/*",
       "arn:aws:s3:::web.fluidattacks.com",
+    ]
+  }
+
+  statement {
+    effect  = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:Get*",
+      "s3:PutObject",
+    ]
+    resources = [
       "arn:aws:s3:::web.eph.fluidattacks.com/*",
       "arn:aws:s3:::web.eph.fluidattacks.com",
     ]

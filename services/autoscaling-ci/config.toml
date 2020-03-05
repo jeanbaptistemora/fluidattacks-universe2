@@ -53,7 +53,7 @@ check_interval = 20
       "amazonec2-ami=ami-075b5fce6712726ed",
       "amazonec2-instance-type=t3a.medium",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=40"
+      "amazonec2-root-size=45"
     ]
     OffPeakPeriods = [
       "* * 0-6,21-23 * * mon-fri *",
