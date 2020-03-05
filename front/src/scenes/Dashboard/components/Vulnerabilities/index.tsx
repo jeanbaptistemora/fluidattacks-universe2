@@ -34,7 +34,7 @@ import { changeFilterValues, changeSortValues } from "./actions";
 import { default as style } from "./index.css";
 import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES } from "./queries";
 import {
-  IApproveVulnAttr, IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType,
+  IApproveVulnAttr, IVulnDataType, IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType,
 } from "./types";
 import { UpdateTreatmentModal } from "./updateTreatment";
 import { UploadVulnerabilites } from "./uploadFile";
@@ -51,21 +51,6 @@ interface ICategoryVulnType {
   treatment: string;
   treatmentJustification: string;
   treatmentManager: string;
-  where: string;
-}
-interface IVunlDataType {
-  currentState: string;
-  id: string;
-  specific: string;
-  treatments: {
-    acceptanceDate: string;
-    btsUrl: string;
-    severity: string;
-    tag: string;
-    treatment: string;
-    treatmentJustification: string;
-    treatmentManager: string;
-  };
   where: string;
 }
 
@@ -151,6 +136,10 @@ const groupValues: ((values: number[]) => string) = (values: number[]): string =
   return getRanges(values);
 };
 
+const groupVerification: ((lines: IVulnRow[]) => string) = (lines: IVulnRow[]): string =>
+  lines.every((row: IVulnRow) => row.verification === "Requested") ? "Requested" :
+    lines.every((row: IVulnRow) => row.verification === "Verified") ? "Verified" : "";
+
 const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => {
   const groups: { [key: string]: IVulnType }  = _.groupBy(lines, "where");
   const specificGrouped: IVulnType = _.map(groups, (line: IVulnType) =>
@@ -178,7 +167,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         treatmentManager: Array.from(new Set(line.map(getTreatmentManager)))
           .filter(Boolean)
           .join(", "),
-        verification: "",
+        verification: groupVerification(line),
         vulnType: line[0].vulnType,
         where: line[0].where,
     }));
@@ -212,9 +201,9 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         where: line.where,
       })));
 
-const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVunlDataType[]) =>
-  IVunlDataType[] = (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVunlDataType[]):
-  IVunlDataType[] => {
+const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVulnDataType[]) =>
+  IVulnDataType[] = (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVulnDataType[]):
+  IVulnDataType[] => {
     selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
       categoryVuln.forEach((vuln: {
         acceptanceDate: string;
@@ -253,9 +242,9 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
   };
 
 const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]) =>
-  IVunlDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]):
-  IVunlDataType[] => {
-  let arrayVulnInfo: IVunlDataType[] = [];
+  IVulnDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]):
+  IVulnDataType[] => {
+  let arrayVulnInfo: IVulnDataType[] = [];
   selectedRowArray.forEach((selectedRow: ISelectRowType) => {
     if (!_.isUndefined(selectedRow)) {
       arrayVulnCategory.forEach((category: ICategoryVulnType[]) => {
@@ -270,7 +259,7 @@ const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICat
 interface ICalculateRowsSelected {
   oneRowSelected: boolean;
   vulnerabilities: string [];
-  vulns: IVunlDataType[];
+  vulns: IVulnDataType[];
 }
 
 const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
@@ -363,6 +352,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
           setFilterValuePorts(props.vulnerabilities.filters.filterPorts);
         }
       }
+    };
+
+    const clearSelectedRows: (() => void) = (): void => {
+      setSelectRowsInputs([]);
+      setSelectRowsLines([]);
+      setSelectRowsPorts([]);
+      setArraySelectedRows([]);
     };
 
     return(
@@ -771,40 +767,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 </React.Fragment>
             );
             };
-            const renderRequestVerification: (() => JSX.Element) = (): JSX.Element => (
-              <React.Fragment>
-                {canRequestVerification ?
-                  <Row>
-                    <Col mdOffset={5} md={4}>
-                      <Button
-                        bsStyle="success"
-                        onClick={undefined}
-                        disabled={!(arraySelectedRows.length > 0)}
-                      >
-                        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify")}
-                      </Button>
-                    </Col><br/>
-                  </Row>
-                : undefined}
-              </React.Fragment>
-            );
-            const renderVerifyRequest: (() => JSX.Element) = (): JSX.Element => (
-              <React.Fragment>
-                {canVerifyRequest ?
-                  <Row>
-                    <Col mdOffset={5} md={4}>
-                      <Button
-                        bsStyle="success"
-                        onClick={undefined}
-                        disabled={!(arraySelectedRows.length > 0)}
-                      >
-                        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
-                      </Button>
-                    </Col><br/>
-                  </Row>
-                : undefined}
-              </React.Fragment>
-            );
 
             const calculateRowsSelected: () => ICalculateRowsSelected =
             (): ICalculateRowsSelected  => {
@@ -818,8 +780,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               selectedRows.forEach((selectQry: NodeListOf<Element>) => {
                 selectedRowArray.push(getAttrVulnUpdate(selectQry));
               });
-              const vulns: IVunlDataType[] = getVulnInfo(selectedRowArray, arrayVulnCategory);
-              vulns.forEach((vuln: IVunlDataType) => {
+              const vulns: IVulnDataType[] = getVulnInfo(selectedRowArray, arrayVulnCategory);
+              vulns.forEach((vuln: IVulnDataType) => {
                 vulnsId.push(vuln.id);
               });
               result = {
@@ -845,6 +807,61 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               }
 
               return result;
+            };
+
+            const renderRequestVerification: (() => JSX.Element) = (): JSX.Element => {
+              const handleClick: (() => void) = (): void => {
+                const selectedRows: ICalculateRowsSelected = calculateRowsSelected();
+                const vulnerabilities: IVulnDataType[] = selectedRows.vulns;
+                if (props.verificationFn !== undefined) {
+                  props.verificationFn(vulnerabilities, "request", clearSelectedRows);
+                }
+              };
+
+              return (
+                <React.Fragment>
+                  {canRequestVerification ?
+                    <Row>
+                      <Col mdOffset={5} md={4}>
+                        <Button
+                          bsStyle="success"
+                          onClick={handleClick}
+                          disabled={!(arraySelectedRows.length > 0)}
+                        >
+                          <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify")}
+                        </Button>
+                      </Col><br/>
+                    </Row>
+                  : undefined}
+                </React.Fragment>
+              );
+            };
+            const renderVerifyRequest: (() => JSX.Element) = (): JSX.Element => {
+              const handleClick: (() => void) = (): void => {
+                const selectedRows: ICalculateRowsSelected = calculateRowsSelected();
+                const vulnerabilities: IVulnDataType[] = selectedRows.vulns;
+                if (props.verificationFn !== undefined) {
+                  props.verificationFn(vulnerabilities, "verify", clearSelectedRows);
+                }
+              };
+
+              return (
+                <React.Fragment>
+                  {canVerifyRequest ?
+                    <Row>
+                      <Col mdOffset={5} md={4}>
+                        <Button
+                          bsStyle="success"
+                          onClick={handleClick}
+                          disabled={!(arraySelectedRows.length > 0)}
+                        >
+                          <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
+                        </Button>
+                      </Col><br/>
+                    </Row>
+                  : undefined}
+                </React.Fragment>
+              );
             };
 
             const rowsSelected: ICalculateRowsSelected = calculateRowsSelected();

@@ -53,6 +53,22 @@ export interface IDeleteTagAttr {
   findingId: string; vulnerabilities: string[];
 }
 
+export interface IVulnDataType {
+  currentState: string;
+  id: string;
+  specific: string;
+  treatments: {
+    acceptanceDate: string;
+    btsUrl: string;
+    severity: string;
+    tag: string;
+    treatment: string;
+    treatmentJustification: string;
+    treatmentManager: string;
+  };
+  where: string;
+}
+
 export interface IVulnerabilitiesViewProps {
   analyst?: boolean;
   descriptParam?: IDescriptionViewProps;
@@ -66,6 +82,7 @@ export interface IVulnerabilitiesViewProps {
   state: string;
   userRole: string;
   vulnerabilities?: IDashboardState["vulnerabilities"];
+  verificationFn?(vulnerabilities: IVulnDataType[], action: "request" | "verify", clearSelected: () => void): void;
 }
 
 export interface IRequestVerificationVulnResult {
