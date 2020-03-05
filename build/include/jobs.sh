@@ -590,7 +590,6 @@ function _job_infra_monolith {
   local name
   local tags
   local terraform_state
-  local users_integrates
   local first_argument="${1}"
 
       aws_login \
@@ -632,15 +631,6 @@ function _job_infra_monolith {
           &&  VAULT_KMS_KEY=$(terraform output vaultKmsKey) \
           &&  eks/manifests/deploy.sh
         fi \
-    &&  {
-          users_integrates=$( \
-            aws iam list-users \
-              | jq '.Users[].Arn' \
-                | grep -E 'integrates-prod' \
-                  | head -n 1)
-          echo "fiS3Arn = ${users_integrates}"
-          terraform output 'fwBucket'
-        } >> dns/terraform.tfvars \
     &&  pushd dns/ \
       &&  elbs_info="$(mktemp)" \
       &&  jq_query='.TagDescriptions[0].Tags[] | select(.Key == "kubernetes.io/cluster/FluidServes")' \

@@ -7,7 +7,6 @@ clusterInstanceType = "m5a.large"
 
 # S3 vars
 fsBucket    = "servestf"
-fwBucket    = "web.fluidattacks.com"
 vaultBucket = "vault.fluidattacks"
 
 # Network vars

@@ -1,5 +1,4 @@
 variable "fsBucket" {}
-variable "fwBucket" {}
 variable "region" {}
 
 resource "aws_iam_account_password_policy" "strict" {
@@ -17,5 +16,4 @@ resource "aws_iam_account_password_policy" "strict" {
 module "policies" {
   source             = "./policies"
   fsBucket           = var.fsBucket
-  fwBucket           = var.fwBucket
 }

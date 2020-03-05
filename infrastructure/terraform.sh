@@ -94,12 +94,6 @@ if [ "$stage" == "deployment" ]; then
 fi
 
 # Run Terraform Plan for AWS DNS infrastructure
-{
-  echo 'fiS3Arn = '"$(aws iam list-users | jq '.Users[].Arn' | \
-    grep -E 'integrates-prod' | head -n 1)"
-  terraform output fwBucket
-} >> dns/terraform.tfvars
-
 cd dns/
 get_nginx_elb
 terraform init --backend-config="bucket=servestf"

@@ -15,18 +15,16 @@ provider "aws" {
 
 # Create from scratch
 module "bucket" {
-  source                               = "./bucket"
-  region                               = var.region
-  fsBucket                             = var.fsBucket
-  fwBucket                             = var.fwBucket
+  source   = "./bucket"
+  region   = var.region
+  fsBucket = var.fsBucket
 }
 
 # Create from scratch
 module "iam" {
-  source               = "./iam"
-  fwBucket             = var.fwBucket
-  fsBucket             = var.fsBucket
-  region               = var.region
+  source   = "./iam"
+  fsBucket = var.fsBucket
+  region   = var.region
 }
 
 # Create Kubernetes cluster in existing VPC
@@ -49,8 +47,4 @@ module "eks" {
 output "vaultKmsKey" {
   value     = module.eks.vaultKmsKey
   sensitive = true
-}
-
-output "fwBucket" {
-  value = "fwBucket=\"${module.bucket.webName}\""
 }
