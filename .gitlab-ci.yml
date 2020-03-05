@@ -4,6 +4,7 @@ stages:
   - break-build
   - ephemeral
   - mr-check
+  - deploy-infra
   - deploy
   - postdeploy
 
@@ -163,6 +164,33 @@ deploy:
   only:
     - master
 
+test_infra_ephemeral:
+  tags: [autoscaling]
+  stage: check
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  script:
+    - source ci-scripts/helpers/others.sh
+    - terraform_login
+    - pushd deploy/ephemeral/terraform
+    - terraform init
+    - terraform plan -refresh=true
+    - tflint --deep --module
+    - popd
+
+apply_infra_ephemeral:
+  tags: [autoscaling]
+  stage: deploy-infra
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  script:
+    - source ci-scripts/helpers/others.sh
+    - terraform_login
+    - pushd deploy/ephemeral/terraform
+    - terraform init
+    - terraform apply -auto-approve -refresh=true
+    - popd
+  only:
+    - master
+
 test_infra_bucket:
   tags: [autoscaling]
   stage: check
@@ -178,7 +206,7 @@ test_infra_bucket:
 
 apply_infra_bucket:
   tags: [autoscaling]
-  stage: deploy
+  stage: deploy-infra
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
@@ -205,7 +233,7 @@ test_infra_secret_management:
 
 apply_infra_secret_management:
   tags: [autoscaling]
-  stage: deploy
+  stage: deploy-infra
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
