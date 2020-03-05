@@ -141,14 +141,12 @@ deploy:
     - npm run --prefix /app/deploy/builder/ build
     - ./build-site.sh
     - ./deploy.sh
-    - ./amz-redirect.sh
-    - rm -rf output
   artifacts:
     untracked: true
     when: on_success
     expire_in: 18 hrs
     paths:
-      - /app/cache/
+      - cache
   only:
     - master
 
