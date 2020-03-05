@@ -56,7 +56,7 @@ function job_build_lambdas {
             fi \
       &&  deactivate \
       &&  echo '[INFO] Exiting virtual environment' \
-      &&  pushd "${path_to_lambda_venv}/lib/python3.8/site-packages" \
+      &&  pushd "${path_to_lambda_venv}/lib/python3.7/site-packages" \
         &&  zip -r9 "${lambda_zip_file}" . \
       &&  popd \
       &&  pushd "${path_to_lambda}" \
@@ -677,7 +677,7 @@ function job_test_back_async {
         --maxfail='20' \
         --cov='fluidintegrates' \
         --cov='app' \
-        --cov="${pyExtraPkgIntegratesBackAsync}/site-packages/backend" \
+        --cov="${pyAsyncPkgIntegratesBack}/site-packages/backend" \
         --cov-report='term' \
         --disable-warnings \
         'test_async' \

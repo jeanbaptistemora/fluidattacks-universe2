@@ -24,12 +24,20 @@ function cli {
   echo '---'
   env_prepare_environment_variables
   env_prepare_ephemeral_vars
-  env_prepare_dynamodb_local
-  env_prepare_nodejs_modules
-  env_prepare_python_packages
-  if [ "${function_to_call}" == 'test_back_async' ]; then
-    env_prepare_python_extra_packages
-  fi
+  case "${function_to_call}" in
+    deploy_container*)
+      :
+      ;;
+    *)
+      env_prepare_dynamodb_local
+      env_prepare_nodejs_modules
+      if [ "${function_to_call}" == 'test_back_async' ]; then
+        env_prepare_python_async_packages
+      else
+        env_prepare_python_packages
+      fi
+      ;;
+  esac
 
   echo "[INFO] Executing function: job_${function_to_call}"
   if "job_${function_to_call}"

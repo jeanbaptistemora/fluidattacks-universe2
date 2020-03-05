@@ -6,15 +6,14 @@ let
 
   customPkgs.python = import ../pkgs/python pkgs;
 in
-  [
+  (import ./deploy-container.nix pkgs)
+  ++ [
     customPkgs.python
-    pkgs.awscli
     pkgs.cacert
     pkgs.curl
     pkgs.docker
     pkgs.firefox
     pkgs.geckodriver
-    pkgs.git
     pkgs.hostname
     pkgs.jq
     pkgs.kubectl
@@ -24,7 +23,6 @@ in
     pkgs.redis
     pkgs.rpl
     pkgs.shellcheck
-    pkgs.sops
     pkgs.terraform
     pkgs.tflint
     pkgs.unzip

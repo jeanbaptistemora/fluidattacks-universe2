@@ -60,28 +60,30 @@ function env_prepare_python_packages {
   done < "${TEMP_FILE1}"
 }
 
-function env_prepare_python_extra_packages {
+function env_prepare_python_async_packages {
   export PATH
   export PYTHONPATH
   local pkg
 
   echo '[INFO] Preparing extra python packages'
 
-  helper_list_vars_with_regex 'pyExtraPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+  helper_list_vars_with_regex 'pyAsyncPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
 
   while read -r pkg
   do
     echo "  [${pkg}] ${!pkg}"
     PATH="${PATH}:${!pkg}/site-packages/bin"
     PYTHONPATH="${!pkg}/site-packages:${PYTHONPATH}"
-    # shellcheck disable=SC2001
-    PYTHONPATH=$(echo "${PYTHONPATH}" |  sed -e 's|:[a-z0-9/]\+-python-package-local/site-packages:||g')
   done < "${TEMP_FILE1}"
+
+  # Override Graphene-django's graphql-core with Ariadne's graphql-core
+  PYTHONPATH="${pyAsyncPkgReqs}/site-packages:${PYTHONPATH}"
+
   for cursrc in dal decorators.py domain exceptions.py mailer.py \
         scheduler.py services.py util.py utils; do
     echo "  [MIGRATION] Copying ${cursrc}..."
     cp -a "${pyPkgIntegratesBack}"/site-packages/backend/${cursrc} \
-        "${pyExtraPkgIntegratesBackAsync}"/site-packages/backend/
+        "${pyAsyncPkgIntegratesBack}"/site-packages/backend/
     done
 }
 

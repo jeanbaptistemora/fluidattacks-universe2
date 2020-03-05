@@ -75,6 +75,7 @@ django-apps/**/dist
 /build/coverage
 /coverage.xml
 /dump.rdb
+/geckodriver.log
 /lambda/.venv.*
 /TEMP_FD
 /version.txt
