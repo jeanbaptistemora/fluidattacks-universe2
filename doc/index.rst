@@ -263,7 +263,8 @@ Usage:
 
   .. code:: bash
 
-    user@PC:~/continuous$ sh tools/set-srcclr.sh
+    user@PC:~/continuous$ docker run --name=sourceclear -v $(pwd):/continuous
+    --rm -i -t \ registry.gitlab.com/fluidattacks/continuous:srcclr bash
 
 - Once inside the container, run:
 
