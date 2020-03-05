@@ -11,7 +11,7 @@ build_pelican() {
 
   # Build container
   build_container \
-    "${CI_REGISTRY_IMAGE}/review:${CI_COMMIT_REF_SLUG}" \
+    "${CI_REGISTRY_IMAGE}/ephemeral:${CI_COMMIT_REF_SLUG}" \
     "${CI_PROJECT_DIR}" \
     --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}" \
     --file "${CI_PROJECT_DIR}/deploy/ephemeral/Dockerfile"

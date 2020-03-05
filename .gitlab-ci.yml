@@ -2,9 +2,9 @@ stages:
   - build
   - check
   - break-build
-  - review
+  - ephemeral
   - mr-check
-  - deployment
+  - deploy
   - postdeploy
 
 .fa_default_registry_vars: &fa_default_registry_vars
@@ -55,23 +55,23 @@ commitlint:
   except:
     - master
 
-review-web:
+deploy-ephemeral:
   tags: [autoscaling]
-  stage: review
+  stage: ephemeral
   <<: *fa_default_registry_vars
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - ./deploy/ephemeral/cluster-config.sh
   environment:
-    name: review/${CI_COMMIT_REF_SLUG}
+    name: ephemeral/${CI_COMMIT_REF_SLUG}
     url: https://web.env.fluidattacks.com/${CI_COMMIT_REF_SLUG}/web/
-    on_stop: stop-review
+    on_stop: stop-ephemeral
   except:
     - master
 
-stop-review:
+stop-ephemeral:
   tags: [autoscaling]
-  stage: review
+  stage: ephemeral
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   variables:
     GIT_STRATEGY: none
@@ -79,19 +79,19 @@ stop-review:
     - kubectl config set-context
         "$(kubectl config current-context)"
         --namespace="${CI_PROJECT_NAME}"
-    - kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}"
+    - kubectl delete deployment "ephemeral-${CI_COMMIT_REF_SLUG}"
     - kubectl delete service "service-${CI_COMMIT_REF_SLUG}"
     - kubectl get ingress "ingress-${CI_PROJECT_NAME}" -o yaml
         | tac | sed '/path:\ \/'"${CI_COMMIT_REF_SLUG}"'/,+3d'
         | tac > current-ingress.yaml
     - kubectl delete ingress "ingress-${CI_PROJECT_NAME}"
     - if
-        kubectl get deployments | grep 'review-*';
+        kubectl get deployments | grep 'ephemeral-*';
         then kubectl create -f current-ingress.yaml;
       fi
   when: manual
   environment:
-    name: review/${CI_COMMIT_REF_SLUG}
+    name: ephemeral/${CI_COMMIT_REF_SLUG}
     action: stop
   except:
     - master
@@ -125,7 +125,7 @@ danger:
 
 deploy:
   tags: [autoscaling]
-  stage: deployment
+  stage: deploy
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - cd /app
@@ -136,8 +136,8 @@ deploy:
         else
           echo "There are no artifacts";
       fi
-    - cp -a deploy/builder/node_modules /app/theme/2014/
-    - cp -a deploy/builder/node_modules /app/
+    - cp -a /app/deploy/builder/node_modules /app/theme/2014/
+    - cp -a /app/deploy/builder/node_modules /app/
     - npm run --prefix /app/deploy/builder/ build
     - ./build-site.sh
     - ./deploy.sh
@@ -148,7 +148,34 @@ deploy:
     when: on_success
     expire_in: 18 hrs
     paths:
-      - cache/
+      - /app/cache/
+  only:
+    - master
+
+test_infra_bucket:
+  tags: [autoscaling]
+  stage: check
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  script:
+    - source ci-scripts/helpers/others.sh
+    - terraform_login
+    - pushd deploy/bucket/terraform
+    - terraform init
+    - terraform plan -refresh=true
+    - tflint --deep --module
+    - popd
+
+apply_infra_bucket:
+  tags: [autoscaling]
+  stage: deploy
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  script:
+    - source ci-scripts/helpers/others.sh
+    - terraform_login
+    - pushd deploy/bucket/terraform
+    - terraform init
+    - terraform apply -auto-approve -refresh=true
+    - popd
   only:
     - master
 
@@ -163,10 +190,11 @@ test_infra_secret_management:
     - terraform init
     - terraform plan -refresh=true
     - tflint --deep --module
+    - popd
 
 apply_infra_secret_management:
   tags: [autoscaling]
-  stage: deployment
+  stage: deploy
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
@@ -174,6 +202,7 @@ apply_infra_secret_management:
     - pushd deploy/secret-management/terraform
     - terraform init
     - terraform apply -auto-approve -refresh=true
+    - popd
   only:
     - master
 

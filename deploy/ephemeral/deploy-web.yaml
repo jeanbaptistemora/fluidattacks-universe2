@@ -12,7 +12,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: review-$CI_COMMIT_REF_SLUG
+  name: ephemeral-$CI_COMMIT_REF_SLUG
 spec:
   replicas: 1
   template:
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: registry.gitlab.com/fluidattacks/web/review:$CI_COMMIT_REF_SLUG
+        image: registry.gitlab.com/fluidattacks/web/ephemeral:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         ports:
         - containerPort: 80

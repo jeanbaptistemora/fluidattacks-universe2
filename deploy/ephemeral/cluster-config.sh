@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This scripts manages the deployment of the Review Apps,
+# This scripts manages the deployment of the ephemeral environment,
 # which allow to view a live site through a public IP with the
 # changes introduced by the developer, before accepting changes into
 # production.
@@ -27,7 +27,7 @@ fi
 # Delete previous deployments and services of the same branch, if present
 if kubectl get deployments | grep -q "${CI_COMMIT_REF_SLUG}"; then
   echo "Erasing previous deployments..."
-  kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}"
+  kubectl delete deployment "ephemeral-${CI_COMMIT_REF_SLUG}"
   kubectl delete service "service-${CI_COMMIT_REF_SLUG}";
   kubectl get ingress "ingress-${CI_PROJECT_NAME}" -o yaml | tac | sed '/path:\ \/'"${CI_COMMIT_REF_SLUG}"'/,+3d' | tac > current-ingress.yaml
 fi
@@ -51,4 +51,4 @@ kubectl apply -f deploy/ephemeral/tls.yaml
 # Deploy pod and service
 echo "Deploying latest image..."
 kubectl create -f deploy/ephemeral/deploy-web.yaml
-kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}"
+kubectl rollout status "deploy/ephemeral-${CI_COMMIT_REF_SLUG}"
