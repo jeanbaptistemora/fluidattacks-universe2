@@ -38,27 +38,21 @@ export const GET_REPOSITORIES: DocumentNode = gql`
   }
   `;
 
-export const UPDATE_RESOURCE_MUTATION: DocumentNode = gql`
-  mutation UpdateResourceMutation($projectName: String!, $resData: JSONString!, $resType: String!) {
-    updateResources (
-      resourceData: $resData,
-      projectName: $projectName,
-      resType: $resType) {
+export const UPDATE_ENVIRONMENT_MUTATION: DocumentNode = gql`
+  mutation UpdateEnvironmentMutation($projectName: String!, $env: EnvironmentInput!, $state: ResourceState!) {
+    updateEnvironment(projectName: $projectName, env: $env, state: $state) {
       success
     }
   }
-  `;
+`;
 
-export const ADD_RESOURCE_MUTATION: DocumentNode = gql`
-  mutation AddResourceMutation($projectName: String!, $resData: JSONString!, $resType: String!) {
-    addResources (
-      resourceData: $resData,
-      projectName: $projectName,
-      resType: $resType) {
+export const UPDATE_REPOSITORY_MUTATION: DocumentNode = gql`
+  mutation UpdateRespositoryMutation($projectName: String!, $repo: RepositoryInput!, $state: ResourceState!) {
+    updateRepository(projectName: $projectName, repo: $repo, state: $state) {
       success
     }
   }
-  `;
+`;
 
 export const ADD_ENVIRONMENTS_MUTATION: DocumentNode = gql`
   mutation AddEnvironmentsMutation($projectName: String!, $envs: [EnvironmentInput]!) {
@@ -68,7 +62,7 @@ export const ADD_ENVIRONMENTS_MUTATION: DocumentNode = gql`
   }
 `;
 
-export const ADD_REPOSITORY_MUTATION: DocumentNode = gql`
+export const ADD_REPOSITORIES_MUTATION: DocumentNode = gql`
   mutation AddRespositoriesMutation($projectName: String!, $repos: [RepositoryInput]!) {
     addRepositories(projectName: $projectName, repos: $repos) {
       success

@@ -16,7 +16,7 @@ import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/index";
-import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_RESOURCE_MUTATION } from "../queries";
+import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_ENVIRONMENT_MUTATION } from "../queries";
 import { IEnvironmentsAttr, IHistoricState } from "../types";
 
 interface IEnvironmentsProps {
@@ -37,7 +37,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_ENVIRONMENTS, { variables: { projectName: props.projectName } });
   const [addEnvironments] = useMutation(ADD_ENVIRONMENTS_MUTATION, { onCompleted: refetch });
-  const [updateEnvironments] = useMutation(UPDATE_RESOURCE_MUTATION, {
+  const [updateEnvironment] = useMutation(UPDATE_ENVIRONMENT_MUTATION, {
     onCompleted: (): void => {
       refetch()
         .catch();
@@ -110,14 +110,11 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
         {(confirm: ConfirmFn): React.ReactNode => {
           const handleStateUpdate: ((env: Dictionary<string>) => void) = (env: Dictionary<string>): void => {
             confirm(() => {
-              updateEnvironments({
+              updateEnvironment({
                 variables: {
+                  env: { urlEnv: env.urlEnv },
                   projectName: props.projectName,
-                  resData: JSON.stringify({
-                    ...env,
-                    state: env.state === "Active" ? "INACTIVE" : "ACTIVE",
-                  }),
-                  resType: "environment",
+                  state: env.state === "Active" ? "INACTIVE" : "ACTIVE",
                 },
               })
                 .catch();

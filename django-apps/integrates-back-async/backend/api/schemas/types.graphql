@@ -226,6 +226,11 @@ input RepositoryInput {
     urlRepo: String!
 }
 
+enum ResourceState {
+    ACTIVE
+    INACTIVE
+}
+
 enum DeleteVulnerabilityJustification {
     DUPLICATED
     FALSE_POSITIVE

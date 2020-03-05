@@ -8,8 +8,8 @@ from typing import Any, Dict, List as _List
 import rollbar
 from mixpanel import Mixpanel
 from graphene import (
-    Boolean, Field, InputObjectType, JSONString, List, Mutation, ObjectType,
-    String
+    Argument, Boolean, Enum, Field, InputObjectType, JSONString, List,
+    Mutation, ObjectType, String
 )
 from graphene_file_upload.scalars import Upload
 from django.conf import settings
@@ -237,6 +237,96 @@ An error occurred updating resource', 'error', info.context)
         ret = UpdateResources(success=success,
                               resources=Resource(project_name))
         return ret
+
+
+RESOURCE_STATE = Enum('ResourceState', [
+    ('ACTIVE', 'ACTIVE'),
+    ('INACTIVE', 'INACTIVE')
+])
+
+
+class UpdateEnvironment(Mutation):
+    """Update environment state"""
+
+    class Arguments():
+        project_name = String(required=True)
+        env = EnvironmentInput(required=True)
+        state = Argument(RESOURCE_STATE, required=True)
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @enforce_authz
+    @require_project_access
+    def mutate(_, info, project_name: str, env: Dict[str, str],
+               state: str) -> object:
+        user_email = util.get_jwt_content(info.context)['user_email']
+        success = resources.update_resource(
+            env, project_name, 'environment', user_email)
+
+        if success:
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Updated environment state in {project_name} '
+                'project succesfully')
+
+            action = 'activated' if state == 'ACTIVE' else 'deactivated'
+            resources.send_mail(
+                project_name, user_email, [env], action, 'environment')
+        else:
+            rollbar.report_message(
+                'An error occurred updating environment state',
+                level='error',
+                payload_data=locals())
+            util.cloudwatch_log(
+                info.context,
+                'Security: Attempted to update environment state in '
+                f'{project_name} project')
+
+        return UpdateEnvironment(success=success)
+
+
+class UpdateRepository(Mutation):
+    """Update repository state"""
+
+    class Arguments():
+        project_name = String(required=True)
+        repo = RepositoryInput(required=True)
+        state = Argument(RESOURCE_STATE, required=True)
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @enforce_authz
+    @require_project_access
+    def mutate(_, info, project_name: str, repo: Dict[str, str],
+               state: str) -> object:
+        user_email = util.get_jwt_content(info.context)['user_email']
+        success = resources.update_resource(
+            repo, project_name, 'repository', user_email)
+
+        if success:
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Updated repository state in {project_name} '
+                'project succesfully')
+
+            action = 'activated' if state == 'ACTIVE' else 'deactivated'
+            resources.send_mail(
+                project_name, user_email, [repo], action, 'repository')
+        else:
+            rollbar.report_message(
+                'An error occurred updating repository state',
+                level='error',
+                payload_data=locals())
+            util.cloudwatch_log(
+                info.context,
+                'Security: Attempted to update repository state in '
+                f'{project_name} project')
+
+        return UpdateRepository(success=success)
 
 
 class AddFiles(Mutation):

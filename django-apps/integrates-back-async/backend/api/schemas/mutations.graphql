@@ -23,11 +23,25 @@ type Mutation {
         This mutation is deprecated and will be removed in the future.
         Please use the AddRepositories and AddEnvironments mutations instead
         """)
+    updateEnvironment(
+        env: EnvironmentInput!,
+        project_name: String!,
+        state: ResourceState!
+    ): SimplePayload!
+    updateRepository(
+        project_name: String!,
+        repo: RepositoryInput!,
+        state: ResourceState!
+    ): SimplePayload!
     updateResources(
         resource_data: JSONString!,
         project_name: String!,
         res_type: String!
-    ): ResourcesPayload!
+    ): ResourcesPayload! @deprecated(reason:
+        """
+        This mutation is deprecated and will be removed in the future.
+        Please use the UpdateRepository and UpdateEnvironment mutations instead
+        """)
     addFiles(
         file: Upload!,
         files_data: JSONString!,

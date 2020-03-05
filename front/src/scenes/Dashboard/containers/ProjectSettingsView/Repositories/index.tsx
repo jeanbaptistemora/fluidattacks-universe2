@@ -16,7 +16,7 @@ import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
-import { ADD_REPOSITORY_MUTATION, GET_REPOSITORIES, UPDATE_RESOURCE_MUTATION } from "../queries";
+import { ADD_REPOSITORIES_MUTATION, GET_REPOSITORIES, UPDATE_REPOSITORY_MUTATION } from "../queries";
 import { IHistoricState, IRepositoriesAttr } from "../types";
 
 interface IRepositoriesProps {
@@ -36,8 +36,8 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_REPOSITORIES, { variables: { projectName: props.projectName } });
-  const [addRepositories] = useMutation(ADD_REPOSITORY_MUTATION, { onCompleted: refetch });
-  const [updateRepositories] = useMutation(UPDATE_RESOURCE_MUTATION, {
+  const [addRepositories] = useMutation(ADD_REPOSITORIES_MUTATION, { onCompleted: refetch });
+  const [updateRepository] = useMutation(UPDATE_REPOSITORY_MUTATION, {
     onCompleted: (): void => {
       refetch()
         .catch();
@@ -112,14 +112,15 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
         {(confirm: ConfirmFn): React.ReactNode => {
           const handleStateUpdate: ((repo: Dictionary<string>) => void) = (repo: Dictionary<string>): void => {
             confirm(() => {
-              updateRepositories({
+              updateRepository({
                 variables: {
                   projectName: props.projectName,
-                  resData: JSON.stringify({
-                    ...repo,
-                    state: repo.state === "Active" ? "INACTIVE" : "ACTIVE",
-                  }),
-                  resType: "repository",
+                  repo: {
+                    branch: repo.branch,
+                    protocol: _.isNil(repo.protocol) ? "" : repo.protocol,
+                    urlRepo: repo.urlRepo,
+                  },
+                  state: repo.state === "Active" ? "INACTIVE" : "ACTIVE",
                 },
               })
                 .catch();

@@ -1,8 +1,8 @@
 from graphene import ObjectType
 
 from backend.entity.resource import (
-    AddEnvironments, AddRepositories, AddResources, UpdateResources,
-    AddFiles, RemoveFiles, DownloadFile
+    AddEnvironments, AddRepositories, AddResources, UpdateEnvironment,
+    UpdateRepository, UpdateResources, AddFiles, RemoveFiles, DownloadFile
 )
 from backend.entity.user import (
     GrantUserAccess, RemoveUserAccess,
@@ -47,7 +47,12 @@ class Mutations(ObjectType):
         deprecation_reason='This mutation is deprecated and will be removed '
         'in the future. Please use the AddRepositories and AddEnvironments '
         'mutations instead')
-    updateResources = UpdateResources.Field()
+    updateEnvironment = UpdateEnvironment.Field()
+    updateRepository = UpdateRepository.Field()
+    updateResources = UpdateResources.Field(
+        deprecation_reason='This mutation is deprecated and will be removed '
+        'in the future. Please use the UpdateRepository and '
+        'UpdateEnvironment mutations instead')
     addFiles = AddFiles.Field()
     removeFiles = RemoveFiles.Field()
     downloadFile = DownloadFile.Field()
