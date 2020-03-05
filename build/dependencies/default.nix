@@ -12,6 +12,8 @@ in
     pkgs.cacert
     pkgs.curl
     pkgs.docker
+    pkgs.firefox
+    pkgs.geckodriver
     pkgs.git
     pkgs.hostname
     pkgs.jq

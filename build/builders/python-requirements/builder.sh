@@ -8,7 +8,7 @@ cp -r --no-preserve=mode,ownership \
   "${path}" "root/src/${name}"
 
 # Remove some libraries that must be provided by nix
-sed -i -E 's/^(python-magic|matplotlib).*$//g' "root/src/${name}"
+sed -i -E 's/^(python-magic|matplotlib|selenium).*$//g' "root/src/${name}"
 cat "root/src/${name}"
 
 pip3 install \

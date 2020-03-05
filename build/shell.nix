@@ -10,6 +10,9 @@ in
 
     buildInputs = import ./dependencies pkgs;
 
+    pkgGeckoDriver = pkgs.geckodriver;
+    pkgFirefox = pkgs.firefox;
+
     nodejsModuleGraphqlSchemaLinter =
       builders.nodejsModule "graphql-schema-linter@0.2.4";
     pyPkgCodecov =

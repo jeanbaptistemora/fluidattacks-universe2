@@ -231,6 +231,36 @@ function job_deploy_front {
     &&  ./manage.py collectstatic --no-input
 }
 
+function _job_functional_tests {
+      echo '[INFO] Logging in to AWS' \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  echo "[INFO] Firefox: ${pkgFirefox}" \
+  &&  echo "[INFO] GeckoDriver:  ${pkgGeckoDriver}" \
+  &&  echo '[INFO] Exporting vars' \
+  &&  sops_vars "${ENVIRONMENT_NAME}" \
+  &&  echo "[INFO] Running test suite: ${CI_NODE_INDEX}/${CI_NODE_TOTAL}" \
+  &&  pytest \
+        --ds='fluidintegrates.settings' \
+        --verbose \
+        --exitfirst \
+        --basetemp='build/test' \
+        --test-group-count "${CI_NODE_TOTAL}" \
+        --test-group "${CI_NODE_INDEX}" \
+        ephemeral_tests.py
+}
+
+function job_functional_tests_local {
+  _job_functional_tests
+}
+
+function job_functional_tests_dev {
+  CI='true' _job_functional_tests
+}
+
+function job_functional_tests_prod {
+  CI_COMMIT_REF_NAME='master' _job_functional_tests
+}
+
 function job_renew_certificates {
   local certificate='ssl-review-apps'
   local certificate_issuer='letsencrypt'

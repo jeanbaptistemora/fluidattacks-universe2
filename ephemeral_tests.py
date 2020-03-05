@@ -7,46 +7,54 @@ import unittest
 import boto3
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.support.ui import WebDriverWait
 
-SCR_PATH = 'screenshots/'
+SCR_PATH = './test/functional/'
 
 
 class ViewTestCase(unittest.TestCase):
 
     def setUp(self):
+        self.geckodriver = os.environ['pkgGeckoDriver']
+        self.geckodriver = f'{self.geckodriver}/bin/geckodriver'
+
+        self.firefox = os.environ['pkgFirefox']
+        self.firefox = f'{self.firefox}/bin/firefox'
+
         s3_bucket = 'fluidintegrates.resources'
-        profile_path = '/root/.config/google-chrome/Default'
+        profile_path = './test/functional/profile'
         if not os.path.exists(profile_path):
             session = boto3.Session(
                 aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
                 aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
-            s3_sess = session.resource('s3')
-            s3_sess.Bucket(s3_bucket).download_file(
-                'selenium/chrome-selenium-profile.tar.gz', 'profile.tar.gz')
-            with tarfile.open('profile.tar.gz') as tar:
-                tar.extractall()
-            profile_src = os.getcwd() + '/Default'
-            profile_dest = '/root/.config/google-chrome/Default'
-            shutil.move(profile_src, profile_dest)
+            resource = session.resource('s3')
+            resource.Bucket(s3_bucket).download_file(
+                'selenium/firefox-selenium-profile.tar.gz',
+                './test/functional/profile.tar.gz')
+            with tarfile.open('./test/functional/profile.tar.gz') as tar:
+                tar.extractall('./test/functional')
         options = Options()
-        options.add_argument('--user-data-dir=/root/.config/google-chrome')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-setuid-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--headless')
         options.add_argument('--window-size=1366,768')
+        options.binary_location = self.firefox
         options.headless = True
-        self.delay = 20
-        self.selenium = webdriver.Chrome('/usr/bin/chromedriver',
-                                         options=options)
+        self.delay = 60
+        self.selenium = webdriver.Firefox(
+          executable_path=self.geckodriver,
+          firefox_binary=self.firefox,
+          firefox_profile=profile_path,
+          options=options)
         self.branch = os.environ['CI_COMMIT_REF_NAME']
+        self.in_ci = bool(os.environ['CI'])
         if self.branch == 'master':
             self.url = 'https://fluidattacks.com/integrates'
-        else:
+        elif self.in_ci:
             self.url = \
                 f'https://{self.branch}.integrates.env.fluidattacks.com/integrates'
+        else:
+            self.url = 'https://localhost:8080/integrates'
 
         super(ViewTestCase, self).setUp()
 
@@ -206,14 +214,16 @@ class ViewTestCase(unittest.TestCase):
                 expected.presence_of_element_located(
                     (By.ID, 'evidenceItem')))
         selenium.save_screenshot(SCR_PATH + '07-03-evidence.png')
-        sev_elem.click()
+        evidences = sev_elem.find_element_by_link_text('Evidence')
+        evidences.click()
+        selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
         WebDriverWait(
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH,
                      "//*[contains(text(), 'Comentario')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
+        selenium.save_screenshot(SCR_PATH + '07-05-evidence.png')
         assert 'Comentario' in selenium.page_source
 
     def test_08_exploit(self):
@@ -271,8 +281,9 @@ class ViewTestCase(unittest.TestCase):
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.ID, 'trackingItem')))
+        tracking = sev_elem.find_element_by_link_text('Tracking')
+        tracking.click()
         selenium.save_screenshot(SCR_PATH + '09-03-tracking.png')
-        sev_elem.click()
         WebDriverWait(
             selenium, self.delay).until(
                 expected.presence_of_element_located(
@@ -413,7 +424,8 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-03-resources.png')
         selenium.find_element_by_xpath(
-            '//*[contains(text(), "Cancel")]').click()
+            '//*/button[contains(text(), "Cancel")]').click()
+        time.sleep(2)
 
         selenium.find_element_by_xpath(
             '//*[@id="resources"]/div[3]/div[2]/div/button').click()
@@ -423,8 +435,8 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-04-resources.png')
         selenium.find_element_by_xpath(
-            '//*[contains(text(), "Cancel")]').click()
-        time.sleep(1)
+            '//*/button[contains(text(), "Cancel")]').click()
+        time.sleep(2)
 
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -446,7 +458,8 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-06-resources.png')
         selenium.find_element_by_xpath(
-            '//*[contains(text(), "Cancel")]').click()
+            '//*/button[contains(text(), "Cancel")]').click()
+        time.sleep(2)
 
         selenium.find_element_by_xpath(
             '//*[@id="resources"]/div[7]/div[2]/div/button[1]').click()
@@ -456,7 +469,7 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-07-resources.png')
         selenium.find_element_by_xpath(
-            '//*[contains(text(), "Cancel")]').click()
+            '//*/button[contains(text(), "Cancel")]').click()
 
         total_tables = len(selenium.find_elements_by_tag_name("table"))
         assert total_tables == 4

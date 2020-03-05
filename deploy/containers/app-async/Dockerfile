@@ -1,12 +1,10 @@
 ARG CI_COMMIT_REF_NAME
-ARG ENV_NAME
 
-FROM registry.gitlab.com/fluidattacks/integrates/deps-$ENV_NAME:$CI_COMMIT_REF_NAME
+FROM registry.gitlab.com/fluidattacks/integrates/deps-production:$CI_COMMIT_REF_NAME
 
 ARG CI_API_V4_URL
 ARG CI_COMMIT_REF_NAME
 ARG CI_PROJECT_ID
-ARG ENV_NAME
 ARG SSL_CERT
 ARG SSL_KEY
 ARG VERSION
