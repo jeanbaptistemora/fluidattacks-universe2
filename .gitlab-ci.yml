@@ -135,9 +135,6 @@ deploy:
         else
           echo "There are no artifacts";
       fi
-    - for FILE in $(find content/blog content/pages -iname '*.adoc'); do
-        sed -i "s|include::|include::${CI_PROJECT_DIR}/|g" ${FILE}
-      done
     - npm --prefix deploy/builder/ install
     - cp -a deploy/builder/node_modules theme/2014/
     - npm run --prefix deploy/builder/ build
