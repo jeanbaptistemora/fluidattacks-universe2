@@ -55,6 +55,7 @@ python-magic==0.4.15        # fluidasserts.format.file
 pytz==2019.3                # fluidasserts.proto.http
 pywinrm==0.4.1              # fluidasserts.helper.winrm_helper
 requests==2.23.0            # fluidasserts.proto.http
+requests_ntlm==1.1.0        # fluidasserts.proto.http
 requirements-detector==0.6  # fluidasserts.sca
 selenium==3.141.0           # fluidasserts.helper.http
 tlslite-ng==0.8.0-alpha37   # fluidasserts.proto.ssl

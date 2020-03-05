@@ -28,6 +28,7 @@ from selenium.webdriver.remote.webdriver import WebDriver, WebElement
 from bs4 import BeautifulSoup
 from PIL import Image
 import requests
+from requests_ntlm import HttpNtlmAuth
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 # local imports
@@ -87,9 +88,10 @@ class HTTPSession():
                  redirect: Optional[bool] = True,
                  timeout: Optional[float] = 10.0,
                  stream: Optional[bool] = False,
+                 ntlm_auth: Optional[Tuple[str, str]] = None,
                  request_at_instantiation: Optional[bool] = True,
                  **requests_kwargs) -> None:
-        """
+        r"""
         Construct method.
 
         :param url: URL for the new :class:`.HTTPSession` object.
@@ -106,6 +108,8 @@ class HTTPSession():
         :param files: Dictionary of ``'name': file-like-objects``
                       for multipart encoding upload.
         :param auth: Auth tuple to enable Basic/Digest/Custom HTTP Auth.
+        :param ntlm_auth: Auth tuple to enable NTLM Auth.
+                          Takes ('domain\\username','password').
         :param redirect: Indicates if redirects should be followed.
         :param timeout: Time to wait for the response before raising a
                         timeout error.
@@ -124,6 +128,7 @@ class HTTPSession():
         self.auth = auth
         self.files = files
         self.method = method
+        self.ntlm_auth = ntlm_auth
         self.verb_used = None
         self.response = None  # type: requests.Response
         self.is_auth = False
@@ -180,7 +185,8 @@ class HTTPSession():
         self.verb_used = 'POST'
         try:
             return requests.post(self.url, verify=False,
-                                 auth=self.auth,
+                                 auth=HttpNtlmAuth(*self.ntlm_auth)
+                                 if self.ntlm_auth else self.auth,
                                  json=self.json,
                                  cookies=self.cookies,
                                  headers=self.headers,
@@ -197,7 +203,8 @@ class HTTPSession():
         self.verb_used = 'POST'
         try:
             return requests.post(self.url, verify=False,
-                                 auth=self.auth,
+                                 auth=HttpNtlmAuth(*self.ntlm_auth)
+                                 if self.ntlm_auth else self.auth,
                                  files=self.files,
                                  cookies=self.cookies,
                                  headers=self.headers,
@@ -214,7 +221,8 @@ class HTTPSession():
         self.verb_used = 'GET'
         try:
             return requests.get(self.url, verify=False,
-                                auth=self.auth,
+                                auth=HttpNtlmAuth(*self.ntlm_auth)
+                                if self.ntlm_auth else self.auth,
                                 params=self.params,
                                 cookies=self.cookies,
                                 headers=self.headers,
@@ -232,7 +240,8 @@ class HTTPSession():
         try:
             return requests.post(self.url, verify=False,
                                  data=self.data,
-                                 auth=self.auth,
+                                 auth=HttpNtlmAuth(*self.ntlm_auth)
+                                 if self.ntlm_auth else self.auth,
                                  params=self.params,
                                  cookies=self.cookies,
                                  headers=self.headers,
@@ -257,7 +266,8 @@ class HTTPSession():
                                     headers=self.headers,
                                     cookies=self.cookies,
                                     files=self.files,
-                                    auth=self.auth,
+                                    auth=HttpNtlmAuth(*self.ntlm_auth)
+                                    if self.ntlm_auth else self.auth,
                                     timeout=self.timeout,
                                     allow_redirects=self.redirect,
                                     stream=self.stream,

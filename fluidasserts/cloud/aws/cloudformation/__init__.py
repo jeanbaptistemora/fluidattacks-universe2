@@ -41,9 +41,8 @@ def _get_result_as_tuple(*,
     #   specific: {entity}/{id} {reason}
 
     vuln_units: List[Unit] = [
-        Unit(where=x.path,
-             specific=[f'[{x.identifier}] {x.entity} {x.reason}. '
-                       f'(Line: {x.line})'])
+        Unit(where=f'{x.path} - [{x.identifier}] {x.entity} {x.reason}.',
+             specific=[x.line])
         for x in vulnerabilities]
 
     if vuln_units:
