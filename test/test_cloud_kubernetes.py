@@ -112,6 +112,13 @@ def test_has_pod_containers_that_allow_privilege_escalation_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_has_volumes_mounted_in_docker_socket_path_open():
+    """Search deployments that have volumes mounted in docker socket path."""
+    assert pods.has_volumes_mounted_in_docker_socket_path(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
@@ -206,5 +213,12 @@ def test_has_pod_containers_that_run_as_root_user_close():
 def test_has_pod_containers_that_allow_privilege_escalation_close():
     """Search containers that allow privilege escalation."""
     assert pods.has_pod_containers_that_allow_privilege_escalation(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
+
+
+def test_has_volumes_mounted_in_docker_socket_path_close():
+    """Search deployments that have volumes mounted in docker socket path."""
+    assert pods.has_volumes_mounted_in_docker_socket_path(
         host=BAD_KUBERNETES_API_SERVER,
         api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
