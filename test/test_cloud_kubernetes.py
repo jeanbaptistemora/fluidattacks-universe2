@@ -119,6 +119,13 @@ def test_has_volumes_mounted_in_docker_socket_path_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_has_containers_with_host_ipc_enabled_open():
+    """Search containers that have IPC enabled."""
+    assert pods.has_containers_with_host_ipc_enabled(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
@@ -220,5 +227,12 @@ def test_has_pod_containers_that_allow_privilege_escalation_close():
 def test_has_volumes_mounted_in_docker_socket_path_close():
     """Search deployments that have volumes mounted in docker socket path."""
     assert pods.has_volumes_mounted_in_docker_socket_path(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
+
+
+def test_has_containers_with_host_ipc_enabled_close():
+    """Search containers that have IPC enabled."""
+    assert pods.has_containers_with_host_ipc_enabled(
         host=BAD_KUBERNETES_API_SERVER,
         api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
