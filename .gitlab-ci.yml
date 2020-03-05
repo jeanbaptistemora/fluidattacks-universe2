@@ -137,6 +137,7 @@ deploy:
       fi
     - cp -a /app/deploy/builder/node_modules theme/2014/
     - cp -a /app/deploy/builder/node_modules .
+    - cp -a /app/deploy/builder/node_modules deploy/builder/
     - cp -a /app/js .
     - cp -a /app/pelican-plugins .
     - npm run --prefix deploy/builder/ build
