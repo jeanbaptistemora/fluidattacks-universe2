@@ -1,3 +1,4 @@
+variable "region" {}
 variable "fsBucket" {}
 
 resource "aws_s3_bucket" "serves_bucket" {
