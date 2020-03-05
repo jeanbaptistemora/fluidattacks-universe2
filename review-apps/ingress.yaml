@@ -37,6 +37,7 @@ spec:
           serviceName: service-__DEPLOYMENT_NAME__
           servicePort: 80
         path: /
+---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
