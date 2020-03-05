@@ -1,8 +1,9 @@
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Dict, List, Union
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
+from backend.dal.user import UserType
 from backend.utils.user import validate_email_address, validate_field, validate_phone_field
 
 
@@ -19,7 +20,7 @@ def assign_role(email: str, role: str) -> bool:
     return resp
 
 
-def get_admins() -> List[Any]:
+def get_admins() -> List[str]:
     return user_dal.get_admins()
 
 
@@ -27,7 +28,7 @@ def get_all_companies() -> List[str]:
     return user_dal.get_all_companies()
 
 
-def get_all_inactive_users(final_date: str) -> List[Any]:
+def get_all_inactive_users(final_date: str) -> List[str]:
     return user_dal.get_all_inactive_users(final_date)
 
 
@@ -45,14 +46,12 @@ def get_current_date() -> str:
     return today
 
 
-def get_data(email: str, attr: str) -> Any:
+def get_data(email: str, attr: str) -> str:
     data_attr = get_attributes(email, [attr])
     data = ''
     if data_attr and data_attr.get(attr):
-        data = data_attr.get(attr, '')
-    else:
-        # User not found or without attribute
-        pass
+        data = str(data_attr.get(attr, ''))
+
     return data
 
 
@@ -74,7 +73,7 @@ def get_project_access(email: str, project_name: str) -> bool:
     return resp
 
 
-def get_attributes(email: str, data: List[str]) -> Dict[str, Any]:
+def get_attributes(email: str, data: List[str]) -> UserType:
     """ Get attributes of a user. """
     return user_dal.get_attributes(email, data)
 
@@ -112,7 +111,7 @@ def update_legal_remember(email: str, remember: bool) -> bool:
     return user_dal.update(email, {'legal_remember': remember})
 
 
-def update_access_token(email: str, token_data: Dict[str, Any]) -> bool:
+def update_access_token(email: str, token_data: Dict[str, str]) -> bool:
     """ Update access token """
     access_token = {
         'iat': int(datetime.utcnow().timestamp()),
@@ -130,11 +129,11 @@ def update_project_access(email: str, project_name: str, access: bool) -> bool:
     return project_dal.add_access(email, project_name, 'has_access', access)
 
 
-def update_multiple_user_attributes(email: str, data_dict: Dict[str, Any]) -> bool:
+def update_multiple_user_attributes(email: str, data_dict: UserType) -> bool:
     return user_dal.update(email, data_dict)
 
 
-def create(email: str, data: Dict[str, Any]) -> bool:
+def create(email: str, data: UserType) -> bool:
     return user_dal.create(email, data)
 
 
@@ -142,23 +141,23 @@ def update(email: str, data_attr: str, name_attr: str) -> bool:
     return user_dal.update(email, {name_attr: data_attr})
 
 
-def create_without_project(user_data: Dict[str, Any]) -> bool:
+def create_without_project(user_data: UserType) -> bool:
     phone_number = ''
     success = False
     if (
-        validate_field(user_data.get('organization')) and
-        validate_phone_field(user_data.get('phone_number', '')) and
-        validate_email_address(user_data['email'])
+        validate_field(user_data.get('organization', '')) and
+        validate_phone_field(str(user_data.get('phone_number', ''))) and
+        validate_email_address(str(user_data.get('email', '')))
     ):
-        if not get_data(user_data['email'], 'email'):
+        if not get_data(str(user_data.get('email', '')), 'email'):
             user_data.update({'registered': True})
             if user_data.get('phone_number'):
-                phone_number = user_data.get('phone_number', '')
+                phone_number = str(user_data.get('phone_number', ''))
                 del user_data['phone_number']
             success = create(
-                user_data['email'].lower(), user_data)
+                str(user_data.get('email', '')).lower(), user_data)
     if success:
         if phone_number and phone_number[1:].isdigit():
-            add_phone_to_user(user_data['email'].lower(), phone_number)
+            add_phone_to_user(str(user_data.get('email', '')).lower(), phone_number)
 
     return success

@@ -1,5 +1,5 @@
 
-from typing import Any, Dict, List, Union
+from typing import Dict, List, Union
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
@@ -12,7 +12,12 @@ TABLE = 'FI_users'
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 
-UserType = Dict[str, Union[str, List[str]]]
+UserType = Dict[str, Union[
+    str, bool,
+    List[str],
+    Dict[str, object],
+    None
+]]
 
 
 def get_admins() -> List[str]:
@@ -116,7 +121,7 @@ def create(email: str, data: UserType) -> bool:
     return resp
 
 
-def update(email: str, data: Any) -> bool:
+def update(email: str, data: UserType) -> bool:
     success = False
     primary_key = {'email': email.lower()}
     table = DYNAMODB_RESOURCE.Table(TABLE)
