@@ -55,6 +55,7 @@ def _has_not_access_control_in_list(
                             f'AccessControl/'
                             f'{access_control}'),
                     identifier=res_name,
+                    line=res_props['line'],
                     reason=vulnerability_reason))
 
     return _get_result_as_tuple(

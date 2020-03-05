@@ -57,6 +57,7 @@ def is_key_rotation_absent_or_disabled(
                     path=yaml_path,
                     entity=f'AWS::KMS::Key',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='has key rotation absent or disabled'))
 
     return _get_result_as_tuple(

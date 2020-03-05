@@ -135,6 +135,7 @@ def is_role_over_privileged(
                     path=yaml_path,
                     entity=f'AWS::IAM::Role/{entity}',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason=reason)
                 for entity, reason in set(vulnerable_entities))
 
@@ -214,6 +215,7 @@ def _is_generic_policy_miss_configured(  # noqa: MC0001
                     path=yaml_path,
                     entity=f'AWS::IAM::{resource}/{entity}',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason=reason)
                 for entity, reason in set(vulnerable_entities))
 
@@ -326,6 +328,7 @@ def missing_role_based_security(
                     path=yaml_path,
                     entity=f'AWS::IAM::User/{entity}',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason=reason)
                 for entity, reason in set(vulnerable_entities))
 
@@ -393,6 +396,7 @@ def has_wildcard_resource_on_write_action(
                     path=yaml_path,
                     entity=f'{type_}/{entity}',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason=reason) for entity, reason in vulnerable_entities)
 
     return _get_result_as_tuple(
@@ -455,6 +459,7 @@ def has_privileges_over_iam(path: str,
                     path=yaml_path,
                     entity=f'{type_}/{entity}',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason=reason) for entity, reason in vulnerable_entities)
 
     return _get_result_as_tuple(

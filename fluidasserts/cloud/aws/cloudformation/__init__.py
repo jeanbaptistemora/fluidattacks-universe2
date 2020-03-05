@@ -6,18 +6,19 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
 # standard imports
-from typing import Any, List, NamedTuple
+from typing import Any, List
+from collections import namedtuple
 
 # local imports
 from fluidasserts import Unit, OPEN, CLOSED
 
 # Containers
-Vulnerability = NamedTuple('Vulnerability', [
-    ('path', str),
-    ('entity', str),
-    ('identifier', str),
-    ('reason', str),
-])
+Vulnerability = namedtuple('Vulnerability', [
+    'path',
+    'entity',
+    'identifier',
+    'reason',
+    'line'], defaults=[None, None, None, None, 0])
 
 
 def _index(dictionary: dict, indexes: List[Any], default: Any = None) -> Any:
@@ -41,7 +42,8 @@ def _get_result_as_tuple(*,
 
     vuln_units: List[Unit] = [
         Unit(where=x.path,
-             specific=[f'[{x.identifier}] {x.entity} {x.reason}'])
+             specific=[f'[{x.identifier}] {x.entity} {x.reason}. '
+                       f'(Line: {x.line})'])
         for x in vulnerabilities]
 
     if vuln_units:

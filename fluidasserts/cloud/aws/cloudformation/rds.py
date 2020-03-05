@@ -61,6 +61,7 @@ def has_unencrypted_storage(
                     path=yaml_path,
                     entity=f'AWS::RDS::{res_type}',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='uses unencrypted storage'))
 
     return _get_result_as_tuple(
@@ -104,6 +105,7 @@ def has_not_automated_backups(
                     path=yaml_path,
                     entity='AWS::RDS::(DBCluster,DBInstance)',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='has not automated backups enabled'))
 
     return _get_result_as_tuple(
@@ -149,6 +151,7 @@ def is_publicly_accessible(
                     path=yaml_path,
                     entity=f'AWS::RDS::DBInstance',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='is publicly accessible'))
 
     return _get_result_as_tuple(
@@ -190,6 +193,7 @@ def is_not_inside_a_db_subnet_group(
                             f'/DBSubnetGroupName'
                             f'/{db_subnet_group_name}'),
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='is not inside a DB Subnet Group'))
 
     return _get_result_as_tuple(
@@ -243,6 +247,7 @@ def has_not_termination_protection(
                             f'DeletionProtection/'
                             f'{deletion_protection}'),
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='has not deletion protection'))
 
     return _get_result_as_tuple(

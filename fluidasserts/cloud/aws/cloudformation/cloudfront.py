@@ -69,6 +69,7 @@ def serves_content_over_http(
                             f'/ViewerProtocolPolicy'
                             f'/{policy}'),
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='allows HTTP traffic'))
 
     return _get_result_as_tuple(
@@ -134,6 +135,7 @@ def serves_content_over_insecure_protocols(
                             f'/MinimumProtocolVersion'
                             f'/{minimum_protocol_version}'),
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='is not the strongest protocol provided by AWS'))
 
         for origin in _index(
@@ -161,6 +163,7 @@ def serves_content_over_insecure_protocols(
                                     f'/OriginSSLProtocols'
                                     f'/{origin_ssl_protocol}'),
                             identifier=res_name,
+                            line=res_props['line'],
                             reason=('is not the strongest protocol '
                                     'provided by AWS')))
 

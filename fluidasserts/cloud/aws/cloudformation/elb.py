@@ -55,7 +55,8 @@ def has_access_logging_disabled(
                             f'/Enabled'
                             f'/{is_logging_enabled}'),
                     identifier=res_name,
-                    reason='access logging is disabled'))
+                    line=res_props['line'],
+                    reason='access logging is disabled'),)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

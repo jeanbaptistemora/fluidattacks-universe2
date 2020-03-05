@@ -20,6 +20,7 @@ import hcl
 
 # local imports
 from fluidasserts.utils.generic import get_paths
+from fluidasserts.helper.yaml_loader_alt import LineLoader
 from fluidasserts.cloud.aws.cloudformation import (
     CloudFormationError,
     CloudFormationInvalidTypeError,
@@ -279,6 +280,11 @@ def is_scalar(obj: Any) -> bool:
     return isinstance(obj, (bool, int, float, str))
 
 
+def is_yaml(path: str) -> bool:
+    """True if path is a yaml file."""
+    return path.endswith(('.yml', '.yaml'))
+
+
 def load_cfn_template(template_path: str) -> Template:
     """Return the CloudFormation content of the template on `template_path`."""
     with open(
@@ -292,7 +298,11 @@ def load_cfn_template(template_path: str) -> Template:
                              ('load_json', json.decoder.JSONDecodeError)):
 
         try:
-            contents = getattr(cfn_tools, function)(template_contents)
+            if is_yaml(template_path):
+                contents = yaml.load(template_contents,  # nosec
+                                     Loader=LineLoader)
+            else:
+                contents = getattr(cfn_tools, function)(template_contents)
         except errors as err:
             error_list.append((type(err), err))
         else:
@@ -338,7 +348,11 @@ def iterate_rsrcs_in_cfn_template(
             endswith=CLOUDFORMATION_EXTENSIONS):
         try:
             template: Template = load_cfn_template(template_path)
-            for res_name, res_data in template.get('Resources', {}).items():
+            if is_yaml(template_path):
+                resources = template.get('Resources', {}).items()[:-1]
+            else:
+                resources = template.get('Resources', {}).items()
+            for res_name, res_data in resources:
                 if res_name.startswith('Fn::') \
                         or res_name.startswith('!') \
                         or res_data['Type'] not in resource_types:
@@ -346,6 +360,10 @@ def iterate_rsrcs_in_cfn_template(
 
                 res_properties = res_data.get('Properties', {})
                 res_properties['../Type'] = res_data['Type']
+                if '__line__' in res_data:
+                    res_properties['line'] = res_data['__line__']
+                else:
+                    res_properties['line'] = 0
 
                 yield template_path, res_name, res_properties
         except CloudFormationError as exc:

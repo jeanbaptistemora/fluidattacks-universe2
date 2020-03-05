@@ -42,6 +42,7 @@ def has_unencrypted_volumes(
                     path=yaml_path,
                     entity='AWS::FSx::FileSystem',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='volume is not encrypted'))
 
     return _get_result_as_tuple(

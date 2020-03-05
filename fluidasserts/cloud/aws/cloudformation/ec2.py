@@ -32,10 +32,11 @@ def _iterate_security_group_rules(
             ],
             exclude=exclude):
         sg_type = sg_props['../Type']
+        sg_line = sg_props['line']
         for sg_flow in ('SecurityGroupEgress', 'SecurityGroupIngress'):
             for sg_rule in sg_props.get(sg_flow, []):
                 sg_path = f'{sg_type}/{sg_flow}'
-                yield yaml_path, sg_name, sg_rule, sg_path, sg_flow
+                yield yaml_path, sg_name, sg_rule, sg_path, sg_flow, sg_line
 
     for yaml_path, sg_name, sg_rule in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
@@ -46,7 +47,8 @@ def _iterate_security_group_rules(
             exclude=exclude):
         sg_path = sg_rule['../Type']
         sg_flow = sg_path.replace('AWS::EC2::', '')
-        yield yaml_path, sg_name, sg_rule, sg_path, sg_flow
+        sg_line = sg_rule['line']
+        yield yaml_path, sg_name, sg_rule, sg_path, sg_flow, sg_line
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -90,6 +92,7 @@ def allows_all_outbound_traffic(
                     path=yaml_path,
                     entity='AWS::EC2::SecurityGroup',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='allows all outbound traffic'))
 
     return _get_result_as_tuple(
@@ -121,7 +124,7 @@ def has_unrestricted_cidrs(
     vulnerabilities: list = []
     unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
     unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
-    for yaml_path, sg_name, sg_rule, sg_path, _ in \
+    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
             _iterate_security_group_rules(path, exclude):
         entities = []
 
@@ -156,6 +159,7 @@ def has_unrestricted_cidrs(
                 path=yaml_path,
                 entity=f'{sg_path}/{entity}',
                 identifier=sg_name,
+                line=sg_line,
                 reason=reason)
             for entity, reason in entities)
 
@@ -185,7 +189,7 @@ def has_unrestricted_ip_protocols(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, sg_name, sg_rule, sg_path, _ in \
+    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
             _iterate_security_group_rules(path, exclude):
         entities = []
         with contextlib.suppress(KeyError):
@@ -198,6 +202,7 @@ def has_unrestricted_ip_protocols(
                 path=yaml_path,
                 entity=f'{sg_path}/IpProtocol/{entity}',
                 identifier=sg_name,
+                line=sg_line,
                 reason='Authorize all IP protocols')
             for entity in entities)
 
@@ -231,7 +236,7 @@ def has_unrestricted_ports(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, sg_name, sg_rule, sg_path, _ in \
+    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
             _iterate_security_group_rules(path, exclude):
 
         entities = []
@@ -247,6 +252,7 @@ def has_unrestricted_ports(
                 path=yaml_path,
                 entity=f'{sg_path}/FromPort->ToPort/{entity}',
                 identifier=sg_name,
+                line=sg_line,
                 reason='Grants access over a port range')
             for entity in entities)
 
@@ -289,6 +295,7 @@ def has_unencrypted_volumes(
                         path=yaml_path,
                         entity='AWS::EC2::Volume',
                         identifier=res_name,
+                        line=res_props['line'],
                         reason='is not encrypted'))
 
     return _get_result_as_tuple(
@@ -335,6 +342,7 @@ def has_not_an_iam_instance_profile(
                     path=yaml_path,
                     entity='AWS::EC2::Instance/IamInstanceProfile',
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='is not present'))
 
     return _get_result_as_tuple(
@@ -391,6 +399,7 @@ def has_not_termination_protection(
                             'DisableApiTermination/'
                             f'{disable_api_termination}'),
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='has not disabled api termination'))
 
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
@@ -413,6 +422,7 @@ def has_not_termination_protection(
                             'DisableApiTermination/'
                             f'{disable_api_termination}'),
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='has not disabled api termination'))
 
     return _get_result_as_tuple(
@@ -468,6 +478,7 @@ def has_terminate_shutdown_behavior(
                             'InstanceInitiatedShutdownBehavior/'
                             f'{initiated_sd_behavior}'),
                     identifier=res_name,
+                    line=res_props['line'],
                     reason='has -terminate- as shutdown behavior'))
 
     return _get_result_as_tuple(
@@ -515,6 +526,7 @@ def is_associate_public_ip_address_enabled(
                                 'AssociatePublicIpAddress/'
                                 f'{public_ip}'),
                         identifier=res_name,
+                        line=res_props['line'],
                         reason='associates public IP on launch'))
 
     return _get_result_as_tuple(
@@ -569,6 +581,7 @@ def uses_default_security_group(
                         'LaunchTemplateData/'
                         'SecurityGroups(Ids)'),
                 identifier=res_name,
+                line=res_props['line'],
                 reason='is empty, and therefore uses default security group'))
 
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
@@ -590,6 +603,7 @@ def uses_default_security_group(
                 entity=('AWS::EC2::Instance/'
                         'SecurityGroups(Ids)'),
                 identifier=res_name,
+                line=res_props['line'],
                 reason='is empty, and therefore uses default security group'))
 
     return _get_result_as_tuple(
