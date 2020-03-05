@@ -14,6 +14,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { RemediationModal } from "../RemediationModal/index";
+import { GET_VULNERABILITIES } from "../Vulnerabilities/queries";
 import { default as style } from "./index.css";
 import { REQUEST_VERIFICATION_VULN, VERIFY_VULNERABILITIES } from "./queries";
 import { IRequestVerificationVulnResult, IVerifyRequestVulnResult } from "./types";
@@ -28,7 +29,6 @@ export interface IUpdateVerificationModal {
   findingId: string;
   isOpen: boolean;
   remediationType: "request" | "verify";
-  userRole: string;
   vulns: IVulnData[];
   clearSelected(): void;
   handleCloseModal(): void;
@@ -39,7 +39,8 @@ export interface IUpdateVerificationModal {
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
   const [vulnerabilitiesList, setVulnerabilities] = React.useState(props.vulns);
   const closeRemediationModal: (() => void) = (): void => { props.handleCloseModal(); };
-  const canEdit: boolean = _.includes(["admin", "analyst"], props.userRole);
+  const { userRole } = (window as typeof window & { userRole: string });
+  const canDisplayAnalyst: boolean = _.includes(["admin", "analyst"], userRole);
 
   const [requestVerification, {loading: submittingRequest}] = useMutation(REQUEST_VERIFICATION_VULN, {
     onCompleted: (data: IRequestVerificationVulnResult): void => {
@@ -70,6 +71,9 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         }
       });
     },
+    refetchQueries: [
+      { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+    ],
   });
 
   const [verifyRequest, {loading: submittingVerify}] = useMutation(VERIFY_VULNERABILITIES, {
@@ -99,7 +103,8 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       });
     },
     refetchQueries: [
-      { query: GET_FINDING_HEADER, variables: { findingId: props.findingId, submissionField: canEdit } },
+      { query: GET_FINDING_HEADER, variables: { findingId: props.findingId, submissionField: canDisplayAnalyst } },
+      { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
     ],
   });
 
