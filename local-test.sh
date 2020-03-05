@@ -18,6 +18,7 @@ echo "Generating build (2/5) . . ."
 sed -i 's|https://fluidattacks.com|http://localhost:8000|g' pelicanconf.py
 
 echo "Compiling TS files (3/5) . . ."
+npm run --prefix deploy/builder/ lint
 npm run --prefix deploy/builder/ build
 ./build-site.sh
 

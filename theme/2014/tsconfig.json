@@ -17,6 +17,7 @@
     "node_modules"
   ],
   "include": [
-    "static/js/*.ts"
+    "static/js/contentHome.ts",
+    "static/js/jqueryFunctions.ts"
   ]
 }

@@ -31,7 +31,7 @@
     "webpack-cli": "3.3.10"
   },
   "scripts": {
-    "lint": "tsc --noEmit -p ../../theme/2014/tsconfig.json && tslint -p ../../theme/2014/tsconfig.json -t codeFrame",
-    "build": "cd ../../theme/2014 && webpack --config ../../theme/2014/webpack.prod.config.ts -t codeFrame"
+    "build": "cd ../../theme/2014 && webpack --config ../../theme/2014/webpack.prod.config.ts -t codeFrame",
+    "lint": "tsc --noEmit -p ../../theme/2014/tsconfig.json && tslint -p ../../theme/2014/tsconfig.json -t codeFrame"
   }
 }
