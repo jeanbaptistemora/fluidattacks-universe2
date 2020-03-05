@@ -1,5 +1,0 @@
-/vars/*
-/.terraform/*
-terraform.tfstate*
-.terraform*
-aws.*
