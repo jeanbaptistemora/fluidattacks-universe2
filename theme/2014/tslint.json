@@ -10,13 +10,7 @@
     },
     "jsRules": {},
     "rules": {
-        "no-unsafe-any": false,
-        // Disabling this rule is necessary to avoid a conflict with another one that checks for all variables to be typed.
-        // View: https://github.com/palantir/tslint/issues/711
-
-        "no-implicit-dependencies": false,
-        "no-inferrable-types": false,
-        "no-magic-numbers": false
+        "no-implicit-dependencies": false
     },
     "rulesDirectory": []
 }

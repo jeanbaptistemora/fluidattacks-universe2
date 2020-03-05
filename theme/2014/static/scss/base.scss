@@ -615,6 +615,24 @@ $codeyellow: rgba(230, 219, 116, 1);
   }
 }
 
+#op5:checked~.index5 {
+  border-bottom: .125rem solid $fluid-black;
+  color: $fluid-black;
+  transition: .25s;
+}
+
+#op6:checked~.index6 {
+  border-bottom: .125rem solid $fluid-black;
+  color: $fluid-black;
+  transition: .25s;
+}
+
+#op7:checked~.index7 {
+  border-bottom: .125rem solid $fluid-black;
+  color: $fluid-black;
+  transition: .25s;
+}
+
 // New menu component
 
 .lower~.overlay-hugeinc {
