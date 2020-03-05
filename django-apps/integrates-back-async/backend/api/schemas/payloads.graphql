@@ -8,7 +8,7 @@ type SimplePayload implements Payload {
 
 type UpdateAccessTokenPayload implements Payload {
     success: Boolean!
-    session_jwt: String
+    sessionJwt: String
 }
 
 type ResourcesPayload implements Payload {
@@ -23,17 +23,17 @@ type DownloadFilePayload implements Payload {
 
 type GrantUserAccessPayload implements Payload {
     success: Boolean!
-    granted_user: User
+    grantedUser: User
 }
 
 type RemoveUserAccessPayload implements Payload {
     success: Boolean!
-    removed_email: String
+    removedEmail: String
 }
 
 type EditUserPayload implements Payload {
     success: Boolean!
-    modified_user: User
+    modifiedUser: User
 }
 
 type AddUserPayload implements Payload {
@@ -48,19 +48,19 @@ type SimpleFindingPayload implements Payload {
 
 type AddCommentPayload implements Payload {
     success: Boolean!
-    comment_id: String
+    commentId: String
 }
 
 type RemoveProjectPayload implements Payload {
     success: Boolean!
-    findings_masked: Boolean
-    users_removed: Boolean
-    project_finished: Boolean
+    findingsMasked: Boolean
+    usersRemoved: Boolean
+    projectFinished: Boolean
 }
 
 type ApproveDraftPayload implements Payload {
     success: Boolean!
-    release_date: String
+    releaseDate: String
 }
 
 type SimpleProjectPayload implements Payload {
@@ -71,6 +71,6 @@ type SimpleProjectPayload implements Payload {
 type SignInPayload implements Payload {
     success: Boolean!
     authorized: Boolean
-    session_jwt: String
+    sessionJwt: String
 }
 

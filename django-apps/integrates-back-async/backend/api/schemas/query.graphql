@@ -1,40 +1,40 @@
 "Main Query object"
 type Query {
     "Get alerts from project"
-    alert(project_name: String!, organization: String!): Alert
+    alert(projectName: String!, organization: String!): Alert
 
     "Get event"
     event(identifier: String!): Event
 
     "List of events of a project"
-    events(project_name: String!): [Event]
+    events(projectName: String!): [Event]
 
     "Finding entity"
     finding(identifier: String!): Finding
 
     "InternalProject entity"
-    internal_project_names: InternalProject
+    internalProjectNames: InternalProject
 
     "List of alive projects"
-    alive_projects: [Project]
+    aliveProjects: [Project]
 
     "Get resources from project"
-    resources(project_name: String!): Resource
+    resources(projectName: String!): Resource
 
     "Get user info from project"
-    user(project_name: String!, user_email: String!): User
+    user(projectName: String!, userEmail: String!): User
 
     "List projects a user is subscribed to"
-    user_list_projects(user_email: String!): [Project]
+    userListProjects(userEmail: String!): [Project]
 
     "Project entity"
-    project(project_name: String!): Project
+    project(projectName: String!): Project
 
     "Get Forces executions"
-    forces_executions(
-        project_name: String!,
-        from_date: String,
-        to_date: String
+    forcesExecutions(
+        projectName: String!,
+        fromDate: DateTime,
+        toDate: DateTime
     ): ForcesExecutions
 
     "Me entity"

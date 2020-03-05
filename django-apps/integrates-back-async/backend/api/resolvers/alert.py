@@ -1,16 +1,13 @@
 # pylint: disable=import-error
 
+from ariadne import convert_kwargs_to_snake_case
 from backend.domain import alert as alert_domain
 
 
+@convert_kwargs_to_snake_case
 def resolve_alert(*_, project_name, organization):
     """Resolve alert query."""
-    result = {
-        'message': str(),
-        'project': str(),
-        'organization': str(),
-        'status': int()
-    }
+    result = dict()
     resp = alert_domain.get_company_alert(organization, project_name)
     if resp:
         result['message'] = resp[0]['message']

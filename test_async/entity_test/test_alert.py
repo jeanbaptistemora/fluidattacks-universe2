@@ -12,7 +12,7 @@ class AlertTests(TestCase):
     def test_get_alert(self):
         """Check for project alert"""
         query = '''{
-            alert(project_name:"unittesting", organization:"fluid"){
+            alert(projectName:"unittesting", organization:"fluid"){
                 message
             }
         }'''

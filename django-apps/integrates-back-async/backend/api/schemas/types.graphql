@@ -12,79 +12,79 @@ type Event {
     analyst: String
     client: String
     comments: [Comment!]
-    project_name: String
-    client_project: String
+    projectName: String
+    clientProject: String
     detail: String
-    event_type: String
-    event_date: String
-    historic_state: [GenericScalar]
+    eventType: String
+    eventDate: String
+    historicState: [GenericScalar]
     affectation: String
     accessibility: String
-    affected_components: String
+    affectedComponents: String
     context: String
     subscription: String
-    evidence_file: String
-    closing_date: String
+    evidenceFile: String
+    closingDate: String
 }
 
 "Finding type definition"
 type Finding {
     actor: String!
-    affected_systems: String
+    affectedSystems: String
     age: Int
     analyst: String
-    attack_vector_desc: String
-    bts_url: String
-    closed_vulnerabilities: Int
+    attackVectorDesc: String
+    btsUrl: String
+    closedVulnerabilities: Int
     comments: [Comment!]
-    compromised_attributes: String
-    compromised_records: Int
-    current_state: String
-    cvss_version: String
-    cwe_url: String
+    compromisedAttributes: String
+    compromisedRecords: Int
+    currentState: String
+    cvssVersion: String
+    cweUrl: String
     description: String
     evidence: GenericScalar
     exploit: String
     id: String
-    is_exploitable: Boolean
-    last_vulnerability: Int
+    isExploitable: Boolean
+    lastVulnerability: Int
     observations: [Comment!]
-    open_vulnerabilities: Int
-    project_name: String
+    openVulnerabilities: Int
+    projectName: String
     recommendation: String
     records: JSONString
-    release_date: String
+    releaseDate: String
     remediated: Boolean
-    new_remediated: Boolean
+    newRemediated: Boolean
     verified: Boolean
-    report_date: String
+    reportDate: String
     requirements: String
     risk: String
     scenario: String
     severity: GenericScalar
-    severity_score: Float
+    severityScore: Float
     state: String
-    historic_state: [GenericScalar]
-    historic_treatment: [GenericScalar]
+    historicState: [GenericScalar]
+    historicTreatment: [GenericScalar]
     threat: String
     title: String
     tracking: [GenericScalar]
     type: String
     vulnerabilities(
-        vuln_type: String,
+        vulnType: String,
         state: String,
-        approval_status: String
+        approvalStatus: String
     ): [Vulnerabilities!]
 }
 
 "InternalProject type definition"
 type InternalProject {
-    project_name: String!
+    projectName: String!
 }
 
 "Resource type definition"
 type Resource {
-    project_name: String
+    projectName: String
     repositories: JSONString
     environments: JSONString
     files: JSONString
@@ -95,55 +95,55 @@ type User {
     email: String
     role: String
     responsability: String
-    phone_number: String
+    phoneNumber: String
     organization: String
-    first_login: String
-    last_login: String
-    list_projects: [String!]
+    firstLogin: String
+    lastLogin: String
+    listProjects: [String!]
 }
 
 "Project type definition"
 type Project {
     name: String
     findings: [Finding!]
-    open_vulnerabilities: Int
-    closed_vulnerabilities: Int
-    current_month_authors: Int
-    current_month_commits: Int
+    openVulnerabilities: Int
+    closedVulnerabilities: Int
+    currentMonthAuthors: Int
+    currentMonthCommits: Int
     subscription: String
     comments: [Comment!]
     tags: [String!]
-    deletion_date: String
-    pending_closing_check: Int
-    last_closing_vuln: Int
-    max_severity: Float
-    max_open_severity: Float
-    mean_remediate: Int
-    total_findings: Int
+    deletionDate: String
+    pendingClosingCheck: Int
+    lastClosingVuln: Int
+    maxSeverity: Float
+    maxOpenSeverity: Float
+    meanRemediate: Int
+    totalFindings: Int
     users: [User!]
-    total_treatment: GenericScalar
+    totalTreatment: GenericScalar
     drafts: [Finding!]
     description: String
-    remediated_over_time: String
+    remediatedOverTime: String
     events: [Event!]
-    user_deletion: String
+    userDeletion: String
 }
 
 "ForcesExecutions type definition"
 type ForcesExecutions {
-    project_name: String!
-    from_date: String
-    to_date: String
+    projectName: String!
+    fromDate: String
+    toDate: String
     executions: [ForcesExecution]
 }
 
 "Me type definition"
 type Me {
-    access_token: String
+    accessToken: String
     authorized: Boolean
     projects: [Project!]
     remember: Boolean
-    role(project_name: String): String
+    role(projectName: String): String
 }
 
 "Comment type definition"
@@ -161,20 +161,20 @@ type Comment {
 type Vulnerabilities {
     id: String
     analyst: String
-    finding_id: String
-    vuln_type: String
+    findingId: String
+    vulnType: String
     where: String
     specific: String
-    historic_state: [GenericScalar]
-    current_state: String
-    current_approval_status: String
-    last_analyst: String
-    last_approved_status: String
-    acceptance_date: String
+    historicState: [GenericScalar]
+    currentState: String
+    currentApprovalStatus: String
+    lastAnalyst: String
+    lastApprovedStatus: String
+    acceptanceDate: String
     treatment: String
-    external_bts: String
-    treatment_justification: String
-    treatment_manager: String
+    externalBts: String
+    treatmentJustification: String
+    treatmentManager: String
     severity: String
     tag: String
     tags: [String!]
@@ -183,14 +183,14 @@ type Vulnerabilities {
 }
 
 type ForcesExecution {
-    project_name: String
+    projectName: String
     identifier: String
     date: DateTime
-    exit_code: String
-    git_branch: String
-    git_commit: String
-    git_origin: String
-    git_repo: String
+    exitCode: String
+    gitBranch: String
+    gitCommit: String
+    gitOrigin: String
+    gitRepo: String
     kind: String
     log: String
     strictness: String
@@ -199,11 +199,11 @@ type ForcesExecution {
 
 type ExecutionVulnerabilities {
     exploits: [ExploitResult!]
-    mocked_exploits: [ExploitResult!]
-    accepted_exploits: [ExploitResult!]
-    num_of_vulnerabilities_in_exploits: Int
-    num_of_vulnerabilities_in_mocked_exploits: Int
-    num_of_vulnerabilities_in_accepted_exploits: Int
+    mockedExploits: [ExploitResult!]
+    acceptedExploits: [ExploitResult!]
+    numOfVulnerabilitiesInExploits: Int
+    numOfVulnerabilitiesInMockedExploits: Int
+    numOfVulnerabilitiesInAcceptedExploits: Int
 }
 
 type ExploitResult {
