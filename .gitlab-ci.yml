@@ -1,19 +1,10 @@
 stages:
   - build
   - check
-  - break-build
-  - ephemeral
   - mr-check
   - deploy-infra
   - deploy
   - postdeploy
-
-.fa_default_registry_vars: &fa_default_registry_vars
-  variables:
-    CI_REGISTRY_USER: "${GITLAB_USER}"
-    CI_REGISTRY_PASSWORD: "${GITLAB_PASS}"
-    CI_REGISTRY_EMAIL: "${GITLAB_EMAIL}"
-    CI_REGISTRY_IMAGE: "${CI_REGISTRY}/fluidattacks/web"
 
 builder:
   image: fluidattacks/docker-bash:latest
@@ -48,16 +39,6 @@ lint-typescript:
   except:
     - master
 
-pelican:
-  image: fluidattacks/docker-bash:latest
-  tags: [autoscaling]
-  stage: check
-  script:
-    - . ci-scripts/build-pelican.sh
-    - build_pelican
-  except:
-    - master
-
 commitlint:
   tags: [autoscaling]
   stage: check
@@ -69,45 +50,64 @@ commitlint:
   except:
     - master
 
-deploy-ephemeral:
+ephemeral:
   tags: [autoscaling]
-  stage: ephemeral
-  <<: *fa_default_registry_vars
+  needs: [builder]
+  stage: deploy
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  variables:
+    GIT_STRATEGY: none
   script:
-    - ./deploy/ephemeral/cluster-config.sh
+    - cd /app
+    - source /app/ci-scripts/helpers/others.sh
+    - cp -a /app/deploy/builder/node_modules /app/theme/2014/
+    - cp -a /app/deploy/builder/node_modules /app/
+    - npm run --prefix /app/deploy/builder/ build
+    - /app/build-site.sh
+    - aws_login
+    - sync_s3 output/ "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
   environment:
-    name: ephemeral/${CI_COMMIT_REF_SLUG}
-    url: https://web.env.fluidattacks.com/${CI_COMMIT_REF_SLUG}/web/
+    name: ephemeral/${CI_COMMIT_REF_NAME}
+    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web
     on_stop: stop-ephemeral
   except:
     - master
 
 stop-ephemeral:
   tags: [autoscaling]
-  stage: ephemeral
+  needs: [builder]
+  stage: deploy
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   variables:
     GIT_STRATEGY: none
   script:
-    - kubectl config set-context
-        "$(kubectl config current-context)"
-        --namespace="${CI_PROJECT_NAME}"
-    - kubectl delete deployment "ephemeral-${CI_COMMIT_REF_SLUG}"
-    - kubectl delete service "service-${CI_COMMIT_REF_SLUG}"
-    - kubectl get ingress "ingress-${CI_PROJECT_NAME}" -o yaml
-        | tac | sed '/path:\ \/'"${CI_COMMIT_REF_SLUG}"'/,+3d'
-        | tac > current-ingress.yaml
-    - kubectl delete ingress "ingress-${CI_PROJECT_NAME}"
-    - if
-        kubectl get deployments | grep 'ephemeral-*';
-        then kubectl create -f current-ingress.yaml;
-      fi
-  when: manual
+    - source /app/ci-scripts/helpers/others.sh
+    - aws_login
+    - aws s3 rm "s3://web.eph.fluidattacks.com/$CI_COMMIT_REF_NAME" --recursive
   environment:
-    name: ephemeral/${CI_COMMIT_REF_SLUG}
+    name: ephemeral/${CI_COMMIT_REF_NAME}
     action: stop
+  when: manual
   except:
+    - master
+
+production:
+  tags: [autoscaling]
+  needs: [builder]
+  stage: deploy
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - cd /app
+    - source /app/ci-scripts/helpers/others.sh
+    - cp -a /app/deploy/builder/node_modules /app/theme/2014/
+    - cp -a /app/deploy/builder/node_modules /app/
+    - npm run --prefix /app/deploy/builder/ build
+    - /app/build-site.sh
+    - aws_login
+    - sync_s3 output/ web.fluidattacks.com
+  only:
     - master
 
 mr-test:
@@ -136,33 +136,6 @@ danger:
     - npm install --unsafe-perm
   script:
     - danger --verbose --fail-on-errors=true
-
-deploy:
-  tags: [autoscaling]
-  stage: deploy
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  script:
-    - cd /app
-    - if curl --fail -Lo artifacts.zip
-        "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/jobs/artifacts/${CI_COMMIT_REF_NAME}/download?job=${CI_JOB_NAME}&job_token=${CI_JOB_TOKEN}"; then
-          unzip artifacts.zip 'cache/*' -d .;
-          rm artifacts.zip;
-        else
-          echo "There are no artifacts";
-      fi
-    - cp -a /app/deploy/builder/node_modules /app/theme/2014/
-    - cp -a /app/deploy/builder/node_modules /app/
-    - npm run --prefix /app/deploy/builder/ build
-    - ./build-site.sh
-    - ./deploy.sh
-  artifacts:
-    untracked: true
-    when: on_success
-    expire_in: 18 hrs
-    paths:
-      - cache
-  only:
-    - master
 
 test_infra_ephemeral:
   tags: [autoscaling]
@@ -267,9 +240,8 @@ new_version_mail:
     - schedules
 
 asserts-static:
-  stage: break-build
+  stage: check
   tags: [autoscaling]
-  needs: [pelican]
   image:
     name: fluidattacks/break-build
     entrypoint: [""]
