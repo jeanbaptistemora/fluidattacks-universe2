@@ -12,7 +12,7 @@ class GenericExceptionsClose{
          a[0]=random.nextBytes(bytes);
          a[4]=30/0;
          System.out.println("First print statement in try block");
-
+         String api = "https://fluidattacks.com"
          MessageDigest messageDigest, messageDigest2;
          messageDigest = MessageDigest.getInstance("SHA-256");
          messageDigest.update(data.getBytes());

@@ -27,7 +27,7 @@ class GenericExceptionsOpen{
           else {System.out.println("Not big not small num");}
           System.out.println("Secret key %s", secretKey)
       }
-
+      String api = "http://fluidattacks.com"
       MessageDigest messageDigest, messageDigest2;
       messageDigest = MessageDigest.getInstance("MD5");
       messageDigest.update(data.getBytes());

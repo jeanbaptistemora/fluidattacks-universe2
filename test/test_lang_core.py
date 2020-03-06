@@ -184,9 +184,21 @@ def test_exposes_sensitive_information_open():
         JAVA_BAD, 'System.out.println("Secret key %s", secretKey)').is_open()
 
 
+def test_uses_insecure_protocol_open():
+    """Test if the code uses insecure protocol."""
+    assert core.uses_insecure_protocol(
+        JAVA_BAD, 'http://fluidattacks.com').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_uses_insecure_protocol_close():
+    """Test if the code uses insecure protocol."""
+    assert core.uses_insecure_protocol(
+        JAVA_GOOD, 'http://fluidattacks.com').is_closed()
 
 
 def test_exposes_sensitive_information_close():
