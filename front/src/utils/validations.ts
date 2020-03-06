@@ -104,51 +104,48 @@ export const validDatetime: Validator = (value?: Moment | string): string | unde
   moment.isMoment(value) ? undefined : translate.t("validations.datetime")
 );
 
-export const validEventFile: Validator = (value?: FileList): string | undefined => (
-  _.isUndefined(value) || _.isEmpty(value)
-    ? undefined
-    : _.includes(["application/pdf", "application/zip", "text/csv", "text/plain"], value[0].type)
-      ? undefined : translate.t("project.events.form.wrong_file_type")
-);
+const getFileExtension: ((file: File) => string) = (file: File): string => {
+  const splittedName: string[] = file.name.split(".");
+  const extension: string = splittedName.length > 1 ? _.last(splittedName) as string : "";
 
-export const validEvidenceImage: Validator = (value?: FileList): string | undefined => (
-  _.isUndefined(value) || _.isEmpty(value)
-    ? undefined
-    : _.includes(["image/gif", "image/jpeg", "image/png"], value[0].type)
-      ? undefined : translate.t("project.events.form.wrong_image_type")
-);
-
-export const validExploitFile: Validator = (value?: FileList): string | undefined => {
-  let errorMsg: string | undefined;
-
-  if (_.isUndefined(value) || _.isEmpty(value)) {
-    errorMsg = undefined;
-  } else {
-    const splittedName: string[] = value[0].name.split(".");
-    const extension: string = splittedName.length > 1 ? splittedName.slice(-1)[0] : "";
-    errorMsg = _.includes(["exp", "py"], extension)
-      ? undefined
-      : translate.t("proj_alerts.file_type_py");
-  }
-
-  return errorMsg;
+  return extension;
 };
 
-export const validRecordsFile: Validator = (value?: FileList): string | undefined => {
-  let errorMsg: string | undefined;
+const hasExtension: ((allowedExtensions: string | string[], file?: File) => boolean) = (
+  allowedExtensions: string | string[], file?: File,
+): boolean => {
+  let isValid: boolean = false;
 
-  if (_.isUndefined(value) || _.isEmpty(value)) {
-    errorMsg = undefined;
-  } else {
-    const splittedName: string[] = value[0].name.split(".");
-    const extension: string = splittedName.length > 1 ? splittedName.slice(-1)[0] : "";
-    errorMsg = extension === "csv"
-      ? undefined
-      : translate.t("proj_alerts.file_type_wrong");
+  if (file !== undefined) {
+    isValid = _.includes(allowedExtensions, getFileExtension(file));
   }
 
-  return errorMsg;
+  return isValid;
 };
+
+export const validEventFile: Validator = (value: FileList): string | undefined => (
+  hasExtension(["pdf", "zip", "csv", "txt"], _.first(value))
+    ? undefined
+    : translate.t("project.events.form.wrong_file_type")
+);
+
+export const validEvidenceImage: Validator = (value: FileList): string | undefined => (
+  _.isEmpty(value) || hasExtension(["gif", "jpg", "jpeg", "png"], _.first(value))
+    ? undefined
+    : translate.t("project.events.form.wrong_image_type")
+);
+
+export const validExploitFile: Validator = (value: FileList): string | undefined => (
+  hasExtension(["exp", "py"], _.first(value))
+    ? undefined
+    : translate.t("proj_alerts.file_type_py")
+);
+
+export const validRecordsFile: Validator = (value: FileList): string | undefined => (
+  hasExtension("csv", _.first(value))
+    ? undefined
+    : translate.t("proj_alerts.file_type_csv")
+);
 
 export const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
   const today: Moment = moment();

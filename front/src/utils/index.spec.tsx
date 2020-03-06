@@ -1,8 +1,11 @@
 import { configure } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { ConfigurableValidator } from "revalidate";
-import { alphaNumeric, evidenceHasValidSize, evidenceHasValidType, isLowerDate, isValidDate, isValidFileName,
-         isValidFileSize, minLength, numberBetween, numeric, required, validEmail, validTag } from "./validations";
+import {
+  alphaNumeric, isLowerDate, isValidDate, isValidFileName, isValidFileSize,
+  minLength, numberBetween, numeric, required, validEmail, validEvidenceImage,
+  validExploitFile, validRecordsFile, validTag,
+} from "./validations";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -70,7 +73,7 @@ describe("Validations", () => {
       slice: jest.fn(),
       type: ".gif",
     };
-    const validFile: boolean = evidenceHasValidSize(file);
+    const validFile: boolean = isValidFileSize(10)([file]) === undefined;
     expect(validFile)
     .toEqual(true);
   });
@@ -83,7 +86,7 @@ describe("Validations", () => {
       slice: jest.fn(),
       type: ".gif",
     };
-    const validFile: boolean = evidenceHasValidSize(file);
+    const validFile: boolean = isValidFileSize(10)([file]) === undefined;
     expect(validFile)
     .toEqual(false);
   });
@@ -96,7 +99,7 @@ describe("Validations", () => {
       slice: jest.fn(),
       type: ".png",
     };
-    const validFile: boolean = evidenceHasValidSize(file);
+    const validFile: boolean = isValidFileSize(2)([file]) === undefined;
     expect(validFile)
     .toEqual(true);
   });
@@ -109,7 +112,7 @@ describe("Validations", () => {
       slice: jest.fn(),
       type: ".png",
     };
-    const validFile: boolean = evidenceHasValidSize(file);
+    const validFile: boolean = isValidFileSize(2)([file]) === undefined;
     expect(validFile)
     .toEqual(false);
   });
@@ -122,7 +125,7 @@ describe("Validations", () => {
       slice: jest.fn(),
       type: ".py",
     };
-    const validFile: boolean = evidenceHasValidSize(file);
+    const validFile: boolean = isValidFileSize(1)([file]) === undefined;
     expect(validFile)
     .toEqual(true);
   });
@@ -135,101 +138,111 @@ describe("Validations", () => {
       slice: jest.fn(),
       type: ".py",
     };
-    const validFile: boolean = evidenceHasValidSize(file);
-    expect(validFile)
-    .toEqual(false);
-  });
-
-  it("shouldn't be a valid type file", () => {
-    const file: File = {
-      lastModified: 8 - 5 - 2019,
-      name: ".test",
-      size: 2000,
-      slice: jest.fn(),
-      type: ".test",
-    };
-    const validFile: boolean = evidenceHasValidSize(file);
+    const validFile: boolean = isValidFileSize(1)([file]) === undefined;
     expect(validFile)
     .toEqual(false);
   });
 
   it("should be a valid .gif evidence", () => {
-    const file: File = new File(["foo"], "foo.gif", {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "foo.gif",
+      size: 20000,
+      slice: jest.fn(),
       type: "image/gif",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 0);
+    };
+    const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
     expect(evidenceValidType)
       .toEqual(true);
   });
 
   it("shouldn't be a valid .gif evidence", () => {
-    const file: File = new File(["foo"], "foo.py", {
-      type: "image/py",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 0);
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "foo.py",
+      size: 20000,
+      slice: jest.fn(),
+      type: "text/plain",
+    };
+    const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
     expect(evidenceValidType)
       .toEqual(false);
   });
 
   it("should be a valid .png evidence", () => {
-    const file: File = new File(["foo"], "foo.png", {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "foo.png",
+      size: 20000,
+      slice: jest.fn(),
       type: "image/png",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 4);
+    };
+    const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
     expect(evidenceValidType)
       .toEqual(true);
   });
 
   it("shouldn't be a valid .png evidence", () => {
-    const file: File = new File(["foo"], "foo.py", {
-      type: "image/py",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 4);
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "foo.py",
+      size: 20000,
+      slice: jest.fn(),
+      type: "text/plain",
+    };
+    const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
     expect(evidenceValidType)
       .toEqual(false);
   });
 
   it("should be a valid .py evidence", () => {
-    const file: File = new File(["foo"], "foo.py", {
-      type: "file/py",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 7);
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "foo.py",
+      size: 20000,
+      slice: jest.fn(),
+      type: "text/plain",
+    };
+    const evidenceValidType: boolean = validExploitFile([file]) === undefined;
     expect(evidenceValidType)
       .toEqual(true);
   });
 
   it("shouldn't be a valid .py evidence", () => {
-    const file: File = new File(["foo"], "foo.gif", {
-      type: "file/gif",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 7);
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "foo.gif",
+      size: 20000,
+      slice: jest.fn(),
+      type: "image/gif",
+    };
+    const evidenceValidType: boolean = validExploitFile([file]) === undefined;
     expect(evidenceValidType)
       .toEqual(false);
   });
 
   it("should be a valid .csv evidence", () => {
-    const file: File = new File(["foo"], "foo.csv", {
-      type: "file/csv",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 8);
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "foo.csv",
+      size: 20000,
+      slice: jest.fn(),
+      type: "text/csv",
+    };
+    const evidenceValidType: boolean = validRecordsFile([file]) === undefined;
     expect(evidenceValidType)
       .toEqual(true);
   });
 
   it("shouldn't be a valid .csv evidence", () => {
-    const file: File = new File(["foo"], "foo.exp", {
-      type: "file/exp",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 8);
-    expect(evidenceValidType)
-      .toEqual(false);
-  });
-
-  it("shouldn't be a valid evidence type", () => {
-    const file: File = new File(["foo"], "foo.doc", {
-      type: "file/doc",
-    });
-    const evidenceValidType: boolean = evidenceHasValidType(file, 10);
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: "foo.exp",
+      size: 20000,
+      slice: jest.fn(),
+      type: "text/plain",
+    };
+    const evidenceValidType: boolean = validRecordsFile([file]) === undefined;
     expect(evidenceValidType)
       .toEqual(false);
   });
