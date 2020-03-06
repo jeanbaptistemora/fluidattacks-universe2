@@ -81,6 +81,7 @@ def update_evidence(event_id: str, evidence_type: str, file: Any) -> bool:
         mime = Magic(mime=True).from_buffer(file.file.getvalue())
         extension = {
             'image/gif': '.gif',
+            'image/jpeg': '.jpg',
             'image/png': '.png',
             'application/pdf': '.pdf',
             'application/zip': '.zip',

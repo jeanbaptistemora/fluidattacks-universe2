@@ -63,7 +63,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
           msgError(translate.t("proj_alerts.invalid_schema"));
         }
       } else if (message === "Exception - Invalid File Size") {
-        msgError(translate.t("proj_alerts.file_size_py"));
+        msgError(translate.t("validations.file_size", { count: 1 }));
       } else if (message === "Exception - Invalid File Type") {
         msgError(translate.t("proj_alerts.file_type_yaml"));
       } else if (message.includes("Exception - Error in path value")) {

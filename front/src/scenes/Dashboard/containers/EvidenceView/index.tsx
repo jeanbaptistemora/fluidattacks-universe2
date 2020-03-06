@@ -61,7 +61,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - Invalid File Size":
-            msgError(translate.t("proj_alerts.file_size"));
+            msgError(translate.t("validations.file_size", { count: 10 }));
             break;
           case "Exception - Invalid File Type":
             msgError(translate.t("project.events.form.wrong_image_type"));

@@ -57,10 +57,10 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                   msgError(translate.t("proj_alerts.invalid_structure"));
                   break;
                 case "Exception - Invalid File Size":
-                  msgError(translate.t("proj_alerts.file_size"));
+                  msgError(translate.t("validations.file_size", { count: 1 }));
                   break;
                 case "Exception - Invalid File Type":
-                  msgError(translate.t("proj_alerts.file_type_wrong"));
+                  msgError(translate.t("proj_alerts.file_type_csv"));
                   break;
                 default:
                   msgError(translate.t("proj_alerts.error_textsad"));

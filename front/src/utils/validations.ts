@@ -108,7 +108,7 @@ const getFileExtension: ((file: File) => string) = (file: File): string => {
   const splittedName: string[] = file.name.split(".");
   const extension: string = splittedName.length > 1 ? _.last(splittedName) as string : "";
 
-  return extension;
+  return extension.toLowerCase();
 };
 
 const hasExtension: ((allowedExtensions: string | string[], file?: File) => boolean) = (
@@ -124,7 +124,7 @@ const hasExtension: ((allowedExtensions: string | string[], file?: File) => bool
 };
 
 export const validEventFile: Validator = (value: FileList): string | undefined => (
-  hasExtension(["pdf", "zip", "csv", "txt"], _.first(value))
+  _.isEmpty(value) || hasExtension(["pdf", "zip", "csv", "txt"], _.first(value))
     ? undefined
     : translate.t("project.events.form.wrong_file_type")
 );
@@ -153,95 +153,6 @@ export const dateTimeBeforeToday: Validator = (date: Moment): string | undefined
   return date.isSameOrBefore(today) ? undefined : translate.t("validations.greater_date");
 };
 
-export const evidenceHasValidType: ((file: File, evidenceType: number) => boolean) = (
-  file: File, evidenceType: number,
-): boolean => {
-  let valid: boolean;
-  let ANIMATION: number; ANIMATION = 0;
-  let EVIDENCE: number[]; EVIDENCE = [1, 2, 3, 4, 5, 6];
-  let EXPLOIT: number; EXPLOIT = 7;
-  let RECORDS: number; RECORDS = 8;
-  const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();
-
-  if (evidenceType === ANIMATION || (_.includes(EVIDENCE, evidenceType))) {
-    valid = fileType === ".gif" || fileType === ".png";
-    if (!valid) {
-      msgError(translate.t("proj_alerts.file_type_evidence"));
-    }
-  } else if (evidenceType === EXPLOIT) {
-    valid = fileType === ".py" || fileType === ".exp";
-    if (!valid) {
-      msgError(translate.t("proj_alerts.file_type_py"));
-    }
-  } else if (evidenceType === RECORDS) {
-    valid = fileType === ".csv";
-    if (!valid) {
-      msgError(translate.t("proj_alerts.file_type_csv"));
-    }
-  } else {
-    valid = false;
-    msgError(translate.t("proj_alerts.file_type_wrong"));
-  }
-
-  return valid;
-};
-
-export const evidenceHasValidSize: ((arg1: File) => boolean) = (file: File): boolean => {
-  let valid: boolean;
-  let MIB: number; MIB = 1048576;
-  const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();
-
-  switch (fileType) {
-    case ".gif":
-      valid = file.size < MIB * 10;
-      if (!valid) {
-        msgError(translate.t("proj_alerts.file_size"));
-      }
-      break;
-    case ".png":
-      valid = file.size < MIB * 2;
-      if (!valid) {
-        msgError(translate.t("proj_alerts.file_size_png"));
-      }
-      break;
-    case ".py":
-    case ".exp":
-    case ".csv":
-      valid = file.size < MIB * 1;
-      if (!valid) {
-        msgError(translate.t("proj_alerts.file_size_py"));
-      }
-      break;
-    default:
-      valid = false;
-      msgError(translate.t("proj_alerts.file_type_wrong"));
-  }
-
-  return valid;
-};
-
-export const isValidEvidenceFile: ((arg1: string) => boolean) =
-  (fieldId: string): boolean => {
-    const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
-    let valid: boolean; valid = false;
-
-    if (_.isNil(selected) || selected.length === 0) {
-      msgError(translate.t("proj_alerts.no_file_selected"));
-    } else {
-      const evidenceType: number = Number(fieldId.charAt(fieldId.length - 1));
-      valid = evidenceHasValidType(selected[0], evidenceType) && evidenceHasValidSize(selected[0]);
-    }
-
-    return valid;
-  };
-
-export const isFileSelected: ((arg1: string) => boolean) =
-  (fieldId: string): boolean => {
-    const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
-
-    return !(_.isNil(selected) || selected.length === 0);
-  };
-
 export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string): boolean => {
   const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
   let valid: boolean; valid = false;
@@ -254,7 +165,7 @@ export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string
     const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();
 
     if (file.size > MIB * 1) {
-      msgError(translate.t("proj_alerts.file_size_py"));
+      msgError(translate.t("validations.file_size", { count: 1 }));
     } else if (!_.includes([".yml", ".yaml"], fileType)) {
       msgError(translate.t("proj_alerts.file_type_yaml"));
     } else {
