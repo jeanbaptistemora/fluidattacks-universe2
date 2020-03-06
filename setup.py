@@ -43,6 +43,7 @@ distutils.core.setup(
     ],
     install_requires=[
         'awscli==1.17.9',
+        'binaryornot==0.4.4',
         'frozendict==1.2',
         'okta-awscli==0.4.0',
         'progress==1.5',
