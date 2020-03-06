@@ -1,5 +1,3 @@
-pkgs:
-
 rec {
   srcCiScriptsHelpersOthers = ../../ci-scripts/helpers/others.sh;
   srcCiScriptsHelpersSops = ../../ci-scripts/helpers/sops.sh;

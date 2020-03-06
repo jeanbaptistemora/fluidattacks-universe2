@@ -309,6 +309,8 @@ send_new_release_email:
   <<: *with_nix
   <<: *in_master_branch
   stage: post-deploy
+  needs:
+    - deploy_k8s_back
 
 test_back:
   <<: *with_nix

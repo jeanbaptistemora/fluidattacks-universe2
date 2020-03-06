@@ -31,6 +31,9 @@ function cli {
       ;;
     deploy_k8s*)
       ;;
+    functional_tests*)
+      env_prepare_python_packages
+      ;;
     *)
       env_prepare_dynamodb_local
       env_prepare_nodejs_modules

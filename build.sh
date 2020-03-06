@@ -22,12 +22,14 @@ function decide_and_call_provisioner {
         build*           ) provisioner='build';;
         deploy_container*) provisioner='deploy-container';;
         deploy_k8s*      ) provisioner='infra';;
+        functional_tests*) provisioner='selenium';;
                         *) provisioner='full';;
       esac \
   &&  provisioner="./build/${provisioner}.nix" \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
   &&  nix-shell \
         --cores 0 \
+        --keep AWS_SESSION_TOKEN \
         --keep CI \
         --keep CI_COMMIT_REF_NAME \
         --keep CI_COMMIT_REF_SLUG \
