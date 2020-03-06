@@ -9,6 +9,7 @@ from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
 from backend import util
+from backend.dal.comment import CommentType
 from backend.dal.event import TABLE as EVENTS_TABLE
 from backend.dal.finding import FindingType
 from backend.dal.helpers import dynamodb
@@ -364,7 +365,7 @@ def remove_user_role(project_name: str, user_email: str, role: str) -> bool:
     return resp
 
 
-def add_comment(project_name: str, email: str, comment_data: Dict[str, str]) -> bool:
+def add_comment(project_name: str, email: str, comment_data: CommentType) -> bool:
     """ Add a comment in a project. """
     resp = False
     try:
@@ -372,7 +373,7 @@ def add_comment(project_name: str, email: str, comment_data: Dict[str, str]) -> 
             'project_name': project_name,
             'email': email
         }
-        payload.update(comment_data)
+        payload.update(cast(Dict[str, str], comment_data))
         response = TABLE_COMMENTS.put_item(
             Item=payload
         )

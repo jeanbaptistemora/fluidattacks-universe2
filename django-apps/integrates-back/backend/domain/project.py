@@ -1,6 +1,6 @@
 """Domain functions for projects."""
 
-from typing import Any, Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from collections import namedtuple
 import re
 from datetime import datetime, timedelta
@@ -10,6 +10,9 @@ import pytz
 from django.conf import settings
 
 from backend.dal import finding as finding_dal, project as project_dal
+from backend.dal.comment import CommentType
+from backend.dal.finding import FindingType
+from backend.dal.project import ProjectType
 from backend.domain import comment as comment_domain, resources as resources_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
@@ -32,7 +35,7 @@ def get_email_recipients(project_name: str) -> List[str]:
     return recipients
 
 
-def add_comment(project_name: str, email: str, comment_data: Any) -> bool:
+def add_comment(project_name: str, email: str, comment_data: CommentType) -> bool:
     """Add comment in a project."""
     send_comment_mail(comment_data, 'project', email, 'project', project_name)
     return project_dal.add_comment(project_name, email, comment_data)
@@ -55,7 +58,7 @@ def create_project(user_email: str, user_role: str, **kwargs: str) -> bool:
        not all([company.strip() for company in companies]) or
        not companies):
         if not project_dal.exists(project_name):
-            project: project_dal.ProjectType = {
+            project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
                 'companies': companies,
@@ -81,7 +84,8 @@ def add_user(project_name: str, user_email: str, role: str) -> bool:
     return project_dal.add_user(project_name, user_email, role)
 
 
-def add_access(user_email: str, project_name: str, project_attr: str, attr_value: Any) -> bool:
+def add_access(user_email: str, project_name: str,
+               project_attr: str, attr_value: Union[str, bool]) -> bool:
     return project_dal.add_access(user_email, project_name, project_attr, attr_value)
 
 
@@ -89,7 +93,7 @@ def remove_access(user_email: str, project_name: str) -> bool:
     return project_dal.remove_access(user_email, project_name)
 
 
-def get_pending_to_delete() -> List[Dict[str, project_dal.ProjectType]]:
+def get_pending_to_delete() -> List[Dict[str, ProjectType]]:
     return project_dal.get_pending_to_delete()
 
 
@@ -115,7 +119,7 @@ def request_deletion(project_name: str, user_email: str) -> bool:
                 'user': user_email.lower(),
             }
             historic_deletion.append(new_state)
-            new_data: project_dal.ProjectType = {
+            new_data: ProjectType = {
                 'historic_deletion': historic_deletion,
                 'project_status': 'PENDING_DELETION'
             }
@@ -233,7 +237,7 @@ def is_request_deletion_user(project: str, user_email: str) -> bool:
     return project_dal.is_request_deletion_user(project, user_email)
 
 
-def total_vulnerabilities(finding_id: str) -> Dict[str, Any]:
+def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     if finding_domain.validate_finding(finding_id):
@@ -250,10 +254,10 @@ def total_vulnerabilities(finding_id: str) -> Dict[str, Any]:
     return finding
 
 
-def get_vulnerabilities(findings: List[Dict[str, Any]], vuln_type: str) -> Any:
+def get_vulnerabilities(findings: List[Dict[str, FindingType]], vuln_type: str) -> Optional[int]:
     """Get total vulnerabilities by type."""
     vulnerabilities = \
-        [total_vulnerabilities(fin['finding_id']).get(vuln_type)
+        [total_vulnerabilities(str(fin.get('finding_id', ''))).get(vuln_type)
          for fin in findings]
     vulnerabilities_sum = sum(vulnerabilities)
     return vulnerabilities_sum
@@ -266,17 +270,17 @@ def get_pending_closing_check(project: str) -> int:
     return pending_closing
 
 
-def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, Any]]:
+def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, FindingType]]:
     return project_dal.get_released_findings(project_name, attrs)
 
 
-def get_last_closing_vuln(findings: List[Dict[str, Any]]) -> Decimal:
+def get_last_closing_vuln(findings: List[Dict[str, FindingType]]) -> Decimal:
     """Get day since last vulnerability closing."""
     closing_dates = []
     for fin in findings:
         if finding_domain.validate_finding(fin['finding_id']):
             vulnerabilities = finding_dal.get_vulnerabilities(
-                fin['finding_id'])
+                str(fin.get('finding_id', '')))
             closing_vuln_date = [get_last_closing_date(vuln)
                                  for vuln in vulnerabilities
                                  if is_vulnerability_closed(vuln)]
@@ -296,10 +300,10 @@ def get_last_closing_vuln(findings: List[Dict[str, Any]]) -> Decimal:
     return last_closing
 
 
-def get_last_closing_date(vulnerability: Dict[str, Any]) -> Any:
+def get_last_closing_date(vulnerability: Dict[str, FindingType]) -> datetime:
     """Get last closing date of a vulnerability."""
     current_state = vuln_domain.get_last_approved_state(vulnerability)
-    last_closing_date: Any = None
+    last_closing_date = None
 
     if current_state and current_state.get('state') == 'closed':
         last_closing_date = datetime.strptime(
@@ -307,34 +311,32 @@ def get_last_closing_date(vulnerability: Dict[str, Any]) -> Any:
             '%Y-%m-%d'
         )
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        last_closing_date = last_closing_date.replace(tzinfo=tzn).date()
-    else:
-        # Vulnerability does not have closing date
-        pass
-    return last_closing_date
+        last_closing_date = cast(datetime, last_closing_date.replace(tzinfo=tzn).date())
+    return cast(datetime, last_closing_date)
 
 
-def is_vulnerability_closed(vuln: Dict[str, Any]) -> bool:
+def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     """Return if a vulnerability is closed."""
     return vuln_domain.get_last_approved_status(vuln) == 'closed'
 
 
-def get_max_severity(findings: List[Dict[str, Any]]) -> Any:
+def get_max_severity(findings: List[Dict[str, FindingType]]) -> Optional[float]:
     """Get maximum severity of a project."""
-    total_severity = [fin.get('cvss_temporal') for fin in findings]
+    total_severity = cast(List[float], [fin.get('cvss_temporal') for fin in findings])
     if total_severity:
-        max_severity = max(total_severity)
+        max_severity: float = max(total_severity)
     else:
         max_severity = 0
     return max_severity
 
 
-def get_max_open_severity(findings: List[Dict[str, Any]]) -> Decimal:
+def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decimal:
     """Get maximum severity of project with open vulnerabilities."""
-    total_severity = \
-        [fin.get('cvss_temporal', '') for fin in findings
-         if total_vulnerabilities(fin.get('finding_id', ''))
-         .get('openVulnerabilities', '') > 0]
+    total_severity: List[float] = \
+        cast(List[float],
+             [fin.get('cvss_temporal', '') for fin in findings
+              if int(total_vulnerabilities(str(fin.get('finding_id', '')))
+              .get('openVulnerabilities', '')) > 0])
     if total_severity:
         max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))
     else:
@@ -342,11 +344,11 @@ def get_max_open_severity(findings: List[Dict[str, Any]]) -> Decimal:
     return max_severity
 
 
-def get_open_vulnerability_date(vulnerability: Dict[str, Any]) -> Any:
+def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> Optional[datetime]:
     """Get open vulnerability date of a vulnerability."""
-    all_states = vulnerability.get('historic_state', {})
+    all_states = cast(List[Dict[str, str]], vulnerability.get('historic_state', [{}]))
     current_state: Dict[str, str] = all_states[0]
-    open_date: Any = None
+    open_date: Optional[datetime] = None
     if current_state.get('state') == 'open' and \
        not current_state.get('approval_status'):
         open_date = datetime.strptime(
@@ -354,21 +356,18 @@ def get_open_vulnerability_date(vulnerability: Dict[str, Any]) -> Any:
             '%Y-%m-%d'
         )
         tzn = pytz.timezone('America/Bogota')
-        open_date = open_date.replace(tzinfo=tzn).date()
-    else:
-        # Vulnerability does not have closing date
-        pass
+        open_date = cast(Optional[datetime], open_date.replace(tzinfo=tzn).date())
     return open_date
 
 
-def get_mean_remediate(findings: List[Dict[str, Any]]) -> Decimal:
+def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
     tzn = pytz.timezone('America/Bogota')
     for finding in findings:
         if finding_domain.validate_finding(finding['finding_id']):
-            vulnerabilities = finding_dal.get_vulnerabilities(finding['finding_id'])
+            vulnerabilities = finding_dal.get_vulnerabilities(str(finding.get('finding_id', '')))
             for vuln in vulnerabilities:
                 open_vuln_date = get_open_vulnerability_date(vuln)
                 closed_vuln_date = get_last_closing_date(vuln)
@@ -380,9 +379,6 @@ def get_mean_remediate(findings: List[Dict[str, Any]]) -> Decimal:
                         current_day = datetime.now(tz=tzn).date()
                         total_days += int((current_day - open_vuln_date).days)
                     total_vuln += 1
-                else:
-                    # Vulnerability does not have an open date
-                    pass
     if total_vuln:
         mean_vulnerabilities = Decimal(
             round(total_days / float(total_vuln))).quantize(Decimal('0.1'))
@@ -391,16 +387,17 @@ def get_mean_remediate(findings: List[Dict[str, Any]]) -> Decimal:
     return mean_vulnerabilities
 
 
-def get_total_treatment(findings: List[Dict[str, Any]]) -> Dict[str, int]:
+def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int]:
     """Get the total treatment of all the vulnerabilities"""
     accepted_vuln = 0
     in_progress_vuln: int = 0
     undefined_treatment: int = 0
     for finding in findings:
-        fin_treatment = finding.get('historic_treatment', [{}])[-1].get('treatment')
+        fin_treatment = cast(List[Dict[str, str]],
+                             finding.get('historic_treatment', [{}]))[-1].get('treatment')
         if finding_domain.validate_finding(finding['finding_id']):
-            open_vulns = total_vulnerabilities(
-                finding['finding_id']).get('openVulnerabilities', '')
+            open_vulns = int(total_vulnerabilities(
+                str(finding['finding_id'])).get('openVulnerabilities', ''))
             if fin_treatment == 'ACCEPTED':
                 accepted_vuln += open_vulns
             elif fin_treatment == 'IN PROGRESS':
@@ -416,12 +413,13 @@ def get_total_treatment(findings: List[Dict[str, Any]]) -> Dict[str, int]:
 
 
 def is_finding_in_drafts(finding_id: str) -> bool:
-    release_date: Any = finding_dal.get_attributes(finding_id, ['releaseDate'])
+    release_date: Dict[str, str] = cast(Dict[str, str],
+                                        finding_dal.get_attributes(finding_id, ['releaseDate']))
     retval = False
     if release_date:
         tzn = pytz.timezone('America/Bogota')
         release_datetime = datetime.strptime(
-            release_date.get('releaseDate').split(' ')[0],
+            str(release_date.get('releaseDate', '')).split(' ')[0],
             '%Y-%m-%d'
         ).date()
         now_time = datetime.now(tz=tzn).date()
@@ -435,15 +433,15 @@ def is_finding_in_drafts(finding_id: str) -> bool:
     return retval
 
 
-def get_current_month_authors(project_name: str) -> Any:
+def get_current_month_authors(project_name: str) -> str:
     return project_dal.get_current_month_authors(project_name)
 
 
-def get_current_month_commits(project_name: str) -> Any:
+def get_current_month_commits(project_name: str) -> str:
     return project_dal.get_current_month_commits(project_name)
 
 
-def update(project_name: str, data: Dict[str, Any]) -> bool:
+def update(project_name: str, data: ProjectType) -> bool:
     return project_dal.update(project_name, data)
 
 
@@ -479,12 +477,12 @@ def list_events(project_name: str) -> List[str]:
     return project_dal.list_events(project_name)
 
 
-def get_attributes(project_name: str, attributes: List[str]) -> Dict[str, Any]:
+def get_attributes(project_name: str, attributes: List[str]) -> Dict[str, Union[str, List[str]]]:
     return project_dal.get_attributes(project_name, attributes)
 
 
-def get_finding_project_name(finding_id: str) -> Any:
-    return finding_dal.get_attributes(finding_id, ['project_name']).get('project_name')
+def get_finding_project_name(finding_id: str) -> str:
+    return str(finding_dal.get_attributes(finding_id, ['project_name']).get('project_name', ''))
 
 
 def list_internal_managers(project_name: str) -> List[str]:
@@ -507,13 +505,13 @@ def remove_all_project_access(project: str) -> bool:
     return project_dal.remove_all_project_access(project)
 
 
-def get_project_info(project: str) -> List[Dict[str, Any]]:
+def get_project_info(project: str) -> List[ProjectType]:
     return project_dal.get(project)
 
 
-def get_managers(project_name: str) -> Any:
+def get_managers(project_name: str) -> str:
     project = project_dal.get(project_name)
-    is_admin = project[0].get('customeradmin')
+    is_admin = str(project[0].get('customeradmin', ''))
     if is_admin is None:
         is_admin = ''
     return is_admin
