@@ -46,13 +46,11 @@ def get_current_date() -> str:
     return today
 
 
-def get_data(email: str, attr: str) -> str:
+def get_data(email: str, attr: str):
     data_attr = get_attributes(email, [attr])
-    data = ''
     if data_attr and data_attr.get(attr):
-        data = str(data_attr.get(attr, ''))
-
-    return data
+        return data_attr.get(attr, '')
+    return str()
 
 
 def get_projects(user_email: str, active: bool = True) -> List[str]:
