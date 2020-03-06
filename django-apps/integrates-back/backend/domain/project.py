@@ -1,6 +1,6 @@
 """Domain functions for projects."""
 
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Union, cast
 from collections import namedtuple
 import re
 from datetime import datetime, timedelta
@@ -46,7 +46,7 @@ def create_project(user_email: str, user_role: str, **kwargs: str) -> bool:
     if is_user_admin:
         companies = [company.lower() for company in kwargs.get('companies', [])]
     else:
-        companies = [user_domain.get_data(user_email, 'company')]
+        companies = [str(user_domain.get_data(user_email, 'company'))]
     description = kwargs.get('description', '')
     project_name = kwargs.get('project_name', '').lower()
     if kwargs.get('subscription'):
@@ -254,13 +254,13 @@ def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     return finding
 
 
-def get_vulnerabilities(findings: List[Dict[str, FindingType]], vuln_type: str) -> Optional[int]:
+def get_vulnerabilities(findings: List[Dict[str, FindingType]], vuln_type: str) -> int:
     """Get total vulnerabilities by type."""
     vulnerabilities = \
         [total_vulnerabilities(str(fin.get('finding_id', ''))).get(vuln_type)
          for fin in findings]
     vulnerabilities_sum = sum(vulnerabilities)
-    return vulnerabilities_sum
+    return vulnerabilities_sum if vulnerabilities_sum else 0
 
 
 def get_pending_closing_check(project: str) -> int:
@@ -320,14 +320,14 @@ def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     return vuln_domain.get_last_approved_status(vuln) == 'closed'
 
 
-def get_max_severity(findings: List[Dict[str, FindingType]]) -> Optional[float]:
+def get_max_severity(findings: List[Dict[str, FindingType]]) -> float:
     """Get maximum severity of a project."""
     total_severity = cast(List[float], [fin.get('cvss_temporal') for fin in findings])
     if total_severity:
         max_severity: float = max(total_severity)
     else:
         max_severity = 0
-    return max_severity
+    return max_severity if max_severity else 0.0
 
 
 def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decimal:
@@ -344,11 +344,11 @@ def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decimal:
     return max_severity
 
 
-def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> Optional[datetime]:
+def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> Union[datetime, None]:
     """Get open vulnerability date of a vulnerability."""
     all_states = cast(List[Dict[str, str]], vulnerability.get('historic_state', [{}]))
     current_state: Dict[str, str] = all_states[0]
-    open_date: Optional[datetime] = None
+    open_date = None
     if current_state.get('state') == 'open' and \
        not current_state.get('approval_status'):
         open_date = datetime.strptime(
@@ -356,7 +356,7 @@ def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> Option
             '%Y-%m-%d'
         )
         tzn = pytz.timezone('America/Bogota')
-        open_date = cast(Optional[datetime], open_date.replace(tzinfo=tzn).date())
+        open_date = cast(datetime, open_date.replace(tzinfo=tzn).date())
     return open_date
 
 
@@ -509,9 +509,9 @@ def get_project_info(project: str) -> List[ProjectType]:
     return project_dal.get(project)
 
 
-def get_managers(project_name: str) -> str:
+def get_managers(project_name: str) -> Union[str, List[str]]:
     project = project_dal.get(project_name)
-    is_admin = str(project[0].get('customeradmin', ''))
+    is_admin = cast(List[str], project[0].get('customeradmin', ''))
     if is_admin is None:
         is_admin = ''
     return is_admin

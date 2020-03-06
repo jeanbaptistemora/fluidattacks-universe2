@@ -66,7 +66,7 @@ def _get_recipient_first_name(email: str) -> str:
     else:
         # First name exists in database
         pass
-    return first_name
+    return str(first_name)
 
 
 # pylint: disable=too-many-locals
@@ -178,7 +178,7 @@ def send_comment_mail(comment_data: Dict[str, Any], entity_name: str,
     email_context_customers = email_context.copy()
     if user_domain.get_data(user_mail, 'role') not in ['customer', 'customeradmin']:
         email_context_customers['user_email'] = \
-            'Hacker at ' + user_domain.get_data(user_mail, 'company').capitalize()
+            'Hacker at ' + str(user_domain.get_data(user_mail, 'company')).capitalize()
     email_send_thread = threading.Thread(
         name='New {} email thread'.format(entity_name),
         target=send_mail_comment,

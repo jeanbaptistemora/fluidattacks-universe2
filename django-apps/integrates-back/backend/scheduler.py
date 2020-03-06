@@ -85,7 +85,7 @@ def send_unsolved_events_email(project: str):
 
 
 def get_external_recipients(project: str) -> List[str]:
-    recipients = project_domain.get_managers(project)
+    recipients = cast(List[str], project_domain.get_managers(project))
     return remove_fluid_from_recipients(recipients)
 
 
@@ -173,9 +173,10 @@ def create_register_by_week(project: str) -> List[List[Any]]:
         first_day, last_day = get_first_week_dates(vulns)
         first_day_last_week = get_date_last_vulns(vulns)
         while first_day <= first_day_last_week:
-            result_vulns_by_week = get_status_vulns_by_time_range(vulns, first_day,
-                                                                  last_day,
-                                                                  findings_released)
+            result_vulns_by_week = get_status_vulns_by_time_range(
+                vulns, first_day,
+                last_day,
+                cast(List[Dict[str, str]], findings_released))
             accepted += result_vulns_by_week.get('accepted', 0)
             closed += result_vulns_by_week.get('closed', 0)
             found += result_vulns_by_week.get('found', 0)

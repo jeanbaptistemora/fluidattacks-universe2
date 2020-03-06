@@ -51,7 +51,7 @@ def get_fullname(user_role: str, data: Dict[str, str]) -> str:
     else:
         user_company = user_domain.get_data(data['email'], 'company')
         if user_company:
-            comment_user_name = 'Hacker at ' + user_company.capitalize()
+            comment_user_name = 'Hacker at ' + str(user_company).capitalize()
     return comment_user_name
 
 

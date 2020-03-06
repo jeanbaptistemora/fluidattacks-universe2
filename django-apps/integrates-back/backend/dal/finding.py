@@ -13,7 +13,7 @@ TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
 
 FindingType = Union[
-    str, list,
+    str, list, float,
     List[str],
     List[Dict[str, str]],
     Dict[str, str],

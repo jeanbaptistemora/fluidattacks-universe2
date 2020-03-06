@@ -94,7 +94,7 @@ def has_responsibility(project: str, email: str) -> str:
 
 
 def has_phone_number(email: str) -> str:
-    user_info = user_domain.get_data(email, 'phone')
+    user_info = str(user_domain.get_data(email, 'phone'))
     user_phone = user_info if user_info else '-'
     return user_phone
 
@@ -106,7 +106,7 @@ def get_user_role(user_data: Dict[Any, Any]) -> str:
             role = 'customer'
     else:
         role = user_data['user_role']
-    return role
+    return str(role)
 
 
 def project_exists(project_name: str) -> bool:

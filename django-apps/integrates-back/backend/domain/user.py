@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Union, cast
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
@@ -46,10 +46,10 @@ def get_current_date() -> str:
     return today
 
 
-def get_data(email: str, attr: str):
+def get_data(email: str, attr: str) -> Union[str, UserType]:
     data_attr = get_attributes(email, [attr])
     if data_attr and data_attr.get(attr):
-        return data_attr.get(attr, '')
+        return cast(UserType, data_attr.get(attr, ''))
     return str()
 
 
