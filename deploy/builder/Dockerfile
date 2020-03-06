@@ -28,7 +28,7 @@ RUN apt-get update -qq \
     software-properties-common \
     && curl -sL "$URL_NODESOURCE" | bash - \
     && echo "deb $URL_DEBIAN stable main" | tee /etc/apt/sources.list.d/yarn.list \
-      && curl -sS "$URL_DEBIAN_PUBKEY" | apt-key add -
+      && curl -sLS "$URL_DEBIAN_PUBKEY" | apt-key add -
 
 # Install general dependencies
 RUN apt-get update && \
