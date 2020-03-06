@@ -64,8 +64,9 @@ describe("Welcome view", () => {
         data: { me: { authorized: false, remember: false } },
       },
     }];
+    delete window.location;
     const locationMock: jest.Mock = jest.fn();
-    window.location.assign = locationMock;
+    window.location = { ...window.location, assign: locationMock };
 
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>

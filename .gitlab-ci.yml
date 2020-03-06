@@ -277,7 +277,7 @@ lint_back:
   <<: *in_dev_branch
   stage: lint-code
 
-.lint_front:
+lint_front:
   <<: *with_nix
   <<: *in_dev_branch
   stage: lint-code
