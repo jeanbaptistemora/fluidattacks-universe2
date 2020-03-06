@@ -316,7 +316,7 @@ function job_send_new_release_email {
         MANDRILL_EMAIL_TO \
   &&  curl -Lo \
         "${TEMP_FILE1}" \
-        'https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py' \
+        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
   &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
         context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
           'version': _get_version_date(), 'message': _get_message()},

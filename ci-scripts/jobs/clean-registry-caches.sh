@@ -25,7 +25,7 @@ clean_registry_caches() {
 
   if check_first_thursday; then
     # Import functions
-    . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+    . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
     . ci-scripts/helpers/others.sh
     . ci-scripts/helpers/sops.sh
 

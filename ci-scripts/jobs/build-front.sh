@@ -7,7 +7,7 @@ build_front() {
     set -e
 
     # import functions
-    . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+    . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
     . ci-scripts/helpers/others.sh
     . ci-scripts/helpers/sops.sh
 

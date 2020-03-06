@@ -7,7 +7,7 @@ new_version_mail() {
   set -Eeuo pipefail
 
   # Import functions
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+  . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
   . ci-scripts/helpers/sops.sh
 
   local SOURCE_FILE
@@ -24,7 +24,7 @@ new_version_mail() {
 
   curl -Lo \
     "$SOURCE_FILE" \
-    'https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py'
+    'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py'
 
   echo "send_mail('new_version', MANDRILL_EMAIL_TO,
     context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',

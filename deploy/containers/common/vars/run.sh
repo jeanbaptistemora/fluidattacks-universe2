@@ -4,7 +4,7 @@ set -e
 # Initialize integrates app.
 
 # Import functions
-. <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+. <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
 . ci-scripts/helpers/sops.sh
 
 aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"

@@ -4,7 +4,7 @@ django_db_apply() {
 
   set -Eeuo pipefail
 
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+  . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
   . ci-scripts/helpers/sops.sh
 
   local folder='deploy/django-db/terraform'
@@ -31,7 +31,7 @@ django_db_test() {
 
   set -Eeuo pipefail
 
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+  . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
   . ci-scripts/helpers/sops.sh
 
   local folder='deploy/django-db/terraform'

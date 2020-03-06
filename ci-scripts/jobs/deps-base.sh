@@ -8,7 +8,7 @@ deps_base() {
   set -e
 
   # import functions
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
+  . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
 
   local NAME
 
