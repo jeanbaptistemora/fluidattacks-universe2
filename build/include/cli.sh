@@ -29,6 +29,9 @@ function cli {
       ;;
     deploy_container*)
       ;;
+    deploy_front)
+      env_prepare_python_packages
+      ;;
     deploy_k8s*)
       ;;
     functional_tests*)

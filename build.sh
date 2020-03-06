@@ -20,12 +20,13 @@ function decide_and_call_provisioner {
   # shellcheck disable=2016
       case "${job}" in
         build*           ) provisioner='build';;
-        deploy_container*) provisioner='deploy-container';;
+        deploy_container*) provisioner='docker';;
+        deploy_front     ) provisioner='deploy_front';;
         deploy_k8s*      ) provisioner='infra';;
         functional_tests*) provisioner='selenium';;
                         *) provisioner='full';;
       esac \
-  &&  provisioner="./build/${provisioner}.nix" \
+  &&  provisioner="./build/provisioners/${provisioner}.nix" \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
   &&  nix-shell \
         --cores 0 \
