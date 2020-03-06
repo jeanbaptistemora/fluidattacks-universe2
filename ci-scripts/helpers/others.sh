@@ -4,7 +4,7 @@ deploy_integrates() {
   local integrates_id='4620828'
 
   . toolbox/others.sh
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+  . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
 
       aws_login \
   &&  sops_env secrets-prod.yaml default INTEGRATES_PIPELINE_TOKEN \

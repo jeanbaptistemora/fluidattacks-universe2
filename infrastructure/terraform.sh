@@ -47,7 +47,7 @@ get_nginx_elb() {
 set -e
 
 # Import functions
-. <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+. <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
 . toolbox/others.sh
 
 stage="${1:-test}"

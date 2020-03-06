@@ -108,7 +108,7 @@ def timedoctor_start() -> bool:
         {**timedoctor, **new_timedoctor})
     url = "https://gitlab.com/fluidattacks/public"
     url += "/raw/master/shared-scripts/gitlab-variables.sh"
-    run_command((f"    source <(curl -s {url})"
+    run_command((f"    source <(curl -sL {url})"
                  f"&&  set_project_variable"
                  f"      '{analytics_gitlab_token}'"
                  f"      '{project_id}'"
@@ -142,7 +142,7 @@ def timedoctor_refresh() -> bool:
         {**timedoctor, **new_timedoctor})
     url = "https://gitlab.com/fluidattacks/public"
     url += "/raw/master/shared-scripts/gitlab-variables.sh"
-    run_command((f"    source <(curl -s {url})"
+    run_command((f"    source <(curl -sL {url})"
                  f"&&  set_project_variable"
                  f"      '{analytics_gitlab_token}'"
                  f"      '{project_id}'"

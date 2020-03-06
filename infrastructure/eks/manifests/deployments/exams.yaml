@@ -31,7 +31,7 @@ spec:
             command:
               - sh
               - -ce
-              - "curl -sS http://localhost | grep 'autonomicmind.com/courses'"
+              - "curl -sLS http://localhost | grep 'autonomicmind.com/courses'"
           initialDelaySeconds: 20
           periodSeconds: 5
           successThreshold: 3
