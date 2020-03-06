@@ -6,11 +6,12 @@ from ariadne import (
     make_executable_schema, load_schema_from_path, upload_scalar,
     snake_case_fallback_resolvers
 )
+from ariadne.contrib.django.scalars import datetime_scalar
 
 from backend.api.query import QUERY
 from backend.api.mutation import MUTATION
 from backend.api.typesdef import TYPES
-from backend.api.scalars import datetime, jsonstring, genericscalar
+from backend.api.scalars import jsonstring, genericscalar
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,7 +22,7 @@ SCHEMA = make_executable_schema(
     QUERY,
     MUTATION,
     *TYPES,
-    datetime.DATETIME_SCALAR,
+    datetime_scalar,
     jsonstring.JSON_STRING_SCALAR,
     genericscalar.GENERIC_SCALAR,
     upload_scalar,

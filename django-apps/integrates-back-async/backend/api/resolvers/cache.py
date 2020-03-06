@@ -16,4 +16,4 @@ def resolve_invalidate_cache(_, info, pattern):
         util.cloudwatch_log(
             info.context,
             f'Security: Pattern {pattern} was removed from cache')
-    return {'success': success}
+    return dict(success=success)

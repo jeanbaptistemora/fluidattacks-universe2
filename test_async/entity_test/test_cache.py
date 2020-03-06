@@ -10,7 +10,7 @@ from backend.api.schema import SCHEMA
 class CacheTests(TestCase):
 
     def test_invalidate_cache(self):
-        """Check for internal project"""
+        """Check for invalidate_cache mutation."""
         query = '''
             mutation {
                 invalidateCache(pattern: "unittest") {
