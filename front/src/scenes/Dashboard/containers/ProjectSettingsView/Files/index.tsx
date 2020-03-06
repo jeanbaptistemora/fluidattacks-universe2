@@ -99,19 +99,13 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
 
   const filesDataset: IFile[] = JSON.parse(data.resources.files);
 
-  const isRepeated: ((newFile: File) => boolean) = (newFile: File): boolean => {
-    const repeatedItems: IFile[] = filesDataset.filter((file: IFile): boolean =>
-      file.fileName === newFile.name);
-
-    return repeatedItems.length > 0;
-  };
-
   const handleUpload: ((values: { description: string; file: FileList }) => void) = (
     values: { description: string; file: FileList },
   ): void => {
-    const containsRepeated: boolean = isRepeated(values.file[0]);
+    const repeatedFiles: IFile[] = filesDataset.filter((file: IFile): boolean =>
+      file.fileName === values.file[0].name);
 
-    if (containsRepeated) {
+    if (repeatedFiles.length > 0) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       closeAddModal();

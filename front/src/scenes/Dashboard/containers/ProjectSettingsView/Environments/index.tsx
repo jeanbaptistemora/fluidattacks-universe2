@@ -63,19 +63,17 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
       };
     });
 
-  const isRepeated: ((newEnv: IEnvironmentsAttr) => boolean) = (newEnv: IEnvironmentsAttr): boolean => {
-    const repeatedItems: IEnvironmentsAttr[] = envsDataset.filter((env: IEnvironmentsAttr): boolean =>
-      env.urlEnv === newEnv.urlEnv);
-
-    return repeatedItems.length > 0;
-  };
-
   const handleEnvAdd: ((values: { resources: IEnvironmentsAttr[] }) => void) = (
     values: { resources: IEnvironmentsAttr[] },
   ): void => {
-    const containsRepeated: boolean = values.resources.filter(isRepeated).length > 0;
+    const repeatedInputs: IEnvironmentsAttr[] = values.resources.filter((env: IEnvironmentsAttr) =>
+      values.resources.filter(_.matches(env)).length > 1);
+    const repeatedEnvs: IEnvironmentsAttr[] = values.resources.filter((env: IEnvironmentsAttr) =>
+      envsDataset.filter(_.matches(env)).length > 0);
 
-    if (containsRepeated) {
+    if (repeatedInputs.length > 0) {
+      msgError(translate.t("search_findings.tab_resources.repeated_input"));
+    } else if (repeatedEnvs.length > 0) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       closeAddModal();

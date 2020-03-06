@@ -63,21 +63,17 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
       };
     });
 
-  const isRepeated: ((newRepo: IRepositoriesAttr) => boolean) = (newRepo: IRepositoriesAttr): boolean => {
-    const repeatedItems: IRepositoriesAttr[] = reposDataset.filter((repo: IRepositoriesAttr): boolean =>
-      repo.branch === newRepo.branch
-      && repo.urlRepo === newRepo.urlRepo
-      && repo.protocol === newRepo.protocol);
-
-    return repeatedItems.length > 0;
-  };
-
   const handleRepoAdd: ((values: { resources: IRepositoriesAttr[] }) => void) = (
     values: { resources: IRepositoriesAttr[] },
   ): void => {
-    const containsRepeated: boolean = values.resources.filter(isRepeated).length > 0;
+    const repeatedInputs: IRepositoriesAttr[] = values.resources.filter((repo: IRepositoriesAttr) =>
+      values.resources.filter(_.matches(repo)).length > 1);
+    const repeatedRepos: IRepositoriesAttr[] = values.resources.filter((repo: IRepositoriesAttr) =>
+      reposDataset.filter(_.matches(repo)).length > 0);
 
-    if (containsRepeated) {
+    if (repeatedInputs.length > 0) {
+      msgError(translate.t("search_findings.tab_resources.repeated_input"));
+    } else if (repeatedRepos.length > 0) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       closeAddModal();

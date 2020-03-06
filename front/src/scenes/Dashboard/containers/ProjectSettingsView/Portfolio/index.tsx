@@ -68,17 +68,15 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
 
   const tagsDataset: Array<{ tagName: string }> = data.project.tags.map((tag: string) => ({ tagName: tag }));
 
-  const isRepeated: ((newTag: string) => boolean) = (newTag: string): boolean => {
-    const repeatedItems: Array<{ tagName: string }> = tagsDataset.filter((item: { tagName: string }): boolean =>
-      item.tagName === newTag);
-
-    return repeatedItems.length > 0;
-  };
-
   const handleTagsAdd: ((values: { tags: string[] }) => void) = (values: { tags: string[] }): void => {
-    const containsRepeated: boolean = values.tags.filter(isRepeated).length > 0;
+    const repeatedInputs: string[] = values.tags.filter((tag: string) =>
+      values.tags.filter(_.matches(tag)).length > 1);
+    const repeatedTags: string[] = values.tags.filter((tag: string) =>
+      tagsDataset.filter(_.matches({ tagName: tag })).length > 0);
 
-    if (containsRepeated) {
+    if (repeatedInputs.length > 0) {
+      msgError(translate.t("search_findings.tab_resources.repeated_input"));
+    } else if (repeatedTags.length > 0) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       closeAddModal();
