@@ -8,6 +8,7 @@ from ariadne import (
 )
 
 from backend.api.query import QUERY
+from backend.api.mutation import MUTATION
 from backend.api.typesdef import TYPES
 from backend.api.scalars import datetime, jsonstring, genericscalar
 
@@ -18,6 +19,7 @@ TYPE_DEFS = load_schema_from_path(os.path.join(BASE_DIR, 'api', 'schemas'))
 SCHEMA = make_executable_schema(
     TYPE_DEFS,
     QUERY,
+    MUTATION,
     *TYPES,
     datetime.DATETIME_SCALAR,
     jsonstring.JSON_STRING_SCALAR,
