@@ -41,10 +41,8 @@ function job_build_lambdas {
 
     # shellcheck disable=SC1091
         lambda_zip_file="$(mktemp -d)/${lambda_name}.zip" \
-    &&  echo '[INFO] Deleting previous virtual environment if exists' \
-    &&  rm -rf "${path_to_lambda_venv}" \
     &&  echo '[INFO] Creating virtual environment' \
-    &&  python3 -m venv "${path_to_lambda_venv}" \
+    &&  python3 -m venv --clear "${path_to_lambda_venv}" \
     &&  pushd "${path_to_lambda_venv}" \
       &&  echo '[INFO] Entering virtual environment' \
       &&  source './bin/activate' \
@@ -708,7 +706,7 @@ function job_test_mobile {
   ||  return 1
 }
 
-function job_deploy_back_ephemeral {
+function job_deploy_k8s_back_ephemeral {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
   local B64_JWT_TOKEN
@@ -762,7 +760,7 @@ function job_deploy_back_ephemeral {
   &&  kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}" --timeout=5m
 }
 
-function job_deploy_back {
+function job_deploy_k8s_back {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
   local B64_JWT_TOKEN

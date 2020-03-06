@@ -25,8 +25,11 @@ function cli {
   env_prepare_environment_variables
   env_prepare_ephemeral_vars
   case "${function_to_call}" in
+    build*)
+      ;;
     deploy_container*)
-      :
+      ;;
+    deploy_k8s*)
       ;;
     *)
       env_prepare_dynamodb_local

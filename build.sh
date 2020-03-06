@@ -19,7 +19,9 @@ function decide_and_call_provisioner {
 
   # shellcheck disable=2016
       case "${job}" in
+        build*           ) provisioner='build';;
         deploy_container*) provisioner='deploy-container';;
+        deploy_k8s*      ) provisioner='infra';;
                         *) provisioner='full';;
       esac \
   &&  provisioner="./build/${provisioner}.nix" \
@@ -52,13 +54,13 @@ function decide_and_call_provisioner {
         --option restrict-eval false \
         --option sandbox false \
         --pure \
-        --show-trace \
         --run '
           source "${srcIncludeGenericShellOptions}"
           source "${srcIncludeCli}"
         '"
           cli ${job}
         " \
+        --show-trace \
         "${provisioner}"
 }
 

@@ -1,7 +1,7 @@
 pkgs:
 
 let
-  customPkgs.python = import ../../pkgs/python pkgs;
+  customPkgs.python = import ../../dependencies/python-with-tools.nix pkgs;
   stringToDerivationName = import ../../lambdas/string-to-derivation-name pkgs;
 in
   requirement:
