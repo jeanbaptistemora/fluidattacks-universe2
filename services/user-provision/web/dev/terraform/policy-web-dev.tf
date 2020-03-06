@@ -20,6 +20,7 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
       "s3:Get*",
       "s3:PutObject",
       "s3:PutObjectAcl",
+      "s3:DeleteObject*",
     ]
     resources = [
       "arn:aws:s3:::web.eph.fluidattacks.com/*",
