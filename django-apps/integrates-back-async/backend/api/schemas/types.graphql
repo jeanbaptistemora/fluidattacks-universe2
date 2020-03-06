@@ -79,7 +79,7 @@ type Finding {
 
 "InternalProject type definition"
 type InternalProject {
-    projectName: String!
+    projectName: String
 }
 
 "Resource type definition"
