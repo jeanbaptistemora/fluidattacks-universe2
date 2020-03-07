@@ -60,13 +60,12 @@ ephemeral:
   script:
     - cd /app
     - source /app/ci-scripts/helpers/others.sh
-    - sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" pelicanconf.py
+    - sed -i "s|https://fluidattacks.com|http://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/pelicanconf.py
     - cp -a /app/deploy/builder/node_modules /app/theme/2014/
     - cp -a /app/deploy/builder/node_modules /app/
     - npm run --prefix /app/deploy/builder/ build
     - /app/build-site.sh
     - /app/html-lint.sh
-    - aws_login
     - sync_s3 output/ "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}
@@ -107,7 +106,6 @@ production:
     - cp -a /app/deploy/builder/node_modules /app/
     - npm run --prefix /app/deploy/builder/ build
     - /app/build-site.sh
-    - aws_login
     - sync_s3 output/ web.fluidattacks.com
   only:
     - master

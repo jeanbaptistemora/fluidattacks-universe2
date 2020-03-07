@@ -27,9 +27,9 @@ function sync_s3 {
 
   local source_code="${1}"
   local bucket_path="${2}"
-  local extensions=("html" "css" "js" "png")
+  local extensions=('html' 'css' 'js' 'png' 'svg')
 
-  #aws_login
+  aws_login
 
   # Compress all HTML, CSS and JS files and remove the .gz extension
   while IFS= read -r file; do
@@ -39,15 +39,43 @@ function sync_s3 {
 
   # Set correct metadata according to the compressed file and upload them
   for extension in "${extensions[@]}"; do
-    aws s3 sync                          \
-      "${source_code}/web"               \
-      "s3://${bucket_path}/web"          \
-      --acl public-read                  \
-      --exclude "*"                      \
-      --include "*.${extension}"         \
-      --metadata-directive REPLACE       \
-      --content-type "text/${extension}" \
-      --content-encoding gzip            \
+    local compress
+    local content_type
+    case ${extension} in
+      'html')
+        content_type='text/html'
+        compress='gzip'
+        ;;
+      'css')
+        content_type='text/css'
+        compress='gzip'
+        ;;
+      'js')
+        content_type='application/javascript'
+        compress='gzip'
+        ;;
+      'png')
+        content_type='image/png'
+        compress='identity'
+        ;;
+      'svg')
+        content_type='image/svg+xml'
+        compress='identity'
+        ;;
+      *)
+        content_type='application/octet-stream'
+        compress='identity'
+        ;;
+    esac
+    aws s3 sync                        \
+      "${source_code}/web"             \
+      "s3://${bucket_path}/web"        \
+      --acl public-read                \
+      --exclude "*"                    \
+      --include "*.${extension}"       \
+      --metadata-directive REPLACE     \
+      --content-type "${content_type}" \
+      --content-encoding "${compress}" \
       --delete
   done
 
@@ -59,5 +87,6 @@ function sync_s3 {
   --exclude "*.css"      \
   --exclude "*.js"       \
   --exclude "*.png"      \
+  --exclude "*.svg"      \
   --delete
 }
