@@ -80,7 +80,7 @@ stages:
 
 .with_nix: &with_nix
   tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}:nix"
+  image: "${CI_REGISTRY_IMAGE}/nix:full"
   needs: []
   script:
     - ./build.sh "${CI_JOB_NAME% *}"
@@ -88,6 +88,7 @@ stages:
 
 build_front:
   <<: *with_nix
+  image: "${CI_REGISTRY_IMAGE}/nix:build"
   stage: build
   retry: 1
   artifacts:
@@ -99,6 +100,7 @@ build_front:
 build_lambdas:
   <<: *with_nix
   <<: *in_dev_and_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:build"
   stage: deps
   artifacts:
     expire_in: 1 day
@@ -109,6 +111,7 @@ build_lambdas:
 build_django_apps:
   <<: *with_nix
   <<: *in_dev_and_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:build"
   stage: deps
   artifacts:
     expire_in: 1 day
@@ -130,6 +133,7 @@ clean_registries:
 deploy_k8s_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
   needs: [deploy_container_app]
   retry: 1
@@ -141,6 +145,7 @@ deploy_k8s_back_ephemeral:
 deploy_k8s_back:
   <<: *with_nix
   <<: *in_master_branch_and_schedules_and_triggers
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
   needs: [deploy_container_app]
   retry: 1
@@ -150,15 +155,18 @@ deploy_k8s_back:
 
 deploy_container_deps_mobile:
   <<: *with_nix
+  image: "${CI_REGISTRY_IMAGE}/nix:docker"
   tags: [autoscaling-large]
   stage: deps-base
 
 deploy_container_deps_app:
   <<: *with_nix
+  image: "${CI_REGISTRY_IMAGE}/nix:docker"
   stage: deps-base
 
 deploy_container_app:
   <<: *with_nix
+  image: "${CI_REGISTRY_IMAGE}/nix:docker"
   stage: build
   needs:
     - build_django_apps
@@ -173,6 +181,7 @@ deploy_container_app:
 deploy_container_app_async:
   <<: *with_nix
   <<: *in_dev_and_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:docker"
   stage: build
   needs:
     - build_django_apps
@@ -183,7 +192,7 @@ deploy_container_app_async:
     - version.txt
     when: on_success
 
-deploy_container_nix_cache:
+deploy_container_nix_caches:
   <<: *with_nix
   <<: *in_schedule_nightly_build
   tags: [autoscaling-large]
@@ -194,11 +203,13 @@ deploy_container_nix_cache:
 
 deploy_front:
   <<: *with_nix
+  image: "${CI_REGISTRY_IMAGE}/nix:deploy-front"
   stage: deploy-app
   needs: [build_front]
 
 .functional_tests_template: &functional_tests_template
   <<: *with_nix
+  image: "${CI_REGISTRY_IMAGE}/nix:selenium"
   stage: post-deploy
   retry: 1
   parallel: 14

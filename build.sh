@@ -21,7 +21,7 @@ function decide_and_call_provisioner {
       case "${job}" in
         build*           ) provisioner='build';;
         deploy_container*) provisioner='docker';;
-        deploy_front     ) provisioner='deploy_front';;
+        deploy_front     ) provisioner='deploy-front';;
         deploy_k8s*      ) provisioner='infra';;
         functional_tests*) provisioner='selenium';;
                         *) provisioner='full';;

@@ -71,7 +71,9 @@ function helper_docker_build_and_push {
   &&  echo "[INFO] Building: ${tag}" \
   &&  docker build "${build_args[@]}" "${context}" \
   &&  echo "[INFO] Pushing: ${tag}" \
-  &&  docker push "${tag}"
+  &&  docker push "${tag}" \
+  &&  echo "[INFO] Deleting local copy of: ${tag}" \
+  &&  docker image remove "${tag}"
 }
 
 function helper_get_gitlab_var {
