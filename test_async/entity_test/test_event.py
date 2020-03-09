@@ -255,3 +255,67 @@ class EventTests(TestCase):
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['updateEventEvidence']
+
+    def test_download_event_file(self):
+        """Check for downloadEventFile mutation."""
+        query = '''
+            mutation {
+                downloadEventFile(eventId: "484763304",
+                                  fileName: "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad") {
+                    success
+                    url
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['downloadEventFile']
+        assert 'url' in result['data']['downloadEventFile']
+
+    def test_remove_event_evidence(self):
+        """Check for removeEventEvidence mutation."""
+        query = '''
+            mutation {
+                removeEventEvidence(eventId: "484763304",
+                                    evidenceType: FILE) {
+                    success
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['removeEventEvidence']

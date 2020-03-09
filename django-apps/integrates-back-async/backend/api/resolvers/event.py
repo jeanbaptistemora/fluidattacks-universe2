@@ -103,3 +103,31 @@ def resolve_update_event_evidence(_, info, event_id, evidence_type, file):
             info.context,
             f'Security: Attempted to update evidence in event {event_id}')
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+def resolve_download_event_file(_, info, event_id, file_name):
+    """Resolve download_event_file mutation."""
+    success = False
+    signed_url = event_domain.get_evidence_link(event_id, file_name)
+    if signed_url:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Downloaded file in event {event_id} succesfully')
+        success = True
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Attempted to download file in event {event_id}')
+    return dict(success=success, url=signed_url)
+
+
+@convert_kwargs_to_snake_case
+def resolve_remove_event_evidence(_, info, event_id, evidence_type):
+    success = event_domain.remove_evidence(evidence_type, event_id)
+    if success:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Removed evidence in event {event_id}')
+        util.invalidate_cache(event_id)
+    return dict(success=success)
