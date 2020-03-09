@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from ariadne import graphql_sync
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -78,3 +80,45 @@ class MeTests(TestCase):
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'INVALID_AUTH_TOKEN'
+
+    def test_update_access_token(self):
+        """Check for updateAccessToken mutation."""
+        query = '''
+            mutation updateAccessToken ($expirationTime: Int!) {
+                updateAccessToken(expirationTime: $expirationTime) {
+                    sessionJwt
+                    success
+                }
+            }
+        '''
+        expiration_time = datetime.utcnow() + timedelta(weeks=8)
+        expiration_time = int(expiration_time.timestamp())
+
+        data = {
+            'query': query,
+            'variables': {
+                'expirationTime': expiration_time
+            }
+        }
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest',
+                'first_name': 'Admin',
+                'last_name': 'At Fluid'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'updateAccessToken' in result['data']
+        assert 'success' in result['data']['updateAccessToken']

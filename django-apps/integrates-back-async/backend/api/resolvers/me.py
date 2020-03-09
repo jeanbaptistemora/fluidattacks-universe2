@@ -5,8 +5,9 @@ import json
 
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
-from backend.services import get_user_role, is_customeradmin
+from backend.exceptions import InvalidExpirationTime
 from backend.dal import user as user_dal
+from backend.services import get_user_role, is_customeradmin
 from backend import util
 
 from django.conf import settings
@@ -82,6 +83,7 @@ def resolve_me(_, info):
 
 @convert_kwargs_to_snake_case
 def resolve_sign_in(_, info, auth_token, provider, push_token):
+    """Resolve sign_in mutation."""
     authorized = False
     session_jwt = ''
     success = False
@@ -132,3 +134,47 @@ def resolve_sign_in(_, info, auth_token, provider, push_token):
         raise GraphQLError('UNKNOWN_AUTH_PROVIDER')
 
     return dict(authorized, session_jwt, success)
+
+
+@convert_kwargs_to_snake_case
+def resolve_update_access_token(_, info, expiration_time):
+    """Resolve update_access_token mutation."""
+    user_info = util.get_jwt_content(info.context)
+    email = user_info['user_email']
+    token_data = util.calculate_hash_token()
+    session_jwt = ''
+    success = False
+
+    if util.is_valid_expiration_time(expiration_time):
+        session_jwt = jwt.encode(
+            {
+                'user_email': email,
+                'company': user_domain.get_data(
+                    email, 'company'),
+                'first_name': user_info['first_name'],
+                'last_name': user_info['last_name'],
+                'jti': token_data['jti'],
+                'iat': datetime.utcnow().timestamp(),
+                'exp': expiration_time
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET_API
+        )
+
+        success = user_domain.update_access_token(email, token_data)
+        if success:
+            util.cloudwatch_log(
+                info.context, '{email} update access token'.format(
+                    email=user_info['user_email']))
+        else:
+            util.cloudwatch_log(
+                info.context, '{email} attempted to update access token'
+                .format(email=user_info['user_email']))
+    else:
+        util.cloudwatch_log(
+            info.context, '{email} attempted to use expiration time \
+            greater than six months or minor than current time'
+            .format(email=user_info['user_email']))
+        raise InvalidExpirationTime()
+
+    return dict(success=success, session_jwt=session_jwt)
