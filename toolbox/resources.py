@@ -298,13 +298,13 @@ def vpn(subs: str) -> bool:
         if city == '1':
             utils.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'bash {config_file}-bogota.sh',
+                f'./{config_file}-bogota.sh',
                 shell=True
             )
         else:
             utils.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'bash {config_file}-medellin.sh',
+                f'./{config_file}-medellin.sh',
                 shell=True
             )
     else:
@@ -315,7 +315,7 @@ def vpn(subs: str) -> bool:
         else:
             utils.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'bash {config_file}.sh',
+                f'./{config_file}.sh',
                 shell=True
             )
     return success

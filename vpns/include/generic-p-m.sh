@@ -24,6 +24,7 @@ function start_vpn() {
   # Fire up the vpn
   echo
   echo 'Setting VPN...'
+  echo "Will provision with: command -v openfortivpn = $(command -v openfortivpn)"
   # shellcheck disable=SC2024
   sudo "$(command -v openfortivpn)" \
     "${vpn_host_medellin}:${vpn_port}" \
