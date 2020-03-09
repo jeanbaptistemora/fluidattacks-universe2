@@ -366,7 +366,7 @@ function job_serve_back_dev {
 
 function job_lint_back {
       prospector -F -s high -u django -i node_modules app \
-  &&  prospector -F -s high -u django -i node_modules django-apps \
+  &&  prospector -F -s high -u django -i node_modules django-apps/integrates-back-async/backend/ \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
   &&  mypy --ignore-missing-imports \

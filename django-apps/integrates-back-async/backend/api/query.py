@@ -1,8 +1,8 @@
 # pylint: disable=import-error
 
-from ariadne import QueryType
-
 from backend.api.resolvers import alert, internal_project, event
+
+from ariadne import QueryType
 
 QUERY = QueryType()
 

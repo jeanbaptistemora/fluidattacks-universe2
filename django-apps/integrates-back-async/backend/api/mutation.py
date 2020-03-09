@@ -1,8 +1,8 @@
 # pylint: disable=import-error
 
-from ariadne import MutationType
-
 from backend.api.resolvers import alert, cache, event
+
+from ariadne import MutationType
 
 MUTATION = MutationType()
 

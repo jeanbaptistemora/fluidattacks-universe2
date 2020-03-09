@@ -1,7 +1,8 @@
 # pylint: disable=import-error
 
-from ariadne import convert_kwargs_to_snake_case
 from backend.domain import internal_project as internal_project_domain
+
+from ariadne import convert_kwargs_to_snake_case
 
 
 @convert_kwargs_to_snake_case
