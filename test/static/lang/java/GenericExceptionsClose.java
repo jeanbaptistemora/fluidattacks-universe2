@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 class GenericExceptionsClose{
    public static void main(String args[]) throws IOExceptions, SQLException{
      try{
-         int a[]=new int[7];
+         int a[]=new int[1024];
          SecureRandom random = new SecureRandom();
          byte bytes[] = new byte[20];
          android.permission.BLUETOOTH

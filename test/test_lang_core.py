@@ -5,11 +5,12 @@
 # standard imports
 
 # 3rd party imports
+from fluidasserts.lang import core
+from pyparsing import (nestedExpr, Word, nums)
 import pytest
 pytestmark = pytest.mark.asserts_module('lang_core')
 
 # local imports
-from fluidasserts.lang import core
 
 
 # Constants
@@ -195,9 +196,29 @@ def test_uses_insecure_protocol_open():
     assert core.uses_insecure_protocol(
         JAVA_BAD, 'http://fluidattacks.com').is_open()
 
+
+def test_has_grammar_open():
+    """Test if the code has grammar."""
+    open_message = 'grammar found in code.'
+    closed_message = 'grammar not found in code.'
+    grammar = Word('new') + Word('int') + \
+        nestedExpr(opener='[', closer=']', content=Word(nums, exact=1))
+    assert core.has_grammar(
+        JAVA_BAD, grammar, open_message, closed_message).is_open()
+
 #
 # Closing tests
 #
+
+
+def test_has_grammar_close():
+    """Test if the code has grammar."""
+    open_message = 'grammar found in code.'
+    closed_message = 'grammar not found in code.'
+    grammar = Word('new') + Word('int') + \
+        nestedExpr(opener='[', closer=']', content=Word('2048'))
+    assert core.has_grammar(
+        JAVA_GOOD, grammar, open_message, closed_message).is_closed()
 
 
 def test_uses_insecure_protocol_close():

@@ -11,7 +11,7 @@ from typing import List
 # 3rd party imports
 from pyparsing import (cppStyleComment, Keyword, Literal, MatchFirst,
                        nestedExpr, Optional, QuotedString, Regex, ZeroOrMore,
-                       Suppress)
+                       Suppress, ParserElement)
 
 # local imports
 from fluidasserts import Unit, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, SAST
@@ -866,6 +866,37 @@ def uses_insecure_protocol(code_dest: str,
         msgs={
             OPEN: 'The code uses insecure protocol.',
             CLOSED: 'The code does not use insecure protocols.',
+        },
+        spec=lang_specs,
+        excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def has_grammar(code_dest: str,
+                grammar: ParserElement,
+                open_message: str,
+                closed_message: str,
+                exclude: list = None,
+                lang_specs: dict = None) -> tuple:
+    """
+    Check if a grammar is present in given source file.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param grammar: Grammar to be searched for in path.
+    :open_message: Message to show for open vulnerabilities.
+    :closed_message: Message to show for closed vulnerabilities.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: open_message,
+            CLOSED: closed_message,
         },
         spec=lang_specs,
         excl=exclude)
