@@ -58,19 +58,16 @@ ephemeral:
   variables:
     GIT_STRATEGY: none
   script:
-    - cd /app
-    - source /app/ci-scripts/helpers/others.sh
-    - sed -i "s|https://fluidattacks.com|http://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/pelicanconf.py
-    - cp -a /app/deploy/builder/node_modules /app/theme/2014/
-    - cp -a /app/deploy/builder/node_modules /app/
-    - npm run --prefix /app/deploy/builder/ build
-    - /app/build-site.sh
-    - /app/html-lint.sh
-    - sync_s3 output/ "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
+    - . /app/ci-scripts/deploy.sh
+    - deploy_eph
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}
     url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web
     on_stop: stop-ephemeral
+  artifacts:
+    paths:
+    - cache/
+    expire_in: 1 week
   except:
     - master
 
@@ -94,19 +91,18 @@ stop-ephemeral:
 
 production:
   tags: [autoscaling]
-  needs: [builder]
+  needs: [apply_infra_bucket]
   stage: deploy
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   variables:
     GIT_STRATEGY: none
   script:
-    - cd /app
-    - source /app/ci-scripts/helpers/others.sh
-    - cp -a /app/deploy/builder/node_modules /app/theme/2014/
-    - cp -a /app/deploy/builder/node_modules /app/
-    - npm run --prefix /app/deploy/builder/ build
-    - /app/build-site.sh
-    - sync_s3 output/ web.fluidattacks.com
+    - . /app/ci-scripts/deploy.sh
+    - deploy_prod
+  artifacts:
+    paths:
+    - cache/
+    expire_in: 1 week
   only:
     - master
 
@@ -152,6 +148,7 @@ test_infra_ephemeral:
 
 apply_infra_ephemeral:
   tags: [autoscaling]
+  needs: [builder]
   stage: deploy-infra
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
@@ -179,6 +176,7 @@ test_infra_bucket:
 
 apply_infra_bucket:
   tags: [autoscaling]
+  needs: [builder]
   stage: deploy-infra
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
@@ -206,6 +204,7 @@ test_infra_secret_management:
 
 apply_infra_secret_management:
   tags: [autoscaling]
+  needs: [builder]
   stage: deploy-infra
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:

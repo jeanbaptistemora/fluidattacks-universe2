@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
 
   website {
      index_document = "index.html"
-     error_document = "web/error/index.html"
+     error_document = "index-error.html"
    }
    tags = {
     Pry = "General"
