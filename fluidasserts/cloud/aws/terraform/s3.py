@@ -20,8 +20,7 @@ ACCESS_CONTROLS = {
     'public-read-write',
     'authenticated-read',
     'bucket-owner-read',
-    'bucket-owner-full-control',
-    'log-delivery-write',
+    'bucket-owner-full-control'
 }
 
 

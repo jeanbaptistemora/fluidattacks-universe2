@@ -21,7 +21,6 @@ ACCESS_CONTROLS = {
     'AuthenticatedRead',
     'BucketOwnerRead',
     'BucketOwnerFullControl',
-    'LogDeliveryWrite',
 }
 
 
@@ -75,8 +74,8 @@ def has_not_private_access_control(
     :param exclude: Paths that contains any string from this list are ignored.
     :returns: - ``OPEN`` if the **S3 Bucket** has the **AccessControl**
                 attribute set to **PublicRead**, **PublicReadWrite**,
-                **AuthenticatedRead**, **BucketOwnerRead**,
-                **BucketOwnerFullControl**, or **LogDeliveryWrite**.
+                **AuthenticatedRead**, **BucketOwnerRead** or
+                **BucketOwnerFullControl**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
