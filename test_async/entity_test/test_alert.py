@@ -40,7 +40,7 @@ class AlertTests(TestCase):
         assert 'alert' in result['data']
 
     def test_set_alert(self):
-        """Check for invalidate_cache mutation."""
+        """Check for set_alert mutation."""
         query = '''
             mutation {
                 setAlert(company: "fluid", message: "Test", projectName: "unittest") {

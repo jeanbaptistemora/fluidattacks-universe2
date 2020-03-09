@@ -70,3 +70,102 @@ class EventTests(TestCase):
         assert 'events' in result['data']
         assert result['data']['events'][0]['projectName'] == 'unittesting'
         assert len(result['data']['events'][0]['detail']) >= 1
+
+    def test_update_event(self):
+        """Check for update_event mutation."""
+        query = '''
+            mutation {
+                updateEvent(eventId: "538745942") {
+                    success
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateEvent']
+
+    def test_create_event(self):
+        """Check for create_event mutation."""
+        query = '''
+            mutation {
+                createEvent(projectName: "unittest",
+                            actionAfterBlocking: TRAINING,
+                            actionBeforeBlocking: DOCUMENT_PROJECT,
+                            accessibility: ENVIRONMENT,
+                            context: CLIENT,
+                            detail: "Test",
+                            eventDate: "2020-02-01T00:00:00Z",
+                            eventType: INCORRECT_MISSING_SUPPLIES) {
+                    success
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['createEvent']
+
+    def test_solve_event(self):
+        """Check for solve_event mutation."""
+        query = '''
+            mutation {
+                solveEvent(eventId: "418900971",
+                           affectation: 1,
+                           date: "2020-02-01T00:00:00Z") {
+                    success
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['solveEvent']
