@@ -8,6 +8,8 @@ function env_prepare_environment_variables {
   export IS_LOCAL_BUILD
   export ENVIRONMENT_NAME
   export FI_VERSION
+  export STARTDIR="${PWD}"
+  export WORKDIR="${PWD}.ephemeral"
 
       echo '[INFO] Sourcing .envrc.public' \
   &&  source './.envrc.public' \

@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function helper_use_pristine_workdir {
-  export WORKDIR="${PWD}.ephemeral"
-  export STARTDIR="${PWD}"
+  export WORKDIR
+  export STARTDIR
 
   function helper_teardown_workdir {
         echo "[INFO] Deleting: ${WORKDIR}" \
@@ -19,6 +19,14 @@ function helper_use_pristine_workdir {
   &&  echo '[INFO] Running: git clean -xdf' \
   &&  git clean -xdf \
   &&  trap 'helper_teardown_workdir' 'EXIT' \
+  ||  return 1
+}
+
+function helper_use_regular_workdir {
+  export STARTDIR
+
+      echo '[INFO] Entering the workdir' \
+  &&  pushd "${STARTDIR}" \
   ||  return 1
 }
 

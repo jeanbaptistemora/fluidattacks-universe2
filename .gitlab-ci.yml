@@ -1,5 +1,4 @@
 stages:
-  - deps-base
   - deps
   - rotation
   - build
@@ -101,21 +100,11 @@ build_lambdas:
   <<: *with_nix
   <<: *in_dev_and_master_branch
   image: "${CI_REGISTRY_IMAGE}/nix:build"
-  stage: deps
+  stage: build
   artifacts:
     expire_in: 1 day
     paths:
       - lambda/packages/
-    when: on_success
-
-build_django_apps:
-  <<: *with_nix
-  image: "${CI_REGISTRY_IMAGE}/nix:build"
-  stage: deps
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - django-apps/packages/
     when: on_success
 
 coverage_report:
@@ -156,25 +145,22 @@ deploy_container_deps_mobile:
   <<: *with_nix
   image: "${CI_REGISTRY_IMAGE}/nix:docker"
   tags: [autoscaling-large]
-  stage: deps-base
-
-deploy_container_deps_app:
-  <<: *with_nix
-  image: "${CI_REGISTRY_IMAGE}/nix:docker"
-  stage: deps-base
+  stage: deps
 
 deploy_container_app:
   <<: *with_nix
-  image: "${CI_REGISTRY_IMAGE}/nix:docker"
-  stage: build
-  needs:
-    - build_django_apps
-    - deploy_container_deps_app
+  image: "${CI_REGISTRY_IMAGE}/nix:build-and-docker"
+  stage: deps
+  script:
+    - ./build.sh build_django_apps
+    - ./build.sh deploy_container_deps_app
+    - ./build.sh deploy_container_app
   retry: 1
   artifacts:
     expire_in: 1 day
     paths:
       - version.txt
+      - django-apps/packages/
     when: on_success
 
 deploy_container_app_async:
@@ -183,7 +169,7 @@ deploy_container_app_async:
   image: "${CI_REGISTRY_IMAGE}/nix:docker"
   stage: build
   needs:
-    - build_django_apps
+    - deploy_container_app
   retry: 1
   artifacts:
     expire_in: 1 day

@@ -17,8 +17,8 @@ LABEL mantainer="engineering@fluidattacks.com"
 
 WORKDIR /usr/src/app
 
-# Put integrates in container
-COPY . .
+COPY app app
+COPY deploy deploy
 
 # Replace td-agent configurations
 RUN rm -rf /var/www/html \
@@ -35,6 +35,8 @@ RUN rm -rf /var/www/html \
   && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
   && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key
 
+COPY django-apps djando-apps
+
 # local apps
 COPY "$PIP_REQUIREMENTS_PROD_LOCAL" /tmp/reqs_prod_local.txt
 COPY django-apps/packages/* django-apps/packages/
@@ -44,6 +46,9 @@ RUN pip3 install --no-cache-dir --no-index \
   && rm -rf /tmp/*
 
 EXPOSE 80 24224
+
+# Copy all integrates into the container
+COPY . .
 
 # Start integrates
 CMD ./deploy/containers/common/vars/run.sh
