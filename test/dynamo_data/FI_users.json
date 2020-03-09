@@ -21,6 +21,16 @@
       {
         "PutRequest": {
           "Item": {
+            "access_token": {
+              "M": {
+                "jti": {
+                  "S": "c8d9d5f095958cf200f7435508fc2dba37d07447ec12dcd070808418d640e77d"
+                },
+                "salt": {
+                  "S": "27c7f388ccdd7cc432871c84b63e78cd716739c40055253ce7ad1666a8532db6"
+                }
+              }
+            },
             "company": {
               "S": "fluid"
             },
