@@ -151,6 +151,16 @@ deploy_k8s_stop_ephemeral:
     name: "review/$CI_COMMIT_REF_SLUG"
     action: stop
 
+deploy_mobile:
+  <<: *with_nix
+  image: "${CI_REGISTRY_IMAGE}/nix:deploy-mobile"
+  stage: deploy-app
+  tags: [autoscaling-large]
+  needs: [deploy_container_deps_mobile]
+  environment:
+    name: "mobile-review/$CI_COMMIT_REF_NAME"
+    url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
+
 deploy_container_deps_mobile:
   <<: *with_nix
   image: "${CI_REGISTRY_IMAGE}/nix:docker"
@@ -411,16 +421,3 @@ danger:
   script:
     - ./ci-scripts/jobs/danger.sh
   <<: *in_mrs
-
-### Jobs below are pending to migrate
-
-deploy-mobile:
-  stage: deploy-app
-  tags: [autoscaling-large]
-  needs: [deploy_container_deps_mobile]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/deploy-mobile.sh
-  environment:
-    name: "mobile-review/$CI_COMMIT_REF_NAME"
-    url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"

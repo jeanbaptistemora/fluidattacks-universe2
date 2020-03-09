@@ -101,6 +101,40 @@ function helper_get_gitlab_registry_id {
     | jq ".[] | select (.name == \"${registry_name}\") | .id"
 }
 
+function helper_get_touched_files_in_last_commit {
+  git diff --name-only "${CI_COMMIT_BEFORE_SHA}" "${CI_COMMIT_SHA}" \
+    | while read -r path
+      do
+        ! test -e "${path}" || echo "${path}"
+      done
+}
+
+function helper_have_any_file_changed {
+  local file
+  local files=( "$@" )
+  local canon_file_a
+  local canon_file_b
+
+      helper_get_touched_files_in_last_commit > "${TEMP_FD}" \
+  &&  while read -r touched_file
+      do
+        for file in "${files[@]}"
+        do
+              canon_file_a=$(readlink -f "${touched_file}") \
+          &&  canon_file_b=$(readlink -f "${file}") \
+          &&  if [[ "${canon_file_a}" == "${canon_file_b}"* ]]
+              then
+                echo "${canon_file_a}"
+                echo "${canon_file_b}"
+                return 0
+              else
+                continue
+              fi
+        done || :
+      done < "${TEMP_FD}" \
+  &&  return 1
+}
+
 function helper_is_today_wednesday {
   test "$(date +%A)" == 'Wednesday'
 }

@@ -208,6 +208,60 @@ function job_deploy_front {
     &&  ./manage.py collectstatic --no-input
 }
 
+function job_deploy_mobile {
+      helper_use_pristine_workdir \
+  &&  if  helper_have_any_file_changed \
+            'mobile/'
+      then
+            echo '[INFO] Veryfing if we should set fs.inotify.max_user_watches' \
+        &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
+            then
+                  echo '[INFO] Setting: fs.inotify.max_user_watches=524288' \
+              &&  echo 'fs.inotify.max_user_watches=524288' \
+                    >> /etc/sysctl.conf \
+              &&  sysctl -p
+            else
+                  echo '[INFO] Local build, skipping...'
+            fi \
+        &&  echo '[INFO] Logging in to AWS' \
+        &&  aws_login "${ENVIRONMENT_NAME}" \
+        &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+              EXPO_USER \
+              EXPO_PASS \
+              ROLLBAR_ACCESS_TOKEN \
+        &&  sops \
+              --aws-profile default \
+              --decrypt \
+              --extract '["GOOGLE_SERVICES_APP"]' \
+              --output 'mobile/google-services.json' \
+              --output-type 'json' \
+              "secrets-${ENVIRONMENT_NAME}.yaml" \
+        &&  echo '[INFO] Installing deps' \
+        &&  pushd mobile \
+          &&  npm install \
+          &&  npx expo login -u "${EXPO_USER}" -p "${EXPO_PASS}" \
+          &&  echo '[INFO] Replacing versions' \
+          &&  sed -i "s/integrates_version/${FI_VERSION}/g" ./app.json \
+          &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${FI_VERSION_MOBILE}/g" ./app.json \
+          &&  echo '[INFO] Publishing update' \
+          &&  npx expo publish \
+                --release-channel "${CI_COMMIT_REF_NAME}" --non-interactive \
+          &&  if test "${ENVIRONMENT_NAME}" = 'production'
+              then
+                    echo '[INFO] Sending report to rollbar' \
+                &&  curl "https://api.rollbar.com/api/1/deploy" \
+                      --form "access_token=${ROLLBAR_ACCESS_TOKEN}" \
+                      --form 'environment=production' \
+                      --form "revision=${CI_COMMIT_SHA}" \
+                      --form "local_username=${CI_COMMIT_REF_NAME}"
+              fi \
+        &&  popd
+      else
+            echo '[INFO] No relevant files were modified, skipping deploy' \
+        &&  return 0
+      fi
+}
+
 function _job_functional_tests {
       echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \

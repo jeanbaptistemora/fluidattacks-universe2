@@ -13,7 +13,7 @@ function env_prepare_environment_variables {
 
       echo '[INFO] Sourcing .envrc.public' \
   &&  source './.envrc.public' \
-  &&  if test -n "${GITLAB_CI:-}"
+  &&  if test -n "${CI:-}"
       then
             echo '[INFO] In remote build system' \
         && IS_LOCAL_BUILD="${FALSE}"
@@ -30,7 +30,9 @@ function env_prepare_environment_variables {
         &&  ENVIRONMENT_NAME="development"
       fi \
   &&  FI_VERSION=$(app_version) \
-  &&  echo "[INFO] FI_VERSION: ${FI_VERSION}"
+  &&  FI_VERSION_MOBILE=$(mobile_get_version code) \
+  &&  echo "[INFO] FI_VERSION: ${FI_VERSION}" \
+  &&  echo "[INFO] FI_VERSION_MOBILE: ${FI_VERSION_MOBILE}"
 }
 
 function env_prepare_ephemeral_vars {
