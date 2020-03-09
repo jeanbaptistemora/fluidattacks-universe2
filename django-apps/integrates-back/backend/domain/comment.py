@@ -1,5 +1,5 @@
 
-from typing import Any, Dict, List, Tuple, cast
+from typing import Dict, List, Tuple, Union, cast
 from datetime import datetime
 from time import time
 
@@ -10,15 +10,17 @@ from backend.domain import user as user_domain
 
 from backend import util
 from backend.dal import comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
+from backend.dal.comment import CommentType
+from backend.dal.user import UserType
 
 
-def _get_comments(comment_type: str, finding_id: str, user_role: str) -> List[Dict[str, str]]:
+def _get_comments(comment_type: str, finding_id: str, user_role: str) -> List[CommentType]:
     comments = [fill_comment_data(user_role, cast(Dict[str, str], comment))
                 for comment in comment_dal.get_comments(comment_type, int(finding_id))]
     return comments
 
 
-def get_comments(finding_id: str, user_role: str) -> List[Dict[str, str]]:
+def get_comments(finding_id: str, user_role: str) -> List[CommentType]:
     comments = _get_comments('comment', finding_id, user_role)
     historic_verification = \
         cast(List[Dict[str, finding_dal.FindingType]], finding_dal.get_attributes(
@@ -27,7 +29,9 @@ def get_comments(finding_id: str, user_role: str) -> List[Dict[str, str]]:
                 if cast(List[str], verification.get('vulns', []))]
     if verified:
         vulns = vuln_dal.get_vulnerabilities(finding_id)
-        comments = [fill_vuln_info(comment, cast(List[str], verification.get('vulns', [])), vulns)
+        comments = [fill_vuln_info(cast(Dict[str, str], comment),
+                                   cast(List[str], verification.get('vulns', [])),
+                                   vulns)
                     if comment.get('id') == verification.get('comment') else comment
                     for comment in comments
                     for verification in verified]
@@ -35,7 +39,7 @@ def get_comments(finding_id: str, user_role: str) -> List[Dict[str, str]]:
     return comments
 
 
-def get_event_comments(finding_id: str, user_role: str) -> List[Dict[str, str]]:
+def get_event_comments(finding_id: str, user_role: str) -> List[CommentType]:
     comments = _get_comments('event', finding_id, user_role)
 
     return comments
@@ -56,16 +60,16 @@ def get_fullname(user_role: str, data: Dict[str, str]) -> str:
 
 
 def fill_vuln_info(comment: Dict[str, str], vulns_ids: List[str],
-                   vulns: List[Dict[str, finding_dal.FindingType]]) -> Dict[str, str]:
+                   vulns: List[Dict[str, finding_dal.FindingType]]) -> CommentType:
     selected_vulns = [vuln.get('where') for vuln in vulns if vuln.get('UUID') in vulns_ids]
     selected_vulns = list(set(selected_vulns))
     wheres = ', '.join(cast(List[str], selected_vulns))
     comment['content'] = f'Regarding vulnerabilities {wheres}:\n\n' + comment.get('content', '')
 
-    return comment
+    return cast(CommentType, comment)
 
 
-def fill_comment_data(user_role: str, data: Dict[str, str]) -> Dict[str, Any]:
+def fill_comment_data(user_role: str, data: Dict[str, str]) -> CommentType:
     fullname = get_fullname(user_role, data)
     return {
         'content': data['content'],
@@ -77,14 +81,14 @@ def fill_comment_data(user_role: str, data: Dict[str, str]) -> Dict[str, Any]:
         'parent': int(data['parent'])}
 
 
-def get_observations(finding_id: str, user_role: str) -> List[Dict[str, str]]:
+def get_observations(finding_id: str, user_role: str) -> List[CommentType]:
     observations = _get_comments('observation', finding_id, user_role)
 
     return observations
 
 
 def create(comment_type: str, content: str, element_id: str,
-           parent: str, user_info: Dict[str, str]) -> Tuple[Any, bool]:
+           parent: str, user_info: UserType) -> Tuple[Union[int, None], bool]:
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time() * 1000))
@@ -95,10 +99,11 @@ def create(comment_type: str, content: str, element_id: str,
         'email': user_info['user_email'],
         'finding_id': int(element_id),
         'fullname': str.join(
-            ' ', [user_info['first_name'], user_info['last_name']]),
+            ' ', [str(user_info['first_name']),
+                  str(user_info['last_name'])]),
         'modified': today,
         'parent': int(parent)
     }
-    success = comment_dal.create(comment_id, comment_attributes)
+    success = comment_dal.create(comment_id, cast(CommentType, comment_attributes))
 
     return (comment_id if success else None, success)

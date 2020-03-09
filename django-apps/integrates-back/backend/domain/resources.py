@@ -2,7 +2,7 @@
 
 
 from collections import namedtuple
-from typing import Any, Dict, List, cast
+from typing import Dict, List, IO, cast
 import base64
 import datetime
 import threading
@@ -12,6 +12,7 @@ import urllib.error
 import rollbar
 
 from botocore import signers
+from graphene_file_upload.scalars import Upload
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
@@ -19,6 +20,7 @@ from backend import util
 from backend.dal import (
     project as project_dal, resources as resources_dal
 )
+from backend.dal.resources import ResourceType
 from backend.exceptions import InvalidFileSize
 from backend.mailer import send_mail_resources
 
@@ -48,7 +50,7 @@ def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
 
 
 def format_resource(
-        resource_list: List[Dict[str, str]], resource_type: str) -> List[Dict[str, str]]:
+        resource_list: List[ResourceType], resource_type: str) -> List[Dict[str, str]]:
     resource_description = []
     for resource_item in resource_list:
         if resource_type == 'repository':
@@ -57,15 +59,15 @@ def format_resource(
             resource_text = 'Repository: {repository!s} Branch: {branch!s}'\
                             .format(repository=repo_url, branch=repo_branch)
         elif resource_type == 'environment':
-            resource_text = resource_item.get('urlEnv', '')
+            resource_text = str(resource_item.get('urlEnv', ''))
         elif resource_type == 'file':
-            resource_text = resource_item.get('fileName', '')
+            resource_text = str(resource_item.get('fileName', ''))
         resource_description.append({'resource_description': resource_text})
     return resource_description
 
 
 def send_mail(project_name: str, user_email: str,
-              resource_list: List[Any], action: str, resource_type: str):
+              resource_list: List[ResourceType], action: str, resource_type: str):
     recipients = set(project_dal.list_project_managers(project_name))
     recipients.add(user_email)
     recipients.update(FI_MAIL_RESOURCERS.split(','))
@@ -92,7 +94,7 @@ def send_mail(project_name: str, user_email: str,
                      args=(list(recipients), context,)).start()
 
 
-def validate_file_size(uploaded_file: Any, file_size: int) -> bool:
+def validate_file_size(uploaded_file: Upload, file_size: int) -> bool:
     """Validate if uploaded file size is less than a given file size."""
     mib = 1048576
     if uploaded_file.size > file_size * mib:
@@ -100,7 +102,7 @@ def validate_file_size(uploaded_file: Any, file_size: int) -> bool:
     return True
 
 
-def create_file(files_data: List[Dict[str, Any]], uploaded_file: Any,
+def create_file(files_data: List[Dict[str, str]], uploaded_file: Upload,
                 project_name: str, user_email: str) -> bool:
     project_name = project_name.lower()
     json_data: List[resources_dal.ResourceType] = []
@@ -210,7 +212,7 @@ An error occurred adding repository', 'error')
 
 
 def update_resource(
-        res_data: Dict[str, Any], project_name: str, res_type: str, user_email: str) -> bool:
+        res_data: ResourceType, project_name: str, res_type: str, user_email: str) -> bool:
     project_name = project_name.lower()
     res_list: List[project_dal.ProjectType] = []
     if res_type == 'repository':
@@ -247,7 +249,7 @@ def update_resource(
     return resources_dal.update(res_list, project_name, res_name)
 
 
-def mask(project_name: str) -> Any:
+def mask(project_name: str) -> object:
     project_name = project_name.lower()
     project = project_dal.get_attributes(project_name, ['environments', 'files', 'repositories'])
     Status = namedtuple(

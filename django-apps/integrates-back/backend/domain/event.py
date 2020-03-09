@@ -1,5 +1,5 @@
 """Domain functions for events."""
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple, Union, cast
 import random
 import threading
 from datetime import datetime
@@ -10,6 +10,8 @@ from magic import Magic
 
 from backend import util
 from backend.dal import event as event_dal, project as project_dal
+from backend.dal.event import EventType
+from backend.dal.user import UserType
 from backend.domain import (
     comment as comment_domain, resources as resources_domain,
     user as user_domain
@@ -20,6 +22,7 @@ from backend.exceptions import (
 )
 from backend.mailer import send_comment_mail, send_mail_new_event
 from backend.utils import events as event_utils
+from graphene_file_upload.scalars import Upload
 
 from __init__ import (
     FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS,
@@ -32,7 +35,8 @@ def update_event(event_id: str, **kwargs) -> bool:
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state', [])[-1].get('state') == 'SOLVED':
+    if cast(List[Dict[str, str]],
+            event.get('historic_state', []))[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     success = event_dal.update(event_id, kwargs)
@@ -44,12 +48,13 @@ def solve_event(event_id: str, affectation: str, analyst_email: str, date: datet
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state', [])[-1].get('state') == 'SOLVED':
+    if cast(List[Dict[str, str]],
+            event.get('historic_state', []))[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today()
-    history = event.get('historic_state', [])
+    history = cast(List[Dict[str, str]], event.get('historic_state', []))
     history += [
         {
             'analyst': analyst_email,
@@ -69,14 +74,15 @@ def solve_event(event_id: str, affectation: str, analyst_email: str, date: datet
     return success
 
 
-def update_evidence(event_id: str, evidence_type: str, file: Any) -> bool:
+def update_evidence(event_id: str, evidence_type: str, file: Upload) -> bool:
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state', [])[-1].get('state') == 'SOLVED':
+    if cast(List[Dict[str, str]],
+            event.get('historic_state', []))[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
-    project_name = event.get('project_name')
+    project_name = str(event.get('project_name', ''))
     try:
         mime = Magic(mime=True).from_buffer(file.file.getvalue())
         extension = {
@@ -99,7 +105,7 @@ def update_evidence(event_id: str, evidence_type: str, file: Any) -> bool:
     return success
 
 
-def validate_evidence(evidence_type: str, file: Any) -> bool:
+def validate_evidence(evidence_type: str, file: Upload) -> bool:
     success = False
 
     if evidence_type == 'evidence':
@@ -162,8 +168,8 @@ def _send_new_event_mail(
     email_send_thread.start()
 
 
-def create_event(analyst_email: str, project_name: str, file: Any = None,
-                 image: Any = None, **kwargs) -> bool:
+def create_event(analyst_email: str, project_name: str, file: Upload = None,
+                 image: Upload = None, **kwargs) -> bool:
     event_id = str(random.randint(10000000, 170000000))
 
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
@@ -229,7 +235,7 @@ def create_event(analyst_email: str, project_name: str, file: Any = None,
     return success
 
 
-def get_event(event_id: str) -> Dict[str, Any]:
+def get_event(event_id: str) -> EventType:
     event = event_dal.get_event(event_id)
     if not event:
         raise EventNotFound()
@@ -237,20 +243,20 @@ def get_event(event_id: str) -> Dict[str, Any]:
     return event
 
 
-def get_events(event_ids: List[str]) -> List[Dict[str, Any]]:
+def get_events(event_ids: List[str]) -> List[EventType]:
     events = [event_utils.format_data(get_event(event_id)) for event_id in event_ids]
 
     return events
 
 
 def add_comment(
-        content: str, event_id: str, parent: str, user_info: Dict[str, Any]) -> Tuple[Any, bool]:
+        content: str, event_id: str, parent: str, user_info: UserType) -> Tuple[Union[int, None], bool]:
     success = comment_domain.create(
         'event', content, event_id, parent, user_info)
     comment_data = {'parent': int(parent), 'content': content}
     if success:
         send_comment_mail(
-            comment_data, 'event', user_info['user_email'], 'event', get_event(event_id))
+            comment_data, 'event', str(user_info['user_email']), 'event', get_event(event_id))
 
     return success
 
