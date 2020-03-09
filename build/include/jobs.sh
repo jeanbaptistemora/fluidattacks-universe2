@@ -839,3 +839,17 @@ function job_deploy_k8s_back {
             }
           }"
 }
+
+function job_deploy_k8s_stop_ephemeral {
+      echo "[INFO] Setting namespace preferences..." \
+  &&  kubectl config \
+        set-context "$(kubectl config current-context)" \
+        --namespace='serves' \
+  &&  echo '[INFO] Deleting deployments' \
+  &&  kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete service "service-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete deployment "review-async-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete service "service-async-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete ingress "review-async-${CI_COMMIT_REF_SLUG}"
+}
