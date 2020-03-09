@@ -32,6 +32,7 @@ export interface IUpdateVerificationModal {
   vulns: IVulnData[];
   clearSelected(): void;
   handleCloseModal(): void;
+  refetchData(): void;
   setRequestState(): void;
   setVerifyState(): void;
 }
@@ -49,6 +50,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
           translate.t("proj_alerts.verified_success"),
           translate.t("proj_alerts.updated_title"),
         );
+        props.refetchData();
         props.clearSelected();
         props.setRequestState();
       }
@@ -83,6 +85,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
           translate.t("proj_alerts.verified_success"),
           translate.t("proj_alerts.updated_title"),
         );
+        props.refetchData();
         props.clearSelected();
         props.setVerifyState();
       }

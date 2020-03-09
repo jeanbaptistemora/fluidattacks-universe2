@@ -84,6 +84,8 @@ export const loadDescription: ThunkActionStructure<void> =
           type
           openVulnerabilities
           historicTreatment
+          newRemediated
+          verified
         }
       }`;
 

@@ -24,6 +24,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
   const validateEmptyField: boolean = (!props.isEditing || canEditDescription) && !isRequestingVerification;
   const validRole: boolean = _.includes(["admin", "analyst", "customer", "customeradmin"], props.userRole);
   const nTreatmentState: number = props.dataset.historicTreatment.length;
+  const { verificationFn } = props;
 
   return (
     <React.Fragment>
@@ -111,6 +112,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
               renderAsEditable={props.isEditing}
               descriptParam={props}
               separatedRow={true}
+              verificationFn={verificationFn}
             />
           </FormGroup>
         </Col>

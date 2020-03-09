@@ -142,19 +142,42 @@ class ViewTestCase(unittest.TestCase):
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+                     "//*[contains(text(), 'FIN.S.0051. Weak passwords reversed')]")))
         selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
+
         find_ele.click()
         WebDriverWait(
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH,
-                     "//*[contains(text(), 'Eliminar el banner de los servicios')]")))
+                     "//*[contains(text(), 'REQ.0132. Passwords (phrase type) must be at least 3 words long')]")))
 
         time.sleep(5)
         selenium.save_screenshot(SCR_PATH + '05-03-finding.png')
-        assert 'Descripción de fuga de información técnica' in selenium.page_source
-        assert 'REQ.0077. La aplicación no debe revelar detalles' in selenium.page_source
+        selenium.find_element_by_xpath(
+            '//*/button[contains(text(), "Request verification")]').click()
+        selenium.save_screenshot(SCR_PATH + '05-04-finding.png')
+        checkboxes = selenium.find_elements_by_css_selector("#inputsVulns input[type='checkbox']")
+        for checkbox in checkboxes:
+            if not checkbox.is_selected():
+                checkbox.click()
+        time.sleep(2)
+        selenium.save_screenshot(SCR_PATH + '05-05-finding.png')
+        selenium.find_element_by_id(
+            'request_verification_vulns').click()
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Justification')]")))
+        time.sleep(2)
+        selenium.save_screenshot(SCR_PATH + '05-06-finding.png')
+        selenium.find_element_by_xpath(
+            '//*[@class="modal-body"]/form/div[2]/button[1]').click()
+        time.sleep(1)
+
+        selenium.find_element_by_xpath(
+            '//*/button[contains(text(), "Cancel Request")]').click()
+        assert 'possible reverse the users credentials due that password' in selenium.page_source
 
     def test_06_severity(self):
         selenium = self.__login()

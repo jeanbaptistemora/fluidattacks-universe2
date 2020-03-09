@@ -595,7 +595,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   formatter: statusFormatter,
                   header: translate.t("search_findings.tab_description.verification"),
                   onSort: onSortInputs,
-                  visible: false,
                   width: "20%",
                 },
                 {
@@ -630,7 +629,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   formatter: statusFormatter,
                   header: translate.t("search_findings.tab_description.verification"),
                   onSort: onSortLines,
-                  visible: false,
                   width: "20%",
                 },
                 {
@@ -665,7 +663,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   formatter: statusFormatter,
                   header: translate.t("search_findings.tab_description.verification"),
                   onSort: onSortPorts,
-                  visible: false,
                   width: "20%",
                 },
                 {
@@ -824,6 +821,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     <Row>
                       <Col mdOffset={5} md={4}>
                         <Button
+                          id="request_verification_vulns"
                           bsStyle="success"
                           onClick={handleClick}
                           disabled={!(arraySelectedRows.length > 0)}

@@ -16,6 +16,7 @@ export const GET_FINDINGS: DocumentNode = gql`
         state
         isExploitable
         remediated
+        verified
         vulnerabilities(state: "open") {
           where
         }

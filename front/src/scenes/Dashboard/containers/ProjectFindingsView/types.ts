@@ -23,5 +23,6 @@ export interface IFindingAttr {
   title: string;
   treatment: string;
   type: string;
+  verified: boolean;
   vulnerabilities: Array<{ where: string }>;
 }

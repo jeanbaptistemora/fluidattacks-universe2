@@ -33,6 +33,7 @@ describe("DescriptionView", () => {
       description: "This is a test description",
       historicTreatment: [{date: "", treatment: "", user: ""}],
       justification: "",
+      newRemediated: false,
       openVulnerabilities: "0",
       recommendation: "This is a test recommendation",
       releaseDate: "2018-10-17 00:00:00",
@@ -48,6 +49,7 @@ describe("DescriptionView", () => {
       treatmentManager: "test@test.com",
       type: "SECURITY",
       userEmails: [{email: "user@test.com"}],
+      verified: false,
     },
     findingId: "438679960",
     formValues: {
@@ -60,7 +62,10 @@ describe("DescriptionView", () => {
     isTreatmentModal: false,
     isVerifyingRequest: false,
     projectName: "TEST",
+    setRequestState: jest.fn(),
+    setVerifyState: jest.fn(),
     userRole: "analyst",
+    verificationFn: jest.fn(),
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [

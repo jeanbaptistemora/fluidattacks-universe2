@@ -44,6 +44,7 @@ describe("update verification component", () => {
   it("should handle request verification", async () => {
     const handleOnClose: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -67,6 +68,7 @@ describe("update verification component", () => {
             remediationType={"request"}
             vulns={[{currentState: "open", id: "test", specific: "", where: ""}]}
             clearSelected={jest.fn()}
+            refetchData={handleRefetchData}
             handleCloseModal={handleOnClose}
             setRequestState={handleRequestState}
             setVerifyState={jest.fn()}
@@ -85,6 +87,8 @@ describe("update verification component", () => {
     expect(handleOnClose)
       .toHaveBeenCalled();
     expect(handleRequestState)
+      .toHaveBeenCalled();
+    expect(handleRefetchData)
       .toHaveBeenCalled();
   });
 
@@ -118,6 +122,7 @@ describe("update verification component", () => {
             remediationType={"request"}
             vulns={[{currentState: "open", id: "test_error", specific: "", where: ""}]}
             clearSelected={jest.fn()}
+            refetchData={jest.fn()}
             handleCloseModal={handleOnClose}
             setRequestState={handleRequestState}
             setVerifyState={jest.fn()}
@@ -143,6 +148,7 @@ describe("update verification component", () => {
   it("should handle verify a request", async () => {
     const handleOnClose: jest.Mock = jest.fn();
     const handleVerifyState: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -191,6 +197,7 @@ describe("update verification component", () => {
             remediationType={"verify"}
             vulns={[{currentState: "open", id: "test", specific: "", where: ""}]}
             clearSelected={jest.fn()}
+            refetchData={handleRefetchData}
             handleCloseModal={handleOnClose}
             setRequestState={jest.fn()}
             setVerifyState={handleVerifyState}
@@ -214,6 +221,8 @@ describe("update verification component", () => {
     expect(handleOnClose)
       .toHaveBeenCalled();
     expect(handleVerifyState)
+      .toHaveBeenCalled();
+    expect(handleRefetchData)
       .toHaveBeenCalled();
   });
 
@@ -247,6 +256,7 @@ describe("update verification component", () => {
             remediationType={"verify"}
             vulns={[{currentState: "open", id: "test_error", specific: "", where: ""}]}
             clearSelected={jest.fn()}
+            refetchData={jest.fn()}
             handleCloseModal={handleOnClose}
             setRequestState={jest.fn()}
             setVerifyState={handleVerifyState}

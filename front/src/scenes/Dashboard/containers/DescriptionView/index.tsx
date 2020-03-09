@@ -30,6 +30,8 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm/index";
 import { RemediationModal } from "../../components/RemediationModal/index";
+import { UpdateVerificationModal } from "../../components/UpdateVerificationModal";
+import { IVulnDataType } from "../../components/Vulnerabilities/types";
 import { loadProjectData } from "../ProjectContent/actions";
 import * as actions from "./actions";
 import * as actionTypes from "./actionTypes";
@@ -57,6 +59,7 @@ export interface IDescriptionViewProps {
     description: string;
     historicTreatment: IHistoricTreatment[];
     justification: string;
+    newRemediated: boolean;
     openVulnerabilities: string;
     recommendation: string;
     releaseDate: string;
@@ -74,6 +77,7 @@ export interface IDescriptionViewProps {
     treatmentManager: string;
     type: string;
     userEmails: Array<{ email: string }>;
+    verified: boolean;
   };
   findingId: string;
   formValues: {
@@ -87,6 +91,9 @@ export interface IDescriptionViewProps {
   isVerifyingRequest: boolean;
   projectName: string;
   userRole: string;
+  setRequestState(): void;
+  setVerifyState(): void;
+  verificationFn(vulnerabilities: IVulnDataType[], action: "request" | "verify", clearSelected: () => void): void;
 }
 
 let remediationType: string = "request_verification";
@@ -94,14 +101,13 @@ let remediationType: string = "request_verification";
 const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {
     const handleClick: (() => void) = (): void => {
-      remediationType = "request_verification";
-      store.dispatch(actions.openRemediationMdl());
+      props.setRequestState();
     };
 
     const canRequestVerification: boolean =
       props.dataset.state === "open"
       && _.includes(["CONTINUOUS", "continuous", "Continua", "Concurrente", "Si"], props.dataset.subscription)
-      && !props.dataset.remediated;
+      && !props.dataset.newRemediated && !props.isEditing && !props.dataset.remediated;
 
     return (
       <Button
@@ -109,12 +115,14 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
         disabled={!canRequestVerification}
         onClick={handleClick}
       >
-        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify")}
+        <FluidIcon icon="verified" />
+        {!props.isRequestingVerification ? translate.t("search_findings.tab_description.request_verify")
+        : translate.t("search_findings.tab_description.cancel_verify")}
       </Button>
     );
   };
 
-const renderVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
+const renderVerifiyBtnInFinding: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {
     const handleClick: (() => void) = (): void => {
       remediationType = "verify_request";
@@ -132,7 +140,31 @@ const renderVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
         hidden={!canVerify}
         onClick={handleClick}
       >
-        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
+        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified_finding")}
+      </Button>
+    );
+  };
+
+const renderVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
+  (props: IDescriptionViewProps): JSX.Element => {
+    const handleClick: (() => void) = (): void => {
+      props.setVerifyState();
+    };
+
+    const canVerify: boolean =
+      props.dataset.state === "open"
+      && _.includes(["CONTINUOUS", "continuous", "Continua", "Concurrente", "Si"], props.dataset.subscription)
+      && !props.dataset.verified && !props.isEditing;
+
+    return (
+      <Button
+        bsStyle="success"
+        disabled={!canVerify}
+        onClick={handleClick}
+      >
+        <FluidIcon icon="verified" />
+        {!props.isVerifyingRequest ? translate.t("search_findings.tab_description.mark_verified")
+        : translate.t("search_findings.tab_description.cancel_verified")}
       </Button>
     );
   };
@@ -186,7 +218,10 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
     }
   };
 
-const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDescriptionViewProps): JSX.Element => (
+const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDescriptionViewProps): JSX.Element => {
+  const handleEdit: (() => void) = (): void => { store.dispatch(actions.editDescription()); };
+
+  return (
   <Col md={12} sm={12} xs={12}>
     <ConfirmDialog
       message={translate.t("search_findings.tab_description.approval_message")}
@@ -212,6 +247,8 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDes
                   && props.dataset.treatment === "ACCEPTED_UNDEFINED"
                     ? renderAcceptationBtns() : undefined}
                   {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
+                    ? renderVerifiyBtnInFinding(props) : undefined}
+                  {_.includes(["admin", "analyst"], props.userRole) && !props.dataset.verified
                     ? renderVerifiyBtn(props) : undefined}
                   {_.includes(["admin", "customer", "customeradmin"], props.userRole)
                     ? renderRequestVerifiyBtn(props) : undefined}
@@ -220,7 +257,11 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDes
                       <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
                     </Button>
                   ) : undefined}
-                  <Button bsStyle="primary" onClick={(): void => { store.dispatch(actions.editDescription()); }}>
+                  <Button
+                    bsStyle="primary"
+                    disabled={props.isRequestingVerification || props.isVerifyingRequest}
+                    onClick={handleEdit}
+                  >
                     <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
                   </Button>
                 </ButtonToolbar>
@@ -231,7 +272,8 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDes
       )}
     </ConfirmDialog>
   </Col>
-);
+  );
+};
 
 const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDescriptionViewProps): JSX.Element => {
   const { userEmail } = window as typeof window & Dictionary<string>;
@@ -253,6 +295,32 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
     };
   };
   React.useEffect(onMount, []);
+
+  const [isRequestingVerification, setRequestingVerification] = React.useState(false);
+  const [isVerifyingRequest, setVerifyingRequest] = React.useState(false);
+  const [isRemediationOpen, setRemediationOpen] = React.useState(false);
+  const [vulnsRows, setVulnsRows] = React.useState<IVulnDataType[]>([]);
+  const [clearSelectedRows, setClearSelectedRows] = React.useState(() => (): void => undefined);
+  const [verificationType, setVerificationType] = React.useState<"request" | "verify">("request");
+
+  const setVerifyState: (() => void) = (): void => { setVerifyingRequest(!isVerifyingRequest); };
+  const setRequestState: (() => void) = (): void => { setRequestingVerification(!isRequestingVerification); };
+  const closeRemediationModal: (() => void) = (): void => { setRemediationOpen(false); };
+  const verificationFn: (
+    (vulnerabilities: IVulnDataType[], action: "request" | "verify", clearSelected: () => void) => void) =
+    (vulnerabilities: IVulnDataType[], action: "request" | "verify", clearSelected: () => void): void => {
+      setVerificationType(action);
+      setRemediationOpen(true);
+      setVulnsRows(vulnerabilities);
+      setClearSelectedRows(() => clearSelected);
+  };
+
+  const refetchData: (() => void) = (): void => {
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    thunkDispatch(actions.loadDescription(props.findingId, props.projectName, props.userRole));
+  };
 
   const [requestVerification, {loading: submittingRequest}] = useMutation(REQUEST_VERIFICATION, {
     onCompleted: (data: IRequestVerificationResult): void => {
@@ -397,11 +465,25 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                   />
                 </React.Fragment>
               </Row>
+              { isRemediationOpen ?
+                <UpdateVerificationModal
+                  findingId={props.findingId}
+                  isOpen={isRemediationOpen}
+                  remediationType={verificationType}
+                  vulns={vulnsRows}
+                  handleCloseModal={closeRemediationModal}
+                  refetchData={refetchData}
+                  clearSelected={clearSelectedRows}
+                  setRequestState={setRequestState}
+                  setVerifyState={setVerifyState}
+                />
+                : undefined }
             </React.StrictMode>
           );
         }}
       </Mutation>
-      {renderForm(props)}
+      {renderForm(
+        {...props, isRequestingVerification, isVerifyingRequest, setRequestState, setVerifyState, verificationFn})}
     </React.Fragment>
   );
 };

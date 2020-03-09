@@ -160,7 +160,8 @@ def verify_finding(finding_id, user_email, justification, user_fullname):
     finding = get_finding(finding_id)
     project_name = finding.get('projectName')
     finding_name = finding.get('finding')
-    if finding.get('historicVerification', [{}])[-1].get('status') == 'REQUESTED':
+    if finding.get('historicVerification', [{}])[-1].get('status') == 'REQUESTED' and\
+       not finding.get('historicVerification', [{}])[-1].get('vulns', []):
         historic_verification = finding.get('historicVerification', [])
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
