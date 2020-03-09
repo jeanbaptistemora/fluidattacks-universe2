@@ -184,7 +184,7 @@ def remove_project(project_name: str, user_email: str) -> object:
             'deletion_date': today
         }
         is_project_finished = project_dal.update(project, update_data)
-        are_resources_removed = all(list(resources_domain.mask(project)))
+        are_resources_removed = all(list(cast(List[bool], resources_domain.mask(project))))
         util.invalidate_cache(project)
         response = Status(
             are_findings_masked, are_users_removed, is_project_finished, are_resources_removed
@@ -449,7 +449,7 @@ def list_drafts(project_name: str) -> List[str]:
     return project_dal.list_drafts(project_name)
 
 
-def list_comments(project_name: str, user_role: str) -> List[Dict[str, str]]:
+def list_comments(project_name: str, user_role: str) -> List[CommentType]:
     comments = [comment_domain.fill_comment_data(user_role, comment)
                 for comment in project_dal.get_comments(project_name)]
     return comments

@@ -12,7 +12,6 @@ import urllib.error
 import rollbar
 
 from botocore import signers
-from graphene_file_upload.scalars import Upload
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
@@ -94,7 +93,7 @@ def send_mail(project_name: str, user_email: str,
                      args=(list(recipients), context,)).start()
 
 
-def validate_file_size(uploaded_file: Upload, file_size: int) -> bool:
+def validate_file_size(uploaded_file, file_size: int) -> bool:
     """Validate if uploaded file size is less than a given file size."""
     mib = 1048576
     if uploaded_file.size > file_size * mib:
@@ -102,7 +101,7 @@ def validate_file_size(uploaded_file: Upload, file_size: int) -> bool:
     return True
 
 
-def create_file(files_data: List[Dict[str, str]], uploaded_file: Upload,
+def create_file(files_data: List[Dict[str, str]], uploaded_file,
                 project_name: str, user_email: str) -> bool:
     project_name = project_name.lower()
     json_data: List[resources_dal.ResourceType] = []

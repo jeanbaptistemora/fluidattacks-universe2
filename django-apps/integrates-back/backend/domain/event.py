@@ -22,7 +22,6 @@ from backend.exceptions import (
 )
 from backend.mailer import send_comment_mail, send_mail_new_event
 from backend.utils import events as event_utils
-from graphene_file_upload.scalars import Upload
 
 from __init__ import (
     FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS,
@@ -74,7 +73,7 @@ def solve_event(event_id: str, affectation: str, analyst_email: str, date: datet
     return success
 
 
-def update_evidence(event_id: str, evidence_type: str, file: Upload) -> bool:
+def update_evidence(event_id: str, evidence_type: str, file) -> bool:
     event = get_event(event_id)
     success = False
 
@@ -105,7 +104,7 @@ def update_evidence(event_id: str, evidence_type: str, file: Upload) -> bool:
     return success
 
 
-def validate_evidence(evidence_type: str, file: Upload) -> bool:
+def validate_evidence(evidence_type: str, file) -> bool:
     success = False
 
     if evidence_type == 'evidence':
@@ -168,8 +167,8 @@ def _send_new_event_mail(
     email_send_thread.start()
 
 
-def create_event(analyst_email: str, project_name: str, file: Upload = None,
-                 image: Upload = None, **kwargs) -> bool:
+def create_event(analyst_email: str, project_name: str, file = None,
+                 image = None, **kwargs) -> bool:
     event_id = str(random.randint(10000000, 170000000))
 
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
