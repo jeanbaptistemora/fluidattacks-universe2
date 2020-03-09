@@ -33,13 +33,12 @@ class ResourceTests(TestCase):
             key=settings.JWT_SECRET,
         )
         result = SCHEMA.execute(query, context=request)
-        result_empty = SCHEMA.execute(query, context=request)
 
         if testing_client:
 
             return testing_client.execute(query, context=request)
 
-        return [result, result_empty]
+        return result
 
     def test_get_resources(self):
         """ Check for project resources """
@@ -49,7 +48,7 @@ class ResourceTests(TestCase):
             environments
           }
         }'''
-        result, _ = self._get_result(query, False)
+        result = self._get_result(query, False)
         assert not result.errors
         assert 'https://gitlab.com/fluidsignal/engineering/' in \
                result.data.get('resources')['repositories']
@@ -59,10 +58,10 @@ class ResourceTests(TestCase):
     def test_add_resources(self):
         """ Check for add project resources"""
         repos_to_add = [
-            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
+            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidattacks/integrates'}
         ]
         envs_to_add = [
-            {'urlEnv': 'https://unittesting.fluidattacks.com/'}
+            {'urlEnv': 'https://fluidattacks.com/integrates'}
         ]
         query = '''mutation {
           addRepository: addResources(
@@ -92,12 +91,14 @@ class ResourceTests(TestCase):
             '$repos', json.dumps(repos_to_add).replace('"', '\\"'))
         query_empty = query_empty.replace(
             '$envs', json.dumps(envs_to_add).replace('"', '\\"'))
-        result, result_empty = self._get_result(query, False)
+        result = self._get_result(query, False)
         assert not result.errors
         assert len([result.data.get(value)['success']
                for value in result.data if 'Rep' in value]) > 0
         assert len([result.data.get(value)['success']
                for value in result.data if 'Env' in value]) > 0
+
+        result_empty = self._get_result(query_empty, False)
         assert not result_empty.errors
         assert len([result_empty.data.get(value)['success']
                for value in result.data if 'Rep' in value]) > 0
@@ -142,7 +143,7 @@ class ResourceTests(TestCase):
         query += '''
         }'''
 
-        result, _ = self._get_result(query, False)
+        result = self._get_result(query, False)
         assert not result.errors
         assert len([result.data.get(value)['success']
                for value in result.data if 'Rep' in value]) > 0

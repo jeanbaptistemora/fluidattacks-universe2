@@ -361,3 +361,12 @@ class VulnNotFound(Exception):
         """ Constructor """
         msg = 'Exception - Vulnerability not found'
         super(VulnNotFound, self).__init__(msg)
+
+
+class RepeatedValues(Exception):
+    """Exception to prevent repeated values"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - One or more values already exist'
+        super(RepeatedValues, self).__init__(msg)

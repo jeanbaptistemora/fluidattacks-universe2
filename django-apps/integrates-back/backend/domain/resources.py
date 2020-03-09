@@ -2,9 +2,9 @@
 
 
 from collections import namedtuple
+from datetime import datetime, timedelta
 from typing import Dict, List, IO, cast
 import base64
-import datetime
 import threading
 import urllib.request
 import urllib.parse
@@ -20,7 +20,7 @@ from backend.dal import (
     project as project_dal, resources as resources_dal
 )
 from backend.dal.resources import ResourceType
-from backend.exceptions import InvalidFileSize
+from backend.exceptions import InvalidFileSize, RepeatedValues
 from backend.mailer import send_mail_resources
 
 from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
@@ -40,8 +40,8 @@ def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
     filename = urllib.parse.quote_plus(str(file_name))
     url = domain + "/" + filename
     key_id = FI_CLOUDFRONT_ACCESS_KEY
-    now_time = datetime.datetime.utcnow()
-    expire_date = now_time + datetime.timedelta(minutes=expire_mins)
+    now_time = datetime.utcnow()
+    expire_date = now_time + timedelta(minutes=expire_mins)
     cloudfront_signer = signers.CloudFrontSigner(key_id, rsa_signer)
     signed_url = cloudfront_signer.generate_presigned_url(
         url, date_less_than=expire_date)
@@ -109,7 +109,7 @@ def create_file(files_data: List[Dict[str, str]], uploaded_file,
         json_data.append({
             'fileName': file_info.get('fileName', ''),
             'description': file_info.get('description', ''),
-            'uploadDate': str(datetime.datetime.now().replace(second=0, microsecond=0))[:-3],
+            'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
             'uploader': user_email,
         })
     file_id = '{project}/{file_name}'.format(
@@ -171,22 +171,67 @@ def download_file(file_info: str, project_name: str) -> str:
                     file_url, minutes_until_expire)
 
 
+def _has_repeated_envs(project_name: str, envs: List[Dict[str, str]]) -> bool:
+    unique_inputs = list({env['urlEnv']: env for env in envs}.values())
+    has_repeated_inputs = len(envs) != len(unique_inputs)
+
+    existing_envs = cast(List[Dict[str, str]], project_dal.get_attributes(
+        project_name.lower(), ['environments']).get('environments', []))
+    all_envs = [{'urlEnv': env['urlEnv']} for env in existing_envs] + envs
+
+    unique_envs = list({env['urlEnv']: env for env in all_envs}.values())
+    has_repeated_envs = len(all_envs) != len(unique_envs)
+
+    return has_repeated_inputs or has_repeated_envs
+
+
+def _has_repeated_repos(
+        project_name: str, repos: List[Dict[str, str]]) -> bool:
+    unique_inputs = list({
+        (repo['urlRepo'], repo['branch'], repo.get('protocol', '')): repo
+        for repo in repos
+    }.values())
+    has_repeated_inputs = len(repos) != len(unique_inputs)
+
+    existing_repos = cast(List[Dict[str, str]], project_dal.get_attributes(
+        project_name.lower(), ['repositories']).get('repositories', []))
+    all_repos = [
+        {
+            'urlRepo': repo['urlRepo'],
+            'branch': repo['branch'],
+            'protocol': repo.get('protocol', '')
+        }
+        for repo in existing_repos] + repos
+
+    unique_repos = list({
+        (repo['urlRepo'], repo['branch'], repo.get('protocol')): repo
+        for repo in all_repos
+    }.values())
+    has_repeated_repos = len(all_repos) != len(unique_repos)
+
+    return has_repeated_inputs or has_repeated_repos
+
+
 def create_resource(res_data: List[Dict[str, str]], project_name: str,
                     res_type: str, user_email: str) -> bool:
     project_name = project_name.lower()
     if res_type == 'repository':
         res_id = 'urlRepo'
         res_name = 'repositories'
+        if _has_repeated_repos(project_name, res_data):
+            raise RepeatedValues()
     elif res_type == 'environment':
         res_id = 'urlEnv'
         res_name = 'environments'
+        if _has_repeated_envs(project_name, res_data):
+            raise RepeatedValues()
     json_data: List[resources_dal.ResourceType] = []
     for res in res_data:
         if res_id in res:
             new_state = {
                 'user': user_email,
                 'date': util.format_comment_date(
-                    datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+                    datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
                 'state': 'ACTIVE'
             }
             if res_type == 'repository':
@@ -195,7 +240,7 @@ def create_resource(res_data: List[Dict[str, str]], project_name: str,
                     'branch': res.get('branch', ''),
                     'protocol': res.get('protocol', ''),
                     'uploadDate': str(
-                        datetime.datetime.now().replace(second=0, microsecond=0))[:-3],
+                        datetime.now().replace(second=0, microsecond=0))[:-3],
                     'historic_state': [new_state],
                 }
             elif res_type == 'environment':
@@ -232,7 +277,7 @@ def update_resource(
             new_state = {
                 'user': user_email,
                 'date': util.format_comment_date(
-                    datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+                    datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
                 'state': 'INACTIVE'
             }
             if 'historic_state' in res_list[cont]:

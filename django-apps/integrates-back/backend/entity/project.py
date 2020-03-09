@@ -522,7 +522,7 @@ class AddTags(Mutation):
         success = False
         project_name = project_name.lower()
         if project_domain.is_alive(project_name):
-            if project_domain.validate_tags(tags):
+            if project_domain.validate_tags(project_name, tags):
                 project_tags = project_domain.get_attributes(project_name, ['tag'])
                 if not project_tags:
                     project_tags = {'tag': set(tag for tag in tags)}

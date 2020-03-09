@@ -15,6 +15,7 @@ from backend.domain.project import (
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete
 )
 from backend.dal.integrates_dal import DYNAMODB_RESOURCE
+from backend.exceptions import RepeatedValues
 import backend.dal.vulnerability as vuln_dal
 
 
@@ -26,9 +27,16 @@ class ProjectTest(TestCase):
         assert isinstance(recipients[0], str)
 
     def test_validate_tags(self):
-        assert validate_tags(['testtag', 'this-is-ok', 'th15-4l50'])
-        assert validate_tags(['this-tag-is-valid', 'but this is not']) == [
+        assert validate_tags(
+            'unittesting', ['testtag', 'this-is-ok', 'th15-4l50'])
+        assert validate_tags(
+            'unittesting', ['this-tag-is-valid', 'but this is not']) == [
             'this-tag-is-valid']
+        with pytest.raises(RepeatedValues):
+            assert validate_tags(
+                'unittesting', ['same-name', 'same-name', 'another-one'])
+        with pytest.raises(RepeatedValues):
+            assert validate_tags('unittesting', ['test-projects'])
 
     def test_is_alive(self):
         assert is_alive('unittesting')

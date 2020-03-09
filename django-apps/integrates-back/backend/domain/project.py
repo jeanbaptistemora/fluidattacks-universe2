@@ -18,7 +18,7 @@ from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     AlreadyPendingDeletion, InvalidParameter, InvalidProjectName, NotPendingDeletion,
-    PermissionDenied
+    PermissionDenied, RepeatedValues
 )
 from backend.mailer import send_comment_mail
 from backend import util
@@ -216,10 +216,24 @@ def remove_user_access(project: str, user_email: str, role: str) -> bool:
     return project_dal.remove_access(user_email, project)
 
 
-def validate_tags(tags: List[str]) -> List[str]:
+def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
+    has_repeated_inputs = len(tags) != len(set(tags))
+
+    existing_tags = get_attributes(
+        project_name.lower(), ['tag']).get('tag', [])
+    all_tags = list(existing_tags) + tags
+    has_repeated_tags = len(all_tags) != len(set(all_tags))
+
+    return has_repeated_inputs or has_repeated_tags
+
+
+def validate_tags(project_name: str, tags: List[str]) -> List[str]:
     """Validate tags array."""
     tags_validated = []
     pattern = re.compile('^[a-z0-9]+(?:-[a-z0-9]+)*$')
+    if _has_repeated_tags(project_name, tags):
+        raise RepeatedValues()
+
     for tag in tags:
         if pattern.match(tag):
             tags_validated.append(tag)
