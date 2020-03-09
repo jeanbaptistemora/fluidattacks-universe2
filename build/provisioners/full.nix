@@ -25,7 +25,6 @@ in
         ++ (import ../dependencies/tools.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
-          pkgs.cacert
           pkgs.nix-linter
           pkgs.openjdk
           pkgs.redis

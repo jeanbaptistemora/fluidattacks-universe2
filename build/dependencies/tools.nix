@@ -1,6 +1,7 @@
 pkgs:
 
 [
+  pkgs.cacert
   pkgs.curl
   pkgs.hostname
   pkgs.jq
