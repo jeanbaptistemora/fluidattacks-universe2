@@ -1,13 +1,24 @@
 # pylint: disable=import-error
 
+from datetime import datetime, timedelta
 import json
 
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
 from backend.services import get_user_role, is_customeradmin
+from backend.dal import user as user_dal
 from backend import util
 
+from django.conf import settings
+from google.auth.transport import requests
+from google.oauth2 import id_token
+from graphql import GraphQLError
+from jose import jwt
+import rollbar
+
 from ariadne import convert_kwargs_to_snake_case
+
+from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
 def _get_role(jwt_content, project_name=None):
@@ -67,3 +78,57 @@ def resolve_me(_, info):
         remember=_get_remember(jwt_content),
         role=_get_role(jwt_content),
     )
+
+
+@convert_kwargs_to_snake_case
+def resolve_sign_in(_, info, auth_token, provider, push_token):
+    authorized = False
+    session_jwt = ''
+    success = False
+
+    if provider == 'google':
+        try:
+            user_info = id_token.verify_oauth2_token(
+                auth_token, requests.Request())
+
+            if user_info['iss'] not in ['accounts.google.com',
+                                        'https://accounts.google.com']:
+                rollbar.report_message(
+                    'Error: Invalid oauth2 issuer',
+                    'error', info.context, user_info['iss'])
+                raise GraphQLError('INVALID_AUTH_TOKEN')
+            if user_info['aud'] not in [FI_GOOGLE_OAUTH2_KEY_ANDROID,
+                                        FI_GOOGLE_OAUTH2_KEY_IOS]:
+                rollbar.report_message(
+                    'Error: Invalid oauth2 audience',
+                    'error', info.context, user_info['aud'])
+                raise GraphQLError('INVALID_AUTH_TOKEN')
+            email = user_info['email']
+            authorized = user_domain.is_registered(email)
+            if push_token:
+                user_dal.update(email, {'devices_to_notify': set(push_token)})
+            session_jwt = jwt.encode(
+                {
+                    'user_email': email,
+                    'user_role': user_domain.get_data(email, 'role'),
+                    'company': user_domain.get_data(email, 'company'),
+                    'first_name': user_info['given_name'],
+                    'last_name': user_info['family_name'],
+                    'exp': datetime.utcnow() +
+                    timedelta(seconds=settings.SESSION_COOKIE_AGE)
+                },
+                algorithm='HS512',
+                key=settings.JWT_SECRET,
+            )
+            success = True
+        except ValueError:
+            util.cloudwatch_log(
+                info.context,
+                'Security: Sign in attempt using invalid Google token')
+            raise GraphQLError('INVALID_AUTH_TOKEN')
+    else:
+        rollbar.report_message(
+            'Error: Unknown auth provider' + provider, 'error')
+        raise GraphQLError('UNKNOWN_AUTH_PROVIDER')
+
+    return dict(authorized, session_jwt, success)
