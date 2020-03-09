@@ -105,7 +105,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .tooltip { &:hover { .tooltip-text { visibility: visible; } } }
 .anchor-sign { &::before { content: '\0023'; } }
 .banner-bg { background-image: url('../../images/cover-main.png'); }
-.banner-title { background-image: url('../../images/pentest.svg'); }
+.continuous-bg { background-image: url('../../images/main-continuous-hacking.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scaleY(1.2);
@@ -172,6 +172,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .fheader-l { font-size: 7.5rem; }
   .bg-banner-sz { background-size: 100% 100%; }
   .w-15-l { width: 15%; }
+  .f-header { font-size: 4.5rem; }
 }
 
 //Very large screens

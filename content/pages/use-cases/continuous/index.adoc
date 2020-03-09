@@ -1,0 +1,14 @@
+:slug: new/use-cases/continuous/
+:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. The purpose of this page is to present additional information about the location of Fluid Attacks offices in Colombia and USA.
+:keywords: Fluid Attacks, New, Office, HQ, HeadQuarters, Contact.
+:template: new-continuous
+
+= Continuous Hacking
+
+== Report of Vulnerabilities at DevOps Speed
+
+We detect and report all the vulnerabilities and security issues during the
+whole software development cycle.
+With this method, we detect security issues continuously as software evolves.
+The inspection is done without false positives and ensures previous issues
+were resolved before going to production.

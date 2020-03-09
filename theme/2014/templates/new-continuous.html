@@ -1,0 +1,48 @@
+{% extends "new-base.html" %}
+
+<!-- Tachyons stylesheet -->
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
+{% block meta %}
+<meta name="description"
+      content="{{ gettext('Landing-metadescription') }}.">
+<meta name="keywords"
+      content="{{ gettext('Landing-keywords')}}.">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block header %}
+<div
+  class="continuous-bg bg-banner-sz coverm cover-s h5-l h4 justify-center items-center flex mt3-l bg-center">
+  <div class="w-100 center">
+    <h1 class="white fw4 f3 neue tc f-5-l ma0">
+      {{ page.title }}
+    </h1>
+    <h2 class="white f3-l f5-m f6 fw4 roboto tc ma0">
+      {{ gettext('Continuous-Header-msg') }}
+    </h2>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+{% endblock content %}

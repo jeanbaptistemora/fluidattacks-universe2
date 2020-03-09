@@ -2,7 +2,7 @@
   <div class="cssmenu bg-white lh-solid h-menu-s cover mv0 h-menu shadow-menu">
     <ul class="list ma0 pa0 overflow-hidden h4">
       <li class="fl">
-        <a class="db tc pa1 no-underline" href="{{ SITEURL }}/">
+        <a class="db tc pa1 no-underline" href="{{ SITEURL }}/new/">
           <img class="w5-l w-logo ml5-l ml4 mv3 absolute"
             src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-menu-new.svg" alt="{{ gettext('Header-img-alt') }}">
         </a>
@@ -35,7 +35,11 @@
                 <a href="#" class="menu-txt f3 c-fluid-gray fw3 no-underline menu-txt-trans roboto">Products</a>
               </li>
               <li class="db h2">
-                <a href="#" class="menu-txt f3 c-fluid-gray fw3 no-underline menu-txt-trans roboto">Use Cases</a>
+                <a
+                  href="{{ SITEURL }}/use-cases/"
+                  class="menu-txt f3 c-fluid-gray fw3 no-underline menu-txt-trans roboto">
+                  Use Cases
+                </a>
               </li>
               <li class="db h2">
                 <a href="#" class="menu-txt f3 c-fluid-gray fw3 no-underline menu-txt-trans roboto">About Us</a>

@@ -163,6 +163,10 @@ msgstr "Expert intelligence + effective automation"
 msgid "New-Header-msg"
 msgstr "FOR YOUR SOFTWARE DEVELOPMENT CYCLE"
 
+#: templates/new-continuous.html:39
+msgid "Continuous-Header-msg"
+msgstr "Effective Automation and Human Intelligence"
+
 #: templates/base.html:124
 msgid "Header-item-1"
 msgstr "Comprehensive security testing at DevOps speed"
