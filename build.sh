@@ -25,6 +25,7 @@ function decide_and_call_provisioner {
         deploy_front     ) provisioner='deploy-front';;
         deploy_k8s*      ) provisioner='infra';;
         functional_tests*) provisioner='selenium';;
+        test*            ) provisioner='test';;
                         *) provisioner='full';;
       esac \
   &&  provisioner="./build/provisioners/${provisioner}.nix" \

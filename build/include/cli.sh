@@ -37,14 +37,18 @@ function cli {
     functional_tests*)
       env_prepare_python_packages
       ;;
-    *)
+    test*)
       env_prepare_dynamodb_local
-      env_prepare_nodejs_modules
       if [ "${function_to_call}" == 'test_back_async' ]; then
         env_prepare_python_async_packages
       else
         env_prepare_python_packages
       fi
+      ;;
+    *)
+      env_prepare_dynamodb_local
+      env_prepare_nodejs_modules
+      env_prepare_python_packages
       ;;
   esac
 

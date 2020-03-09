@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import subprocess
 import sys
+from uuid import uuid4
 
 import i18n
 
@@ -138,7 +139,7 @@ DATABASES = {
             'sql_mode': 'STRICT_TRANS_TABLES',
         },
         'TEST': {
-            'NAME': f'test_django_{CI_COMMIT_REF_NAME}',
+            'NAME': f'test_django_{CI_COMMIT_REF_NAME}_{uuid4().hex}',
             'CHARSET': 'utf8',
             'COLLATION': 'utf8_general_ci',
         },
