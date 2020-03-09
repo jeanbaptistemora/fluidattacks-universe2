@@ -100,8 +100,14 @@ def generic_c_has_switch_without_default(
 
 
 @api(risk=LOW, kind=SAST)
-def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
-             exclude: list = None, lang_specs: dict = None) -> tuple:
+def has_text(code_dest: str,
+             expected_text: str,
+             open_message: str,
+             closed_message: str,
+             use_regex: bool =
+             False,
+             exclude: list = None,
+             lang_specs: dict = None) -> tuple:
     """
     Check if a bad text is present in given source file.
 
@@ -123,8 +129,8 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Text is present in code',
-            CLOSED: 'Bad text not present in code',
+            OPEN: open_message,
+            CLOSED: closed_message,
         },
         spec=lang_specs,
         excl=exclude)

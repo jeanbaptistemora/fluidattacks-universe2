@@ -31,6 +31,7 @@ LSPECS_MD = {
 
 # Context managers
 
+
 @contextmanager
 def assert_times_between(min_time: float, max_time: float) -> None:
     """Wrap a block of code and raise if the time is not between boundaries."""
@@ -49,8 +50,11 @@ def assert_times_between(min_time: float, max_time: float) -> None:
 
 def test_exclude_parameter():
     """Test checks configured to test nothing due to the exclude parameter."""
+    open_message = 'text found in code.'
+    closed_message = 'text not found in code.'
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        core.has_text(JAVA, COMMON_TEXT, exclude=[JAVA])
+        core.has_text(JAVA, COMMON_TEXT, open_message,
+                      closed_message, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         core.has_not_text(JAVA, UNCOMMON_TEXT, exclude=[JAVA])
@@ -133,8 +137,11 @@ def test_lang_specs_parameter():
     # Checks below will be skiped because
     #   the lang_specs is pointing to .md files
     #   and the directory is full of .java files
+    open_message = 'text found in code.'
+    closed_message = 'text not found in code.'
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        core.has_text(JAVA, COMMON_TEXT, lang_specs=LSPECS_MD)
+        core.has_text(JAVA, COMMON_TEXT, open_message,
+                      closed_message, lang_specs=LSPECS_MD)
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         core.has_not_text(JAVA, UNCOMMON_TEXT, lang_specs=LSPECS_MD)

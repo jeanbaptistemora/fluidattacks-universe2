@@ -31,10 +31,16 @@ INSECURE_SOCKETS = 'test/static/lang/javascript/ConsoleLogOpen.js'
 
 def test_open_has_text():
     """Test code has text."""
-    assert core.has_text(BAD_CODE, 'strcpy').is_open()
-    assert core.has_text(BAD_CODE, 'user: root; pass: password123').is_open()
-    assert core.has_text(CODE_DIR, 'strcpy').is_open()
-    assert core.has_text(CODE_DIR, 'user: root; pass: password123').is_open()
+    open_message = 'text found in code.'
+    closed_message = 'text not found in code.'
+    assert core.has_text(BAD_CODE, 'strcpy', open_message,
+                         closed_message).is_open()
+    assert core.has_text(BAD_CODE, 'user: root; pass: password123',
+                         open_message, closed_message).is_open()
+    assert core.has_text(CODE_DIR, 'strcpy', open_message,
+                         closed_message).is_open()
+    assert core.has_text(CODE_DIR, 'user: root; pass: password123',
+                         open_message, closed_message).is_open()
 
 
 def test_open_has_not_text():
@@ -189,7 +195,6 @@ def test_uses_insecure_protocol_open():
     assert core.uses_insecure_protocol(
         JAVA_BAD, 'http://fluidattacks.com').is_open()
 
-
 #
 # Closing tests
 #
@@ -265,15 +270,23 @@ def test_has_unnecessary_permissions_close():
 
 def test_close_has_text():
     """Test code has text."""
+    open_message = 'text found in code.'
+    closed_message = 'text not found in code.'
     params = [
         'strcpy',
         'user: root; pass: password123',
         r'user: ro{2}t; pass: password\d{3}',
     ]
-    assert core.has_text(GOOD_CODE, params[0]).is_closed()
-    assert core.has_text(GOOD_CODE, params[1]).is_closed()
-    assert core.has_text(GOOD_CODE, params[2], use_regex=True).is_closed()
-    assert core.has_text(CODE_DIR, params[0], exclude=['test']).is_closed()
+    assert core.has_text(
+        GOOD_CODE, params[0], open_message, closed_message).is_closed()
+    assert core.has_text(
+        GOOD_CODE, params[1], open_message, closed_message).is_closed()
+    assert core.has_text(
+        GOOD_CODE, params[2], open_message,
+        closed_message, use_regex=True).is_closed()
+    assert core.has_text(
+        CODE_DIR, params[0], open_message,
+        closed_message, exclude=['test']).is_closed()
 
 
 def test_close_has_not_text():
@@ -379,7 +392,10 @@ def test_close_is_file_hash_in_list():
 
 def test_unknown_has_text():
     """Test code has text."""
-    assert core.has_text(NO_CODE, 'strcpy').is_unknown()
+    open_message = 'text found in code.'
+    closed_message = 'text not found in code.'
+    assert core.has_text(NO_CODE, 'strcpy', open_message,
+                         closed_message).is_unknown()
 
 
 def test_unknown_has_not_text():
