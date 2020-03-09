@@ -65,3 +65,40 @@ def resolve_solve_event(_, info, event_id, affectation, date):
         util.cloudwatch_log(
             info.context, f'Security: Attempted to solve event {event_id}')
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+def resolve_add_event_comment(_, info, content, event_id, parent):
+    """Resolve add_event_comment mutation."""
+    user_info = util.get_jwt_content(info.context)
+    comment_id, success = event_domain.add_comment(
+        content, event_id, parent, user_info)
+    if success:
+        util.invalidate_cache(event_id)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Added comment to event {event_id} succesfully')
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Attempted to add comment in event {event_id}')
+    return dict(success=success, comment_id=comment_id)
+
+
+@convert_kwargs_to_snake_case
+def resolve_update_event_evidence(_, info, event_id, evidence_type, file):
+    """Resolve update_event_evidence mutation."""
+    success = False
+    if event_domain.validate_evidence(evidence_type, file):
+        success = event_domain.update_evidence(
+            event_id, evidence_type, file)
+    if success:
+        util.invalidate_cache(event_id)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Updated evidence in event {event_id} succesfully')
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Attempted to update evidence in event {event_id}')
+    return dict(success=success)

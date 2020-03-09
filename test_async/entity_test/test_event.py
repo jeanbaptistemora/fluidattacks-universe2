@@ -1,7 +1,10 @@
+import os
+
 from ariadne import graphql_sync, graphql
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
@@ -72,7 +75,7 @@ class EventTests(TestCase):
         assert len(result['data']['events'][0]['detail']) >= 1
 
     def test_update_event(self):
-        """Check for update_event mutation."""
+        """Check for updateEvent mutation."""
         query = '''
             mutation {
                 updateEvent(eventId: "538745942") {
@@ -102,7 +105,7 @@ class EventTests(TestCase):
         assert 'success' in result['data']['updateEvent']
 
     def test_create_event(self):
-        """Check for create_event mutation."""
+        """Check for createEvent mutation."""
         query = '''
             mutation {
                 createEvent(projectName: "unittest",
@@ -139,7 +142,7 @@ class EventTests(TestCase):
         assert 'success' in result['data']['createEvent']
 
     def test_solve_event(self):
-        """Check for solve_event mutation."""
+        """Check for solveEvent mutation."""
         query = '''
             mutation {
                 solveEvent(eventId: "418900971",
@@ -169,3 +172,86 @@ class EventTests(TestCase):
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['solveEvent']
+
+    def test_add_event_comment(self):
+        """Check for addEventComment mutation."""
+        query = '''
+            mutation {
+                addEventComment(eventId: "538745942",
+                                parent: "0",
+                                content: "Test comment") {
+                    success
+                    commentId
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest',
+                'first_name': 'Admin',
+                'last_name': 'At Fluid'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addEventComment']
+        assert 'commentId' in result['data']['addEventComment']
+
+    def test_update_event_evidence(self):
+        """Check for updateEventEvidence mutation."""
+        query = '''
+            mutation updateEventEvidence(
+                $eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!
+             ) {
+                updateEventEvidence(eventId: $eventId,
+                                    evidenceType: $evidenceType,
+                                    file: $file) {
+                    success
+                }
+            }
+        '''
+        filename = os.path.dirname(os.path.abspath(__file__))
+        filename = os.path.join(filename, '../../test/mock/test-anim.gif')
+        with open(filename, 'rb') as test_file:
+            uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                               content=test_file.read(),
+                                               content_type='image/gif')
+        variables = {
+            'eventId': '538745942',
+            'evidenceType': 'IMAGE',
+            'file': uploaded_file
+        }
+        data = {'query': query, 'variables': variables}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest',
+                'first_name': 'Admin',
+                'last_name': 'At Fluid'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateEventEvidence']
