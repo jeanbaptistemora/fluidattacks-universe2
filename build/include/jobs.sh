@@ -221,6 +221,7 @@ function _job_functional_tests {
         --verbose \
         --exitfirst \
         --basetemp='build/test' \
+        --reruns 5 \
         --test-group-count "${CI_NODE_TOTAL}" \
         --test-group "${CI_NODE_INDEX}" \
         ephemeral_tests.py
@@ -844,7 +845,7 @@ function job_deploy_k8s_stop_ephemeral {
       echo "[INFO] Setting namespace preferences..." \
   &&  kubectl config \
         set-context "$(kubectl config current-context)" \
-        --namespace='serves' \
+        --namespace="${CI_PROJECT_NAME}" \
   &&  echo '[INFO] Deleting deployments' \
   &&  kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}" \
   &&  kubectl delete service "service-${CI_COMMIT_REF_SLUG}" \
