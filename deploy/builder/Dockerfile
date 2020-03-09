@@ -66,7 +66,7 @@ RUN curl "$URL_GETPIP" -o get-pip.py \
     && python get-pip.py \
     && rm get-pip.py \
   && pip3 install \
-      GitPython==2.1.11 \
+      GitPython==3.0.9 \
       mandrill-37==1.1.0 \
       termcolor \
   && pip install \
