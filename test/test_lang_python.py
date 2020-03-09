@@ -22,6 +22,61 @@ LINES_FORMAT = 'lines: '
 
 
 #
+# Helpers
+#
+
+
+def test_is_primitive():
+    """Check if an object is of primitive type."""
+    assert python.is_primitive(12)
+    assert python.is_primitive('asserts')
+    assert python.is_primitive({'key': 'value'})
+    assert not python.is_primitive(lambda x: x)
+
+
+def test_object_to_dict():
+    class Car():
+        def __init__(self, color: str, model: str):
+            self.color = color
+            self.model = model
+    assert python.object_to_dict(Car('red', '2018')) == {
+        'class_name': 'Car', 'color': 'red', 'model': '2018'}
+
+
+def test_iterate_dict_nodes():
+    instances = {
+        'reservations': [{
+            'type': 'small',
+            'state': {
+                'name': 'runing'
+            },
+            'tags': [[{
+                'key': 'name',
+                'value': 'web'
+            }]]
+        }]
+    }
+
+    result = [('reservations', [{
+        'type': 'small',
+        'state': {
+            'name': 'runing'
+        },
+        'tags': [[{
+            'key': 'name',
+            'value': 'web'
+        }]]
+    }]), ('type', 'small'), ('state', {
+        'name': 'runing'
+    }), ('name', 'runing'), ('tags', [[{
+        'key': 'name',
+        'value': 'web'
+    }]]), ('key', 'name'), ('value', 'web')]
+
+    assert list(python.iterate_dict_nodes(instances)) == result
+
+
+#
 # Open tests
 #
 
@@ -52,7 +107,6 @@ def test_uses_catch_for_memory_error_open():
     """Search for MemoryError catches."""
     assert python.uses_catch_for_memory_error(CODE_DIR).is_open()
     assert python.uses_catch_for_memory_error(INSECURE_CODE).is_open()
-
 
 
 def test_uses_catch_for_syntax_errors_open():
@@ -91,7 +145,6 @@ def test_uses_catch_for_memory_error_closed():
     assert python.uses_catch_for_memory_error(SECURE_CODE).is_closed()
     assert python.uses_catch_for_memory_error(
         CODE_DIR, exclude=['exceptions_open']).is_closed()
-
 
 
 def test_uses_catch_for_syntax_errors_closed():

@@ -39,6 +39,35 @@ L_VAR_NAME = Word(alphas + '_', alphanums + '_')
 L_VAR_CHAIN_NAME = delimitedList(L_VAR_NAME, delim='.', combine=True)
 
 
+def is_primitive(object_):
+    """Check if an object is of primitive type."""
+    return not hasattr(object_, '__dict__')
+
+
+def object_to_dict(object_: object):
+    """Convert an object into a nested dictionary."""
+    dict_ = object_.__dict__.copy()
+    dict_['class_name'] = object_.__class__.__name__
+    for key, value in dict_.items():
+        if isinstance(value, (list, tuple, set)):
+            for index, val in enumerate(value):
+                value[index] = object_to_dict(val)
+        if not is_primitive(value):
+            dict_[key] = object_to_dict(value)
+    return dict_
+
+
+def iterate_dict_nodes(object_: dict):
+    """Iterate nodes of an dictionary recursively."""
+    if isinstance(object_, dict):
+        for key, value in object_.items():
+            yield (key, value)
+            yield from iterate_dict_nodes(value)
+    elif isinstance(object_, list):
+        for i in object_:
+            yield from iterate_dict_nodes(i)
+
+
 def _call_in_code(call, code_content):
     """Check if call is present in code_file."""
     code_tree = ast.parse(code_content)
