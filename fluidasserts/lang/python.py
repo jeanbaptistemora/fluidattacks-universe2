@@ -5,9 +5,11 @@
 # standard imports
 import ast
 import os
+from contextlib import suppress
 from typing import List, Dict
 
 # 3rd party imports
+import jmespath
 from bandit import blacklists
 from pyparsing import (Word, alphas, pythonStyleComment, delimitedList,
                        SkipTo, LineEnd, indentedBlock, alphanums,
@@ -39,6 +41,50 @@ L_VAR_NAME = Word(alphas + '_', alphanums + '_')
 L_VAR_CHAIN_NAME = delimitedList(L_VAR_NAME, delim='.', combine=True)
 
 
+def _flatten(elements, aux_list=None):
+    aux_list = aux_list if aux_list is not None else []
+    for i in elements:
+        if isinstance(i, list):
+            _flatten(i, aux_list)
+        else:
+            aux_list.append(i)
+    return aux_list
+
+
+def _get_result_as_tuple(path: str,
+                         msg_open: str,
+                         msg_closed: str,
+                         vulns: list = None,
+                         safes: list = None) -> tuple:
+    """Return the tuple version of the Result object."""
+    vuln_units: List[Unit] = []
+    safe_units: List[Unit] = []
+
+    if not os.path.exists(path):
+        return UNKNOWN, 'File does not exist'
+
+    if vulns:
+        vuln_units.extend(
+            Unit(
+                where=path_,
+                specific=[x['lineno'] for x in lines],
+                fingerprint=get_sha256(path_),
+                source='Lines') for path_, lines in vulns)
+    if safes:
+        safe_units.extend(
+            Unit(
+                where=path_,
+                specific=[0],
+                fingerprint=get_sha256(path_),
+                source='Lines') for path_, lines in safes)
+
+    if vulns:
+        return OPEN, msg_open, vuln_units, safe_units
+    if safes:
+        return CLOSED, msg_closed, vuln_units, safe_units
+    return CLOSED, 'No files were tested'
+
+
 def is_primitive(object_):
     """Check if an object is of primitive type."""
     return not hasattr(object_, '__dict__')
@@ -59,13 +105,36 @@ def object_to_dict(object_: object):
 
 def iterate_dict_nodes(object_: dict):
     """Iterate nodes of an dictionary recursively."""
+    yield object_
     if isinstance(object_, dict):
-        for key, value in object_.items():
-            yield (key, value)
+        for value in object_.values():
             yield from iterate_dict_nodes(value)
     elif isinstance(object_, list):
-        for i in object_:
-            yield from iterate_dict_nodes(i)
+        for value in object_:
+            yield from iterate_dict_nodes(value)
+
+
+def execute_query(query, object_: dict):
+    """
+    Execute one or more queries in a dictionary.
+
+    The queries must have the jmespath format.
+
+    :param queries: List of Queries to execute.
+    :param object_: Object on which queries are executed.
+    """
+    compliance = []
+    if isinstance(query, str):
+        query = [query]
+    for node in iterate_dict_nodes(object_):
+        with suppress(TypeError):
+            compliance.extend([
+                node
+                for node in
+                [jmespath.search(que, node) for que in query] if node
+            ])
+
+    return compliance
 
 
 def _call_in_code(call, code_content):

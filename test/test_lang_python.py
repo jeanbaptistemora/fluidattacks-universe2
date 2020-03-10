@@ -57,7 +57,18 @@ def test_iterate_dict_nodes():
         }]
     }
 
-    result = [('reservations', [{
+    result = [{
+        'reservations': [{
+            'type': 'small',
+            'state': {
+                'name': 'runing'
+            },
+            'tags': [[{
+                'key': 'name',
+                'value': 'web'
+            }]]
+        }]
+    }, [{
         'type': 'small',
         'state': {
             'name': 'runing'
@@ -66,14 +77,63 @@ def test_iterate_dict_nodes():
             'key': 'name',
             'value': 'web'
         }]]
-    }]), ('type', 'small'), ('state', {
+    }], {
+        'type': 'small',
+        'state': {
+            'name': 'runing'
+        },
+        'tags': [[{
+            'key': 'name',
+            'value': 'web'
+        }]]
+    }, 'small', {
         'name': 'runing'
-    }), ('name', 'runing'), ('tags', [[{
+    }, 'runing', [[{
         'key': 'name',
         'value': 'web'
-    }]]), ('key', 'name'), ('value', 'web')]
+    }]], [{
+        'key': 'name',
+        'value': 'web'
+    }], {
+        'key': 'name',
+        'value': 'web'
+    }, 'name', 'web']
 
     assert list(python.iterate_dict_nodes(instances)) == result
+
+
+def test_flatten():
+    list_ = [1, 2, 3, [4, 5, [6, 7, 8, 9], 10, 11], 12]
+    result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    assert python._flatten(list_) == result
+
+
+def test_execute_query():
+    people = {
+        "people": [
+            {"age": 20, "other": "foo", "name": "Bob"},
+            {"age": 25, "other": "bar", "name": "Fred"},
+            {"age": 30, "other": "baz", "name": "George"}
+        ]
+    }
+
+    checks = [
+        {'query': 'people[?age > `20`].[name, age]',
+         'expected': [
+             ["Fred", 25],
+             ["George", 30]
+         ]},
+        {'query': 'people[?age > `20`].{name: name, age: age}',
+         'expected': [
+             {"name": "Fred", "age": 25},
+             {"name": "George", "age": 30}
+         ]},
+        {'query': 'people[?name == `Fred`].{name: name, age: age}[0]',
+         'expected': {"name": "Fred", "age": 25}}
+    ]
+    for check in checks:
+        assert python.execute_query(
+            check['query'], people)[0] == check['expected']
 
 
 #
