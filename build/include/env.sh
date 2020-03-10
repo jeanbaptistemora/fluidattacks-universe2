@@ -91,7 +91,6 @@ function env_prepare_python_async_packages {
     done
 }
 
-
 function env_prepare_nodejs_modules {
   export NODE_PATH
   local module
@@ -104,6 +103,23 @@ function env_prepare_nodejs_modules {
   do
     echo "  [${module}] ${!module}"
     NODE_PATH="${NODE_PATH}:${!module}/node_modules"
+  done < "${TEMP_FILE1}"
+}
+
+function env_prepare_ruby_modules {
+  export PATH
+  export GEM_PATH
+  local gem
+
+  echo '[INFO] Preparing ruby gems'
+
+  helper_list_vars_with_regex 'rubyGem[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+
+  while read -r gem
+  do
+    echo "  [${gem}] ${!gem}"
+    PATH="${PATH}:${!gem}/bin"
+    GEM_PATH="${GEM_PATH}:${!gem}/"
   done < "${TEMP_FILE1}"
 }
 

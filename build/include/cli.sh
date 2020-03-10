@@ -50,6 +50,7 @@ function cli {
     *)
       env_prepare_dynamodb_local
       env_prepare_nodejs_modules
+      env_prepare_ruby_modules
       env_prepare_python_packages
       ;;
   esac

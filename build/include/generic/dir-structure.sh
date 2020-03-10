@@ -16,5 +16,8 @@ mkdir root/python/site-packages
 mkdir root/nodejs
 mkdir root/nodejs/node_modules
 
+# where ruby gems will be stored
+mkdir root/gems
+
 # where Go packages will be stored
 mkdir root/go
