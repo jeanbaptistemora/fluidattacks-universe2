@@ -133,3 +133,40 @@ class UserTests(TestCase):
         assert 'success' in result['data']['grantUserAccess']
         assert 'grantedUser' in result['data']['grantUserAccess']
         assert 'email' in result['data']['grantUserAccess']['grantedUser']
+
+    def test_remove_user_access(self):
+        """Check for removeUserAccess mutation."""
+        query = '''
+            mutation {
+              removeUserAccess (
+                projectName: "unittesting"
+                userEmail: "test@test.test"
+                )
+                {
+                  removedEmail
+                  success
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'username': 'unittest',
+                'company': 'unittest',
+                'role': 'admin',
+                'user_email': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['removeUserAccess']
+        assert 'removedEmail' in result['data']['removeUserAccess']

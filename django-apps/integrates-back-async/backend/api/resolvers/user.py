@@ -55,7 +55,9 @@ def _create_new_user(
     elif user_domain.is_registered(email):
         user_domain.assign_role(email, role)
     if project_name and responsibility and len(responsibility) <= 50:
-        project_domain.add_access(email, project_name, 'responsibility', responsibility)
+        project_domain.add_access(
+            email, project_name, 'responsibility', responsibility
+        )
     else:
         util.cloudwatch_log(
             context,
@@ -67,7 +69,9 @@ def _create_new_user(
         user_domain.add_phone_to_user(email, phone_number)
     if project_name and role == 'customeradmin':
         project_domain.add_user(project_name.lower(), email.lower(), role)
-    if project_name and user_domain.update_project_access(email, project_name, True):
+    if project_name and user_domain.update_project_access(
+        email, project_name, True
+    ):
         description = project_domain.get_description(project_name.lower())
         project_url = \
             'https://fluidattacks.com/integrates/dashboard#!/project/' \
@@ -224,7 +228,8 @@ def resolve_grant_user_access(_, info, **query_args):
     }
 
     if (role == 'admin'
-            and new_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
+            and new_user_data['role'] in ['admin', 'analyst', 'customer',
+                                          'customeradmin']) \
         or (is_customeradmin(project_name, user_data['user_email'])
             and new_user_data['role'] in ['customer', 'customeradmin']):
         if _create_new_user(info.context, new_user_data, project_name):
@@ -238,15 +243,125 @@ def resolve_grant_user_access(_, info, **query_args):
     if success:
         util.invalidate_cache(project_name)
         util.invalidate_cache(query_args.get('email'))
-        util.cloudwatch_log(info.context, 'Security: Given grant access to {user} \
-            in {project} project'.format(user=query_args.get('email'), project=project_name))
+        util.cloudwatch_log(
+            info.context, 'Security: Given grant access to {user} \
+            in {project} project'.format(user=query_args.get('email'),
+                                         project=project_name))
     else:
         util.cloudwatch_log(info.context, 'Security: Attempted to give grant \
-            access to {user} in {project} project'.format(user=query_args.get('email'),
-                                                          project=project_name))
+access to {user} in {project} project'.format(user=query_args.get('email'),
+                                              project=project_name))
     return dict(
         success=success,
         granted_user=dict(
             project_name=project_name,
             email=new_user_data['email'])
     )
+
+
+@convert_kwargs_to_snake_case
+def resolve_remove_user_access(
+    _, info, project_name: str, user_email: str
+) -> object:
+    """Resolve remove_user_access mutation."""
+    success = False
+
+    project_domain.remove_user_access(
+        project_name, user_email, 'customeradmin'
+    )
+    success = project_domain.remove_access(user_email, project_name)
+    removed_email = user_email if success else None
+    if success:
+        util.invalidate_cache(project_name)
+        util.invalidate_cache(user_email)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Removed user: {user_email} from {project_name} \
+            project succesfully')
+    else:
+        util.cloudwatch_log(
+            info.context, f'Security: Attempted to remove user: {user_email}\
+            from {project_name} project')
+    return dict(success=success, removed_email=removed_email)
+
+
+@convert_kwargs_to_snake_case
+def resolve_edit_user(_, info, **query_args):
+    """Resolve edit_user mutation."""
+    project_name = query_args.get('project_name')
+    success = False
+    user_data = util.get_jwt_content(info.context)
+    role = get_user_role(user_data)
+
+    modified_user_data = {
+        'email': query_args.get('email'),
+        'organization': query_args.get('organization'),
+        'responsibility': query_args.get('responsibility'),
+        'role': query_args.get('role'),
+        'phone_number': query_args.get('phone_number')
+    }
+    if (role == 'admin'
+            and modified_user_data['role'] in ['admin', 'analyst',
+                                               'customer', 'customeradmin']) \
+        or (is_customeradmin(project_name, user_data['user_email'])
+            and modified_user_data['role'] in ['customer', 'customeradmin']):
+        if user_domain.assign_role(
+                modified_user_data['email'], modified_user_data['role']):
+            modify_user_information(info.context, modified_user_data,
+                                    project_name)
+            success = True
+        else:
+            rollbar.report_message('Error: Couldn\'t update user role',
+                                   'error', info.context)
+    else:
+        rollbar.report_message('Error: Invalid role provided: ' +
+                               modified_user_data['role'], 'error',
+                               info.context)
+    if success:
+        util.invalidate_cache(project_name)
+        util.invalidate_cache(query_args.get('email'))
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Modified user data:{query_args.get("email")} \
+            in {project_name} project succesfully')
+    else:
+        util.cloudwatch_log(
+            info.context,
+            'Security: Attempted to modify user \
+            data:{query_args.get("email")} in {project_name} project')
+    return dict(
+        success=success,
+        modified_user=dict(project_name=project_name,
+                           email=modified_user_data['email']))
+
+
+def modify_user_information(
+        context: Dict[str, Union[int, _List[str]]],
+        modified_user_data: Dict[str, str],
+        project_name: str):
+    """Modify user information."""
+    role = modified_user_data['role']
+    email = modified_user_data['email']
+    responsibility = modified_user_data['responsibility']
+    phone = modified_user_data['phone_number']
+    organization = modified_user_data['organization']
+    user_domain.update(email, organization.lower(), 'company')
+    if responsibility and len(responsibility) <= 50:
+        project_domain.add_access(
+            email, project_name, 'responsibility', responsibility)
+    else:
+        util.cloudwatch_log(
+            context,
+            f'Security: {email} Attempted to add responsibility to project \
+                {project_name} bypassing validation')
+    if phone and phone[1:].isdigit():
+        user_domain.add_phone_to_user(email, phone)
+    else:
+        util.cloudwatch_log(
+            context,
+            f'Security: {email} Attempted to edit user phone bypassing \
+                validation')
+    if role == 'customeradmin':
+        project_domain.add_user(project_name.lower(), email.lower(), role)
+    elif is_customeradmin(project_name, email):
+        project_domain.remove_user_access(project_name, email, 'customeradmin')
