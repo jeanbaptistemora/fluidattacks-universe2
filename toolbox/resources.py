@@ -4,6 +4,7 @@
 import base64
 import os
 import re
+import sys
 import platform
 import shlex
 import shutil
@@ -11,7 +12,7 @@ import subprocess
 import urllib.parse
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, check_output
 from html import escape
 
 # Third parties imports
@@ -551,3 +552,31 @@ def check_repositories(subs, email)-> bool:
     if email:
         send_mail(html, email.split(','))
     return True
+
+
+def fluidcounts(path):
+    """Count lines of code using cloc."""
+    filepaths = ''
+    doc_langs = ["Markdown"]
+    style_langs = ["CSS", "SASS", "LESS", "Stylus"]
+    format_langs = ["JSON", "XML", "XAML"]
+    toolboxpath = os.path.dirname(__file__)
+    rules_file = f'{toolboxpath}/rules.def'
+    force_lang_def = '--force-lang-def=' + rules_file
+    exclude_list = ",".join(doc_langs + style_langs + format_langs)
+    exclude_lang = '--exclude-lang=' + exclude_list
+    call_cloc = ['cloc', force_lang_def, exclude_lang]
+    call_cloc += [path, '--ignored', 'ignored.txt']
+    try:
+        myenv = os.environ.copy()
+        myenv['LC_ALL'] = 'C'
+        check_output(call_cloc, env=myenv)
+        with open('ignored.txt', 'r') as outfile:
+            filepaths = outfile.read()
+    except OSError:
+        print("You need to have Cloc installed and in your system path " +
+              "for this task to work")
+        sys.exit(1)
+    finally:
+        os.remove('ignored.txt')
+    return filepaths
