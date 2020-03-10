@@ -2,23 +2,6 @@
 
 # shellcheck disable=SC1091
 
-function get_cache {
-  # Get cache artifact from last successful branch pipeline
-
-  local job="${1}"
-  local token="${2}"
-  local base_url="https://gitlab.com/api/v4/projects/4649627"
-  local job_url="${base_url}/jobs/artifacts/${CI_COMMIT_REF_NAME}/download?job=${job}"
-  local token_header="PRIVATE-TOKEN: ${token}"
-
-  if curl -H "${token_header}" -fLo artifacts.zip "${job_url}"; then
-      unzip artifacts.zip
-      rm -rf artifacts.zip
-    else
-      echo "[INFO] There are no artifacts."
-  fi
-}
-
 function sync_s3 {
   # Synchronize <source_code> in <bucket>
 
@@ -92,7 +75,11 @@ function sync_s3 {
 
 function deploy_prod {
   pushd /app || return 1
-  get_cache production "${GITLAB_API_TOKEN}"
+  if mv "${CI_PROJECT_DIR}/cache" /app/cache; then
+    echo '[INFO] Moving cache to /app folder.'
+  else
+    echo '[INFO] No cache found.'
+  fi
   cp -a /app/deploy/builder/node_modules /app/theme/2014/
   cp -a /app/deploy/builder/node_modules /app/
   npm run --prefix /app/deploy/builder/ build
@@ -104,7 +91,11 @@ function deploy_prod {
 
 function deploy_eph {
   pushd /app || return 1
-  get_cache ephemeral "${GITLAB_API_TOKEN}"
+  if mv "${CI_PROJECT_DIR}/cache" /app/cache; then
+    echo '[INFO] Moving cache to /app folder.'
+  else
+    echo '[INFO] No cache found.'
+  fi
   cp -a /app/deploy/builder/node_modules /app/theme/2014/
   cp -a /app/deploy/builder/node_modules /app/
   sed -i "s|https://fluidattacks.com|http://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/pelicanconf.py

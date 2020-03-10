@@ -64,10 +64,10 @@ ephemeral:
     name: ephemeral/${CI_COMMIT_REF_NAME}
     url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web
     on_stop: stop-ephemeral
-  artifacts:
+  cache:
+    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
     paths:
     - cache/
-    expire_in: 1 week
   except:
     - master
 
@@ -99,10 +99,10 @@ production:
   script:
     - . /app/ci-scripts/deploy.sh
     - deploy_prod
-  artifacts:
+  cache:
+    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
     paths:
     - cache/
-    expire_in: 1 week
   only:
     - master
 
