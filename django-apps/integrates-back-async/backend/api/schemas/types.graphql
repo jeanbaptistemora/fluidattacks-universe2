@@ -94,7 +94,7 @@ type Resource {
 type User {
     email: String
     role: String
-    responsability: String
+    responsibility: String
     phoneNumber: String
     organization: String
     firstLogin: String
