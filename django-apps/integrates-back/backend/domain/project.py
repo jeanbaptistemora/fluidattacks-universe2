@@ -41,16 +41,18 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> boo
     return project_dal.add_comment(project_name, email, comment_data)
 
 
-def create_project(user_email: str, user_role: str, **kwargs: str) -> bool:
+def create_project(
+    user_email: str, user_role: str, **kwargs: Dict[str, Union[str, List[str]]]) -> bool:
     is_user_admin = user_role == 'admin'
-    if is_user_admin:
+    if is_user_admin or \
+       cast(List[str], kwargs.get('companies', [])):
         companies = [company.lower() for company in kwargs.get('companies', [])]
     else:
         companies = [str(user_domain.get_data(user_email, 'company'))]
-    description = kwargs.get('description', '')
-    project_name = kwargs.get('project_name', '').lower()
+    description = str(kwargs.get('description', ''))
+    project_name = str(kwargs.get('project_name', '')).lower()
     if kwargs.get('subscription'):
-        subscription = kwargs.get('subscription')
+        subscription = str(kwargs.get('subscription'))
     else:
         subscription = 'continuous'
     resp = False
