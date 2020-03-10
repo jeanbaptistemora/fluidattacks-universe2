@@ -232,8 +232,6 @@ metadata:
         return 308 https://fluidattacks.com/web/;
       }
 
-      rewrite /web/new/use-cases/ /web/new/use-cases/continuous/;
-
       more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";
       more_set_headers "Pragma: no-cache";
