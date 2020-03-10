@@ -2,6 +2,7 @@
 
 from datetime import datetime, timedelta
 import json
+import sys
 
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
@@ -17,7 +18,7 @@ from graphql import GraphQLError
 from jose import jwt
 import rollbar
 
-from ariadne import convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
@@ -72,13 +73,16 @@ def _get_remember(jwt_content):
 def resolve_me(_, info):
     """Resolve Me query."""
     jwt_content = util.get_jwt_content(info.context)
-    return dict(
-        access_token=_get_access_token(jwt_content),
-        authorized=_get_authorized(jwt_content),
-        projects=_get_projects(jwt_content),
-        remember=_get_remember(jwt_content),
-        role=_get_role(jwt_content),
-    )
+
+    result = dict()
+    for requested_field in info.field_nodes[0].selection_set.selections:
+        snake_field = convert_camel_case_to_snake(requested_field.name.value)
+        func_result = getattr(
+            sys.modules[__name__],
+            f'_get_{snake_field}'
+        )(jwt_content)
+        result[requested_field.name.value] = func_result
+    return result
 
 
 @convert_kwargs_to_snake_case

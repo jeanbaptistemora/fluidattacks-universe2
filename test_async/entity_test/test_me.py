@@ -15,11 +15,14 @@ class MeTests(TestCase):
         """Check Me query"""
         query = '''{
             me {
-                role
+                accessToken
+                authorized
                 projects {
                     name
                     description
                 }
+                remember
+                role
             }
         }'''
         data = {'query': query}
