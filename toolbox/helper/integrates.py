@@ -20,7 +20,7 @@ def is_finding_accepted(finding_id: str) -> bool:
     his_treatment: list = response.data['finding'].get('historicTreatment')
     if his_treatment:
         treatment = his_treatment[-1]['treatment']
-    return treatment == 'ACCEPTED'
+    return treatment in ('ACCEPTED', 'ACCEPTED_UNDEFINED')
 
 
 def is_finding_released(finding_id: str) -> bool:
