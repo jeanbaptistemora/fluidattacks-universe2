@@ -1,6 +1,6 @@
 # pylint: disable=import-error
 
-from backend.api.resolvers import alert, cache, event, me
+from backend.api.resolvers import alert, cache, event, me, user
 
 from ariadne import MutationType
 
@@ -19,3 +19,4 @@ MUTATION.set_field('signIn', me.resolve_sign_in)
 MUTATION.set_field('updateAccessToken', me.resolve_update_access_token)
 MUTATION.set_field('invalidateAccessToken', me.resolve_invalidate_access_token)
 MUTATION.set_field('acceptLegal', me.resolve_accept_legal)
+MUTATION.set_field('addUser', user.resolve_add_user)
