@@ -232,9 +232,7 @@ metadata:
         return 308 https://fluidattacks.com/web/;
       }
 
-      location ~* /web/new/use-cases/ {
-        return 308 https://fluidattacks.com/web/new/use-cases/continuous/;
-      }
+      rewrite /web/new/use-cases/ /web/new/use-cases/continuous/;
 
       more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";
