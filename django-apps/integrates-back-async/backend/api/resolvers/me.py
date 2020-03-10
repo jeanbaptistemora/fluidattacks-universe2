@@ -178,3 +178,34 @@ def resolve_update_access_token(_, info, expiration_time):
         raise InvalidExpirationTime()
 
     return dict(success=success, session_jwt=session_jwt)
+
+
+@convert_kwargs_to_snake_case
+def resolve_invalidate_access_token(_, info):
+    """Resolve invalidate_access_token mutation."""
+    user_info = util.get_jwt_content(info.context)
+
+    success = user_domain.remove_access_token(user_info['user_email'])
+    if success:
+        util.cloudwatch_log(
+            info.context, '{email} invalidate access token'.format(
+                email=user_info['user_email']))
+    else:
+        util.cloudwatch_log(
+            info.context, '{email} attempted to invalidate access token'
+            .format(email=user_info['user_email']))
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+def resolve_accept_legal(_, info, remember=False):
+    """Resolve accept_legal mutation."""
+    user_email = util.get_jwt_content(info.context)['user_email']
+    is_registered = user_domain.is_registered(user_email)
+
+    if is_registered:
+        user_domain.update_legal_remember(user_email, remember)
+        success = True
+    else:
+        success = False
+    return dict(success=success)
