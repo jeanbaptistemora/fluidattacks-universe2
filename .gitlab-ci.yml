@@ -139,12 +139,7 @@ test_infra_ephemeral:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
-    - terraform_login
-    - pushd deploy/ephemeral/terraform
-    - terraform init
-    - terraform plan -refresh=true
-    - tflint --deep --module
-    - popd
+    - terraform_test deploy/ephemeral/terraform
 
 apply_infra_ephemeral:
   tags: [autoscaling]
@@ -153,11 +148,7 @@ apply_infra_ephemeral:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
-    - terraform_login
-    - pushd deploy/ephemeral/terraform
-    - terraform init
-    - terraform apply -auto-approve -refresh=true
-    - popd
+    - terraform_apply deploy/ephemeral/terraform
   only:
     - master
 
@@ -167,12 +158,7 @@ test_infra_bucket:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
-    - terraform_login
-    - pushd deploy/bucket/terraform
-    - terraform init
-    - terraform plan -refresh=true
-    - tflint --deep --module
-    - popd
+    - terraform_test deploy/bucket/terraform
 
 apply_infra_bucket:
   tags: [autoscaling]
@@ -181,11 +167,7 @@ apply_infra_bucket:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
-    - terraform_login
-    - pushd deploy/bucket/terraform
-    - terraform init
-    - terraform apply -auto-approve -refresh=true
-    - popd
+    - terraform_apply deploy/bucket/terraform
   only:
     - master
 
@@ -195,12 +177,7 @@ test_infra_secret_management:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
-    - terraform_login
-    - pushd deploy/secret-management/terraform
-    - terraform init
-    - terraform plan -refresh=true
-    - tflint --deep --module
-    - popd
+    - terraform_test deploy/secret-management/terraform
 
 apply_infra_secret_management:
   tags: [autoscaling]
@@ -209,11 +186,7 @@ apply_infra_secret_management:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
-    - terraform_login
-    - pushd deploy/secret-management/terraform
-    - terraform init
-    - terraform apply -auto-approve -refresh=true
-    - popd
+    - terraform_apply deploy/secret-management/terraform
   only:
     - master
 

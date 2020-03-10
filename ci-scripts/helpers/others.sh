@@ -21,3 +21,24 @@ terraform_login() {
   TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
   TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
 }
+
+terraform_test() {
+  local dir="${1}"
+
+  terraform_login
+  pushd "${dir}" || return 1
+  terraform init
+  terraform plan -refresh=true
+  tflint --deep --module
+  popd || return 1
+}
+
+terraform_apply() {
+  local dir="${1}"
+
+  terraform_login
+  pushd "${dir}" || return 1
+  terraform init
+  terraform apply -auto-approve -refresh=true
+  popd || return 1
+}
