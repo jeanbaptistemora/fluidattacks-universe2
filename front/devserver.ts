@@ -31,7 +31,7 @@ devServer.listen(PORT, HOST, (err?: Error): void => {
   }
 
   console.log("Starting the development server...\n");
-  open(`https://${HOST}/integrates`)
+  open(`https://${HOST}:8080/integrates`)
     .catch();
 });
 
