@@ -7,6 +7,7 @@ import textwrap
 import subprocess
 
 from typing import Tuple
+from multiprocessing import Process
 
 
 def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
@@ -39,11 +40,26 @@ def clone(subs_path) -> None:
         os.symlink(repo_path, repo_git_path)
 
 
+def open_vpn(subs_path) -> None:
+    """Clone a subs_path which requires a vpn connection."""
+    run_command(cmd="echo '2' | toolbox --vpn", cwd=subs_path)
+
+
 def main() -> None:
     """Usual entry point."""
     subs_paths = glob.glob(f'/git/fluidattacks/continuous/subscriptions/*')
     for subs_path in subs_paths:
         clone(subs_path)
+    vpn_req = ['/git/fluidattacks/continuous/subscriptions/tabbasa',
+               '/git/fluidattacks/continuous/subscriptions/targon',
+               '/git/fluidattacks/continuous/subscriptions/triana',
+               '/git/fluidattacks/continuous/subscriptions/troitsk',
+               '/git/fluidattacks/continuous/subscriptions/turtwig', ]
+    for prot_paths in vpn_req:
+        process = Process(target=open_vpn, args=(prot_paths,))
+        process.start()
+        clone(prot_paths)
+        process.terminate()
 
 
 if __name__ == '__main__':
