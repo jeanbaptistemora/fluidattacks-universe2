@@ -2,13 +2,17 @@ from html import escape
 import json
 import threading
 
-from typing import Any, Dict, List
+from typing import Dict, List, Union, cast
 import boto3
 import botocore
 import rollbar
 
 from backend.domain import user as user_domain
 from backend.dal import project as project_dal
+from backend.dal.comment import CommentType
+from backend.dal.project import ProjectType
+from backend.dal.event import EventType
+from backend.dal.finding import FindingType
 
 from __init__ import (FI_MAIL_REPLYERS, FI_MAIL_REVIEWERS, FI_MANDRILL_API_KEY,
                       FI_TEST_PROJECTS, FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY,
@@ -79,7 +83,7 @@ def _send_mail(template_name: str, email_to: List[str], context: Dict[str, str],
     no_test_context = _remove_test_projects(context, test_proj_list)
     new_context = _escape_context(no_test_context)
     if project not in test_proj_list:
-        message: Dict[str, List[Any]] = {
+        message: Dict[str, List[Union[str, Dict[str, object]]]] = {
             'to': [],
             'global_merge_vars': [],
             'merge_vars': []
@@ -95,7 +99,7 @@ def _send_mail(template_name: str, email_to: List[str], context: Dict[str, str],
             message['global_merge_vars'].append(
                 {'name': key, 'content': value}
             )
-        message['tags'] = tags
+        message['tags'] = cast(List[Union[Dict[str, object], str]], tags)
         try:
             sqs_message = {
                 'message': message,
@@ -122,24 +126,25 @@ def _send_mail(template_name: str, email_to: List[str], context: Dict[str, str],
         pass
 
 
-def send_comment_mail(comment_data: Dict[str, Any], entity_name: str,
-                      user_mail: str, comment_type: str = '', entity: Any = ''):
+def send_comment_mail(comment_data: CommentType, entity_name: str,
+                      user_mail: str, comment_type: str = '',
+                      entity: Union[FindingType, EventType, ProjectType] = ''):
     parent = comment_data['parent']
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_context = {
         'user_email': user_mail,
-        'comment': comment_data['content'].replace('\n', ' '),
+        'comment': str(comment_data['content']).replace('\n', ' '),
         'comment_type': comment_type,
         'parent': parent,
     }
     if entity_name == 'finding':
-        finding = entity
-        project_name = finding.get('projectName')
-        recipients = get_email_recipients(finding.get('projectName'), comment_type)
+        finding: Dict[str, FindingType] = cast(Dict[str, FindingType], entity)
+        project_name = str(finding.get('projectName', ''))
+        recipients = get_email_recipients(project_name, comment_type)
 
         is_draft = 'releaseDate' in finding
-        email_context['finding_id'] = finding.get('findingId')
-        email_context['finding_name'] = finding.get('finding')
+        email_context['finding_id'] = str(finding.get('findingId', ''))
+        email_context['finding_name'] = str(finding.get('finding', ''))
         comment_url = (
             base_url +
             '/project/{project}/{finding_type}/{id}/{comment_type}s'.format(
@@ -149,9 +154,9 @@ def send_comment_mail(comment_data: Dict[str, Any], entity_name: str,
                 project=project_name))
 
     elif entity_name == 'event':
-        event = entity
-        event_id = event.get('event_id')
-        project_name = event.get('project_name')
+        event = cast(EventType, entity)
+        event_id = str(event.get('event_id', ''))
+        project_name = str(event.get('project_name', ''))
         recipients = project_dal.get_users(project_name, True)
         email_context['finding_id'] = event_id
         email_context['finding_name'] = f'Event #{event_id}'
@@ -160,7 +165,7 @@ def send_comment_mail(comment_data: Dict[str, Any], entity_name: str,
             f'project/{project_name}/events/{event_id}/comments')
 
     elif entity_name == 'project':
-        project_name = entity
+        project_name = str(entity)
         recipients = get_email_recipients(project_name, True)
         comment_url = (
             base_url + '/project/{project!s}/comments'.format(project=project_name))
@@ -187,7 +192,7 @@ def send_comment_mail(comment_data: Dict[str, Any], entity_name: str,
     email_send_thread.start()
 
 
-def get_email_recipients(project_name: str, comment_type: Any) -> List[str]:
+def get_email_recipients(project_name: str, comment_type: Union[str, bool]) -> List[str]:
     project_users = project_dal.get_users(project_name)
     recipients: List[str] = []
 
@@ -259,7 +264,7 @@ def send_mail_resources(email_to: List[str], context: Dict[str, str]):
     _send_mail('resources-changes', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_unsolved_events(email_to: List[str], context: Dict[str, Any]):
+def send_mail_unsolved_events(email_to: List[str], context: Dict[str, str]):
     _send_mail('unsolvedevents', email_to, context=context, tags=GENERAL_TAG)
 
 

@@ -1,6 +1,7 @@
 """ FluidIntegrates services definition """
 
-from typing import Any, Dict, cast
+from typing import Dict, cast
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from backend.domain import (
@@ -9,11 +10,12 @@ from backend.domain import (
 
 from backend import util
 from backend.dal import project as project_dal
+from backend.dal.user import UserType
 
 
 @csrf_exempt
 @require_http_methods(["POST"])
-def login(request: Any) -> Any:
+def login(request) -> JsonResponse:
     """ Authentication service defintion. """
     username = request.session['username']
     return util.response([], 'Bienvenido ' + username, False)
@@ -69,7 +71,7 @@ def is_customeradmin(project: str, email: str) -> bool:
     return False
 
 
-def has_valid_access_token(email: str, context: Dict[Any, Any], jti: str) -> bool:
+def has_valid_access_token(email: str, context: Dict[str, str], jti: str) -> bool:
     """ Verify if has active access token and match. """
     access_token = cast(Dict[str, str], user_domain.get_data(email, 'access_token'))
     resp = False
@@ -99,14 +101,14 @@ def has_phone_number(email: str) -> str:
     return user_phone
 
 
-def get_user_role(user_data: Dict[Any, Any]) -> str:
+def get_user_role(user_data: UserType) -> str:
     if user_data.get('jti'):
-        role = user_domain.get_data(user_data['user_email'], 'role')
+        role = str(user_domain.get_data(str(user_data.get('user_email', '')), 'role'))
         if role == 'customeradmin':
             role = 'customer'
     else:
-        role = user_data['user_role']
-    return str(role)
+        role = str(user_data.get('user_role', ''))
+    return role
 
 
 def project_exists(project_name: str) -> bool:
