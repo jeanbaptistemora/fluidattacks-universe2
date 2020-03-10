@@ -3,6 +3,7 @@
 
 from datetime import datetime
 from typing import Union, Dict, List as _List
+import sys
 import threading
 
 from backend.domain import project as project_domain, user as user_domain
@@ -20,7 +21,7 @@ from backend import util
 
 import rollbar
 
-from ariadne import convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 def _create_new_user(
@@ -87,17 +88,63 @@ def _create_new_user(
     return success
 
 
-@convert_kwargs_to_snake_case
-def resolve_user(*_, project_name, user_email):
-    """Resolve user query."""
-    email: str = user_email
-    role: str = ''
-    responsability: str = ''
-    phone_number: str = ''
-    organization: str = ''
-    first_login: str = '-'
-    last_login: _List[int] = [-1, -1]
-    list_projects: _List[int] = []
+def _get_email(email, _=None):
+    """Get email."""
+    return email.lower()
+
+
+def _get_role(email, project_name):
+    """Get role."""
+    user_role = user_domain.get_data(email, 'role')
+    if project_name and is_customeradmin(project_name, email):
+        role = 'customer_admin'
+    elif user_role == 'customeradmin':
+        role = 'customer'
+    else:
+        role = user_role
+    return role
+
+
+def _get_phone_number(email, _=None):
+    """Get phone number."""
+    return has_phone_number(email)
+
+
+def _get_responsibility(email, project_name):
+    """Get responsibility."""
+    return has_responsibility(
+        project_name, email
+    ) if project_name else ''
+
+
+def _get_organization(email, _=None):
+    """Get organization."""
+    org = user_domain.get_data(email, 'company')
+    return org.title()
+
+
+def _get_first_login(email, _=None):
+    """Get first login."""
+    return user_domain.get_data(email, 'date_joined')
+
+
+def _get_last_login(email, _=None):
+    """Get last_login."""
+    last_login = user_domain.get_data(email, 'last_login')
+
+    if last_login == '1111-1-1 11:11:11' or not last_login:
+        last_login = [-1, -1]
+    else:
+        dates_difference = \
+            datetime.now() - datetime.strptime(last_login, '%Y-%m-%d %H:%M:%S')
+        diff_last_login = [dates_difference.days, dates_difference.seconds]
+        last_login = diff_last_login
+    return last_login
+
+
+def _get_list_projects(email, project_name):
+    """Get list projects."""
+    list_projects = list()
     if not project_name:
         projs_active = \
             ['{proj}: {description} - Active'.format(
@@ -111,53 +158,36 @@ def resolve_user(*_, project_name, user_email):
                 for proj in user_domain.get_projects(
                     email, active=False)]
         list_projects = projs_active + projs_suspended
+    return list_projects
 
-    last_login = user_domain.get_data(user_email, 'last_login')
 
-    if last_login == '1111-1-1 11:11:11' or not last_login:
-        last_login = [-1, -1]
-    else:
-        dates_difference = \
-            datetime.now() - datetime.strptime(last_login, '%Y-%m-%d %H:%M:%S')
-        diff_last_login = [dates_difference.days, dates_difference.seconds]
-        last_login = diff_last_login
-
-    first_login = user_domain.get_data(user_email, 'date_joined')
-    organization = user_domain.get_data(user_email, 'company')
-    organization = organization.title()
-    responsability = has_responsibility(
-        project_name, user_email) if project_name else ''
-    phone_number = has_phone_number(user_email)
-    user_role = user_domain.get_data(user_email, 'role')
-
-    if project_name and is_customeradmin(project_name, user_email):
-        role = 'customer_admin'
-    elif user_role == 'customeradmin':
-        role = 'customer'
-    else:
-        role = user_role
+@convert_kwargs_to_snake_case
+def resolve_user(_, info, project_name, user_email):
+    """Resolve user query."""
+    email: str = _get_email(user_email)
+    role: str = _get_role(email, project_name)
 
     if project_name and role:
         if role == 'admin':
             has_access = has_access_to_project(
-                user_email, project_name, role)
+                email, project_name, role)
         else:
             has_access = user_domain.get_project_access(
-                user_email, project_name)
+                email, project_name)
 
-        if not user_domain.get_data(user_email, 'email') or \
+        if not user_domain.get_data(email, 'email') or \
                 not has_access:
             raise UserNotFound()
-    return dict(
-        email=email.lower(),
-        role=role,
-        responsability=responsability,
-        phone_number=phone_number,
-        organization=organization,
-        first_login=first_login,
-        last_login=last_login,
-        list_projects=list_projects
-    )
+
+    result = dict()
+    for requested_field in info.field_nodes[0].selection_set.selections:
+        snake_field = convert_camel_case_to_snake(requested_field.name.value)
+        func_result = getattr(
+            sys.modules[__name__],
+            f'_get_{snake_field}'
+        )(email, project_name)
+        result[requested_field.name.value] = func_result
+    return result
 
 
 @convert_kwargs_to_snake_case

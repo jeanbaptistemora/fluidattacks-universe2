@@ -15,9 +15,14 @@ class UserTests(TestCase):
             query {
                 user(projectName: "unittesting",
                      userEmail: "continuoushacking@gmail.com") {
-                    organization
+                    email
+                    role
                     responsibility
                     phoneNumber
+                    organization
+                    firstLogin
+                    lastLogin
+                    listProjects
                 }
             }
         '''
