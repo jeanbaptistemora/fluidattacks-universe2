@@ -1,5 +1,6 @@
 """DAL functions for findings."""
 
+from decimal import Decimal
 from typing import Dict, List, Union
 import rollbar
 from boto3.dynamodb.conditions import Key
@@ -12,11 +13,14 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
 
+HistoricType = List[Dict[str, str]]
+EvidenceType = Dict[str, Dict[str, str]]
+
 FindingType = Union[
     str, list, float,
-    List[str],
-    List[Dict[str, str]],
-    Dict[str, str],
+    List[str], Dict[str, str],
+    HistoricType, EvidenceType,
+    Decimal,
     None
 ]
 

@@ -8,7 +8,7 @@ import logging
 import logging.config
 import re
 import secrets
-from typing import Any, Dict, List, cast
+from typing import Dict, List, cast
 import pytz
 import rollbar
 import requests
@@ -26,6 +26,8 @@ from django.core.cache import cache
 from jose import jwt, JWTError
 from backend.exceptions import (InvalidAuthorization, InvalidDate,
                                 InvalidDateFormat)
+from backend.dal.finding import FindingType
+from backend.dal.user import UserType
 from __init__ import (
     FI_ENVIRONMENT,
     FORCES_TRIGGER_URL,
@@ -42,7 +44,7 @@ SCRYPT_P = 1  # parallelization
 MAX_API_AGE_WEEKS = 26  # max exp time of access token 6 months
 
 
-def response(data: Any, message: str, error: bool) -> JsonResponse:
+def response(data: object, message: str, error: bool) -> JsonResponse:
     """ Create an object to send generic answers """
     response_data = {}
     response_data['data'] = data
@@ -73,7 +75,7 @@ def is_numeric(name: str) -> bool:
     return valid
 
 
-def ord_asc_by_criticidad(data: Any) -> Any:
+def ord_asc_by_criticidad(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """ Sort the findings by criticality """
     for i in range(0, len(data) - 1):
         for j in range(i + 1, len(data)):
@@ -86,32 +88,32 @@ def ord_asc_by_criticidad(data: Any) -> Any:
     return data
 
 
-def get_evidence_set(finding: Dict[str, Any]) -> List[Dict[str, str]]:
+def get_evidence_set(finding: Dict[str, FindingType]) -> List[Dict[str, FindingType]]:
     evidence_set = []
     if "evidence_route_1" in finding and "evidence_description_1" in finding:
         evidence_set.append({
             "id": finding["evidence_route_1"],
-            "explanation": finding["evidence_description_1"].capitalize()
+            "explanation": str(finding["evidence_description_1"]).capitalize()
         })
     if "evidence_route_2" in finding and "evidence_description_2" in finding:
         evidence_set.append({
             "id": finding["evidence_route_2"],
-            "explanation": finding["evidence_description_2"].capitalize()
+            "explanation": str(finding["evidence_description_2"]).capitalize()
         })
     if "evidence_route_3" in finding and "evidence_description_3" in finding:
         evidence_set.append({
             "id": finding["evidence_route_3"],
-            "explanation": finding["evidence_description_3"].capitalize()
+            "explanation": str(finding["evidence_description_3"]).capitalize()
         })
     if "evidence_route_4" in finding and "evidence_description_4" in finding:
         evidence_set.append({
             "id": finding["evidence_route_4"],
-            "explanation": finding["evidence_description_4"].capitalize()
+            "explanation": str(finding["evidence_description_4"]).capitalize()
         })
     if "evidence_route_5" in finding and "evidence_description_5" in finding:
         evidence_set.append({
             "id": finding["evidence_route_5"],
-            "explanation": finding["evidence_description_5"].capitalize()
+            "explanation": str(finding["evidence_description_5"]).capitalize()
         })
     return evidence_set
 
@@ -190,9 +192,9 @@ def validate_future_releases(finding: Dict[str, str]) -> bool:
     return result
 
 
-def cloudwatch_log(request: Any, msg: str):
+def cloudwatch_log(request, msg: str):
     user_data = get_jwt_content(request)
-    info = [user_data["user_email"], user_data["company"]]
+    info = [str(user_data["user_email"]), str(user_data["company"])]
     for parameter in ["project", "findingid"]:
         if parameter in request.POST.dict():
             info.append(request.POST.dict()[parameter])
@@ -203,7 +205,7 @@ def cloudwatch_log(request: Any, msg: str):
     LOGGER.info(":".join(info))
 
 
-def get_jwt_content(context: Any) -> Any:
+def get_jwt_content(context) -> Dict[str, str]:
     try:
         cookie_token = context.COOKIES.get(settings.JWT_COOKIE_NAME)  # type: ignore
         header_token = context.META.get('HTTP_AUTHORIZATION')
@@ -229,7 +231,7 @@ def get_jwt_content(context: Any) -> Any:
         raise InvalidAuthorization()
 
 
-def list_s3_objects(client_s3: Any, bucket_s3: Any, key: Any) -> List[str]:
+def list_s3_objects(client_s3, bucket_s3: object, key: str) -> List[str]:
     resp = client_s3.list_objects_v2(
         Bucket=bucket_s3,
         Prefix=key,
@@ -241,16 +243,16 @@ def list_s3_objects(client_s3: Any, bucket_s3: Any, key: Any) -> List[str]:
     return key_list
 
 
-def replace_all(text: str, dic: Dict[Any, Any]) -> str:
+def replace_all(text: str, dic: Dict[str, str]) -> str:
     for i, j in list(dic.items()):
         text = text.replace(i, j)
     return text
 
 
-def list_to_dict(keys: List[Any], values: List[Any]) -> Dict[Any, Any]:
+def list_to_dict(keys: List[object], values: List[object]) -> Dict[object, object]:
     """ Merge two lists into a {key: value} dictionary """
 
-    dct = collections.OrderedDict()
+    dct: Dict[object, object] = collections.OrderedDict()
     index = 0
 
     if len(keys) < len(values):
@@ -346,7 +348,7 @@ def calculate_hash_token() -> Dict[str, str]:
     }
 
 
-def verificate_hash_token(access_token: Dict[str, Any], jti_token: str) -> bool:
+def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> bool:
     resp = False
     backend = default_backend()
     token_hashed = Scrypt(
@@ -368,7 +370,7 @@ def verificate_hash_token(access_token: Dict[str, Any], jti_token: str) -> bool:
     return resp
 
 
-def is_api_token(user_data: Dict[str, Any]) -> bool:
+def is_api_token(user_data: UserType) -> bool:
     is_api = bool(user_data.get('jti'))
 
     return is_api
@@ -423,7 +425,7 @@ def forces_trigger_deployment(project_name: str) -> bool:
     return success
 
 
-def update_treatment_values(updated_values: Any) -> Dict[str, Any]:
+def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
     updated_values['external_bts'] = updated_values.get('bts_url', '')
     date = datetime.now() + timedelta(days=180)
     if updated_values.get('bts_url'):
@@ -444,8 +446,9 @@ def update_treatment_values(updated_values: Any) -> Dict[str, Any]:
             raise InvalidDateFormat()
         if updated_values.get('acceptance_date'):
             today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if updated_values.get('acceptance_date') <= today_date \
-               or updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
+            if str(updated_values.get('acceptance_date', '')) <= today_date \
+               or str(updated_values.get('acceptance_date', '')) > \
+               date.strftime('%Y-%m-%d %H:%M:%S'):
                 raise InvalidDate()
     if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
         updated_values['acceptation_approval'] = 'SUBMITTED'

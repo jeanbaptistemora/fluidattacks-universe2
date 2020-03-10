@@ -2,7 +2,8 @@ import io
 import itertools
 
 import threading
-from typing import Any, Dict, List, cast
+from datetime import datetime
+from typing import Dict, List, Union, cast
 import rollbar
 from backports import csv  # type: ignore
 from magic import Magic
@@ -11,6 +12,7 @@ from backend import util
 from backend.utils import cvss, forms as forms_utils
 
 from backend.dal import finding as finding_dal, project as project_dal, vulnerability as vuln_dal
+from backend.dal.finding import FindingType
 from backend.mailer import (
     send_mail_verified_finding, send_mail_remediate_finding, send_mail_delete_finding,
     send_mail_accepted_finding, send_mail_reject_draft, send_mail_new_draft
@@ -62,7 +64,7 @@ def _download_evidence_file(project_name: str, finding_id: str, file_name: str) 
 
 
 def get_records_from_file(
-        project_name: str, finding_id: str, file_name: str) -> List[Dict[str, str]]:
+        project_name: str, finding_id: str, file_name: str) -> List[Dict[object, object]]:
     file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = []
     encoding = Magic(mime_encoding=True).from_file(file_path)
@@ -92,7 +94,7 @@ def get_exploit_from_file(project_name: str, finding_id: str, file_name: str) ->
 
 
 # pylint: disable=simplifiable-if-expression
-def format_data(finding: Dict[Any, Any]) -> Dict[str, str]:
+def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     finding = {
         util.snakecase_to_camelcase(attribute): finding.get(attribute)
         for attribute in finding
@@ -104,16 +106,16 @@ def format_data(finding: Dict[Any, Any]) -> Dict[str, str]:
         finding['cvssVersion'] = finding.get('cvssVersion', '2')
     else:
         finding['age'] = util.calculate_datediff_since(
-            finding['releaseDate']).days
+            cast(datetime, finding['releaseDate'])).days
     finding['exploitable'] = forms_utils.is_exploitable(
-        float(finding['exploitability']), finding['cvssVersion']) == 'Si'
+        float(str(finding.get('exploitability', ''))), str(finding.get('cvssVersion', ''))) == 'Si'
 
-    historic_verification = finding.get('historicVerification', [{}])
+    historic_verification = cast(List[Dict[str, str]], finding.get('historicVerification', [{}]))
     finding['remediated'] = \
         (historic_verification[-1].get('status') == 'REQUESTED' and
          not historic_verification[-1].get('vulns', []))
 
-    vulns = vuln_dal.get_vulnerabilities(finding.get('findingId', ''))
+    vulns = vuln_dal.get_vulnerabilities(str(finding.get('findingId', '')))
     open_vulns = \
         [vuln for vuln in vulns
          if cast(List[Dict[str, str]], vuln.get('historic_state', [{}]))[-1].get(
@@ -124,18 +126,19 @@ def format_data(finding: Dict[Any, Any]) -> Dict[str, str]:
              'status') == 'REQUESTED']
     finding['newRemediated'] = len(open_vulns) == len(remediated_vulns)
     finding['verified'] = len(remediated_vulns) == 0
+    finding_files = cast(List[Dict[str, str]], finding.get('files'))
     finding['evidence'] = {
-        'animation': _get_evidence('animation', finding['files']),
-        'evidence1': _get_evidence('evidence_route_1', finding['files']),
-        'evidence2': _get_evidence('evidence_route_2', finding['files']),
-        'evidence3': _get_evidence('evidence_route_3', finding['files']),
-        'evidence4': _get_evidence('evidence_route_4', finding['files']),
-        'evidence5': _get_evidence('evidence_route_5', finding['files']),
-        'exploitation': _get_evidence('exploitation', finding['files'])
+        'animation': _get_evidence('animation', finding_files),
+        'evidence1': _get_evidence('evidence_route_1', finding_files),
+        'evidence2': _get_evidence('evidence_route_2', finding_files),
+        'evidence3': _get_evidence('evidence_route_3', finding_files),
+        'evidence4': _get_evidence('evidence_route_4', finding_files),
+        'evidence5': _get_evidence('evidence_route_5', finding_files),
+        'exploitation': _get_evidence('exploitation', finding_files)
     }
     finding['compromisedAttrs'] = finding.get('records', '')
-    finding['records'] = _get_evidence('fileRecords', finding['files'])
-    finding['exploit'] = _get_evidence('exploit', finding['files'])
+    finding['records'] = _get_evidence('fileRecords', finding_files)
+    finding['exploit'] = _get_evidence('exploit', finding_files)
 
     cvss_fields = {
         '2': ['accessComplexity', 'accessVector', 'authentication',
@@ -156,14 +159,14 @@ def format_data(finding: Dict[Any, Any]) -> Dict[str, str]:
                 'severityScope', 'userInteraction']
     }
     finding['severity'] = {
-        field: float(finding.get(field, 0))
-        for field in cvss_fields[finding['cvssVersion']]
+        field: cast(str, float(str(finding.get(field, 0))))
+        for field in cvss_fields[str(finding['cvssVersion'])]
     }
     base_score = cvss.calculate_cvss_basescore(
-        finding['severity'], CVSS_PARAMETERS[finding['cvssVersion']],
-        finding['cvssVersion'])
+        cast(Dict[str, float], finding['severity']), CVSS_PARAMETERS[str(finding['cvssVersion'])],
+        str(finding['cvssVersion']))
     finding['severityCvss'] = cvss.calculate_cvss_temporal(
-        finding['severity'], base_score, finding['cvssVersion'])
+        cast(Dict[str, float], finding['severity']), base_score, str(finding['cvssVersion']))
 
     return finding
 
@@ -227,12 +230,13 @@ def send_remediation_email(user_email: str, finding_id: str, finding_name: str,
     email_send_thread.start()
 
 
-def send_accepted_email(finding: Any, justification: str):
-    project_name = finding.get('projectName')
-    finding_name = finding.get('finding')
+def send_accepted_email(finding: Dict[str, FindingType], justification: str):
+    project_name = str(finding.get('projectName', ''))
+    finding_name = str(finding.get('finding', ''))
+    last_historic_treatment = cast(List[Dict[str, str]], finding.get('historicTreatment'))[-1]
     recipients = project_dal.get_users(project_name)
     treatment = 'Accepted'
-    if finding.get('historicTreatment')[-1]['treatment'] == 'ACCEPTED_UNDEFINED':
+    if last_historic_treatment['treatment'] == 'ACCEPTED_UNDEFINED':
         treatment = 'Indefinitely accepted'
     email_send_thread = threading.Thread(
         name='Accepted finding email thread',
@@ -242,7 +246,7 @@ def send_accepted_email(finding: Any, justification: str):
             'finding_id': finding.get('finding_id'),
             'project': project_name.capitalize(),
             'justification': justification,
-            'user_email': finding.get('historicTreatment')[-1]['user'],
+            'user_email': last_historic_treatment['user'],
             'treatment': treatment
         }))
 

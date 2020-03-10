@@ -2,7 +2,7 @@
 """ Auxiliar functions for forms handling """
 
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Dict, List
 
 # pylint: disable=redefined-builtin
 try:
@@ -11,17 +11,18 @@ except NameError:
     from functools import reduce
 
 
-def dict_concatenation(dict_1: Dict[Any, Any], dict_2: Dict[Any, Any]) -> Dict[Any, Any]:
+def dict_concatenation(
+        dict_1: Dict[object, object], dict_2: Dict[object, object]) -> Dict[object, object]:
     dict_1_copy = dict_1.copy()
     dict_1_copy.update(dict_2)
     return dict_1_copy
 
 
-def remove_standard_keys(dictionary: Dict[Any, Any]) -> Dict[Any, Any]:
+def remove_standard_keys(dictionary: Dict[object, object]) -> Dict[object, object]:
     return {dictionary['field']: dictionary['value']}
 
 
-def merge_dicts_list_into_dict(dicts_list: List[Dict[Any, Any]]) -> Dict[Any, Any]:
+def merge_dicts_list_into_dict(dicts_list: List[Dict[object, object]]) -> Dict[object, object]:
     dicts_without_standard_keys = [remove_standard_keys(x)
                                    for x in dicts_list]
     return reduce(dict_concatenation, dicts_without_standard_keys)

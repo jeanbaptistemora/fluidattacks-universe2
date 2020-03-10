@@ -143,7 +143,7 @@ def create_without_project(user_data: UserType) -> bool:
     phone_number = ''
     success = False
     if (
-        validate_field(user_data.get('organization', '')) and
+        validate_field(cast(List[str], user_data.get('organization', ''))) and
         validate_phone_field(str(user_data.get('phone_number', ''))) and
         validate_email_address(str(user_data.get('email', '')))
     ):

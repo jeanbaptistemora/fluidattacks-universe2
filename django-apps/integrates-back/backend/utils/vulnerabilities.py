@@ -1,11 +1,13 @@
-from typing import Any, List, Dict
+from typing import List, Dict, cast
 from backend.exceptions import InvalidRange
+from backend.dal.finding import FindingType
 
 
-def format_data(vuln: Dict[Any, Any]) -> Dict[Any, Any]:
-    vuln['current_state'] = vuln.get('historic_state', [{}])[-1].get('state')
+def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
+    vuln['current_state'] = cast(List[Dict[str, str]],
+                                 vuln.get('historic_state', [{}]))[-1].get('state')
     vuln['treatment'] = ('-' if vuln['current_state'] == 'closed'
-                         else vuln.get('treatment', '')).lower().capitalize()
+                         else str(vuln.get('treatment', ''))).lower().capitalize()
 
     return vuln
 
