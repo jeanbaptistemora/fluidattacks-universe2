@@ -566,7 +566,7 @@ def fluidcounts(path):
     exclude_list = ",".join(doc_langs + style_langs + format_langs)
     exclude_lang = '--exclude-lang=' + exclude_list
     call_cloc = ['cloc', force_lang_def, exclude_lang]
-    call_cloc += [path, '--ignored', 'ignored.txt']
+    call_cloc += [path, '--ignored', 'ignored.txt', '--timeout', '900']
     try:
         myenv = os.environ.copy()
         myenv['LC_ALL'] = 'C'
