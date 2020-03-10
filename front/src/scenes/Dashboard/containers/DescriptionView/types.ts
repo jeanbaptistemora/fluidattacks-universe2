@@ -22,9 +22,3 @@ export interface IVerifyFindingResult {
     success: boolean;
   };
 }
-
-export interface IRequestVerificationResult {
-  requestVerification: {
-    success: boolean;
-  };
-}

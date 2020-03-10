@@ -14,7 +14,7 @@ from backend.api.schema import SCHEMA
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.domain.finding import get_finding
-from backend.exceptions import FindingNotFound, AlreadyRequested, NotVerificationRequested
+from backend.exceptions import FindingNotFound, NotVerificationRequested
 
 
 class FindingTests(TestCase):
@@ -328,23 +328,6 @@ class FindingTests(TestCase):
         result = self._get_result(query_bts_empty, testing_client, request_loaders)
         assert 'errors' not in result
         assert result['data']['updateClientDescription']['success']
-
-    def test_request_verification(self):
-        query = '''
-          mutation {
-            requestVerification(
-                findingId: "463558592",
-                justification: "This is a commenting test of a request verification."
-            ) {
-              success
-            }
-          }
-        '''
-        testing_client = Client(SCHEMA)
-        request_loaders = {'finding': FindingLoader()}
-        result = self._get_result(query, testing_client, request_loaders)
-        assert 'errors' in result
-        assert result['errors'][0]['message'] == str(AlreadyRequested())
 
     def test_verify_finding(self):
         query = '''

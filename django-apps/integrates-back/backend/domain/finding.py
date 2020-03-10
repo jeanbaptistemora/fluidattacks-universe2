@@ -219,57 +219,6 @@ def handle_acceptation(finding_id, observations, user_mail, response):
     return finding_dal.update(finding_id, {'historic_treatment': historic_treatment})
 
 
-def request_verification(finding_id, user_email, user_fullname, justification):
-    finding = get_finding(finding_id)
-    project_name = finding.get('projectName')
-    finding_name = finding.get('finding')
-    success = False
-    if finding.get('historicVerification', [{}])[-1].get('status') != 'REQUESTED':
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-        historic_verification = finding.get('historicVerification', [])
-        comment_id = int(round(time() * 1000))
-        new_state = {
-            'date': today,
-            'user': user_email,
-            'status': 'REQUESTED',
-            'comment': comment_id,
-        }
-        historic_verification.append(new_state)
-        comment_data = {
-            'user_id': comment_id,
-            'comment_type': 'verification',
-            'content': justification,
-            'fullname': user_fullname,
-            'parent': 0
-        }
-        add_comment(
-            user_email=user_email,
-            comment_data=comment_data,
-            finding_id=finding_id,
-            is_remediation_comment=True
-        )
-        success = finding_dal.update(
-            finding_id, {'historic_verification': historic_verification})
-
-        if success:
-            finding_utils.send_remediation_email(
-                user_email, finding_id, finding_name, project_name, justification)
-            project_users = project_dal.get_users(project_name)
-            notifications.notify_mobile(
-                project_users,
-                t('notifications.remediated.title'),
-                t('notifications.remediated.content',
-                    finding=finding_name, project=project_name.upper()))
-        else:
-            rollbar.report_message(
-                'Error: An error occurred remediating the finding', 'error')
-    else:
-        raise AlreadyRequested()
-
-    return success
-
-
 def calc_risk_level(probability, severity):
     return str(round((probability / 100) * severity, 1))
 

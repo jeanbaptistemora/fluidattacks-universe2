@@ -177,10 +177,6 @@ type Mutation {
         projectName: String!,
         response: String!
     ): SimplePayload!
-    requestVerification(
-        findingId: String!,
-        justification: String!
-    ): SimplePayload!
     updateDescription(
         actor: String!,
         affectedSystems: String!,

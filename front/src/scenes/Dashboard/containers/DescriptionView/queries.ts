@@ -13,17 +13,6 @@ export const HANDLE_ACCEPTATION: DocumentNode = gql
     }
   }`;
 
-export const REQUEST_VERIFICATION: DocumentNode = gql`
-  mutation RequestVerification ($findingId: String!, $justification: String!) {
-    requestVerification(
-      findingId: $findingId,
-      justification: $justification
-    ) {
-      success
-    }
-  }
-`;
-
 export const VERIFY_FINDING: DocumentNode = gql`
   mutation VerifyFinding ($findingId: String!, $justification: String!) {
     verifyFinding(

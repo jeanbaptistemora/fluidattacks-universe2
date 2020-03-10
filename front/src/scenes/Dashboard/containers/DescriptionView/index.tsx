@@ -36,10 +36,8 @@ import { loadProjectData } from "../ProjectContent/actions";
 import * as actions from "./actions";
 import * as actionTypes from "./actionTypes";
 import { renderFormFields } from "./formStructure";
-import { HANDLE_ACCEPTATION, REQUEST_VERIFICATION, VERIFY_FINDING } from "./queries";
-import {
-  IAcceptationApprovalAttrs, IHistoricTreatment, IRequestVerificationResult, IVerifyFindingResult,
-} from "./types";
+import { HANDLE_ACCEPTATION, VERIFY_FINDING } from "./queries";
+import { IAcceptationApprovalAttrs, IHistoricTreatment, IVerifyFindingResult } from "./types";
 
 export interface IDescriptionViewProps {
   dataset: {
@@ -322,33 +320,6 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
     thunkDispatch(actions.loadDescription(props.findingId, props.projectName, props.userRole));
   };
 
-  const [requestVerification, {loading: submittingRequest}] = useMutation(REQUEST_VERIFICATION, {
-    onCompleted: (data: IRequestVerificationResult): void => {
-      if (data.requestVerification.success) {
-        store.dispatch({
-          payload: {
-            descriptionData: { remediated: true },
-          },
-          type: actionTypes.LOAD_DESCRIPTION,
-        });
-        msgSuccess(
-          translate.t("proj_alerts.verified_success"),
-          translate.t("proj_alerts.updated_title"),
-        );
-      }
-    },
-    onError: (error: ApolloError): void => {
-      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        if (message === "Exception - Request verification already requested") {
-          msgError(translate.t("proj_alerts.verification_already_requested"));
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, error);
-        }
-      });
-    },
-  });
-
   const [verifyFinding, {loading: submittingVerify}] = useMutation(VERIFY_FINDING, {
     onCompleted: (data: IVerifyFindingResult): void => {
       if (data.verifyFinding.success) {
@@ -428,7 +399,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                       `${props.dataset.openVulnerabilities} vulnerabilities will be assumed`
                       : undefined
                     }
-                    isLoading={submittingRequest || submittingVerify}
+                    isLoading={submittingVerify}
                     isOpen={props.isRemediationOpen}
                     message={
                       remediationType === "request_verification" ?
@@ -437,14 +408,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                     }
                     onClose={(): void => { store.dispatch(actions.closeRemediationMdl()); }}
                     onSubmit={(values: { treatmentJustification: string }): void => {
-                      if (remediationType === "request_verification") {
-                        requestVerification({
-                          variables: {
-                            findingId: props.findingId, justification: values.treatmentJustification,
-                          },
-                        })
-                        .catch();
-                      } else if (remediationType === "verify_request") {
+                      if (remediationType === "verify_request") {
                         verifyFinding({
                           variables: {
                             findingId: props.findingId, justification: values.treatmentJustification,

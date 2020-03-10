@@ -618,36 +618,6 @@ class HandleAcceptation(Mutation):
         return ret
 
 
-class RequestVerification(Mutation):
-    """ Request verification """
-    class Arguments():
-        finding_id = String(required=True)
-        justification = String(required=True)
-    success = Boolean()
-
-    @require_login
-    @enforce_authz
-    @require_finding_access
-    def mutate(self, info, finding_id, justification):
-        project_name = project_domain.get_finding_project_name(finding_id)
-        user_info = util.get_jwt_content(info.context)
-        success = finding_domain.request_verification(
-            finding_id=finding_id,
-            user_email=user_info['user_email'],
-            user_fullname=str.join(' ',
-                                   [user_info['first_name'],
-                                    user_info['last_name']]),
-            justification=justification
-        )
-        if success:
-            util.invalidate_cache(finding_id)
-            util.invalidate_cache(project_name)
-            util.cloudwatch_log(info.context, 'Security: Verified a request '
-                                f'in finding_id: {finding_id}')
-        ret = RequestVerification(success=success)
-        return ret
-
-
 class UpdateDescription(Mutation):
     """ Update description of a finding """
     class Arguments():
