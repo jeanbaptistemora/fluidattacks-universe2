@@ -39,7 +39,7 @@ def _get_projects(jwt_content):
     user_email = jwt_content.get('user_email')
     for project in user_domain.get_projects(user_email):
         projects.append(
-            dict(project_name=project,
+            dict(name=project,
                  description=project_domain.get_description(project))
         )
     return projects
@@ -77,6 +77,8 @@ def resolve_me(_, info):
     result = dict()
     for requested_field in info.field_nodes[0].selection_set.selections:
         snake_field = convert_camel_case_to_snake(requested_field.name.value)
+        if snake_field.startswith('_'):
+            continue
         func_result = getattr(
             sys.modules[__name__],
             f'_get_{snake_field}'

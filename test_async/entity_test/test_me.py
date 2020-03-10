@@ -35,7 +35,7 @@ class MeTests(TestCase):
         request.session['role'] = 'admin'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'unittest',
+                'user_email': 'integratesanalyst@gmail.com',
                 'user_role': 'admin',
                 'company': 'unittest'
             },
@@ -47,6 +47,9 @@ class MeTests(TestCase):
         assert 'role' in result['data']['me']
         assert result['data']['me']['role'] == 'admin'
         assert 'projects' in result['data']['me']
+        for project in result['data']['me']['projects']:
+            assert 'name' in project
+            assert 'description' in project
 
     def test_sign_in(self):
         """Check for signIn mutation."""

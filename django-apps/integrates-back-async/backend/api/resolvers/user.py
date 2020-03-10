@@ -186,6 +186,8 @@ def resolve_user(_, info, project_name, user_email):
     result = dict()
     for requested_field in info.field_nodes[0].selection_set.selections:
         snake_field = convert_camel_case_to_snake(requested_field.name.value)
+        if snake_field.startswith('_'):
+            continue
         func_result = getattr(
             sys.modules[__name__],
             f'_get_{snake_field}'

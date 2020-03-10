@@ -170,3 +170,40 @@ class UserTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['removeUserAccess']
         assert 'removedEmail' in result['data']['removeUserAccess']
+
+    def test_edit_user(self):
+        """Check for editUser mutation."""
+        query = '''
+            mutation {
+              editUser (
+                email: "test@test.testedited",
+                organization: "edited",
+                phoneNumber: "17364735",
+                projectName: "unittesting",
+                responsibility: "edited",
+                role: "customer") {
+                  success
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'username': 'unittest',
+                'company': 'unittest',
+                'role': 'admin',
+                'user_email': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['editUser']
