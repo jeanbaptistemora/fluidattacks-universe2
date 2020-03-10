@@ -252,7 +252,7 @@ asserts-static:
               --id ${BREAK_BUILD_ID}
               --secret ${BREAK_BUILD_SECRET}
               --gitlab-docker-socket-binding
-             ) || true
+             )
   except:
     - master
   interruptible: true
@@ -271,7 +271,7 @@ asserts-dynamic:
               --id ${BREAK_BUILD_ID}
               --secret ${BREAK_BUILD_SECRET}
               --gitlab-docker-socket-binding
-             ) || true
+             )
   only:
     - master
   interruptible: true
