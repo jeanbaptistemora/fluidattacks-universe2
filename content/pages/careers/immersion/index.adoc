@@ -95,30 +95,24 @@ perseverance, and performance.
 
 == 6. Training sequence
 
-Hacking, programming challenges, and blog entries
-must be completed in the following order:
+On this stage you will deal with three types of challenges:
+link:https://gitlab.com/autonomicmind/training/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=code[Programming],
+link:https://gitlab.com/autonomicmind/training/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=hack[Hacking]
+and link:https://gitlab.com/fluidattacks/writeups/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=vbd[Vulnerable by Design (+VbD+)].
+The  purpose is to solve within a short time
+as many *unique challenges* as possible
+always seeking a balance between all categories.
+This means that every category must have
+the same ammount of unique solutions (standard deviation = 0).
+Every +MR+ must contribute to the balance of this metric,
+otherwise the +MR+ will be closed.
 
-. Complete *five (5)* challenge cycles.
+You can keep tracking of your metrics in the following page:
+----
+https://fluidattacks.com/training/users/{$GITLAB_USERNAME}/
+----
 
-.. A challenge cycle consists of the following steps.
-Remember, these steps must be completed in the order listed below.
-
-... *One (1)* approved +MR+ solving a +programming+ challenge in the
-link:https://gitlab.com/autonomicmind/training/[training repository].
-
-... *One (1)* approved +MR+ solving a +ctf-hacking+ challenge in the
-link:https://gitlab.com/autonomicmind/training/[training repository].
-
-... *One (1)* approved +MR+ solving a +vbd-hacking+ challenge in the
-link:https://gitlab.com/fluidattacks/writeups[writeups repository].
-An +MR+ is considered approved when it’s merged to the +master+ branch
-of each repository.
-
-.. Do *NOT* do the following:
-+
-* Do *NOT* send consecutive +MR+ solving challenges of the same type.
-* Do *NOT* change the cycle order in any way.
-* Do *NOT* skip any challenge type in the cycle.
+Just replace your +{$GITLAB_USERNAME}+.
 
 . After you have completed *five (5)* challenge cycles
 write *one (1)* article for the blog by sending an +MR+
