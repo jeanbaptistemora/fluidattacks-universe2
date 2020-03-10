@@ -90,6 +90,7 @@ function job_analytics_git {
   local log_file
   local num_threads='8'
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+  local vpn_reader_helper='1'
 
       aws_login \
   &&  sops_env secrets-prod.yaml default \
@@ -110,6 +111,7 @@ function job_analytics_git {
       DEV_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       DEV_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+      GIT_SSL_NO_VERIFY="${vpn_reader_helper}" \
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       python3 analytics/git/clone_them.py  \
