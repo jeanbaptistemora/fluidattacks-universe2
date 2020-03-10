@@ -50,8 +50,8 @@ function sync_s3 {
         ;;
     esac
     aws s3 sync                        \
-      "${source_code}/web"             \
-      "s3://${bucket_path}/web"        \
+      "${source_code}/"                \
+      "s3://${bucket_path}/"           \
       --acl public-read                \
       --exclude "*"                    \
       --include "*.${extension}"       \
@@ -101,8 +101,6 @@ function deploy_eph {
   sed -i "s|https://fluidattacks.com|http://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/pelicanconf.py
   npm run --prefix /app/deploy/builder/ build
   /app/build-site.sh
-  cp -a /app/deploy/ephemeral/index.html /app/output/
-  cp -a /app/deploy/ephemeral/index-error.html /app/output/
   /app/html-lint.sh
   sync_s3 /app/output/ "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
   mv /app/cache "${CI_PROJECT_DIR}/cache"

@@ -11,3 +11,17 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
     Pry = "General"
   }
 }
+
+resource "aws_s3_bucket_object" "home-index" {
+  bucket       = aws_s3_bucket.web-ephemeral-bucket.id
+  key          = "index.html"
+  source       = "index.html"
+  content_type = "text/html"
+}
+
+resource "aws_s3_bucket_object" "error-index" {
+  bucket       = aws_s3_bucket.web-ephemeral-bucket.id
+  key          = "index-error.html"
+  source       = "index-error.html"
+  content_type = "text/html"
+}
