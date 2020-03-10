@@ -494,6 +494,19 @@ class ViewTestCase(unittest.TestCase):
         selenium.find_element_by_xpath(
             '//*/button[contains(text(), "Cancel")]').click()
 
+        selenium.execute_script(
+            'window.scrollTo(680, 980);')
+        selenium.save_screenshot(SCR_PATH + '14-08-resources.png')
+        selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[10]/div/div/button ').click()
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Delete Project')]")))
+        time.sleep(1)
+        selenium.save_screenshot(SCR_PATH + '14-09-resources.png')
+        selenium.find_element_by_xpath(
+            '//*/button[contains(text(), "Cancel")]').click()
+
         total_tables = len(selenium.find_elements_by_tag_name("table"))
         assert total_tables == 4
         assert 'https://fluidattacks.com' in selenium.page_source

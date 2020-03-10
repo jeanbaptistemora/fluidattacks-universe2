@@ -48,7 +48,9 @@ describe("ProjectSettingsView", () => {
         projectName: "TEST",
       },
     },
-    result: { data: { project: { __typename: "Project", deletionDate: "" } } },
+    result: { data: {
+      me: { __typename: "Me", role: "customer" },
+      project: { __typename: "Project", deletionDate: "" } } },
   };
 
   const mocksTags: Readonly<MockedResponse> = {

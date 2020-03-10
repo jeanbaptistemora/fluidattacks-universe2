@@ -22,7 +22,7 @@ import { ISettingsViewProps } from "./types";
 
 const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
   // Side effects
   const onMount: (() => void) = (): void => {
@@ -52,7 +52,7 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
         <Files projectName={props.match.params.projectName} />
         <hr />
         <Portfolio projectName={props.match.params.projectName} />
-          {userRole === "admin" ? (
+          {_.includes(["customeradmin", "admin"], data.me.role) ? (
             <React.Fragment>
               <hr />
               <Row>
@@ -67,7 +67,7 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
               </Row>
               <Row>
                 <br />
-                <Col md={2} mdOffset={5}>
+                <Col md={4} mdOffset={5}>
                     <ButtonToolbar>
                       <Button onClick={openRemoveModal}>
                         <Glyphicon glyph="minus" />&nbsp;{translate.t("search_findings.tab_resources.removeProject")}

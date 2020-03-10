@@ -215,6 +215,8 @@ class ActionAbacTest(TestCase):
         'backend_entity_user_EditUser_mutate',
         'backend_entity_finding_HandleAcceptation_mutate',
         'backend_entity_project_Project_resolve_users',
+        'backend_entity_project_RequestRemoveProject_mutate',
+        'backend_entity_project_RejectRemoveProject_mutate',
     }
     customeradmin_allowed_actions.update(customer_allowed_actions)
 
