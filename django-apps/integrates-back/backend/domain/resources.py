@@ -171,7 +171,7 @@ def download_file(file_info: str, project_name: str) -> str:
                     file_url, minutes_until_expire)
 
 
-def _has_repeated_envs(project_name: str, envs: List[Dict[str, str]]) -> bool:
+def has_repeated_envs(project_name: str, envs: List[Dict[str, str]]) -> bool:
     unique_inputs = list({env['urlEnv']: env for env in envs}.values())
     has_repeated_inputs = len(envs) != len(unique_inputs)
 
@@ -180,12 +180,12 @@ def _has_repeated_envs(project_name: str, envs: List[Dict[str, str]]) -> bool:
     all_envs = [{'urlEnv': env['urlEnv']} for env in existing_envs] + envs
 
     unique_envs = list({env['urlEnv']: env for env in all_envs}.values())
-    has_repeated_envs = len(all_envs) != len(unique_envs)
+    has_repeated_existing = len(all_envs) != len(unique_envs)
 
-    return has_repeated_inputs or has_repeated_envs
+    return has_repeated_inputs or has_repeated_existing
 
 
-def _has_repeated_repos(
+def has_repeated_repos(
         project_name: str, repos: List[Dict[str, str]]) -> bool:
     unique_inputs = list({
         (repo['urlRepo'], repo['branch'], repo.get('protocol', '')): repo
@@ -207,9 +207,9 @@ def _has_repeated_repos(
         (repo['urlRepo'], repo['branch'], repo.get('protocol')): repo
         for repo in all_repos
     }.values())
-    has_repeated_repos = len(all_repos) != len(unique_repos)
+    has_repeated_existing = len(all_repos) != len(unique_repos)
 
-    return has_repeated_inputs or has_repeated_repos
+    return has_repeated_inputs or has_repeated_existing
 
 
 def create_resource(res_data: List[Dict[str, str]], project_name: str,
@@ -218,12 +218,12 @@ def create_resource(res_data: List[Dict[str, str]], project_name: str,
     if res_type == 'repository':
         res_id = 'urlRepo'
         res_name = 'repositories'
-        if _has_repeated_repos(project_name, res_data):
+        if has_repeated_repos(project_name, res_data):
             raise RepeatedValues()
     elif res_type == 'environment':
         res_id = 'urlEnv'
         res_name = 'environments'
-        if _has_repeated_envs(project_name, res_data):
+        if has_repeated_envs(project_name, res_data):
             raise RepeatedValues()
     json_data: List[resources_dal.ResourceType] = []
     for res in res_data:

@@ -58,10 +58,10 @@ class ResourceTests(TestCase):
     def test_add_resources(self):
         """ Check for add project resources"""
         repos_to_add = [
-            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidattacks/integrates'}
+            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidattacks/asserts.git'}
         ]
         envs_to_add = [
-            {'urlEnv': 'https://fluidattacks.com/integrates'}
+            {'urlEnv': 'https://fluidattacks.com/asserts/'}
         ]
         query = '''mutation {
           addRepository: addResources(
@@ -105,6 +105,78 @@ class ResourceTests(TestCase):
         assert len([result_empty.data.get(value)['success']
                for value in result.data if 'Env' in value]) > 0
 
+    def test_add_repositories(self):
+        """ Check for add project repos """
+        query = '''mutation {
+          addRepositories(projectName: "unittesting", repos: [
+            {
+              urlRepo: "https://gitlab.com/fluidattacks/integrates.git",
+              branch: "master",
+              protocol: "HTTPS"
+            },
+            {
+              urlRepo: "git@gitlab.com:fluidattacks/serves.git",
+              branch: "master",
+              protocol: "SSH"
+            },
+            {
+              urlRepo: "https://gitlab.com/fluidattacks/web.git",
+              branch: "master",
+              protocol: "HTTPS"
+            }
+          ]) {
+            success
+          }
+        }'''
+
+        result = self._get_result(query, False)
+        assert not result.errors
+        assert result.data['addRepositories']['success']
+
+    def test_add_environments(self):
+        """ Check for add project envs """
+        query = '''mutation {
+          addEnvironments(projectName: "unittesting", envs: [
+            {urlEnv: "https://fluidattacks.com/integrates"},
+            {urlEnv: "https://fluidattacks.com/web"},
+          ]) {
+            success
+          }
+        }'''
+
+        result = self._get_result(query, False)
+        assert not result.errors
+        assert result.data['addEnvironments']['success']
+
+    def test_update_repository(self):
+        """ Check for update repository state """
+        query = '''mutation {
+          updateRepository(projectName: "unittesting", state: INACTIVE, repo: {
+            urlRepo: "https://gitlab.com/fluidattacks/integrates.git",
+            branch: "master",
+            protocol: "HTTPS"
+          }) {
+            success
+          }
+        }'''
+
+        result = self._get_result(query, False)
+        assert not result.errors
+        assert result.data['updateRepository']['success']
+
+    def test_update_environment(self):
+        """ Check for update environment state """
+        query = '''mutation {
+          updateEnvironment(projectName: "unittesting", state: INACTIVE, env: {
+            urlEnv: "https://gitlab.com/fluidattacks/integrates.git"
+          }) {
+            success
+          }
+        }'''
+
+        result = self._get_result(query, False)
+        assert not result.errors
+        assert result.data['updateEnvironment']['success']
 
     def test_update_resources(self):
         """ Check for update project resources """
