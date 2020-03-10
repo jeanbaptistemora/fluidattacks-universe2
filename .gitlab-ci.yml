@@ -379,7 +379,7 @@ forces_static:
               --id ${FORCES_ID}
               --secret ${FORCES_SECRET}
               --gitlab-docker-socket-binding
-             ) || true
+             )
   except:
     - master
   interruptible: true
