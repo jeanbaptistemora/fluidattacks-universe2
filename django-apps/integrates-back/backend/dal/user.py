@@ -4,6 +4,7 @@ import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
+from backend.typing import User as UserType
 
 from __init__ import FI_TEST_PROJECTS
 
@@ -11,13 +12,6 @@ TABLE = 'FI_users'
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
-
-UserType = Dict[str, Union[
-    str, bool,
-    List[str],
-    Dict[str, object],
-    None
-]]
 
 
 def get_admins() -> List[str]:

@@ -9,10 +9,11 @@ from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
 from backend import util
-from backend.dal.comment import CommentType
 from backend.dal.event import TABLE as EVENTS_TABLE
-from backend.dal.finding import FindingType
 from backend.dal.helpers import dynamodb
+from backend.typing import (
+    Comment as CommentType, Finding as FindingType, Project as ProjectType
+)
 from backend.dal.finding import get_finding, TABLE as FINDINGS_TABLE
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
@@ -20,8 +21,6 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
-
-ProjectType = Dict[str, Union[str, List[str], object]]
 
 
 def get_current_month_information(project_name: str, query_db: str) -> str:

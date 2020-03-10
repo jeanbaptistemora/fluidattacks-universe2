@@ -6,11 +6,10 @@ from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
 
 from backend.dal.helpers import dynamodb
+from backend.typing import Comment as CommentType
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_comments')
-
-CommentType = Dict[str, Union[int, str, object]]
 
 
 def create(comment_id: int, comment_attributes: CommentType) -> bool:

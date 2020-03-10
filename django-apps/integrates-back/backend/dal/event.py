@@ -4,13 +4,12 @@ from typing import Dict, List, Union
 import rollbar
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb, s3
+from backend.typing import Event as EventType
 
 from __init__ import FI_AWS_S3_BUCKET
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('fi_events')
-
-EventType = Dict[str, Union[List[Dict[str, str]], str, None]]
 
 
 def create(event_id: str, project_name: str, event_attributes: EventType) -> bool:

@@ -3,6 +3,7 @@
 from decimal import Decimal
 from typing import Dict, List, Union
 import rollbar
+from backend.typing import Finding as FindingType
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
@@ -12,17 +13,6 @@ from __init__ import FI_AWS_S3_BUCKET
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
-
-HistoricType = List[Dict[str, str]]
-EvidenceType = Dict[str, Dict[str, str]]
-
-FindingType = Union[
-    str, list, float,
-    List[str], Dict[str, str],
-    HistoricType, EvidenceType,
-    Decimal,
-    None
-]
 
 
 def _escape_alnum(string: str) -> str:

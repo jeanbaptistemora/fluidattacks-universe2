@@ -3,14 +3,13 @@ from typing import Dict, List, Union
 from botocore.exceptions import ClientError
 import rollbar
 from backend.dal.helpers import dynamodb, s3
+from backend.typing import Resource as ResourceType
 from backend.dal import project as project_dal
 
 from __init__ import FI_AWS_S3_RESOURCES_BUCKET
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
-
-ResourceType = Dict[str, Union[str, List[Dict[str, str]]]]
 
 
 def search_file(file_name: str) -> List[str]:
