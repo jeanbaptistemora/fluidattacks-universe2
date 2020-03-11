@@ -1618,7 +1618,8 @@ def has_sqli_time(url_safe: str,
                   args_safe: List = None,
                   kwargs_safe: Dict = None,
                   args_break: List = None,
-                  kwargs_break: Dict = None) -> tuple:
+                  kwargs_break: Dict = None,
+                  allow_con_errors: bool = False) -> tuple:
     """
     Check SQLi vulnerability by checking the delay of response.
 
@@ -1656,6 +1657,11 @@ def has_sqli_time(url_safe: str,
 
     last_exc = None
 
+    kwargs_safe = kwargs_safe or {}
+    args_safe = args_safe or []
+    kwargs_break = kwargs_break or {}
+    args_break = args_break or []
+
     for _ in range(6):
         try:
             req = http.HTTPSession(url_safe, *args_safe, **kwargs_safe)
@@ -1676,7 +1682,6 @@ def has_sqli_time(url_safe: str,
             not isinstance(kwargs_safe, dict) and kwargs_safe is not None):
         raise TypeError('kwargs must be a Dict')
 
-    kwargs_break = kwargs_break or {}
     kwargs_break.update({'timeout': time + (avg_time * 1.3)})
 
     session_break = http.HTTPSession(
@@ -1698,7 +1703,7 @@ def has_sqli_time(url_safe: str,
         time_end = session_break.response.elapsed.seconds
         is_vulnerable = time_end >= time and time_end > avg_time
 
-        if session_break.response.status_code >= 500:
+        if session_break.response.status_code >= 500 and not allow_con_errors:
             return UNKNOWN, f'We got a {session_break.response.status_code} \
                 status code'
 
