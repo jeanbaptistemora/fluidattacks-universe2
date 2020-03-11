@@ -1,6 +1,7 @@
 # pylint: disable=import-error
 
 from datetime import datetime, timedelta
+import asyncio
 import json
 import sys
 
@@ -23,32 +24,36 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
-def _get_role(jwt_content, project_name=None):
+async def _get_role(jwt_content, project_name=None):
     """Get role."""
     role = get_user_role(jwt_content)
     if project_name and role == 'customer':
         email = jwt_content.get('user_email')
         role = 'customeradmin' if is_customeradmin(
             project_name, email) else 'customer'
+        asyncio.sleep(0.001)
     return role
 
 
-def _get_projects(jwt_content):
+async def _get_projects(jwt_content):
     """Get projects."""
     projects = []
     user_email = jwt_content.get('user_email')
     for project in user_domain.get_projects(user_email):
+        description = project_domain.get_description(project)
+        asyncio.sleep(0.001)
         projects.append(
-            dict(name=project,
-                 description=project_domain.get_description(project))
+            dict(name=project, description=description)
         )
+
     return projects
 
 
-def _get_access_token(jwt_content):
+async def _get_access_token(jwt_content):
     """Get access token."""
     user_email = jwt_content.get('user_email')
     access_token = user_domain.get_data(user_email, 'access_token')
+    asyncio.sleep(0.001)
     access_token_dict = {
         'hasAccessToken': bool(access_token),
         'issuedAt': str(access_token.get('iat', '')) if bool(access_token) else ''
@@ -56,34 +61,49 @@ def _get_access_token(jwt_content):
     return json.dumps(access_token_dict)
 
 
-def _get_authorized(jwt_content):
+async def _get_authorized(jwt_content):
     """Get user authorization."""
     user_email = jwt_content.get('user_email')
-    return user_domain.is_registered(user_email)
+    result = user_domain.is_registered(user_email)
+    asyncio.sleep(0.001)
+    return result
 
 
-def _get_remember(jwt_content):
+async def _get_remember(jwt_content):
     """Get remember preference."""
     user_email = jwt_content.get('user_email')
     remember = user_domain.get_data(user_email, 'legal_remember')
+    asyncio.sleep(0.001)
     return remember if remember else False
 
 
-@convert_kwargs_to_snake_case
-def resolve_me(_, info):
-    """Resolve Me query."""
+async def _resolve_fields(info):
+    """Async resolve fields."""
     jwt_content = util.get_jwt_content(info.context)
-
     result = dict()
     for requested_field in info.field_nodes[0].selection_set.selections:
         snake_field = convert_camel_case_to_snake(requested_field.name.value)
         if snake_field.startswith('_'):
             continue
-        func_result = getattr(
+        resolver_func = getattr(
             sys.modules[__name__],
             f'_get_{snake_field}'
-        )(jwt_content)
-        result[requested_field.name.value] = func_result
+        )
+        func_task = asyncio.ensure_future(resolver_func(jwt_content))
+        await func_task
+        result[requested_field.name.value] = func_task.result()
+    return result
+
+
+@convert_kwargs_to_snake_case
+def resolve_me(_, info):
+    """Resolve Me query."""
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    result = loop.run_until_complete(
+        _resolve_fields(info)
+    )
+    loop.close()
     return result
 
 
