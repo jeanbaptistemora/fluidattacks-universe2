@@ -241,6 +241,30 @@
                      }
                   ]
                },
+               "historic_verification": {
+                  "L" : [
+                    {
+                      "M": {
+                        "date": {
+                          "S": "2020-02-19 10:41:04"
+                        },
+                        "status": {
+                          "S": "REQUESTED"
+                        }
+                      }
+                    },
+                    {
+                     "M": {
+                       "date": {
+                         "S": "2020-02-21 10:41:04"
+                       },
+                       "status": {
+                         "S": "VERIFIED"
+                       }
+                     }
+                   }
+                  ]
+                },
                "specific" : {
                   "S" : "333"
                },
@@ -285,6 +309,20 @@
                      }
                   ]
                },
+               "historic_verification": {
+                  "L" : [
+                    {
+                      "M": {
+                        "date": {
+                          "S": "2020-02-19 10:41:04"
+                        },
+                        "status": {
+                          "S": "REQUESTED"
+                        }
+                      }
+                    }
+                  ]
+                },
                "specific" : {
                   "S" : "1111"
                },

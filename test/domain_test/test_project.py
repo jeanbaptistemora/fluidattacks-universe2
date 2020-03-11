@@ -61,7 +61,7 @@ class ProjectTest(TestCase):
 
     def test_get_pending_closing_checks(self):
         test_data = get_pending_closing_check('unittesting')
-        expected_output = 1
+        expected_output = 2
         assert test_data == expected_output
 
     @pytest.mark.skip(
