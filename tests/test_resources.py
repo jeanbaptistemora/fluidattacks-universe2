@@ -59,5 +59,5 @@ def test_toolbox_get_fingerprint(relocate):
 
 def test_toolbox_check_repositories(relocate):
     """Run required toolbox commands."""
-    assert resources.check_repositories(SUBS, EMAIL)
-    assert not resources.check_repositories(SUBS_BAD, EMAIL)
+    assert resources.check_repositories(SUBS)
+    assert not resources.check_repositories(SUBS_BAD)

@@ -517,7 +517,7 @@ def print_inactive_missing_repos(inactive_repos, missing_repos) -> None:
         logger.info(f'- {missing}')
 
 
-def check_repositories(subs, email)-> bool:
+def check_repositories(subs)-> bool:
     projects = os.listdir('subscriptions')
     if subs != 'all':
         projects = [subs]
@@ -549,8 +549,6 @@ def check_repositories(subs, email)-> bool:
             print_inactive_missing_repos(inactive_repos, missing_repos)
         elif subs != 'all':
             return False
-    if email:
-        send_mail(html, email.split(','))
     return True
 
 

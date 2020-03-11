@@ -248,7 +248,7 @@ def main():  # noqa
                     f'continuous-{args.subs}') else 1)
             elif args.check_repos:
                 sys.exit(0 if resources.check_repositories(
-                    args.subs, args.email) else 1)
+                    args.subs) else 1)
             elif args.vpn:
                 sys.exit(0 if resources.vpn(args.subs) else 1)
         parser.print_help()
