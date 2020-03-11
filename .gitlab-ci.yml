@@ -129,6 +129,14 @@ deploy_k8s_back_ephemeral:
     url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com/integrates"
     on_stop: deploy_k8s_stop_ephemeral
 
+# Take into account that changing this job name impacts the rotation of
+#   AWS secrets at serves.
+# The rotation script looks the last deploy_k8s_back execution
+#   and decides if keys should be rotated or not.
+# This is done to avoid keys expiration on the current integrates deployment
+#   in case the continuous delivery system at Integrates is failing
+# Please follow the link and adjust if needed, thanks!
+#   https://gitlab.com/fluidattacks/serves/-/blob/0cb7556d236a3668bdcae64027941565e92131ad/build/include/helpers.sh#L180
 deploy_k8s_back:
   <<: *with_nix
   <<: *in_master_branch_and_schedules_and_triggers
