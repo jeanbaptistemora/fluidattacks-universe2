@@ -1,5 +1,6 @@
 # pylint: disable=import-error
 
+from backend.decorators import require_login, enforce_authz_async
 from backend.domain import alert as alert_domain
 from backend import util
 
@@ -19,6 +20,8 @@ def resolve_alert(*_, project_name, organization):
     return result
 
 
+@require_login
+@enforce_authz_async
 @convert_kwargs_to_snake_case
 def resolve_set_alert(_, info, company, message, project_name):
     success = alert_domain.set_company_alert(

@@ -455,9 +455,20 @@ CASBIN_BASIC_POLICY_MODEL_FILE = \
 CASBIN_ACTION_POLICY_MODEL_FILE = \
     os.path.join(BASE_DIR, 'authz_models', 'action.conf')
 
+CASBIN_ACTION_ASYNC_POLICY_MODEL_FILE = \
+    os.path.join(BASE_DIR, 'authz_models', 'action_async.conf')
 
-ENFORCER_BASIC = casbin.Enforcer(CASBIN_BASIC_POLICY_MODEL_FILE,
-                                 enable_log=False)
+ENFORCER_BASIC = casbin.Enforcer(
+    CASBIN_BASIC_POLICY_MODEL_FILE,
+    enable_log=False
+)
 
-ENFORCER_ACTION = casbin.Enforcer(CASBIN_ACTION_POLICY_MODEL_FILE,
-                                  enable_log=False)
+ENFORCER_ACTION = casbin.Enforcer(
+    CASBIN_ACTION_POLICY_MODEL_FILE,
+    enable_log=False
+)
+
+ENFORCER_ACTION_ASYNC = casbin.Enforcer(
+    CASBIN_ACTION_ASYNC_POLICY_MODEL_FILE,
+    enable_log=True
+)

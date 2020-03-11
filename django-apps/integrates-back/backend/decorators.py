@@ -32,6 +32,7 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 ENFORCER_BASIC = getattr(settings, 'ENFORCER_BASIC')
 ENFORCER_ACTION = getattr(settings, 'ENFORCER_ACTION')
+ENFORCER_ACTION_ASYNC = getattr(settings, 'ENFORCER_ACTION_ASYNC')
 
 
 def authenticate(func):
@@ -162,6 +163,38 @@ def enforce_authz(func):
         action = action.replace('.', '_')
         try:
             if not ENFORCER_ACTION.enforce(user_data, project_data, action):
+                util.cloudwatch_log(context,
+                                    'Security: \
+Unauthorized role attempted to perform operation')
+                raise GraphQLError('Access denied')
+        except AttributeDoesNotExist:
+            util.cloudwatch_log(context,
+                                'Security: \
+Unauthorized role attempted to perform operation')
+            raise GraphQLError('Access denied')
+        return func(*args, **kwargs)
+    return verify_and_call
+
+
+def enforce_authz_async(func):
+    """
+    Require_role decorator based on Casbin enforcer.
+
+    Verifies that the current user's role is within the specified allowed roles
+    """
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        context = args[1].context
+        user_data = util.get_jwt_content(context)
+        user_data['role'] = get_user_role(user_data)
+        project_name = resolve_project_name(args, kwargs)
+        project_data = resolve_project_data(project_name)
+        action = '{}.{}'.format(func.__module__, func.__qualname__)
+        action = action.replace('.', '_')
+        try:
+            if not ENFORCER_ACTION_ASYNC.enforce(
+                user_data, project_data, action
+            ):
                 util.cloudwatch_log(context,
                                     'Security: \
 Unauthorized role attempted to perform operation')
