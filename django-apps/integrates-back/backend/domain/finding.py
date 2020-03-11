@@ -7,6 +7,7 @@ from time import time
 
 import pytz
 import rollbar
+from typing import Dict, List, Optional, Tuple, Union, cast
 from django.conf import settings
 from django.core.files.base import ContentFile
 from i18n import t
@@ -31,16 +32,18 @@ from backend.dal import (
     comment as comment_dal, integrates_dal, finding as finding_dal,
     project as project_dal, vulnerability as vuln_dal
 )
+from backend.typing import Comment as CommentType, Finding as FindingType
 
 
-def remove_repeated(vulnerabilities):
+def remove_repeated(
+        vulnerabilities: List[Dict[str, FindingType]]) -> List[Dict[str, Dict[str, str]]]:
     """Remove vulnerabilities that changes in the same day."""
     vuln_casted = []
     for vuln in vulnerabilities:
-        for state in vuln['historic_state']:
+        for state in cast(List[Dict[str, str]], vuln['historic_state']):
             vuln_without_repeated = {}
-            format_date = state.get('date').split(' ')[0]
-            vuln_without_repeated[format_date] = {vuln['UUID']: state.get('state')}
+            format_date = str(state.get('date', '')).split(' ')[0]
+            vuln_without_repeated[format_date] = {str(vuln['UUID']): str(state.get('state', ''))}
             if state.get('approval_status') != 'PENDING':
                 vuln_casted.append(vuln_without_repeated)
             else:
@@ -49,9 +52,9 @@ def remove_repeated(vulnerabilities):
     return vuln_casted
 
 
-def get_unique_dict(list_dict):
+def get_unique_dict(list_dict: List[Dict[str, Dict[str, str]]]) -> Dict[str, Dict[str, str]]:
     """Get unique dict."""
-    unique_dict = {}
+    unique_dict: Dict[str, Dict[str, str]] = {}
     for entry in list_dict:
         date = next(iter(entry))
         if not unique_dict.get(date):
@@ -61,7 +64,7 @@ def get_unique_dict(list_dict):
     return unique_dict
 
 
-def get_tracking_dict(unique_dict):
+def get_tracking_dict(unique_dict: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str]]:
     """Get tracking dictionary."""
     sorted_dates = sorted(unique_dict.keys())
     tracking_dict = {}
@@ -76,9 +79,9 @@ def get_tracking_dict(unique_dict):
     return tracking_dict
 
 
-def group_by_state(tracking_dict):
+def group_by_state(tracking_dict: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, int]]:
     """Group vulnerabilities by state."""
-    tracking = {}
+    tracking: Dict[str, Dict[str, int]] = {}
     for tracking_date, status in list(tracking_dict.items()):
         for vuln_state in list(status.values()):
             status_dict = \
@@ -107,39 +110,40 @@ def cast_tracking(tracking):
     return tracking_casted
 
 
-def filter_evidence_filename(evidence_files, name):
+def filter_evidence_filename(evidence_files: List[Dict[str, str]], name: str) -> str:
     evidence_info = [evidence for evidence in evidence_files
                      if evidence['name'] == name]
     return evidence_info[0].get('file_url', '') if evidence_info else ''
 
 
-def add_comment(user_email, comment_data, finding_id, is_remediation_comment):
+def add_comment(user_email: str, comment_data: CommentType,
+                finding_id: str, is_remediation_comment: bool) -> bool:
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_data['created'] = current_time
     comment_data['modified'] = current_time
 
     if not is_remediation_comment:
         send_comment_mail(
-            comment_data, 'finding', user_email, comment_data['comment_type'],
+            comment_data, 'finding', user_email, str(comment_data['comment_type']),
             get_finding(finding_id))
 
     return integrates_dal.add_finding_comment_dynamo(int(finding_id),
                                                      user_email, comment_data)
 
 
-def get_age_finding(act_finding):
+def get_age_finding(act_finding: Dict[str, FindingType]) -> int:
     """Get days since the vulnerabilities was release"""
     today = datetime.now()
-    release_date = act_finding['releaseDate'].split(' ')
+    release_date = str(act_finding['releaseDate']).split(' ')
     age = abs(datetime.strptime(release_date[0], '%Y-%m-%d') - today).days
     return age
 
 
-def get_tracking_vulnerabilities(vulnerabilities):
+def get_tracking_vulnerabilities(vulnerabilities: List[Dict[str, FindingType]]) -> Dict[str, int]:
     """get tracking vulnerabilities dictionary"""
-    tracking = []
     vulns_filtered = [vuln for vuln in vulnerabilities
-                      if vuln['historic_state'][-1].get('approval_status')
+                      if cast(List[Dict[str, str]],
+                              vuln['historic_state'])[-1].get('approval_status')
                       != 'PENDING' or vuln_domain.get_last_approved_status(
                           vuln)]
 
@@ -151,19 +155,20 @@ def get_tracking_vulnerabilities(vulnerabilities):
     tracking_grouped = group_by_state(tracking)
     order_tracking = sorted(tracking_grouped.items())
     tracking_casted = cast_tracking(order_tracking)
-    tracking = tracking_casted
-    return tracking
+    return tracking_casted
 
 
-def verify_finding(finding_id, user_email, justification, user_fullname):
+def verify_finding(
+        finding_id: str, user_email: str, justification: str, user_fullname: str) -> bool:
     success = False
     finding = get_finding(finding_id)
-    project_name = finding.get('projectName')
-    finding_name = finding.get('finding')
-    if finding.get('historicVerification', [{}])[-1].get('status') == 'REQUESTED' and\
-       not finding.get('historicVerification', [{}])[-1].get('vulns', []):
-        historic_verification = finding.get('historicVerification', [])
-        tzn = pytz.timezone(settings.TIME_ZONE)
+    project_name = str(finding.get('projectName', ''))
+    finding_name = str(finding.get('finding', ''))
+    historic_verification = cast(
+        List[Dict[str, object]], finding.get('historicVerification', [{}]))
+    if historic_verification[-1].get('status') == 'REQUESTED' and\
+       not historic_verification[-1].get('vulns', []):
+        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         comment_id = int(round(time() * 1000))
         new_state = {
@@ -203,27 +208,28 @@ def verify_finding(finding_id, user_email, justification, user_fullname):
     return success
 
 
-def handle_acceptation(finding_id, observations, user_mail, response):
+def handle_acceptation(finding_id: str, observations: str, user_mail: str, response: str) -> bool:
     new_state = {
         'acceptance_status': response,
         'treatment': 'ACCEPTED_UNDEFINED',
         'justification': observations,
         'user': user_mail,
     }
-    historic_treatment = get_finding(finding_id).get('historicTreatment')
+    historic_treatment = cast(
+        List[Dict[str, str]], get_finding(finding_id).get('historicTreatment'))
     historic_treatment.append(new_state)
     if response == 'REJECTED':
-        tzn = pytz.timezone(settings.TIME_ZONE)
+        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         historic_treatment.append({'treatment': 'NEW', 'date': today})
     return finding_dal.update(finding_id, {'historic_treatment': historic_treatment})
 
 
-def calc_risk_level(probability, severity):
+def calc_risk_level(probability: float, severity: float) -> str:
     return str(round((probability / 100) * severity, 1))
 
 
-def update_description(finding_id, updated_values):
+def update_description(finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
     updated_values['effect_solution'] = updated_values.get('recommendation')
@@ -236,18 +242,18 @@ def update_description(finding_id, updated_values):
     updated_values = {util.camelcase_to_snakecase(k): updated_values.get(k)
                       for k in updated_values}
 
-    if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', updated_values['finding']):
+    if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', str(updated_values.get('finding', ''))):
         return finding_dal.update(finding_id, updated_values)
 
     raise InvalidDraftTitle()
 
 
-def update_treatment_in_vuln(finding_id, updated_values):
-    new_values = {
+def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) -> bool:
+    new_values = cast(Dict[str, FindingType], {
         'treatment': updated_values.get('treatment', ''),
         'treatment_justification': updated_values.get('justification'),
         'acceptance_date': updated_values.get('acceptance_date'),
-    }
+    })
     if new_values['treatment'] == 'NEW':
         new_values['treatment_manager'] = None
     vulns = get_vulnerabilities(finding_id)
@@ -255,19 +261,20 @@ def update_treatment_in_vuln(finding_id, updated_values):
     for vuln in vulns:
         if 'treatment_manager' not in [vuln, new_values]:
             new_values['treatment_manager'] = vuln_domain.set_treatment_manager(
-                new_values['treatment'],
-                updated_values['user'],
+                str(new_values.get('treatment', '')),
+                str(updated_values.get('user', '')),
                 finding_dal.get_finding(finding_id),
-                user_domain.get_data(updated_values['user'], 'role') == 'customeradmin',
-                updated_values['user']
+                user_domain.get_data(str(updated_values.get('user')), 'role') == 'customeradmin',
+                str(updated_values.get('user', ''))
             )
-        result_update_treatment = vuln_dal.update(finding_id, vuln['UUID'], new_values)
+        result_update_treatment = vuln_dal.update(finding_id, str(vuln.get('UUID', '')), new_values)
         if not result_update_treatment:
             resp = False
     return resp
 
 
-def update_client_description(finding_id, updated_values, user_mail, update):
+def update_client_description(finding_id: str, updated_values: Dict[str, str],
+                              user_mail: str, update) -> bool:
     success_treatment, success_external_bts = True, True
     if update.bts_changed:
         success_external_bts = finding_dal.update(
@@ -279,12 +286,13 @@ def update_client_description(finding_id, updated_values, user_mail, update):
     return success_treatment and success_external_bts
 
 
-def update_treatment(finding_id, updated_values, user_mail):
+def update_treatment(
+        finding_id: str, updated_values: Dict[str, str], user_mail: str) -> bool:
     success = False
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     finding = get_finding(finding_id)
-    historic_treatment = finding.get('historicTreatment', [])
+    historic_treatment = cast(List[Dict[str, str]], finding.get('historicTreatment', []))
     if updated_values['treatment'] == 'ACCEPTED' and updated_values['acceptance_date'] == '-':
         updated_values['acceptance_date'] = \
             (datetime.now() + timedelta(days=180)).strftime('%Y-%m-%d %H:%M:%S')
@@ -318,7 +326,7 @@ def update_treatment(finding_id, updated_values, user_mail):
     return success
 
 
-def compare_historic_treatments(last_state, new_state):
+def compare_historic_treatments(last_state: Dict[str, str], new_state: Dict[str, str]) -> bool:
     excluded_attrs = ['date', 'acceptance_date', 'acceptance_status']
     last_values = [value for key, value in last_state.items() if key not in excluded_attrs]
     new_values = [value for key, value in new_state.items() if key not in excluded_attrs]
@@ -329,19 +337,19 @@ def compare_historic_treatments(last_state, new_state):
     return sorted(last_values) != sorted(new_values) or date_change
 
 
-def should_send_mail(finding, updated_values):
+def should_send_mail(finding: Dict[str, FindingType], updated_values: Dict[str, str]):
     if updated_values['treatment'] == 'ACCEPTED':
         finding_utils.send_accepted_email(
-            finding, updated_values.get('justification'))
+            finding, str(updated_values.get('justification', '')))
     if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
         finding_utils.send_accepted_email(finding,
                                           'Treatment state approval is pending for finding '
-                                          + finding.get('finding'))
+                                          + str(finding.get('finding', '')))
 
 
-def save_severity(finding):
+def save_severity(finding: Dict[str, FindingType]) -> bool:
     """Organize severity metrics to save in dynamo."""
-    cvss_version = finding.get('cvssVersion', '')
+    cvss_version: str = str(finding.get('cvssVersion', ''))
     cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
     if cvss_version == '3.1':
         severity_fields = ['attackVector', 'attackComplexity',
@@ -355,7 +363,7 @@ def save_severity(finding):
                            'modifiedPrivilegesRequired', 'modifiedUserInteraction',
                            'modifiedSeverityScope', 'modifiedConfidentialityImpact',
                            'modifiedIntegrityImpact', 'modifiedAvailabilityImpact']
-        severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+        severity: Dict[str, FindingType] = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                     for k in severity_fields}
         unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
         privileges = cvss.calculate_privileges(
@@ -384,15 +392,15 @@ def save_severity(finding):
     severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
         unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
-        unformatted_severity, float(severity['cvss_basescore']), cvss_version)
+        unformatted_severity, float(cast(Decimal, severity['cvss_basescore'])), cvss_version)
     severity['cvss_env'] = cvss.calculate_cvss_environment(
         unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_version'] = cvss_version
-    response = finding_dal.update(finding['id'], severity)
+    response = finding_dal.update(str(finding.get('id', '')), severity)
     return response
 
 
-def delete_comment(comment):
+def delete_comment(comment: CommentType) -> bool:
     """Delete comment."""
     if comment:
         response = comment_dal.delete(comment['finding_id'], comment['user_id'])
@@ -401,7 +409,7 @@ def delete_comment(comment):
     return response
 
 
-def delete_all_comments(finding_id):
+def delete_all_comments(finding_id: str) -> bool:
     """Delete all comments of a finding."""
     all_comments = comment_dal.get_comments('comment', int(finding_id))
     comments_deleted = [delete_comment(i) for i in all_comments]
@@ -409,12 +417,13 @@ def delete_all_comments(finding_id):
     return all(comments_deleted)
 
 
-def delete_all_evidences_s3(finding_id, project, context):
+def delete_all_evidences_s3(finding_id: str, project: str, context) -> bool:
     """Delete s3 evidences files."""
     evidences_list = finding_dal.search_evidence(project + '/' + finding_id)
     is_evidence_deleted = False
     if evidences_list:
-        is_evidence_deleted_s3 = list(map(finding_dal.remove_evidence, evidences_list))
+        is_evidence_deleted_s3 = \
+            list(map(finding_dal.remove_evidence, evidences_list))  # type: ignore
         is_evidence_deleted = any(is_evidence_deleted_s3)
     else:
         util.cloudwatch_log(
@@ -424,17 +433,17 @@ def delete_all_evidences_s3(finding_id, project, context):
     return is_evidence_deleted
 
 
-def reject_draft(draft_id, reviewer_email):
+def reject_draft(draft_id: str, reviewer_email: str) -> bool:
     draft_data = get_finding(draft_id)
-    history = draft_data.get('historicState', [{}])
+    history = cast(List[Dict[str, str]], draft_data.get('historicState', [{}]))
     status = history[-1].get('state')
     success = False
 
     if 'releaseDate' not in draft_data:
         if status == 'SUBMITTED':
-            tzn = pytz.timezone(settings.TIME_ZONE)
-            rejection_date = datetime.now(tz=tzn).today()
-            rejection_date = rejection_date.strftime('%Y-%m-%d %H:%M:%S')
+            tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+            today = datetime.now(tz=tzn).today()
+            rejection_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
             history.append({
                 'date': rejection_date,
                 'analyst': reviewer_email,
@@ -447,8 +456,9 @@ def reject_draft(draft_id, reviewer_email):
             })
             if success:
                 finding_utils.send_draft_reject_mail(
-                    draft_id, draft_data['projectName'], draft_data['analyst'],
-                    draft_data['finding'], reviewer_email)
+                    draft_id, str(draft_data.get('projectName', '')),
+                    str(draft_data.get('analyst', '')), str(draft_data.get('finding', '')),
+                    reviewer_email)
         else:
             raise NotSubmitted()
     else:
@@ -457,20 +467,20 @@ def reject_draft(draft_id, reviewer_email):
     return success
 
 
-def filter_deleted_findings(findings_ids):
+def filter_deleted_findings(findings_ids: List[str]) -> List[str]:
     return [finding_id for finding_id in findings_ids
             if validate_finding(finding_id)]
 
 
-def delete_finding(finding_id, project_name, justification, context):
+def delete_finding(finding_id: str, project_name: str, justification: str, context) -> bool:
     finding_data = get_finding(finding_id)
-    submission_history = finding_data.get('historicState', [{}])
+    submission_history = cast(List[Dict[str, str]], finding_data.get('historicState', [{}]))
     success = False
 
     if submission_history[-1].get('state') != 'DELETED':
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        delete_date = datetime.now(tz=tzn).today()
-        delete_date = delete_date.strftime('%Y-%m-%d %H:%M:%S')
+        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+        today = datetime.now(tz=tzn).today()
+        delete_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
         submission_history.append({
             'state': 'DELETED',
             'date': delete_date,
@@ -488,16 +498,16 @@ def delete_finding(finding_id, project_name, justification, context):
                 'NOT_REQUIRED': 'Finding not required',
             }
             finding_utils.send_finding_delete_mail(
-                finding_id, finding_data['finding'], project_name,
-                finding_data['analyst'], justification_dict[justification])
+                finding_id, str(finding_data.get('finding', '')), project_name,
+                str(finding_data.get('analyst', '')), justification_dict[justification])
 
     return success
 
 
-def approve_draft(draft_id, reviewer_email):
+def approve_draft(draft_id: str, reviewer_email: str) -> Tuple[bool, datetime]:
     draft_data = get_finding(draft_id)
-    submission_history = draft_data.get('historicState')
-    release_date = None
+    submission_history = cast(List[Dict[str, str]], draft_data.get('historicState'))
+    release_date: Union[str, Optional[datetime]] = None
     success = False
 
     if 'releaseDate' not in draft_data and \
@@ -505,10 +515,10 @@ def approve_draft(draft_id, reviewer_email):
         has_vulns = vuln_domain.list_vulnerabilities([draft_id])
         if has_vulns:
             if 'reportDate' in draft_data:
-                tzn = pytz.timezone(settings.TIME_ZONE)
-                release_date = datetime.now(tz=tzn).today()
-                release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
-                history = draft_data.get('historicState', [{}])
+                tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+                today = datetime.now(tz=tzn).today()
+                release_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
+                history = cast(List[Dict[str, str]], draft_data.get('historicState', [{}]))
                 history.append({
                     'date': release_date,
                     'analyst': reviewer_email,
@@ -525,10 +535,10 @@ def approve_draft(draft_id, reviewer_email):
                 raise NotSubmitted()
     else:
         raise AlreadyApproved()
-    return success, release_date
+    return success, cast(datetime, release_date)
 
 
-def get_finding(finding_id):
+def get_finding(finding_id: str) -> Dict[str, FindingType]:
     """Retrieves and formats finding attributes"""
     finding = finding_dal.get_finding(finding_id)
     if not finding or not validate_finding(finding=finding):
@@ -537,15 +547,15 @@ def get_finding(finding_id):
     return finding_utils.format_data(finding)
 
 
-def get_vulnerabilities(finding_id):
+def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
     return finding_dal.get_vulnerabilities(finding_id)
 
 
-def get_project(finding_id):
-    return finding_dal.get_attributes(finding_id, ['project_name']).get('project_name')
+def get_project(finding_id: str) -> str:
+    return str(finding_dal.get_attributes(finding_id, ['project_name']).get('project_name', ''))
 
 
-def get_findings(finding_ids):
+def get_findings(finding_ids: List[str]) -> List[Dict[str, FindingType]]:
     """Retrieves all attributes for the requested findings"""
     findings = [get_finding(finding_id) for finding_id in finding_ids
                 if validate_finding(finding_id=finding_id)]
@@ -554,7 +564,7 @@ def get_findings(finding_ids):
     return findings
 
 
-def append_records_to_file(records, new_file):
+def append_records_to_file(records: List[Dict[str, str]], new_file):
     header = records[0].keys()
     values = [list(v) for v in [record.values() for record in records]]
     new_file_records = new_file.read()
