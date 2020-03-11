@@ -25,3 +25,4 @@ theme/2014/static/js/tmp/
 
 # Terraform
 .terraform
+deploy/ephemeral/terraform/subfolder-to-index.zip
