@@ -260,36 +260,42 @@ def update_resource(
     project_name = project_name.lower()
     res_list: List[project_dal.ProjectType] = []
     if res_type == 'repository':
-        resource_url = res_data.get('urlRepo')
         res_list = \
             cast(List[project_dal.ProjectType], project_dal.get(project_name)[0]['repositories'])
         res_id = 'urlRepo'
         res_name = 'repositories'
     elif res_type == 'environment':
-        resource_url = res_data.get('urlEnv')
         res_list = \
             cast(List[project_dal.ProjectType], project_dal.get(project_name)[0]['environments'])
         res_id = 'urlEnv'
         res_name = 'environments'
-    cont = 0
-    while len(res_list) > cont:
-        if res_id in res_list[cont] and res_list[cont][res_id] == resource_url:
+
+    for resource in res_list:
+        if res_type == 'repository':
+            matches = (
+                resource['branch'],
+                resource.get('protocol', ''),
+                resource['urlRepo']
+            ) == tuple(res_data.values())
+        elif res_type == 'environment':
+            matches = resource['urlEnv'] == res_data['urlEnv']
+
+        if res_id in resource and matches:
             new_state = {
                 'user': user_email,
                 'date': util.format_comment_date(
                     datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
                 'state': 'INACTIVE'
             }
-            if 'historic_state' in res_list[cont]:
-                historic_state = cast(List[Dict[str, str]], res_list[cont]['historic_state'])
+            if 'historic_state' in resource:
+                historic_state = cast(List[Dict[str, str]], resource['historic_state'])
                 if not historic_state[-1]['state'] == 'ACTIVE':
                     new_state['state'] = 'ACTIVE'
                 historic_state.append(new_state)
             else:
                 historic_state = [new_state]
-            res_list[cont]['historic_state'] = historic_state
+            resource['historic_state'] = historic_state
             break
-        cont += 1
     return resources_dal.update(res_list, project_name, res_name)
 
 
