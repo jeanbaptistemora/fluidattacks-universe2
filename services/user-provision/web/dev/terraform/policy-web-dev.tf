@@ -66,12 +66,13 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
   statement {
     effect  = "Allow"
     actions = [
-      "cloudfront:TagResource",
       "cloudfront:GetDistribution",
-      "cloudfront:ListTagsForResource"
+      "cloudfront:ListTagsForResource",
+      "cloudfront:GetCloudFrontOriginAccessIdentity",
     ]
     resources = [
       "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/*",
+      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:origin-access-identity/*",
     ]
   }
 

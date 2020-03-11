@@ -41,28 +41,21 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
     ]
   }
 
-  # Cloudfront create distribuions
+  # Cloudfront write distribuions and OAI
   statement {
     effect  = "Allow"
     actions = [
       "cloudfront:CreateDistribution",
+      "cloudfront:UpdateDistribution",
       "cloudfront:TagResource",
       "cloudfront:GetDistribution",
-      "cloudfront:ListTagsForResource"
+      "cloudfront:ListTagsForResource",
+      "cloudfront:CreateCloudFrontOriginAccessIdentity",
+      "cloudfront:GetCloudFrontOriginAccessIdentity",
+      "cloudfront:DeleteCloudFrontOriginAccessIdentity"
     ]
     resources = [
-      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/*",
-    ]
-  }
-
-  # Cloudfront full permissions over owned resources
-  statement {
-    effect  = "Allow"
-    actions = [
-      "cloudfront:UpdateDistribution"
-    ]
-    resources = [
-      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/ELFPOU7TSANVB",
+      "*"
     ]
   }
 
