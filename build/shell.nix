@@ -35,16 +35,16 @@ in
     srcIncludeHelpers = ./include/helpers.sh;
     srcIncludeJobs = ./include/jobs.sh;
     srcExternalGitlabVariables = pkgs.fetchurl {
-      url = "https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/gitlab-variables.sh";
+      url = "https://gitlab.com/fluidattacks/public/-/raw/6a28929bd69aa6b286354b84e211edaf70da78b4/shared-scripts/gitlab-variables.sh";
       sha256 = "13y7xd9n0859lgncljxbkgvdhx9akxflkarcv4klsn9cqz3mgr06";
     };
     srcExternalMail = pkgs.fetchurl {
-      url = "https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py";
+      url = "https://gitlab.com/fluidattacks/public/-/raw/14cb9f1fd1b14fd024853547968f60dc35269ecf/shared-scripts/mail.py";
       sha256 = "1a7kki53qxdwfh5s6043ygnyzk0liszxn4fygzfkwx7nhsmdf6k3";
     };
     srcExternalSops = pkgs.fetchurl {
-      url = "https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh";
-      sha256 = "1m2r2yqby9kcwvfsdfzf84ggk4zy408syz26vn9cidvsw8dk00wb";
+      url = "https://gitlab.com/fluidattacks/public/-/raw/3f902492c7186d22b522068a0e2920841fd90e7a/shared-scripts/sops.sh";
+      sha256 = "0alm1k5dj5fvcdyygm9bk58kgpkjnzl2k7p7d5if5cw8j8bi32rb";
     };
     srcDotDotToolboxOthers = ../toolbox/others.sh;
   }
