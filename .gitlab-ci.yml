@@ -216,11 +216,13 @@ deploy_front:
   image: "${CI_REGISTRY_IMAGE}/nix:selenium"
   stage: post-deploy
   retry: 1
-  parallel: 14
+  parallel: 16
+  before_script:
+    - mkdir -p test/functional/screenshots/ 
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
-      - screenshots/
+      - test/functional/screenshots/
     when: always
 
 functional_tests_dev:
