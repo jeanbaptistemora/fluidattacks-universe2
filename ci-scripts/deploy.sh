@@ -98,7 +98,7 @@ function deploy_eph {
   fi
   cp -a /app/deploy/builder/node_modules /app/theme/2014/
   cp -a /app/deploy/builder/node_modules /app/
-  sed -i "s|https://fluidattacks.com|http://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/pelicanconf.py
+  sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/pelicanconf.py
   npm run --prefix /app/deploy/builder/ build
   /app/build-site.sh
   /app/html-lint.sh
