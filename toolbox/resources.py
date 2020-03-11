@@ -559,7 +559,7 @@ def fluidcounts(path):
     filepaths = ''
     doc_langs = ["Markdown"]
     style_langs = ["CSS", "SASS", "LESS", "Stylus"]
-    format_langs = ["JSON", "XML", "XAML"]
+    format_langs = ["XML", "XAML"]
     toolboxpath = os.path.dirname(__file__)
     rules_file = f'{toolboxpath}/rules.def'
     force_lang_def = '--force-lang-def=' + rules_file

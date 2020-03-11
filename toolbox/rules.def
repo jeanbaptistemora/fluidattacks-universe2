@@ -491,8 +491,6 @@ JCL
     extension jcl
     3rd_gen_scale 1.67
 JSON
-    filter remove_matches ^\s*[\s\S]\s*$
-    filter remove_matches ^\s*$
     extension json
     3rd_gen_scale 2.50
 JSP
@@ -815,7 +813,7 @@ Properties
     filter remove_matches ^\s*#
     filter remove_matches ^\s*!
     extension properties
-    3rd_gen_scale 2.00    
+    3rd_gen_scale 2.00
 Protocol Buffers
     filter remove_inline //.*$
     filter call_regexp_common C++
@@ -1236,9 +1234,6 @@ XSLT
     extension xslt
     3rd_gen_scale 1.90
 YAML
-    filter remove_matches ^\s*[\s\S]\s*$
-    filter remove_matches ^\s*#
-    filter remove_inline #.*$
     extension yaml
     extension yml
     3rd_gen_scale 0.90
@@ -1282,7 +1277,7 @@ liquid
     extension liquid
     3rd_gen_scale 3.00
 m4
-    filter remove_matches ^dnl 
+    filter remove_matches ^dnl
     extension ac
     extension m4
     3rd_gen_scale 1.00
