@@ -23,12 +23,11 @@ stages:
       - schedules
       - triggers
 
-.in_dev_branch_and_mrs: &in_dev_branch_and_mrs
+.in_dev_branch_mrs_and_master: &in_dev_branch_mrs_and_master
   only:
     - branches
     - merge_requests
   except:
-    - master
     - schedules
     - triggers
 
@@ -290,22 +289,22 @@ infra_secret_management_test:
 
 lint_back:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_and_master_branch
   stage: lint-code
 
 lint_front:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_and_master_branch
   stage: lint-code
 
 lint_build_system:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_and_master_branch
   stage: lint-code
 
 lint_mobile:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_and_master_branch
   stage: lint-code
 
 renew_certificates:
@@ -330,7 +329,7 @@ send_new_release_email:
 
 test_back:
   <<: *with_nix
-  <<: *in_dev_branch_and_mrs
+  <<: *in_dev_branch_mrs_and_master
   image: "${CI_REGISTRY_IMAGE}/nix:test"
   stage: test-code
   retry: 1
@@ -342,14 +341,14 @@ test_back:
 
 test_back_async:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_and_master_branch
   image: "${CI_REGISTRY_IMAGE}/nix:test"
   stage: test-code
   retry: 1
 
 test_front:
   <<: *with_nix
-  <<: *in_dev_branch_and_mrs
+  <<: *in_dev_branch_mrs_and_master
   image: "${CI_REGISTRY_IMAGE}/nix:test"
   stage: test-code
   artifacts:
@@ -360,7 +359,7 @@ test_front:
 
 test_mobile:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_and_master_branch
   image: "${CI_REGISTRY_IMAGE}/nix:test"
   stage: test-code
 
@@ -412,7 +411,7 @@ lint_commit_msg:
   script:
     - npm install --unsafe-perm
     - ./ci-scripts/jobs/commitlint.sh
-  <<: *in_dev_branch
+  <<: *in_dev_and_master_branch
 
 danger:
   stage: merge-request
