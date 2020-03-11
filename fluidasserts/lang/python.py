@@ -5,6 +5,7 @@
 # standard imports
 import ast
 import os
+from ast import parse
 from contextlib import suppress
 from typing import List, Dict
 
@@ -13,14 +14,14 @@ import jmespath
 from bandit import blacklists
 from pyparsing import (Word, alphas, pythonStyleComment, delimitedList,
                        SkipTo, LineEnd, indentedBlock, alphanums,
-                       Keyword, QuotedString, MatchFirst, Optional)
+                       Keyword, QuotedString)
 
 # local imports
 from fluidasserts import Unit, LOW, HIGH, OPEN, CLOSED, UNKNOWN, SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import api
+from fluidasserts.utils.decorators import api, unknown_if
 
 
 LANGUAGE_SPECS = {
@@ -198,35 +199,43 @@ def _insecure_functions_in_file(py_dest: str) -> Unit:
                 fingerprint=get_sha256(py_dest)) if results else None
 
 
-def _declares_catch_for_exceptions(
-        py_dest: str,
-        exceptions_list: List[str],
-        msgs: Dict[str, str],
-        exclude: list = None) -> tuple:
+@unknown_if(FileNotFoundError)
+def _declares_catch_for_exceptions(py_dest: str,
+                                   exceptions_list: List[str],
+                                   msgs: Dict[str, str],
+                                   exclude: list = None):
     """Search for the declaration of catch for the given exceptions."""
-    any_exception = L_VAR_CHAIN_NAME
-    provided_exception = MatchFirst(
-        [Keyword(exception) for exception in exceptions_list])
+    vulns, safes = [], []
 
-    exception_group = delimitedList(expr=any_exception, delim=',')
-    exception_group.addCondition(
-        # Ensure that at least one exception in the group is the provided one
-        lambda tokens: any(provided_exception.matches(tok) for tok in tokens))
+    # Create a list of exceptions for a query.
+    exceptions = '||'.join([f'id==`{exc}`' for exc in exceptions_list])
+    # Check if the ExceptHandler captures several types of exceptions
+    q_more_exception = \
+        f'[?class_name==`ExceptHandler`].type[].elts[?{exceptions}][]'
+    # Check if the ExceptHandler captures a single type of exception
+    q_one_exception = f'[?class_name==`ExceptHandler`].type[?{exceptions}]'
+    # Check if catch any exception.
+    q_any_exception = '[?class_name==`ExceptHandler` && !type]'
 
-    grammar = Keyword('except') + Optional(
-        Optional('(') + exception_group + Optional(')') + Optional(
-            Keyword('as') + L_VAR_CHAIN_NAME)) + ':'
-    grammar.ignore(pythonStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
+    for full_path in get_paths(
+            py_dest, endswith='py', exclude=tuple(exclude) if exclude else ()):
+        with open(full_path, 'r') as reader:
+            try:
+                ast_ = parse(reader.read())
+            except SyntaxError:
+                continue
+        parsed = object_to_dict(ast_)
+        exceptions = execute_query(
+            [q_one_exception, q_more_exception, q_any_exception], parsed)
+        (vulns
+         if exceptions else safes).append((full_path, _flatten(exceptions)))
 
-    return lang.generic_method(
+    return _get_result_as_tuple(
         path=py_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs=msgs,
-        spec=LANGUAGE_SPECS,
-        excl=exclude)
+        msg_open=msgs[OPEN],
+        msg_closed=msgs[CLOSED],
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=LOW, kind=SAST)

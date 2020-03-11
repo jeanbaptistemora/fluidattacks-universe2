@@ -146,7 +146,7 @@ def test_has_generic_exceptions_open():
     assert python.has_generic_exceptions(CODE_DIR).is_open()
     results = python.has_generic_exceptions(INSECURE_CODE)
     assert results.is_open()
-    assert len(results.vulns[0].specific) == 5
+    assert len(results.vulns[0].specific) == 7
 
 
 def test_swallows_exceptions_open():
