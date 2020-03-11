@@ -128,7 +128,7 @@ def _send_mail(template_name: str, email_to: List[str], context: Dict[str, str],
 
 def send_comment_mail(comment_data: CommentType, entity_name: str,
                       user_mail: str, comment_type: str = '',
-                      entity: Union[FindingType, EventType, ProjectType] = ''):
+                      entity: Union[str, Dict[str, FindingType], EventType, ProjectType] = ''):
     parent = comment_data['parent']
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_context = {

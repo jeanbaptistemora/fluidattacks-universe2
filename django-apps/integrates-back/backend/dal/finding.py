@@ -135,7 +135,7 @@ def save_evidence(file_object: object, file_name: str) -> bool:
     return s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)  # type: ignore
 
 
-def search_evidence(file_name: str) -> bool:
+def search_evidence(file_name: str) -> List[str]:
     return s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 

@@ -3,12 +3,13 @@ from typing import Dict, List
 from botocore.exceptions import ClientError
 import rollbar
 
+from backend.typing import Comment as CommentType
 from backend.dal.helpers import dynamodb
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
-def add_finding_comment_dynamo(finding_id: str, email: str, comment_data: Dict[str, str]) -> bool:
+def add_finding_comment_dynamo(finding_id: int, email: str, comment_data: CommentType) -> bool:
     """ Add a comment in a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_comments')
     resp = False

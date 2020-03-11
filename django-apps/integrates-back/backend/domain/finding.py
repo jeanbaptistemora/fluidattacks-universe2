@@ -139,11 +139,11 @@ def get_age_finding(act_finding: Dict[str, FindingType]) -> int:
     return age
 
 
-def get_tracking_vulnerabilities(vulnerabilities: List[Dict[str, FindingType]]) -> Dict[str, int]:
+def get_tracking_vulnerabilities(vulnerabilities):
     """get tracking vulnerabilities dictionary"""
+    tracking = []
     vulns_filtered = [vuln for vuln in vulnerabilities
-                      if cast(List[Dict[str, str]],
-                              vuln['historic_state'])[-1].get('approval_status')
+                      if vuln['historic_state'][-1].get('approval_status')
                       != 'PENDING' or vuln_domain.get_last_approved_status(
                           vuln)]
 
@@ -155,7 +155,8 @@ def get_tracking_vulnerabilities(vulnerabilities: List[Dict[str, FindingType]]) 
     tracking_grouped = group_by_state(tracking)
     order_tracking = sorted(tracking_grouped.items())
     tracking_casted = cast_tracking(order_tracking)
-    return tracking_casted
+    tracking = tracking_casted
+    return tracking
 
 
 def verify_finding(

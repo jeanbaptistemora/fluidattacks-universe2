@@ -42,7 +42,7 @@ def has_access_to_finding(user: str, finding_id: str, role: str) -> bool:
     else:
         finding = finding_domain.get_finding(finding_id)
         has_access = has_access_to_project(
-            user, finding.get('projectName'), role)
+            user, str(finding.get('projectName', '')), role)
 
     return has_access
 
