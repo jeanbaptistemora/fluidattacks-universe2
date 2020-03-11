@@ -55,7 +55,7 @@ type PaginationProvider = React.Component<{
 interface PaginationTableProps extends TODO {
 }
 
-type SizePerPageRenderer = {options: OptionPaginationProps[], currSizePerPage: number, onSizePerPageChange: onSizePerPageChange};
+type SizePerPageRenderer = { options: OptionPaginationProps[], currSizePerPage: number, onSizePerPageChange: onSizePerPageChange };
 
 type onSizePerPageChange = (sizePerPage: number, page?: number) => number
 
@@ -65,7 +65,7 @@ type onTableChange = (type: TableChangeType, event: TableChangeNewState) => TODO
 interface TableChangeNewState {
     page?: number;
     sizePerPage?: number;
-    filters?: { [dataField: string] : Filter<any>; };
+    filters?: { [dataField: string]: Filter<any>; };
     sortField?: string;
     sortOrder?: SortOrder;
     data?: RowT[]
@@ -96,7 +96,7 @@ interface Filter<Type extends TODO = TODO> {
 interface FilterProps<Type extends TODO> {
     getFilter?(filter: FilterFunction<Type>): TODO;
     onFilter?(filterVal: string, data: any): TODO;
-    onInput?(e:TODO, value: string): TODO;
+    onInput?(event: React.SyntheticEvent<HTMLInputElement>, value: string): void;
     defaultValue?: Type
     placeholder?: string
     className?: string
@@ -176,7 +176,7 @@ type Overlay = TODO
 
 // SELECT AND EXPAND
 
-interface SelectRowOptions { 
+interface SelectRowOptions {
     mode: 'checkbox' | 'radio',
     clickToSelect: boolean,
     hideSelectColumn?: boolean,

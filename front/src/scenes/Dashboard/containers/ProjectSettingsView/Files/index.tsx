@@ -38,8 +38,6 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     setOptionsModalOpen(true);
   };
 
-  const [sortValue, setSortValue] = React.useState({});
-
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FILES, { variables: { projectName: props.projectName } });
 
@@ -127,7 +125,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     dataField: string, order: SortOrder,
   ): void => {
     const newSorted: Sorted = { dataField, order };
-    setSortValue(newSorted);
+    sessionStorage.setItem("fileSort", JSON.stringify(newSorted));
   };
 
   const tableHeaders: IHeader[] = [
@@ -174,7 +172,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       <DataTableNext
         bordered={true}
         dataset={filesDataset}
-        defaultSorted={sortValue}
+        defaultSorted={JSON.parse(_.get(sessionStorage, "fileSort", "{}"))}
         exportCsv={false}
         search={true}
         headers={tableHeaders}

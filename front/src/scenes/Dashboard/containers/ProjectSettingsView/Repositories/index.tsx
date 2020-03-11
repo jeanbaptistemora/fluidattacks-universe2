@@ -31,9 +31,6 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
   const openAddModal: (() => void) = (): void => { setAddModalOpen(true); };
   const closeAddModal: (() => void) = (): void => { setAddModalOpen(false); };
 
-  const [filterValue, setFilterValue] = React.useState("");
-  const [sortValue, setSortValue] = React.useState({});
-
   // GraphQL operations
   const { data, refetch } = useQuery(GET_REPOSITORIES, { variables: { projectName: props.projectName } });
   const [addRepositories] = useMutation(ADD_REPOSITORIES_MUTATION, { onCompleted: refetch });
@@ -127,13 +124,13 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
             dataField: string, order: SortOrder,
           ): void => {
             const newSorted: Sorted = { dataField, order };
-            setSortValue(newSorted);
+            sessionStorage.setItem("repoSort", JSON.stringify(newSorted));
           };
 
           const filterState: {} = selectFilter({
-            defaultValue: filterValue,
+            defaultValue: _.get(sessionStorage, "repoStateFilter"),
             onFilter: (filterVal: string): void => {
-              setFilterValue(filterVal);
+              sessionStorage.setItem("repoStateFilter", filterVal);
             },
             options: [
               { value: "Active", label: "Active" },
@@ -180,7 +177,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
             <DataTableNext
               bordered={true}
               dataset={reposDataset}
-              defaultSorted={sortValue}
+              defaultSorted={JSON.parse(_.get(sessionStorage, "repoSort", "{}"))}
               exportCsv={true}
               search={true}
               headers={tableHeaders}

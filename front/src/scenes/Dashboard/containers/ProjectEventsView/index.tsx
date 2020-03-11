@@ -36,14 +36,9 @@ import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 type EventsViewProps = RouteComponentProps<{ projectName: string }>;
 
 const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: EventsViewProps): JSX.Element => {
-  const [sortValue, setSortValue] = React.useState<Sorted>({ dataField: "eventDate", order: "desc" });
-  const [filterValueStatus, setFilterValueStatus] = React.useState("");
-  const [filterValueType, setFilterValueType] = React.useState("");
-
-  const clearSelection: string = "_CLEAR_";
   const selectOptionsStatus: optionSelectFilterProps[] = [
-    {value: "Solved", label: "Solved"},
-    {value: "Unsolved", label: "Unsolved"},
+    { value: "Solved", label: "Solved" },
+    { value: "Unsolved", label: "Unsolved" },
   ];
   const selectOptionType: optionSelectFilterProps[] = [
     {
@@ -81,35 +76,32 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
   ];
   const [optionType, setOptionType] = React.useState(selectOptionType);
 
-  const onSortState: ((dataField: string, order: SortOrder) => void) =
-  (dataField: string, order: SortOrder): void => {
-    const newSorted: Sorted = { dataField, order};
-    if (!_.isEqual(newSorted, sortValue)) {
-      setSortValue(newSorted);
-    }
+  const onSortState: ((dataField: string, order: SortOrder) => void) = (
+    dataField: string, order: SortOrder,
+  ): void => {
+    const newSorted: Sorted = { dataField, order };
+    sessionStorage.setItem("eventSort", JSON.stringify(newSorted));
   };
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
-    if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
-      setFilterValueStatus(filterVal);
-    }
+    sessionStorage.setItem("eventStatusFilter", filterVal);
   };
-  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) = (
+    eventInput: React.FormEvent<HTMLInputElement>,
+  ): void => {
     const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0 && filterValueStatus !== "") {
-      setFilterValueStatus(clearSelection);
+    if (inputValue.length === 0) {
+      sessionStorage.removeItem("eventStatusFilter");
     }
   };
   const onFilterType: ((filterVal: string) => void) = (filterVal: string): void => {
-    if (filterValueType !== filterVal && clearSelection !== filterValueType) {
-      setFilterValueType(filterVal);
-    }
+    sessionStorage.setItem("eventTypeFilter", filterVal);
   };
-  const clearFilterType: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+  const clearFilterType: ((eventInput: React.FormEvent<HTMLInputElement>) => void) = (
+    eventInput: React.FormEvent<HTMLInputElement>,
+  ): void => {
     const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0 && filterValueType !== "") {
-      setFilterValueType(clearSelection);
+    if (inputValue.length === 0) {
+      sessionStorage.removeItem("eventTypeFilter");
     }
   };
 
@@ -129,7 +121,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     {
       align: "center", dataField: "eventType",
       filter: selectFilter({
-        defaultValue: filterValueType,
+        defaultValue: _.get(sessionStorage, "eventTypeFilter"),
         onFilter: onFilterType,
         onInput: clearFilterType,
         options: optionType,
@@ -139,7 +131,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     {
       align: "center", dataField: "eventStatus",
       filter: selectFilter({
-        defaultValue: filterValueStatus,
+        defaultValue: _.get(sessionStorage, "eventStatusFilter"),
         onFilter: onFilterStatus,
         onInput: clearFilterStatus,
         options: selectOptionsStatus,
@@ -153,7 +145,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     },
   ];
   const { projectName } = props.match.params;
-  interface IEventsDataset { project: { events: Array<{ eventType: string }>}; }
+  interface IEventsDataset { project: { events: Array<{ eventType: string }> }; }
   const handleQryResult: ((data: IEventsDataset) => void) = (data: IEventsDataset): void => {
     let eventOptions: string[] = Array.from(new Set(data.project.events.map(
       (event: { eventType: string }) => event.eventType)));
@@ -167,8 +159,9 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     });
   };
 
-  const goToEvent: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
-  (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
+  const goToEvent: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
+    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
+  ): void => {
     mixpanel.track("ReadEvent", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
@@ -583,14 +576,14 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                 <DataTableNext
                   bordered={true}
                   dataset={formatEvents(data.project.events)}
-                  defaultSorted={sortValue}
+                  defaultSorted={JSON.parse(_.get(sessionStorage, "eventSort", "{}"))}
                   exportCsv={true}
                   search={true}
                   headers={tableHeaders}
                   id="tblEvents"
                   pageSize={15}
                   remote={false}
-                  rowEvents={{onClick: goToEvent}}
+                  rowEvents={{ onClick: goToEvent }}
                   title=""
                 />
               </React.StrictMode>

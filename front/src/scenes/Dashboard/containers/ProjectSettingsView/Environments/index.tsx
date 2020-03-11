@@ -31,9 +31,6 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
   const openAddModal: (() => void) = (): void => { setAddModalOpen(true); };
   const closeAddModal: (() => void) = (): void => { setAddModalOpen(false); };
 
-  const [filterValue, setFilterValue] = React.useState("");
-  const [sortValue, setSortValue] = React.useState({});
-
   // GraphQL operations
   const { data, refetch } = useQuery(GET_ENVIRONMENTS, { variables: { projectName: props.projectName } });
   const [addEnvironments] = useMutation(ADD_ENVIRONMENTS_MUTATION, { onCompleted: refetch });
@@ -123,13 +120,13 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
             dataField: string, order: SortOrder,
           ): void => {
             const newSorted: Sorted = { dataField, order };
-            setSortValue(newSorted);
+            sessionStorage.setItem("envSort", JSON.stringify(newSorted));
           };
 
           const filterState: {} = selectFilter({
-            defaultValue: filterValue,
+            defaultValue: _.get(sessionStorage, "envStateFilter"),
             onFilter: (filterVal: string): void => {
-              setFilterValue(filterVal);
+              sessionStorage.setItem("envStateFilter", filterVal);
             },
             options: [
               { value: "Active", label: "Active" },
@@ -161,7 +158,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
             <DataTableNext
               bordered={true}
               dataset={envsDataset}
-              defaultSorted={sortValue}
+              defaultSorted={JSON.parse(_.get(sessionStorage, "envSort", "{}"))}
               exportCsv={true}
               search={true}
               headers={tableHeaders}

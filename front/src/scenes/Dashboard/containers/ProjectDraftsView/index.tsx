@@ -28,8 +28,9 @@ import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
 
-  const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
-  (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
+  const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
+    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
+  ): void => {
     mixpanel.track("ReadDraft", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
@@ -45,9 +46,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   };
 
   const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);
-  const [filterValueStatus, setFilterValueStatus] = React.useState("");
-  const [sortValue, setSortValue] = React.useState({});
-  const clearSelection: string = "_CLEAR_";
 
   const openNewDraftModal: (() => void) = (): void => {
     setDraftModalOpen(true);
@@ -56,28 +54,26 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   const closeNewDraftModal: (() => void) = (): void => {
     setDraftModalOpen(false);
   };
-  const onSortState: ((dataField: string, order: SortOrder) => void) =
-  (dataField: string, order: SortOrder): void => {
-    const newSorted: Sorted = {dataField,  order};
-    if (!_.isEqual(newSorted, sortValue)) {
-      setSortValue(newSorted);
-    }
+  const onSortState: ((dataField: string, order: SortOrder) => void) = (
+    dataField: string, order: SortOrder,
+  ): void => {
+    const newSorted: Sorted = { dataField, order };
+    sessionStorage.setItem("draftSort", JSON.stringify(newSorted));
   };
   const selectOptionsStatus: optionSelectFilterProps[] = [
-    {value: "Created", label: "Created"},
-    {value: "Submitted", label: "Submitted"},
-    {value: "Rejected", label: "Rejected"},
+    { value: "Created", label: "Created" },
+    { value: "Submitted", label: "Submitted" },
+    { value: "Rejected", label: "Rejected" },
   ];
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
-    if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
-      setFilterValueStatus(filterVal);
-    }
+    sessionStorage.setItem("repoStatusFilter", filterVal);
   };
-  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) = (
+    eventInput: React.FormEvent<HTMLInputElement>,
+  ): void => {
     const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0 && filterValueStatus !== "") {
-      setFilterValueStatus(clearSelection);
+    if (inputValue.length === 0) {
+      sessionStorage.removeItem("repoStatusFilter");
     }
   };
 
@@ -93,14 +89,16 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     {
       align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState, width: "6%",
     },
-    { align: "center", dataField: "currentState",
+    {
+      align: "center", dataField: "currentState",
       filter: selectFilter({
-        defaultValue: filterValueStatus,
+        defaultValue: _.get(sessionStorage, "repoStatusFilter"),
         onFilter: onFilterStatus,
         onInput: clearFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: statusFormatter, header: "State", onSort: onSortState, width: "10%" },
+      formatter: statusFormatter, header: "State", onSort: onSortState, width: "10%",
+    },
   ];
 
   interface ISuggestion {
@@ -238,13 +236,13 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 <DataTableNext
                   bordered={true}
                   dataset={formatDrafts(data.project.drafts)}
-                  defaultSorted={sortValue}
+                  defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
                   exportCsv={true}
                   headers={tableHeaders}
                   id="tblDrafts"
                   pageSize={15}
                   remote={false}
-                  rowEvents={{onClick: goToFinding}}
+                  rowEvents={{ onClick: goToFinding }}
                   search={true}
                   striped={true}
                 />

@@ -30,8 +30,6 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
 
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
 
-  const [sortValue, setSortValue] = React.useState({});
-
   // GraphQL operations
   const { data, refetch, networkStatus } = useQuery(GET_TAGS, {
     notifyOnNetworkStatusChange: true,
@@ -105,7 +103,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     dataField: string, order: SortOrder,
   ): void => {
     const newSorted: Sorted = { dataField, order };
-    setSortValue(newSorted);
+    sessionStorage.setItem("portfolioSort", JSON.stringify(newSorted));
   };
 
   const tableHeaders: IHeader[] = [
@@ -140,7 +138,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       <DataTableNext
         bordered={true}
         dataset={tagsDataset}
-        defaultSorted={sortValue}
+        defaultSorted={JSON.parse(_.get(sessionStorage, "portfolioSort", "{}"))}
         exportCsv={false}
         search={false}
         headers={tableHeaders}

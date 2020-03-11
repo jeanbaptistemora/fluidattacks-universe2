@@ -91,22 +91,20 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     },
   };
   const [currentRow, updateRow] = React.useState(defaultCurrentRow);
-  const [sortValue, setSortValue] = React.useState<Sorted>({ dataField: "date", order: "desc" });
   const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] = React.useState(false);
 
-  const onSortState: ((dataField: string, order: SortOrder) => void) =
-  (dataField: string, order: SortOrder): void => {
+  const onSortState: ((dataField: string, order: SortOrder) => void) = (
+    dataField: string, order: SortOrder,
+  ): void => {
     const newSorted: Sorted = { dataField, order };
-    if (!_.isEqual(newSorted, sortValue)) {
-      setSortValue(newSorted);
-    }
+    sessionStorage.setItem("forcesSort", JSON.stringify(newSorted));
   };
 
   const toTitleCase: ((str: string) => string) = (str: string): string =>
     str.split(" ")
-        .map((w: string): string => w[0].toUpperCase() + w.substr(1)
-                                                          .toLowerCase())
-        .join(" ");
+      .map((w: string): string => w[0].toUpperCase() + w.substr(1)
+        .toLowerCase())
+      .join(" ");
 
   const getVulnerabilitySummary:
     ((exploitable: number, accepted: number, notExploitable: number, total: number) => string) =
@@ -124,8 +122,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     return `${exploitableStr}, ${acceptedStr}, ${notExploitableStr}, ${totalStr}`;
   };
 
-  const getDatasetFromVulnerabilities: ((vulnerabilities: IVulnerabilities) => Dictionary[]) =
-  (vulnerabilities: IVulnerabilities): Dictionary[] => {
+  const getDatasetFromVulnerabilities: ((vulnerabilities: IVulnerabilities) => Dictionary[]) = (
+    vulnerabilities: IVulnerabilities,
+  ): Dictionary[] => {
     const exploits: Dictionary[] = vulnerabilities.exploits.map((elem: IExploitResult) => ({
       ...elem, riskState: translate.t("project.forces.found_vulnerabilities.exploitable"),
     }));
@@ -143,8 +142,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     const dateObj: Date = new Date(date);
 
     const toStringAndPad: ((input: number, positions: number) => string) =
-    (input: number, positions: number): string => input.toString()
-                                                       .padStart(positions, "0");
+      (input: number, positions: number): string => input.toString()
+        .padStart(positions, "0");
 
     const year: string = toStringAndPad(dateObj.getFullYear(), 4);
     // Warning: months are 0 indexed: January is 0, December is 11
@@ -221,8 +220,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   ];
   const { projectName } = props.match.params;
 
-  const openSeeExecutionDetailsModal: ((event: object, row: IExecution, rowIndex: number) => void) =
-  (event: object, row: IExecution, rowIndex: number): void => {
+  const openSeeExecutionDetailsModal: ((event: object, row: IExecution) => void) = (
+    _0: object, row: IExecution,
+  ): void => {
     updateRow(row);
     setExecutionDetailsModalOpen(true);
   };
@@ -265,8 +265,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   ? "project.forces.status.secure"
                   : "project.forces.status.vulnerable"));
 
-              return {...execution, date, foundVulnerabilities, kind, status, strictness};
+              return { ...execution, date, foundVulnerabilities, kind, status, strictness };
             });
+
+            const initialSort: string = JSON.stringify({ dataField: "date", order: "desc" });
 
             return (
               <React.StrictMode>
@@ -274,14 +276,14 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                 <DataTableNext
                   bordered={true}
                   dataset={executions}
-                  defaultSorted={sortValue}
+                  defaultSorted={JSON.parse(_.get(sessionStorage, "forcesSort", initialSort))}
                   exportCsv={true}
                   search={true}
                   headers={headersExecutionTable}
                   id="tblForcesExecutions"
                   pageSize={100}
                   remote={false}
-                  rowEvents={{onClick: openSeeExecutionDetailsModal}}
+                  rowEvents={{ onClick: openSeeExecutionDetailsModal }}
                   title=""
                 />
               <Modal
@@ -332,7 +334,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   <DataTableNext
                     bordered={true}
                     dataset={getDatasetFromVulnerabilities(currentRow.vulnerabilities)}
-                    defaultSorted={sortValue}
                     exportCsv={false}
                     search={false}
                     headers={headersCompromisedToeTable}
