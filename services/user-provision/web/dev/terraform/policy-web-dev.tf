@@ -87,13 +87,13 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
     ]
   }
 
-  # Route 53 list zones
+  # Route 53 basic read
   statement {
     effect  = "Allow"
     actions = [
       "route53:ListHostedZones",
       "route53:GetHostedZone",
-      "route53:ListTagsForResource"
+      "route53:GetChange"
     ]
     resources = [
       "*",
@@ -104,8 +104,8 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
   statement {
     effect  = "Allow"
     actions = [
-      "route53:ListHostedZones",
-      "route53:GetHostedZone",
+      "route53:ListTagsForResource",
+      "route53:ListResourceRecordSets"
     ]
     resources = [
       "arn:aws:route53:::hostedzone/${data.aws_route53_zone.fluidattacks.id}",
