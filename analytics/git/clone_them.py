@@ -55,11 +55,11 @@ def main() -> None:
                '/git/fluidattacks/continuous/subscriptions/triana',
                '/git/fluidattacks/continuous/subscriptions/troitsk',
                '/git/fluidattacks/continuous/subscriptions/turtwig', ]
+    process = Process(target=open_vpn, args=(vpn_req[0],))
+    process.start()
     for prot_paths in vpn_req:
-        process = Process(target=open_vpn, args=(prot_paths,))
-        process.start()
         clone(prot_paths)
-        process.terminate()
+    process.terminate()
 
 
 if __name__ == '__main__':
