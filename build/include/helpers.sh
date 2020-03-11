@@ -181,15 +181,15 @@ function helper_check_last_job_succeeded {
   export GITLAB_API_TOKEN
   local gitlab_repo_id="${1}"
   local job_name="${2}"
-  local job_status
+  local job_status=''
   local page='0'
-  local job_data
+  local job_data=''
 
       echo '[INFO] Iteragin GitLab jobs' \
   &&  for page in $(seq 0 100)
       do
             echo "[INFO] Checking page ${page} for job: ${job_name}" \
-        &&  if  job_data=$( \
+        &&  if job_data=$( \
                   curl \
                       --globoff \
                       --silent \
@@ -203,6 +203,11 @@ function helper_check_last_job_succeeded {
               continue
             fi
       done \
+  &&  if test -z "${job_data}"
+      then
+            echo '[INFO] Job was not found, was it renamed?' \
+        &&  return 1
+      fi \
   &&  job_status=$(echo "${job_data}" | jq -er '.status') \
   &&  if test "${job_status}" = "success"
       then
