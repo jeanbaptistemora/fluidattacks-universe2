@@ -14,12 +14,24 @@ export const useStoredState: StoredStateHook = <T>(
   storageProvider: Storage = sessionStorage,
 ): [T, React.Dispatch<React.SetStateAction<T>>] => {
 
-  const [state, setState] = React.useState<T>(
-    (): T => JSON.parse(_.get(storageProvider, key, defaultValue)),
-  );
+  const loadInitialState: (() => T) = (): T => {
+    const storedState: string | null = storageProvider.getItem(key);
+
+    return storedState === null
+      ? defaultValue
+      : _.isObject(defaultValue)
+        ? JSON.parse(storedState)
+        : storedState;
+  };
+
+  const [state, setState] = React.useState<T>(loadInitialState);
 
   const setAndStore: React.Dispatch<React.SetStateAction<T>> = (value: React.SetStateAction<T>): void => {
-    storageProvider.setItem(key, JSON.stringify(value));
+    const parsedValue: string = _.isString(value)
+      ? value
+      : JSON.stringify(value);
+
+    storageProvider.setItem(key, parsedValue);
     setState(value);
   };
 
