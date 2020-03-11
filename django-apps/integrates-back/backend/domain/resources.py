@@ -19,7 +19,7 @@ from backend import util
 from backend.dal import (
     project as project_dal, resources as resources_dal
 )
-from backend.dal.resources import ResourceType
+from backend.typing import Resource as ResourceType
 from backend.exceptions import InvalidFileSize, RepeatedValues
 from backend.mailer import send_mail_resources
 

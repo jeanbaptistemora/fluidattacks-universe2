@@ -10,9 +10,9 @@ import pytz
 from django.conf import settings
 
 from backend.dal import finding as finding_dal, project as project_dal
-from backend.dal.comment import CommentType
-from backend.dal.finding import FindingType
-from backend.dal.project import ProjectType
+from backend.typing import (
+    Comment as CommentType, Finding as FindingType, Project as ProjectType
+)
 from backend.domain import comment as comment_domain, resources as resources_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain

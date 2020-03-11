@@ -10,8 +10,7 @@ from backend.domain import user as user_domain
 
 from backend import util
 from backend.dal import comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
-from backend.dal.comment import CommentType
-from backend.dal.user import UserType
+from backend.typing import Comment as CommentType, User as UserType
 
 
 def _get_comments(comment_type: str, finding_id: str, user_role: str) -> List[CommentType]:

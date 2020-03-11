@@ -10,8 +10,6 @@ from magic import Magic
 
 from backend import util
 from backend.dal import event as event_dal, project as project_dal
-from backend.dal.event import EventType
-from backend.dal.user import UserType
 from backend.domain import (
     comment as comment_domain, resources as resources_domain,
     user as user_domain
@@ -21,6 +19,7 @@ from backend.exceptions import (
     InvalidFileType
 )
 from backend.mailer import send_comment_mail, send_mail_new_event
+from backend.typing import Event as EventType, User as UserType
 from backend.utils import events as event_utils
 
 from __init__ import (

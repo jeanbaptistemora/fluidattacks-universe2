@@ -3,7 +3,7 @@ from typing import Dict, List, Union, cast
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
-from backend.dal.user import UserType
+from backend.typing import User as UserType
 from backend.utils.user import validate_email_address, validate_field, validate_phone_field
 
 
