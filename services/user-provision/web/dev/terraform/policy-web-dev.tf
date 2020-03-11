@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "web-dev-policy-data" {
 
-  # S3 web bucket
+  # S3 web prod bucket
   statement {
     effect  = "Allow"
     actions = [
@@ -13,6 +13,7 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
     ]
   }
 
+  # S3 web ephemeral bucket
   statement {
     effect  = "Allow"
     actions = [
@@ -58,6 +59,56 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/web-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/web-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/web-*",
+    ]
+  }
+
+  # Cloudfront read distribuions
+  statement {
+    effect  = "Allow"
+    actions = [
+      "cloudfront:TagResource",
+      "cloudfront:GetDistribution",
+      "cloudfront:ListTagsForResource"
+    ]
+    resources = [
+      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/*",
+    ]
+  }
+
+  # ACM read certificate
+  statement {
+    effect  = "Allow"
+    actions = [
+      "acm:DescribeCertificate",
+      "acm:ListTagsForCertificate",
+    ]
+    resources = [
+      "*",
+    ]
+  }
+
+  # Route 53 list zones
+  statement {
+    effect  = "Allow"
+    actions = [
+      "route53:ListHostedZones",
+      "route53:GetHostedZone",
+      "route53:ListTagsForResource"
+    ]
+    resources = [
+      "*",
+    ]
+  }
+
+  # Route 53 read fluidattacks hosted zone
+  statement {
+    effect  = "Allow"
+    actions = [
+      "route53:ListHostedZones",
+      "route53:GetHostedZone",
+    ]
+    resources = [
+      "arn:aws:route53:::hostedzone/${data.aws_route53_zone.fluidattacks.id}",
     ]
   }
 

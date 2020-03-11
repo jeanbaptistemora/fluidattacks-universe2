@@ -10,17 +10,6 @@ resource "aws_route53_record" "web" {
   }
 }
 
-resource "aws_route53_record" "web-ephemeral" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "web.eph.${aws_route53_zone.fs_maindomain.name}"
-  type    = "A"
-  alias {
-    name                   = "s3-website-us-east-1.amazonaws.com."
-    zone_id                = var.s3-east-1-zone-id
-    evaluate_target_health = false
-  }
-}
-
 # CNAME records
 resource "aws_route53_record" "thanks" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id

@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "web-prod-policy-data" {
 
-  # S3 web bucket
+  # S3 web prod and ephemeral buckets
   statement {
     effect  = "Allow"
     actions = ["s3:*"]
@@ -38,6 +38,70 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/web-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/web-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/web-*",
+    ]
+  }
+
+  # Cloudfront create distribuions
+  statement {
+    effect  = "Allow"
+    actions = [
+      "cloudfront:CreateDistribution",
+      "cloudfront:TagResource",
+      "cloudfront:GetDistribution",
+      "cloudfront:ListTagsForResource"
+    ]
+    resources = [
+      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/*",
+    ]
+  }
+
+  # Cloudfront full permissions over owned resources
+  statement {
+    effect  = "Allow"
+    actions = [
+      "cloudfront:UpdateDistribution"
+    ]
+    resources = [
+      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/ELFPOU7TSANVB",
+    ]
+  }
+
+  # ACM create and read certificate
+  statement {
+    effect  = "Allow"
+    actions = [
+      "acm:RequestCertificate",
+      "acm:DescribeCertificate",
+      "acm:ListTagsForCertificate",
+    ]
+    resources = [
+      "*",
+    ]
+  }
+
+  # Route 53 basic read
+  statement {
+    effect  = "Allow"
+    actions = [
+      "route53:ListHostedZones",
+      "route53:GetHostedZone",
+      "route53:GetChange"
+    ]
+    resources = [
+      "*",
+    ]
+  }
+
+  # Route 53 read/write over fluidattacks hosted zone
+  statement {
+    effect  = "Allow"
+    actions = [
+      "route53:ListTagsForResource",
+      "route53:ChangeResourceRecordSets",
+      "route53:ListResourceRecordSets"
+    ]
+    resources = [
+      "arn:aws:route53:::hostedzone/${data.aws_route53_zone.fluidattacks.zone_id}",
     ]
   }
 
