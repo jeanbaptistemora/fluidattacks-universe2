@@ -14,6 +14,7 @@ from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
 from subprocess import Popen, PIPE, check_output
 from html import escape
+from typing import Dict
 
 # Third parties imports
 import mandrill
@@ -27,7 +28,15 @@ from toolbox import utils, helper
 
 def cmd_execute(cmnd, folder='.'):
     """ Execute a cmd command in the folder """
-    process = Popen(shlex.split(cmnd), stdout=PIPE, stderr=PIPE, cwd=folder)
+    env_vars: Dict[str, str] = {
+        'GIT_SSL_NO_VERIFY': '1',
+    }
+    process = Popen(
+        shlex.split(cmnd),
+        stdout=PIPE,
+        stderr=PIPE,
+        cwd=folder,
+        env={**os.environ.copy(), **env_vars})
     result = process.communicate()
     result = list(map(lambda x: x.decode('utf-8', 'ignore'), result))
     return result
