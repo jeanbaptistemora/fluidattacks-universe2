@@ -3,8 +3,8 @@ data "aws_iam_policy_document" "web-ephemeral-bucket-policy-data" {
     sid    = "Web bucket permissions"
     effect = "Allow"
     principals {
-      type        = "*"
-      identifiers = ["*"]
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.web-ephemeral-oai.iam_arn]
     }
     actions = [
       "s3:GetObject",

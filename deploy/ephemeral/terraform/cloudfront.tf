@@ -2,12 +2,22 @@ resource "aws_cloudfront_distribution" "web-ephemeral-distribution" {
   origin {
     domain_name = aws_s3_bucket.web-ephemeral-bucket.bucket_domain_name
     origin_id   = var.bucket-origin-id
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.web-ephemeral-oai.cloudfront_access_identity_path
+    }
   }
 
   enabled             = true
   default_root_object = "index.html"
 
   aliases = ["web.eph.fluidattacks.com"]
+
+  custom_error_response {
+    error_code         = "404"
+    response_code      = "404"
+    response_page_path = "/error-index.html"
+  }
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
@@ -41,4 +51,8 @@ resource "aws_cloudfront_distribution" "web-ephemeral-distribution" {
     minimum_protocol_version = "TLSv1.2_2018"
     ssl_support_method = "sni-only"
   }
+}
+
+resource "aws_cloudfront_origin_access_identity" "web-ephemeral-oai" {
+  comment = "Web Ephemeral"
 }
