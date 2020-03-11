@@ -1,7 +1,7 @@
 """DAL functions for findings."""
 
 from decimal import Decimal
-from typing import Dict, List, Union
+from typing import cast, Dict, List, Union
 import rollbar
 from backend.typing import Finding as FindingType
 from boto3.dynamodb.conditions import Key
@@ -145,3 +145,23 @@ def remove_evidence(file_name: str) -> bool:
 
 def download_evidence(file_name: str, file_path: str):
     s3.download_file(FI_AWS_S3_BUCKET, file_name, file_path)  # type: ignore
+
+
+def is_pending_verification(finding_id: str) -> bool:
+    finding = get_attributes(
+        finding_id, ['finding_id', 'historic_state', 'historic_verification'])
+    last_verification = cast(List[Dict[str, str]], finding.get('historic_verification', [{}]))[-1]
+    last_state = cast(List[Dict[str, str]], finding.get('historic_state', [{}]))[-1]
+    resp = last_verification.get('status') == 'REQUESTED' and not last_verification.get('vulns')
+    if not resp:
+        vulns = get_vulnerabilities(finding_id)
+        open_vulns = \
+            [vuln for vuln in vulns
+             if cast(List[Dict[str, str]], vuln.get('historic_state', [{}]))[-1].get(
+                'state') == 'open']
+        remediated_vulns = \
+            [vuln for vuln in open_vulns
+             if cast(List[Dict[str, str]], vuln.get('historic_verification', [{}]))[-1].get(
+                'status') == 'REQUESTED']
+        resp = len(remediated_vulns) != 0
+    return resp and last_state.get('state') != 'DELETED'
