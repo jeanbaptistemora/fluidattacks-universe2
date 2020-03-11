@@ -18,6 +18,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import { formatFindings, formatTreatment, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { useStoredState } from "../../../../utils/hooks";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_FINDINGS } from "./queries";
@@ -56,16 +57,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     treatment: true,
     where: false,
   });
-  const [isFilterEnabled, setFilterEnabled] = React.useState(false);
-  const [filterValueExploitable, setFilterValueExploitable] = React.useState("");
-  const [filterValueSeverity, setFilterValueSeverity] = React.useState("");
-  const [filterValueStatus, setFilterValueStatus] = React.useState("");
-  const [filterValueTitle, setFilterValueTitle] = React.useState("");
-  const [filterValueTreatment, setFilterValueTreatment] = React.useState("");
-  const [filterValueVerification, setFilterValueVerification] = React.useState("");
-  const [filterValueWhere, setFilterValueWhere] = React.useState("");
-  const [sortValue, setSortValue] = React.useState({});
-  const clearSelection: string = "_CLEAR_";
+  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>("findingsFilters", false);
 
   const selectOptionsExploitable: optionSelectFilterProps[] = [
     { value: "Yes", label: "Yes" },
@@ -136,92 +128,77 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const onSortState: ((dataField: string, order: SortOrder) => void) =
     (dataField: string, order: SortOrder): void => {
       const newSorted: Sorted = { dataField, order };
-      setSortValue(newSorted);
+      sessionStorage.setItem("findingSort", JSON.stringify(newSorted));
     };
   const onFilterTitle: ((filterVal: string) => void) = (filterVal: string): void => {
-    if (filterValueTitle !== filterVal) {
-      setFilterValueTitle(filterVal);
-    }
+    sessionStorage.setItem("titleFilter", filterVal);
   };
   const clearFilterTitle: ((event: React.FormEvent<HTMLInputElement>) => void) =
     (event: React.FormEvent<HTMLInputElement>): void => {
       const inputValue: string = event.currentTarget.value;
-      if (inputValue.length === 0 && filterValueTitle !== "") {
-        setFilterValueTitle("");
+      if (inputValue.length === 0) {
+        sessionStorage.removeItem("titleFilter");
       }
     };
   const onFilterWhere: ((filterVal: string) => void) = (filterVal: string): void => {
-    if (filterValueWhere !== filterVal) {
-      setFilterValueWhere(filterVal);
-    }
+    sessionStorage.setItem("whereFilter", filterVal);
   };
   const clearFilterWhere: ((event: React.FormEvent<HTMLInputElement>) => void) =
     (event: React.FormEvent<HTMLInputElement>): void => {
       const inputValue: string = event.currentTarget.value;
-      if (inputValue.length === 0 && filterValueWhere !== "") {
-        setFilterValueWhere("");
+      if (inputValue.length === 0) {
+        sessionStorage.removeItem("whereFilter");
       }
     };
   const onFilterExploitable: ((filterVal: string) => void) = (filterVal: string): void => {
-    if (filterValueExploitable !== filterVal && clearSelection !== filterValueExploitable) {
-      setFilterValueExploitable(filterVal);
-    }
+    sessionStorage.setItem("exploitableFilter", filterVal);
   };
 
   const clearFilterExploitable: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
     (eventInput: React.FormEvent<HTMLInputElement>): void => {
       const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0 && filterValueExploitable !== "") {
-        setFilterValueExploitable(clearSelection);
+      if (inputValue.length === 0) {
+        sessionStorage.removeItem("exploitableFilter");
       }
     };
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
-    if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
-      setFilterValueStatus(filterVal);
-    }
+    sessionStorage.setItem("statusFilter", filterVal);
   };
 
   const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
     (eventInput: React.FormEvent<HTMLInputElement>): void => {
       const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0 && filterValueStatus !== "") {
-        setFilterValueStatus(clearSelection);
+      if (inputValue.length === 0) {
+        sessionStorage.removeItem("statusFilter");
       }
     };
   const onFilterVerification: ((filterVal: string) => void) = (filterVal: string): void => {
-    if (filterValueVerification !== filterVal && clearSelection !== filterValueVerification) {
-      setFilterValueVerification(filterVal);
-    }
+    sessionStorage.setItem("verificationFilter", filterVal);
   };
   const clearFilterTreatment: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
     (eventInput: React.FormEvent<HTMLInputElement>): void => {
       const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0 && filterValueTreatment !== "") {
-        setFilterValueTreatment(clearSelection);
+      if (inputValue.length === 0) {
+        sessionStorage.removeItem("treatmentFilter");
       }
     };
   const onFilterTreatment: ((filterVal: string) => void) =
     (filterVal: string): void => {
-      if (filterValueTreatment !== filterVal && clearSelection !== filterValueTreatment) {
-        setFilterValueTreatment(filterVal);
-      }
+      sessionStorage.setItem("treatmentFilter", filterVal);
     };
 
   const clearFilterVerification: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
     (eventInput: React.FormEvent<HTMLInputElement>): void => {
       const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0 && filterValueVerification !== "") {
-        setFilterValueVerification(clearSelection);
-
+      if (inputValue.length === 0) {
+        sessionStorage.removeItem("verificationFilter");
       }
     };
   const onFilterSeverity: ((filterVal: string, data: IFindingAttr[]) => IFindingAttr[]) =
     (filterVal: string, data: IFindingAttr[]): IFindingAttr[] => {
       const restrictions: number[] = restrictionSeverity.filter((option: { restriction: number[]; value: string }) => (
         option.value === filterVal))[0].restriction;
-      if (filterValueSeverity !== filterVal && clearSelection !== filterValueSeverity) {
-        setFilterValueSeverity(filterVal);
-      }
+      sessionStorage.setItem("severityFilter", filterVal);
 
       return data.filter((row: IFindingAttr) => (
         row.severityScore >= restrictions[0] && row.severityScore <= restrictions[1]));
@@ -230,8 +207,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const clearFilterSeverity: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
     (eventInput: React.FormEvent<HTMLInputElement>): void => {
       const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0 && filterValueSeverity !== "") {
-        setFilterValueSeverity(clearSelection);
+      if (inputValue.length === 0) {
+        sessionStorage.removeItem("severityFilter");
       }
     };
 
@@ -247,7 +224,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {
       align: "center", dataField: "title",
       filter: textFilter({
-        defaultValue: filterValueTitle,
+        defaultValue: _.get(sessionStorage, "titleFilter"),
         delay: 1000,
         onFilter: onFilterTitle,
         onInput: clearFilterTitle,
@@ -261,7 +238,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {
       align: "center", dataField: "severityScore",
       filter: selectFilter({
-        defaultValue: filterValueSeverity,
+        defaultValue: _.get(sessionStorage, "severityFilter"),
         onFilter: onFilterSeverity,
         onInput: clearFilterSeverity,
         options: selectOptionsSeverity,
@@ -275,7 +252,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {
       align: "center", dataField: "state",
       filter: selectFilter({
-        defaultValue: filterValueStatus,
+        defaultValue: _.get(sessionStorage, "statusFilter"),
         onFilter: onFilterStatus,
         onInput: clearFilterStatus,
         options: selectOptionsStatus,
@@ -285,7 +262,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {
       align: "center", dataField: "treatment",
       filter: selectFilter({
-        defaultValue: filterValueTreatment,
+        defaultValue: _.get(sessionStorage, "treatmentFilter"),
         onFilter: onFilterTreatment,
         onInput: clearFilterTreatment,
         options: optionTreatment,
@@ -295,7 +272,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {
       align: "center", dataField: "remediated",
       filter: selectFilter({
-        defaultValue: filterValueVerification,
+        defaultValue: _.get(sessionStorage, "verificationFilter"),
         onFilter: onFilterVerification,
         onInput: clearFilterVerification,
         options: selectOptionsVerification,
@@ -305,7 +282,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {
       align: "center", dataField: "isExploitable",
       filter: selectFilter({
-        defaultValue: filterValueExploitable,
+        defaultValue: _.get(sessionStorage, "exploitableFilter"),
         onFilter: onFilterExploitable,
         onInput: clearFilterExploitable,
         options: selectOptionsExploitable,
@@ -315,7 +292,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {
       align: "center", dataField: "where",
       filter: textFilter({
-        defaultValue: filterValueWhere,
+        defaultValue: _.get(sessionStorage, "whereFilter"),
         delay: 1000,
         onFilter: onFilterWhere,
         onInput: clearFilterWhere,
@@ -365,7 +342,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
               bordered={true}
               columnToggle={true}
               dataset={formatFindings(data.project.findings)}
-              defaultSorted={sortValue}
+              defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
               exportCsv={true}
               headers={tableHeaders}
               id="tblFindings"
