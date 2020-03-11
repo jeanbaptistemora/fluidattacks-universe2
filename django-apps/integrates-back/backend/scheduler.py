@@ -298,13 +298,13 @@ def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
     all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
     if len(all_tracking) > 1:
-        if (datetime.strptime(all_tracking[-1]['date'], "%Y-%m-%d")) > (datetime.now() -
+        if (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) > (datetime.now() -
                                                                         timedelta(days=8)):
             delta_open = abs(all_tracking[-1]['open'] - all_tracking[-2]['open'])
             delta_closed = abs(all_tracking[-1]['closed'] - all_tracking[-2]['closed'])
             delta_total = delta_open - delta_closed
     elif len(all_tracking) == 1 and \
-        (datetime.strptime(all_tracking[-1]['date'], "%Y-%m-%d")) > \
+        (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) > \
             (datetime.now() - timedelta(days=8)):
         delta_open = all_tracking[-1]['open']
         delta_closed = all_tracking[-1]['closed']

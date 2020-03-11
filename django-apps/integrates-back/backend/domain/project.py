@@ -294,7 +294,7 @@ def get_last_closing_vuln(findings: List[Dict[str, FindingType]]) -> Decimal:
     """Get day since last vulnerability closing."""
     closing_dates = []
     for fin in findings:
-        if finding_domain.validate_finding(fin['finding_id']):
+        if finding_domain.validate_finding(str(fin['finding_id'])):
             vulnerabilities = finding_dal.get_vulnerabilities(
                 str(fin.get('finding_id', '')))
             closing_vuln_date = [get_last_closing_date(vuln)
@@ -382,7 +382,7 @@ def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
     total_days = 0
     tzn = pytz.timezone('America/Bogota')
     for finding in findings:
-        if finding_domain.validate_finding(finding['finding_id']):
+        if finding_domain.validate_finding(str(finding['finding_id'])):
             vulnerabilities = finding_dal.get_vulnerabilities(str(finding.get('finding_id', '')))
             for vuln in vulnerabilities:
                 open_vuln_date = get_open_vulnerability_date(vuln)
@@ -411,7 +411,7 @@ def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int
     for finding in findings:
         fin_treatment = cast(List[Dict[str, str]],
                              finding.get('historic_treatment', [{}]))[-1].get('treatment')
-        if finding_domain.validate_finding(finding['finding_id']):
+        if finding_domain.validate_finding(str(finding['finding_id'])):
             open_vulns = int(total_vulnerabilities(
                 str(finding['finding_id'])).get('openVulnerabilities', ''))
             if fin_treatment == 'ACCEPTED':
