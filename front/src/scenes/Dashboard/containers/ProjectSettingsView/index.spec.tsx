@@ -49,8 +49,8 @@ describe("ProjectSettingsView", () => {
       },
     },
     result: { data: {
-      me: { __typename: "Me", role: "customer" },
-      project: { __typename: "Project", deletionDate: "" } } },
+      me: { role: "customer" },
+      project: { deletionDate: "" } } },
   };
 
   const mocksTags: Readonly<MockedResponse> = {
@@ -63,7 +63,6 @@ describe("ProjectSettingsView", () => {
       result: {
         data: {
           project: {
-            __typename: "Project",
             tags: ["test"],
           },
         },
@@ -80,7 +79,6 @@ describe("ProjectSettingsView", () => {
       result: {
         data: {
           resources: {
-            __typename: "Resource",
             repositories: JSON.stringify([{
               branch: "test",
               historic_state: [{ state: "ACTIVE" }],
@@ -102,7 +100,6 @@ describe("ProjectSettingsView", () => {
       result: {
         data: {
           resources: {
-            __typename: "Resource",
             environments: JSON.stringify([{
               urlEnv: "https://gitlab.com/fluidattacks/integrates",
             }]),
@@ -134,7 +131,7 @@ describe("ProjectSettingsView", () => {
     (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mockProject, mocksTags]} addTypename={true}>
+        <MockedProvider mocks={[mockProject, mocksTags]} addTypename={false}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
@@ -148,12 +145,13 @@ describe("ProjectSettingsView", () => {
     (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mockProject, mocksRepositories]} addTypename={true}>
+        <MockedProvider mocks={[mockProject, mocksRepositories]} addTypename={false}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
-    await act(async () => { await wait(80); wrapper.update(); });
+    await wait(80);
+    act(() => { wrapper.update(); });
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
                                  .find("RowPureContent")
@@ -186,12 +184,13 @@ describe("ProjectSettingsView", () => {
     (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mockProject, mocksEnvironments]} addTypename={true}>
+        <MockedProvider mocks={[mockProject, mocksEnvironments]} addTypename={false}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
-    await act(async () => { await wait(80); wrapper.update(); });
+    await wait(120);
+    act(() => { wrapper.update(); });
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
                                  .find("RowPureContent")
@@ -214,7 +213,7 @@ describe("ProjectSettingsView", () => {
   it("should render a error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
+        <MockedProvider mocks={mockError} addTypename={false}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
@@ -228,7 +227,7 @@ describe("ProjectSettingsView", () => {
     (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mockProject, mocksTags]} addTypename={true}>
+        <MockedProvider mocks={[mockProject, mocksTags]} addTypename={false}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
