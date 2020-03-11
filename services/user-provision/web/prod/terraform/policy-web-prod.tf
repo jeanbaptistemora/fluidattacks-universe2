@@ -35,6 +35,7 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
     ]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/web-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/web-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/web-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/web-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/web-*",
@@ -96,6 +97,26 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
     resources = [
       "arn:aws:route53:::hostedzone/${data.aws_route53_zone.fluidattacks.zone_id}",
     ]
+  }
+
+  # Lambda
+  statement {
+    effect  = "Allow"
+    actions = ["lambda:*"]
+    resources = [
+      "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:web-*"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "lambda:UpdateEventSourceMapping",
+      "lambda:ListEventSourceMappings",
+      "lambda:GetEventSourceMapping",
+      "lambda:DeleteEventSourceMapping",
+      "lambda:CreateEventSourceMapping"
+    ]
+    resources = ["*"]
   }
 
   # KMS create Keys
