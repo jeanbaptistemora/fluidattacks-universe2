@@ -177,6 +177,43 @@ function helper_terraform_output {
   || return 1
 }
 
+function helper_check_last_job_succeeded {
+  export GITLAB_API_TOKEN
+  local gitlab_repo_id="${1}"
+  local job_name="${2}"
+  local job_status
+  local page='0'
+  local job_data
+
+      echo '[INFO] Iteragin GitLab jobs' \
+  &&  for page in $(seq 0 100)
+      do
+            echo "[INFO] Checking page ${page} for job: ${job_name}" \
+        &&  if  job_data=$( \
+                  curl \
+                      --globoff \
+                      --silent \
+                      --header "private-token: ${GITLAB_API_TOKEN}" \
+                      "https://gitlab.com/api/v4/projects/${gitlab_repo_id}/jobs?page=${page}" \
+                    | jq -er ".[] | select(.name == \"${job_name}\")")
+            then
+                  echo "[INFO] Got the job! $(echo "${job_data}" | jq -er '.web_url')" \
+              &&  break
+            else
+              continue
+            fi
+      done \
+  &&  job_status=$(echo "${job_data}" | jq -er '.status') \
+  &&  if test "${job_status}" = "success"
+      then
+            echo '[INFO] Job status succeeded, continuing' \
+        &&  return 0
+      else
+            echo '[INFO] Job status is different that succeeded, continuing' \
+        &&  return 1
+      fi
+}
+
 function helper_user_provision_rotate_keys {
   local terraform_dir="${1}"
   local resource_to_taint="${2}"

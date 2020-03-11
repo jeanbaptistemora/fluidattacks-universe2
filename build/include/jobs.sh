@@ -850,7 +850,10 @@ function job_user_provision_integrates_prod_rotate_keys {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_user_provision_rotate_keys \
+      helper_check_last_job_succeeded \
+        "${gitlab_repo_id}" \
+        'deploy_k8s_back' \
+  &&  helper_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
