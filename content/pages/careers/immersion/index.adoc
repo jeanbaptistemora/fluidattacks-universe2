@@ -114,7 +114,7 @@ https://fluidattacks.com/training/users/{$GITLAB_USERNAME}/
 
 Just replace your +{$GITLAB_USERNAME}+.
 
-. After you have completed *five (5)* challenge cycles
+. After you have *10 unique solutions* of each type,
 write *one (1)* article for the blog by sending an +MR+
 to the link:https://gitlab.com/fluidattacks/web[web repository].
 
