@@ -1,6 +1,6 @@
 """Domain functions for projects."""
 
-from typing import Dict, List, Union, cast
+from typing import Dict, List, NamedTuple, Union, cast
 from collections import namedtuple
 import re
 from datetime import datetime, timedelta
@@ -160,10 +160,10 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
     return response
 
 
-def remove_project(project_name: str, user_email: str) -> object:
+def remove_project(project_name: str, user_email: str) -> NamedTuple:
     """Delete project information."""
     project = project_name.lower()
-    Status = namedtuple(
+    Status: NamedTuple = namedtuple(
         'Status',
         'are_findings_masked are_users_removed is_project_finished are_resources_removed'
     )
@@ -193,7 +193,7 @@ def remove_project(project_name: str, user_email: str) -> object:
         )
     else:
         raise PermissionDenied()
-    return response
+    return cast(NamedTuple, response)
 
 
 def remove_all_users_access(project: str) -> bool:

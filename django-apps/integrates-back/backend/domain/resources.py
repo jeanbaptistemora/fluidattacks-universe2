@@ -3,7 +3,7 @@
 
 from collections import namedtuple
 from datetime import datetime, timedelta
-from typing import Dict, List, IO, cast
+from typing import Dict, IO, List, NamedTuple, cast
 import base64
 import threading
 import urllib.request
@@ -299,10 +299,10 @@ def update_resource(
     return resources_dal.update(res_list, project_name, res_name)
 
 
-def mask(project_name: str) -> object:
+def mask(project_name: str) -> NamedTuple:
     project_name = project_name.lower()
     project = project_dal.get_attributes(project_name, ['environments', 'files', 'repositories'])
-    Status = namedtuple(
+    Status: NamedTuple = namedtuple(
         'Status',
         'are_files_removed files_result environments_result repositories_result'
     )
@@ -327,5 +327,7 @@ def mask(project_name: str) -> object:
             for file_resource in project.get('repositories', [])
         ]
     })
-    success = Status(are_files_removed, files_result, environments_result, repositories_result)
+    success = cast(
+        NamedTuple,
+        Status(are_files_removed, files_result, environments_result, repositories_result))
     return success
