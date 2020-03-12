@@ -40,16 +40,13 @@ const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
 };
 
 const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
-  const onUnmount: (() => () => void) = (): (() => void) => (): void => {
-    localStorage.removeItem("showAlreadyLoggedin");
-    localStorage.removeItem("url_inicio");
-  };
-  React.useEffect(onUnmount, []);
 
   const [isLegalModalOpen, setLegalModalOpen] = React.useState(true);
 
   const initialUrl: string = _.get(localStorage, "url_inicio", "!/home");
   const loadDashboard: (() => void) = (): void => {
+    localStorage.removeItem("showAlreadyLoggedin");
+    localStorage.removeItem("url_inicio");
     location.assign(`/integrates/dashboard#${initialUrl}`);
   };
 

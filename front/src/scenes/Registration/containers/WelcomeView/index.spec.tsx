@@ -76,7 +76,7 @@ describe("Welcome view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
       .toContain("You are not authorized to log in yet. Please contact " +
-                 "Fluid Attacks's staff or your project administrator to get access.");
+        "Fluid Attacks's staff or your project administrator to get access.");
     wrapper.find("Button")
       .filterWhere((btn: ReactWrapper) => btn.contains("Log out"))
       .simulate("click");
@@ -114,7 +114,7 @@ describe("Welcome view", () => {
       .toContain("You are already logged in");
   });
 
-  it("should clear localstorage on unmount", () => {
+  it("should clear localstorage before redirect", () => {
     const mocks: ReadonlyArray<MockedResponse> = [{
       request: { query: GET_USER_AUTHORIZATION },
       result: {
@@ -128,7 +128,9 @@ describe("Welcome view", () => {
         <WelcomeView {...routeProps} />
       </MockedProvider>,
     );
-    wrapper.unmount();
+
+    wrapper.find("Button")
+      .simulate("click");
     expect(_.get(localStorage, "showAlreadyLoggedin"))
       .toEqual(undefined);
     expect(_.get(localStorage, "url_inicio"))
