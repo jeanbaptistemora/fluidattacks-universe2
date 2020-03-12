@@ -8,6 +8,12 @@ import functools
 import subprocess
 from pathlib import Path
 
+# Third parties libraries
+import requests
+from pykwalify.core import Core
+from pykwalify.errors import SchemaError
+from ruamel.yaml import YAML
+
 # Local libraries
 from toolbox import logger
 
@@ -135,6 +141,33 @@ def get_sops_secret(var: str, path: str, profile: str = 'default') -> str:
     return stdout
 
 
+def _load_vulns_schema():
+    url = ('https://gitlab.com/fluidattacks/integrates/-/raw/6a6d743f3dfbd3c'
+           'b5b41f7bdce7c194d89f7acd3/django-apps/integrates-back/backend/'
+           'entity/schema.yaml')
+    response = requests.get(url)
+    yaml = YAML()
+    return yaml.load(response.text)
+
+
+def validate_vulns_file_schema(file_url: str) -> bool:
+    """Validate if a vulnerabilities file has the correct schema."""
+    core = Core(source_file=file_url, schema_data=_load_vulns_schema())
+    is_valid = False
+    try:
+        core.validate(raise_exception=True)
+        with open(file_url, 'r') as reader:
+            if any(map(lambda x: x in reader.readline(), ['{}', '-'])):
+                is_valid = False
+                logger.error('Empty schema.')
+            else:
+                is_valid = True
+    except SchemaError:
+        logger.error('An error occurred validating vulnerabilities file.')
+
+    return is_valid
+
+
 def iter_vulns_path(subs: str, vulns_name: str):
     """
     Create a interable for vulns path and exploit path of a subscription.
@@ -155,4 +188,7 @@ def iter_vulns_path(subs: str, vulns_name: str):
         if os.stat(vulns_path).st_size == 0:
             logger.info('  ', 'Empty')
             continue
+        if not validate_vulns_file_schema(vulns_path):
+            continue
+
         yield (vulns_path, exploit_path)
