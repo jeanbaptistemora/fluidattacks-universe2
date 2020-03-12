@@ -105,7 +105,7 @@ const enTranslations: Dictionary = {
     drafts: {
       approve: "Approve draft",
       error_submit: "Please provide {{missingFields}} before submitting",
-      new: "New Draft",
+      new: "New Finding",
       reject: "Reject Draft",
       success_create: "Draft created successfully",
       success_submit: "Draft successfully submitted for review",
