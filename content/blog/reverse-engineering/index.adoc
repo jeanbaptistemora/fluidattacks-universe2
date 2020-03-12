@@ -66,7 +66,7 @@ In this case we focus on *Software Reverse Engineering* (+SRE+),
 which, as it is understood, applies to the analysis of software,
 link:https://www.mitre.org/sites/default/files/publications/pr-15-2630-reverse-engineering-cognition.pdf[the discovery of its general properties],
 and the identification of its components, functions and relationships.
-This often with the absence of its source code or relevant documentation,
+This is often done in the absence of its source code or relevant documentation,
 link:https://www.researchgate.net/publication/259563782_An_introduction_to_software_reverse_engineering[claiming its repair or improvement].
 This process emerged from software maintenance and support,
 link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_Code[largely from malware analysis].
@@ -74,11 +74,11 @@ link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_C
 We can separate +SRE+ link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[into two phases]:
 The first one can be seen as a large scale observation
 to determine the general structure,
-and sometimes areas of special interest, of the software in analysis.
+and sometimes areas of special interest, of the software under analysis.
 This phase implies the use of various tools
 and several services of the operating system.
-This for the acquisition of information, tracking inputs and outputs,
-inspecting executables, among other things.
+This tools and services enable the acquisition of information,
+tracking inputs and outputs, inspecting executables, among other things.
 The second phase is deeper,
 and more oriented to code fragments
 to understand them in their structure and functionality.
@@ -88,7 +88,8 @@ to understand them in their structure and functionality.
 .Photo acquired from link:https://www.exploratorium.edu/sites/default/files/tinkering/files/open_make_april_18.jpg[Exploratorium]
 image::child2.png[child2]
 
-According to the above, +SRE+ depends considerably on the use of tools,
+According to the above information,
++SRE+ depends considerably on the use of tools,
 many of which were link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[not designed directly for this purpose].
 
 Before continuing, it is wise at this point to make a parenthesis.
@@ -117,15 +118,16 @@ one of the main ones in +SRE+ is the *disassembler*,
 which develops a process contrary to an assembler,
 and which will be different
 link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_Code[depending on the platform on which it is used].
-The *disassembler* translate machine language (input)
+The *disassembler* translates machine language (input)
 to assembly language (output),
 link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[for the entire program or parts of it].
 
-As an expansion of the *disassembler* work,
+As an expansion of the *disassembler's* work,
 and link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[in some reversing tasks as the only necessary tool],
 appears the *debugger*. With this, over the disassembled code,
 we can establish breakpoints
-(and in them check the current state of the program) in locations of interest,
+—and check the current state of the program within them—
+in locations of interest,
 go through the code running line by line in its analysis,
 and even link:http://index-of.es/Varios-2/Penetration%20Testing%20and%20Reverse%20Engineering.pdf[make edits at run time].
 That is, unlike the *disassembler*,
@@ -141,7 +143,7 @@ This would be more appropriate
 for subsequent modification of the program in question.
 However, link:https://www.researchgate.net/publication/259563782_An_introduction_to_software_reverse_engineering[this task is complex].
 
-Then the *decompiler* appears, which is the opposite of a compiler.
+Lastly, let us address the *decompiler*, which is the opposite of a compiler.
 This tool tries to recreate the original source code, in high-level language,
 through the analysis of the binary code or sometimes the assembly language.
 Nevertheless, the information obtained is complex to understand.
