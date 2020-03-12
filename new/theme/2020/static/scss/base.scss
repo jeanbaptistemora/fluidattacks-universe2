@@ -181,3 +181,112 @@ $codeyellow: rgba(230, 219, 116, 1);
   .new-banner { width: 40em; }
 }
 // End Tachyons
+
+// How continuous hacking works section
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+//scss-lint:disable IdSelector
+#op1:checked~.index1 {
+  color: $fluid-black;
+  font-size: 1.25rem;
+  font-weight: 400;
+  transition: .5s;
+
+  .line-menu {
+    animation: fadein .7s;
+    display: block;
+    float: left;
+  }
+}
+
+//scss-lint:disable IdSelector
+#op2:checked~.index2 {
+  color: $fluid-black;
+  font-size: 1.25rem;
+  font-weight: 400;
+  transition: .5s;
+
+  .line-menu {
+    animation: fadein .7s;
+    display: block;
+    float: left;
+  }
+}
+
+//scss-lint:disable IdSelector
+#op3:checked~.index3 {
+  color: $fluid-black;
+  font-size: 1.25rem;
+  font-weight: 400;
+  transition: .5s;
+
+  .line-menu {
+    animation: fadein .7s;
+    display: block;
+    float: left;
+  }
+}
+
+//scss-lint:disable IdSelector
+#op4:checked~.index4 {
+  color: $fluid-black;
+  font-size: 1.25rem;
+  font-weight: 400;
+  transition: .5s;
+
+  .line-menu {
+    animation: fadein .7s;
+    display: block;
+    float: left;
+  }
+}
+
+#op5:checked~.index5 {
+  border-bottom: .125rem solid $fluid-black;
+  color: $fluid-black;
+  padding-bottom: .2rem;
+  transition: .25s;
+}
+
+#op6:checked~.index6 {
+  border-bottom: .125rem solid $fluid-black;
+  color: $fluid-black;
+  padding-bottom: .2rem;
+  transition: .25s;
+}
+
+#op7:checked~.index7 {
+  border-bottom: .125rem solid $fluid-black;
+  color: $fluid-black;
+  padding-bottom: .2rem;
+  transition: .25s;
+}
+
+// New menu component
+
+.lower~.overlay-hugeinc {
+  opacity: 0;
+  transition: opacity .5s, visibility 0s .5s;
+  visibility: hidden;
+}
+
+//scss-lint:disable IdSelector
+#op:checked~.overlay-hugeinc {
+  opacity: 1;
+  transition: opacity .5s;
+  visibility: visible;
+}
+
+//scss-lint:disable IdSelector MergeableSelector
+#op:checked~.overlay-hugeinc nav ul {
+  opacity: 1;
+  transform: rotateX(0deg);
+}
+
+//scss-lint:disable IdSelector MergeableSelector
+#op:not(:checked)~.overlay-hugeinc nav ul {
+  transform: translateY(25%) rotateX(-35deg);
+}
