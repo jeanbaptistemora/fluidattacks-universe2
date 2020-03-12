@@ -491,6 +491,7 @@ JCL
     extension jcl
     3rd_gen_scale 1.67
 JSON
+    filter remove_matches ^\s*$
     extension json
     3rd_gen_scale 2.50
 JSP
@@ -1234,6 +1235,7 @@ XSLT
     extension xslt
     3rd_gen_scale 1.90
 YAML
+    filter remove_matches ^\s*$
     extension yaml
     extension yml
     3rd_gen_scale 0.90
