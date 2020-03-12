@@ -5,6 +5,7 @@ import asyncio
 import json
 import sys
 
+from backend.decorators import require_login
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
 from backend.exceptions import InvalidExpirationTime
@@ -56,7 +57,8 @@ async def _get_access_token(jwt_content):
     asyncio.sleep(0.001)
     access_token_dict = {
         'hasAccessToken': bool(access_token),
-        'issuedAt': str(access_token.get('iat', '')) if bool(access_token) else ''
+        'issuedAt': str(access_token.get('iat', ''))
+        if bool(access_token) else ''
     }
     return json.dumps(access_token_dict)
 
@@ -96,6 +98,7 @@ async def _resolve_fields(info):
 
 
 @convert_kwargs_to_snake_case
+@require_login
 def resolve_me(_, info):
     """Resolve Me query."""
     loop = asyncio.new_event_loop()
@@ -163,6 +166,7 @@ def resolve_sign_in(_, info, auth_token, provider, push_token):
 
 
 @convert_kwargs_to_snake_case
+@require_login
 def resolve_update_access_token(_, info, expiration_time):
     """Resolve update_access_token mutation."""
     user_info = util.get_jwt_content(info.context)
@@ -207,6 +211,7 @@ def resolve_update_access_token(_, info, expiration_time):
 
 
 @convert_kwargs_to_snake_case
+@require_login
 def resolve_invalidate_access_token(_, info):
     """Resolve invalidate_access_token mutation."""
     user_info = util.get_jwt_content(info.context)

@@ -1,11 +1,14 @@
 # pylint: disable=import-error
 import re
 
+from backend.decorators import require_login, enforce_authz_async
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
 
 
+@require_login
+@enforce_authz_async
 @convert_kwargs_to_snake_case
 def resolve_invalidate_cache(_, info, pattern):
     """Resolve invalidate_cache."""

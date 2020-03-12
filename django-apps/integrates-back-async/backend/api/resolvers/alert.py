@@ -1,6 +1,9 @@
 # pylint: disable=import-error
 
-from backend.decorators import require_login, enforce_authz_async
+from backend.decorators import (
+    get_cached, enforce_authz_async, require_login,
+    require_project_access
+)
 from backend.domain import alert as alert_domain
 from backend import util
 
@@ -8,6 +11,10 @@ from ariadne import convert_kwargs_to_snake_case
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+@get_cached
 def resolve_alert(*_, project_name, organization):
     """Resolve alert query."""
     result = dict()
@@ -20,10 +27,11 @@ def resolve_alert(*_, project_name, organization):
     return result
 
 
+@convert_kwargs_to_snake_case
 @require_login
 @enforce_authz_async
-@convert_kwargs_to_snake_case
 def resolve_set_alert(_, info, company, message, project_name):
+    """Resolve set_alert mutation."""
     success = alert_domain.set_company_alert(
         company, message, project_name)
     if success:

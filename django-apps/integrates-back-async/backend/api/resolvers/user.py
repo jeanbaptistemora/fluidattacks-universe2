@@ -7,6 +7,10 @@ import asyncio
 import sys
 import threading
 
+from backend.decorators import (
+    get_cached, require_login, require_project_access,
+    enforce_authz_async
+)
 from backend.domain import project as project_domain, user as user_domain
 from backend.exceptions import UserNotFound
 from backend.mailer import send_mail_access_granted
@@ -209,6 +213,10 @@ async def _resolve_fields(info, email, project_name):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+@get_cached
 def resolve_user(_, info, project_name, user_email):
     """Resolve user query."""
     loop = asyncio.new_event_loop()
@@ -221,6 +229,8 @@ def resolve_user(_, info, project_name, user_email):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
 def resolve_add_user(_, info, **parameters):
     """Resolve add_user mutation."""
     success = user_domain.create_without_project(parameters)
@@ -239,6 +249,9 @@ def resolve_add_user(_, info, **parameters):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
 def resolve_grant_user_access(_, info, **query_args):
     """Resolve grant_user_access mutation."""
     project_name = query_args.get('project_name')
@@ -286,6 +299,9 @@ access to {user} in {project} project'.format(user=query_args.get('email'),
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
 def resolve_remove_user_access(
     _, info, project_name: str, user_email: str
 ) -> object:
@@ -312,6 +328,9 @@ def resolve_remove_user_access(
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
 def resolve_edit_user(_, info, **query_args):
     """Resolve edit_user mutation."""
     project_name = query_args.get('project_name')

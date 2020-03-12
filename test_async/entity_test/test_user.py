@@ -122,7 +122,7 @@ class UserTests(TestCase):
             {
                 'username': 'unittest',
                 'company': 'unittest',
-                'role': 'admin',
+                'user_role': 'admin',
                 'user_email': 'unittest'
             },
             algorithm='HS512',
@@ -160,7 +160,7 @@ class UserTests(TestCase):
             {
                 'username': 'unittest',
                 'company': 'unittest',
-                'role': 'admin',
+                'user_role': 'admin',
                 'user_email': 'unittest'
             },
             algorithm='HS512',
@@ -198,7 +198,7 @@ class UserTests(TestCase):
             {
                 'username': 'unittest',
                 'company': 'unittest',
-                'role': 'admin',
+                'user_role': 'admin',
                 'user_email': 'unittest'
             },
             algorithm='HS512',

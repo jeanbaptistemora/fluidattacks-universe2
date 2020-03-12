@@ -1,5 +1,9 @@
 # pylint: disable=import-error
 
+from backend.decorators import (
+    get_cached, require_login, require_event_access,
+    require_project_access, enforce_authz_async
+)
 from backend.domain import event as event_domain
 from backend.domain import project as project_domain
 from backend import util
@@ -7,12 +11,23 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case
 
 
+@require_login
+@enforce_authz_async
+@require_event_access
+@get_cached
 @convert_kwargs_to_snake_case
-def resolve_event(*_, identifier):
+def resolve_event(_, info, identifier):
     """Resolve event query."""
+    util.cloudwatch_log(
+        info.context,
+        f'Security: Access to Event: {identifier} succesfully')
     return event_domain.get_event(identifier)
 
 
+@require_login
+@enforce_authz_async
+@require_event_access
+@get_cached
 @convert_kwargs_to_snake_case
 def resolve_events(_, info, project_name):
     """Resolve events query."""
@@ -24,6 +39,9 @@ def resolve_events(_, info, project_name):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_event_access
 def resolve_update_event(_, info, event_id, **kwargs):
     """Resolve update_event mutation."""
     success = event_domain.update_event(event_id, **kwargs)
@@ -38,6 +56,9 @@ def resolve_update_event(_, info, event_id, **kwargs):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
 def resolve_create_event(_, info, project_name, image=None, file=None, **kwa):
     """Resolve create_event mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
@@ -51,6 +72,9 @@ def resolve_create_event(_, info, project_name, image=None, file=None, **kwa):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_event_access
 def resolve_solve_event(_, info, event_id, affectation, date):
     """Resolve solve_event mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
@@ -69,6 +93,9 @@ def resolve_solve_event(_, info, event_id, affectation, date):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_event_access
 def resolve_add_event_comment(_, info, content, event_id, parent):
     """Resolve add_event_comment mutation."""
     user_info = util.get_jwt_content(info.context)
@@ -87,6 +114,9 @@ def resolve_add_event_comment(_, info, content, event_id, parent):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_event_access
 def resolve_update_event_evidence(_, info, event_id, evidence_type, file):
     """Resolve update_event_evidence mutation."""
     success = False
@@ -106,6 +136,9 @@ def resolve_update_event_evidence(_, info, event_id, evidence_type, file):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_event_access
 def resolve_download_event_file(_, info, event_id, file_name):
     """Resolve download_event_file mutation."""
     success = False
@@ -123,7 +156,11 @@ def resolve_download_event_file(_, info, event_id, file_name):
 
 
 @convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_event_access
 def resolve_remove_event_evidence(_, info, event_id, evidence_type):
+    """Resolve remove_event_evidence mutation."""
     success = event_domain.remove_evidence(evidence_type, event_id)
     if success:
         util.cloudwatch_log(

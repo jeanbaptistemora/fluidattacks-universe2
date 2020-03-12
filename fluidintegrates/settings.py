@@ -470,5 +470,5 @@ ENFORCER_ACTION = casbin.Enforcer(
 
 ENFORCER_ACTION_ASYNC = casbin.Enforcer(
     CASBIN_ACTION_ASYNC_POLICY_MODEL_FILE,
-    enable_log=True
+    enable_log=False
 )
