@@ -1,0 +1,183 @@
+$darkblue: rgba(29, 79, 114, 1);
+$darkgray: rgba(102, 102, 102, 1);
+$fluid-black: rgba(39, 39, 39, 1);
+$fluid-dark-red: rgba(203, 50, 51, 1);
+$fluid-gray: rgba(176, 176, 176, 1);
+$fluid-light-gray: rgba(241, 241, 241, 1);
+$fluid-red: rgba(255, 52, 53, 1);
+$lightblue: rgba(0, 133, 161, 1);
+$lightgray: rgba(211, 211, 211, 1);
+$lightergray: rgba(238, 238, 238, 1);
+$shadowgray: rgba(170, 170, 170, 1);
+$textblack: rgba(48, 48, 48, 1);
+$tooltipblack: rgba(68, 68, 68, 1);
+$white: rgba(255, 255, 255, 1);
+$transparent: rgba(0, 0, 0, 0);
+$black: rgba(0, 0, 0, 1);
+$blue: rgba(83, 150, 234, 1);
+$blue2: rgba(25, 116, 186, 1);
+$middleblack: rgba(85, 85, 85, 1);
+$greenyellow: rgba(173, 255, 47, 1);
+$button-hover: rgba(255, 52, 53, 1);
+$button-red: rgba(191, 38, 38, 1);
+$shadowblack: rgba(0, 0, 0, .2);
+//Monokai theme colors
+$codeblack: rgba(39, 40, 43, 1);
+$codebrown: rgba(117, 113, 94, 1);
+$codedarkred: rgba(30, 0, 16, 1);
+$codegray: rgba(242, 242, 242, 1);
+$codegreen: rgba(166, 226, 46, 1);
+$codelightblue: rgba(102, 217, 239, 1);
+$codelightred: rgba(249, 38, 114, 1);
+$codepink: rgba(150, 0, 80, 1);
+$codepurple: rgba(174, 129, 255, 1);
+$codeyellow: rgba(230, 219, 116, 1);
+
+// Tachyons custom classes:
+
+.bg-fluid-red { background-color: $fluid-red;}
+.bg-fluid-gray { background-color: $fluid-gray;}
+.bg-fluid-lightgray { background-color: $lightergray; }
+.bg-fluid-black { background-color: $fluid-black; }
+.bg-tooltip { background-color: $tooltipblack; }
+.bg-code-bk { background-color: $codeblack; }
+.bg-code-dkred { background-color: $codedarkred; }
+.bc-fluid-gray { border-color: $fluid-gray; }
+.bc-fluid-red { border-color: $button-hover; }
+.bg-dk-red { background-color: $button-red;}
+.minw-100 { min-width: 100%; }
+.ma-auto { margin: auto; }
+.w-32 { width: 32%; }
+.montsy { font-family: 'Montserrat'; }
+.sans-pro { font-family: 'Source Sans Pro'; }
+.roboto { font-family: 'Roboto', sans-serif; }
+.neue { font-family: neue-haas-grotesk-display, sans-serif; }
+.mono { font-family: 'Overpass Mono', monospace; }
+.mono2 { font-family: monospaced; }
+.c-black { color: $black; }
+.c-fluid-bk { color: $fluid-black; }
+.c-fluid-red { color: $fluid-red; }
+.c-fluid-dkred { color: $fluid-dark-red; }
+.c-dkred { color: $button-red; }
+.c-fluid-gray { color: $fluid-gray; }
+.c-fluid-dkblue { color: $darkblue; }
+.c-codegray { color: $codegray; }
+.c-codebrown { color: $codebrown; }
+.c-codegreen { color: $codegreen; }
+.c-codelightblue { color: $codelightblue; }
+.c-codepurple { color: $codepurple; }
+.c-codepink { color: $codepink; }
+.c-codelightred { color: $codelightred; }
+.c-codeyellow { color: $codeyellow; }
+.c-dkgrey { color: $darkgray; }
+.grayscale { filter: grayscale(100);}
+.hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
+.hv-fluid-bk { &:hover { color: $fluid-black;} }
+.hv-fluid-lb { &:hover { color: $lightblue; }}
+.hv-bt-fluid-rd { &:hover { background-color: $button-hover; } }
+.hv-fluid-rd { &:hover { color: $button-hover; } }
+.hideme { visibility: hidden; }
+.fluid-bullet { list-style-image: url('../../images/bullet2.png');}
+.bullet-inside { list-style-position: inside; }
+.h-banner { height: 15em; }
+.w-banner { width: 20em; }
+.minh-nav { min-height: 5em; }
+.h-search { height: 2.5em; }
+.w6 { width: 19em; }
+.w-maxcontent { width: max-content; }
+.mt8 { margin-top: 20rem; }
+.bannerbt { background-color: $button-red; }
+.bt-pd { padding: .625rem 2.5rem; }
+.contact-pd { padding: .75rem 5rem; }
+.bt-trans { transition: all .3s ease;}
+.menu-txt-trans { transition: color .2s; }
+.ptdemo { padding-top: 6rem; }
+.rep-bd { border: .063rem solid $fluid-light-gray; }
+.rep-shadow { box-shadow: -.188rem -.125rem .3rem $fluid-light-gray; }
+.wr-bdr { border-bottom-right-radius: .938rem; }
+.wr-bdl { border-top-left-radius: .938rem; }
+.wr-sz { height: 5.625rem; width: 5.625rem; }
+.accordion-item h4:not(:active) ~ .accordion-content { display: none; }
+.ch-w { max-width: 95ch; }
+.anchor-pos { top: -50vh; }
+.bl-hidden { border-left-style: hidden; }
+.ba-hidden { border-style: hidden; }
+.tooltip { &:hover { .tooltip-text { visibility: visible; } } }
+.anchor-sign { &::before { content: '\0023'; } }
+.banner-bg { background-image: url('../../images/cover-main.png'); }
+.continuous-bg { background-image: url('../../images/main-continuous-hacking.png'); }
+.b-max { font-weight: 999; }
+.nb-6 { margin-bottom: -6rem;}
+.lower-img { &:hover { transform: scaleY(1.2);
+    transition: transform .25s ease-in-out; } }
+.pointer {cursor: pointer; }
+.z-100 { z-index: 100; }
+.menu-txt { &:hover {color: $fluid-black; }
+  &:focus { color: $fluid-black; } }
+.menu-trans { transform: translateY(-25%) rotateX(35deg);
+  transition: transform .5s, opacity .5s; }
+.t-50 { top: 50%; }
+.ty-50 { transform: translateY(-50%); }
+.mt-menu { margin-top: 1.25rem; }
+.f-small { font-size: .8rem; }
+.w2-5 { width: 2.25rem; }
+.f-footer { font-size: 1.65rem; }
+.lh-2 { line-height: 2; }
+.fw-max { font-weight: 999; }
+.line-menu { display: none; }
+.w-image { width: 37em; }
+.fadein { animation: fadein .7s; }
+
+// Tachyons custom responsive classes
+
+// Small screens
+@media screen and (max-width: 30em) {
+  .mr-5-s { margin-right: 4rem; }
+  .f-small-s { font-size: .6rem; }
+  .f4-s { font-size: 1.25rem; }
+  .h40-s { height: 40rem; }
+  .h-menu-s { height: 6rem; }
+  .w-logo { width: 6rem; }
+  .pv-4-m { padding-bottom: 1.6; padding-top: 1.6rem; }
+  .w90-s { width: 90%; }
+  .fheader-s { font-size: 4rem; }
+  .cover-s { background-size: cover; }
+  .shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
+  .w-100-s { width: 100%; }
+}
+//medium resolutions
+@media screen and (min-width: 30em) and (max-width: 60em) {
+  .two-columns-m { column-count: 2; }
+  .mr-5-m { margin-right: 4rem; }
+  .f-title-m { font-size: 2rem; }
+  .w100-m { width: 100%; }
+  .pv-3-m { padding-bottom: 1.3; padding-top: 1.3rem; }
+  .pv-4-m { padding-bottom: 1.6; padding-top: 1.6rem; }
+  .w-logo { width: 6rem; }
+  .coverm { background-size: cover; }
+}
+
+//Large screens
+@media screen and (min-width: 60em) {
+  .h-28em-l { height: 28em; }
+  .h-banner-l { height: 20em; }
+  .three-columns-l { column-count: 3; }
+  .hover-white-l { &:hover { color: $white; }}
+  .new-banner { width: 40em; }
+  .mr-13-l { margin-right: 13rem; }
+  .f-title-l { font-size: 2rem; }
+  .h50-l { height: 50rem; }
+  .w-45-l { width: 45%; }
+  .h-menu { height: 9rem; }
+  .fheader-l { font-size: 7.5rem; }
+  .bg-banner-sz { background-size: 100% 100%; }
+  .w-15-l { width: 15%; }
+  .f-header { font-size: 4.5rem; }
+}
+
+//Very large screens
+@media screen and (min-width: 150em) {
+  .h-auto-vl { height: auto; }
+  .new-banner { width: 40em; }
+}
+// End Tachyons
