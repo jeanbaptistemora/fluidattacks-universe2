@@ -1,0 +1,12 @@
+:slug: rules/225/
+:category: authentication
+:description: This document details the security requirements and guidelines related to the authentication process performed in the applications. This requirement establishes the importance of configuring the responses to authentication failures in a secure manner.
+:keywords: Requirement, Security, Authentication, Failure, Response, Information
+:rules: yes
+
+= REQ.225 Proper Authentication Responses
+
+== Requirement
+
+System responses to authentication failures
+must not indicate which part of the authentication was incorrect.
