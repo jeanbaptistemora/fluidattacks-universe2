@@ -20,10 +20,12 @@ WORKDIR /usr/src/app
 # Put integrates in container
 COPY . .
 # This is temporal while the migration from graphene to ariadne is ongoing
-RUN ln -sf django-apps/integrates-back/backend . \
-  && rm -rf build/api \
-  && cp -a django-apps/integrates-back-async/backend/api backend/ \
-  && pip3 install -U ariadne \
+RUN cp -a django-apps/integrates-back-async/backend . \
+  && cp -a django-apps/integrates-back/backend/dal backend/ \
+  && cp -a django-apps/integrates-back/backend/domain backend/ \
+  && cp -a django-apps/integrates-back/backend/utils backend/ \
+  && cp -a django-apps/integrates-back/backend/*py backend/ \
+  && pip3 install -U ariadne==0.10.0 \
   # End of temporal code
   && rm -rf /var/www/html \
   && rm -f /etc/td-agent/td-agent.conf \

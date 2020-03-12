@@ -58,6 +58,6 @@ urlpatterns = [
 
 if NEW_API:
     urlpatterns.append(
-        url(r'^/?apiv2/?\.*$',
+        url(r'^/?v2/?\.*$',
             csrf_exempt(verify_csrf(APIView.as_view(schema=SCHEMA)))),
     )
