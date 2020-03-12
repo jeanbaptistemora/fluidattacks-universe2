@@ -6,6 +6,7 @@ from backend.dal.project import get_current_month_information
 
 class ProjectTests(TestCase):
 
+    @pytest.mark.skip(reason="https://gitlab.com/fluidattacks/integrates/-/jobs/469890062")
     def test_get_current_month_information(self):
         """makes sure that we are getting the info properly"""
         project_name = 'unittesting'

@@ -7,13 +7,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 from backend import services
 from backend.api.schema import SCHEMA
+from backend.api.view import APIView
 from backend.decorators import verify_csrf
 try:
-    from backend.api.view import APIView
-    NEW_API = False
-except ImportError:
-    from ariadne.contrib.django.views import GraphQLView as APIView
+    import ariadne  # noqa
     NEW_API = True
+except ImportError:
+    NEW_API = False
 
 from app import views
 
