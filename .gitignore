@@ -8,6 +8,7 @@ messages.mo
 cache/
 venv/*
 *.md5
+.vscode
 
 # Bundler
 Gemfile.lock
@@ -22,6 +23,7 @@ parser-preset.js
 
 # Webpack
 theme/2014/static/js/tmp/
+new/theme/2020/static/js/tmp/
 
 # Terraform
 .terraform

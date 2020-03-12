@@ -1,0 +1,16 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:all"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "node_modules"
+        ]
+    },
+    "jsRules": {},
+    "rules": {
+        "no-implicit-dependencies": false
+    },
+    "rulesDirectory": []
+}

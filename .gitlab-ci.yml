@@ -26,19 +26,6 @@ content:
   except:
     - master
 
-lint-typescript:
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: check
-  script:
-    - cd /app/
-    - npm --prefix deploy/builder/ install
-    - cp -a deploy/builder/node_modules /app/theme/2014/
-    - cp -a deploy/builder/node_modules /app/
-    - npm run --prefix deploy/builder/ lint
-  except:
-    - master
-
 commitlint:
   tags: [autoscaling]
   stage: check

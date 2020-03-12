@@ -3,11 +3,7 @@ import webpack from "webpack";
 
 export const commonConfig: webpack.Configuration = {
   entry: {
-    carouselOptions: "./static/js/carouselOptions.ts",
-    defends: "./static/js/defends.ts",
-    dynClasses: "./static/js/dynClasses.ts",
-    faqContent: "./static/js/faqContent.ts",
-    rules: "./static/js/rules.ts",
+    contentHome: "./static/js/contentHome.ts",
   },
   module: {
     rules: [
