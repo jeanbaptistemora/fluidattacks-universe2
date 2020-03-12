@@ -1,0 +1,13 @@
+:slug: rules/232/
+:category: authentication
+:description: This document details the security requirements related to secure user authentication management. In this case, it is recommended that, when handling critical information, the identity of the equipment from which a user is being authenticated be required.
+:keywords: System, Information, Business, Identification, Equipment, Authentication
+:rules: yes
+
+= REQ.232 Require Equipment Identity
+
+== Requirement
+
+A system with critical information for the business
+must require the identification of the equipment
+from which a user or system is authenticated.
