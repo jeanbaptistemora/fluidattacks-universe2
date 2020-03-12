@@ -8,48 +8,35 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
-import ProjectUsersView from "./index";
+import { ProjectUsersView } from "./index";
 import { GET_USERS } from "./queries";
 import { IProjectUsersViewProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => void) = (): void => undefined;
-
 describe("Project users view", () => {
 
-  const mockPropsAdd: IProjectUsersViewProps = {
-    addModal: {
-      initialValues: {},
-      open: false,
-      type: "add",
+  const mockProps: IProjectUsersViewProps = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
     },
+    location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
       params: { projectName: "TEST" },
       path: "/",
       url: "",
     },
-    onCloseUsersModal: functionMock,
-    onOpenModal: functionMock,
-    userRole: "manager",
-  };
-
-  const mockPropsEdit: IProjectUsersViewProps = {
-    addModal: {
-      initialValues: {},
-      open: true,
-      type: "edit",
-    },
-    match: {
-      isExact: true,
-      params: { projectName: "TEST" },
-      path: "/",
-      url: "",
-    },
-    onCloseUsersModal: functionMock,
-    onOpenModal: functionMock,
-    userRole: "manager",
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [
@@ -94,16 +81,16 @@ describe("Project users view", () => {
     },
   ];
 
-  it("should return a object", () => {
+  it("should return a function", () => {
     expect(typeof (ProjectUsersView))
-      .toEqual("object");
+      .toEqual("function");
   });
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={false}>
-          <ProjectUsersView {...mockPropsAdd} />
+          <ProjectUsersView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -116,7 +103,7 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectUsersView {...mockPropsAdd} />
+          <ProjectUsersView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -129,7 +116,7 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectUsersView {...mockPropsEdit} />
+          <ProjectUsersView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );

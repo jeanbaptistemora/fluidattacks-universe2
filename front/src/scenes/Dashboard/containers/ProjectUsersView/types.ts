@@ -1,5 +1,4 @@
 import { RouteComponentProps } from "react-router";
-import { IDashboardState } from "../../reducer";
 
 export interface IUsersAttr {
   me: {
@@ -57,17 +56,4 @@ export interface IEditUserAttr {
   };
 }
 
-export type IProjectUsersBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-export type IProjectUsersStateProps = IDashboardState["users"] & {
-  userRole: string;
-};
-
-export interface IProjectUsersDispatchProps {
-  onCloseUsersModal(): void;
-  onOpenModal(type: "add" | "edit", initialValues?: {}): void;
-}
-
-export type IProjectUsersViewProps = IProjectUsersBaseProps & (IProjectUsersStateProps & IProjectUsersDispatchProps);
-
-export interface IState { dashboard: IDashboardState; }
+export type IProjectUsersViewProps = RouteComponentProps<{ projectName: string }>;

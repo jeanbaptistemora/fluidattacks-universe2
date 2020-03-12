@@ -9,7 +9,6 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
-import { connect } from "react-redux";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
@@ -328,8 +327,4 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   );
 };
 
-const mapStateToProps: undefined = undefined;
-
-const mapDispatchToProps: undefined = undefined;
-
-export = connect(mapStateToProps, mapDispatchToProps)(projectUsersView);
+export { projectUsersView as ProjectUsersView };

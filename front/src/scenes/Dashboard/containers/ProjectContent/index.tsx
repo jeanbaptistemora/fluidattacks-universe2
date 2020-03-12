@@ -13,7 +13,7 @@ import { ProjectEventsView } from "../ProjectEventsView/index";
 import { ProjectFindingsView } from "../ProjectFindingsView/index";
 import { ProjectForcesView } from "../ProjectForcesView";
 import { ProjectSettingsView } from "../ProjectSettingsView/index";
-import ProjectUsersView from "../ProjectUsersView/index";
+import { ProjectUsersView } from "../ProjectUsersView/index";
 import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
 import {
