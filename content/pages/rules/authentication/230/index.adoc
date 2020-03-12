@@ -1,0 +1,12 @@
+:slug: rules/230/
+:category: authentication
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that when handling critical information, one-time keys should be required for authentication processes.
+:keywords: System, Information, Business, Authentication, Key, Security
+:rules: yes
+
+= REQ.230 Set One-Time Use Keys
+
+== Requirement
+
+A system with critical information for the business
+must require one-time keys in the authentication process.
