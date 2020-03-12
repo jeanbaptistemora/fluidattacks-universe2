@@ -130,7 +130,7 @@ def add_comment(user_email: str, comment_data: CommentType,
             get_finding(finding_id))
     user_data = user_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
-    return comment_domain.create('comment',
+    return comment_domain.create(str(comment_data.get('comment_type')),
                                  str(comment_data.get('content')),
                                  finding_id,
                                  str(comment_data.get('parent')),
