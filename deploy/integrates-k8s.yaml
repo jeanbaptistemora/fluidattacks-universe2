@@ -86,3 +86,81 @@ spec:
     targetPort: 80
   selector:
     app: integrates-app
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: integrates-app-async
+  namespace: serves
+  annotations:
+    kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
+spec:
+  replicas: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: integrates-app-async
+    spec:
+      containers:
+      - name: container-integrates-app-async
+        image: registry.gitlab.com/fluidattacks/integrates/app-async:master
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+          limits:
+            cpu: 1000m
+            memory: 4Gi
+        envFrom:
+          - secretRef:
+              name: integrates-env
+        env:
+          - name: DEPLOYMENT_DATE
+            value: "__DATE__"
+          - name: INSTANA_AGENT_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -ce
+              - "curl -sS http://localhost | grep 'FluidIntegrates'"
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          successThreshold: 3
+          failureThreshold: 10
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                      - integrates-app-async
+                topologyKey: "kubernetes.io/hostname"
+      imagePullSecrets:
+      - name: gitlab-reg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: integrates-app-async
+  namespace: serves
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: integrates-app-async
