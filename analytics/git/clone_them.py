@@ -7,7 +7,6 @@ import textwrap
 import subprocess
 
 from typing import Tuple
-from multiprocessing import Process
 
 
 def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
@@ -50,16 +49,6 @@ def main() -> None:
     subs_paths = glob.glob(f'/git/fluidattacks/continuous/subscriptions/*')
     for subs_path in subs_paths:
         clone(subs_path)
-    vpn_req = ['/git/fluidattacks/continuous/subscriptions/tabbasa',
-               '/git/fluidattacks/continuous/subscriptions/targon',
-               '/git/fluidattacks/continuous/subscriptions/triana',
-               '/git/fluidattacks/continuous/subscriptions/troitsk',
-               '/git/fluidattacks/continuous/subscriptions/turtwig', ]
-    process = Process(target=open_vpn, args=(vpn_req[0],))
-    process.start()
-    for prot_paths in vpn_req:
-        clone(prot_paths)
-    process.terminate()
 
 
 if __name__ == '__main__':
