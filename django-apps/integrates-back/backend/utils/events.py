@@ -1,5 +1,5 @@
 from typing import Dict, List, cast
-from backend.dal.event import EventType
+from backend.typing import Event as EventType
 
 
 def format_data(event: EventType) -> EventType:

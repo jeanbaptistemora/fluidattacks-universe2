@@ -26,8 +26,7 @@ from django.core.cache import cache
 from jose import jwt, JWTError
 from backend.exceptions import (InvalidAuthorization, InvalidDate,
                                 InvalidDateFormat)
-from backend.dal.finding import FindingType
-from backend.dal.user import UserType
+from backend.typing import Finding as FindingType, User as UserType
 from __init__ import (
     FI_ENVIRONMENT,
     FORCES_TRIGGER_URL,

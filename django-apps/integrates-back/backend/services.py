@@ -10,7 +10,7 @@ from backend.domain import (
 
 from backend import util
 from backend.dal import project as project_dal
-from backend.dal.user import UserType
+from backend.typing import User as UserType
 
 
 @csrf_exempt

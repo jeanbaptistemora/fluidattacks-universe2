@@ -12,7 +12,7 @@ from backend import util
 from backend.utils import cvss, forms as forms_utils
 
 from backend.dal import finding as finding_dal, project as project_dal, vulnerability as vuln_dal
-from backend.dal.finding import FindingType
+from backend.typing import Finding as FindingType
 from backend.mailer import (
     send_mail_verified_finding, send_mail_remediate_finding, send_mail_delete_finding,
     send_mail_accepted_finding, send_mail_reject_draft, send_mail_new_draft

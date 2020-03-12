@@ -1,6 +1,6 @@
 from typing import List, Dict, cast
 from backend.exceptions import InvalidRange
-from backend.dal.finding import FindingType
+from backend.typing import Finding as FindingType
 
 
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:

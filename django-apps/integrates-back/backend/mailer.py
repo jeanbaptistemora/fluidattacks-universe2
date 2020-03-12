@@ -10,9 +10,9 @@ import rollbar
 from backend.domain import user as user_domain
 from backend.dal import project as project_dal
 from backend.dal.comment import CommentType
-from backend.dal.project import ProjectType
-from backend.dal.event import EventType
-from backend.dal.finding import FindingType
+from backend.typing import (
+    Event as EventType, Finding as FindingType, Project as ProjectType
+)
 
 from __init__ import (FI_MAIL_REPLYERS, FI_MAIL_REVIEWERS, FI_MANDRILL_API_KEY,
                       FI_TEST_PROJECTS, FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY,

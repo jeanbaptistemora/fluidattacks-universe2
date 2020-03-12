@@ -23,8 +23,7 @@ from backend.mailer import (
 
 from backend import util
 from backend.dal import integrates_dal, finding as finding_dal, project as project_dal
-from backend.dal.event import EventType
-from backend.dal.finding import FindingType
+from backend.typing import Event as EventType, Finding as FindingType
 
 from __init__ import (
     FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
