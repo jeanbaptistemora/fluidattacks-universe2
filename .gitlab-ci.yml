@@ -49,7 +49,7 @@ ephemeral:
     - deploy_eph
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}
-    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web
+    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web/
     on_stop: stop-ephemeral
   cache:
     key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"

@@ -20,3 +20,4 @@ repos:
   rev: 1.0.2
   hooks:
   - id: shell-lint
+    args: [ "--external-sources", "--exclude=SC1090,SC2016,SC2153,SC2154" ]
