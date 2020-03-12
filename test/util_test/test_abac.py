@@ -4,11 +4,11 @@ from django.test import TestCase
 
 
 def get_basic_enforcer():
-    return casbin.Enforcer(settings.CASBIN_BASIC_POLICY_MODEL_FILE)
+    return settings.ENFORCER_BASIC
 
 
 def get_action_enforcer():
-    return casbin.Enforcer(settings.CASBIN_ACTION_POLICY_MODEL_FILE)
+    return settings.ENFORCER_ACTION
 
 
 class BasicAbacTest(TestCase):
