@@ -51,7 +51,7 @@ spec:
       - backend:
           serviceName: integrates-app-async
           servicePort: 80
-        path: /integrates/apiv2(/|$)(.*)
+        path: /integrates/v2(/|$)(.*)
       - backend:
           serviceName: integrates-app
           servicePort: 80
