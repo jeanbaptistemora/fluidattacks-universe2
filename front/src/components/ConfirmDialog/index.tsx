@@ -1,4 +1,4 @@
-/* tslint:disable jsx-no-multiline-js jsx-no-lambda
+/* tslint:disable jsx-no-multiline-js
  * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that renders the footer
  */
