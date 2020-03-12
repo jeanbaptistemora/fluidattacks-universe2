@@ -1,0 +1,12 @@
+:slug: rules/227/
+:category: authentication
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case it is recommended that the system deploys access notifications for authorized users when a login process is in progress.
+:keywords: System, Notification, User Account, Authentication, Access, Authorization
+:rules: yes
+
+= REQ.227 Display Access Notification
+
+== Requirement
+
+The system must notify under any authentication attempt,
+that access on the same system is only available to authorized users.
