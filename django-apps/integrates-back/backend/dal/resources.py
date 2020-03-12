@@ -101,8 +101,7 @@ def remove(project_name: str, res_type: str, index: int) -> bool:
     return resp
 
 
-def update(res_data: List[Dict[str, Union[str, List[str], object]]],
-           project_name: str, res_type: str) -> bool:
+def update(res_data: List[ResourceType], project_name: str, res_type: str) -> bool:
     table = TABLE
     primary_keys = ['project_name', project_name]
     attr_name = res_type

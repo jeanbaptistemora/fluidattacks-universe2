@@ -23,7 +23,7 @@ Comment = Dict[str, Union[
     int, str, object
 ]]
 Resource = Dict[str, Union[
-    str,
+    str, object,
     Historic
 ]]
 Event = Dict[str, Union[

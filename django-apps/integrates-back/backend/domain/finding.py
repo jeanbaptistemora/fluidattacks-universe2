@@ -168,13 +168,13 @@ def verify_finding(
     project_name = str(finding.get('projectName', ''))
     finding_name = str(finding.get('finding', ''))
     historic_verification = cast(
-        List[Dict[str, object]], finding.get('historicVerification', [{}]))
+        List[Dict[str, Union[str, int, datetime]]], finding.get('historicVerification', [{}]))
     if historic_verification[-1].get('status') == 'REQUESTED' and\
        not historic_verification[-1].get('vulns', []):
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         comment_id = int(round(time() * 1000))
-        new_state = {
+        new_state: Dict[str, Union[str, int, datetime]] = {
             'date': today,
             'user': user_email,
             'status': 'VERIFIED',
