@@ -3,6 +3,9 @@ import gql from "graphql-tag";
 
 export const GET_USERS: DocumentNode = gql`
   query GetUsersQuery($projectName: String!) {
+    me {
+      role
+    }
     project(projectName: $projectName){
       users {
         email

@@ -8,8 +8,8 @@ import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, Glyphicon, Row } from "react-bootstrap";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { connect } from "react-redux";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
@@ -18,33 +18,11 @@ import { formatUserlist, handleGraphQLErrors } from "../../../../utils/formatHel
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { closeUsersMdl, openUsersMdl, ThunkDispatcher } from "./actions";
 import { addUserModal as AddUserModal } from "./AddUserModal/index";
 import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
-import { IAddUserAttr, IEditUserAttr, IProjectUsersBaseProps, IProjectUsersDispatchProps, IProjectUsersStateProps,
-  IProjectUsersViewProps, IRemoveUserAttr, IState, IUserDataAttr, IUsersAttr } from "./types";
-
-const openEditModal: ((props: IProjectUsersViewProps) => void) = (props: IProjectUsersViewProps): void => {
-  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
-  if (selectedQry.length > 0) {
-    if (selectedQry[0].closest("tr") !== null) {
-      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-      const DATA_IN_SELECTED_ROW: HTMLCollection = selectedRow.children;
-
-      const email: string | null = DATA_IN_SELECTED_ROW[1].textContent;
-      const responsibility: string | null = DATA_IN_SELECTED_ROW[3].textContent;
-      const phoneNumber: string | null = DATA_IN_SELECTED_ROW[4].textContent;
-      const organization: string | null = DATA_IN_SELECTED_ROW[5].textContent;
-
-      props.onOpenModal("edit", { email, organization, phoneNumber, responsibility });
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred removing user");
-    }
-  } else {
-    msgError(translate.t("search_findings.tab_users.no_selection"));
-  }
-};
+import {
+  IAddUserAttr, IEditUserAttr, IProjectUsersViewProps, IRemoveUserAttr, IUserDataAttr, IUsersAttr,
+} from "./types";
 
 const tableHeaders: IHeader[] = [
   {
@@ -84,33 +62,8 @@ const tableHeaders: IHeader[] = [
   },
 ];
 
-const renderUsersTable: ((userList: IUsersAttr["project"]["users"], userRole: string) => JSX.Element) =
-  (userList: IUsersAttr["project"]["users"], userRole: string): JSX.Element => (
-    <DataTableNext
-      id="tblUsers"
-      bordered={true}
-      dataset={userList}
-      exportCsv={true}
-      headers={tableHeaders}
-      pageSize={15}
-      remote={false}
-      search={true}
-      striped={true}
-      title=""
-      selectionMode={{
-        clickToSelect: true,
-        hideSelectColumn: !(userRole === "admin" || userRole === "customeradmin"),
-        mode: "radio",
-      }}
-    />
-  );
-
 const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult["refetch"]) => JSX.Element) =
   (props: IProjectUsersViewProps, refetch: QueryResult["refetch"]): JSX.Element => {
-    const handleEditClick: (() => void) = (): void => { openEditModal(props); };
-
-    const handleAddClick: (() => void) = (): void => { props.onOpenModal("add"); };
-
     const { projectName } = props.match.params;
 
     const handleMtRemoveUserRes: ((mtResult: IRemoveUserAttr) => void) = (mtResult: IRemoveUserAttr): void => {
@@ -133,19 +86,6 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult[
     };
 
     return (
-      <div>
-        <Col mdOffset={3} md={2} sm={6}>
-          <Button id="editUser" block={true} bsStyle="primary" onClick={handleEditClick}>
-            <FluidIcon icon="edit" />&nbsp;
-            {translate.t("search_findings.tab_users.edit")}
-          </Button>
-        </Col>
-        <Col md={2} sm={6}>
-          <Button id="addUser" block={true} bsStyle="primary" onClick={handleAddClick}>
-            <Glyphicon glyph="plus" />&nbsp;
-            {translate.t("search_findings.tab_users.add_button")}
-          </Button>
-        </Col>
         <Mutation mutation={REMOVE_USER_MUTATION} onCompleted={handleMtRemoveUserRes}>
           {(removeUserAccess: MutationFunction, mutationRes: MutationResult): JSX.Element => {
               if (!_.isUndefined(mutationRes.error)) {
@@ -172,49 +112,59 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult[
               };
 
               return (
-                <Col md={2} sm={6}>
-                  <Button id="removeUser" block={true} bsStyle="primary" onClick={handleRemoveUser}>
+                  <Button id="removeUser" onClick={handleRemoveUser}>
                     <Glyphicon glyph="minus" />&nbsp;
                     {translate.t("search_findings.tab_users.remove_user")}
                   </Button>
-                </Col>
               );
             }}
         </Mutation>
-      </div>
     );
   };
 
 const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
-  const handleCloseUsersModal: (() => void) = (): void => { props.onCloseUsersModal(); };
+  // Side effects
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("ProjectUsers", { Organization: userOrganization, User: userName });
+  };
+  React.useEffect(onMount, []);
 
-  const handleQryResult: ((qrResult: IUsersAttr) => void) = (qrResult: IUsersAttr): void => {
-    mixpanel.track(
-      "ProjectUsers",
-      {
-        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-        User: (window as typeof window & { userName: string }).userName,
-      });
+  // State management
+  const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
+  const [isUserModalOpen, setUserModalOpen] = React.useState(false);
+  const [userModalType, setUserModalType] = React.useState<"add" | "edit">("add");
+  const openAddUserModal: (() => void) = (): void => {
+    setUserModalType("add");
+    setUserModalOpen(true);
+  };
+  const openEditUserModal: (() => void) = (): void => {
+    setUserModalType("edit");
+    setUserModalOpen(true);
+  };
+  const closeUserModal: (() => void) = (): void => {
+    setUserModalOpen(false);
   };
 
   return (
     <Query
       query={GET_USERS}
       variables={{ projectName }}
-      onCompleted={handleQryResult}
     >
       {
         ({ error, data, refetch }: QueryResult<IUsersAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
-            return <React.Fragment/>;
+            return <React.Fragment />;
           }
+
+          const userRole: string = data.me.role;
           if (!_.isUndefined(error)) {
             handleGraphQLErrors("An error occurred getting project users", error);
 
-            return <React.Fragment/>;
+            return <React.Fragment />;
           }
           if (!_.isUndefined(data)) {
             const userList: IUsersAttr["project"]["users"] = formatUserlist(data.project.users);
@@ -224,7 +174,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                 if (mtResult.grantUserAccess.success) {
                   refetch()
                     .catch();
-                  handleCloseUsersModal();
+                  closeUserModal();
                   mixpanel.track(
                     "AddUserAccess",
                     {
@@ -245,7 +195,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                 if (mtResult.editUser.success) {
                   refetch()
                     .catch();
-                  handleCloseUsersModal();
+                  closeUserModal();
                   mixpanel.track(
                     "EditUserAccess",
                     {
@@ -266,14 +216,41 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   <Row>
                     <Col md={12} sm={12} xs={12}>
                       <Row>
-                        {_.includes(["admin", "customeradmin"], props.userRole)
-                          ? renderActionButtons(props, refetch)
-                          : undefined}
+                        {_.includes(["admin", "customeradmin"], userRole) ? (
+                          <ButtonToolbar className="pull-right">
+                            <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
+                              <FluidIcon icon="edit" />
+                              &nbsp;{translate.t("search_findings.tab_users.edit")}
+                            </Button>
+                            <Button id="addUser" onClick={openAddUserModal}>
+                              <Glyphicon glyph="plus" />
+                              &nbsp;{translate.t("search_findings.tab_users.add_button")}
+                            </Button>
+                            {renderActionButtons(props, refetch)}
+                          </ButtonToolbar>
+                        ) : undefined}
                       </Row>
                       <br />
                       <Row>
                         <Col md={12} sm={12}>
-                          {renderUsersTable(userList, props.userRole)}
+                          <DataTableNext
+                            id="tblUsers"
+                            bordered={true}
+                            dataset={userList}
+                            exportCsv={true}
+                            headers={tableHeaders}
+                            pageSize={15}
+                            remote={false}
+                            search={true}
+                            striped={true}
+                            title=""
+                            selectionMode={{
+                              clickToSelect: true,
+                              hideSelectColumn: !_.includes(["admin", "customeradmin"], userRole),
+                              mode: "radio",
+                              onSelect: setCurrentRow,
+                            }}
+                          />
                         </Col>
                       </Row>
                     </Col>
@@ -299,7 +276,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
 
                                   const handleSubmit: ((values: IUserDataAttr) => void) =
                                   (values: IUserDataAttr): void => {
-                                    if (props.addModal.type === "add") {
+                                    if (userModalType === "add") {
                                       grantUserAccess({
                                         variables: {
                                           email: String(values.email),
@@ -329,12 +306,12 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                                   return (
                                     <AddUserModal
                                       onSubmit={handleSubmit}
-                                      open={props.addModal.open}
-                                      type={props.addModal.type}
-                                      onClose={handleCloseUsersModal}
+                                      open={isUserModalOpen}
+                                      type={userModalType}
+                                      onClose={closeUserModal}
                                       projectName={projectName}
-                                      userRole={props.userRole}
-                                      initialValues={props.addModal.initialValues}
+                                      userRole={userRole}
+                                      initialValues={userModalType === "edit" ? currentRow : {}}
                                     />
                                   );
                               }}
@@ -351,18 +328,8 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   );
 };
 
-const mapStateToProps: MapStateToProps<IProjectUsersStateProps, IProjectUsersBaseProps, IState> =
-  (state: IState): IProjectUsersStateProps => ({
-    addModal: state.dashboard.users.addModal,
-    userRole: state.dashboard.user.role,
-  });
+const mapStateToProps: undefined = undefined;
 
-const mapDispatchToProps: MapDispatchToProps<IProjectUsersDispatchProps, IProjectUsersBaseProps> =
-  (dispatch: ThunkDispatcher): IProjectUsersDispatchProps =>
-
-    ({
-      onCloseUsersModal: (): void => { dispatch(closeUsersMdl()); },
-      onOpenModal: (type: "add" | "edit", initialValues?: {}): void => { dispatch(openUsersMdl(type, initialValues)); },
-    });
+const mapDispatchToProps: undefined = undefined;
 
 export = connect(mapStateToProps, mapDispatchToProps)(projectUsersView);

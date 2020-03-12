@@ -2,6 +2,9 @@ import { RouteComponentProps } from "react-router";
 import { IDashboardState } from "../../reducer";
 
 export interface IUsersAttr {
+  me: {
+    role: string;
+  };
   project: {
     users: Array<{
       email: string;

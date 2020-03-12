@@ -26,7 +26,7 @@ describe("Project users view", () => {
     },
     match: {
       isExact: true,
-      params: {projectName: "TEST"},
+      params: { projectName: "TEST" },
       path: "/",
       url: "",
     },
@@ -43,7 +43,7 @@ describe("Project users view", () => {
     },
     match: {
       isExact: true,
-      params: {projectName: "TEST"},
+      params: { projectName: "TEST" },
       path: "/",
       url: "",
     },
@@ -62,10 +62,11 @@ describe("Project users view", () => {
       },
       result: {
         data: {
+          me: {
+            role: "customeradmin",
+          },
           project: {
-            __typename: "Project",
             users: [{
-              __typename: "User",
               email: "user@gmail.com",
               firstLogin: "2017-09-05 15:00:00",
               lastLogin: "[3, 81411]",
@@ -77,7 +78,7 @@ describe("Project users view", () => {
           },
         },
       },
-  }];
+    }];
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -101,7 +102,7 @@ describe("Project users view", () => {
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
+        <MockedProvider mocks={mockError} addTypename={false}>
           <ProjectUsersView {...mockPropsAdd} />
         </MockedProvider>
       </Provider>,
@@ -114,7 +115,7 @@ describe("Project users view", () => {
   it("should render an add user component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider mocks={mocks} addTypename={false}>
           <ProjectUsersView {...mockPropsAdd} />
         </MockedProvider>
       </Provider>,
@@ -127,7 +128,7 @@ describe("Project users view", () => {
   it("should render an edit user component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider mocks={mocks} addTypename={false}>
           <ProjectUsersView {...mockPropsEdit} />
         </MockedProvider>
       </Provider>,
