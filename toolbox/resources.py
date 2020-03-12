@@ -13,11 +13,9 @@ import urllib.parse
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
 from subprocess import Popen, PIPE, check_output
-from html import escape
 from typing import Dict
 
 # Third parties imports
-import mandrill
 from progress.bar import ChargingBar
 import ruamel.yaml as yaml
 
@@ -488,35 +486,6 @@ def get_active_missing_repos(subs):
     return repos
 
 
-def send_mail(html: str, email_to: list) -> None:
-    """Send notification email."""
-    mandril_apikey = os.environ['MANDRILL_API_KEY']
-    mandrill_client = mandrill.Mandrill(mandril_apikey)
-    message = {
-        'html': html,
-        'subject': 'Check sync repositories',
-        'from_email': 'noreply@fluidattacks.com',
-        'from_name': 'Fluid Attacks',
-        'to': [
-            {'email': email} for email in email_to
-        ]
-    }
-    mandrill_client.messages.send(message=message)
-
-
-def html_formatter(subs, inactive_repos, missing_repos) -> str:
-    """Create html for inactive and missing repos"""
-    result = f'''<h2>{escape(subs.upper(), quote=True)}</h2><table>
-            <tr><th>Missing repositories</th></tr>'''
-    for missing in missing_repos:
-        result += f'<tr><td>{escape(missing, quote=True)}</td></tr>'
-    result += f'<tr><th>Inactive repositories</th></tr>'
-    for inactive in inactive_repos:
-        result += f'<tr><td>{escape(inactive, quote=True)}</td></tr>'
-    result += '</table>'
-    return result
-
-
 def print_inactive_missing_repos(inactive_repos, missing_repos) -> None:
     logger.info(f'== Inactive repositories ==')
     for inactive in inactive_repos:
@@ -530,31 +499,10 @@ def check_repositories(subs)-> bool:
     projects = os.listdir('subscriptions')
     if subs != 'all':
         projects = [subs]
-    html = '''
-        <style>
-            table {
-              font-family: arial, sans-serif;
-              border-collapse: collapse;
-              width: 100%;
-            }
-            td, th {
-              border: 1px solid #dddddd;
-              text-align: left;
-              padding: 8px;
-            }
-            th {
-              text-align: center;
-            }
-            tr:nth-child(even) {
-              background-color: #dddddd;
-            }
-        </style>
-    '''
     for project in projects:
         logger.info(f'Checking {project} repositories ...\n')
         inactive_repos, missing_repos = get_active_missing_repos(project)
         if inactive_repos or missing_repos:
-            html += html_formatter(project, inactive_repos, missing_repos)
             print_inactive_missing_repos(inactive_repos, missing_repos)
         elif subs != 'all':
             return False
