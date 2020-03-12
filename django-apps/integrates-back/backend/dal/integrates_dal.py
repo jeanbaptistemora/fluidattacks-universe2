@@ -9,25 +9,6 @@ from backend.dal.helpers import dynamodb
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
-def add_finding_comment_dynamo(finding_id: int, email: str, comment_data: CommentType) -> bool:
-    """ Add a comment in a finding. """
-    table = DYNAMODB_RESOURCE.Table('FI_comments')
-    resp = False
-    try:
-        payload = {
-            'finding_id': finding_id,
-            'email': email
-        }
-        payload.update(comment_data)
-        response = table.put_item(
-            Item=payload
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
-    return resp
-
-
 def weekly_report_dynamo(init_date: str, finish_date: str, registered_users: List[str],
                          logged_users: List[str], companies: List[str]) -> bool:
     """ Save the number of registered and logged users weekly. """

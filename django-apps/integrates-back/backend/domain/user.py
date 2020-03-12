@@ -139,6 +139,10 @@ def update(email: str, data_attr: str, name_attr: str) -> bool:
     return user_dal.update(email, {name_attr: data_attr})
 
 
+def get(email: str) -> UserType:
+    return user_dal.get(email)
+
+
 def create_without_project(user_data: UserType) -> bool:
     phone_number = ''
     success = False

@@ -14,7 +14,7 @@ from i18n import t
 from magic import Magic
 
 from backend.domain import (
-    user as user_domain, vulnerability as vuln_domain
+    comment as comment_domain, user as user_domain, vulnerability as vuln_domain
 )
 
 from backend.mailer import send_comment_mail
@@ -30,7 +30,7 @@ from backend.utils import cvss, notifications, findings as finding_utils
 
 from backend.dal import (
     comment as comment_dal, integrates_dal, finding as finding_dal,
-    project as project_dal, vulnerability as vuln_dal
+    project as project_dal, vulnerability as vuln_dal, user as user_dal
 )
 from backend.typing import (
     Comment as CommentType, Finding as FindingType, User as UserType
@@ -126,11 +126,15 @@ def add_comment(user_email: str, comment_data: CommentType,
 
     if not is_remediation_comment:
         send_comment_mail(
-            comment_data, 'finding', user_email, str(comment_data['comment_type']),
+            comment_data, 'finding', user_email, str(comment_data.get('comment_type')),
             get_finding(finding_id))
-
-    return integrates_dal.add_finding_comment_dynamo(int(finding_id),
-                                                     user_email, comment_data)
+    user_data = user_domain.get(user_email)
+    user_data['user_email'] = user_data.pop('email')
+    return comment_domain.create('comment',
+                                 str(comment_data.get('content')),
+                                 finding_id,
+                                 str(comment_data.get('parent')),
+                                 user_data)[1]
 
 
 def get_age_finding(act_finding: Dict[str, FindingType]) -> int:

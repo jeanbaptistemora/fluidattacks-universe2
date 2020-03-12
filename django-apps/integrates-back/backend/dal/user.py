@@ -152,6 +152,12 @@ def update(email: str, data: UserType) -> bool:
     return success
 
 
+def get(email: str) -> UserType:
+    table = DYNAMODB_RESOURCE.Table(TABLE)
+    response = table.get_item(Key={'email': email.lower()})
+    return response.get('Item', {})
+
+
 def delete(email: str) -> bool:
     table = DYNAMODB_RESOURCE.Table(TABLE)
     primary_keys = {'email': email.lower()}
