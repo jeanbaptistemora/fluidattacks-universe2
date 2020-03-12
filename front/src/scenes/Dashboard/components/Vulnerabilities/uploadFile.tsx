@@ -76,6 +76,8 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
           ${formatError("proj_alerts.value", errorObject.values)}`);
       } else if (message === "Exception - Error in specific value") {
         msgError(translate.t("proj_alerts.invalid_specific"));
+      } else if (message === "Exception - Error Uploading File to S3") {
+        msgError(translate.t("proj_alerts.error_textsad"));
       } else {
         msgError(translate.t("proj_alerts.invalid_specific"));
         rollbar.error(message);
