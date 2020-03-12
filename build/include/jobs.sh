@@ -876,6 +876,12 @@ function job_deploy_k8s_back {
         &&  kubectl rollout undo 'deploy/integrates-app' \
         &&  return 1
       fi \
+  &&  if ! kubectl rollout status --timeout=10m 'deploy/integrates-app-async'
+      then
+            echo '[INFO] Undoing deployment' \
+        &&  kubectl rollout undo 'deploy/integrates-app-async' \
+        &&  return 1
+      fi \
   &&  curl "https://api.rollbar.com/api/1/deploy" \
         --form "access_token=${ROLLBAR_ACCESS_TOKEN}" \
         --form 'environment=production' \
