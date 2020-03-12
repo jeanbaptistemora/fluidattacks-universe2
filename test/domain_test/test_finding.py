@@ -44,7 +44,7 @@ class FindingTests(TestCase):
         date = date.strftime('%Y-%m-%d %H:%M:%S')
         values_in_progress = {'justification': 'This is a test treatment justification',
                               'treatment': 'IN PROGRESS', 'acceptance_date': date}
-        test_in_progress = update_treatment(finding_id, values_in_progress, 'unittesting@fluidattacks.com')
+        test_in_progress = update_treatment(finding_id, values_in_progress, 'integratesuser@gmail.com')
         assert test_in_progress is True
         values_new = {'treatment': 'NEW'}
         test_new = update_treatment(finding_id, values_new, 'unittesting@fluidattacks.com')
