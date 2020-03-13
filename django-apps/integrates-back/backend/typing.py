@@ -1,6 +1,8 @@
 # this is necessary because of pylint error thrown only in backend-async
 # module about UPPER_CASE naming style with every variable declared here
-# pylint: disable-all
+# pylint: disable=invalid-name
+# this is necessary for importing types from typing
+# pylint: disable=import-self
 
 from decimal import Decimal
 from typing import List, Dict, Union
