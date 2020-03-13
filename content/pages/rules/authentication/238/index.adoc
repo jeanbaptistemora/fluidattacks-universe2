@@ -1,0 +1,13 @@
+:slug: rules/238/
+:category: authentication
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that the system guarantees that the owner of the account is the one who recovers the password.
+:keywords: Authentication, Time, Security, Seconds, Users, Limit
+:rules: yes
+
+= REQ.238 Establish Safe Recovery
+
+== Requirement
+
+The system must guarantee that
+the person performing the password recovery process
+is actually the owner.
