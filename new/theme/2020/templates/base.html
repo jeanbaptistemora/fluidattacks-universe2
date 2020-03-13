@@ -23,13 +23,6 @@
           gtag('config', 'UA-22974464-4');
         </script>
       <!-- End Google Analytics -->
-      <!-- MixPanel -->
-        {% assets filters="uglifyjs", output="static/js/mixpanel.min.js", "js/mixpanel.js", "js/mixPanelDashboard.js" %}
-          <script type="text/javascript"
-                  src="{{ SITEURL }}/{{ ASSET_URL }}">
-          </script>
-        {% endassets %}
-      <!-- End MixPanel -->
 
       {% if GOOGLE_SITE_VERIFICATION %}
         <meta name="google-site-verification"
@@ -157,11 +150,6 @@
     {% endblock twitter_card %}
   </head>
   <body class="bg-white ma0 lh-copy">
-    <!-- Mixpanel Event -->
-      <script>
-        mixPanelDashboard.trackPageView ("Page View", document.title, window.location.pathname);
-      </script>
-    <!-- End Mixpanel Event -->
     {% assets output="static/js/contentHome.min.js", "js/tmp/contentHome.min.js" %}
       <script type="text/javascript"
               src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
