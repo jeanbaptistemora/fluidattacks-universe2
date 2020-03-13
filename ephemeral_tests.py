@@ -53,8 +53,6 @@ class ViewTestCase(unittest.TestCase):
         elif self.in_ci:
             self.url = \
                 f'https://{self.branch}.integrates.env.fluidattacks.com/integrates'
-            self.url_async = \
-                f'https://{self.branch}-async.integrates.env.fluidattacks.com/integrates'
         else:
             self.url = 'https://localhost:8080/integrates'
 
@@ -83,19 +81,6 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(f'{SCR_PATH}00.01-after-login.png')
         return selenium
 
-    def __login_async(self):
-        selenium = self.selenium
-        selenium.get(self.url_async)
-        time.sleep(5)
-        selenium.find_element_by_xpath(
-            "//*[contains(text(), 'Log in with Google')]").click()
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        return selenium
-
     def test_01_init_page(self):
         selenium = self.selenium
         selenium.get(self.url)
@@ -107,25 +92,9 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '01-init_page.png')
         assert 'Log in with Google' in selenium.page_source
 
-    def test_01_init_page_async(self):
-        selenium = self.selenium
-        selenium.get(self.url_async)
-        WebDriverWait(selenium,
-                      self.delay).until(
-                          expected.presence_of_element_located(
-                              (By.XPATH,
-                               "//*[contains(text(), 'Log in with Google')]")))
-        selenium.save_screenshot(SCR_PATH + '01-init_page_async.png')
-        assert 'Log in with Google' in selenium.page_source
-
     def test_02_dashboard(self):
         selenium = self.__login()
         selenium.save_screenshot(SCR_PATH + '02-dashboard.png')
-        assert 'Integrates unit test project' in selenium.page_source
-
-    def test_02_dashboard_async(self):
-        selenium = self.__login_async()
-        selenium.save_screenshot(SCR_PATH + '02-dashboard-async.png')
         assert 'Integrates unit test project' in selenium.page_source
 
     def test_03_indicators(self):

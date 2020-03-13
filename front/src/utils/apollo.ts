@@ -1,6 +1,6 @@
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
-import { ApolloLink } from "apollo-link";
+import { ApolloLink, Operation } from "apollo-link";
 import { ErrorResponse, onError } from "apollo-link-error";
 import { createUploadLink } from "apollo-upload-client";
 import { GraphQLError } from "graphql";
@@ -26,6 +26,22 @@ const getCookie: (name: string) => string = (name: string): string => {
 
   return cookieValue;
 };
+
+const apiLinkV1: ApolloLink = createUploadLink({
+  credentials: "same-origin",
+  headers: {
+    "X-CSRFToken": getCookie("csrftoken"),
+  },
+  uri: `${window.location.origin}/integrates/api`,
+});
+
+const apiLinkV2: ApolloLink = createUploadLink({
+  credentials: "same-origin",
+  headers: {
+    "X-CSRFToken": getCookie("csrftoken"),
+  },
+  uri: `${window.location.origin}/integrates/v2/api`,
+});
 
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),
@@ -61,12 +77,13 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
         });
       }
     }),
-    createUploadLink({
-      credentials: "same-origin",
-      headers: {
-        "X-CSRFToken": getCookie("csrftoken"),
-      },
-      uri: `${window.location.origin}/integrates/api`,
-    }),
+    ApolloLink.split(
+        // NOTE: Split GraphQL according to migration status
+        (operation: Operation) =>
+          ["HomeProjects",
+           "GetUserAuthorization"].includes(operation.operationName),
+        apiLinkV2,
+        apiLinkV1,
+       ),
   ]),
 });
