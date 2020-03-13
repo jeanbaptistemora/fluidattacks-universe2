@@ -93,6 +93,19 @@ production:
   only:
     - master
 
+production-new-web:
+  tags: [autoscaling]
+  needs: [apply_infra_bucket]
+  stage: deploy
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - . /app/ci-scripts/deploy.sh
+    - deploy_prod_new
+  only:
+    - master
+
 mr-test:
   tags: [autoscaling]
   stage: mr-check

@@ -62,7 +62,7 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n', 'jinja2.ext.do']}
 I18N_SUBSITES = {
     'en': {
         'SITENAME': 'A Pentesting Company | Fluid Attacks',
-        'SITEURL': 'http://localhost:8000/newweb',
+        'SITEURL': 'http://fluidattacks.com/newweb',
         'OUTPUT_PATH': 'output/newweb',
         'THEME': 'theme/2020/',
         'ARTICLE_PATHS': ['blog'],
@@ -87,7 +87,7 @@ I18N_SUBSITES = {
     },
 }
 SUBSITE_LANG = {
-     'en': 'http://localhost:8000/newweb',
+     'en': 'http://fluidattacks.com/newweb',
 }
 ASSET_BUNDLES = (
   ('bundle', [

@@ -89,6 +89,23 @@ function deploy_prod {
   popd || return 1
 }
 
+function deploy_prod_new {
+  pushd /app/new || return 1
+  if mv "${CI_PROJECT_DIR}/new/cache" /app/new/cache; then
+    echo '[INFO] Moving cache of the new site to app/new folder.'
+  else
+    echo '[INFO] No cache found.'
+  fi
+  cp -a /app/deploy/builder/node_modules /app/new/theme/2020/
+  cp -a /app/deploy/builder/node_modules /app/new
+  npm run --prefix /app/deploy/builder/ build-new
+  /app/new/build-site.sh
+  cp -a /app/new/output/newweb /app/output
+  sync_s3 /app/output/ web.fluidattacks.com
+  mv /app/new/cache "${CI_PROJECT_DIR}/new/cache"
+  popd || return 1
+}
+
 function deploy_eph {
   pushd /app || return 1
   if mv "${CI_PROJECT_DIR}/cache" /app/cache; then

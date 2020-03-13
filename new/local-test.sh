@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# This script deploys the website locally through a simple server.
+# It allows the developer to review the changes introduced and
+# avoid unexpected behaviour in the site.
+
+set -e
+
+echo "Deploying FLUID Website (local environment)"
+cd /web/new
+
+echo "Removing older builds (1/5) . . ."
+rm -rf ./output
+
+echo "Generating build (2/5) . . ."
+
+# Change production to local environment
+sed -i 's|https://fluidattacks.com|http://localhost:8000|g' pelicanconf.py
+
+echo "Compiling TS files (3/5) . . ."
+npm run --prefix ../deploy/builder/ lint-new
+npm run --prefix ../deploy/builder/ build-new
+./build-site.sh
+
+
+echo "Starting local HTTP server on port 8000 (5/5) . . ."
+cd ./output
+python -m SimpleHTTPServer
