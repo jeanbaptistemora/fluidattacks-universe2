@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function helper_use_pristine_workdir {
-  export WORKDIR="${PWD}.ephemeral"
-  export STARTDIR="${PWD}"
+  export WORKDIR
+  export STARTDIR
 
   function helper_teardown_workdir {
         echo "[INFO] Deleting: ${WORKDIR}" \
@@ -19,6 +19,14 @@ function helper_use_pristine_workdir {
   &&  echo '[INFO] Running: git clean -xdf' \
   &&  git clean -xdf \
   &&  trap 'helper_teardown_workdir' 'EXIT' \
+  ||  return 1
+}
+
+function helper_use_regular_workdir {
+  export STARTDIR
+
+      echo '[INFO] Entering the workdir' \
+  &&  pushd "${STARTDIR}" \
   ||  return 1
 }
 
@@ -71,7 +79,9 @@ function helper_docker_build_and_push {
   &&  echo "[INFO] Building: ${tag}" \
   &&  docker build "${build_args[@]}" "${context}" \
   &&  echo "[INFO] Pushing: ${tag}" \
-  &&  docker push "${tag}"
+  &&  docker push "${tag}" \
+  &&  echo "[INFO] Deleting local copy of: ${tag}" \
+  &&  docker image remove "${tag}"
 }
 
 function helper_get_gitlab_var {
@@ -89,13 +99,12 @@ function helper_list_declared_jobs {
 }
 
 function helper_set_dev_secrets {
-  export JWT_TOKEN
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
   export AWS_DEFAULT_REGION
 
-      AWS_ACCESS_KEY_ID=$(helper_get_gitlab_var DEV_AWS_ACCESS_KEY_ID) \
-  &&  AWS_SECRET_ACCESS_KEY=$(helper_get_gitlab_var DEV_AWS_SECRET_ACCESS_KEY) \
+      AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
+  &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}" \
   &&  AWS_DEFAULT_REGION='us-east-1' \
   &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
@@ -103,7 +112,6 @@ function helper_set_dev_secrets {
 }
 
 function helper_set_prod_secrets {
-  export JWT_TOKEN
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
   export AWS_DEFAULT_REGION

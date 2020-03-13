@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 source "${srcIncludeHelpers}"
+source "${srcIncludeJobs}"
 
 function cli {
   local function_to_call
@@ -32,7 +33,7 @@ function cli {
     echo
     echo 'We have found some problems :('
     echo '  You can replicate this by running:'
-    echo "    integrates $ ./build.sh ${function_to_call}"
+    echo "    web $ ./build.sh ${function_to_call}"
     return 1
   fi
 }
