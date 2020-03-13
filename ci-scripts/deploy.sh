@@ -93,9 +93,10 @@ function deploy_prod {
   /app/new/build-site.sh
   cp -a /app/new/output/newweb /app/output/
   popd || return 1
-  cd /app && sync_s3 /app/output/ web.fluidattacks.com
+  pushd /app || return 1
+  sync_s3 /app/output/ web.fluidattacks.com
   mv /app/cache "${CI_PROJECT_DIR}/cache"
-  cd ../
+  popd || return 1
 }
 
 function deploy_eph {
@@ -120,8 +121,9 @@ function deploy_eph {
   /app/new/build-site.sh
   cp -a /app/new/output/newweb /app/output/
   popd || return 1
-  cd /app && /app/html-lint.sh
+  pushd /app || return 1
+  /app/html-lint.sh
   sync_s3 /app/output/ "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
   mv /app/cache "${CI_PROJECT_DIR}/cache"
-  cd ../
+  popd || 1
 }
