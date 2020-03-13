@@ -157,7 +157,8 @@ def validate_vulns_file_schema(file_url: str) -> bool:
     try:
         core.validate(raise_exception=True)
         with open(file_url, 'r') as reader:
-            if any(map(lambda x: x in reader.readline(), ['{}', '-'])):
+            first_line = reader.readline()
+            if any(map(lambda x: x in first_line, ['{}', '-'])):
                 is_valid = False
                 logger.error('Empty schema.')
             else:

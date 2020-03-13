@@ -102,6 +102,10 @@ def get_finding_wheres(finding_id: str) -> Tuple[Tuple[str, str, bool], ...]:
                                               with_vulns='true')
     vulnerabilities = response.data['finding']['vulnerabilities']
 
+    vulnerabilities = list(filter(lambda vuln: not any(map(
+        lambda hist: hist['state'] == 'DELETED', vuln['historicState'])),
+        vulnerabilities))
+
     type_where_state: Tuple[Tuple[str, str, bool], ...] = tuple(
         (vuln['vulnType'], vuln['where'], current_state['state'] == 'open')
         for vuln in vulnerabilities
