@@ -334,7 +334,8 @@ def cache_content(func):
             uniq_id += '_'.join([str(x) for x in args[1:]])
         if kwargs:
             uniq_id += '_'.join([str(kwargs[x]) for x in kwargs])
-        key_name = func.__name__ + '_' + uniq_id
+        key_name = \
+            f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{uniq_id}'
         try:
             ret = cache.get(key_name)
             if ret:
@@ -354,7 +355,8 @@ def get_cached(func):
     def decorated(*args, **kwargs):
         """Get cached response from function if it exists."""
         uniq_id = "_".join([str(kwargs[x])[:24] for x in kwargs])
-        key_name = func.__name__ + '_' + uniq_id
+        key_name = \
+            f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{uniq_id}'
         key_name = key_name.lower()
         try:
             ret = cache.get(key_name)
@@ -379,7 +381,9 @@ def get_entity_cache(func):
         gql_ent = args[0]
         uniq_id = str(gql_ent)
         params = '_'.join([kwargs[key] for key in kwargs]) + '_'
-        key_name = func.__name__ + '_' + (params if kwargs else '') + uniq_id
+        complement = (params if kwargs else '') + uniq_id
+        key_name = \
+            f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{complement}'
         key_name = key_name.lower()
         try:
             ret = cache.get(key_name)
