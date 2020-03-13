@@ -1,5 +1,6 @@
 # shellcheck shell=bash
 
+source "${srcEnv}"
 source "${srcIncludeHelpers}"
 source "${srcIncludeJobs}"
 
@@ -21,6 +22,7 @@ function cli {
   fi
 
   echo '---'
+  env_prepare_environment_variables
 
   echo "[INFO] Executing function: job_${function_to_call}"
   if "job_${function_to_call}"

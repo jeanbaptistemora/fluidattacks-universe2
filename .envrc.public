@@ -1,0 +1,11 @@
+# shellcheck shell=bash
+
+export CI
+export CI_COMMIT_REF_NAME
+export FALSE=''
+export TRUE='true'
+
+test -n "${CI:-}" \
+  || CI=''
+test -n "${CI_COMMIT_REF_NAME:-}" \
+  || CI_COMMIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
