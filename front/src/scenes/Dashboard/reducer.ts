@@ -6,7 +6,6 @@ import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
 
 export interface IDashboardState {
-  addUserModal: { addUserOpen: boolean };
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   updateAccessTokenModal: { open: boolean };
   user: {
@@ -28,7 +27,6 @@ export interface IDashboardState {
 }
 
 const initialState: IDashboardState = {
-  addUserModal: { addUserOpen: false },
   description: {
     dataset: {
       acceptanceDate: "",
