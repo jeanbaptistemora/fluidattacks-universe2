@@ -1,0 +1,11 @@
+:slug: rules/236/
+:category: authentication
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that any application establish a reasonable maximum time during the authentication process of its users.
+:keywords: Authentication, Time, Security, Seconds, Users, Limit
+:rules: yes
+
+= REQ.236 Establish Authentication Time
+
+== Requirement
+
+The authentication process must have a defined time limit of 30 seconds.
