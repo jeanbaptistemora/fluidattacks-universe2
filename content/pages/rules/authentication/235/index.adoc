@@ -1,0 +1,12 @@
+:slug: rules/235/
+:category: authentication
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that every application or system have an independent user interface for the entry of credentials.
+:keywords: Authentication, Interface, Credentials, Security, Users, Requirement
+:rules: yes
+
+= REQ.235 Define Credentials Interface
+
+== Requirement
+
+The authentication process must have a separate interface
+for on-screen credentials input (accidental on-screen input).
