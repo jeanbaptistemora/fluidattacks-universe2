@@ -6,4 +6,3 @@
  * View: https://github.com/palantir/tslint/issues/711
  */
 export const LOAD_PROJECT: string = "dashboard/project/load";
-export const CLEAR_PROJECT_STATE: string = "dashboard/project/clear";

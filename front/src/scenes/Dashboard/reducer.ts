@@ -4,7 +4,6 @@ import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionType
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
-import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 
 export interface IDashboardState {
   addUserModal: { addUserOpen: boolean };
@@ -12,13 +11,6 @@ export interface IDashboardState {
   updateAccessTokenModal: { open: boolean };
   user: {
     role: string;
-  };
-  users: {
-    addModal: {
-      initialValues: {};
-      open: boolean;
-      type: "add" | "edit";
-    };
   };
   vulnerabilities: {
     filters: {
@@ -80,13 +72,6 @@ const initialState: IDashboardState = {
   user: {
     role: "",
   },
-  users: {
-    addModal: {
-      initialValues: {},
-      open: false,
-      type: "add",
-    },
-  },
   vulnerabilities: {
     filters: {
       filterInputs: "",
@@ -123,31 +108,6 @@ actionMap[vulnerabilitiesActions.CHANGE_SORTS] =
     vulnerabilities: {
       ...state.vulnerabilities,
       sorts: action.payload.sorts,
-    },
-  });
-
-actionMap[usersActions.OPEN_USERS_MDL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    users: {
-      ...state.users,
-      addModal: {
-        ...state.users.addModal,
-        initialValues: action.payload.initialValues,
-        open: true,
-        type: action.payload.type,
-      },
-    },
-  });
-
-actionMap[usersActions.CLOSE_USERS_MDL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    users: {
-      ...state.users,
-      addModal: initialState.users.addModal,
     },
   });
 
@@ -204,11 +164,6 @@ actionMap[projectActions.LOAD_PROJECT] =
       role: action.payload.role,
     },
   });
-
-actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashboardState => ({
-  ...state,
-  users: initialState.users,
-});
 
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,

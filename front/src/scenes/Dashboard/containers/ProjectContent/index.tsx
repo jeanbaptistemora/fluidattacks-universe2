@@ -14,7 +14,7 @@ import { ProjectFindingsView } from "../ProjectFindingsView/index";
 import { ProjectForcesView } from "../ProjectForcesView";
 import { ProjectSettingsView } from "../ProjectSettingsView/index";
 import { ProjectUsersView } from "../ProjectUsersView/index";
-import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
+import { loadProjectData, ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
 import {
   IProjectContentBaseProps, IProjectContentDispatchProps, IProjectContentProps,
@@ -23,11 +23,10 @@ import {
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectContentProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
-  componentWillUnmount(): void { this.props.onExit(); },
   componentDidUpdate(previousProps: IProjectContentProps): void {
     const { projectName: currentProject } = this.props.match.params;
     const { projectName: previousProject } = previousProps.match.params;
-    if (currentProject !== previousProject) { this.props.onExit(); this.props.onLoad(); }
+    if (currentProject !== previousProject) { this.props.onLoad(); }
   },
 });
 
@@ -131,7 +130,6 @@ const mapDispatchToProps: MapDispatchToProps<IProjectContentDispatchProps, IProj
     const { projectName } = ownProps.match.params;
 
     return ({
-      onExit: (): void => { dispatch(clearProjectState()); },
       onLoad: (): void => { dispatch(loadProjectData(projectName)); },
     });
   };

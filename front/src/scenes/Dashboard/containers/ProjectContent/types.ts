@@ -7,7 +7,6 @@ export interface IProjectContentStateProps {
 }
 
 export interface IProjectContentDispatchProps {
-  onExit(): void;
   onLoad(): void;
 }
 

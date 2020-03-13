@@ -26,7 +26,6 @@ describe("ProjectContent", () => {
       path: "/",
       url: "",
     },
-    onExit: functionMock,
     onLoad: functionMock,
     userRole: "analyst",
   };
