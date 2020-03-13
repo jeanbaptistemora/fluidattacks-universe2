@@ -101,9 +101,9 @@ function deploy_prod_new {
   npm run --prefix /app/deploy/builder/ build-new
   /app/new/build-site.sh
   cp -a /app/new/output/newweb /app/output
+  popd || return 1
   sync_s3 /app/output/ web.fluidattacks.com
   mv /app/new/cache "${CI_PROJECT_DIR}/new/cache"
-  popd || return 1
 }
 
 function deploy_eph {
