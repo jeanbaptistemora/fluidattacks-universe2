@@ -3,8 +3,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
-import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
-import { Mutation } from "@apollo/react-components";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
@@ -16,7 +14,7 @@ import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { formatUserlist, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { formatUserlist } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -63,66 +61,6 @@ const tableHeaders: IHeader[] = [
     width: "12%",
   },
 ];
-
-const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult["refetch"]) => JSX.Element) =
-  (props: IProjectUsersViewProps, refetch: QueryResult["refetch"]): JSX.Element => {
-    const { projectName } = props.match.params;
-
-    const handleMtRemoveUserRes: ((mtResult: IRemoveUserAttr) => void) = (mtResult: IRemoveUserAttr): void => {
-      if (!_.isUndefined(mtResult)) {
-        if (mtResult.removeUserAccess.success) {
-          refetch()
-            .catch();
-          mixpanel.track(
-            "RemoveUserAccess",
-            {
-              Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-              User: (window as typeof window & { userName: string }).userName,
-            });
-          msgSuccess(
-            `${mtResult.removeUserAccess.removedEmail} ${translate.t("search_findings.tab_users.success_delete")}`,
-            translate.t("search_findings.tab_users.title_success"),
-          );
-        }
-      }
-    };
-
-    return (
-        <Mutation mutation={REMOVE_USER_MUTATION} onCompleted={handleMtRemoveUserRes}>
-          {(removeUserAccess: MutationFunction, mutationRes: MutationResult): JSX.Element => {
-              if (!_.isUndefined(mutationRes.error)) {
-                handleGraphQLErrors("An error occurred removing users", mutationRes.error);
-
-                return <React.Fragment/>;
-              }
-
-              const handleRemoveUser: (() => void) = (): void => {
-                const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
-                if (selectedQry.length > 0) {
-                  if (selectedQry[0].closest("tr") !== null) {
-                    const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-                    const email: string | null = selectedRow.children[1].textContent;
-                    removeUserAccess({ variables: { projectName, userEmail: String(email) } })
-                    .catch();
-                  } else {
-                    msgError(translate.t("proj_alerts.error_textsad"));
-                    rollbar.error("An error occurred removing user");
-                  }
-                } else {
-                  msgError(translate.t("search_findings.tab_users.no_selection"));
-                }
-              };
-
-              return (
-                  <Button id="removeUser" onClick={handleRemoveUser}>
-                    <Glyphicon glyph="minus" />&nbsp;
-                    {translate.t("search_findings.tab_users.remove_user")}
-                  </Button>
-              );
-            }}
-        </Mutation>
-    );
-  };
 
 const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
@@ -194,6 +132,29 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   );
                 }
               },
+    onError: (editError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred editing user", editError);
+    },
+  });
+
+  const [removeUserAccess, { loading: removing }] = useMutation(REMOVE_USER_MUTATION, {
+    onCompleted: (mtResult: IRemoveUserAttr): void => {
+      if (mtResult.removeUserAccess.success) {
+        refetch()
+          .catch();
+        mixpanel.track("RemoveUserAccess", { Organization: userOrganization, User: userName });
+        const { removedEmail } = mtResult.removeUserAccess;
+        msgSuccess(
+          `${removedEmail} ${translate.t("search_findings.tab_users.success_delete")}`,
+          translate.t("search_findings.tab_users.title_success"),
+        );
+      }
+    },
+    onError: (removeError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred removing user", removeError);
+    },
   });
 
   const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
@@ -205,6 +166,12 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
       editUser({ variables: { projectName, ...values } })
         .catch();
     }
+  };
+
+  const handleRemoveUser: (() => void) = (): void => {
+    removeUserAccess({ variables: { projectName, userEmail: currentRow.email } })
+      .catch();
+    setCurrentRow({});
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -222,15 +189,22 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                       <Row>
                         {_.includes(["admin", "customeradmin"], userRole) ? (
                           <ButtonToolbar className="pull-right">
-                            <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
-                              <FluidIcon icon="edit" />
-                              &nbsp;{translate.t("search_findings.tab_users.edit")}
-                            </Button>
                             <Button id="addUser" onClick={openAddUserModal}>
                               <Glyphicon glyph="plus" />
                               &nbsp;{translate.t("search_findings.tab_users.add_button")}
                             </Button>
-                            {renderActionButtons(props, refetch)}
+                            <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
+                              <FluidIcon icon="edit" />
+                              &nbsp;{translate.t("search_findings.tab_users.edit")}
+                            </Button>
+                            <Button
+                              id="removeUser"
+                              onClick={handleRemoveUser}
+                              disabled={_.isEmpty(currentRow) || removing}
+                            >
+                              <Glyphicon glyph="minus" />
+                              &nbsp;{translate.t("search_findings.tab_users.remove_user")}
+                            </Button>
                           </ButtonToolbar>
                         ) : undefined}
                       </Row>
