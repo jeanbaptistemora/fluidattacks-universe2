@@ -401,27 +401,6 @@ function job_serve_redis {
   &&  redis-server --port "${port}"
 }
 
-function job_serve_back_async_dev {
-  local app='fluidintegrates.asgi:application'
-  local host='0.0.0.0'
-  local port='9090'
-  local root_path='/integrates'
-  local workers='4'
-
-      helper_set_dev_secrets \
-  &&  echo "[INFO] Serving back on port ${port}" \
-  &&  uvicorn \
-        --host="${host}" \
-        --port="${port}" \
-        --root-path="${root_path}" \
-        --ssl-certfile="${srcDerivationsCerts}/fluidla.crt" \
-        --ssl-keyfile="${srcDerivationsCerts}/fluidla.key" \
-        --header="Access-Control-Allow-Origin:*" \
-        --header="Access-Control-Allow-Headers:*" \
-        --workers="${workers}" \
-        "${app}"
-}
-
 function job_serve_back_dev {
   local app='fluidintegrates.asgi:application'
   local host='0.0.0.0'
@@ -440,8 +419,6 @@ function job_serve_back_dev {
         --workers="${workers}" \
         "${app}"
 }
-
-
 
 function job_lint_back {
       prospector -F -s high -u django -i node_modules app \

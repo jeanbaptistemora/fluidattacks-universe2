@@ -27,32 +27,20 @@ const getCookie: (name: string) => string = (name: string): string => {
   return cookieValue;
 };
 
-let urlHostApiV1: string;
-let urlHostApiV2: string;
-
-if (window.location.hostname === "localhost") {
-    urlHostApiV1 = `${window.location.protocol}//${window.location.hostname}:8080/api`;
-    urlHostApiV2 = `${window.location.protocol}//${window.location.hostname}:9090/api`;
-} else {
-    urlHostApiV1 = `${window.location.origin}/integrates/api`;
-    urlHostApiV2 = `${window.location.origin}/integrates/v2/api`;
-}
-
 const apiLinkV1: ApolloLink = createUploadLink({
   credentials: "same-origin",
   headers: {
     "X-CSRFToken": getCookie("csrftoken"),
   },
-  uri: urlHostApiV1,
+  uri: `${window.location.origin}/integrates/api`,
 });
 
 const apiLinkV2: ApolloLink = createUploadLink({
   credentials: "same-origin",
   headers: {
-    "Authorization": getEnvironment() === "production" ? undefined : `Bearer ${getCookie("integrates_session")}` ,
     "X-CSRFToken": getCookie("csrftoken"),
   },
-  uri: urlHostApiV2,
+  uri: `${window.location.origin}/integrates/v2/api`,
 });
 
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({

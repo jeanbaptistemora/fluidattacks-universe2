@@ -104,8 +104,7 @@ def app(request):
             key=settings.JWT_COOKIE_NAME,
             value=token,
             secure=True,
-            # Temporary while ariadne migration is finished
-            httponly=not settings.DEBUG,
+            httponly=True,
             max_age=settings.SESSION_COOKIE_AGE
         )
     except KeyError:
