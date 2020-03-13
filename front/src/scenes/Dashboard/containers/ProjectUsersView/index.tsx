@@ -4,7 +4,10 @@
   * readability of the code in graphql queries
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
-import { Mutation, Query } from "@apollo/react-components";
+import { Mutation } from "@apollo/react-components";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -147,49 +150,39 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     setUserModalOpen(false);
   };
 
-  return (
-    <Query
-      query={GET_USERS}
-      variables={{ projectName }}
-    >
-      {
-        ({ error, data, refetch }: QueryResult<IUsersAttr>): JSX.Element => {
-          if (_.isUndefined(data) || _.isEmpty(data)) {
-
-            return <React.Fragment />;
-          }
-
-          const userRole: string = data.me.role;
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting project users", error);
-
-            return <React.Fragment />;
-          }
-          if (!_.isUndefined(data)) {
-            const userList: IUsersAttr["project"]["users"] = formatUserlist(data.project.users);
-
-            const handleMtAddUserRes: ((mtResult: IAddUserAttr) => void) = (mtResult: IAddUserAttr): void => {
-              if (!_.isUndefined(mtResult)) {
+  // GraphQL operations
+  const { data, refetch } = useQuery(GET_USERS, { variables: { projectName } });
+  const [grantUserAccess] = useMutation(ADD_USER_MUTATION, {
+    onCompleted: (mtResult: IAddUserAttr): void => {
                 if (mtResult.grantUserAccess.success) {
                   refetch()
                     .catch();
-                  closeUserModal();
-                  mixpanel.track(
-                    "AddUserAccess",
-                    {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-                      User: (window as typeof window & { userName: string }).userName,
-                    });
+                  mixpanel.track("AddUserAccess", { Organization: userOrganization, User: userName });
                   msgSuccess(
                     `${mtResult.grantUserAccess.grantedUser.email}
                     ${translate.t("search_findings.tab_users.success")}`,
                     translate.t("search_findings.tab_users.title_success"),
                   );
                 }
-              }
-            };
+    },
+    onError: (grantError: ApolloError): void => {
+      grantError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Email is not valid":
+            msgError(translate.t("validations.email"));
+            break;
+          case "Exception - Parameter is not valid":
+            msgError(translate.t("validations.invalidValueInField"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred adding user to project", grantError);
+        }
+      });
+    },
+  });
 
-            const handleMtEditUserRes: ((mtResult: IEditUserAttr) => void) = (mtResult: IEditUserAttr): void => {
+  const handleMtEditUserRes: ((mtResult: IEditUserAttr) => void) = (mtResult: IEditUserAttr): void => {
               if (!_.isUndefined(mtResult)) {
                 if (mtResult.editUser.success) {
                   refetch()
@@ -209,7 +202,14 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
               }
             };
 
-            return (
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <React.Fragment />;
+  }
+
+  const userRole: string = data.me.role;
+  const userList: IUsersAttr["project"]["users"] = formatUserlist(data.project.users);
+
+  return (
               <React.StrictMode>
                 <div id="users" className="tab-pane cont active" >
                   <Row>
@@ -254,16 +254,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                       </Row>
                     </Col>
                   </Row>
-                  <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes}>
-                      { (grantUserAccess: MutationFunction<IAddUserAttr, {
-                        email: string; organization: string; phoneNumber: string;
-                        projectName: string; responsibility: string; role: string; }>,
-                         mutationRes: MutationResult): JSX.Element => {
-                          if (!_.isUndefined(mutationRes.error)) {
-                            handleGraphQLErrors("An error occurred adding user to project", mutationRes.error);
-                          }
-
-                          return (
                             <Mutation mutation={EDIT_USER_MUTATION} onCompleted={handleMtEditUserRes}>
                               { (editUser: MutationFunction<IEditUserAttr, {
                                 email: string; organization: string; phoneNumber: string;
@@ -275,17 +265,9 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
 
                                   const handleSubmit: ((values: IUserDataAttr) => void) =
                                   (values: IUserDataAttr): void => {
+                                    closeUserModal();
                                     if (userModalType === "add") {
-                                      grantUserAccess({
-                                        variables: {
-                                          email: String(values.email),
-                                          organization: String(values.organization),
-                                          phoneNumber: values.phoneNumber,
-                                          projectName,
-                                          responsibility: String(values.responsibility),
-                                          role: String(values.role),
-                                        },
-                                      })
+                                      grantUserAccess({ variables: { projectName, ...values } })
                                         .catch();
                                     } else {
                                       editUser({
@@ -315,16 +297,9 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                                   );
                               }}
                             </Mutation>
-                          );
-                      }}
-                    </Mutation>
                 </div>
               </React.StrictMode>
             );
-          } else { return <React.Fragment/>; }
-      }}
-    </Query>
-  );
 };
 
 export { projectUsersView as ProjectUsersView };
