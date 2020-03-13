@@ -6,6 +6,7 @@ from pytz import timezone
 from freezegun import freeze_time
 import pytest
 
+from backend.dal.helpers import dynamodb
 from backend.domain.project import (
     get_email_recipients, validate_tags, is_alive, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
@@ -14,9 +15,10 @@ from backend.domain.project import (
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete
 )
-from backend.dal.integrates_dal import DYNAMODB_RESOURCE
 from backend.exceptions import RepeatedValues
 import backend.dal.vulnerability as vuln_dal
+
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
 class ProjectTest(TestCase):

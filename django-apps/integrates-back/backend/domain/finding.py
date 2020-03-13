@@ -29,7 +29,7 @@ from backend.exceptions import (
 from backend.utils import cvss, notifications, findings as finding_utils
 
 from backend.dal import (
-    comment as comment_dal, integrates_dal, finding as finding_dal,
+    comment as comment_dal, finding as finding_dal,
     project as project_dal, vulnerability as vuln_dal, user as user_dal
 )
 from backend.typing import (

@@ -22,7 +22,7 @@ from backend.mailer import (
 )
 
 from backend import util
-from backend.dal import integrates_dal, finding as finding_dal, project as project_dal
+from backend.dal import finding as finding_dal, project as project_dal
 from backend.typing import Event as EventType, Finding as FindingType
 
 from __init__ import (
@@ -394,7 +394,7 @@ def weekly_report():
     registered_users = user_domain.get_all_users_report('FLUID', final_date)
     logged_users = user_domain.logging_users_report(
         'FLUID', init_date, final_date)
-    integrates_dal.weekly_report_dynamo(
+    project_dal.weekly_report_dynamo(
         init_date,
         final_date,
         registered_users,

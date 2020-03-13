@@ -9,7 +9,7 @@ from moto import mock_dynamodb2
 import boto3
 from boto3.dynamodb.conditions import Key
 
-from backend.dal import finding, integrates_dal
+from backend.dal import finding
 
 logging.config.dictConfig(settings.LOGGING)
 
