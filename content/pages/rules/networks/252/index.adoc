@@ -1,0 +1,12 @@
+:slug: rules/252/
+:category: networks
+:description: This document details the security guidelines or requirements related to key protection of wireless networks in any organization or company. In this case, it is recommended that the use of WPA2 Personal or WPA2 Enterprise key encryption methods be preferred.
+:keywords: Security, Personal, Key, Wireless, WPA2, Enterprise
+:rules: yes
+
+= REQ.252 Configure Key Encryption
+
+== Requirement
+
+The organization must prefer the use of +WPA2+ Personal
+or +WPA2+ Enterprise (+802.1x+) key encryption methods.
