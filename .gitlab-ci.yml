@@ -45,7 +45,7 @@ stages:
 
 deploy_container_nix_caches:
   <<: *with_nix
-  <<: *in_schedule_nightly_build
+  <<: *in_dev_and_master_branch
   tags: [autoscaling-large]
   image: nixos/nix:2.3
   stage: build

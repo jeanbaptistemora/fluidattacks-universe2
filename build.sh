@@ -18,16 +18,18 @@ function decide_and_call_provisioner {
   local provisioner
 
   # shellcheck disable=2016
-      case "${job}" in
-        *_infra*) provisioner='tf_infra';;
-               *) provisioner='tf_infra';;
-      esac \
-  &&  provisioner="./build/provisioners/${provisioner}.nix" \
+      provisioner="./build/provisioners/${job}.nix" \
+  &&  if [ ! -f  "${provisioner}" ]
+      then
+        provisioner='./build/provisioners/deploy_container_nix_caches.nix'
+      fi \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
   &&  nix-shell \
         --cores 0 \
         --keep CI \
         --keep CI_COMMIT_REF_NAME \
+        --keep CI_REGISTRY_USER \
+        --keep CI_REGISTRY_PASSWORD \
         --keep DEV_AWS_ACCESS_KEY_ID \
         --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep PROD_AWS_ACCESS_KEY_ID \
