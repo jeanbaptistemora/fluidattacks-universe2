@@ -51,7 +51,11 @@ function cli {
       env_prepare_dynamodb_local
       env_prepare_nodejs_modules
       env_prepare_ruby_modules
-      env_prepare_python_packages
+      if [ "${function_to_call}" == 'serve_back_async_dev' ]; then
+        env_prepare_python_async_packages
+      else
+        env_prepare_python_packages
+      fi
       ;;
   esac
 
