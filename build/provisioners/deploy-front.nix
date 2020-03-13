@@ -13,7 +13,6 @@ in
         ++ (import ../dependencies/secret-management.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
-          pkgs.curl
         ];
     })
   )

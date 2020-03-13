@@ -351,11 +351,12 @@ function job_renew_certificates {
 function job_serve_dynamodb_local {
   local port=8022
 
-      echo '[INFO] Launching DynamoDB local' \
+      helper_use_pristine_workdir \
+  &&  echo '[INFO] Launching DynamoDB local' \
   &&  {
         java \
-          -Djava.library.path=./.DynamoDB/DynamoDBLocal_lib \
-          -jar ./.DynamoDB/DynamoDBLocal.jar \
+          -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
+          -jar "${STARTDIR}/.DynamoDB/DynamoDBLocal.jar" \
           -inMemory \
           -port "${port}" \
           -sharedDb \
@@ -654,8 +655,8 @@ function job_test_back {
   &&  echo '[INFO] Launching DynamoDB local' \
   &&  {
         java \
-          -Djava.library.path=./.DynamoDB/DynamoDBLocal_lib \
-          -jar ./.DynamoDB/DynamoDBLocal.jar \
+          -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
+          -jar "${STARTDIR}/.DynamoDB/DynamoDBLocal.jar" \
           -inMemory \
           -port "${port_dynamo}" \
           -sharedDb \
@@ -719,8 +720,8 @@ function job_test_back_async {
   &&  echo '[INFO] Launching DynamoDB local' \
   &&  {
         java \
-          -Djava.library.path=./.DynamoDB/DynamoDBLocal_lib \
-          -jar ./.DynamoDB/DynamoDBLocal.jar \
+          -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
+          -jar "${STARTDIR}/.DynamoDB/DynamoDBLocal.jar" \
           -inMemory \
           -port "${port_dynamo}" \
           -sharedDb \

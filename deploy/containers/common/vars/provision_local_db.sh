@@ -122,3 +122,17 @@ for mock_file in test/dynamo_data/*.json; do
     aws dynamodb batch-write-item --endpoint-url http://localhost:8022 \
     --request-items file://${mock_file}
 done
+
+iso_date_now=$(date +%Y-%m-%dT%H:%M:%S.000000%z)
+
+# This will insert two extra rows with current date-time
+# This rows are always visible in the front-end :)
+sed "s/2020-02-19.*/${iso_date_now}\"/g" \
+  < 'test/dynamo_data/bb_executions.json' \
+  | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
+  | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
+  > test/dynamo_data/bb_executions.json.now
+
+aws dynamodb batch-write-item \
+  --endpoint-url 'http://localhost:8022' \
+  --request-items 'file://test/dynamo_data/bb_executions.json.now'

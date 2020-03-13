@@ -21,7 +21,6 @@ in
         ++ (import ../dependencies/secret-management.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
-          pkgs.cacert
           pkgs.openjdk
           pkgs.redis
           pkgs.unzip
