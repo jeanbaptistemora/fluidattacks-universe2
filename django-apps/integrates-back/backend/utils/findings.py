@@ -3,7 +3,7 @@ import itertools
 
 import threading
 from datetime import datetime
-from typing import Dict, List, Union, cast
+from typing import Dict, List, cast
 import rollbar
 from backports import csv  # type: ignore
 from magic import Magic

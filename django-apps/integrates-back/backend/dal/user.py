@@ -1,5 +1,5 @@
 
-from typing import Dict, List, Union
+from typing import Dict, List
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError

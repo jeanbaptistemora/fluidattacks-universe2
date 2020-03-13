@@ -1,6 +1,5 @@
 """DAL functions for events."""
 
-from typing import Dict, List, Union
 import rollbar
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb, s3

@@ -1,5 +1,5 @@
 
-from typing import Dict, List, Union
+from typing import List, Union
 from botocore.exceptions import ClientError
 import rollbar
 from backend.dal.helpers import dynamodb, s3

@@ -1,12 +1,11 @@
 """DAL functions for findings."""
 
-from decimal import Decimal
 from typing import cast, Dict, List, Union
 import rollbar
-from backend.typing import Finding as FindingType
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
+from backend.typing import Finding as FindingType
 from backend.dal.helpers import s3, dynamodb
 from __init__ import FI_AWS_S3_BUCKET
 
@@ -157,11 +156,11 @@ def is_pending_verification(finding_id: str) -> bool:
         vulns = get_vulnerabilities(finding_id)
         open_vulns = \
             [vuln for vuln in vulns
-             if cast(List[Dict[str, str]], vuln.get('historic_state', [{}]))[-1].get(
-                'state') == 'open']
+             if cast(List[Dict[str, str]],
+                     vuln.get('historic_state', [{}]))[-1].get('state') == 'open']
         remediated_vulns = \
             [vuln for vuln in open_vulns
-             if cast(List[Dict[str, str]], vuln.get('historic_verification', [{}]))[-1].get(
-                'status') == 'REQUESTED']
+             if cast(List[Dict[str, str]],
+                     vuln.get('historic_verification', [{}]))[-1].get('status') == 'REQUESTED']
         resp = len(remediated_vulns) != 0
     return resp and last_state.get('state') != 'DELETED'

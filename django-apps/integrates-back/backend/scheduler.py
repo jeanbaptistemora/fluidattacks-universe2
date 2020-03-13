@@ -100,8 +100,8 @@ def get_finding_url(finding: Dict[str, str]) -> str:
 
 
 def get_status_vulns_by_time_range(
-    vulns: List[Dict[str, FindingType]], first_day: str, last_day: str,
-    findings_released: List[Dict[str, FindingType]]) -> Dict[str, int]:
+        vulns: List[Dict[str, FindingType]], first_day: str, last_day: str,
+        findings_released: List[Dict[str, FindingType]]) -> Dict[str, int]:
     """Get total closed and found vulnerabilities by time range"""
     resp: Dict[str, int] = defaultdict(int)
     for vuln in vulns:
@@ -133,8 +133,8 @@ def create_weekly_date(first_date: str) -> str:
 
 
 def get_accepted_vulns(
-    findings_released: List[Dict[str, FindingType]], vulns: List[Dict[str, FindingType]],
-    first_day: str, last_day: str) -> int:
+        findings_released: List[Dict[str, FindingType]], vulns: List[Dict[str, FindingType]],
+        first_day: str, last_day: str) -> int:
     """Get all vulnerabilities accepted by time range"""
     accepted = 0
     for finding in findings_released:
@@ -297,8 +297,8 @@ def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
     all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
     if len(all_tracking) > 1:
-        if (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) > (datetime.now() -
-                                                                        timedelta(days=8)):
+        if (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) \
+           > (datetime.now() - timedelta(days=8)):
             delta_open = abs(all_tracking[-1]['open'] - all_tracking[-2]['open'])
             delta_closed = abs(all_tracking[-1]['closed'] - all_tracking[-2]['closed'])
             delta_total = delta_open - delta_closed

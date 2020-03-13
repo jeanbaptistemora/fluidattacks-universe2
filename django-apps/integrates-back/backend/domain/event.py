@@ -166,8 +166,8 @@ def _send_new_event_mail(
     email_send_thread.start()
 
 
-def create_event(analyst_email: str, project_name: str, file = None,
-                 image = None, **kwargs) -> bool:
+def create_event(analyst_email: str, project_name: str, file=None,
+                 image=None, **kwargs) -> bool:
     event_id = str(random.randint(10000000, 170000000))
 
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
@@ -247,8 +247,8 @@ def get_events(event_ids: List[str]) -> List[EventType]:
     return events
 
 
-def add_comment(
-        content: str, event_id: str, parent: str, user_info: UserType) -> Tuple[Union[int, None], bool]:
+def add_comment(content: str, event_id: str, parent: str,
+                user_info: UserType) -> Tuple[Union[int, None], bool]:
     success = comment_domain.create(
         'event', content, event_id, parent, user_info)
     comment_data = {'parent': int(parent), 'content': content}

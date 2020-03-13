@@ -3,7 +3,7 @@
 
 from collections import namedtuple
 from datetime import datetime, timedelta
-from typing import Dict, IO, List, NamedTuple, cast
+from typing import Dict, List, NamedTuple, cast
 import base64
 import threading
 import urllib.request

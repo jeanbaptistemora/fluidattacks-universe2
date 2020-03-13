@@ -1,6 +1,6 @@
 """DAL functions for comments."""
 
-from typing import Dict, List, Union
+from typing import List
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError

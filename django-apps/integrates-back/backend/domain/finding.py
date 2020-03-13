@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from time import time
 
+from typing import Dict, List, Optional, Tuple, Union, cast
 import pytz
 import rollbar
-from typing import Dict, List, Iterator, Optional, Tuple, Union, cast
 from django.conf import settings
 from django.core.files.base import ContentFile
 from i18n import t
@@ -21,7 +21,7 @@ from backend.mailer import send_comment_mail
 
 from backend import util
 from backend.exceptions import (
-    AlreadyApproved, AlreadyRequested, AlreadySubmitted, EvidenceNotFound,
+    AlreadyApproved, AlreadySubmitted, EvidenceNotFound,
     FindingNotFound, IncompleteDraft, InvalidDraftTitle, InvalidFileSize,
     InvalidFileStructure, InvalidFileType, NotSubmitted,
     NotVerificationRequested
@@ -30,7 +30,7 @@ from backend.utils import cvss, notifications, findings as finding_utils
 
 from backend.dal import (
     comment as comment_dal, finding as finding_dal,
-    project as project_dal, vulnerability as vuln_dal, user as user_dal
+    project as project_dal, vulnerability as vuln_dal
 )
 from backend.typing import (
     Comment as CommentType, Finding as FindingType, User as UserType
@@ -274,7 +274,8 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
                 user_domain.get_data(str(updated_values.get('user')), 'role') == 'customeradmin',
                 str(updated_values.get('user', ''))
             )
-        result_update_treatment = vuln_dal.update(finding_id, str(vuln.get('UUID', '')), new_values)
+        result_update_treatment = \
+            vuln_dal.update(finding_id, str(vuln.get('UUID', '')), new_values)
         if not result_update_treatment:
             resp = False
     return resp
@@ -370,8 +371,9 @@ def save_severity(finding: Dict[str, FindingType]) -> bool:
                            'modifiedPrivilegesRequired', 'modifiedUserInteraction',
                            'modifiedSeverityScope', 'modifiedConfidentialityImpact',
                            'modifiedIntegrityImpact', 'modifiedAvailabilityImpact']
-        severity: Dict[str, FindingType] = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
-                    for k in severity_fields}
+        severity: Dict[str, FindingType] = \
+            {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+             for k in severity_fields}
         unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
         privileges = cvss.calculate_privileges(
             unformatted_severity['privilegesRequired'],
@@ -647,9 +649,8 @@ def update_evidence_description(finding_id: str, evidence_type: str, description
     files = cast(List[Dict[str, str]], finding.get('files', []))
     success = False
 
-    evidence: Union[Dict[str, str], list] = next((item
-                     for item in files
-                     if item['name'] == evidence_type), [])
+    evidence: Union[Dict[str, str], list] = \
+        next((item for item in files if item['name'] == evidence_type), [])
     if evidence:
         index = files.index(cast(Dict[str, str], evidence))
         success = finding_dal.update(
@@ -666,7 +667,8 @@ def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     files = cast(List[Dict[str, str]], finding.get('files', []))
     success = False
 
-    evidence: Union[Dict[str, str], str] = next((item for item in files if item['name'] == evidence_name), '')
+    evidence: Union[Dict[str, str], str] = \
+        next((item for item in files if item['name'] == evidence_name), '')
     evidence_id = str(cast(Dict[str, str], evidence).get('file_url', ''))
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
@@ -745,8 +747,7 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
             has_vulns = vuln_domain.list_vulnerabilities([finding_id])
 
             if all([has_evidence, has_severity, has_vulns]):
-                tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-                today = datetime.now(tz=tzn).today()
+                today = datetime.now(tz=pytz.timezone(settings.TIME_ZONE)).today()  # type: ignore
                 report_date = today.strftime('%Y-%m-%d %H:%M:%S')
                 history = cast(List[Dict[str, str]], finding.get('historicState', []))
                 history.append({
@@ -850,7 +851,8 @@ def validate_evidence(evidence_id: str, file) -> bool:
     return success
 
 
-def validate_finding(finding_id: Union[str, int] = 0, finding: Dict[str, FindingType] = None) -> bool:
+def validate_finding(
+        finding_id: Union[str, int] = 0, finding: Dict[str, FindingType] = None) -> bool:
     """Validate if a finding is not deleted."""
     if not finding:
         finding = finding_dal.get_finding(str(finding_id))
