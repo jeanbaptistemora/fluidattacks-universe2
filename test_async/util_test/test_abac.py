@@ -132,7 +132,6 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_project_resolve_remove_all_project_access',
         'backend_api_resolvers_project_resolve_request_remove_project',
         'backend_api_resolvers_project_resolve_reject_remove_project',
-        'backend_api_resolvers_project_resolve_remove_project',
         'backend_api_resolvers_user_resolve_user_resolve_list_projects',
         'backend_api_resolvers_cache_resolve_invalidate_cache',
         'backend_api_resolvers_project_resolve_create_project',
@@ -222,7 +221,6 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_user_resolve_user_list_projects',
         'backend_api_resolvers_alert_resolve_set_alert',
         'backend_api_resolvers_event_resolve_create_event',
-        'backend_api_resolvers_project_resolve_remove_project',
         'backend_api_resolvers_user_resolve_user_resolve_list_projects',
         'backend_api_resolvers_project_resolve_create_project',
     }

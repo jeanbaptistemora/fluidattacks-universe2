@@ -51,13 +51,6 @@ type AddCommentPayload implements Payload {
     commentId: String
 }
 
-type RemoveProjectPayload implements Payload {
-    success: Boolean!
-    findingsMasked: Boolean
-    usersRemoved: Boolean
-    projectFinished: Boolean
-}
-
 type ApproveDraftPayload implements Payload {
     success: Boolean!
     releaseDate: String

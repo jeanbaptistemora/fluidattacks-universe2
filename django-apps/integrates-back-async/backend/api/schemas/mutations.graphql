@@ -157,7 +157,6 @@ type Mutation {
         projectName: String!,
         subscription: SubscriptionType
     ): SimplePayload!
-    removeProject(projectName: String!): RemoveProjectPayload!
     addFindingComment(
         content: String!,
         findingId: String!,

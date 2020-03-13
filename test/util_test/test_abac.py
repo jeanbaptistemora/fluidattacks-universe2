@@ -132,7 +132,6 @@ class ActionAbacTest(TestCase):
         'backend_entity_project_RemoveAllProjectAccess_mutate',
         'backend_entity_project_RequestRemoveProject_mutate',
         'backend_entity_project_RejectRemoveProject_mutate',
-        'backend_entity_project_RemoveProject_mutate',
         'backend_entity_user_User_resolve_list_projects',
         'backend_entity_cache_InvalidateCache_mutate',
         'backend_entity_project_CreateProject_mutate',
@@ -222,7 +221,6 @@ class ActionAbacTest(TestCase):
         'backend_api_query_Query_resolve_user_list_projects',
         'backend_entity_alert_SetAlert_mutate',
         'backend_entity_event_CreateEvent_mutate',
-        'backend_entity_project_RemoveProject_mutate',
         'backend_entity_user_User_resolve_list_projects',
         'backend_entity_project_CreateProject_mutate',
     }

@@ -356,34 +356,6 @@ class CreateProject(Mutation):
         return CreateProject(success=success)
 
 
-class RemoveProject(Mutation):
-    """ Remove project """
-
-    class Arguments():
-        project_name = String(required=True)
-    success = Boolean()
-    findings_masked = Boolean()
-    users_removed = Boolean()
-    project_finished = Boolean()
-
-    @require_login
-    @enforce_authz
-    @require_project_access
-    def mutate(self, info, project_name):
-        user_info = util.get_jwt_content(info.context)
-        result = project_domain.remove_project(project_name, user_info['user_email'])
-        success = all(list(result))
-        if success:
-            project = project_name.lower()
-            util.cloudwatch_log(
-                info.context,
-                f'Security: Removed project {project} succesfully')
-        return RemoveProject(success=success,
-                             findings_masked=result.are_findings_masked,
-                             users_removed=result.are_users_removed,
-                             project_finished=result.is_project_finished)
-
-
 class RequestRemoveProject(Mutation):
     """ Request to remove a project """
 
@@ -403,7 +375,7 @@ class RequestRemoveProject(Mutation):
             util.cloudwatch_log(
                 info.context,
                 f'Security: Pending to remove project {project}')
-        return RemoveProject(success=success)
+        return RequestRemoveProject(success=success)
 
 
 class RejectRemoveProject(Mutation):
@@ -425,7 +397,7 @@ class RejectRemoveProject(Mutation):
             util.cloudwatch_log(
                 info.context,
                 f'Security: Reject project {project} deletion succesfully')
-        return RemoveProject(success=success)
+        return RejectRemoveProject(success=success)
 
 
 class AddProjectComment(Mutation):
