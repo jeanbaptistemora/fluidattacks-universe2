@@ -78,6 +78,19 @@ content:
   except:
     - master
 
+lint-typescript-new-web:
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  script:
+    - cd /app
+    - npm --prefix deploy/builder/ install
+    - cp -a deploy/builder/node_modules /app/new/theme/2020/
+    - cp -a deploy/builder/node_modules /app/new/
+    - npm run --prefix deploy/builder/ lint-new
+  except:
+    - master
+
 commitlint:
   tags: [autoscaling]
   stage: test
