@@ -270,12 +270,13 @@ function _job_functional_tests {
   &&  echo '[INFO] Exporting vars' \
   &&  sops_vars "${ENVIRONMENT_NAME}" \
   &&  echo "[INFO] Running test suite: ${CI_NODE_INDEX}/${CI_NODE_TOTAL}" \
+  &&  mkdir -p test/functional/screenshots \
   &&  pytest \
         --ds='fluidintegrates.settings' \
         --verbose \
         --exitfirst \
         --basetemp='build/test' \
-        --reruns 5 \
+        --reruns 10 \
         --test-group-count "${CI_NODE_TOTAL}" \
         --test-group "${CI_NODE_INDEX}" \
         ephemeral_tests.py
@@ -351,8 +352,7 @@ function job_renew_certificates {
 function job_serve_dynamodb_local {
   local port=8022
 
-      helper_use_pristine_workdir \
-  &&  echo '[INFO] Launching DynamoDB local' \
+      echo '[INFO] Launching DynamoDB local' \
   &&  {
         java \
           -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \

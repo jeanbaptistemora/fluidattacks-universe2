@@ -67,7 +67,12 @@ class ViewTestCase(unittest.TestCase):
     def __login(self):
         selenium = self.selenium
         selenium.get(self.url)
-        time.sleep(5)
+        WebDriverWait(selenium,
+                      self.delay).until(
+                          expected.presence_of_element_located(
+                              (By.XPATH,
+                               "//*[contains(text(), 'Log in with Google')]")))
+        selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
         selenium.find_element_by_xpath(
             "//*[contains(text(), 'Log in with Google')]").click()
         WebDriverWait(
@@ -75,6 +80,7 @@ class ViewTestCase(unittest.TestCase):
                 expected.presence_of_element_located(
                     (By.XPATH,
                      "//*[contains(text(), 'Integrates unit test project')]")))
+        selenium.save_screenshot(f'{SCR_PATH}00.01-after-login.png')
         return selenium
 
     def __login_async(self):
@@ -561,3 +567,38 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '15-02-proj_comments.png')
         assert 'Now we can post comments on projects' in selenium.page_source
+
+    def test_16_forces(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(
+            selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH,
+                     "//*[contains(text(), 'Integrates unit test project')]")))
+        selenium.save_screenshot(SCR_PATH + '16.01-dashboard.png')
+        proj_elem.click()
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/forces')
+        time.sleep(3.0)
+        selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
+
+        if self.branch == 'master':
+            # Real DynamoDB does not have current-time rows
+            assert True
+            return
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Source Code')]")))
+
+        selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
+
+        selenium.find_element_by_xpath(
+            '//*/td[contains(text(), "Source Code")]').click()
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'bbb')]")))
+        time.sleep(1)
+        selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
+
+        assert True
