@@ -89,13 +89,13 @@ function deploy_prod {
   pushd /app/new || return 1
   cp -a /app/deploy/builder/node_modules /app/new/theme/2020/
   cp -a /app/deploy/builder/node_modules /app/new
-  sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/new/pelicanconf.py
   npm run --prefix /app/deploy/builder/ build-new
   /app/new/build-site.sh
   cp -a /app/new/output/newweb /app/output/
   popd || return 1
-  sync_s3 /app/output/ web.fluidattacks.com
+  cd /app && sync_s3 /app/output/ web.fluidattacks.com
   mv /app/cache "${CI_PROJECT_DIR}/cache"
+  cd ../
 }
 
 function deploy_eph {
