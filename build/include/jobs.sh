@@ -41,3 +41,31 @@ function job_infra_production_test {
       helper_set_dev_secrets \
   &&  helper_terraform_test "${dir}"
 }
+
+function job_infra_secret_management_test {
+  local dir='deploy/secret-management/terraform'
+
+      helper_set_dev_secrets \
+  &&  helper_terraform_test "${dir}"
+}
+
+function job_infra_ephemeral_apply {
+  local dir='deploy/ephemeral/terraform'
+
+      helper_set_prod_secrets \
+  &&  helper_terraform_apply "${dir}"
+}
+
+function job_infra_production_apply {
+  local dir='deploy/production/terraform'
+
+      helper_set_prod_secrets \
+  &&  helper_terraform_apply "${dir}"
+}
+
+function job_infra_secret_management_apply {
+  local dir='deploy/secret-management/terraform'
+
+      helper_set_prod_secrets \
+  &&  helper_terraform_apply "${dir}"
+}

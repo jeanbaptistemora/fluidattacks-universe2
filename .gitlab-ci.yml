@@ -63,6 +63,26 @@ infra_production_test:
   <<: *in_dev_and_master_branch
   stage: test
 
+infra_secret_management_test:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: test
+
+infra_ephemeral_apply:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy-infra
+
+infra_production_apply:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy-infra
+
+infra_secret_management_apply:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy-infra
+
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -148,7 +168,7 @@ stop-ephemeral:
 
 production:
   tags: [autoscaling]
-  needs: [apply_infra_bucket]
+  needs: [infra_production_apply]
   stage: deploy
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   variables:
@@ -178,47 +198,6 @@ danger:
     - npm install --unsafe-perm
   script:
     - danger --verbose --fail-on-errors=true
-
-apply_infra_ephemeral:
-  tags: [autoscaling]
-  needs: [builder]
-  stage: deploy-infra
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  script:
-    - source ci-scripts/helpers/others.sh
-    - terraform_apply deploy/ephemeral/terraform
-  only:
-    - master
-
-apply_infra_bucket:
-  tags: [autoscaling]
-  needs: [builder]
-  stage: deploy-infra
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  script:
-    - source ci-scripts/helpers/others.sh
-    - terraform_apply deploy/bucket/terraform
-  only:
-    - master
-
-test_infra_secret_management:
-  tags: [autoscaling]
-  stage: test
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  script:
-    - source ci-scripts/helpers/others.sh
-    - terraform_test deploy/secret-management/terraform
-
-apply_infra_secret_management:
-  tags: [autoscaling]
-  needs: [builder]
-  stage: deploy-infra
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  script:
-    - source ci-scripts/helpers/others.sh
-    - terraform_apply deploy/secret-management/terraform
-  only:
-    - master
 
 new_version_mail:
   tags: [autoscaling]
