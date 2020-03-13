@@ -189,7 +189,7 @@ describe("ProjectSettingsView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(120);
+    await wait(200);
     act(() => { wrapper.update(); });
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
