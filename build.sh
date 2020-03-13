@@ -19,7 +19,7 @@ function decide_and_call_provisioner {
 
   # shellcheck disable=2016
       provisioner="./build/provisioners/${job}.nix" \
-  &&  if [ ! -f  "${provisioner}" ]
+  &&  if [ ! -f "${provisioner}" ]
       then
         provisioner='./build/provisioners/deploy_container_nix_caches.nix'
       fi \

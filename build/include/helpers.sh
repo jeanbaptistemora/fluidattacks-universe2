@@ -84,16 +84,6 @@ function helper_docker_build_and_push {
   &&  docker image remove "${tag}"
 }
 
-function helper_get_gitlab_var {
-  local gitlab_var_name="${1}"
-      echo "[INFO] Retrieving var from GitLab: ${gitlab_var_name}" 1>&2 \
-  &&  curl \
-        --silent \
-        --header "private-token: ${GITLAB_TOKEN}" \
-        "${GITLAB_API_URL}/${gitlab_var_name}" \
-      | jq -r '.value'
-}
-
 function helper_list_declared_jobs {
   declare -F | sed 's/declare -f //' | grep -P '^job_[a-z_]+' | sed 's/job_//' | sort
 }
@@ -116,10 +106,36 @@ function helper_set_prod_secrets {
   export AWS_SECRET_ACCESS_KEY
   export AWS_DEFAULT_REGION
 
-      AWS_ACCESS_KEY_ID=$(helper_get_gitlab_var PROD_AWS_ACCESS_KEY_ID) \
-  &&  AWS_SECRET_ACCESS_KEY=$(helper_get_gitlab_var PROD_AWS_SECRET_ACCESS_KEY) \
+      AWS_ACCESS_KEY_ID=${PROD_AWS_ACCESS_KEY_ID} \
+  &&  AWS_SECRET_ACCESS_KEY=${PROD_AWS_SECRET_ACCESS_KEY} \
   &&  AWS_DEFAULT_REGION='us-east-1' \
   &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
   &&  aws configure set region 'us-east-1'
+}
+
+function helper_terraform_login {
+  export TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
+  export TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
+}
+
+function helper_terraform_test {
+  local dir="${1}"
+
+      helper_terraform_login \
+  &&  pushd "${dir}" || return 1 \
+  &&  terraform init \
+  &&  terraform plan -refresh=true \
+  &&  tflint --deep --module \
+  &&  popd || return 1
+}
+
+function helper_terraform_apply {
+  local dir="${1}"
+
+      helper_terraform_login \
+  &&  pushd "${dir}" || return 1 \
+  &&  terraform init \
+  &&  terraform apply -auto-approve -refresh=true \
+  &&  popd || return 1
 }
