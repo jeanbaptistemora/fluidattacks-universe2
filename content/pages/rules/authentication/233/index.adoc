@@ -1,0 +1,11 @@
+:slug: rules/233/
+:category: authentication
+:description: This document details the security requirements and guidelines related to secure user authentication management. In this case, it is recommended that under no circumstances a system displays the access credentials, either on screen or on any other visible resource.
+:keywords: System, Display, Password, Screen, Resource, Credentials
+:rules: yes
+
+= REQ.233 Avoid Displaying Access Credentials
+
+== Requirement
+
+The system must not display passwords on the screen or on visible resources.
