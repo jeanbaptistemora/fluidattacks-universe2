@@ -82,12 +82,17 @@ function deploy_prod {
   fi
   cp -a /app/deploy/builder/node_modules /app/theme/2014/
   cp -a /app/deploy/builder/node_modules /app/
-  cp -a /app/deploy/builder/node_modules /app/new/theme/2020/
-  cp -a /app/deploy/builder/node_modules /app/new
   npm run --prefix /app/deploy/builder/ build
   /app/build-site.sh
+  popd || return 1
   echo '[INFO] Building New site'
+  pushd /app/new || return 1
+  cp -a /app/deploy/builder/node_modules /app/new/theme/2020/
+  cp -a /app/deploy/builder/node_modules /app/new
+  sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/new/pelicanconf.py
+  npm run --prefix /app/deploy/builder/ build-new
   /app/new/build-site.sh
+  cp -a /app/new/output/newweb /app/output/
   popd || return 1
   sync_s3 /app/output/ web.fluidattacks.com
   mv /app/cache "${CI_PROJECT_DIR}/cache"
@@ -105,8 +110,18 @@ function deploy_eph {
   sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/pelicanconf.py
   npm run --prefix /app/deploy/builder/ build
   /app/build-site.sh
-  /app/html-lint.sh
+  popd || return 1
+  echo '[INFO] Building New site'
+  pushd /app/new || return 1
+  cp -a /app/deploy/builder/node_modules /app/new/theme/2020/
+  cp -a /app/deploy/builder/node_modules /app/new
+  sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" /app/new/pelicanconf.py
+  npm run --prefix /app/deploy/builder/ build-new
+  /app/new/build-site.sh
+  cp -a /app/new/output/newweb /app/output/
+  popd || return 1
+  cd /app && /app/html-lint.sh
   sync_s3 /app/output/ "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
   mv /app/cache "${CI_PROJECT_DIR}/cache"
-  popd || return 1
+  cd ../
 }
