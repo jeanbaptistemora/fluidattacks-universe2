@@ -3,23 +3,23 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { ApolloConsumer } from "@apollo/react-common";
-import { ApolloClient, ApolloError, ApolloQueryResult } from "apollo-client";
+import { useApolloClient } from "@apollo/react-hooks";
+import ApolloClient, { ApolloError, ApolloQueryResult } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
 import { Modal } from "../../../../../components/Modal/index";
-import store from "../../../../../store/index";
 import { handleErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";
 import { msgError } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { required, validEmail } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm/index";
-import { GET_USERS } from "./queries";
+import { GET_USER } from "./queries";
 import { IAddUserModalProps, IUserDataAttr } from "./types";
 
 const renderManagerRoles: JSX.Element = (
@@ -39,20 +39,32 @@ const renderAllRoles: JSX.Element = (
 
 const requiredIndicator: JSX.Element = <label style={{ color: "#f22"}}>* </label>;
 
-const loadAutofillData: (
-  (props: IAddUserModalProps, client: ApolloClient<{}>, change: InjectedFormProps["change"]) => void) =
-  (props: IAddUserModalProps, client: ApolloClient<{}>, change: InjectedFormProps["change"]): void => {
-    /* tslint:disable-next-line no-any
-    * Disabling here is necessary since forms are
-    * a generic component and their fields may differ
-    */
-    const fieldSelector: ((stateTree: {}, ...fields: string[]) => any) = formValueSelector("addUser");
-    const email: string = fieldSelector(store.getState(), "email");
-    if (!_.isEmpty(email)) {
-      client.query({
-        query: GET_USERS,
-        variables: { projectName: props.projectName !== undefined ? props.projectName : "-", userEmail: email },
-      })
+export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalProps): JSX.Element => {
+  const { onClose, onSubmit } = props;
+  let title: string = props.type === "add"
+  ? translate.t("search_findings.tab_users.title")
+  : translate.t("search_findings.tab_users.edit_user_title");
+  title = props.projectName === undefined ? translate.t("sidebar.user") : title;
+
+  const selector: (state: {}, ...field: string[]) => string = formValueSelector("addUser");
+  const userEmail: string = useSelector((state: {}) => selector(state, "email"));
+
+  const client: ApolloClient<object> = useApolloClient();
+
+  return (
+    <React.StrictMode>
+      <Modal open={props.open} headerTitle={title} footer={<div />}>
+      <GenericForm name="addUser" initialValues={props.initialValues} onSubmit={onSubmit}>
+        {({ change }: InjectedFormProps): React.ReactNode => {
+    const loadAutofillData: (() => void) = (): void => {
+            if (!_.isEmpty(userEmail)) {
+              client.query({
+                query: GET_USER,
+                variables: {
+                  projectName: _.get(props, "projectName", "-"),
+                  userEmail,
+                },
+              })
       .then(({ data, errors }: ApolloQueryResult<IUserDataAttr>) => {
 
         if (!_.isUndefined(errors)) {
@@ -74,20 +86,11 @@ const loadAutofillData: (
     }
   };
 
-const renderFormContent: ((props: IAddUserModalProps) => JSX.Element) =
-  (props: IAddUserModalProps): JSX.Element => {
-    const handleProceedClick: ((values: {}) => void) = (values: {}): void => { props.onSubmit(values); };
-    const handleCancelClick: (() => void) = (): void => { props.onClose(); };
-
     return (
-      <GenericForm name="addUser" initialValues={props.initialValues} onSubmit={handleProceedClick}>
-        {({ change }: InjectedFormProps): React.ReactNode => (
         <Row>
           <Col md={12} sm={12}>
           <FormGroup>
             <ControlLabel>{requiredIndicator}{translate.t("search_findings.tab_users.textbox")}</ControlLabel>
-            <ApolloConsumer>
-              {(client: ApolloClient<{}>): JSX.Element => (
                 <Field
                   name="email"
                   component={textField}
@@ -95,14 +98,8 @@ const renderFormContent: ((props: IAddUserModalProps) => JSX.Element) =
                   placeholder={translate.t("search_findings.tab_users.email")}
                   validate={[required, validEmail]}
                   disabled={props.type === "edit"}
-                  /* tslint:disable-next-line jsx-no-lambda
-                  * Disabling this rule is necessary for the sake of simplicity and
-                  * readability of the code that binds component events
-                  */
-                  onBlur={(): void => { loadAutofillData(props, client, change); }}
+                  onBlur={loadAutofillData}
                 />
-              )}
-            </ApolloConsumer>
           </FormGroup>
           <FormGroup>
             <ControlLabel>
@@ -141,30 +138,15 @@ const renderFormContent: ((props: IAddUserModalProps) => JSX.Element) =
           </Col>
           <Col md={12} sm={12}>
             <ButtonToolbar className="pull-right">
-              <Button bsStyle="default" onClick={handleCancelClick}>{translate.t("confirmmodal.cancel")}</Button>
+              <Button bsStyle="default" onClick={onClose}>{translate.t("confirmmodal.cancel")}</Button>
               <Button bsStyle="primary" type="submit">{translate.t("confirmmodal.proceed")}</Button>
             </ButtonToolbar>
           </Col>
         </Row>
-        )}
+        );
+        }}
       </GenericForm>
-    );
-  };
-
-export const addUserModal: ((props: IAddUserModalProps) => JSX.Element) = (props: IAddUserModalProps): JSX.Element => {
-  let title: string = props.type === "add"
-  ? translate.t("search_findings.tab_users.title")
-  : translate.t("search_findings.tab_users.edit_user_title");
-  title = props.projectName === undefined ? translate.t("sidebar.user") : title;
-
-  return (
-    <React.StrictMode>
-      <Modal
-        open={props.open}
-        headerTitle={title}
-        content={renderFormContent(props)}
-        footer={<div />}
-      />
+      </Modal>
     </React.StrictMode>
   );
   };

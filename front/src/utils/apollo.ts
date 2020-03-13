@@ -52,6 +52,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     },
   },
   link: ApolloLink.from([
+    // Top-level error handling
     onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
       if (networkError !== undefined) {
         const { statusCode } = (networkError as { statusCode: number });
@@ -65,7 +66,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
           if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
             if (response !== undefined) {
               response.data = undefined;
-              response.errors = undefined;
+              response.errors = [];
             }
             location.assign("/integrates/logout");
           } else if (_.includes(
@@ -74,7 +75,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
           ) {
             if (response !== undefined) {
               response.data = undefined;
-              response.errors = undefined;
+              response.errors = [];
             }
             msgError(translate.t("proj_alerts.access_denied"));
           }

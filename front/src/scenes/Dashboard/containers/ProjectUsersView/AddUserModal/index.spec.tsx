@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
 import wait from "waait";
 import { addUserModal as AddUserModal } from "./index";
-import { GET_USERS } from "./queries";
+import { GET_USER } from "./queries";
 import { IAddUserModalProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -43,7 +43,7 @@ describe("Add user modal", () => {
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
-        query: GET_USERS,
+        query: GET_USER,
         variables: {
           projectName: "TEST",
           userEmail: "user@test.com",
@@ -64,7 +64,7 @@ describe("Add user modal", () => {
   const mockError: ReadonlyArray<MockedResponse> = [
     {
       request: {
-        query: GET_USERS,
+        query: GET_USER,
         variables: {
           projectName: "TEST",
           userEmail: "user@test.com",
