@@ -58,6 +58,11 @@ infra_ephemeral_test:
   <<: *in_dev_and_master_branch
   stage: test
 
+infra_production_test:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: test
+
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -184,14 +189,6 @@ apply_infra_ephemeral:
     - terraform_apply deploy/ephemeral/terraform
   only:
     - master
-
-test_infra_bucket:
-  tags: [autoscaling]
-  stage: test
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  script:
-    - source ci-scripts/helpers/others.sh
-    - terraform_test deploy/bucket/terraform
 
 apply_infra_bucket:
   tags: [autoscaling]

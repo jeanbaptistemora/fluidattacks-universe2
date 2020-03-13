@@ -8,8 +8,8 @@ in
 
       buildInputs = []
         ++ [
-          pkgs.docker
           pkgs.git
+          pkgs.docker
         ];
     })
   )
