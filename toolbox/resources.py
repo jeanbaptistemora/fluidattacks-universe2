@@ -5,6 +5,7 @@ import base64
 import os
 import re
 import sys
+import json
 import platform
 import shlex
 import shutil
@@ -486,13 +487,16 @@ def get_active_missing_repos(subs):
     return repos
 
 
-def print_inactive_missing_repos(inactive_repos, missing_repos) -> None:
-    logger.info(f'== Inactive repositories ==')
-    for inactive in inactive_repos:
-        logger.info(f'- {inactive}')
-    logger.info(f'== Missing repositories ==')
-    for missing in missing_repos:
-        logger.info(f'- {missing}')
+def print_inactive_missing_repos(subscription, inactive_repos,
+                                 missing_repos) -> None:
+    print(json.dumps({
+        'stream': 'repositories',
+        'record': {
+            'subscription': subscription,
+            'inactive': inactive_repos,
+            'missing': missing_repos,
+        }
+    }))
 
 
 def check_repositories(subs)-> bool:
@@ -503,7 +507,8 @@ def check_repositories(subs)-> bool:
         logger.info(f'Checking {project} repositories ...\n')
         inactive_repos, missing_repos = get_active_missing_repos(project)
         if inactive_repos or missing_repos:
-            print_inactive_missing_repos(inactive_repos, missing_repos)
+            print_inactive_missing_repos(project, inactive_repos,
+                                         missing_repos)
         elif subs != 'all':
             return False
     return True
