@@ -14,7 +14,10 @@ from backend.dal.helpers import dynamodb
 from backend.typing import (
     Comment as CommentType, Finding as FindingType, Project as ProjectType
 )
-from backend.dal.finding import get_finding, is_pending_verification, TABLE as FINDINGS_TABLE
+from backend.dal.finding import (
+    get_attributes as get_finding_attributes, get_finding, is_pending_verification,
+    TABLE as FINDINGS_TABLE
+)
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
@@ -401,6 +404,9 @@ def get_pending_verification_findings(project_name: str) -> List[Dict[str, Findi
     pending_to_verify = \
         [finding for finding in findings
          if is_pending_verification(finding)]
+    pending_to_verify = \
+        [get_finding_attributes(finding, ['finding', 'finding_id', 'project_name'])
+         for finding in pending_to_verify]
     return pending_to_verify
 
 
