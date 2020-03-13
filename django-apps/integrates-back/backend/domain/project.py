@@ -18,7 +18,7 @@ from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     AlreadyPendingDeletion, InvalidParameter, InvalidProjectName, NotPendingDeletion,
-    PermissionDenied, RepeatedValues
+    PermissionDenied, RepeatedValues, InvalidProjectForcesSubscriptionType
 )
 from backend.mailer import send_comment_mail
 from backend import util
@@ -42,7 +42,9 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> boo
 
 
 def create_project(
-    user_email: str, user_role: str, **kwargs: Dict[str, Union[str, List[str]]]) -> bool:
+        user_email: str,
+        user_role: str,
+        **kwargs: Dict[str, Union[bool, str, List[str]]]) -> bool:
     is_user_admin = user_role == 'admin'
     if is_user_admin or \
        cast(List[str], kwargs.get('companies', [])):
@@ -50,6 +52,7 @@ def create_project(
     else:
         companies = [str(user_domain.get_data(user_email, 'company'))]
     description = str(kwargs.get('description', ''))
+    has_forces = kwargs.get('has_forces', False)
     project_name = str(kwargs.get('project_name', '')).lower()
     if kwargs.get('subscription'):
         subscription = str(kwargs.get('subscription'))
@@ -59,10 +62,15 @@ def create_project(
     if not (not description.strip() or not project_name.strip() or
        not all([company.strip() for company in companies]) or
        not companies):
+        if has_forces and subscription != 'continuous':
+            # Forces is only available in projects of type continuous
+            raise InvalidProjectForcesSubscriptionType()
+
         if not project_dal.exists(project_name):
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
+                'has_forces': has_forces,
                 'companies': companies,
                 'type': subscription,
                 'project_status': 'ACTIVE'

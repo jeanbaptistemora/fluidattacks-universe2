@@ -33,6 +33,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     name = String()
     findings = List(Finding)
+    has_forces = Boolean()
     open_vulnerabilities = Int()
     closed_vulnerabilities = Int()
     current_month_authors = Int()
@@ -95,6 +96,13 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         self.remediated_over_time = json.dumps(
             remediated_twelve_weeks, use_decimal=True)
         return self.remediated_over_time
+
+    def resolve_has_forces(self, info):
+        """Resolve if the project has the Forces service."""
+        del info
+        attributes = project_domain.get_attributes(self.name, ['has_forces'])
+        self.has_forces = attributes.get('has_forces', False)
+        return self.has_forces
 
     @get_entity_cache
     def resolve_findings(self, info):
@@ -338,6 +346,7 @@ class CreateProject(Mutation):
         subscription = Argument(Enum('Subscription', [
             ('Continuous', 'continuous'), ('Oneshot', 'oneshot')]),
             required=False)
+        has_forces = Boolean(required=False)
     success = Boolean()
 
     @require_login

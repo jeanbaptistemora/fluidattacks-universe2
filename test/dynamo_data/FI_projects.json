@@ -343,9 +343,9 @@
                            "branch" : {
                               "S" : "master"
                            },
-                           "historic_state" : { 
+                           "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:40"
@@ -370,9 +370,9 @@
                            "branch" : {
                               "S" : "master"
                            },
-                           "historic_state" : { 
+                           "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:40"
@@ -397,9 +397,9 @@
                            "branch" : {
                               "S" : "master"
                            },
-                           "historic_state" : { 
+                           "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:40"
@@ -412,7 +412,7 @@
                                        }
                                     }
                                  },
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 15:40"
@@ -500,9 +500,9 @@
                   "L" : [
                      {
                         "M" : {
-                           "historic_state" : { 
+                           "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:40"
@@ -524,9 +524,9 @@
                      },
                      {
                         "M" : {
-                           "historic_state" : { 
+                           "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:40"
@@ -539,7 +539,7 @@
                                        }
                                     }
                                  },
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:43"
@@ -552,7 +552,7 @@
                                        }
                                     }
                                  },
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:49"
@@ -581,9 +581,9 @@
                      },
                      {
                         "M" : {
-                           "historic_state" : { 
+                           "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:40"
@@ -675,6 +675,9 @@
                         }
                      }
                   ]
+               },
+               "has_forces": {
+                  "BOOL": true
                },
                "hasRelease" : {
                   "BOOL" : true
@@ -1641,9 +1644,9 @@
                            "branch" : {
                               "S" : "master"
                            },
-                           "historic_state" : { 
+                           "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-10-29 13:40"
@@ -1674,9 +1677,9 @@
                            "branch" : {
                               "S" : "master"
                            },
-                           "historic_state" : { 
+                           "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-10-29 13:40"
@@ -1689,7 +1692,7 @@
                                        }
                                     }
                                  },
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-10-29 13:48"
@@ -1712,7 +1715,7 @@
                            },
                            "urlRepo" : {
                               "S" : "https://gitlab.com/fluidsignal/unittest"
-                           }                        
+                           }
                         }
                      }
                   ]
@@ -1765,7 +1768,7 @@
                        "M" : {
                            "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:40"
@@ -1796,7 +1799,7 @@
                        "M" : {
                            "historic_state" : {
                               "L" : [
-                                 { 
+                                 {
                                     "M" : {
                                        "date" : {
                                           "S" : "2019-11-27 13:40"
@@ -2053,7 +2056,7 @@
                         "M" : {
                             "historic_state" : {
                                "L" : [
-                                  { 
+                                  {
                                      "M" : {
                                         "date" : {
                                            "S" : "2019-11-27 13:40"
@@ -2084,7 +2087,7 @@
                         "M" : {
                             "historic_state" : {
                                "L" : [
-                                  { 
+                                  {
                                      "M" : {
                                         "date" : {
                                            "S" : "2019-11-27 13:40"
