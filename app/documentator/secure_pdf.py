@@ -22,7 +22,7 @@ class SecurePDF():
             'resources/themes/watermark_integrates_en.pdf')
         self.result_dir = os.path.join(self.base, 'results/')
 
-    def create_full(self, username, basic_pdf_name, project):
+    def create_full(self, username: str, basic_pdf_name: str, project: str) -> str:
         """ Execute the security process in a PDF. """
         self.secure_pdf_username = username
         project_info = project_dal.get(project.lower())
@@ -33,7 +33,7 @@ class SecurePDF():
             self.secure_pdf_filename = self.lock(water_pdf_name)
         return self.result_dir + self.secure_pdf_filename
 
-    def watermark(self, in_filename):
+    def watermark(self, in_filename: str) -> str:
         """ Add a watermark to all pages of a PDF. """
         pdf_foutname = 'water_' + in_filename
         input = PdfFileReader(open(self.result_dir + in_filename, 'rb')) # noqa
@@ -49,7 +49,7 @@ class SecurePDF():
         output_stream.close()
         return pdf_foutname
 
-    def lock(self, in_filename):
+    def lock(self, in_filename: str) -> str:
         """  Add a password to a PDF. """
         pdf_foutname = self.secure_pdf_username + "_" + in_filename
         password = time.strftime('%d%m%Y') + self.secure_pdf_username

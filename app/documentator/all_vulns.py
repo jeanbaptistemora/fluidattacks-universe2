@@ -3,9 +3,11 @@
 
 
 import hashlib
+from typing import Dict, List, cast
 from openpyxl import Workbook
 
 from backend.dal import finding as finding_dal, project as project_dal
+from backend.typing import Finding as FindingType
 
 from __init__ import FI_TEST_PROJECTS
 
@@ -48,17 +50,18 @@ MASKED_COLUMNS = [
 ]
 
 
-def _hash_cell(cell):
+def _hash_cell(cell: str) -> str:
     return hashlib.sha256(cell.encode()).hexdigest()[-5:]
 
 
-def _mask_finding(finding):
+def _mask_finding(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     for masked_cell in MASKED_COLUMNS:
         finding[masked_cell] = _hash_cell(finding[masked_cell])
     return finding
 
 
-def _get_reporter_analyst(opening_state, vuln, finding):
+def _get_reporter_analyst(opening_state: Dict[str, str], vuln: Dict[str, FindingType],
+                          finding: Dict[str, FindingType]) -> str:
     analyst = opening_state.get('analyst')
     if not analyst:
         analyst = vuln.get('analyst')
@@ -71,11 +74,11 @@ def _get_reporter_analyst(opening_state, vuln, finding):
     return analyst
 
 
-def _format_specific(vuln):
+def _format_specific(vuln: Dict[str, FindingType]) -> str:
     specific = ''
     if vuln.get('specific') != 'Masked':
         if vuln.get('vuln_type') == 'lines':
-            file_ext = vuln.get('where').split('/')[-1].split('.')[-1]
+            file_ext = str(vuln.get('where')).split('/')[-1].split('.')[-1]
             if (file_ext.isalnum()
                     and not file_ext.isdigit()
                     and file_ext != 'Masked'):
@@ -83,7 +86,7 @@ def _format_specific(vuln):
             else:
                 specific = ''
         elif vuln.get('vuln_type') == 'ports':
-            specific = vuln.get('specific')
+            specific = str(vuln.get('specific'))
         else:
             specific = ''
     else:
@@ -92,14 +95,15 @@ def _format_specific(vuln):
     return specific
 
 
-def _format_vuln(vuln, finding):
+def _format_vuln(
+        vuln: Dict[str, FindingType], finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     if not vuln.get('treatment'):
         if finding.get('TREATMENT'):
             vuln['treatment'] = finding.get('TREATMENT')
         else:
             vuln['treatment'] = 'NEW'
 
-    historic_state = vuln.get('historic_state')
+    historic_state = cast(List[Dict[str, str]], vuln.get('historic_state'))
     last_state = historic_state[-1]
     opening_state = historic_state[0]
 
@@ -113,14 +117,14 @@ def _format_vuln(vuln, finding):
     return vuln
 
 
-def fill_sheet(sheet, finding_row, vuln_row, row_index):
+def fill_sheet(sheet, finding_row: Dict[str, str], vuln_row: Dict[str, str], row_index: int):
     for col, col_name in enumerate(COLUMNS_FINS, 1):
         sheet.cell(row_index, col, finding_row.get(col_name, ''))
     for col, col_name in enumerate(COLUMNS_VULNS, len(COLUMNS_FINS) + 1):
         sheet.cell(row_index, col, vuln_row.get(col_name, ''))
 
 
-def generate_all_vulns_xlsx(user_email):
+def generate_all_vulns_xlsx(user_email: str) -> str:
     projects = project_dal.get_all()
     book = Workbook()
     sheet = book.active
@@ -140,6 +144,6 @@ def generate_all_vulns_xlsx(user_email):
                 row_index += 1
 
     username = user_email.split('@')[0].encode('utf8', 'ignore')
-    filepath = '/tmp/{username}-all_vulns.xlsx'.format(username=username)
+    filepath = '/tmp/{username}-all_vulns.xlsx'.format(username=username)  # type: ignore
     book.save(filepath)
     return filepath
