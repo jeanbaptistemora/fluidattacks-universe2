@@ -182,10 +182,11 @@ function helper_check_last_job_succeeded {
   local gitlab_repo_id="${1}"
   local job_name="${2}"
   local job_status=''
+  local job_url=''
   local page='0'
   local job_data=''
 
-      echo '[INFO] Iteragin GitLab jobs' \
+      echo '[INFO] Iterating GitLab jobs' \
   &&  for page in $(seq 0 100)
       do
             echo "[INFO] Checking page ${page} for job: ${job_name}" \
@@ -197,7 +198,8 @@ function helper_check_last_job_succeeded {
                       "https://gitlab.com/api/v4/projects/${gitlab_repo_id}/jobs?page=${page}" \
                     | jq -er ".[] | select(.name == \"${job_name}\")")
             then
-                  echo "[INFO] Got the job! $(echo "${job_data}" | jq -er '.web_url')" \
+                  job_url=$(echo "${job_data}" | jq -er '.web_url') \
+              &&  echo "[INFO] Got the job: ${job_url}" \
               &&  break
             else
               continue
@@ -211,10 +213,10 @@ function helper_check_last_job_succeeded {
   &&  job_status=$(echo "${job_data}" | jq -er '.status') \
   &&  if test "${job_status}" = "success"
       then
-            echo '[INFO] Job status succeeded, continuing' \
+            echo "[INFO] Job status is: ${job_status}, continuing" \
         &&  return 0
       else
-            echo '[INFO] Job status is different that succeeded, continuing' \
+            echo "[INFO] Job status is different that succeeded: ${job_status}, continuing" \
         &&  return 1
       fi
 }
