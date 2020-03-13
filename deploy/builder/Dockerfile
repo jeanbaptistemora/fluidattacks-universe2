@@ -128,18 +128,6 @@ RUN mkdir js \
     && rm -rf .git \
     && cd /app
 
-#Download the necessary file to implement turnjs plugin from its repo
-RUN cd js \
-    && git init \
-    && git remote add origin "$URL_TURN" \
-    && git config core.sparsecheckout true \
-    && tail -n 1 "${BASE_FOLDER}/js-files.txt" >> .git/info/sparse-checkout \
-    && git pull origin master \
-    && git reset --hard 08c1f65 \
-    # Remove the git configuration to allow other repos in the same folder
-    && rm -rf .git \
-    && cd /app
-
 # Download only the plugins used in the site, from the Pelican-Plugins repository
 RUN mkdir pelican-plugins \
     && cd pelican-plugins \
