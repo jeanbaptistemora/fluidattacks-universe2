@@ -92,16 +92,16 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   const { data, refetch } = useQuery(GET_USERS, { variables: { projectName } });
   const [grantUserAccess] = useMutation(ADD_USER_MUTATION, {
     onCompleted: (mtResult: IAddUserAttr): void => {
-                if (mtResult.grantUserAccess.success) {
-                  refetch()
-                    .catch();
-                  mixpanel.track("AddUserAccess", { Organization: userOrganization, User: userName });
-                  msgSuccess(
-                    `${mtResult.grantUserAccess.grantedUser.email}
-                    ${translate.t("search_findings.tab_users.success")}`,
-                    translate.t("search_findings.tab_users.title_success"),
-                  );
-                }
+      if (mtResult.grantUserAccess.success) {
+        refetch()
+          .catch();
+        mixpanel.track("AddUserAccess", { Organization: userOrganization, User: userName });
+        const { email } = mtResult.grantUserAccess.grantedUser;
+        msgSuccess(
+          `${email} ${translate.t("search_findings.tab_users.success")}`,
+          translate.t("search_findings.tab_users.title_success"),
+        );
+      }
     },
     onError: (grantError: ApolloError): void => {
       grantError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
@@ -122,16 +122,16 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
 
   const [editUser] = useMutation(EDIT_USER_MUTATION, {
     onCompleted: (mtResult: IEditUserAttr): void => {
-                if (mtResult.editUser.success) {
-                  refetch()
-                    .catch();
-                  mixpanel.track("EditUserAccess", { Organization: userOrganization, User: userName });
-                  msgSuccess(
-                    translate.t("search_findings.tab_users.success_admin"),
-                    translate.t("search_findings.tab_users.title_success"),
-                  );
-                }
-              },
+      if (mtResult.editUser.success) {
+        refetch()
+          .catch();
+        mixpanel.track("EditUserAccess", { Organization: userOrganization, User: userName });
+        msgSuccess(
+          translate.t("search_findings.tab_users.success_admin"),
+          translate.t("search_findings.tab_users.title_success"),
+        );
+      }
+    },
     onError: (editError: ApolloError): void => {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred editing user", editError);
@@ -182,69 +182,69 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   const userList: IUsersAttr["project"]["users"] = formatUserlist(data.project.users);
 
   return (
-              <React.StrictMode>
-                <div id="users" className="tab-pane cont active" >
-                  <Row>
-                    <Col md={12} sm={12} xs={12}>
-                      <Row>
-                        {_.includes(["admin", "customeradmin"], userRole) ? (
-                          <ButtonToolbar className="pull-right">
-                            <Button id="addUser" onClick={openAddUserModal}>
-                              <Glyphicon glyph="plus" />
-                              &nbsp;{translate.t("search_findings.tab_users.add_button")}
-                            </Button>
-                            <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
-                              <FluidIcon icon="edit" />
-                              &nbsp;{translate.t("search_findings.tab_users.edit")}
-                            </Button>
-                            <Button
-                              id="removeUser"
-                              onClick={handleRemoveUser}
-                              disabled={_.isEmpty(currentRow) || removing}
-                            >
-                              <Glyphicon glyph="minus" />
-                              &nbsp;{translate.t("search_findings.tab_users.remove_user")}
-                            </Button>
-                          </ButtonToolbar>
-                        ) : undefined}
-                      </Row>
-                      <br />
-                      <Row>
-                        <Col md={12} sm={12}>
-                          <DataTableNext
-                            id="tblUsers"
-                            bordered={true}
-                            dataset={userList}
-                            exportCsv={true}
-                            headers={tableHeaders}
-                            pageSize={15}
-                            remote={false}
-                            search={true}
-                            striped={true}
-                            title=""
-                            selectionMode={{
-                              clickToSelect: true,
-                              hideSelectColumn: !_.includes(["admin", "customeradmin"], userRole),
-                              mode: "radio",
-                              onSelect: setCurrentRow,
-                            }}
-                          />
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                                    <AddUserModal
-                                      onSubmit={handleSubmit}
-                                      open={isUserModalOpen}
-                                      type={userModalType}
-                                      onClose={closeUserModal}
-                                      projectName={projectName}
-                                      userRole={userRole}
-                                      initialValues={userModalType === "edit" ? currentRow : {}}
-                                    />
-                </div>
-              </React.StrictMode>
-            );
+    <React.StrictMode>
+      <div id="users" className="tab-pane cont active" >
+        <Row>
+          <Col md={12} sm={12} xs={12}>
+            <Row>
+              {_.includes(["admin", "customeradmin"], userRole) ? (
+                <ButtonToolbar className="pull-right">
+                  <Button id="addUser" onClick={openAddUserModal}>
+                    <Glyphicon glyph="plus" />
+                    &nbsp;{translate.t("search_findings.tab_users.add_button")}
+                  </Button>
+                  <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
+                    <FluidIcon icon="edit" />
+                    &nbsp;{translate.t("search_findings.tab_users.edit")}
+                  </Button>
+                  <Button
+                    id="removeUser"
+                    onClick={handleRemoveUser}
+                    disabled={_.isEmpty(currentRow) || removing}
+                  >
+                    <Glyphicon glyph="minus" />
+                    &nbsp;{translate.t("search_findings.tab_users.remove_user")}
+                  </Button>
+                </ButtonToolbar>
+              ) : undefined}
+            </Row>
+            <br />
+            <Row>
+              <Col md={12} sm={12}>
+                <DataTableNext
+                  id="tblUsers"
+                  bordered={true}
+                  dataset={userList}
+                  exportCsv={true}
+                  headers={tableHeaders}
+                  pageSize={15}
+                  remote={false}
+                  search={true}
+                  striped={true}
+                  title=""
+                  selectionMode={{
+                    clickToSelect: true,
+                    hideSelectColumn: !_.includes(["admin", "customeradmin"], userRole),
+                    mode: "radio",
+                    onSelect: setCurrentRow,
+                  }}
+                />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        <AddUserModal
+          onSubmit={handleSubmit}
+          open={isUserModalOpen}
+          type={userModalType}
+          onClose={closeUserModal}
+          projectName={projectName}
+          userRole={userRole}
+          initialValues={userModalType === "edit" ? currentRow : {}}
+        />
+      </div>
+    </React.StrictMode>
+  );
 };
 
 export { projectUsersView as ProjectUsersView };
