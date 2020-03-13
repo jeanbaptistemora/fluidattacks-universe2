@@ -182,25 +182,30 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     },
   });
 
-  const handleMtEditUserRes: ((mtResult: IEditUserAttr) => void) = (mtResult: IEditUserAttr): void => {
-              if (!_.isUndefined(mtResult)) {
+  const [editUser] = useMutation(EDIT_USER_MUTATION, {
+    onCompleted: (mtResult: IEditUserAttr): void => {
                 if (mtResult.editUser.success) {
                   refetch()
                     .catch();
-                  closeUserModal();
-                  mixpanel.track(
-                    "EditUserAccess",
-                    {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-                      User: (window as typeof window & { userName: string }).userName,
-                    });
+                  mixpanel.track("EditUserAccess", { Organization: userOrganization, User: userName });
                   msgSuccess(
                     translate.t("search_findings.tab_users.success_admin"),
                     translate.t("search_findings.tab_users.title_success"),
                   );
                 }
-              }
-            };
+              },
+  });
+
+  const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
+    closeUserModal();
+    if (userModalType === "add") {
+      grantUserAccess({ variables: { projectName, ...values } })
+        .catch();
+    } else {
+      editUser({ variables: { projectName, ...values } })
+        .catch();
+    }
+  };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.Fragment />;
@@ -254,37 +259,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                       </Row>
                     </Col>
                   </Row>
-                            <Mutation mutation={EDIT_USER_MUTATION} onCompleted={handleMtEditUserRes}>
-                              { (editUser: MutationFunction<IEditUserAttr, {
-                                email: string; organization: string; phoneNumber: string;
-                                projectName: string; responsibility: string; role: string; }>,
-                                 editMtRes: MutationResult): JSX.Element => {
-                                  if (!_.isUndefined(editMtRes.error)) {
-                                    handleGraphQLErrors("An error occurred adding user to project", editMtRes.error);
-                                  }
-
-                                  const handleSubmit: ((values: IUserDataAttr) => void) =
-                                  (values: IUserDataAttr): void => {
-                                    closeUserModal();
-                                    if (userModalType === "add") {
-                                      grantUserAccess({ variables: { projectName, ...values } })
-                                        .catch();
-                                    } else {
-                                      editUser({
-                                        variables: {
-                                          email: String(values.email),
-                                          organization: String(values.organization),
-                                          phoneNumber: String(values.phoneNumber),
-                                          projectName,
-                                          responsibility: String(values.responsibility),
-                                          role: String(values.role),
-                                        },
-                                      })
-                                        .catch();
-                                    }
-                                  };
-
-                                  return (
                                     <AddUserModal
                                       onSubmit={handleSubmit}
                                       open={isUserModalOpen}
@@ -294,9 +268,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                                       userRole={userRole}
                                       initialValues={userModalType === "edit" ? currentRow : {}}
                                     />
-                                  );
-                              }}
-                            </Mutation>
                 </div>
               </React.StrictMode>
             );

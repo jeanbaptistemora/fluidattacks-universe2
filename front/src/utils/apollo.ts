@@ -63,6 +63,10 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
       } else if (graphQLErrors !== undefined) {
         graphQLErrors.forEach(({ message }: GraphQLError) => {
           if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
+            if (response !== undefined) {
+              response.data = undefined;
+              response.errors = undefined;
+            }
             location.assign("/integrates/logout");
           } else if (_.includes(
             ["Access denied", "Exception - Project does not exist", "Exception - Finding not found"],
