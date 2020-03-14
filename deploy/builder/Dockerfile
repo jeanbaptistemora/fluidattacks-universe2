@@ -1,24 +1,19 @@
 FROM debian:buster-slim
 
-ARG URL_DEBIAN='https://dl.yarnpkg.com/debian/'
-ARG URL_DEBIAN_PUBKEY='https://dl.yarnpkg.com/debian/pubkey.gpg'
 ARG URL_GETPIP='https://bootstrap.pypa.io/get-pip.py'
 ARG URL_JAVA='http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230532_2f38c3b165be4555a1fa6e98c45e0808'
-ARG URL_KUBECTL='https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl'
 ARG URL_NODESOURCE='https://deb.nodesource.com/setup_10.x'
 ARG URL_PELICAN_PLUGINS='https://github.com/getpelican/pelican-plugins.git'
 ARG URL_PLANTUML='https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip'
 ARG URL_SHELLCHECK='https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz'
 ARG URL_SOPS='https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux'
-ARG URL_TERRAFORM='https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip'
-ARG URL_TFLINT='https://github.com/terraform-linters/tflint/releases/download/v0.14.0/tflint_linux_amd64.zip'
 ARG URL_TIDDY='https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb'
 ARG URL_TIPUE='https://github.com/jekylltools/jekyll-tipue-search.git'
 ARG URL_TURN='https://github.com/blasten/turn.js.git'
 
 ARG BASE_FOLDER='/app/deploy/builder'
 
-# Install basic dependencies to set the repositories for NodeJS, Yarn and Docker
+# Install basic dependencies to set the repositories for NodeJS
 RUN apt-get update -qq \
   && apt-get install -qqy --no-install-recommends \
     apt-transport-https \
@@ -26,9 +21,7 @@ RUN apt-get update -qq \
     curl \
     gnupg2 \
     software-properties-common \
-    && curl -sL "$URL_NODESOURCE" | bash - \
-    && echo "deb $URL_DEBIAN stable main" | tee /etc/apt/sources.list.d/yarn.list \
-      && curl -sLS "$URL_DEBIAN_PUBKEY" | apt-key add -
+    && curl -sL "$URL_NODESOURCE" | bash -
 
 # Install general dependencies
 RUN apt-get update && \
@@ -36,7 +29,6 @@ RUN apt-get update && \
     diction \
     file \
     gcc \
-    gettext-base \
     git \
     jq \
     make \
@@ -53,15 +45,13 @@ RUN apt-get update && \
     unzip \
     xz-utils \
     imagemagick \
-    nginx \
-    yarn \
     asciidoc \
     texlive-base \
     texlive-latex-base \
     dvipng \
     graphviz
 
-# Install Pelican, along with the necessary Python, Javascript and Ruby packages to execute it
+# Install Pelican, along with the necessary Python and Javascrip packages to execute it
 RUN curl "$URL_GETPIP" -o get-pip.py \
     && python get-pip.py \
     && rm get-pip.py \
@@ -86,31 +76,18 @@ RUN curl -LSo tidy.deb "$URL_TIDDY" \
         && dpkg -i tidy.deb \
     && curl -LSo plantuml.zip "$URL_PLANTUML" \
         && asciidoc --filter install plantuml.zip /etc/asciidoc/filters/ \
-    && curl -LSo java.tar.gz "$URL_JAVA" \
-        && tar zxvf java.tar.gz \
     && curl -LSo shellcheck.tar.xz "$URL_SHELLCHECK" \
         && tar xvf shellcheck.tar.xz \
         && mv shellcheck-stable/shellcheck /bin/shellcheck \
-    && curl -o kubectl "$URL_KUBECTL" \
-        && chmod +x kubectl \
-        && mv kubectl /usr/local/bin/kubectl \
     && curl -LSo sops "$URL_SOPS" \
         && chmod +x sops \
-        && mv sops /usr/local/bin/sops\
-    && curl -LSo terraform.zip "$URL_TERRAFORM" \
-        && unzip terraform.zip \
-        && mv terraform /usr/bin/terraform \
-    && curl -LSo tflint.zip "$URL_TFLINT" \
-        && unzip tflint.zip \
-        && mv tflint /usr/bin/tflint
+        && mv sops /usr/local/bin/sops
 
 COPY . /app
 WORKDIR /app
 
 # Install npm packages
-RUN cd "${BASE_FOLDER}" \
-    && yarn install \
-    && cd /app
+RUN npm install --prefix "${BASE_FOLDER}"
 
 # Set flag images for IntlTelInput plugin
 RUN sed -i 's#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#' "${BASE_FOLDER}/node_modules/intl-tel-input/src/css/intlTelInput.scss"
