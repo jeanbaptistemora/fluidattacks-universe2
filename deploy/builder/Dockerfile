@@ -1,8 +1,6 @@
 FROM debian:buster-slim
 
 ARG URL_GETPIP='https://bootstrap.pypa.io/get-pip.py'
-ARG URL_JAVA='http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230532_2f38c3b165be4555a1fa6e98c45e0808'
-ARG URL_NODESOURCE='https://deb.nodesource.com/setup_10.x'
 ARG URL_PELICAN_PLUGINS='https://github.com/getpelican/pelican-plugins.git'
 ARG URL_PLANTUML='https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip'
 ARG URL_SHELLCHECK='https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz'
@@ -13,26 +11,18 @@ ARG URL_TURN='https://github.com/blasten/turn.js.git'
 
 ARG BASE_FOLDER='/app/deploy/builder'
 
-# Install basic dependencies to set the repositories for NodeJS
-RUN apt-get update -qq \
-  && apt-get install -qqy --no-install-recommends \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg2 \
-    software-properties-common \
-    && curl -sL "$URL_NODESOURCE" | bash -
-
 # Install general dependencies
 RUN apt-get update && \
   apt-get install -qqy --no-install-recommends \
     diction \
     file \
     gcc \
+    curl \
     git \
     jq \
     make \
     nodejs \
+    npm \
     optipng \
     pcregrep \
     python-dev \
