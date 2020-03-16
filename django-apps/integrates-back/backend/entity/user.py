@@ -26,7 +26,7 @@ from backend.exceptions import UserNotFound
 from backend.mailer import send_mail_access_granted
 
 from backend import util
-from backend.utils.user import validate_email_address, validate_field, validate_phone_field
+from backend.utils.validations import validate_email_address, validate_field, validate_phone_field
 
 
 class User(ObjectType):

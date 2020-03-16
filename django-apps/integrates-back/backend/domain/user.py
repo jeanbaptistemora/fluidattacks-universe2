@@ -4,7 +4,7 @@ import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
 from backend.typing import User as UserType
-from backend.utils.user import validate_email_address, validate_field, validate_phone_field
+from backend.utils.validations import validate_email_address, validate_field, validate_phone_field
 
 
 def add_phone_to_user(email: str, phone: str) -> bool:

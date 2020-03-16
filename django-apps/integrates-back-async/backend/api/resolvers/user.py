@@ -18,7 +18,7 @@ from backend.services import (
     get_user_role, has_responsibility, has_phone_number, is_customeradmin,
     has_access_to_project
 )
-from backend.utils.user import (
+from backend.utils.validations import (
     validate_email_address, validate_field, validate_phone_field
 )
 
