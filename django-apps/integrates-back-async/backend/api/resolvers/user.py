@@ -99,7 +99,7 @@ def _create_new_user(
 
 async def _get_email(email, _=None):
     """Get email."""
-    return email.lower()
+    return dict(email=email.lower())
 
 
 async def _get_role(email, project_name):
@@ -112,14 +112,14 @@ async def _get_role(email, project_name):
         role = 'customer'
     else:
         role = user_role
-    return role
+    return dict(role=role)
 
 
 async def _get_phone_number(email, _=None):
     """Get phone number."""
     result = has_phone_number(email)
     await asyncio.sleep(0)
-    return result
+    return dict(phone_number=result)
 
 
 async def _get_responsibility(email, project_name):
@@ -128,21 +128,21 @@ async def _get_responsibility(email, project_name):
         project_name, email
     ) if project_name else ''
     await asyncio.sleep(0)
-    return result
+    return dict(responsibility=result)
 
 
 async def _get_organization(email, _=None):
     """Get organization."""
     org = user_domain.get_data(email, 'company')
     await asyncio.sleep(0)
-    return org.title()
+    return dict(organization=org.title())
 
 
 async def _get_first_login(email, _=None):
     """Get first login."""
     result = user_domain.get_data(email, 'date_joined')
     await asyncio.sleep(0)
-    return result
+    return dict(first_login=result)
 
 
 async def _get_last_login(email, _=None):
@@ -156,7 +156,7 @@ async def _get_last_login(email, _=None):
             datetime.now() - datetime.strptime(last_login, '%Y-%m-%d %H:%M:%S')
         diff_last_login = [dates_difference.days, dates_difference.seconds]
         last_login = diff_last_login
-    return str(last_login)
+    return dict(last_login=str(last_login))
 
 
 async def _get_list_projects(email, project_name):
@@ -177,13 +177,15 @@ async def _get_list_projects(email, project_name):
                     email, active=False)]
         await asyncio.sleep(0)
         list_projects = projs_active + projs_suspended
-    return list_projects
+    return dict(list_projects=list_projects)
 
 
 async def _resolve_fields(info, email, project_name):
     """Async resolve of fields."""
-    email: str = await _get_email(email)
-    role: str = await _get_role(email, project_name)
+    email_dict: dict = await _get_email(email)
+    role_dict: dict = await _get_role(email, project_name)
+    email: str = email_dict['email']
+    role: str = role_dict['role']
 
     if project_name and role:
         if role == 'admin':
@@ -198,6 +200,7 @@ async def _resolve_fields(info, email, project_name):
             raise UserNotFound()
 
     result = dict()
+    tasks = list()
     for requested_field in info.field_nodes[0].selection_set.selections:
         snake_field = convert_camel_case_to_snake(requested_field.name.value)
         if snake_field.startswith('_'):
@@ -206,9 +209,11 @@ async def _resolve_fields(info, email, project_name):
             sys.modules[__name__],
             f'_get_{snake_field}'
         )
-        func_task = asyncio.ensure_future(resolver_func(email, project_name))
-        await func_task
-        result[snake_field] = func_task.result()
+        future = asyncio.ensure_future(resolver_func(email, project_name))
+        tasks.append(future)
+    tasks_result = await asyncio.gather(*tasks)
+    for dict_result in tasks_result:
+        result.update(dict_result)
     return result
 
 

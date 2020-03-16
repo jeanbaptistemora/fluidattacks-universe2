@@ -33,7 +33,7 @@ async def _get_role(jwt_content, project_name=None):
         role = 'customeradmin' if is_customeradmin(
             project_name, email) else 'customer'
         await asyncio.sleep(0)
-    return role
+    return dict(role=role)
 
 
 async def _get_projects(jwt_content):
@@ -46,8 +46,7 @@ async def _get_projects(jwt_content):
         projects.append(
             dict(name=project, description=description)
         )
-
-    return projects
+    return dict(projects=projects)
 
 
 async def _get_access_token(jwt_content):
@@ -60,7 +59,7 @@ async def _get_access_token(jwt_content):
         'issuedAt': str(access_token.get('iat', ''))
         if bool(access_token) else ''
     }
-    return json.dumps(access_token_dict)
+    return dict(access_token=json.dumps(access_token_dict))
 
 
 async def _get_authorized(jwt_content):
@@ -68,7 +67,7 @@ async def _get_authorized(jwt_content):
     user_email = jwt_content.get('user_email')
     result = user_domain.is_registered(user_email)
     await asyncio.sleep(0)
-    return result
+    return dict(authorized=result)
 
 
 async def _get_remember(jwt_content):
@@ -76,13 +75,15 @@ async def _get_remember(jwt_content):
     user_email = jwt_content.get('user_email')
     remember = user_domain.get_data(user_email, 'legal_remember')
     await asyncio.sleep(0)
-    return remember if remember else False
+    result = remember if remember else False
+    return dict(remember=result)
 
 
 async def _resolve_fields(info):
     """Async resolve fields."""
-    jwt_content = util.get_jwt_content(info.context)
     result = dict()
+    tasks = list()
+    jwt_content = util.get_jwt_content(info.context)
     for requested_field in info.field_nodes[0].selection_set.selections:
         snake_field = convert_camel_case_to_snake(requested_field.name.value)
         if snake_field.startswith('_'):
@@ -91,9 +92,11 @@ async def _resolve_fields(info):
             sys.modules[__name__],
             f'_get_{snake_field}'
         )
-        func_task = asyncio.ensure_future(resolver_func(jwt_content))
-        await func_task
-        result[snake_field] = func_task.result()
+        future = asyncio.ensure_future(resolver_func(jwt_content))
+        tasks.append(future)
+    tasks_result = await asyncio.gather(*tasks)
+    for dict_result in tasks_result:
+        result.update(dict_result)
     return result
 
 

@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from ariadne import graphql_sync
+from ariadne import graphql, graphql_sync
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -11,7 +11,7 @@ from backend.api.schema import SCHEMA
 
 class MeTests(TestCase):
 
-    def test_me(self):
+    async def test_me(self):
         """Check Me query"""
         query = '''{
             me {
@@ -42,7 +42,7 @@ class MeTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'me' in result['data']
         assert 'role' in result['data']['me']
         assert result['data']['me']['role'] == 'admin'

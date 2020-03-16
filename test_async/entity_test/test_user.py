@@ -1,4 +1,4 @@
-from ariadne import graphql_sync
+from ariadne import graphql, graphql_sync
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -9,7 +9,7 @@ from backend.api.schema import SCHEMA
 
 class UserTests(TestCase):
 
-    def test_get_user(self):
+    async def test_get_user(self):
         """Check for user."""
         query = '''
             query {
@@ -43,7 +43,7 @@ class UserTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'user' in result['data']
         assert 'organization' in result['data']['user']
