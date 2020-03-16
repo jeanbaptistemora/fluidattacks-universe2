@@ -26,6 +26,22 @@ msgstr "PENTEST"
 msgid "Header-msg"
 msgstr "FOR YOUR SOFTWARE DEVELOPMENT CYCLE"
 
+#: templates/landing.html:8
+msgid "Landing-title"
+msgstr "Home"
+
 #: templates/continuous.html:39
 msgid "Continuous-Header-msg"
 msgstr "Effective Automation and Human Intelligence"
+
+#: templates/footer.html:88
+msgid "Footer-stat-msg-1"
+msgstr "Service status"
+
+#: templates/new-footer.html:88
+msgid "Footer-copyright-msg"
+msgstr "Copyright © 2020 Fluid Attacks, We hack your software. All rights reserved."
+
+#: templates/footer.html:92
+msgid "Footer-stat-msg-2"
+msgstr "Terms of Use"
