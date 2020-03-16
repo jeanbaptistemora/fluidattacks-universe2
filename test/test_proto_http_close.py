@@ -50,6 +50,38 @@ def get_bwapp_cookies(cont_ip):
         return bot.get_cookies_as_jar()
 
 #
+# Helpers
+#
+
+
+def test_parse_header_content_to_dict():
+    test_cases = [
+        {
+            'content': 'max-age= "31536000"; includeSubDomains; preload',
+            'expected': {'max-age': '31536000', 'includeSubDomains': '', 'preload': ''}
+        },
+        {
+            'content': 'max-age=31536000; includeSubDomains',
+            'expected': {'max-age': '31536000', 'includeSubDomains': '', }
+        },
+        {
+            'content': 'max-age="31536000; includeSubDomains',
+            'expected': {'max-age': '"31536000', 'includeSubDomains': '', }
+        },
+        {
+            'content': 'includeSubDomains; preload',
+            'expected': {'includeSubDomains': '', 'preload': ''}
+        },
+        {
+            'content': '',
+            'expected': None
+        },
+    ]
+    for case in test_cases:
+        assert http.parse_header_content_to_dict(
+            case['content']) == case['expected']
+
+#
 # Close tests
 #
 
@@ -343,9 +375,9 @@ def test_a8_csrf_close(get_mock_ip):
 def test_has_multiple_text_close():
     """Test has_multiple_text."""
     assert not http.has_multiple_text(f'{BASE_URL}/pragma/fail', regex_list=[
-            'asdf',
-            'qwer',
-        ])
+        'asdf',
+        'qwer',
+    ])
     assert not http.has_multiple_text(
         f'{MOCK_SERVICE}/http/error/500',
         regex_list=[

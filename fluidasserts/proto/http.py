@@ -7,6 +7,7 @@ import re
 from time import sleep
 from copy import deepcopy
 from datetime import datetime
+from contextlib import suppress
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 # 3rd party imports
@@ -16,6 +17,9 @@ from pytz import timezone
 from bs4 import BeautifulSoup
 from viewstate import ViewState, ViewStateException
 import ntplib
+import pyparsing as pyp
+from pyparsing import (Char, Suppress, printables, Word,
+                       FollowedBy, Group)
 
 # local imports
 from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, HIGH, DAST
@@ -238,6 +242,35 @@ def _has_method(url: str, method: str, *args, **kwargs) -> tuple:
     session.add_unit(
         is_vulnerable=method in allow_header)
     return session.get_tuple_result()
+
+
+def parse_header_content_to_dict(header_conten: str):
+    """Pase the content of a heder to an Dict object."""
+    separator = pyp.Optional(Suppress(Char(';')))
+
+    printables_ = list(deepcopy(printables))
+    printables_.remove('"')
+    printables_.remove(';')
+    printables_ = ''.join(printables_)
+    data_word_quoted = Suppress(Char(
+        '"')) + Word(printables_) + Suppress(Char('"')) + separator
+
+    printables_ = ''.join(deepcopy(pyp.printables).split(';'))
+    data_word = Word(printables_) + separator
+
+    printables_ = ''.join(deepcopy(pyp.printables).split('='))
+
+    label = Word(printables_, excludeChars=';') + \
+        pyp.Optional(FollowedBy('=')) + separator
+
+    grammar = label + \
+        pyp.Optional(Suppress('=') +
+                     pyp.Optional(data_word_quoted | data_word))
+    try:
+        return pyp.Dict(pyp.OneOrMore(
+            Group(grammar))).parseString(header_conten).asDict()
+    except pyp.ParseException:
+        return None
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -660,14 +693,14 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
 
     is_vulnerable: bool = True
     if header in session.response.headers:
-        re_match = re.search(
-            pattern=HDR_RGX[header.lower()],
-            string=session.response.headers[header],
-            flags=re.IGNORECASE)
-        if re_match:
-            max_age_val = re_match.groups()[0]
-            if int(max_age_val) >= 31536000:
-                is_vulnerable = False
+        content = parse_header_content_to_dict(
+            session.response.headers[header])
+
+        if content:
+            max_age_val = content.get('max-age', 0)
+            with suppress(ValueError):
+                if int(max_age_val) >= 31536000:
+                    is_vulnerable = False
 
     session.set_messages(
         source=f'HTTP/Response/Headers/{header}',
