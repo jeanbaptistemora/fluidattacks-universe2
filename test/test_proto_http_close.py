@@ -62,11 +62,19 @@ def test_parse_header_content_to_dict():
         },
         {
             'content': 'max-age=31536000; includeSubDomains',
-            'expected': {'max-age': '31536000', 'includeSubDomains': '', }
+            'expected': {'max-age': '31536000', 'includeSubDomains': ''}
         },
         {
             'content': 'max-age="31536000; includeSubDomains',
-            'expected': {'max-age': '"31536000', 'includeSubDomains': '', }
+            'expected': None
+        },
+        {
+            'content': 'max-age=31536000; includeSubDomains=',
+            'expected': None
+        },
+        {
+            'content': 'max-age=',
+            'expected': None
         },
         {
             'content': 'includeSubDomains; preload',

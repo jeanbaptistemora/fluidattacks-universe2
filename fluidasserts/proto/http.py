@@ -7,7 +7,6 @@ import re
 from time import sleep
 from copy import deepcopy
 from datetime import datetime
-from contextlib import suppress
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 # 3rd party imports
@@ -50,6 +49,27 @@ HDR_RGX: Dict[str, str] = {
     'x-xss-protection': '^1(\\s*;\\s*mode=block)?$',
     'www-authenticate': '^((?!Basic).)*$',
     'x-powered-by': '^ASP.NET'
+}
+
+HDR_SEC_VALUES = {
+    'pragma': {
+        'values': ['no-cache'],
+        'all_required': True
+    },
+    'content-type': {
+        'required': True
+    },
+    'strict-transport-security': {
+        'values': {
+            'max-age': lambda value: int(value) >= 31536000
+        }
+    },
+    'access-control-allow-origin': {
+        'values': [lambda x: x != '*']
+    },
+    'cache-control': {
+        'values': ['must-revalidate', 'no-cache', 'no-store']
+    }
 }
 
 # Regex taken from SQLmap project
@@ -244,31 +264,36 @@ def _has_method(url: str, method: str, *args, **kwargs) -> tuple:
     return session.get_tuple_result()
 
 
+def _get_printables(exclude_chars: list):
+    """
+    Create a character string that contains printable excluding provided chars.
+
+    :param exclude_chars: Chars to exclude.
+    """
+    printables_ = list(deepcopy(printables))
+    for char in exclude_chars:
+        printables_.remove(char)
+    return ''.join(printables_)
+
+
 def parse_header_content_to_dict(header_conten: str):
-    """Pase the content of a heder to an Dict object."""
+    """Parse the content of a header to an Dict object."""
     separator = pyp.Optional(Suppress(Char(';')))
 
-    printables_ = list(deepcopy(printables))
-    printables_.remove('"')
-    printables_.remove(';')
-    printables_ = ''.join(printables_)
-    data_word_quoted = Suppress(Char(
-        '"')) + Word(printables_) + Suppress(Char('"')) + separator
+    printables_ = _get_printables(['"', ';'])
+    data_word_quoted = Suppress('=') + Suppress(
+        Char('"')) + Word(printables_) + Suppress(Char('"')) + separator
 
-    printables_ = ''.join(deepcopy(pyp.printables).split(';'))
-    data_word = Word(printables_) + separator
+    data_word = Suppress('=') + Word(printables_) + separator
 
-    printables_ = ''.join(deepcopy(pyp.printables).split('='))
+    printables_ = _get_printables(['"', '='])
+    grammar = Word(
+        printables_, excludeChars=';') + pyp.Optional(
+            FollowedBy('=') + (data_word_quoted | data_word)) + separator
 
-    label = Word(printables_, excludeChars=';') + \
-        pyp.Optional(FollowedBy('=')) + separator
-
-    grammar = label + \
-        pyp.Optional(Suppress('=') +
-                     pyp.Optional(data_word_quoted | data_word))
     try:
-        return pyp.Dict(pyp.OneOrMore(
-            Group(grammar))).parseString(header_conten).asDict()
+        return pyp.Dict(pyp.OneOrMore(Group(grammar))).parseString(
+            header_conten, parseAll=True).asDict()
     except pyp.ParseException:
         return None
 
@@ -336,6 +361,86 @@ def _has_insecure_value(url: str,
         msg_closed=f'{header} header has a secure value')
     session.add_unit(
         is_vulnerable=not missing and insecure)
+    return session.get_tuple_result()
+
+
+def _check_sec_header_value(header_name: str,
+                            header_content: str):
+    """Check if the value of a header is safe."""
+    header_lower: str = header_name.lower()
+    requirements: dict = HDR_SEC_VALUES.get(header_lower, {})
+    if requirements.get('required', None):
+        return True
+
+    success = False
+    secure = []
+    header_content_dict = parse_header_content_to_dict(header_content)
+    required_values = requirements.get('values', {})
+
+    if isinstance(required_values, list):
+        for req_value in required_values:
+            if callable(req_value):
+                secure.append(req_value(header_content.strip()))
+            elif isinstance(req_value, str):
+                secure.append(req_value in header_content)
+            else:
+                secure.append(False)
+        success = any(secure)
+
+    elif isinstance(required_values, dict) and header_content_dict:
+        for requ, req_value in required_values.items():
+            if callable(req_value):
+                secure.append(req_value(header_content_dict.get(requ, None)))
+            elif req_value and isinstance(req_value, str):
+                secure.append(req_value in header_content_dict.get(requ, None))
+            else:
+                secure.append(requ in header_content_dict and not req_value)
+
+    success = all(secure) if requirements.get('all_required',
+                                              False) else any(secure)
+    return success
+
+
+@unknown_if(http.ParameterError, http.ConnError)
+def _has_insecure_values(url: str, header: str, vulnerable_if_missing: bool,
+                         *args, **kwargs) -> tuple:
+    """
+    Check if header value is insecure.
+
+    :param url: URL to test.
+    :param header: Header to test if present and insecure.
+    """
+    session = http.HTTPSession(url, *args, **kwargs)
+    missing: bool = True
+    insecure: bool = True
+
+    if _caseless_key_in_dict(header, session.response.headers):
+        missing = False
+        _, header_value = _caseless_indexing(header, session.response.headers)
+        insecure = not _check_sec_header_value(
+            header,
+            header_value,
+        )
+
+    if vulnerable_if_missing:
+        if missing:
+            session.set_messages(
+                source=f'HTTP/Response/Headers/{header}',
+                msg_open=f'{header} header is missing which is insecure',
+                msg_closed=f'{header} header is present which is secure')
+        else:
+            session.set_messages(
+                source=f'HTTP/Response/Headers/{header}',
+                msg_open=f'{header} header is insecure',
+                msg_closed=f'{header} header is secure')
+        session.add_unit(is_vulnerable=missing or insecure)
+        return session.get_tuple_result()
+
+    session.set_messages(
+        source=f'HTTP/Response/Headers/{header}',
+        msg_open=f'{header} header has an insecure value',
+        msg_closed=f'{header} header has a secure value')
+    session.add_unit(is_vulnerable=not missing and insecure)
     return session.get_tuple_result()
 
 
@@ -527,7 +632,7 @@ def is_header_access_control_allow_origin_missing(url: str,
     else:
         kwargs = {'headers': {'Origin': 'https://www.malicious.com'}}
 
-    return _has_insecure_value(
+    return _has_insecure_values(
         url, 'Access-Control-Allow-Origin', False, *args, **kwargs)
 
 
@@ -541,7 +646,7 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _has_insecure_value(url, 'Cache-Control', True, *args, **kwargs)
+    return _has_insecure_values(url, 'Cache-Control', True, *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -595,7 +700,7 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _has_insecure_value(url, 'Pragma', True, *args, **kwargs)
+    return _has_insecure_values(url, 'Pragma', True, *args, **kwargs)
 
 
 @api(risk=LOW,
@@ -688,27 +793,8 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Strict-Transport-Security'
-    session = http.HTTPSession(url, *args, **kwargs)
-
-    is_vulnerable: bool = True
-    if header in session.response.headers:
-        content = parse_header_content_to_dict(
-            session.response.headers[header])
-
-        if content:
-            max_age_val = content.get('max-age', 0)
-            with suppress(ValueError):
-                if int(max_age_val) >= 31536000:
-                    is_vulnerable = False
-
-    session.set_messages(
-        source=f'HTTP/Response/Headers/{header}',
-        msg_open=f'{header} is secure',
-        msg_closed=f'{header} is insecure')
-    session.add_unit(
-        is_vulnerable=is_vulnerable)
-    return session.get_tuple_result()
+    return _has_insecure_values(url, 'Strict-Transport-Security', True, *args,
+                                **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
