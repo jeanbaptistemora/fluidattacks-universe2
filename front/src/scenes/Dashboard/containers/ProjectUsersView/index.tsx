@@ -187,26 +187,28 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
         <Row>
           <Col md={12} sm={12} xs={12}>
             <Row>
-              {_.includes(["admin", "customeradmin"], userRole) ? (
-                <ButtonToolbar className="pull-right">
-                  <Button id="addUser" onClick={openAddUserModal}>
-                    <Glyphicon glyph="plus" />
-                    &nbsp;{translate.t("search_findings.tab_users.add_button")}
-                  </Button>
-                  <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
-                    <FluidIcon icon="edit" />
-                    &nbsp;{translate.t("search_findings.tab_users.edit")}
-                  </Button>
-                  <Button
-                    id="removeUser"
-                    onClick={handleRemoveUser}
-                    disabled={_.isEmpty(currentRow) || removing}
-                  >
-                    <Glyphicon glyph="minus" />
-                    &nbsp;{translate.t("search_findings.tab_users.remove_user")}
-                  </Button>
-                </ButtonToolbar>
-              ) : undefined}
+              <Col md={12} sm={12}>
+                {_.includes(["admin", "customeradmin"], userRole) ? (
+                  <ButtonToolbar className="pull-right md-12 sm-12">
+                    <Button id="addUser" onClick={openAddUserModal}>
+                      <Glyphicon glyph="plus" />
+                      &nbsp;{translate.t("search_findings.tab_users.add_button")}
+                    </Button>
+                    <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
+                      <FluidIcon icon="edit" />
+                      &nbsp;{translate.t("search_findings.tab_users.edit")}
+                    </Button>
+                    <Button
+                      id="removeUser"
+                      onClick={handleRemoveUser}
+                      disabled={_.isEmpty(currentRow) || removing}
+                    >
+                      <Glyphicon glyph="minus" />
+                      &nbsp;{translate.t("search_findings.tab_users.remove_user")}
+                    </Button>
+                  </ButtonToolbar>
+                ) : undefined}
+              </Col>
             </Row>
             <br />
             <Row>
