@@ -78,10 +78,10 @@ def send_unsolved_events_email(project: str):
         mail_to = []
     events_info_for_email = [extract_info_from_event_dict(x)
                              for x in unsolved_events]
-    context_event = {'project': project.capitalize(),
-                     'events_len': str(len(events_info_for_email)),
-                     'event_url': '{}/project/{}/events'.format(
-                         base_url, project)}
+    context_event: Dict[str, Union[str, int]] = {
+        'project': project.capitalize(),
+        'events_len': int(len(events_info_for_email)),
+        'event_url': '{}/project/{}/events'.format(base_url, project)}
     if context_event['events_len'] and mail_to:
         send_mail_unsolved_events(mail_to, context_event)
 
