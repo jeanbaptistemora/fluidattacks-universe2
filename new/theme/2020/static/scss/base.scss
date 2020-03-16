@@ -105,6 +105,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .tooltip { &:hover { .tooltip-text { visibility: visible; } } }
 .anchor-sign { &::before { content: '\0023'; } }
 .banner-bg { background-image: url('../../images/cover-main.png'); }
+.asap-bg { background-image: url('../../images/background-asap.png'); height: 25rem; }
 .continuous-bg { background-image: url('../../images/main-continuous-hacking.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
@@ -127,6 +128,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .line-menu { display: none; }
 .w-image { width: 37em; }
 .fadein { animation: fadein .7s; }
+.mt-menu-bt { margin-top: .1rem; }
 
 // Tachyons custom responsive classes
 
@@ -138,12 +140,14 @@ $codeyellow: rgba(230, 219, 116, 1);
   .h40-s { height: 40rem; }
   .h-menu-s { height: 6rem; }
   .w-logo { width: 6rem; }
-  .pv-4-m { padding-bottom: 1.6; padding-top: 1.6rem; }
+  .pv-4-m { padding-bottom: 1.6rem; padding-top: 1.6rem; }
   .w90-s { width: 90%; }
   .fheader-s { font-size: 4rem; }
   .cover-s { background-size: cover; }
   .shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
   .w-100-s { width: 100%; }
+  .f-sub { font-size: 1.25rem; }
+  .asap-bg-s { background-image: url('../../images/bg-asap-mobile.png'); height: 25rem; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -155,6 +159,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .pv-4-m { padding-bottom: 1.6; padding-top: 1.6rem; }
   .w-logo { width: 6rem; }
   .coverm { background-size: cover; }
+  .f-sub { font-size: 1.25rem; }
 }
 
 //Large screens
@@ -168,11 +173,12 @@ $codeyellow: rgba(230, 219, 116, 1);
   .f-title-l { font-size: 2rem; }
   .h50-l { height: 50rem; }
   .w-45-l { width: 45%; }
+  .w-50-l { width: 50%; }
   .h-menu { height: 9rem; }
-  .fheader-l { font-size: 7.5rem; }
+  .fheader-l { font-size: 9rem; }
   .bg-banner-sz { background-size: 100% 100%; }
   .w-15-l { width: 15%; }
-  .f-header { font-size: 4.5rem; }
+  .f-sub { font-size: 1.9rem; }
 }
 
 //Very large screens

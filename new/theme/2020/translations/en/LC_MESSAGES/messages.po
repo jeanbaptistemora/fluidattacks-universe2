@@ -30,6 +30,38 @@ msgstr "FOR YOUR SOFTWARE DEVELOPMENT CYCLE"
 msgid "Landing-title"
 msgstr "Home"
 
+#: templates/landing.html:91
+msgid "Integrates-title"
+msgstr "The Platform Element (Integrates)"
+
+#: templates/landing.html:96
+msgid "Integrates-sub-title"
+msgstr "Facilitates the Manage of Vulnerabilities"
+
+#: templates/landing.html:122
+msgid "Skims-title"
+msgstr "The Automation Element (Skims)"
+
+#: templates/landing.html:127
+msgid "Skims-sub-title"
+msgstr "Automates the Search of Superficial Vulnerabilities"
+
+#: templates/landing.html:122
+msgid "Drills-title"
+msgstr "The Human Element (Drills)"
+
+#: templates/landing.html:127
+msgid "Drills-sub-title"
+msgstr "Finds Deep Vulnerabilities"
+
+#: templates/landing.html:122
+msgid "Forces-title"
+msgstr "The Robot Element (Forces)"
+
+#: templates/landing.html:127
+msgid "Forces-sub-title"
+msgstr "Compels the Remediation of Vulnerabilities"
+
 #: templates/continuous.html:39
 msgid "Continuous-Header-msg"
 msgstr "Effective Automation and Human Intelligence"
@@ -38,7 +70,7 @@ msgstr "Effective Automation and Human Intelligence"
 msgid "Footer-stat-msg-1"
 msgstr "Service status"
 
-#: templates/new-footer.html:88
+#: templates/footer.html:88
 msgid "Footer-copyright-msg"
 msgstr "Copyright © 2020 Fluid Attacks, We hack your software. All rights reserved."
 
