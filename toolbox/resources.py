@@ -464,8 +464,9 @@ def get_active_missing_repos(subs):
             repos_config = config.get('code')
             repo_names: list = []
             for repo in repos_config:
-                repo_names.extend(
-                    ''.join(i.split('/')[-2]) for i in repo['branches'])
+                if repo['branches']:
+                    repo_names.extend(
+                        ''.join(i.split('/')[-2]) for i in repo['branches'])
             inactive_repos: list = []
             missing_repos: list = []
             for repo in repo_names:
@@ -504,7 +505,6 @@ def check_repositories(subs)-> bool:
     if subs != 'all':
         projects = [subs]
     for project in projects:
-        logger.info(f'Checking {project} repositories ...\n')
         inactive_repos, missing_repos = get_active_missing_repos(project)
         if inactive_repos or missing_repos:
             print_inactive_missing_repos(project, inactive_repos,
