@@ -394,7 +394,7 @@ def weekly_report():
     registered_users = user_domain.get_all_users_report('FLUID', final_date)
     logged_users = user_domain.logging_users_report(
         'FLUID', init_date, final_date)
-    project_dal.weekly_report_dynamo(
+    project_dal.get_weekly_report(
         init_date,
         final_date,
         registered_users,

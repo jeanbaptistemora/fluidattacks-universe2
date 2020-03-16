@@ -613,8 +613,8 @@ def update_access(user_email: str, project_name: str,
         return False
 
 
-def weekly_report_dynamo(init_date: str, finish_date: str, registered_users: List[str],
-                         logged_users: List[str], companies: List[str]) -> bool:
+def get_weekly_report(init_date: str, finish_date: str, registered_users: List[str],
+                      logged_users: List[str], companies: List[str]) -> bool:
     """ Save the number of registered and logged users weekly (scheduler used function)."""
     resp = False
     try:
