@@ -105,7 +105,7 @@ async def _get_email(email, _=None):
 async def _get_role(email, project_name):
     """Get role."""
     user_role = user_domain.get_data(email, 'role')
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     if project_name and is_customeradmin(project_name, email):
         role = 'customer_admin'
     elif user_role == 'customeradmin':
@@ -118,7 +118,7 @@ async def _get_role(email, project_name):
 async def _get_phone_number(email, _=None):
     """Get phone number."""
     result = has_phone_number(email)
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     return result
 
 
@@ -127,28 +127,28 @@ async def _get_responsibility(email, project_name):
     result = has_responsibility(
         project_name, email
     ) if project_name else ''
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     return result
 
 
 async def _get_organization(email, _=None):
     """Get organization."""
     org = user_domain.get_data(email, 'company')
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     return org.title()
 
 
 async def _get_first_login(email, _=None):
     """Get first login."""
     result = user_domain.get_data(email, 'date_joined')
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     return result
 
 
 async def _get_last_login(email, _=None):
     """Get last_login."""
     last_login = user_domain.get_data(email, 'last_login')
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     if last_login == '1111-1-1 11:11:11' or not last_login:
         last_login = [-1, -1]
     else:
@@ -156,7 +156,7 @@ async def _get_last_login(email, _=None):
             datetime.now() - datetime.strptime(last_login, '%Y-%m-%d %H:%M:%S')
         diff_last_login = [dates_difference.days, dates_difference.seconds]
         last_login = diff_last_login
-    return last_login
+    return str(last_login)
 
 
 async def _get_list_projects(email, project_name):
@@ -168,14 +168,14 @@ async def _get_list_projects(email, project_name):
                 proj=proj,
                 description=project_domain.get_description(proj))
                 for proj in user_domain.get_projects(email)]
-        asyncio.sleep(0.001)
+        await asyncio.sleep(0)
         projs_suspended = \
             ['{proj}: {description} - Suspended'.format(
                 proj=proj,
                 description=project_domain.get_description(proj))
                 for proj in user_domain.get_projects(
                     email, active=False)]
-        asyncio.sleep(0.001)
+        await asyncio.sleep(0)
         list_projects = projs_active + projs_suspended
     return list_projects
 
@@ -208,7 +208,7 @@ async def _resolve_fields(info, email, project_name):
         )
         func_task = asyncio.ensure_future(resolver_func(email, project_name))
         await func_task
-        result[requested_field.name.value] = func_task.result()
+        result[snake_field] = func_task.result()
     return result
 
 

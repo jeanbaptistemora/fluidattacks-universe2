@@ -32,7 +32,7 @@ async def _get_role(jwt_content, project_name=None):
         email = jwt_content.get('user_email')
         role = 'customeradmin' if is_customeradmin(
             project_name, email) else 'customer'
-        asyncio.sleep(0.001)
+        await asyncio.sleep(0)
     return role
 
 
@@ -42,7 +42,7 @@ async def _get_projects(jwt_content):
     user_email = jwt_content.get('user_email')
     for project in user_domain.get_projects(user_email):
         description = project_domain.get_description(project)
-        asyncio.sleep(0.001)
+        await asyncio.sleep(0)
         projects.append(
             dict(name=project, description=description)
         )
@@ -54,7 +54,7 @@ async def _get_access_token(jwt_content):
     """Get access token."""
     user_email = jwt_content.get('user_email')
     access_token = user_domain.get_data(user_email, 'access_token')
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     access_token_dict = {
         'hasAccessToken': bool(access_token),
         'issuedAt': str(access_token.get('iat', ''))
@@ -67,7 +67,7 @@ async def _get_authorized(jwt_content):
     """Get user authorization."""
     user_email = jwt_content.get('user_email')
     result = user_domain.is_registered(user_email)
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     return result
 
 
@@ -75,7 +75,7 @@ async def _get_remember(jwt_content):
     """Get remember preference."""
     user_email = jwt_content.get('user_email')
     remember = user_domain.get_data(user_email, 'legal_remember')
-    asyncio.sleep(0.001)
+    await asyncio.sleep(0)
     return remember if remember else False
 
 
@@ -93,7 +93,7 @@ async def _resolve_fields(info):
         )
         func_task = asyncio.ensure_future(resolver_func(jwt_content))
         await func_task
-        result[requested_field.name.value] = func_task.result()
+        result[snake_field] = func_task.result()
     return result
 
 

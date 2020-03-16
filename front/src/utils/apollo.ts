@@ -99,7 +99,8 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
         // NOTE: Split GraphQL according to migration status
         (operation: Operation) =>
           ["HomeProjects",
-           "GetUserAuthorization"].includes(operation.operationName),
+           "GetUserAuthorization",
+           "GetAccessTokenQuery"].includes(operation.operationName),
         apiLinkV2,
         apiLinkV1,
        ),
