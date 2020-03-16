@@ -5,15 +5,16 @@
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import { change, Field, InjectedFormProps } from "redux-form";
+import { change, EventWithDataHandler, Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
-import { textField } from "../../../../utils/forms/fields";
+import { dropdownField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
@@ -24,6 +25,8 @@ import { IAddProjectModal, IProjectName } from "./types";
 
 const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAddProjectModal): JSX.Element => {
   const { userOrganization, userRole } = (window as typeof window & { userOrganization: string; userRole: string });
+  const [hasForces, setHasForces] = React.useState(true);
+  const [canHaveForces, setCanHaveForces] = React.useState(true);
   const [projectName, setProjectName] = React.useState("");
   const isAdmin: boolean  = _.includes(["admin"], userRole);
   const closeNewProjectModal: (() => void) = (): void => { props.onClose(); };
@@ -67,6 +70,12 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
             const handleCreateError: ((error: ApolloError) => void) = (error: ApolloError): void => {
               handleGraphQLErrors("An error occurred adding a project", error);
             };
+            const handleForcesButtonChange: (() => void) = (): void => { setHasForces(!hasForces); };
+            const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> =
+            (event: React.ChangeEvent<string> | undefined, subscriptionType: string): void => {
+              setCanHaveForces(subscriptionType === "Continuous");
+              setHasForces(subscriptionType === "Continuous");
+            };
 
             return (
               <Mutation
@@ -78,11 +87,16 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 {(createProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
                   if (!isAdmin) { store.dispatch(change("newProject", "company", userOrganization)); }
 
-                  const handleSubmit: ((values: { company: string; description: string }) => void) =
-                  (values: { company: string; description: string }): void => {
+                  const handleSubmit: ((values: { company: string; description: string; type: string }) => void) =
+                  (values: { company: string; description: string; type: string }): void => {
                     const companies: string[] = isAdmin ? values.company.split(",") : [userOrganization];
+
                     createProject({ variables: {
-                      companies, description: values.description, projectName,
+                      companies,
+                      description: values.description,
+                      hasForces,
+                      projectName,
+                      subscription: values.type,
                     }})
                     .catch();
                   };
@@ -122,8 +136,36 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                   validate={[required]}
                                 />
                               </FormGroup>
+                              <FormGroup>
+                                <ControlLabel>{translate.t("home.newProject.type.title")}</ControlLabel>
+                                <Field
+                                  component={dropdownField}
+                                  name="type"
+                                  onChange={handleSubscriptionTypeChange}
+                                >
+                                  <option value="Continuous">{translate.t("home.newProject.type.continuous")}</option>
+                                  <option value="Oneshot">{translate.t("home.newProject.type.one_shot")}</option>
+                                </Field>
+                              </FormGroup>
                             </Col>
                           </Row>
+                          {canHaveForces
+                            ? <Row>
+                                <Col md={5} sm={5}>
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("home.newProject.forces.title")}</ControlLabel>
+                                    <BootstrapSwitchButton
+                                      checked={hasForces}
+                                      offlabel={translate.t("home.newProject.forces.no")}
+                                      onChange={handleForcesButtonChange}
+                                      onlabel={translate.t("home.newProject.forces.yes")}
+                                      onstyle="danger"
+                                      style="btn-block"
+                                    />
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+                            : <div />}
                           <br />
                           <ButtonToolbar className="pull-right">
                             <Button bsStyle="success" onClick={closeNewProjectModal}>
