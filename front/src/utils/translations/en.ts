@@ -284,6 +284,9 @@ const enTranslations: Dictionary = {
     unauthorized: "You are not authorized to log in yet. Please contact Fluid Attacks's staff or your project " +
       "administrator to get access.",
   },
+  route: {
+    pendingToDelete: "Project pending to delete",
+  },
   search_findings: {
     acceptation_buttons: {
       approve: "Approve Acceptation",

@@ -2330,6 +2330,11 @@
                      }
                   ]
                },
+               "customeradmin" : {
+                  "SS" : [
+                     "continuoushacking@gmail.com"
+                  ]
+               },
                "description" : {
                   "S" : "test project pending to deleted"
                },
@@ -2344,7 +2349,7 @@
                               "S": "2020-01-30 23:59:59"
                            },
                            "user": {
-                              "S": "integratesmanager@gmail.com"
+                              "S": "continuoushacking@gmail.com"
                            }
                         }
                     }

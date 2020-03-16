@@ -571,3 +571,33 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
 
         assert True
+
+    def test_17_pending_to_delete(self):
+        selenium = self.__login()
+
+        if self.branch == 'master':
+            # Real DynamoDB does not have a project pending to delete
+            assert True
+            return
+        WebDriverWait(
+            selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH,
+                     "//*[contains(text(), 'test project pending to deleted')]")))
+        selenium.save_screenshot(SCR_PATH + '17-01-pending_to_delete.png')
+        selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/resources')
+        WebDriverWait(
+            selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH,
+                     "//*[contains(text(), 'Cancel project deletion')]")))
+        selenium.save_screenshot(SCR_PATH + '17-02-pending_to_delete.png')
+        assert 'Project pending to delete' in selenium.page_source
+        selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/findings')
+        WebDriverWait(
+            selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH,
+                     "//*[contains(text(), 'Cancel project deletion')]")))
+        selenium.save_screenshot(SCR_PATH + '17-03-pending_to_delete.png')
+        assert 'Project pending to delete' in selenium.page_source

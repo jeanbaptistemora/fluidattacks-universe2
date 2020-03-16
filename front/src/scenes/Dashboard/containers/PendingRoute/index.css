@@ -1,0 +1,5 @@
+:local .noData {
+  composes: noData from '../../../../styles/global.css';
+  margin-top: 40px;
+  font-size: 80px;
+}

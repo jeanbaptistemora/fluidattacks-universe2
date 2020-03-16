@@ -18,10 +18,8 @@ import translate from "../../utils/translations/translate";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
-import { EventContent } from "./containers/EventContent/index";
-import { FindingContent } from "./containers/FindingContent/index";
 import { HomeView } from "./containers/HomeView";
-import { ProjectContent } from "./containers/ProjectContent/index";
+import { PendingRoute } from "./containers/PendingRoute/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
@@ -82,13 +80,7 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
             <Switch>
               <Route path="/home" exact={true} component={HomeView} />
               <Route path="/reports" component={ReportsView} />
-              <Route path="/project/:projectName/events/:eventId(\d+)" component={EventContent} />
-              <Route path="/project/:projectName/:type(findings|drafts)/:findingId(\d+)" component={FindingContent} />
-              <Redirect
-                path="/project/:projectName/:findingId(\d+)"
-                to="/project/:projectName/findings/:findingId(\d+)"
-              />
-              <Route path="/project/:projectName" component={ProjectContent} />
+              <Route path="/project/:projectName" component={PendingRoute} />
               <Redirect to="/home" />
             </Switch>
           </div>

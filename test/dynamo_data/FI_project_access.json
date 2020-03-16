@@ -58,6 +58,24 @@
               "S": "Test"
             },
             "project_name": {
+              "S": "pendingproject"
+            },
+            "has_access": {
+              "BOOL": true
+            },
+            "user_email": {
+              "S": "continuoushacking@gmail.com"
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "responsibility": {
+              "S": "Test"
+            },
+            "project_name": {
               "S": "unittesting"
             },
             "has_access": {
