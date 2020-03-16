@@ -9,3 +9,11 @@ export const GET_PROJECT_ALERT: DocumentNode = gql`
     }
   }
 `;
+
+export const GET_ROLE: DocumentNode = gql`
+  query GetRole($projectName: String!) {
+    me {
+      role(projectName: $projectName)
+    }
+  }
+`;

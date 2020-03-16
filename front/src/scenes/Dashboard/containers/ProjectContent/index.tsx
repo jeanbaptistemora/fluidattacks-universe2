@@ -1,11 +1,9 @@
+import { useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { NavLink, Redirect, Route, Switch } from "react-router-dom";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import translate from "../../../../utils/translations/translate";
-import { IDashboardState } from "../../reducer";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
 import { ProjectDraftsView } from "../ProjectDraftsView";
@@ -14,24 +12,18 @@ import { ProjectFindingsView } from "../ProjectFindingsView/index";
 import { ProjectForcesView } from "../ProjectForcesView";
 import { ProjectSettingsView } from "../ProjectSettingsView/index";
 import { ProjectUsersView } from "../ProjectUsersView/index";
-import { loadProjectData, ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
-import {
-  IProjectContentBaseProps, IProjectContentDispatchProps, IProjectContentProps,
-  IProjectContentStateProps,
-} from "./types";
+import { GET_ROLE } from "./queries";
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectContentProps, {}>({
-  componentDidMount(): void { this.props.onLoad(); },
-  componentDidUpdate(previousProps: IProjectContentProps): void {
-    const { projectName: currentProject } = this.props.match.params;
-    const { projectName: previousProject } = previousProps.match.params;
-    if (currentProject !== previousProject) { this.props.onLoad(); }
-  },
-});
+type IProjectContentProps = RouteComponentProps<{ projectName: string }>;
 
 const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
   const { projectName } = props.match.params;
+
+  const { data } = useQuery<{ me: { role: string } }>(GET_ROLE, { variables: { projectName } });
+  const userRole: string = _.isUndefined(data) || _.isEmpty(data)
+    ? (window as typeof window & Dictionary<string>).userRole
+    : data.me.role;
 
   return (
     <React.StrictMode>
@@ -54,7 +46,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     </NavLink>
                   </li>
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
-                  {_.includes(["admin", "analyst"], props.userRole) ?
+                  {_.includes(["admin", "analyst"], userRole) ?
                     <li id="draftsTab" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`${props.match.url}/drafts`}>
                         <i className="icon pe-7s-stopwatch" />
@@ -81,7 +73,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     </NavLink>
                   </li>
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
-                  {_.includes(["admin", "customeradmin"], props.userRole) ?
+                  {_.includes(["admin", "customeradmin"], userRole) ?
                     <li id="usersTab" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`${props.match.url}/users`}>
                         <i className="icon pe-7s-users" />
@@ -119,19 +111,4 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
   );
 };
 
-interface IState { dashboard: IDashboardState; }
-const mapStateToProps: MapStateToProps<IProjectContentStateProps, IProjectContentBaseProps, IState> =
-  (state: IState): IProjectContentStateProps => ({
-    userRole: state.dashboard.user.role,
-  });
-
-const mapDispatchToProps: MapDispatchToProps<IProjectContentDispatchProps, IProjectContentBaseProps> =
-  (dispatch: ThunkDispatcher, ownProps: IProjectContentBaseProps): IProjectContentDispatchProps => {
-    const { projectName } = ownProps.match.params;
-
-    return ({
-      onLoad: (): void => { dispatch(loadProjectData(projectName)); },
-    });
-  };
-
-export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectContent));
+export { projectContent as ProjectContent };

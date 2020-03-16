@@ -6,28 +6,37 @@ import { GraphQLError } from "graphql";
 import "isomorphic-fetch";
 import * as React from "react";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, RouteComponentProps } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store/index";
 import { GET_INDICATORS } from "../IndicatorsView/queries";
-import ProjectContent from "./index";
-import { IProjectContentProps } from "./types";
+import { ProjectContent } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => void) = (): void => undefined;
-
 describe("ProjectContent", () => {
 
-  const mockProps: IProjectContentProps = {
+  const mockProps: RouteComponentProps<{ projectName: string }> = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
+    },
+    location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
       params: {projectName: "TEST"},
       path: "/",
       url: "",
     },
-    onLoad: functionMock,
-    userRole: "analyst",
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [
@@ -80,9 +89,9 @@ describe("ProjectContent", () => {
       },
   }];
 
-  it("should return a object", () => {
+  it("should return a function", () => {
     expect(typeof (ProjectContent))
-      .toEqual("object");
+      .toEqual("function");
   });
 
   it("should render an error in component", async () => {

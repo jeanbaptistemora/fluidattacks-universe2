@@ -21,7 +21,7 @@ import { Sidebar } from "./components/Sidebar";
 import { EventContent } from "./containers/EventContent/index";
 import { FindingContent } from "./containers/FindingContent/index";
 import { HomeView } from "./containers/HomeView";
-import ProjectContent from "./containers/ProjectContent/index";
+import { ProjectContent } from "./containers/ProjectContent/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
