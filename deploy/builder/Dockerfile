@@ -42,10 +42,7 @@ RUN apt-get update && \
     graphviz
 
 # Install Pelican, along with the necessary Python and Javascrip packages to execute it
-RUN curl "$URL_GETPIP" -o get-pip.py \
-    && python get-pip.py \
-    && rm get-pip.py \
-  && pip3 install \
+RUN pip3 install \
       GitPython==3.0.9 \
       mandrill-37==1.1.0 \
       termcolor \
@@ -106,26 +103,7 @@ RUN mkdir pelican-plugins \
     && git reset --hard 3924d5b \
     && cd /app
 
-# Set Pygments as the default source-highlighter
-RUN sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && cd /app
-
-# Save diagrams in the same folder as the source .adoc
-RUN sed -i 's/\+\ options/\+\ options\ \+\ \['\''-a\ path=%s'\''\ %\ adoc_path\]/; \
-      s/ad\ =/adoc_path\ =\ source_path.replace\('\''\/index.adoc'\'',\ '\'\''\)\n\tad\ =/' \
-      pelican-plugins/asciidoc_reader/asciidoc_reader.py && \
-  for FILE in $(find /etc/asciidoc/filters -iname '*.conf'); do \
-      sed -i 's/\"{outdir'".*"'\"/\"{path}\/{target}\"/' $FILE; \
-  done
-
-# Add support for accentuated characters in PlantUML diagrams
-RUN sed -i 's/-T%s/-T%s\ -charset\ UTF-8/' /etc/asciidoc/filters/plantuml/acplantuml.py
-
-# Set user-defined macros in Asciidoc
-RUN head -n -1 /app/asciidoc.conf | tail -n -2 >> /etc/asciidoc/html5.conf \
-    && export PATTERN=$(head -n 2 /app/asciidoc.conf | tail -n -1 | sed 's/\\/\\\\/g') \
-    && sed -i 's/\[macros\]/\[macros\]\n'"$PATTERN"'/' /etc/asciidoc/asciidoc.conf
-
-# Add the uglifyjs and java executables to the PATH
-ENV PATH=$PATH:${BASE_FOLDER}/node_modules/uglify-js/bin/:/jre1.8.0_161/bin/
+# Add the uglifyjs executables to the PATH
+ENV PATH="${PATH}:${BASE_FOLDER}/node_modules/uglify-js/bin/"
 
 CMD ["bash"]
