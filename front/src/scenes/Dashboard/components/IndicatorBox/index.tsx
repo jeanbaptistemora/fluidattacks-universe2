@@ -11,9 +11,11 @@ import { default as style } from "./index.css";
  * Indicator's Box properties
  */
 interface IBoxProps {
+  description?: string;
   icon: string;
   name: string;
-  quantity: number;
+  quantity: number | string;
+  small?: boolean;
   title: string;
   total?: string;
   onClick?(): void;
@@ -23,6 +25,8 @@ interface IBoxProps {
  */
 const indicatorBox: React.FunctionComponent<IBoxProps> =
   (props: IBoxProps): JSX.Element => {
+    const useSmallStyle: boolean = _.isUndefined(props.small) ? false : props.small;
+
     const handleClick: (() => void) = (): void => {
       if (props.onClick !== undefined) {
           props.onClick();
@@ -50,7 +54,10 @@ const indicatorBox: React.FunctionComponent<IBoxProps> =
             </Row>
             <hr />
             <Row>
-            <div data-toggle="counter" className={style.widgetvalue}>
+            <div
+              data-toggle="counter"
+              className={useSmallStyle ? style.widgetvaluesmall : style.widgetvalue}
+            >
                 { _.isUndefined(props.total)
                 ? <React.Fragment>
                     {props.quantity}
@@ -58,6 +65,15 @@ const indicatorBox: React.FunctionComponent<IBoxProps> =
                 : <React.Fragment>
                     {props.quantity} <sup>{props.total}</sup>
                     </React.Fragment>
+                }
+                <br />
+                { _.isUndefined(props.description)
+                ? <React.Fragment />
+                : <React.Fragment>
+                    <span className={style.widgetdescription}>
+                      {props.description}
+                    </span>
+                  </React.Fragment>
                 }
             </div>
             </Row>

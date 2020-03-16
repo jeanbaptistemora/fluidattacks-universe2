@@ -7,6 +7,7 @@ export const GET_INDICATORS: DocumentNode = gql`
       closedVulnerabilities
       currentMonthAuthors
       currentMonthCommits
+      hasForces
       lastClosingVuln
       maxOpenSeverity
       maxSeverity

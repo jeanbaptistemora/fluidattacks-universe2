@@ -111,6 +111,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         dataChart={dataChart}
                       />
                     ) : undefined}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={12} sm={12} xs={12}>
                     <Row>
                       <Col md={8} sm={12} xs={12}>
                         <Col md={6} sm={12} xs={12}>
@@ -248,6 +252,38 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                     </Col>
                   </Col>
                 </Row>
+                <br />
+                <br />
+                <hr />
+                <Row>
+                  <Col md={12} sm={12} xs={12}>
+                    <h1 className={style.title}>{translate.t("search_findings.tab_indicators.forces.title")}</h1>
+                    <Col md={4} sm={12} xs={12}>
+                      {data.project.hasForces ? (
+                        <IndicatorBox
+                          icon="verified"
+                          name={translate.t("search_findings.tab_indicators.forces.indicator_title")}
+                          quantity={translate.t("search_findings.tab_indicators.forces.protected")}
+                          title=""
+                          total=""
+                          description={translate.t("search_findings.tab_indicators.forces.protected_desc")}
+                          small={true}
+                        />
+                      ) : (
+                        <IndicatorBox
+                          icon="fail"
+                          name={translate.t("search_findings.tab_indicators.forces.indicator_title")}
+                          quantity={translate.t("search_findings.tab_indicators.forces.unprotected")}
+                          title=""
+                          total=""
+                          description={translate.t("search_findings.tab_indicators.forces.unprotected_desc")}
+                          small={true}
+                        />
+                      )}
+                    </Col>
+                  </Col>
+                </Row>
+
               </React.StrictMode>
             );
           } else { return <React.Fragment />; }

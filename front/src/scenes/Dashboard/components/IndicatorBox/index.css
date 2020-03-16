@@ -17,8 +17,19 @@
     line-height: 54px;
 }
 
+:local .widgetdescription {
+  font-size: 12px;
+  font-weight: 100;
+  margin: 25px;
+  word-wrap: break-word;
+}
 :local .widgetvalue {
     font-size: 40px;
+    font-weight: 900;
+    text-align: center;
+}
+:local .widgetvaluesmall {
+    font-size: 22px;
     font-weight: 900;
     text-align: center;
 }

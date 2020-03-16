@@ -8,6 +8,7 @@ export interface IIndicatorsProps {
     currentMonthAuthors: number;
     currentMonthCommits: number;
     deletionDate: string;
+    hasForces: boolean;
     lastClosingVuln: number;
     maxOpenSeverity: number;
     maxSeverity: number;
