@@ -146,7 +146,7 @@
               "S": "2018-02-28 11:54:12"
             },
             "legal_remember": {
-              "BOOL": true
+              "BOOL": false
             },
             "last_login": {
               "S": "2019-10-29 13:40:37"

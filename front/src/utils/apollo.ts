@@ -100,7 +100,11 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
         (operation: Operation) =>
           ["HomeProjects",
            "GetUserAuthorization",
-           "GetAccessTokenQuery"].includes(operation.operationName),
+           "GetAccessTokenQuery",
+           "GetUserDataQuery",
+           "AcceptLegalMutation",
+           "InvalidateAccessTokenMutation",
+           "UpdateAccessTokenMutation"].includes(operation.operationName),
         apiLinkV2,
         apiLinkV1,
        ),

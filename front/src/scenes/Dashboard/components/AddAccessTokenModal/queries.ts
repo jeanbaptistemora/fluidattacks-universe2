@@ -9,7 +9,7 @@ export const GET_ACCESS_TOKEN: DocumentNode = gql`
   }`;
 
 export const INVALIDATE_ACCESS_TOKEN_MUTATION: DocumentNode = gql`
-  mutation UpdateAccessTokenMutation {
+  mutation InvalidateAccessTokenMutation {
     invalidateAccessToken {
       success
     }
