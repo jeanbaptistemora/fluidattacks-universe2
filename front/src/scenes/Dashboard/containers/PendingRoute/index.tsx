@@ -25,18 +25,13 @@ type PendingRouteProps = RouteComponentProps<{ projectName: string }>;
 
 const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const [isOpen, setOpen] = React.useState(false);
+  const [isOpen] = React.useState(true);
 
   const closeRejectProjectModal: (() => void) = (): void => {
     location.assign("/integrates/dashboard#!/home");
   };
 
-  const { data, error } = useQuery(GET_PROJECT_DATA, {
-    onCompleted: (projectData: IProjectData): void => {
-      if (!_.isEmpty(projectData.project.deletionDate)) { setOpen(true); }
-    },
-    variables: { projectName },
-  });
+  const { data, error } = useQuery<IProjectData>(GET_PROJECT_DATA, { variables: { projectName } });
   const [rejectRemoveProject, {loading: submitting}] = useMutation(REJECT_REMOVE_PROJECT_MUTATION, {
     onCompleted: (result: IRejectRemoveProject): void => {
       if (result.rejectRemoveProject.success) {
@@ -97,7 +92,7 @@ const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JS
               <Button bsStyle="default" onClick={closeRejectProjectModal}>
                 {translate.t("update_access_token.close")}
               </Button>
-              <Button bsStyle="success" type="submit" disabled={submitting} onClick={handleSubmit}>
+              <Button bsStyle="success" disabled={submitting} onClick={handleSubmit}>
                 {translate.t("search_findings.tab_indicators.cancelDeletion")}
               </Button>
             </ButtonToolbar>
