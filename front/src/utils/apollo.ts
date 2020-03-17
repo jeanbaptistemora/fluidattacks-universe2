@@ -111,7 +111,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
            "GrantUserMutation",
            "RemoveUserAccessMutation",
            "EditUserMutation",
-           "UpdateDescriptionMutation",
+           "UpdateEventDescriptionMutation",
            "SolveEventMutation",
            "CreateEventMutation",
            "UpdateEventEvidenceMutation",

@@ -230,8 +230,8 @@ type Mutation {
     createEvent(
         actionAfterBlocking: ActionsAfterBlocking!,
         actionBeforeBlocking: ActionsBeforeBlocking!,
-        accessibility: EventAccessibility!,
-        affectedComponents: AffectedComponents,
+        accessibility: [EventAccessibility]!,
+        affectedComponents: [AffectedComponents],
         blockingHours: Int,
         context: EventContext!,
         detail: String!,
@@ -257,7 +257,7 @@ type Mutation {
     ): SimplePayload!
     solveEvent(
         eventId: String!,
-        affectation: Int!,
+        affectation: String!,
         date: DateTime!
     ): SimplePayload!
 
