@@ -15,6 +15,7 @@ import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorChart } from "../../components/IndicatorChart";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
+import { IRepositoriesAttr } from "../ProjectSettingsView/types";
 import { default as style } from "./index.css";
 import { GET_INDICATORS } from "./queries";
 import { IForcesExecution, IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
@@ -104,6 +105,9 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
               _.sum([data.project.openVulnerabilities, data.project.closedVulnerabilities]);
             const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
             const dataChart: LineDatum[][] = JSON.parse(data.project.remediatedOverTime);
+            const activeRepositories: IRepositoriesAttr[] = JSON.parse(data.resources.repositories)
+              .filter((repo: IRepositoriesAttr) =>
+                "historic_state" in repo && repo.historic_state[repo.historic_state.length - 1].state === "ACTIVE");
 
             const executions: [IForcesExecution] = data.forcesExecutions.executions;
             const executionsInAnyMode: number = executions.length;
@@ -237,7 +241,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                       <IndicatorBox
                         icon="integrityNone"
                         name={translate.t("search_findings.tab_indicators.repositories")}
-                        quantity={JSON.parse(data.resources.repositories).length}
+                        quantity={activeRepositories.length}
                         title=""
                         total=""
                         onClick={goToProjectSettings}
