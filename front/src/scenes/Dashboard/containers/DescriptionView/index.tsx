@@ -321,8 +321,8 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
   };
 
   const [verifyFinding, {loading: submittingVerify}] = useMutation(VERIFY_FINDING, {
-    onCompleted: (data: IVerifyFindingResult): void => {
-      if (data.verifyFinding.success) {
+    onCompleted: (mtResult: IVerifyFindingResult): void => {
+      if (mtResult.verifyFinding.success) {
         store.dispatch({
           payload: {
             descriptionData: { remediated: false },
