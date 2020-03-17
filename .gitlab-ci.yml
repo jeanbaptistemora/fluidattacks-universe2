@@ -122,7 +122,7 @@ deploy_k8s_back_ephemeral:
   <<: *in_dev_branch
   image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
-  needs: [deploy_container_app]
+  needs: [deploy_container_app_async]
   retry: 1
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
@@ -142,7 +142,7 @@ deploy_k8s_back:
   <<: *in_master_branch_and_schedules_and_triggers
   image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
-  needs: [deploy_container_app]
+  needs: [deploy_container_app_async]
   retry: 1
   environment:
     name: "production"
