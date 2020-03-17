@@ -23,14 +23,14 @@ from backend.exceptions import (
 from backend.mailer import send_comment_mail
 from backend import util
 
-from __init__ import FI_MAIL_REPLYERS
+from __init__ import FI_MAIL_REVIEWERS
 
 
 def get_email_recipients(project_name: str) -> List[str]:
     """Get the recipients of the comment email."""
     recipients = [str(user) for user in get_users(project_name)]
-    replyers = FI_MAIL_REPLYERS.split(',')
-    recipients += replyers
+    approvers = FI_MAIL_REVIEWERS.split(',')
+    recipients += approvers
 
     return recipients
 

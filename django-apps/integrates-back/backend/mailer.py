@@ -14,9 +14,9 @@ from backend.typing import (
     Event as EventType, Finding as FindingType, Project as ProjectType
 )
 
-from __init__ import (FI_MAIL_REPLYERS, FI_MAIL_REVIEWERS, FI_MANDRILL_API_KEY,
-                      FI_TEST_PROJECTS, FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY,
-                      SQS_QUEUE_URL)
+from __init__ import (FI_MAIL_REVIEWERS, FI_MANDRILL_API_KEY,
+                      FI_TEST_PROJECTS, FI_AWS_DYNAMODB_ACCESS_KEY,
+                      FI_AWS_DYNAMODB_SECRET_KEY, SQS_QUEUE_URL)
 
 
 API_KEY = FI_MANDRILL_API_KEY
@@ -198,17 +198,15 @@ def get_email_recipients(project_name: str, comment_type: Union[str, bool]) -> L
     project_users = project_dal.get_users(project_name)
     recipients: List[str] = []
 
+    approvers = FI_MAIL_REVIEWERS.split(',')
+    recipients += approvers
+
     if comment_type == 'observation':
-        approvers = FI_MAIL_REVIEWERS.split(',')
         analysts = [user for user in project_users
                     if user_domain.get_data(user, 'role') == 'analyst']
-
-        recipients += approvers
         recipients += analysts
     else:
-        recipients = project_users
-        replyers = FI_MAIL_REPLYERS.split(',')
-        recipients += replyers
+        recipients += project_users
 
     return recipients
 
