@@ -1,0 +1,11 @@
+:slug: rules/310/
+:category: privacy
+:rules: yes
+
+= REQ.310 Protect personal user information
+
+== Requirement
+
+The organization must protect personal
+user information to prevent
+unauthorized actors from accessing it.
