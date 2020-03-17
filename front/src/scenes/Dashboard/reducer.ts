@@ -6,7 +6,14 @@ import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
 
 export interface IDashboardState {
-  description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
+  description: Pick<IDescriptionViewProps, "isEditing" | "isRemediationOpen"> & {
+    dataset: {
+      analyst: string;
+      subscription: string;
+      treatmentManager: string;
+      userEmails: Array<{ email: string }>;
+    };
+  };
   updateAccessTokenModal: { open: boolean };
   user: {
     role: string;
@@ -29,39 +36,10 @@ export interface IDashboardState {
 const initialState: IDashboardState = {
   description: {
     dataset: {
-      acceptanceDate: "",
-      acceptationApproval: "",
-      acceptationUser: "",
-      actor: "",
-      affectedSystems: "",
       analyst: "",
-      attackVectorDesc: "",
-      btsUrl: "",
-      clientCode: "",
-      clientProject: "",
-      compromisedAttributes: "",
-      compromisedRecords: "",
-      cweUrl: "",
-      description: "",
-      historicTreatment: [{date: "", treatment: "", user: ""}],
-      justification: "",
-      newRemediated: false,
-      openVulnerabilities: "",
-      recommendation: "",
-      releaseDate: "",
-      remediated: false,
-      requirements: "",
-      risk: "",
-      scenario: "",
-      state: "",
       subscription: "",
-      threat: "",
-      title: "",
-      treatment: "",
       treatmentManager: "",
-      type: "",
       userEmails: [{ email: "" }],
-      verified: false,
     },
     isEditing: false,
     isRemediationOpen : false,

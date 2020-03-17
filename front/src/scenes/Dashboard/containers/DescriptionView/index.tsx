@@ -8,7 +8,7 @@
 
 import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -23,7 +23,7 @@ import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog, ConfirmFn } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { formatFindingDescription, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
@@ -36,47 +36,18 @@ import { loadProjectData } from "../ProjectContent/actions";
 import * as actions from "./actions";
 import * as actionTypes from "./actionTypes";
 import { renderFormFields } from "./formStructure";
-import { HANDLE_ACCEPTATION, VERIFY_FINDING } from "./queries";
-import { IAcceptationApprovalAttrs, IHistoricTreatment, IVerifyFindingResult } from "./types";
+import { GET_FINDING_DESCRIPTION, HANDLE_ACCEPTATION, VERIFY_FINDING } from "./queries";
+import { IAcceptationApprovalAttrs, IFinding, IVerifyFindingResult } from "./types";
 
 export interface IDescriptionViewProps {
   dataset: {
-    acceptanceDate: string;
-    acceptationApproval: string;
-    acceptationUser: string;
-    actor: string;
-    affectedSystems: string;
     analyst: string;
-    attackVectorDesc: string;
-    btsUrl: string;
-    clientCode: string;
-    clientProject: string;
-    compromisedAttributes: string;
-    compromisedRecords: string;
-    cweUrl: string;
-    description: string;
-    historicTreatment: IHistoricTreatment[];
-    justification: string;
-    newRemediated: boolean;
-    openVulnerabilities: string;
-    recommendation: string;
-    releaseDate: string;
-    remediated: boolean;
-    requirements: string;
-    risk: string;
-    scenario: string;
     severity?: string;
-    state: string;
     subscription: string;
     tag?: string;
-    threat: string;
-    title: string;
-    treatment: string;
     treatmentManager: string;
-    type: string;
     userEmails: Array<{ email: string }>;
-    verified: boolean;
-  };
+  } & IFinding;
   findingId: string;
   formValues: {
     treatment: string;
@@ -274,8 +245,8 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDes
 };
 
 const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDescriptionViewProps): JSX.Element => {
-  const { userEmail } = window as typeof window & Dictionary<string>;
 
+  // Side effects
   const onMount: (() => void) = (): (() => void) => {
     mixpanel.track("FindingDescription", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
@@ -294,6 +265,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
   };
   React.useEffect(onMount, []);
 
+  // State management
   const [isRequestingVerification, setRequestingVerification] = React.useState(false);
   const [isVerifyingRequest, setVerifyingRequest] = React.useState(false);
   const [isRemediationOpen, setRemediationOpen] = React.useState(false);
@@ -313,12 +285,12 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
       setClearSelectedRows(() => clearSelected);
   };
 
-  const refetchData: (() => void) = (): void => {
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
-    thunkDispatch(actions.loadDescription(props.findingId, props.projectName, props.userRole));
-  };
+  // GraphQL operations
+  const { data, refetch } = useQuery(GET_FINDING_DESCRIPTION, {
+    variables: {
+      findingId: props.findingId,
+    },
+  });
 
   const [verifyFinding, {loading: submittingVerify}] = useMutation(VERIFY_FINDING, {
     onCompleted: (mtResult: IVerifyFindingResult): void => {
@@ -347,6 +319,12 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
     },
   });
 
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <React.Fragment />;
+  }
+
+  const initialValues: IFinding = formatFindingDescription(data.finding);
+
   const handleMtResolveAcceptation: ((mtResult: IAcceptationApprovalAttrs) => void) =
       (mtResult: IAcceptationApprovalAttrs): void => {
       if (!_.isUndefined(mtResult)) {
@@ -358,10 +336,12 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
               User: (window as typeof window & { userName: string }).userName,
             });
           msgSuccess(
-            props.dataset.acceptationApproval === "APPROVED" ?
+            initialValues.acceptationApproval === "APPROVED" ?
             translate.t("proj_alerts.acceptation_approved") : translate.t("proj_alerts.acceptation_rejected"),
             translate.t("proj_alerts.updated_title"),
           );
+          refetch()
+            .catch();
         }
       }
     };
@@ -383,10 +363,6 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                                              projectName: props.projectName,
                                              response }})
               .catch();
-            props.dataset.treatment = response === "REJECTED" ? "NEW" : "ACCEPTED_UNDEFINED";
-            props.dataset.acceptationApproval = response;
-            props.dataset.acceptationUser = userEmail;
-            props.dataset.justification = observations;
           };
 
           return (
@@ -396,7 +372,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                   <RemediationModal
                     additionalInfo={
                       remediationType === "approve_acceptation" ?
-                      `${props.dataset.openVulnerabilities} vulnerabilities will be assumed`
+                      `${initialValues.openVulnerabilities} vulnerabilities will be assumed`
                       : undefined
                     }
                     isLoading={submittingVerify}
@@ -436,7 +412,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                   remediationType={verificationType}
                   vulns={vulnsRows}
                   handleCloseModal={closeRemediationModal}
-                  refetchData={refetchData}
+                  refetchData={refetch}
                   clearSelected={clearSelectedRows}
                   setRequestState={setRequestState}
                   setVerifyState={setVerifyState}
@@ -446,8 +422,14 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
           );
         }}
       </Mutation>
-      {renderForm(
-        {...props, isRequestingVerification, isVerifyingRequest, setRequestState, setVerifyState, verificationFn})}
+      {renderForm({
+        ...{ ...props, dataset: { ...props.dataset, ...initialValues } },
+        isRequestingVerification,
+        isVerifyingRequest,
+        setRequestState,
+        setVerifyState,
+        verificationFn,
+      })}
     </React.Fragment>
   );
 };
