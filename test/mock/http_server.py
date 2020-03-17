@@ -797,6 +797,47 @@ def host_injection_ok():
     return resp
 
 
+@APP.route('/http/headers/content_disposition/ok/1')
+def content_disposition_ok_1():
+    """Vulnerable a Host injection."""
+    resp = Response()
+    resp.headers['Content-Disposition'] = 'attachment;'
+    return resp
+
+
+@APP.route('/http/headers/content_disposition/ok/2')
+def content_disposition_ok_2():
+    """Vulnerable a Host injection."""
+    resp = Response()
+    resp.headers['Content-Disposition'] = 'form-data; name="champ"'
+    return resp
+
+
+@APP.route('/http/headers/content_disposition/ok/3')
+def content_disposition_ok_3():
+    """Vulnerable a Host injection."""
+    resp = Response()
+    resp.headers['Content-Disposition'] = 'inline'
+    return resp
+
+
+@APP.route('/http/headers/content_disposition/fail/1')
+def content_disposition_fail_1():
+    """Vulnerable a Host injection."""
+    resp = Response()
+    resp.headers['Content-Disposition'] = 'attachment; filename="filename.jpg"'
+    return resp
+
+
+@APP.route('/http/headers/content_disposition/fail/2')
+def content_disposition_fail_2():
+    """Vulnerable a Host injection."""
+    resp = Response()
+    resp.headers['Content-Disposition'] = \
+        'form-data; name="champ"; filename="champ.jpg"'
+    return resp
+
+
 @APP.route('/http/has_mixed_content/open/1', methods=['GET'])
 def http_mixed_content_open_1():
     """Request handler for /http/has_mixed_content/open/1."""
@@ -808,7 +849,6 @@ def http_mixed_content_open_1():
             </body>
         </html>
         """)
-
 
 
 @APP.route('/http/reverse_tabnabbing/ok/1', methods=['GET'])

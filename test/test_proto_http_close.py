@@ -858,3 +858,13 @@ def test_has_not_subresource_integrity_closed():
         NONEXISTANT_SERVICE).is_unknown()
     assert http.has_not_subresource_integrity(
         BAD_FORMAT_SERVICE).is_unknown()
+
+
+def test_is_content_disposition_present_closed():
+    """Check is_content_disposition_present"""
+    assert http.is_content_disposition_present(
+        f'{BASE_URL}/content_disposition/ok/1').is_closed()
+    assert http.is_content_disposition_present(
+        f'{BASE_URL}/content_disposition/ok/2').is_closed()
+    assert http.is_content_disposition_present(
+        f'{BASE_URL}/content_disposition/ok/3').is_closed()

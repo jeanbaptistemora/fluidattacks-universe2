@@ -553,3 +553,10 @@ def test_has_not_subresource_integrity_open():
         f'{MOCK_SERVICE}/http/sri/open/1').is_open()
     assert http.has_not_subresource_integrity(
         f'{MOCK_SERVICE}/http/sri/open/2').is_open()
+
+def test_is_content_disposition_present_open():
+    """Check is_content_disposition_present"""
+    assert http.is_content_disposition_present(
+        f'{BASE_URL}/content_disposition/fail/1').is_open()
+    assert http.is_content_disposition_present(
+        f'{BASE_URL}/content_disposition/fail/2').is_open()

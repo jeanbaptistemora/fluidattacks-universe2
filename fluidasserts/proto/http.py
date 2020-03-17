@@ -52,6 +52,11 @@ HDR_RGX: Dict[str, str] = {
 }
 
 HDR_SEC_VALUES = {
+    'content-disposition': {
+        'values': {
+            'filename': None
+        }
+    },
     'pragma': {
         'values': ['no-cache'],
         'all_required': True
@@ -364,8 +369,7 @@ def _has_insecure_value(url: str,
     return session.get_tuple_result()
 
 
-def _check_sec_header_value(header_name: str,
-                            header_content: str):
+def _check_sec_header_value(header_name: str, header_content: str):
     """Check if the value of a header is safe."""
     header_lower: str = header_name.lower()
     requirements: dict = HDR_SEC_VALUES.get(header_lower, {})
@@ -394,7 +398,8 @@ def _check_sec_header_value(header_name: str,
             elif req_value and isinstance(req_value, str):
                 secure.append(req_value in header_content_dict.get(requ, None))
             else:
-                secure.append(requ in header_content_dict and not req_value)
+                value = header_content_dict.get(requ, None)
+                secure.append(True if value is None else not value)
 
     success = all(secure) if requirements.get('all_required',
                                               False) else any(secure)
@@ -810,6 +815,25 @@ def is_basic_auth_enabled(url: str, *args, **kwargs) -> tuple:
     if url.startswith('https'):
         return CLOSED, f'URL uses HTTPS: {url}'
     return _has_insecure_value(url, 'WWW-Authenticate', False, *args, **kwargs)
+
+
+@api(risk=MEDIUM, kind=DAST, standars={'CWE': '400'})
+def is_content_disposition_present(url: str, *args, **kwargs):
+    r"""
+    Check if Contentent-Disposition header is misconfigured.
+
+    Using server-supplied information for constructing local filenames
+    introduces many risks.
+
+    These are summarized in https://tools.ietf.org/html/rfc6266#section-4.3.
+
+    :param url: URL to test.
+    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    return _has_insecure_values(url, 'Content-Disposition', False, *args,
+                                **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
