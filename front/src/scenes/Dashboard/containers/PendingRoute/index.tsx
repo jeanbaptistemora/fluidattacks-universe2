@@ -98,8 +98,8 @@ const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JS
             </ButtonToolbar>
           </Modal>
         </Row>
-      :
-        <Row>
+        :
+        <React.Fragment>
           <Switch>
             <Route path="/project/:projectName/events/:eventId(\d+)" component={EventContent} />
             <Route
@@ -112,7 +112,7 @@ const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JS
             />
             <Route path="/project/:projectName" component={ProjectContent} />
           </Switch>
-        </Row>}
+        </React.Fragment>}
     </React.Fragment>
   );
 };
