@@ -19,7 +19,7 @@ from backend.services import (
     has_access_to_project
 )
 from backend.utils.validations import (
-    validate_email_address, validate_field, validate_phone_field
+    validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
 
 from backend import util
@@ -35,7 +35,7 @@ def _create_new_user(
         project_name: str) -> bool:
     analizable_list = list(new_user_data.values())[1:-1]
     if (
-        all(validate_field(field) for field in analizable_list) and
+        all(validate_alphanumeric_field(field) for field in analizable_list) and
         validate_phone_field(new_user_data['phone_number']) and
         validate_email_address(new_user_data['email'])
     ):

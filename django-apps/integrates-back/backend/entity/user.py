@@ -26,7 +26,9 @@ from backend.exceptions import UserNotFound
 from backend.mailer import send_mail_access_granted
 
 from backend import util
-from backend.utils.validations import validate_email_address, validate_field, validate_phone_field
+from backend.utils.validations import (
+    validate_email_address, validate_alphanumeric_field, validate_phone_field
+)
 
 
 class User(ObjectType):
@@ -232,7 +234,7 @@ def create_new_user(
         context: Dict[str, Any], new_user_data: Dict[str, Any], project_name: str) -> bool:
     analizable_list = list(new_user_data.values())[1:-1]
     if (
-        all(validate_field(field) for field in analizable_list) and
+        all(validate_alphanumeric_field(field) for field in analizable_list) and
         validate_phone_field(new_user_data['phone_number']) and
         validate_email_address(new_user_data['email'])
     ):

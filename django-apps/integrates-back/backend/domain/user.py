@@ -4,7 +4,9 @@ import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
 from backend.typing import User as UserType
-from backend.utils.validations import validate_email_address, validate_field, validate_phone_field
+from backend.utils.validations import (
+    validate_email_address, validate_alphanumeric_field, validate_phone_field
+)
 
 
 def add_phone_to_user(email: str, phone: str) -> bool:
@@ -147,7 +149,7 @@ def create_without_project(user_data: UserType) -> bool:
     phone_number = ''
     success = False
     if (
-        validate_field(cast(List[str], user_data.get('organization', ''))) and
+        validate_alphanumeric_field(cast(List[str], user_data.get('organization', ''))) and
         validate_phone_field(str(user_data.get('phone_number', ''))) and
         validate_email_address(str(user_data.get('email', '')))
     ):

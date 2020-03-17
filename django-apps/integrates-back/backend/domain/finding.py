@@ -26,7 +26,7 @@ from backend.exceptions import (
     InvalidFileStructure, InvalidFileType, NotSubmitted,
     NotVerificationRequested
 )
-from backend.utils import cvss, notifications, findings as finding_utils
+from backend.utils import cvss, notifications, validations, findings as finding_utils
 
 from backend.dal import (
     comment as comment_dal, finding as finding_dal,
@@ -237,6 +237,8 @@ def calc_risk_level(probability: float, severity: float) -> str:
 
 
 def update_description(finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
+    for value in updated_values.values():
+        validations.validate_field(cast(List[str], str(value)))
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
     updated_values['effect_solution'] = updated_values.get('recommendation')
@@ -283,6 +285,8 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
 
 def update_client_description(finding_id: str, updated_values: Dict[str, str],
                               user_mail: str, update) -> bool:
+    for value in updated_values.values():
+        validations.validate_field(cast(List[str], str(value)))
     success_treatment, success_external_bts = True, True
     if update.bts_changed:
         success_external_bts = finding_dal.update(

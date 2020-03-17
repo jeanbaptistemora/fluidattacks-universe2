@@ -9,9 +9,11 @@ from graphene.test import Client
 from jose import jwt
 from .test_utils import Request
 
-from backend.entity.user import (validate_email_address,
-                                 validate_field,
-                                 validate_phone_field)
+from backend.entity.user import (
+    validate_email_address,
+    validate_alphanumeric_field,
+    validate_phone_field
+)
 from backend.api.schema import SCHEMA
 
 
@@ -168,9 +170,9 @@ class UserTests(TestCase):
 
     def test_validate_field(self):
         """makes sure that the  field is filtering only = sign at start"""
-        assert validate_field('t35t 7 test @ test')
+        assert validate_alphanumeric_field('t35t 7 test @ test')
         with pytest.raises(GraphQLError):
-            assert validate_field('=test')
+            assert validate_alphanumeric_field('=test')
 
     def test_validate_phone_number(self):
         assert validate_phone_field("123123123")
