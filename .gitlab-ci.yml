@@ -180,6 +180,7 @@ production:
     key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
     paths:
     - cache/
+    - new/cache
   only:
     - master
 
