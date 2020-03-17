@@ -20,7 +20,7 @@ export const GET_EVENT_COMMENTS: DocumentNode = gql`
 
 export const ADD_EVENT_COMMENT: DocumentNode = gql`
   mutation AddEventComment(
-    $content: String!, $eventId: String!, $parent: Int!
+    $content: String!, $eventId: String!, $parent: String!
   ) {
     addEventComment(content: $content, eventId: $eventId, parent: $parent) {
       commentId

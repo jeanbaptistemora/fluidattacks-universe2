@@ -232,7 +232,7 @@ type Mutation {
         actionBeforeBlocking: ActionsBeforeBlocking!,
         accessibility: [EventAccessibility]!,
         affectedComponents: [AffectedComponents],
-        blockingHours: Int,
+        blockingHours: String,
         context: EventContext!,
         detail: String!,
         eventDate: DateTime!,

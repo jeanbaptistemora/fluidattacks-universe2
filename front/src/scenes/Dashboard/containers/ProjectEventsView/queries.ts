@@ -23,7 +23,7 @@ export const CREATE_EVENT_MUTATION: DocumentNode = gql`
     $actionAfterBlocking: ActionsAfterBlocking!,
     $actionBeforeBlocking: ActionsBeforeBlocking!,
     $affectedComponents: [AffectedComponents],
-    $blockingHours: Int,
+    $blockingHours: String,
     $context: EventContext!,
     $detail: String!,
     $eventDate: DateTime!,
