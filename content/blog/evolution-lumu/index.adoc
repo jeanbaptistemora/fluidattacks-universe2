@@ -129,8 +129,9 @@ These are recommendations that we should not simply ignore.
 
 [quote]
 “It is not the strongest of the species that survives,
-not the most intelligent that survives.
-It is the one that is the most adaptable to change.” Charles Darwin
+nor the most intelligent that survives.
+It is the one that is most adaptable to change.”
+link:https://www.darwinproject.ac.uk/evolution-misquotation[Mistakenly attributed to Charles Darwin]
 
 Any questions about what +Fluid Attacks+ can do for you
 as part of the cybersecurity process in your organization?
