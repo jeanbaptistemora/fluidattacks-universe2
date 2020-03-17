@@ -225,7 +225,7 @@ type Mutation {
     addEventComment(
         content: String!,
         eventId: String!,
-        parent: String!
+        parent: Int!
     ): AddCommentPayload!
     createEvent(
         actionAfterBlocking: ActionsAfterBlocking!,
