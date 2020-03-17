@@ -20,7 +20,7 @@ from backend.exceptions import (
 )
 from backend.mailer import send_comment_mail, send_mail_new_event
 from backend.typing import Event as EventType, User as UserType
-from backend.utils import events as event_utils
+from backend.utils import events as event_utils, validations
 
 from __init__ import (
     FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS,
@@ -168,6 +168,7 @@ def _send_new_event_mail(
 
 def create_event(analyst_email: str, project_name: str, file=None,
                  image=None, **kwargs) -> bool:
+    validations.validate_field(kwargs['detail'])
     event_id = str(random.randint(10000000, 170000000))
 
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
