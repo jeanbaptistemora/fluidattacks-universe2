@@ -440,6 +440,36 @@
                            "branch" : {
                               "S" : "test"
                            },
+                           "historic_state" : {
+                              "L" : [
+                                 {
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 11:40"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 },
+                                 {
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 15:45"
+                                       },
+                                       "state" : {
+                                          "S" : "ACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
                            "protocol" : {
                               "S" : "HTTPS"
                            },
