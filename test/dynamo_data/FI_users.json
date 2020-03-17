@@ -6,6 +6,9 @@
                "company" : {
                   "S" : "unittest"
                },
+               "date_joined": {
+                "S": "2018-02-28 11:54:12"
+               },
                "email" : {
                   "S" : "unittest"
                },

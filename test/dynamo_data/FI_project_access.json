@@ -230,6 +230,24 @@
             }
           }
         }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "responsibility": {
+              "S": "Test"
+            },
+            "project_name": {
+              "S": "pendingproject"
+            },
+            "has_access": {
+              "BOOL": true
+            },
+            "user_email": {
+              "S": "unittest"
+            }
+          }
+        }
       }
    ]
 }
