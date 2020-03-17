@@ -11,6 +11,7 @@ from graphene import DateTime, Int, Field, List, ObjectType, String
 # Local libraries
 from backend.util import get_current_time_minus_delta
 from backend.dal import forces as forces_dal
+from backend.decorators import get_entity_cache
 
 # pylint: disable=super-init-not-called
 # pylint: disable=too-many-instance-attributes
@@ -149,6 +150,7 @@ class ForcesExecutions(ObjectType):
         del info
         return self.to_date
 
+    @get_entity_cache
     def resolve_executions(self, info):
         """ Resolve executions """
         del info
