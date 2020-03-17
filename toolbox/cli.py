@@ -164,6 +164,9 @@ def main():  # noqa
     parser.add_argument(
         '--vpn',
         action='store_true')
+    parser.add_argument(
+        '--sync-repositories-to-aws',
+        action='store_true')
     args = parser.parse_args()
 
     if args.fill_with_mocks:
@@ -225,6 +228,9 @@ def main():  # noqa
             elif args.check_sync:
                 sys.exit(0 if toolbox.are_exploits_synced(
                     args.subs, args.exp) else 1)
+            elif args.sync_repositories_to_aws:
+                sys.exit(0 if resources.sync_repositories_to_aws(
+                    args.subs) else 1)
             elif args.check_uploads:
                 sys.exit(0 if toolbox.were_exploits_uploaded(args.subs) else 1)
             elif args.init_secrets:

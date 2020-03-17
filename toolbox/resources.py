@@ -14,7 +14,7 @@ import urllib.parse
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
 from subprocess import Popen, PIPE, check_output
-from typing import Dict
+from typing import Dict, Iterator
 
 # Third parties imports
 from progress.bar import ChargingBar
@@ -540,3 +540,35 @@ def fluidcounts(path):
     finally:
         os.remove('ignored.txt')
     return filepaths
+
+
+def does_project_exist(subs: str) -> bool:
+    path = f"subscriptions/{subs}"
+    if not os.path.exists(path):
+        logger.info(f"There is no project with the name: {subs}")
+        return False
+    return True
+
+
+def does_project_have_fusion_folder(subs: str) -> bool:
+    path = f"subscriptions/{subs}/fusion"
+    if not os.path.exists(path):
+        logger.info(f"There is no fusion folder in the subscription")
+        return False
+    return True
+
+
+def yield_subscription_repositories(subs: str) -> Iterator[str]:
+    repositories = os.listdir(f"subscriptions/{subs}/fusion")
+    yield from repositories
+
+
+def sync_repositories_to_aws(subs: str) -> bool:
+    if not does_project_exist(subs) or\
+       not does_project_have_fusion_folder(subs):
+        return False
+
+    repositories = yield_subscription_repositories(subs)
+    for repo in repositories:
+        print(f"subscription contains {repo} repo")
+    return True
