@@ -825,10 +825,19 @@ def is_content_disposition_present(url: str, *args, **kwargs):
     Using server-supplied information for constructing local filenames
     introduces many risks.
 
+    Recipients MUST NOT be able to write into any location other than one to
+    which they are specifically entitled. To illustrate the problem, consider
+    the consequences of being able to overwrite well-known system locations
+    (such as "/etc/passwd"). One strategy to achieve this is to never trust
+    folder name information in the filename parameter, for instance by
+    stripping all but the last path segment and only considering the actual
+    filename (where 'path segments' are the components of the field value
+    delimited by the path separator characters "\" and "/").
+
     These are summarized in https://tools.ietf.org/html/rfc6266#section-4.3.
 
     :param url: URL to test.
-    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*args: Optional arguments for :class:`.HTTPSession`.-m
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
