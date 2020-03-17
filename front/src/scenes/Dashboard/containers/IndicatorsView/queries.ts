@@ -3,6 +3,11 @@ import gql from "graphql-tag";
 
 export const GET_INDICATORS: DocumentNode = gql`
   query GetIndicatorsQuery($projectName: String!) {
+    forcesExecutions(projectName: $projectName) {
+      executions {
+        strictness
+      }
+    }
     project(projectName: $projectName){
       closedVulnerabilities
       currentMonthAuthors

@@ -83,6 +83,9 @@ function env_prepare_python_async_packages {
   # Override Graphene-django's graphql-core with Ariadne's graphql-core
   PYTHONPATH="${pyAsyncPkgReqs}/site-packages:${PYTHONPATH}"
 
+  # https://xkcd.com/1926/
+  chmod --recursive u+w "${pyAsyncPkgIntegratesBack}"
+
   for cursrc in dal decorators.py domain exceptions.py mailer.py \
         scheduler.py services.py util.py utils; do
     echo "  [MIGRATION] Copying ${cursrc}..."

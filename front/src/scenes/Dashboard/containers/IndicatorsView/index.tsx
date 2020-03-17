@@ -17,7 +17,7 @@ import { IndicatorChart } from "../../components/IndicatorChart";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import { default as style } from "./index.css";
 import { GET_INDICATORS } from "./queries";
-import { IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
+import { IForcesExecution, IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
 
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
   _.round(value * 100 / total, 1);
@@ -69,6 +69,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
     location.hash = `#!/project/${projectName}/findings`;
   };
 
+  const goToProjectForces: (() => void) = (): void => {
+    location.hash = `#!/project/${projectName}/forces`;
+  };
+
   const goToProjectSettings: (() => void) = (): void => {
     location.hash = `#!/project/${projectName}/resources`;
   };
@@ -100,6 +104,15 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
               _.sum([data.project.openVulnerabilities, data.project.closedVulnerabilities]);
             const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
             const dataChart: LineDatum[][] = JSON.parse(data.project.remediatedOverTime);
+
+            const executions: [IForcesExecution] = data.forcesExecutions.executions;
+            const executionsInAnyMode: number = executions.length;
+            const executionsInStrictMode: number =
+              executions.filter((execution: IForcesExecution): boolean => execution.strictness === "strict").length;
+
+            const securityCommitmentNumber: number =
+              _.round(executionsInAnyMode > 0 ? executionsInStrictMode / executionsInAnyMode * 100 : 100, 0);
+            const securityCommitment: string = `${securityCommitmentNumber}%`;
 
             return (
               <React.StrictMode>
@@ -262,23 +275,45 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                       {data.project.hasForces ? (
                         <IndicatorBox
                           icon="verified"
-                          name={translate.t("search_findings.tab_indicators.forces.indicator_title")}
-                          quantity={translate.t("search_findings.tab_indicators.forces.protected")}
+                          name={translate.t("search_findings.tab_indicators.forces.indicators.has_forces.title")}
+                          quantity={
+                            translate.t("search_findings.tab_indicators.forces.indicators.has_forces.protected")}
+                          onClick={goToProjectForces}
                           title=""
                           total=""
-                          description={translate.t("search_findings.tab_indicators.forces.protected_desc")}
+                          description={
+                            translate.t("search_findings.tab_indicators.forces.indicators.has_forces.protected_desc")}
                           small={true}
                         />
                       ) : (
                         <IndicatorBox
                           icon="fail"
-                          name={translate.t("search_findings.tab_indicators.forces.indicator_title")}
-                          quantity={translate.t("search_findings.tab_indicators.forces.unprotected")}
+                          name={translate.t("search_findings.tab_indicators.forces.indicators.has_forces.title")}
+                          quantity={
+                            translate.t("search_findings.tab_indicators.forces.indicators.has_forces.unprotected")}
                           title=""
                           total=""
-                          description={translate.t("search_findings.tab_indicators.forces.unprotected_desc")}
+                          description={
+                            translate.t("search_findings.tab_indicators.forces.indicators.has_forces.unprotected_desc")}
                           small={true}
                         />
+                      )}
+                    </Col>
+                    <Col md={4} sm={12} xs={12}>
+                      {data.project.hasForces ? (
+                        <IndicatorBox
+                          icon="authors"
+                          name={translate.t("search_findings.tab_indicators.forces.indicators.strictness.title")}
+                          quantity={securityCommitment}
+                          onClick={goToProjectForces}
+                          title=""
+                          total={translate.t("search_findings.tab_indicators.forces.indicators.strictness.total")}
+                          description={
+                            translate.t("search_findings.tab_indicators.forces.indicators.strictness.strict_desc")}
+                          small={true}
+                        />
+                      ) : (
+                        <React.Fragment />
                       )}
                     </Col>
                   </Col>
