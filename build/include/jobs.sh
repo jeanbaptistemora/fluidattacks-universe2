@@ -159,7 +159,7 @@ function job_deploy_container_app {
         SSL_CERT \
         DRIVE_AUTHORIZATION \
         DRIVE_AUTHORIZATION_CLIENT \
-  &&  helper_docker_build_and_push \
+  &&  helper_docker_build_and_push_no_cache \
         "${tag}" \
         "${context}" \
         "${dockerfile}" \
@@ -188,7 +188,7 @@ function job_deploy_container_app_async {
         SSL_CERT \
         DRIVE_AUTHORIZATION \
         DRIVE_AUTHORIZATION_CLIENT \
-  &&  helper_docker_build_and_push \
+  &&  helper_docker_build_and_push_no_cache \
         "${tag}" \
         "${context}" \
         "${dockerfile}" \
