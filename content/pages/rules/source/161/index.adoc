@@ -10,7 +10,7 @@
 
 Source code must define secure default options
 ensuring secure failures in the application.
-(+try+, +catch/except; default+ en +switches+)
+(+try+, +catch/except; default+ for +switches+)
 
 == Description
 
