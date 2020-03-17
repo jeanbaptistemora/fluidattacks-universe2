@@ -18,6 +18,7 @@
   ],
   "include": [
     "static/js/contentHome.ts",
+    "static/js/dynClasses.ts",
     "static/js/jqueryFunctions.ts"
   ]
 }

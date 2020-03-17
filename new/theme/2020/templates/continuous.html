@@ -52,10 +52,25 @@
       Continuous Hacking
     </a>
     <a
-      class="c-fluid-gray f6 roboto no-underline fw4 hv-fluid-bk pointer link mr3"
+      class="c-fluid-gray f6 roboto no-underline fw4 hv-fluid-bk pointer link"
       href="#">
       One-Shot Hacking
     </a>
   </nav>
 </div>
+<div class="w-100 tc pv4 mv4">
+  <img
+    class="h5"
+    src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-continuous.png"
+    alt="{{ gettext('Header-img-alt') }}">
+</div>
+<div class="use-cases tc roboto w-100 center c-lightblack">
+  {{ page.content }}
+</div>
+
+{% assets output="static/js/dynClasses.min.js", "js/tmp/dynClasses.min.js" %}
+<script type="text/javascript"
+        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}
+
 {% endblock content %}

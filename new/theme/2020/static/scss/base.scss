@@ -1,6 +1,7 @@
 $darkblue: rgba(29, 79, 114, 1);
 $darkgray: rgba(102, 102, 102, 1);
 $fluid-black: rgba(39, 39, 39, 1);
+$lightblack: rgba(34, 34, 34, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $fluid-gray: rgba(176, 176, 176, 1);
 $fluid-light-gray: rgba(241, 241, 241, 1);
@@ -70,6 +71,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .c-codelightred { color: $codelightred; }
 .c-codeyellow { color: $codeyellow; }
 .c-dkgrey { color: $darkgray; }
+.c-lightblack { color: $lightblack; }
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
@@ -179,6 +181,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .bg-banner-sz { background-size: 100% 100%; }
   .w-15-l { width: 15%; }
   .f-sub { font-size: 1.9rem; }
+  .w40-l { width: 40rem; }
 }
 
 //Very large screens

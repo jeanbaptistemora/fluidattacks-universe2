@@ -4,6 +4,7 @@ import webpack from "webpack";
 export const commonConfig: webpack.Configuration = {
   entry: {
     contentHome: "./static/js/contentHome.ts",
+    dynClasses: "./static/js/dynClasses.ts",
   },
   module: {
     rules: [

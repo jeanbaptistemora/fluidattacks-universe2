@@ -7,8 +7,9 @@
 
 == Report of Vulnerabilities at DevOps Speed
 
-We detect and report all the vulnerabilities and security issues during the
-whole software development cycle.
-With this method, we detect security issues continuously as software evolves.
-The inspection is done without false positives and ensures previous issues
-were resolved before going to production.
+We detect and report all the vulnerabilities and security issues during +
+the whole software development cycle. +
+With this method, we detect security issues continuously as software +
+evolves. +
+The inspection is done without false positives and ensures previous +
+issues were resolved before going to production.
