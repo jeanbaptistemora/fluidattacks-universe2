@@ -177,60 +177,8 @@ anything we might ask about this particular situation.
 We might draw a tree diagram like this
 to describe the situation:
 
-["graphviz", "prob-tree-cyber.png"]
-----
-digraph probtree {
-    rankdir=LR;
-    size="8,5"
-
-    n1 [label="", shape=none]
-    ppt [label="T"]
-    npt [label="~T"]
-
-    exv [label="V"]
-    nex [label="~V"]
-    exv2 [label="V"]
-    nex2 [label="~V"]
-
-    dos [label="A"]
-    ndo [label="~A"]
-    dos2 [label="A"]
-    ndo2 [label="~A"]
-    dos3 [label="A"]
-    ndo3 [label="~A"]
-    dos4 [label="A"]
-    ndo4 [label="~A"]
-
-    n1 -> ppt [label="1%", fontcolor=blue]
-    n1 -> npt
-    ppt -> exv [label="95%", fontcolor=blue]
-    ppt -> nex
-
-    subgraph clusterpositive{
-        exv -> dos [label="25%", fontcolor=blue]
-        pabr1 [label="0.24%", shape=none]
-        dos -> pabr1 [arrowhead = none, style=dotted]
-        exv -> ndo
-        nex -> dos2 [label="1%", fontcolor=blue]
-        pabr2 [label="0.05%", shape=none]
-        dos2 -> pabr2 [arrowhead = none, style=dotted]
-        nex -> ndo2
-        color = grey
-        style = dashed
-    }
-
-    npt -> exv2 [label="0.05%", fontcolor=blue]
-    npt -> nex2
-    exv2 -> dos3 [label="25%", fontcolor=blue]
-    pabr3 [label="0.01%", shape=none]
-    dos3 -> pabr3 [arrowhead = none, style=dotted]
-    exv2 -> ndo3
-    nex2 -> ndo4
-    nex2 -> dos4 [label="1%", fontcolor=blue]
-    pabr4 [label="1.00%", shape=none]
-    dos4 -> pabr4 [arrowhead = none, style=dotted]
-}
-----
+.Probability tree cyber
+image::prob-tree-cyber.png["Probability tree cyber"]
 
 Probabilities in blue are the given ones.
 Since branching in a probability tree implies that

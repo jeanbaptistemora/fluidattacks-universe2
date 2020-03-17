@@ -103,6 +103,17 @@ RUN mkdir pelican-plugins \
     && git reset --hard 3924d5b \
     && cd /app
 
+# Set Pygments as the default source-highlighter
+RUN sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && cd /app
+
+# Save diagrams in the same folder as the source .adoc
+RUN sed -i 's/\+\ options/\+\ options\ \+\ \['\''-a\ path=%s'\''\ %\ adoc_path\]/; \
+      s/ad\ =/adoc_path\ =\ source_path.replace\('\''\/index.adoc'\'',\ '\'\''\)\n\tad\ =/' \
+      pelican-plugins/asciidoc_reader/asciidoc_reader.py && \
+  for FILE in $(find /etc/asciidoc/filters -iname '*.conf'); do \
+      sed -i 's/\"{outdir'".*"'\"/\"{path}\/{target}\"/' $FILE; \
+  done
+
 # Add the uglifyjs executables to the PATH
 ENV PATH="${PATH}:${BASE_FOLDER}/node_modules/uglify-js/bin/"
 

@@ -48,25 +48,8 @@ involve such rational decisions and their consequences
 in terms of rewards or penalties (_utilities_),
 which rational agents are supposed to maximize.
 
-["graphviz", "diagraminf.png"]
-----
-digraph diagraminf {
-        decision -> {random1, random2} -> deterministic -> utility
-        toutil -> utility
-        todec -> decision [style=dashed, label="information"]
-        torand -> random1
-        torand -> random2 [label="probabilistic conditioning"]
-        todete -> deterministic
-        deterministic[peripheries=2];
-        decision[shape=rectangle];
-        utility[shape=hexagon];
-        toutil[shape=none, label="..."]
-        todec[shape=none, label="..."]
-        todete[shape=none, label="..."]
-        torand[shape=none, label="..."]
-        random2[label="random event"]
-}
-----
+.Diagram
+image::diagraminf.png["Diagram"]
 
 In this _influence diagram_,
 solid arrows indicate that the node at the tip depends probabilistically
