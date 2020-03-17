@@ -1,0 +1,37 @@
+{
+  "name": "integrates",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "dependencies": {
+    "fsevents": {
+      "version": "1.2.11",
+      "from": "fsevents@1.2.11",
+      "dependencies": {
+        "minimist": {
+          "version": "1.2.5",
+          "from": "minimist@0.0.8"
+        },
+        "mkdirp": {
+          "version": "0.5.1",
+          "from": "mkdirp@0.5.1",
+          "dependencies": {
+            "minimist": {
+              "version": "1.2.5",
+              "from": "minimist@0.0.8"
+            }
+          }
+        }
+      }
+    },
+    "mkdirp": {
+      "version": "0.5.1",
+      "from": "mkdirp@0.5.1",
+      "dependencies": {
+        "minimist": {
+          "version": "1.2.5",
+          "from": "minimist@0.0.8"
+        }
+      }
+    }
+  }
+}
