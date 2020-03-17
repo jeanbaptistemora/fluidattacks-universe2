@@ -178,7 +178,7 @@ class EventTests(TestCase):
         query = '''
             mutation {
                 addEventComment(eventId: "538745942",
-                                parent: 0,
+                                parent: "0",
                                 content: "Test comment") {
                     success
                     commentId

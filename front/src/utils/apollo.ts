@@ -114,7 +114,6 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
            "UpdateDescriptionMutation",
            "SolveEventMutation",
            "CreateEventMutation",
-           "AddEventComment",
            "UpdateEventEvidenceMutation",
            "DownloadEventFileMutation",
            "RemoveEventEvidenceMutation"].includes(operation.operationName),
