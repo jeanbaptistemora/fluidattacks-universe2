@@ -116,11 +116,8 @@ so it deserves some explanation.
 The expected value is not unlike an average taken from a sample.
 Say you want the average age of people in a room:
 
-["latex","average1.png",align="center"]
-----
-\huge
-$$\frac{25 + 21 + 21 + 20 + 21 + 25 + 22 + 23 + 23 + 24}{10} = \frac{225}{10} = 22.5$$
-----
+.Average 1
+image::average1.png[Average 1]
 
 So, if you had to guess a person's age,
 it would make sense to go for 22 o 23.
@@ -128,41 +125,29 @@ But adding like that would be too much work for large samples.
 Why not group them instead, count how many are each age,
 and _weight_ each value with that count?
 
-["latex","average2.png",align="center"]
-----
-\huge
-$$\frac{20\times1 + 21\times3 + 22\times1 + 23\times2 + 24\times1 + 25\times2}{10} = 22.5$$
-----
+.Average 2
+image::average2.png[Average 2]
 
 This can be interpreted in terms of probabilities.
 If we break up that fraction, we can rewrite that sum as
 
-["latex","average3.png",align="center"]
-----
-\huge
-$$20\times\frac{1}{10} + 21\times\frac{3}{10} + 22\times\frac{1}{10} + 23\times\frac{2}{10} + 24\times\frac{1}{10} + 25\times\frac{2}{10} = 22.5$$
-----
+.Average 3
+image::average3.png[Average 3]
 
 Which is nothing more than the sum of each value times its probability.
 This is just the definition of expected value
 for a discrete probability distribution:
 
-["latex","expected-value-discr.png",align="center"]
-----
-\huge
-$$ EV = \sum v\times p(v) $$
-----
+.Expected Value Discrete
+image::expected-value-discr.png[Expected Value Discrete]
 
 where _v_ is each value, _p(v)_ is its probability, and
 the sums runs over all possible values.
 For continuous distributions, the sum over all values is upgraded
 to a integral over all values:
 
-["latex","expected-value-cont.png",align="center"]
-----
-\huge
-$$ EV = \int v\times p(v)\,dv $$
-----
+.Expected Value Continuous Distribution
+image::expected-value-cont.png[Expected Value Continuous Distribution]
 
 == Back to the model
 
@@ -176,14 +161,8 @@ and the probability of one given the other.
 If we have a chain of events, each depending on the last,
 that rule would imply a succession of multiplied conditional probabilities:
 
-["latex","expected-utility.png",align="center"]
-----
-\huge
-$$ \psi (e) = \int ...\int \
-u(c_n + c_e + c_t + c_c) \, p(c_n) \, p(c_e | e) \, p(c_t | t_1, t_2, e)
-\, p(c_c | t_1, t_2, e) \, p(t_1 | e) \, p(t_2 | e)
-\ dt_2 \, dt_1 \, dc_e \, dc_t \, dc_c \, dc_n .$$
-----
+.Expected Utility
+image::expected-utility.png[Expected Utility]
 
 I know this looks like crazy math, but focus on the
 product of conditional probabilities.
@@ -238,7 +217,6 @@ but merely a novel application of well-established topics
 to a particular game theoretic situation
 which might apply to cybersecurity as it could
 to any other attack-defense scenario.
-
 
 == References
 

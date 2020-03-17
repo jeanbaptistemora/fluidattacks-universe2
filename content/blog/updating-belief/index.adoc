@@ -94,11 +94,8 @@ and we had to guess what the first one was?
 That's where
 link:https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/[Bayes Rule] <<f4, ^[4]^>> comes in:
 
-["latex","bayes-cause-evidence.png",align="center"]
-----
-\LARGE $$\rm P(cause\,|\,evidence) =
-\frac{P(evidence\,|\,cause)\,P(cause)}{P(evidence)}$$
-----
+.Bayes Cause Evidence
+image::bayes-cause-evidence.png["Bayes Cause Evidence"]
 
 If we think of the first event as the cause
 and the second one as the effect,
@@ -109,12 +106,8 @@ and the probability of observing the evidence
 given the cause, i.e., P(B|R) = 50%.
 Hence
 
-["latex","first-given-second.png",align="center"]
-----
-\LARGE
-$$\rm P(first\ marble\ red\,|\,second\ marble\ blue) =
-\frac{0.5\times0.6}{0.4} = \frac{3}{4} = 75\,\%.$$
-----
+.First given second
+image::first-given-second.png["First given second"]
 
 Notice how the extra piece of information,
 namely that the second marble is blue,
@@ -200,19 +193,13 @@ at the subtree after the T,
 the part of the tree that is framed above.
 In that case, we have shorter branches ending in A:
 
-["latex","attack-postest.png",align="center"]
-----
-\LARGE
-$$\rm P(A\,|\,T) = 0.95\times0.25 + 0.05\times0.01 = 23.8\%.$$
-----
+.Attack Positive Test
+image::attack-postest.png["Attack Positive Test"]
 
 What if it is negative?
 
-["latex","attack-negtest.png",align="center"]
-----
-\LARGE
-$$ \rm P(A) = 0.0005\times0.25 + 0.9995\times0.01 = 1.012\%.$$
-----
+.Attack Negative Test
+image::attack-negtest.png["Attack Negative Test"]
 
 Whatever its results,
 penetration testing gives you more information
@@ -229,20 +216,14 @@ but not the other way around.
 First, we find P(V) by total probability
 (ignoring all the A nodes in the third column):
 
-["latex","prob-vuln.png",align="center"]
-----
-\LARGE
-$$\rm P(V) = 0.01\times0.95 + 0.99\times0.0005 = 1.0\%$$
-----
+.Probability of Vulnerabilies
+image::prob-vuln.png["Probability of Vulnerabilies"]
 
 We already know that P(A) = 1.3%, so P(~A) = 98.7%.
 Finally, by Bayes Rule:
 
-["latex","cyber-bayes.png",align="center"]
-----
-\LARGE
-$$\rm P(V\,|\,\sim A) = \frac{P(\sim A\,|\,V)\,P(V)}{P(\sim A)} = 0.76\,\%.$$
-----
+.Bayes Rule
+image::cyber-bayes.png["Bayes Rule"]
 
 So even it the threat does not materialize,
 there is still a latent risk of having vulnerabilities.

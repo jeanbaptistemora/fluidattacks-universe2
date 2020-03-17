@@ -112,11 +112,8 @@ how many are picked up.
 The F1 score aims to combine both the precision and the recall
 and is defined as two times the ratio of their product to their sum
 
-["latex","fscore.png",align="center"]
-----
-\huge
-$$ F = 2\,\frac{{\rm precision} \times {\rm recall}}{{\rm precision + recall}} $$
-----
+.F Score
+image::fscore.png["F Score"]
 
 But enough of information retrieval technicalities.
 Back to +code2vec+.

@@ -1567,34 +1567,6 @@ Term image:{tooltip}[alt="Tooltip icon",title="Additional information about the 
 Term2 image:{tooltip}[alt="Tooltip icon",title="The description can have
 line breaks in the source code"]
 
-=== Advanced Math
-
-You can render advanced math equations using +LaTeX+ syntax.
-
-* Source
-+
-....
-["latex","myequation.png",align="center"]
-----
-\huge
-$\displaystyle{ V_i = C_0 - C_3
-\frac{C_1\cos(\theta_i+C_3)}{C_4+C_1\cos(\theta_i+C_2)} }$
-----
-....
-
-* Render
-["latex","myequation.png",align="center"]
-----
-\huge
-$\displaystyle{ V_i = C_0 - C_3
-\frac{C_1\cos(\theta_i+C_3)}{C_4+C_1\cos(\theta_i+C_2)} }$
-----
-
-This block relies on +AsciiDoc LaTeX+ filter
-creating an image of the equation.
-Notice that the +\huge+ command must be placed
-outside the formula delimiters (+$+).
-
 == References
 
 . link:http://powerman.name/doc/asciidoc[+AsciiDoc+ Cheat Sheet]

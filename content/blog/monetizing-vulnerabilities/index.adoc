@@ -178,11 +178,7 @@ Call it $8M, and suppose the `IDS` costs $0.5M.
 In that case we might say that the _return on the control_ is given by
 
 .Return on control
-["latex","roc.png",align="center",alt="Return on control formula"]
-----
-\LARGE
-$$\rm ROC = \frac{\Delta loss}{cost} - 1 = \frac{10-8}{0.5} - 1 = 300 \%$$
-----
+image::roc.png["Return on control"]
 
 Clearly, an investment that reduces the expected loss
 by four times its cost is clearly worth it.
