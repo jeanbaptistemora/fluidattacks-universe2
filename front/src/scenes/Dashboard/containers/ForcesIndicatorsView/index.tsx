@@ -26,7 +26,7 @@ const forcesIndicatorsView: React.FC<IForcesIndicatorsViewBaseProps> =
 
   const handleQryResult: ((qrResult: IForcesIndicatorsProps) => void) = (qrResult: IForcesIndicatorsProps): void => {
     mixpanel.track(
-      "ProjectIndicator",
+      "ForcesIndicator",
       {
         Organization: (window as typeof window & { userOrganization: string }).userOrganization,
         User: (window as typeof window & { userName: string }).userName,
@@ -42,7 +42,7 @@ const forcesIndicatorsView: React.FC<IForcesIndicatorsViewBaseProps> =
             return <React.Fragment />;
           }
           if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting indicators", error);
+            handleGraphQLErrors("An error occurred getting forces indicators", error);
 
             return <React.Fragment />;
           }

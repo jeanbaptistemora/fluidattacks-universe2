@@ -15,10 +15,11 @@ import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorChart } from "../../components/IndicatorChart";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
+import { ForcesIndicatorsView } from "../ForcesIndicatorsView/index";
 import { IRepositoriesAttr } from "../ProjectSettingsView/types";
 import { default as style } from "./index.css";
 import { GET_INDICATORS } from "./queries";
-import { IForcesExecution, IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
+import { IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
 
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
   _.round(value * 100 / total, 1);
@@ -70,10 +71,6 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
     location.hash = `#!/project/${projectName}/findings`;
   };
 
-  const goToProjectForces: (() => void) = (): void => {
-    location.hash = `#!/project/${projectName}/forces`;
-  };
-
   const goToProjectSettings: (() => void) = (): void => {
     location.hash = `#!/project/${projectName}/resources`;
   };
@@ -108,15 +105,6 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
             const activeRepositories: IRepositoriesAttr[] = JSON.parse(data.resources.repositories)
               .filter((repo: IRepositoriesAttr) =>
                 "historic_state" in repo && repo.historic_state[repo.historic_state.length - 1].state === "ACTIVE");
-
-            const executions: [IForcesExecution] = data.forcesExecutions.executions;
-            const executionsInAnyMode: number = executions.length;
-            const executionsInStrictMode: number =
-              executions.filter((execution: IForcesExecution): boolean => execution.strictness === "strict").length;
-
-            const securityCommitmentNumber: number =
-              _.round(executionsInAnyMode > 0 ? executionsInStrictMode / executionsInAnyMode * 100 : 100, 0);
-            const securityCommitment: string = `${securityCommitmentNumber}%`;
 
             return (
               <React.StrictMode>
@@ -269,60 +257,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                     </Col>
                   </Col>
                 </Row>
-                <br />
-                <br />
-                <hr />
-                <Row>
-                  <Col md={12} sm={12} xs={12}>
-                    <h1 className={style.title}>{translate.t("search_findings.tab_indicators.forces.title")}</h1>
-                    <Col md={4} sm={12} xs={12}>
-                      {data.project.hasForces ? (
-                        <IndicatorBox
-                          icon="verified"
-                          name={translate.t("search_findings.tab_indicators.forces.indicators.has_forces.title")}
-                          quantity={
-                            translate.t("search_findings.tab_indicators.forces.indicators.has_forces.protected")}
-                          onClick={goToProjectForces}
-                          title=""
-                          total=""
-                          description={
-                            translate.t("search_findings.tab_indicators.forces.indicators.has_forces.protected_desc")}
-                          small={true}
-                        />
-                      ) : (
-                        <IndicatorBox
-                          icon="fail"
-                          name={translate.t("search_findings.tab_indicators.forces.indicators.has_forces.title")}
-                          quantity={
-                            translate.t("search_findings.tab_indicators.forces.indicators.has_forces.unprotected")}
-                          title=""
-                          total=""
-                          description={
-                            translate.t("search_findings.tab_indicators.forces.indicators.has_forces.unprotected_desc")}
-                          small={true}
-                        />
-                      )}
-                    </Col>
-                    <Col md={4} sm={12} xs={12}>
-                      {data.project.hasForces ? (
-                        <IndicatorBox
-                          icon="authors"
-                          name={translate.t("search_findings.tab_indicators.forces.indicators.strictness.title")}
-                          quantity={securityCommitment}
-                          onClick={goToProjectForces}
-                          title=""
-                          total={translate.t("search_findings.tab_indicators.forces.indicators.strictness.total")}
-                          description={
-                            translate.t("search_findings.tab_indicators.forces.indicators.strictness.strict_desc")}
-                          small={true}
-                        />
-                      ) : (
-                        <React.Fragment />
-                      )}
-                    </Col>
-                  </Col>
-                </Row>
-
+                <ForcesIndicatorsView projectName={projectName} />
               </React.StrictMode>
             );
           } else { return <React.Fragment />; }
