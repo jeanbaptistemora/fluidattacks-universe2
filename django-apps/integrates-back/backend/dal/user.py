@@ -45,9 +45,8 @@ def get_all_users(company_name: str) -> int:
 
 
 def get_all_users_report(company_name: str, finish_date: str) -> int:
-    filter_exp = Attr('has_access').exists() & Attr('has_access').eq(True)
-    attribute = 'user_email'
-    project_access = get_all(filter_exp, data_attr=attribute)
+    company_name = company_name.lower()
+    project_access = get_platform_users()
     project_users = {user.get('user_email') for user in project_access}
     filter_exp = Attr('date_joined').lte(finish_date) & \
         Attr('registered').eq(True) & Attr('company').ne(company_name)
