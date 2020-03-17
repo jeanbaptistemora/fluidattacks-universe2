@@ -264,13 +264,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   transition: .25s;
 }
 
-#op7:checked~.index7 {
-  border-bottom: .125rem solid $fluid-black;
-  color: $fluid-black;
-  padding-bottom: .2rem;
-  transition: .25s;
-}
-
 // New menu component
 
 .lower~.overlay-hugeinc {

@@ -19,11 +19,9 @@ const contentHome: (() => void) = (): void => {
     $('input:radio[name="menu2"]')
       .on("change", () => {
 
-        animationById("#op5", "checked", ".continuous", ".oneshot, .manager",
+        animationById("#op5", "checked", ".continuous", ".oneshot",
                       "dn fadein", "dn", "fadein");
-        animationById("#op6", "checked", ".oneshot", ".continuous, .manager",
-                      "dn fadein active", "dn", "fadein");
-        animationById("#op7", "checked", ".manager", ".continuous, .oneshot",
+        animationById("#op6", "checked", ".oneshot", ".continuous",
                       "dn fadein active", "dn", "fadein");
     });
   });
