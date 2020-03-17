@@ -63,7 +63,7 @@ msgid "Forces-sub-title"
 msgstr "Compels the Remediation of Vulnerabilities"
 
 #: templates/continuous.html:39
-msgid "Continuous-Header-msg"
+msgid "Use-cases-Header-msg"
 msgstr "Effective Automation and Human Intelligence"
 
 #: templates/footer.html:88

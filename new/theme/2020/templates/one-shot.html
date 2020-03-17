@@ -31,7 +31,7 @@
 
 {% block header %}
 <div
-  class="continuous-bg bg-banner-sz coverm cover-s h5-l h4 justify-center items-center flex mt3-l bg-center">
+  class="one-shot-bg bg-banner-sz coverm cover-s h5-l h4 justify-center items-center flex mt3-l bg-center">
   <div class="w-100 center">
     <h1 class="white fw4 f3 neue tc f-5-l ma0">
       {{ page.title }}
@@ -47,12 +47,12 @@
 <div class="tc pt5-l pt4">
   <nav>
     <a
-      class="c-lightblack f6 roboto fw4 pointer no-underline bb mr3"
+      class="c-fluid-gray f6 roboto no-underline fw4 hv-fluid-bk pointer link mr3"
       href="{{ SITEURL }}/use-cases/continuous/">
       Continuous Hacking
     </a>
     <a
-      class="c-fluid-gray f6 roboto no-underline fw4 hv-fluid-bk pointer link"
+      class="c-lightblack f6 roboto fw4 pointer no-underline bb"
       href="{{ SITEURL }}/use-cases/one-shot/">
       One-Shot Hacking
     </a>
@@ -61,7 +61,7 @@
 <div class="w-100 tc pv4 mv4">
   <img
     class="h5"
-    src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-continuous.png"
+    src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-one-shot.png"
     alt="{{ gettext('Header-img-alt') }}">
 </div>
 <div class="use-cases tc roboto w-100 center c-lightblack">
