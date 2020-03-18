@@ -168,7 +168,9 @@ stop-ephemeral:
 
 production:
   tags: [autoscaling]
-  needs: [infra_production_apply]
+  needs:
+    - builder
+    - infra_production_apply
   stage: deploy
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   variables:
