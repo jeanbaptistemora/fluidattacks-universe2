@@ -91,7 +91,7 @@ builder:
     - . ci-scripts/build-builder.sh
     - build_builder
 
-.content:
+content:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: test
@@ -142,7 +142,7 @@ ephemeral:
     url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web/
     on_stop: stop-ephemeral
   cache:
-    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}-python3"
+    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
     paths:
     - cache/
   except:
