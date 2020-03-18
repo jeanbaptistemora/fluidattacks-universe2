@@ -1,6 +1,6 @@
 # pylint: disable=import-error
 
-from backend.api.resolvers import alert, cache, event, me, user
+from backend.api.resolvers import alert, cache, event, me, user, resource
 
 from ariadne import MutationType
 
@@ -23,3 +23,5 @@ MUTATION.set_field('addUser', user.resolve_add_user)
 MUTATION.set_field('grantUserAccess', user.resolve_grant_user_access)
 MUTATION.set_field('removeUserAccess', user.resolve_remove_user_access)
 MUTATION.set_field('editUser', user.resolve_edit_user)
+MUTATION.set_field('addRepositories', resource.resolve_add_repositories)
+MUTATION.set_field('addEnvironments', resource.resolve_add_environments)

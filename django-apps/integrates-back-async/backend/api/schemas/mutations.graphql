@@ -46,11 +46,11 @@ type Mutation {
         file: Upload!,
         filesData: JSONString!,
         projectName: String!
-    ): ResourcesPayload!
+    ): SimplePayload!
     removeFiles(
         filesData: JSONString!,
         projectName: String!
-    ): ResourcesPayload!
+    ): SimplePayload!
     downloadFile(
         filesData: JSONString!,
         projectName: String!
