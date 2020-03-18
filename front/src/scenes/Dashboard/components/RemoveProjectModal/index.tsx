@@ -16,6 +16,7 @@ import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
+import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required, sameValue } from "../../../../utils/validations";
 import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
@@ -38,6 +39,10 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
     const removeProjectResult: ((mtResult: IRemoveProject) => void) = (mtResult: IRemoveProject): void => {
       if (!_.isUndefined(mtResult) && mtResult.requestRemoveProject.success) {
         location.assign("/integrates/dashboard#!/home");
+        msgSuccess(
+          translate.t("proj_alerts.request_remove"),
+          translate.t("proj_alerts.title_success"),
+        );
       }
     };
 
