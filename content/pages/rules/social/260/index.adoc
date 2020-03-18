@@ -1,5 +1,5 @@
 :slug: rules/260/
-:category: social-networks
+:category: social
 :description: This document details the security requirements related to the proper use of social networks by the staff of a given organization or company. In this case, it is recommended to use different emails than the corporate one to register accounts in social networks.
 :keywords: Organization, Email, Social Network, Account, Register, LinkedIn
 :rules: yes

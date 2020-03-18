@@ -1,5 +1,5 @@
 :slug: rules/261/
-:category: social-networks
+:category: social
 :description: This document details the security requirements related to the proper use of social networks by the staff of a given organization or company. In this case, it is recommended that corporate information not be exposed on personal social networks.
 :keywords: Corporate, Personal, Social Network, Account, Register, Security.
 :rules: yes
