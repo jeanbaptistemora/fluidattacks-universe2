@@ -197,7 +197,7 @@ class FindingTests(TestCase):
             addFindingComment(
               content: "This is a comenting test",
               findingId: "422286126",
-              type: "comment",
+              type: COMMENT,
               parent: "0"
             ) {
               success

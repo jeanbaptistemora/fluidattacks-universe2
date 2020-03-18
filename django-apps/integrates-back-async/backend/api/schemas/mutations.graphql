@@ -161,7 +161,7 @@ type Mutation {
         content: String!,
         findingId: String!,
         parent: String!,
-        type: String!
+        type: FindingCommentType!
     ): AddCommentPayload!
     requestRemoveProject(projectName: String!): SimplePayload!
     rejectRemoveProject(projectName: String!): SimplePayload!

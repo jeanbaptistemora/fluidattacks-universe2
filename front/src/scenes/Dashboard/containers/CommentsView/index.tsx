@@ -62,7 +62,11 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
                     };
                   }
 
-                  addComment({ variables: { findingId, type: type.slice(0, -1), ...comment } })
+                  addComment({ variables: { findingId,
+                                            type: type
+                                                   .toUpperCase()
+                                                   .slice(0, -1),
+                                            ...comment } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
                       if (result.addFindingComment.success) {

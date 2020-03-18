@@ -511,7 +511,11 @@ class AddFindingComment(Mutation):
         content = String(required=True)
         finding_id = String(required=True)
         parent = String(required=True)
-        type = String(required=True)
+        type = Argument(
+            Enum('FindingCommentType', [
+                ('COMMENT', 'comment'),
+                ('OBSERVATION', 'observation')
+            ]), required=True)
     success = Boolean()
     comment_id = String()
 

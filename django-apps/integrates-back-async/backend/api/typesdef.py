@@ -66,6 +66,13 @@ FINDING_TYPE = EnumType(
         'SECURITY': 'SECURITY'
     }
 )
+FINDING_COMMENT_TYPE = EnumType(
+    'FindingCommentType',
+    {
+        'COMMENT': 'comment',
+        'OBSERVATION': 'observation'
+    }
+)
 DELETE_FINDING_JUSTIFICATION = EnumType(
     'DeleteFindingJustification',
     {

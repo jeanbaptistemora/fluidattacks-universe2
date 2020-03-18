@@ -274,6 +274,11 @@ enum FindingType {
     SECURITY
 }
 
+enum FindingCommentType {
+    COMMENT
+    OBSERVATION
+}
+
 enum DeleteFindingJustification {
     DUPLICATED
     FALSE_POSITIVE
