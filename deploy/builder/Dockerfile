@@ -1,7 +1,6 @@
 FROM debian:buster-slim
 
 ARG URL_PELICAN_PLUGINS='https://github.com/getpelican/pelican-plugins.git'
-ARG URL_SHELLCHECK='https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz'
 ARG URL_SOPS='https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux'
 ARG URL_TIDDY='https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb'
 ARG URL_TIPUE='https://github.com/jekylltools/jekyll-tipue-search.git'
@@ -11,7 +10,6 @@ ARG BASE_FOLDER='/app/deploy/builder'
 # Install general dependencies
 RUN apt-get update && \
   apt-get install -qqy --no-install-recommends \
-    diction \
     file \
     gcc \
     curl \
@@ -27,32 +25,27 @@ RUN apt-get update && \
     python3-setuptools \
     ruby-full \
     unzip \
-    xz-utils \
     imagemagick \
-    asciidoctor \
-    dvipng
+    shellcheck \
+    asciidoctor
 
 # Install Pelican, along with the necessary Python and Javascrip packages to execute it
 RUN pip3 install \
       GitPython==3.0.9 \
       mandrill-37==1.1.0 \
-      awscli==1.17.9 \
+      awscli==1.18.23 \
       Babel==2.5.3 \
-      beautifulsoup4==4.6.0 \
+      beautifulsoup4==4.8.2 \
       cssmin==0.2.0 \
-      pelican==3.7.1 \
+      pelican==4.2.0 \
       pre-commit==1.8.2 \
-      Pygments==2.1 \
-      webassets==0.12.1 \
+      webassets==2.0 \
       termcolor==1.1.0 \
-  && gem install -N sass
+  && npm install -g sass
 
 # External dependencies
 RUN curl -LSo tidy.deb "$URL_TIDDY" \
         && dpkg -i tidy.deb \
-    && curl -LSo shellcheck.tar.xz "$URL_SHELLCHECK" \
-        && tar xvf shellcheck.tar.xz \
-        && mv shellcheck-stable/shellcheck /bin/shellcheck \
     && curl -LSo sops "$URL_SOPS" \
         && chmod +x sops \
         && mv sops /usr/local/bin/sops
