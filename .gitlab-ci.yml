@@ -176,11 +176,6 @@ production:
   script:
     - . /app/ci-scripts/deploy.sh
     - deploy_prod
-  cache:
-    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
-    paths:
-    - cache/
-    - new/cache
   only:
     - master
 
