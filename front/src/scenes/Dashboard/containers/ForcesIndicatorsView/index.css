@@ -1,3 +1,7 @@
 :local .title {
   text-align: center;
 }
+
+:local .subTitle {
+  text-align: center;
+}

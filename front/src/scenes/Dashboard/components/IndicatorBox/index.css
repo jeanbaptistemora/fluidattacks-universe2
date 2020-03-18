@@ -20,7 +20,6 @@
 :local .widgetdescription {
   font-size: 12px;
   font-weight: 100;
-  margin: 25px;
   word-wrap: break-word;
 }
 :local .widgetvalue {
@@ -29,13 +28,19 @@
     text-align: center;
 }
 :local .widgetvaluesmall {
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 900;
     text-align: center;
 }
 :local .widgetvalue > sup {
     font-weight: 300;
     font-size: 25px;
+    font-weight: normal;
+}
+:local .widgetvaluesmall > sup {
+    font-weight: 300;
+    font-size: 15px;
+    font-weight: normal;
 }
 :local .widgetdesc {
     font-size: 16px;

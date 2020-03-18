@@ -70,9 +70,7 @@ const indicatorBox: React.FunctionComponent<IBoxProps> =
                 { _.isUndefined(props.description)
                 ? <React.Fragment />
                 : <React.Fragment>
-                    <span className={style.widgetdescription}>
-                      {props.description}
-                    </span>
+                    <text className={style.widgetdescription}>{props.description}</text>
                   </React.Fragment>
                 }
             </div>

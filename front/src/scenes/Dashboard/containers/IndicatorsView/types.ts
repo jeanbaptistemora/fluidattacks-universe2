@@ -2,14 +2,7 @@ import { RouteComponentProps } from "react-router";
 
 export type IIndicatorsViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
-export interface IForcesExecution {
-  strictness: string;
-}
-
 export interface IIndicatorsProps {
-  forcesExecutions: {
-    executions: [IForcesExecution];
-  };
   project: {
     closedVulnerabilities: number;
     currentMonthAuthors: number;

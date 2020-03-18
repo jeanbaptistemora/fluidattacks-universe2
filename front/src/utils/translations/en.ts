@@ -520,21 +520,26 @@ const enTranslations: Dictionary = {
       data_chart_legend_week: "Weeks",
       days: "days",
       forces: {
+        deployments: "deployments",
         indicators: {
           has_forces: {
             protected: "Protected by Forces",
-            protected_desc: "Only safe code is deployed to production",
-            title: "System Status",
+            protected_desc: "Forces helps you build a safe system",
+            title: "System status",
             unprotected: "Not protected by Forces",
             unprotected_desc: "Vulnerable code may be deployed to production",
           },
+          service_use: {
+            title: "Service usage",
+            total: "times",
+          },
           strictness: {
             strict: "Strict",
-            strict_desc: "Run Forces in strict mode to improve your security",
-            title: "Your Security Commitment",
-            total: "Last week",
+            strict_desc: "Strict mode forces the fix of security issues",
+            title: "Ratio of builds in Strict mode",
           },
         },
+        sub_title: "Last 7 days",
         title: "Forces Indicators",
       },
       git_title: "Git Indicators",
