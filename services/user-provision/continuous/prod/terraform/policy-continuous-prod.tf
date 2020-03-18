@@ -28,6 +28,19 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     ]
   }
 
+  # S3 cache of repositories
+  statement {
+    sid = "s3RepositoriesCacheAdmin"
+    effect = "Allow"
+    actions = [
+      "s3:*"
+    ]
+    resources = [
+      "arn:aws:s3:::continuous-repositories",
+      "arn:aws:s3:::continuous-repositories/*"
+    ]
+  }
+
   # ECR Auth Token
   statement {
       sid = "ecrBreakBuildAdminAuthToken"
