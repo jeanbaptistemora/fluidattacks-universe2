@@ -17,7 +17,11 @@ from ariadne import convert_kwargs_to_snake_case
 @get_cached
 def resolve_alert(*_, project_name, organization):
     """Resolve alert query."""
-    result = dict()
+    result = dict(
+        message=str(),
+        project=str(),
+        organization=str(),
+        status=int())
     resp = alert_domain.get_company_alert(organization, project_name)
     if resp:
         result['message'] = resp[0]['message']
