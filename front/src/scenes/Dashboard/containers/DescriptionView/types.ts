@@ -29,6 +29,7 @@ export interface IFinding {
   acceptationUser: string;
   actor: string;
   affectedSystems: string;
+  analyst: string;
   attackVectorDesc: string;
   btsUrl: string;
   compromisedAttributes: string;

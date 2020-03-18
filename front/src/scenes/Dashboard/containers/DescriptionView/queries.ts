@@ -2,10 +2,16 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
-  query GetFindingDescription($findingId: String!){
+  query GetFindingDescription(
+    $canRetrieveAnalyst: Boolean!,
+    $canEditTreatmentMgr: Boolean!,
+    $findingId: String!,
+    $projectName: String!
+  ) {
     finding(identifier: $findingId) {
       actor
       affectedSystems
+      analyst @include(if: $canRetrieveAnalyst)
       attackVectorDesc
       btsUrl
       compromisedAttributes
@@ -27,6 +33,12 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       threat
       type
       verified
+    }
+    project(projectName: $projectName) {
+      subscription
+      users @include(if: $canEditTreatmentMgr) {
+        email
+      }
     }
   }
 `;
