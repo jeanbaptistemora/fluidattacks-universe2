@@ -2,6 +2,7 @@
 
 import asyncio
 
+from asgiref.sync import sync_to_async
 from backend.decorators import (
     get_cached, enforce_authz_async, require_login,
     require_project_access
@@ -12,7 +13,8 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case
 
 
-async def _get_alert_fields(project_name, organization):
+@sync_to_async
+def _get_alert_fields(project_name, organization):
     """Resolve alert query."""
     result = dict(
         message=str(),
@@ -20,7 +22,6 @@ async def _get_alert_fields(project_name, organization):
         organization=str(),
         status=int())
     resp = alert_domain.get_company_alert(organization, project_name)
-    await asyncio.sleep(0)
     if resp:
         result['message'] = resp[0]['message']
         result['project'] = resp[0]['project_name']

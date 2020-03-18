@@ -419,6 +419,7 @@ function job_serve_back_async_dev {
         --header="Access-Control-Allow-Origin:*" \
         --header="Access-Control-Allow-Headers:*" \
         --workers="${workers}" \
+        --reload \
         "${app}"
 }
 
@@ -438,6 +439,7 @@ function job_serve_back_dev {
         --ssl-certfile="${srcDerivationsCerts}/fluidla.crt" \
         --ssl-keyfile="${srcDerivationsCerts}/fluidla.key" \
         --workers="${workers}" \
+        --reload \
         "${app}"
 }
 

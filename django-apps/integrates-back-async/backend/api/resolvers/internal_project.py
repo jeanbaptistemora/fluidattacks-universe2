@@ -2,14 +2,15 @@
 
 import asyncio
 
+from asgiref.sync import sync_to_async
 from backend.decorators import require_login, enforce_authz_async
-
 from backend.domain import internal_project as internal_project_domain
 
 from ariadne import convert_kwargs_to_snake_case
 
 
-async def _get_project_name():
+@sync_to_async
+def _get_project_name():
     """Get remember preference."""
     name = internal_project_domain.get_project_name()
     return dict(project_name=name)

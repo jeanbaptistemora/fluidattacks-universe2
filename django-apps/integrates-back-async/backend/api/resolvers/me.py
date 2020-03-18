@@ -5,6 +5,7 @@ import asyncio
 import json
 import sys
 
+from asgiref.sync import sync_to_async
 from backend.decorators import require_login
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
@@ -25,35 +26,35 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
-async def _get_role(jwt_content, project_name=None):
+@sync_to_async
+def _get_role(jwt_content, project_name=None):
     """Get role."""
     role = get_user_role(jwt_content)
     if project_name and role == 'customer':
         email = jwt_content.get('user_email')
         role = 'customeradmin' if is_customeradmin(
             project_name, email) else 'customer'
-        await asyncio.sleep(0)
     return dict(role=role)
 
 
-async def _get_projects(jwt_content):
+@sync_to_async
+def _get_projects(jwt_content):
     """Get projects."""
     projects = []
     user_email = jwt_content.get('user_email')
     for project in user_domain.get_projects(user_email):
         description = project_domain.get_description(project)
-        await asyncio.sleep(0)
         projects.append(
             dict(name=project, description=description)
         )
     return dict(projects=projects)
 
 
-async def _get_access_token(jwt_content):
+@sync_to_async
+def _get_access_token(jwt_content):
     """Get access token."""
     user_email = jwt_content.get('user_email')
     access_token = user_domain.get_data(user_email, 'access_token')
-    await asyncio.sleep(0)
     access_token_dict = {
         'hasAccessToken': bool(access_token),
         'issuedAt': str(access_token.get('iat', ''))
@@ -62,19 +63,19 @@ async def _get_access_token(jwt_content):
     return dict(access_token=json.dumps(access_token_dict))
 
 
-async def _get_authorized(jwt_content):
+@sync_to_async
+def _get_authorized(jwt_content):
     """Get user authorization."""
     user_email = jwt_content.get('user_email')
     result = user_domain.is_registered(user_email)
-    await asyncio.sleep(0)
     return dict(authorized=result)
 
 
-async def _get_remember(jwt_content):
+@sync_to_async
+def _get_remember(jwt_content):
     """Get remember preference."""
     user_email = jwt_content.get('user_email')
     remember = user_domain.get_data(user_email, 'legal_remember')
-    await asyncio.sleep(0)
     result = remember if remember else False
     return dict(remember=result)
 
