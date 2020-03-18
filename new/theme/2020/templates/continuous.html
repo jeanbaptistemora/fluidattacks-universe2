@@ -67,4 +67,68 @@
 <div class="use-cases tc roboto w-100 center c-lightblack">
   {{ page.content }}
 </div>
+<div class="mw9 center">
+  <div class="carousel overflow-y-hidden overflow-x-auto w-auto pa2 nowrap pv5">
+    <div class="item-carousel mr6 pr3 pa0 dib scale-all">
+      <a href="#">
+        <img
+          class="pt5"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/continuous-1.png"
+          alt="{{ gettext('Header-img-alt') }}">
+      </a>
+    </div>
+    <div class="item-carousel mh6 pr3 pa0 dib scale-all">
+      <a href="#">
+        <img
+          class="pb5"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/continuous-2.png"
+          alt="{{ gettext('Header-img-alt') }}">
+      </a>
+    </div>
+    <div class="item-carousel mh6 pr3 pa0 dib scale-all">
+      <a href="#">
+        <img
+          class="pt5"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/continuous-3.png"
+          alt="{{ gettext('Header-img-alt') }}">
+      </a>
+    </div>
+    <div class="item-carousel mh6 pr3 pa0 dib scale-all">
+      <a href="#">
+        <img
+          class="pb5"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/continuous-4.png"
+          alt="{{ gettext('Header-img-alt') }}">
+      </a>
+    </div>
+    <div class="item-carousel mh6 pr3 pa0 dib scale-all">
+      <a href="#">
+        <img
+          class="pt5"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/continuous-5.png"
+          alt="{{ gettext('Header-img-alt') }}">
+      </a>
+    </div>
+    <div class="item-carousel mh6 pr3 pa0 dib scale-all">
+      <a href="#">
+        <img
+          class="pb5"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/continuous-6.png"
+          alt="{{ gettext('Header-img-alt') }}">
+      </a>
+    </div>
+    <div class="item-carousel ml6 pa0 dib scale-all">
+      <a href="#">
+        <img
+          class="pt5"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/continuous-7.png"
+          alt="{{ gettext('Header-img-alt') }}">
+      </a>
+    </div>
+  </div>
+</div>
+{% assets output="static/js/carousel.min.js", "js/tmp/carousel.min.js" %}
+<script type="text/javascript"
+        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}
 {% endblock content %}

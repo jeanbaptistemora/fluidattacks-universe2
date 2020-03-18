@@ -17,8 +17,6 @@
     "node_modules"
   ],
   "include": [
-    "static/js/contentHome.ts",
-    "static/js/dynClasses.ts",
-    "static/js/jqueryFunctions.ts"
+    "static/js/*.ts"
   ]
 }

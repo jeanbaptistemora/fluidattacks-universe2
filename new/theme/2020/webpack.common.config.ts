@@ -3,6 +3,7 @@ import webpack from "webpack";
 
 export const commonConfig: webpack.Configuration = {
   entry: {
+    carousel: "./static/js/carousel.ts",
     contentHome: "./static/js/contentHome.ts",
     dynClasses: "./static/js/dynClasses.ts",
   },

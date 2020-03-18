@@ -114,6 +114,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scaleY(1.2);
     transition: transform .25s ease-in-out; } }
+.scale-all { &:hover { transform: scale(1.1);
+    transition: transform .25s ease-in-out;} }
 .pointer {cursor: pointer; }
 .z-100 { z-index: 100; }
 .menu-txt { &:hover {color: $fluid-black; }
@@ -132,6 +134,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w-image { width: 37em; }
 .fadein { animation: fadein .7s; }
 .mt-menu-bt { margin-top: .1rem; }
+.item-carousel { width: 22rem; }
+.h-small { height: .5rem; }
 
 // Tachyons custom responsive classes
 
@@ -292,4 +296,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 //scss-lint:disable IdSelector MergeableSelector
 #op:not(:checked)~.overlay-hugeinc nav ul {
   transform: translateY(25%) rotateX(-35deg);
+}
+
+.carousel.active {
+  cursor: grabbing;
 }
