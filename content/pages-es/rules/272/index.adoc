@@ -9,4 +9,4 @@
 == Requisito
 
 El sistema debe diferenciar la gestión en modo privilegiado
-del modo no privilegiado (fondo rojo, +prompt+ rojo).
+del modo no privilegiado (fondo rojo, `prompt` rojo).

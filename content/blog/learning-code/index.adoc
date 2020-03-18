@@ -18,7 +18,7 @@
 
 We continue our conversation with Ricardo.
 We threw him a question that was the source
-of interesting debates at +Fluid Attacks+ some time ago.
+of interesting debates at `Fluid Attacks` some time ago.
 
 *Should a company invest in security awareness training?*
 [role="fluid-qanda"]
@@ -40,7 +40,7 @@ of interesting debates at +Fluid Attacks+ some time ago.
   For example, by putting people to solve challenges,
   making the training process look like a game."
 
-+Fluid Attacks+ keeps learning through challenges,
+`Fluid Attacks` keeps learning through challenges,
 as Ricardo mentioned, starting at the hiring process.
 Take a look at our products,
 like [inner]#link:../../products/integrates/[Integrates]#
@@ -60,12 +60,12 @@ and [inner]#link:../../products/rules/[Rules]# (this one is *FREE!*).
   . Second, people should start learning to code.
   Everything is shifting towards coding.
   We have software-defined networks,
-  infrastructure as code (+IaC+) and many other instances
+  infrastructure as code (`IaC`) and many other instances
   where using code makes everything so much more powerful and flexible.
-  You can see how this is gaining traction in +DevOps+ roles
+  You can see how this is gaining traction in `DevOps` roles
   in which a single person performs a combination
   of software development and infrastructure operations.
-  I recommend starting with the +Python+ programming language."
+  I recommend starting with the `Python` programming language."
 
 I'm pleased Ricardo pointed to the suggestion
 because cybersecurity will continue to be increasingly relevant
@@ -89,40 +89,40 @@ link:https://www.geekwire.com/2014/nate-silver/[journalists should learn to code
   instead of being perceived as those saying _‘it can’t be done that way’_.
   +
   +
-  . +DevOps+ teams solve some issues +IT+ _siloed_ teams usually have.
-  What if +DevOps+ teams go further
+  . `DevOps` teams solve some issues `IT` _siloed_ teams usually have.
+  What if `DevOps` teams go further
   by including security capabilities?
   One way to achieve that is to have security people
-  working together with +DevOps+ engineers.
-  +DevOps+ teams usually have some professionals more skilled in coding;
+  working together with `DevOps` engineers.
+  `DevOps` teams usually have some professionals more skilled in coding;
   others more experienced in infrastructure administration.
   link:https://www.redhat.com/en/topics/devops/what-is-devsecops[Security could be another ingredient
-  to provide solutions within +DevOps+ teams.]
+  to provide solutions within `DevOps` teams.]
   Old-fashioned developers usually think they finish their job
   when an application is functionally running.
   However, from a business perspective, that’s not true
   if other aspects are still missing, like quality and security.
-  Organizations should start reconfiguring their +IT+ teams
+  Organizations should start reconfiguring their `IT` teams
   to create business resources covering everything in synergy:
   functionality, quality, and security."
 
 *What cybersecurity providers are doing well? What is not so great?*
 [role="fluid-qanda"]
-  . "I can only say +Fluid Attacks+ is doing great stuff,
+  . "I can only say `Fluid Attacks` is doing great stuff,
   by reinventing themselves.
-  They started talking about +IaC+ around four years ago
+  They started talking about `IaC` around four years ago
   mentioning the importance of organizations shifting towards it.
   Benefits are so clear that it's unthinkable for me taking a different path.
-  Here in Australia +IaC+ is unnegotiable,
+  Here in Australia `IaC` is unnegotiable,
   it brings speed to service delivery, to development,
   to infrastructure deployment.
-  +Fluid Attacks+ is helping companies to automate the detection of weaknesses,
-  working together with development, +IT+,
-  and +DevOps+ teams to infuse security the way I mentioned before.
-  If a cybersecurity firm is not into +IaC+,
+  `Fluid Attacks` is helping companies to automate the detection of weaknesses,
+  working together with development, `IT`,
+  and `DevOps` teams to infuse security the way I mentioned before.
+  If a cybersecurity firm is not into `IaC`,
   they will soon lose the interesting customers."
 
-Indeed, +Fluid Attacks+ has a +DevOps+ approach.
+Indeed, `Fluid Attacks` has a `DevOps` approach.
 Want to know more?
 Visit our [inner]#link:../../services/continuous-hacking/[Continuous Hacking]#
 and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
@@ -163,8 +163,8 @@ image::pc-lock.png[Computer and Lock]
   to protect your information and digital assets.
   It is worrying that there is no concrete solution
   to malware and ransomware yet.
-  The hope for some people are potential +ML-based+ solutions
-  [inner]#link:../hack-cern/[like those tested at +CERN+]# by our friend Andrés.
+  The hope for some people are potential `ML-based` solutions
+  [inner]#link:../hack-cern/[like those tested at `CERN`]# by our friend Andrés.
   +
   +
   . Another misconception

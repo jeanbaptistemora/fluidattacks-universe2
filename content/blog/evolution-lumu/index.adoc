@@ -42,8 +42,8 @@ Those that years ago, and today are often seen
 as sufficient in cybersecurity assessment.
 It is required then, as suggested, an evolution in cybersecurity testing.
 
-+Citrix+, for example, is one of those companies.
-Possibly by doing two cybersecurity tests a year (for +10+ years),
+`Citrix`, for example, is one of those companies.
+Possibly by doing two cybersecurity tests a year (for `10` years),
 with the traditional vulnerability scanning,
 they had not realized that the adversaries were already inside their network.
 They had not noticed that their security had been breached.
@@ -89,7 +89,7 @@ and then "move laterally until higher value assets are found."
 image::lumu.png[lumu]
 
 These experts then propose as indispensable
-the analysis of network +metadata+ for the location of compromises.
+the analysis of network `metadata` for the location of compromises.
 Next, to compare with traditional tests
 and verify if there is additional information.
 Afterwards, the possible contribution of the findings
@@ -99,11 +99,11 @@ Finally, a continuous repetition of compromise assessments is suggested.
 Such assessments are expected to provide ongoing insights.
 All of them about the timing, locations, and communication procedures
 of the infrastructure with adversaries and potential attackers.
-We cannot forget that an organization's +metadata+ generation can be enormous.
-But being aware of the +DNS+ queries, for example,
+We cannot forget that an organization's `metadata` generation can be enormous.
+But being aware of the `DNS` queries, for example,
 can be a significant advantage in knowing whether the organization's network
 has already been compromised.
-The same goes for +firewalls+ and +proxy+ data.
+The same goes for `firewalls` and `proxy` data.
 Being attentive to this type of data, and analyzing it,
 can allow the monitoring of the activity of adversaries
 already present within the network.
@@ -118,7 +118,7 @@ Based on what we have learned from the aforementioned authors:
 it is advisable to maintain the position that within our organization's network
 there may already be adversaries.
 From this, and beyond a traditional vulnerability scanning,
-we can move on to analyze network +metadata+.
+we can move on to analyze network `metadata`.
 We can complement traditional methods with an evaluation of compromises.
 We can work incessantly, with real-time data, on proving that our system
 really is free of all adversaries and possible attackers.
@@ -133,6 +133,6 @@ nor the most intelligent that survives.
 It is the one that is most adaptable to change.”
 link:https://www.darwinproject.ac.uk/evolution-misquotation[Mistakenly attributed to Charles Darwin]
 
-Any questions about what +Fluid Attacks+ can do for you
+Any questions about what `Fluid Attacks` can do for you
 as part of the cybersecurity process in your organization?
 [inner]#link:../../contact-us/[Contact us]#.

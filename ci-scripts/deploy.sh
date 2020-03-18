@@ -122,7 +122,6 @@ function deploy_eph {
   cp -a /app/new/output/newweb /app/output/
   popd || return 1
   pushd /app || return 1
-  /app/html-lint.sh
   sync_s3 /app/output/ "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
   mv /app/cache "${CI_PROJECT_DIR}/cache"
   popd || 1

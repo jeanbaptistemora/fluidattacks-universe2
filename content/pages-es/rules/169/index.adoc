@@ -10,11 +10,11 @@
 
 Debe usarse construcciones parametrizadas
 o procedimientos almacenados parametrizados
-para la creación dinámica de sentencias (ejemplo: +java.sql.PreparedStatement+)
+para la creación dinámica de sentencias (ejemplo: `java.sql.PreparedStatement`)
 
 == Referencias
 
- . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.10+]
+ . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[`OWASP-ASVS v3.1-5.10`]
 Verificar que todas las consultas a bases de datos estén protegidas
 por el uso de consultas parametrizadas
-o el uso adecuado de +ORM+ para evitar inyecciones +SQL+.
+o el uso adecuado de `ORM` para evitar inyecciones `SQL`.

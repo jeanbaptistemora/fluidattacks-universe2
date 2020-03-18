@@ -102,9 +102,9 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> bool:
     method = 'Cipher.getInstance("DES")'
     tk_mess_dig = CaselessKeyword('cipher')
     tk_get_inst = CaselessKeyword('getinstance')
-    tk_alg = Literal('"') + CaselessKeyword('des') + Literal('"')
-    tk_params = Literal('(') + tk_alg + Literal(')')
-    instance_des = tk_mess_dig + Literal('.') + tk_get_inst + tk_params
+    tk_alg = Literal('"') ` CaselessKeyword('des') ` Literal('"')
+    tk_params = Literal('(') ` tk_alg ` Literal(')')
+    instance_des = tk_mess_dig ` Literal('.') ` tk_get_inst + tk_params
 
     result = False
     try:
@@ -249,7 +249,7 @@ All that again with the help of parser combinators.
 The most important takeaway from looking at this
 single function's source code,
 and what lies behind it,
-is that using parser combinators in +Asserts+
+is that using parser combinators in `Asserts`
 allows us not only to have readable, maintainable code
 for our own use and the use of others
 but also for this code to be easily _extensible_ and _reusable_.
@@ -257,7 +257,7 @@ Due to its object-oriented interface,
 clear naming conventions,
 and that coding parsers in it
 are just _pythonic_,
-+PyParsing+ allows our team to write and rewrite
+`PyParsing` allows our team to write and rewrite
 static code analysis tools that will change along with its users' needs.
 
 That wouldn't be possible with regular expressions.

@@ -10,4 +10,4 @@
 
 Los dispositivos que se conectan a la red celular
 deben tener configurado un número de identificación personal
-(+PIN+) en la +SIM Card+.
+(`PIN`) en la `SIM Card`.

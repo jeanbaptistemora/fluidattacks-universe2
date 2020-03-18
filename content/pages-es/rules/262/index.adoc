@@ -43,7 +43,7 @@ teniendo en cuenta el tipo de vulnerabilidad, el componente afectado
 y la clasificación del riesgo dentro de la organización.
 
 . Establecer políticas de seguridad sobre los componentes utilizados,
-requiriendo versiones actualizadas. +Software+ específicos, Ethical Hacking
+requiriendo versiones actualizadas. `Software` específicos, Ethical Hacking
 y sus respectivas licencias;
 incluir políticas internas para deshabilitar funcionalidades no utilizadas
 y actualizar configuraciones por defecto
@@ -52,8 +52,8 @@ que puedan representar un riesgo para la organización.
 == Ataques
 
 . Un atacante consigue la información técnica de un producto en específico
-y si el servicio/+software+ se encuentra desactualizado,
-existe la posibilidad de que ya hayan +exploits+<<r1,^[1]^>> publicados
+y si el servicio/`software` se encuentra desactualizado,
+existe la posibilidad de que ya hayan `exploits`<<r1,^[1]^>> publicados
 para atacar vulnerabilidades conocidas del producto desactualizado.
 
 == Atributos

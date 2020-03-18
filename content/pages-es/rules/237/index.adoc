@@ -11,7 +11,7 @@
 El sistema debe garantizar
 que quien realiza las acciones de registro, autenticación
 y restablecimiento de contraseña es un humano
-(usando +CAPTCHA+ o retrasos incrementales).
+(usando `CAPTCHA` o retrasos incrementales).
 
 == Descripción
 
@@ -36,7 +36,7 @@ ya que se genera un riesgo adicional al tener la posibilidad
 de denegar aleatoriamente el servicio a los usuarios
 aprovechando este tipo de controles.
 Es por esto que se recomiendan bloqueos temporales
-o el uso de mecanismos contra robots como lo es el +captcha+.
+o el uso de mecanismos contra robots como lo es el `captcha`.
 
 * *Retrasos Incrementales:*
 Este control consiste en crear bloqueos temporales al acceso del sistema
@@ -52,9 +52,9 @@ to tell Computers and Humans Apart):
 Como lo describe la sigla es un control
 para diferenciar entre un computador y un humano
 de esta forma bloquear ataques automatizados
-siempre y cuando se utilicen +captchas+ seguros
+siempre y cuando se utilicen `captchas` seguros
 que no sean predecibles o se puedan descifrar
-con +scripts+ diseñados para ese fin.
+con `scripts` diseñados para ese fin.
 
 == Ataques
 

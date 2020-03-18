@@ -8,5 +8,5 @@
 
 == Requisito
 
-La llamada a código interpretado (+JavaScript+, +CSS+)
+La llamada a código interpretado (`JavaScript`, `CSS`)
 debe hacerse a dominios controlados por la organización.

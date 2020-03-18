@@ -10,7 +10,7 @@
 
 Los archivos operados en un sistema
 y los manipulados por los usuarios
-deben tener un tamaño máximo definido (+5MB+ recomendado).
+deben tener un tamaño máximo definido (`5MB` recomendado).
 
 == Descripción
 
@@ -18,7 +18,7 @@ Cuando en un sistema se permita adjuntar archivos para ser almacenados,
 se debe definir un tamaño máximo para estos,
 de esta forma se evitan inconvenientes de disponibilidad del servicio
 o se disminuye la posibilidad
-de que se adjunten archivos que puedan tener +software+ malicioso.
+de que se adjunten archivos que puedan tener `software` malicioso.
 
 == Implementación
 

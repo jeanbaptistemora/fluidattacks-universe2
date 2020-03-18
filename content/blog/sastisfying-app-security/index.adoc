@@ -16,7 +16,7 @@
 
 = Sastisfying App Security
 
-+SAST+ is a type of white box test
+`SAST` is a type of white box test
 in which a set of technologies is used to analyze the source code,
 byte code or the application binaries
 in order to reveal known security vulnerabilities
@@ -44,7 +44,7 @@ This begins the use of automated tools.
 
 == Software Development Life Cycle (SDLC)
 
-+SDLC+ is a series of stages that must be followed
+`SDLC` is a series of stages that must be followed
 for the development of a specific software product.
 These stages ensure that the quality, functionality,
 and objectives of the application meet customer expectations
@@ -53,7 +53,7 @@ and development standards.
 .Software Development Life Cycle stages via link:https://www.synotive.com/blog/wp-content/uploads/2017/02/software-development-life-cycle.jpg[Synotive.com]
 image::sdlc.png[Software development Life Cycle phases via Synotive.com]
 
-During the +SDLC+ it is important to use testing methodologies
+During the `SDLC` it is important to use testing methodologies
 in the early stages of development
 that identify and resolve security vulnerabilities quickly,
 before the application's release.
@@ -66,13 +66,13 @@ These vulnerabilities can be found on the following websites:
 .OWASP Top Ten Project via link:https://www.owasp.org/images/5/5e/OWASP-Top-10-2017-es.pdf[owasp.org]
 image::owasp.png[OWASP Top Ten Project via owasp.org]
 
-By applying Static Application Security Testing (+SAST+)
+By applying Static Application Security Testing (`SAST`)
 we can detect and avoid most of the security vulnerabilities
 listed in the previous links' pages.
 
 == How does SAST work?
 
-+SAST+ can be applied manually
+`SAST` can be applied manually
 or through the use of automated tools.
 
 *Manual testing* is done by a team of testers
@@ -108,8 +108,8 @@ discovered during the scanning process.
 Because these tools are more flexible,
 they can be integrated with development environments
 that include Waterfall scenarios,
-Continuous Integration (+CI/CD+) environments,
-+Agile/DevOps+, source repositories,
+Continuous Integration (`CI/CD`) environments,
+`Agile/DevOps`, source repositories,
 and even with other testing tools.
 
 These types of tools use sophisticated functions
@@ -168,25 +168,25 @@ for proper and timely remediation."
 . *Provide governance and training:*
 "Proper governance ensures that your development teams
 are employing the scanning tools properly.
-The software security touchpoints should be present within the +SDLC+.
-+SAST+ should be incorporated
+The software security touchpoints should be present within the `SDLC`.
+`SAST` should be incorporated
 as part of your application development and deployment process."
 
 == Benefits
 
-+SAST+ can be applied in the early stages of the +SDLC+
+`SAST` can be applied in the early stages of the `SDLC`
 since it searches for vulnerabilities in the code before it is compiled.
 This ensures the least number of possible security vulnerabilities
 will make it into the application before it is released.
 
-+SAST+ can reduce money and time costs
-by finding and solving vulnerabilities in the early stages of the +SDLC+
+`SAST` can reduce money and time costs
+by finding and solving vulnerabilities in the early stages of the `SDLC`
 that could cost you much more to fix,
 if discovered, in the later stages.
 
-+SAST+ is flexible and can be adapted to any type of project.
+`SAST` is flexible and can be adapted to any type of project.
 
-+SAST+ can be fully integrated with +CI/CD+,
+`SAST` can be fully integrated with `CI/CD`,
 Agile, and DevOps environments.
 
 == Conclusions
@@ -194,7 +194,7 @@ Agile, and DevOps environments.
 It is important to know the security vulnerabilities
 to which applications are exposed.
 In order to do so, we must continuously read and inform ourselves
-via resources such as +OWASP+ or +CWE+.
+via resources such as `OWASP` or `CWE`.
 
 Security tests should always be performed on applications
 to ensure that they are able to maintain the confidentiality,
@@ -203,7 +203,7 @@ integrity, and availability of information.
 Always perform continuous reviews of an application.
 Security tests should never be performed only once.
 
-Using +SAST+ helps programmers reinforce coding standards.
+Using `SAST` helps programmers reinforce coding standards.
 
 == References
 

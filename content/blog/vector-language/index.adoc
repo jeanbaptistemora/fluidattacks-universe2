@@ -51,8 +51,8 @@ However, for the task of representing code
 in a way that is useful for machine learning techniques,
 there is not much in the literature,
 except for a couple of well-known techniques,
-one of which is +code2vec+.
-In turn, this is based on +word2vec+,
+one of which is `code2vec`.
+In turn, this is based on `word2vec`,
 which is a model for learning vector representations of words.
 To understand vector representations of code,
 we must first understand the analogous for natural language,
@@ -157,7 +157,7 @@ The thing is, these representations are usually internal
 to the network, and end-users only see the results.
 For example: "This is 99% a cat. But you'll never know how I know",
 or for us, "This code is 98% likely to contain a vulnerability".
-The genius idea in +Word2Vec+ was to make up a network
+The genius idea in `Word2Vec` was to make up a network
 for a totally unrelated task, and _ignore_ the results,
 focusing instead on the intermediate representations
 created by the network in the hidden layer.
@@ -203,11 +203,11 @@ in the training data to place them elsewhere.
 ''''
 
 While this is not yet directly related to security,
-+Word2Vec+ is nothing less than an impressive
+`Word2Vec` is nothing less than an impressive
 application and fortunate by-product of
 neural networks applied to a natural language processing problem.
 What will be certainly more interesting for our purposes
-is +Code2Vec+, coming up next. Stay tuned!
+is `Code2Vec`, coming up next. Stay tuned!
 
 == References
 

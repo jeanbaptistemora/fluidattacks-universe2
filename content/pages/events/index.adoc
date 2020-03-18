@@ -4,7 +4,7 @@
 
 = Conference Event Topics Available from Fluid Attacks
 
-+Fluid Attacks+ can help you with your next conference.
+`Fluid Attacks` can help you with your next conference.
 We are happy to provide professional conference presentations
 on a variety of topics.
 Pick a topic below and contact us.
@@ -12,7 +12,7 @@ Let's explore what we can do together.
 
 . link:burn-the-datacenter/[Burn the Datacenter: from Pets to Cattle.]
 
-. link:breaking-the-build/[Breaking the Build: Our +SecDevOps+ Habits.]
+. link:breaking-the-build/[Breaking the Build: Our `SecDevOps` Habits.]
 
 . link:securing-device/[Securing Your Mobile Device.]
 
@@ -20,26 +20,26 @@ Let's explore what we can do together.
 
 == When?
 
-You choose +3+ possible dates
+You choose `3` possible dates
 for your event that will work the best for you.
-We will then select +1+ of those dates
+We will then select `1` of those dates
 and confirm that date with you.
 
 == Details
 
 . *Cost:* You are responsible for the conference venue cost
 and the registration fees for conference attendees.
-+Fluid Attacks+ will cover all other conference-related expenses.
-However, we do require approximately +20+ registered attendees
+`Fluid Attacks` will cover all other conference-related expenses.
+However, we do require approximately `20` registered attendees
 for a conference to proceed.
-If you are unable to provide at least +20+ attendees,
+If you are unable to provide at least `20` attendees,
 then call us immediately.
 We can obtain up to 4 additional conference attendees for you,
 but you will be billed to cover their registration fees.
 
 . *Event Materials:* Conference attendees
 who complete the customer satisfaction survey
-within +1+ day after the conference ends
+within `1` day after the conference ends
 will be sent all conference materials.
 
 == Requirements
@@ -55,7 +55,7 @@ any of these items do not hesitate to contact us immediately.
 . All attendees should complete an online satisfaction survey
 (2 minutes) before leaving the conference.
 
-. +Fluid Attacks+ CAN invite up to +4+ additional attendees
+. `Fluid Attacks` CAN invite up to `4` additional attendees
 to the conference.
 
 . Conference attendees are asked not to use cellphones
@@ -64,24 +64,24 @@ or laptops during conference presentations.
 . Attendees should have registered before arriving at the conference.
 
 . Conference presenters are expected to begin their presentations
-at their scheduled time, therefore, they should arrive at least +30+ minutes
+at their scheduled time, therefore, they should arrive at least `30` minutes
 before the beginning of their scheduled presentation to connect their equipment
-and test +WiFi+ connectivity.
+and test `WiFi` connectivity.
 
-. *Access to +Google Drive+ via WiFi:*
+. *Access to `Google Drive` via WiFi:*
 If your presentation has animations and videos,
 they can only be accessed if the laptop is connected to a network that allows
-access to +Google Drive+.
+access to `Google Drive`.
 
-. Video beam with aspect ratio +16:9+.
+. Video beam with aspect ratio `16:9`.
 
-. An +HDMI+ cable connected directly to the video beam
-from the presenter's laptop (without +VGA+ adapters).
+. An `HDMI` cable connected directly to the video beam
+from the presenter's laptop (without `VGA` adapters).
 
 . Many presentations are dynamic and interactive,
 relying on face-to-face interaction with the audience.
 Therefore, attendees will not be connected, remotely.
 
 . Regardless of the number of additional presenters,
-+Fluid Attacks+ presentation must be scheduled before
+`Fluid Attacks` presentation must be scheduled before
 the last presenter of the morning session.

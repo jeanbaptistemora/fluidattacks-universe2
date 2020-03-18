@@ -59,8 +59,8 @@ meaning that it supports several programing paradigms in its code.
 Paradigms can be the object-oriented,
 procedural, functional, among others.
 There are also libraries with functional features
-such as link:https://docs.python.org/2/library/itertools.html[+itertools+] or
-link:https://docs.python.org/2/library/functools.html[+functools+]
+such as link:https://docs.python.org/2/library/itertools.html[`itertools`] or
+link:https://docs.python.org/2/library/functools.html[`functools`]
 that are included in the basic installation.
 
 == First baby steps
@@ -97,7 +97,7 @@ you can't do much or
 you can't generate short and clean code.
 You are right, partially.
 The functional paradigm doesn't have something
-like a +for+ or a +while+ loop,
+like a `for` or a `while` loop,
 but it does have functions that
 can replace the behavior of the loops.
 
@@ -121,7 +121,7 @@ increment_in_list(integer_list) # [8, 9, 10]
 ----
 
 If we want to do that in a functional way
-then we can use +map+, a method that applies
+then we can use `map`, a method that applies
 a custom function to all the elements of a list.
 
 .Increment in list elements with _map_
@@ -135,7 +135,7 @@ def increment (x):
 map(increment, integer_list) # [8, 9, 10]
 ----
 
-Another function that allows iterative operations is +filter+,
+Another function that allows iterative operations is `filter`,
 which creates a new list with the elements
 that return true when certain function
 is applied to a list, for example:
@@ -181,11 +181,11 @@ map(lambda x: x + 1,integer_list) # [8, 9, 10]
 We are now next to world-class athletes
 and we can learn a lot from them.
 One of the most prominent is
-link:https://docs.python.org/2/library/itertools.html[+itertools+],
+link:https://docs.python.org/2/library/itertools.html[`itertools`],
 a module designed to make efficient loops
-in iterable objects, based on languages such as +Haskell+ and +SML+.
+in iterable objects, based on languages such as `Haskell` and `SML`.
 In fact, you already know some functions
-of this module like +map+ and +filter+,
+of this module like `map` and `filter`,
 but now they come with the whole family and on steroids.
 
 Some of the representative methods of this library are:
@@ -224,11 +224,11 @@ list(itertools.islice(number_as_string,5))
 Not all functional approaches in Python are manifested as libraries,
 there are also functional features that are achieved
 by just writing our code in a certain way.
-One of these ways is +currying+,
+One of these ways is `currying`,
 which is defined as the transformation of a function
 that receives several input parameters to a sequence
 of functions that receives a single parameter.
-Why would we do this? Well, this is linked with +laziness+
+Why would we do this? Well, this is linked with `laziness`
 and functions that create functions,
 currying allows a partially execution of a function,
 making runtime more efficient by avoiding the calculation
@@ -255,10 +255,10 @@ mult(4)
 
 Now we'll learn something more sophisticated
 and exclusive than all of the above.
-I will teach you link:https://docs.python.org/2/library/functools.html[+functools+],
+I will teach you link:https://docs.python.org/2/library/functools.html[`functools`],
 a module with higher-level functions,
 created with the specific purpose of making Python more functional.
-This module, like link:https://docs.python.org/2/library/itertools.html[+itertools+],
+This module, like link:https://docs.python.org/2/library/itertools.html[`itertools`],
 is in the core of Python.
 
 .Example of some functools methods
@@ -291,7 +291,7 @@ bar.__doc__  # 'This is a foo attribute'
 
 You can even find fantastic external libraries
 that will help you to raise your code to a higher functional level.
-Some of them are link:https://pypi.org/project/PyMonad/[+PyMonad+] and link:https://pydash.readthedocs.io/en/latest/[+Pydash+].
+Some of them are link:https://pypi.org/project/PyMonad/[`PyMonad`] and link:https://pydash.readthedocs.io/en/latest/[`Pydash`].
 
 == Limit is in your mind
 

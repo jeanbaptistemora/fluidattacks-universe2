@@ -22,8 +22,8 @@ In the field of information security,
 is as important as
 'reporting them as soon as possible'.
 For that, we need an effective means to communicate with all stakeholders.
-We have proposed [inner]#link:../app-pickle/[before]# using +Gherkin+.
-In that entry, we showed how to use +Gherkin+'s syntax
+We have proposed [inner]#link:../app-pickle/[before]# using `Gherkin`.
+In that entry, we showed how to use `Gherkin`'s syntax
 in order to document attack vectors,
 i.e. how to find and exploit vulnerabilities in an app.
 We also showed the basics of the language,
@@ -35,7 +35,7 @@ we recommend you to take a look a it.
 Sometimes you need to specify a larger piece of text
 than fits in a
 link:https://en.wikipedia.org/wiki/Characters_per_line#In_programming[decent-length line.]
-For that, +Gherkin+, has +docstrings+ (+"""+):
+For that, `Gherkin`, has `docstrings` (`"""`):
 
 .Specifying long input
 [source,gherkin]
@@ -48,16 +48,16 @@ When I inject the following SQL query in the input field:
 Then I have granted myself access to the database
 ----
 
-You may write anything between the +docstrings+,
+You may write anything between the `docstrings`,
 but they must be in their own lines and
 the indentation is relative to them.
 They are particularly useful for citing code,
-output from +CLI+ programs and
+output from `CLI` programs and
 unstructured plain text.
 
 For 'structured' plain text,
-+Gherkin+ has the
-+Data Table+ syntax element,
+`Gherkin` has the
+`Data Table` syntax element,
 (don't confuse with tables from Scenario Outlines):
 
 .Tabular data with tables
@@ -71,9 +71,9 @@ Given the database is populated with the species:
 | Burr gherkin   | Cucumis       | Anguria  | Cucurbitaceae  |
 ----
 
-You don't have to align the pipes (+|+) as above,
-but it makes your +.feature+ file look nicer.
-+Gherkin+ doesn't care about that,
+You don't have to align the pipes (`|`) as above,
+but it makes your `.feature` file look nicer.
+`Gherkin` doesn't care about that,
 only that the number of columns match.
 
 Speaking of Scenario Outlines,
@@ -114,24 +114,24 @@ as we did before.
 
 === Background
 
-Or we can just plug that behavior right into the +Background+.
+Or we can just plug that behavior right into the `Background`.
 This must also include, in detail,
 everything needed to run the app.
-Our target +bWAPP+ is a +PHP+ web server;
+Our target `bWAPP` is a `PHP` web server;
 Maybe you're running it inside a
-link:http://itsecgames.blogspot.com.co/2013/07/bee-box-hack-and-deface-bwapp.html[+bee-box+]
+link:http://itsecgames.blogspot.com.co/2013/07/bee-box-hack-and-deface-bwapp.html[`bee-box`]
 virtual machine?
 Or did you set up the
-link:https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29[+LAMP+]
+link:https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29[`LAMP`]
 server yourself?
 On what operating system?
 All of this must be in the background,
 in order to allow reproducibility.
 
-I, for one, am running +bWAPP+ inside a
-link:https://www.docker.com/[+Docker+]
+I, for one, am running `bWAPP` inside a
+link:https://www.docker.com/[`Docker`]
 container made by
-link:https://hub.docker.com/r/raesene/bwapp/[+raesene+],
+link:https://hub.docker.com/r/raesene/bwapp/[`raesene`],
 so let there be a record of that in our attack feature:
 
 [source,gherkin]
@@ -152,7 +152,7 @@ so let there be a record of that in our attack feature:
 
 All programs and versions
 are explicitly listed,
-plus the +URL+ and field where the vulnerability was found.
+plus the `URL` and field where the vulnerability was found.
 Note how we can refere to external evidence files, too.
 
 === Dynamic detection and exploitation
@@ -161,44 +161,44 @@ Now, the cryptic message in the page
 might be trying to tell us something.
 Where can we climb?
 As it turns out, anywhere.
-The next hint is in the +URL+.
-The page takes a +GET+ parameter
-+page=message.txt+.
-So the file +message.txt+ is a simple text file
+The next hint is in the `URL`.
+The page takes a `GET` parameter
+`page=message.txt`.
+So the file `message.txt` is a simple text file
 that contains the words above,
 and what the page does is display it.
 What if we change it to another text file?
-Let's try +/commandi.php+.
+Let's try `/commandi.php`.
 
 .Abusing the website
 image::source.png["Screenshot of abused page"]
 
 Notice two things here:
-first, the +PHP+ code and text commentaries are shown.
-Hence we could theoretically access the +PHP+ source of
+first, the `PHP` code and text commentaries are shown.
+Hence we could theoretically access the `PHP` source of
 any page in this server.
-Second, the +HTML+ part is actually rendered in the browser,
+Second, the `HTML` part is actually rendered in the browser,
 which could lead to a
-[inner]#link:../xss-protection/[+XSS+]#
+[inner]#link:../xss-protection/[`XSS`]#
 or
-link:https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)[+CSRF+]
+link:https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)[`CSRF`]
 attack.
 
 But wait.
 The server is not just ``floating'' in space:
-it lives inside a +GNU/Linux+ machine.
-And 'everything' in such an +OS+ is a file,
+it lives inside a `GNU/Linux` machine.
+And 'everything' in such an `OS` is a file,
 many of which are plain-text files.
 One of them is of particular importance:
-link:https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/[+/etc/passwd+],
+link:https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/[`/etc/passwd`],
 which stores information about users.
 Let us try to display it in this page,
-setting +page=/etc/passwd+:
+setting `page=/etc/passwd`:
 
-.Listing users in the +bWAPP+ servers
+.Listing users in the `bWAPP` servers
 image::passwd.png["Viewing the contents of a system file in the page"]
 
-We can document that using +Gherkin+ data tables,
+We can document that using `Gherkin` data tables,
 in a scenario of its own,
 due to the importance of the finding:
 
@@ -233,12 +233,12 @@ due to the importance of the finding:
 Now we know how many users there are on the server,
 and which of them have passwords set.
 Those are stored in
-link:https://www.cyberciti.biz/faq/understanding-etcshadow-file/[+/etc/shadow+]
+link:https://www.cyberciti.biz/faq/understanding-etcshadow-file/[`/etc/shadow`]
 in the form of hashes,
 which can be
 [inner]#link:../storing-password-safely/[cracked if the passwords are weak]#.
-However, the +shadow+ file,
-unlike the +passwd+ file,
+However, the `shadow` file,
+unlike the `passwd` file,
 is protected:
 
 .A failure
@@ -249,7 +249,7 @@ sooner or later.
 Now that we got the hang of it
 we can try other files.
 Since we always do the same:
-change +page=message.txt+ to +page=desired-file.txt+
+change `page=message.txt` to `page=desired-file.txt`
 we can use a Scenario Outline for that,
 using one column for what we give as input,
 and the other for the result:
@@ -280,8 +280,8 @@ in the most scientific spirit.
 
 === Static detection and possible fixes
 
-Let us see why +passwd+ could be read
-and +shadow+ couldn't.
+Let us see why `passwd` could be read
+and `shadow` couldn't.
 From 'inside' the server let us say
 
 ----
@@ -290,18 +290,18 @@ $ ls -l /etc/{passwd,shadow}
 -rw-r----- 1 root shadow  559 Feb 15  2016 /etc/shadow
 ----
 
-Notice that +passwd+ has three +r+'s:
-one for the owner (the user +root+),
-one for the the owner's group (again, just +root+)
+Notice that `passwd` has three `r`'s:
+one for the owner (the user `root`),
+one for the the owner's group (again, just `root`)
 and the final one is for everyone else.
-However +shadow+ doesn't have that last +r+,
-so it can only be read by +root+.
+However `shadow` doesn't have that last `r`,
+so it can only be read by `root`.
 
 While we're at static detection of problems,
 let us see what is wrong with that page
 so we can try to fix it.
 The source code for the page
-simply takes the +GET+ parameter +page+,
+simply takes the `GET` parameter `page`,
 and displays it.
 
 .Adapted from bWAPP code. Some lines and brackets omitted for clarity.
@@ -319,17 +319,17 @@ function show_file($file)
 ----
 
 We can include this exact snippet,
-numbers and all, between +docstrings+,
+numbers and all, between `docstrings`,
 while discussing code exploration in our feature file.
 
 Now the main problem with this is
 that we can pass, as seen before,
-any file as a +GET+ parameter
+any file as a `GET` parameter
 and it will be shown, i.e.,
 that input should have been validated and cleaned before `show_file`.
 
 To fix that, a good first step would be to clean
-strings like +..+, +./+ and +../+,
+strings like `..`, `./` and `../`,
 which is what you would generally use to
 ``climb higher Spidy'':
 
@@ -367,7 +367,7 @@ allow users to display files at their will.
 
 === More details
 
-So far, we've documented in +Gherkin+:
+So far, we've documented in `Gherkin`:
 
 . the background where we're running the vulnerable app,
 . the dynamic detection and exploitation phase,
@@ -376,13 +376,13 @@ with several examples and evidences,
 . the static detection part, with specific bad code snippets,
 issues and suggestions.
 
-To finish a proper +.feature+ file,
+To finish a proper `.feature` file,
 we're missing, well, the feature itself,
 which is the vulnerability, or rather,
 the finding and exploitation thereof.
 
 Remember that we can document features and scenarios using 'descriptions'.
-After the keywords +Feature+, +Scenario+, +Scenario Outline+ or +Example+
+After the keywords `Feature`, `Scenario`, `Scenario Outline` or `Example`
 we can write anything we like,
 as long as no line starts with a keyword
 (including comments - you can't mix descriptions with comments,
@@ -414,13 +414,13 @@ Feature: Vulnerability FIN.S.0075 Local file inclusion
 For anything else, use comments.
 I will include details such as
 the vulnerability code,
-link:https://cwe.mitre.org/[+CWE+],
-link:https://nvd.nist.gov/[+CVE+]
+link:https://cwe.mitre.org/[`CWE`],
+link:https://nvd.nist.gov/[`CVE`]
 if present,
 computed metrics such as
-link:https://nvd.nist.gov/vuln-metrics/cvss[+CVSS+]
+link:https://nvd.nist.gov/vuln-metrics/cvss[`CVSS`]
 scores, etc
-in comments (+#+) at the beggining of the file.
+in comments (`#`) at the beggining of the file.
 See the <<apx-feature,full feature>> below.
 
 ''''
@@ -428,7 +428,7 @@ See the <<apx-feature,full feature>> below.
 And that is how we propose
 using this language
 to document attacks.
-You may ask: why +Gherkin+
+You may ask: why `Gherkin`
 and not just plain text?
 Because it is
 link:https://en.wikipedia.org/wiki/Line-oriented_programming_language[line-oriented]
@@ -450,5 +450,5 @@ so stay tuned.
 
 [source,gherkin]
 ----
-include::content/blog/gherkin-steroids/local-file-inclusion.feature[]
+include::local-file-inclusion.feature[]
 ----

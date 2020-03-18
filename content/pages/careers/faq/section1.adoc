@@ -12,7 +12,7 @@
 
 After you apply to a position
 listed on any of the portals we are registered in,
-it takes from +1+ to +2+ days for us to identify potential candidates,
+it takes from `1` to `2` days for us to identify potential candidates,
 classify them, and send invitations via email.
 If you apply and have not received an invitation
 or other notification after 2 consecutive business days,
@@ -29,8 +29,8 @@ and there won’t be any data loss.
 
 ==== 3. I don't have a RUT. How can I complete the third party form?
 
-On the link:http://www.dian.gov.co/contenidos/servicios/rut.html[+DIAN+ webpage]
-you can find out how to get your +RUT+, or how to update it,
+On the link:http://www.dian.gov.co/contenidos/servicios/rut.html[`DIAN` webpage]
+you can find out how to get your `RUT`, or how to update it,
 if you already have one.
 
 ==== 4. I don’t know what position I applied for. How can I find out?
@@ -76,7 +76,7 @@ to acquire knowledge yourself and then use it to problem-solve.
 
 ==== 9. Does the company offer on-the-job training?
 
-At +Fluid Attacks+ we do not require work experience,
+At `Fluid Attacks` we do not require work experience,
 nor do we certify the knowledge you acquire while working with us.
 We do not offer on-the-job training.
 It is up to you to acquire the knowledge you may need
@@ -121,7 +121,7 @@ advice for creating your portfolio [inner]#link:../portfolio/[here]#.
 ==== 15. I do not have a VISA. What should I put in that field?
 
 This field is not mandatory.
-Do not fill it in if you don’t have a +VISA+.
+Do not fill it in if you don’t have a `VISA`.
 
 ==== 16. What should I do after I've finished the character test?
 
@@ -161,7 +161,7 @@ yes, it is mandatory.
 *Is it mandatory to do the audition?*
 
 During the selection process this stage is optional.
-However, if you work at +Fluid Attacks+,
+However, if you work at `Fluid Attacks`,
 we expect you to have excellent communication skills,
 regardless of the position you are hired for.
 
@@ -175,7 +175,7 @@ and as always, if you have any questions, contact us.
 
 ==== 23. What does offer validity time mean?
 
-It is the length of time +Fluid Attacks+
+It is the length of time `Fluid Attacks`
 will hold open a job offer made to a specific candidate.
 If during this time the candidate does not respond
 with explicit and written acceptance of the job offer,
@@ -187,6 +187,6 @@ This allows us to fill positions as soon as possible.
 
 Your immersion process ends immediately.
 
-+Fluid Attacks+ will remove access to all training systems
+`Fluid Attacks` will remove access to all training systems
 and notify you of the total work hours
 to be put on your monthly time-worked invoice.

@@ -8,5 +8,5 @@
 
 == Requisito
 
-Una página +Web+ debe protegerse
-de ser embebida en sitios maliciosos (+clickjacking+).
+Una página `Web` debe protegerse
+de ser embebida en sitios maliciosos (`clickjacking`).

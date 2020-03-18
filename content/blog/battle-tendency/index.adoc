@@ -18,25 +18,25 @@
 
 In our [inner]#link:../security-trends[last article]#,
 we talked about cybersecurity risks
-that may be present in the most popular +IT+ technology currently in use.
+that may be present in the most popular `IT` technology currently in use.
 Although we mentioned some of these in the second part of our previous blog
 this time our topic will be slightly different.
-We will focus on the main +IT+ investments for 2019
+We will focus on the main `IT` investments for 2019
 and the expected changes and trends for upcoming years.
-We will discuss about the budget allocation regarding +IT+,
+We will discuss about the budget allocation regarding `IT`,
 as well as the factors that lead companies
 to invest, or increase the investments in technology.
 
 == Budget Growth
 
-In recent years +IT's+ increasing relevance
-has been reflected in the increase in +IT+ budgets.
-According to +Spiceworks+,
+In recent years `IT's` increasing relevance
+has been reflected in the increase in `IT` budgets.
+According to `Spiceworks`,
 in its _State of IT report_ <<r1, [1]>>,
 by 2020 *44%* of companies surveyed will have increased,
 and plan to keep increasing,
 their technology budgets in upcoming years.
-Reasons to increase +IT+ budgets are diverse,
+Reasons to increase `IT` budgets are diverse,
 however, the most common factor concerning most companies
 is their need to replace outdated technology
 in order to remain competitive within their market.
@@ -48,13 +48,13 @@ image::it-budget-increase.png[Top factors leading to IT budget increases in 2020
 Company size must always be taken into account
 when discussing technology and money.
 The larger the company,
-the higher the budget dedicated to +IT+,
+the higher the budget dedicated to `IT`,
 as we see in the following comparative table <<r2, [2]>>:
 
 .IT Budget Comparison of different companies size. Source: <<r2, [2]>>.
 image::it-company-size.png[Comparative Table]
 
-However, a large investment in +IT+
+However, a large investment in `IT`
 does not necessarily translate into improved security.
 A *_smart_* investment is frequently better and more profitable.
 Focusing on proprietary tools
@@ -68,7 +68,7 @@ the most common reason companies invest in new technology
 is to replace old technology
 and thus remain competitive,
 but security also plays an important role in this field,
-since it is the second most relevant reason companies invest in +IT+
+since it is the second most relevant reason companies invest in `IT`
 
 .Source:<<r1, [1]>>
 [quote]
@@ -78,7 +78,7 @@ are increasing 2020 IT spend due to a recent security incident."
 Companies seem to learn the _hard way_.
 It often takes a security breach
 for a company to increase
-or even define appropriate security policies regarding +IT+.
+or even define appropriate security policies regarding `IT`.
 Again, a higher investment does not guarantee
 a company's resources will be protected.
 Investments must be balanced
@@ -106,24 +106,24 @@ Of course, it depends on a company's long-term vision,
 as well as its size,
 but we can search for some patterns
 if we take a look at the budget allocation trends
-projected for +IT+ in 2020:
+projected for `IT` in 2020:
 
 .IT budget allocation in 2020. Source <<r1, [1]>>.
 image::budget-allocation.png[Budget IT Allocation in 2020]
 
-+Spiceworks'+ <<r1, [1]>> research
-surveyed +1,005+ European and North American companies.
+`Spiceworks'` <<r1, [1]>> research
+surveyed `1,005` European and North American companies.
 They found that in 2020,
 companies' main investment interests
 are projected to be in hardware,
 software, and cloud-based services.
 So let’s take a look at the results and form our own conclusions.
 
-What grabs our attention is the +IT+ technology
+What grabs our attention is the `IT` technology
 that companies are most interested in acquiring.
 This technology is likely to become
 the industry trend in the upcoming years.
-+Spiceworks+ can help us again
+`Spiceworks` can help us again
 to form a more complete picture
 of what hot topics will be trending
 in the technology field:
@@ -131,28 +131,28 @@ in the technology field:
 .Adoption of technology trends according to Spiceworks. Source: <<r1, [1]>>.
 image::it-trends.png[Adoption of technology trends according to Spiceworks]
 
-We can also take a glance at the +KPMG+ report <<r2, [2]>>
-which offers us a similar panorama for +IT+ investments
-in +740+ technology companies from 12 countries:
+We can also take a glance at the `KPMG` report <<r2, [2]>>
+which offers us a similar panorama for `IT` investments
+in `740` technology companies from 12 countries:
 
 .Investment Rankings in 2019 according to KPMG. Source: <<r2, [2]>>.
 image::it-investments.png[Investment Rankings according to KPMG]
 
 Now we see some patterns emerging.
-Internet of Things (+IoT+),
-+IT+ automation,
+Internet of Things (`IoT`),
+`IT` automation,
 Artificial intelligence,
 Virtual reality,
 and Blockchain technology
 are the most adopted technology for several companies.
 Some other trends, such as serverless computing,
 container technology, and hyperconverged infrastructure,
-are all technologies that we often use at +Fluid Attacks+.
+are all technologies that we often use at `Fluid Attacks`.
 We're dabbling in [inner]#link:../categories/machine-learning/[artificial intelligence]#
 in a cybersecurity approach for vulnerabilities [inner]#link:../triage-hacker/[classification]#,
 and we already [inner]#link:../../products/asserts/[automate]#
 the vulnerabilities closures
-on our customers' pipelines (+CI/CD+)
+on our customers' pipelines (`CI/CD`)
 with our [inner]#link:../../services/continuous-hacking/[continuous hacking service]#.
 We are aware of the potential of some of these techniques,
 not only for cybersecurity and overall hardening

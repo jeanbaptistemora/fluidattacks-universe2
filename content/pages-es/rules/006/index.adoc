@@ -91,7 +91,7 @@ no fue previamente identificada.
 
 . [[r1]] link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
 . [[r2]] link:https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx[Microsoft: Modelado de Amenazas].
-. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(A):]
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.308[`HIPAA Security Rules` 164.308(a)(1)(ii)(A):]
 Análisis de riesgos: Llevar a cabo una evaluación precisa y completa
 de los riesgos y vulnerabilidades potenciales a la confidencialidad, integridad
 y disponibilidad de la información sensible protegida electrónicamente

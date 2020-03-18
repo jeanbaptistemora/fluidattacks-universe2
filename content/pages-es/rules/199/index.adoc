@@ -14,13 +14,13 @@ y quién puede acceder con dispositivos foráneos.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(1):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(d)(1):]
 Control de dispositivos y medios: Implementar políticas y procedimientos
 para la recepción y remoción de hardware y medios electrónicos
 que contengan información sensible dentro y fuera de las instalaciones,
 y el movimiento de dichos objetos dentro de las instalaciones.
 
-. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-3[+NIST+ 800-53 IA-3]
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-3[`NIST` 800-53 IA-3]
 Identificación y autenticación en dispositivos:
 El sistema de información únicamente identifica y autentica
 a los dispositivos especificados por la organización

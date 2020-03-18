@@ -15,8 +15,8 @@ como las pruebas de intrusión.
 Algunos de estos problemas son: las bombas de tiempo, los caballos de troya,
 o las malas prácticas de programación.
 Además, este servicio permite encontrar un número mayor de ocurrencias
-en los problemas de seguridad clásicos como la inyección de código +SQL+,
-+Cross site scripting+, manipulación de +URL+
+en los problemas de seguridad clásicos como la inyección de código `SQL`,
+`Cross site scripting`, manipulación de `URL`
 o las fallas en el control de acceso
 en oposición a las pruebas de intrusión que sólo pueden encontrar
 parte de todas las ocurrencias.
@@ -24,8 +24,8 @@ parte de todas las ocurrencias.
 == Objetivos
 
 * Detectar el mayor número de ocurrencias posibles
-de vulnerabilidades de seguridad clásicas no intencionales como +SQL injection+,
-+XSS+, manipulación de +URL+, control de límites o fallas de control de acceso
+de vulnerabilidades de seguridad clásicas no intencionales como `SQL injection`,
+`XSS`, manipulación de `URL`, control de límites o fallas de control de acceso
 mediante un análisis exhaustivo de todo el código fuente de una aplicación
 incluida en el alcance del proyecto.
 * Detectar el mayor número de ocurrencias posible

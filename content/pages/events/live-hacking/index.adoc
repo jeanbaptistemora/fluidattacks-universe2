@@ -12,7 +12,7 @@ Those that have access to your personal
 and, in some cases, financial information?
 Are these applications so safe that the only ones
 that may be able to compromise them
-are those +hackers+ that we have seen on T.V and movies,
+are those `hackers` that we have seen on T.V and movies,
 who sit in front of a black screen with green letters,
 use the keyboard at lighting speed,
 and probably speak binary as their second language?
@@ -22,15 +22,15 @@ and maybe there is no need for such an extraordinary person
 to compromise your information.
 This is usually because the most common vulnerabilities
 found in applications are of the type
-+_XSS (Cross Site Scripting)_+, +_SQLi (SQL Injections)_+
-+_CSRF (Cross-Site Request Forgery)_+ , _Insecure Session Management_
+`_XSS (Cross Site Scripting)_`, `_SQLi (SQL Injections)_`
+`_CSRF (Cross-Site Request Forgery)_` , _Insecure Session Management_
 and _Insecure Configurations_, among others;
 these vulnerabilities are widely documented,
 and their exploitation can be, in some cases, extremely simple,
 even without requiring an in-depth knowledge
 of computation or programming.
 
-Let's take a look at how our +ethical hackers+
+Let's take a look at how our `ethical hackers`
 exploit those vulnerabilities to obtain sensitive information,
 hijack a session, or even gain root access
 over the server running the application.
@@ -39,8 +39,8 @@ over the server running the application.
 
 In this conference we will use an application named
 link:http://www.itsecgames.com/[bWAPP],
-which has the particularity of being vulnerable by design (+vbd+),
-in such a way that +ethical hackers+ and security enthusiasts
+which has the particularity of being vulnerable by design (`vbd`),
+in such a way that `ethical hackers` and security enthusiasts
 can practice their skills and keep improving,
 and those who are just starting in this world
 can learn how to find and exploit vulnerabilities.
@@ -63,25 +63,25 @@ are increasing exponentially.
 == 3. Experience
 
 This conference was held in the Information Security Workshop
-carried out by link:https://www.tigo.com.co/[+TigoUne+].
+carried out by link:https://www.tigo.com.co/[`TigoUne`].
 
 == 4. Where?
 
 The presentation can be hosted
 at your company's facilities or an external venue.
 
-The talk can be given in Medellín, with a minimum audience of +10+ assistants.
+The talk can be given in Medellín, with a minimum audience of `10` assistants.
 For other cities in Colombia, Central America, Ecuador and Perú
-the minimum audience are +20+ assistants.
+the minimum audience are `20` assistants.
 
 == 5. Duration
 
-The event duration is +1+ hour.
+The event duration is `1` hour.
 
 == 6. Public
 
 This conference is suitable for people with basic or low technical knowledge.
-The audience limit are +30+ assistants.
+The audience limit are `30` assistants.
 
 == 7. Requirements
 

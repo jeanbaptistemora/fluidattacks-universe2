@@ -5,7 +5,7 @@
 
 = Reviews
 
-+Fluid Attacks+ does everything in its power
+`Fluid Attacks` does everything in its power
 to make sure your business has the resources it needs
 to protect its digital assets and to run smoothly
 without having to worry about the possibility of a security breach.
@@ -18,7 +18,7 @@ in the world!.
 
 image::rank.png["Fluid Attacks Clutch Profile"]
 
-link:https://clutch.co/[Clutch] is an emerging +B2B+ ratings
+link:https://clutch.co/[Clutch] is an emerging `B2B` ratings
 and reviews platform based in Washington, DC.
 They are renowned for their ability to facilitate the networking process
 between companies in different industries.
@@ -32,25 +32,25 @@ At Fluid Attacks we value the personal relationships
 we build with our clients.
 We are willing to show you any part of our process
 you would like to see
-so that you may fully understand how +Fluid Attacks+
+so that you may fully understand how `Fluid Attacks`
 keeps your company safe and secure.
 Read reviews on our company
 written by previous clients at Clutch's website.
 
-++++
+````
 <script type="text/javascript" src="https://static1.clutch.co/api/widget.js"></script>
 <div class="clutch-widget" data-url="https://clutch.co" data-widget-type="3" data-height="350"
 data-clutchcompany-id="488256" style="width:40%; margin:0 auto;"></div>
-++++
+````
 
 Clutch maintains a profile on each company
 with past-client reviews and other information gathered by Clutch’s team.
 The reputation of a firm is enhanced by client reviews,
 high ratings, awards, and leaderboard mentions.
 Thanks to the reviews left by Fluid Attacks' past clients,
-we have attained a rating of +4.9+ out of +5+ stars.
+we have attained a rating of `4.9` out of `5` stars.
 
-We look forward to adding your company to +Fluid Attacks'+ client list
+We look forward to adding your company to `Fluid Attacks'` client list
 and safeguarding your company's future.
 For more great reviews about us,
-take a look at our link:https://clutch.co/profile/fluid-attacks[+Fluid Attacks+ profile] on Clutch.
+take a look at our link:https://clutch.co/profile/fluid-attacks[`Fluid Attacks` profile] on Clutch.

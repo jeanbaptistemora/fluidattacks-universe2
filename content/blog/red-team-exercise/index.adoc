@@ -45,27 +45,27 @@ Therefore, in a Red Team, you will find team members with the following skills:
 image::skillredteam.png[Possible roles in a Red Team via Medium.com.]
 
 Regarding the information above the above,
-we spoke with Andres of +Fluid Attacks+,
+we spoke with Andres of `Fluid Attacks`,
 When we asked him
-about the Red Team exercise done by +Fluid Attacks+, he said:
+about the Red Team exercise done by `Fluid Attacks`, he said:
 [role="fluid-qanda"]
   . "First, the Red Team propose hacking objetives.
   For example: escalate privileges, modify system files or install backdoor
   to do it. We use the kill chain strategy"
 
-Take a look at this video from +Fox9+ about Red Team exercise.
+Take a look at this video from `Fox9` about Red Team exercise.
 
-++++
+````
 <div style="text-align: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YIV0xvatX0M"
 frameborder="0" allowfullscreen></iframe></div>
-++++
+````
 
 == What is Kill Chain?
 
 Kill Chain is a military term
 to describe the steps in launching an attack.
-One of its model is the +F2T2EA+
+One of its model is the `F2T2EA`
 and includes the following phases:<<r3, [1]>>
 
 . *Find*:  Identify a target
@@ -90,8 +90,8 @@ of appropriate weapons to engage it.
 . *Assess*: Evaluate the effects of the attack,
 including any intelligence gathered at the location.
 
-.+F2T2EA+ - The Kill Chain via link:http://myarick.blogspot.com/2014/02/f2t2ea.html[Biz -n- Seen Blog].
-image::f2t2ea-killchain.png[+F2T2EA+ - The Kill Chain]
+.`F2T2EA` - The Kill Chain via link:http://myarick.blogspot.com/2014/02/f2t2ea.html[Biz -n- Seen Blog].
+image::f2t2ea-killchain.png[`F2T2EA` - The Kill Chain]
 
 == Cyber Kill Chain
 
@@ -152,7 +152,7 @@ but those are not unique strategies, link:https://www.helpnetsecurity.com/2015/0
  and only covers a certain type of attacks.
  I think there is truth to both views,
  so I'd like to propose three simple steps to make the kill chain even better,
- let's call it +Kill Chain 3.0+."
+ let's call it `Kill Chain 3.0`."
 
 Therefore, Kill Chain is not the only option.
 You can also adapt your attack link:https://en.wikipedia.org/wiki/Military_strategy[strategy].
@@ -173,9 +173,9 @@ but we will save that discussion for a future post.
 
 According to link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[Medium.com],
 a Red Team member must have an offensive mindset.
-For this reason, "+CTFs+, wargames, or pen testing labs
+For this reason, "`CTFs`, wargames, or pen testing labs
 are a great way to exercise offensive mindset"<<r5, [4]>>.
-At +Fluid Attacks+, every new member
+At `Fluid Attacks`, every new member
 trains in hacking and programming challenges
 to check and assess their level of offensive mindset.
 

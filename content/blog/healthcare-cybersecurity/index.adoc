@@ -17,10 +17,10 @@
 = HealthTech Protection
 
 Many startups are achieving success by redefining how the economy works.
-+Xtechs+ (financial, health, insurance, among others)
+`Xtechs` (financial, health, insurance, among others)
 are reducing operational costs and delivering more value to customers,
 by leveraging on computer science and advances in electronics.
-+3D+ printing, habit-tracking apps, cheap, precise
+`3D` printing, habit-tracking apps, cheap, precise
 and small measurement devices, and more, are just a few examples
 of what citizens and patients are using these days from so-called HealthTech.
 Additionally, within health centers
@@ -50,8 +50,8 @@ image::atul.png[Atul Gawande, Source: https://commons.wikimedia.org/wiki/File:At
 Here’s a short story:
 Atul Gawande, renowned surgeon and writer
 worked with the World Health Organization to address high mortality rates
-within intensive care units (+ICUs+).
-The finding: checklists reduced +40%+ in mortality in +ICUs+,
+within intensive care units (`ICUs`).
+The finding: checklists reduced `40%` in mortality in `ICUs`,
 according to the evidence.
 However, that's only the medium
 by which the breakthrough solution was delivered.
@@ -74,7 +74,7 @@ In his words:
   flaws of memory and attention and thoroughness.”
   (Gawande, 2009)
 
-Dr. Gawande has gone further to improve performance, not only in +ICUs+.
+Dr. Gawande has gone further to improve performance, not only in `ICUs`.
 He discussed the Morbidity and Mortality (M&M)
 conferences he runs in the Brigham and Women's Hospital
 at link:https://fs.blog/atul-gawande/[The Knowledge Project podcast].
@@ -104,7 +104,7 @@ For society, all these mean greater well-being.
 .Stethoscope and heart
 image::stethoscope.png[stethoscope and heart, Source: https://www.flickr.com/photos/71195909@N03/42743938785/]
 
-We can see information and +IT+ assets
+We can see information and `IT` assets
 as patients cybersecurity teams look after.
 Similar to healthcare, cybersecurity, computer science,
 and software engineering enjoy and suffer at the same time
@@ -124,7 +124,7 @@ Healthcare, nonetheless,
 is showing us that even in _“necessary fallibility”_ environments,
 there could be ways to perform better.
 Particularly, checklists might be translated into cybersecurity operations.
-At +Fluid Attacks+, we believe there is a clear link in what we do
+At `Fluid Attacks`, we believe there is a clear link in what we do
 and how organizations benefit by better managing _“fallibility”_.
 HealthTech providers should be especially aware
 of how to ensure their developments provide reliable security
@@ -134,11 +134,11 @@ for data and operations.
 
 We have one single offering:
 we attack your software.
-We breach +IT+ systems flaws with superior effectiveness before others do,
+We breach `IT` systems flaws with superior effectiveness before others do,
 causing real harm.
 
 We do this, in part, similar to what Dr. Gawande
-and his team found to lower mortality rates in +ICUs+:
+and his team found to lower mortality rates in `ICUs`:
 using checklists.
 However, we go some steps further:
 
@@ -153,7 +153,7 @@ our security engineers are the best-trained hackers.
 They think and work all the time on how your system's flaws
 can be combined to configure attack vectors others cannot identify.
 
-* We are also capable of assessing valuable +IT+
+* We are also capable of assessing valuable `IT`
 and information assets [inner]#link:../../services/one-shot-hacking/[in one shot]#.
 Again, we rely on _"smart"_ checklists.
 
@@ -165,12 +165,12 @@ fed by all of our knowledge and experience.
 
 * All that we do gets stored, described, and tracked in [inner]#link:../../products/integrates/[Integrates]#,
 our Vulnerability Management Platform.
-+Integrates+ makes it easier for our customers to keep track
+`Integrates` makes it easier for our customers to keep track
 of their security weaknesses as well as their fixes performed.
 
 What about what Dr. Gawande calls M&M meetings?
 Well, the good news is that our approach makes you less likely
-to institute a version of the +M&M+ meetings,
+to institute a version of the `M&M` meetings,
 as our work is proactive, not reactive.
 With us, you don't have to wait to be hacked for real,
 and then discuss how to improve for the future.

@@ -16,11 +16,11 @@
 
 = Attacking the Weakest Link
 
-Companies invest millions of dollars on +IT+ infrastructure and cybersecurity
+Companies invest millions of dollars on `IT` infrastructure and cybersecurity
 to keep their information protected.
 But when it comes to training their employees the investment is minimal.
 Employees that daily manipulate, organize, create or update a company’s main
-data are the main link between +IT+ infrastructure and
+data are the main link between `IT` infrastructure and
 the data that resides in it.
 Reality dictates that absolute security is impossible,
 but let me ask you this:
@@ -53,12 +53,12 @@ or search for a weaker link. This is where social engineering becomes important.
 
 Within the hacker jargon, there’s an attack called the "secretary attack".
 This assault can affect anyone, "secretary attack" is simply the given name.
-The assault is executed by leaving a +USB+ near or at the victim's workplace.
+The assault is executed by leaving a `USB` near or at the victim's workplace.
 The attacker then needs to wait for the victim to plug the device
 in their computer, giving an entry point and allowing the attacker
 to breach the network.
 Another way this vulnerability is exploited is to ask someone
-to print out a document from an infected +USB+.
+to print out a document from an infected `USB`.
 It’s common for the attacker to cut ties with the victim
 once the attack has taken place, making this type of assault difficult to trace.
 

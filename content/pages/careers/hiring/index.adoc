@@ -5,10 +5,10 @@
 
 = Hiring
 
-When you accept +Fluid Attacks'+ job offer,
+When you accept `Fluid Attacks'` job offer,
 you must send us a *single email* at administration@fluidattacks.com
-with a *single carefully organized* +.ZIP+ file
-containing a +PDF+ for each of the following documents:
+with a *single carefully organized* `.ZIP` file
+containing a `PDF` for each of the following documents:
 
 . Digital photo, in color, on a white background, with suit and tie (men).
 . Photocopy of a valid government-issued ID-both sides on one page.
@@ -24,27 +24,27 @@ It must contain:
 .. Your major(s) and minor(s).
 .. Total number of credits required to graduate or complete your degree.
 .. Number of credits completed, with grades,
-as of the date you are applying to +Fluid Attacks+.
+as of the date you are applying to `Fluid Attacks`.
 .. Course names and number of credits you are currently enrolled in.
 .. Cumulative grade point average
-as of the date you are applying to +Fluid Attacks+.
+as of the date you are applying to `Fluid Attacks`.
 
 . Photocopy of relevant professional certifications.
 . Photocopy of relevant courses taken.
 If using a college transcript, please highlight relevant courses.
 Also include a list of your relevant professional certification courses.
-. Your +SSN+ (Social Security Number)
-or if you do not have an +SSN+,
-your +ITIN+ (Individual Taxpayer Identification Number).
+. Your `SSN` (Social Security Number)
+or if you do not have an `SSN`,
+your `ITIN` (Individual Taxpayer Identification Number).
 . Name of the primary healthcare provider you will use
 or are currently using if you already have one.
-. Full name and +ID+ of any family members
+. Full name and `ID` of any family members
 who are or will be covered by your healthcare insurance.
 . Name of the pension fund you wish to be registered with
 or a certificate of affiliation if you already have one.
 . Evidence of attendance to the pre-employment medical exam.
 . Bank account information for purposes of direct deposit for your paycheck.
-In the +U.S.A.+ your routing number and account number.
+In the `U.S.A.` your routing number and account number.
 . Marital status, indicating if you have children.
 . Complete contact information: home mailing address, email address, and phone
 numbers we can contact you at.

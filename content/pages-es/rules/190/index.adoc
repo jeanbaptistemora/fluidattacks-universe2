@@ -9,4 +9,4 @@
 == Requisito
 
 El sistema debe usar los datos personales
-sólo para el propósito indicado (+OECD.10+, +ISACA.G31.4.+).
+sólo para el propósito indicado (`OECD.10`, `ISACA.G31.4.`).

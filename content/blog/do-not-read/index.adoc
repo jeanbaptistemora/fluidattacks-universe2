@@ -41,7 +41,7 @@ More broadly, we have asked ourselves,
 what else is out there that we can learn from psychology
 and from the behavioral sciences to what we do on a daily basis.
 Why? Because we know that information security
-is more than just focusing on software and +IT+ infrastructure:
+is more than just focusing on software and `IT` infrastructure:
 it is about how we behave.
 And we know some answers;
 perhaps you know too.
@@ -57,8 +57,8 @@ has succumbed to these types of attacks,
 especially by phishing and impersonation,
 with significant financial and reputational loses.
 According to link:https://www.phishingbox.com/assets/files/Page_Editor_Files/rp_DBIR_2016_Report_en_xg.pdf[Verizon]
-which publishes periodically the Data Breach Investigation Report (+DBIR+),
-in 2015, +95+ out of +100+ of advanced and targeted attacks
+which publishes periodically the Data Breach Investigation Report (`DBIR`),
+in 2015, `95` out of `100` of advanced and targeted attacks
 involved spear-phishing scams, through emails with malicious attachments.
 Many people still make a decision an attacker wants to be made
 triggered by a well-crafted e-mail that arrives at their inbox.
@@ -79,8 +79,8 @@ but we fail to, even when we say we want to;
 again, seem irrational.
 Ongoing research conducted
 by link:http://www.ideas42.org/blog/project/human-behavior-cybersecurity/[Ideas42],
-a +US+ non-profit, social-purpose organization,
-has found (by speaking to cybersecurity experts) that +70-80%+
+a `US` non-profit, social-purpose organization,
+has found (by speaking to cybersecurity experts) that `70-80%`
 of the costs attributed to cybersecurity attacks
 have its origins in human error.
 You could think about choosing _sometimes insanely_ weak passwords
@@ -88,10 +88,10 @@ You could think about choosing _sometimes insanely_ weak passwords
 Its ridiculous how pervasive this is),
 the computer sessions we left open unnecessarily
 waiting for someone to dive in,
-doing nothing about vulnerabilities or +IT+ security weaknesses found timely,
+doing nothing about vulnerabilities or `IT` security weaknesses found timely,
 providing sensitive information to some party
 or person without much thought, and so on.
-Some of these are out of +Fluid Attacks’+ scope nowadays.
+Some of these are out of `Fluid Attacks’` scope nowadays.
 Some others are our very reason to exist;
 let’s talk about these.
 
@@ -100,15 +100,15 @@ image::rest.png[on Unsplash https://unsplash.com/photos/BzIC8ioj7Ms]
 
 Let’s take secure coding; that’s a behavior.
 How many developers indeed engage in secure coding?
-+Ideas42+, in the research already mentioned,
+`Ideas42`, in the research already mentioned,
 has found a link:https://www.eweek.com/security/app-security-worries-cisos-but-most-fail-to-adopt-secure-development[figure] worth taking a look.
-Nearly +14.000+ +CISOs+ and other security professionals
-were surveyed by +ISC2+.
-+72%+ of them indicated that _"application vulnerabilities were a top concern"_
-but, only +24%+ of security practitioners
+Nearly `14.000` `CISOs` and other security professionals
+were surveyed by `ISC2`.
+`72%` of them indicated that _"application vulnerabilities were a top concern"_
+but, only `24%` of security practitioners
 say their companies always scan for bugs
 during the code development process,
-with another +46%+ sometimes searching for bugs during development.
+with another `46%` sometimes searching for bugs during development.
 This could be seen by a psychologist
 as a clear example of the intention-action gap,
 a well-known finding in behavioral science literature.
@@ -116,7 +116,7 @@ The majority of us agree that saving for the future is very important;
 yet, just a few of us are in fact saving enough for retirement;
 many people say dieting and/or exercising is very important (it is their goal)
 but just a few engage in those sustained behaviors.
-+Ideas42+ has identified link:http://www.ideas42.org/wp-content/uploads/2016/08/Deep-Thought-A-Cybersecurity-Story.pdf[secure coding]
+`Ideas42` has identified link:http://www.ideas42.org/wp-content/uploads/2016/08/Deep-Thought-A-Cybersecurity-Story.pdf[secure coding]
 as one behavioral challenge that might be a potential lever
 to make cybersecurity more robust.
 They provide behavioral insights to take into account,
@@ -148,10 +148,10 @@ What is the likely trade-off? Security.
 But heuristics can be used in security too, as we will see next.
 |====
 
-Some of the _'design concepts'_ +Ideas42+ suggest
+Some of the _'design concepts'_ `Ideas42` suggest
 to make cybersecurity more robust
 referring to the safe coding behaviors are almost exactly
-what we at +Fluid Attacks+ want to provide to our customers:
+what we at `Fluid Attacks` want to provide to our customers:
 
 . *Provide/create more bandwidth*. By _‘bandwidth’_,
 behavioral scientists refer to cognitive capacity.
@@ -178,7 +178,7 @@ Have you visited our [inner]#link:../../products/rules/[Rules product]# ?
 It is completely FREE!
 Your company can leverage
 what we have built over the years
-making infusing security on your code and +IT+ infrastructure a lot easier.
+making infusing security on your code and `IT` infrastructure a lot easier.
 
 . *Bring costs into the present:*
 In a nutshell, as humans,
@@ -192,18 +192,18 @@ than deliver, additionally, secure coding at low cost (time-effort),
 even when the potential loss in the future
 (by not considering safe coding) is huge.
 Ehhr... we don't have anything here,
-but, you could consider what +Ideas42+ suggest:
+but, you could consider what `Ideas42` suggest:
 put incentives upfront, for example, performance-based pay.
 We acknowledge this is not easy, but it is worth considering
 and analyze how feasible it is.
 
-These clever people at +Ideas42+
+These clever people at `Ideas42`
 also came up with another ten behavioral challenges
 related to cybersecurity.
 We invite you to take a look at the report
 they published a couple of months ago.
 We could discuss also what they labeled _‘Updating’_ ,
-although we would focus on the +IT+ guy
+although we would focus on the `IT` guy
 or team responsible for _‘patching’_ infrastructure.
 Would you like?
 
@@ -213,7 +213,7 @@ and we look forward to discussing more of this.
 One of our former employees, now a behavioral strategist,
 recently shared with us some ideas and perspectives that lead to this post.
 We were impressed by how behavioral science is spreading fast,
-as he told us, and we also came across this study from +ideas42+
+as he told us, and we also came across this study from `ideas42`
 in which we find common grounds in what we already do
 that influences behavior for the benefit of our customers
 
@@ -223,7 +223,7 @@ and we want to hear from you !
 * What human errors do you think are the most relevant
 to address in the workplace (i.e. more dangerous or pervasive)?
 
-* How could a company nudge users or even  +IT+ guys
+* How could a company nudge users or even  `IT` guys
 to do what they should do?
 
 * Are you a software developer?

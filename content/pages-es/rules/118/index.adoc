@@ -9,4 +9,4 @@
 == Requisito
 
 Los archivos que se encuentran adjuntos en un correo electrónico
-deben ser analizados por una herramienta +anti-malware+.
+deben ser analizados por una herramienta `anti-malware`.

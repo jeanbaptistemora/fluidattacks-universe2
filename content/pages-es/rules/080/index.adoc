@@ -12,11 +12,11 @@ Las bitácoras de un sistema no deben ser modificables o alterables.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.6+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[`OWASP-ASVS v3.1-8.6`]
 Verificar que las bitácoras de seguridad
 estén protegidas contra modificaciones y accesos no autorizados
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.11+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[`OWASP-ASVS v3.1-8.11`]
 Verificar que las bitácoras de seguridad tengan mecanismos
 para verificar su integridad o controles para prevenir
 modificaciones no autorizadas.

@@ -22,15 +22,15 @@ align with the demonstrated results of what a candidate can achieve.
 
 Requirements for the portfolio:
 
-. The portfolio must be delivered in a +PDF+ format
+. The portfolio must be delivered in a `PDF` format
 through the application form.
 In case you experience any trouble,
 you can also submit it via email to careers@autonomicmind.com.
-. The portfolio is not a +CV+.
-Do not use your +CV+ as a substitute for the portfolio.
-. The portfolio must contain your top +5+ achievements,
+. The portfolio is not a `CV`.
+Do not use your `CV` as a substitute for the portfolio.
+. The portfolio must contain your top `5` achievements,
 including personal, professional and academic achievements.
-Each one must be explained in at most +1+ page.
+Each one must be explained in at most `1` page.
 * Designs/Diagrams (network, data, class, circuits, etc).
 * Code examples.
 * Documentation.
@@ -48,7 +48,7 @@ that apply to simple engineering assignments:
 * Only your best results.
 
 . The portfolio must be delivered in a slideshow format,
-in high resolution (aspect ratio +16:9+).
+in high resolution (aspect ratio `16:9`).
 
 [CAUTION]
 Failure to submit a portfolio

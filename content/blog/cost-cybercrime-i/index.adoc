@@ -16,21 +16,21 @@
 
 = Evolution of Cybercrime Costs (I)
 
-Every year, the *_Workshop on the Economics of Information Security_* (+WEIS+)
+Every year, the *_Workshop on the Economics of Information Security_* (`WEIS`)
 gathers renowned social and computer scientists
 (both from and outside academia).
-In +WEIS+, the economic implications of information security are discussed.
+In `WEIS`, the economic implications of information security are discussed.
 It's a fantastic interdisciplinary event: it covers topics like
 _Vulnerability discovery, disclosure, and patching_ (classical, technical),
 as well as _Models and analysis of online crime_
 and _Behavioral security and privacy_ (newer stuff).
 
-This year, the +WEIS+ will be held in Brussels, Belgium, in the summer.
+This year, the `WEIS` will be held in Brussels, Belgium, in the summer.
 You can find more information link:https://weis2020.econinfosec.org/[here]
 if you'd like to attend.
 
 A group of researchers led by Ross Anderson (University of Cambridge)
-presented a paper in +WEIS+ 2019 (link:https://weis2019.econinfosec.org/wp-content/uploads/sites/6/2019/05/WEIS_2019_paper_25.pdf[available here])
+presented a paper in `WEIS` 2019 (link:https://weis2019.econinfosec.org/wp-content/uploads/sites/6/2019/05/WEIS_2019_paper_25.pdf[available here])
 which updates and expands findings from a 2012 study.
 That first study focused on *measuring costs of cybercrime*
 and highlighted the costs society has to incur from different angles,
@@ -107,8 +107,8 @@ Of that figure, the largest portion pertains to the card-not-present scams,
 up to €1.32bn, and, it's worth mentioning,
 it's the only component growing (ATM and POS fraud fell at a quick pace).
 
-A newer cybercrime is _Authorized push payments_ (+APP+).
-+APP+ fraud happens when fraudsters deceive
+A newer cybercrime is _Authorized push payments_ (`APP`).
+`APP` fraud happens when fraudsters deceive
 consumers or individuals at a business
 to make payments under pretenses to a bank account controlled by the fraudster.
 As payments made using real-time payment schemes are irrevocable,
@@ -151,7 +151,7 @@ most of the attacks came from two groups of criminals.
 Finally, the researchers also mention two events worth noting.
 First, cryptocurrency markets had been manipulated,
 making this type of cybercrime bigger and more complex.
-Second, Initial Coin Offerings (+ICOs+) is another relevant story
+Second, Initial Coin Offerings (`ICOs`) is another relevant story
 involving cryptocurrency and losses to consumers.
 
 == Where are we headed?
@@ -170,13 +170,13 @@ part of it is not an oxymoron from a public policy perspective.
 We don’t think investments should be cut,
 but resources should be better allocated.
 
-At +Fluid Attacks+, we’re committed to contributing to improving
+At `Fluid Attacks`, we’re committed to contributing to improving
 the safety of organizations by putting some pressure (testing by attacking)
 on their mission-critical systems.
 How do we do it?
 Check our [inner]#link:../../services/[hacking services]#,
 as well as our [inner]#link:../../products/[products]#.
-We can provide +IT+ and risk management insights continuously and,
+We can provide `IT` and risk management insights continuously and,
 thus, properly prioritize your resources, closing open holes to bad guys.
 
 In an upcoming post, we will continue discussing some other frauds

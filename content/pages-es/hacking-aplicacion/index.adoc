@@ -28,12 +28,12 @@ en el marco del negocio de la organización.
 
 * Detección de fallas que crean riesgos de seguridad.
 * Mejora en la calidad y el tiempo de desarrollo.
-* Personal clasificado en el top +200+ de hackers en el mundo
-y en el top +10+ de Colombia.
+* Personal clasificado en el top `200` de hackers en el mundo
+y en el top `10` de Colombia.
 * Entendimiento de los requisitos propios de cada solución.
 * Disminución de incidentes de seguridad.
 * Perfil de requisitos de seguridad en constante actualización.
-* Personal con certificaciones prácticas (+OSCP+ y +OSWP+)
+* Personal con certificaciones prácticas (`OSCP` y `OSWP`)
 y estudios relacionados a temas de seguridad.
 * Recomendaciones de alto nivel.
 * Informes de avance durante la ejecución del proyecto.

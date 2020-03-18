@@ -32,7 +32,7 @@ A conflict of interest was in place, but we made the right decision.
 
 I have some questions for you, if you are a cybersecurity manager:
 who do you report to? What does your boss expect from you and your team?
-I bet +IT+ is a likely candidate for the first.
+I bet `IT` is a likely candidate for the first.
 The relationship seems sensible,
 except for the auditing activities cybersecurity teams undertake.
 If a performance indicator for these departments
@@ -44,9 +44,9 @@ Instead, they should help you revealing your blind spots
 to improve decision-making, e.g., improving those defenses.
 Be skeptic if when an auditor finds nothing relevant.
 
-Should cybersecurity units report to a different group other than +IT+?
+Should cybersecurity units report to a different group other than `IT`?
 There are operational reasons to have cybersecurity operations
-running smoothly with +IT+.
+running smoothly with `IT`.
 Even so, conflicts of values are not always clear,
 as we will see next.
 

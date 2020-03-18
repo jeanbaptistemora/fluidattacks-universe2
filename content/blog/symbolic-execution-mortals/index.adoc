@@ -22,7 +22,7 @@ a two-year competition seeking to create automatic systems
 for vulnerability detection, exploitation, and patching
 in near real-time which brought quite a big and complex task to the table.
 With this task symbolic execution techniques,
-which have been around since the mid +'70s+,
+which have been around since the mid `'70s`,
 came to the attention of a bigger and broader audience.
 Difficulty is intriguing for hackers and security researchers,
 it makes things interesting
@@ -43,7 +43,7 @@ to the problems behind symbolic execution.
 == Symbolic Execution
 
 Symbolic execution is a popular program analysis technique
-introduced in the mid +’70s+ in the context of software testing
+introduced in the mid `’70s` in the context of software testing
 to check whether a certain property can be violated by a program.
 Today it conserves the same principles and there is no doubt
 that it has played a big role in the detection of security vulnerabilities
@@ -57,7 +57,7 @@ You might wonder how a program can be executed with different inputs
 without actually knowing the exact value of that input.
 Well, think of it as a mathematical expression,
 if you don't know the exact value to plug into the expression,
-you just put +x+ or +y+ which is just a variable
+you just put `x` or `y` which is just a variable
 or better yet a symbol to represent some unknown value.
 Same thing here, if we give a program symbolic,
 rather than concrete input values
@@ -67,12 +67,12 @@ it can run with those values and give me an expression at the end.
 
 The execution of all possible paths is done by a symbolic execution engine.
 To keep track of all executions,
-the engine always maintains a state (+stmt+, +σ+, +π+).
+the engine always maintains a state (`stmt`, `σ`, `π`).
 
-* +stmt+: Statement. The next statement to evaluate.
-* +σ+   : Symbolic Store. Maps program variables to concrete values
-or symbols +αi+.
-* +π+   : Path Constraints. A set of all conditions the symbols must meet
+* `stmt`: Statement. The next statement to evaluate.
+* `σ`   : Symbolic Store. Maps program variables to concrete values
+or symbols `αi`.
+* `π`   : Path Constraints. A set of all conditions the symbols must meet
 in order to reach the stmt in the execution branch.
 Always true at the beginning.
 
@@ -104,71 +104,71 @@ image::image1.png[symbolic]
 
 The symbolic execution tree in the image represents the states
 the symbolic execution engine goes through during the analysis of the program,
-in this case during the analysis of +myFunct()+.
+in this case during the analysis of `myFunct()`.
 
-. The function receives two parameters, +a+ and +b+.
+. The function receives two parameters, `a` and `b`.
 The symbolic execution engine assigns symbols for each parameter:
-+a -> αa+ , +b -> αb+.
+`a -> αa` , `b -> αb`.
 Since the program hasn't really began executing,
 we don't yet have any paths and therefore no constraints,
-thus +π+ is always true at the beginning.
-The next statement to execute is +int x = 1, y = 0;+
-leaving our engine in state +A: σ = {a -> αa , b-> αb} π = true+.
+thus `π` is always true at the beginning.
+The next statement to execute is `int x = 1, y = 0;`
+leaving our engine in state `A: σ = {a -> αa , b-> αb} π = true`.
 
 . The next statement is executed and two values are assigned.
-This adds +x ->1+, +y -> 0+ to our +σ+.
-No conditions have been established so +π+ is still +true+.
-The next statement to execute is +if (a != 5)+
+This adds `x ->1`, `y -> 0` to our `σ`.
+No conditions have been established so `π` is still `true`.
+The next statement to execute is `if (a != 5)`
 leaving our engine in state
-+B: σ = {a -> αa , b -> αb, x = 1, y = 0} π = true+.
+`B: σ = {a -> αa , b -> αb, x = 1, y = 0} π = true`.
 
-. Here a decision is made based on the value of the first parameter, +a+.
+. Here a decision is made based on the value of the first parameter, `a`.
 Since symbolic execution doesn't assign concrete values
-to input the initial symbols remain and a will still be equal to +αa+.
+to input the initial symbols remain and a will still be equal to `αa`.
 Symbolic execution analyses multiple paths,
 so the execution tree must continue whether the condition is met or not.
 The symbolic execution engine can take two states.
-If the condition is met, +αa!= 5+,
-that implies a constraint which is added to +π+
+If the condition is met, `αa!= 5`,
+that implies a constraint which is added to `π`
 leaving our engine in state
-+C: σ = {a -> αa , b -> αb, x = 1, y = 0} π = αa != 5+
-where the next statement to execute would be +y = 3 * x+.
-If the condition is not met, +αa = 5+,
-that also implies a constraint and it must also be added to our +π+
+`C: σ = {a -> αa , b -> αb, x = 1, y = 0} π = αa != 5`
+where the next statement to execute would be `y = 3 * x`.
+If the condition is not met, `αa = 5`,
+that also implies a constraint and it must also be added to our `π`
 leaving our engine in state
-+D: σ = {a -> αa , b -> αb, x= 1, y = 0} π = αa = 5+
+`D: σ = {a -> αa , b -> αb, x= 1, y = 0} π = αa = 5`
 and the next statement to execute would be the assert
 which when executed would pass all checks meaning the end of that branch.
 
-. The value of +y+ is assigned to be three times that of +x+.
-The only thing this changes is the value of +y+ in our +σ+
+. The value of `y` is assigned to be three times that of `x`.
+The only thing this changes is the value of `y` in our `σ`
 and the next statement to execute is a condition leaving our engine in state
-+E: σ = {a -> αa , b ->αb, x = 1, y = 3} π = αa != 5+.
+`E: σ = {a -> αa , b ->αb, x = 1, y = 3} π = αa != 5`.
 
-. A decision is made based on the value of the second parameter, +b+.
+. A decision is made based on the value of the second parameter, `b`.
 Both possibilities are evaluated.
-If the condition is met, +αb = 1+,
-that is another constraint and it is added to our +π+.
-The next statement to execute would be +x= 5 * a + b;+
+If the condition is met, `αb = 1`,
+that is another constraint and it is added to our `π`.
+The next statement to execute would be `x= 5 * a ` b;+
 leaving our engine in state
-+F: σ = {a -> αa , b -> αb, x = 1, y= 3} π = αa != 5 ∧ αb = 1+.
-If the condition is not met, +αb != 1+,
-that constraint must also be added to our +π+ leaving our engine in state
-+G: σ = {a -> αa , b -> αb, x = 1, y = 3} π = αa!= 5 ∧ αb != 1+
+`F: σ = {a -> αa , b -> αb, x = 1, y= 3} π = αa != 5 ∧ αb = 1`.
+If the condition is not met, `αb != 1`,
+that constraint must also be added to our `π` leaving our engine in state
+`G: σ = {a -> αa , b -> αb, x = 1, y = 3} π = αa!= 5 ∧ αb != 1`
 where the next statement to execute would be the assert
 which when executed would pass all checks meaning the end of that branch.
 
-. The value of +x+ is assigned to be five times the sum of +a+ and +b+.
-The only thing this changes is the value of +x+ in our +σ+
+. The value of `x` is assigned to be five times the sum of `a` and `b`.
+The only thing this changes is the value of `x` in our `σ`
 leaving our engine in state
-+H: σ = {a -> αa , b -> αb, x = 5(αa + αb), y = 3} π = αa != 5 ∧ αb = 1+
+`H: σ = {a -> αa , b -> αb, x = 5(αa ` αb), y = 3} π = αa != 5 ∧ αb = 1+
 where the next statement to execute would be the assert.
-When the assert, +x -y != 0+ is evaluated
+When the assert, `x -y != 0` is evaluated
 the values are replaced for what our engine has.
-+5(αa +αb) - 3 = 0 ∧ αa != 5 ∧ αb = 1+
+`5(αa `αb) - 3 = 0 ∧ αa != 5 ∧ αb = 1+
 this is the expression that tells me what values will make my assert fail.
-To satisfy the previous expression +αa+ has to be equal to +0.6+
-and +αb+ has to be +1+.
+To satisfy the previous expression `αa` has to be equal to `0.6`
+and `αb` has to be `1`.
 
 There it is, we found a property that can be violated
 and the conditions that must be met in order to violate it.

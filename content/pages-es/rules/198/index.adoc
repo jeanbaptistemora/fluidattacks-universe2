@@ -14,7 +14,7 @@ pueden usar dispositivos foráneos.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(1):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(d)(1):]
 Control de dispositivos y medios: Implementar políticas y procedimientos
 para la recepción y remoción de hardware y medios electrónicos
 que contengan información sensible dentro y fuera de las instalaciones,

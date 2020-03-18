@@ -9,4 +9,4 @@
 == Requisito
 
 El sistema debe autorizar explícitamente
-los periféricos de entrada (teclado, +mouse+, etc).
+los periféricos de entrada (teclado, `mouse`, etc).

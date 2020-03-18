@@ -7,25 +7,25 @@
 == Conferencias
 
 Para la propagación de conocimiento en seguridad de la información,
-+Fluid Attacks+ dicta conferencias gratuitas
+`Fluid Attacks` dicta conferencias gratuitas
 en las instalaciones de cualquier organización.
 Los temas de estas tertulias, y el procedimiento de realización,
 se encuentran en la página de link:../eventos/[Conferencias].
 
 == Papers
 
-+Fluid Attacks+, en su labor de investigación,
+`Fluid Attacks`, en su labor de investigación,
 ha publicado los siguientes artículos en revistas y congresos internacionales
 relacionados con seguridad de la información:
 
-* Modelo de ataques y riesgo residual para desbordamientos de +buffer+,
-Juan Rafael Alvarez (+Fluid Attacks+) y Juan Guillermo Lalinde.
+* Modelo de ataques y riesgo residual para desbordamientos de `buffer`,
+Juan Rafael Alvarez (`Fluid Attacks`) y Juan Guillermo Lalinde.
 Ph.D. (Universidad EAFIT) Congreso Iberoamericano de Seguridad Informática,
 Universidad Federico Santamaria, Valparaiso, Chile, 2006. Transparencias
 
 == Prensa
 
-+Fluid Attacks+ ha publicado a través de su historia,
+`Fluid Attacks` ha publicado a través de su historia,
 múltiples artículos en prensa.
 Aquí se encuentran algunos de ellos:
 
@@ -34,54 +34,54 @@ Aquí se encuentran algunos de ellos:
 
 == Estandarización
 
-+Fluid Attacks+ apoya activamente la función de normalización delegada
-por la Super Intendencia de Industria y Comercio en el +Icontec+.
-Para esto, +Fluid Attacks+ hace parte del Comite 181:
+`Fluid Attacks` apoya activamente la función de normalización delegada
+por la Super Intendencia de Industria y Comercio en el `Icontec`.
+Para esto, `Fluid Attacks` hace parte del Comite 181:
 Técnicas de Seguridad en Tecnologías de la información,
-que se reúne mensualmente en la sede principal del +Icontec+ en Bogotá
+que se reúne mensualmente en la sede principal del `Icontec` en Bogotá
 para realizar la homologación para Colombia de estándares internacionales
 relacionados con la seguridad de la información.
 
-+Fluid Attacks+ ha participado en la homologación de los siguientes
-estándares internacionales a Normas Técnicas Colombianas (+NTC+):
+`Fluid Attacks` ha participado en la homologación de los siguientes
+estándares internacionales a Normas Técnicas Colombianas (`NTC`):
 
-* +ISO 17799:2005+
-* +ISO 27001:2005+
-* +ISO 20000-1:2005+
-* +ISO 15408:1999+
-* +ISO 20000-2:2005+
+* `ISO 17799:2005`
+* `ISO 27001:2005`
+* `ISO 20000-1:2005`
+* `ISO 15408:1999`
+* `ISO 20000-2:2005`
 
 == Vulnerabilidades
 
-+Fluid Attacks+, en el marco de múltiples proyectos que incluyen
+`Fluid Attacks`, en el marco de múltiples proyectos que incluyen
 los servicios de Ethical Hacking de aplicación
 y revisión de código fuente,
 ha encontrado vulnerabilidades de seguridad sobre aplicaciones
 y servicios de uso masivo.
 
 * *Fuera del país:*
-Actualmente, +Fluid Attacks+ ha encontrado tres vulnerabilidades
-de seguridad en +software+ construido fuera del pais.
+Actualmente, `Fluid Attacks` ha encontrado tres vulnerabilidades
+de seguridad en `software` construido fuera del pais.
 Estas vulnerabilidades se encuentran en etapa de reparación
-por parte del proveedor y +Fluid Attacks+ se encuentra a la espera
+por parte del proveedor y `Fluid Attacks` se encuentra a la espera
 de la autorización del mismo para proceder con la divulgación.
 Este comportamiento se sigue en atención al proceso de divulgación
 responsable de vulnerabilidades sugerido por las buenas practicas
 de seguridad vigentes, y una vez esta autorización sea emitida,
 se procederá a realizar la divulgación
-y solicitud respectiva de los códigos +CVE+.
+y solicitud respectiva de los códigos `CVE`.
 +
 Por el momento, es procedente indicar que las vulnerabilidades
-fueron encontradas sobre productos de +software+ construidos
+fueron encontradas sobre productos de `software` construidos
 en Estados Unidos, España y Alemania, dando muestras del talento colombiano
 y del aporte de nuestro país a la seguridad de la información en el mundo.
 
 * *En Colombia:*
-Adicional a las múltiples vulnerabilidades encontradas por +Fluid Attacks+
-sobre +software+ construidos a la medida para empresas particulares,
-+Fluid Attacks+ ha encontrado 1 vulnerabilidad sobre un servicio de uso masivo
+Adicional a las múltiples vulnerabilidades encontradas por `Fluid Attacks`
+sobre `software` construidos a la medida para empresas particulares,
+`Fluid Attacks` ha encontrado 1 vulnerabilidad sobre un servicio de uso masivo
 construido en nuestro país.
 Igual que las tres vulnerabilidades encontradas en el exterior,
-ésta se encuentra en etapa de reparación y +Fluid Attacks+
+ésta se encuentra en etapa de reparación y `Fluid Attacks`
 se encuentra a la espera de la autorización del proveedor
-para proceder a realizar la debida divulgación y solicitud del código +CVE+.
+para proceder a realizar la debida divulgación y solicitud del código `CVE`.

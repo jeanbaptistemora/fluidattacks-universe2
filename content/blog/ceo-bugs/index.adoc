@@ -39,7 +39,7 @@ Organizations of all sorts
 are becoming more like tech companies focused on specific services.
 The shift is more clear in some industries like banking:
 no bank would survive without information technology.
-link:https://www.finchannel.com/technology/66528-worldwide-it-spending-set-to-rebound-in-second-half-of-2017-led-by-cloud-and-mobile-upgrade-cycles[+IT+ spending keeps growing across the globe].
+link:https://www.finchannel.com/technology/66528-worldwide-it-spending-set-to-rebound-in-second-half-of-2017-led-by-cloud-and-mobile-upgrade-cycles[`IT` spending keeps growing across the globe].
 You probably have read that _“software is eating the world”_,
 a sentence by Marc Andreessen _—Netscape founder and venture capitalist—_,
 written in an op-ed back in 2011.
@@ -61,10 +61,10 @@ covering several states in the US and Canada.
 More than 50 million people
 were left with no electricity for two days or more.
 An investigation found a link:https://devopedia.org/race-condition-software[race condition]
-was present in a +Unix-based system+ (+XA/21+),
+was present in a `Unix-based system` (`XA/21`),
 which stalled a critical process.
 Last year, a software defect caused two fatal incidents
-in two brand-new +Boeing 737 MAX+.
+in two brand-new `Boeing 737 MAX`.
 The press coverage was massive.
 The bug affected a critical alarm for captains,
 inhibiting timely maneuvering.
@@ -72,7 +72,7 @@ link:https://www.businessinsider.com/boeing-knew-737-max-software-error-year-bef
 confirmed the airplane manufacturer
 knew the defect for around a year.
 Bowen's article draws upon two similar cases.
-One tells about how +Toyota+
+One tells about how `Toyota`
 settled a lawsuit in USD 1.1 billion
 by a link:https://users.ece.cmu.edu/~koopman/pubs/koopman14_toyota_ua_slides.pdf[sudden acceleration problem] in one of its models,
 which caused deaths.
@@ -124,8 +124,8 @@ _“how did the software get released with that type of bug?”_
 
 These questions are important but aren't enough.
 An effective quality management system should be in place,
-and not every +CEO+ is in a position to assess that.
-At +Fluid Attacks+, we have blended robust technology, automation,
+and not every `CEO` is in a position to assess that.
+At `Fluid Attacks`, we have blended robust technology, automation,
 and the best hacking skills in the market
 to address security quality issues
 in the whole software development lifecycle.
@@ -144,12 +144,12 @@ software doesn't follow those rules.
 
 Will you ask those questions to your team?
 We can help by giving them to you without even asking.
-Everything would be available at our +VMS+, [inner]#link:../../products/integrates/[Integrates]#,
+Everything would be available at our `VMS`, [inner]#link:../../products/integrates/[Integrates]#,
 covering from very technical to strategic levels.
-Bowens propose a simple +2x2+ matrix
+Bowens propose a simple `2x2` matrix
 to assess how an organization is performing
 based on quality awareness and response to bugs.
-+Fluid Attacks+ can help you moving towards the upper-right.
+`Fluid Attacks` can help you moving towards the upper-right.
 
 .Bowens performance matrix. Source <<r1, [1]>>.
 image::awareness-matrix.png[Bowens Matrix]
@@ -186,7 +186,7 @@ Trust and openness are key.
 
 Bowen’s related his own experience at IBM
 when software defects were harming.
-A +VP+ was commissioned to revert the trend
+A `VP` was commissioned to revert the trend
 and he had a motto:
 _“be forthright, and I’ll be forthcoming”_.
 To make software defects and security weaknesses chief

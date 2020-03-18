@@ -23,11 +23,11 @@ más no que el formato del archivo
 corresponda al de la extensión presentada),
 de esta forma un atacante subiendo un archivo de extensión
 que corresponde a un contenido diferente,
-ejemplo un archivo +.php.gif+,
-puede ser procesado como +gif+ en principio
+ejemplo un archivo `.php.gif`,
+puede ser procesado como `gif` en principio
 por el control de validación del contenido
 y luego ya al haber subido al sistema
-puede ser interpretado como +php+
+puede ser interpretado como `php`
 causando comportamientos no deseados.
 
 == Implementación
@@ -40,7 +40,7 @@ y no solo en el nombre del archivo o su extensión.
 
 . Un usuario malicioso entrega un archivo
 a un sistema que no valida su contenido,
-de esta forma el sistema se ve comprometido por la ejecución de +scripts+
+de esta forma el sistema se ve comprometido por la ejecución de `scripts`
 o ejecutables maliciosos que pueden dar acceso no autorizado
 o extraer información confidencial del mismo.
 

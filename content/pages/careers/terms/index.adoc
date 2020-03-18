@@ -19,13 +19,13 @@ fill out the following [inner]#link:https://fluidattacks.com/forms/seleccion[for
 
 == The Company
 
-For more information about +Fluid Attacks+,
+For more information about `Fluid Attacks`,
 please read our [inner]#link:../../about-us/[About us]# section
 
 
 === Context
 
-* At +Fluid Attacks+, all systems are constantly monitored
+* At `Fluid Attacks`, all systems are constantly monitored
 through link:https://www.timedoctor.com/[automatic time and activity control systems].
 We do this to:
 
@@ -33,16 +33,16 @@ We do this to:
 
 ** Be objective, precise, and fair in the performance evaluation
 
-* At +Fluid Attacks+, we follow an ethics code
+* At `Fluid Attacks`, we follow an ethics code
 which you can read by clicking [inner]#link:../../values/[here]#
 
 == The Selection Process
 
 . Our selection process is set up to identify,
-assess, and ultimately hire candidates from the top +10%+
-of the +IT+ population for each available position.
+assess, and ultimately hire candidates from the top `10%`
+of the `IT` population for each available position.
 
-. We select only the best to join the +Fluid Attacks+ team.
+. We select only the best to join the `Fluid Attacks` team.
 A team that is:
 
 ** Elite.
@@ -56,7 +56,7 @@ so that you can optimize your time and
 become part of our team faster and easier.
 
 . Because most of the process is done online,
-the duration of the process is +90%+ in your hands.
+the duration of the process is `90%` in your hands.
 
 . Our selection process is very detailed
 and may be different from what you see in other companies.
@@ -71,7 +71,7 @@ and are genuinely interested in becoming part of our team.
 
 . After completing the application process,
 if you are no longer interested in being considered
-for a position with +Fluid Attacks+,
+for a position with `Fluid Attacks`,
 please notify us and we will remove you from our candidate database.
 However, if we are not interested in your application, we will notify you.
 If we do not notify you, your application will remain active,
@@ -94,7 +94,7 @@ it will have the following clauses:
 * Confidentiality.
 +
 The previous clauses will remain valid
-throughout your work contract with +Fluid Attacks+.
+throughout your work contract with `Fluid Attacks`.
 
 . Once you accept our job offer
 you must provide the following link:../hiring/[information]..
@@ -108,7 +108,7 @@ and our perception of an employee's potential performance of required duties.
 
 . By participating in our hiring process
 you also agree to being recommended for openings,
-not only with +Fluid Attacks+,
+not only with `Fluid Attacks`,
 but also for openings with some of our business associates.
 
 . By default, your records will stay in our database

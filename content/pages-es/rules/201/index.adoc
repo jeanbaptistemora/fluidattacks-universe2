@@ -13,7 +13,7 @@ si fue manipulado o abierto de forma no autorizada.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[`OWASP-ASVS v3.1-4.4`]
 Verificar que el acceso a registros sensibles esté protegido,
 por ejemplo, que sólo objetos o datos autorizados
 sean accesibles a cada usuario

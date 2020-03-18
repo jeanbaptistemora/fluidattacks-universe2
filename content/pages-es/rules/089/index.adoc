@@ -34,10 +34,10 @@ A continuación se describe un caso de abuso,
 el cual, es aplicable para el presente criterio de seguridad:
 
 . Un certificado digital caducado
-le permite a un atacante realizar ataques +man-in-the-middle+<<r2,^[2]^>>
+le permite a un atacante realizar ataques `man-in-the-middle`<<r2,^[2]^>>
 especialmente cuando un usuario
 ignora las advertencias de seguridad desplegadas por una aplicación
-(por ejemplo las mostradas por un navegador +web+).
+(por ejemplo las mostradas por un navegador `web`).
 
 == Referencias
 

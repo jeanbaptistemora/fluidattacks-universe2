@@ -50,7 +50,7 @@ the reluctants and the totalitarians.
 The first ones say that JavaScript is a language
 that mandatorily needs the states to reach their full potential
 in terms of web pages and applications.
-Reluctants add that there are functions like +foreach+
+Reluctants add that there are functions like `foreach`
 that are necessary for an optimal code.
 On the other side, totalitarians think in a functional world,
 all JavaScript without a single trace of objects.
@@ -59,7 +59,7 @@ and therefore it's self-sufficient in a functional way.
 
 == Our opinion
 
-In +Fluid Attacks+ we believe that use of functional JavaScript
+In `Fluid Attacks` we believe that use of functional JavaScript
 doesn't have to be white or black,
 but a scale of grays that we can adapt to make it more light or dark.
 JavaScript has its well-defined bases
@@ -130,7 +130,7 @@ Let's look at the following code:
 const result = [];
 const integers = [1, 2, 3];
 
-for (let i = 0; i < elements.length; i++) {
+for (let i = 0; i < elements.length; i``) {
   result.push(elements[i] + 1);
 }
 ----
@@ -153,9 +153,9 @@ which means that there are a number of built-in functions
 that allow your code to be functional
 without the need to import any additional library.
 Some of these functions are
-link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map[+map+],
-link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter[+filter+]
-and link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce[+reduce+].
+link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map[`map`],
+link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter[`filter`]
+and link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce[`reduce`].
 
 A final detail we want to show you,
 a small introduction to high-order functions in JavaScript,
@@ -194,7 +194,7 @@ multiplyByTwo(3); // 6
 
 As you can see our multiplyByInteger function returns another function.
 The new function only requires an argument to perform multiplication,
-this is known as +partial evaluation+.
+this is known as `partial evaluation`.
 
 With this article we don't expect you to become
 an eminence in functional JavaScript,
@@ -228,7 +228,7 @@ We will use
 link:https://github.com/jfmengels/eslint-plugin-fp[eslint-plugin-fp].
 
 Assuming that you already have
-link:https://eslint.org/docs/user-guide/getting-started[+eslint+],
+link:https://eslint.org/docs/user-guide/getting-started[`eslint`],
 we proceed to install the plugin:
 
 .eslint-plugin-fp installation.
@@ -240,7 +240,7 @@ npm install --save eslint-plugin-fp
 Now we must enable the plugin
 and add the rules we want to check, therefore,
 we must modify the eslint configuration file
-(usually a +JSON+ type file)
+(usually a `JSON` type file)
 adding the new library to the plugin list
 and the new rules to the list of rules.
 
@@ -303,7 +303,7 @@ An error is displayed saying
 which is the rule that is being violated,
 in which line and in which file.
 Remember that, it's best to run this linter
-in your +CI+ to ensure that the code will not be deployed
+in your `CI` to ensure that the code will not be deployed
 to production without first passing all the tests.
 
 == Conclusions
@@ -324,6 +324,6 @@ But in technology it's better to be fashionable
 because we don't know at what time old
 things will stop working, falling into oblivion.
 JavaScript still has a lot to give,
-there are already +JavaScript-based frameworks+ that are functional.
+there are already `JavaScript-based frameworks` that are functional.
 
 What a good time to be fashionable!

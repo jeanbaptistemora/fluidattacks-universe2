@@ -19,7 +19,7 @@ and are interested in Information Security for pentesting.
 
 You must have a basic knowledge
 and understanding of networks,
-+IT+ infrastructure
+`IT` infrastructure
 and be able to work effectively as part of a team.
 
 Previous work experience is not needed.
@@ -32,8 +32,8 @@ but scheduling is negotiable, if you are a student.
 You must have a university degree,
 basic technical knowledge, understanding of information security,
 and some relevant experience in networks
-and +IT+ infrastructure.
-+PMP+ (Project Management Professional) certification is a plus,
+and `IT` infrastructure.
+`PMP` (Project Management Professional) certification is a plus,
 but not mandatory in order to apply for this position.
 
 == IT Security Architect
@@ -42,7 +42,7 @@ Although you do not need to have a university degree
 to apply for this position,
 you must conduct yourself in a professional manner
 and have substantial knowledge and understanding of networks,
-+IT+ infrastructure, and information security.
+`IT` infrastructure, and information security.
 
 * *Duties:*
 ** Structure, define, and jointly design security requirements
@@ -75,28 +75,28 @@ with knowledge in the use of office solutions.
 production and
 human resources areas.
 
-++++
+````
 <p style="text-align:center">
 image:logo-autonomic.png[align="center"] <a href="https://www.linkedin.com/company/autonomicmind/"><img style="vertical-align: bottom;padding-left: 30px;" src="logo-linkedin.png" alt="Linkedin logo"/></a>
 </p>
-++++
+````
 
 == Openings in Autonomicmind
 
-Autonomicmind is a company providing specialized +IT+ recruitment services.
-They find and recruit the top employees in the +IT+ industry,
+Autonomicmind is a company providing specialized `IT` recruitment services.
+They find and recruit the top employees in the `IT` industry,
 and act as a bridge between them and prospective employers.
 Autonomicmind helps clients achieve their business goals by connecting people
 with the right skills to the right employers to advance a company's
 competitiveness.
 
-Autonomicmind also recruits top tier employees for +Fluid Attacks+,
+Autonomicmind also recruits top tier employees for `Fluid Attacks`,
 as well as, telecommunication companies,
 financial institutions, and other corporations
 that require employees with exceptional technical abilities.
 
 Openings currently available
-with clients other than +Fluid Attacks+:
+with clients other than `Fluid Attacks`:
 
 == Front End Developer
 
@@ -107,7 +107,7 @@ Knowledge, skills, and abilities:
 to design views and web components.
 * Take mock-ups from a concept
 to a user experience-based solution.
-* Knowledge of +CSS+ and criteria sufficient
+* Knowledge of `CSS` and criteria sufficient
 to choose the best design for a given web project.
 for a given web project.
 * Ensure the consistency of the modules,
@@ -123,7 +123,7 @@ as well as business solutions,
 tests and debugging processes.
 * 3 to 5 year experience
 with technologies such as
-+JavaScript+, +HTML+, +CSS3+, +JSON+ and +AngularJS+.
+`JavaScript`, `HTML`, `CSS3`, `JSON` and `AngularJS`.
 * Solid knowledge of
 what constitutes a good interaction design.
 * Experience building responsive and
@@ -133,13 +133,13 @@ Desirable:
 
 * Basic back-end knowledge.
 * Knowledge in graphics design.
-* Experience using Microsoft Azure, +AWS+ or
+* Experience using Microsoft Azure, `AWS` or
 similar platforms.
-* Knowledge of Ruby on Rails, +WPF+, +Unity+ or +C#+.
+* Knowledge of Ruby on Rails, `WPF`, `Unity` or `C#`.
 
 == Senior Software Developer
 
-Professional with at least +5+ years of experience
+Professional with at least `5` years of experience
 in software development to build programs and routines of low,
 medium and high complexity
 that provide solutions to requirements
@@ -149,16 +149,16 @@ and standards of the organization.
 Knowledge, skills, and abilities:
 
 * Skills in more than 1 programming language
-such as +Java+, +.NET+, +C#+, +Ruby+ or +Python+.
+such as `Java`, `.NET`, `C#`, `Ruby` or `Python`.
 * Knowledge of the POO programming paradigm.
-* Knowledge in +JavaScript+, +HTML 4+ and +5+, +CSS+, +Ajax+.
+* Knowledge in `JavaScript`, `HTML 4` and `5`, `CSS`, `Ajax`.
 * Knowledge of database engines
-on a large scale (+ORACLE+, +SQL SERVER+, +DB2+, +MySQL+).
-* Stored procedures (+PL / SQL+, +Transact SQL+).
-* Knowledge in Application Servers (+IIS+, +OAS+, +IBM WEBSPHERE+, +WEBLOGIC+).
+on a large scale (`ORACLE`, `SQL SERVER`, `DB2`, `MySQL`).
+* Stored procedures (`PL / SQL`, `Transact SQL`).
+* Knowledge in Application Servers (`IIS`, `OAS`, `IBM WEBSPHERE`, `WEBLOGIC`).
 * Platforms and operating systems
-such as +GNU / Linux+, +Unix+ (+AIX+, +SOLARIS+).
-* Knowledge of +Git+ repositories.
+such as `GNU / Linux`, `Unix` (`AIX`, `SOLARIS`).
+* Knowledge of `Git` repositories.
 * UML Diagrams.
 * Documentation.
 * Eliciting requirements.
@@ -181,7 +181,7 @@ is desired but not mandatory.
 
 Also desirable is that an applicant is knowledgeable in Inspire Designer,
 Inspire Automation, and programming languages ​​
-such as +Java+, +VB+, +.Net+, among others.
+such as `Java`, `VB`, `.Net`, among others.
 In addition, knowledge of databases
 and basic use of web tools is desirable.
 
@@ -209,24 +209,24 @@ Preferably a minimum of 1-year experience in:
 * Software architect.
 * Architecture Design Patterns.
 * Architecture in layers and tiers.
-* +SOA+.
+* `SOA`.
 * Database engines
-on a large scale (+ORACLE+, +SQL SERVER+, +DB2+, +MySQL+).
+on a large scale (`ORACLE`, `SQL SERVER`, `DB2`, `MySQL`).
 * Two or more of the following load testing tools:
-** +JMeter+.
-** +Neoload+.
-** +WAPT PRO+.
-** +LoadRunner+.
-** +SilkPerformer+.
-** +IBM+ Rational Performance Tester.
-** +Scapa+.
+** `JMeter`.
+** `Neoload`.
+** `WAPT PRO`.
+** `LoadRunner`.
+** `SilkPerformer`.
+** `IBM` Rational Performance Tester.
+** `Scapa`.
 * Execution of performance tests.
 * Basic math and statistics.
 * Project management.
 
 Certifications in the following areas are desired:
 
-* +ISTQB+.
+* `ISTQB`.
 * Software development.
 * Databases.
 * Software testing tools.

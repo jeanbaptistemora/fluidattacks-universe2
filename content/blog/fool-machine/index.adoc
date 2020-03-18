@@ -18,7 +18,7 @@
 
 = Fool the Machine
 
-Artificial Neural Networks (+ANNs+) are certainly a wondrous achievement.
+Artificial Neural Networks (`ANNs`) are certainly a wondrous achievement.
 They solve classification and other learning tasks with great accuracy.
 However, they are not flawless and might misclassify certain inputs.
 No problem, some error is expected.
@@ -72,7 +72,7 @@ So, how does one go about creating such an adversarial example?
 Recall that in our brief survey of machine learning techniques, we discussed
 [inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[training neural networks]#.
 It is an iterative process in which
-you continuously adjust the _weight_ parameters of your black box (the +ANN+)
+you continuously adjust the _weight_ parameters of your black box (the `ANN`)
 until the outputs agree with the expected ones,
 or at least, _minimize_ the cost function,
 which is a measure of how wrong the prediction is.
@@ -104,7 +104,7 @@ let's modify the picture
 little by little and
 see if it gets us any closer to the target.
 I will again borrow from
-link:https://medium.com/@ageitgey[+@ageitgey+]
+link:https://medium.com/@ageitgey[`@ageitgey`]
 since the analogy is much clearer this way.
 
 .Tweaking the image, by <<r2, [2]>>.
@@ -112,10 +112,10 @@ image::tweaking.png[Tweaking the image]
 
 The pseudo-code that would generate
 an adversarial example via this method would be as follows.
-Assume that the model is saved in a +Keras+ +h5+ file,
+Assume that the model is saved in a `Keras` `h5` file,
 as in the challenge.
-link:https://keras.io/[+Keras+] is a popular high-level
-neural networks +API+ for +Python+.
+link:https://keras.io/[`Keras`] is a popular high-level
+neural networks `API` for `Python`.
 We can load the model,
 get the input and output layers (first and last),
 get the cost and gradient functions and
@@ -137,7 +137,7 @@ get_cost_and_gradients = K.function([input_layer, K.learning_phase()],
                                     [cost_function, gradient_function])
 ----
 
-Where +object_type_to_fake+ is the class number of
+Where `object_type_to_fake` is the class number of
 what we want to fake.
 Now, according to the formula in figure 3 above,
 we should add a small fraction of the
@@ -153,15 +153,15 @@ while confidence < 0.95:
 ----
 
 However, this procedure takes way too long
-without a +GPU+. A few hours according to Geitgey <<r2, [2]>>.
-For the +CTFer+ and the more practical-minded reader,
+without a `GPU`. A few hours according to Geitgey <<r2, [2]>>.
+For the `CTFer` and the more practical-minded reader,
 there is a library that does this and other attacks
 on machine learning systems to determine their
 vulnerability to adversarial examples:
 link:https://github.com/tensorflow/cleverhans/[CleverHans].
 Using this library,
-we change the expensive +while+ cycle above
-to two +API+ calls:
+we change the expensive `while` cycle above
+to two `API` calls:
 make an instance of the attack method
 and then ask it to generate the adversarial example.
 
@@ -190,7 +190,7 @@ Upload it to the challenge site and,
 instead of getting the predictions, we get the flag.
 
 Not just that, the model which is based on
-link:https://ai.googleblog.com/2017/06/mobilenets-open-source-models-for.html[+MobileNet+],
+link:https://ai.googleblog.com/2017/06/mobilenets-open-source-models-for.html[`MobileNet`],
 is 99.99974% certain that this is a tree frog.
 However, the difference between it and the original image,
 according to the widely used
@@ -207,7 +207,7 @@ to a different animal image classifier
 and still get the same results.
 
 Ultimately, we should think twice before deploying
-+ML+-powered security measures.
+`ML`-powered security measures.
 This is, of course, a mock example,
 but in more critical situations,
 having models that are not resistant to
@@ -219,7 +219,7 @@ So switching to a more non-linear model, such as
 link:https://en.wikipedia.org/wiki/Radial_basis_function_network[RBF networks],
 could solve the problem.
 Another workaround could be to train the
-+ANNs+ _including_ adversarial examples.
+`ANNs` _including_ adversarial examples.
 
 To borrow a phrase from carpenters,
 "Measure twice, cut once." We should also remember

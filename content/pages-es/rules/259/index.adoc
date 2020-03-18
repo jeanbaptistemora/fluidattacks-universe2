@@ -12,7 +12,7 @@ La red de la organización debe estar segmentada.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.8+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.8`]
 Los componentes son separados mediante un control de seguridad definido
 tales como segmentación de red, reglas de firewall
 o grupos de seguridad basados en la nube

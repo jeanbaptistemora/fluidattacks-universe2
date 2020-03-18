@@ -46,7 +46,7 @@ antes de la salida a producción
 
 == Ataques
 
-. Cross Site Tracing (+XST+).
+. Cross Site Tracing (`XST`).
 . Fuga de información: Técnica.
 . Funcionalidad insegura.
 . Ejecución Remota de Comandos.

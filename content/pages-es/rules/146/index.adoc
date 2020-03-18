@@ -8,29 +8,29 @@
 
 == Requisito
 
-Las llaves criptográficas deben permanecer en +RAM+ máximo +5+ segundos.
+Las llaves criptográficas deben permanecer en `RAM` máximo `5` segundos.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.12`]
 Verificar que exista una política explícita
 sobre cómo administrar las claves criptográficas (si las hay)
 y se impone el ciclo de vida de las claves criptográficas.
-Idealmente, seguir un estándar de gestión de claves como +NIST SP 800-57+
+Idealmente, seguir un estándar de gestión de claves como `NIST SP 800-57`
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.9+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[`OWASP-ASVS v3.1-7.9`]
 Verificar que exista una política explícita
 para la administración de llaves criptográficas
 (por ejemplo: generación, distribución, llaves revocadas y expiradas).
 Verificar que el ciclo de vida de la llave se aplique adecuadamente.
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.13+]
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[`OWASP-ASVS v3.1-7.13`]
 Verificar que las contraseñas sensibles o material de llaves
 mantenidos en memoria sean sobreescritas con ceros
 cuando ya no sean necesarios,
-para mitigar ataques de +memory dumpling+.
+para mitigar ataques de `memory dumpling`.
 
-. [[r4]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[`OWASP-ASVS v3.1-9.11`]
 Verificar que la información mantenida en memoria
 sea sobreescrita con ceros cuando ya no sea necesaria,
 para mitigar ataques de vaciado de memoria.

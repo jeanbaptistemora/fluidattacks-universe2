@@ -10,9 +10,9 @@
 
 El manejo de hipervisores
 en una granja de virtualización,
-se debe hacer a través de un +software+ central de gestión.
+se debe hacer a través de un `software` central de gestión.
 
 == Referencias
 
-. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.5
+. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[`BSSIM9` SE3.5
 Administrar contenedores y ambientes virtuales].

@@ -10,10 +10,10 @@
 
 El soporte a las aplicaciones o sistemas debe realizarse
 sólo en ambientes diferentes a producción
-(desarrollo, pruebas o calidad, +UAT+).
+(desarrollo, pruebas o calidad, `UAT`).
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.10`]
 La seguridad se aborda en todas las partes
 del ciclo de vida de desarrollo de software.

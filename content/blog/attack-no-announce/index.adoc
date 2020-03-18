@@ -166,7 +166,7 @@ For most organizations, it is common to have availability
 higher than confidentiality and integrity in the precedence list.
 It is paradoxical that, even though availability
 is the most important of the triad,
-they won't authorize red teams to test +DoS+
+they won't authorize red teams to test `DoS`
 (denial of service) attacks survival rate.
 The invitation in this case is:
 turn your restrictions into encouragement to attack to the red team,

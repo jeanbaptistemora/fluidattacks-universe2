@@ -9,7 +9,7 @@
 == Requisito
 
 Se debe controlar que un objeto
-(+id+ de sesión, +cookie+, etc)
+(`id` de sesión, `cookie`, etc)
 que participe en el proceso de autenticación
 no pueda ser reutilizado.
 
@@ -34,14 +34,14 @@ A continuación se listan algunas de las buenas prácticas
 que se pueden considerar
 para evitar la reutilización de datos en el sistema:
 
-. *Números de un solo uso (+Cryptographic nonce+):*
+. *Números de un solo uso (`Cryptographic nonce`):*
 Consiste en números que expiran luego de su primer uso
 o luego de un lapso de tiempo pequeño,
 con los cuales se puede verificar la autenticidad de un mensaje.
 Suelen ser aleatorios y usados en protocolos de autenticación
 para asegurar que comunicaciones pasadas no puedan ser reutilizadas.
 
-. *Marcas de tiempo (+timestamping+):*
+. *Marcas de tiempo (`timestamping`):*
 Para esto debe existir
 una sincronización de relojes entre cliente y servidor.
 El servidor solo acepta mensajes con fecha y hora
@@ -49,30 +49,30 @@ dentro de un margen de tolerancia.
 De este modo, se minimiza el riesgo de un posible ataque
 al proveer una ventana de tiempo más ajustada para la explotación.
 
-. +Tokens+ de sesión: Consiste en que el servidor envía un código +token+,
+. `Tokens` de sesión: Consiste en que el servidor envía un código `token`,
 el cual es usado por el cliente
 para transformar la clave
 (por ejemplo aplicando una función de resumen
-a la unión de la clave y el +token+)
+a la unión de la clave y el `token`)
 antes de enviarla de nuevo al servidor,
 valor con el que se compara la autenticidad del cliente.
 Con esto si un atacante intenta realizar un ataque de repetición no funcionará
-ya que el +token+ que el servidor enviará
+ya que el `token` que el servidor enviará
 será diferente (la generación de este debe ser aleatoria).
 
-. +Time-out+ de sesión:
+. `Time-out` de sesión:
 Permitir que los usuarios salgan de la aplicación y limpiar su sesión,
 es decir, cuando un usuario sale de la aplicación,
 se deben invalidar sus sesiones tanto en cliente como en servidor.
 
-. Canal seguro: Usar canales de transporte seguros al transferir las +cookies+,
-para evitar que sean capturadas (+Man in The Middle+).
+. Canal seguro: Usar canales de transporte seguros al transferir las `cookies`,
+para evitar que sean capturadas (`Man in The Middle`).
 
 == Ataques
 
 . Robo de sesión.
 . Suplantación de identidad.
-. Hombre en el medio (+MiM+).
+. Hombre en el medio (`MiM`).
 . Ataques de repetición.
 
 == Atributos
@@ -89,12 +89,12 @@ para evitar que sean capturadas (+Man in The Middle+).
 . [[r2]] link:http://capec.mitre.org/data/definitions/60.html[CAPEC-60: Reusing Session IDs (aka Session Replay)].
 . [[r3]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
 . [[r4]] link:http://www.ietf.org/rfc/rfc2617.txt[HTTP Authentication: Basic and Digest Access Authentication].
-. [[r5]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.12+]
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[`OWASP-ASVS v3.1-2.12`]
 Verificar que todas las decisiones de autenticación puedan ser almacenadas,
 sin almacenar información sensible
 como identificadores de sesión o contraseñas.
 Esto debe incluir tambien solicitudes con metadatos relevantes
 necesarios para las investigaciones de seguridad.
-. [[r6]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.7+]
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[`OWASP-ASVS v3.1-3.7`]
 Verificar que toda autenticación exitosa y re autenticación
 genere una nueva sesión y un nuevo identificador de sesión.

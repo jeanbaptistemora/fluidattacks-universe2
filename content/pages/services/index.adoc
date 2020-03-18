@@ -31,7 +31,7 @@ a|image::one-shot.svg[Computer being attacked]
 
 a|image::differentiators.svg[Metal gear]
 2+a|== link:differentiators/[Differentiators]
-What is the difference between a +pentest+ and a +vulnerability analysis+
+What is the difference between a `pentest` and a `vulnerability analysis`
 using automated tools? +
 Pentesting allows us to find and report all security vulnerabilities
 in your application.
@@ -39,8 +39,8 @@ in your application.
 [button]#link:differentiators/[Learn More]#
 
 2+a|== link:comparative/[Comparative]
-What is the difference between +Continuous Hacking+
-and +One-Shot Hacking+ services?
+What is the difference between `Continuous Hacking`
+and `One-Shot Hacking` services?
 Have a look at what you get for each of the services
 and decide which suits your business needs better.
 
@@ -53,18 +53,18 @@ a|image::certifications.svg[Certification diploma]
 2+a|== link:certifications/[Certifications]
 Our hackers have professional certifications in a variety of areas
 in information security
-such as Offensive Security Certified Professional (+OSCP+),
-Offensive Security Wireless Professional (+OSWP+),
-Certified Ethical Hacker (+CEH+),
-Certified Information Systems Security Professional (+CISSP+), among others.
+such as Offensive Security Certified Professional (`OSCP`),
+Offensive Security Wireless Professional (`OSWP`),
+Certified Ethical Hacker (`CEH`),
+Certified Information Systems Security Professional (`CISSP`), among others.
 When you hire us, you are getting a team of highly capable professionals.
 
 [button]#link:certifications/[Learn More]#
 
 2+a|== link:faq/[FAQ]
 Do you have any questions
-about +Continuous Hacking+ or +One-Shot Hacking+ services?
-Check our +FAQ+ section and get the answers
+about `Continuous Hacking` or `One-Shot Hacking` services?
+Check our `FAQ` section and get the answers
 to the most common questions about our services.
 
 [button]#link:faq/[Learn More]#

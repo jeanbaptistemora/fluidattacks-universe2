@@ -14,9 +14,9 @@ o restaurar su contraseña.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.8+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[`OWASP-ASVS v3.1-2.8`]
 Verificar que todas las funciones de identidad
 (Por ejemplo: contraseña olvidada, cambiar contraseña,
-cambiar email, administrar token +2Fa+, etc)
+cambiar email, administrar token `2Fa`, etc)
 tengan como controles de seguridad el mecanismo de autenticación primaria
 (Por ejemplo: formulario de inicio de sesión).

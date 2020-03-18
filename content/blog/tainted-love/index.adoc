@@ -26,21 +26,21 @@ regarding taint analysis which may have resulted
 from our previous references.
 On one hand, this concept is intimately linked
 with code representations used by
-some of the +ML+-powered vulnerability detectors
+some of the `ML`-powered vulnerability detectors
 we have presented before,
 and on the other hand,
 it is well-complemented by symbolic execution,
 so we deemed it necessary to clarify this concept a bit.
 
-Most of the +OWASP+ top 10
+Most of the `OWASP` top 10
 web application vulnerabilites
 arise because an attacker
 can inject some code into
 the application's inputs
 which are then used to perform some action in the server.
-The classic example for this is the +SQL+ injection.
+The classic example for this is the `SQL` injection.
 
-For example, this page from +bWAPP+
+For example, this page from `bWAPP`
 has an input where the user is supposed to write a movie name,
 which should contain only alphanumeric characters:
 
@@ -59,8 +59,8 @@ $sql = "SELECT * FROM movies WHERE title LIKE '%" . $title . "%'";
 $recordset = mysql_query($sql, $link);
 ----
 
-The input is taken from the +POST+ request
-and pasted right into a +SQL+ query
+The input is taken from the `POST` request
+and pasted right into a `SQL` query
 which is immediately performed
 and shown to the user in a table.
 If instead of an actual movie name,
@@ -72,7 +72,7 @@ an attacker writes this in the box:
 activated, admin FROM users;#
 ----
 
-Then the +SQL+ query becomes this:
+Then the `SQL` query becomes this:
 
 [source,sql]
 ----
@@ -88,9 +88,9 @@ along with the users' login information:
 image::../fuzzy-bugs-online/scr-succesful-sqli.png[bWAPP SQLi]
 
 The user input has become _tainted_,
-and hence the +SQL+ query is now taintedas well.
+and hence the `SQL` query is now taintedas well.
 In the context of taint checking
-the +$title+ input above is called a _source_,
+the `$title` input above is called a _source_,
 which is where the bad input and
 the possible injection is coming from.
 
@@ -168,7 +168,7 @@ if ($full =~ /^([-\@\w.]+)$/) {
   invoking a sub-shell, opening files,
   interacting with system processes, etc.
   That's the real run-time protection.
-  Thus the following SQL +query+ would fail:
+  Thus the following SQL `query` would fail:
 
 [source,perl]
 ----
@@ -176,11 +176,11 @@ $dbh->execute("SELECT * FROM users WHERE email = '$full';");
 ----
 
 All a user needs to do
-to enable taint mode in +Perl+ is
-add the +-T+ switch when running from the command line
+to enable taint mode in `Perl` is
+add the `-T` switch when running from the command line
 or in the case of executable scripts,
-such as +CGI+ scripts (a common use case for +Perl+),
-add that switch to the +shebang+:
+such as `CGI` scripts (a common use case for `Perl`),
+add that switch to the `shebang`:
 
 [source,perl]
 ----
@@ -188,17 +188,17 @@ add that switch to the +shebang+:
 ----
 
 It is worth noting that,
-since +Perl+ is an interpreted scripting language,
+since `Perl` is an interpreted scripting language,
 this taint mode is only a run-time protection
 which might not be bulletproof and also
 might block legitimate requests.
 
 == Static analysis: the PyT approach
 
-+PyT+ is a static taint-checking tool for
+`PyT` is a static taint-checking tool for
 detecting security vulnerabilities in
-+Python+ web applications.
-More specifically, it was designed with +Flask+
+`Python` web applications.
+More specifically, it was designed with `Flask`
 applications in mind.
 It was developed as a Master's thesis project
 by Stefan Micheelsen and Bruno Thalman

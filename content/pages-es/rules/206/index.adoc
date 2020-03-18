@@ -10,5 +10,5 @@
 
 Protocolos de comunicación de los dispositivos móviles
 que permiten intercambio de datos
-(+Bluetooth+, +NFC+, +Tethering+) deben permanecer ocultas,
+(`Bluetooth`, `NFC`, `Tethering`) deben permanecer ocultas,
 configurado con credenciales o permanecer apagadas.

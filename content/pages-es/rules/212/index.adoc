@@ -9,6 +9,6 @@
 == Requisito
 
 Las interfaces de comunicación de los dispositivos móviles
-que permiten acceso a +Internet+ mediante un plan de datos,
+que permiten acceso a `Internet` mediante un plan de datos,
 deben permanecer apagadas cuando el equipo esté conectado
 a la red de la organización.

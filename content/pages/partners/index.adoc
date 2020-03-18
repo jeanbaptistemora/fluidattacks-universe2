@@ -16,7 +16,7 @@ and sectors (Government, Defense) link:#evolution-it[^5^].
 In addition to our services, they complete their own portfolio
 (functional testing link:#choucair[^6^] link:#greensqa[^7^], software development)
 providing integrated solutions.
-If you are interested in partnering with +Fluid Attacks+,
+If you are interested in partnering with `Fluid Attacks`,
 please start by reading the [button]#link:terms/[terms]#
 of our general partner agreement.
 
@@ -28,11 +28,11 @@ a|image::logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
 
 a|== Arroyo Consulting
 
-{usa} Agile nearshore information technology development firm formed in +2009+.
+{usa} Agile nearshore information technology development firm formed in `2009`.
 They have offices located in the United States
 and low-cost operation centers located across Latin America in Mexico City,
 Mexico, and Medellín and Bogotá, Colombia.
-They have successfully delivered over +1000+ projects internationally,
+They have successfully delivered over `1000` projects internationally,
 with partners in a variety of industries and sectors.
 
 a|== Choucair
@@ -76,14 +76,14 @@ a|image::gamma-logo.png[alt="Logo Gamma Ingenieros",link="https://www.gammaingen
 a|== Gamma Ingenieros
 
 Colombian company focused on satisfying their customers' needs
-regarding +IT+ services and solutions.
+regarding `IT` services and solutions.
 Consulting and auditing of construction works and telecommunications
 with a proven track record of fostering customer confidence
 and improving the customer experience.
 
 a|== GreenSQA
 
-Company with +15+ years of experience in software testing,
+Company with `15` years of experience in software testing,
 such as performance tests and tests on different mobile devices.
 Tests automation throughout the product development life-cycle.
 
@@ -95,7 +95,7 @@ a|== NewNet
 
 Colombian company dedicated to providing IT services and solutions.
 A pioneer in information technology,
-with more than +20+ years of experience.
+with more than `20` years of experience.
 NewNet's objective is to plan, establish, implement, operate,
 review, maintain, and improve technology management
 within the framework of security, service,
@@ -105,7 +105,7 @@ a|== Proximiteam
 
 {canada} Proximiteam is a global provider
 of high-quality software development services.
-Its teams of experienced software engineers and +IT+ specialists
+Its teams of experienced software engineers and `IT` specialists
 create innovative systems and applications for every industry.
 Headquartered in Toronto, Canada,
 with a solid nearshore network of development centers and global partners,
@@ -153,8 +153,8 @@ a|== Zenda
 
 {peru} Peruvian company providing technology solutions.
 Focused on designing value propositions aligned to the strategic objectives
-of your company and management of the +IT+ area services.
-Seeking to improve +IT+ services impact
+of your company and management of the `IT` area services.
+Seeking to improve `IT` services impact
 by focusing on the insights of each customer,
 and fostering continuous business growth
 through the delivery of a simple, scalable, and convergent solution.

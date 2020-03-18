@@ -14,14 +14,14 @@ y contar con las tarjetas del sistema de control de accesos correspondientes.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(1)]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(1)]
 Controles de acceso a las instalaciones:
 Implementar políticas y procedimientos para limitar
 el acceso físico a la instalación o instalaciones
 donde se almacenan sistemas electrónicos con información sensible,
 verificando que todo acceso sea autorizado
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(2)(iii):]
 Procedimientos de control de acceso y validación:
 Implementar procedimientos para controlar y validar
 el acceso de una persona a las instalaciones basándose

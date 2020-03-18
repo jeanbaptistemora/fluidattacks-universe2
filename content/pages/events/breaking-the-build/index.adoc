@@ -8,7 +8,7 @@
 
 == 1. Objective
 
-The term +SecDevOps+ has grown in popularity in recent years;
+The term `SecDevOps` has grown in popularity in recent years;
 however, every Webinar that addresses the topic
 only focuses on its benefits, or possibles use cases,
 ignoring the people’s main reason to assist in this kind of events.
@@ -24,7 +24,7 @@ and in this case, new questions emerge, such as
 Based on the above,
 in this talk, we seek to answer the posed questions,
 through the socialization of our methodologies and work practices
-or *habits* that allow us to implement a +SecDevOps+ culture
+or *habits* that allow us to implement a `SecDevOps` culture
 in the execution of our projects;
 from the infrastructure management
 to the development of our orchestration platform
@@ -75,18 +75,18 @@ following a *monorepo* structure
 * Keep a clean and small environment for the developers,
 including the changes to the master branch,
 avoiding code accumulation
-and reaching *zero inventory* (leaving +gitflow+ behind)
+and reaching *zero inventory* (leaving `gitflow` behind)
 
 * Generate daily value to the customers
 through a *micro changes* methodology
-(instead of big changes every +3+ weeks or more).
+(instead of big changes every `3` weeks or more).
 
 * Migrate and manage all the infrastructure as versioned source code,
 turning it into *immutable infrastructure*
 (avoiding management consoles and unauthorized changes).
 
 * Define  Continuous Integration environments as source code,
-+*pipeline as code*+,
+`*pipeline as code*`,
 in a way that can easily be configured
 and modified for all kind of tests
 (avoiding graphical interface limitations
@@ -104,10 +104,10 @@ and *keeping the secrets protected*.
 that allow testing all the developed features
 before passing to production
 (reducing project complexity by avoiding development environments,
-testing, +QA+, and others)
+testing, `QA`, and others)
 
-* *Breaking the build* even before making a +commit+ to the repository
-using +*pre-commit*+ for checking the source code.
+* *Breaking the build* even before making a `commit` to the repository
+using `*pre-commit*` for checking the source code.
 
 * Perform tests over the source code and over the deployment
 that *break the build* as a result for the smallest error
@@ -116,26 +116,26 @@ that *break the build* as a result for the smallest error
 ** Multiplatform integration.
 ** Unit testing.
 ** Coverage.
-** Strict +Linters+.
-** +Security Gates (SAST y DAST)+.
+** Strict `Linters`.
+** `Security Gates (SAST y DAST)`.
 
-* Extreme reduction of +build+ times
+* Extreme reduction of `build` times
 by using the *cache* correctly.
 
 *  Take advantage of the features presented
-in the version control client +Git+:
+in the version control client `Git`:
 
-** +Peer Review+.
-** +Squashing+.
-** +Rebasing+.
-** +Rollback+
-** +Trigger builds+.
+** `Peer Review`.
+** `Squashing`.
+** `Rebasing`.
+** `Rollback`
+** `Trigger builds`.
 
 * *Telemetry* accessible to developers
 (not logs, only available for infrastructure area)
 
 Each point previously described is explained
-while accessing +Fluid Attacks+ systems
+while accessing `Fluid Attacks` systems
 to look at its implementation and operation.
 According to the needs or interest of the assistants,
 it is possible to focus on the topics they deem most important.
@@ -144,31 +144,31 @@ it is possible to focus on the topics they deem most important.
 
 This *workshop* has been presented to professionals
 in technology and auditing areas, for companies such as:
-link:https://www.accenture.com/co-es/new-applied-now[+Accenture+],
-link:https://www.arus.com.co/[+Arus+],
-link:https://www.ath.com.co/wps/themes/html/ath/index.html[+ATH+],
-link:https://www.avianca.com/co/es/[+Avianca+],
-link:https://www.grupobancolombia.com/wps/portal/personas[+Bancolombia+],
-link:https://www.banistmo.com/[+Banitsmo+],
-link:https://www.biva.mx/en/web/portal-biva/home[+BIVA+],
-link:http://www.cadena.com.co/es/home.aspx[+Cadena+],
-link:http://cidenet.com.co/[+Cidenet+],
-link:https://www.colpatria.com/[+Colpatria+],
-link:http://www.cognox.co[+Cognox+],
-link:https://www.vendesfacil.com/[+Coordiutil+],
-link:https://www.corona.co/[+Corona+]
-link:http://www.eafit.edu.co/[+EAFIT+],
-link:https://evendidigital.com/[+Evendi Digital+],
-link:https://www.f2x.com.co/[+F2X+], link:http://www.gco.com.co/[+GCO+],
-link:https://www.grupoaval.com/wps/portal/grupo-aval/aval/[+Grupo AVAL+],
-link:https://www.grupoexito.com.co/es/[+Grupo Éxito+],
-link:https://interbank.pe/[+Interbank+],
-link:https://www.kometsales.com/[+Komet Sales+],
-link:https://www.payvalida.com/co/es/[+Pay valida+],
-link:https://www.proteccion.com/wps/portal/proteccion/[+Protección+],
-link:https://www.runt.com.co/[+RUNT+],
-link:http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[+Seti+]
-and link:http://www.techandsolve.com/[+Tech and Solve+].
+link:https://www.accenture.com/co-es/new-applied-now[`Accenture`],
+link:https://www.arus.com.co/[`Arus`],
+link:https://www.ath.com.co/wps/themes/html/ath/index.html[`ATH`],
+link:https://www.avianca.com/co/es/[`Avianca`],
+link:https://www.grupobancolombia.com/wps/portal/personas[`Bancolombia`],
+link:https://www.banistmo.com/[`Banitsmo`],
+link:https://www.biva.mx/en/web/portal-biva/home[`BIVA`],
+link:http://www.cadena.com.co/es/home.aspx[`Cadena`],
+link:http://cidenet.com.co/[`Cidenet`],
+link:https://www.colpatria.com/[`Colpatria`],
+link:http://www.cognox.co[`Cognox`],
+link:https://www.vendesfacil.com/[`Coordiutil`],
+link:https://www.corona.co/[`Corona`]
+link:http://www.eafit.edu.co/[`EAFIT`],
+link:https://evendidigital.com/[`Evendi Digital`],
+link:https://www.f2x.com.co/[`F2X`], link:http://www.gco.com.co/[`GCO`],
+link:https://www.grupoaval.com/wps/portal/grupo-aval/aval/[`Grupo AVAL`],
+link:https://www.grupoexito.com.co/es/[`Grupo Éxito`],
+link:https://interbank.pe/[`Interbank`],
+link:https://www.kometsales.com/[`Komet Sales`],
+link:https://www.payvalida.com/co/es/[`Pay valida`],
+link:https://www.proteccion.com/wps/portal/proteccion/[`Protección`],
+link:https://www.runt.com.co/[`RUNT`],
+link:http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[`Seti`]
+and link:http://www.techandsolve.com/[`Tech and Solve`].
 
 == 4. Where?
 
@@ -187,19 +187,19 @@ a morning break, and a lunch break.
 The *workshop* is designed to be performed from *9 A.M.* to *3 P.M.*,
 with a *30 minutes* break at *12 m*
 The event date must be scheduled by agreement
-between the attendants and +Fluid Attacks+.
+between the attendants and `Fluid Attacks`.
 
 == 7. Details
 
 . *Investment*: The space and food for this workshop
-are completely covered by +Fluid Attacks+.
+are completely covered by `Fluid Attacks`.
 The attendance must commit themselves with their time
 and their transportation expenses
 including vehicles parking costs
 in case the facility exceeds its capacity.
 
 . *Material*: As well as the other events
-offered by +Fluid Attacks+
+offered by `Fluid Attacks`
 the event material is sent to the attendance
 once *all* the assistants have completed the
 [button]#link:https://fluidsignal.formstack.com/forms/talk[online satisfaction survey]#
@@ -215,7 +215,7 @@ considering people that can make decisions is important.
 
 The *workshop* is designed for an audience
 between *12 and 14* persons on the customer side,
-besides +4+ additional assistants on +Fluid Attacks+ side.
+besides `4` additional assistants on `Fluid Attacks` side.
 
 == 9. Requirements
 

@@ -18,13 +18,13 @@
 
 More than 20 years have passed
 since Garry Kasparov, the chess world champion,
-was defeated by +Deep Blue+, the supercomputer designed by +IBM+.
+was defeated by `Deep Blue`, the supercomputer designed by `IBM`.
 For many people, that event was proof that
 machines had managed to exceed human intelligence <<r1,^[1]^>>.
 This belief raised many doubts and concerns
 regarding technological advance,
 that went all the way from workers worried about their jobs,
-to beliefs that the apocalypse was coming, incentivized by +Hollywood+,
+to beliefs that the apocalypse was coming, incentivized by `Hollywood`,
 and beliefs that machines would conquer and oppress our world.
 
 Leaving all fiction aside,
@@ -44,7 +44,7 @@ tools that can detect errors and vulnerabilities in a web app.
 What can we, information security specialist, expect from all of this?
 Are we becoming more and more expendable?
 
-.The inevitable outcome that +Hollywood+ shows us
+.The inevitable outcome that `Hollywood` shows us
 image::terminator.png[Robot holding a firearm with an explosion in the background]
 
 Fortunately, our future does not look so bleak.
@@ -100,7 +100,7 @@ and stop the deployment of the app if an error is found,
 false positives could make the deployment of an app
 a pain in the ass.
 
-* +Netsparker+ (the developer of one of these tools),
+* `Netsparker` (the developer of one of these tools),
 agrees with this position <<r3,^[3]^>>,
 no analyzer is capable of detecting
 all vulnerabilities classified as the
@@ -123,36 +123,36 @@ that those tools are sufficient in order to decide
 if a web app is secure or not.
 
 To do this, we developed our own experiment.
-We used the insecure web application +bWAPP+
-and the automated analyzers +W3af+, +Wapiti+ and +OWASP ZAP+.
+We used the insecure web application `bWAPP`
+and the automated analyzers `W3af`, `Wapiti` and `OWASP ZAP`.
 These all share the features of being
-+Open Source+ and being able to be executed from the command line.
+`Open Source` and being able to be executed from the command line.
 Thanks to this, it is possible to use them in
 a Continuous Integration environment.
-For +bWAPP+, we assumed a total of 170 vulnerabilities,
+For `bWAPP`, we assumed a total of 170 vulnerabilities,
 based on the results of the company that developed the app
 <<r4,^[4]^>>.
 Let's see how our contestants performed:
 
 [role="tb-row"]
-.+bWAPP+ Vulnerability Analysis
+.`bWAPP` Vulnerability Analysis
 [cols="^,^,^,^"]
 |====
 s| Tool s| Detected s| % Not Detected s| Time
 
-a|+W3af+ | 28 | 83.5% | 00:02:30
+a|`W3af` | 28 | 83.5% | 00:02:30
 
-a|+Wapiti+ | 26 | 84.7% | 00:02:00
+a|`Wapiti` | 26 | 84.7% | 00:02:00
 
-a|+ZAP-Short+ | 42 | 75.3% | 00:19:00
+a|`ZAP-Short` | 42 | 75.3% | 00:19:00
 
-a|+ZAP-Full+ | 59 | 65.3% | 01:30:00
+a|`ZAP-Full` | 59 | 65.3% | 01:30:00
 |====
 
 In the previous information,
-+ZAP-Short+ refers to the +ZAP+ tool
-with only the +XSS+ and +SQLi+ plugins enabled.
-+ZAP-Full+ refers to the same tool
+`ZAP-Short` refers to the `ZAP` tool
+with only the `XSS` and `SQLi` plugins enabled.
+`ZAP-Full` refers to the same tool
 with all of its plugins enabled.
 It is important to note that
 the application authentication had to be disabled.
@@ -164,24 +164,24 @@ but also leaves a layer of the web app unanalyzed.
 Another important detail is that
 the analyzers were not aimed at the main site,
 as a real test would have.
-The target of the attack was a specific +bWAPP+ page
+The target of the attack was a specific `bWAPP` page
 where links to all the other pages are listed.
 This way a complete identification is achieved by the tool.
-+bWAPP+ uses forms to reach all other pages,
+`bWAPP` uses forms to reach all other pages,
 which is why aiming the attack at the main page
 would result in 0 sites of interest being found.
-There are tools such as +Burp+ that solve this problem
+There are tools such as `Burp` that solve this problem
 through the evaluation of the forms <<r5,^[5]^>>,
 but there are others that fail in the same situation
 due to their inability to navigate the main site.
 
 To facilitate the analysis of the results,
-let's take the best result (+ZAP-Full+) and
-the worst one (+Wapiti+),
+let's take the best result (`ZAP-Full`) and
+the worst one (`Wapiti`),
 and compare them against the whole surface of the application,
 let's see what coverage was achieved.
 
-.Visual representation of the best and worst result from Table 1- +ZAP-Full+ y +Wapiti+
+.Visual representation of the best and worst result from Table 1- `ZAP-Full` y `Wapiti`
 image::yield.png[Coverage comparison between two analyzers with the scope of an application]
 
 We can see that even the best of the tools we used
@@ -217,7 +217,7 @@ to detect the maximum amount of vulnerabilities in an efficient manner.
 Therefore giving a greater sense of security
 and satisfaction to the web application developers.
 
-Paraphrasing Garry Kasparov in his +TED+ talk <<r6,^[6]^>>,
+Paraphrasing Garry Kasparov in his `TED` talk <<r6,^[6]^>>,
 where he uses a freestyle chess tournament as an example
 (in which amateur players with three common machines
 defeated grand-masters of the chess game and supercomputers),

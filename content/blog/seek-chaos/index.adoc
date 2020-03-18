@@ -38,7 +38,7 @@ these are robust (although how robust is depends on the type of stressor).
 The typical paradigm of information security has been to go
 from fragile designs and processes
 to robust ones as previously unthinkable events appear.
-Think of how networking protocols have evolved or how +IT+ infrastructure
+Think of how networking protocols have evolved or how `IT` infrastructure
 is becoming more script-oriented
 or transitioning into infrastructure as a code.
 
@@ -63,7 +63,7 @@ the mythological monster, is an antifragile entity.
 
 Shane Parrish, who runs Farnam Street blog,
 has provided more examples related to this concept using a triad:
-+FRAGILE+ - +ROBUST+ - +ANTIFRAGILE+.
+`FRAGILE` - `ROBUST` - `ANTIFRAGILE`.
 Here are two cases:
 
 
@@ -94,14 +94,14 @@ and systems to small risks.
 .A monkey shouting on a cave”; perhaps he is about to cause some chaos!
 image::monkey.png["Monkey in a cave"]
 
-The worst nightmare for a company like +Netflix+ is downtime.
+The worst nightmare for a company like `Netflix` is downtime.
 In 2008, the company decided to migrate to a cloud infrastructure
 after facing a massive database incident.
 Complete migration took eight years (read link:https://media.netflix.com/en/company-blog/completing-the-netflix-cloud-migration[here] about it).
 In the process, back in 2010,
-the company launched +Chaos Monkey+,
+the company launched `Chaos Monkey`,
 a tool to cause their cloud servers to be offline by random.
-They can not afford, for instance, outages of their +IaaS+ provider.
+They can not afford, for instance, outages of their `IaaS` provider.
 
 .The Netflix Simian Army
 [quote]
@@ -113,7 +113,7 @@ and build automatic recovery mechanisms to deal with them.
 So next time an instance fails at 3 am on a Sunday, we won’t even notice.”
 
 By being exposed to these outages,
-+Netflix+ assesses how proper the countermeasures are to keep services running.
+`Netflix` assesses how proper the countermeasures are to keep services running.
 If they are not, they devise improvements
 to avoid these outages when they happen for real.
 
@@ -124,14 +124,14 @@ that their automated remediation worked correctly,”
 
 wrote link:https://www.gremlin.com/chaos-monkey/[Gremlin],
 a _“chaos engineering”_ company.
-+Netflix+ didn’t stop there.
-They build a +Simian Army+:
+`Netflix` didn’t stop there.
+They build a `Simian Army`:
 more tools to inject other _“troubles”_ into their platform.
-One of these is +Chaos Gorilla+ which simulates an outage
+One of these is `Chaos Gorilla` which simulates an outage
 of an entire availability zone.
 
-This mindset is in line with the cases shown in +table 1+.
-+Netflix+ was not waiting for mistakes to happen; they created them.
+This mindset is in line with the cases shown in `table 1`.
+`Netflix` was not waiting for mistakes to happen; they created them.
 Furthermore, those _"mistakes"_ were diverse;
 they were creating different exposures to their platform.
 The journey has not been perfect,
@@ -144,7 +144,7 @@ even with underlying infrastructure failing
 making those earlier outages something tiny.
 
 I don’t know about you, dear reader,
-but I’ve never experienced a +Netflix+ outage since July 2013,
+but I’ve never experienced a `Netflix` outage since July 2013,
 when I became a customer.
 
 == Experimentation, tinkering and small risks
@@ -214,9 +214,9 @@ in their book The Why Axis,
 suggest that businesses that do not experiment are losing money.
 Furthermore, they claim that executives
 of these non-experiment-oriented corporations
-will become endangered species (+p. 213+).
+will become endangered species (`p. 213`).
 
-An organization I admire is The Behavioral Insights Team (+BIT+).
+An organization I admire is The Behavioral Insights Team (`BIT`).
 This company works designing and running experiments since 2010.
 Almost every project is a well-designed experiment.
 They aim to find cheaper and scalable solutions
@@ -225,14 +225,14 @@ from governments and public institutions towards citizens.
 They combine novel approaches including behavioral science,
 adequate randomized control trials, and data analyses.
 From their work (and learning),
-they were able to launch +BI Ventures+,
+they were able to launch `BI Ventures`,
 their product development army.
 They have been looking for _"mistakes"_
 and experimenting with different _“exposures”_
 to help governments stepping away from fragility.
-In their journey, +BIT+ itself has become a great example
+In their journey, `BIT` itself has become a great example
 of an antifragile company.
-See how +BIT+ has been featured:
+See how `BIT` has been featured:
 
 * The Economist
 (link:https://www.economist.com/international/2017/05/18/policymakers-around-the-world-are-embracing-behavioural-science[Policymakers around the world are embracing behavioral science)]
@@ -247,7 +247,7 @@ See how +BIT+ has been featured:
 Want to start becoming antifragile in your cybersecurity efforts?
 We can help.
 Check out our services.
-We inject a mix of _“troubles”_ into your applications and +IT+ infrastructure:
+We inject a mix of _“troubles”_ into your applications and `IT` infrastructure:
 
 * [inner]#link:../../services/continuous-hacking[Continuous hacking]#.
 Think of it as a constant source of stressors.
@@ -258,7 +258,7 @@ focused on your most valuable information assets
 (or on the target you want).
 
 We are able to create some monkeys
-and even gorillas to shake your +IT+ assets,
+and even gorillas to shake your `IT` assets,
 making offensive testing your best line of protection.
 That way, you can learn how to better prepare for potential incidents
 and outthink attackers!

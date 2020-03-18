@@ -33,7 +33,7 @@ In production-grade systems, however,
 these checks are routinely performed since
 experienced developers are used to them.
 Still, taint-style vulnerabilities happen,
-as was the case with a +Java 7 runtime+
+as was the case with a `Java 7 runtime`
 vulnerability (link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0422[CVE-2013-0422])
 which allowed arbitrary classes to be uploaded,
 leading to a massive distribution of malware.
@@ -99,7 +99,7 @@ Thus, distances between them can be computed,
 and its [inner]#link:../crash-course-machine-learning/#anomaly-detection-via-k-nearest-neighbors[_k_ nearest neighbors]#
 chosen as that function’s neighborhood.
 Intuitively, this should couple every function
-with the _k_ most similar functions in terms of the +API+ symbols they use.
+with the _k_ most similar functions in terms of the `API` symbols they use.
 Thus, functions that use a lot of memory allocations would be put together,
 a method that has many return points
 would be paired with functions that also have many return points, etc.
@@ -110,7 +110,7 @@ are really security-relevant, and which ones are just noise.
 This, however, is not so easy since we need to take into account
 the flow of data between variables,
 which sounds more like a job for [inner]#link:../symbolic-execution-mortals[symbolic execution]#
-and taint analysis, which is in fact what +Chucky+ uses.
+and taint analysis, which is in fact what `Chucky` uses.
 
 .Tainted dependency graph (right) for the snippet to the left
 image::taint.png[holi]
@@ -123,10 +123,10 @@ Next we need to represent the function as a vector.
 Again, the authors use a bag-of-words-like approach,
 where instead of the term frequency or inverse document frequency,
 a simple _indicator_ function is used:
-+1+ if a term is contained and +0+ if not.
+`1` if a term is contained and `0` if not.
 Furthermore, the _"words"_ are taken from the abstract syntax tree
 and later normalized since we don’t care about particular operations
-(+<+, +>+ are all treated as comparisons),
+(`<`, `>` are all treated as comparisons),
 particular numbers used or particular identifier names.
 Thus, from the snippet above,
 we would obtain a vector representation such as this one:
@@ -159,8 +159,8 @@ except for one missing check,
 are more likely to contain security vulnerabilities
 than functions which are just altogether different from their neighbors.
 
-+Chucky+ was originally tested on five popular open-source projects,
-versions of which contained published missing-check +CVEs+.
+`Chucky` was originally tested on five popular open-source projects,
+versions of which contained published missing-check `CVEs`.
 Also, the code was modified to introduce artificial vulnerabilites.
 This, of course, depends on the number of neighbors
 that should be taken into account.
@@ -176,18 +176,18 @@ For other reasonable values of _k_ the results are also good.
 
 But can it help in finding _previously unknown_ vulnerabilites,
 as was set in the authors objectives?
-Indeed, +Chucky+ was able to find 12 zero-day vulnerabilites
-in +LibTIFF+ and +Pidgin+.
+Indeed, `Chucky` was able to find 12 zero-day vulnerabilites
+in `LibTIFF` and `Pidgin`.
 One of them is particularly easy to exploit.
-In the function +msn_message_parse_payload+,
-+Chucky+ reports a failure to check the value passed to +strchr+.
+In the function `msn_message_parse_payload`,
+`Chucky` reports a failure to check the value passed to `strchr`.
 An attacker can thus trigger this vulnerability
-by sending the message +Content-Type\n\n+,
-thus making one of the sensitive sinks on the victim side +null+,
+by sending the message `Content-Type\n\n`,
+thus making one of the sensitive sinks on the victim side `null`,
 leading to an application crash.
 
 ''''
-+Chucky+ has shown us how relatively simple,
+`Chucky` has shown us how relatively simple,
 but "intellectually transparent" machine learning models
 can tell us a lot about where to look for vulnerabilities.
 However, let us remember that this approach

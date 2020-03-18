@@ -17,13 +17,13 @@ deshabilitación del usuario, etc).
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.26+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[`OWASP-ASVS v3.1-2.26`]
 Verificar que las operaciones sensibles (por ejemplo: cambio de contraseña,
 cambio de correo electrónico, adición de carteras, etc.)
-requieran re-autenticación (por ejemplo contraseña o token +2FA+).
-Esto es adicional a las medidas de +CSRF+, no las reemplaza.
+requieran re-autenticación (por ejemplo contraseña o token `2FA`).
+Esto es adicional a las medidas de `CSRF`, no las reemplaza.
 
-. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-11[+NIST+ 800-53 IA-11]
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-11[`NIST` 800-53 IA-11]
 Re-autenticación: La organización debe requerir re-autenticación
 a usuarios y dispositivos cuando se presenten circunstancias o situaciones
 definidas por la organización que la requieran.

@@ -49,10 +49,10 @@ but it is clear even from the foundations
 that this leaves room for improvement.
 
 Another possibility is to use the snippet's
-Abstract Syntax Tree (+AST+), which,
+Abstract Syntax Tree (`AST`), which,
 incidentally, is what they use in tools such as
-[inner]#link:../embed-code-vector/[+code2vec+]# and
-[inner]#link:../code-translate/[+code2seq+]#.
+[inner]#link:../embed-code-vector/[`code2vec`]# and
+[inner]#link:../code-translate/[`code2seq`]#.
 However an issue that we could claim to be present here
 is that code is not just about syntax,
 but it also has rich semantics which could be
@@ -88,7 +88,7 @@ becomes two abstracted traces like this:
 .Abstracted traces from a snippet
 image::abstracted-traces.png[Abstracted traces from a snippet, code examples]
 
-Incidentally, these +Call+, +Error+, +AccessPath+, etc
+Incidentally, these `Call`, `Error`, `AccessPath`, etc
 type of abstractions subtly hint at an idea
 we've been considering, namely,
 using an intermediate representation of code
@@ -103,10 +103,10 @@ two issues at hand:
 
 Back to abstracted symbolic traces,
 they then proceed to encode these as words
-in order to use +GloVe+, a sort of big brother to +Word2Vec+.
+in order to use `GloVe`, a sort of big brother to `Word2Vec`.
 (I warned you, most code encoders either work with
-or are heavily inspired by +W2V+).
-+GloVe+ exploits the intutition that when
+or are heavily inspired by `W2V`).
+`GloVe` exploits the intutition that when
 words appear together frequently,
 they have some relation,
 which seems reasonable in the regular usage of language.
@@ -120,7 +120,7 @@ regarding the quality of the learned embeddings.
 One is the production of code _analogies_:
 much like "king - man + woman = queen" for natural language,
 similar relations arise here,
-such as "+receive+ is to +download+ as +send+ is to +upload+",
+such as "`receive` is to `download` as `send` is to `upload`",
 where each of those are tokens naturally occurring in snippets of code.
 Of course, this is not yet standardized,
 so the is no benchmark; the authors had to make their own
@@ -149,7 +149,7 @@ in the code representation for input to embedders,
 despite the overhead.
 On the other, to be fair,
 the syntax-only approach they use might not be as sophisticated as,
-say, +code2vec+.
+say, `code2vec`.
 It could be that we are comparing the weakest
 machine gun to the weakest pistol,
 instead of to the strongest, which might win

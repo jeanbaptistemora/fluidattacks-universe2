@@ -9,5 +9,5 @@
 == Requisito
 
 El sistema operativo debe usar técnicas
-para evitar ejecución de código en +stack+
-(+ASLR+, +PaX+, +canaries+, deshabilitar +bit+ de ejecución, etc).
+para evitar ejecución de código en `stack`
+(`ASLR`, `PaX`, `canaries`, deshabilitar `bit` de ejecución, etc).

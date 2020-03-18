@@ -5,20 +5,20 @@
 
 = Partners Terms
 
-Terms of the contractual relationship between +Fluid Attacks+ and its PARTNERS
+Terms of the contractual relationship between `Fluid Attacks` and its PARTNERS
 (be them channels or integrators).
 Commissions, cut-off dates,  and goals to be achieved
 to stay within a commission range are specified, among other aspects.
 These can change at any time and are established
 only by signing the physical document.
 
-. +Fluid Attacks+ together with the PARTNER
+. `Fluid Attacks` together with the PARTNER
 will set the final sale price for each CUSTOMER.
 
 . The final price for the CUSTOMER will be the base value
 used to calculate the commission to be paid to the PARTNER.
 
-. +Fluid Attacks+ will always be a visible brand to the end CUSTOMER.
+. `Fluid Attacks` will always be a visible brand to the end CUSTOMER.
 Co-branding is also an option, but white-labeling is not.
 
 . All the PARTNERS start with a minimum commission of *30%*,
@@ -27,7 +27,7 @@ until *2 cut-off dates* have elapsed.
 . The cut-off date will be *December 31* of each year.
 
 . Every *15th of January* after the second cut-off date,
-the growth of the cash collected by +Fluid Attacks+
+the growth of the cash collected by `Fluid Attacks`
 between the two previous cut-off dates will be evaluated
 to determine the commission of the year that starts:
 
@@ -46,16 +46,16 @@ and commision percentage for the PARTNER
 reduction in the comission
 (*50%* of the minimum *30%*) if there is no yearly growth.
 
-. +Fluid Attacks+ will bill the end CUSTOMER
+. `Fluid Attacks` will bill the end CUSTOMER
 and collect the payment from the USA, through an automatic recurring system
 on the Internet which requires credit card.
 
 .. In any other situation, or at the PARTNER's will,
 the PARTNER will be in charge of billing and collection.
 Any risk or delay derived from the non-payment of the end CUSTOMER
-will not be transfered to +Fluid Attacks+.
+will not be transfered to `Fluid Attacks`.
 
-. +Fluid Attacks+ will start the service *1 day* after receiving the payment
+. `Fluid Attacks` will start the service *1 day* after receiving the payment
 regarding configuration and first month of service.
 
 .. From the second month of service and on, the CUSTOMER or the PARTNER
@@ -64,13 +64,13 @@ before the service is suspended.
 
 . All services will be provided remotely.
 
-. In case the +Fluid Attacks+ employee needs to travel:
+. In case the `Fluid Attacks` employee needs to travel:
 
-.. +Fluid Attacks+ will pay for the time and air tickets.
+.. `Fluid Attacks` will pay for the time and air tickets.
 
 .. The PARTNER must cover every additional expense that is required.
 
-. +Fluid Attacks+ does not sign exclusivity with any PARTNER.
+. `Fluid Attacks` does not sign exclusivity with any PARTNER.
 
 . The PARTNER must sign a confidentiality and non-solicitation agreement.
 
@@ -78,28 +78,28 @@ before the service is suspended.
 based on the USA tax legislation.
 
 . The PARTNER is obliged to inform in advance
-about the potential CUSTOMERS where +Fluid Attacks+ professional services
+about the potential CUSTOMERS where `Fluid Attacks` professional services
 will be presented.
 
-. If +Fluid Attacks+ bills the end CUSTOMER in Latin America,
-the contractual relationship between the PARTNER and +Fluid Attacks+
+. If `Fluid Attacks` bills the end CUSTOMER in Latin America,
+the contractual relationship between the PARTNER and `Fluid Attacks`
 will be carried out through a Letter of Attorney
 
-. +Fluid Attacks+ will not approach  the prospects
+. `Fluid Attacks` will not approach  the prospects
 that the PARTNER has nominated for sales
 if the PARTNER provides evidence of sales progress
 every *30 days* or less.
 
-. The PARTNER will collect every +25+ day of each month.
+. The PARTNER will collect every `25` day of each month.
 The PARTNER will consolidate all the payments made before
 that day and proceeds to make the payment.
 
-. +Fluid Attacks+ will collect every +25+ day of each month.
-+Fluid Attacks+ will consolidate all the payments made before
+. `Fluid Attacks` will collect every `25` day of each month.
+`Fluid Attacks` will consolidate all the payments made before
 that day and proceeds to make the payment.
 
 . This agreement is reciprocal in its entirety, which means that
-the same clauses apply if +Fluid Attacks+ successfully sells the PARTNER.
+the same clauses apply if `Fluid Attacks` successfully sells the PARTNER.
 
 . For more information, please check our
 [inner]#link:https://fluidattacks.docsend.com/view/5fqdzxz[partnership agreement]#.

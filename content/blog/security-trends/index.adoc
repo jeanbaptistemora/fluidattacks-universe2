@@ -28,10 +28,10 @@ and security prospects in upcoming years.
 
 == Internet of Things
 
-With the spread of +IoT+ (Internet of Things) technologies,
+With the spread of `IoT` (Internet of Things) technologies,
 more devices are exposed every day to the Internet,
 but they are not necessarily secure.
-+IoT+ devices provide additional entry points for attackers,
+`IoT` devices provide additional entry points for attackers,
 giving them a whole repertoire of mechanisms
 to compromise confidential information.
 
@@ -39,9 +39,9 @@ to compromise confidential information.
 image::iot-attacks.png[Main IoT Targets]
 
 According to Bank Info Security <<r1, [1]>>,
-attackers continue targeting the same +IoT+ flaws
+attackers continue targeting the same `IoT` flaws
 reported and disclosed 3 years ago.
-+IoT+ malware, such as link:https://www.cloudflare.com/learning/ddos/glossary/mirai-botnet/[Mirai],
+`IoT` malware, such as link:https://www.cloudflare.com/learning/ddos/glossary/mirai-botnet/[Mirai],
 keeps growing, escalating and mutating.
 Your mobile, webcam, router or even your printer can be a target.
 And these attacks are not particularly difficult to perform;
@@ -49,21 +49,21 @@ you can even find link:https://www.youtube.com/watch?v=6JFP_gUIZZY[Youtube tutor
 
 If you're part of the industry,
 you aren't safe either,
-since +PLCs+, +SCADA+ systems, smart sensors, and drives
-are also +IoT+ devices that can be compromised
-as a result of a +Mirai Botnet+ attack.
+since `PLCs`, `SCADA` systems, smart sensors, and drives
+are also `IoT` devices that can be compromised
+as a result of a `Mirai Botnet` attack.
 This may be discouraging,
 even more so if we consider that in upcoming years,
-the amount of +IoT+ devices will increase considerably.
+the amount of `IoT` devices will increase considerably.
 We can, however, mitigate some risks now through system hardening,
 and something as simple as changing the default credentials
 as well as using [inner]#link:../requiem-password/[secure passwords]#.
-All of these can prevent an +IoT+ attack.
+All of these can prevent an `IoT` attack.
 
 == Companies in the Cloud
 
 Most companies are now migrating to the cloud.
-The advantages of Infrastructure as Code (+IaC+) are clear:
+The advantages of Infrastructure as Code (`IaC`) are clear:
 maintainability, scalability, and pricing, among others.
 With cloud computing service providers like
 link:https://aws.amazon.com/[Amazon Web Services],
@@ -79,9 +79,9 @@ the providers fulfilled their duty,
 now we must fulfill ours.
 
 According to Ben Morris,
-of link:https://www.bishopfox.com/[+Bishop Fox+] <<r2, ^[2]^>>,
+of link:https://www.bishopfox.com/[`Bishop Fox`] <<r2, ^[2]^>>,
 speaking at link:https://www.defcon.org/html/defcon-27/dc-27-index.html[Defcon Security Conference #27],
-hundreds of thousands of +Amazon Elastic Block Storage+ (+EBS+),
+hundreds of thousands of `Amazon Elastic Block Storage` (`EBS`),
 have misconfigurations that led to sensitive data leakages:
 passwords, authentication keys, and encryption keys, among others.
 
@@ -89,35 +89,35 @@ passwords, authentication keys, and encryption keys, among others.
 image::aws-alarm.png[AWS misconfigurations]
 
 And what's worse is in 2018,
-more than +70+ million records were leaked
-due to poorly configured +AWS S3+ buckets <<r3, ^[3]^>>.
+more than `70` million records were leaked
+due to poorly configured `AWS S3` buckets <<r3, ^[3]^>>.
 The main cause of this kind of vulnerability was again the human factor.
 A lack of knowledge
 or negligence regarding infrastructure settings
 can directly impact your company.
-A weak +AWS+ configuration can be detected using automated tools.
+A weak `AWS` configuration can be detected using automated tools.
 [inner]#link:../../products/asserts/[Asserts]#, one of our products,
-can detect these flaws, using the link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws.cloudtrail/[+AWS Cloudtrail module+].
+can detect these flaws, using the link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws.cloudtrail/[`AWS Cloudtrail module`].
 However, some of the cloud leakages
 were also caused by hardware vulnerabilities <<r3, ^[3]^>>,
-such as +Spectre+ <<r4, ^[4]^>>, +Meltdown+ <<r5, ^[5]^>> or +Foreshadow+ <<r6, ^[6]^>>,
+such as `Spectre` <<r4, ^[4]^>>, `Meltdown` <<r5, ^[5]^>> or `Foreshadow` <<r6, ^[6]^>>,
 that exploit vendor chips' vulnerabilities
 to gain access to shared memory pools on physical systems.
 So, it is important to keep up to date with both software and hardware
 to avoid these kinds of attacks.
 
-At +Fluid Attacks+, we have all our infrastructure as code.
-We use link:https://aws.amazon.com/s3/[+AWS+]
+At `Fluid Attacks`, we have all our infrastructure as code.
+We use link:https://aws.amazon.com/s3/[`AWS`]
 as our cloud computing service provider,
-link:https://www.terraform.io/[+terraform+]
-and link:https://www.docker.com/[+docker+]
+link:https://www.terraform.io/[`terraform`]
+and link:https://www.docker.com/[`docker`]
 to configure our infrastructure,
-and link:https://gitlab.com/[+Gitlab as service+]
+and link:https://gitlab.com/[`Gitlab as service`]
 to [inner]#link:../../events/burn-the-datacenter/[regenerate our datacenter]#
 on every new version of our products.
 We implement infrastructure hardening using link:https://www.hashicorp.com/blog/why-we-need-dynamic-secrets[ephemeral secrets]
 in a serverless approach.
-At +Fluid Attacks+, we take security very seriously,
+At `Fluid Attacks`, we take security very seriously,
 since it’s our value promise.
 
 == Machine Learning
@@ -127,10 +127,10 @@ and Artificial Intelligence have demonstrated
 that they have several applications,
 and cybersecurity is not an exception.
 This topic has been widely addressed in [inner]#link:../tags/machine-learning/[several blog entries]#,
-so instead, let's discuss +Fluid Attacks'+ opinion
+so instead, let's discuss `Fluid Attacks'` opinion
 about the prospects for Machine Learning in the cybersecurity field
 
-At +Fluid Attacks+, we do not discourage
+At `Fluid Attacks`, we do not discourage
 the use of automated tools in security tests;
 we even have our own [inner]#link:../../products/commands/[custom cyberweapon]#
 that we sometimes use in our own tests.
@@ -155,7 +155,7 @@ for purchasing or selling products or services.
 These online alternatives have to be handled with extreme care
 since most cyberattacks aim to profit from these functionalities.
 E-commerce attacks come in all shapes and sizes <<r7, ^[7]^>>:
-phishing, identity theft, +DDOS+, credit card frauds, and more.
+phishing, identity theft, `DDOS`, credit card frauds, and more.
 
 Most attacks are based on social engineering.
 These are attacks that try to trick the victim into performing actions
@@ -193,12 +193,12 @@ and solutions, patches, and fixes take too much time to develop and deploy.
 On the bright side, with increasing cyberattacks,
 cybersecurity is becoming more relevant.
 Companies are investing more in security,
-developing tools such as machine learning, neural networks, and +AIs+,
+developing tools such as machine learning, neural networks, and `AIs`,
 and considering security risk consequences
 before exposing applications to the Internet.
-As a result, more companies now believe what +Fluid Attacks+ has always known,
+As a result, more companies now believe what `Fluid Attacks` has always known,
 security should be applied
-to the entire Software Development Life Cycle (+SDLC+).
+to the entire Software Development Life Cycle (`SDLC`).
 
 == References
 

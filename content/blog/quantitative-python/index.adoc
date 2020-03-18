@@ -336,8 +336,8 @@ or as link:./quant.ipynb[Jupyter notebook]
 and input data for link:./events.csv[inherent risk]
 and link:./events-redux.csv[residual risk].
 
-.+quant.py+
+.`quant.py`
 [source,python,numbered]
 ----
-include::content/blog/quantitative-python/quant.py[]
+include::quant.py[]
 ----

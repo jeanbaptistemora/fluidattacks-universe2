@@ -23,15 +23,15 @@ you thougth it was a rampage
 hack that launched nukes -
 it is a practical attack
 link:https://vnhacker.blogspot.com.co/2011/09/beast.html[demonstrated]
-by +Thai Duong+ and +Julian Rizzo+
-at +ekoparty+ in 2011.
+by `Thai Duong` and `Julian Rizzo`
+at `ekoparty` in 2011.
 
 That was the lamest
 introduction ever, it's not
 because the attack doesn't
 deserve it, it's because
-it is quite a +BEAST+ to ride.
-As a warning to all +mathemagicians+
+it is quite a `BEAST` to ride.
+As a warning to all `mathemagicians`
 i will try to avoid most if not all
 math terms.
 
@@ -40,8 +40,8 @@ Shall we begin!?
 == SSL/TLS Implementation flaw
 
 The core of the attack starts here,
-with the *Secure Socket Layer +(SSL)+*
-and *Transport Layer Security +(TLS)+*,
+with the *Secure Socket Layer `(SSL)`*
+and *Transport Layer Security `(TLS)`*,
 it's successor, both, essential
 protocols to transmit our data
 secured by implementing cryptography,
@@ -49,22 +49,22 @@ in this case, symmetric
 cryptography using *+Cipher
 Block Chaining (CBC)+* mode,
 plus one single but significant
-change introduced on the +CBC+
-mode on +TLS 1.0+, the way how
-*+Initialization Vectors (IV)+*
+change introduced on the `CBC`
+mode on `TLS 1.0`, the way how
+*`Initialization Vectors (IV)`*
 were computed.
 
 Back in 2004, an
 link:https://www.openssl.org/~bodo/tls-cbc.txt[attack]
-was theorized, +SSL 3.0+
-and +TLS 1.0+ could be *exploited*
+was theorized, `SSL 3.0`
+and `TLS 1.0` could be *exploited*
 by a variation of the
-link:https://simple.wikipedia.org/wiki/Chosen-plaintext_attack[+Chosen Plaintext Attack+]
-on +CBC+, if the +IV+ is *known*
+link:https://simple.wikipedia.org/wiki/Chosen-plaintext_attack[`Chosen Plaintext Attack`]
+on `CBC`, if the `IV` is *known*
 or can be *predicted* by the
 *attacker*, *attempting* to
 *inject plaintext* to
-be *encrypted* with the +IV+
+be *encrypted* with the `IV`
 and *if* the *output* of the
 *injected plaintext* is
 *identical* as the *output*
@@ -92,10 +92,10 @@ block along the key is *encrypted*
 to *result* in a *ciphertext* made
 of *8 bytes blocks*, <<r2, ^[2]^>>.
 
-Now, the +CBC mode+. Each block
-of *plaintext*, is +XORed+ (Bit
+Now, the `CBC mode`. Each block
+of *plaintext*, is `XORed` (Bit
 a bit operation) with the
-*previous* +ciphertext+ block
+*previous* `ciphertext` block
 *before* being *encrypted*.
 This way each ciphertext block
 depends on all plaintext blocks
@@ -119,10 +119,10 @@ means more *security*.
 image::cbcmode.png["CBC Mode Encryption"]
 
 Last but not least, the
-+initialization  vector (IV)+
+`initialization  vector (IV)`
 In a few words, it is the first
 *block cipher* which, makes each
-message *unique*, the +IV+ is made
+message *unique*, the `IV` is made
 entirely of *random* data.
 
 What is so special about this?
@@ -142,7 +142,7 @@ send me pizza"* to *Bob*. The only
 thing *D knows* is that Alice most
 of the time *starts* the message with
 *"I'm hungry"*. The message
-encrypted with +DES+ is: +
+encrypted with `DES` is: +
 
 .Message encrypted with DES
 image::message-encrypted.png["DES"]
@@ -173,13 +173,13 @@ of the message and you just try
 to craft more combinations until
 it mathches.
 
-Here is where +CBC+ comes in *action*.
+Here is where `CBC` comes in *action*.
 Is specially *designed*  to overcome
 this kind of situations,
 the *addition* of the
 block cipher before encrypting
 each block *invalidates*
-the +Chosen-Plaintext Attack+,
+the `Chosen-Plaintext Attack`,
 let's see that with this simple example:
 
 .CBC sample
@@ -188,7 +188,7 @@ image::cbc-sample.png["CBC sample"]
 As you may see, it's quite hard
 to guess the block that came
 before it, specially when
-the +IV+ it's random. You
+the `IV` it's random. You
 migth think this made
 it secure, isn't?
 
@@ -201,7 +201,7 @@ came up in 2004? There is a variation
 called *+Blockwise-Adaptive
 Chosen-Plaintext Attack (BACPA)+*, <<r4, ^[4]^>>.
 
-The attack derives from the way +SSL/TLS+
+The attack derives from the way `SSL/TLS`
 transmit data: Any plaintext sent
 is fragmented into blocks of length
 less than or equal to *2^14^ bytes*,
@@ -221,7 +221,7 @@ Which is then processed and sent as follow:
 . Padding length (8 bits);
 
 But why do we care about how
-+SSL/TLS+ sends data?
+`SSL/TLS` sends data?
 Well, if a message is splitted
 into several chunks, following
 the description above, a
@@ -230,23 +230,23 @@ into *10-10 bytes blocks* of messages,
 which during transmision *each*
 packet will be *encrypted*, were
 the *first* package will be the *only*
-one who's +IV+ it's *random*,
+one who's `IV` it's *random*,
 then the *last 8 bytes* of *each*
 former packet (or *n-1 package*)
-will be the +CBC+ *residue* of the
+will be the `CBC` *residue* of the
 first *8 bytes* of packet *n*.
 
 Practically, it means, the *residue*
 of the *last* package *becomes* the
-+IV+ of the *current* package,
+`IV` of the *current* package,
 technique ofently referred as
-+Chaining IV's across messages+.
+`Chaining IV's across messages`.
 
 Thus, an attacker can perform
 the *+Blockwise-Adaptive
 Chosen-Plaintext Attack+* by injecting
-his own packets into the +SSL+ stream,
-he'll know what +CBC+ will be used to
+his own packets into the `SSL` stream,
+he'll know what `CBC` will be used to
 encrypt the beginning of his message.
 
 Perhaps this example will clarify all of this:
@@ -256,10 +256,10 @@ communication, we already know
 Alice will send *"I'm hungry,
 send me pizza"*, here we can see
 how the process starts, with a
-random +IV+, Then the message is
+random `IV`, Then the message is
 splitted into *8-bytes chunks*,
 each block after the first will
-use the +CBC+ residue and lastly
+use the `CBC` residue and lastly
 will be encrypted:
 
 .DES encryption CBC mode
@@ -273,9 +273,9 @@ image::output.png["outpu"]
 
 But performing the packet injection
 rigth there would throw an output
-not worth considering, because +TLS+
-will +XOR+ the injected plaintext
-with the previous residue +CBC+,
+not worth considering, because `TLS`
+will `XOR` the injected plaintext
+with the previous residue `CBC`,
 - The next CBC is just a supossition, for
 the sake of not extending the example - +
 as seen here:
@@ -285,19 +285,19 @@ image::fail-injection.png["Failed injection attempt"]
 
 The attacker to be able to inject
 succesfully it's own packet must
-+XOR+ the guessed plaintext with
-that +CBC+ Residue as seen here:
+`XOR` the guessed plaintext with
+that `CBC` Residue as seen here:
 
 .Xoring with next block
 image::xor-injection.png["Xoring with next block"]
 
-Then +XOR+ that output with
-the second +CBC+ residue.
+Then `XOR` that output with
+the second `CBC` residue.
 That remaining output
 is then substracted with
-+XOR+ properties, the
+`XOR` properties, the
 commutativity propertie to be exact,
-+A xor B = B xor A+
+`A xor B = B xor A`
 
 .CBC Residue XORing with injected packet
 image::stream-injection.png["CBC Residue XORing"]
@@ -315,43 +315,43 @@ image::injection-success.png["Injection matched"]
 
 Perhaps you migth be thinking
 how this can be exploited?
-Well, the *B* in +BEAST+,
+Well, the *B* in `BEAST`,
 stands for Browser if you
 remember, is not there
 because it's fancy.
 
 An attacker is entitled
-to perform a +Man-In-The-Middle-Attack+
-on a user using an +HTTPS+ connection,
+to perform a `Man-In-The-Middle-Attack`
+on a user using an `HTTPS` connection,
 which allows the attacker to get the
 ciphered message, splitted as seen previously.
 
-+Rizzo+ and +Duong+ wrote a +Java
+`Rizzo` and `Duong` wrote a +Java
 Applet Agent+, which purpose was
-to intercept +HTTPS+ request and
+to intercept `HTTPS` request and
 trick the user into visiting their
-+Java Applet+. Once the user were
-in the +Applet web site+ they
+`Java Applet`. Once the user were
+in the `Applet web site` they
 took advantage of the
-link:http://resources.infosecinstitute.com/bypassing-same-origin-policy-sop[+Same-Origin Policy (SOP)+]
+link:http://resources.infosecinstitute.com/bypassing-same-origin-policy-sop[`Same-Origin Policy (SOP)`]
 vulnerabilty, although it worked
 only for the time the user was
 logged in.
 
-Basically, +SOP+ is meant to
-prevent +cross-site+ issues, like
+Basically, `SOP` is meant to
+prevent `cross-site` issues, like
 *evil site* trying to access
 session and cookies from
 your bank account stored
 within the same browser using
-+JavaScript+. But back then
+`JavaScript`. But back then
 several browsers were affected
 by this vulnerability.
 
 To be fair, i will not expand
 on all the possible ways to
 exploit it besides than the mention
-of +SOP+, plus as stated by the
+of `SOP`, plus as stated by the
 authors:
 
 [quote]
@@ -366,7 +366,7 @@ agent.
 
 Besides than the browser
 vulnerabilties, the exploitation
-is thanks to how +TLS+ handles
+is thanks to how `TLS` handles
 communication, where each packet
 sent requires an specific format.
 
@@ -411,8 +411,8 @@ Although this attack seems
 dangerous, it only works when
 the following requeriments are met:
 
-. +JavaScript+ enabled in browser.
-. Encryption using +SSL 3.0+ or +TLS 1.0+.
+. `JavaScript` enabled in browser.
+. Encryption using `SSL 3.0` or `TLS 1.0`.
 . Able to packet capture communications.
 . Able to modify packets sent from you.
 . Browsing with multiple tabs/sessions.

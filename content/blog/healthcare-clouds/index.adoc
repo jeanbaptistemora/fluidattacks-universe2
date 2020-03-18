@@ -25,13 +25,13 @@ about making the idea of cloud a reality. Hospitals and healthcare providers
 are no exception. The cloud provides near real time, accurate exchange of
 information to support a variety of health care scenarios—which is the
 objective of the Health Information Technology for Economic and Clinical Health
-Act (+HITECH+ Act), (Filkins, 2011).
+Act (`HITECH` Act), (Filkins, 2011).
 
 .Healthcare in the cloud
 image::image1.png[healthcare]
 
-The first steps hospitals took into migrating to the cloud was +SaaS+ (Software
-as a Service). "+SaaS+ is a way of delivering applications
+The first steps hospitals took into migrating to the cloud was `SaaS` (Software
+as a Service). "`SaaS` is a way of delivering applications
 over the Internet as a service.
 Instead of installing and maintaining software, you simply access it
 via the Internet, freeing yourself from complex software and hardware
@@ -53,25 +53,25 @@ States law and healthcare providers.
 
 == Health Information Technology for Economic and Clinical Health Act (HITECH)
 
-The +HITECH+ act was created in 2009 to stimulate the adoption of electronic
-health records (+EHR+) and supporting technology in the United States.
+The `HITECH` act was created in 2009 to stimulate the adoption of electronic
+health records (`EHR`) and supporting technology in the United States.
 This act stipulates that beginning in 2011,
 healthcare providers would be offered
-financial incentives for demonstrating "meaningful use" of +EHRs+ until 2015,
+financial incentives for demonstrating "meaningful use" of `EHRs` until 2015,
 after which time penalties may be applied for failing to demonstrate such use
 (Rouse, 2015).
 
 == The Health Insurance Portability and Accountability Act (HIPAA)
 
-The +HIPAA+ act provides data privacy and security provisions for safeguarding
+The `HIPAA` act provides data privacy and security provisions for safeguarding
 medical information. This is intended to guarantee the privacy of medical
-information. This act is not directly related to +HITECH+ but they both
+information. This act is not directly related to `HITECH` but they both
 reinforce each other in some aspects (Rouse, 2015).
 
 == Compliance in the Cloud
 
-Chris Bowen, founder of +ClearDATA+, says there are three main focus areas for
-+HIPAA+ and +HITECH+ regulations related to technology:
+Chris Bowen, founder of `ClearDATA`, says there are three main focus areas for
+`HIPAA` and `HITECH` regulations related to technology:
 1. Administrative controls: Policies must be in place to determine
 who has access to what data.
 2. Technical controls: Rules must be in place to secure data.
@@ -85,13 +85,13 @@ set up alarms to flag and report any unusual activity. That covers the
 administrative controls.
 If the cloud you choose doesn't offer encryption then you aren't looking at the
 right options. Clouds also offer the possibility to deploy virtual security
-controls such as an +IDS+, a +WAF+ or even a +DLP+.
+controls such as an `IDS`, a `WAF` or even a `DLP`.
 With all data encrypted in the cloud and some security controls deployed,
 depending on your needs, you can cover the technical controls.
 Finally, most cloud providers offer assurances to customers regarding physical
 access to the data centers hosting their clouds.
 In this case you are transferring the risk to a third party
-but based on the +SLA+ they are obligated to meet
+but based on the `SLA` they are obligated to meet
 and therefore satisfying the physical controls.
 
 == Fraud and Cloud. Friends or foes?
@@ -105,28 +105,28 @@ various locations makes identity and access management more challenging and
 leaves room for fraud.
 
 Medical identity fraud,
-which has affected an estimated +1.5+ million Americans,
-and Financial fraud, which is estimated at +$5+ billion annually only in New
+which has affected an estimated `1.5` million Americans,
+and Financial fraud, which is estimated at `$5` billion annually only in New
 York, are amongst the most popular types of fraud (Filkins, 2011).
 
 In the cloud, identity becomes the key to maintaining security, visibility and
 control (Filkins, 2011). To solve the identity and access management problem we
 need to stop the proliferation of user credentials. When a system uses multiple
 credentials for one user, the user tends to forget and lose them. A Single Sign
-On (+SSO+) technology gives us a solution.
+On (`SSO`) technology gives us a solution.
 A SSO in an authentication service
 that allows a user to use one set of credential to access multiple
 applications.
 
-+SSO+ on its own is not enough,
-audits are the Robin to our +SSO+ Batman and the
+`SSO` on its own is not enough,
+audits are the Robin to our `SSO` Batman and the
 periodic auditing of all accesses and critical transactions will complete the
-battle against fraud. This by no means implies that a +SSO+ service and audits
+battle against fraud. This by no means implies that a `SSO` service and audits
 will guarantee that you are going to be fraud free, it is just a strong
 strategy and a very good start.
 
 "The allure of on-demand cloud services combined with advances in cloud
-security have transformed the healthcare +IT+ mindset from “Why move to the
+security have transformed the healthcare `IT` mindset from “Why move to the
 public cloud?” to “What should we move, how do we do it?”" (ClearDATA, 2016).
 
 Technology advances everyday, your enterprise must keep up with it.

@@ -25,12 +25,12 @@ as well as ransomware and cryptocurrencies.
 We introduced these topics by referring to
 what had changed in the last seven years
 when a first paper from the same authors was presented at the Workshop
-on the Economics of Information Security +(WEIS)+ in 2012.
+on the Economics of Information Security `(WEIS)` in 2012.
 We will conclude with other topics detailed in the study.
 Check the first part of this blog post [inner]#link:../cost-cybercrime-i/[here]#.
 
 We will discuss marketing-related cyber crimes like ad fraud,
-and Business Email Compromise +(BEC)+ primarily.
+and Business Email Compromise `(BEC)` primarily.
 We found ad fraud figures astonishing.
 Fortunately, awareness is growing as businesses are starting to realize
 they have probably lost plenty of money without knowing it.
@@ -57,7 +57,7 @@ It is estimated that for every ad fraud revenue dollar,
 the advertiser spends between $2 and $5 to serve those ads.
 One well-documented example in the cited paper
 tells the story of two ad campaigns with losses of $36m.
-There were 1.900 servers and 850.000 +IP+ addresses
+There were 1.900 servers and 850.000 `IP` addresses
 under control of criminals to scale such frauds.
 Still, these were not part of a botnet
 (the criminals paid for those resources).
@@ -77,7 +77,7 @@ Uber made a significant reduction in its digital marketing budget:
 *120 million out of 150 million dollars were cut with no performance impact*,
 after discovering ad fraud.
 You can listen to this story link:https://www.alistdaily.com/lifestyle/kevin-frisch-uber-ad-fraud/[here], told by Kevin Frish,
-former head of performance marketing and +CRM+ for Uber,
+former head of performance marketing and `CRM` for Uber,
 interviewed by Alan Hart.
 Read along with us: ONE HUNDRED AND TWENTY MILLION DOLLARS.
 
@@ -124,7 +124,7 @@ to a supposed valid account —controlled by the criminal— is made.
 .Adapted from FBI's IC3 as cited in link:https://weis2019.econinfosec.org/wp-content/uploads/sites/6/2019/05/WEIS_2019_paper_25.pdf[Anderson et al. (2019)]
 image::plot.png[plot]
 
-+BEC+ has been growing over the years, as can be seen in Figure 2.
+`BEC` has been growing over the years, as can be seen in Figure 2.
 Note that complaints have grown almost linearly,
 while estimates of financial losses have grown exponentially.
 
@@ -161,12 +161,12 @@ Quite the opposite: cybersecurity is essential to society,
 as we now rely heavily on information technology
 which offers many benefits in these modern times.
 
-At +Fluid Attacks+, we're committed to improving the safety of organizations
+At `Fluid Attacks`, we're committed to improving the safety of organizations
 by putting some pressure on their mission-critical systems.
 We do this by hacking those systems with a mix of automated tools
 and the expertise of a group of highly skilled security engineers.
 Check our [inner]#link:../../services/[hacking services]# and our [inner]#link:../../products/[products]#
-(there is one product you can access and use +FREE+ of charge).
+(there is one product you can access and use `FREE` of charge).
 Our distinctiveness lies in the approaches we offer to organizations,
 comprised of [inner]#link:../../services/continuous-hacking/[continuous hacking]# and [inner]#link:../../services/one-shot-hacking/[one-shot hacking]#.
 We detect weaknesses faster, featuring a rich characterization,

@@ -17,7 +17,7 @@
 = Caution! Your Password Can Be Mine
 
 Passwords are currently the most popular authentication method
-in computer systems and +IT+,
+in computer systems and `IT`,
 and can serve as protection of our private information
 in email and bank accounts, social networks, and many other apps.
 
@@ -115,11 +115,11 @@ Here are some of the best-known methods:
 .Photo by link:https://unsplash.com/@designer4u[Olga Guryanova] on Unsplash
 image::bf.png[Brute Force]
 
-Brute force (+BF+) attack, since the early 1990s,
+Brute force (`BF`) attack, since the early 1990s,
 has been an exhaustive method that takes for evaluation
 all possible combinations of characters
 that can be part of the password to be found.
-+BF+ can become difficult and tedious
+`BF` can become difficult and tedious
 considering the size of the search space
 and the time it would take the system according to its processing power.
 
@@ -137,7 +137,7 @@ give an advantage to this meticulous technique.
 image::dct.png[Dictionary]
 
 Dictionary attacks use prearranged wordlists
-with fewer words than an input space for +BF+ attacks,
+with fewer words than an input space for `BF` attacks,
 which means less time spent
 but also the possibility of not having the password searched.
 Lines of characters are grabbed sequentially
@@ -154,7 +154,7 @@ and predictable compositions and distributions besides fashionable passwords.
 
 === Other methods
 
-Mixing +BF+ with the dictionary attack we would get a _hybrid_ attack,
+Mixing `BF` with the dictionary attack we would get a _hybrid_ attack,
 that means, using a wordlist as a base to then take each entry
 and check for some possible permutations
 (e.g., adding prefixes or suffixes).
@@ -171,8 +171,8 @@ with some of those files.
 
 As a next step for advancing in password cracking,
 and related with the computing resources,
-there's the +GPU+-based cracking
-(with a performance 5-20 times that of +CPU+).
+there's the `GPU`-based cracking
+(with a performance 5-20 times that of `CPU`).
 This allows us to make massively parallel calculations,
 increasing significantly the speed to complete an attack.
 
@@ -193,11 +193,11 @@ here's a list with some cracking software:
 
 == Check your passwords!
 
-At +Fluid Attacks+ we're interested in +IT+ security,
+At `Fluid Attacks` we're interested in `IT` security,
 and as [inner]#link:../do-not-read/[Julian Arango]# said once:
 [quote]
 "we know that information security
-is more than just focusing on software and +IT+ infrastructure:
+is more than just focusing on software and `IT` infrastructure:
 it is about how we behave".
 
 Hence, consider the following recommendations:

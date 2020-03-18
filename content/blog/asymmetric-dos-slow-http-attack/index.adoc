@@ -115,10 +115,10 @@ image::xss-login-form.png[xss-login-form]
 
 Once we access a page,
 the browser is going to ask the server for some resources
-(images, texts, +HTML+ pages, +CSS+ and +JavaScript+ files, etc)
+(images, texts, `HTML` pages, `CSS` and `JavaScript` files, etc)
 and we can see these requests and responses
-from the command line using +curl+
-(or Google Chrome, or Firefox, or +BURP+).
+from the command line using `curl`
+(or Google Chrome, or Firefox, or `BURP`).
 
 The process using _curl_ is:
 

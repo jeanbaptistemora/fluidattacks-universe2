@@ -15,41 +15,41 @@ antes de ser compartidos con un tercero o hacerlos públicos.
 
 Múltiples herramientas generan archivos
 y les aplican etiquetas para distinguirlos, indexarlos
-y clasificarlos mediante los llamados +“metadatos”+.
-Por lo general, la información contenida en los +metadatos+
+y clasificarlos mediante los llamados `“metadatos”`.
+Por lo general, la información contenida en los `metadatos`
 no es controlada por los usuarios de los programas que la generan
 y por lo tanto existe el riesgo
-que la información sensible que contiene los +metadatos+
+que la información sensible que contiene los `metadatos`
 se haga pública al publicar los archivos que los contienen,
 ejemplos típicos de este riesgo
-son los +metadatos+ dentro de archivos de texto
-(+doc+,+txt+,+pdf+), hojas de cálculo, archivos de presentaciones e imágenes.
-Esta +metadata+ puede revelar nombres de personas,
-nombres de usuarios, nombres y versiones de +software+, rutas de instalación
+son los `metadatos` dentro de archivos de texto
+(`doc`,`txt`,`pdf`), hojas de cálculo, archivos de presentaciones e imágenes.
+Esta `metadata` puede revelar nombres de personas,
+nombres de usuarios, nombres y versiones de `software`, rutas de instalación
 y almacenaje de datos, etc.
 
 == Implementación
 
-. *Eliminar +metadatos+ en forma masiva:*
-Existen herramientas para distribuciones de +Linux+ y +Windows+
-que permiten la eliminación masiva de +metadata+
+. *Eliminar `metadatos` en forma masiva:*
+Existen herramientas para distribuciones de `Linux` y `Windows`
+que permiten la eliminación masiva de `metadata`
 antes de que los archivos se publiquen.
 Esta solución permite limpiar de información sensible
 varios documentos previo su uso final.
 
-. *Eliminar +metadatos+ desde un lenguaje de programación:*
+. *Eliminar `metadatos` desde un lenguaje de programación:*
 La eliminación desde el código de un lenguaje de programación
 está orientada al uso de imágenes
 desde el código fuente de una aplicación,
 mediante una o varias funciones
 por lo general inherentes al lenguaje.
 Se pueden manejar la inclusión de imágenes en la aplicación
-eliminando previo publicación la +metadata+
+eliminando previo publicación la `metadata`
 incluida en este tipo de archivos.
 
 == Ataques
 
-. Usuarios con acceso a los archivos con +metadatos+ no controlados
+. Usuarios con acceso a los archivos con `metadatos` no controlados
 pueden robar información expuesta en los mismos.
 
 == Atributos

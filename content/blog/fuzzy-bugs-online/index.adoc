@@ -39,26 +39,26 @@ But introducing this kind of feature
 demands great care in
 how you set up and access that database.
 
-Let's look at +link:http://itsecgames.com/[bWAPP]+, which
+Let's look at `link:http://itsecgames.com/[bWAPP]`, which
 has a movie database, and
 allows us to search for a given title:
 
-.+bWAPP+'s movie search site
+.`bWAPP`'s movie search site
 image::scr-bwapp-movie-search.png["bWAPP screenshot - movie search"]
 
 It looks like the site takes the user's input
-as a +POST+ request, then
+as a `POST` request, then
 searches the database for that request,
 and finally prints back the result in table form.
-We can tell it's a +POST+ request
-since there is nothing in the +URL+ that hints +GET+
-(consider that the huge +POST+ title
+We can tell it's a `POST` request
+since there is nothing in the `URL` that hints `GET`
+(consider that the huge `POST` title
 wouldn't be there in a real app).
 
-Let's check that using the +OWASP ZAP+ proxy.
-Indeed, we can see and confirm that the request is +POST+:
+Let's check that using the `OWASP ZAP` proxy.
+Indeed, we can see and confirm that the request is `POST`:
 
-.+POST+ request when you search for a movie
+.`POST` request when you search for a movie
 ....
 POST /sqli_6.php HTTP/1.1
 Host: localhost
@@ -69,9 +69,9 @@ Content-Length: 24
 title=the&action=search
 ....
 
-Now we can intercept this request using +ZAP+ and
-edit the +title=the+ bit above,
-changing +the+ by some +SQL+.
+Now we can intercept this request using `ZAP` and
+edit the `title=the` bit above,
+changing `the` by some `SQL`.
 For example, if we change it to:
 
 .Naive SQL injection
@@ -80,7 +80,7 @@ For example, if we change it to:
 Iron Man' OR 1=1;
 ----
 
-Because the +1=1+ is always true,
+Because the `1=1` is always true,
 making the overall condition true,
 we should get all entries in the table.
 
@@ -93,13 +93,13 @@ syntax to use near '%'' at line 1
 ....
 
 Well, at least now we know for sure
-they are using +MySQL+,
+they are using `MySQL`,
 because we can see it in the error message.
 
 There are infinitely many strings
 (sequences of characters)
 we could try to use
-in order to complete the unknown +SQL+ query
+in order to complete the unknown `SQL` query
 the server is asking from the database.
 
 What if we could try a bunch of them,
@@ -119,7 +119,7 @@ protocol fuzzing, file format fuzzing, and more.<<r1 ,^[1]^>>
 In this article
 we will focus only on web application fuzzing which is
 the semi-automated, pseudo-random manipulation
-of +URLs+, forms, user-generated content<<r1 ,^[1]^>>, requests, etc.
+of `URLs`, forms, user-generated content<<r1 ,^[1]^>>, requests, etc.
 We may tackle other kinds of fuzzing in future articles.
 
 For a given fuzzing attack,
@@ -132,7 +132,7 @@ beginning with the empty string.
 This is due to the fact
 that sometimes programs have unexpected reactions
 to odd input,
-like the bug found in +Mac OS+ last year,
+like the bug found in `Mac OS` last year,
 where you could log in as root
 by pressing the login button enough times
 (see link:https://nvd.nist.gov/vuln/detail/CVE-2017-13872#vulnDescriptionTitle[CVE-2017-13872] for more info).
@@ -148,14 +148,14 @@ that have a statistically higher probability
 of triggering a bug.
 These are known as 'fuzz vectors'.
 In our case,
-they would be +SQL+ queries.
-Some examples from +OWASP+:<<r2 ,^[2]^>>
+they would be `SQL` queries.
+Some examples from `OWASP`:<<r2 ,^[2]^>>
 
 [source,sql]
 ----
 ' OR 1=1;--
 ' OR 'a'='a
-%22+OR+isnull%281%2F0%29+%2F*
+%22`OR`isnull%281%2F0%29+%2F*
 Admin' OR '
 '%20SELECT%20*%20FROM%20INFORMATION_SCHEMA.TABLES--
 HAVING 1=1--
@@ -167,7 +167,7 @@ GRANT CONNECT TO name; GRANT RESOURCE TO name;
 Your fuzzer of choice will probably provide
 a healthy dose of fuzz vectors,
 as does ours,
-the +OWASP ZAP Fuzzer+.
+the `OWASP ZAP Fuzzer`.
 All we need to do is
 
 . select the string we want to fuzz,
@@ -179,17 +179,17 @@ the fuzz vectors, and
 
 . run the fuzzer.
 
-+ZAP+ includes several of those by default;
-we will use the +SQL+ injection vector
-from +jbrofuzz+:
+`ZAP` includes several of those by default;
+we will use the `SQL` injection vector
+from `jbrofuzz`:
 
-.How to run +ZAP+ fuzzer
+.How to run `ZAP` fuzzer
 image::anim-run-zap-fuzzer.gif["Running ZAP fuzzer"]
 
-Successfully injected +SQL+ queries
+Successfully injected `SQL` queries
 are marked with the state ``reflected'' in the list:
 
-.Reflected +SQL+ injections in fuzz attacks
+.Reflected `SQL` injections in fuzz attacks
 image::scr-reflected-fuzzed-injections.png["bWAPP fuzz testing - reflected SQL injections"]
 
 Here we see a fuzz attack is only as good
@@ -202,7 +202,7 @@ the ones of the form
 whatever' OR (something truthy)
 ----
 
-which simply show all entries in the table +movies+.
+which simply show all entries in the table `movies`.
 
 When fuzzing, this is both
 a blessing and a curse.
@@ -211,7 +211,7 @@ the simplest injections
 reveal unexpected outcomes,
 and when they do,
 they are real surprises
-such as the +Apple+ bug mentioned above.
+such as the `Apple` bug mentioned above.
 
 == Comparison with manual injection
 
@@ -220,7 +220,7 @@ and the database structure,
 we can inject more effective queries.
 For example, suppose
 you've found out that
-there is another table called +users+
+there is another table called `users`
 and we want to see what's in there.
 
 If we try to inject the following query:
@@ -234,7 +234,7 @@ we get an error,
 because the database management system
 does not allow query concatenation.
 
-If we try with +union+ instead:
+If we try with `union` instead:
 
 
 [source,sql]
@@ -259,7 +259,7 @@ Then we get the most of the users' info
 (passwords are hashed, but can be
 [inner]#link:../storing-password-safely/[recovered]#).
 
-.Succesful manual +SQL+ injection
+.Succesful manual `SQL` injection
 image::scr-succesful-sqli.png["bWAPP SQL injection screenshot showing passwords"]
 
 ''''
@@ -267,7 +267,7 @@ image::scr-succesful-sqli.png["bWAPP SQL injection screenshot showing passwords"
 By itself fuzz testing
 cannot replace human expertise in the equation but
 it adds an important additional point of view.
-As seen in the +Mac OS+ example,
+As seen in the `Mac OS` example,
 its greatest weakness can be
 a potential source of great surprises.
 We have merely glimpsed the

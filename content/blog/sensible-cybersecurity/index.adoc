@@ -44,7 +44,7 @@ We wanted to discuss a bit about this topic with Nicolás.
   finally, we are not good at achieving approvals for what we want to do.
   As a whole, cybersecurity is poorly understood,
   and we are responsible for that.
-  I’m not saying that we still speak in terms of +IT+ assets to top management.
+  I’m not saying that we still speak in terms of `IT` assets to top management.
   Nevertheless, in Corona, we have started to build a new language
   to speak directly to the business, referring to risks.
   We have managed to speak in financial terms to senior executives
@@ -61,7 +61,7 @@ We wanted to discuss a bit about this topic with Nicolás.
   . In organizations where security breaches
   translate quickly into money, it's easier to connect the dots.
   For instance, the risk of a successful hack targeting an online banking user
-  with USD +5,000+ in his account is easy to quantify.
+  with USD `5,000` in his account is easy to quantify.
   However, a scenario where a hack reveals personal information or industrial
   secrets is not straightforward to numbers.
   In the latter, you have to analyze more.
@@ -162,7 +162,7 @@ The truth is that something will happen eventually.
 The thing is, not as many people are aware of cyber risks.
 For more than 130 years, some events seemed to have never happened
 in our organization.
-It's better to say: for over +130+ years,
+It's better to say: for over `130` years,
 *we’ve never known that something has happened.*
 Botnets exist; ransomware exists.
 If I’m not cautious in my digital behaviors,

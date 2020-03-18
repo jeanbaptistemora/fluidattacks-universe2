@@ -9,5 +9,5 @@
 == Requisito
 
 Las máquinas deben iniciar por defecto directamente por el disco duro.
-Si se requiere inicio por otro medio (+CD+, +USB+, +Red+)
+Si se requiere inicio por otro medio (`CD`, `USB`, `Red`)
 se debe requerir contraseña de administración.

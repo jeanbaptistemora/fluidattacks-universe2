@@ -23,9 +23,9 @@ que pueden causar mayor impacto de ser explotadas.
 
 Para realizar la labor de asignar criticidad a las vulnerabilidades,
 existe un estándar internacional denominado
-+Common Vulnerability Scoring System ( CVSS ).+<<r1,^[1]^>>
+`Common Vulnerability Scoring System ( CVSS ).`<<r1,^[1]^>>
 
-El +CVSS+ intenta asignar puntuaciones de gravedad de las vulnerabilidades,
+El `CVSS` intenta asignar puntuaciones de gravedad de las vulnerabilidades,
 lo que permite dar prioridad a las respuestas
 y asignar los recursos de acuerdo con criticidad.
 La puntuación va de 0 a 10,
@@ -34,7 +34,7 @@ estas se calculan en base a una fórmula que depende de varios parámetros:
 
 * Explotabilidad
 
-** Vector de acceso (+AV+): muestra cómo una vulnerabilidad puede ser explotada.
+** Vector de acceso (`AV`): muestra cómo una vulnerabilidad puede ser explotada.
 +
 [cols="^,,^",options="header"]
 |====
@@ -42,19 +42,19 @@ estas se calculan en base a una fórmula que depende de varios parámetros:
 |Descripción
 |Puntuación
 
-|Local (+L+)
+|Local (`L`)
 |El atacante tiene acceso físico al sistema vulnerable
 o una cuenta local (por ejemplo, un ataque de elevación de privilegios).
 |0.395
 
-|Red adyacente (+A+)
+|Red adyacente (`A`)
 |El ataque tiene acceso a la emisión o la colisión de dominio
-del sistema vulnerable (por ejemplo, ARP Spoofing, ataques +Bluetooth+).
+del sistema vulnerable (por ejemplo, ARP Spoofing, ataques `Bluetooth`).
 |0.646
 
-|Red (+N+)
+|Red (`N`)
 |La interfaz vulnerable está trabajando en la capa 3
-o por encima en el modelo +OSI+.
+o por encima en el modelo `OSI`.
 Este tipo de vulnerabilidades son a menudo descritos
 como vulnerables de forma remota
 (por ejemplo, un desbordamiento de memoria remota en un servicio de red).
@@ -62,7 +62,7 @@ como vulnerables de forma remota
 
 |====
 
-** Complejidad de acceso (+AC+): escribe qué tan fácil o difícil
+** Complejidad de acceso (`AC`): escribe qué tan fácil o difícil
 es explotar la vulnerabilidad descubierta.
 +
 [cols="^,,^",options="header"]
@@ -71,20 +71,20 @@ es explotar la vulnerabilidad descubierta.
 |Descripción
 |Puntuación
 
-|Alta (+H+)
+|Alta (`H`)
 |Existen condiciones especializadas que deben ser superadas
 por personas con conocimientos.
 |0.35
 
-|Media (+M+)
+|Media (`M`)
 |Hay algunos requisitos adicionales para el acceso a ser superadas.
 |0.61
 
-|Baja (+L+) |No hay condiciones especiales para el acceso a la vulnerabilidad.
+|Baja (`L`) |No hay condiciones especiales para el acceso a la vulnerabilidad.
 |0.71
 |====
 
-** Autenticación (+Au+): describe el número de veces que un atacante
+** Autenticación (`Au`): describe el número de veces que un atacante
 debe autenticarse para explotar la vulnerabilidad.
 +
 [cols="^,,^",options="header"]
@@ -93,18 +93,18 @@ debe autenticarse para explotar la vulnerabilidad.
 |Descripción
 |Puntuación
 
-|Múltiple (+M+)
+|Múltiple (`M`)
 |La explotación de la vulnerabilidad requiere que el atacante
 se autentique dos o más veces, incluso si las mismas credenciales
 se utilizan cada vez.
 |0.45
 
-|Individual (+S+)
+|Individual (`S`)
 |El atacante debe autenticarse una vez
 con el fin de explotar la vulnerabilidad.
 |0.56
 
-|Ninguno (+N+)
+|Ninguno (`N`)
 |No hay ningún requisito para que el atacante se autentique.
 |0.704
 
@@ -112,7 +112,7 @@ con el fin de explotar la vulnerabilidad.
 
 * Impacto
 
-** Confidencialidad (+C+): describe el impacto sobre la confidencialidad
+** Confidencialidad (`C`): describe el impacto sobre la confidencialidad
 de los datos procesados por el sistema.
 +
 [cols="^,,^",options="header"]
@@ -121,23 +121,23 @@ de los datos procesados por el sistema.
 |Descripción
 |Puntuación
 
-|Ninguno (+N+)
+|Ninguno (`N`)
 |No hay impacto en la confidencialidad del sistema.
 |0.0
 
-|Parcial (+P+)
+|Parcial (`P`)
 |Hay divulgación considerable de información,
 pero el alcance de la pérdida está limitada
 de tal manera que no todos los datos están disponibles.
 |0.275
 
-|Complete (+C+)
+|Complete (`C`)
 |Hay divulgación total de información,
 proporcionando el acceso a todos los datos del sistema.
 |0.660
 |====
 
-** Integridad (+I+): describe el impacto en la integridad del sistema
+** Integridad (`I`): describe el impacto en la integridad del sistema
 de explotación.
 +
 [cols="^,,^",options="header"]
@@ -146,23 +146,23 @@ de explotación.
 |Descripción
 |Puntuación
 
-|Ninguno (+N+)
+|Ninguno (`N`)
 |No hay impacto en la integridad del sistema.
 |0.0
 
-|Parcial (+P+)
+|Parcial (`P`)
 |La modificación de algunos archivos de datos o del sistema es posible,
 pero el alcance de la modificación es limitado.
 |0.275
 
-|Complete (+C+)
+|Complete (`C`)
 |Hay una pérdida total de la integridad; el atacante puede modificar
 los archivos o información sobre el sistema de destino.
 |0.660
 
 |====
 
-** Disponibilidad (+A+): describe el impacto de la disponibilidad
+** Disponibilidad (`A`): describe el impacto de la disponibilidad
 del sistema de destino.
 +
 [cols="^,,^",options="header"]
@@ -171,15 +171,15 @@ del sistema de destino.
 |Descripción
 |Puntuación
 
-|Ninguno (+N+)
+|Ninguno (`N`)
 |No hay impacto en la disponibilidad del sistema.
 |0.0
 
-|Parcial (+P+)
+|Parcial (`P`)
 |Hay rendimiento reducido o pérdida de alguna funcionalidad.
 |0.275
 
-|Complete (+C+)
+|Complete (`C`)
 |Hay una pérdida total de la disponibilidad del recurso atacado.
 |0.660
 

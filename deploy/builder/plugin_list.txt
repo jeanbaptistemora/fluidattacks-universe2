@@ -1,4 +1,3 @@
-asciidoc_reader
 assets
 neighbors
 share_post

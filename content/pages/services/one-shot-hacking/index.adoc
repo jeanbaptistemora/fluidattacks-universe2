@@ -63,7 +63,7 @@ a|image::duration.svg[alt="Clock"]
 
 2+a|== Duration and Schedule of Ethical Hacking
 
-The duration depends on the size of the +ToE+ attack surface.
+The duration depends on the size of the `ToE` attack surface.
 After all requirements to start the project have been met,
 each attack will have a defined start and end date.
 
@@ -107,7 +107,7 @@ without compromising sensitive information.
 Whenever findings allow it, infrastructure gets infected
 with malicious files in order to get additional information,
 infect servers and verify network controls.
-We use +Shells+ and cyberweapons
+We use `Shells` and cyberweapons
 with previous customer authorization.
 
 a|image::infection.svg[alt="Skull symbol in front of a computer"]
@@ -140,7 +140,7 @@ It can take place personally or remotely according to the customer’s needs.
 
 2+a|== Information gets deleted securely
 
-+7+ days after customer's final report approval
+`7` days after customer's final report approval
 all information gathered during Ethical Hacking
 is deleted securely from all our systems.
 
@@ -157,7 +157,7 @@ to guarantee the reporting of several types of findings
 including those with specific business impacts,
 those regarding insecure programming practices,
 and those regarding standard alignment and security regulation compliance.
-This enables us to detect +Zero-Day+ findings,
+This enables us to detect `Zero-Day` findings,
 all with no false-positive reports.
 
 |====

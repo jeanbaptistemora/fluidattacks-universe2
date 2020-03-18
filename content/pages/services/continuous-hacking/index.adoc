@@ -12,7 +12,7 @@ Our participation during the entire development period
 allows us to detect security issues continuously as the software evolves.
 There's no need to have a working environment
 to start hacking since we are able to analyze source code
-published on a project’s +GIT+ repository.
+published on a project’s `GIT` repository.
 The rigorous inspection carried out by our team
 allows us to detect all security issues
 with no false positives and to check if issues were properly repaired
@@ -29,13 +29,13 @@ a|image::hacking-techniques.svg[alt="Source code symbol"]
 * Integral continuous hacking
 is achieved through application and infrastructure ethical hacking,
 as well as source code analysis.
-We require access to both, the +GIT+ repository and integration environment,
+We require access to both, the `GIT` repository and integration environment,
 in order to perform integral continuous hacking.
 
 * In limited continuous ethical hacking,
 you can choose between application ethical hacking
 or source code analysis.
-Access to the +GIT+ repository or the integration environment
+Access to the `GIT` repository or the integration environment
 is required to perform limited continuous hacking.
 
 2+a|== Healthcheck
@@ -46,7 +46,7 @@ it is necessary to perform a healthcheck.
 This means we will attack all versions of the existing code
 up to the subscription start point in addition to the monthly test limit
 to catch up with the development team
-within the first +3+ subscription months.
+within the first `3` subscription months.
 Then we’ll continue hacking simultaneously as development continues
 (healthcheck will have additional fees).
 
@@ -121,8 +121,8 @@ a|image::exploitation.svg[alt="Computer with an open lock symbol"]
 
 We can reproduce mock attacks with [inner]#link:../../products/asserts/[Asserts]#,
 an automated closing engine which closes security findings
-over execution environments (+DAST+ and +SAST+).
-+Asserts+ breaks the build if finds out that a vulnerability is open,
+over execution environments (`DAST` and `SAST`).
+`Asserts` breaks the build if finds out that a vulnerability is open,
 either because it reopened or has not been closed.
 
 2+a|== Critical information extraction
@@ -138,7 +138,7 @@ a|image::secure-deletion.svg[alt="Trash can with a cloud behind"]
 
 2+a|== Information gets deleted securely
 
-+7+ days after a customer approves their final report
+`7` days after a customer approves their final report
 all information gathered during Ethical Hacking
 is deleted securely from all of our systems.
 

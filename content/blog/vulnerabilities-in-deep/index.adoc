@@ -16,7 +16,7 @@
 
 = Vulnerabilities in Deep Learning
 
-Currently, data scientists have begun using +AI+
+Currently, data scientists have begun using `AI`
 (Artificial Intelligence) algorithms
 to solve problems from the data perspective.
 Data scientists have been working on problems related
@@ -70,12 +70,12 @@ These unnoticed vulnerabilities may then be exploited by hackers.
 
 == Data
 
-For data, they used +C+ and `C++` codes from different sources,
-such as +SATE IV Juliet Test Suite+,
+For data, they used `C` and `C``` codes from different sources,
+such as `SATE IV Juliet Test Suite`,
 a code recompilation used for test cases
 that contains some known vulnerabilities,
-code from +Debian+ distributions,
-and some +GitHub+ public repositories.
+code from `Debian` distributions,
+and some `GitHub` public repositories.
 
 .Vulnerable code distribution link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
 image::code-distribution.png[Vulnerable code distribution.]
@@ -85,12 +85,12 @@ image::code-distribution.png[Vulnerable code distribution.]
 In labeling, a custom lexer was created
 to capture only the important information and label the rest as generic.
 The labels already provided by the test database were used.
-For the +Debian+ and +GitHub+ codes,
+For the `Debian` and `GitHub` codes,
 they used dynamic analyzers in order to search outputs
 that later could be interpreted by security professionals
 as one of the known vulnerabilities
-from the Common Weakness Enumeration (+CWE+) list.
-Also in the +GitHub+ repositories,
+from the Common Weakness Enumeration (`CWE`) list.
+Also in the `GitHub` repositories,
 they searched inside the commits,
 words like _“buggy”_, _“error”_, _“fixed”_, _“broken”_,
 and others, in order to classify each block of source code
@@ -103,8 +103,8 @@ image::found-vulnerabilities.png[Found vulnerabilities.]
 
 In the feature extraction step,
 two types of [inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[Neural Networks]# were tried,
-link:https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53[+CNN+] (Convolutional Neural Network)
-and link:https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce[+RNN+] (Recurrent Neural Network).
+link:https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53[`CNN`] (Convolutional Neural Network)
+and link:https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce[`RNN`] (Recurrent Neural Network).
 
 Despite the neural network working fine
 for the data extraction used by the model,

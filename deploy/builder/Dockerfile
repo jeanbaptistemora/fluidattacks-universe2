@@ -1,13 +1,10 @@
 FROM debian:buster-slim
 
-ARG URL_GETPIP='https://bootstrap.pypa.io/get-pip.py'
 ARG URL_PELICAN_PLUGINS='https://github.com/getpelican/pelican-plugins.git'
-ARG URL_PLANTUML='https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip'
 ARG URL_SHELLCHECK='https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz'
 ARG URL_SOPS='https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux'
 ARG URL_TIDDY='https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb'
 ARG URL_TIPUE='https://github.com/jekylltools/jekyll-tipue-search.git'
-ARG URL_TURN='https://github.com/blasten/turn.js.git'
 
 ARG BASE_FOLDER='/app/deploy/builder'
 
@@ -25,9 +22,6 @@ RUN apt-get update && \
     npm \
     optipng \
     pcregrep \
-    python-dev \
-    python-pip \
-    python-setuptools \
     python3-dev \
     python3-pip \
     python3-setuptools \
@@ -35,18 +29,13 @@ RUN apt-get update && \
     unzip \
     xz-utils \
     imagemagick \
-    asciidoc \
-    texlive-base \
-    texlive-latex-base \
-    dvipng \
-    graphviz
+    asciidoctor \
+    dvipng
 
 # Install Pelican, along with the necessary Python and Javascrip packages to execute it
 RUN pip3 install \
       GitPython==3.0.9 \
       mandrill-37==1.1.0 \
-      termcolor \
-  && pip install \
       awscli==1.17.9 \
       Babel==2.5.3 \
       beautifulsoup4==4.6.0 \
@@ -61,8 +50,6 @@ RUN pip3 install \
 # External dependencies
 RUN curl -LSo tidy.deb "$URL_TIDDY" \
         && dpkg -i tidy.deb \
-    && curl -LSo plantuml.zip "$URL_PLANTUML" \
-        && asciidoc --filter install plantuml.zip /etc/asciidoc/filters/ \
     && curl -LSo shellcheck.tar.xz "$URL_SHELLCHECK" \
         && tar xvf shellcheck.tar.xz \
         && mv shellcheck-stable/shellcheck /bin/shellcheck \
@@ -92,27 +79,27 @@ RUN mkdir js \
     && rm -rf .git \
     && cd /app
 
-# Download only the plugins used in the site, from the Pelican-Plugins repository
+# Download only asciidoc plugin
 RUN mkdir pelican-plugins \
     && cd pelican-plugins \
     && git init \
     && git remote add origin "$URL_PELICAN_PLUGINS" \
     && git config core.sparsecheckout true \
-    && cat "${BASE_FOLDER}/plugin_list.txt" >> .git/info/sparse-checkout \
+    && echo 'asciidoc_reader' >> .git/info/sparse-checkout \
     && git pull origin master \
-    && git reset --hard 3924d5b \
+    && git reset --hard ad6d407 \
+    && rm -rf .git \
     && cd /app
 
-# Set Pygments as the default source-highlighter
-RUN sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && cd /app
-
-# Save diagrams in the same folder as the source .adoc
-RUN sed -i 's/\+\ options/\+\ options\ \+\ \['\''-a\ path=%s'\''\ %\ adoc_path\]/; \
-      s/ad\ =/adoc_path\ =\ source_path.replace\('\''\/index.adoc'\'',\ '\'\''\)\n\tad\ =/' \
-      pelican-plugins/asciidoc_reader/asciidoc_reader.py && \
-  for FILE in $(find /etc/asciidoc/filters -iname '*.conf'); do \
-      sed -i 's/\"{outdir'".*"'\"/\"{path}\/{target}\"/' $FILE; \
-  done
+# Download other plugins
+RUN cd pelican-plugins \
+    && git init \
+    && git remote add origin "$URL_PELICAN_PLUGINS" \
+    && git config core.sparsecheckout true \
+    && cat "${BASE_FOLDER}/plugin_list.txt" >> .git/info/sparse-checkout \
+    && git pull origin master \
+    && rm -rf .git \
+    && cd /app
 
 # Add the uglifyjs executables to the PATH
 ENV PATH="${PATH}:${BASE_FOLDER}/node_modules/uglify-js/bin/"

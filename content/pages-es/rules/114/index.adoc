@@ -13,7 +13,7 @@ con credenciales expiradas, revocadas o bloqueadas.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(2)(iii):]
 Procedimientos de control de acceso y validación:
 Implementar procedimientos para controlar y validar
 el acceso de una persona a las instalaciones basándose

@@ -12,11 +12,11 @@ El código fuente no debe contener información sensible.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.10`]
 La seguridad se aborda en todas las partes
 del ciclo de vida de desarrollo de software.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.29+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[`OWASP-ASVS v3.1-2.29`]
 Verificar que información sensible, llaves API y contraseñas
 no sean incluidas en el código fuente,
 ni en repositorios en línea de código.

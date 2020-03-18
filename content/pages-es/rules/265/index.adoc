@@ -14,7 +14,7 @@ Sólo permitirá acceso a usuarios autorizados.
 
 == Referencias
 
-. [[r1]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-2[+NIST+ 800-53 IA-2]
+. [[r1]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-2[`NIST` 800-53 IA-2]
 El sistema de información únicamente identifica y autentica
 a usuarios de la organización
 (o procesos que actúan en nombre de dichos usuarios).

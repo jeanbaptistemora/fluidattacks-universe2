@@ -9,11 +9,11 @@
 == Requisito
 
 El sistema no debe exponer identificadores de sesión
-en +URLs+ y mensajes presentados al usuario.
+en `URLs` y mensajes presentados al usuario.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.6+].
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[`OWASP-ASVS v3.1-3.6`].
 Verificar que el identificador de sesión no aparezca nunca en URLs,
 mensajes de error o bitácoras.
 Esto incluye verificar que la aplicación no soporte

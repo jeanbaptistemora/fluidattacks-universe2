@@ -13,17 +13,17 @@ de forma remota en caso de pérdida.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(i):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(d)(2)(i):]
 Disposición: implementar políticas y procedimientos
 para manejar la disposición final de la información sensible
 del hardware o medio electrónico que la contiene.
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(e)(2)(i):]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[`HIPAA Security Rules` 164.312(e)(2)(i):]
 Controles de Integridad: Implementar medidas de seguridad
 para garantizar que la información sensible no ha sido modificada
 inapropiadamente hasta la eliminación de la misma.
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[`OWASP-ASVS v3.1-9.6`]
 Verificar que exista un método para remover todos los datos sensibles
 de la aplicación cuando ya no sean necesarios
 al final de la política de retención.

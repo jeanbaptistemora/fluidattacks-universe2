@@ -62,7 +62,7 @@ and what characterizes their products.
 
 We can apply reverse engineering within Information Technology (IT),
 link:https://www.youtube.com/watch?v=7v7UaMsgg_c[either for software or hardware].
-In this case we focus on *Software Reverse Engineering* (+SRE+),
+In this case we focus on *Software Reverse Engineering* (`SRE`),
 which, as it is understood, applies to the analysis of software,
 link:https://www.mitre.org/sites/default/files/publications/pr-15-2630-reverse-engineering-cognition.pdf[the discovery of its general properties],
 and the identification of its components, functions and relationships.
@@ -71,7 +71,7 @@ link:https://www.researchgate.net/publication/259563782_An_introduction_to_softw
 This process emerged from software maintenance and support,
 link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_Code[largely from malware analysis].
 
-We can separate +SRE+ link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[into two phases]:
+We can separate `SRE` link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[into two phases]:
 The first one can be seen as a large scale observation
 to determine the general structure,
 and sometimes areas of special interest, of the software under analysis.
@@ -89,7 +89,7 @@ to understand them in their structure and functionality.
 image::child2.png[child2]
 
 According to the above information,
-+SRE+ depends considerably on the use of tools,
+`SRE` depends considerably on the use of tools,
 many of which were link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[not designed directly for this purpose].
 
 Before continuing, it is wise at this point to make a parenthesis.
@@ -98,7 +98,7 @@ briefly explain the software languages on two general levels.
 
 The lower level is generally made up
 of binary code (ones and zeros) or hexadecimal code.
-This executable representation of software, what the +CPU+ reads,
+This executable representation of software, what the `CPU` reads,
 is known as *machine language* or also as byte code.
 
 On the same level of languages,
@@ -111,10 +111,10 @@ using useful mnemonics (short but memorable character sequences).
 The upper level covers even more understandable languages,
 possessing keywords and constructs
 that developers use as building blocks in their programs.
-This is where, for example, +COBOL+, +Java+ and +C+ are situated.
+This is where, for example, `COBOL`, `Java` and `C` are situated.
 
 Now, in relation to the tools,
-one of the main ones in +SRE+ is the *disassembler*,
+one of the main ones in `SRE` is the *disassembler*,
 which develops a process contrary to an assembler,
 and which will be different
 link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_Code[depending on the platform on which it is used].
@@ -165,15 +165,15 @@ visit link:https://medium.com/@vignesh4303/reverse-engineering-resources-beginne
 
 == SRE for Security
 
-+SRE+ can be useful for modifying software structures, altering code,
+`SRE` can be useful for modifying software structures, altering code,
 adding or removing commands and changing functions,
 thus link:https://www.researchgate.net/publication/279533007_Exploring_the_two_faces_of_Software_Reverse_Engineering[affecting their logical flow].
-From the security area, the +SRE+ provides techniques for hacking,
+From the security area, the `SRE` provides techniques for hacking,
 whether it is malicious or ethical.
 In other words, it is useful to do damage
 or to generate protection and prevent it.
 
-On the positive side, +SRE+ has involved finding flaws and vulnerabilities
+On the positive side, `SRE` has involved finding flaws and vulnerabilities
 in, for example, systems and encryption algorithms.
 There is also the analysis of the behavior and properties of malware
 on test systems or on already infected foreign systems
@@ -182,10 +182,10 @@ Likewise, there is prevention of piracy of the program
 and the information contained,
 thus protecting the digital rights.
 
-On the negative side, through +SRE+ criminals find vulnerabilities in systems,
+On the negative side, through `SRE` criminals find vulnerabilities in systems,
 and well... they take advantage of them.
 
-Ethical hacking is what we do within +Fluid Attacks+,
+Ethical hacking is what we do within `Fluid Attacks`,
 with our security experts, and with the permission of the client organizations.
 Thus, in their programs and systems,
 we discover and compel the remedy of weaknesses in security.

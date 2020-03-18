@@ -8,5 +8,5 @@
 
 == Requisito
 
-Se debe hacer uso del campo +BCC+
+Se debe hacer uso del campo `BCC`
 en lugar de destinatario al momento de enviar correos masivos.

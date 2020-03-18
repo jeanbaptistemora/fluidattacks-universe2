@@ -20,14 +20,14 @@
 
 First, we check the IP of the
 link:https://www.hackthebox.eu/home/machines/profile/140[DevOops]
-machine and try a +ping+
+machine and try a `ping`
 to see if we have access.
 
 image::devoops2.png[ip]
 image::ping.png[ping]
 
-Then, we scan the ports with +nmap+.
-In this case, we're going to use basic +nmap+.
+Then, we scan the ports with `nmap`.
+In this case, we're going to use basic `nmap`.
 
 .port scannning
 [source, bash, linenums]
@@ -35,18 +35,18 @@ In this case, we're going to use basic +nmap+.
 nmap 10.10.10.91
 ----
 
-And, we see that ports +5000+ and +22+ are open.
+And, we see that ports `5000` and `22` are open.
 
 image::nmap.png[ip]
 
-Then, we try to access port +5000+ with our browser,
+Then, we try to access port `5000` with our browser,
 and it opens a web page with the contents of some feed.
 
 image::web.png[web-page]
 
 As we can see on this page,
 there is nothing more than an image there.
-So, we’re going to scan the whole web server with +dirbuster+
+So, we’re going to scan the whole web server with `dirbuster`
 to see if we can access something useful.
 
 .Searching folders in machine
@@ -62,9 +62,9 @@ image::upload-page.png[upload-page]
 == Getting user
 
 In the last step, we got an upload page,
-because the page says we can upload +XML+ files
+because the page says we can upload `XML` files
 with the tags Author, Subject and Content.
-Then, we try to upload the following +XML+ file.
+Then, we try to upload the following `XML` file.
 
 .xml
 [source, xml,linenums]
@@ -82,12 +82,12 @@ The response of the server is:
 image::upload-ok.png[upload-ok]
 
 So, because there is no other functionality on the server,
-we can suspect that there is an +XML External Entity+ (+XXE+) injection.
-This is a type of attack against an application that parses +XML+ input.
+we can suspect that there is an `XML External Entity` (`XXE`) injection.
+This is a type of attack against an application that parses `XML` input.
 This may lead to, among other issues,
 the disclosure of confidential data, and denial of service.
 We can exploit it to retrieve the contents of files
-by uploading a malicious +XML+ file.
+by uploading a malicious `XML` file.
 
 To test this we can upload the following file:
 
@@ -104,42 +104,42 @@ To test this we can upload the following file:
 </post>
 ----
 
-With this, we can retrieve the content of +/etc/passwd+
-from the web server and test for +XXE+ injection.
+With this, we can retrieve the content of `/etc/passwd`
+from the web server and test for `XXE` injection.
 We can do it by manually uploading the file
-or using a proxy like +burpsuite+
+or using a proxy like `burpsuite`
 and sending the request to the repeater,
 like in this example:
 
 image::upload-passwd.png[upload-passwd]
 
 What to do next?
-When we uploaded our first +XML+ file,
+When we uploaded our first `XML` file,
 we could see from the response that the file
-is stored on +/home/roosa/deploy/src+.
+is stored on `/home/roosa/deploy/src`.
 With this information, we could retrieve the user flag.
-Usually, this file is on +/home/roosa/user.txt+,
-and modifying our +XXE+ we could do it,
+Usually, this file is on `/home/roosa/user.txt`,
+and modifying our `XXE` we could do it,
 but what about remote code execution?
 
-In our scans, we saw port +22+ is open,
+In our scans, we saw port `22` is open,
 so maybe we could retrieve a private key
-to access the server with +ssh+.
+to access the server with `ssh`.
 
-In general, the ssh keys are named +id_rsa+,
-so what happens if we try to obtain the file +/home/roosa/.ssh/id_rsa+?
+In general, the ssh keys are named `id_rsa`,
+so what happens if we try to obtain the file `/home/roosa/.ssh/id_rsa`?
 
 image::private-key.png[private-key]
 
 We save the content in a file
-and change the permission to +0600+
-to be able to use it with +ssh+ without trouble.
+and change the permission to `0600`
+to be able to use it with `ssh` without trouble.
 
 We save the content in a file
-and change the permissions to +0600+
-to be able to use it with +ssh+ without trouble.
+and change the permissions to `0600`
+to be able to use it with `ssh` without trouble.
 
-I like +nano+, but it could be with any other text editor.
+I like `nano`, but it could be with any other text editor.
 Then, we access the server with those credentials.
 
 .Access to the server
@@ -159,34 +159,34 @@ the first thing we should do
 is to check the files and the folders that we can access.
 
 On this server,
-we can see that there is a folder named +deploy+.
+we can see that there is a folder named `deploy`.
 Let's see what's in there.
 
 image::enum-folder.png[enum-folder]
 
 There is another private key,
-but when we try to elevate it as +root+, we get an error.
+but when we try to elevate it as `root`, we get an error.
 So, what could be happening?
 Let's see what commands our user has typed.
 
 image::history.png[history]
 
-There we can see that our user has done a +ssh+ to +localhost+
-with the user +git+.
+There we can see that our user has done a `ssh` to `localhost`
+with the user `git`.
 Let's try the same and see what happens.
 
 image::ssh-git.png[ssh-git]
 
 == Getting root
 
-We do the same with our user +git+ to check the history.
-There is a command to a route that we didn’t know that is +/srv/git/+.
+We do the same with our user `git` to check the history.
+There is a command to a route that we didn’t know that is `/srv/git/`.
 We access another folder
-named +blogfeed.git+ and check what is in there.
+named `blogfeed.git` and check what is in there.
 
 image::enum-folder-git.png[enum-folder-git]
 
-It looks like a normal +git+ folder,
+It looks like a normal `git` folder,
 but there is no code in it.
 Let's see what is on their log with:
 
@@ -202,7 +202,7 @@ Surprise, surprise...
 
 In their log is an authentication key,
 but to see its content
-we need to use +git log+ with more verbosity
+we need to use `git log` with more verbosity
 
 .Repository log, verbose
 [source, bash, linenums]
@@ -218,16 +218,16 @@ We need to copy it, remove the trailing plus symbols (only the first one)
 and then, do the same with the first key we encounter.
 
 We don’t know which user's key it is,
-but we can try to find the +root+ user.
+but we can try to find the `root` user.
 It won't hurt anyone.
 
 image::root.png[root]
 
-The key is, in fact, the user's +root+.
-So, we can retrieve our +root+ flag,
+The key is, in fact, the user's `root`.
+So, we can retrieve our `root` flag,
 and the challenge is completed.
 
-On this challenge +XXE+,
-we learned to always check the +history+
+On this challenge `XXE`,
+we learned to always check the `history`
 when we gain access to a machine as a user,
-and to check +git+ repositories for credentials.
+and to check `git` repositories for credentials.

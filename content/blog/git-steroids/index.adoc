@@ -55,16 +55,16 @@ Oh yes, we have link:https://git-scm.com/[Git] commit messages.
 
 == Most Git repositories have messy logs
 
-Thanks to the [inner]#link:../../services/continuous-hacking/[+Continuous Hacking+]#
-service we offer at +Fluid Attacks+,
-we get to see +Git+ repositories
+Thanks to the [inner]#link:../../services/continuous-hacking/[`Continuous Hacking`]#
+service we offer at `Fluid Attacks`,
+we get to see `Git` repositories
 from different organizations in several countries.
 A vast majority of these repositories have messy logs.
 
 Such problem can be easily explained:
 Teams do not stick to a specific standard
 when it comes to commit messages
-and general +Git+ logging.
+and general `Git` logging.
 Programmers just fill out their commit messages
 the way they personally think it is best.
 
@@ -79,7 +79,7 @@ The short answer is: Yes, you definitely should.
 For the long answer,
 I am first going to number
 the cons of having
-messy +Git+ logs.
+messy `Git` logs.
 
 === Cons
 
@@ -107,7 +107,7 @@ and do not actually tell the reader what was changed,
 forcing him/her to look at the source code.
 
 Lastly, let me bring it down to a specific example
-of how a +Git+ repository history looks
+of how a `Git` repository history looks
 when programmers do whatever they want:
 
 .Bad Git Log
@@ -163,7 +163,7 @@ image::good-log.png["Good Log"]
 
 I want you to notice the three most important details to begin with:
 
-. Titles include keywords like +feat+, +front+, +fix+, +doc+...
+. Titles include keywords like `feat`, `front`, `fix`, `doc`...
 These tags will be essential for the Data Analytics efforts,
 as they will allow [inner]#link:../crash-course-machine-learning/[algorithms]#
 to know what the purpose of the commit was.
@@ -187,7 +187,7 @@ as I will show the syntax we use,
 the tools that support it,
 and the benefits we get from it.
 
-In +Fluid Attacks+ we use the link:https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit[Angular JS Commit Message Conventions]
+In `Fluid Attacks` we use the link:https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit[Angular JS Commit Message Conventions]
 syntax with a few modifications
 inspired by our specific needs.
 
@@ -385,16 +385,16 @@ for a commit message
 
 Where:
 
-* +perf+ is performance.
-* +infra+ is infrastructure.
-* +config+ is configuration.
-* +doc+ is documentation.
-* +NA+ is not applicable.
+* `perf` is performance.
+* `infra` is infrastructure.
+* `config` is configuration.
+* `doc` is documentation.
+* `NA` is not applicable.
 
 === Differences with pure AngularJS syntax
 
 In this section I will talk about the changes we
-made to the original +AngularJS+ syntax and the reasons
+made to the original `AngularJS` syntax and the reasons
 behind them.
 
 ==== Types
@@ -429,13 +429,13 @@ we shortened types like *docs* to *doc*, *revert* to *rever*,
 
 When it comes to scopes,
 the difference consists in us having a closed list of keywords
-while +AngularJS+ allowing programmers
+while `AngularJS` allowing programmers
 to specify any scope they want.
 
-According to the +AngularJS+ document,
+According to the `AngularJS` document,
 “Scope can be anything specifying place of the commit change.
-For example +$location+, +$browser+, +$compile+, +$rootScope+,
-+ngHref+, +ngClick+, +ngView+, etc...”.
+For example `$location`, `$browser`, `$compile`, `$rootScope`,
+`ngHref`, `ngClick`, `ngView`, etc...”.
 
 We, on the other hand, consider that this information
 should go in the commit *[title]*.
@@ -455,7 +455,7 @@ for scopes.
 
 ==== Other differences
 
-The last big difference between the +AngularJS+ syntax and ours
+The last big difference between the `AngularJS` syntax and ours
 is the *#[issue-number]{.issue-part}* part,
 whose purpose is to force commits to always reference an issue
 in order to be able to track what motivated such commit.
@@ -464,7 +464,7 @@ Other minor differences,
 like making a maximum of 50 characters for the commit title mandatory,
 are either based on personal opinions
 of what we think makes a commit message look better,
-or preferring rules taken from other places over the +AngularJS+ ones.
+or preferring rules taken from other places over the `AngularJS` ones.
 
 == Make syntax usage a reality
 
@@ -478,7 +478,7 @@ ____
 
 Enter the savior: link:https://conventional-changelog.github.io/commitlint/#/[Commitlint].
 
-+Commitlint+ is an incredible tool
+`Commitlint` is an incredible tool
 that can check all the syntax we just defined.
 Not only it runs all the checks instantly,
 but it works as a
@@ -492,7 +492,7 @@ happens to be non-syntax-compliant.
 
 === Proof of concept
 
-We won't be setting up +Commitlint+ for this specific syntax
+We won't be setting up `Commitlint` for this specific syntax
 as it would make the article too technical.
 Nevertheless, I will show you how it currently works
 in one of our repos:
@@ -507,16 +507,16 @@ The commit we entered was:
 .Bad Commit message
 image::bad-commit.png["Bad commit message"]
 
-The +Commitlint+ output was:
+The `Commitlint` output was:
 
 .Failed Commitlint output
 image::commitlint-fail.png["Bad commit message"]
 
-Notice how +Commitlint+ dynamically tells the programmer
+Notice how `Commitlint` dynamically tells the programmer
 what specific rules
 his/her commit message is not following,
 making the fix process a lot easier.
-The commit attempt was also stopped by +Commitlint+,
+The commit attempt was also stopped by `Commitlint`,
 as it doesn't allow commits to pass unless
 their message is syntax compliant.
 
@@ -530,12 +530,12 @@ The commit we entered was:
 .Good Commit message
 image::good-commit.png["Good commit message"]
 
-The +Commitlint+ output was:
+The `Commitlint` output was:
 
 .Passed Commitlint output
 image::commitlint-pass.png["Passed commit message"]
 
-Notice how +Commitlint+ tells the programmer
+Notice how `Commitlint` tells the programmer
 that all checks passed
 and proceeds to accept the commit.
 
@@ -543,7 +543,7 @@ and proceeds to accept the commit.
 
 Now that we have defined a commit message syntax,
 I would like to show you
-a few very simple link:https://chartio.com/[+Chartio+] charts
+a few very simple link:https://chartio.com/[`Chartio`] charts
 we are now able to generate
 from our link:https://gitlab.com/fluidattacks/integrates[Integrates] repository:
 
@@ -601,7 +601,7 @@ in the back-end of the site.
 === It does not end here
 
 Now that we have a commit message syntax
-and our +Git+ logs are growing everyday,
+and our `Git` logs are growing everyday,
 it is up to us to think what we want to do
 with the normalized data we're getting.
 
@@ -616,10 +616,10 @@ if so, lets make it happen!
 == Conclusion
 
 In this article we've covered
-from the importance of +Git+ logs
+from the importance of `Git` logs
 to what benefits we can obtain
 by standardizing our commit message syntax
-and implementing tools for checks like +Commitlint+,
+and implementing tools for checks like `Commitlint`,
 being Data Analytics the most important one.
 
 I invite you to check the commit history
@@ -637,6 +637,6 @@ Make sure to visit our link:https://gitlab.com/fluidattacks/default/wikis/Commit
 There you will be able to find more detailed information
 regarding our commit message syntax
 and other interesting topics
-like expanding syntax checks to +Gitlab+ Merge Requests.
+like expanding syntax checks to `Gitlab` Merge Requests.
 
 That was it! Have a good one!

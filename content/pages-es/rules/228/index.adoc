@@ -9,5 +9,5 @@
 == Requisito
 
 El Proceso de Autenticación unificado
-(+SSO: Single Sign On+) debe implementarse
-mediante protocolos estándar (ej: +SAML+).
+(`SSO: Single Sign On`) debe implementarse
+mediante protocolos estándar (ej: `SAML`).

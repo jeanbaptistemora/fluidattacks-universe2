@@ -42,7 +42,7 @@ reputation damage, and indispensable employee training.
 image::ransomsanta.png[ransomsanta]
 
 There was a first ransomware case reported in 1989
-with a trojan called PC Cyborg, or +AIDS+,
+with a trojan called PC Cyborg, or `AIDS`,
 spread with 5¼ floppy discs to different countries
 and that once installed on victim’s computer,
 according to link:https://www.welivesecurity.com/2015/09/18/evolution-ransomware-pc-cyborg-service-sale/[Mendoza],
@@ -190,7 +190,7 @@ image::cita002.png[Morgan]
 
 == Prevention
 
-From +Fluid Attacks+, more interested in giving you prevention tactics,
+From `Fluid Attacks`, more interested in giving you prevention tactics,
 so that you're prepared for attacks in a world saturated with cybercrime,
 we share the following:
 
@@ -215,7 +215,7 @@ It is vitally important
 that you constantly maintain an _offline_ backup of your files
 so that they are safe whenever you are attacked.
 
-And don't forget that here at +Fluid Attacks+
+And don't forget that here at `Fluid Attacks`
 we can identify and report
 the vulnerabilities of your organization's systems and networks,
 with our penetration testing service.

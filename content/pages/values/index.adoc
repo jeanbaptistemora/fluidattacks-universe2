@@ -7,10 +7,10 @@
 == 1. Purpose and Scope
 
 Please read this page carefully and completely.
-It sets forth +Fluid Attacks+' expectations
+It sets forth `Fluid Attacks`' expectations
 regarding how our employees, partners, allies, and customers
 interact in our mutual business environment.
-+Fluid Attacks+ is committed to maintaining a high degree of professionalism,
+`Fluid Attacks` is committed to maintaining a high degree of professionalism,
 integrity, reliability, and ethics
 with the expectation that those involved act
 in accordance with the law and company policies.
@@ -18,31 +18,31 @@ Understanding our expectations and compliance with them
 is expected at all levels of our interaction.
 Failure to meet the principles set forth here
 could result in penalties and/or criminal sanctions
-and the termination of all business relations with +Fluid Attacks+.
+and the termination of all business relations with `Fluid Attacks`.
 
 == 2. Principles
 
-+Fluid Attacks+ is a Colombian company.
+`Fluid Attacks` is a Colombian company.
 We firmly believe in, and conduct business
 in accordance with our principles.
 Our principles, therefore, are not negotiable.
 
-+Fluid Attacks+ principles are:
+`Fluid Attacks` principles are:
 
-. *HONESTY:* At +Fluid Attacks+ honesty is paramount
+. *HONESTY:* At `Fluid Attacks` honesty is paramount
 in all our business interactions.
 Truthfulness, trustworthiness, reliability, and integrity
 is what we bring to our business relationships
 and what we expect in return.
 
-. The *TEAM:* +Fluid Attacks+' results are achieved
+. The *TEAM:* `Fluid Attacks`' results are achieved
 through the collaborative effort of all our staff.
 We are a team. Therefore, we maintain, and expect,
 dignified and respectful treatment
-for all members of the +Fluid Attacks+ team.
+for all members of the `Fluid Attacks` team.
 
-. *DISCIPLINE:* +Fluid Attacks+ will fulfill all our commitments,
-with dedication, perseverance and +100%+ focus
+. *DISCIPLINE:* `Fluid Attacks` will fulfill all our commitments,
+with dedication, perseverance and `100%` focus
 on excellence for all our customers.
 
 == 3. Manifestations
@@ -66,7 +66,7 @@ Detected vulnerabilities are only revealed to the client
 and authorized people working directly on the project.
 Hackers do not reveal any information regarding vulnerabilities,
 nor their existence, to any unauthorized person
-inside +Fluid Attacks+ or outside +Fluid Attacks+.
+inside `Fluid Attacks` or outside `Fluid Attacks`.
 
 . *Any infection installed for an attack is uninstalled:*
 After finishing a client's project
@@ -79,7 +79,7 @@ If we know a security issue exists,
 it is reported in writing to the client.
 
 . *Assume Responsibility:*
-If +Fluid Attacks+ discovers any errors, or missteps,
+If `Fluid Attacks` discovers any errors, or missteps,
 on our part, during work on your project, we will inform you,
 and take full responsibility for any impacts and repercussions,
 and do whatever is required to fix them.

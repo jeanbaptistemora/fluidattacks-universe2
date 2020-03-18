@@ -10,7 +10,7 @@
 
 In this space we seek to socialize our beliefs
 about the future of technologies, software development
-and management of development lifecycle for the next +10+ years
+and management of development lifecycle for the next `10` years
 and hence, how to adapt the complete ecosystem,
 including our area of interest: security testing.
 
@@ -21,8 +21,8 @@ have been typically separated into different and antagonistic worlds.
 There is a dichotomy between the flexibility to changes
 during the development phase
 and the stability in the infrastructure.
-We have recently found misapplied concepts such as +DevOps+, +DevOps+ profiles
-and companies that create +DevOps+ transformation areas,
+We have recently found misapplied concepts such as `DevOps`, `DevOps` profiles
+and companies that create `DevOps` transformation areas,
 but apart from the management area (roles, responsibilities, and processes)
 how can these concepts be translated into a simple technical approach
 in additional spaces to the applications?
@@ -30,7 +30,7 @@ in additional spaces to the applications?
 In this methodological universe,
 we are losing sight of a critical need for programming languages
 scoped to infrastructure and networks,
-which has been around for more than +20+ years.
+which has been around for more than `20` years.
 These languages would allow programming practices
 that have been developed for half a century
 to also apply to infrastructure development.
@@ -100,14 +100,14 @@ and *an overall satisfaction of 165%*.
 The presentation can be hosted
 at your company's facilities or an external venue.
 
-The event can be held in Medellín with a minimum public of +20+ assistants,
-one of them with at least +10+ dependants.
+The event can be held in Medellín with a minimum public of `20` assistants,
+one of them with at least `10` dependants.
 For other cities in Colombia, Central America, Ecuador, and Perú,
-there must be one assistant with at least +20+ dependants.
+there must be one assistant with at least `20` dependants.
 
 == 5. Duration
 
-The conference has a duration of +2+ hours
+The conference has a duration of `2` hours
 (duration cannot be reduced).
 
 == 6. When?
@@ -123,8 +123,8 @@ and experimentation inside your company,
 considering people with power of decision is important.
 
 The number of attendants is set according to the limits of the workspace.
-The conference has been given in groups of +20+ people
-and in auditoriums with over +80+ people
+The conference has been given in groups of `20` people
+and in auditoriums with over `80` people
 
 == 8. Requirements
 
@@ -136,6 +136,6 @@ and in auditoriums with over +80+ people
 
 == 10. Videos
 
-++++
+````
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qKsz-nvgMrU" frameborder="0" allowfullscreen></iframe>
-++++
+````

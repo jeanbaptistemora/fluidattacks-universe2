@@ -20,7 +20,7 @@
 
 a|==== Attack Cycles
 | Multiple link:../continuous-hacking/#remediation-validation[^1^].
-| Only +1+ link:../one-shot-hacking/#remediation-validation[^1^].
+| Only `1` link:../one-shot-hacking/#remediation-validation[^1^].
 
 a|==== Remediation Support
 | {yes} Yes. link:../continuous-hacking/#remediation-support[^2^]
@@ -31,8 +31,8 @@ a|==== Average duration
 | 1-4 months link:../one-shot-hacking/#specific-length[^3^].
 
 a|==== Multiple hackers
-|{yes} A minimum of +5+ hackers test your system.
-|{info} A minimum of +2+ hackers test your system.
+|{yes} A minimum of `5` hackers test your system.
+|{info} A minimum of `2` hackers test your system.
 
 a|==== Face-to-face delivery
 |{info}  Unlimited within the contract period.
@@ -42,8 +42,8 @@ All information deliveries are made via +
 link:../continuous-hacking/#direct-and-agile-communication[^4^].
 a|{yes} Limited to two within the contract period:
 
-* +1+ meeting via video-teleconferencing link:../one-shot-hacking/#report-validation-meeting[^4^].
-* +1+ final results summary meeting at your location link:../one-shot-hacking/#report-presentation-meeting[^5^].
+* `1` meeting via video-teleconferencing link:../one-shot-hacking/#report-validation-meeting[^4^].
+* `1` final results summary meeting at your location link:../one-shot-hacking/#report-presentation-meeting[^5^].
 
 a|==== Detection time
 a|{yes} Early
@@ -76,7 +76,7 @@ up to the  subscription starting point to catch up,
 if necessary, with the development team.
 * Hacking does not stop, even without new developments in the project.
 
-a|{info} Agreed upon by both the customer and +Fluid Attacks+
+a|{info} Agreed upon by both the customer and `Fluid Attacks`
 before testing begins
 link:../one-shot-hacking/#coverage[^6^].
 
@@ -95,9 +95,9 @@ a|==== Infection
 are infected with cyberweapons.
 
 a|==== Remediation percentage
-| {yes} Up to +100%+ of reported vulnerabilities can,
+| {yes} Up to `100%` of reported vulnerabilities can,
 potentially, be remediated.
-| {yes} Up to +80%+ of reported vulnerabilities can,
+| {yes} Up to `80%` of reported vulnerabilities can,
 potentially, be remediated.
 
 a|==== Location
@@ -105,12 +105,12 @@ a|==== Location
 | Remote or on premises.
 
 a|==== Time to remediate
-| {yes} +2+ - +3+ weeks.
-| {info} +3+ - +4+ months.
+| {yes} `2` - `3` weeks.
+| {info} `3` - `4` months.
 
 a|==== Payment
 | Monthly payment.
-| +1+ or +2+ payments.
+| `1` or `2` payments.
 
 |====
 {sp} +

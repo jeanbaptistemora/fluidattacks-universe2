@@ -13,8 +13,8 @@ separados para cifrado y firmado.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.12`]
 Verificar que exista una política explícita
 sobre cómo administrar las claves criptográficas (si las hay)
 y se impone el ciclo de vida de las claves criptográficas.
-Idealmente, seguir un estándar de gestión de claves como +NIST SP 800-57+
+Idealmente, seguir un estándar de gestión de claves como `NIST SP 800-57`

@@ -17,13 +17,13 @@ To access, complete, and submit the exam do the following:
 == Create an account
 
 . Click on link. [inner]#link:https://fluidattacks.com/courses/login/index.php[link]#
-. Click on *+CREATE NEW ACCOUNT+* and fill in the form.
+. Click on *`CREATE NEW ACCOUNT`* and fill in the form.
 Please note that your username is case-sensitive and must be
 in lowercase letters only.
 Please note that your password must have at least 8 characters,
 including at least 1 number, 1 lowercase letter, 1 uppercase letter,
 and 1 non-alphanumeric character such as \ * - #.
-. After you fill in the form, click on *+Create My New Account+*.
+. After you fill in the form, click on *`Create My New Account`*.
 You will then receive an email with instructions on how to confirm your e-mail
 address.
 If you don't receive this email in your inbox, check your *SPAM* folder.
@@ -36,8 +36,8 @@ to access the exam.
 [IMPORTANT]
 Please, finish reading all the steps before you attempt to open the program.
 
-. Decompress the +.ZIP+ file downloaded and
-then install *+SafeExamBrowserInstaller.exe+*.
+. Decompress the `.ZIP` file downloaded and
+then install *`SafeExamBrowserInstaller.exe`*.
 If the keyboard changes its configuration to English
 and you want the Spanish version,
 simply change it back to Spanish from English.
@@ -54,7 +54,7 @@ knowledge test.
 . Log in using the credentials you registered in step 2 under,
 Create an account.
 . When you click on Attempt Quiz Now,
-you will have +24+ hours to submit +1+ attempt only.
+you will have `24` hours to submit `1` attempt only.
 If you are unable to complete your attempt within that time period,
 please let us know via email and propose a new date to take it.
 The test takes approximately 3 hours and 20 minutes to complete
@@ -65,20 +65,20 @@ without interruption.
 Have Fun! … and good luck!
 
 . After successfully logging in,
-go to the left-side navigation bar and click on the *+Sites Home tab+*.
-. Scroll down to the end of the page and select *+General Knowledge Exam+*.
-. Click the *+ENROLL ME+* button next to the course name, then,
-on the next page, click the *+ATTEMPT QUIZ NOW+* button to begin.
+go to the left-side navigation bar and click on the *`Sites Home tab`*.
+. Scroll down to the end of the page and select *`General Knowledge Exam`*.
+. Click the *`ENROLL ME`* button next to the course name, then,
+on the next page, click the *`ATTEMPT QUIZ NOW`* button to begin.
 +
 [IMPORTANT]
 Please be aware that once you answer or skip a question,
 you will not be able to return to it!
 
 . Once you are done,
-look for the *+FINISH ATTEMPT+* button
+look for the *`FINISH ATTEMPT`* button
 at the bottom of the page.
 Click it to validate you have completed the knowledge test.
-. Click the *+SUBMIT ALL AND FINISH+* button located at the bottom of the page.
+. Click the *`SUBMIT ALL AND FINISH`* button located at the bottom of the page.
 . To exit the program,
 use the button on the right side,
 at the bottom of the screen.

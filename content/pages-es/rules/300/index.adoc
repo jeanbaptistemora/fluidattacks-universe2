@@ -9,7 +9,7 @@
 == Requisito
 
 Los datos sensibles de negocio
-(número de tarjeta de crédito, +CVV+, etc) deben estar enmascarados.
+(número de tarjeta de crédito, `CVV`, etc) deben estar enmascarados.
 
 == Referencias
 

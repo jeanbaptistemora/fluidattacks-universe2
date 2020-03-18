@@ -98,16 +98,16 @@ no cuentan con un responsable asignado.
 
 . [[r2]] link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
 
-. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(2):]
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.308[`HIPAA Security Rules` 164.308(a)(2):]
 Responsable de seguridad asignado:
 Identificar el oficial responsable del desarrollo e implementación
 de las políticas y procedimientos de seguridad requeridos
 por esta parte de la organización.
 
-. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iii):]
+. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(d)(2)(iii):]
 Contabilidad: Mantener un registro de movimientos de hardware
 y medios electrónicos y las personas responsables de ellos.
 
-. [[r5]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM1.1:]
+. [[r5]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[`BSSIM9` SM1.1:]
 Publicar los procesos (roles, responsabilidades, planes),
 permitiendo que evolucionen según se requiera.

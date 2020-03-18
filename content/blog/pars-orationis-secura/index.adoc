@@ -18,17 +18,17 @@
 = Pars orationis non est secura
 
 We like
-link:http://itsecgames.com/[+bWAPP+]
+link:http://itsecgames.com/[`bWAPP`]
 around here,
 because it's 'very buggy!'.
 We have shown here how to find and exploit
 vulnerabilities like
-[inner]#link:../fuzzy-bugs-online/#comparison-with-manual-injection[+SQL+]#
+[inner]#link:../fuzzy-bugs-online/#comparison-with-manual-injection[`SQL`]#
 [inner]#link:../importance-pentesting/[injection]#,
 [inner]#link:../gherkin-steroids/#dynamic-detection-and-exploitation[directory traversal]#,
-[inner]#link:../xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app[+XPath+ injection]#,
+[inner]#link:../xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app[`XPath` injection]#,
 and
-[inner]#link:../app-pickle/#documenting-attack-vectors[+UNIX+ command injection]#.
+[inner]#link:../app-pickle/#documenting-attack-vectors[`UNIX` command injection]#.
 All of these have one thing in common, namely:
 they could have been prevented with a little
 link:https://www.owasp.org/index.php/Data_Validation[Input Validation].
@@ -51,30 +51,30 @@ image::add-entry.png["Add entry to blog screenshot"]
 
 Every time we load the page,
 the current entries in the blog are
-+SELECTed+ from a +MySQL+ database.
+`SELECTed` from a `MySQL` database.
 
 The source code for such a page is like this:
 
-.Adapted from +bWAPP+. Braces and loads of lines removed.
+.Adapted from `bWAPP`. Braces and loads of lines removed.
 [source,php,numbered]
 ----
-include::content/blog/pars-orationis-secura/redux-sqli-7.php[]
+include::redux-sqli-7.php[]
 ----
 
 We're mainly interested in
-the +PHP+ and +HTML+ mixed in the
-+<div id="main">+,
+the `PHP` and `HTML` mixed in the
+`<div id="main">`,
 which is just what we cropped here,
-because that's where the +SQL+ is.
+because that's where the `SQL` is.
 Looking at a few more sources,
 we see we always exploit the same weakness:
 
-An +SQL+ query is made up by 'concatenating'
-literal values, +PHP+ function calls and
-+PHP+ variables like +$entry+ above.
+An `SQL` query is made up by 'concatenating'
+literal values, `PHP` function calls and
+`PHP` variables like `$entry` above.
 That variable comes
-from a +POST+ request and
-passed through the sanitizing function +SQLi+.
+from a `POST` request and
+passed through the sanitizing function `SQLi`.
 After concatenating and building the query,
 it is sent to the database for processing.
 
@@ -89,15 +89,15 @@ into the entry field
 to turn the query into
 a dangerous, blog-deleting one.
 
-In order to successfully identify these +SQL+ injections,
-we need to look for strings which contain +SQL+ code,
-and also use the +PHP+ concatenation (+first . last+).
+In order to successfully identify these `SQL` injections,
+we need to look for strings which contain `SQL` code,
+and also use the `PHP` concatenation (`first . last`).
 That's not enough,
 because we also need to relate the concatenated variable
 with the input or parameter where we are going to place
-the malicious +SQL+ code.
+the malicious `SQL` code.
 
-To hunt +SQL+ injections in +bWAPP+,
+To hunt `SQL` injections in `bWAPP`,
 our tool of choice will be a set of 'parsers',
 i.e., a piece of software used to scan a string
 or file to look for parts that conform
@@ -109,7 +109,7 @@ Before going into parsing and grammar issues,
 let us first reflect about what we want to find.
 We want to detect pieces of text in the code that
 conform to the syntax of
-an +SQL+ +SELECT+ or +INSERT+ statement.
+an `SQL` `SELECT` or `INSERT` statement.
 But also they must have concatenations, because
 a simple statement like
 
@@ -121,7 +121,7 @@ SELECT * FROM blog;
 is perfectly safe.
 Where could we possibly inject anything?
 
-So we need +SELECT+ or +INSERT+ with concatenations.
+So we need `SELECT` or `INSERT` with concatenations.
 Also, we want our tool to be able to identify
 
 * which variable is at risk,
@@ -130,7 +130,7 @@ Also, we want our tool to be able to identify
 
 * whether or not it is protected by some function
 
-For our purposes, the +INSERT+ statement has this form:
+For our purposes, the `INSERT` statement has this form:
 
 [source,sql]
 ----
@@ -151,20 +151,20 @@ A value can thus be:
 
 * a fixed number or string,
 
-* a +MySQL+ function like +NOW()+,
+* a `MySQL` function like `NOW()`,
 
 * a concatenation of a string or number obtained from
 
-** a +PHP+ variable (+$var1+) or
+** a `PHP` variable (`$var1`) or
 
-** a +PHP+ function (+clean()+), which may also take arguments.
+** a `PHP` function (`clean()`), which may also take arguments.
 
 This is where parsers shine and
 the alternative approach,
 link:https://en.wikipedia.org/wiki/Regular_expression[regular expressions],
 fail.
-Imagine trying to write a +regex+ to match
-such an +INSERT+ with concatenations.
+Imagine trying to write a `regex` to match
+such an `INSERT` with concatenations.
 It would be humongous, not to mention
 very hard to understand.
 Other disadvantages of regular expressions are
@@ -181,16 +181,16 @@ Now they have two problems.
 == Learning the parser-tongue
 
 Our weapon of choice will be
-`Python` and link:http://pyparsing.wikispaces.com/[+pyparsing+].
+`Python` and link:http://pyparsing.wikispaces.com/[`pyparsing`].
 
-.You don't need to be a wizard to use +pyparsing+!
+.You don't need to be a wizard to use `pyparsing`!
 image::parsertongue.png["Comic about pyparsing and Harry Potter"]
 
-Some nice features about +pyparsing+:
+Some nice features about `pyparsing`:
 
 * uses a simple syntax that makes the grammar transparent
 
-* fits well in your +Python+ code,
+* fits well in your `Python` code,
 
 * uses standard class constructs and
 plain language instead of cryptic odd symbols,
@@ -202,56 +202,56 @@ easy to adapt to different input or targets to match,
 like parsing actions
 (v.g. convert a string of digits to an actual integer)
 
-In +pyparsing+,
-the outermost parser for the +INSERT+ above translates to:
+In `pyparsing`,
+the outermost parser for the `INSERT` above translates to:
 
 [source,python]
 ----
-sql_insert = CaselessKeyword("INSERT INTO") + sql_identifier + Optional(column_names)
-       + CaselessKeyword("VALUES") + values
+sql_insert = CaselessKeyword("INSERT INTO") ` sql_identifier ` Optional(column_names)
+       ` CaselessKeyword("VALUES") ` values
 ----
 
-The functions in +SentenceCase+ are built into +pyparsing+,
+The functions in `SentenceCase` are built into `pyparsing`,
 and their names are pretty self-explanatory.
 The `+` operator is overloaded to mean "followed by".
 
 [source,python]
 ----
 sql_identifier = Word(alphanums + "_")
-values = Group( Literal("(") + delimitedList(value) + Literal(")") ).setResultsName("values")
+values = Group( Literal("(") ` delimitedList(value) ` Literal(")") ).setResultsName("values")
 ----
 
-Take +Word+ to mean any combination of the given characters.
-Thus +sql_identifier+ is just a combination of
+Take `Word` to mean any combination of the given characters.
+Thus `sql_identifier` is just a combination of
 alphanumeric characters and the underscore.
-+values+ is just a delimited list of values,
+`values` is just a delimited list of values,
 enclosed in parentheses.
-We +Group+ that list into a single entity
+We `Group` that list into a single entity
 so that we may refer to it by name later.
 
-+PHP+ identifiers are like +SQL+ names,
-but *must* start with the symbol +$+.
+`PHP` identifiers are like `SQL` names,
+but *must* start with the symbol `$`.
 We also define function calls:
 
 [source,python]
 ----
 php_identifier = Combine( Literal("$") + sql_identifier ).setResultsName("php identifier")
-php_funcall = Combine( sql_identifier + Literal("(") +
-             + Optional(delimitedList(php_identifier)) + Literal(")") )
+php_funcall = Combine( sql_identifier ` Literal("(") `
+             ` Optional(delimitedList(php_identifier)) ` Literal(")") )
 ----
 
-Unlike +Group+,
-+Combine+ squashes all matched tokens into one.
+Unlike `Group`,
+`Combine` squashes all matched tokens into one.
 We do that because
 we don't really care about
 every single part of a function call,
-only the +php_identifiers+ inside,
+only the `php_identifiers` inside,
 and we can access that
 by the name with which we
-baptized +PHP+ identifiers above.
+baptized `PHP` identifiers above.
 
 Finally, we get to the heart of the matter:
-a +value+ to be inserted is either
+a `value` to be inserted is either
 a literal word or number,
 the result of a function,
 or a 'dangerous concatenation':
@@ -259,11 +259,11 @@ or a 'dangerous concatenation':
 [source,python]
 ----
 value = varchar ^ php_funcall ^ danger_concat
-danger = ( ... + (php_identifier ^ php_funcall) + ... ).setResultsName("danger identifier")
+danger = ( ... ` (php_identifier ^ php_funcall) ` ... ).setResultsName("danger identifier")
 ----
 
-Here +^+ is the logical connector +or+, and
-we've omitted a bunch of +Literal+ parsers
+Here `^` is the logical connector `or`, and
+we've omitted a bunch of `Literal` parsers
 for all the quotes and dots.
 By the way,
 notice that all these named parts
@@ -272,10 +272,10 @@ are parsers themselves,
 and we can use them on their own.
 
 One way to use a parser
-is the +parseString+ method.
+is the `parseString` method.
 This will return the structure of tokens,
 if it is a match, or
-throw a +ParseException+ if not.
+throw a `ParseException` if not.
 
 ----
 >>> print(test_values)
@@ -290,14 +290,14 @@ throw a +ParseException+ if not.
 pyparsing.ParseException: Expected "(" (at char 0), (line:1, col:1)
 ----
 
-The function +scanString+ looks
+The function `scanString` looks
 for substrings that match the grammar.
 Quite useful. It also tells you
 where the substring was found.
 We use it to tell the user the line and column
-where the potential +SQL+ injection was found:
+where the potential `SQL` injection was found:
 
-.How to use +pyparsing.scanString+
+.How to use `pyparsing.scanString`
 [source,python,numbered]
 ----
 for tokens, start, end in sql_injection.scanString(content):
@@ -308,22 +308,22 @@ for tokens, start, end in sql_injection.scanString(content):
 ----
 
 These are just some of
-the +pyparsing+ built-in helper functions
+the `pyparsing` built-in helper functions
 mentioned earlier:
-+scanString+ returns an iterator which
-gives +tokens+, just like +parseString()+,
+`scanString` returns an iterator which
+gives `tokens`, just like `parseString()`,
 but also starting and ending 'characters'.
 To convert them to 'line' and 'column' numbers,
-we use the functions +lineno()+ and +colno()+,
+we use the functions `lineno()` and `colno()`,
 respectively.
 
 Where parsers actually beat regular expressions is
 in extracting information and structure from the input,
 as we did above to identify the inserted values
-and from those, which are the variables where we can inject +SQL+.
+and from those, which are the variables where we can inject `SQL`.
 For that, we need to parse again
 because we don't know beforehand
-whether the inserted value is a function call or a +PHP+ identifier:
+whether the inserted value is a function call or a `PHP` identifier:
 
 [source,python]
 ----
@@ -335,13 +335,13 @@ for injectable_variable in injectable_variables:
 ----
 
 Remember we need to
-detect lines with +SQL+ queries that
+detect lines with `SQL` queries that
 contain dangerously concatenated variables,
 but also 'where' those variables
 are taken from user input and
 whether they are protected.
 But since we already have the ``injectable variable''
-as a regular +string+,
+as a regular `string`,
 we can create 'yet another' parser on-the-fly
 to find the lines where that variable is mentioned.
 This one is simple:
@@ -355,7 +355,7 @@ for tokens, start, end in tpar.scanString(content):
 ----
 
 Finally, we run this code
-for every +PHP+ file in the +bWAPP+ server root.
+for every `PHP` file in the `bWAPP` server root.
 The output we get is very long
 (see the link:results.txt[full report])
 Here is part of it:
@@ -382,13 +382,13 @@ $sql = "SELECT * FROM blog WHERE owner = '" . $_SESSION["login"] . "'";
 Total SQL injections found: 56
 ----
 
-Boy, that's a load of +SQL+ injections!
+Boy, that's a load of `SQL` injections!
 However, some
 of these matches might be a 'false positive'
 and maybe some files have 'escaped' our scrutiny.
 
 To find the ratio of discovered vulnerabilities
-to existing ones (the 'yield'), consider the 57 +SQLi+ in
+to existing ones (the 'yield'), consider the 57 `SQLi` in
 link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[Netsparker]
 Compared to our 56, that gives us a 'yield' of 98%.
 Not too shabby for our simple parser.
@@ -399,7 +399,7 @@ and checking the script output,
 we see that only really dangerous concatenations are reported.
 Thus we might say,
 with a statistically sound 95% confidence,
-that our +pyparsing+ parser reports
+that our `pyparsing` parser reports
 
 [quote]
 zero false positives.
@@ -412,10 +412,10 @@ zero false positives.
 
 Download link:./sqli-parser.py[code] and
 link:./test-cases.lst[test cases].
-Run from the root of the tested +PHP+ server.
+Run from the root of the tested `PHP` server.
 
-.+sqli_parser.py+
+.`sqli_parser.py`
 [source,python,numbered]
 ----
-include::content/blog/pars-orationis-secura/sqli-parser.py[]
+include::sqli-parser.py[]
 ----

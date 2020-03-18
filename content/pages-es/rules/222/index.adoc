@@ -8,4 +8,4 @@
 
 == Requisito
 
-Una máquina virtual no debe acceder a información de la máquina +host+.
+Una máquina virtual no debe acceder a información de la máquina `host`.

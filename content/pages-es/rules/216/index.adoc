@@ -9,4 +9,4 @@
 == Requisito
 
 Los objetos de red que no sean usados
-deben ser eliminados de la configuración de los equipos de +firewall+.
+deben ser eliminados de la configuración de los equipos de `firewall`.

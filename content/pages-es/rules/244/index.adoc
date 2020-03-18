@@ -14,7 +14,7 @@ para respaldar la información.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(i)]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(2)(i)]
 Operaciones de Contingencia:
 Establecer (e implementar de ser necesario) procedimientos
 que permitan el acceso a las instalaciones
@@ -22,7 +22,7 @@ en apoyo a la restauración de datos perdidos
 bajo el plan de recuperación ante desastres
 y el plan de operaciones en caso de una emergencia.
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iv)]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(d)(2)(iv)]
 Respaldo de datos y almacenamiento: Crear una copia exacta y recuperable
 de la información sensible cuando sea necesario,
  antes de realizar movimiento del equipos.

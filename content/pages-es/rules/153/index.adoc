@@ -1,6 +1,6 @@
 :slug: rules/153/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la manipulación o gestión de transacciones, las cuales en lo posible, deben realizarse fuera de banda. Algunos ejemplos de este tipo de transacciones son los correos, +sms+, etc.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la manipulación o gestión de transacciones, las cuales en lo posible, deben realizarse fuera de banda. Algunos ejemplos de este tipo de transacciones son los correos, `sms`, etc.
 :keywords: Requerimiento, Seguridad, Transacción, Banda, Correo, SMS.
 :rules: yes
 
@@ -8,4 +8,4 @@
 
 == Requisito
 
-La transacción debe confirmarse fuera de banda (+SMS+, correo, entre otros).
+La transacción debe confirmarse fuera de banda (`SMS`, correo, entre otros).

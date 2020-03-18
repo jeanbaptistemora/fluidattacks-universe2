@@ -32,17 +32,17 @@ y se debe mantener actualizado de acuerdo a las mejores prácticas.
 
 == Ataques
 
-. Un sitio con un certificado +SSL+ mal configurado
+. Un sitio con un certificado `SSL` mal configurado
 puede causar alertas en un navegador para los usuarios.
 Los usuarios tienen que aceptar tales advertencias
 y continuar para poder usar el sitio,
 esto causa que los usuarios se acostumbren a dichas advertencias.
-En un ataque tipo +Phishing+ contra el sitio
+En un ataque tipo `Phishing` contra el sitio
 los usuarios son atraídos hacia un sitio falso
 que se ve y actúa muy similar al original,
 y el cual además genera advertencias prácticamente iguales,
 debido a que las víctimas están acostumbradas a dichas advertencias
-proceden a usar el sitio del +Phishing+,
+proceden a usar el sitio del `Phishing`,
 entregando así contraseñas y otra información privada.
 
 == Atributos

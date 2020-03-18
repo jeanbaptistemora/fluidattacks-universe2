@@ -24,14 +24,14 @@ a|image::asserts.svg[Magnifying glass finding error in document]
 
 Engine to automate the closing of security findings
 over execution environments.
-It can be executed in computers running OS +Windows+ or +Linux+, and it can
-also be included in your +Continuous Integration+ environment.
+It can be executed in computers running OS `Windows` or `Linux`, and it can
+also be included in your `Continuous Integration` environment.
 Click [inner]#link:asserts/[here]# for more information.
 
 2+a|== link:rules/[Rules]
 
-Set of requirements  used to parameterize a +pen test+.
-These rules determine how rigurous a +pen test+ really is,
+Set of requirements  used to parameterize a `pen test`.
+These rules determine how rigurous a `pen test` really is,
 by defining what is going to be tested,
 and what is going to be considered a vulnerability.
 Click [inner]#link:rules/[here]# for more information.

@@ -9,4 +9,4 @@
 == Requisito
 
 Las reglas desactivadas no deben permanecer
-en la configuración del equipo de +firewall+.
+en la configuración del equipo de `firewall`.

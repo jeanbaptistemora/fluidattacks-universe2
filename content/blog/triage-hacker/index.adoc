@@ -20,7 +20,7 @@
 
 Based upon our [inner]#link:../vulnerability-classifier[last experiment]#,
 in this article, I will provide a global vision
-of how our +ML+ for vulnerability discovery approach should work.
+of how our `ML` for vulnerability discovery approach should work.
 
 First, what problem would this solve?
 I am repeating myself here
@@ -34,7 +34,7 @@ that they contain a vulnerability
 so that the analyst can prioritize the manual inspection.
 Ideally, when the analyst is confronted with a new project,
 instead of looking at an overview of all files in a repository
-or its +git log+,
+or its `git log`,
 they could have a number that ranks each file
 in the repo with the probability of it
 containing code vulnerabilities:
@@ -85,7 +85,7 @@ image::fetch.png[Integrates > Checkout repositories > Build dataset]
 
 This poses several new challenges:
 
-. Accessing +Integrates+ and the repositories.
+. Accessing `Integrates` and the repositories.
 . Parsing all the obtained files.
 . Splitting vulnerable and safe code.
 . Masking the code so as not to expose it.
@@ -96,7 +96,7 @@ how do we feed code into an algorithm that expects numerical values
 or sets thereof, i.e., vectors from a continuum?
 We discussed this a bit in our
 [inner]#link:../digression-regression[presentation]#
-of the +Python+ data ecosystem,
+of the `Python` data ecosystem,
 and in our
 [inner]#link:../vulnerability-classifier[first iteration]#,
 we opted for breaking up the code string into tokens
@@ -107,7 +107,7 @@ We thus obtain a proper dataset for machine learning:
 image::embedding.png[Embedding via neural network]
 
 Other alternatives we will explore are
-word embeddings, such as +word2vec+ and +code2vec+,
+word embeddings, such as `word2vec` and `code2vec`,
 which at the moment are not working for us as they
 project each token into a vector, while what we need
 is to map functions or even entire classes or files
@@ -120,27 +120,27 @@ thus dealing with the masking issue.
 Thus far we have performed these experiments in local machines.
 However, this is impractical, for many reasons,
 one of which is the lack of computational muscle,
-in particular of +GPUs+,
+in particular of `GPUs`,
 which are pretty much a requirement for deep neural networks.
 link:https://aws.amazon.com/[Amazon Web Services]
 provides a solution called
 link:https://aws.amazon.com/sagemaker/[Sagemaker].
-In +Sagemaker+ you are given a
+In `Sagemaker` you are given a
 link:https://jupyter.org/[Jupyter] notebook
 in which you can do data science to your heart's content.
 No fuss about setting up machines,
 installing dependencies, everything is ready.
 Such would be our choice for training the machines.
 The output of this training process
-is a +Python+ object which can make predictions.
+is a `Python` object which can make predictions.
 As seen in
 [inner]#link:../vulnerability-classifier[previous]#
 [inner]#link:../fool-machine[articles]#,
 this can be saved in the
 link:https://keras.io[Keras]
-+H5+ format and loaded again into a +Python+ script.
+`H5` format and loaded again into a `Python` script.
 An easy way to deploy this model to make predictions
-would be on a serverless application on +AWS Lambda+,
+would be on a serverless application on `AWS Lambda`,
 so that it could be readily accessed by the analysts
 to deal with new projects.
 
@@ -148,8 +148,8 @@ Hopefully, this cycle would be completed
 by the analyst manually detecting, confirming
 and exploiting —should there be a working environment—
 vulnerabilities where the classifier predicted high
-likelihood and reporting them back to +Integrates+.
-As the +Integrates+ database fills up again,
+likelihood and reporting them back to `Integrates`.
+As the `Integrates` database fills up again,
 we should repeat the training cycle
 with a prudent frequency,
 which could be daily, weekly, etc.
@@ -172,6 +172,6 @@ A lot remains to be done, of course:
 We hope to be able to develop this tool
 in the next 6 to 8 months,
 or at the very least experiment with
-the possibilities +ML+ provides to vulnerability discovery and
+the possibilities `ML` provides to vulnerability discovery and
 continue reporting the results here.
 Stay tuned for more.

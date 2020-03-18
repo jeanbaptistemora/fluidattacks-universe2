@@ -47,7 +47,7 @@ the relationship between vendor and client.
 It is still common to see companies that maintain a process
 that Reynolds calls "traditional" in their pentesting work.
 That is, point in time pentesting.
-Here, the client delivers, for example, a +URL+ address,
+Here, the client delivers, for example, a `URL` address,
 and then the vendor simply tells him that in about three weeks,
 he will provide the results.
 
@@ -67,7 +67,7 @@ of the findings and their remediation.
 
 This is where the need arises to use a *platform*,
 as a product for the client,
-to assist the *Penetration Testing as a Service* (+PTaaS+).
+to assist the *Penetration Testing as a Service* (`PTaaS`).
 
 == Vulnerabilities management platform
 
@@ -116,14 +116,14 @@ The aim is to understand, with texts, videos, or other material,
 what had to be done and introduced within a particular structure
 to obtain specific answers translated into vulnerabilities.
 
-At this point, it should be noted that within +Fluid Attacks+
-we have a platform similar to that described, called +Fixes+
-(formerly known as [inner]#link:../../products/integrates/[+Integrates+]#).
-+Fixes+ facilitates the management of vulnerabilities.
-These vulnerabilities are stored in +Fixes+.
+At this point, it should be noted that within `Fluid Attacks`
+we have a platform similar to that described, called `Fixes`
+(formerly known as [inner]#link:../../products/integrates/[`Integrates`]#).
+`Fixes` facilitates the management of vulnerabilities.
+These vulnerabilities are stored in `Fixes`.
 Access to their evidence is provided there
 at different stages of the process and in real-time.
-With +Fixes+, our client can classify and prioritize vulnerabilities,
+With `Fixes`, our client can classify and prioritize vulnerabilities,
 define their treatment, and maintain a constant check
 of their status and remediation progress.
 
@@ -136,7 +136,7 @@ and yes, *more friendly to customers*.
 That's something we're also looking for!
 
 *PD.*
-Don't forget that at +Fluid Attacks+,
+Don't forget that at `Fluid Attacks`,
 in addition to infrastructure and applications,
 we also evaluate source code.
 Besides, we provide black box, gray box, and white box testing.

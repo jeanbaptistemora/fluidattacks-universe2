@@ -19,8 +19,8 @@
 
 Now that we have a better undestanding of
 how natural language and code embeddings work,
-let us take a look at a work by the same authors of +code2vec+,
-entitled +code2seq+: generating sequences from code <<r1, [1]>>.
+let us take a look at a work by the same authors of `code2vec`,
+entitled `code2seq`: generating sequences from code <<r1, [1]>>.
 What sequences? you might ask.
 Sequences of natural language,
 which might have different applications
@@ -36,25 +36,25 @@ which is pretty much the same,
 only properly written.
 
 * Even automatic code documentation, in particular,
-generate +JavaDoc+ documentation given a +Java+ method.
+generate `JavaDoc` documentation given a `Java` method.
 
 A picture says more than a thousand words:
 
 .Sample prediction and generated AST via link:https://code2seq.org/[demo site].
 image::example.png[Sample prediction and generated AST]
 
-Notice that the +AST+ says _even less_
+Notice that the `AST` says _even less_
 about what this snippet does than the code itself, in my opinion.
-And yet +code2seq+ sort of manages to
+And yet `code2seq` sort of manages to
 _understand the intent_ of this function,
-which is to generate a prime number for an +RSA+ key.
+which is to generate a prime number for an `RSA` key.
 The prediction for the summary of this method is:
-+generate prime number+.
+`generate prime number`.
 Not too shabby.
 
 So, how does it work?
-Again, as in +code2vec+ they use randomly taken
-+AST+ paths from one leaf token to another leaf
+Again, as in `code2vec` they use randomly taken
+`AST` paths from one leaf token to another leaf
 for the initial representation of code,
 
 .Paths in an AST. From <<r1, [1]>>.
@@ -69,21 +69,21 @@ has a few advantages, namely:
 * Works across programming languages.
 * It is not needed to hard-code human knowledge into features.
 
-However, as with +code2vec+, one requires a specific _extractor_
+However, as with `code2vec`, one requires a specific _extractor_
 (essentially a tool to parse the code and
-extract the +AST+ in a specific format understandable by +code2*+)
+extract the `AST` in a specific format understandable by `code2*`)
 for each language one intends to analyze.
-One key difference with +code2vec+ is the
-use of the long short-term memory (+LSTM+)
+One key difference with `code2vec` is the
+use of the long short-term memory (`LSTM`)
 neural network architecture,
-which is used to encode each +AST+ path
+which is used to encode each `AST` path
 from the previous step as a sequence of nodes.
 Otherwise the architecture is pretty similar:
 
-.+code2seq+ architecture. From <<r1, [1]>>.
+.`code2seq` architecture. From <<r1, [1]>>.
 image::network.png[Code2seq architecture]
 
-As with +code2vec+, their main secret sauce
+As with `code2vec`, their main secret sauce
 lies in the _attention_ mechanisms,
 and the encoding and decoding layers
 which sort of resemble the inner workings
@@ -94,8 +94,8 @@ and serves as a stepping stone into
 understanding the vector representation of code and
 other objects.
 
-Another intersesting under the hood idea of +code2seq+
-is to take after +seq2seq+ models,
+Another intersesting under the hood idea of `code2seq`
+is to take after `seq2seq` models,
 which are widely used in natural language translation
 with neural networks (_neural machine translation_).
 The idea is to connect two separate neural networks:
@@ -107,7 +107,7 @@ that only these kind of networks understand.
 Again, this is a bit reminiscent of the autoencoder example
 and most likely stemmed from that seminal idea.
 
-.+seq2seq+ diagram, via link:https://d2l.ai/_images/seq2seq.svg[d2l.ai].
+.`seq2seq` diagram, via link:https://d2l.ai/_images/seq2seq.svg[d2l.ai].
 image::seq2seq.png[seq2seq diagram]
 
 Needless to say that this kind of translator networks
@@ -123,33 +123,33 @@ And, as we see here, with careful adjustment,
 the idea can be applied even to more structured languages,
 such as programming languages.
 The results are better than the current benchmarks,
-including the authors' own previous work, +code2vec+:
+including the authors' own previous work, `code2vec`:
 
-.+code2seq+ results
+.`code2seq` results
 image::results.png[code2seq results]
 
 The image to the left refers to the results
-from the summarization task with +Java+ source code.
+from the summarization task with `Java` source code.
 Different methods (right) are compared using the F1 score
 (see discussion in our
 [inner]#link:../further-code2vec/[last article] for details,
 but keep in mind this score balances how much is actually found
 and how much escapes).
-The one on the right does the same for the +C#+
+The one on the right does the same for the `C#`
 captioning application, this time comparing the
-bilingual evaluation understudy (+BLEU+) scores,
+bilingual evaluation understudy (`BLEU`) scores,
 which are specific to machine translation.
 Clearly, for both tasks,
-+code2seq+ beats the current state of the art.
+`code2seq` beats the current state of the art.
 
 As far as using it for our purpose
 and testing the accuracy,
-+code2seq+ provides pretty much the same interface as +code2vec+,
+`code2seq` provides pretty much the same interface as `code2vec`,
 which you can check out in our
 [inner]#link:../further-code2vec/[last article]#,
 so we might expect the same ease of use.
 Only further experiments with the
-embeddings produced by this and +code2vec+
+embeddings produced by this and `code2vec`
 will let us decide which one to go with for our classifier.
 
 While code ummarization and captioning are
@@ -177,11 +177,11 @@ one that has been asked a lot during the
 [inner]#link:https://www.youtube.com/watch?v=CRoQZDmRvoE[talks]#,
 and one that we will certainly keep in mind.
 
-Overall, +code2seq+ is an innovative way of looking at
+Overall, `code2seq` is an innovative way of looking at
 the code-natural language relations,
 bringing into the game sophisticated techniques
 from the field of neural machine translation,
-and exploiting the rich syntax of code in the form of its +AST+,
+and exploiting the rich syntax of code in the form of its `AST`,
 which as we haven seen throughout the series,
 is one of the simplest and most succesful ways of
 representing code features.

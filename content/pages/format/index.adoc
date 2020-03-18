@@ -142,7 +142,7 @@ Give emphasis to a 'word'
 Change the color of a word from black text to something else.
 Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]
 . It can be combined with the formats:
-+size+, +background+, +overline+, +underline+, and +line-through+.
+`size`, `background`, `overline`, `underline`, and `line-through`.
 
 * Source
 +
@@ -159,7 +159,7 @@ Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.ht
 Change the color of part of a word from black text to something else.
 Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors].
 It can be combined with the formats:
-+size+, +background+, +overline+, +underline+, and +line-through+.
+`size`, `background`, `overline`, `underline`, and `line-through`.
 
 * Source
 +
@@ -177,7 +177,7 @@ w[blue]##or##d
 
 Change the size of a word. +
 It can be combined with the formats:
-+color+, +background+, +overline+, +underline+, and +line-through+.
+`color`, `background`, `overline`, `underline`, and `line-through`.
 
 * Source
 +
@@ -193,7 +193,7 @@ It can be combined with the formats:
 
 Change the size of part of a word. +
 It can be combined with the formats:
-+color+, +background+, +overline+, +underline+, and +line-through+.
+`color`, `background`, `overline`, `underline`, and `line-through`.
 
 * Source
 +
@@ -212,7 +212,7 @@ w[small]##or##d
 Change the background color of a word from one color to another.
 Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors].
 It can be combined with the formats:
-+size+, +background+, +overline+, +underline+, and +line-through+.
+`size`, `background`, `overline`, `underline`, and `line-through`.
 
 * Source
 +
@@ -248,7 +248,7 @@ w[aqua-background]##or##d
 
 Add line over a word. +
 It can be combined with the formats:
-+color+, +size+, +background+, +underline+, and +line-through+.
+`color`, `size`, `background`, `underline`, and `line-through`.
 
 * Source
 +
@@ -264,7 +264,7 @@ It can be combined with the formats:
 
 Add line over part of a word. +
 It can be combined with the formats:
-+color+, +size+, +background+, +underline+, and +line-through+.
+`color`, `size`, `background`, `underline`, and `line-through`.
 
 * Source
 +
@@ -282,7 +282,7 @@ w[overline]##or##d
 
 Add line under a word. +
 It can be combined with the formats:
-+color+, +size+, +background+, +overline+, and +line-through+.
+`color`, `size`, `background`, `overline`, and `line-through`.
 
 * Source
 +
@@ -298,7 +298,7 @@ It can be combined with the formats:
 
 Add line under part of a word. +
 It can be combined with the formats:
-+color+, +size+, +background+, +overline+, and +line-through+.
+`color`, `size`, `background`, `overline`, and `line-through`.
 
 * Source
 +
@@ -316,7 +316,7 @@ w[underline]##or##d
 
 Add line through a word. +
 It can be combined with the formats:
-+color+, +size+, +background+, +overline+, and +underline+.
+`color`, `size`, `background`, `overline`, and `underline`.
 
 * Source
 +
@@ -332,7 +332,7 @@ It can be combined with the formats:
 
 Add line through part of a word. +
 It can be combined with the formats:
-+color+, +size+, +background+, +overline+, and +underline+s.
+`color`, `size`, `background`, `overline`, and `underline`s.
 
 * Source
 +
@@ -426,12 +426,12 @@ Use monospaced font.
 * Source
 +
 ....
-+word+
+`word`
 ....
 
 * Render
 +
-+word+
+`word`
 
 ==== Monospaced - Option 2 - Do not use
 
@@ -498,29 +498,29 @@ The next line is a comment.
 
 === Pass-through HTML - Do not use
 
-Delimit HTML code in +4+ plus (+)
+Delimit HTML code in `4` plus (+)
 to execute it once rendered. +
 Since the idea of Pelican is to separate content from style,
 do not use this method.
-Focus only on content in the +.adocs+.
+Focus only on content in the `.adocs`.
 
 * Source
 +
 ....
-++++
+````
   <p style="color:green">
   This <I>HTML</I> code will be rendered directly to the page.<br>
   </p>
-++++
+````
 ....
 
 * Render
 +
-++++
+````
   <p style="color:green">
   This <I>HTML</I> code will be rendered directly to the page.<br>
   </p>
-++++
+````
 
 === License Characters
 
@@ -540,7 +540,7 @@ Focus only on content in the +.adocs+.
 
 They are declared before an element,
 starting with a dot
-(+images+, +lists+, +quotes+, +literals+, etc.).
+(`images`, `lists`, `quotes`, `literals`, etc.).
 
 ==== Image Titles
 
@@ -951,7 +951,7 @@ in the literal block.
  .Code from file
  [source, gherkin, linenums]
  ----
- include::content/pages/format/script.feature [] -> No space
+ include::script.feature [] -> No space
  ----
 ....
 
@@ -960,7 +960,7 @@ in the literal block.
 .Code from file
 [source, gherkin, linenums]
 ----
-include::content/pages/format/script.feature[]
+include::script.feature[]
 ----
 
 ==== Code Inside a List
@@ -1183,7 +1183,7 @@ Back-to-back with previous interval.
 
 ==== Responsive Table Distributed Horizontally
 
-Use the special class +tb-row+ for this type of table.
+Use the special class `tb-row` for this type of table.
 *DO NOT USE MULTILINE CELLS*.
 
 * Source
@@ -1242,7 +1242,7 @@ Use the special class +tb-row+ for this type of table.
 
 ==== Responsive Table Distributed Vertically
 
- Use the special class +tb-col”+ for this type of table.
+ Use the special class `tb-col”` for this type of table.
  *DO NOT USE MULTILINE CELLS*.
 
 * Source
@@ -1341,7 +1341,7 @@ s| Col 1 s| Col 2 s| Col 3 s| Col 4
 
 ==== Responsive Table with Alternated Content - Max. 2 Columns
 
-Use the special class +tb-alt+ for this type of table.
+Use the special class `tb-alt` for this type of table.
 *DO NOT USE MULTILINE CELLS*.
 
 * Source
@@ -1492,7 +1492,7 @@ This text is written in {variable}.
 
 As with colors,
 inline elements can be given a class name
-and then be edited in the +CSS+.
+and then be edited in the `CSS`.
 
 * Source
 +
@@ -1569,5 +1569,5 @@ line breaks in the source code"]
 
 == References
 
-. link:http://powerman.name/doc/asciidoc[+AsciiDoc+ Cheat Sheet]
-. link:http://asciidoc.org/userguide.html[+AsciiDoc+ User Guide]
+. link:http://powerman.name/doc/asciidoc[`AsciiDoc` Cheat Sheet]
+. link:http://asciidoc.org/userguide.html[`AsciiDoc` User Guide]

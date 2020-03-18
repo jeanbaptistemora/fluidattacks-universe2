@@ -17,27 +17,27 @@
 = Preventing Hacks at CERN
 
 Have you heard about God’s particle?
-In 2012, the Large Hadron Collider (+LHC+) found the Higgs Boson;
+In 2012, the Large Hadron Collider (`LHC`) found the Higgs Boson;
 a particle predicted to exist in the 1960s
 thanks to the work of Peter Higgs and other physicists.
-The +LHC+ consists of a 27-kilometer ring
+The `LHC` consists of a 27-kilometer ring
 of superconducting magnets with several accelerating structures
 to boost the energy of particles along the way.
 According to link:https://www.forbes.com/sites/alexknapp/2012/07/05/how-much-does-it-cost-to-find-a-higgs-boson/#695f65e63948[Forbes], finding the Higgs Boson
-had cost around +USD+ +13.25+ billion.
+had cost around `USD` `13.25` billion.
 Now you have a sense of what we will discussing in this post.
 
 .Large Hadron Collider.
 image::lhc.png[Large Hadron Collider, Source: https://commons.wikimedia.org/wiki/File:Large_Hadron_Collider.JPG]
 
 A good friend of ours
-and former +Fluid Attacks+ security engineer,
+and former `Fluid Attacks` security engineer,
 has been working in that huge scientific project.
-Andrés is a final +Ph.D.+ student
+Andrés is a final `Ph.D.` student
 in Computer Science at the Goethe University in Germany.
 His work has focused on securing the computer grid
 that allows many physicists around the world
-to analyze data on subatomic particle collisions at the +LHC+.
+to analyze data on subatomic particle collisions at the `LHC`.
 He has a fantastic record in cybersecurity.
 Before starting his doctoral studies,
 he found several serious weaknesses in commercial software.
@@ -48,40 +48,40 @@ You can read more about Andrés in his link:https://iri-wiki.uni-frankfurt.de/cm
 
 *_What is your doctoral thesis about?_*::
  “It is about creating a security monitoring system
- for the link:https://home.cern/science/experiments/alice[+ALICE+] computational grid.
- +ALICE+ is one of the major +LHC+ experiments.
+ for the link:https://home.cern/science/experiments/alice[`ALICE`] computational grid.
+ `ALICE` is one of the major `LHC` experiments.
  The grid is made up of computer centers
  interconnected around the world
  that allow scientists to run applications for analyzing data
- obtained from particle collisions inside +ALICE+.
+ obtained from particle collisions inside `ALICE`.
  My project is composed of a software framework
  that isolates applications scientists use in a sandbox.
  Then, it collects information about the behavior those applications,
- classifying them as normal or malicious using Machine Learning (+ML+).
+ classifying them as normal or malicious using Machine Learning (`ML`).
  And finally, it allows performing actions upon detection of malicious behavior,
  such as sending alerts or stopping their execution.”
 
 That’s amazing.
 Researching protecting such a tremendous scientific _“device”_
 is undoubtedly a huge challenge.
-Andrés has been featured in the prestigious magazine link:https://www.scientificamerican.com/article/worlds-most-powerful-particle-collider-taps-ai-to-expose-hack-attacks/[+Scientific American+].
-He told us that the +CERN+, owner of the +LHC+,
+Andrés has been featured in the prestigious magazine link:https://www.scientificamerican.com/article/worlds-most-powerful-particle-collider-taps-ai-to-expose-hack-attacks/[`Scientific American`].
+He told us that the `CERN`, owner of the `LHC`,
 is a constant target for cyber attacks
 and that this is not surprising:
-many +CERN+ systems are exposed to the Internet.
-We wanted to know more about +ML+ in his work...
+many `CERN` systems are exposed to the Internet.
+We wanted to know more about `ML` in his work...
 
 *_Tell us a bit about how ML contributes to the framework you developed_*::
- “I used two +ML+ models.
+ “I used two `ML` models.
  The first performs a classification of applications
  into malicious and non-malicious.
  The other generates synthetic attacks
  to improve the training of the first.
   +
  I used thousands of examples of typical applications
- as well as +Linux+ malware for training and testing both models.
+ as well as `Linux` malware for training and testing both models.
  My framework managed to identify malicious software
- with an accuracy of +99%+ and less than +0.06%+ of false positives.”
+ with an accuracy of `99%` and less than `0.06%` of false positives.”
 
 Impressive.
 We see a link to what we shared days ago on [inner]#link:../seek-chaos/[antifragility ]#
@@ -90,8 +90,8 @@ By constant training and exposure to stressors,
 the framework makes itself better and better (just like lifting weights).
 According to link:https://cybersecurityventures.com/cybersecurity-almanac-2019/[Cybersecurity Ventures],
 by 2021 it is estimated that cybersecurity damages
-will add up to +USD+ 6 trillion in the world, +3+ trillion more than in 2015.
-These +ML+ designs,
+will add up to `USD` 6 trillion in the world, `3` trillion more than in 2015.
+These `ML` designs,
 capable of detecting security weaknesses and responding
 are seen as an answer for the rampant threats nowadays.
 If you want to dig deeper into Andrés' work,
@@ -107,7 +107,7 @@ Now, we turn to more general security-related issues with him.
 
  “I think of three relevant topics:
 
- * One is the use of Artificial Intelligence (+AI+)
+ * One is the use of Artificial Intelligence (`AI`)
  for both attack detection as well as for vulnerability detection.
  I focused on the former in my doctoral research.
  +
@@ -133,25 +133,25 @@ Now, we turn to more general security-related issues with him.
 An example of that vulnerability-proof software can be found link:https://github.com/project-everest/hacl-star[here].
 
 As a company focused on proving security in an offensive way,
-+AI+ is definitely a focus of research for us.
-Although we haven’t yet got dirty developing +ML+ or +AI+ artifacts,
+`AI` is definitely a focus of research for us.
+Although we haven’t yet got dirty developing `ML` or `AI` artifacts,
 is something very likely to happen soon.
 
 *_What threats are worth "having on the radar"?_*::
 
- “In general, with the rise of +AI+,
+ “In general, with the rise of `AI`,
  I believe we will start to see more attacks
  that learn automatically from the environment where they are carried out.
- Attacks on _"Internet of Things"_ (+IoT+) devices
+ Attacks on _"Internet of Things"_ (`IoT`) devices
  have also wreaked havoc in recent months.
  Finally, the leakage of sensitive user data
  is becoming more problematic as time passes on.”
 
-+IoT+ weaknesses and leakage of sensitive information
+`IoT` weaknesses and leakage of sensitive information
 are well under our scope.
 We provide [inner]#link:../../services/continuous-hacking/[Continuous hacking]#,
 as well as [inner]#link:../../services/one-shot-hacking/[One-shot hacking]#.
-If you have +IoT+ devices deployed on your premises,
+If you have `IoT` devices deployed on your premises,
 we can help you identifying attacks vectors,
 as well as providing ways to increase their security.
 We can help you to protect better your sensitive information.

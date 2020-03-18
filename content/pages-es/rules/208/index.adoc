@@ -9,5 +9,5 @@
 == Requisito
 
 Los dispositivos que se conectan a la red celular
-deben tener el +IMEI+ registrado
+deben tener el `IMEI` registrado
 ante el operador de telefonía móvil celular autorizado.

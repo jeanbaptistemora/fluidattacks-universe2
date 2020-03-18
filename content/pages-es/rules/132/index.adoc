@@ -22,22 +22,22 @@ que otros tipos de contraseñas.
 == Soluciones
 
 La presente sección contiene enlaces a artículos
-cuyo contenido es propiedad de +Fluid Attacks+.
+cuyo contenido es propiedad de `Fluid Attacks`.
 El objetivo es dar a conocer al público
 la implementación del actual requerimiento de seguridad
 para diferentes plataformas o lenguajes de programación:
 
-. *+BLOG+* link:../../../en/blog/requiem-password/[Requiem for a p455w0rD].
+. *`BLOG`* link:../../../en/blog/requiem-password/[Requiem for a p455w0rD].
 
 == Referencias
 
 . [[r1]] link:https://en.wikipedia.org/wiki/Passphrase[Passphrase - Wikipedia].
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.7+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[`OWASP-ASVS v3.1-2.7`]
 Verificar que los campos de entrada de las contraseñas permitan
 o sugieran sugieran el uso de contraseñas tipo frase,
 y que no se impida la entrada de frases largas o de alta complejidad.
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.27+]
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[`OWASP-ASVS v3.1-2.27`]
 Verificar que existan medidas para bloquear el uso
-de contraseñas comunes y +passphrases+ débiles.
+de contraseñas comunes y `passphrases` débiles.

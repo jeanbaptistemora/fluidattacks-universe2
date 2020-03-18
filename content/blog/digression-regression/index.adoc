@@ -26,8 +26,8 @@ I'm not sure what to say.
 
 Almost all machine learning algorithms in abstract,
 and the concrete tools and libraries
-from the +Python+ data science toolset
-(+Numpy+, +Pandas+, +Keras+)
+from the `Python` data science toolset
+(`Numpy`, `Pandas`, `Keras`)
 _expect_ the features and targets to be real-valued.
 They rely on concepts such as _distance_,
 _error_, and _cost functions_,
@@ -114,7 +114,7 @@ we want only to make them small overall.
 So we add them all, but before that,
 we square them in order to avoid the possibility
 that due to the signs,
-they might end up adding to something close to +0+.
+they might end up adding to something close to `0`.
 This is, in fact, the cost function for this particular algorithm:
 different techniques come with different cost functions
 and different ways to minimize them.
@@ -128,7 +128,7 @@ are taken from optimization.
 Even simple brute force (trial and error) might be used,
 as long as the cost function is minimized.
 
-Instead of implementing simple linear regression in pure +Python+,
+Instead of implementing simple linear regression in pure `Python`,
 which could be done,
 let this serve as an excuse to present
 the general machine learning flow.
@@ -155,7 +155,7 @@ model = LinearRegression(fit_intercept=True)
 model.fit(t, x)
 ----
 
-Assuming that _t_ and _x_ are +NumPy+ arrays
+Assuming that _t_ and _x_ are `NumPy` arrays
 (a more mathematically appropriate extension of lists)
 holding the time and position variables, respectively.
 
@@ -197,7 +197,7 @@ the better the fit, and hence, the regression.
 
 That is, in a nutshell, how to
 make, train and draw predictions from
-machine learning algorithms in +scikit+,
+machine learning algorithms in `scikit`,
 with a few subtle changes from one to the next,
 such as:
 
@@ -208,7 +208,7 @@ The _features_ or _predictors_
 (_t_ above, but usually _x_)
 need to be an array of vectors,
 and the _targets_ or _labels_ (usually _y_)
-a simple list or +1D+ array.
+a simple list or `1D` array.
 
 * The validation and testing are performed
 in different ways according to the task,

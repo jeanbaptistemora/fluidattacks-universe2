@@ -9,4 +9,4 @@
 == Requisito
 
 El cliente de correo electrónico corporativo
-no debe interpretar código +HTML+ por defecto.
+no debe interpretar código `HTML` por defecto.

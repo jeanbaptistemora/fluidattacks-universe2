@@ -9,5 +9,5 @@
 == Requisito
 
 Los sistemas relacionados con tarjeta de crédito
-deben hacer uso de +tokenización+
+deben hacer uso de `tokenización`
 en vez de almacenar los datos de la tarjeta.

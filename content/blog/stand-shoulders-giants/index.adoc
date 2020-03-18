@@ -18,49 +18,49 @@
 
 In our [inner]#link:../infinite-monkey-fuzzer/[last post]#,
 we reproduced the discovery of
-a vulnerability in +libpng+.
+a vulnerability in `libpng`.
 But that is only a small library,
 you might say,
 with a very limited scope
-and only +556 KiB+ installed.
+and only `556 KiB` installed.
 However, many, many packages depend on it.
 To see how many packages
-in the Arch Linux repository depend on +libpng+
-we can use +pacgraph+
+in the Arch Linux repository depend on `libpng`
+we can use `pacgraph`
 by link:http://kmkeen.com/pacgraph/[Kylee Keen]:
 
-.+libpng+ reverse dependencies in +Arch Linux+
+.`libpng` reverse dependencies in `Arch Linux`
 image::libpng-pacgraph.png["libpng reverse dependencies",width=800]
 
-More than +14 GiB+ worth of software depends on +libpng+!
-And that is only in the +Arch Linux+ repositories,
-which is hardly the most popular +Linux+ distribution.
-Also, the library is the official +PNG+ reference library and
+More than `14 GiB` worth of software depends on `libpng`!
+And that is only in the `Arch Linux` repositories,
+which is hardly the most popular `Linux` distribution.
+Also, the library is the official `PNG` reference library and
 is cross-platform,
 so certainly many other packages in
 other operating systems depend on it.
 
 Now, back in 2015 when
-+libpng+ had not yet fixed the low-high palette bug,
+`libpng` had not yet fixed the low-high palette bug,
 all the programs and libraries above
 were also automatically vulnerable to the same issue.
-Actually this is what happened to +Equifax+
-with a vulnerability in +Apache Struts+.
+Actually this is what happened to `Equifax`
+with a vulnerability in `Apache Struts`.
 Same with many web services that use
-+OpenSLL+ with +Heartbleed+.
+`OpenSLL` with `Heartbleed`.
 
 If this could happen to such flagships as
-link:https://www.gnu.org/software/bash/[+bash+],
-link:https://www.qt.io/[+qt+],
-link:https://services.math.duke.edu/computing/tex/latex.html[+TeX+]
-and link:https://xfce.org/[+xfce+],
+link:https://www.gnu.org/software/bash/[`bash`],
+link:https://www.qt.io/[`qt`],
+link:https://services.math.duke.edu/computing/tex/latex.html[`TeX`]
+and link:https://xfce.org/[`xfce`],
 it could happen to your organisation.
 In fact, this problem is so common that
-it is part of the 2017 +OWASP+ Top 10:
+it is part of the 2017 `OWASP` Top 10:
 they call it
 ``A9: Using components with known vulnerabilities''.
 
-Given the rapid adoption of Free and Open Source Software (+FOSS+)
+Given the rapid adoption of Free and Open Source Software (`FOSS`)
 by large companies,
 all of a sudden dependency vulnerability
 appears to be one link:https://en.wikipedia.org/wiki/Dependency_hell[hell] of a problem.
@@ -68,7 +68,7 @@ Or rather, as yuppies would like to point out,
 a ``business opportunity''?
 
 Many providers of so-called
-``software composition analysis'' (+SCA+)
+``software composition analysis'' (`SCA`)
 (don't google it)
 have since appeared in the security scene.
 Some of them are backed by
@@ -79,7 +79,7 @@ that it is expected to grow more than 20% each year
 from now
 link:https://www.prnewswire.com/news-releases/the-software-composition-analysis-market-is-expected-to-grow-from-usd-1540-million-in-2017-to-usd-3984-million-by-2022-at-a-compound-annual-growth-rate-cagr-of-209-300595028.html[to 2022].
 
-What's worse, it makes the +FOSS+,
+What's worse, it makes the `FOSS`,
 that all these companies owe to,
 look bad.
 Yet its adoption is not slowing down and,
@@ -87,7 +87,7 @@ as we will try to show here,
 it's not its fault but rather,
 the dependent app's;
 and also that
-it's not a +FOSS+ thing but rather
+it's not a `FOSS` thing but rather
 that marketing efforts
 point towards it.
 
@@ -97,12 +97,12 @@ Today's applications use on average
 Think of it as your code being only
 a thin layer upon a building of some
 tiny, some larger boxes.
-What +SCA+ does then is look for
+What `SCA` does then is look for
 vulnerabilities inside those boxes
 with information from external databases,
 which then become vulnerabilities in your own app:
 
-.+SCA+ scans all the blocks in your app building
+.`SCA` scans all the blocks in your app building
 image::depvuln.png["Dependency building"]
 
 Instead of going from
@@ -111,7 +111,7 @@ let's do it backwards.
 
 == The bad
 
-+FOSS+ is developed and used
+`FOSS` is developed and used
 by thousands around the world.
 This can be a double-edged blade:
 on the one hand,
@@ -132,10 +132,10 @@ will become public as soon as they would be
 on the freer side of things.
 So expect all vulnerabilities to be zero-day.
 
-So if the source of the problem is not +FOSS+,
+So if the source of the problem is not `FOSS`,
 what is it?
 The main reasons why so many companies
-suffer from +A9+:
+suffer from `A9`:
 
 * Not knowing used dependencies.
 * Ignorance of their vulnerabilities.
@@ -150,8 +150,8 @@ between the user and the source of the components.
 == The good
 
 So what can you do?
-+OWASP+ recommends
-the following guidelines to prevent +A9+:<<r1, ^[1]^>>
+`OWASP` recommends
+the following guidelines to prevent `A9`:<<r1, ^[1]^>>
 
 * Trim unnecessary dependencies, features, components etc.
 That way you have less to check.
@@ -166,22 +166,22 @@ vulnerability databases (like
 to find out if any of your dependencies has
 reported vulnerabilities that have not been fixed yet.
 
-* For +JavaScript+ you can use link:https://github.com/retirejs/retire.js/[+retire.js+].
-* +Java+ users have the link:http://www.mojohaus.org/versions-maven-plugin/[+Versions+] plugin for +Maven+.
-* Also for +Java+ and +.NET+, you can use the
-link:https://www.owasp.org/index.php/OWASP_Dependency_Check[+OWASP Dependency-Check+] tool.
-* There's a link:https://github.com/stevespringett/dependency-check-sonar-plugin/tree/master/examples/single-module-maven[Dependency check] +SonarQube+ plugin.
+* For `JavaScript` you can use link:https://github.com/retirejs/retire.js/[`retire.js`].
+* `Java` users have the link:http://www.mojohaus.org/versions-maven-plugin/[`Versions`] plugin for `Maven`.
+* Also for `Java` and `.NET`, you can use the
+link:https://www.owasp.org/index.php/OWASP_Dependency_Check[`OWASP Dependency-Check`] tool.
+* There's a link:https://github.com/stevespringett/dependency-check-sonar-plugin/tree/master/examples/single-module-maven[Dependency check] `SonarQube` plugin.
 
 Note that the language-specific tools
 have to be integrated with the
 appropriate package manager, like
-+npm+ or +yarn+ with +retire+.
+`npm` or `yarn` with `retire`.
 
 A bird's eye view of how the process
 should integrate with your development flow is
-depicted by the following diagram provided by +Source:Clear+.
+depicted by the following diagram provided by `Source:Clear`.
 
-.Integrating +SCA+ in your development flow. Via link:https://www.sourceclear.com/product/[+Source:Clear+].
+.Integrating `SCA` in your development flow. Via link:https://www.sourceclear.com/product/[`Source:Clear`].
 image::source-clear-flow.png["Integrating SCA into dev flow"]
 
 We see that every time code is added,
@@ -192,7 +192,7 @@ Static Analysis when code is not available.
 This is done by
 following this procedure:
 
-. The +SCA+ identifies the dependencies
+. The `SCA` identifies the dependencies
 your software is based on.
 
 . Detect those dependencies versions.
@@ -215,7 +215,7 @@ human security experts.
 
 Internally, the process of scanning for
 third party software is the same for both
-proprietary and +FOSS+ software,
+proprietary and `FOSS` software,
 and it is a simple matter of
 querying the vulnerabilities databases
 as described above.
@@ -228,7 +228,7 @@ contain high priority security vulnerabilities'',
 according to link:http://pentestit.com/[Pentestit].
 Fortunately, there are tools
 which go into your container and
-perform +SCA+ inside of it (and more), like
+perform `SCA` inside of it (and more), like
 link:http://pentestit.com/anchore-open-source-container-inspection-analysis-system/[Anchore] and
 link:http://pentestit.com/dockerscan-docker-security-analysis-suite/[Dockerscan].
 

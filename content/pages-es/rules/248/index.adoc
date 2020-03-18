@@ -8,5 +8,5 @@
 
 == Requisito
 
-El nombre del +SSID+ de la red inalámbrica
+El nombre del `SSID` de la red inalámbrica
 no debe contener palabras de diccionario.

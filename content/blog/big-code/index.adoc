@@ -18,9 +18,9 @@
 = Big Code
 
 In our
-[inner]#link:../tags/machine-learning[Machine Learning (+ML+) for secure code series]#
+[inner]#link:../tags/machine-learning[Machine Learning (`ML`) for secure code series]#
 the _mantra_ has always been the same:
-to figure out how to leverage the power of +ML+
+to figure out how to leverage the power of `ML`
 to detect security vulnerabilities in source code,
 regardless of the [inner]#link:../crash-course-machine-learning[technique]#,
 be it [inner]#link:../deep-hacking[deep learning]#,
@@ -31,7 +31,7 @@ be it [inner]#link:../deep-hacking[deep learning]#,
 In this article we present a new player in the field,
 link:https://www.deepcode.ai/[DeepCode],
 a system that has exactly this purpose,
-combining +ML+ with data flow analysis,
+combining `ML` with data flow analysis,
 namely in the form of taint analysis.
 
 Taint analysis can come in dynamic and static forms
@@ -65,9 +65,9 @@ link:https://github.com/python-security/pyt[Pyt]
 (see some critique
 link:https://smarketshq.com/avoiding-injection-with-taint-analysis-1e55429e207b[here]).
 
-+DeepCode's+ purpose is to
+`DeepCode's` purpose is to
 remove minor difficulties these taint analysis tools may have.
-+DeepCode+ does this by learning from the vast quantity
+`DeepCode` does this by learning from the vast quantity
 of freely-available, high-quality code in open repositories
 such as link:https://github.com/[Github],
 a circumstance then dubbed "Big Code".
@@ -81,16 +81,16 @@ _how_ to fix them, etc).
 Another problem with taint analysis is that
 sources, sinks, and sanitizers need to be specified by hand,
 which is extremely impractical for large-scale projects.
-This is another area where +ML+ helps +DeepCode+,
+This is another area where `ML` helps `DeepCode`,
 but how is that done?
 
-+DeepCode+ has been called
+`DeepCode` has been called
 link:https://app.grammarly.com/[Grammarly] for code.
 It claims to be 90% accurate,
 and that it understands the _intent_ behind the code.
 It also claims to find twice as many issues as other tools,
 even some critical ones
-(+XSS+, +SQL+ injection and path traversal, etc.)
+(`XSS`, `SQL` injection and path traversal, etc.)
 which is something typical static analysis tools do not.
 Moreover, it claims to be easy to use,
 requiring no configuration.
@@ -109,13 +109,13 @@ Here we see three instances of a possible
 path traversal vulnerability.
 In the full dashboard,
 we also see how they report
-an insecure +HTTPS+ channel,
-a Server Side Request Forgery (+SSRF+),
-a Cross Site Scripting (+XSS+) vulnerability,
+an insecure `HTTPS` channel,
+a Server Side Request Forgery (`SSRF`),
+a Cross Site Scripting (`XSS`) vulnerability,
 and a header that leaks technical information
-(+X-Powered-By+).
+(`X-Powered-By`).
 And that's only the issues tagged as "security".
-There are also +API+ misuse issues,
+There are also `API` misuse issues,
 v.g. using `Thread.run()` instead of `Thread.start()`,
 general bugs or defects,
 and now they even throw lint tools results,
@@ -134,61 +134,61 @@ link:https://api.codetabs.com/v1/loc?github=eclipse/che[300,000]
 lines of code?
 
 Let us take one of the many
-Vulnerable by Design (+VbD+) applications
+Vulnerable by Design (`VbD`) applications
 we use for training purposes in
 link:https://gitlab.com/fluidattacks/writeups[Writeups],
 and see how many vulnerabilities come up
-by running +DeepCode+ on them.
+by running `DeepCode` on them.
 By the way, they currently support
-+Javascript+, +TypeScript+ and +Java+,
-besides the original +Python+.
+`Javascript`, `TypeScript` and `Java`,
+besides the original `Python`.
 That leaves us with two apps to try:
-the link:https://github.com/appsecco/dvna[Damn Vulnerable +NodeJS+ Application]
-(+DVNA+) and
+the link:https://github.com/appsecco/dvna[Damn Vulnerable `NodeJS` Application]
+(`DVNA`) and
 link:https://github.com/stamparm/DSVW[Damn Small Vulnerable Web]
-(+DSVW+),
-since most +VbD+ apps are built with +PHP+.
+(`DSVW`),
+since most `VbD` apps are built with `PHP`.
 
-I forked both of these on +Github+,
-signed up for a +DeepCode+ account,
+I forked both of these on `Github`,
+signed up for a `DeepCode` account,
 and let it run.
-For +DSVW+, which is a single +Python+ file
+For `DSVW`, which is a single `Python` file
 under 100 lines of code,
 but still ridden with vulnerabilities,
-+DeepCode+ reports zero issues.
+`DeepCode` reports zero issues.
 Perhaps it does not work as well on such tiny projects.
 
 .Zero issues in DSVW.
 image::dsvw-dashboard.png[Dashboard for DSVW]
 
 This is, to say the least, disappointing,
-since that +DSVW+ has no less than 26 different
-_kinds_ of vulnerabilities, as per its +README+.
+since that `DSVW` has no less than 26 different
+_kinds_ of vulnerabilities, as per its `README`.
 In link:https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dsvw/[Writeups],
 three of those have been manually explored and exploited.
 
 Maybe it's a problem with having so few lines of code,
-maybe it's a +Python+ thing,
+maybe it's a `Python` thing,
 so let's try the other one:
-+DVNA+, built with +NodeJS+ with the
+`DVNA`, built with `NodeJS` with the
 specific purpose of demonstrating the
-link:https://www.owasp.org/index.php/Top_10-2017_Top_10[+OWASP+ Top 10 vulnerabilities].
+link:https://www.owasp.org/index.php/Top_10-2017_Top_10[`OWASP` Top 10 vulnerabilities].
 
 This time around,
-+DeepCode+ found 9 issues.
-Of those, take out the 3 which come from +ESLint+,
+`DeepCode` found 9 issues.
+Of those, take out the 3 which come from `ESLint`,
 and let's consider the other 6;
-2 are +API+ misuses, which are basically "use arrows instead of functions"
+2 are `API` misuses, which are basically "use arrows instead of functions"
 and 4 are security vulnerabilities,
 and pretty serious ones at that:
 
-* Code Injection via +eval+ function in calculator module.
+* Code Injection via `eval` function in calculator module.
   Not the same one as in the authors' security guide.
   Also not yet reported in
   link:https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dvna/[Writeups]
   This should be researched further.
 
-* +SQL+ injection. As per
+* `SQL` injection. As per
   link:https://appsecco.com/books/dvna-developers-security-guide/solution/a1-injection.html[security guide]
   and link:https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/0564-sql-injection/jicardona.feature[Writeups].
 
@@ -198,34 +198,34 @@ and pretty serious ones at that:
   link:https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/0601-unvalidated-redirects/simongomez95.feature[Writeups].
 
 * Technical information leakage via
-  the +X-Powered-By+ header, as in +Che+.
+  the `X-Powered-By` header, as in `Che`.
 
 So, altogether, 3 noteworthy security vulnerabilities,
-in a +NodeJS+ application with more than 7,500 lines of code.
+in a `NodeJS` application with more than 7,500 lines of code.
 In link:https://gitlab.com/fluidattacks/writeups[Writeups],
-at least 29 different vulnerabilities have been reported in +DVNA+.
+at least 29 different vulnerabilities have been reported in `DVNA`.
 You can see a
 link:https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/results-toe.md[report]
-on manual testing vs the +LGTM+
+on manual testing vs the `LGTM`
 [inner]#link:../oracle-code[code-as-data]# tool in there, too,
 where it is quite clear that tool misses most of the vulnerabilities as well.
 
 Now for a more realistic test,
-let's try running +DeepCode+ on some of our own repos, namely,
+let's try running `DeepCode` on some of our own repos, namely,
 [inner]#link:../../products/integrates[Integrates]#,
 our platform for vulnerability centralization and management and
 [inner]#link:../../products/asserts[Asserts]#,
 our vulnerability automation framework.
 Both are
 link:https://gitlab.com/fluidattacks[open-source],
-written in +Python+, and actively developed.
-As before, the vast majority of issues found by +DeepCode+
-are of the +lint+ and +API+ usage kind.
+written in `Python`, and actively developed.
+As before, the vast majority of issues found by `DeepCode`
+are of the `lint` and `API` usage kind.
 
 .Integrates Dashboard
 image::integrates.png[Integrates Dashboard]
 
-In +Integrates+ we see a possible
+In `Integrates` we see a possible
 command injection in the spreadsheet report generation function.
 However, this input is not controllable by the user,
 so this does not pose a real threat at the moment:
@@ -234,46 +234,46 @@ so this does not pose a real threat at the moment:
 image:reports.py.png[Command Injection in Integrates?]
 
 However, the suggestion to sanitize the input
-via +subprocess.call()+ is not bad.
-Who knows if +Integrates+
+via `subprocess.call()` is not bad.
+Who knows if `Integrates`
 will later have user-configurable passwords for reports,
 or a _different_ vulnerability enables an attacker
 to change this parameter.
 
 The other security issue
-is in the +PDF+ report generation,
-this time identified as +Path traversal+.
+is in the `PDF` report generation,
+this time identified as `Path traversal`.
 Again, probably difficult to exploit,
 but should be sanitized anyway.
 
 .Asserts Dashboard
 image::asserts.png[Asserts Dashboard]
 
-In +Asserts+, however, the 15 issues
-found by +DeepCode+ are less worrisome, for two reasons:
+In `Asserts`, however, the 15 issues
+found by `DeepCode` are less worrisome, for two reasons:
 
-* +Asserts+ is not a client-server application,
-but an +API+ that runs locally.
+* `Asserts` is not a client-server application,
+but an `API` that runs locally.
 
-* Most of the 15 issues are several instances of +SSRF+,
-when +Asserts+ makes +HTTP+ requests via
+* Most of the 15 issues are several instances of `SSRF`,
+when `Asserts` makes `HTTP` requests via
 link:https://2.python-requests.org/en/master/[Requests],
-generally to client's +ToEs+ as one would in a browser.
+generally to client's `ToEs` as one would in a browser.
 
-Of course, all the issues detected by +DeepCode+
+Of course, all the issues detected by `DeepCode`
 will be taken care of.
 
 ''''
 
 Once again, this confirms our other _mantra_
 we have held in this
-[inner]#link:../tags/machine-learning[Machine Learning (+ML+) series]#
+[inner]#link:../tags/machine-learning[Machine Learning (`ML`) series]#
 and also
 [inner]#link:../replaced-machines/[elsewhere]#
 [inner]#link:../../services/differentiators/#method[on our]#
 [inner]#link:../importance-pentesting/[website]#.
 While automated tools,
-even +ML+-powered ones,
+even `ML`-powered ones,
 may have the potential to do
 what a human could not do
 in terms of repetitions and scalability,

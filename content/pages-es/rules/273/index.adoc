@@ -9,5 +9,5 @@
 == Requisito
 
 Todas las máquinas en producción
-deben tener una +suite+ de seguridad no alterable por los usuarios
-(Antivirus, +Antispyware+, +Host-Firewall+, +Host-IDS+, +Host-IPS+)
+deben tener una `suite` de seguridad no alterable por los usuarios
+(Antivirus, `Antispyware`, `Host-Firewall`, `Host-IDS`, `Host-IPS`)

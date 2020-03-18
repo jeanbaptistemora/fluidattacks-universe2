@@ -10,25 +10,25 @@
 
 La organización debe generar un modelo de amenazas para el sistema,
 donde se identifiquen las posibles amenazas
-y debe cubrir +STRIDE+
-(+Spoofing+, +Tampering+, +Repudiation+, +Information Disclosure+,
-+Denial of Service+, +Elevation of Privilege+).
+y debe cubrir `STRIDE`
+(`Spoofing`, `Tampering`, `Repudiation`, `Information Disclosure`,
+`Denial of Service`, `Elevation of Privilege`).
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(A):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[`HIPAA Security Rules` 164.308(a)(1)(ii)(A):]
 Análisis de riesgos: Llevar a cabo una evaluación precisa y completa
 de los riesgos y vulnerabilidades potenciales a la confidencialidad, integridad
 y disponibilidad de la información sensible protegida electrónicamente
 almacenada en la organización.
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(2)(ii):]
 Plan de Seguridad en las Instalaciones:
 Implementar políticas y procedimientos para salvaguardar
 las instalaciones y los equipos
 de accesos no autorizados, manipulación y robo.
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.6+]
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.6`]
 Producir un modelo de amenazas para la aplicación
 y los servicios remotos asociados que identifique potenciales amenazas
 y contramedidas para tratarlas.

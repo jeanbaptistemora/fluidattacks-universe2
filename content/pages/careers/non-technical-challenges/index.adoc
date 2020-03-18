@@ -7,7 +7,7 @@
 = Non-technical Challenges
 
 Below is the detail of the Data Analysis stage of the selection process
-to become a part of +Fluid Attacks+.
+to become a part of `Fluid Attacks`.
 
 The goal of this stage is to determine your ability to:
 
@@ -25,7 +25,7 @@ The goal of this stage is to determine your ability to:
 
 To determine these skills
 you will be given the findings or vulnerabilities
-found by +Fluid Attacks+ in recent months.
+found by `Fluid Attacks` in recent months.
 These will be delivered on a spreadsheet
 with all confidential data redacted from it.
 It is possible that the sheet contains incomplete, irrelevant and
@@ -41,7 +41,7 @@ one graph per transparency,
 analyzing them in the dimensions and
 combinations that you consider relevant
 so that an executive from an information security company
-such as +Fluid Attacks+ can make strategic decisions that
+such as `Fluid Attacks` can make strategic decisions that
 improve the implementation of the company's mission in our society:
 "Find all existing vulnerabilities and report them as soon as possible".
 
@@ -50,7 +50,7 @@ The spreadsheet can be found in this
 
 One conclusion must be drawn from each graph and
 a correspoding *concrete* managerial action,
-that you believe +Fluid Attacks+ should implement, suggested.
+that you believe `Fluid Attacks` should implement, suggested.
 At the end of the presentation, conclusions and
 general recommendations
 derived from those of each graph are expected,
@@ -108,10 +108,10 @@ In the same manner
 it is expected that the report be made only by you and
 is 100% of your authorship.
 If you feel that you need help from other people to perform this task,
-this is a clue that the current needs of +Fluid Attacks+
+this is a clue that the current needs of `Fluid Attacks`
 do not fit your current profile.
 This type of activities are the basis of the project and
-team management philosophy in +Fluid Attacks+
+team management philosophy in `Fluid Attacks`
 (management based on data and metrics),
 therefore, this activity is no more than a simulation of
 what will be your everyday tasks.

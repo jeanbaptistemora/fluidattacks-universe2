@@ -9,16 +9,16 @@
 == Requisito
 
 Debe utilizarse como mecanismo de cifrado asimétrico
-un tamaño de clave mínimo de +2048 bits+.
+un tamaño de clave mínimo de `2048 bits`.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iv):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[`HIPAA Security Rules` 164.312(a)(2)(iv):]
 Cifrado y Descifrado: Implementar un mecanismo para cifrar y descifrar
 información sensible protegida electrónicamente.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.12`]
 Verificar que exista una política explícita
 sobre cómo administrar las claves criptográficas (si las hay)
 y se impone el ciclo de vida de las claves criptográficas.
-Idealmente, seguir un estándar de gestión de claves como +NIST SP 800-57+
+Idealmente, seguir un estándar de gestión de claves como `NIST SP 800-57`

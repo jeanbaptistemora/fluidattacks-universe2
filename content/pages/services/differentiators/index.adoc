@@ -29,7 +29,7 @@ in the independence and impartiality of our report
 link:../continuous-hacking/#remediation-support[^1^]
 link:../one-shot-hacking/#remediation[^2^].
 | {no}  Since other providers develop, maintain, install or operate
-security controls such as +SOC+, +NAC+, Firewalls etc,
+security controls such as `SOC`, `NAC`, Firewalls etc,
 they may not be truly impartial nor independent.
 
 a|==== Attributes
@@ -59,8 +59,8 @@ a|{yes} Our hackers are certified in practical hacking in real scenarios
 link:../continuous-hacking/#highly-trained-hacking-team[^3^]
 link:../one-shot-hacking/#highly-trained-hacking-team[^4^]:
 
-* +OSCP+.
-* +OSWP+.
+* `OSCP`.
+* `OSWP`.
 
 Additionally they are selected and trained through the most demanding
 [button]#link:../../careers/[process]# in the industry,
@@ -71,10 +71,10 @@ they are *programmer-hackers*.
 a|{no} They are certified in theoretical hacking
 through questions and answers:
 
-* +CEH+.
+* `CEH`.
 
 a|==== Model
-| +Red Team+
+| `Red Team`
 link:../continuous-hacking/#testing-techniques[^5^]
 link:../one-shot-hacking/#testing-techniques[^6^].
 | Vulnerability Analysis with selective exploitation.
@@ -82,15 +82,15 @@ link:../one-shot-hacking/#testing-techniques[^6^].
 a|==== Targets
 a|* Web applications.
 * Mobile applications (iPhone, Android).
-* Desktop applications (+GUI+).
-* Mainframe applications (+AS400+).
-* Embedded applications (+POS+, +ATM+).
-* +APIs+ (+SOAP+, +REST+, +GraphQL+).
+* Desktop applications (`GUI`).
+* Mainframe applications (`AS400`).
+* Embedded applications (`POS`, `ATM`).
+* `APIs` (`SOAP`, `REST`, `GraphQL`).
 * Servers.
 * Networks.
-* +IoT+ Devices.
-* Industrial Control Systems (+ICS+).
-* Security Operations Centers (+SOC+).
+* `IoT` Devices.
+* Industrial Control Systems (`ICS`).
+* Security Operations Centers (`SOC`).
 a|* Web applications.
 * Servers.
 * Networks.
@@ -103,8 +103,8 @@ link:../one-shot-hacking/#exploitation[^9^]
 link:../one-shot-hacking/#critical-information-extraction[^10^]:
 
 * link:../../blog/fuzzy-bugs-online/[Fuzzing].
-* Dynamic (+DAST+), Static (+SAST+) and Interactive (+IAST+) Security Testing.
-* link:../../blog/stand-shoulders-giants/[+SCA+](Software Composition Analysis).
+* Dynamic (`DAST`), Static (`SAST`) and Interactive (`IAST`) Security Testing.
+* link:../../blog/stand-shoulders-giants/[`SCA`](Software Composition Analysis).
 * Manual code review.
 * link:../../blog/reversing-mortals/[Reversing] (if source is not provided).
 * False positive elimination.
@@ -120,25 +120,25 @@ link:../continuous-hacking/#coverage[^11^]
 link:../one-shot-hacking/#coverage[^12^]:
 
 * For infrastructure (networks, servers, etc),
-according to +TCP+ and +UDP+ open ports.
+according to `TCP` and `UDP` open ports.
 * For applications, according to inputs
 (visible fields, hidden fields, headers and function parameters).
-* For source code, according to strictly effectives lines of code (+LoC+).
-* For binaries, according to the size in +MiB+
+* For source code, according to strictly effectives lines of code (`LoC`).
+* For binaries, according to the size in `MiB`
 of the software previously installed.
 a|{no} Ambiguity or lack of detail in the attack surface:
 
-* For infrastructure, according to +IP+ addresses.
+* For infrastructure, according to `IP` addresses.
 * For applications, according to the number of screens
 and forms of the application.
 
 a|==== Legacy Languages
 a|{yes} We hack legacy applications coded in old-established languages, such as:
 
-* +COBOL+.
-* +RPG+.
-* +PL1+.
-* +TAL+.
+* `COBOL`.
+* `RPG`.
+* `PL1`.
+* `TAL`.
 | {no} No support.
 
 a|==== Development Method
@@ -146,7 +146,7 @@ a|{yes} Integrable with any development method, such as:
 
 * Waterfall.
 * Agile.
-* +DevOps+.
+* `DevOps`.
 
 [button]#link:../../services/continuous-hacking/[Continuous Hacking]#, +
 {sp} +
@@ -219,7 +219,7 @@ a|==== Type of Evidence
 a|{yes}  Some of the most relevant evidence is:
 
 * Images of the attack with explanatory annotations.
-* Animated +GIFs+ of the attack
+* Animated `GIFs` of the attack
 (link:../../products/integrates/#vulnerability-evidences[example]).
 a|{no} In the case of other suppliers:
 
@@ -250,9 +250,9 @@ a|==== Custom Exploits
 | {no} Unable to create and execute exploits.
 
 a|==== link:../../blog/importance-pentesting/#diagram[Correlation]
-| {yes} By combining vulnerabilities +A+ and +B+ we are able to find
-a new vulnerability +C+ of greater impact which may compromise more registers.
-| {no} Only detects vulnerabilities +A+ and +B+
+| {yes} By combining vulnerabilities `A` and `B` we are able to find
+a new vulnerability `C` of greater impact which may compromise more registers.
+| {no} Only detects vulnerabilities `A` and `B`
 but it's not able to correlate them.
 
 a|==== Infection
@@ -306,9 +306,9 @@ every system since day 1 of the project
 link:../continuous-hacking/#generate-technical-and-executive-reports-from-integrates[^26^]
 link:../one-shot-hacking/#daily-progress-reports[^27^]:
 
-* Executive report in +PDF+ (link:../../products/integrates/#generate-executive-reports[example]).
-* Technical report in +XLS+.
-* Technical report in +PDF+ (link:../../products/integrates/#generate-technical-reports[example]).
+* Executive report in `PDF` (link:../../products/integrates/#generate-executive-reports[example]).
+* Technical report in `XLS`.
+* Technical report in `PDF` (link:../../products/integrates/#generate-technical-reports[example]).
 * Graphics on the security of the system (link:../../products/integrates/#project-status-graphs[example]).
 * Metrics on the security of the system (link:../../products/integrates/#project-statistics[example]).
 

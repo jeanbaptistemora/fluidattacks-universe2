@@ -38,7 +38,7 @@ how about applying it to our bug-finding appetite?
 // define focus
 In this and upcoming articles,
 we are interested in
-the use of machine learning (+ML+) techniques
+the use of machine learning (`ML`) techniques
 to find security vulnerabilities in source code.
 It is important to specify this since,
 as we will see,
@@ -47,13 +47,13 @@ such as:
 
 // out of focus
 - Automatically fixing vulnerabilities
-- Vulnerability detection (+VD+) in binary code
-- +ML+-aided dynamic testing
-- Other automated techniques that don't involve +ML+
+- Vulnerability detection (`VD`) in binary code
+- `ML`-aided dynamic testing
+- Other automated techniques that don't involve `ML`
 - Exploitability prediction
 
 // present main refs
-The idea of using +ML+ techniques for +VD+
+The idea of using `ML` techniques for `VD`
 is not new.
 There are papers on the matter as old as 2001.
 Here we'll try to describe in simple terms:
@@ -83,12 +83,12 @@ These are further subdivided into:
 == Anomaly detection approaches
 
 Most of the papers in this category are not security-focused,
-but their ideas can be used for +VD+.
+but their ideas can be used for `VD`.
 Also most of these works revolve around
 extracting features such as:
 
-- proper +API+ usage patterns,
-  v.g. the pair +malloc+ and +free+,
+- proper `API` usage patterns,
+  v.g. the pair `malloc` and `free`,
 - missing checks, like ensuring a number is non-zero before dividing by it,
 - lack of input validation,
   leading to injections, buffer overflows, ...
@@ -103,7 +103,7 @@ since it is more compatible with our interests, i.e.,
 lightening the burden of manual code auditors;
 also, they achieve both the aforementioned objectives:
 detecting missing checks through security logic (v.g. access control)
-and secure +API+ usage (v.g. checking buffer size).
+and secure `API` usage (v.g. checking buffer size).
 It uses the
 link:https://en.wikipedia.org/wiki/Bag-of-words_model[bag-of-words]
 model to represent the code and the
@@ -146,7 +146,7 @@ We summarize them here for the sake of completeness:
 | link:https://www.st.cs.uni-saarland.de/edu/recommendation-systems/papers/p35-wasylkowski-1.pdf[Wasylowski et al. (2007)]
 | Function call sequences    | Object usage models
 | link:https://www.cs.sfu.ca/~jpei/publications/APIMining_FSE07.pdf[Acharya et al. (2007)]
-| +API+ usage traces           | +API+ usage orderings
+| `API` usage traces           | `API` usage orderings
 | link:https://www.computer.org/csdl/journal/ts/2008/05/tts2008050579/13rRUxAAT2W[Chang et al. (2008)]
 | Neglected conditions       | Implicit conditional rules
 | link:https://link.springer.com/article/10.1007/s10515-011-0086-z[Thummalapenta et al (2009)]
@@ -159,7 +159,7 @@ We summarize them here for the sake of completeness:
 In general terms, anomaly detection approaches have the following limitations:
 
 - they only apply to mature software,
-  where we assume wrong +API+ usage are rare occurrences,
+  where we assume wrong `API` usage are rare occurrences,
 - that particular usage must be relatively infrequent
   in the codebase to be identified as an anomaly
   (otherwise the rule becomes the norm),
@@ -209,12 +209,12 @@ probably due to shallow information and simple methods.
 The binary analysis tool
 link:http://www.vdiscover.org/[VDiscover] doesn't exactly fit our definition,
 but deserves mentioning.
-They identify each trace of a call to the standard +C+ library
+They identify each trace of a call to the standard `C` library
 as a text document and process them
 as link:https://en.wikipedia.org/wiki/N-gram[n-grams]
 and encode them with
 link:https://en.wikipedia.org/wiki/Word2vec[word2vec].
-They have tested several +ML+ techniques such as
+They have tested several `ML` techniques such as
 link:https://en.wikipedia.org/wiki/Logistic_regression[logistic regression],
 [inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[MLP]#
 and link:https://en.wikipedia.org/wiki/Random_forest[random forests].
@@ -234,7 +234,7 @@ See our [inner]#link:../deep-hacking[article on these systems]#.
 link:https://dl.acm.org/citation.cfm?id=3138840[Lin et al. (2017)]
 propose a different variant
 which simplifies the feature extraction,
-going back to just +AST+ with no semantic information,
+going back to just `AST` with no semantic information,
 using
 [inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[deep learning]#
 in the form of
@@ -242,7 +242,7 @@ link:https://en.wikipedia.org/wiki/Long_short-term_memory[bidirectional long sho
 plus a completely new element:
 unlike the vast majority of previous works,
 which work in the within-project domain,
-+POSTER+ involves software metrics (see below)
+`POSTER` involves software metrics (see below)
 in order to compare to other projects.
 
 // conclude patterns
@@ -254,7 +254,7 @@ they are not without limitations:
   They only recognize patterns of vulnerable code.
   This also means that most do not pinpoint
   the exact locations of the potential flaws.
-- Any work in machine learning for +VD+ should
+- Any work in machine learning for `VD` should
   take into account several aspects of the code
   for richer descriptions, such as
   syntax, semantics and the flow of data and control.

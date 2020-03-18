@@ -14,7 +14,7 @@ Do not skip any sections.
 Who We Are, Who We Are Looking For, and How to Apply
 
 This is the first step in the hiring process
-to become part of the +Fluid Attacks+ team.
+to become part of the `Fluid Attacks` team.
 This step provides you with a brief overview of our candidate selection process.
 Completion of each step is mandatory.
 This step requires an estimated 4 to 6 minutes to complete.
@@ -22,7 +22,7 @@ To begin just follow the detailed [inner]#link:terms/[instructions]#.
 
 == 2. Reasons
 
-+Fluid Attacks+ is a great place to work and this section will tell you why.
+`Fluid Attacks` is a great place to work and this section will tell you why.
 As with all other sections, this is a mandatory read,
 and requires an estimated time of 3 to 5 minutes to complete.
 To begin, you just have to click [inner]#link:reasons/[here]#.
@@ -30,9 +30,9 @@ To begin, you just have to click [inner]#link:reasons/[here]#.
 == 3. Openings
 
 The goal of this stage
-is for you to understand the roles you can have in +Fluid Attacks+,
+is for you to understand the roles you can have in `Fluid Attacks`,
 or in openings presented by AUTONOMIC,
-a +Fluid Attacks+ Spin Off in charge of the recruitment process.
+a `Fluid Attacks` Spin Off in charge of the recruitment process.
 This is mandatory and requires an estimated effort of 3 to 5 minutes.
 To begin,
 you just have to click [inner]#link:openings/[here]#
@@ -73,9 +73,9 @@ To do this you must first complete the previous stage.
 To begin,
 you just have to follow these detailed [inner]#link:https://fluidattacks.com/forms/periodo[instructions]#
 
-++++
+````
 <script>document.getElementsByClassName("h_formLink")[0].style.display="none",document.getElementsByClassName("a_formLink")[0].style.display="none";var r=window.location.href.split("?")[1];"398453"==r?(document.getElementsByClassName("a_formLink")[0].style.display="block",document.getElementsByClassName("etapa_a")[0].style.backgroundColor="#ffffa6"):"987343"==r?(document.getElementsByClassName("h_formLink")[0].style.display="block",document.getElementsByClassName("etapa_h")[0].style.backgroundColor="#ffffa6"):"0062"==r&&(document.getElementsByClassName("etapa_c")[0].style.backgroundColor="#ffffa6");</script>
-++++
+````
 == 7. Evaluations
 
 . *Character:* The goal of this stage
@@ -89,7 +89,7 @@ You just have to follow these detailed [inner]#link:character-test/[instructions
 is to assess your skills and abilities in different areas.
 This is mandatory and requires an estimated effort of 2 to 3 hours
 depending on your knowledge,
-with an average time of +1+ minute to answer each question.
+with an average time of `1` minute to answer each question.
 To do this you must first complete the previous stage.
 To begin,
 You just have to follow these detailed [inner]#link:knowledge-test/[instructions]#
@@ -129,7 +129,7 @@ you just have to follow these detailed [inner]#link:non-technical-challenges/[in
 == 9. Interview
 
 . *Video Interview:* The goal of this stage
-is to show your interest and desire to be a part of +Fluid Attacks+
+is to show your interest and desire to be a part of `Fluid Attacks`
 through a video interview.
 Requires an estimated effort of 25 to 30 minutes.
 To do this you must first finish the previous stage.
@@ -147,7 +147,7 @@ write us an email at careers@autonomicmind.com
 The goal of this stage
 is to take part of an intensive self-training period
 in programming and hacking challenges,
-paid for by +Fluid Attacks+.
+paid for by `Fluid Attacks`.
 This is mandatory and requires an effort
 that is determined based on your knowledge.
 To begin, write us an email at careers@autonomicmind.com
@@ -169,7 +169,7 @@ is to take a polygraph test.
 Our company is focused on information security,
 for this reason, we may require you to take this kind of test
 during the selection process.
-This step is optional and requires an average effort of +2+ hours.
+This step is optional and requires an average effort of `2` hours.
 To start, you must have finished the previous stage,
 write us an email at careers@autonomicmind.com
 and we will provide further information about the test.

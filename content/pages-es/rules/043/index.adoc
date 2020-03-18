@@ -9,14 +9,14 @@
 == Requisito
 
 Los archivos generados de forma dinámica por el sistema
-deben tener definido un +Content-Type+ explícito.
+deben tener definido un `Content-Type` explícito.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[`OWASP-ASVS v3.1-5.21`]
 Verificar que los datos no estructurados estén desinfectados
 para mejorar las medidas de seguridad genéricas
 como caracteres permitidos y longitud,
 y caracteres potencialmente peligrosos en un contexto dado
-deben eliminarse (por ejemplo nombre naturales con +Unicode+
+deben eliminarse (por ejemplo nombre naturales con `Unicode`
 o apóstrofes como ねこ u O'Hara).

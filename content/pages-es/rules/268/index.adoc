@@ -8,6 +8,6 @@
 
 == Requisito
 
-El +software+ complementario (+drivers+, módulos de +kernel+, etc)
+El `software` complementario (`drivers`, módulos de `kernel`, etc)
 debe utilizar firmas digitales emitidas por el fabricante
 para garantizar su autenticidad.

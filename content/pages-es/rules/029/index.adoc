@@ -8,52 +8,52 @@
 
 == Requisito
 
-Las +cookies+ de sesión de aplicaciones Web
-deben tener atributos de seguridad (+HttpOnly+, +Secure+).
+Las `cookies` de sesión de aplicaciones Web
+deben tener atributos de seguridad (`HttpOnly`, `Secure`).
 
 == Descripción
 
 Cuando se cuenta con una aplicación Web que maneja sesiones,
 se pueden utilizar diferentes atributos
-para mejorar la seguridad asociada a las +cookies+ que manejan estas sesiones,
-los atributos +HttpOnly+ y +Secure+ respectivamente
-previenen el robo de la +cookie+ de sesión
+para mejorar la seguridad asociada a las `cookies` que manejan estas sesiones,
+los atributos `HttpOnly` y `Secure` respectivamente
+previenen el robo de la `cookie` de sesión
 al denegar la visibilidad de la misma desde el navegador
-(a pesar de que se empleen ataques del tipo +Cross Site Scripting [XSS]+)
-y forzar el envío de la +cookie+
-solamente cuando la petición es cifrada (usando +HTTPS+),
+(a pesar de que se empleen ataques del tipo `Cross Site Scripting [XSS]`)
+y forzar el envío de la `cookie`
+solamente cuando la petición es cifrada (usando `HTTPS`),
 de esta forma se mitiga en gran medida el robo de sesiones
 y por consiguiente aumenta la integridad de la aplicación.
 
 == Implementación
 
-. Implementar el atributo +HttpOnly:+
-Si el atributo +HttpOnly+
-es incluido en el encabezado de respuesta +HTTP+,
-la +cookie+ no puede ser accedida usando +scripts+ del lado del cliente.
+. Implementar el atributo `HttpOnly:`
+Si el atributo `HttpOnly`
+es incluido en el encabezado de respuesta `HTTP`,
+la `cookie` no puede ser accedida usando `scripts` del lado del cliente.
 Como resultado, incluso si existe una vulnerabilidad de
-link:https://cwe.mitre.org/data/definitions/87.html[+cross-site scripting (XSS)+]
+link:https://cwe.mitre.org/data/definitions/87.html[`cross-site scripting (XSS)`]
 y un usuario accidentalmente accede al enlace que explota esta vulnerabilidad,
-el navegador no revelará la +cookie+ a un tercero.
+el navegador no revelará la `cookie` a un tercero.
 +
-Si un navegador no soporta +HttpOnly+
-y el sitio web intenta poner el atributo +HttpOnly+,
+Si un navegador no soporta `HttpOnly`
+y el sitio web intenta poner el atributo `HttpOnly`,
 dicho será ignorado por el navegador
-creando así una +cookie+ tradicional accesible por +script+.
-Como resultado, la +cookie+ (típicamente una +cookie+ de sesión)
-se vuelve vulnerable a robo o modificación por un +script+ malicioso.
+creando así una `cookie` tradicional accesible por `script`.
+Como resultado, la `cookie` (típicamente una `cookie` de sesión)
+se vuelve vulnerable a robo o modificación por un `script` malicioso.
 
-. Implementar el atributo +Secure:+
-El atributo link:https://cwe.mitre.org/data/definitions/614.html[+secure+] es una opción
+. Implementar el atributo `Secure:`
+El atributo link:https://cwe.mitre.org/data/definitions/614.html[`secure`] es una opción
 que puede ser aplicada desde el servidor de aplicación
-cuando se envía una nueva +cookie+ al usuario por una respuesta +HTTP+.
-El propósito del atributo +secure+
-es prevenir que la +cookies+ puedan visualizarse por terceros no autorizados
-debido a la trasmisión de la +cookie+ en texto plano.
+cuando se envía una nueva `cookie` al usuario por una respuesta `HTTP`.
+El propósito del atributo `secure`
+es prevenir que la `cookies` puedan visualizarse por terceros no autorizados
+debido a la trasmisión de la `cookie` en texto plano.
 
 == Excepciones
 
-. Excepciones para el atributo +HttpOnly:+
+. Excepciones para el atributo `HttpOnly:`
 Aplicaciones web que usan JavaScript para la mayoría de sus operaciones
 pueden usar una técnica anti-Cross-Site-Request-Forgery (CSRF)
 basada en políticas de mismo  origen (same-origin policy).
@@ -71,7 +71,7 @@ De esta manera, aunque la cookie CSRF es enviada automáticamente
 por el navegador en cada petición,
 el servidor seguirá esperando un valor válido en la cabecera CSRF.
 Bajo este escenario,
-la cookie CSRF no debe de tener el atributo +HttpOnly+ establecido,
+la cookie CSRF no debe de tener el atributo `HttpOnly` establecido,
 pues está diseñada para ser leída por JavaScript.
 Sin embargo, este control se puede violar
 si el sitio web deshabilita su política de mismo origen
@@ -84,17 +84,17 @@ a los controles Silverlight.
 
 == Ataques
 
-. Un atacante genera un +script+ que es ejecutado
+. Un atacante genera un `script` que es ejecutado
 sin conocimiento de causa por un usuario válido autenticado en la aplicación
-sin los atributos +HTTPOnly+ y +Secure+,
-el +script+ reenvía información al atacante^<<r1,[1]>>,<<r2,[2]>>^
-conteniendo la +cookie+ de sesión que se utiliza para robar la misma.
+sin los atributos `HTTPOnly` y `Secure`,
+el `script` reenvía información al atacante^<<r1,[1]>>,<<r2,[2]>>^
+conteniendo la `cookie` de sesión que se utiliza para robar la misma.
 
 . Un atacante link:https://puppet.com/security/cve/cve-2013-4964[captura datos]
-de una comunicación por el protocolo +HTTP+
-mediante un ataque de +Man in The Middle (MiTM)+
+de una comunicación por el protocolo `HTTP`
+mediante un ataque de `Man in The Middle (MiTM)`
 interceptando solicitudes y respuestas del protocolo no cifrado
-y extrayendo la +cookie+ de sesión que se utiliza para robar la misma.
+y extrayendo la `cookie` de sesión que se utiliza para robar la misma.
 
 == Atributos
 
@@ -114,7 +114,7 @@ y extrayendo la +cookie+ de sesión que se utiliza para robar la misma.
 . [[r6]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-0128[CVE-2008-0128 Apache Tomcat 4.x vulnerability].
 . [[r7]] link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0053[CVE-2012-0053 Information Disclosure vulnerability in Apache HTTP Server].
 . [[r8]] link:https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-header_token[Cookie-to-header token - HttpOnly attribute exceptions].
-. [[r9]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.12+].
-Verificar que los identificadores de sesión almacenados en las +cookies+
-sean evaluados utilizando el atributo +path+,
-y tengan habilitadas las banderas de +cookie+ +HttpOnly+ y +Secure+.
+. [[r9]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[`OWASP-ASVS v3.1-3.12`].
+Verificar que los identificadores de sesión almacenados en las `cookies`
+sean evaluados utilizando el atributo `path`,
+y tengan habilitadas las banderas de `cookie` `HttpOnly` y `Secure`.

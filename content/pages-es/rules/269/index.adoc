@@ -9,18 +9,18 @@
 == Requisito
 
 Los privilegios para objetos nuevos
-deben establecerse según el principio de mínimo privilegio (+umask+).
+deben establecerse según el principio de mínimo privilegio (`umask`).
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.1+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[`OWASP-ASVS v3.1-4.1`]
 Verificar que exista el principio de mínimo privilegio.
 Los usuarios sólo deben tener acceso a funciones, datos, archivos, URLs,
 controladores, servicios y otros recursos
 para los cuales se posee autorización específica.
-Esto implica protección contra +spoofing+ y elevación de privilegio.
+Esto implica protección contra `spoofing` y elevación de privilegio.
 
-. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-6[+NIST+ 800-53 AC-6]
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-6[`NIST` 800-53 AC-6]
 La organización emplea el principio del mínimo privilegio,
 permitiendo sólo accesos autorizados a los usuarios
 (o procesos que actúan en nombre de los usuarios) necesarios para completar

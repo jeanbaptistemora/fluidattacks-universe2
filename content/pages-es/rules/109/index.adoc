@@ -14,26 +14,26 @@ con mecanismos de control de acceso físico detectivos
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(3)(ii)(A):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[`HIPAA Security Rules` 164.308(a)(3)(ii)(A):]
 Autorización y/o Supervisión: Implementar procedimientos
 para la autorización y/o supervisión de los empleados
 que trabajen con información sensible
 o en lugares donde puede accederse a ésta.
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(1)]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(1)]
 Controles de acceso a las instalaciones:
 Implementar políticas y procedimientos para limitar
 el acceso físico a la instalación o instalaciones
 donde se almacenan sistemas electrónicos con información sensible,
 verificando que todo acceso sea autorizado
 
-. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(2)(ii):]
 Plan de Seguridad en las Instalaciones:
 Implementar políticas y procedimientos para salvaguardar
 las instalaciones y los equipos
 de accesos no autorizados, manipulación y robo.
 
-. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(c):]
+. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(c):]
 Seguridad en las estaciones de trabajo:
 Implementar sistemas de protección física
 para todas las estaciones de trabajo

@@ -9,11 +9,11 @@
 == Requisito
 
 Si el hipervisor permite la revisión de memoria
-y registros de +CPU+ entre máquinas virtuales,
+y registros de `CPU` entre máquinas virtuales,
 se debe controlar el acceso
 sólo a una máquina virtual de soporte de seguridad.
 
 == Referencias
 
-. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.5 Administrar contenedores
+. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[`BSSIM9` SE3.5 Administrar contenedores
 y ambientes virtuales].

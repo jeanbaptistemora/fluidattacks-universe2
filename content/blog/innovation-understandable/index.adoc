@@ -29,30 +29,30 @@ and 3 in Central America.
 
 == AI in cybersecurity
 
-We started by speaking about the emergence of machine learning (+ML+)
-and artificial intelligence (+AI+) in cybersecurity, a hot topic right now.
+We started by speaking about the emergence of machine learning (`ML`)
+and artificial intelligence (`AI`) in cybersecurity, a hot topic right now.
 
-*What is your opinion on the potential applications of +ML+ and +AI+*
+*What is your opinion on the potential applications of `ML` and `AI`*
 *in cybersecurity? Do you believe this potential is real,*
 *or it is just a hype?*
 [role="fluid-qanda"]
   . "My stand is halfway. A hype might be in one end,
   and a solve-it-all approach in the other.
 
-  . I consider +ML+ and +AI+ as valuable approximations
+  . I consider `ML` and `AI` as valuable approximations
   to leverage behavioral information for cybersecurity;
   for instance, to detect anomalies.
   We have a significant restriction with current detection systems:
   they work based on who the user is, not on his/her behavior.
   There is no behavioral baseline.
-  Behavior-based intrusion detection enabled by +AI+ is a step forward
+  Behavior-based intrusion detection enabled by `AI` is a step forward
   allowing organizations to be more efficient.
 
-  . A kind of hype is present in how +IT+ providers market
+  . A kind of hype is present in how `IT` providers market
   their newest products and how they describe their applications.
-  Some companies suggest something like +ML+ and +AI+
+  Some companies suggest something like `ML` and `AI`
   are the “solution to all problems.”
-  Others sell +ML+ and +AI+ “embodied” as assistants to managerial decisions,
+  Others sell `ML` and `AI` “embodied” as assistants to managerial decisions,
   conveying a robotic way of enforcing security policies
   and containing incidents.
   I don’t see myself doing that; I think we’re not there.
@@ -64,12 +64,12 @@ and artificial intelligence (+AI+) in cybersecurity, a hot topic right now.
   I think the human criterion, the human brain is and will continue
   to be essential for decision-making in cybersecurity.
   I do not deny these capabilities exists.
-  In some +AI-powered+ customer service applications,
+  In some `AI-powered` customer service applications,
   you cannot identify easily whether the other party is a robot.
-  There are operations in which +ML+ and +AI+ could add value to our business,
+  There are operations in which `ML` and `AI` could add value to our business,
   but I don’t see it as a replacement for high-order decision-making."
 
-*Are you deploying +ML+ or +AI+ for your operations?*
+*Are you deploying `ML` or `AI` for your operations?*
 
 [role="fluid-qanda"]
   . "Not yet. Two reasons for that:
@@ -89,9 +89,9 @@ and artificial intelligence (+AI+) in cybersecurity, a hot topic right now.
   In this heterogeneous environment, it is essential to have a strategy
   and a vision covering all assets.
 
-  . Nevertheless, there is an opportunity in using +AI+ in
-  Industrial Networks or +OT+ (Operational Technology).
-  It should be feasible to deploy an +AI+ practical application
+  . Nevertheless, there is an opportunity in using `AI` in
+  Industrial Networks or `OT` (Operational Technology).
+  It should be feasible to deploy an `AI` practical application
   to better support our cybersecurity operations.
 
   . We trust on partners like *Fluid Attacks*,
@@ -105,7 +105,7 @@ and artificial intelligence (+AI+) in cybersecurity, a hot topic right now.
 
 == Innovation in cybersecurity
 
-Even more commonplace than +ML+ and +AI+, is innovation.
+Even more commonplace than `ML` and `AI`, is innovation.
 What we do at Fluid Attacks, many people describe it as innovation.
 Nicolás mentioned about innovation at Corona, and we were curious to know more.
 
@@ -147,7 +147,7 @@ Nicolás mentioned about innovation at Corona, and we were curious to know more.
   (malware, the status of servers, business rules, etc.).
   We wanted to go further: to know “the status” of business processes
   from our cybersecurity operations.
-  That involves mapping all +IT+ assets and creating risk assessments quickly
+  That involves mapping all `IT` assets and creating risk assessments quickly
   and easy to understand to company stakeholders.
   In other words, we wanted to establish a smooth communication
   to the business in the language of business.
@@ -158,7 +158,7 @@ Nicolás mentioned about innovation at Corona, and we were curious to know more.
   . We worked with another partner in developing a
   customized solution. We turned to agile methodologies, something new for us.
   The approach was so disruptive —in our terms— that it wasn’t necessary
-  to include +IT+ stakeholders during development.
+  to include `IT` stakeholders during development.
   The technology supporting the soon-to-be solution was on the cloud
   and container-based.
   We avoided many committees and discussions.

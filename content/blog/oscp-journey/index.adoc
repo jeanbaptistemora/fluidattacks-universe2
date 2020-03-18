@@ -18,7 +18,7 @@
 
 Before taking the exam
 I already had years of work work experience as a penetration tester
-at +Fluid Attacks+.
+at `Fluid Attacks`.
 So, I already had the knew how to perform a penetration test
 and how to build a technical report of my findings.
 However, if you don’t have any work experience on the field
@@ -30,7 +30,7 @@ Here you will use tools to get information about your target,
 such as its operating system, open ports, the services running on those ports
 and their versions, whether they have public vulnerabilities or not,
 and whether there is a public exploit for those vulnerabilities.
-Since +metasploit+ is restricted to only *ONE* machine
+Since `metasploit` is restricted to only *ONE* machine
 (this includes the auxiliary modules too)
 you need to be familiar with tools such as:
 
@@ -54,7 +54,7 @@ Once there you can also practice the _gaining access_ phase
 and your privilege escalation strategies with multiple operating systems
 and vulnerabilities that resemble the ones in real-life scenarios.
 You would be surprised by how many times
-I’ve encountered a vulnerability on +hackthebox+ first
+I’ve encountered a vulnerability on `hackthebox` first
 and then on a real-life service.
 The tools and resources that I got the most from for privilege escalation were:
 
@@ -92,19 +92,19 @@ Do not spend too much time on one machine when you can try another one.
 Time management becomes very important when you are taking your exam.
 
 Before your lab access ends,
-be sure that you fully understand how to do a +buffer overflow+.
+be sure that you fully understand how to do a `buffer overflow`.
 Take notes of every step, copy all the commands that you need,
-and also how to get the +return address+.
+and also how to get the `return address`.
 
 
 == Post Lab
 
 Here you want to gather the most information
 about the last two steps.
-We are going back to +hackthebox+
+We are going back to `hackthebox`
 but instead of doing the active machines
 we are going to do the ones from link:https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=0[this list]
-(there are also some from +vulnhub+).
+(there are also some from `vulnhub`).
 
 image::url-oscp.png[oscp-like-machines]
 
@@ -130,7 +130,7 @@ The task is to gain administrative access
 to the machines in the network.
 There are 5 machines,
 each is worth a certain number of points if you complete it
-and you need at least +70+ points to pass the exam.
+and you need at least `70` points to pass the exam.
 The machine points are distributed as:
 
 * 25 points Buffer Overflow
@@ -138,11 +138,11 @@ The machine points are distributed as:
 * Two 20 points machines
 * 10 points machine
 
-I started with the +25 points BoF+ machine
+I started with the `25 points BoF` machine
 while I scanned all the other ones.
 I did this because I knew that I could follow the guide step-by-step
 and get the BoF points.
-My scanning strategy was to run +nmap+ with these options:
+My scanning strategy was to run `nmap` with these options:
 
 .nmap with options
 [source,bash]
@@ -152,12 +152,12 @@ $ nmap ip.ip.ip.ip -A -p- --min-rate=5000 --max-retries=5 -o tcp.txt
 
 Also, I pinged the machine
 in order to view its operative system.
-If the +TTL+ (Time to Live) is +64+ then it is a +Linux+ machine
-and if it is +128+ then it’s a +Windows+ machine.
+If the `TTL` (Time to Live) is `64` then it is a `Linux` machine
+and if it is `128` then it’s a `Windows` machine.
 When the port scan finished I checked every web service
-and used a web crawler like +dirbuster+ or +dirsearch+.
+and used a web crawler like `dirbuster` or `dirsearch`.
 
-After finishing the +BoF+ machine,
+After finishing the `BoF` machine,
 I started hacking the machines
 with all the information that I had collected.
 I ended up going down rabbit holes
@@ -176,9 +176,9 @@ $ uname -a #linux
 > systeminfo #windows
 ----
 
-If it was +Linux+ I checked for +sudo+ rights
-running processes, and for +SUID+ executables.
-There is a tool named +linenum+ but it’s too verbose
+If it was `Linux` I checked for `sudo` rights
+running processes, and for `SUID` executables.
+There is a tool named `linenum` but it’s too verbose
 and I like to search for things manually.
 
 [source,bash]
@@ -188,12 +188,12 @@ $ ps -aux
 $ find / -perm -u=s -type f 2>/dev/null
 ----
 
-If it was +Windows+, I checked for the +Groups.xml+ file
+If it was `Windows`, I checked for the `Groups.xml` file
 (usually it has administrative user and password information there),
-installed software and tried to use +powershell+
-to run +Windows+ exploits.
-When it comes to +Windows+, most of the time the way of escalating privileges
-is through a vulnerability in the +OS+ version
+installed software and tried to use `powershell`
+to run `Windows` exploits.
+When it comes to `Windows`, most of the time the way of escalating privileges
+is through a vulnerability in the `OS` version
 or in an installed program version.
 
 [source,bash]
@@ -204,7 +204,7 @@ or in an installed program version.
 
 
 I finished my test in less than 10 hours
-with 4 admins and 1 user for a little more than +75+ total points.
+with 4 admins and 1 user for a little more than `75` total points.
 The mistake that I made
 was to be lazy with my screenshots,
 so I needed to redo all the machines

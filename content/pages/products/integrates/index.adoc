@@ -12,13 +12,13 @@
 
 a|At Integrates a project’s stakeholders
 (developers, technicians, management, etc.) can interface
-with +Fluid Attacks+ hackers.
-Through Integrates, +Fluid Attacks+ communicates all identified security risks
+with `Fluid Attacks` hackers.
+Through Integrates, `Fluid Attacks` communicates all identified security risks
 to a client’s systems for prompt,
 efficient and effective remediation by the client company.
 It also provides the client company’s decision-makers
 with real time information regarding their systems’ security
-and +Fluid Attacks+ project progress.
+and `Fluid Attacks` project progress.
 
 a|[button]#link:../../contact-us/[Request a Demo]#
 |====
@@ -74,7 +74,7 @@ Security vulnerabilities are prioritized based on parameters including:
 and the repair by a client company’s technical team.
 
 *  *Severity:* level of threat posed by a vulnerability
-according to the +CVSS+ (Common Vulnerability Scoring System) standard.
+according to the `CVSS` (Common Vulnerability Scoring System) standard.
 
 * *Status:* *OPEN* (a current, active threat),
 *CLOSED* (no longer an active threat),
@@ -99,7 +99,7 @@ and recommendations on how to eliminate them.
 
 * Vulnerability Severity indicates the risk level
 an identified vulnerability poses to a client company’s systems
-using the international Common Vulnerability Scoring System (+CVSS+) standard.
+using the international Common Vulnerability Scoring System (`CVSS`) standard.
 
 * In Vulnerability Evidence proof that a security vulnerability exists
 is shown graphically and includes a descriptive explanation.
@@ -115,7 +115,7 @@ a|image::vulnerability-evidence.png[Ethical Hacking Vulnerability Evidence]
 2+a|== Request Verification / Treatment
 
 Clients may request a revision ^1^ of a vulnerability
-they have remediated and ask +Fluid Attacks+ for documentation ^2^
+they have remediated and ask `Fluid Attacks` for documentation ^2^
 of their remediation or treatment.
 For documentation purposes, a client has the following options:
 
@@ -132,7 +132,7 @@ a|image::exploitation-animation.gif[Ethical Hacking Exploitation Animation]
 2+a|== Exploitation Animation
 
 In Exploitation-Animation you can see an animated representation
-of the process used to exploit a vulnerability through +gif+.
+of the process used to exploit a vulnerability through `gif`.
 
 2+a|== Exploit
 
@@ -164,7 +164,7 @@ Compromised Records shows the client company
 the information such as names, identifiers, balances, products, etc.
 that would be vulnerable to a security breach in a real attack.
 This information is revealed during the execution
-of +Fluid Attacks+ security tests.
+of `Fluid Attacks` security tests.
 
 a|image::records.png[Compromised Records]
 
@@ -172,14 +172,14 @@ a|image::vulnerability-comments.png[Ethical Hacking Vulnerability Comments]
 
 2+a|== Communication Exchange/Chat with Us
 
-At times it is necessary for +Fluid Attacks+ and a client company
+At times it is necessary for `Fluid Attacks` and a client company
 to exchange insights, discuss questions or concerns,
 and to clarify information flowing both ways.
 Chat with Us provides a private forum on which a client company
-and +Fluid Attacks+ can post messages concerning any aspect
+and `Fluid Attacks` can post messages concerning any aspect
 of a client company’s project.
-+Fluid Attacks+ engineering team will post a reply within +4+ hours
-between +8 a.m.+ and +5 p.m.+ (Eastern Time, +U.S.A.+).
+`Fluid Attacks` engineering team will post a reply within `4` hours
+between `8 a.m.` and `5 p.m.` (Eastern Time, `U.S.A.`).
 To insure a client company receives timely communication,
 a notification will also be sent via email
 when a reply to a client message has been posted.
@@ -194,7 +194,7 @@ Some of them are:
 * When a user reports that a vulnerability has been remediated.
 * When a validation of the remediation of a vulnerability is made.
 * When a vulnerability reaches a certain age
-(+15+, +30+, +60+ days old ...) and has not been treated.
+(`15`, `30`, `60` days old ...) and has not been treated.
 
 a|image::mail.png[Mail]
 

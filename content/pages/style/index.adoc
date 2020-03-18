@@ -5,7 +5,7 @@
 
 = Writer's Guidelines
 
-Our target audience is everyone with an interest in +IT+ security,
+Our target audience is everyone with an interest in `IT` security,
 whether they have advanced technical knowledge or not.
 We suggest to use as much non-technical English as possible.
 It is always best to be clear, concise, and to-the-point.
@@ -26,7 +26,7 @@ It can be in the form of a question.
 +
 *Examples:*
 
-* Wanting the +Cookie+.
+* Wanting the `Cookie`.
 * Information Security, an expense or an investment?
 
 . Absolutely no generic titles.
@@ -38,7 +38,7 @@ It can be in the form of a question.
 
 === 2. Structure
 
-The document must have a +LIX+ complexity *below 50*.
+The document must have a `LIX` complexity *below 50*.
 This guarantees that the document is easy to read.
 All documents must have:
 
@@ -53,10 +53,10 @@ the important points from the introduction.
 
 === 3. Format
 
-Documents will only be accepted in an +AsciiDoc+ format.
+Documents will only be accepted in an `AsciiDoc` format.
 For more information check out our
 link:../format/[format page], the
-link:http://asciidoctor.org/docs/asciidoc-writers-guide/[+AsciiDoc+ guide],
+link:http://asciidoctor.org/docs/asciidoc-writers-guide/[`AsciiDoc` guide],
 or a link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick reference].
 
 === 4. Word limit
@@ -64,10 +64,10 @@ or a link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick ref
 Documents have strict length limits:
 
 . *For Posts:*
-between +800+ and +1200+ words.
+between `800` and `1200` words.
 
 . *For pages (sites):*
-Between +400+ and +1200+ words.
+Between `400` and `1200` words.
 
 === 5. Semantic Line Breaks
 
@@ -75,11 +75,11 @@ Documents must have Semantic Line Breaks
 (link:http://sembr.org/[SLB]),
 in order to facilitate editing and
 keep an organized record of modifications
-in our version control system (+Gitlab+).
+in our version control system (`Gitlab`).
 To do this, we define the following rules:
 
-. Minimum words before a SLB: +4+.
-. Maximum number of characters before a SLB: +80+.
+. Minimum words before a SLB: `4`.
+. Maximum number of characters before a SLB: `80`.
 . A SLB *must* be added after a period (.).
 . A SLB *can* be added after
 link:https://emedia.rmit.edu.au/learninglab/content/common-linking-words-0[linking  words and connectors], depending on the context and
@@ -95,10 +95,10 @@ Exceptions to the rule are:
 .SLB Example.
 image::slb-example.png[slb]
 
-For more information regarding +SLB+ and their use,
+For more information regarding `SLB` and their use,
 you can check out the link:http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds guide],
 link:https://scott.mn/2014/02/21/semantic_linewrapping/[semantic line wrapping guide],
-or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence[+AsciiDoc+ documentation]
+or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence[`AsciiDoc` documentation]
 
 === 6. Images
 
@@ -127,26 +127,26 @@ Unless the language forces you to do otherwise,
 the source code must comply with the following:
 
 . Be in English (even the comments).
-. Indent using +2+ spaces instead of tabs,
+. Indent using `2` spaces instead of tabs,
 unless the language requires otherwise.
-. Use the +brace style+ seen in
+. Use the `brace style` seen in
 link:https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup[stroustrup]
-(+no one liners+).
+(`no one liners`).
 link:https://eslint.org/docs/rules/brace-style#stroustrup[Example].
-. Lines must not exceed +80+ characters in length.
+. Lines must not exceed `80` characters in length.
 . Lines must not contain
-link:https://en.wikipedia.org/wiki/Comment_(computer_programming)#Debugging[+debug+ comments]
+link:https://en.wikipedia.org/wiki/Comment_(computer_programming)#Debugging[`debug` comments]
 left behind.
-. Function definition must be separated by +1+ empty line,
+. Function definition must be separated by `1` empty line,
 unless the linter or the language requires otherwise.
 
 Embedded code snippets must comply with the following:
 
-. Be enumerated. To do so add the parameter +linenums+
-to the +source+ block.
-. Not have more than +8+ lines.
+. Be enumerated. To do so add the parameter `linenums`
+to the `source` block.
+. Not have more than `8` lines.
 . No repeating a snippet that has already been used in the guide.
-. Add the lines of code to the +post+ using a code block,
+. Add the lines of code to the `post` using a code block,
 don’t use images.
 
 *Example:*
@@ -168,9 +168,9 @@ function cool(x) {
 
 In the case of documents focused on exploitation,
 once the procedure is explained,
-we recommend including a short +gif+
+we recommend including a short `gif`
 showing the result of what was explained.
-Add a description for the +gif+.
+Add a description for the `gif`.
 
 .Exploit description example.
 image::exploitation.gif[gif]
@@ -197,65 +197,65 @@ with the mandatory metadata for a document:
 |===
 |*Metadata* | *Page* | *Post* | *Description*
 
-|+:slug:+| Yes | Yes
+|`:slug:`| Yes | Yes
 | Link where the document can be found once it has been accepted.
-The +slug+ must be the name of the article in lowercase,
+The `slug` must be the name of the article in lowercase,
 with no spaces, prepositions, conjunctions or connectors and
 separated by a dash "-".
 
-|+:description:+ | Yes | Yes
+|`:description:` | Yes | Yes
 | Brief summary of the main idea of the document
 (*250 to 300 characters long*).
 This description will appear in the search engine search results.
 
-|+:keywords:+ | Yes | Yes
+|`:keywords:` | Yes | Yes
 | Keywords through which a search engine can find the document.
-The document must include 6 +keywords+.
+The document must include 6 `keywords`.
 
-|+:subtitle:+ | Yes | Yes
+|`:subtitle:` | Yes | Yes
 | Short subtitle that specifically indicates the purpose of the document.
 *It must not exceed 55 characters*.
 
-| +:date:+ | No | Yes
+| `:date:` | No | Yes
 | Date the document was created.
 
-| +:category:+ | No | Yes
+| `:category:` | No | Yes
 | Category to which the document falls under.
 Example: Security opinions, Best practices, etc.
 
-| +:tags:+ | No | Yes
-| Similar to the metadata +:keywords:+
+| `:tags:` | No | Yes
+| Similar to the metadata `:keywords:`
 Noteworthy words that index the document internally.
 
-| +:image:+ | No | Yes
+| `:image:` | No | Yes
 | Image that will appear in the article preview.
 This image must have certain dimensions, 600 x 200 px and
 must not exceed 300 Kb in size.
 
-| +:alt:+ | No | Yes
+| `:alt:` | No | Yes
 | Description of the image in the article preview.
 
-| +:author:+ | No | Yes
+| `:author:` | No | Yes
 | Name of the author that will appear at the top of the document.
 Name and last name only.
 
-| +:writer:+ | No | Yes
+| `:writer:` | No | Yes
 | Name and extension of the image that represents you as the author.
-The only extension permitted is +PNG+.
+The only extension permitted is `PNG`.
 
-| +:name:+ | No | Yes
+| `:name:` | No | Yes
 | Name that will appear under the author’s image/picture.
-It can be your full name or +nickname+.
+It can be your full name or `nickname`.
 
-| +:about1:+ | No | Yes
+| `:about1:` | No | Yes
 | Main information about the author:
 scholarship, experience, role (if it applies).
 
-| +:about2:+ | No | Yes
+| `:about2:` | No | Yes
 | Additional information about the author:
 likes, interests, links to personal blogs or profiles.
 
-| +:source:+ | No | Yes
+| `:source:` | No | Yes
 | Link to the cover image from link:https://unsplash.com/[unsplash].
 
 |===
@@ -272,12 +272,12 @@ unless they are specific phrases.
 
 . Foreign and reserved words
 used outside of blocks of code
-must use +monospace+.
+must use `monospace`.
 
-. Make sure to include the +link:+
+. Make sure to include the `link:`
 before adding a link.
 
-. When writing the company name (+Fluid Attacks+),
+. When writing the company name (`Fluid Attacks`),
 consider the following cases:
 
 * *Case 1:* If the name is placed next to the company logo,
@@ -290,7 +290,7 @@ it must be written as follows:
 
 ----
 
-* *Case 2:* If the name is used as part of a domain, +URL+
+* *Case 2:* If the name is used as part of a domain, `URL`
 or file path, it must be written in lowercase without spaces:
 +
 ----
@@ -307,7 +307,7 @@ Fluid Attacks: We hack your software, zero false positives
 ----
 
 . When including a reference,
-use the letter "r" as an +anchor_ID+
+use the letter "r" as an `anchor_ID`
 followed by the reference number.
 Use superscript to quote it.
 
@@ -335,34 +335,34 @@ image::guest.png[guest]
 . Short description, minimum 15 words – maximum 30.
 You may include: What you do for a living,
 years of experience, certifications, likes and interests.
-. Optional: Link to personal blog – +github+ – +linkedin+
+. Optional: Link to personal blog – `github` – `linkedin`
 
 === Requests
 
-If you are not part of the +Fluid Attacks+ team,
+If you are not part of the `Fluid Attacks` team,
 you just have to send your document to communications@fluidattacks.com
-attaching all the required files in order to create the +post+.
+attaching all the required files in order to create the `post`.
 Once the document is sent,
 it is evaluated to determine if it will be published.
 
 == Terms and Conditions
 
-. +Fluid Attacks+ reserves the right to accept or reject any document sent in.
-+Fluid Attacks+ does not pay for articles
+. `Fluid Attacks` reserves the right to accept or reject any document sent in.
+`Fluid Attacks` does not pay for articles
 accepted for publication on the blog.
 
 . We perform a non-substantive review of the document.
-+Fluid Attacks+ doesn’t evaluate if we agree or not
+`Fluid Attacks` doesn’t evaluate if we agree or not
 with the author’s opinion as expressed in the document,
 but only that the document meets the required criteria described above.
 
 . Once a draft is completed
 you must request the revision of the document
-through a +Merge Request+
+through a `Merge Request`
 so that we can evaluate the content.
 
 If the document is accepted and published,
-the author retains the copyright to the draft submitted to +Fluid Attacks+.
-However, +Fluid Attacks+ *retains* the right to make changes to the draft,
+the author retains the copyright to the draft submitted to `Fluid Attacks`.
+However, `Fluid Attacks` *retains* the right to make changes to the draft,
 if necessary,
 and these may be made without the author's consent or notification.

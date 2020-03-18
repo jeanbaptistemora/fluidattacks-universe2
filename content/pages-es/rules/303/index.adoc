@@ -9,4 +9,4 @@
 == Requisito
 
 El despliegue de las aplicaciones
-debe hacerse en tiendas virtuales (+marketplace+) oficiales y confiables.
+debe hacerse en tiendas virtuales (`marketplace`) oficiales y confiables.

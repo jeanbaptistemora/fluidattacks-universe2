@@ -24,7 +24,7 @@ la forma más adecuada de saber
 si los requisitos de un servicio se están cumpliendo correctamente,
 es a través de la realización de una auditoría.
 Estas auditorías se vuelven más necesarias
-sobre todo para los servicios prestados en +outsourcing+,
+sobre todo para los servicios prestados en `outsourcing`,
 pues evidenciar el cumplimiento de los requisitos se vuelve complejo.
 
 . Es importante que como parte del contrato con un tercero

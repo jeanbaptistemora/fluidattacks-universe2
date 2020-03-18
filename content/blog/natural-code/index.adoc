@@ -18,13 +18,13 @@
 = Natural Code
 
 Our return to the
-[inner]#link:../tags/machine-learning[Machine Learning (+ML+) for secure code series]#
+[inner]#link:../tags/machine-learning[Machine Learning (`ML`) for secure code series]#
 is [inner]#link:../binary-learning[a bit of a digression]#,
 but one too interesting to resist.
 It is not too far a digression though,
 because the
 link:https://en.wikipedia.org/wiki/Natural_language_processing[Natural Language Processing]
-(+NLP+) field is also part of what
+(`NLP`) field is also part of what
 link:https://en.wikipedia.org/wiki/AI_effect[is currently
 considered to be
 link:https://en.wikipedia.org/wiki/Artificial_intelligence[Artificial Intelligence].
@@ -50,7 +50,7 @@ image::ngram-keyboard.gif[Android Predictive Keyboard demo animation]
 This is the basic idea behind _n_-gram analysis,
 a technique we have mentioned before in passing.
 It has been applied to a couple of
-the +ML+-powered vulnerability detectors we have discussed,
+the `ML`-powered vulnerability detectors we have discussed,
 most notably by the binary static analysis tool
 [inner]#link:../binary-learning/[VDiscover]#.
 
@@ -127,13 +127,13 @@ The above snippet is buggy
 due to the lack of `toString`.
 In fact, it is exactly the same as the other snippet,
 only without `toString`.
-+Bugram+ suggested it as a possible bug because
+`Bugram` suggested it as a possible bug because
 it was so similar to a commonly occurring snippet.
-The bug was reported to the +Pig+ team and confirmed.
+The bug was reported to the `Pig` team and confirmed.
 In the test proposed by the paper,
-+Bugram+ was able to find 42 confirmed bugs
+`Bugram` was able to find 42 confirmed bugs
 plus 17 false positives across 16 well-known
-open source +Java+ projects such as +Pig+.
+open source `Java` projects such as `Pig`.
 
 This approach, while simple and effective,
 is not without drawbacks, namely,
@@ -182,14 +182,14 @@ names to identifiers. This is the one place
 where developers can get creative,
 perhaps affecting the overall readability or fitting into project conventions.
 The package can be integrated in the development pipeline
-such as a +pre-commit+ hook or during developing as an +Eclipse+ plugin.
+such as a `pre-commit` hook or during developing as an `Eclipse` plugin.
 
 .Naturalize Eclipse plugin at work.
 image::naturalize-eclipse.png[Naturalize Eclipse plugin at work]
 
-As can be seen here +each+ is not considered to be
+As can be seen here `each` is not considered to be
 a very descriptive or convention-conforming name,
-so +testClass+ is suggested as a better alternative.
+so `testClass` is suggested as a better alternative.
 
 ''''
 

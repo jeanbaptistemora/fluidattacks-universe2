@@ -31,7 +31,7 @@ _The state should not exist_.<<r1 ,^[1]^>>
 With the motivation of developing a programming revolution,
 the functional paradigm has been strengthened in developer communities
 and in large technology companies.
-Of course, +Fluid Attacks+ is not the exception.
+Of course, `Fluid Attacks` is not the exception.
 
 .Your face until this point.
 image::weird-look.png["Little girl judging with her look"]
@@ -71,7 +71,7 @@ console.log (multiply (2) (6)); // 12
 
 == More benefits, less problems
 
-At +Fluid Attacks+ we made some investigation,
+At `Fluid Attacks` we made some investigation,
 to discover that true benefits of functional programming
 lie where imperative programming has flaws.
 The first advantage is the possibility of using laziness,
@@ -84,7 +84,7 @@ and when it will take the shortest route.
 
 If you have programmed in C language,
 you probably remember that for each variable,
-you had to assign, through the +malloc+ function, the number of bytes
+you had to assign, through the `malloc` function, the number of bytes
 the variable would occupy in the computer memory.
 This was a complete headache, bringing you almost down to machine level.
 The functional language seeks to separate the developer
@@ -149,7 +149,7 @@ is worried about being functional?
 The answer is simple:
 We want to do it right at the first time,
 we want our code to be an image of the quality
-and good practices on which +Fluid Attacks+ stands.
+and good practices on which `Fluid Attacks` stands.
 We are sure that the code will be excellent from the beginning
 because we think functional, there is no room for ambiguity or side effects.
 Something does what it says and nothing else, period.
@@ -165,7 +165,7 @@ Maybe you're thinking that the benefits are really good,
 but you are an OOO (Object-Oriented Obsessive)
 and all your code is in an imperative language.
 It's normal, it's okay to be a little reluctant but don't worry.
-Here at +Fluid Attacks+, we are like you, we use object-oriented languages
+Here at `Fluid Attacks`, we are like you, we use object-oriented languages
 and that doesn't stop us from being functional.
 All languages can be functional.
 In general there are some keys that you must follow to be functional

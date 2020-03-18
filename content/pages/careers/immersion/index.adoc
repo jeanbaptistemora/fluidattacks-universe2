@@ -7,11 +7,11 @@
 
 Welcome to *Immersion*.
 At this point,
-you have already been selected from among more than +6000+ candidates,
+you have already been selected from among more than `6000` candidates,
 and you have only a few more steps to go.
 *Immersion* is an intensive self-training involving a variety
-of assignments in +programming+ and +hacking+.
-*Immersion* is funded by +Fluid Attacks+.
+of assignments in `programming` and `hacking`.
+*Immersion* is funded by `Fluid Attacks`.
 
 == 1. Philosophy
 
@@ -22,18 +22,18 @@ This stage also serves to substantiate your interpersonal
 communication and teamwork skills.
 
 Because this is a lengthy and time-consuming process,
-+Fluid Attacks+,
+`Fluid Attacks`,
 regardless of your progress in points and ranking,
 provides monetary compensation for the time you invest
 in completing the assignments.
 
 == 2. Objectives
 
-. Solve +30+ unique +programming+ challenges.
-. Solve +30+ unique +ctf-hacking+ challenges.
-. Solve +30+ unique +vbd-hacking+ challenges.
-. Publish +3+ blog articles.
-. Finish +3+ training projects.
+. Solve `30` unique `programming` challenges.
+. Solve `30` unique `ctf-hacking` challenges.
+. Solve `30` unique `vbd-hacking` challenges.
+. Publish `3` blog articles.
+. Finish `3` training projects.
 
 == 3. Terms
 
@@ -42,10 +42,10 @@ from the technical challenge stage apply.
 . Use the assigned tool in automatic mode
 to report all your work time.
 . Your training day begins at *7:00 AM*
-in +Fluid Attacks+ office.
+in `Fluid Attacks` office.
 . By *6:00 PM* of each training day,
-you must have sent at least one accepted-into-master +MR+,
-or a standard progress report if the +MR+ has been rejected.
+you must have sent at least one accepted-into-master `MR`,
+or a standard progress report if the `MR` has been rejected.
 You can fill your standard progress report through [inner]#link:https://fluidattacks.com/forms/avance[This link]#.
 . You may then continue training and reporting your work time,
 done outside of the office,
@@ -58,7 +58,7 @@ will be established.
 . Training must always be done using your own personal laptop.
 . Your daily dedication to your work
 will be evaluated based on a reference time of *48 hours/week*.
-. +Fluid Attacks+ expectation is that you will be present in person,
+. `Fluid Attacks` expectation is that you will be present in person,
 at the company's office, each business day.
 . If for personal or health reasons,
 you are unable to come to work in person,
@@ -98,24 +98,24 @@ perseverance, and performance.
 On this stage you will deal with three types of challenges:
 link:https://gitlab.com/autonomicmind/training/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=code[Programming],
 link:https://gitlab.com/autonomicmind/training/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=hack[Hacking]
-and link:https://gitlab.com/fluidattacks/writeups/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=vbd[Vulnerable by Design (+VbD+)].
+and link:https://gitlab.com/fluidattacks/writeups/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=vbd[Vulnerable by Design (`VbD`)].
 The  purpose is to solve within a short time
 as many *unique challenges* as possible
 always seeking a balance between all categories.
 This means that every category must have
 the same ammount of unique solutions (standard deviation = 0).
-Every +MR+ must contribute to the balance of this metric,
-otherwise the +MR+ will be closed.
+Every `MR` must contribute to the balance of this metric,
+otherwise the `MR` will be closed.
 
 You can keep tracking of your metrics in the following page:
 ----
 https://fluidattacks.com/training/users/{$GITLAB_USERNAME}/
 ----
 
-Just replace your +{$GITLAB_USERNAME}+.
+Just replace your `{$GITLAB_USERNAME}`.
 
 . After you have *10 unique solutions* of each type,
-write *one (1)* article for the blog by sending an +MR+
+write *one (1)* article for the blog by sending an `MR`
 to the link:https://gitlab.com/fluidattacks/web[web repository].
 
 . Repeat the previous steps until you complete the
@@ -183,7 +183,7 @@ It will be twice as much as previously indicated
 for any transportation and accommodation costs you may incur.
 
 . At this stage of the selection process
-we guarantee you a minimum of +4+ immersion cycles.
+we guarantee you a minimum of `4` immersion cycles.
 
 . To be clear; if you are hired,
 you are required to work in person at our facilities
@@ -197,7 +197,7 @@ you can participate in the immersion process
 under the following conditions:
 
 . Indicate how many hours per week you are willing to train.
-Your training minimum is +8+ hours per week.
+Your training minimum is `8` hours per week.
 
 . Work remotely without coming to our facilities.
 

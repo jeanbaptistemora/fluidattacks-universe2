@@ -101,7 +101,7 @@ and is thus classified as belonging to one class or the other.
 image::svm.png[alt="2D linear SVM",width="50%"]
 
 More generally, if the inputs are _n_-dimensional vectors,
-an +SVM+ tries to find a geometric object of dimension _n-1_ (a _hyperplane_)
+an `SVM` tries to find a geometric object of dimension _n-1_ (a _hyperplane_)
 that divides the given inputs into two groups.
 To name an application, support vector machines
 are used to detect spam in images

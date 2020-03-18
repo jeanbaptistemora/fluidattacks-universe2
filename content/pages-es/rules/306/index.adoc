@@ -8,5 +8,5 @@
 
 == Requisito
 
-No se deben usar mensajes de texto (+SMS+, +MMS+)
+No se deben usar mensajes de texto (`SMS`, `MMS`)
 para el envío de información confidencial desde la aplicación.

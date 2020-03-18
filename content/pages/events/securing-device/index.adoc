@@ -21,7 +21,7 @@ and know the necessary controls to mitigate the risks.
 
 == 3. Experience
 
-This conference has been presented for +5+ years
+This conference has been presented for `5` years
 in large companies, such as:
 link:https://www.grupobancolombia.com/wps/portal/personas[Bancolombia],
 link:https://www.negocioleonisa.com/wps/portal/colombia[Leonisa],
@@ -32,13 +32,13 @@ link:http://www.tuya.com.co/[Tuya] and link:http://www.celsia.com/[Celsia].
 The presentation can be hosted
 at your company's facilities or an external venue.
 
-The talk can be scheduled in Medellín, for a minimum audience of +10+ assistants
+The talk can be scheduled in Medellín, for a minimum audience of `10` assistants
 For other cities of Colombia, Central America, Ecuador and Perú,
-the minimum audience is +20+ assistants.
+the minimum audience is `20` assistants.
 
 == 5. Duration
 
-The conference has a duration of +2+ hours.
+The conference has a duration of `2` hours.
 (Duration may vary between 1½ hours and 2½ hours)
 
 == 6. When?
@@ -49,7 +49,7 @@ The conference has a duration of +2+ hours.
 
 The conference is suitable for people
 with basic or low technical knowledge, ideally smartphone users.
-The maximum number of assistants is +30+.
+The maximum number of assistants is `30`.
 
 == 8. Requirements
 
@@ -57,6 +57,6 @@ The maximum number of assistants is +30+.
 
 == 9. Speaker
 
-Licenciate in Education, with +15+ years of experience.
-+Fluid Attacks+ Co-founder.
+Licenciate in Education, with `15` years of experience.
+`Fluid Attacks` Co-founder.
 Information Security Systems Auditor.

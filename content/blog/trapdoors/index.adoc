@@ -23,7 +23,7 @@ something that takes some inputs and produces some outputs.
 Math is the case here, however, there is a lot to add to that short definition,
 specially when we apply it to computer security,
 because despite you might be unaware,
-your security totally depend on a special kind of functions called +Trapdoors+.
+your security totally depend on a special kind of functions called `Trapdoors`.
 <<r1 ,^[1]^>> Let's talk about trapdoor functions
 and how they save you from "letting the cat out".
 
@@ -33,7 +33,7 @@ given the outputs deduce the inputs,
 this is really useful in many applications... but not in security!
 knowing an input from an output is a serious problem, you will see why.
 
-A +Trapdoor+ is essentially something taking an input and producing an output,
+A `Trapdoor` is essentially something taking an input and producing an output,
 but it is extremely difficult to do the reverse process,
 this is because to do so you need to know a "secret" called a private key
 and you have to be the luckiest guy in all universes to guess it or
@@ -46,20 +46,20 @@ Suppose:
 *K* : Secret key
 |====
 
-A +Trapdoor+ is a function that encrypts with the properties:
+A `Trapdoor` is a function that encrypts with the properties:
 |====
 |*E* = f(*P*) (Easy to do) +
 *P* = f^-1^(*E*) (Really hard to do!) +
 *P* = f^-1^(*E*,*K*) (Easy to do)
 |====
 
-Now, +Trapdoors+ are not the same as the well known hash functions,
+Now, `Trapdoors` are not the same as the well known hash functions,
 hash functions are one-way functions as well,
 but they are not reversible by any means,
-whereas +Trapdoors+ are reversible with the key.
-This is what makes them fundamental for +Encryption+ of shared information.
+whereas `Trapdoors` are reversible with the key.
+This is what makes them fundamental for `Encryption` of shared information.
 
-Your lifesaving, precious data is always put in a +Trapdoor+,
+Your lifesaving, precious data is always put in a `Trapdoor`,
 encrypted and transmitted and no one
 (except the possessor of the secret and the luckiest guy in all universes)
 can figure out the data.
@@ -67,12 +67,12 @@ can figure out the data.
 == Symmetric and Asymmetric Encryption
 
 When two ends have to exchange sensitive data,
-they must agree on the key they both use, this is called +Symmetric Encryption+
+they must agree on the key they both use, this is called `Symmetric Encryption`
 <<r2 ,^[2]^>> where the same key is used to encrypt and to decrypt.
 This key has to be transmitted first for agreement
 before any other communication, but
 how can they prevent a third party sniffs and retrieve the key?
-they use a type of +Encryption+ called +Asymmetric Encryption+:
+they use a type of `Encryption` called `Asymmetric Encryption`:
 It encrypts the data with one public key
 and decrypts it with a different private key
 
@@ -90,18 +90,18 @@ And decrypted with
 |*P* = f^-1^(*E*,*K~p~*) +
 |====
 
-This +Encryption+ is slow and it's not commonly used in data transmission.
+This `Encryption` is slow and it's not commonly used in data transmission.
 It's only used between parties to agree on a shared key that
-they use for +Symmetric Encryption+ which
+they use for `Symmetric Encryption` which
 is the one used for large data exchange as it's faster.
-The shared key for +Symmetric Encryption+ is transmitted over
-+Asymmetric Encryption+ so no attacker can retrieve this symmetric key.
+The shared key for `Symmetric Encryption` is transmitted over
+`Asymmetric Encryption` so no attacker can retrieve this symmetric key.
 
 == RSA Encryption
 
 Rivest, Shamir, Adleman, also know as `RSA` algorithm <<r3 ,^[3]^>> is the most
-common algorithm for +Asymmetric Encryption+ and
-it's based on a +Trapdoor+ function called _modular exponentiation_ :
+common algorithm for `Asymmetric Encryption` and
+it's based on a `Trapdoor` function called _modular exponentiation_ :
 
 |====
 |*E* = *P*^*K*~*P*~^ mod *N*
@@ -146,7 +146,7 @@ that an attacker cannot crack the key.
 == AES Encryption
 
 `AES` (Advanced Encryption System) <<r4 ,^[4]^>> algorithm,
-is usually the chosen one for +Symmetric Encryption+.
+is usually the chosen one for `Symmetric Encryption`.
 This algorithm is rather procedural than hard mathematical formula computation,
 it basically encrypts a table of data in four steps:
 
@@ -165,12 +165,12 @@ to the key that might hint an attack.
 == Conclusion
 
 You can be sure your data is very well protected and that the communication
-won't be disclosed to any attacker thanks to a +Trapdoor+, of course, as
+won't be disclosed to any attacker thanks to a `Trapdoor`, of course, as
 computing power continues to develop,
 we might need to create new traps,
 but now the assurance of your privacy on communication is really high,
 so every time you browse your social networks, bank accounts, etc;
-remember there is a +Trapdoor+ that won't let any cat out.
+remember there is a `Trapdoor` that won't let any cat out.
 
 == References
 

@@ -12,4 +12,4 @@ El código fuente debe estar ofuscado en ambiente de producción.
 
 == Referencias
 
-. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.2  Utilizar protección de código].
+. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[`BSSIM9` SE3.2  Utilizar protección de código].

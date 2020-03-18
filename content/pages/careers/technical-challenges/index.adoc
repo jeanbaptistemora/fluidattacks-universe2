@@ -26,10 +26,10 @@ anything else.
 
 In this stage, we want you to demonstrate, through practical exercises,
 your technical skills by solving problems similar to the ones you will face in
-your work with +Fluid Attacks+.
+your work with `Fluid Attacks`.
 
 The technical challenges are divided into
-+vbd-hacking+, +ctf-hacking+, and +programming+.
+`vbd-hacking`, `ctf-hacking`, and `programming`.
 With the first,
 you demonstrate your skill to bypass security controls.
 With the second,
@@ -44,33 +44,33 @@ By solving challenges we:
 
 . Encourage self-directed and independent learning.
 
-By uploading your solutions to +GitLab+, you will be able to:
+By uploading your solutions to `GitLab`, you will be able to:
 
-. Use the +GitLab+ infrastructure to analyze
+. Use the `GitLab` infrastructure to analyze
 your efficiency and work quality as you adapt to the process.
 
 . Familiarize yourself with the tools
-(+Git+, +AsciiDoc+, +Python+, +Gherkin+, etc) and
-concepts (automation, unit tests, continuous integration, +linting+, etc.) that
-you will use in your daily work with +Fluid Attacks+.
+(`Git`, `AsciiDoc`, `Python`, `Gherkin`, etc) and
+concepts (automation, unit tests, continuous integration, `linting`, etc.) that
+you will use in your daily work with `Fluid Attacks`.
 
 . Allow the community and the team to view your results.
 
 == 2. Objectives
 
-. Solve +3+ unique +programming+ challenges.
+. Solve `3` unique `programming` challenges.
 
-. Solve +3+ unique +ctf-hacking+ challenges.
+. Solve `3` unique `ctf-hacking` challenges.
 
-. Solve +3+ unique +vbd-hacking+ challenges.
+. Solve `3` unique `vbd-hacking` challenges.
 
 == 3. Recommendations
 
-. When solving +programming+ challenges,
+. When solving `programming` challenges,
 we recommend [inner]#link:https://www.codeabbey.com/[Codeabbey]#.
 Also, we suggest using a language that is not widely used.
 
-. When solving +ctf-hacking+ challenges,
+. When solving `ctf-hacking` challenges,
 we recommend [inner]#link:https://www.root-me.org/?lang=en[Root Me]#.
 
 . After solving a challenge, immediately submit your answer.
@@ -83,60 +83,60 @@ if anything, you did incorrectly and may help you with upcoming questions.
 
 To successfully finish this stage, you must:
 
-. Register on +GitLab+ using your personal email
+. Register on `GitLab` using your personal email
 and the username of your choice.
 Your username must not exceed *12* characters in length
 and only contain lowercase letters and numbers.
 
 . Join our link:https://community.fluidattacks.com/[Forum],
-where you can interact with +Fluid Attacks+ personnel and other candidates,
+where you can interact with `Fluid Attacks` personnel and other candidates,
 who are working in the same stage that you are,
 to discuss questions or issues you may have.
 
-. Request permission to access the +Git Training+ repository by filling out this
+. Request permission to access the `Git Training` repository by filling out this
 [inner]#link:https://fluidattacks.com/forms/access[form]#.
 
-. In the +Repo Access Message+ field, paste the following message:
+. In the `Repo Access Message` field, paste the following message:
 +
 [quote]
 ____________________________________________________________________
 I have read and understood all documentation pertaining to technical challenges,
 I agree to all of the terms and
-therefore request access to the +git+ +training+ repository
-with my +GitLab+ username.
+therefore request access to the `git` `training` repository
+with my `GitLab` username.
 ____________________________________________________________________
 
-. Complete +three (3)+ +programming+ challenges
+. Complete `three (3)` `programming` challenges
 
-. Complete +three (3)+ +ctf-hacking+ challenges
+. Complete `three (3)` `ctf-hacking` challenges
 
-. Request permission to access the +Writeups+ repository by filling out this
+. Request permission to access the `Writeups` repository by filling out this
 [inner]#link:https://fluidattacks.com/forms/access[form]#.
 This time around, the Repo Access Message field should have the following:
-Request developer permissions to the +Writeups+ repository through this
+Request developer permissions to the `Writeups` repository through this
 .
 +
-This time around, the +Repo Access Message+ field should have the following:
+This time around, the `Repo Access Message` field should have the following:
 +
 [quote]
 ____________________________________________________________________
-I have completed three (3) +programming+ and three (3) +ctf-hacking+
+I have completed three (3) `programming` and three (3) `ctf-hacking`
 unique challenges
 in the training repo and
-therefore request access to the +git+ +writeups+ repository
-with my +GitLab+ username.
+therefore request access to the `git` `writeups` repository
+with my `GitLab` username.
 ____________________________________________________________________
 
-. Complete +three (3)+ +vbd-hacking+ challenges in the writeups repository.
+. Complete `three (3)` `vbd-hacking` challenges in the writeups repository.
 
 == 5. Conditions
 
 The challenge stage ends under any of the following conditions:
 
 . You have met all link:#objectives[objectives] and
-sent an +email+ with the links to your solutions in the +master+ branch.
+sent an `email` with the links to your solutions in the `master` branch.
 . If there has been no activity
-(+push+ to the +git+ repos) within 14 calendar days.
+(`push` to the `git` repos) within 14 calendar days.
 . If you clearly state,
 via email,
 that you are no longer interested in continuing the process.
@@ -176,9 +176,9 @@ are defined in the files:
 ** link:https://gitlab.com/fluidattacks/writeups/blob/master/LICENSE.txt[writeups LICENSE].
 ** link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[training LICENSE].
 
-* Carrying out a +merge request+ implies the transfer of copyrights.
+* Carrying out a `merge request` implies the transfer of copyrights.
 Therefore, all information contained herein may be used
-by +Fluid Attacks+ for any commercial purpose,
+by `Fluid Attacks` for any commercial purpose,
 always preserving the moral rights of their authors.
 
 == 8. Plagiarism
@@ -197,7 +197,7 @@ and allows for public scrutiny in case of plagiarism.
 In other words, the current model avoids plagiarism
 through total transparency.
 
-+Fluid Attacks+ applies algorithmic similarity detection techniques
+`Fluid Attacks` applies algorithmic similarity detection techniques
 to all solutions submitted. We use:
 
 * link:https://theory.stanford.edu/~aiken/moss/[MOSS]
@@ -215,6 +215,6 @@ and start posting your solutions. Good luck!
 
 == 10. keywords
 
-. +ToE+: link:https://csrc.nist.gov/glossary/term/target-of-evaluation[Target Of Evaluation]
-. +VBD+: Vulnerable by design
-. +CTF+: link:https://ctftime.org/ctf-wtf/[Capture The Flag]
+. `ToE`: link:https://csrc.nist.gov/glossary/term/target-of-evaluation[Target Of Evaluation]
+. `VBD`: Vulnerable by design
+. `CTF`: link:https://ctftime.org/ctf-wtf/[Capture The Flag]

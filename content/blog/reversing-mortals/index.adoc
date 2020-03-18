@@ -39,7 +39,7 @@ A debugger is a tool that will show you
 the assembly code for an executable file.
 Think of a network,
 if you cut the network cable and look down it, it's like Wireshark.
-Now, think of your computer, open it up and look down the +CPU+,
+Now, think of your computer, open it up and look down the `CPU`,
 that's a debugger, it shows you what is really happening under everything.
 
 To understand the basics of reversing,
@@ -98,7 +98,7 @@ the stack on the bottom right,
 the hex dump on the bottom left
 and the main debugging screen on the top left.
 The "$" symbol shows us the entry point of the program.
-In the registers we see +"EIP"+
+In the registers we see `"EIP"`
 which tells us what instruction is about to happen.
 Think of it as a work bench,
 if you want to work with something
@@ -136,10 +136,10 @@ this will take you to the location of the string reference
 in the assembly code.
 From here we need to scroll up carefully
 and try to understand what's happening.
-We see a lot of +CMP+ immediately followed by a +JNZ+.
-This is important because +CMP+ compares two values
-and +JNZ+ jumps based on the result of that comparison.
-+JNZ+ will jump if the two values compared are not equal.
+We see a lot of `CMP` immediately followed by a `JNZ`.
+This is important because `CMP` compares two values
+and `JNZ` jumps based on the result of that comparison.
+`JNZ` will jump if the two values compared are not equal.
 If we keep scrolling up, we see a function call in red "GetDigItemText". Bingo!
 This is a function that retrieves the text associated with a control.
 In our case the input we provided in the control box.
@@ -153,22 +153,22 @@ We will go ahead and set a break point in that function.
 .Setting breakpoints
 image::image6.png[breakpoint]
 
-With the breakpoint set, we can hit +F9+ to run the program
+With the breakpoint set, we can hit `F9` to run the program
 until it reaches the breakpoint.
 The program will halt at the GetDigItemText instruction
 and wait for your instruction.
 What we are really interested in are all the comparisons
 it does immediately after.
-If we hit +F8+ to step over the instructions
+If we hit `F8` to step over the instructions
 and keep an eye out for what it compares against,
-in the first +CMP+
+in the first `CMP`
 we can see that it compares my first char 'p' with the hex 63.
 
 .Check out the CMP!!
 image::image7.png[cmp]
 
-After the comparison we can note that the +JNZ+ is taken.
-Since the two values compared are not equal, +JNZ+ is executed.
+After the comparison we can note that the `JNZ` is taken.
+Since the two values compared are not equal, `JNZ` is executed.
 After the jump the program gives us the invalid serial message and exits.
 Before we try another password
 let's understand what the program is performing all the comparisons against.

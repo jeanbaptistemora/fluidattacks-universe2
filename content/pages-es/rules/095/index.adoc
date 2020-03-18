@@ -13,14 +13,14 @@ o super administrador deben estar definidos.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(3)(i):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[`HIPAA Security Rules` 164.308(a)(3)(i):]
 Implementar políticas y procedimientos para asegurarse
 que todos los empleados tengan acceso apropiado a la información sensible
 como se especifica en el párrafo (a)(4) de esta sección,
 y para prevenir que los empleados no autorizados
 obtengan acceso a esta información.
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(2)(iii):]
 Procedimientos de control de acceso y validación:
 Implementar procedimientos para controlar y validar
 el acceso de una persona a las instalaciones basándose
@@ -28,19 +28,19 @@ en su rol o función, incluyendo control de visitantes
 y control de acceso a software de la compañía
 para pruebas o revisión.
 
-. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
+. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[`NIST` 800-53 AC-2 (6)]
 El sistema de información implementa el manejo dinámico de privilegios
 definidos por la organización.
 
-. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) a]
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[`NIST` 800-53 AC-2 (7) a]
 La organización establece y administra las cuentas de usuario
 de acuerdo con un esquema de acceso basado en roles
 que organice los accesos permitidos al sistema de información
 y los privilegios en roles.
 
-. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) b]
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[`NIST` 800-53 AC-2 (7) b]
 La organización monitorea las asignaciones de roles con privilegio asignadas.
 
-. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) c]
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[`NIST` 800-53 AC-2 (7) c]
 La organización toma acciones definidas
 cuando la asignación de roles con privilegio ya no son apropiadas.

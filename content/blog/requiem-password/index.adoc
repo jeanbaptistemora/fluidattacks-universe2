@@ -42,7 +42,7 @@ But they are hard to remember,
 and that leads to frequent password forgets and resets.
 Thus most people tend to resort to
 short, easy to crack passwords.
-See the 2017 link:http://templatelab.com/top-100-worst-passwords-of-2017/[Splash Data 100 worst passwords (+PDF+)]
+See the 2017 link:http://templatelab.com/top-100-worst-passwords-of-2017/[Splash Data 100 worst passwords (`PDF`)]
 to see the problem.
 These are vulnerable to
 link:https://en.wikipedia.org/wiki/Brute-force_attack[brute-forcing],
@@ -61,10 +61,10 @@ users tend to circumvent these impositions
 in different ways, such as:
 
 * replacing letters by similar numbers
-(v.g. +hello+ -> +h3110+, +tigger+ -> +71gg3r+)
-* reverting their old password back and forth (+qwerty+ -> +ytrewq+)
-* switching between simple passwords (+pass+ -> +word+),
-* altering a standard password (+password+ -> +password1+ -> ...),
+(v.g. `hello` -> `h3110`, `tigger` -> `71gg3r`)
+* reverting their old password back and forth (`qwerty` -> `ytrewq`)
+* switching between simple passwords (`pass` -> `word`),
+* altering a standard password (`password` -> `password1` -> ...),
 * not avoiding it, thus getting a very complicated password,
 but keeping it written down in a piece of paper (danger!).
 
@@ -101,7 +101,7 @@ From an alphabet with 26 letters,
 and allowing words from two to six letters,
 we can make more than 12 million words.
 However some of those wouldn't make sense,
-such as +zzy+ or +edls+,
+such as `zzy` or `edls`,
 so word dictionaries like the one above
 avoid them and only take real english words.
 The one used here is modest:
@@ -125,7 +125,7 @@ Most likely not,
 that bear no relation to the word.
 In contrast, passphrases are made up of regular words
 which you can remember by linking them somehow.
-This comic from +xkcd+ sums it up:
+This comic from `xkcd` sums it up:
 
 .Passphrases vs passwords. Adapted from the original at link:https://xkcd.com/936/[xkcd].
 image::xkcdpw.png["A comic about passwords vs passphrases"]
@@ -161,7 +161,7 @@ and make that into words
 using a dictionary that maps sequences of dice rolls
 to actual english words like this:
 
-.Some words from a link:http://world.std.com/~reinhold/dicewarewordlist.pdf[+Diceware+ dictionary].
+.Some words from a link:http://world.std.com/~reinhold/dicewarewordlist.pdf[`Diceware` dictionary].
 ----
 26114 -> fluid
 32236 -> hack
@@ -170,11 +170,11 @@ to actual english words like this:
 ----
 
 Thus if you roll first a 2, then a 6, ... and a 4,
-the first word in your passphrase will be +fluid+.
+the first word in your passphrase will be `fluid`.
 Do this four to seven times and
 your passphrase will be pretty strong.
 No time to play dice? No problem.
-There are plenty of +FOSS+ solutions to
+There are plenty of `FOSS` solutions to
 generate long, high-entropy passphrases
 on link:https://github.com/search?p=2&q=diceware&type=Repositories&utf8=%3F[GitHub]
 and link:https://getapassphrase.com/[some]
@@ -209,25 +209,25 @@ let us compare some typical authentication policies:
 | Password
 | 8 characters
 | upper lower num special
-| +Pas$w0rd+
+| `Pas$w0rd`
 | 9 hours
 
 | Password
 | 14 characters
 | upper lower num special
-| +Pas$w0rddddddd+
+| `Pas$w0rddddddd`
 | 204 million (e6) years
 
 | Passphrase
 | 4 words x 4 letters
 | non-random lower
-| +fluid hacks rule risk+
+| `fluid hacks rule risk`
 | 41 quadrillion (e15) years
 
 | Passphrase
 | 4 words x 5 letters
 | random lower
-| +debased heron passes native+
+| `debased heron passes native`
 | 343 septillion (e24) years
 |====
 

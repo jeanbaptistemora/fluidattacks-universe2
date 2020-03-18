@@ -162,7 +162,7 @@ Nice, right!
 In this way we understood that Python knows
 what the type is by analyzing the behavior
 and attributes of a variable.
-Honestly in +Fluid Attacks+ we prefer
+Honestly in `Fluid Attacks` we prefer
 the _Canard à l'orange_ (“duck with orange” in French)
 instead of living with it in our code.
 
@@ -203,7 +203,7 @@ it will continue to obey.
 
 Set variables types is useful
 when we use a tool that has become popular
-among the pythonistas: link:http://http://mypy-lang.org/[+mypy+].
+among the pythonistas: link:http://http://mypy-lang.org/[`mypy`].
 Mypy is a static type checker,
 available in Python 2.7 and Python 3.
 Its use and purpose is similar to the linting tools.

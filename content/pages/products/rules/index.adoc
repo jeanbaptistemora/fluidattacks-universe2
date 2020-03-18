@@ -9,10 +9,10 @@
 [cols="^.^", frame="none"]
 |====
 
-a|+Rules+ is a set of security requirements
+a|`Rules` is a set of security requirements
 that allows you to parameterize a pentest
 according to the risk appetite of your organization.
-+Rules+ allows you to determine what is tested and what is not,
+`Rules` allows you to determine what is tested and what is not,
 and what is considered a vulnerability and what is not.
 It is also the basis for determining how rigorous a pentest was,
 based on tested and untested requirements.
@@ -34,13 +34,13 @@ related to information security, including:
 link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act.]
 
 . [inner]#link:../../search.html?q=ASVS[ASVS]#
-link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[+OWASP+ Application Security Verification Standard].
+link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[`OWASP` Application Security Verification Standard].
 
 . [inner]#link:../../search.html?q=CWE[CWE]#
 link:https://cwe.mitre.org/[Common Weakness Enumeration].
 
 . [inner]#link:../../search.html?q=NIST+800-53[NIST]#
-link:https://nvd.nist.gov/800-53/Rev4[+NIST+ Special Publication 800-53 (Rev. 4)].
+link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4)].
 
 . [inner]#link:../../search.html?q=bssim9[BSSIM9]#
 link:https://www.bsimm.com/download.html[Building Security In Maturity Model].

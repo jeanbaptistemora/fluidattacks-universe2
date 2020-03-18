@@ -61,11 +61,11 @@ los usuarios no usan los posibles controles de seguridad establecidos.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(ii):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[`HIPAA Security Rules` 164.312(a)(2)(ii):]
 Procedimientos de emergencia:
 Establecer (e implementar cuando sea necesario)
 procedimientos para obtener la información sensible necesaria
 durante una emergencia.
 
-. [[r2]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.1:]
+. [[r2]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[`BSSIM9` SM2.1:]
 Publicar internamente información sobre seguridad de software.

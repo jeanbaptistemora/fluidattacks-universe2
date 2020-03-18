@@ -9,4 +9,4 @@
 == Requisito
 
 Debe utilizarse correos diferentes al corporativo
-para registrar cuentas en redes sociales (aún en +LinkedIn+).
+para registrar cuentas en redes sociales (aún en `LinkedIn`).
