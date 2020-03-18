@@ -7,6 +7,7 @@
 #!   nix-shell --keep BREAK_BUILD_ID
 #!   nix-shell --keep BREAK_BUILD_SECRET
 #!   nix-shell --keep CI_JOB_ID
+#!   nix-shell --keep NIX_PATH
 #!   nix-shell --keep CI_PROJECT_DIR
 #!   nix-shell --keep CI_REGISTRY_USER
 #!   nix-shell --keep CI_REGISTRY_PASSWORD
