@@ -83,7 +83,7 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_finding_resolve_finding',
         'backend_api_resolvers_event_resolve_event',
         'backend_api_resolvers_project_resolve_alive_projects',
-        'backend_api_resolvers_internal_project_resolve_internal_project_names',
+        'backend_api_resolvers_internal_project_resolve_project_name',
         'backend_api_resolvers_user_resolve_user_list_projects',
         'backend_api_resolvers_resource_resolve_add_resources',
         'backend_api_resolvers_resource_resolve_update_resources',

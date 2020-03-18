@@ -1,4 +1,4 @@
-from ariadne import graphql_sync
+from ariadne import graphql
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -9,7 +9,7 @@ from backend.api.schema import SCHEMA
 
 class InternalProjectTests(TestCase):
 
-    def test_internal_project(self):
+    async def test_internal_project(self):
         """Check for internal project"""
         query = '''{
             internalProjectNames{
@@ -33,5 +33,5 @@ class InternalProjectTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'internalProjectNames' in result['data']

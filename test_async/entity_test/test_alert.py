@@ -1,4 +1,4 @@
-from ariadne import graphql_sync
+from ariadne import graphql, graphql_sync
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -9,7 +9,7 @@ from backend.api.schema import SCHEMA
 
 class AlertTests(TestCase):
 
-    def test_get_alert(self):
+    async def test_get_alert(self):
         """Check for project alert"""
         query = '''{
             alert(projectName:"unittesting", organization:"fluid"){
@@ -33,7 +33,7 @@ class AlertTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         if 'alert' in result['data']:
             message = result['data']['alert']['message']
             assert message == 'unittest'
