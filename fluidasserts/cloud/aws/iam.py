@@ -605,6 +605,12 @@ def have_full_access_policies(key_id: str,
     vulns, safes = [], []
 
     for policy in policies:
+        if policy['AttachmentCount'] == 0:
+            # AWS built-in policies cannot be deleted
+            # Given that, we'll check if they are used and if so
+            # we'll report them if vulnerable
+            continue
+
         pol_arn = policy['Arn']
         pol_ver = aws.run_boto3_func(
             key_id=key_id,
@@ -645,7 +651,7 @@ def has_not_support_role(key_id: str,
                          session_token: str = None,
                          retry: bool = True) -> tuple:
     """
-    Check if there are a support role.
+    Check if there is a support role.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
@@ -667,7 +673,8 @@ def has_not_support_role(key_id: str,
     vulns, safes = [], []
 
     support_policies = [
-        p for p in policies if p['PolicyName'] == 'AWSSupportAccess'
+        p for p in policies
+        if p['PolicyName'] == 'AWSSupportAccess' and p['AttachmentCount'] > 0
     ]
 
     for policy in support_policies:
@@ -1115,6 +1122,12 @@ def has_wildcard_resource_on_write_action(key_id: str,
         retry=retry)['Policies']
 
     for policy in policies:
+        if policy['AttachmentCount'] == 0:
+            # AWS built-in policies cannot be deleted
+            # Given that, we'll check if they are used and if so
+            # we'll report them if vulnerable
+            continue
+
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
@@ -1171,6 +1184,12 @@ def has_privileges_over_iam(key_id: str,
         func='list_policies')['Policies']
 
     for policy in policies:
+        if policy['AttachmentCount'] == 0:
+            # AWS built-in policies cannot be deleted
+            # Given that, we'll check if they are used and if so
+            # we'll report them if vulnerable
+            continue
+
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
