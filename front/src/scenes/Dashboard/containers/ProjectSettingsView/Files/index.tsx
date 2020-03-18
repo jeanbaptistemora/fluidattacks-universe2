@@ -12,6 +12,7 @@ import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
+import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { AddFilesModal } from "../../../components/AddFilesModal";
 import { FileOptionsModal } from "../../../components/FileOptionsModal";
@@ -85,10 +86,13 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         translate.t("search_findings.tab_users.title_success"),
       );
     },
-    onError: (grantError: ApolloError): void => {
-      grantError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+    onError: (filesError: ApolloError): void => {
+      filesError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         if (message === "Exception - Parameter is not valid") {
           msgError(translate.t("validations.invalidValueInField"));
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error("An error occurred adding files to project", filesError);
         }
       });
     },

@@ -16,6 +16,7 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
+import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
 import { ADD_REPOSITORIES_MUTATION, GET_REPOSITORIES, UPDATE_REPOSITORY_MUTATION } from "../queries";
@@ -37,10 +38,13 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
   const { data, refetch } = useQuery(GET_REPOSITORIES, { variables: { projectName: props.projectName } });
   const [addRepositories] = useMutation(ADD_REPOSITORIES_MUTATION, {
     onCompleted: refetch,
-    onError: (grantError: ApolloError): void => {
-      grantError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+    onError: (reposError: ApolloError): void => {
+      reposError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         if (message === "Exception - Parameter is not valid") {
           msgError(translate.t("validations.invalidValueInField"));
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error("An error occurred adding repositories to project", reposError);
         }
       });
     }});

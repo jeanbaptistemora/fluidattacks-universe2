@@ -185,6 +185,15 @@ export const validTag: Validator = (value: string): string | undefined => {
   }
 };
 
+export const validField: Validator = (value: string): string | undefined => {
+  const pattern: RegExp = /^(?!=).+/;
+  if (_.isEmpty(value) || !pattern.test(value)) {
+    return translate.t("validations.invalidValueInField");
+  } else {
+    return undefined;
+  }
+};
+
 export const isValidFileName: Validator = (file: FileList): string | undefined => {
   const fileName: string = _.isEmpty(file) ? "" : file[0].name;
   const name: string[] = fileName.split(".");

@@ -10,7 +10,7 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
+import { required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 
 export interface IAddEnvironmentsModalProps {
@@ -36,7 +36,12 @@ const renderEnvsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
                 <label style={{ color: "#f22" }}>* </label>
                 {translate.t("search_findings.tab_resources.environment")}
               </label>
-              <Field name={`${fieldName}.urlEnv`} component={textAreaField} type="text" validate={[required]} />
+              <Field
+                component={textAreaField}
+                name={`${fieldName}.urlEnv`}
+                type="text"
+                validate={[required, validField]}
+              />
             </Col>
             {index > 0 ? (
               <Col md={2} style={{ marginTop: "40px" }}>

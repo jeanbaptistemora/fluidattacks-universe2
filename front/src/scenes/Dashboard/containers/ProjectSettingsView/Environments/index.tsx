@@ -16,6 +16,7 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
+import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/index";
 import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_ENVIRONMENT_MUTATION } from "../queries";
@@ -37,10 +38,13 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
   const { data, refetch } = useQuery(GET_ENVIRONMENTS, { variables: { projectName: props.projectName } });
   const [addEnvironments] = useMutation(ADD_ENVIRONMENTS_MUTATION, {
     onCompleted: refetch,
-    onError: (grantError: ApolloError): void => {
-      grantError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+    onError: (envsError: ApolloError): void => {
+      envsError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         if (message === "Exception - Parameter is not valid") {
           msgError(translate.t("validations.invalidValueInField"));
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error("An error occurred adding user to project", envsError);
         }
       });
     }});

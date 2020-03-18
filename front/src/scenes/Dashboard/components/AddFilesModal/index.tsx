@@ -9,7 +9,7 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { isValidFileName, isValidFileSize, required } from "../../../../utils/validations";
+import { isValidFileName, isValidFileSize, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 
 export interface IAddFilesModalProps {
@@ -65,7 +65,12 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
                     <label style={{ color: "#f22" }}>* </label>
                     {translate.t("search_findings.tab_resources.description")}
                   </label>
-                  <Field name="description" component={textAreaField} type="text" validate={[required]} />
+                  <Field
+                    component={textAreaField}
+                    name="description"
+                    type="text"
+                    validate={[required, validField]}
+                  />
                 </Col>
               </Row>
               {props.showUploadProgress === true ? renderUploadBar(props) : undefined}
