@@ -11,3 +11,32 @@
 The system must restrict access to system objects
 that have sensitive content.
 It will only allow access to authorized users.
+
+== Description
+
+Applications usually handle personal and confidential information
+such as personal identifications, social security numbers,
+credentials and health histories.
+This data should be protected as a fundamental right,
+therefore, it should be stored and transmitted using secure mechanisms that
+prevent access to it by unauthorized actors.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/recitals/no-1/[GDPR. Recital 1: Data Protection as a Fundamental Right].
+The protection of natural persons in relation to the processing of personal
+data is a fundamental right.
+. [[r2]] link:https://gdpr-info.eu/recitals/no-2/[GDPR. Recital 2: Respect of the Fundamental Rights and Freedoms].
+The principles of, and rules on the protection of natural persons with regard
+to the processing of their personal data should respect their fundamental
+rights and freedoms,
+in particular their right to the protection of personal data.
+. [[r3]] link:https://gdpr-info.eu/recitals/no-4/[GDPR. Recital 4: Data Protection in Balance with Other Fundamental Rights].
+The right to the protection of personal data is not an absolute right;
+it must be considered in relation to its function in society and be balanced
+against other fundamental rights.
+. [[r4]] link:https://gdpr-info.eu/recitals/no-2/[GDPR. Recital 6: Ensuring a High Level of Data Protection Despite
+the Increased Exchange of Data].
+Technology has transformed both the economy and social life,
+and should further facilitate the free flow of personal data,
+while ensuring a high level of the protection of personal data.
