@@ -3,6 +3,8 @@
  * Disabling this rule is necessary for using components with render props
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -33,7 +35,15 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_REPOSITORIES, { variables: { projectName: props.projectName } });
-  const [addRepositories] = useMutation(ADD_REPOSITORIES_MUTATION, { onCompleted: refetch });
+  const [addRepositories] = useMutation(ADD_REPOSITORIES_MUTATION, {
+    onCompleted: refetch,
+    onError: (grantError: ApolloError): void => {
+      grantError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        if (message === "Exception - Parameter is not valid") {
+          msgError(translate.t("validations.invalidValueInField"));
+        }
+      });
+    }});
   const [updateRepository] = useMutation(UPDATE_REPOSITORY_MUTATION, {
     onCompleted: (): void => {
       refetch()

@@ -2,6 +2,8 @@
  * Disabling this rule is necessary for using components with render props
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -82,6 +84,13 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         translate.t("search_findings.tab_resources.success"),
         translate.t("search_findings.tab_users.title_success"),
       );
+    },
+    onError: (grantError: ApolloError): void => {
+      grantError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        if (message === "Exception - Parameter is not valid") {
+          msgError(translate.t("validations.invalidValueInField"));
+        }
+      });
     },
   });
 
