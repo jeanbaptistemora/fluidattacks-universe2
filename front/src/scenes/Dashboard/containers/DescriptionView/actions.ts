@@ -63,14 +63,52 @@ export const loadDescription: ThunkActionStructure<void> =
           }
         }
         finding(identifier: "${findingId}") {
+          title
+          scenario
+          actor
           analyst @include(if: ${analystField})
+          description
+          requirements
+          attackVectorDesc
+          threat
+          recommendation
+          releaseDate
+          remediated
+          state
+          affectedSystems
+          compromisedAttributes
+          compromisedRecords
+          cweUrl
+          btsUrl
+          risk
+          type
+          openVulnerabilities
+          historicTreatment
+          newRemediated
+          verified
         }
       }`;
 
       new Xhr().request(gQry, "An error occurred getting finding description")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
-
+          const nStates: number = data.finding.historicTreatment.length;
+          data.finding.acceptanceDate = "-";
+          if ("acceptance_date" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.acceptanceDate = data.finding.historicTreatment[nStates - 1].acceptance_date.split(" ")[0];
+          }
+          if ("acceptance_status" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.acceptationApproval = data.finding.historicTreatment[nStates - 1].acceptance_status;
+          }
+          if ("treatment" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.treatment = data.finding.historicTreatment[nStates - 1].treatment;
+          }
+          if ("justification" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.justification = data.finding.historicTreatment[nStates - 1].justification;
+          }
+          if ("user" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.acceptationUser = data.finding.historicTreatment[nStates - 1].user;
+          }
           dispatch<IActionStructure>({
             payload: {
               descriptionData: { ...data.finding, ...data.project },
@@ -144,8 +182,6 @@ export const updateDescription: ThunkActionStructure<void> =
               translate.t("proj_alerts.updated"),
               translate.t("proj_alerts.updated_title"),
             );
-            // Temporary during the migration of this mutation to apollo
-            location.reload();
           } else {
             msgError(translate.t("proj_alerts.error_textsad"));
           }
@@ -225,8 +261,6 @@ export const updateClientDescription: ThunkActionStructure<void> =
               translate.t("proj_alerts.updated_title"),
             );
             dispatch<IActionStructure>(editDescription());
-            // Temporary during the migration of this mutation to apollo
-            location.reload();
           } else {
             msgError(translate.t("proj_alerts.error_textsad"));
           }
