@@ -107,7 +107,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
         {_.includes(["admin", "customer"], userRole) ? (
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
-              <Button block={true} onClick={openAddModal}>
+              <Button onClick={openAddModal}>
                 <Glyphicon glyph="plus" />&nbsp;
               {translate.t("search_findings.tab_resources.add_repository")}
               </Button>
