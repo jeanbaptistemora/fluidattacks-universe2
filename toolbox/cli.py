@@ -165,7 +165,7 @@ def main():  # noqa
         '--vpn',
         action='store_true')
     parser.add_argument(
-        '--sync-repositories-to-aws',
+        '--sync-fusion-to-s3',
         action='store_true')
     args = parser.parse_args()
 
@@ -228,7 +228,7 @@ def main():  # noqa
             elif args.check_sync:
                 sys.exit(0 if toolbox.are_exploits_synced(
                     args.subs, args.exp) else 1)
-            elif args.sync_repositories_to_aws:
+            elif args.sync_fusion_to_s3:
                 sys.exit(0 if resources.sync_repositories_to_aws(
                     args.subs) else 1)
             elif args.check_uploads:
