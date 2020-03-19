@@ -1,0 +1,31 @@
+:slug: rules/310/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of requesting the user's consent whenever their data will be collected.
+:keywords: GDPR, Security, Data, Information, Consent, Regulation
+:rules: yes
+
+= REQ.310 Guarantee user consent
+
+== Requirement
+
+The system must request the user's consent whenever it collects any information
+about them or their actions,
+and be able to demonstrate it afterwards.
+
+== Description
+
+Systems usually request information from the users or collect it based
+on their interactions with the application.
+Regulations demand that none of these collections occur without the user's
+consent and that this consent be demonstrable afterwards.
+Therefore, consent must always be requested in a clear manner and using an easy
+to understand language,
+and the system must have a mechanism that allows demonstrating the grant of the
+consent.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(1).]
+Where processing is based on consent, the controller shall be able to
+demonstrate that the data subject has consented to processing of his or her
+personal data.
