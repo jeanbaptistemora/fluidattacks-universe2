@@ -129,11 +129,13 @@ export const tagInputField: React.FC<CustomFieldProps> =
       }
     };
     const keyCodes: Dictionary<number> = { comma: 188, enter: 13, space: 32 };
+    const styles: Dictionary<string> = {
+      remove: style.tagRemove, tag: style.inputTags, tagInput: style.tagInput, tagInputField: style.formControl };
 
     return (
       <ReactTags
         allowDragDrop={false}
-        classNames={{tagInputField: style.formControl, tag: style.inputTags, tagInput: style.tagInput}}
+        classNames={styles}
         delimiters={Object.values(keyCodes)}
         handleDelete={handleDelete}
         handleAddition={handleAddition}
