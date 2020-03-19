@@ -3,7 +3,7 @@ import pytest
 from aniso8601 import parse_datetime
 
 from backend.domain import event as event_domain
-from backend.exceptions import EventAlreadyClosed
+from backend.exceptions import EventAlreadyClosed, InvalidCommentParent
 
 
 def test_get_event():
@@ -45,8 +45,9 @@ def test_solve_event():
 
 
 def test_add_comment():
+    comment_id = int(round(time() * 1000))
     comment_id, success = event_domain.add_comment(
-        comment_id=int(round(time() * 1000)),
+        comment_id=comment_id,
         content='comment test',
         event_id='538745942',
         parent=0,
@@ -57,3 +58,28 @@ def test_add_comment():
         })
     assert success
     assert comment_id
+
+    comment_id, success = event_domain.add_comment(
+        comment_id=int(round(time() * 1000)),
+        content='comment test 2',
+        event_id='538745942',
+        parent=comment_id,
+        user_info={
+            'user_email': 'unittesting@fluidattacks.com',
+            'first_name': 'Unit',
+            'last_name': 'test'
+        })
+    assert success
+    assert comment_id
+
+    with pytest.raises(InvalidCommentParent):
+        assert event_domain.add_comment(
+            comment_id=int(round(time() * 1000)),
+            content='comment test 2',
+            event_id='538745942',
+            parent=comment_id + 1,
+            user_info={
+                'user_email': 'unittesting@fluidattacks.com',
+                'first_name': 'Unit',
+                'last_name': 'test'
+            })

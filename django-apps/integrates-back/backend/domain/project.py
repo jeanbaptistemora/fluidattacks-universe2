@@ -17,8 +17,8 @@ from backend.domain import comment as comment_domain, resources as resources_dom
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
-    AlreadyPendingDeletion, InvalidParameter, InvalidProjectName, NotPendingDeletion,
-    PermissionDenied, RepeatedValues, InvalidProjectForcesSubscriptionType
+    AlreadyPendingDeletion, InvalidCommentParent, InvalidParameter, InvalidProjectName,
+    NotPendingDeletion, PermissionDenied, RepeatedValues, InvalidProjectForcesSubscriptionType
 )
 from backend.mailer import send_comment_mail
 from backend import util
@@ -37,6 +37,13 @@ def get_email_recipients(project_name: str) -> List[str]:
 
 def add_comment(project_name: str, email: str, comment_data: CommentType) -> bool:
     """Add comment in a project."""
+    parent = comment_data.get('parent')
+    if parent != 0:
+        project_comments = \
+            [cast(int, comment.get('user_id'))
+             for comment in project_dal.get_comments(project_name)]
+        if parent not in project_comments:
+            raise InvalidCommentParent()
     send_comment_mail(comment_data, 'project', email, 'project', project_name)
     return project_dal.add_comment(project_name, email, comment_data)
 
@@ -476,6 +483,7 @@ def list_drafts(project_name: str) -> List[str]:
 def list_comments(project_name: str, user_role: str) -> List[CommentType]:
     comments = [comment_domain.fill_comment_data(user_role, comment)
                 for comment in project_dal.get_comments(project_name)]
+
     return comments
 
 

@@ -22,8 +22,8 @@ from backend.mailer import send_comment_mail
 from backend import util
 from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, EvidenceNotFound,
-    FindingNotFound, IncompleteDraft, InvalidDraftTitle, InvalidFileSize,
-    InvalidFileStructure, InvalidFileType, NotSubmitted,
+    FindingNotFound, IncompleteDraft, InvalidCommentParent, InvalidDraftTitle,
+    InvalidFileSize, InvalidFileStructure, InvalidFileType, NotSubmitted,
     NotVerificationRequested
 )
 from backend.utils import cvss, notifications, validations, findings as finding_utils
@@ -120,6 +120,14 @@ def filter_evidence_filename(evidence_files: List[Dict[str, str]], name: str) ->
 
 def add_comment(user_email: str, comment_data: CommentType,
                 finding_id: str, is_remediation_comment: bool) -> bool:
+    parent = cast(int, comment_data.get('parent'))
+    if parent != 0:
+        finding_comments = \
+            [cast(int, comment.get('user_id')) for comment in
+             comment_dal.get_comments(
+                 str(comment_data.get('comment_type')), int(finding_id))]
+        if parent not in finding_comments:
+            raise InvalidCommentParent()
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_data['created'] = current_time
     comment_data['modified'] = current_time

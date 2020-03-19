@@ -9,14 +9,16 @@ from django.conf import settings
 from magic import Magic
 
 from backend import util
-from backend.dal import event as event_dal, project as project_dal
+from backend.dal import (
+    comment as comment_dal, event as event_dal, project as project_dal
+)
 from backend.domain import (
     comment as comment_domain, resources as resources_domain,
     user as user_domain
 )
 from backend.exceptions import (
-    EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
-    InvalidFileType
+    EventAlreadyClosed, EventNotFound, InvalidCommentParent, InvalidDate,
+    InvalidFileSize, InvalidFileType
 )
 from backend.mailer import send_comment_mail, send_mail_new_event
 from backend.typing import Event as EventType, User as UserType
@@ -248,9 +250,16 @@ def get_events(event_ids: List[str]) -> List[EventType]:
     return events
 
 
-def add_comment(comment_id: int, content: str, event_id: str, parent: str,
+def add_comment(comment_id: int, content: str, event_id: str, parent: int,
                 user_info: UserType) -> Tuple[Union[int, None], bool]:
-    comment_data = {'parent': int(parent), 'content': content, 'user_id': comment_id}
+    if parent != 0:
+        event_comments = \
+            [cast(int, comment.get('user_id')) for comment in
+             comment_dal.get_comments('event', int(event_id))]
+        if parent not in event_comments:
+            raise InvalidCommentParent()
+    comment_data = {'comment_type': 'event', 'parent': parent,
+                    'content': content, 'user_id': comment_id}
     success = comment_domain.create(event_id, comment_data, user_info)
     del comment_data['user_id']
     if success:

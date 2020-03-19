@@ -379,3 +379,12 @@ class RepeatedValues(Exception):
         """ Constructor """
         msg = 'Exception - One or more values already exist'
         super(RepeatedValues, self).__init__(msg)
+
+
+class InvalidCommentParent(Exception):
+    """Exception to prevent repeated values"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Comment parent is invalid'
+        super(InvalidCommentParent, self).__init__(msg)

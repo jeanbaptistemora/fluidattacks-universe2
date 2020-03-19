@@ -5,10 +5,15 @@
  */
 import { MutationFunction, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
+import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
 import { ADD_FINDING_COMMENT, GET_FINDING_COMMENTS, GET_FINDING_OBSERVATIONS } from "./queries";
 
@@ -47,8 +52,22 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
             })));
           };
 
+          const handleAddCommentError: ((addCommentError: ApolloError) => void) =
+            (addCommentError: ApolloError): void => {
+              addCommentError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+              switch (message) {
+                case "Exception - Comment parent is invalid":
+                  msgError(translate.t("validations.invalidCommentParent", { count: 1 }));
+                  break;
+                default:
+                  msgError(translate.t("proj_alerts.error_textsad"));
+                  rollbar.error("An error occurred updating exploit", addCommentError);
+              }
+            });
+          };
+
           return (
-            <Mutation mutation={ADD_FINDING_COMMENT}>
+            <Mutation mutation={ADD_FINDING_COMMENT} onError={handleAddCommentError}>
               {(addComment: MutationFunction): JSX.Element => {
                 const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
                   comment: ICommentStructure, callbackFn: postCallback,

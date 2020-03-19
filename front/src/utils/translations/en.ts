@@ -871,6 +871,7 @@ const enTranslations: Dictionary = {
     email: "The email format is not valid",
     file_size: "The file size must be less than {{count}}MB",
     greater_date: "The date must be today or before",
+    invalidCommentParent: "The comment parent is invalid",
     invalidValueInField: "The value inserted in one of the fields is not valid",
     lower_date: "Invalid date",
     minLength: "This field requires at least {{count}} characters",
