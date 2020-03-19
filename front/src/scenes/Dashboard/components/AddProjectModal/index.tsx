@@ -143,8 +143,8 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                   name="type"
                                   onChange={handleSubscriptionTypeChange}
                                 >
-                                  <option value="Continuous">{translate.t("home.newProject.type.continuous")}</option>
-                                  <option value="Oneshot">{translate.t("home.newProject.type.one_shot")}</option>
+                                  <option value="CONTINUOUS">{translate.t("home.newProject.type.continuous")}</option>
+                                  <option value="ONESHOT">{translate.t("home.newProject.type.one_shot")}</option>
                                 </Field>
                               </FormGroup>
                             </Col>
