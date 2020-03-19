@@ -69,10 +69,10 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                           expected.presence_of_element_located(
                               (By.XPATH,
-                               "//*[contains(text(), 'Log in with Google')]")))
+                               "//*[contains(text(), 'Access with Google')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
         selenium.find_element_by_xpath(
-            "//*[contains(text(), 'Log in with Google')]").click()
+            "//*[contains(text(), 'Access with Google')]").click()
         WebDriverWait(
             selenium, self.delay).until(
                 expected.presence_of_element_located(
@@ -88,9 +88,9 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                           expected.presence_of_element_located(
                               (By.XPATH,
-                               "//*[contains(text(), 'Log in with Google')]")))
+                               "//*[contains(text(), 'Access with Google')]")))
         selenium.save_screenshot(SCR_PATH + '01-init_page.png')
-        assert 'Log in with Google' in selenium.page_source
+        assert 'Access with Google' in selenium.page_source
 
     def test_02_dashboard(self):
         selenium = self.__login()

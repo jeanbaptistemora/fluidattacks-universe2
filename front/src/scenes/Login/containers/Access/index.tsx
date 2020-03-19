@@ -34,13 +34,12 @@ class Access extends React.Component<{}, ILoginState, {}> {
    * Define english translations
    */
   public enTranslations: object = {
-    azureBtn: "Log in with Azure/Office365",
-    googleBtn: "Log in with Google",
-    message: "If you are a new user, you must call a " +
-      "FLUID representative to register.",
+    azureBtn: "Access with Azure/Office365",
+    googleBtn: "Access with Google",
+    message: "If you are a new user, click below to sign up.",
     recommend: "We strongly recommend you to use 2-Step " +
       "verification. For more information please visit:",
-    title: "Please log in to proceed.",
+    title: "Please authenticate to proceed.",
   };
 
   /**
