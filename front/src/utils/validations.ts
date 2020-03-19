@@ -208,7 +208,7 @@ export const isValidFileSize: ((maxSize: number) => Validator) = (maxSize: numbe
   (file: FileList): string | undefined => {
     const MIB: number = 1048576;
 
-    return file[0].size > MIB * maxSize
+    return _.isEmpty(file) || file[0].size > MIB * maxSize
       ? translate.t("validations.file_size", { count: maxSize })
       : undefined;
   };

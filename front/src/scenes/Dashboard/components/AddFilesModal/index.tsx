@@ -14,8 +14,8 @@ import { GenericForm } from "../GenericForm";
 
 export interface IAddFilesModalProps {
   isOpen: boolean;
-  showUploadProgress?: boolean;
-  uploadProgress?: number;
+  isUploading: boolean;
+  uploadProgress: number;
   onClose(): void;
   onSubmit(values: {}): void;
 }
@@ -45,7 +45,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
           name="addFiles"
           onSubmit={handleSubmit}
         >
-          {({ pristine, submitting }: InjectedFormProps): React.ReactNode => (
+          {({ pristine }: InjectedFormProps): React.ReactNode => (
             <React.Fragment>
               <Row>
                 <Col md={12}>
@@ -73,13 +73,13 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
                   />
                 </Col>
               </Row>
-              {props.showUploadProgress === true ? renderUploadBar(props) : undefined}
+              {props.isUploading ? renderUploadBar(props) : undefined}
               <br />
               <ButtonToolbar className="pull-right">
-                <Button bsStyle="default" onClick={handleClose}>
+                <Button onClick={handleClose} disabled={props.isUploading}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>
-                <Button bsStyle="primary" type="submit" disabled={pristine || submitting}>
+                <Button type="submit" disabled={pristine || props.isUploading}>
                   {translate.t("confirmmodal.proceed")}
                 </Button>
               </ButtonToolbar>

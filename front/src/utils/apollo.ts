@@ -27,6 +27,60 @@ const getCookie: (name: string) => string = (name: string): string => {
   return cookieValue;
 };
 
+/**
+ * Apollo-compatible wrapper for XHR requests
+ *
+ * This is a necessary workaround for file upload mutations
+ * since the Fetch API that apollo uses by default
+ * lacks support for tracking upload progress
+ *
+ * @see https://github.com/jaydenseric/apollo-upload-client/issues/88
+ */
+interface IExtendedFetchOptions extends RequestInit {
+  notifyUploadProgress: boolean;
+  onUploadProgress(ev: ProgressEvent): void;
+}
+
+const xhrWrapper: WindowOrWorkerGlobalScope["fetch"] = async (
+  uri: string, options: IExtendedFetchOptions,
+): Promise<Response> => new Promise((
+  resolve: (value: Response) => void,
+  reject: (reason: Error) => void,
+): void => {
+  const xhr: XMLHttpRequest = new XMLHttpRequest();
+
+  xhr.onload = (): void => {
+    resolve(new Response(xhr.response, options));
+  };
+
+  xhr.onerror = (): void => {
+    reject(new Error(`Network request failed: ${xhr.responseText}`));
+  };
+
+  xhr.ontimeout = (): void => {
+    reject(new Error("Network request timed out"));
+  };
+
+  xhr.open(_.get(options, "method", "POST"), uri, true);
+
+  if (options.headers !== undefined) {
+    Object.keys(options.headers)
+      .forEach((key: string): void => {
+        xhr.setRequestHeader(key, _.get(options.headers, key));
+      });
+  }
+
+  xhr.upload.onprogress = options.onUploadProgress;
+
+  xhr.send(options.body);
+});
+
+const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
+  uri: string, options: IExtendedFetchOptions,
+): Promise<Response> => options.notifyUploadProgress
+    ? xhrWrapper(uri, options)
+    : fetch(uri, options);
+
 let urlHostApiV1: string;
 let urlHostApiV2: string;
 
@@ -46,12 +100,14 @@ if (window.location.hostname === "localhost") {
 
 const apiLinkV1: ApolloLink = createUploadLink({
   credentials: "same-origin",
+  fetch: extendedFetch,
   headers: setIntegratesHeaders,
   uri: urlHostApiV1,
 });
 
 const apiLinkV2: ApolloLink = createUploadLink({
   credentials: "same-origin",
+  fetch: extendedFetch,
   headers: setIntegratesHeaders,
   uri: urlHostApiV2,
 });

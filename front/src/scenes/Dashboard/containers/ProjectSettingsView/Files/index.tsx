@@ -41,6 +41,8 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     setOptionsModalOpen(true);
   };
 
+  const [uploadProgress, setUploadProgress] = React.useState(0);
+
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FILES, { variables: { projectName: props.projectName } });
 
@@ -76,7 +78,15 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       .catch();
   };
 
-  const [uploadFile] = useMutation(UPLOAD_FILE_MUTATION, {
+  const [uploadFile, { loading: uploading }] = useMutation(UPLOAD_FILE_MUTATION, {
+    context: {
+      fetchOptions: {
+        notifyUploadProgress: true,
+        onUploadProgress: (ev: ProgressEvent): void => {
+          setUploadProgress(_.round(ev.loaded / ev.total * 100));
+        },
+      },
+    },
     onCompleted: (): void => {
       refetch()
         .catch();
@@ -110,17 +120,16 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
 
   const filesDataset: IFile[] = JSON.parse(data.resources.files);
 
-  const handleUpload: ((values: { description: string; file: FileList }) => void) = (
+  const handleUpload: ((values: { description: string; file: FileList }) => void) = async (
     values: { description: string; file: FileList },
-  ): void => {
+  ): Promise<void> => {
     const repeatedFiles: IFile[] = filesDataset.filter((file: IFile): boolean =>
       file.fileName === values.file[0].name);
 
     if (repeatedFiles.length > 0) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
-      closeAddModal();
-      uploadFile({
+      await uploadFile({
         variables: {
           file: values.file[0],
           filesData: JSON.stringify([{
@@ -129,8 +138,8 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
           }]),
           projectName: props.projectName,
         },
-      })
-        .catch();
+      });
+      closeAddModal();
     }
   };
 
@@ -202,8 +211,8 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         isOpen={isAddModalOpen}
         onClose={closeAddModal}
         onSubmit={handleUpload}
-        showUploadProgress={false}
-        uploadProgress={0}
+        isUploading={uploading}
+        uploadProgress={uploadProgress}
       />
       <FileOptionsModal
         canRemove={_.includes(["admin", "customer"], userRole)}

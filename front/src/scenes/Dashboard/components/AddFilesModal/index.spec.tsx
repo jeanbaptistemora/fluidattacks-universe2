@@ -21,7 +21,7 @@ describe("Add Files modal", (): void => {
           isOpen={true}
           onClose={jest.fn()}
           onSubmit={jest.fn()}
-          showUploadProgress={false}
+          isUploading={false}
           uploadProgress={10}
         />
       </Provider>,
@@ -38,7 +38,7 @@ describe("Add Files modal", (): void => {
           isOpen={true}
           onClose={jest.fn()}
           onSubmit={jest.fn()}
-          showUploadProgress={true}
+          isUploading={true}
           uploadProgress={10}
         />
       </Provider>,
@@ -55,7 +55,7 @@ describe("Add Files modal", (): void => {
           isOpen={true}
           onClose={handleClose}
           onSubmit={jest.fn()}
-          showUploadProgress={true}
+          isUploading={false}
           uploadProgress={10}
         />
       </Provider>,
