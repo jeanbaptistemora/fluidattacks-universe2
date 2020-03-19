@@ -8,11 +8,28 @@
 
 == Requirement
 
-System must not store sensitive information
+The system must not store sensitive information
 in temporary files or cache memory.
+
+== Description
+
+Applications sometimes reside in or get consumed by environments in which
+caching is possible.
+Caching helps performance or makes certain actions more comfortable for the
+application users.
+However, cached information is often more susceptible to being exposed or
+corrupted.
+Thus, avoiding cache memory and temporary files helps protect sensitive
+information.
 
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.1+]
 Verify that all forms containing sensitive information
 have disabled client side caching, including autocomplete features.
+
+. [[r2]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]
+Personal data shall be processed in a manner that ensures appropriate security
+of the personal data,
+including protection against unauthorised or unlawful processing and against
+accidental loss, destruction or damage.
