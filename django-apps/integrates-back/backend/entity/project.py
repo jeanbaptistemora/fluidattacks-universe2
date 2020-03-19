@@ -343,8 +343,8 @@ class CreateProject(Mutation):
         companies = List(String, required=True)
         description = String(required=True)
         project_name = String(required=True)
-        subscription = Argument(Enum('Subscription', [
-            ('Continuous', 'continuous'), ('Oneshot', 'oneshot')]),
+        subscription = Argument(Enum('SubscriptionType', [
+            ('CONTINUOUS', 'continuous'), ('ONESHOT', 'oneshot')]),
             required=False)
         has_forces = Boolean(required=False)
     success = Boolean()

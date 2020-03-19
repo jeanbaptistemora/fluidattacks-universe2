@@ -47,8 +47,8 @@ EVIDENCE_DESCRIPTION_TYPE = EnumType(
 SUBSCRIPTION_TYPE = EnumType(
     'SubscriptionType',
     {
-        'Continuous': 'continuous',
-        'Oneshot': 'oneshot'
+        'CONTINUOUS': 'continuous',
+        'ONESHOT': 'oneshot'
     }
 )
 UPDATE_CLIENT_DESCRIPTION_TREATMENT = EnumType(

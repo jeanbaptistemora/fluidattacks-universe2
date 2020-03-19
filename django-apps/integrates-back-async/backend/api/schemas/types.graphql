@@ -259,8 +259,8 @@ enum EvidenceDescriptionType {
 }
 
 enum SubscriptionType {
-    Continuous
-    Oneshot
+    CONTINUOUS
+    ONESHOT
 }
 
 enum UpdateClientDescriptionTreatment {

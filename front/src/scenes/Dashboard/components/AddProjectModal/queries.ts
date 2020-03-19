@@ -15,7 +15,7 @@ export const CREATE_PROJECT_MUTATION: DocumentNode = gql`
     $description: String!,
     $hasForces: Boolean,
     $projectName: String!,
-    $subscription: Subscription,
+    $subscription: SubscriptionType,
     ) {
     createProject(
       companies: $companies,
