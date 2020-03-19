@@ -1,7 +1,7 @@
 :slug: rules/310/
 :category: data
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of requesting the user's consent whenever their data will be collected.
-:keywords: GDPR, Security, Data, Information, Consent Request, Regulation
+:keywords: Requirement, Security, Data, GDPR, Consent Request, Regulation
 :rules: yes
 
 = REQ.310 Request user consent

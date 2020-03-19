@@ -1,7 +1,7 @@
 :slug: rules/311/
 :category: data
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement focuses on the importance of establishing a mechanism to demonstrate that the user has granted consent.
-:keywords: GDPR, Security, Data, Information, Consent Demonstration, Regulation
+:keywords: Requirement, Security, Data, GDPR, Consent Demonstration, Regulation
 :rules: yes
 
 = REQ.311 Demonstrate user consent

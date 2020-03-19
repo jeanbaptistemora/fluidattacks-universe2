@@ -1,7 +1,7 @@
 :slug: rules/177/
 :category: data
 :description: This document contains the details of the security requirements related to the definition and management of sensitive information in the organization. This requirement establishes the importance of storing sensitive data securely, avoiding temporary files and cache memory.
-:keywords: Requirement, Security, Data, Storage, Information, Cache
+:keywords: Requirement, Security, Data, Storage, GDPR, Cache
 :rules: yes
 
 = REQ.177 Store data securely

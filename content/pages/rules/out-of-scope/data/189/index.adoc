@@ -1,7 +1,7 @@
 :slug: rules/189/
 :category: data
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of specifying the purpose of personal data collection in order to fulfill all legal requirements
-:keywords: Requirement, Security, Data, Privileges, System, Database
+:keywords: Requirement, Security, Data, Privileges, System, GDPR
 :rules: yes
 :extended: yes
 

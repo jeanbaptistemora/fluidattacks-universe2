@@ -1,7 +1,7 @@
 :slug: rules/176/
 :category: data
 :description: This document details the security guidelines and requirements related to the organization's sensitive data. The purpose of this security requirement is to establish the importance of restricting access to sensitive information to authorized users only.
-:keywords: Requirement, Security, Data, Authorization, Restriction, Information
+:keywords: Requirement, Security, Data, Authorization, Restriction, GDPR
 :rules: yes
 
 = REQ.176 Restrict System Objects
