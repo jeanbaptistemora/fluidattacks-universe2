@@ -136,6 +136,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mt-menu-bt { margin-top: .1rem; }
 .item-carousel { width: 22rem; }
 .h-small { height: .5rem; }
+.h-cont-bar { height: .6rem; }
+.h-bar { height: .5rem; }
 
 // Tachyons custom responsive classes
 
@@ -300,4 +302,16 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 .carousel.active {
   cursor: grabbing;
+}
+
+.carousel::-webkit-scrollbar {
+  width: 12px;
+}
+
+.carousel::-webkit-scrollbar-track {
+  display: none;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  display: none;
 }

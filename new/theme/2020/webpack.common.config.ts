@@ -6,6 +6,7 @@ export const commonConfig: webpack.Configuration = {
     carousel: "./static/js/carousel.ts",
     contentHome: "./static/js/contentHome.ts",
     dynClasses: "./static/js/dynClasses.ts",
+    progressBar: "./static/js/progressBar.ts",
   },
   module: {
     rules: [
