@@ -1,5 +1,6 @@
 # pylint: disable=import-error
 
+from time import time
 from backend.decorators import (
     get_cached, require_login, require_event_access,
     require_project_access, enforce_authz_async
@@ -98,9 +99,10 @@ def resolve_solve_event(_, info, event_id, affectation, date):
 @require_event_access
 def resolve_add_event_comment(_, info, content, event_id, parent):
     """Resolve add_event_comment mutation."""
+    comment_id = int(round(time() * 1000))
     user_info = util.get_jwt_content(info.context)
     comment_id, success = event_domain.add_comment(
-        content, event_id, parent, user_info)
+        comment_id, content, event_id, parent, user_info)
     if success:
         util.invalidate_cache(event_id)
         util.cloudwatch_log(

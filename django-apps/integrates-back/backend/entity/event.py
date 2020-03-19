@@ -1,3 +1,5 @@
+
+from time import time
 from graphene import (
     Argument, Boolean, DateTime, Enum, Int, List, Mutation, ObjectType,
     String
@@ -312,9 +314,10 @@ class AddEventComment(Mutation):
     @enforce_authz
     @require_event_access
     def mutate(_, info, content, event_id, parent):
+        comment_id = int(round(time() * 1000))
         user_info = util.get_jwt_content(info.context)
         comment_id, success = event_domain.add_comment(
-            content, event_id, parent, user_info)
+            comment_id, content, event_id, parent, user_info)
 
         if success:
             util.invalidate_cache(event_id)

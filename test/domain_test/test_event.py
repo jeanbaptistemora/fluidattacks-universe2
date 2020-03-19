@@ -1,3 +1,4 @@
+from time import time
 import pytest
 from aniso8601 import parse_datetime
 
@@ -45,6 +46,7 @@ def test_solve_event():
 
 def test_add_comment():
     comment_id, success = event_domain.add_comment(
+        comment_id=int(round(time() * 1000)),
         content='comment test',
         event_id='538745942',
         parent=0,

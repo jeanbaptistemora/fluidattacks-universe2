@@ -1,7 +1,6 @@
 
 from typing import Dict, List, Tuple, Union, cast
 from datetime import datetime
-from time import time
 
 import pytz
 from django.conf import settings
@@ -86,14 +85,14 @@ def get_observations(finding_id: str, user_role: str) -> List[CommentType]:
     return observations
 
 
-def create(comment_type: str, content: str, element_id: str,
-           parent: str, user_info: UserType) -> Tuple[Union[int, None], bool]:
+def create(element_id: str, comment_data: CommentType,
+           user_info: UserType) -> Tuple[Union[int, None], bool]:
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    comment_id = int(round(time() * 1000))
+    comment_id = cast(int, comment_data.get('user_id', 0))
     comment_attributes = {
-        'comment_type': comment_type,
-        'content': content,
+        'comment_type': str(comment_data.get('comment_type')),
+        'content': str(comment_data.get('content')),
         'created': today,
         'email': user_info['user_email'],
         'finding_id': int(element_id),
@@ -101,7 +100,7 @@ def create(comment_type: str, content: str, element_id: str,
             ' ', [str(user_info['first_name']),
                   str(user_info['last_name'])]),
         'modified': today,
-        'parent': int(parent)
+        'parent': comment_data.get('parent')
     }
     success = comment_dal.create(comment_id, cast(CommentType, comment_attributes))
 
