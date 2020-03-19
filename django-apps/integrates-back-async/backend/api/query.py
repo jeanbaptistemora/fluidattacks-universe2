@@ -1,7 +1,7 @@
 # pylint: disable=import-error
 
 from backend.api.resolvers import (
-    alert, internal_project, event, me, resource, user
+    alert, internal_project, event, forces, me, resource, user
 )
 
 from ariadne import QueryType
@@ -15,3 +15,4 @@ QUERY.set_field('events', event.resolve_events)
 QUERY.set_field('me', me.resolve_me)
 QUERY.set_field('resources', resource.resolve_resources)
 QUERY.set_field('user', user.resolve_user)
+QUERY.set_field('forcesExecutions', forces.resolve_forces_executions)
