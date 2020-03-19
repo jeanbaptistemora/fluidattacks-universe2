@@ -563,7 +563,7 @@ def yield_subscription_repositories(subs: str) -> Iterator[str]:
     yield from repositories
 
 
-def sync_repo_with_s3(subs: str, repo: str):
+def sync_fusion_to_s3(subs: str, repo: str):
     subs_path = f"subscriptions/{subs}/fusion/{repo}"
     s3_bucket = f"s3://continuous-repositories/active/{subs}/{repo}"
     sync_command = ["aws", "s3", "sync", subs_path, s3_bucket]
@@ -577,5 +577,5 @@ def sync_repositories_to_aws(subs: str) -> bool:
         return False
     repositories = yield_subscription_repositories(subs)
     for repo in repositories:
-        sync_repo_with_s3(subs, repo)
+        sync_fusion_to_s3(subs, repo)
     return True
