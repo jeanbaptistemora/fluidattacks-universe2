@@ -149,3 +149,46 @@ class ResourceTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['addFiles']
         assert result['data']['addFiles']['success']
+
+    def test_download_file(self):
+        """Check for downloadFile mutation."""
+        query = '''
+            mutation {
+              downloadFile (
+                filesData: \"\\\"unittesting-422286126.yaml\\\"\",
+                projectName: "unittesting") {
+                  success
+                  url
+                }
+            }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['downloadFile']
+        assert result['data']['downloadFile']['success']
+        assert 'url' in result['data']['downloadFile']
+
+    def test_remove_files(self):
+        """Check for removeFiles mutation."""
+        file_data = {
+            'description': 'test',
+            'fileName': 'shell.exe',
+            'uploadDate': ''
+        }
+        query = '''
+            mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
+                removeFiles(filesData: $filesData, projectName: $projectName) {
+                success
+                }
+            }
+        '''
+        variables = {
+            'filesData': json.dumps(file_data),
+            'projectName': 'UNITTESTING'
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['removeFiles']
+        assert result['data']['removeFiles']['success']

@@ -36,9 +36,10 @@ def _create_new_user(
         project_name: str) -> bool:
     analizable_list = list(new_user_data.values())[1:-1]
     if (
-        all(validate_alphanumeric_field(field) for field in analizable_list) and
-        validate_phone_field(new_user_data['phone_number']) and
-        validate_email_address(new_user_data['email'])
+        all(validate_alphanumeric_field(field)
+            for field in analizable_list) and
+            validate_phone_field(new_user_data['phone_number']) and
+            validate_email_address(new_user_data['email'])
     ):
         email = new_user_data['email']
         organization = new_user_data['organization']

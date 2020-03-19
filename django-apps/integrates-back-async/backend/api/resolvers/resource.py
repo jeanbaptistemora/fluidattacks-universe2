@@ -1,11 +1,14 @@
 # pylint: disable=import-error
 
-from typing import Dict, List as _List
+from typing import Any, Dict, List as _List
 import asyncio
 import sys
 
 import rollbar
 from asgiref.sync import sync_to_async
+from django.conf import settings
+from mixpanel import Mixpanel
+
 from backend.decorators import (
     require_login, require_project_access,
     enforce_authz_async
@@ -179,9 +182,78 @@ def resolve_add_files(_, info, **parameters):
 An error occurred uploading file', 'error', info.context)
     if success:
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(info.context, 'Security: Added evidence files to \
+        util.cloudwatch_log(info.context, 'Security: Added resource files to \
             {project} project succesfully'.format(project=project_name))
     else:
-        util.cloudwatch_log(info.context, 'Security: Attempted to add evidence files \
-            from {project} project'.format(project=project_name))
+        util.cloudwatch_log(
+            info.context,
+            'Security: Attempted to add resource files \
+from {project} project'.format(project=project_name))
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_remove_files(
+    _, info, files_data: Dict[str, Any], project_name: str
+) -> object:
+    """Resolve remove_files mutation."""
+    success = False
+    file_name = files_data.get('file_name')
+    user_email = util.get_jwt_content(info.context)['user_email']
+    remove_file = resources.remove_file(file_name, project_name)
+    if remove_file:
+        resources.send_mail(project_name,
+                            user_email,
+                            [files_data],
+                            'removed',
+                            'file')
+        success = True
+    else:
+        rollbar.report_message('Error: \
+An error occurred removing file', 'error', info.context)
+    if success:
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(info.context, 'Security: Removed Files from \
+            {project} project succesfully'.format(project=project_name))
+    else:
+        util.cloudwatch_log(
+            info.context, 'Security: Attempted to remove files \
+from {project} project'.format(project=project_name))
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_download_file(_, info, **parameters):
+    """Resolve download_file mutation."""
+    success = False
+    file_info = parameters['files_data']
+    project_name = parameters['project_name'].lower()
+    user_email = util.get_jwt_content(info.context)['user_email']
+    signed_url = resources.download_file(file_info, project_name)
+    if signed_url:
+        msg = 'Security: Downloaded file {file_name} in \
+project {project} succesfully'\
+            .format(project=project_name, file_name=parameters['files_data'])
+        util.cloudwatch_log(info.context, msg)
+        mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+        mp_obj.track(user_email, 'DownloadProjectFile', {
+            'Project': project_name.upper(),
+            'Email': user_email,
+            'FileName': parameters['files_data'],
+        })
+        success = True
+    else:
+        util.cloudwatch_log(
+            info.context,
+            'Security: Attempted to download file {file_name} \
+in project {project}'.format(project=project_name,
+                             file_name=parameters['files_data']))
+        rollbar.report_message('Error: \
+An error occurred generating signed URL', 'error', info.context)
+    return dict(success=success, url=str(signed_url))

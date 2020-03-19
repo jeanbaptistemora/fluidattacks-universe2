@@ -3,6 +3,7 @@
 from ariadne.contrib.django.views import GraphQLView
 
 
+# pylint: disable=too-few-public-methods
 class APIView(GraphQLView):
 
     @classmethod
