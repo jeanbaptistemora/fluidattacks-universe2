@@ -37,11 +37,11 @@ keeps your company safe and secure.
 Read reviews on our company
 written by previous clients at Clutch's website.
 
-````
+++++
 <script type="text/javascript" src="https://static1.clutch.co/api/widget.js"></script>
 <div class="clutch-widget" data-url="https://clutch.co" data-widget-type="3" data-height="350"
 data-clutchcompany-id="488256" style="width:40%; margin:0 auto;"></div>
-````
+++++
 
 Clutch maintains a profile on each company
 with past-client reviews and other information gathered by Clutch’s team.

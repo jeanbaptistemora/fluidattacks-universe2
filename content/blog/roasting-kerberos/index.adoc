@@ -329,9 +329,9 @@ these last ones are `NTLMv1` and easily cracked.
 
 Here is the exploitation process.
 
-````
+++++
 <script id="asciicast-261241" src="https://asciinema.org/a/261241.js" async data-autoplay="true"  data-loop="true"></script>
-````
+++++
 
 === Solution
 

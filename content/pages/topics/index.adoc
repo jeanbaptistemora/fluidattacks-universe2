@@ -150,7 +150,7 @@ Among the topics of interest are:
 * Capture the flag.
 * `NixOS`
 * Linters as normalizers.
-* Poor man linter: `check-all/changed` and `pcregrep`.
+* Poor man linter: `check-all/changed` and `grep -P`.
 * What is `SecDevOps`?
 * Remediation Pipelines: One shot, Continuous, Breaking the `CI`.
 * Black Box testing

@@ -75,11 +75,11 @@ with knowledge in the use of office solutions.
 production and
 human resources areas.
 
-````
+++++
 <p style="text-align:center">
 image:logo-autonomic.png[align="center"] <a href="https://www.linkedin.com/company/autonomicmind/"><img style="vertical-align: bottom;padding-left: 30px;" src="logo-linkedin.png" alt="Linkedin logo"/></a>
 </p>
-````
+++++
 
 == Openings in Autonomicmind
 

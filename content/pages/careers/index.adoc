@@ -73,9 +73,6 @@ To do this you must first complete the previous stage.
 To begin,
 you just have to follow these detailed [inner]#link:https://fluidattacks.com/forms/periodo[instructions]#
 
-````
-<script>document.getElementsByClassName("h_formLink")[0].style.display="none",document.getElementsByClassName("a_formLink")[0].style.display="none";var r=window.location.href.split("?")[1];"398453"==r?(document.getElementsByClassName("a_formLink")[0].style.display="block",document.getElementsByClassName("etapa_a")[0].style.backgroundColor="#ffffa6"):"987343"==r?(document.getElementsByClassName("h_formLink")[0].style.display="block",document.getElementsByClassName("etapa_h")[0].style.backgroundColor="#ffffa6"):"0062"==r&&(document.getElementsByClassName("etapa_c")[0].style.backgroundColor="#ffffa6");</script>
-````
 == 7. Evaluations
 
 . *Character:* The goal of this stage

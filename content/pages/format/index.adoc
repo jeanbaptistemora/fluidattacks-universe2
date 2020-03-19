@@ -507,20 +507,20 @@ Focus only on content in the `.adocs`.
 * Source
 +
 ....
-````
+++++
   <p style="color:green">
   This <I>HTML</I> code will be rendered directly to the page.<br>
   </p>
-````
+++++
 ....
 
 * Render
 +
-````
+++++
   <p style="color:green">
   This <I>HTML</I> code will be rendered directly to the page.<br>
   </p>
-````
+++++
 
 === License Characters
 

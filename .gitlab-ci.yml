@@ -91,7 +91,7 @@ builder:
     - . ci-scripts/build-builder.sh
     - build_builder
 
-content:
+.content:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: test
