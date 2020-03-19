@@ -88,6 +88,11 @@ lint_pre_commit:
   <<: *in_dev_and_master_branch
   stage: test
 
+test_images:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: test
+
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -103,7 +108,6 @@ content:
   script:
     - ./check-changed.sh
     - python3 ci-scripts/checkall.py changes
-    - python3 ci-scripts/imgchecker.py
   except:
     - master
 

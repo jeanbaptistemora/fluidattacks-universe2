@@ -72,6 +72,32 @@ function job_infra_secret_management_apply {
 }
 
 function job_lint_pre_commit {
-        env_prepare_python_packages \
-    &&  helper_list_touched_files | xargs pre-commit run -v --files
+      env_prepare_python_packages \
+  &&  helper_list_touched_files | xargs pre-commit run -v --files
+}
+
+function job_test_images {
+  local blog_covers
+  local png_images
+  local all_images
+
+      blog_covers="$(find content/blog/ -type f -name cover.png)" \
+  &&  png_images="$(find content/ -type f -name '*.png')" \
+  &&  all_images="$(find content/ -name '*' -exec file --mime-type {} \; | grep -oP '.*(?=: image/)')" \
+  &&  echo '[INFO] Testing all images' \
+  &&  for image in ${all_images}
+      do
+            helper_image_valid "${image}" || return 1
+      done \
+  &&  echo '[INFO] Testing blog covers' \
+  &&  for cover in ${blog_covers}
+      do
+            helper_blog_cover_has_proper_dimensions "${cover}" || return 1
+      done \
+  &&  echo '[INFO] Testing PNG images' \
+  &&  for image in ${png_images}
+      do
+            helper_image_optimized "${image}" \
+        &&  helper_image_size "${image}" || return 1
+      done
 }
