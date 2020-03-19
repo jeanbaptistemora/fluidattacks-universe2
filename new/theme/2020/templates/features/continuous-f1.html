@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+<!-- Tachyons stylesheet -->
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
+{% block meta %}
+<meta name="description"
+      content="{{ gettext('Landing-metadescription') }}.">
+<meta name="keywords"
+      content="{{ gettext('Landing-keywords')}}.">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="bg-graylight flex-ns flex-wrap-ns justify-between-m bg-banner-sz coverm cover-s h-auto">
+	<div class="ph5-ns ma-auto mw9 w-100-ns w-90 pt5">
+		<a class="feature-button-l roboto fw1 fl f3-ns f5 no-underline c-fluid-bk pb3"
+			 href="{{ SITEURL }}/use-cases/continuous/">
+				<img
+				class="w1 fl relative pv2-ns pv1 mr2 mirror-img"
+				src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
+				alt="{{ gettext('Header-img-alt') }}">
+				Back to Continuous Hacking
+		</a>
+		<a class="feature-button-r roboto fw1 fr f3-ns f5 no-underline c-fluid-bk pb3"
+			 href="#">
+				<img
+				class="w1 fr relative pv2-ns pv1 ml2"
+				src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
+				alt="{{ gettext('Header-img-alt') }}">
+				Next
+		</a>
+	</div>
+</div>
+<div class="bg-graylight flex-ns flex-wrap-ns justify-between-m bg-banner-sz coverm cover-s h-auto pb5">
+	<div class="pb5 ph5-ns ma-auto mw9 ml-auto mr-auto">
+		<div class="fr-l w-45-l w100-m w90-s center">
+			<img
+			src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/continuous-features/continuous-1.png"
+			alt="{{ gettext('Header-img-alt') }}">
+		</div>
+		<div class="fl-l w-50-l w100-m w90-s mt3-l center">
+			<div class="roboto f1-l f2-m f3 b lh-title">
+				{{ page.title }}
+			</div>
+			<div class="roboto fw1 f3-l f4-m f5 lh-copy">
+				{{ page.content }}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

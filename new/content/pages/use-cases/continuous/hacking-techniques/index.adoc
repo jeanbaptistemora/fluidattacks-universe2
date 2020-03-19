@@ -1,0 +1,16 @@
+:slug: use-cases/continuous/hacking-techniques/
+:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:template: features/continuous-f1
+
+= Hacking Techniques, Team, Duration and Cycles
+
+Integral continuous hacking, performed with manual testing and use of tools,
+is achieved through ethical hacking of applications and infrastructure,
+along with source code analysis. Fluid Attacks detects Zero Day findings with no
+false positive reports.
+To perform the testing, Fluid Attacks, with its certified security experts,
+requires access to the GIT repository and the integration environment.
+The minimum subscription time for continuous hacking is one year,
+and the selected system is attacked multiple times to test all versions
+generated during the development phase.

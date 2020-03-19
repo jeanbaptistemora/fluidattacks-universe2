@@ -8,6 +8,7 @@ $fluid-light-gray: rgba(241, 241, 241, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
+$graylight: rgba(248, 249, 249, 1);
 $lightergray: rgba(238, 238, 238, 1);
 $shadowgray: rgba(170, 170, 170, 1);
 $textblack: rgba(48, 48, 48, 1);
@@ -46,6 +47,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bc-fluid-gray { border-color: $fluid-gray; }
 .bc-fluid-red { border-color: $button-hover; }
 .bg-dk-red { background-color: $button-red;}
+.bg-graylight { background-color: $graylight; }
 .minw-100 { min-width: 100%; }
 .ma-auto { margin: auto; }
 .w-32 { width: 32%; }
@@ -138,6 +140,11 @@ $codeyellow: rgba(230, 219, 116, 1);
 .h-small { height: .5rem; }
 .h-cont-bar { height: .6rem; }
 .h-bar { height: .5rem; }
+.mirror-img { transform: scaleX(-1); }
+.feature-button-l { &:hover { transform: translateX(-1rem);
+  transition: all ease-in-out .5s; } }
+.feature-button-r { &:hover { transform: translateX(1rem);
+  transition: all ease-in-out .5s; } }
 
 // Tachyons custom responsive classes
 
