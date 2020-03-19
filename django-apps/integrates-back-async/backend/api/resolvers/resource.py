@@ -2,6 +2,7 @@
 
 from typing import Any, Dict, List as _List
 import asyncio
+import re
 import sys
 
 import rollbar
@@ -257,3 +258,75 @@ in project {project}'.format(project=project_name,
         rollbar.report_message('Error: \
 An error occurred generating signed URL', 'error', info.context)
     return dict(success=success, url=str(signed_url))
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_update_environment(
+    _, info, project_name: str, env: Dict[str, str], state: str
+) -> object:
+    """Resolve update_environment mutation."""
+    user_email = util.get_jwt_content(info.context)['user_email']
+    env = {re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
+           for k, v in env.items()}
+    success = resources.update_resource(
+        env, project_name, 'environment', user_email)
+
+    if success:
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Updated environment state in {project_name} '
+            'project succesfully')
+
+        action = 'activated' if state == 'ACTIVE' else 'deactivated'
+        resources.send_mail(
+            project_name, user_email, [env], action, 'environment')
+    else:
+        rollbar.report_message(
+            'An error occurred updating environment state',
+            level='error',
+            payload_data=locals())
+        util.cloudwatch_log(
+            info.context,
+            'Security: Attempted to update environment state in '
+            f'{project_name} project')
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_update_repository(
+    _, info, project_name: str, repo: Dict[str, str], state: str
+) -> object:
+    """Resolve update_repository mutation."""
+    user_email = util.get_jwt_content(info.context)['user_email']
+    repo = {re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
+            for k, v in repo.items()}
+    success = resources.update_resource(
+        repo, project_name, 'repository', user_email)
+
+    if success:
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Updated repository state in {project_name} '
+            'project succesfully')
+
+        action = 'activated' if state == 'ACTIVE' else 'deactivated'
+        resources.send_mail(
+            project_name, user_email, [repo], action, 'repository')
+    else:
+        rollbar.report_message(
+            'An error occurred updating repository state',
+            level='error',
+            payload_data=locals())
+        util.cloudwatch_log(
+            info.context,
+            'Security: Attempted to update repository state in '
+            f'{project_name} project')
+    return dict(success=success)

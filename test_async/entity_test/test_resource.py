@@ -192,3 +192,35 @@ class ResourceTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['removeFiles']
         assert result['data']['removeFiles']['success']
+
+    def test_update_repository(self):
+        """Check for updateRepository mutation."""
+        query = '''mutation {
+          updateRepository(projectName: "unittesting", state: INACTIVE, repo: {
+            urlRepo: "https://gitlab.com/fluidattacks/integrates.git",
+            branch: "master",
+            protocol: "HTTPS"
+          }) {
+            success
+          }
+        }'''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateRepository']
+        assert result['data']['updateRepository']['success']
+
+    def test_update_environment(self):
+        """Check for updateEnvironment mutation."""
+        query = '''mutation {
+          updateEnvironment(projectName: "unittesting", state: INACTIVE, env: {
+            urlEnv: "https://gitlab.com/fluidattacks/integrates.git"
+          }) {
+            success
+          }
+        }'''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateEnvironment']
+        assert result['data']['updateEnvironment']['success']
