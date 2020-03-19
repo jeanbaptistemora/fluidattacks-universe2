@@ -88,6 +88,23 @@ function helper_list_declared_jobs {
   declare -F | sed 's/declare -f //' | grep -P '^job_[a-z_]+' | sed 's/job_//' | sort
 }
 
+function helper_list_vars_with_regex {
+  local regex="${1}"
+  printenv | grep -oP "${regex}" | sort
+}
+
+function helper_list_touched_files {
+  local path
+
+  git show --format= --name-only HEAD | while read -r path
+  do
+    if test -e "${path}"
+    then
+      echo "${path}"
+    fi
+  done
+}
+
 function helper_set_dev_secrets {
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
