@@ -9,7 +9,7 @@
 == Requirement
 
 Bussiness sensitive data
-(credit card númbers, +CVV+, etc) must be masked.
+(credit card numbers, +CVV+, etc) must be masked.
 
 == Description
 
