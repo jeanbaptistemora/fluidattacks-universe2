@@ -30,6 +30,7 @@ google-api-python-client==1.7.11     # fluidasserts.cloud.gcp
 google-auth-httplib2==0.0.3    # fluidasserts.cloud.gcp
 jmespath==0.9.5             # fluidasserts.lang.python
 kubernetes==10.0.1          # fluidasserts.cloud.kubernetes
+lark-parser==0.8.2          # fluidasserts.parsers
 ldap3==2.6.1                  # fluidasserts.proto.ldap
 mitmproxy==5.0.1            # fluidasserts.helper.proxy
 mixpanel==4.5.0             # fluidasserts.utils.decorators
