@@ -563,12 +563,19 @@ def yield_subscription_repositories(subs: str) -> Iterator[str]:
     yield from repositories
 
 
+def sync_repo_with_s3(subs: str, repo: str):
+    subs_path = f"subscriptions/{subs}/fusion/{repo}"
+    s3_bucket = f"s3://continuous-repositories/active/{subs}/{repo}"
+    sync_command = ["aws", "s3", "sync", subs_path, s3_bucket]
+    subprocess.run(sync_command, check=True)
+    logger.info(f"Repo {repo} sync completed!")
+
+
 def sync_repositories_to_aws(subs: str) -> bool:
     if not does_project_exist(subs) or\
        not does_project_have_fusion_folder(subs):
         return False
-
     repositories = yield_subscription_repositories(subs)
     for repo in repositories:
-        print(f"subscription contains {repo} repo")
+        sync_repo_with_s3(subs, repo)
     return True
