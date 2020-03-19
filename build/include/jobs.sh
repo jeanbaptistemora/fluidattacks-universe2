@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 source "${srcIncludeHelpers}"
+source "${srcEnv}"
 
 function job_deploy_container_nix_caches {
   local context='.'
@@ -68,4 +69,9 @@ function job_infra_secret_management_apply {
 
       helper_set_prod_secrets \
   &&  helper_terraform_apply "${dir}"
+}
+
+function job_lint_pre_commit {
+        env_prepare_python_packages \
+    &&  helper_list_touched_files | xargs pre-commit run -v --files
 }

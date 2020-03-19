@@ -9,15 +9,13 @@ in
 
       buildInputs = [
         pkgs.git
-        pkgs.cacert
-        pkgs.curl
-        pkgs.imagemagick
         pkgs.shellcheck
         (pkgs.python38.withPackages (ps: with ps; [
-          termcolor
+          pylint
+          flake8
         ]))
       ];
 
-      pyPkgPreCommit = builders.pythonPackage "pre-commit";
+      pyPkgPreCommit = builders.pythonPackage "pre-commit==2.2.0";
     })
   )

@@ -46,7 +46,7 @@ stages:
 
 deploy_container_nix_caches:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_schedule_nightly_build
   tags: [autoscaling-large]
   image: nixos/nix:2.3
   stage: build
@@ -83,6 +83,11 @@ infra_secret_management_apply:
   <<: *in_master_branch
   stage: deploy-infra
 
+lint_pre_commit:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: test
+
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -91,12 +96,11 @@ builder:
     - . ci-scripts/build-builder.sh
     - build_builder
 
-.content:
+content:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: test
   script:
-    - pre-commit run --all-files
     - ./check-changed.sh
     - python3 ci-scripts/checkall.py changes
     - python3 ci-scripts/imgchecker.py

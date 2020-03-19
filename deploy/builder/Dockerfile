@@ -10,6 +10,7 @@ ARG BASE_FOLDER='/app/deploy/builder'
 # Install general dependencies
 RUN apt-get update && \
   apt-get install -qqy --no-install-recommends \
+    diction \
     file \
     gcc \
     curl \
