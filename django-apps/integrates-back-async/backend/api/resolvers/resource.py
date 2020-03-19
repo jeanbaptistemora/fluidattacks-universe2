@@ -149,3 +149,39 @@ def resolve_add_environments(
             info.context,
             f'Security: Attempted to add envs to {project_name} project')
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_add_files(_, info, **parameters):
+    """Resolve add_files mutation."""
+    success = False
+    files_data = parameters['files_data']
+    uploaded_file = parameters['file']
+    project_name = parameters['project_name']
+    user_email = util.get_jwt_content(info.context)['user_email']
+    add_file = resources.create_file(files_data,
+                                     uploaded_file,
+                                     project_name,
+                                     user_email)
+    if add_file:
+        resources.send_mail(project_name,
+                            user_email,
+                            files_data,
+                            'added',
+                            'file')
+
+        success = True
+    else:
+        rollbar.report_message('Error: \
+An error occurred uploading file', 'error', info.context)
+    if success:
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(info.context, 'Security: Added evidence files to \
+            {project} project succesfully'.format(project=project_name))
+    else:
+        util.cloudwatch_log(info.context, 'Security: Attempted to add evidence files \
+            from {project} project'.format(project=project_name))
+    return dict(success=success)

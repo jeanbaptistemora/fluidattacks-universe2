@@ -113,3 +113,39 @@ class ResourceTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['addEnvironments']
         assert result['data']['addEnvironments']['success']
+
+    def test_add_files(self):
+        """Check for addFiles mutation."""
+        filename = os.path.dirname(os.path.abspath(__file__))
+        filename = os.path.join(filename, '../../test/mock/test-anim.gif')
+        with open(filename, 'rb') as test_file:
+            uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                               content=test_file.read(),
+                                               content_type='image/gif')
+            file_data = [
+                {'description': 'test',
+                 'fileName': test_file.name.split('/')[2],
+                 'uploadDate': ''}
+            ]
+            query = '''
+                mutation UploadFileMutation(
+                    $file: Upload!, $filesData: JSONString!, $projectName: String!
+                ) {
+                    addFiles (
+                        file: $file,
+                        filesData: $filesData,
+                        projectName: $projectName) {
+                            success
+                    }
+                }
+            '''
+            variables = {
+                'file': uploaded_file,
+                'filesData': json.dumps(file_data),
+                'projectName': 'UNITTESTING'
+            }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addFiles']
+        assert result['data']['addFiles']['success']
