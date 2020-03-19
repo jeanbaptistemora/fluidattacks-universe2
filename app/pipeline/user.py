@@ -29,6 +29,19 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     strategy.session_set('first_name', first_name)
     strategy.session_set('last_name', last_name)
 
+    # Registered users have this attribute set to True
+    is_registered: bool = user_domain.get_attributes(email, ['registered'])
+
+    if not is_registered:
+        # Create the user into the community organization
+        is_registered = user_domain.create_without_project({
+            'email': email,
+            'organization': 'Integrates Community',
+            'role': 'user',
+        })
+        # Add a flag that may come handy later to ask for extra data
+        strategy.session_set('is_new_user', True)
+
     today = user_domain.get_current_date()
     data_dict = {
         'first_name': first_name,

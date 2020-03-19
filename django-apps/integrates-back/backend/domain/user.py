@@ -148,20 +148,21 @@ def get(email: str) -> UserType:
 def create_without_project(user_data: UserType) -> bool:
     phone_number = ''
     success = False
+    email: str = str(user_data.get('email', '')).lower()
+
     if (
         validate_alphanumeric_field(cast(List[str], user_data.get('organization', ''))) and
         validate_phone_field(str(user_data.get('phone_number', ''))) and
-        validate_email_address(str(user_data.get('email', '')))
+        validate_email_address(email)
     ):
-        if not get_data(str(user_data.get('email', '')), 'email'):
+        if not get_data(email, 'email'):
             user_data.update({'registered': True})
             if user_data.get('phone_number'):
                 phone_number = str(user_data.get('phone_number', ''))
                 del user_data['phone_number']
-            success = create(
-                str(user_data.get('email', '')).lower(), user_data)
+            success = create(email, user_data)
     if success:
         if phone_number and phone_number[1:].isdigit():
-            add_phone_to_user(str(user_data.get('email', '')).lower(), phone_number)
+            add_phone_to_user(email, phone_number)
 
     return success
