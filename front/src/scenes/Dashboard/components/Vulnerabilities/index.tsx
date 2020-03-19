@@ -863,8 +863,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             };
 
             const rowsSelected: ICalculateRowsSelected = calculateRowsSelected();
-            const numberRowSelected: boolean = rowsSelected.oneRowSelected;
             const vulnsSelected: string [] = rowsSelected.vulnerabilities;
+            const vulnerabilitiesList: IVulnDataType[] = rowsSelected.vulns;
 
             const inputVulnsRemediated: number[] = dataInputs.reduce(
               (acc: number[], vuln: IVulnRow, index: number) => (vuln.remediated ? [...acc, index] : acc), []);
@@ -1257,15 +1257,16 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         onClose={handleCloseDeleteVulnModal}
                         onDeleteVulnRes={handleMtDeleteVulnRes}
                       />
-                      <UpdateTreatmentModal
-                        descriptParam={props.descriptParam}
-                        findingId={props.findingId}
-                        isOpen={modalHidden}
-                        numberRowSelected={numberRowSelected}
-                        userRole={props.userRole}
-                        vulnsSelected={vulnsSelected}
-                        handleCloseModal={handleCloseTableSetClick}
-                      />
+                      { modalHidden ?
+                        <UpdateTreatmentModal
+                          descriptParam={props.descriptParam}
+                          findingId={props.findingId}
+                          userRole={props.userRole}
+                          vulnerabilities={vulnerabilitiesList}
+                          vulnsSelected={vulnsSelected}
+                          handleCloseModal={handleCloseTableSetClick}
+                        />
+                      : undefined }
                       {isEditable ? renderButtonUpdateVuln() : undefined}
                       {renderRequestVerification()}
                       {renderVerifyRequest()}

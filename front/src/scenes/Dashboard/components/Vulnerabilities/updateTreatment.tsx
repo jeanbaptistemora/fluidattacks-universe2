@@ -21,12 +21,17 @@ import { GenericForm } from "../GenericForm";
 import { DELETE_TAGS_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IDeleteTagAttr, IDeleteTagResult, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment } from "./types";
 
+interface IVulnData {
+  id: string;
+  treatments: {
+    tag: string;
+  };
+}
 export interface IUpdateTreatmentModal {
   descriptParam?: IDescriptionViewProps;
   findingId: string;
-  isOpen: boolean;
-  numberRowSelected: boolean;
   userRole: string;
+  vulnerabilities: IVulnData[];
   vulnsSelected: string[];
   handleCloseModal(): void;
 }
@@ -34,6 +39,26 @@ export interface IUpdateTreatmentModal {
 const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
 (props: IUpdateTreatmentModal): JSX.Element => {
   const canDisplayAnalyst: boolean = _.includes(["analyst", "admin"], props.userRole);
+
+  let descriptParam: IDescriptionViewProps | undefined;
+  const sortTags: ((tags: string) => string) = (tags: string): string => {
+    const tagSplit: string[] = tags.trim()
+      .split(",");
+
+    return tagSplit.sort()
+      .join(", ");
+  };
+
+  const sameTags: boolean = props.vulnerabilities.every(
+    (vuln: IVulnData) => sortTags(vuln.treatments.tag) === sortTags(props.vulnerabilities[0].treatments.tag));
+
+  if (sameTags && !_.isUndefined(props.descriptParam)) {
+    descriptParam = {
+      ...props.descriptParam,
+      dataset: { ...props.descriptParam.dataset, tag: props.vulnerabilities[0].treatments.tag },
+    };
+  }
+
   const handleUpdateTreatError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
     msgError(translate.t("proj_alerts.error_textsad"));
   };
@@ -129,7 +154,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
 
                 return (
                   <Modal
-                    open={props.isOpen}
+                    open={true}
                     footer={
                       <ButtonToolbar className="pull-right">
                         <Button onClick={handleClose}>
@@ -149,8 +174,8 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
                     name="editTreatmentVulnerability"
                     onSubmit={handleUpdateTreatment}
                     initialValues={
-                      props.numberRowSelected ? (!_.isUndefined(props.descriptParam) ?
-                      props.descriptParam.dataset : undefined) : undefined
+                      sameTags ? (!_.isUndefined(descriptParam) ?
+                      descriptParam.dataset : undefined) : undefined
                     }
                   >
                     {!_.isUndefined(props.descriptParam) ?

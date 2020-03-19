@@ -121,15 +121,23 @@ export const tagInputField: React.FC<CustomFieldProps> =
       fieldProps.input.onChange(newTag);
       fieldProps.input.value = newTag;
     };
-    const commaKeyCodes: number = 188;
+    const handleInputBlur: ((inputText: string) => void) = (inputText: string): void => {
+      const tag: Tag = { id: inputText, text: inputText };
+      const currentString: string = tagToString(tagsInput);
+      if (!_.isEmpty(inputText) && !_.includes(currentString.split(","), inputText)) {
+        handleAddition(tag);
+      }
+    };
+    const keyCodes: Dictionary<number> = { comma: 188, enter: 13, space: 32 };
 
     return (
       <ReactTags
         allowDragDrop={false}
         classNames={{tagInputField: style.formControl, tag: style.inputTags, tagInput: style.tagInput}}
-        delimiters={[commaKeyCodes]}
+        delimiters={Object.values(keyCodes)}
         handleDelete={handleDelete}
         handleAddition={handleAddition}
+        handleInputBlur={handleInputBlur}
         inputFieldPosition="inline"
         name="tags"
         placeholder=""

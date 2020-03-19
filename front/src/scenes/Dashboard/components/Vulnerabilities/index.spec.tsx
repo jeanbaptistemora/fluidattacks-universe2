@@ -172,10 +172,9 @@ describe("Vulnerabilities view", () => {
           <UpdateTreatmentModal
             descriptParam={undefined}
             findingId=""
-            isOpen={true}
-            numberRowSelected={false}
             userRole="analyst"
-            vulnsSelected={[""]}
+            vulnerabilities={[{id: "test", treatments: {tag: "one"}}]}
+            vulnsSelected={["test"]}
             handleCloseModal={handleOnClose}
           />
         </MockedProvider>
