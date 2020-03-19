@@ -24,18 +24,12 @@ def repochanges(exit_code):
     author = os.popen("git show -s --format='%aN <%aE>' "+commithash).read().split('\n')[0]
     name = author.split("<")[0]
     ph.print_warning("Author: "+author+"\n")
-    #Check if branch is updated:
-    if int(ncommits) < 1:
-        ph.print_warning(name + ", your current branch is behind master. ")
-        ph.print_warning("Update your local repo and try again.\n")
-        changes = ''
-        exit_code = 1
-    else:
-        ph.print_warning('Number of commits: '+ncommits+'\n')
-        #get only Added or Modified Files:
-        changes = os.popen('git diff HEAD~'+ncommits+' --name-status  \
-                     | pcregrep "^(M|A)" | sed "s/^[A-Z][[:blank:]]//" ').read()
-        changes = changes.split()
+
+    ph.print_warning('Number of commits: '+ncommits+'\n')
+    #get only Added or Modified Files:
+    changes = os.popen('git diff HEAD~'+ncommits+' --name-status  \
+                 | pcregrep "^(M|A)" | sed "s/^[A-Z][[:blank:]]//" ').read()
+    changes = changes.split()
 
     #Check if commiter is in mailmap:
     in_mailmap = os.popen("grep '"+author+"' .mailmap").read()
