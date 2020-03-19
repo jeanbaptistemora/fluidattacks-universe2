@@ -3,6 +3,7 @@ import os
 try:
     FI_AWS_DYNAMODB_ACCESS_KEY = os.environ['AWS_ACCESS_KEY_ID']
     FI_AWS_DYNAMODB_SECRET_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    FI_COMMUNITY_PROJECTS = os.environ['COMMUNITY_PROJECTS']
     FI_DYNAMODB_HOST = os.environ['DYNAMODB_HOST']
     FI_DYNAMODB_PORT = os.environ['DYNAMODB_PORT']
     FI_CLOUDFRONT_ACCESS_KEY = os.environ['CLOUDFRONT_ACCESS_KEY']
@@ -49,7 +50,7 @@ try:
     FORCES_TRIGGER_TOKEN = os.environ['FORCES_TRIGGER_TOKEN']
     SQS_QUEUE_URL = os.environ['SQS_QUEUE_URL']
 
-    # not secrets but must be environ vars
+    # not secrets but must be environment vars
     FI_AWS_REDSHIFT_PORT = 5439
     FI_AWS_S3_BUCKET = 'fluidintegrates.evidences'
     FI_AWS_S3_RESOURCES_BUCKET = 'fluidintegrates.resources'

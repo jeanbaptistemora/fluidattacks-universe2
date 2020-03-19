@@ -1,7 +1,11 @@
 from backend.domain import user as user_domain
 from backend.mailer import send_mail_new_user
 
-from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
+from __init__ import (
+    FI_COMMUNITY_PROJECTS,
+    FI_MAIL_CONTINUOUS,
+    FI_MAIL_PROJECTS,
+)
 
 
 def get_upn(strategy, details, backend, user, *args, **kwargs):
@@ -16,18 +20,9 @@ def get_upn(strategy, details, backend, user, *args, **kwargs):
         kwargs['response']['upn'] = kwargs.get('response')['email']
 
 
-# pylint: disable=keyword-arg-before-vararg
-def create_user(strategy, details, backend, user=None, *args, **kwargs):
-    del args
-    del kwargs
-    del backend
-    first_name = details['first_name'][:29]
-    last_name = details['last_name'][:29]
-    email = details['email'].lower()
-
-    # Put details on session.
-    strategy.session_set('first_name', first_name)
-    strategy.session_set('last_name', last_name)
+def autoenroll_user(strategy, email: str) -> bool:
+    # New users must have access to the community projects
+    was_granted_access: bool = True
 
     # Registered users have this attribute set to True
     is_registered: bool = user_domain.get_attributes(email, ['registered'])
@@ -37,10 +32,36 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
         is_registered = user_domain.create_without_project({
             'email': email,
             'organization': 'Integrates Community',
-            'role': 'user',
+            'role': 'customer',
         })
+
         # Add a flag that may come handy later to ask for extra data
         strategy.session_set('is_new_user', True)
+
+        # Add the user into the community projects
+        for project in FI_COMMUNITY_PROJECTS.split(','):
+            was_granted_access = \
+                was_granted_access and user_domain.update_project_access(
+                    email, project, access=True)
+
+    return is_registered and was_granted_access
+
+
+# pylint: disable=keyword-arg-before-vararg
+def create_user(strategy, details, backend, user=None, *args, **kwargs):
+    del args
+    del kwargs
+    del backend
+    first_name = details['first_name'][:29]
+    last_name = details['last_name'][:29]
+    email = details['email'].lower()
+
+    # Grant new users access to Integrates and the community projects
+    autoenroll_user(strategy, email)
+
+    # Put details on session.
+    strategy.session_set('first_name', first_name)
+    strategy.session_set('last_name', last_name)
 
     today = user_domain.get_current_date()
     data_dict = {
