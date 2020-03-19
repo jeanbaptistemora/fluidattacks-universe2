@@ -26,6 +26,7 @@ import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
 import { CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
+import { DescriptionView as NewDescriptionView } from "../DescriptionView/newIndex";
 import { EvidenceView } from "../EvidenceView/index";
 import { ExploitView } from "../ExploitView/index";
 import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
@@ -296,6 +297,9 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               </div>
               <div className={style.tabContent}>
                 <Switch>
+                  {userRole === "admin"
+                    ? <Route path={`${props.match.path}/newDescription`} component={NewDescriptionView} exact={true} />
+                    : undefined}
                   <Route path={`${props.match.path}/description`} render={renderDescription} exact={true} />
                   <Route path={`${props.match.path}/severity`} component={SeverityView} exact={true} />
                   <Route path={`${props.match.path}/evidence`} component={EvidenceView} exact={true} />

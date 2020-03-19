@@ -1,7 +1,7 @@
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import { IFinding, IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
+import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
@@ -451,25 +451,26 @@ export const formatEvents: ((dataset: IEventsDataset) => IEventsDataset) =
     return { ...event, eventType, eventStatus };
   });
 
-export const formatFindingDescription: ((finding: IFinding) => IFinding) = (finding: IFinding): IFinding => {
-  const lastTreatment: IHistoricTreatment = finding.historicTreatment.length > 0
-    ? _.last(finding.historicTreatment) as IHistoricTreatment
+export const getLastTreatment: ((historic: IHistoricTreatment[]) => IHistoricTreatment) = (
+  historic: IHistoricTreatment[],
+): IHistoricTreatment => {
+  const lastTreatment: IHistoricTreatment = historic.length > 0
+    ? _.last(historic) as IHistoricTreatment
     : { date: "", treatment: "", user: "" };
 
   const acceptanceDate: string = _.get(lastTreatment, "acceptance_date", "")
     .split(" ")[0];
-  const acceptationApproval: string = _.get(lastTreatment, "acceptance_status", "")
+  const acceptanceStatus: string = _.get(lastTreatment, "acceptance_status", "")
     .split(" ")[0];
   const treatment: string = _.get(lastTreatment, "treatment");
   const justification: string = _.get(lastTreatment, "justification", "");
   const acceptationUser: string = _.get(lastTreatment, "user", "");
 
   return {
-    ...finding,
-    acceptanceDate,
-    acceptationApproval,
-    acceptationUser,
+    acceptanceStatus,
+    date: acceptanceDate,
     justification,
     treatment,
+    user: acceptationUser,
   };
 };

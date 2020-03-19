@@ -4,7 +4,8 @@
  * conditional rendering
  */
 
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -13,14 +14,16 @@ import { RouteComponentProps } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { formatCweUrl, formatFindingDescription, formatFindingType } from "../../../../utils/formatHelpers";
+import { formatCweUrl, formatFindingType } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { numeric, required, validDraftTitle } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
 import { GET_ROLE } from "../ProjectContent/queries";
-import { GET_FINDING_DESCRIPTION } from "./queries";
+import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 import { IFinding } from "./types";
 
 type DescriptionViewProps = RouteComponentProps<{ findingId: string; projectName: string }>;
@@ -51,31 +54,49 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   const canEditImpact: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditThreat: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditTitle: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditTreatmentMgr: boolean = _.includes(["admin", "customeradmin"], userRole);
   const canEditType: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditRecommendation: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditRequirements: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditRisk: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditWeakness: boolean = _.includes(["admin", "analyst"], userRole);
   const canRetrieveAnalyst: boolean = _.includes(["admin", "analyst"], userRole);
 
-  const { data } = useQuery(GET_FINDING_DESCRIPTION, {
+  const { data, refetch } = useQuery(GET_FINDING_DESCRIPTION, {
     skip: _.isEmpty(userRole),
     variables: {
-      canEditTreatmentMgr,
       canRetrieveAnalyst,
       findingId,
       projectName,
     },
   });
 
-  const handleSubmit: ((values: Dictionary<string>) => void) = (): void => undefined;
+  const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION, {
+    onCompleted: async (result: { updateDescription: { success: boolean } }): Promise<void> => {
+      if (result.updateDescription.success) {
+        msgSuccess(
+          translate.t("proj_alerts.updated"),
+          translate.t("proj_alerts.updated_title"),
+        );
+        await refetch();
+      }
+    },
+    onError: (updateError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred updating finding description", updateError);
+    },
+  });
+
+  const handleSubmit: ((values: Dictionary<string>) => Promise<void>) = async (
+    values: Dictionary<string>,
+  ): Promise<void> => {
+    setEditing(false);
+    await updateDescription({ variables: { ...values, findingId } });
+  };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.Fragment />;
   }
 
-  const dataset: IFinding = formatFindingDescription(data.finding);
+  const dataset: IFinding = data.finding;
 
   return (
     <React.StrictMode>
@@ -206,22 +227,18 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   visibleWhileEditing={canEditThreat}
                 />
               </Col>
-              {isEditing && canEditRisk ? (
-                <Col md={6}>
-                  <FormGroup>
-                    <ControlLabel>
-                      <b>{translate.t("search_findings.tab_description.risk")}</b>
-                    </ControlLabel>
-                    <br />
-                    <Field
-                      component={textField}
-                      name="risk"
-                      type="text"
-                      validate={[required, validDraftTitle]}
-                    />
-                  </FormGroup>
-                </Col>
-              ) : undefined}
+              <Col md={6}>
+                <EditableField
+                  component={textField}
+                  currentValue={formatCweUrl(dataset.cweUrl)}
+                  label={translate.t("search_findings.tab_description.weakness")}
+                  name="cweUrl"
+                  renderAsEditable={isEditing}
+                  type="number"
+                  validate={[required, numeric]}
+                  visibleWhileEditing={canEditWeakness}
+                />
+              </Col>
             </Row>
             <Row>
               <Col md={12}>
@@ -259,20 +276,6 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   type="number"
                   validate={[required, numeric]}
                   visibleWhileEditing={canEditCompromisedRecords}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <EditableField
-                  component={textField}
-                  currentValue={formatCweUrl(dataset.cweUrl)}
-                  label={translate.t("search_findings.tab_description.weakness")}
-                  name="cweUrl"
-                  renderAsEditable={isEditing}
-                  type="number"
-                  validate={[required, numeric]}
-                  visibleWhileEditing={canEditWeakness}
                 />
               </Col>
             </Row>

@@ -24,9 +24,6 @@ export interface IVerifyFindingResult {
 }
 
 export interface IFinding {
-  acceptanceDate: string;
-  acceptationApproval: string;
-  acceptationUser: string;
   actor: string;
   affectedSystems: string;
   analyst: string;
@@ -37,19 +34,16 @@ export interface IFinding {
   cweUrl: string;
   description: string;
   historicTreatment: IHistoricTreatment[];
-  justification: string;
   newRemediated: boolean;
   openVulnerabilities: number;
   recommendation: string;
   releaseDate: string;
   remediated: boolean;
   requirements: string;
-  risk: string;
   scenario: string;
   state: string;
   threat: string;
   title: string;
-  treatment: string;
   type: string;
   verified: boolean;
 }
