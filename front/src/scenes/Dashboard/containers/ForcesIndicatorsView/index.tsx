@@ -155,7 +155,7 @@ const forcesIndicatorsView: React.FC<IForcesIndicatorsViewBaseProps> =
                             quantity={executionsInStrictModeWithVulnsNumber}
                             small={true}
                             title=""
-                            total={`/ ${executionsInAnyModeNumber}`}
+                            total={`/ ${executionsInAnyModeWithVulnsNumber}`}
                           />
                         </Col>
                         <Col md={4} sm={12} xs={12}>

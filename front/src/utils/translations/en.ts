@@ -529,8 +529,8 @@ const enTranslations: Dictionary = {
             },
             allowed: {
               desc: "Protect them by enabling the Strict mode",
-              title: "Unprotected builds",
-              total: "builds have security issues",
+              title: "Vulnerable builds",
+              total: "have security issues",
             },
             stopped: {
               desc: "Vulnerable code that never saw the light",
