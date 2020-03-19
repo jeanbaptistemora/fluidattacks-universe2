@@ -1,0 +1,28 @@
+:slug: rules/311/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement focuses on the importance of establishing a mechanism to demonstrate that the user has granted consent.
+:keywords: GDPR, Security, Data, Information, Consent Demonstration, Regulation
+:rules: yes
+
+= REQ.311 Demonstrate user consent
+
+== Requirement
+
+The system must establish a mechanism which allows demonstrating that users
+granted their consent to collection of their data.
+
+== Description
+
+Systems usually request information from the users or collect it based
+on their interactions with the application.
+Regulations demand that none of these collections occur without the user's
+consent and that this consent be demonstrable afterwards.
+Therefore, the system must have a mechanism that allows demonstrating the
+grant of the consent.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(1).]
+Where processing is based on consent, the controller shall be able to
+demonstrate that the data subject has consented to processing of his or her
+personal data.
