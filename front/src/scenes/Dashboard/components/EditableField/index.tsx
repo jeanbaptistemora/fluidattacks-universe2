@@ -12,6 +12,7 @@ type EditableFieldProps = BaseFieldProps & {
   renderAsEditable: boolean;
   type?: string;
   visible?: boolean;
+  visibleWhileEditing?: boolean;
 };
 
 const renderCurrentValue: ((value: string) => JSX.Element) = (value: string): JSX.Element => {
@@ -63,17 +64,22 @@ const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
   };
 
 const editableField: React.FC<EditableFieldProps> = (props: EditableFieldProps): JSX.Element => {
-  const { alignField, visible } = props;
   let render: JSX.Element;
-  if (alignField === "horizontal") {
+  if (props.alignField === "horizontal") {
     render = renderHorizontal(props);
-  } else if (alignField === "horizontalWide") {
+  } else if (props.alignField === "horizontalWide") {
     render = renderHorizontalWide(props);
   } else {
     render = renderVertical(props);
   }
 
-  return visible === true ? (render) : <React.Fragment />;
+  const shouldRender: boolean = _.isUndefined(props.visibleWhileEditing)
+    ? props.visible === true
+    : props.renderAsEditable
+      ? props.visibleWhileEditing
+      : !_.isEmpty(props.currentValue);
+
+  return shouldRender ? (render) : <React.Fragment />;
 };
 
 editableField.defaultProps = {

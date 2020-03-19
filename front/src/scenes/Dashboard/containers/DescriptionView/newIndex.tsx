@@ -10,13 +10,13 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
-import { InjectedFormProps } from "redux-form";
+import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { formatFindingDescription, formatFindingType } from "../../../../utils/formatHelpers";
+import { formatCweUrl, formatFindingDescription, formatFindingType } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required, validDraftTitle } from "../../../../utils/validations";
+import { numeric, required, validDraftTitle } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
 import { GET_ROLE } from "../ProjectContent/queries";
@@ -44,11 +44,19 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   const userRole: string = _.isUndefined(userData) || _.isEmpty(userData)
     ? "" : userData.me.role;
 
+  const canEditAffectedSystems: boolean = _.includes(["admin", "analyst"], userRole);
+  const canEditCompromisedAttrs: boolean = _.includes(["admin", "analyst"], userRole);
+  const canEditCompromisedRecords: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditDescription: boolean = _.includes(["admin", "analyst"], userRole);
+  const canEditImpact: boolean = _.includes(["admin", "analyst"], userRole);
+  const canEditThreat: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditTitle: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditTreatmentMgr: boolean = _.includes(["admin", "customeradmin"], userRole);
   const canEditType: boolean = _.includes(["admin", "analyst"], userRole);
+  const canEditRecommendation: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditRequirements: boolean = _.includes(["admin", "analyst"], userRole);
+  const canEditRisk: boolean = _.includes(["admin", "analyst"], userRole);
+  const canEditWeakness: boolean = _.includes(["admin", "analyst"], userRole);
   const canRetrieveAnalyst: boolean = _.includes(["admin", "analyst"], userRole);
 
   const { data } = useQuery(GET_FINDING_DESCRIPTION, {
@@ -95,7 +103,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="type"
                   renderAsEditable={isEditing}
                   validate={[required]}
-                  visible={!isEditing || (isEditing && canEditType)}
+                  visibleWhileEditing={canEditType}
                 >
                   <option value="" />
                   <option value="SECURITY">{translate.t("search_findings.tab_description.type.security")}</option>
@@ -113,20 +121,24 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                 </Col>
               ) : undefined}
             </Row>
-            <Row>
-              <Col md={12}>
-                <EditableField
-                  component={textField}
-                  currentValue=""
-                  label={translate.t("search_findings.tab_description.title")}
-                  name="title"
-                  renderAsEditable={true}
-                  type="text"
-                  validate={[required, validDraftTitle]}
-                  visible={isEditing && canEditTitle}
-                />
-              </Col>
-            </Row>
+            {isEditing && canEditTitle ? (
+              <Row>
+                <Col md={12}>
+                  <FormGroup>
+                    <ControlLabel>
+                      <b>{translate.t("search_findings.tab_description.title")}</b>
+                    </ControlLabel>
+                    <br />
+                    <Field
+                      component={textField}
+                      name="title"
+                      type="text"
+                      validate={[required, validDraftTitle]}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+            ) : undefined}
             <Row>
               <Col md={12}>
                 <EditableField
@@ -137,7 +149,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="text"
                   validate={[required]}
-                  visible={!isEditing || (isEditing && canEditDescription)}
+                  visibleWhileEditing={canEditDescription}
                 />
               </Col>
             </Row>
@@ -151,7 +163,116 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="text"
                   validate={[required]}
-                  visible={!isEditing || (isEditing && canEditRequirements)}
+                  visibleWhileEditing={canEditRequirements}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <EditableField
+                  component={textAreaField}
+                  currentValue={dataset.attackVectorDesc}
+                  label={translate.t("search_findings.tab_description.attack_vectors")}
+                  name="attackVectorDesc"
+                  renderAsEditable={isEditing}
+                  type="text"
+                  validate={[required]}
+                  visibleWhileEditing={canEditImpact}
+                />
+              </Col>
+              <Col md={6}>
+                <EditableField
+                  component={textAreaField}
+                  currentValue={dataset.affectedSystems}
+                  label={translate.t("search_findings.tab_description.affected_systems")}
+                  name="affectedSystems"
+                  renderAsEditable={isEditing}
+                  type="text"
+                  validate={[required]}
+                  visibleWhileEditing={canEditAffectedSystems}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <EditableField
+                  component={textAreaField}
+                  currentValue={dataset.threat}
+                  label={translate.t("search_findings.tab_description.threat")}
+                  name="threat"
+                  renderAsEditable={isEditing}
+                  type="text"
+                  validate={[required]}
+                  visibleWhileEditing={canEditThreat}
+                />
+              </Col>
+              {isEditing && canEditRisk ? (
+                <Col md={6}>
+                  <FormGroup>
+                    <ControlLabel>
+                      <b>{translate.t("search_findings.tab_description.risk")}</b>
+                    </ControlLabel>
+                    <br />
+                    <Field
+                      component={textField}
+                      name="risk"
+                      type="text"
+                      validate={[required, validDraftTitle]}
+                    />
+                  </FormGroup>
+                </Col>
+              ) : undefined}
+            </Row>
+            <Row>
+              <Col md={12}>
+                <EditableField
+                  component={textAreaField}
+                  currentValue={dataset.recommendation}
+                  label={translate.t("search_findings.tab_description.recommendation")}
+                  name="recommendation"
+                  renderAsEditable={isEditing}
+                  type="text"
+                  validate={[required]}
+                  visibleWhileEditing={canEditRecommendation}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <EditableField
+                  component={textAreaField}
+                  currentValue={dataset.compromisedAttributes}
+                  label={translate.t("search_findings.tab_description.compromised_attrs")}
+                  name="compromisedAttributes"
+                  renderAsEditable={isEditing}
+                  type="text"
+                  visibleWhileEditing={canEditCompromisedAttrs}
+                />
+              </Col>
+              <Col md={6}>
+                <EditableField
+                  component={textAreaField}
+                  currentValue={dataset.compromisedRecords}
+                  label={translate.t("search_findings.tab_description.compromised_records")}
+                  name="compromisedRecords"
+                  renderAsEditable={isEditing}
+                  type="number"
+                  validate={[required, numeric]}
+                  visibleWhileEditing={canEditCompromisedRecords}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <EditableField
+                  component={textField}
+                  currentValue={formatCweUrl(dataset.cweUrl)}
+                  label={translate.t("search_findings.tab_description.weakness")}
+                  name="cweUrl"
+                  renderAsEditable={isEditing}
+                  type="number"
+                  validate={[required, numeric]}
+                  visibleWhileEditing={canEditWeakness}
                 />
               </Col>
             </Row>
