@@ -1,0 +1,28 @@
+:slug: rules/312/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of allowing the user to revoke their consent regarding the collection of their information.
+:keywords: Requirement, Security, Data, GDPR, Consent Revocation, Regulation
+:rules: yes
+
+= REQ.312 Allow user consent revocation
+
+== Requirement
+
+The system must enable the users to revoke whatever consent they have granted.
+
+== Description
+
+Systems usually request information from the users or collect it based
+on their interactions with the application.
+Regulations demand that none of these collections occur without the user's
+consent and that this consent be demonstrable afterwards.
+Regulations also demand that the user be allowed to revoke,
+at any given time,
+whatever consent they may have granted regarding the collection of their
+information.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(3).]
+The data subject shall have the right to withdraw his or her consent at any
+time.
