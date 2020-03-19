@@ -520,8 +520,23 @@ const enTranslations: Dictionary = {
       data_chart_legend_week: "Weeks",
       days: "days",
       forces: {
-        deployments: "deployments",
+        builds: "builds",
         indicators: {
+          builds: {
+            accepted_risk: {
+              desc: "Security issues your team decided to live with",
+              title: "Builds with accepted risk",
+            },
+            allowed: {
+              desc: "Protect them by enabling the Strict mode",
+              title: "Unprotected builds",
+              total: "builds have security issues",
+            },
+            stopped: {
+              desc: "Vulnerable code that never saw the light",
+              title: "Protected builds",
+            },
+          },
           has_forces: {
             protected: "Protected by Forces",
             protected_desc: "Forces helps you build a safe system",

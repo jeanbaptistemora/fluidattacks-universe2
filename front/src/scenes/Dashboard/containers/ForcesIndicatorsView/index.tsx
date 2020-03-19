@@ -50,9 +50,23 @@ const forcesIndicatorsView: React.FC<IForcesIndicatorsViewBaseProps> =
             const executions: IForcesExecution[] = data.forcesExecutions.executions;
             const executionsInStrictMode: IForcesExecution[] =
               executions.filter((execution: IForcesExecution): boolean => execution.strictness === "strict");
+            const executionsInAnyModeWithAcceptedVulns: IForcesExecution[] =
+              executions.filter((execution: IForcesExecution): boolean => (
+                execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits > 0));
+            const executionsInAnyModeWithVulns: IForcesExecution[] =
+              executions.filter((execution: IForcesExecution): boolean => (
+                execution.vulnerabilities.numOfVulnerabilitiesInExploits > 0
+                  || execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits > 0));
+            const executionsInStrictModeWithVulns: IForcesExecution[] =
+              executionsInStrictMode.filter((execution: IForcesExecution): boolean => (
+                execution.vulnerabilities.numOfVulnerabilitiesInExploits > 0
+                  || execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits > 0));
 
             const executionsInAnyModeNumber: number = executions.length;
+            const executionsInAnyModeWithVulnsNumber: number = executionsInAnyModeWithVulns.length;
+            const executionsInAnyModeWithAcceptedVulnsNumber: number = executionsInAnyModeWithAcceptedVulns.length;
             const executionsInStrictModeNumber: number = executionsInStrictMode.length;
+            const executionsInStrictModeWithVulnsNumber: number = executionsInStrictModeWithVulns.length;
 
             const securityCommitmentNumber: number = _.round(
               executionsInAnyModeNumber > 0 ? executionsInStrictModeNumber / executionsInAnyModeNumber * 100 : 100);
@@ -109,6 +123,53 @@ const forcesIndicatorsView: React.FC<IForcesIndicatorsViewBaseProps> =
                             title=""
                             total={translate.t(
                               "search_findings.tab_indicators.forces.indicators.service_use.total")}
+                          />
+                        </Col>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={12} sm={12} xs={12}>
+                        <Col md={4} sm={12} xs={12}>
+                          <IndicatorBox
+                            description={translate.t(
+                              "search_findings.tab_indicators.forces.indicators.builds.allowed.desc")}
+                            icon="complexityHigh"
+                            name={translate.t(
+                              "search_findings.tab_indicators.forces.indicators.builds.allowed.title")}
+                            onClick={goToProjectForces}
+                            quantity={executionsInAnyModeWithVulnsNumber}
+                            small={true}
+                            title=""
+                            total={`/ ${executionsInAnyModeNumber} ${translate.t(
+                              "search_findings.tab_indicators.forces.indicators.builds.allowed.total")}`}
+                          />
+                        </Col>
+                        <Col md={4} sm={12} xs={12}>
+                          <IndicatorBox
+                            description={translate.t(
+                              "search_findings.tab_indicators.forces.indicators.builds.stopped.desc")}
+                            icon="confidentialityHigh"
+                            name={translate.t(
+                              "search_findings.tab_indicators.forces.indicators.builds.stopped.title")}
+                            onClick={goToProjectForces}
+                            quantity={executionsInStrictModeWithVulnsNumber}
+                            small={true}
+                            title=""
+                            total={`/ ${executionsInAnyModeNumber}`}
+                          />
+                        </Col>
+                        <Col md={4} sm={12} xs={12}>
+                          <IndicatorBox
+                            description={translate.t(
+                              "search_findings.tab_indicators.forces.indicators.builds.accepted_risk.desc")}
+                            icon="confidentialityNone"
+                            name={translate.t(
+                              "search_findings.tab_indicators.forces.indicators.builds.accepted_risk.title")}
+                            onClick={goToProjectForces}
+                            quantity={executionsInAnyModeWithAcceptedVulnsNumber}
+                            small={true}
+                            title=""
+                            total={`/ ${executionsInAnyModeNumber}`}
                           />
                         </Col>
                       </Col>
