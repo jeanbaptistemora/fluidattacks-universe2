@@ -13,7 +13,7 @@ import { GenericForm } from "redux-form";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "./queries";
+import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "../DescriptionView/TreatmentView/queries";
 
 interface ITreatmentViewProps {
   findingId: string;

@@ -24,6 +24,7 @@ import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
 import { GET_ROLE } from "../ProjectContent/queries";
 import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
+import { TreatmentView } from "./TreatmentView";
 import { IFinding } from "./types";
 
 type DescriptionViewProps = RouteComponentProps<{ findingId: string; projectName: string }>;
@@ -279,6 +280,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                 />
               </Col>
             </Row>
+            <TreatmentView findingId={findingId} isEditing={isEditing} userRole={userRole} />
           </React.Fragment>
         )}
       </GenericForm>

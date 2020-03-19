@@ -2,8 +2,8 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_FINDING_TREATMENT: DocumentNode = gql`
-  query GetFindingTreatment($identifier: String!) {
-    finding(identifier: $identifier){
+  query GetFindingTreatment($findingId: String!) {
+    finding(identifier: $findingId){
       btsUrl
       historicTreatment
       id
