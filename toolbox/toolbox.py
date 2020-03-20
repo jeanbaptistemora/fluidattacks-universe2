@@ -242,6 +242,7 @@ def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
 def generate_exploits(subs_glob: str) -> bool:
     """Generate needed arsenal and move troops to the battlefield."""
     subs_glob = subs_glob.lower()
+    subscription_regex = re.compile(r'subscriptions/(\w+)')
 
     # Create the needed directories
     for path in sorted(glob.glob(f'subscriptions/{subs_glob}/break-build/*')):
@@ -254,18 +255,30 @@ def generate_exploits(subs_glob: str) -> bool:
             f'subscriptions/{subs_glob}/break-build/*/exploits/*.exp')):
         logger.info(f'processing {exploit_path}')
 
+        subscription = \
+            subscription_regex.search(exploit_path).group(1)  # type: ignore
+
         exploit_kind, finding_id = \
             scan_exploit_for_kind_and_id(exploit_path)
 
         if not exploit_kind or not finding_id:
+            logger.warn(f'{exploit_path} has no (exploit-kind or finding-id)!')
+            os.remove(exploit_path)
             continue
 
         if not helper.integrates.does_finding_exist(finding_id):
             logger.warn(f'{exploit_path} does not exist on Integrates!')
+            os.remove(exploit_path)
             continue
 
         if not helper.integrates.is_finding_released(finding_id):
             logger.warn(f'{exploit_path} has not been released on Integrates!')
+            os.remove(exploit_path)
+            continue
+
+        if not helper.integrates.is_finding_in_subscription(
+                finding_id, subscription):
+            logger.warn(f'{exploit_path} is not member of {subscription}!')
             os.remove(exploit_path)
             continue
 

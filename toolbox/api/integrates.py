@@ -309,14 +309,15 @@ class Queries:
                     attackVectorDesc
                     closedVulnerabilities @include(if: %(with_vulns)s)
                     description
+                    historicTreatment
                     lastVulnerability @include(if: %(with_vulns)s)
                     openVulnerabilities @include(if: %(with_vulns)s)
+                    projectName
                     recommendation
                     releaseDate
                     severityScore
                     threat
                     title
-                    historicTreatment
                     vulnerabilities @include(if: %(with_vulns)s) {
                         historicState @include(if: %(with_vulns)s)
                         id @include(if: %(with_vulns)s)

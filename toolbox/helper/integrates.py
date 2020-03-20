@@ -30,6 +30,13 @@ def is_finding_released(finding_id: str) -> bool:
     return bool(released_date)
 
 
+def is_finding_in_subscription(finding_id: str, subscription: str) -> bool:
+    """Return True if the finding is member of the provided subscription."""
+    response = api.integrates.Queries.finding(API_TOKEN, finding_id)
+    project_name: str = response.data['finding']['projectName']
+    return project_name == subscription
+
+
 def is_finding_open(finding_id: str, finding_types: tuple) -> bool:
     """Return True if the finding is open."""
     is_open: bool = False
