@@ -92,12 +92,35 @@ function job_test_images {
   &&  echo '[INFO] Testing blog covers' \
   &&  for cover in ${blog_covers}
       do
-            helper_blog_cover_has_proper_dimensions "${cover}" || return 1
+            helper_image_blog_cover_dimensions "${cover}" || return 1
       done \
   &&  echo '[INFO] Testing PNG images' \
   &&  for image in ${png_images}
       do
             helper_image_optimized "${image}" \
         &&  helper_image_size "${image}" || return 1
+      done
+}
+
+function job_test_generic {
+  local all_content_files
+  local all_adoc_files
+
+      all_content_files="$(find content/ -type f)" \
+  &&  all_adoc_files="$(find content/ -type f -name '*.adoc')" \
+  &&  echo '[INFO] Testing forbidden extensions' \
+  &&  helper_generic_forbidden_extensions \
+  &&  echo '[INFO] Testing compliant file names' \
+  &&  for path in ${all_content_files}
+      do
+            file="$(basename "${path}")" \
+        &&  helper_generic_file_name "${file}" || return 1
+      done \
+  && echo '[INFO] Testing adoc files' \
+  &&  for path in ${all_adoc_files}
+      do
+            helper_generic_adoc_main_title "${path}" \
+        &&  helper_generic_adoc_min_keywords "${path}" \
+        &&  helper_generic_adoc_keywords_uppercase "${path}" || return 1
       done
 }

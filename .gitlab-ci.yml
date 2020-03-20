@@ -93,6 +93,11 @@ test_images:
   <<: *in_dev_and_master_branch
   stage: test
 
+test_generic:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: test
+
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]

@@ -169,7 +169,7 @@ function helper_file_exists {
   fi
 }
 
-function helper_blog_cover_has_proper_dimensions {
+function helper_image_blog_cover_dimensions {
   local path="${1}"
   local dimensions
 
@@ -214,7 +214,7 @@ function helper_image_size {
 
 function helper_image_valid {
   local path="${1}"
-  local valid_extensions='image/png\|image/svg+xml\|image/gif'
+  local valid_extensions='image/\(png\|svg+xml\|gif\)'
 
       helper_file_exists "${path}" \
   &&  if file --mime-type "${path}" | grep -q "${valid_extensions}"
@@ -223,5 +223,92 @@ function helper_image_valid {
       else
             echo "[ERROR] ${path} must be a valid format: ${valid_extensions}" \
         &&  return 1
+      fi
+}
+
+function helper_generic_forbidden_extensions {
+  local invalid_extensions='asc'
+  local found_files
+
+      found_files="$(find content/ -type f -regex  ".*\(${invalid_extensions}\)$")" \
+  &&  if [ "${found_files}" == '' ]
+      then
+            return 0
+      else
+            echo '[ERROR] invalid/unsopported files found:' \
+        &&  echo "${found_files}" \
+        && return 1
+      fi
+}
+
+function helper_generic_file_name {
+  local file="${1}"
+  local regex='^[a-z0-9-]+\.[a-z0-9]+\.*[a-z0-9]*$'
+
+      if [[ ${file} =~ ${regex} ]]
+      then
+            return 0
+      else
+            echo "[ERROR] ${file} does not match the ${regex} convention" \
+        &&  return 1
+      fi
+}
+
+function helper_generic_adoc_main_title {
+  local file="${1}"
+  local titles
+
+      titles="$(grep -Pc '^=\s.*$' "${file}")" || titles='0' \
+  &&  if [ "${titles}" = '1' ]
+      then
+            return 0
+      else
+            echo "[ERROR] ${file} must have only one main title" \
+        &&  return 1
+      fi
+}
+
+function helper_generic_adoc_keywords_section_exists {
+  file="${1}"
+
+      if grep -q ':keywords:' "${file}"
+      then
+            return 0
+      else
+            echo "[ERROR] ${file} does not have a keywords section." \
+        &&  return 1
+      fi
+}
+
+function helper_generic_adoc_min_keywords {
+  local file="${1}"
+  local min_keywords='6'
+  local keywords
+
+      helper_generic_adoc_keywords_section_exists "${file}" \
+  &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | wc -l)" \
+  &&  if [ "${keywords}" -ge "${min_keywords}" ]
+      then
+            return 0
+      else
+            echo "[ERROR] ${file} has less than ${min_keywords} keywords" \
+        &&  return 1
+      fi
+}
+
+function helper_generic_adoc_keywords_uppercase {
+  local file="${1}"
+  local keywords
+  local invalid_keywords
+
+      helper_generic_adoc_keywords_section_exists "${file}" \
+  &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | sed -e 's/^\s*//g')" \
+  &&  invalid_keywords="$( echo "${keywords}" | grep -Pvc '^[A-Z]')" || invalid_keywords='0' \
+  &&  if [ "${invalid_keywords}" = '0' ]
+      then
+            return 0
+      else
+            echo "[ERROR] All keywords in ${file} must start with an upper case" \
+        && return 1
       fi
 }

@@ -3,7 +3,7 @@ let
   builders.pythonPackage = import ../builders/python-package pkgs;
 in
   pkgs.stdenv.mkDerivation (
-    (import ../src/basic.nix)
+       (import ../src/basic.nix)
     // (rec {
       name = "builder";
 
