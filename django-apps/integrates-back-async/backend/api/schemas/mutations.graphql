@@ -152,10 +152,13 @@ type Mutation {
         projectName: String!
     ): AddCommentPayload!
     createProject(
-        companies: [String!]!,
+        companies: [String]!,
         description: String!,
         projectName: String!,
         subscription: SubscriptionType
+        hasDrills: Boolean
+        hasForces: Boolean
+        hasIntegrates: Boolean
     ): SimplePayload!
     addFindingComment(
         content: String!,

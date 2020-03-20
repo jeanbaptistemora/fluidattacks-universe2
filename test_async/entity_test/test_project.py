@@ -1,0 +1,59 @@
+import json
+import os
+
+from ariadne import graphql_sync
+from django.test import TestCase
+from django.test.client import RequestFactory
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.conf import settings
+from jose import jwt
+from backend.api.schema import SCHEMA
+
+
+class ProjectTests(TestCase):
+
+    def _get_result(self, data):
+        """Get result."""
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'integratesuser@gmail.com',
+                'user_role': 'admin',
+                'company': 'fluid',
+                'first_name': 'unit',
+                'last_name': 'test'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        return result
+
+    def test_create_project(self):
+        """Check for createProject mutation."""
+        query = '''
+        mutation {
+            createProject(
+                companies: ["fluid"],
+                description: "This is a new project from pytest",
+                projectName: "ANEWPROJECT",
+                subscription: CONTINUOUS,
+                hasDrills: true,
+                hasForces: true,
+                hasIntegrates: true
+            ) {
+            success
+           }
+        }'''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['createProject']
+        assert result['data']['createProject']['success']
+

@@ -1,6 +1,8 @@
 # pylint: disable=import-error
 
-from backend.api.resolvers import alert, cache, event, me, user, resource
+from backend.api.resolvers import (
+    alert, cache, event, me, user, resource, project
+)
 
 from ariadne import MutationType
 
@@ -30,3 +32,4 @@ MUTATION.set_field('downloadFile', resource.resolve_download_file)
 MUTATION.set_field('removeFiles', resource.resolve_remove_files)
 MUTATION.set_field('updateRepository', resource.resolve_update_repository)
 MUTATION.set_field('updateEnvironment', resource.resolve_update_environment)
+MUTATION.set_field('createProject', project.resolve_create_project)
