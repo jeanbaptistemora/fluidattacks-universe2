@@ -11,6 +11,12 @@ from lark import Lark, Transformer, v_args, Tree
 class CustomList(UserList):  # pylint: disable=too-many-ancestors
     """Custom List that allows access to the line where each node is."""
 
+    def __init__(self, initlist, line: int = None):
+        """Initialize a custom list."""
+        super().__init__(initlist)
+        if line:
+            setattr(self, '_line_', line)
+
     def __getitem__(self, index):
         """Change behavior when getting an object."""
         result = None
@@ -18,9 +24,11 @@ class CustomList(UserList):  # pylint: disable=too-many-ancestors
         if isinstance(index, str):
             tokens = index.split('.')
             index = int(tokens[0])
-        if len(tokens
-               ) == 2 and tokens[1] == 'line' and '_line_' in self.data[index]:
-            result = self.data[index]['_line_']
+        if len(tokens) == 2 and tokens[1] == 'line':
+            if '_line_' in self.data[index]:
+                result = self.data[index]['_line_']
+            else:
+                result = self.data[index]._line_
         elif isinstance(self.data[index], (CustomList, list)):
             result = self.data[index]
         else:
@@ -34,6 +42,10 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
 
     def __setitem__(self, key, item):
         """Change behavior when adding an object."""
+        line = None
+        if isinstance(key, tuple):
+            line = key[1]
+            key = key[0]
         if isinstance(item, Tree):
             if item.data == 'false':
                 self.data[key] = {'_item_': False, '_line_': item.line}
@@ -41,6 +53,16 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
                 self.data[key] = {'_item_': True, '_line_': item.line}
             elif item.data == 'null':
                 self.data[key] = {'_item_': None, '_line_': item.line}
+            elif item.data == 'array':
+                for index, element in enumerate(item.children):
+                    item.children[index] = CustomList(
+                        element.children, item.line) if isinstance(
+                            element, Tree) else element
+                self.data[key] = CustomList(item.children, item.line)
+        elif isinstance(item, (dict, CustomDict, CustomList, list)):
+            if line:
+                setattr(item, '_line_', line)
+            super().__setitem__(key, item)
         else:
             super().__setitem__(key, item)
 
@@ -52,6 +74,8 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
                 str) and '.line' in key and key.split('.')[0] in self.data:
             if '_line_' in self.data[key.split('.')[0]]:
                 result = self.data[key.split('.')[0]]['_line_']
+            else:
+                result = self.data[key.split('.')[0]]._line_
         if key in self.data:
             if key == '_line_':
                 result = self.data.get('_line_')
@@ -78,9 +102,8 @@ class TreeToJson(Transformer):
     @v_args(inline=True)
     def string_(self, tree):  # pylint: disable=no-self-use
         """Convert string keys."""
-        return tree[1:-1].replace('\\"', '"')
+        return (tree[1:-1].replace('\\"', '"'), tree.line)
 
-    array = CustomList
     pair = tuple
     object = CustomDict
 
