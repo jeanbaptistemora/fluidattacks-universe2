@@ -565,10 +565,20 @@ def yield_subscription_repositories(subs: str) -> Iterator[str]:
 
 def sync_fusion_to_s3(subs: str, repo: str):
     subs_path = f"subscriptions/{subs}/fusion/{repo}"
-    s3_bucket = f"s3://continuous-repositories/active/{subs}/{repo}"
+    s3_bucket = f"s3://continuous-repositories/{subs}/active/{repo}"
     sync_command = ["aws", "s3", "sync", subs_path, s3_bucket]
     subprocess.run(sync_command, check=True)
     logger.info(f"Repo {repo} sync completed!")
+
+
+def is_in_s3(subs: str, repo: str) -> bool:
+    remote_path = f"s3://continuous-repositories/active/{subs}/"
+    sync_command = f"aws s3 ls {remote_path}"
+    ls_s3 = utils.run_command(sync_command, ".", {})
+    repos_set = set(ls_s3[1].replace(" ", "").replace("PRE", "").splitlines())
+    if repo in repos_set:
+        return True
+    return False
 
 
 def sync_repositories_to_aws(subs: str) -> bool:
