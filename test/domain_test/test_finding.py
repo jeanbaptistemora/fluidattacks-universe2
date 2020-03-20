@@ -1,13 +1,13 @@
 import pytest
+import time
 
 from collections import namedtuple
 from django.test import TestCase
 
 from datetime import datetime, timedelta
 from backend.domain.finding import (
-    get_age_finding, update_client_description,
-    get_tracking_vulnerabilities, get_findings,
-    update_treatment)
+    add_comment, get_age_finding, update_client_description,
+    get_tracking_vulnerabilities, get_findings, update_treatment)
 from backend.mailer import get_email_recipients
 from backend.dal.vulnerability import get_vulnerabilities
 from backend.exceptions import (InvalidDateFormat, InvalidDate)
@@ -79,3 +79,24 @@ class FindingTests(TestCase):
         with pytest.raises(InvalidDateFormat):
             assert update_client_description(
                 finding_id, values_accepted_format_error, 'unittesting@fluidattacks.com', update)
+
+    def test_add_comment(self):
+        finding_id = '463461507'
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        comment_id = int(round(time.time() * 1000))
+        comment_data = {
+            'comment_type': 'comment',
+            'user_id': comment_id,
+            'content': 'Test comment',
+            'created': current_time,
+            'fullname': 'unittesting',
+            'modified': current_time,
+            'parent': '0'
+        }
+        assert add_comment('unittest@fluidattacks.com', comment_data, finding_id, False)
+
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        comment_data['created'] = current_time
+        comment_data['modified'] = current_time
+        comment_data['parent'] = str(comment_id)
+        assert add_comment('unittest@fluidattacks.com', comment_data, finding_id, False)

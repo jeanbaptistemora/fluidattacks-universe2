@@ -111,3 +111,43 @@ class ProjectEntityTests(TestCase):
         )
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(NotPendingDeletion())
+
+
+    def test_add_project_comment(self):
+        query = '''
+          mutation {
+            addProjectComment(
+              content: "Test comment",
+              parent: "0",
+              projectName: "unittesting",
+            ) {
+              success
+              commentId
+            }
+          }
+          '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.session['first_name'] = 'unit'
+        request.session['last_name'] = 'test'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest@fluidattacks.com',
+                'user_role': 'admin',
+                'company': 'unittest',
+                'first_name': 'unit',
+                'last_name': 'test'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addProjectComment']
+        assert 'commentId' in result['data']['addProjectComment']

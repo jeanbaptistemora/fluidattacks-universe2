@@ -1,3 +1,4 @@
+import time
 from decimal import Decimal
 from datetime import datetime
 
@@ -8,6 +9,7 @@ import pytest
 
 from backend.dal.helpers import dynamodb
 from backend.domain.project import (
+    add_comment,
     get_email_recipients, validate_tags, is_alive, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
     is_vulnerability_closed, get_max_severity, get_max_open_severity,
@@ -255,6 +257,26 @@ class ProjectTest(TestCase):
             'email': 'unittest@fluidattacks.com', 'modified': '2018/12/27 16:30:28'
         }
         assert test_data[0] == expected_output
+
+    def test_add_comment(self):
+        project_name = 'unittesting'
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        comment_id = int(round(time.time() * 1000))
+        comment_data = {
+            'user_id': comment_id,
+            'content': 'Test comment',
+            'created': current_time,
+            'fullname': 'unittesting',
+            'modified': current_time,
+            'parent': '0'
+        }
+        assert add_comment(project_name, 'unittest@fluidattacks.com', comment_data)
+
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        comment_data['created'] = current_time
+        comment_data['modified'] = current_time
+        comment_data['parent'] = str(comment_id)
+        assert add_comment(project_name, 'unittest@fluidattacks.com', comment_data)
 
     def test_get_active_projects(self):
         test_data = get_active_projects()
