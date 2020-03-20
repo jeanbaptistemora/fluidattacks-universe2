@@ -78,3 +78,42 @@ class EventTests(TestCase):
         assert result['data']['solveEvent']['success']
         event = event_domain.get_event('418900971')
         assert event['historic_state'][-1]['state'] == 'SOLVED'
+
+    def test_add_comment(self):
+        query = '''
+          mutation {
+            addEventComment(
+              content: "Test comment",
+              eventId: "538745942",
+              parent: "0",
+            ) {
+              commentId
+              success
+            }
+          }
+          '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.session['first_name'] = 'unit'
+        request.session['last_name'] = 'test'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest@fluidattacks.com',
+                'user_role': 'admin',
+                'company': 'unittest',
+                'first_name': 'unit',
+                'last_name': 'test'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addEventComment']
+        assert 'commentId' in result['data']['addEventComment']
