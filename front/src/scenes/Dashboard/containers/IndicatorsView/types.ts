@@ -25,12 +25,6 @@ export interface IIndicatorsProps {
   };
 }
 
-export interface IGraphData {
-  backgroundColor: string[];
-  data: number[];
-  hoverBackgroundColor: string[];
-}
-
 export interface IRejectRemoveProject {
   rejectRemoveProject: {
     success: boolean;

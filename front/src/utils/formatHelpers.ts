@@ -474,3 +474,35 @@ export const getLastTreatment: ((historic: IHistoricTreatment[]) => IHistoricTre
     user: acceptationUser,
   };
 };
+
+export interface IStatusGraph {
+  closedVulnerabilities: number;
+  openVulnerabilities: number;
+}
+export interface IGraphData {
+  backgroundColor: string[];
+  data: number[];
+  hoverBackgroundColor: string[];
+}
+export const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
+    _.round(value * 100 / total, 1);
+
+export const statusGraph: ((graphProps: IStatusGraph) => { [key: string]: string | string[] | IGraphData[]}) =
+(graphProps: IStatusGraph): { [key: string]: string | string[] | IGraphData[]} => {
+  const { openVulnerabilities, closedVulnerabilities } = graphProps;
+  const statusDataset: IGraphData = {
+    backgroundColor: ["#ff1a1a", "#27BF4F"],
+    data: [openVulnerabilities, closedVulnerabilities],
+    hoverBackgroundColor: ["#e51414", "#069D2E"],
+  };
+  const totalVulnerabilities: number = openVulnerabilities + closedVulnerabilities;
+  const openPercent: number = calcPercent(openVulnerabilities, totalVulnerabilities);
+  const closedPercent: number = calcPercent(closedVulnerabilities, totalVulnerabilities);
+  const statusGraphData: { [key: string]: string | string[] | IGraphData[]} = {
+    datasets: [statusDataset],
+    labels: [`${openPercent}% ${translate.t("search_findings.tab_indicators.open")}`,
+             `${closedPercent}% ${translate.t("search_findings.tab_indicators.closed")}`],
+  };
+
+  return statusGraphData;
+};

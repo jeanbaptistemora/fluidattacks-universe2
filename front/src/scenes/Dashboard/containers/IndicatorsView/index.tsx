@@ -10,7 +10,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { calcPercent, handleGraphQLErrors, IGraphData, statusGraph } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorChart } from "../../components/IndicatorChart";
@@ -19,29 +19,7 @@ import { ForcesIndicatorsView } from "../ForcesIndicatorsView/index";
 import { IRepositoriesAttr } from "../ProjectSettingsView/types";
 import { default as style } from "./index.css";
 import { GET_INDICATORS } from "./queries";
-import { IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
-
-const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
-  _.round(value * 100 / total, 1);
-
-const statusGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
-(props: IIndicatorsProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {
-  const statusDataset: IGraphData = {
-    backgroundColor: ["#ff1a1a", "#27BF4F"],
-    data: [props.openVulnerabilities, props.closedVulnerabilities],
-    hoverBackgroundColor: ["#e51414", "#069D2E"],
-  };
-  const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
-  const openPercent: number = calcPercent(props.openVulnerabilities, totalVulnerabilities);
-  const closedPercent: number = calcPercent(props.closedVulnerabilities, totalVulnerabilities);
-  const statusGraphData: { [key: string]: string | string[] | IGraphData[]} = {
-    datasets: [statusDataset],
-    labels: [`${openPercent}% ${translate.t("search_findings.tab_indicators.open")}`,
-             `${closedPercent}% ${translate.t("search_findings.tab_indicators.closed")}`],
-  };
-
-  return statusGraphData;
-};
+import { IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
 
 const treatmentGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
 (props: IIndicatorsProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {

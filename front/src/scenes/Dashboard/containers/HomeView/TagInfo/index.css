@@ -1,0 +1,4 @@
+:local .box_size {
+  composes: box_size from '../../IndicatorsView/index.css';
+  margin-top: 5px;
+}
