@@ -1,6 +1,6 @@
 :slug: rules/313/
 :category: privacy
-:description: This document contains the details of the security requirements related to the protection of data privacy in the organization. This requirement establishes the importance of informing the user of the system's inability to identify them, whenever it can be demonstrated.
+:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of informing the user of the system's inability to identify them, whenever it can be demonstrated.
 :keywords: Requirement, Security, Data, GDPR, User Identification, Regulation
 :rules: yes
 
