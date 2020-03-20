@@ -1,5 +1,5 @@
 :slug: rules/312/
-:category: data
+:category: privacy
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of allowing the user to revoke their consent regarding the collection of their information.
 :keywords: Requirement, Security, Data, GDPR, Consent Revocation, Regulation
 :rules: yes
