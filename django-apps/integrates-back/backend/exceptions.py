@@ -142,13 +142,12 @@ class InvalidProjectName(Exception):
         super(InvalidProjectName, self).__init__(msg)
 
 
-class InvalidProjectForcesSubscriptionType(Exception):
-    """Exception to control a valid project."""
-    def __init__(self):
+class InvalidProjectServicesConfig(Exception):
+    """Exception to control that services attached to a project are valid."""
+    def __init__(self, msg):
         """ Constructor """
-        msg = ('Exception - Forces is only available '
-               'if project\'s subscription type is Continuous')
-        super(InvalidProjectForcesSubscriptionType, self).__init__(msg)
+        super(InvalidProjectServicesConfig, self).__init__(
+            f'Exception - {msg}')
 
 
 class EmptyPoolProjectName(Exception):

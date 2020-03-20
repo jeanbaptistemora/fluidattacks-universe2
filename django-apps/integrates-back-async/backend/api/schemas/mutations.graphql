@@ -155,10 +155,9 @@ type Mutation {
         companies: [String]!,
         description: String!,
         projectName: String!,
-        subscription: SubscriptionType
-        hasDrills: Boolean
+        subscription: SubscriptionType,
+        hasDrills: Boolean,
         hasForces: Boolean
-        hasIntegrates: Boolean
     ): SimplePayload!
     addFindingComment(
         content: String!,

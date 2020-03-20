@@ -18,7 +18,7 @@ from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     AlreadyPendingDeletion, InvalidCommentParent, InvalidParameter, InvalidProjectName,
-    NotPendingDeletion, PermissionDenied, RepeatedValues, InvalidProjectForcesSubscriptionType
+    NotPendingDeletion, PermissionDenied, RepeatedValues, InvalidProjectServicesConfig
 )
 from backend.mailer import send_comment_mail
 from backend import util
@@ -48,6 +48,23 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> boo
     return project_dal.add_comment(project_name, email, comment_data)
 
 
+def validate_project_services_config(
+        is_continuous_type: bool,
+        has_drills: bool,
+        has_forces: bool):
+    if is_continuous_type:
+        if has_forces and not has_drills:
+            raise InvalidProjectServicesConfig(
+                'Forces is only available when Drills is too')
+    else:
+        if has_drills:
+            raise InvalidProjectServicesConfig(
+                'Drills is only available in projects of type Continuous')
+        if has_forces:
+            raise InvalidProjectServicesConfig(
+                'Forces is only available in projects of type Continuous')
+
+
 def create_project(
         user_email: str,
         user_role: str,
@@ -59,24 +76,31 @@ def create_project(
     else:
         companies = [str(user_domain.get_data(user_email, 'company'))]
     description = str(kwargs.get('description', ''))
-    has_forces = kwargs.get('has_forces', False)
+    has_drills = cast(bool, kwargs.get('has_drills', False))
+    has_forces = cast(bool, kwargs.get('has_forces', False))
     project_name = str(kwargs.get('project_name', '')).lower()
     if kwargs.get('subscription'):
         subscription = str(kwargs.get('subscription'))
     else:
         subscription = 'continuous'
+
+    is_continuous_type = subscription == 'continuous'
+
     resp = False
     if not (not description.strip() or not project_name.strip() or
        not all([company.strip() for company in companies]) or
        not companies):
-        if has_forces and subscription != 'continuous':
-            # Forces is only available in projects of type continuous
-            raise InvalidProjectForcesSubscriptionType()
+
+        validate_project_services_config(
+            is_continuous_type,
+            has_drills,
+            has_forces)
 
         if not project_dal.exists(project_name):
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
+                'has_drills': has_drills,
                 'has_forces': has_forces,
                 'companies': companies,
                 'type': subscription,

@@ -38,7 +38,6 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
 
   const [hasDrills, setHasDrills] = React.useState(true);
   const [hasForces, setHasForces] = React.useState(true);
-  const [hasIntegrates, setHasIntegrates] = React.useState(true);
 
   const [canHaveDrills, setCanHaveDrills] = React.useState(true);
   const [canHaveForces, setCanHaveForces] = React.useState(true);
@@ -95,24 +94,11 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
             (event: React.ChangeEvent<string> | undefined, subsType: string): void => {
               setSubscriptionType(subsType);
 
-              setHasIntegrates(true);
               setHasDrills(isContinuousType(subsType));
               setHasForces(isContinuousType(subsType));
 
               setCanHaveDrills(isContinuousType(subsType));
               setCanHaveForces(isContinuousType(subsType));
-            };
-
-            const handleIntegratesBtnChange: ((withIntegrates: boolean) => void) = (withIntegrates: boolean): void => {
-              setHasIntegrates(withIntegrates);
-
-              if (!withIntegrates) {
-                setHasDrills(false);
-                setHasForces(false);
-              }
-
-              setCanHaveDrills(withIntegrates && isContinuousType(subscriptionType));
-              setCanHaveForces(hasDrills && withIntegrates && isContinuousType(subscriptionType));
             };
             const handleDrillsBtnChange: ((withDrills: boolean) => void) = (withDrills: boolean): void => {
               setHasDrills(withDrills);
@@ -121,7 +107,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 setHasForces(false);
               }
 
-              setCanHaveForces(withDrills && hasIntegrates && isContinuousType(subscriptionType));
+              setCanHaveForces(withDrills && isContinuousType(subscriptionType));
             };
             const handleForcesBtnChange: ((withForces: boolean) => void) = (withForces: boolean): void => {
               setHasForces(withForces);
@@ -144,6 +130,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                     createProject({ variables: {
                       companies,
                       description: values.description,
+                      hasDrills,
                       hasForces,
                       projectName,
                       subscription: values.type,
@@ -204,9 +191,9 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                               <FormGroup>
                                 <ControlLabel>{translate.t("home.newProject.integrates")}</ControlLabel>
                                 <BootstrapSwitchButton
-                                  checked={hasIntegrates}
+                                  checked={true}
+                                  disabled={true}
                                   offlabel={translate.t("home.newProject.switch.no")}
-                                  onChange={handleIntegratesBtnChange}
                                   onlabel={translate.t("home.newProject.switch.yes")}
                                   onstyle="danger"
                                   style="btn-block"
@@ -253,7 +240,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                             <Button bsStyle="success" onClick={closeNewProjectModal}>
                               {translate.t("confirmmodal.cancel")}
                             </Button>
-                            <Button bsStyle="success" type="submit" disabled={!hasIntegrates || pristine || submitting}>
+                            <Button bsStyle="success" type="submit" disabled={pristine || submitting}>
                               {translate.t("confirmmodal.proceed")}
                             </Button>
                           </ButtonToolbar>

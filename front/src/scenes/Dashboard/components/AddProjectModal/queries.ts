@@ -15,7 +15,6 @@ export const CREATE_PROJECT_MUTATION: DocumentNode = gql`
     $description: String!,
     $hasDrills: Boolean,
     $hasForces: Boolean,
-    $hasIntegrates: Boolean,
     $projectName: String!,
     $subscription: SubscriptionType,
     ) {
@@ -24,7 +23,6 @@ export const CREATE_PROJECT_MUTATION: DocumentNode = gql`
       description: $description,
       hasDrills: $hasDrills,
       hasForces: $hasForces,
-      hasIntegrates: $hasIntegrates,
       projectName: $projectName,
       subscription: $subscription,
     ) {

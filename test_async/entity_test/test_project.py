@@ -46,8 +46,7 @@ class ProjectTests(TestCase):
                 projectName: "ANEWPROJECT",
                 subscription: CONTINUOUS,
                 hasDrills: true,
-                hasForces: true,
-                hasIntegrates: true
+                hasForces: true
             ) {
             success
            }

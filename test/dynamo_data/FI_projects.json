@@ -712,9 +712,6 @@
                "has_forces": {
                   "BOOL": true
                },
-               "has_integrates": {
-                  "BOOL": true
-               },
                "hasRelease" : {
                   "BOOL" : true
                },
