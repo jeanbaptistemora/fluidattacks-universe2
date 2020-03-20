@@ -540,7 +540,7 @@ class AddFindingComment(Mutation):
                 'content': parameters.get('content'),
                 'fullname': str.join(' ', [user_data['first_name'],
                                      user_data['last_name']]),
-                'parent': int(parameters.get('parent')),
+                'parent': parameters.get('parent'),
             }
             success = finding_domain.add_comment(
                 user_email=user_email,

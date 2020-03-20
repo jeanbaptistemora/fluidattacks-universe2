@@ -50,7 +50,7 @@ def test_add_comment():
         comment_id=comment_id,
         content='comment test',
         event_id='538745942',
-        parent=0,
+        parent='0',
         user_info={
             'user_email': 'unittesting@fluidattacks.com',
             'first_name': 'Unit',
@@ -63,7 +63,7 @@ def test_add_comment():
         comment_id=int(round(time() * 1000)),
         content='comment test 2',
         event_id='538745942',
-        parent=comment_id,
+        parent=str(comment_id),
         user_info={
             'user_email': 'unittesting@fluidattacks.com',
             'first_name': 'Unit',
@@ -77,7 +77,7 @@ def test_add_comment():
             comment_id=int(round(time() * 1000)),
             content='comment test 2',
             event_id='538745942',
-            parent=comment_id + 1,
+            parent=str(comment_id + 1),
             user_info={
                 'user_email': 'unittesting@fluidattacks.com',
                 'first_name': 'Unit',

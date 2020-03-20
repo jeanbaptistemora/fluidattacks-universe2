@@ -102,7 +102,7 @@ def resolve_add_event_comment(_, info, content, event_id, parent):
     comment_id = int(round(time() * 1000))
     user_info = util.get_jwt_content(info.context)
     comment_id, success = event_domain.add_comment(
-        comment_id, content, event_id, int(parent), user_info)
+        comment_id, content, event_id, parent, user_info)
     if success:
         util.invalidate_cache(event_id)
         util.cloudwatch_log(

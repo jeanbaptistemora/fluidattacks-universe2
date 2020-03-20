@@ -120,10 +120,10 @@ def filter_evidence_filename(evidence_files: List[Dict[str, str]], name: str) ->
 
 def add_comment(user_email: str, comment_data: CommentType,
                 finding_id: str, is_remediation_comment: bool) -> bool:
-    parent = cast(int, comment_data.get('parent'))
-    if parent != 0:
+    parent = comment_data.get('parent')
+    if parent != '0':
         finding_comments = \
-            [cast(int, comment.get('user_id')) for comment in
+            [str(comment.get('user_id')) for comment in
              comment_dal.get_comments(
                  str(comment_data.get('comment_type')), int(finding_id))]
         if parent not in finding_comments:
@@ -193,7 +193,7 @@ def verify_finding(
             'comment_type': 'verification',
             'content': justification,
             'fullname': user_fullname,
-            'parent': historic_verification[-1].get('comment', 0),
+            'parent': str(historic_verification[-1].get('comment', 0)),
         }
         historic_verification.append(new_state)
         add_comment(

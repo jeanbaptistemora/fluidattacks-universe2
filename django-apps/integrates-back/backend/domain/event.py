@@ -250,11 +250,11 @@ def get_events(event_ids: List[str]) -> List[EventType]:
     return events
 
 
-def add_comment(comment_id: int, content: str, event_id: str, parent: int,
+def add_comment(comment_id: int, content: str, event_id: str, parent: str,
                 user_info: UserType) -> Tuple[Union[int, None], bool]:
-    if parent != 0:
+    if parent != '0':
         event_comments = \
-            [cast(int, comment.get('user_id')) for comment in
+            [str(comment.get('user_id')) for comment in
              comment_dal.get_comments('event', int(event_id))]
         if parent not in event_comments:
             raise InvalidCommentParent()

@@ -456,7 +456,7 @@ class AddProjectComment(Mutation):
                 str.join(' ', [user_info['first_name'],
                                user_info['last_name']]),
             'modified': current_time,
-            'parent': int(parameters.get('parent'))
+            'parent': parameters.get('parent')
         }
         success = project_domain.add_comment(
             project_name, user_info['user_email'], comment_data)
