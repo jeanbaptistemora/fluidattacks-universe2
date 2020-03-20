@@ -27,15 +27,16 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
-@sync_to_async
-def _get_role(jwt_content, project_name=None):
+@convert_kwargs_to_snake_case
+def resolve_role(_, info, project_name=None):
     """Get role."""
+    jwt_content = util.get_jwt_content(info.context)
     role = get_user_role(jwt_content)
     if project_name and role == 'customer':
         email = jwt_content.get('user_email')
         role = 'customeradmin' if is_customeradmin(
             project_name, email) else 'customer'
-    return dict(role=role)
+    return role
 
 
 @sync_to_async
@@ -105,7 +106,7 @@ async def _resolve_fields(info):
     jwt_content = util.get_jwt_content(info.context)
     for requested_field in info.field_nodes[0].selection_set.selections:
         snake_field = convert_camel_case_to_snake(requested_field.name.value)
-        if snake_field.startswith('_'):
+        if snake_field.startswith('_') or snake_field == 'role':
             continue
         resolver_func = getattr(
             sys.modules[__name__],
