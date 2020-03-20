@@ -33,7 +33,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     name = String()
     findings = List(Finding)
+    has_drills = Boolean()
     has_forces = Boolean()
+    has_integrates = Boolean()
     open_vulnerabilities = Int()
     closed_vulnerabilities = Int()
     current_month_authors = Int()
@@ -97,12 +99,29 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             remediated_twelve_weeks, use_decimal=True)
         return self.remediated_over_time
 
+    @get_entity_cache
+    def resolve_has_drills(self, info):
+        """Resolve if the project has the Drills service."""
+        del info
+        attributes = project_domain.get_attributes(self.name, ['has_drills'])
+        self.has_drills = attributes.get('has_drills', False)
+        return self.has_drills
+
+    @get_entity_cache
     def resolve_has_forces(self, info):
         """Resolve if the project has the Forces service."""
         del info
         attributes = project_domain.get_attributes(self.name, ['has_forces'])
         self.has_forces = attributes.get('has_forces', False)
         return self.has_forces
+
+    @get_entity_cache
+    def resolve_has_integrates(self, info):
+        """Resolve if the project has Integrates service."""
+        del info
+        attributes = project_domain.get_attributes(self.name, ['has_integrates'])
+        self.has_integrates = attributes.get('has_integrates', False)
+        return self.has_integrates
 
     @get_entity_cache
     def resolve_findings(self, info):

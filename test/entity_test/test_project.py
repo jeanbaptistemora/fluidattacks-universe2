@@ -22,7 +22,9 @@ class ProjectEntityTests(TestCase):
           query {
             project(projectName: "unittesting"){
               name,
+              hasDrills,
               hasForces,
+              hasIntegrates,
               totalFindings,
               description,
               subscription,
@@ -51,7 +53,9 @@ class ProjectEntityTests(TestCase):
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['project']
+        assert result['data']['project']['hasDrills'] == True
         assert result['data']['project']['hasForces'] == True
+        assert result['data']['project']['hasIntegrates'] == True
         assert result['data']['project']['lastClosingVuln'] == 23
 
     def test_request_remove(self):
