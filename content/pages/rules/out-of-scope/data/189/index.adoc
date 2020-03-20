@@ -26,11 +26,25 @@ to understand language.
 It should be transparent to natural persons that personal data concerning them
 are collected, used, consulted or otherwise processed and to what extent
 the personal data are or will be processed.
+
 . [[r2]] link:https://gdpr-info.eu/recitals/no-40/[GDPR. Recital 40: Lawfulness of data processing].
 In order for processing to be lawful,
 personal data should be processed on the basis of the consent of the data
 subject concerned or some other legitimate basis.
+
 . [[r3]] link:https://gdpr-info.eu/recitals/no-45/[GDPR. Recital 45: Fulfillment of legal obligations].
 Where processing is carried out in accordance with a legal obligation to which
 the controller is subject, the processing should have a basis in Union or
 Member State law.
+
+. [[r4]] link:https://gdpr-info.eu/art-13-gdpr/[GDPR. Art. 13: Information to be provided where personal
+data are collected from the data subject.(1-3).]
+Where personal data relating to a data subject are collected from the data
+subject,
+the controller shall, at the time when personal data are obtained,
+provide the data subject with all of the following information.
+
+. [[r5]] link:https://gdpr-info.eu/art-14-gdpr/[GDPR. Art. 13: Information to be provided where personal
+data have not been obtained from the data subject.(1-4).]
+Where personal data have not been obtained from the data subject,
+the controller shall provide the data subject with the following information.
