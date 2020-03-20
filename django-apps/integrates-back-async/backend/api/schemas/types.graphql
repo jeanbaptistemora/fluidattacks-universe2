@@ -145,6 +145,7 @@ type Me {
     projects: [Project!]
     remember: Boolean
     role(projectName: String): String
+    tags: [Tag!]
 }
 
 "Comment type definition"
@@ -181,6 +182,12 @@ type Vulnerabilities {
     tags: [String!]
     remediated: Boolean
     verification: String
+}
+
+"Tag type definition"
+type Tag {
+    name: String
+    projects: [Project!]
 }
 
 type ForcesExecution {

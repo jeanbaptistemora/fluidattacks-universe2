@@ -5,6 +5,7 @@ import asyncio
 import json
 import sys
 
+from collections import defaultdict
 from asgiref.sync import sync_to_async
 from backend.decorators import require_login
 from backend.domain import user as user_domain
@@ -78,6 +79,23 @@ def _get_remember(jwt_content):
     remember = user_domain.get_data(user_email, 'legal_remember')
     result = remember if remember else False
     return dict(remember=result)
+
+
+@sync_to_async
+def _get_tags(jwt_content):
+    """Get tags."""
+    user_email = jwt_content.get('user_email')
+    projects = user_domain.get_projects(user_email)
+    tags_dict = defaultdict(list)
+    for project in projects:
+        project_tag = project_domain.get_attributes(
+            project, ['tag']).get('tag', [])
+        for tag in project_tag:
+            tags_dict[tag].append(dict(name=project))
+    tags = []
+    for tag, projects in tags_dict.items():
+        tags.append(dict(name=tag, projects=projects))
+    return dict(tags=tags)
 
 
 async def _resolve_fields(info):

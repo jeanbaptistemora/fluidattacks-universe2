@@ -11,7 +11,7 @@ from backend.decorators import (
     get_cached, require_event_access, require_finding_access,
     require_login, require_project_access, enforce_authz
 )
-from backend.domain import project as project_domain
+from backend.domain import project as project_domain, user as user_domain
 from backend.entity.me import Me
 from backend.entity.alert import Alert
 from backend.entity.forces import ForcesExecutions
@@ -21,6 +21,7 @@ from backend.entity.user import User
 from backend.entity.finding import Finding
 from backend.entity.project import Project
 from backend.entity.internal_project import InternalProject
+from backend.entity.tag import Tag
 
 from backend import services
 from backend import util
@@ -52,6 +53,8 @@ class Query(ObjectType):
                                user_email=String(required=True))
 
     project = Field(Project, project_name=String(required=True))
+
+    tag = Field(Tag, tag=String(required=True))
 
     forces_executions = Field(ForcesExecutions,
                               project_name=String(required=True),
@@ -167,3 +170,12 @@ class Query(ObjectType):
         """Resolve for current user's data """
         del info
         return Me()
+
+    @require_login
+    def resolve_tag(self, info, tag):
+        """Resolve project info of tag"""
+        tag = tag.lower()
+        jwt_content = util.get_jwt_content(info.context)
+        user_email = jwt_content.get('user_email')
+        user_projects = user_domain.get_projects(user_email)
+        return Tag(tag=tag, user_projects=user_projects)

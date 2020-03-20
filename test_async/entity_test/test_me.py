@@ -21,6 +21,10 @@ class MeTests(TestCase):
                     name
                     description
                 }
+                tags {
+                    name
+                    projects
+                }
                 remember
                 role
             }
@@ -47,6 +51,10 @@ class MeTests(TestCase):
         assert 'role' in result['data']['me']
         assert result['data']['me']['role'] == 'admin'
         assert 'projects' in result['data']['me']
+        assert 'tags' in result['data']['me']
+        for tag in result['data']['me']['tags']:
+            assert 'name' in tag
+            assert 'projects' in tag
         for project in result['data']['me']['projects']:
             assert 'name' in project
             assert 'description' in project
