@@ -280,10 +280,10 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                 />
               </Col>
             </Row>
-            <TreatmentView findingId={findingId} isEditing={isEditing} userRole={userRole} />
           </React.Fragment>
         )}
       </GenericForm>
+      <TreatmentView findingId={findingId} isEditing={isEditing} userRole={userRole} />
     </React.StrictMode>
   );
 };

@@ -8,15 +8,15 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { formValueSelector } from "redux-form";
 import { formatDropdownField, getLastTreatment } from "../../../../../utils/formatHelpers";
-import { dropdownField, textField } from "../../../../../utils/forms/fields";
+import { dateField, dropdownField, textAreaField, textField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
-import { required } from "../../../../../utils/validations";
+import { isLowerDate, isValidDate, required } from "../../../../../utils/validations";
 import { EditableField } from "../../../components/EditableField";
 import { GenericForm } from "../../../components/GenericForm";
 import { IHistoricTreatment } from "../types";
@@ -31,14 +31,13 @@ interface ITreatmentViewProps {
 const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps): JSX.Element => {
   // State management
   const selector: (state: {}, ...field: string[]) => Dictionary<string> = formValueSelector("editTreatment");
-  const formValues: Dictionary<string> = useSelector((state: {}) => selector(state, "treatment", "asd"));
+  const formValues: Dictionary<string> = useSelector((state: {}) => selector(state, "treatment", ""));
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FINDING_TREATMENT, {
     variables: { findingId: props.findingId },
   });
 
-  const canEditBts: boolean = _.includes(["admin", "customer", "customeradmin"], props.userRole);
   const canEditTreatment: boolean = _.includes(["admin", "customer", "customeradmin"], props.userRole);
 
   const [updateTreatment] = useMutation(UPDATE_TREATMENT_MUTATION, {
@@ -78,7 +77,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
     return <React.Fragment />;
   }
 
-  const lastTreatment: IHistoricTreatment = getLastTreatment(data.finding);
+  const lastTreatment: IHistoricTreatment = getLastTreatment(data.finding.historicTreatment);
 
   let treatmentLabel: string = translate.t(formatDropdownField(formValues.treatment));
   if (formValues.treatment === "ACCEPTED_UNDEFINED" && lastTreatment.acceptanceStatus !== "APPROVED") {
@@ -86,7 +85,11 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   }
 
   return (
-    <GenericForm name="editTreatment" initialValues={lastTreatment} onSubmit={handleSubmit}>
+    <GenericForm
+      name="editTreatment"
+      initialValues={{ ...lastTreatment, btsUrl: data.finding.btsUrl }}
+      onSubmit={handleSubmit}
+    >
       <Row>
         <Col md={12}>
           <EditableField
@@ -97,7 +100,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             renderAsEditable={props.isEditing}
             type="text"
             validate={required}
-            visibleWhileEditing={canEditBts}
+            visibleWhileEditing={canEditTreatment}
           />
         </Col>
       </Row>
@@ -124,7 +127,47 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             </option>
           </EditableField>
         </Col>
+        {lastTreatment.acceptanceStatus === "APPROVED" ? (
+          <Col md={6}>
+            <FormGroup>
+              <ControlLabel>
+                <b>{translate.t("search_findings.tab_description.acceptation_user")}</b>
+              </ControlLabel>
+              <p>{lastTreatment.user}</p>
+            </FormGroup>
+          </Col>
+        ) : undefined}
       </Row>
+      <Row>
+        <Col md={12}>
+          <EditableField
+            component={textAreaField}
+            currentValue={lastTreatment.justification as string}
+            label={translate.t("search_findings.tab_description.treatment_just")}
+            name="justification"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+            visibleWhileEditing={canEditTreatment}
+          />
+        </Col>
+      </Row>
+      {formValues.treatment === "ACCEPTED" ? (
+        <Row>
+          <Col md={4}>
+            <EditableField
+              component={dateField}
+              currentValue={lastTreatment.acceptanceDate as string}
+              label={translate.t("search_findings.tab_description.acceptance_date")}
+              name="acceptanceDate"
+              renderAsEditable={props.isEditing}
+              type="date"
+              validate={[isValidDate, isLowerDate]}
+              visibleWhileEditing={canEditTreatment}
+            />
+          </Col>
+        </Row>
+      ) : undefined}
     </GenericForm>
   );
 };
