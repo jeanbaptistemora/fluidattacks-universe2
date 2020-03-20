@@ -1,7 +1,7 @@
 # pylint: disable=import-error
 
 from backend.decorators import (
-    enforce_authz_async, require_login
+    enforce_authz_async, require_login, require_project_access
 )
 from backend.domain import project as project_domain
 from backend.services import get_user_role
@@ -25,4 +25,22 @@ def resolve_create_project(_, info, **kwargs):
         util.cloudwatch_log(
             info.context,
             f'Security: Created project {project} successfully')
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_request_remove_project(_, info, project_name):
+    """Resolve request_remove_project mutation."""
+    user_info = util.get_jwt_content(info.context)
+    success = \
+        project_domain.request_deletion(project_name, user_info['user_email'])
+    if success:
+        project = project_name.lower()
+        util.invalidate_cache(project)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Pending to remove project {project}')
     return dict(success=success)

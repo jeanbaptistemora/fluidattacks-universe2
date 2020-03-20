@@ -8,6 +8,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
+from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
 
 
 class ProjectTests(TestCase):
@@ -57,3 +58,38 @@ class ProjectTests(TestCase):
         assert 'success' in result['data']['createProject']
         assert result['data']['createProject']['success']
 
+    def test_request_remove_denied(self):
+        """Check for createProject mutation."""
+        query = '''
+        mutation RequestRemoveProjectMutation(
+                $projectName: String!,
+            ){
+            requestRemoveProject(projectName: $projectName) {
+            success
+           }
+        }'''
+        variables = {
+            'projectName': 'OneshottesT'
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(PermissionDenied())
+
+    def test_request_remove_pending(self):
+        """Check for createProject mutation."""
+        query = '''
+        mutation RequestRemoveProjectMutation(
+                $projectName: String!,
+            ){
+            requestRemoveProject(projectName: $projectName) {
+            success
+           }
+        }'''
+        variables = {
+            'projectName': 'pendingproject'
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(AlreadyPendingDeletion())

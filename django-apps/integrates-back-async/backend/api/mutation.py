@@ -33,3 +33,5 @@ MUTATION.set_field('removeFiles', resource.resolve_remove_files)
 MUTATION.set_field('updateRepository', resource.resolve_update_repository)
 MUTATION.set_field('updateEnvironment', resource.resolve_update_environment)
 MUTATION.set_field('createProject', project.resolve_create_project)
+MUTATION.set_field('requestRemoveProject',
+                   project.resolve_request_remove_project)
