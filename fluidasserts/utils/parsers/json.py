@@ -31,8 +31,10 @@ class CustomList(UserList):  # pylint: disable=too-many-ancestors
                 result = self.data[index]._line_
         elif isinstance(self.data[index], (CustomList, list)):
             result = self.data[index]
-        else:
+        elif '_item_' in self.data[index]:
             return self.data[index]['_item_']
+        else:
+            return self.data[index]
 
         return result
 
@@ -65,6 +67,17 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
             super().__setitem__(key, item)
         else:
             super().__setitem__(key, item)
+
+    def get(self, key, default=None):
+        """Change behavior when getting an object."""
+        result = None
+        if key in self.data and '_item_' in self.data[key]:
+            result = self.data[key]['_item_']
+        elif key in self.data:
+            result = self.data[key]
+        else:
+            result = default
+        return result
 
     def __getitem__(self, key):
         """Change behavior when getting an object."""

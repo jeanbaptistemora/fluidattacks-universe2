@@ -55,7 +55,7 @@ def has_access_logging_disabled(
                             f'/Enabled'
                             f'/{is_logging_enabled}'),
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='access logging is disabled'),)
 
     return _get_result_as_tuple(

@@ -52,7 +52,7 @@ def has_access_logging_disabled(
                             f'/access_logs.s3.enabled'
                             f'/{access_logs}'),
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='has access logging disabled'))
 
     return _get_result_as_tuple(
@@ -100,7 +100,7 @@ def has_not_deletion_protection(
                             f'/deletion_protection.enabled'
                             f'/{deletion_protection}'),
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='has not deletion protection'))
 
     return _get_result_as_tuple(
@@ -146,7 +146,7 @@ def uses_insecure_port(
                             f'/Port'
                             f'/{port}'),
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='is not secure'))
 
     return _get_result_as_tuple(
@@ -192,7 +192,7 @@ def uses_insecure_protocol(
                             f'/protocol'
                             f'/{proto}'),
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='is not secure'))
 
     return _get_result_as_tuple(

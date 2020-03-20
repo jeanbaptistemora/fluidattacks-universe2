@@ -5,7 +5,6 @@
 # standard imports
 import csv
 import time
-import json
 import functools
 from io import StringIO
 from contextlib import suppress
@@ -17,6 +16,7 @@ import boto3
 import botocore
 import cfn_tools
 import hcl
+from lark import LarkError
 
 # local imports
 from fluidasserts.utils.generic import get_paths
@@ -31,6 +31,7 @@ from fluidasserts.cloud.aws.terraform import (
     TerraformError,
     TerraformInvalidTemplateError,
 )
+from fluidasserts.utils.parsers import json as l_json
 
 # Constants
 Template = Dict[str, Any]
@@ -294,25 +295,23 @@ def load_cfn_template(template_path: str) -> Template:
         template_contents: str = template_handle.read()
 
     error_list = []
-    for function, errors in (('load_yaml', yaml.error.YAMLError),
-                             ('load_json', json.decoder.JSONDecodeError)):
 
-        try:
-            if is_yaml(template_path):
-                contents = yaml.load(template_contents,  # nosec
-                                     Loader=LineLoader)
-            else:
-                contents = getattr(cfn_tools, function)(template_contents)
-        except errors as err:
-            error_list.append((type(err), err))
+    try:
+        if is_yaml(template_path):
+            contents = yaml.load(template_contents,  # nosec
+                                 Loader=LineLoader)
         else:
-            if isinstance(contents, cfn_tools.odict.ODict) \
-                    and contents.get('Resources'):
-                return contents
+            contents = l_json.parse(template_contents)
+    except (yaml.error.YAMLError, LarkError) as err:
+        error_list.append((type(err), err))
+    else:
+        if isinstance(contents, (cfn_tools.odict.ODict, l_json.CustomDict)) \
+                and contents.get('Resources'):
+            return contents
 
-            err = CloudFormationInvalidTemplateError(
-                'Not a CloudFormation template')
-            error_list.append((type(err), err))
+        err = CloudFormationInvalidTemplateError(
+            'Not a CloudFormation template')
+        error_list.append((type(err), err))
 
     raise CloudFormationInvalidTemplateError(str(error_list))
 
@@ -401,7 +400,7 @@ def service_is_present_action(action: str, service: str) -> bool:
     """Check if a service is present in an action."""
     success = False
     with suppress(KeyError):
-        if isinstance(action, list):
+        if isinstance(action, (list, l_json.CustomList)):
             success = service in [act.split(':')[0] for act in action]
         elif action == '*':
             success = True
@@ -421,7 +420,7 @@ def service_is_present_statement(statement: str, effect: str, service: str):
 
 def resource_all(resource):
     """Check if an action is permitted for any resource."""
-    if isinstance(resource, list):
+    if isinstance(resource, (list, l_json.CustomList)):
         aux = []
         for i in resource:
             aux.append(resource_all(i))
@@ -436,7 +435,17 @@ def resource_all(resource):
 
 def force_list(obj: Any) -> List[Any]:
     """Wrap the element in a list, or if list, leave it intact."""
-    return obj if isinstance(obj, list) else [obj]
+    return obj if isinstance(obj, (list, l_json.CustomList)) else [obj]
+
+
+def get_line(obj: any):
+    """Return the line of an cloudformation node."""
+    line = 0
+    if getattr(obj, '_line_', None):
+        line = getattr(obj, '_line_', 0)
+    else:
+        line = obj['line']
+    return line
 
 
 def policy_statement_privilege(statement, effect: str, action: str):

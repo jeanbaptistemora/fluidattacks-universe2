@@ -127,7 +127,7 @@ def insecure_generate_secret_string(path: str,
                     path=yaml_path,
                     entity='AWS::SecretsManager::Secret',
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason=reason)
                 for reason in reasons)
 

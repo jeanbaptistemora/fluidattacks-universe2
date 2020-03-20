@@ -32,7 +32,7 @@ def _iterate_security_group_rules(
             ],
             exclude=exclude):
         sg_type = sg_props['../Type']
-        sg_line = sg_props['line']
+        sg_line = helper.get_line(sg_props)
         for sg_flow in ('SecurityGroupEgress', 'SecurityGroupIngress'):
             for sg_rule in sg_props.get(sg_flow, []):
                 sg_path = f'{sg_type}/{sg_flow}'
@@ -47,7 +47,7 @@ def _iterate_security_group_rules(
             exclude=exclude):
         sg_path = sg_rule['../Type']
         sg_flow = sg_path.replace('AWS::EC2::', '')
-        sg_line = sg_rule['line']
+        sg_line = helper.get_line(sg_rule)
         yield yaml_path, sg_name, sg_rule, sg_path, sg_flow, sg_line
 
 
@@ -92,7 +92,7 @@ def allows_all_outbound_traffic(
                     path=yaml_path,
                     entity='AWS::EC2::SecurityGroup',
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='allows all outbound traffic'))
 
     return _get_result_as_tuple(
@@ -295,7 +295,7 @@ def has_unencrypted_volumes(
                         path=yaml_path,
                         entity='AWS::EC2::Volume',
                         identifier=res_name,
-                        line=res_props['line'],
+                        line=helper.get_line(res_props),
                         reason='is not encrypted'))
 
     return _get_result_as_tuple(
@@ -342,7 +342,7 @@ def has_not_an_iam_instance_profile(
                     path=yaml_path,
                     entity='AWS::EC2::Instance/IamInstanceProfile',
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='is not present'))
 
     return _get_result_as_tuple(
@@ -399,7 +399,7 @@ def has_not_termination_protection(
                             'DisableApiTermination/'
                             f'{disable_api_termination}'),
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='has not disabled api termination'))
 
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
@@ -422,7 +422,7 @@ def has_not_termination_protection(
                             'DisableApiTermination/'
                             f'{disable_api_termination}'),
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='has not disabled api termination'))
 
     return _get_result_as_tuple(
@@ -478,7 +478,7 @@ def has_terminate_shutdown_behavior(
                             'InstanceInitiatedShutdownBehavior/'
                             f'{initiated_sd_behavior}'),
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='has -terminate- as shutdown behavior'))
 
     return _get_result_as_tuple(
@@ -526,7 +526,7 @@ def is_associate_public_ip_address_enabled(
                                 'AssociatePublicIpAddress/'
                                 f'{public_ip}'),
                         identifier=res_name,
-                        line=res_props['line'],
+                        line=helper.get_line(res_props),
                         reason='associates public IP on launch'))
 
     return _get_result_as_tuple(
@@ -581,7 +581,7 @@ def uses_default_security_group(
                         'LaunchTemplateData/'
                         'SecurityGroups(Ids)'),
                 identifier=res_name,
-                line=res_props['line'],
+                line=helper.get_line(res_props),
                 reason='is empty, and therefore uses default security group'))
 
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
@@ -603,7 +603,7 @@ def uses_default_security_group(
                 entity=('AWS::EC2::Instance/'
                         'SecurityGroups(Ids)'),
                 identifier=res_name,
-                line=res_props['line'],
+                line=helper.get_line(res_props),
                 reason='is empty, and therefore uses default security group'))
 
     return _get_result_as_tuple(

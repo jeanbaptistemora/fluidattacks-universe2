@@ -54,7 +54,7 @@ def has_not_point_in_time_recovery(
                     path=yaml_path,
                     entity='AWS::DynamoDB::Table',
                     identifier=res_name,
-                    line=res_props['line'],
+                    line=helper.get_line(res_props),
                     reason='is missing Point In Time Recovery'))
 
     return _get_result_as_tuple(
