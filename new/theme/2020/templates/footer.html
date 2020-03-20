@@ -8,9 +8,24 @@
       <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/footer-logo.png"
         alt="{{ gettext('Footer-logo-1') }}" class="w2-5 fl ml3 nl3-ns nt2 mr0-ns mr2">
       <div class="ml4-l ml4-m">
-        <p class="c-fluid-bk roboto b f-footer mt0 ml1 db-ns dn">Ready to start with Fluid Attacks?</p>
+        <p class="c-fluid-bk roboto b f-footer mv0 ml1 db-ns dn">Ready to start with Fluid Attacks?</p>
         <p class="c-fluid-bk roboto b f4 mt0 ml2 dn-ns db">Ready to start?</p>
-        <p class="c-fluid-bk roboto nt3-l nt3-m f6 ml2 tl-ns tc fw2">Get in touch with us right now!</p>
+        <div class="dib-l dn ml1">
+          <a class="roboto fw1 fl f5 no-underline c-fluid-bk hv-fluid-dkred" href="#">
+            <img
+            class="w1 relative pt1 ml2 fr"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
+            alt="{{ gettext('Header-img-alt') }}">
+            Learn more
+          </a>
+        </div>
+        <div class="dn-l dib tc w-100-s w-100-m pb4">
+          <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred" href="#">
+            <span class="br2 bannerbt hv-bt-fluid-rd bt-pd bt-trans white b roboto pointer mt2">
+               Contact Fluid Attacks
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -29,10 +44,6 @@
           href="{{ SITEURL }}/use-cases/one-shot/">
           One-shot Hacking
         </a><br>
-        <a class="c-fluid-gray roboto f7 fw2 no-underline hv-fluid-bk"
-        href="#">
-          Vulnerabilities<br>Management
-        </a><br>
       </div>
     </div>
     <div class="pt4-l b mh1-l">
@@ -43,11 +54,7 @@
         </a><br>
         <a class="c-fluid-gray roboto f7 fw2 no-underline hv-fluid-bk"
           href="#">
-          Fixes
-        </a><br>
-        <a class="c-fluid-gray roboto f7 fw2 no-underline hv-fluid-bk"
-          href="#">
-          Skims
+          Integrates
         </a><br>
         <a class="c-fluid-gray roboto f7 fw2 no-underline hv-fluid-bk"
           href="#">
@@ -159,12 +166,12 @@
   </div>
   <!-- status bar -->
   <div class="h2 bg-white b tc mb3">
-    <a class="c-fluid-gray f-small f-small-s fw2 no-underline mt2 roboto pl3 hv-fluid-dkred"
+    <a class="c-fluid-bk f-small f-small-s fw2 no-underline mt2 roboto pl3 hv-fluid-dkred"
        href="http://status.fluidattacks.com/">
        {{ gettext('Footer-stat-msg-1') }}
     </a>
     <span class="c-fluid-gray f-small f-small-s"> - </span>
-    <a class="c-fluid-gray f-small f-small-s fw2 mt2 roboto no-underline hv-fluid-dkred"
+    <a class="c-fluid-bk f-small f-small-s fw2 mt2 roboto no-underline hv-fluid-dkred"
        href="{{ SITEURL }}/{{ gettext('Footer-status-link-1') }}/">
        {{ gettext('Footer-stat-msg-2') }}
     </a>
