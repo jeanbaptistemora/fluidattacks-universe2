@@ -77,6 +77,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
+.hv-fluid-bd { &:hover { border-color: $button-hover;} }
 .hv-fluid-lb { &:hover { color: $lightblue; }}
 .hv-bt-fluid-rd { &:hover { background-color: $button-hover; } }
 .hv-fluid-rd { &:hover { color: $button-hover; } }
@@ -92,7 +93,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mt8 { margin-top: 20rem; }
 .bannerbt { background-color: $button-red; }
 .bt-pd { padding: .625rem 2.5rem; }
-.contact-pd { padding: .75rem 5rem; }
 .bt-trans { transition: all .3s ease;}
 .menu-txt-trans { transition: color .2s; }
 .ptdemo { padding-top: 6rem; }
@@ -145,11 +145,13 @@ $codeyellow: rgba(230, 219, 116, 1);
   transition: all ease-in-out .5s; } }
 .feature-button-r { &:hover { transform: translateX(1rem);
   transition: all ease-in-out .5s; } }
+.f-sub { font-size: 1.9rem; }
 
 // Tachyons custom responsive classes
 
 // Small screens
 @media screen and (max-width: 30em) {
+  .contact-pd { padding: .75rem 7rem; }
   .mr-5-s { margin-right: 4rem; }
   .f-small-s { font-size: .6rem; }
   .f4-s { font-size: 1.25rem; }
@@ -162,7 +164,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .cover-s { background-size: cover; }
   .shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
   .w-100-s { width: 100%; }
-  .f-sub { font-size: 1.25rem; }
   .asap-bg-s { background-image: url('../../images/bg-asap-mobile.png'); height: 25rem; }
 }
 //medium resolutions
@@ -175,7 +176,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .pv-4-m { padding-bottom: 1.6; padding-top: 1.6rem; }
   .w-logo { width: 6rem; }
   .coverm { background-size: cover; }
-  .f-sub { font-size: 1.25rem; }
 }
 
 //Large screens
@@ -194,7 +194,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .fheader-l { font-size: 9rem; }
   .bg-banner-sz { background-size: 100% 100%; }
   .w-15-l { width: 15%; }
-  .f-sub { font-size: 1.9rem; }
   .w40-l { width: 40rem; }
 }
 
@@ -241,20 +240,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 //scss-lint:disable IdSelector
 #op3:checked~.index3 {
-  color: $fluid-black;
-  font-size: 1.25rem;
-  font-weight: 400;
-  transition: .5s;
-
-  .line-menu {
-    animation: fadein .7s;
-    display: block;
-    float: left;
-  }
-}
-
-//scss-lint:disable IdSelector
-#op4:checked~.index4 {
   color: $fluid-black;
   font-size: 1.25rem;
   font-weight: 400;

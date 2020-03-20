@@ -24,7 +24,7 @@ msgstr "PENTEST"
 
 #: templates/base.html:122
 msgid "Header-msg"
-msgstr "FOR YOUR SOFTWARE DEVELOPMENT CYCLE"
+msgstr "FOR YOUR SOFTWARE DEVELOPMENT LIFE CYCLE"
 
 #: templates/landing.html:8
 msgid "Landing-title"
@@ -32,23 +32,15 @@ msgstr "Home"
 
 #: templates/landing.html:91
 msgid "Integrates-title"
-msgstr "The Platform Element (Integrates)"
+msgstr "The Platform Element"
 
 #: templates/landing.html:96
 msgid "Integrates-sub-title"
 msgstr "Facilitates the Manage of Vulnerabilities"
 
 #: templates/landing.html:122
-msgid "Skims-title"
-msgstr "The Automation Element (Skims)"
-
-#: templates/landing.html:127
-msgid "Skims-sub-title"
-msgstr "Automates the Search of Superficial Vulnerabilities"
-
-#: templates/landing.html:122
 msgid "Drills-title"
-msgstr "The Human Element (Drills)"
+msgstr "The Human Element"
 
 #: templates/landing.html:127
 msgid "Drills-sub-title"
@@ -56,7 +48,7 @@ msgstr "Finds Deep Vulnerabilities"
 
 #: templates/landing.html:122
 msgid "Forces-title"
-msgstr "The Robot Element (Forces)"
+msgstr "The Robot Element"
 
 #: templates/landing.html:127
 msgid "Forces-sub-title"

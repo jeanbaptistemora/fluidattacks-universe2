@@ -24,15 +24,19 @@
       alt="{{ gettext('Header-img-alt') }}">
     </div>
     <!-- Banner title and text -->
-    <div class="fl-l w-50-l w100-m w90-s mt3-l center">
-      <p class="fheader-l f-6-m fheader-s fw9 neue ma0">{{ gettext('Header-title-2') }}</p>
-      <p class="c-fluid-bk roboto b f-sub ma0 tl w-auto-ns ph0 nt4-ns">{{ gettext('Header-msg') }}</p>
+    <div class="fl-l w-50-l w100-m w90-s mt3-l center pt0-ns pt4">
+      <p class="fheader-l f-6-m fheader-s fw9 tl-l tc neue ma0">{{ gettext('Header-title-2') }}</p>
+      <p class="c-fluid-bk roboto b f-sub ma0 tl tc-m w-auto-ns ph0-ns ph3 nt4-ns tracked-tight">
+        {{ gettext('Header-msg') }}
+      </p>
       <!-- Get a Demo button -->
-      <a href="https://fluidattacks.com/integrates">
-        <span class="fl br2 bannerbt hv-bt-fluid-rd bt-pd bt-trans white b roboto pointer mt2">
-            Get a Demo
-        </span>
-      </a>
+      <div class="tl-l tc pt2-ns pt5">
+        <a class="no-underline" href="https://fluidattacks.com/integrates">
+          <span class="dib br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer mt2">
+              Get a Demo
+          </span>
+        </a>
+      </div>
       <!-- End Demo button -->
     </div>
   </div>
@@ -44,7 +48,7 @@
 
 <div class="mw9 center h6 pv5 mv5">
   <div class="tl pl3-l pr0-l">
-    <h1 class="center roboto w-100 tl-l tc ph3-ns ph3 f2-ns f4">
+    <h1 class="center roboto w-100 tc ph3-ns ph3 f2-ns f4">
       How Continuous Hacking Works
     </h1>
   </div>
@@ -65,7 +69,7 @@
             <img
             class="line-menu w2-l w1 fl nl4 pt3 pr2 relative"
             src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="{{ gettext('Header-img-alt') }}">2. Skims</label>
+            alt="{{ gettext('Header-img-alt') }}">2. Drills</label>
         </li>
         <li class="ph2 db-l di ph2">
           <input type="radio" id="op3" class="dn" name="menu1"/>
@@ -73,15 +77,7 @@
             <img
             class="line-menu w2-l w1 fl nl4 pt3 pr2 relative"
             src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="{{ gettext('Header-img-alt') }}">3. Drills</label>
-        </li>
-        <li class="ph2 db-l di ph2">
-          <input type="radio" id="op4" class="dn" name="menu1"/>
-          <label class="index4 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op4">
-            <img
-            class="line-menu w2-l w1 fl nl4 pt3 pr2 relative"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="{{ gettext('Header-img-alt') }}">4. Forces</label>
+            alt="{{ gettext('Header-img-alt') }}">3. Forces</label>
         </li>
       </ul>
     </div>
@@ -99,8 +95,8 @@
         </li>
         <li>
           <a class="no-underline" href="#">
-            <p class="c-fluid-bk roboto fw1 tl f5-ns f7 lh-2">
-              <strong>Integrates</strong> is a platform that stores vulnerabilities and gives you
+            <p class="c-fluid-bk roboto fw1 tl f5-ns f6 lh-2">
+              <strong class="b">Integrates</strong> is a platform that stores vulnerabilities and gives you
               access to their evidence in different phases and in real-time.
               You can easily and quickly classify and prioritize them,
               define their treatments, and check the status and progress of their
@@ -120,39 +116,6 @@
         </li>
       </ul>
     </div>
-    <div class="skims w-80-l w-100 mh0-l ph3-l center dn fl">
-      <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
-        <li>
-          <h2 class="roboto strong mb0">
-            {{ gettext('Skims-title') }}
-          </h2>
-        </li>
-        <li>
-          <h3 class="roboto fw4 mt0">
-            {{ gettext('Skims-sub-title') }}
-          </h3>
-        </li>
-        <li>
-          <a class="no-underline" href="#">
-            <p class="c-fluid-bk roboto fw1 tl f5-ns f7 lh-2">
-              Look for deterministic and peripheral vulnerabilities.
-              <strong>Skims</strong> works for code (SAST), applications (DAST),
-              infrastructure and cloud (AWS, Azure) and can be executed unlimited times.
-            </p>
-          </a>
-        </li>
-      </ul>
-      <ul class="list fr center w-50-l w-100 pl0-l">
-        <li>
-          <a href="#">
-            <img
-            class="fr"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-skims.png"
-            alt="{{ gettext('Header-img-alt') }}">
-          </a>
-        </li>
-      </ul>
-    </div>
     <div class="drills w-80-l w-100 mh0-l ph3-l center dn fl">
       <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
         <li>
@@ -167,8 +130,8 @@
         </li>
         <li>
           <a class="no-underline" href="#">
-            <p class="c-fluid-bk roboto fw1 tl f5-ns f7 lh-2">
-              <strong>Drills</strong>, through human creativity and intelligence, finds
+            <p class="c-fluid-bk roboto fw1 tl f5-ns f6 lh-2">
+              <strong class="b">Drills</strong>, through human creativity and intelligence, finds
               deep and zero-day vulnerabilities during software
               development. Forget about false positives and get detailed
               evidence, accurate attack vectors, and log extraction.
@@ -199,8 +162,8 @@
         </li>
         <li>
           <a class="no-underline" href="#">
-            <p class="c-fluid-bk roboto fw1 tl f5-ns f7 lh-2">
-              <strong>Forces</strong>, making use of human skills for the creation of
+            <p class="c-fluid-bk roboto fw1 tl f5-ns f6 lh-2">
+              <strong class="b">Forces</strong>, making use of human skills for the creation of
               exploits, breaks your build to force remediation of
               confirmed deep vulnerabilities, re-opened vulnerabilities,
               and new peripheral vulnerabilities.
@@ -253,7 +216,7 @@
       </ul>
       <ul class="list fr-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
         <li>
-          <p class="roboto fw1 tl f5-ns f7 lh-2">
+          <p class="roboto fw1 tl f5-ns f6 lh-2">
             All vulnerabilities and security issues are continuously
             detected and reported during the entire software development cycle.
             Fluid Attacks runs comprehensive testing, detecting all
@@ -261,13 +224,20 @@
           </p>
         </li>
         <li class="pt4">
-          <a class="roboto fw1 fr f5 no-underline c-fluid-bk hv-fluid-dkred" href="#">
-            <img
-            class="w1 fr relative pt1 ml2"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
-            alt="{{ gettext('Header-img-alt') }}">
-            Learn more
-          </a>
+          <div class="dib">
+            <a class="no-underline pr4 b roboto dib-l dn" href="#">
+              <span class="br2 bg-white bc-fluid-red ba hv-fluid-rd hv-fluid-bd bt-pd bt-trans c-dkred pointer mt2">
+                Learn More
+              </span>
+            </a>
+          </div>
+          <div class="dib tc w-100-s w-100-m">
+            <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred" href="#">
+              <span class="br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer mt2">
+                  Get a Demo
+              </span>
+            </a>
+          </div>
         </li>
       </ul>
     </div>
@@ -282,20 +252,27 @@
       </ul>
       <ul class="list fr-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
         <li>
-          <p class="roboto fw1 tl f5-ns f7 lh-2">
+          <p class="roboto fw1 tl f5-ns f6 lh-2">
             Fluid Attacks detects and reports all vulnerabilities within one
             specific version of your application. All existing vulnerabilities
             are detected, with no false positives.
           </p>
         </li>
         <li class="pt4">
-          <a class="roboto fw1 fr f5 no-underline c-fluid-bk hv-fluid-dkred" href="#">
-            <img
-            class="w1 fr relative pt1 ml2"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
-            alt="{{ gettext('Header-img-alt') }}">
-            Learn more
-          </a>
+          <div class="dib">
+            <a class="no-underline pr4 b roboto dib-l dn" href="#">
+              <span class="br2 bg-white bc-fluid-red ba hv-fluid-rd hv-fluid-bd bt-pd bt-trans c-dkred pointer mt2">
+                Learn More
+              </span>
+            </a>
+          </div>
+          <div class="dib tc w-100-s w-100-m">
+            <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred" href="#">
+              <span class="br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer mt2">
+                  Get a Demo
+              </span>
+            </a>
+          </div>
         </li>
       </ul>
     </div>
@@ -447,10 +424,6 @@
         </li>
       </ul>
       <div class="dn-ns tc">
-        <span class="bg-white contact-pd c-dkred b roboto pointer mt2 ba bc-fluid-red"
-              onclick="window.location='{{ SITEURL }}/contact-us/'">
-              Contact us today
-        </span>
       </div>
     </div>
   </div>

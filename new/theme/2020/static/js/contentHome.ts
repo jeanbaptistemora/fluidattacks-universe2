@@ -7,13 +7,11 @@ const contentHome: (() => void) = (): void => {
     $('input:radio[name="menu1"]')
       .on("change", () => {
 
-        animationById("#op1", "checked", ".fixes", ".skims, .drills, .forces",
+        animationById("#op1", "checked", ".fixes", ".drills, .forces",
                       "dn fadein", "dn", "fadein");
-        animationById("#op2", "checked", ".skims", ".fixes, .drills, .forces",
+        animationById("#op2", "checked", ".drills", ".fixes, .forces",
                       "dn fadein active", "dn", "fadein");
-        animationById("#op3", "checked", ".drills", ".fixes, .skims, .forces",
-                      "dn fadein active", "dn", "fadein");
-        animationById("#op4", "checked", ".forces", ".fixes, .skims, .drills",
+        animationById("#op3", "checked", ".forces", ".fixes, .drills",
                       "dn fadein active", "dn", "fadein");
     });
     $('input:radio[name="menu2"]')
