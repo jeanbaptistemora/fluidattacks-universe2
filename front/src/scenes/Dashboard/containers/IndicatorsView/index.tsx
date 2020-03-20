@@ -104,7 +104,8 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
             const dataChart: LineDatum[][] = JSON.parse(data.project.remediatedOverTime);
             const activeRepositories: IRepositoriesAttr[] = JSON.parse(data.resources.repositories)
               .filter((repo: IRepositoriesAttr) =>
-                "historic_state" in repo && repo.historic_state[repo.historic_state.length - 1].state === "ACTIVE");
+              !("historic_state" in repo) ||
+              repo.historic_state[repo.historic_state.length - 1].state === "ACTIVE");
 
             return (
               <React.StrictMode>
