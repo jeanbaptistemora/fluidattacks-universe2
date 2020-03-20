@@ -27,16 +27,18 @@ const enTranslations: Dictionary = {
     newProject: {
       company: "Company",
       description: "Description",
-      forces: {
-        no: "No",
-        title: "Include Forces Service?",
-        yes: "Yes",
-      },
+      drills: "Include Drills Service?",
+      forces: "Include Forces Service?",
+      integrates: "Include Integrates?",
       invalidProject: "Invalid project name",
       name: "Project Name",
       new: "New Project",
       noProjectName: "Currently you cannot create projects",
       success: "Project created successfully",
+      switch: {
+        no: "No",
+        yes: "Yes",
+      },
       titleSuccess: "Success",
       type: {
         continuous: "Continuous Hacking",

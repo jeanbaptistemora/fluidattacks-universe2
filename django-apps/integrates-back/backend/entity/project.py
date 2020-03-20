@@ -365,7 +365,9 @@ class CreateProject(Mutation):
         subscription = Argument(Enum('SubscriptionType', [
             ('CONTINUOUS', 'continuous'), ('ONESHOT', 'oneshot')]),
             required=False)
+        has_drills = Boolean(required=False)
         has_forces = Boolean(required=False)
+        has_integrates = Boolean(required=False)
     success = Boolean()
 
     @require_login
@@ -380,7 +382,7 @@ class CreateProject(Mutation):
             util.invalidate_cache(user_data['user_email'])
             util.cloudwatch_log(
                 info.context,
-                f'Security: Created project {project} succesfully')
+                f'Security: Created project {project} successfully')
         return CreateProject(success=success)
 
 

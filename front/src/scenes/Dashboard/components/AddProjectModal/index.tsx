@@ -23,10 +23,28 @@ import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
 import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "./queries";
 import { IAddProjectModal, IProjectName } from "./types";
 
+/*
+  * Business rules to create a project:
+  *   - Integrates must enabled, because we are using Integrates right now, right?
+  *   - Drills <--needs-- Integrates
+  *   - Forces <--needs-- Drills
+  *
+  * Business rules after creating the project:
+  *   - If Integrates is turned off the project will be scheduled for deletion
+  */
+
 const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAddProjectModal): JSX.Element => {
   const { userOrganization, userRole } = (window as typeof window & { userOrganization: string; userRole: string });
+
+  const [hasDrills, setHasDrills] = React.useState(true);
   const [hasForces, setHasForces] = React.useState(true);
+  const [hasIntegrates, setHasIntegrates] = React.useState(true);
+
+  const [canHaveDrills, setCanHaveDrills] = React.useState(true);
   const [canHaveForces, setCanHaveForces] = React.useState(true);
+
+  const [subscriptionType, setSubscriptionType] = React.useState("CONTINUOUS");
+
   const [projectName, setProjectName] = React.useState("");
   const isAdmin: boolean  = _.includes(["admin"], userRole);
   const closeNewProjectModal: (() => void) = (): void => { props.onClose(); };
@@ -40,6 +58,8 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
       setProjectName(qrResult.internalProjectNames.projectName);
     }
   };
+  const isContinuousType: ((subsType: string) => boolean) =
+    (subsType: string): boolean => subsType === "CONTINUOUS";
 
   return (
     <React.StrictMode>
@@ -70,11 +90,41 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
             const handleCreateError: ((error: ApolloError) => void) = (error: ApolloError): void => {
               handleGraphQLErrors("An error occurred adding a project", error);
             };
-            const handleForcesButtonChange: (() => void) = (): void => { setHasForces(!hasForces); };
+
             const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> =
-            (event: React.ChangeEvent<string> | undefined, subscriptionType: string): void => {
-              setCanHaveForces(subscriptionType === "Continuous");
-              setHasForces(subscriptionType === "Continuous");
+            (event: React.ChangeEvent<string> | undefined, subsType: string): void => {
+              setSubscriptionType(subsType);
+
+              setHasIntegrates(true);
+              setHasDrills(isContinuousType(subsType));
+              setHasForces(isContinuousType(subsType));
+
+              setCanHaveDrills(isContinuousType(subsType));
+              setCanHaveForces(isContinuousType(subsType));
+            };
+
+            const handleIntegratesBtnChange: ((withIntegrates: boolean) => void) = (withIntegrates: boolean): void => {
+              setHasIntegrates(withIntegrates);
+
+              if (!withIntegrates) {
+                setHasDrills(false);
+                setHasForces(false);
+              }
+
+              setCanHaveDrills(withIntegrates && isContinuousType(subscriptionType));
+              setCanHaveForces(hasDrills && withIntegrates && isContinuousType(subscriptionType));
+            };
+            const handleDrillsBtnChange: ((withDrills: boolean) => void) = (withDrills: boolean): void => {
+              setHasDrills(withDrills);
+
+              if (!withDrills) {
+                setHasForces(false);
+              }
+
+              setCanHaveForces(withDrills && hasIntegrates && isContinuousType(subscriptionType));
+            };
+            const handleForcesBtnChange: ((withForces: boolean) => void) = (withForces: boolean): void => {
+              setHasForces(withForces);
             };
 
             return (
@@ -149,29 +199,61 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                               </FormGroup>
                             </Col>
                           </Row>
-                          {canHaveForces
+                          <Row>
+                            <Col md={5} sm={5}>
+                              <FormGroup>
+                                <ControlLabel>{translate.t("home.newProject.integrates")}</ControlLabel>
+                                <BootstrapSwitchButton
+                                  checked={hasIntegrates}
+                                  offlabel={translate.t("home.newProject.switch.no")}
+                                  onChange={handleIntegratesBtnChange}
+                                  onlabel={translate.t("home.newProject.switch.yes")}
+                                  onstyle="danger"
+                                  style="btn-block"
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          {canHaveDrills
                             ? <Row>
                                 <Col md={5} sm={5}>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("home.newProject.forces.title")}</ControlLabel>
+                                    <ControlLabel>{translate.t("home.newProject.drills")}</ControlLabel>
                                     <BootstrapSwitchButton
-                                      checked={hasForces}
-                                      offlabel={translate.t("home.newProject.forces.no")}
-                                      onChange={handleForcesButtonChange}
-                                      onlabel={translate.t("home.newProject.forces.yes")}
+                                      checked={hasDrills}
+                                      offlabel={translate.t("home.newProject.switch.no")}
+                                      onChange={handleDrillsBtnChange}
+                                      onlabel={translate.t("home.newProject.switch.yes")}
                                       onstyle="danger"
                                       style="btn-block"
                                     />
                                   </FormGroup>
                                 </Col>
                               </Row>
-                            : <div />}
+                            : undefined }
+                            {canHaveForces
+                              ? <Row>
+                                  <Col md={5} sm={5}>
+                                    <FormGroup>
+                                      <ControlLabel>{translate.t("home.newProject.forces")}</ControlLabel>
+                                      <BootstrapSwitchButton
+                                        checked={hasForces}
+                                        offlabel={translate.t("home.newProject.switch.no")}
+                                        onChange={handleForcesBtnChange}
+                                        onlabel={translate.t("home.newProject.switch.yes")}
+                                        onstyle="danger"
+                                        style="btn-block"
+                                      />
+                                    </FormGroup>
+                                  </Col>
+                                </Row>
+                              : undefined }
                           <br />
                           <ButtonToolbar className="pull-right">
                             <Button bsStyle="success" onClick={closeNewProjectModal}>
                               {translate.t("confirmmodal.cancel")}
                             </Button>
-                            <Button bsStyle="success" type="submit" disabled={pristine || submitting}>
+                            <Button bsStyle="success" type="submit" disabled={!hasIntegrates || pristine || submitting}>
                               {translate.t("confirmmodal.proceed")}
                             </Button>
                           </ButtonToolbar>

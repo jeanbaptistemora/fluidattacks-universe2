@@ -13,14 +13,18 @@ export const CREATE_PROJECT_MUTATION: DocumentNode = gql`
   mutation CreateProjectMutation(
     $companies: [String]!
     $description: String!,
+    $hasDrills: Boolean,
     $hasForces: Boolean,
+    $hasIntegrates: Boolean,
     $projectName: String!,
     $subscription: SubscriptionType,
     ) {
     createProject(
       companies: $companies,
       description: $description,
+      hasDrills: $hasDrills,
       hasForces: $hasForces,
+      hasIntegrates: $hasIntegrates,
       projectName: $projectName,
       subscription: $subscription,
     ) {
