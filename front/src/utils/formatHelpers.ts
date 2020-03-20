@@ -467,8 +467,9 @@ export const getLastTreatment: ((historic: IHistoricTreatment[]) => IHistoricTre
   const acceptationUser: string = _.get(lastTreatment, "user", "");
 
   return {
+    acceptanceDate,
     acceptanceStatus,
-    date: acceptanceDate,
+    date: lastTreatment.date,
     justification,
     treatment,
     user: acceptationUser,

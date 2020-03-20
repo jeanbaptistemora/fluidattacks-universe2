@@ -26,23 +26,24 @@ interface ITreatmentViewProps {
   findingId: string;
   isEditing: boolean;
   userRole: string;
+  setEditing(value: boolean): void;
 }
 
 const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps): JSX.Element => {
   // State management
-  const selector: (state: {}, ...field: string[]) => Dictionary<string> = formValueSelector("editTreatment");
-  const formValues: Dictionary<string> = useSelector((state: {}) => selector(state, "treatment", ""));
+  const formValues: Dictionary<string> = useSelector((state: {}) =>
+    formValueSelector("editTreatment")(state, "treatment", ""));
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FINDING_TREATMENT, {
     variables: { findingId: props.findingId },
   });
 
-  const canEditTreatment: boolean = _.includes(["admin", "customer", "customeradmin"], props.userRole);
+  const canEditTreatment: boolean = _.includes(["customer", "customeradmin"], props.userRole);
 
   const [updateTreatment] = useMutation(UPDATE_TREATMENT_MUTATION, {
-    onCompleted: async (result: { updateDescription: { success: boolean } }): Promise<void> => {
-      if (result.updateDescription.success) {
+    onCompleted: async (result: { updateClientDescription: { success: boolean } }): Promise<void> => {
+      if (result.updateClientDescription.success) {
         msgSuccess(
           translate.t("proj_alerts.updated"),
           translate.t("proj_alerts.updated_title"),
@@ -70,6 +71,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   const handleSubmit: ((values: Dictionary<string>) => void) = async (
     values: Dictionary<string>,
   ): Promise<void> => {
+    props.setEditing(false);
     await updateTreatment({ variables: { ...values, findingId: props.findingId } });
   };
 
@@ -116,6 +118,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             validate={required}
             visibleWhileEditing={canEditTreatment}
           >
+            <option value="" />
             <option value="IN PROGRESS">
               {translate.t("search_findings.tab_description.treatment.in_progress")}
             </option>
@@ -157,12 +160,12 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
           <Col md={4}>
             <EditableField
               component={dateField}
-              currentValue={lastTreatment.acceptanceDate as string}
+              currentValue={lastTreatment.date}
               label={translate.t("search_findings.tab_description.acceptance_date")}
-              name="acceptanceDate"
+              name="date"
               renderAsEditable={props.isEditing}
               type="date"
-              validate={[isValidDate, isLowerDate]}
+              validate={[required, isValidDate, isLowerDate]}
               visibleWhileEditing={canEditTreatment}
             />
           </Col>

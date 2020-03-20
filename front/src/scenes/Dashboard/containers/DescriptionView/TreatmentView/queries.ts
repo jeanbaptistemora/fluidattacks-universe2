@@ -13,15 +13,15 @@ export const GET_FINDING_TREATMENT: DocumentNode = gql`
 
 export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
   mutation UpdateTreatmentMutation(
-    $acceptanceDate: Date,
+    $date: String,
     $acceptanceStatus: String,
     $btsUrl: String,
     $findingId: String!,
-    $justification: String,
+    $justification: String!,
     $treatment: String!
   ) {
     updateClientDescription(
-      acceptanceDate: $acceptanceDate,
+      acceptanceDate: $date,
       acceptanceStatus: $acceptanceStatus,
       btsUrl: $btsUrl,
       findingId: $findingId,

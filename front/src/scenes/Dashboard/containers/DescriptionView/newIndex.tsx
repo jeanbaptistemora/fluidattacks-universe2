@@ -10,8 +10,10 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Field, InjectedFormProps } from "redux-form";
+import { Dispatch } from "redux";
+import { Field, isPristine, reset, submit } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { formatCweUrl, formatFindingType } from "../../../../utils/formatHelpers";
@@ -40,8 +42,23 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   React.useEffect(onMount, []);
 
   // State management
+  const dispatch: Dispatch = useDispatch();
+
+  const isDescriptionPristine: boolean = useSelector((state: {}) =>
+    isPristine("editDescription")(state));
+  const isTreatmentPristine: boolean = useSelector((state: {}) =>
+    isPristine("editTreatment")(state));
+
   const [isEditing, setEditing] = React.useState(false);
-  const toggleEdit: (() => void) = (): void => { setEditing(!isEditing); };
+  const toggleEdit: (() => void) = (): void => {
+    if (!isDescriptionPristine) {
+      dispatch(reset("editDescription"));
+    }
+    if (!isTreatmentPristine) {
+      dispatch(reset("editTreatment"));
+    }
+    setEditing(!isEditing);
+  };
 
   // GraphQL operations
   const { data: userData } = useQuery(GET_ROLE, { variables: { projectName } });
@@ -86,11 +103,20 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
     },
   });
 
-  const handleSubmit: ((values: Dictionary<string>) => Promise<void>) = async (
+  const handleDescriptionSubmit: ((values: Dictionary<string>) => Promise<void>) = async (
     values: Dictionary<string>,
   ): Promise<void> => {
     setEditing(false);
     await updateDescription({ variables: { ...values, findingId } });
+  };
+
+  const handleSubmit: (() => void) = (): void => {
+    if (!isDescriptionPristine) {
+      dispatch(submit("editDescription"));
+    }
+    if (!isTreatmentPristine) {
+      dispatch(submit("editTreatment"));
+    }
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -101,21 +127,21 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
 
   return (
     <React.StrictMode>
-      <GenericForm name="editDescription" initialValues={dataset} onSubmit={handleSubmit}>
-        {({ pristine }: InjectedFormProps): React.ReactNode => (
+      <Row>
+        <ButtonToolbar className="pull-right">
+          {isEditing ? (
+            <Button onClick={handleSubmit} disabled={isDescriptionPristine && isTreatmentPristine}>
+              <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
+            </Button>
+          ) : undefined}
+          <Button onClick={toggleEdit}>
+            <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
+          </Button>
+        </ButtonToolbar>
+      </Row>
+      <GenericForm name="editDescription" initialValues={dataset} onSubmit={handleDescriptionSubmit}>
+        <React.Fragment>
           <React.Fragment>
-            <Row>
-              <ButtonToolbar className="pull-right">
-                {isEditing ? (
-                  <Button type="submit" disabled={pristine}>
-                    <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
-                  </Button>
-                ) : undefined}
-                <Button onClick={toggleEdit}>
-                  <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
-                </Button>
-              </ButtonToolbar>
-            </Row>
             <Row>
               <Col md={6}>
                 <EditableField
@@ -281,9 +307,14 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
               </Col>
             </Row>
           </React.Fragment>
-        )}
+        </React.Fragment>
       </GenericForm>
-      <TreatmentView findingId={findingId} isEditing={isEditing} userRole={userRole} />
+      <TreatmentView
+        findingId={findingId}
+        isEditing={isEditing}
+        setEditing={setEditing}
+        userRole={userRole}
+      />
     </React.StrictMode>
   );
 };
