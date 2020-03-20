@@ -76,7 +76,7 @@ class ProjectTests(TestCase):
         assert result['errors'][0]['message'] == str(PermissionDenied())
 
     def test_request_remove_pending(self):
-        """Check for createProject mutation."""
+        """Check for requestRemoveProject mutation."""
         query = '''
         mutation RequestRemoveProjectMutation(
                 $projectName: String!,
@@ -92,3 +92,39 @@ class ProjectTests(TestCase):
         result = self._get_result(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(AlreadyPendingDeletion())
+
+    def test_reject_request_remove_denied(self):
+        """Check for rejectRemoveProject mutation."""
+        query = '''
+        mutation RejectRemoveProjectMutation(
+                $projectName: String!,
+            ){
+            rejectRemoveProject(projectName: $projectName) {
+            success
+           }
+        }'''
+        variables = {
+            'projectName': 'PendingprojecT'
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(PermissionDenied())
+
+    def test_reject_request_remove_not_pending(self):
+        """Check for rejectRemoveProject mutation."""
+        query = '''
+        mutation RejectRemoveProjectMutation(
+                $projectName: String!,
+            ){
+            rejectRemoveProject(projectName: $projectName) {
+            success
+           }
+        }'''
+        variables = {
+            'projectName': 'unittesting'
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(NotPendingDeletion())

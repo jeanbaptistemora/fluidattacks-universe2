@@ -44,3 +44,21 @@ def resolve_request_remove_project(_, info, project_name):
             info.context,
             f'Security: Pending to remove project {project}')
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_reject_remove_project(_, info, project_name):
+    """Resolve reject_remove_project mutation."""
+    user_info = util.get_jwt_content(info.context)
+    success = \
+        project_domain.reject_deletion(project_name, user_info['user_email'])
+    if success:
+        project = project_name.lower()
+        util.invalidate_cache(project)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Reject project {project} deletion succesfully')
+    return dict(success=success)
