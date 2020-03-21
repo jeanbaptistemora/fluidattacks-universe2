@@ -60,6 +60,7 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
       "iam:GetRole",
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
+      "iam:ListAccessKeys",
       "iam:ListAttachedUserPolicies",
       "iam:ListAttachedRolePolicies"
     ]
