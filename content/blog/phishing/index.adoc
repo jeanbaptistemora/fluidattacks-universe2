@@ -16,7 +16,7 @@
 
 = Trust Nothing, Verify Everything
 
-The current global situation with the coronavirus or +COVID-19+
+The current global situation with the coronavirus or `COVID-19`
 has led many of us to respond with our work from home.
 Amidst so much uncertainty,
 there are many of us who could be looking for reliable information
@@ -35,7 +35,7 @@ posing risks to government, industry, and all types of users.
 Millions of data breaches have resulted from the action of phishing.
 And link:https://arxiv.org/ftp/arxiv/papers/1908/1908.05897.pdf[billions of dollars are lost every year].
 
-This term 'phishing' apparently originated in +1996+
+This term 'phishing' apparently originated in `1996`
 when hackers stealing data from American accounts took
 link:https://arxiv.org/ftp/arxiv/papers/1908/1908.05897.pdf["emails as 'hooks' to catch their 'fish' from the 'sea' of internet users"].
 Victims end up revealing confidential information about themselves,
@@ -142,7 +142,7 @@ next to or above the legitimate ones.
 
 == Towards phishing prevention
 
-Some users fail to distinguish between legitimate and fraudulent +URLs+,
+Some users fail to distinguish between legitimate and fraudulent `URLs`,
 and as link:http://people.ischool.berkeley.edu/~tygar/papers/Phishing/why_phishing_works.pdf[Dhamija, Tygar, and Hearst (2006)] illustrate,
 they may take www.ebay-members-security.com as belonging to www.ebay.com.
 Or they may be misled by character substitutions such as www.paypai.com,
@@ -153,7 +153,7 @@ how the security indicators in web browsers work.
 As with the closed padlock icon, in this case in Chrome
 (in another browser it could be located elsewhere).
 This lock indicates that the website we are on
-was delivered securely by +SSL+ (Secure Sockets Layer). A cryptographic protocol
+was delivered securely by `SSL` (Secure Sockets Layer). A cryptographic protocol
 link:http://people.ischool.berkeley.edu/~tygar/papers/Phishing/why_phishing_works.pdf["used to provide authentication and secure communications over the Internet"].
 
 .security indicator on Chrome
