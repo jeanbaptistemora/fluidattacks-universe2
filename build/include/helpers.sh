@@ -244,12 +244,15 @@ function helper_generic_forbidden_extensions {
 function helper_generic_file_name {
   local file="${1}"
   local regex='^[a-z0-9-]+\.[a-z0-9]+\.*[a-z0-9]*$'
+  local filename
 
-      if [[ ${file} =~ ${regex} ]]
+      helper_file_exists "${file}" \
+  &&  filename="$(basename "${file}")" \
+  &&  if [[ ${filename} =~ ${regex} ]]
       then
             return 0
       else
-            echo "[ERROR] ${file} does not match the ${regex} convention" \
+            echo "[ERROR] ${filename} does not match the ${regex} convention" \
         &&  return 1
       fi
 }
@@ -258,7 +261,8 @@ function helper_generic_adoc_main_title {
   local file="${1}"
   local titles
 
-      titles="$(grep -Pc '^=\s.*$' "${file}")" || titles='0' \
+      helper_file_exists "${file}" \
+  &&  titles="$(grep -Pc '^=\s.*$' "${file}")" || titles='0' \
   &&  if [ "${titles}" = '1' ]
       then
             return 0
@@ -271,7 +275,8 @@ function helper_generic_adoc_main_title {
 function helper_generic_adoc_keywords_section_exists {
   file="${1}"
 
-      if grep -q ':keywords:' "${file}"
+      helper_file_exists "${file}" \
+  &&  if grep -q ':keywords:' "${file}"
       then
             return 0
       else
@@ -285,7 +290,8 @@ function helper_generic_adoc_min_keywords {
   local min_keywords='6'
   local keywords
 
-      helper_generic_adoc_keywords_section_exists "${file}" \
+      helper_file_exists "${file}" \
+  &&  helper_generic_adoc_keywords_section_exists "${file}" \
   &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | wc -l)" \
   &&  if [ "${keywords}" -ge "${min_keywords}" ]
       then
@@ -301,7 +307,8 @@ function helper_generic_adoc_keywords_uppercase {
   local keywords
   local invalid_keywords
 
-      helper_generic_adoc_keywords_section_exists "${file}" \
+      helper_file_exists "${file}" \
+  &&  helper_generic_adoc_keywords_section_exists "${file}" \
   &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | sed -e 's/^\s*//g')" \
   &&  invalid_keywords="$( echo "${keywords}" | grep -Pvc '^[A-Z]')" || invalid_keywords='0' \
   &&  if [ "${invalid_keywords}" = '0' ]
@@ -311,4 +318,38 @@ function helper_generic_adoc_keywords_uppercase {
             echo "[ERROR] All keywords in ${file} must start with an upper case" \
         && return 1
       fi
+}
+
+function helper_generic_adoc_content {
+  local file="${1}"
+  local content
+
+  local blocks_regex='^(----|\+\+\+\+|\.\.\.\.)((.|\n)*?)^(----|\+\+\+\+|\.\.\.\.)'
+  local link_regex='link:.*\['
+  local internal_ref_regex='<<.*>>'
+  local inline_anchors_regex='\[\[.*\]]'
+  local images_regex='image:*.*\[.*\]'
+  local tooltip_regex='tooltip:.*\['
+  local button_regex='\[button\]\#'
+  local inner_regex='\[inner\]\#'
+  local source_regex='^\[source.*'
+  local metadata_regex='^:[a-zA-Z0-9-]+:.*'
+  local block_title_regex='^\.[a-zA-Z0-9].*'
+
+      helper_file_exists "${file}" \
+  &&  content="$(cat "${file}")" \
+  &&  content="$(echo "${content}" | pcregrep -Mv "${blocks_regex}")" \
+  &&  content="$(echo "${content}" | sed -r \
+              -e "s/${link_regex}//g" \
+              -e "s/${internal_ref_regex}//g" \
+              -e "s/${inline_anchors_regex}//g" \
+              -e "s/${images_regex}//g" \
+              -e "s/${tooltip_regex}//g" \
+              -e "s/${button_regex}//g" \
+              -e "s/${inner_regex}//g" \
+              -e "/${source_regex}/d" \
+              -e "/${metadata_regex}/d" \
+              -e "/${block_title_regex}/d" \
+              )" \
+  &&  echo "${content}"
 }

@@ -10,6 +10,7 @@ in
         ++ [
           pkgs.git
           pkgs.file
+          pkgs.pcre
         ];
     })
   )

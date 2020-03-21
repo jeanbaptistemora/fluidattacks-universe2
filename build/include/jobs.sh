@@ -113,8 +113,7 @@ function job_test_generic {
   &&  echo '[INFO] Testing compliant file names' \
   &&  for path in ${all_content_files}
       do
-            file="$(basename "${path}")" \
-        &&  helper_generic_file_name "${file}" || return 1
+            helper_generic_file_name "${path}" || return 1
       done \
   && echo '[INFO] Testing adoc files' \
   &&  for path in ${all_adoc_files}
