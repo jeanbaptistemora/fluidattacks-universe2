@@ -370,7 +370,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
             """))
 
     fernet_key: str = utils.get_sops_secret(
-        'break_build_secret',
+        f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
     for exploit_path in sorted(glob.glob(
@@ -495,7 +495,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
             """))
 
     fernet_key: str = utils.get_sops_secret(
-        'break_build_secret',
+        f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
 
@@ -689,7 +689,7 @@ def run_static_exploits(
     utils.aws_login(f'continuous-{subs}')
 
     fernet_key: str = utils.get_sops_secret(
-        'break_build_secret',
+        f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
 
@@ -762,7 +762,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
     start = time()
     times: Dict[str, Any] = {}
     fernet_key: str = utils.get_sops_secret(
-        'break_build_secret',
+        f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
     for exploit_path in sorted(glob.glob(
@@ -1057,7 +1057,7 @@ def encrypt_secrets(subs: str) -> bool:
                 open(encrypted_path, 'w') as encrypted_handle:
             crypto.create_encrypted_yaml(
                 key_b64=utils.get_sops_secret(
-                    'break_build_secret',
+                    f'break_build_aws_secret_access_key',
                     f'subscriptions/{subs}/config/secrets.yaml',
                     f'continuous-{subs}'),
                 secrets={
@@ -1099,7 +1099,7 @@ def decrypt_secrets(subs: str) -> bool:
         else:
             crypto.create_decrypted_yaml(
                 key_b64=utils.get_sops_secret(
-                    'break_build_secret',
+                    f'break_build_aws_secret_access_key',
                     f'subscriptions/{subs}/config/secrets.yaml',
                     f'continuous-{subs}'),
                 input_file=encrypted_path,
