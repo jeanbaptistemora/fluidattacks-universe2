@@ -47,6 +47,8 @@ if [[ "$ENV_NAME" = "development" ]]; then
     . deploy/containers/common/vars/provision_local_db.sh
 fi
 
+sleep 10
+
 uvicorn --workers=4 \
     --host=0.0.0.0 \
     --port=80 \

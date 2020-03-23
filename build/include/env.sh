@@ -4,6 +4,7 @@ source "${srcIncludeHelpers}"
 source "${srcCiScriptsHelpersOthers}"
 
 function env_prepare_environment_variables {
+  export CI_JOB_NAME="${1}"
   export IS_NIX='true'
   export IS_LOCAL_BUILD
   export ENVIRONMENT_NAME

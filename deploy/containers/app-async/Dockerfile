@@ -26,6 +26,9 @@ RUN cp -a django-apps/integrates-back-async/backend . \
   && cp -a django-apps/integrates-back/backend/utils backend/ \
   && cp -a django-apps/integrates-back/backend/*py backend/ \
   && pip3 install -U ariadne==0.10.0 \
+  && pip3 install --no-cache-dir --no-index \
+      --find-links=django-apps/packages/ \
+      --requirement deploy/containers/deps-app/requirements_local_async.txt \
   # End of temporal code
   && rm -rf /var/www/html \
   && rm -f /etc/td-agent/td-agent.conf \
@@ -47,4 +50,3 @@ EXPOSE 80 24224
 
 # Start integrates
 CMD ./deploy/containers/common/vars/run.sh
-

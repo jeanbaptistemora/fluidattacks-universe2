@@ -22,7 +22,7 @@ function cli {
   fi
 
   echo '---'
-  env_prepare_environment_variables
+  env_prepare_environment_variables "${function_to_call}"
   env_prepare_ephemeral_vars
   case "${function_to_call}" in
     build*)

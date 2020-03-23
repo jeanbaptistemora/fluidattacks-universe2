@@ -8,7 +8,11 @@ source "${srcCiScriptsHelpersSops}"
 function job_build_django_apps {
   local app
 
-  for app in 'django-apps/integrates-'*; do
+  for app in \
+    'django-apps/integrates-'* \
+    'django-apps/casbin-dynamodb-adapter' \
+
+  do
         echo "[INFO] Building: ${app}" \
     &&  pushd "${app}" \
       &&  python3 setup.py sdist -d ../packages/ \
@@ -203,9 +207,9 @@ function job_deploy_container_app_async {
 }
 
 function job_deploy_front {
-        aws_login "${ENVIRONMENT_NAME}" \
-    &&  sops_vars "${ENVIRONMENT_NAME}" \
-    &&  ./manage.py collectstatic --no-input
+      aws_login "${ENVIRONMENT_NAME}" \
+  &&  sops_vars "${ENVIRONMENT_NAME}" \
+  &&  ./manage.py collectstatic --no-input
 }
 
 function job_deploy_mobile {

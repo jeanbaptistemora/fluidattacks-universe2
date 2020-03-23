@@ -20,6 +20,7 @@ import i18n
 from boto3.session import Session
 from botocore.exceptions import ClientError
 import casbin
+import casbin_dynamodb_adapter.adapter
 
 import rollbar
 
@@ -451,27 +452,27 @@ SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET  # noqa
 SOCIAL_AUTH_AZUREAD_OAUTH2_RESOURCE = 'https://graph.microsoft.com/'
 
+if os.environ.get('CI_JOB_NAME') in (
+        'deploy_front',
+        'functional_tests_dev',
+        'functional_tests_prod'):
+    # This jobs evaluate this file
+    # In order to keep the job fast we'll not setup a DynamoDB local
+    CASBIN_ADAPTER = None
+else:
+    CASBIN_ADAPTER = casbin_dynamodb_adapter.adapter.Adapter()
 
-CASBIN_BASIC_POLICY_MODEL_FILE = \
-    os.path.join(BASE_DIR, 'authz_models', 'basic.conf')
-
-CASBIN_ACTION_POLICY_MODEL_FILE = \
-    os.path.join(BASE_DIR, 'authz_models', 'action.conf')
-
-CASBIN_ACTION_ASYNC_POLICY_MODEL_FILE = \
-    os.path.join(BASE_DIR, 'authz_models', 'action_async.conf')
-
-ENFORCER_BASIC = casbin.Enforcer(
-    CASBIN_BASIC_POLICY_MODEL_FILE,
+ENFORCER_PROJECT_ACCESS = casbin.Enforcer(
+    model=os.path.join(BASE_DIR, 'authorization', 'project_access.conf'),
     enable_log=False
 )
 
-ENFORCER_ACTION = casbin.Enforcer(
-    CASBIN_ACTION_POLICY_MODEL_FILE,
+ENFORCER_PROJECT_LEVEL = casbin.Enforcer(
+    model=os.path.join(BASE_DIR, 'authorization', 'project_level.conf'),
     enable_log=False
 )
 
-ENFORCER_ACTION_ASYNC = casbin.Enforcer(
-    CASBIN_ACTION_ASYNC_POLICY_MODEL_FILE,
+ENFORCER_PROJECT_LEVEL_ASYNC = casbin.Enforcer(
+    model=os.path.join(BASE_DIR, 'authorization', 'project_level_async.conf'),
     enable_log=False
 )

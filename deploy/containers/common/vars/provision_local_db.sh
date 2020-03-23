@@ -1,6 +1,12 @@
 #!/bin/bash
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
+  --table-name 'fi_authorization' \
+  --attribute-definitions 'AttributeName=id,AttributeType=S' \
+  --key-schema 'AttributeName=id,KeyType=HASH' \
+  --provisioned-throughput 'ReadCapacityUnits=1,WriteCapacityUnits=1'
+
+aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --table-name FI_findings \
 --attribute-definitions \
     AttributeName=finding_id,AttributeType=S \

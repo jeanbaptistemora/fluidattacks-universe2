@@ -30,9 +30,9 @@ from backend.exceptions import InvalidAuthorization
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-ENFORCER_BASIC = getattr(settings, 'ENFORCER_BASIC')
-ENFORCER_ACTION = getattr(settings, 'ENFORCER_ACTION')
-ENFORCER_ACTION_ASYNC = getattr(settings, 'ENFORCER_ACTION_ASYNC')
+ENFORCER_PROJECT_ACCESS = getattr(settings, 'ENFORCER_PROJECT_ACCESS')
+ENFORCER_PROJECT_LEVEL = getattr(settings, 'ENFORCER_PROJECT_LEVEL')
+ENFORCER_PROJECT_LEVEL_ASYNC = getattr(settings, 'ENFORCER_PROJECT_LEVEL_ASYNC')
 
 
 def authenticate(func):
@@ -162,7 +162,7 @@ def enforce_authz(func):
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
         try:
-            if not ENFORCER_ACTION.enforce(user_data, project_data, action):
+            if not ENFORCER_PROJECT_LEVEL.enforce(user_data, project_data, action):
                 util.cloudwatch_log(context,
                                     'Security: \
 Unauthorized role attempted to perform operation')
@@ -192,7 +192,7 @@ def enforce_authz_async(func):
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
         try:
-            if not ENFORCER_ACTION_ASYNC.enforce(
+            if not ENFORCER_PROJECT_LEVEL_ASYNC.enforce(
                 user_data, project_data, action
             ):
                 util.cloudwatch_log(context,
@@ -234,7 +234,8 @@ def require_project_access(func):
                                    'error', context)
             raise GraphQLError('Access denied')
         try:
-            if not ENFORCER_BASIC.enforce(user_data, project_name.lower()):
+            if not ENFORCER_PROJECT_ACCESS.enforce(
+                    user_data, project_name.lower()):
                 util.cloudwatch_log(context,
                                     'Security: \
 Attempted to retrieve {project} project info without permission'
@@ -273,7 +274,8 @@ def require_finding_access(func):
                                    'error', context)
             raise GraphQLError('Invalid finding id format')
         try:
-            if not ENFORCER_BASIC.enforce(user_data, finding_project.lower()):
+            if not ENFORCER_PROJECT_ACCESS.enforce(
+                    user_data, finding_project.lower()):
                 util.cloudwatch_log(context,
                                     'Security: \
     Attempted to retrieve finding-related info without permission')
@@ -308,7 +310,8 @@ def require_event_access(func):
                                    'error', context)
             raise GraphQLError('Invalid event id format')
         try:
-            if not ENFORCER_BASIC.enforce(user_data, event_project.lower()):
+            if not ENFORCER_PROJECT_ACCESS.enforce(
+                    user_data, event_project.lower()):
                 util.cloudwatch_log(context,
                                     'Security: \
     Attempted to retrieve event-related info without permission')

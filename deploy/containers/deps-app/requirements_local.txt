@@ -1,1 +1,2 @@
+casbin-dynamodb-adapter
 integrates-back
