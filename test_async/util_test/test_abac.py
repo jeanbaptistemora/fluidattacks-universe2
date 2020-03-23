@@ -134,7 +134,6 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_project_resolve_reject_remove_project',
         'backend_api_resolvers_user_resolve_user_resolve_list_projects',
         'backend_api_resolvers_cache_resolve_invalidate_cache',
-        'backend_api_resolvers_project_resolve_create_project',
     }
 
     analyst_allowed_actions = {
@@ -222,7 +221,6 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_alert_resolve_set_alert',
         'backend_api_resolvers_event_resolve_create_event',
         'backend_api_resolvers_user_resolve_user_resolve_list_projects',
-        'backend_api_resolvers_project_resolve_create_project',
     }
 
     customeradminfluid_allowed_actions.update(customer_allowed_actions)
@@ -326,21 +324,6 @@ class ActionAbacTest(TestCase):
 
         for action in should_deny:
             self.assertFalse(enfor.enforce(sub, obj, action))
-
-    def test_action_create_project(self):
-        """Tests for an user with a expected role."""
-        enfor = get_project_level_enforcer()
-
-        class TestItem:
-            pass
-
-        sub = TestItem()
-        sub.user_email = 'admin@fluidattacks.com'
-        sub.role = 'customeradmin'
-        obj = {'customeradmin': set()}
-        action = 'backend_api_resolvers_project_resolve_create_project'
-
-        self.assertTrue(enfor.enforce(sub, obj, action))
 
     def test_action_analyst_role(self):
         """Tests for an user with a expected role."""

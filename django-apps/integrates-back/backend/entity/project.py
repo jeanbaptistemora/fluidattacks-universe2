@@ -13,7 +13,9 @@ from graphene import (
 from graphene.types.generic import GenericScalar
 
 from backend.decorators import (
-    get_entity_cache, require_login, require_project_access, enforce_authz
+    get_entity_cache, require_login, require_project_access,
+    enforce_authz,
+    enforce_user_level_auth,
 )
 from backend.domain import (
     finding as finding_domain, project as project_domain,
@@ -361,7 +363,7 @@ class CreateProject(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_user_level_auth
     def mutate(self, info, **kwargs):
         user_data = util.get_jwt_content(info.context)
         user_role = get_user_role(user_data)

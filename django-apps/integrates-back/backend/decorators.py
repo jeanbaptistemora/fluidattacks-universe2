@@ -28,11 +28,17 @@ from backend.services import (
 from backend import util
 from backend.exceptions import InvalidAuthorization
 
+# Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
+CASBIN_ADAPTER = getattr(settings, 'CASBIN_ADAPTER')
 ENFORCER_PROJECT_ACCESS = getattr(settings, 'ENFORCER_PROJECT_ACCESS')
 ENFORCER_PROJECT_LEVEL = getattr(settings, 'ENFORCER_PROJECT_LEVEL')
 ENFORCER_PROJECT_LEVEL_ASYNC = getattr(settings, 'ENFORCER_PROJECT_LEVEL_ASYNC')
+ENFORCER_USER_LEVEL = getattr(settings, 'ENFORCER_USER_LEVEL')
+ENFORCER_USER_LEVEL_ASYNC = getattr(settings, 'ENFORCER_USER_LEVEL_ASYNC')
+
+UNAUTHORIZED_ROLE_MSG = 'Security: Unauthorized role attempted to perform operation'
 
 
 def authenticate(func):
@@ -206,6 +212,41 @@ Unauthorized role attempted to perform operation')
             raise GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call
+
+
+def _enforce_user_level_auth(func, enforcer):
+    """Enforce authorization using the user-level role."""
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        context = args[1].context
+        user_data = util.get_jwt_content(context)
+
+        subject = user_data['user_email']
+        object_ = 'self'
+        action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
+
+        util.temporal_keep_auth_table_fresh()
+        enforcer.load_policy()
+
+        try:
+            if not enforcer.enforce(subject, object_, action):
+                util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+                raise GraphQLError('Access denied')
+        except AttributeDoesNotExist:
+            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            raise GraphQLError('Access denied')
+        return func(*args, **kwargs)
+    return verify_and_call
+
+
+def enforce_user_level_auth(func):
+    """Enforce authorization using the user-level role."""
+    return _enforce_user_level_auth(func, ENFORCER_USER_LEVEL)
+
+
+def enforce_user_level_auth_async(func):
+    """Enforce authorization using the user-level role."""
+    return _enforce_user_level_auth(func, ENFORCER_USER_LEVEL_ASYNC)
 
 
 def verify_jti(email, context, jti):

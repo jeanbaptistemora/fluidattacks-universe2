@@ -476,3 +476,15 @@ ENFORCER_PROJECT_LEVEL_ASYNC = casbin.Enforcer(
     model=os.path.join(BASE_DIR, 'authorization', 'project_level_async.conf'),
     enable_log=False
 )
+
+ENFORCER_USER_LEVEL = casbin.Enforcer(
+    model=os.path.join(BASE_DIR, 'authorization', 'user_level.conf'),
+    adapter=CASBIN_ADAPTER,
+    enable_log=DEBUG,
+)
+
+ENFORCER_USER_LEVEL_ASYNC = casbin.Enforcer(
+    model=os.path.join(BASE_DIR, 'authorization', 'user_level_async.conf'),
+    adapter=CASBIN_ADAPTER,
+    enable_log=DEBUG,
+)

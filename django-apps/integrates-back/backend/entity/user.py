@@ -15,7 +15,9 @@ import rollbar
 from graphene import ObjectType, Mutation, String, Boolean, Field, List
 
 from backend.decorators import (
-    require_login, require_project_access, enforce_authz
+    require_login, require_project_access,
+    enforce_authz,
+    enforce_user_level_auth,
 )
 from backend.domain import project as project_domain, user as user_domain
 from backend.services import (
@@ -155,7 +157,7 @@ class AddUser(Mutation):
 
     @staticmethod
     @require_login
-    @enforce_authz
+    @enforce_user_level_auth
     def mutate(_, info, **parameters):
         success = user_domain.create_without_project(parameters)
         if success:

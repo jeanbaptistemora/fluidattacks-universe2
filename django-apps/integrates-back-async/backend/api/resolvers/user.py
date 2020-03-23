@@ -10,7 +10,8 @@ import threading
 from asgiref.sync import sync_to_async
 from backend.decorators import (
     get_cached, require_login, require_project_access,
-    enforce_authz_async
+    enforce_authz_async,
+    enforce_user_level_auth_async,
 )
 from backend.domain import project as project_domain, user as user_domain
 from backend.exceptions import UserNotFound
@@ -237,7 +238,7 @@ def resolve_user(_, info, project_name, user_email):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_user_level_auth_async
 def resolve_add_user(_, info, **parameters):
     """Resolve add_user mutation."""
     success = user_domain.create_without_project(parameters)

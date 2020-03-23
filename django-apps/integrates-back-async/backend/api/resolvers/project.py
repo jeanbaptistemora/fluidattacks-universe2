@@ -1,7 +1,8 @@
 # pylint: disable=import-error
 
 from backend.decorators import (
-    enforce_authz_async, require_login, require_project_access
+    enforce_authz_async, require_login, require_project_access,
+    enforce_user_level_auth_async,
 )
 from backend.domain import project as project_domain
 from backend.services import get_user_role
@@ -12,7 +13,7 @@ from ariadne import convert_kwargs_to_snake_case
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_user_level_auth_async
 def resolve_create_project(_, info, **kwargs):
     """Resolve create_project mutation."""
     user_data = util.get_jwt_content(info.context)

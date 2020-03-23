@@ -24,6 +24,8 @@ from django.core.files.uploadedfile import (
 )
 from django.core.cache import cache
 from jose import jwt, JWTError
+
+from backend.dal.helpers import dynamodb
 from backend.exceptions import (InvalidAuthorization, InvalidDate,
                                 InvalidDateFormat)
 from backend.typing import Finding as FindingType, User as UserType
@@ -458,3 +460,36 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
         updated_values['acceptance_date'] = (
             datetime.now() + timedelta(days=5 + weekend_days)).strftime('%Y-%m-%d %H:%M:%S')
     return updated_values
+
+
+def temporal_yield_users():
+    table = dynamodb.DYNAMODB_RESOURCE.Table('FI_users')
+
+    result = table.scan()
+    yield from result['Items']
+    while result.get('LastEvaluatedKey'):
+        result = table.scan(ExclusiveStartKey=result['LastEvaluatedKey'])
+        yield from result['Items']
+
+
+def temporal_keep_auth_table_fresh():
+    # Function to keep data fresh until I make data get
+    # inserted directly into the authorization table (200 deltas)
+    adapter = getattr(settings, 'CASBIN_ADAPTER')
+
+    for user in temporal_yield_users():
+        if 'role' not in user:
+            continue
+
+        user_email = user['email']
+        user_role = user['role']
+
+        if user_role == 'customeradmin':
+            user_role = 'customer'
+
+        adapter.add_policy('p', 'p', [
+            # level, subject, object, role
+            'user', user_email, 'self', user_role
+        ])
+
+    adapter.deduplicate_policies()
