@@ -10,6 +10,7 @@ from typing import (
     Iterable,
     List,
     Pattern,
+    Set,
 )
 
 # Third parties libraries
@@ -21,7 +22,7 @@ from boto3_type_annotations import dynamodb
 
 # Adapter configuration vars
 CASBIN_ADAPTER_ENDPOINT_URL = \
-    os.environ.get('CASBIN_ADAPTER_ENDPOINT_URL')
+    os.environ.get('CASBIN_ADAPTER_ENDPOINT_URL') or None
 CASBIN_ADAPTER_TABLE_NAME = \
     os.environ.get('CASBIN_ADAPTER_TABLE_NAME', 'casbin')
 CASBIN_ADAPTER_TABLE_READ_CAPACITY_UNITS = int(
@@ -32,6 +33,10 @@ CASBIN_ADAPTER_TABLE_WRITE_CAPACITY_UNITS = int(
 # Constants
 POLICY_VALUES_REGEX: str = r'^[a-zA-Z0-9@.]+$'
 POLICY_VALUES_PATTERN: Pattern = re.compile(POLICY_VALUES_REGEX)
+
+# Types
+Attribute = str
+Rule = List[Attribute]
 
 
 def create_policy_table(
@@ -66,10 +71,28 @@ def does_table_exist(
     return exists
 
 
+def get_rules(
+        policy_table: dynamodb.Table,
+        policy_type: str,
+        partial_rule: Rule) -> List[Rule]:
+    """Return rules matching partially from the database."""
+    results: List[Rule] = []
+    partial_rule_len: int = len(partial_rule)
+    for item in yield_items_from_table(policy_table):
+        item_policy_type: str = item['policy_type']
+        item_rule: Rule = item['rule']
+
+        if policy_type == item_policy_type \
+                and partial_rule == item_rule[0:partial_rule_len]:
+            results.append(item_rule)
+
+    return results
+
+
 def put_policy(
         policy_table: dynamodb.Table,
         policy_type: str,
-        rule: List[str]):
+        rule: Rule):
     """Insert a policy into the database."""
     unique_id: str = str(uuid.uuid4())
 
@@ -77,7 +100,7 @@ def put_policy(
 
     policy_table.put_item(Item={
         'id': unique_id,
-        'ptype': policy_type,
+        'policy_type': policy_type,
         'rule': rule,
     })
 
@@ -85,12 +108,12 @@ def put_policy(
 def delete_policy(
         policy_table: dynamodb.Table,
         policy_type: str,
-        rule: List[str]):
+        rule: Rule):
     """Delete a policy from the database."""
     for item in yield_items_from_table(policy_table):
         item_id: str = item['id']
-        item_policy_type: str = policy_type
-        item_rule: List[str] = item['rule']
+        item_policy_type: str = item['policy_type']
+        item_rule: Rule = item['rule']
 
         if policy_type == item_policy_type \
                 and rule == item_rule:
@@ -99,16 +122,36 @@ def delete_policy(
             })
 
 
-def validate_rule(rule: List[str]):
-    for element in rule:
-        if not isinstance(element, str):
-            raise ValueError(
-                f'Rule elements must be str, got {type(element)}: {element}')
+def validate_rule(rule: Rule):
+    for attribute in rule:
+        if not isinstance(attribute, Attribute):
+            raise TypeError(
+                f'Rule attributes must be of type: {Attribute}, '
+                f'got {type(attribute)}: {attribute}')
 
-        if not POLICY_VALUES_PATTERN.match(element):
+        if not POLICY_VALUES_PATTERN.match(attribute):
             raise ValueError(
-                f'Rule elements must comply regex: {POLICY_VALUES_REGEX}, '
-                f'got: {element}')
+                f'Rule attributes must comply regex: {POLICY_VALUES_REGEX}, '
+                f'got: {attribute}')
+
+
+def deduplicate_policies(policy_table: dynamodb.Table):
+    """Delete unneeded items from the database."""
+    seen_items: Set[tuple] = set()
+
+    for item in yield_items_from_table(policy_table):
+        item_id: str = item['id']
+        item_policy_type: str = item['policy_type']
+        item_rule: Rule = item['rule']
+
+        item_hash: tuple = (item_policy_type, tuple(item_rule))
+
+        if item_hash in seen_items:
+            policy_table.delete_item(Key={
+                'id': item_id,
+            })
+        else:
+            seen_items.add(item_hash)
 
 
 def yield_items_from_table(table: dynamodb.Table) -> Iterable:
@@ -154,29 +197,42 @@ class Adapter(persist.Adapter):
         for item in yield_items_from_table(self.policy_table):
             item.pop('id', None)
 
-            rule = ', '.join(item.values())
-            self.logger.info('AdapterRule: %s', rule)
+            rule: Rule = []
+            rule.append(item['policy_type'])
+            rule.extend(item['rule'])
 
-            persist.load_policy_line(rule, model)
+            rule_csv = ', '.join(rule)
+
+            self.logger.info('AdapterRule: %s', rule_csv)
+
+            persist.load_policy_line(rule_csv, model)
 
     def save_policy(self, model):
         """Save all policy rules to the storage."""
-        for sec in ['p', 'g']:
-            if sec not in model.model.keys():
+        for section in ['p', 'g']:
+            if section not in model.model.keys():
                 continue
-            for policy_type, ast in model.model[sec].items():
-                for rule in ast.policy:
+            for policy_type, assertion in model.model[section].items():
+                for rule in assertion.policy:
                     put_policy(self.policy_table, policy_type, rule)
 
-    def add_policy(self, sec: str, policy_type: str, rule: List[str]):
+    def add_policy(self, sec: str, policy_type: str, rule: Rule):
         """Add a policy rule to the storage."""
         # pylint: disable=arguments-differ
         put_policy(self.policy_table, policy_type, rule)
 
-    def remove_policy(self, sec: str, policy_type: str, rule: List[str]):
+    def remove_policy(self, sec: str, policy_type: str, rule: Rule):
         """Remove a policy rule from the storage."""
         # pylint: disable=arguments-differ
         delete_policy(self.policy_table, policy_type, rule)
+
+    def get_rules(self, policy_type: str, partial_rule: Rule) -> List[Rule]:
+        """Return rules matching criteria from the database."""
+        return get_rules(self.policy_table, policy_type, partial_rule)
+
+    def deduplicate_policies(self):
+        """Delete unneeded items from the database."""
+        deduplicate_policies(self.policy_table)
 
     def remove_filtered_policy(self, sec, ptype, field_index, *field_values):
         """Remove policy rules that match the filter from the storage."""
