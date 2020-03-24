@@ -11,6 +11,7 @@ import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { formValueSelector } from "redux-form";
+import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
 import { formatDropdownField, getLastTreatment } from "../../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
@@ -72,7 +73,13 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
     values: Dictionary<string>,
   ): Promise<void> => {
     props.setEditing(false);
-    await updateTreatment({ variables: { ...values, findingId: props.findingId } });
+    await updateTreatment({
+      variables: {
+        ...values,
+        acceptanceStatus: values.treatment === "ACCEPTED_UNDEFINED" ? "SUBMITTED" : "",
+        findingId: props.findingId,
+      },
+    });
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -87,10 +94,28 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   }
 
   return (
+    <ConfirmDialog
+      message={translate.t("search_findings.tab_description.approval_message")}
+      title={translate.t("search_findings.tab_description.approval_title")}
+    >
+      {(confirm: ConfirmFn): JSX.Element => {
+        const confirmUndefined: ((values: Dictionary<string>) => void) = (values: Dictionary<string>): void => {
+          const changedToUndefined: boolean =
+            values.treatment === "ACCEPTED_UNDEFINED"
+            && lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
+
+          if (changedToUndefined) {
+            confirm((): void => { handleSubmit(values); });
+          } else {
+            handleSubmit(values);
+          }
+        };
+
+        return (
     <GenericForm
       name="editTreatment"
       initialValues={{ ...lastTreatment, btsUrl: data.finding.btsUrl }}
-      onSubmit={handleSubmit}
+      onSubmit={confirmUndefined}
     >
       <Row>
         <Col md={12}>
@@ -160,7 +185,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
           <Col md={4}>
             <EditableField
               component={dateField}
-              currentValue={lastTreatment.date}
+              currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
               label={translate.t("search_findings.tab_description.acceptance_date")}
               name="date"
               renderAsEditable={props.isEditing}
@@ -172,6 +197,9 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
         </Row>
       ) : undefined}
     </GenericForm>
+        );
+      }}
+    </ConfirmDialog>
   );
 };
 
