@@ -149,3 +149,25 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['addTags']
         assert result['data']['addTags']['success']
+
+    def test_remove_tag(self):
+        """Check for removeTag mutation."""
+        query = '''
+            mutation RemoveTagMutation($tagToRemove: String!, $projectName: String!) {
+                removeTag (
+                tag: $tagToRemove,
+                projectName: $projectName,
+                ) {
+                success
+                }
+            }
+        '''
+        variables = {
+            'projectName': 'unittesting',
+            'tagToRemove': 'test-projects'
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['removeTag']
+        assert result['data']['removeTag']['success']

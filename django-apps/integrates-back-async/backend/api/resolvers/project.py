@@ -99,3 +99,32 @@ Attempted to upload tags without the allowed validations')
     if success:
         util.invalidate_cache(project_name)
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_remove_tag(_, info, project_name, tag):
+    """Resolve remove_tag mutation."""
+    success = False
+    project_name = project_name.lower()
+    if project_domain.is_alive(project_name):
+        project_tags = project_domain.get_attributes(project_name, ['tag'])
+        project_tags.get('tag').remove(tag)
+        if project_tags.get('tag') == set():
+            project_tags['tag'] = None
+        tag_deleted = project_domain.update(project_name, project_tags)
+        if tag_deleted:
+            success = True
+        else:
+            rollbar.report_message('Error: \
+An error occurred removing a tag', 'error', info.context)
+    if success:
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(info.context, 'Security: Removed tag from \
+            {project} project succesfully'.format(project=project_name))
+    else:
+        util.cloudwatch_log(info.context, 'Security: Attempted to remove \
+            tag in {project} project'.format(project=project_name))
+    return dict(success=success)
