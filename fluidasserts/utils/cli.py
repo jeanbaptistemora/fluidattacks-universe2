@@ -304,6 +304,13 @@ def get_total_error_checks(output_list):
                if 'status' in output and output['status'] == ERROR)
 
 
+def get_total_vulnerabilities(output_list):
+    """Get total vulnerabilities on all checks."""
+    return sum(1
+               for output in output_list
+               for vuln in output.get('vulnerabilities', []))
+
+
 def filter_content(parsed: list, args) -> list:
     """Show filtered content according to args."""
     result: list = [
@@ -1384,6 +1391,7 @@ def main():  # noqa: MC0001
     unknown_checks = get_total_unknown_checks(parsed)
     error_checks = get_total_error_checks(parsed)
     div_checks = total_checks if total_checks else 1
+    total_vulnerabilities = get_total_vulnerabilities(parsed)
 
     final_message = {
         'summary': {
@@ -1403,6 +1411,7 @@ def main():  # noqa: MC0001
                     '{} ({:.2f}%)'.format(open_checks,
                                           open_checks / div_checks * 100.0),
             },
+            'vulnerabilities': total_vulnerabilities,
             'risk': get_risk_levels(parsed),
         }
     }
