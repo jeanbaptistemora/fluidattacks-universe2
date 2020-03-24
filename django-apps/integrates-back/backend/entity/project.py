@@ -310,10 +310,13 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         init_email_list = project_domain.get_users(self.name)
         user_email_list = util.user_email_filter(
             init_email_list, util.get_jwt_content(info.context)['user_email'])
+        user_roles_to_retrieve = ['customer', 'customeradmin']
+        if util.get_jwt_content(info.context)['user_role'] == 'admin':
+            user_roles_to_retrieve.append('admin')
         self.users = [User(self.name, user_email)
                       for user_email in user_email_list
                       if user_domain.get_data(user_email, 'role')
-                      in ['customer', 'customeradmin']]
+                      in user_roles_to_retrieve]
         return self.users
 
     @enforce_authz
