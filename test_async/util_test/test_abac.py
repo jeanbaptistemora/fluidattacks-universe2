@@ -1,6 +1,12 @@
+from typing import Set
+
 import casbin
 from django.conf import settings
 from django.test import TestCase
+
+
+def get_casbin_adapter():
+    return settings.CASBIN_ADAPTER
 
 
 def get_project_access_enforcer():
@@ -9,6 +15,10 @@ def get_project_access_enforcer():
 
 def get_project_level_enforcer():
     return settings.ENFORCER_PROJECT_LEVEL_ASYNC
+
+
+def get_user_level_enforcer():
+    return settings.ENFORCER_USER_LEVEL_ASYNC
 
 
 class BasicAbacTest(TestCase):
@@ -371,3 +381,57 @@ class ActionAbacTest(TestCase):
 
         for action in should_allow:
             self.assertTrue(enfor.enforce(sub, obj, action))
+
+
+class UserAbacTest(TestCase):
+    adapter = get_casbin_adapter()
+    enforcer = get_user_level_enforcer()
+
+    customeratfluid_actions: Set[str] = {
+        'backend_api_resolvers_project_resolve_create_project',
+    }
+
+    admin_actions: Set[str] = {
+        'backend_api_resolvers_user_resolve_add_user',
+    }
+    admin_actions.union(customeratfluid_actions)
+
+    all_actions = admin_actions
+
+    def _grant_user_level_access(self, sub: str, role: str):
+        self.adapter.add_policy('p', 'p', ['user', sub, 'self', role])
+        self.enforcer.load_policy()
+
+    def test_action_wrong_role(self):
+        sub = 'someone@guest.com'
+        obj = 'self'
+
+        for act in self.all_actions:
+            self.assertFalse(self.enforcer.enforce(sub, obj, act))
+
+    def test_action_customer_role(self):
+        sub = 'test_action_customer_role@gmail.com'
+        obj = 'self'
+
+        self._grant_user_level_access(sub, 'customer')
+
+        for act in self.customeratfluid_actions:
+            self.assertFalse(self.enforcer.enforce(sub, obj, act))
+
+    def test_action_customeratfluid_role(self):
+        sub = 'test_action_customeratfluid_role@fluidattacks.com'
+        obj = 'self'
+
+        self._grant_user_level_access(sub, 'customer')
+
+        for act in self.customeratfluid_actions:
+            self.assertTrue(self.enforcer.enforce(sub, obj, act))
+
+    def test_action_admin_role(self):
+        sub = 'integratesmanager@gmail.com'
+        obj = 'self'
+
+        self._grant_user_level_access(sub, 'admin')
+
+        for act in self.all_actions:
+            self.assertTrue(self.enforcer.enforce(sub, obj, act))
