@@ -12,6 +12,13 @@
 Personal data must be secured with
 the maximum protection level defined (+ISACA.G31.5+).
 
+== Description
+
+Applications usually request or collect personal data from their users.
+This information must be protected with the maximum level of security,
+not only to comply with regulations but also to promote confidence in the
+system.
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
@@ -22,5 +29,13 @@ tampering with a parameter to see or alter another user's account).
 
 . [[r2]] link:https://gdpr-info.eu/recitals/no-6/[GDPR- 6  Ensuring a high level of data protection
 despite the increased exchange of data].
+Technology has transformed both the economy and social life,
+and should further facilitate the free flow of personal data within the Union
+and the transfer to third countries and international organizations,
+while ensuring a high level of the protection of personal data.
 
 . [[r3]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Protecting sensitive personal data].
+Personal data which are, by their nature, particularly sensitive in relation to
+fundamental rights and freedoms merit specific protection as the context of
+their processing could create significant risks to the fundamental rights and
+freedoms.
