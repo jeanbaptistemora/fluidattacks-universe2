@@ -1,7 +1,8 @@
 :slug: use-cases/continuous/hacking-techniques/
 :description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
 :keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
-:template: features/continuous-f1
+:nextpage: use-cases/continuous/healthcheck/
+:template: continuous-feature
 
 = Hacking Techniques, Team, Duration and Cycles
 

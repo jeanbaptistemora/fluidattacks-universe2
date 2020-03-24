@@ -1,0 +1,12 @@
+:slug: use-cases/continuous/healthcheck/
+:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:nextpage: #
+:template: continuous-feature
+
+= Healthcheck
+
+All versions of existing code should be attacked up to the subscription start
+point, in addition to the monthly test limit. A healthcheck is intended to catch
+up with the development team within the first *3* months of subscription.
+Then the continuous hacking advances simultaneously with the development.
