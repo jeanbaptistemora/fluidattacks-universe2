@@ -1,15 +1,23 @@
 :slug: rules/084/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of Logs in the organization. This requirement establishes the importance of allowing consults in log history for authorized users, in order to ease the tracking and response in a security event.
-:keywords: Requirement, Security, Logs, Transaction, History, Consult
+:description: This document contains the details of the security requirements related to the definition and management of logs in the organization. This requirement establishes the importance of allowing authorized users to query and inspect their own transaction history.
+:keywords: Requirement, Security, Logs, Transaction, History, GDPR
 :rules: yes
 
 = REQ.084 Allow transaction history queries
 
 == Requirement
 
-System must allow authorized users the inspection
-of their own transaction history.
+The system must allow authorized users to inspect their own transaction
+history.
+
+== Description
+
+Systems usually collect personal and transactional data from their users.
+Users should have control of their own data and, as such,
+should be allowed to query and inspect whatever information the system has
+collected from them,
+including their transactional records.
 
 == References
 
@@ -17,3 +25,6 @@ of their own transaction history.
 Information System Activity Review: Implement procedures
 to regularly review records of information system activity,
 such as audit logs, access reports, and security incident tracking reports.
+
+. [[r2]] link:https://gdpr-info.eu/recitals/no-7/[GDPR. Recital 7: The Framework is Based on Control and Certainty].
+Natural persons should have control of their own personal data.
