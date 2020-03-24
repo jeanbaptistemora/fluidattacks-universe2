@@ -1,10 +1,11 @@
 
-from typing import Dict, List
+from typing import Dict, List, Set
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
 from backend.typing import User as UserType
+from django.conf import settings
 
 from __init__ import FI_TEST_PROJECTS
 
@@ -13,11 +14,43 @@ TABLE = 'FI_users'
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 
+VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin'}
 
-def get_admins() -> List[str]:
-    filter_exp = Attr('role').exists() & Attr('role').eq('admin')
-    admins = get_all(filter_exp)
-    return [user.get('email', '') for user in admins]
+
+def grant_user_level_role(email: str, role: str) -> bool:
+    if role not in VALID_ROLES:
+        return False
+
+    # level, subject, object, role
+    rule = ['user', email, 'self']
+
+    # Revoke previous user-level policies
+    settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
+
+    rule.append(role)
+
+    # Grant new user-level policy
+    settings.CASBIN_ADAPTER.add_policy('p', 'p', rule)
+
+    return True
+
+
+def grant_group_level_role(email: str, group: str, role: str) -> bool:
+    if role not in VALID_ROLES:
+        return False
+
+    # level, subject, object, role
+    rule = ['group', email, group]
+
+    # Revoke previous user-level policies
+    settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
+
+    rule.append(role)
+
+    # Grant new user-level policy
+    settings.CASBIN_ADAPTER.add_policy('p', 'p', rule)
+
+    return True
 
 
 def get_all_companies() -> List[str]:
@@ -83,7 +116,7 @@ def get_attributes(email: str, attributes: List[str]) -> UserType:
         )
         items = response.get('Item', {})
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt get user attributes',
+        rollbar.report_message('Error: Unable to get user attributes',
                                'error', extra_data=ex, payload_data=locals())
     return items
 
@@ -145,7 +178,7 @@ def update(email: str, data: UserType) -> bool:
                 if not success:
                     break
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt update user',
+        rollbar.report_message('Error: Unable to update user',
                                'error', extra_data=ex, payload_data=locals())
 
     return success
@@ -167,7 +200,7 @@ def delete(email: str) -> bool:
             response = table.delete_item(Key=primary_keys)
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt delete user',
+        rollbar.report_message('Error: Unable to delete user',
                                'error', extra_data=ex, payload_data=locals())
     return resp
 

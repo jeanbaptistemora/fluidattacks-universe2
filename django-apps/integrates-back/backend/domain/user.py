@@ -22,10 +22,6 @@ def assign_role(email: str, role: str) -> bool:
     return resp
 
 
-def get_admins() -> List[str]:
-    return user_dal.get_admins()
-
-
 def get_all_companies() -> List[str]:
     return user_dal.get_all_companies()
 

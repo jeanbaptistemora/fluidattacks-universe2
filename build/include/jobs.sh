@@ -353,6 +353,27 @@ function job_renew_certificates {
   fi
 }
 
+function job_reset {
+  local files_to_delete=(
+    'app/assets/dashboard/app-bundle.min.js'
+    'app/assets/dashboard/login-bundle.min.js'
+    'build/coverage'
+    'django-apps/*/*.egg-info'
+    'front/coverage'
+    'front/node_modules'
+    'lambda/.venv.*'
+    '*coverage*'
+  )
+
+  for file in "${files_to_delete[@]}"
+  do
+    # I want word splitting to exploit globbing
+    # shellcheck disable=SC2086
+        echo "[INFO] Deleting: ${file}" \
+    &&  rm -rf ${file}
+  done
+}
+
 function job_serve_dynamodb_local {
   local port=8022
 

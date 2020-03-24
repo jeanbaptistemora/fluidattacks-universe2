@@ -7,7 +7,6 @@
 from decimal import Decimal
 from typing import List, Dict, Union
 
-
 Historic = List[Dict[str, str]]
 Evidence = Dict[str, Dict[str, str]]
 Finding = Union[

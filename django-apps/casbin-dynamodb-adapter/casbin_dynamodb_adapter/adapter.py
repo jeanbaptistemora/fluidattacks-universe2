@@ -108,15 +108,16 @@ def put_policy(
 def delete_policy(
         policy_table: dynamodb.Table,
         policy_type: str,
-        rule: Rule):
+        partial_rule: Rule):
     """Delete a policy from the database."""
+    partial_rule_len: int = len(partial_rule)
     for item in yield_items_from_table(policy_table):
         item_id: str = item['id']
         item_policy_type: str = item['policy_type']
         item_rule: Rule = item['rule']
 
         if policy_type == item_policy_type \
-                and rule == item_rule:
+                and partial_rule == item_rule[0:partial_rule_len]:
             policy_table.delete_item(Key={
                 'id': item_id,
             })
@@ -221,10 +222,10 @@ class Adapter(persist.Adapter):
         # pylint: disable=arguments-differ
         put_policy(self.policy_table, policy_type, rule)
 
-    def remove_policy(self, sec: str, policy_type: str, rule: Rule):
+    def remove_policy(self, sec: str, policy_type: str, partial_rule: Rule):
         """Remove a policy rule from the storage."""
         # pylint: disable=arguments-differ
-        delete_policy(self.policy_table, policy_type, rule)
+        delete_policy(self.policy_table, policy_type, partial_rule)
 
     def get_rules(self, policy_type: str, partial_rule: Rule) -> List[Rule]:
         """Return rules matching criteria from the database."""
