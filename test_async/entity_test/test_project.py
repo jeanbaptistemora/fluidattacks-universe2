@@ -128,3 +128,24 @@ class ProjectTests(TestCase):
         result = self._get_result(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(NotPendingDeletion())
+
+    def test_add_tags(self):
+        """Check for addTags mutation."""
+        query = '''
+            mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
+                addTags (
+                    tags: $tagsData,
+                    projectName: $projectName) {
+                    success
+                }
+            }
+            '''
+        variables = {
+            'projectName': 'unittesting',
+            'tagsData': json.dumps(['testing'])
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addTags']
+        assert result['data']['addTags']['success']

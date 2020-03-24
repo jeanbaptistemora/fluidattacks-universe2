@@ -37,3 +37,4 @@ MUTATION.set_field('requestRemoveProject',
                    project.resolve_request_remove_project)
 MUTATION.set_field('rejectRemoveProject',
                    project.resolve_reject_remove_project)
+MUTATION.set_field('addTags', project.resolve_add_tags)

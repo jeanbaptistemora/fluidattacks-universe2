@@ -1,5 +1,7 @@
 # pylint: disable=import-error
 
+import rollbar
+
 from backend.decorators import (
     enforce_authz_async, require_login, require_project_access,
     enforce_user_level_auth_async,
@@ -62,4 +64,38 @@ def resolve_reject_remove_project(_, info, project_name):
         util.cloudwatch_log(
             info.context,
             f'Security: Reject project {project} deletion succesfully')
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_add_tags(_, info, project_name, tags):
+    """Resolve add_tags mutation."""
+    success = False
+    project_name = project_name.lower()
+    if project_domain.is_alive(project_name):
+        if project_domain.validate_tags(project_name, tags):
+            project_tags = project_domain.get_attributes(project_name, ['tag'])
+            if not project_tags:
+                project_tags = {'tag': set(tag for tag in tags)}
+            else:
+                project_tags.get('tag').update(tags)
+            tags_added = project_domain.update(project_name, project_tags)
+            if tags_added:
+                success = True
+            else:
+                rollbar.report_message('Error: \
+An error occurred adding tags', 'error', info.context)
+        else:
+            util.cloudwatch_log(info.context,
+                                'Security: \
+Attempted to upload tags without the allowed structure')
+    else:
+        util.cloudwatch_log(info.context,
+                            'Security: \
+Attempted to upload tags without the allowed validations')
+    if success:
+        util.invalidate_cache(project_name)
     return dict(success=success)
