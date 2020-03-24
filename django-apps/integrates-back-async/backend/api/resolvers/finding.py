@@ -1,5 +1,7 @@
 # pylint: disable=import-error
 
+import rollbar
+
 from backend.decorators import (
     enforce_authz_async, require_login,
     require_finding_access
@@ -46,4 +48,29 @@ def resolve_update_evidence(_, info, evidence_id, finding_id, file):
         util.cloudwatch_log(info.context,
                             'Security: Attempted to update evidence in '
                             f'finding {finding_id}')
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_finding_access
+def resolve_update_evidence_description(
+    _, info, finding_id, evidence_id, description
+):
+    """Resolve update_evidence_description mutation."""
+    success = False
+    try:
+        success = finding_domain.update_evidence_description(
+            finding_id, evidence_id, description)
+        if success:
+            util.invalidate_cache(finding_id)
+            util.cloudwatch_log(info.context, 'Security: Evidence description \
+                succesfully updated in finding ' + finding_id)
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to update \
+                evidence description in ' + finding_id)
+    except KeyError:
+        rollbar.report_message('Error: \
+An error occurred updating evidence description', 'error', info.context)
     return dict(success=success)

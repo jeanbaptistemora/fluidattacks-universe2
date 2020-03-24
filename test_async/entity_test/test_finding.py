@@ -84,3 +84,21 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['updateEvidence']
         assert result['data']['updateEvidence']['success']
+
+    def test_update_evidence_description(self):
+        """Check for updateEvidenceDescription mutation."""
+        query = '''
+            mutation {
+                updateEvidenceDescription(
+                description: "this is a test description",
+                findingId: "422286126",
+                evidenceId: EVIDENCE2) {
+                success
+                }
+            }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateEvidenceDescription']
+        assert result['data']['updateEvidenceDescription']
