@@ -8,6 +8,12 @@ export const PROJECTS_QUERY: DocumentNode = gql`
         name
         description
       }
+      tags {
+        name
+        projects {
+          name
+        }
+      }
     }
   }
   `;

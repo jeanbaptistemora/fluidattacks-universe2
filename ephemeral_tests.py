@@ -94,7 +94,20 @@ class ViewTestCase(unittest.TestCase):
 
     def test_02_dashboard(self):
         selenium = self.__login()
-        selenium.save_screenshot(SCR_PATH + '02-dashboard.png')
+        selenium.save_screenshot(SCR_PATH + '02-01-dashboard.png')
+        tag_elem = WebDriverWait(
+            selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH,
+                     "//*[contains(text(), 'TEST-PROJECTS')]")))
+        tag_elem.click()
+        time.sleep(2)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Status')]")))
+        time.sleep(2)
+        selenium.save_screenshot(SCR_PATH + '02-02-dashboard.png')
+        assert 'My Portfolios' in selenium.page_source
         assert 'Integrates unit test project' in selenium.page_source
 
     def test_03_indicators(self):

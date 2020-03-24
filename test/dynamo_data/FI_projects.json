@@ -483,9 +483,7 @@
                "tag" : {
                   "SS" : [
                      "another-tag",
-                     "test",
-                     "test-projects",
-                     "test1"
+                     "test-projects"
                   ]
                },
                "total_treatment" : {

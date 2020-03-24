@@ -19,7 +19,13 @@ import { AddProjectModal } from "../../components/AddProjectModal";
 import { ProjectBox } from "../../components/ProjectBox";
 import { default as style } from "./index.css";
 import { PROJECTS_QUERY } from "./queries";
-import { IHomeViewProps, IUserAttr } from "./types";
+import { TagsInfo } from "./TagInfo/index";
+import { IHomeViewProps, ITagData, IUserAttr } from "./types";
+
+interface ITagDataTable {
+  name: string;
+  projects: string;
+}
 
 const goToProject: ((projectName: string) => void) = (projectName: string): void => {
   location.hash = `#!/project/${projectName.toUpperCase()}/indicators`;
@@ -43,6 +49,10 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
     });
   };
   React.useEffect(onMount, []);
+  const tableHeadersTags: IHeader[] = [
+    { dataField: "name", header: "Tag" },
+    { dataField: "projects", header: "Projects" },
+  ];
 
   const [display, setDisplay] = React.useState(_.get(localStorage, "projectsDisplay", "grid"));
   const handleDisplayChange: ((value: string) => void) = (value: string): void => {
@@ -51,12 +61,37 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   };
 
   const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
+  const [isTagModalOpen, setTagModalOpen] = React.useState(false);
+  const [tag, setTag] = React.useState("");
+
   const openNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(true);
   };
   const closeNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(false);
   };
+  const closeTagModal: (() => void) = (): void => {
+    setTagModalOpen(false);
+  };
+  const displayTag: ((choosedTag: string) => void) = (choosedTag: string): void => {
+    setTag(choosedTag);
+    setTagModalOpen(true);
+  };
+
+  const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) =
+  (_0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }): void => {
+    displayTag(rowInfo.name);
+  };
+  const formatTagDescription: ((projects: Array<{name: string}>) => string) = (
+    projects: Array<{name: string}>,
+  ): string => (
+    projects.map((project: { name: string }) => project.name)
+      .join(", ")
+  );
+  const formatTagTableData: ((tags: ITagData[]) => ITagDataTable[]) = (tags: ITagData[]): ITagDataTable[] => (
+    tags.map((tagMap: ITagData) =>
+      ({ name: tagMap.name, projects: formatTagDescription(tagMap.projects) }))
+  );
 
   return (
     <React.StrictMode>
@@ -123,11 +158,37 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
                         />
                       )}
                   </Row>
+                  <h2>{translate.t("home.tags")}</h2>
+                  <Row className={style.content}>
+                    {display === "grid"
+                      ? data.me.tags.map((tagMap: IUserAttr["me"]["tags"][0], index: number): JSX.Element => (
+                        <Col md={3} key={index}>
+                          <ProjectBox
+                            name={tagMap.name.toUpperCase()}
+                            description={formatTagDescription(tagMap.projects)}
+                            onClick={displayTag}
+                          />
+                        </Col>
+                      ))
+                      : (
+                          <DataTableNext
+                            bordered={true}
+                            dataset={formatTagTableData(data.me.tags)}
+                            exportCsv={false}
+                            headers={tableHeadersTags}
+                            id="tblProjects"
+                            pageSize={15}
+                            remote={false}
+                            rowEvents={{ onClick: handleRowTagClick }}
+                            search={true}
+                          />
+                       )}
+                  </Row>
                 </Col>
                 <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
+                <TagsInfo isOpen={isTagModalOpen} onClose={closeTagModal} tag={tag} />
               </Row>
             );
-
           }}
         </Query>
       </div>
