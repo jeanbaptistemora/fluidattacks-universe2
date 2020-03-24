@@ -467,13 +467,13 @@ ENFORCER_PROJECT_ACCESS = casbin.Enforcer(
     enable_log=False
 )
 
-ENFORCER_PROJECT_LEVEL = casbin.Enforcer(
-    model=os.path.join(BASE_DIR, 'authorization', 'project_level.conf'),
+ENFORCER_GROUP_LEVEL = casbin.Enforcer(
+    model=os.path.join(BASE_DIR, 'authorization', 'group_level.conf'),
     enable_log=False
 )
 
-ENFORCER_PROJECT_LEVEL_ASYNC = casbin.Enforcer(
-    model=os.path.join(BASE_DIR, 'authorization', 'project_level_async.conf'),
+ENFORCER_GROUP_LEVEL_ASYNC = casbin.Enforcer(
+    model=os.path.join(BASE_DIR, 'authorization', 'group_level_async.conf'),
     enable_log=False
 )
 

@@ -17,6 +17,32 @@ ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin'}
 
 
+def get_user_level_role(email: str) -> str:
+    # level, subject, object, role
+    rule = ['user', email, 'self']
+
+    # List of List[level, subject, object, role]
+    matching_rules: List[List[str]] = \
+        settings.CASBIN_ADAPTER.get_rules('p', 'p', rule)
+
+    if matching_rules:
+        return matching_rules[0][3]
+    return str()
+
+
+def get_group_level_role(email: str, group: str) -> str:
+    # level, subject, object, role
+    rule = ['group', email, group]
+
+    # List of List[level, subject, object, role]
+    matching_rules: List[List[str]] = \
+        settings.CASBIN_ADAPTER.get_rules('p', 'p', rule)
+
+    if matching_rules:
+        return matching_rules[0][3]
+    return str()
+
+
 def grant_user_level_role(email: str, role: str) -> bool:
     if role not in VALID_ROLES:
         return False
@@ -31,6 +57,10 @@ def grant_user_level_role(email: str, role: str) -> bool:
 
     # Grant new user-level policy
     settings.CASBIN_ADAPTER.add_policy('p', 'p', rule)
+
+    # Reload config
+    settings.ENFORCER_USER_LEVEL.load_policy()
+    settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
 
     return True
 
@@ -49,6 +79,56 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
 
     # Grant new user-level policy
     settings.CASBIN_ADAPTER.add_policy('p', 'p', rule)
+
+    # Reload config
+    settings.ENFORCER_GROUP_LEVEL.load_policy()
+    settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
+
+    return True
+
+
+def revoke_user_level_role(email: str) -> bool:
+    # level, subject, object, role
+    rule = ['user', email, 'self']
+
+    # Revoke previous user-level policies
+    settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
+
+    # Reload config
+    settings.ENFORCER_USER_LEVEL.load_policy()
+    settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
+
+    return True
+
+
+def revoke_group_level_role(email: str, group: str) -> bool:
+    # level, subject, object, role
+    rule = ['group', email, group]
+
+    # Revoke previous group-level policies
+    settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
+
+    # Reload config
+    settings.ENFORCER_GROUP_LEVEL.load_policy()
+    settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
+
+    return True
+
+
+def revoke_all_levels_roles(email: str) -> bool:
+    # level, subject, object, role
+    group_level_rule = ['group', email]
+    user_level_rule = ['user', email]
+
+    # Revoke policies
+    settings.CASBIN_ADAPTER.remove_policy('p', 'p', group_level_rule)
+    settings.CASBIN_ADAPTER.remove_policy('p', 'p', user_level_rule)
+
+    # Reload config
+    settings.ENFORCER_USER_LEVEL.load_policy()
+    settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
+    settings.ENFORCER_GROUP_LEVEL.load_policy()
+    settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
 
     return True
 

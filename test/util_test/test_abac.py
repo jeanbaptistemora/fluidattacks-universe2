@@ -13,8 +13,8 @@ def get_project_access_enforcer():
     return settings.ENFORCER_PROJECT_ACCESS
 
 
-def get_project_level_enforcer():
-    return settings.ENFORCER_PROJECT_LEVEL
+def get_group_level_enforcer():
+    return settings.ENFORCER_GROUP_LEVEL
 
 
 def get_user_level_enforcer():
@@ -238,7 +238,7 @@ class ActionAbacTest(TestCase):
 
     def test_action_wrong_role(self):
         """Tests for an user with a wrong role."""
-        enfor = get_project_level_enforcer()
+        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass
@@ -260,7 +260,7 @@ class ActionAbacTest(TestCase):
 
     def test_action_customer_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_project_level_enforcer()
+        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass
@@ -285,7 +285,7 @@ class ActionAbacTest(TestCase):
 
     def test_action_customeradmin_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_project_level_enforcer()
+        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass
@@ -310,7 +310,7 @@ class ActionAbacTest(TestCase):
 
     def test_action_customeradminfluid_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_project_level_enforcer()
+        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass
@@ -337,7 +337,7 @@ class ActionAbacTest(TestCase):
 
     def test_action_analyst_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_project_level_enforcer()
+        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass
@@ -362,7 +362,7 @@ class ActionAbacTest(TestCase):
 
     def test_action_admin_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_project_level_enforcer()
+        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass

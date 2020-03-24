@@ -16,7 +16,8 @@ from typing import (
 # Third parties libraries
 import boto3
 import botocore
-from casbin import persist
+import casbin.model
+import casbin.persist
 from boto3_type_annotations import dynamodb
 
 
@@ -166,7 +167,7 @@ def yield_items_from_table(table: dynamodb.Table) -> Iterable:
         yield from response['Items']
 
 
-class Adapter(persist.Adapter):
+class Adapter(casbin.persist.Adapter):
     """The interface for Casbin adapters."""
 
     table_name = CASBIN_ADAPTER_TABLE_NAME
@@ -193,7 +194,7 @@ class Adapter(persist.Adapter):
         # pylint: disable=no-member
         self.policy_table = self.dynamodb_resource.Table(self.table_name)
 
-    def load_policy(self, model):
+    def load_policy(self, model: casbin.model.Model):
         """Load all policy rules from the storage."""
         for item in yield_items_from_table(self.policy_table):
             item.pop('id', None)
@@ -206,7 +207,7 @@ class Adapter(persist.Adapter):
 
             self.logger.info('AdapterRule: %s', rule_csv)
 
-            persist.load_policy_line(rule_csv, model)
+            casbin.persist.load_policy_line(rule_csv, model)
 
     def save_policy(self, model):
         """Save all policy rules to the storage."""
@@ -227,8 +228,13 @@ class Adapter(persist.Adapter):
         # pylint: disable=arguments-differ
         delete_policy(self.policy_table, policy_type, partial_rule)
 
-    def get_rules(self, policy_type: str, partial_rule: Rule) -> List[Rule]:
+    def get_rules(
+            self,
+            sec: str,
+            policy_type: str,
+            partial_rule: Rule) -> List[Rule]:
         """Return rules matching criteria from the database."""
+        # pylint: disable=unused-argument
         return get_rules(self.policy_table, policy_type, partial_rule)
 
     def deduplicate_policies(self):

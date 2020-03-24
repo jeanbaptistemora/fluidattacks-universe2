@@ -33,8 +33,8 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 CASBIN_ADAPTER = getattr(settings, 'CASBIN_ADAPTER')
 ENFORCER_PROJECT_ACCESS = getattr(settings, 'ENFORCER_PROJECT_ACCESS')
-ENFORCER_PROJECT_LEVEL = getattr(settings, 'ENFORCER_PROJECT_LEVEL')
-ENFORCER_PROJECT_LEVEL_ASYNC = getattr(settings, 'ENFORCER_PROJECT_LEVEL_ASYNC')
+ENFORCER_GROUP_LEVEL = getattr(settings, 'ENFORCER_GROUP_LEVEL')
+ENFORCER_GROUP_LEVEL_ASYNC = getattr(settings, 'ENFORCER_GROUP_LEVEL_ASYNC')
 ENFORCER_USER_LEVEL = getattr(settings, 'ENFORCER_USER_LEVEL')
 ENFORCER_USER_LEVEL_ASYNC = getattr(settings, 'ENFORCER_USER_LEVEL_ASYNC')
 
@@ -168,7 +168,7 @@ def enforce_authz(func):
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
         try:
-            if not ENFORCER_PROJECT_LEVEL.enforce(user_data, project_data, action):
+            if not ENFORCER_GROUP_LEVEL.enforce(user_data, project_data, action):
                 util.cloudwatch_log(context,
                                     'Security: \
 Unauthorized role attempted to perform operation')
@@ -198,7 +198,7 @@ def enforce_authz_async(func):
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
         try:
-            if not ENFORCER_PROJECT_LEVEL_ASYNC.enforce(
+            if not ENFORCER_GROUP_LEVEL_ASYNC.enforce(
                 user_data, project_data, action
             ):
                 util.cloudwatch_log(context,
