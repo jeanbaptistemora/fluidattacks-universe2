@@ -1,12 +1,15 @@
 # pylint: disable=import-error
 
 import rollbar
+from graphql import GraphQLError
 
 from backend.decorators import (
     enforce_authz_async, require_login,
     require_finding_access
 )
-from backend.domain import finding as finding_domain
+from backend.domain import (
+    finding as finding_domain, project as project_domain
+)
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
@@ -73,4 +76,53 @@ def resolve_update_evidence_description(
     except KeyError:
         rollbar.report_message('Error: \
 An error occurred updating evidence description', 'error', info.context)
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_finding_access
+def resolve_verify_finding(_, info, finding_id, justification):
+    """Resolve verify_finding mutation."""
+    project_name = project_domain.get_finding_project_name(finding_id)
+    user_info = util.get_jwt_content(info.context)
+    success = finding_domain.verify_finding(
+        finding_id, user_info['user_email'],
+        justification,
+        str.join(' ', [user_info['first_name'], user_info['last_name']])
+    )
+    if success:
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(info.context, 'Security: Verified the '
+                            f'finding_id: {finding_id}')
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_finding_access
+def resolve_handle_acceptation(_, info, **parameters):
+    """Resolve handle_acceptation mutation."""
+    user_info = util.get_jwt_content(info.context)
+    user_mail = user_info['user_email']
+    finding_id = parameters.get('finding_id')
+    historic_treatment = \
+        finding_domain.get_finding(finding_id).get('historicTreatment')
+    if historic_treatment[-1]['acceptance_status'] != 'SUBMITTED':
+        raise GraphQLError(
+            'It cant be approved/rejected a finding' +
+            'definite assumption without being requested')
+
+    success = finding_domain.handle_acceptation(finding_id,
+                                                parameters.get('observations'),
+                                                user_mail,
+                                                parameters.get('response'))
+    if success:
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(parameters.get('project_name'))
+        util.cloudwatch_log(info.context, 'Security: Verified a request '
+                            f'in finding_id: {finding_id}')
     return dict(success=success)

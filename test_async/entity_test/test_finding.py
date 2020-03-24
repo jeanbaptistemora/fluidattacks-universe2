@@ -9,7 +9,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
-from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
+from backend.exceptions import NotVerificationRequested
 
 
 class FindingTests(TestCase):
@@ -102,3 +102,20 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['updateEvidenceDescription']
         assert result['data']['updateEvidenceDescription']
+
+    def test_verify_finding(self):
+        """Check for verifyFinding mutation."""
+        query = '''
+          mutation {
+            verifyFinding(
+                findingId: "463461507",
+                justification: "This is a commenting test, of the verifying of a request."
+            ) {
+              success
+            }
+          }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(NotVerificationRequested())
