@@ -1,5 +1,5 @@
 :slug: rules/034/
-:category: business-management
+:category: authorization
 :description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of allowing the system to manage and disable the user accounts through privileged users or system administrators.
 :keywords: Requirement, Security, User, Accounts, Management, Administration
 :rules: yes

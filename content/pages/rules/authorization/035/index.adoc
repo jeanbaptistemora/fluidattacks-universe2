@@ -1,0 +1,11 @@
+:slug: rules/035/
+:category: authorization
+:description: This document details the security guidelines and requirements related to the administration of the system. The objective of this requirement is to define the importance of implementing measures to prevent system actors from increasing privileges for themselves.
+:keywords: Requirement, Security, System, Privileges, Actor, Administration
+:rules: yes
+
+= REQ.035 Manage privilege modifications
+
+== Requirement
+
+The system must not allow system actors to modify privileges for themselves.

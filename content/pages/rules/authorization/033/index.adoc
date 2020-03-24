@@ -1,6 +1,6 @@
 :slug: rules/033/
-:category: business-management
-:description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of limiting administrative access to applications only to authorized users, in order to avoid several common attacks.
+:category: authorization
+:description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of limiting administrative access to applications to authorized users only, in order to avoid several common attacks.
 :keywords: Requirement, Security, Restrict, Administrative, Access Control, Network
 :rules: yes
 
@@ -9,20 +9,20 @@
 == Requirement
 
 If the system has an administration mechanism,
-it must be accessible only from administrative network segments.
+it must only be accessible from administrative network segments.
 
 == Description
 
 Network access to modules or system management mechanisms
-must be limited only to the parties
-that require access to them (administrators),
-personnel that do not have needs, tasks or administrative obligations
-must not access to these mechanisms.
+must only be limited to the parties
+that require access to them (administrators).
+Personnel that does not have administrative needs, tasks or obligations
+must not have access to these mechanisms.
 Following this recommendation fulfills the objective
 of reducing the attack surface of the above mentioned systems
-(thus a malicious third parties can not attempt
-to access directly to the system administration settings)
- and increases the level of confidentiality and availability of the system.
+(since malicious third parties can not attempt
+to directly access the system administration settings)
+and increases the level of confidentiality and availability of the system.
 
 == Implementation
 
@@ -30,20 +30,20 @@ to access directly to the system administration settings)
 For each system in the organization
 it must be guaranteed that each module
 (process, user or program) can access
-only to the necessary information and resources
+only to the information and resources required
 to accomplish its legitimate purpose.
 
 == Attacks
 
-. An anonymous attacker attempts to access by brute force
-to an exposed administrator interface,
-which may cause system denial, account lockouts,
-or interface/system lockout.
+. An anonymous attacker attempts to access to an exposed administrator
+interface by brute force,
+which may cause a denial of service, account lockouts or a
+interface/system lockout.
 
 . An anonymous attacker and/or registered user
 exploits a known vulnerability in the management system
 which may allow the access to the system settings,
-system denial or elevation of privilege for system users or processes.
+a denial of service or privileges elevation for system users or processes.
 
 . An anonymous attacker obtains system technical information
 through data analysis of the administrator interface
@@ -65,4 +65,4 @@ in order to perform deeper and more detailed attacks.
 . [[r4]] link:https://www.owasp.org/index.php/Top_10_2013-A5-Security_Misconfiguration[Top 10 2013-A5-Security Misconfiguration].
 . [[r5]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.32+]
 Verify that access to administrative interfaces
-are strictly controlled and not accessible to untrusted parties.
+is strictly controlled and not allowed for untrusted parties.
