@@ -24,3 +24,26 @@ def resolve_remove_evidence(_, info, evidence_id, finding_id):
             f'Security: Removed evidence in finding {finding_id}')
         util.invalidate_cache(finding_id)
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_finding_access
+def resolve_update_evidence(_, info, evidence_id, finding_id, file):
+    """Resolve update_evidence mutation."""
+    success = False
+
+    if finding_domain.validate_evidence(evidence_id, file):
+        success = finding_domain.update_evidence(
+            finding_id, evidence_id, file)
+    if success:
+        util.invalidate_cache(finding_id)
+        util.cloudwatch_log(info.context,
+                            'Security: Updated evidence in finding '
+                            f'{finding_id} succesfully')
+    else:
+        util.cloudwatch_log(info.context,
+                            'Security: Attempted to update evidence in '
+                            f'finding {finding_id}')
+    return dict(success=success)

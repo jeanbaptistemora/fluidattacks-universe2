@@ -44,3 +44,4 @@ MUTATION.set_field('addAllProjectAccess',
 MUTATION.set_field('removeAllProjectAccess',
                    project.resolve_remove_all_project_access)
 MUTATION.set_field('removeEvidence', finding.resolve_remove_evidence)
+MUTATION.set_field('updateEvidence', finding.resolve_update_evidence)

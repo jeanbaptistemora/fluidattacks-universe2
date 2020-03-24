@@ -5,6 +5,7 @@ from ariadne import graphql_sync
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
@@ -53,3 +54,33 @@ class FindingTests(TestCase):
         result = self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['removeEvidence']
+
+    def test_update_evidence(self):
+        """Check for updateEvidence mutation."""
+        query = '''
+          mutation UpdateEvidenceMutation(
+            $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
+          ) {
+            updateEvidence(
+              evidenceId: $evidenceId, file: $file, findingId: $findingId
+            ) {
+              success
+            }
+          }
+        '''
+        filename = os.path.dirname(os.path.abspath(__file__))
+        filename = os.path.join(filename, '../../test/mock/test-anim.gif')
+        with open(filename, 'rb') as test_file:
+            uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                               content=test_file.read(),
+                                               content_type='image/gif')
+        variables = {
+            'evidenceId': 'ANIMATION',
+            'findingId': '422286126',
+            'file': uploaded_file
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateEvidence']
+        assert result['data']['updateEvidence']['success']
