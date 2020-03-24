@@ -628,7 +628,6 @@ const enTranslations: Dictionary = {
       total_envs: "Total environments: ",
       total_files: "Total files: ",
       total_repos: "Total repositories: ",
-      total_tags: "Total tags: ",
       uploading_progress: "Uploading file...",
       warningMessage: "Deleting the project will remove its findings and related vulnerabilities." +
         "<br /> Deleted projects cannot be restored.",

@@ -153,9 +153,6 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
           onSelect: networkStatus === NetworkStatus.refetch || removing ? undefined : setCurrentRow,
         }}
       />
-      <label>
-        <b>{translate.t("search_findings.tab_resources.total_tags")}</b>{tagsDataset.length}
-      </label>
       <AddTagsModal isOpen={isAddModalOpen} onClose={closeAddModal} onSubmit={handleTagsAdd} />
     </React.StrictMode>
   );
