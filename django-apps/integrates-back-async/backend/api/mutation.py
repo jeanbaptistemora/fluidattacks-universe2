@@ -50,3 +50,4 @@ MUTATION.set_field('updateEvidenceDescription',
 MUTATION.set_field('verifyFinding', finding.resolve_verify_finding)
 MUTATION.set_field('handleAcceptation', finding.resolve_handle_acceptation)
 MUTATION.set_field('rejectDraft', finding.resolve_reject_draft)
+MUTATION.set_field('deleteFinding', finding.resolve_delete_finding)

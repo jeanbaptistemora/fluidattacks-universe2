@@ -1,5 +1,6 @@
 import json
 import os
+import pytest
 
 from ariadne import graphql_sync
 from django.test import TestCase
@@ -9,7 +10,8 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
-from backend.exceptions import NotVerificationRequested
+from backend.domain.finding import get_finding
+from backend.exceptions import FindingNotFound, NotVerificationRequested
 
 
 class FindingTests(TestCase):
@@ -134,3 +136,20 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['rejectDraft']
         assert result['data']['rejectDraft']
+
+    def test_delete_finding(self):
+        """Check for rejectDraft mutation."""
+        query = '''
+          mutation {
+            deleteFinding(findingId: "560175507", justification: NOT_REQUIRED) {
+              success
+            }
+          }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['deleteFinding']
+        assert result['data']['deleteFinding']['success']
+        with pytest.raises(FindingNotFound):
+            assert get_finding('560175507')

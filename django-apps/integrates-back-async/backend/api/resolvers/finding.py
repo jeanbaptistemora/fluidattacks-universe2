@@ -149,3 +149,26 @@ def resolve_reject_draft(_, info, finding_id):
             info.context,
             'Security: Attempted to reject draft {}'.format(finding_id))
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_finding_access
+def resolve_delete_finding(_, info, finding_id, justification):
+    """Resolve delete_finding mutation."""
+    project_name = finding_domain.get_finding(finding_id)['projectName']
+
+    success = finding_domain.delete_finding(
+        finding_id, project_name, justification, info.context)
+    if success:
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Deleted finding: {finding_id} succesfully')
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Attempted to delete finding: {finding_id}')
+    return dict(success=success)
