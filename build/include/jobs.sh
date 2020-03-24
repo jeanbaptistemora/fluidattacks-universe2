@@ -106,6 +106,15 @@ function job_test_generic {
   local all_content_files
   local all_adoc_files
 
+  local regex_blank_space_header='^=\s+.+\n.+'
+  local regex_numbered_references='^== Referenc.+\n\n[a-zA-Z]'
+  local regex_title_before_image='image::.+\n\.[a-zA-Z]'
+  local error_blank_space_header='Headers must be followed by a blank line'
+  local error_numbered_references='References must be numbered'
+  local error_title_before_image='Title must go before image'
+
+
+
       all_content_files="$(find content/ -type f)" \
   &&  all_adoc_files="$(find content/ -type f -name '*.adoc')" \
   &&  echo '[INFO] Testing forbidden extensions' \
@@ -122,7 +131,19 @@ function job_test_generic {
         &&  helper_generic_adoc_min_keywords "${path}" \
         &&  helper_generic_adoc_keywords_uppercase "${path}" \
         &&  helper_generic_adoc_fluid_attacks_name "${path}" \
-        &&  helper_generic_adoc_blank_space_header "${path}" || return 1
+        &&  helper_generic_adoc_normalized_regex \
+              "${path}" \
+              "${regex_blank_space_header}" \
+              "${error_blank_space_header}" \
+        &&  helper_generic_adoc_normalized_regex \
+              "${path}" \
+              "${regex_numbered_references}" \
+              "${error_numbered_references}" \
+        &&  helper_generic_adoc_normalized_regex \
+              "${path}" \
+              "${regex_title_before_image}" \
+              "${error_title_before_image}" \
+        ||  return 1
       done
 }
 
@@ -137,32 +158,27 @@ function job_test_lix {
       touched_adoc_files="$(helper_list_touched_files | grep '.adoc')" || true \
   &&  touched_adoc_others="$(echo "${touched_adoc_files}" | grep -v 'content/pages/rules/')" || true \
   &&  touched_adoc_rules="$(echo "${touched_adoc_files}" | grep 'content/pages/rules/')" || true \
-  &&  if [ -z "${touched_adoc_files}" ]
-      then
-            echo '[INFO] No adoc files modified'
-      else
-            echo '[INFO] Testing Lix for touched adoc files' \
-        &&  for path in ${touched_adoc_others}
-            do
-                  file_lix="$(helper_get_lix "${path}")" \
-              &&  if [ "${file_lix}" -lt ${others_lix} ]
-                  then
-                        continue
-                  else
-                        echo "[ERROR] ${path} has Lix greater than ${others_lix}: ${file_lix}" \
-                    &&  return 1
-                  fi
-            done \
-        &&  for path in ${touched_adoc_rules}
-            do
-                  file_lix="$(helper_get_lix "${path}")" \
-              &&  if [ "${file_lix}" -lt ${rules_lix} ]
-                  then
-                        continue
-                  else
-                        echo "[ERROR] ${path} has Lix greater than ${rules_lix}: ${file_lix}" \
-                    &&  return 1
-                  fi
-            done
-      fi
+  &&  echo '[INFO] Testing Lix for touched adoc files' \
+  &&  for path in ${touched_adoc_others}
+      do
+            file_lix="$(helper_get_lix "${path}")" \
+        &&  if [ "${file_lix}" -lt ${others_lix} ]
+            then
+                  continue
+            else
+                  echo "[ERROR] ${path} has Lix greater than ${others_lix}: ${file_lix}" \
+              &&  return 1
+            fi
+      done \
+  &&  for path in ${touched_adoc_rules}
+      do
+            file_lix="$(helper_get_lix "${path}")" \
+        &&  if [ "${file_lix}" -lt ${rules_lix} ]
+            then
+                  continue
+            else
+                  echo "[ERROR] ${path} has Lix greater than ${rules_lix}: ${file_lix}" \
+              &&  return 1
+            fi
+      done
 }

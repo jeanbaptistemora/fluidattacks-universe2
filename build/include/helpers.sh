@@ -388,20 +388,34 @@ function helper_generic_adoc_fluid_attacks_name {
       fi
 }
 
-function helper_generic_adoc_blank_space_header {
+function helper_generic_adoc_normalized_regex {
   local file="${1}"
+  local regex="${2}"
+  local error="${3}"
   local normalized_file
-
-  local regex='^=\s+.+\n.+'
 
       helper_file_exists "${file}" \
   &&  normalized_file="$(helper_generic_adoc_content "${file}")" \
-  &&  if ! echo "${normalized_file}" | pcregrep -M \
-         -e "${regex}"
+  &&  if ! echo "${normalized_file}" | pcregrep -M "${regex}"
       then
         return 0
       else
-            echo "[ERROR] Header not followed by a blank line found in ${file}" \
+            echo "[ERROR] ${file}: ${error}" \
+        &&  return 1
+      fi
+}
+
+function helper_generic_adoc_direct_regex {
+  local file="${1}"
+  local regex="${2}"
+  local error="${3}"
+
+      helper_file_exists "${file}" \
+  &&  if ! pcregrep -M "${regex}" "${file}"
+      then
+        return 0
+      else
+            echo "[ERROR] ${file}: ${error}" \
         &&  return 1
       fi
 }
