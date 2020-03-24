@@ -226,6 +226,7 @@ def repo_cloning(subs: str) -> bool:
     """ cloning or updated a repository"""
 
     success = True
+    original_dir: str = os.getcwd()
     config_file = f'subscriptions/{subs}/config/config.yml'
     destination_folder = f'subscriptions/{subs}/fusion'
 
@@ -269,6 +270,8 @@ def repo_cloning(subs: str) -> bool:
             else:
                 logger.info(f"Invalid git-type on subscription {subs}")
                 success = False
+
+    os.chdir(original_dir)
 
     return success
 
