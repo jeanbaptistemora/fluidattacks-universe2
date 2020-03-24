@@ -1,7 +1,7 @@
 # pylint: disable=import-error
 
 from backend.api.resolvers import (
-    alert, cache, event, me, user, resource, project
+    alert, cache, event, finding, me, user, resource, project
 )
 
 from ariadne import MutationType
@@ -43,3 +43,4 @@ MUTATION.set_field('addAllProjectAccess',
                    project.resolve_add_all_project_access)
 MUTATION.set_field('removeAllProjectAccess',
                    project.resolve_remove_all_project_access)
+MUTATION.set_field('removeEvidence', finding.resolve_remove_evidence)
