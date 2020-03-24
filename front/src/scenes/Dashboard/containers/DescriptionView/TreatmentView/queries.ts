@@ -7,6 +7,7 @@ export const GET_FINDING_TREATMENT: DocumentNode = gql`
       btsUrl
       historicTreatment
       id
+      openVulnerabilities
     }
   }
 `;

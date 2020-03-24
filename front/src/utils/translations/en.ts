@@ -373,7 +373,8 @@ const enTranslations: Dictionary = {
       },
       affected_systems: "Affected systems",
       analyst: "Analyst",
-      approval_message: "Remember that the indefinite acceptation of a finding requires the approval of a manager",
+      approval_message:
+        "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
       approval_title: "Confirmation",
       approve: "Approve",
       approve_all: "Approve all",

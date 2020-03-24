@@ -16,7 +16,7 @@ import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { formatCweUrl, formatFindingType } from "../../../../utils/formatHelpers";
+import { formatCweUrl, formatFindingType, getLastTreatment } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -27,7 +27,7 @@ import { GenericForm } from "../../components/GenericForm";
 import { GET_ROLE } from "../ProjectContent/queries";
 import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 import { TreatmentView } from "./TreatmentView";
-import { IFinding } from "./types";
+import { IFinding, IHistoricTreatment } from "./types";
 
 type DescriptionViewProps = RouteComponentProps<{ findingId: string; projectName: string }>;
 
@@ -60,11 +60,23 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
     setEditing(!isEditing);
   };
 
+  const [approvalModalConfig, setApprovalModalConfig] = React.useState({ open: false, type: "" });
+  const openApproveModal: (() => void) = (): void => {
+    setApprovalModalConfig({ open: true, type: "APPROVED" });
+  };
+  const openRejectModal: (() => void) = (): void => {
+    setApprovalModalConfig({ open: true, type: "REJECTED" });
+  };
+  const closeApprovalModal: (() => void) = (): void => {
+    setApprovalModalConfig({ open: false, type: "" });
+  };
+
   // GraphQL operations
   const { data: userData } = useQuery(GET_ROLE, { variables: { projectName } });
   const userRole: string = _.isUndefined(userData) || _.isEmpty(userData)
     ? "" : userData.me.role;
 
+  const canApproveAcceptation: boolean = _.includes(["admin", "customeradmin"], userRole);
   const canEditAffectedSystems: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditCompromisedAttrs: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditCompromisedRecords: boolean = _.includes(["admin", "analyst"], userRole);
@@ -124,11 +136,24 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   }
 
   const dataset: IFinding = data.finding;
+  const lastTreatment: IHistoricTreatment = getLastTreatment(dataset.historicTreatment);
 
   return (
     <React.StrictMode>
       <Row>
         <ButtonToolbar className="pull-right">
+          {canApproveAcceptation
+            && lastTreatment.treatment === "ACCEPTED_UNDEFINED"
+            && lastTreatment.acceptanceStatus === "SUBMITTED" ? (
+              <React.Fragment>
+                <Button onClick={openApproveModal}>
+                  <FluidIcon icon="verified" />{translate.t("search_findings.acceptation_buttons.approve")}
+                </Button>
+                <Button onClick={openRejectModal}>
+                  {translate.t("search_findings.acceptation_buttons.reject")}
+                </Button>
+              </React.Fragment>
+            ) : undefined}
           {isEditing ? (
             <Button onClick={handleSubmit} disabled={isDescriptionPristine && isTreatmentPristine}>
               <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
@@ -310,8 +335,11 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
         </React.Fragment>
       </GenericForm>
       <TreatmentView
+        approvalModalConfig={approvalModalConfig}
         findingId={findingId}
         isEditing={isEditing}
+        onCloseApproval={closeApprovalModal}
+        projectName={projectName}
         setEditing={setEditing}
         userRole={userRole}
       />

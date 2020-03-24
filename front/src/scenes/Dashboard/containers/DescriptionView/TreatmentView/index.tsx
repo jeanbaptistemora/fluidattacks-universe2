@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -20,17 +21,25 @@ import translate from "../../../../../utils/translations/translate";
 import { isLowerDate, isValidDate, required } from "../../../../../utils/validations";
 import { EditableField } from "../../../components/EditableField";
 import { GenericForm } from "../../../components/GenericForm";
+import { RemediationModal } from "../../../components/RemediationModal";
+import { HANDLE_ACCEPTATION } from "../queries";
 import { IHistoricTreatment } from "../types";
 import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "./queries";
 
 interface ITreatmentViewProps {
+  approvalModalConfig: { open: boolean; type: string };
   findingId: string;
   isEditing: boolean;
+  projectName: string;
   userRole: string;
+  onCloseApproval(): void;
   setEditing(value: boolean): void;
 }
 
 const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps): JSX.Element => {
+  const { onCloseApproval } = props;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+
   // State management
   const formValues: Dictionary<string> = useSelector((state: {}) =>
     formValueSelector("editTreatment")(state, "treatment", ""));
@@ -82,6 +91,39 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
     });
   };
 
+  const [handleAcceptation, { loading: approving }] = useMutation(HANDLE_ACCEPTATION, {
+    onCompleted: async (result: { handleAcceptation: { success: boolean } }): Promise<void> => {
+      if (result.handleAcceptation.success) {
+        mixpanel.track("HandleAcceptation", { Organization: userOrganization, User: userName });
+        await refetch();
+      }
+    },
+    onError: (acceptationError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred approving acceptation", acceptationError);
+    },
+  });
+
+  const handleApprovalSubmit: ((values: Dictionary<string>) => void) = async (
+    values: Dictionary<string>,
+  ): Promise<void> => {
+    await handleAcceptation({
+      variables: {
+        findingId: props.findingId,
+        observations: values.treatmentJustification,
+        projectName: props.projectName,
+        response: props.approvalModalConfig.type,
+      },
+    });
+    props.onCloseApproval();
+    msgSuccess(
+      props.approvalModalConfig.type === "APPROVED"
+        ? translate.t("proj_alerts.acceptation_approved")
+        : translate.t("proj_alerts.acceptation_rejected"),
+      translate.t("proj_alerts.updated_title"),
+    );
+  };
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.Fragment />;
   }
@@ -94,24 +136,25 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   }
 
   return (
-    <ConfirmDialog
-      message={translate.t("search_findings.tab_description.approval_message")}
-      title={translate.t("search_findings.tab_description.approval_title")}
-    >
-      {(confirm: ConfirmFn): JSX.Element => {
-        const confirmUndefined: ((values: Dictionary<string>) => void) = (values: Dictionary<string>): void => {
-          const changedToUndefined: boolean =
-            values.treatment === "ACCEPTED_UNDEFINED"
-            && lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
+    <React.StrictMode>
+      <ConfirmDialog
+        message={translate.t("search_findings.tab_description.approval_message")}
+        title={translate.t("search_findings.tab_description.approval_title")}
+      >
+        {(confirm: ConfirmFn): JSX.Element => {
+          const confirmUndefined: ((values: Dictionary<string>) => void) = (values: Dictionary<string>): void => {
+            const changedToUndefined: boolean =
+              values.treatment === "ACCEPTED_UNDEFINED"
+              && lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
 
-          if (changedToUndefined) {
-            confirm((): void => { handleSubmit(values); });
-          } else {
-            handleSubmit(values);
-          }
-        };
+            if (changedToUndefined) {
+              confirm((): void => { handleSubmit(values); });
+            } else {
+              handleSubmit(values);
+            }
+          };
 
-        return (
+          return (
     <GenericForm
       name="editTreatment"
       initialValues={{ ...lastTreatment, btsUrl: data.finding.btsUrl }}
@@ -197,9 +240,23 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
         </Row>
       ) : undefined}
     </GenericForm>
-        );
-      }}
-    </ConfirmDialog>
+          );
+        }}
+      </ConfirmDialog>
+      <RemediationModal
+        additionalInfo={
+          props.approvalModalConfig.type === "APPROVED" ?
+            `${data.finding.openVulnerabilities} vulnerabilities will be assumed`
+            : undefined
+        }
+        isLoading={approving}
+        isOpen={props.approvalModalConfig.open}
+        message={translate.t("search_findings.tab_description.remediation_modal.observations")}
+        onClose={onCloseApproval}
+        onSubmit={handleApprovalSubmit}
+        title={translate.t("search_findings.tab_description.remediation_modal.title_observations")}
+      />
+    </React.StrictMode>
   );
 };
 
