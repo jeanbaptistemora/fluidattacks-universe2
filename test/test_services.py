@@ -2,9 +2,6 @@ from django.test import TestCase
 from backend.services import (
     has_valid_access_token
 )
-from backend.util import calculate_hash_token
-import backend.util as util
-from backend.domain import user as user_domain
 
 class ServicesTests(TestCase):
 
