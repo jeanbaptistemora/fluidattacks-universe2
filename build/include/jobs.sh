@@ -121,28 +121,46 @@ function job_test_generic {
             helper_generic_adoc_main_title "${path}" \
         &&  helper_generic_adoc_min_keywords "${path}" \
         &&  helper_generic_adoc_keywords_uppercase "${path}" \
-        &&  helper_generic_fluid_attacks_name "${path}" || return 1
+        &&  helper_generic_adoc_fluid_attacks_name "${path}" \
+        &&  helper_generic_adoc_blank_space_header "${path}" || return 1
       done
 }
 
 function job_test_lix {
   local touched_adoc_files
+  local touched_adoc_others
+  local touched_adoc_rules
   local file_lix
+  local others_lix='50'
+  local rules_lix='65'
 
       touched_adoc_files="$(helper_list_touched_files | grep '.adoc')" || true \
+  &&  touched_adoc_others="$(echo "${touched_adoc_files}" | grep -v 'content/pages/rules/')" || true \
+  &&  touched_adoc_rules="$(echo "${touched_adoc_files}" | grep 'content/pages/rules/')" || true \
   &&  if [ -z "${touched_adoc_files}" ]
       then
             echo '[INFO] No adoc files modified'
       else
             echo '[INFO] Testing Lix for touched adoc files' \
-        &&  for path in ${touched_adoc_files}
+        &&  for path in ${touched_adoc_others}
             do
                   file_lix="$(helper_get_lix "${path}")" \
-              &&  if [ "${file_lix}" -lt '50' ]
+              &&  if [ "${file_lix}" -lt ${others_lix} ]
                   then
                         continue
                   else
-                        echo "[ERROR] ${path} has Lix greater than 50: ${file_lix}" \
+                        echo "[ERROR] ${path} has Lix greater than ${others_lix}: ${file_lix}" \
+                    &&  return 1
+                  fi
+            done \
+        &&  for path in ${touched_adoc_rules}
+            do
+                  file_lix="$(helper_get_lix "${path}")" \
+              &&  if [ "${file_lix}" -lt ${rules_lix} ]
+                  then
+                        continue
+                  else
+                        echo "[ERROR] ${path} has Lix greater than ${rules_lix}: ${file_lix}" \
                     &&  return 1
                   fi
             done
