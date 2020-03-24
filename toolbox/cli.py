@@ -229,7 +229,7 @@ def main():  # noqa
                 sys.exit(0 if toolbox.are_exploits_synced(
                     args.subs, args.exp) else 1)
             elif args.sync_fusion_to_s3:
-                sys.exit(0 if resources.sync_repositories_to_aws(
+                sys.exit(0 if resources.sync_repositories_to_s3(
                     args.subs) else 1)
             elif args.check_uploads:
                 sys.exit(0 if toolbox.were_exploits_uploaded(args.subs) else 1)

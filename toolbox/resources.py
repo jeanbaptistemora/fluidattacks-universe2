@@ -563,29 +563,60 @@ def yield_subscription_repositories(subs: str) -> Iterator[str]:
     yield from repositories
 
 
-def sync_fusion_to_s3(subs: str, repo: str):
-    subs_path = f"subscriptions/{subs}/fusion/{repo}"
-    s3_bucket = f"s3://continuous-repositories/{subs}/active/{repo}"
-    sync_command = ["aws", "s3", "sync", subs_path, s3_bucket]
-    subprocess.run(sync_command, check=True)
+def yield_remote_repositories(subs: str) -> Iterator[str]:
+    remote_path = f"s3://continuous-repositories/{subs}/active/"
+    list_command_s3 = f"aws s3 ls {remote_path}"
+    ls_s3 = utils.run_command(list_command_s3, ".", {})
+    repos_set = list(ls_s3[1].replace(" ", "")
+                             .replace("PRE", "")
+                             .replace("/", "")
+                             .splitlines())
+    yield from repos_set
+
+
+def sync_inactive_repo_to_s3(subs: str, repo: str):
+    active_s3_bucket = f"s3://continuous-repositories/{subs}/active/{repo}/"
+    inactive_s3_bucket = (f"s3://continuous-repositories/"
+                          f"{subs}/inactive/{repo}/")
+    if not is_in_local(subs, repo):
+        logger.info(f"Moving {repo} to inactive folder in s3")
+        sync_command = ["aws", "s3", "mv", active_s3_bucket,
+                        inactive_s3_bucket,
+                        "--recursive"]
+        subprocess.run(sync_command, check=True)
+        logger.info(f"Repo {repo} moved to inactive folder!")
+
+
+def sync_active_repo_to_s3(subs: str, repo: str):
+    active_s3_bucket = f"s3://continuous-repositories/{subs}/active/{repo}/"
+    if not is_in_s3(subs, repo):
+        logger.info(f"Uploading {repo} to s3")
+        subs_path = f"subscriptions/{subs}/fusion/{repo}"
+        sync_command = ["aws", "s3", "sync", subs_path, active_s3_bucket]
+        subprocess.run(sync_command, check=True)
     logger.info(f"Repo {repo} sync completed!")
 
 
 def is_in_s3(subs: str, repo: str) -> bool:
-    remote_path = f"s3://continuous-repositories/active/{subs}/"
-    sync_command = f"aws s3 ls {remote_path}"
-    ls_s3 = utils.run_command(sync_command, ".", {})
-    repos_set = set(ls_s3[1].replace(" ", "").replace("PRE", "").splitlines())
-    if repo in repos_set:
-        return True
-    return False
+    repos_set = set(yield_remote_repositories(subs))
+    return repo in repos_set
 
 
-def sync_repositories_to_aws(subs: str) -> bool:
+def is_in_local(subs: str, repo: str) -> bool:
+    local_path = f"subscriptions/{subs}/fusion/"
+    repos_set = set(os.listdir(local_path))
+    return repo in repos_set
+
+
+def sync_repositories_to_s3(subs: str) -> bool:
     if not does_project_exist(subs) or\
        not does_project_have_fusion_folder(subs):
         return False
-    repositories = yield_subscription_repositories(subs)
-    for repo in repositories:
-        sync_fusion_to_s3(subs, repo)
+    remote_repositories = yield_remote_repositories(subs)
+    local_repositories = yield_subscription_repositories(subs)
+    logger.info("Checking inactive repositories")
+    for repo in remote_repositories:
+        sync_inactive_repo_to_s3(subs, repo)
+    for repo in local_repositories:
+        sync_active_repo_to_s3(subs, repo)
     return True
