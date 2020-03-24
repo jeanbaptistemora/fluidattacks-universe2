@@ -320,6 +320,13 @@ function helper_generic_adoc_keywords_uppercase {
       fi
 }
 
+function helper_get_lix {
+  local file="${1}"
+
+      helper_file_exists "${file}" \
+  &&  helper_generic_adoc_content "${file}" | style | pcregrep -o1 'Lix: (\d\d)'
+}
+
 function helper_generic_adoc_content {
   local file="${1}"
   local content
@@ -335,6 +342,7 @@ function helper_generic_adoc_content {
   local source_regex='^\[source.*'
   local metadata_regex='^:[a-zA-Z0-9-]+:.*'
   local block_title_regex='^\.[a-zA-Z0-9].*'
+  local hard_break_regex='^\+$'
 
       helper_file_exists "${file}" \
   &&  content="$(cat "${file}")" \
@@ -350,6 +358,7 @@ function helper_generic_adoc_content {
               -e "/${source_regex}/d" \
               -e "/${metadata_regex}/d" \
               -e "/${block_title_regex}/d" \
+              -e "/${hard_break_regex}/d" \
               )" \
   &&  echo "${content}"
 }

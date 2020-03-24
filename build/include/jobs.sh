@@ -123,3 +123,27 @@ function job_test_generic {
         &&  helper_generic_adoc_keywords_uppercase "${path}" || return 1
       done
 }
+
+function job_test_lix {
+  local touched_adoc_files
+  local file_lix
+
+      touched_adoc_files="$(helper_list_touched_files | grep '.adoc')" || true \
+  &&  if [ -z "${touched_adoc_files}" ]
+      then
+            echo '[INFO] No adoc files modified'
+      else
+            echo '[INFO] Testing all adoc files Lix' \
+        &&  for path in ${touched_adoc_files}
+            do
+                  file_lix="$(helper_get_lix "${path}")" \
+              &&  if [ "${file_lix}" -lt '50' ]
+                  then
+                        continue
+                  else
+                        echo "[ERROR] ${path} has Lix greater than 50: ${file_lix}" \
+                    &&  return 1
+                  fi
+            done
+      fi
+}
