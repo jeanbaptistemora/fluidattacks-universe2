@@ -128,3 +128,31 @@ An error occurred removing a tag', 'error', info.context)
         util.cloudwatch_log(info.context, 'Security: Attempted to remove \
             tag in {project} project'.format(project=project_name))
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+def resolve_add_all_project_access(_, info, project_name):
+    """Resolve add_all_project_access mutation."""
+    success = project_domain.add_all_access_to_project(project_name)
+    if success:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Add all project access of {project_name}')
+        util.invalidate_cache(project_name)
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+def resolve_remove_all_project_access(_, info, project_name):
+    """Resolve remove_all_project_access mutation."""
+    success = project_domain.remove_all_project_access(project_name)
+    if success:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Remove all project access of {project_name}')
+        util.invalidate_cache(project_name)
+    return dict(success=success)

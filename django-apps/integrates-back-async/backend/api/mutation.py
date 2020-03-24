@@ -39,3 +39,7 @@ MUTATION.set_field('rejectRemoveProject',
                    project.resolve_reject_remove_project)
 MUTATION.set_field('addTags', project.resolve_add_tags)
 MUTATION.set_field('removeTag', project.resolve_remove_tag)
+MUTATION.set_field('addAllProjectAccess',
+                   project.resolve_add_all_project_access)
+MUTATION.set_field('removeAllProjectAccess',
+                   project.resolve_remove_all_project_access)

@@ -171,3 +171,37 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['removeTag']
         assert result['data']['removeTag']['success']
+
+    def test_add_all_project_access(self):
+        """Check for addAllProjectAccess mutation."""
+        query = '''
+            mutation {
+                addAllProjectAccess(projectName: "UNITTESTING")
+                    {
+                        success
+                    }
+            }
+
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addAllProjectAccess']
+        assert result['data']['addAllProjectAccess']['success']
+
+    def test_remove_all_project_access(self):
+        """Check for removeAllProjectAccess mutation."""
+        query = '''
+            mutation {
+                removeAllProjectAccess(projectName: "ONESHOTTEST")
+                    {
+                        success
+                    }
+            }
+
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['removeAllProjectAccess']
+        assert result['data']['removeAllProjectAccess']['success']
