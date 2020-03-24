@@ -119,3 +119,18 @@ class FindingTests(TestCase):
         result = self._get_result(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(NotVerificationRequested())
+
+    def test_reject_draft(self):
+        """Check for rejectDraft mutation."""
+        query = '''
+            mutation {
+                rejectDraft(findingId: "836530833") {
+                    success
+                }
+            }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['rejectDraft']
+        assert result['data']['rejectDraft']

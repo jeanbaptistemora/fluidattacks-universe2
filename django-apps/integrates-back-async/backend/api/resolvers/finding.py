@@ -126,3 +126,26 @@ def resolve_handle_acceptation(_, info, **parameters):
         util.cloudwatch_log(info.context, 'Security: Verified a request '
                             f'in finding_id: {finding_id}')
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_finding_access
+def resolve_reject_draft(_, info, finding_id):
+    """Resolve reject_draft mutation."""
+    reviewer_email = util.get_jwt_content(info.context)['user_email']
+    project_name = finding_domain.get_finding(finding_id)['projectName']
+
+    success = finding_domain.reject_draft(finding_id, reviewer_email)
+    if success:
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(
+            info.context,
+            'Security: Draft {} rejected succesfully'.format(finding_id))
+    else:
+        util.cloudwatch_log(
+            info.context,
+            'Security: Attempted to reject draft {}'.format(finding_id))
+    return dict(success=success)
