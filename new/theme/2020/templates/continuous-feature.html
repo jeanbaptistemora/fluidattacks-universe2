@@ -42,7 +42,8 @@
 				src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
 				alt="{{ gettext('Header-img-alt') }}">
 				Back to Continuous Hacking
-		</a>
+    </a>
+    {% if page.slug != 'use-cases/continuous/critical-information/' %}
 		<a class="feature-button-r roboto fw1 fr f3-ns f5 no-underline c-fluid-bk pb3"
 			 href="{{ SITEURL }}/{{ page.nextpage }}">
 				<img
@@ -50,7 +51,8 @@
 				src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
 				alt="{{ gettext('Header-img-alt') }}">
 				Next
-		</a>
+    </a>
+    {% endif %}
 	</div>
 </div>
 <div class="bg-graylight flex-ns flex-wrap-ns justify-between-m bg-banner-sz coverm cover-s h-auto pb5">

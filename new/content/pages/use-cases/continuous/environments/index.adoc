@@ -1,0 +1,14 @@
+:slug: use-cases/continuous/environments/
+:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:nextpage: use-cases/continuous/vuln-management/
+:template: continuous-feature
+
+= Severity and Testing Environments
+
+You are able to decide which security requirements will be tested on each
+ethical hacking (profiling) through Rules. You will know the exact severity for
+each hacking (for inspected and uninspected profiled requirements).
+Basic service allows you to choose a single environment from production,
+testing or integration. You can also add additional testing environments
+for validation at an additional charge.

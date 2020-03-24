@@ -1,12 +1,13 @@
-:slug: use-cases/continuous/healthcheck/
+:slug: use-cases/continuous/vuln-management/
 :description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
 :keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
-:nextpage: use-cases/continuous/environments/
+:nextpage: use-cases/continuous/mock-attacks/
 :template: continuous-feature
 
-= Healthcheck
+= Vulnerabilities Management Platform
 
-All versions of existing code should be attacked up to the subscription start
-point, in addition to the monthly test limit. A healthcheck is intended to catch
-up with the development team within the first *3* months of subscription.
-Then the continuous hacking advances simultaneously with the development.
+*Fixes* is the communication, monitoring and reporting platform for projects.
+You can use it to access general information about each finding,
+check its remediation status, classify it according to age,
+visualize real-time project statistics and progress, as well as other
+functionalities.

@@ -1,0 +1,15 @@
+:slug: use-cases/continuous/remediation/
+:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:nextpage: use-cases/continuous/critical-information/
+:template: continuous-feature
+
+= Remediation
+
+Multiple finding validation cycles are performed during the subscription period.
+You can check if any findings have been successfully closed as many times as you
+require. In order to perform this remediation validation,
+you must first define the treatment used to remediate the vulnerability
+and then request, through *Fixes*, a finding validation.
+You can request clarification on any issue by directly contacting
+Fluid Attacks’ hackers also through *Fixes*.
