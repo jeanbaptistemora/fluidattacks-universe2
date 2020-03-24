@@ -31,7 +31,7 @@ CASBIN_ADAPTER_TABLE_WRITE_CAPACITY_UNITS = int(
     os.environ.get('CASBIN_ADAPTER_TABLE_WRITE_CAPACITY_UNITS', '1'))
 
 # Constants
-POLICY_VALUES_REGEX: str = r'^[a-zA-Z0-9@.]+$'
+POLICY_VALUES_REGEX: str = r'^[a-zA-Z0-9@._+-]+$'
 POLICY_VALUES_PATTERN: Pattern = re.compile(POLICY_VALUES_REGEX)
 
 # Types
