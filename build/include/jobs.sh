@@ -120,7 +120,8 @@ function job_test_generic {
       do
             helper_generic_adoc_main_title "${path}" \
         &&  helper_generic_adoc_min_keywords "${path}" \
-        &&  helper_generic_adoc_keywords_uppercase "${path}" || return 1
+        &&  helper_generic_adoc_keywords_uppercase "${path}" \
+        &&  helper_generic_fluid_attacks_name "${path}" || return 1
       done
 }
 
@@ -133,7 +134,7 @@ function job_test_lix {
       then
             echo '[INFO] No adoc files modified'
       else
-            echo '[INFO] Testing all adoc files Lix' \
+            echo '[INFO] Testing Lix for touched adoc files' \
         &&  for path in ${touched_adoc_files}
             do
                   file_lix="$(helper_get_lix "${path}")" \

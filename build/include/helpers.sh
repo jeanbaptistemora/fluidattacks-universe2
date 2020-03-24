@@ -160,13 +160,49 @@ function helper_terraform_apply {
 function helper_file_exists {
   local path="${1}"
 
-  if [ -f "${path}" ]
-  then
-        return 0
-  else
-        echo "[ERROR] ${path} does not exist" \
-    &&  return 1
-  fi
+      if [ -f "${path}" ]
+      then
+            return 0
+      else
+            echo "[ERROR] ${path} does not exist" \
+        &&  return 1
+      fi
+}
+
+function helper_generic_adoc_content {
+  local file="${1}"
+  local content
+
+  local blocks_regex='^(----|\+\+\+\+|\.\.\.\.)((.|\n)*?)^(----|\+\+\+\+|\.\.\.\.)'
+  local link_regex='link:.*\['
+  local internal_ref_regex='<<.*>>'
+  local inline_anchors_regex='\[\[.*\]]'
+  local images_regex='image:*.*\[.*\]'
+  local tooltip_regex='tooltip:.*\['
+  local button_regex='\[button\]\#'
+  local inner_regex='\[inner\]\#'
+  local source_regex='^\[source.*'
+  local metadata_regex='^:[a-zA-Z0-9-]+:.*'
+  local block_title_regex='^\.[a-zA-Z0-9].*'
+  local hard_break_regex='^\+$'
+
+      helper_file_exists "${file}" \
+  &&  content="$(cat "${file}")" \
+  &&  content="$(echo "${content}" | pcregrep -Mv "${blocks_regex}")" \
+  &&  content="$(echo "${content}" | sed -r \
+              -e "s/${link_regex}//g" \
+              -e "s/${internal_ref_regex}//g" \
+              -e "s/${inline_anchors_regex}//g" \
+              -e "s/${images_regex}//g" \
+              -e "s/${tooltip_regex}//g" \
+              -e "s/${button_regex}//g" \
+              -e "s/${inner_regex}//g" \
+              -e "/${source_regex}/d" \
+              -e "/${metadata_regex}/d" \
+              -e "/${block_title_regex}/d" \
+              -e "/${hard_break_regex}/d" \
+              )" \
+  &&  echo "${content}"
 }
 
 function helper_image_blog_cover_dimensions {
@@ -238,6 +274,38 @@ function helper_generic_forbidden_extensions {
             echo '[ERROR] invalid/unsopported files found:' \
         &&  echo "${found_files}" \
         && return 1
+      fi
+}
+
+function helper_generic_fluid_attacks_name {
+  local file="${1}"
+  local normalized_file
+
+  local regex_fluid_no_attacks='Fluid(?! Attacks)'
+  local regex_fluidsignal_group='Fluidsignal Group'
+  local regex_fluidsignal_formstack='fluidsignal(?!\.formstack)'
+  local regex_fluid_lowercase_1='fluid attacks'
+  local regex_fluid_lowercase_2='fluid(?!.)'
+  local regex_fluid_uppercase_1='FLUID(?!.)'
+  local regex_fluid_uppercase_2='FLUIDAttacks'
+  local regex_fluid_uppercase_3='FLUID Attacks'
+
+      helper_file_exists "${file}" \
+  &&  normalized_file="$(helper_generic_adoc_content "${file}")" \
+  &&  if ! echo "${normalized_file}" | pcregrep -q \
+         -e "${regex_fluid_no_attacks}" \
+         -e "${regex_fluidsignal_group}" \
+         -e "${regex_fluidsignal_formstack}" \
+         -e "${regex_fluid_lowercase_1}" \
+         -e "${regex_fluid_lowercase_2}" \
+         -e "${regex_fluid_uppercase_1}" \
+         -e "${regex_fluid_uppercase_2}" \
+         -e "${regex_fluid_uppercase_3}"
+      then
+        return 0
+      else
+            echo "[ERROR] Incorrect reference to 'Fluid Attacks' found on ${file}" \
+        &&  return 1
       fi
 }
 
@@ -325,40 +393,4 @@ function helper_get_lix {
 
       helper_file_exists "${file}" \
   &&  helper_generic_adoc_content "${file}" | style | pcregrep -o1 'Lix: (\d\d)'
-}
-
-function helper_generic_adoc_content {
-  local file="${1}"
-  local content
-
-  local blocks_regex='^(----|\+\+\+\+|\.\.\.\.)((.|\n)*?)^(----|\+\+\+\+|\.\.\.\.)'
-  local link_regex='link:.*\['
-  local internal_ref_regex='<<.*>>'
-  local inline_anchors_regex='\[\[.*\]]'
-  local images_regex='image:*.*\[.*\]'
-  local tooltip_regex='tooltip:.*\['
-  local button_regex='\[button\]\#'
-  local inner_regex='\[inner\]\#'
-  local source_regex='^\[source.*'
-  local metadata_regex='^:[a-zA-Z0-9-]+:.*'
-  local block_title_regex='^\.[a-zA-Z0-9].*'
-  local hard_break_regex='^\+$'
-
-      helper_file_exists "${file}" \
-  &&  content="$(cat "${file}")" \
-  &&  content="$(echo "${content}" | pcregrep -Mv "${blocks_regex}")" \
-  &&  content="$(echo "${content}" | sed -r \
-              -e "s/${link_regex}//g" \
-              -e "s/${internal_ref_regex}//g" \
-              -e "s/${inline_anchors_regex}//g" \
-              -e "s/${images_regex}//g" \
-              -e "s/${tooltip_regex}//g" \
-              -e "s/${button_regex}//g" \
-              -e "s/${inner_regex}//g" \
-              -e "/${source_regex}/d" \
-              -e "/${metadata_regex}/d" \
-              -e "/${block_title_regex}/d" \
-              -e "/${hard_break_regex}/d" \
-              )" \
-  &&  echo "${content}"
 }
