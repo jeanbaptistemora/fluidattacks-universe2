@@ -592,11 +592,10 @@ def sync_inactive_repo_to_s3(subs: str, repo: str):
 
 def sync_active_repo_to_s3(subs: str, repo: str):
     active_s3_bucket = f"s3://continuous-repositories/{subs}/active/{repo}/"
-    if not is_in_s3(subs, repo):
-        logger.info(f"Uploading {repo} to s3")
-        subs_path = f"subscriptions/{subs}/fusion/{repo}"
-        sync_command = ["aws", "s3", "sync", subs_path, active_s3_bucket]
-        subprocess.run(sync_command, check=True)
+    logger.info(f"Uploading {repo} to s3")
+    subs_path = f"subscriptions/{subs}/fusion/{repo}"
+    sync_command = ["aws", "s3", "sync", subs_path, active_s3_bucket]
+    subprocess.run(sync_command, check=True)
     logger.info(f"Repo {repo} sync completed!")
 
 
