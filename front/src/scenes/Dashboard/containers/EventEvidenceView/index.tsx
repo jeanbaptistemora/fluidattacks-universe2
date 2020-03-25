@@ -57,8 +57,18 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       const newTab: Window | null = window.open(downloadData.downloadEventFile.url);
       (newTab as Window).opener = undefined;
     },
+    onError: (downloadError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred downloading event file", downloadError);
+    },
   });
-  const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
+  const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, {
+    onCompleted: refetch,
+    onError: (removeError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred removing event evidence", removeError);
+    },
+  });
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
@@ -122,7 +132,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     await refetch();
   };
 
-  const canEdit: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "CLOSED";
+  const canEdit: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "SOLVED";
   const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
 
   const maxFileSize: Validator = isValidFileSize(10);

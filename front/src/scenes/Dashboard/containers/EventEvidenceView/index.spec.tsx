@@ -167,7 +167,7 @@ describe("EventEvidenceView", () => {
       result: {
         data: {
           event: {
-            eventStatus: "CLOSED",
+            eventStatus: "SOLVED",
             evidence: "",
             evidenceFile: "",
             id: "413372600",

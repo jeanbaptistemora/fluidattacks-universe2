@@ -127,6 +127,7 @@ const enTranslations: Dictionary = {
       title_success: "Success",
     },
     events: {
+      alreadyClosed: "This event has already been closed",
       description: {
         solved: {
           affectation: "Affectation (hours)",

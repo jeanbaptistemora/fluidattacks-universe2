@@ -3,6 +3,8 @@
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -13,6 +15,8 @@ import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal";
 import { dateTimeField, textField } from "../../../../utils/forms/fields";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { dateTimeBeforeToday, numeric, required, validDatetime } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -56,6 +60,19 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
               .catch();
           };
 
+          const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
+            updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+              switch (message) {
+                case "Exception - The event has already been closed":
+                  msgError(translate.t("project.events.alreadyClosed"));
+                  break;
+                default:
+                  msgError(translate.t("proj_alerts.error_textsad"));
+                  rollbar.error("An error occurred updating event", updateError);
+              }
+            });
+          };
+
           const canSolve: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "SOLVED";
 
           return (
@@ -68,6 +85,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                 <Mutation
                   mutation={SOLVE_EVENT_MUTATION}
                   onCompleted={handleUpdateResult}
+                  onError={handleUpdateError}
                   refetchQueries={[{ query: GET_EVENT_HEADER, variables: { eventId } }]}
                 >
                   {(solveEvent: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
