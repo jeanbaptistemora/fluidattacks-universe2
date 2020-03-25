@@ -107,13 +107,19 @@ function job_test_generic {
   local all_adoc_files
 
   local regex_blank_space_header='^=\s+.+\n.+'
-  local regex_numbered_references='^== Referenc.+\n\n[a-zA-Z]'
-  local regex_title_before_image='image::.+\n\.[a-zA-Z]'
   local error_blank_space_header='Headers must be followed by a blank line'
+  local regex_numbered_references='^== Referenc.+\n\n[a-zA-Z]'
   local error_numbered_references='References must be numbered'
+  local regex_title_before_image='image::.+\n\.[a-zA-Z]'
   local error_title_before_image='Title must go before image'
-
-
+  local regex_slug_max_chars='^:slug: .{44,}'
+  local error_slug_max_chars='Slug length has a maximum of 44 characters'
+  local regex_four_dashes_code_block='^-{5,}'
+  local error_four_dashes_code_block='Code blocks must only have four dashes (----)'
+  local regex_no_start_used='\[start'
+  local error_no_start_used='Start attribute must not be used. Use a + sign instead'
+  local regex_slug_ends_with_slash='^:slug:.*[a-z0-9-]$'
+  local error_slug_ends_with_slash=':slug: tag must end with a slash /'
 
       all_content_files="$(find content/ -type f)" \
   &&  all_adoc_files="$(find content/ -type f -name '*.adoc')" \
@@ -131,18 +137,34 @@ function job_test_generic {
         &&  helper_generic_adoc_min_keywords "${path}" \
         &&  helper_generic_adoc_keywords_uppercase "${path}" \
         &&  helper_generic_adoc_fluid_attacks_name "${path}" \
-        &&  helper_generic_adoc_normalized_regex \
+        &&  helper_generic_adoc_direct_regex \
               "${path}" \
               "${regex_blank_space_header}" \
               "${error_blank_space_header}" \
-        &&  helper_generic_adoc_normalized_regex \
+        &&  helper_generic_adoc_direct_regex \
               "${path}" \
               "${regex_numbered_references}" \
               "${error_numbered_references}" \
-        &&  helper_generic_adoc_normalized_regex \
+        &&  helper_generic_adoc_direct_regex \
               "${path}" \
               "${regex_title_before_image}" \
               "${error_title_before_image}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_slug_max_chars}" \
+              "${error_slug_max_chars}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_four_dashes_code_block}" \
+              "${error_four_dashes_code_block}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_no_start_used}" \
+              "${error_no_start_used}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_slug_ends_with_slash}" \
+              "${error_slug_ends_with_slash}" \
         ||  return 1
       done
 }

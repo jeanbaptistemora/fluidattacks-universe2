@@ -351,7 +351,7 @@ function helper_generic_adoc_keywords_uppercase {
       then
             return 0
       else
-            echo "[ERROR] All keywords in ${file} must start with an upper case" \
+            echo "[ERROR] All keywords in ${file} must begin with an upper case" \
         && return 1
       fi
 }
