@@ -234,9 +234,8 @@ const enTranslations: Dictionary = {
         modal_close: "Close",
         modal_title: "Reports",
         tech_description: "Technical reports are protected by <strong>password</strong>. "
-          + "The <strong>password</strong> is the PDF or XLSX report generation date plus your username.",
-        tech_example: "<strong>Example:</strong> someone@fluidattacks.com generates the technical report "
-          + "on 15/03/2019 then, the password is 15032019someone",
+          + "The <strong>password</strong> is generated randomly and will be sent to your email. "
+          + "This <strong>password</strong> can be used only with the requested report.",
         tech_title: "Technical Reports",
       },
       tableSet: {

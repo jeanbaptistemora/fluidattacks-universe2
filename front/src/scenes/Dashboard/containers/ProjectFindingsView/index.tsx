@@ -367,9 +367,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     <p>{translate.t("project.findings.report.tech_description")}</p>
                   </Trans>
                   <br />
-                  <Trans>
-                    <p className={style.techExample}>{translate.t("project.findings.report.tech_example")}</p>
-                  </Trans>
                   <Row>
                     <Col md={12} className={style.downloadButtonsContainer}>
                       <ButtonToolbar>
