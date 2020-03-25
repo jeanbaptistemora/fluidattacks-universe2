@@ -1,7 +1,8 @@
 # pylint: disable=import-error
 
 from backend.api.resolvers import (
-    alert, cache, event, finding, me, user, resource, project
+    alert, cache, event, finding, me, user, resource, project,
+    vulnerability
 )
 
 from ariadne import MutationType
@@ -54,3 +55,5 @@ MUTATION.set_field('deleteFinding', finding.resolve_delete_finding)
 MUTATION.set_field('approveDraft', finding.resolve_approve_draft)
 MUTATION.set_field('createDraft', finding.resolve_create_draft)
 MUTATION.set_field('submitDraft', finding.resolve_submit_draft)
+MUTATION.set_field('approveVulnerability',
+                   vulnerability.resolve_approve_vulnerability)
