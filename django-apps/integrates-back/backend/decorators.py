@@ -167,9 +167,6 @@ def enforce_authz(func):
         project_data = resolve_project_data(project_name)
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
-
-        util.temporal_keep_auth_table_fresh(ENFORCER_GROUP_LEVEL, 'gl')
-
         try:
             if not ENFORCER_GROUP_LEVEL.enforce(user_data, project_data, action):
                 util.cloudwatch_log(context,
@@ -200,9 +197,6 @@ def enforce_authz_async(func):
         project_data = resolve_project_data(project_name)
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
-
-        util.temporal_keep_auth_table_fresh(ENFORCER_GROUP_LEVEL_ASYNC, 'gla')
-
         try:
             if not ENFORCER_GROUP_LEVEL_ASYNC.enforce(
                 user_data, project_data, action
@@ -220,7 +214,7 @@ Unauthorized role attempted to perform operation')
     return verify_and_call
 
 
-def _enforce_user_level_auth(func, enforcer, enforcer_name):
+def _enforce_user_level_auth(func, enforcer):
     """Enforce authorization using the user-level role."""
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
@@ -231,7 +225,8 @@ def _enforce_user_level_auth(func, enforcer, enforcer_name):
         object_ = 'self'
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
-        util.temporal_keep_auth_table_fresh(enforcer, enforcer_name)
+        util.temporal_keep_auth_table_fresh()
+        enforcer.load_policy()
 
         try:
             if not enforcer.enforce(subject, object_, action):
@@ -246,12 +241,12 @@ def _enforce_user_level_auth(func, enforcer, enforcer_name):
 
 def enforce_user_level_auth(func):
     """Enforce authorization using the user-level role."""
-    return _enforce_user_level_auth(func, ENFORCER_USER_LEVEL, 'ul')
+    return _enforce_user_level_auth(func, ENFORCER_USER_LEVEL)
 
 
 def enforce_user_level_auth_async(func):
     """Enforce authorization using the user-level role."""
-    return _enforce_user_level_auth(func, ENFORCER_USER_LEVEL_ASYNC, 'ula')
+    return _enforce_user_level_auth(func, ENFORCER_USER_LEVEL_ASYNC)
 
 
 def verify_jti(email, context, jti):

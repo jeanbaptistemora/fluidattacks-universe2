@@ -24,11 +24,8 @@ from django.core.files.uploadedfile import (
 )
 from django.core.cache import cache
 from jose import jwt, JWTError
-from rediscluster.nodemanager import RedisClusterException
 
 from backend.dal.helpers import dynamodb
-from backend.dal import user as user_dal
-from backend.domain import user as user_domain
 from backend.exceptions import (InvalidAuthorization, InvalidDate,
                                 InvalidDateFormat)
 from backend.typing import Finding as FindingType, User as UserType
@@ -475,21 +472,10 @@ def temporal_yield_users():
         yield from result['Items']
 
 
-def temporal_keep_auth_table_fresh(enforcer, enforcer_name):
+def temporal_keep_auth_table_fresh():
     # Function to keep data fresh until I make data get
     # inserted directly into the authorization table (200 deltas)
-    # pylint: disable=import-outside-toplevel
-    from backend.services import is_customeradmin
-
-    cache_key: str = f'authorization.is_data_fresh.{enforcer_name}'
-    try:
-        is_data_fresh = cache.get(cache_key)
-    except RedisClusterException:
-        cache.set(cache_key, True, timeout=300)
-    else:
-        if is_data_fresh:
-            # Data is from last 5 minutes
-            return
+    adapter = getattr(settings, 'CASBIN_ADAPTER')
 
     for user in temporal_yield_users():
         if 'role' not in user:
@@ -501,20 +487,9 @@ def temporal_keep_auth_table_fresh(enforcer, enforcer_name):
         if user_role == 'customeradmin':
             user_role = 'customer'
 
-        user_dal.grant_user_level_role(user_email, user_role)
+        adapter.add_policy('p', 'p', [
+            # level, subject, object, role
+            'user', user_email, 'self', user_role
+        ])
 
-        if user_role == 'admin':
-            user_dal.grant_group_level_role(user_email, '__all__', user_role)
-        else:
-            user_groups = \
-                user_domain.get_projects(user_email, active=True) \
-                + user_domain.get_projects(user_email, active=False)
-
-            for group in user_groups:
-                group_role = user_role
-                if is_customeradmin(group, user_email):
-                    group_role = 'customeradmin'
-
-                user_dal.grant_group_level_role(user_email, group, group_role)
-
-    enforcer.load_policy()
+    adapter.deduplicate_policies()
