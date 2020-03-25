@@ -900,3 +900,40 @@ def has_grammar(code_dest: str,
         },
         spec=lang_specs,
         excl=exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def has_sensible_data_in_logs(code_dest: str,
+                              expected_list: list,
+                              use_regex: bool = False,
+                              exclude: list = None,
+                              lang_specs: dict = None) -> tuple:
+    """
+    Check if the code stores critical system or user data in the logs.
+
+    if `use_regex` equals True, Search is (case-insensitively)
+    performed by :py:func:`re.search`.
+
+    :param code_dest: Path to the file or directory to be tested.
+    :param expected_list: List of bad text to look for in the file.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :param lang_specs: Specifications of the language, see
+                       fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    if use_regex:
+        grammar = MatchFirst([Regex(x) for x in set(expected_list)])
+    else:
+        grammar = MatchFirst([Literal(x) for x in set(expected_list)])
+
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'There is sensitive data being stored in logs',
+            CLOSED: 'There is no sensitive data being stored in logs',
+        },
+        spec=lang_specs,
+        excl=exclude)
