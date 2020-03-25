@@ -1,10 +1,10 @@
 :slug: rules/204/
-:category: physical-devices
+:category: physical
 :description: This document details the security guidelines and requirements related to the proper management of the organization's or company's physical devices. In this requirement it is recommended that any screen presented to the user only allows perpendicular viewing.
 :keywords: Device, Screen, User, Viewing, Perpendicular, Security
 :rules: yes
 
-= REQ.204 Allow Perpendicular Viewing
+= REQ.204 Allow perpendicular viewing
 
 == Requirement
 
