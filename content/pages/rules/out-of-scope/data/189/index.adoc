@@ -48,3 +48,7 @@ provide the data subject with all of the following information.
 data have not been obtained from the data subject.(1-4).]
 Where personal data have not been obtained from the data subject,
 the controller shall provide the data subject with the following information.
+
+. [[r6]] link:https://gdpr-info.eu/art-30-gdpr/[GDPR. Art. 30: Records of processing activities.]
+Each controller and, where applicable, the controller’s representative,
+shall maintain a record of processing activities under its responsibility. 
