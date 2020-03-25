@@ -221,7 +221,7 @@ function job_test_lix {
   &&  for path in ${touched_adoc_others}
       do
             file_lix="$(helper_get_lix "${path}")" \
-        &&  if [ "${file_lix}" -lt ${others_lix} ]
+        &&  if [ "${file_lix}" -le ${others_lix} ]
             then
                   continue
             else
@@ -232,7 +232,7 @@ function job_test_lix {
   &&  for path in ${touched_adoc_rules}
       do
             file_lix="$(helper_get_lix "${path}")" \
-        &&  if [ "${file_lix}" -lt ${rules_lix} ]
+        &&  if [ "${file_lix}" -le ${rules_lix} ]
             then
                   continue
             else
