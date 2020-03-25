@@ -58,6 +58,14 @@ msgstr "Compels the Remediation of Vulnerabilities"
 msgid "Use-cases-Header-msg"
 msgstr "Effective Automation and Human Intelligence"
 
+#: templates/continuous.html:135
+msgid "Contact-continuous-msg"
+msgstr "Contact Us Today. We Give You a Free Demo"
+
+#: templates/one-shot.html:135
+msgid "Contact-one-shot-msg"
+msgstr "Make Your One-Shot Hacking Today"
+
 #: templates/footer.html:88
 msgid "Footer-stat-msg-1"
 msgstr "Service status"
