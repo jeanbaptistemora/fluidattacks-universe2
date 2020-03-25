@@ -482,7 +482,7 @@ def _temporal_keep_auth_table_fresh(enforcer):
     from backend.services import is_customeradmin
 
     for user in temporal_yield_users():
-        if 'role' not in user:
+        if 'email' not in user or 'role' not in user:
             continue
 
         user_email = user['email']
@@ -491,21 +491,31 @@ def _temporal_keep_auth_table_fresh(enforcer):
         if user_role == 'customeradmin':
             user_role = 'customer'
 
-        user_domain.grant_user_level_role(
-            user_email, user_role, reload=False)
+        try:
+            # Revoke all granted roles until now to guarantee perfect synchronization
+            user_domain.revoke_all_levels_roles(user_email, reload=False)
 
-        if user_role != 'admin':
-            user_groups = \
-                user_domain.get_projects(user_email, active=True) \
-                + user_domain.get_projects(user_email, active=False)
+            user_domain.grant_user_level_role(
+                user_email, user_role,
+                revoke_existing=False, reload=False)
 
-            for group in user_groups:
-                group_role = user_role
-                if is_customeradmin(group, user_email):
-                    group_role = 'customeradmin'
+            if user_role != 'admin':
+                user_groups = \
+                    user_domain.get_projects(user_email, active=True) \
+                    + user_domain.get_projects(user_email, active=False)
 
-                user_domain.grant_group_level_role(
-                    user_email, group, group_role, reload=False)
+                for group in user_groups:
+                    group_role = user_role
+                    if is_customeradmin(group, user_email):
+                        group_role = 'customeradmin'
+
+                    user_domain.grant_group_level_role(
+                        user_email, group, group_role,
+                        revoke_existing=False, reload=False)
+        except (TypeError, ValueError) as exception:
+            rollbar.report_message(
+                'Error: unable to migrate user', 'critical',
+                extra_data=exception, payload_data=locals())
 
     enforcer.load_policy()
 

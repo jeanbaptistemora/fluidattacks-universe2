@@ -58,10 +58,12 @@ def _create_new_user(
                             'phone': phone_number})
     if not user_domain.is_registered(email):
         user_domain.register(email)
-        user_domain.assign_role(email, role)
+        user_domain.assign_role(email, role)  # rm
+        user_domain.grant_user_level_role(email, role)
         user_domain.update(email, organization.lower(), 'company')
     elif user_domain.is_registered(email):
-        user_domain.assign_role(email, role)
+        user_domain.assign_role(email, role)  # rm
+        user_domain.grant_user_level_role(email, role)
     if project_name and responsibility and len(responsibility) <= 50:
         project_domain.add_access(
             email, project_name, 'responsibility', responsibility
@@ -358,8 +360,15 @@ def resolve_edit_user(_, info, **query_args):
                                                'customer', 'customeradmin']) \
         or (is_customeradmin(project_name, user_data['user_email'])
             and modified_user_data['role'] in ['customer', 'customeradmin']):
-        if user_domain.assign_role(
-                modified_user_data['email'], modified_user_data['role']):
+
+        modified_user_email = modified_user_data['email']
+        modified_user_role = modified_user_data['role']
+
+        _old_method = user_domain.assign_role(  # rm
+            modified_user_email, modified_user_role)
+
+        if _old_method and user_domain.grant_group_level_role(
+                modified_user_email, project_name, modified_user_role):
             modify_user_information(info.context, modified_user_data,
                                     project_name)
             success = True

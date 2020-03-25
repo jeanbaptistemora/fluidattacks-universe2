@@ -41,7 +41,11 @@ def get_group_level_role(email: str, group: str) -> str:
     return str()
 
 
-def grant_user_level_role(email: str, role: str, reload: bool = True) -> bool:
+def grant_user_level_role(
+        email: str,
+        role: str,
+        revoke_existing: bool = True,
+        reload: bool = True) -> bool:
     if role not in VALID_ROLES:
         return False
 
@@ -49,7 +53,8 @@ def grant_user_level_role(email: str, role: str, reload: bool = True) -> bool:
     rule = ['user', email, 'self']
 
     # Revoke previous user-level policies
-    settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
+    if revoke_existing:
+        settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
 
     rule.append(role)
 
@@ -64,7 +69,12 @@ def grant_user_level_role(email: str, role: str, reload: bool = True) -> bool:
     return True
 
 
-def grant_group_level_role(email: str, group: str, role: str, reload: bool = True) -> bool:
+def grant_group_level_role(
+        email: str,
+        group: str,
+        role: str,
+        revoke_existing: bool = True,
+        reload: bool = True) -> bool:
     if role not in VALID_ROLES:
         return False
 
@@ -72,7 +82,8 @@ def grant_group_level_role(email: str, group: str, role: str, reload: bool = Tru
     rule = ['group', email, group]
 
     # Revoke previous user-level policies
-    settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
+    if revoke_existing:
+        settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
 
     rule.append(role)
 
@@ -115,7 +126,7 @@ def revoke_group_level_role(email: str, group: str) -> bool:
     return True
 
 
-def revoke_all_levels_roles(email: str) -> bool:
+def revoke_all_levels_roles(email: str, reload: bool = True) -> bool:
     # level, subject, object, role
     group_level_rule = ['group', email]
     user_level_rule = ['user', email]
@@ -125,10 +136,11 @@ def revoke_all_levels_roles(email: str) -> bool:
     settings.CASBIN_ADAPTER.remove_policy('p', 'p', user_level_rule)
 
     # Reload config
-    settings.ENFORCER_USER_LEVEL.load_policy()
-    settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
-    settings.ENFORCER_GROUP_LEVEL.load_policy()
-    settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
+    if reload:
+        settings.ENFORCER_USER_LEVEL.load_policy()
+        settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
+        settings.ENFORCER_GROUP_LEVEL.load_policy()
+        settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
 
     return True
 
