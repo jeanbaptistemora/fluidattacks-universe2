@@ -84,7 +84,7 @@ type Mutation {
     ): SimplePayload!
     deleteTags(
         findingId: String!,
-        vulnerabilities: [String!]!
+        vulnerabilities: [String]!
     ): SimplePayload!
     requestVerificationVuln(
         findingId: String!,
