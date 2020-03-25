@@ -1,0 +1,19 @@
+:slug: use-cases/one-shot/hacking-techniques/
+:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:nextpage: use-cases/one-shot/environments/
+:category: one-shot
+:section: One-Shot Hacking
+:template: feature
+
+= Hacking Techniques, Team, Duration and Cycle
+
+It is possible to perform ethical hacking of the source code, the application or
+the infrastructure. You can choose the hacking technique that best suits the
+needs of your business to meet the required security assessment of each system.
+One-shot hacking, performed with manual testing and use of tools by
+Fluid Attacks’ certified hackers, seeks to attack a single version of your
+application. Therefore, it has only one inspection cycle on the selected system.
+The duration depends on the size of the *ToE* attack surface.
+Once all the requirements for starting the project have been met,
+each attack will have a defined start and end date.

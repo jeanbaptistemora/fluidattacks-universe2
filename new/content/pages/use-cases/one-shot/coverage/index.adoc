@@ -1,0 +1,16 @@
+:slug: use-cases/one-shot/coverage/
+:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:nextpage: use-cases/one-shot/infection/
+:category: one-shot
+:section: One-Shot Hacking
+:template: feature
+
+= Coverage
+
+Ethical hacking can be done to achieve specific, full or variable coverage.
+Specific coverage refers to a system where its overall size can be assessed
+(application fields, lines of code, open ports) and you choose to cover only a
+specific percentage. When you choose to cover the entire system, that's full
+coverage. Variable coverage, otherwise, refers to a system where its overall
+size cannot be assessed and a specific scope is predefined.

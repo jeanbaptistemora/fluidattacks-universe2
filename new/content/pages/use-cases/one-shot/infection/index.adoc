@@ -1,0 +1,14 @@
+:slug: use-cases/one-shot/infection/
+:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:nextpage: use-cases/one-shot/reports/
+:category: one-shot
+:section: One-Shot Hacking
+:template: feature
+
+= Infection
+
+Whenever findings allow it, the infrastructure is infected with malicious files.
+This process is carried out to gain extra data, infect servers,
+and verify network controls.
+We use *Shells* and cyber-weapons with the prior authorization of the client.

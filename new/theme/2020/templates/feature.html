@@ -36,14 +36,14 @@
 <div class="bg-graylight flex-ns flex-wrap-ns justify-between-m bg-banner-sz coverm cover-s h-auto">
 	<div class="ph5-ns ma-auto mw9 w-100-ns w-90 pt5">
 		<a class="feature-button-l roboto fw1 fl f3-ns f5 no-underline c-fluid-bk pb3"
-			 href="{{ SITEURL }}/use-cases/continuous/">
+			 href="{{ SITEURL }}/use-cases/{{ page.category }}/">
 				<img
 				class="w1 fl relative pv2-ns pv1 mr2 mirror-img"
 				src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
 				alt="{{ gettext('Header-img-alt') }}">
-				Back to Continuous Hacking
+				Back to {{ page.section }}
     </a>
-    {% if page.slug != 'use-cases/continuous/critical-information/' %}
+    {% if not page.slug.endswith('critical-information/') %}
 		<a class="feature-button-r roboto fw1 fr f3-ns f5 no-underline c-fluid-bk pb3"
 			 href="{{ SITEURL }}/{{ page.nextpage }}">
 				<img

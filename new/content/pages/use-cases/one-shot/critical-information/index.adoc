@@ -1,8 +1,8 @@
-:slug: use-cases/continuous/critical-information/
-:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
+:slug: use-cases/one-shot/critical-information/
+:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
 :keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
-:category: continuous
-:section: Continuous Hacking
+:category: one-shot
+:section: One-Shot Hacking
 :template: feature
 
 = Critical Information Extraction and Information Removal

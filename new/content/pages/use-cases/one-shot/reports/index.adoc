@@ -1,0 +1,15 @@
+:slug: use-cases/one-shot/reports/
+:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:nextpage: use-cases/one-shot/critical-information/
+:category: one-shot
+:section: One-Shot Hacking
+:template: feature
+
+= Delivery of Reports, and Validation/Presentation Meetings
+
+Final reports are all-inclusive (evidence of risks, remediation, etc.).
+These are given to the clients via a safe file transfer website.
+Each ethical hacking test includes a remote meeting with the technical team of
+the client to verify the reports. All stakeholders in the project can take part
+when there is a formal presentation of the executive report.
