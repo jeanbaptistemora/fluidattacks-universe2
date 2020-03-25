@@ -98,7 +98,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
                   acceptanceDate: dataTreatment.acceptanceDate,
                   btsUrl: dataTreatment.btsUrl,
                   findingId: props.findingId,
-                  severity: !_.isEmpty(dataTreatment.severity) ? dataTreatment.severity : "-1",
+                  severity: !_.isEmpty(dataTreatment.severity) ? Number(dataTreatment.severity) : -1,
                   tag: dataTreatment.tag,
                   treatment: dataTreatment.treatment,
                   treatmentJustification: dataTreatment.justification,

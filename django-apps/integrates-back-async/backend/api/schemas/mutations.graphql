@@ -73,7 +73,7 @@ type Mutation {
         treatment: String,
         treatmentManager: String,
         treatmentJustification: String,
-        vulnerabilities: [String!]!,
+        vulnerabilities: [String]!,
         severity: Int,
         tag: String
     ): SimplePayload!

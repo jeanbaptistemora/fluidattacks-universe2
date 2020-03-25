@@ -58,3 +58,5 @@ MUTATION.set_field('submitDraft', finding.resolve_submit_draft)
 MUTATION.set_field('approveVulnerability',
                    vulnerability.resolve_approve_vulnerability)
 MUTATION.set_field('deleteTags', vulnerability.resolve_delete_tags)
+MUTATION.set_field('updateTreatmentVuln',
+                   vulnerability.resolve_update_treatment_vuln)

@@ -33,7 +33,7 @@ export interface IUploadVulnerabilitiesResult {
 }
 
 export interface IUpdateTreatmentVulnAttr {
-  acceptanceDate: string; btsUrl: string; findingId: string; severity?: string; tag?: string; treatment: string;
+  acceptanceDate: string; btsUrl: string; findingId: string; severity?: number; tag?: string; treatment: string;
   treatmentJustification: string; treatmentManager: string; vulnerabilities: string[];
 }
 
