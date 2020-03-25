@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Class to secure a PDF of findings. """
-import time
+import string
+import random
 import os
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from backend.dal import project as project_dal
@@ -13,6 +14,7 @@ class SecurePDF():
     watermark_tpl = ''
     secure_pdf_username = ''
     secure_pdf_filename = ''
+    password = ''
 
     def __init__(self):
         """Class constructor."""
@@ -52,13 +54,22 @@ class SecurePDF():
     def lock(self, in_filename: str) -> str:
         """  Add a password to a PDF. """
         pdf_foutname = self.secure_pdf_username + "_" + in_filename
-        password = time.strftime('%d%m%Y') + self.secure_pdf_username
+        password = []
+        length = 25
+        password.append(random.choice(string.punctuation))
+        for _ in range(length // 4):
+            password.append(random.choice(string.ascii_lowercase))
+            password.append(random.choice(string.ascii_uppercase))
+            password.append(random.choice(string.punctuation))
+            password.append(str(random.randint(0, 9)))
+        random.shuffle(password)
+        self.password = ''.join(password)
         output = PdfFileWriter()
         input = PdfFileReader(open(self.result_dir + in_filename, 'rb')) # noqa
         for i in range(0, input.getNumPages()):
             output.addPage(input.getPage(i))
         output_stream = open(self.result_dir + pdf_foutname, 'wb')
-        output.encrypt(password, use_128bit=True)
+        output.encrypt(self.password, use_128bit=True)
         output.write(output_stream)
         output_stream.close()
         return pdf_foutname

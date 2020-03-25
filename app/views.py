@@ -200,7 +200,8 @@ def project_to_pdf(request, lang, project, doctype):
                                      ' pdf without permission')
         return util.response([], 'Access denied', True)
     else:
-        user = request.session['username'].split('@')[0]
+        user_email = request.session['username']
+        user_name = user_email.split('@')[0]
         validator = validation_project_to_pdf(request, lang, doctype)
         if validator is not None:
             return validator
@@ -218,9 +219,12 @@ def project_to_pdf(request, lang, project, doctype):
         report_filename = ''
         if doctype == 'tech':
             pdf_maker.tech(findings, project, description)
-            report_filename = secure_pdf.create_full(user,
+            report_filename = secure_pdf.create_full(user_name,
                                                      pdf_maker.out_name,
                                                      project)
+            reports.send_pdf_password_email([user_email, user_name],
+                                            project.lower(),
+                                            secure_pdf.password)
         else:
             return HttpResponse(
                 'Disabled report generation', content_type='text/html')

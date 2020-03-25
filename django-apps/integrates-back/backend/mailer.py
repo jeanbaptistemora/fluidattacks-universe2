@@ -239,6 +239,10 @@ def send_mail_comment(email_to: List[List[str]], context: List[Dict[str, Union[s
     _send_mail('new-comment', email_to[1], context=context[1], tags=COMMENTS_TAG)
 
 
+def send_mail_pdf_password(email_to: List[str], context: Dict[str, Union[str, int]]):
+    _send_mail('pdf-report-password', email_to, context=context, tags=GENERAL_TAG)
+
+
 def send_mail_verified_finding(email_to: List[str], context: Dict[str, Union[str, int]]):
     _send_mail('verified-finding', email_to, context=context, tags=VERIFY_TAG)
 
