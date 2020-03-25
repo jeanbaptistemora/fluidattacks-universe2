@@ -5,9 +5,11 @@
 # standard imports
 import inspect
 from typing import List
+from contextlib import suppress
 
 # 3rd party imports
 import boto3
+from botocore.exceptions import BotoCoreError
 
 # local imports
 from fluidasserts import Unit, OPEN, CLOSED
@@ -38,9 +40,12 @@ def _get_result_as_tuple(*,
     #   specific: must be used or deleted
     frm = inspect.stack()
     arg = frm[1][0].f_locals
-    identity = _get_identity_info(
-        arg['key_id'], arg['secret'], arg['session_token'])
-    account = identity["Account"]
+    account = 'unrecognized'
+    with suppress(BotoCoreError):
+        identity = _get_identity_info(
+            arg['key_id'], arg['secret'], arg['session_token'])
+        account = identity['Account']
+
     if vulns:
         vuln_units.extend(Unit(where=f'AWS/{service}/account:{account}/{id_}',
                                specific=[vuln]) for id_, vuln in vulns)
