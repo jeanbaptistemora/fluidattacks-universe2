@@ -1,10 +1,10 @@
 :slug: rules/207/
-:category: mobile-devices
+:category: mobile
 :description: This document details security guidelines or requirements, for companies and organizations, related to mobile devices. This requirement states that on portable and mobile devices, belonging to the organization, the system must allow encryption of disks and partitions.
 :keywords: Mobile Device, System, Encryption, Disks, Partitions, Requirement
 :rules: yes
 
-= REQ.207 Encrypt Disk Partitions
+= REQ.207 Encrypt disk partitions
 
 == Requirement
 
