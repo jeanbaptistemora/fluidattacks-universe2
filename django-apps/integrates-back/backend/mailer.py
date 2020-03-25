@@ -1,3 +1,4 @@
+import os
 from html import escape
 import json
 import threading
@@ -79,8 +80,10 @@ def _send_mail(template_name: str, email_to: List[str],
                context: Dict[str, Union[str, int]], tags: List[str]):
     project = str(context.get('project', '')).lower()
     test_proj_list = FI_TEST_PROJECTS.split(',')
-    sqs = boto3.client('sqs', aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,  # type: ignore
+    sqs = boto3.client('sqs',  # type: ignore
+                       aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
                        aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+                       aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),
                        region_name='us-east-1')
     no_test_context = _remove_test_projects(context, test_proj_list)
     new_context = _escape_context(no_test_context)

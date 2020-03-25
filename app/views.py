@@ -51,7 +51,8 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
+                         aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
 BASE_URL = "https://fluidattacks.com/integrates"

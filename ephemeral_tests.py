@@ -28,7 +28,8 @@ class ViewTestCase(unittest.TestCase):
         if not os.path.exists(profile_path):
             session = boto3.Session(
                 aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
-                aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
+                aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+                aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
             resource = session.resource('s3')
             resource.Bucket(s3_bucket).download_file(
                 'selenium/firefox-selenium-profile.tar.gz',

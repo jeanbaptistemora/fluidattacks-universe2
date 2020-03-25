@@ -132,7 +132,8 @@ class UtilTests(TestCase):
         s3_client = client(
             service_name='s3',
             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+            aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
+            aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
         bucket = FI_AWS_S3_BUCKET
         key = 'oneshot'
         test_data = list_s3_objects(s3_client, bucket, key)

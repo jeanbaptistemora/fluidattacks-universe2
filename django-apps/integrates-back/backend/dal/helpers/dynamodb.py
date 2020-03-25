@@ -4,6 +4,8 @@
 
 """Functions to connect to dynamodb database."""
 
+import os
+
 import boto3
 
 from __init__ import (
@@ -19,6 +21,7 @@ if FI_ENVIRONMENT == 'development' and FI_DYNAMODB_HOST:
         'service_name': 'dynamodb',
         'aws_access_key_id': FI_AWS_DYNAMODB_ACCESS_KEY,
         'aws_secret_access_key': FI_AWS_DYNAMODB_SECRET_KEY,
+        'aws_session_token': os.environ.get('AWS_SESSION_TOKEN'),
         'region_name': 'us-east-1',
         'endpoint_url': ENDPOINT_URL
     }
@@ -27,6 +30,7 @@ else:
         'service_name': 'dynamodb',
         'aws_access_key_id': FI_AWS_DYNAMODB_ACCESS_KEY,
         'aws_secret_access_key': FI_AWS_DYNAMODB_SECRET_KEY,
+        'aws_session_token': os.environ.get('AWS_SESSION_TOKEN'),
         'region_name': 'us-east-1'
     }
 
