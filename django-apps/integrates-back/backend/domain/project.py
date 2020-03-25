@@ -121,8 +121,9 @@ def create_project(
     return resp
 
 
-def add_user(project_name: str, user_email: str, role: str) -> bool:
-    return project_dal.add_user(project_name, user_email, role)
+def add_user(group: str, email: str, role: str) -> bool:
+    user_domain.grant_group_level_role(email, group, role)
+    return project_dal.add_user(group, email, role)  # rm
 
 
 def add_access(user_email: str, project_name: str,
@@ -251,10 +252,11 @@ def remove_all_users_access(project: str) -> bool:
     return are_users_removed
 
 
-def remove_user_access(project: str, user_email: str, role: str) -> bool:
+def remove_user_access(group: str, email: str, role: str) -> bool:
     """Remove user access to project."""
-    project_dal.remove_user_role(project, user_email, role)
-    return project_dal.remove_access(user_email, project)
+    project_dal.remove_user_role(group, email, role)  # rm
+    user_domain.revoke_group_level_role(email, group)
+    return project_dal.remove_access(email, group)  # rm
 
 
 def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
