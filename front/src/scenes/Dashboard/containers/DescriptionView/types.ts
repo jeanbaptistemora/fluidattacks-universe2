@@ -41,7 +41,7 @@ export interface IFinding {
   remediated: boolean;
   requirements: string;
   scenario: string;
-  state: string;
+  state: "open" | "closed";
   threat: string;
   title: string;
   type: string;

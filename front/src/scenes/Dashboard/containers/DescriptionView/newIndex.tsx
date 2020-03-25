@@ -9,13 +9,11 @@ import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
-import { Button } from "../../../../components/Button";
-import { FluidIcon } from "../../../../components/FluidIcon";
 import { formatCweUrl, formatFindingType, getLastTreatment } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -24,7 +22,9 @@ import translate from "../../../../utils/translations/translate";
 import { numeric, required, validDraftTitle } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
+import { VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { GET_ROLE } from "../ProjectContent/queries";
+import { ActionButtons } from "./ActionButtons";
 import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 import { TreatmentView } from "./TreatmentView";
 import { IFinding, IHistoricTreatment } from "./types";
@@ -71,12 +71,21 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
     setApprovalModalConfig({ open: false, type: "" });
   };
 
+  const [isRequestingVerify, setRequestingVerify] = React.useState(false);
+  const toggleRequestVerify: (() => void) = (): void => {
+    setRequestingVerify(!isRequestingVerify);
+  };
+
+  const [isVerifying, setVerifying] = React.useState(false);
+  const toggleVerify: (() => void) = (): void => {
+    setVerifying(!isVerifying);
+  };
+
   // GraphQL operations
   const { data: userData } = useQuery(GET_ROLE, { variables: { projectName } });
   const userRole: string = _.isUndefined(userData) || _.isEmpty(userData)
     ? "" : userData.me.role;
 
-  const canApproveAcceptation: boolean = _.includes(["admin", "customeradmin"], userRole);
   const canEditAffectedSystems: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditCompromisedAttrs: boolean = _.includes(["admin", "analyst"], userRole);
   const canEditCompromisedRecords: boolean = _.includes(["admin", "analyst"], userRole);
@@ -140,30 +149,25 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
 
   return (
     <React.StrictMode>
-      <Row>
-        <ButtonToolbar className="pull-right">
-          {canApproveAcceptation
-            && lastTreatment.treatment === "ACCEPTED_UNDEFINED"
-            && lastTreatment.acceptanceStatus === "SUBMITTED" ? (
-              <React.Fragment>
-                <Button onClick={openApproveModal}>
-                  <FluidIcon icon="verified" />{translate.t("search_findings.acceptation_buttons.approve")}
-                </Button>
-                <Button onClick={openRejectModal}>
-                  {translate.t("search_findings.acceptation_buttons.reject")}
-                </Button>
-              </React.Fragment>
-            ) : undefined}
-          {isEditing ? (
-            <Button onClick={handleSubmit} disabled={isDescriptionPristine && isTreatmentPristine}>
-              <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
-            </Button>
-          ) : undefined}
-          <Button onClick={toggleEdit}>
-            <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
-          </Button>
-        </ButtonToolbar>
-      </Row>
+      <ActionButtons
+        acceptanceStatus={lastTreatment.acceptanceStatus}
+        isEditing={isEditing}
+        isPristine={isDescriptionPristine && isTreatmentPristine}
+        isRemediated={dataset.newRemediated}
+        isRequestingVerify={isRequestingVerify}
+        isVerified={dataset.verified}
+        isVerifying={isVerifying}
+        onApproveAcceptation={openApproveModal}
+        onEdit={toggleEdit}
+        onRejectAcceptation={openRejectModal}
+        onRequestVerify={toggleRequestVerify}
+        onUpdate={handleSubmit}
+        onVerify={toggleVerify}
+        state={dataset.state}
+        subscription={data.project.subscription}
+        treatment={lastTreatment.treatment}
+        userRole={userRole}
+      />
       <GenericForm name="editDescription" initialValues={dataset} onSubmit={handleDescriptionSubmit}>
         <React.Fragment>
           <React.Fragment>
@@ -238,6 +242,25 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   validate={[required]}
                   visibleWhileEditing={canEditRequirements}
                 />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <FormGroup>
+                  <ControlLabel>
+                    <b>{translate.t("search_findings.tab_description.where")}</b>
+                  </ControlLabel>
+                  <br />
+                  <VulnerabilitiesView
+                    editMode={isEditing}
+                    findingId={findingId}
+                    isRequestVerification={false}
+                    isVerifyRequest={false}
+                    state="open"
+                    userRole={userRole}
+                    separatedRow={true}
+                  />
+                </FormGroup>
               </Col>
             </Row>
             <Row>
