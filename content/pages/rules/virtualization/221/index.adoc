@@ -1,10 +1,10 @@
 :slug: rules/221/
-:category: virtual-machine
+:category: virtualization
 :description: This document details the security guidelines and requirements related to the proper management of a virtual machine configuration. In this case, it is recommended that the machine does not have any connected input devices that are not going to be used.
 :keywords: Virtual Machine, Input, Devices, USB, CD/DVD, IDE
 :rules: yes
 
-= REQ.221 Disconnect Unnecessary Input Devices
+= REQ.221 Disconnect unnecessary input devices
 
 == Requirement
 

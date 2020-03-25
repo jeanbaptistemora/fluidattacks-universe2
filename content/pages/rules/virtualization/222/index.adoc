@@ -1,10 +1,10 @@
 :slug: rules/222/
-:category: virtual-machine
+:category: virtualization
 :description: This document details the security guidelines and requirements related to the proper management of a virtual machine configuration. In this case, it is recommended that the organization does not allow a virtual machine to access any resources of the host machine.
 :keywords: Virtual Machine, Information, Host, Requirement, Security, Access
 :rules: yes
 
-= REQ.222 Deny Access to the Host Machine
+= REQ.222 Deny access to the host machine
 
 == Requirement
 
