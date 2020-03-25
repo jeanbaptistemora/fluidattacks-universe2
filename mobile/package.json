@@ -63,7 +63,7 @@
     "tslint": "5.18.0",
     "tslint-react": "4.0.0",
     "turtle-cli": "0.13.9",
-    "typescript": "3.5.3",
+    "typescript": "3.8.3",
     "waait": "1.0.5"
   }
 }

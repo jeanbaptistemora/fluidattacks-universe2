@@ -279,7 +279,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [selectRowsInputs, setSelectRowsInputs] = useState<number[]>([]);
     const [selectRowsLines, setSelectRowsLines] = useState<number[]>([]);
     const [selectRowsPorts, setSelectRowsPorts] = useState<number[]>([]);
-    const [originalProps, setOriginalProps] = useState();
+    const [originalProps, setOriginalProps] = useState({});
 
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
     if (!valueSortChanged && props.vulnerabilities !== undefined) {
@@ -745,7 +745,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const renderButtonUpdateVuln: (() => JSX.Element) =
             (): JSX.Element => {
               if (_.isUndefined(originalProps) && !_.isUndefined(props.descriptParam)) {
-                setOriginalProps({treatmentManager: props.descriptParam.dataset.treatmentManager});
+                setOriginalProps({ treatmentManager: props.descriptParam.dataset.treatmentManager });
               }
 
               return (

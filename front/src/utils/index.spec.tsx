@@ -67,6 +67,7 @@ describe("Validations", () => {
 
   it("should be a valid size .gif file", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: ".gif",
       size: 20000,
@@ -80,6 +81,7 @@ describe("Validations", () => {
 
   it("shouldn't be a valid size .gif file", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: ".gif",
       size: 20000000,
@@ -93,6 +95,7 @@ describe("Validations", () => {
 
   it("should be a valid size .png file", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: ".png",
       size: 100000,
@@ -106,6 +109,7 @@ describe("Validations", () => {
 
   it("shouldn't be a valid size .png file", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: ".png",
       size: 20000000,
@@ -119,6 +123,7 @@ describe("Validations", () => {
 
   it("should be a valid size .py file", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: ".py",
       size: 100000,
@@ -132,6 +137,7 @@ describe("Validations", () => {
 
   it("shouldn't be a valid size .py file", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: ".py",
       size: 20000000,
@@ -145,6 +151,7 @@ describe("Validations", () => {
 
   it("should be a valid .gif evidence", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "foo.gif",
       size: 20000,
@@ -158,6 +165,7 @@ describe("Validations", () => {
 
   it("shouldn't be a valid .gif evidence", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "foo.py",
       size: 20000,
@@ -171,6 +179,7 @@ describe("Validations", () => {
 
   it("should be a valid .png evidence", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "foo.png",
       size: 20000,
@@ -184,6 +193,7 @@ describe("Validations", () => {
 
   it("shouldn't be a valid .png evidence", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "foo.py",
       size: 20000,
@@ -197,6 +207,7 @@ describe("Validations", () => {
 
   it("should be a valid .py evidence", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "foo.py",
       size: 20000,
@@ -210,6 +221,7 @@ describe("Validations", () => {
 
   it("shouldn't be a valid .py evidence", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "foo.gif",
       size: 20000,
@@ -223,6 +235,7 @@ describe("Validations", () => {
 
   it("should be a valid .csv evidence", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "foo.csv",
       size: 20000,
@@ -236,6 +249,7 @@ describe("Validations", () => {
 
   it("shouldn't be a valid .csv evidence", () => {
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "foo.exp",
       size: 20000,
@@ -274,6 +288,7 @@ describe("Validations", () => {
   it("should be a valid fileName", () => {
     const MIB: number = 1048576;
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "filename.pdf",
       size: MIB * 2,
@@ -288,6 +303,7 @@ describe("Validations", () => {
   it("shouldn't be a valid fileName", () => {
     const MIB: number = 1048576;
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "badFile{name.pdf.exe",
       size: MIB * 2,
@@ -302,6 +318,7 @@ describe("Validations", () => {
   it("should be a valid file size", () => {
     const MIB: number = 1048576;
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "badFile.exe",
       size: MIB * 1,
@@ -316,6 +333,7 @@ describe("Validations", () => {
   it("shouldn't be a valid file size", () => {
     const MIB: number = 1048576;
     const file: File = {
+      ...new File([], ""),
       lastModified: 8 - 5 - 2019,
       name: "badFile.exe",
       size: MIB * 5,
