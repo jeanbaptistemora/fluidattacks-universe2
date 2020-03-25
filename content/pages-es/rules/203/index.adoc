@@ -1,6 +1,6 @@
 :slug: rules/203/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos físicos de la organización. En este requerimiento, se recomienda que todo dispositivo sea capaz de impedir que un tercero pueda visualizar el ingreso de información.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de dispositivos físicos de la organización. En este requerimiento, se recomienda que todo dispositivo sea capaz de impedir que un tercero pueda visualizar el ingreso de información.
 :keywords: Dispositivo, Ingreso, Información, Confidencial, Observar, Seguridad.
 :rules: yes
 

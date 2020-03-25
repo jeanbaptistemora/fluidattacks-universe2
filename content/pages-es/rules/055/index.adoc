@@ -1,6 +1,6 @@
 :slug: rules/055/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de los casos de seguridad que se pueden presentar en un determinado sistema. Por lo tanto, los casos de seguridad de todo sistema deben estar documentados.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de los casos de seguridad que se pueden presentar en un determinado sistema. Por lo tanto, los casos de seguridad de todo sistema deben estar documentados.
 :keywords: Casos de seguridad, Sistema, Documentar, Requerimiento, Organización, Seguridad.
 :rules: yes
 

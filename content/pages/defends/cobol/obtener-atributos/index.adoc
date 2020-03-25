@@ -1,6 +1,6 @@
 :slug: defends/cobol/obtener-atributos/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al obtener los atributos de un objeto. Al acceder a algunos atributos de los objetos se puede verificar su autenticidad, lo cual ayuda a establecer fuentes confiables.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al obtener los atributos de un objeto. Al acceder a algunos atributos de los objetos se puede verificar su autenticidad, lo cual ayuda a establecer fuentes confiables.
 :keywords: Cobol, Seguridad, Atributos, Autenticidad, Firma digital, Metadatos.
 :defends: yes
 

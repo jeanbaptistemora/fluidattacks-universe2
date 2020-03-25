@@ -1,6 +1,6 @@
 :slug: rules/054/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de los casos de abuso que se pueden presentar en un determinado sistema. Por lo tanto, debe documentarse la relación de dependencia entre casos de abuso cuando ésta sea identificada.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de los casos de abuso que se pueden presentar en un determinado sistema. Por lo tanto, debe documentarse la relación de dependencia entre casos de abuso cuando ésta sea identificada.
 :keywords: Casos de abuso, Organización, Documentar, Identificar, Dependencia, Seguridad.
 :rules: yes
 

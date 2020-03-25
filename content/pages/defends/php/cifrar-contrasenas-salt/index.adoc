@@ -1,6 +1,6 @@
 :slug: defends/php/cifrar-contrasenas-salt/
 :category: php
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP, cifrando contraseñas con SALT aleatorio usando el algoritmo SHA256, reforzando su seguridad al hacerlas más difíciles de romper por atacantes malintencionados.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PHP, cifrando contraseñas con SALT aleatorio usando el algoritmo SHA256, reforzando su seguridad al hacerlas más difíciles de romper por atacantes malintencionados.
 :keywords: Php, Seguridad, SALT, Cifrado, SHA256, Random.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/cifrado/solicitar-certificados-web/
 :category: cifrado
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la generación de certificados SSL utilizando IIS. El protocolo SSL permite que la comunicación entre servidor y cliente esté cifrada, garantizando que los datos viajen de forma segura.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la generación de certificados SSL utilizando IIS. El protocolo SSL permite que la comunicación entre servidor y cliente esté cifrada, garantizando que los datos viajen de forma segura.
 :keywords: Cifrado, Certificación, SSL, IIS, Web, Firma Digital
 :defends: yes
 

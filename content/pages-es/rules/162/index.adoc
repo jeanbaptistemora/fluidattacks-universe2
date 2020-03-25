@@ -1,6 +1,6 @@
 :slug: rules/162/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de evitar las funciones, métodos o clases repetidas dentro del código fuente.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de evitar las funciones, métodos o clases repetidas dentro del codigo fuente.
 :keywords: Requerimiento, Seguridad, Código Fuente, Métodos, Clases, Repetidos.
 :rules: yes
 

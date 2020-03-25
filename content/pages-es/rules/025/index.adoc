@@ -1,6 +1,6 @@
 :slug: rules/025/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de sesiones concurrentes en un sistema que permita el acceso simultáneo de usuarios a sus servicios, evitando así, que un usuario mal intencionado interactúe al tiempo con un usuario válido.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de sesiones concurrentes en un sistema que permita el acceso simultáneo de usuarios a sus servicios, evitando así, que un usuario mal intencionado interactúe al tiempo con un usuario válido.
 :keywords: Requerimiento, Seguridad, Sesión de usuario, Sesiones concurrentes, Robo de sesión, Credenciales.
 :rules: yes
 

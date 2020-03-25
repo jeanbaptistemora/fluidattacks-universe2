@@ -1,6 +1,6 @@
 :slug: rules/199/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos foráneos de la organización. En este requerimiento, se recomienda que la organización determine quienes y en qué momento podrán acceder con dichos dispositivos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de dispositivos foraneos de la organizacion. En este requerimiento, se recomienda que la organizacion determine quienes y en qué momento podrán acceder con dichos dispositivos.
 :keywords: Sistema, Organización, Servicios, Foráneos, Dispositivos, Acceder.
 :rules: yes
 

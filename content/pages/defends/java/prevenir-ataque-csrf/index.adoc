@@ -1,6 +1,6 @@
 :slug: defends/java/prevenir-ataque-csrf/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al prevenir ataques de tipo CSRF. Éstos ataques son comunes en aplicaciones que no verifican la autorización de los usuarios y son susceptibles a la suplantación de identidad.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al prevenir ataques de tipo CSRF. Éstos ataques son comunes en aplicaciones que no verifican la autorización de los usuarios y son susceptibles a la suplantación de identidad.
 :keywords: Java, Seguridad, Buenas Prácticas, Cross site request forgery, CSRF, JEE.
 :defends: yes
 

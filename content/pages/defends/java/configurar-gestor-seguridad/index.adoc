@@ -1,6 +1,6 @@
 :slug: defends/java/configurar-gestor-seguridad/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al configurar el gestor de seguridad. La arquitectura de seguridad de Java permite el ajuste de los permisos de la aplicación usando un fichero de políticas (policy file).
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al configurar el gestor de seguridad. La arquitectura de seguridad de Java permite el ajuste de los permisos de la aplicación usando un fichero de políticas (policy file).
 :keywords: Java, Configurar, Gestor, Seguridad, Acceso, Permisos.
 :defends: yes
 

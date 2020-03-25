@@ -1,6 +1,6 @@
 :slug: rules/304/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de aplicaciones pertenecientes a una determinada organización. En este requerimiento, se recomiendo que todas las aplicaciones sean publicadas en las tiendas virtuales bajo nombres oficiales.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de aplicaciones pertenecientes a una determinada organización. En este requerimiento, se recomiendo que todas las aplicaciones sean publicadas en las tiendas virtuales bajo nombres oficiales.
 :keywords: Tienda, Aplicación, Publicar, Organización, Nombre, Seguridad.
 :rules: yes
 

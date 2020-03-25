@@ -1,6 +1,6 @@
 :slug: defends/finacle/prevenir-sqli/
 :category: finacle
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Finacle Script al prevenir ataques de inyección SQL. Mediante la validación de entradas es posible reforzar la seguridad de la aplicación evitando este tipo de ataques.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Finacle Script al prevenir ataques de inyección SQL. Mediante la validación de entradas es posible reforzar la seguridad de la aplicación evitando este tipo de ataques.
 :keywords: Finacle, Buenas Prácticas, SQL, Inyección, Ataque, Base de datos.
 :defends: yes
 

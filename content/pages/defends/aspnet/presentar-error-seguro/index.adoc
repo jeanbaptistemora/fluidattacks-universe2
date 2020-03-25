@@ -1,6 +1,6 @@
 :slug: defends/aspnet/presentar-error-seguro/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al presentar mensajes de error seguros. Un atacante puede utilizar los mensajes de error para conocer la infraestructura de la aplicación y planear la forma de vulnerarla.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al presentar mensajes de error seguros. Un atacante puede utilizar los mensajes de error para conocer la infraestructura de la aplicación y planear la forma de vulnerarla.
 :keywords: ASPNET, Seguridad, Mensaje, Error, Personalizado, Buenas Prácticas.
 :defends: yes
 

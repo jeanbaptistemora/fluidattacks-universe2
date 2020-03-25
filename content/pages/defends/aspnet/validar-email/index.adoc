@@ -1,6 +1,6 @@
 :slug: defends/aspnet/validar-email/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al validar los correos electrónicos. Una práctica recomendada para desarrollar aplicaciones seguras es la validación de entradas para evitar vulnerabilidades como XSS o SQLi.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al validar los correos electrónicos. Una práctica recomendada para desarrollar aplicaciones seguras es la validación de entradas para evitar vulnerabilidades como XSS o SQLi.
 :keywords: ASP.NET, Validación, Correos, Email, Expresion Regular, Regex
 :defends: yes
 

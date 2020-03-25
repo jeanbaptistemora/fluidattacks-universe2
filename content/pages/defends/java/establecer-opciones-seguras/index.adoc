@@ -1,6 +1,6 @@
 :slug: defends/java/establecer-opciones-seguras/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer opciones seguras en condicionales. Las opciones no consideradas en condicionales pueden generar vulnerabilidades de seguridad dentro de las aplicaciones web.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer opciones seguras en condicionales. Las opciones no consideradas en condicionales pueden generar vulnerabilidades de seguridad dentro de las aplicaciones web.
 :keywords: Java, Seguridad, Buenas Prácticas, Opciones Seguras, Condicional, Default
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/298/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de sistemas de control. En este caso, se recomienda que toda organización realice pruebas de funcionamiento de los sistemas de extinción regularmente.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de sistemas de control. En este caso, se recomienda que toda organización realice pruebas de funcionamiento de los sistemas de extinción regularmente.
 :keywords: Organización, Sensores, Prueba, Sistema, Extinción, Incendio.
 :rules: yes
 

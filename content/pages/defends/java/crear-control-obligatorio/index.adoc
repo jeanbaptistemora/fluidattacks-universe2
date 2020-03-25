@@ -1,6 +1,6 @@
 :slug: defends/java/crear-control-obligatorio/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al implementar un control de acceso obligatorio. Éste tipo de control determina el acceso a un recurso basado en los privilegios del usuario que intenta acceder a él.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al implementar un control de acceso obligatorio. Éste tipo de control determina el acceso a un recurso basado en los privilegios del usuario que intenta acceder a él.
 :keywords: Java, Seguridad, Control, Acceso, Obligatorio, Sensibilidad.
 :defends: yes
 

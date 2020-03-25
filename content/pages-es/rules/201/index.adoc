@@ -1,6 +1,6 @@
 :slug: rules/201/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos físicos de la organización. En este requerimiento, se recomienda que la organización lleve un registro adecuado de las máquinas foráneas entrantes y salientes.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de dispositivos físicos de la organización. En este requerimiento, se recomienda que la organizacion lleve un registro adecuado de las máquinas foráneas entrantes y salientes.
 :keywords: Dispositivo, Organización, Manipular, Autorización, Seguridad, Requerimiento.
 :rules: yes
 

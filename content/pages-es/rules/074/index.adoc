@@ -1,6 +1,6 @@
 :slug: rules/074/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de la infraestructura lógica dentro de la organización. En este requerimiento se define la importancia de establecer redundancia en los sistemas críticos mejorando la seguridad general de la información.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de la infraestructura logica dentro de la organización. En este requerimiento se define la importancia de establecer redundancia en los sistemas criticos mejorando la seguridad general de la informacion.
 :keywords: Sistema, Organización, Redundancia, Información, Requerimiento, Seguridad.
 :rules: yes
 

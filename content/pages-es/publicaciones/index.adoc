@@ -1,5 +1,5 @@
 :slug: publicaciones/
-:description: En esta página presentamos las principales publicaciones que ha tenido Fluid Attacks a lo largo de los años. Dentro de éstas publicaciones se cuentan los artículos en revistas y congresos internacionales, los artículos de prensa, los hallazgos destacables en software dentro y fuera del país y más.
+:description: En esta pagina presentamos las principales publicaciones que ha tenido Fluid Attacks a lo largo de los años. Dentro de estas publicaciones se cuentan los articulos en revistas y congresos internacionales, los articulos de prensa, los hallazgos destacables en software dentro y fuera del pais y mas.
 :keywords: Fluid Attacks, Publicaciones, Conferencias, Papers, Prensa, Proyectos.
 
 = Publicaciones

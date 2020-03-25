@@ -1,6 +1,6 @@
 :slug: rules/051/
 :category: rules
-:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la gestión del código fuente que compone a todo sistema. Por lo tanto, se recomienda que el código fuente debe estar almacenado en un repositorio central.
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la gestion del código fuente que compone a todo sistema. Por lo tanto, se recomienda que el código fuente debe estar almacenado en un repositorio central.
 :keywords: Almacenar, Código fuente, Sistema, Repositorio, Requerimiento, Seguridad.
 :rules: yes
 

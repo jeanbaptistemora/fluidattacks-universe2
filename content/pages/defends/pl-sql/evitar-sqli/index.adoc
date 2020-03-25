@@ -1,6 +1,6 @@
 :slug: defends/pl-sql/evitar-sqli/
 :category: pl/sql
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PL/SQL al proteger las aplicaciones contra inyecciones de código SQL. Para desarrollar aplicaciones seguras es necesario realizar un proceso de validación en las entradas del sistema.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PL/SQL al proteger las aplicaciones contra inyecciones de código SQL. Para desarrollar aplicaciones seguras es necesario realizar un proceso de validación en las entradas del sistema.
 :keywords: PL/SQL, Prevenir, Ataques, Inyección, SQL, Seguridad
 :defends: yes
 

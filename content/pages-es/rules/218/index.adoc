@@ -1,6 +1,6 @@
 :slug: rules/218/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de hipervisores en máquinas virtuales. El objetivo de este requerimiento es permitir el acceso sólo a una única máquina virtual de soporte de seguridad.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de hipervisores en máquinas virtuales. El objetivo de este requerimiento es permitir el acceso sólo a una única máquina virtual de soporte de seguridad.
 :keywords: CPU, Seguridad, Hipervisor, Máquina, Virtual, Memoria.
 :rules: yes
 

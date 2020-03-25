@@ -1,6 +1,6 @@
 :slug: defends/aspnet/codificar-salida/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET para codificar adecuadamente las salidas en aplicaciones web, evitando así la explotación de posibles vulnerabilidades de tipo Cross Site Scripting.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET para codificar adecuadamente las salidas en aplicaciones web, evitando así la explotación de posibles vulnerabilidades de tipo Cross Site Scripting.
 :keywords: ASP.NET, Seguridad, Codificar, Salida, XSS, Cross Site Scripting.
 :defends: yes
 :table-caption: Tabla

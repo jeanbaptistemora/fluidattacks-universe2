@@ -1,6 +1,6 @@
 :slug: rules/071/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de arquitectura lógica dentro de la organización. En este requerimiento se establece la importancia de incluir todas las vulnerabilidades detectadas dentro de la batería de pruebas automatizadas.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de arquitectura lógica dentro de la organización. En este requerimiento se establece la importancia de incluir todas las vulnerabilidades detectadas dentro de la batería de pruebas automatizadas.
 :keywords: Ethical Hacking, Automatizar, Vulnerabilidad, Regresiones, Detectar, Seguridad.
 :rules: yes
 

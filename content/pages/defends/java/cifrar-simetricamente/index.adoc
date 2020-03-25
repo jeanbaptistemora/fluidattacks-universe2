@@ -1,6 +1,6 @@
 :slug: defends/java/cifrar-simetricamente/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al implementar un cifrado simétrico. Java permite la creación de llaves de cifrado además de proporcionar herramientas para cifrar y descifrar mensajes utilizando javax.cripto.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al implementar un cifrado simétrico. Java permite la creación de llaves de cifrado además de proporcionar herramientas para cifrar y descifrar mensajes utilizando javax.cripto.
 :keywords: Java, Seguridad, Cifrado, Simétrico, Llave, AES.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/java/validar-archivos-richfaces/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al validar archivos utilizando Richfaces. La biblioteca Richfaces permite establecer filtros para validar las peticiones ajax realizadas a la aplicación web, mejorando su seguridad.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al validar archivos utilizando Richfaces. La biblioteca Richfaces permite establecer filtros para validar las peticiones ajax realizadas a la aplicación web, mejorando su seguridad.
 :keywords: Java, Seguridad, Validar, Archivos, Richfaces, Ajax
 :defends: yes
 

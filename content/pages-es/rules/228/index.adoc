@@ -1,6 +1,6 @@
 :slug: rules/228/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que el proceso de autenticación unificado se lleve a cabo por medio de protocolos estándar.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de usuarios. En este caso, se recomienda que el proceso de autenticación unificado se lleve a cabo por medio de protocolos estándar.
 :keywords: Protocolo, Estándar, Cuenta Usuario, Autenticación, SSO, SAML.
 :rules: yes
 

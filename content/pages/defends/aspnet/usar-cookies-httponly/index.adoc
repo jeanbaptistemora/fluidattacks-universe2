@@ -1,6 +1,6 @@
 :slug: defends/aspnet/usar-cookies-httponly/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET, utilizando HTTPOnly para proteger las cookies de la aplicación, asegurando la información almacenada dentro de ellas y reduciendo la posibilidad de un ataque malintencionado.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET, utilizando HTTPOnly para proteger las cookies de la aplicación, asegurando la información almacenada dentro de ellas y reduciendo la posibilidad de un ataque malintencionado.
 :keywords: ASP.NET, Seguridad, Cookies, HTTPOnly, Protección, Información.
 :defends: yes
 

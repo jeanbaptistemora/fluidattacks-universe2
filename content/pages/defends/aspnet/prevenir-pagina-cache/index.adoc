@@ -1,6 +1,6 @@
 :slug: defends/aspnet/prevenir-pagina-cache/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al prevenir almacenamiento de páginas en caché. El caché es muy utilizado en aplicaciones web, sin embargo es tambíen una fuente potencial de vulnerabilidades.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al prevenir almacenamiento de páginas en caché. El caché es muy utilizado en aplicaciones web, sin embargo es tambíen una fuente potencial de vulnerabilidades.
 :keywords: ASPNET, Seguridad, Prevenir, Caché, Página, Buenas Prácticas.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/018/
 :category: rules
-:description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. El objetivo de este requerimiento es definir la importancia de los acuerdos a nivel de servicio con terceros con los cuales se comparte información.
+:description: En el presente documento se detallan los requerimientos relacionados a la gestion adecuada en cuanto a los acuerdos por servicios se refiere. El objetivo de este requerimiento es definir la importancia de los acuerdos a nivel de servicio con terceros con los cuales se comparte información.
 :keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Terceros, Información.
 :rules: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/scala/obtener-rutas-canon/
 :category: scala
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Scala al obtener rutas absolutas canónicas. A través de este mecanismo es posible proteger a la aplicación de ataques de directorio transversal.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Scala al obtener rutas absolutas canónicas. A través de este mecanismo es posible proteger a la aplicación de ataques de directorio transversal.
 :keywords: Scala, Ruta Absoluta, Directorio, Transversal, Validación, Ruta Canónica
 :defends: yes
 

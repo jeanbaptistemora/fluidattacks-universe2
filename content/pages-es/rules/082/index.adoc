@@ -1,6 +1,6 @@
 :slug: rules/082/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de bitácoras por parte de un determinado sistema. De lo anterior, la gestión de bitácoras debe realizarse por el sistema operativo o un sistema externo a la aplicación.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de bitácoras por parte de un determinado sistema. De lo anterior, la gestión de bitácoras debe realizarse por el sistema operativo o un sistema externo a la aplicación.
 :keywords: Sistema operativo, Bitácora, Aplicación, Requerimiento, Seguridad, Gestión.
 :rules: yes
 

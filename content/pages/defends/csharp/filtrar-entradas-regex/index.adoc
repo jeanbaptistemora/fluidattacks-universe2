@@ -1,6 +1,6 @@
 :slug: defends/csharp/filtrar-entradas-regex/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo validar el tipo de contenido de una variable en nuestras aplicaciones C# utilizando expresiones regulares para filtrar el tipo de caracteres que pueden contener estas con el fin de evitar inyecciones de código malicioso.
+:description: Nuestros ethical hackers explican como validar el tipo de contenido de una variable en nuestras aplicaciones C# utilizando expresiones regulares para filtrar el tipo de caracteres que pueden contener estas con el fin de evitar inyecciones de código malicioso.
 :keywords: C Sharp, Buenas Prácticas, Inyección, Filtrado, Entradas, Expresiones Regulares.
 :defends: yes
 

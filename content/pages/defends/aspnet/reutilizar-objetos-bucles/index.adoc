@@ -1,6 +1,6 @@
 :slug: defends/aspnet/reutilizar-objetos-bucles/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al reutilizar objetos ya creados. Ésto mejorará el rendimiento de la aplicación, permitiendo administrar el tiempo de creación del objeto en otras tareas importantes.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al reutilizar objetos ya creados. Ésto mejorará el rendimiento de la aplicación, permitiendo administrar el tiempo de creación del objeto en otras tareas importantes.
 :keywords: ASP.NET, Seguridad, Reutilizar, Objetos, Configuración, Buenas Prácticas.
 :defends: yes
 

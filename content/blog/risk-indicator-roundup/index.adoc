@@ -5,7 +5,7 @@
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: Choices. Photo by Nathan Dumlao on Unsplash: https://unsplash.com/photos/pMW4jzELQCw
-:description: This blog compares risk indicators used in quantitative finance. Most of them have been discussed earlier in previous blogs, such as VaR, tVaR and LEC. We also introduce the ALE, and compare them all giving their respective pros and cons. In the end, it is a matter of choice or we can just use them all.
+:description: This blog compares risk indicators used in quantitative finance. Most of them have been discussed earlier in previous blogs, such as VaR, tVaR and LEC. We introduce the ALE, and compare them all giving their respective pros and cons. In the end, it is a matter of choice or we can just use them all.
 :keywords: Risk, Probability, Choice, Measure, Quantify, Indicator
 :author: Rafael Ballestas
 :writer: raballestasr

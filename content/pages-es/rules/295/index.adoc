@@ -1,6 +1,6 @@
 :slug: rules/295/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al uso legal y seguro de archivos contenidos por un determinado sistema operativo. Por lo tanto, toda organización debe velar porque no existan archivos ilegales dentro de dicho sistema.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al uso legal y seguro de archivos contenidos por un determinado sistema operativo. Por lo tanto, toda organizacion debe velar porque no existan archivos ilegales dentro de dicho sistema.
 :keywords: Organización, Archivo, Ilegal, Propiedad Intelectual, Sistema, Seguridad.
 :rules: yes
 

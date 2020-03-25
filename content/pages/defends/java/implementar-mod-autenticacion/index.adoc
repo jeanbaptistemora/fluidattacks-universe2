@@ -1,6 +1,6 @@
 :slug: defends/java/implementar-mod-autenticacion/
 :category: java
-:description: Nuestros ethical hackers explican cómo implementar o desarrollar módulos de autenticación personalizados de manera segura, de tal forma que estos puedan cumplir con los requerimientos y políticas implementadas dentro de una organización. En esta oportunidad se utiliza la clase LoginModule.
+:description: Nuestros ethical hackers explican como implementar o desarrollar módulos de autenticación personalizados de manera segura, de tal forma que estos puedan cumplir con los requerimientos y políticas implementadas dentro de una organización. En esta oportunidad se utiliza la clase LoginModule.
 :keywords: Java, Autenticación, Personalizada, LoginModule, Seguridad, Módulo.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/java/mantener-conexiones-db/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al mantener un agrupamiento de conexiones a bases de datos. Ésto permite la reutilización de conexiones para una petición, lo cual mejora el rendimiento de la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al mantener un agrupamiento de conexiones a bases de datos. Ésto permite la reutilización de conexiones para una petición, lo cual mejora el rendimiento de la aplicación.
 :keywords: Java, Agrupamiento, Conexión, Seguridad, Base de datos, Servlet.
 :defends: yes
 

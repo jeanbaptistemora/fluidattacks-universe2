@@ -5,7 +5,7 @@
 :tags: cybersecurity, business, trends
 :image: cover.png
 :alt: Screen showing performance stats. Photo by Stephen Dawson on Unsplash: https://unsplash.com/photos/qwtCeJ5cLYs
-:description: In this article, we will talk about the main cybersecurity trends for 2019, what to expect in upcoming years, how to keep your company secured against new types of cyberattacks, and how Fluid Attacks, as a company, deals with these kinds of threats.
+:description: In this article, we will talk about the main cybersecurity trends for 2019, what to expect in upcoming years, how to keep your company secured against new types of cyber-attacks, and how Fluid Attacks, as a company, deals with these kinds of threats.
 :keywords: Cybersecurity, Trends, Fluid Attacks, Perspective, Techniques, Attacks
 :author: Oscar Prado
 :writer: oprado

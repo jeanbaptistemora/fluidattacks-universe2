@@ -1,6 +1,6 @@
 :slug: defends/java/validar-redirecciones/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al validar las redirecciones a páginas web. Las redirecciones deben definirse a rutas fijas cuyo origen es el mismo código de la aplicación sus archivos de configuración.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al validar las redirecciones a páginas web. Las redirecciones deben definirse a rutas fijas cuyo origen es el mismo código de la aplicación sus archivos de configuración.
 :keywords: Java, Seguridad, Validar, Redirecciones, Páginas, Web.
 :defends: yes
 

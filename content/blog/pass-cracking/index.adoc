@@ -5,7 +5,7 @@
 :tags: password, security, vulnerability, hacking, mistake
 :image: cover.png
 :alt: Photo by Arteum.ro on Unsplash
-:description: I had never associated concepts such as ‘brute force’ or ‘dictionary’ with passwords. After reviewing some information to write this blog post, I decided to change some of my most important passwords, and after reading this post, I think you might want to review and modify your passwords too.
+:description: I had never associated concepts such as brute force or dictionary with passwords. After reviewing some information to write this blog post, I decided to change some of my most important passwords, and after reading this post, I think you might want to review and modify your passwords too.
 :keywords: Password, Security, Vulnerability, Hacking, Mistake, Information
 :author: Felipe Ruiz
 :writer: fruiz

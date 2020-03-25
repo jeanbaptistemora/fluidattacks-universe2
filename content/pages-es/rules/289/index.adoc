@@ -1,6 +1,6 @@
 :slug: rules/289/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de cada uno de los medios extraíbles conectados a un determinado equipo. Por lo tanto, ningún sistema operativo debe permitir intercambiar información a través de medios extraíbles.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de cada uno de los medios extraíbles conectados a un determinado equipo. Por lo tanto, ningún sistema operativo debe permitir intercambiar información a través de medios extraíbles.
 :keywords: Organización, Medio, Imagen, Sistema Operativo, Requerimiento, Seguridad.
 :rules: yes
 

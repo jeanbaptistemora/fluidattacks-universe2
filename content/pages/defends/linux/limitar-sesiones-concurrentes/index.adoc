@@ -1,6 +1,6 @@
 :slug: defends/linux/limitar-sesiones-concurrente/
 :category: linux
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Linux al limitar el número de sesiones concurrentes. Los atacantes pueden establecer un gran número de sesiones concurrentes para efectuar un ataque de denegación de servicio.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Linux al limitar el número de sesiones concurrentes. Los atacantes pueden establecer un gran número de sesiones concurrentes para efectuar un ataque de denegación de servicio.
 :keywords: Linux, Evitar, Sesiones, Concurrentes, Seguridad, Buenas Prácticas.
 :defends: yes
 

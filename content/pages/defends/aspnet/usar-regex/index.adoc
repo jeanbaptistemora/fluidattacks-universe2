@@ -1,6 +1,6 @@
 :slug: defends/aspnet/usar-regex/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al validar las entradas de la aplicación utilizando expresiones regulares. Las entradas no validadas son vulnerables a ataques de inyección de código como XSS o SQLi.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al validar las entradas de la aplicación utilizando expresiones regulares. Las entradas no validadas son vulnerables a ataques de inyección de código como XSS o SQLi.
 :keywords: ASP.NET, Regex, Expresiones Regulares, Validación, Entrada, Seguridad.
 :defends: yes
 

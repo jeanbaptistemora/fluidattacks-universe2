@@ -1,6 +1,6 @@
 :slug: defends/forense/recolectar-info-fisica/
 :category: forense
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la recolección de información física. A pesar de que la seguridad informática es muy relevante en una empresa, los datos sensibles también se encuentra en medios físicos. Aquí te enseñamos a protegerlos.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la recolección de información física. A pesar de que la seguridad informática es muy relevante en una empresa, los datos sensibles también se encuentra en medios físicos. Aquí te enseñamos a protegerlos.
 :keywords: Forense, Recolectar, Información, Física, Procedimientos, Actores.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/rpg/inicializar-variables/
 :category: rpg
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la gestión segura de variables dentro de un programa desarrollado en RPG, en este ocasión se explica la manera de inicializar explícitamente todas las variables declaradas dentro de un programa RPG.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la gestión segura de variables dentro de un programa desarrollado en RPG, en este ocasión se explica la manera de inicializar explícitamente todas las variables declaradas dentro de un programa RPG.
 :keywords: RPG, Recursos, Inicializar, Variables, Declarar, Tiempo De Vida.
 :defends: yes
 

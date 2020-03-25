@@ -1,6 +1,6 @@
 :slug: defends/csharp/liberar-recursos/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa C#, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa C#, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
 :keywords: Buffer, Liberar, StreamReader, Memoria, Recurso, C#.
 :defends: yes
 

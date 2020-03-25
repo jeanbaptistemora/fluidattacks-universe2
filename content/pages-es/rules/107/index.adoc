@@ -1,6 +1,6 @@
 :slug: rules/107/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que en toda organización se realicen de manera continua requisas a sus operarios donde se manipulen activos de información.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, se recomienda que en toda organizacion se realicen de manera continua requisas a sus operarios donde se manipulen activos de información.
 :keywords: Requisa, Información, Organización, Activos, Seguridad, Empleados.
 :rules: yes
 

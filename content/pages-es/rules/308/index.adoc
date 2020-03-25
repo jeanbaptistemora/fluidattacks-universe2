@@ -1,6 +1,6 @@
 :slug: rules/308/
 :category: rules
-:description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. Por lo tanto, para este requerimiento, se recomienda que todo contrato esté amparado por cláusulas de responsabilidad.
+:description: En el presente documento se detallan los requerimientos relacionados a la gestion adecuada en cuanto a los acuerdos por servicios se refiere. Por lo tanto, para este requerimiento, se recomienda que todo contrato esté amparado por cláusulas de responsabilidad.
 :keywords: Contrato, Fraude, Cláusulas, Servicio, Eventos, Seguridad.
 :rules: yes
 

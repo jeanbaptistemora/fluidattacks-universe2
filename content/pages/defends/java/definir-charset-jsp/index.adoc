@@ -1,6 +1,6 @@
 :slug: defends/java/definir-charset-jsp/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al definir los parámetros Charset y Content-Type en páginas JSP. Éstos parámetros permiten definir el conjunto de caracteres utilizados por el navegador y ayudan a prevenir el XSS.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al definir los parámetros Charset y Content-Type en páginas JSP. Éstos parámetros permiten definir el conjunto de caracteres utilizados por el navegador y ayudan a prevenir el XSS.
 :keywords: Java, Seguridad, Charset, Content-Type, JSP, XSS.
 :defends: yes
 

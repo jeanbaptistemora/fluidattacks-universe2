@@ -1,6 +1,6 @@
 :slug: rules/236/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que toda aplicación establezca un tiempo máximo razonable durante el proceso de autenticación de sus usuarios.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de usuarios. En este caso, se recomienda que toda aplicación establezca un tiempo máximo razonable durante el proceso de autenticación de sus usuarios.
 :keywords: Autenticación, Tiempo, Seguridad, Segundos, Usuarios, Límite.
 :rules: yes
 

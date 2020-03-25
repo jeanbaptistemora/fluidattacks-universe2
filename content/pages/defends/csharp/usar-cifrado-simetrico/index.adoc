@@ -1,6 +1,6 @@
 :slug: defends/csharp/usar-cifrado-simetrico/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo implementar un método para cifrar texto, usando un algoritmo de cifrado simétrico (AES) y con Salt con una llave de 256 Bytes para cumplir con buenas practicas en el momento de desarrollar una aplicación en C#.
+:description: Nuestros ethical hackers explican como implementar un método para cifrar texto, usando un algoritmo de cifrado simétrico (AES) y con Salt con una llave de 256 Bytes para cumplir con buenas practicas en el momento de desarrollar una aplicación en C#.
 :keywords: C Sharp, Buenas Prácticas, Cifrado Simétrico, Hash, Salt, Implementar.
 :defends: yes
 

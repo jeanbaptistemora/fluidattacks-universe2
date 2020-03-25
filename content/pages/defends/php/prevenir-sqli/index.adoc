@@ -1,6 +1,6 @@
 :slug: defends/php/prevenir-sqli/
 :category: php
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP al evitar ataques de inyección SQL mediante la validación de entradas. Las buenas prácticas de programación permiten desarrollar aplicaciones seguras y confiables.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PHP al evitar ataques de inyección SQL mediante la validación de entradas. Las buenas prácticas de programación permiten desarrollar aplicaciones seguras y confiables.
 :keywords: PHP, Seguridad, Ataque, Inyección, SQL, Base de Datos.
 :defends: yes
 

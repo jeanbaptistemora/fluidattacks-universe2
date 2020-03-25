@@ -1,6 +1,6 @@
 :slug: defends/yii/usar-recaptcha/
 :category: yii
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP con el framework Yii al implementar recaptcha. Para evitar ataques de bots a la aplicación se recomienda el uso de CAPTCHAs para validar la identidad del usuario.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PHP con el framework Yii al implementar recaptcha. Para evitar ataques de bots a la aplicación se recomienda el uso de CAPTCHAs para validar la identidad del usuario.
 :keywords: Yii, PHP, CAPTCHA, Validación, Formularios, Humano.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/aspnet/implementar-cifrado/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al implementar mecanismos criptográficos seguros. Los datos sensibles almacenados en las aplicaciones se deben cifrar para añadir robustez y evitar fugas de información.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al implementar mecanismos criptográficos seguros. Los datos sensibles almacenados en las aplicaciones se deben cifrar para añadir robustez y evitar fugas de información.
 :keywords: ASP.NET, Seguridad, Criptografía, Información, Sensible, Cifrar
 :defends: yes
 

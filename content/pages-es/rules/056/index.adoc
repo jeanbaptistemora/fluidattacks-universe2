@@ -1,6 +1,6 @@
 :slug: rules/056/
 :category: rules
-:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la gestión de los casos de seguridad que se pueden presentar en un determinado sistema. Por lo tanto, los casos de seguridad deben tener un caso de abuso de control.
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la gestion de los casos de seguridad que se pueden presentar en un determinado sistema. Por lo tanto, los casos de seguridad deben tener un caso de abuso de control.
 :keywords: Casos de seguridad, Sistema, Abuso, Control, Organización, Seguridad.
 :rules: yes
 

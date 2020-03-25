@@ -1,6 +1,6 @@
 :slug: defends/aspnet/firmar-datos-rsa-sha256/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al firmar datos con RSA y SHA256. Las firmas digitales permiten verificar la autenticidad de los datos permitiéndoles cumplir con el principio de integridad y no repudio.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al firmar datos con RSA y SHA256. Las firmas digitales permiten verificar la autenticidad de los datos permitiéndoles cumplir con el principio de integridad y no repudio.
 :keywords: ASPNET, Seguridad, Firma Digital, RSA, SHA256, Hash.
 :defends: yes
 

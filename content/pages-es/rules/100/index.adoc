@@ -1,6 +1,6 @@
 :slug: rules/100/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, se recomienda que las ventanas que contengan activos de información de cualquier tipo permanezcan selladas.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura en cuanto al control de acceso en una organizacion. Por lo tanto, se recomienda que las ventanas que contengan activos de información de cualquier tipo permanezcan selladas.
 :keywords: Activos, Control, Organización, Acceso, Sellar, Ventanas.
 :rules: yes
 

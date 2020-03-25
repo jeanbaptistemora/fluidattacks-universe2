@@ -1,6 +1,6 @@
 :slug: defends/rpg/evitar-sqli/
 :category: rpg
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en RPG al evitar ataques de inyección de código SQL. La validación de entradas de las aplicaciones es un proceso fundamental para evitar brechas de seguridad y fugas de información.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en RPG al evitar ataques de inyección de código SQL. La validación de entradas de las aplicaciones es un proceso fundamental para evitar brechas de seguridad y fugas de información.
 :keywords: RPG, SQL, Bases de Datos, Inyección, Ataques, Seguridad.
 :defends: yes
 

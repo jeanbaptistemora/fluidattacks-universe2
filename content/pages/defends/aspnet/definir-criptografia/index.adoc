@@ -1,6 +1,6 @@
 :slug: defends/aspnet/definir-criptografia/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET. En este artículo mostraremos cómo configurar adecuadamente los proveedores y clases criptográficas de la aplicación, estableciendo algoritmos de cifrado seguros.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET. En este artículo mostraremos cómo configurar adecuadamente los proveedores y clases criptográficas de la aplicación, estableciendo algoritmos de cifrado seguros.
 :keywords: ASP.NET, Seguridad, Clases, Algoritmos, Cifrado, Proveedores
 :defends: yes
 

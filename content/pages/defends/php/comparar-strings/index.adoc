@@ -1,6 +1,6 @@
 :slug: defends/php/comparar-strings/
 :category: php
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP al comparar cadenas de texto de manera segura. Es importante hacer uso del operador estricto para esta tarea con el fin de evitar brechas de seguridad.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PHP al comparar cadenas de texto de manera segura. Es importante hacer uso del operador estricto para esta tarea con el fin de evitar brechas de seguridad.
 :keywords: PHP, Seguridad, Comparar, Cadena, Type Juggling, Weak typing.
 :defends: yes
 

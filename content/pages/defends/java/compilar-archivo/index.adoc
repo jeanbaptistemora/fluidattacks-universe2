@@ -1,6 +1,6 @@
 :slug: defends/java/compilar-archivo/
 :category: java
-:description: Nuestros ethical hackers explican cómo compilar un archivo en Java de manera optimizada cuando dichos archivos han sido codificados en diferentes plataformas o frameworks, esto con el fin de poder realizar un análisis del binario para buscar vulnerabilidades contenidas en estos.
+:description: Nuestros ethical hackers explican como compilar un archivo en Java de manera optimizada cuando dichos archivos han sido codificados en diferentes plataformas o frameworks, esto con el fin de poder realizar un análisis del binario para buscar vulnerabilidades contenidas en estos.
 :keywords: Java, Compilar, Código, Seguridad, Frameworks, Análisis.
 :defends: yes
 

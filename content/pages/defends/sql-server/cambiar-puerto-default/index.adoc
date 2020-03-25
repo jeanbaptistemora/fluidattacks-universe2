@@ -1,6 +1,6 @@
 :slug: defends/sql-server/cambiar-puerto-default/
 :category: sqlserver
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Microsoft SQL Server 2008 al cambiar el puerto predeterminado. Las configuraciones predeterminadas usualmente son conocidas y  suponen una vulnerabilidad potencial para el sistema.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Microsoft SQL Server 2008 al cambiar el puerto predeterminado. Las configuraciones predeterminadas usualmente son conocidas y  suponen una vulnerabilidad potencial para el sistema.
 :keywords: SQL Server 2008, Cambiar, Puerto, Determinado, Configuración, Seguridad.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/cobol/usar-condicionales/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al contemplar todos los escenarios posibles en una estructura condicional que pueda dar origen a comportamientos erróneos dentro de la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al contemplar todos los escenarios posibles en una estructura condicional que pueda dar origen a comportamientos erróneos dentro de la aplicación.
 :keywords: COBOL, Variables, Condicionales, Inicializar, IF, ELSE.
 :defends: yes
 

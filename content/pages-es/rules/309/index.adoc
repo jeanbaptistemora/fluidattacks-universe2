@@ -1,6 +1,6 @@
 :slug: rules/309/
 :category: rules
-:description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento, se recomienda que todo desarrollo por parte de terceros estén soportados bajo requisitos contractuales.
+:description: En el presente documento se detallan los requerimientos relacionados a la gestion adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento, se recomienda que todo desarrollo por parte de terceros estén soportados bajo requisitos contractuales.
 :keywords: Desarrollo, Requisitos, Contractual, Código, Terceros, Auditoria.
 :rules: yes
 

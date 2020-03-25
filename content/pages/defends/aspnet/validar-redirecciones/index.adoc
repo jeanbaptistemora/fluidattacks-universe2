@@ -1,6 +1,6 @@
 :slug: defends/aspnet/validar-redirecciones/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al validar los campos de entrada de las aplicaciones web evitando que usuarios malintencionados hagan uso de expresiones regulares para atacar la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al validar los campos de entrada de las aplicaciones web evitando que usuarios malintencionados hagan uso de expresiones regulares para atacar la aplicación.
 :keywords: ASP.NET, Seguridad, Regex, Validar, Redirección, Campos.
 :defends: yes
 

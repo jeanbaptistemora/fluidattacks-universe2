@@ -1,6 +1,6 @@
 :slug: rules/073/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de arquitectura lógica dentro de la Organización. En este requerimiento se establece la importancia de minimizar el porcentaje de errores en el sistema con la concurrencia máxima esperada.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de arquitectura lógica dentro de la Organización. En este requerimiento se establece la importancia de minimizar el porcentaje de errores en el sistema con la concurrencia máxima esperada.
 :keywords: Porcentaje, Error, Máxima, Pruebas, Requerimiento, Seguridad.
 :rules: yes
 

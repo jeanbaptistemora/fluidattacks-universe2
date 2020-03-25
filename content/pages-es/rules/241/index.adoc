@@ -1,6 +1,6 @@
 :slug: rules/241/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada del proceso de desarrollo con el que cuenta una organización. En este caso, toda organización debe definir los criterios de seguridad de la información que aplican para el sistema.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada del proceso de desarrollo con el que cuenta una organización. En este caso, toda organización debe definir los criterios de seguridad de la información que aplican para el sistema.
 :keywords: Requisito, Seguridad, Organización, Criterio, Información, Sistema.
 :rules: yes
 

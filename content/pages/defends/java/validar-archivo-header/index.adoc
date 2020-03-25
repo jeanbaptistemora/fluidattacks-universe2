@@ -1,6 +1,6 @@
 :slug: defends/java/validar-archivo-header/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al validar los tipos de archivos utilizando los encabezados. Esta práctica permite evitar ataques de tipo directorio transversal, reforzando así la seguridad de la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al validar los tipos de archivos utilizando los encabezados. Esta práctica permite evitar ataques de tipo directorio transversal, reforzando así la seguridad de la aplicación.
 :keywords: Java, Encabezados, Directorio, Transversal, Archivo, Validación
 :defends: yes
 

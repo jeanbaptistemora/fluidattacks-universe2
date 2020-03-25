@@ -1,6 +1,6 @@
 :slug: defends/java/liberar-recursos/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al liberar recursos. Las aplicaciones normalmente cuentan con un manejo de excepciones, es importante liberar la memoria utilizada para tratarlas mejorando su rendimiento.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al liberar recursos. Las aplicaciones normalmente cuentan con un manejo de excepciones, es importante liberar la memoria utilizada para tratarlas mejorando su rendimiento.
 :keywords: Java, Seguridad, Liberar, Recursos, Manejo, Excepciones.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/java/comprobar-identidad-servlets/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al comprobar la identidad de llamadas mediante Servlets. La autenticación de identidad es fundamental en cualquier aplicación web para evitar el acceso de usuarios sin privilegios.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al comprobar la identidad de llamadas mediante Servlets. La autenticación de identidad es fundamental en cualquier aplicación web para evitar el acceso de usuarios sin privilegios.
 :keywords: Java, Seguridad, Comprobar, Identidad, Llamadas, Servlets.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/java/prevenir-sqli/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al prevenir los ataques de tipo inyección SQL. Éste tipo de vulnerabilidad es común en aplicaciones que utilicen bases de datos relacionales que no realizan validación de entradas.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al prevenir los ataques de tipo inyección SQL. Éste tipo de vulnerabilidad es común en aplicaciones que utilicen bases de datos relacionales que no realizan validación de entradas.
 :keywords: Java, Seguridad, Buenas Prácticas, SQLi , Base de datos relacional, Consultas.
 :defends: yes
 

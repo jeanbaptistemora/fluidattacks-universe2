@@ -1,6 +1,6 @@
 :slug: defends/java/almacenar-estado-sesion-jsf/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al almacenar el estado de sesión utilizando Javaserver Faces. Las sesiones son frecuentemente utilizadas debido permiten guardar información accesible en diferentes páginas web.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al almacenar el estado de sesión utilizando Javaserver Faces. Las sesiones son frecuentemente utilizadas debido permiten guardar información accesible en diferentes páginas web.
 :keywords: Java, Seguridad, Estado , Sesión, Estándar empresarial, Javaserver Faces.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/windows/evitar-enumeracion-usuario/
 :category: windows
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de Windows. En este instructivo, explicaremos paso a paso cómo evitar mostrar los nombres de usuarios existentes a usuarios no autenticados en windows 7.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de Windows. En este instructivo, explicaremos paso a paso cómo evitar mostrar los nombres de usuarios existentes a usuarios no autenticados en windows 7.
 :keywords: Windows, Seguridad, Autenticación, Usuarios, Windows 7, Buenas prácticas.
 :defends: yes
 

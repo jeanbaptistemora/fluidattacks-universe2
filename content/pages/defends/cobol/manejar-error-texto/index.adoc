@@ -1,6 +1,6 @@
 :slug: defends/cobol/manejar-error-texto/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al manejar adecuadamente los errores en las operaciones de texto. Las operaciones de texto en cobol pueden arrojar excepciones que filtren información sensible.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al manejar adecuadamente los errores en las operaciones de texto. Las operaciones de texto en cobol pueden arrojar excepciones que filtren información sensible.
 :keywords: Cobol , Seguridad, Buenas Prácticas, Error, Operación, Texto.
 :defends: yes
 

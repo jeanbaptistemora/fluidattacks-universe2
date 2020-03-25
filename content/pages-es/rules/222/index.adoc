@@ -1,6 +1,6 @@
 :slug: rules/222/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada en cuanto a la configuración de una máquina virtual. En este caso, se recomienda que una máquina virtual no pueda acceder a ningún recurso de la máquina anfitriona.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada en cuanto a la configuración de una máquina virtual. En este caso, se recomienda que una máquina virtual no pueda acceder a ningún recurso de la máquina anfitriona.
 :keywords: Máquina Virtual, Información, Host, Requerimiento, Seguridad, Acceso.
 :rules: yes
 

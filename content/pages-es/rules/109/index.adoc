@@ -1,6 +1,6 @@
 :slug: rules/109/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que en toda organización y sobre todo en áreas restringidas, se realice vigilancia continua.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, se recomienda que en toda organizacion y sobre todo en áreas restringidas, se realice vigilancia continua.
 :keywords: Control, Vigilancia, Cámaras, Sensores, Seguridad, Vigilantes.
 :rules: yes
 

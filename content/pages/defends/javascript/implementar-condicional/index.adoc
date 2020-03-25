@@ -1,6 +1,6 @@
 :slug: defends/javascript/implementar-condicional/
 :category: javascript
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en JavaScript al establecer opciones seguras en estructuras condicionales. Las opciones por defecto se deben implementar en todos los condicionales para evitar brechas de seguridad.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en JavaScript al establecer opciones seguras en estructuras condicionales. Las opciones por defecto se deben implementar en todos los condicionales para evitar brechas de seguridad.
 :keywords: JavaScript, Seguridad, Buenas Prácticas, Condicional, Opciones, Defecto.
 :defends: yes
 

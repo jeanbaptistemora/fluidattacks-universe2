@@ -1,6 +1,6 @@
 :slug: defends/html/validar-formulario/
 :category: html
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en HTML al validar formularios. Las entradas en los formularios deben ser validadas para prevenir los ataques más comunes como es el caso de XSS o SQLi.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en HTML al validar formularios. Las entradas en los formularios deben ser validadas para prevenir los ataques más comunes como es el caso de XSS o SQLi.
 :keywords: HTML, Seguridad, Validar, Formulario, Navegador, Error.
 :defends: yes
 

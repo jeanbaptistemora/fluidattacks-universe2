@@ -1,6 +1,6 @@
 :slug: rules/047/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que el sistema realice monitoreo a todos aquellos archivos considerados críticos dentro de la organización.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que el sistema realice monitoreo a todos aquellos archivos considerados críticos dentro de la organización.
 :keywords: Sistema, Archivos, Monitoreo, Integridad, Seguridad, Requerimiento.
 :rules: yes
 

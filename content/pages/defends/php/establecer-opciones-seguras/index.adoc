@@ -1,6 +1,6 @@
 :slug: defends/php/establecer-opciones-seguras/
 :category: php
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP al establecer opciones seguras por defecto en estructuras condicionales. Para mejorar la seguridad de la aplicación es necesario considerar todos los posibles escenarios.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PHP al establecer opciones seguras por defecto en estructuras condicionales. Para mejorar la seguridad de la aplicación es necesario considerar todos los posibles escenarios.
 :keywords:   PHP, Opciones, Seguras, Condicionales, Seguridad, Default
 :defends: yes
 

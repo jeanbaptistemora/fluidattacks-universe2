@@ -1,6 +1,6 @@
 :slug: defends/cobol/evitar-elementos-obsoletos/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al evitar elementos obsoletos. Los elementos que no están siendo utilizados en una aplicación pueden ser usados por atacantes para vulnerarla, a través de clases o métodos en desuso.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al evitar elementos obsoletos. Los elementos que no estan siendo utilizados en una aplicacion pueden ser usados por atacantes para vulnerarla, a traves de clases o metodos en desuso.
 :keywords: Cobol, Seguridad, Buenas Prácticas, Eliminar, Elementos, Obsoletos.
 :defends: yes
 

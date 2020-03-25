@@ -1,6 +1,6 @@
 :slug: defends/java/ofuscar-aplicacion/
 :category: java
-:description: Nuestros ethical hackers cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al ocultar el código fuente. La ofuscación del código dificulta que los atacantes puedan encontrar y explotar vulnerabilidades basándose en el funcionamiento de la aplicación.
+:description: Nuestros ethical hackers cómo evitar vulnerabilidades de seguridad mediante la programacion segura en Java al ocultar el código fuente. La ofuscación del código dificulta que los atacantes puedan encontrar y explotar vulnerabilidades basándose en el funcionamiento de la aplicación.
 :keywords: Java, Ofuscar, Código, Seguridad, Buenas Prácticas, Ocultar.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/021/
 :category: rules
-:description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento se define la importancia de garantizar el cumplimiento de los requisitos por terceras partes de los proveedores de la organización.
+:description: En el presente documento se detallan los requerimientos relacionados a la gestion adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento se define la importancia de garantizar el cumplimiento de los requisitos por terceras partes de los proveedores de la organización.
 :keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Terceros, Proveedores.
 :rules: yes
 

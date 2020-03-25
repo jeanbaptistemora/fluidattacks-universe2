@@ -1,6 +1,6 @@
 :slug: rules/169/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la creación de sentencias, construcciones o procedimientos almacenados parametrizados en la elaboración dinámica de sentencias dentro del código fuente de la aplicación.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la creación de sentencias, construcciones o procedimientos almacenados parametrizados en la elaboración dinámica de sentencias dentro del codigo fuente de la aplicación.
 :keywords: Requerimiento, Seguridad, Código Fuente, Parametrizada, Procedimientos, Sentencias.
 :rules: yes
 

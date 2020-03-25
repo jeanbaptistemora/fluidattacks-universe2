@@ -1,6 +1,6 @@
 :slug: defends/aix/conocer-privilegios-rbac/
 :category: aix
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la asignación segura de privilegios root a usuarios no privilegiados. Es importante establecer privilegios para restringir el acceso a partes críticas de la aplicación a usuarios sin permisos.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la asignación segura de privilegios root a usuarios no privilegiados. Es importante establecer privilegios para restringir el acceso a partes críticas de la aplicación a usuarios sin permisos.
 :keywords: AIX, Seguridad, RBAC, CLI, Privilegios, Root.
 :defends: yes
 

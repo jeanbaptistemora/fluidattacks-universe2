@@ -1,6 +1,6 @@
 :slug: defends/csharp/depurar-programas/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al habilitar los mensajes de depuracion en un ambiente de desarrollo para que estos puedan ser facilmente eliminados al ser desplegada la aplicacion en un ambiente productivo.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al habilitar los mensajes de depuracion en un ambiente de desarrollo para que estos puedan ser facilmente eliminados al ser desplegada la aplicacion en un ambiente productivo.
 :keywords: C Sharp, Seguridad, Desarrollo, Depuración, Buenas Prácticas, Programación.
 :defends: yes
 

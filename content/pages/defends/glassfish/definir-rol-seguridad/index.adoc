@@ -1,6 +1,6 @@
 :slug: defends/glassfish/definir-rol-seguridad/
 :category: glassfish
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Glassfish al definir roles de seguridad. En las aplicaciones en general es necesario establecer los permisos de los usuarios para evitar posibles ataques o fugas de información.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Glassfish al definir roles de seguridad. En las aplicaciones en general es necesario establecer los permisos de los usuarios para evitar posibles ataques o fugas de información.
 :keywords: Glassfish, Definir, Roles, Seguridad, Usuarios, GPL.
 :defends: yes
 

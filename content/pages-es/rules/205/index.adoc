@@ -1,6 +1,6 @@
 :slug: rules/205/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de los dispositivos que hacen uso de la red móvil celular. Por lo tanto, estos deben tener configurado un número de identificación personal o pin en la SIM Card.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de los dispositivos que hacen uso de la red móvil celular. Por lo tanto, estos deben tener configurado un número de identificación personal o pin en la SIM Card.
 :keywords: Dispositivo, Red celular, Requerimiento, PIN, SIM Card, Seguridad.
 :rules: yes
 

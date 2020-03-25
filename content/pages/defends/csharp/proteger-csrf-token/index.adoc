@@ -1,6 +1,6 @@
 :slug: defends/csharp/proteger-csrf-token/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo validar la autenticidad de una petición mediante el uso de un token, para controlar la transferencia de información mediante los formularios de la aplicación con el fin de prevenir ataques de tipo Cross-Site Request Forgery.
+:description: Nuestros ethical hackers explican como validar la autenticidad de una petición mediante el uso de un token, para controlar la transferencia de información mediante los formularios de la aplicación con el fin de prevenir ataques de tipo Cross-Site Request Forgery.
 :keywords: C Sharp, Buenas Prácticas, Autenticación, Sesion, Token, CSRF.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/java/autenticar-app-opensaml/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al autenticar la aplicación del cliente usando OpenSAML. Esto es posible gracias a la implementación del servicio Single-Sign-on en el entorno web.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al autenticar la aplicación del cliente usando OpenSAML. Esto es posible gracias a la implementación del servicio Single-Sign-on en el entorno web.
 :keywords: Java, Seguridad, Autenticar, Cliente, OpenSAML, Single-Sign-On.
 :defends: yes
 

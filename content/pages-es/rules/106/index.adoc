@@ -1,6 +1,6 @@
 :slug: rules/106/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que las líneas telefónicas donde se manipulen activos de información estén a cargo de un solo operario.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, se recomienda que las líneas telefónicas donde se manipulen activos de información estén a cargo de un solo operario.
 :keywords: Línea Telefónica, Información, Organización, Activos, Seguridad, Operario.
 :rules: yes
 

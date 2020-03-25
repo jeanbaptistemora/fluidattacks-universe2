@@ -1,6 +1,6 @@
 :slug: rules/152/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la manipulación de sentencias de código, cuyo fin sea realizar conexiones a bases de datos, enfocándose en la reutilización de las mismas y evitar posibles vulnerabilidades o sobrecargar de código a la aplicación.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la manipulacion de sentencias de codigo, cuyo fin sea realizar conexiones a bases de datos, enfocandose en la reutilizacion de las mismas y evitar posibles vulnerabilidades o sobrecargar de codigo a la aplicacion.
 :keywords: Requerimiento, Seguridad, Conexión, Base de datos, Reutilizar, Vulnerabilidad.
 :rules: yes
 

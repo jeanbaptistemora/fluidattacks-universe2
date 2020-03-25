@@ -1,6 +1,6 @@
 :slug: defends/apache/desactivar-http-trace/
 :category: apache
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Apache al desactivar el método HTTP Trace. Un atacante puede aprovecharse de éste método para realizar un ataque de tipo cross site scripting (XSS).
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Apache al desactivar el método HTTP Trace. Un atacante puede aprovecharse de éste método para realizar un ataque de tipo cross site scripting (XSS).
 :keywords: Apache, Seguridad, HTTP Trace, Servidor, XSS, Aplicación.
 :defends: yes
 

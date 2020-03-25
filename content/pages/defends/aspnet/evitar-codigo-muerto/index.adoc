@@ -1,6 +1,6 @@
 :slug: defends/aspnet/evitar-codigo-muerto/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al evitar el código muerto. Un atacante puede utilizar las clases o métodos obsoletos para vulnerar la aplicación, por lo que se recomienda eliminar el código en desuso.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al evitar el código muerto. Un atacante puede utilizar las clases o métodos obsoletos para vulnerar la aplicación, por lo que se recomienda eliminar el código en desuso.
 :keywords: ASPNET, Seguridad, Evitar, Código, Muerto, Buenas Prácticas.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/scala/usar-opciones-seguras/
 :category: scala
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Scala al utilizar opciones por defecto seguras. Las estructuras condicionales pueden generar vulnerabilidades en la aplicación si no son configuradas adecuadamente.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Scala al utilizar opciones por defecto seguras. Las estructuras condicionales pueden generar vulnerabilidades en la aplicacion si no son configuradas adecuadamente.
 :keywords: Scala, Buenas prácticas,  Programación, Opciones, Default, Condicionales.
 :defends: yes
 

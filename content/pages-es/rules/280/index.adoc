@@ -1,6 +1,6 @@
 :slug: rules/280/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de todos los procesos de los servicios establecidos dentro de un sistema. En este criterio se recomienda que dichos procesos tengan como raíz un único directorio.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de todos los procesos de los servicios establecidos dentro de un sistema. En este criterio se recomienda que dichos procesos tengan como raíz un único directorio.
 :keywords: Proceso, Servicio, Sistema Operativo, Directorio, Seguridad, Jaula.
 :rules: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/sharepoint/configurar-bitacoras/
 :category: sharepoint
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Microsoft SharePoint 2010 al configurar el registro en bitácoras. Las bitácoras facilitan el seguimiento y detección de anomalías al registrar eventos relevantes.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Microsoft SharePoint 2010 al configurar el registro en bitácoras. Las bitácoras facilitan el seguimiento y detección de anomalías al registrar eventos relevantes.
 :keywords: Sharepoint 2010, Bitácoras, Registro, Eventos, Writetrace, Seguimiento
 :defends: yes
 

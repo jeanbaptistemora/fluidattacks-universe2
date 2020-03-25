@@ -1,6 +1,6 @@
 :slug: defends/aspnet/establecer-opciones-seguras/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET. Estableciendo buenas prácticas de programación al momento de definir opciones por defecto cuando se utilizan estructuras condicionales.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET. Estableciendo buenas prácticas de programación al momento de definir opciones por defecto cuando se utilizan estructuras condicionales.
 :keywords: ASP.NET, Seguridad, Programación, Estructuras, Condicionales, Opción por Defecto.
 :defends: yes
 

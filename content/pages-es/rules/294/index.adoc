@@ -1,6 +1,6 @@
 :slug: rules/294/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al uso legal y seguro de software de terceros instalado en un determinado sistema operativo. Por lo tanto, toda organización debe velar porque todo los programas instalados en sus equipos sean legales.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al uso legal y seguro de software de terceros instalado en un determinado sistema operativo. Por lo tanto, toda organizacion debe velar porque todo los programas instalados en sus equipos sean legales.
 :keywords: Organización, Software, Licencia, Pirata, Sistema Operativo, Instalar.
 :rules: yes
 

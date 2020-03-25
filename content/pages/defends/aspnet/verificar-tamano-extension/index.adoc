@@ -1,6 +1,6 @@
 :slug: defends/aspnet/verificar-tamano-extension/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al verificar la extensión y el tamaño de los archivos. Para evitar brechas de seguridad es importante realizar validaciones adicionales en los archivos antes de subirlos.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al verificar la extensión y el tamaño de los archivos. Para evitar brechas de seguridad es importante realizar validaciones adicionales en los archivos antes de subirlos.
 :keywords: ASP.NET, Seguridad, Validación, Extensión, Tamaño, Archivos
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/apache/restringir-banner/
 :category: apache
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Apache al restringir los banners. Un atacante puede utilizar los banners para ejecutar un banner grabbing con el cual puede conocer la infraestructura detrás de una aplicación web.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Apache al restringir los banners. Un atacante puede utilizar los banners para ejecutar un banner grabbing con el cual puede conocer la infraestructura detrás de una aplicación web.
 :keywords: Apache, Seguridad , Banners, Configuración, Servidor, HTTP.
 :defends: yes
 

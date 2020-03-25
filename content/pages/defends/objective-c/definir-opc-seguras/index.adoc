@@ -1,6 +1,6 @@
 :slug: defends/objective-c/definir-opc-seguras/
 :category: objective-c
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Objective C al definir escenarios seguros por defecto en las estructuras condicionales. Las buenas prácticas de programación permiten desarrollar aplicaciones seguras y confiables.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Objective C al definir escenarios seguros por defecto en las estructuras condicionales. Las buenas prácticas de programación permiten desarrollar aplicaciones seguras y confiables.
 :keywords: Objective C, Condicionales, Seguros, Programación, Opciones, Defecto.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/cobol/cifrar-codigo-fuente/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al cifrar el código fuente de la aplicación. El código fuente contiene información del funcionamiento de la aplicación y le permite a los atacantes identificar vulnerabilidades.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al cifrar el codigo fuente de la aplicacion. El codigo fuente contiene informacion del funcionamiento de la aplicacion y le permite a los atacantes identificar vulnerabilidades.
 :keywords: Cobol, RPG, Seguridad, Cifrar, Código Fuente, Producción.
 :defends: yes
 

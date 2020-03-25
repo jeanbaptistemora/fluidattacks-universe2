@@ -1,6 +1,6 @@
 :slug: defends/java/esquema-autenticacion-server/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer un esquema de autenticación para la aplicación. Una vez configurados los roles de seguridad, el paso siguiente es definir la autenticación en el servidor.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer un esquema de autenticación para la aplicación. Una vez configurados los roles de seguridad, el paso siguiente es definir la autenticación en el servidor.
 :keywords: Java, Seguridad, Esquema, Autenticación, Servidor, Buenas Prácticas.
 :defends: yes
 
@@ -27,7 +27,7 @@ por la aplicación en el servidor de aplicaciones.
 * Para conocer una forma alternativa
 cuando se está utilizando la tecnología de +Servlets+,
 ver +Access control servlets declarative+
-. Se requiere un diseño personalizado para la pantalla de autenticación.
+. Se requiere un diseño personalizado para la pantalla de autenticacion.
 
 == Solución
 

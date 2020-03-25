@@ -1,6 +1,6 @@
 :slug: defends/scala/limitar-vida-variable/
 :category: scala
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de variables u objetos dentro de un programa Scala, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de variables u objetos dentro de un programa Scala, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
 :keywords: Scala, Datos sensibles, Datos confidenciales, Lectura segura, Memoria, Tiempo de vida.
 :defends: yes
 

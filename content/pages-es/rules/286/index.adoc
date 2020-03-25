@@ -1,6 +1,6 @@
 :slug: rules/286/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de cada uno de los recursos establecidos dentro de un sistema. Por lo tanto, para una determinada organización, se recomienda establecer umbrales de estados normal y anormal para dichos recursos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de cada uno de los recursos establecidos dentro de un sistema. Por lo tanto, para una determinada organización, se recomienda establecer umbrales de estados normal y anormal para dichos recursos.
 :keywords: Organización, Umbral, Estado, Normal, Anormal, Recurso.
 :rules: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/java/prevenir-csrf-taglibs/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al prevenir ataques de tipo Cross Site Request Forgery utilizando taglibs de CSRFGuard.Ésto resulta útil cuando se tiene un contenedor de Servlets.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al prevenir ataques de tipo Cross Site Request Forgery utilizando taglibs de CSRFGuard.Esto resulta util cuando se tiene un contenedor de Servlets.
 :keywords: Java, Seguridad, Buenas Prácticas, CSRF, Taglibs, Servlet.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/292/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la correcta gestión de aquellos periféricos de entrada que desean ser agregados a un determinado sistema operativo. Por lo tanto, dicho sistema debe autorizar de manera explícita la conexión de estos periféricos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la correcta gestion de aquellos perifericos de entrada que desean ser agregados a un determinado sistema operativo. Por lo tanto, dicho sistema debe autorizar de manera explicita la conexion de estos perifericos.
 :keywords: Periférico Entrada, Teclado, Equipos, Mouse, Requerimiento, Seguridad.
 :rules: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/apache/restringir-metodo-http/
 :category: apache
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Apache al restringir los métodos HTTP inseguros. Éstos métodos son potencialmente peligrosos, debido a que pueden ser utilizados de forma maliciosa como un medio de ataque.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Apache al restringir los métodos HTTP inseguros. Éstos métodos son potencialmente peligrosos, debido a que pueden ser utilizados de forma maliciosa como un medio de ataque.
 :keywords: Apache, Seguridad, Métodos, HTTP, Configurar, Petición.
 :defends: yes
 

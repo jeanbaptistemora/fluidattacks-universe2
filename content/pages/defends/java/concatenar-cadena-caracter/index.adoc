@@ -1,6 +1,6 @@
 :slug: defends/java/concatenar-cadena-caracter/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al concatenar las cadenas de caracteres. Las concatenaciones recursivas e iterativas requieren de un gran carga computacional por lo cual deben realizarse de forma eficiente.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al concatenar las cadenas de caracteres. Las concatenaciones recursivas e iterativas requieren de un gran carga computacional por lo cual deben realizarse de forma eficiente.
 :keywords: Java, Buenas Prácticas, Concatenar, Cadenas, StringBuilder, StringBuffer.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/csharp/evitar-codigo-duplicado/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo evitar caer en la mala practica de programación que consiste el código fuente duplicado, en los desarrollos utilizando la centralización del manejo de excepciones como ejemplo de la reutilización de código.
+:description: Nuestros ethical hackers explican como evitar caer en la mala practica de programación que consiste el código fuente duplicado, en los desarrollos utilizando la centralización del manejo de excepciones como ejemplo de la reutilización de código.
 :keywords: C Sharp, Buenas Prácticas, Código, Duplicado, Excepciones, Depuración.
 :defends: yes
 

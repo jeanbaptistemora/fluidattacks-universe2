@@ -1,6 +1,6 @@
 :slug: rules/113/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, toda organización debe velar porque las áreas restringidas cuenten con un número limitado de puntos de acceso así como el control de los mismos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, toda organizacion debe velar porque las areas restringidas cuenten con un numero limitado de puntos de acceso asi como el control de los mismos.
 :keywords: Organización, Puntos, Acceso, Controlar, Seguridad, Restringido.
 :rules: yes
 

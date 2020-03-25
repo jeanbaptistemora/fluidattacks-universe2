@@ -1,6 +1,6 @@
 :slug: defends/csharp/validar-propietario-correo/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo verificar la propiedad de un correo electrónico mediante el uso de identificadores únicos aleatorios para la verificación de propiedad de un correo electrónico en aplicaciones que utilicen registro de usuarios.
+:description: Nuestros ethical hackers explican como verificar la propiedad de un correo electrónico mediante el uso de identificadores únicos aleatorios para la verificación de propiedad de un correo electrónico en aplicaciones que utilicen registro de usuarios.
 :keywords: C Sharp, Buenas Prácticas, Autenticación, Correo, Propietario, Validación.
 :defends: yes
 

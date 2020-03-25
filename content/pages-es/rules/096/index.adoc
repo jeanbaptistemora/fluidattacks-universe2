@@ -1,6 +1,6 @@
 :slug: rules/096/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, se recomienda que los privilegios requeridos para el acceso de usuarios estén bien definidos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura en cuanto al control de acceso en una organizacion. Por lo tanto, se recomienda que los privilegios requeridos para el acceso de usuarios estén bien definidos.
 :keywords: Sistema, Seguridad, Usuario, Acceso, Privilegios, Definir.
 :rules: yes
 

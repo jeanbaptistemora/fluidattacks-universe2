@@ -1,6 +1,6 @@
 :slug: defends/aspnet/generar-aleatorios-seguros/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al generar números aleatorios criptográficamente seguros. Los números aleatorios son utilizados para generar llaves criptográficas por lo que no deben ser replicados fácilmente.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al generar números aleatorios criptográficamente seguros. Los números aleatorios son utilizados para generar llaves criptográficas por lo que no deben ser replicados fácilmente.
 :keywords: ASPNET, Seguridad, Criptografía, Números, Aleatorios, Seguros.
 :defends: yes
 

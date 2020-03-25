@@ -1,6 +1,6 @@
 :slug: defends/aspnet/filtrar-campos-entrada/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al filtrar campos de entrada. Las aplicaciones web deben evitar la inyección de código malicioso al realizar una validación de datos en sus campos de entrada.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al filtrar campos de entrada. Las aplicaciones web deben evitar la inyección de código malicioso al realizar una validación de datos en sus campos de entrada.
 :keywords: ASPNET, Filtrar, Campos, Entrada, Seguridad, Buenas Prácticas.
 :defends: yes
 

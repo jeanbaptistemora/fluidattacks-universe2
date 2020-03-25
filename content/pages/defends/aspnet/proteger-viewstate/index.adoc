@@ -1,6 +1,6 @@
 :slug: defends/aspnet/proteger-viewstate/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al proteger adecuadamente el ViewState. La información almacenada en el ViewState le permite a un atacante conocer detalles técnicos de la misma para realizar ataques complejos.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al proteger adecuadamente el ViewState. La información almacenada en el ViewState le permite a un atacante conocer detalles técnicos de la misma para realizar ataques complejos.
 :keywords: ASP.NET, Seguridad, ViewState, Protección, Cifrado, Cliente
 :defends: yes
 

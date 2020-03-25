@@ -1,6 +1,6 @@
 :slug: defends/windows/cambiar-credenciales/
 :category: windows
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad en Windows 7 al cambiar las credenciales predeterminadas del sistema. Es altamente recomendable modificar las configuraciones iniciales del sistema para evitar ataques que utilizan credenciales predeterminadas.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad en Windows 7 al cambiar las credenciales predeterminadas del sistema. Es altamente recomendable modificar las configuraciones iniciales del sistema para evitar ataques que utilizan credenciales predeterminadas.
 :keywords: Windows 7, Credenciales, Predeterminadas, Renombrar, Usuarios, Buenas Prácticas
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/270/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión administrativa de un sistema. Por lo tanto, dicha gestión debe realizarse a través de usuarios con privilegios de administración que permitan el registro de tareas a cada individuo.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion administrativa de un sistema. Por lo tanto, dicha gestión debe realizarse a través de usuarios con privilegios de administración que permitan el registro de tareas a cada individuo.
 :keywords: Gestión, Sistema, Administración, Usuarios, Privilegios, Registro de tareas.
 :rules: yes
 

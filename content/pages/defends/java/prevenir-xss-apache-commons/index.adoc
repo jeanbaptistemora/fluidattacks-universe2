@@ -1,6 +1,6 @@
 :slug: defends/java/prevenir-xss-apache-commons/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al prevenir ataques de tipo Cross Site Scripting utilizando Apache common lang. Se busca logra una codificación en la salida, para que los caracteres sean tratados como datos.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al prevenir ataques de tipo Cross Site Scripting utilizando Apache common lang. Se busca logra una codificación en la salida, para que los caracteres sean tratados como datos.
 :keywords: Java, Seguridad, Buenas Prácticas, XSS, APache, Common Lang.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/046/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que el sistema gestione por medio de bitácoras la integridad de los archivos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que el sistema gestione por medio de bitácoras la integridad de los archivos.
 :keywords: Sistema, Bitácora, Archivo, Integridad, Seguridad, Requerimiento.
 :rules: yes
 

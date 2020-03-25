@@ -1,6 +1,6 @@
 :slug: rules/293/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la correcta gestión de código almacenado en pila o stack. Por lo tanto, en este requerimiento se recomienda que el sistema operativo debe prevenir la ejecución de todo código en stack.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la correcta gestion de código almacenado en pila o stack. Por lo tanto, en este requerimiento se recomienda que el sistema operativo debe prevenir la ejecución de todo código en stack.
 :keywords: Código, Stack, Pila, Ejecución, Sistema Operativo, Deshabilitar.
 :rules: yes
 

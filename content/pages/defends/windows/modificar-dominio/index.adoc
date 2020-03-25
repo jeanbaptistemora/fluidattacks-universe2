@@ -1,6 +1,6 @@
 :slug: defends/windows/modificar-dominio/
 :category: windows
-:description: Nuestros ethical hackers explican cómo configurar paso a paso y de manera segura las directivas de dominio de forma centralizada utilizando la herramienta Group Policy Management Console en un servidor que utiliza el sistema operativo Windows Server 2008 R2.
+:description: Nuestros ethical hackers explican como configurar paso a paso y de manera segura las directivas de dominio de forma centralizada utilizando la herramienta Group Policy Management Console en un servidor que utiliza el sistema operativo Windows Server 2008 R2.
 :keywords: Active Directory, Windows, GPO, GPMC, Servidor, Directivas.
 :defends: yes
 

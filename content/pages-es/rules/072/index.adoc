@@ -1,6 +1,6 @@
 :slug: rules/072/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de arquitectura lógica dentro de la organización. En este requerimiento se establece la importancia de definir un tiempo de máximo de respuesta adecuado en la concurrencia máxima esperada.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de arquitectura lógica dentro de la organización. En este requerimiento se establece la importancia de definir un tiempo de máximo de respuesta adecuado en la concurrencia máxima esperada.
 :keywords: Tiempo, Respuesta, Concurrencia, Segundos, Requerimiento, Seguridad.
 :rules: yes
 

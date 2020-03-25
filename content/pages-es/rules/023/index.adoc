@@ -1,6 +1,6 @@
 :slug: rules/023/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de sesiones de usuarios de un sistema, estableciendo los lineamientos para determinar cuándo es necesario cerrar una sesión si existe inactividad por parte del usuario durante cierto periodo de tiempo.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de sesiones de usuarios de un sistema, estableciendo los lineamientos para determinar cuándo es necesario cerrar una sesión si existe inactividad por parte del usuario durante cierto periodo de tiempo.
 :keywords: Requerimiento, Seguridad, Sesión de usuario, Cerrar sesión, Inactividad, Periodo de tiempo.
 :rules: yes
 

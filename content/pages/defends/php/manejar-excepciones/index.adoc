@@ -1,6 +1,6 @@
 :slug: defends/php/manejar-excepciones/
 :category: php
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP. En este artículo encontrará las formas adecuadas de manejar excepciones en el lenguaje PHP y cómo evitar incurrir en errores que podrían llevar a fugas de información.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PHP. En este artículo encontrará las formas adecuadas de manejar excepciones en el lenguaje PHP y cómo evitar incurrir en errores que podrían llevar a fugas de información.
 :keywords: Php, Seguridad, Excepciones, Logs, Debugging, Back-end.
 :defends: yes
 

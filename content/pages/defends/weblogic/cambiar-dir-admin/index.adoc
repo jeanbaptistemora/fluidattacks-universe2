@@ -1,6 +1,6 @@
 :slug: defends/weblogic/cambiar-dir-admin/
 :category: weblogic
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en WebLogic 11g al cambiar la ruta predeterminada de la consola de administración. Las configuraciones por defecto no deben mantenerse debido a que suponen una vulnerabilidad para sistema.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en WebLogic 11g al cambiar la ruta predeterminada de la consola de administración. Las configuraciones por defecto no deben mantenerse debido a que suponen una vulnerabilidad para sistema.
 :keywords: WebLogic 11g, Servidor, Oracle, Dirección, Administración, Consola.
 :defends: yes
 

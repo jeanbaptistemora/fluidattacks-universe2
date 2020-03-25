@@ -1,6 +1,6 @@
 :slug: defends/java/especificar-reglas-acceso/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al especificar reglas para el control de acceso. La aplicación debe asegurarse que sólo los usuarios autorizados tengan acceso a los recursos, estableciendo políticas de control.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al especificar reglas para el control de acceso. La aplicación debe asegurarse que sólo los usuarios autorizados tengan acceso a los recursos, estableciendo políticas de control.
 :keywords: Java, Regla, Control, Acceso, Permiso, Recursos.
 :defends: yes
 

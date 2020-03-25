@@ -1,6 +1,6 @@
 :slug: rules/039/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que los archivos del sistema tengan definido un tamaño máximo permitido.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que los archivos del sistema tengan definido un tamaño máximo permitido.
 :keywords: Sistema, Tamaño, Archivo, MB, Seguridad, Usuario.
 :rules: yes
 

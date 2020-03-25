@@ -1,6 +1,6 @@
 :slug: defends/yii/prevenir-sqli/
 :category: yii
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en el framework Yii al prevenir las inyecciones SQL. La validación de entradas a la aplicación es un proceso fundamental para crear aplicaciones seguras y robustas.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en el framework Yii al prevenir las inyecciones SQL. La validación de entradas a la aplicación es un proceso fundamental para crear aplicaciones seguras y robustas.
 :keywords: Yii, PHP, Inyección, SQL, Base de Datos, Validación.
 :defends: yes
 

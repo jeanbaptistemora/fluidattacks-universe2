@@ -1,6 +1,6 @@
 :slug: defends/windows/brindar-acceso-recursos/
 :category: windows
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de permisos en Windows. En este instructivo, explicaremos paso a paso cómo dar permisos de acceso sobre recursos de Windows Server 2008 de forma centralizada.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de permisos en Windows. En este instructivo, explicaremos paso a paso cómo dar permisos de acceso sobre recursos de Windows Server 2008 de forma centralizada.
 :keywords: Seguridad, Permisos, Windows, Windows server 2008, Buenas prácticas, Acceso.
 :defends: yes
 

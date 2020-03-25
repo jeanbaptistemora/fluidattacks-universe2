@@ -1,6 +1,6 @@
 :slug: defends/csharp/quitar-metadatos-imgs/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al eliminar los metadatos de las imágenes. La información sensible puede filtrarse a través de los metadatos presentes en imágenes y fotografías.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al eliminar los metadatos de las imágenes. La información sensible puede filtrarse a través de los metadatos presentes en imágenes y fotografías.
 :keywords: C Sharp, Eliminar, Metadatos, Imágenes, Seguridad, Información Sensible.
 :defends: yes
 

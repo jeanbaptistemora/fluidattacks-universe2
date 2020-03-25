@@ -1,6 +1,6 @@
 :slug: rules/271/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de compiladores en un sistema. Por lo tanto, la organización debe restringir el uso de compiladores en sistemas de producción únicamente para las aplicaciones que lo requieran.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de compiladores en un sistema. Por lo tanto, la organización debe restringir el uso de compiladores en sistemas de producción únicamente para las aplicaciones que lo requieran.
 :keywords: Organización, Compilador, Sistema, Producción, Aplicaciones, Seguridad.
 :rules: yes
 

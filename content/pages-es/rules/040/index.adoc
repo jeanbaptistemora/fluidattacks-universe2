@@ -1,6 +1,6 @@
 :slug: rules/040/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que los formatos de los archivos correspondan a la extensión especificada por los mismos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que los formatos de los archivos correspondan a la extensión especificada por los mismos.
 :keywords: Sistema, Tamaño, Archivo, MB, Seguridad, Usuario.
 :rules: yes
 

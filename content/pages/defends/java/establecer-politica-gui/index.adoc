@@ -1,6 +1,6 @@
 :slug: defends/java/establecer-politica-gui/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer políticas de seguridad a través de la interfaz gráfica manteniendo el principio de mínimo privilegio, permitiendo disminuir las posibles brechas de seguridad.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer políticas de seguridad a través de la interfaz gráfica manteniendo el principio de mínimo privilegio, permitiendo disminuir las posibles brechas de seguridad.
 :keywords: Java, Política, Seguridad, GUI, Mínimo Privilegio, Interfaz.
 :defends: yes
 

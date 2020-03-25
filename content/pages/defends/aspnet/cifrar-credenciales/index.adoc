@@ -1,6 +1,6 @@
 :slug: defends/aspnet/cifrar-credenciales/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de credenciales de autenticación en ASP.NET al cifrar las credenciales de autenticación y acceso a través de funciones hash utilizando la librería System.Security.Cryptography.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de credenciales de autenticación en ASP.NET al cifrar las credenciales de autenticación y acceso a través de funciones hash utilizando la librería System.Security.Cryptography.
 :keywords: ASP.NET, Seguridad, Cifrar, Credenciales, Autenticación, MD5.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/233/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que bajo ninguna circunstancia un sistema imprima en pantalla o cualquier otro recurso visible las credenciales de acceso.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de usuarios. En este caso, se recomienda que bajo ninguna circunstancia un sistema imprima en pantalla o cualquier otro recurso visible las credenciales de acceso.
 :keywords: Sistema, Imprimir, Contraseña, Pantalla, Recurso, Credenciales.
 :rules: yes
 

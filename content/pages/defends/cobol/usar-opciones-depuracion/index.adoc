@@ -1,6 +1,6 @@
 :slug: defends/cobol/usar-opciones-depuracion/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al explicar en detalle como deben realizarse adecuadamente operaciones de depuración en etapa de desarrollo permitiendo un despliegue transparente de la misma en producción.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al explicar en detalle como deben realizarse adecuadamente operaciones de depuración en etapa de desarrollo permitiendo un despliegue transparente de la misma en producción.
 :keywords: COBOL, Debug, Desarrollo, Producción, Aplicación, Depuración.
 :defends: yes
 

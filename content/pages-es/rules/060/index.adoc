@@ -1,6 +1,6 @@
 :slug: rules/060/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de los componentes de la superficie de ataque que se pueden presentar en un determinado sistema. Por lo tanto, los componentes de la superficie de ataque deben identificarse.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de los componentes de la superficie de ataque que se pueden presentar en un determinado sistema. Por lo tanto, los componentes de la superficie de ataque deben identificarse.
 :keywords: Monitorear, Sistema, Requerimiento, Evento, Organización, Seguridad.
 :rules: yes
 

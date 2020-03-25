@@ -1,6 +1,6 @@
 :slug: defends/cobol/compilar-programa-estricta/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al compilar de forma estricta el programa. Los mensajes de compilación dejan entrever rutas e información que puede ser utilizada para vulnerar una aplicación web.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al compilar de forma estricta el programa. Los mensajes de compilacion dejan entrever rutas e información que puede ser utilizada para vulnerar una aplicación web.
 :keywords: Cobol, Programación, Seguridad, Compilación Estricta, Depurar, Buenas prácticas.
 :defends: yes
 

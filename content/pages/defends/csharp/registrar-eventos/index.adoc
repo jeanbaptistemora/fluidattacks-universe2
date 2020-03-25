@@ -1,6 +1,6 @@
 :slug: defends/csharp/registrar-eventos/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al registrar el momento de ocurrencia de eventos excepcionales. Las bitácoras son esenciales al momento de tomar medidas correctivas cuando se presenta un evento de seguridad.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al registrar el momento de ocurrencia de eventos excepcionales. Las bitácoras son esenciales al momento de tomar medidas correctivas cuando se presenta un evento de seguridad.
 :keywords: C Sharp, Seguridad, Bitácoras, Eventos, Ocurrencia, Registrar
 :defends: yes
 

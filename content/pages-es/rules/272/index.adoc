@@ -1,6 +1,6 @@
 :slug: rules/272/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de un sistema en distintos modos. Por lo tanto, se recomienda que en todo sistema se diferencie la gestión en modo privilegiado del modo no privilegiado.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de un sistema en distintos modos. Por lo tanto, se recomienda que en todo sistema se diferencie la gestión en modo privilegiado del modo no privilegiado.
 :keywords: Organización, Gestión, Sistema, Modo, Seguridad, Privilegiado.
 :rules: yes
 

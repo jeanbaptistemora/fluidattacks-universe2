@@ -1,6 +1,6 @@
 :slug: defends/php/filtrar-entradas-regex/
 :category: php
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP, verificando y limpiando las entradas del sistema con ayuda de expresiones regulares, para evitar posibles explotaciones de XSS (Cross-site scripting).
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PHP, verificando y limpiando las entradas del sistema con ayuda de expresiones regulares, para evitar posibles explotaciones de XSS (Cross-site scripting).
 :keywords: Php, Seguridad, Regex, Sanitize, XSS, Web.
 :defends: yes
 

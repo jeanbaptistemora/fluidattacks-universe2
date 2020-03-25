@@ -1,6 +1,6 @@
 :slug: rules/267/
 :category: rules
-:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la gestión de funcionalidades de un determinado sistema. Por lo tanto, la organización debe deshabilitar todas aquellas funciones innecesarias dentro de un sistema.
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la gestion de funcionalidades de un determinado sistema. Por lo tanto, la organización debe deshabilitar todas aquellas funciones innecesarias dentro de un sistema.
 :keywords: Sistema, Organización, Funciones, Deshabilitar, Hardening, Innecesaria.
 :rules: yes
 

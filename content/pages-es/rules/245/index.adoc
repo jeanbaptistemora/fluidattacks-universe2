@@ -1,6 +1,6 @@
 :slug: rules/245/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada del proceso de negocio con el que cuenta una organización. En este caso, se recomienda que la organización defina y documente un procedimiento para el control de cambios.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada del proceso de negocio con el que cuenta una organización. En este caso, se recomienda que la organizacion defina y documente un procedimiento para el control de cambios.
 :keywords: Control, Seguridad, Organización, Documentar, Procedimiento, Cambios.
 :rules: yes
 

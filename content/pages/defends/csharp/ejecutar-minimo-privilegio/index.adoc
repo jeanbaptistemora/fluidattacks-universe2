@@ -1,6 +1,6 @@
 :slug: defends/csharp/ejecutar-minimo-privilegio/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al aplicar el principio de mínimo privilegio. Los privilegios en las aplicaciones deben otorgarse la menor cantidad de tiempo a la menor cantidad de código.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al aplicar el principio de mínimo privilegio. Los privilegios en las aplicaciones deben otorgarse la menor cantidad de tiempo a la menor cantidad de código.
 :keywords: C Sharp, Seguridad, Desarrollo, Mínimo, Privilegio, Programación.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/redhat/proteger-fuerza-bruta/
 :category: redhat
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de Linux Red Hat al proteger las credenciales de acceso contra ataques de tipo fuerza bruta. Una práctica recomendable es utilizar contraseñas computacionalmente fuertes.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de Linux Red Hat al proteger las credenciales de acceso contra ataques de tipo fuerza bruta. Una práctica recomendable es utilizar contraseñas computacionalmente fuertes.
 :keywords: Linux, Redhat, Seguridad, Autenticación, Fuerza bruta, Contraseñas.
 :defends: yes
 

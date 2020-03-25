@@ -1,6 +1,6 @@
 :slug: rules/232/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que cuando se maneje información crítica, se requiera la identidad del equipo desde el cual se está autenticando un usuario.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de usuarios. En este caso, se recomienda que cuando se maneje información crítica, se requiera la identidad del equipo desde el cual se está autenticando un usuario.
 :keywords: Sistema, Información, Negocio, Identificación, Equipo, Autenticación.
 :rules: yes
 

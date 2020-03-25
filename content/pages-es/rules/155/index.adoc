@@ -1,6 +1,6 @@
 :slug: rules/155/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de código fuente que compone a una determinada aplicación. Lo anterior, debido a que una aplicación puede importar o estar compuesta de secciones de código malicioso desarrolladas por terceros.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de codigo fuente que compone a una determinada aplicacion. Lo anterior, debido a que una aplicación puede importar o estar compuesta de secciones de código malicioso desarrolladas por terceros.
 :keywords: Requerimiento, Seguridad, Código Fuente, Requisitos Funcionales, Diferentes, Puertas Traseras.
 :rules: yes
 

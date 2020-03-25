@@ -1,6 +1,6 @@
 :slug: rules/069/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de los requisitos y vulnerabilidades de seguridad definidos en un sistema. Por lo tanto, se deben gestionar los riesgos derivados de vulnerabilidades no corregidas.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de los requisitos y vulnerabilidades de seguridad definidos en un sistema. Por lo tanto, se deben gestionar los riesgos derivados de vulnerabilidades no corregidas.
 :keywords: Organización, Identificar, Riesgos, Vulnerabilidades, Corregir, Seguridad.
 :rules: yes
 

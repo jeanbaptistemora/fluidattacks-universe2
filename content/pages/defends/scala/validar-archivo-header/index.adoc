@@ -1,6 +1,6 @@
 :slug: defends/scala/validar-archivo-header/
 :category: scala
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Scala al validar los tipos de archivos utilizando los encabezados. Al realizar una validación de entradas se aumenta la seguridad de la aplicación evitando diversos tipos de ataques.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Scala al validar los tipos de archivos utilizando los encabezados. Al realizar una validación de entradas se aumenta la seguridad de la aplicación evitando diversos tipos de ataques.
 :keywords: Scala, Encabezados, Extensión, Archivo, Validación, Entrada.
 :defends: yes
 

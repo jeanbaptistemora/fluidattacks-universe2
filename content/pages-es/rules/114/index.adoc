@@ -1,6 +1,6 @@
 :slug: rules/114/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, toda organización debe validar que credenciales obsoletas e inactivas no permitan la autenticación exitosa de sus usuarios.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, toda organización debe validar que credenciales obsoletas e inactivas no permitan la autenticación exitosa de sus usuarios.
 :keywords: Organización, Acceso, Sistema, Credenciales, Autenticación, Usuario.
 :rules: yes
 

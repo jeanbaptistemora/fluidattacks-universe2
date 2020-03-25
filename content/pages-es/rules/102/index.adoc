@@ -1,6 +1,6 @@
 :slug: rules/102/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que el personal tenga su carné de identificación visible durante el tiempo que se encuentre dentro de las instalaciones.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, se recomienda que el personal tenga su carné de identificación visible durante el tiempo que se encuentre dentro de las instalaciones.
 :keywords: Seguridad, Identificación, Organización, Acceso, Visibilidad, Carné.
 :rules: yes
 

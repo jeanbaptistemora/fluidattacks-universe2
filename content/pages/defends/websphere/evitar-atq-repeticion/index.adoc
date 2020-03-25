@@ -1,6 +1,6 @@
 :slug: defends/websphere/evitar-atq-repeticion/
 :category: websphere
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en WebSphere 8 al evitar los ataques de repetición. Un ataque de repetición se produce cuando un atacante reenvía el contenido de un token o hash para duplicar una solicitud del usuario.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en WebSphere 8 al evitar los ataques de repetición. Un ataque de repetición se produce cuando un atacante reenvía el contenido de un token o hash para duplicar una solicitud del usuario.
 :keywords: WebSphere 8, Evitar, Ataques, Repetición, Suplantación, Servicio Web
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/112/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, toda organización debe contar con bolardos alrededor de las instalaciones especialmente en zonas propensas a ser impactadas por automóviles.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, toda organización debe contar con bolardos alrededor de las instalaciones especialmente en zonas propensas a ser impactadas por automóviles.
 :keywords: Organización, Bolardos, Edificación, Automóvil, Impactar, Riesgo.
 :rules: yes
 

@@ -1,6 +1,6 @@
 :slug: rules/022/
 :category: rules
-:description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento de seguridad se define la importancia de permitir las auditorías de cliente en el alcance relacionado.
+:description: En el presente documento se detallan los requerimientos relacionados a la gestion adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento de seguridad se define la importancia de permitir las auditorías de cliente en el alcance relacionado.
 :keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Auditorías, Cliente.
 :rules: yes
 

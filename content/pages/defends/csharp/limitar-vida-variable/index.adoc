@@ -1,6 +1,6 @@
 :slug: defends/csharp/limitar-vida-variable/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de variables u objetos dentro de un programa C#, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de variables u objetos dentro de un programa C#, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
 :keywords: Csharp, Datos sensibles, Datos confidenciales, Lectura segura, Memoria, Tiempo de vida.
 :defends: yes
 

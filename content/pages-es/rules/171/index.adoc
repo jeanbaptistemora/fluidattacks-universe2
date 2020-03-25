@@ -1,6 +1,6 @@
 :slug: rules/171/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la correcta gestión de los comentarios empleados dentro del código fuente de cualquier proyecto en etapa de desarrollo, los cuales, deben ser eliminados en un ambiente de producción.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la correcta gestion de los comentarios empleados dentro del codigo fuente de cualquier proyecto en etapa de desarrollo, los cuales, deben ser eliminados en un ambiente de producción.
 :keywords: Requerimiento, Seguridad, Código Fuente, Comentarios, Ambiente, Producción.
 :rules: yes
 

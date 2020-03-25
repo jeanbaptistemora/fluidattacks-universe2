@@ -1,6 +1,6 @@
 :slug: rules/197/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos foráneos de la organización. En este requerimiento, se recomienda que la organización determine qué aplicaciones están prohibidas para acceder a recursos internos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de dispositivos foraneos de la organizacion. En este requerimiento, se recomienda que la organizacion determine qué aplicaciones están prohibidas para acceder a recursos internos.
 :keywords: Sistema, Organización, Aplicaciones, Foráneos, Recursos, Internos.
 :rules: yes
 

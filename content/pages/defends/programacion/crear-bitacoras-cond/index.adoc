@@ -1,6 +1,6 @@
 :slug: defends/programacion/crear-bitacoras-cond/
 :category: programacion
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura al generar bitácoras condicionales. Las bitácoras permiten registrar eventos relevantes facilitando el seguimiento de la información afectada en caso de un ataque informático.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura al generar bitácoras condicionales. Las bitácoras permiten registrar eventos relevantes facilitando el seguimiento de la información afectada en caso de un ataque informático.
 :keywords: Programación, Bitácoras, Condicionales, Registro, Seguridad, Eventos.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/programacion/evitar-cod-duplicado/
 :category: programacion
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura al evitar código duplicado. El código repetido es una mala práctica que agrega complejidad innecesaria a la aplicación y supone un riesgo potencial para la seguridad de la misma.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura al evitar código duplicado. El código repetido es una mala práctica que agrega complejidad innecesaria a la aplicación y supone un riesgo potencial para la seguridad de la misma.
 :keywords: Programación, Buenas Prácticas, Código, Duplicado, Bibliotecas, Funciones.
 :defends: yes
 

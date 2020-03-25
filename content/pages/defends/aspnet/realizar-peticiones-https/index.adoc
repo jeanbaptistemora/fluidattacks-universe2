@@ -1,6 +1,6 @@
 :slug: defends/aspnet/realizar-peticiones-https/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al utilizar protocolos seguros en aplicaciones web. El protocolo HTTPS cifra la comunicación entre el servidor y el cliente, evitando que sea espiada o alterada.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al utilizar protocolos seguros en aplicaciones web. El protocolo HTTPS cifra la comunicación entre el servidor y el cliente, evitando que sea espiada o alterada.
 :keywords: ASP.NET, Seguridad, Peticiones, HTTPS, Protocolo, SSL/TLS
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/aspnet/prevenir-ataque-csrf/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al prevenir los ataques CSRF. La falsificación de peticiones en una página web puede causar graves daños debido a que explotan la confianza de la página en un usuario legítimo.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al prevenir los ataques CSRF. La falsificación de peticiones en una página web puede causar graves daños debido a que explotan la confianza de la página en un usuario legítimo.
 :keywords: ASPNET, Seguridad, CSRF, Cross Site Request Forgery, Petición, Buenas Prácticas.
 :defends: yes
 

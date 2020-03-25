@@ -1,6 +1,6 @@
 :slug: rules/238/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. Por lo tanto, el sistema debe garantizar que sea el propietario de la cuenta quien realiza el restablecimiento de la contraseña.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de usuarios. Por lo tanto, el sistema debe garantizar que sea el propietario de la cuenta quien realiza el restablecimiento de la contraseña.
 :keywords: Autenticación, Tiempo, Seguridad, Segundos, Usuarios, Límite.
 :rules: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/exchange/activar-bitacoras-smtp/
 :category: exchange
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Microsoft Exchange Server 2010 al activar el registro de bitácoras. Las bitácoras permiten el registro de eventos excepcionales y facilitan el seguimiento en caso de ataques o anomalías.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Microsoft Exchange Server 2010 al activar el registro de bitácoras. Las bitácoras permiten el registro de eventos excepcionales y facilitan el seguimiento en caso de ataques o anomalías.
 :keywords: Exchange 2010, Bitácoras, Registros, Eventos, Conectores, SMTP
 :defends: yes
 

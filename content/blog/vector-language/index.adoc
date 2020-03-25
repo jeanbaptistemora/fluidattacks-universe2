@@ -5,7 +5,7 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Photo by Franck V. on Unsplash: https://unsplash.com/photos/_E1PQXKUkMw
-:description: This blog is an overview of word2vec, a method to obtain vectors to represent natural language in a way that is suitable for machine learning algorithms. This method inspired code2vec, which is used to represent code as vectors, our goal. To understand the latter one must first understand the former.
+:description: This blog is an overview of word2vec, a method to obtain vectors to represent natural language in a way that is suitable for machine learning algorithms. This method inspired code2vec, used to represent code as vectors, our goal. To understand the latter one must first understand the former.
 :keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
 :author: Rafael Ballestas
 :writer: raballestasr

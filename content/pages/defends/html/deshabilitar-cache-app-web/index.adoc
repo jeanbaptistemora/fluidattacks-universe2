@@ -1,6 +1,6 @@
 :slug: defends/html/deshabilitar-cache-app-web/
 :category: html
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en HTML al deshabilitar la caché en campos de aplicaciones web. La memoria caché en un formulario web puede ser utilizada para perpetrar un ataque de robo de información.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en HTML al deshabilitar la caché en campos de aplicaciones web. La memoria caché en un formulario web puede ser utilizada para perpetrar un ataque de robo de información.
 :keywords: HTML, Caché , Deshabilitar, Formulario, Navegador, Autocompletar.
 :defends: yes
 

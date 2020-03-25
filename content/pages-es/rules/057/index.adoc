@@ -1,6 +1,6 @@
 :slug: rules/057/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de los casos de uso que se pueden presentar en un determinado sistema. Por lo tanto, cada caso de abuso debe estar relacionado al menos con un caso de uso.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de los casos de uso que se pueden presentar en un determinado sistema. Por lo tanto, cada caso de abuso debe estar relacionado al menos con un caso de uso.
 :keywords: Casos de uso, Sistema, Caso de abuso, Relacionar, Organización, Seguridad.
 :rules: yes
 

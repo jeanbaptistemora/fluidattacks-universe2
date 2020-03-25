@@ -1,6 +1,6 @@
 :slug: defends/java/controlar-acceso-servlet/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer el control de acceso para servlets de forma declarativa con anotaciones. Ésto resulta útil cuando se requiere un diseño personalizado para la pantalla de autenticación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer el control de acceso para servlets de forma declarativa con anotaciones. Esto resulta util cuando se requiere un diseño personalizado para la pantalla de autenticacion.
 :keywords: Java, Control, Acceso, Servlet, Autenticación, Permisos.
 :defends: yes
 
@@ -29,7 +29,7 @@ por la aplicación en el servidor de aplicaciones.
 . Se desea emplear un mecanismo conveniente para la tecnología de +Servlets+.
 * Para emplear un mecanismo genérico de control de acceso
 link:../establecer-control-acceso-url/[Establecer Control de Acceso a URL]
-. Se requiere un diseño personalizado para la pantalla de autenticación.
+. Se requiere un diseño personalizado para la pantalla de autenticacion.
 . Se conoce cómo trabajar con +servlets+.
 
 == Solución

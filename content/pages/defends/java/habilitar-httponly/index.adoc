@@ -1,6 +1,6 @@
 :slug: defends/java/habilitar-httponly/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java EE al generar cookies con HTTPOnly. Las cookies deben ser aseguradas debido a que contienen información que puede ser usada por un atacante para suplantar la identidad de un usuario.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java EE al generar cookies con HTTPOnly. Las cookies deben ser aseguradas debido a que contienen información que puede ser usada por un atacante para suplantar la identidad de un usuario.
 :keywords: Java, Cookies, HTTPOnly, Seguridad, Apache, Glassfish.
 :defends: yes
 

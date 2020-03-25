@@ -1,6 +1,6 @@
 :slug: defends/cobol/generar-numeros-aleatorios/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al generar números aleatorias. Los números aleatorios son muy utilizados en aplicaciones criptográficas y contribuyen a mejorar la seguridad general de la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al generar números aleatorias. Los números aleatorios son muy utilizados en aplicaciones criptográficas y contribuyen a mejorar la seguridad general de la aplicacion.
 :keywords: Cobol, Seguridad, Generar, Números, Aleatorios, Semilla.
 :defends: yes
 

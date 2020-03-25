@@ -1,6 +1,6 @@
 :slug: rules/235/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que toda aplicación o sistema cuente con una interfaz de usuario independiente para el ingreso de credenciales.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de usuarios. En este caso, se recomienda que toda aplicación o sistema cuente con una interfaz de usuario independiente para el ingreso de credenciales.
 :keywords: Autenticación, Interfaz, Credenciales, Seguridad, Usuarios, Requerimiento.
 :rules: yes
 

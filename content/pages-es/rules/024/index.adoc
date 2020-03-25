@@ -1,6 +1,6 @@
 :slug: rules/024/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la implementación de variables de sesión, detallando los beneficios que ofrecen como alternativa para transmitir y recuperar información en un sitio web o sistema mientras la sesión permanezca activa.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la implementacion de variables de sesión, detallando los beneficios que ofrecen como alternativa para transmitir y recuperar información en un sitio web o sistema mientras la sesión permanezca activa.
 :keywords: Requerimiento, Seguridad, Sesión de usuario, Variables de sesión, Objetos de sesión, Transferir información.
 :rules: yes
 

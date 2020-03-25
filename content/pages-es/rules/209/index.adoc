@@ -1,6 +1,6 @@
 :slug: rules/209/
 :category: rules
-:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la gestión de contraseñas. Por lo tanto, aplicaciones que se autentiquen fuera de línea, sólo deben almacenar una contraseña en el caché de autenticación.
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la gestion de contraseñas. Por lo tanto, aplicaciones que se autentiquen fuera de línea, sólo deben almacenar una contraseña en el caché de autenticación.
 :keywords: Dispositivo móvil, Aplicación, Contraseña, Caché, Autenticación, Requerimiento.
 :rules: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/java/establecer-control-acceso-url/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer un control de acceso a URL. El control de acceso consta de un conjunto de reglas que definen la disponibilidad de los recursos para los usuarios de la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer un control de acceso a URL. El control de acceso consta de un conjunto de reglas que definen la disponibilidad de los recursos para los usuarios de la aplicación.
 :keywords: Java, Seguridad, Control, Acceso, URL, Buenas prácticas.
 :defends: yes
 

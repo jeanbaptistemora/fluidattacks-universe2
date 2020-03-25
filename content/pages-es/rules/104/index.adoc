@@ -1,6 +1,6 @@
 :slug: rules/104/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que toda organización exija a sus operarios que manipulen activos de información físicos estar uniformados.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, se recomienda que toda organización exija a sus operarios que manipulen activos de información físicos estar uniformados.
 :keywords: Uniforme, Información, Organización, Activos, Manipulación, Operario.
 :rules: yes
 

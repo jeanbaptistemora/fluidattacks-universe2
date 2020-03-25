@@ -1,6 +1,6 @@
 :slug: defends/rpg/liberar-recursos/
 :category: rpg
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la liberación correcta de recursos dentro de un programa desarrollado en RPG, evitando así que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la liberación correcta de recursos dentro de un programa desarrollado en RPG, evitando así que información disponible en memoria pueda ser capturada por usuarios no autorizados.
 :keywords: RPG, Recursos, Memoria, Liberar, Seguridad, Tiempo De Vida.
 :defends: yes
 

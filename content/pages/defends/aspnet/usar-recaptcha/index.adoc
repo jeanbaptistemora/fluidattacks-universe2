@@ -1,6 +1,6 @@
 :slug: defends/aspnet/usar-recaptcha/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al implementar sistemas de recaptcha. Para mejorar la seguridad en la aplicación es recomendable restringir el uso de la misma únicamente a humanos mediante el uso de CAPTCHAS.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al implementar sistemas de recaptcha. Para mejorar la seguridad en la aplicación es recomendable restringir el uso de la misma únicamente a humanos mediante el uso de CAPTCHAS.
 :keywords: ASP.NET, Recaptcha, Validación, Seguridad, Bots, Humanos.
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/aspnet/registrar-eventos-bitacoras/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al registrar eventos excepcionales en bitácoras. Los registros de eventos permiten mejorar la trazabilidad de errores en caso de presentarse eventos de seguridad.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al registrar eventos excepcionales en bitácoras. Los registros de eventos permiten mejorar la trazabilidad de errores en caso de presentarse eventos de seguridad.
 :keywords: ASP.NET, Seguridad, Eventos, Registro, Bitácoras, Logs
 :defends: yes
 

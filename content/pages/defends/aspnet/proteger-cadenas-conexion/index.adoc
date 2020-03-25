@@ -1,6 +1,6 @@
 :slug: defends/aspnet/proteger-cadenas-conexion/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de cadenas de conexión en ASP.NET. Las cadenas de conexión contienen información crítica en una aplicación web, por lo que deben estar bien protegidas en todo momento.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de cadenas de conexión en ASP.NET. Las cadenas de conexión contienen información crítica en una aplicación web, por lo que deben estar bien protegidas en todo momento.
 :keywords: ASP.NET, Seguridad, Configuración, Cadenas de conexión, Cifrar, RSA.
 :defends: yes
 

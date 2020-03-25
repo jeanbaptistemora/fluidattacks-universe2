@@ -1,6 +1,6 @@
 :slug: defends/java/generar-id-aleatorio/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al generar números aleatorios como identificadores. Los números aleatorios seguros deben tener un valor semilla no predecible, ésto se logra con la clase SecureRandom.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al generar números aleatorios como identificadores. Los números aleatorios seguros deben tener un valor semilla no predecible, ésto se logra con la clase SecureRandom.
 :keywords: Java, Seguridad, Número, Aleatorio, Identificador, Buenas prácticas.
 :defends: yes
 

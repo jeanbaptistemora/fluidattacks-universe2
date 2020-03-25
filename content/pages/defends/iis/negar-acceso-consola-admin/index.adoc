@@ -1,6 +1,6 @@
 :slug: defends/iis/negar-acceso-consola-admin/
 :category: iis
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en IIS 7.5 al negar acceso a la consola de administración. Las configuraciones del servidor no deben ser visualizadas ni accedidas por usuarios no autorizados.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en IIS 7.5 al negar acceso a la consola de administración. Las configuraciones del servidor no deben ser visualizadas ni accedidas por usuarios no autorizados.
 :keywords: IIS 7.5, Consola, Administración, Acceso, Configuración, Dirección IP
 :defends: yes
 

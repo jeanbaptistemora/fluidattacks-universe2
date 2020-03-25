@@ -1,6 +1,6 @@
 :slug: defends/web/manejar-sesion-usuario/
 :category: web
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura de aplicaciones web al configurar adecuadamente las sesiones de usuario. Una configuración de sesión inadecuada puede conllevar a robos de credenciales y ataques malintencionados.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura de aplicaciones web al configurar adecuadamente las sesiones de usuario. Una configuración de sesión inadecuada puede conllevar a robos de credenciales y ataques malintencionados.
 :keywords: Web, Sesión, Segura, Usuario, Cookies, Información
 :defends: yes
 

@@ -1,6 +1,6 @@
 :slug: defends/java/limitar-vida-recurso/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa Java, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa Java, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
 :keywords: Java, Datos sensibles, Datos confidenciales, Lectura segura, Memoria, Tiempo de vida.
 :defends: yes
 

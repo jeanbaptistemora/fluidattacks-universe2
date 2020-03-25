@@ -1,6 +1,6 @@
 :slug: defends/suse/eliminar-metadatos/
 :category: suse
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Suse 11.3 al remover los metadatos presentes en los archivos. Se recomienda realizar esto para evitar la filtración de información sensible al momento de subir los archivos a Internet.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Suse 11.3 al remover los metadatos presentes en los archivos. Se recomienda realizar esto para evitar la filtración de información sensible al momento de subir los archivos a Internet.
 :keywords: Suse 11.3, Remover, Metadatos, Imágenes, PDF, Linux.
 :defends: yes
 

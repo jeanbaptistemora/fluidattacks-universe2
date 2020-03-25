@@ -1,6 +1,6 @@
 :slug: defends/java/generar-cadena-segura/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al generar cadenas aleatorios de manera segura. Es importante que al momento de generar valores aleatorios éstos no puedan replicarse fácilmente para evitar brechas de seguridad.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al generar cadenas aleatorios de manera segura. Es importante que al momento de generar valores aleatorios éstos no puedan replicarse fácilmente para evitar brechas de seguridad.
 :keywords: Java, Seguridad, Generar, Número, Cadena, Aleatorio.
 :defends: yes
 

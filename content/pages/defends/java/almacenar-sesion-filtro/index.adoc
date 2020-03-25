@@ -1,6 +1,6 @@
 :slug: defends/java/almacenar-sesion-filtro/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al almacenar el estado de sesión utilizando filtros. Las sesiones son frecuentemente utilizadas ya que permiten guardar información accesible en diferentes páginas web.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al almacenar el estado de sesión utilizando filtros. Las sesiones son frecuentemente utilizadas ya que permiten guardar información accesible en diferentes páginas web.
 :keywords: Java, Seguridad, Estado, Sesión, Estándar empresarial, Filtro.
 :defends: yes
 

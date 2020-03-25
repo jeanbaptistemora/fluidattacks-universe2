@@ -1,6 +1,6 @@
 :slug: defends/python/ofuscar-codigo-fuente/
 :category: python
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Phyton al ocultar el código fuente. La ofuscación del código dificulta que los atacantes puedan encontrar y explotar vulnerabilidades basándose en el funcionamiento de la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Phyton al ocultar el código fuente. La ofuscación del código dificulta que los atacantes puedan encontrar y explotar vulnerabilidades basándose en el funcionamiento de la aplicación.
 :keywords: Python, Ofuscar, Código, Seguridad, Buenas Prácticas, Ocultar.
 :defends: yes
 

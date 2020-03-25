@@ -1,6 +1,6 @@
 :slug: defends/java/evitar-codigo-duplicado/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al evitar código duplicado. El código duplicado agrega complejidad innecesaria y representa una fuente potencial de riesgos a la seguridad de la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al evitar código duplicado. El código duplicado agrega complejidad innecesaria y representa una fuente potencial de riesgos a la seguridad de la aplicación.
 :keywords: Java, Seguridad, Evitar, Código, Duplicado, Buenas Prácticas.
 :defends: yes
 

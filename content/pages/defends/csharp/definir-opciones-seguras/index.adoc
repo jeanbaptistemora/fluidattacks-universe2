@@ -1,6 +1,6 @@
 :slug: defends/csharp/definir-opciones-seguras/
 :category: csharp
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al definir opciones seguras en estructuras condicionales. Esto mejora la seguridad de la aplicación al contemplar todos los escenarios posibles, en un ambiente controlado.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al definir opciones seguras en estructuras condicionales. Esto mejora la seguridad de la aplicación al contemplar todos los escenarios posibles, en un ambiente controlado.
 :keywords: C Sharp, Opciones, Seguras, Condicionales, Seguridad, Default
 :defends: yes
 

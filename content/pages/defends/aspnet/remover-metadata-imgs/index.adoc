@@ -1,6 +1,6 @@
 :slug: defends/aspnet/remover-metadata-imgs/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al remover los metadatos de las imágenes. Los metadatos pueden contener información sensible, por lo que es altamente recomendable eliminarlos.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al remover los metadatos de las imágenes. Los metadatos pueden contener información sensible, por lo que es altamente recomendable eliminarlos.
 :keywords: ASP.NET, Remover, Metadatos, Imágenes, Seguridad, Información Sensible.
 :defends: yes
 

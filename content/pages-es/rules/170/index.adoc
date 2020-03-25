@@ -1,6 +1,6 @@
 :slug: rules/170/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la implementación de variables dentro del código fuente, evitando posibles ataques por un mal funcionamiento o respuesta de la aplicación al contar con variables que no tengan asignado un tipo de dato en específico.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la implementacion de variables dentro del codigo fuente, evitando posibles ataques por un mal funcionamiento o respuesta de la aplicacion al contar con variables que no tengan asignado un tipo de dato en especifico.
 :keywords: Requerimiento, Seguridad, Código Fuente, Variables, Tipo de dato, Vulnerabilidad.
 :rules: yes
 

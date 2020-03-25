@@ -1,6 +1,6 @@
 :slug: defends/java/compilar-estrictamente/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al compilar de forma estricta. Los mensajes de compilación pueden contener información que permita a un atacante la identificación y explotación de vulnerabilidades en la aplicación.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al compilar de forma estricta. Los mensajes de compilacion pueden contener informacion que permita a un atacante la identificacion y explotacion de vulnerabilidades en la aplicacion.
 :keywords: Java, Seguridad, Buenas Prácticas, Compilación, Estricta, Código.
 :defends: yes
 

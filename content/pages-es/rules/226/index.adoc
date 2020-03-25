@@ -1,6 +1,6 @@
 :slug: rules/226/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de un usuario. En este caso, se recomienda que un sistema nunca bloquee la cuenta de usuario ante varios intentados fallidos de inicio de sesión.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de un usuario. En este caso, se recomienda que un sistema nunca bloquee la cuenta de usuario ante varios intentados fallidos de inicio de sesión.
 :keywords: Sistema, Bloquear, Cuenta Usuario, Autenticación, Intentos, Seguridad.
 :rules: yes
 

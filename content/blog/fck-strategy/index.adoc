@@ -5,7 +5,7 @@
 :tags: business, security, mistake, company
 :image: cover.png
 :alt: Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/Odc4dcsjUBw
-:description: By facing errors, organizations try to deviate public attention; a ‘rational’ response, perhaps. Companies should pay attention to how to handle mistakes (not only in cybersecurity). Moreover, businesses should think about how to leverage from imperfection. A ‘F*CK’ statement provides a lesson.
+:description: By facing errors, organizations try to deviate public attention; a rational response, perhaps. Companies should pay attention to how to handle mistakes (not only in cybersecurity). Moreover, businesses should think about how to leverage from imperfection. A F*CK statement provides a lesson.
 :keywords: Bussiness, Mistakes, Company, Image, Cibersecurity, Pratfall Effect
 :author: Julian Arango
 :writer: jarango

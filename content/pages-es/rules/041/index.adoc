@@ -1,6 +1,6 @@
 :slug: rules/041/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que los archivos transferidos al sistema sean depurados de posibles códigos maliciosos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que los archivos transferidos al sistema sean depurados de posibles códigos maliciosos.
 :keywords: Sistema, Validar, Archivo, Código, Seguridad, Malicioso.
 :rules: yes
 

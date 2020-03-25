@@ -1,6 +1,6 @@
 :slug: defends/rpg/manejar-bitacoras/
 :category: rpg
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en RPG al definir un manejo de bitácoras. Al registrar los eventos excepcionales de las aplicaciones se facilita la labor de realizar seguimiento y detección de anomalías en un sistema.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en RPG al definir un manejo de bitácoras. Al registrar los eventos excepcionales de las aplicaciones se facilita la labor de realizar seguimiento y detección de anomalías en un sistema.
 :keywords: RPG, Bitácoras, Logs, Registro, Eventos, Seguimiento.
 :defends: yes
 
