@@ -168,3 +168,64 @@ class FindingTests(TestCase):
         result = self._get_result(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'CANT_APPROVE_FINDING_WITHOUT_VULNS'
+
+    def test_create_draft(self):
+        """Check for createDraft mutation."""
+        query = '''
+            mutation CreateDraftMutation(
+                $cwe: String,
+                $description: String,
+                $projectName: String!,
+                $recommendation: String,
+                $requirements: String,
+                $risk: String,
+                $threat: String,
+                $title: String!,
+                $type: FindingType
+                ) {
+                createDraft(
+                cwe: $cwe,
+                description: $description,
+                projectName: $projectName,
+                recommendation: $recommendation,
+                requirements: $requirements,
+                risk: $risk,
+                threat: $threat,
+                title: $title,
+                type: $type
+                ) {
+                success
+                }
+            }
+        '''
+        variables = {
+            'cwe': '200',
+            'description': 'This is pytest created draft',
+            'projectName': 'UNITTESTING',
+            'recommendation': 'Solve this finding',
+            'requirements': 'REQ.0001. Apply filters',
+            'risk': 'Losing money',
+            'threat': 'Attacker',
+            'title': 'FIN.S.0001. Very serious vulnerability',
+            'type': 'SECURITY'
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['createDraft']
+        assert result['data']['createDraft']['success']
+
+    def test_submit_draft(self):
+        """Check for submitDraft mutation."""
+        query = '''
+          mutation {
+            submitDraft(findingId: "475041535") {
+              success
+            }
+          }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' in result
+        expected_error = 'Exception - This draft has missing fields: vulnerabilities'
+        assert result['errors'][0]['message'] == expected_error

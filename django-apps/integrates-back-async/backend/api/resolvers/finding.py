@@ -4,8 +4,8 @@ import rollbar
 from graphql import GraphQLError
 
 from backend.decorators import (
-    enforce_authz_async, require_login,
-    require_finding_access
+    enforce_authz_async, require_login, require_finding_access,
+    require_project_access
 )
 from backend.domain import (
     finding as finding_domain, project as project_domain,
@@ -198,3 +198,33 @@ def resolve_approve_draft(_, info, draft_id):
         util.cloudwatch_log(info.context, 'Security: Attempted to approve \
             draft in {project} project'.format(project=project_name))
     return dict(release_date=release_date, success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_create_draft(_, info, project_name, title, **kwargs):
+    """Resolve create_draft mutation."""
+    success = finding_domain.create_draft(
+        info, project_name, title, **kwargs)
+    if success:
+        util.cloudwatch_log(info.context, 'Security: Created draft in '
+                            '{} project succesfully'.format(project_name))
+    return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_finding_access
+def resolve_submit_draft(_, info, finding_id):
+    """Resolve submit_draft mutation."""
+    analyst_email = util.get_jwt_content(info.context)['user_email']
+    success = finding_domain.submit_draft(finding_id, analyst_email)
+
+    if success:
+        util.invalidate_cache(finding_id)
+        util.cloudwatch_log(info.context, 'Security: Submitted draft '
+                            '{} succesfully'.format(finding_id))
+    return dict(success=success)
