@@ -4,10 +4,10 @@
 :nextpage: use-cases/continuous/mock-attacks/
 :template: continuous-feature
 
-= Vulnerabilities Management Platform
+= Vulnerability Management Platform
 
-*Fixes* is the communication, monitoring and reporting platform for projects.
-You can use it to access general information about each finding,
-check its remediation status, classify it according to age,
-visualize real-time project statistics and progress, as well as other
-functionalities.
+*Integrates* is the project communication, monitoring, and reporting platform.
+It can be used to access general data on each finding.
+It also allows you to check their remediation status and classify them by age.
+In addition, it displays stats and project progress in real-time,
+among other things.

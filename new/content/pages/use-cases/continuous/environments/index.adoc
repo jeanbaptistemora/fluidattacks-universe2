@@ -6,9 +6,8 @@
 
 = Severity and Testing Environments
 
-You are able to decide which security requirements will be tested on each
-ethical hacking (profiling) through Rules. You will know the exact severity for
-each hacking (for inspected and uninspected profiled requirements).
-Basic service allows you to choose a single environment from production,
-testing or integration. You can also add additional testing environments
-for validation at an additional charge.
+You can decide through Rules which security requirements will be tested.
+You can know the exact severity of each hacking
+(for inspected and uninspected profiled requirements).
+Basic service allows you to choose a single production, testing, or integration
+environment. You can also add another one for validation at an extra charge.

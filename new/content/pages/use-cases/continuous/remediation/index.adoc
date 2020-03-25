@@ -6,10 +6,9 @@
 
 = Remediation
 
-Multiple finding validation cycles are performed during the subscription period.
-You can check if any findings have been successfully closed as many times as you
-require. In order to perform this remediation validation,
-you must first define the treatment used to remediate the vulnerability
-and then request, through *Fixes*, a finding validation.
-You can request clarification on any issue by directly contacting
-Fluid Attacks’ hackers also through *Fixes*.
+Multiple finding validation cycles are done during the subscription period.
+You can check at any time if any of the findings have been closed.
+To perform remediation validation: First, you must define the treatment used to
+remediate the vulnerability. Then, you must request, through Integrates,
+a finding validation. You can always solve any doubt by contacting
+Fluid Attacks directly.

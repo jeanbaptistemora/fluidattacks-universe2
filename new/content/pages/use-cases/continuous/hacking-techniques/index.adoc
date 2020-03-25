@@ -6,12 +6,10 @@
 
 = Hacking Techniques, Team, Duration and Cycles
 
-Integral continuous hacking, performed with manual testing and use of tools,
-is achieved through ethical hacking of applications and infrastructure,
-along with source code analysis. Fluid Attacks detects Zero Day findings with no
-false positive reports.
-To perform the testing, Fluid Attacks, with its certified security experts,
-requires access to the GIT repository and the integration environment.
-The minimum subscription time for continuous hacking is one year,
-and the selected system is attacked multiple times to test all versions
-generated during the development phase.
+Continuous hacking means automatic and manual testing.
+It is done through the ethical hacking of the apps, the infrastructure,
+and the source code.
+*Fluid Attacks* makes Zero-Day findings and does not report false positives.
+The testing needs access to the *GIT* repository and the
+integration environment. The selected system is attacked again and again
+to test all the versions created before.

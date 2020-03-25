@@ -6,6 +6,7 @@
 
 = Mock Attacks Reproduction
 
-Fluid Attacks can reproduce mock attacks with *Forces*, which breaks the build
-and forces remediation by the development team of confirmed deep
-vulnerabilities, re-opened vulnerabilities, and new peripheral vulnerabilities.
+*Fluid Attacks* can play mock attacks with *Forces*.
+*Forces* breaks the build and calls for the remediation of the known deep,
+the re-opened, and the new peripheral vulnerabilities.
+That call to action is for the development team.
