@@ -132,6 +132,16 @@ function job_test_generic {
   local error_metadata_lowercase='All metadata must be lowercase'
   local regex_no_monospace_header='^=+ \+.+\+.*'
   local error_no_monospace_header='Headers must not have monospaces'
+  local regex_description_char_range='(?<=^:description: )(.{0,249}|.{301,})$'
+  local error_description_char_range='Descriptions must be in the 250-300 character range'
+  local regex_local_relative_paths='link:http(s)?://fluidattacks.com/web'
+  local error_local_relative_paths='Local URLs must use relative paths'
+  local regex_only_autonomic_com='autonomicmind.co(?!m)'
+  local error_only_autonomic_com='Use autonomicmind.com instead of autonomicmind.co'
+  local regex_caption_forbidden_titles='^\.(image|table|figure) \d+'
+  local error_caption_forbidden_titles='Captions must not contain "image", "table" or "figure"'
+  local regex_only_local_images='image::?https?://.*$'
+  local error_only_local_images='Only local images allowed'
 
       all_content_files="$(find content/ -type f)" \
   &&  all_adoc_files="$(find content/ -type f -name '*.adoc')" \
@@ -202,6 +212,26 @@ function job_test_generic {
               "${path}" \
               "${regex_no_monospace_header}" \
               "${error_no_monospace_header}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_description_char_range}" \
+              "${error_description_char_range}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_local_relative_paths}" \
+              "${error_local_relative_paths}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_only_autonomic_com}" \
+              "${error_only_autonomic_com}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_caption_forbidden_titles}" \
+              "${error_caption_forbidden_titles}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_only_local_images}" \
+              "${error_only_local_images}" \
         ||  return 1
       done
 }

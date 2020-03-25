@@ -399,7 +399,7 @@ function helper_generic_adoc_normalized_regex {
 
       helper_file_exists "${file}" \
   &&  normalized_file="$(helper_generic_adoc_content "${file}")" \
-  &&  if ! echo "${normalized_file}" | pcregrep -M "${regex}"
+  &&  if ! echo "${normalized_file}" | pcregrep -MH "${regex}"
       then
         return 0
       else
@@ -414,7 +414,7 @@ function helper_generic_adoc_direct_regex {
   local error="${3}"
 
       helper_file_exists "${file}" \
-  &&  if ! pcregrep -M "${regex}" "${file}"
+  &&  if ! pcregrep -MH "${regex}" "${file}"
       then
         return 0
       else
