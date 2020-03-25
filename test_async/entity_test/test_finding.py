@@ -8,6 +8,7 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
+from graphql import GraphQLError
 from jose import jwt
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
@@ -138,7 +139,7 @@ class FindingTests(TestCase):
         assert result['data']['rejectDraft']
 
     def test_delete_finding(self):
-        """Check for rejectDraft mutation."""
+        """Check for deleteFinding mutation."""
         query = '''
           mutation {
             deleteFinding(findingId: "560175507", justification: NOT_REQUIRED) {
@@ -153,3 +154,17 @@ class FindingTests(TestCase):
         assert result['data']['deleteFinding']['success']
         with pytest.raises(FindingNotFound):
             assert get_finding('560175507')
+
+    def test_approve_draft(self):
+        """Check for approveDraft mutation."""
+        query = '''
+          mutation {
+            approveDraft(draftId: "836530833") {
+              success
+            }
+          }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == 'CANT_APPROVE_FINDING_WITHOUT_VULNS'

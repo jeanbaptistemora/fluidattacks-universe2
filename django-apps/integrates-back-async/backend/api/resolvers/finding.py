@@ -8,7 +8,8 @@ from backend.decorators import (
     require_finding_access
 )
 from backend.domain import (
-    finding as finding_domain, project as project_domain
+    finding as finding_domain, project as project_domain,
+    vulnerability as vuln_domain
 )
 from backend import util
 
@@ -172,3 +173,28 @@ def resolve_delete_finding(_, info, finding_id, justification):
             info.context,
             f'Security: Attempted to delete finding: {finding_id}')
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+def resolve_approve_draft(_, info, draft_id):
+    """Resolve approve_draft mutation."""
+    reviewer_email = util.get_jwt_content(info.context)['user_email']
+    project_name = finding_domain.get_finding(draft_id)['projectName']
+
+    has_vulns = [vuln for vuln in vuln_domain.list_vulnerabilities([draft_id])
+                 if vuln['historic_state'][-1].get('state') != 'DELETED']
+    if not has_vulns:
+        raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
+    success, release_date = finding_domain.approve_draft(
+        draft_id, reviewer_email)
+    if success:
+        util.invalidate_cache(draft_id)
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(info.context, 'Security: Approved draft in\
+            {project} project succesfully'.format(project=project_name))
+    else:
+        util.cloudwatch_log(info.context, 'Security: Attempted to approve \
+            draft in {project} project'.format(project=project_name))
+    return dict(release_date=release_date, success=success)
