@@ -868,3 +868,9 @@ def test_is_content_disposition_present_closed():
         f'{BASE_URL}/content_disposition/ok/2').is_closed()
     assert http.is_content_disposition_present(
         f'{BASE_URL}/content_disposition/ok/3').is_closed()
+
+
+def test_leaks_cross_origin_credentials_closed():
+    """Check leaks_cross_origin_credentials."""
+    assert http.leaks_cross_origin_credentials(
+        f'{BASE_URL}/access_control_allow_credentials/ok/1').is_closed()

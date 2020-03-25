@@ -838,6 +838,24 @@ def content_disposition_fail_2():
     return resp
 
 
+@APP.route('/http/headers/access_control_allow_credentials/fail/1')
+def allow_credential_fail_1():
+    """Access-Control-Allow-Credentials misconfigured."""
+    resp = Response()
+    resp.headers['Access-Control-Allow-Credentials'] = 'true'
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
+@APP.route('/http/headers/acces_control_allow_credentials/ok/1')
+def allow_credential_ok_1():
+    """Access-Control-Allow-Credentials misconfigured."""
+    resp = Response()
+    resp.headers['Access-Control-Allow-Credentials'] = 'true'
+    resp.headers['Access-Control-Allow-Origin'] = 'https.example.com'
+    return resp
+
+
 @APP.route('/http/has_mixed_content/open/1', methods=['GET'])
 def http_mixed_content_open_1():
     """Request handler for /http/has_mixed_content/open/1."""

@@ -554,9 +554,16 @@ def test_has_not_subresource_integrity_open():
     assert http.has_not_subresource_integrity(
         f'{MOCK_SERVICE}/http/sri/open/2').is_open()
 
+
 def test_is_content_disposition_present_open():
     """Check is_content_disposition_present"""
     assert http.is_content_disposition_present(
         f'{BASE_URL}/content_disposition/fail/1').is_open()
     assert http.is_content_disposition_present(
         f'{BASE_URL}/content_disposition/fail/2').is_open()
+
+
+def test_leaks_cross_origin_credentials_open():
+    """Check leaks_cross_origin_credentials."""
+    assert http.leaks_cross_origin_credentials(
+        f'{BASE_URL}/access_control_allow_credentials/fail/1').is_open()

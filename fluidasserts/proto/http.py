@@ -570,6 +570,41 @@ def has_not_text(url: str, expected_text: str, *args, **kwargs) -> tuple:
     return _generic_has_not_text(url, expected_text, *args, **kwargs)
 
 
+@api(risk=LOW, kind=DAST)
+def leaks_cross_origin_credentials(url: str, *args, **kwargs) -> tuple:
+    r"""
+    Check if header Access-Control-Allow-Credentials is misconfigured.
+
+    When responding to a credentialed request, the server must specify an
+    origin in the value of the Access-Control-Allow-Origin header, instead of
+    specifying the "*" wildcard. Since the competent credential content is
+    returned to the invoking web content.
+
+    :param url: URL to test.
+    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    header = 'Access-Control-Allow-Credentials'
+    header_origin = 'Access-Control-Allow-Origin'
+    session = http.HTTPSession(url, *args, **kwargs)
+    session.set_messages(
+        source=f'HTTP/Response/Headers/{header}',
+        msg_open=f'The header {header} is incorrectly configured',
+        msg_closed=f'The header {header} is configured correctly')
+    if _caseless_key_in_dict(
+            header, session.response.headers) and _caseless_key_in_dict(
+                header_origin, session.response.headers):
+        _, h_credentials = _caseless_indexing(header, session.response.headers)
+        _, h_origin = _caseless_indexing(header_origin,
+                                         session.response.headers)
+
+        vulnerable = h_credentials == 'true' and h_origin == '*'
+        session.add_unit(is_vulnerable=vulnerable)
+
+    return session.get_tuple_result()
+
+
 @api(risk=LOW,
      kind=DAST,
      references=[
