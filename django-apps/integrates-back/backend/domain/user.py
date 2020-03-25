@@ -28,6 +28,10 @@ def get_group_level_role(email: str, group: str) -> str:
     # level, subject, object, role
     rule = ['group', email, group]
 
+    # Admins are granted access to all groups
+    if get_user_level_role(email) == 'admin':
+        return 'admin'
+
     # List of List[level, subject, object, role]
     matching_rules: List[List[str]] = \
         settings.CASBIN_ADAPTER.get_rules('p', 'p', rule)
@@ -37,7 +41,7 @@ def get_group_level_role(email: str, group: str) -> str:
     return str()
 
 
-def grant_user_level_role(email: str, role: str) -> bool:
+def grant_user_level_role(email: str, role: str, reload: bool = True) -> bool:
     if role not in VALID_ROLES:
         return False
 
@@ -53,13 +57,14 @@ def grant_user_level_role(email: str, role: str) -> bool:
     settings.CASBIN_ADAPTER.add_policy('p', 'p', rule)
 
     # Reload config
-    settings.ENFORCER_USER_LEVEL.load_policy()
-    settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
+    if reload:
+        settings.ENFORCER_USER_LEVEL.load_policy()
+        settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
 
     return True
 
 
-def grant_group_level_role(email: str, group: str, role: str) -> bool:
+def grant_group_level_role(email: str, group: str, role: str, reload: bool = True) -> bool:
     if role not in VALID_ROLES:
         return False
 
@@ -75,8 +80,9 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
     settings.CASBIN_ADAPTER.add_policy('p', 'p', rule)
 
     # Reload config
-    settings.ENFORCER_GROUP_LEVEL.load_policy()
-    settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
+    if reload:
+        settings.ENFORCER_GROUP_LEVEL.load_policy()
+        settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
 
     return True
 

@@ -13,7 +13,7 @@ from __init__ import (
 
 
 RESOURCE_OPTIONS = {}
-if FI_ENVIRONMENT == 'development':
+if FI_ENVIRONMENT == 'development' and FI_DYNAMODB_HOST:
     ENDPOINT_URL = 'http://{}:{}'.format(FI_DYNAMODB_HOST, FI_DYNAMODB_PORT)
     RESOURCE_OPTIONS = {
         'service_name': 'dynamodb',

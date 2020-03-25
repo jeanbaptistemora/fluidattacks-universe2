@@ -469,12 +469,14 @@ ENFORCER_PROJECT_ACCESS = casbin.Enforcer(
 
 ENFORCER_GROUP_LEVEL = casbin.Enforcer(
     model=os.path.join(BASE_DIR, 'authorization', 'group_level.conf'),
-    enable_log=False
+    adapter=CASBIN_ADAPTER,
+    enable_log=False,
 )
 
 ENFORCER_GROUP_LEVEL_ASYNC = casbin.Enforcer(
     model=os.path.join(BASE_DIR, 'authorization', 'group_level_async.conf'),
-    enable_log=False
+    adapter=CASBIN_ADAPTER,
+    enable_log=False,
 )
 
 ENFORCER_USER_LEVEL = casbin.Enforcer(
@@ -488,3 +490,8 @@ ENFORCER_USER_LEVEL_ASYNC = casbin.Enforcer(
     adapter=CASBIN_ADAPTER,
     enable_log=False,
 )
+
+ENFORCER_GROUP_LEVEL.enable_auto_save(False)
+ENFORCER_GROUP_LEVEL_ASYNC.enable_auto_save(False)
+ENFORCER_USER_LEVEL.enable_auto_save(False)
+ENFORCER_USER_LEVEL_ASYNC.enable_auto_save(False)

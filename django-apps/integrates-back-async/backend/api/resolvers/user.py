@@ -380,7 +380,7 @@ def resolve_edit_user(_, info, **query_args):
     else:
         util.cloudwatch_log(
             info.context,
-            'Security: Attempted to modify user \
+            f'Security: Attempted to modify user \
             data:{query_args.get("email")} in {project_name} project')
     return dict(
         success=success,

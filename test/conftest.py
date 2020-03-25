@@ -10,8 +10,18 @@ import boto3
 from boto3.dynamodb.conditions import Key
 
 from backend.dal import finding
+from backend import util
 
 logging.config.dictConfig(settings.LOGGING)
+
+
+@pytest.fixture(autouse=True, scope='session')
+def load_enforcers():
+    """Load policies from DB into the enforcers."""
+    util._temporal_keep_auth_table_fresh(settings.ENFORCER_GROUP_LEVEL_ASYNC)
+    util._temporal_keep_auth_table_fresh(settings.ENFORCER_GROUP_LEVEL)
+    util._temporal_keep_auth_table_fresh(settings.ENFORCER_USER_LEVEL_ASYNC)
+    util._temporal_keep_auth_table_fresh(settings.ENFORCER_USER_LEVEL)
 
 
 @pytest.fixture(autouse=True)

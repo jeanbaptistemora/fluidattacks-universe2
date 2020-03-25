@@ -2,12 +2,14 @@
 """ FluidIntegrates auxiliar functions. """
 
 import collections
+import contextlib
 from datetime import datetime, timedelta, timezone
 import binascii
 import logging
 import logging.config
 import re
 import secrets
+import threading
 from typing import Dict, List, cast
 import pytz
 import rollbar
@@ -24,8 +26,10 @@ from django.core.files.uploadedfile import (
 )
 from django.core.cache import cache
 from jose import jwt, JWTError
+from rediscluster.nodemanager import RedisClusterException
 
 from backend.dal.helpers import dynamodb
+from backend.domain import user as user_domain
 from backend.exceptions import (InvalidAuthorization, InvalidDate,
                                 InvalidDateFormat)
 from backend.typing import Finding as FindingType, User as UserType
@@ -467,15 +471,15 @@ def temporal_yield_users():
 
     result = table.scan()
     yield from result['Items']
-    while result.get('LastEvaluatedKey'):
+
+    while 'LastEvaluatedKey' in result:
         result = table.scan(ExclusiveStartKey=result['LastEvaluatedKey'])
         yield from result['Items']
 
 
-def temporal_keep_auth_table_fresh():
-    # Function to keep data fresh until I make data get
-    # inserted directly into the authorization table (200 deltas)
-    adapter = getattr(settings, 'CASBIN_ADAPTER')
+def _temporal_keep_auth_table_fresh(enforcer):
+    # pylint: disable=import-outside-toplevel
+    from backend.services import is_customeradmin
 
     for user in temporal_yield_users():
         if 'role' not in user:
@@ -487,9 +491,40 @@ def temporal_keep_auth_table_fresh():
         if user_role == 'customeradmin':
             user_role = 'customer'
 
-        adapter.add_policy('p', 'p', [
-            # level, subject, object, role
-            'user', user_email, 'self', user_role
-        ])
+        user_domain.grant_user_level_role(
+            user_email, user_role, reload=False)
 
-    adapter.deduplicate_policies()
+        if user_role != 'admin':
+            user_groups = \
+                user_domain.get_projects(user_email, active=True) \
+                + user_domain.get_projects(user_email, active=False)
+
+            for group in user_groups:
+                group_role = user_role
+                if is_customeradmin(group, user_email):
+                    group_role = 'customeradmin'
+
+                user_domain.grant_group_level_role(
+                    user_email, group, group_role, reload=False)
+
+    enforcer.load_policy()
+
+
+def temporal_keep_auth_table_fresh(enforcer, enforcer_name):
+    # Function to keep data fresh until I make data get
+    # inserted directly into the authorization table
+    cache_key: str = f'authorization.is_data_fresh.{enforcer_name}'
+
+    is_data_fresh: bool = True
+    with contextlib.suppress(RedisClusterException):
+        is_data_fresh = cache.get(cache_key)
+
+    if is_data_fresh:
+        return
+
+    cache.set(cache_key, True, timeout=3600)
+
+    thread = threading.Thread(
+        target=_temporal_keep_auth_table_fresh,
+        args=(enforcer,))
+    thread.start()
