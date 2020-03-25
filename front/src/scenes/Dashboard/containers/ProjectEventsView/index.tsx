@@ -13,7 +13,7 @@ import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "rea
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Field, FormSection, formValueSelector, InjectedFormProps } from "redux-form";
+import { Field, FormSection, formValueSelector, InjectedFormProps, Validator } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
@@ -28,7 +28,8 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import {
-  dateTimeBeforeToday, numeric, required, someRequired, validDatetime, validEventFile, validEvidenceImage,
+  dateTimeBeforeToday, isValidFileSize, numeric, required, someRequired, validDatetime, validEventFile,
+  validEvidenceImage,
 } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
@@ -181,6 +182,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
 
   const selector: (state: {}, ...field: string[]) => string = formValueSelector("newEvent");
   const eventType: string = useSelector((state: {}) => selector(state, "eventType"));
+
+  const maxFileSize: Validator = isValidFileSize(10);
 
   return (
     <Query
@@ -540,7 +543,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       component={fileInputField}
                                       id="image"
                                       name="image"
-                                      validate={validEvidenceImage}
+                                      validate={[validEvidenceImage, maxFileSize]}
                                     />
                                   </FormGroup>
                                 </Col>
@@ -552,7 +555,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       component={fileInputField}
                                       id="file"
                                       name="file"
-                                      validate={validEventFile}
+                                      validate={[validEventFile, maxFileSize]}
                                     />
                                   </FormGroup>
                                 </Col>

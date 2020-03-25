@@ -11,14 +11,14 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
-import { InjectedFormProps } from "redux-form";
+import { InjectedFormProps, Validator } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { validEventFile, validEvidenceImage } from "../../../../utils/validations";
+import { isValidFileSize, validEventFile, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import { EvidenceLightbox } from "../../components/EvidenceLightbox";
 import { GenericForm } from "../../components/GenericForm";
@@ -44,9 +44,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
   const [lightboxIndex, setLightboxIndex] = React.useState(-1);
-  const openImage: (() => void) = (): void => {
-    if (!isEditing) { setLightboxIndex(0); }
-  };
 
   // GraphQL operations
   const { data, networkStatus, refetch } = useQuery(GET_EVENT_EVIDENCES, {
@@ -62,7 +59,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     },
   });
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
-  const [updateEvidence, { loading: updating }] = useMutation(UPDATE_EVIDENCE_MUTATION, {
+  const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
@@ -85,6 +82,10 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
+  const openImage: (() => void) = (): void => {
+    if (!isEditing && !isRefetching) { setLightboxIndex(0); }
+  };
+
   const handleDownload: (() => void) = (): void => {
     if (!isEditing) {
       downloadEvidence({ variables: { eventId, fileName: data.event.evidenceFile } })
@@ -104,7 +105,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       .catch();
   };
 
-  const handleUpdate: ((values: {}) => void) = (values: {}): void => {
+  const handleUpdate: ((values: {}) => void) = async (values: {}): Promise<void> => {
     setEditing(false);
 
     const updateChanges: ((evidence: { file?: FileList }, key: string) => Promise<void>) = async (
@@ -116,16 +117,15 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       }
     };
 
-    Promise.all(_.map(values, updateChanges))
-      .then(() => {
-        refetch()
-          .catch();
-      })
-      .catch();
+    await Promise.all(_.map(values, updateChanges));
+    setLightboxIndex(-1);
+    await refetch();
   };
 
   const canEdit: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "CLOSED";
   const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
+
+  const maxFileSize: Validator = isValidFileSize(10);
 
   return (
     <React.StrictMode>
@@ -133,7 +133,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
         <Row>
           <Col md={2} mdOffset={10} xs={12} sm={12}>
             {canEdit ? (
-              <Button block={true} onClick={handleEditClick} disabled={updating}>
+              <Button block={true} onClick={handleEditClick}>
                 <FluidIcon icon="edit" />&nbsp;{translate.t("project.events.evidence.edit")}
               </Button>
             ) : undefined}
@@ -169,7 +169,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   name="image"
                   onClick={openImage}
                   onDelete={removeImage}
-                  validate={validEvidenceImage}
+                  validate={[validEvidenceImage, maxFileSize]}
                 />
               ) : undefined}
               {!_.isEmpty(data.event.evidenceFile) || isEditing ? (
@@ -183,7 +183,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   name="file"
                   onClick={handleDownload}
                   onDelete={removeFile}
-                  validate={validEventFile}
+                  validate={[validEventFile, maxFileSize]}
                 />
               ) : undefined}
             </React.Fragment>

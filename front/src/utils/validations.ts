@@ -208,9 +208,9 @@ export const isValidFileSize: ((maxSize: number) => Validator) = (maxSize: numbe
   (file: FileList): string | undefined => {
     const MIB: number = 1048576;
 
-    return _.isEmpty(file) || file[0].size > MIB * maxSize
-      ? translate.t("validations.file_size", { count: maxSize })
-      : undefined;
+    return _.isEmpty(file) || file[0].size < MIB * maxSize
+      ? undefined
+      : translate.t("validations.file_size", { count: maxSize });
   };
 
 export const isValidDate: ((arg1: string) => string | undefined) = (value: string): string | undefined => {
