@@ -120,6 +120,18 @@ function job_test_generic {
   local error_no_start_used='Start attribute must not be used. Use a + sign instead'
   local regex_slug_ends_with_slash='^:slug:.*[a-z0-9-]$'
   local error_slug_ends_with_slash=':slug: tag must end with a slash /'
+  local regex_image_alt_name='^image::.+\[\]'
+  local error_image_alt_name='Images must have an alt description'
+  local regex_title_no_double_quotes='^={1,6} .*"'
+  local error_title_no_double_quoutes='Do not use double quotes (") in titles'
+  local regex_separate_code_from_paragraph='^[a-zA-Z0-9]+\n.*\[source'
+  local error_separate_code_from_paragraph='Source code must be separated from a paragraph using a + sign'
+  local regex_title_length_limit='^= .{60,}'
+  local error_title_length_limit='Title must not exceed 60 characters'
+  local regex_metadata_lowercase='^:[A-Z]:'
+  local error_metadata_lowercase='All metadata must be lowercase'
+  local regex_no_monospace_header='^=+ \+.+\+.*'
+  local error_no_monospace_header='Headers must not have monospaces'
 
       all_content_files="$(find content/ -type f)" \
   &&  all_adoc_files="$(find content/ -type f -name '*.adoc')" \
@@ -137,6 +149,7 @@ function job_test_generic {
         &&  helper_generic_adoc_min_keywords "${path}" \
         &&  helper_generic_adoc_keywords_uppercase "${path}" \
         &&  helper_generic_adoc_fluid_attacks_name "${path}" \
+        &&  helper_generic_adoc_tag_exists "${path}" ':description:' \
         &&  helper_generic_adoc_direct_regex \
               "${path}" \
               "${regex_blank_space_header}" \
@@ -165,6 +178,30 @@ function job_test_generic {
               "${path}" \
               "${regex_slug_ends_with_slash}" \
               "${error_slug_ends_with_slash}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_image_alt_name}" \
+              "${error_image_alt_name}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_title_no_double_quotes}" \
+              "${error_title_no_double_quoutes}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_separate_code_from_paragraph}" \
+              "${error_separate_code_from_paragraph}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_title_length_limit}" \
+              "${error_title_length_limit}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_metadata_lowercase}" \
+              "${error_metadata_lowercase}" \
+        &&  helper_generic_adoc_direct_regex \
+              "${path}" \
+              "${regex_no_monospace_header}" \
+              "${error_no_monospace_header}" \
         ||  return 1
       done
 }

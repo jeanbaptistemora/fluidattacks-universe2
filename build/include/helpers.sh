@@ -308,26 +308,28 @@ function helper_generic_adoc_main_title {
       fi
 }
 
-function helper_generic_adoc_keywords_section_exists {
+function helper_generic_adoc_tag_exists {
   file="${1}"
+  tag="${2}"
 
       helper_file_exists "${file}" \
-  &&  if grep -q ':keywords:' "${file}"
+  &&  if grep -q "${tag}" "${file}"
       then
             return 0
       else
-            echo "[ERROR] ${file} does not have a keywords section." \
+            echo "[ERROR] ${file} does not have a ${tag} tag." \
         &&  return 1
       fi
 }
 
 function helper_generic_adoc_min_keywords {
   local file="${1}"
+  local tag=':keywords:'
   local min_keywords='6'
   local keywords
 
       helper_file_exists "${file}" \
-  &&  helper_generic_adoc_keywords_section_exists "${file}" \
+  &&  helper_generic_adoc_tag_exists "${file}" "${tag}" \
   &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | wc -l)" \
   &&  if [ "${keywords}" -ge "${min_keywords}" ]
       then
@@ -340,11 +342,12 @@ function helper_generic_adoc_min_keywords {
 
 function helper_generic_adoc_keywords_uppercase {
   local file="${1}"
+  local tag=":keywords:"
   local keywords
   local invalid_keywords
 
       helper_file_exists "${file}" \
-  &&  helper_generic_adoc_keywords_section_exists "${file}" \
+  &&  helper_generic_adoc_tag_exists "${file}" "${tag}" \
   &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | sed -e 's/^\s*//g')" \
   &&  invalid_keywords="$( echo "${keywords}" | grep -Pvc '^[A-Z]')" || invalid_keywords='0' \
   &&  if [ "${invalid_keywords}" = '0' ]
