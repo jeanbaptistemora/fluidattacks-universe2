@@ -51,9 +51,16 @@ def get_repos_and_branches(
         for block in yml_file.get('code', []):
             if not block:
                 continue
-            branches[subs_name].update({
-                unquote(pb.rsplit('/')[-2]): unquote(pb.rsplit('/')[-1])
-                for pb in block.get('branches', [])})
+
+            branches = block.get('branches', [])
+
+            if not branches:
+                continue
+
+            for repo_branch in branches:
+                repo = unquote(repo_branch.rsplit('/')[-2])
+                branch = unquote(repo_branch.rsplit('/')[-1])
+                branches[subs_name].update({repo: branch})
 
     return branches
 
