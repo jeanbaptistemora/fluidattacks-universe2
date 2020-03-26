@@ -197,15 +197,9 @@ def get_projects(user_email: str, active: bool = True) -> List[str]:
     return projects
 
 
-def get_project_access(email: str, project_name: str) -> bool:
-    has_access_attr = project_dal.get_user_access(email, project_name)
-    resp = False
-    if has_access_attr and has_access_attr[0].get('has_access'):
-        resp = True
-    else:
-        # User without project access
-        pass
-    return resp
+def get_group_access(email: str, group: str) -> bool:
+    group_level_role = get_group_level_role(email, group)
+    return bool(group_level_role)
 
 
 def get_attributes(email: str, data: List[str]) -> UserType:
@@ -235,10 +229,6 @@ def register(email: str) -> bool:
 def remove_access_token(email: str) -> bool:
     """ Remove access token attribute """
     return user_dal.remove_attribute(email, 'access_token')
-
-
-def remove_user(email: str) -> bool:
-    return user_dal.delete(email.lower())
 
 
 def update_legal_remember(email: str, remember: bool) -> bool:

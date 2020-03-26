@@ -148,7 +148,7 @@ def get_historic_deletion(project_name: str) -> Union[str, List[str]]:
 def request_deletion(project_name: str, user_email: str) -> bool:
     project = project_name.lower()
     response = False
-    if user_domain.get_project_access(user_email, project) and project_name == project:
+    if user_domain.get_group_access(user_email, project) and project_name == project:
         data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
         historic_deletion = cast(List[Dict[str, str]], data.get('historic_deletion', []))
         if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
@@ -211,7 +211,7 @@ def remove_project(project_name: str, user_email: str) -> NamedTuple:
     data = project_dal.get_attributes(project, ['project_status'])
     validation = False
     if user_email:
-        validation = is_alive(project) and user_domain.get_project_access(user_email, project)
+        validation = is_alive(project) and user_domain.get_group_access(user_email, project)
     if (not user_email and data.get('project_status') == 'PENDING_DELETION') or validation:
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')

@@ -180,13 +180,16 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
 
     recipients_customers = [
         recipient for recipient in recipients
-        if user_domain.get_data(recipient, 'role') in ['customer', 'customeradmin']]
+        if user_domain.get_group_level_role(
+            recipient, project_name) in ['customer', 'customeradmin']]
     recipients_not_customers = [
         recipient for recipient in recipients
-        if user_domain.get_data(recipient, 'role') not in ['customer', 'customeradmin']]
+        if user_domain.get_group_level_role(
+            recipient, project_name) not in ['customer', 'customeradmin']]
 
     email_context_customers = email_context.copy()
-    if user_domain.get_data(user_mail, 'role') not in ['customer', 'customeradmin']:
+    if user_domain.get_group_level_role(
+            user_mail, project_name) not in ['customer', 'customeradmin']:
         email_context_customers['user_email'] = \
             'Hacker at ' + str(user_domain.get_data(user_mail, 'company')).capitalize()
     email_send_thread = threading.Thread(
@@ -197,16 +200,18 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
     email_send_thread.start()
 
 
-def get_email_recipients(project_name: str, comment_type: Union[str, bool]) -> List[str]:
-    project_users = project_dal.get_users(project_name)
+def get_email_recipients(group: str, comment_type: Union[str, bool]) -> List[str]:
+    project_users = project_dal.get_users(group)
     recipients: List[str] = []
 
     approvers = FI_MAIL_REVIEWERS.split(',')
     recipients += approvers
 
     if comment_type == 'observation':
-        analysts = [user for user in project_users
-                    if user_domain.get_data(user, 'role') == 'analyst']
+        analysts = [
+            email
+            for email in project_users
+            if user_domain.get_group_level_role(email, group) == 'analyst']
         recipients += analysts
     else:
         recipients += project_users

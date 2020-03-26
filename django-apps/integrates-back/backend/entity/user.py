@@ -93,12 +93,7 @@ class User(ObjectType):
             self.role = user_role
 
         if project_name and role:
-            if role == 'admin':
-                has_access = has_access_to_project(
-                    user_email, project_name, self.role)
-            else:
-                has_access = user_domain.get_project_access(
-                    user_email, project_name)
+            has_access = has_access_to_project(user_email, project_name)
 
             if not user_domain.get_data(user_email, 'email') or \
                not has_access:

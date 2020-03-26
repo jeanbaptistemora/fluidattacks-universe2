@@ -142,8 +142,7 @@ def project_to_xls(request, lang, project):
         rollbar.report_message(
             'Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'],
-                                 project, request.session['role']):
+    if not has_access_to_project(request.session['username'], project):
         util.cloudwatch_log(
             request,
             'Security: Attempted to export project xls without permission')
@@ -194,8 +193,7 @@ def validation_project_to_pdf(request, lang, doctype):
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     assert project.strip()
-    if not has_access_to_project(request.session['username'],
-                                 project, request.session['role']):
+    if not has_access_to_project(request.session['username'], project):
         util.cloudwatch_log(request, 'Security: Attempted to export project'
                                      ' pdf without permission')
         return util.response([], 'Access denied', True)
@@ -332,11 +330,10 @@ def format_release_date(finding):
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, evidence_type, findingid, fileid):
     username = request.session['username']
-    role = request.session['role']
     if (evidence_type in ['drafts', 'findings']
-        and has_access_to_finding(username, findingid, role)) \
+        and has_access_to_finding(username, findingid)) \
             or (evidence_type == 'events'
-                and has_access_to_event(username, findingid, role)):
+                and has_access_to_event(username, findingid)):
         if fileid is None:
             rollbar.report_message('Error: Missing evidence image ID',
                                    'error', request)
@@ -417,8 +414,7 @@ def remove_all_users_access(project):
 @authorize(['analyst', 'admin'])
 def download_vulnerabilities(request, findingid):
     """Download a file with all the vulnerabilities."""
-    if not has_access_to_finding(request.session['username'], findingid,
-                                 request.session['role']):
+    if not has_access_to_finding(request.session['username'], findingid):
         util.cloudwatch_log(request,
                             'Security: \
 Attempted to retrieve vulnerabilities without permission')

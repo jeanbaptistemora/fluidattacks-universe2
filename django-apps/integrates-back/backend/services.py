@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from backend.domain import (
-    event as event_domain, finding as finding_domain, user as user_domain
+    finding as finding_domain, user as user_domain
 )
 
 from backend import util
@@ -26,39 +26,23 @@ def is_registered(user: str) -> bool:
     return user_domain.is_registered(user)
 
 
-def has_access_to_project(user: str, project_name: str, rol: str) -> bool:
+def has_access_to_project(email: str, group: str) -> bool:
     """ Verify if the user has access to a project. """
-    if rol == 'admin':
-        return True
-    return user_domain.get_project_access(user, project_name)
+    return bool(user_domain.get_group_level_role(email, group))
 
 
-def has_access_to_finding(user: str, finding_id: str, role: str) -> bool:
+def has_access_to_finding(email: str, finding_id: str) -> bool:
     """ Verify if the user has access to a finding submission. """
-    has_access = False
-    # Skip this check for admin users since they don't have any assigned projects
-    if role == 'admin':
-        has_access = True
-    else:
-        finding = finding_domain.get_finding(finding_id)
-        has_access = has_access_to_project(
-            user, str(finding.get('projectName', '')), role)
-
-    return has_access
+    finding = finding_domain.get_finding(finding_id)
+    group = cast(str, finding.get('projectName', ''))
+    return has_access_to_project(email, group)
 
 
-def has_access_to_event(user: str, event_id: str, role: str) -> bool:
+def has_access_to_event(email: str, event_id: str) -> bool:
     """ Verify if the user has access to a event submission. """
-    has_access = False
-    # Skip this check for admin users since they don't have any assigned projects
-    if role == 'admin':
-        has_access = True
-    else:
-        finding = event_domain.get_event(event_id)
-        has_access = has_access_to_project(
-            user, str(finding.get('project_name', '')), role)
-
-    return has_access
+    finding = finding_domain.get_finding(event_id)
+    group = cast(str, finding.get('projectName', ''))
+    return has_access_to_project(email, group)
 
 
 def is_customeradmin(project: str, email: str) -> bool:

@@ -193,12 +193,7 @@ async def _resolve_fields(info, email, project_name):
     role: str = role_dict['role']
 
     if project_name and role:
-        if role == 'admin':
-            has_access = has_access_to_project(
-                email, project_name, role)
-        else:
-            has_access = user_domain.get_project_access(
-                email, project_name)
+        has_access = has_access_to_project(email, project_name)
 
         if not user_domain.get_data(email, 'email') or \
                 not has_access:

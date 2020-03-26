@@ -479,6 +479,8 @@ def temporal_yield_users():
 
 
 def _temporal_keep_auth_table_fresh(enforcer):
+    rollbar.report_message('Starting syncing data to fi_authorization', 'debug')
+
     # pylint: disable=import-outside-toplevel
     from backend.services import is_customeradmin
 
@@ -519,6 +521,8 @@ def _temporal_keep_auth_table_fresh(enforcer):
                 extra_data=exception, payload_data=locals())
 
     enforcer.load_policy()
+
+    rollbar.report_message('Finished syncing data to fi_authorization', 'debug')
 
 
 def temporal_keep_auth_table_fresh(enforcer, enforcer_name):

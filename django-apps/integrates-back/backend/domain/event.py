@@ -152,10 +152,10 @@ def _send_new_event_mail(
 
     recipients_customers = [
         recipient for recipient in recipients
-        if user_domain.get_data(recipient, 'role') == 'customeradmin']
+        if user_domain.get_group_level_role(recipient, project) == 'customeradmin']
     recipients_not_customers = [
         recipient for recipient in recipients
-        if user_domain.get_data(recipient, 'role') != 'customeradmin']
+        if user_domain.get_group_level_role(recipient, project) != 'customeradmin']
     email_context_customers = email_context.copy()
     email_context_customers['analyst_email'] = \
         'Hacker at ' + str(user_domain.get_data(analyst, 'company')).capitalize()

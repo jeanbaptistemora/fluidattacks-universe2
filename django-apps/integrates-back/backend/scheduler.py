@@ -410,16 +410,6 @@ def all_users_formatted(company: str) -> Dict[str, int]:
     return all_users_by_company
 
 
-def inactive_users():
-    rollbar.report_message(
-        'Warning: Function to delete inactive users is running', 'warning')
-    final_date = (datetime.today() - timedelta(days=7))
-    inac_users = user_domain.get_all_inactive_users(
-        final_date.strftime('%Y-%m-%d %H:%M:%S'))
-    for user in inac_users:
-        user_domain.remove_user(user)
-
-
 def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
     rollbar.report_message('Warning: Function to get new releases is running',
