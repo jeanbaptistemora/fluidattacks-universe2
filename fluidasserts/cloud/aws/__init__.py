@@ -9,7 +9,7 @@ from contextlib import suppress
 
 # 3rd party imports
 import boto3
-from botocore.exceptions import BotoCoreError
+from botocore.exceptions import BotoCoreError, ClientError
 
 # local imports
 from fluidasserts import Unit, OPEN, CLOSED
@@ -41,7 +41,7 @@ def _get_result_as_tuple(*,
     frm = inspect.stack()
     arg = frm[1][0].f_locals
     account = 'unrecognized'
-    with suppress(BotoCoreError):
+    with suppress(BotoCoreError, ClientError):
         identity = _get_identity_info(
             arg['key_id'], arg['secret'], arg['session_token'])
         account = identity['Account']
