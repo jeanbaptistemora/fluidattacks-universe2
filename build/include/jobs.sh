@@ -106,43 +106,6 @@ function job_test_generic {
   local all_content_files
   local all_adoc_files
 
-  local regex_blank_space_header='^=\s+.+\n.+'
-  local error_blank_space_header='Headers must be followed by a blank line'
-  local regex_numbered_references='^== Referenc.+\n\n[a-zA-Z]'
-  local error_numbered_references='References must be numbered'
-  local regex_title_before_image='image::.+\n\.[a-zA-Z]'
-  local error_title_before_image='Title must go before image'
-  local regex_slug_max_chars='^:slug: .{44,}'
-  local error_slug_max_chars='Slug length has a maximum of 44 characters'
-  local regex_four_dashes_code_block='^-{5,}'
-  local error_four_dashes_code_block='Code blocks must only have four dashes (----)'
-  local regex_no_start_used='\[start'
-  local error_no_start_used='Start attribute must not be used. Use a + sign instead'
-  local regex_slug_ends_with_slash='^:slug:.*[a-z0-9-]$'
-  local error_slug_ends_with_slash=':slug: tag must end with a slash /'
-  local regex_image_alt_name='^image::.+\[\]'
-  local error_image_alt_name='Images must have an alt description'
-  local regex_title_no_double_quotes='^={1,6} .*"'
-  local error_title_no_double_quoutes='Do not use double quotes (") in titles'
-  local regex_separate_code_from_paragraph='^[a-zA-Z0-9]+\n.*\[source'
-  local error_separate_code_from_paragraph='Source code must be separated from a paragraph using a + sign'
-  local regex_title_length_limit='^= .{60,}'
-  local error_title_length_limit='Title must not exceed 60 characters'
-  local regex_metadata_lowercase='^:[A-Z]:'
-  local error_metadata_lowercase='All metadata must be lowercase'
-  local regex_no_monospace_header='^=+ \+.+\+.*'
-  local error_no_monospace_header='Headers must not have monospaces'
-  local regex_description_char_range='(?<=^:description: )(.{0,249}|.{301,})$'
-  local error_description_char_range='Descriptions must be in the 250-300 character range'
-  local regex_local_relative_paths='link:http(s)?://fluidattacks.com/web'
-  local error_local_relative_paths='Local URLs must use relative paths'
-  local regex_only_autonomic_com='autonomicmind.co(?!m)'
-  local error_only_autonomic_com='Use autonomicmind.com instead of autonomicmind.co'
-  local regex_caption_forbidden_titles='^\.(image|table|figure) \d+'
-  local error_caption_forbidden_titles='Captions must not contain "image", "table" or "figure"'
-  local regex_only_local_images='image::?https?://.*$'
-  local error_only_local_images='Only local images allowed'
-
       all_content_files="$(find content/ -type f)" \
   &&  all_adoc_files="$(find content/ -type f -name '*.adoc')" \
   &&  echo '[INFO] Testing forbidden extensions' \
@@ -160,78 +123,7 @@ function job_test_generic {
         &&  helper_generic_adoc_keywords_uppercase "${path}" \
         &&  helper_generic_adoc_fluid_attacks_name "${path}" \
         &&  helper_generic_adoc_tag_exists "${path}" ':description:' \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_blank_space_header}" \
-              "${error_blank_space_header}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_numbered_references}" \
-              "${error_numbered_references}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_title_before_image}" \
-              "${error_title_before_image}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_slug_max_chars}" \
-              "${error_slug_max_chars}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_four_dashes_code_block}" \
-              "${error_four_dashes_code_block}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_no_start_used}" \
-              "${error_no_start_used}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_slug_ends_with_slash}" \
-              "${error_slug_ends_with_slash}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_image_alt_name}" \
-              "${error_image_alt_name}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_title_no_double_quotes}" \
-              "${error_title_no_double_quoutes}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_separate_code_from_paragraph}" \
-              "${error_separate_code_from_paragraph}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_title_length_limit}" \
-              "${error_title_length_limit}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_metadata_lowercase}" \
-              "${error_metadata_lowercase}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_no_monospace_header}" \
-              "${error_no_monospace_header}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_description_char_range}" \
-              "${error_description_char_range}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_local_relative_paths}" \
-              "${error_local_relative_paths}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_only_autonomic_com}" \
-              "${error_only_autonomic_com}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_caption_forbidden_titles}" \
-              "${error_caption_forbidden_titles}" \
-        &&  helper_generic_adoc_direct_regex \
-              "${path}" \
-              "${regex_only_local_images}" \
-              "${error_only_local_images}" \
+        &&  helper_generic_adoc_others "${path}" \
         ||  return 1
       done
 }

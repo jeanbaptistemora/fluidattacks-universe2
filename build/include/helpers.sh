@@ -257,7 +257,7 @@ function helper_generic_file_name {
       fi
 }
 
-function helper_generic_adoc_content {
+function helper_generic_adoc_normalize {
   local file="${1}"
   local content
 
@@ -373,7 +373,7 @@ function helper_generic_adoc_fluid_attacks_name {
   local regex_fluid_uppercase_3='FLUID Attacks'
 
       helper_file_exists "${file}" \
-  &&  normalized_file="$(helper_generic_adoc_content "${file}")" \
+  &&  normalized_file="$(helper_generic_adoc_normalize "${file}")" \
   &&  if ! echo "${normalized_file}" | pcregrep \
          -e "${regex_fluid_no_attacks}" \
          -e "${regex_fluidsignal_group}" \
@@ -387,23 +387,6 @@ function helper_generic_adoc_fluid_attacks_name {
         return 0
       else
             echo "[ERROR] Incorrect reference to 'Fluid Attacks' found in ${file}" \
-        &&  return 1
-      fi
-}
-
-function helper_generic_adoc_normalized_regex {
-  local file="${1}"
-  local regex="${2}"
-  local error="${3}"
-  local normalized_file
-
-      helper_file_exists "${file}" \
-  &&  normalized_file="$(helper_generic_adoc_content "${file}")" \
-  &&  if ! echo "${normalized_file}" | pcregrep -MH "${regex}"
-      then
-        return 0
-      else
-            echo "[ERROR] ${file}: ${error}" \
         &&  return 1
       fi
 }
@@ -423,9 +406,80 @@ function helper_generic_adoc_direct_regex {
       fi
 }
 
+function helper_generic_adoc_others {
+  local file="${1}"
+  local tests=(
+    'blank_space_header'
+    'numbered_references'
+    'title_before_image'
+    'slug_max_chars'
+    'four_dashes_code_block'
+    'no_start_used'
+    'slug_ends_with_slash'
+    'image_alt_name'
+    'title_no_double_quotes'
+    'separate_code_from_paragraph'
+    'title_length_limit'
+    'metadata_lowercase'
+    'no_monospace_header'
+    'description_char_range'
+    'local_relative_paths'
+    'only_autonomic_com'
+    'caption_forbidden_titles'
+    'only_local_images'
+  )
+  declare -A data=(
+    [regex_blank_space_header]='^=\s+.+\n.+'
+    [error_blank_space_header]='Headers must be followed by a blank line'
+    [regex_numbered_references]='^== Referenc.+\n\n[a-zA-Z]'
+    [error_numbered_references]='References must be numbered'
+    [regex_title_before_image]='image::.+\n\.[a-zA-Z]'
+    [error_title_before_image]='Title must go before image'
+    [regex_slug_max_chars]='^:slug: .{44,}'
+    [error_slug_max_chars]='Slug length has a maximum of 44 characters'
+    [regex_four_dashes_code_block]='^-{5,}'
+    [error_four_dashes_code_block]='Code blocks must only have four dashes (----)'
+    [regex_no_start_used]='\[start'
+    [error_no_start_used]='Start attribute must not be used. Use a + sign instead'
+    [regex_slug_ends_with_slash]='^:slug:.*[a-z0-9-]$'
+    [error_slug_ends_with_slash]=':slug: tag must end with a slash /'
+    [regex_image_alt_name]='^image::.+\[\]'
+    [error_image_alt_name]='Images must have an alt description'
+    [regex_title_no_double_quotes]='^={1,6} .*"'
+    [error_title_no_double_quotes]='Do not use double quotes (") in titles'
+    [regex_separate_code_from_paragraph]='^[a-zA-Z0-9]+\n.*\[source'
+    [error_separate_code_from_paragraph]='Source code must be separated from a paragraph using a + sign'
+    [regex_title_length_limit]='^= .{60,}'
+    [error_title_length_limit]='Title must not exceed 60 characters'
+    [regex_metadata_lowercase]='^:[A-Z]:'
+    [error_metadata_lowercase]='All metadata must be lowercase'
+    [regex_no_monospace_header]='^=+ \+.+\+.*'
+    [error_no_monospace_header]='Headers must not have monospaces'
+    [regex_description_char_range]='(?<=^:description: )(.{0,249}|.{301,})$'
+    [error_description_char_range]='Descriptions must be in the 250-300 character range'
+    [regex_local_relative_paths]='link:http(s)?://fluidattacks.com/web'
+    [error_local_relative_paths]='Local URLs must use relative paths'
+    [regex_only_autonomic_com]='autonomicmind.co(?!m)'
+    [error_only_autonomic_com]='Use autonomicmind.com instead of autonomicmind.co'
+    [regex_caption_forbidden_titles]='^\.(image|table|figure) \d+'
+    [error_caption_forbidden_titles]='Captions must not contain "image", "table" or "figure"'
+    [regex_only_local_images]='image::?https?://.*$'
+    [error_only_local_images]='Only local images allowed'
+  )
+
+      for test in "${tests[@]}"
+      do
+            helper_generic_adoc_direct_regex \
+              "${file}" \
+              "${data[regex_${test}]}" \
+              "${data[error_${test}]}" \
+        ||  return 1
+      done
+}
+
 function helper_get_lix {
   local file="${1}"
 
       helper_file_exists "${file}" \
-  &&  helper_generic_adoc_content "${file}" | style | pcregrep -o1 'Lix: (\d\d)'
+  &&  helper_generic_adoc_normalize "${file}" | style | pcregrep -o1 'Lix: (\d\d)'
 }
