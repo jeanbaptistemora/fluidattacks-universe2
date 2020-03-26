@@ -49,6 +49,8 @@ def get_repos_and_branches(
             yml_file = yaml.safe_load(config_file)
 
         for block in yml_file.get('code', []):
+            if not block:
+                continue
             branches[subs_name].update({
                 unquote(pb.rsplit('/')[-2]): unquote(pb.rsplit('/')[-1])
                 for pb in block.get('branches', [])})
