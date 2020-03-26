@@ -74,7 +74,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       });
     },
     refetchQueries: [
-      { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+      { query: GET_VULNERABILITIES, variables: { analystField: false, identifier: props.findingId } },
     ],
   });
 
@@ -107,7 +107,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     },
     refetchQueries: [
       { query: GET_FINDING_HEADER, variables: { findingId: props.findingId, submissionField: canDisplayAnalyst } },
-      { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+      { query: GET_VULNERABILITIES, variables: { analystField: false, identifier: props.findingId } },
     ],
   });
 
