@@ -4,7 +4,7 @@
 :keywords: Component, Source Code, System, Dependencies, Requirement, Security
 :rules: yes
 
-= REQ.048 Components With a Minimum of Dependencies
+= REQ.048 Components with a minimum of dependencies
 
 == Requirement
 

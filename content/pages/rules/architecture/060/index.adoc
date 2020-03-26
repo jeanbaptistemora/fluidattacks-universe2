@@ -1,12 +1,13 @@
 :slug: rules/060/
 :category: architecture
-:description: This document details the security guidelines and requirements related to the management of the attack surface components that may be present in a given system. Therefore, the attack surface components must be identified by the company performing the analysis.
+:description: This document details the security guidelines and requirements related to the management of the attack surface components of a system. In this case, it is recommended that the the attack surface components be identified by the company performing the analysis.
 :keywords: Monitor, System, Requirement, Event, Organization, Security
 :rules: yes
 
-= REQ.060 Identify Attack Components
+= REQ.060 Identify attack components
 
 == Requirement
 
 The company performing the security analysis must identify
-the attack surface components (entry points accessed without authentication).
+the attack surface components.
+These are the entry points accessed without authentication.

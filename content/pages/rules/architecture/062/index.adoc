@@ -4,7 +4,7 @@
 :keywords: Configuration, Vulnerability, Standard, Industry, GDPR, Security
 :rules: yes
 
-= REQ.062 Define Standard Configurations
+= REQ.062 Define standard configurations
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Time, Response, Concurrency, Seconds, Requirement, Security
 :rules: yes
 
-= REQ.072 Set Maximum Response Time
+= REQ.072 Set Maximum response time
 
 == Requirement
 

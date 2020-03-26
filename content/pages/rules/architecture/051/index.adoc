@@ -4,7 +4,7 @@
 :keywords: Store, Source Code, System, Repository, Requirement, Security
 :rules: yes
 
-= REQ.051 Store Source Code in Repository
+= REQ.051 Store source code in repository
 
 == Requirement
 

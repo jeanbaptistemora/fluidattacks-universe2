@@ -4,7 +4,7 @@
 :keywords: Component, Identify, Test, White Box, Define, Security
 :rules: yes
 
-= REQ.068 Identify Tested Components
+= REQ.068 Identify tested components
 
 == Requirement
 
