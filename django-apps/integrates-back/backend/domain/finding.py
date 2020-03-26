@@ -273,12 +273,17 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
     resp = True
     for vuln in vulns:
         if 'treatment_manager' not in [vuln, new_values]:
+            finding = finding_dal.get_finding(finding_id)
+            group: str = cast(str, finding.get('project_name', ''))
+            email: str = updated_values.get('user', '')
+            treatment: str = cast(str, new_values.get('treatment', ''))
+
             new_values['treatment_manager'] = vuln_domain.set_treatment_manager(
-                str(new_values.get('treatment', '')),
-                str(updated_values.get('user', '')),
-                finding_dal.get_finding(finding_id),
-                user_domain.get_data(str(updated_values.get('user')), 'role') == 'customeradmin',
-                str(updated_values.get('user', ''))
+                treatment,
+                email,
+                finding,
+                user_domain.get_group_level_role(email, group) == 'customeradmin',
+                email,
             )
         result_update_treatment = \
             vuln_dal.update(finding_id, str(vuln.get('UUID', '')), new_values)

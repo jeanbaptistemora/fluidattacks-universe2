@@ -83,7 +83,7 @@ class User(ObjectType):
         self.responsibility = has_responsibility(
             project_name, user_email) if project_name else ''
         self.phone_number = has_phone_number(user_email)
-        user_role = user_domain.get_data(user_email, 'role')
+        user_role = user_domain.get_user_level_role(user_email)
 
         if project_name and is_customeradmin(project_name, user_email):
             self.role = 'customer_admin'

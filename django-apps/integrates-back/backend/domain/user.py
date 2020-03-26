@@ -285,7 +285,11 @@ def create_without_project(user_data: UserType) -> bool:
             if user_data.get('phone_number'):
                 phone_number = str(user_data.get('phone_number', ''))
                 del user_data['phone_number']
-            success = create(email, user_data)
+
+            role: str = cast(str, user_data.pop('role'))
+
+            success = create(email, user_data) \
+                and grant_user_level_role(email, role)
     if success:
         if phone_number and phone_number[1:].isdigit():
             add_phone_to_user(email, phone_number)

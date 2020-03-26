@@ -537,7 +537,7 @@ def temporal_keep_auth_table_fresh(enforcer, enforcer_name):
     if is_data_fresh:
         return
 
-    cache.set(cache_key, True, timeout=3600)
+    cache.set(cache_key, True, timeout=900)
 
     thread = threading.Thread(
         target=_temporal_keep_auth_table_fresh,
