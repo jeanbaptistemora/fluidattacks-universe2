@@ -391,7 +391,7 @@ function helper_generic_adoc_fluid_attacks_name {
       fi
 }
 
-function helper_generic_adoc_direct_regex {
+function helper_generic_adoc_other_test {
   local file="${1}"
   local regex="${2}"
   local error="${3}"
@@ -404,6 +404,50 @@ function helper_generic_adoc_direct_regex {
             echo "[ERROR] ${file}: ${error}" \
         &&  return 1
       fi
+}
+
+function helper_generic_adoc_spelling {
+  local file="${1}"
+  local normalized_file
+  local case_insensitive
+  local case_sensitive
+  local words=(
+    'HTML'
+    'Java'
+    'Red Hat'
+    'JavaScript'
+    'COBOL'
+    'AsciiDoc'
+    'OpenSSL'
+    'RPG'
+    'MySQL'
+    'SQLi'
+    'bWAPP'
+    'Python'
+    'GlassFish'
+    'OWASP'
+    'Apache'
+    'C Sharp'
+    'OSCP'
+    'OSWP'
+    'CEH'
+    'Linux'
+    'Scala'
+  )
+      helper_file_exists "${file}" \
+  &&  normalized_file="$(helper_generic_adoc_normalize "${file}")" \
+  &&  for word in "${words[@]}"
+      do
+            case_insensitive="$(echo "${normalized_file}" | grep -oi " ${word} ")" || true \
+        &&  case_sensitive="$(echo "${normalized_file}" | grep -o " ${word} ")" || true \
+        &&  if [ "${case_insensitive}" = "${case_sensitive}" ]
+            then
+                  continue
+            else
+                  echo "[ERROR] Spelling error in ${file}: Only '${word}' allowed" \
+              &&  return 1
+            fi
+      done
 }
 
 function helper_generic_adoc_others {
@@ -467,9 +511,10 @@ function helper_generic_adoc_others {
     [error_only_local_images]='Only local images allowed'
   )
 
-      for test in "${tests[@]}"
+      helper_file_exists "${file}" \
+  &&  for test in "${tests[@]}"
       do
-            helper_generic_adoc_direct_regex \
+            helper_generic_adoc_other_test \
               "${file}" \
               "${data[regex_${test}]}" \
               "${data[error_${test}]}" \

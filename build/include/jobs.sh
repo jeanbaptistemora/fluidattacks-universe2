@@ -122,6 +122,7 @@ function job_test_generic {
         &&  helper_generic_adoc_min_keywords "${path}" \
         &&  helper_generic_adoc_keywords_uppercase "${path}" \
         &&  helper_generic_adoc_fluid_attacks_name "${path}" \
+        &&  helper_generic_adoc_spelling "${path}" \
         &&  helper_generic_adoc_tag_exists "${path}" ':description:' \
         &&  helper_generic_adoc_others "${path}" \
         ||  return 1
