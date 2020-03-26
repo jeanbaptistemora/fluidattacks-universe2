@@ -346,28 +346,6 @@ def create(project: ProjectType) -> bool:
     return resp
 
 
-def remove_user_role(project_name: str, user_email: str, role: str) -> bool:
-    """Remove user role in a project."""
-    resp = False
-    try:
-        response = TABLE.update_item(
-            Key={
-                'project_name': project_name.lower(),
-            },
-            UpdateExpression='DELETE #rol :val1',
-            ExpressionAttributeNames={
-                '#rol': role
-            },
-            ExpressionAttributeValues={
-                ':val1': set([user_email])
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
-    return resp
-
-
 def add_comment(project_name: str, email: str, comment_data: CommentType) -> bool:
     """ Add a comment in a project. """
     resp = False
@@ -451,41 +429,6 @@ def get_comments(project_name: str) -> List[Dict[str, str]]:
     for item in items:
         item['fullname'] = ' '.join(filter(None, comment_fullnames[item['email']][::-1]))
     return items
-
-
-def add_user(project_name: str, user_email: str, role: str) -> bool:
-    """Adding user role in a project."""
-    resp = False
-    item = get(project_name)
-    if item == []:
-        try:
-            response = TABLE.put_item(
-                Item={
-                    'project_name': project_name.lower(),
-                    role: set([user_email])
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        except ClientError:
-            rollbar.report_exc_info()
-    else:
-        try:
-            response = TABLE.update_item(
-                Key={
-                    'project_name': project_name.lower(),
-                },
-                UpdateExpression='ADD #rol :val1',
-                ExpressionAttributeNames={
-                    '#rol': role
-                },
-                ExpressionAttributeValues={
-                    ':val1': set([user_email])
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        except ClientError:
-            rollbar.report_exc_info()
-    return resp
 
 
 def get(project: str) -> List[ProjectType]:

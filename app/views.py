@@ -376,37 +376,6 @@ def key_existing_list(key):
     return util.list_s3_objects(CLIENT_S3, BUCKET_S3, key)
 
 
-def delete_project(project):
-    """Delete project information."""
-    project = project.lower()
-    are_users_removed = remove_all_users_access(project)
-    are_findings_masked = [
-        finding_domain.mask_finding(finding_id)
-        for finding_id in project_domain.list_findings(project)]
-    update_project_state_db = project_domain.update(project, {'project_status': 'FINISHED'})
-    is_project_deleted = all([
-        are_findings_masked, are_users_removed, update_project_state_db])
-    util.invalidate_cache(project)
-
-    return is_project_deleted
-
-
-def remove_all_users_access(project):
-    """Remove user access to project."""
-    user_active = project_domain.get_users(project)
-    user_suspended = project_domain.get_users(project, active=False)
-    all_users = user_active + user_suspended
-    are_users_removed = True
-    for user in all_users:
-        is_user_removed = project_domain.remove_user_access(project, user, 'customeradmin')
-        if is_user_removed:
-            are_users_removed = True
-        else:
-            are_users_removed = False
-            break
-    return are_users_removed
-
-
 @cache_content
 @never_cache
 @csrf_exempt

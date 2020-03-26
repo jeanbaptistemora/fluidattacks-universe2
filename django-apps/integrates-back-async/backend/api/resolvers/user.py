@@ -313,9 +313,7 @@ def resolve_remove_user_access(
     """Resolve remove_user_access mutation."""
     success = False
 
-    project_domain.remove_user_access(
-        project_name, user_email, 'customeradmin'
-    )
+    project_domain.remove_user_access(project_name, user_email)
     success = project_domain.remove_access(user_email, project_name)
     removed_email = user_email if success else None
     if success:
@@ -421,4 +419,4 @@ def modify_user_information(
     if role == 'customeradmin':
         project_domain.add_user(project_name.lower(), email.lower(), role)
     elif is_customeradmin(project_name, email):
-        project_domain.remove_user_access(project_name, email, 'customeradmin')
+        project_domain.remove_user_access(project_name, email)

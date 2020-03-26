@@ -318,10 +318,7 @@ class RemoveUserAccess(Mutation):
     @enforce_authz
     @require_project_access
     def mutate(self, info, project_name: str, user_email: str) -> object:
-        success = False
-
-        project_domain.remove_user_access(project_name, user_email, 'customeradmin')
-        success = project_domain.remove_access(user_email, project_name)  # rm
+        success = user_domain.revoke_group_level_role(user_email, project_name)
         removed_email = user_email if success else None
         if success:
             util.invalidate_cache(project_name)
@@ -428,4 +425,4 @@ def modify_user_information(
     if role == 'customeradmin':
         project_domain.add_user(project_name.lower(), email.lower(), role)
     elif is_customeradmin(project_name, email):
-        project_domain.remove_user_access(project_name, email, 'customeradmin')
+        project_domain.remove_user_access(project_name, email)
