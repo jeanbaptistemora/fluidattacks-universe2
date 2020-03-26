@@ -127,7 +127,7 @@ function job_test_generic {
         &&  helper_generic_adoc_keywords_uppercase "${path}" \
         &&  helper_generic_adoc_fluid_attacks_name "${path}" \
         &&  helper_generic_adoc_spelling "${path}" \
-        &&  helper_generic_adoc_tag_exists "${path}" ':description:' \
+        &&  helper_adoc_tag_exists "${path}" ':description:' \
         &&  helper_generic_adoc_others "${path}" \
         ||  return 1
       done
@@ -135,22 +135,26 @@ function job_test_generic {
 
 function job_test_blog {
   local all_blog_adoc_files
-  local touched_adoc_files
+  local touched_blog_adoc_files
   local min_words='800'
   local max_words='1200'
 
       all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
-  &&  touched_adoc_files="$(helper_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
+  &&  touched_blog_adoc_files="$(helper_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
   &&  echo '[INFO] Testing adoc files' \
   &&  for path in ${all_blog_adoc_files}
       do
             helper_blog_adoc_category "${path}" \
         &&  helper_blog_adoc_tags "${path}" \
+        &&  helper_adoc_tag_exists "${path}" ':subtitle:' \
+        &&  helper_adoc_tag_exists "${path}" ':alt:' \
         ||  return 1
       done \
-  &&  for path in ${touched_adoc_files}
+  &&  for path in ${touched_blog_adoc_files}
       do
             helper_word_count "${path}" "${min_words}" "${max_words}" \
+        &&  helper_adoc_tag_exists "${path}" ':source:' \
+        &&  helper_blog_adoc_others "${path}" \
         ||  return 1
       done
 }

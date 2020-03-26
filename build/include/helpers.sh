@@ -308,7 +308,7 @@ function helper_generic_adoc_main_title {
       fi
 }
 
-function helper_generic_adoc_tag_exists {
+function helper_adoc_tag_exists {
   file="${1}"
   tag="${2}"
 
@@ -329,7 +329,7 @@ function helper_generic_adoc_min_keywords {
   local keywords
 
       helper_file_exists "${file}" \
-  &&  helper_generic_adoc_tag_exists "${file}" "${tag}" \
+  &&  helper_adoc_tag_exists "${file}" "${tag}" \
   &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | wc -l)" \
   &&  if [ "${keywords}" -ge "${min_keywords}" ]
       then
@@ -347,7 +347,7 @@ function helper_generic_adoc_keywords_uppercase {
   local invalid_keywords
 
       helper_file_exists "${file}" \
-  &&  helper_generic_adoc_tag_exists "${file}" "${tag}" \
+  &&  helper_adoc_tag_exists "${file}" "${tag}" \
   &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | sed -e 's/^\s*//g')" \
   &&  invalid_keywords="$( echo "${keywords}" | grep -Pvc '^[A-Z]')" || invalid_keywords='0' \
   &&  if [ "${invalid_keywords}" = '0' ]
@@ -391,7 +391,7 @@ function helper_generic_adoc_fluid_attacks_name {
       fi
 }
 
-function helper_generic_adoc_other_test {
+function helper_adoc_regex {
   local file="${1}"
   local regex="${2}"
   local error="${3}"
@@ -514,7 +514,7 @@ function helper_generic_adoc_others {
       helper_file_exists "${file}" \
   &&  for test in "${tests[@]}"
       do
-            helper_generic_adoc_other_test \
+            helper_adoc_regex \
               "${file}" \
               "${data[regex_${test}]}" \
               "${data[error_${test}]}" \
@@ -563,7 +563,7 @@ function helper_blog_adoc_category {
   )
 
       helper_file_exists "${file}" \
-  &&  helper_generic_adoc_tag_exists "${file}" ':category:' \
+  &&  helper_adoc_tag_exists "${file}" ':category:' \
   &&  category="$(grep -Po "${regex}" "${file}")" \
   &&  if echo " ${valid_categories[*]} " | grep -q " ${category} "
       then
@@ -669,7 +669,7 @@ function helper_blog_adoc_tags {
   )
 
       helper_file_exists "${file}" \
-  &&  helper_generic_adoc_tag_exists "${file}" ':tags:' \
+  &&  helper_adoc_tag_exists "${file}" ':tags:' \
   &&  tags="$(grep -Po "${regex}" "${file}" | tr ',' ' ')" \
   &&  for tag in ${tags}
       do
@@ -684,20 +684,47 @@ function helper_blog_adoc_tags {
       done
 }
 
+function helper_blog_adoc_others {
+  local file="${1}"
+  local tests=(
+    'title_length_limit'
+    'subtitle_length_limit'
+    'source_unsplash'
+  )
+  declare -A data=(
+    [regex_title_length_limit]='^= .{35,}'
+    [error_title_length_limit]='Title must not exceed 35 characters'
+    [regex_subtitle_length_limit]='(?<=^:subtitle: ).{56,}'
+    [error_subtitle_length_limit]='Subtitles must not exceed 55 characters'
+    [regex_source_unsplash]='(?<=^:source: )((?!https://unsplash).*$)'
+    [error_source_unsplash]='The cover image is not from unsplash'
+  )
+
+      helper_file_exists "${file}" \
+  &&  for test in "${tests[@]}"
+      do
+            helper_adoc_regex \
+              "${file}" \
+              "${data[regex_${test}]}" \
+              "${data[error_${test}]}" \
+        ||  return 1
+      done
+}
+
 function helper_word_count {
   local file="${1}"
-  local min="${2}"
-  local max="${3}"
+  local min_words="${2}"
+  local max_words="${3}"
   local words
   local regex='[0-9]+(?= words,)'
 
       helper_file_exists "${file}" \
   &&  words="$(style "${file}" | grep -Po "${regex}")" \
-  &&  if [ "${words}" -ge "${min}" ] && [ "${words}" -le "${max}" ]
+  &&  if [ "${words}" -ge "${min_words}" ] && [ "${words}" -le "${max_words}" ]
       then
             return 0
       else
-            echo "[ERROR] ${file} must have [${min}-${max}] words. It currently has ${words}"
+            echo "[ERROR] ${file} must have [${min_words}-${max_words}] words. It currently has ${words}"
       fi
 }
 
