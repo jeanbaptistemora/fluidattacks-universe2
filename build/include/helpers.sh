@@ -684,6 +684,23 @@ function helper_blog_adoc_tags {
       done
 }
 
+function helper_word_count {
+  local file="${1}"
+  local min="${2}"
+  local max="${3}"
+  local words
+  local regex='[0-9]+(?= words,)'
+
+      helper_file_exists "${file}" \
+  &&  words="$(style "${file}" | grep -Po "${regex}")" \
+  &&  if [ "${words}" -ge "${min}" ] && [ "${words}" -le "${max}" ]
+      then
+            return 0
+      else
+            echo "[ERROR] ${file} must have [${min}-${max}] words. It currently has ${words}"
+      fi
+}
+
 function helper_get_lix {
   local file="${1}"
 

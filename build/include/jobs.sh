@@ -134,14 +134,23 @@ function job_test_generic {
 }
 
 function job_test_blog {
-  local blog_adoc_files
+  local all_blog_adoc_files
+  local touched_adoc_files
+  local min_words='800'
+  local max_words='1200'
 
-      blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
+      all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
+  &&  touched_adoc_files="$(helper_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
   &&  echo '[INFO] Testing adoc files' \
-  &&  for path in ${blog_adoc_files}
+  &&  for path in ${all_blog_adoc_files}
       do
             helper_blog_adoc_category "${path}" \
         &&  helper_blog_adoc_tags "${path}" \
+        ||  return 1
+      done \
+  &&  for path in ${touched_adoc_files}
+      do
+            helper_word_count "${path}" "${min_words}" "${max_words}" \
         ||  return 1
       done
 }
