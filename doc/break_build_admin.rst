@@ -55,7 +55,7 @@ Get the credentials with the following commands:
      for args in "${@}"; do
        subs="${1}"
        shift 1 || break
-       aws s3 cp 's3://fluidattacks-terraform-states-prod/break-build.tfstate' - \
+       aws --profile continuous-admin s3 cp 's3://fluidattacks-terraform-states-prod/break-build.tfstate' - \
          | jq -r '.resources[] | select(.type == "aws_iam_access_key") ' \
          | jq -r '.instances[] | select(.index_key == "'${subs}'")' \
          | jq -r '.attributes | {
