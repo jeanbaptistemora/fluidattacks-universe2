@@ -36,11 +36,11 @@ msgstr "The Platform Element"
 
 #: templates/landing.html:96
 msgid "Integrates-sub-title"
-msgstr "Facilitates the Manage of Vulnerabilities"
+msgstr "Control the Process to Achieve Remediation"
 
 #: templates/landing.html:122
 msgid "Drills-title"
-msgstr "The Human Element"
+msgstr "Continuous Detection of Vulnerabilities"
 
 #: templates/landing.html:127
 msgid "Drills-sub-title"
@@ -52,7 +52,7 @@ msgstr "The Robot Element"
 
 #: templates/landing.html:127
 msgid "Forces-sub-title"
-msgstr "Compels the Remediation of Vulnerabilities"
+msgstr "Break the Build to Force Remediation"
 
 #: templates/continuous.html:39
 msgid "Use-cases-Header-msg"
