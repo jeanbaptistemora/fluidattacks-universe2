@@ -1,7 +1,7 @@
 :slug: rules/070/
 :category: architecture
 :description: This document contains the details of the security requirements related to the definition and management of logical architecture in the organization. This requirement establishes the importance of defining a set of automated security testing as part of the deployment process.
-:keywords: Requirement, Security, Architecture, Automated, Testing, Deploy.
+:keywords: Requirement, Security, Architecture, Automated, Testing, GDPR.
 :rules: yes
 :extended: yes
 
@@ -9,10 +9,9 @@
 
 == Requirement
 
-There must be a set of automated security testings
+There must be a set of automated security tests
 that run as part of the deployment process
 (eg: unit, integration, functional).
-
 
 == References
 
@@ -21,3 +20,10 @@ Mechanism to Authenticate Electronic Protected Health Information:
 Implement electronic mechanisms to corroborate
 that electronic protected health information
 has not been altered or destroyed in an unauthorized manner.
+
+. [[r2]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(d).]
+The controller and the processor shall implement appropriate technical and
+organizational measures to ensure an appropriate level of security,
+including a process for regularly testing, assessing and evaluating the
+effectiveness of technical and organizational measures for ensuring the
+security of the processing.
