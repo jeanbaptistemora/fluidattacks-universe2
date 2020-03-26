@@ -27,3 +27,21 @@ resource "aws_s3_bucket_object" "error-index" {
   etag         = filemd5("error-index.html")
   content_type = "text/html"
 }
+
+resource "aws_s3_bucket_object" "img" {
+  for_each     = {for name in fileset(path.module, "img/*"): name => name}
+  bucket       = aws_s3_bucket.web-ephemeral-bucket.id
+  key          = each.value
+  source       = each.value
+  etag         = filemd5(each.value)
+  content_type = "application/octet-stream"
+}
+
+resource "aws_s3_bucket_object" "css" {
+  for_each     = {for name in fileset(path.module, "css/*"): name => name}
+  bucket       = aws_s3_bucket.web-ephemeral-bucket.id
+  key          = each.value
+  source       = each.value
+  etag         = filemd5(each.value)
+  content_type = "application/octet-stream"
+}
