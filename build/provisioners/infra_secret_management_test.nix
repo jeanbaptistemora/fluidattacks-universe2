@@ -9,6 +9,7 @@ in
       buildInputs = []
         ++ [
           pkgs.git
+          pkgs.glibcLocales
           pkgs.awscli
           pkgs.terraform
           pkgs.tflint

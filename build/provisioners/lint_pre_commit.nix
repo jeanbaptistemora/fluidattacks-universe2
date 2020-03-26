@@ -9,6 +9,7 @@ in
 
       buildInputs = [
         pkgs.git
+        pkgs.glibcLocales
         pkgs.shellcheck
         (pkgs.python38.withPackages (ps: with ps; [
           pylint
