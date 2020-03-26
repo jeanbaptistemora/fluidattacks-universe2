@@ -60,3 +60,7 @@ MUTATION.set_field('approveVulnerability',
 MUTATION.set_field('deleteTags', vulnerability.resolve_delete_tags)
 MUTATION.set_field('updateTreatmentVuln',
                    vulnerability.resolve_update_treatment_vuln)
+MUTATION.set_field('requestVerificationVuln',
+                   vulnerability.resolve_request_verification_vuln)
+MUTATION.set_field('verifyRequestVuln',
+                   vulnerability.resolve_verify_request_vuln)

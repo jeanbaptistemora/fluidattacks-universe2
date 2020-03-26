@@ -89,13 +89,13 @@ type Mutation {
     requestVerificationVuln(
         findingId: String!,
         justification: String!,
-        vulnerabilities: [String!]!
+        vulnerabilities: [String]!
     ): SimplePayload!
     verifyRequestVuln(
         findingId: String!,
         justification: String!,
-        openVulns: [String!]!,
-        closedVulns: [String!]!
+        openVulns: [String]!,
+        closedVulns: [String]!
     ): SimplePayload!
 
     grantUserAccess(

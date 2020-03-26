@@ -9,7 +9,7 @@ mutation RequestVerificationVuln ($findingId: String!, $justification: String!, 
 }`;
 
 export const VERIFY_VULNERABILITIES: DocumentNode = gql`
-mutation RequestVerificationVuln (
+mutation VerifyRequestVuln (
   $findingId: String!, $justification: String!, $openVulns: [String]!, $closedVulns: [String]!) {
   verifyRequestVuln(
     findingId: $findingId, justification: $justification, openVulns: $openVulns,closedVulns: $closedVulns) {
