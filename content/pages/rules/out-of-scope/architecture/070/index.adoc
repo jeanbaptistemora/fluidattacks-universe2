@@ -13,6 +13,17 @@ There must be a set of automated security tests
 that run as part of the deployment process
 (eg: unit, integration, functional).
 
+== Description
+
+System configuration is essential when it comes to security issues.
+The system must follow the industry's standard configurations that prevent
+all known vulnerabilities.
+As part of these configurations,
+it should also include a set of tests that asses the conservation of the
+security settings,
+and that help prevent the inclusion of new insecure functionalities.
+
+
 == References
 
 . [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(c)(2):]

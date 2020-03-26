@@ -1,7 +1,7 @@
 :slug: rules/062/
 :category: architecture
-:description: This document details the security guidelines and requirements related to the management of the documentation that supports all the systems of an organization. Therefore, it is recommended that at least one chapter be devoted to system security issues.
-:keywords: Configuration, Vulnerability, Standard, Industry, Organization, Security
+:description: This document details the security guidelines and requirements related to the management of the documentation that supports all the systems of an organization. In this case, it is recommended that at least one chapter be devoted to system security issues.
+:keywords: Configuration, Vulnerability, Standard, Industry, GDPR, Security
 :rules: yes
 
 = REQ.062 Define Standard Configurations
@@ -11,3 +11,19 @@
 The organization must define standard configurations
 that correct all known vulnerabilities
 and that are consistent with industry standards (e.g., baselines).
+
+== Description
+
+System configuration is essential when it comes to security issues.
+The system must follow the industry's standard configurations that prevent
+all known vulnerabilities.
+These standard settings also contribute to ensuring the ongoing confidentiality,
+integrity, availability and resilience of processing systems and services.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(b).]
+The controller and the processor shall implement appropriate technical and
+organizational measures to ensure an appropriate level of security,
+including the ability to ensure the ongoing confidentiality, integrity,
+availability and resilience of processing systems and services.
