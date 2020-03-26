@@ -64,3 +64,7 @@ MUTATION.set_field('requestVerificationVuln',
                    vulnerability.resolve_request_verification_vuln)
 MUTATION.set_field('verifyRequestVuln',
                    vulnerability.resolve_verify_request_vuln)
+MUTATION.set_field('deleteVulnerability',
+                   vulnerability.resolve_delete_vulnerability)
+MUTATION.set_field('uploadFile',
+                   vulnerability.resolve_upload_file)

@@ -487,7 +487,7 @@ function job_lint_back {
         django-apps/integrates-back/backend/entity/user.py \
         django-apps/integrates-back/backend/entity/vulnerability.py \
         django-apps/integrates-back/backend/typing.py \
-        django-apps/integrates-back/backend/domain/* \
+        django-apps/integrates-back/backend/domain/*py \
         django-apps/integrates-back/backend/dal/* \
         django-apps/integrates-back/backend/utils/* \
   &&  npx graphql-schema-linter \
