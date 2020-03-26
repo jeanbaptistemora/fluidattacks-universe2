@@ -10,7 +10,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { calcPercent, handleGraphQLErrors, IGraphData, statusGraph } from "../../../../utils/formatHelpers";
+import { handleGraphQLErrors, statusGraph, treatmentGraph } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorChart } from "../../components/IndicatorChart";
@@ -20,27 +20,6 @@ import { IRepositoriesAttr } from "../ProjectSettingsView/types";
 import { default as style } from "./index.css";
 import { GET_INDICATORS } from "./queries";
 import { IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
-
-const treatmentGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
-(props: IIndicatorsProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {
-  const totalTreatment: { [key: string]: number } = JSON.parse(props.totalTreatment);
-  const treatmentDataset: IGraphData = {
-    backgroundColor: ["#b7b7b7", "#FFAA63", "#CD2A86"],
-    data: [totalTreatment.accepted, totalTreatment.inProgress, totalTreatment.undefined],
-    hoverBackgroundColor: ["#999797", "#FF9034", "#A70762"],
-  };
-  const acceptedPercent: number = calcPercent(totalTreatment.accepted, props.openVulnerabilities);
-  const inProgressPercent: number = calcPercent(totalTreatment.inProgress, props.openVulnerabilities);
-  const undefinedPercent: number = calcPercent(totalTreatment.undefined, props.openVulnerabilities);
-  const treatmentGraphData: { [key: string]: string | string[] | IGraphData[]} = {
-    datasets: [treatmentDataset],
-    labels: [`${acceptedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
-             `${inProgressPercent}% ${translate.t("search_findings.tab_indicators.treatment_in_progress")}`,
-             `${undefinedPercent}% ${translate.t("search_findings.tab_indicators.treatment_no_defined")}`],
-  };
-
-  return treatmentGraphData;
-};
 
 const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsViewBaseProps): JSX.Element => {
   const projectName: string = props.match.params.projectName;

@@ -3,6 +3,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { default as globalStyle } from "../../../../styles/global.css";
 import translate from "../../../../utils/translations/translate";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
@@ -12,7 +13,6 @@ import { ProjectFindingsView } from "../ProjectFindingsView/index";
 import { ProjectForcesView } from "../ProjectForcesView";
 import { ProjectSettingsView } from "../ProjectSettingsView/index";
 import { ProjectUsersView } from "../ProjectUsersView/index";
-import { default as style } from "./index.css";
 import { GET_ROLE } from "./queries";
 
 type IProjectContentProps = RouteComponentProps<{ projectName: string }>;
@@ -27,62 +27,62 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
 
   return (
     <React.StrictMode>
-      <div className={style.mainContainer} key={projectName}>
+      <div className={globalStyle.mainContainer} key={projectName}>
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
-              <div className={style.stickyContainer}>
-                <ul className={style.tabsContainer}>
-                  <li id="indicatorsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/indicators`}>
+              <div className={globalStyle.stickyContainer}>
+                <ul className={globalStyle.tabsContainer}>
+                  <li id="indicatorsTab" className={globalStyle.tab}>
+                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/indicators`}>
                       <i className="icon pe-7s-graph3" />
                       &nbsp;{translate.t("project.tabs.indicators")}
                     </NavLink>
                   </li>
-                  <li id="findingsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/findings`}>
+                  <li id="findingsTab" className={globalStyle.tab}>
+                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/findings`}>
                       <i className="icon pe-7s-light" />
                       &nbsp;{translate.t("project.tabs.findings")}
                     </NavLink>
                   </li>
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
                   {_.includes(["admin", "analyst"], userRole) ?
-                    <li id="draftsTab" className={style.tab}>
-                      <NavLink activeClassName={style.active} to={`${props.match.url}/drafts`}>
+                    <li id="draftsTab" className={globalStyle.tab}>
+                      <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/drafts`}>
                         <i className="icon pe-7s-stopwatch" />
                         &nbsp;{translate.t("project.tabs.drafts")}
                       </NavLink>
                     </li>
                     : undefined}
-                  <li id="forcesTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/forces`}>
+                  <li id="forcesTab" className={globalStyle.tab}>
+                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/forces`}>
                       <i className="icon pe-7s-light" />
                       &nbsp;{translate.t("project.tabs.forces")}
                     </NavLink>
                   </li>
-                  <li id="eventsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/events`}>
+                  <li id="eventsTab" className={globalStyle.tab}>
+                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/events`}>
                       <i className="icon pe-7s-star" />
                       &nbsp;{translate.t("project.tabs.events")}
                     </NavLink>
                   </li>
-                  <li id="commentsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
+                  <li id="commentsTab" className={globalStyle.tab}>
+                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/comments`}>
                       <i className="icon pe-7s-comment" />
                       &nbsp;{translate.t("project.tabs.comments")}
                     </NavLink>
                   </li>
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
                   {_.includes(["admin", "customeradmin"], userRole) ?
-                    <li id="usersTab" className={style.tab}>
-                      <NavLink activeClassName={style.active} to={`${props.match.url}/users`}>
+                    <li id="usersTab" className={globalStyle.tab}>
+                      <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/users`}>
                         <i className="icon pe-7s-users" />
                         &nbsp;{translate.t("project.tabs.users")}
                       </NavLink>
                     </li>
                     : undefined}
-                  <li id="resourcesTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/resources`}>
+                  <li id="resourcesTab" className={globalStyle.tab}>
+                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/resources`}>
                       <i className="icon pe-7s-box1" />
                       &nbsp;{translate.t("project.tabs.resources")}
                     </NavLink>
@@ -90,7 +90,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                 </ul>
               </div>
 
-              <div className={style.tabContent}>
+              <div className={globalStyle.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/indicators`} component={ProjectIndicatorsView} exact={true} />
                   <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />

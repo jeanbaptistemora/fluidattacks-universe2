@@ -9,6 +9,7 @@ export const TAG_QUERY: DocumentNode = gql`
         closedVulnerabilities
         name
         openVulnerabilities
+        totalTreatment
       }
     }
   }

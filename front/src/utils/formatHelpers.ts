@@ -480,6 +480,9 @@ export interface IStatusGraph {
   closedVulnerabilities: number;
   openVulnerabilities: number;
 }
+export interface ITreatmentGraph extends IStatusGraph {
+  totalTreatment: string;
+}
 export interface IGraphData {
   backgroundColor: string[];
   data: number[];
@@ -506,4 +509,25 @@ export const statusGraph: ((graphProps: IStatusGraph) => { [key: string]: string
   };
 
   return statusGraphData;
+};
+
+export const treatmentGraph: ((props: ITreatmentGraph) => Dictionary<string | string[] | IGraphData[]>) =
+(props: ITreatmentGraph): Dictionary<string | string[] | IGraphData[]> => {
+  const totalTreatment: Dictionary<number> = JSON.parse(props.totalTreatment);
+  const treatmentDataset: IGraphData = {
+    backgroundColor: ["#b7b7b7", "#FFAA63", "#CD2A86"],
+    data: [totalTreatment.accepted, totalTreatment.inProgress, totalTreatment.undefined],
+    hoverBackgroundColor: ["#999797", "#FF9034", "#A70762"],
+  };
+  const acceptedPercent: number = calcPercent(totalTreatment.accepted, props.openVulnerabilities);
+  const inProgressPercent: number = calcPercent(totalTreatment.inProgress, props.openVulnerabilities);
+  const undefinedPercent: number = calcPercent(totalTreatment.undefined, props.openVulnerabilities);
+  const treatmentGraphData: Dictionary<string | string[] | IGraphData[]> = {
+    datasets: [treatmentDataset],
+    labels: [`${acceptedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
+             `${inProgressPercent}% ${translate.t("search_findings.tab_indicators.treatment_in_progress")}`,
+             `${undefinedPercent}% ${translate.t("search_findings.tab_indicators.treatment_no_defined")}`],
+  };
+
+  return treatmentGraphData;
 };

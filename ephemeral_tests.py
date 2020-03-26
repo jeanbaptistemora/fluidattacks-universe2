@@ -621,3 +621,4 @@ class ViewTestCase(unittest.TestCase):
                 (By.XPATH, "//*[contains(text(), 'Status')]")))
         selenium.save_screenshot(SCR_PATH + '18-02-tag_indicators.png')
         assert 'Status' in selenium.page_source
+        assert 'Treatment' in selenium.page_source
