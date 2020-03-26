@@ -95,19 +95,11 @@ class ViewTestCase(unittest.TestCase):
 
     def test_02_dashboard(self):
         selenium = self.__login()
-        selenium.save_screenshot(SCR_PATH + '02-01-dashboard.png')
-        tag_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'TEST-PROJECTS')]")))
-        tag_elem.click()
-        time.sleep(2)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Status')]")))
-        time.sleep(2)
-        selenium.save_screenshot(SCR_PATH + '02-02-dashboard.png')
+                (By.XPATH,
+                 "//*[contains(text(), 'Integrates unit test project')]")))
+        selenium.save_screenshot(SCR_PATH + '02-dashboard.png')
         assert 'My Portfolios' in selenium.page_source
         assert 'Integrates unit test project' in selenium.page_source
 
@@ -615,3 +607,17 @@ class ViewTestCase(unittest.TestCase):
                      "//*[contains(text(), 'Cancel project deletion')]")))
         selenium.save_screenshot(SCR_PATH + '17-03-pending_to_delete.png')
         assert 'Project pending to delete' in selenium.page_source
+
+    def test_18_tag_indicators(self):
+        selenium = self.__login()
+        tag_elem = WebDriverWait(
+            selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH, "//*[contains(text(), 'TEST-PROJECTS')]")))
+        selenium.save_screenshot(SCR_PATH + '18-01-tag_indicators.png')
+        tag_elem.click()
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Status')]")))
+        selenium.save_screenshot(SCR_PATH + '18-02-tag_indicators.png')
+        assert 'Status' in selenium.page_source

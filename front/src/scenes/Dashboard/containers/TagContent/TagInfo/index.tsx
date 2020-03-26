@@ -1,29 +1,24 @@
 import { useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Col, Row } from "react-bootstrap";
-import { Button } from "../../../../../components/Button";
-import { Modal } from "../../../../../components/Modal";
+import { Col, Row } from "react-bootstrap";
+import { RouteComponentProps } from "react-router-dom";
 import { IStatusGraph, statusGraph } from "../../../../../utils/formatHelpers";
 import translate from "../../../../../utils/translations/translate";
 import { IndicatorGraph } from "../../../components/IndicatorGraph";
 import { default as style } from "./index.css";
 import { TAG_QUERY } from "./queries";
 
-interface ITagsProps {
-  isOpen: boolean;
-  tag: string;
-  onClose(): void;
-}
+type TagsProps = RouteComponentProps<{ tagName: string }>;
 interface ITag {
   tag: {
     name: string;
     projects: IStatusGraph[];
   };
 }
-const tagsInfo: React.FC<ITagsProps> = (props: ITagsProps): JSX.Element => {
-  const { tag, onClose, isOpen } = props;
-  const { data } = useQuery<ITag>(TAG_QUERY, { variables: {tag }});
+const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
+  const { tagName } = props.match.params;
+  const { data } = useQuery<ITag>(TAG_QUERY, { variables: { tag: tagName }});
 
   const  formatStatusGraphData: ((projects: IStatusGraph[]) => IStatusGraph) = (
     projects: IStatusGraph[],
@@ -40,28 +35,16 @@ const tagsInfo: React.FC<ITagsProps> = (props: ITagsProps): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Modal
-        open={isOpen}
-        onClose={onClose}
-        headerTitle={tag}
-        footer={<div />}
-      >
-        <Row>
-          <Col mdOffset={2} md={8} sm={12} xs={12}>
-            <Col md={12} sm={12} xs={12} className={style.box_size}>
-              <IndicatorGraph
-                data={statusGraph(formatStatusGraphData(data.tag.projects))}
-                name={translate.t("search_findings.tab_indicators.status_graph")}
-              />
-            </Col>
+      <Row>
+        <Col mdOffset={4} md={8} sm={12} xs={12}>
+          <Col md={12} sm={12} xs={12} className={style.box_size}>
+            <IndicatorGraph
+              data={statusGraph(formatStatusGraphData(data.tag.projects))}
+              name={translate.t("search_findings.tab_indicators.status_graph")}
+            />
           </Col>
-        </Row>
-        <ButtonToolbar className="pull-right">
-          <Button bsStyle="success" onClick={onClose}>
-            {translate.t("project.findings.report.modal_close")}
-          </Button>
-        </ButtonToolbar>
-      </Modal>
+        </Col>
+      </Row>
     </React.Fragment>
   );
 };

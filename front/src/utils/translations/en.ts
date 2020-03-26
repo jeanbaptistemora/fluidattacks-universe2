@@ -73,7 +73,7 @@ const enTranslations: Dictionary = {
   },
   logout: "Log out",
   navbar: {
-    breadcrumbRoot: "My Projects",
+    breadcrumbRoot: "Home",
     searchPlaceholder: "Project Name",
   },
   proj_alerts: {

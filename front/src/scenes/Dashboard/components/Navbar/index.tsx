@@ -21,12 +21,13 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   const pathData: string[] = props.location.pathname.split("/")
     .slice(2);
   const breadcrumbItems: JSX.Element[] = pathData.map((item: string, index: number) => {
+    const baseLink: string = props.location.pathname.split("/")[1];
     const link: string = pathData.slice(0, index + 1)
       .join("/");
 
     return (
       <BreadcrumbItem key={index}>
-        <Link to={`/project/${link}`}>{_.capitalize(item)}</Link>
+        <Link to={`/${baseLink}/${link}`}>{_.capitalize(item)}</Link>
       </BreadcrumbItem>
     );
   });

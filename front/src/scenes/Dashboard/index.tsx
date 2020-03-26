@@ -23,6 +23,7 @@ import { PendingRoute } from "./containers/PendingRoute/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
+import { TagContent } from "./containers/TagContent/index";
 import { default as style } from "./index.css";
 import { ADD_USER_MUTATION } from "./queries";
 import { IAddUserAttr } from "./types";
@@ -81,6 +82,7 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
               <Route path="/home" exact={true} component={HomeView} />
               <Route path="/reports" component={ReportsView} />
               <Route path="/project/:projectName" component={PendingRoute} />
+              <Route path="/portfolio/:tagName" component={TagContent} />
               <Redirect to="/home" />
             </Switch>
           </div>

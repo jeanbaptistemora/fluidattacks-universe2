@@ -19,7 +19,6 @@ import { AddProjectModal } from "../../components/AddProjectModal";
 import { ProjectBox } from "../../components/ProjectBox";
 import { default as style } from "./index.css";
 import { PROJECTS_QUERY } from "./queries";
-import { TagsInfo } from "./TagInfo/index";
 import { IHomeViewProps, ITagData, IUserAttr } from "./types";
 
 interface ITagDataTable {
@@ -61,8 +60,6 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   };
 
   const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
-  const [isTagModalOpen, setTagModalOpen] = React.useState(false);
-  const [tag, setTag] = React.useState("");
 
   const openNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(true);
@@ -70,12 +67,8 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   const closeNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(false);
   };
-  const closeTagModal: (() => void) = (): void => {
-    setTagModalOpen(false);
-  };
   const displayTag: ((choosedTag: string) => void) = (choosedTag: string): void => {
-    setTag(choosedTag);
-    setTagModalOpen(true);
+    location.hash = `#!/portfolio/${choosedTag}/indicators`;
   };
 
   const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) =
@@ -186,7 +179,6 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
                   </Row>
                 </Col>
                 <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
-                <TagsInfo isOpen={isTagModalOpen} onClose={closeTagModal} tag={tag} />
               </Row>
             );
           }}
