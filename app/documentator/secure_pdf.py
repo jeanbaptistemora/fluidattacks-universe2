@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """ Class to secure a PDF of findings. """
-import string
-import random
 import os
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from backend.dal import project as project_dal
+from backend.utils.passphrase import get_passphrase
 
 
 class SecurePDF():
@@ -54,16 +53,7 @@ class SecurePDF():
     def lock(self, in_filename: str) -> str:
         """  Add a password to a PDF. """
         pdf_foutname = self.secure_pdf_username + "_" + in_filename
-        password = []
-        length = 25
-        password.append(random.choice(string.punctuation))
-        for _ in range(length // 4):
-            password.append(random.choice(string.ascii_lowercase))
-            password.append(random.choice(string.ascii_uppercase))
-            password.append(random.choice(string.punctuation))
-            password.append(str(random.randint(0, 9)))
-        random.shuffle(password)
-        self.password = ''.join(password)
+        self.password = get_passphrase(4)
         output = PdfFileWriter()
         input = PdfFileReader(open(self.result_dir + in_filename, 'rb')) # noqa
         for i in range(0, input.getNumPages()):
