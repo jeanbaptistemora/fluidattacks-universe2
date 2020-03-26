@@ -141,6 +141,7 @@ function job_test_blog {
   &&  for path in ${blog_adoc_files}
       do
             helper_blog_adoc_category "${path}" \
+        &&  helper_blog_adoc_tags "${path}" \
         ||  return 1
       done
 }

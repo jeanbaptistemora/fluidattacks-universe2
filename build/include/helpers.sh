@@ -565,14 +565,123 @@ function helper_blog_adoc_category {
       helper_file_exists "${file}" \
   &&  helper_generic_adoc_tag_exists "${file}" ':category:' \
   &&  category="$(grep -Po "${regex}" "${file}")" \
-  &&  if echo "${valid_categories[@]}" | grep -q " ${category} "
+  &&  if echo " ${valid_categories[*]} " | grep -q " ${category} "
       then
             return 0
       else
-            echo "[ERROR] ${category} is not a valid category" \
+            echo "[ERROR] Category '${category}' in ${file} is not valid" \
         &&  echo "Valid categories: ${valid_categories[*]}" \
         &&  return 1
       fi
+}
+
+function helper_blog_adoc_tags {
+  local file="${1}"
+  local tags
+  local regex='(?<=^:tags: ).+$'
+  local valid_tags=(
+    'android'
+    'application'
+    'blue team'
+    'bug'
+    'business'
+    'cbc'
+    'challenge'
+    'cloud'
+    'code'
+    'company'
+    'credential'
+    'csv'
+    'cybersecurity'
+    'dependency'
+    'detect'
+    'devops'
+    'discovery'
+    'documentation'
+    'economics'
+    'encryption'
+    'engineering'
+    'eslint'
+    'ethical hacking'
+    'experiment'
+    'exploit'
+    'flaw'
+    'forensics'
+    'functional'
+    'fuzzing'
+    'git'
+    'health'
+    'healthcare'
+    'htb'
+    'imperative'
+    'information'
+    'injection'
+    'interview'
+    'investigation'
+    'investment'
+    'javascript'
+    'jwt'
+    'libssh'
+    'linters'
+    'machine learning'
+    'math'
+    'mistake'
+    'multiparadigm'
+    'mypy'
+    'openssl'
+    'operations'
+    'password'
+    'pentesting'
+    'policies'
+    'protect'
+    'pwn'
+    'pythagoras'
+    'python'
+    'red team'
+    'revert'
+    'risk'
+    'saml'
+    'scanner'
+    'security'
+    'security testing'
+    'social engineering'
+    'software'
+    'solve'
+    'sql'
+    'ssl'
+    'standard'
+    'stateless'
+    'technology'
+    'test'
+    'testing'
+    'tls'
+    'training'
+    'trends'
+    'vector'
+    'vulnerability'
+    'web'
+    'wep'
+    'wifi'
+    'windows'
+    'xml'
+    'xpath'
+    'xss'
+  )
+
+      helper_file_exists "${file}" \
+  &&  helper_generic_adoc_tag_exists "${file}" ':tags:' \
+  &&  tags="$(grep -Po "${regex}" "${file}" | tr ',' ' ')" \
+  &&  for tag in ${tags}
+      do
+            if echo " ${valid_tags[*]} " | grep -q " ${tag} "
+            then
+                  continue
+            else
+                  echo "[ERROR] Tag '${tag}' in ${file} is not valid" \
+              &&  echo "Valid tags: ${valid_tags[*]}" \
+              &&  return 1
+            fi
+      done
 }
 
 function helper_get_lix {

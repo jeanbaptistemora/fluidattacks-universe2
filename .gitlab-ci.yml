@@ -98,6 +98,11 @@ test_generic:
   <<: *in_dev_and_master_branch
   stage: test
 
+test_blog:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: test
+
 test_lix:
   <<: *with_nix
   <<: *in_dev_and_master_branch
