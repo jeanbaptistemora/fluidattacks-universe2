@@ -522,6 +522,59 @@ function helper_generic_adoc_others {
       done
 }
 
+function helper_blog_adoc_category {
+  local file="${1}"
+  local category
+  local regex='(?<=^:category: ).+$'
+  local valid_categories=(
+    'aix'
+    'apache'
+    'aspnet'
+    'attacks'
+    'certifications'
+    'challenges'
+    'cobol'
+    'csharp'
+    'documentation'
+    'glassfish'
+    'hacking'
+    'html'
+    'identity'
+    'interview'
+    'java'
+    'javascript'
+    'linux'
+    'machine-learning'
+    'math'
+    'opinions'
+    'philosophy'
+    'php'
+    'politics'
+    'programming'
+    'python'
+    'redhat'
+    'rpg'
+    'scala'
+    'social-engineering'
+    'techniques'
+    'verilog'
+    'windows'
+    'yii'
+  )
+
+      helper_file_exists "${file}" \
+  &&  helper_generic_adoc_tag_exists "${file}" ':category:' \
+  &&  category="$(grep -Po "${regex}" "${file}")" \
+  &&  if echo "${valid_categories[@]}" | grep -q " ${category} "
+      then
+            return 0
+      else
+            echo "[ERROR] ${category} is not a valid category" \
+        &&  echo "Valid categories: ${valid_categories[*]}" \
+        &&  return 1
+      fi
+}
+
 function helper_get_lix {
   local file="${1}"
 

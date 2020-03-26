@@ -87,18 +87,21 @@ function job_test_images {
   &&  echo '[INFO] Testing all images' \
   &&  for image in ${all_images}
       do
-            helper_image_valid "${image}" || return 1
+            helper_image_valid "${image}" \
+        ||  return 1
       done \
   &&  echo '[INFO] Testing blog covers' \
   &&  for cover in ${blog_covers}
       do
-            helper_image_blog_cover_dimensions "${cover}" || return 1
+            helper_image_blog_cover_dimensions "${cover}" \
+        ||  return 1
       done \
   &&  echo '[INFO] Testing PNG images' \
   &&  for image in ${png_images}
       do
             helper_image_optimized "${image}" \
-        &&  helper_image_size "${image}" || return 1
+        &&  helper_image_size "${image}" \
+        ||  return 1
       done
 }
 
@@ -113,7 +116,8 @@ function job_test_generic {
   &&  echo '[INFO] Testing compliant file names' \
   &&  for path in ${all_content_files}
       do
-            helper_generic_file_name "${path}" || return 1
+            helper_generic_file_name "${path}" \
+        ||  return 1
       done \
   && echo '[INFO] Testing adoc files' \
   &&  for path in ${all_adoc_files}
@@ -125,6 +129,18 @@ function job_test_generic {
         &&  helper_generic_adoc_spelling "${path}" \
         &&  helper_generic_adoc_tag_exists "${path}" ':description:' \
         &&  helper_generic_adoc_others "${path}" \
+        ||  return 1
+      done
+}
+
+function job_test_blog {
+  local blog_adoc_files
+
+      blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
+  &&  echo '[INFO] Testing adoc files' \
+  &&  for path in ${blog_adoc_files}
+      do
+            helper_blog_adoc_category "${path}" \
         ||  return 1
       done
 }
