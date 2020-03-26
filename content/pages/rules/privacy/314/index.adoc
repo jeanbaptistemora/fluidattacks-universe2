@@ -1,0 +1,27 @@
+:slug: rules/314/
+:category: privacy
+:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of providing confirmation to the users of whether or not their personal data is being processed.
+:keywords: Requirement, Security, Data, GDPR, Confirmation, Personal
+:rules: yes
+
+= REQ.314 Provide confirmation when processing personal data
+
+== Requirement
+
+The system must provide confirmation to its users of whether or not it is
+storing and/or processing their personal data.
+
+== Description
+
+Systems usually request information from the users,
+obtain it from third parties or collect it based on their interactions with the
+application.
+They should have a mechanism that allows users to request confirmation of
+whether or not the system is managing their personal information.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-15-gdpr/[GDPR. Art. 15: Right of access by the data subject.(1).]
+The data subject shall have the right to obtain from the controller
+confirmation as to whether or not personal data concerning him or her are being
+processed.
