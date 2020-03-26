@@ -169,21 +169,21 @@ h1,h2,h3,p{
 h1{
   color: #ffffff;
   font-size: 3rem;
-  font-family: 'Roboto', sans-serif ; 
+  font-family: 'Roboto', sans-serif ;
   font-weight: 700;
   font-style: normal;
 }
 h2 {
   color: #272727;
   font-size: 2.25em;
-  font-family: 'Roboto', sans-serif ; 
+  font-family: 'Roboto', sans-serif ;
   font-weight: 700;
   font-style: normal;
 }
 h3{
   color: #272727;
   font-size: 1.8em;
-  font-family: 'Roboto', sans-serif ; 
+  font-family: 'Roboto', sans-serif ;
   font-weight: 700;
   font-style: normal;
 }
@@ -226,7 +226,7 @@ h3{
 
 /*Page 404*/
 .cat-section{
-  background-image: url("../img/background-1.jpg");
+  background-image: url("../img/background-1.png");
   height: 100vh;
   background-position: top center;
   background-size: cover;
@@ -257,7 +257,7 @@ h3{
 
 /*Home*/
 .bg-enviro{
-  background-image: url("../img/background-2.jpg");
+  background-image: url("../img/background-2.png");
   height: 100vh;
   background-position: top center;
   background-size: cover;
@@ -432,4 +432,3 @@ h3{
     page-break-after: avoid;
   }
 }
-

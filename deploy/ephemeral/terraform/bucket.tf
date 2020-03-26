@@ -34,7 +34,7 @@ resource "aws_s3_bucket_object" "img" {
   key          = each.value
   source       = each.value
   etag         = filemd5(each.value)
-  content_type = "application/octet-stream"
+  content_type = "image/png"
 }
 
 resource "aws_s3_bucket_object" "css" {
@@ -43,5 +43,5 @@ resource "aws_s3_bucket_object" "css" {
   key          = each.value
   source       = each.value
   etag         = filemd5(each.value)
-  content_type = "application/octet-stream"
+  content_type = "text/css"
 }
