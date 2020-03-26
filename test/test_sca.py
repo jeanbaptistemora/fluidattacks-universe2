@@ -84,6 +84,12 @@ def test_npm_package_has_vulnerabilities_open():
             continue
         assert vuln.specific == [6]
 
+    # with custom vulnerabilities
+    dependencies = {'jasmine-core': ['2.99.1']}
+    result = npm.project_has_vulnerabilities(
+        f'{NPM_PROJECT_OPEN}/1', vulnerable_dependencies=dependencies)
+    assert result.is_open()
+
 
 def test_nuget_package_has_vulnerabilities_open():
     """Search vulnerabilities."""
@@ -142,6 +148,12 @@ def test_npm_package_has_vulnerabilities_close():
     assert not npm.project_has_vulnerabilities(NPM_PROJECT_CLOSE)
     assert not npm.project_has_vulnerabilities(NPM_PROJECT_NOT_FOUND)
     assert not npm.project_has_vulnerabilities(NPM_PROJECT_EMPTY)
+
+    # with custom vulnerabilities
+    dependencies = {'types/jquery"': ['3.3.20']}
+    result = npm.project_has_vulnerabilities(
+        NPM_PROJECT_CLOSE, vulnerable_dependencies=dependencies)
+    assert result.is_closed()
 
     with no_connection():
         assert not npm.package_has_vulnerabilities('extend', retry=False)

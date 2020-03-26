@@ -93,8 +93,10 @@ def _get_vuln_line(reqs: list, pkg: str, ver: str) -> int:
 
 def _process_requirements(path: str,
                           reqs: set,
+                          vulnerable_dependencies: dict = None,
                           retry: bool = True) -> tuple:
     """Return a dict mapping path to dependencies, versions and vulns."""
+    vulnerable_dependencies = vulnerable_dependencies or {}
     if path and not os.path.exists(path):
         return UNKNOWN, 'File does not exist'
     if not reqs:
@@ -108,13 +110,15 @@ def _process_requirements(path: str,
 
     has_vulns, proj_vulns = None, {}
     for _path, dep, ver, vulns in results:
-        if vulns:
+        in_custom_vulns = ver in vulnerable_dependencies.get(dep, [])
+        if vulns or in_custom_vulns:
             has_vulns = True
             component = (dep, ver)
             try:
                 proj_vulns[_path].update({component: vulns})
             except KeyError:
                 proj_vulns[_path] = {component: vulns}
+
     vulns = [
         Unit(
             where=f'{_path} [{pkg}@{ver if ver else "unpinned"}]',
@@ -143,12 +147,13 @@ def package_has_vulnerabilities(package: str,
     :rtype: :class:`fluidasserts.Result`
     """
     reqs = set([(None, package, version, 0)])
-    return _process_requirements(None, reqs, retry)
+    return _process_requirements(None, reqs, retry=retry)
 
 
 @api(risk=HIGH, kind=SCA)
 def project_has_vulnerabilities(path: str,
                                 exclude: list = None,
+                                vulnerable_dependencies: dict = None,
                                 retry: bool = True) -> tuple:
     """
     Search vulnerabilities on given project directory.
@@ -159,4 +164,8 @@ def project_has_vulnerabilities(path: str,
     """
     exclude = tuple(exclude) if exclude else tuple()
     reqs = _get_requirements(path, exclude)
-    return _process_requirements(path, reqs, retry)
+    return _process_requirements(
+        path,
+        reqs,
+        vulnerable_dependencies=vulnerable_dependencies,
+        retry=retry)
