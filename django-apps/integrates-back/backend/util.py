@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
 
+import asyncio
 import collections
 import contextlib
 from datetime import datetime, timedelta, timezone
@@ -538,3 +539,12 @@ def temporal_keep_auth_table_fresh(enforcer, enforcer_name):
         target=_temporal_keep_auth_table_fresh,
         args=(enforcer,))
     thread.start()
+
+
+def run_async(function, *args, **kwargs):
+    """Run function asynchronous."""
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    result = loop.run_until_complete(function(*args, **kwargs))
+    loop.close()
+    return result
