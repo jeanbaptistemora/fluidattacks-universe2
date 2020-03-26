@@ -26,7 +26,7 @@ def get_user_level_role(email: str) -> str:
 
 def get_group_level_role(email: str, group: str) -> str:
     # level, subject, object, role
-    rule = ['group', email, group]
+    rule = ['group', email, group.lower()]
 
     # Admins are granted access to all groups
     if get_user_level_role(email) == 'admin':
@@ -79,7 +79,7 @@ def grant_group_level_role(
         return False
 
     # level, subject, object, role
-    rule = ['group', email, group]
+    rule = ['group', email, group.lower()]
 
     # Revoke previous user-level policies
     if revoke_existing:
@@ -114,7 +114,7 @@ def revoke_user_level_role(email: str) -> bool:
 
 def revoke_group_level_role(email: str, group: str) -> bool:
     # level, subject, object, role
-    rule = ['group', email, group]
+    rule = ['group', email, group.lower()]
 
     # Revoke previous group-level policies
     settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
@@ -150,12 +150,15 @@ def add_phone_to_user(email: str, phone: str) -> bool:
     return user_dal.update(email, {'phone': phone})
 
 
-def assign_role(email: str, role: str) -> bool:
+def assign_role(email: str, role: str, group: str = None) -> bool:
     if role not in ('analyst', 'customer', 'admin', 'customeradmin'):
-        resp = False
-    else:
-        resp = user_dal.update(email, {'role': role})
-    return resp
+        return False
+
+    resp = user_dal.update(email, {'role': role})
+
+    if group:
+        return resp and grant_group_level_role(email, group, role)
+    return resp and grant_user_level_role(email, role)
 
 
 def get_all_companies() -> List[str]:

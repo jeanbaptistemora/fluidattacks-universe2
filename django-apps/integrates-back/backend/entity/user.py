@@ -232,8 +232,10 @@ class GrantUserAccess(Mutation):
         return ret
 
 
-def create_new_user(
-        context: Dict[str, Any], new_user_data: Dict[str, Any], project_name: str) -> bool:
+def create_new_user(  # noqa: mccabe
+        context: Dict[str, Any],
+        new_user_data: Dict[str, Any],
+        group: str) -> bool:
     analizable_list = list(new_user_data.values())[1:-1]
     if (
         all(validate_alphanumeric_field(field) for field in analizable_list) and
@@ -256,41 +258,54 @@ def create_new_user(
                             'phone': phone_number})
     if not user_domain.is_registered(email):
         user_domain.register(email)
-        user_domain.assign_role(email, role)
+
+    user_domain.assign_role(email, role)  # rm
+    user_domain.grant_user_level_role(email, role)
+
+    if not user_domain.is_registered(email):
         user_domain.update(email, organization.lower(), 'company')
-    elif user_domain.is_registered(email):
-        user_domain.assign_role(email, role)
-    if project_name and responsibility and len(responsibility) <= 50:
-        project_domain.add_access(email, project_name, 'responsibility', responsibility)
+
+    if group and responsibility and len(responsibility) <= 50:
+        project_domain.add_access(email, group, 'responsibility', responsibility)
+        user_domain.grant_group_level_role(email, group, role)
     else:
         util.cloudwatch_log(
             context,
             'Security: {email} Attempted to add responsibility to project \
                 {project} without validation'.format(email=email,
-                                                     project=project_name)
+                                                     project=group)
         )
+
     if phone_number and phone_number[1:].isdigit():
         user_domain.add_phone_to_user(email, phone_number)
-    if project_name and role == 'customeradmin':
-        project_domain.add_user(project_name.lower(), email.lower(), role)
-    if project_name and user_domain.update_project_access(email, project_name, True):
-        description = project_domain.get_description(project_name.lower())
+    if group:
+        if role:
+            user_domain.grant_group_level_role(email, group, role)
+
+        if role == 'customeradmin':
+            project_domain.add_user(group.lower(), email.lower(), role)  # rm
+
+        if not user_domain.update_project_access(email, group, True):  # rm
+            return False
+
+        description = project_domain.get_description(group.lower())
         project_url = \
             'https://fluidattacks.com/integrates/dashboard#!/project/' \
-            + project_name.lower() + '/indicators'
+            + group.lower() + '/indicators'
         mail_to = [email]
         context = {
             'admin': email,
-            'project': project_name,
+            'project': group,
             'project_description': description,
             'project_url': project_url,
         }
         email_send_thread = \
-            threading.Thread(name='Access granted email thread',
-                             target=send_mail_access_granted,
-                             args=(mail_to, context,))
+            threading.Thread(
+                target=send_mail_access_granted,
+                args=(mail_to, context))
         email_send_thread.start()
         success = True
+
     return success
 
 
@@ -311,7 +326,7 @@ class RemoveUserAccess(Mutation):
         success = False
 
         project_domain.remove_user_access(project_name, user_email, 'customeradmin')
-        success = project_domain.remove_access(user_email, project_name)
+        success = project_domain.remove_access(user_email, project_name)  # rm
         removed_email = user_email if success else None
         if success:
             util.invalidate_cache(project_name)
@@ -362,7 +377,7 @@ class EditUser(Mutation):
             or (is_customeradmin(project_name, user_data['user_email'])
                 and modified_user_data['role'] in ['customer', 'customeradmin']):
             if user_domain.assign_role(
-               modified_user_data['email'], modified_user_data['role']):
+               modified_user_data['email'], modified_user_data['role'], project_name):
                 modify_user_information(info.context, modified_user_data,
                                         project_name)
                 success = True
