@@ -10,7 +10,6 @@ from backend.domain import (
 
 from backend import util
 from backend.dal import project as project_dal
-from backend.typing import User as UserType
 
 
 @csrf_exempt
@@ -83,16 +82,6 @@ def has_phone_number(email: str) -> str:
     user_info = str(user_domain.get_data(email, 'phone'))
     user_phone = user_info if user_info else '-'
     return user_phone
-
-
-def get_user_role(user_data: UserType) -> str:
-    if user_data.get('jti'):
-        role = str(user_domain.get_data(str(user_data.get('user_email', '')), 'role'))
-        if role == 'customeradmin':
-            role = 'customer'
-    else:
-        role = str(user_data.get('user_role', ''))
-    return role
 
 
 def project_exists(project_name: str) -> bool:

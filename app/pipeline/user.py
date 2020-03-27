@@ -28,21 +28,27 @@ def autoenroll_user(strategy, email: str) -> bool:
     is_registered: bool = user_domain.get_attributes(email, ['registered'])
 
     if not is_registered:
+        new_user_user_level_role: str = 'customer'
+        new_user_group_level_role: str = 'customer'
+
         # Create the user into the community organization
         is_registered = user_domain.create_without_project({
             'email': email,
             'organization': 'Integrates Community',
-            'role': 'customer',
+            'role': new_user_user_level_role,
         })
 
         # Add a flag that may come handy later to ask for extra data
         strategy.session_set('is_new_user', True)
 
         # Add the user into the community projects
-        for project in FI_COMMUNITY_PROJECTS.split(','):
+        for group in FI_COMMUNITY_PROJECTS.split(','):
             was_granted_access = \
-                was_granted_access and user_domain.update_project_access(
-                    email, project, access=True)
+                was_granted_access \
+                and user_domain.update_project_access(
+                    email, group, access=True) \
+                and user_domain.grant_group_level_role(
+                    email, group, new_user_group_level_role)
 
     return is_registered and was_granted_access
 

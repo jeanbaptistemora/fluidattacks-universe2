@@ -24,7 +24,6 @@ from backend.domain import (
 from backend.entity.comment import Comment
 from backend.entity.event import Event
 from backend.entity.finding import Finding
-from backend.services import get_user_role
 from backend.entity.user import User
 
 from backend import util
@@ -286,7 +285,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @enforce_authz
     def resolve_comments(self, info):
         user_data = util.get_jwt_content(info.context)
-        curr_user_role = get_user_role(user_data)
+        user_email = user_data['user_email']
+        curr_user_role = \
+            user_domain.get_group_level_role(user_email, self.name)
         self.comments = [
             Comment(**comment) for comment in project_domain.list_comments(
                 self.name, curr_user_role)]
@@ -369,7 +370,8 @@ class CreateProject(Mutation):
     @enforce_user_level_auth
     def mutate(self, info, **kwargs):
         user_data = util.get_jwt_content(info.context)
-        user_role = get_user_role(user_data)
+        user_email = user_data['user_email']
+        user_role = user_domain.get_user_level_role(user_email)
         success = project_domain.create_project(
             user_data['user_email'], user_role, **kwargs)
         if success:

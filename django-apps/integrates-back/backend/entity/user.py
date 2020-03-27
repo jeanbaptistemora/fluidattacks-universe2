@@ -21,7 +21,7 @@ from backend.decorators import (
 )
 from backend.domain import project as project_domain, user as user_domain
 from backend.services import (
-    get_user_role, is_customeradmin, has_responsibility, has_phone_number,
+    is_customeradmin, has_responsibility, has_phone_number,
     has_access_to_project
 )
 from backend.exceptions import UserNotFound
@@ -190,7 +190,9 @@ class GrantUserAccess(Mutation):
         project_name = query_args.get('project_name')
         success = False
         user_data = util.get_jwt_content(info.context)
-        role = get_user_role(user_data)
+        user_email = user_data['user_email']
+        role = \
+            user_domain.get_group_level_role(user_email, project_name)
         new_user_data = {
             'email': query_args.get('email'),
             'organization': query_args.get('organization'),
@@ -353,7 +355,9 @@ class EditUser(Mutation):
         project_name = query_args.get('project_name')
         success = False
         user_data = util.get_jwt_content(info.context)
-        role = get_user_role(user_data)
+        user_email = user_data['user_email']
+        role = \
+            user_domain.get_group_level_role(user_email, project_name)
 
         modified_user_data = {
             'email': query_args.get('email'),
@@ -423,6 +427,6 @@ def modify_user_information(
         )
 
     if role == 'customeradmin':
-        project_domain.add_user(project_name.lower(), email.lower(), role)
+        user_domain.grant_group_level_role(email, project_name, role)
     elif is_customeradmin(project_name, email):
         project_domain.remove_user_access(project_name, email)

@@ -17,12 +17,12 @@ from backend.decorators import (
     require_project_access, enforce_authz
 )
 from backend.domain import (
+    user as user_domain,
     comment as comment_domain, finding as finding_domain,
     project as project_domain, vulnerability as vuln_domain
 )
 from backend.entity.comment import Comment
 from backend.entity.vulnerability import Vulnerability
-from backend.services import get_user_role
 from backend.utils import findings as finding_utils
 
 
@@ -201,7 +201,9 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_comments(self, info):
         """ Resolve comments attribute """
         user_data = util.get_jwt_content(info.context)
-        curr_user_role = get_user_role(user_data)
+        user_email = user_data['user_email']
+        curr_user_role = \
+            user_domain.get_group_level_role(user_email, self.project_name)
         self.comments = [Comment(**comment)
                          for comment in comment_domain.get_comments(
                              self.id, curr_user_role)]
@@ -218,7 +220,9 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_observations(self, info):
         """ Resolve observations attribute """
         user_data = util.get_jwt_content(info.context)
-        curr_user_role = get_user_role(user_data)
+        user_email = user_data['user_email']
+        curr_user_role = \
+            user_domain.get_group_level_role(user_email, self.project_name)
         self.observations = [Comment(**obs)
                              for obs in comment_domain.get_observations(
                                  self.id, curr_user_role)]
@@ -528,7 +532,11 @@ class AddFindingComment(Mutation):
     def mutate(self, info, **parameters):
         if parameters.get('type') in ['comment', 'observation']:
             user_data = util.get_jwt_content(info.context)
-            role = get_user_role(user_data)
+            user_email = user_data['user_email']
+            finding_id = parameters.get('finding_id')
+            group = finding_domain.get_finding(finding_id).get('projectName')
+            role = \
+                user_domain.get_group_level_role(user_email, group)
             if parameters.get('type') == 'observation' and \
                role not in ['analyst', 'admin']:
                 util.cloudwatch_log(info.context, 'Security: \
@@ -548,7 +556,7 @@ class AddFindingComment(Mutation):
             success = finding_domain.add_comment(
                 user_email=user_email,
                 comment_data=comment_data,
-                finding_id=parameters.get('finding_id'),
+                finding_id=finding_id,
                 is_remediation_comment=False
             )
         else:

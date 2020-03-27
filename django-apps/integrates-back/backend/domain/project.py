@@ -111,18 +111,14 @@ def create_project(
                 if not is_user_admin:
                     add_user_access = user_domain.update_project_access(
                         user_email, project_name, True)
-                    add_user_manager = add_user(
-                        project_name.lower(), user_email.lower(), 'customeradmin')
+                    add_user_manager = user_domain.grant_group_level_role(
+                        user_email, project_name, 'customeradmin')
                     resp = all([add_user_access, add_user_manager])
         else:
             raise InvalidProjectName()
     else:
         raise InvalidParameter()
     return resp
-
-
-def add_user(group: str, email: str, role: str) -> bool:
-    return user_domain.grant_group_level_role(email, group, role)
 
 
 def add_access(user_email: str, project_name: str,

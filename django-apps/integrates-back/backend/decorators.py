@@ -22,7 +22,7 @@ from backend.domain import (
     user as user_domain, event as event_domain, finding as finding_domain
 )
 from backend.services import (
-    get_user_role, has_valid_access_token, project_exists
+    has_valid_access_token, project_exists
 )
 
 from backend import util
@@ -161,10 +161,16 @@ def enforce_authz(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         context = args[1].context
-        user_data = util.get_jwt_content(context)
-        user_data['role'] = get_user_role(user_data)
+
         project_name = resolve_project_name(args, kwargs)
         project_data = resolve_project_data(project_name)
+
+        user_data = util.get_jwt_content(context)
+        user_email = user_data['user_email']
+
+        user_data['role'] = \
+            user_domain.get_group_level_role(user_email, project_name)
+
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
 
@@ -194,10 +200,16 @@ def enforce_authz_async(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         context = args[1].context
-        user_data = util.get_jwt_content(context)
-        user_data['role'] = get_user_role(user_data)
+
         project_name = resolve_project_name(args, kwargs)
         project_data = resolve_project_data(project_name)
+
+        user_data = util.get_jwt_content(context)
+        user_email = user_data['user_email']
+
+        user_data['role'] = \
+            user_domain.get_group_level_role(user_email, project_name)
+
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
 
@@ -269,12 +281,17 @@ def require_project_access(func):
     def verify_and_call(*args, **kwargs):
         context = args[1].context
         project_name = kwargs.get('project_name')
+
         user_data = util.get_jwt_content(context)
+        user_email = user_data['user_email']
+
         user_data['subscribed_projects'] = \
-            user_domain.get_projects(user_data['user_email'])
+            user_domain.get_projects(user_email)
         user_data['subscribed_projects'] += \
-            user_domain.get_projects(user_data['user_email'], active=False)
-        user_data['role'] = get_user_role(user_data)
+            user_domain.get_projects(user_email, active=False)
+        user_data['role'] = \
+            user_domain.get_group_level_role(user_email, project_name)
+
         if not project_name:
             rollbar.report_message('Error: Empty fields in project',
                                    'error', context)
@@ -308,12 +325,13 @@ def require_finding_access(func):
         finding_id = kwargs.get('finding_id') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
+        user_email = user_data['user_email']
         user_data['subscribed_projects'] = \
-            user_domain.get_projects(user_data['user_email'])
+            user_domain.get_projects(user_email)
         user_data['subscribed_projects'] += \
-            user_domain.get_projects(user_data['user_email'], active=False)
-        user_data['role'] = get_user_role(user_data)
+            user_domain.get_projects(user_email, active=False)
         finding_project = finding_domain.get_finding(finding_id).get('projectName')
+        user_data['role'] = user_domain.get_group_level_role(user_email, finding_project)
 
         if not re.match('^[0-9]*$', finding_id):
             rollbar.report_message('Error: Invalid finding id format',
@@ -344,12 +362,14 @@ def require_event_access(func):
         event_id = kwargs.get('event_id') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
+        user_email = user_data['user_email']
         user_data['subscribed_projects'] = \
-            user_domain.get_projects(user_data['user_email'])
+            user_domain.get_projects(user_email)
         user_data['subscribed_projects'] += \
             user_domain.get_projects(user_data['user_email'], active=False)
-        user_data['role'] = get_user_role(user_data)
         event_project = event_domain.get_event(event_id).get('project_name')
+        user_data['role'] = \
+            user_domain.get_group_level_role(user_email, event_project)
 
         if not re.match('^[0-9]*$', event_id):
             rollbar.report_message('Error: Invalid event id format',

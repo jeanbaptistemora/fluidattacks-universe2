@@ -40,7 +40,6 @@ class MeTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'integratesanalyst@gmail.com',
-                'user_role': 'admin',
                 'company': 'unittest'
             },
             algorithm='HS512',
@@ -85,7 +84,6 @@ class MeTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
-                'user_role': 'admin',
                 'company': 'unittest'
             },
             algorithm='HS512',
@@ -124,7 +122,6 @@ class MeTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
-                'user_role': 'admin',
                 'company': 'unittest',
                 'first_name': 'Admin',
                 'last_name': 'At Fluid'
@@ -157,7 +154,6 @@ class MeTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
-                'user_role': 'admin',
                 'company': 'unittest'
             },
             algorithm='HS512',
@@ -187,7 +183,6 @@ class MeTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
-                'user_role': 'admin',
                 'company': 'unittest'
             },
             algorithm='HS512',

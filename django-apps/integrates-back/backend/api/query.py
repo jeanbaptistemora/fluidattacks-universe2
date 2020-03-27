@@ -23,7 +23,6 @@ from backend.entity.project import Project
 from backend.entity.internal_project import InternalProject
 from backend.entity.tag import Tag
 
-from backend import services
 from backend import util
 from backend.exceptions import InvalidProject
 
@@ -130,8 +129,8 @@ class Query(ObjectType):
     @get_cached
     def resolve_user(self, info, project_name, user_email):
         """ Resolve for user data """
-        role = services.get_user_role(util.get_jwt_content(info.context))
-        return User(project_name, user_email, role=role)
+        del info
+        return User(project_name, user_email)
 
     @require_login
     @enforce_authz
