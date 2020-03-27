@@ -446,3 +446,24 @@ def get_entity_cache(func):
             rollbar.report_exc_info()
             return func(*args, **kwargs)
     return decorated
+
+
+def rename_kwargs(mapping):
+    """Decorator to rename function's kwargs.
+
+    Useful to perform breaking changes,
+    with backwards compatibility.
+    """
+
+    def wrapped(func):
+        @functools.wraps(func)
+        def decorated(*args, **kwargs):
+            kwargs = {
+                mapping.get(key, key): val
+                for key, val in kwargs.items()
+            }
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapped

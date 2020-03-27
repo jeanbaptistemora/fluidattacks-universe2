@@ -143,7 +143,6 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_project_resolve_request_remove_project',
         'backend_api_resolvers_project_resolve_reject_remove_project',
         'backend_api_resolvers_user_resolve_user_resolve_list_projects',
-        'backend_api_resolvers_cache_resolve_invalidate_cache',
     }
 
     analyst_allowed_actions = {
@@ -185,7 +184,6 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_project_resolve_project_resolve_events',
         'backend_api_resolvers_project_resolve_add_project_comment',
         'backend_api_resolvers_project_resolve_project_resolve_drafts',
-        'backend_api_resolvers_cache_resolve_invalidate_cache',
     }
 
     customer_allowed_actions = {
@@ -391,10 +389,15 @@ class UserAbacTest(TestCase):
         'backend_api_resolvers_project_resolve_create_project',
     }
 
+    analyst_actions: Set[str] = {
+        'backend_api_resolvers_cache_resolve_invalidate_cache',
+    }
+
     admin_actions: Set[str] = {
         'backend_api_resolvers_user_resolve_add_user',
     }
-    admin_actions.union(customeratfluid_actions)
+    admin_actions = admin_actions.union(analyst_actions)
+    admin_actions = admin_actions.union(customeratfluid_actions)
 
     all_actions = admin_actions
 
@@ -408,6 +411,15 @@ class UserAbacTest(TestCase):
 
         for act in self.all_actions:
             self.assertFalse(self.enforcer.enforce(sub, obj, act))
+
+    def test_action_analyst_role(self):
+        sub = 'test_action_analyst_role@gmail.com'
+        obj = 'self'
+
+        self._grant_user_level_access(sub, 'analyst')
+
+        for act in self.analyst_actions:
+            self.assertTrue(self.enforcer.enforce(sub, obj, act))
 
     def test_action_customer_role(self):
         sub = 'test_action_customer_role@gmail.com'

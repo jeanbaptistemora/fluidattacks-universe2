@@ -143,7 +143,6 @@ class ActionAbacTest(TestCase):
         'backend_entity_project_RequestRemoveProject_mutate',
         'backend_entity_project_RejectRemoveProject_mutate',
         'backend_entity_user_User_resolve_list_projects',
-        'backend_entity_cache_InvalidateCache_mutate',
     }
 
     analyst_allowed_actions = {
@@ -185,7 +184,6 @@ class ActionAbacTest(TestCase):
         'backend_entity_project_Project_resolve_events',
         'backend_entity_project_AddProjectComment_mutate',
         'backend_entity_project_Project_resolve_drafts',
-        'backend_entity_cache_InvalidateCache_mutate',
     }
 
     customer_allowed_actions = {
@@ -390,10 +388,15 @@ class UserAbacTest(TestCase):
         'backend_entity_project_CreateProject_mutate',
     }
 
+    analyst_actions: Set[str] = {
+        'backend_entity_cache_InvalidateCache_mutate',
+    }
+
     admin_actions: Set[str] = {
         'backend_entity_user_AddUser_mutate',
     }
-    admin_actions.union(customeratfluid_actions)
+    admin_actions = admin_actions.union(analyst_actions)
+    admin_actions = admin_actions.union(customeratfluid_actions)
 
     all_actions = admin_actions
 
@@ -407,6 +410,15 @@ class UserAbacTest(TestCase):
 
         for act in self.all_actions:
             self.assertFalse(self.enforcer.enforce(sub, obj, act))
+
+    def test_action_analyst_role(self):
+        sub = 'test_action_analyst_role@gmail.com'
+        obj = 'self'
+
+        self._grant_user_level_access(sub, 'analyst')
+
+        for act in self.analyst_actions:
+            self.assertTrue(self.enforcer.enforce(sub, obj, act))
 
     def test_action_customer_role(self):
         sub = 'test_action_customer_role@gmail.com'

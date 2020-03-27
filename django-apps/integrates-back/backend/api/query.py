@@ -8,7 +8,7 @@ from graphene import Field, List, ObjectType, String, DateTime
 
 # Local libraries
 from backend.decorators import (
-    get_cached, require_event_access, require_finding_access,
+    get_cached, require_event_access, require_finding_access, rename_kwargs,
     require_login, require_project_access, enforce_authz
 )
 from backend.domain import project as project_domain, user as user_domain
@@ -87,8 +87,10 @@ class Query(ObjectType):
         return ForcesExecutions(project_name, from_date, to_date)
 
     @require_login
+    @rename_kwargs({'identifier': 'event_id'})
     @enforce_authz
     @require_event_access
+    @rename_kwargs({'event_id': 'identifier'})
     @get_cached
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
@@ -100,8 +102,10 @@ class Query(ObjectType):
         return events_loader.load(identifier)
 
     @require_login
+    @rename_kwargs({'identifier': 'finding_id'})
     @enforce_authz
     @require_finding_access
+    @rename_kwargs({'finding_id': 'identifier'})
     @get_cached
     def resolve_finding(self, info, identifier=None):
         """Resolve for finding."""

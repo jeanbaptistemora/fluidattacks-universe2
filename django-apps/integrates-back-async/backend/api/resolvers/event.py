@@ -2,7 +2,7 @@
 
 from time import time
 from backend.decorators import (
-    get_cached, require_login, require_event_access,
+    get_cached, require_login, require_event_access, rename_kwargs,
     require_project_access, enforce_authz_async
 )
 from backend.domain import event as event_domain
@@ -13,11 +13,13 @@ from ariadne import convert_kwargs_to_snake_case
 
 
 @require_login
+@rename_kwargs({'identifier': 'event_id'})
 @enforce_authz_async
 @require_event_access
+@rename_kwargs({'event_id': 'identifier'})
 @get_cached
 @convert_kwargs_to_snake_case
-def resolve_event(_, info, identifier):
+def resolve_event(_, info, identifier=None):
     """Resolve event query."""
     util.cloudwatch_log(
         info.context,
