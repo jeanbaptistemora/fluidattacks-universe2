@@ -79,6 +79,9 @@ def main():  # noqa
         '--does-subs-exist',
         action='store_true')
     parser.add_argument(
+        '--delete-pending-vulns',
+        action='store_true')
+    parser.add_argument(
         '--edit-secrets',
         action='store_true')
     parser.add_argument(
@@ -145,12 +148,6 @@ def main():  # noqa
         '--run-static-exps',
         action='store_true')
     parser.add_argument(
-        '--report-dynamic-exps',
-        action='store_true')
-    parser.add_argument(
-        '--report-static-exps',
-        action='store_true')
-    parser.add_argument(
         '--check-repos',
         action='store_true')
     parser.add_argument(
@@ -207,12 +204,9 @@ def main():  # noqa
             elif args.run_dynamic_exps:
                 sys.exit(0 if toolbox.run_dynamic_exploits(
                     args.subs, args.exp) else 1)
-            elif args.report_static_exps:
-                sys.exit(0 if toolbox.report_exploits(
-                    args.subs, 'static', args.exp) else 1)
-            elif args.report_dynamic_exps:
-                sys.exit(0 if toolbox.report_exploits(
-                    args.subs, 'dynamic', args.exp) else 1)
+            elif args.delete_pending_vulns:
+                sys.exit(0 if toolbox.delete_pending_vulnerabilities(
+                    args.subs, args.exp) else 1)
             elif args.get_exps_fragments:
                 sys.exit(0 if toolbox.get_exps_fragments(
                     args.subs, args.exp) else 1)

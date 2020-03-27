@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Tuple
 import ruamel.yaml as yaml
 
 # Local libraries
-from toolbox import api, constants, helper, logger, utils, resources
+from toolbox import api, constants, helper, logger, utils
 
 # Compiled regular expresions
 RE_DAILY_COMMIT = re.compile(r'proj\(\w+\):\s+(\w+)')
@@ -805,24 +805,17 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
     return True
 
 
-def report_exploits(subs: str, run_kind: str = None, exp: str = ''):
-    """Automatilly run exploits and report findings."""
-    if run_kind == 'dynamic':
-        run_dynamic_exploits(subs, exp)
-    elif run_kind == 'static':
-        resources.repo_cloning(subs)
-        run_static_exploits(subs, exp)
-    else:
-        resources.repo_cloning(subs)
-        run_dynamic_exploits(subs, exp)
-        run_static_exploits(subs, exp)
-
+def delete_pending_vulnerabilities(subs: str,
+                                   exp: str = '',
+                                   run_kind: str = 'all'):
+    """Delete pending vulnerabilities for a subscription."""
     for _, exploit_path in utils.iter_vulns_path(subs, exp):
-        _, finding_id = scan_exploit_for_kind_and_id(exploit_path)
-        helper.integrates.delete_pending_vulns(finding_id=finding_id)
-
-    if get_vulnerabilities_yaml(subs):
-        report_vulnerabilities(subs, exp)
+        kind, finding_id = scan_exploit_for_kind_and_id(exploit_path)
+        if run_kind == 'all':
+            helper.integrates.delete_pending_vulns(finding_id=finding_id)
+            continue
+        if kind == run_kind:
+            helper.integrates.delete_pending_vulns(finding_id=finding_id)
 
 
 def report_vulnerabilities(subs: str, vulns_name: str) -> bool:
