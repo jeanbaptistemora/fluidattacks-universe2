@@ -308,11 +308,16 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_users(self, info):
         """ Resolve project users """
+        user_data = util.get_jwt_content(info.context)
+        user_email = user_data['user_email']
+        user_role = \
+            user_domain.get_group_level_role(user_email, self.name)
+
         init_email_list = project_domain.get_users(self.name)
         user_email_list = util.user_email_filter(
-            init_email_list, util.get_jwt_content(info.context)['user_email'])
+            init_email_list, user_email)
         user_roles_to_retrieve = ['customer', 'customeradmin']
-        if util.get_jwt_content(info.context)['user_role'] == 'admin':
+        if user_role == 'admin':
             user_roles_to_retrieve.append('admin')
         self.users = [User(self.name, user_email)
                       for user_email in user_email_list

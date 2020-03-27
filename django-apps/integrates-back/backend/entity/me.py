@@ -133,7 +133,6 @@ class SignIn(Mutation):
                 session_jwt = jwt.encode(
                     {
                         'user_email': email,
-                        'user_role': user_domain.get_data(email, 'role'),
                         'company': user_domain.get_data(email, 'company'),
                         'first_name': user_info['given_name'],
                         'last_name': user_info['family_name'],

@@ -115,7 +115,6 @@ class UtilTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
-                'user_role': 'admin',
                 'company': 'unittest'
             },
             algorithm='HS512',
@@ -124,8 +123,8 @@ class UtilTests(TestCase):
         test_data = get_jwt_content(request)
         expected_output = {
             u'company': u'unittest',
-            u'user_role': u'admin',
-            u'user_email': u'unittest'}
+            u'user_email': u'unittest',
+        }
         assert test_data == expected_output
 
     def test_list_s3_objects(self):

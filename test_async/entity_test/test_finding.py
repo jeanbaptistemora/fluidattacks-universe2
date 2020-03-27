@@ -30,7 +30,6 @@ class FindingTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'integratesmanager@gmail.com',
-                'user_role': 'admin',
                 'company': 'fluid',
                 'first_name': 'unit',
                 'last_name': 'test'

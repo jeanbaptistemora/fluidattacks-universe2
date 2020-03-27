@@ -30,7 +30,6 @@ class FindingTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
-                'user_role': 'admin',
                 'company': 'unittest',
                 'first_name': 'unit',
                 'last_name': 'test'
@@ -123,7 +122,6 @@ class FindingTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
-                'user_role': 'admin',
                 'company': 'unittest'
             },
             algorithm='HS512',
@@ -218,7 +216,6 @@ class FindingTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest@fluidattacks.com',
-                'user_role': 'admin',
                 'company': 'unittest',
                 'first_name': 'unit',
                 'last_name': 'test'

@@ -27,6 +27,9 @@ class ProjectEntityTests(TestCase):
               totalFindings,
               description,
               subscription,
+              users {
+                email
+              },
               lastClosingVuln,
             }
           }
@@ -42,7 +45,6 @@ class ProjectEntityTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
-                'user_role': 'admin',
                 'company': 'unittest'
             },
             algorithm='HS512',
@@ -52,6 +54,11 @@ class ProjectEntityTests(TestCase):
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['project']
+        assert result['data']['project']['users'] == [
+            {'email': 'integratesmanager@gmail.com'},
+            {'email': 'integratesuser@gmail.com'},
+            {'email': 'continuoushacking@gmail.com'},
+        ]
         assert result['data']['project']['hasDrills'] == True
         assert result['data']['project']['hasForces'] == True
         assert result['data']['project']['lastClosingVuln'] == 23
@@ -139,7 +146,6 @@ class ProjectEntityTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest@fluidattacks.com',
-                'user_role': 'admin',
                 'company': 'unittest',
                 'first_name': 'unit',
                 'last_name': 'test'

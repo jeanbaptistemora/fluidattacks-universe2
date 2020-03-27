@@ -25,7 +25,6 @@ class ForcesExecutionsTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'integratesuser@gmail.com',
-                'user_role': 'customer',
                 'company': 'unittest',
                 'first_name': 'unit',
                 'last_name': 'test'

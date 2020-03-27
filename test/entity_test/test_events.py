@@ -105,7 +105,6 @@ class EventTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest@fluidattacks.com',
-                'user_role': 'admin',
                 'company': 'unittest',
                 'first_name': 'unit',
                 'last_name': 'test'

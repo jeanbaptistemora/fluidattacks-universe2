@@ -128,9 +128,14 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_release_date(self, info):
         """Resolve release date attribute."""
         draft_allowed_roles = ['admin', 'analyst']
-        if not self.release_date and \
-           util.get_jwt_content(info.context)['user_role'] not in draft_allowed_roles:
-            raise GraphQLError('Access denied')
+
+        if not self.release_date:
+            data = util.get_jwt_content(info.context)
+            email = data['user_email']
+            role = user_domain.get_group_level_role(email, self.project_name)
+
+            if role not in draft_allowed_roles:
+                raise GraphQLError('Access denied')
         return self.release_date
 
     @get_entity_cache

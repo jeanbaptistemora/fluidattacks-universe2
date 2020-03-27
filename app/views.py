@@ -91,7 +91,6 @@ def app(request):
         token = jwt.encode(
             {
                 'user_email': request.session['username'],
-                'user_role': request.session['role'],
                 'company': request.session['company'],
                 'first_name': request.session['first_name'],
                 'last_name': request.session['last_name'],

@@ -361,10 +361,7 @@ def resolve_edit_user(_, info, **query_args):
         modified_user_email = modified_user_data['email']
         modified_user_role = modified_user_data['role']
 
-        _old_method = user_domain.assign_role(  # rm
-            modified_user_email, modified_user_role)
-
-        if _old_method and user_domain.grant_group_level_role(
+        if user_domain.grant_group_level_role(
                 modified_user_email, project_name, modified_user_role):
             modify_user_information(info.context, modified_user_data,
                                     project_name)

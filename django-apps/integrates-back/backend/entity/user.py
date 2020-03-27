@@ -276,12 +276,6 @@ def create_new_user(  # noqa: mccabe
         if role:
             user_domain.grant_group_level_role(email, group, role)
 
-        if role == 'customeradmin':
-            project_domain.add_user(group.lower(), email.lower(), role)  # rm
-
-        if not user_domain.update_project_access(email, group, True):  # rm
-            return False
-
         description = project_domain.get_description(group.lower())
         project_url = \
             'https://fluidattacks.com/integrates/dashboard#!/project/' \
