@@ -17,7 +17,6 @@ def set_xlsx_password(filepath: str, password: str):
 
 
 def send_pdf_password_email(user_info, project_name, password):
-    user_name = user_info[1]
     user_email = user_info[0]
     report_date = datetime.today().strftime('%Y-%m-%d_%H:%M:%S')
     email_send_thread = threading.Thread(
@@ -26,8 +25,7 @@ def send_pdf_password_email(user_info, project_name, password):
         args=([user_email], {
             'date': report_date.split('_')[0],
             'time': report_date.split('_')[1],
-            'project': project_name,
-            'username': user_name,
+            'projectname': project_name,
             'password': password
         }))
 
