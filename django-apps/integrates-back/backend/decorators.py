@@ -119,8 +119,13 @@ def require_login(func):
 
 def resolve_project_name(args, kwargs):
     """Get project name based on args passed."""
-    if args[0] and hasattr(args[0], 'name'):
-        project_name = args[0].name
+    if args[0]:
+        if hasattr(args[0], 'name'):
+            project_name = args[0].name
+        elif hasattr(args[0], 'project_name'):
+            project_name = args[0].project_name
+        else:
+            project_name = None
     elif 'project_name' in kwargs:
         project_name = kwargs['project_name']
     elif 'finding_id' in kwargs:
@@ -163,6 +168,12 @@ def enforce_authz(func):
         context = args[1].context
 
         project_name = resolve_project_name(args, kwargs)
+        if not project_name:
+            rollbar.report_message(
+                'Couldn\'t identify project_name',
+                level='error',
+                extra_data={'resolver': func.__qualname__})
+
         project_data = resolve_project_data(project_name)
 
         user_data = util.get_jwt_content(context)

@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from backend.domain import (
-    finding as finding_domain, user as user_domain
+    event as event_domain, finding as finding_domain, user as user_domain
 )
 
 from backend import util
@@ -39,8 +39,8 @@ def has_access_to_finding(email: str, finding_id: str) -> bool:
 
 def has_access_to_event(email: str, event_id: str) -> bool:
     """ Verify if the user has access to a event submission. """
-    finding = finding_domain.get_finding(event_id)
-    group = cast(str, finding.get('projectName', ''))
+    event = event_domain.get_event(event_id)
+    group = cast(str, event.get('project_name', ''))
     return has_access_to_project(email, group)
 
 
