@@ -220,9 +220,9 @@ def project_to_pdf(request, lang, project, doctype):
             report_filename = secure_pdf.create_full(user_name,
                                                      pdf_maker.out_name,
                                                      project)
-            reports.send_pdf_password_email([user_email, user_name],
-                                            project.lower(),
-                                            secure_pdf.password)
+            reports.send_report_password_email(user_email,
+                                               project.lower(),
+                                               secure_pdf.password, 'PDF')
         else:
             return HttpResponse(
                 'Disabled report generation', content_type='text/html')
