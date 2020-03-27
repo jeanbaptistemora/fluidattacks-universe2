@@ -4,7 +4,7 @@
 :keywords: Digital certificate, Abuse case, Man-in-the-middle, Certification authority, Expiry, Renewal
 :rules: yes
 
-= REQ.089 Limit Validity of Certificates
+= REQ.089 Limit validity of certificates
 
 == Requirement
 

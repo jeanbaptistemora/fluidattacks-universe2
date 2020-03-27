@@ -4,7 +4,7 @@
 :keywords: System, Log, File, Integrity, Security, Requirement
 :rules: yes
 
-= REQ.046 Manage Integrity of Critical Files
+= REQ.046 Manage integrity of critical files
 
 == Requirement
 

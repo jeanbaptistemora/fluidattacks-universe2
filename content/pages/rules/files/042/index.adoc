@@ -4,7 +4,7 @@
 :keywords: System, Validate, File, Format, Security, Business
 :rules: yes
 
-= REQ.042 Validate File Format
+= REQ.042 Validate file format
 
 == Requirement
 

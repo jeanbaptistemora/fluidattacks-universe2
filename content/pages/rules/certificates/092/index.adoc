@@ -4,7 +4,7 @@
 :keywords: Certificate, Certification bodies, Applications, Signature, Requirement, Security
 :rules: yes
 
-= REQ.092 Use Externally Signed Certificates
+= REQ.092 Use externally signed certificates
 
 == Requirement
 

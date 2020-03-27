@@ -4,7 +4,7 @@
 :keywords: Environment, System, Archive, Deployment, Production, Temporary
 :rules: yes
 
-= REQ.036 Do Not Deploy Temporary Files
+= REQ.036 Do not deploy temporary files
 
 == Requirement
 

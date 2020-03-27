@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Logs, Events, Severity, Production
 :rules: yes
 
-= REQ.078 Disable Debugging Events
+= REQ.078 Disable debugging events
 
 == Requirement
 

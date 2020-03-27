@@ -1,12 +1,12 @@
 :slug: rules/041/
 :category: files
-:description: This document details the security guidelines and requirements related to files management within the organization or company. Therefore, in this requirement it is recommended that files transferred to the system be debugged of possible malicious code.
+:description: This document details the security guidelines and requirements related to files management within the organization or company. Therefore, in this requirement it is recommended that files transferred to the system be scanned for possible malicious code.
 :keywords: System, Validate, File, Code, Security, Malicious
 :rules: yes
 
-= REQ.041 Debugging Files of Malicious Code
+= REQ.041 Scan files for malicious code
 
 == Requirement
 
 The system must validate that
-the content of the files transferred to itself is free of malicious code.
+the content of the files transferred to it is free of malicious code.

@@ -4,7 +4,7 @@
 :keywords: System, Metadata, File, Remove, Security, Sharing
 :rules: yes
 
-= REQ.045 Remove Metadata When Sharing Files
+= REQ.045 Remove metadata when sharing files
 
 == Requirement
 

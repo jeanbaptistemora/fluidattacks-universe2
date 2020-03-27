@@ -4,7 +4,7 @@
 :keywords: System, Size, File, MB, Security, User
 :rules: yes
 
-= REQ.040 Contrast File Format and Extension
+= REQ.040 Contrast file format and extension
 
 == Requirement
 

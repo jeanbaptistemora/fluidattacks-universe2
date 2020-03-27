@@ -4,7 +4,7 @@
 :keywords: Certificate, Certification Bodies, Applications, Signature, Requirement, Security
 :rules: yes
 
-= REQ.091 Use Internally Signed Certificates
+= REQ.091 Use internally signed certificates
 
 == Requirement
 
