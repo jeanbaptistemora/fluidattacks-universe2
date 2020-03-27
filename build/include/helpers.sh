@@ -273,16 +273,25 @@ function helper_word_count {
   local file="${1}"
   local min_words="${2}"
   local max_words="${3}"
+  local file_style
   local words
   local regex='[0-9]+(?= words,)'
 
       helper_file_exists "${file}" \
-  &&  words="$(style "${file}" | grep -Po "${regex}")" \
-  &&  if [ "${words}" -ge "${min_words}" ] && [ "${words}" -le "${max_words}" ]
+  &&  file_style="$(helper_adoc_normalize "${file}" | style)" \
+  &&  if [ "${file_style}" != 'No sentences found.' ]
       then
-            return 0
+            words="$(echo "${file_style}" | grep -Po "${regex}")" \
+        &&  if [ "${words}" -ge "${min_words}" ] && [ "${words}" -le "${max_words}" ]
+            then
+                  return 0
+            else
+                  echo "[ERROR] ${file} must have [${min_words}-${max_words}] words. It currently has ${words}" \
+              &&  return 1
+            fi
       else
-            echo "[ERROR] ${file} must have [${min_words}-${max_words}] words. It currently has ${words}"
+            echo "[INFO] ${file} seems to be empty. Skipping words test" \
+        &&  return 0
       fi
 }
 
@@ -291,12 +300,13 @@ function helper_test_lix {
   local max_lix="${2}"
   local file_lix
   local file_style
+  local regex='Lix: (\d\d)'
 
       helper_file_exists "${file}" \
   &&  file_style="$(helper_adoc_normalize "${file}" | style)" \
   &&  if [ "${file_style}" != 'No sentences found.' ]
       then
-            file_lix="$(echo "${file_style}" | pcregrep -o1 'Lix: (\d\d)')" \
+            file_lix="$(echo "${file_style}" | pcregrep -o1 "${regex}")" \
         &&  if [ "${file_lix}" -le "${max_lix}" ]
             then
                   return 0

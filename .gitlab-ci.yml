@@ -103,6 +103,11 @@ test_blog:
   <<: *in_dev_and_master_branch
   stage: test
 
+test_defends:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: test
+
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -110,15 +115,6 @@ builder:
   script:
     - . ci-scripts/build-builder.sh
     - build_builder
-
-content:
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  script:
-    - ./check-changed.sh
-  except:
-    - master
 
 lint-typescript-new-web:
   image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME

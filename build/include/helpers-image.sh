@@ -19,7 +19,7 @@ function helper_image_optimized {
   local path="${1}"
 
       helper_file_exists "${path}" \
-  &&  if optipng "${path}" 2>&1 | tail -n2 | grep -q 'already optimized.'
+  &&  if optipng -simulate "${path}" 2>&1 | tail -n2 | grep -q 'already optimized.'
       then
             return 0
       else

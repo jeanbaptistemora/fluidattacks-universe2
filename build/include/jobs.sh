@@ -113,6 +113,8 @@ function job_test_generic {
   local all_adoc_files
   local touched_adoc_files
   local max_columns='81'
+  local min_words='400'
+  local max_words='1600'
   local max_lix='65'
 
       all_content_files="$(find content/ -type f)" \
@@ -141,7 +143,8 @@ function job_test_generic {
       done \
   &&  for path in ${touched_adoc_files}
       do
-            helper_test_lix "${path}" "${max_lix}" \
+            helper_word_count "${path}" "${min_words}" "${max_words}" \
+        &&  helper_test_lix "${path}" "${max_lix}" \
         ||  return 1
       done
 }
@@ -150,7 +153,7 @@ function job_test_blog {
   local all_blog_adoc_files
   local touched_blog_adoc_files
   local min_words='800'
-  local max_words='1200'
+  local max_words='1600'
   local max_lix='50'
 
       all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
@@ -166,9 +169,25 @@ function job_test_blog {
       done \
   &&  for path in ${touched_blog_adoc_files}
       do
-            helper_word_count "${path}" "${min_words}" "${max_words}" \
+            helper_blog_adoc_others "${path}" \
         &&  helper_adoc_tag_exists "${path}" ':source:' \
-        &&  helper_blog_adoc_others "${path}" \
+        &&  helper_word_count "${path}" "${min_words}" "${max_words}" \
+        &&  helper_test_lix "${path}" "${max_lix}" \
+        ||  return 1
+      done
+}
+
+function job_test_defends {
+  local touched_defends_adoc_files
+  local min_words='400'
+  local max_words='800'
+  local max_lix='60'
+
+      touched_defends_adoc_files="$(helper_list_touched_files | grep 'content/pages/defends/' | grep '.adoc')" || true \
+  &&  echo '[INFO] Testing defends files' \
+  &&  for path in ${touched_defends_adoc_files}
+      do
+            helper_word_count "${path}" "${min_words}" "${max_words}" \
         &&  helper_test_lix "${path}" "${max_lix}" \
         ||  return 1
       done
