@@ -143,6 +143,162 @@ async def _get_comments(info, identifier):
     return dict(comments=comments)
 
 
+async def _get_historic_state(info, identifier):
+    """Get historic_state."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(historic_state=finding['historic_state'])
+
+
+async def _get_title(info, identifier):
+    """Get title."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(title=finding['title'])
+
+
+async def _get_scenario(info, identifier):
+    """Get scenario."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(scenario=finding['scenario'])
+
+
+async def _get_actor(info, identifier):
+    """Get actor."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(actor=finding['actor'])
+
+
+async def _get_description(info, identifier):
+    """Get description."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(description=finding['description'])
+
+
+async def _get_requirements(info, identifier):
+    """Get requirements."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(requirements=finding['requirements'])
+
+
+async def _get_attack_vector_desc(info, identifier):
+    """Get attack_vector_desc."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(attack_vector_desc=finding['attack_vector_desc'])
+
+
+async def _get_threat(info, identifier):
+    """Get threat."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(threat=finding['threat'])
+
+
+async def _get_recommendation(info, identifier):
+    """Get recommendation."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(recommendation=finding['recommendation'])
+
+
+async def _get_affected_systems(info, identifier):
+    """Get affected_systems."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(affected_systems=finding['affected_systems'])
+
+
+async def _get_compromised_attributes(info, identifier):
+    """Get compromised_attributes."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(compromised_attributes=finding['compromised_attributes'])
+
+
+async def _get_compromised_records(info, identifier):
+    """Get compromised_records."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(compromised_records=finding['compromised_records'])
+
+
+async def _get_cwe_url(info, identifier):
+    """Get cwe_url."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(cwe_url=finding['cwe_url'])
+
+
+async def _get_bts_url(info, identifier):
+    """Get bts_url."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(bts_url=finding['bts_url'])
+
+
+async def _get_risk(info, identifier):
+    """Get risk."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(risk=finding['risk'])
+
+
+async def _get_remediated(info, identifier):
+    """Get remediated."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(remediated=finding['remediated'])
+
+
+async def _get_type(info, identifier):
+    """Get type."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(type=finding['type'])
+
+
+async def _get_age(info, identifier):
+    """Get age."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(age=finding['age'])
+
+
+async def _get_is_exploitable(info, identifier):
+    """Get is_exploitable."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(is_exploitable=finding['is_exploitable'])
+
+
+async def _get_severity_score(info, identifier):
+    """Get severity_score."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(severity_score=finding['severity_score'])
+
+
+async def _get_report_date(info, identifier):
+    """Get report_date."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(report_date=finding['report_date'])
+
+
+async def _get_analyst(info, identifier):
+    """Get analyst."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(analyst=finding['analyst'])
+
+
+async def _get_historic_treatment(info, identifier):
+    """Get historic_treatment."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(historic_treatment=finding['historic_treatment'])
+
+
+async def _get_current_state(info, identifier):
+    """Get current_state."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(current_state=finding['current_state'])
+
+
+async def _get_new_remediated(info, identifier):
+    """Get new_remediated."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(new_remediated=finding['new_remediated'])
+
+
+async def _get_verified(info, identifier):
+    """Get verified."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(verified=finding['verified'])
+
+
 async def _resolve_fields(info, identifier):
     """Async resolve fields."""
     loaders = {

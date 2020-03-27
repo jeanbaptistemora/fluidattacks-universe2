@@ -59,6 +59,32 @@ class FindingTests(TestCase):
                   id
                   content
               }
+              historicState
+              title
+              scenario
+              actor
+              description
+              requirements
+              attackVectorDesc
+              threat
+              recommendation
+              affectedSystems
+              compromisedAttributes
+              compromisedRecords
+              cweUrl
+              btsUrl
+              risk
+              remediated
+              type
+              age
+              isExploitable
+              severityScore
+              reportDate
+              analyst
+              historicTreatment
+              currentState
+              newRemediated
+              verified
           }
         }'''
         data = {'query': query}
@@ -83,6 +109,32 @@ class FindingTests(TestCase):
         assert 'evidence1' in result['data']['finding']['evidence']
         assert 'comments' in result['data']['finding']
         assert result['data']['finding']['comments'][0]['content'] == 'This is a comenting test'
+        assert 'historicState' in result['data']['finding']
+        assert 'title' in result['data']['finding']
+        assert 'scenario' in result['data']['finding']
+        assert 'actor' in result['data']['finding']
+        assert 'description' in result['data']['finding']
+        assert 'requirements' in result['data']['finding']
+        assert 'attackVectorDesc' in result['data']['finding']
+        assert 'threat' in result['data']['finding']
+        assert 'recommendation' in result['data']['finding']
+        assert 'affectedSystems' in result['data']['finding']
+        assert 'compromisedAttributes' in result['data']['finding']
+        assert 'compromisedRecords' in result['data']['finding']
+        assert 'cweUrl' in result['data']['finding']
+        assert 'btsUrl' in result['data']['finding']
+        assert 'risk' in result['data']['finding']
+        assert 'remediated' in result['data']['finding']
+        assert 'type' in result['data']['finding']
+        assert 'age' in result['data']['finding']
+        assert 'isExploitable' in result['data']['finding']
+        assert 'severityScore' in result['data']['finding']
+        assert 'reportDate' in result['data']['finding']
+        assert 'analyst' in result['data']['finding']
+        assert 'historicTreatment' in result['data']['finding']
+        assert 'currentState' in result['data']['finding']
+        assert 'newRemediated' in result['data']['finding']
+        assert 'verified' in result['data']['finding']
 
     def test_remove_evidence(self):
         """Check for removeEvidence mutation."""
