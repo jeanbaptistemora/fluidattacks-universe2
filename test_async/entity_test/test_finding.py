@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import json
 import os
 import pytest
@@ -39,6 +40,26 @@ class FindingTests(TestCase):
         )
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         return result
+
+    def test_finding(self):
+        """Check for finding query."""
+        query = '''{
+          finding(identifier: "422286126"){
+              id
+              projectName
+              releaseDate
+              openVulnerabilities
+              closedVulnerabilities
+          }
+        }'''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        result['data']['finding']['id'] == '422286126'
+        result['data']['finding']['projectName'] == 'unittesting'
+        result['data']['finding']['openVulnerabilities'] == 1
+        result['data']['finding']['closedVulnerabilities'] == 0
+        result['data']['finding']['releaseDate'] == '2018-07-09 00:00:00'
 
     def test_remove_evidence(self):
         """Check for removeEvidence mutation."""

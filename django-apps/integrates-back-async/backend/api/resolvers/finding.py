@@ -1,11 +1,18 @@
 # pylint: disable=import-error
 
+import asyncio
+import sys
+
 import rollbar
+from asgiref.sync import sync_to_async
 from graphql import GraphQLError
 
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
+from backend.api.dataloaders.finding import FindingLoader
+
 from backend.decorators import (
-    enforce_authz_async, require_login, require_finding_access,
-    require_project_access
+    enforce_authz_async, rename_kwargs, require_login,
+    require_finding_access, require_project_access
 )
 from backend.domain import (
     finding as finding_domain, project as project_domain,
@@ -13,7 +20,86 @@ from backend.domain import (
 )
 from backend import util
 
-from ariadne import convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
+
+
+@sync_to_async
+def _get_id(_, identifier):
+    """Get id."""
+    return dict(id=identifier)
+
+
+async def _get_project_name(_, identifier):
+    """Get project_name."""
+    finding = await FindingLoader().load(identifier)
+    return dict(project_name=finding['project_name'])
+
+
+async def _get_open_vulnerabilities(_, identifier):
+    """Get open_vulnerabilities."""
+    vulns = await VulnerabilityLoader().load(identifier)
+
+    open_vulnerabilities = len([
+        vuln for vuln in vulns
+        if vuln_domain.get_current_state(vuln) == 'open' and
+        (vuln['current_approval_status'] != 'PENDING' or
+            vuln['last_approved_status'])])
+    return dict(open_vulnerabilities=open_vulnerabilities)
+
+
+async def _get_closed_vulnerabilities(_, identifier):
+    """Get closed_vulnerabilities."""
+    vulns = await VulnerabilityLoader().load(identifier)
+
+    closed_vulnerabilities = len([
+        vuln for vuln in vulns
+        if vuln_domain.get_current_state(vuln) == 'closed' and
+        (vuln['current_approval_status'] != 'PENDING' or
+            vuln['last_approved_status'])])
+    return dict(closed_vulnerabilities=closed_vulnerabilities)
+
+
+async def _get_release_date(info, identifier):
+    """Get release date."""
+    allowed_roles = ['admin', 'analyst']
+    finding = await FindingLoader().load(identifier)
+    release_date = finding['release_date']
+    if not release_date and \
+            util.get_jwt_content(info.context)['user_role'] \
+            not in allowed_roles:
+        raise GraphQLError('Access denied')
+    return dict(release_date=release_date)
+
+
+async def _resolve_fields(info, identifier):
+    """Async resolve fields."""
+    result = dict()
+    tasks = list()
+    for requested_field in info.field_nodes[0].selection_set.selections:
+        snake_field = convert_camel_case_to_snake(requested_field.name.value)
+        if snake_field.startswith('_') or snake_field == 'vulnerabilities':
+            continue
+        resolver_func = getattr(
+            sys.modules[__name__],
+            f'_get_{snake_field}'
+        )
+        future = asyncio.ensure_future(resolver_func(info, identifier))
+        tasks.append(future)
+    tasks_result = await asyncio.gather(*tasks)
+    for dict_result in tasks_result:
+        result.update(dict_result)
+    return result
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@rename_kwargs({'identifier': 'finding_id'})
+@enforce_authz_async
+@require_finding_access
+@rename_kwargs({'finding_id': 'identifier'})
+def resolve_finding(_, info, identifier):
+    """Resolve finding query."""
+    return util.run_async(_resolve_fields, info, identifier)
 
 
 @convert_kwargs_to_snake_case
