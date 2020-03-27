@@ -119,13 +119,10 @@ def require_login(func):
 
 def resolve_project_name(args, kwargs):
     """Get project name based on args passed."""
-    if args[0]:
-        if hasattr(args[0], 'name'):
-            project_name = args[0].name
-        elif hasattr(args[0], 'project_name'):
-            project_name = args[0].project_name
-        else:
-            project_name = None
+    if args and hasattr(args[0], 'name'):
+        project_name = args[0].name
+    elif args and hasattr(args[0], 'project_name'):
+        project_name = args[0].project_name
     elif 'project_name' in kwargs:
         project_name = kwargs['project_name']
     elif 'finding_id' in kwargs:
@@ -137,6 +134,8 @@ def resolve_project_name(args, kwargs):
     elif 'event_id' in kwargs:
         project_name = \
             event_domain.get_event(kwargs['event_id']).get('project_name')
+    elif settings.DEBUG:
+        raise Exception('Unable to identify project')
     else:
         project_name = None
     return project_name
