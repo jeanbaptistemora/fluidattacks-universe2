@@ -36,6 +36,8 @@ function cli {
       ;;
     deploy_k8s*)
       ;;
+    infra*)
+      ;;
     functional_tests*)
       env_prepare_python_packages
       ;;

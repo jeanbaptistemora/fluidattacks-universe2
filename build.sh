@@ -25,6 +25,7 @@ function decide_and_call_provisioner {
         deploy_front     ) provisioner='deploy-front';;
         deploy_mobile    ) provisioner='deploy-mobile';;
         deploy_k8s*      ) provisioner='infra';;
+        infra*           ) provisioner='infra';;
         functional_tests*) provisioner='selenium';;
         test*            ) provisioner='test';;
                         *) provisioner='full';;
