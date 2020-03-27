@@ -123,6 +123,9 @@ def resolve_project_name(args, kwargs):
         project_name = args[0].name
     elif args and hasattr(args[0], 'project_name'):
         project_name = args[0].project_name
+    elif args and hasattr(args[0], 'finding_id'):
+        project_name = \
+            finding_dal.get_attributes(args[0].finding_id, ['project_name']).get('project_name')
     elif 'project_name' in kwargs:
         project_name = kwargs['project_name']
     elif 'finding_id' in kwargs:
@@ -164,6 +167,9 @@ def enforce_authz(func):
     """
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
+        action = '{}.{}'.format(func.__module__, func.__qualname__)
+        action = action.replace('.', '_')
+
         context = args[1].context
 
         project_name = resolve_project_name(args, kwargs)
@@ -171,7 +177,7 @@ def enforce_authz(func):
             rollbar.report_message(
                 'Couldn\'t identify project_name',
                 level='error',
-                extra_data={'resolver': func.__qualname__})
+                extra_data={'resolver': action})
 
         project_data = resolve_project_data(project_name)
 
@@ -180,9 +186,6 @@ def enforce_authz(func):
 
         user_data['role'] = \
             user_domain.get_group_level_role(user_email, project_name)
-
-        action = '{}.{}'.format(func.__module__, func.__qualname__)
-        action = action.replace('.', '_')
 
         util.temporal_keep_auth_table_fresh(ENFORCER_GROUP_LEVEL, 'egl')
 
