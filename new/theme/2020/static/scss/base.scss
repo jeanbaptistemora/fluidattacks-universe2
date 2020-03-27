@@ -310,3 +310,14 @@ $codeyellow: rgba(230, 219, 116, 1);
 .carousel::-webkit-scrollbar-thumb {
   display: none;
 }
+
+// Carousel for the Trusted by section
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-200px * 9)); }
+}
+.customer-carousel { animation: scroll 40s linear infinite;
+  display: flex;
+  width: calc(200px * 18);
+}
