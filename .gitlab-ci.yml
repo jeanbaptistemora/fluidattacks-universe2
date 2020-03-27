@@ -103,11 +103,6 @@ test_blog:
   <<: *in_dev_and_master_branch
   stage: test
 
-test_lix:
-  <<: *with_nix
-  <<: *in_dev_and_master_branch
-  stage: test
-
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -122,7 +117,6 @@ content:
   stage: test
   script:
     - ./check-changed.sh
-    - python3 ci-scripts/checkall.py changes
   except:
     - master
 

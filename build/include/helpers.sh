@@ -286,9 +286,26 @@ function helper_word_count {
       fi
 }
 
-function helper_get_lix {
+function helper_test_lix {
   local file="${1}"
+  local max_lix="${2}"
+  local file_lix
+  local file_style
 
       helper_file_exists "${file}" \
-  &&  helper_adoc_normalize "${file}" | style | pcregrep -o1 'Lix: (\d\d)'
+  &&  file_style="$(helper_adoc_normalize "${file}" | style)" \
+  &&  if [ "${file_style}" != 'No sentences found.' ]
+      then
+            file_lix="$(echo "${file_style}" | pcregrep -o1 'Lix: (\d\d)')" \
+        &&  if [ "${file_lix}" -le "${max_lix}" ]
+            then
+                  return 0
+            else
+                  echo "[ERROR] ${file} has Lix greater than ${max_lix}: ${file_lix}" \
+              &&  return 1
+            fi
+      else
+            echo "[INFO] ${file} seems to be empty. Skipping lix test" \
+        &&  return 0
+      fi
 }

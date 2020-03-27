@@ -10,6 +10,7 @@ in
         ++ [
           pkgs.git
           pkgs.glibcLocales
+          pkgs.diction
           pkgs.file
           pkgs.pcre
         ];
