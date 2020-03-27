@@ -1,6 +1,7 @@
 # pylint: disable=import-error
 
 from time import time
+from backend.api.dataloaders import event
 from backend.decorators import (
     get_cached, require_login, require_event_access, rename_kwargs,
     require_project_access, enforce_authz_async
@@ -27,18 +28,22 @@ def resolve_event(_, info, identifier=None):
     return event_domain.get_event(identifier)
 
 
-@require_login
-@enforce_authz_async
-@require_event_access
-@get_cached
-@convert_kwargs_to_snake_case
-def resolve_events(_, info, project_name):
-    """Resolve events query."""
+async def _resolve_events_async(info, project_name):
+    """Async resolve events function."""
     util.cloudwatch_log(
         info.context, f'Security: Access to {project_name} events')
     event_ids = project_domain.list_events(project_name)
-    events_loader = info.context.loaders['event']
-    return events_loader.load_many(event_ids)
+    events_loader = event.EventLoader()
+    return await events_loader.load_many(event_ids)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_authz_async
+@require_project_access
+def resolve_events(_, info, project_name):
+    """Resolve events query."""
+    return util.run_async(_resolve_events_async, info, project_name)
 
 
 @convert_kwargs_to_snake_case

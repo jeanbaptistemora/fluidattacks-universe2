@@ -68,7 +68,6 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        request.loaders = {'event': EventLoader()}
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'events' in result['data']
         assert result['data']['events'][0]['projectName'] == 'unittesting'

@@ -25,7 +25,7 @@ RUN cp -a django-apps/integrates-back-async/backend . \
   && cp -a django-apps/integrates-back/backend/domain backend/ \
   && cp -a django-apps/integrates-back/backend/utils backend/ \
   && cp -a django-apps/integrates-back/backend/*py backend/ \
-  && pip3 install -U ariadne==0.10.0 \
+  && pip3 install -U ariadne==0.10.0 aiodataloader==0.2.0 \
   && pip3 install --no-cache-dir --no-index \
       --find-links=django-apps/packages/ \
       --requirement deploy/containers/deps-app/requirements_local_async.txt \
