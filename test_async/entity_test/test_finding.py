@@ -49,16 +49,40 @@ class FindingTests(TestCase):
               releaseDate
               openVulnerabilities
               closedVulnerabilities
+              tracking
+              records
+              severity
+              cvssVersion
+              exploit
+              evidence
+              comments {
+                  id
+                  content
+              }
           }
         }'''
         data = {'query': query}
         result = self._get_result(data)
         assert 'errors' not in result
-        result['data']['finding']['id'] == '422286126'
-        result['data']['finding']['projectName'] == 'unittesting'
-        result['data']['finding']['openVulnerabilities'] == 1
-        result['data']['finding']['closedVulnerabilities'] == 0
-        result['data']['finding']['releaseDate'] == '2018-07-09 00:00:00'
+        assert result['data']['finding']['id'] == '422286126'
+        assert result['data']['finding']['projectName'] == 'unittesting'
+        assert result['data']['finding']['openVulnerabilities'] == 1
+        assert result['data']['finding']['closedVulnerabilities'] == 0
+        assert result['data']['finding']['releaseDate'] == '2018-07-09 00:00:00'
+        assert result['data']['finding']['tracking'][0]['cycle'] == 0
+        assert result['data']['finding']['tracking'][0]['open'] == 1
+        assert result['data']['finding']['tracking'][0]['closed'] == 0
+        assert result['data']['finding']['tracking'][0]['effectiveness'] == 0
+        assert result['data']['finding']['tracking'][0]['date'] == '2018-09-28'
+        assert 'records' in result['data']['finding']
+        assert result['data']['finding']['severity']['attackComplexity'] == 0.77
+        assert result['data']['finding']['severity']['remediationLevel'] == 0.97
+        assert result['data']['finding']['cvssVersion'] == "3.1"
+        assert 'It works' in result['data']['finding']['exploit']
+        assert 'evidence' in result['data']['finding']
+        assert 'evidence1' in result['data']['finding']['evidence']
+        assert 'comments' in result['data']['finding']
+        assert result['data']['finding']['comments'][0]['content'] == 'This is a comenting test'
 
     def test_remove_evidence(self):
         """Check for removeEvidence mutation."""

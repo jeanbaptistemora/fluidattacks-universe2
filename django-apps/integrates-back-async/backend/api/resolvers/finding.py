@@ -15,9 +15,11 @@ from backend.decorators import (
     require_finding_access, require_project_access
 )
 from backend.domain import (
-    finding as finding_domain, project as project_domain,
+    comment as comment_domain, finding as finding_domain,
+    project as project_domain, user as user_domain,
     vulnerability as vuln_domain
 )
+from backend.utils import findings as finding_utils
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
@@ -29,15 +31,15 @@ def _get_id(_, identifier):
     return dict(id=identifier)
 
 
-async def _get_project_name(_, identifier):
+async def _get_project_name(info, identifier):
     """Get project_name."""
-    finding = await FindingLoader().load(identifier)
+    finding = await info.context.loaders['finding'].load(identifier)
     return dict(project_name=finding['project_name'])
 
 
-async def _get_open_vulnerabilities(_, identifier):
+async def _get_open_vulnerabilities(info, identifier):
     """Get open_vulnerabilities."""
-    vulns = await VulnerabilityLoader().load(identifier)
+    vulns = await info.context.loaders['vulnerability'].load(identifier)
 
     open_vulnerabilities = len([
         vuln for vuln in vulns
@@ -47,9 +49,9 @@ async def _get_open_vulnerabilities(_, identifier):
     return dict(open_vulnerabilities=open_vulnerabilities)
 
 
-async def _get_closed_vulnerabilities(_, identifier):
+async def _get_closed_vulnerabilities(info, identifier):
     """Get closed_vulnerabilities."""
-    vulns = await VulnerabilityLoader().load(identifier)
+    vulns = await info.context.loaders['vulnerability'].load(identifier)
 
     closed_vulnerabilities = len([
         vuln for vuln in vulns
@@ -62,7 +64,7 @@ async def _get_closed_vulnerabilities(_, identifier):
 async def _get_release_date(info, identifier):
     """Get release date."""
     allowed_roles = ['admin', 'analyst']
-    finding = await FindingLoader().load(identifier)
+    finding = await info.context.loaders['finding'].load(identifier)
     release_date = finding['release_date']
     if not release_date and \
             util.get_jwt_content(info.context)['user_role'] \
@@ -71,8 +73,83 @@ async def _get_release_date(info, identifier):
     return dict(release_date=release_date)
 
 
+async def _get_tracking(info, identifier):
+    """Get tracking."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    release_date = finding['release_date']
+    if release_date:
+        vulns = await info.context.loaders['vulnerability'].load(identifier)
+        tracking = \
+            await \
+            sync_to_async(finding_domain.get_tracking_vulnerabilities)(vulns)
+    else:
+        tracking = []
+    return dict(tracking=tracking)
+
+
+async def _get_records(info, identifier):
+    """Get records."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    if finding['records']['url']:
+        records = await sync_to_async(finding_utils.get_records_from_file)(
+            finding['project_name'], finding['id'], finding['records']['url'])
+    else:
+        records = []
+    return dict(records=records)
+
+
+async def _get_severity(info, identifier):
+    """Get severity."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(severity=finding['severity'])
+
+
+async def _get_cvss_version(info, identifier):
+    """Get cvss_version."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(cvss_version=finding['cvss_version'])
+
+
+async def _get_exploit(info, identifier):
+    """Get exploit."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    if finding['exploit']['url']:
+        exploit = \
+            await \
+            sync_to_async(finding_utils.get_exploit_from_file)(
+                finding['project_name'], finding['id'],
+                finding['exploit']['url'])
+    else:
+        exploit = ''
+    return dict(exploit=exploit)
+
+
+async def _get_evidence(info, identifier):
+    """Get evidence."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    return dict(evidence=finding['evidence'])
+
+
+async def _get_comments(info, identifier):
+    """Get comments."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    curr_user_role = \
+        user_domain.get_group_level_role(user_email, finding['project_name'])
+    comments = await sync_to_async(comment_domain.get_comments)(
+        finding['id'], curr_user_role
+    )
+    return dict(comments=comments)
+
+
 async def _resolve_fields(info, identifier):
     """Async resolve fields."""
+    loaders = {
+        'finding': FindingLoader(),
+        'vulnerability': VulnerabilityLoader()
+    }
+    info.context.loaders = loaders
     result = dict()
     tasks = list()
     for requested_field in info.field_nodes[0].selection_set.selections:

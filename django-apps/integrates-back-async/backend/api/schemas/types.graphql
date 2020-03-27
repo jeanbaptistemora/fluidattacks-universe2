@@ -36,7 +36,7 @@ type Finding {
     attackVectorDesc: String
     btsUrl: String
     closedVulnerabilities: Int
-    comments: [Comment!]
+    comments: [Comment]
     compromisedAttributes: String
     compromisedRecords: Int
     currentState: String
@@ -48,7 +48,7 @@ type Finding {
     id: String
     isExploitable: Boolean
     lastVulnerability: Int
-    observations: [Comment!]
+    observations: [Comment]
     openVulnerabilities: Int
     projectName: String
     recommendation: String
