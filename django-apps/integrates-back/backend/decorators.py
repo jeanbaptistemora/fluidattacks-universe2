@@ -408,7 +408,7 @@ def cache_content(func):
         """Get cached content from a django view with a request object."""
         req = args[0]
         assert isinstance(req, HttpRequest)
-        keys = ['username', 'company', 'role', 'findingid', 'project']
+        keys = ['username', 'company', 'findingid', 'project']
         uniq_id = '_'.join([req.session[x] for x in keys if x in req.session])
         uniq_id += '_'.join([req.GET[x] for x in keys if x in req.GET])
         uniq_id += '_'.join([req.POST[x] for x in keys if x in req.POST])

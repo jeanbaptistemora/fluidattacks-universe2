@@ -58,6 +58,30 @@ BUCKET_S3 = FI_AWS_S3_BUCKET
 BASE_URL = "https://fluidattacks.com/integrates"
 
 
+def enforce_group_level_role(request, group, *allowed_roles):
+    # Verify role if the user is logged in
+    email = request.session.get('username')
+    registered = request.session.get('registered')
+
+    if not email or not registered:
+        # The user is not even authenticated. Redirect to login
+        return HttpResponse("""
+            <script>
+                var getUrl=window.location.hash.substr(1);
+                localStorage.setItem("url_inicio",getUrl);
+                location = "/integrates/index";
+            </script>
+            """)
+
+    requester_role = user_domain.get_group_level_role(email, group)
+    if requester_role not in allowed_roles:
+        response = HttpResponse("Access Denied")
+        response.status_code = 403
+        return response
+
+    return None
+
+
 @never_cache
 def index(request):
     "Login view for unauthenticated users"
@@ -331,8 +355,14 @@ def format_release_date(finding):
 @cache_content
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, evidence_type, findingid, fileid):
+    allowed_roles = ['analyst', 'customer', 'customeradmin', 'admin']
+
+    error = enforce_group_level_role(request, project, *allowed_roles)
+
+    if error is not None:
+        return error
+
     username = request.session['username']
     if (evidence_type in ['drafts', 'findings']
         and has_access_to_finding(username, findingid)) \
@@ -384,15 +414,22 @@ def key_existing_list(key):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'admin'])
 def download_vulnerabilities(request, findingid):
     """Download a file with all the vulnerabilities."""
+    allowed_roles = ['analyst', 'admin']
+
     if not has_access_to_finding(request.session['username'], findingid):
         util.cloudwatch_log(request,
                             'Security: \
 Attempted to retrieve vulnerabilities without permission')
         return util.response([], 'Access denied', True)
     else:
+        group = finding_dal.get_finding(findingid).get('project_name', '')
+
+        error = enforce_group_level_role(request, group, *allowed_roles)
+        if error is not None:
+            return error
+
         finding = get_vulnerabilities_by_type(findingid)
         data_yml = {}
         vuln_types = {'ports': dict, 'lines': dict, 'inputs': dict}

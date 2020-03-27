@@ -3,7 +3,7 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "1"},
+          "id": {"S": "a6ffc0b6-705d-11ea-8be4-67872b42ff54"},
           "policy_type": {"S": "p"},
           "rule": {
             "L" : [
@@ -19,7 +19,7 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "2"},
+          "id": {"S": "a1fba710-705d-11ea-b36c-ab2fa06e4009"},
           "policy_type": {"S": "p"},
           "rule": {
             "L" : [
@@ -35,7 +35,7 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "3"},
+          "id": {"S": "9d218354-705d-11ea-8fef-f717707da95f"},
           "policy_type": {"S": "p"},
           "rule": {
             "L" : [
@@ -51,7 +51,7 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "4"},
+          "id": {"S": "98dd31c6-705d-11ea-bd1c-77895b733a77"},
           "policy_type": {"S": "p"},
           "rule": {
             "L" : [
@@ -67,7 +67,7 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "5"},
+          "id": {"S": "93ffe644-705d-11ea-a479-374d524f6a03"},
           "policy_type": {"S": "p"},
           "rule": {
             "L" : [
@@ -83,7 +83,7 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "6"},
+          "id": {"S": "8cdc2684-705d-11ea-8ae2-db80e70521d9"},
           "policy_type": {"S": "p"},
           "rule": {
             "L" : [
@@ -99,7 +99,7 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "7"},
+          "id": {"S": "7b379abc-705d-11ea-bde2-bf2350c31b7c"},
           "policy_type": {"S": "p"},
           "rule": {
             "L" : [
@@ -115,7 +115,7 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "8"},
+          "id": {"S": "a59be946-705a-11ea-b5a7-0fb9b1f43051"},
           "policy_type": {"S": "p"},
           "rule": {
             "L" : [
@@ -123,6 +123,38 @@
               {"S": "integratesuser@gmail.com"},
               {"S": "unittesting"},
               {"S": "customeradmin"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "91e061ca-705a-11ea-beb2-bf337e95fe1b"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "group"},
+              {"S": "integratesanalyst@gmail.com"},
+              {"S": "unittesting"},
+              {"S": "analyst"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "8b9543c6-705a-11ea-9403-abf7946ec1ce"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "group"},
+              {"S": "integratesanalyst@gmail.com"},
+              {"S": "oneshottest"},
+              {"S": "analyst"}
             ]
           }
         }
