@@ -616,9 +616,17 @@ class ViewTestCase(unittest.TestCase):
                     (By.XPATH, "//*[contains(text(), 'TEST-PROJECTS')]")))
         selenium.save_screenshot(SCR_PATH + '18-01-tag_indicators.png')
         tag_elem.click()
+        time.sleep(2)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Status')]")))
         selenium.save_screenshot(SCR_PATH + '18-02-tag_indicators.png')
+        selenium.execute_script(
+            'window.scrollTo(0, 380);')
+        selenium.save_screenshot(SCR_PATH + '18-03-tag_indicators.png')
+        selenium.execute_script(
+            'window.scrollTo(380, 700);')
+        selenium.save_screenshot(SCR_PATH + '18-04-tag_indicators.png')
+        assert 'remediated' in selenium.page_source
         assert 'Status' in selenium.page_source
         assert 'Treatment' in selenium.page_source

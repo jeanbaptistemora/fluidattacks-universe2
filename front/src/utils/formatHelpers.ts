@@ -487,6 +487,7 @@ export interface IGraphData {
   backgroundColor: string[];
   data: number[];
   hoverBackgroundColor: string[];
+  stack?: string;
 }
 export const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
     _.round(value * 100 / total, 1);

@@ -1,19 +1,36 @@
 import { useQuery } from "@apollo/react-hooks";
+import { ChartData, ChartDataSets, ChartOptions } from "chart.js";
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
-import { IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph } from "../../../../../utils/formatHelpers";
+import {
+  calcPercent, IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph,
+} from "../../../../../utils/formatHelpers";
 import translate from "../../../../../utils/translations/translate";
 import { IndicatorGraph } from "../../../components/IndicatorGraph";
+import { IndicatorStack } from "../../../components/IndicatorStack";
 import { default as style } from "./index.css";
 import { TAG_QUERY } from "./queries";
 
 type TagsProps = RouteComponentProps<{ tagName: string }>;
+
+interface IStackedGraph {
+  acceptedVulnerabilities: number;
+  closedVulnerabilities: number;
+  openVulnerabilities: number;
+}
+
+interface IProjectTag {
+  closedVulnerabilities: number;
+  name: string;
+  openVulnerabilities: number;
+  totalTreatment: string;
+}
 interface ITag {
   tag: {
     name: string;
-    projects: ITreatmentGraph[];
+    projects: IProjectTag[];
   };
 }
 const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
@@ -49,10 +66,129 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     return { totalTreatment: JSON.stringify(totalTreatment), ...formatStatusGraphData(projects) };
   };
 
+  const remediatedPercent: ((graphProps: IStatusGraph) => IStatusGraph) = (
+    graphProps: IStatusGraph,
+  ): IStatusGraph => {
+    const { openVulnerabilities, closedVulnerabilities } = graphProps;
+    const totalVulnerabilities: number = openVulnerabilities + closedVulnerabilities;
+    const openPercent: number = calcPercent(openVulnerabilities, totalVulnerabilities);
+    const closedPercent: number = _.round(100 - openPercent, 1);
+
+    return { openVulnerabilities: openPercent, closedVulnerabilities: closedPercent };
+  };
+
+  const remediatedAcceptedPercent: ((graphProps: ITreatmentGraph) => IStackedGraph) = (
+    graphProps: ITreatmentGraph,
+  ): IStackedGraph => {
+    const { openVulnerabilities, closedVulnerabilities } = graphProps;
+    const projectTreatment: Dictionary<number> = JSON.parse(graphProps.totalTreatment);
+    const totalVulnerabilities: number = openVulnerabilities + closedVulnerabilities;
+    const openPercent: number = calcPercent(openVulnerabilities - projectTreatment.accepted, totalVulnerabilities);
+    const acceptedPercent: number = calcPercent(projectTreatment.accepted, totalVulnerabilities);
+    const closedPercent: number = _.round(100 - acceptedPercent - openPercent, 1);
+
+    return {
+      acceptedVulnerabilities: acceptedPercent,
+      closedVulnerabilities: closedPercent,
+      openVulnerabilities: openPercent,
+    };
+  };
+
+  const formatRemediatedAcceptedVuln: ((projects: IProjectTag[]) => ChartData) = (
+    projects: IProjectTag[],
+  ): ChartData => {
+    const dataPercent: IStackedGraph[] = projects.map(remediatedAcceptedPercent);
+    const statusDataset: ChartDataSets[] = [
+      {
+        backgroundColor: "#27BF4F",
+        data: dataPercent.map((projectPercent: IStackedGraph) => projectPercent.closedVulnerabilities),
+        hoverBackgroundColor: "#069D2E",
+        label: `% ${translate.t("search_findings.tab_indicators.closed")}`,
+        stack: "3",
+      },
+      {
+        backgroundColor: "#b7b7b7",
+        data: dataPercent.map((projectPercent: IStackedGraph) => projectPercent.acceptedVulnerabilities),
+        hoverBackgroundColor: "#999797",
+        label: `% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
+        stack: "3",
+      },
+      {
+        backgroundColor: "#ff1a1a",
+        data: dataPercent.map((projectPercent: IStackedGraph) => projectPercent.openVulnerabilities),
+        hoverBackgroundColor: "#e51414",
+        label: `% ${translate.t("search_findings.tab_indicators.open")}`,
+        stack: "3",
+      },
+    ];
+    const stackedBarGraphData: ChartData = {
+      datasets: statusDataset,
+      labels: projects.map((project: IProjectTag) => project.name),
+    };
+
+    return stackedBarGraphData;
+  };
+
+  const formatRemediatedVuln: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
+    const dataPercent: IStatusGraph[] = projects.map(remediatedPercent);
+    const statusDataset: Array<Dictionary<string | number []>> = [
+      {
+        backgroundColor: "#27BF4F",
+        data: dataPercent.map((projectPercent: IStatusGraph) => projectPercent.closedVulnerabilities),
+        hoverBackgroundColor: "#069D2E",
+        label: `% ${translate.t("search_findings.tab_indicators.closed")}`,
+        stack: "2",
+      },
+      {
+        backgroundColor: "#ff1a1a",
+        data: dataPercent.map((projectPercent: IStatusGraph) => projectPercent.openVulnerabilities),
+        hoverBackgroundColor: "#e51414",
+        label: `% ${translate.t("search_findings.tab_indicators.open")}`,
+        stack: "2",
+      },
+    ];
+    const stackedBarGraphData: Dictionary<string[] | Array<Dictionary<string | number []>>> = {
+      datasets: statusDataset,
+      labels: projects.map((project: IProjectTag) => project.name),
+    };
+
+    return stackedBarGraphData;
+  };
+
+  const chartOptions: ChartOptions = {
+    legend: { display: true, position: "top" },
+    scales: {
+      xAxes: [{ stacked: true, gridLines: { display: false } }],
+      yAxes: [{ stacked: true, gridLines: { display: false } }],
+    },
+  };
+
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
   return (
     <React.Fragment>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <IndicatorStack
+            data={formatRemediatedVuln(data.tag.projects)}
+            height={100}
+            name={translate.t("tag_indicator.remediated_vuln")}
+            options={chartOptions}
+          />
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <IndicatorStack
+            data={formatRemediatedAcceptedVuln(data.tag.projects)}
+            height={100}
+            name={translate.t("tag_indicator.remediated_accepted_vuln")}
+            options={chartOptions}
+          />
+        </Col>
+      </Row>
+      <br />
       <Row>
         <Col md={6} sm={12} xs={12}>
           <Col md={12} sm={12} xs={12} className={style.box_size}>

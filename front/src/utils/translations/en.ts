@@ -843,6 +843,10 @@ const enTranslations: Dictionary = {
       success: "{{email}} was added successfully",
     },
   },
+  tag_indicator: {
+    remediated_accepted_vuln: "How many vulnerabilities are remediated and accepted?",
+    remediated_vuln: "How many vulnerabilities are remediated (closed)?",
+  },
   update_access_token: {
     access_token: "Personal Access Token",
     close: "Close",
