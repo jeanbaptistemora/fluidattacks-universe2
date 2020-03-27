@@ -1,6 +1,9 @@
 # shellcheck shell=bash
 
 source "${srcIncludeHelpers}"
+source "${srcIncludeHelpersGeneric}"
+source "${srcIncludeHelpersBlog}"
+source "${srcIncludeHelpersImage}"
 source "${srcEnv}"
 
 function job_deploy_container_nix_caches {
