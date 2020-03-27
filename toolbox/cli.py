@@ -130,6 +130,10 @@ def main():  # noqa
         '--lint-exps',
         action='store_true')
     parser.add_argument(
+        '--kind',
+        choices=['dynamic', 'static', 'all'],
+        default='all')
+    parser.add_argument(
         '--okta-aws-login',
         action='store_true')
     parser.add_argument(
@@ -206,16 +210,16 @@ def main():  # noqa
                     args.subs, args.exp) else 1)
             elif args.delete_pending_vulns:
                 sys.exit(0 if toolbox.delete_pending_vulnerabilities(
-                    args.subs, args.exp) else 1)
+                    args.subs, args.exp, args.kind) else 1)
             elif args.get_exps_fragments:
                 sys.exit(0 if toolbox.get_exps_fragments(
                     args.subs, args.exp) else 1)
             elif args.get_vulns:
                 sys.exit(0 if toolbox.get_vulnerabilities_yaml(
-                    args.subs) else 1)
+                    args.subs, args.kind) else 1)
             elif args.report_vulns:
                 sys.exit(0 if toolbox.report_vulnerabilities(
-                    args.subs, args.exp) else 1)
+                    args.subs, args.exp, args.kind) else 1)
             elif args.get_static_dict:
                 sys.exit(0 if toolbox.get_static_dictionary(
                     args.subs) else 1)

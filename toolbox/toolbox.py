@@ -809,21 +809,39 @@ def delete_pending_vulnerabilities(subs: str,
                                    exp: str = '',
                                    run_kind: str = 'all'):
     """Delete pending vulnerabilities for a subscription."""
-    for _, exploit_path in utils.iter_vulns_path(subs, exp):
-        kind, finding_id = scan_exploit_for_kind_and_id(exploit_path)
-        if run_kind == 'all':
-            helper.integrates.delete_pending_vulns(finding_id=finding_id)
+    for _, vulns_path in utils.iter_vulns_path(subs, exp, run_kind):
+        _, finding_id = scan_exploit_for_kind_and_id(vulns_path)
+
+        result = False
+        exp_kind = vulns_path.split('/')[3]
+        if not exp_kind == run_kind and run_kind != 'all':
             continue
-        if kind == run_kind:
-            helper.integrates.delete_pending_vulns(finding_id=finding_id)
+
+        logger.info(
+            f'deleting: {vulns_path}')
+
+        result = helper.integrates.delete_pending_vulns(
+            finding_id=finding_id)
+
+        if result:
+            logger.info('   ', 'Success')
+        else:
+            logger.info('   ', 'Failed')
 
 
-def report_vulnerabilities(subs: str, vulns_name: str) -> bool:
+def report_vulnerabilities(subs: str, vulns_name: str,
+                           run_kind: str = 'all') -> bool:
     """Automatically report exploit vulnerabilities to integrates."""
     success: bool = True
-    for vulns_path, exploit_path in utils.iter_vulns_path(subs, vulns_name):
+    for vulns_path, exploit_path in utils.iter_vulns_path(
+            subs, vulns_name, run_kind):
         _, finding_id = scan_exploit_for_kind_and_id(exploit_path)
 
+        kind = vulns_path.split('/')[3]
+        if not run_kind == kind and run_kind != 'all':
+            continue
+
+        logger.info(f'reporting: {vulns_path}')
         response = api.integrates.Mutations.upload_file(
             api_token=constants.API_TOKEN,
             identifier=finding_id,
@@ -848,12 +866,16 @@ def _normalize(who: str, where: str) -> Tuple[str, str]:
     return who, where
 
 
-def get_vulnerabilities_yaml(subs: str) -> bool:
+def get_vulnerabilities_yaml(subs: str, run_kind: str = 'all') -> bool:
     """Get you the vulnerabilities.yml for every exploit."""
     vulns: int = 0
     for exploit_path in sorted(filter(
             lambda x: os.path.exists(f'{x}.out.yml'),
             glob.glob(f'subscriptions/{subs}/break-build/*/exploits/*.exp'))):
+
+        kind = exploit_path.split('/')[3]
+        if not run_kind == kind and run_kind != 'all':
+            continue
 
         exploit_vulns_path = f'{exploit_path}.vulns.yml'
         exploit_output_path = f'{exploit_path}.out.yml'

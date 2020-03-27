@@ -160,6 +160,7 @@ def validate_vulns_file_schema(file_url: str) -> bool:
             first_line = reader.readline()
             if any(map(lambda x: x in first_line, ['{}', '-'])):
                 is_valid = False
+                logger.error(file_url)
                 logger.error('Empty schema.')
             else:
                 is_valid = True
@@ -169,7 +170,7 @@ def validate_vulns_file_schema(file_url: str) -> bool:
     return is_valid
 
 
-def iter_vulns_path(subs: str, vulns_name: str):
+def iter_vulns_path(subs: str, vulns_name: str, run_kind: str = 'all'):
     """
     Create a interable for vulns path and exploit path of a subscription.
 
@@ -178,15 +179,18 @@ def iter_vulns_path(subs: str, vulns_name: str):
     for vulns_path in sorted(glob.glob(
             f'subscriptions/{subs}/break-build/*/exploits/*.exp.vulns.yml')):
 
+        kind = vulns_path.split('/')[3]
+        if not run_kind == kind and run_kind != 'all':
+            continue
+
         exploit_path = vulns_path.replace('.vulns.yml', '')
 
-        if (vulns_name or '') in vulns_path:
-            logger.info(f'reporting: {vulns_path}')
-        else:
+        if not (vulns_name or '') in vulns_path:
             logger.info(f'skipped: {vulns_path}')
             continue
 
         if os.stat(vulns_path).st_size == 0:
+            logger.info(vulns_path)
             logger.info('  ', 'Empty')
             continue
         if not validate_vulns_file_schema(vulns_path):
