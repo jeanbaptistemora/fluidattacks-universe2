@@ -247,7 +247,7 @@ def create_new_user(  # noqa: mccabe
     else:
         return False
 
-    success = False
+    success = user_domain.grant_group_level_role(email, group, role)
 
     if not user_domain.get_data(email, 'email'):
         user_domain.create(
@@ -255,16 +255,13 @@ def create_new_user(  # noqa: mccabe
                             'phone': phone_number})
     if not user_domain.is_registered(email):
         user_domain.register(email)
-
-    user_domain.assign_role(email, role)  # rm
-    user_domain.grant_user_level_role(email, role)
+        user_domain.grant_user_level_role(email, 'customer')
 
     if not user_domain.is_registered(email):
         user_domain.update(email, organization.lower(), 'company')
 
     if group and responsibility and len(responsibility) <= 50:
         project_domain.add_access(email, group, 'responsibility', responsibility)
-        user_domain.grant_group_level_role(email, group, role)
     else:
         util.cloudwatch_log(
             context,

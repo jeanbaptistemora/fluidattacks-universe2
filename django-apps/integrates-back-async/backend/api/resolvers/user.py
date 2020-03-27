@@ -31,65 +31,62 @@ import rollbar
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
+# I preffer being explicit in the arguments, easier to follow
+# pylint: disable=too-many-arguments
 def _create_new_user(
         context: Dict[str, Union[int, _List[str]]],
-        new_user_data: Dict[str, str],
-        project_name: str) -> bool:
-    analizable_list = list(new_user_data.values())[1:-1]
-    if (
-        all(validate_alphanumeric_field(field)
-            for field in analizable_list) and
-            validate_phone_field(new_user_data['phone_number']) and
-            validate_email_address(new_user_data['email'])
-    ):
-        email = new_user_data['email']
-        organization = new_user_data['organization']
-        responsibility = new_user_data['responsibility']
-        role = new_user_data['role']
-        phone_number = new_user_data['phone_number']
-    else:
+        email: str,
+        organization: str,
+        responsibility: str,
+        role: str,
+        phone_number: str,
+        group: str) -> bool:
+    valid = validate_alphanumeric_field(organization) \
+        and validate_alphanumeric_field(responsibility) \
+        and validate_alphanumeric_field(role) \
+        and validate_phone_field(phone_number) \
+        and validate_email_address(email)
+
+    if not valid:
         return False
 
-    success = False
+    success = user_domain.grant_group_level_role(email, group, role)
 
     if not user_domain.get_data(email, 'email'):
-        user_domain.create(
-            email.lower(), {'company': organization.lower(),
-                            'phone': phone_number})
+        user_domain.create(email.lower(), {
+            'company': organization.lower(),
+            'phone': phone_number
+        })
+
     if not user_domain.is_registered(email):
         user_domain.register(email)
-        user_domain.assign_role(email, role)  # rm
-        user_domain.grant_user_level_role(email, role)
+        user_domain.grant_user_level_role(email, 'customer')
         user_domain.update(email, organization.lower(), 'company')
-    elif user_domain.is_registered(email):
-        user_domain.assign_role(email, role)  # rm
-        user_domain.grant_user_level_role(email, role)
-    if project_name and responsibility and len(responsibility) <= 50:
+
+    if group and responsibility and len(responsibility) <= 50:
         project_domain.add_access(
-            email, project_name, 'responsibility', responsibility
-        )
+            email, group, 'responsibility', responsibility)
     else:
         util.cloudwatch_log(
             context,
             'Security: {email} Attempted to add responsibility to project \
                 {project} without validation'.format(email=email,
-                                                     project=project_name)
+                                                     project=group)
         )
+        return False
+
     if phone_number and phone_number[1:].isdigit():
         user_domain.add_phone_to_user(email, phone_number)
-    if project_name and role == 'customeradmin':
-        user_domain.grant_group_level_role(email, project_name, role)
-    if project_name and user_domain.update_project_access(
-        email, project_name, True
-    ):
-        description = project_domain.get_description(project_name.lower())
+
+    if group and user_domain.update_project_access(email, group, True):
+        description = project_domain.get_description(group.lower())
         project_url = \
             'https://fluidattacks.com/integrates/dashboard#!/project/' \
-            + project_name.lower() + '/indicators'
+            + group.lower() + '/indicators'
         mail_to = [email]
         context = {
             'admin': email,
-            'project': project_name,
+            'project': group,
             'project_description': description,
             'project_url': project_url,
         }
@@ -264,27 +261,32 @@ def resolve_grant_user_access(_, info, **query_args):
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     role = user_domain.get_group_level_role(user_email, project_name)
-    new_user_data = {
-        'email': query_args.get('email'),
-        'organization': query_args.get('organization'),
-        'responsibility': query_args.get('responsibility', '-'),
-        'role': query_args.get('role'),
-        'phone_number': query_args.get('phone_number', '')
-    }
 
-    if (role == 'admin'
-            and new_user_data['role'] in ['admin', 'analyst', 'customer',
-                                          'customeradmin']) \
-        or (is_customeradmin(project_name, user_data['user_email'])
-            and new_user_data['role'] in ['customer', 'customeradmin']):
-        if _create_new_user(info.context, new_user_data, project_name):
+    new_user_role = query_args.get('role')
+    new_user_email = query_args.get('email')
+
+    roles_admin_can_grant = ('admin', 'analyst', 'customer', 'customeradmin')
+    roles_customeradmin_can_grant = ('customer', 'customeradmin')
+
+    if (role == 'admin' and new_user_role in roles_admin_can_grant) \
+        or (is_customeradmin(project_name, user_email)
+            and new_user_role in roles_customeradmin_can_grant):
+        if _create_new_user(
+                context=info.context,
+                email=new_user_email,
+                organization=query_args.get('organization'),
+                responsibility=query_args.get('responsibility', '-'),
+                role=query_args.get('role'),
+                phone_number=query_args.get('phone_number', ''),
+                group=project_name):
             success = True
         else:
             rollbar.report_message('Error: Couldn\'t grant access to project',
                                    'error', info.context)
     else:
-        rollbar.report_message('Error: Invalid role provided: ' +
-                               new_user_data['role'], 'error', info.context)
+        rollbar.report_message(
+            f'Error: Invalid role provided: {new_user_role}',
+            f'error', info.context)
     if success:
         util.invalidate_cache(project_name)
         util.invalidate_cache(query_args.get('email'))
@@ -300,7 +302,7 @@ access to {user} in {project} project'.format(user=query_args.get('email'),
         success=success,
         granted_user=dict(
             project_name=project_name,
-            email=new_user_data['email'])
+            email=new_user_email)
     )
 
 
