@@ -17,7 +17,7 @@ from backend.domain import project as project_domain, user as user_domain
 from backend.exceptions import UserNotFound
 from backend.mailer import send_mail_access_granted
 from backend.services import (
-    get_user_role, has_responsibility, has_phone_number, is_customeradmin,
+    has_responsibility, has_phone_number, is_customeradmin,
     has_access_to_project
 )
 from backend.utils.validations import (
@@ -78,7 +78,7 @@ def _create_new_user(
     if phone_number and phone_number[1:].isdigit():
         user_domain.add_phone_to_user(email, phone_number)
     if project_name and role == 'customeradmin':
-        project_domain.add_user(project_name.lower(), email.lower(), role)
+        user_domain.grant_group_level_role(email, project_name, role)
     if project_name and user_domain.update_project_access(
         email, project_name, True
     ):
@@ -262,7 +262,8 @@ def resolve_grant_user_access(_, info, **query_args):
     project_name = query_args.get('project_name')
     success = False
     user_data = util.get_jwt_content(info.context)
-    role = get_user_role(user_data)
+    user_email = user_data['user_email']
+    role = user_domain.get_group_level_role(user_email, project_name)
     new_user_data = {
         'email': query_args.get('email'),
         'organization': query_args.get('organization'),
@@ -339,7 +340,8 @@ def resolve_edit_user(_, info, **query_args):
     project_name = query_args.get('project_name')
     success = False
     user_data = util.get_jwt_content(info.context)
-    role = get_user_role(user_data)
+    user_email = user_data['user_email']
+    role = user_domain.get_group_level_role(user_email, project_name)
 
     modified_user_data = {
         'email': query_args.get('email'),
@@ -417,6 +419,6 @@ def modify_user_information(
             f'Security: {email} Attempted to edit user phone bypassing \
                 validation')
     if role == 'customeradmin':
-        project_domain.add_user(project_name.lower(), email.lower(), role)
+        user_domain.grant_group_level_role(email, project_name, role)
     elif is_customeradmin(project_name, email):
         project_domain.remove_user_access(project_name, email)

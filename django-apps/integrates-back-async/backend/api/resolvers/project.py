@@ -6,8 +6,10 @@ from backend.decorators import (
     enforce_authz_async, require_login, require_project_access,
     enforce_user_level_auth_async,
 )
-from backend.domain import project as project_domain
-from backend.services import get_user_role
+from backend.domain import (
+    project as project_domain,
+    user as user_domain,
+)
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
@@ -19,7 +21,8 @@ from ariadne import convert_kwargs_to_snake_case
 def resolve_create_project(_, info, **kwargs):
     """Resolve create_project mutation."""
     user_data = util.get_jwt_content(info.context)
-    user_role = get_user_role(user_data)
+    user_email = user_data['user_email']
+    user_role = user_domain.get_user_level_role(user_email)
     success = project_domain.create_project(
         user_data['user_email'], user_role, **kwargs)
     if success:

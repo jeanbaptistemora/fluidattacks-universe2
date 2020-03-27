@@ -12,7 +12,7 @@ from backend.domain import user as user_domain
 from backend.domain import project as project_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.dal import user as user_dal
-from backend.services import get_user_role, is_customeradmin
+from backend.services import is_customeradmin
 from backend import util
 
 from django.conf import settings
@@ -31,7 +31,13 @@ from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 def resolve_role(_, info, project_name=None):
     """Get role."""
     jwt_content = util.get_jwt_content(info.context)
-    role = get_user_role(jwt_content)
+    user_email = jwt_content['user_email']
+
+    if project_name:
+        role = user_domain.get_group_level_role(user_email, project_name)
+    else:
+        role = user_domain.get_user_level_role(user_email)
+
     if project_name and role == 'customer':
         email = jwt_content.get('user_email')
         role = 'customeradmin' if is_customeradmin(
