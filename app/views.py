@@ -6,7 +6,6 @@
 
 import os
 import sys
-import time
 from datetime import datetime, timedelta
 
 import boto3
@@ -37,6 +36,7 @@ from backend.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
 from backend.utils import reports
+from backend.utils.passphrase import get_passphrase
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
@@ -136,12 +136,13 @@ def logout(request):
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_xls(request, lang, project):
     "Create the technical report"
-    username = request.session['username'].split("@")[0]
+    user_email = request.session['username']
+    user_name = user_email.split("@")[0]
     if project.strip() == "":
         rollbar.report_message(
             'Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project):
+    if not has_access_to_project(user_email, project):
         util.cloudwatch_log(
             request,
             'Security: Attempted to export project xls without permission')
@@ -162,9 +163,13 @@ def project_to_xls(request, lang, project):
             request)
         return util.response([], 'Empty fields', True)
     data = util.ord_asc_by_criticidad(findings)
-    it_report = ITReport(project, data, username)
+    it_report = ITReport(project, data, user_name)
     filepath = it_report.result_filename
-    reports.set_xlsx_password(filepath, time.strftime('%d%m%Y') + username)
+    password = get_passphrase(4)
+    reports.set_xlsx_password(filepath, str(password))
+    reports.send_report_password_email(user_email,
+                                       project.lower(),
+                                       password, 'XLS')
 
     with open(filepath, 'rb') as document:
         response = HttpResponse(document.read())
