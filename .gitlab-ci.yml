@@ -21,28 +21,10 @@ stages:
     variables:
       - $NIGHTLY_BUILD
 
-.in_dev_branch: &in_dev_branch
-  except:
-    refs:
-      - master
-      - merge_requests
-      - schedules
-      - triggers
-
 .in_master_branch: &in_master_branch
   only:
     refs:
       - master
-  except:
-    refs:
-      - schedules
-      - triggers
-
-.in_dev_and_master_branch: &in_dev_and_master_branch
-  except:
-    refs:
-      - schedules
-      - triggers
 
 deploy_container_nix_caches:
   <<: *with_nix
@@ -55,17 +37,14 @@ deploy_container_nix_caches:
 
 infra_ephemeral_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
   stage: test
 
 infra_production_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
   stage: test
 
 infra_secret_management_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
   stage: test
 
 infra_ephemeral_apply:
@@ -85,27 +64,22 @@ infra_secret_management_apply:
 
 lint_pre_commit:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
   stage: test
 
 test_images:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
   stage: test
 
 test_generic:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
   stage: test
 
 test_blog:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
   stage: test
 
 test_defends:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
   stage: test
 
 builder:
