@@ -62,7 +62,7 @@ infra_secret_management_apply:
   <<: *in_master_branch
   stage: deploy-infra
 
-lint_pre_commit:
+test_pre_commit:
   <<: *with_nix
   stage: test
 

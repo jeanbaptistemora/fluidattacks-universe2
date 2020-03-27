@@ -74,7 +74,7 @@ function job_infra_secret_management_apply {
   &&  helper_terraform_apply "${dir}"
 }
 
-function job_lint_pre_commit {
+function job_test_pre_commit {
       env_prepare_python_packages \
   &&  helper_list_touched_files | xargs pre-commit run -v --files
 }
@@ -113,7 +113,7 @@ function job_test_generic {
   local all_adoc_files
   local touched_adoc_files
   local max_columns='81'
-  local min_words='400'
+  local min_words='10'
   local max_words='1600'
   local max_lix='65'
 
