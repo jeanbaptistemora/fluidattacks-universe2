@@ -292,7 +292,11 @@ image::psexec.png[psexec]
 
 Another way to get the root flag
 could be to find the file
-`C:\ProgramData\Microsoft\Group Policy\History\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\Preferences\Groups\Groups.xml`
++
+[source, bash]
+----
+C:\ProgramData\Microsoft\Group Policy\History\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\Preferences\Groups\Groups.xml
+----
 using a native tool like `findstr` and
 decrypt the password using
 the `gpp-decrypt` tool of `Kali Linux`.

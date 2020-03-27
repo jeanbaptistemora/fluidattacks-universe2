@@ -138,6 +138,7 @@ function job_test_blog {
   local touched_blog_adoc_files
   local min_words='800'
   local max_words='1200'
+  local allowed_columns='81'
 
       all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
   &&  touched_blog_adoc_files="$(helper_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
@@ -148,6 +149,7 @@ function job_test_blog {
         &&  helper_blog_adoc_tags "${path}" \
         &&  helper_adoc_tag_exists "${path}" ':subtitle:' \
         &&  helper_adoc_tag_exists "${path}" ':alt:' \
+        &&  helper_adoc_max_columns "${path}" "${allowed_columns}" \
         ||  return 1
       done \
   &&  for path in ${touched_blog_adoc_files}
