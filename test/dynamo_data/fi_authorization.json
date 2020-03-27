@@ -1,0 +1,132 @@
+{
+  "fi_authorization": [
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "1"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "user"},
+              {"S": "unittest@fluidattacks.com"},
+              {"S": "self"},
+              {"S": "admin"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "2"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "user"},
+              {"S": "unittest"},
+              {"S": "self"},
+              {"S": "admin"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "3"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "user"},
+              {"S": "integratesmanager@gmail.com"},
+              {"S": "self"},
+              {"S": "admin"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "4"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "user"},
+              {"S": "integratesuser@gmail.com"},
+              {"S": "self"},
+              {"S": "customeradmin"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "5"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "user"},
+              {"S": "integratesanalyst@gmail.com"},
+              {"S": "self"},
+              {"S": "analyst"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "6"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "user"},
+              {"S": "integratesanalyst2@gmail.com"},
+              {"S": "self"},
+              {"S": "analyst"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "7"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "user"},
+              {"S": "continuoushacking@gmail.com"},
+              {"S": "self"},
+              {"S": "customeradmin"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "8"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "group"},
+              {"S": "integratesuser@gmail.com"},
+              {"S": "unittesting"},
+              {"S": "customeradmin"}
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
