@@ -130,6 +130,7 @@ def has_unrestricted_cidrs(
 
         with contextlib.suppress(KeyError,
                                  ValueError,
+                                 TypeError,
                                  ipaddress.AddressValueError):
             ipv4 = sg_rule['CidrIp']
             ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
@@ -143,6 +144,7 @@ def has_unrestricted_cidrs(
 
         with contextlib.suppress(KeyError,
                                  ValueError,
+                                 TypeError,
                                  ipaddress.AddressValueError):
             ipv6 = sg_rule['CidrIpv6']
             ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
