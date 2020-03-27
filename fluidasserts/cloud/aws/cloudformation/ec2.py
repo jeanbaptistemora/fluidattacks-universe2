@@ -241,7 +241,7 @@ def has_unrestricted_ports(
 
         entities = []
 
-        with contextlib.suppress(KeyError):
+        with contextlib.suppress(KeyError, TypeError):
             from_port, to_port = tuple(map(
                 str, (sg_rule['FromPort'], sg_rule['ToPort'])))
             if from_port != to_port:
