@@ -55,7 +55,7 @@ export const loadDescription: ThunkActionStructure<void> =
       const canEditTreatmentMgr: boolean = _.includes(["customeradmin"], userRole);
       let gQry: string;
       const analystField: boolean = _.includes(["analyst", "admin"], userRole);
-      gQry = `{
+      gQry = `query GetFindingDescription {
         project(projectName: "${projectName}") {
           subscription
           userEmails: users @include(if: ${canEditTreatmentMgr}) {
