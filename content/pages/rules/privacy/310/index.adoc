@@ -8,8 +8,8 @@
 
 == Requirement
 
-The system must request the user's consent whenever it collects any information
-about them or their actions.
+The system must request the user's consent whenever it will collect any
+information about them or their actions.
 
 == Description
 
@@ -18,7 +18,7 @@ on their interactions with the application.
 Regulations demand that none of these collections occur without the user's
 consent and that this consent be demonstrable afterwards.
 Therefore, consent must always be requested in a clear manner and using an easy
-to understand language.
+to understand language before collecting any personal information.
 
 == References
 

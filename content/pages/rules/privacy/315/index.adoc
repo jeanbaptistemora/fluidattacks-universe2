@@ -1,0 +1,46 @@
+:slug: rules/315/
+:category: privacy
+:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of informing the users about what personal information is being processed.
+:keywords: Requirement, Security, Data, GDPR, Information, Personal
+:rules: yes
+
+= REQ.315 Provide processed data information
+
+== Requirement
+
+The system must provide information about the personal data that it processes.
+
+== Description
+
+Systems usually request information from the users,
+obtain it from third parties or collect it based on their interactions with the
+application.
+They should have a mechanism that allows users to find out about the following
+regarding the personal information that they process:
+
+. The purpose of the processing of the data.
+. The categories of processed data.
+. The actors who will have access to the information.
+. If possible, the time for which the data will be managed/processed.
+. The existence of the possibility to request erasure or rectification.
+. If the data was obtained from a third party, information about the third
+party.
+
+== Exceptions
+
+. If the system is able to demonstrate that it is not possible to individually
+identify the users based on the information collected from them,
+this requirement is not applicable.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-15-gdpr/[GDPR. Art. 15: Right of access by the data subject.(1)(a-g).]
+The data subject shall have the right to obtain from the controller
+confirmation as to whether or not personal data concerning him or her are being
+processed,
+and, where that is the case, access to the personal data.
+
+. [[r2]] link:https://gdpr-info.eu/art-11-gdpr/[GDPR. Art. 11: Processing which does not require identification.(2).]
+Where the controller is able to demonstrate that it is not in a position to
+identify the data subject,
+articles 15 to 20 shall not apply.
