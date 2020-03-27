@@ -3,7 +3,8 @@
  * Disabling this rule is necessary for using components with render props
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { NetworkStatus } from "apollo-client";
+import { ApolloError, NetworkStatus } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -12,6 +13,7 @@ import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
+import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { AddTagsModal } from "../../../components/AddTagsModal/index";
 import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "../queries";
@@ -46,6 +48,18 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
         translate.t("search_findings.tab_users.title_success"),
       );
     },
+    onError: (error: ApolloError): void => {
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - One or more values already exist":
+            msgError(translate.t("search_findings.tab_resources.repeated_item"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred adding tags", error);
+        }
+      });
+    },
   });
 
   const [removeTag, { loading: removing }] = useMutation(REMOVE_TAG_MUTATION, {
@@ -57,6 +71,10 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
         translate.t("search_findings.tab_resources.success_remove"),
         translate.t("search_findings.tab_users.title_success"),
       );
+    },
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred removing tags", error);
     },
   });
 

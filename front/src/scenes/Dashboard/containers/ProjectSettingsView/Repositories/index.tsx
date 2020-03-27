@@ -40,14 +40,20 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
     onCompleted: refetch,
     onError: (reposError: ApolloError): void => {
       reposError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        if (message === "Exception - Parameter is not valid") {
-          msgError(translate.t("validations.invalidValueInField"));
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("An error occurred adding repositories to project", reposError);
+        switch (message) {
+          case "Exception - Parameter is not valid":
+            msgError(translate.t("validations.invalidValueInField"));
+            break;
+          case "Exception - One or more values already exist":
+            msgError(translate.t("search_findings.tab_resources.repeated_item"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred adding repositories", reposError);
         }
       });
-    }});
+    },
+  });
   const [updateRepository] = useMutation(UPDATE_REPOSITORY_MUTATION, {
     onCompleted: (): void => {
       refetch()
@@ -57,6 +63,10 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
         translate.t("search_findings.tab_resources.success_change"),
         translate.t("search_findings.tab_users.title_success"),
       );
+    },
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred updating repository state", error);
     },
   });
 

@@ -40,14 +40,20 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
     onCompleted: refetch,
     onError: (envsError: ApolloError): void => {
       envsError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        if (message === "Exception - Parameter is not valid") {
-          msgError(translate.t("validations.invalidValueInField"));
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("An error occurred adding user to project", envsError);
+        switch (message) {
+          case "Exception - Parameter is not valid":
+            msgError(translate.t("validations.invalidValueInField"));
+            break;
+          case "Exception - One or more values already exist":
+            msgError(translate.t("search_findings.tab_resources.repeated_item"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred adding environments", envsError);
         }
       });
-    }});
+    },
+  });
   const [updateEnvironment] = useMutation(UPDATE_ENVIRONMENT_MUTATION, {
     onCompleted: (): void => {
       refetch()
@@ -57,6 +63,10 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
         translate.t("search_findings.tab_resources.success_change"),
         translate.t("search_findings.tab_users.title_success"),
       );
+    },
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred updating environment state", error);
     },
   });
 
