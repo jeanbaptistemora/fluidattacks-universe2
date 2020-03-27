@@ -49,15 +49,21 @@ def has_access(url: str, *args, **kwargs) -> tuple:
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(http.ParameterError, http.ConnError)
-def accepts_empty_content_type(url: str, *args, **kwargs) -> tuple:
+def accepts_empty_content_type(url: str,
+                               *args,
+                               status_codes: list = None,
+                               **kwargs) -> tuple:
     r"""
     Check if given URL accepts empty Content-Type requests.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`HTTPSession`.
+    :param status_codes: Allowed status codes for true matching.
     :param \*\*kwargs: Optional arguments for :class:`HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
+    accepted_codes = [406, 415]
+    accepted_codes.extend(status_codes or [])
     if 'headers' in kwargs:
         if 'Content-Type' in kwargs['headers']:
             kwargs['headers'].pop('Content-Type', None)
@@ -68,7 +74,7 @@ def accepts_empty_content_type(url: str, *args, **kwargs) -> tuple:
         msg_open='Endpoint accepts empty Content-Type requests',
         msg_closed='Endpoint rejects empty Content-Type requests')
     session.add_unit(
-        is_vulnerable=session.response.status_code not in (406, 415))
+        is_vulnerable=session.response.status_code not in accepted_codes)
     return session.get_tuple_result()
 
 
