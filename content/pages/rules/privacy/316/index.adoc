@@ -1,0 +1,38 @@
+:slug: rules/316/
+:category: privacy
+:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of allowing the users to request rectification of data belonging to them.
+:keywords: Requirement, Security, Data, GDPR, Rectification, Personal
+:rules: yes
+
+= REQ.316 Allow rectification requests
+
+== Requirement
+
+The system must allow users to request rectification of data belonging to them
+that it is managing.
+
+== Description
+
+Systems usually request information from the users,
+obtain it from third parties or collect it based on their interactions with the
+application.
+They should have a mechanism that allows users to find out about this
+information and request rectification if they consider it is necessary.
+
+== Exceptions
+
+. If the system is able to demonstrate that it is not possible to individually
+identify the users based on the information collected from them,
+this requirement is not applicable.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-16-gdpr/[GDPR. Art. 16: Right to rectification.(1).]
+The data subject shall have the right to obtain from the controller without
+undue delay the rectification of inaccurate personal data concerning him or
+her.
+
+. [[r2]] link:https://gdpr-info.eu/art-11-gdpr/[GDPR. Art. 11: Processing which does not require identification.(2).]
+Where the controller is able to demonstrate that it is not in a position to
+identify the data subject,
+articles 15 to 20 shall not apply.
