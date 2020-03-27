@@ -55,7 +55,7 @@ CLIENT_S3 = boto3.client('s3',
                          aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
-BASE_URL = "https://fluidattacks.com/integrates"
+BASE_URL = 'https://fluidattacks.com/integrates'
 
 
 def enforce_group_level_role(request, group, *allowed_roles):
@@ -86,19 +86,19 @@ def enforce_group_level_role(request, group, *allowed_roles):
 def index(request):
     "Login view for unauthenticated users"
     parameters = {'debug': settings.DEBUG}
-    return render(request, "index.html", parameters)
+    return render(request, 'index.html', parameters)
 
 
 def error500(request):
     "Internal server error view"
     parameters = {}
-    return render(request, "HTTP500.html", parameters)
+    return render(request, 'HTTP500.html', parameters)
 
 
 def error401(request, _):
     "Unauthorized error view"
     parameters = {}
-    return render(request, "HTTP401.html", parameters)
+    return render(request, 'HTTP401.html', parameters)
 
 
 @csrf_exempt
@@ -161,8 +161,8 @@ def logout(request):
 def project_to_xls(request, lang, project):
     "Create the technical report"
     user_email = request.session['username']
-    user_name = user_email.split("@")[0]
-    if project.strip() == "":
+    user_name = user_email.split('@')[0]
+    if project.strip() == '':
         rollbar.report_message(
             'Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
@@ -171,7 +171,7 @@ def project_to_xls(request, lang, project):
             request,
             'Security: Attempted to export project xls without permission')
         return util.response([], 'Access denied', True)
-    if lang not in ["es", "en"]:
+    if lang not in ['es', 'en']:
         rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
     findings = finding_domain.get_findings(
@@ -205,10 +205,10 @@ def project_to_xls(request, lang, project):
 
 
 def validation_project_to_pdf(request, lang, doctype):
-    if lang not in ["es", "en"]:
+    if lang not in ['es', 'en']:
         rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
-    if doctype not in ["tech", "executive"]:
+    if doctype not in ['tech', 'executive']:
         rollbar.report_message('Error: Unsupported doctype', 'error', request)
         return util.response([], 'Unsupported doctype', True)
     return None
@@ -337,15 +337,15 @@ def format_where(where, vulnerabilities):
 def format_release_date(finding):
     finding_dynamo = finding_domain.get_finding(finding['findingId'])
     if finding_dynamo:
-        if finding_dynamo[0].get("releaseDate"):
-            finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
-        if finding_dynamo[0].get("lastVulnerability"):
-            finding["lastVulnerability"] = \
-                finding_dynamo[0].get("lastVulnerability")
-    if finding.get("releaseDate"):
-        final_date = util.calculate_datediff_since(finding["releaseDate"])
+        if finding_dynamo[0].get('releaseDate'):
+            finding['releaseDate'] = finding_dynamo[0].get('releaseDate')
+        if finding_dynamo[0].get('lastVulnerability'):
+            finding['lastVulnerability'] = \
+                finding_dynamo[0].get('lastVulnerability')
+    if finding.get('releaseDate'):
+        final_date = util.calculate_datediff_since(finding['releaseDate'])
         finding['edad'] = final_date.days
-        final_vuln_date = util.calculate_datediff_since(finding["lastVulnerability"])
+        final_vuln_date = util.calculate_datediff_since(finding['lastVulnerability'])
         finding['lastVulnerability'] = final_vuln_date.days
     else:
         finding['lastVulnerability'] = '-'
@@ -371,13 +371,13 @@ def get_evidence(request, project, evidence_type, findingid, fileid):
         if fileid is None:
             rollbar.report_message('Error: Missing evidence image ID',
                                    'error', request)
-            return HttpResponse("Error - Unsent image ID",
-                                content_type="text/html")
+            return HttpResponse('Error - Unsent image ID',
+                                content_type='text/html')
         key_list = key_existing_list(f'{project.lower()}/{findingid}/{fileid}')
         if key_list:
             for k in key_list:
                 start = k.find(findingid) + len(findingid)
-                localfile = "/tmp" + k[start:]
+                localfile = '/tmp' + k[start:]
                 ext = {'.png': '.tmp', '.gif': '.tmp'}
                 localtmp = util.replace_all(localfile, ext)
                 CLIENT_S3.download_file(BUCKET_S3, k, localtmp)
@@ -392,17 +392,17 @@ def get_evidence(request, project, evidence_type, findingid, fileid):
 
 
 def retrieve_image(request, img_file):
-    if util.assert_file_mime(img_file, ["image/png", "image/jpeg",
-                                        "image/gif"]):
-        with open(img_file, "rb") as file_obj:
+    if util.assert_file_mime(img_file, ['image/png', 'image/jpeg',
+                                        'image/gif']):
+        with open(img_file, 'rb') as file_obj:
             mime = Magic(mime=True)
             mime_type = mime.from_file(img_file)
             return HttpResponse(file_obj.read(), content_type=mime_type)
     else:
         rollbar.report_message('Error: Invalid evidence image format',
                                'error', request)
-        return HttpResponse("Error: Invalid evidence image format",
-                            content_type="text/html")
+        return HttpResponse('Error: Invalid evidence image format',
+                            content_type='text/html')
 
 
 def key_existing_list(key):
@@ -413,7 +413,7 @@ def key_existing_list(key):
 @cache_content
 @never_cache
 @csrf_exempt
-@require_http_methods(["GET"])
+@require_http_methods(['GET'])
 def download_vulnerabilities(request, findingid):
     """Download a file with all the vulnerabilities."""
     allowed_roles = ['analyst', 'admin']

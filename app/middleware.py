@@ -10,7 +10,7 @@ class SocialAuthException(SocialAuthExceptionMiddleware):
             exception_type = exception.__class__.__name__
 
             # An already logged in user attempted to access with a different account
-            if exception_type == "AuthAlreadyAssociated":
+            if exception_type == 'AuthAlreadyAssociated':
                 return HttpResponse('<script> \
                     localStorage.setItem("showAlreadyLoggedin","1"); \
                     location.assign("/integrates/registration");</script>')
