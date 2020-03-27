@@ -73,6 +73,9 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
+          case "Exception - The event has already been closed":
+            msgError(translate.t("project.events.alreadyClosed"));
+            break;
           case "Exception - Invalid File Size":
             msgError(translate.t("validations.file_size", { count: 10 }));
             break;
