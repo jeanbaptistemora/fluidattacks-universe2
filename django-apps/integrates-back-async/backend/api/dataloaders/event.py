@@ -10,7 +10,7 @@ from aiodataloader import DataLoader
 
 @sync_to_async
 def _batch_load_fn(event_ids):
-    """Batches the data load requests within the same execution fragment"""
+    """Batch the data load requests within the same execution fragment."""
     events = defaultdict(list)
 
     for event in event_domain.get_events(event_ids):

@@ -74,7 +74,7 @@ type Finding {
         vulnType: String,
         state: String,
         approvalStatus: String
-    ): [Vulnerabilities!]
+    ): [Vulnerabilities]
 }
 
 "InternalProject type definition"
