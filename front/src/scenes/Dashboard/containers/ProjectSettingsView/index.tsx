@@ -45,13 +45,13 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
   return (
     <React.StrictMode>
       <div id="resources" className="tab-pane cont active">
-        <Repositories projectName={props.match.params.projectName} />
+        <Repositories projectName={props.match.params.projectName} groupRole={data.me.role}/>
         <hr />
-        <Environments projectName={props.match.params.projectName} />
+        <Environments projectName={props.match.params.projectName} groupRole={data.me.role}/>
         <hr />
-        <Files projectName={props.match.params.projectName} />
+        <Files projectName={props.match.params.projectName} groupRole={data.me.role}/>
         <hr />
-        <Portfolio projectName={props.match.params.projectName} />
+        <Portfolio projectName={props.match.params.projectName} groupRole={data.me.role}/>
           {_.includes(["customeradmin", "admin"], data.me.role) ? (
             <React.Fragment>
               <hr />

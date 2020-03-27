@@ -19,11 +19,12 @@ import { AddTagsModal } from "../../../components/AddTagsModal/index";
 import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "../queries";
 
 interface IPortfolioProps {
+  groupRole: string;
   projectName: string;
 }
 
 const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Element => {
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
@@ -138,7 +139,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
         <Col lg={8} md={10} xs={7}>
           <h3>{translate.t("search_findings.tab_resources.tags_title")}</h3>
         </Col>
-        {_.includes(["admin", "customer"], userRole) ? (
+        {_.includes(["admin", "customer", "customeradmin"], props.groupRole) ? (
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
               <Button onClick={openAddModal}>
@@ -165,8 +166,8 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
         remote={false}
         striped={true}
         selectionMode={{
-          clickToSelect: _.includes(["admin", "customer"], userRole),
-          hideSelectColumn: !_.includes(["admin", "customer"], userRole),
+          clickToSelect: _.includes(["admin", "customer", "customeradmin"], props.groupRole),
+          hideSelectColumn: !_.includes(["admin", "customer", "customeradmin"], props.groupRole),
           mode: "radio",
           onSelect: networkStatus === NetworkStatus.refetch || removing ? undefined : setCurrentRow,
         }}

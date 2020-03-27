@@ -49,7 +49,7 @@ describe("ProjectSettingsView", () => {
       },
     },
     result: { data: {
-      me: { role: "customer" },
+      me: { role: "customeradmin" },
       project: { deletionDate: "" } } },
   };
 
@@ -128,7 +128,6 @@ describe("ProjectSettingsView", () => {
   });
 
   it("should render tags component", async () => {
-    (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mockProject, mocksTags]} addTypename={false}>
@@ -142,7 +141,6 @@ describe("ProjectSettingsView", () => {
   });
 
   it("should render repositories component", async () => {
-    (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mockProject, mocksRepositories]} addTypename={false}>
@@ -181,7 +179,6 @@ describe("ProjectSettingsView", () => {
   });
 
   it("should render environments component", async () => {
-    (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mockProject, mocksEnvironments]} addTypename={false}>
@@ -224,7 +221,6 @@ describe("ProjectSettingsView", () => {
   });
 
   it("should render files component", async () => {
-    (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mockProject, mocksTags]} addTypename={false}>

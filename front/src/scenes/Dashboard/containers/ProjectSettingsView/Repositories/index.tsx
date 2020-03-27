@@ -23,11 +23,12 @@ import { ADD_REPOSITORIES_MUTATION, GET_REPOSITORIES, UPDATE_REPOSITORY_MUTATION
 import { IHistoricState, IRepositoriesAttr } from "../types";
 
 interface IRepositoriesProps {
+  groupRole: string;
   projectName: string;
 }
 
 const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): JSX.Element => {
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
@@ -114,7 +115,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
         <Col lg={8} md={10} xs={7}>
           <h3>{translate.t("search_findings.tab_resources.repositories_title")}</h3>
         </Col>
-        {_.includes(["admin", "customer"], userRole) ? (
+        {_.includes(["admin", "customer", "customeradmin"], props.groupRole) ? (
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
               <Button onClick={openAddModal}>
@@ -189,7 +190,8 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
               changeFunction: handleStateUpdate,
               dataField: "state",
               filter: filterState,
-              formatter: _.includes(["admin", "customer"], userRole) ? changeFormatter : statusFormatter,
+              formatter: _.includes(["admin", "customer", "customeradmin"], props.groupRole)
+                ? changeFormatter : statusFormatter,
               header: translate.t("search_findings.repositories_table.state"),
               onSort: sortState,
               width: "12%",

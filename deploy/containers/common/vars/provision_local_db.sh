@@ -125,6 +125,7 @@ aws dynamodb create-table \
         ReadCapacityUnits=1,WriteCapacityUnits=1
 
 for mock_file in test/dynamo_data/*.json; do
+    echo "[INFO] Writing data from: ${mock_file}"
     aws dynamodb batch-write-item --endpoint-url http://localhost:8022 \
     --request-items file://${mock_file}
 done
@@ -139,6 +140,7 @@ sed "s/2020-02-19.*/${iso_date_now}\"/g" \
   | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
   > test/dynamo_data/bb_executions.json.now
 
+echo '[INFO] Writing data from: test/dynamo_data/bb_executions.json.now'
 aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test/dynamo_data/bb_executions.json.now'

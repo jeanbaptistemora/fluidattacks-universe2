@@ -19,11 +19,12 @@ import { FileOptionsModal } from "../../../components/FileOptionsModal";
 import { DOWNLOAD_FILE_MUTATION, GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
 
 interface IFilesProps {
+  groupRole: string;
   projectName: string;
 }
 
 const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
@@ -180,7 +181,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         <Col lg={8} md={10} xs={7}>
           <h3>{translate.t("search_findings.tab_resources.files_title")}</h3>
         </Col>
-        {_.includes(["admin", "customer"], userRole) ? (
+        {_.includes(["admin", "customer", "customeradmin"], props.groupRole) ? (
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
               <Button onClick={openAddModal}>
@@ -215,7 +216,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         uploadProgress={uploadProgress}
       />
       <FileOptionsModal
-        canRemove={_.includes(["admin", "customer"], userRole)}
+        canRemove={_.includes(["admin", "customer", "customeradmin"], props.groupRole)}
         fileName={currentRow.fileName}
         isOpen={isOptionsModalOpen}
         onClose={closeOptionsModal}

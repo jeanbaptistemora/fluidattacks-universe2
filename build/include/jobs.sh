@@ -257,7 +257,7 @@ function job_deploy_mobile {
                       --form "access_token=${ROLLBAR_ACCESS_TOKEN}" \
                       --form 'environment=production' \
                       --form "revision=${CI_COMMIT_SHA}" \
-                      --form "local_username=${CI_COMMIT_REF_NAME}"
+                      --form "local_username=${CI_COMMIT_AUTHOR}"
               fi \
         &&  popd
       else
@@ -938,7 +938,7 @@ function job_deploy_k8s_back {
         --form "access_token=${ROLLBAR_ACCESS_TOKEN}" \
         --form 'environment=production' \
         --form "revision=${CI_COMMIT_SHA}" \
-        --form "local_username=${CI_COMMIT_REF_NAME}" \
+        --form "local_username=${CI_COMMIT_AUTHOR}" \
   &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
         --request 'POST' \
         --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
