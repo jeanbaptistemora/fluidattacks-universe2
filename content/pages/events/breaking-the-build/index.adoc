@@ -1,4 +1,4 @@
-﻿:slug: events/breaking-the-build/
+:slug: events/breaking-the-build/
 :subtitle: Our SecDevOps Habits
 :category: events
 :description: This page aims to inform the customer about the different talks offered by Fluid Attacks. In the Breaking the Build conference we talk about our SecDevOps habits that allow us to keep improving and changing every day, and the first steps to implement these habits on your company.
