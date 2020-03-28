@@ -4,7 +4,7 @@ from time import time
 from backend.api.dataloaders.event import EventLoader
 from backend.decorators import (
     get_cached, require_login, require_event_access, rename_kwargs,
-    require_project_access, enforce_authz_async
+    require_project_access, enforce_group_level_auth_async
 )
 from backend.domain import event as event_domain
 from backend.domain import project as project_domain
@@ -15,7 +15,7 @@ from ariadne import convert_kwargs_to_snake_case
 
 @require_login
 @rename_kwargs({'identifier': 'event_id'})
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_event_access
 @rename_kwargs({'event_id': 'identifier'})
 @get_cached
@@ -35,7 +35,7 @@ async def _resolve_events_async(event_ids):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_events(_, info, project_name):
     """Resolve events query."""
@@ -47,7 +47,7 @@ def resolve_events(_, info, project_name):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_event_access
 def resolve_update_event(_, info, event_id, **kwargs):
     """Resolve update_event mutation."""
@@ -64,7 +64,7 @@ def resolve_update_event(_, info, event_id, **kwargs):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_create_event(_, info, project_name, image=None, file=None, **kwa):
     """Resolve create_event mutation."""
@@ -80,7 +80,7 @@ def resolve_create_event(_, info, project_name, image=None, file=None, **kwa):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_event_access
 def resolve_solve_event(_, info, event_id, affectation, date):
     """Resolve solve_event mutation."""
@@ -101,7 +101,7 @@ def resolve_solve_event(_, info, event_id, affectation, date):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_event_access
 def resolve_add_event_comment(_, info, content, event_id, parent):
     """Resolve add_event_comment mutation."""
@@ -123,7 +123,7 @@ def resolve_add_event_comment(_, info, content, event_id, parent):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_event_access
 def resolve_update_event_evidence(_, info, event_id, evidence_type, file):
     """Resolve update_event_evidence mutation."""
@@ -145,7 +145,7 @@ def resolve_update_event_evidence(_, info, event_id, evidence_type, file):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_event_access
 def resolve_download_event_file(_, info, event_id, file_name):
     """Resolve download_event_file mutation."""
@@ -165,7 +165,7 @@ def resolve_download_event_file(_, info, event_id, file_name):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_event_access
 def resolve_remove_event_evidence(_, info, event_id, evidence_type):
     """Resolve remove_event_evidence mutation."""

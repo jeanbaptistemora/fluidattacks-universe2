@@ -138,7 +138,7 @@ def resolve_project_data(project_name):
     return project_data
 
 
-def enforce_authz(func):
+def enforce_group_level_auth(func):
     """
     Require_role decorator based on Casbin enforcer.
 
@@ -181,7 +181,7 @@ Unauthorized role attempted to perform operation')
     return verify_and_call
 
 
-def enforce_authz_async(func):
+def enforce_group_level_auth_async(func):
     """
     Require_role decorator based on Casbin enforcer.
 

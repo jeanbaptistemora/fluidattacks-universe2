@@ -14,7 +14,7 @@ from graphene_file_upload.scalars import Upload
 from backend import util
 from backend.decorators import (
     get_entity_cache, require_finding_access, require_login,
-    require_project_access, enforce_authz
+    require_project_access, enforce_group_level_auth
 )
 from backend.domain import (
     user as user_domain,
@@ -214,14 +214,14 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
                              self.id, curr_user_role)]
         return self.comments
 
-    @enforce_authz
+    @enforce_group_level_auth
     @get_entity_cache
     def resolve_historic_state(self, info):
         """ Resolve submission history of a draft """
         del info
         return self.historic_state
 
-    @enforce_authz
+    @enforce_group_level_auth
     def resolve_observations(self, info):
         """ Resolve observations attribute """
         user_data = util.get_jwt_content(info.context)
@@ -354,7 +354,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.report_date
 
-    @enforce_authz
+    @enforce_group_level_auth
     def resolve_analyst(self, info):
         """ Resolve analyst attribute """
         del info
@@ -403,7 +403,7 @@ class RemoveEvidence(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, evidence_id, finding_id):
         success = finding_domain.remove_evidence(evidence_id, finding_id)
@@ -429,7 +429,7 @@ class UpdateEvidence(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, evidence_id, finding_id, file):
         success = False
@@ -467,7 +467,7 @@ class UpdateEvidenceDescription(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, finding_id, evidence_id, description):
         success = False
@@ -496,7 +496,7 @@ class UpdateSeverity(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, **parameters):
         finding_id = parameters.get('finding_id')
@@ -532,7 +532,7 @@ class AddFindingComment(Mutation):
     comment_id = String()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, **parameters):
         if parameters.get('type') in ['comment', 'observation']:
@@ -585,7 +585,7 @@ class VerifyFinding(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, finding_id, justification):
         project_name = project_domain.get_finding_project_name(finding_id)
@@ -613,7 +613,7 @@ class HandleAcceptation(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, **parameters):
         user_info = util.get_jwt_content(info.context)
@@ -660,7 +660,7 @@ class UpdateDescription(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
         success = finding_domain.update_description(finding_id, parameters)
@@ -696,7 +696,7 @@ class UpdateClientDescription(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
         project_name = finding_domain.get_finding(finding_id)['projectName']
@@ -741,7 +741,7 @@ class RejectDraft(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, finding_id):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
@@ -772,7 +772,7 @@ class DeleteFinding(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, finding_id, justification):
         project_name = finding_domain.get_finding(finding_id)['projectName']
@@ -799,7 +799,7 @@ class ApproveDraft(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     def mutate(self, info, draft_id):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
         project_name = finding_domain.get_finding(draft_id)['projectName']
@@ -838,7 +838,7 @@ class CreateDraft(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, project_name, title, **kwargs):
         success = finding_domain.create_draft(
@@ -857,7 +857,7 @@ class SubmitDraft(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     def mutate(self, info, finding_id):
         analyst_email = util.get_jwt_content(info.context)['user_email']

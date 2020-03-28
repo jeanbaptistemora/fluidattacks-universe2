@@ -3,7 +3,7 @@
 import rollbar
 
 from backend.decorators import (
-    enforce_authz_async, require_login, require_project_access,
+    enforce_group_level_auth_async, require_login, require_project_access,
     enforce_user_level_auth_async,
 )
 from backend.domain import (
@@ -36,7 +36,7 @@ def resolve_create_project(_, info, **kwargs):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_request_remove_project(_, info, project_name):
     """Resolve request_remove_project mutation."""
@@ -54,7 +54,7 @@ def resolve_request_remove_project(_, info, project_name):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_reject_remove_project(_, info, project_name):
     """Resolve reject_remove_project mutation."""
@@ -72,7 +72,7 @@ def resolve_reject_remove_project(_, info, project_name):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_add_tags(_, info, project_name, tags):
     """Resolve add_tags mutation."""
@@ -106,7 +106,7 @@ Attempted to upload tags without the allowed validations')
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_remove_tag(_, info, project_name, tag):
     """Resolve remove_tag mutation."""
@@ -135,7 +135,7 @@ An error occurred removing a tag', 'error', info.context)
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 def resolve_add_all_project_access(_, info, project_name):
     """Resolve add_all_project_access mutation."""
     success = project_domain.add_all_access_to_project(project_name)
@@ -149,7 +149,7 @@ def resolve_add_all_project_access(_, info, project_name):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 def resolve_remove_all_project_access(_, info, project_name):
     """Resolve remove_all_project_access mutation."""
     success = project_domain.remove_all_project_access(project_name)

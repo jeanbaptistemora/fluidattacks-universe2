@@ -14,7 +14,7 @@ from graphene.types.generic import GenericScalar
 
 from backend.decorators import (
     get_entity_cache, require_login, require_project_access,
-    enforce_authz,
+    enforce_group_level_auth,
     enforce_user_level_auth,
 )
 from backend.domain import (
@@ -282,7 +282,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             self.user_deletion = historic_deletion[-1].get('user', '')
         return self.user_deletion
 
-    @enforce_authz
+    @enforce_group_level_auth
     def resolve_comments(self, info):
         user_data = util.get_jwt_content(info.context)
         user_email = user_data['user_email']
@@ -304,7 +304,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         return self.tags
 
-    @enforce_authz
+    @enforce_group_level_auth
     @get_entity_cache
     def resolve_users(self, info):
         """ Resolve project users """
@@ -325,7 +325,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
                       in user_roles_to_retrieve]
         return self.users
 
-    @enforce_authz
+    @enforce_group_level_auth
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
         util.cloudwatch_log(info.context, 'Security: Access to {project} '
@@ -339,7 +339,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         return self.drafts
 
-    @enforce_authz
+    @enforce_group_level_auth
     def resolve_events(self, info):
         """ Resolve project events """
         util.cloudwatch_log(
@@ -396,7 +396,7 @@ class RequestRemoveProject(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, project_name):
         user_info = util.get_jwt_content(info.context)
@@ -418,7 +418,7 @@ class RejectRemoveProject(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, project_name):
         user_info = util.get_jwt_content(info.context)
@@ -443,7 +443,7 @@ class AddProjectComment(Mutation):
     comment_id = String()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, **parameters):
         project_name = parameters.get('project_name').lower()
@@ -483,7 +483,7 @@ class RemoveTag(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, project_name, tag):
         success = False
@@ -520,7 +520,7 @@ class AddTags(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, project_name, tags):
         success = False
@@ -559,7 +559,7 @@ class AddAllProjectAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     def mutate(self, info, project_name):
         success = project_domain.add_all_access_to_project(project_name)
         if success:
@@ -577,7 +577,7 @@ class RemoveAllProjectAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     def mutate(self, info, project_name):
         success = project_domain.remove_all_project_access(project_name)
         if success:

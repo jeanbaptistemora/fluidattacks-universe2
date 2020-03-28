@@ -16,7 +16,7 @@ from graphene import ObjectType, Mutation, String, Boolean, Field, List
 
 from backend.decorators import (
     require_login, require_project_access,
-    enforce_authz,
+    enforce_group_level_auth,
     enforce_user_level_auth,
 )
 from backend.domain import project as project_domain, user as user_domain
@@ -134,7 +134,7 @@ class User(ObjectType):
         del info
         return self.last_login
 
-    @enforce_authz
+    @enforce_group_level_auth
     def resolve_list_projects(self, info: Any) -> List:
         del info
         return self.list_projects
@@ -184,7 +184,7 @@ class GrantUserAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
@@ -308,7 +308,7 @@ class RemoveUserAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, project_name: str, user_email: str) -> object:
         success = user_domain.revoke_group_level_role(user_email, project_name)
@@ -340,7 +340,7 @@ class EditUser(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')

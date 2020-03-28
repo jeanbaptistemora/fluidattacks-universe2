@@ -12,7 +12,7 @@ from mixpanel import Mixpanel
 
 from backend.decorators import (
     require_login, require_project_access,
-    enforce_authz_async
+    enforce_group_level_auth_async
 )
 from backend.domain import resources, project as project_domain
 from backend.exceptions import InvalidProject
@@ -82,7 +82,7 @@ async def _resolve_fields(info, project_name):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_resources(_, info, project_name):
     """Resolve resources query."""
@@ -97,7 +97,7 @@ def resolve_resources(_, info, project_name):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_add_repositories(
     _, info, repos: _List[Dict[str, str]], project_name: str
@@ -127,7 +127,7 @@ def resolve_add_repositories(
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_add_environments(
     _, info, envs: _List[Dict[str, str]], project_name: str
@@ -157,7 +157,7 @@ def resolve_add_environments(
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_add_files(_, info, **parameters):
     """Resolve add_files mutation."""
@@ -195,7 +195,7 @@ from {project} project'.format(project=project_name))
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_remove_files(
     _, info, files_data: Dict[str, Any], project_name: str
@@ -228,7 +228,7 @@ from {project} project'.format(project=project_name))
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_download_file(_, info, **parameters):
     """Resolve download_file mutation."""
@@ -262,7 +262,7 @@ An error occurred generating signed URL', 'error', info.context)
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_update_environment(
     _, info, project_name: str, env: Dict[str, str], state: str
@@ -298,7 +298,7 @@ def resolve_update_environment(
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_update_repository(
     _, info, project_name: str, repo: Dict[str, str], state: str

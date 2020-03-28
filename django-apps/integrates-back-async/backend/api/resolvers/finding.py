@@ -11,7 +11,7 @@ from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.dataloaders.finding import FindingLoader
 
 from backend.decorators import (
-    enforce_authz_async, rename_kwargs, require_login,
+    enforce_group_level_auth_async, rename_kwargs, require_login,
     require_finding_access, require_project_access
 )
 from backend.domain import (
@@ -327,7 +327,7 @@ async def _resolve_fields(info, identifier):
 @convert_kwargs_to_snake_case
 @require_login
 @rename_kwargs({'identifier': 'finding_id'})
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 @rename_kwargs({'finding_id': 'identifier'})
 def resolve_finding(_, info, identifier):
@@ -337,7 +337,7 @@ def resolve_finding(_, info, identifier):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 def resolve_remove_evidence(_, info, evidence_id, finding_id):
     """Resolve remove_evidence mutation."""
@@ -353,7 +353,7 @@ def resolve_remove_evidence(_, info, evidence_id, finding_id):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 def resolve_update_evidence(_, info, evidence_id, finding_id, file):
     """Resolve update_evidence mutation."""
@@ -376,7 +376,7 @@ def resolve_update_evidence(_, info, evidence_id, finding_id, file):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 def resolve_update_evidence_description(
     _, info, finding_id, evidence_id, description
@@ -401,7 +401,7 @@ An error occurred updating evidence description', 'error', info.context)
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 def resolve_verify_finding(_, info, finding_id, justification):
     """Resolve verify_finding mutation."""
@@ -422,7 +422,7 @@ def resolve_verify_finding(_, info, finding_id, justification):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 def resolve_handle_acceptation(_, info, **parameters):
     """Resolve handle_acceptation mutation."""
@@ -450,7 +450,7 @@ def resolve_handle_acceptation(_, info, **parameters):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 def resolve_reject_draft(_, info, finding_id):
     """Resolve reject_draft mutation."""
@@ -473,7 +473,7 @@ def resolve_reject_draft(_, info, finding_id):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 def resolve_delete_finding(_, info, finding_id, justification):
     """Resolve delete_finding mutation."""
@@ -496,7 +496,7 @@ def resolve_delete_finding(_, info, finding_id, justification):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 def resolve_approve_draft(_, info, draft_id):
     """Resolve approve_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
@@ -521,7 +521,7 @@ def resolve_approve_draft(_, info, draft_id):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_create_draft(_, info, project_name, title, **kwargs):
     """Resolve create_draft mutation."""
@@ -535,7 +535,7 @@ def resolve_create_draft(_, info, project_name, title, **kwargs):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_finding_access
 def resolve_submit_draft(_, info, finding_id):
     """Resolve submit_draft mutation."""

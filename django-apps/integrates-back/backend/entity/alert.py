@@ -2,7 +2,7 @@
 # pylint: disable=F0401
 # pylint: disable=super-init-not-called
 from graphene import Boolean, Int, Mutation, ObjectType, String
-from backend.decorators import require_login, enforce_authz
+from backend.decorators import require_login, enforce_group_level_auth
 from backend.domain import alert as alert_domain
 
 from backend import util
@@ -59,7 +59,7 @@ class SetAlert(Mutation):
 
     @staticmethod
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     def mutate(_, info, company, message, project_name):
         success = alert_domain.set_company_alert(
             company, message, project_name)

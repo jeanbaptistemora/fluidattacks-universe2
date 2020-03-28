@@ -9,7 +9,7 @@ from graphene import Field, List, ObjectType, String, DateTime
 # Local libraries
 from backend.decorators import (
     get_cached, require_event_access, require_finding_access, rename_kwargs,
-    require_login, require_project_access, enforce_authz,
+    require_login, require_project_access, enforce_group_level_auth,
     enforce_user_level_auth,
 )
 from backend.domain import project as project_domain, user as user_domain
@@ -65,7 +65,7 @@ class Query(ObjectType):
     me = Field(Me)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     @get_cached
     def resolve_alert(self, info, project_name=None, organization=None):
@@ -74,7 +74,7 @@ class Query(ObjectType):
         return Alert(project_name, organization)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def resolve_forces_executions(
             self, info,
@@ -88,7 +88,7 @@ class Query(ObjectType):
 
     @require_login
     @rename_kwargs({'identifier': 'event_id'})
-    @enforce_authz
+    @enforce_group_level_auth
     @require_event_access
     @rename_kwargs({'event_id': 'identifier'})
     @get_cached
@@ -103,7 +103,7 @@ class Query(ObjectType):
 
     @require_login
     @rename_kwargs({'identifier': 'finding_id'})
-    @enforce_authz
+    @enforce_group_level_auth
     @require_finding_access
     @rename_kwargs({'finding_id': 'identifier'})
     @get_cached
@@ -116,7 +116,7 @@ class Query(ObjectType):
         return findings_loader.load(identifier)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def resolve_resources(self, info, project_name):
         """ Resolve for project resources """
@@ -125,7 +125,7 @@ class Query(ObjectType):
         return Resource(project_name)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     @get_cached
     def resolve_user(self, info, project_name, user_email):
@@ -134,13 +134,13 @@ class Query(ObjectType):
         return User(project_name, user_email)
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     def resolve_user_list_projects(self, info, user_email):
         del info
         return User(None, user_email).list_projects
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
@@ -162,7 +162,7 @@ class Query(ObjectType):
         return InternalProject()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     def resolve_alive_projects(self, info):
         """Resolve for ACTIVE and SUSPENDED projects"""
         del info

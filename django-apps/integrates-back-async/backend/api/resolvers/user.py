@@ -10,7 +10,7 @@ import threading
 from asgiref.sync import sync_to_async
 from backend.decorators import (
     get_cached, require_login, require_project_access,
-    enforce_authz_async,
+    enforce_group_level_auth_async,
     enforce_user_level_auth_async,
 )
 from backend.domain import project as project_domain, user as user_domain
@@ -216,7 +216,7 @@ async def _resolve_fields(info, email, project_name):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 @get_cached
 def resolve_user(_, info, project_name, user_email):
@@ -252,7 +252,7 @@ def resolve_add_user(_, info, **parameters):
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_grant_user_access(_, info, **query_args):
     """Resolve grant_user_access mutation."""
@@ -308,7 +308,7 @@ access to {user} in {project} project'.format(user=query_args.get('email'),
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_remove_user_access(
     _, info, project_name: str, user_email: str
@@ -335,7 +335,7 @@ def resolve_remove_user_access(
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_group_level_auth_async
 @require_project_access
 def resolve_edit_user(_, info, **query_args):
     """Resolve edit_user mutation."""

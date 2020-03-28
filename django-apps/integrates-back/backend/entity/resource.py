@@ -15,7 +15,7 @@ from graphene_file_upload.scalars import Upload
 from django.conf import settings
 
 from backend.decorators import (
-    require_login, require_project_access, get_entity_cache, enforce_authz
+    require_login, require_project_access, get_entity_cache, enforce_group_level_auth
 )
 from backend.domain import resources, project as project_domain
 from backend.exceptions import InvalidProject
@@ -84,7 +84,7 @@ class AddResources(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self,
                info, resource_data: Dict[str, Any], project_name: str, res_type: str) -> object:
@@ -129,7 +129,7 @@ class AddRepositories(Mutation):
 
     @staticmethod
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(_, info, repos: _List[Dict[str, str]],
                project_name: str) -> object:
@@ -170,7 +170,7 @@ class AddEnvironments(Mutation):
 
     @staticmethod
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(_, info, envs: _List[Dict[str, str]],
                project_name: str) -> object:
@@ -208,7 +208,7 @@ class UpdateResources(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self,
                info, resource_data: Dict[str, Any], project_name: str, res_type: str) -> object:
@@ -256,7 +256,7 @@ class UpdateEnvironment(Mutation):
 
     @staticmethod
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(_, info, project_name: str, env: Dict[str, str],
                state: str) -> object:
@@ -298,7 +298,7 @@ class UpdateRepository(Mutation):
 
     @staticmethod
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(_, info, project_name: str, repo: Dict[str, str],
                state: str) -> object:
@@ -339,7 +339,7 @@ class AddFiles(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, **parameters):
         success = False
@@ -383,7 +383,7 @@ class RemoveFiles(Mutation):
     success = Boolean()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, files_data: Dict[str, Any], project_name: str) -> object:
         success = False
@@ -420,7 +420,7 @@ class DownloadFile(Mutation):
     url = String()
 
     @require_login
-    @enforce_authz
+    @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, **parameters):
         success = False
