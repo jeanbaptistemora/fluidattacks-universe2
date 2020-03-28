@@ -23,7 +23,6 @@ class TagEntityTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'customer',
             'useremail': 'integratesuser@gmail.com'
         })
         request_loaders = {'vulnerability': VulnerabilityLoader()}

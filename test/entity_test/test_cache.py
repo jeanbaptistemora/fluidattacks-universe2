@@ -11,7 +11,6 @@ class CacheTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'analyst',
             'useremail': 'unittest'
         })
         query = '''

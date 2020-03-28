@@ -23,7 +23,6 @@ class EventTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'unittest'
         })
         request.loaders = {'event': EventLoader()}
@@ -38,7 +37,6 @@ class EventTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'unittest'
         })
         request.loaders = {'event': EventLoader()}
@@ -58,7 +56,6 @@ class EventTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'unittest'
         })
         query = '''

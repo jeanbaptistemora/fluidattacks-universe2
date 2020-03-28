@@ -74,7 +74,6 @@ class ProjectEntityTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'integratesmanager@gmail.com'
         })
         result = testing_client.execute(
@@ -102,7 +101,6 @@ class ProjectEntityTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'integratesmanager@gmail.com'
         })
         result = testing_client.execute(

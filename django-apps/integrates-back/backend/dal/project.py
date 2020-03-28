@@ -20,6 +20,9 @@ from backend.dal.finding import (
 )
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
+from backend.domain import (
+    user as user_domain,
+)
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
@@ -238,13 +241,13 @@ def exists(project_name: str) -> bool:
     return bool(get_attributes(project, ['project_name']))
 
 
-def list_project_managers(project_name: str) -> List[str]:
-    users_active = get_users(project_name, True)
-    users_inactive = get_users(project_name, False)
+def list_project_managers(group: str) -> List[str]:
+    users_active = get_users(group, True)
+    users_inactive = get_users(group, False)
     all_users = users_active + users_inactive
     managers = \
         [user for user in all_users
-         if get_user_attributes(user, ['role']).get('role', '') == 'customeradmin']
+         if user_domain.get_group_level_role(user, group) == 'customeradmin']
     return managers
 
 

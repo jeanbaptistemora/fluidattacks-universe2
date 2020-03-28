@@ -46,7 +46,6 @@ class UserTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'unittest'
         })
         result = testing_client.execute(query, context=request)
@@ -68,7 +67,6 @@ class UserTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'unittest'
         })
         result = testing_client.execute(query, context=request)
@@ -80,7 +78,6 @@ class UserTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'unittest'
         })
         query = '''
@@ -114,7 +111,6 @@ class UserTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'unittest'
         })
         query = '''
@@ -138,7 +134,6 @@ class UserTests(TestCase):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
-            'role': 'admin',
             'useremail': 'unittest'
         })
         query = '''

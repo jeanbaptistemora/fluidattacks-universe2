@@ -12,11 +12,9 @@ class Request:
         request.session.save()
         request.session['username'] = data_user['username']
         request.session['company'] = data_user['company']
-        request.session['role'] = data_user['role']
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': data_user['useremail'],
-                'user_role': data_user['role'],
                 'company': data_user['company']
             },
             algorithm='HS512',
