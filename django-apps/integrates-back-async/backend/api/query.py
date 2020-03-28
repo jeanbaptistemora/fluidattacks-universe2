@@ -7,8 +7,10 @@ from backend.api.resolvers import (
 from ariadne import QueryType, ObjectType
 
 ME = ObjectType('Me')
+FINDING = ObjectType('Finding')
 QUERY = QueryType()
 
+# Query resolvers
 QUERY.set_field('alert', alert.resolve_alert)
 QUERY.set_field('internalProjectNames', internal_project.resolve_project_name)
 QUERY.set_field('event', event.resolve_event)
@@ -18,4 +20,7 @@ QUERY.set_field('resources', resource.resolve_resources)
 QUERY.set_field('user', user.resolve_user)
 QUERY.set_field('forcesExecutions', forces.resolve_forces_executions)
 QUERY.set_field('finding', finding.resolve_finding)
+
+# Specific field resolvers
 ME.set_field('role', me.resolve_role)
+FINDING.set_field('vulnerabilities', finding.resolve_vulnerabilities)

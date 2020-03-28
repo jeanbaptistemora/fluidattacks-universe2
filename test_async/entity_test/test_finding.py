@@ -20,7 +20,8 @@ class FindingTests(TestCase):
 
     def _get_result(self, data):
         """Get result."""
-        request = RequestFactory().get('/')
+        request = RequestFactory().post('/',
+                                        {'data': 'finding(identifier: "422286126")'})
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
@@ -58,6 +59,12 @@ class FindingTests(TestCase):
                   id
                   content
               }
+              observations {
+                  id
+                  content
+              }
+              state
+              lastVulnerability
               historicState
               title
               scenario
@@ -84,6 +91,9 @@ class FindingTests(TestCase):
               currentState
               newRemediated
               verified
+              vulnerabilities {
+                specific
+              }
           }
         }'''
         data = {'query': query}
@@ -134,6 +144,12 @@ class FindingTests(TestCase):
         assert 'currentState' in result['data']['finding']
         assert 'newRemediated' in result['data']['finding']
         assert 'verified' in result['data']['finding']
+        assert 'observations' in result['data']['finding']
+        assert result['data']['finding']['state'] == 'open'
+        assert 'lastVulnerability' in result['data']['finding']
+        assert 'historicState' in result['data']['finding']
+        assert 'vulnerabilities' in result['data']['finding']
+        assert result['data']['finding']['vulnerabilities'][0]['specific'] == 'phone'
 
     def test_remove_evidence(self):
         """Check for removeEvidence mutation."""

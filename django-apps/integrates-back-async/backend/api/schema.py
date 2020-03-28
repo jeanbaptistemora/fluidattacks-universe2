@@ -2,7 +2,7 @@
 
 import os
 
-from backend.api.query import QUERY, ME
+from backend.api.query import QUERY, ME, FINDING
 from backend.api.mutation import MUTATION
 from backend.api.typesdef import TYPES
 from backend.api.scalars import jsonstring, genericscalar, datetime
@@ -20,6 +20,7 @@ SCHEMA = make_executable_schema(
     TYPE_DEFS,
     QUERY,
     ME,
+    FINDING,
     MUTATION,
     *TYPES,
     jsonstring.JSON_STRING_SCALAR,

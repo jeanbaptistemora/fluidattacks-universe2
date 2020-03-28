@@ -1,6 +1,7 @@
 # pylint: disable=import-error
 
 import asyncio
+import re
 import sys
 
 import rollbar
@@ -25,6 +26,66 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
+def extract_id(body):
+    """Extract identifier from query."""
+    body = body.decode()
+    match = re.search(r'finding\(identifier: (?:\\|)"([0-9]+)(?:\\|)"\)', body)
+    if match:
+        return match.group(1)
+    raise GraphQLError('Could not resolve finding identifier.')
+
+
+async def _get_vulnerabilities(
+    info, vuln_type, state, approval_status
+):
+    """Get vulnerabilities."""
+    identifier = extract_id(info.context.body)
+    vuln_filtered = \
+        await info.context.loaders['vulnerability'].load(identifier)
+    if vuln_type:
+        vuln_filtered = \
+            [vuln for vuln in vuln_filtered if vuln.vuln_type == vuln_type
+             and (vuln['current_approval_status'] != 'PENDING' or
+                  vuln['last_approved_status'])]
+    if state:
+        vuln_filtered = \
+            [vuln for vuln in vuln_filtered
+             if vuln_domain.get_current_state(vuln) == state and
+             (vuln['current_approval_status'] != 'PENDING' or
+              vuln['last_approved_status'])]
+    if approval_status:
+        vuln_filtered = \
+            {vuln for vuln in vuln_filtered
+             if vuln['current_approval_status'] == approval_status}
+    return vuln_filtered
+
+
+async def _resolve_vulnerabilities(
+    info, vuln_type, state, approval_status
+):
+    """Async resolve fields."""
+    loaders = {
+        'finding': FindingLoader(),
+        'vulnerability': VulnerabilityLoader()
+    }
+    info.context.loaders = loaders
+    future = asyncio.ensure_future(
+        _get_vulnerabilities(info, vuln_type, state, approval_status)
+    )
+    tasks_result = await asyncio.gather(future)
+    return tasks_result[0]
+
+
+@convert_kwargs_to_snake_case
+def resolve_vulnerabilities(
+    _, info, vuln_type=None, state=None, approval_status=None
+):
+    """Resolve vulnerabilities field."""
+    return util.run_async(
+        _resolve_vulnerabilities, info, vuln_type, state, approval_status
+    )
+
+
 @sync_to_async
 def _get_id(_, identifier):
     """Get id."""
@@ -43,7 +104,8 @@ async def _get_open_vulnerabilities(info, identifier):
 
     open_vulnerabilities = len([
         vuln for vuln in vulns
-        if vuln_domain.get_current_state(vuln) == 'open' and
+        if await sync_to_async(vuln_domain.get_current_state)(vuln) == 'open'
+        and
         (vuln['current_approval_status'] != 'PENDING' or
             vuln['last_approved_status'])])
     return dict(open_vulnerabilities=open_vulnerabilities)
@@ -55,7 +117,8 @@ async def _get_closed_vulnerabilities(info, identifier):
 
     closed_vulnerabilities = len([
         vuln for vuln in vulns
-        if vuln_domain.get_current_state(vuln) == 'closed' and
+        if await sync_to_async(vuln_domain.get_current_state)(vuln) == 'closed'
+        and
         (vuln['current_approval_status'] != 'PENDING' or
             vuln['last_approved_status'])])
     return dict(closed_vulnerabilities=closed_vulnerabilities)
@@ -141,6 +204,40 @@ async def _get_comments(info, identifier):
         finding['id'], curr_user_role
     )
     return dict(comments=comments)
+
+
+async def _get_observations(info, identifier):
+    """Get observations."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    curr_user_role = \
+        user_domain.get_group_level_role(user_email, finding['project_name'])
+    observations = await sync_to_async(comment_domain.get_observations)(
+        finding['id'], curr_user_role
+    )
+    return dict(observations=observations)
+
+
+async def _get_state(info, identifier):
+    """Get state."""
+    vulns = await info.context.loaders['vulnerability'].load(identifier)
+
+    state = 'open' \
+        if [vuln for vuln in vulns
+            if await sync_to_async(vuln_domain.get_last_approved_status)(vuln)
+            == 'open'] \
+        else 'closed'
+    return dict(state=state)
+
+
+async def _get_last_vulnerability(info, identifier):
+    """Get last_vulnerability."""
+    finding = await info.context.loaders['finding'].load(identifier)
+    last_vuln_date = \
+        util.calculate_datediff_since(finding['last_vulnerability'])
+    last_vulnerability = last_vuln_date.days
+    return dict(last_vulnerability=last_vulnerability)
 
 
 async def _get_historic_state(info, identifier):
