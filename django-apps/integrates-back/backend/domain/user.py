@@ -154,11 +154,9 @@ def assign_role(email: str, role: str, group: str = None) -> bool:
     if role not in ('analyst', 'customer', 'admin', 'customeradmin'):
         return False
 
-    resp = user_dal.update(email, {'role': role})
-
     if group:
-        return resp and grant_group_level_role(email, group, role)
-    return resp and grant_user_level_role(email, role)
+        return grant_group_level_role(email, group, role)
+    return grant_user_level_role(email, role)
 
 
 def get_all_companies() -> List[str]:

@@ -21,7 +21,6 @@ class ProjectTests(TestCase):
         request.session.save()
         request.session['username'] = 'unittest'
         request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'integratesmanager@gmail.com',

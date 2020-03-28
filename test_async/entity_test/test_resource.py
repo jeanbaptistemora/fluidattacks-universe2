@@ -23,7 +23,6 @@ class ResourceTests(TestCase):
         request.session.save()
         request.session['username'] = 'user'
         request.session['company'] = 'fluid'
-        request.session['role'] = 'customer'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'integratesuser@gmail.com',
@@ -50,7 +49,6 @@ class ResourceTests(TestCase):
         request.session.save()
         request.session['username'] = 'user'
         request.session['company'] = 'fluid'
-        request.session['role'] = 'customer'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'integratesuser@gmail.com',

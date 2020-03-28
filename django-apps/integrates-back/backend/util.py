@@ -3,14 +3,12 @@
 
 import asyncio
 import collections
-import contextlib
 from datetime import datetime, timedelta, timezone
 import binascii
 import logging
 import logging.config
 import re
 import secrets
-import threading
 from typing import Dict, List, cast
 import pytz
 import rollbar
@@ -27,10 +25,7 @@ from django.core.files.uploadedfile import (
 )
 from django.core.cache import cache
 from jose import jwt, JWTError
-from rediscluster.nodemanager import RedisClusterException
 
-from backend.dal.helpers import dynamodb
-from backend.domain import user as user_domain
 from backend.exceptions import (InvalidAuthorization, InvalidDate,
                                 InvalidDateFormat)
 from backend.typing import Finding as FindingType, User as UserType
@@ -465,84 +460,6 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
         updated_values['acceptance_date'] = (
             datetime.now() + timedelta(days=5 + weekend_days)).strftime('%Y-%m-%d %H:%M:%S')
     return updated_values
-
-
-def temporal_yield_users():
-    table = dynamodb.DYNAMODB_RESOURCE.Table('FI_users')
-
-    result = table.scan()
-    yield from result['Items']
-
-    while 'LastEvaluatedKey' in result:
-        result = table.scan(ExclusiveStartKey=result['LastEvaluatedKey'])
-        yield from result['Items']
-
-
-def _temporal_keep_auth_table_fresh(enforcer):
-    rollbar.report_message('Starting syncing data to fi_authorization', 'debug')
-
-    # pylint: disable=import-outside-toplevel
-    from backend.services import is_customeradmin
-
-    for user in temporal_yield_users():
-        if 'email' not in user or 'role' not in user:
-            continue
-
-        user_email = user['email']
-        user_role = user['role']
-
-        if user_role == 'customeradmin':
-            user_role = 'customer'
-
-        try:
-            # Revoke all granted roles until now to guarantee perfect synchronization
-            user_domain.revoke_all_levels_roles(user_email, reload=False)
-
-            user_domain.grant_user_level_role(
-                user_email, user_role,
-                revoke_existing=False, reload=False)
-
-            if user_role != 'admin':
-                user_groups = \
-                    user_domain.get_projects(user_email, active=True) \
-                    + user_domain.get_projects(user_email, active=False)
-
-                for group in user_groups:
-                    group_role = user_role
-                    if is_customeradmin(group, user_email):
-                        group_role = 'customeradmin'
-
-                    user_domain.grant_group_level_role(
-                        user_email, group, group_role,
-                        revoke_existing=False, reload=False)
-        except (TypeError, ValueError) as exception:
-            rollbar.report_message(
-                'Error: unable to migrate user', 'critical',
-                extra_data=exception, payload_data=locals())
-
-    enforcer.load_policy()
-
-    rollbar.report_message('Finished syncing data to fi_authorization', 'debug')
-
-
-def temporal_keep_auth_table_fresh(enforcer, enforcer_name):
-    # Function to keep data fresh until I make data get
-    # inserted directly into the authorization table
-    cache_key: str = f'authorization.is_data_fresh.{enforcer_name}'
-
-    is_data_fresh: bool = True
-    with contextlib.suppress(RedisClusterException):
-        is_data_fresh = cache.get(cache_key)
-
-    if is_data_fresh:
-        return
-
-    cache.set(cache_key, True, timeout=900)
-
-    thread = threading.Thread(
-        target=_temporal_keep_auth_table_fresh,
-        args=(enforcer,))
-    thread.start()
 
 
 def run_async(function, *args, **kwargs):
