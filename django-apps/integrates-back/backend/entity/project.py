@@ -319,9 +319,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         user_roles_to_retrieve = ['customer', 'customeradmin']
         if user_role == 'admin':
             user_roles_to_retrieve.append('admin')
-        self.users = [User(self.name, user_email)
-                      for user_email in user_email_list
-                      if user_domain.get_data(user_email, 'role')
+        self.users = [User(self.name, email)
+                      for email in user_email_list
+                      if user_domain.get_group_level_role(email, self.name)
                       in user_roles_to_retrieve]
         return self.users
 

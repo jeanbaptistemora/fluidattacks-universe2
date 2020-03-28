@@ -115,6 +115,38 @@
     {
       "PutRequest": {
         "Item": {
+          "id": {"S": "d2e59750-706c-11ea-ae88-ebe38db873cb"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "group"},
+              {"S": "continuoushacking@gmail.com"},
+              {"S": "unittesting"},
+              {"S": "customeradmin"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "615f42b8-707e-11ea-a1f2-9787a609db70"},
+          "policy_type": {"S": "p"},
+          "rule": {
+            "L" : [
+              {"S": "group"},
+              {"S": "continuoushacking@gmail.com"},
+              {"S": "pendingproject"},
+              {"S": "customeradmin"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
           "id": {"S": "a59be946-705a-11ea-b5a7-0fb9b1f43051"},
           "policy_type": {"S": "p"},
           "rule": {

@@ -40,9 +40,6 @@
             "last_name": {
               "S": "de Orellana"
             },
-            "role": {
-              "S": "admin"
-            },
             "first_name": {
               "S": "Miguel"
             },
@@ -72,9 +69,6 @@
             },
             "last_name": {
               "S": "Manager"
-            },
-            "role": {
-              "S": "admin"
             },
             "first_name": {
               "S": "Integrates"
@@ -106,9 +100,6 @@
             "last_name": {
               "S": "User"
             },
-            "role": {
-              "S": "customeradmin"
-            },
             "first_name": {
               "S": "Integrates"
             },
@@ -139,9 +130,6 @@
             "last_name": {
               "S": "Analyst"
             },
-            "role": {
-              "S": "analyst"
-            },
             "first_name": {
               "S": "Integrates"
             },
@@ -168,9 +156,6 @@
           "Item": {
             "last_name": {
               "S": "Analyst2"
-            },
-            "role": {
-              "S": "analyst"
             },
             "first_name": {
               "S": "Integrates2"
@@ -201,9 +186,6 @@
             },
             "last_name": {
               "S": "Hacking"
-            },
-            "role": {
-              "S": "customeradmin"
             },
             "first_name": {
               "S": "Continuous"

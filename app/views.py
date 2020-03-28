@@ -28,7 +28,7 @@ from backend.domain import (
 from backend.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
-from backend.decorators import authenticate, authorize, cache_content
+from backend.decorators import authenticate, cache_content
 from backend.dal import (
     finding as finding_dal, user as user_dal
 )
@@ -58,6 +58,30 @@ BUCKET_S3 = FI_AWS_S3_BUCKET
 BASE_URL = 'https://fluidattacks.com/integrates'
 
 
+def enforce_user_level_role(request, *allowed_roles):
+    # Verify role if the user is logged in
+    email = request.session.get('username')
+    registered = request.session.get('registered')
+
+    if not email or not registered:
+        # The user is not even authenticated. Redirect to login
+        return HttpResponse("""
+            <script>
+                var getUrl=window.location.hash.substr(1);
+                localStorage.setItem("url_inicio",getUrl);
+                location = "/integrates/index";
+            </script>
+            """)
+
+    requester_role = user_domain.get_user_level_role(email)
+    if requester_role not in allowed_roles:
+        response = HttpResponse("Access Denied")
+        response.status_code = 403
+        return response
+
+    return None
+
+
 def enforce_group_level_role(request, group, *allowed_roles):
     # Verify role if the user is logged in
     email = request.session.get('username')
@@ -84,19 +108,19 @@ def enforce_group_level_role(request, group, *allowed_roles):
 
 @never_cache
 def index(request):
-    "Login view for unauthenticated users"
+    """Login view for unauthenticated users"""
     parameters = {'debug': settings.DEBUG}
     return render(request, 'index.html', parameters)
 
 
 def error500(request):
-    "Internal server error view"
+    """Internal server error view"""
     parameters = {}
     return render(request, 'HTTP500.html', parameters)
 
 
 def error401(request, _):
-    "Unauthorized error view"
+    """Unauthorized error view"""
     parameters = {}
     return render(request, 'HTTP401.html', parameters)
 
@@ -105,7 +129,7 @@ def error401(request, _):
 @cache_control(private=True, max_age=3600)
 @authenticate
 def app(request):
-    """ App view for authenticated users """
+    """App view for authenticated users."""
     try:
         parameters = {
             'debug': settings.DEBUG,
@@ -141,7 +165,7 @@ def app(request):
 @csrf_exempt
 @authenticate
 def logout(request):
-    "Close a user's active session"
+    """Close a user's active session"""
 
     HttpResponse("<script>Intercom('shutdown');</script>")
     try:
@@ -157,9 +181,15 @@ def logout(request):
 @cache_content
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer', 'admin'])
 def project_to_xls(request, lang, project):
-    "Create the technical report"
+    """Create the technical report"""
+    allowed_roles = ['analyst', 'customer', 'customeradmin', 'admin']
+
+    error = enforce_group_level_role(request, project, *allowed_roles)
+
+    if error is not None:
+        return error
+
     user_email = request.session['username']
     user_name = user_email.split('@')[0]
     if project.strip() == '':
@@ -217,9 +247,16 @@ def validation_project_to_pdf(request, lang, doctype):
 @cache_content
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer', 'admin'])
-def project_to_pdf(request, lang, project, doctype):
-    "Export a project to a PDF"
+def project_to_pdf(  # pylint: disable=too-many-locals
+        request, lang, project, doctype):
+    """Export a project to a PDF"""
+    allowed_roles = ['analyst', 'customer', 'customeradmin', 'admin']
+
+    error = enforce_group_level_role(request, project, *allowed_roles)
+
+    if error is not None:
+        return error
+
     assert project.strip()
     if not has_access_to_project(request.session['username'], project):
         util.cloudwatch_log(request, 'Security: Attempted to export project'
@@ -514,8 +551,14 @@ def generate_complete_report(request):
 
 @cache_content
 @never_cache
-@authorize(['admin'])
 def export_all_vulnerabilities(request):
+    allowed_roles = ['admin']
+
+    error = enforce_user_level_role(request, *allowed_roles)
+
+    if error is not None:
+        return error
+
     user_data = util.get_jwt_content(request)
     filepath = generate_all_vulns_xlsx(user_data['user_email'])
     filename = os.path.basename(filepath)
@@ -530,8 +573,14 @@ def export_all_vulnerabilities(request):
 
 @cache_content
 @never_cache
-@authorize(['admin'])
-def export_users(request):
+def export_users(request):  # pylint: disable=too-many-locals
+    allowed_roles = ['admin']
+
+    error = enforce_user_level_role(request, *allowed_roles)
+
+    if error is not None:
+        return error
+
     user_data = util.get_jwt_content(request)
     book = Workbook()
     sheet = book.active
