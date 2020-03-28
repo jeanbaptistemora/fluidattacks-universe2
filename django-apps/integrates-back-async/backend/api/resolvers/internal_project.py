@@ -3,7 +3,10 @@
 import asyncio
 
 from asgiref.sync import sync_to_async
-from backend.decorators import require_login, enforce_authz_async
+from backend.decorators import (
+    enforce_user_level_auth_async,
+    require_login,
+)
 from backend.domain import internal_project as internal_project_domain
 
 from ariadne import convert_kwargs_to_snake_case
@@ -30,7 +33,7 @@ async def _resolve_fields():
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_authz_async
+@enforce_user_level_auth_async
 def resolve_project_name(*_):
     """Resolve internalProjectNames query."""
     loop = asyncio.new_event_loop()

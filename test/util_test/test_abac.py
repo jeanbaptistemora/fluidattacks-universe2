@@ -93,7 +93,6 @@ class ActionAbacTest(TestCase):
         'backend_api_query_Query_resolve_finding',
         'backend_api_query_Query_resolve_event',
         'backend_api_query_Query_resolve_alive_projects',
-        'backend_api_query_Query_resolve_internal_project_names',
         'backend_api_query_Query_resolve_user_list_projects',
         'backend_entity_resource_AddResources_mutate',
         'backend_entity_resource_UpdateResources_mutate',
@@ -393,6 +392,7 @@ class UserAbacTest(TestCase):
     }
 
     admin_actions: Set[str] = {
+        'backend_api_query_Query_resolve_internal_project_names',
         'backend_entity_user_AddUser_mutate',
     }
     admin_actions = admin_actions.union(analyst_actions)

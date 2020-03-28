@@ -9,7 +9,8 @@ from graphene import Field, List, ObjectType, String, DateTime
 # Local libraries
 from backend.decorators import (
     get_cached, require_event_access, require_finding_access, rename_kwargs,
-    require_login, require_project_access, enforce_authz
+    require_login, require_project_access, enforce_authz,
+    enforce_user_level_auth,
 )
 from backend.domain import project as project_domain, user as user_domain
 from backend.entity.me import Me
@@ -154,7 +155,7 @@ class Query(ObjectType):
         raise InvalidProject()
 
     @require_login
-    @enforce_authz
+    @enforce_user_level_auth
     def resolve_internal_project_names(self, info):
         """Resolve for internal project names"""
         del info
