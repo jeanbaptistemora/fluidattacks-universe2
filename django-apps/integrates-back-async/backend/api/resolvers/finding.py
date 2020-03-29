@@ -12,8 +12,8 @@ from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.dataloaders.finding import FindingLoader
 
 from backend.decorators import (
-    enforce_group_level_auth_async, rename_kwargs, require_login,
-    require_finding_access, require_project_access
+    enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs,
+    require_login, require_finding_access, require_project_access
 )
 from backend.domain import (
     comment as comment_domain, finding as finding_domain,
@@ -35,6 +35,7 @@ def extract_id(body):
     raise GraphQLError('Could not resolve finding identifier.')
 
 
+@get_entity_cache_async
 async def _get_vulnerabilities(
     info, vuln_type, state, approval_status
 ):
@@ -92,12 +93,14 @@ def _get_id(_, identifier):
     return dict(id=identifier)
 
 
+@get_entity_cache_async
 async def _get_project_name(info, identifier):
     """Get project_name."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(project_name=finding['project_name'])
 
 
+@get_entity_cache_async
 async def _get_open_vulnerabilities(info, identifier):
     """Get open_vulnerabilities."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
@@ -111,6 +114,7 @@ async def _get_open_vulnerabilities(info, identifier):
     return dict(open_vulnerabilities=open_vulnerabilities)
 
 
+@get_entity_cache_async
 async def _get_closed_vulnerabilities(info, identifier):
     """Get closed_vulnerabilities."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
@@ -124,6 +128,7 @@ async def _get_closed_vulnerabilities(info, identifier):
     return dict(closed_vulnerabilities=closed_vulnerabilities)
 
 
+@get_entity_cache_async
 async def _get_release_date(info, identifier):
     """Get release date."""
     allowed_roles = ['admin', 'analyst']
@@ -136,6 +141,7 @@ async def _get_release_date(info, identifier):
     return dict(release_date=release_date)
 
 
+@get_entity_cache_async
 async def _get_tracking(info, identifier):
     """Get tracking."""
     finding = await info.context.loaders['finding'].load(identifier)
@@ -150,6 +156,7 @@ async def _get_tracking(info, identifier):
     return dict(tracking=tracking)
 
 
+@get_entity_cache_async
 async def _get_records(info, identifier):
     """Get records."""
     finding = await info.context.loaders['finding'].load(identifier)
@@ -161,18 +168,21 @@ async def _get_records(info, identifier):
     return dict(records=records)
 
 
+@get_entity_cache_async
 async def _get_severity(info, identifier):
     """Get severity."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(severity=finding['severity'])
 
 
+@get_entity_cache_async
 async def _get_cvss_version(info, identifier):
     """Get cvss_version."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(cvss_version=finding['cvss_version'])
 
 
+@get_entity_cache_async
 async def _get_exploit(info, identifier):
     """Get exploit."""
     finding = await info.context.loaders['finding'].load(identifier)
@@ -187,12 +197,14 @@ async def _get_exploit(info, identifier):
     return dict(exploit=exploit)
 
 
+@get_entity_cache_async
 async def _get_evidence(info, identifier):
     """Get evidence."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(evidence=finding['evidence'])
 
 
+@get_entity_cache_async
 async def _get_comments(info, identifier):
     """Get comments."""
     finding = await info.context.loaders['finding'].load(identifier)
@@ -206,6 +218,10 @@ async def _get_comments(info, identifier):
     return dict(comments=comments)
 
 
+@rename_kwargs({'identifier': 'finding_id'})
+@enforce_group_level_auth_async
+@rename_kwargs({'finding_id': 'identifier'})
+@get_entity_cache_async
 async def _get_observations(info, identifier):
     """Get observations."""
     finding = await info.context.loaders['finding'].load(identifier)
@@ -219,6 +235,7 @@ async def _get_observations(info, identifier):
     return dict(observations=observations)
 
 
+@get_entity_cache_async
 async def _get_state(info, identifier):
     """Get state."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
@@ -231,6 +248,7 @@ async def _get_state(info, identifier):
     return dict(state=state)
 
 
+@get_entity_cache_async
 async def _get_last_vulnerability(info, identifier):
     """Get last_vulnerability."""
     finding = await info.context.loaders['finding'].load(identifier)
@@ -240,156 +258,188 @@ async def _get_last_vulnerability(info, identifier):
     return dict(last_vulnerability=last_vulnerability)
 
 
+@rename_kwargs({'identifier': 'finding_id'})
+@enforce_group_level_auth_async
+@rename_kwargs({'finding_id': 'identifier'})
+@get_entity_cache_async
 async def _get_historic_state(info, identifier):
     """Get historic_state."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(historic_state=finding['historic_state'])
 
 
+@get_entity_cache_async
 async def _get_title(info, identifier):
     """Get title."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(title=finding['title'])
 
 
+@get_entity_cache_async
 async def _get_scenario(info, identifier):
     """Get scenario."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(scenario=finding['scenario'])
 
 
+@get_entity_cache_async
 async def _get_actor(info, identifier):
     """Get actor."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(actor=finding['actor'])
 
 
+@get_entity_cache_async
 async def _get_description(info, identifier):
     """Get description."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(description=finding['description'])
 
 
+@get_entity_cache_async
 async def _get_requirements(info, identifier):
     """Get requirements."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(requirements=finding['requirements'])
 
 
+@get_entity_cache_async
 async def _get_attack_vector_desc(info, identifier):
     """Get attack_vector_desc."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(attack_vector_desc=finding['attack_vector_desc'])
 
 
+@get_entity_cache_async
 async def _get_threat(info, identifier):
     """Get threat."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(threat=finding['threat'])
 
 
+@get_entity_cache_async
 async def _get_recommendation(info, identifier):
     """Get recommendation."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(recommendation=finding['recommendation'])
 
 
+@get_entity_cache_async
 async def _get_affected_systems(info, identifier):
     """Get affected_systems."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(affected_systems=finding['affected_systems'])
 
 
+@get_entity_cache_async
 async def _get_compromised_attributes(info, identifier):
     """Get compromised_attributes."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(compromised_attributes=finding['compromised_attributes'])
 
 
+@get_entity_cache_async
 async def _get_compromised_records(info, identifier):
     """Get compromised_records."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(compromised_records=finding['compromised_records'])
 
 
+@get_entity_cache_async
 async def _get_cwe_url(info, identifier):
     """Get cwe_url."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(cwe_url=finding['cwe_url'])
 
 
+@get_entity_cache_async
 async def _get_bts_url(info, identifier):
     """Get bts_url."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(bts_url=finding['bts_url'])
 
 
+@get_entity_cache_async
 async def _get_risk(info, identifier):
     """Get risk."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(risk=finding['risk'])
 
 
+@get_entity_cache_async
 async def _get_remediated(info, identifier):
     """Get remediated."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(remediated=finding['remediated'])
 
 
+@get_entity_cache_async
 async def _get_type(info, identifier):
     """Get type."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(type=finding['type'])
 
 
+@get_entity_cache_async
 async def _get_age(info, identifier):
     """Get age."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(age=finding['age'])
 
 
+@get_entity_cache_async
 async def _get_is_exploitable(info, identifier):
     """Get is_exploitable."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(is_exploitable=finding['is_exploitable'])
 
 
+@get_entity_cache_async
 async def _get_severity_score(info, identifier):
     """Get severity_score."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(severity_score=finding['severity_score'])
 
 
+@get_entity_cache_async
 async def _get_report_date(info, identifier):
     """Get report_date."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(report_date=finding['report_date'])
 
 
+@rename_kwargs({'identifier': 'finding_id'})
+@enforce_group_level_auth_async
+@rename_kwargs({'finding_id': 'identifier'})
+@get_entity_cache_async
 async def _get_analyst(info, identifier):
     """Get analyst."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(analyst=finding['analyst'])
 
 
+@get_entity_cache_async
 async def _get_historic_treatment(info, identifier):
     """Get historic_treatment."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(historic_treatment=finding['historic_treatment'])
 
 
+@get_entity_cache_async
 async def _get_current_state(info, identifier):
     """Get current_state."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(current_state=finding['current_state'])
 
 
+@get_entity_cache_async
 async def _get_new_remediated(info, identifier):
     """Get new_remediated."""
     finding = await info.context.loaders['finding'].load(identifier)
     return dict(new_remediated=finding['new_remediated'])
 
 
+@get_entity_cache_async
 async def _get_verified(info, identifier):
     """Get verified."""
     finding = await info.context.loaders['finding'].load(identifier)
@@ -413,7 +463,9 @@ async def _resolve_fields(info, identifier):
             sys.modules[__name__],
             f'_get_{snake_field}'
         )
-        future = asyncio.ensure_future(resolver_func(info, identifier))
+        future = asyncio.ensure_future(
+            resolver_func(info, identifier=identifier)
+        )
         tasks.append(future)
     tasks_result = await asyncio.gather(*tasks)
     for dict_result in tasks_result:

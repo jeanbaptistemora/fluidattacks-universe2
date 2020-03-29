@@ -8,6 +8,7 @@ import { QueryResult } from "@apollo/react-common";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
+
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
@@ -35,7 +36,8 @@ import { SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
 import { default as style } from "./index.css";
 import {
-  APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
+  APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER,
+  GET_FINDING_HEADER_NO_HISTORY, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
 } from "./queries";
 import { IFindingContentProps, IHeaderQueryResult } from "./types";
 
@@ -66,9 +68,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   });
 
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], userRole);
+
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
-    GET_FINDING_HEADER, {
-    variables: { findingId, submissionField: canGetHistoricState },
+    canGetHistoricState ? GET_FINDING_HEADER : GET_FINDING_HEADER_NO_HISTORY, {
+    variables: { findingId },
   });
 
   const [submitDraft, { loading: submitting }] = useMutation(

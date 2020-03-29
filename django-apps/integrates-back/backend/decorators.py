@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Decorators for FluidIntegrates. """
 
-
 import functools
 import re
 
@@ -189,7 +188,12 @@ def enforce_group_level_auth_async(func):
     """
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
-        context = args[1].context
+        if hasattr(args[0], 'context'):
+            context = args[0].context
+        elif hasattr(args[1], 'context'):
+            context = args[1].context
+        else:
+            GraphQLError('Could not get context from request.')
 
         project_name = resolve_project_name(args, kwargs)
         project_data = resolve_project_data(project_name)
@@ -444,6 +448,32 @@ def get_entity_cache(func):
             ret = cache.get(key_name)
             if ret is None:
                 ret = func(*args, **kwargs)
+                if isinstance(ret, Promise):
+                    ret = ret.get()
+                cache.set(key_name, ret, timeout=CACHE_TTL)
+            return ret
+        except RedisClusterException:
+            rollbar.report_exc_info()
+            return func(*args, **kwargs)
+    return decorated
+
+
+def get_entity_cache_async(func):
+    """Get cached response of a GraphQL entity if it exists."""
+    @functools.wraps(func)
+    async def decorated(*args, **kwargs):
+        """Get cached response from function if it exists."""
+        gql_ent = args[0]
+        uniq_id = str(gql_ent)
+        params = '_'.join([kwargs[key] for key in kwargs]) + '_'
+        complement = (params if kwargs else '') + uniq_id
+        key_name = \
+            f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{complement}'
+        key_name = key_name.lower()
+        try:
+            ret = cache.get(key_name)
+            if ret is None:
+                ret = await func(*args, **kwargs)
                 if isinstance(ret, Promise):
                     ret = ret.get()
                 cache.set(key_name, ret, timeout=CACHE_TTL)
