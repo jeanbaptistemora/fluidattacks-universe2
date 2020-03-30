@@ -63,6 +63,16 @@ class ProjectTests(TestCase):
               userDeletion
               tags
               description
+              comments {
+              content
+              }
+              drafts {
+              age
+              }
+              events {
+              analyst
+              detail
+              }
             }
           }
         '''
@@ -85,10 +95,13 @@ class ProjectTests(TestCase):
         assert result['data']['project']['currentMonthAuthors'] == 0
         assert result['data']['project']['currentMonthCommits'] == 0
         assert result['data']['project']['subscription'] == 'continuous'
-        assert result['data']['project']['deletionDate'] == ""
-        assert result['data']['project']['userDeletion'] == ""
+        assert result['data']['project']['deletionDate'] == ''
+        assert result['data']['project']['userDeletion'] == ''
         assert result['data']['project']['tags'][0] == 'testing'
         assert result['data']['project']['description'] == 'Integrates unit test project'
+        assert len(result['data']['project']['drafts']) == 2
+        assert len(result['data']['project']['events']) == 5
+        assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
 
     def test_create_project(self):
         """Check for createProject mutation."""

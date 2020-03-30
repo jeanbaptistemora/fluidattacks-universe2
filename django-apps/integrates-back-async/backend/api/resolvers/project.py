@@ -270,6 +270,50 @@ async def _get_description(_, project_name):
     return dict(description=description)
 
 
+@enforce_group_level_auth_async
+async def _get_comments(info, project_name):
+    """Get comments."""
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    curr_user_role = await \
+        sync_to_async(user_domain.get_group_level_role)(
+            user_email, project_name
+        )
+    comments = await sync_to_async(project_domain.list_comments)(
+        project_name, curr_user_role
+    )
+    return dict(comments=comments)
+
+
+@enforce_group_level_auth_async
+async def _get_drafts(info, project_name):
+    """Get drafts."""
+    util.cloudwatch_log(
+        info.context, f'Security: Access to {project_name} drafts')
+    finding_ids = await \
+        sync_to_async(finding_domain.filter_deleted_findings)(
+            project_domain.list_drafts(project_name)
+        )
+    findings = \
+        await info.context.loaders['finding'].load_many(finding_ids)
+
+    drafts = [draft for draft in findings
+              if draft['current_state'] != 'DELETED']
+    return dict(drafts=drafts)
+
+
+@enforce_group_level_auth_async
+async def _get_events(info, project_name):
+    """Get events."""
+    util.cloudwatch_log(
+        info.context, f'Security: Access to {project_name} events')
+    event_ids = await \
+        sync_to_async(project_domain.list_events)(project_name)
+    events = \
+        await info.context.loaders['event'].load_many(event_ids)
+    return dict(events=events)
+
+
 async def _resolve_fields(info, project_name):
     """Async resolve fields."""
     loaders = {
