@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+<!-- Tachyons stylesheet -->
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
+{% block meta %}
+<meta name="description"
+      content="{{ gettext('Landing-metadescription') }}.">
+<meta name="keywords"
+      content="{{ gettext('Landing-keywords')}}.">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block header %}
+<div
+  class="products-bg bg-banner-sz coverm cover-s h5-l h4 justify-center items-center flex mt3-l bg-center">
+  <div class="w-100 center">
+    <h1 class="white fw4 f1 neue tc ma0">
+      {{ page.title }}
+    </h1>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="products tc roboto w-100 center c-lightblack pb6">
+  {{ page.content }}
+  <div class="tc pt3">
+    <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred" href="#">
+      <span class="br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer mt2">
+          Access to Rules
+      </span>
+    </a>
+  </div>
+</div>
+{% endblock content %}
