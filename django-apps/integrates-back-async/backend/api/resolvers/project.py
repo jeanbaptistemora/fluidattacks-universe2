@@ -199,6 +199,77 @@ async def _get_total_treatment(_, project_name):
     return dict(total_treatment=total_treatment)
 
 
+@get_entity_cache_async
+async def _get_current_month_authors(_, project_name):
+    """Get current_month_authors."""
+    current_month_authors = await \
+        sync_to_async(project_domain.get_current_month_authors)(
+            project_name
+        )
+    return dict(current_month_authors=current_month_authors)
+
+
+@get_entity_cache_async
+async def _get_current_month_commits(_, project_name):
+    """Get current_month_commits."""
+    current_month_commits = await \
+        sync_to_async(project_domain.get_current_month_commits)(
+            project_name
+        )
+    return dict(current_month_commits=current_month_commits)
+
+
+@get_entity_cache_async
+async def _get_subscription(_, project_name):
+    """Get subscription."""
+    project_info = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['type']
+        )
+    subscription = project_info.get('type', '') if project_info else ''
+    return dict(subscription=subscription)
+
+
+@get_entity_cache_async
+async def _get_deletion_date(_, project_name):
+    """Get deletion_date."""
+    historic_deletion = await \
+        sync_to_async(project_domain.get_historic_deletion)(project_name)
+    deletion_date = \
+        historic_deletion[-1].get('deletion_date', '') \
+        if historic_deletion else ''
+    return dict(deletion_date=deletion_date)
+
+
+@get_entity_cache_async
+async def _get_user_deletion(_, project_name):
+    """Get user_deletion."""
+    user_deletion = ''
+    historic_deletion = await \
+        sync_to_async(project_domain.get_historic_deletion)(project_name)
+    if historic_deletion and historic_deletion[-1].get('deletion_date'):
+        user_deletion = historic_deletion[-1].get('user', '')
+    return dict(user_deletion=user_deletion)
+
+
+@get_entity_cache_async
+async def _get_tags(_, project_name):
+    """Get tags."""
+    project_data = await \
+        sync_to_async(project_domain.get_attributes)(project_name, ['tag'])
+    tags = \
+        project_data['tag'] if project_data and 'tag' in project_data else []
+    return dict(tags=tags)
+
+
+@get_entity_cache_async
+async def _get_description(_, project_name):
+    """Get description."""
+    description = await \
+        sync_to_async(project_domain.get_description)(project_name)
+    return dict(description=description)
+
+
 async def _resolve_fields(info, project_name):
     """Async resolve fields."""
     loaders = {
