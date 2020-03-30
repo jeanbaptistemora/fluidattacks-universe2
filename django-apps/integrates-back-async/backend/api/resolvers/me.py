@@ -6,6 +6,7 @@ import json
 import sys
 
 from collections import defaultdict
+from typing import Dict
 from asgiref.sync import sync_to_async
 from backend.decorators import require_login
 from backend.domain import user as user_domain
@@ -72,9 +73,9 @@ def _get_access_token(jwt_content):
 
 
 @sync_to_async
-def _get_authorized(jwt_content):
+def _get_authorized(jwt_content: Dict[str, str]) -> Dict[str, bool]:
     """Get user authorization."""
-    user_email = jwt_content.get('user_email')
+    user_email = jwt_content.get('user_email', '')
     result = user_domain.is_registered(user_email)
     return dict(authorized=result)
 

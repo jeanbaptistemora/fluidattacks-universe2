@@ -490,6 +490,7 @@ function job_lint_back {
         django-apps/integrates-back/backend/domain/*py \
         django-apps/integrates-back/backend/dal/* \
         django-apps/integrates-back/backend/utils/* \
+        django-apps/integrates-back-async/backend/api/resolvers/me.py \
   &&  npx graphql-schema-linter \
         --except 'enum-values-all-caps,enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions' \
         django-apps/integrates-back-async/backend/api/schemas/*

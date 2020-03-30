@@ -140,7 +140,7 @@ DATABASES = {
             'sql_mode': 'STRICT_TRANS_TABLES',
         },
         'TEST': {
-            'NAME': f'test_django_{CI_COMMIT_REF_NAME}_{uuid4().hex}',
+            'NAME': f'test_django_{CI_COMMIT_REF_NAME}_{uuid4().hex[:16]}',
             'CHARSET': 'utf8',
             'COLLATION': 'utf8_general_ci',
         },
