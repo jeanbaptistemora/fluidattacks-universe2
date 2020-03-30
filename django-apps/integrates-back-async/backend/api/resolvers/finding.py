@@ -134,9 +134,11 @@ async def _get_release_date(info, identifier):
     allowed_roles = ['admin', 'analyst']
     finding = await info.context.loaders['finding'].load(identifier)
     release_date = finding['release_date']
-    if not release_date and \
-            util.get_jwt_content(info.context)['user_role'] \
-            not in allowed_roles:
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    curr_user_role = \
+        user_domain.get_group_level_role(user_email, finding['project_name'])
+    if not release_date and curr_user_role not in allowed_roles:
         raise GraphQLError('Access denied')
     return dict(release_date=release_date)
 
