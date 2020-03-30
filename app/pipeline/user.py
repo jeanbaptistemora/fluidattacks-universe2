@@ -100,6 +100,8 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     is_registered = user_domain.is_registered(email)
     last_login = user_domain.get_data(email, 'last_login')
     company = user_domain.get_data(email, 'company')
+    role = user_domain.get_user_level_role(email)
+    strategy.session_set('role', role)
     strategy.session_set('username', email)
     strategy.session_set('registered', is_registered)
     strategy.session_set('company', company)
