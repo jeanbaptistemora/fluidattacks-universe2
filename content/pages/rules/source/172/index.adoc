@@ -4,9 +4,10 @@
 :keywords: Requirement, Security, Source Code, Databases, Connection, Encryption
 :rules: yes
 
-= REQ.172 Encrypt Connection Strings
+= REQ.172 Encrypt connection strings
 
 == Requirement
 
-The developers must encrypt the database connection strings
-in a configuration file separate from the source code.
+The developers must encrypt the database connection strings in a configuration
+file.
+This file must be separate from the source code.

@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Connection, Database, Reuse, Vulnerability
 :rules: yes
 
-= REQ.152 Reuse Database Connections
+= REQ.152 Reuse database connections
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Source Code, Structures, Containers, Optimization
 :rules: yes
 
-= REQ.164 Use Optimized Structures
+= REQ.164 Use optimized structures
 
 == Requirement
 
