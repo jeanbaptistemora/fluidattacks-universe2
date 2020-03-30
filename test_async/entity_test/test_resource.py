@@ -25,7 +25,7 @@ class ResourceTests(TestCase):
         request.session['company'] = 'fluid'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'integratesuser@gmail.com',
+                'user_email': 'integratesmanager@gmail.com',
                 'company': 'fluid'
             },
             algorithm='HS512',
@@ -51,7 +51,7 @@ class ResourceTests(TestCase):
         request.session['company'] = 'fluid'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'integratesuser@gmail.com',
+                'user_email': 'integratesmanager@gmail.com',
                 'company': 'fluid'
             },
             algorithm='HS512',

@@ -85,6 +85,9 @@ class BasicAbacTest(TestCase):
 
 
 class ActionAbacTest(TestCase):
+    adapter = get_casbin_adapter()
+    enforcer = get_group_level_enforcer()
+
     global_actions = {
         'backend_api_resolvers_resource_resolve_resources',
         'backend_api_resolvers_alert_resolve_alert',
@@ -233,10 +236,14 @@ class ActionAbacTest(TestCase):
     customeradminfluid_allowed_actions.update(customer_allowed_actions)
     customeradminfluid_allowed_actions.update(customeradmin_allowed_actions)
 
+    def _grant_group_level_access(self, sub: str, obj: str, role: str):
+        sub = sub.user_email
+        obj = obj['project_name']
+        self.adapter.add_policy('p', 'p', ['group', sub, obj, role])
+        self.enforcer.load_policy()
+
     def test_action_wrong_role(self):
         """Tests for an user with a wrong role."""
-        enfor = get_group_level_enforcer()
-
         class TestItem:
             pass
 
@@ -253,11 +260,10 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions
 
         for action in should_deny:
-            self.assertFalse(enfor.enforce(sub, obj, action))
+            self.assertFalse(self.enforcer.enforce(sub, obj, action))
 
     def test_action_customer_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass
@@ -271,18 +277,18 @@ class ActionAbacTest(TestCase):
                 'admin@customer.com'
             }
         }
+        self._grant_group_level_access(sub, obj, 'customer')
 
         should_deny = self.global_actions - self.customer_allowed_actions
 
         for action in self.customer_allowed_actions:
-            self.assertTrue(enfor.enforce(sub, obj, action))
+            self.assertTrue(self.enforcer.enforce(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(enfor.enforce(sub, obj, action))
+            self.assertFalse(self.enforcer.enforce(sub, obj, action))
 
     def test_action_customeradmin_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass
@@ -296,19 +302,18 @@ class ActionAbacTest(TestCase):
                 'admin@customer.com'
             }
         }
+        self._grant_group_level_access(sub, obj, 'customeradmin')
 
         should_deny = self.global_actions - self.customeradmin_allowed_actions
 
         for action in self.customeradmin_allowed_actions:
-            self.assertTrue(enfor.enforce(sub, obj, action))
+            self.assertTrue(self.enforcer.enforce(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(enfor.enforce(sub, obj, action))
+            self.assertFalse(self.enforcer.enforce(sub, obj, action))
 
     def test_action_customeradminfluid_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_group_level_enforcer()
-
         class TestItem:
             pass
 
@@ -322,19 +327,19 @@ class ActionAbacTest(TestCase):
                 'admin@fluidattacks.com'
             }
         }
+        self._grant_group_level_access(sub, obj, 'customeradmin')
 
         should_deny = \
             self.global_actions - self.customeradminfluid_allowed_actions
 
         for action in self.customeradminfluid_allowed_actions:
-            self.assertTrue(enfor.enforce(sub, obj, action))
+            self.assertTrue(self.enforcer.enforce(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(enfor.enforce(sub, obj, action))
+            self.assertFalse(self.enforcer.enforce(sub, obj, action))
 
     def test_action_analyst_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_group_level_enforcer()
 
         class TestItem:
             pass
@@ -348,19 +353,18 @@ class ActionAbacTest(TestCase):
                 'admin@customer.com'
             }
         }
+        self._grant_group_level_access(sub, obj, 'analyst')
 
         should_deny = self.global_actions - self.analyst_allowed_actions
 
         for action in self.analyst_allowed_actions:
-            self.assertTrue(enfor.enforce(sub, obj, action))
+            self.assertTrue(self.enforcer.enforce(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(enfor.enforce(sub, obj, action))
+            self.assertFalse(self.enforcer.enforce(sub, obj, action))
 
     def test_action_admin_role(self):
         """Tests for an user with a expected role."""
-        enfor = get_group_level_enforcer()
-
         class TestItem:
             pass
 
@@ -373,11 +377,12 @@ class ActionAbacTest(TestCase):
                 'admin@customer.com',
             }
         }
+        self._grant_group_level_access(sub, obj, 'admin')
 
         should_allow = self.global_actions
 
         for action in should_allow:
-            self.assertTrue(enfor.enforce(sub, obj, action))
+            self.assertTrue(self.enforcer.enforce(sub, obj, action))
 
 
 class UserAbacTest(TestCase):

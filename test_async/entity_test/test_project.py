@@ -13,8 +13,9 @@ from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, Permi
 
 class ProjectTests(TestCase):
 
-    def _get_result(self, data):
+    def _get_result(self, data, user=None):
         """Get result."""
+        user = user or 'integratesmanager@gmail.com'
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -23,7 +24,7 @@ class ProjectTests(TestCase):
         request.session['company'] = 'unittest'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'integratesmanager@gmail.com',
+                'user_email': user,
                 'company': 'fluid',
                 'first_name': 'unit',
                 'last_name': 'test'
@@ -237,7 +238,7 @@ class ProjectTests(TestCase):
 
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = self._get_result(data, user='unittest@fluidattacks.com')
         assert 'errors' not in result
         assert 'success' in result['data']['addAllProjectAccess']
         assert result['data']['addAllProjectAccess']['success']

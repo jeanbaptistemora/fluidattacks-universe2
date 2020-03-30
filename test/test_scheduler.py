@@ -135,7 +135,6 @@ class SchedulerTests(TestCase):
     def test_create_register_by_week(self):
         project_name = 'unittesting'
         test_data = create_register_by_week(project_name)
-        print(test_data)
         assert isinstance(test_data, list)
         for item in test_data:
             assert isinstance(item, list)
@@ -148,7 +147,6 @@ class SchedulerTests(TestCase):
               {'found': 2, 'accepted': 0, 'closed': 0, 'assumed_closed': 0})]
         )
         test_data = create_data_format_chart(registers)
-        print(test_data)
         expected_output = [
             [{'y': 2, 'x': 'Sep 24 - 30, 2018'}],
             [{'y': 0, 'x': 'Sep 24 - 30, 2018'}],
