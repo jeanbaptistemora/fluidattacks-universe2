@@ -142,43 +142,31 @@ def resolve_project_data(project_name):
 
 
 def enforce_group_level_auth(func):
-    """
-    Require_role decorator based on Casbin enforcer.
-
-    Verifies that the current user's role is within the specified allowed roles
-    """
+    """Enforce authorization using the group-level role."""
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
-        action = '{}.{}'.format(func.__module__, func.__qualname__)
-        action = action.replace('.', '_')
-
         context = args[1].context
-
-        project_name = resolve_project_name(args, kwargs)
-        if not project_name:
-            rollbar.report_message(
-                'Couldn\'t identify project_name',
-                level='error',
-                extra_data={'resolver': action})
-
-        project_data = resolve_project_data(project_name)
-
         user_data = util.get_jwt_content(context)
-        user_email = user_data['user_email']
 
-        user_data['role'] = \
-            user_domain.get_group_level_role(user_email, project_name)
+        subject = user_data['user_email']
+        object_ = resolve_project_name(args, kwargs)
+        action = '{}.{}'.format(func.__module__, func.__qualname__).replace('.', '_')
+
+        if not object_:
+            rollbar.report_message(
+                'Unable to identify project name',
+                level='critical',
+                extra_data={
+                    'subject': subject,
+                    'action': action,
+                })
 
         try:
-            if not ENFORCER_GROUP_LEVEL.enforce(user_data, project_data, action):
-                util.cloudwatch_log(context,
-                                    'Security: \
-Unauthorized role attempted to perform operation')
+            if not ENFORCER_GROUP_LEVEL.enforce(subject, object_, action):
+                util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
-            util.cloudwatch_log(context,
-                                'Security: \
-Unauthorized role attempted to perform operation')
+            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call

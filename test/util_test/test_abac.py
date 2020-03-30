@@ -237,25 +237,13 @@ class ActionAbacTest(TestCase):
     customeradminfluid_allowed_actions.update(customeradmin_allowed_actions)
 
     def _grant_group_level_access(self, sub: str, obj: str, role: str):
-        sub = sub.user_email
-        obj = obj['project_name']
         self.adapter.add_policy('p', 'p', ['group', sub, obj, role])
         self.enforcer.load_policy()
 
     def test_action_wrong_role(self):
         """Tests for an user with a wrong role."""
-        class TestItem:
-            pass
-
-        sub = TestItem()
-        sub.user_email = 'someone@guest.com'
-        sub.role = 'guest'
-        obj = {
-            'project_name': 'unittesting',
-            'customeradmin': {
-                'admin@customer.com'
-            }
-        }
+        sub = 'someone@guest.com'
+        obj = 'unittesting'
 
         should_deny = self.global_actions
 
@@ -264,18 +252,10 @@ class ActionAbacTest(TestCase):
 
     def test_action_customer_role(self):
         """Tests for an user with a expected role."""
-        class TestItem:
-            pass
+        sub = 'someone@customer.com'
+        obj = 'unittesting'
 
-        sub = TestItem()
-        sub.user_email = 'someone@customer.com'
-        sub.role = 'customer'
-        obj = {
-            'project_name': 'unittesting',
-            'customeradmin': {
-                'admin@customer.com'
-            }
-        }
+        self._grant_group_level_access(sub, obj, 'customer')
 
         should_deny = self.global_actions - self.customer_allowed_actions
 
@@ -287,18 +267,8 @@ class ActionAbacTest(TestCase):
 
     def test_action_customeradmin_role(self):
         """Tests for an user with a expected role."""
-        class TestItem:
-            pass
-
-        sub = TestItem()
-        sub.user_email = 'admin@customer.com'
-        sub.role = 'customeradmin'
-        obj = {
-            'project_name': 'unittesting',
-            'customeradmin': {
-                'admin@customer.com'
-            }
-        }
+        sub = 'admin@customer.com'
+        obj = 'unittesting'
 
         should_deny = self.global_actions - self.customeradmin_allowed_actions
 
@@ -312,19 +282,8 @@ class ActionAbacTest(TestCase):
 
     def test_action_customeradminfluid_role(self):
         """Tests for an user with a expected role."""
-        class TestItem:
-            pass
-
-        sub = TestItem()
-        sub.user_email = 'admin@fluidattacks.com'
-        sub.role = 'customeradmin'
-        obj = {
-            'project_name': 'unittesting',
-            'customeradmin': {
-                'admin@customer.com',
-                'admin@fluidattacks.com'
-            }
-        }
+        sub = 'customeradmin@fluidattacks.com'
+        obj = 'unittesting'
 
         should_deny = \
             self.global_actions - self.customeradminfluid_allowed_actions
@@ -339,18 +298,10 @@ class ActionAbacTest(TestCase):
 
     def test_action_analyst_role(self):
         """Tests for an user with a expected role."""
-        class TestItem:
-            pass
+        sub = 'analyst@fluidattacks.com'
+        obj = 'unittesting'
 
-        sub = TestItem()
-        sub.user_email = 'analyst@fluidattacks.com'
-        sub.role = 'analyst'
-        obj = {
-            'project_name': 'unittesting',
-            'customeradmin': {
-                'admin@customer.com'
-            }
-        }
+        self._grant_group_level_access(sub, obj, 'analyst')
 
         should_deny = self.global_actions - self.analyst_allowed_actions
 
@@ -362,18 +313,8 @@ class ActionAbacTest(TestCase):
 
     def test_action_admin_role(self):
         """Tests for an user with a expected role."""
-        class TestItem:
-            pass
-
-        sub = TestItem()
-        sub.user_email = 'admin@fluidattacks.com'
-        sub.role = 'admin'
-        obj = {
-            'project_name': 'unittesting',
-            'customeradmin': {
-                'admin@customer.com',
-            }
-        }
+        sub = 'admin@fluidattacks.com'
+        obj = 'unittesting'
 
         should_allow = self.global_actions
 
