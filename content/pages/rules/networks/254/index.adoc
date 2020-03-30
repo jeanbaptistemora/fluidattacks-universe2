@@ -4,7 +4,7 @@
 :keywords: Factory, SSID, Change, Wireless, Name, Organization
 :rules: yes
 
-= REQ.254 Change SSID Name
+= REQ.254 Change SSID name
 
 == Requirement
 

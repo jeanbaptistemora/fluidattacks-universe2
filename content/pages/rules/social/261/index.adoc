@@ -4,9 +4,9 @@
 :keywords: Corporate, Personal, Social Network, Account, Register, Security.
 :rules: yes
 
-= REQ.261 Avoid Exposing Corporate Information
+= REQ.261 Avoid exposing corporate information
 
 == Requirement
 
-The employees must not expose corporate
-information on personal social network accounts.
+The employees must not expose corporate information on personal accounts.
+This is particularly applicable to social network accounts.

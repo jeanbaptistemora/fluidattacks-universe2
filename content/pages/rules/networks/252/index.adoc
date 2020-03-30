@@ -4,7 +4,7 @@
 :keywords: Security, Personal, Key, Wireless, WPA2, Enterprise
 :rules: yes
 
-= REQ.252 Configure Key Encryption
+= REQ.252 Configure key encryption
 
 == Requirement
 
