@@ -18,7 +18,12 @@ type TagsProps = RouteComponentProps<{ tagName: string }>;
 interface IStackedGraph {
   acceptedVulnerabilities: number;
   closedVulnerabilities: number;
+  name: string;
   openVulnerabilities: number;
+}
+
+interface IStatusGraphName extends IStatusGraph {
+  name: string;
 }
 
 interface IProjectTag {
@@ -66,19 +71,25 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     return { totalTreatment: JSON.stringify(totalTreatment), ...formatStatusGraphData(projects) };
   };
 
-  const remediatedPercent: ((graphProps: IStatusGraph) => IStatusGraph) = (
-    graphProps: IStatusGraph,
-  ): IStatusGraph => {
+  const remediatedPercent: ((graphProps: IProjectTag) => IStatusGraphName) = (
+    graphProps: IProjectTag,
+  ): IStatusGraphName => {
     const { openVulnerabilities, closedVulnerabilities } = graphProps;
     const totalVulnerabilities: number = openVulnerabilities + closedVulnerabilities;
     const openPercent: number = calcPercent(openVulnerabilities, totalVulnerabilities);
     const closedPercent: number = _.round(100 - openPercent, 1);
 
-    return { openVulnerabilities: openPercent, closedVulnerabilities: closedPercent };
+    return { openVulnerabilities: openPercent, closedVulnerabilities: closedPercent, name: graphProps.name };
   };
 
-  const remediatedAcceptedPercent: ((graphProps: ITreatmentGraph) => IStackedGraph) = (
-    graphProps: ITreatmentGraph,
+  const sortRemdiatedGraph: ((aObject: IStatusGraphName, bObject: IStatusGraphName) => number) = (
+    aObject: IStatusGraphName, bObject: IStatusGraphName,
+  ): number => (
+    aObject.closedVulnerabilities - bObject.closedVulnerabilities
+  );
+
+  const remediatedAcceptedPercent: ((graphProps: IProjectTag) => IStackedGraph) = (
+    graphProps: IProjectTag,
   ): IStackedGraph => {
     const { openVulnerabilities, closedVulnerabilities } = graphProps;
     const projectTreatment: Dictionary<number> = JSON.parse(graphProps.totalTreatment);
@@ -90,6 +101,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     return {
       acceptedVulnerabilities: acceptedPercent,
       closedVulnerabilities: closedPercent,
+      name: graphProps.name,
       openVulnerabilities: openPercent,
     };
   };
@@ -98,24 +110,25 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     projects: IProjectTag[],
   ): ChartData => {
     const dataPercent: IStackedGraph[] = projects.map(remediatedAcceptedPercent);
+    const dataPercentSorted: IStackedGraph[] = dataPercent.sort(sortRemdiatedGraph);
     const statusDataset: ChartDataSets[] = [
       {
         backgroundColor: "#27BF4F",
-        data: dataPercent.map((projectPercent: IStackedGraph) => projectPercent.closedVulnerabilities),
+        data: dataPercentSorted.map((projectPercent: IStackedGraph) => projectPercent.closedVulnerabilities),
         hoverBackgroundColor: "#069D2E",
         label: `% ${translate.t("search_findings.tab_indicators.closed")}`,
         stack: "3",
       },
       {
         backgroundColor: "#b7b7b7",
-        data: dataPercent.map((projectPercent: IStackedGraph) => projectPercent.acceptedVulnerabilities),
+        data: dataPercentSorted.map((projectPercent: IStackedGraph) => projectPercent.acceptedVulnerabilities),
         hoverBackgroundColor: "#999797",
         label: `% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
         stack: "3",
       },
       {
         backgroundColor: "#ff1a1a",
-        data: dataPercent.map((projectPercent: IStackedGraph) => projectPercent.openVulnerabilities),
+        data: dataPercentSorted.map((projectPercent: IStackedGraph) => projectPercent.openVulnerabilities),
         hoverBackgroundColor: "#e51414",
         label: `% ${translate.t("search_findings.tab_indicators.open")}`,
         stack: "3",
@@ -123,25 +136,26 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     ];
     const stackedBarGraphData: ChartData = {
       datasets: statusDataset,
-      labels: projects.map((project: IProjectTag) => project.name),
+      labels: dataPercentSorted.map((project: IStackedGraph) => project.name),
     };
 
     return stackedBarGraphData;
   };
 
   const formatRemediatedVuln: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
-    const dataPercent: IStatusGraph[] = projects.map(remediatedPercent);
+    const dataPercent: IStatusGraphName[] = projects.map(remediatedPercent);
+    const dataPercentSorted: IStatusGraphName[] = dataPercent.sort(sortRemdiatedGraph);
     const statusDataset: Array<Dictionary<string | number []>> = [
       {
         backgroundColor: "#27BF4F",
-        data: dataPercent.map((projectPercent: IStatusGraph) => projectPercent.closedVulnerabilities),
+        data: dataPercentSorted.map((projectPercent: IStatusGraph) => projectPercent.closedVulnerabilities),
         hoverBackgroundColor: "#069D2E",
         label: `% ${translate.t("search_findings.tab_indicators.closed")}`,
         stack: "2",
       },
       {
         backgroundColor: "#ff1a1a",
-        data: dataPercent.map((projectPercent: IStatusGraph) => projectPercent.openVulnerabilities),
+        data: dataPercentSorted.map((projectPercent: IStatusGraph) => projectPercent.openVulnerabilities),
         hoverBackgroundColor: "#e51414",
         label: `% ${translate.t("search_findings.tab_indicators.open")}`,
         stack: "2",
@@ -149,7 +163,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     ];
     const stackedBarGraphData: Dictionary<string[] | Array<Dictionary<string | number []>>> = {
       datasets: statusDataset,
-      labels: projects.map((project: IProjectTag) => project.name),
+      labels: dataPercentSorted.map((project: IStatusGraphName) => project.name),
     };
 
     return stackedBarGraphData;
