@@ -12,6 +12,7 @@
     "url": "https://gitlab.com/fluidattacks/web/issues"
   },
   "dependencies": {
+    "sass": "1.26.3",
     "@types/jquery": "3.3.30",
     "@types/terser-webpack-plugin": "2.2.0",
     "@types/webpack": "4.41.3",
