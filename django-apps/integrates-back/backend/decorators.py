@@ -119,6 +119,10 @@ def resolve_project_name(args, kwargs):
         raise Exception('Unable to identify project')
     else:
         project_name = None
+
+    if isinstance(project_name, str):
+        project_name = project_name.lower()
+
     return project_name
 
 
@@ -181,11 +185,7 @@ Unauthorized role attempted to perform operation')
 
 
 def enforce_group_level_auth_async(func):
-    """
-    Require_role decorator based on Casbin enforcer.
-
-    Verifies that the current user's role is within the specified allowed roles
-    """
+    """Enforce authorization using the group-level role."""
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         if hasattr(args[0], 'context'):
@@ -195,30 +195,27 @@ def enforce_group_level_auth_async(func):
         else:
             GraphQLError('Could not get context from request.')
 
-        project_name = resolve_project_name(args, kwargs)
-        project_data = resolve_project_data(project_name)
-
         user_data = util.get_jwt_content(context)
-        user_email = user_data['user_email']
 
-        user_data['role'] = \
-            user_domain.get_group_level_role(user_email, project_name)
+        subject = user_data['user_email']
+        object_ = resolve_project_name(args, kwargs)
+        action = '{}.{}'.format(func.__module__, func.__qualname__).replace('.', '_')
 
-        action = '{}.{}'.format(func.__module__, func.__qualname__)
-        action = action.replace('.', '_')
+        if not object_:
+            rollbar.report_message(
+                'Unable to identify project name',
+                level='critical',
+                extra_data={
+                    'subject': subject,
+                    'action': action,
+                })
 
         try:
-            if not ENFORCER_GROUP_LEVEL_ASYNC.enforce(
-                user_data, project_data, action
-            ):
-                util.cloudwatch_log(context,
-                                    'Security: \
-Unauthorized role attempted to perform operation')
+            if not ENFORCER_GROUP_LEVEL_ASYNC.enforce(subject, object_, action):
+                util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
-            util.cloudwatch_log(context,
-                                'Security: \
-Unauthorized role attempted to perform operation')
+            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call
