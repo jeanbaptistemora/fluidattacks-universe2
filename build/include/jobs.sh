@@ -2,6 +2,7 @@
 
 source "${srcIncludeHelpers}"
 source "${srcIncludeHelpersBlog}"
+source "${srcIncludeHelpersDeploy}"
 source "${srcIncludeHelpersGeneric}"
 source "${srcIncludeHelpersImage}"
 source "${srcEnv}"
@@ -195,43 +196,14 @@ function job_test_defends {
 
 function job_deploy_ephemeral_local {
   local base_folder='deploy/builder'
-  local url_tipue='https://github.com/jekylltools/jekyll-tipue-search.git'
-  local url_pelican_plugins='https://github.com/getpelican/pelican-plugins.git'
 
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  npm install --prefix "${base_folder}" \
   &&  PATH="${PATH}:$(pwd)/${base_folder}/node_modules/.bin/" \
   &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "${base_folder}/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
-  &&  mkdir js \
-  &&  pushd js || return 1 \
-  &&  git init \
-  &&  git remote add origin "${url_tipue}" \
-  &&  git config core.sparsecheckout true \
-  &&  head -n 2 "../${base_folder}/js-files.txt" >> .git/info/sparse-checkout \
-  &&  git pull origin master \
-  &&  git reset --hard d4b5df7 \
-  &&  rm -rf .git \
-  &&  popd || return 1 \
+  && helper_deploy_install_plugins \
   &&  cp -a js theme/2014/static/ \
-  &&  mkdir pelican-plugins \
-  &&  pushd pelican-plugins || return 1 \
-  &&  git init \
-  &&  git remote add origin "${url_pelican_plugins}" \
-  &&  git config core.sparsecheckout true \
-  &&  echo 'asciidoc_reader' >> .git/info/sparse-checkout \
-  &&  git pull origin master \
-  &&  git reset --hard ad6d407 \
-  &&  rm -rf .git \
-  &&  popd || return 1 \
-  &&  pushd pelican-plugins || return 1 \
-  &&  git init \
-  &&  git remote add origin "${url_pelican_plugins}" \
-  &&  git config core.sparsecheckout true \
-  &&  cat "../${base_folder}/plugin_list.txt" >> .git/info/sparse-checkout \
-  &&  git pull origin master \
-  &&  rm -rf .git \
-  &&  popd || return 1 \
   &&  PATH="${PATH}:${base_folder}/node_modules/uglify-js/bin/" \
   &&  cp -a "${base_folder}/node_modules" theme/2014/ \
   &&  cp -a "${base_folder}/node_modules" . \

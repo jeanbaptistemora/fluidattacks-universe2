@@ -2,6 +2,7 @@ rec {
   srcEnv = ../include/env.sh;
   srcIncludeHelpers = ../include/helpers.sh;
   srcIncludeHelpersBlog = ../include/helpers-blog.sh;
+  srcIncludeHelpersDeploy = ../include/helpers-deploy.sh;
   srcIncludeHelpersGeneric = ../include/helpers-generic.sh;
   srcIncludeHelpersImage = ../include/helpers-image.sh;
   srcIncludeCli = ../include/cli.sh;

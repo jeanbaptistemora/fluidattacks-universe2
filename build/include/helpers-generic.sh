@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+source "${srcIncludeHelpers}"
+
 function helper_generic_forbidden_extensions {
   local invalid_extensions='asc'
   local found_files

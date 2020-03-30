@@ -319,3 +319,21 @@ function helper_test_lix {
         &&  return 0
       fi
 }
+
+function helper_git_sparse_checkout {
+  local files="${1}"
+  local version="${2}"
+  local install_path="${3}"
+  local url_repo="${4}"
+
+      mkdir -p "${install_path}" \
+  &&  pushd "${install_path}" || return 1 \
+  &&  git init \
+  &&  git remote add origin "${url_repo}" \
+  &&  git config core.sparsecheckout true \
+  &&  echo "${files}" | tr ' ' '\n' > .git/info/sparse-checkout \
+  &&  git pull origin master \
+  &&  git reset --hard "${version}" \
+  &&  rm -rf .git/ \
+  &&  popd || return 1
+}
