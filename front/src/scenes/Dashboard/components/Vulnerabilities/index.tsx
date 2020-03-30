@@ -27,7 +27,6 @@ import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import * as actionTypes from "../../containers/DescriptionView/actionTypes";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import { changeFilterValues, changeSortValues } from "./actions";
@@ -258,7 +257,6 @@ const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICat
 
 interface ICalculateRowsSelected {
   oneRowSelected: boolean;
-  vulnerabilities: string [];
   vulns: IVulnDataType[];
 }
 
@@ -279,7 +277,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [selectRowsInputs, setSelectRowsInputs] = useState<number[]>([]);
     const [selectRowsLines, setSelectRowsLines] = useState<number[]>([]);
     const [selectRowsPorts, setSelectRowsPorts] = useState<number[]>([]);
-    const [originalProps, setOriginalProps] = useState({});
 
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
     if (!valueSortChanged && props.vulnerabilities !== undefined) {
@@ -322,14 +319,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
     const handleCloseTableSetClick: () => void = (): void => {
       setModalHidden(false);
-      if (!_.isUndefined(props.descriptParam)) {
-        store.dispatch({
-          payload: {
-            descriptionData: {...originalProps},
-          },
-          type: actionTypes.LOAD_DESCRIPTION,
-        });
-      }
     };
 
     const handleCloseDeleteVulnModal: (() => void) = (): void => {
@@ -743,12 +732,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             }
 
             const renderButtonUpdateVuln: (() => JSX.Element) =
-            (): JSX.Element => {
-              if (_.isUndefined(originalProps) && !_.isUndefined(props.descriptParam)) {
-                setOriginalProps({ treatmentManager: props.descriptParam.dataset.treatmentManager });
-              }
-
-              return (
+            (): JSX.Element => (
                   <React.Fragment>
                     <Row>
                       <Col mdOffset={5} md={4}>
@@ -763,47 +747,22 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     </Row><br/>
                 </React.Fragment>
             );
-            };
 
-            const calculateRowsSelected: () => ICalculateRowsSelected =
-            (): ICalculateRowsSelected  => {
+            const calculateRowsSelected: () => ICalculateRowsSelected = (): ICalculateRowsSelected  => {
               const selectedRows: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
               const selectedRowArray: ISelectRowType[] = [];
               const arrayVulnCategory: ICategoryVulnType[][] = [data.finding.inputsVulns,
                                                                 data.finding.linesVulns,
                                                                 data.finding.portsVulns];
-              let result: ICalculateRowsSelected;
-              const vulnsId: string[] = [];
               selectedRows.forEach((selectQry: NodeListOf<Element>) => {
                 selectedRowArray.push(getAttrVulnUpdate(selectQry));
               });
               const vulns: IVulnDataType[] = getVulnInfo(selectedRowArray, arrayVulnCategory);
-              vulns.forEach((vuln: IVulnDataType) => {
-                vulnsId.push(vuln.id);
-              });
-              result = {
-                oneRowSelected: false,
-                vulnerabilities: vulnsId,
+
+              return {
+                oneRowSelected: vulns.length === 1,
                 vulns,
               };
-              if (vulns.length === 1) {
-                result = {
-                  oneRowSelected: true,
-                  vulnerabilities: vulnsId,
-                  vulns,
-                };
-                if (!_.isUndefined(props.descriptParam)) {
-                  if (modalHidden) {
-                    props.descriptParam.formValues.treatmentVuln = props.descriptParam.dataset.treatment.toUpperCase();
-                    props.descriptParam.dataset.severity = !_.isEqual(vulns[0].treatments.severity, "-1") ?
-                    vulns[0].treatments.severity : "";
-                    props.descriptParam.dataset.tag = vulns[0].treatments.tag;
-                    props.descriptParam.dataset.treatmentManager = vulns[0].treatments.treatmentManager;
-                  }
-                }
-              }
-
-              return result;
             };
 
             const renderRequestVerification: (() => JSX.Element) = (): JSX.Element => {
@@ -863,7 +822,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             };
 
             const rowsSelected: ICalculateRowsSelected = calculateRowsSelected();
-            const vulnsSelected: string [] = rowsSelected.vulnerabilities;
             const vulnerabilitiesList: IVulnDataType[] = rowsSelected.vulns;
 
             const inputVulnsRemediated: number[] = dataInputs.reduce(
@@ -1263,7 +1221,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           findingId={props.findingId}
                           userRole={props.userRole}
                           vulnerabilities={vulnerabilitiesList}
-                          vulnsSelected={vulnsSelected}
                           handleCloseModal={handleCloseTableSetClick}
                         />
                       : undefined }

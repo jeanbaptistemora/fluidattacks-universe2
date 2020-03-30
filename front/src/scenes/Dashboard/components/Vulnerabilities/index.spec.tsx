@@ -174,7 +174,6 @@ describe("Vulnerabilities view", () => {
             findingId=""
             userRole="analyst"
             vulnerabilities={[{id: "test", treatments: {tag: "one"}}]}
-            vulnsSelected={["test"]}
             handleCloseModal={handleOnClose}
           />
         </MockedProvider>

@@ -32,14 +32,12 @@ export interface IUpdateTreatmentModal {
   findingId: string;
   userRole: string;
   vulnerabilities: IVulnData[];
-  vulnsSelected: string[];
   handleCloseModal(): void;
 }
 
 const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
 (props: IUpdateTreatmentModal): JSX.Element => {
 
-  let descriptParam: IDescriptionViewProps | undefined;
   const sortTags: ((tags: string) => string) = (tags: string): string => {
     const tagSplit: string[] = tags.trim()
       .split(",");
@@ -50,13 +48,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
 
   const sameTags: boolean = props.vulnerabilities.every(
     (vuln: IVulnData) => sortTags(vuln.treatments.tag) === sortTags(props.vulnerabilities[0].treatments.tag));
-
-  if (sameTags && !_.isUndefined(props.descriptParam)) {
-    descriptParam = {
-      ...props.descriptParam,
-      dataset: { ...props.descriptParam.dataset, tag: props.vulnerabilities[0].treatments.tag },
-    };
-  }
 
   const handleUpdateTreatError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
     msgError(translate.t("proj_alerts.error_textsad"));
@@ -90,7 +81,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
 
           const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"]) => void) =
             (dataTreatment: IDescriptionViewProps["dataset"]): void => {
-              if (props.vulnsSelected.length === 0) {
+              if (props.vulnerabilities.length === 0) {
                 msgError(translate.t("search_findings.tab_resources.no_selection"));
               } else {
                 updateTreatmentVuln({variables: {
@@ -102,7 +93,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
                   treatment: dataTreatment.treatment,
                   treatmentJustification: dataTreatment.justification,
                   treatmentManager: dataTreatment.treatmentManager,
-                  vulnerabilities: props.vulnsSelected,
+                  vulnerabilities: props.vulnerabilities.map((vuln: IVulnData) => vuln.id),
                 }})
                 .catch();
               }
@@ -111,10 +102,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
             store.dispatch(submit("editTreatmentVulnerability"));
           };
 
-          const handleUpdateTreatment: ((values: IDescriptionViewProps["dataset"]) => void) =
-          (values: IDescriptionViewProps["dataset"]): void => {
-            handleUpdateTreatmentVuln(values);
-          };
           const handleDeleteError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
             msgError(translate.t("proj_alerts.error_textsad"));
           };
@@ -140,12 +127,12 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
             >
             {(deleteTagVuln: MutationFunction<IDeleteTagResult, IDeleteTagAttr>): JSX.Element => {
                 const handleDeleteTag: (() => void) = (): void => {
-                  if (props.vulnsSelected.length === 0) {
+                  if (props.vulnerabilities.length === 0) {
                     msgError(translate.t("search_findings.tab_resources.no_selection"));
                   } else {
                     deleteTagVuln({variables: {
                       findingId: props.findingId,
-                      vulnerabilities: props.vulnsSelected,
+                      vulnerabilities: props.vulnerabilities.map((vuln: IVulnData) => vuln.id),
                     }})
                     .catch();
                   }
@@ -171,11 +158,11 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
                   >
                   <GenericForm
                     name="editTreatmentVulnerability"
-                    onSubmit={handleUpdateTreatment}
-                    initialValues={
-                      sameTags ? (!_.isUndefined(descriptParam) ?
-                      descriptParam.dataset : undefined) : undefined
-                    }
+                    onSubmit={handleUpdateTreatmentVuln}
+                    initialValues={sameTags ? {
+                      tag: props.vulnerabilities[0].treatments.tag,
+                      treatmentManager: props.descriptParam?.dataset.treatmentManager,
+                    } : undefined}
                   >
                     {!_.isUndefined(props.descriptParam) ?
                     <TreatmentFieldsView

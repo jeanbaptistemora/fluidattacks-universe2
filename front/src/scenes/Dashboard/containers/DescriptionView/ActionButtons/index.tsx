@@ -9,9 +9,9 @@ import { ButtonToolbar, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { FluidIcon } from "../../../../../components/FluidIcon";
 import translate from "../../../../../utils/translations/translate";
+import { IHistoricTreatment } from "../types";
 
 interface IActionButtonsProps {
-  acceptanceStatus?: string;
   isEditing: boolean;
   isPristine: boolean;
   // The finding has a pending request to verify
@@ -19,9 +19,9 @@ interface IActionButtonsProps {
   isRequestingVerify: boolean;
   isVerified: boolean;
   isVerifying: boolean;
+  lastTreatment: IHistoricTreatment;
   state: "open" | "closed";
   subscription: string;
-  treatment: string;
   userRole: string;
   onApproveAcceptation(): void;
   onEdit(): void;
@@ -55,8 +55,8 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
 
   const shouldRenderApprovalBtns: boolean =
     canApproveAcceptation
-    && props.treatment === "ACCEPTED_UNDEFINED"
-    && props.acceptanceStatus === "SUBMITTED";
+    && props.lastTreatment.treatment === "ACCEPTED_UNDEFINED"
+    && props.lastTreatment.acceptanceStatus === "SUBMITTED";
 
   return (
     <Row>

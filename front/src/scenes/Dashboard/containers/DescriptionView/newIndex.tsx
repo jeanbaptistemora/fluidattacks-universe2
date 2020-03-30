@@ -150,13 +150,13 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   return (
     <React.StrictMode>
       <ActionButtons
-        acceptanceStatus={lastTreatment.acceptanceStatus}
         isEditing={isEditing}
         isPristine={isDescriptionPristine && isTreatmentPristine}
         isRemediated={dataset.newRemediated}
         isRequestingVerify={isRequestingVerify}
         isVerified={dataset.verified}
         isVerifying={isVerifying}
+        lastTreatment={lastTreatment}
         onApproveAcceptation={openApproveModal}
         onEdit={toggleEdit}
         onRejectAcceptation={openRejectModal}
@@ -165,9 +165,9 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
         onVerify={toggleVerify}
         state={dataset.state}
         subscription={data.project.subscription}
-        treatment={lastTreatment.treatment}
         userRole={userRole}
       />
+      <br />
       <GenericForm name="editDescription" initialValues={dataset} onSubmit={handleDescriptionSubmit}>
         <React.Fragment>
           <React.Fragment>
