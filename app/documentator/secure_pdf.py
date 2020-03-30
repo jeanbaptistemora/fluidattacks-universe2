@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Class to secure a PDF of findings. """
 import os
-from PyPDF2 import PdfFileWriter, PdfFileReader
+from PyPDF4 import PdfFileWriter, PdfFileReader
 from backend.dal import project as project_dal
 from backend.utils.passphrase import get_passphrase
 
