@@ -1,6 +1,6 @@
 :slug: trends-2020/
 :date: 2020-03-26
-:subtitle: "Fear will drive cybersecurity spending." Dear lord...
+:subtitle: Fear will drive cybersecurity spending. Dear lord...
 :category: techniques
 :tags: cybersecurity, trends, mistake, technology, economics, information
 :image: cover.png
@@ -14,7 +14,7 @@
 :about2: Data scientist in training.
 :source: https://unsplash.com/photos/QRKJwE6yfJo
 
-= Cybersecurity Trends 2020? F*ck Off
+= Cybersecurity Trends 2020? F*ck...
 
 .The billionaire John link:https://twitter.com/officialmcafee/status/887024683379544065?s=20[McAfee] made a bold link:https://twitter.com/officialmcafee/status/935900326007328768?s=20[prediction] in 2017. The website link:http://dickening.com/[dickening.com] keeps track of it.
 image::mcafee.png[McAfee]
