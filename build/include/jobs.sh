@@ -11,6 +11,7 @@ function job_build_django_apps {
   for app in \
     'django-apps/integrates-'* \
     'django-apps/casbin-dynamodb-adapter' \
+    'django-apps/casbin-in-memory-adapter' \
 
   do
         echo "[INFO] Building: ${app}" \
@@ -472,11 +473,15 @@ function job_lint_back {
       prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s high -u django -i node_modules django-apps/integrates-back/backend/ \
   &&  prospector -F -s veryhigh django-apps/casbin-dynamodb-adapter \
+  &&  prospector -F -s veryhigh django-apps/casbin-in-memory-adapter \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/ \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
   &&  mypy --ignore-missing-imports \
         django-apps/casbin-dynamodb-adapter \
+  &&  mypy --ignore-missing-imports \
+        django-apps/casbin-in-memory-adapter \
+  &&  mypy --ignore-missing-imports \
         django-apps/integrates-back/backend/mailer.py \
         django-apps/integrates-back/backend/scheduler.py \
         django-apps/integrates-back/backend/services.py \
