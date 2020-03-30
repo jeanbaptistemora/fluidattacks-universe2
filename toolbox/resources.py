@@ -370,19 +370,22 @@ def check_mailmap(subs: str) -> bool:
         logger.error(failuremsg)
         flag = False
     else:
-        with open(f'{path}/{filename}') as mailmap:
+        with open(f'{path}/{filename}', 'r+') as mailmap:
             linelist = [line.rstrip('\n') for line in mailmap]
-        sort = sorted(linelist)
-        if linelist == []:
-            flag = False
-            logger.error("Mailmap is empty \n")
-        elif linelist != sort:
-            logger.error("Mailmap is not properly sorted \n")
-            logger.info("\033[;37m" + "\n".join(sort))
-            logger.info("^ Please order the mailmap this way ;) \n")
-            flag = False
-        else:
-            logger.info("Mailmap sorted\n")
+            sort = sorted(linelist)
+            if linelist == []:
+                flag = False
+                logger.error("Mailmap is empty \n")
+            elif linelist != sort:
+                logger.error("Mailmap is not properly sorted \n")
+                mailmap.seek(0)
+                mailmap.truncate(0)
+                for sorted_lines in sort:
+                    mailmap.write(str(sorted_lines) + '\n')
+                logger.info("^ Mailmap was sorted, I did it for you ;) \n")
+                flag = False
+            else:
+                logger.info("Mailmap sorted\n")
         regex = re.compile(r'^[A-Z]([a-z]?)+\s([A-z])?[a-z]+\s<')
         mlmp = open(os.path.join(path, filename))
         for line in mlmp:
