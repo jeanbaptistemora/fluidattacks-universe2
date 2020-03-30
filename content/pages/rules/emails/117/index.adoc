@@ -1,6 +1,6 @@
 :slug: rules/117/
 :category: emails
-:description: This document contains the details of the security requirements related to the definition and management of emails in the organization. This requirement establishes the importance of avoiding the interpretation and execution of HTML code in business emails.
+:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. This requirement establishes the importance of avoiding the interpretation and execution of HTML code in business emails.
 :keywords: HTML, Email, Business, Security, Requirement, Code injection.
 :rules: yes
 

@@ -1,13 +1,13 @@
 :slug: rules/121/
 :category: emails
-:description: This document details the security guidelines and requirements related to the administration of emails in the companies or organizations. This requirement establishes the importance of guaranteeing the uniqueness of the emails at the time of user registration.
+:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. This requirement establishes the importance of guaranteeing the uniqueness of the emails at the time of user registration.
 :keywords: Requirement, Security, Email, Uniqueness, Registration, User
 :rules: yes
 
-= REQ.121 Guarantee Uniqueness of Emails
+= REQ.121 Guarantee uniqueness of emails
 
 == Requirement
 
 Systems using email accounts for user registration
-must guarantee the uniqueness of the emails,
-following the +RFC822+ email address structure standard.
+must guarantee the uniqueness of the emails.
+This is indicated in the +RFC822+ email address structure standard.

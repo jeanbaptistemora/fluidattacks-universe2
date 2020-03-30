@@ -1,10 +1,10 @@
 :slug: rules/123/
 :category: emails
-:description: This document details the security guidelines and requirements related to the administration of emails in the companies or organizations. In this requirement it is recommended that business emails should only be viewed by people and not through programs.
+:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. In this case, it is recommended that business email accounts be only viewed by authorized people and not by programs.
 :keywords: Person, Email, Guarantee, Human, View, Electronic
 :rules: yes
 
-= REQ.123 Restrict Reading of Emails
+= REQ.123 Restrict reading of emails
 
 == Requirement
 
