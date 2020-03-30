@@ -169,11 +169,15 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     return stackedBarGraphData;
   };
 
+  const yAxesLabel: ((value: number) => string | number) = (value: number): string | number => (
+    value % 20 !== 0 ? "" : value
+  );
+
   const chartOptions: ChartOptions = {
     legend: { display: true, position: "top" },
     scales: {
-      xAxes: [{ stacked: true, gridLines: { display: false } }],
-      yAxes: [{ stacked: true, gridLines: { display: false } }],
+      xAxes: [{ stacked: true, gridLines: { display: false }, ticks: { autoSkip: false } }],
+      yAxes: [{ stacked: true, gridLines: { display: false }, ticks: { callback: yAxesLabel } }],
     },
   };
 
@@ -182,7 +186,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   return (
     <React.Fragment>
       <Row>
-        <Col md={12} sm={12} xs={12}>
+        <Col mdOffset={1} md={10} sm={12} xs={12}>
           <IndicatorStack
             data={formatRemediatedVuln(data.tag.projects)}
             height={100}
@@ -193,7 +197,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       </Row>
       <br />
       <Row>
-        <Col md={12} sm={12} xs={12}>
+        <Col mdOffset={1} md={10} sm={12} xs={12}>
           <IndicatorStack
             data={formatRemediatedAcceptedVuln(data.tag.projects)}
             height={100}
