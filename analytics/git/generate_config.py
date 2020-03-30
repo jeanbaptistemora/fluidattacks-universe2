@@ -52,12 +52,12 @@ def get_repos_and_branches(
             if not block:
                 continue
 
-            branches = block.get('branches', [])
+            this_branches = block.get('branches', [])
 
-            if not branches:
+            if not this_branches:
                 continue
 
-            for repo_branch in branches:
+            for repo_branch in this_branches:
                 repo = unquote(repo_branch.rsplit('/')[-2])
                 branch = unquote(repo_branch.rsplit('/')[-1])
                 branches[subs_name].update({repo: branch})
