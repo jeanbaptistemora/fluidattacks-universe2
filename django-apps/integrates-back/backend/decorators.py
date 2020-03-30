@@ -25,6 +25,9 @@ from backend.services import (
 )
 
 from backend import util
+from backend.utils import (
+    authorization as authorization_utils
+)
 from backend.exceptions import InvalidAuthorization
 
 # Constants
@@ -32,8 +35,6 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 CASBIN_ADAPTER = getattr(settings, 'CASBIN_ADAPTER')
 ENFORCER_PROJECT_ACCESS = getattr(settings, 'ENFORCER_PROJECT_ACCESS')
-ENFORCER_GROUP_LEVEL = getattr(settings, 'ENFORCER_GROUP_LEVEL')
-ENFORCER_GROUP_LEVEL_ASYNC = getattr(settings, 'ENFORCER_GROUP_LEVEL_ASYNC')
 ENFORCER_USER_LEVEL = getattr(settings, 'ENFORCER_USER_LEVEL')
 ENFORCER_USER_LEVEL_ASYNC = getattr(settings, 'ENFORCER_USER_LEVEL_ASYNC')
 
@@ -161,8 +162,11 @@ def enforce_group_level_auth(func):
                     'action': action,
                 })
 
+        enforcer = \
+            authorization_utils.get_group_level_authorization_enforcer(subject)
+
         try:
-            if not ENFORCER_GROUP_LEVEL.enforce(subject, object_, action):
+            if not enforcer.enforce(subject, object_, action):
                 util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
@@ -198,8 +202,11 @@ def enforce_group_level_auth_async(func):
                     'action': action,
                 })
 
+        enforcer = \
+            authorization_utils.get_group_level_authorization_enforcer_async(subject)
+
         try:
-            if not ENFORCER_GROUP_LEVEL_ASYNC.enforce(subject, object_, action):
+            if not enforcer.enforce(subject, object_, action):
                 util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:

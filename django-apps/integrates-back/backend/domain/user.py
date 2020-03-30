@@ -7,7 +7,9 @@ from backend.typing import User as UserType
 from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
-
+from backend.utils import (
+    authorization as authorization_util
+)
 VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin'}
 
 
@@ -92,6 +94,7 @@ def grant_group_level_role(
 
     # Reload config
     if reload:
+        authorization_util.revoke_cached_subject_policies(email)
         settings.ENFORCER_GROUP_LEVEL.load_policy()
         settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
 
@@ -120,6 +123,7 @@ def revoke_group_level_role(email: str, group: str) -> bool:
     settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
 
     # Reload config
+    authorization_util.revoke_cached_subject_policies(email)
     settings.ENFORCER_GROUP_LEVEL.load_policy()
     settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
 
@@ -137,6 +141,7 @@ def revoke_all_levels_roles(email: str, reload: bool = True) -> bool:
 
     # Reload config
     if reload:
+        authorization_util.revoke_cached_subject_policies(email)
         settings.ENFORCER_USER_LEVEL.load_policy()
         settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
         settings.ENFORCER_GROUP_LEVEL.load_policy()

@@ -29,5 +29,5 @@ class Adapter(casbin.persist.Adapter):
         policy_type: PolicyType
         rule: Rule
         for policy_type, rule in self.policies:
-            csv = policy_type + ', '.join(rule)
+            csv = policy_type + ', ' + ', '.join(rule)
             casbin.persist.load_policy_line(csv, model)
