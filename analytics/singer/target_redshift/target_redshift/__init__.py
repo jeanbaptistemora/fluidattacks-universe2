@@ -401,6 +401,7 @@ class Batcher():
         self.dbcur: PGCURR = dbcur
 
         self.msize: int = 0
+        self.rsize: int = 0
 
         self.sname: str = schema_name
         self.buckets: Dict[str, Any] = {}
@@ -446,17 +447,21 @@ class Batcher():
         row_size = str_len(row)
 
         # a redshift statement must be less than 16MB, save 1KB for the header
+        # also load if there are too many queued rows
 
         # if we are to exceed the limit with the current row
-        if self.buckets[table_name]["size"] + row_size >= 15999000:
+        if self.buckets[table_name]["size"] + row_size >= 15999000 \
+                or self.buckets[table_name]["count"] + 1 >= 100000:
             # load the queued rows to Redshift
             self.load(table_name)
 
-        if self.msize >= 256 * 1024 * 1024:
+        if self.msize >= 256 * 1024 * 1024 \
+                or self.rsize > 1000000:
             self.flush()
 
         # queues the provided row in this function call
         self.msize += row_size
+        self.rsize += 1
         self.buckets[table_name]["rows"].append(row)
         self.buckets[table_name]["count"] += 1
         self.buckets[table_name]["size"] += row_size
@@ -483,6 +488,7 @@ class Batcher():
                      f"loaded to Redshift/{self.sname}/{table_name}."))
 
         self.msize -= self.buckets[table_name]["size"]
+        self.rsize -= self.buckets[table_name]["count"]
         self.buckets[table_name]["rows"] = []
         self.buckets[table_name]["count"] = 0
         self.buckets[table_name]["size"] = 0
@@ -496,6 +502,7 @@ class Batcher():
         for table_name in self.buckets:
             self.load(table_name, do_print)
         self.msize = 0
+        self.rsize = 0
 
     def vacuum(self, do_print: bool = True) -> None:
         """Vacuums touched tables to improve query performance.
