@@ -4,9 +4,9 @@
 :keywords: Authentication, Interface, Credentials, Security, Users, Requirement
 :rules: yes
 
-= REQ.235 Define Credentials Interface
+= REQ.235 Define credentials interface
 
 == Requirement
 
-The authentication process must have a separate interface
-for on-screen credentials input (accidental on-screen input).
+The authentication must have a separate interface for on-screen credentials
+input.

@@ -4,10 +4,10 @@
 :keywords: Authentication, Time, Security, Seconds, Users, Limit
 :rules: yes
 
-= REQ.237 Establish Secure User Actions
+= REQ.237 Establish secure user actions
 
 == Requirement
 
 The system must guarantee that the registration,
-authentication and password recovery actions
-are performed by a human (using +CAPTCHA+ or incremental delays).
+authentication and password recovery actions are performed by a human.
+This can be achieved using ´CAPTCHA´ or incremental delays.

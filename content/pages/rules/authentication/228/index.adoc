@@ -4,7 +4,7 @@
 :keywords: Protocol, Standard, User Account, Authentication, SSO, SAML
 :rules: yes
 
-= REQ.228 Authenticate Using Standard Protocols
+= REQ.228 Authenticate using standard protocols
 
 == Requirement
 

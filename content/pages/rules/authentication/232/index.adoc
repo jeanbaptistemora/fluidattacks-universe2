@@ -4,10 +4,9 @@
 :keywords: System, Information, Business, Identification, Equipment, Authentication
 :rules: yes
 
-= REQ.232 Require Equipment Identity
+= REQ.232 Require equipment identity
 
 == Requirement
 
-A system with critical information for the business
-must require the identification of the equipment
-from which a user or system is authenticated.
+A system with critical information must require the identification of the
+equipment from which a user or system is authenticated.

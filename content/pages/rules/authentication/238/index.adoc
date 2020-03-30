@@ -4,7 +4,7 @@
 :keywords: Authentication, Time, Security, Seconds, Users, Limit
 :rules: yes
 
-= REQ.238 Establish Safe Recovery
+= REQ.238 Establish safe recovery
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: System, Notification, User Account, Authentication, Access, Authorization
 :rules: yes
 
-= REQ.227 Display Access Notification
+= REQ.227 Display access notification
 
 == Requirement
 

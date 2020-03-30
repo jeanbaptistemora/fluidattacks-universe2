@@ -4,7 +4,7 @@
 :keywords: System, Information, Business, Authentication, Key, Security
 :rules: yes
 
-= REQ.230 Set One-Time Use Keys
+= REQ.230 Set one-time use keys
 
 == Requirement
 

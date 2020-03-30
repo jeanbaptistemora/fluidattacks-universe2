@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Authentication, Biometric, Validation, Access Credentials
 :rules: yes
 
-= REQ.231 Define biometric verification component
+= REQ.231 Define a biometric verification component
 
 == Requirement
 
