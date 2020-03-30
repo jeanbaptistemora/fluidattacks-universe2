@@ -17,6 +17,11 @@ from backend.services import (
 
 from ariadne import convert_camel_case_to_snake
 
+FIELDS = {
+    'email', 'role', 'phone_number', 'responsibility', 'organization',
+    'first_login', 'last_login', 'list_projects'
+}
+
 
 @sync_to_async
 def _get_email(email, _=None):
@@ -27,7 +32,7 @@ def _get_email(email, _=None):
 @sync_to_async
 def _get_role(email, project_name):
     """Get role."""
-    user_role = user_domain.get_data(email, 'role')
+    user_role = user_domain.get_user_level_role(email)
     if project_name and is_customeradmin(project_name, email):
         role = 'customer_admin'
     elif user_role == 'customeradmin':
@@ -101,7 +106,7 @@ def _get_list_projects(email, project_name):
     return dict(list_projects=list_projects)
 
 
-async def resolve(info, email, project_name):
+async def resolve(info, email, project_name, all_fields=False):
     """Async resolve of fields."""
     email_dict: dict = await _get_email(email)
     role_dict: dict = await _get_role(email, project_name)
@@ -109,24 +114,27 @@ async def resolve(info, email, project_name):
     role: str = role_dict['role']
 
     if project_name and role:
-        has_access = has_access_to_project(email, project_name)
-
         if not user_domain.get_data(email, 'email') or \
-                not has_access:
+                not has_access_to_project(email, project_name):
             raise UserNotFound()
 
     result = dict()
     tasks = list()
-    for requested_field in info.field_nodes[0].selection_set.selections:
-        snake_field = convert_camel_case_to_snake(requested_field.name.value)
-        if snake_field.startswith('_'):
+    requested_fields = \
+        FIELDS if all_fields else info.field_nodes[0].selection_set.selections
+    for requested_field in requested_fields:
+        if not all_fields:
+            requested_field = \
+                convert_camel_case_to_snake(requested_field.name.value)
+        if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
             sys.modules[__name__],
-            f'_get_{snake_field}'
+            f'_get_{requested_field}'
         )
-        future = asyncio.ensure_future(resolver_func(email, project_name))
-        tasks.append(future)
+        tasks.append(
+            asyncio.ensure_future(resolver_func(email, project_name))
+        )
     tasks_result = await asyncio.gather(*tasks)
     for dict_result in tasks_result:
         result.update(dict_result)

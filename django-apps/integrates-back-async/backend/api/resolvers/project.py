@@ -10,6 +10,7 @@ import rollbar
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.event import EventLoader
+from backend.api.dataloaders import user as user_loader
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, require_login,
     require_project_access, enforce_user_level_auth_async
@@ -312,6 +313,32 @@ async def _get_events(info, project_name):
     events = \
         await info.context.loaders['event'].load_many(event_ids)
     return dict(events=events)
+
+
+@enforce_group_level_auth_async
+@get_entity_cache_async
+async def _get_users(info, project_name):
+    """Get users."""
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    user_role = await \
+        sync_to_async(user_domain.get_group_level_role)(
+            user_email, project_name
+        )
+
+    init_email_list = await \
+        sync_to_async(project_domain.get_users)(project_name)
+    user_email_list = util.user_email_filter(
+        init_email_list, user_email)
+    user_roles_to_retrieve = ['customer', 'customeradmin']
+    if user_role == 'admin':
+        user_roles_to_retrieve.append('admin')
+    users = [
+        await user_loader.resolve(info, email, project_name, all_fields=True)
+        for email in user_email_list
+        if user_domain.get_group_level_role(email, project_name)
+        in user_roles_to_retrieve]
+    return dict(users=users)
 
 
 async def _resolve_fields(info, project_name):

@@ -44,8 +44,7 @@ class ProjectTests(TestCase):
               remediatedOverTime
               hasDrills
               hasForces
-              findings
-              {
+              findings {
                   analyst
               }
               openVulnerabilities
@@ -64,14 +63,18 @@ class ProjectTests(TestCase):
               tags
               description
               comments {
-              content
+                content
               }
               drafts {
-              age
+                age
               }
               events {
-              analyst
-              detail
+                analyst
+                detail
+              }
+              users {
+                  email
+                  role
               }
             }
           }
@@ -102,6 +105,7 @@ class ProjectTests(TestCase):
         assert len(result['data']['project']['drafts']) == 2
         assert len(result['data']['project']['events']) == 5
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
+        assert len(result['data']['project']['users']) == 3
 
     def test_create_project(self):
         """Check for createProject mutation."""
