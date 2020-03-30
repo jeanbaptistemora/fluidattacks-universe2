@@ -7,6 +7,10 @@ export const TAG_QUERY: DocumentNode = gql`
       name
       projects {
         closedVulnerabilities
+        lastClosingVuln
+        maxOpenSeverity
+        maxSeverity
+        meanRemediate
         name
         openVulnerabilities
         totalTreatment

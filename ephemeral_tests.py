@@ -619,14 +619,16 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(2)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Status')]")))
+                (By.XPATH,
+                    "//*[contains(text(), 'Max open severity')]")))
         selenium.save_screenshot(SCR_PATH + '18-02-tag_indicators.png')
         selenium.execute_script(
             'window.scrollTo(0, 380);')
         selenium.save_screenshot(SCR_PATH + '18-03-tag_indicators.png')
         selenium.execute_script(
-            'window.scrollTo(380, 700);')
+            'window.scrollTo(380, 780);')
         selenium.save_screenshot(SCR_PATH + '18-04-tag_indicators.png')
+        assert 'Mean time to remediate' in selenium.page_source
         assert 'remediated' in selenium.page_source
         assert 'Status' in selenium.page_source
         assert 'Treatment' in selenium.page_source

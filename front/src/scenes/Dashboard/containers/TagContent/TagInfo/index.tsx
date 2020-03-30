@@ -8,6 +8,7 @@ import {
   calcPercent, IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph,
 } from "../../../../../utils/formatHelpers";
 import translate from "../../../../../utils/translations/translate";
+import { IndicatorBox } from "../../../components/IndicatorBox";
 import { IndicatorGraph } from "../../../components/IndicatorGraph";
 import { IndicatorStack } from "../../../components/IndicatorStack";
 import { default as style } from "./index.css";
@@ -28,9 +29,17 @@ interface IStatusGraphName extends IStatusGraph {
 
 interface IProjectTag {
   closedVulnerabilities: number;
+  lastClosingVuln: number;
+  maxOpenSeverity: number;
+  maxSeverity: number;
+  meanRemediate: number;
   name: string;
   openVulnerabilities: number;
   totalTreatment: string;
+}
+interface IBoxInfo {
+  name: string;
+  value: number;
 }
 interface ITag {
   tag: {
@@ -170,7 +179,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   };
 
   const yAxesLabel: ((value: number) => string | number) = (value: number): string | number => (
-    value % 20 !== 0 ? "" : value
+    value % 20 === 0 ? value : ""
   );
 
   const chartOptions: ChartOptions = {
@@ -181,10 +190,110 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     },
   };
 
+  const calculateMeanToRemediate: ((projects: IProjectTag[]) => number) = (projects: IProjectTag[]): number => (
+    Math.ceil(
+      projects.reduce((acc: number, project: IProjectTag) => acc + project.meanRemediate, 0) / projects.length)
+  );
+
+  const getMaxSeverity: ((projects: IProjectTag[]) => IBoxInfo) = (projects: IProjectTag[]): IBoxInfo => {
+    let projectName: string = "";
+    const maxFound: number = projects.reduce(
+      (maxValue: number, project: IProjectTag) => {
+        let max: number = maxValue;
+        if (project.maxSeverity > maxValue) {
+          max = project.maxSeverity;
+          projectName = project.name;
+        }
+
+        return max;
+      },
+      0);
+
+    return { name: projectName, value: maxFound };
+  };
+
+  const getMaxOpenSeverity: ((projects: IProjectTag[]) => IBoxInfo) = (projects: IProjectTag[]): IBoxInfo => {
+    let projectName: string = "";
+    const maxOpen: number = projects.reduce(
+      (maxValue: number, project: IProjectTag) => {
+        let max: number = maxValue;
+        if (project.maxOpenSeverity > maxValue) {
+          max = project.maxOpenSeverity;
+          projectName = project.name;
+        }
+
+        return max;
+      },
+      0);
+
+    return { name: projectName, value: maxOpen };
+  };
+
+  const getLastClosingVuln: ((projects: IProjectTag[]) => number) = (projects: IProjectTag[]): number => (
+    projects.reduce(
+      (maxValue: number, project: IProjectTag) => project.lastClosingVuln < maxValue ?
+        project.lastClosingVuln : maxValue,
+      Number.MAX_SAFE_INTEGER)
+  );
+
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
+
+  const goToProjectMaxSeverityFindings: (() => void) = (): void => {
+    location.hash = `#!/project/${getMaxSeverity(data.tag.projects).name}/findings`;
+  };
+  const goToProjectMaxOpenSeverityFindings: (() => void) = (): void => {
+    location.hash = `#!/project/${getMaxOpenSeverity(data.tag.projects).name}/findings`;
+  };
+  const projectWithMaxSeverity: IBoxInfo = getMaxSeverity(data.tag.projects);
+  const projectWithMaxOpenSeverity: IBoxInfo = getMaxOpenSeverity(data.tag.projects);
 
   return (
     <React.Fragment>
+      <Row>
+        <Col md={3} sm={12} xs={12}>
+          <IndicatorBox
+            icon="graph"
+            name={translate.t("search_findings.tab_indicators.mean_remediate")}
+            quantity={calculateMeanToRemediate(data.tag.projects)}
+            title=""
+            total={translate.t("search_findings.tab_indicators.days")}
+          />
+        </Col>
+        <Col md={3} sm={12} xs={12}>
+          <IndicatorBox
+            icon="vectorLocal"
+            name={translate.t("search_findings.tab_indicators.max_severity")}
+            quantity={projectWithMaxSeverity.value}
+            title=""
+            total="/10"
+            description={projectWithMaxSeverity.name}
+            small={true}
+            onClick={goToProjectMaxSeverityFindings}
+          />
+        </Col>
+        <Col md={3} sm={12} xs={12}>
+          <IndicatorBox
+            icon="openVulnerabilities"
+            name={translate.t("search_findings.tab_indicators.max_open_severity")}
+            quantity={projectWithMaxOpenSeverity.value}
+            title=""
+            total="/10"
+            description={projectWithMaxOpenSeverity.name}
+            small={true}
+            onClick={goToProjectMaxOpenSeverityFindings}
+          />
+        </Col>
+        <Col md={3} sm={12} xs={12}>
+          <IndicatorBox
+            icon="calendar"
+            name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
+            quantity={getLastClosingVuln(data.tag.projects)}
+            title=""
+            total=""
+          />
+        </Col>
+      </Row>
+      <br />
       <Row>
         <Col mdOffset={1} md={10} sm={12} xs={12}>
           <IndicatorStack
