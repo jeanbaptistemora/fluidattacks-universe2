@@ -26,7 +26,7 @@ stages:
     refs:
       - master
 
-deploy_container_nix_caches:
+build_nix_caches:
   <<: *with_nix
   <<: *in_schedule_nightly_build
   tags: [autoscaling-large]
