@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Masking, Production, Data, Environment
 :rules: yes
 
-= REQ.180 Masking Data
+= REQ.180 Masking data
 
 == Requirement
 

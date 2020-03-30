@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, Focus, Obfuscate, Application
 :rules: yes
 
-= REQ.184 Obfuscate Application Data
+= REQ.184 Obfuscate application data
 
 == Requirement
 

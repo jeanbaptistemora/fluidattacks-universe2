@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, Authorization, Restriction, GDPR
 :rules: yes
 
-= REQ.176 Restrict System Objects
+= REQ.176 Restrict system objects
 
 == Requirement
 

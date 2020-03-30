@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, Digital Signatures, Authenticity, Information
 :rules: yes
 
-= REQ.178 Use Digital Signatures
+= REQ.178 Use digital signatures
 
 == Requirement
 
