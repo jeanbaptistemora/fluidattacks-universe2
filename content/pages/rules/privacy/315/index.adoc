@@ -26,6 +26,9 @@ regarding the personal information that they process:
 . If the data was obtained from a third party, information about the third
 party.
 
+Furthermore, the data should be presented in a clear manner,
+in a structured format and using an easy to understand language.
+
 == Exceptions
 
 . If the system is able to demonstrate that it is not possible to individually
@@ -44,3 +47,9 @@ and, where that is the case, access to the personal data.
 Where the controller is able to demonstrate that it is not in a position to
 identify the data subject,
 articles 15 to 20 shall not apply.
+
+. [[r3]]  link:https://gdpr-info.eu/art-20-gdpr/[GDPR. Art. 20: Right to data portability.(1).]
+The data subject shall have the right to receive the personal data concerning
+him or her,
+which he or she has provided to a controller,
+in a structured, commonly used and machine-readable format.
