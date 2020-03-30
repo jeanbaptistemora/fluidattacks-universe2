@@ -258,6 +258,9 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                     isVerifyRequest={false}
                     state="open"
                     userRole={userRole}
+                    projectName={projectName}
+                    btsUrl={dataset.btsUrl}
+                    lastTreatment={lastTreatment}
                     separatedRow={true}
                   />
                 </FormGroup>

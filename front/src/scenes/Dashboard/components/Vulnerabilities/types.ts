@@ -1,4 +1,4 @@
-import { IDescriptionViewProps } from "../../containers/DescriptionView";
+import { IHistoricTreatment } from "../../containers/DescriptionView/types";
 import { IDashboardState } from "../../reducer";
 
 export interface IVulnsAttr {
@@ -71,13 +71,14 @@ export interface IVulnDataType {
 
 export interface IVulnerabilitiesViewProps {
   analyst?: boolean;
-  descriptParam?: IDescriptionViewProps;
+  btsUrl?: string;
   editMode: boolean;
   editModePending?: boolean;
   findingId: string;
   isRequestVerification?: boolean;
   isVerifyRequest?: boolean;
-  renderAsEditable?: boolean;
+  lastTreatment?: IHistoricTreatment;
+  projectName?: string;
   separatedRow?: boolean;
   state: string;
   userRole: string;

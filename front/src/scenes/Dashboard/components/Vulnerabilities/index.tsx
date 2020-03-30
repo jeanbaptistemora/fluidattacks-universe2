@@ -1217,9 +1217,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       />
                       { modalHidden ?
                         <UpdateTreatmentModal
-                          descriptParam={props.descriptParam}
+                          btsUrl={props.btsUrl}
                           findingId={props.findingId}
+                          lastTreatment={props.lastTreatment}
                           userRole={props.userRole}
+                          projectName={props.projectName}
                           vulnerabilities={vulnerabilitiesList}
                           handleCloseModal={handleCloseTableSetClick}
                         />

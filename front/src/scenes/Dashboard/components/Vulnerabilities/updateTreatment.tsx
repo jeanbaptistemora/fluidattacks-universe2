@@ -4,34 +4,36 @@
  */
 import { MutationFunction } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
+import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar } from "react-bootstrap";
-import { submit } from "redux-form";
+import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
+import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import store from "../../../../store";
+import { formatDropdownField } from "../../../../utils/formatHelpers";
+import { dropdownField, tagInputField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import TreatmentFieldsView from "../../components/treatmentFields";
+import { isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
 import { IDescriptionViewProps } from "../../containers/DescriptionView";
+import { IHistoricTreatment } from "../../containers/DescriptionView/types";
 import { GenericForm } from "../GenericForm";
-import { DELETE_TAGS_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
-import { IDeleteTagAttr, IDeleteTagResult, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment } from "./types";
+import { DELETE_TAGS_MUTATION, GET_PROJECT_USERS, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
+import {
+  IDeleteTagAttr, IDeleteTagResult, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment, IVulnDataType,
+} from "./types";
 
-interface IVulnData {
-  id: string;
-  treatments: {
-    tag: string;
-  };
-}
 export interface IUpdateTreatmentModal {
-  descriptParam?: IDescriptionViewProps;
+  btsUrl?: string;
   findingId: string;
+  lastTreatment?: IHistoricTreatment;
+  projectName?: string;
   userRole: string;
-  vulnerabilities: IVulnData[];
+  vulnerabilities: IVulnDataType[];
   handleCloseModal(): void;
 }
 
@@ -47,7 +49,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
   };
 
   const sameTags: boolean = props.vulnerabilities.every(
-    (vuln: IVulnData) => sortTags(vuln.treatments.tag) === sortTags(props.vulnerabilities[0].treatments.tag));
+    (vuln: IVulnDataType) => sortTags(vuln.treatments.tag) === sortTags(props.vulnerabilities[0].treatments.tag));
 
   const handleUpdateTreatError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
     msgError(translate.t("proj_alerts.error_textsad"));
@@ -68,6 +70,23 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
       }
     }
   };
+
+  const canEditManager: boolean = _.includes(["admin", "customeradmin"], props.userRole);
+
+  const { data } = useQuery(GET_PROJECT_USERS, {
+    skip: !canEditManager,
+    variables: {
+      projectName: props.projectName,
+    },
+  });
+
+  const userEmails: string[] = canEditManager && !(_.isUndefined(data) || _.isEmpty(data))
+    ? data.project.users.map((user: Dictionary<string>): string => user.email)
+    : [(window as typeof window & Dictionary<string>).userEmail];
+
+  const lastTreatment: IHistoricTreatment = props.lastTreatment === undefined
+    ? {date: "", treatment: "", user: ""}
+    : props.lastTreatment;
 
   return(
     <Mutation
@@ -93,7 +112,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
                   treatment: dataTreatment.treatment,
                   treatmentJustification: dataTreatment.justification,
                   treatmentManager: dataTreatment.treatmentManager,
-                  vulnerabilities: props.vulnerabilities.map((vuln: IVulnData) => vuln.id),
+                  vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
                 }})
                 .catch();
               }
@@ -132,7 +151,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
                   } else {
                     deleteTagVuln({variables: {
                       findingId: props.findingId,
-                      vulnerabilities: props.vulnerabilities.map((vuln: IVulnData) => vuln.id),
+                      vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
                     }})
                     .catch();
                   }
@@ -159,18 +178,90 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
                   <GenericForm
                     name="editTreatmentVulnerability"
                     onSubmit={handleUpdateTreatmentVuln}
-                    initialValues={sameTags ? {
-                      tag: props.vulnerabilities[0].treatments.tag,
-                      treatmentManager: props.descriptParam?.dataset.treatmentManager,
-                    } : undefined}
+                    initialValues={{
+                      tag: sameTags ? props.vulnerabilities[0].treatments.tag : undefined,
+                      treatmentManager: props.vulnerabilities[0].treatments.treatmentManager,
+                    }}
                   >
-                    {!_.isUndefined(props.descriptParam) ?
-                    <TreatmentFieldsView
-                      isTreatmentModal={true}
-                      onDeleteTag={handleDeleteTag}
-                      {...props.descriptParam}
-                    />
-                    : undefined}
+                      <Row>
+                        <Col md={12}>
+                          <FormGroup>
+                            <ControlLabel>
+                              <b>{translate.t("search_findings.tab_description.bts")}</b>
+                            </ControlLabel>
+                            <p>{props.btsUrl}</p>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>
+                          <FormGroup>
+                            <ControlLabel>
+                              <b>{translate.t("search_findings.tab_description.treatment.title")}</b>
+                            </ControlLabel>
+                            <p>{translate.t(formatDropdownField(lastTreatment.treatment))}</p>
+                          </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                          <FormGroup>
+                            <ControlLabel>
+                              <b>{translate.t("search_findings.tab_description.treatment_mgr")}</b>
+                            </ControlLabel>
+                            <Field
+                              component={dropdownField}
+                              name="treatmentManager"
+                              type="text"
+                              validate={lastTreatment.treatment === "IN PROGRESS" ? required : undefined}
+                            >
+                              <option value="" />
+                              {userEmails.map((email: string, index: number): JSX.Element => (
+                                <option key={index} value={email}>{email}</option>
+                              ))}
+                            </Field>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={12}>
+                          <FormGroup>
+                            <ControlLabel>
+                              <b>{translate.t("search_findings.tab_description.treatment_just")}</b>
+                            </ControlLabel>
+                            <p>{lastTreatment.justification}</p>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={12}>
+                          <FormGroup>
+                            <ControlLabel>
+                              <b>{translate.t("search_findings.tab_description.tag")}</b>
+                            </ControlLabel>
+                            <Field component={tagInputField} name="tag" type="text" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                          <FormGroup>
+                            <ControlLabel>
+                              <b>{translate.t("search_findings.tab_description.business_criticality")}</b>
+                            </ControlLabel>
+                            <Field
+                              component={textField}
+                              name="severity"
+                              type="number"
+                              validate={[isValidVulnSeverity, numeric]}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>
+                          <Button onClick={handleDeleteTag}>
+                            <Glyphicon glyph="minus" />&nbsp;
+                            {translate.t("search_findings.tab_description.deleteTags")}
+                          </Button>
+                        </Col>
+                      </Row>
                   </GenericForm>
                   </Modal>
                 );

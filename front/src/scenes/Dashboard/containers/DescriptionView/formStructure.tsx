@@ -109,8 +109,9 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
               isVerifyRequest={props.isVerifyingRequest}
               state="open"
               userRole={props.userRole}
-              renderAsEditable={props.isEditing}
-              descriptParam={props}
+              projectName={props.projectName}
+              btsUrl={props.dataset.btsUrl}
+              lastTreatment={_.last(props.dataset.historicTreatment)}
               separatedRow={true}
               verificationFn={verificationFn}
             />

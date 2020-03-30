@@ -94,3 +94,13 @@ mutation DeleteTagsVuln ($findingId: String!, $vulnerabilities: [String]!){
     success
   }
 }`;
+
+export const GET_PROJECT_USERS: DocumentNode = gql`
+  query GetProjectUsers($projectName: String!) {
+    project(projectName: $projectName) {
+      users {
+        email
+      }
+    }
+  }
+`;

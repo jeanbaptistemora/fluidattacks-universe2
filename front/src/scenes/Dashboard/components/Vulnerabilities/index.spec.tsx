@@ -10,7 +10,7 @@ import wait from "waait";
 import store from "../../../../store";
 import { compareNumbers, VulnerabilitiesView } from "./index";
 import { GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
-import { IUpdateVulnTreatment } from "./types";
+import { IUpdateVulnTreatment, IVulnDataType } from "./types";
 import { UpdateTreatmentModal } from "./updateTreatment";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -166,14 +166,30 @@ describe("Vulnerabilities view", () => {
       },
       result: { data: updateTreatment},
     }];
+    const vulns: IVulnDataType[] = [
+      {
+        currentState: "",
+        id: "test",
+        specific: "",
+        treatments: {
+          acceptanceDate: "",
+          btsUrl: "",
+          severity: "",
+          tag: "one",
+          treatment: "",
+          treatmentJustification: "",
+          treatmentManager: "",
+        },
+        where: "",
+      },
+    ];
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateTreatmentModal
-            descriptParam={undefined}
             findingId=""
             userRole="analyst"
-            vulnerabilities={[{id: "test", treatments: {tag: "one"}}]}
+            vulnerabilities={vulns}
             handleCloseModal={handleOnClose}
           />
         </MockedProvider>
