@@ -66,6 +66,7 @@ stages:
 
 analytics_formstack:
   <<: *with_nix
+  tags: [autoscaling-large]
   stage: analytics
   only:
     refs: [schedules]
