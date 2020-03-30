@@ -12,7 +12,7 @@ from pathlib import Path
 import requests
 from pykwalify.core import Core
 from pykwalify.errors import SchemaError
-from ruamel.yaml import YAML
+from ruamel.yaml import YAML, safe_load
 
 # Local libraries
 from toolbox import logger
@@ -197,3 +197,26 @@ def iter_vulns_path(subs: str, vulns_name: str, run_kind: str = 'all'):
             continue
 
         yield (vulns_path, exploit_path)
+
+
+def iter_exploit_paths(subscription: str):
+    """
+    Create a generator for the exploits of a subscription.
+
+    :parameter subscription: Subscription name.
+
+    yields exploit_path.
+    """
+    for exploit_path in glob.glob(
+            f'subscriptions/{subscription}/break-build/*/*/*.exp'):
+        yield exploit_path
+
+
+def iter_subscritions_config():
+    """
+    Create a generator for config of subscriptions.
+
+    yields subscription_configuration.
+    """
+    for config_path in glob.glob('subscriptions/*/config/config.yml'):
+        yield safe_load(open(config_path))

@@ -5,12 +5,19 @@ import glob
 from multiprocessing import Pool, cpu_count
 from typing import List
 from itertools import repeat
+from concurrent.futures.thread import ThreadPoolExecutor
+from collections import namedtuple
 
 # Third parties libraries
 import ruamel.yaml as yaml
 
 # Local imports
-from toolbox import constants, helper, logger, toolbox
+from toolbox import constants, helper, logger, toolbox, utils
+
+
+ExploitInfo = namedtuple(
+    'ExploitInfo', ('subscription', 'integrates_status', 'kind', 'type',
+                    'score', 'finding_id', 'finding_title', 'url', 'customer'))
 
 
 def get_customer_subs(customer: str) -> tuple:
@@ -115,3 +122,59 @@ def generate_bancolombia_exploits_report(old_csv: str = 'report.csv'):
 
         for row in rows:
             writer.writerow(row)
+
+
+def process_exploit(exp_path: str):
+    """
+    Get all the information from an exploit.
+
+    :param exp_path: Exploit path.
+
+    :rtype: :class:`ExploitInfo`
+    """
+    subs = exp_path.split('/')[1]
+    exp_type = exp_path.split('/')[3]
+
+    exp_kind, finding_id = toolbox.scan_exploit_for_kind_and_id(exp_path)
+
+    score = helper.integrates.get_finding_cvss_score(finding_id)
+    title = helper.integrates.get_finding_title(finding_id)
+
+    url = (f'https://fluidattacks.com/integrates/dashboard#!/'
+           f'project/{subs}/findings/{finding_id}/evidence')
+    status = ('accepted' if 'accepted' in exp_path else
+              ('open' if helper.integrates.is_finding_open(
+                  finding_id=finding_id,
+                  finding_types=(constants.SAST if exp_type == 'static' else
+                                 constants.DAST)) else 'closed'))
+    return ExploitInfo(subs, status, exp_kind, exp_type, score, finding_id,
+                       title, url, None)
+
+
+def process_subscription_exploits(subs: dict) -> List:
+    """
+    Process all exploits of a subscription.
+
+    :param subscription: Subscription configuration.
+
+    :rtype: :class:`List[ExploitInfo]`
+    """
+    result = []
+    with ThreadPoolExecutor(max_workers=cpu_count() * 8) as executor:
+        for exploit in executor.map(process_exploit,
+                                    utils.iter_exploit_paths(subs['name'])):
+            exploit = exploit._replace(customer=subs['customer'])
+            result.append(exploit)
+    return result
+
+
+def generate_exploits_report():
+    """
+    Generate a report of all exploits.
+    """
+    result = []
+    for subs in utils.iter_subscritions_config():
+        if not toolbox.has_break_build(subs['name']):
+            continue
+
+        result.append(process_subscription_exploits(subs))
