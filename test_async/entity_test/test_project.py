@@ -34,6 +34,31 @@ class ProjectTests(TestCase):
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         return result
 
+    def test_project(self):
+        """Check for project mutation."""
+        query = '''
+          query {
+            project(projectName: "unittesting"){
+              name,
+              remediatedOverTime
+              hasDrills
+              hasForces
+              findings
+              {
+                  analyst
+              }
+            }
+          }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert result['data']['project']['name'] == 'unittesting'
+        assert 'remediatedOverTime' in result['data']['project']
+        assert result['data']['project']['hasDrills']
+        assert result['data']['project']['hasForces']
+        assert len(result['data']['project']['findings']) == 5
+
     def test_create_project(self):
         """Check for createProject mutation."""
         query = '''

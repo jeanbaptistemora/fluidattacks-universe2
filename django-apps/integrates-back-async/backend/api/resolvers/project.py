@@ -1,18 +1,120 @@
 # pylint: disable=import-error
 
+import asyncio
+import sys
+
+import simplejson as json
+from asgiref.sync import sync_to_async
 import rollbar
 
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
+from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.event import EventLoader
 from backend.decorators import (
-    enforce_group_level_auth_async, require_login, require_project_access,
-    enforce_user_level_auth_async,
+    enforce_group_level_auth_async, get_entity_cache_async, require_login,
+    require_project_access, enforce_user_level_auth_async
 )
 from backend.domain import (
+    finding as finding_domain,
     project as project_domain,
     user as user_domain,
 )
 from backend import util
 
-from ariadne import convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
+
+
+@sync_to_async
+def _get_name(_, project_name):
+    """Get name."""
+    return dict(name=project_name)
+
+
+@get_entity_cache_async
+async def _get_remediated_over_time(_, project_name):
+    """Get remediated_over_time."""
+    remediated_over_time = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['remediated_over_time']
+        )
+    remediate_over_time_decimal = \
+        remediated_over_time.get('remediated_over_time', {})
+    remediated_twelve_weeks = \
+        [lst_rem[-12:] for lst_rem in remediate_over_time_decimal]
+    remediated_over_time = json.dumps(
+        remediated_twelve_weeks, use_decimal=True)
+    return dict(remediated_over_time=remediated_over_time)
+
+
+@get_entity_cache_async
+async def _get_has_drills(_, project_name):
+    """Get has_drills."""
+    attributes = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['has_drills']
+        )
+    return dict(has_drills=attributes.get('has_drills', False))
+
+
+@get_entity_cache_async
+async def _get_has_forces(_, project_name):
+    """Get has_forces."""
+    attributes = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['has_forces']
+        )
+    return dict(has_forces=attributes.get('has_forces', False))
+
+
+@get_entity_cache_async
+async def _get_findings(info, project_name):
+    """Resolve findings attribute."""
+    util.cloudwatch_log(info.context, 'Security: Access to {project} '
+                        'findings'.format(project=project_name))
+    finding_ids = await sync_to_async(finding_domain.filter_deleted_findings)(
+        project_domain.list_findings(project_name)
+    )
+    findings = await info.context.loaders['finding'].load_many(finding_ids)
+    findings = [finding for finding in findings
+                if finding['current_state'] != 'DELETED']
+    return dict(findings=findings)
+
+
+async def _resolve_fields(info, project_name):
+    """Async resolve fields."""
+    loaders = {
+        'finding': FindingLoader(),
+        'vulnerability': VulnerabilityLoader(),
+        'event': EventLoader(),
+    }
+    info.context.loaders = loaders
+    result = dict()
+    tasks = list()
+    for requested_field in info.field_nodes[0].selection_set.selections:
+        snake_field = convert_camel_case_to_snake(requested_field.name.value)
+        if snake_field.startswith('_'):
+            continue
+        resolver_func = getattr(
+            sys.modules[__name__],
+            f'_get_{snake_field}'
+        )
+        future = asyncio.ensure_future(
+            resolver_func(info, project_name=project_name)
+        )
+        tasks.append(future)
+    tasks_result = await asyncio.gather(*tasks)
+    for dict_result in tasks_result:
+        result.update(dict_result)
+    return result
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_group_level_auth_async
+@require_project_access
+def resolve_project(_, info, project_name):
+    """Resolve project query."""
+    return util.run_async(_resolve_fields, info, project_name)
 
 
 @convert_kwargs_to_snake_case

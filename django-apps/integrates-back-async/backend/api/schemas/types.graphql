@@ -106,6 +106,7 @@ type User {
 type Project {
     name: String
     findings: [Finding!]
+    hasDrills: Boolean
     hasForces: Boolean
     openVulnerabilities: Int
     closedVulnerabilities: Int
