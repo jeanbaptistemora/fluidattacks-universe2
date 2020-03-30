@@ -18,6 +18,7 @@ from backend.domain import (
     finding as finding_domain,
     project as project_domain,
     user as user_domain,
+    vulnerability as vuln_domain
 )
 from backend import util
 
@@ -78,6 +79,124 @@ async def _get_findings(info, project_name):
     findings = [finding for finding in findings
                 if finding['current_state'] != 'DELETED']
     return dict(findings=findings)
+
+
+@get_entity_cache_async
+async def _get_open_vulnerabilities(info, project_name):
+    """Get open_vulnerabilities."""
+    finding_ids = await \
+        sync_to_async(finding_domain.filter_deleted_findings)(
+            project_domain.list_findings(project_name)
+        )
+    finding_vulns = \
+        await info.context.loaders['vulnerability'].load_many(finding_ids)
+
+    # This should be async in the future, but there's a known bug of
+    # Python that currently prevents it: https://bugs.python.org/issue39562
+    open_vulnerabilities = sum([
+        len([vuln for vuln in vulns
+             if vuln_domain.get_current_state(vuln) == 'open'
+             and
+             (vuln['current_approval_status'] != 'PENDING' or
+              vuln['last_approved_status'])])
+        for vulns in finding_vulns
+    ])
+    return dict(open_vulnerabilities=open_vulnerabilities)
+
+
+@get_entity_cache_async
+async def _get_closed_vulnerabilities(info, project_name):
+    """Get closed_vulnerabilities."""
+    finding_ids = await \
+        sync_to_async(finding_domain.filter_deleted_findings)(
+            project_domain.list_findings(project_name)
+        )
+    finding_vulns = \
+        await info.context.loaders['vulnerability'].load_many(finding_ids)
+
+    # This should be async in the future, but there's a known bug of
+    # Python that currently prevents it: https://bugs.python.org/issue39562
+    closed_vulnerabilities = sum([
+        len([vuln for vuln in vulns
+             if vuln_domain.get_current_state(vuln) == 'closed'
+             and
+             (vuln['current_approval_status'] != 'PENDING' or
+              vuln['last_approved_status'])])
+        for vulns in finding_vulns
+    ])
+    return dict(closed_vulnerabilities=closed_vulnerabilities)
+
+
+@get_entity_cache_async
+async def _get_pending_closing_check(_, project_name):
+    """Get pending_closing_check."""
+    pending_closing_check = await \
+        sync_to_async(project_domain.get_pending_closing_check)(project_name)
+    return dict(pending_closing_check=pending_closing_check)
+
+
+@get_entity_cache_async
+async def _get_last_closing_vuln(_, project_name):
+    """Get last_closing_vuln."""
+    last_closing_vuln = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['last_closing_date']
+        )
+    last_closing_vuln = last_closing_vuln.get('last_closing_date', 0)
+    return dict(last_closing_vuln=last_closing_vuln)
+
+
+@get_entity_cache_async
+async def _get_max_severity(info, project_name):
+    """Get max_severity."""
+    finding_ids = finding_domain.filter_deleted_findings(
+        project_domain.list_findings(project_name))
+    findings = \
+        await info.context.loaders['finding'].load_many(finding_ids)
+
+    max_severity = max(
+        [finding['severity_score'] for finding in findings
+         if finding['current_state'] != 'DELETED']) if findings else 0
+    return dict(max_severity=max_severity)
+
+
+@get_entity_cache_async
+async def _get_mean_remediate(_, project_name):
+    """Get mean_remediate."""
+    mean_remediate = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['mean_remediate']
+        )
+    mean_remediate = mean_remediate.get('mean_remediate', 0)
+    return dict(mean_remediate=mean_remediate)
+
+
+@get_entity_cache_async
+async def _get_total_findings(info, project_name):
+    """Get total_findings."""
+    finding_ids = await \
+        sync_to_async(finding_domain.filter_deleted_findings)(
+            project_domain.list_findings(project_name)
+        )
+    findings = \
+        await info.context.loaders['finding'].load_many(finding_ids)
+
+    total_findings = len([finding for finding in findings
+                          if finding['current_state'] != 'DELETED'])
+    return dict(total_findings=total_findings)
+
+
+@get_entity_cache_async
+async def _get_total_treatment(_, project_name):
+    """Get total_treatment."""
+    total_treatment = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['total_treatment']
+        )
+    total_treatment_decimal = total_treatment.get('total_treatment', {})
+    total_treatment = json.dumps(
+        total_treatment_decimal, use_decimal=True)
+    return dict(total_treatment=total_treatment)
 
 
 async def _resolve_fields(info, project_name):
