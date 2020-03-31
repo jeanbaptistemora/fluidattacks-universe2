@@ -13,12 +13,12 @@ in
         pkgs.glibcLocales
         pkgs.shellcheck
         pkgs.html-tidy
-        (pkgs.python38.withPackages (ps: with ps; [
-          pylint
-          flake8
-        ]))
+        pkgs.nodejs
+        pkgs.python38
       ];
 
       pyPkgPreCommit = builders.pythonPackage "pre-commit==2.2.0";
+      pyPkgPyLint = builders.pythonPackage "pylint==2.4.4";
+      pyPkgFlake8 = builders.pythonPackage "flake8==3.7.9";
     })
   )

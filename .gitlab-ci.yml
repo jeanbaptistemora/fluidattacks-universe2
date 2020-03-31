@@ -67,7 +67,7 @@ infra_secret_management_apply:
   <<: *in_master_branch
   stage: deploy-infra
 
-test_pre_commit:
+test_lint_code:
   <<: *with_nix
   stage: test
 
@@ -115,33 +115,12 @@ deploy_production:
   <<: *in_master_branch
   stage: deploy
 
-send_new_release_email:
+postdeploy_release_email:
   <<: *with_nix
   <<: *in_master_branch
   stage: postdeploy
   needs: [deploy_production]
   except: [schedules]
-
-builder:
-  image: fluidattacks/docker-bash:latest
-  tags: [autoscaling]
-  stage: build
-  script:
-    - . ci-scripts/build-builder.sh
-    - build_builder
-
-lint-typescript-new-web:
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  script:
-    - cd /app
-    - npm --prefix deploy/builder/ install
-    - cp -a deploy/builder/node_modules /app/new/theme/2020/
-    - cp -a deploy/builder/node_modules /app/new/
-    - npm run --prefix deploy/builder/ lint-new
-  except:
-    - master
 
 commitlint:
   tags: [autoscaling]

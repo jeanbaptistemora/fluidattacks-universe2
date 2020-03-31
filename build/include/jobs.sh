@@ -76,9 +76,13 @@ function job_infra_secret_management_apply {
   &&  helper_terraform_apply "${dir}"
 }
 
-function job_test_pre_commit {
-      env_prepare_python_packages \
-  &&  helper_list_touched_files | xargs pre-commit run -v --files
+function job_test_lint_code {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_list_touched_files | xargs pre-commit run -v --files \
+  &&  npm install --prefix deploy/builder/ \
+  &&  cp -a deploy/builder/node_modules new/ \
+  &&  npm run --prefix deploy/builder/ lint-new
 }
 
 function job_test_images {
@@ -211,7 +215,7 @@ function job_deploy_production {
   &&  helper_deploy_sync_s3 'output/' 'web.fluidattacks.com'
 }
 
-function job_send_new_release_email {
+function job_postdeploy_release_email {
       env_prepare_python_packages \
   &&  helper_set_prod_secrets \
   &&  sops_env "secrets-prod.yaml" default \
