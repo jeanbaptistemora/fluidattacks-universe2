@@ -6,9 +6,13 @@
 
 {% block meta %}
 <meta name="description"
-      content="{{ gettext('Landing-metadescription') }}.">
+	  content="Fluid Attacks services aim to detect and report all existing
+	  vulnerabilities and security issues within an application.
+	  Our professional team continuously develop their own tools and exploits to
+	  ensure the detection of all security findings with no false positives.">
 <meta name="keywords"
-      content="{{ gettext('Landing-keywords')}}.">
+	  content="Fluid Attacks, Services, Ethical Hacking, Pentesting, Security,
+	  Information.">
 {% endblock meta %}
 
 {% block title %}
@@ -40,7 +44,7 @@
 				<img
 				class="w1 fl relative pv2-ns pv1 mr2 mirror-img"
 				src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
-				alt="{{ gettext('Header-img-alt') }}">
+				alt="Young hacker smiling">
 				Back to {{ page.section }}
     </a>
     {% if not page.slug.endswith('critical-information/') %}
@@ -49,7 +53,7 @@
 				<img
 				class="w1 fr relative pv2-ns pv1 ml2"
 				src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
-				alt="{{ gettext('Header-img-alt') }}">
+				alt="Young hacker smiling">
 				Next
     </a>
     {% endif %}
@@ -60,7 +64,7 @@
 		<div class="fr-l w-45-l w100-m w90-s center">
 			<img
 			src="{{ SITEURL }}/{{ page.url }}cover.png"
-			alt="{{ gettext('Header-img-alt') }}">
+			alt="Young hacker smiling">
 		</div>
 		<div class="fl-l w-50-l w100-m w90-s mt3-l center">
 			<div class="roboto f1-l f2-m f3 b lh-title pt0-l pt3">

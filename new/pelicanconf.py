@@ -31,12 +31,8 @@ PLUGINS = [
     'asciidoc_reader',
     'assets',
     'neighbors',
-    'share_post',
-    'related_posts',
     'representative_image',
-    'tipue_search',
-    'sitemap',
-    'tag_cloud'
+    'sitemap'
 ]
 RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = ['landing']
