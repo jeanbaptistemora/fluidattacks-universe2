@@ -10,7 +10,10 @@ import rollbar
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.event import EventLoader
-from backend.api.dataloaders import user as user_loader
+from backend.api.dataloaders import (
+    finding as finding_loader,
+    user as user_loader
+)
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, require_login,
     require_project_access, enforce_user_level_auth_async
@@ -77,8 +80,11 @@ async def _get_findings(info, project_name):
         project_domain.list_findings(project_name)
     )
     findings = await info.context.loaders['finding'].load_many(finding_ids)
-    findings = [finding for finding in findings
-                if finding['current_state'] != 'DELETED']
+    findings = [
+        await finding_loader.resolve(info, finding['id'], as_field=True)
+        for finding in findings
+        if finding['current_state'] != 'DELETED'
+    ]
     return dict(findings=findings)
 
 
