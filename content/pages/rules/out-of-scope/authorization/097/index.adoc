@@ -43,3 +43,8 @@ The organization must implement procedures
 to facilitate the implementation of the identification
 and authentication policy and associated identification
 and authentication controls.
+
+. [[r6]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(4)]
+The controller and processor shall take steps to ensure that any natural person
+acting under the authority of the controller or the processor who has access to
+personal data does not process them except on instructions from the controller.
