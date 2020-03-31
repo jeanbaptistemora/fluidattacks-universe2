@@ -196,15 +196,19 @@ def generate_exploits_report(file_name: str = 'report.csv',
     """
     Generate a report of all exploits.
     """
+    logger.info('Generating exploits report')
     with open(file_name, 'w') as new_csv_handle:
-        writer = csv.DictWriter(new_csv_handle, fieldnames=ExploitInfo._fields)
+        writer = csv.DictWriter(
+            new_csv_handle,
+            fieldnames=ExploitInfo._fields,
+            quoting=csv.QUOTE_NONNUMERIC)
         writer.writeheader()
         for subs in utils.iter_subscritions_config():
             if not toolbox.has_break_build(subs['name']) or (
                     customer and subs['customer'] != customer) or (
                         subscription and subs['name'] != subscription):
                 continue
-
+            logger.info(f'Gereratin report for {subs["name"]}')
             info = process_subscription_exploits(subs)
             for row in info:
                 writer.writerow(row._asdict())
