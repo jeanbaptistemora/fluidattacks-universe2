@@ -168,6 +168,17 @@ async def _get_max_severity(info, project_name):
 
 
 @get_entity_cache_async
+async def _get_max_open_severity(_, project_name):
+    """Resolve maximum severity in open vulnerability attribute."""
+    max_open_severity = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['max_open_severity']
+        )
+    return \
+        dict(max_open_severity=max_open_severity.get('max_open_severity', 0))
+
+
+@get_entity_cache_async
 async def _get_mean_remediate(_, project_name):
     """Get mean_remediate."""
     mean_remediate = await \

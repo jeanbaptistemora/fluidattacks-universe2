@@ -115,11 +115,12 @@ async def _resolve_fields(info) -> Dict[int, Any]:
     """Async resolve fields."""
     result: Dict[int, Any] = dict()
     tasks = list()
-    jwt_content = util.get_jwt_content(info.context)
-    params = {
-        'jwt_content': jwt_content
-    }
+
     for requested_field in info.field_nodes[0].selection_set.selections:
+        jwt_content = util.get_jwt_content(info.context)
+        params = {
+            'jwt_content': jwt_content
+        }
         field_params = util.get_field_parameters(requested_field)
         if field_params:
             params.update(field_params)

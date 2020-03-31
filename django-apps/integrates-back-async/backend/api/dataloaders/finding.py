@@ -478,10 +478,10 @@ async def resolve(info, identifier, as_field=False):
                                   info.field_nodes[0].selection_set) \
         if as_field else info.field_nodes[0].selection_set.selections
 
-    params = {
-        'identifier': identifier
-    }
     for requested_field in requested_fields:
+        params = {
+            'identifier': identifier
+        }
         field_params = util.get_field_parameters(requested_field)
         if field_params:
             params.update(field_params)
