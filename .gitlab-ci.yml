@@ -21,6 +21,11 @@ stages:
     variables:
       - $NIGHTLY_BUILD
 
+.except_master_branch: &except_master_branch
+  except:
+    refs:
+      - master
+
 .in_master_branch: &in_master_branch
   only:
     refs:
@@ -84,17 +89,30 @@ test_defends:
 
 deploy_ephemeral:
   <<: *with_nix
+  <<: *except_master_branch
   stage: deploy
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}
     url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web/
-    on_stop: stop-ephemeral
+    on_stop: deploy_stop_ephemeral
   cache:
     key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
     paths:
     - cache/
-  except:
-    - master
+
+deploy_stop_ephemeral:
+  <<: *with_nix
+  <<: *except_master_branch
+  stage: deploy
+  environment:
+    name: ephemeral/${CI_COMMIT_REF_NAME}
+    action: stop
+  when: manual
+
+deploy_production:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
 
 builder:
   image: fluidattacks/docker-bash:latest
@@ -126,39 +144,6 @@ commitlint:
   script:
     - ./ci-scripts/commitlint-checks.sh
   except:
-    - master
-
-stop-ephemeral:
-  tags: [autoscaling]
-  needs: [builder]
-  stage: deploy
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - source /app/ci-scripts/helpers/others.sh
-    - aws_login
-    - aws s3 rm "s3://web.eph.fluidattacks.com/$CI_COMMIT_REF_NAME" --recursive
-  environment:
-    name: ephemeral/${CI_COMMIT_REF_NAME}
-    action: stop
-  when: manual
-  except:
-    - master
-
-production:
-  tags: [autoscaling]
-  needs:
-    - builder
-    - infra_production_apply
-  stage: deploy
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - . /app/ci-scripts/deploy.sh
-    - deploy_prod
-  only:
     - master
 
 danger:

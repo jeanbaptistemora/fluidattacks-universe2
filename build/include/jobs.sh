@@ -204,3 +204,14 @@ function job_deploy_ephemeral {
   &&  helper_deploy_compile_site "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  helper_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
 }
+
+function job_deploy_stop_ephemeral {
+      helper_set_dev_secrets \
+  &&  aws s3 rm "s3://web.eph.fluidattacks.com/$CI_COMMIT_REF_NAME" --recursive
+}
+
+function job_deploy_production {
+      helper_set_prod_secrets \
+  &&  helper_deploy_compile_site 'https://fluidattacks.com' \
+  &&  helper_deploy_sync_s3 'output/' 'web.fluidattacks.com'
+}
