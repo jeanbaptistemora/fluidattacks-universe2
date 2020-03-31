@@ -28,3 +28,8 @@ the Increased Exchange of Data].
 Technology has transformed both the economy and social life,
 and should further facilitate the free flow of personal data,
 while ensuring a high level of the protection of personal data.
+
+. [[r2]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(4)]
+The controller and processor shall take steps to ensure that any natural person
+acting under the authority of the controller or the processor who has access to
+personal data does not process them except on instructions from the controller.
