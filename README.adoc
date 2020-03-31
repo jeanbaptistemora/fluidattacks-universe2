@@ -15,16 +15,13 @@ to work on this repository,
 depending on what you need:
 
 . link:http://asciidoc.org/[AsciiDoc] for dynamically generated pages.
-. link:https://www.python.org/[Python 3.7] for web linters.
+. link:https://www.python.org/[Python 3.8] for web linters.
 . link:https://sass-lang.com/[sass] and link:https://tachyons.io/[tachyons]
 for styles customization.
 . HTML5 and link:https://jinja.palletsprojects.com/en/2.10.x/[Jinja2] for static pages.
 . link:https://blog.getpelican.com/[Pelican] for parsing AsciiDoc into HTML.
 . link:https://pre-commit.com/[pre-commit] for local linting over
 the changes in the commit.
-
-For more information about all the dependecies
-used in this repository you can check the link:deploy/builder/Dockerfile[Dockerfile]
 
 == Work Directories
 
@@ -39,22 +36,15 @@ to reference it in the +:writer:+ metadata.
 If you are a new blog author you must first add your picture link:content/images/authors[here]
 ** link:content/pages/[pages] contains all the remaining pages.
 ** link:content/pages-es/[pages] contains the pending to translate pages.
-* link:ci-scripts/[ci-scripts] contain the web linters
-and pre-commit configuration files.
 * link:theme/2014/[theme] folder includes all the scss, js and static HTML pages.
+* link:build/[build] includes all Nix and Bash scripts for Continuous Integration
 
 == Locally Testing your changes
 
-You can use our link:deploy/builder/Dockerfile[Docker Container] to build locally
-all the website, including third party plugins,
-allowing to test your changes before creating your commit,
-to do so, just run:
+You can locally build the entire website with just one command:
 
 .Local deployment
 [source, bash, linenums]
 ----
-$ docker run -ti -p 8000:8000 -v /direccion/al/repositorio/:/web registry.gitlab.com/fluidattacks/web:base /web/local-test.sh
+$ ./build.sh deploy_local
 ----
-
-Please refer to our link:https://gitlab.com/fluidattacks/web/wikis/install[wiki]
-for further information about the local builds.
