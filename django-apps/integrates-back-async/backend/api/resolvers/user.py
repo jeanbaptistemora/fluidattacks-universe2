@@ -33,9 +33,9 @@ def _create_new_user(
         role: str,
         phone_number: str,
         group: str) -> bool:
-    valid = validate_alphanumeric_field(organization) \
-        and validate_alphanumeric_field(responsibility) \
-        and validate_alphanumeric_field(role) \
+    valid = validate_alphanumeric_field([organization]) \
+        and validate_alphanumeric_field([responsibility]) \
+        and validate_alphanumeric_field([role]) \
         and validate_phone_field(phone_number) \
         and validate_email_address(email)
 
@@ -141,7 +141,7 @@ def resolve_grant_user_access(_, info, **query_args):
     roles_customeradmin_can_grant = ('customer', 'customeradmin')
 
     if (role == 'admin' and new_user_role in roles_admin_can_grant) \
-        or (is_customeradmin(project_name, user_email)
+        or (role == 'customeradmin'
             and new_user_role in roles_customeradmin_can_grant):
         if _create_new_user(
                 context=info.context,
@@ -159,17 +159,20 @@ def resolve_grant_user_access(_, info, **query_args):
         rollbar.report_message(
             f'Error: Invalid role provided: {new_user_role}',
             f'error', info.context)
+
     if success:
         util.invalidate_cache(project_name)
-        util.invalidate_cache(query_args.get('email'))
+        util.invalidate_cache(new_user_email)
         util.cloudwatch_log(
-            info.context, 'Security: Given grant access to {user} \
-            in {project} project'.format(user=query_args.get('email'),
-                                         project=project_name))
+            info.context,
+            (f'Security: Given grant access to {new_user_email} '
+             f'in {project_name} project'))
     else:
-        util.cloudwatch_log(info.context, 'Security: Attempted to give grant \
-access to {user} in {project} project'.format(user=query_args.get('email'),
-                                              project=project_name))
+        util.cloudwatch_log(
+            info.context,
+            (f'Security: Attempted to grant access to {new_user_email} '
+             f'in {project_name} project'))
+
     return dict(
         success=success,
         granted_user=dict(
