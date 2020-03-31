@@ -5,7 +5,7 @@ import json
 import mandrill
 
 
-def send_mail_new_vulnerabilities(event, context):
+def send_mail_notification(event, context):
     """Lambda code."""
     try:
         record = event['Records'][0]

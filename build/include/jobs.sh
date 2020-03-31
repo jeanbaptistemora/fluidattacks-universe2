@@ -70,7 +70,7 @@ function job_build_lambdas {
     ||  return 1
   }
 
-      _job_build_lambdas 'send_mail_new_vulnerabilities' \
+      _job_build_lambdas 'send_mail_notification' \
   &&  _job_build_lambdas 'project_to_pdf'
 }
 
