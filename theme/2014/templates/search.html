@@ -2,12 +2,15 @@
 
 {% block meta %}
   <meta name="description"
-        content="{{ gettext('Search-metadescription') }}.">
+        content="This page shows the results of the requested search. It lists links to
+        all the pages that contain the string searched. If the string was not
+        found, no articles will be listed, try browsing using the menu or the
+        footer.">
   <meta name="keywords"
-        content="{{ gettext('Search-keywords') }}">
+        content="Results, Search, Pages, String, Links, Request">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Search-title') }} | {{ SITENAME }}{% endblock %}
+{% block title %} Search | {{ SITENAME }}{% endblock %}
 
 {% block canonical %}
   <link rel="canonical"
@@ -25,13 +28,13 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+              <strong>Home</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
           <li class="dib mt0" >
             <a class="c-fluid-bk hv-fluid-dkred"
-               href=".">&nbsp;{{ gettext('Search-breadcrumb-1') }}</a>
+               href=".">&nbsp;Search</a>
           </li>
         </ul>
       </div>

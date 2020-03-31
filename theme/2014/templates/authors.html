@@ -2,12 +2,15 @@
 
 {% block meta %}
   <meta name="description"
-        content="{{ gettext('Authors-metadescription') }}.">
+        content="Here you can find the list of all the authors that have contributed to
+        the blog by publishing an article which may have an opinion, a solution
+        to a challenge, or just general information related to many topics in the
+        field of Information Security.">
   <meta name="keywords"
-        content="{{ gettext('Authors-keywords') }}">
+        content="Authors, Blog, Publish, Article, Information, Security">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Authors-title') }} | {{ SITENAME }}{% endblock title %}
+{% block title %} Authors | {{ SITENAME }}{% endblock title %}
 
 {% block canonical %}
   <link rel="canonical"
@@ -25,7 +28,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-               <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+               <strong>Home</strong>&nbsp;</a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
           <li class="dib mt0">
@@ -37,7 +40,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href=".">
-               &nbsp;{{ gettext('Authors-breadcrumb-1') }}
+               &nbsp; Authors
             </a>
           </li>
         </ul>
@@ -49,7 +52,7 @@
   <div class="divpage">
     <article class="ma-auto tl-ns tc mw8">
       <h1 class="tc">
-        {{ gettext('Authors-header') }}:
+        Authors:
       </h1>
       <div class="ml6-l ml4-m">
         <ul class="fluid-bullet three-columns-l two-columns-m bullet-inside">

@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Error-metadescription') }}.">
-  <meta name="keywords" content="{{ gettext('Error-keywords') }}">
+  <meta name="description" content="An error occured. The page you requested does not exist or is not
+  available at the moment. Here you can find links to most of the relevant
+  content of the website.">
+  <meta name="keywords" content="Error, Request, Page, Availability, Links, Content">
 {% endblock meta %}
 
 {% block title %}
   {% if DEFAULT_LANG == "en" %}
-{{ gettext('Error-title') }} | {{ SITENAME }}
+The page was not found | {{ SITENAME }}
   {% elif DEFAULT_LANG == "es" %}
-{{ gettext('Error-title') }} | {{ AUTHOR }}
+The page was not found | {{ AUTHOR }}
   {% endif %}
 {% endblock title %}
 
@@ -26,7 +28,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-               <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+               <strong>Home</strong>&nbsp;</a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
           <li class="dib mt0">
@@ -40,25 +42,26 @@
 {% block content %}
   <div class="divpage">
     <article class="ma-auto tl mw8">
-      <h1 class="tc">ERROR 404: {{ gettext('Error-header-1') }}</h1>
-      <p>{{ gettext('Error-msg-1') }}:</p>
-      <h2>{{ gettext('Error-header-2') }}</h2>
+      <h1 class="tc">ERROR 404: PAGE NOT FOUND</h1>
+      <p>It seems nothing was found in this address. Try searching or browsing to
+         one of the following links:</p>
+      <h2>Services</h2>
         <ul class="ulist">
-          {% for page in pages if page.category.name == gettext('Error-cat-1') %}
+          {% for page in pages if page.category.name == 'services' %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>
             </li>
           {% endfor %}
         </ul>
-        <h2>{{ gettext('Error-header-3') }}</h2>
+        <h2>Products</h2>
         <ul class="ulist">
-          {% for page in pages if page.category.name == gettext('Error-cat-2') %}
+          {% for page in pages if page.category.name == 'products' %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>
             </li>
           {% endfor %}
         </ul>
-        <h2>{{ gettext('Error-header-4') }}</h2>
+        <h2>Recent Blog Entries</h2>
         {% set recent = articles if not all_articles else all_articles %}
         <ul class="ulist">
           {% for article in recent %}
@@ -69,7 +72,7 @@
             {% endif %}
           {% endfor %}
         </ul>
-    <h2>{{ gettext('Error-header-5') }}</h2>
+    <h2>Blog Categories</h2>
         <ul class="ulist">
           {% for category, articles in categories %}
             <li>
@@ -77,9 +80,9 @@
             </li>
           {% endfor %}
         </ul>
-        <h2>{{ gettext('Error-header-6') }}</h2>
+        <h2>Careers</h2>
         <ul class="ulist">
-          {% for page in pages if page.category.name == gettext('Error-cat-3') %}
+          {% for page in pages if page.category.name == 'careers' %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>
             </li>

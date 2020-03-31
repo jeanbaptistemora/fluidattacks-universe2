@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Pelican configuration
+"""
+
 # Site information
 AUTHOR = 'Fluid Attacks'
 
@@ -30,19 +34,19 @@ ERROR_SAVE_AS = 'error/index.html'
 # Plugins configuration
 PLUGIN_PATHS = ['/app/pelican-plugins']
 PLUGINS = [
-           'asciidoc_reader',
-           'assets',
-           'neighbors',
-           'share_post',
-           'related_posts',
-           'representative_image',
-           'tipue_search',
-           'sitemap',
-           'i18n_subsites',
-           'tag_cloud'
+    'asciidoc_reader',
+    'assets',
+    'neighbors',
+    'share_post',
+    'related_posts',
+    'representative_image',
+    'tipue_search',
+    'sitemap',
+    'tag_cloud'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', 'landing', 'error'))
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors',
+                     'search', 'landing', 'error'))
 SITEMAP = {
     'format': 'xml',
     'priorities': {
@@ -59,42 +63,40 @@ SITEMAP = {
 DEFAULT_PAGINATION = 12
 # Line that allows the localization of the site (traslation)
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n', 'jinja2.ext.do']}
-I18N_SUBSITES = {
-    'en': {
-        'SITENAME': 'A Pentesting Company | Fluid Attacks',
-        'SITEURL': 'https://fluidattacks.com/web',
-        'OUTPUT_PATH': 'output/web',
-        'THEME': 'theme/2014',
-        'ARTICLE_PATHS': ['blog'],
-        'PAGE_PATHS': ['pages'],
-        'PAGE_SAVE_AS': 'pages/{slug}index.html',
-        'ARTICLE_SAVE_AS': 'blog/{slug}index.html',
-        'STATIC_PATHS': ['files', 'images', 'blog', 'pages'],
-        'TAGS_SAVE_AS': 'blog/tags/index.html',
-        'TAGS_URL': 'blog/tags/',
-        'TAG_SAVE_AS': 'blog/tags/{slug}/index.html',
-        'TAG_URL': 'blog/tags/{slug}/',
-        'AUTHORS_SAVE_AS': 'blog/authors/index.html',
-        'AUTHORS_URL': 'blog/authors/',
-        'AUTHOR_SAVE_AS': 'blog/authors/{slug}/index.html',
-        'AUTHOR_URL': 'blog/authors/{slug}/',
-        'CATEGORIES_SAVE_AS': 'blog/categories/index.html',
-        'CATEGORIES_URL': 'blog/categories/',
-        'CATEGORY_SAVE_AS': 'blog/categories/{slug}/index.html',
-        'CATEGORY_URL': 'blog/categories/{slug}/',
-        'ASCIIDOC_OPTIONS': ['-a icons', '-a iconsdir=/web/images/icons',
-                             '-a tooltip=/web/images/icons/tooltip.png'],
-    },
-}
+
+SITENAME = 'A Pentesting Company | Fluid Attacks'
+SITEURL = 'https://fluidattacks.com/web'
+OUTPUT_PATH = 'output/web'
+THEME = 'theme/2014'
+ARTICLE_PATHS = ['blog']
+PAGE_PATHS = ['pages']
+PAGE_SAVE_AS = 'pages/{slug}index.html'
+ARTICLE_SAVE_AS = 'blog/{slug}index.html'
+STATIC_PATHS = ['files', 'images', 'blog', 'pages']
+TAGS_SAVE_AS = 'blog/tags/index.html'
+TAGS_URL = 'blog/tags/'
+TAG_SAVE_AS = 'blog/tags/{slug}/index.html'
+TAG_URL = 'blog/tags/{slug}/'
+AUTHORS_SAVE_AS = 'blog/authors/index.html'
+AUTHORS_URL = 'blog/authors/'
+AUTHOR_SAVE_AS = 'blog/authors/{slug}/index.html'
+AUTHOR_URL = 'blog/authors/{slug}/'
+CATEGORIES_SAVE_AS = 'blog/categories/index.html'
+CATEGORIES_URL = 'blog/categories/'
+CATEGORY_SAVE_AS = 'blog/categories/{slug}/index.html'
+CATEGORY_URL = 'blog/categories/{slug}/'
+ASCIIDOC_OPTIONS = ['-a icons', '-a iconsdir=/web/images/icons',
+                    '-a tooltip=/web/images/icons/tooltip.png']
+
 SUBSITE_LANG = {
-     'en': 'https://fluidattacks.com/web',
+    'en': 'https://fluidattacks.com/web',
 }
 ASSET_BUNDLES = (
-  ('bundle', [
-   'css/custom/general.scss',
-   'css/custom/global.scss',
-   'css/custom/custom.scss'
-  ], {'filters': 'scss'}),
+    ('bundle', [
+        'css/custom/general.scss',
+        'css/custom/global.scss',
+        'css/custom/custom.scss'],
+     {'filters': 'scss'}),
 )
 
 # Cache Settings

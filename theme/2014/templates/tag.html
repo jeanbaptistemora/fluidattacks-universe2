@@ -2,9 +2,11 @@
 
 {% block meta %}
   <meta name="description"
-        content="{{ gettext('Tag-metadescription-1') }} {{ tag|capitalize }}. {{ gettext('Tag-metadescription-2') }}.">
+        content="Here you can find all the articles of the blog which are related to the
+        tag {{ tag|capitalize }}. The articles are ordered according to their publishing date and may
+        address different subjets related to the field of Information Security.">
   <meta name="keywords"
-        content="{{ gettext('Tag-keywords') }}">
+        content="Article, Tag, Blog, Information, Security, Date">
 {% endblock meta %}
 
 {% block title %}
@@ -35,7 +37,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+              <strong>Home</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
@@ -49,7 +51,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="../">
-              &nbsp;<strong>{{ gettext('Tag-breadcrumb-1') }}</strong>&nbsp;
+              &nbsp;<strong>Tags</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>

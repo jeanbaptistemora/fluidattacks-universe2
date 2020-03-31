@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Archives-metadescription') }}.">
-  <meta name="keywords" content="{{ gettext('Archives-keywords') }}">
+  <meta name="description" content="Here you can find the latest articles posted to the blog, which are
+  related to the field of Information Security. These articles may aim to
+  share an opinion about a security matter, to solve a challenge related to
+  this very subject or may just offer general information.">
+  <meta name="keywords" content="Information, Security, Archives, Latest, Articles, Blog">
 {% endblock meta %}
 
 {% block title %}
   {% if DEFAULT_LANG == "en" %}
-{{ gettext('Archives-title') }} | {{ SITENAME }}
+Blog Archives | {{ SITENAME }}
   {% else %}
-{{ gettext('Archives-title') }} | {{ AUTHOR }}
+Blog Archives | {{ AUTHOR }}
   {% endif %}
 {% endblock %}
 
@@ -19,7 +22,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="post-heading ma-auto ch-w">
-          <h1>{{ gettext('Arcives-msg-1') }} {{ SITENAME }}</h1>
+          <h1>Archives for {{ SITENAME }}</h1>
         </div>
       </div>
     </div>

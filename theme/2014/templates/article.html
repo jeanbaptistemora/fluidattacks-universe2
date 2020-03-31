@@ -46,7 +46,7 @@
           <li class="dib mt0" >
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-               <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+               <strong>Home</strong>&nbsp;</a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
           <li class="dib mt0" >
@@ -96,7 +96,7 @@
           <td class="db dtc-ns pl4-l">
             {% for author in article.authors %}
               <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png"
-                   alt="{{ gettext('Articles-icon-alt-1') }}">
+                   alt="User icon">
                 <a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred"
                    href="../../{{ author.url }}">
                    {{ author }}
@@ -105,7 +105,7 @@
           </td>
           <td class="db dtc-ns pl4-l">
               <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png"
-                   alt="{{ gettext('Articles-icon-alt-3') }}">
+                   alt="Folder icon">
                 <a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred"
                    href="../../{{ category.url }}">
                       {{ article.category|replace("-", " ") }}
@@ -113,7 +113,7 @@
           </td>
           <td class="db dtc-ns pl4-l">
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"
-                 alt="{{ gettext('Articles-icon-alt-4') }}">
+                 alt="Calendar icon">
               <p class="di f5 ml2 relative">
                  {{ article.locale_date }}
               </p><br/>
@@ -126,7 +126,7 @@
       <div class="authorimg">
         <img class="wr-bdr wr-bdl wr-sz fl"
              src="{{ SITEURL }}/images/authors/{{ article.writer }}.png"
-             alt="{{ gettext('Articles-author-alt') }}">
+             alt="Author picture">
       </div>
       <table class="authorinfo relative w-80 left-1">
         <tr><td>
@@ -146,7 +146,7 @@
       <br/>
       <hr class="c-fluid-gray">
       {% if article.related_posts %}
-        <h4>{{ gettext('Articles-related-sect') }}</h4>
+        <h4>Related</h4>
           <section class="sect-related">
             {% for related_post in article.related_posts %}
               <div class="dit w-32 w-33-l">
@@ -224,7 +224,7 @@
              "position": 1,
              "item": {
                "@id": "{{ SITEURL }}/",
-               "name": "{{ gettext('Breadcrumb-0') }}"
+               "name": "Home"
              }
            },{
              "@type": "ListItem",
@@ -238,7 +238,7 @@
              "position": 3,
              "item": {
                "@id": "{{SITEURL}}/{{ category.url }}../",
-               "name": "{{ gettext('Articles-breadcrumb-1') }}"
+               "name": "Categories"
              }
            },{
              "@type": "ListItem",

@@ -5,9 +5,11 @@
 
 {% block meta %}
   <meta name="description"
-        content="{{ gettext('Index-metadescription') }}">
+        content="Here you can find all the articles published to the blog, which may
+        address an opinion, a solution to a challenge, or just general
+        information, all related to the field of Information Security.">
   <meta name="keywords"
-        content="{{ gettext('Index-keywords') }}">
+        content="Articles, Blog, Opinion, Challenge, Information, Security">
 {% endblock meta %}
 
 {% block canonical %}
@@ -16,7 +18,7 @@
 {% endblock canonical %}
 
 {% block title %}
-{{ gettext('Index-title') }} | {{ SITENAME }}
+Blog | {{ SITENAME }}
 {% endblock title %}
 
 {% block breadcrumb%}
@@ -29,7 +31,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+              <strong>Home</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
@@ -71,7 +73,7 @@
           <div class='post-info tl pl2'>
             <!-- Author -->
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"
-                 alt="{{ gettext('Index-icon-alt-1') }}">
+                 alt="Quill icon">
             {% for author in article.authors %}
               <a class=" c-fluid-bk ttc hv-fluid-dkred "
                  href="{{ SITEURL }}/{{ author.url }}">
@@ -80,14 +82,14 @@
             {% endfor %}
             <!-- Category -->
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"
-                 alt="{{ gettext('Index-icon-alt-2') }}">
+                 alt="Folder icon">
             <a class=" c-fluid-bk ttc hv-fluid-dkred "
                href="{{ SITEURL }}/{{ article.category.url }}">
                {{ article.category|replace("-", " ") }}
             </a><br/>
             <!-- Tags -->
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"
-                 alt="{{ gettext('Index-icon-alt-3') }}">
+                 alt="Tag icon">
             {% for tag in article.tags %}
               {% if loop.last %}
                 <a class=" c-fluid-bk ttc hv-fluid-dkred "
@@ -111,7 +113,7 @@
           <div class="divread absolute bottom-2">
             <span class="button f4 pa2">
               <a href="{{ SITEURL }}/{{ article.url }}">
-                 {{ gettext('Index-msg-btn') }}
+                 Read More
               </a>
             </span>
           </div>

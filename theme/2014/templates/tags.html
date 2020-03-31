@@ -2,12 +2,15 @@
 
 {% block meta %}
   <meta name="description"
-        content="{{ gettext('Tags-metadescrition') }}">
+        content="Here you can find the list of tags used to classify the articles of the
+        blog. These articles are all related to the field of Information Security
+        and may range from an opinion related to a certain topic, or a solution
+        to a challenge, all the way to just general information">
   <meta name="keywords"
-        content="{{ gettext('Tags-keywords') }}">
+        content="Tag, Classify, Articles, Blog, Information, Security">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Tags-title') }} | {{ SITENAME }}{% endblock %}
+{% block title %} Tags | {{ SITENAME }}{% endblock %}
 
 {% block canonical %}
   <link rel="canonical"
@@ -24,7 +27,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+              <strong>Home</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
@@ -37,7 +40,7 @@
           </li>
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
-               href=".">&nbsp;{{ gettext('Tag-breadcrumb-1') }}</a>
+               href=".">&nbsp;Tags</a>
           </li>
         </ul>
       </div>
@@ -47,7 +50,7 @@
 {% block content %}
   <div class="divpage">
     <article class="ma-auto tc mw7">
-      <h1 class="tc">{{ gettext('Tags-header') }}:</h1>
+      <h1 class="tc">Tags:</h1>
       <ul class="tagcloud">
         {% for tag in tag_cloud %}
           <li class="tag-{{ tag.1 }} dib">

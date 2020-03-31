@@ -6,12 +6,15 @@
 
 {% block meta %}
   <meta name="description"
-        content="{{ gettext('Landing-metadescription') }}.">
+        content="We are a company specialized in Ethical Hacking over Applications and
+        Infrastructure. We are hackers who develop our own tools and exploits,
+        with the aim of identifying all the vulnerabilities of your applications
+        and report them as soon as possible.">
   <meta name="keywords"
-        content="{{ gettext('Landing-keywords')}}.">
+        content="Fluid Attacks, Ethical Hacking, Vulnerability, Diagnosis, Application, Infrastructure.">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Landing-title') }} | {{ SITENAME }}{% endblock title %}
+{% block title %} Home | {{ SITENAME }}{% endblock title %}
 
 {% block canonical %}
 <link rel="canonical"
@@ -23,43 +26,49 @@
 <div class="home">
   <!-- Services -->
   <div class="pt3 bg-fluid-lightgray ">
-    <h1 class="c-fluid-red">{{ gettext('Index-header-1') }}</h1>
+    <h1 class="c-fluid-red">Services</h1>
     <div class="flex flex-wrap">
       <div class="fl w-50">
         <h3 class="c-fluid-red tc">
-            {{ gettext('Index-header-2') }}
+            Continuous Hacking
         </h3>
         <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns" >
-           {{ gettext('Index-text-1') }}<br>
+          We <b class="c-fluid-red"> detect vulnerabilities continuously </b>
+          as the software evolves during your development cycle.
+          Our team runs comprehensive testing,
+          detecting all vulnerabilities with no false positives.<br>
         </p>
       </div>
       <div class="fl w-50">
         <h3 class="c-fluid-red tc">
-          {{ gettext('Index-header-3') }}
+          One-Shot Hacking
         </h3>
         <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns">
-          {{ gettext('Index-text-2') }} <br>
+          We detect and report all vulnerabilities
+          within <b class="c-fluid-red"> one specific version </b> of your application.
+          Our team detects all existing vulnerabilities with no false positives. <br>
         </p>
       </div>
       <div class="fl w-50 pt3 pb3">
         <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl2 pr2 "
-                onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}'">
-                {{ gettext('btn-text-1') }}
+                onclick="window.location='{{ SITEURL }}/services/continuous-hacking'">
+                Learn More
         </button>
       </div>
       <div class="fl w-50 pt3 pb3">
         <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl2 pr2 "
-                onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}'">
-                {{ gettext('btn-text-1') }}
+                onclick="window.location='{{ SITEURL }}/services/one-shot-hacking'">
+                Learn More
         </button>
       </div>
     </div>
     <div class="pb3 pt4">
       <p class="tc f4" >
-        {{ gettext('Serv-txt') }}
+        If you haven't made up your mind about which service best suits your
+        needs please visit our
         <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl2 pr2 "
-                onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-3') }}'">
-                {{ gettext('Index-header-3.1') }}
+                onclick="window.location='{{ SITEURL }}/services/comparative'">
+                comparative
         </button> page.
       </p>
     </div>
@@ -95,67 +104,89 @@
   </div>
   <!-- Products -->
   <div class="bg-white w-100 items-center">
-    <h1 class="c-fluid-red">{{ gettext('Navb-opt-3') }}</h1>
+    <h1 class="c-fluid-red">Products</h1>
     <div class="fl w-50-l w-100-ns pb4">
-     <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates/">
+     <a href="{{ SITEURL }}/products/integrates/">
        <span class="c-fluid-bk db montsy b f3" >
-             {{ gettext('service-title-1') }}
+        Integrates: our platform for vulnerability centralization and management
        </span>
      </a><br>
-     <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns pb3">{{ gettext('product-desc-1') }}</p>
+     <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns pb3">
+      Through <b>Integrates</b>, Fluid Attacks communicates
+      all identified security risks to a client’s systems
+      for prompt, efficient and effective remediation.
+      Decision-makers know the status of their projects.
+     </p>
     <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl2 pr2 "
-            onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates'">
-            {{ gettext('btn-text-1') }}
+            onclick="window.location='{{ SITEURL }}/products/integrates'">
+            Learn More
     </button>
     <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl2 pr2 "
-            onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}'">
+            onclick="window.location='{{ SITEURL }}/contact-us'">
             Get a Demo
     </button>
     </div>
     <div class="fl w-50-l w-100-ns pb4">
-    <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts/">
+    <a href="{{ SITEURL }}/products/asserts/">
       <span class="c-fluid-bk db montsy b f3">
-            {{ gettext('service-title-2') }}
+        Asserts: vulnerability automation framework
       </span>
     </a><br>
-    <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns pb3">{{ gettext('product-desc-2') }}</p>
+    <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns pb3">
+      <b>Asserts</b> is an automated closing engine
+      which closes security findings over execution environments (DAST and SAST).
+      Asserts breaks the build if finds out that the vulnerability is open,
+      either because it reopened or has not been closed.
+    </p>
     <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl2 pr2 "
-            onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts'">
-            {{ gettext('btn-text-1') }}
+            onclick="window.location='{{ SITEURL }}/products/asserts'">
+            Learn More
     </button>
     </div>
   </div>
   <!-- Benefits -->
   <div class="w-100 dt bg-fluid-black pt2">
     <div>
-      <h1 class="c-fluid-red">{{ gettext('Index-bnft-header') }}</h1>
-      <p class="white tc pb5 f4">{{ gettext('Index-bnft-text') }}</p>
+      <h1 class="c-fluid-red">Why Fluid Attacks?</h1>
+      <p class="white tc pb5 f4">
+        Attacking Web, APIs, mobile apps, Servers, Networks, IoT Devices <br>
+        SAST - DAST - IAST - SCA - DevSecOps
+      </p>
     </div>
     <div class="benefit fl w-100 w-third-l pa0">
      <span class="c-fluid-red db montsy b f3" >1</span>
      <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5 ph5">
-        {{ gettext('Index-bnft-1') }}
+      <strong class="white">Tracing a vulnerability’s treatment: </strong>
+      Forget about excel files and pdf reports! Stakeholders can manage,
+      report and interact in Integrates, our GRC platform.
      </p>
     </div>
     <div class="benefit fl w-100 w-third-l pa0">
      <span class="c-fluid-red db montsy b f3" >2</span>
      <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5 ph5">
-        {{ gettext('Index-bnft-2') }}
+      <strong class="white">Your security department </strong>
+      <strong class="white"> will no longer delay your project's progress: </strong>
+      With our continuous hacking service, we report your vulnerabilities
+      in the early stages and during the development of your project.
+      Your developers can close vulnerabilities at the pace the project evolves.
      </p>
     </div>
     <div class="benefit fl w-100 w-third-l pa0">
      <span class="c-fluid-red db montsy b f3" >3</span>
      <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5 ph5">
-        {{ gettext('Index-bnft-3') }}
+      <strong class="white">Closing vulnerabilities is guaranteed: </strong>
+      Asserts, our engine, automates attacks to verify
+      the status (open or closed) of vulnerabilities.
+      Asserts can be included in CI / CD environments as security gate.
      </p>
     </div>
   </div>
   <div class="benefit-ftr bg-fluid-black w-100 pb4">
       <p class="white f4 tc">
-        {{ gettext('Bnft-footmsg') }}
+        Learn more about our
         <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl2 pr2"
-                onclick="window.location.href='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Footer-link-2.3') }}/'" >
-                {{ gettext ('Footer-link-2.3') }}
+                onclick="window.location.href='{{ SITEURL }}/services/differentiators/'" >
+                Differentiators
         </button>
       </p>
   </div>
@@ -163,11 +194,11 @@
   <div class="contact-sec bg-fluid-lightgray h5">
     <div class="contact-img ma-auto pt3 w-100">
       <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact.svg"
-           alt="{{ gettext('Contact-img-alt') }}">
+           alt="Letter and red arrow">
     </div>
     <div class="contact-txt w-100">
       <p class="tc pt3" >
-         {{ gettext('Contact-txt') }}</p>
+        Talk to our experts and start solving your vulnerabilities now!</p>
     </div>
     <!-- Contact Form -->
   </div>

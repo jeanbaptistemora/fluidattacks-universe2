@@ -22,7 +22,7 @@
          value="00D1I000001dGP6"/>
   <input type=hidden
          name="retURL"
-         value="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/{{ gettext('Ack-page') }}/"/>
+         value="{{ SITEURL }}/contact-us/thank-you/"/>
   <div class="w-100 w-50-l fl pr2">
     <label for="first_name"
            class="db">
@@ -52,7 +52,7 @@
   <div class="w-100 w-50-l fl pr2 pb3">
     <label for="email"
            class="db">
-           {{ gettext('Form-field-2') }}
+           Email
     </label>
       <input  id="email"
               maxlength="80"
@@ -71,7 +71,7 @@
            value="">
     <label for="mobile"
            class="db">
-           {{ gettext('Form-field-3')}}
+           Mobile
     </label>
       <input  id="mobile"
               maxlength="40"
@@ -82,10 +82,10 @@
               required />
       <span id="valid-msg"
             class="green fr fw8 dn">
-      {{ gettext('Form-number-valid') }}</span>
+      Number is valid</span>
       <span id="error-msg"
             class="c-fluid-red fr fw8 dn">
-      {{ gettext('Form-number-not-valid') }}</span>
+      Number is not valid</span>
   </div>
   {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "/app/deploy/builder/node_modules/intl-tel-input/build/js/intlTelInput.js" %}
     <script type="text/javascript"
@@ -97,7 +97,7 @@
   {% endassets %}
   <label for="Subject"
          class="db tc">
-         {{ gettext('Form-field-4') }}
+         How can we help you?
   </label>
   <select  id="00N1I00000NEIK7"
            name="00N1I00000NEIK7"
@@ -107,11 +107,11 @@
            required>
     <option value=""></option>
     <option value="Quiero una propuesta de servicios">
-      {{ gettext('Form-field-5') }}</option>
+      I want a service proposal</option>
     <option value="Estoy buscando trabajo">
-      {{ gettext('Form-field-6') }}</option>
+      I am looking for a job</option>
     <option value="Quiero una Demo">
-      {{ gettext('Form-field-7') }}</option>
+      I want a Demo</option>
   </select>
   <br>
   <script type="text/javascript">

@@ -2,9 +2,11 @@
 
 {% block meta %}
   <meta name="description"
-        content="{{ gettext('Author-metadescription-1') }} {{ author }}.{{ gettext('Author-metadescription-2') }}">
+        content="Here you can find all the articles written by the author {{ author }}.The articles are ordered by publishing date, starting with the last one.
+        They offer information about the different topics in the field of
+        Information Security.">
   <meta name="keywords"
-        content="{{ gettext('Author-keywords') }}">
+        content="Author, Article, Information, Security, Blog, Publising, Date">
 {% endblock meta %}
 
 {% block title %} {{ author }} | {{ AUTHOR }}{% endblock %}
@@ -39,7 +41,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+              <strong>Home</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
@@ -53,7 +55,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="../">
-              &nbsp;<strong>{{ gettext('Authors-breadcrumb-1') }}</strong>&nbsp;
+              &nbsp;<strong>Authors</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>

@@ -2,9 +2,11 @@
 
 {% block meta %}
   <meta name="description"
-        content="{{ gettext('Category-metadescription-1') }} {{ category.name|replace('-', ' ')|capitalize }}. {{ gettext('Category-metadescription-2') }}.">
+        content="Here you can find all the articles of the blog which are related to the
+        category {{ category.name|replace('-', ' ')|capitalize }}. The articles are ordered according to their publishing date and may
+        address different subjets related to the field of Information Security.">
   <meta name="keywords"
-        content="{{ gettext('Category-keywords') }}">
+        content="Article, Category, Blog, Information, Security, Date">
 {% endblock meta %}
 
 {% block title %}{{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
@@ -24,7 +26,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="{{ SITEURL }}/">
-              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+              <strong>Home</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
@@ -38,7 +40,7 @@
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
                href="../">
-              &nbsp;<strong>{{ gettext('Category-breadcrumb-1') }}</strong>&nbsp;
+              &nbsp;<strong>Categories</strong>&nbsp;
             </a>
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
