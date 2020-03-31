@@ -20,3 +20,9 @@ repos:
     language: system
     files: \.(py)$
     args: []
+  - id: html-tidy
+    name: tidy
+    entry: tidy
+    language: system
+    files: \.(html)$
+    args: []

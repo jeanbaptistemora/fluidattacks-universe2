@@ -11,6 +11,7 @@ in
         pkgs.git
         pkgs.glibcLocales
         pkgs.shellcheck
+        pkgs.html-tidy
         (pkgs.python38.withPackages (ps: with ps; [
           pylint
           flake8

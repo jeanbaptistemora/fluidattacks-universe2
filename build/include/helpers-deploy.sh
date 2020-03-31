@@ -120,7 +120,18 @@ function helper_deploy_compile_site {
   &&  sed -i "s|/app/deploy/builder/node_modules/|../node_modules/|g" theme/2014/templates/contact.html \
   &&  npm run --prefix "${base_folder}" build \
   &&  cp -a "${STARTDIR}/cache" . || true \
-  &&  ./build-site.sh \
+  &&  echo '[INFO] Compiling site' \
+  &&  pelican --fatal errors --fatal warnings content/ \
+  &&  echo '[INFO] Finished compiling site' \
+  &&  rm -rf output/web/de \
+  &&  mv output/web/pages/* output/web/ \
+  &&  rm -rf output/web/pages \
+  &&  cp sitemap.xml output/sitemap.xml \
+  &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
+  &&  sed -i '/<url>/{:a;N;/<\/url>/!ba};/blog\/\(authors\|tags\|categories\)/d' output/sitemap.xml \
+  &&  sed -i '/^$/d' output/sitemap.xml \
+  &&  rm output/web/sitemap.xml \
+  &&  cp robots.txt output/robots.txt \
   &&  cp -a cache/ "${STARTDIR}" || true \
   &&  cp -a "${base_folder}/node_modules" new/theme/2014/ \
   &&  cp -a "${base_folder}/node_modules" new/ \
@@ -129,7 +140,12 @@ function helper_deploy_compile_site {
   &&  pushd new/ || return 1 \
   &&  npm run --prefix "../${base_folder}" build-new \
   &&  cp -a "${STARTDIR}/new/cache" . || true \
-  &&  ./build-site.sh \
+  &&  echo '[INFO] Compiling New site' \
+  &&  pelican --fatal errors --fatal warnings content/ \
+  &&  echo '[INFO] Finished compiling New site' \
+  &&  rm -rf output/web \
+  &&  mv output/newweb/pages/* output/newweb/ \
+  &&  rm -rf output/newweb/pages \
   &&  cp -a cache/ "${STARTDIR}/new" || true \
   &&  popd || return 1 \
   &&  cp -a new/output/newweb output/
