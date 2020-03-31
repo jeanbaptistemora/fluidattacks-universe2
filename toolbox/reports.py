@@ -3,10 +3,9 @@ import re
 import csv
 import glob
 from multiprocessing import Pool, cpu_count
-from typing import List
+from typing import List, NamedTuple
 from itertools import repeat
 from concurrent.futures.thread import ThreadPoolExecutor
-from collections import namedtuple
 
 # Third parties libraries
 import ruamel.yaml as yaml
@@ -14,10 +13,11 @@ import ruamel.yaml as yaml
 # Local imports
 from toolbox import constants, helper, logger, toolbox, utils
 
-
-ExploitInfo = namedtuple(
-    'ExploitInfo', ('subscription', 'integrates_status', 'kind', 'type',
-                    'score', 'finding_id', 'finding_title', 'url', 'customer'))
+ExploitInfo = NamedTuple('ExploitInfo',
+                         [('subscription', str), ('customer', str),
+                          ('integrates_status', str), ('kind', str),
+                          ('type', str), ('score', float), ('finding_id', str),
+                          ('finding_title', str), ('url', str)])
 
 
 def get_customer_subs(customer: str) -> tuple:
@@ -132,23 +132,45 @@ def process_exploit(exp_path: str):
 
     :rtype: :class:`ExploitInfo`
     """
+    result = None
     subs = exp_path.split('/')[1]
     exp_type = exp_path.split('/')[3]
 
     exp_kind, finding_id = toolbox.scan_exploit_for_kind_and_id(exp_path)
+    if helper.integrates.does_finding_exist(finding_id):
+        score = helper.integrates.get_finding_cvss_score(finding_id)
+        title = helper.integrates.get_finding_title(finding_id)
 
-    score = helper.integrates.get_finding_cvss_score(finding_id)
-    title = helper.integrates.get_finding_title(finding_id)
+        url = ('https://fluidattacks.com/integrates/dashboard#!/'
+               f'project/{subs}/findings/{finding_id}/evidence')
+        status = ('accepted' if 'accepted' in exp_path else
+                  ('open' if helper.integrates.is_finding_open(
+                      finding_id=finding_id,
+                      finding_types=(constants.SAST if exp_type == 'static'
+                                     else constants.DAST)) else 'closed'))
 
-    url = (f'https://fluidattacks.com/integrates/dashboard#!/'
-           f'project/{subs}/findings/{finding_id}/evidence')
-    status = ('accepted' if 'accepted' in exp_path else
-              ('open' if helper.integrates.is_finding_open(
-                  finding_id=finding_id,
-                  finding_types=(constants.SAST if exp_type == 'static' else
-                                 constants.DAST)) else 'closed'))
-    return ExploitInfo(subs, status, exp_kind, exp_type, score, finding_id,
-                       title, url, None)
+        result = ExploitInfo(
+            subscription=subs,
+            integrates_status=status,
+            kind=exp_kind,
+            type=exp_type,
+            score=score,
+            finding_id=finding_id,
+            customer='',
+            finding_title=title,
+            url=url)
+    else:
+        result = ExploitInfo(
+            subscription=subs,
+            customer='',
+            integrates_status='unknown',
+            kind=exp_kind,
+            type=exp_type,
+            score=0,
+            finding_id=finding_id,
+            finding_title='unknown',
+            url='unknown')
+    return result
 
 
 def process_subscription_exploits(subs: dict) -> List:
@@ -168,13 +190,21 @@ def process_subscription_exploits(subs: dict) -> List:
     return result
 
 
-def generate_exploits_report():
+def generate_exploits_report(file_name: str = 'report.csv',
+                             customer: str = None,
+                             subscription: str = None):
     """
     Generate a report of all exploits.
     """
-    result = []
-    for subs in utils.iter_subscritions_config():
-        if not toolbox.has_break_build(subs['name']):
-            continue
+    with open(file_name, 'w') as new_csv_handle:
+        writer = csv.DictWriter(new_csv_handle, fieldnames=ExploitInfo._fields)
+        writer.writeheader()
+        for subs in utils.iter_subscritions_config():
+            if not toolbox.has_break_build(subs['name']) or (
+                    customer and subs['customer'] != customer) or (
+                        subscription and subs['name'] != subscription):
+                continue
 
-        result.append(process_subscription_exploits(subs))
+            info = process_subscription_exploits(subs)
+            for row in info:
+                writer.writerow(row._asdict())
