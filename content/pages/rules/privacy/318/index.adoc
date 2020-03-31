@@ -1,0 +1,39 @@
+:slug: rules/318/
+:category: privacy
+:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of notifying third parties whenever data rectification or erasure occurs.
+:keywords: Requirement, Security, Data, GDPR, Notification, Third Party
+:rules: yes
+
+= REQ.318 Notify third parties of changes
+
+== Requirement
+
+The system must notify third parties when it rectifies or erases shared
+personal information.
+
+== Description
+
+Systems usually request information from the users,
+obtain it from third parties or collect it based on their interactions with the
+application.
+They sometimes share personal information with third parties after having
+requested consent from its owner.
+Whenever this information will be rectified or erased upon request from its
+owner,
+the system must notify said third parties so that they may do the same.
+This is also the case when the user requests that the system stop processing
+his data.
+
+== Exceptions
+
+. The system must proceed with the notification unless it is impossible or
+involves disproportionate effort.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-19-gdpr/[GDPR. Art. 19: Notification obligation regarding rectification
+or erasure of personal data or restriction of processing.]
+The controller shall communicate any rectification or erasure of personal data
+or restriction of processing to each recipient to whom the personal data have
+been disclosed,
+unless this proves impossible or involves disproportionate effort.
