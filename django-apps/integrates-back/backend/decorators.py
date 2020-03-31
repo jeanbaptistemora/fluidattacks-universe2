@@ -33,10 +33,7 @@ from backend.exceptions import InvalidAuthorization
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-CASBIN_ADAPTER = getattr(settings, 'CASBIN_ADAPTER')
 ENFORCER_PROJECT_ACCESS = getattr(settings, 'ENFORCER_PROJECT_ACCESS')
-ENFORCER_USER_LEVEL = getattr(settings, 'ENFORCER_USER_LEVEL')
-ENFORCER_USER_LEVEL_ASYNC = getattr(settings, 'ENFORCER_USER_LEVEL_ASYNC')
 
 UNAUTHORIZED_ROLE_MSG = 'Security: Unauthorized role attempted to perform operation'
 
@@ -216,7 +213,7 @@ def enforce_group_level_auth_async(func):
     return verify_and_call
 
 
-def _enforce_user_level_auth(func, enforcer):
+def enforce_user_level_auth(func):
     """Enforce authorization using the user-level role."""
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
@@ -226,6 +223,9 @@ def _enforce_user_level_auth(func, enforcer):
         subject = user_data['user_email']
         object_ = 'self'
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
+
+        enforcer = \
+            authorization_utils.get_user_level_authorization_enforcer(subject)
 
         try:
             if not enforcer.enforce(subject, object_, action):
@@ -238,14 +238,29 @@ def _enforce_user_level_auth(func, enforcer):
     return verify_and_call
 
 
-def enforce_user_level_auth(func):
-    """Enforce authorization using the user-level role."""
-    return _enforce_user_level_auth(func, ENFORCER_USER_LEVEL)
-
-
 def enforce_user_level_auth_async(func):
     """Enforce authorization using the user-level role."""
-    return _enforce_user_level_auth(func, ENFORCER_USER_LEVEL_ASYNC)
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        context = args[1].context
+        user_data = util.get_jwt_content(context)
+
+        subject = user_data['user_email']
+        object_ = 'self'
+        action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
+
+        enforcer = \
+            authorization_utils.get_user_level_authorization_enforcer_async(subject)
+
+        try:
+            if not enforcer.enforce(subject, object_, action):
+                util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+                raise GraphQLError('Access denied')
+        except AttributeDoesNotExist:
+            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            raise GraphQLError('Access denied')
+        return func(*args, **kwargs)
+    return verify_and_call
 
 
 def verify_jti(email, context, jti):

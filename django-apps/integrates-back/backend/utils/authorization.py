@@ -63,6 +63,28 @@ def get_cached_subject_policies(subject: str):
     return fetched_data
 
 
+def get_user_level_authorization_enforcer(subject: str) -> CasbinEnforcer:
+    """Return a filtered group-level authorization for the provided subject."""
+    policies = get_cached_subject_policies(subject)
+    adapter = CasbinInMemoryAdapter(policies)
+
+    return CasbinEnforcer(
+        model=get_perm_metamodel_path('user_level.conf'),
+        adapter=adapter,
+    )
+
+
+def get_user_level_authorization_enforcer_async(subject: str) -> CasbinEnforcer:
+    """Return a filtered group-level authorization for the provided subject."""
+    policies = get_cached_subject_policies(subject)
+    adapter = CasbinInMemoryAdapter(policies)
+
+    return CasbinEnforcer(
+        model=get_perm_metamodel_path('user_level_async.conf'),
+        adapter=adapter,
+    )
+
+
 def get_group_level_authorization_enforcer(subject: str) -> CasbinEnforcer:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)

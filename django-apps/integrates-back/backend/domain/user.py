@@ -65,6 +65,7 @@ def grant_user_level_role(
 
     # Reload config
     if reload:
+        authorization_util.revoke_cached_subject_policies(email)
         settings.ENFORCER_USER_LEVEL.load_policy()
         settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
 
