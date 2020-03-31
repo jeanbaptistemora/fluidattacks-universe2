@@ -322,7 +322,6 @@ async def _get_events(info, project_name):
 
 
 @enforce_group_level_auth_async
-@get_entity_cache_async
 async def _get_users(info, project_name):
     """Get users."""
     user_data = util.get_jwt_content(info.context)

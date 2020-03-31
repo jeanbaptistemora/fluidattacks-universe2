@@ -305,7 +305,6 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         return self.tags
 
     @enforce_group_level_auth
-    @get_entity_cache
     def resolve_users(self, info):
         """ Resolve project users """
         user_data = util.get_jwt_content(info.context)
