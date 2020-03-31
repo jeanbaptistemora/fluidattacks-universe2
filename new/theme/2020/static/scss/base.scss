@@ -110,9 +110,10 @@ $codeyellow: rgba(230, 219, 116, 1);
 .anchor-sign { &::before { content: '\0023'; } }
 .banner-bg { background-image: url('../../images/cover-main.png'); }
 .asap-bg { background-image: url('../../images/background-asap.png'); height: 25rem; }
-.continuous-bg { background-image: url('../../images/main-continuous-hacking.png'); }
-.one-shot-bg { background-image: url('../../images/main-one-shot.png'); }
-.products-bg { background-image: url('../../images/products-cover.png'); }
+.continuous-bg { background-image: url('../../images/use-cases/continuous/main-continuous-hacking.png'); }
+.one-shot-bg { background-image: url('../../images/use-cases/continuous/main-one-shot.png'); }
+.products-bg { background-image: url('../../images/products/products-cover.png'); }
+.integrates-bg { background-image: url('../../images/products/integrates/integrates-cover.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scaleY(1.2);
@@ -150,6 +151,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   transition: all ease-in-out .5s; } }
 .f-sub { font-size: 1.9rem; }
 .right-small { right: .6rem; }
+.nbs {margin-bottom: -.15rem; }
 
 // Tachyons custom responsive classes
 

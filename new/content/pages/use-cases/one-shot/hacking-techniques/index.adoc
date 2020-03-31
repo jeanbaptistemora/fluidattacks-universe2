@@ -4,7 +4,7 @@
 :nextpage: use-cases/one-shot/environments/
 :category: one-shot
 :section: One-Shot Hacking
-:template: feature
+:template: use-cases/feature
 
 = Hacking Techniques, Team, Duration and Cycle
 

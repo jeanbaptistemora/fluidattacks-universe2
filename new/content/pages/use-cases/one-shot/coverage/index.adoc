@@ -4,7 +4,7 @@
 :nextpage: use-cases/one-shot/infection/
 :category: one-shot
 :section: One-Shot Hacking
-:template: feature
+:template: use-cases/feature
 
 = Coverage
 

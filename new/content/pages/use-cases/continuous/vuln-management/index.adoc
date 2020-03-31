@@ -4,7 +4,7 @@
 :nextpage: use-cases/continuous/mock-attacks/
 :category: continuous
 :section: Continuous Hacking
-:template: feature
+:template: use-cases/feature
 
 = Vulnerability Management Platform
 

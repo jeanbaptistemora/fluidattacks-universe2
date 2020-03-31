@@ -3,7 +3,7 @@
 :keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
 :category: one-shot
 :section: One-Shot Hacking
-:template: feature
+:template: use-cases/feature
 
 = Critical Information Extraction and Information Removal
 

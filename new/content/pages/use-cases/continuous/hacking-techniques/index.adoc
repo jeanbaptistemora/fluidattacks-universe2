@@ -4,7 +4,7 @@
 :nextpage: use-cases/continuous/healthcheck/
 :category: continuous
 :section: Continuous Hacking
-:template: feature
+:template: use-cases/feature
 
 = Hacking Techniques, Team, Duration and Cycles
 
