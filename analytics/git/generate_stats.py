@@ -40,6 +40,11 @@ def main():  # noqa
         subs_total_repos_count: float = \
             subs_cloned_repos_count + subs_error_repos_count
 
+        if subs_total_repos_count > 0 and subs_cloned_repos_count == 0:
+            empty_repos = open("empty_repos.txt", "a")
+            empty_repos.write(f"{subs}\n")
+            empty_repos.close()
+
         if subs_error_repos:
             messages.append('  - {:^22s} {:>3.0f}/{:>3.0f}'.format(
                 subs, subs_cloned_repos_count, subs_total_repos_count))
