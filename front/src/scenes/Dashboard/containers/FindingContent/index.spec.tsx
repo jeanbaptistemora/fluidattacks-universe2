@@ -60,6 +60,7 @@ describe("FindingContent", () => {
         query: GET_FINDING_HEADER,
         variables: {
           findingId: "438679960",
+          submissionField: true,
         },
       },
       result: {
@@ -96,6 +97,7 @@ describe("FindingContent", () => {
       query: GET_FINDING_HEADER,
       variables: {
         findingId: "438679960",
+        submissionField: true,
       },
     },
     result: {

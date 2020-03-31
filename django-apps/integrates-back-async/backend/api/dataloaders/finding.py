@@ -24,12 +24,13 @@ from aiodataloader import DataLoader
 from ariadne import convert_camel_case_to_snake
 
 
-@sync_to_async
-def _batch_load_fn(finding_ids):
+async def _batch_load_fn(finding_ids):
     """Batch the data load requests within the same execution fragment."""
     findings = defaultdict(list)
 
-    for finding in finding_domain.get_findings(finding_ids):
+    for finding in await sync_to_async(finding_domain.get_findings)(
+        finding_ids
+    ):
         findings[finding['findingId']] = dict(
             actor=finding.get('actor', ''),
             affected_systems=finding.get('affectedSystems', ''),
@@ -479,6 +480,8 @@ async def resolve(info, identifier, as_field=False):
         if as_field else info.field_nodes[0].selection_set.selections
 
     for requested_field in requested_fields:
+        if util.is_skippable(info, requested_field):
+            continue
         params = {
             'identifier': identifier
         }

@@ -36,7 +36,7 @@ import { TrackingView } from "../TrackingView/index";
 import { default as style } from "./index.css";
 import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER,
-  GET_FINDING_HEADER_NO_HISTORY, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
+  REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
 } from "./queries";
 import { IFindingContentProps, IHeaderQueryResult } from "./types";
 
@@ -58,8 +58,8 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], userRole);
 
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
-    canGetHistoricState ? GET_FINDING_HEADER : GET_FINDING_HEADER_NO_HISTORY, {
-    variables: { findingId },
+    GET_FINDING_HEADER, {
+    variables: { findingId, submissionField: canGetHistoricState },
   });
 
   const [submitDraft, { loading: submitting }] = useMutation(

@@ -491,3 +491,14 @@ def get_field_parameters(field):
         return None
     return {convert_camel_case_to_snake(args.name.value): args.value.value
             for args in field.arguments if hasattr(args.value, 'value')}
+
+
+def is_skippable(info, field):
+    """Check if field is need to be skipped."""
+    if not field.directives:
+        return False
+    include_dir = list(
+        filter(lambda dire: dire.name.value == 'include', field.directives)
+    )
+    var_name = include_dir[0].arguments[0].value.name.value
+    return not info.variable_values[var_name]
