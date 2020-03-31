@@ -114,10 +114,6 @@ function helper_deploy_compile_site {
   &&  PATH="${PATH}:$(pwd)/${base_folder}/node_modules/uglify-js/bin/" \
   &&  cp -a "${base_folder}/node_modules" theme/2014/ \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
-  &&  sed -i "s|/app/pelican-plugins|pelican-plugins|g" pelicanconf.py \
-  &&  sed -i "s|/app/js/|js/|g" theme/2014/templates/base.html \
-  &&  sed -i "s|/app/deploy/builder/node_modules/|../node_modules/|g" theme/2014/templates/base.html \
-  &&  sed -i "s|/app/deploy/builder/node_modules/|../node_modules/|g" theme/2014/templates/contact.html \
   &&  npm run --prefix "${base_folder}" build \
   &&  cp -a "${STARTDIR}/cache" . || true \
   &&  echo '[INFO] Compiling site' \
@@ -136,7 +132,6 @@ function helper_deploy_compile_site {
   &&  cp -a "${base_folder}/node_modules" new/theme/2014/ \
   &&  cp -a "${base_folder}/node_modules" new/ \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" new/pelicanconf.py \
-  &&  sed -i "s|/app/pelican-plugins|../pelican-plugins|g" new/pelicanconf.py \
   &&  pushd new/ || return 1 \
   &&  npm run --prefix "../${base_folder}" build-new \
   &&  cp -a "${STARTDIR}/new/cache" . || true \

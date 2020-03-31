@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 """
 Pelican configuration
 """
@@ -32,7 +33,7 @@ LANDING_SAVE_AS = 'index.html'
 ERROR_SAVE_AS = 'error/index.html'
 
 # Plugins configuration
-PLUGIN_PATHS = ['/app/pelican-plugins']
+PLUGIN_PATHS = ['pelican-plugins']
 PLUGINS = [
     'asciidoc_reader',
     'assets',

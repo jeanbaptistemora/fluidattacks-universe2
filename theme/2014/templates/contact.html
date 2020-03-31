@@ -87,7 +87,7 @@
             class="c-fluid-red fr fw8 dn">
       Number is not valid</span>
   </div>
-  {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "/app/deploy/builder/node_modules/intl-tel-input/build/js/intlTelInput.js" %}
+  {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
     <script type="text/javascript"
             src="{{ SITEURL }}/{{ ASSET_URL }}">
     </script>

@@ -14,15 +14,17 @@ repos:
     language: system
     files: \.(py)$
     args: []
+    exclude: ^.*/pelicanconf.py
   - id: flake8
     name: flake8
     entry: flake8
     language: system
     files: \.(py)$
     args: []
-  - id: html-tidy
+  - id: tidy
     name: tidy
     entry: tidy
     language: system
     files: \.(html)$
-    args: []
+    args: ["-q"]
+    exclude: ^.*/templates/

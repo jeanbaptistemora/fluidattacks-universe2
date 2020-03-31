@@ -194,7 +194,7 @@ function job_test_defends {
       done
 }
 
-function job_deploy_ephemeral_local {
+function job_deploy_local {
       helper_deploy_compile_site 'http://localhost:8000' \
   &&  python3 -m http.server --directory output
 }
