@@ -19,7 +19,6 @@ import { dropdownField, tagInputField, textField } from "../../../../utils/forms
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
-import { IDescriptionViewProps } from "../../containers/DescriptionView";
 import { IHistoricTreatment } from "../../containers/DescriptionView/types";
 import { GenericForm } from "../GenericForm";
 import { DELETE_TAGS_MUTATION, GET_PROJECT_USERS, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
@@ -98,19 +97,15 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
     >
       {(updateTreatmentVuln: MutationFunction<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>): JSX.Element => {
 
-          const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"]) => void) =
-            (dataTreatment: IDescriptionViewProps["dataset"]): void => {
+          const handleUpdateTreatmentVuln: ((dataTreatment: IUpdateTreatmentVulnAttr) => void) =
+            (dataTreatment: IUpdateTreatmentVulnAttr): void => {
               if (props.vulnerabilities.length === 0) {
                 msgError(translate.t("search_findings.tab_resources.no_selection"));
               } else {
                 updateTreatmentVuln({variables: {
-                  acceptanceDate: dataTreatment.acceptanceDate,
-                  btsUrl: dataTreatment.btsUrl,
                   findingId: props.findingId,
                   severity: !_.isEmpty(dataTreatment.severity) ? Number(dataTreatment.severity) : -1,
                   tag: dataTreatment.tag,
-                  treatment: dataTreatment.treatment,
-                  treatmentJustification: dataTreatment.justification,
                   treatmentManager: dataTreatment.treatmentManager,
                   vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
                 }})

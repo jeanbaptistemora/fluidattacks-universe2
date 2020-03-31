@@ -172,12 +172,8 @@ describe("Vulnerabilities view", () => {
         id: "test",
         specific: "",
         treatments: {
-          acceptanceDate: "",
-          btsUrl: "",
           severity: "",
           tag: "one",
-          treatment: "",
-          treatmentJustification: "",
           treatmentManager: "",
         },
         where: "",

@@ -14,10 +14,21 @@ export interface IVulnsAttr {
 }
 
 export interface IVulnRow {
-  acceptanceDate: string; analyst: string; currentApprovalStatus: string; currentState: string; externalBts: string;
-  id: string; isNew: string; lastAnalyst: string; lastApprovedStatus: string; remediated: boolean; severity: string;
-  specific: string; tag: string; treatment: string; treatmentJustification: string; treatmentManager: string;
-  verification: string; vulnType: string; where: string;
+  analyst: string;
+  currentApprovalStatus: string;
+  currentState: string;
+  id: string;
+  isNew: string;
+  lastAnalyst: string;
+  lastApprovedStatus: string;
+  remediated: boolean;
+  severity: string;
+  specific: string;
+  tag: string;
+  treatmentManager: string;
+  verification: string;
+  vulnType: string;
+  where: string;
 }
 
 export interface IApproveVulnAttr {
@@ -33,8 +44,11 @@ export interface IUploadVulnerabilitiesResult {
 }
 
 export interface IUpdateTreatmentVulnAttr {
-  acceptanceDate: string; btsUrl: string; findingId: string; severity?: number; tag?: string; treatment: string;
-  treatmentJustification: string; treatmentManager: string; vulnerabilities: string[];
+  findingId: string;
+  severity?: number;
+  tag?: string;
+  treatmentManager: string;
+  vulnerabilities: string[];
 }
 
 export interface IUpdateVulnTreatment {
@@ -58,12 +72,8 @@ export interface IVulnDataType {
   id: string;
   specific: string;
   treatments: {
-    acceptanceDate: string;
-    btsUrl: string;
     severity: string;
     tag: string;
-    treatment: string;
-    treatmentJustification: string;
     treatmentManager: string;
   };
   where: string;

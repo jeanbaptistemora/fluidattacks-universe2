@@ -39,19 +39,6 @@ import { UpdateTreatmentModal } from "./updateTreatment";
 import { UploadVulnerabilites } from "./uploadFile";
 
 type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
-interface ICategoryVulnType {
-  acceptanceDate: string;
-  currentState: string;
-  externalBts: string;
-  id: string;
-  severity: string;
-  specific: string;
-  tag: string;
-  treatment: string;
-  treatmentJustification: string;
-  treatmentManager: string;
-  where: string;
-}
 
 export const getAttrVulnUpdate: (selectedQery: NodeListOf<Element>) => ISelectRowType =
 (selectedQery: NodeListOf<Element>): ISelectRowType =>  {
@@ -147,7 +134,6 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         analyst: "",
         currentApprovalStatus: line[0].currentApprovalStatus,
         currentState: line[0].currentState,
-        externalBts: line[0].externalBts,
         id: line[0].id,
         isNew: line[0].isNew,
         lastAnalyst: "",
@@ -161,8 +147,6 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         tag: Array.from(new Set(line.map(getTag)))
           .filter(Boolean)
           .join(", "),
-        treatment: line[0].treatment,
-        treatmentJustification: line[0].treatmentJustification,
         treatmentManager: Array.from(new Set(line.map(getTreatmentManager)))
           .filter(Boolean)
           .join(", "),
@@ -177,11 +161,9 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
 const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => (
     _.map(lines, (line: IVulnType[0]) =>
       ({
-        acceptanceDate: line.acceptanceDate,
         analyst: line.analyst,
         currentApprovalStatus: line.currentApprovalStatus,
         currentState: line.currentState,
-        externalBts: line.externalBts,
         id: line.id,
         isNew: _.isEmpty(line.lastApprovedStatus) ?
         translate.t("search_findings.tab_description.new") :
@@ -192,28 +174,22 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         severity: getSeverity(line),
         specific: line.specific,
         tag: line.tag,
-        treatment: line.treatment,
-        treatmentJustification: line.treatmentJustification,
         treatmentManager: line.treatmentManager,
         verification: line.verification,
         vulnType: line.vulnType,
         where: line.where,
       })));
 
-const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVulnDataType[]) =>
-  IVulnDataType[] = (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVulnDataType[]):
+const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]) =>
+  IVulnDataType[] = (selectedRow: ISelectRowType, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]):
   IVulnDataType[] => {
     selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
       categoryVuln.forEach((vuln: {
-        acceptanceDate: string;
         currentState: string;
-        externalBts: string;
         id: string;
         severity: string;
         specific: string;
         tag: string;
-        treatment: string;
-        treatmentJustification: string;
         treatmentManager: string;
         where: string;
       }) => {
@@ -223,12 +199,8 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
           id: vuln.id,
           specific: vuln.specific,
           treatments: {
-            acceptanceDate: vuln.acceptanceDate,
-            btsUrl: vuln.externalBts,
             severity: vuln.severity,
             tag: vuln.tag,
-            treatment: vuln.treatment,
-            treatmentJustification: vuln.treatmentJustification,
             treatmentManager: vuln.treatmentManager,
           },
           where: vuln.where,
@@ -240,13 +212,13 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
     return vulnData;
   };
 
-const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]) =>
-  IVulnDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]):
+const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: IVulnRow[][]) =>
+  IVulnDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: IVulnRow[][]):
   IVulnDataType[] => {
   let arrayVulnInfo: IVulnDataType[] = [];
   selectedRowArray.forEach((selectedRow: ISelectRowType) => {
     if (!_.isUndefined(selectedRow)) {
-      arrayVulnCategory.forEach((category: ICategoryVulnType[]) => {
+      arrayVulnCategory.forEach((category: IVulnRow[]) => {
         arrayVulnInfo = getVulnByRow(selectedRow, category, arrayVulnInfo);
       });
     }
@@ -751,9 +723,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const calculateRowsSelected: () => ICalculateRowsSelected = (): ICalculateRowsSelected  => {
               const selectedRows: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
               const selectedRowArray: ISelectRowType[] = [];
-              const arrayVulnCategory: ICategoryVulnType[][] = [data.finding.inputsVulns,
-                                                                data.finding.linesVulns,
-                                                                data.finding.portsVulns];
+              const arrayVulnCategory: IVulnRow[][] = [
+                data.finding.inputsVulns,
+                data.finding.linesVulns,
+                data.finding.portsVulns,
+              ];
               selectedRows.forEach((selectQry: NodeListOf<Element>) => {
                 selectedRowArray.push(getAttrVulnUpdate(selectQry));
               });
