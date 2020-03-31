@@ -2,7 +2,6 @@
 set -e
 
 echo '[INFO] Compiling New site'
-pybabel compile --directory theme/2020/translations --domain messages
 pelican --fatal errors --fatal warnings content/
 echo '[INFO] Finished compiling New site'
 
