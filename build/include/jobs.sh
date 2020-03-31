@@ -83,11 +83,11 @@ function job_test_pre_commit {
 
 function job_test_images {
   local blog_covers
-  local png_images
+  local touched_png_images
   local all_images
 
       blog_covers="$(find content/blog/ -type f -name cover.png)" \
-  &&  png_images="$(find content/ -type f -name '*.png')" \
+  &&  touched_png_images="$(helper_list_touched_files | grep '.png')" || true \
   &&  all_images="$(find content/ -name '*' -exec file --mime-type {} \; | grep -oP '.*(?=: image/)')" \
   &&  echo '[INFO] Testing all images' \
   &&  for image in ${all_images}
@@ -102,7 +102,7 @@ function job_test_images {
         ||  return 1
       done \
   &&  echo '[INFO] Testing PNG images' \
-  &&  for image in ${png_images}
+  &&  for image in ${touched_png_images}
       do
             helper_image_optimized "${image}" \
         &&  helper_image_size "${image}" \
@@ -112,7 +112,6 @@ function job_test_images {
 
 function job_test_generic {
   local all_content_files
-  local all_adoc_files
   local touched_adoc_files
   local max_columns='81'
   local min_words='10'
@@ -120,7 +119,6 @@ function job_test_generic {
   local max_lix='65'
 
       all_content_files="$(find content/ -type f)" \
-  &&  all_adoc_files="$(find content/ -type f -name '*.adoc')" \
   &&  touched_adoc_files="$(helper_list_touched_files | grep '.adoc')" || true \
   &&  echo '[INFO] Testing forbidden extensions' \
   &&  helper_generic_forbidden_extensions \
@@ -130,8 +128,8 @@ function job_test_generic {
             helper_generic_file_name "${path}" \
         ||  return 1
       done \
-  && echo '[INFO] Testing adoc files' \
-  &&  for path in ${all_adoc_files}
+  && echo '[INFO] Testing touched adoc files' \
+  &&  for path in ${touched_adoc_files}
       do
             helper_generic_adoc_main_title "${path}" \
         &&  helper_generic_adoc_min_keywords "${path}" \
@@ -141,11 +139,7 @@ function job_test_generic {
         &&  helper_generic_adoc_others "${path}" \
         &&  helper_adoc_tag_exists "${path}" ':description:' \
         &&  helper_adoc_max_columns "${path}" "${max_columns}" \
-        ||  return 1
-      done \
-  &&  for path in ${touched_adoc_files}
-      do
-            helper_word_count "${path}" "${min_words}" "${max_words}" \
+        &&  helper_word_count "${path}" "${min_words}" "${max_words}" \
         &&  helper_test_lix "${path}" "${max_lix}" \
         ||  return 1
       done

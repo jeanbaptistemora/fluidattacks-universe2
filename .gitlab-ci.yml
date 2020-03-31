@@ -119,8 +119,8 @@ send_new_release_email:
   <<: *with_nix
   <<: *in_master_branch
   stage: postdeploy
-  except:
-    - schedules
+  needs: [deploy_production]
+  except: [schedules]
 
 builder:
   image: fluidattacks/docker-bash:latest
@@ -145,6 +145,7 @@ lint-typescript-new-web:
 
 commitlint:
   tags: [autoscaling]
+  needs: []
   stage: test
   image: starefossen/ruby-node:2-10
   before_script:
