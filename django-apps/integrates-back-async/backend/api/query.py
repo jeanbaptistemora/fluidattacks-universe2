@@ -22,7 +22,3 @@ QUERY.set_field('user', user.resolve_user)
 QUERY.set_field('forcesExecutions', forces.resolve_forces_executions)
 QUERY.set_field('finding', finding.resolve_finding)
 QUERY.set_field('project', project.resolve_project)
-
-# Specific field resolvers
-ME.set_field('role', me.resolve_role)
-FINDING.set_field('vulnerabilities', finding.resolve_vulnerabilities)

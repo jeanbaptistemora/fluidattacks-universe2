@@ -29,10 +29,11 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
-@convert_kwargs_to_snake_case
-def resolve_role(_, info, project_name: str = '') -> str:
+@sync_to_async
+def _get_role(
+    jwt_content: Dict[str, str], project_name: str = None
+) -> Dict[str, str]:
     """Get role."""
-    jwt_content = util.get_jwt_content(info.context)
     user_email = jwt_content['user_email']
 
     if project_name:
@@ -44,7 +45,7 @@ def resolve_role(_, info, project_name: str = '') -> str:
         email = jwt_content.get('user_email', '')
         role = 'customeradmin' if is_customeradmin(
             project_name, email) else 'customer'
-    return role
+    return dict(role=role)
 
 
 @sync_to_async
@@ -115,16 +116,24 @@ async def _resolve_fields(info) -> Dict[int, Any]:
     result: Dict[int, Any] = dict()
     tasks = list()
     jwt_content = util.get_jwt_content(info.context)
+    params = {
+        'jwt_content': jwt_content
+    }
     for requested_field in info.field_nodes[0].selection_set.selections:
-        snake_field = convert_camel_case_to_snake(requested_field.name.value)
-        if snake_field.startswith('_') or snake_field == 'role':
+        field_params = util.get_field_parameters(requested_field)
+        if field_params:
+            params.update(field_params)
+        requested_field = \
+            convert_camel_case_to_snake(requested_field.name.value)
+        if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
             sys.modules[__name__],
-            f'_get_{snake_field}'
+            f'_get_{requested_field}'
         )
-        future = asyncio.ensure_future(resolver_func(jwt_content))
-        tasks.append(future)
+        tasks.append(
+            asyncio.ensure_future(resolver_func(**params))
+        )
     tasks_result = await asyncio.gather(*tasks)
     for dict_result in tasks_result:
         result.update(dict_result)

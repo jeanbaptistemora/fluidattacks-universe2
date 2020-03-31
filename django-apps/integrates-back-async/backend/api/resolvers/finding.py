@@ -20,17 +20,6 @@ from ariadne import convert_kwargs_to_snake_case
 
 
 @convert_kwargs_to_snake_case
-def resolve_vulnerabilities(
-    _, info, vuln_type=None, state=None, approval_status=None
-):
-    """Resolve vulnerabilities field."""
-    return util.run_async(
-        finding_loader.resolve_vulnerabilities, info, vuln_type,
-        state, approval_status
-    )
-
-
-@convert_kwargs_to_snake_case
 @require_login
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async

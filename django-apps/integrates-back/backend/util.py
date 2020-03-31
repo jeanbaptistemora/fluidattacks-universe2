@@ -36,6 +36,11 @@ from __init__ import (
     FORCES_TRIGGER_TOKEN
 )
 
+try:
+    from ariadne import convert_camel_case_to_snake
+except ImportError:
+    pass
+
 logging.config.dictConfig(settings.LOGGING)  # type: ignore
 LOGGER = logging.getLogger(__name__)
 NUMBER_OF_BYTES = 32  # length of the key
@@ -478,3 +483,11 @@ def get_requested_fields(field_name, selection_set):
                selection_set.selections)
     )
     return field_set[0].selection_set.selections
+
+
+def get_field_parameters(field):
+    """Get a dict of parameters for field."""
+    if not field.arguments:
+        return None
+    return {convert_camel_case_to_snake(args.name.value): args.value.value
+            for args in field.arguments if hasattr(args.value, 'value')}

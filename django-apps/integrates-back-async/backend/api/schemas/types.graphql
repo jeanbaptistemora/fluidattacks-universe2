@@ -17,6 +17,7 @@ type Event {
     detail: String
     eventType: String
     eventDate: String
+    eventStatus: String
     historicState: [GenericScalar]
     affectation: String
     accessibility: String

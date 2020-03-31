@@ -2,7 +2,6 @@
 
 from collections import defaultdict
 import asyncio
-import re
 import sys
 
 from asgiref.sync import sync_to_async
@@ -79,21 +78,11 @@ class FindingLoader(DataLoader):
         return await _batch_load_fn(finding_ids)
 
 
-def extract_id(body):
-    """Extract identifier from query."""
-    body = body.decode()
-    match = re.search(r'finding\(identifier: (?:\\|)"([0-9]+)(?:\\|)"\)', body)
-    if match:
-        return match.group(1)
-    raise GraphQLError('Could not resolve finding identifier.')
-
-
 @get_entity_cache_async
 async def _get_vulnerabilities(
-    info, vuln_type, state, approval_status
+    info, identifier, vuln_type=None, state=None, approval_status=None
 ):
     """Get vulnerabilities."""
-    identifier = extract_id(info.context.body)
     vuln_filtered = \
         await info.context.loaders['vulnerability'].load(identifier)
     if vuln_type:
@@ -111,23 +100,7 @@ async def _get_vulnerabilities(
         vuln_filtered = \
             {vuln for vuln in vuln_filtered
              if vuln['current_approval_status'] == approval_status}
-    return vuln_filtered
-
-
-async def resolve_vulnerabilities(
-    info, vuln_type, state, approval_status
-):
-    """Async resolve fields."""
-    loaders = {
-        'finding': FindingLoader(),
-        'vulnerability': VulnerabilityLoader()
-    }
-    info.context.loaders = loaders
-    future = asyncio.ensure_future(
-        _get_vulnerabilities(info, vuln_type, state, approval_status)
-    )
-    tasks_result = await asyncio.gather(future)
-    return tasks_result[0]
+    return dict(vulnerabilities=vuln_filtered)
 
 
 @sync_to_async
@@ -505,18 +478,23 @@ async def resolve(info, identifier, as_field=False):
                                   info.field_nodes[0].selection_set) \
         if as_field else info.field_nodes[0].selection_set.selections
 
+    params = {
+        'identifier': identifier
+    }
     for requested_field in requested_fields:
+        field_params = util.get_field_parameters(requested_field)
+        if field_params:
+            params.update(field_params)
         requested_field = \
             convert_camel_case_to_snake(requested_field.name.value)
-        if requested_field.startswith('_') or \
-                requested_field == 'vulnerabilities':
+        if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
         tasks.append(
-            asyncio.ensure_future(resolver_func(info, identifier=identifier))
+            asyncio.ensure_future(resolver_func(info, **params))
         )
     tasks_result = await asyncio.gather(*tasks)
     for dict_result in tasks_result:
