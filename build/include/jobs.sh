@@ -5,6 +5,7 @@ source "${srcIncludeHelpersBlog}"
 source "${srcIncludeHelpersDeploy}"
 source "${srcIncludeHelpersGeneric}"
 source "${srcIncludeHelpersImage}"
+source "${srcExternalSops}"
 source "${srcEnv}"
 
 function job_build_nix_caches {
@@ -214,4 +215,20 @@ function job_deploy_production {
       helper_set_prod_secrets \
   &&  helper_deploy_compile_site 'https://fluidattacks.com' \
   &&  helper_deploy_sync_s3 'output/' 'web.fluidattacks.com'
+}
+
+function job_send_new_release_email {
+      env_prepare_python_packages \
+  &&  helper_set_prod_secrets \
+  &&  sops_env "secrets-prod.yaml" default \
+        MANDRILL_APIKEY \
+        MANDRILL_EMAIL_TO \
+  &&  curl -Lo \
+        "${TEMP_FILE1}" \
+        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
+  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
+        context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
+          'version': _get_version_date(), 'message': _get_message()},
+        tags=['general'])" >> "${TEMP_FILE1}" \
+  &&  python3 "${TEMP_FILE1}"
 }

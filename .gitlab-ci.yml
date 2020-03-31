@@ -115,6 +115,13 @@ deploy_production:
   <<: *in_master_branch
   stage: deploy
 
+send_new_release_email:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: postdeploy
+  except:
+    - schedules
+
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -162,27 +169,6 @@ danger:
     - npm install --unsafe-perm
   script:
     - danger --verbose --fail-on-errors=true
-
-new_version_mail:
-  tags: [autoscaling]
-  stage: postdeploy
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  script:
-    - source ci-scripts/helpers/others.sh
-    - source <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
-    - aws_login
-    - sops_env secrets-prod.yaml default MANDRILL_APIKEY MANDRILL_EMAIL_TO
-    - curl -Lo mail.py https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py
-    - "echo \"send_mail('new_version',
-        MANDRILL_EMAIL_TO,
-        context={'project': PROJECT, 'project_url': 'https://fluidattacks.com',
-          'version': _get_version_date(), 'message': _get_message()},
-        tags=['general'])\" >> mail.py"
-    - python3 mail.py
-  only:
-    - master
-  except:
-    - schedules
 
 asserts-static:
   stage: test

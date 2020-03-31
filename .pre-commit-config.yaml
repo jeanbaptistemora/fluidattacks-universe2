@@ -14,7 +14,7 @@ repos:
     language: system
     files: \.(py)$
     args: []
-    exclude: ^.*/pelicanconf.py
+    exclude: ^.*pelicanconf.py
   - id: flake8
     name: flake8
     entry: flake8
