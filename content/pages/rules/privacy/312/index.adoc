@@ -18,11 +18,20 @@ Regulations demand that none of these collections occur without the user's
 consent and that this consent be demonstrable afterwards.
 Regulations also demand that the user be allowed to revoke,
 at any given time,
-whatever consent they may have granted regarding the collection of their
-information.
+whatever consent they may have granted regarding the collection and
+processing of their information.
 
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(3).]
 The data subject shall have the right to withdraw his or her consent at any
 time.
+
+. [[r2]] link:https://gdpr-info.eu/art-18-gdpr/[GDPR. Art. 18: Right to restriction of processing.(1).]
+The data subject shall have the right to obtain from the controller restriction
+of processing.
+
+. [[r3]] link:https://gdpr-info.eu/art-21-gdpr/[GDPR. Art. 21: Right to object.(1).]
+The data subject shall have the right to object,
+on grounds relating to his or her particular situation,
+at any time to processing of personal data concerning him or her.
