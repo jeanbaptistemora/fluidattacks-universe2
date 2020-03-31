@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.001 Identified Information Assets
+= REQ.001 Identify information assets
 
 == Name
 

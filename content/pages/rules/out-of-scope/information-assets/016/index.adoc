@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.016 Ensure Correction of Vulnerabilities
+= REQ.016 Ensure correction of vulnerabilities
 
 == Requirement
 

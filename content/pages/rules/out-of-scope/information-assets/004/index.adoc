@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.004 Asset Owners are Defined
+= REQ.004 Define asset owners
 
 == Name
 

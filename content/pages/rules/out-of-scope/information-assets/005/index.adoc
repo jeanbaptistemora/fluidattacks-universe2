@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.005 Monetary Value of Assets is Defined
+= REQ.005 Define monetary value of assets
 
 == Name
 
