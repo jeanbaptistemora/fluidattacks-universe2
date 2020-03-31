@@ -37,8 +37,8 @@ class ViewTestCase(unittest.TestCase):
             with tarfile.open('./test/functional/profile.tar.gz') as tar:
                 tar.extractall('./test/functional')
         options = Options()
-        options.add_argument('--headless')
-        options.add_argument('--window-size=1366,768')
+        options.add_argument('--width=1366')
+        options.add_argument('--height=768')
         options.binary_location = self.firefox
         options.headless = True
         self.delay = 60
@@ -186,6 +186,8 @@ class ViewTestCase(unittest.TestCase):
         selenium.find_element_by_xpath(
             '//*[@class="modal-body"]/form/div[2]/button[1]').click()
         time.sleep(1)
+
+        selenium.execute_script('window.scrollTo(0, 0);')
 
         selenium.find_element_by_xpath(
             '//*/button[contains(text(), "Cancel Request")]').click()

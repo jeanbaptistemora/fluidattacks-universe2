@@ -22,7 +22,9 @@ import translate from "../../../../utils/translations/translate";
 import { numeric, required, validDraftTitle } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
+import { UpdateVerificationModal } from "../../components/UpdateVerificationModal";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities";
+import { IVulnDataType } from "../../components/Vulnerabilities/types";
 import { GET_ROLE } from "../ProjectContent/queries";
 import { ActionButtons } from "./ActionButtons";
 import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
@@ -69,6 +71,34 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   };
   const closeApprovalModal: (() => void) = (): void => {
     setApprovalModalConfig({ open: false, type: "" });
+  };
+
+  type verificationFn = (
+    vulnerabilities: IVulnDataType[], type: "request" | "verify", clearSelected: () => void,
+  ) => void;
+  const [remediationModalConfig, setRemediationModalConfig] = React.useState<{
+    open: boolean;
+    type: "request" | "verify";
+    vulnerabilities: IVulnDataType[];
+    clearSelected(): void;
+  }>({
+    clearSelected: (): void => undefined,
+    open: false,
+    type: "request",
+    vulnerabilities: [],
+  });
+  const openRemediationModal: verificationFn = (
+    vulnerabilities: IVulnDataType[], type: "request" | "verify", clearSelected: () => void,
+  ): void => {
+    setRemediationModalConfig({ open: true, type, vulnerabilities, clearSelected });
+  };
+  const closeRemediationModal: (() => void) = (): void => {
+    setRemediationModalConfig({
+      clearSelected: (): void => undefined,
+      open: false,
+      type: "request",
+      vulnerabilities: [],
+    });
   };
 
   const [isRequestingVerify, setRequestingVerify] = React.useState(false);
@@ -179,7 +209,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   label={translate.t("search_findings.tab_description.type.title")}
                   name="type"
                   renderAsEditable={isEditing}
-                  validate={[required]}
+                  validate={required}
                   visibleWhileEditing={canEditType}
                 >
                   <option value="" />
@@ -225,7 +255,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="description"
                   renderAsEditable={isEditing}
                   type="text"
-                  validate={[required]}
+                  validate={required}
                   visibleWhileEditing={canEditDescription}
                 />
               </Col>
@@ -239,7 +269,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="requirements"
                   renderAsEditable={isEditing}
                   type="text"
-                  validate={[required]}
+                  validate={required}
                   visibleWhileEditing={canEditRequirements}
                 />
               </Col>
@@ -252,16 +282,17 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   </ControlLabel>
                   <br />
                   <VulnerabilitiesView
+                    btsUrl={dataset.btsUrl}
                     editMode={isEditing}
                     findingId={findingId}
-                    isRequestVerification={false}
-                    isVerifyRequest={false}
+                    isRequestVerification={isRequestingVerify}
+                    isVerifyRequest={isVerifying}
+                    lastTreatment={lastTreatment}
+                    projectName={projectName}
+                    separatedRow={true}
                     state="open"
                     userRole={userRole}
-                    projectName={projectName}
-                    btsUrl={dataset.btsUrl}
-                    lastTreatment={lastTreatment}
-                    separatedRow={true}
+                    verificationFn={openRemediationModal}
                   />
                 </FormGroup>
               </Col>
@@ -275,7 +306,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="attackVectorDesc"
                   renderAsEditable={isEditing}
                   type="text"
-                  validate={[required]}
+                  validate={required}
                   visibleWhileEditing={canEditImpact}
                 />
               </Col>
@@ -287,7 +318,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="affectedSystems"
                   renderAsEditable={isEditing}
                   type="text"
-                  validate={[required]}
+                  validate={required}
                   visibleWhileEditing={canEditAffectedSystems}
                 />
               </Col>
@@ -301,7 +332,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="threat"
                   renderAsEditable={isEditing}
                   type="text"
-                  validate={[required]}
+                  validate={required}
                   visibleWhileEditing={canEditThreat}
                 />
               </Col>
@@ -327,7 +358,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="recommendation"
                   renderAsEditable={isEditing}
                   type="text"
-                  validate={[required]}
+                  validate={required}
                   visibleWhileEditing={canEditRecommendation}
                 />
               </Col>
@@ -369,6 +400,19 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
         setEditing={setEditing}
         userRole={userRole}
       />
+      {remediationModalConfig.open ? (
+        <UpdateVerificationModal
+          clearSelected={_.get(remediationModalConfig, "clearSelected")}
+          findingId={findingId}
+          handleCloseModal={closeRemediationModal}
+          isOpen={true}
+          refetchData={refetch}
+          remediationType={remediationModalConfig.type}
+          setRequestState={toggleRequestVerify}
+          setVerifyState={toggleVerify}
+          vulns={remediationModalConfig.vulnerabilities}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };
