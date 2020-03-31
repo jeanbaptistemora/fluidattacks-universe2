@@ -1,0 +1,29 @@
+:slug: rules/199/
+:category: foreign
+:description: This document contains the details of the security requirements related to the definition and management of foreign devices in the organization. This requirement establishes the importance of defining the accepted circumstances to use foreign devices in the facilities.
+:keywords: Requirement, Security, Foreign Devices, Services, Time, Personnel
+:rules: yes
+:extended: yes
+
+= REQ.199 Authorize foreign devices access
+
+== Requirement
+
+The organization must determine
+services, time and personnel
+allowed to access to inner resources using foreign devices
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(1):]
+Device and Media Controls: Implement policies and procedures
+that govern the receipt and removal of hardware and electronic media
+that contain electronic protected health information
+into and out of a facility,
+and the movement of these items within the facility.
+
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-3[+NIST+ 800-53 IA-3]
+Device identification and authentication:
+The information system uniquely identifies and authenticates
+organization-defined  devices before establishing
+a local or remote network connection.

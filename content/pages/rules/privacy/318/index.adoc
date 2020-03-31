@@ -22,7 +22,7 @@ Whenever this information will be rectified or erased upon request from its
 owner,
 the system must notify said third parties so that they may do the same.
 This is also the case when the user requests that the system stop processing
-his data.
+their data.
 
 == Exceptions
 

@@ -1,0 +1,19 @@
+:slug: rules/242/
+:category: development
+:description: This document contains the details of the security requirements related to the definition and management of development process of the application. This requirement establishes the importance of performing support to applications in different environments other than production.
+:keywords: Requirement, Security, Support, Production, Development, Process
+:rules: yes
+:extended: yes
+
+= REQ.242 Avoid production support in applications
+
+== Requirement
+
+Support to applications or systems must be performed
+only in environments other than of production
+(development, testing, QA, UAT)
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
+Security is addressed within all parts of the software development lifecycle.

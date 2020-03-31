@@ -1,0 +1,21 @@
+:slug: rules/201/
+:category: physical
+:description: This document contains the details of the security requirements related to the definition and management of physical devices in the organization. This requirement establishes the importance of defining mechanisms to detect tampering or unauthorized accesses to physical devices.
+:keywords: Requirement, Security, Mobile, Devices, Tampering, Data
+:rules: yes
+:extended: yes
+
+= REQ.201 Detect device tampering
+
+== Requirement
+
+Devices must have mechanisms to detect tampering
+and/or unauthorized accesses.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verify that access to sensitive records is protected,
+such that only authorized objects or data is accessible to each user
+(for example, protect against users
+tampering with a parameter to see or alter another user's account).
