@@ -14,13 +14,9 @@ from backend.services import (
     has_responsibility, has_phone_number, is_customeradmin,
     has_access_to_project
 )
+from backend import util
 
 from ariadne import convert_camel_case_to_snake
-
-FIELDS = {
-    'email', 'role', 'phone_number', 'responsibility', 'organization',
-    'first_login', 'last_login', 'list_projects'
-}
 
 
 @sync_to_async
@@ -106,7 +102,7 @@ def _get_list_projects(email, project_name):
     return dict(list_projects=list_projects)
 
 
-async def resolve(info, email, project_name, all_fields=False):
+async def resolve(info, email, project_name, as_field=False):
     """Async resolve of fields."""
     email_dict: dict = await _get_email(email)
     role_dict: dict = await _get_role(email, project_name)
@@ -121,11 +117,12 @@ async def resolve(info, email, project_name, all_fields=False):
     result = dict()
     tasks = list()
     requested_fields = \
-        FIELDS if all_fields else info.field_nodes[0].selection_set.selections
+        util.get_requested_fields('users', info.field_nodes[0].selection_set) \
+        if as_field else info.field_nodes[0].selection_set.selections
+
     for requested_field in requested_fields:
-        if not all_fields:
-            requested_field = \
-                convert_camel_case_to_snake(requested_field.name.value)
+        requested_field = \
+            convert_camel_case_to_snake(requested_field.name.value)
         if requested_field.startswith('_'):
             continue
         resolver_func = getattr(

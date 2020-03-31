@@ -9,7 +9,7 @@ import logging
 import logging.config
 import re
 import secrets
-from typing import Dict, List, cast
+from typing import Dict, List, cast, Callable
 import pytz
 import rollbar
 import requests
@@ -462,10 +462,19 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
     return updated_values
 
 
-def run_async(function, *args, **kwargs):
+def run_async(function: Callable, *args, **kwargs):
     """Run function asynchronous."""
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     result = loop.run_until_complete(function(*args, **kwargs))
     loop.close()
     return result
+
+
+def get_requested_fields(field_name, selection_set):
+    """Get requested fields from selections."""
+    field_set = list(
+        filter(lambda sel: sel.name.value == field_name,
+               selection_set.selections)
+    )
+    return field_set[0].selection_set.selections

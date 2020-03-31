@@ -334,7 +334,7 @@ async def _get_users(info, project_name):
     if user_role == 'admin':
         user_roles_to_retrieve.append('admin')
     users = [
-        await user_loader.resolve(info, email, project_name, all_fields=True)
+        await user_loader.resolve(info, email, project_name, as_field=True)
         for email in user_email_list
         if user_domain.get_group_level_role(email, project_name)
         in user_roles_to_retrieve]
@@ -375,6 +375,7 @@ async def _resolve_fields(info, project_name):
 @require_project_access
 def resolve_project(_, info, project_name):
     """Resolve project query."""
+    project_name = project_name.lower()
     return util.run_async(_resolve_fields, info, project_name)
 
 
