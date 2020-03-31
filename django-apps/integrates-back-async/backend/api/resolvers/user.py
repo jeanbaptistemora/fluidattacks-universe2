@@ -107,9 +107,9 @@ def resolve_user(_, info, project_name, user_email):
 @enforce_user_level_auth_async
 def resolve_add_user(_, info, **parameters):
     """Resolve add_user mutation."""
+    email = parameters.get('email', '')
     success = user_domain.create_without_project(parameters)
     if success:
-        email = parameters.get('email', '').lower()
         util.cloudwatch_log(info.context, f'Security: Add user {email}')
         mail_to = [email]
         context = {'admin': email}
@@ -119,7 +119,7 @@ def resolve_add_user(_, info, **parameters):
             args=(mail_to, context,)
         )
         email_send_thread.start()
-    return dict(success=success, email=parameters.get('email', '').lower())
+    return dict(success=success, email=email)
 
 
 @convert_kwargs_to_snake_case

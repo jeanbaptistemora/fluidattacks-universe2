@@ -189,8 +189,8 @@ def get_current_date() -> str:
 
 def get_data(email: str, attr: str) -> Union[str, UserType]:
     data_attr = get_attributes(email, [attr])
-    if data_attr and data_attr.get(attr):
-        return cast(UserType, data_attr.get(attr, ''))
+    if data_attr and attr in data_attr:
+        return cast(UserType, data_attr[attr])
     return str()
 
 
@@ -275,27 +275,24 @@ def get(email: str) -> UserType:
 
 
 def create_without_project(user_data: UserType) -> bool:
-    phone_number = ''
-    success = False
     email: str = str(user_data.get('email', '')).lower()
+    organization: str = str(user_data.get('organization', ''))
+    phone_number: str = str(user_data.get('phone_number', ''))
+    role: str = str(user_data.get('role', ''))
 
-    if (
-        validate_alphanumeric_field(cast(List[str], user_data.get('organization', ''))) and
-        validate_phone_field(str(user_data.get('phone_number', ''))) and
-        validate_email_address(email)
-    ):
-        if not get_data(email, 'email'):
-            user_data.update({'registered': True})
-            if user_data.get('phone_number'):
-                phone_number = str(user_data.get('phone_number', ''))
-                del user_data['phone_number']
+    success = False
 
-            role: str = cast(str, user_data.pop('role'))
+    if validate_alphanumeric_field([organization]) \
+            and validate_phone_field(phone_number) \
+            and validate_email_address(email):
 
-            success = create(email, user_data) \
-                and grant_user_level_role(email, role)
-    if success:
-        if phone_number and phone_number[1:].isdigit():
-            add_phone_to_user(email, phone_number)
+        new_user_data: UserType = {}
+        new_user_data['email'] = email
+        new_user_data['registered'] = True
+        new_user_data['organization'] = organization
+        new_user_data['phone'] = phone_number
+
+        success = grant_user_level_role(email, role)
+        success = success and create(email, new_user_data)
 
     return success
