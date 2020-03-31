@@ -24,6 +24,8 @@ from boto3_type_annotations import dynamodb
 # Adapter configuration vars
 CASBIN_ADAPTER_ENDPOINT_URL = \
     os.environ.get('CASBIN_ADAPTER_ENDPOINT_URL') or None
+CASBIN_ADAPTER_RULE_INDEX_NAMES = \
+    os.environ.get('CASBIN_ADAPTER_RULE_INDEX_NAMES', '').split(',') or []
 CASBIN_ADAPTER_TABLE_NAME = \
     os.environ.get('CASBIN_ADAPTER_TABLE_NAME', 'casbin')
 CASBIN_ADAPTER_TABLE_READ_CAPACITY_UNITS = int(
@@ -72,6 +74,24 @@ def does_table_exist(
     return exists
 
 
+def create_rule(*, policy_type: str, rule: Rule, unique_id: str = ''):
+    unique_id = unique_id or str(uuid.uuid4())
+
+    validate_rule(rule)
+
+    rule_index_names = CASBIN_ADAPTER_RULE_INDEX_NAMES or range(len(rule))
+
+    return {
+        'id': unique_id,
+        'policy_type': policy_type,
+        'rule': rule,
+        **{
+            f'rule_{rule_index}': rule_element
+            for rule_index, rule_element in zip(rule_index_names, rule)
+        }
+    }
+
+
 def get_rules(
         policy_table: dynamodb.Table,
         policy_type: str,
@@ -95,15 +115,12 @@ def put_policy(
         policy_type: str,
         rule: Rule):
     """Insert a policy into the database."""
-    unique_id: str = str(uuid.uuid4())
-
-    validate_rule(rule)
-
-    policy_table.put_item(Item={
-        'id': unique_id,
-        'policy_type': policy_type,
-        'rule': rule,
-    })
+    policy_table.put_item(
+        Item=create_rule(
+            policy_type=policy_type,
+            rule=rule,
+        ),
+    )
 
 
 def delete_policy(
@@ -137,8 +154,8 @@ def validate_rule(rule: Rule):
                 f'got: {attribute}')
 
 
-def deduplicate_policies(policy_table: dynamodb.Table):
-    """Delete unneeded items from the database."""
+def migrate_policies(policy_table: dynamodb.Table):
+    """Read and rewrite items from an into the database."""
     seen_items: Set[tuple] = set()
 
     for item in yield_items_from_table(policy_table):
@@ -153,6 +170,13 @@ def deduplicate_policies(policy_table: dynamodb.Table):
                 'id': item_id,
             })
         else:
+            policy_table.put_item(
+                Item=create_rule(
+                    unique_id=item_id,
+                    policy_type=item_policy_type,
+                    rule=item_rule,
+                ),
+            )
             seen_items.add(item_hash)
 
 
@@ -237,9 +261,9 @@ class Adapter(casbin.persist.Adapter):
         # pylint: disable=unused-argument
         return get_rules(self.policy_table, policy_type, partial_rule)
 
-    def deduplicate_policies(self):
-        """Delete unneeded items from the database."""
-        deduplicate_policies(self.policy_table)
+    def migrate_policies(self):
+        """Read and rewrite items from an into the database."""
+        migrate_policies(self.policy_table)
 
     def remove_filtered_policy(self, sec, ptype, field_index, *field_values):
         """Remove policy rules that match the filter from the storage."""
