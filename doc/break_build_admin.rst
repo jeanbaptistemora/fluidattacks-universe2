@@ -105,17 +105,14 @@ However, it's useful to have the following functions:
      local type="${2}"
      local extra="${3}"
 
-     (
-       set -x
-       docker pull fluidattacks/break-build
-       bash <(docker run fluidattacks/break-build \
-               ${extra} \
-               --${type} \
-               --no-image-rm \
-               --id $(get_break_build_id "${subs}") \
-               --secret $(get_break_build_secret "${subs}") \
-               --cpus 0)
-     )
+     docker pull fluidattacks/break-build
+     bash <(docker run fluidattacks/break-build \
+             ${extra} \
+             --${type} \
+             --no-image-rm \
+             --id $(get_break_build_id "${subs}") \
+             --secret $(get_break_build_secret "${subs}") \
+             --cpus 0)
    }
 
    function run_break_build_test {
@@ -124,17 +121,14 @@ However, it's useful to have the following functions:
      local type="${2}"
      local extra="${3}"
 
-     (
-       set -x
-       docker build --tag test ./break-build/containers/break-build
-       bash <(docker run test \
-               ${extra} \
-               --${type} \
-               --no-image-rm \
-               --id $(get_break_build_id "${subs}") \
-               --secret $(get_break_build_secret "${subs}") \
-               --cpus 0)
-     )
+     docker build --tag test ./break-build/containers/break-build
+     bash <(docker run test \
+             ${extra} \
+             --${type} \
+             --no-image-rm \
+             --id $(get_break_build_id "${subs}") \
+             --secret $(get_break_build_secret "${subs}") \
+             --cpus 0)
    }
 
 .. _Documentation: https://fluidattacks.com/asserts/install/#inside-your-ci-continuous-integration-pipeline
