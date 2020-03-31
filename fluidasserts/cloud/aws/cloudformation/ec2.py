@@ -243,10 +243,11 @@ def has_unrestricted_ports(
 
         entities = []
 
-        with contextlib.suppress(KeyError, TypeError):
+        with contextlib.suppress(KeyError, TypeError, ValueError):
             from_port, to_port = tuple(map(
                 str, (sg_rule['FromPort'], sg_rule['ToPort'])))
-            if from_port != to_port:
+
+            if float(from_port) != float(to_port):
                 entities.append(f'{from_port}->{to_port}')
 
         vulnerabilities.extend(
