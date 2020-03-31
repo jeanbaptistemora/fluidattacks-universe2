@@ -82,6 +82,20 @@ test_defends:
   <<: *with_nix
   stage: test
 
+deploy_ephemeral:
+  <<: *with_nix
+  stage: deploy
+  environment:
+    name: ephemeral/${CI_COMMIT_REF_NAME}
+    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web/
+    on_stop: stop-ephemeral
+  cache:
+    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
+    paths:
+    - cache/
+  except:
+    - master
+
 builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -111,27 +125,6 @@ commitlint:
     - npm install --unsafe-perm
   script:
     - ./ci-scripts/commitlint-checks.sh
-  except:
-    - master
-
-ephemeral:
-  tags: [autoscaling]
-  needs: [builder]
-  stage: deploy
-  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - . /app/ci-scripts/deploy.sh
-    - deploy_eph
-  environment:
-    name: ephemeral/${CI_COMMIT_REF_NAME}
-    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web/
-    on_stop: stop-ephemeral
-  cache:
-    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
-    paths:
-    - cache/
   except:
     - master
 

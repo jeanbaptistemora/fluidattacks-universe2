@@ -195,39 +195,12 @@ function job_test_defends {
 }
 
 function job_deploy_ephemeral_local {
-  local base_folder='deploy/builder'
-
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
-  &&  npm install --prefix "${base_folder}" \
-  &&  PATH="${PATH}:$(pwd)/${base_folder}/node_modules/.bin/" \
-  &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "${base_folder}/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
-  && helper_deploy_install_plugins \
-  &&  cp -a js theme/2014/static/ \
-  &&  PATH="${PATH}:${base_folder}/node_modules/uglify-js/bin/" \
-  &&  cp -a "${base_folder}/node_modules" theme/2014/ \
-  &&  cp -a "${base_folder}/node_modules" . \
-  &&  cp -a "${base_folder}/node_modules" theme/2014/static/ \
-  &&  sed -i "s|https://fluidattacks.com|http://localhost:8000|g" pelicanconf.py \
-  &&  sed -i "s|/app/pelican-plugins|pelican-plugins|g" pelicanconf.py \
-  &&  sed -i "s|/app/js/|js/|g" theme/2014/templates/base.html \
-  &&  sed -i "s|/app/deploy/builder/node_modules/|node_modules/|g" theme/2014/templates/base.html \
-  &&  sed -i "s|/app/deploy/builder/node_modules/|node_modules/|g" theme/2014/templates/contact.html \
-  &&  npm run --prefix "${base_folder}" build \
-  &&  cp -a "${STARTDIR}/cache" . || true \
-  &&  ./build-site.sh \
-  &&  cp -a cache/ "${STARTDIR}" || true \
-  &&  cp -a "${base_folder}/node_modules" new/theme/2014/ \
-  &&  cp -a "${base_folder}/node_modules" new/theme/2014/static/ \
-  &&  cp -a "${base_folder}/node_modules" new/ \
-  &&  sed -i "s|https://fluidattacks.com|http://localhost:8000|g" new/pelicanconf.py \
-  &&  sed -i "s|/app/pelican-plugins|../pelican-plugins|g" new/pelicanconf.py \
-  &&  pushd new/ || return 1 \
-  &&  npm run --prefix "../${base_folder}" build-new \
-  &&  cp -a "${STARTDIR}/new/cache" . || true \
-  &&  ./build-site.sh \
-  &&  cp -a cache/ "${STARTDIR}/new" || true \
-  &&  popd || return 1 \
-  &&  cp -a new/output/newweb output/ \
+      helper_deploy_compile_site 'http://localhost:8000' \
   &&  python3 -m http.server --directory output
+}
+
+function job_deploy_ephemeral {
+      helper_set_dev_secrets \
+  &&  helper_deploy_compile_site "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+  &&  helper_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
 }
