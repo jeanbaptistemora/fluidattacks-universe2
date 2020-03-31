@@ -19,6 +19,21 @@ resource "aws_dynamodb_table" "alerts_by_company" {
   }
 }
 
+resource "aws_dynamodb_table" "authorization" {
+  name           = "fi_authorization"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
+
 resource "aws_dynamodb_table" "comments" {
   name           = "FI_comments"
   read_capacity  = 10
