@@ -109,6 +109,8 @@ build_lambdas:
 coverage_report:
   <<: *with_nix
   <<: *in_mrs
+  needs:
+    - test_back
   stage: merge-request
   retry: 1
 
