@@ -14,7 +14,8 @@ class APIView(FileUploadGraphQLView):
     def execute_graphql_request(
             self, request, data, query, variables, operation_name,
             show_graphiql=False):
-        newrelic.agent.set_transaction_name(f'api:{operation_name}')
+        name = operation_name if operation_name else 'External (unnamed)'
+        newrelic.agent.set_transaction_name(f'api:{name}')
         newrelic.agent.add_custom_parameters(tuple(data.items()))
 
         return super(APIView, self).execute_graphql_request(
