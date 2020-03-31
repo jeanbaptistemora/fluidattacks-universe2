@@ -5,7 +5,7 @@
 # pylint: disable=import-self
 
 from decimal import Decimal
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Set
 
 Historic = List[Dict[str, str]]
 Evidence = Dict[str, Dict[str, str]]
@@ -35,6 +35,7 @@ Event = Dict[str, Union[
 User = Dict[str, Union[
     str, bool,
     List[str],
+    Set[str],
     Dict[str, object],
     None
 ]]

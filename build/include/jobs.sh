@@ -486,14 +486,7 @@ function job_serve_back_prod {
 
 
 function job_lint_back {
-      prospector -F -s high -u django -i node_modules app \
-  &&  prospector -F -s high -u django -i node_modules django-apps/integrates-back/backend/ \
-  &&  prospector -F -s veryhigh django-apps/casbin-dynamodb-adapter \
-  &&  prospector -F -s veryhigh django-apps/casbin-in-memory-adapter \
-  &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/ \
-  &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
-  &&  prospector -F -s veryhigh lambda \
-  &&  mypy --ignore-missing-imports \
+  mypy --ignore-missing-imports \
         django-apps/casbin-dynamodb-adapter \
   &&  mypy --ignore-missing-imports \
         django-apps/casbin-in-memory-adapter \
@@ -512,6 +505,13 @@ function job_lint_back {
         django-apps/integrates-back/backend/dal/* \
         django-apps/integrates-back/backend/utils/* \
         django-apps/integrates-back-async/backend/api/resolvers/me.py \
+  &&  prospector -F -s high -u django -i node_modules app \
+  &&  prospector -F -s high -u django -i node_modules django-apps/integrates-back/backend/ \
+  &&  prospector -F -s veryhigh django-apps/casbin-dynamodb-adapter \
+  &&  prospector -F -s veryhigh django-apps/casbin-in-memory-adapter \
+  &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/ \
+  &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
+  &&  prospector -F -s veryhigh lambda \
   &&  npx graphql-schema-linter \
         --except 'enum-values-all-caps,enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions' \
         django-apps/integrates-back-async/backend/api/schemas/*
