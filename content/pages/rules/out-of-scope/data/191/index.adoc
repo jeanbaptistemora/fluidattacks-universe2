@@ -39,3 +39,9 @@ Personal data which are, by their nature, particularly sensitive in relation to
 fundamental rights and freedoms merit specific protection as the context of
 their processing could create significant risks to the fundamental rights and
 freedoms.
+
+. [[r4]] link:https://gdpr-info.eu/art-25-gdpr/[GDPR. Art. 25: Data protection by design and by default.(1)]
+The controller shall,
+both at the time of the determination of the means for processing and at the
+time of the processing itself,
+implement appropriate technical and organizational measures.
