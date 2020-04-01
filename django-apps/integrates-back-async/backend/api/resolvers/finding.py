@@ -1,6 +1,8 @@
 # pylint: disable=import-error
 
 import rollbar
+
+from asgiref.sync import sync_to_async
 from graphql import GraphQLError
 
 from backend.api.dataloaders import finding as finding_loader
@@ -92,6 +94,35 @@ def resolve_update_evidence_description(
         rollbar.report_message('Error: \
 An error occurred updating evidence description', 'error', info.context)
     return dict(success=success)
+
+
+async def _do_update_severity(info, **parameters):
+    """Resolve update_severity mutation."""
+    data = parameters.get('data')
+    data = {util.snakecase_to_camelcase(k): data[k] for k in data}
+    finding_id = parameters.get('finding_id')
+    project = await sync_to_async(finding_domain.get_project)(finding_id)
+    success = False
+    success = await sync_to_async(finding_domain.save_severity)(data)
+    finding = await info.context.loaders['finding'].load(finding_id)
+    if success:
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project)
+        util.cloudwatch_log(info.context, 'Security: Updated severity in\
+            finding {id} succesfully'.format(id=parameters.get('finding_id')))
+    else:
+        util.cloudwatch_log(info.context, 'Security: Attempted to update \
+            severity in finding {id}'.format(id=parameters.get('finding_id')))
+    return dict(finding=finding, success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_group_level_auth_async
+@require_finding_access
+def resolve_update_severity(_, info, **parameters):
+    """Resolve update_severity mutation."""
+    return util.run_async(_do_update_severity, info, **parameters)
 
 
 @convert_kwargs_to_snake_case

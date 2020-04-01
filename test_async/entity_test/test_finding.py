@@ -223,6 +223,43 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['updateEvidenceDescription']
         assert result['data']['updateEvidenceDescription']
 
+    def test_update_severity(self):
+        """Check for updateSeverity mutation."""
+        query = '''
+                mutation {
+                  updateSeverity (
+                    findingId: "422286126",
+                    data: {
+            attackComplexity: 0.77, attackVector: 0.62,
+            availabilityImpact: "0", availabilityRequirement: "1",
+            confidentialityImpact: "0", confidentialityRequirement: "1",
+            cvssVersion: "3.1", exploitability: 0.91, id: "422286126",
+            integrityImpact: "0.22", integrityRequirement: "1",
+            modifiedAttackComplexity: 0.77, modifiedAttackVector: 0.62,
+            modifiedAvailabilityImpact: "0",
+            modifiedConfidentialityImpact: "0",
+            modifiedIntegrityImpact: "0.22",
+            modifiedPrivilegesRequired: "0.62",
+            modifiedSeverityScope: 0, modifiedUserInteraction: 0.85,
+            privilegesRequired: "0.62", remediationLevel: "0.97",
+            reportConfidence: "0.92",
+            severity: "2.9", severityScope: 0, userInteraction: 0.85
+                    }
+                  ) {
+                    success
+                    finding {
+                      cvssVersion
+                      severity
+                    }
+                  }
+                }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateSeverity']
+        assert result['data']['updateSeverity']['success']
+
     def test_verify_finding(self):
         """Check for verifyFinding mutation."""
         query = '''
