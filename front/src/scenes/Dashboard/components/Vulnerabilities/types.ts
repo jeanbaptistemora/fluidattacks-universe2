@@ -1,5 +1,4 @@
 import { IHistoricTreatment } from "../../containers/DescriptionView/types";
-import { IDashboardState } from "../../reducer";
 
 export interface IVulnsAttr {
   finding: {
@@ -92,7 +91,6 @@ export interface IVulnerabilitiesViewProps {
   separatedRow?: boolean;
   state: string;
   userRole: string;
-  vulnerabilities?: IDashboardState["vulnerabilities"];
   verificationFn?(vulnerabilities: IVulnDataType[], action: "request" | "verify", clearSelected: () => void): void;
 }
 

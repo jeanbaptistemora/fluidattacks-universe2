@@ -1,7 +1,4 @@
-/* tslint:disable:no-any jsx-no-multiline-js
- * NO-ANY: Disabling this rule is necessary because there are no specific types
- * for functions such as mapStateToProps and mapDispatchToProps used in the
- * redux wrapper of this component
+/* tslint:disable: jsx-no-multiline-js
  *
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
@@ -13,23 +10,17 @@ import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Comparator, textFilter } from "react-bootstrap-table2-filter";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { Reducer } from "redux";
-import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog, ConfirmFn } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import store from "../../../../store/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
-import { changeFilterValues, changeSortValues } from "./actions";
 import { default as style } from "./index.css";
 import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES } from "./queries";
 import {
@@ -237,13 +228,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [modalHidden, setModalHidden] = useState(false);
     const [deleteVulnModal, setDeleteVulnModal] = useState(false);
     const [vulnerabilityId, setVulnerabilityId] = useState("");
-    const [filterValueInputs, setFilterValueInputs] = useState("");
-    const [filterValueLines, setFilterValueLines] = useState("");
-    const [filterValuePorts, setFilterValuePorts] = useState("");
-    const [sortValueInputs, setSortValueInputs] = useState({});
-    const [sortValueLines, setSortValueLines] = useState({});
-    const [sortValuePorts, setSortValuePorts] = useState({});
-    const [valueSortChanged, setValueSort] = useState(false);
     const emptyArray: string[] = [];
     const [arraySelectedRows, setArraySelectedRows] = useState(emptyArray);
     const [selectRowsInputs, setSelectRowsInputs] = useState<number[]>([]);
@@ -251,12 +235,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [selectRowsPorts, setSelectRowsPorts] = useState<number[]>([]);
 
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
-    if (!valueSortChanged && props.vulnerabilities !== undefined) {
-      setValueSort(true);
-      setSortValueInputs(props.vulnerabilities.sorts.sortInputs);
-      setSortValueLines(props.vulnerabilities.sorts.sortLines);
-      setSortValuePorts(props.vulnerabilities.sorts.sortPorts);
-    }
 
     const getSelectQryTable: () => {selectedQeryArray: Array<NodeListOf<Element>> } = ():
       { selectedQeryArray: Array<NodeListOf<Element>> } => {
@@ -305,16 +283,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       }
     };
 
-    const handleGetVulnerabilities: ((data: IVulnsAttr) => void) = (data: IVulnsAttr): void => {
-      if (!_.isUndefined(data)) {
-        if (props.vulnerabilities !== undefined) {
-          setFilterValueInputs(props.vulnerabilities.filters.filterInputs);
-          setFilterValueLines(props.vulnerabilities.filters.filterLines);
-          setFilterValuePorts(props.vulnerabilities.filters.filterPorts);
-        }
-      }
-    };
-
     const clearSelectedRows: (() => void) = (): void => {
       setSelectRowsInputs([]);
       setSelectRowsLines([]);
@@ -326,7 +294,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     <Query
       query={GET_VULNERABILITIES}
       variables={{ identifier: props.findingId, analystField: false }}
-      onCompleted={handleGetVulnerabilities}
     >
       {
         ({ error, data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => {
@@ -393,79 +360,55 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               }
             };
 
-            const onSortInputs: ((dataField: string, order: SortOrder) => void) =
-            (dataField: string, order: SortOrder): void => {
-              if (props.vulnerabilities !== undefined) {
-                const newSorted: Sorted = {dataField,  order};
-                setSortValueInputs(newSorted);
-                const newValues: {} = {...props.vulnerabilities.sorts, sortInputs: newSorted};
-                store.dispatch(changeSortValues(newValues));
-              }
+            const onSortInputs: ((dataField: string, order: SortOrder) => void) = (
+              dataField: string, order: SortOrder,
+            ): void => {
+              const newSorted: Sorted = { dataField, order };
+              sessionStorage.setItem("vulnInputsSort", JSON.stringify(newSorted));
             };
             const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
-              if (props.vulnerabilities !== undefined && filterValueInputs !== filterVal) {
-                setFilterValueInputs(filterVal);
-                const newValues: {} = {...props.vulnerabilities.filters, filterInputs: filterVal};
-                store.dispatch(changeFilterValues(newValues));
+              sessionStorage.setItem("vulnInputsFilter", filterVal);
+            };
+            const clearFilterInputs: ((event: React.FormEvent<HTMLInputElement>) => void) = (
+              event: React.FormEvent<HTMLInputElement>,
+            ): void => {
+              const inputValue: string = event.currentTarget.value;
+              if (inputValue.length === 0) {
+                sessionStorage.removeItem("vulnInputsFilter");
               }
             };
-            const clearFilterInputs: ((eventInput: any) => void) = (eventInput: any): void => {
-              const inputValue: any = document.getElementById(eventInput.target.id);
-              if (inputValue.value.length === 0) {
-                if (props.vulnerabilities !== undefined && filterValueInputs !== "") {
-                  const newValues: {} = {...props.vulnerabilities.filters, filterInputs: ""};
-                  store.dispatch(changeFilterValues(newValues));
-                }
-              }
-            };
-            const onSortLines: ((dataField: string, order: SortOrder) => void) =
-            (dataField: string, order: SortOrder): void => {
-              if (props.vulnerabilities !== undefined) {
-                const newSorted: Sorted = {dataField,  order};
-                setSortValueLines(newSorted);
-                const newValues: {} = {...props.vulnerabilities.sorts, sortLines: newSorted};
-                store.dispatch(changeSortValues(newValues));
-              }
+            const onSortLines: ((dataField: string, order: SortOrder) => void) = (
+              dataField: string, order: SortOrder,
+            ): void => {
+              const newSorted: Sorted = { dataField, order };
+              sessionStorage.setItem("vulnLinesSort", JSON.stringify(newSorted));
             };
             const onFilterLines: ((filterVal: string) => void) = (filterVal: string): void => {
-              if (props.vulnerabilities !== undefined && filterValueLines !== filterVal) {
-                setFilterValueLines(filterVal);
-                const newValues: {} = {...props.vulnerabilities.filters, filterLines: filterVal};
-                store.dispatch(changeFilterValues(newValues));
+              sessionStorage.setItem("vulnLinesFilter", filterVal);
+            };
+            const clearFilterLines: ((event: React.FormEvent<HTMLInputElement>) => void) = (
+              event: React.FormEvent<HTMLInputElement>,
+            ): void => {
+              const inputValue: string = event.currentTarget.value;
+              if (inputValue.length === 0) {
+                sessionStorage.removeItem("vulnLinesFilter");
               }
             };
-            const clearFilterLines: ((eventLine: any) => void) = (eventLine: any): void => {
-              const inputValue: any = document.getElementById(eventLine.target.id);
-              if (inputValue.value.length === 0) {
-                if (props.vulnerabilities !== undefined && filterValueLines !== "") {
-                  const newValues: {} = {...props.vulnerabilities.filters, filterLines: ""};
-                  store.dispatch(changeFilterValues(newValues));
-                }
-              }
-            };
-            const onSortPorts: ((dataField: string, order: SortOrder) => void) =
-            (dataField: string, order: SortOrder): void => {
-              if (props.vulnerabilities !== undefined) {
-                const newSorted: Sorted = {dataField,  order};
-                setSortValuePorts(newSorted);
-                const newValues: {} = {...props.vulnerabilities.sorts, sortPorts: newSorted};
-                store.dispatch(changeSortValues(newValues));
-              }
+            const onSortPorts: ((dataField: string, order: SortOrder) => void) = (
+              dataField: string, order: SortOrder,
+            ): void => {
+              const newSorted: Sorted = { dataField, order };
+              sessionStorage.setItem("vulnPortsSort", JSON.stringify(newSorted));
             };
             const onFilterPorts: ((filterVal: string) => void) = (filterVal: string): void => {
-              if (props.vulnerabilities !== undefined && filterValuePorts !== filterVal) {
-                setFilterValuePorts(filterVal);
-                const newValues: {} = {...props.vulnerabilities.filters, filterPorts: filterVal};
-                store.dispatch(changeFilterValues(newValues));
-              }
+              sessionStorage.setItem("vulnPortsFilter", filterVal);
             };
-            const clearFilterPorts: ((eventPort: any) => void) = (eventPort: any): void => {
-              const inputValue: any = document.getElementById(eventPort.target.id);
-              if (inputValue.value.length === 0) {
-                if (props.vulnerabilities !== undefined && filterValuePorts !== "") {
-                  const newValues: {} = {...props.vulnerabilities.filters, filterPorts: ""};
-                  store.dispatch(changeFilterValues(newValues));
-                }
+            const clearFilterPorts: ((event: React.FormEvent<HTMLInputElement>) => void) = (
+              event: React.FormEvent<HTMLInputElement>,
+            ): void => {
+              const inputValue: string = event.currentTarget.value;
+              if (inputValue.length === 0) {
+                sessionStorage.removeItem("vulnPortsFilter");
               }
             };
             const columnFilter: TextFilterProps = {
@@ -479,7 +422,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               dataField: "where",
               filter: textFilter({
                 ...columnFilter,
-                defaultValue: props.vulnerabilities !== undefined ? filterValueInputs : "",
+                defaultValue: _.get(sessionStorage, "vulnInputsFilter"),
                 onFilter: onFilterInputs,
                 onInput: clearFilterInputs,
               }),
@@ -502,7 +445,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 dataField: "where",
                 filter: textFilter({
                   ...columnFilter,
-                  defaultValue: props.vulnerabilities !== undefined ? filterValueLines : "",
+                  defaultValue: _.get(sessionStorage, "vulnLinesFilter"),
                   onFilter: onFilterLines,
                   onInput: clearFilterLines,
                 }),
@@ -525,7 +468,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 dataField: "where",
                 filter: textFilter({
                   ...columnFilter,
-                  defaultValue: props.vulnerabilities !== undefined ? filterValuePorts : "",
+                  defaultValue: _.get(sessionStorage, "vulnPortsFilter"),
                   onFilter: onFilterPorts,
                   onInput: clearFilterPorts,
                 }),
@@ -1069,7 +1012,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               id="inputsVulns"
                               bordered={false}
                               dataset={formattedDataInputs}
-                              defaultSorted={sortValueInputs}
+                              defaultSorted={JSON.parse(_.get(sessionStorage, "vulnInputsSort", "{}"))}
                               exportCsv={false}
                               headers={inputsHeader}
                               onClickRow={undefined}
@@ -1093,7 +1036,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               id="linesVulns"
                               bordered={false}
                               dataset={formattedDataLines}
-                              defaultSorted={sortValueLines}
+                              defaultSorted={JSON.parse(_.get(sessionStorage, "vulnLinesSort", "{}"))}
                               exportCsv={false}
                               headers={linesHeader}
                               onClickRow={undefined}
@@ -1117,7 +1060,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               id="portsVulns"
                               bordered={false}
                               dataset={formattedDataPorts}
-                              defaultSorted={!_.isEmpty(sortValuePorts) ? sortValuePorts : undefined}
+                              defaultSorted={JSON.parse(_.get(sessionStorage, "vulnPortsSort", "{}"))}
                               exportCsv={false}
                               headers={portsHeader}
                               onClickRow={undefined}
@@ -1218,15 +1161,5 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     );
   };
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IVulnerabilitiesViewProps, {}>({});
-
-const vulnerabilitiesView: React.ComponentType<IVulnerabilitiesViewProps> = reduxWrapper(
-  enhance(vulnsViewComponent) as React.FunctionComponent<IVulnerabilitiesViewProps>,
-  (state: StateType<Reducer>): IVulnerabilitiesViewProps => ({
-    ...state,
-    vulnerabilities: state.dashboard.vulnerabilities,
-  }),
-);
-
 // tslint:disable-next-line: max-file-line-count
-export { vulnerabilitiesView as VulnerabilitiesView };
+export { vulnsViewComponent as VulnerabilitiesView };
