@@ -59,51 +59,30 @@
     <h1 class="tc pb3">
       {{ page.title }}
     </h1>
-    {% set rendered = [] %}
+    {% set rulearts = [] %}
     {% for rulepath in pages if rulepath.rules and not rulepath.extended %}
-      {% if loop.first %}
-        {% do rendered.append( rulepath.category ) %}
-          <div class="rulescat hover-bg-light-gray flex">
-            <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
-                 alt="Fluid Arrow">
-          </div>
-        {% set cat = rulepath.category %}
-        <div class="ruleslist dn">
-        {% for ruleart in pages if ruleart.rules and ruleart.category == cat %}
-          <ul class="pl4">
-             <li>
-               <a class="f4 montsy"
-                  href="../{{ ruleart.slug }}">
-                  {{ ruleart.title }}
-               </a><br>
-             </li>
-           </ul>
-        {% endfor %}
-        </div>
-      {% else %}
-        {% if rulepath.category != loop.previtem.category and rulepath.category not in rendered %}
-          {% do rendered.append( rulepath.category ) %}
-          <div class="rulescat hover-bg-light-gray flex">
-            <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
-                 alt="Fluid Arrow">
-          </div>
-          {% set cat = rulepath.category %}
-          <div class="ruleslist dn">
-          {% for ruleart in pages if ruleart.rules and not ruleart.extended and ruleart.category == cat %}
-           <ul class="pl4">
-              <li>
-                <a class="f4 montsy"
-                 href="../{{ ruleart.slug }}">
-                    {{ ruleart.title }}
-                </a><br>
-              </li>
-            </ul>
-          {% endfor %}
-          </div>
-        {% endif %}
-      {% endif %}
+      {% do rulearts.append( rulepath ) %}
+    {% endfor %}
+    {% set categorder = ["credentials", "authentication", "authorization", "session", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "physical", "mobile", "social"] %}
+    {% for categ in categorder %}
+      <div class="rulescat hover-bg-light-gray flex">
+        <h3 class="w-90">{{ categ |replace('-', ' ') | capitalize }}</h3>
+        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+             alt="Fluid Arrow">
+      </div>
+      <div class="ruleslist dn">
+      {% for ruleart in rulearts if ruleart.rules and not ruleart.extended and ruleart.category == categ %}
+        <ul class="pl4">
+           <li>
+             <a class="f4 montsy"
+                href="../{{ ruleart.slug }}">
+                {{ ruleart.title }}
+             </a><br>
+           </li>
+         </ul>
+         {% do rulearts.remove( ruleart ) %}
+      {% endfor %}
+      </div>
     {% endfor %}
     {% assets output="static/js/rules.min.js", "js/tmp/rules.min.js" %}
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
