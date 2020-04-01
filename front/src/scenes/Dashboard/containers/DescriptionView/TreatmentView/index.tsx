@@ -169,7 +169,6 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             name="btsUrl"
             renderAsEditable={props.isEditing}
             type="text"
-            validate={required}
             visibleWhileEditing={canEditTreatment}
           />
         </Col>
@@ -187,7 +186,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             visibleWhileEditing={canEditTreatment}
           >
             <option value="" />
-            <option value="IN PROGRESS">
+            <option value="IN_PROGRESS">
               {translate.t("search_findings.tab_description.treatment.in_progress")}
             </option>
             <option value="ACCEPTED">

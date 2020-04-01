@@ -19,7 +19,7 @@ from backend.exceptions import FindingNotFound, NotVerificationRequested
 
 class FindingTests(TestCase):
 
-    def _get_result(self, query, testing_client, request_loaders):
+    def _get_result(self, query, testing_client, request_loaders, email='unittest'):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -28,7 +28,7 @@ class FindingTests(TestCase):
         request.session['company'] = 'unittest'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'unittest',
+                'user_email': email,
                 'company': 'unittest',
                 'first_name': 'unit',
                 'last_name': 'test'
@@ -230,7 +230,7 @@ class FindingTests(TestCase):
                   updateClientDescription (
                     btsUrl: "",
                     findingId: "463558592",
-                    treatment: "ACCEPTED",
+                    treatment: ACCEPTED,
                     justification: "This is a treatment justification test",
                     acceptanceDate: "-"
                   ) {
@@ -250,14 +250,14 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert result['data']['updateClientDescription']['success']
 
-    def test_update_treatment_new(self):
+    def test_update_treatment_in_progress(self):
         query = '''
                 mutation {
                   updateClientDescription (
                     btsUrl: "",
-                    findingId: "436992569",
-                    treatment: "NEW",
-                    justification: ""
+                    findingId: "457497316",
+                    treatment: IN_PROGRESS,
+                    justification: "test justif"
                   ) {
                     success
                     finding {
@@ -271,7 +271,8 @@ class FindingTests(TestCase):
         request_loaders = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()}
-        result = self._get_result(query, testing_client, request_loaders)
+        result = self._get_result(query, testing_client, request_loaders,
+                                  email='continuoushacking@gmail.com')
         assert 'errors' not in result
         assert result['data']['updateClientDescription']['success']
 
@@ -280,9 +281,9 @@ class FindingTests(TestCase):
                 mutation {
                   updateClientDescription (
                     btsUrl: "new test btsUrl",
-                    findingId: "436992569",
-                    treatment: "NEW",
-                    justification: ""
+                    findingId: "457497316",
+                    treatment: IN_PROGRESS,
+                    justification: "test justif"
                   ) {
                     success
                     finding {
@@ -296,16 +297,17 @@ class FindingTests(TestCase):
         request_loaders = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()}
-        result = self._get_result(query_bts, testing_client, request_loaders)
+        result = self._get_result(query_bts, testing_client, request_loaders,
+                                  email='continuoushacking@gmail.com')
         assert 'errors' not in result
         assert result['data']['updateClientDescription']['success']
         query_bts_empty = '''
                 mutation {
                   updateClientDescription (
                     btsUrl: "",
-                    findingId: "436992569",
-                    treatment: "NEW",
-                    justification: ""
+                    findingId: "457497316",
+                    treatment: IN_PROGRESS,
+                    justification: "test justif"
                   ) {
                     success
                     finding {
@@ -319,7 +321,8 @@ class FindingTests(TestCase):
         request_loaders = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()}
-        result = self._get_result(query_bts_empty, testing_client, request_loaders)
+        result = self._get_result(query_bts_empty, testing_client, request_loaders,
+                                  email='continuoushacking@gmail.com')
         assert 'errors' not in result
         assert result['data']['updateClientDescription']['success']
 

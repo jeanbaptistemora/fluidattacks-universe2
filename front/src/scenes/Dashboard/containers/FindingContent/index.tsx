@@ -26,7 +26,7 @@ import { FindingActions } from "../../components/FindingActions";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
 import { CommentsView } from "../CommentsView/index";
-import { DescriptionView } from "../DescriptionView/newIndex";
+import { DescriptionView } from "../DescriptionView/index";
 import { EvidenceView } from "../EvidenceView/index";
 import { ExploitView } from "../ExploitView/index";
 import { GET_PROJECT_ALERT } from "../ProjectContent/queries";

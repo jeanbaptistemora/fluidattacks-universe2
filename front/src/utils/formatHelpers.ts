@@ -308,30 +308,30 @@ export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string
 
 export const formatDropdownField: ((field: string) => string) = (field: string): string => {
   const translationParameters: {[value: string]: string} = {
-    "ACCEPTED": "search_findings.tab_description.treatment.accepted",
-    "ACCEPTED_UNDEFINED": "search_findings.tab_description.treatment.accepted_undefined",
-    "ANONYMOUS_INTERNET": "search_findings.tab_description.scenario.anon_inter",
-    "ANONYMOUS_INTRANET": "search_findings.tab_description.scenario.anon_intra",
-    "ANYONE_INTERNET": "search_findings.tab_description.actor.any_internet",
-    "ANYONE_WORKSTATION": "search_findings.tab_description.actor.any_station",
-    "ANY_CUSTOMER": "search_findings.tab_description.actor.any_customer",
-    "ANY_EMPLOYEE": "search_findings.tab_description.actor.any_employee",
-    "APPLICATIONS": "search_findings.tab_description.ambit.applications",
-    "AUTHORIZED_USER_EXTRANET": "search_findings.tab_description.scenario.auth_extra",
-    "AUTHORIZED_USER_INTERNET": "search_findings.tab_description.scenario.auth_inter",
-    "AUTHORIZED_USER_INTRANET": "search_findings.tab_description.scenario.auth_intra",
-    "DATABASES": "search_findings.tab_description.ambit.databases",
-    "IN PROGRESS": "search_findings.tab_description.treatment.in_progress",
-    "INFRASTRUCTURE": "search_findings.tab_description.ambit.infra",
-    "NEW": "search_findings.tab_description.treatment.new",
-    "ONE_EMPLOYEE": "search_findings.tab_description.actor.one_employee",
-    "REJECTED": "search_findings.tab_description.treatment.rejected",
-    "SOME_CUSTOMERS": "search_findings.tab_description.actor.some_customer",
-    "SOME_EMPLOYEES": "search_findings.tab_description.actor.some_employee",
-    "SOURCE_CODE": "search_findings.tab_description.ambit.sourcecode",
-    "UNAUTHORIZED_USER_EXTRANET": "search_findings.tab_description.scenario.unauth_extra",
-    "UNAUTHORIZED_USER_INTERNET": "search_findings.tab_description.scenario.unauth_inter",
-    "UNAUTHORIZED_USER_INTRANET": "search_findings.tab_description.scenario.unauth_intra",
+    ACCEPTED: "search_findings.tab_description.treatment.accepted",
+    ACCEPTED_UNDEFINED: "search_findings.tab_description.treatment.accepted_undefined",
+    ANONYMOUS_INTERNET: "search_findings.tab_description.scenario.anon_inter",
+    ANONYMOUS_INTRANET: "search_findings.tab_description.scenario.anon_intra",
+    ANYONE_INTERNET: "search_findings.tab_description.actor.any_internet",
+    ANYONE_WORKSTATION: "search_findings.tab_description.actor.any_station",
+    ANY_CUSTOMER: "search_findings.tab_description.actor.any_customer",
+    ANY_EMPLOYEE: "search_findings.tab_description.actor.any_employee",
+    APPLICATIONS: "search_findings.tab_description.ambit.applications",
+    AUTHORIZED_USER_EXTRANET: "search_findings.tab_description.scenario.auth_extra",
+    AUTHORIZED_USER_INTERNET: "search_findings.tab_description.scenario.auth_inter",
+    AUTHORIZED_USER_INTRANET: "search_findings.tab_description.scenario.auth_intra",
+    DATABASES: "search_findings.tab_description.ambit.databases",
+    INFRASTRUCTURE: "search_findings.tab_description.ambit.infra",
+    IN_PROGRESS: "search_findings.tab_description.treatment.in_progress",
+    NEW: "search_findings.tab_description.treatment.new",
+    ONE_EMPLOYEE: "search_findings.tab_description.actor.one_employee",
+    REJECTED: "search_findings.tab_description.treatment.rejected",
+    SOME_CUSTOMERS: "search_findings.tab_description.actor.some_customer",
+    SOME_EMPLOYEES: "search_findings.tab_description.actor.some_employee",
+    SOURCE_CODE: "search_findings.tab_description.ambit.sourcecode",
+    UNAUTHORIZED_USER_EXTRANET: "search_findings.tab_description.scenario.unauth_extra",
+    UNAUTHORIZED_USER_INTERNET: "search_findings.tab_description.scenario.unauth_inter",
+    UNAUTHORIZED_USER_INTRANET: "search_findings.tab_description.scenario.unauth_intra",
   };
 
   return translationParameters[field];
@@ -462,7 +462,8 @@ export const getLastTreatment: ((historic: IHistoricTreatment[]) => IHistoricTre
     .split(" ")[0];
   const acceptanceStatus: string = _.get(lastTreatment, "acceptance_status", "")
     .split(" ")[0];
-  const treatment: string = _.get(lastTreatment, "treatment");
+  const treatment: string = _.get(lastTreatment, "treatment")
+    .replace(" ", "_");
   const justification: string = _.get(lastTreatment, "justification", "");
   const acceptationUser: string = _.get(lastTreatment, "user", "");
 

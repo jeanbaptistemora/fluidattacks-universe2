@@ -19,7 +19,7 @@ export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
     $btsUrl: String,
     $findingId: String!,
     $justification: String!,
-    $treatment: String!
+    $treatment: UpdateClientDescriptionTreatment!
   ) {
     updateClientDescription(
       acceptanceDate: $date,

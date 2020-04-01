@@ -201,7 +201,7 @@ type Mutation {
         findingId: String!,
         treatment: UpdateClientDescriptionTreatment!,
         justification: String!,
-        acceptanceStatus: String!
+        acceptanceStatus: String
     ): SimpleFindingPayload!
 
     approveDraft(draftId: String!): ApproveDraftPayload!

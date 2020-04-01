@@ -46,7 +46,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
   `;
 
 export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
-  mutation UpdateTreatmentMutation(
+  mutation UpdateTreatmentVulnMutation(
     $findingId: String!,
     $severity: Int,
     $tag: String
