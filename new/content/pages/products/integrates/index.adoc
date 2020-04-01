@@ -4,3 +4,74 @@
 :template: products/integrates
 
 = Integrates
+
+[role="w-25-ns w-90 dib tl v-top pa3"]
+=== Project Indicators and Status Graphs
+
+[role="fw1 f5 lh-2"]
+Integrates provides you information about the current
+status of your project such as: 1) the number of
+security vulnerabilities identified; 2) the current threat
+level that those vulnerabilities pose to your
+organization, and 3) the vulnerabilities that have already
+been remediated.
+
+[role="w-25-ns w-90 dib tl v-top pa3"]
+=== Vulnerability Description
+
+[role="fw1 f5 lh-2"]
+Through Integrates you have available the visualization
+of the vulnerabilities found and information about their
+current status, location, type and severity of the threat
+(according to CVSS), identification/reporting date,
+evolution, and recommendations on how to eliminate
+them. Access real-time indicators and automated
+reports.
+
+[role="w-25-ns w-90 dib tl v-top pa3"]
+=== Vulnerability Prioritization and Documentation
+
+[role="fw1 f5 lh-2"]
+Integrates helps you determine which vulnerabilities
+require immediate attention based on parameters
+including: Age; Severity; Status (Open/Closed), and
+Resolution options (Accepted/New/In
+Progress/Indefinitely Accepted). After a vulnerability has
+been remediated you can ask FA for documentation.
+
+[role="w-25-ns w-90 dib tl v-top pa3"]
+=== Forces and Exploitation-Animation
+
+[role="fw1 f5 lh-2"]
+Within Integrates, Forces (Fluid Attacks' service)
+displays the diagnostic script used to expose, or exploit,
+a security vulnerability. This same script can also be
+used to verify that your company’s solution to a
+particular problem has been successful. In addition,
+with the Exploitation-Animation option, you can view
+through a gif an animated representation of the process
+used to exploit a vulnerability.
+
+[role="w-25-ns w-90 dib tl v-top pa3"]
+=== Compromised Records and Real-Time Events
+
+[role="fw1 f5 lh-2"]
+In Integrates, Compromised Records shows your
+company information such as names, identifiers,
+balances, products, etc., that would be vulnerable to a
+security breach in a real attack. All events that inhibit
+the testing can also be viewed in Integrates in real-time.
+
+[role="w-25-ns w-90 dib tl v-top pa3"]
+=== Chat with Us + Email Notification
+
+[role="fw1 f5 lh-2"]
+When Drills (Fluid Attacks' service) is purchased, Fluid Attacks
+will provide a private forum where your company
+and Fluid Attacks can post messages about any relevant
+aspect of the project. To ensure that the client company
+receives timely communication, an email notification is
+also sent when a response to a client message has been
+posted. Email notifications are sent about changes made
+to the vulnerabilities, comments made about them, and
+variations in their status.

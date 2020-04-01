@@ -6,7 +6,7 @@
 = Products
 
 [role="w6 center pt5"]
-image::product-integrates.png[]
+image::product-integrates.png[link="../products/integrates/"]
 
 == Integrates
 
@@ -16,7 +16,7 @@ This is a red team management tool for reporting all project findings in the
 different phases and in real-time.
 
 [role="w6 center pt3"]
-image::product-drills.png[]
+image::product-drills.png[link="#"]
 
 == Drills
 
@@ -26,7 +26,7 @@ at high speed during the entire software development life cycle.
 along with source code analysis.
 
 [role="w6 center pt3"]
-image::product-forces.png[]
+image::product-forces.png[link="#"]
 
 == Forces
 
@@ -36,7 +36,7 @@ remediation of open vulnerabilities.
 Fluid Attacks creates personalized exploits that perform these attacks.
 
 [role="w6 center pt3"]
-image::use-cases-rules.png[]
+image::use-cases-rules.png[link="#"]
 
 == Rules
 
