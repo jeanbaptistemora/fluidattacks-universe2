@@ -148,8 +148,7 @@ describe("ProjectSettingsView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(80);
-    act(() => { wrapper.update(); });
+    await act(async () => { await wait(500); wrapper.update(); });
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
                                  .find("RowPureContent")
@@ -186,8 +185,7 @@ describe("ProjectSettingsView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(200);
-    act(() => { wrapper.update(); });
+    await act(async () => { await wait(200); wrapper.update(); });
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
                                  .find("RowPureContent")

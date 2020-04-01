@@ -279,7 +279,7 @@ describe("FindingContent", () => {
         </Provider>
       </MemoryRouter>,
     );
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(async () => { await wait(50); wrapper.update(); });
     let submitButton: ReactWrapper = wrapper.find("ButtonToolbar")
       .at(0)
       .find("Button")
@@ -361,7 +361,7 @@ describe("FindingContent", () => {
         </Provider>
       </MemoryRouter>,
     );
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(async () => { await wait(50); wrapper.update(); });
     let approveButton: ReactWrapper = wrapper.find("ButtonToolbar")
       .at(0)
       .find("Button")
@@ -463,7 +463,7 @@ describe("FindingContent", () => {
         </Provider>
       </MemoryRouter>,
     );
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(async () => { await wait(50); wrapper.update(); });
     let rejectButton: ReactWrapper = wrapper.find("ButtonToolbar")
       .at(0)
       .find("Button")
