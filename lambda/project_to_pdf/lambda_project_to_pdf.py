@@ -56,7 +56,7 @@ def project_to_pdf(event):
 
     lambda_client = boto3.client('lambda')
     ret = lambda_client.invoke(
-        FunctionName='integrates-send-mail-new-vulnerabilities',
+        FunctionName='integrates-send-mail-notification',
         InvocationType='Event',
         LogType='Tail',
         Payload=json.dumps(payload_dict),
