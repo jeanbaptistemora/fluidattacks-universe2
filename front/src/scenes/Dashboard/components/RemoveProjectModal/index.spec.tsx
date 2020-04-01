@@ -69,7 +69,7 @@ describe("RemoveProjectModal component", () => {
       {
         request: {
           query: PROJECTS_QUERY,
-          variables: {},
+          variables: { tagsField: false },
         },
         result: {
           data: { me: { projects: [] }},

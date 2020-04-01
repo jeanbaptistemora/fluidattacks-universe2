@@ -53,6 +53,9 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
     { dataField: "projects", header: "Projects" },
   ];
 
+  const { userRole } = window as typeof window & Dictionary<string>;
+  const canDisplayTags: boolean = _.includes(["admin", "customeradmin"], userRole);
+
   const [display, setDisplay] = React.useState(_.get(localStorage, "projectsDisplay", "grid"));
   const handleDisplayChange: ((value: string) => void) = (value: string): void => {
     setDisplay(value);
@@ -119,7 +122,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
             </Col>
           </Row>
           : undefined}
-        <Query query={PROJECTS_QUERY}>
+        <Query query={PROJECTS_QUERY} variables={{ tagsField: canDisplayTags }}>
           {({ data }: QueryResult<IUserAttr>): JSX.Element => {
             if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
@@ -151,32 +154,37 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
                         />
                       )}
                   </Row>
-                  <h2>{translate.t("home.tags")}</h2>
-                  <Row className={style.content}>
-                    {display === "grid"
-                      ? data.me.tags.map((tagMap: IUserAttr["me"]["tags"][0], index: number): JSX.Element => (
-                        <Col md={3} key={index}>
-                          <ProjectBox
-                            name={tagMap.name.toUpperCase()}
-                            description={formatTagDescription(tagMap.projects)}
-                            onClick={displayTag}
-                          />
-                        </Col>
-                      ))
-                      : (
-                          <DataTableNext
-                            bordered={true}
-                            dataset={formatTagTableData(data.me.tags)}
-                            exportCsv={false}
-                            headers={tableHeadersTags}
-                            id="tblProjects"
-                            pageSize={15}
-                            remote={false}
-                            rowEvents={{ onClick: handleRowTagClick }}
-                            search={true}
-                          />
-                       )}
-                  </Row>
+                  {canDisplayTags  ?
+                  (
+                    <React.Fragment>
+                      <h2>{translate.t("home.tags")}</h2>
+                      <Row className={style.content}>
+                        {display === "grid"
+                          ? data.me.tags.map((tagMap: IUserAttr["me"]["tags"][0], index: number): JSX.Element => (
+                            <Col md={3} key={index}>
+                              <ProjectBox
+                                name={tagMap.name.toUpperCase()}
+                                description={formatTagDescription(tagMap.projects)}
+                                onClick={displayTag}
+                              />
+                            </Col>
+                          ))
+                          : (
+                              <DataTableNext
+                                bordered={true}
+                                dataset={formatTagTableData(data.me.tags)}
+                                exportCsv={false}
+                                headers={tableHeadersTags}
+                                id="tblProjects"
+                                pageSize={15}
+                                remote={false}
+                                rowEvents={{ onClick: handleRowTagClick }}
+                                search={true}
+                              />
+                          )}
+                      </Row>
+                    </React.Fragment>
+                  ) : undefined}
                 </Col>
                 <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
               </Row>

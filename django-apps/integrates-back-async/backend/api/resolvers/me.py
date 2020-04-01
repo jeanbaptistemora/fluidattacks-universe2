@@ -6,9 +6,9 @@ import json
 import sys
 
 from collections import defaultdict
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Sequence, Union
 from asgiref.sync import sync_to_async
-from backend.decorators import require_login
+from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
 from backend.exceptions import InvalidExpirationTime
@@ -30,30 +30,23 @@ from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
 @sync_to_async
-def _get_role(
-    jwt_content: Dict[str, str], project_name: str = None
-) -> Dict[str, str]:
+def _get_role(_, user_email: str, project_name: str = None) -> Dict[str, str]:
     """Get role."""
-    user_email = jwt_content['user_email']
-
     if project_name:
         role = user_domain.get_group_level_role(user_email, project_name)
     else:
         role = user_domain.get_user_level_role(user_email)
 
     if project_name and role == 'customer':
-        email = jwt_content.get('user_email', '')
         role = 'customeradmin' if is_customeradmin(
-            project_name, email) else 'customer'
+            project_name, user_email) else 'customer'
     return dict(role=role)
 
 
 @sync_to_async
-def _get_projects(
-        jwt_content: Dict[str, str]) -> Dict[str, List[Dict[str, str]]]:
+def _get_projects(_, user_email: str) -> Dict[str, List[Dict[str, str]]]:
     """Get projects."""
     projects = []
-    user_email = jwt_content.get('user_email', '')
     for project in user_domain.get_projects(user_email):
         description = project_domain.get_description(project)
         projects.append(
@@ -63,9 +56,8 @@ def _get_projects(
 
 
 @sync_to_async
-def _get_access_token(jwt_content: Dict[str, str]) -> Dict[str, str]:
+def _get_access_token(_, user_email: str) -> Dict[str, str]:
     """Get access token."""
-    user_email = jwt_content.get('user_email', '')
     access_token = user_domain.get_data(user_email, 'access_token')
     access_token_dict = {
         'hasAccessToken': bool(access_token),
@@ -76,28 +68,26 @@ def _get_access_token(jwt_content: Dict[str, str]) -> Dict[str, str]:
 
 
 @sync_to_async
-def _get_authorized(jwt_content: Dict[str, str]) -> Dict[str, bool]:
+def _get_authorized(_, user_email: str) -> Dict[str, bool]:
     """Get user authorization."""
-    user_email = jwt_content.get('user_email', '')
     result = user_domain.is_registered(user_email)
     return dict(authorized=result)
 
 
 @sync_to_async
 def _get_remember(
-        jwt_content: Dict[str, str]) -> Dict[str, Union[bool, str, UserType]]:
+        _, user_email: str) -> Dict[str, Union[bool, str, UserType]]:
     """Get remember preference."""
-    user_email = jwt_content.get('user_email', '')
     remember = user_domain.get_data(user_email, 'legal_remember')
     result = remember if remember else False
     return dict(remember=result)
 
 
 @sync_to_async
+@enforce_user_level_auth_async
 def _get_tags(
-        jwt_content: Dict[str, str]) -> Dict[str, List]:
+        _, user_email: str) -> Dict[str, List[Dict[str, Sequence[str]]]]:
     """Get tags."""
-    user_email = jwt_content.get('user_email', '')
     projects = user_domain.get_projects(user_email)
     tags_dict: Dict[str, List] = defaultdict(list)
     for project in projects:
@@ -117,9 +107,11 @@ async def _resolve_fields(info) -> Dict[int, Any]:
     tasks = list()
 
     for requested_field in info.field_nodes[0].selection_set.selections:
+        if util.is_skippable(info, requested_field):
+            continue
         jwt_content = util.get_jwt_content(info.context)
         params = {
-            'jwt_content': jwt_content
+            'user_email': jwt_content.get('user_email')
         }
         field_params = util.get_field_parameters(requested_field)
         if field_params:
@@ -133,7 +125,7 @@ async def _resolve_fields(info) -> Dict[int, Any]:
             f'_get_{requested_field}'
         )
         tasks.append(
-            asyncio.ensure_future(resolver_func(**params))
+            asyncio.ensure_future(resolver_func(info, **params))
         )
     tasks_result = await asyncio.gather(*tasks)
     for dict_result in tasks_result:
@@ -145,13 +137,7 @@ async def _resolve_fields(info) -> Dict[int, Any]:
 @require_login
 def resolve_me(_, info) -> Dict[int, Any]:
     """Resolve Me query."""
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    result = loop.run_until_complete(
-        _resolve_fields(info)
-    )
-    loop.close()
-    return result
+    return util.run_async(_resolve_fields, info)
 
 
 @convert_kwargs_to_snake_case

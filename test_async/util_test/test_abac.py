@@ -328,6 +328,10 @@ class UserAbacTest(TestCase):
     adapter = get_casbin_adapter()
     enforcer = get_user_level_enforcer()
 
+    customeradmin_actions: Set[str] = {
+        'backend_api_resolvers_me__get_tags',
+    }
+
     customeratfluid_actions: Set[str] = {
         'backend_api_resolvers_project_resolve_create_project',
     }
@@ -371,7 +375,8 @@ class UserAbacTest(TestCase):
 
         self._grant_user_level_access(sub, 'customer')
 
-        for act in self.customeratfluid_actions:
+        for act in self.customeratfluid_actions.union(
+            self.customeradmin_actions):
             self.assertFalse(self.enforcer.enforce(sub, obj, act))
 
     def test_action_customeratfluid_role(self):
@@ -381,6 +386,15 @@ class UserAbacTest(TestCase):
         self._grant_user_level_access(sub, 'customer')
 
         for act in self.customeratfluid_actions:
+            self.assertTrue(self.enforcer.enforce(sub, obj, act))
+
+    def test_action_customeradmin_role(self):
+        sub = 'test_action_customeradmin_role@gmail.com'
+        obj = 'self'
+
+        self._grant_user_level_access(sub, 'customeradmin')
+
+        for act in self.customeradmin_actions:
             self.assertTrue(self.enforcer.enforce(sub, obj, act))
 
     def test_action_admin_role(self):

@@ -176,6 +176,7 @@ class Query(ObjectType):
         return Me()
 
     @require_login
+    @enforce_user_level_auth
     def resolve_tag(self, info, tag):
         """Resolve project info of tag"""
         tag = tag.lower()

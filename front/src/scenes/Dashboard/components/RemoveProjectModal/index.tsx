@@ -27,6 +27,8 @@ import { IRemoveProject, IRemoveProjectModal } from "./types";
 const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
   (props: IRemoveProjectModal): JSX.Element => {
     const projectName: string = props.projectName.toLowerCase();
+    const { userRole } = window as typeof window & Dictionary<string>;
+    const canDisplayTags: boolean = _.includes(["admin", "customeradmin"], userRole);
     const closeRemoveProjectModal: (() => void) = (): void => { props.onClose(); };
     const removeProjectError: ((error: ApolloError) => void) = (error: ApolloError): void => {
       closeRemoveProjectModal();
@@ -58,7 +60,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
             mutation={REQUEST_REMOVE_PROJECT_MUTATION}
             onCompleted={removeProjectResult}
             onError={removeProjectError}
-            refetchQueries={[{ query: PROJECTS_QUERY}]}
+            refetchQueries={[{ query: PROJECTS_QUERY, variables: { tagsField: canDisplayTags }}]}
           >
             {(removeProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
 

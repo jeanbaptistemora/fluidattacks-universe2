@@ -327,6 +327,10 @@ class UserAbacTest(TestCase):
     adapter = get_casbin_adapter()
     enforcer = get_user_level_enforcer()
 
+    customeradmin_actions: Set[str] = {
+        'backend_api_query_Query_resolve_tag',
+    }
+
     customeratfluid_actions: Set[str] = {
         'backend_entity_project_CreateProject_mutate',
     }
@@ -340,6 +344,7 @@ class UserAbacTest(TestCase):
         'backend_entity_user_AddUser_mutate',
     }
     admin_actions = admin_actions.union(analyst_actions)
+    admin_actions = admin_actions.union(customeradmin_actions)
     admin_actions = admin_actions.union(customeratfluid_actions)
 
     all_actions = admin_actions
@@ -370,8 +375,18 @@ class UserAbacTest(TestCase):
 
         self._grant_user_level_access(sub, 'customer')
 
-        for act in self.customeratfluid_actions:
+        for act in self.customeratfluid_actions.union(
+            self.customeradmin_actions):
             self.assertFalse(self.enforcer.enforce(sub, obj, act))
+    
+    def test_action_customeradmin_role(self):
+        sub = 'test_action_customeradmin_role@gmail.com'
+        obj = 'self'
+
+        self._grant_user_level_access(sub, 'customeradmin')
+
+        for act in self.customeradmin_actions:
+            self.assertTrue(self.enforcer.enforce(sub, obj, act))
 
     def test_action_customeratfluid_role(self):
         sub = 'test_action_customeratfluid_role@fluidattacks.com'

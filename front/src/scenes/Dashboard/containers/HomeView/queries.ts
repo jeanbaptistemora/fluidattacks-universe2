@@ -2,13 +2,13 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const PROJECTS_QUERY: DocumentNode = gql`
-  query HomeProjects {
+  query HomeProjects ($tagsField: Boolean!) {
     me {
       projects {
         name
         description
       }
-      tags {
+      tags @include(if: $tagsField) {
         name
         projects {
           name

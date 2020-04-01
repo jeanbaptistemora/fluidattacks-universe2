@@ -242,7 +242,13 @@ def enforce_user_level_auth_async(func):
     """Enforce authorization using the user-level role."""
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
-        context = args[1].context
+        if hasattr(args[0], 'context'):
+            context = args[0].context
+        elif hasattr(args[1], 'context'):
+            context = args[1].context
+        else:
+            GraphQLError('Could not get context from request.')
+
         user_data = util.get_jwt_content(context)
 
         subject = user_data['user_email']
