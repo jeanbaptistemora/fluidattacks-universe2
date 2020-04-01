@@ -237,51 +237,61 @@ functional_tests_prod:
 infra_backup_deploy:
   <<: *with_nix
   <<: *in_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-infra
 
 infra_backup_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: test-infra
 
 infra_cache_db_deploy:
   <<: *with_nix
   <<: *in_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-infra
 
 infra_cache_db_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: test-infra
 
 infra_django_db_deploy:
   <<: *with_nix
   <<: *in_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-infra
 
 infra_django_db_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: test-infra
 
 infra_resources_deploy:
   <<: *with_nix
   <<: *in_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-infra
 
 infra_resources_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: test-infra
 
 infra_secret_management_deploy:
   <<: *with_nix
   <<: *in_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-infra
 
 infra_secret_management_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch
+  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: test-infra
 
 lint_back:
