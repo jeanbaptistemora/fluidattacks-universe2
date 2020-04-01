@@ -11,6 +11,8 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from graphql import GraphQLError
 from jose import jwt
+from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
 from backend.exceptions import FindingNotFound, NotVerificationRequested
@@ -37,6 +39,10 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         return result
 

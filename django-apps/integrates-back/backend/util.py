@@ -469,10 +469,12 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
 
 def run_async(function: Callable, *args, **kwargs):
     """Run function asynchronous."""
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
     result = loop.run_until_complete(function(*args, **kwargs))
-    loop.close()
     return result
 
 

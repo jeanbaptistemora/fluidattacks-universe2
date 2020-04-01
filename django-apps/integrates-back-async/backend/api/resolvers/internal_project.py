@@ -8,6 +8,7 @@ from backend.decorators import (
     require_login,
 )
 from backend.domain import internal_project as internal_project_domain
+from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
 
@@ -36,10 +37,4 @@ async def _resolve_fields():
 @enforce_user_level_auth_async
 def resolve_project_name(*_):
     """Resolve internalProjectNames query."""
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    result = loop.run_until_complete(
-        _resolve_fields()
-    )
-    loop.close()
-    return result
+    return util.run_async(_resolve_fields)

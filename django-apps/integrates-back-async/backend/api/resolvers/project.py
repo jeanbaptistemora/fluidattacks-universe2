@@ -7,9 +7,6 @@ import simplejson as json
 from asgiref.sync import sync_to_async
 import rollbar
 
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
-from backend.api.dataloaders.finding import FindingLoader
-from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders import (
     finding as finding_loader,
     user as user_loader
@@ -359,12 +356,6 @@ async def _get_users(info, project_name):
 
 async def _resolve_fields(info, project_name):
     """Async resolve fields."""
-    loaders = {
-        'finding': FindingLoader(),
-        'vulnerability': VulnerabilityLoader(),
-        'event': EventLoader(),
-    }
-    info.context.loaders = loaders
     result = dict()
     tasks = list()
     for requested_field in info.field_nodes[0].selection_set.selections:

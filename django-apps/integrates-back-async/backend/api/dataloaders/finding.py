@@ -7,7 +7,6 @@ import sys
 from asgiref.sync import sync_to_async
 from graphql import GraphQLError
 
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs
 )
@@ -467,11 +466,6 @@ async def _get_verified(info, identifier):
 
 async def resolve(info, identifier, as_field=False):
     """Async resolve fields."""
-    loaders = {
-        'finding': FindingLoader(),
-        'vulnerability': VulnerabilityLoader()
-    }
-    info.context.loaders = loaders
     result = dict()
     tasks = list()
     requested_fields = \

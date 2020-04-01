@@ -7,6 +7,9 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
+from backend.api.dataloaders.event import EventLoader
+from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
 
@@ -32,6 +35,11 @@ class ProjectTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {
+            'event': EventLoader(),
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         return result
 

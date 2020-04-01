@@ -86,13 +86,7 @@ async def _resolve_fields(info, project_name):
 @require_project_access
 def resolve_resources(_, info, project_name):
     """Resolve resources query."""
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    result = loop.run_until_complete(
-        _resolve_fields(info, project_name)
-    )
-    loop.close()
-    return result
+    return util.run_async(_resolve_fields, info, project_name)
 
 
 @convert_kwargs_to_snake_case

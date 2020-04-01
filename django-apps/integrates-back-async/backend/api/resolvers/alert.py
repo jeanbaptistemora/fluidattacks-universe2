@@ -39,7 +39,7 @@ async def _resolve_fields(project_name, organization):
     tasks_result = await asyncio.gather(future)
     for dict_result in tasks_result:
         result.update(dict_result)
-    return result
+    return util.run_async(_get_alert_fields, project_name, organization)
 
 
 @convert_kwargs_to_snake_case
@@ -49,13 +49,7 @@ async def _resolve_fields(project_name, organization):
 @get_cached
 def resolve_alert(*_, project_name, organization):
     """Resolve alert query."""
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    result = loop.run_until_complete(
-        _resolve_fields(project_name, organization)
-    )
-    loop.close()
-    return result
+    return util.run_async(_resolve_fields, project_name, organization)
 
 
 @convert_kwargs_to_snake_case

@@ -11,7 +11,7 @@ from backend.decorators import (
     require_project_access
 )
 from backend.dal import forces as forces_dal
-from backend.util import get_current_time_minus_delta
+from backend import util
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
@@ -100,12 +100,8 @@ def resolve_forces_executions(
 ):
     """Resolve forces_executions query."""
     project_name = project_name.lower()
-    from_date = from_date or get_current_time_minus_delta(weeks=1)
+    from_date = from_date or util.get_current_time_minus_delta(weeks=1)
     to_date = to_date or datetime.utcnow()
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    result = loop.run_until_complete(
-        _resolve_fields(info, project_name, from_date, to_date)
+    return util.run_async(
+        _resolve_fields, info, project_name, from_date, to_date
     )
-    loop.close()
-    return result
