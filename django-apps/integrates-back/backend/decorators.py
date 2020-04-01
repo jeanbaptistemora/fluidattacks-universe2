@@ -11,6 +11,10 @@ from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
+try:
+    from graphql.type import GraphQLResolveInfo
+except ImportError:
+    pass  # old api
 from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 from simpleeval import AttributeDoesNotExist
@@ -477,7 +481,14 @@ def get_entity_cache_async(func):
     async def decorated(*args, **kwargs):
         """Get cached response from function if it exists."""
         gql_ent = args[0]
-        uniq_id = str(gql_ent)
+
+        if isinstance(gql_ent, GraphQLResolveInfo):
+            uniq_id = '_'.join(
+                [key + '_' + str(gql_ent.variable_values[key]) for
+                 key in gql_ent.variable_values]
+            )
+        else:
+            uniq_id = str(gql_ent)
         params = '_'.join([kwargs[key] for key in kwargs]) + '_'
         complement = (params if kwargs else '') + uniq_id
         key_name = \
