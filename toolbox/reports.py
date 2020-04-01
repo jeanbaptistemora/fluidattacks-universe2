@@ -13,11 +13,11 @@ import ruamel.yaml as yaml
 # Local imports
 from toolbox import constants, helper, logger, toolbox, utils
 
-ExploitInfo = NamedTuple('ExploitInfo',
-                         [('subscription', str), ('customer', str),
-                          ('integrates_status', str), ('kind', str),
-                          ('type', str), ('score', float), ('finding_id', str),
-                          ('finding_title', str), ('url', str)])
+ExploitInfo = NamedTuple(
+    'ExploitInfo',
+    [('subscription', str), ('customer', str), ('integrates_status', str),
+     ('kind', str), ('type', str), ('score', float), ('finding_id', str),
+     ('finding_title', str), ('reason', str), ('url', str)])
 
 
 def get_customer_subs(customer: str) -> tuple:
@@ -133,10 +133,21 @@ def process_exploit(exp_path: str):
     :rtype: :class:`ExploitInfo`
     """
     result = None
+    reason = ''
     subs = exp_path.split('/')[1]
     exp_type = exp_path.split('/')[3]
 
     exp_kind, finding_id = toolbox.scan_exploit_for_kind_and_id(exp_path)
+
+    if exp_kind == 'cannot.exp':
+        reason_pattern = r'(?::\s*(.*))'
+        with open(exp_path, 'r') as reader:
+            reader.readline()
+            reason_line = reader.readline()
+            search_r = re.search(reason_pattern, reason_line)
+            if search_r and len(search_r.groups()) >= 1:
+                reason = search_r.groups()[0]
+
     if helper.integrates.does_finding_exist(finding_id):
         score = helper.integrates.get_finding_cvss_score(finding_id)
         title = helper.integrates.get_finding_title(finding_id)
@@ -148,7 +159,6 @@ def process_exploit(exp_path: str):
                       finding_id=finding_id,
                       finding_types=(constants.SAST if exp_type == 'static'
                                      else constants.DAST)) else 'closed'))
-
         result = ExploitInfo(
             subscription=subs,
             integrates_status=status,
@@ -158,7 +168,8 @@ def process_exploit(exp_path: str):
             finding_id=finding_id,
             customer='',
             finding_title=title,
-            url=url)
+            url=url,
+            reason=reason)
     else:
         result = ExploitInfo(
             subscription=subs,
@@ -169,7 +180,8 @@ def process_exploit(exp_path: str):
             score=0,
             finding_id=finding_id,
             finding_title='unknown',
-            url='unknown')
+            url='unknown',
+            reason=reason)
     return result
 
 
@@ -212,10 +224,6 @@ def generate_exploits_report(file_name: str = 'report.csv',
             logger.info(f'Filling with mocks {subs["name"]}')
             with utils.output_block(indent=4):
                 toolbox.fill_with_mocks(subs['name'])
-
-            logger.info(f'Generating exploits structure for {subs["name"]}')
-            with utils.output_block(indent=4):
-                toolbox.generate_exploits(subs['name'])
 
             logger.info(f'Gereratin report for {subs["name"]}')
             info = process_subscription_exploits(subs)
