@@ -39,7 +39,7 @@ async def _resolve_fields(project_name, organization):
     tasks_result = await asyncio.gather(future)
     for dict_result in tasks_result:
         result.update(dict_result)
-    return util.run_async(_get_alert_fields, project_name, organization)
+    return result
 
 
 @convert_kwargs_to_snake_case
