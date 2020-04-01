@@ -193,6 +193,31 @@ function job_test_defends {
       done
 }
 
+function job_test_commitlint {
+  local commit_diff
+  local commit_hashes
+  local parser_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js'
+  local rules_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/commitlint.config.js'
+
+      helper_use_pristine_workdir \
+  &&  curl -LOJ "${parser_url}" \
+  &&  curl -LOJ "${rules_url}" \
+  &&  npm install @commitlint/{config-conventional,cli} \
+  &&  git fetch --prune &> /dev/null \
+  &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
+      then
+            commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
+      else
+            commit_diff="origin/master..origin/${CI_COMMIT_REF_NAME}"
+      fi \
+  &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
+  &&  for commit_hash in ${commit_hashes}
+      do
+            git log -1 --pretty=%B "${commit_hash}" | npx commitlint \
+        ||  return 1
+      done
+}
+
 function job_deploy_local {
       helper_deploy_compile_site 'http://localhost:8000' \
   &&  python3 -m http.server --directory output

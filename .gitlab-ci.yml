@@ -87,6 +87,10 @@ test_defends:
   <<: *with_nix
   stage: test
 
+test_commitlint:
+  <<: *with_nix
+  stage: test
+
 deploy_ephemeral:
   <<: *with_nix
   <<: *except_master_branch
@@ -122,18 +126,6 @@ postdeploy_release_email:
   needs: [deploy_production]
   except: [schedules]
 
-commitlint:
-  tags: [autoscaling]
-  needs: []
-  stage: test
-  image: starefossen/ruby-node:2-10
-  before_script:
-    - npm install --unsafe-perm
-  script:
-    - ./ci-scripts/commitlint-checks.sh
-  except:
-    - master
-
 danger:
   tags: [autoscaling]
   stage: mr-check
@@ -143,10 +135,13 @@ danger:
   variables:
     DANGER_GITLAB_API_TOKEN: $DANGER_TOKEN
   before_script:
+    - curl -LOJ https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js
+    - curl -LOJ https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/commitlint.config.js
     - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
       | grep ${CI_COMMIT_SHA}
       | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
-    - npm install --unsafe-perm
+    - npm install @commitlint/{config-conventional,cli}
+
   script:
     - danger --verbose --fail-on-errors=true
 

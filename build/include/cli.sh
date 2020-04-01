@@ -23,6 +23,7 @@ function cli {
 
   echo '---'
   env_prepare_environment_variables
+  env_prepare_ephemeral_vars
 
   echo "[INFO] Executing function: job_${function_to_call}"
   if "job_${function_to_call}"

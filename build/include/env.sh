@@ -45,10 +45,6 @@ function env_prepare_python_packages {
   export PYTHONPATH
   local pkg
 
-  echo '[INFO] Preparing ephemeral variables'
-
-  env_prepare_ephemeral_vars
-
   echo '[INFO] Preparing python packages'
 
   helper_list_vars_with_regex 'pyPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
