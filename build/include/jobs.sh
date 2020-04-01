@@ -119,6 +119,9 @@ function job_analytics_git {
   &&  echo '[INFO] Generating stats' \
   &&  python3 analytics/git/generate_stats.py \
         || true \
+  &&  helper_move_continuous_fusion_to_master_git \
+  &&  python3 analytics/git/generate_stats.py \
+        || true \
   &&  echo '[INFO] Generating config' \
   &&  python3 analytics/git/generate_config.py 2>&1 \
         | aws s3 cp - s3://fluidanalytics/generate_config.log \
