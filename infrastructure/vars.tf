@@ -6,7 +6,6 @@ variable "sNetRegion" {}
 
 # S3 vars
 variable "fsBucket" {}
-variable "vaultBucket" {}
 
 #EC2 vars
 variable "clusterInstanceType" {}

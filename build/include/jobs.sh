@@ -628,7 +628,6 @@ function _job_infra_monolith {
           &&  base64 -d > "${helm_home}/key.pem"  <<< "${HELM_KEY}" \
           &&  base64 -d > "${helm_home}/cert.pem" <<< "${HELM_CERT}" \
           &&  base64 -d > "${helm_home}/ca.pem"   <<< "${HELM_CA}" \
-          &&  VAULT_KMS_KEY=$(terraform output vaultKmsKey) \
           &&  eks/manifests/deploy.sh
         fi \
     &&  pushd dns/ \

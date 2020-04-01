@@ -31,13 +31,7 @@ module "eks" {
   nodeStorageSize     = var.nodeStorageSize
   region              = var.region
   rtbId               = var.rtbId
-  vaultBucket         = var.vaultBucket
   vpcCidr             = var.cidr
   vpcSecondaryCidr    = var.vpcSecondaryCidr
   vpcId               = var.vpcId
-}
-
-output "vaultKmsKey" {
-  value     = module.eks.vaultKmsKey
-  sensitive = true
 }

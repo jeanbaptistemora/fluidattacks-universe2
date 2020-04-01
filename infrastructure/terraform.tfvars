@@ -7,7 +7,6 @@ clusterInstanceType = "m5a.large"
 
 # S3 vars
 fsBucket    = "servestf"
-vaultBucket = "vault.fluidattacks"
 
 # Network vars
 cidr             = "192.168.100.0/24"
