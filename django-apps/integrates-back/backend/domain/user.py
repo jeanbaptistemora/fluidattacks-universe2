@@ -212,14 +212,7 @@ def get_attributes(email: str, data: List[str]) -> UserType:
 
 
 def is_registered(email: str) -> bool:
-    is_registered_attr = get_attributes(email, ['registered'])
-    registered = False
-    if is_registered_attr and is_registered_attr.get('registered'):
-        registered = True
-    else:
-        # User not found or registered attr is False
-        pass
-    return registered
+    return bool(get_data(email, 'registered'))
 
 
 def logging_users_report(company_name: str, init_date: str, finish_date: str) -> int:
@@ -282,15 +275,18 @@ def create_without_project(user_data: UserType) -> bool:
 
     success = False
 
-    if validate_alphanumeric_field([organization]) \
+    if validate_alphanumeric_field(organization) \
             and validate_phone_field(phone_number) \
             and validate_email_address(email):
 
         new_user_data: UserType = {}
         new_user_data['email'] = email
+        new_user_data['authorized'] = True
         new_user_data['registered'] = True
-        new_user_data['organization'] = organization
-        new_user_data['phone'] = phone_number
+        if organization:
+            new_user_data['organization'] = organization
+        if phone_number:
+            new_user_data['phone'] = phone_number
 
         success = grant_user_level_role(email, role)
         success = success and create(email, new_user_data)

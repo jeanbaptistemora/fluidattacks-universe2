@@ -1,4 +1,5 @@
 import re
+from operator import methodcaller
 from typing import List
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
@@ -20,10 +21,14 @@ def validate_field(field: List[str]) -> bool:
     raise GraphQLError('Exception - Parameter is not valid')
 
 
-def validate_alphanumeric_field(field: List[str]) -> bool:
-    if field[0].isalnum() or (field[0] == '-' or field[0] is None):
-        return True
-    raise GraphQLError('Exception - Parameter is not valid')
+def validate_alphanumeric_field(field: str) -> bool:
+    """Optional whitespace separated string, with alphanumeric characters."""
+    if isinstance(field, str):
+        return all(map(methodcaller('isalnum'), field.split())) \
+            or field == '-' \
+            or field == ''
+
+    return field[0] is None
 
 
 def validate_phone_field(phone_field: str) -> bool:

@@ -165,9 +165,9 @@ class UserTests(TestCase):
 
     def test_validate_field(self):
         """makes sure that the  field is filtering only = sign at start"""
-        assert validate_alphanumeric_field('t35t 7 test @ test')
-        with pytest.raises(GraphQLError):
-            assert validate_alphanumeric_field('=test')
+        assert validate_alphanumeric_field('t35t test')
+        assert not validate_alphanumeric_field('t35t 7 test @ test')
+        assert not validate_alphanumeric_field('=test')
 
     def test_validate_phone_number(self):
         assert validate_phone_field("123123123")

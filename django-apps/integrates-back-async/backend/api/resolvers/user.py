@@ -33,9 +33,9 @@ def _create_new_user(
         role: str,
         phone_number: str,
         group: str) -> bool:
-    valid = validate_alphanumeric_field([organization]) \
-        and validate_alphanumeric_field([responsibility]) \
-        and validate_alphanumeric_field([role]) \
+    valid = validate_alphanumeric_field(organization) \
+        and validate_alphanumeric_field(responsibility) \
+        and validate_alphanumeric_field(role) \
         and validate_phone_field(phone_number) \
         and validate_email_address(email)
 
