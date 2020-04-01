@@ -249,6 +249,7 @@ function helper_adoc_normalize {
   local metadata_regex='^:[a-zA-Z0-9-]+:.*'
   local block_title_regex='^\.[a-zA-Z0-9].*'
   local hard_break_regex='^\+$'
+  local numbered_list_regex='^\. .*'
 
       helper_file_exists "${file}" \
   &&  content="$(cat "${file}")" \
@@ -261,6 +262,7 @@ function helper_adoc_normalize {
               -e "s/${tooltip_regex}//g" \
               -e "s/${button_regex}//g" \
               -e "s/${inner_regex}//g" \
+              -e "s/${numbered_list_regex}//g" \
               -e "/${source_regex}/d" \
               -e "/${metadata_regex}/d" \
               -e "/${block_title_regex}/d" \
