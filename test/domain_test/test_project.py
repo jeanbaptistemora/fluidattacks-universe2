@@ -229,7 +229,8 @@ class ProjectTest(TestCase):
             )['Item']
             for finding_id in findings_to_get]
         test_data = get_total_treatment(findings)
-        expected_output = {'inProgress': 1, 'accepted': 4, 'undefined': 0}
+        expected_output = \
+            {'inProgress': 1, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
         assert test_data == expected_output
 
     def test_is_finding_in_drafts(self):

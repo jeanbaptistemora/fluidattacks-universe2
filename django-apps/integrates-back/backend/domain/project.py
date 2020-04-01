@@ -440,7 +440,8 @@ def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
 
 def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int]:
     """Get the total treatment of all the vulnerabilities"""
-    accepted_vuln = 0
+    accepted_vuln: int = 0
+    indefinitely_accepted_vuln: int = 0
     in_progress_vuln: int = 0
     undefined_treatment: int = 0
     for finding in findings:
@@ -451,12 +452,15 @@ def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int
                 str(finding['finding_id'])).get('openVulnerabilities', ''))
             if fin_treatment == 'ACCEPTED':
                 accepted_vuln += open_vulns
+            elif fin_treatment == 'ACCEPTED_UNDEFINED':
+                indefinitely_accepted_vuln += open_vulns
             elif fin_treatment == 'IN PROGRESS':
                 in_progress_vuln += open_vulns
             else:
                 undefined_treatment += open_vulns
     treatment = {
         'accepted': accepted_vuln,
+        'acceptedUndefined': indefinitely_accepted_vuln,
         'inProgress': in_progress_vuln,
         'undefined': undefined_treatment
     }
