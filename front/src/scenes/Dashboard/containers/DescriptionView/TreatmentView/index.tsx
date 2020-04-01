@@ -155,90 +155,90 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
           };
 
           return (
-    <GenericForm
-      name="editTreatment"
-      initialValues={{ ...lastTreatment, btsUrl: data.finding.btsUrl }}
-      onSubmit={confirmUndefined}
-    >
-      <Row>
-        <Col md={12}>
-          <EditableField
-            component={textField}
-            currentValue={data.finding.btsUrl}
-            label={translate.t("search_findings.tab_description.bts")}
-            name="btsUrl"
-            renderAsEditable={props.isEditing}
-            type="text"
-            visibleWhileEditing={canEditTreatment}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6}>
-          <EditableField
-            component={dropdownField}
-            currentValue={treatmentLabel}
-            label={translate.t("search_findings.tab_description.treatment.title")}
-            name="treatment"
-            renderAsEditable={props.isEditing}
-            type="text"
-            validate={required}
-            visibleWhileEditing={canEditTreatment}
-          >
-            <option value="" />
-            <option value="IN_PROGRESS">
-              {translate.t("search_findings.tab_description.treatment.in_progress")}
-            </option>
-            <option value="ACCEPTED">
-              {translate.t("search_findings.tab_description.treatment.accepted")}
-            </option>
-            <option value="ACCEPTED_UNDEFINED">
-              {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
-            </option>
-          </EditableField>
-        </Col>
-        {lastTreatment.acceptanceStatus === "APPROVED" ? (
-          <Col md={6}>
-            <FormGroup>
-              <ControlLabel>
-                <b>{translate.t("search_findings.tab_description.acceptation_user")}</b>
-              </ControlLabel>
-              <p>{lastTreatment.user}</p>
-            </FormGroup>
-          </Col>
-        ) : undefined}
-      </Row>
-      <Row>
-        <Col md={12}>
-          <EditableField
-            component={textAreaField}
-            currentValue={lastTreatment.justification as string}
-            label={translate.t("search_findings.tab_description.treatment_just")}
-            name="justification"
-            renderAsEditable={props.isEditing}
-            type="text"
-            validate={[required]}
-            visibleWhileEditing={canEditTreatment}
-          />
-        </Col>
-      </Row>
-      {formValues.treatment === "ACCEPTED" ? (
-        <Row>
-          <Col md={4}>
-            <EditableField
-              component={dateField}
-              currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
-              label={translate.t("search_findings.tab_description.acceptance_date")}
-              name="date"
-              renderAsEditable={props.isEditing}
-              type="date"
-              validate={[required, isValidDate, isLowerDate]}
-              visibleWhileEditing={canEditTreatment}
-            />
-          </Col>
-        </Row>
-      ) : undefined}
-    </GenericForm>
+            <GenericForm
+              name="editTreatment"
+              initialValues={{ ...lastTreatment, btsUrl: data.finding.btsUrl }}
+              onSubmit={confirmUndefined}
+            >
+              <Row>
+                <Col md={12}>
+                  <EditableField
+                    component={textField}
+                    currentValue={data.finding.btsUrl}
+                    label={translate.t("search_findings.tab_description.bts")}
+                    name="btsUrl"
+                    renderAsEditable={props.isEditing}
+                    type="text"
+                    visibleWhileEditing={canEditTreatment}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <EditableField
+                    component={dropdownField}
+                    currentValue={treatmentLabel}
+                    label={translate.t("search_findings.tab_description.treatment.title")}
+                    name="treatment"
+                    renderAsEditable={props.isEditing}
+                    type="text"
+                    validate={required}
+                    visibleWhileEditing={canEditTreatment}
+                  >
+                    <option value="" />
+                    <option value="IN_PROGRESS">
+                      {translate.t("search_findings.tab_description.treatment.in_progress")}
+                    </option>
+                    <option value="ACCEPTED">
+                      {translate.t("search_findings.tab_description.treatment.accepted")}
+                    </option>
+                    <option value="ACCEPTED_UNDEFINED">
+                      {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
+                    </option>
+                  </EditableField>
+                </Col>
+                {lastTreatment.acceptanceStatus === "APPROVED" ? (
+                  <Col md={6}>
+                    <FormGroup>
+                      <ControlLabel>
+                        <b>{translate.t("search_findings.tab_description.acceptation_user")}</b>
+                      </ControlLabel>
+                      <p>{lastTreatment.user}</p>
+                    </FormGroup>
+                  </Col>
+                ) : undefined}
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <EditableField
+                    component={textAreaField}
+                    currentValue={lastTreatment.justification as string}
+                    label={translate.t("search_findings.tab_description.treatment_just")}
+                    name="justification"
+                    renderAsEditable={props.isEditing}
+                    type="text"
+                    validate={[required]}
+                    visibleWhileEditing={canEditTreatment}
+                  />
+                </Col>
+              </Row>
+              {formValues.treatment === "ACCEPTED" ? (
+                <Row>
+                  <Col md={4}>
+                    <EditableField
+                      component={dateField}
+                      currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
+                      label={translate.t("search_findings.tab_description.acceptance_date")}
+                      name="date"
+                      renderAsEditable={props.isEditing}
+                      type="date"
+                      validate={[required, isValidDate, isLowerDate]}
+                      visibleWhileEditing={canEditTreatment}
+                    />
+                  </Col>
+                </Row>
+              ) : undefined}
+            </GenericForm>
           );
         }}
       </ConfirmDialog>
