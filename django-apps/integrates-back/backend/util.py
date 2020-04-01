@@ -500,5 +500,7 @@ def is_skippable(info, field):
     include_dir = list(
         filter(lambda dire: dire.name.value == 'include', field.directives)
     )
+    if not include_dir:
+        return False
     var_name = include_dir[0].arguments[0].value.name.value
     return not info.variable_values[var_name]
