@@ -1,11 +1,13 @@
 # Standard library
 import os
+import io
 import sys
 import glob
 import configparser
 import textwrap
 import functools
 import subprocess
+import contextlib
 from pathlib import Path
 
 # Third parties libraries
@@ -220,3 +222,12 @@ def iter_subscritions_config():
     """
     for config_path in glob.glob('subscriptions/*/config/config.yml'):
         yield safe_load(open(config_path))
+
+
+@contextlib.contextmanager
+def output_block(*, indent=2):
+    buffer = io.StringIO()
+    with contextlib.redirect_stdout(buffer), \
+            contextlib.redirect_stderr(buffer):
+        yield
+    print(textwrap.indent(buffer.getvalue(), ' ' * indent))

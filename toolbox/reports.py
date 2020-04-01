@@ -208,6 +208,15 @@ def generate_exploits_report(file_name: str = 'report.csv',
                     customer and subs['customer'] != customer) or (
                         subscription and subs['name'] != subscription):
                 continue
+
+            logger.info(f'Filling with mocks {subs["name"]}')
+            with utils.output_block(indent=4):
+                toolbox.fill_with_mocks(subs['name'])
+
+            logger.info(f'Generating exploits structure for {subs["name"]}')
+            with utils.output_block(indent=4):
+                toolbox.generate_exploits(subs['name'])
+
             logger.info(f'Gereratin report for {subs["name"]}')
             info = process_subscription_exploits(subs)
             for row in info:
