@@ -1,13 +1,8 @@
 import _ from "lodash";
 import * as actions from "./actions";
 import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionTypes";
-import * as projectActions from "./containers/ProjectContent/actionTypes";
 
 export interface IDashboardState {
-  updateAccessTokenModal: { open: boolean };
-  user: {
-    role: string;
-  };
   vulnerabilities: {
     filters: {
       filterInputs: string;
@@ -24,10 +19,6 @@ export interface IDashboardState {
 }
 
 const initialState: IDashboardState = {
-  updateAccessTokenModal: { open: false },
-  user: {
-    role: "",
-  },
   vulnerabilities: {
     filters: {
       filterInputs: "",
@@ -64,15 +55,6 @@ actionMap[vulnerabilitiesActions.CHANGE_SORTS] =
     vulnerabilities: {
       ...state.vulnerabilities,
       sorts: action.payload.sorts,
-    },
-  });
-
-actionMap[projectActions.LOAD_PROJECT] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    user: {
-      ...state.user,
-      role: action.payload.role,
     },
   });
 
