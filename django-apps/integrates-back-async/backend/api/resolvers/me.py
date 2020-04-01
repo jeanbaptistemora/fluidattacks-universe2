@@ -14,7 +14,6 @@ from backend.domain import project as project_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.dal import user as user_dal
 from backend.typing import User as UserType
-from backend.services import is_customeradmin
 from backend import util
 
 from django.conf import settings
@@ -37,9 +36,6 @@ def _get_role(_, user_email: str, project_name: str = None) -> Dict[str, str]:
     else:
         role = user_domain.get_user_level_role(user_email)
 
-    if project_name and role == 'customer':
-        role = 'customeradmin' if is_customeradmin(
-            project_name, user_email) else 'customer'
     return dict(role=role)
 
 
@@ -113,7 +109,8 @@ async def _resolve_fields(info) -> Dict[int, Any]:
         params = {
             'user_email': jwt_content.get('user_email')
         }
-        field_params = util.get_field_parameters(requested_field)
+        field_params = util.get_field_parameters(
+            requested_field, info.variable_values)
         if field_params:
             params.update(field_params)
         requested_field = \

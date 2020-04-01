@@ -17,6 +17,12 @@ import requests
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
+try:
+    from graphql.language.ast import NameNode, VariableNode
+except ImportError:
+    # Old graphql
+    pass
+
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
@@ -487,12 +493,23 @@ def get_requested_fields(field_name, selection_set):
     return field_set[0].selection_set.selections
 
 
-def get_field_parameters(field):
+def get_field_parameters(field, variable_values=None):
     """Get a dict of parameters for field."""
     if not field.arguments:
         return None
-    return {convert_camel_case_to_snake(args.name.value): args.value.value
-            for args in field.arguments if hasattr(args.value, 'value')}
+
+    parameters = {}
+    variable_values = variable_values or {}
+
+    for args in field.arguments:
+        arg_name = convert_camel_case_to_snake(args.name.value)
+
+        if isinstance(args.value, VariableNode):
+            parameters[arg_name] = variable_values.get(args.value.name.value)
+        elif isinstance(args.value, NameNode):
+            parameters[arg_name] = args.value.value
+
+    return parameters
 
 
 def is_skippable(info, field):
