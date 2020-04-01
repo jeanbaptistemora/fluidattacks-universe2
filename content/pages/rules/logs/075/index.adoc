@@ -1,7 +1,7 @@
 :slug: rules/075/
 :category: logs
 :description: This document contains the details of the security requirements related to the definition and management of Logs. This requirement establishes the importance of recording exceptional and security events in logs, allowing the backtracking and proper response in an undesired scenario.
-:keywords: Requirement, Security, Record, Logs, Events, Tracking
+:keywords: Requirement, Security, GDPR, Logs, Events, Tracking
 :rules: yes
 
 = REQ.075 Record exceptional events in logs
@@ -85,3 +85,9 @@ that contain or use electronic protected health information.
 Verify security logging controls provide the ability
 to log success and particularly failure events
 that are identified as security-relevant
+
+. [[r7]] link:https://gdpr-info.eu/art-33-gdpr/[GDPR. Art. 33: Notification of a personal data breach
+to the supervisory authority.(5)]
+The controller shall document any personal data breaches,
+comprising the facts relating to the personal data breach,
+its effects and the remedial action taken.
