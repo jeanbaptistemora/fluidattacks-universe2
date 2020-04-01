@@ -9,7 +9,7 @@ from base64 import b64encode
 from typing import List
 
 # 3rd party imports
-from pyparsing import (cppStyleComment, Keyword, Literal, MatchFirst,
+from pyparsing import (cppStyleComment, Char, Keyword, Literal, MatchFirst,
                        nestedExpr, Optional, QuotedString, Regex, ZeroOrMore,
                        Suppress, ParserElement)
 
@@ -23,8 +23,16 @@ from fluidasserts.utils.decorators import api
 L_CHAR = QuotedString("'")
 # "anything"
 L_STRING = QuotedString('"')
-# Compiled regular expressions
-RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
+
+
+def _flatten(elements, aux_list=None):
+    aux_list = aux_list if aux_list is not None else []
+    for i in elements:
+        if isinstance(i, (list, tuple)):
+            _flatten(i, aux_list)
+        else:
+            aux_list.append(i)
+    return aux_list
 
 
 def generic_c_has_if_without_else(
@@ -67,6 +75,19 @@ def generic_c_has_if_without_else(
         excl=exclude)
 
 
+def _switch_condition(tokens):
+    default = Literal('default') + Char(':')
+    result = []
+    for item in tokens:
+        iters = _flatten(item)
+        for index, value in enumerate(iters):
+            if value == 'default' and iters[index + 1] == ':':
+                result.append(False)
+            else:
+                result.append(not default.searchString(str(value)))
+    return all(result)
+
+
 def generic_c_has_switch_without_default(
         location: str, lang_specs: dict = None, exclude: list = None) -> tuple:
     r"""
@@ -85,7 +106,7 @@ def generic_c_has_switch_without_default(
     grammar.ignore(cppStyleComment)
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
-    grammar.addCondition(lambda x: not RE_HAVES_DEFAULT.search(str(x)))
+    grammar.addCondition(_switch_condition)
 
     return lang.generic_method(
         path=location,
