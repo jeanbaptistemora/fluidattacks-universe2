@@ -4,26 +4,26 @@
 :subtitle: Attacking a network using Responder
 :tags: security, windows, vulnerability, credential
 :image: cover.png
-:alt: Red wooden mailbox near green leaf plan. Photo by Bundo Kim on Unsplash: https://unsplash.com/photos/S-TcfjrYVKo
-:description: Windows hosts use LLMNR and NBT-NS to perform name resolution on the local network. This protocols does not verifies addresses in the network so an attacker could poison this requests in order to capture credentials. This blog post will detail how we can exploit this and obtain user hashes.
+:alt: Red wooden mailbox near green leaf plan. Photo by Bundo Kim on Unsplash.
+:description: Windows hosts use LLMNR and NBT-NS to perform name resolution on the local network. These protocols do not verify addresses on the network so an attacker could poison these requests in order to capture credentials. This blog post will detail how we can exploit this and obtain user hashes.
 :keywords: Windows, Security, Vulnerability, Hacking, Network, Cracking.
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas
 :about1: Systems Engineer, OSCP - Security+
 :about2: "Be formless, shapeless like water" Bruce Lee
-:source: https://unsplash.com/photos/qlHRuDvaxL8
+:source: https://unsplash.com/photos/S-TcfjrYVKo
 
-= Respond the name
+= Respond the Name
 
 `Link Local Multicast Name Resolution` (`LLMNR`)
 and `NetBIOS Name Service` (`NBT-NS`)
-are two name resolution protocols that helps `Windows` hosts
+are two name resolution protocols that help `Windows` hosts
 to find address names from other devices on the network.
 These are `Windows` components
 and are alternate methods of host identification.
 `LLMNR` is based upon the `Domain Name System` (`DNS`),
-it uses a simple exchange of request and reply messages
+it uses a simple exchange of request and response messages
 to resolve computer names on `IPV6` or `IPV4` addresses.
 
 `NBT-NS` uses `NetBIOS` to resolve `IPV4` addresses
@@ -35,8 +35,8 @@ If `NBT-NS` is disabled then it will need to use `DNS` queries to resolve names,
 and if the network does not have `DNS` servers
 then the names should be in the `Hosts` file of the machine.
 
-`LLMNR` messages uses a similar format as `DNS` messages
-but it uses `UDP port 5355`.
+`LLMNR` messages use a similar format to `DNS` messages
+but use `UDP port 5355`.
 It works by sending a `LLMNR Name Query Request` message
 to the multicast address,
 this multicast address is scoped to prevent a multicast enabler router
@@ -44,14 +44,14 @@ from forwarding the request outside the requestor subnet.
 If a host on the subnet is authoritative for the request name
 it sends a unicast response to the requestor.
 
-As both protocols uses broadcast messages to resolve names on the network,
+As both protocols use broadcast messages to resolve names on the network,
 an attacker can listen to them
-and then responding with a spoof of an authoritative source
-for name resolution as if he knows the name requested.
-Then with the service poisoned
+and then respond with a spoof of an authoritative source
+for name resolution as if he knew the requested name.
+Then with the service poisoned,
 the victim will continue the communication with the attacker,
-and if the network resource needs authentication
-the victim will send an username and a `NTLMv2` hash.
+and if the network resource needs authentication,
+the victim will send a username and an `NTLMv2` hash.
 Here the attacker can use tools like `JohnTheRipper`
 to crack the credentials and have access to the system.
 This attack is called `LLMNR/NBT-NS Poisoning and Relay`.
@@ -129,7 +129,7 @@ These are the tools that we are going to use:
 * link:https://github.com/danielmiessler/SecLists[SecLists]
 * link:https://github.com/magnumripper/JohnTheRipper[JohnTheRipper]
 
-If you are using `Kali` the only thing that needs to be cloned is `Responder`.
+If you are using `Kali`, the only thing that needs to be cloned is `Responder`.
 
 .cloning Responder
 [source, bash]
@@ -141,17 +141,17 @@ We are ready to go.
 
 == Starting the poisoner
 
-The only thing that e need to do
-is running `Responder` as root.
-We can do that with the following:
+The only thing we need to do
+is to run `Responder` as a root.
+We can do this with the following:
 
-.running responder
+.running Responder
 [source, bash, linenums]
 ----
 Responder$ sudo ./Responder.py -I eth1 -wrf
 ----
 
-.responder
+.Responder
 [source, bash]
 ----
 
@@ -203,19 +203,19 @@ Challenge set              [1122334455667788]
 [+] Listening for events...
 ----
 
-Since we are on the same network
-it is only matter of time to get a request
+Since we are on the same network,
+it is only a matter of time to get a request
 from a machine in the subnet.
-But because our `Windows` machine is doing nothing
+But because our `Windows` machine is doing nothing,
 we will receive nothing.
 
 == Capturing credentials
 
-Now lets act like a normal user
+Now let's act like a normal user
 in our `Windows` machine.
 Log in as `svctest` with the domain `sky.net` and password `Monkey.123`,
 then open the start menu and there type `run`.
-In there we are going to look for a name in the network,
+In there we are going to look for a name on the network,
 just type the following:
 
 .searching names
@@ -227,7 +227,7 @@ just type the following:
 There we will get an error accessing the share,
 but in our attacker machine we will get the following:
 
-.responder output
+.Responder output
 [source, bash]
 ----
 [*] [LLMNR]  Poisoned answer sent to 192.168.56.2 for name FLUIDATTACKS
@@ -245,7 +245,7 @@ but in our attacker machine we will get the following:
 
 ----
 
-.respoder result
+.Respoder result
 image::vulnerability.png[Responder result]
 
 Here we have our hash, they are `NTLMv2 hashes`,
@@ -259,18 +259,18 @@ With this, we save that user's hash on a file.
 echo 'svctest::SKY:1122334455667788:D78BEB50968B6AEA3D8A9CD04765BB6A:01010000000000008274E5E0A507D60176E66DEAF12162F90000000002000A0053004D0042003100320001000A0053004D0042003100320004000A0053004D0042003100320003000A0053004D0042003100320005000A0053004D00420031003200080030003000000000000000000000000030000037AE67261C1D6D0CEBBD9D3AA1803818C033512B8B0FD6DEBA539CFD272D615B0A001000000000000000000000000000000000000900220063006900660073002F0046004C00550049004400410054005400410043004B0053000000000000000000' > hashllmnr
 ----
 
-And then we crack it using `john`,
+And then we crack it using `John`,
 a `SecLists` dictionary, and `KoreLogic` ruleset.
-Since `NTLMv2` hashes are harder to crack it could take a while
+Since `NTLMv2` hashes are harder to crack, it could take a while,
 depending on your system.
 
-.john cracking
+.John cracking
 [source, bash]
 ----
 $ john --wordlist=/usr/share/seclists/Passwords/darkweb2017-top100.txt --rules=KoreLogic hashllmnr
 ----
 
-.john output
+.John output
 [source, bash]
 ----
 Using default input encoding: UTF-8
@@ -308,31 +308,31 @@ $ smbmap -u svctest -p 'Monkey.123' -d sky.net -H 192.168.56.2
         [!] Unable to remove test directory at \\192.168.56.2\SYSVOL\edWFuwvkCb, plreae remove manually
 ----
 
-As you can see, we now have administrative access on our server.
+As you can see, we now have administrative access to our server.
 You can access it by `RDP` or retrieve files using `SMB`.
-Also, you can dump the `SAM` to get more users and hashes,
+Also, you can dump the `SAM` to get more users and hashes;
 these last ones are `NTLMv1` and easily cracked.
 
-This could be done using the `reqtest` account or the `vagrant` account,
-if an attacker do this in an enterprise network
+This could be done using the `reqtest` account or the `vagrant` account.
+If an attacker does this in an enterprise network,
 he can capture any number of accounts of the network.
-Also there are windows scripts like link:https://github.com/Kevin-Robertson/Inveigh[Inveigh]
-were we can do more or less the same attack
+Also, there are windows scripts like link:https://github.com/Kevin-Robertson/Inveigh[Inveigh],
+where we can do more or less the same attack
 with the same results.
 
 === Solution
 
-The remediation of this attack
+The remediation for this attack
 is to disable both `LLMNR` and `NBT-NS` on all hosts
-because `Windows` defaults to use the other
+because `Windows` defaults to one
 when the other fails or is disabled.
-Also a host based security software
-that blocks `LLMNR/NBT-NS` requests could be used.
+A host based security software
+that blocks `LLMNR/NBT-NS` requests could also be used.
 
 Another way to mitigate this
 is by having and using a strong credential policy.
 Passwords must be longer than 20 characters,
-contain upper and lower case letters, contain symbols and digits
+contain upper and lower case letters, contain symbols and digits,
 and must not be easy to guess. This means you would be wise
 to adopt passphrases instead of simple passwords.
 
