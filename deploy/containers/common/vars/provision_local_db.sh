@@ -2,9 +2,34 @@
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
   --table-name 'fi_authorization' \
-  --attribute-definitions 'AttributeName=id,AttributeType=S' \
-  --key-schema 'AttributeName=id,KeyType=HASH' \
-  --provisioned-throughput 'ReadCapacityUnits=1,WriteCapacityUnits=1'
+  --billing-mode 'PAY_PER_REQUEST' \
+  --attribute-definitions '[{
+      "AttributeName": "id",
+      "AttributeType": "S"
+    },{
+      "AttributeName": "rule_subject",
+      "AttributeType": "S"
+    },{
+      "AttributeName": "rule_object",
+      "AttributeType": "S"
+    }]' \
+  --key-schema '[{
+      "AttributeName": "id",
+      "KeyType": "HASH"
+    }]' \
+  --global-secondary-indexes '[{
+      "IndexName": "subject_policies",
+      "KeySchema": [{
+        "AttributeName": "rule_subject",
+        "KeyType": "HASH"
+      },{
+        "AttributeName": "rule_object",
+        "KeyType": "RANGE"
+      }],
+      "Projection": {
+        "ProjectionType": "ALL"
+      }
+    }]'
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --table-name FI_findings \

@@ -6,6 +6,7 @@ import logging
 import os
 import re
 import uuid
+from operator import methodcaller, truth
 from typing import (
     Iterable,
     List,
@@ -24,8 +25,11 @@ from boto3_type_annotations import dynamodb
 # Adapter configuration vars
 CASBIN_ADAPTER_ENDPOINT_URL = \
     os.environ.get('CASBIN_ADAPTER_ENDPOINT_URL') or None
-CASBIN_ADAPTER_RULE_INDEX_NAMES = \
-    os.environ.get('CASBIN_ADAPTER_RULE_INDEX_NAMES', '').split(',') or []
+CASBIN_ADAPTER_RULE_INDEX_NAMES = tuple(
+    os.environ.get('CASBIN_ADAPTER_RULE_INDEX_NAMES', '').split(','))
+CASBIN_ADAPTER_RULE_INDEX_NAMES = tuple(
+    map(methodcaller('strip'),
+        filter(truth, CASBIN_ADAPTER_RULE_INDEX_NAMES)))
 CASBIN_ADAPTER_TABLE_NAME = \
     os.environ.get('CASBIN_ADAPTER_TABLE_NAME', 'casbin')
 CASBIN_ADAPTER_TABLE_READ_CAPACITY_UNITS = int(

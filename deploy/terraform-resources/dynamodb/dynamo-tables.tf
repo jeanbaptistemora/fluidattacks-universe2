@@ -29,6 +29,23 @@ resource "aws_dynamodb_table" "authorization" {
     type = "S"
   }
 
+  attribute {
+    name = "rule_subject"
+    type = "S"
+  }
+
+  attribute {
+    name = "rule_object"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name               = "subject_policies"
+    hash_key           = "rule_subject"
+    range_key          = "rule_object"
+    projection_type    = "ALL"
+  }
+
   point_in_time_recovery {
     enabled = true
   }
