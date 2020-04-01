@@ -1,7 +1,7 @@
 :slug: rules/058/
 :category: architecture
 :description: This document contains the details of the security requirements related to the definition and management of logical architecture in the organization. This requirement establishes the importance of documenting all system security events in order to facilitate the response to a security breach.
-:keywords: Requirement, Security, Events, Documentation, Record, Procedure
+:keywords: Requirement, Security, Events, HIPAA, Record, GDPR
 :rules: yes
 :extended: yes
 
@@ -17,3 +17,9 @@ The use-cases must keep record of all system security events.
 Emergency Access Procedure: Establish (and implement as needed)
 procedures for obtaining necessary electronic protected health information
 during an emergency.
+
+. [[r2]] link:https://gdpr-info.eu/art-33-gdpr/[GDPR. Art. 33: Notification of a personal data breach
+to the supervisory authority.(5)]
+The controller shall document any personal data breaches,
+comprising the facts relating to the personal data breach,
+its effects and the remedial action taken.
