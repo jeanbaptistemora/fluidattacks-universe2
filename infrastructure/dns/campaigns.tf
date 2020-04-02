@@ -126,6 +126,38 @@ resource "aws_route53_record" "pa-thanks" {
   records = ["72e8a0f8c5d24e988b5acbc4efe12b0a.unbouncepages.com"]
 }
 
+resource "aws_route53_record" "cr" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "cr.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["548b68155f34459b874184ec50b4cb7d.unbouncepages.com"]
+}
+
+resource "aws_route53_record" "cr-thanks" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "crthanks.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["6f08d2c5b09f490ebf4dc38521c7d8f3.unbouncepages.com"]
+}
+
+resource "aws_route53_record" "rd" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "rd.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["5be885e667b7458e902416402b56bff2.unbouncepages.com"]
+}
+
+resource "aws_route53_record" "rd-thanks" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "rdthanks.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["08ec73f964f04ff8a051d741f659619e.unbouncepages.com"]
+}
+
 resource "aws_route53_record" "report2020" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "report2020.${aws_route53_zone.fs_maindomain.name}"
