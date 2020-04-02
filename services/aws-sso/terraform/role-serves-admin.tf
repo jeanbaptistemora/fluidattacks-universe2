@@ -1,6 +1,7 @@
 resource "aws_iam_role" "serves-admin-role" {
-  name = "serves-admin"
-  assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+  name                 = "serves-admin"
+  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+  max_session_duration = "32400"
 }
 
 resource "aws_iam_role_policy_attachment" "serves-admin-ec2" {
