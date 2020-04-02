@@ -132,10 +132,12 @@ describe("Confirm dialog", () => {
         name="testName"
         renderAsEditable={true}
         type="text"
-        visible={false}
+        visibleWhileEditing={false}
       />,
     );
     expect(wrapper)
       .toHaveLength(1);
+    expect(wrapper.text())
+      .toHaveLength(0);
   });
 });

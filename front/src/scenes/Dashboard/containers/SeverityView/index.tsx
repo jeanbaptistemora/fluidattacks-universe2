@@ -8,10 +8,10 @@ import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { formValueSelector, InjectedFormProps } from "redux-form";
+import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { calcCVSSv3 } from "../../../../utils/cvss";
@@ -119,29 +119,36 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                           {({ pristine }: InjectedFormProps): React.ReactNode => (
                             <React.Fragment>
                               {isEditing ? (
-                                <Row>
-                                  <Col md={2} mdOffset={10}>
-                                    <Button type="submit" block={true} disabled={pristine || mutationRes.loading}>
-                                      <FluidIcon icon="loading" /> {translate.t("search_findings.tab_severity.update")}
-                                    </Button>
-                                  </Col>
-                                </Row>
+                                <React.Fragment>
+                                  <Row>
+                                    <Col md={2} mdOffset={10}>
+                                      <Button type="submit" block={true} disabled={pristine || mutationRes.loading}>
+                                        <FluidIcon icon="loading" />
+                                        {translate.t("search_findings.tab_severity.update")}
+                                      </Button>
+                                    </Col>
+                                  </Row>
+                                  <Row className={style.row}>
+                                    <FormGroup>
+                                      <Col md={3} className={style.title}>
+                                        <ControlLabel>
+                                          <b>{translate.t("search_findings.tab_severity.cvss_version")}</b>
+                                        </ControlLabel>
+                                      </Col>
+                                      <Col md={9}>
+                                        <Field
+                                          component={dropdownField}
+                                          name="cvssVersion"
+                                          validate={required}
+                                        >
+                                          <option value="" />
+                                          <option value="3.1">3.1</option>
+                                        </Field>
+                                      </Col>
+                                    </FormGroup>
+                                  </Row>
+                                </React.Fragment>
                               ) : undefined}
-                              <Row className={style.row}>
-                                <EditableField
-                                  alignField="horizontal"
-                                  component={dropdownField}
-                                  currentValue={data.finding.cvssVersion}
-                                  label={translate.t("search_findings.tab_severity.cvss_version")}
-                                  name="cvssVersion"
-                                  renderAsEditable={isEditing}
-                                  validate={[required]}
-                                  visible={isEditing}
-                                >
-                                  <option value="" selected={true} />
-                                  <option value="3.1">3.1</option>
-                                </EditableField>
-                              </Row>
                               {castFieldsCVSS3(data.finding.severity, isEditing, formValues)
                                 .map((field: ISeverityField, index: number) => (
                                   <Row className={style.row} key={index}>
@@ -153,9 +160,9 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                       label={field.title}
                                       name={field.name}
                                       renderAsEditable={isEditing}
-                                      validate={[required]}
+                                      validate={required}
                                     >
-                                      <option value="" selected={true} />
+                                      <option value="" />
                                       {_.map(field.options, (text: string, value: string) => (
                                         <option value={value}>{translate.t(text)}</option>
                                       ))}

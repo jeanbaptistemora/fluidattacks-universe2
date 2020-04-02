@@ -7,7 +7,7 @@ import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React, { useState } from "react";
-import { ButtonToolbar, Col, ControlLabel, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { change, Field, InjectedFormProps, reset } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
@@ -18,7 +18,6 @@ import { dateField, textAreaField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { isLowerDate, isValidDateAccessToken, required } from "../../../../utils/validations";
-import { EditableField } from "../EditableField";
 import { GenericForm } from "../GenericForm/index";
 import { GET_ACCESS_TOKEN, INVALIDATE_ACCESS_TOKEN_MUTATION, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";
 import { IAccessTokenAttr, IGetAccessTokenAttr, IGetAccessTokenDictAttr, IInvalidateAccessTokenAttr,
@@ -110,17 +109,21 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                   <React.Fragment>
                     <Row>
                       <Col md={12}>
-                        <EditableField
-                          component={dateField}
-                          currentValue=""
-                          label={translate.t("update_access_token.expiration_time")}
-                          name="expirationTime"
-                          renderAsEditable={true}
-                          type="date"
-                          visible={dateSelectorVisibility}
-                          validate={[isLowerDate, isValidDateAccessToken, required]}
-                        />
-                     </Col>
+                        {dateSelectorVisibility ? (
+                          <FormGroup>
+                            <ControlLabel>
+                              <b>{translate.t("update_access_token.expiration_time")}</b>
+                            </ControlLabel>
+                            <br />
+                            <Field
+                              component={dateField}
+                              name="expirationTime"
+                              type="date"
+                              validate={[isLowerDate, isValidDateAccessToken, required]}
+                            />
+                          </FormGroup>
+                        ) : undefined}
+                      </Col>
                     </Row>
                     { submitSucceeded ?
                     <Row>

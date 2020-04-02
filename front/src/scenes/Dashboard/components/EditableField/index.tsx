@@ -11,7 +11,6 @@ type EditableFieldProps = BaseFieldProps & {
   label: string;
   renderAsEditable: boolean;
   type?: string;
-  visible?: boolean;
   visibleWhileEditing?: boolean;
 };
 
@@ -73,17 +72,14 @@ const editableField: React.FC<EditableFieldProps> = (props: EditableFieldProps):
     render = renderVertical(props);
   }
 
-  const shouldRender: boolean = _.isUndefined(props.visibleWhileEditing)
-    ? props.visible === true
-    : props.renderAsEditable
-      ? props.visibleWhileEditing
-      : !_.isEmpty(props.currentValue);
+  const visibleWhileEditing: boolean = props.visibleWhileEditing === true
+   || _.isUndefined(props.visibleWhileEditing);
+
+  const shouldRender: boolean = props.renderAsEditable
+    ? visibleWhileEditing
+    : !_.isEmpty(props.currentValue);
 
   return shouldRender ? (render) : <React.Fragment />;
-};
-
-editableField.defaultProps = {
-  visible: true,
 };
 
 export { editableField as EditableField };
