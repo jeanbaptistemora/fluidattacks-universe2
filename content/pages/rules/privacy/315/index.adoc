@@ -35,6 +35,16 @@ in a structured format and using an easy to understand language.
 identify the users based on the information collected from them,
 this requirement is not applicable.
 
+. If the processing of the personal information occurs with scientific,
+historical research or statistical purposes,
+and complying with this requirement seriously impairs those purposes,
+this requirement is not applicable.
+
+. If the processing of the personal information occurs with archiving purposes
+in the public interest,
+and complying with this requirement seriously impairs those purposes,
+this requirement is not applicable.
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-15-gdpr/[GDPR. Art. 15: Right of access by the data subject.(1)(a-g).]
@@ -53,3 +63,19 @@ The data subject shall have the right to receive the personal data concerning
 him or her,
 which he or she has provided to a controller,
 in a structured, commonly used and machine-readable format.
+
+. [[r4]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
+for archiving purposes in the public interest,
+scientific or historical research purposes or statistical purposes.(2).]
+Where personal data are processed for scientific or historical research
+purposes or statistical purposes,
+Union or Member State law may provide for derogations from the rights referred
+to in Articles 15, 16, 18 and 21.
+
+. [[r5]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
+for archiving purposes in the public interest,
+scientific or historical research purposes or statistical purposes.(3).]
+Where personal data are processed for archiving purposes in the public
+interest,
+Union or Member State law may provide for derogations from the rights referred
+to in Articles 15, 16, 18, 19, 20 and 21.
