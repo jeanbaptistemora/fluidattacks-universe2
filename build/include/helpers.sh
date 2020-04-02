@@ -297,7 +297,7 @@ function helper_get_resource_to_taint_number {
 
 function helper_move_continuous_fusion_to_master_git {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
-  local path_empty_repos="/analytics/git/repos_to_get_from_cache.lst"
+  local path_empty_repos="${PWD}/analytics/git/repos_to_get_from_cache.lst"
 
   set +o errexit
   set +o nounset
