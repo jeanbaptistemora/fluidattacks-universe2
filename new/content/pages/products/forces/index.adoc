@@ -4,3 +4,74 @@
 :template: products/forces
 
 = Forces
+
+[role="forces-feature w-25-ns w-90 dib tl v-top pa3"]
+=== link:../../../web/blog/stand-shoulders-giants/[Software composition analysis (SCA)]
+
+[role="fw1 f5 lh-2"]
+Now Forces searches your dependencies’ package managers for reported
+vulnerabilities. Including
+link:https://fluidattacks.com/asserts/fluidasserts.sca.bower/#module-fluidasserts.sca.bower[Bower],
+link:https://fluidattacks.com/asserts/fluidasserts.sca.chocolatey/#module-fluidasserts.sca.chocolatey[Chocolatey],
+link:https://fluidattacks.com/asserts/fluidasserts.sca.maven/#module-fluidasserts.sca.maven[Maven],
+link:https://fluidattacks.com/asserts/fluidasserts.sca.npm/#module-fluidasserts.sca.npm[NPM],
+link:https://fluidattacks.com/asserts/fluidasserts.sca.nuget/#module-fluidasserts.sca.nuget[NuGet]
+and link:https://fluidattacks.com/asserts/fluidasserts.sca.pypi/#module-fluidasserts.sca.pypi[PyPI].
+
+
+[role="forces-feature w-25-ns w-90 dib tl v-top pa3"]
+=== link:https://fluidattacks.com/asserts/fluidasserts.cloud/[Cloud vulnerabilities]
+
+[role="fw1 f5 lh-2"]
+*Forces* includes checks for the 3 most popular clouds:
+link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws/[AWS]
+(terraform and cloudformation),
+link:https://fluidattacks.com/asserts/fluidasserts.cloud.azure/[Azure]
+and link:https://fluidattacks.com/asserts/fluidasserts.cloud.gcp/[GCP].
+
+
+[role="forces-feature w-25-ns w-90 dib tl v-top pa3"]
+=== link:https://fluidattacks.com/asserts/fluidasserts.syst/#module-fluidasserts.syst[Operating System vulnerabilities]
+
+[role="fw1 f5 lh-2"]
+link:https://fluidattacks.com/asserts/fluidasserts.sca.linux/#module-fluidasserts.sca.linux[Linux]
+and link:https://fluidattacks.com/asserts/fluidasserts.syst.win/#module-fluidasserts.syst.win[Windows Server].
+
+
+[role="forces-feature w-25-ns w-90 dib tl v-top pa3"]
+=== link:https://fluidattacks.com/asserts/fluidasserts.helper.lang/#module-fluidasserts.helper.lang[Code vulnerabilities]
+
+[role="fw1 f5 lh-2"]
+9 languages supported including proprietary
+(link:https://fluidattacks.com/asserts/fluidasserts.lang.csharp/#module-fluidasserts.lang.csharp[C#]),
+open source
+(link:https://fluidattacks.com/asserts/fluidasserts.lang.python/#module-fluidasserts.lang.python[Python],
+link:https://fluidattacks.com/asserts/fluidasserts.lang.java/#module-fluidasserts.lang.java[Java],
+link:https://fluidattacks.com/asserts/fluidasserts.lang.javascript/#module-fluidasserts.lang.javascript[Javascript],
+and link:https://fluidattacks.com/asserts/fluidasserts.lang.javascript/#module-fluidasserts.lang.javascript[Typescript]),
+markup (link:https://fluidattacks.com/asserts/fluidasserts.lang.html/#module-fluidasserts.lang.html[HTML]),
+legacy (link:https://fluidattacks.com/asserts/fluidasserts.lang.rpgle/#module-fluidasserts.lang.rpgle[RPG]),
+link:https://fluidattacks.com/asserts/fluidasserts.lang.dotnetconfig/#module-fluidasserts.lang.dotnetconfig[web configuration files],
+and even the
+link:https://fluidattacks.com/asserts/fluidasserts.lang.docker/[Dockerfile] syntax!
+
+
+[role="forces-feature w-25-ns w-90 dib tl v-top pa3"]
+=== link:https://fluidattacks.com/asserts/fluidasserts.format/#module-fluidasserts.format[Formats]
+
+[role="fw1 f5 lh-2"]
+*Forces* tests formats ranging from regular
+link:https://fluidattacks.com/asserts/fluidasserts.format.string/#module-fluidasserts.format.string[text]
+to link:https://fluidattacks.com/asserts/fluidasserts.format.captcha/#module-fluidasserts.format.captcha[CAPTCHAS]
+and link:https://fluidattacks.com/asserts/fluidasserts.format.cookie/#module-fluidasserts.format.cookie[Cookies],
+as well as link:https://fluidattacks.com/asserts/fluidasserts.format.pdf/#module-fluidasserts.format.pdf[PDF files]
+and link:https://fluidattacks.com/asserts/fluidasserts.format.x509/#module-fluidasserts.format.x509[X.509]
+certificates.
+
+[role="forces-feature w-25-ns w-90 dib tl v-top pa3"]
+=== link:https://fluidattacks.com/asserts/fluidasserts.proto/#module-fluidasserts.proto[Protocols]
+
+[role="fw1 f5 lh-2"]
+The heart of *Forces*, since most vulnerabilities are network-borne.
+The main network protocols are covered: SSL, HTTP, TCP, LDAP, SSH, DNS, FTP,
+REST, SMB, SMTP.

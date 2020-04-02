@@ -13,6 +13,10 @@ const dynClasses: (() => void) = (): void => {
 
     addClasses(".products > .sect1 > .sectionbody",
                "fw1 w-40-l w-50-m w90-s center f5 lh-2");
+
+    addClasses(".forces-feature > h3 > a", "c-lightblack no-underline");
+
+    addClasses(".forces-feature > .paragraph > p > a", "c-lightblack no-underline");
   });
 };
 
