@@ -59,10 +59,6 @@
     <h1 class="tc pb3">
       {{ page.title }}
     </h1>
-    {% set rulearts = [] %}
-    {% for rulepath in pages if rulepath.rules and not rulepath.extended %}
-      {% do rulearts.append( rulepath ) %}
-    {% endfor %}
     {% set categorder = ["credentials", "authentication", "authorization", "session", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "physical", "mobile", "social"] %}
     {% for categ in categorder %}
       <div class="rulescat hover-bg-light-gray flex">
@@ -71,7 +67,7 @@
              alt="Fluid Arrow">
       </div>
       <div class="ruleslist dn">
-      {% for ruleart in rulearts if ruleart.rules and not ruleart.extended and ruleart.category == categ %}
+      {% for ruleart in pages if ruleart.rules and not ruleart.extended and ruleart.category == categ %}
         <ul class="pl4">
            <li>
              <a class="f4 montsy"
@@ -80,7 +76,6 @@
              </a><br>
            </li>
          </ul>
-         {% do rulearts.remove( ruleart ) %}
       {% endfor %}
       </div>
     {% endfor %}
