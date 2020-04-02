@@ -505,6 +505,7 @@ function job_lint_back {
         django-apps/integrates-back/backend/dal/* \
         django-apps/integrates-back/backend/utils/* \
         django-apps/integrates-back-async/backend/api/resolvers/me.py \
+        django-apps/integrates-back-async/backend/api/resolvers/vulnerability.py \
   &&  prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s high -u django -i node_modules django-apps/integrates-back/backend/ \
   &&  prospector -F -s veryhigh django-apps/casbin-dynamodb-adapter \
