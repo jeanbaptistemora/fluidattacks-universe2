@@ -1,4 +1,5 @@
 import { ApolloError } from "apollo-client";
+import { ChartData } from "chart.js";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
@@ -513,22 +514,25 @@ export const statusGraph: ((graphProps: IStatusGraph) => { [key: string]: string
   return statusGraphData;
 };
 
-export const treatmentGraph: ((props: ITreatmentGraph) => Dictionary<string | string[] | IGraphData[]>) =
-(props: ITreatmentGraph): Dictionary<string | string[] | IGraphData[]> => {
+export const treatmentGraph: ((props: ITreatmentGraph) => ChartData) = (props: ITreatmentGraph): ChartData => {
   const totalTreatment: Dictionary<number> = JSON.parse(props.totalTreatment);
   const treatmentDataset: IGraphData = {
-    backgroundColor: ["#b7b7b7", "#FFAA63", "#CD2A86"],
-    data: [totalTreatment.accepted, totalTreatment.inProgress, totalTreatment.undefined],
-    hoverBackgroundColor: ["#999797", "#FF9034", "#A70762"],
+    backgroundColor: ["#b7b7b7", "#000", "#FFAA63", "#CD2A86"],
+    data: [
+      totalTreatment.accepted, totalTreatment.acceptedUndefined, totalTreatment.inProgress, totalTreatment.undefined],
+    hoverBackgroundColor: ["#999797", "#000", "#FF9034", "#A70762"],
   };
   const acceptedPercent: number = calcPercent(totalTreatment.accepted, props.openVulnerabilities);
   const inProgressPercent: number = calcPercent(totalTreatment.inProgress, props.openVulnerabilities);
   const undefinedPercent: number = calcPercent(totalTreatment.undefined, props.openVulnerabilities);
-  const treatmentGraphData: Dictionary<string | string[] | IGraphData[]> = {
+  const acceptedUndefinedPercent: number = _.round(100 - acceptedPercent - inProgressPercent - undefinedPercent, 1);
+  const treatmentGraphData: ChartData = {
     datasets: [treatmentDataset],
-    labels: [`${acceptedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
-             `${inProgressPercent}% ${translate.t("search_findings.tab_indicators.treatment_in_progress")}`,
-             `${undefinedPercent}% ${translate.t("search_findings.tab_indicators.treatment_no_defined")}`],
+    labels: [
+      `${acceptedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
+      `${acceptedUndefinedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted_undefined")}`,
+      `${inProgressPercent}% ${translate.t("search_findings.tab_indicators.treatment_in_progress")}`,
+      `${undefinedPercent}% ${translate.t("search_findings.tab_indicators.treatment_no_defined")}`],
   };
 
   return treatmentGraphData;

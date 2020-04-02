@@ -17,6 +17,7 @@ import { TAG_QUERY } from "./queries";
 type TagsProps = RouteComponentProps<{ tagName: string }>;
 
 interface IStackedGraph {
+  acceptedUndefinedVulnerabilities: number;
   acceptedVulnerabilities: number;
   closedVulnerabilities: number;
   name: string;
@@ -71,11 +72,12 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
 
         return ({
           accepted: acc.accepted + projectTreatment.accepted,
+          acceptedUndefined: acc.accepted + projectTreatment.acceptedUndefined,
           inProgress: acc.inProgress + projectTreatment.inProgress,
           undefined: acc.undefined + projectTreatment.undefined,
         });
       },
-      { accepted: 0, inProgress: 0, undefined: 0 });
+      { accepted: 0, acceptedUndefined: 0, inProgress: 0, undefined: 0 });
 
     return { totalTreatment: JSON.stringify(totalTreatment), ...formatStatusGraphData(projects) };
   };
@@ -103,11 +105,14 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     const { openVulnerabilities, closedVulnerabilities } = graphProps;
     const projectTreatment: Dictionary<number> = JSON.parse(graphProps.totalTreatment);
     const totalVulnerabilities: number = openVulnerabilities + closedVulnerabilities;
-    const openPercent: number = calcPercent(openVulnerabilities - projectTreatment.accepted, totalVulnerabilities);
+    const openPercent: number = calcPercent(
+      openVulnerabilities - projectTreatment.accepted - projectTreatment.acceptedUndefined, totalVulnerabilities);
     const acceptedPercent: number = calcPercent(projectTreatment.accepted, totalVulnerabilities);
-    const closedPercent: number = _.round(100 - acceptedPercent - openPercent, 1);
+    const closedPercent: number = calcPercent(closedVulnerabilities, totalVulnerabilities);
+    const acceptedUndefinedPercent: number = _.round(100 - acceptedPercent - openPercent - closedPercent, 1);
 
     return {
+      acceptedUndefinedVulnerabilities: acceptedUndefinedPercent,
       acceptedVulnerabilities: acceptedPercent,
       closedVulnerabilities: closedPercent,
       name: graphProps.name,
@@ -126,21 +131,28 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
         data: dataPercentSorted.map((projectPercent: IStackedGraph) => projectPercent.closedVulnerabilities),
         hoverBackgroundColor: "#069D2E",
         label: `% ${translate.t("search_findings.tab_indicators.closed")}`,
-        stack: "3",
+        stack: "4",
       },
       {
         backgroundColor: "#b7b7b7",
         data: dataPercentSorted.map((projectPercent: IStackedGraph) => projectPercent.acceptedVulnerabilities),
         hoverBackgroundColor: "#999797",
         label: `% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
-        stack: "3",
+        stack: "4",
+      },
+      {
+        backgroundColor: "#000",
+        data: dataPercentSorted.map((projectPercent: IStackedGraph) => projectPercent.acceptedUndefinedVulnerabilities),
+        hoverBackgroundColor: "#000",
+        label: `% ${translate.t("search_findings.tab_indicators.treatment_accepted_undefined")}`,
+        stack: "4",
       },
       {
         backgroundColor: "#ff1a1a",
         data: dataPercentSorted.map((projectPercent: IStackedGraph) => projectPercent.openVulnerabilities),
         hoverBackgroundColor: "#e51414",
         label: `% ${translate.t("search_findings.tab_indicators.open")}`,
-        stack: "3",
+        stack: "4",
       },
     ];
     const stackedBarGraphData: ChartData = {

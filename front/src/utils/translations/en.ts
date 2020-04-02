@@ -580,6 +580,7 @@ const enTranslations: Dictionary = {
       total_findings: "Total Findings",
       total_vulnerabilitites: "Total Vulnerabilities",
       treatment_accepted: "Accepted",
+      treatment_accepted_undefined: "Indefinitely accepted",
       treatment_graph: "Treatment",
       treatment_in_progress: "In progress",
       treatment_no_defined: "Not defined",

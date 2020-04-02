@@ -491,6 +491,9 @@
                      "accepted" : {
                         "N" : "0"
                      },
+                     "acceptedUndefined": {
+                        "N": "0"
+                     },
                      "inProgress" : {
                         "N" : "0"
                      },
@@ -1760,6 +1763,9 @@
                   "M" : {
                      "accepted" : {
                         "N" : "1"
+                     },
+                     "acceptedUndefined": {
+                        "N": "0"
                      },
                      "inProgress" : {
                         "N" : "4"
