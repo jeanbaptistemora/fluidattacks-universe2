@@ -3,22 +3,18 @@ from typing import Set
 import casbin
 from django.conf import settings
 from django.test import TestCase
-
-
-def get_casbin_adapter():
-    return settings.CASBIN_ADAPTER
+from backend.domain.user import (
+    grant_group_level_role,
+    grant_user_level_role,
+)
+from backend.utils.authorization import (
+    get_group_level_authorization_enforcer,
+    get_user_level_authorization_enforcer,
+)
 
 
 def get_project_access_enforcer():
     return settings.ENFORCER_PROJECT_ACCESS
-
-
-def get_group_level_enforcer():
-    return settings.ENFORCER_GROUP_LEVEL
-
-
-def get_user_level_enforcer():
-    return settings.ENFORCER_USER_LEVEL
 
 
 class BasicAbacTest(TestCase):
@@ -85,8 +81,7 @@ class BasicAbacTest(TestCase):
 
 
 class ActionAbacTest(TestCase):
-    adapter = get_casbin_adapter()
-    enforcer = get_group_level_enforcer()
+    enforcer = get_group_level_authorization_enforcer
 
     global_actions = {
         'backend_api_query_Query_resolve_resources',
@@ -237,8 +232,7 @@ class ActionAbacTest(TestCase):
     customeradminfluid_allowed_actions.update(customeradmin_allowed_actions)
 
     def _grant_group_level_access(self, sub: str, obj: str, role: str):
-        self.adapter.add_policy('p', 'p', ['group', sub, obj, role])
-        self.enforcer.load_policy()
+        grant_group_level_role(sub, obj, role)
 
     def test_action_wrong_role(self):
         """Tests for an user with a wrong role."""
@@ -248,7 +242,7 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions
 
         for action in should_deny:
-            self.assertFalse(self.enforcer.enforce(sub, obj, action))
+            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
     def test_action_customer_role(self):
         """Tests for an user with a expected role."""
@@ -260,10 +254,10 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions - self.customer_allowed_actions
 
         for action in self.customer_allowed_actions:
-            self.assertTrue(self.enforcer.enforce(sub, obj, action))
+            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(self.enforcer.enforce(sub, obj, action))
+            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
     def test_action_customeradmin_role(self):
         """Tests for an user with a expected role."""
@@ -275,10 +269,10 @@ class ActionAbacTest(TestCase):
         self._grant_group_level_access(sub, obj, 'customeradmin')
 
         for action in self.customeradmin_allowed_actions:
-            self.assertTrue(self.enforcer.enforce(sub, obj, action))
+            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(self.enforcer.enforce(sub, obj, action))
+            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
     def test_action_customeradminfluid_role(self):
         """Tests for an user with a expected role."""
@@ -291,10 +285,10 @@ class ActionAbacTest(TestCase):
         self._grant_group_level_access(sub, obj, 'customeradmin')
 
         for action in self.customeradminfluid_allowed_actions:
-            self.assertTrue(self.enforcer.enforce(sub, obj, action))
+            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(self.enforcer.enforce(sub, obj, action))
+            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
     def test_action_analyst_role(self):
         """Tests for an user with a expected role."""
@@ -306,10 +300,10 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions - self.analyst_allowed_actions
 
         for action in self.analyst_allowed_actions:
-            self.assertTrue(self.enforcer.enforce(sub, obj, action))
+            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(self.enforcer.enforce(sub, obj, action))
+            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
     def test_action_admin_role(self):
         """Tests for an user with a expected role."""
@@ -321,11 +315,10 @@ class ActionAbacTest(TestCase):
         self._grant_group_level_access(sub, obj, 'admin')
 
         for action in should_allow:
-            self.assertTrue(self.enforcer.enforce(sub, obj, action))
+            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
 class UserAbacTest(TestCase):
-    adapter = get_casbin_adapter()
-    enforcer = get_user_level_enforcer()
+    enforcer = get_user_level_authorization_enforcer
 
     customeradmin_actions: Set[str] = {
         'backend_api_query_Query_resolve_tag',
@@ -350,15 +343,14 @@ class UserAbacTest(TestCase):
     all_actions = admin_actions
 
     def _grant_user_level_access(self, sub: str, role: str):
-        self.adapter.add_policy('p', 'p', ['user', sub, 'self', role])
-        self.enforcer.load_policy()
+        grant_user_level_role(sub, role)
 
     def test_action_wrong_role(self):
         sub = 'someone@guest.com'
         obj = 'self'
 
         for act in self.all_actions:
-            self.assertFalse(self.enforcer.enforce(sub, obj, act))
+            self.assertFalse(UserAbacTest.enforcer(sub).enforce(sub, obj, act))
 
     def test_action_analyst_role(self):
         sub = 'test_action_analyst_role@gmail.com'
@@ -367,7 +359,7 @@ class UserAbacTest(TestCase):
         self._grant_user_level_access(sub, 'analyst')
 
         for act in self.analyst_actions:
-            self.assertTrue(self.enforcer.enforce(sub, obj, act))
+            self.assertTrue(UserAbacTest.enforcer(sub).enforce(sub, obj, act))
 
     def test_action_customer_role(self):
         sub = 'test_action_customer_role@gmail.com'
@@ -377,8 +369,8 @@ class UserAbacTest(TestCase):
 
         for act in self.customeratfluid_actions.union(
             self.customeradmin_actions):
-            self.assertFalse(self.enforcer.enforce(sub, obj, act))
-    
+            self.assertFalse(UserAbacTest.enforcer(sub).enforce(sub, obj, act))
+
     def test_action_customeradmin_role(self):
         sub = 'test_action_customeradmin_role@gmail.com'
         obj = 'self'
@@ -386,7 +378,7 @@ class UserAbacTest(TestCase):
         self._grant_user_level_access(sub, 'customeradmin')
 
         for act in self.customeradmin_actions:
-            self.assertTrue(self.enforcer.enforce(sub, obj, act))
+            self.assertTrue(UserAbacTest.enforcer(sub).enforce(sub, obj, act))
 
     def test_action_customeratfluid_role(self):
         sub = 'test_action_customeratfluid_role@fluidattacks.com'
@@ -395,7 +387,7 @@ class UserAbacTest(TestCase):
         self._grant_user_level_access(sub, 'customer')
 
         for act in self.customeratfluid_actions:
-            self.assertTrue(self.enforcer.enforce(sub, obj, act))
+            self.assertTrue(UserAbacTest.enforcer(sub).enforce(sub, obj, act))
 
     def test_action_admin_role(self):
         sub = 'integratesmanager@gmail.com'
@@ -404,4 +396,4 @@ class UserAbacTest(TestCase):
         self._grant_user_level_access(sub, 'admin')
 
         for act in self.all_actions:
-            self.assertTrue(self.enforcer.enforce(sub, obj, act))
+            self.assertTrue(UserAbacTest.enforcer(sub).enforce(sub, obj, act))

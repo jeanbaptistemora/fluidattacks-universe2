@@ -1,20 +1,17 @@
 # Standard library
 import contextlib
 import os
-from typing import (
-    Tuple,
-)
 
 # Third party library
 from casbin import Enforcer as CasbinEnforcer
 from casbin_in_memory_adapter.adapter import (
     Adapter as CasbinInMemoryAdapter,
-    Policy as CasbinInMemoryPolicy,
-    Rule as CasbinInMemoryRule,
+    Policies as CasbinInMemoryPolicies,
 )
 from django.conf import settings
 from django.core.cache import cache
 from rediscluster.nodemanager import RedisClusterException
+from backend.dal import user as user_dal
 
 
 def get_subject_cache_key(subject: str) -> str:
@@ -25,22 +22,12 @@ def get_perm_metamodel_path(name: str) -> str:
     return os.path.join(settings.BASE_DIR, 'authorization', name)
 
 
-def get_subject_policies(subject: str):
+def get_subject_policies(subject: str) -> CasbinInMemoryPolicies:
     """Get all policies associated with a user."""
-    user_level_policies: Tuple[CasbinInMemoryRule, ...] = \
-        tuple(settings.CASBIN_ADAPTER.get_rules('p', 'p', ['user', subject]))
-    group_level_policies: Tuple[CasbinInMemoryRule, ...] = \
-        tuple(settings.CASBIN_ADAPTER.get_rules('p', 'p', ['group', subject]))
-
-    all_policies: CasbinInMemoryPolicy = []
-    all_policies.extend(
-        ('p', user_level_policy)
-        for user_level_policy in user_level_policies)
-    all_policies.extend(
-        ('p', group_level_policy)
-        for group_level_policy in group_level_policies)
-
-    return all_policies
+    subject_policies: CasbinInMemoryPolicies = tuple(
+        ('p', (policy.level, policy.subject, policy.object, policy.role))
+        for policy in user_dal.get_subject_policies(subject))
+    return subject_policies
 
 
 def get_cached_subject_policies(subject: str):

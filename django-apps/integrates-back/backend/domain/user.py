@@ -13,7 +13,7 @@ from backend.utils import (
 VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin'}
 
 
-def get_user_level_role(email: str) -> str:
+def get_user_level_role2(email: str) -> str:
     # level, subject, object, role
     rule = ['user', email, 'self']
 
@@ -26,7 +26,7 @@ def get_user_level_role(email: str) -> str:
     return str()
 
 
-def get_user_level_role2(email: str) -> str:
+def get_user_level_role(email: str) -> str:
     """Return the user-level role of a user."""
     user_level_policies = [
         policy
@@ -39,7 +39,7 @@ def get_user_level_role2(email: str) -> str:
     return ''
 
 
-def get_group_level_role(email: str, group: str) -> str:
+def get_group_level_role2(email: str, group: str) -> str:
     # level, subject, object, role
     rule = ['group', email, group.lower()]
 
@@ -56,16 +56,16 @@ def get_group_level_role(email: str, group: str) -> str:
     return str()
 
 
-def get_group_level_role2(email: str, group: str) -> str:
+def get_group_level_role(email: str, group: str) -> str:
     """Return the group-level role of a user."""
     # Admins are granted access to all groups
-    if get_user_level_role2(email) == 'admin':
+    if get_user_level_role(email) == 'admin':
         return 'admin'
 
     group_level_policies = [
         policy
         for policy in user_dal.get_subject_policies(email)
-        if policy.level == 'group' and policy.object == group
+        if policy.level == 'group' and policy.object == group.lower()
     ]
 
     if group_level_policies:
@@ -73,7 +73,7 @@ def get_group_level_role2(email: str, group: str) -> str:
     return ''
 
 
-def grant_user_level_role(
+def grant_user_level_role2(
         email: str,
         role: str,
         revoke_existing: bool = True,
@@ -102,7 +102,7 @@ def grant_user_level_role(
     return True
 
 
-def grant_user_level_role2(email: str, role: str) -> bool:
+def grant_user_level_role(email: str, role: str) -> bool:
     """Grant a user-level role to a user."""
     if role not in VALID_ROLES:
         raise ValueError(f'Invalid role value: {role}')
@@ -118,7 +118,7 @@ def grant_user_level_role2(email: str, role: str) -> bool:
         and authorization_util.revoke_cached_subject_policies(email)
 
 
-def grant_group_level_role(
+def grant_group_level_role2(
         email: str,
         group: str,
         role: str,
@@ -148,7 +148,7 @@ def grant_group_level_role(
     return True
 
 
-def grant_group_level_role2(email: str, group: str, role: str) -> bool:
+def grant_group_level_role(email: str, group: str, role: str) -> bool:
     """Grant a group-level role to a user."""
     if role not in VALID_ROLES:
         raise ValueError(f'Invalid role value: {role}')
@@ -163,15 +163,15 @@ def grant_group_level_role2(email: str, group: str, role: str) -> bool:
     success: bool = True
 
     # If there is no user-level role for this user add one
-    if not get_user_level_role2(email):
-        success = success and grant_user_level_role2(email, role)
+    if not get_user_level_role(email):
+        success = success and grant_user_level_role(email, role)
 
     return success \
         and user_dal.put_subject_policy(policy) \
         and authorization_util.revoke_cached_subject_policies(email)
 
 
-def revoke_user_level_role(email: str) -> bool:
+def revoke_user_level_role2(email: str) -> bool:
     # level, subject, object, role
     rule = ['user', email, 'self']
 
@@ -185,7 +185,7 @@ def revoke_user_level_role(email: str) -> bool:
     return True
 
 
-def revoke_user_level_role2(email: str) -> bool:
+def revoke_user_level_role(email: str) -> bool:
     """Revoke a user-level role from a user."""
     subject: str = email
     object_: str = 'self'
@@ -193,7 +193,7 @@ def revoke_user_level_role2(email: str) -> bool:
         and authorization_util.revoke_cached_subject_policies(subject)
 
 
-def revoke_group_level_role(email: str, group: str) -> bool:
+def revoke_group_level_role2(email: str, group: str) -> bool:
     # level, subject, object, role
     rule = ['group', email, group.lower()]
 
@@ -208,7 +208,7 @@ def revoke_group_level_role(email: str, group: str) -> bool:
     return True
 
 
-def revoke_group_level_role2(email: str, group: str) -> bool:
+def revoke_group_level_role(email: str, group: str) -> bool:
     """Revoke a group-level role from a user."""
     subject: str = email
     object_: str = group

@@ -3,12 +3,9 @@ import pytest
 from django.test import TestCase
 from backend.domain.user import (
     get_all_users_report,
-    get_group_level_role2,
-    get_user_level_role2,
-    grant_user_level_role2,
-    grant_group_level_role2,
-    revoke_user_level_role2,
-    revoke_group_level_role2,
+    get_group_level_role as get_group_level_role2, get_user_level_role as get_user_level_role2,
+    grant_user_level_role as grant_user_level_role2, grant_group_level_role as grant_group_level_role2,
+    revoke_user_level_role as revoke_user_level_role2, revoke_group_level_role as revoke_group_level_role2,
 )
 
 class UserTests(TestCase):
@@ -46,7 +43,7 @@ class UserTests(TestCase):
         assert grant_group_level_role2('..TEST2@gmail.com', 'group', 'customer')
         assert get_user_level_role2('..test2@gmail.com') == 'customer'
         assert get_user_level_role2('..tESt2@gmail.com') == 'customer'
-        assert get_group_level_role2('..test2@gmail.com', 'group') == 'customer'
+        assert get_group_level_role2('..test2@gmail.com', 'GROUP') == 'customer'
         assert not get_group_level_role2('..test2@gmail.com', 'other-group')
 
     def test_revoke_user_level_role2(self):
