@@ -188,3 +188,89 @@ echo '[INFO] Writing data from: test/dynamo_data/bb_executions.json.now'
 aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test/dynamo_data/bb_executions.json.now'
+
+if test "${CI_JOB_NAME:-}" = "serve_dynamodb_local"
+then
+  echo '[INFO] Adding mock users'
+  for index in $(seq 1 200)
+  do
+    echo "  [INFO] adding 6 users, batch ${index} out of 200"
+    index="${index}" jq -n '{
+      "FI_users": (
+        [range(6)] | map([{
+          "PutRequest": {
+            "Item" : {
+              "company": {"S": "unittest"},
+              "date_joined": {"S": "2018-02-28 11:54:12"},
+              "email": {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+              "legal_remember": {"BOOL": true},
+              "registered": {"BOOL": true}
+            }
+          }
+        }]) | flatten(2)
+      ),
+      "fi_authorization": (
+        [range(6)] | map([{
+          "PutRequest": {
+            "Item": {
+              "id": {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+              "policy_type": {"S": "p"},
+              "rule": {"L": [
+                {"S": "user"},
+                {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+                {"S": "self"},
+                {"S": "customer"}
+              ]},
+              "level": {"S": "user"},
+              "subject": {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+              "object": {"S": "self"},
+              "role": {"S": "customer"}
+            }
+          }
+        },{
+          "PutRequest": {
+            "Item": {
+              "id": {"S": "mock_user.\(env.index)\(.)@gmail.com2"},
+              "policy_type": {"S": "p"},
+              "rule": {
+                "L": [
+                  {"S": "group"},
+                  {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+                  {"S": "oneshottest"},
+                  {"S": "customer"}
+                ]
+              },
+              "level": {"S": "group"},
+              "subject": {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+              "object": {"S": "oneshottest"},
+              "role": {"S": "customer"}
+            }
+          }
+        }]) | flatten(2)
+      ),
+      "FI_project_access": (
+        [range(6)] | map([{
+          "PutRequest": {
+            "Item": {
+              "responsibility": {
+                "S": "mock"
+              },
+              "project_name": {
+                "S": "oneshottest"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "user_email": {
+                "S": "mock_user.\(env.index)\(.)@gmail.com"
+              }
+            }
+          }
+        }]) | flatten(2)
+      )
+    }' > .tmp
+    aws dynamodb batch-write-item \
+      --endpoint-url 'http://localhost:8022' \
+      --request-items 'file://.tmp'
+  done
+fi
