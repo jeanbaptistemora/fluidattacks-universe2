@@ -46,12 +46,12 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     && isContinuous
     && props.state === "open"
     && !props.isRemediated
-    && !props.isEditing;
+    && !(props.isEditing || props.isVerifying);
 
   const shouldRenderVerifyBtn: boolean =
     canVerify
     && !props.isVerified
-    && !props.isEditing;
+    && !(props.isEditing || props.isRequestingVerify);
 
   const shouldRenderApprovalBtns: boolean =
     canApproveAcceptation
