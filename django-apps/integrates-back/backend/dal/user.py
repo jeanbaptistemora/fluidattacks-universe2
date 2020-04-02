@@ -31,12 +31,24 @@ SUBJECT_POLICY = NamedTuple('SUBJECT_POLICY', [
 def cast_subject_policy_into_dict(policy: SUBJECT_POLICY) -> dict:
     """Cast a subject policy into a dict, valid to be put in dynamo."""
     # pylint: disable=protected-access
-    return dict(policy._asdict())
+    return {
+        key: (
+            value.lower()
+            if isinstance(value, str)
+            else value
+        )
+        for key, value in policy._asdict().items()
+    }
 
 
 def cast_dict_into_subject_policy(item: dict) -> SUBJECT_POLICY:
     # pylint: disable=protected-access
     field_types: dict = SUBJECT_POLICY._field_types
+
+    # Every string as lowercase
+    for field, _ in field_types.items():
+        if isinstance(item.get(field), str):
+            item[field] = item[field].lower()
 
     return SUBJECT_POLICY(**{
         field: (
@@ -53,7 +65,7 @@ def get_subject_policies(subject: str) -> List[SUBJECT_POLICY]:
     policies: List[SUBJECT_POLICY] = []
     query_params = {
         'ConsistentRead': True,
-        'KeyConditionExpression': Key('subject').eq(subject),
+        'KeyConditionExpression': Key('subject').eq(subject.lower()),
     }
 
     response = AUTHZ_TABLE.query(**query_params)

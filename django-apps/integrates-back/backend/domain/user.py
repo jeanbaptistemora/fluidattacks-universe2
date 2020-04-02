@@ -102,6 +102,22 @@ def grant_user_level_role(
     return True
 
 
+def grant_user_level_role2(email: str, role: str) -> bool:
+    """Grant a user-level role to a user."""
+    if role not in VALID_ROLES:
+        raise ValueError(f'Invalid role value: {role}')
+
+    policy = user_dal.SUBJECT_POLICY(
+        level='user',
+        subject=email,
+        object='self',
+        role=role,
+    )
+
+    return user_dal.put_subject_policy(policy) \
+        and authorization_util.revoke_cached_subject_policies(email)
+
+
 def grant_group_level_role(
         email: str,
         group: str,
@@ -130,6 +146,29 @@ def grant_group_level_role(
         settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
 
     return True
+
+
+def grant_group_level_role2(email: str, group: str, role: str) -> bool:
+    """Grant a group-level role to a user."""
+    if role not in VALID_ROLES:
+        raise ValueError(f'Invalid role value: {role}')
+
+    policy: user_dal.SUBJECT_POLICY = user_dal.SUBJECT_POLICY(
+        level='group',
+        subject=email,
+        object=group,
+        role=role,
+    )
+
+    success: bool = True
+
+    # If there is no user-level role for this user add one
+    if not get_user_level_role2(email):
+        success = success and grant_user_level_role2(email, role)
+
+    return success \
+        and user_dal.put_subject_policy(policy) \
+        and authorization_util.revoke_cached_subject_policies(email)
 
 
 def revoke_user_level_role(email: str) -> bool:
