@@ -7,6 +7,8 @@ from backend.domain.user import (
     get_user_level_role2,
     grant_user_level_role2,
     grant_group_level_role2,
+    revoke_user_level_role2,
+    revoke_group_level_role2,
 )
 
 class UserTests(TestCase):
@@ -46,3 +48,27 @@ class UserTests(TestCase):
         assert get_user_level_role2('..tESt2@gmail.com') == 'customer'
         assert get_group_level_role2('..test2@gmail.com', 'group') == 'customer'
         assert not get_group_level_role2('..test2@gmail.com', 'other-group')
+
+    def test_revoke_user_level_role2(self):
+        assert grant_user_level_role2('revoke_user_LEVEL_role@gmail.com', 'customer')
+        assert get_user_level_role2('revoke_user_level_role@gmail.com') == 'customer'
+        assert revoke_user_level_role2('revoke_USER_level_role@gmail.com')
+        assert not get_user_level_role2('revoke_user_level_ROLE@gmail.com')
+
+    def test_revoke_group_level_role2(self):
+        assert grant_group_level_role2('revoke_group_LEVEL_role@gmail.com', 'group', 'customer')
+        assert grant_group_level_role2('REVOKE_group_level_role@gmail.com', 'other-group', 'customer')
+
+        assert get_group_level_role2('revoke_group_level_ROLE@gmail.com', 'group') == 'customer'
+        assert get_group_level_role2('revoke_GROUP_level_role@gmail.com', 'other-group') == 'customer'
+        assert not get_group_level_role2('REVOKE_group_level_role@gmail.com', 'yet-other-group')
+
+        assert revoke_group_level_role2('revoke_GROUP_level_role@gmail.com', 'other-group')
+        assert get_group_level_role2('revoke_group_level_role@gmail.com', 'group') == 'customer'
+        assert not get_group_level_role2('revoke_group_level_role@gmail.com', 'other-group')
+        assert not get_group_level_role2('revoke_group_level_role@gmail.com', 'yet-other-group')
+
+        assert revoke_group_level_role2('revoke_GROUP_level_role@gmail.com', 'group')
+        assert not get_group_level_role2('revOke_group_level_role@gmail.com', 'group')
+        assert not get_group_level_role2('revoKe_group_level_role@gmail.com', 'other-group')
+        assert not get_group_level_role2('revokE_group_level_role@gmail.com', 'yet-other-group')

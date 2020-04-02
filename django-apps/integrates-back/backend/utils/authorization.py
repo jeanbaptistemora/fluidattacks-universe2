@@ -18,7 +18,7 @@ from rediscluster.nodemanager import RedisClusterException
 
 
 def get_subject_cache_key(subject: str) -> str:
-    return f'authorization.{subject.encode().hex()}'
+    return f'authorization.{subject.lower().encode().hex()}'
 
 
 def get_perm_metamodel_path(name: str) -> str:

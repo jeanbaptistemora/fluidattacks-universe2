@@ -90,6 +90,22 @@ def put_subject_policy(policy: SUBJECT_POLICY) -> bool:
     rollbar.report_message(
         'Error in user_dal.put_subject_policy',
         level='error', payload_data=locals())
+
+    return False
+
+
+def delete_subject_policy(subject: str, object_: str) -> bool:
+    with contextlib.suppress(ClientError):
+        response = AUTHZ_TABLE.delete_item(Key={
+            'subject': subject.lower(),
+            'object': object_.lower(),
+        })
+        return response['ResponseMetadata']['HTTPStatusCode'] == 200
+
+    rollbar.report_message(
+        'Error in user_dal.delete_subject_policy',
+        level='error', payload_data=locals())
+
     return False
 
 
