@@ -45,8 +45,16 @@ PLUGINS = [
     'tag_cloud'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors',
-                     'search', 'landing', 'error'))
+DIRECT_TEMPLATES = [
+    'index',
+    'tags',
+    'categories',
+    'archives',
+    'authors',
+    'search',
+    'landing',
+    'error'
+]
 SITEMAP = {
     'format': 'xml',
     'priorities': {

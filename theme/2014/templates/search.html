@@ -42,6 +42,7 @@
   </div>
 {% endblock breadcrumb %}
 {% block content %}
+  <script src="tipuesearch_content.js"></script>
   <div class="divpage">
     <article class="ma-auto tl mw8">
       <div id="tipue_search_content"></div>
@@ -51,8 +52,6 @@
     $(document).ready(function() {
       $('#tipue_search_input').tipuesearch({
         'show': 10,
-        'mode': 'json',
-        'contentLocation': '{{ SITEURL }}/tipuesearch_content.json',
         'descriptiveWords': '50',
       });
     });

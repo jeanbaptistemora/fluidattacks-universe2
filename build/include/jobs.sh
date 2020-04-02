@@ -202,7 +202,7 @@ function job_test_commitlint {
   &&  curl -LOJ "${parser_url}" \
   &&  curl -LOJ "${rules_url}" \
   &&  npm install @commitlint/{config-conventional,cli} \
-  &&  git fetch --prune &> /dev/null \
+  &&  git fetch --prune > /dev/null \
   &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
       then
             commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
