@@ -577,6 +577,13 @@ def get_project(finding_id: str) -> str:
     return str(finding_dal.get_attributes(finding_id, ['project_name']).get('project_name', ''))
 
 
+def get_finding_historic_treatment(finding_id: str) -> str:
+    return str(
+        finding_dal.get_attributes(
+            finding_id, ['historic_treatment']).get('historic_treatment', '')
+    )
+
+
 def get_findings(finding_ids: List[str]) -> List[Dict[str, FindingType]]:
     """Retrieves all attributes for the requested findings"""
     findings = [get_finding(finding_id) for finding_id in finding_ids

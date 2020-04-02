@@ -159,9 +159,10 @@ async def _do_handle_acceptation(_, info, **parameters):
     user_info = util.get_jwt_content(info.context)
     user_mail = user_info['user_email']
     finding_id = parameters.get('finding_id')
-    finding = await \
-        sync_to_async(finding_domain.get_finding)(finding_id)
-    historic_treatment = finding.get('historicTreatment')
+    historic_treatment = await \
+        sync_to_async(finding_domain.get_finding_historic_treatment)(
+            finding_id
+        )
     if historic_treatment[-1]['acceptance_status'] != 'SUBMITTED':
         raise GraphQLError(
             'It cant be approved/rejected a finding' +
@@ -190,10 +191,8 @@ async def _do_update_description(_, info, finding_id, **parameters):
             finding_id, parameters
         )
     if success:
-        finding = await \
-            sync_to_async(finding_domain.get_finding)(
-                finding_id)
-        project_name = finding['projectName']
+        project_name = await \
+            sync_to_async(project_domain.get_finding_project_name)(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         util.cloudwatch_log(info.context, f'Security: Updated description in \
@@ -260,8 +259,8 @@ async def _do_update_client_description(_, info, finding_id, **parameters):
 async def _do_reject_draft(_, info, finding_id):
     """Resolve reject_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
-    finding = await sync_to_async(finding_domain.get_finding)(finding_id)
-    project_name = finding['projectName']
+    project_name = await \
+        sync_to_async(project_domain.get_finding_project_name)(finding_id)
 
     success = await \
         sync_to_async(finding_domain.reject_draft)(finding_id, reviewer_email)
@@ -283,8 +282,8 @@ async def _do_reject_draft(_, info, finding_id):
 @require_finding_access
 async def _do_delete_finding(_, info, finding_id, justification):
     """Resolve delete_finding mutation."""
-    finding = await sync_to_async(finding_domain.get_finding)(finding_id)
-    project_name = finding['projectName']
+    project_name = await \
+        sync_to_async(project_domain.get_finding_project_name)(finding_id)
 
     success = await \
         sync_to_async(finding_domain.delete_finding)(
@@ -307,8 +306,8 @@ async def _do_delete_finding(_, info, finding_id, justification):
 async def _do_approve_draft(_, info, draft_id):
     """Resolve approve_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
-    finding = await sync_to_async(finding_domain.get_finding)(draft_id)
-    project_name = finding['projectName']
+    project_name = await \
+        sync_to_async(project_domain.get_finding_project_name)(draft_id)
 
     has_vulns = [vuln for vuln in vuln_domain.list_vulnerabilities([draft_id])
                  if vuln['historic_state'][-1].get('state') != 'DELETED']
