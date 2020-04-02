@@ -75,7 +75,7 @@ type Finding {
         vulnType: String,
         state: String,
         approvalStatus: String
-    ): [Vulnerabilities]
+    ): [Vulnerability]
 }
 
 "InternalProject type definition"
@@ -161,8 +161,8 @@ type Comment {
     parent: String
 }
 
-"Vulnerabilities type definition"
-type Vulnerabilities {
+"Vulnerability type definition"
+type Vulnerability {
     id: String
     analyst: String
     findingId: String
