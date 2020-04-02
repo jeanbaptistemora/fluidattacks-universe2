@@ -1,0 +1,124 @@
+{
+  "fi_authz": [
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "unittest@fluidattacks.com"},
+          "object": {"S": "self"},
+          "role": {"S": "admin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "unittest"},
+          "object": {"S": "self"},
+          "role": {"S": "admin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "integratesmanager@gmail.com"},
+          "object": {"S": "self"},
+          "role": {"S": "admin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "integratesuser@gmail.com"},
+          "object": {"S": "self"},
+          "role": {"S": "customeradmin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "integratesanalyst@gmail.com"},
+          "object": {"S": "self"},
+          "role": {"S": "analyst"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "integratesanalyst2@gmail.com"},
+          "object": {"S": "self"},
+          "role": {"S": "analyst"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "continuoushacking@gmail.com"},
+          "object": {"S": "self"},
+          "role": {"S": "customeradmin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "continuoushacking@gmail.com"},
+          "object": {"S": "unittesting"},
+          "role": {"S": "customeradmin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "continuoushacking@gmail.com"},
+          "object": {"S": "pendingproject"},
+          "role": {"S": "customeradmin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "integratesuser@gmail.com"},
+          "object": {"S": "unittesting"},
+          "role": {"S": "customeradmin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "integratesanalyst@gmail.com"},
+          "object": {"S": "unittesting"},
+          "role": {"S": "analyst"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "integratesanalyst@gmail.com"},
+          "object": {"S": "oneshottest"},
+          "role": {"S": "analyst"}
+        }
+      }
+    }
+  ]
+}

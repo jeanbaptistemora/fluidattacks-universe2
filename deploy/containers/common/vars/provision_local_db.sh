@@ -31,6 +31,25 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
       }
     }]'
 
+aws dynamodb create-table \
+  --attribute-definitions '[{
+      "AttributeName": "subject",
+      "AttributeType": "S"
+    },{
+      "AttributeName": "object",
+      "AttributeType": "S"
+    }]' \
+  --billing-mode 'PAY_PER_REQUEST' \
+  --endpoint-url http://localhost:8022 \
+  --key-schema '[{
+      "AttributeName": "subject",
+      "KeyType": "HASH"
+    },{
+      "AttributeName": "object",
+      "KeyType": "RANGE"
+    }]' \
+  --table-name 'fi_authz' \
+
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --table-name FI_findings \
 --attribute-definitions \
