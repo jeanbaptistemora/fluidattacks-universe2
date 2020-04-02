@@ -79,7 +79,7 @@ function job_coverage_report {
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         CODECOV_TOKEN \
-  &&  codecov
+  &&  codecov -b "${CI_COMMIT_REF_NAME}"
 }
 
 function job_clean_registries {
