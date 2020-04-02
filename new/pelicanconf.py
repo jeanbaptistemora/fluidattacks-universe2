@@ -26,7 +26,7 @@ USE_FOLDER_AS_CATEGORY = False
 LANDING_SAVE_AS = 'index.html'
 
 # Plugins configuration
-PLUGIN_PATHS = ['../pelican-plugins']
+PLUGIN_PATHS = ['pelican-plugins']
 PLUGINS = [
     'asciidoc_reader',
     'assets',

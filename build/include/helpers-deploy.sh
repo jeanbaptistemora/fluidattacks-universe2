@@ -2,7 +2,7 @@
 
 source "${srcIncludeHelpers}"
 
-function helper_deploy_install_plugins {
+function helper_deploy_install_plugins_old {
   local asciidoc='asciidoc_reader'
   local asciidoc_version='ad6d407'
 
@@ -28,6 +28,28 @@ function helper_deploy_install_plugins {
         "${tipuesearch_version}" \
         "${js_plugins_path}" \
         "${url_tipuesearch_plugin}" \
+  &&  helper_git_sparse_checkout \
+        "${others}" \
+        "${others_version}" \
+        "${pelican_plugins_path}" \
+        "${url_pelican_plugins}"
+}
+
+function helper_deploy_install_plugins_new {
+  local asciidoc='asciidoc_reader'
+  local asciidoc_version='ad6d407'
+
+  local others='assets neighbors representative_image sitemap'
+  local others_version='666716e'
+
+  local pelican_plugins_path='pelican-plugins'
+  local url_pelican_plugins='https://github.com/getpelican/pelican-plugins.git'
+
+      helper_git_sparse_checkout \
+        "${asciidoc}" \
+        "${asciidoc_version}" \
+        "${pelican_plugins_path}" \
+        "${url_pelican_plugins}" \
   &&  helper_git_sparse_checkout \
         "${others}" \
         "${others_version}" \
@@ -101,47 +123,55 @@ function helper_deploy_sync_s3 {
         --delete
 }
 
-function helper_deploy_compile_site {
+function helper_deploy_compile_old {
   local target="${1}"
-  local base_folder='deploy/builder'
 
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
-  &&  npm install --prefix "${base_folder}" \
-  &&  PATH="${PATH}:$(pwd)/${base_folder}/node_modules/.bin/" \
-  &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "${base_folder}/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
-  &&  helper_deploy_install_plugins \
-  &&  PATH="${PATH}:$(pwd)/${base_folder}/node_modules/uglify-js/bin/" \
-  &&  cp -a "${base_folder}/node_modules" theme/2014/ \
+      env_prepare_python_packages \
+  &&  npm install --prefix theme/2014/ \
+  &&  PATH="${PATH}:$(pwd)/theme/2014/node_modules/.bin/" \
+  &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2014/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
+  &&  helper_deploy_install_plugins_old \
+  &&  PATH="${PATH}:$(pwd)/theme/2014/node_modules/uglify-js/bin/" \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
-  &&  npm run --prefix "${base_folder}" build \
+  &&  npm run --prefix theme/2014/ build \
   &&  cp -a "${STARTDIR}/cache" . || true \
   &&  echo '[INFO] Compiling site' \
   &&  pelican --fatal errors --fatal warnings content/ \
   &&  echo '[INFO] Finished compiling site' \
+  &&  cp -a cache/ "${STARTDIR}" || true \
   &&  rm -rf output/web/de \
   &&  mv output/web/pages/* output/web/ \
   &&  rm -rf output/web/pages \
   &&  cp sitemap.xml output/sitemap.xml \
   &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
-  &&  sed -i '/<url>/{:a;N;/<\/url>/!ba};/blog\/\(authors\|tags\|categories\)/d' output/sitemap.xml \
-  &&  sed -i '/^$/d' output/sitemap.xml \
   &&  rm output/web/sitemap.xml \
-  &&  cp robots.txt output/robots.txt \
-  &&  cp -a cache/ "${STARTDIR}" || true \
-  &&  cp -a "${base_folder}/node_modules" new/theme/2014/ \
-  &&  cp -a "${base_folder}/node_modules" new/ \
-  &&  sed -i "s|https://fluidattacks.com|${target}|g" new/pelicanconf.py \
-  &&  pushd new/ || return 1 \
-  &&  npm run --prefix "../${base_folder}" build-new \
+  &&  cp robots.txt output/robots.txt
+}
+
+function helper_deploy_compile_new {
+  local target="${1}"
+
+      pushd new/ || return 1 \
+  &&  env_prepare_python_packages \
+  &&  helper_deploy_install_plugins_new \
+  &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
+  &&  npm install --prefix theme/2020/ \
+  &&  npm run --prefix theme/2020/ build \
   &&  cp -a "${STARTDIR}/new/cache" . || true \
   &&  echo '[INFO] Compiling New site' \
   &&  pelican --fatal errors --fatal warnings content/ \
   &&  echo '[INFO] Finished compiling New site' \
+  &&  cp -a cache/ "${STARTDIR}/new" || true \
   &&  rm -rf output/web \
   &&  mv output/newweb/pages/* output/newweb/ \
   &&  rm -rf output/newweb/pages \
-  &&  cp -a cache/ "${STARTDIR}/new" || true \
-  &&  popd || return 1 \
+  &&  popd || return 1
+}
+
+function helper_deploy_compile_all {
+  local target="${1}"
+
+      helper_deploy_compile_old "${target}" \
+  &&  helper_deploy_compile_new "${target}" \
   &&  cp -a new/output/newweb output/
 }

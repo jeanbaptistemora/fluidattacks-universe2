@@ -1,0 +1,32 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/fluidattacks/web.git"
+  },
+  "author": "development@fluidattacks.com",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://gitlab.com/fluidattacks/web/issues"
+  },
+  "dependencies": {
+    "sass": "1.26.3",
+    "@types/jquery": "3.3.30",
+    "@types/terser-webpack-plugin": "2.2.0",
+    "@types/webpack": "4.41.3",
+    "jquery": "^3.3.1",
+    "terser-webpack-plugin": "2.3.2",
+    "tslint": "5.18.0",
+    "ts-loader": "6.2.1",
+    "ts-node": "8.6.2",
+    "typescript": "3.7.5",
+    "webpack": "4.41.4",
+    "webpack-cli": "3.3.10"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.prod.config.ts -t codeFrame",
+    "lint": "tsc --noEmit -p tsconfig.json && tslint -p tsconfig.json -t codeFrame"
+  }
+}

@@ -32,8 +32,6 @@
     "webpack-cli": "3.3.10"
   },
   "scripts": {
-    "build": "cd ../../theme/2014 && webpack --config ../../theme/2014/webpack.prod.config.ts -t codeFrame",
-    "build-new": "cd ../../new/theme/2020 && webpack --config webpack.prod.config.ts -t codeFrame",
-    "lint-new": "tsc --noEmit -p ../../new/theme/2020/tsconfig.json && tslint -p ../../new/theme/2020/tsconfig.json -t codeFrame"
+    "build": "webpack --config webpack.prod.config.ts -t codeFrame"
   }
 }

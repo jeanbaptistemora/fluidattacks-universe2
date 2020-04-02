@@ -80,9 +80,8 @@ function job_test_lint_code {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_list_touched_files | xargs pre-commit run -v --files \
-  &&  npm install --prefix deploy/builder/ \
-  &&  cp -a deploy/builder/node_modules new/ \
-  &&  npm run --prefix deploy/builder/ lint-new
+  &&  npm install --prefix new/theme/2020/ \
+  &&  npm run --prefix new/theme/2020/ lint
 }
 
 function job_test_images {
@@ -219,13 +218,15 @@ function job_test_commitlint {
 }
 
 function job_deploy_local {
-      helper_deploy_compile_site 'http://localhost:8000' \
+      helper_use_pristine_workdir \
+  &&  helper_deploy_compile_all 'http://localhost:8000' \
   &&  python3 -m http.server --directory output
 }
 
 function job_deploy_ephemeral {
-      helper_set_dev_secrets \
-  &&  helper_deploy_compile_site "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+      helper_use_pristine_workdir \
+  &&  helper_set_dev_secrets \
+  &&  helper_deploy_compile_all "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  helper_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
 }
 
@@ -235,8 +236,9 @@ function job_deploy_stop_ephemeral {
 }
 
 function job_deploy_production {
-      helper_set_prod_secrets \
-  &&  helper_deploy_compile_site 'https://fluidattacks.com' \
+      helper_use_pristine_workdir \
+  &&  helper_set_prod_secrets \
+  &&  helper_deploy_compile_all 'https://fluidattacks.com' \
   &&  helper_deploy_sync_s3 'output/' 'web.fluidattacks.com'
 }
 
