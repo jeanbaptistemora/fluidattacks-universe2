@@ -8,7 +8,6 @@ import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React, { useState } from "react";
 import { ButtonToolbar, Col, ControlLabel, Row } from "react-bootstrap";
-import { Provider } from "react-redux";
 import { change, Field, InjectedFormProps, reset } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
@@ -247,13 +246,11 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
 export const updateAccessTokenModal: React.FC<IAddAccessTokenModalProps> =
   (props: IAddAccessTokenModalProps): JSX.Element => (
     <React.StrictMode>
-      <Provider store={store}>
         <Modal
           open={props.open}
           headerTitle={translate.t("update_access_token.title")}
           content={renderAccessTokenForm(props)}
           footer={<div />}
         />
-      </Provider>
     </React.StrictMode>
   );
