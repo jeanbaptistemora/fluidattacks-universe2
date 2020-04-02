@@ -297,11 +297,12 @@ function helper_get_resource_to_taint_number {
 
 function helper_move_continuous_fusion_to_master_git {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
-  local path_empty_repos="${PWD}/analytics/git/repos_to_get_from_cache.lst"
+  local path_empty_repos="${PWD}/repos_to_get_from_cache.lst"
 
   set +o errexit
   set +o nounset
 
+  ls
   pushd '/git/fluidattacks/continuous'
     while read -r subs
     do
@@ -312,7 +313,8 @@ function helper_move_continuous_fusion_to_master_git {
           PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
           PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
           toolbox --sync-s3-to-fusion --subs "${subs}" \
-
+      &&  mkdir -p ../../"${subs}" \
+      &&  cp subscriptions/"${subs}"/fusion/ ../../"${subs}"
     done < "${path_empty_repos}"
   popd
 
