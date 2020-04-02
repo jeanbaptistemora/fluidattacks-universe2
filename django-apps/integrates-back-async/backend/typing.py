@@ -38,3 +38,6 @@ User = Dict[str, Union[
     Dict[str, object],
     None
 ]]
+Alert = Dict[str, Union[
+    int, str
+]]

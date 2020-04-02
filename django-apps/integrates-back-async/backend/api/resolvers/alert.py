@@ -2,19 +2,21 @@
 
 import asyncio
 
+from typing import Dict
 from asgiref.sync import sync_to_async
 from backend.decorators import (
     get_cached, enforce_group_level_auth_async, require_login,
     require_project_access
 )
 from backend.domain import alert as alert_domain
+from backend.typing import Alert as AlertType
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
 
 
 @sync_to_async
-def _get_alert_fields(project_name, organization):
+def _get_alert_fields(project_name: str, organization: str) -> AlertType:
     """Resolve alert query."""
     result = dict(
         message=str(),
@@ -30,7 +32,7 @@ def _get_alert_fields(project_name, organization):
     return result
 
 
-async def _resolve_fields(project_name, organization):
+async def _resolve_fields(project_name: str, organization: str) -> AlertType:
     """Async resolve fields."""
     result = dict()
     future = asyncio.ensure_future(
@@ -47,7 +49,7 @@ async def _resolve_fields(project_name, organization):
 @enforce_group_level_auth_async
 @require_project_access
 @get_cached
-def resolve_alert(*_, project_name, organization):
+def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
     """Resolve alert query."""
     return util.run_async(_resolve_fields, project_name, organization)
 
@@ -55,7 +57,8 @@ def resolve_alert(*_, project_name, organization):
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
-def resolve_set_alert(_, info, company, message, project_name):
+def resolve_set_alert(_, info, company: str, message: str,
+                      project_name: str) -> Dict[str, bool]:
     """Resolve set_alert mutation."""
     success = alert_domain.set_company_alert(
         company, message, project_name)
