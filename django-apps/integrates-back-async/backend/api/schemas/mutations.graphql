@@ -67,12 +67,8 @@ type Mutation {
         approvalStatus: Boolean!
     ): SimplePayload!
     updateTreatmentVuln(
-        acceptanceDate: String,
-        btsUrl: String,
         findingId: String!,
-        treatment: String,
         treatmentManager: String,
-        treatmentJustification: String,
         vulnerabilities: [String]!,
         severity: Int,
         tag: String

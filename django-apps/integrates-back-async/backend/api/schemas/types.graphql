@@ -174,10 +174,6 @@ type Vulnerability {
     currentApprovalStatus: String
     lastAnalyst: String
     lastApprovedStatus: String
-    acceptanceDate: String
-    treatment: String
-    externalBts: String
-    treatmentJustification: String
     treatmentManager: String
     severity: String
     tag: String

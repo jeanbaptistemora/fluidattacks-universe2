@@ -6,8 +6,6 @@ from backend.typing import Finding as FindingType
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
     vuln['current_state'] = cast(List[Dict[str, str]],
                                  vuln.get('historic_state', [{}]))[-1].get('state')
-    vuln['treatment'] = ('-' if vuln['current_state'] == 'closed'
-                         else str(vuln.get('treatment', ''))).lower().capitalize()
 
     return vuln
 
