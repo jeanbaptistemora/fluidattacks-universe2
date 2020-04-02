@@ -16,7 +16,7 @@ This is a red team management tool for reporting all project findings in the
 different phases and in real-time.
 
 [role="w6 center pt3"]
-image::product-drills.png[link="#"]
+image::product-drills.png[link="../products/drills/"]
 
 == Drills
 

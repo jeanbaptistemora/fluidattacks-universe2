@@ -6,13 +6,9 @@
 
 {% block meta %}
 <meta name="description"
-      content="Integrates is a system which provides all interested parties
-      information and updates about the current state of the project, the number
-      of security findings discovered and its criticality, occurrences, among
-      other information in order to keep close contact with our customers.">
+      content="{{ page.description }}">
 <meta name="keywords"
-      content="Fluid Attacks, Products, Integrates, Ethical Hacking, Pentesting,
-      Security.">
+      content="{{ page.keywords }}">
 {% endblock meta %}
 
 {% block title %}
@@ -163,6 +159,24 @@
   </div>
   <div class="w5 h-cont-bar bg-fluid-lightgray center mw5 br4 ba b--silver">
     <div class="h-bar w1 bg-dk-red mw5 br4" id="progress-bar"></div>
+  </div>
+  <div class="w-100 roboto tc pv6">
+    <h1 class="c-lightblack b f2 roboto tc ma0">
+      Key Features
+    </h1>
+    {{ page.content }}
+  </div>
+  <div class="w-100 roboto tc pb6">
+    <img
+      class="w6"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/datasheet-drills.png"
+      alt="Young hacker smiling">
+      <h1 class="c-lightblack f2-l fw7 tc f3 center roboto">
+        Want to know more about Fluid Attacks?
+      </h1>
+      <h2 class="f2-l fw1 tc f4 w6-ns center roboto w-90">
+        Download Data Sheet  <span><img class="w2-ns w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/download.svg" alt="Young hacker smiling"></span>
+      </h2>
   </div>
 </div>
 {% assets output="static/js/progressBar.min.js", "js/tmp/progressBar.min.js" %}
