@@ -82,18 +82,18 @@ async def _do_update_evidence(_, info, evidence_id, finding_id, file):
     return dict(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_update_evidence_description(
+async def _do_update_evidence_description(
     _, info, finding_id, evidence_id, description
 ):
     """Resolve update_evidence_description mutation."""
     success = False
     try:
-        success = finding_domain.update_evidence_description(
-            finding_id, evidence_id, description)
+        success = await \
+            sync_to_async(finding_domain.update_evidence_description)(
+                finding_id, evidence_id, description)
         if success:
             util.invalidate_cache(finding_id)
             util.cloudwatch_log(info.context, 'Security: Evidence description \
@@ -130,15 +130,15 @@ async def _do_update_severity(_, info, **parameters):
     return dict(finding=finding, success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_verify_finding(_, info, finding_id, justification):
+async def _do_verify_finding(_, info, finding_id, justification):
     """Resolve verify_finding mutation."""
-    project_name = project_domain.get_finding_project_name(finding_id)
+    project_name = await \
+        sync_to_async(project_domain.get_finding_project_name)(finding_id)
     user_info = util.get_jwt_content(info.context)
-    success = finding_domain.verify_finding(
+    success = await sync_to_async(finding_domain.verify_finding)(
         finding_id, user_info['user_email'],
         justification,
         str.join(' ', [user_info['first_name'], user_info['last_name']])
@@ -151,26 +151,27 @@ def resolve_verify_finding(_, info, finding_id, justification):
     return dict(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_handle_acceptation(_, info, **parameters):
+async def _do_handle_acceptation(_, info, **parameters):
     """Resolve handle_acceptation mutation."""
     user_info = util.get_jwt_content(info.context)
     user_mail = user_info['user_email']
     finding_id = parameters.get('finding_id')
-    historic_treatment = \
-        finding_domain.get_finding(finding_id).get('historicTreatment')
+    finding = await \
+        sync_to_async(finding_domain.get_finding)(finding_id)
+    historic_treatment = finding.get('historicTreatment')
     if historic_treatment[-1]['acceptance_status'] != 'SUBMITTED':
         raise GraphQLError(
             'It cant be approved/rejected a finding' +
             'definite assumption without being requested')
 
-    success = finding_domain.handle_acceptation(finding_id,
-                                                parameters.get('observations'),
-                                                user_mail,
-                                                parameters.get('response'))
+    success = await \
+        sync_to_async(finding_domain.handle_acceptation)(
+            finding_id, parameters.get('observations'), user_mail,
+            parameters.get('response')
+        )
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(parameters.get('project_name'))
@@ -253,16 +254,17 @@ async def _do_update_client_description(_, info, finding_id, **parameters):
     return dict(finding=finding, success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_reject_draft(_, info, finding_id):
+async def _do_reject_draft(_, info, finding_id):
     """Resolve reject_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
-    project_name = finding_domain.get_finding(finding_id)['projectName']
+    finding = await sync_to_async(finding_domain.get_finding)(finding_id)
+    project_name = finding['projectName']
 
-    success = finding_domain.reject_draft(finding_id, reviewer_email)
+    success = await \
+        sync_to_async(finding_domain.reject_draft)(finding_id, reviewer_email)
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
@@ -276,16 +278,17 @@ def resolve_reject_draft(_, info, finding_id):
     return dict(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_delete_finding(_, info, finding_id, justification):
+async def _do_delete_finding(_, info, finding_id, justification):
     """Resolve delete_finding mutation."""
-    project_name = finding_domain.get_finding(finding_id)['projectName']
+    finding = await sync_to_async(finding_domain.get_finding)(finding_id)
+    project_name = finding['projectName']
 
-    success = finding_domain.delete_finding(
-        finding_id, project_name, justification, info.context)
+    success = await \
+        sync_to_async(finding_domain.delete_finding)(
+            finding_id, project_name, justification, info.context)
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
@@ -299,19 +302,19 @@ def resolve_delete_finding(_, info, finding_id, justification):
     return dict(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
-def resolve_approve_draft(_, info, draft_id):
+async def _do_approve_draft(_, info, draft_id):
     """Resolve approve_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
-    project_name = finding_domain.get_finding(draft_id)['projectName']
+    finding = await sync_to_async(finding_domain.get_finding)(draft_id)
+    project_name = finding['projectName']
 
     has_vulns = [vuln for vuln in vuln_domain.list_vulnerabilities([draft_id])
                  if vuln['historic_state'][-1].get('state') != 'DELETED']
     if not has_vulns:
         raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
-    success, release_date = finding_domain.approve_draft(
+    success, release_date = await sync_to_async(finding_domain.approve_draft)(
         draft_id, reviewer_email)
     if success:
         util.invalidate_cache(draft_id)
@@ -324,28 +327,28 @@ def resolve_approve_draft(_, info, draft_id):
     return dict(release_date=release_date, success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_create_draft(_, info, project_name, title, **kwargs):
+async def _do_create_draft(_, info, project_name, title, **kwargs):
     """Resolve create_draft mutation."""
-    success = finding_domain.create_draft(
-        info, project_name, title, **kwargs)
+    success = await \
+        sync_to_async(finding_domain.create_draft)(
+            info, project_name, title, **kwargs)
     if success:
         util.cloudwatch_log(info.context, 'Security: Created draft in '
                             '{} project succesfully'.format(project_name))
     return dict(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_submit_draft(_, info, finding_id):
+async def _do_submit_draft(_, info, finding_id):
     """Resolve submit_draft mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
-    success = finding_domain.submit_draft(finding_id, analyst_email)
+    success = await \
+        sync_to_async(finding_domain.submit_draft)(finding_id, analyst_email)
 
     if success:
         util.invalidate_cache(finding_id)

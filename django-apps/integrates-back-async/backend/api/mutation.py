@@ -47,20 +47,20 @@ MUTATION.set_field('removeAllProjectAccess',
 MUTATION.set_field('removeEvidence', finding.resolve_finding_mutation)
 MUTATION.set_field('updateEvidence', finding.resolve_finding_mutation)
 MUTATION.set_field('updateEvidenceDescription',
-                   finding.resolve_update_evidence_description)
+                   finding.resolve_finding_mutation)
 MUTATION.set_field('updateSeverity',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('updateDescription',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('updateClientDescription',
                    finding.resolve_finding_mutation)
-MUTATION.set_field('verifyFinding', finding.resolve_verify_finding)
-MUTATION.set_field('handleAcceptation', finding.resolve_handle_acceptation)
-MUTATION.set_field('rejectDraft', finding.resolve_reject_draft)
-MUTATION.set_field('deleteFinding', finding.resolve_delete_finding)
-MUTATION.set_field('approveDraft', finding.resolve_approve_draft)
-MUTATION.set_field('createDraft', finding.resolve_create_draft)
-MUTATION.set_field('submitDraft', finding.resolve_submit_draft)
+MUTATION.set_field('verifyFinding', finding.resolve_finding_mutation)
+MUTATION.set_field('handleAcceptation', finding.resolve_finding_mutation)
+MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
+MUTATION.set_field('deleteFinding', finding.resolve_finding_mutation)
+MUTATION.set_field('approveDraft', finding.resolve_finding_mutation)
+MUTATION.set_field('createDraft', finding.resolve_finding_mutation)
+MUTATION.set_field('submitDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('approveVulnerability',
                    vulnerability.resolve_approve_vulnerability)
 MUTATION.set_field('deleteTags', vulnerability.resolve_delete_tags)
