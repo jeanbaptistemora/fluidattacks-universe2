@@ -1,17 +1,67 @@
+# Standard library
+from typing import Dict, List, NamedTuple
 
-from typing import Dict, List
+# Third party libraries
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
 from backend.typing import User as UserType
 
+# Local libraries
 from __init__ import FI_TEST_PROJECTS
 
-TABLE = 'FI_users'
-
+# Shared resources
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
+AUTHORIZATION_TABLE = DYNAMODB_RESOURCE.Table('fi_authorization')
+USERS_TABLE = DYNAMODB_RESOURCE.Table('FI_users')
+
+# Typing
+SUBJECT_POLICY = NamedTuple('SUBJECT_POLICY', [
+    # interface for a row in fi_authorization
+    ('id', str),
+    ('policy_type', str),
+    ('rule', list),
+    ('rule_level', str),
+    ('rule_subject', str),
+    ('rule_object', str),
+    ('rule_role', str),
+])
+
+
+def cast_dict_into_subject_policy(item: dict) -> SUBJECT_POLICY:
+    # pylint: disable=protected-access
+    field_types: dict = SUBJECT_POLICY._field_types
+
+    return SUBJECT_POLICY(**{
+        field: (
+            item[field]
+            if field in item and isinstance(item[field], typing)
+            else typing()
+        )
+        for field, typing in field_types.items()
+    })
+
+
+def get_subject_policies(subject: str) -> List[SUBJECT_POLICY]:
+    """Return a list of policies for the given subject."""
+    policies: List[SUBJECT_POLICY] = []
+    query_params = {
+        'IndexName': 'subject_policies',
+        'KeyConditionExpression': Key('rule_subject').eq(subject),
+    }
+
+    response = AUTHORIZATION_TABLE.query(**query_params)
+    policies.extend(map(cast_dict_into_subject_policy, response['Items']))
+
+    while 'LastEvaluatedKey' in response:
+        query_params['ExclusiveStartKey'] = response['LastEvaluatedKey']
+
+        response = AUTHORIZATION_TABLE.query(**query_params)
+        policies.extend(map(cast_dict_into_subject_policy, response['Items']))
+
+    return policies
 
 
 def get_all_companies() -> List[str]:
@@ -52,26 +102,24 @@ def get_all_users_report(company_name: str, finish_date: str) -> int:
 
 
 def get_all(filter_exp: object, data_attr: str = '') -> List[Dict[str, str]]:
-    table = DYNAMODB_RESOURCE.Table(TABLE)
     scan_attrs = {}
     scan_attrs['FilterExpression'] = filter_exp
     if data_attr:
         scan_attrs['ProjectionExpression'] = data_attr
-    response = table.scan(**scan_attrs)
+    response = USERS_TABLE.scan(**scan_attrs)
     items = response['Items']
     while response.get('LastEvaluatedKey'):
         scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-        response = table.scan(**scan_attrs)
+        response = USERS_TABLE.scan(**scan_attrs)
         items += response['Items']
 
     return items
 
 
 def get_attributes(email: str, attributes: List[str]) -> UserType:
-    table = DYNAMODB_RESOURCE.Table(TABLE)
     items = {}
     try:
-        response = table.get_item(
+        response = USERS_TABLE.get_item(
             Key={'email': email},
             AttributesToGet=attributes
         )
@@ -98,10 +146,9 @@ def remove_attribute(email: str, name_attribute: str) -> bool:
 
 def create(email: str, data: UserType) -> bool:
     resp = False
-    table = DYNAMODB_RESOURCE.Table(TABLE)
     try:
         data.update({'email': email})
-        response = table.put_item(Item=data)
+        response = USERS_TABLE.put_item(Item=data)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError:
         rollbar.report_exc_info()
@@ -111,11 +158,10 @@ def create(email: str, data: UserType) -> bool:
 def update(email: str, data: UserType) -> bool:
     success = False
     primary_key = {'email': email.lower()}
-    table = DYNAMODB_RESOURCE.Table(TABLE)
     try:
         attrs_to_remove = [attr for attr in data if data[attr] is None]
         for attr in attrs_to_remove:
-            response = table.update_item(
+            response = USERS_TABLE.update_item(
                 Key=primary_key,
                 UpdateExpression='REMOVE #attr',
                 ExpressionAttributeNames={'#attr': attr}
@@ -125,7 +171,7 @@ def update(email: str, data: UserType) -> bool:
 
         if data:
             for attr in data:
-                response = table.update_item(
+                response = USERS_TABLE.update_item(
                     Key=primary_key,
                     UpdateExpression='SET #attrName = :val1',
                     ExpressionAttributeNames={
@@ -146,19 +192,17 @@ def update(email: str, data: UserType) -> bool:
 
 
 def get(email: str) -> UserType:
-    table = DYNAMODB_RESOURCE.Table(TABLE)
-    response = table.get_item(Key={'email': email.lower()})
+    response = USERS_TABLE.get_item(Key={'email': email.lower()})
     return response.get('Item', {})
 
 
 def delete(email: str) -> bool:
-    table = DYNAMODB_RESOURCE.Table(TABLE)
     primary_keys = {'email': email.lower()}
     resp = False
     try:
-        item = table.get_item(Key=primary_keys)
+        item = USERS_TABLE.get_item(Key=primary_keys)
         if item.get('Item'):
-            response = table.delete_item(Key=primary_keys)
+            response = USERS_TABLE.delete_item(Key=primary_keys)
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
         rollbar.report_message('Error: Unable to delete user',
