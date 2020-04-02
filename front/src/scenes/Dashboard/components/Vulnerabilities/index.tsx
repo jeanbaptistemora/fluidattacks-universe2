@@ -115,7 +115,7 @@ const groupValues: ((values: number[]) => string) = (values: number[]): string =
 
 const groupVerification: ((lines: IVulnRow[]) => string) = (lines: IVulnRow[]): string =>
   lines.every((row: IVulnRow) => row.verification === "Requested") ? "Requested" :
-    lines.every((row: IVulnRow) => row.verification === "Verified") ? "Verified" : "";
+    lines.every((row: IVulnRow) => row.verification === "Verified (open)") ? "Verified (open)" : "";
 
 const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => {
   const groups: { [key: string]: IVulnType }  = _.groupBy(lines, "where");
@@ -166,7 +166,9 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         specific: line.specific,
         tag: line.tag,
         treatmentManager: line.treatmentManager,
-        verification: line.verification,
+        verification: line.verification === "Verified"
+          ? `${line.verification} (${line.currentState})`
+          : line.verification,
         vulnType: line.vulnType,
         where: line.where,
       })));
