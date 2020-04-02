@@ -1,5 +1,6 @@
 # pylint: disable=import-error
 
+from collections import namedtuple
 import rollbar
 
 from asgiref.sync import sync_to_async
@@ -204,6 +205,63 @@ def resolve_update_description(_, info, finding_id, **parameters):
     """Resolve update_description mutation."""
     return util.run_async(
         _do_update_description, info, finding_id, **parameters
+    )
+
+
+async def _do_update_client_description(info, finding_id, **parameters):
+    """Perform update_client_description mutation."""
+    finding = await \
+        sync_to_async(finding_domain.get_finding)(finding_id)
+    project_name = finding['projectName']
+    user_mail = util.get_jwt_content(info.context)['user_email']
+    if parameters.get('acceptance_status') == '':
+        del parameters['acceptance_status']
+    historic_treatment = finding['historicTreatment']
+    last_state = {
+        key: value for key, value in historic_treatment[-1].items()
+        if key not in ['date', 'user']}
+    new_state = {
+        key: value for key, value in parameters.items() if key != 'bts_url'}
+    bts_changed, treatment_changed = True, True
+    Status = namedtuple('Status', 'bts_changed treatment_changed')
+    if not await \
+        sync_to_async(finding_domain.compare_historic_treatments)(
+            last_state, new_state):
+        treatment_changed = False
+    if 'externalBts' in finding and \
+            parameters.get('bts_url') == finding['externalBts']:
+        bts_changed = False
+    update = Status(bts_changed=bts_changed,
+                    treatment_changed=treatment_changed)
+    if not any(list(update)):
+        raise GraphQLError(
+            'It cant be updated a finding with same values it already has'
+        )
+    success = await \
+        sync_to_async(finding_domain.update_client_description)(
+            finding_id, parameters, user_mail, update
+        )
+    if success:
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(info.context, 'Security: Updated treatment in '
+                            f'finding {finding_id} succesfully')
+        util.forces_trigger_deployment(project_name)
+    else:
+        util.cloudwatch_log(info.context, 'Security: Attempted to update '
+                            f'treatment in finding {finding_id}')
+    finding = await info.context.loaders['finding'].load(finding_id)
+    return dict(finding=finding, success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_group_level_auth_async
+@require_finding_access
+def resolve_update_client_description(_, info, finding_id, **parameters):
+    """Resolve update_client_description."""
+    return util.run_async(
+        _do_update_client_description, info, finding_id, **parameters
     )
 
 

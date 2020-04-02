@@ -338,6 +338,31 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['updateDescription']
         assert result['data']['updateDescription']['success']
 
+    def test_update_description(self):
+        """Check for verifyFinding mutation."""
+        query = '''
+            mutation {
+                updateClientDescription (
+                btsUrl: "",
+                findingId: "463558592",
+                treatment: ACCEPTED,
+                justification: "This is a treatment justification test",
+                acceptanceDate: "-"
+                ) {
+                success
+                finding {
+                    btsUrl
+                    historicTreatment
+                }
+                }
+            }
+        '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateClientDescription']
+        assert result['data']['updateClientDescription']['success']
+
     def test_reject_draft(self):
         """Check for rejectDraft mutation."""
         query = '''
