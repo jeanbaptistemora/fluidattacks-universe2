@@ -1,4 +1,5 @@
 # Standard library
+import contextlib
 from typing import Dict, List, NamedTuple
 
 # Third party libraries
@@ -14,20 +15,23 @@ from __init__ import FI_TEST_PROJECTS
 # Shared resources
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
-AUTHORIZATION_TABLE = DYNAMODB_RESOURCE.Table('fi_authorization')
+AUTHZ_TABLE = DYNAMODB_RESOURCE.Table('fi_authz')
 USERS_TABLE = DYNAMODB_RESOURCE.Table('FI_users')
 
 # Typing
 SUBJECT_POLICY = NamedTuple('SUBJECT_POLICY', [
-    # interface for a row in fi_authorization
-    ('id', str),
-    ('policy_type', str),
-    ('rule', list),
-    ('rule_level', str),
-    ('rule_subject', str),
-    ('rule_object', str),
-    ('rule_role', str),
+    # interface for a row in fi_authz
+    ('level', str),
+    ('subject', str),
+    ('object', str),
+    ('role', str),
 ])
+
+
+def cast_subject_policy_into_dict(policy: SUBJECT_POLICY) -> dict:
+    """Cast a subject policy into a dict, valid to be put in dynamo."""
+    # pylint: disable=protected-access
+    return dict(policy._asdict())
 
 
 def cast_dict_into_subject_policy(item: dict) -> SUBJECT_POLICY:
@@ -48,20 +52,33 @@ def get_subject_policies(subject: str) -> List[SUBJECT_POLICY]:
     """Return a list of policies for the given subject."""
     policies: List[SUBJECT_POLICY] = []
     query_params = {
-        'IndexName': 'subject_policies',
-        'KeyConditionExpression': Key('rule_subject').eq(subject),
+        'ConsistentRead': True,
+        'KeyConditionExpression': Key('subject').eq(subject),
     }
 
-    response = AUTHORIZATION_TABLE.query(**query_params)
+    response = AUTHZ_TABLE.query(**query_params)
     policies.extend(map(cast_dict_into_subject_policy, response['Items']))
 
     while 'LastEvaluatedKey' in response:
         query_params['ExclusiveStartKey'] = response['LastEvaluatedKey']
 
-        response = AUTHORIZATION_TABLE.query(**query_params)
+        response = AUTHZ_TABLE.query(**query_params)
         policies.extend(map(cast_dict_into_subject_policy, response['Items']))
 
     return policies
+
+
+def put_subject_policy(policy: SUBJECT_POLICY) -> bool:
+    item = cast_subject_policy_into_dict(policy)
+
+    with contextlib.suppress(ClientError):
+        response = AUTHZ_TABLE.put_item(Item=item)
+        return response['ResponseMetadata']['HTTPStatusCode'] == 200
+
+    rollbar.report_message(
+        'Error in user_dal.put_subject_policy',
+        level='error', payload_data=locals())
+    return False
 
 
 def get_all_companies() -> List[str]:

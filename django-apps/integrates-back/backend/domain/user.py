@@ -26,6 +26,19 @@ def get_user_level_role(email: str) -> str:
     return str()
 
 
+def get_user_level_role2(email: str) -> str:
+    """Return the user-level role of a user."""
+    user_level_policies = [
+        policy
+        for policy in user_dal.get_subject_policies(email)
+        if policy.level == 'user'
+    ]
+
+    if user_level_policies:
+        return user_level_policies[0].role
+    return ''
+
+
 def get_group_level_role(email: str, group: str) -> str:
     # level, subject, object, role
     rule = ['group', email, group.lower()]
@@ -41,6 +54,23 @@ def get_group_level_role(email: str, group: str) -> str:
     if matching_rules:
         return matching_rules[0][3]
     return str()
+
+
+def get_group_level_role2(email: str, group: str) -> str:
+    """Return the group-level role of a user."""
+    # Admins are granted access to all groups
+    if get_user_level_role2(email) == 'admin':
+        return 'admin'
+
+    group_level_policies = [
+        policy
+        for policy in user_dal.get_subject_policies(email)
+        if policy.level == 'group' and policy.object == group
+    ]
+
+    if group_level_policies:
+        return group_level_policies[0].role
+    return ''
 
 
 def grant_user_level_role(
