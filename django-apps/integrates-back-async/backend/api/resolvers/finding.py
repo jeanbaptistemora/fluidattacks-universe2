@@ -1,6 +1,8 @@
 # pylint: disable=import-error
 
 from collections import namedtuple
+import sys
+
 import rollbar
 
 from asgiref.sync import sync_to_async
@@ -23,6 +25,14 @@ from ariadne import convert_kwargs_to_snake_case
 
 
 @convert_kwargs_to_snake_case
+def resolve_finding_mutation(obj, info, **parameters):
+    """Resolve update_severity mutation."""
+    field = util.camelcase_to_snakecase(info.field_name)
+    resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
+    return util.run_async(resolver_func, obj, info, **parameters)
+
+
+@convert_kwargs_to_snake_case
 @require_login
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async
@@ -33,13 +43,13 @@ def resolve_finding(_, info, identifier):
     return util.run_async(finding_loader.resolve, info, identifier)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_remove_evidence(_, info, evidence_id, finding_id):
+async def _do_remove_evidence(_, info, evidence_id, finding_id):
     """Resolve remove_evidence mutation."""
-    success = finding_domain.remove_evidence(evidence_id, finding_id)
+    success = await \
+        sync_to_async(finding_domain.remove_evidence)(evidence_id, finding_id)
 
     if success:
         util.cloudwatch_log(
@@ -49,16 +59,16 @@ def resolve_remove_evidence(_, info, evidence_id, finding_id):
     return dict(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_update_evidence(_, info, evidence_id, finding_id, file):
+async def _do_update_evidence(_, info, evidence_id, finding_id, file):
     """Resolve update_evidence mutation."""
     success = False
 
-    if finding_domain.validate_evidence(evidence_id, file):
-        success = finding_domain.update_evidence(
+    if await \
+            sync_to_async(finding_domain.validate_evidence)(evidence_id, file):
+        success = await sync_to_async(finding_domain.update_evidence)(
             finding_id, evidence_id, file)
     if success:
         util.invalidate_cache(finding_id)
@@ -97,7 +107,10 @@ An error occurred updating evidence description', 'error', info.context)
     return dict(success=success)
 
 
-async def _do_update_severity(info, **parameters):
+@require_login
+@enforce_group_level_auth_async
+@require_finding_access
+async def _do_update_severity(_, info, **parameters):
     """Perform update_severity mutation."""
     data = parameters.get('data')
     data = {util.snakecase_to_camelcase(k): data[k] for k in data}
@@ -115,15 +128,6 @@ async def _do_update_severity(info, **parameters):
             severity in finding {id}'.format(id=parameters.get('finding_id')))
     finding = await info.context.loaders['finding'].load(finding_id)
     return dict(finding=finding, success=success)
-
-
-@convert_kwargs_to_snake_case
-@require_login
-@enforce_group_level_auth_async
-@require_finding_access
-def resolve_update_severity(_, info, **parameters):
-    """Resolve update_severity mutation."""
-    return util.run_async(_do_update_severity, info, **parameters)
 
 
 @convert_kwargs_to_snake_case
@@ -175,7 +179,10 @@ def resolve_handle_acceptation(_, info, **parameters):
     return dict(success=success)
 
 
-async def _do_update_description(info, finding_id, **parameters):
+@require_login
+@enforce_group_level_auth_async
+@require_finding_access
+async def _do_update_description(_, info, finding_id, **parameters):
     """Perform update_description mutation."""
     success = await \
         sync_to_async(finding_domain.update_description)(
@@ -197,18 +204,10 @@ finding {finding_id} succesfully')
     return dict(finding=finding, success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-def resolve_update_description(_, info, finding_id, **parameters):
-    """Resolve update_description mutation."""
-    return util.run_async(
-        _do_update_description, info, finding_id, **parameters
-    )
-
-
-async def _do_update_client_description(info, finding_id, **parameters):
+async def _do_update_client_description(_, info, finding_id, **parameters):
     """Perform update_client_description mutation."""
     finding = await \
         sync_to_async(finding_domain.get_finding)(finding_id)
@@ -252,17 +251,6 @@ async def _do_update_client_description(info, finding_id, **parameters):
                             f'treatment in finding {finding_id}')
     finding = await info.context.loaders['finding'].load(finding_id)
     return dict(finding=finding, success=success)
-
-
-@convert_kwargs_to_snake_case
-@require_login
-@enforce_group_level_auth_async
-@require_finding_access
-def resolve_update_client_description(_, info, finding_id, **parameters):
-    """Resolve update_client_description."""
-    return util.run_async(
-        _do_update_client_description, info, finding_id, **parameters
-    )
 
 
 @convert_kwargs_to_snake_case
