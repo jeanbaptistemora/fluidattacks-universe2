@@ -277,6 +277,67 @@ class FindingTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(NotVerificationRequested())
 
+    def test_update_description(self):
+        """Check for verifyFinding mutation."""
+        query = '''
+            mutation UpdateFindingDescription(
+                $actor: String!,
+                $affectedSystems: String!,
+                $attackVectorDesc: String!,
+                $compromisedAttributes: String,
+                $compromisedRecords: Int!,
+                $cweUrl: String!,
+                $description: String!,
+                $findingId: String!,
+                $recommendation: String!,
+                $requirements: String!,
+                $scenario: String!,
+                $threat: String!,
+                $title: String!,
+                $type: String
+            ){
+                updateDescription(
+                actor: $actor,
+                affectedSystems: $affectedSystems,
+                attackVectorDesc: $attackVectorDesc,
+                cwe: $cweUrl,
+                description: $description,
+                findingId: $findingId,
+                records: $compromisedAttributes,
+                recommendation: $recommendation,
+                recordsNumber: $compromisedRecords,
+                requirements: $requirements,
+                scenario: $scenario,
+                threat: $threat,
+                title: $title,
+                findingType: $type
+                ) {
+                success
+                }
+            }
+        '''
+        variables = {
+            'actor': 'ANYONE_INTERNET',
+            'affectedSystems': 'Server bWAPP',
+            'attackVectorDesc': 'This is an updated attack vector',
+            'compromisedAttributes': 'Clave plana',
+            'compromisedRecords': 12,
+            'cweUrl': '200',
+            'description': 'I just have updated the description',
+            'findingId': '422286126',
+            'recommendation': 'Updated recommendation',
+            'requirements': 'REQ.0132. Passwords (phrase type) must be at least 3 words long.',
+            'scenario': 'UNAUTHORIZED_USER_EXTRANET',
+            'threat': 'Updated threat',
+            'title': 'FIN.S.0051. Weak passwords reversed',
+            'type': 'SECURITY'
+        }
+        data = {'query': query, 'variables': variables}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateDescription']
+        assert result['data']['updateDescription']['success']
+
     def test_reject_draft(self):
         """Check for rejectDraft mutation."""
         query = '''

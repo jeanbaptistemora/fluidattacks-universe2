@@ -97,14 +97,13 @@ An error occurred updating evidence description', 'error', info.context)
 
 
 async def _do_update_severity(info, **parameters):
-    """Resolve update_severity mutation."""
+    """Perform update_severity mutation."""
     data = parameters.get('data')
     data = {util.snakecase_to_camelcase(k): data[k] for k in data}
     finding_id = parameters.get('finding_id')
     project = await sync_to_async(finding_domain.get_project)(finding_id)
     success = False
     success = await sync_to_async(finding_domain.save_severity)(data)
-    finding = await info.context.loaders['finding'].load(finding_id)
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
@@ -113,6 +112,7 @@ async def _do_update_severity(info, **parameters):
     else:
         util.cloudwatch_log(info.context, 'Security: Attempted to update \
             severity in finding {id}'.format(id=parameters.get('finding_id')))
+    finding = await info.context.loaders['finding'].load(finding_id)
     return dict(finding=finding, success=success)
 
 
@@ -172,6 +172,39 @@ def resolve_handle_acceptation(_, info, **parameters):
         util.cloudwatch_log(info.context, 'Security: Verified a request '
                             f'in finding_id: {finding_id}')
     return dict(success=success)
+
+
+async def _do_update_description(info, finding_id, **parameters):
+    """Perform update_description mutation."""
+    success = await \
+        sync_to_async(finding_domain.update_description)(
+            finding_id, parameters
+        )
+    if success:
+        finding = await \
+            sync_to_async(finding_domain.get_finding)(
+                finding_id)
+        project_name = finding['projectName']
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(info.context, f'Security: Updated description in \
+finding {finding_id} succesfully')
+    else:
+        util.cloudwatch_log(info.context, f'Security: Attempted to update \
+            description in finding {finding_id}')
+    finding = await info.context.loaders['finding'].load(finding_id)
+    return dict(finding=finding, success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_group_level_auth_async
+@require_finding_access
+def resolve_update_description(_, info, finding_id, **parameters):
+    """Resolve update_description mutation."""
+    return util.run_async(
+        _do_update_description, info, finding_id, **parameters
+    )
 
 
 @convert_kwargs_to_snake_case
