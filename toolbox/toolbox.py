@@ -893,6 +893,8 @@ def get_vulnerabilities_yaml(subs: str, run_kind: str = 'all') -> bool:
             vulns += 1
             if kind == 'SAST':
                 lines.append(_normalize(who, where))
+            elif kind == 'SCA':
+                lines.append(_normalize(who, where))
             elif kind == 'DAST':
                 inputs.append((who, where))
 
