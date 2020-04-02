@@ -1,0 +1,6 @@
+:slug: products/forces/
+:description: Forces, making use of human skills for the creation of exploits, breaks your build to force remediation of confirmed deep vulnerabilities, re-opened vulnerabilities, and new peripheral vulnerabilities. It can also verify your post-deploy production status.
+:keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security.
+:template: products/forces
+
+= Forces

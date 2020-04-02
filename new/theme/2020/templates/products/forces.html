@@ -31,7 +31,7 @@
 
 {% block header %}
 <div
-  class="drills-bg bg-banner-sz coverm cover-s h5-l h4 justify-center items-center flex mt3-l bg-center">
+  class="forces-bg bg-banner-sz coverm cover-s h5-l h4 justify-center items-center flex mt3-l bg-center">
   <div class="w-100 center">
     <h1 class="white fw4 f1 neue tc f-5-l ma0">
       {{ page.title }}
@@ -50,17 +50,17 @@
       </a>
     </li>
     <li class="dib pr4-l pr3-m pr2">
-      <img class="w1 h1 nbs"
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-        alt="Young hacker smiling">
       <a href="{{ SITEURL }}/products/drills/"
-      class="c-lightblack f5 roboto fw4 pointer no-underline">
+      class="c-fluid-gray f5 roboto no-underline fw3">
         2. Drills
       </a>
     </li>
     <li class="dib">
+      <img class="w1 h1 nbs"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+        alt="Young hacker smiling">
       <a href="{{ SITEURL }}/products/forces/"
-      class="c-fluid-gray f5 roboto no-underline fw3">
+      class="c-lightblack f5 roboto fw4 pointer no-underline">
         3. Forces
       </a>
     </li>
@@ -68,12 +68,13 @@
 </div>
 <div class="tc roboto w-100 center c-lightblack pb6">
   <p class="tl fw1 w-40-l w-50-m w90-s center f5 lh-2">
-    The rigorous inspection carried out makes it possible to detect all security
-    issues with no false positives and no false negatives, and to check if the
-    issues have been properly repaired before the system goes into production.
-    Through human creativity and precision, combined with the speed of the
-    automatic, Drills finds deep and zero-day vulnerabilities during software
-    development.
+    <strong>Forces</strong> can be included as part of a continuous integration
+    pipeline. Thus, any changes to the Target of Evaluation (ToE) can be
+    continuously tested against the closing of confirmed vulnerabilities.
+    Forces can be included in CI/CD (Continuous Integration/Continuous
+    Deployment) environments as a security gate, and performs Dynamic and Static
+    Application Security Testing (DAST - SAST) and dynamic testing of many
+    protocols (DXST).
   </p>
   <div class="tc pt4">
     <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred" href="#">
@@ -94,89 +95,51 @@
        id="carousel">
     <div class="item-carousel mr4 pa0 dib v-top">
       <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-1.png"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-1.png"
         alt="Young hacker smiling">
         <p class="roboto fw1 c-lightblack f5 lh-2">
-          Performed on code, environments, <br>
-          infrastructure and clouds.
+          Support vulnerabilities closing when <br>
+          Forces breaks the build.
         </p>
     </div>
     <div class="item-carousel mh4 pa0 dib v-top">
       <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-2.png"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-2.png"
         alt="Young hacker smiling">
         <p class="roboto fw1 c-lightblack f5 lh-2">
-          Maximum rigor in the search for <br>
-          vulnerabilities.
+          Identify the status of known vulnerabilities <br>
+          on your system.
         </p>
     </div>
     <div class="item-carousel mh4 pa0 dib v-top">
       <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-3.png"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-3.png"
         alt="Young hacker smiling">
         <p class="roboto fw1 c-lightblack f5 lh-2">
-          Forget about False Positives.
+          Recognize the exact moment a <br>
+          vulnerability appeared.
         </p>
     </div>
     <div class="item-carousel mh4 pa0 dib v-top">
       <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-4.png"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-4.png"
         alt="Young hacker smiling">
         <p class="roboto fw1 c-lightblack f5 lh-2">
-          Find Zero-Day vulnerabilities.
+          Confidence to deploy changes to <br>
+          production without known vulnerabilities.
         </p>
     </div>
     <div class="item-carousel mh4 pa0 dib v-top">
       <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-5.png"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-5.png"
         alt="Young hacker smiling">
         <p class="roboto fw1 c-lightblack f5 lh-2">
-          Obtain a higher rate of remediation <br>
-          and at a faster speed since feedback <br>
-          from Fluid Attacks’ security analysts <br>
-          is constant throughout the development <br>
-          cycle.
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib v-top">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-6.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Obtain detailed evidence of the <br>
-          vulnerabilities found.
-        </p>
-    </div>
-    <div class="item-carousel ml4 pa0 dib v-top">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-7.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Obtain access to the extracted <br>
-          information.
+          Interactive cycle of vulnerability closing.
         </p>
     </div>
   </div>
   <div class="w5 h-cont-bar bg-fluid-lightgray center mw5 br4 ba b--silver">
     <div class="h-bar w1 bg-dk-red mw5 br4" id="progress-bar"></div>
-  </div>
-  <div class="w-100 roboto tc pv6">
-    <h1 class="c-lightblack b f2 roboto tc ma0">
-      Key Features
-    </h1>
-    {{ page.content }}
-  </div>
-  <div class="w-100 roboto tc pb6">
-    <img
-      class="w6"
-      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/datasheet-drills.png"
-      alt="Young hacker smiling">
-      <h1 class="c-lightblack f2-l fw7 tc f3 center roboto">
-        Want to know more about Fluid Attacks?
-      </h1>
-      <h2 class="f2-l fw1 tc f4 w6-ns center roboto w-90">
-        Download Data Sheet  <span><img class="w2-ns w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/download.svg" alt="Young hacker smiling"></span>
-      </h2>
   </div>
 </div>
 {% assets output="static/js/progressBar.min.js", "js/tmp/progressBar.min.js" %}

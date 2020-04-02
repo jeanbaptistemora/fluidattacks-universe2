@@ -26,7 +26,7 @@ at high speed during the entire software development life cycle.
 along with source code analysis.
 
 [role="w6 center pt3"]
-image::product-forces.png[link="#"]
+image::product-forces.png[link="../products/forces/"]
 
 == Forces
 
