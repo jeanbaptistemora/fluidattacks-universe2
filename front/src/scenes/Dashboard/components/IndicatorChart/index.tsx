@@ -25,7 +25,7 @@ const indicatorChart: React.FunctionComponent<IChartProps> =
             {
                 color: style.styleColorClosed,
                 data: props.dataChart[3],
-                id: translate.t("search_findings.tab_indicators.data_chart_assumed_closed"),
+                id: translate.t("search_findings.tab_indicators.data_chart_accepted_closed"),
             },
             {
                 color: style.styleColorClosed,
