@@ -621,6 +621,7 @@ def sync_repositories_to_s3(subs: str) -> bool:
         return False
     remote_repositories = yield_remote_repositories(subs)
     local_repositories = yield_subscription_repositories(subs)
+    utils.aws_login(f"continuous-{subs}")
     logger.info("Checking inactive repositories")
     for repo in remote_repositories:
         sync_inactive_repo_to_s3(subs, repo)
