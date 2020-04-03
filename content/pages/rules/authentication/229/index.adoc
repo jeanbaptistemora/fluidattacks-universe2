@@ -1,7 +1,7 @@
 :slug: rules/229/
 :category: authentication
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of requesting access credentials in order to validate the authentication process.
-:keywords: Requirement, Security, Architecture, Automated, Testing, Deploy.
+:keywords: Authentication, Credentials, HIPAA, ASVS, NIST, CWE
 :rules: yes
 
 = REQ.229 Request access credentials
@@ -11,35 +11,55 @@
 The system must request at least one username and password
 to every actor that tries to authenticate.
 
+== Description
+
+Sometimes systems have information and other resources that are not considered
+public.
+These resources should be protected by a secure authentication mechanism that
+prevents unauthorized actors from accessing them.
+The authentication mechanism should request at least a username and a password.
+
 == References
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(1):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(1):]
 Access Control: Implement technical policies and procedures
 for electronic information systems
 that maintain electronic protected health information
 to allow access only to those persons or software programs
 that have been granted access rights as specified in link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(4)]
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(d):]
 Person or Entity Authentication:
 Implement procedures to verify  that a person or entity
 seeking access to electronic protected health information
 is the one claimed.
 
-. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[HIPAA Security Rules 164.310(a)(2)(iii):]
 Access Control and Validation Procedures: Implement procedures
 to control and validate a person's access to facilities
 based on their role or function, including visitor control,
 and control of access to software programs for testing and revision.
 
-. [[r4]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
-Verify that access to sensitive records is protected,
-such that only authorized objects or data is accessible to each user
-(for example, protect against users
-tampering with a parameter to see or alter another user's account).
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.2)]
+Verify that communications between application components,
+including APIs, middleware and data layers, are authenticated.
+Components should have the least necessary privileges needed.
 
-. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-1[+NIST+ 800-53 IA-1 - 2]
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.3)]
+Verify that the application uses a single vetted authentication mechanism that
+is known to be secure,
+can be extended to include strong authentication,
+and has sufficient logging and monitoring to detect account abuse or breaches.
+
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-1[NIST 800-53 IA-1 - 2]
 The organization must implement procedures
 to facilitate the implementation of the identification
 and authentication policy and associated identification
 and authentication controls.
+
+. [[r7]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+The software does not perform any authentication for functionality that
+requires a provable user identity or consumes a significant amount of
+resources.
