@@ -9,7 +9,27 @@ import sys
 import click
 
 # Local libraries
-from toolbox import resources
+from toolbox import resources, toolbox, logger
+
+
+def _is_pipeline(ctx, param, value):
+    is_ci = os.environ.get('CI', 'false')
+    if is_ci == 'false':
+        raise click.BadOptionUsage(
+            param, 'this option is only available within the CI')
+
+    return value
+
+
+def _back_to_continuous():
+    starting_dir: str = os.getcwd()
+    if 'TOOLBOX_SKIP_ROOT_DETECTION' not in os.environ:
+        if 'continuous' not in starting_dir:
+            logger.error('Please run the toolbox inside the continuous repo')
+            sys.exit(78)
+        while not os.getcwd().endswith('continuous'):
+            os.chdir('..')
+            logger.debug('Adjusted working dir to:', os.getcwd())
 
 
 def _valid_integrates_token(ctx, param, value):
@@ -18,10 +38,21 @@ def _valid_integrates_token(ctx, param, value):
 
 
 def _valid_subscription(ctx, param, subs):
-    if subs not in os.listdir('subscriptions'):
+    actual_path: str = os.getcwd()
+    if 'subscriptions' not in actual_path and subs not in os.listdir(
+            'subscriptions'):
         msg = f'the subscription {subs} does not exist'
         raise click.BadParameter(msg)
+    _back_to_continuous()
     return subs
+
+
+def _get_actual_subscription():
+    actual_path: str = os.getcwd()
+    try:
+        return actual_path.split('continuous')[1].split('/')[2]
+    except IndexError:
+        return ''
 
 
 @click.group()
@@ -30,27 +61,25 @@ def cli():
 
 
 @click.command(name='resources')
-@click.argument('subscription', default='kloes', callback=_valid_subscription)
+@click.argument(
+    'subscription',
+    default=_get_actual_subscription(),
+    callback=_valid_subscription)
 @click.option(
     '--mailmap',
     '-mp',
     is_flag=True,
     help='check if the mailmap of a subscription is valid')
 @click.option(
-    '--clone',
-    is_flag=True,
-    help='lone the repositories of a subscription',
-)
+    '--clone', is_flag=True, help='lone the repositories of a subscription')
 @click.option(
     '--finger-print',
     is_flag=True,
     help='get the fingerprint of a subscription')
-@click.option(
-    '--edit-secrets', is_flag=True, help='read the secrets of a subscription')
-@click.option(
-    '--read-secrets', is_flag=True, help='edit the secrets of a subscription')
-def resources_manage(mailmap, clone, finger_print, subscription, edit_secrets,
-                     read_secrets):
+@click.option('--sync-fusion-to-s3', is_flag=True)
+@click.option('--sync-s3-to-fusion', is_flag=True)
+def resources_management(mailmap, clone, finger_print, subscription, vpn,
+                         sync_fusion_to_s3, sync_s3_to_fusion):
     """Allows administration tasks within subscriptions"""
     if mailmap:
         sys.exit(1 if resources.check_mailmap(subscription) else 1)
@@ -58,10 +87,106 @@ def resources_manage(mailmap, clone, finger_print, subscription, edit_secrets,
         sys.exit(1 if resources.repo_cloning(subscription) else 1)
     elif finger_print:
         sys.exit(1 if resources.get_fingerprint(subscription) else 1)
-    elif edit_secrets:
+    elif vpn:
+        sys.exit(0 if resources.vpn(subscription) else 1)
+    elif sync_fusion_to_s3:
+        sys.exit(0 if resources.sync_repositories_to_s3(subscription) else 1)
+    elif sync_s3_to_fusion:
+        sys.exit(0 if resources.sync_s3_to_fusion(subscription) else 1)
+
+
+@click.command(name='forces')
+@click.argument(
+    'subscription',
+    default=_get_actual_subscription(),
+    callback=_valid_subscription)
+@click.option('--run-exps', '--run', '-r', is_flag=True, help='run exploits')
+@click.option(
+    '--static', '-s', metavar='(EXPLOIT | all)', help='run a static exploit')
+@click.option(
+    '--dynamic', '-d', metavar='(EXPLOIT | all)', help='run a dynamic exploit')
+@click.option(
+    '--check-sync',
+    '--sync',
+    metavar='(EXPLOIT | all)',
+    help='check if exploits results are the same as on Integrates')
+@click.option(
+    '--check-uploads',
+    metavar='(EXPLOIT | all)',
+    help='check if exists all possible exploits')
+@click.option('--fill-with-mocks', is_flag=True, callback=_is_pipeline)
+@click.option('--generate-exploits', is_flag=True, callback=_is_pipeline)
+def forces_management(subscription, run_exps, static, dynamic, check_sync,
+                      check_uploads, fill_whit_mocks, generate_exploits):
+    """"""
+    if not toolbox.has_break_build(subscription):
+        raise click.BadArgumentUsage(
+            f'{subscription} subscription has no break-build')
+    if run_exps:
+        if dynamic:
+            dynamic = dynamic if dynamic != 'all' else ''
+            sys.exit(0 if toolbox.run_dynamic_exploits(subscription, dynamic)
+                     else 1)
+        elif static:
+            static = static if static != 'all' else ''
+            sys.exit(0 if toolbox.run_static_exploits(subscription, static)
+                     else 1)
+    elif check_sync:
+        check_sync = check_sync if check_sync != 'all' else ''
+        sys.exit(0 if toolbox.are_exploits_synced(subscription, check_sync)
+                 else 1)
+    elif check_uploads:
+        sys.exit(0 if toolbox.were_exploits_uploaded(subscription) else 1)
+    elif fill_whit_mocks:
+        toolbox.fill_with_mocks(
+            subs_glob=(subscription or '*'), create_files=True)
+    elif generate_exploits:
+        toolbox.generate_exploits(subs_glob=(subscription or '*'))
+
+
+@click.command(name='secrets')
+@click.argument(
+    'subscription',
+    default=_get_actual_subscription(),
+    callback=_valid_subscription)
+@click.option(
+    '--edit', is_flag=True, help='read the secrets of a subscription')
+@click.option(
+    '--read', is_flag=True, help='edit the secrets of a subscription')
+@click.option(
+    '--decrypt', is_flag=True, help='decrypt the secrets of a subscription')
+@click.option(
+    '--encrypt', is_flag=True, help='encrypt the secrets of a subscription')
+@click.option('--init-secrets', '--init', is_flag=True)
+def secrets_management(subscription, edit, read, decrypt, encrypt,
+                       init_secrets):
+    if edit:
         sys.exit(0 if resources.edit_secrets(subscription) else 1)
-    elif read_secrets:
+    elif read:
         sys.exit(0 if resources.read_secrets(subscription) else 1)
+    elif decrypt:
+        sys.exit(0 if toolbox.decrypt_secrets(subscription) else 1)
+    elif encrypt:
+        sys.exit(0 if toolbox.encrypt_secrets(subscription) else 1)
+    elif init_secrets:
+        sys.exit(0 if toolbox.init_secrets(subscription) else 1)
+
+
+@click.command(name='api')
+@click.argument(
+    'kind', type=click.Choice(['dynamic', 'static', 'all']), default='all')
+@click.argument(
+    'subscription',
+    default=_get_actual_subscription(),
+    callback=_valid_subscription)
+@click.option('--get-vulns', is_flag=True)
+def api_management(kind, subscription, get_vulns):
+    if not toolbox.has_break_build(subscription):
+        raise click.BadArgumentUsage(
+            f'{subscription} subscription has no break-build')
+    if get_vulns:
+        sys.exit(0 if toolbox.get_vulnerabilities_yaml(subscription, kind) else
+                 1)
 
 
 @click.command(name='check', short_help='perform checks')
@@ -77,8 +202,11 @@ def perform_checks(integrates_api_token, sync):
     """
 
 
-cli.add_command(resources_manage)
+cli.add_command(resources_management)
 cli.add_command(perform_checks)
+cli.add_command(forces_management)
+cli.add_command(secrets_management)
+cli.add_command(api_management)
 
 
 def main():
