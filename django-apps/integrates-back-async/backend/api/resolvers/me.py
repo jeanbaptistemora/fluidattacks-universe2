@@ -28,33 +28,36 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
-@sync_to_async
-def _get_role(_, user_email: str, project_name: str = None) -> Dict[str, str]:
+async def _get_role(
+    _, user_email: str, project_name: str = None
+) -> Dict[str, str]:
     """Get role."""
     if project_name:
-        role = user_domain.get_group_level_role(user_email, project_name)
+        role = await \
+            sync_to_async(user_domain.get_group_level_role)(
+                user_email, project_name)
     else:
-        role = user_domain.get_user_level_role(user_email)
-
+        role = await \
+            sync_to_async(user_domain.get_user_level_role)(user_email)
     return dict(role=role)
 
 
-@sync_to_async
-def _get_projects(_, user_email: str) -> Dict[str, List[Dict[str, str]]]:
+async def _get_projects(_, user_email: str) -> Dict[str, List[Dict[str, str]]]:
     """Get projects."""
     projects = []
-    for project in user_domain.get_projects(user_email):
-        description = project_domain.get_description(project)
+    for project in await sync_to_async(user_domain.get_projects)(user_email):
+        description = await \
+            sync_to_async(project_domain.get_description)(project)
         projects.append(
             dict(name=project, description=description)
         )
     return dict(projects=projects)
 
 
-@sync_to_async
-def _get_access_token(_, user_email: str) -> Dict[str, str]:
+async def _get_access_token(_, user_email: str) -> Dict[str, str]:
     """Get access token."""
-    access_token = user_domain.get_data(user_email, 'access_token')
+    access_token = await sync_to_async(user_domain.get_data)(
+        user_email, 'access_token')
     access_token_dict = {
         'hasAccessToken': bool(access_token),
         'issuedAt': str(access_token.get('iat', ''))
@@ -63,32 +66,32 @@ def _get_access_token(_, user_email: str) -> Dict[str, str]:
     return dict(access_token=json.dumps(access_token_dict))
 
 
-@sync_to_async
-def _get_authorized(_, user_email: str) -> Dict[str, bool]:
+async def _get_authorized(_, user_email: str) -> Dict[str, bool]:
     """Get user authorization."""
-    result = user_domain.is_registered(user_email)
+    result = await sync_to_async(user_domain.is_registered)(user_email)
     return dict(authorized=result)
 
 
-@sync_to_async
-def _get_remember(
+async def _get_remember(
         _, user_email: str) -> Dict[str, Union[bool, str, UserType]]:
     """Get remember preference."""
-    remember = user_domain.get_data(user_email, 'legal_remember')
-    result = remember if remember else False
+    remember = await \
+        sync_to_async(user_domain.get_data)(user_email, 'legal_remember')
+    result = remember or False
     return dict(remember=result)
 
 
-@sync_to_async
 @enforce_user_level_auth_async
-def _get_tags(
+async def _get_tags(
         _, user_email: str) -> Dict[str, List[Dict[str, Sequence[str]]]]:
     """Get tags."""
-    projects = user_domain.get_projects(user_email)
+    projects = await \
+        sync_to_async(user_domain.get_projects)(user_email)
     tags_dict: Dict[str, List] = defaultdict(list)
     for project in projects:
-        project_tag = project_domain.get_attributes(
-            project, ['tag']).get('tag', [])
+        project_tag = await sync_to_async(project_domain.get_attributes)(
+            project, ['tag'])
+        project_tag = project_tag.get('tag', [])
         for tag in project_tag:
             tags_dict[tag].append(dict(name=project))
     tags = []
@@ -138,8 +141,15 @@ def resolve_me(_, info) -> Dict[int, Any]:
 
 
 @convert_kwargs_to_snake_case
-def resolve_sign_in(_, info, auth_token: str, provider: str,
-                    push_token: str) -> Dict[str, Union[str, bool]]:
+def resolve_me_mutation(obj, info, **parameters):
+    """Wrap me mutations."""
+    field = util.camelcase_to_snakecase(info.field_name)
+    resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
+    return util.run_async(resolver_func, obj, info, **parameters)
+
+
+async def _do_sign_in(_, info, auth_token: str, provider: str,
+                      push_token: str) -> Dict[str, Union[str, bool]]:
     """Resolve sign_in mutation."""
     authorized = False
     session_jwt = ''
@@ -147,25 +157,28 @@ def resolve_sign_in(_, info, auth_token: str, provider: str,
 
     if provider == 'google':
         try:
-            user_info = id_token.verify_oauth2_token(
+            user_info = await sync_to_async(id_token.verify_oauth2_token)(
                 auth_token, requests.Request())
 
             if user_info['iss'] not in ['accounts.google.com',
                                         'https://accounts.google.com']:
-                rollbar.report_message(
+                await sync_to_async(rollbar.report_message)(
                     'Error: Invalid oauth2 issuer',
                     'error', info.context, user_info['iss'])
                 raise GraphQLError('INVALID_AUTH_TOKEN')
             if user_info['aud'] not in [FI_GOOGLE_OAUTH2_KEY_ANDROID,
                                         FI_GOOGLE_OAUTH2_KEY_IOS]:
-                rollbar.report_message(
+                await sync_to_async(rollbar.report_message)(
                     'Error: Invalid oauth2 audience',
                     'error', info.context, user_info['aud'])
                 raise GraphQLError('INVALID_AUTH_TOKEN')
             email = user_info['email']
-            authorized = user_domain.is_registered(email)
+            authorized = await sync_to_async(user_domain.is_registered)(email)
             if push_token:
-                user_dal.update(email, {'devices_to_notify': set(push_token)})
+                await \
+                    sync_to_async(user_dal.update)(
+                        email, {'devices_to_notify': set(push_token)}
+                    )
             session_jwt = jwt.encode(
                 {
                     'user_email': email,
@@ -185,7 +198,7 @@ def resolve_sign_in(_, info, auth_token: str, provider: str,
                 'Security: Sign in attempt using invalid Google token')
             raise GraphQLError('INVALID_AUTH_TOKEN')
     else:
-        rollbar.report_message(
+        await sync_to_async(rollbar.report_message)(
             'Error: Unknown auth provider' + provider, 'error')
         raise GraphQLError('UNKNOWN_AUTH_PROVIDER')
 
@@ -196,9 +209,8 @@ def resolve_sign_in(_, info, auth_token: str, provider: str,
     )
 
 
-@convert_kwargs_to_snake_case
 @require_login
-def resolve_update_access_token(
+async def _do_update_access_token(
         _, info, expiration_time: int) -> Dict[str, Union[str, bool]]:
     """Resolve update_access_token mutation."""
     user_info = util.get_jwt_content(info.context)
@@ -223,17 +235,18 @@ def resolve_update_access_token(
             key=settings.JWT_SECRET_API
         )
 
-        success = user_domain.update_access_token(email, token_data)
+        success = await \
+            sync_to_async(user_domain.update_access_token)(email, token_data)
         if success:
-            util.cloudwatch_log(
+            await sync_to_async(util.cloudwatch_log)(
                 info.context, '{email} update access token'.format(
                     email=user_info['user_email']))
         else:
-            util.cloudwatch_log(
+            await sync_to_async(util.cloudwatch_log)(
                 info.context, '{email} attempted to update access token'
                 .format(email=user_info['user_email']))
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context, '{email} attempted to use expiration time \
             greater than six months or minor than current time'
             .format(email=user_info['user_email']))
@@ -242,32 +255,34 @@ def resolve_update_access_token(
     return dict(success=success, session_jwt=session_jwt)
 
 
-@convert_kwargs_to_snake_case
 @require_login
-def resolve_invalidate_access_token(_, info):
+async def _do_invalidate_access_token(_, info):
     """Resolve invalidate_access_token mutation."""
     user_info = util.get_jwt_content(info.context)
 
-    success = user_domain.remove_access_token(user_info['user_email'])
+    success = await \
+        sync_to_async(user_domain.remove_access_token)(user_info['user_email'])
     if success:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context, '{email} invalidate access token'.format(
                 email=user_info['user_email']))
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context, '{email} attempted to invalidate access token'
             .format(email=user_info['user_email']))
     return dict(success=success)
 
 
-@convert_kwargs_to_snake_case
-def resolve_accept_legal(_, info, remember: bool = False) -> Dict[str, bool]:
+async def _do_accept_legal(_, info, remember: bool = False) -> Dict[str, bool]:
     """Resolve accept_legal mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
-    is_registered = user_domain.is_registered(user_email)
+    is_registered = await sync_to_async(user_domain.is_registered)(user_email)
 
     if is_registered:
-        user_domain.update_legal_remember(user_email, remember)
+        await \
+            sync_to_async(user_domain.update_legal_remember)(
+                user_email, remember
+            )
         success = True
     else:
         success = False
