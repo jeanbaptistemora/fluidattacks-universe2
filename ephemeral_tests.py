@@ -167,7 +167,7 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(5)
         selenium.save_screenshot(SCR_PATH + '05-03-finding.png')
         selenium.find_element_by_xpath(
-            '//*/button[contains(text(), "Request verification")]').click()
+            '//*/button[text()[contains(., "Request verification")]]').click()
         selenium.save_screenshot(SCR_PATH + '05-04-finding.png')
         checkboxes = selenium.find_elements_by_css_selector("#inputsVulns input[type='checkbox']")
         for checkbox in checkboxes:
@@ -190,7 +190,7 @@ class ViewTestCase(unittest.TestCase):
         selenium.execute_script('window.scrollTo(0, 0);')
 
         selenium.find_element_by_xpath(
-            '//*/button[contains(text(), "Cancel Request")]').click()
+            '//*/button[text()[contains(., "Cancel Request")]]').click()
         assert 'possible reverse the users credentials due that password' in selenium.page_source
 
     def test_06_severity(self):

@@ -63,7 +63,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
       <ButtonToolbar className="pull-right">
         {shouldRenderVerifyBtn ? (
           <Button onClick={onVerify}>
-            <FluidIcon icon="verified" />
+            <FluidIcon icon="verified" />&nbsp;
             {props.isVerifying
               ? translate.t("search_findings.tab_description.cancel_verified")
               : translate.t("search_findings.tab_description.mark_verified")}
@@ -71,7 +71,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
         ) : undefined}
         {shouldRenderRequestVerifyBtn ? (
           <Button onClick={onRequestVerify}>
-            <FluidIcon icon="verified" />
+            <FluidIcon icon="verified" />&nbsp;
             {props.isRequestingVerify
               ? translate.t("search_findings.tab_description.cancel_verify")
               : translate.t("search_findings.tab_description.request_verify")}
@@ -80,7 +80,8 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
         {shouldRenderApprovalBtns ? (
           <React.Fragment>
             <Button onClick={onApproveAcceptation}>
-              <FluidIcon icon="verified" />{translate.t("search_findings.acceptation_buttons.approve")}
+              <FluidIcon icon="verified" />&nbsp;
+              {translate.t("search_findings.acceptation_buttons.approve")}
             </Button>
             <Button onClick={onRejectAcceptation}>
               {translate.t("search_findings.acceptation_buttons.reject")}
@@ -89,11 +90,13 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
         ) : undefined}
         {props.isEditing ? (
           <Button onClick={onUpdate} disabled={props.isPristine}>
-            <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
+            <FluidIcon icon="loading" />&nbsp;
+            {translate.t("search_findings.tab_description.update")}
           </Button>
         ) : undefined}
         <Button onClick={onEdit}>
-          <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
+          <FluidIcon icon="edit" />&nbsp;
+          {translate.t("search_findings.tab_description.editable")}
         </Button>
       </ButtonToolbar>
     </Row>

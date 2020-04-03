@@ -1,14 +1,15 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
-
-import * as React from "react";
+import React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { ActionButtons, IActionButtonsProps } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ActionButtons", () => {
 
-  const mockProps: IActionButtonsProps = {
+  const baseMockProps: IActionButtonsProps = {
     isEditing: false,
     isPristine: false,
     isRemediated: false,
@@ -23,12 +24,12 @@ describe("ActionButtons", () => {
       treatment: "",
       user: "",
     },
-    onApproveAcceptation: (): void => undefined,
-    onEdit: (): void => undefined,
-    onRejectAcceptation: (): void => undefined,
-    onRequestVerify: (): void => undefined,
-    onUpdate: (): void => undefined,
-    onVerify: (): void => undefined,
+    onApproveAcceptation: jest.fn(),
+    onEdit: jest.fn(),
+    onRejectAcceptation: jest.fn(),
+    onRequestVerify: jest.fn(),
+    onUpdate: jest.fn(),
+    onVerify: jest.fn(),
     state: "open",
     subscription: "",
     userRole: "",
@@ -41,9 +42,64 @@ describe("ActionButtons", () => {
 
   it("should render a component", async () => {
     const wrapper: ShallowWrapper = shallow(
-      <ActionButtons {...mockProps} />,
+      <ActionButtons {...baseMockProps} />,
     );
     expect(wrapper)
+      .toHaveLength(1);
+    const buttons: ShallowWrapper = wrapper.find("button");
+    expect(buttons)
+      .toHaveLength(1);
+    expect(buttons
+      .filterWhere((button: ShallowWrapper): boolean =>
+        button
+          .render()
+          .text()
+          .includes("Edit")))
+      .toHaveLength(1);
+  });
+
+  it("should render request verification", async () => {
+    const requestMockProps: IActionButtonsProps = {
+      ...baseMockProps,
+      isEditing: false,
+      isRemediated: false,
+      isVerified: false,
+      state: "open",
+      subscription: "continuous",
+      userRole: "customer",
+    };
+    const wrapper: ShallowWrapper = shallow(
+      <ActionButtons {...requestMockProps} />,
+    );
+    expect(wrapper)
+      .toHaveLength(1);
+    let buttons: ShallowWrapper = wrapper.find("button");
+    expect(buttons)
+      .toHaveLength(2);
+    let requestButton: ShallowWrapper = buttons
+      .filterWhere((button: ShallowWrapper): boolean =>
+        button
+          .render()
+          .text()
+          .includes("Request"));
+    expect(requestButton)
+      .toHaveLength(1);
+    requestButton.simulate("click");
+    act(() => {
+      wrapper.setProps({ isRequestingVerify: true });
+      wrapper.update();
+    });
+    const { onRequestVerify } = requestMockProps;
+    expect(onRequestVerify)
+      .toHaveBeenCalled();
+    buttons = wrapper.find("button");
+    requestButton = buttons
+      .filterWhere((button: ShallowWrapper): boolean =>
+        button
+          .render()
+          .text()
+          .includes("Cancel"));
+    expect(requestButton)
       .toHaveLength(1);
   });
 });
