@@ -5,10 +5,8 @@ from backend.api.resolvers import (
     forces, me, project, resource, user
 )
 
-from ariadne import QueryType, ObjectType
+from ariadne import QueryType
 
-ME = ObjectType('Me')
-FINDING = ObjectType('Finding')
 QUERY = QueryType()
 
 # Query resolvers

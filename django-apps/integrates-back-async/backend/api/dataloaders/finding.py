@@ -87,7 +87,7 @@ async def _get_vulnerabilities(
         await info.context.loaders['vulnerability'].load(identifier)
     if vuln_type:
         vuln_filtered = \
-            [vuln for vuln in vuln_filtered if vuln.vuln_type == vuln_type
+            [vuln for vuln in vuln_filtered if vuln['vuln_type'] == vuln_type
              and (vuln['current_approval_status'] != 'PENDING' or
                   vuln['last_approved_status'])]
     if state:
@@ -98,8 +98,8 @@ async def _get_vulnerabilities(
               vuln['last_approved_status'])]
     if approval_status:
         vuln_filtered = \
-            {vuln for vuln in vuln_filtered
-             if vuln['current_approval_status'] == approval_status}
+            [vuln for vuln in vuln_filtered
+             if vuln['current_approval_status'] == approval_status]
     return dict(vulnerabilities=vuln_filtered)
 
 

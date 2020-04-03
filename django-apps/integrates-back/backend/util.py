@@ -508,6 +508,8 @@ def get_field_parameters(field, variable_values=None):
             parameters[arg_name] = variable_values.get(args.value.name.value)
         elif isinstance(args.value, NameNode):
             parameters[arg_name] = args.value.value
+        else:
+            parameters[arg_name] = args.value.value
 
     return parameters
 
