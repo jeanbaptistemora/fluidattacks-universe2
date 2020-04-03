@@ -7,8 +7,6 @@ in
   {
     pyAsyncPkgIntegratesBack =
       builders.pythonPackageLocal ../../django-apps/integrates-back-async;
-    pyAsyncPkgCasbinDynamodbAdapter =
-      builders.pythonPackageLocal ../../django-apps/casbin-dynamodb-adapter;
     pyAsyncPkgCasbinInMemoryAdapter =
       builders.pythonPackageLocal ../../django-apps/casbin-in-memory-adapter;
     pyAsyncPkgReqs =

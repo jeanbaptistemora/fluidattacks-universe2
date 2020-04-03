@@ -7,8 +7,6 @@ in
   {
     pyPkgIntegratesBack =
       builders.pythonPackageLocal ../../django-apps/integrates-back;
-    pyPkgCasbinDynamodbAdapter =
-      builders.pythonPackageLocal ../../django-apps/casbin-dynamodb-adapter;
     pyPkgCasbinInMemoryAdapter =
       builders.pythonPackageLocal ../../django-apps/casbin-in-memory-adapter;
     pyPkgReqs =

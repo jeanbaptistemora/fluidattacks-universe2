@@ -1,3 +1,2 @@
-casbin-dynamodb-adapter
 casbin-in-memory-adapter
 integrates-back-async

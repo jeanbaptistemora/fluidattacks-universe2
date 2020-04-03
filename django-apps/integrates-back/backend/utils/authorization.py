@@ -45,7 +45,7 @@ def get_cached_subject_policies(subject: str):
     fetched_data = get_subject_policies(subject)
 
     # Put the data in the cache
-    cache.set(cache_key, fetched_data, timeout=3600)
+    cache.set(cache_key, fetched_data, timeout=300)
 
     return fetched_data
 

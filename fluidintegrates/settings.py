@@ -20,7 +20,6 @@ import i18n
 from boto3.session import Session
 from botocore.exceptions import ClientError
 import casbin
-import casbin_dynamodb_adapter.adapter
 
 import rollbar
 
@@ -453,46 +452,7 @@ SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET  # noqa
 SOCIAL_AUTH_AZUREAD_OAUTH2_RESOURCE = 'https://graph.microsoft.com/'
 
-if os.environ.get('CI_JOB_NAME') in (
-        'deploy_front',
-        'functional_tests_dev',
-        'functional_tests_prod'):
-    # This jobs evaluate this file
-    # In order to keep the job fast we'll not setup a DynamoDB local
-    CASBIN_ADAPTER = None
-else:
-    CASBIN_ADAPTER = casbin_dynamodb_adapter.adapter.Adapter()
-
 ENFORCER_PROJECT_ACCESS = casbin.Enforcer(
     model=os.path.join(BASE_DIR, 'authorization', 'project_access.conf'),
     enable_log=False
 )
-
-ENFORCER_GROUP_LEVEL = casbin.Enforcer(
-    model=os.path.join(BASE_DIR, 'authorization', 'group_level.conf'),
-    adapter=CASBIN_ADAPTER,
-    enable_log=False,
-)
-
-ENFORCER_GROUP_LEVEL_ASYNC = casbin.Enforcer(
-    model=os.path.join(BASE_DIR, 'authorization', 'group_level_async.conf'),
-    adapter=CASBIN_ADAPTER,
-    enable_log=False,
-)
-
-ENFORCER_USER_LEVEL = casbin.Enforcer(
-    model=os.path.join(BASE_DIR, 'authorization', 'user_level.conf'),
-    adapter=CASBIN_ADAPTER,
-    enable_log=False,
-)
-
-ENFORCER_USER_LEVEL_ASYNC = casbin.Enforcer(
-    model=os.path.join(BASE_DIR, 'authorization', 'user_level_async.conf'),
-    adapter=CASBIN_ADAPTER,
-    enable_log=False,
-)
-
-ENFORCER_GROUP_LEVEL.enable_auto_save(False)
-ENFORCER_GROUP_LEVEL_ASYNC.enable_auto_save(False)
-ENFORCER_USER_LEVEL.enable_auto_save(False)
-ENFORCER_USER_LEVEL_ASYNC.enable_auto_save(False)

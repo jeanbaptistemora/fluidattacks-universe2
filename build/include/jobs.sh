@@ -10,7 +10,6 @@ function job_build_django_apps {
 
   for app in \
     'django-apps/integrates-'* \
-    'django-apps/casbin-dynamodb-adapter' \
     'django-apps/casbin-in-memory-adapter' \
 
   do
@@ -486,9 +485,7 @@ function job_serve_back_prod {
 
 
 function job_lint_back {
-  mypy --ignore-missing-imports \
-        django-apps/casbin-dynamodb-adapter \
-  &&  mypy --ignore-missing-imports \
+      mypy --ignore-missing-imports \
         django-apps/casbin-in-memory-adapter \
   &&  mypy --ignore-missing-imports \
         django-apps/integrates-back/backend/mailer.py \
@@ -508,7 +505,6 @@ function job_lint_back {
         django-apps/integrates-back-async/backend/api/resolvers/vulnerability.py \
   &&  prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s high -u django -i node_modules django-apps/integrates-back/backend/ \
-  &&  prospector -F -s veryhigh django-apps/casbin-dynamodb-adapter \
   &&  prospector -F -s veryhigh django-apps/casbin-in-memory-adapter \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/ \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \

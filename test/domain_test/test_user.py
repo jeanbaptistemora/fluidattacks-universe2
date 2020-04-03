@@ -3,9 +3,12 @@ import pytest
 from django.test import TestCase
 from backend.domain.user import (
     get_all_users_report,
-    get_group_level_role as get_group_level_role2, get_user_level_role as get_user_level_role2,
-    grant_user_level_role as grant_user_level_role2, grant_group_level_role as grant_group_level_role2,
-    revoke_user_level_role as revoke_user_level_role2, revoke_group_level_role as revoke_group_level_role2,
+    get_group_level_role,
+    get_user_level_role,
+    grant_user_level_role,
+    grant_group_level_role,
+    revoke_user_level_role,
+    revoke_group_level_role,
 )
 
 class UserTests(TestCase):
@@ -16,56 +19,56 @@ class UserTests(TestCase):
         users = get_all_users_report('FLUID', finish_date)
         assert users >= 1
 
-    def test_get_group_level_role2(self):
-        assert get_group_level_role2('continuoushacking@gmail.com', 'unittesting') == 'customeradmin'
-        assert get_group_level_role2('integratesanalyst@gmail.com', 'unittesting') == 'analyst'
-        assert get_group_level_role2('integratesuser@gmail.com', 'unittesting') == 'customeradmin'
-        assert get_group_level_role2('unittest@fluidattacks.com', 'any-group') == 'admin'
-        assert not get_group_level_role2('asdfasdfasdfasdf@gmail.com', 'unittesting')
+    def test_get_group_level_role(self):
+        assert get_group_level_role('continuoushacking@gmail.com', 'unittesting') == 'customeradmin'
+        assert get_group_level_role('integratesanalyst@gmail.com', 'unittesting') == 'analyst'
+        assert get_group_level_role('integratesuser@gmail.com', 'unittesting') == 'customeradmin'
+        assert get_group_level_role('unittest@fluidattacks.com', 'any-group') == 'admin'
+        assert not get_group_level_role('asdfasdfasdfasdf@gmail.com', 'unittesting')
 
-    def test_get_user_level_role2(self):
-        assert get_user_level_role2('continuoushacking@gmail.com') == 'customeradmin'
-        assert get_user_level_role2('integratesanalyst@gmail.com') == 'analyst'
-        assert get_user_level_role2('integratesuser@gmail.com') == 'customeradmin'
-        assert get_user_level_role2('unittest@fluidattacks.com') == 'admin'
-        assert not get_user_level_role2('asdfasdfasdfasdf@gmail.com')
+    def test_get_user_level_role(self):
+        assert get_user_level_role('continuoushacking@gmail.com') == 'customeradmin'
+        assert get_user_level_role('integratesanalyst@gmail.com') == 'analyst'
+        assert get_user_level_role('integratesuser@gmail.com') == 'customeradmin'
+        assert get_user_level_role('unittest@fluidattacks.com') == 'admin'
+        assert not get_user_level_role('asdfasdfasdfasdf@gmail.com')
 
-    def test_grant_user_level_role2(self):
-        assert grant_user_level_role2('..TEST@gmail.com', 'customer')
-        assert get_user_level_role2('..test@gmail.com') == 'customer'
-        assert get_user_level_role2('..tEst@gmail.com') == 'customer'
+    def test_grant_user_level_role(self):
+        assert grant_user_level_role('..TEST@gmail.com', 'customer')
+        assert get_user_level_role('..test@gmail.com') == 'customer'
+        assert get_user_level_role('..tEst@gmail.com') == 'customer'
 
-        assert grant_user_level_role2('..TEST@gmail.com', 'admin')
-        assert get_user_level_role2('..test@gmail.com') == 'admin'
-        assert get_group_level_role2('..tEst@gmail.com', 'a-group') == 'admin'
+        assert grant_user_level_role('..TEST@gmail.com', 'admin')
+        assert get_user_level_role('..test@gmail.com') == 'admin'
+        assert get_group_level_role('..tEst@gmail.com', 'a-group') == 'admin'
 
-    def test_grant_group_level_role2(self):
-        assert grant_group_level_role2('..TEST2@gmail.com', 'group', 'customer')
-        assert get_user_level_role2('..test2@gmail.com') == 'customer'
-        assert get_user_level_role2('..tESt2@gmail.com') == 'customer'
-        assert get_group_level_role2('..test2@gmail.com', 'GROUP') == 'customer'
-        assert not get_group_level_role2('..test2@gmail.com', 'other-group')
+    def test_grant_group_level_role(self):
+        assert grant_group_level_role('..TEST2@gmail.com', 'group', 'customer')
+        assert get_user_level_role('..test2@gmail.com') == 'customer'
+        assert get_user_level_role('..tESt2@gmail.com') == 'customer'
+        assert get_group_level_role('..test2@gmail.com', 'GROUP') == 'customer'
+        assert not get_group_level_role('..test2@gmail.com', 'other-group')
 
-    def test_revoke_user_level_role2(self):
-        assert grant_user_level_role2('revoke_user_LEVEL_role@gmail.com', 'customer')
-        assert get_user_level_role2('revoke_user_level_role@gmail.com') == 'customer'
-        assert revoke_user_level_role2('revoke_USER_level_role@gmail.com')
-        assert not get_user_level_role2('revoke_user_level_ROLE@gmail.com')
+    def test_revoke_user_level_role(self):
+        assert grant_user_level_role('revoke_user_LEVEL_role@gmail.com', 'customer')
+        assert get_user_level_role('revoke_user_level_role@gmail.com') == 'customer'
+        assert revoke_user_level_role('revoke_USER_level_role@gmail.com')
+        assert not get_user_level_role('revoke_user_level_ROLE@gmail.com')
 
-    def test_revoke_group_level_role2(self):
-        assert grant_group_level_role2('revoke_group_LEVEL_role@gmail.com', 'group', 'customer')
-        assert grant_group_level_role2('REVOKE_group_level_role@gmail.com', 'other-group', 'customer')
+    def test_revoke_group_level_role(self):
+        assert grant_group_level_role('revoke_group_LEVEL_role@gmail.com', 'group', 'customer')
+        assert grant_group_level_role('REVOKE_group_level_role@gmail.com', 'other-group', 'customer')
 
-        assert get_group_level_role2('revoke_group_level_ROLE@gmail.com', 'group') == 'customer'
-        assert get_group_level_role2('revoke_GROUP_level_role@gmail.com', 'other-group') == 'customer'
-        assert not get_group_level_role2('REVOKE_group_level_role@gmail.com', 'yet-other-group')
+        assert get_group_level_role('revoke_group_level_ROLE@gmail.com', 'group') == 'customer'
+        assert get_group_level_role('revoke_GROUP_level_role@gmail.com', 'other-group') == 'customer'
+        assert not get_group_level_role('REVOKE_group_level_role@gmail.com', 'yet-other-group')
 
-        assert revoke_group_level_role2('revoke_GROUP_level_role@gmail.com', 'other-group')
-        assert get_group_level_role2('revoke_group_level_role@gmail.com', 'group') == 'customer'
-        assert not get_group_level_role2('revoke_group_level_role@gmail.com', 'other-group')
-        assert not get_group_level_role2('revoke_group_level_role@gmail.com', 'yet-other-group')
+        assert revoke_group_level_role('revoke_GROUP_level_role@gmail.com', 'other-group')
+        assert get_group_level_role('revoke_group_level_role@gmail.com', 'group') == 'customer'
+        assert not get_group_level_role('revoke_group_level_role@gmail.com', 'other-group')
+        assert not get_group_level_role('revoke_group_level_role@gmail.com', 'yet-other-group')
 
-        assert revoke_group_level_role2('revoke_GROUP_level_role@gmail.com', 'group')
-        assert not get_group_level_role2('revOke_group_level_role@gmail.com', 'group')
-        assert not get_group_level_role2('revoKe_group_level_role@gmail.com', 'other-group')
-        assert not get_group_level_role2('revokE_group_level_role@gmail.com', 'yet-other-group')
+        assert revoke_group_level_role('revoke_GROUP_level_role@gmail.com', 'group')
+        assert not get_group_level_role('revOke_group_level_role@gmail.com', 'group')
+        assert not get_group_level_role('revoKe_group_level_role@gmail.com', 'other-group')
+        assert not get_group_level_role('revokE_group_level_role@gmail.com', 'yet-other-group')

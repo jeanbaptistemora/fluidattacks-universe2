@@ -82,3 +82,4 @@ django-apps/**/dist
 /version.txt
 /.coverage*
 /.DynamoDB
+/.tmp

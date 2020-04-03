@@ -1,36 +1,5 @@
 #!/bin/bash
 
-aws dynamodb create-table --endpoint-url http://localhost:8022 \
-  --table-name 'fi_authorization' \
-  --billing-mode 'PAY_PER_REQUEST' \
-  --attribute-definitions '[{
-      "AttributeName": "id",
-      "AttributeType": "S"
-    },{
-      "AttributeName": "rule_subject",
-      "AttributeType": "S"
-    },{
-      "AttributeName": "rule_object",
-      "AttributeType": "S"
-    }]' \
-  --key-schema '[{
-      "AttributeName": "id",
-      "KeyType": "HASH"
-    }]' \
-  --global-secondary-indexes '[{
-      "IndexName": "subject_policies",
-      "KeySchema": [{
-        "AttributeName": "rule_subject",
-        "KeyType": "HASH"
-      },{
-        "AttributeName": "rule_object",
-        "KeyType": "RANGE"
-      }],
-      "Projection": {
-        "ProjectionType": "ALL"
-      }
-    }]'
-
 aws dynamodb create-table \
   --attribute-definitions '[{
       "AttributeName": "subject",
@@ -202,27 +171,19 @@ then
             "Item" : {
               "company": {"S": "unittest"},
               "date_joined": {"S": "2018-02-28 11:54:12"},
-              "email": {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+              "email": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
               "legal_remember": {"BOOL": true},
               "registered": {"BOOL": true}
             }
           }
         }]) | flatten(2)
       ),
-      "fi_authorization": (
+      "fi_authz": (
         [range(6)] | map([{
           "PutRequest": {
             "Item": {
-              "id": {"S": "mock_user.\(env.index)\(.)@gmail.com"},
-              "policy_type": {"S": "p"},
-              "rule": {"L": [
-                {"S": "user"},
-                {"S": "mock_user.\(env.index)\(.)@gmail.com"},
-                {"S": "self"},
-                {"S": "customer"}
-              ]},
               "level": {"S": "user"},
-              "subject": {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+              "subject": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
               "object": {"S": "self"},
               "role": {"S": "customer"}
             }
@@ -230,18 +191,8 @@ then
         },{
           "PutRequest": {
             "Item": {
-              "id": {"S": "mock_user.\(env.index)\(.)@gmail.com2"},
-              "policy_type": {"S": "p"},
-              "rule": {
-                "L": [
-                  {"S": "group"},
-                  {"S": "mock_user.\(env.index)\(.)@gmail.com"},
-                  {"S": "oneshottest"},
-                  {"S": "customer"}
-                ]
-              },
               "level": {"S": "group"},
-              "subject": {"S": "mock_user.\(env.index)\(.)@gmail.com"},
+              "subject": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
               "object": {"S": "oneshottest"},
               "role": {"S": "customer"}
             }
@@ -262,7 +213,7 @@ then
                 "BOOL": true
               },
               "user_email": {
-                "S": "mock_user.\(env.index)\(.)@gmail.com"
+                "S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"
               }
             }
           }

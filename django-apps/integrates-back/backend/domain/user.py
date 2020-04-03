@@ -13,19 +13,6 @@ from backend.utils import (
 VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin'}
 
 
-def get_user_level_role2(email: str) -> str:
-    # level, subject, object, role
-    rule = ['user', email, 'self']
-
-    # List of List[level, subject, object, role]
-    matching_rules: List[List[str]] = \
-        settings.CASBIN_ADAPTER.get_rules('p', 'p', rule)
-
-    if matching_rules:
-        return matching_rules[0][3]
-    return str()
-
-
 def get_user_level_role(email: str) -> str:
     """Return the user-level role of a user."""
     user_level_policies = [
@@ -37,23 +24,6 @@ def get_user_level_role(email: str) -> str:
     if user_level_policies:
         return user_level_policies[0].role
     return ''
-
-
-def get_group_level_role2(email: str, group: str) -> str:
-    # level, subject, object, role
-    rule = ['group', email, group.lower()]
-
-    # Admins are granted access to all groups
-    if get_user_level_role(email) == 'admin':
-        return 'admin'
-
-    # List of List[level, subject, object, role]
-    matching_rules: List[List[str]] = \
-        settings.CASBIN_ADAPTER.get_rules('p', 'p', rule)
-
-    if matching_rules:
-        return matching_rules[0][3]
-    return str()
 
 
 def get_group_level_role(email: str, group: str) -> str:
@@ -73,35 +43,6 @@ def get_group_level_role(email: str, group: str) -> str:
     return ''
 
 
-def grant_user_level_role2(
-        email: str,
-        role: str,
-        revoke_existing: bool = True,
-        reload: bool = True) -> bool:
-    if role not in VALID_ROLES:
-        return False
-
-    # level, subject, object, role
-    rule = ['user', email, 'self']
-
-    # Revoke previous user-level policies
-    if revoke_existing:
-        settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
-
-    rule.append(role)
-
-    # Grant new user-level policy
-    settings.CASBIN_ADAPTER.add_policy('p', 'p', rule)
-
-    # Reload config
-    if reload:
-        authorization_util.revoke_cached_subject_policies(email)
-        settings.ENFORCER_USER_LEVEL.load_policy()
-        settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
-
-    return True
-
-
 def grant_user_level_role(email: str, role: str) -> bool:
     """Grant a user-level role to a user."""
     if role not in VALID_ROLES:
@@ -116,36 +57,6 @@ def grant_user_level_role(email: str, role: str) -> bool:
 
     return user_dal.put_subject_policy(policy) \
         and authorization_util.revoke_cached_subject_policies(email)
-
-
-def grant_group_level_role2(
-        email: str,
-        group: str,
-        role: str,
-        revoke_existing: bool = True,
-        reload: bool = True) -> bool:
-    if role not in VALID_ROLES:
-        return False
-
-    # level, subject, object, role
-    rule = ['group', email, group.lower()]
-
-    # Revoke previous user-level policies
-    if revoke_existing:
-        settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
-
-    rule.append(role)
-
-    # Grant new user-level policy
-    settings.CASBIN_ADAPTER.add_policy('p', 'p', rule)
-
-    # Reload config
-    if reload:
-        authorization_util.revoke_cached_subject_policies(email)
-        settings.ENFORCER_GROUP_LEVEL.load_policy()
-        settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
-
-    return True
 
 
 def grant_group_level_role(email: str, group: str, role: str) -> bool:
@@ -171,41 +82,12 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
         and authorization_util.revoke_cached_subject_policies(email)
 
 
-def revoke_user_level_role2(email: str) -> bool:
-    # level, subject, object, role
-    rule = ['user', email, 'self']
-
-    # Revoke previous user-level policies
-    settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
-
-    # Reload config
-    settings.ENFORCER_USER_LEVEL.load_policy()
-    settings.ENFORCER_USER_LEVEL_ASYNC.load_policy()
-
-    return True
-
-
 def revoke_user_level_role(email: str) -> bool:
     """Revoke a user-level role from a user."""
     subject: str = email
     object_: str = 'self'
     return user_dal.delete_subject_policy(subject, object_) \
         and authorization_util.revoke_cached_subject_policies(subject)
-
-
-def revoke_group_level_role2(email: str, group: str) -> bool:
-    # level, subject, object, role
-    rule = ['group', email, group.lower()]
-
-    # Revoke previous group-level policies
-    settings.CASBIN_ADAPTER.remove_policy('p', 'p', rule)
-
-    # Reload config
-    authorization_util.revoke_cached_subject_policies(email)
-    settings.ENFORCER_GROUP_LEVEL.load_policy()
-    settings.ENFORCER_GROUP_LEVEL_ASYNC.load_policy()
-
-    return True
 
 
 def revoke_group_level_role(email: str, group: str) -> bool:
