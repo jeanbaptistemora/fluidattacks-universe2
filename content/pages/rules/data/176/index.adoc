@@ -1,7 +1,7 @@
 :slug: rules/176/
 :category: data
 :description: This document details the security guidelines and requirements related to the organization's sensitive data. The purpose of this security requirement is to establish the importance of restricting access to sensitive information to authorized users only.
-:keywords: Requirement, Security, Data, Authorization, Restriction, GDPR
+:keywords: Data, Authorization, Restriction, GDPR, ASVS, CWE
 :rules: yes
 
 = REQ.176 Restrict system objects
@@ -33,3 +33,18 @@ while ensuring a high level of the protection of personal data.
 The controller and processor shall take steps to ensure that any natural person
 acting under the authority of the controller or the processor who has access to
 personal data does not process them except on instructions from the controller.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.2)]
+Verify that communications between application components,
+including APIs, middleware and data layers, are authenticated.
+Components should have the least necessary privileges needed.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+The software does not perform any authentication for functionality that
+requires a provable user identity or consumes a significant amount of
+resources.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
+When an actor claims to have a given identity,
+the software does not prove or insufficiently proves that the claim is correct.

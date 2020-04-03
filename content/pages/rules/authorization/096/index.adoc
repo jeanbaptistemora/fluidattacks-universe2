@@ -61,6 +61,6 @@ The software does not perform any authentication for functionality that
 requires a provable user identity or consumes a significant amount of
 resources.
 
-. [[r9]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-287 Improper Authentication]
+. [[r9]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
 When an actor claims to have a given identity,
 the software does not prove or insufficiently proves that the claim is correct.
