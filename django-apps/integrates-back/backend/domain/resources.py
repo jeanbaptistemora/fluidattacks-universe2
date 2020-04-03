@@ -9,7 +9,6 @@ import rollbar
 
 from backend import util
 from backend.dal import (
-    cloudfront as cloudfront_dal,
     project as project_dal, resources as resources_dal
 )
 from backend.typing import Resource as ResourceType
@@ -137,7 +136,7 @@ def remove_file(file_name: str, project_name: str) -> bool:
 
 
 def download_file(file_info: str, project_name: str) -> str:
-    return cloudfront_dal.download_file(file_info, project_name)
+    return resources_dal.download_file(file_info, project_name)
 
 
 def has_repeated_envs(project_name: str, envs: List[Dict[str, str]]) -> bool:

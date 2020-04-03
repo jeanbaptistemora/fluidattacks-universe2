@@ -10,7 +10,6 @@ from magic import Magic
 
 from backend import util
 from backend.dal import (
-    cloudfront as cloudfront_dal,
     comment as comment_dal, event as event_dal, project as project_dal
 )
 from backend.domain import (
@@ -26,8 +25,7 @@ from backend.typing import Event as EventType, User as UserType
 from backend.utils import events as event_utils, validations
 
 from __init__ import (
-    FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS,
-    FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+    FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 
 
@@ -273,10 +271,8 @@ def add_comment(comment_id: int, content: str, event_id: str, parent: str,
 def get_evidence_link(event_id: str, file_name: str) -> str:
     project_name = get_event(event_id).get('project_name')
     file_url = f'{project_name}/{event_id}/{file_name}'
-    minutes_until_expire = 1.0 / 6
 
-    return cloudfront_dal.sign_url(
-        FI_CLOUDFRONT_RESOURCES_DOMAIN, file_url, minutes_until_expire)
+    return event_dal.sign_url(file_url)
 
 
 def remove_evidence(evidence_type: str, event_id: str) -> bool:

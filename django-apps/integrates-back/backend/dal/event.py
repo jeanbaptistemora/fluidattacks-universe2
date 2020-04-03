@@ -2,10 +2,10 @@
 
 import rollbar
 from botocore.exceptions import ClientError
-from backend.dal.helpers import dynamodb, s3
+from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.typing import Event as EventType
 
-from __init__ import FI_AWS_S3_BUCKET
+from __init__ import FI_AWS_S3_BUCKET, FI_CLOUDFRONT_RESOURCES_DOMAIN
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('fi_events')
@@ -68,3 +68,7 @@ def save_evidence(file_object: object, file_name: str) -> bool:
 
 def remove_evidence(file_name: str) -> bool:
     return s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+
+
+def sign_url(file_url: str) -> str:
+    return cloudfront.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN, file_url, 1.0 / 6)

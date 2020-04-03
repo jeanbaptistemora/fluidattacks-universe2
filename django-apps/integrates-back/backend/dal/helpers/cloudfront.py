@@ -7,7 +7,7 @@ from cryptography.hazmat.backends import default_backend
 from botocore import signers
 from __init__ import (
     FI_CLOUDFRONT_ACCESS_KEY,
-    FI_CLOUDFRONT_PRIVATE_KEY, FI_CLOUDFRONT_RESOURCES_DOMAIN)
+    FI_CLOUDFRONT_PRIVATE_KEY)
 
 
 def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
@@ -31,9 +31,7 @@ def rsa_signer(message: str) -> bool:
     return private_key.sign(message, asymmetric.padding.PKCS1v15(), hashes.SHA1())
 
 
-def download_file(file_info: str, project_name: str) -> str:
+def download_file(file_info: str, project_name: str, domain: str, expire_mins: float) -> str:
     project_name = project_name.lower()
     file_url = project_name + "/" + file_info
-    minutes_until_expire = 1.0 / 6
-    return sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
-                    file_url, minutes_until_expire)
+    return sign_url(domain, file_url, expire_mins)
