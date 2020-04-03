@@ -62,15 +62,15 @@ MUTATION.set_field('approveDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('createDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('submitDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('approveVulnerability',
-                   vulnerability.resolve_approve_vulnerability)
-MUTATION.set_field('deleteTags', vulnerability.resolve_delete_tags)
+                   vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('updateTreatmentVuln',
-                   vulnerability.resolve_update_treatment_vuln)
+                   vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('requestVerificationVuln',
-                   vulnerability.resolve_request_verification_vuln)
+                   vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('verifyRequestVuln',
-                   vulnerability.resolve_verify_request_vuln)
+                   vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('deleteVulnerability',
-                   vulnerability.resolve_delete_vulnerability)
+                   vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('uploadFile',
-                   vulnerability.resolve_upload_file)
+                   vulnerability.resolve_vulnerability_mutation)
