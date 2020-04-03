@@ -66,7 +66,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     { value: "Rejected", label: "Rejected" },
   ];
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
-    sessionStorage.setItem("repoStatusFilter", filterVal);
+    sessionStorage.setItem("draftStatusFilter", filterVal);
   };
 
   const tableHeaders: IHeader[] = [
@@ -84,7 +84,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     {
       align: "center", dataField: "currentState",
       filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "repoStatusFilter"),
+        defaultValue: _.get(sessionStorage, "draftStatusFilter"),
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
