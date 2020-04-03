@@ -11,7 +11,7 @@ import { FluidIcon } from "../../../../../components/FluidIcon";
 import translate from "../../../../../utils/translations/translate";
 import { IHistoricTreatment } from "../types";
 
-interface IActionButtonsProps {
+export interface IActionButtonsProps {
   isEditing: boolean;
   isPristine: boolean;
   // The finding has a pending request to verify

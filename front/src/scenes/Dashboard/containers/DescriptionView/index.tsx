@@ -158,7 +158,13 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
     values: Dictionary<string>,
   ): Promise<void> => {
     setEditing(false);
-    await updateDescription({ variables: { ...values, findingId } });
+    await updateDescription({
+      variables: {
+        ...values,
+        compromisedRecords: Number(values.compromisedRecords),
+        findingId,
+      },
+    });
   };
 
   const handleSubmit: (() => void) = (): void => {
