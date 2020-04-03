@@ -29,6 +29,12 @@ their data.
 . The system must proceed with the notification unless it is impossible or
 involves disproportionate effort.
 
+. The processing of the personal information might have archiving purposes
+in the public interest.
+If the system properly safeguards this information and if complying with this
+requirement seriously impairs those purposes,
+this requirement is not applicable.
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-19-gdpr/[GDPR. Art. 19: Notification obligation regarding rectification
@@ -37,3 +43,11 @@ The controller shall communicate any rectification or erasure of personal data
 or restriction of processing to each recipient to whom the personal data have
 been disclosed,
 unless this proves impossible or involves disproportionate effort.
+
+. [[r2]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
+for archiving purposes in the public interest,
+scientific or historical research purposes or statistical purposes.(3).]
+Where personal data are processed for archiving purposes in the public
+interest,
+Union or Member State law may provide for derogations from the rights referred
+to in Articles 15, 16, 18, 19, 20 and 21.
