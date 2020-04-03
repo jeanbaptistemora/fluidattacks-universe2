@@ -133,83 +133,33 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const onFilterTitle: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("titleFilter", filterVal);
   };
-  const clearFilterTitle: ((event: React.FormEvent<HTMLInputElement>) => void) =
-    (event: React.FormEvent<HTMLInputElement>): void => {
-      const inputValue: string = event.currentTarget.value;
-      if (inputValue.length === 0) {
-        sessionStorage.removeItem("titleFilter");
-      }
-    };
   const onFilterWhere: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("whereFilter", filterVal);
   };
-  const clearFilterWhere: ((event: React.FormEvent<HTMLInputElement>) => void) =
-    (event: React.FormEvent<HTMLInputElement>): void => {
-      const inputValue: string = event.currentTarget.value;
-      if (inputValue.length === 0) {
-        sessionStorage.removeItem("whereFilter");
-      }
-    };
   const onFilterExploitable: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("exploitableFilter", filterVal);
   };
-
-  const clearFilterExploitable: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-    (eventInput: React.FormEvent<HTMLInputElement>): void => {
-      const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0) {
-        sessionStorage.removeItem("exploitableFilter");
-      }
-    };
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("statusFilter", filterVal);
   };
-
-  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-    (eventInput: React.FormEvent<HTMLInputElement>): void => {
-      const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0) {
-        sessionStorage.removeItem("statusFilter");
-      }
-    };
   const onFilterVerification: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("verificationFilter", filterVal);
   };
-  const clearFilterTreatment: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-    (eventInput: React.FormEvent<HTMLInputElement>): void => {
-      const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0) {
-        sessionStorage.removeItem("treatmentFilter");
-      }
-    };
   const onFilterTreatment: ((filterVal: string) => void) =
     (filterVal: string): void => {
       sessionStorage.setItem("treatmentFilter", filterVal);
     };
-
-  const clearFilterVerification: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-    (eventInput: React.FormEvent<HTMLInputElement>): void => {
-      const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0) {
-        sessionStorage.removeItem("verificationFilter");
-      }
-    };
   const onFilterSeverity: ((filterVal: string, data: IFindingAttr[]) => IFindingAttr[]) =
     (filterVal: string, data: IFindingAttr[]): IFindingAttr[] => {
+      sessionStorage.setItem("severityFilter", filterVal);
+      if (filterVal.length === 0) {
+        return data;
+      }
       const restrictions: number[] = restrictionSeverity.filter((option: { restriction: number[]; value: string }) => (
         option.value === filterVal))[0].restriction;
-      sessionStorage.setItem("severityFilter", filterVal);
 
       return data.filter((row: IFindingAttr) => (
         row.severityScore >= restrictions[0] && row.severityScore <= restrictions[1]));
-    };
-
-  const clearFilterSeverity: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-    (eventInput: React.FormEvent<HTMLInputElement>): void => {
-      const inputValue: string = eventInput.currentTarget.value;
-      if (inputValue.length === 0) {
-        sessionStorage.removeItem("severityFilter");
-      }
     };
 
   const tableHeaders: IHeader[] = [
@@ -227,7 +177,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         defaultValue: _.get(sessionStorage, "titleFilter"),
         delay: 1000,
         onFilter: onFilterTitle,
-        onInput: clearFilterTitle,
       }),
       header: "Title", onSort: onSortState, visible: checkedItems.title, width: "11%", wrapped: true,
     },
@@ -240,7 +189,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "severityFilter"),
         onFilter: onFilterSeverity,
-        onInput: clearFilterSeverity,
         options: selectOptionsSeverity,
       }),
       header: "Severity", onSort: onSortState, visible: checkedItems.severityScore, width: "6%",
@@ -254,7 +202,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "statusFilter"),
         onFilter: onFilterStatus,
-        onInput: clearFilterStatus,
         options: selectOptionsStatus,
       }),
       formatter: statusFormatter, header: "Status", onSort: onSortState, visible: checkedItems.state, width: "7%",
@@ -264,7 +211,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "treatmentFilter"),
         onFilter: onFilterTreatment,
-        onInput: clearFilterTreatment,
         options: optionTreatment,
       }),
       header: "Treatment", onSort: onSortState, visible: checkedItems.treatment, width: "8%", wrapped: true,
@@ -274,7 +220,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "verificationFilter"),
         onFilter: onFilterVerification,
-        onInput: clearFilterVerification,
         options: selectOptionsVerification,
       }),
       header: "Verification", onSort: onSortState, visible: checkedItems.remediated, width: "8%",
@@ -284,7 +229,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "exploitableFilter"),
         onFilter: onFilterExploitable,
-        onInput: clearFilterExploitable,
         options: selectOptionsExploitable,
       }),
       header: "Exploitable", onSort: onSortState, visible: checkedItems.isExploitable, width: "8%",
@@ -295,7 +239,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         defaultValue: _.get(sessionStorage, "whereFilter"),
         delay: 1000,
         onFilter: onFilterWhere,
-        onInput: clearFilterWhere,
       }),
       formatter: limitFormatter, header: "Where", onSort: onSortState, visible: checkedItems.where, width: "8%",
       wrapped: true,

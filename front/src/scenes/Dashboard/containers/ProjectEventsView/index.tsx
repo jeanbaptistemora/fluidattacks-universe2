@@ -86,24 +86,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("eventStatusFilter", filterVal);
   };
-  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) = (
-    eventInput: React.FormEvent<HTMLInputElement>,
-  ): void => {
-    const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0) {
-      sessionStorage.removeItem("eventStatusFilter");
-    }
-  };
   const onFilterType: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("eventTypeFilter", filterVal);
-  };
-  const clearFilterType: ((eventInput: React.FormEvent<HTMLInputElement>) => void) = (
-    eventInput: React.FormEvent<HTMLInputElement>,
-  ): void => {
-    const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0) {
-      sessionStorage.removeItem("eventTypeFilter");
-    }
   };
 
   const tableHeaders: IHeader[] = [
@@ -124,7 +108,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "eventTypeFilter"),
         onFilter: onFilterType,
-        onInput: clearFilterType,
         options: optionType,
       }),
       header: translate.t("search_findings.tab_events.type"), onSort: onSortState, width: "18%", wrapped: true,
@@ -134,7 +117,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "eventStatusFilter"),
         onFilter: onFilterStatus,
-        onInput: clearFilterStatus,
         options: selectOptionsStatus,
       }),
       formatter: statusFormatter, header: translate.t("search_findings.tab_events.status"), onSort: onSortState,

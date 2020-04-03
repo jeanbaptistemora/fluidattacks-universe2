@@ -371,14 +371,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
               sessionStorage.setItem("vulnInputsFilter", filterVal);
             };
-            const clearFilterInputs: ((event: React.FormEvent<HTMLInputElement>) => void) = (
-              event: React.FormEvent<HTMLInputElement>,
-            ): void => {
-              const inputValue: string = event.currentTarget.value;
-              if (inputValue.length === 0) {
-                sessionStorage.removeItem("vulnInputsFilter");
-              }
-            };
             const onSortLines: ((dataField: string, order: SortOrder) => void) = (
               dataField: string, order: SortOrder,
             ): void => {
@@ -388,14 +380,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const onFilterLines: ((filterVal: string) => void) = (filterVal: string): void => {
               sessionStorage.setItem("vulnLinesFilter", filterVal);
             };
-            const clearFilterLines: ((event: React.FormEvent<HTMLInputElement>) => void) = (
-              event: React.FormEvent<HTMLInputElement>,
-            ): void => {
-              const inputValue: string = event.currentTarget.value;
-              if (inputValue.length === 0) {
-                sessionStorage.removeItem("vulnLinesFilter");
-              }
-            };
             const onSortPorts: ((dataField: string, order: SortOrder) => void) = (
               dataField: string, order: SortOrder,
             ): void => {
@@ -404,14 +388,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             };
             const onFilterPorts: ((filterVal: string) => void) = (filterVal: string): void => {
               sessionStorage.setItem("vulnPortsFilter", filterVal);
-            };
-            const clearFilterPorts: ((event: React.FormEvent<HTMLInputElement>) => void) = (
-              event: React.FormEvent<HTMLInputElement>,
-            ): void => {
-              const inputValue: string = event.currentTarget.value;
-              if (inputValue.length === 0) {
-                sessionStorage.removeItem("vulnPortsFilter");
-              }
             };
             const columnFilter: TextFilterProps = {
               className: style.filter_input,
@@ -426,7 +402,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 ...columnFilter,
                 defaultValue: _.get(sessionStorage, "vulnInputsFilter"),
                 onFilter: onFilterInputs,
-                onInput: clearFilterInputs,
               }),
               header: "URL",
               onSort: onSortInputs,
@@ -449,7 +424,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   ...columnFilter,
                   defaultValue: _.get(sessionStorage, "vulnLinesFilter"),
                   onFilter: onFilterLines,
-                  onInput: clearFilterLines,
                 }),
                 header: translate.t("search_findings.tab_description.path"),
                 onSort: onSortLines,
@@ -472,7 +446,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   ...columnFilter,
                   defaultValue: _.get(sessionStorage, "vulnPortsFilter"),
                   onFilter: onFilterPorts,
-                  onInput: clearFilterPorts,
                 }),
                 header: "Host",
                 onSort: onSortPorts,

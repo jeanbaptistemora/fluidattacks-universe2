@@ -68,14 +68,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("repoStatusFilter", filterVal);
   };
-  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) = (
-    eventInput: React.FormEvent<HTMLInputElement>,
-  ): void => {
-    const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0) {
-      sessionStorage.removeItem("repoStatusFilter");
-    }
-  };
 
   const tableHeaders: IHeader[] = [
     { align: "center", dataField: "reportDate", header: "Date", onSort: onSortState, width: "10%" },
@@ -94,7 +86,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "repoStatusFilter"),
         onFilter: onFilterStatus,
-        onInput: clearFilterStatus,
         options: selectOptionsStatus,
       }),
       formatter: statusFormatter, header: "State", onSort: onSortState, width: "10%",
