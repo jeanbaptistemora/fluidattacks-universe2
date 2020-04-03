@@ -450,7 +450,7 @@ class Batcher():
         # also load if there are too many queued rows
 
         # if we are to exceed the limit with the current row
-        if self.buckets[table_name]["size"] + row_size >= 15999000 \
+        if self.buckets[table_name]["size"] + row_size >= 10000000 \
                 or self.buckets[table_name]["count"] + 1 >= 100000:
             # load the queued rows to Redshift
             self.load(table_name)
