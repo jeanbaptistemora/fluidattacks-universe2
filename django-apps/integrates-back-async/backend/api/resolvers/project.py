@@ -71,8 +71,8 @@ async def _get_has_forces(_, project_name):
 @get_entity_cache_async
 async def _get_findings(info, project_name):
     """Resolve findings attribute."""
-    util.cloudwatch_log(info.context, 'Security: Access to {project} '
-                        'findings'.format(project=project_name))
+    await sync_to_async(util.cloudwatch_log)(
+        info.context, f'Security: Access to {project_name} findings')
     finding_ids = await sync_to_async(finding_domain.filter_deleted_findings)(
         project_domain.list_findings(project_name)
     )
@@ -153,7 +153,7 @@ async def _get_last_closing_vuln(_, project_name):
 @get_entity_cache_async
 async def _get_max_severity(info, project_name):
     """Get max_severity."""
-    finding_ids = finding_domain.filter_deleted_findings(
+    finding_ids = await sync_to_async(finding_domain.filter_deleted_findings)(
         project_domain.list_findings(project_name))
     findings = \
         await info.context.loaders['finding'].load_many(finding_ids)
@@ -303,7 +303,7 @@ async def _get_comments(info, project_name):
 @enforce_group_level_auth_async
 async def _get_drafts(info, project_name):
     """Get drafts."""
-    util.cloudwatch_log(
+    await sync_to_async(util.cloudwatch_log)(
         info.context, f'Security: Access to {project_name} drafts')
     finding_ids = await \
         sync_to_async(finding_domain.filter_deleted_findings)(
@@ -320,7 +320,7 @@ async def _get_drafts(info, project_name):
 @enforce_group_level_auth_async
 async def _get_events(info, project_name):
     """Get events."""
-    util.cloudwatch_log(
+    await sync_to_async(util.cloudwatch_log)(
         info.context, f'Security: Access to {project_name} events')
     event_ids = await \
         sync_to_async(project_domain.list_events)(project_name)

@@ -70,7 +70,7 @@ async def _do_update_event(_, info, event_id, **kwargs):
         project_name = event.get('project_name')
         util.invalidate_cache(event_id)
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Updated event {event_id} succesfully')
     return dict(success=success)
@@ -87,8 +87,9 @@ async def _do_create_event(
     success = await sync_to_async(event_domain.create_event)(
         analyst_email, project_name.lower(), file, image, **kwa)
     if success:
-        util.cloudwatch_log(info.context, 'Security: Created event in '
-                            f'{project_name} project succesfully')
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Created event in '
+            f'{project_name} project succesfully')
         util.invalidate_cache(project_name)
     return dict(success=success)
 
@@ -107,10 +108,10 @@ async def _do_solve_event(_, info, event_id, affectation, date):
         project_name = event.get('project_name')
         util.invalidate_cache(event_id)
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Solved event {event_id} succesfully')
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Attempted to solve event {event_id}')
     return dict(success=success)
 
@@ -127,11 +128,11 @@ async def _do_add_event_comment(_, info, content, event_id, parent):
             comment_id, content, event_id, parent, user_info)
     if success:
         util.invalidate_cache(event_id)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Added comment to event {event_id} succesfully')
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Attempted to add comment in event {event_id}')
     return dict(success=success, comment_id=comment_id)
@@ -149,11 +150,11 @@ async def _do_update_event_evidence(_, info, event_id, evidence_type, file):
             event_id, evidence_type, file)
     if success:
         util.invalidate_cache(event_id)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Updated evidence in event {event_id} succesfully')
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Attempted to update evidence in event {event_id}')
     return dict(success=success)
@@ -168,12 +169,12 @@ async def _do_download_event_file(_, info, event_id, file_name):
     signed_url = await \
         sync_to_async(event_domain.get_evidence_link)(event_id, file_name)
     if signed_url:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Downloaded file in event {event_id} succesfully')
         success = True
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Attempted to download file in event {event_id}')
     return dict(success=success, url=signed_url)
@@ -187,7 +188,7 @@ async def _do_remove_event_evidence(_, info, event_id, evidence_type):
     success = await \
         sync_to_async(event_domain.remove_evidence)(evidence_type, event_id)
     if success:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Removed evidence in event {event_id}')
         util.invalidate_cache(event_id)

@@ -193,7 +193,7 @@ async def _do_sign_in(_, info, auth_token: str, provider: str,
             )
             success = True
         except ValueError:
-            util.cloudwatch_log(
+            await sync_to_async(util.cloudwatch_log)(
                 info.context,
                 'Security: Sign in attempt using invalid Google token')
             raise GraphQLError('INVALID_AUTH_TOKEN')

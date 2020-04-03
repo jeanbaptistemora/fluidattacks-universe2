@@ -52,7 +52,7 @@ async def _do_remove_evidence(_, info, evidence_id, finding_id):
         sync_to_async(finding_domain.remove_evidence)(evidence_id, finding_id)
 
     if success:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Removed evidence in finding {finding_id}')
         util.invalidate_cache(finding_id)
@@ -72,13 +72,15 @@ async def _do_update_evidence(_, info, evidence_id, finding_id, file):
             finding_id, evidence_id, file)
     if success:
         util.invalidate_cache(finding_id)
-        util.cloudwatch_log(info.context,
-                            'Security: Updated evidence in finding '
-                            f'{finding_id} succesfully')
+        await sync_to_async(util.cloudwatch_log)(
+            info.context,
+            'Security: Updated evidence in finding '
+            f'{finding_id} succesfully')
     else:
-        util.cloudwatch_log(info.context,
-                            'Security: Attempted to update evidence in '
-                            f'finding {finding_id}')
+        await sync_to_async(util.cloudwatch_log)(
+            info.context,
+            'Security: Attempted to update evidence in '
+            f'finding {finding_id}')
     return dict(success=success)
 
 
@@ -96,13 +98,15 @@ async def _do_update_evidence_description(
                 finding_id, evidence_id, description)
         if success:
             util.invalidate_cache(finding_id)
-            util.cloudwatch_log(info.context, 'Security: Evidence description \
-                succesfully updated in finding ' + finding_id)
+            await sync_to_async(util.cloudwatch_log)(
+                info.context, f'Security: Evidence description \
+                succesfully updated in finding {finding_id}')
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to update \
-                evidence description in ' + finding_id)
+            await sync_to_async(util.cloudwatch_log)(
+                info.context, f'Security: Attempted to update \
+                evidence description in {finding_id}')
     except KeyError:
-        rollbar.report_message('Error: \
+        await sync_to_async(rollbar.report_message)('Error: \
 An error occurred updating evidence description', 'error', info.context)
     return dict(success=success)
 
@@ -121,11 +125,13 @@ async def _do_update_severity(_, info, **parameters):
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
-        util.cloudwatch_log(info.context, 'Security: Updated severity in\
-            finding {id} succesfully'.format(id=parameters.get('finding_id')))
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, f'Security: Updated severity in \
+            finding {finding_id} succesfully')
     else:
-        util.cloudwatch_log(info.context, 'Security: Attempted to update \
-            severity in finding {id}'.format(id=parameters.get('finding_id')))
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, f'Security: Attempted to update \
+            severity in finding {finding_id}')
     finding = await info.context.loaders['finding'].load(finding_id)
     return dict(finding=finding, success=success)
 
@@ -146,8 +152,9 @@ async def _do_verify_finding(_, info, finding_id, justification):
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(info.context, 'Security: Verified the '
-                            f'finding_id: {finding_id}')
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Verified the '
+            f'finding_id: {finding_id}')
     return dict(success=success)
 
 
@@ -176,8 +183,9 @@ async def _do_handle_acceptation(_, info, **parameters):
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(parameters.get('project_name'))
-        util.cloudwatch_log(info.context, 'Security: Verified a request '
-                            f'in finding_id: {finding_id}')
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Verified a request '
+            f'in finding_id: {finding_id}')
     return dict(success=success)
 
 
@@ -195,10 +203,12 @@ async def _do_update_description(_, info, finding_id, **parameters):
             sync_to_async(project_domain.get_finding_project_name)(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(info.context, f'Security: Updated description in \
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, f'Security: Updated description in \
 finding {finding_id} succesfully')
     else:
-        util.cloudwatch_log(info.context, f'Security: Attempted to update \
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, f'Security: Attempted to update \
             description in finding {finding_id}')
     finding = await info.context.loaders['finding'].load(finding_id)
     return dict(finding=finding, success=success)
@@ -243,12 +253,14 @@ async def _do_update_client_description(_, info, finding_id, **parameters):
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(info.context, 'Security: Updated treatment in '
-                            f'finding {finding_id} succesfully')
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Updated treatment in '
+            f'finding {finding_id} succesfully')
         util.forces_trigger_deployment(project_name)
     else:
-        util.cloudwatch_log(info.context, 'Security: Attempted to update '
-                            f'treatment in finding {finding_id}')
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Attempted to update '
+            f'treatment in finding {finding_id}')
     finding = await info.context.loaders['finding'].load(finding_id)
     return dict(finding=finding, success=success)
 
@@ -267,11 +279,11 @@ async def _do_reject_draft(_, info, finding_id):
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Draft {} rejected succesfully'.format(finding_id))
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Attempted to reject draft {}'.format(finding_id))
     return dict(success=success)
@@ -291,11 +303,11 @@ async def _do_delete_finding(_, info, finding_id, justification):
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Deleted finding: {finding_id} succesfully')
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Attempted to delete finding: {finding_id}')
     return dict(success=success)
@@ -318,11 +330,13 @@ async def _do_approve_draft(_, info, draft_id):
     if success:
         util.invalidate_cache(draft_id)
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(info.context, 'Security: Approved draft in\
-            {project} project succesfully'.format(project=project_name))
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, f'Security: Approved draft in \
+            {project_name} project succesfully')
     else:
-        util.cloudwatch_log(info.context, 'Security: Attempted to approve \
-            draft in {project} project'.format(project=project_name))
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, f'Security: Attempted to approve \
+            draft in {project_name} project')
     return dict(release_date=release_date, success=success)
 
 
@@ -335,8 +349,9 @@ async def _do_create_draft(_, info, project_name, title, **kwargs):
         sync_to_async(finding_domain.create_draft)(
             info, project_name, title, **kwargs)
     if success:
-        util.cloudwatch_log(info.context, 'Security: Created draft in '
-                            '{} project succesfully'.format(project_name))
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Created draft in '
+            f'{project_name} project succesfully')
     return dict(success=success)
 
 
@@ -351,6 +366,7 @@ async def _do_submit_draft(_, info, finding_id):
 
     if success:
         util.invalidate_cache(finding_id)
-        util.cloudwatch_log(info.context, 'Security: Submitted draft '
-                            '{} succesfully'.format(finding_id))
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Submitted draft '
+            f'{finding_id} succesfully')
     return dict(success=success)
