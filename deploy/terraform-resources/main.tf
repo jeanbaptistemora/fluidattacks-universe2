@@ -14,6 +14,11 @@ variable "aws_s3_resources_bucket" {
   default = "fluidintegrates.resources"
 }
 
+variable "aws_s3_reports_bucket" {
+  type    = string
+  default = "fluidintegrates.reports"
+}
+
 terraform {
   backend "s3" {
     bucket  = "servestf"
@@ -38,6 +43,7 @@ module "cloudfront" {
   source                = "./cloudfront"
   bucket_name           = var.aws_s3_resources_bucket
   evidences_bucket_name = var.aws_s3_evidences_bucket
+  reports_bucket_name   = var.aws_s3_reports_bucket
 }
 
 module "sqs" {
