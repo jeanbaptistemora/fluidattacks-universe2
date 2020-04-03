@@ -10,10 +10,11 @@ from magic import Magic
 
 from backend import util
 from backend.dal import (
+    cloudfront as cloudfront_dal,
     comment as comment_dal, event as event_dal, project as project_dal
 )
 from backend.domain import (
-    comment as comment_domain, resources as resources_domain,
+    comment as comment_domain,
     user as user_domain
 )
 from backend.exceptions import (
@@ -274,7 +275,7 @@ def get_evidence_link(event_id: str, file_name: str) -> str:
     file_url = f'{project_name}/{event_id}/{file_name}'
     minutes_until_expire = 1.0 / 6
 
-    return resources_domain.sign_url(
+    return cloudfront_dal.sign_url(
         FI_CLOUDFRONT_RESOURCES_DOMAIN, file_url, minutes_until_expire)
 
 

@@ -2,21 +2,14 @@
 
 
 from collections import namedtuple
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict, List, NamedTuple, cast
-import base64
 import threading
-import urllib.request
-import urllib.parse
-import urllib.error
 import rollbar
-
-from botocore import signers
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
 from backend import util
 from backend.dal import (
+    cloudfront as cloudfront_dal,
     project as project_dal, resources as resources_dal
 )
 from backend.typing import Resource as ResourceType
@@ -24,29 +17,7 @@ from backend.exceptions import InvalidFileSize, RepeatedValues
 from backend.mailer import send_mail_resources
 from backend.utils import validations
 
-from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
-                      FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_RESOURCERS)
-
-
-def rsa_signer(message: str) -> bool:
-    private_key = serialization.load_pem_private_key(
-        base64.b64decode(FI_CLOUDFRONT_PRIVATE_KEY),
-        password=None,
-        backend=default_backend()
-    )
-    return private_key.sign(message, asymmetric.padding.PKCS1v15(), hashes.SHA1())
-
-
-def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
-    filename = urllib.parse.quote_plus(str(file_name))
-    url = domain + "/" + filename
-    key_id = FI_CLOUDFRONT_ACCESS_KEY
-    now_time = datetime.utcnow()
-    expire_date = now_time + timedelta(minutes=expire_mins)
-    cloudfront_signer = signers.CloudFrontSigner(key_id, rsa_signer)
-    signed_url = cloudfront_signer.generate_presigned_url(
-        url, date_less_than=expire_date)
-    return signed_url
+from __init__ import FI_MAIL_RESOURCERS
 
 
 def format_resource(
@@ -166,11 +137,7 @@ def remove_file(file_name: str, project_name: str) -> bool:
 
 
 def download_file(file_info: str, project_name: str) -> str:
-    project_name = project_name.lower()
-    file_url = project_name + "/" + file_info
-    minutes_until_expire = 1.0 / 6
-    return sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
-                    file_url, minutes_until_expire)
+    return cloudfront_dal.download_file(file_info, project_name)
 
 
 def has_repeated_envs(project_name: str, envs: List[Dict[str, str]]) -> bool:
