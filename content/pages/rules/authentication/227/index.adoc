@@ -1,12 +1,46 @@
 :slug: rules/227/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case it is recommended that the system deploys access notifications for authorized users when a login process is in progress.
-:keywords: System, Notification, User Account, Authentication, Access, Authorization
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case it is recommended that the system display access notifications for unauthorized users when a login process is in progress.
+:keywords: Notification, User Account, Authentication, Access, ASVS, CWE
 :rules: yes
 
 = REQ.227 Display access notification
 
 == Requirement
 
-The system must notify under any authentication attempt,
+The system must notify, under any access attempt,
 that access on the same system is only available to authorized users.
+
+== Description
+
+Sometimes systems have information and other resources that are not considered
+public.
+These resources should be protected by a secure authentication mechanism that
+prevents unauthorized actors from accessing them.
+Whenever a non-authenticated actor attempts to access those resources,
+the system must notify them that the resources are only available to authorized
+users.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.2)]
+Verify that communications between application components,
+including APIs, middleware and data layers, are authenticated.
+Components should have the least necessary privileges needed.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.3)]
+Verify that the application uses a single vetted authentication mechanism that
+is known to be secure,
+can be extended to include strong authentication,
+and has sufficient logging and monitoring to detect account abuse or breaches.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+The software does not perform any authentication for functionality that
+requires a provable user identity or consumes a significant amount of
+resources.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
+When an actor claims to have a given identity,
+the software does not prove or insufficiently proves that the claim is correct.
