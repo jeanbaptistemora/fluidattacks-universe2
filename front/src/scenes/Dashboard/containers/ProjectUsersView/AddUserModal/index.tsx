@@ -25,7 +25,7 @@ import { IAddUserModalProps, IUserDataAttr } from "./types";
 const renderManagerRoles: JSX.Element = (
   <React.Fragment>
     <option value="customer">{translate.t("search_findings.tab_users.customer")}</option>
-    <option value="customeradmin">{translate.t("search_findings.tab_users.customer_admin")}</option>
+    <option value="customeradmin">{translate.t("search_findings.tab_users.customeradmin")}</option>
   </React.Fragment>
 );
 
