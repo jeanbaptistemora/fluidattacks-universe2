@@ -171,7 +171,7 @@ def request_deletion(project_name: str, user_email: str) -> bool:
 def reject_deletion(project_name: str, user_email: str) -> bool:
     response = False
     project = project_name.lower()
-    if is_request_deletion_user(project, user_email) and project_name == project:
+    if project_name == project:
         data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
         historic_deletion = cast(List[Dict[str, str]], data.get('historic_deletion', []))
         if data.get('project_status') == 'PENDING_DELETION':
@@ -284,8 +284,8 @@ def is_alive(project: str) -> bool:
     return project_dal.is_alive(project)
 
 
-def is_request_deletion_user(project: str, user_email: str) -> bool:
-    return project_dal.is_request_deletion_user(project, user_email)
+def can_user_access_pending_deletion(project: str, role: str) -> bool:
+    return project_dal.can_user_access_pending_deletion(project, role)
 
 
 def total_vulnerabilities(finding_id: str) -> Dict[str, int]:

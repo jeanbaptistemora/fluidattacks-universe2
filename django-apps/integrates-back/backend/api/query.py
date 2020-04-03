@@ -25,7 +25,6 @@ from backend.entity.internal_project import InternalProject
 from backend.entity.tag import Tag
 
 from backend import util
-from backend.exceptions import InvalidProject
 
 
 class Query(ObjectType):
@@ -145,14 +144,11 @@ class Query(ObjectType):
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
         project_name = project_name.lower()
-        user_email = util.get_jwt_content(info.context)['user_email']
-        if project_domain.is_request_deletion_user(project_name, user_email):
-            util.cloudwatch_log(info.context,
-                                f'Security: Access to project {project_name} succesfully')
-            return Project(
-                project_name,
-                description=project_domain.get_description(project_name))
-        raise InvalidProject()
+        util.cloudwatch_log(info.context,
+                            f'Security: Access to project {project_name} succesfully')
+        return Project(
+            project_name,
+            description=project_domain.get_description(project_name))
 
     @require_login
     @enforce_user_level_auth

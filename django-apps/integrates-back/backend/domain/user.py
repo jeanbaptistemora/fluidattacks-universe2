@@ -144,7 +144,8 @@ def get_data(email: str, attr: str) -> Union[str, UserType]:
 def get_projects(user_email: str, active: bool = True) -> List[str]:
     projects = user_dal.get_projects(user_email, active)
     projects = [project for project in projects
-                if project_dal.is_request_deletion_user(project, user_email)]
+                if project_dal.can_user_access_pending_deletion(
+                    project, get_group_level_role(user_email, project))]
     return projects
 
 

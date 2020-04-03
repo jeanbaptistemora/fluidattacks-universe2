@@ -295,16 +295,16 @@ def is_alive(project: str) -> bool:
     return is_valid_project
 
 
-def is_request_deletion_user(project: str, user_email: str) -> bool:
+def can_user_access_pending_deletion(project: str, role: str) -> bool:
+    allow_roles = ['admin', 'customeradmin']
     is_user_allowed = False
     if not is_alive(project):
         project_data = get_attributes(
             project.lower(),
             ['historic_deletion', 'project_status']
         )
-        historic_deletion = cast(List[Dict[str, str]], project_data.get('historic_deletion'))
         if project_data.get('project_status') == 'PENDING_DELETION':
-            is_user_allowed = historic_deletion[-1].get('user') == user_email.lower()
+            is_user_allowed = role in allow_roles
     else:
         is_user_allowed = True
     return is_user_allowed

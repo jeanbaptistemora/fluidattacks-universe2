@@ -599,7 +599,11 @@ class ViewTestCase(unittest.TestCase):
                 expected.presence_of_element_located(
                     (By.XPATH,
                      "//*[contains(text(), 'Cancel project deletion')]")))
+        time.sleep(2)
         selenium.save_screenshot(SCR_PATH + '17-02-pending_to_delete.png')
+        cancel_modal_text = selenium.find_element_by_xpath(
+            "//*[contains(text(), 'This project is expected to be removed')]").text
+        assert 'Requested by integratesmanager@gmail.com' in cancel_modal_text
         assert 'Project pending to delete' in selenium.page_source
         selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/findings')
         WebDriverWait(
