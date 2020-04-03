@@ -7,6 +7,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import { getEnvironment } from "./context";
 import { msgError } from "./notifications";
+import rollbar from "./rollbar";
 import translate from "./translations/translate";
 
 const getCookie: (name: string) => string = (name: string): string => {
@@ -129,6 +130,9 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
         if (statusCode === 403) {
           // Django CSRF expired
           location.reload();
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error("A network error occurred", networkError);
         }
       } else if (graphQLErrors !== undefined) {
         graphQLErrors.forEach(({ message }: GraphQLError) => {
@@ -138,10 +142,12 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
               response.errors = [];
             }
             location.assign("/integrates/logout");
-          } else if (_.includes(
-            ["Access denied", "Exception - Project does not exist", "Exception - Finding not found"],
-            message)
-          ) {
+          } else if ([
+            "Access denied",
+            "Exception - Event not found",
+            "Exception - Finding not found",
+            "Exception - Project does not exist",
+          ].includes(message)) {
             if (response !== undefined) {
               response.data = undefined;
               response.errors = [];
