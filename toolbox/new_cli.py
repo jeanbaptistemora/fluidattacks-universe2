@@ -9,7 +9,11 @@ import sys
 import click
 
 # Local libraries
-from toolbox import resources, toolbox, logger
+from toolbox import resources, toolbox, logger, analytics
+
+
+EXP_METAVAR = '[<EXPLOIT | all>]'
+SUBS_METAVAR = '[SUBSCRIPTION]'
 
 
 def _is_pipeline(ctx, param, value):
@@ -55,12 +59,16 @@ def _get_actual_subscription():
         return ''
 
 
+def _convert_exploit(ctx, param, value):
+    return '' if value == 'all' else value
+
+
 @click.group()
 def cli():
     """Main comand line group."""
 
 
-@click.command(name='resources')
+@click.command(name='resources', short_help='administrate resources')
 @click.argument(
     'subscription',
     default=_get_actual_subscription(),
@@ -71,15 +79,20 @@ def cli():
     is_flag=True,
     help='check if the mailmap of a subscription is valid')
 @click.option(
-    '--clone', is_flag=True, help='lone the repositories of a subscription')
+    '--clone', is_flag=True, help='clone the repositories of a subscription')
 @click.option(
     '--finger-print',
     is_flag=True,
     help='get the fingerprint of a subscription')
 @click.option('--sync-fusion-to-s3', is_flag=True)
 @click.option('--sync-s3-to-fusion', is_flag=True)
+@click.option('--does-subs-exist', 'subs_exist', metavar=SUBS_METAVAR)
+@click.option(
+    '--get-commit-subs',
+    help='get the subscription name from the commmit msg.')
 def resources_management(mailmap, clone, finger_print, subscription, vpn,
-                         sync_fusion_to_s3, sync_s3_to_fusion):
+                         sync_fusion_to_s3, sync_s3_to_fusion, subs_exist,
+                         get_commit_subs):
     """Allows administration tasks within subscriptions"""
     if mailmap:
         sys.exit(1 if resources.check_mailmap(subscription) else 1)
@@ -93,32 +106,45 @@ def resources_management(mailmap, clone, finger_print, subscription, vpn,
         sys.exit(0 if resources.sync_repositories_to_s3(subscription) else 1)
     elif sync_s3_to_fusion:
         sys.exit(0 if resources.sync_s3_to_fusion(subscription) else 1)
+    elif subs_exist:
+        sys.exit(0 if toolbox.does_subs_exist(subs_exist) else 1)
+    elif get_commit_subs:
+        subs = toolbox.get_subscription_from_commit_msg()
+        click.echo(subs)
+        sys.exit(0 if subs else 1)
 
 
-@click.command(name='forces')
+@click.command(name='forces', short_help='use the exploits')
 @click.argument(
     'subscription',
     default=_get_actual_subscription(),
     callback=_valid_subscription)
 @click.option('--run-exps', '--run', '-r', is_flag=True, help='run exploits')
 @click.option(
-    '--static', '-s', metavar='(EXPLOIT | all)', help='run a static exploit')
+    '--static', '-s', metavar=EXP_METAVAR, help='run a static exploit')
 @click.option(
-    '--dynamic', '-d', metavar='(EXPLOIT | all)', help='run a dynamic exploit')
+    '--dynamic', '-d', metavar=EXP_METAVAR, help='run a dynamic exploit')
 @click.option(
     '--check-sync',
     '--sync',
-    metavar='(EXPLOIT | all)',
+    metavar=EXP_METAVAR,
     help='check if exploits results are the same as on Integrates')
 @click.option(
     '--check-uploads',
-    metavar='(EXPLOIT | all)',
+    metavar=EXP_METAVAR,
     help='check if exists all possible exploits')
 @click.option('--fill-with-mocks', is_flag=True, callback=_is_pipeline)
 @click.option('--generate-exploits', is_flag=True, callback=_is_pipeline)
+@click.option(
+    '--lint-exps',
+    metavar=EXP_METAVAR,
+    help='lint exploits for a subscription')
+@click.option(
+    '--okta-aws-login', is_flag=True, help='login to AWS through OKTA')
 def forces_management(subscription, run_exps, static, dynamic, check_sync,
-                      check_uploads, fill_whit_mocks, generate_exploits):
-    """"""
+                      check_uploads, fill_with_mocks, generate_exploits,
+                      lint_exps, okta_aws_login):
+    """Perform operations with the forces service."""
     if not toolbox.has_break_build(subscription):
         raise click.BadArgumentUsage(
             f'{subscription} subscription has no break-build')
@@ -129,30 +155,37 @@ def forces_management(subscription, run_exps, static, dynamic, check_sync,
                      else 1)
         elif static:
             static = static if static != 'all' else ''
-            sys.exit(0 if toolbox.run_static_exploits(subscription, static)
-                     else 1)
+            sys.exit(0 if toolbox.run_static_exploits(subscription,
+                                                      static) else 1)
     elif check_sync:
         check_sync = check_sync if check_sync != 'all' else ''
-        sys.exit(0 if toolbox.are_exploits_synced(subscription, check_sync)
-                 else 1)
+        sys.exit(0 if toolbox.are_exploits_synced(subscription,
+                                                  check_sync) else 1)
     elif check_uploads:
         sys.exit(0 if toolbox.were_exploits_uploaded(subscription) else 1)
-    elif fill_whit_mocks:
+    elif fill_with_mocks:
         toolbox.fill_with_mocks(
             subs_glob=(subscription or '*'), create_files=True)
     elif generate_exploits:
         toolbox.generate_exploits(subs_glob=(subscription or '*'))
+    elif lint_exps:
+        sys.exit(0 if toolbox.lint_exploits(subscription, lint_exps) else 1)
+    elif okta_aws_login:
+        sys.exit(0 if resources.utils.okta_aws_login(
+            f'continuous-{subscription}') else 1)
 
 
-@click.command(name='secrets')
+@click.command(name='secrets', short_help='use the secrets of a subscription')
 @click.argument(
     'subscription',
     default=_get_actual_subscription(),
     callback=_valid_subscription)
-@click.option(
-    '--edit', is_flag=True, help='read the secrets of a subscription')
-@click.option(
-    '--read', is_flag=True, help='edit the secrets of a subscription')
+@click.option('--edit',
+              is_flag=True,
+              help='read the secrets of a subscription')
+@click.option('--read',
+              is_flag=True,
+              help='edit the secrets of a subscription')
 @click.option(
     '--decrypt', is_flag=True, help='decrypt the secrets of a subscription')
 @click.option(
@@ -172,7 +205,7 @@ def secrets_management(subscription, edit, read, decrypt, encrypt,
         sys.exit(0 if toolbox.init_secrets(subscription) else 1)
 
 
-@click.command(name='api')
+@click.command(name='api', short_help='use the integrates API')
 @click.argument(
     'kind', type=click.Choice(['dynamic', 'static', 'all']), default='all')
 @click.argument(
@@ -180,30 +213,34 @@ def secrets_management(subscription, edit, read, decrypt, encrypt,
     default=_get_actual_subscription(),
     callback=_valid_subscription)
 @click.option('--get-vulns', is_flag=True)
-def api_management(kind, subscription, get_vulns):
+@click.option(
+    '--delete-pending-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
+def api_management(kind, subscription, get_vulns, delete_pending_vulns):
+    """Perform operations with the Integrates API."""
     if not toolbox.has_break_build(subscription):
         raise click.BadArgumentUsage(
             f'{subscription} subscription has no break-build')
     if get_vulns:
-        sys.exit(0 if toolbox.get_vulnerabilities_yaml(subscription, kind) else
-                 1)
+        sys.exit(0 if toolbox.get_vulnerabilities_yaml(subscription,
+                                                       kind) else 1)
+    if delete_pending_vulns:
+        sys.exit(0 if toolbox.delete_pending_vulnerabilities(
+            subscription, delete_pending_vulns, kind) else 1)
 
 
-@click.command(name='check', short_help='perform checks')
+@click.command(name='analytics')
 @click.option(
-    '--integrates-api-token',
-    '-it',
-    envvar='INTEGRATES_API_TOKEN',
-    help='Check if the token for the integrates api is valid.',
-    callback=_valid_integrates_token)
-def perform_checks(integrates_api_token, sync):
-    """
-    Perform a suit of checks.
-    """
+    '--analytics-break-build-logs',
+    callback=_is_pipeline,
+    is_flag=True,
+    help='pipelines-only')
+def analytics_management(analytics_break_build_logs, sync):
+    if analytics_break_build_logs:
+        sys.exit(0 if analytics.logs.load_executions_to_database() else 1)
 
 
 cli.add_command(resources_management)
-cli.add_command(perform_checks)
+cli.add_command(analytics_management)
 cli.add_command(forces_management)
 cli.add_command(secrets_management)
 cli.add_command(api_management)

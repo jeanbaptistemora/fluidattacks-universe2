@@ -60,6 +60,7 @@ distutils.core.setup(
     entry_points={
         'console_scripts': [
             'toolbox=toolbox.cli:main',
+            'fluid=toolbox.new_cli:main'
         ],
     },
     include_package_data=True,
