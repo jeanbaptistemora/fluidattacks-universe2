@@ -295,7 +295,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     return(
     <Query
       query={GET_VULNERABILITIES}
-      variables={{ identifier: props.findingId, analystField: false }}
+      variables={{ identifier: props.findingId, analystField: isAnalystorAdmin }}
     >
       {
         ({ error, data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => {

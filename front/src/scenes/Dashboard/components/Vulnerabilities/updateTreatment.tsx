@@ -38,6 +38,7 @@ export interface IUpdateTreatmentModal {
 
 const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
 (props: IUpdateTreatmentModal): JSX.Element => {
+  const canDisplayAnalyst: boolean = _.includes(["analyst", "admin"], props.userRole);
 
   const sortTags: ((tags: string) => string) = (tags: string): string => {
     const tagSplit: string[] = tags.trim()
@@ -93,7 +94,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
       onCompleted={handleUpdateResult}
       onError={handleUpdateTreatError}
       refetchQueries={[{ query: GET_VULNERABILITIES,
-                         variables: { analystField: false, identifier: props.findingId } }]}
+                         variables: { analystField: canDisplayAnalyst, identifier: props.findingId } }]}
     >
       {(updateTreatmentVuln: MutationFunction<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>): JSX.Element => {
 
@@ -137,7 +138,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
               onCompleted={handleDeleteResult}
               onError={handleDeleteError}
               refetchQueries={[{ query: GET_VULNERABILITIES,
-                                 variables: { analystField: false, identifier: props.findingId } }]}
+                                 variables: { analystField: canDisplayAnalyst, identifier: props.findingId } }]}
             >
             {(deleteTagVuln: MutationFunction<IDeleteTagResult, IDeleteTagAttr>): JSX.Element => {
                 const handleDeleteTag: (() => void) = (): void => {
