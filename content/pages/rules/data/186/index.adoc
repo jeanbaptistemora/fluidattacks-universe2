@@ -1,28 +1,45 @@
 :slug: rules/186/
 :category: data
-:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of setting the minimum level of privileges to access other systems or database.
-:keywords: Requirement, Security, Data, Privileges, System, Database
+:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of setting the minimum level of privileges to access other systems or databases.
+:keywords: Data, Privileges, System, ASVS, NIST, CWE
 :rules: yes
 
 = REQ.186 Use minimum level of privileges
 
 == Requirement
 
-System must use the minimum level of privileges
-when accessing other systems or database.
+The system must use the minimum level of privileges
+when accessing other systems or databases.
+
+== Description
+
+Systems should usually have a set of roles with different levels of
+privilege for accessing resources.
+Users and applications should always have a role with the minimum level of
+privilege required to execute their functions.
+A violation of this may become a new vulnerability or leverage for causing a
+greater impact when exploiting other vulnerabilities.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.1+]
-Verify that the principle of least privilege exists.
-Users should only be able to access functions, data files, URLs,
-controllers, services, and other resources,
-for which they possess specific authorization.
-This implies protection against spoofing and elevation of privilege.
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.1)]
+Verify the use of unique or special low-privilege operating system accounts for
+all application components, services, and servers.
 
-. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-6[+NIST+ 800-53 AC-6]
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-6[NIST 800-53 AC-6]
 The organization employs the principle of least privilege,
 allowing only authorized accesses for users
 (or processes acting on behalf of users)
 which are necessary to accomplish assigned tasks
 in accordance with organizational missions and business functions.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/250.html[CWE-250 Execution with Unnecessary Privileges]
+The software performs an operation at a privilege level that is higher than the
+minimum level required,
+which creates new weaknesses or amplifies the consequences of other weaknesses.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/269.html[CWE-269 Improper Privilege Management]
+The software does not properly assign, modify, track, or check privileges for
+an actor,
+creating an unintended sphere of control for that actor.
