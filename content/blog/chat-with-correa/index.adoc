@@ -21,7 +21,7 @@ His insights about the current cybersecurity landscape
 complements previous perspectives on our blog.
 Daniel has a bachelor's degree in Computer Science
 and holds qualifications such as `OSCP`, `OSCE` and `OSWE`.
-He's currently doing an `MBA`.
+He recently finished an `MBA`.
 
 We started this conversation
 by discussing the main threats companies face these days.
