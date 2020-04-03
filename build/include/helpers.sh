@@ -314,7 +314,7 @@ function helper_move_continuous_fusion_to_master_git {
           PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
           toolbox --sync-s3-to-fusion --subs "${subs}" \
       &&  mkdir -p ../../"${subs}" \
-      &&  cp subscriptions/"${subs}"/fusion/* ../../"${subs}"
+      &&  cp -r subscriptions/"${subs}"/fusion/* ../../"${subs}"
     done < "${path_empty_repos}"
   popd
 
