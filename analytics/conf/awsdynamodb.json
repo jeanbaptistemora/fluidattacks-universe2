@@ -1,5 +1,23 @@
 {
   "tables": {
+    "bb_executions": {
+      "primary-keys": [
+        "subscription",
+        "execution_id"
+      ],
+      "schema": {
+        "subscription": "string",
+        "execution_id": "string",
+        "date": "date-time",
+        "git_branch": "string",
+        "git_commit": "string",
+        "git_origin": "string",
+        "git_repo": "string",
+        "kind": "string",
+        "strictness": "string",
+        "vulnerabilities": "string"
+      }
+    },
     "FI_alerts_by_company": {
       "primary-keys": [
         "company_name",
