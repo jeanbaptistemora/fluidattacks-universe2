@@ -501,6 +501,9 @@ function job_lint_back {
         django-apps/integrates-back/backend/domain/*py \
         django-apps/integrates-back/backend/dal/* \
         django-apps/integrates-back/backend/utils/* \
+        django-apps/integrates-back-async/backend/api/resolvers/cache.py \
+        django-apps/integrates-back-async/backend/api/resolvers/event.py \
+        django-apps/integrates-back-async/backend/api/resolvers/finding.py \
         django-apps/integrates-back-async/backend/api/resolvers/me.py \
         django-apps/integrates-back-async/backend/api/resolvers/vulnerability.py \
   &&  prospector -F -s high -u django -i node_modules app \
