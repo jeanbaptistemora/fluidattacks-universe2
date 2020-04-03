@@ -113,7 +113,7 @@ class ProjectTests(TestCase):
         assert len(result['data']['project']['drafts']) == 2
         assert len(result['data']['project']['events']) == 5
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
-        assert len(result['data']['project']['users']) == 3
+        assert len(result['data']['project']['users']) == 4
 
     def test_create_project(self):
         """Check for createProject mutation."""

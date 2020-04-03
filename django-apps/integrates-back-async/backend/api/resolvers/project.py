@@ -346,6 +346,7 @@ async def _get_users(info, project_name):
     user_roles_to_retrieve = ['customer', 'customeradmin']
     if user_role == 'admin':
         user_roles_to_retrieve.append('admin')
+        user_roles_to_retrieve.append('analyst')
     users = [
         await user_loader.resolve(info, email, project_name, as_field=True)
         for email in user_email_list

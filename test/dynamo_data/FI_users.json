@@ -154,6 +154,9 @@
       {
         "PutRequest": {
           "Item": {
+            "company": {
+              "S": "fluid"
+            },
             "last_name": {
               "S": "Analyst2"
             },

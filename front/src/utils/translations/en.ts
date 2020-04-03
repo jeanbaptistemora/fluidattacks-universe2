@@ -796,7 +796,7 @@ const enTranslations: Dictionary = {
       admin: "Admin",
       analyst: "Analyst",
       customer: "User",
-      customer_admin: "Manager",
+      customeradmin: "Manager",
       days_ago: "{{count}} day ago",
       days_ago_plural: "{{count}} days ago",
       edit: "Edit",

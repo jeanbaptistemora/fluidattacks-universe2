@@ -11,7 +11,7 @@ from backend.domain import (
 )
 from backend.exceptions import UserNotFound
 from backend.services import (
-    has_responsibility, has_phone_number, is_customeradmin,
+    has_responsibility, has_phone_number,
     has_access_to_project
 )
 from backend import util
@@ -28,13 +28,11 @@ def _get_email(email, _=None):
 @sync_to_async
 def _get_role(email, project_name):
     """Get role."""
-    user_role = user_domain.get_user_level_role(email)
-    if project_name and is_customeradmin(project_name, email):
-        role = 'customer_admin'
-    elif user_role == 'customeradmin':
-        role = 'customer'
+    if project_name:
+        role = user_domain.get_group_level_role(email, project_name)
     else:
-        role = user_role
+        role = user_domain.get_user_level_role(email)
+
     return dict(role=role)
 
 
