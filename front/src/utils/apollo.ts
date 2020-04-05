@@ -2,8 +2,10 @@ import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { ApolloLink, Operation } from "apollo-link";
 import { ErrorResponse, onError } from "apollo-link-error";
+import { WebSocketLink } from "apollo-link-ws";
 import { createUploadLink } from "apollo-upload-client";
-import { GraphQLError } from "graphql";
+import { getMainDefinition } from "apollo-utilities";
+import { FragmentDefinitionNode, GraphQLError, OperationDefinitionNode } from "graphql";
 import _ from "lodash";
 import { getEnvironment } from "./context";
 import { msgError } from "./notifications";
@@ -84,6 +86,7 @@ const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
 
 let urlHostApiV1: string;
 let urlHostApiV2: string;
+let wsApiV2: string;
 
 const setIntegratesHeaders: Dictionary = {
   "X-CSRFToken": getCookie("csrftoken"),
@@ -92,11 +95,13 @@ const setIntegratesHeaders: Dictionary = {
 if (window.location.hostname === "localhost") {
     urlHostApiV1 = `${window.location.protocol}//${window.location.hostname}:8080/api`;
     urlHostApiV2 = `${window.location.protocol}//${window.location.hostname}:9090/api`;
+    wsApiV2 = `wss://${window.location.hostname}:9090/notifications`;
     const authHeader: string = "Authorization";
     setIntegratesHeaders[authHeader] = `Bearer ${getCookie("integrates_session")}`;
 } else {
     urlHostApiV1 = `${window.location.origin}/integrates/api`;
     urlHostApiV2 = `${window.location.origin}/integrates/v2/api`;
+    wsApiV2 = `wss://${window.location.hostname}/integrates/v2/notifications`;
 }
 
 const apiLinkV1: ApolloLink = createUploadLink({
@@ -106,12 +111,32 @@ const apiLinkV1: ApolloLink = createUploadLink({
   uri: urlHostApiV1,
 });
 
-const apiLinkV2: ApolloLink = createUploadLink({
+const httpLinkV2: ApolloLink = createUploadLink({
   credentials: "same-origin",
   fetch: extendedFetch,
   headers: setIntegratesHeaders,
   uri: urlHostApiV2,
 });
+
+const wsLink: ApolloLink = new WebSocketLink({
+    options: {
+      reconnect: true,
+    },
+    uri: wsApiV2,
+  });
+
+const apiLinkV2: ApolloLink = ApolloLink.split(
+    ({ query }: Operation): boolean => {
+        const definition: OperationDefinitionNode | FragmentDefinitionNode = getMainDefinition(query);
+
+        return (
+        definition.kind === "OperationDefinition" &&
+        definition.operation === "subscription"
+        );
+    },
+    wsLink,
+    httpLinkV2,
+);
 
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),

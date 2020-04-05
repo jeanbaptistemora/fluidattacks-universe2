@@ -1,11 +1,19 @@
 """ASGI config for fluidintegrates project."""
+# pylint: disable=invalid-name
 
 import os
 
 import django
 import newrelic.agent
 
+try:
+    from ariadne.asgi import GraphQL  # noqa: E402
+    NEW_API = True
+except ImportError:
+    NEW_API = False
+
 from django.conf import settings  # noqa: E402
+from django.urls import path, re_path  # noqa: E402
 
 # Init New Relic agent
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fluidintegrates.settings")
@@ -14,7 +22,9 @@ NEW_RELIC_CONF_FILE = os.path.join(settings.BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
 from channels.http import AsgiHandler  # noqa: E402
-from channels.routing import ProtocolTypeRouter  # noqa: E402
+from channels.routing import ProtocolTypeRouter, URLRouter  # noqa: E402
+
+from backend.api.schema import SCHEMA  # noqa: E402
 
 
 # pylint: disable=too-few-public-methods
@@ -40,7 +50,24 @@ class AsgiHandlerWithNewrelic(AsgiHandler):
         return get_response_custom(request)
 
 
-# pylint: disable=invalid-name
-application = ProtocolTypeRouter({
-    "http": AsgiHandlerWithNewrelic
-})
+if NEW_API:
+    class DjangoChannelsGraphQL(GraphQL):
+        def __call__(self, scope) -> None:
+            async def handle(receive, send):
+                await \
+                    super(DjangoChannelsGraphQL, self).__call__(
+                        scope, receive, send)
+            return handle
+
+    application = ProtocolTypeRouter({
+        'http': AsgiHandlerWithNewrelic,
+        'websocket': URLRouter([
+            re_path(r'^/?notifications/?\.*$',
+                    DjangoChannelsGraphQL(SCHEMA, debug=settings.DEBUG)),
+
+        ])
+    })
+else:
+    application = ProtocolTypeRouter({
+        "http": AsgiHandlerWithNewrelic
+    })

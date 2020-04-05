@@ -443,6 +443,7 @@ function _job_serve_back_async {
         --header="Access-Control-Allow-Origin:*" \
         --header="Access-Control-Allow-Headers:*" \
         --workers="${workers}" \
+        --interface=asgi2 \
         --reload \
         "${app}"
 }
@@ -513,7 +514,7 @@ function job_lint_back {
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
   &&  npx graphql-schema-linter \
-        --except 'enum-values-all-caps,enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions' \
+        --except 'enum-values-all-caps,enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,type-fields-sorted-alphabetically,arguments-have-descriptions,type-fields-sorted-alphabetically' \
         django-apps/integrates-back-async/backend/api/schemas/*
 }
 
