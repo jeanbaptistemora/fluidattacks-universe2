@@ -26,7 +26,7 @@ import { HANDLE_ACCEPTATION } from "../queries";
 import { IHistoricTreatment } from "../types";
 import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "./queries";
 
-interface ITreatmentViewProps {
+export interface ITreatmentViewProps {
   approvalModalConfig: { open: boolean; type: string };
   findingId: string;
   isEditing: boolean;
