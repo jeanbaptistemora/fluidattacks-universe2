@@ -37,6 +37,8 @@ def send_report_password_email(user_email: str, project_name: str, password: str
 
 def upload_report(file_path: str) -> bool:
     file_content = open(file_path, 'rb')
-    my_obj = ContentFile(file_content.read())
+    report = ContentFile(file_content.read())
+    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    file_name = str(timestamp) + '_' + '_'.join(file_path.split('/')[-1].split('_')[-2:])
     return s3.upload_memory_file(  # type: ignore
-        FI_AWS_S3_REPORTS_BUCKET, my_obj, file_path.split('/')[-1])
+        FI_AWS_S3_REPORTS_BUCKET, report, file_name)
