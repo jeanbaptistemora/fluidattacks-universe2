@@ -133,7 +133,7 @@ resource "aws_s3_bucket_policy" "fi_resources_bucket_policy" {
 
 resource "aws_s3_bucket_policy" "fi_reports_bucket_policy" {
   bucket = aws_s3_bucket.fi_reports_bucket.id
-  policy = data.aws_iam_policy_document.cloudfront_s3_access.json
+  policy = data.aws_iam_policy_document.cloudfront_s3_reports_access.json
 }
 
 output "fi_evidences_bucket_id" {
