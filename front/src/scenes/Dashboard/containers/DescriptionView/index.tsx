@@ -31,7 +31,7 @@ import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries"
 import { TreatmentView } from "./TreatmentView";
 import { IFinding, IHistoricTreatment } from "./types";
 
-type DescriptionViewProps = RouteComponentProps<{ findingId: string; projectName: string }>;
+export type DescriptionViewProps = RouteComponentProps<{ findingId: string; projectName: string }>;
 
 const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;

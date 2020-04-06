@@ -9,7 +9,7 @@ configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ActionButtons", () => {
 
-  const baseMockProps: IActionButtonsProps = {
+  const baseMockedProps: IActionButtonsProps = {
     isEditing: false,
     isPristine: false,
     isRemediated: false,
@@ -42,7 +42,7 @@ describe("ActionButtons", () => {
 
   it("should render a component", async () => {
     const wrapper: ShallowWrapper = shallow(
-      <ActionButtons {...baseMockProps} />,
+      <ActionButtons {...baseMockedProps} />,
     );
     expect(wrapper)
       .toHaveLength(1);
@@ -60,7 +60,7 @@ describe("ActionButtons", () => {
 
   it("should render request verification", async () => {
     const requestMockProps: IActionButtonsProps = {
-      ...baseMockProps,
+      ...baseMockedProps,
       isEditing: false,
       isRemediated: false,
       isVerified: false,
