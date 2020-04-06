@@ -29,25 +29,6 @@ import {
 import { UpdateTreatmentModal } from "./updateTreatment";
 import { UploadVulnerabilites } from "./uploadFile";
 
-type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
-
-export const getAttrVulnUpdate: (selectedQery: NodeListOf<Element>) => ISelectRowType =
-(selectedQery: NodeListOf<Element>): ISelectRowType =>  {
-  const attrVuln: ISelectRowType = [];
-  selectedQery.forEach((element: Element) => {
-    if (element.className !== "react-bs-select-all") {
-      const selectedRow: HTMLTableRowElement | null = element.closest("tr");
-      attrVuln.push ({
-        specific: _.isNull(selectedRow) ? undefined : selectedRow.children[2].textContent,
-        where: _.isNull(selectedRow) ? undefined : selectedRow.children[1].textContent,
-        });
-      }
-    },
-  );
-
-  return attrVuln;
-};
-
 const filterApprovalStatus:
   ((dataVuln: IVulnType, state: string) => IVulnType) =
     (dataVuln: IVulnType, state: string): IVulnType =>
@@ -173,43 +154,41 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         where: line.where,
       })));
 
-const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]) =>
-  IVulnDataType[] = (selectedRow: ISelectRowType, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]):
+const getVulnByRow: (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]) =>
+  IVulnDataType[] = (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]):
   IVulnDataType[] => {
-    selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
-      categoryVuln.forEach((vuln: {
-        currentState: string;
-        id: string;
-        severity: string;
-        specific: string;
-        tag: string;
-        treatmentManager: string;
-        where: string;
-      }) => {
-        if (row.where === vuln.where && row.specific === vuln.specific) {
-        vulnData.push({
-          currentState: vuln.currentState,
-          id: vuln.id,
-          specific: vuln.specific,
-          treatments: {
-            severity: vuln.severity,
-            tag: vuln.tag,
-            treatmentManager: vuln.treatmentManager,
-          },
-          where: vuln.where,
-        });
-        }
+    categoryVuln.forEach((vuln: {
+      currentState: string;
+      id: string;
+      severity: string;
+      specific: string;
+      tag: string;
+      treatmentManager: string;
+      where: string;
+    }) => {
+      if (selectedRowId === vuln.id) {
+      vulnData.push({
+        currentState: vuln.currentState,
+        id: vuln.id,
+        specific: vuln.specific,
+        treatments: {
+          severity: vuln.severity,
+          tag: vuln.tag,
+          treatmentManager: vuln.treatmentManager,
+        },
+        where: vuln.where,
       });
-    });
+    }
+  });
 
     return vulnData;
   };
 
-const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: IVulnRow[][]) =>
-  IVulnDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: IVulnRow[][]):
+const getVulnInfo: (selectedRowArray: string[], arrayVulnCategory: IVulnRow[][]) =>
+  IVulnDataType[] = (selectedRowArray: string[], arrayVulnCategory: IVulnRow[][]):
   IVulnDataType[] => {
   let arrayVulnInfo: IVulnDataType[] = [];
-  selectedRowArray.forEach((selectedRow: ISelectRowType) => {
+  selectedRowArray.forEach((selectedRow: string) => {
     if (!_.isUndefined(selectedRow)) {
       arrayVulnCategory.forEach((category: IVulnRow[]) => {
         arrayVulnInfo = getVulnByRow(selectedRow, category, arrayVulnInfo);
@@ -238,22 +217,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
 
-    const getSelectQryTable: () => {selectedQeryArray: Array<NodeListOf<Element>> } = ():
-      { selectedQeryArray: Array<NodeListOf<Element>> } => {
-      const selectedQryArray: Array<NodeListOf<Element>> = [];
-      const vulnsTable: string[] = ["#inputsVulns", "#linesVulns", "#portsVulns"];
-      vulnsTable.forEach((table: string) => {
-        const qryTable: NodeListOf<Element> = document.querySelectorAll(`${table} tr input:checked`);
-        if (!_.isEmpty(qryTable)) {
-          selectedQryArray.push(qryTable);
-        }
-      });
-      const result: { selectedQeryArray: Array<NodeListOf<Element>> } = {
-        selectedQeryArray: selectedQryArray,
-      };
-
-      return result;
-    };
     const isEditable: boolean = props.editMode && _.includes(["customer", "customeradmin"], props.userRole);
     const canRequestVerification: boolean =  props.isRequestVerification === true
       && _.includes(["customer", "customeradmin"], props.userRole);
@@ -639,17 +602,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             );
 
             const calculateRowsSelected: () => ICalculateRowsSelected = (): ICalculateRowsSelected  => {
-              const selectedRows: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
-              const selectedRowArray: ISelectRowType[] = [];
               const arrayVulnCategory: IVulnRow[][] = [
                 data.finding.inputsVulns,
                 data.finding.linesVulns,
                 data.finding.portsVulns,
               ];
-              selectedRows.forEach((selectQry: NodeListOf<Element>) => {
-                selectedRowArray.push(getAttrVulnUpdate(selectQry));
-              });
-              const vulns: IVulnDataType[] = getVulnInfo(selectedRowArray, arrayVulnCategory);
+              const vulns: IVulnDataType[] = getVulnInfo(arraySelectedRows, arrayVulnCategory);
 
               return {
                 oneRowSelected: vulns.length === 1,
@@ -861,7 +819,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       newArray = newArray.filter((indexFilter: number) =>
                         !_.includes(inputVulnsVerified, indexFilter));
                     }
-                    setSelectRowsInputs([...newArray]);
+                    const newSetInputs: Set<number> = new Set([...selectRowsInputs, ...newArray]);
+                    setSelectRowsInputs(Array.from(newSetInputs));
                   } else {
                     const newSet: Set<string> = new Set(arraySelectedRows);
                     newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
@@ -896,7 +855,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       newArray = newArray.filter((indexFilter: number) =>
                         !_.includes(lineVulnsVerified, indexFilter));
                     }
-                    setSelectRowsLines([...newArray]);
+                    const newSetLines: Set<number> = new Set([...selectRowsLines, ...newArray]);
+                    setSelectRowsLines(Array.from(newSetLines));
                   } else {
                     const newSet: Set<string> = new Set(arraySelectedRows);
                     newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
@@ -931,7 +891,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       newArray = newArray.filter((indexFilter: number) =>
                         !_.includes(portVulnsVerified, indexFilter));
                     }
-                    setSelectRowsPorts([...newArray]);
+                    const newSetPorts: Set<number> = new Set([...selectRowsPorts, ...newArray]);
+                    setSelectRowsPorts(Array.from(newSetPorts));
                   } else {
                     const newSet: Set<string> = new Set(arraySelectedRows);
                     newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
