@@ -1,0 +1,37 @@
+:slug: rules/320/
+:category: architecture
+:description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of enforcing access control on the server's side instead of on the client's.
+:keywords: Control Enforcement, Client, Server, GDPR, ASVS, CWE
+:rules: yes
+
+= REQ.320 Avoid client-side control enforcement
+
+== Requirement
+
+The system must enforce access controls on trusted enforcement points,
+not on the client's side.
+
+== Description
+
+Systems must enforce access controls on trusted enforcement points such as
+access control gateways, severs and serverless functions.
+Client-side access control enforcement can not be trusted because it is prone
+to being bypassed and/or tampered with.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(c).]
+The controller and the processor shall implement appropriate technical and
+organizational measures to ensure an appropriate level of security,
+including the the ability to restore the availability and access to personal
+data in a timely manner in the event of a physical or technical incident.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.1)]
+Verify that trusted enforcement points such as at access control gateways,
+servers, and serverless functions enforce access controls.
+Never enforce access controls on the client.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602 Client-Side Enforcement of Server-Side Security]
+The software is composed of a server that relies on the client to implement a
+mechanism that is intended to protect the server.
