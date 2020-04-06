@@ -577,11 +577,9 @@ def get_project(finding_id: str) -> str:
     return str(finding_dal.get_attributes(finding_id, ['project_name']).get('project_name', ''))
 
 
-def get_finding_historic_treatment(finding_id: str) -> str:
-    return str(
-        finding_dal.get_attributes(
-            finding_id, ['historic_treatment']).get('historic_treatment', '')
-    )
+def get_finding_historic_treatment(finding_id: str) -> List[Dict[str, str]]:
+    finding = finding_dal.get_attributes(finding_id, ['historic_treatment'])
+    return cast(List[Dict[str, str]], finding.get('historic_treatment'))
 
 
 def get_findings(finding_ids: List[str]) -> List[Dict[str, FindingType]]:
