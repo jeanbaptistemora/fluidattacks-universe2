@@ -3,11 +3,11 @@ import io
 import os
 import re
 import json
-import time
 import contextlib
 import datetime
 import multiprocessing
 import traceback
+from typing import Any
 from itertools import repeat
 
 # Third parties libraries
@@ -90,6 +90,18 @@ class Execution(pynamodb.models.Model):
     git_repo = pynamodb.attributes.UnicodeAttribute()
     vulnerabilities: pynamodb.attributes.MapAttribute = \
         pynamodb.attributes.MapAttribute()
+    vulnerabilities_exploits: Any = \
+        pynamodb.attributes.ListAttribute()
+    vulnerabilities_mocked_exploits: Any = \
+        pynamodb.attributes.ListAttribute()
+    vulnerabilities_accepted_exploits: Any = \
+        pynamodb.attributes.ListAttribute()
+    vulnerability_count_exploits: Any = \
+        pynamodb.attributes.NumberAttribute()
+    vulnerability_count_mocked_exploits: Any = \
+        pynamodb.attributes.NumberAttribute()
+    vulnerability_count_accepted_exploits: Any = \
+        pynamodb.attributes.NumberAttribute()
 
 
 def get_execution_attr_full(s3_client, s3_prefix):
@@ -211,7 +223,7 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
         get_execution_attr_full(s3_client, s3_prefix)
     exit_code, strictness, git_branch, git_commit, git_origin, git_repo = \
         get_metadata_attrs(s3_client, s3_prefix)
-    vulnerabilities = \
+    vulnerabilities: dict = \
         get_vulnerability_attrs(s3_client, s3_prefix, git_repo)
 
     return Execution(
@@ -227,6 +239,18 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
         git_origin=git_origin,
         git_repo=git_repo,
         vulnerabilities=vulnerabilities,
+        vulnerabilities_exploits=vulnerabilities[
+            'exploits'],
+        vulnerabilities_mocked_exploits=vulnerabilities[
+            'mocked_exploits'],
+        vulnerabilities_accepted_exploits=vulnerabilities[
+            'accepted_exploits'],
+        vulnerability_count_exploits=vulnerabilities[
+            'vulnerability_count_exploits'],
+        vulnerability_count_mocked_exploits=vulnerabilities[
+            'vulnerability_count_mocked_exploits'],
+        vulnerability_count_accepted_exploits=vulnerabilities[
+            'vulnerability_count_accepted_exploits'],
     )
 
 
@@ -301,8 +325,6 @@ def load_executions_to_database() -> bool:
                         pynamodb.exceptions.PynamoDBException):
                     logger.error('  The following exception was raised')
                     logger.error(traceback.format_exc())
-                logger.info('  Cooling down 10 seconds')
-                time.sleep(10)
         logger.info('Done')
 
     return True
