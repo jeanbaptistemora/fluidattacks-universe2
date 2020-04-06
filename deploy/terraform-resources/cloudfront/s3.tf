@@ -56,6 +56,14 @@ resource "aws_s3_bucket" "fi_reports_bucket" {
     }
   }
 
+  lifecycle_rule {
+    id      = "reports"
+    enabled = true
+    expiration {
+      days = 1
+    }
+  }
+
   tags = {
     Pry = "Integrates"
   }
