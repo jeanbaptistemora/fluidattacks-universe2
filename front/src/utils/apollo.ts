@@ -119,11 +119,12 @@ const httpLinkV2: ApolloLink = createUploadLink({
 });
 
 const wsLink: ApolloLink = new WebSocketLink({
-    options: {
-      reconnect: true,
-    },
-    uri: wsApiV2,
-  });
+  options: {
+    lazy: true,
+    reconnect: true,
+  },
+  uri: wsApiV2,
+});
 
 const apiLinkV2: ApolloLink = ApolloLink.split(
     ({ query }: Operation): boolean => {
@@ -265,7 +266,8 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
            "GetProjectUsers",
            "UpdateSeverityMutation",
            "UpdateFindingDescription",
-           "UpdateTreatmentMutation"].includes(operation.operationName),
+           "UpdateTreatmentMutation",
+           "GetBroadcastMessages"].includes(operation.operationName),
         apiLinkV2,
         apiLinkV1,
        ),

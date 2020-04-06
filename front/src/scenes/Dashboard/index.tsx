@@ -3,8 +3,9 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
-import { MutationFunction } from "@apollo/react-common";
+import { MutationFunction, OnSubscriptionDataOptions } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
+import { useSubscription } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
@@ -25,7 +26,7 @@ import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
 import { TagContent } from "./containers/TagContent/index";
 import { default as style } from "./index.css";
-import { ADD_USER_MUTATION } from "./queries";
+import { ADD_USER_MUTATION, GET_BROADCAST_MESSAGES } from "./queries";
 import { IAddUserAttr } from "./types";
 
 type IDashboardProps = RouteComponentProps;
@@ -56,6 +57,14 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
     }
   };
   const { userRole } = (window as typeof window & { userRole: string });
+
+  useSubscription(
+    GET_BROADCAST_MESSAGES, {
+        onSubscriptionData: ({ subscriptionData }: OnSubscriptionDataOptions): void => {
+          const bcMessage: string = subscriptionData.data.broadcast;
+          msgSuccess(bcMessage, "Broadcast");
+        },
+      });
 
   return (
     <React.StrictMode>

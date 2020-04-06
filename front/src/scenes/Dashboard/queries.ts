@@ -19,3 +19,9 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
     }
   }
 `;
+
+export const GET_BROADCAST_MESSAGES: DocumentNode = gql`
+  subscription GetBroadcastMessages {
+    broadcast
+  }
+`;
