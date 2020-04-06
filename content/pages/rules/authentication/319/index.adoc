@@ -1,0 +1,36 @@
+:slug: rules/319/
+:category: authentication
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that all of the system's authentication options have the same security control strength.
+:keywords: Control Strength, Identity, Authentication, Access, ASVS, CWE
+:rules: yes
+
+= REQ.319 Make authentication options equally secure
+
+== Requirement
+
+All of the system's authentication pathways and identity management APIs
+must be equally secure.
+
+== Description
+
+Some systems offer more than one option to authenticate their users or verify
+their identity.
+All of these options must have the same security control strength,
+so that there is no weaker alternative.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.4)]
+Verify that all authentication pathways and identity management APIs implement
+consistent authentication security control strength,
+such that there are no weaker alternatives per the risk of the application.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+The software does not perform any authentication for functionality that
+requires a provable user identity or consumes a significant amount of
+resources.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
+When an actor claims to have a given identity,
+the software does not prove or insufficiently proves that the claim is correct.
