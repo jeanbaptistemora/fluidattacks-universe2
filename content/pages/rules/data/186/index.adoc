@@ -27,19 +27,29 @@ V1.2 Authentication Architectural Requirements.(1.2.1)]
 Verify the use of unique or special low-privilege operating system accounts for
 all application components, services, and servers.
 
-. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-6[NIST 800-53 AC-6]
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.3)]
+Verify enforcement of the principle of least privilege in functions,
+data files, URLs, controllers, services, and other resources.
+This implies protection against spoofing and elevation of privilege.
+
+. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-6[NIST 800-53 AC-6]
 The organization employs the principle of least privilege,
 allowing only authorized accesses for users
 (or processes acting on behalf of users)
 which are necessary to accomplish assigned tasks
 in accordance with organizational missions and business functions.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/250.html[CWE-250 Execution with Unnecessary Privileges]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/250.html[CWE-250 Execution with Unnecessary Privileges]
 The software performs an operation at a privilege level that is higher than the
 minimum level required,
 which creates new weaknesses or amplifies the consequences of other weaknesses.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/269.html[CWE-269 Improper Privilege Management]
+. [[r5]] link:https://cwe.mitre.org/data/definitions/269.html[CWE-269 Improper Privilege Management]
 The software does not properly assign, modify, track, or check privileges for
 an actor,
 creating an unintended sphere of control for that actor.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/272.html[CWE-272 Least Privilege Violation]
+The elevated privilege level required to perform operations such as chroot()
+should be dropped immediately after the operation is performed.
