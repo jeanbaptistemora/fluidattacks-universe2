@@ -38,8 +38,8 @@
 
 {% block content %}
 <div class="bg-graylight flex-ns flex-wrap-ns justify-between-m bg-banner-sz coverm cover-s h-auto">
-	<div class="ph5-ns ma-auto mw9 w-100-ns w-90 pt5-ns pt3">
-		<a class="feature-button-l roboto fw1 fl f3-ns f5 no-underline c-fluid-bk pb3"
+	<div class="ph5-ns ma-auto mw9 w-100-ns w-90 pv4-ns pv3">
+		<a class="feature-button-l roboto fw1 fl f3-ns f5 no-underline c-fluid-bk"
 			 href="{{ SITEURL }}/use-cases/{{ page.category }}/">
 				<img
 				class="w1 fl relative pv2-ns pv1 mr2 mirror-img"
@@ -48,7 +48,7 @@
 				Back to {{ page.section }}
     </a>
     {% if not page.slug.endswith('critical-information/') %}
-		<a class="feature-button-r roboto fw1 fr f3-ns f5 no-underline c-fluid-bk pb3"
+		<a class="feature-button-r roboto fw1 fr f3-ns f5 no-underline c-fluid-bk"
 			 href="{{ SITEURL }}/{{ page.nextpage }}">
 				<img
 				class="w1 fr relative pv2-ns pv1 ml2"
@@ -61,12 +61,12 @@
 </div>
 <div class="bg-graylight flex-ns flex-wrap-ns justify-between-m bg-banner-sz coverm cover-s h-auto pb5">
 	<div class="pb5 ph5-ns ma-auto mw9 ml-auto mr-auto">
-		<div class="fr-l w-45-l w100-m w90-s center">
+		<div class="fr-l w-45-l w100-m w90-s center mt-6-l">
 			<img
 			src="{{ SITEURL }}/{{ page.url }}cover.png"
 			alt="Young hacker smiling">
 		</div>
-		<div class="fl-l w-50-l w100-m w90-s mt3-l center">
+		<div class="fl-l w-50-l w100-m w90-s center">
 			<div class="roboto f1-l f2-m f3 b lh-title pt0-l pt3">
 				{{ page.title }}
 			</div>
