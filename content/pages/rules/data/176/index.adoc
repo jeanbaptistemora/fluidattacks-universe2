@@ -20,6 +20,8 @@ credentials and health histories.
 This data should be protected as a fundamental right,
 therefore, it should be stored and transmitted using secure mechanisms that
 prevent access to it by unauthorized actors.
+Furthermore, the access control model and role assignation policy must
+be implemented having these restrictions in consideration.
 
 == References
 
@@ -40,11 +42,22 @@ Verify that communications between application components,
 including APIs, middleware and data layers, are authenticated.
 Components should have the least necessary privileges needed.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.4.5)]
+Verify that attribute or feature-based access control is used whereby the code
+checks the user's authorization for a feature/data item rather than just their
+role.
+Permissions should still be allocated using roles.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
 The software does not perform any authentication for functionality that
 requires a provable user identity or consumes a significant amount of
 resources.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
+. [[r6]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
 When an actor claims to have a given identity,
 the software does not prove or insufficiently proves that the claim is correct.
+
+. [[r7]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
+The software does not restrict or incorrectly restricts access to a resource
+from an unauthorized actor.
