@@ -5,7 +5,7 @@
 
 = Products
 
-[role="w6 center pt5"]
+[role="w-products center pt5"]
 image::product-integrates.png[link="../products/integrates/"]
 
 == Integrates
@@ -15,7 +15,7 @@ processes in any stage of the software development life cycle.
 This is a red team management tool for reporting all project findings in the
 different phases and in real-time.
 
-[role="w6 center pt3"]
+[role="w-products center pt3"]
 image::product-drills.png[link="../products/drills/"]
 
 == Drills
@@ -25,7 +25,7 @@ at high speed during the entire software development life cycle.
 *Drills* performs ethical hacking of applications and infrastructure,
 along with source code analysis.
 
-[role="w6 center pt3"]
+[role="w-products center pt3"]
 image::product-forces.png[link="../products/forces/"]
 
 == Forces
@@ -35,7 +35,7 @@ image::product-forces.png[link="../products/forces/"]
 remediation of open vulnerabilities.
 Fluid Attacks creates personalized exploits that perform these attacks.
 
-[role="w6 center pt3"]
+[role="w-products center pt3"]
 image::use-cases-rules.png[link="#"]
 
 == Rules
