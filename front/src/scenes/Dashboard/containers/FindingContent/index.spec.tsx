@@ -480,7 +480,7 @@ describe("FindingContent", () => {
       .find("Button")
       .at(1);
     proceedButton.simulate("click");
-    await act(async () => { await wait(50); wrapper.update(); });
+    await act(async () => { await wait(100); wrapper.update(); });
     rejectButton = wrapper.find("ButtonToolbar")
       .at(0)
       .find("Button")
