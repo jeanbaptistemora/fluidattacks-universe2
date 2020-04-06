@@ -45,3 +45,15 @@ AddUserPayload = NamedTuple('AddUserPayload', [
     ('success', bool),
     ('email', str),
 ])
+GrantUserAccessPayload = NamedTuple('GrantUserAccessPayload', [
+    ('success', bool),
+    ('granted_user', User),
+])
+RemoveUserAccessPayload = NamedTuple('RemoveUserAccessPayload', [
+    ('success', bool),
+    ('removed_email', str),
+])
+EditUserPayload = NamedTuple('EditUserPayload', [
+    ('success', bool),
+    ('modified_user', User),
+])

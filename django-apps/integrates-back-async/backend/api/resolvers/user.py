@@ -1,7 +1,7 @@
 # pylint: disable=import-error
 # pylint: disable=too-many-locals
 
-from typing import Union, Dict, List as _List
+from typing import Dict
 import threading
 
 from backend.api.dataloaders import user as user_loader
@@ -16,6 +16,9 @@ from backend.services import is_customeradmin
 from backend.typing import (
     User as UserType,
     AddUserPayload as AddUserPayloadType,
+    GrantUserAccessPayload as GrantUserAccessPayloadType,
+    RemoveUserAccessPayload as RemoveUserAccessPayloadType,
+    EditUserPayload as EditUserPayloadType,
 )
 from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
@@ -125,16 +128,17 @@ def resolve_add_user(_, info, **parameters) -> AddUserPayloadType:
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_grant_user_access(_, info, **query_args):
+def resolve_grant_user_access(
+        _, info, **query_args) -> GrantUserAccessPayloadType:
     """Resolve grant_user_access mutation."""
-    project_name = query_args.get('project_name')
+    project_name = query_args.get('project_name', '')
     success = False
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     role = user_domain.get_group_level_role(user_email, project_name)
 
     new_user_role = query_args.get('role')
-    new_user_email = query_args.get('email')
+    new_user_email = query_args.get('email', '')
 
     roles_admin_can_grant = ('admin', 'analyst', 'customer', 'customeradmin')
     roles_customeradmin_can_grant = ('customer', 'customeradmin')
@@ -145,9 +149,9 @@ def resolve_grant_user_access(_, info, **query_args):
         if _create_new_user(
                 context=info.context,
                 email=new_user_email,
-                organization=query_args.get('organization'),
+                organization=query_args.get('organization', ''),
                 responsibility=query_args.get('responsibility', '-'),
-                role=query_args.get('role'),
+                role=query_args.get('role', ''),
                 phone_number=query_args.get('phone_number', ''),
                 group=project_name):
             success = True
@@ -172,7 +176,7 @@ def resolve_grant_user_access(_, info, **query_args):
             (f'Security: Attempted to grant access to {new_user_email} '
              f'in {project_name} project'))
 
-    return dict(
+    return GrantUserAccessPayloadType(
         success=success,
         granted_user=dict(
             project_name=project_name,
@@ -184,15 +188,14 @@ def resolve_grant_user_access(_, info, **query_args):
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_remove_user_access(
-    _, info, project_name: str, user_email: str
-) -> object:
+def resolve_remove_user_access(_, info, project_name: str,
+                               user_email: str) -> RemoveUserAccessPayloadType:
     """Resolve remove_user_access mutation."""
     success = False
 
     project_domain.remove_user_access(project_name, user_email)
     success = project_domain.remove_access(user_email, project_name)
-    removed_email = user_email if success else None
+    removed_email = user_email if success else ''
     if success:
         util.invalidate_cache(project_name)
         util.invalidate_cache(user_email)
@@ -204,27 +207,30 @@ def resolve_remove_user_access(
         util.cloudwatch_log(
             info.context, f'Security: Attempted to remove user: {user_email}\
             from {project_name} project')
-    return dict(success=success, removed_email=removed_email)
+    return RemoveUserAccessPayloadType(
+        success=success,
+        removed_email=removed_email
+    )
 
 
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_edit_user(_, info, **query_args):
+def resolve_edit_user(_, info, **query_args) -> EditUserPayloadType:
     """Resolve edit_user mutation."""
-    project_name = query_args.get('project_name')
+    project_name = query_args.get('project_name', '')
     success = False
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     role = user_domain.get_group_level_role(user_email, project_name)
 
     modified_user_data = {
-        'email': query_args.get('email'),
-        'organization': query_args.get('organization'),
-        'responsibility': query_args.get('responsibility'),
-        'role': query_args.get('role'),
-        'phone_number': query_args.get('phone_number')
+        'email': query_args.get('email', ''),
+        'organization': query_args.get('organization', ''),
+        'responsibility': query_args.get('responsibility', ''),
+        'role': query_args.get('role', ''),
+        'phone_number': query_args.get('phone_number', '')
     }
     if (role == 'admin'
             and modified_user_data['role'] in ['admin', 'analyst',
@@ -237,9 +243,8 @@ def resolve_edit_user(_, info, **query_args):
 
         if user_domain.grant_group_level_role(
                 modified_user_email, project_name, modified_user_role):
-            modify_user_information(info.context, modified_user_data,
-                                    project_name)
-            success = True
+            success = modify_user_information(info.context, modified_user_data,
+                                              project_name)
         else:
             rollbar.report_message('Error: Couldn\'t update user role',
                                    'error', info.context)
@@ -249,7 +254,7 @@ def resolve_edit_user(_, info, **query_args):
                                info.context)
     if success:
         util.invalidate_cache(project_name)
-        util.invalidate_cache(query_args.get('email'))
+        util.invalidate_cache(query_args.get('email', ''))
         util.cloudwatch_log(
             info.context,
             f'Security: Modified user data:{query_args.get("email")} \
@@ -259,16 +264,16 @@ def resolve_edit_user(_, info, **query_args):
             info.context,
             f'Security: Attempted to modify user \
             data:{query_args.get("email")} in {project_name} project')
-    return dict(
+    return EditUserPayloadType(
         success=success,
         modified_user=dict(project_name=project_name,
-                           email=modified_user_data['email']))
+                           email=modified_user_data['email'])
+    )
 
 
-def modify_user_information(
-        context: Dict[str, Union[int, _List[str]]],
-        modified_user_data: Dict[str, str],
-        project_name: str):
+def modify_user_information(context: object,
+                            modified_user_data: Dict[str, str],
+                            project_name: str) -> bool:
     """Modify user information."""
     role = modified_user_data['role']
     email = modified_user_data['email']
@@ -276,22 +281,31 @@ def modify_user_information(
     phone = modified_user_data['phone_number']
     organization = modified_user_data['organization']
     user_domain.update(email, organization.lower(), 'company')
+    successes = []
     if responsibility and len(responsibility) <= 50:
-        project_domain.add_access(
+        result = project_domain.add_access(
             email, project_name, 'responsibility', responsibility)
+        successes.append(result)
     else:
         util.cloudwatch_log(
             context,
             f'Security: {email} Attempted to add responsibility to project \
                 {project_name} bypassing validation')
+        successes.append(False)
     if phone and phone[1:].isdigit():
-        user_domain.add_phone_to_user(email, phone)
+        result = user_domain.add_phone_to_user(email, phone)
+        successes.append(result)
     else:
         util.cloudwatch_log(
             context,
             f'Security: {email} Attempted to edit user phone bypassing \
                 validation')
+        successes.append(False)
     if role == 'customeradmin':
-        user_domain.grant_group_level_role(email, project_name, role)
+        result = user_domain.grant_group_level_role(email, project_name, role)
+        successes.append(result)
     elif is_customeradmin(project_name, email):
-        project_domain.remove_user_access(project_name, email)
+        result = project_domain.remove_user_access(project_name, email)
+        successes.append(result)
+
+    return all(successes)
