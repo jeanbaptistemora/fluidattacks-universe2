@@ -280,4 +280,6 @@ type Mutation {
     ): SignInPayload!
 
     invalidateCache(pattern: String!): SimplePayload!
+
+    postBroadcastMessage(message: String!): SimplePayload!
 }

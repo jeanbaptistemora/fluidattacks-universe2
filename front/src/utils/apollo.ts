@@ -95,13 +95,13 @@ const setIntegratesHeaders: Dictionary = {
 if (window.location.hostname === "localhost") {
     urlHostApiV1 = `${window.location.protocol}//${window.location.hostname}:8080/api`;
     urlHostApiV2 = `${window.location.protocol}//${window.location.hostname}:9090/api`;
-    wsApiV2 = `wss://${window.location.hostname}:9090/notifications`;
+    wsApiV2 = `wss://${window.location.hostname}:9090/api`;
     const authHeader: string = "Authorization";
     setIntegratesHeaders[authHeader] = `Bearer ${getCookie("integrates_session")}`;
 } else {
     urlHostApiV1 = `${window.location.origin}/integrates/api`;
     urlHostApiV2 = `${window.location.origin}/integrates/v2/api`;
-    wsApiV2 = `wss://${window.location.hostname}/integrates/v2/notifications`;
+    wsApiV2 = `wss://${window.location.hostname}/integrates/v2/api`;
 }
 
 const apiLinkV1: ApolloLink = createUploadLink({

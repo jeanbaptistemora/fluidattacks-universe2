@@ -343,6 +343,7 @@ class UserAbacTest(TestCase):
     admin_actions: Set[str] = {
         'backend_api_resolvers_internal_project_resolve_project_name',
         'backend_api_resolvers_user_resolve_add_user',
+        'backend_api_resolvers_subscription__do_post_broadcast_message'
     }
     admin_actions = admin_actions.union(analyst_actions)
     admin_actions = admin_actions.union(customeratfluid_actions)

@@ -1,5 +1,5 @@
 "Main Subscription object"
 type Subscription {
-    "Get alerts from project"
-    counter: Int!
+    "Get broadcasts"
+    broadcast: String!
 }

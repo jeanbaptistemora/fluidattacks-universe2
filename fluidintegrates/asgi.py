@@ -8,6 +8,7 @@ import newrelic.agent
 
 try:
     from ariadne.asgi import GraphQL  # noqa: E402
+    from ariadne.contrib.tracing.apollotracing import ApolloTracingExtension
     NEW_API = True
 except ImportError:
     NEW_API = False
@@ -62,8 +63,11 @@ if NEW_API:
     application = ProtocolTypeRouter({
         'http': AsgiHandlerWithNewrelic,
         'websocket': URLRouter([
-            re_path(r'^/?notifications/?\.*$',
-                    DjangoChannelsGraphQL(SCHEMA, debug=settings.DEBUG)),
+            re_path(r'^/?api/?\.*$',
+                    DjangoChannelsGraphQL(
+                        SCHEMA,
+                        debug=settings.DEBUG,
+                        extensions=[ApolloTracingExtension])),
 
         ])
     })

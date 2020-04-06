@@ -287,13 +287,3 @@ async def _do_accept_legal(_, info, remember: bool = False) -> Dict[str, bool]:
     else:
         success = False
     return dict(success=success)
-
-
-async def counter_generator(*_):
-    for i in range(5):
-        await asyncio.sleep(1)
-        yield i
-
-
-def counter_resolver(count, _):
-    return count + 1

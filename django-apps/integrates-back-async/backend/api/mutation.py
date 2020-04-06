@@ -2,7 +2,7 @@
 
 from backend.api.resolvers import (
     alert, cache, event, finding, me, user, resource, project,
-    vulnerability
+    subscription, vulnerability
 )
 
 from ariadne import MutationType
@@ -74,3 +74,5 @@ MUTATION.set_field('deleteVulnerability',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('postBroadcastMessage',
+                   subscription.resolve_subscription_mutation)

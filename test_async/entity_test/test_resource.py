@@ -15,7 +15,7 @@ from backend.api.schema import SCHEMA
 
 class ResourceTests(TestCase):
 
-    def _get_result(self, data):
+    async def _get_result(self, data):
         """Get result."""
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
@@ -31,7 +31,7 @@ class ResourceTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
     async def test_get_resources(self):
@@ -65,7 +65,7 @@ class ResourceTests(TestCase):
         assert 'https://fluidattacks.com/' in \
             result['data']['resources']['environments']
 
-    def test_add_repositories(self):
+    async def test_add_repositories(self):
         """Check for addRepositories mutation."""
         query = '''mutation {
           addRepositories(projectName: "unittesting", repos: [
@@ -89,12 +89,12 @@ class ResourceTests(TestCase):
           }
         }'''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['addRepositories']
         assert result['data']['addRepositories']['success']
 
-    def test_add_environments(self):
+    async def test_add_environments(self):
         """Check for addEnvironments mutation."""
         query = '''mutation {
           addEnvironments(projectName: "unittesting", envs: [
@@ -105,12 +105,12 @@ class ResourceTests(TestCase):
           }
         }'''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['addEnvironments']
         assert result['data']['addEnvironments']['success']
 
-    def test_add_files(self):
+    async def test_add_files(self):
         """Check for addFiles mutation."""
         filename = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(filename, '../../test/mock/test-anim.gif')
@@ -141,12 +141,12 @@ class ResourceTests(TestCase):
                 'projectName': 'UNITTESTING'
             }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['addFiles']
         assert result['data']['addFiles']['success']
 
-    def test_download_file(self):
+    async def test_download_file(self):
         """Check for downloadFile mutation."""
         query = '''
             mutation {
@@ -159,13 +159,13 @@ class ResourceTests(TestCase):
             }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['downloadFile']
         assert result['data']['downloadFile']['success']
         assert 'url' in result['data']['downloadFile']
 
-    def test_remove_files(self):
+    async def test_remove_files(self):
         """Check for removeFiles mutation."""
         file_data = {
             'description': 'test',
@@ -184,12 +184,12 @@ class ResourceTests(TestCase):
             'projectName': 'UNITTESTING'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['removeFiles']
         assert result['data']['removeFiles']['success']
 
-    def test_update_repository(self):
+    async def test_update_repository(self):
         """Check for updateRepository mutation."""
         query = '''mutation {
           updateRepository(projectName: "unittesting", state: INACTIVE, repo: {
@@ -201,12 +201,12 @@ class ResourceTests(TestCase):
           }
         }'''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['updateRepository']
         assert result['data']['updateRepository']['success']
 
-    def test_update_environment(self):
+    async def test_update_environment(self):
         """Check for updateEnvironment mutation."""
         query = '''mutation {
           updateEnvironment(projectName: "unittesting", state: INACTIVE, env: {
@@ -216,7 +216,7 @@ class ResourceTests(TestCase):
           }
         }'''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['updateEnvironment']
         assert result['data']['updateEnvironment']['success']
