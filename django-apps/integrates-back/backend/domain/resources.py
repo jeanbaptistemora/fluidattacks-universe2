@@ -79,8 +79,8 @@ def create_file(files_data: List[Dict[str, str]], uploaded_file,
     json_data: List[resources_dal.ResourceType] = []
     for file_info in files_data:
         json_data.append({
-            'fileName': file_info.get('fileName', ''),
-            'description': file_info.get('description', ''),
+            'fileName': file_info.get('fileName', file_info['file_name']),
+            'description': file_info['description'],
             'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
             'uploader': user_email,
         })
