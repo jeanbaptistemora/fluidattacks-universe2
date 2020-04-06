@@ -22,8 +22,10 @@ django.setup()
 NEW_RELIC_CONF_FILE = os.path.join(settings.BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
+from channels.auth import AuthMiddlewareStack  # noqa: E402
 from channels.http import AsgiHandler  # noqa: E402
 from channels.routing import ProtocolTypeRouter, URLRouter  # noqa: E402
+
 
 from backend.api.schema import SCHEMA  # noqa: E402
 
@@ -62,14 +64,15 @@ if NEW_API:
 
     application = ProtocolTypeRouter({
         'http': AsgiHandlerWithNewrelic,
-        'websocket': URLRouter([
-            re_path(r'^/?api/?\.*$',
-                    DjangoChannelsGraphQL(
-                        SCHEMA,
-                        debug=settings.DEBUG,
-                        extensions=[ApolloTracingExtension])),
-
-        ])
+        'websocket': AuthMiddlewareStack(
+            URLRouter(
+                [
+                    re_path(r'^/?api/?\.*$',
+                            DjangoChannelsGraphQL(
+                                SCHEMA, debug=settings.DEBUG,
+                                extensions=[ApolloTracingExtension])),
+                ])
+        )
     })
 else:
     application = ProtocolTypeRouter({

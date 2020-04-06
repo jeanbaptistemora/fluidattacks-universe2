@@ -219,8 +219,13 @@ def cloudwatch_log(request, msg: str):
 
 def get_jwt_content(context) -> Dict[str, str]:
     try:
-        cookie_token = context.COOKIES.get(settings.JWT_COOKIE_NAME)  # type: ignore
-        header_token = context.META.get('HTTP_AUTHORIZATION')
+        cookies = context.COOKIES \
+            if hasattr(context, 'COOKIES') \
+            else context['request'].scope.get('cookies', {})
+        cookie_token = cookies.get(settings.JWT_COOKIE_NAME)  # type: ignore
+        header_token = context.META.get('HTTP_AUTHORIZATION') \
+            if hasattr(context, 'META') \
+            else dict(context['request'].scope['headers']).get('Authorization', '')
         token = header_token.split()[1] if header_token else cookie_token
         payload = jwt.get_unverified_claims(token)
 

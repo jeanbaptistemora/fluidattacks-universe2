@@ -35,6 +35,7 @@ async def broadcast_generator(*_):
         yield event
 
 
+@require_login
 def broadcast_resolver(event, _):
     """Broadcast message resolver."""
     return f'Broadcast message from FluidAttacks team: {event}'
