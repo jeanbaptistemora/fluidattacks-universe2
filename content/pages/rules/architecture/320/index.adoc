@@ -1,7 +1,7 @@
 :slug: rules/320/
 :category: architecture
 :description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of enforcing access control on the server's side instead of on the client's.
-:keywords: Control Enforcement, Client, Server, GDPR, ASVS, CWE
+:keywords: Control Enforcement, Client, Server, Access, ASVS, CWE
 :rules: yes
 
 = REQ.320 Avoid client-side control enforcement
@@ -20,18 +20,23 @@ to being bypassed and/or tampered with.
 
 == References
 
-. [[r1]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(c).]
-The controller and the processor shall implement appropriate technical and
-organizational measures to ensure an appropriate level of security,
-including the the ability to restore the availability and access to personal
-data in a timely manner in the event of a physical or technical incident.
-
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.1)]
 Verify that trusted enforcement points such as at access control gateways,
 servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.4)]
+Verify the application uses a single and well-vetted access control mechanism
+for accessing protected data and resources.
+All requests must pass through this single mechanism to avoid copy and paste or
+insecure alternative paths.
+
 . [[r3]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602 Client-Side Enforcement of Server-Side Security]
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
+The software does not restrict or incorrectly restricts access to a resource
+from an unauthorized actor.
