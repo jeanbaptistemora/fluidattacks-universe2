@@ -3,6 +3,7 @@ import io
 import os
 import re
 import json
+import time
 import contextlib
 import datetime
 import multiprocessing
@@ -325,6 +326,8 @@ def load_executions_to_database() -> bool:
                         pynamodb.exceptions.PynamoDBException):
                     logger.error('  The following exception was raised')
                     logger.error(traceback.format_exc())
+                logger.info('  Cooling down 10 seconds')
+                time.sleep(10)
         logger.info('Done')
 
     return True
