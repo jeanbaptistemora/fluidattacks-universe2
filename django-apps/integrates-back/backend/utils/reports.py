@@ -1,7 +1,10 @@
 import os
 import threading
 from datetime import datetime
+from django.core.files.base import ContentFile
 from backend.mailer import send_mail_pdf_password
+from backend.dal.helpers import s3
+from __init__ import FI_AWS_S3_REPORTS_BUCKET
 
 
 def set_xlsx_password(filepath: str, password: str):
@@ -30,3 +33,10 @@ def send_report_password_email(user_email: str, project_name: str, password: str
         }))
 
     email_send_thread.start()
+
+
+def upload_report(file_path: str) -> bool:
+    file_content = open(file_path, 'rb')
+    my_obj = ContentFile(file_content.read())
+    return s3.upload_memory_file(  # type: ignore
+        FI_AWS_S3_REPORTS_BUCKET, my_obj, file_path.split('/')[-1])

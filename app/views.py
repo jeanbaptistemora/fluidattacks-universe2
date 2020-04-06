@@ -25,6 +25,7 @@ from openpyxl import load_workbook, Workbook
 from backend import util
 from backend.domain import (
     finding as finding_domain, project as project_domain, user as user_domain)
+from backend.exceptions import ErrorUploadingFileS3
 from backend.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
@@ -288,6 +289,9 @@ def project_to_pdf(  # pylint: disable=too-many-locals
             reports.send_report_password_email(user_email,
                                                project.lower(),
                                                secure_pdf.password, 'PDF')
+            success = reports.upload_report(report_filename)
+            if not success:
+                raise ErrorUploadingFileS3()
         else:
             return HttpResponse(
                 'Disabled report generation', content_type='text/html')
