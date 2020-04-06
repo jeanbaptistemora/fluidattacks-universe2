@@ -156,6 +156,10 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
           // Django CSRF expired
           location.reload();
         } else {
+          if (response !== undefined) {
+            response.data = undefined;
+            response.errors = [];
+          }
           msgError(translate.t("proj_alerts.error_textsad"));
           rollbar.error("A network error occurred", networkError);
         }

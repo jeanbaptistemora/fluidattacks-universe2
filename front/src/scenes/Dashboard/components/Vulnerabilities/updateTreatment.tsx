@@ -2,10 +2,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code in graphql queries
  */
-import { MutationFunction } from "@apollo/react-common";
+import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
 import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -17,6 +18,7 @@ import store from "../../../../store";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { dropdownField, tagInputField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
 import { IHistoricTreatment } from "../../containers/DescriptionView/types";
@@ -52,7 +54,16 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
     (vuln: IVulnDataType) => sortTags(vuln.treatments.tag) === sortTags(props.vulnerabilities[0].treatments.tag));
 
   const handleUpdateTreatError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+      switch (message) {
+        case "Invalid treatment manager":
+          msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
+          break;
+        default:
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error("An error occurred updating vuln treatment", updateError);
+      }
+    });
   };
   const handleClose: (() => void) = (): void => { props.handleCloseModal(); };
   const handleUpdateResult: ((mtResult: IUpdateVulnTreatment) => void) = (mtResult: IUpdateVulnTreatment): void => {
@@ -96,7 +107,8 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
       refetchQueries={[{ query: GET_VULNERABILITIES,
                          variables: { analystField: canDisplayAnalyst, identifier: props.findingId } }]}
     >
-      {(updateTreatmentVuln: MutationFunction<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>): JSX.Element => {
+      {(updateTreatmentVuln: MutationFunction<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>,
+        updateResult: MutationResult): JSX.Element => {
 
           const handleUpdateTreatmentVuln: ((dataTreatment: IUpdateTreatmentVulnAttr) => void) =
             (dataTreatment: IUpdateTreatmentVulnAttr): void => {
@@ -140,7 +152,8 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
               refetchQueries={[{ query: GET_VULNERABILITIES,
                                  variables: { analystField: canDisplayAnalyst, identifier: props.findingId } }]}
             >
-            {(deleteTagVuln: MutationFunction<IDeleteTagResult, IDeleteTagAttr>): JSX.Element => {
+              {(deleteTagVuln: MutationFunction<IDeleteTagResult, IDeleteTagAttr>,
+                tagsResult: MutationResult): JSX.Element => {
                 const handleDeleteTag: (() => void) = (): void => {
                   if (props.vulnerabilities.length === 0) {
                     msgError(translate.t("search_findings.tab_resources.no_selection"));
@@ -162,7 +175,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
                           {translate.t("project.findings.report.modal_close")}
                         </Button>
                         <Button
-                          bsStyle="primary"
+                          disabled={updateResult.loading || tagsResult.loading}
                           onClick={handleEditTreatment}
                         >
                           {translate.t("confirmmodal.proceed")}

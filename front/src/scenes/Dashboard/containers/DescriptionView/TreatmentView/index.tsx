@@ -130,8 +130,8 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
 
   const lastTreatment: IHistoricTreatment = getLastTreatment(data.finding.historicTreatment);
 
-  let treatmentLabel: string = translate.t(formatDropdownField(formValues.treatment));
-  if (formValues.treatment === "ACCEPTED_UNDEFINED" && lastTreatment.acceptanceStatus !== "APPROVED") {
+  let treatmentLabel: string = translate.t(formatDropdownField(lastTreatment.treatment));
+  if (lastTreatment.treatment === "ACCEPTED_UNDEFINED" && lastTreatment.acceptanceStatus !== "APPROVED") {
     treatmentLabel += translate.t("search_findings.tab_description.treatment.pending_approval");
   }
 
@@ -157,7 +157,11 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
           return (
             <GenericForm
               name="editTreatment"
-              initialValues={{ ...lastTreatment, btsUrl: data.finding.btsUrl }}
+              initialValues={{
+                ...lastTreatment,
+                btsUrl: data.finding.btsUrl,
+                treatment: lastTreatment.treatment.replace("NEW", ""),
+              }}
               onSubmit={confirmUndefined}
             >
               <Row>
@@ -217,7 +221,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                     name="justification"
                     renderAsEditable={props.isEditing}
                     type="text"
-                    validate={[required]}
+                    validate={required}
                     visibleWhileEditing={canEditTreatment}
                   />
                 </Col>
