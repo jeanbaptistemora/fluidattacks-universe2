@@ -1,0 +1,38 @@
+:slug: rules/321/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of properly validating untrusted data before applying deserialization.
+:keywords: Deserizlization, Untrusted, Object, Injection, ASVS, CWE
+:rules: yes
+
+= REQ.321 Avoid deserializing untrusted data
+
+== Requirement
+
+The system must not deserialize untrusted data before applying the appropriate
+integrity checks.
+
+== Description
+
+Serialization is the process of transforming an object into a stream of bytes
+to store or transmit it.
+This allows saving its state,
+so that it can be recovered later using deserialization.
+If an object comes from an untrusted source and it is not properly validated
+before being deserialized,
+it can lead to deserialization attacks such as object injection.
+
+== Rereferences
+
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502 Deserialization of Untrusted Data]
+The application deserializes untrusted data without sufficiently verifying that
+the resulting data will be valid.
+
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.5 Input and Output Architectural Requirements.(1.5.2)]
+Verify that serialization is not used when communicating with untrusted
+clients.
+If this is not possible,
+ensure that adequate integrity controls
+(and possibly encryption if sensitive data is sent)
+are enforced to prevent deserialization attacks including object injection.

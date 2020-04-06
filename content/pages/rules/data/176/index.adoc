@@ -25,39 +25,39 @@ be implemented having these restrictions in consideration.
 
 == References
 
-. [[r1]] link:https://gdpr-info.eu/recitals/no-2/[GDPR. Recital 6: Ensuring a High Level of Data Protection Despite
+. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
+The software does not restrict or incorrectly restricts access to a resource
+from an unauthorized actor.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
+When an actor claims to have a given identity,
+the software does not prove or insufficiently proves that the claim is correct.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+The software does not perform any authentication for functionality that
+requires a provable user identity or consumes a significant amount of
+resources.
+
+. [[r4]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(4)]
+The controller and processor shall take steps to ensure that any natural person
+acting under the authority of the controller or the processor who has access to
+personal data does not process them except on instructions from the controller.
+
+. [[r5]] link:https://gdpr-info.eu/recitals/no-2/[GDPR. Recital 6: Ensuring a High Level of Data Protection Despite
 the Increased Exchange of Data].
 Technology has transformed both the economy and social life,
 and should further facilitate the free flow of personal data,
 while ensuring a high level of the protection of personal data.
 
-. [[r2]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(4)]
-The controller and processor shall take steps to ensure that any natural person
-acting under the authority of the controller or the processor who has access to
-personal data does not process them except on instructions from the controller.
-
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.2)]
 Verify that communications between application components,
 including APIs, middleware and data layers, are authenticated.
 Components should have the least necessary privileges needed.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
-V1.2 Authentication Architectural Requirements.(1.4.5)]
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.5)]
 Verify that attribute or feature-based access control is used whereby the code
 checks the user's authorization for a feature/data item rather than just their
 role.
 Permissions should still be allocated using roles.
-
-. [[r5]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
-The software does not perform any authentication for functionality that
-requires a provable user identity or consumes a significant amount of
-resources.
-
-. [[r6]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
-When an actor claims to have a given identity,
-the software does not prove or insufficiently proves that the claim is correct.
-
-. [[r7]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
-The software does not restrict or incorrectly restricts access to a resource
-from an unauthorized actor.
