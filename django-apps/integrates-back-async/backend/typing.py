@@ -3,7 +3,7 @@
 # pylint: disable-all
 
 from decimal import Decimal
-from typing import List, Dict, Union, Set
+from typing import List, Dict, Union, Set, NamedTuple
 
 
 Historic = List[Dict[str, str]]
@@ -41,3 +41,7 @@ User = Dict[str, Union[
 Alert = Dict[str, Union[
     int, str
 ]]
+AddUserPayload = NamedTuple('AddUserPayload', [
+    ('success', bool),
+    ('email', str),
+])

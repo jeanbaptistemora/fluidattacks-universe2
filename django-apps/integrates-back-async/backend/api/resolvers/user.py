@@ -13,6 +13,10 @@ from backend.decorators import (
 from backend.domain import project as project_domain, user as user_domain
 from backend.mailer import send_mail_access_granted
 from backend.services import is_customeradmin
+from backend.typing import (
+    User as UserType,
+    AddUserPayload as AddUserPayloadType,
+)
 from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
@@ -25,14 +29,9 @@ from ariadne import convert_kwargs_to_snake_case
 
 
 # pylint: disable=too-many-arguments
-def _create_new_user(
-        context: Dict[str, Union[int, _List[str]]],
-        email: str,
-        organization: str,
-        responsibility: str,
-        role: str,
-        phone_number: str,
-        group: str) -> bool:
+def _create_new_user(context: object, email: str, organization: str,
+                     responsibility: str, role: str, phone_number: str,
+                     group: str) -> bool:
     valid = validate_alphanumeric_field(organization) \
         and validate_alphanumeric_field(responsibility) \
         and validate_alphanumeric_field(role) \
@@ -95,7 +94,7 @@ def _create_new_user(
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_user(_, info, project_name, user_email):
+def resolve_user(_, info, project_name: str, user_email: str) -> UserType:
     """Resolve user query."""
     return util.run_async(
         user_loader.resolve, info, user_email, project_name
@@ -105,7 +104,7 @@ def resolve_user(_, info, project_name, user_email):
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-def resolve_add_user(_, info, **parameters):
+def resolve_add_user(_, info, **parameters) -> AddUserPayloadType:
     """Resolve add_user mutation."""
     email = parameters.get('email', '')
     success = user_domain.create_without_project(parameters)
@@ -119,7 +118,7 @@ def resolve_add_user(_, info, **parameters):
             args=(mail_to, context,)
         )
         email_send_thread.start()
-    return dict(success=success, email=email)
+    return AddUserPayloadType(success=success, email=email)
 
 
 @convert_kwargs_to_snake_case
