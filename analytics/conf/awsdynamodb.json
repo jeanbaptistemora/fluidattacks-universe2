@@ -9,13 +9,20 @@
         "subscription": "string",
         "execution_id": "string",
         "date": "date-time",
+        "exit_code": "string",
         "git_branch": "string",
         "git_commit": "string",
         "git_origin": "string",
         "git_repo": "string",
         "kind": "string",
         "strictness": "string",
-        "vulnerabilities": "string"
+        "vulnerabilities": "string",
+        "vulnerabilities_exploits": "list<dict>",
+        "vulnerabilities_mocked_exploits": "list<dict>",
+        "vulnerabilities_accepted_exploits": "list<dict>",
+        "vulnerability_count_exploits": "number",
+        "vulnerability_count_mocked_exploits": "number",
+        "vulnerability_count_accepted_exploits": "number"
       }
     },
     "FI_alerts_by_company": {
