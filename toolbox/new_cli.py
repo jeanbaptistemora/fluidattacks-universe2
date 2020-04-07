@@ -18,9 +18,9 @@ SUBS_METAVAR = '[SUBSCRIPTION]'
 
 def _is_pipeline(ctx, param, value):
     is_ci = os.environ.get('CI', 'false')
-    if is_ci == 'false':
+    if is_ci == 'false' and value:
         raise click.BadOptionUsage(
-            param, 'this option is only available within the CI')
+            param, f'the {param.name} option is only available inside the CI')
 
     return value
 
