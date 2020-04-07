@@ -19,38 +19,6 @@ resource "aws_dynamodb_table" "alerts_by_company" {
   }
 }
 
-resource "aws_dynamodb_table" "authorization" {
-  name           = "fi_authorization"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "id"
-
-  attribute {
-    name = "id"
-    type = "S"
-  }
-
-  attribute {
-    name = "rule_subject"
-    type = "S"
-  }
-
-  attribute {
-    name = "rule_object"
-    type = "S"
-  }
-
-  global_secondary_index {
-    name               = "subject_policies"
-    hash_key           = "rule_subject"
-    range_key          = "rule_object"
-    projection_type    = "ALL"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-}
-
 resource "aws_dynamodb_table" "authz" {
   name          = "fi_authz"
   billing_mode  = "PAY_PER_REQUEST"
