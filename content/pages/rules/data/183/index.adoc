@@ -22,16 +22,16 @@ from being recovered.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
-Verify that there is a method to remove each type of sensitive data
-from the application at the end of the required retention policy.
-
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
-Verify that sensitive information maintained in memory
-is overwritten with zeros as soon as it is no longer required,
-to mitigate memory dumping attacks.
-
-. [[r3]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(e).]
+. [[r1]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(e).]
 Personal data shall be kept in a form which permits identification of data
 subjects for no longer than is necessary for the purposes for which the
 personal data are processed.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
+Verify that there is a method to remove each type of sensitive data
+from the application at the end of the required retention policy.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
+Verify that sensitive information maintained in memory
+is overwritten with zeros as soon as it is no longer required,
+to mitigate memory dumping attacks.

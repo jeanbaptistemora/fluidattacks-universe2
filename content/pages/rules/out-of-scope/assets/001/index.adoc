@@ -88,5 +88,6 @@ can come late or cause a greater impact to the organization.
 
 == References
 
-. link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].
-. link:https://www.pmg-ssi.com/2017/02/realizar-inventario-activos-de-informacion/[How to make an inventory of information assets?].
+. [[r1]] link:https://www.pmg-ssi.com/2017/02/realizar-inventario-activos-de-informacion/[How to make an inventory of information assets?].
+
+. [[r2]] link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].

@@ -21,27 +21,27 @@ system.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
-Verify that access to sensitive records is protected,
-such that only authorized objects or data is accessible to each user
-(for example, protect against users
-tampering with a parameter to see or alter another user's account).
+. [[r1]] link:https://gdpr-info.eu/art-25-gdpr/[GDPR. Art. 25: Data protection by design and by default.(1)]
+The controller shall,
+both at the time of the determination of the means for processing and at the
+time of the processing itself,
+implement appropriate technical and organizational measures.
 
-. [[r2]] link:https://gdpr-info.eu/recitals/no-6/[GDPR- 6  Ensuring a high level of data protection
+. [[r2]] link:https://gdpr-info.eu/recitals/no-6/[GDPR. Recital 6: Ensuring a high level of data protection
 despite the increased exchange of data].
 Technology has transformed both the economy and social life,
 and should further facilitate the free flow of personal data within the Union
 and the transfer to third countries and international organizations,
 while ensuring a high level of the protection of personal data.
 
-. [[r3]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Protecting sensitive personal data].
+. [[r3]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 51:  Protecting sensitive personal data].
 Personal data which are, by their nature, particularly sensitive in relation to
 fundamental rights and freedoms merit specific protection as the context of
 their processing could create significant risks to the fundamental rights and
 freedoms.
 
-. [[r4]] link:https://gdpr-info.eu/art-25-gdpr/[GDPR. Art. 25: Data protection by design and by default.(1)]
-The controller shall,
-both at the time of the determination of the means for processing and at the
-time of the processing itself,
-implement appropriate technical and organizational measures.
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verify that access to sensitive records is protected,
+such that only authorized objects or data is accessible to each user
+(for example, protect against users
+tampering with a parameter to see or alter another user's account).

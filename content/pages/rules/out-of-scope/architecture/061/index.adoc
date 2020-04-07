@@ -52,10 +52,10 @@ users do not use the defined security controls.
 
 == References
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(ii):]
+. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.1:]
+Publish data about software security internally.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(ii):]
 Emergency Access Procedure: Establish (and implement as needed)
 procedures for obtaining necessary electronic protected health information
 during an emergency.
-
-. [[r2]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.1:]
-Publish data about software security internally.

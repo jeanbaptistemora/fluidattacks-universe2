@@ -14,7 +14,7 @@ using automated tools.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
-Security is addressed within all parts of the software development lifecycle.
+. [[r1]] link:https://www.bsimm.com/framework/software-security-development-lifecycle/code-review.html[+BSSIM9+ SE3.4 Automate malicious code detection].
 
-. [[r2]] link:https://www.bsimm.com/framework/software-security-development-lifecycle/code-review.html[+BSSIM9+ SE3.4 Automate malicious code detection].
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
+Security is addressed within all parts of the software development lifecycle.

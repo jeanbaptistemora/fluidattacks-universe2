@@ -26,15 +26,15 @@ and that help prevent the inclusion of new insecure functionalities.
 
 == References
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(c)(2):]
-Mechanism to Authenticate Electronic Protected Health Information:
-Implement electronic mechanisms to corroborate
-that electronic protected health information
-has not been altered or destroyed in an unauthorized manner.
-
-. [[r2]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(d).]
+. [[r1]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(d).]
 The controller and the processor shall implement appropriate technical and
 organizational measures to ensure an appropriate level of security,
 including a process for regularly testing, assessing and evaluating the
 effectiveness of technical and organizational measures for ensuring the
 security of the processing.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(c)(2):]
+Mechanism to Authenticate Electronic Protected Health Information:
+Implement electronic mechanisms to corroborate
+that electronic protected health information
+has not been altered or destroyed in an unauthorized manner.

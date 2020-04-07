@@ -55,13 +55,17 @@ the transmitted information.
 
 == References
 
-. [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
-. [[r2]] link:https://www.owasp.org/index.php/Top_10_2014-I4_Lack_of_Transport_Encryption[OWASP Top 10 2014: I4 Top 10 2014-I4 Lack of Transport Encryption]
-. [[r3]] link:https://www.owasp.org/index.php/Mobile_Top_10_2014-M3[OWASP Top 10 2014: M3 Insufficient Transport Layer Protection]
-. [[r4]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.16+]
+. [[r1]] link:https://www.owasp.org/index.php/Top_10_2014-I4_Lack_of_Transport_Encryption[OWASP Top 10 2014: I4 Top 10 2014-I4 Lack of Transport Encryption]
+
+. [[r2]] link:https://www.owasp.org/index.php/Mobile_Top_10_2014-M3[OWASP Top 10 2014: M3 Insufficient Transport Layer Protection]
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.16+]
 Verify that all application data is transmitted
 over an encrypted channel (e.g. +TLS+).
-. [[r5]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.3+]
+
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.3+]
 Verify that all sensitive data is sent to the server
 in the HTTP message body or headers
 (i.e., URL parameters are never used to send sensitive data).
+
+. [[r5]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]

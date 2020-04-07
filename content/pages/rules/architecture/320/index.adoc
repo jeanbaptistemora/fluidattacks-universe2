@@ -20,23 +20,24 @@ to being bypassed and/or tampered with.
 
 == References
 
-. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
+The software does not restrict or incorrectly restricts access to a resource
+from an unauthorized actor.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602 Client-Side Enforcement of Server-Side Security]
+The software is composed of a server that relies on the client to implement a
+mechanism that is intended to protect the server.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.1)]
 Verify that trusted enforcement points such as at access control gateways,
 servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.4)]
 Verify the application uses a single and well-vetted access control mechanism
 for accessing protected data and resources.
 All requests must pass through this single mechanism to avoid copy and paste or
 insecure alternative paths.
-
-. [[r3]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602 Client-Side Enforcement of Server-Side Security]
-The software is composed of a server that relies on the client to implement a
-mechanism that is intended to protect the server.
-
-. [[r4]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
-The software does not restrict or incorrectly restricts access to a resource
-from an unauthorized actor.

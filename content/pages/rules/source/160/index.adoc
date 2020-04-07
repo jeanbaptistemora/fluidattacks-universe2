@@ -13,10 +13,10 @@ must be encoded in the corresponding language (+escaping+).
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
+. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.2  Use code protection].
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
 Verify that unstructured data is sanitized
 to enforce generic safety measures such as allowed characters and length,
 and characters potentially harmful in given context should be escaped
 (e.g. natural names with Unicode or apostrophes, such as ねこ or O'Hara).
-
-. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.2  Use code protection].

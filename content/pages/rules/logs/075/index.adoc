@@ -68,26 +68,26 @@ can prove to be very difficult or impossible.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778 Insufficient logging].
 
-. [[r2]] link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
-
-. [[r3]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
-
-. [[r4]] link:https://cwe.mitre.org/data/definitions/778.html[CWE - Insufficient logging].
-
-. [[r5]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(b):]
-Audit Controls: Implement hardware, software, and/or procedural mechanisms
-that record and examine activity in information systems
-that contain or use electronic protected health information.
-
-. [[r6]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-8.3+]
-Verify security logging controls provide the ability
-to log success and particularly failure events
-that are identified as security-relevant
-
-. [[r7]] link:https://gdpr-info.eu/art-33-gdpr/[GDPR. Art. 33: Notification of a personal data breach
+. [[r2]] link:https://gdpr-info.eu/art-33-gdpr/[GDPR. Art. 33: Notification of a personal data breach
 to the supervisory authority.(5)]
 The controller shall document any personal data breaches,
 comprising the facts relating to the personal data breach,
 its effects and the remedial action taken.
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(b):]
+Audit Controls: Implement hardware, software, and/or procedural mechanisms
+that record and examine activity in information systems
+that contain or use electronic protected health information.
+
+. [[r4]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
+
+. [[r5]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
+
+. [[r6]] link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
+
+. [[r7]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-8.3+]
+Verify security logging controls provide the ability
+to log success and particularly failure events
+that are identified as security-relevant

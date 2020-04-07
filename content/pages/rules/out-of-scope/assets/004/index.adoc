@@ -89,18 +89,18 @@ the incident is not managed.
 
 == References
 
-. [[r1]] link:http://www.pmg-ssi.com/2015/05/como-clasificar-los-activos-de-seguridad-en-un-sgsi/[ISMS - How to classify information assets in an ISMS?].
+. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM1.1:]
+Publish process (roles, responsibilities, plan), evolve as necessary.
 
-. [[r2]] link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].
-
-. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(2):]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(2):]
 Assigned Security Responsibility: Identify the security official
 who is responsible for the development and implementation
 of the policies and procedures required by this subpart for the entity.
 
-. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iii):]
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iii):]
 Accountability (A): Maintain a record of the movements of hardware
 and electronic media and any person responsible therefore.
 
-. [[r5]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM1.1:]
-Publish process (roles, responsibilities, plan), evolve as necessary.
+. [[r4]] link:http://www.pmg-ssi.com/2015/05/como-clasificar-los-activos-de-seguridad-en-un-sgsi/[ISMS - How to classify information assets in an ISMS?].
+
+. [[r5]] link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].

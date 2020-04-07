@@ -65,9 +65,12 @@ which eventually will compromise the system security.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-779 Logging of Excessive Data]
+
 . [[r2]] link:https://msdn.microsoft.com/en-us/library/ed577840(v=vs.100).aspx[Microsoft: How to: Handle Page-Level Errors]
-. [[r3]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-779: Logging of Excessive Data]
+
+. [[r3]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling]
+
 . [[r4]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.7+]
 Verify that the application does not log sensitive data
 as defined under local privacy laws or regulations,

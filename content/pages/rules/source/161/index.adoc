@@ -65,9 +65,13 @@ to validate and discard false positives.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/474.html[+CWE-474+: Use of Function with Inconsistent Implementations].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/388.html[+CWE-388+: Error Handling].
+
 . [[r2]] link:https://cwe.mitre.org/data/definitions/398.html[+CWE-398+: Indicator of Poor Code Quality].
-. [[r3]] link:https://cwe.mitre.org/data/definitions/388.html[+CWE-388+: Error Handling].
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/474.html[+CWE-474+: Use of Function with Inconsistent Implementations].
+
 . [[r4]] link:https://standards.ieee.org/findstds/standard/1028-2008.html[+IEEE+: Standard for Software Reviews and Audits].
+
 . [[r5]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.8+]
 Verify that access controls fail securely.

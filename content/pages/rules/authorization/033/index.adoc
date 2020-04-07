@@ -37,7 +37,7 @@ to accomplish its legitimate purpose.
 
 . An anonymous attacker attempts to access to an exposed administrator
 interface by brute force,
-which may cause a denial of service, account lockouts or a
+which may cause a denial of service, account lockouts or an
 interface/system lockout.
 
 . An anonymous attacker and/or registered user
@@ -59,10 +59,14 @@ in order to perform deeper and more detailed attacks.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel].
+. [[r1]] link:https://www.owasp.org/index.php/Category:Access_Control[Category:Access Control].
+
 . [[r2]] link:https://cwe.mitre.org/data/definitions/264.html[CWE CATEGORY: Permissions, Privileges, and Access Controls].
-. [[r3]] link:https://www.owasp.org/index.php/Category:Access_Control[Category:Access Control].
-. [[r4]] link:https://www.owasp.org/index.php/Top_10_2013-A5-Security_Misconfiguration[Top 10 2013-A5-Security Misconfiguration].
-. [[r5]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.32+]
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel].
+
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.32+]
 Verify that access to administrative interfaces
 is strictly controlled and not allowed for untrusted parties.
+
+. [[r5]] link:https://www.owasp.org/index.php/Top_10_2013-A5-Security_Misconfiguration[Top 10 2013-A5-Security Misconfiguration].

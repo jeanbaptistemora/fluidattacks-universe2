@@ -14,5 +14,5 @@ must generate an alarm.
 
 == References
 
-. [[r1]] link:https://gdpr-info.eu/recitals/no-85/[GDPR-85 Notification obligation of breaches to the supervisory authority].
-. [[r2]] link:https://gdpr-info.eu/recitals/no-86/[GDPR-86 Notification of data subjects in case of data breaches].
+. [[r1]] link:https://gdpr-info.eu/recitals/no-85/[GDPR. Recital 85: Notification obligation of breaches to the supervisory authority].
+. [[r2]] link:https://gdpr-info.eu/recitals/no-86/[GDPR. Recital 86: Notification of data subjects in case of data breaches].

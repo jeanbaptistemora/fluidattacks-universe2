@@ -109,5 +109,6 @@ in a cost efficient manner.
 
 == References
 
-. link:https://es.wikipedia.org/wiki/ISO/IEC_27000-series[Wikipedia - ISO/IEC 27000 Norms].
-. link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].
+. [[r1]] link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].
+
+. [[r2]] link:https://es.wikipedia.org/wiki/ISO/IEC_27000-series[Wikipedia - ISO/IEC 27000 Norms].

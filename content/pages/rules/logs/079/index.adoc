@@ -40,13 +40,18 @@ due to the lack of detail in event logs.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
-. [[r2]] link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778 Insufficient logging].
+
+. [[r2]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
+
 . [[r3]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
-. [[r4]] link:https://cwe.mitre.org/data/definitions/778.html[CWE - Insufficient logging].
+
+. [[r4]] link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
+
 . [[r5]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.3+]
 Verify that each log event includes necessary information
 that would allow for a detailed investigation
 of the timeline when an event happens.
+
 . [[r6]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.13+]
 Time sources should be synchronized to ensure logs have the correct time.

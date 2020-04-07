@@ -45,12 +45,12 @@ because it is not defined at the contractual level.
 
 == References
 
+. [[r2]] link:https://gdpr-info.eu/recitals/no-149/[GDPR. Recital 149: Penalties for infringements of national rules].
+
+. [[r3]] link:https://gdpr-info.eu/recitals/no-150/[GDPR. Recital 150: Administrative fines].
+
 . [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(C):]
 Sanction policy (Required).
 Apply appropriate sanctions against workforce members
 who fail to comply with the security policies
 and procedures of the covered entity or business associate.
-
-. [[r2]] link:https://gdpr-info.eu/recitals/no-149/[GDPR- 149  Penalties for infringements of national rules].
-
-. [[r3]] link:https://gdpr-info.eu/recitals/no-150/[GDPR- 150  Administrative fines].

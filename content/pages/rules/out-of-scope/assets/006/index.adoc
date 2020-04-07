@@ -89,5 +89,6 @@ was not previously identified.
 
 == References
 
-. link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].
-. link:https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx[Microsoft: Threat Model].
+. [[r1]] link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].
+
+. [[r2]] link:https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx[Microsoft: Threat Model].

@@ -23,12 +23,11 @@ it can lead to deserialization attacks such as object injection.
 
 == Rereferences
 
-
-. [[r2]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502 Deserialization of Untrusted Data]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502 Deserialization of Untrusted Data]
 The application deserializes untrusted data without sufficiently verifying that
 the resulting data will be valid.
 
-. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.2)]
 Verify that serialization is not used when communicating with untrusted
 clients.

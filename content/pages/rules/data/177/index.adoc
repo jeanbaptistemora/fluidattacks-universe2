@@ -24,12 +24,12 @@ information.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.1+]
-Verify that all forms containing sensitive information
-have disabled client side caching, including autocomplete features.
-
-. [[r2]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]
+. [[r1]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]
 Personal data shall be processed in a manner that ensures appropriate security
 of the personal data,
 including protection against unauthorised or unlawful processing and against
 accidental loss, destruction or damage.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.1+]
+Verify that all forms containing sensitive information
+have disabled client side caching, including autocomplete features.

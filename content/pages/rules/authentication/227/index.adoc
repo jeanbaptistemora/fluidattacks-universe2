@@ -23,24 +23,24 @@ users.
 
 == References
 
-. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
+When an actor claims to have a given identity,
+the software does not prove or insufficiently proves that the claim is correct.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+The software does not perform any authentication for functionality that
+requires a provable user identity or consumes a significant amount of
+resources.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.2)]
 Verify that communications between application components,
 including APIs, middleware and data layers, are authenticated.
 Components should have the least necessary privileges needed.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.3)]
 Verify that the application uses a single vetted authentication mechanism that
 is known to be secure,
 can be extended to include strong authentication,
 and has sufficient logging and monitoring to detect account abuse or breaches.
-
-. [[r3]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
-The software does not perform any authentication for functionality that
-requires a provable user identity or consumes a significant amount of
-resources.
-
-. [[r4]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
-When an actor claims to have a given identity,
-the software does not prove or insufficiently proves that the claim is correct.
