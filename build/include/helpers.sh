@@ -312,7 +312,7 @@ function helper_move_continuous_fusion_to_master_git {
           INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
           PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
           PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-          toolbox --sync-s3-to-fusion --subs "${subs}" \
+          fluid resources --sync-s3-to-fusion "${subs}" \
       &&  mkdir -p ../../"${subs}" \
       &&  cp -r subscriptions/"${subs}"/fusion/* ../../"${subs}"
     done < "${path_empty_repos}"
