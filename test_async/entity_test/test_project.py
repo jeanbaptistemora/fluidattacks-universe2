@@ -63,8 +63,6 @@ class ProjectTests(TestCase):
               meanRemediate
               totalFindings
               totalTreatment
-              currentMonthAuthors
-              currentMonthCommits
               subscription
               deletionDate
               userDeletion
@@ -103,8 +101,6 @@ class ProjectTests(TestCase):
         assert result['data']['project']['meanRemediate'] == 245
         assert result['data']['project']['totalFindings'] == 5
         assert 'totalTreatment' in result['data']['project']
-        assert result['data']['project']['currentMonthAuthors'] == 0
-        assert result['data']['project']['currentMonthCommits'] == 0
         assert result['data']['project']['subscription'] == 'continuous'
         assert result['data']['project']['deletionDate'] == ''
         assert result['data']['project']['userDeletion'] == ''

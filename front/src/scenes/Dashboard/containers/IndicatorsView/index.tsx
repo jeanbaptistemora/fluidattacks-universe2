@@ -193,26 +193,6 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         onClick={goToProjectSettings}
                       />
                     </Col>
-                    <Col md={4} sm={12} xs={12}>
-                      <IndicatorBox
-                        icon="authors"
-                        name={translate.t("search_findings.tab_indicators.authors")}
-                        quantity={data.project.currentMonthAuthors}
-                        title=""
-                        total=""
-                        onClick={goToProjectSettings}
-                      />
-                    </Col>
-                    <Col md={4} sm={12} xs={12}>
-                      <IndicatorBox
-                        icon="terminal"
-                        name={translate.t("search_findings.tab_indicators.commits")}
-                        quantity={data.project.currentMonthCommits}
-                        title=""
-                        total=""
-                        onClick={goToProjectSettings}
-                      />
-                    </Col>
                   </Col>
                 </Row>
                 <ForcesIndicatorsView projectName={projectName} />

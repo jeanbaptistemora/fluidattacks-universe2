@@ -5,8 +5,6 @@ export const GET_INDICATORS: DocumentNode = gql`
   query GetIndicatorsQuery($projectName: String!) {
     project(projectName: $projectName){
       closedVulnerabilities
-      currentMonthAuthors
-      currentMonthCommits
       hasForces
       lastClosingVuln
       maxOpenSeverity
@@ -17,8 +15,6 @@ export const GET_INDICATORS: DocumentNode = gql`
       remediatedOverTime
       totalFindings
       totalTreatment
-      deletionDate
-      userDeletion
     }
     resources(projectName: $projectName){
       repositories
