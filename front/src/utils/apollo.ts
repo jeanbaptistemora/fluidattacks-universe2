@@ -213,8 +213,6 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
            "GetRepositoriesQuery",
            "GetEnvironmentsQuery",
            "GetFilesQuery",
-           "AddEnvironmentsMutation",
-           "AddRespositoriesMutation",
            "UploadFileMutation",
            "DownloadFileMutation",
            "RemoveFileMutation",
