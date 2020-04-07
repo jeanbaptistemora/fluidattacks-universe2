@@ -128,7 +128,7 @@ class CreatorPDF():
             'crit_m': '(Moderate)',
             'crit_l': '(Low)',
             'treat_status_wor': 'New',
-            'treat_status_asu': 'Accepted',
+            'treat_status_asu': 'Temporarily accepted',
             'treat_status_rem': 'In Progress',
             'fin_status_open': 'Open',
             'fin_status_closed': 'Closed'

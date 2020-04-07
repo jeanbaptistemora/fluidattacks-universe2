@@ -235,9 +235,9 @@ def send_accepted_email(finding: Dict[str, FindingType], justification: str):
     finding_name = str(finding.get('finding', ''))
     last_historic_treatment = cast(List[Dict[str, str]], finding.get('historicTreatment'))[-1]
     recipients = project_dal.get_users(project_name)
-    treatment = 'Accepted'
+    treatment = 'Temporarily accepted'
     if last_historic_treatment['treatment'] == 'ACCEPTED_UNDEFINED':
-        treatment = 'Indefinitely accepted'
+        treatment = 'Eternally accepted'
     email_send_thread = threading.Thread(
         name='Accepted finding email thread',
         target=send_mail_accepted_finding,

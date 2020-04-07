@@ -68,10 +68,10 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     { value: "Closed", label: "Closed" },
   ];
   const selectOptionsTreatment: optionSelectFilterProps[] = [
-    { value: "Accepted", label: "Accepted" },
+    { value: "Temporarily accepted", label: "Temporarily accepted" },
     { value: "In progress", label: "In progress" },
-    { value: "Indefinitely accepted", label: "Indefinitely accepted" },
-    { value: "Indefinitely accepted (Pending approval)", label: "Indefinitely accepted (Pending approval)" },
+    { value: "Eternally accepted", label: "Eternally accepted" },
+    { value: "Eternally accepted (Pending approval)", label: "Eternally accepted (Pending approval)" },
     { value: "New", label: "New" },
     { value: "-", label: "-" },
   ];

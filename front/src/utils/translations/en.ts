@@ -357,7 +357,7 @@ const enTranslations: Dictionary = {
       tab_title: "Comments",
     },
     tab_description: {
-      acceptance_date: "Accepted until",
+      acceptance_date: "Temporarily accepted until",
       acceptation_justification: "Acceptation Justification",
       acceptation_user: "Acceptation User",
       action: "Action",
