@@ -685,13 +685,16 @@ def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     files = cast(List[Dict[str, str]], finding.get('files', []))
     success = False
 
-    evidence: Union[Dict[str, str], str] = \
-        next((item for item in files if item['name'] == evidence_name), '')
-    evidence_id = str(cast(Dict[str, str], evidence).get('file_url', ''))
+    evidence: Dict[str, str] = \
+        next((item for item in files if item['name'] == evidence_name), dict())
+    if not evidence:
+        raise EvidenceNotFound()
+
+    evidence_id = str(evidence.get('file_url', ''))
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
     if finding_dal.remove_evidence(full_name):
-        index = files.index(cast(Dict[str, str], evidence))
+        index = files.index(evidence)
         del files[index]
         success = finding_dal.update(finding_id, {'files': files})
 

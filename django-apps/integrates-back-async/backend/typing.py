@@ -57,3 +57,10 @@ EditUserPayload = NamedTuple('EditUserPayload', [
     ('success', bool),
     ('modified_user', User),
 ])
+SimplePayload = NamedTuple('SimplePayload', [
+    ('success', bool),
+])
+SimpleFindingPayload = NamedTuple('SimpleFindingPayload', [
+    ('success', bool),
+    ('finding', Dict[str, Finding]),
+])

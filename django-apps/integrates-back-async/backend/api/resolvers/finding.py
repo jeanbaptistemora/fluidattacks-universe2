@@ -2,6 +2,7 @@
 
 from collections import namedtuple
 import sys
+from typing import Dict
 
 import rollbar
 
@@ -18,6 +19,11 @@ from backend.domain import (
     finding as finding_domain,
     project as project_domain,
     vulnerability as vuln_domain
+)
+from backend.typing import (
+    Finding as FindingType,
+    SimplePayload as SimplePayloadType,
+    SimpleFindingPayload as SimpleFindingPayloadType,
 )
 from backend import util
 
@@ -38,7 +44,7 @@ def resolve_finding_mutation(obj, info, **parameters):
 @enforce_group_level_auth_async
 @require_finding_access
 @rename_kwargs({'finding_id': 'identifier'})
-def resolve_finding(_, info, identifier):
+def resolve_finding(_, info, identifier: str) -> Dict[str, FindingType]:
     """Resolve finding query."""
     return util.run_async(finding_loader.resolve, info, identifier)
 
@@ -46,7 +52,8 @@ def resolve_finding(_, info, identifier):
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_remove_evidence(_, info, evidence_id, finding_id):
+async def _do_remove_evidence(_, info, evidence_id: str,
+                              finding_id: str) -> SimpleFindingPayloadType:
     """Resolve remove_evidence mutation."""
     success = await \
         sync_to_async(finding_domain.remove_evidence)(evidence_id, finding_id)
@@ -56,13 +63,15 @@ async def _do_remove_evidence(_, info, evidence_id, finding_id):
             info.context,
             f'Security: Removed evidence in finding {finding_id}')
         util.invalidate_cache(finding_id)
-    return dict(success=success)
+    finding = await info.context.loaders['finding'].load(finding_id)
+    return SimpleFindingPayloadType(finding=finding, success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_update_evidence(_, info, evidence_id, finding_id, file):
+async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
+                              file) -> SimplePayloadType:
     """Resolve update_evidence mutation."""
     success = False
 
@@ -81,7 +90,7 @@ async def _do_update_evidence(_, info, evidence_id, finding_id, file):
             info.context,
             'Security: Attempted to update evidence in '
             f'finding {finding_id}')
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
