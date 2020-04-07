@@ -45,10 +45,6 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: exams
-          servicePort: 80
-        path: /courses(/|$)(.*)
-      - backend:
           serviceName: integrates-app-async
           servicePort: 80
         path: /integrates/v2(/|$)(.*)
