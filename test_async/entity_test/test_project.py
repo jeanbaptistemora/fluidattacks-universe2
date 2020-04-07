@@ -48,7 +48,7 @@ class ProjectTests(TestCase):
         query = '''
           query {
             project(projectName: "unittesting"){
-              name,
+              name
               remediatedOverTime
               hasDrills
               hasForces
@@ -114,6 +114,26 @@ class ProjectTests(TestCase):
         assert len(result['data']['project']['events']) == 5
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
         assert len(result['data']['project']['users']) == 4
+
+    def test_alive_projects(self):
+        """Check for project mutation."""
+        query = '''
+          query {
+            aliveProjects {
+              name
+            }
+          }
+        '''
+        data = {'query': query}
+        expected_projects = [
+            {'name': 'suspendedtest'},
+            {'name': 'oneshottest'},
+            {'name': 'unittesting'}
+        ]
+
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert result['data']['aliveProjects'] == expected_projects
 
     def test_create_project(self):
         """Check for createProject mutation."""

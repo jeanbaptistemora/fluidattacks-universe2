@@ -309,3 +309,17 @@ def modify_user_information(context: object,
         successes.append(result)
 
     return all(successes)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_user_level_auth_async
+def resolve_user_list_projects(_, info, user_email):
+    """Resolve user_list_projects query."""
+    return util.run_async(_get_user_list_projects, info, user_email)
+
+
+async def _get_user_list_projects(info, user_email):
+    """Resolve user_list_projects query."""
+    user = await user_loader.resolve(info, user_email, project_name=None)
+    return user['list_projects']

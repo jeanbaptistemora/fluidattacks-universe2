@@ -531,3 +531,17 @@ def resolve_remove_all_project_access(_, info, project_name):
             f'Security: Remove all project access of {project_name}')
         util.invalidate_cache(project_name)
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_user_level_auth_async
+def resolve_alive_projects(_, info):
+    """Resolve for ACTIVE and SUSPENDED projects."""
+    return util.run_async(_get_alive_projects, info)
+
+
+async def _get_alive_projects(info):
+    """Resolve for ACTIVE and SUSPENDED projects."""
+    alive_projects = await sync_to_async(project_domain.get_alive_projects)()
+    return [await _resolve_fields(info, project) for project in alive_projects]

@@ -48,6 +48,31 @@ class UserTests(TestCase):
         assert 'responsibility' in result['data']['user']
         assert 'phoneNumber' in result['data']['user']
 
+    async def test_user_list_projects(self):
+        """Check for user."""
+        query = '''
+            query {
+                userListProjects(userEmail: "continuoushacking@gmail.com")
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = await graphql(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+
     def test_add_user(self):
         """Check for addUser mutation."""
         query = '''

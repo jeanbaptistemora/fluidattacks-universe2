@@ -90,8 +90,6 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_project_resolve_project',
         'backend_api_resolvers_finding_resolve_finding',
         'backend_api_resolvers_event_resolve_event',
-        'backend_api_resolvers_project_resolve_alive_projects',
-        'backend_api_resolvers_user_resolve_user_list_projects',
         'backend_api_resolvers_resource_resolve_add_resources',
         'backend_api_resolvers_resource__do_add_repositories',
         'backend_api_resolvers_resource__do_add_environments',
@@ -143,7 +141,6 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_project_resolve_remove_all_project_access',
         'backend_api_resolvers_project_resolve_request_remove_project',
         'backend_api_resolvers_project_resolve_reject_remove_project',
-        'backend_api_resolvers_user_resolve_user_resolve_list_projects',
     }
 
     analyst_allowed_actions = {
@@ -229,10 +226,8 @@ class ActionAbacTest(TestCase):
     customeradmin_allowed_actions.update(customer_allowed_actions)
 
     customeradminfluid_allowed_actions = {
-        'backend_api_resolvers_user_resolve_user_list_projects',
         'backend_api_resolvers_alert_resolve_set_alert',
         'backend_api_resolvers_event__do_create_event',
-        'backend_api_resolvers_user_resolve_user_resolve_list_projects',
     }
 
     customeradminfluid_allowed_actions.update(customer_allowed_actions)
@@ -330,10 +325,12 @@ class UserAbacTest(TestCase):
 
     customeradmin_actions: Set[str] = {
         'backend_api_resolvers_me__get_tags',
+        'backend_api_resolvers_user_resolve_user_list_projects'
     }
 
     customeratfluid_actions: Set[str] = {
         'backend_api_resolvers_project_resolve_create_project',
+        'backend_api_resolvers_user_resolve_user_list_projects'
     }
 
     analyst_actions: Set[str] = {
@@ -343,7 +340,8 @@ class UserAbacTest(TestCase):
     admin_actions: Set[str] = {
         'backend_api_resolvers_internal_project_resolve_project_name',
         'backend_api_resolvers_user_resolve_add_user',
-        'backend_api_resolvers_subscription__do_post_broadcast_message'
+        'backend_api_resolvers_subscription__do_post_broadcast_message',
+        'backend_api_resolvers_project_resolve_alive_projects'
     }
     admin_actions = admin_actions.union(analyst_actions)
     admin_actions = admin_actions.union(customeratfluid_actions)

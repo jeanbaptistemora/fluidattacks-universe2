@@ -114,13 +114,21 @@ async def resolve(info, email, project_name, as_field=False):
 
     result = dict()
     tasks = list()
-    requested_fields = \
-        util.get_requested_fields('users', info.field_nodes[0].selection_set) \
-        if as_field else info.field_nodes[0].selection_set.selections
+
+    if not info.field_nodes[0].selection_set:
+        requested_fields = ['listProjects']
+    else:
+        requested_fields = \
+            util.get_requested_fields(
+                'users', info.field_nodes[0].selection_set) \
+            if as_field else info.field_nodes[0].selection_set.selections
 
     for requested_field in requested_fields:
-        requested_field = \
-            convert_camel_case_to_snake(requested_field.name.value)
+        if isinstance(requested_field, str):
+            requested_field = convert_camel_case_to_snake(requested_field)
+        else:
+            requested_field = \
+                convert_camel_case_to_snake(requested_field.name.value)
         if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
