@@ -120,7 +120,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .forces-bg { background-image: url('../../images/products/forces/forces-cover.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
-.lower-img { &:hover { transform: scaleY(1.2);
+.lower-img { &:hover { transform: scale(1.1);
     transition: transform .25s ease-in-out; } }
 .scale-all { &:hover { transform: scale(1.1);
     transition: transform .25s ease-in-out;} }
@@ -138,7 +138,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 .f-footer { font-size: 1.65rem; }
 .lh-2 { line-height: 2; }
 .lh2 { line-height: 2rem; }
-.nl-3 { margin-left: -3rem; }
 .fw-max { font-weight: 999; }
 .line-menu { display: none; }
 .w-image { width: 37em; }
@@ -158,6 +157,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .nbs {margin-bottom: -.15rem; }
 .banner-height { height: 10.93rem; }
 .lh3 { line-height: 3rem; }
+.w-small {width: .5rem; }
+.hv-svg-red { &:hover { fill: $button-hover; } }
 
 // Tachyons custom responsive classes
 
@@ -212,6 +213,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w40-l { width: 40rem; }
   .banner-height { height: 21.875rem; }
   .mt-6-l { margin-top: .6rem; }
+  .nl-3 { margin-left: -3rem; }
 }
 
 //Very large screens
