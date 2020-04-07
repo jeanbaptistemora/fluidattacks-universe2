@@ -185,7 +185,7 @@ type Vulnerability {
 "Tag type definition"
 type Tag {
     name: String
-    projects: [Project!]
+    projects: [Project]
 }
 
 type ForcesExecution {

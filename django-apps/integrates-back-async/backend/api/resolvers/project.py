@@ -355,11 +355,16 @@ async def _get_users(info, project_name):
     return dict(users=users)
 
 
-async def _resolve_fields(info, project_name):
+async def resolve(info, project_name, as_field=False):
     """Async resolve fields."""
     result = dict()
     tasks = list()
-    for requested_field in info.field_nodes[0].selection_set.selections:
+    requested_fields = \
+        util.get_requested_fields(
+            'projects', info.field_nodes[0].selection_set) \
+        if as_field else info.field_nodes[0].selection_set.selections
+
+    for requested_field in requested_fields:
         snake_field = convert_camel_case_to_snake(requested_field.name.value)
         if snake_field.startswith('_'):
             continue
@@ -384,7 +389,7 @@ async def _resolve_fields(info, project_name):
 def resolve_project(_, info, project_name):
     """Resolve project query."""
     project_name = project_name.lower()
-    return util.run_async(_resolve_fields, info, project_name)
+    return util.run_async(resolve, info, project_name)
 
 
 @convert_kwargs_to_snake_case
@@ -544,4 +549,4 @@ def resolve_alive_projects(_, info):
 async def _get_alive_projects(info):
     """Resolve for ACTIVE and SUSPENDED projects."""
     alive_projects = await sync_to_async(project_domain.get_alive_projects)()
-    return [await _resolve_fields(info, project) for project in alive_projects]
+    return [await resolve(info, project) for project in alive_projects]

@@ -325,6 +325,7 @@ class UserAbacTest(TestCase):
 
     customeradmin_actions: Set[str] = {
         'backend_api_resolvers_me__get_tags',
+        'backend_api_resolvers_tag_resolve_tag',
         'backend_api_resolvers_user_resolve_user_list_projects'
     }
 

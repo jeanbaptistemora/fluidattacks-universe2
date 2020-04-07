@@ -2,7 +2,7 @@
 
 from backend.api.resolvers import (
     alert, finding, internal_project, event,
-    forces, me, project, resource, user
+    forces, me, project, resource, tag, user
 )
 
 from ariadne import QueryType
@@ -22,3 +22,4 @@ QUERY.set_field('finding', finding.resolve_finding)
 QUERY.set_field('project', project.resolve_project)
 QUERY.set_field('aliveProjects', project.resolve_alive_projects)
 QUERY.set_field('userListProjects', user.resolve_user_list_projects)
+QUERY.set_field('tag', tag.resolve_tag)
