@@ -844,8 +844,10 @@ const enTranslations: Dictionary = {
     },
   },
   tag_indicator: {
+    open_vuln: "open vulns.",
     remediated_accepted_vuln: "How many vulnerabilities are remediated and accepted?",
     remediated_vuln: "How many vulnerabilities are remediated (closed)?",
+    total_vuln: "vulnerabilities",
   },
   update_access_token: {
     access_token: "Personal Access Token",

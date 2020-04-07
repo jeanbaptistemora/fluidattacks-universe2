@@ -1,4 +1,4 @@
-import { ChartData } from "chart.js";
+import { ChartData, ChartOptions } from "chart.js";
 import React from "react";
 import { Col } from "react-bootstrap";
 import { Doughnut } from "react-chartjs-2";
@@ -9,6 +9,7 @@ import { default as style } from "./index.css";
 interface IDoughnutProps {
   data: ChartData;
   name: string;
+  options?: ChartOptions;
 }
 /**
  * Project Indicator Doughnut Graph
@@ -22,7 +23,7 @@ const indicatorGraph: React.FunctionComponent<IDoughnutProps> =
         data={props.data}
         width={2}
         height={2}
-        options={{cutoutPercentage: 70}}
+        options={{...props.options, cutoutPercentage: 70}}
       />
     </Col>
   </React.StrictMode>

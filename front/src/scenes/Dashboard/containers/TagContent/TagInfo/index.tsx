@@ -1,5 +1,14 @@
+/* tslint:disable jsx-no-multiline-js
+ * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
+ * readability of the code that renders indicators
+ */
 import { useQuery } from "@apollo/react-hooks";
 import { ChartData, ChartDataSets, ChartOptions } from "chart.js";
+/* tslint:disable-next-line: no-import-side-effect
+ * Disabling this rule is necessary because the module attach itself
+ * as a plugin to chart
+ */
+import "chartjs-plugin-doughnutlabel";
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -14,7 +23,7 @@ import { IndicatorStack } from "../../../components/IndicatorStack";
 import { default as style } from "./index.css";
 import { TAG_QUERY } from "./queries";
 
-type TagsProps = RouteComponentProps<{ tagName: string }>;
+export type TagsProps = RouteComponentProps<{ tagName: string }>;
 
 interface IStackedGraph {
   acceptedUndefinedVulnerabilities: number;
@@ -63,6 +72,20 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     return { closedVulnerabilities, openVulnerabilities };
   };
 
+  const getNumberOfVulns: ((projects: ITreatmentGraph[]) => number) = (
+    projects: ITreatmentGraph[],
+  ): number => {
+    const { closedVulnerabilities, openVulnerabilities } = formatStatusGraphData(projects);
+
+    return closedVulnerabilities + openVulnerabilities;
+  };
+
+  const getNumberOfOpenVulns: ((projects: ITreatmentGraph[]) => number) = (
+    projects: ITreatmentGraph[],
+  ): number => (
+    projects.reduce((acc: number, project: ITreatmentGraph) => (acc + project.openVulnerabilities), 0)
+  );
+
   const formatTreatmentGraphData: ((projects: ITreatmentGraph[]) => ITreatmentGraph) = (
     projects: ITreatmentGraph[],
   ): ITreatmentGraph => {
@@ -72,7 +95,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
 
         return ({
           accepted: acc.accepted + projectTreatment.accepted,
-          acceptedUndefined: acc.accepted + projectTreatment.acceptedUndefined,
+          acceptedUndefined: acc.acceptedUndefined + projectTreatment.acceptedUndefined,
           inProgress: acc.inProgress + projectTreatment.inProgress,
           undefined: acc.undefined + projectTreatment.undefined,
         });
@@ -201,6 +224,27 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       yAxes: [{ stacked: true, gridLines: { display: false }, ticks: { callback: yAxesLabel } }],
     },
   };
+
+  const formatDoughnutOptions: ((numberOfVulns: number, smallLabel: string) => ChartOptions) = (
+    numberOfVulns: number, smallLabel: string,
+  ): ChartOptions => ({
+    plugins: {
+      doughnutlabel: {
+        labels: [
+          {
+            color: "#000",
+            font: { size: "50", weight: "bold" },
+            text: numberOfVulns,
+          },
+          {
+            color: "#000",
+            font: { size: "20" },
+            text: smallLabel,
+          },
+        ],
+      },
+    },
+  });
 
   const calculateMeanToRemediate: ((projects: IProjectTag[]) => number) = (projects: IProjectTag[]): number => (
     Math.ceil(
@@ -334,6 +378,9 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             <IndicatorGraph
               data={statusGraph(formatStatusGraphData(data.tag.projects))}
               name={translate.t("search_findings.tab_indicators.status_graph")}
+              options={
+                formatDoughnutOptions(getNumberOfVulns(data.tag.projects), translate.t("tag_indicator.total_vuln"))
+              }
             />
           </Col>
         </Col>
@@ -342,6 +389,9 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             <IndicatorGraph
               data={treatmentGraph(formatTreatmentGraphData(data.tag.projects))}
               name={translate.t("search_findings.tab_indicators.treatment_graph")}
+              options={
+                formatDoughnutOptions(getNumberOfOpenVulns(data.tag.projects), translate.t("tag_indicator.open_vuln"))
+              }
             />
           </Col>
         </Col>
