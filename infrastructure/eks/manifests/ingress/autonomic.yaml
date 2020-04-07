@@ -53,6 +53,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/server-alias: autonomicmind.co
     nginx.ingress.kubernetes.io/upstream-vhost: "web.autonomicmind.com"
 spec:
