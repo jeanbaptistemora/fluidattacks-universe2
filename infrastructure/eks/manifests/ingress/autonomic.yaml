@@ -20,30 +20,6 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: autonomic-courses
-  namespace: serves
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/server-alias: autonomicmind.co
-spec:
-  tls:
-  - hosts:
-    - autonomicmind.com
-    - autonomicmind.co
-    secretName: autonomic-cert
-  rules:
-  - host: autonomicmind.com
-    http:
-      paths:
-      - backend:
-          serviceName: exams
-          servicePort: 80
-        path: /courses(.*)
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
   name: autonomic-forms
   namespace: serves
   annotations:
