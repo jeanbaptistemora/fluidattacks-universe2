@@ -247,6 +247,10 @@ def analytics_management(analytics_break_build_logs, sync):
 
 
 @click.command(name='utils')
+@click.argument(
+    'subscription',
+    default=_get_actual_subscription(),
+    callback=_valid_subscription)
 @click.option(
     '--get-commit-subs',
     help='get the subscription name from the commmit msg.',
@@ -254,14 +258,12 @@ def analytics_management(analytics_break_build_logs, sync):
 @click.option('--is-valid-commit', is_flag=True, help='pipelines-only')
 @click.option(
     '--vpn',
-    callback=_valid_subscription,
-    default=_get_actual_subscription(),
-    metavar=SUBS_METAVAR)
-def utils_management(get_commit_subs, is_valid_commit, vpn):
+    is_flag=True)
+def utils_management(subscription, get_commit_subs, is_valid_commit, vpn):
     if is_valid_commit:
         sys.exit(0 if toolbox.is_valid_commit() else 1)
-    elif vpn != 'no-subs':
-        sys.exit(0 if resources.vpn(vpn) else 1)
+    elif vpn and subscription != 'no-subs':
+        sys.exit(0 if resources.vpn(subscription) else 1)
     elif get_commit_subs:
         subs = toolbox.get_subscription_from_commit_msg()
         click.echo(subs)
