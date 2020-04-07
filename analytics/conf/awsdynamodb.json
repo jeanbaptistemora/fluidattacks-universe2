@@ -168,7 +168,7 @@
         "files": "string",
         "findings_deleted": "list<dict>",
         "hasRelease": "string",
-	"has_forces": "string",
+        "has_forces": "string",
         "last_closing_date": "number",
         "max_open_severity": "number",
         "mean_remediate": "number",

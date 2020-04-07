@@ -62,7 +62,6 @@ stages:
   needs: []
   script:
     - ./build.sh "${CI_JOB_NAME}"
-  interruptible: true
 
 analytics_formstack:
   <<: *with_nix

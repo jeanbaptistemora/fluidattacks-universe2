@@ -93,7 +93,7 @@ check_interval = 20
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 5
+    IdleCount = 0
     IdleTime = 1800
     MaxBuilds = 20
     MachineDriver = "amazonec2"
@@ -110,7 +110,7 @@ check_interval = 20
       "amazonec2-use-ebs-optimized-instance=true",
       "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-075b5fce6712726ed",
-      "amazonec2-instance-type=t3a.large",
+      "amazonec2-instance-type=m5a.4xlarge",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=100"
     ]

@@ -88,7 +88,7 @@ function job_analytics_formstack {
 function job_analytics_git {
   local fork
   local log_file
-  local num_threads='8'
+  local num_threads='64'
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
 
       aws_login \
