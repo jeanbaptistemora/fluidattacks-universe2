@@ -176,13 +176,13 @@ Execute the following command from the continuous repo root:
 
 .. code:: bash
 
-  user@PC:~/continuous$ toolbox --subs <subscription-name> --repo-cloning
+  user@PC:~/continuous$ fluid resources --clone <subscription-name>
 
 This one could also be executed inside the selected subscription folder
 
 .. code:: bash
 
-  user@PC:~/continuous/subscriptions/subscription$ toolbox --repo-cloning
+  user@PC:~/continuous/subscriptions/subscription$ fluid resources --clone
 
 This command will ask for okta credentials.
 
@@ -242,7 +242,7 @@ among others.
 
 .. code:: bash
 
-  user@PC:~/continuous/subscriptions/subscription/fusion$ toolbox --get-fingerprint
+  user@PC:~/continuous/subscriptions/subscription/fusion$ toolbox resources --fingerprint
 
 +++++++++++++++
 5. Source Clear

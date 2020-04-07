@@ -92,9 +92,9 @@ def cli():
     is_flag=True,
     help='check if the mailmap of a subscription is valid')
 @click.option(
-    '--edit', is_flag=True, help='read the secrets of a subscription')
+    '--edit', is_flag=True, help='edit the secrets of a subscription')
 @click.option(
-    '--read', is_flag=True, help='edit the secrets of a subscription')
+    '--read', is_flag=True, help='read the secrets of a subscription')
 @click.option('--sync-fusion-to-s3', is_flag=True)
 @click.option('--sync-s3-to-fusion', is_flag=True)
 def resources_management(subscription, check_repos, clone, fingerprint,

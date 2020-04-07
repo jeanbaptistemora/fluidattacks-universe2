@@ -589,7 +589,7 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
         logger.info('You can run this check locally:')
         logger.info(f'  continuous $ pip3 install '
                     f'break-build/packages/toolbox[with_fluidasserts]')
-        logger.info(f'  continuous $ toolbox --subs {subs} --check-sync')
+        logger.info(f'  continuous $ fluid forces --check-sync {subs}')
     else:
         logger.info('You can check the exploits output at:')
         msg = f'  subscriptions/{subs}/break-build/*/exploits/*.exp.out.yml'
@@ -1107,11 +1107,11 @@ def decrypt_secrets(subs: str) -> bool:
             logger.error(
                 f'  No secrets.yml file found for {subs}')
             logger.error(
-                f'    1. run $ toolbox --subs {subs} --init-secrets')
+                f'    1. run $ fluid forces --init-secrets {subs}')
             logger.error(
                 f'    2. put your secrets in {plaintext_path}')
             logger.error(
-                f'    3. run $ toolbox --subs {subs} --encrypt-secrets')
+                f'    3. run $ fluid forces --encrypt {subs} ')
             sys.exit(78)
         else:
             crypto.create_decrypted_yaml(

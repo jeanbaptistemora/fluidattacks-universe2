@@ -73,7 +73,7 @@ Let's generate them:
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ toolbox --subs some-subs-name --init-secrets
+    kamado@fluid:/continuous$ fluid forces --init-secrets <some-subs-name>
 
 
 .. code:: bash
@@ -180,7 +180,7 @@ We'll need to add secrets in order to use them in our exploits.
 
    .. code:: bash
 
-       kamado@fluid:/continuous$ toolbox --subs some-subs-name --encrypt-secrets
+       kamado@fluid:/continuous$ fluid forces --encrypt-secrets <some-subs-name>
 
        bash Moving secrets from
        subscriptions/some-subs-name/break-build/static/resources/plaintext.yml to
@@ -239,12 +239,12 @@ use the toolbox!
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ toolbox --subs some-subs-name --run-static-exps
+    kamado@fluid:/continuous$ fluid forces --run --static all <some-subs-name>
 
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ toolbox --subs some-subs-name --run-dynamic-exps
+    kamado@fluid:/continuous$ fluid forces --run --dynamic all <some-subs-name>
 
 Now inspect the output:
 

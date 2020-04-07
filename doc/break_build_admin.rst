@@ -17,7 +17,7 @@ When a ${SUBS} is added
 
 2. run:
 
-   -  ``continuous $ toolbox --init-secrets``
+   -  ``continuous $ fluid forces --init-secrets``
 
 3. commit your changes to the master branch
 4. give the customer the credentials (see below) and CI commands to pull
