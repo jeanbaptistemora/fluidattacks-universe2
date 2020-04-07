@@ -21,8 +21,9 @@ from backend.decorators import (
 )
 from backend.domain import project as project_domain, user as user_domain
 from backend.services import (
-    is_customeradmin, has_responsibility, has_phone_number,
-    has_access_to_project
+    has_access_to_project,
+    has_phone_number,
+    has_responsibility,
 )
 from backend.exceptions import UserNotFound
 from backend.mailer import send_mail_access_granted
@@ -83,16 +84,13 @@ class User(ObjectType):
         self.responsibility = has_responsibility(
             project_name, user_email) if project_name else ''
         self.phone_number = has_phone_number(user_email)
-        user_role = user_domain.get_user_level_role(user_email)
 
-        if project_name and is_customeradmin(project_name, user_email):
-            self.role = 'customer_admin'
-        elif user_role == 'customeradmin':
-            self.role = 'customer'
-        else:
-            self.role = user_role
+        self.role = (
+            user_domain.get_group_level_role(user_email, project_name)
+            if project_name
+            else user_domain.get_user_level_role(user_email))
 
-        if project_name and role:
+        if project_name and self.role:
             has_access = has_access_to_project(user_email, project_name)
 
             if not user_domain.get_data(user_email, 'email') or \
@@ -203,7 +201,7 @@ class GrantUserAccess(Mutation):
 
         if (role == 'admin'
                 and new_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
-            or (is_customeradmin(project_name, user_data['user_email'])
+            or (role == 'customeradmin'
                 and new_user_data['role'] in ['customer', 'customeradmin']):
             if create_new_user(info.context, new_user_data, project_name):
                 success = True
@@ -343,7 +341,7 @@ class EditUser(Mutation):
     @enforce_group_level_auth
     @require_project_access
     def mutate(self, info, **query_args):
-        project_name = query_args.get('project_name')
+        project_name = query_args['project_name']
         success = False
         user_data = util.get_jwt_content(info.context)
         user_email = user_data['user_email']
@@ -361,7 +359,7 @@ class EditUser(Mutation):
         if (role == 'admin'
                 and modified_user_data['role'] in ['admin', 'analyst',
                                                    'customer', 'customeradmin']) \
-            or (is_customeradmin(project_name, user_data['user_email'])
+            or (role == 'customeradmin'
                 and modified_user_data['role'] in ['customer', 'customeradmin']):
             if user_domain.assign_role(
                modified_user_data['email'], modified_user_data['role'], project_name):
@@ -394,7 +392,6 @@ class EditUser(Mutation):
 
 def modify_user_information(
         context: Dict[str, Any], modified_user_data: Dict[str, Any], project_name: str):
-    role = modified_user_data['role']
     email = modified_user_data['email']
     responsibility = modified_user_data['responsibility']
     phone = modified_user_data['phone_number']
@@ -408,7 +405,7 @@ def modify_user_information(
             'Security: {email} Attempted to add responsibility to project \
                 {project} bypassing validation'.format(email=email,
                                                        project=project_name))
-    if phone and phone[1:].isdigit():
+    if phone and validate_phone_field(phone):
         user_domain.add_phone_to_user(email, phone)
     else:
         util.cloudwatch_log(
@@ -416,8 +413,3 @@ def modify_user_information(
             'Security: {email} Attempted to edit user phone bypassing \
                 validation'.format(email=email)
         )
-
-    if role == 'customeradmin':
-        user_domain.grant_group_level_role(email, project_name, role)
-    elif is_customeradmin(project_name, email):
-        project_domain.remove_user_access(project_name, email)

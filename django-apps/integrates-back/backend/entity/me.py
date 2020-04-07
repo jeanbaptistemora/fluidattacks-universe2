@@ -14,7 +14,6 @@ from backend.decorators import require_login
 from backend.domain import project as project_domain, user as user_domain
 from backend.entity.project import Project
 from backend.exceptions import InvalidExpirationTime
-from backend.services import is_customeradmin
 
 from backend import util
 from backend.dal import user as user_dal
@@ -44,10 +43,6 @@ class Me(ObjectType):
             role = \
                 user_domain.get_user_level_role(user_email)
 
-        if project_name and role == 'customer':
-            email = jwt_content.get('user_email')
-            role = 'customeradmin' if is_customeradmin(
-                project_name, email) else 'customer'
         self.role = role
 
         return self.role

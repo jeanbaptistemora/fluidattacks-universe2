@@ -12,7 +12,6 @@ from backend.decorators import (
 )
 from backend.domain import project as project_domain, user as user_domain
 from backend.mailer import send_mail_access_granted
-from backend.services import is_customeradmin
 from backend.typing import (
     User as UserType,
     AddUserPayload as AddUserPayloadType,
@@ -29,6 +28,12 @@ from backend import util
 import rollbar
 
 from ariadne import convert_kwargs_to_snake_case
+
+# Constants
+ROLES_A_USER_CAN_GRANT = {
+    'admin': ['admin', 'analyst', 'customer', 'customeradmin'],
+    'customeradmin': ['customer', 'customeradmin'],
+}
 
 
 # pylint: disable=too-many-arguments
@@ -140,12 +145,7 @@ def resolve_grant_user_access(
     new_user_role = query_args.get('role')
     new_user_email = query_args.get('email', '')
 
-    roles_admin_can_grant = ('admin', 'analyst', 'customer', 'customeradmin')
-    roles_customeradmin_can_grant = ('customer', 'customeradmin')
-
-    if (role == 'admin' and new_user_role in roles_admin_can_grant) \
-        or (role == 'customeradmin'
-            and new_user_role in roles_customeradmin_can_grant):
+    if new_user_role in ROLES_A_USER_CAN_GRANT.get(role, []):
         if _create_new_user(
                 context=info.context,
                 email=new_user_email,
@@ -217,32 +217,20 @@ def resolve_remove_user_access(_, info, project_name: str,
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_edit_user(_, info, **query_args) -> EditUserPayloadType:
+def resolve_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     """Resolve edit_user mutation."""
-    project_name = query_args.get('project_name', '')
+    project_name = modified_user_data['project_name']
+    modified_role = modified_user_data['role']
+    modified_email = modified_user_data['email']
+
     success = False
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     role = user_domain.get_group_level_role(user_email, project_name)
 
-    modified_user_data = {
-        'email': query_args.get('email', ''),
-        'organization': query_args.get('organization', ''),
-        'responsibility': query_args.get('responsibility', ''),
-        'role': query_args.get('role', ''),
-        'phone_number': query_args.get('phone_number', '')
-    }
-    if (role == 'admin'
-            and modified_user_data['role'] in ['admin', 'analyst',
-                                               'customer', 'customeradmin']) \
-        or (is_customeradmin(project_name, user_data['user_email'])
-            and modified_user_data['role'] in ['customer', 'customeradmin']):
-
-        modified_user_email = modified_user_data['email']
-        modified_user_role = modified_user_data['role']
-
+    if modified_role in ROLES_A_USER_CAN_GRANT.get(role, []):
         if user_domain.grant_group_level_role(
-                modified_user_email, project_name, modified_user_role):
+                modified_email, project_name, modified_role):
             success = modify_user_information(info.context, modified_user_data,
                                               project_name)
         else:
@@ -252,18 +240,20 @@ def resolve_edit_user(_, info, **query_args) -> EditUserPayloadType:
         rollbar.report_message('Error: Invalid role provided: ' +
                                modified_user_data['role'], 'error',
                                info.context)
+
     if success:
         util.invalidate_cache(project_name)
-        util.invalidate_cache(query_args.get('email', ''))
+        util.invalidate_cache(modified_email)
         util.cloudwatch_log(
             info.context,
-            f'Security: Modified user data:{query_args.get("email")} \
-            in {project_name} project succesfully')
+            f'Security: Modified user data:{modified_email} \
+            in {project_name} project successfully')
     else:
         util.cloudwatch_log(
             info.context,
             f'Security: Attempted to modify user \
-            data:{query_args.get("email")} in {project_name} project')
+            data:{modified_email} in {project_name} project')
+
     return EditUserPayloadType(
         success=success,
         modified_user=dict(project_name=project_name,
@@ -275,13 +265,13 @@ def modify_user_information(context: object,
                             modified_user_data: Dict[str, str],
                             project_name: str) -> bool:
     """Modify user information."""
-    role = modified_user_data['role']
     email = modified_user_data['email']
     responsibility = modified_user_data['responsibility']
     phone = modified_user_data['phone_number']
     organization = modified_user_data['organization']
     user_domain.update(email, organization.lower(), 'company')
     successes = []
+
     if responsibility and len(responsibility) <= 50:
         result = project_domain.add_access(
             email, project_name, 'responsibility', responsibility)
@@ -292,7 +282,8 @@ def modify_user_information(context: object,
             f'Security: {email} Attempted to add responsibility to project \
                 {project_name} bypassing validation')
         successes.append(False)
-    if phone and phone[1:].isdigit():
+
+    if phone and validate_phone_field(phone):
         result = user_domain.add_phone_to_user(email, phone)
         successes.append(result)
     else:
@@ -301,12 +292,6 @@ def modify_user_information(context: object,
             f'Security: {email} Attempted to edit user phone bypassing \
                 validation')
         successes.append(False)
-    if role == 'customeradmin':
-        result = user_domain.grant_group_level_role(email, project_name, role)
-        successes.append(result)
-    elif is_customeradmin(project_name, email):
-        result = project_domain.remove_user_access(project_name, email)
-        successes.append(result)
 
     return all(successes)
 

@@ -44,16 +44,6 @@ def has_access_to_event(email: str, event_id: str) -> bool:
     return has_access_to_project(email, group)
 
 
-def is_customeradmin(project: str, email: str) -> bool:
-    """Verify if a user is a customeradmin."""
-    project_data = project_dal.get(project)
-    for data in project_data:
-        customeradmin = cast(str, data.get('customeradmin'))
-        if customeradmin and email.lower() in customeradmin:
-            return True
-    return False
-
-
 def has_valid_access_token(email: str, context: Dict[str, str], jti: str) -> bool:
     """ Verify if has active access token and match. """
     access_token = cast(Dict[str, str], user_domain.get_data(email, 'access_token'))
