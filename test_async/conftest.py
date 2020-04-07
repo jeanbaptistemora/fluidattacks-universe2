@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import pytest
 from django.conf import settings
@@ -17,3 +18,9 @@ def load_enforcers(request):
 def disable_logging():
     """Disable logging in all tests."""
     logging.disable(logging.INFO)
+
+
+@pytest.fixture
+def event_loop():
+    loop = asyncio.get_event_loop()
+    yield loop

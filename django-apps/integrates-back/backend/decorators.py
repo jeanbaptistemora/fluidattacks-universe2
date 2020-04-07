@@ -489,7 +489,7 @@ def get_entity_cache_async(func):
             )
         else:
             uniq_id = str(gql_ent)
-        params = '_'.join([kwargs[key] for key in kwargs]) + '_'
+        params = '_'.join([str(kwargs[key]) for key in kwargs]) + '_'
         complement = (params if kwargs else '') + uniq_id
         key_name = \
             f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{complement}'

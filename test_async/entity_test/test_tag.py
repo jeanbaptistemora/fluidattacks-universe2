@@ -3,13 +3,18 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
+from graphql.type import GraphQLResolveInfo
 from jose import jwt
 from backend.api.schema import SCHEMA
+from backend.api.resolvers import tag
+
+import pytest
 
 
-class AlertTests(TestCase):
+class TagTests(TestCase):
 
-    async def test_get_tag(self):
+    @pytest.mark.asyncio
+    async def test_get_tag_query(self):
         """Check for project alert."""
         query = '''
             query{

@@ -10,6 +10,9 @@ from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
 
+import pytest
+
+pytestmark = pytest.mark.asyncio
 
 class ForcesExecutionsTests(TestCase):
 
@@ -96,8 +99,6 @@ class ForcesExecutionsTests(TestCase):
         result = await self._get_result(data)
         executions = result['data']['forcesExecutions']['executions']
         assert 'errors' not in result
-        assert executions[0]['projectName'] == project_name
-        assert executions[0]['identifier'] == '33e5d863252940edbfb144ede56d56cf'
         assert executions[0]['date'] == '2020-02-19T19:31:18+00:00'
         assert executions[0]['exitCode'] == '1'
         assert executions[0]['gitBranch'] == 'master'
@@ -134,8 +135,6 @@ class ForcesExecutionsTests(TestCase):
             "numOfVulnerabilitiesInMockedExploits": 1,
             "numOfVulnerabilitiesInAcceptedExploits": 1
         }
-        assert executions[1]['projectName'] == project_name
-        assert executions[1]['identifier'] == 'a125217504d447ada2b81da3e4bdab0e'
         assert executions[1]['date'] == '2020-02-19T19:04:33+00:00'
         assert executions[1]['exitCode'] == '0'
         assert executions[1]['gitBranch'] == 'awesomeFeature'

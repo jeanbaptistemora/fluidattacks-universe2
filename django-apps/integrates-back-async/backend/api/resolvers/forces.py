@@ -7,7 +7,7 @@ import sys
 
 from asgiref.sync import sync_to_async
 from backend.decorators import (
-    get_cached, enforce_group_level_auth_async, require_login,
+    enforce_group_level_auth_async, require_login,
     require_project_access
 )
 from backend.dal import forces as forces_dal
@@ -94,7 +94,6 @@ async def _resolve_fields(info, project_name, from_date, to_date):
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-@get_cached
 def resolve_forces_executions(
     _, info, project_name, from_date=None, to_date=None
 ):

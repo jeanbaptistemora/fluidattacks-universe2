@@ -80,21 +80,23 @@ def _get_last_login(email, _=None):
     return dict(last_login=str(last_login))
 
 
-@sync_to_async
-def _get_list_projects(email, project_name):
+async def _get_list_projects(email, project_name):
     """Get list projects."""
     list_projects = list()
     if not project_name:
         projs_active = \
             ['{proj}: {description} - Active'.format(
                 proj=proj,
-                description=project_domain.get_description(proj))
-                for proj in user_domain.get_projects(email)]
+                description=await sync_to_async(
+                    project_domain.get_description)(proj))
+                for proj in
+                await sync_to_async(user_domain.get_projects)(email)]
         projs_suspended = \
             ['{proj}: {description} - Suspended'.format(
                 proj=proj,
-                description=project_domain.get_description(proj))
-                for proj in user_domain.get_projects(
+                description=await sync_to_async(
+                    project_domain.get_description)(proj))
+                for proj in await sync_to_async(user_domain.get_projects)(
                     email, active=False)]
         list_projects = projs_active + projs_suspended
     return dict(list_projects=list_projects)
