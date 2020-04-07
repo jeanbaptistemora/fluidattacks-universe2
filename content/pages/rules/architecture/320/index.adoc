@@ -41,3 +41,7 @@ Verify the application uses a single and well-vetted access control mechanism
 for accessing protected data and resources.
 All requests must pass through this single mechanism to avoid copy and paste or
 insecure alternative paths.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.5 Input and Output Architectural Requirements.(1.5.3)]
+Verify that input validation is enforced on a trusted service layer.

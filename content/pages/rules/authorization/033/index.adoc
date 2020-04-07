@@ -1,7 +1,7 @@
 :slug: rules/033/
 :category: authorization
 :description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of limiting administrative access to applications to authorized users only, in order to avoid several common attacks.
-:keywords: Requirement, Security, Restrict, Administrative, Access Control, Network
+:keywords: Restrict, Administrative, Access Control, Network, CWE, ASVS
 :rules: yes
 
 = REQ.033 Restrict administrative access
@@ -59,14 +59,11 @@ in order to perform deeper and more detailed attacks.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/Category:Access_Control[Category:Access Control].
-
-. [[r2]] link:https://cwe.mitre.org/data/definitions/264.html[CWE CATEGORY: Permissions, Privileges, and Access Controls].
-
-. [[r3]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419 Unprotected Primary Channel].
+The software uses a primary channel for administration or restricted
+functionality,
+but it does not properly protect the channel.
 
 . [[r4]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.32+]
 Verify that access to administrative interfaces
 is strictly controlled and not allowed for untrusted parties.
-
-. [[r5]] link:https://www.owasp.org/index.php/Top_10_2013-A5-Security_Misconfiguration[Top 10 2013-A5-Security Misconfiguration].
