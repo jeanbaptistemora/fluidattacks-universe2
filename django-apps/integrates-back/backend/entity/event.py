@@ -6,7 +6,11 @@ from graphene import (
 )
 from graphene.types.generic import GenericScalar
 from graphene_file_upload.scalars import Upload
-from backend.domain import comment as comment_domain, event as event_domain
+from backend.domain import (
+    comment as comment_domain,
+    event as event_domain,
+    user as user_domain
+)
 from backend.entity.comment import Comment
 from backend.decorators import (
     get_entity_cache, require_login, require_event_access,
@@ -58,10 +62,13 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_comments(self, info):
         """ Resolve comments attribute """
+        user_email = util.get_jwt_content(info.context)['user_email']
+        curr_user_role = user_domain.get_group_level_role(
+            user_email, self.project_name)
         self.comments = [
             Comment(**comment)
             for comment in comment_domain.get_event_comments(
-                self.id, util.get_jwt_content(info.context)['user_role'])]
+                self.id, curr_user_role)]
 
         return self.comments
 
