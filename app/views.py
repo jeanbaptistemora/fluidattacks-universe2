@@ -27,7 +27,7 @@ from backend.domain import (
     finding as finding_domain, project as project_domain, user as user_domain)
 from backend.exceptions import ErrorUploadingFileS3
 from backend.domain.vulnerability import (
-    group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
+    get_open_vuln_by_type, get_vulnerabilities_by_type
 )
 from backend.decorators import authenticate, cache_content
 from backend.dal import (
@@ -210,7 +210,7 @@ def project_to_xls(request, lang, project):
     findings = finding_domain.get_findings(
         project_domain.list_findings(project.lower()))
     if findings:
-        findings = [cast_new_vulnerabilities(
+        findings = [finding_domain.cast_new_vulnerabilities(
             get_open_vuln_by_type(finding['findingId'], request), finding)
             for finding in findings]
     else:
@@ -273,7 +273,7 @@ def project_to_pdf(  # pylint: disable=too-many-locals
             return validator
         findings = finding_domain.get_findings(
             project_domain.list_findings(project.lower()))
-        findings = [cast_new_vulnerabilities(
+        findings = [finding_domain.cast_new_vulnerabilities(
             get_open_vuln_by_type(finding['findingId'], request), finding)
             for finding in findings]
         description = project_domain.get_description(project.lower())
@@ -334,50 +334,6 @@ def pdf_evidences(findings):
                     evidence['id'].split('/')[2] + '[align="center"]'
 
     return findings
-
-
-def cast_new_vulnerabilities(finding_new, finding):
-    """Cast values for new format."""
-    if finding_new.get('openVulnerabilities') >= 0:
-        finding['openVulnerabilities'] = \
-            str(finding_new.get('openVulnerabilities'))
-    else:
-        # This finding does not have open vulnerabilities
-        pass
-    where = '-'
-    if finding_new.get('portsVulns'):
-        finding['portsVulns'] = \
-            group_specific(finding_new.get('portsVulns'), 'ports')
-        where = format_where(where, finding['portsVulns'])
-    else:
-        # This finding does not have ports vulnerabilities
-        pass
-    if finding_new.get('linesVulns'):
-        finding['linesVulns'] = \
-            group_specific(finding_new.get('linesVulns'), 'lines')
-        where = format_where(where, finding['linesVulns'])
-    else:
-        # This finding does not have lines vulnerabilities
-        pass
-    if finding_new.get('inputsVulns'):
-        finding['inputsVulns'] = \
-            group_specific(finding_new.get('inputsVulns'), 'inputs')
-        where = format_where(where, finding['inputsVulns'])
-    else:
-        # This finding does not have inputs vulnerabilities
-        pass
-    finding['where'] = where
-    return finding
-
-
-def format_where(where, vulnerabilities):
-    """Formate where field with new vulnerabilities."""
-    for vuln in vulnerabilities:
-        where = '{where!s}{vuln_where!s} ({vuln_specific!s})\n'\
-                .format(where=where,
-                        vuln_where=vuln.get('where'),
-                        vuln_specific=vuln.get('specific'))
-    return where
 
 
 def format_release_date(finding):

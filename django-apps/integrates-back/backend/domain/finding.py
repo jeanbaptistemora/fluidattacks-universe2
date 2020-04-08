@@ -879,3 +879,38 @@ def validate_finding(
         finding = finding_dal.get_finding(str(finding_id))
     historic_state = cast(List[Dict[str, str]], finding.get('historic_state', [{}]))
     return historic_state[-1].get('state', '') != 'DELETED'
+
+
+def cast_new_vulnerabilities(finding_new: Dict[str, FindingType],
+                             finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
+    """Cast values for new format."""
+    if int(str(finding_new.get('openVulnerabilities'))) >= 0:
+        finding['openVulnerabilities'] = \
+            str(finding_new.get('openVulnerabilities'))
+    else:
+        # This finding does not have open vulnerabilities
+        pass
+    where = '-'
+    if finding_new.get('portsVulns'):
+        finding['portsVulns'] = \
+            vuln_domain.group_specific(cast(List[str], finding_new.get('portsVulns')), 'ports')
+        where = vuln_domain.format_where(where, cast(List[Dict[str, str]], finding['portsVulns']))
+    else:
+        # This finding does not have ports vulnerabilities
+        pass
+    if finding_new.get('linesVulns'):
+        finding['linesVulns'] = \
+            vuln_domain.group_specific(cast(List[str], finding_new.get('linesVulns')), 'lines')
+        where = vuln_domain.format_where(where, cast(List[Dict[str, str]], finding['linesVulns']))
+    else:
+        # This finding does not have lines vulnerabilities
+        pass
+    if finding_new.get('inputsVulns'):
+        finding['inputsVulns'] = \
+            vuln_domain.group_specific(cast(List[str], finding_new.get('inputsVulns')), 'inputs')
+        where = vuln_domain.format_where(where, cast(List[Dict[str, str]], finding['inputsVulns']))
+    else:
+        # This finding does not have inputs vulnerabilities
+        pass
+    finding['where'] = where
+    return finding
