@@ -8,17 +8,17 @@
 
 == Requirement
 
-System must discard all potentially harmful information
+The system must discard all potentially harmful information
 obtained via data inputs.
 
 == Description
 
-Technological devices and in particular applications
+Technological devices and, in particular, applications
 must be able to identify the received information
 that does not correspond to its operational purposes,
 in order to treat it properly
 (for example, rejecting and/or generating timely alerts)
-and that does not impact negatively the operation.
+and so that it does not impact the operation negatively.
 Typical examples of this are: `SQL` queries, `JavaScript` code,
 `OS` commands or `LDAP` queries
 in fields and application parameters;
@@ -28,9 +28,10 @@ files manipulated in structure and extension
 to be loaded in an application or technology artifact,
 and in general any type of information
 that does not correspond to the requested format.
-A large amount of incoming traffic to a technological artifact
-must also be considered (which does not correspond to operational purposes)
-and controls and proper treatment must be performed.
+A large amount of the incoming traffic
+(which does not correspond to operational purposes)
+of a technological artifact must also be considered
+and controls and proper treatment must be applied.
 
 == Implementation
 
@@ -40,7 +41,7 @@ will be configured to reject all inputs
 that are not explicitly approved
 discarding all possible scenarios
 and forcing enumeration of strictly allowed inputs.
-e.g. allow only `a-z`, `A-Z` y `0-9`.
+E.g. allow only `a-z`, `A-Z` y `0-9`.
 
 . Use variable highlight:
 If supported, language and compiler
@@ -52,9 +53,9 @@ to detect that they are not validated.
 
 . No only user validation but also input validation:
 Any input from outside the application
-must be considered as malicious,
-meaning, user can enter incorrect information
-as well as potentially harmful
+must be considered malicious,
+that is to say, the user can enter incorrect information
+as well as potentially harmful inputs
 that may also compromise external systems,
 therefore this information must be validated.
 
@@ -115,47 +116,53 @@ externally-influenced input from an upstream component,
 but it does not neutralize or incorrectly neutralizes special elements that
 could modify the intended SQL command.
 
-. [[r10]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602 Client-Side Enforcement of Server-Side Security]
+. [[r10]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: SQL Injection].
+The software prepares a structured message for communication with another
+component,
+but encoding or escaping of the data is either missing or done incorrectly.
+As a result, the intended structure of the message is not preserved.
+
+. [[r11]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602 Client-Side Enforcement of Server-Side Security]
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
 
-. [[r11]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.10]
+. [[r12]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.10]
 Verify that all database queries are protected
 by the use of parameterized queries
 or proper `ORM` usage to avoid `SQL` injection.
 
-. [[r12]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.11]
+. [[r13]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.11]
 Verify that the application is not susceptible to `LDAP` Injection,
 or that security controls prevent `LDAP` Injection.
 
-. [[r13]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.12]
+. [[r14]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.12]
 Verify that the application is not susceptible to `OS` Command Injection,
 or that security controls prevent `OS` Command Injection.
 
-. [[r14]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.13]
+. [[r15]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.13]
 Verify that the application is not susceptible
 to Remote File Inclusion (`RFI`) or Local File Inclusion (`LFI`)
 when content is used that is a path to a file.
 
-. [[r15]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.14]
+. [[r16]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.14]
 Verify that the application is not susceptible
 to XPath injection or `XML` injection attacks.
 
-. [[r16]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.15]
+. [[r17]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.15]
 Verify that all string variables placed into `HTML`
 or other web client code are either properly contextually encoded manually,
 or utilize templates that automatically contextually encode
 to ensure the application is not susceptible to reflected,
 stored or `DOM` Cross-Site Scripting (`XSS`) attacks.
 
-. [[r17]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.17]
+. [[r18]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.17]
 Verify that the application has defenses
 against `HTTP` parameter pollution attacks,
 particularly if the application framework makes no distinction
 about the source of request parameters
 (`GET`, `POST`, cookies, headers, environment, etc.)
 
-. [[r18]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.19]
+. [[r19]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.19]
 Verify that all input data is validated,
 not only `HTML` form fields but all sources of input such as `REST` calls,
 query parameters, `HTTP` headers, cookies, batch files, `RSS` feeds, etc;
@@ -164,23 +171,28 @@ then lesser forms of validation such as grey listing
 (eliminating known bad strings),
 or rejecting bad inputs (blacklisting).
 
-. [[r19]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.20]
+. [[r20]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.20]
 Verify that structured data is strongly typed
 and validated against a defined schema including allowed characters,
 length and pattern (e.g. credit card numbers or telephone,
 or validating that two related fields are reasonable,
 such as validating suburbs and zip or post codes match).
 
-. [[r20]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.21]
+. [[r21]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.21]
 Verify that unstructured data is sanitized to enforce generic safety measures
 such as allowed characters and length,
 and characters potentially harmful in given context should be escaped
 (e.g. natural names with Unicode or apostrophes, such as ねこ or O'Hara).
 
-. [[r21]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.22]
+. [[r22]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.22]
 Verify that all untrusted `HTML` input from `WYSIWYG` editors or similar
 is properly sanitized with an `HTML` sanitizer library or framework feature.
 
-. [[r22]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
+
+. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.5 Input and Output Architectural Requirements.(1.5.4)]
+Verify that output encoding occurs close to or by the interpreter for which it
+is intended.
