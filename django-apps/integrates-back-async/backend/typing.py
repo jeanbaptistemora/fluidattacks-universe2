@@ -64,3 +64,7 @@ SimpleFindingPayload = NamedTuple('SimpleFindingPayload', [
     ('success', bool),
     ('finding', Dict[str, Finding]),
 ])
+ApproveDraftPayload = NamedTuple('ApproveDraftPayload', [
+    ('success', bool),
+    ('release_date', str),
+])

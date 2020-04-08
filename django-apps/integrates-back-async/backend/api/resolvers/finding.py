@@ -2,7 +2,7 @@
 
 from collections import namedtuple
 import sys
-from typing import Dict
+from typing import Any, Dict, List, cast
 
 import rollbar
 
@@ -24,6 +24,7 @@ from backend.typing import (
     Finding as FindingType,
     SimplePayload as SimplePayloadType,
     SimpleFindingPayload as SimpleFindingPayloadType,
+    ApproveDraftPayload as ApproveDraftPayloadType,
 )
 from backend import util
 
@@ -97,8 +98,8 @@ async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
 @enforce_group_level_auth_async
 @require_finding_access
 async def _do_update_evidence_description(
-    _, info, finding_id, evidence_id, description
-):
+        _, info, finding_id: str, evidence_id: str,
+        description: str) -> SimplePayloadType:
     """Resolve update_evidence_description mutation."""
     success = False
     try:
@@ -117,17 +118,18 @@ async def _do_update_evidence_description(
     except KeyError:
         await sync_to_async(rollbar.report_message)('Error: \
 An error occurred updating evidence description', 'error', info.context)
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_update_severity(_, info, **parameters):
+async def _do_update_severity(_, info,
+                              **parameters) -> SimpleFindingPayloadType:
     """Perform update_severity mutation."""
-    data = parameters.get('data')
+    data = parameters.get('data', dict())
     data = {util.snakecase_to_camelcase(k): data[k] for k in data}
-    finding_id = parameters.get('finding_id')
+    finding_id = parameters.get('finding_id', '')
     project = await sync_to_async(finding_domain.get_project)(finding_id)
     success = False
     success = await sync_to_async(finding_domain.save_severity)(data)
@@ -142,13 +144,14 @@ async def _do_update_severity(_, info, **parameters):
             info.context, f'Security: Attempted to update \
             severity in finding {finding_id}')
     finding = await info.context.loaders['finding'].load(finding_id)
-    return dict(finding=finding, success=success)
+    return SimpleFindingPayloadType(finding=finding, success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_verify_finding(_, info, finding_id, justification):
+async def _do_verify_finding(_, info, finding_id: str,
+                             justification: str) -> SimplePayloadType:
     """Resolve verify_finding mutation."""
     project_name = await \
         sync_to_async(project_domain.get_finding_project_name)(finding_id)
@@ -164,17 +167,17 @@ async def _do_verify_finding(_, info, finding_id, justification):
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Verified the '
             f'finding_id: {finding_id}')
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_handle_acceptation(_, info, **parameters):
+async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
     """Resolve handle_acceptation mutation."""
     user_info = util.get_jwt_content(info.context)
     user_mail = user_info['user_email']
-    finding_id = parameters.get('finding_id')
+    finding_id = parameters.get('finding_id', '')
     historic_treatment = await \
         sync_to_async(finding_domain.get_finding_historic_treatment)(
             finding_id
@@ -191,17 +194,18 @@ async def _do_handle_acceptation(_, info, **parameters):
         )
     if success:
         util.invalidate_cache(finding_id)
-        util.invalidate_cache(parameters.get('project_name'))
+        util.invalidate_cache(parameters.get('project_name', ''))
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Verified a request '
             f'in finding_id: {finding_id}')
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_update_description(_, info, finding_id, **parameters):
+async def _do_update_description(_, info, finding_id: str,
+                                 **parameters) -> SimpleFindingPayloadType:
     """Perform update_description mutation."""
     success = await \
         sync_to_async(finding_domain.update_description)(
@@ -220,13 +224,14 @@ finding {finding_id} succesfully')
             info.context, f'Security: Attempted to update \
             description in finding {finding_id}')
     finding = await info.context.loaders['finding'].load(finding_id)
-    return dict(finding=finding, success=success)
+    return SimpleFindingPayloadType(finding=finding, success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_update_client_description(_, info, finding_id, **parameters):
+async def _do_update_client_description(
+        _, info, finding_id: str, **parameters) -> SimpleFindingPayloadType:
     """Perform update_client_description mutation."""
     finding = await \
         sync_to_async(finding_domain.get_finding)(finding_id)
@@ -271,13 +276,13 @@ async def _do_update_client_description(_, info, finding_id, **parameters):
             info.context, 'Security: Attempted to update '
             f'treatment in finding {finding_id}')
     finding = await info.context.loaders['finding'].load(finding_id)
-    return dict(finding=finding, success=success)
+    return SimpleFindingPayloadType(finding=finding, success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_reject_draft(_, info, finding_id):
+async def _do_reject_draft(_, info, finding_id: str) -> SimplePayloadType:
     """Resolve reject_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
     project_name = await \
@@ -295,13 +300,14 @@ async def _do_reject_draft(_, info, finding_id):
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Attempted to reject draft {}'.format(finding_id))
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_delete_finding(_, info, finding_id, justification):
+async def _do_delete_finding(_, info, finding_id: str,
+                             justification: str) -> SimplePayloadType:
     """Resolve delete_finding mutation."""
     project_name = await \
         sync_to_async(project_domain.get_finding_project_name)(finding_id)
@@ -319,19 +325,20 @@ async def _do_delete_finding(_, info, finding_id, justification):
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Attempted to delete finding: {finding_id}')
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
-async def _do_approve_draft(_, info, draft_id):
+async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
     """Resolve approve_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
     project_name = await \
         sync_to_async(project_domain.get_finding_project_name)(draft_id)
 
     has_vulns = [vuln for vuln in vuln_domain.list_vulnerabilities([draft_id])
-                 if vuln['historic_state'][-1].get('state') != 'DELETED']
+                 if cast(List[Dict[str, Any]],
+                         vuln['historic_state'])[-1].get('state') != 'DELETED']
     if not has_vulns:
         raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
     success, release_date = await sync_to_async(finding_domain.approve_draft)(
@@ -346,13 +353,14 @@ async def _do_approve_draft(_, info, draft_id):
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Attempted to approve \
             draft in {project_name} project')
-    return dict(release_date=release_date, success=success)
+    return ApproveDraftPayloadType(release_date=release_date, success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_create_draft(_, info, project_name, title, **kwargs):
+async def _do_create_draft(_, info, project_name: str, title: str,
+                           **kwargs) -> SimplePayloadType:
     """Resolve create_draft mutation."""
     success = await \
         sync_to_async(finding_domain.create_draft)(
@@ -361,13 +369,13 @@ async def _do_create_draft(_, info, project_name, title, **kwargs):
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Created draft in '
             f'{project_name} project succesfully')
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_submit_draft(_, info, finding_id):
+async def _do_submit_draft(_, info, finding_id: str) -> SimplePayloadType:
     """Resolve submit_draft mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
     success = await \
@@ -378,4 +386,4 @@ async def _do_submit_draft(_, info, finding_id):
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Submitted draft '
             f'{finding_id} succesfully')
-    return dict(success=success)
+    return SimplePayloadType(success=success)
