@@ -8,6 +8,7 @@ import glob
 import json
 import textwrap
 import functools
+import ast
 import multiprocessing
 
 from time import time
@@ -1016,6 +1017,18 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
     return True
 
 
+def check_finding_title_match_integrates(path: str) -> bool:
+    calls = set()
+    with open(path, "r") as exploit_file:
+        tree = ast.parse(exploit_file.read())
+        for node in ast.walk(tree):
+            # Filtering only function calls
+            if isinstance(node, ast.Call)\
+                    and isinstance(node.func, ast.Attribute):
+                calls.add(node.func.attr)
+    return "add_finding" in calls or "generic_static_exploit" in calls
+
+
 def lint_exploits(subs: str, exp_name: str) -> bool:
     """Lint exploits for a subscription."""
     success: bool = True
@@ -1055,6 +1068,15 @@ def lint_exploits(subs: str, exp_name: str) -> bool:
         else:
             logger.info('  OK')
             logger.info()
+        logger.info(f"Checking title match {exploit_path}")
+        if ".cannot" not in exploit_path:
+            if not check_finding_title_match_integrates(exploit_path):
+                logger.error("There is not add_finding "
+                             f"or generic_static_exploit in {exploit_path}")
+                logger.info()
+                success = False
+        else:
+            logger.info(f"skipped {exploit_path}")
     return success
 
 
