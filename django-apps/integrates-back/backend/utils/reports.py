@@ -2,7 +2,7 @@ import os
 import threading
 from datetime import datetime
 from django.core.files.base import ContentFile
-from backend.mailer import send_mail_pdf_password
+from backend.mailer import send_mail_report_password
 from backend.dal.helpers import s3
 from __init__ import FI_AWS_S3_REPORTS_BUCKET
 
@@ -23,8 +23,8 @@ def send_report_password_email(
         user_email: str, project_name: str, password: str, file_type: str, file_link: str = ''):
     report_date = datetime.today().strftime('%Y-%m-%d_%H:%M:%S')
     email_send_thread = threading.Thread(
-        name='PDF password email thread',
-        target=send_mail_pdf_password,
+        name='Report password email thread',
+        target=send_mail_report_password,
         args=([user_email], {
             'filetype': file_type,
             'date': report_date.split('_')[0],
