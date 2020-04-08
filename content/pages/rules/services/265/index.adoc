@@ -1,20 +1,69 @@
 :slug: rules/265/
 :category: services
 :description: This document contains the details of the security requirements related to the definition and management of resources and services in the organization. This requirement establishes the importance of restricting access to critical business processes, allowing only authorized users.
-:keywords: System, Users, Restriction, Business Information, Authentication, Processes
+:keywords: Users, Autorization, Critical Process, NIST, ASVS, CWE
 :rules: yes
 
 = REQ.265 Restrict access to critical processes
 
 == Requirement
 
-System must restrict access to system functions
+The system must restrict access to system functions
 that execute critical business processes,
 it will only allow authorized users.
 
+== Description
+
+Systems must enforce access controls on trusted enforcement points.
+They must also have a clear definition of user privileges and roles.
+Functions that execute critical business processes should only be available for
+authenticated users with roles with enough privileges.
+
 == References
 
-. [[r1]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-2[+NIST+ 800-53 IA-2]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/269.html[CWE-269 Improper Privilege Management]
+The software does not properly assign, modify, track, or check privileges for
+an actor,
+creating an unintended sphere of control for that actor.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
+The software does not restrict or incorrectly restricts access to a resource
+from an unauthorized actor.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/285.html[CWE-285 Improper Authorization]
+The software does not perform or incorrectly performs an authorization check
+when an actor attempts to access a resource or perform an action.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
+When an actor claims to have a given identity,
+the software does not prove or insufficiently proves that the claim is correct.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+The software does not perform any authentication for functionality that
+requires a provable user identity or consumes a significant amount of
+resources.
+
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-2[+NIST+ 800-53 IA-2]
 Identification and authentication:
 The information system uniquely identifies and authenticates
 organizational users (or processes acting on behalf of organizational users).
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.3)]
+Verify enforcement of the principle of least privilege in functions, data
+files, URLs, controllers, services, and other resources.
+This implies protection against spoofing and elevation of privilege.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.4)]
+Verify the application uses a single and well-vetted access control mechanism
+for accessing protected data and resources.
+All requests must pass through this single mechanism to avoid copy and paste or
+insecure alternative paths.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.5)]
+Verify that attribute or feature-based access control is used whereby the code
+checks the user's authorization for a feature/data item rather than just their
+role.
+Permissions should still be allocated using roles.
