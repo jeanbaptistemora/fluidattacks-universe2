@@ -7,7 +7,7 @@ from asgiref.sync import sync_to_async
 
 from backend.api.dataloaders.event import EventLoader
 from backend.decorators import (
-    get_cached, require_login, require_event_access, rename_kwargs,
+    get_entity_cache_async, require_login, require_event_access, rename_kwargs,
     require_project_access, enforce_group_level_auth_async
 )
 from backend.domain import event as event_domain
@@ -25,19 +25,24 @@ def resolve_event_mutation(obj, info, **parameters):
     return util.run_async(resolver_func, obj, info, **parameters)
 
 
+async def _resolve_event_async(info, identifier=None):
+    """Resolve event query."""
+    await sync_to_async(util.cloudwatch_log)(
+        info.context,
+        f'Security: Access to Event: {identifier} succesfully')
+    return await sync_to_async(event_domain.get_event)(identifier)
+
+
 @require_login
 @rename_kwargs({'identifier': 'event_id'})
 @enforce_group_level_auth_async
 @require_event_access
 @rename_kwargs({'event_id': 'identifier'})
-@get_cached
+@get_entity_cache_async
 @convert_kwargs_to_snake_case
 def resolve_event(_, info, identifier=None):
     """Resolve event query."""
-    util.cloudwatch_log(
-        info.context,
-        f'Security: Access to Event: {identifier} succesfully')
-    return event_domain.get_event(identifier)
+    return util.run_async(_resolve_event_async, info, identifier)
 
 
 async def _resolve_events_async(event_ids):

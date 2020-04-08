@@ -1,3 +1,5 @@
+import pytest
+
 from ariadne import graphql
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -8,7 +10,7 @@ from jose import jwt
 from backend.api.schema import SCHEMA
 from backend.api.resolvers import tag
 
-import pytest
+pytestmark = pytest.mark.asyncio
 
 
 class TagTests(TestCase):

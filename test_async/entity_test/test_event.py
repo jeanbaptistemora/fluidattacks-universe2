@@ -1,4 +1,5 @@
 import os
+import pytest
 
 from ariadne import graphql_sync, graphql
 from django.test import TestCase
@@ -10,10 +11,12 @@ from jose import jwt
 from backend.api.schema import SCHEMA
 from backend.api.dataloaders.event import EventLoader
 
+pytestmark = pytest.mark.asyncio
+
 
 class EventTests(TestCase):
 
-    def test_event(self):
+    async def test_event(self):
         """Check for event."""
         query = '''{
             event(identifier: "418900971"){
@@ -36,7 +39,7 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'event' in result['data']
         assert result['data']['event']['projectName'] == 'unittesting'
         assert result['data']['event']['detail'] == 'Integrates unit test'
@@ -69,7 +72,7 @@ class EventTests(TestCase):
         assert result['data']['events'][0]['projectName'] == 'unittesting'
         assert len(result['data']['events'][0]['detail']) >= 1
 
-    def test_update_event(self):
+    async def test_update_event(self):
         """Check for updateEvent mutation."""
         query = '''
             mutation {
@@ -93,11 +96,11 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['updateEvent']
 
-    def test_create_event(self):
+    async def test_create_event(self):
         """Check for createEvent mutation."""
         query = '''
             mutation {
@@ -128,11 +131,11 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['createEvent']
 
-    def test_solve_event(self):
+    async def test_solve_event(self):
         """Check for solveEvent mutation."""
         query = '''
             mutation {
@@ -158,11 +161,11 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['solveEvent']
 
-    def test_add_event_comment(self):
+    async def test_add_event_comment(self):
         """Check for addEventComment mutation."""
         query = '''
             mutation {
@@ -191,12 +194,12 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['addEventComment']
         assert 'commentId' in result['data']['addEventComment']
 
-    def test_update_event_evidence(self):
+    async def test_update_event_evidence(self):
         """Check for updateEventEvidence mutation."""
         query = '''
             mutation updateEventEvidence(
@@ -237,11 +240,11 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['updateEventEvidence']
 
-    def test_download_event_file(self):
+    async def test_download_event_file(self):
         """Check for downloadEventFile mutation."""
         query = '''
             mutation {
@@ -267,12 +270,12 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['downloadEventFile']
         assert 'url' in result['data']['downloadEventFile']
 
-    def test_remove_event_evidence(self):
+    async def test_remove_event_evidence(self):
         """Check for removeEventEvidence mutation."""
         query = '''
             mutation {
@@ -297,6 +300,6 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['removeEventEvidence']

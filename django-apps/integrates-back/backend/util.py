@@ -17,6 +17,7 @@ import requests
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
+from graphql import GraphQLError
 try:
     from graphql.language.ast import NameNode, VariableNode
 except ImportError:
@@ -478,6 +479,15 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
     return updated_values
 
 
+def handle_exception(_, context):
+    """Handle async exceptions."""
+    if context.get('exception', ''):
+        raise context['exception']
+
+    msg = context.get('message', '')
+    raise GraphQLError(msg)
+
+
 def run_async(function: Callable, *args, **kwargs):
     """Run function asynchronous."""
     try:
@@ -486,10 +496,11 @@ def run_async(function: Callable, *args, **kwargs):
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
     loop.set_debug(settings.DEBUG)
+    loop.set_exception_handler(handle_exception)
     try:
-        result = loop.run_until_complete(function(*args, **kwargs))
-    except RuntimeError:
         result = asyncio.create_task(function(*args, **kwargs))
+    except RuntimeError:
+        result = loop.run_until_complete(function(*args, **kwargs))
     return result
 
 

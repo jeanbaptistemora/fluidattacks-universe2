@@ -1,6 +1,7 @@
 from tempfile import NamedTemporaryFile
 import json
 import os
+import pytest
 
 from ariadne import graphql, graphql_sync
 from django.core.files import File
@@ -11,6 +12,8 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
+
+pytestmark = pytest.mark.asyncio
 
 
 class ResourceTests(TestCase):

@@ -105,6 +105,8 @@ async def _do_add_repositories(
 ) -> object:
     """Resolve add_repositories mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
+    repos = [{util.snakecase_to_camelcase(k): repo[k] for k in repo}
+             for repo in repos]
     success = await sync_to_async(resources.create_resource)(
         repos, project_name, 'repository', user_email)
 
@@ -133,6 +135,8 @@ async def _do_add_environments(
     _, info, envs: _List[Dict[str, str]], project_name: str
 ) -> object:
     """Resolve add_environments mutation."""
+    envs = [{util.snakecase_to_camelcase(k): env[k] for k in env}
+            for env in envs]
     user_email = util.get_jwt_content(info.context)['user_email']
     success = await sync_to_async(resources.create_resource)(
         envs, project_name, 'environment', user_email)

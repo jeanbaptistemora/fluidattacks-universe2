@@ -1,7 +1,7 @@
 import json
 import os
 
-from ariadne import graphql_sync
+from ariadne import graphql, graphql_sync
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -15,6 +15,33 @@ from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, Permi
 
 
 class ProjectTests(TestCase):
+
+    async def _get_result_async(self, data, user=None):
+        """Get result."""
+        user = user or 'integratesmanager@gmail.com'
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': user,
+                'company': 'fluid',
+                'first_name': 'unit',
+                'last_name': 'test'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.loaders = {
+            'event': EventLoader(),
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
+        _, result = await graphql(SCHEMA, data, context_value=request)
+        return result
 
     def _get_result(self, data, user=None):
         """Get result."""
@@ -43,7 +70,7 @@ class ProjectTests(TestCase):
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         return result
 
-    def test_project(self):
+    async def test_project(self):
         """Check for project mutation."""
         query = '''
           query {
@@ -86,7 +113,7 @@ class ProjectTests(TestCase):
           }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' not in result
         assert result['data']['project']['name'] == 'unittesting'
         assert 'remediatedOverTime' in result['data']['project']
@@ -111,7 +138,7 @@ class ProjectTests(TestCase):
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
         assert len(result['data']['project']['users']) == 4
 
-    def test_alive_projects(self):
+    async def test_alive_projects(self):
         """Check for project mutation."""
         query = '''
           query {
@@ -127,7 +154,7 @@ class ProjectTests(TestCase):
             {'name': 'unittesting'}
         ]
 
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' not in result
         assert result['data']['aliveProjects'] == expected_projects
 

@@ -3,7 +3,7 @@ import json
 import os
 import pytest
 
-from ariadne import graphql_sync
+from ariadne import graphql
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -17,10 +17,11 @@ from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
 from backend.exceptions import FindingNotFound, NotVerificationRequested
 
+pytestmark = pytest.mark.asyncio
 
 class FindingTests(TestCase):
 
-    def _get_result(self, data):
+    async def _get_result(self, data):
         """Get result."""
         request = RequestFactory().post('/',
                                         {'data': 'finding(identifier: "422286126")'})
@@ -43,10 +44,10 @@ class FindingTests(TestCase):
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()
         }
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
-    def test_finding(self):
+    async def test_finding(self):
         """Check for finding query."""
         query = '''{
           finding(identifier: "422286126"){
@@ -103,7 +104,7 @@ class FindingTests(TestCase):
           }
         }'''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert result['data']['finding']['id'] == '422286126'
         assert result['data']['finding']['projectName'] == 'unittesting'
@@ -157,7 +158,7 @@ class FindingTests(TestCase):
         assert 'vulnerabilities' in result['data']['finding']
         assert result['data']['finding']['vulnerabilities'][0]['specific'] == 'phone'
 
-    def test_remove_evidence(self):
+    async def test_remove_evidence(self):
         """Check for removeEvidence mutation."""
         query = '''
             mutation RemoveEvidenceMutation($evidenceId: EvidenceType!, $findingId: String!) {
@@ -171,11 +172,11 @@ class FindingTests(TestCase):
             'findingId': '457497316'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['removeEvidence']
 
-    def test_update_evidence(self):
+    async def test_update_evidence(self):
         """Check for updateEvidence mutation."""
         query = '''
           mutation UpdateEvidenceMutation(
@@ -200,12 +201,12 @@ class FindingTests(TestCase):
             'file': uploaded_file
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['updateEvidence']
         assert result['data']['updateEvidence']['success']
 
-    def test_update_evidence_description(self):
+    async def test_update_evidence_description(self):
         """Check for updateEvidenceDescription mutation."""
         query = '''
             mutation {
@@ -218,12 +219,12 @@ class FindingTests(TestCase):
             }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['updateEvidenceDescription']
         assert result['data']['updateEvidenceDescription']
 
-    def test_update_severity(self):
+    async def test_update_severity(self):
         """Check for updateSeverity mutation."""
         query = '''
                 mutation {
@@ -255,12 +256,12 @@ class FindingTests(TestCase):
                 }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['updateSeverity']
         assert result['data']['updateSeverity']['success']
 
-    def test_verify_finding(self):
+    async def test_verify_finding(self):
         """Check for verifyFinding mutation."""
         query = '''
           mutation {
@@ -273,11 +274,11 @@ class FindingTests(TestCase):
           }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(NotVerificationRequested())
 
-    def test_update_description(self):
+    async def test_update_description(self):
         """Check for verifyFinding mutation."""
         query = '''
             mutation UpdateFindingDescription(
@@ -333,12 +334,12 @@ class FindingTests(TestCase):
             'type': 'SECURITY'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['updateDescription']
         assert result['data']['updateDescription']['success']
 
-    def test_update_description(self):
+    async def test_update_description(self):
         """Check for verifyFinding mutation."""
         query = '''
             mutation {
@@ -358,12 +359,12 @@ class FindingTests(TestCase):
             }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['updateClientDescription']
         assert result['data']['updateClientDescription']['success']
 
-    def test_reject_draft(self):
+    async def test_reject_draft(self):
         """Check for rejectDraft mutation."""
         query = '''
             mutation {
@@ -373,12 +374,12 @@ class FindingTests(TestCase):
             }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['rejectDraft']
         assert result['data']['rejectDraft']
 
-    def test_delete_finding(self):
+    async def test_delete_finding(self):
         """Check for deleteFinding mutation."""
         query = '''
           mutation {
@@ -388,14 +389,14 @@ class FindingTests(TestCase):
           }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['deleteFinding']
         assert result['data']['deleteFinding']['success']
         with pytest.raises(FindingNotFound):
             assert get_finding('560175507')
 
-    def test_approve_draft(self):
+    async def test_approve_draft(self):
         """Check for approveDraft mutation."""
         query = '''
           mutation {
@@ -405,11 +406,11 @@ class FindingTests(TestCase):
           }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'CANT_APPROVE_FINDING_WITHOUT_VULNS'
 
-    def test_create_draft(self):
+    async def test_create_draft(self):
         """Check for createDraft mutation."""
         query = '''
             mutation CreateDraftMutation(
@@ -450,12 +451,12 @@ class FindingTests(TestCase):
             'type': 'SECURITY'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' not in result
         assert 'success' in result['data']['createDraft']
         assert result['data']['createDraft']['success']
 
-    def test_submit_draft(self):
+    async def test_submit_draft(self):
         """Check for submitDraft mutation."""
         query = '''
           mutation {
@@ -465,7 +466,7 @@ class FindingTests(TestCase):
           }
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result(data)
         assert 'errors' in result
         expected_error = 'Exception - This draft has missing fields: vulnerabilities'
         assert result['errors'][0]['message'] == expected_error
