@@ -1025,6 +1025,10 @@ TITAN Project File Information
     filter call_regexp_common HTML
     extension tpd
     3rd_gen_scale 1.90
+TERRAFORM
+    filter remove_matches ^\s*$
+    extension tf
+    3rd_gen_scale 2.50
 TTCN
     filter call_regexp_common C++
     filter remove_inline //.*$
