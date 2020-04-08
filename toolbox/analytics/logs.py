@@ -16,6 +16,7 @@ import boto3
 import botocore.exceptions
 import pynamodb.models
 import pynamodb.attributes
+import ruamel.yaml.reader
 
 # Local libraries
 from toolbox import logger, utils, api
@@ -128,7 +129,9 @@ def get_vulnerabilities_from_log(s3_client, s3_path, git_repo):
             for kind, who, where in api.asserts.iterate_results_from_content(
                 log_content, git_repo)
         ]
-    except (botocore.exceptions.ClientError, KeyError):
+    except (botocore.exceptions.ClientError,
+            ruamel.yaml.reader.ReaderError,
+            KeyError):
         return [], 0
     else:
         return data, len(data)
