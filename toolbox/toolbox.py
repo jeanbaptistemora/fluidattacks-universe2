@@ -970,11 +970,28 @@ def get_exps_fragments(subs: str, exp_name: str) -> bool:
     return True
 
 
-def get_static_dictionary(subs: str) -> bool:
+def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
     """Print a dictionary with the subscription findings."""
-    for finding_id, finding_title in \
-            helper.integrates.get_project_findings(subs):
+    exploit_paths = sorted(
+        glob.glob(f'subscriptions/{subs}/break-build/*/exploits/*.exp'))
+    integrates_findings_ = helper.integrates.get_project_findings(subs)
+    if exp == 'local':
+        integrates_findings = [
+            record for record in integrates_findings_
+            if any([
+                record[0] in scan_exploit_for_kind_and_id(path)[1]
+                for path in exploit_paths
+            ])
+        ]
+    elif exp != 'all':
+        integrates_findings = [
+            record for record in integrates_findings_
+            if exp in record[1] or exp in record[0]
+        ]
+    else:
+        integrates_findings = list(integrates_findings_)
 
+    for finding_id, finding_title in integrates_findings:
         logger.info(finding_id, finding_title)
 
         dictionary: Dict[str, Any] = {}

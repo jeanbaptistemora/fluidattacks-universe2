@@ -205,9 +205,8 @@ def forces_management(subscription, check_sync, check_uploads, decrypt,
     '--delete-pending-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
 @click.option(
     '--get-static-dict',
-    metavar=SUBS_METAVAR,
-    default=_get_actual_subscription(),
-    callback=_valid_subscription)
+    metavar='[<find_id> | all | local]',
+    help='execute in subscription path')
 @click.option('--report-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
 def integrates_management(kind, subscription, check_token,
                           delete_pending_vulns, get_static_dict, report_vulns):
@@ -219,7 +218,8 @@ def integrates_management(kind, subscription, check_token,
         sys.exit(0 if toolbox.report_vulnerabilities(
             subscription, report_vulns, kind) else 1)
     elif get_static_dict:
-        sys.exit(0 if toolbox.get_static_dictionary(get_static_dict) else 1)
+        sys.exit(0 if toolbox.get_static_dictionary(
+            subscription, get_static_dict) else 1)
     elif check_token:
         from toolbox import constants
         assert constants
