@@ -104,6 +104,16 @@
       "PutRequest": {
         "Item": {
           "level": {"S": "group"},
+          "subject": {"S": "integratesuser@gmail.com"},
+          "object": {"S": "oneshottest"},
+          "role": {"S": "customer"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
           "subject": {"S": "integratesanalyst@gmail.com"},
           "object": {"S": "unittesting"},
           "role": {"S": "analyst"}

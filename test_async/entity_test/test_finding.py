@@ -168,7 +168,7 @@ class FindingTests(TestCase):
             }
         '''
         variables = {
-            'evidenceId': 'EVIDENCE1',
+            'evidenceId': 'EVIDENCE2',
             'findingId': '457497316'
         }
         data = {'query': query, 'variables': variables}
