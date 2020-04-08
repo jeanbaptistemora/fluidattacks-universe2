@@ -12,8 +12,9 @@ import { ChartData, ChartDataSets, ChartOptions } from "chart.js";
 import "chartjs-plugin-doughnutlabel";
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
+import { default as globalStyle } from "../../../../../styles/global.css";
 import {
   calcPercent, IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph,
 } from "../../../../../utils/formatHelpers";
@@ -345,6 +346,17 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
+
+  if (_.isEmpty(data.tag.projects)) {
+    return (
+      <Row>
+        <div className={globalStyle.noData}>
+          <Glyphicon glyph="list" />
+          <p>{translate.t("dataTableNext.noDataIndication")}</p>
+        </div>
+      </Row>
+    );
+  }
 
   const goToProjectMaxSeverityFindings: (() => void) = (): void => {
     location.hash = `#!/project/${getMaxSeverity(data.tag.projects).name}/findings`;

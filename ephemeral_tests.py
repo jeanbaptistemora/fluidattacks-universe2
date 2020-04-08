@@ -642,3 +642,11 @@ class ViewTestCase(unittest.TestCase):
         assert 'Status' in selenium.page_source
         assert 'Treatment' in selenium.page_source
         assert 'Treatmentless by project' in selenium.page_source
+        selenium.get(self.url + '/dashboard#!/portfolio/DOESNOTEXIST/indicators')
+        WebDriverWait(
+            selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH,
+                     "//*[contains(text(), 'There is no data to display')]")))
+        selenium.save_screenshot(SCR_PATH + '18-06-tag_indicators.png')
+        assert 'There is no data to display' in selenium.page_source

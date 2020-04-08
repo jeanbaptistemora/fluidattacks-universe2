@@ -119,6 +119,16 @@
           "role": {"S": "analyst"}
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "continuoushacking@gmail.com"},
+          "object": {"S": "oneshottest"},
+          "role": {"S": "customeradmin"}
+        }
+      }
     }
   ]
 }
