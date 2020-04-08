@@ -634,7 +634,11 @@ class ViewTestCase(unittest.TestCase):
         selenium.execute_script(
             'window.scrollTo(380, 780);')
         selenium.save_screenshot(SCR_PATH + '18-04-tag_indicators.png')
+        selenium.execute_script(
+            'window.scrollTo(780, 1180);')
+        selenium.save_screenshot(SCR_PATH + '18-05-tag_indicators.png')
         assert 'Mean time to remediate' in selenium.page_source
         assert 'remediated' in selenium.page_source
         assert 'Status' in selenium.page_source
         assert 'Treatment' in selenium.page_source
+        assert 'Treatmentless by project' in selenium.page_source

@@ -89,6 +89,16 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     return closedVulnerabilities + openVulnerabilities;
   };
 
+  const getNumberOfUndefinedVulns: ((projects: IProjectTag[]) => number) = (projects: IProjectTag[]): number => (
+    projects.reduce(
+      (acc: number, project: IProjectTag) => {
+        const projectTreatment: Dictionary<number> = JSON.parse(project.totalTreatment);
+
+        return acc + projectTreatment.undefined;
+      },
+      0)
+  );
+
   const getNumberOfOpenVulns: ((projects: ITreatmentGraph[]) => number) = (
     projects: ITreatmentGraph[],
   ): number => (
@@ -301,6 +311,39 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       Number.MAX_SAFE_INTEGER)
   );
 
+  const sortUndefinedVulns: ((aObject: IBoxInfo, bObject: IBoxInfo) => number) = (
+    aObject: IBoxInfo, bObject: IBoxInfo,
+  ): number => (
+    bObject.value - aObject.value
+  );
+
+  const getPercentUndefinedVulnerabilities: ((project: IProjectTag) => IBoxInfo) = (
+    project: IProjectTag,
+  ): IBoxInfo => {
+    const projectTreatment: Dictionary<number> = JSON.parse(project.totalTreatment);
+
+    return { value: projectTreatment.undefined, name: project.name };
+  };
+
+  const formatUndefinedGraph: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
+    const totalUndefinedVulnerabilities: number = getNumberOfUndefinedVulns(projects);
+    const dataGraphs: IBoxInfo[] = projects.map(getPercentUndefinedVulnerabilities);
+    const dataGraphSorted: IBoxInfo[] = dataGraphs.sort(sortUndefinedVulns);
+    const colors: string[] = projects.map((_0: IProjectTag) =>
+      `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`);
+    const chartData: ChartData = {
+      datasets: [{
+        backgroundColor: colors.map((color: string) => `rgb(${color}, 0.75)`),
+        data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
+        hoverBackgroundColor: colors.map((color: string) => `rgb(${color}, 1)`),
+      }],
+      labels: dataGraphSorted.map(
+        (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalUndefinedVulnerabilities)}% ${dataGraph.name}`),
+    };
+
+    return chartData;
+  };
+
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
   const goToProjectMaxSeverityFindings: (() => void) = (): void => {
@@ -401,6 +444,23 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
               options={
                 formatDoughnutOptions(getNumberOfOpenVulns(data.tag.projects), translate.t("tag_indicator.open_vuln"))
               }
+            />
+          </Col>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <Col md={6} sm={12} xs={12} className={style.box_size}>
+            <IndicatorGraph
+              data={formatUndefinedGraph(data.tag.projects)}
+              name={translate.t("tag_indicator.undefined_title")}
+              options={{
+                legend: { labels: { padding: 6, usePointStyle: true } },
+                ...formatDoughnutOptions(
+                  getNumberOfUndefinedVulns(data.tag.projects), translate.t("tag_indicator.undefined_vuln"),
+                ),
+              }}
             />
           </Col>
         </Col>

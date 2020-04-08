@@ -849,6 +849,8 @@ const enTranslations: Dictionary = {
     remediated_accepted_vuln: "How many vulnerabilities are remediated and accepted?",
     remediated_vuln: "How many vulnerabilities are remediated (closed)?",
     total_vuln: "vulnerabilities",
+    undefined_title: "Treatmentless by project",
+    undefined_vuln: "undefined",
   },
   update_access_token: {
     access_token: "Personal Access Token",
