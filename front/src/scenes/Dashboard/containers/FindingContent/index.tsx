@@ -53,7 +53,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const { data: alertData }: QueryResult = useQuery(GET_PROJECT_ALERT, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred loading finding header", error);
+      rollbar.error("An error occurred loading alerts", error);
     },
     variables: { projectName, organization: userOrganization },
   });
@@ -62,6 +62,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
     GET_FINDING_HEADER, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading finding header", error);
+    },
     variables: { findingId, submissionField: canGetHistoricState },
   });
 
