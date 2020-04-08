@@ -3,6 +3,7 @@
  * readability of the code that renders indicators
  */
 import { useQuery } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-client";
 import { ChartData, ChartDataSets, ChartOptions } from "chart.js";
 /* tslint:disable-next-line: no-import-side-effect
  * Disabling this rule is necessary because the module attach itself
@@ -16,6 +17,8 @@ import { RouteComponentProps } from "react-router-dom";
 import {
   calcPercent, IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph,
 } from "../../../../../utils/formatHelpers";
+import { msgError } from "../../../../../utils/notifications";
+import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { IndicatorBox } from "../../../components/IndicatorBox";
 import { IndicatorGraph } from "../../../components/IndicatorGraph";
@@ -59,7 +62,13 @@ interface ITag {
 }
 const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const { tagName } = props.match.params;
-  const { data } = useQuery<ITag>(TAG_QUERY, { variables: { tag: tagName }});
+  const { data } = useQuery<ITag>(TAG_QUERY, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading tag info", error);
+    },
+    variables: { tag: tagName },
+  });
 
   const formatStatusGraphData: ((projects: ITreatmentGraph[]) => IStatusGraph) = (
     projects: ITreatmentGraph[],

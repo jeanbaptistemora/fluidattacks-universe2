@@ -1,5 +1,5 @@
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
+import { ApolloClient, ApolloError } from "apollo-client";
 import { ApolloLink, Operation } from "apollo-link";
 import { ErrorResponse, onError } from "apollo-link-error";
 import { WebSocketLink } from "apollo-link-ws";
@@ -80,9 +80,27 @@ const xhrWrapper: WindowOrWorkerGlobalScope["fetch"] = async (
 
 const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
   uri: string, options: IExtendedFetchOptions,
-): Promise<Response> => options.notifyUploadProgress
+): Promise<Response> => {
+
+  const fetchFunction: Promise<Response> = options.notifyUploadProgress
     ? xhrWrapper(uri, options)
     : fetch(uri, options);
+
+  return fetchFunction.then(async (response: Response) => {
+    if (response.status !== 200) {
+
+      return Promise.reject(new ApolloError({
+        extraInfo: {
+          bodyText: await response.text(),
+          statusCode: response.status,
+        },
+        networkError: new Error("NetworkError"),
+      }));
+    }
+
+    return response;
+  });
+};
 
 let urlHostApiV1: string;
 let urlHostApiV2: string;
@@ -151,24 +169,28 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     // Top-level error handling
     onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
       if (networkError !== undefined) {
-        const { statusCode } = (networkError as { statusCode: number });
+        const errorDetails: Dictionary | undefined = _.get(networkError, "extraInfo");
 
-        if (statusCode === 403) {
-          // Django CSRF expired
-          location.reload();
+        if (errorDetails === undefined) {
+          msgError(translate.t("proj_alerts.error_network"), "Offline");
         } else {
-          if (response !== undefined) {
-            response.data = undefined;
-            response.errors = [];
+          const { statusCode } = errorDetails;
+
+          switch (statusCode) {
+            case 403:
+              // Django CSRF expired
+              location.reload();
+              break;
+            default:
+              msgError(translate.t("proj_alerts.error_textsad"));
+              rollbar.error("A network error occurred", networkError);
           }
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("A network error occurred", networkError);
         }
       } else if (graphQLErrors !== undefined) {
         graphQLErrors.forEach(({ message }: GraphQLError) => {
           if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
             if (response !== undefined) {
-              response.data = undefined;
+              response.data = {};
               response.errors = [];
             }
             location.assign("/integrates/logout");
@@ -179,7 +201,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
             "Exception - Project does not exist",
           ].includes(message)) {
             if (response !== undefined) {
-              response.data = undefined;
+              response.data = {};
               response.errors = [];
             }
             msgError(translate.t("proj_alerts.access_denied"));

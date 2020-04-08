@@ -50,8 +50,11 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const closeDeleteModal: (() => void) = (): void => { setDeleteModalOpen(false); };
 
   // GraphQL operations
-  const { data: alertData }: QueryResult = useQuery(
-    GET_PROJECT_ALERT, {
+  const { data: alertData }: QueryResult = useQuery(GET_PROJECT_ALERT, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading finding header", error);
+    },
     variables: { projectName, organization: userOrganization },
   });
 

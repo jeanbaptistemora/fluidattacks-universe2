@@ -5,6 +5,7 @@
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -17,7 +18,8 @@ import { FluidIcon } from "../../../../components/FluidIcon";
 import { calcCVSSv3 } from "../../../../utils/cvss";
 import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -44,11 +46,16 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
   const formValues: Dictionary<string> = useSelector((state: {}) => selector(
     state, "cvssVersion", "severityScope", "modifiedSeverityScope"));
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading finding severity", error);
+  };
+
   return (
     <React.StrictMode>
       <Row>
         <Col md={12} sm={12} xs={12}>
-          <Query query={GET_SEVERITY} variables={{ identifier: findingId }}>
+          <Query query={GET_SEVERITY} variables={{ identifier: findingId }} onError={handleErrors}>
             {({ client, data, refetch }: QueryResult<ISeverityAttr>): JSX.Element => {
               if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 

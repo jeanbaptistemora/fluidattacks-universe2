@@ -48,6 +48,10 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   // GraphQL operations
   const { data, networkStatus, refetch } = useQuery(GET_EVENT_EVIDENCES, {
     notifyOnNetworkStatusChange: true,
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading event evidences", error);
+    },
     variables: { eventId },
   });
   const isRefetching: boolean = networkStatus === NetworkStatus.refetch;

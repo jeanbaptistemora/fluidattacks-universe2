@@ -21,9 +21,14 @@ type EventCommentsProps = RouteComponentProps<{ eventId: string }>;
 const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsProps): JSX.Element => {
   const { eventId } = props.match.params;
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading event comments", error);
+  };
+
   return (
     <React.StrictMode>
-      <Query fetchPolicy="network-only" query={GET_EVENT_COMMENTS} variables={{ eventId }}>
+      <Query fetchPolicy="network-only" query={GET_EVENT_COMMENTS} variables={{ eventId }} onError={handleErrors}>
         {({ data, loading }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
           const getData: ((callback: loadCallback) => void) = (

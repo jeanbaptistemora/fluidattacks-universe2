@@ -89,7 +89,13 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   };
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_USERS, { variables: { projectName } });
+  const { data, refetch } = useQuery(GET_USERS, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading project users", error);
+    },
+    variables: { projectName },
+  });
   const [grantUserAccess] = useMutation(ADD_USER_MUTATION, {
     onCompleted: (mtResult: IAddUserAttr): void => {
       if (mtResult.grantUserAccess.success) {

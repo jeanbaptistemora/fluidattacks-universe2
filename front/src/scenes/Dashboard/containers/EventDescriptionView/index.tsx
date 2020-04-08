@@ -49,9 +49,14 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
   };
   React.useEffect(onMount, []);
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading event description", error);
+  };
+
   return (
     <React.StrictMode>
-      <Query query={GET_EVENT_DESCRIPTION} variables={{ eventId }}>
+      <Query query={GET_EVENT_DESCRIPTION} variables={{ eventId }} onError={handleErrors}>
         {({ data, refetch }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 

@@ -29,12 +29,18 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
   };
   React.useEffect(onMount, []);
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error(`An error occurred loading finding ${type}`, error);
+  };
+
   return (
     <React.StrictMode>
       <Query
         fetchPolicy="network-only"
         query={type === "comments" ? GET_FINDING_COMMENTS : GET_FINDING_OBSERVATIONS}
         variables={{ findingId }}
+        onError={handleErrors}
       >
         {({ data, loading }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }

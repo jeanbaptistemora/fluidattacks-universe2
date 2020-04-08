@@ -5,11 +5,14 @@
  */
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { TrackingItem } from "../../components/TrackingItem";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities/index";
@@ -35,9 +38,14 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
   };
   React.useEffect(onMount, []);
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading finding tracking", error);
+  };
+
   return (
     <React.StrictMode>
-      <Query query={GET_FINDING_TRACKING} variables={{ findingId }}>
+      <Query query={GET_FINDING_TRACKING} variables={{ findingId }} onError={handleErrors}>
         {({ data }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 

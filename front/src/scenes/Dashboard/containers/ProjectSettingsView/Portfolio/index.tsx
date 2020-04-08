@@ -36,6 +36,10 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
   // GraphQL operations
   const { data, refetch, networkStatus } = useQuery(GET_TAGS, {
     notifyOnNetworkStatusChange: true,
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading project tags", error);
+    },
     variables: { projectName: props.projectName },
   });
 

@@ -5,11 +5,14 @@
  */
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { EventHeader } from "../../components/EventHeader";
 import { EventCommentsView } from "../EventCommentsView";
@@ -23,12 +26,17 @@ type EventContentProps = RouteComponentProps<{ eventId: string }>;
 const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JSX.Element => {
   const { eventId } = props.match.params;
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading event header", error);
+  };
+
   return (
     <React.StrictMode>
       <div className={style.mainContainer}>
         <Row>
           <Col md={12} sm={12}>
-            <Query query={GET_EVENT_HEADER} variables={{ eventId }}>
+            <Query query={GET_EVENT_HEADER} variables={{ eventId }} onError={handleErrors}>
               {({ data }: QueryResult): JSX.Element => {
                 if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 

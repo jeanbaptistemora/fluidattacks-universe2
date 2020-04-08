@@ -5,6 +5,7 @@
  */
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -14,6 +15,8 @@ import {
 import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { AddProjectModal } from "../../components/AddProjectModal";
 import { ProjectBox } from "../../components/ProjectBox";
@@ -89,6 +92,11 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
       ({ name: tagMap.name, projects: formatTagDescription(tagMap.projects) }))
   );
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading projects", error);
+  };
+
   return (
     <React.StrictMode>
       <div className={style.container}>
@@ -122,7 +130,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
             </Col>
           </Row>
           : undefined}
-        <Query query={PROJECTS_QUERY} variables={{ tagsField: canDisplayTags }}>
+        <Query query={PROJECTS_QUERY} variables={{ tagsField: canDisplayTags }} onError={handleErrors}>
           {({ data }: QueryResult<IUserAttr>): JSX.Element => {
             if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 

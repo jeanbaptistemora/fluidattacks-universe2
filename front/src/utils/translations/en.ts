@@ -84,6 +84,7 @@ const enTranslations: Dictionary = {
     draft_already_submitted: "This finding has already been submitted",
     draft_not_submitted: "This finding has not been submitted yet or it might've been rejected by someone else",
     draft_without_vulns: "This finding can not been approved without vulnerabilities",
+    error_network: "Check your network connection",
     error_textsad: "There is an error :(",
     file_type_csv: "The file must have .csv extension",
     file_type_evidence: "The image must be .png or .gif type",

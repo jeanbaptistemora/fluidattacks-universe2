@@ -40,9 +40,14 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading finding records", error);
+  };
+
   return (
     <React.StrictMode>
-      <Query query={GET_FINDING_RECORDS} variables={{ findingId }}>
+      <Query query={GET_FINDING_RECORDS} variables={{ findingId }} onError={handleErrors}>
         {({ data, refetch }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 

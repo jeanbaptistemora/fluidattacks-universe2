@@ -130,6 +130,10 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   const canRetrieveAnalyst: boolean = _.includes(["admin", "analyst"], userRole);
 
   const { data, refetch } = useQuery(GET_FINDING_DESCRIPTION, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading finding description", error);
+    },
     skip: _.isEmpty(userRole),
     variables: {
       canRetrieveAnalyst,

@@ -43,9 +43,14 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
     });
   };
 
+  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading project comments", error);
+  };
+
   return (
     <React.StrictMode>
-      <Query fetchPolicy="network-only" query={GET_PROJECT_COMMENTS} variables={{ projectName }}>
+      <Query fetchPolicy="network-only" query={GET_PROJECT_COMMENTS} variables={{ projectName }} onError={handleErrors}>
         {({ data, loading }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
           const getData: ((callback: loadCallback) => void) = (

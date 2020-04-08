@@ -36,7 +36,13 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
   const closeAddModal: (() => void) = (): void => { setAddModalOpen(false); };
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_REPOSITORIES, { variables: { projectName: props.projectName } });
+  const { data, refetch } = useQuery(GET_REPOSITORIES, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading project repos", error);
+    },
+    variables: { projectName: props.projectName },
+  });
   const [addRepositories] = useMutation(ADD_REPOSITORIES_MUTATION, {
     onCompleted: refetch,
     onError: (reposError: ApolloError): void => {

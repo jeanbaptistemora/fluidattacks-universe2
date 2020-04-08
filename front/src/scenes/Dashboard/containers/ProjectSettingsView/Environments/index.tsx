@@ -36,7 +36,13 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
   const closeAddModal: (() => void) = (): void => { setAddModalOpen(false); };
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_ENVIRONMENTS, { variables: { projectName: props.projectName } });
+  const { data, refetch } = useQuery(GET_ENVIRONMENTS, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading project envs", error);
+    },
+    variables: { projectName: props.projectName },
+  });
   const [addEnvironments] = useMutation(ADD_ENVIRONMENTS_MUTATION, {
     onCompleted: refetch,
     onError: (envsError: ApolloError): void => {

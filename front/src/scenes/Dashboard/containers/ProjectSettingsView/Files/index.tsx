@@ -45,7 +45,13 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const [uploadProgress, setUploadProgress] = React.useState(0);
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_FILES, { variables: { projectName: props.projectName } });
+  const { data, refetch } = useQuery(GET_FILES, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading project files", error);
+    },
+    variables: { projectName: props.projectName },
+  });
 
   const [downloadFile] = useMutation(DOWNLOAD_FILE_MUTATION, {
     onCompleted: (downloadData: { downloadFile: { url: string } }): void => {
