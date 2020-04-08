@@ -2965,6 +2965,235 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "integrity_impact": {
+            "N": "0.22"
+          },
+          "integrity_requirement": {
+            "N": "1"
+          },
+          "modified_severity_scope": {
+            "N": "0"
+          },
+          "report_confidence": {
+            "N": "0.96"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "privileges_required": {
+            "N": "0.85"
+          },
+          "availability_impact": {
+            "N": "0.22"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:15"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
+                  }
+                }
+              }
+            ]
+          },
+          "modified_privileges_required": {
+            "N": "0.62"
+          },
+          "modified_attack_vector": {
+            "N": "0.55"
+          },
+          "confidentiality_impact": {
+            "N": "0.22"
+          },
+          "remediation_level": {
+            "N": "0.95"
+          },
+          "availability_requirement": {
+            "N": "0.5"
+          },
+          "report_date": {
+            "S":"2019-04-07 19:45:11"
+          },
+          "attack_complexity": {
+            "N": "0.77"
+          },
+          "finding_id": {
+            "S": "988493279"
+          },
+          "requirements": {
+            "S": "REQ.0266. La organización debe deshabilitar las funciones inseguras de un sistema. (hardening de sistemas)"
+          },
+          "effect_solution": {
+            "S": "-"
+          },
+          "releaseDate": {
+            "S": "2019-04-07 19:45:15"
+          },
+          "modified_confidentiality_impact": {
+            "N": "0"
+          },
+          "cvss_temporal": {
+            "N": "6.3"
+          },
+          "modified_user_interaction": {
+            "N": "0.85"
+          },
+          "modified_availability_impact": {
+            "N": "0"
+          },
+          "modified_integrity_impact": {
+            "N": "0"
+          },
+          "vulnerability": {
+            "S": "Funcionalidad insegura description"
+          },
+          "finding": {
+            "S": "FIN.S.0014. Funcionalidad insegura"
+          },
+          "finding_type": {
+            "S": "SECURITY"
+          },
+          "attack_vector": {
+            "N": "0.85"
+          },
+          "modified_attack_complexity": {
+            "N": "0.77"
+          },
+          "cwe": {
+            "S": "749"
+          },
+          "cvss_version": {
+            "S": "3.1"
+          },
+          "cvss_env": {
+            "N": "0.0"
+          },
+          "lastVulnerability": {
+            "S": "2019-04-07 19:45:15"
+          },
+          "confidentiality_requirement": {
+            "N": "1.5"
+          },
+          "user_interaction": {
+            "N": "0.85"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:43:18"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  },
+                  "user": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:59:06"
+                  },
+                  "treatment": {
+                    "S": "ACCEPTED_UNDEFINED"
+                  },
+                  "justification": {
+                    "S": "test justification eternally accepted"
+                  },
+                  "user": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "acceptance_status": {
+                    "S": "SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "treatment": {
+                    "S": "ACCEPTED_UNDEFINED"
+                  },
+                  "justification": {
+                    "S": "Observations about eternally accepted finding and its vulns"
+                  },
+                  "user": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "acceptance_status": {
+                    "S": "APPROVED"
+                  }
+                }
+              }
+            ]
+          },
+          "cvss_basescore": {
+            "N": "7.3"
+          },
+          "analyst": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "files": {
+            "L": [
+             {
+               "M": {
+                  "name": {
+                    "S":"exploitation"
+                  },
+                  "file_url": {
+                    "S":"unittesting-988493279-exploitation.png"
+                  }
+                }
+              }
+            ]
+          },
+          "exploitability": {
+            "N": "0.94"
+          },
+          "severity_scope": {
+            "N": "0"
+          }
+        }
+      }
     }
   ]
 }

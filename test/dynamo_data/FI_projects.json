@@ -1765,13 +1765,13 @@
                         "N" : "1"
                      },
                      "acceptedUndefined": {
-                        "N": "0"
+                        "N": "2"
                      },
                      "inProgress" : {
                         "N" : "4"
                      },
                      "undefined" : {
-                        "N" : "27"
+                        "N" : "25"
                      }
                   }
                },

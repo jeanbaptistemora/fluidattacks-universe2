@@ -292,7 +292,7 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         test_data = list_findings(project_name)
         expected_output = [
-            '422286126', '436992569', '463461507', '463558592', '457497316'
+            '988493279', '422286126', '436992569', '463461507', '463558592', '457497316'
         ]
         assert expected_output == test_data
 

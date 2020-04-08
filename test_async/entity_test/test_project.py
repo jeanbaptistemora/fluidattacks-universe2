@@ -119,14 +119,14 @@ class ProjectTests(TestCase):
         assert 'remediatedOverTime' in result['data']['project']
         assert result['data']['project']['hasDrills']
         assert result['data']['project']['hasForces']
-        assert len(result['data']['project']['findings']) == 5
+        assert len(result['data']['project']['findings']) == 6
         assert result['data']['project']['openVulnerabilities'] == 32
         assert result['data']['project']['closedVulnerabilities'] == 7
         assert 'lastClosingVuln' in result['data']['project']
         assert result['data']['project']['pendingClosingCheck'] == 2
-        assert result['data']['project']['maxSeverity'] == 4.3
+        assert result['data']['project']['maxSeverity'] == 6.3
         assert result['data']['project']['meanRemediate'] == 245
-        assert result['data']['project']['totalFindings'] == 5
+        assert result['data']['project']['totalFindings'] == 6
         assert 'totalTreatment' in result['data']['project']
         assert result['data']['project']['subscription'] == 'continuous'
         assert result['data']['project']['deletionDate'] == ''

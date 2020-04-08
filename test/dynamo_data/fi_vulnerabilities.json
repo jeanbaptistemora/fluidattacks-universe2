@@ -615,7 +615,7 @@
                         "S" : "76be157c-f39b-47fe-9b5f-2a80ce2026f1"
                     },
                     "finding_id" : {
-                        "S" : "436992569"
+                        "S" : "988493279"
                     },
                     "historic_state" : {
                         "L" : [
@@ -625,7 +625,7 @@
                                         "S" : "unittest@fluidattacks.com"
                                     },
                                     "date" : {
-                                        "S" : "2019-09-12 08:45:48"
+                                        "S" : "2019-04-07 08:45:48"
                                     },
                                     "state" : {
                                         "S" : "open"
@@ -653,7 +653,7 @@
                         "S" : "69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
                     },
                     "finding_id" : {
-                        "S" : "436992569"
+                        "S" : "988493279"
                     },
                     "historic_state" : {
                         "L" : [
@@ -663,7 +663,7 @@
                                         "S" : "unittest@fluidattacks.com"
                                     },
                                     "date" : {
-                                        "S" : "2019-09-12 08:45:48"
+                                        "S" : "2019-04-07 08:45:48"
                                     },
                                     "state" : {
                                         "S" : "open"

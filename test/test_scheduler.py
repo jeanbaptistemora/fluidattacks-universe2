@@ -101,7 +101,7 @@ class SchedulerTests(TestCase):
         test_data = get_status_vulns_by_time_range(
             vulns, first_day, last_day, released_findings
         )
-        expected_output = {'found': 6, 'accepted': 4, 'closed': 2}
+        expected_output = {'found': 8, 'accepted': 4, 'closed': 2}
         assert test_data == expected_output
 
     def test_create_weekly_date(self):
@@ -216,4 +216,4 @@ class SchedulerTests(TestCase):
         test_data = get_project_indicators(project_name)
         assert isinstance(test_data, dict)
         assert len(test_data) == 5
-        assert test_data['max_open_severity'] == Decimal(4.3).quantize(Decimal('0.1'))
+        assert test_data['max_open_severity'] == Decimal(6.3).quantize(Decimal('0.1'))
