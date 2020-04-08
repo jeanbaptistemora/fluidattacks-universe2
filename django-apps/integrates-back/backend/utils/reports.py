@@ -19,7 +19,8 @@ def set_xlsx_password(filepath: str, password: str):
     os.rename('{filepath}-pwd'.format(filepath=filepath), filepath)
 
 
-def send_report_password_email(user_email: str, project_name: str, password: str, file_type: str):
+def send_report_password_email(
+        user_email: str, project_name: str, password: str, file_type: str, file_link: str = ''):
     report_date = datetime.today().strftime('%Y-%m-%d_%H:%M:%S')
     email_send_thread = threading.Thread(
         name='PDF password email thread',
@@ -29,7 +30,8 @@ def send_report_password_email(user_email: str, project_name: str, password: str
             'date': report_date.split('_')[0],
             'time': report_date.split('_')[1],
             'projectname': project_name,
-            'password': password
+            'password': password,
+            'filelink': file_link
         }))
 
     email_send_thread.start()
@@ -41,4 +43,4 @@ def upload_report(file_path: str) -> bool:
     timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     file_name = str(timestamp) + '_' + '_'.join(file_path.split('/')[-1].split('_')[-2:])
     return s3.upload_memory_file(  # type: ignore
-        FI_AWS_S3_REPORTS_BUCKET, report, file_name)
+        FI_AWS_S3_REPORTS_BUCKET, report, file_name), file_name

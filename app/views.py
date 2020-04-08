@@ -33,6 +33,7 @@ from backend.decorators import authenticate, cache_content
 from backend.dal import (
     finding as finding_dal, user as user_dal
 )
+from backend.dal.helpers import cloudfront
 from backend.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -40,7 +41,8 @@ from backend.utils import reports
 from backend.utils.passphrase import get_passphrase
 
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
+    FI_CLOUDFRONT_REPORTS_DOMAIN
 )
 
 from app.documentator.pdf import CreatorPDF
@@ -224,7 +226,7 @@ def project_to_xls(request, lang, project):
     reports.set_xlsx_password(filepath, str(password))
     reports.send_report_password_email(user_email,
                                        project.lower(),
-                                       password, 'XLS')
+                                       password, 'XLS', '')
 
     with open(filepath, 'rb') as document:
         response = HttpResponse(document.read())
@@ -286,12 +288,15 @@ def project_to_pdf(  # pylint: disable=too-many-locals
             report_filename = secure_pdf.create_full(user_name,
                                                      pdf_maker.out_name,
                                                      project)
-            reports.send_report_password_email(user_email,
-                                               project.lower(),
-                                               secure_pdf.password, 'PDF')
-            success = reports.upload_report(report_filename)
+            success, uploaded_file_name = reports.upload_report(report_filename)
             if not success:
                 raise ErrorUploadingFileS3()
+            signed_url = cloudfront.sign_url(
+                FI_CLOUDFRONT_REPORTS_DOMAIN, uploaded_file_name, 120.0)
+            reports.send_report_password_email(user_email,
+                                               project.lower(),
+                                               secure_pdf.password, 'PDF',
+                                               signed_url)
         else:
             return HttpResponse(
                 'Disabled report generation', content_type='text/html')
