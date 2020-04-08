@@ -15,15 +15,8 @@ VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin'}
 
 def get_user_level_role(email: str) -> str:
     """Return the user-level role of a user."""
-    user_level_policies = [
-        policy
-        for policy in user_dal.get_subject_policies(email)
-        if policy.level == 'user'
-    ]
-
-    if user_level_policies:
-        return user_level_policies[0].role
-    return ''
+    object_: str = 'self'
+    return user_dal.get_subject_policy(email, object_).role
 
 
 def get_group_level_role(email: str, group: str) -> str:
@@ -32,15 +25,7 @@ def get_group_level_role(email: str, group: str) -> str:
     if get_user_level_role(email) == 'admin':
         return 'admin'
 
-    group_level_policies = [
-        policy
-        for policy in user_dal.get_subject_policies(email)
-        if policy.level == 'group' and policy.object == group.lower()
-    ]
-
-    if group_level_policies:
-        return group_level_policies[0].role
-    return ''
+    return user_dal.get_subject_policy(email, group).role
 
 
 def grant_user_level_role(email: str, role: str) -> bool:

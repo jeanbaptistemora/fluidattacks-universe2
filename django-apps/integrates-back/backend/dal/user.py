@@ -60,6 +60,19 @@ def cast_dict_into_subject_policy(item: dict) -> SUBJECT_POLICY:
     })
 
 
+def get_subject_policy(subject: str, object_: str) -> SUBJECT_POLICY:
+    """Return a policy for the given subject over the given object."""
+    response = AUTHZ_TABLE.get_item(
+        ConsistentRead=True,
+        Key={
+            'subject': subject.lower(),
+            'object': object_.lower(),
+        },
+    )
+
+    return cast_dict_into_subject_policy(response.get('Item', {}))
+
+
 def get_subject_policies(subject: str) -> List[SUBJECT_POLICY]:
     """Return a list of policies for the given subject."""
     policies: List[SUBJECT_POLICY] = []
