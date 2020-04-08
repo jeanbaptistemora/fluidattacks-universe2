@@ -21,7 +21,7 @@ The authentication mechanism should request at least a username and a password.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function]
 The software does not perform any authentication for functionality that
 requires a provable user identity or consumes a significant amount of
 resources.

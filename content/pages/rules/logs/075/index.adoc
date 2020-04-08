@@ -68,7 +68,7 @@ can prove to be very difficult or impossible.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778 Insufficient logging].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient logging].
 
 . [[r2]] link:https://gdpr-info.eu/art-33-gdpr/[GDPR. Art. 33: Notification of a personal data breach
 to the supervisory authority.(5)]

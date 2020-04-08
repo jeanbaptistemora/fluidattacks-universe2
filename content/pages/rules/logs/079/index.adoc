@@ -40,7 +40,7 @@ due to the lack of detail in event logs.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778 Insufficient logging].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient logging].
 
 . [[r2]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
 

@@ -21,11 +21,11 @@ to being bypassed and/or tampered with.
 == References
 
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]
 The software does not restrict or incorrectly restricts access to a resource
 from an unauthorized actor.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602 Client-Side Enforcement of Server-Side Security]
+. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security]
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
 

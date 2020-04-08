@@ -122,7 +122,7 @@ component,
 but encoding or escaping of the data is either missing or done incorrectly.
 As a result, the intended structure of the message is not preserved.
 
-. [[r11]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602 Client-Side Enforcement of Server-Side Security]
+. [[r11]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security]
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
 

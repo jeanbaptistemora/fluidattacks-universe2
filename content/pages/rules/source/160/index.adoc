@@ -1,22 +1,40 @@
 :slug: rules/160/
 :category: source
 :description: This document contains the details of the security requirements related to the definition and management of application source code the organization. This requirement establishes the importance of encoding system outputs in the corresponding language by using escaping.
-:keywords: Requirement, Security, Encoding, Outputs, Application, Escaping
+:keywords: Encoding, Outputs, Escaping, BSSIM9, ASVS, CWE
 :rules: yes
 
 = REQ.160 Encode system outputs
 
 == Requirement
 
-System information output
-must be encoded in the corresponding language (+escaping+).
+The system output must be encoded in the corresponding language (`escaping`).
+
+== Description
+
+System components use structured messages to communicate with other components.
+When this messages include input from untrusted sources and this input is not
+properly escaped,
+they become prone to the insertion of malicious commands.
+For this reason, enconding or escaping must occur before sending the messages.
 
 == References
 
-. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.2  Use code protection].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
+The product does not validate or incorrectly validates input that can affect
+the control flow or data flow of a program.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
-Verify that unstructured data is sanitized
-to enforce generic safety measures such as allowed characters and length,
-and characters potentially harmful in given context should be escaped
-(e.g. natural names with Unicode or apostrophes, such as ねこ or O'Hara).
+. [[r4]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
+The product does not validate or incorrectly validates input that can affect
+the control flow or data flow of a program.
+
+. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2  Use code protection].
+
+. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.5 Input and Output Architectural Requirements.(1.5.3)]
+Verify that input validation is enforced on a trusted service layer.
+
+. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.5 Input and Output Architectural Requirements.(1.5.4)]
+Verify that output encoding occurs close to or by the interpreter for which it
+is intended.

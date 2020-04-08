@@ -25,15 +25,15 @@ be implemented having these restrictions in consideration.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284 Improper Access Control]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]
 The software does not restrict or incorrectly restricts access to a resource
 from an unauthorized actor.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287 Improper Authentication]
+. [[r2]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
 When an actor claims to have a given identity,
 the software does not prove or insufficiently proves that the claim is correct.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306 Missing Authentication for Critical Function]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function]
 The software does not perform any authentication for functionality that
 requires a provable user identity or consumes a significant amount of
 resources.

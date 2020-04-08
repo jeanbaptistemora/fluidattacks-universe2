@@ -65,7 +65,7 @@ which eventually will compromise the system security.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-779 Logging of Excessive Data]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-779: Logging of Excessive Data]
 
 . [[r2]] link:https://msdn.microsoft.com/en-us/library/ed577840(v=vs.100).aspx[Microsoft: How to: Handle Page-Level Errors]
 

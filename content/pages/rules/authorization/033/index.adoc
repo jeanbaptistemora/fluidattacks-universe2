@@ -59,7 +59,7 @@ in order to perform deeper and more detailed attacks.
 
 == References
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419 Unprotected Primary Channel].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel].
 The software uses a primary channel for administration or restricted
 functionality,
 but it does not properly protect the channel.
