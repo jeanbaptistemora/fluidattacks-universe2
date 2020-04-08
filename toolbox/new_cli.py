@@ -16,15 +16,6 @@ EXP_METAVAR = '[<EXPLOIT | all>]'
 SUBS_METAVAR = '[SUBSCRIPTION]'
 
 
-def _is_pipeline(ctx, param, value):
-    is_ci = os.environ.get('CI', 'false')
-    if is_ci == 'false' and value:
-        raise click.BadOptionUsage(
-            param, f'the {param.name} option is only available inside the CI')
-
-    return value
-
-
 def _back_to_continuous():
     starting_dir: str = os.getcwd()
     if 'TOOLBOX_SKIP_ROOT_DETECTION' not in os.environ:
@@ -144,8 +135,8 @@ def resources_management(subscription, check_repos, clone, fingerprint,
 @click.option(
     '--encrypt', is_flag=True, help='encrypt the secrets of a subscription')
 @click.option('--init-secrets', '--init', is_flag=True)
-@click.option('--fill-with-mocks', is_flag=True, callback=_is_pipeline)
-@click.option('--generate-exploits', is_flag=True, callback=_is_pipeline)
+@click.option('--fill-with-mocks', is_flag=True)
+@click.option('--generate-exploits', is_flag=True)
 @click.option('--get-vulns', type=click.Choice(['dynamic', 'static', 'all']))
 @click.option(
     '--lint-exps',
@@ -238,7 +229,6 @@ def integrates_management(kind, subscription, check_token,
 @click.command(name='analytics')
 @click.option(
     '--analytics-break-build-logs',
-    callback=_is_pipeline,
     is_flag=True,
     help='pipelines-only')
 def analytics_management(analytics_break_build_logs, sync):
