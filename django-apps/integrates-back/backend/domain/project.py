@@ -537,9 +537,11 @@ def list_drafts(project_name: str) -> List[str]:
     return project_dal.list_drafts(project_name)
 
 
-def list_comments(project_name: str, user_role: str) -> List[CommentType]:
-    comments = [comment_domain.fill_comment_data(user_role, comment)
-                for comment in project_dal.get_comments(project_name)]
+def list_comments(project_name: str, user_email: str) -> List[CommentType]:
+    comments = [
+        comment_domain.fill_comment_data(project_name, user_email, comment)
+        for comment in project_dal.get_comments(project_name)
+    ]
 
     return comments
 

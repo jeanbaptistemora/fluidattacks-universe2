@@ -11,12 +11,15 @@ class CommentTests(TestCase):
     def test_list_comments(self):
         finding_id = '422286126'
 
-        test_data = comment_domain.get_comments(finding_id, 'admin')
+        test_data = comment_domain.get_comments(
+            'unittesting', finding_id, 'admin')
+
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], dict)
         assert test_data[0] is not None
 
-        test_data = comment_domain.get_observations(finding_id, 'admin')
+        test_data = comment_domain.get_observations(
+            'unittesting', finding_id, 'admin')
         expected_output = [{
             'parent': 0, 'created': '2019/08/20 16:35:16',
             'modified': '2019/08/20 16:35:16',
@@ -35,8 +38,12 @@ class CommentTests(TestCase):
             'modified': '2020-02-25 11:05:35',
             'parent': Decimal('0')
         }
-        res_data_no_fullname = comment_domain.fill_comment_data('customer', test_data)
+        res_data_no_fullname = \
+            comment_domain.fill_comment_data('unittesting', 'customer', test_data)
         assert res_data_no_fullname['fullname'] == 'unittesting@test.com'
+
         test_data['fullname'] = ''
-        res_data_empty_fullname = comment_domain.fill_comment_data('customer', test_data)
+        res_data_empty_fullname = \
+            comment_domain.fill_comment_data('unittesting', 'customer', test_data)
+
         assert res_data_empty_fullname['fullname'] == 'unittesting@test.com'

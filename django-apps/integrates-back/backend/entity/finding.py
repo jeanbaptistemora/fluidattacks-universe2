@@ -207,11 +207,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve comments attribute """
         user_data = util.get_jwt_content(info.context)
         user_email = user_data['user_email']
-        curr_user_role = \
-            user_domain.get_group_level_role(user_email, self.project_name)
-        self.comments = [Comment(**comment)
-                         for comment in comment_domain.get_comments(
-                             self.id, curr_user_role)]
+        self.comments = [
+            Comment(**comment)
+            for comment in comment_domain.get_comments(
+                self.project_name, self.id, user_email)]
         return self.comments
 
     @enforce_group_level_auth
@@ -226,11 +225,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve observations attribute """
         user_data = util.get_jwt_content(info.context)
         user_email = user_data['user_email']
-        curr_user_role = \
-            user_domain.get_group_level_role(user_email, self.project_name)
-        self.observations = [Comment(**obs)
-                             for obs in comment_domain.get_observations(
-                                 self.id, curr_user_role)]
+        self.observations = [
+            Comment(**obs)
+            for obs in comment_domain.get_observations(
+                self.project_name, self.id, user_email)]
         return self.observations
 
     def resolve_title(self, info):

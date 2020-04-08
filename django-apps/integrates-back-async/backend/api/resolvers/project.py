@@ -341,13 +341,9 @@ async def _get_comments(info, project_name):
     """Get comments."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    curr_user_role = await \
-        sync_to_async(user_domain.get_group_level_role)(
-            user_email, project_name
-        )
+
     comments = await sync_to_async(project_domain.list_comments)(
-        project_name, curr_user_role
-    )
+        project_name, user_email)
     return dict(comments=comments)
 
 

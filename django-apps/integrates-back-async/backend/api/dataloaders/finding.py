@@ -226,12 +226,13 @@ async def _get_evidence(info, identifier):
 async def _get_comments(info, identifier):
     """Get comments."""
     finding = await info.context.loaders['finding'].load(identifier)
+    finding_id = finding['id']
+    project_name = finding.get('project_name')
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    curr_user_role = \
-        user_domain.get_group_level_role(user_email, finding['project_name'])
+
     comments = await sync_to_async(comment_domain.get_comments)(
-        finding['id'], curr_user_role
+        project_name, finding_id, user_email
     )
     return dict(comments=comments)
 
@@ -243,12 +244,12 @@ async def _get_comments(info, identifier):
 async def _get_observations(info, identifier):
     """Get observations."""
     finding = await info.context.loaders['finding'].load(identifier)
+    finding_id = finding['id']
+    project_name = finding['project_name']
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    curr_user_role = \
-        user_domain.get_group_level_role(user_email, finding['project_name'])
     observations = await sync_to_async(comment_domain.get_observations)(
-        finding['id'], curr_user_role
+        project_name, finding_id, user_email
     )
     return dict(observations=observations)
 

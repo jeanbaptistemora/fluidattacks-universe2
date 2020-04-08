@@ -19,13 +19,13 @@ from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 from simpleeval import AttributeDoesNotExist
 
-from backend.dal import finding as finding_dal, project as project_dal
+from backend.dal import finding as finding_dal
 
 from backend.domain import (
     user as user_domain, event as event_domain, finding as finding_domain
 )
 from backend.services import (
-    has_valid_access_token, project_exists
+    has_valid_access_token
 )
 
 from backend import util
@@ -126,21 +126,6 @@ def resolve_project_name(args, kwargs):
         project_name = project_name.lower()
 
     return project_name
-
-
-def resolve_project_data(project_name):
-    """Get project data or mock it if needed."""
-    if project_name:
-        if not project_exists(project_name):
-            project_data = {}
-        else:
-            project_data = project_dal.get(project_name)[0]
-    else:
-        project_data = {}
-
-    if 'customeradmin' not in project_data:
-        project_data['customeradmin'] = set()
-    return project_data
 
 
 def enforce_group_level_auth(func):

@@ -12,14 +12,25 @@ from backend.dal import comment as comment_dal, finding as finding_dal, vulnerab
 from backend.typing import Comment as CommentType, User as UserType
 
 
-def _get_comments(comment_type: str, finding_id: str, user_role: str) -> List[CommentType]:
-    comments = [fill_comment_data(user_role, cast(Dict[str, str], comment))
-                for comment in comment_dal.get_comments(comment_type, int(finding_id))]
+def _get_comments(
+        comment_type: str,
+        project_name: str,
+        finding_id: str,
+        user_email: str) -> List[CommentType]:
+    comments = [
+        fill_comment_data(project_name, user_email, cast(Dict[str, str], comment))
+        for comment in comment_dal.get_comments(comment_type, int(finding_id))
+    ]
     return comments
 
 
-def get_comments(finding_id: str, user_role: str) -> List[CommentType]:
-    comments = _get_comments('comment', finding_id, user_role)
+def get_comments(
+        project_name: str,
+        finding_id: str,
+        user_email: str) -> List[CommentType]:
+    comments = \
+        _get_comments('comment', project_name, finding_id, user_email)
+
     historic_verification = \
         cast(List[Dict[str, finding_dal.FindingType]], finding_dal.get_attributes(
              finding_id, ['historic_verification']).get('historic_verification', []))
@@ -37,24 +48,38 @@ def get_comments(finding_id: str, user_role: str) -> List[CommentType]:
     return comments
 
 
-def get_event_comments(finding_id: str, user_role: str) -> List[CommentType]:
-    comments = _get_comments('event', finding_id, user_role)
+def get_event_comments(project_name: str, finding_id: str, user_email: str) -> List[CommentType]:
+    comments = _get_comments('event', project_name, finding_id, user_email)
 
     return comments
 
 
-def get_fullname(user_role: str, data: Dict[str, str]) -> str:
-    comment_user_name = 'Hacker'
-    if not data.get('fullname'):
-        comment_user_name = data['email']
-    elif (user_role in ['admin', 'analyst'] or
-          user_domain.get_data(data['email'], 'role') in ['customer', 'customeradmin']):
-        comment_user_name = data['fullname']
+def get_fullname(
+        project_name: str,
+        requester_email: str,
+        objective_data: Dict[str, str]) -> str:
+    objective_email = objective_data['email']
+    objective_possible_fullname = objective_data.get('fullname', '')
+
+    real_name = objective_possible_fullname or objective_email
+
+    is_requester_at_fluid: bool = '@fluidattacks.com' in requester_email
+    is_objective_at_fluid: bool = '@fluidattacks.com' in objective_email
+
+    # Only Fluid Attacks' staff is masked
+    if is_requester_at_fluid or not is_objective_at_fluid:
+        name_to_show = real_name
     else:
-        user_company = user_domain.get_data(data['email'], 'company')
-        if user_company:
-            comment_user_name = 'Hacker at ' + str(user_company).capitalize()
-    return comment_user_name
+        objective_role = \
+            user_domain.get_group_level_role(objective_email, project_name)
+
+        name_to_show = {
+            'analyst': 'Hacker at Fluid Attacks',
+            'admin': 'Hacker at Fluid Attacks',
+            'customeradmin': real_name,
+        }.get(objective_role, 'Someone at Fluid Attacks')
+
+    return name_to_show
 
 
 def fill_vuln_info(comment: Dict[str, str], vulns_ids: List[str],
@@ -67,8 +92,15 @@ def fill_vuln_info(comment: Dict[str, str], vulns_ids: List[str],
     return cast(CommentType, comment)
 
 
-def fill_comment_data(user_role: str, data: Dict[str, str]) -> CommentType:
-    fullname = get_fullname(user_role, data)
+def fill_comment_data(
+        project_name: str,
+        requester_email: str,
+        data: Dict[str, str]) -> CommentType:
+    fullname = get_fullname(
+        project_name=project_name,
+        requester_email=requester_email,
+        objective_data=data)
+
     return {
         'content': data['content'],
         'created': util.format_comment_date(data['created']),
@@ -79,8 +111,12 @@ def fill_comment_data(user_role: str, data: Dict[str, str]) -> CommentType:
         'parent': int(data['parent'])}
 
 
-def get_observations(finding_id: str, user_role: str) -> List[CommentType]:
-    observations = _get_comments('observation', finding_id, user_role)
+def get_observations(
+        project_name: str,
+        finding_id: str,
+        user_email: str) -> List[CommentType]:
+    observations = \
+        _get_comments('observation', project_name, finding_id, user_email)
 
     return observations
 
