@@ -1,3 +1,5 @@
+import pytest
+
 from ariadne import graphql, graphql_sync
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -9,6 +11,7 @@ from backend.api.schema import SCHEMA
 
 class UserTests(TestCase):
 
+    @pytest.mark.asyncio
     async def test_get_user(self):
         """Check for user."""
         query = '''
@@ -48,6 +51,7 @@ class UserTests(TestCase):
         assert 'responsibility' in result['data']['user']
         assert 'phoneNumber' in result['data']['user']
 
+    @pytest.mark.asyncio
     async def test_user_list_projects(self):
         """Check for user."""
         query = '''

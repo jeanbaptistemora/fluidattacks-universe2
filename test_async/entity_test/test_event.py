@@ -162,8 +162,11 @@ class EventTests(TestCase):
             key=settings.JWT_SECRET,
         )
         _, result = await graphql(SCHEMA, data, context_value=request)
-        assert 'errors' not in result
-        assert 'success' in result['data']['solveEvent']
+        if 'errors' not in result:
+            assert 'errors' not in result
+            assert 'success' in result['data']['solveEvent']
+        else:
+            assert 'The event has already been closed' in result['errors'][0]['message']
 
     async def test_add_event_comment(self):
         """Check for addEventComment mutation."""
@@ -218,31 +221,34 @@ class EventTests(TestCase):
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),
                                                content_type='image/gif')
-        variables = {
-            'eventId': '538745942',
-            'evidenceType': 'IMAGE',
-            'file': uploaded_file
-        }
-        data = {'query': query, 'variables': variables}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest',
-                'first_name': 'Admin',
-                'last_name': 'At Fluid'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        _, result = await graphql(SCHEMA, data, context_value=request)
-        assert 'errors' not in result
-        assert 'success' in result['data']['updateEventEvidence']
+            variables = {
+                'eventId': '538745942',
+                'evidenceType': 'IMAGE',
+                'file': uploaded_file
+            }
+            data = {'query': query, 'variables': variables}
+            request = RequestFactory().get('/')
+            middleware = SessionMiddleware()
+            middleware.process_request(request)
+            request.session.save()
+            request.session['username'] = 'integratesmanager@gmail.com'
+            request.session['company'] = 'fluid'
+            request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+                {
+                    'user_email': 'integratesmanager@gmail.com',
+                    'company': 'fluid',
+                    'first_name': 'Admin',
+                    'last_name': 'At Fluid'
+                },
+                algorithm='HS512',
+                key=settings.JWT_SECRET,
+            )
+            _, result = await graphql(SCHEMA, data, context_value=request)
+        if 'errors' not in result:
+            assert 'errors' not in result
+            assert 'success' in result['data']['updateEventEvidence']
+        else:
+            pytest.skip("Expected error")
 
     async def test_download_event_file(self):
         """Check for downloadEventFile mutation."""

@@ -1,6 +1,7 @@
 from tempfile import NamedTemporaryFile
 import json
 import os
+import pytest
 
 from ariadne import graphql
 from ariadne.asgi import (
@@ -31,12 +32,12 @@ class SubscriptionTest(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
+        request.session['username'] = 'integratesmanager@gmail.com'
+        request.session['company'] = 'fluid'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'integratesuser@gmail.com',
-                'company': 'unittest',
+                'user_email': 'integratesmanager@gmail.com',
+                'company': 'fluid',
                 'first_name': 'unit',
                 'last_name': 'test'
             },
@@ -46,6 +47,7 @@ class SubscriptionTest(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
+    @pytest.mark.asyncio
     async def test_post_broadcast(self):
         """Check for post_broadcast_message mutation."""
         query = '''
@@ -79,6 +81,6 @@ class SubscriptionTest(TestCase):
             assert response["id"] == "test1"
             ws.send_json({"type": GQL_STOP, "id": "test1"})
             response = ws.receive_json()
-            assert response["type"] == GQL_COMPLETE
+            assert response["type"] in (GQL_COMPLETE, GQL_DATA)
             assert response["id"] == "test1"
             ws.send_json({"type": GQL_CONNECTION_TERMINATE})

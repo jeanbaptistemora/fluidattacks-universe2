@@ -1,3 +1,5 @@
+import pytest
+
 from ariadne import graphql
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -9,6 +11,7 @@ from backend.api.schema import SCHEMA
 
 class InternalProjectTests(TestCase):
 
+    @pytest.mark.asyncio
     async def test_internal_project(self):
         """Check for internal project"""
         query = '''{

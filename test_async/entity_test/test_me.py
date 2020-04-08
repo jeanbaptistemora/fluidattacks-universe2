@@ -1,12 +1,16 @@
+import pytest
+
 from datetime import datetime, timedelta
 
-from ariadne import graphql, graphql_sync
+from ariadne import graphql
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
+
+pytestmark = pytest.mark.asyncio
 
 
 class MeTests(TestCase):
@@ -23,7 +27,9 @@ class MeTests(TestCase):
                 }
                 tags {
                     name
-                    projects
+                    projects {
+                        name
+                    }
                 }
                 remember
                 role
@@ -34,12 +40,12 @@ class MeTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
+        request.session['username'] = 'integratesmanager@gmail.com'
+        request.session['company'] = 'fluid'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'integratesanalyst@gmail.com',
-                'company': 'unittest'
+                'user_email': 'integratesmanager@gmail.com',
+                'company': 'fluid'
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -57,7 +63,7 @@ class MeTests(TestCase):
             assert 'name' in project
             assert 'description' in project
 
-    def test_sign_in(self):
+    async def test_sign_in(self):
         """Check for signIn mutation."""
         query = '''
             mutation {
@@ -87,11 +93,11 @@ class MeTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'INVALID_AUTH_TOKEN'
 
-    def test_update_access_token(self):
+    async def test_update_access_token(self):
         """Check for updateAccessToken mutation."""
         query = '''
             mutation updateAccessToken ($expirationTime: Int!) {
@@ -126,12 +132,12 @@ class MeTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'updateAccessToken' in result['data']
         assert 'success' in result['data']['updateAccessToken']
 
-    def test_invalidate_access_token(self):
+    async def test_invalidate_access_token(self):
         """Check invalidateAccessToken query"""
         query = '''
             mutation {
@@ -155,11 +161,11 @@ class MeTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'invalidateAccessToken' in result['data']
         assert 'success' in result['data']['invalidateAccessToken']
 
-    def test_accept_legal(self):
+    async def test_accept_legal(self):
         """Check acceptLegal query"""
         query = '''
             mutation {
@@ -183,6 +189,6 @@ class MeTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'acceptLegal' in result['data']
         assert 'success' in result['data']['acceptLegal']

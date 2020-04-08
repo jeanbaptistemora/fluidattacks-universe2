@@ -5,7 +5,7 @@ import asyncio
 from typing import Dict
 from asgiref.sync import sync_to_async
 from backend.decorators import (
-    get_cached, enforce_group_level_auth_async, require_login,
+    enforce_group_level_auth_async, require_login,
     require_project_access
 )
 from backend.domain import alert as alert_domain
@@ -48,7 +48,6 @@ async def _resolve_fields(project_name: str, organization: str) -> AlertType:
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-@get_cached
 def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
     """Resolve alert query."""
     return util.run_async(_resolve_fields, project_name, organization)

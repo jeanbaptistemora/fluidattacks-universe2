@@ -498,9 +498,9 @@ def run_async(function: Callable, *args, **kwargs):
     loop.set_debug(settings.DEBUG)
     loop.set_exception_handler(handle_exception)
     try:
-        result = asyncio.create_task(function(*args, **kwargs))
-    except RuntimeError:
         result = loop.run_until_complete(function(*args, **kwargs))
+    except RuntimeError:
+        result = asyncio.create_task(function(*args, **kwargs))
     return result
 
 

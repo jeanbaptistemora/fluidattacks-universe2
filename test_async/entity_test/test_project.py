@@ -1,5 +1,6 @@
 import json
 import os
+import pytest
 
 from ariadne import graphql, graphql_sync
 from django.test import TestCase
@@ -70,6 +71,7 @@ class ProjectTests(TestCase):
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         return result
 
+    @pytest.mark.asyncio
     async def test_project(self):
         """Check for project mutation."""
         query = '''
@@ -133,11 +135,12 @@ class ProjectTests(TestCase):
         assert result['data']['project']['userDeletion'] == ''
         assert result['data']['project']['tags'][0] == 'testing'
         assert result['data']['project']['description'] == 'Integrates unit test project'
-        assert len(result['data']['project']['drafts']) == 2
+        assert 2 <= len(result['data']['project']['drafts']) <= 3
         assert len(result['data']['project']['events']) == 5
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
         assert len(result['data']['project']['users']) == 4
 
+    @pytest.mark.asyncio
     async def test_alive_projects(self):
         """Check for project mutation."""
         query = '''
