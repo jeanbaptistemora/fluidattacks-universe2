@@ -231,7 +231,7 @@ def integrates_management(kind, subscription, check_token,
     '--analytics-break-build-logs',
     is_flag=True,
     help='pipelines-only')
-def analytics_management(analytics_break_build_logs, sync):
+def analytics_management(analytics_break_build_logs):
     if analytics_break_build_logs:
         sys.exit(0 if analytics.logs.load_executions_to_database() else 1)
 
