@@ -3,6 +3,7 @@ import os
 import io
 import sys
 import glob
+import datetime
 import configparser
 import textwrap
 import functools
@@ -11,6 +12,7 @@ import contextlib
 from pathlib import Path
 
 # Third parties libraries
+import dateutil.parser
 import requests
 from pykwalify.core import Core
 from pykwalify.errors import SchemaError
@@ -231,3 +233,23 @@ def output_block(*, indent=2):
             contextlib.redirect_stderr(buffer):
         yield
     print(textwrap.indent(buffer.getvalue(), ' ' * indent))
+
+
+def guess_date_from_str(
+    date_str: str,
+    default: str = '2000-01-01T00:00:00Z',
+) -> str:
+    """Use heuristics to transform any-format string into an RFC 3339 date."""
+    try:
+        date_obj = dateutil.parser.parse(date_str)
+    except (ValueError, OverflowError):
+        return default
+    else:
+        return date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def rfc3339_str_to_date_obj(
+    date_str: str,
+) -> datetime.datetime:
+    """Parse an RFT3339 formatted string into a datetime object."""
+    return dateutil.parser.parse(date_str)

@@ -50,6 +50,7 @@ distutils.core.setup(
         'prospector[with_everything]==1.2.0',
         'pynamodb==4.3.1',
         'pykwalify==1.7.0',
+        'python-dateutil==2.8.1',
         'python-jose==3.0.1',
         'requests==2.22.0',
         'ruamel.yaml==0.16.5',

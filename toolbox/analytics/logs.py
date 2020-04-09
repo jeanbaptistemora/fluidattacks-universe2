@@ -30,6 +30,9 @@ assert os
 # Constants
 BUCKET: str = 'break-build-logs'
 DEFAULT_COLUMN_VALUE: str = 'unable to retrieve'
+DEFAULT_COLUMN_DATE_VALUE: datetime.datetime = \
+    utils.rfc3339_str_to_date_obj(
+        utils.guess_date_from_str(DEFAULT_COLUMN_VALUE))
 DYNAMO_DB_TABLE: str = 'bb_executions'
 LOGS_DATE_FMT = r'%Y%m%d%H%M%S'
 REGEX_LOGS_NAME = re.compile(
@@ -38,10 +41,15 @@ REGEX_LOGS_NAME = re.compile(
     r'/(?P<date>[0-9]+)'
     r'/(?P<kind>[a-z]+)'
     r'/(?P<name>[a-z\-]+)\.yaml$')
+REGEX_BUILD_ENV = re.compile(r'^BUILD_ENV=(.*)$', flags=re.MULTILINE)
 REGEX_EXIT_CODE = re.compile(r'^EXIT_CODE=(.*)$', flags=re.MULTILINE)
 REGEX_FA_STRICT = re.compile(r'^FA_STRICT=(.*)$', flags=re.MULTILINE)
 REGEX_GIT_BRANCH = re.compile(r'^GIT_BRANCH=(.*)$', flags=re.MULTILINE)
 REGEX_GIT_COMMIT = re.compile(r'^GIT_COMMIT=(.*)$', flags=re.MULTILINE)
+REGEX_GIT_COMMIT_AUTHOR = \
+    re.compile(r'^GIT_COMMIT_AUTHOR=(.*)$', flags=re.MULTILINE)
+REGEX_GIT_COMMIT_AUTHORED_DATE = \
+    re.compile(r'^GIT_COMMIT_AUTHORED_DATE=(.*)$', flags=re.MULTILINE)
 REGEX_GIT_ORIGIN = re.compile(r'^GIT_ORIGIN=(.*)$', flags=re.MULTILINE)
 REGEXES_GIT_REPO_FROM_ORIGIN = [
     # https://xxxx.visualstudio.com/xxx/_git/repo_name
@@ -86,8 +94,11 @@ class Execution(pynamodb.models.Model):
     log = pynamodb.attributes.UnicodeAttribute()
     exit_code = pynamodb.attributes.UnicodeAttribute()
     strictness = pynamodb.attributes.UnicodeAttribute()
+    build_env = pynamodb.attributes.UnicodeAttribute()
     git_branch = pynamodb.attributes.UnicodeAttribute()
     git_commit = pynamodb.attributes.UnicodeAttribute()
+    git_commit_author = pynamodb.attributes.UnicodeAttribute()
+    git_commit_authored_date = pynamodb.attributes.UTCDateTimeAttribute()
     git_origin = pynamodb.attributes.UnicodeAttribute()
     git_repo = pynamodb.attributes.UnicodeAttribute()
     vulnerabilities: pynamodb.attributes.MapAttribute = \
@@ -161,12 +172,15 @@ def get_vulnerability_attrs(s3_client, s3_prefix, git_repo) -> dict:
     }
 
 
-def get_metadata_attrs(s3_client, s3_prefix):
+def get_metadata_attrs(s3_client, s3_prefix) -> dict:
     """"Return attributes found in the metadata.list file."""
+    build_env = DEFAULT_COLUMN_VALUE
     exit_code = DEFAULT_COLUMN_VALUE
     strictness = DEFAULT_COLUMN_VALUE
     git_branch = DEFAULT_COLUMN_VALUE
     git_commit = DEFAULT_COLUMN_VALUE
+    git_commit_author = DEFAULT_COLUMN_VALUE
+    git_commit_authored_date = DEFAULT_COLUMN_DATE_VALUE
     git_origin = DEFAULT_COLUMN_VALUE
     git_repo = DEFAULT_COLUMN_VALUE
 
@@ -174,6 +188,10 @@ def get_metadata_attrs(s3_client, s3_prefix):
         metadata = retrieve_from_s3(s3_client, f'{s3_prefix}/metadata.list')
 
         # Here is when I want to be in python3.8 (walrus operator) :=
+        match = REGEX_BUILD_ENV.search(metadata)
+        if match and match.group(1):
+            build_env = match.group(1)
+
         match = REGEX_EXIT_CODE.search(metadata)
         if match and match.group(1):
             exit_code = match.group(1)
@@ -190,6 +208,16 @@ def get_metadata_attrs(s3_client, s3_prefix):
         if match and match.group(1):
             git_commit = match.group(1)
 
+        match = REGEX_GIT_COMMIT_AUTHOR.search(metadata)
+        if match and match.group(1):
+            git_commit_author = match.group(1)
+
+        match = REGEX_GIT_COMMIT_AUTHORED_DATE.search(metadata)
+        if match and match.group(1):
+            git_commit_authored_date = \
+                utils.rfc3339_str_to_date_obj(
+                    utils.guess_date_from_str(match.group(1)))
+
         match = REGEX_GIT_ORIGIN.search(metadata)
         if match and match.group(1):
             git_origin = match.group(1)
@@ -199,13 +227,16 @@ def get_metadata_attrs(s3_client, s3_prefix):
                 if match and match.group(1):
                     git_repo = match.group(1)
 
-    return (
-        exit_code,
-        strictness,
-        git_branch,
-        git_commit,
-        git_origin,
-        git_repo,
+    return dict(
+        build_env=build_env,
+        exit_code=exit_code,
+        strictness=strictness,
+        git_branch=git_branch,
+        git_commit=git_commit,
+        git_commit_author=git_commit_author,
+        git_commit_authored_date=git_commit_authored_date,
+        git_origin=git_origin,
+        git_repo=git_repo,
     )
 
 
@@ -225,10 +256,11 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
 
     full = \
         get_execution_attr_full(s3_client, s3_prefix)
-    exit_code, strictness, git_branch, git_commit, git_origin, git_repo = \
+    metadata_attrs = \
         get_metadata_attrs(s3_client, s3_prefix)
     vulnerabilities: dict = \
-        get_vulnerability_attrs(s3_client, s3_prefix, git_repo)
+        get_vulnerability_attrs(
+            s3_client, s3_prefix, metadata_attrs['git_repo'])
 
     return Execution(
         subscription=subscription,
@@ -236,12 +268,6 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
         date=datetime.datetime.strptime(date, LOGS_DATE_FMT),
         kind=kind,
         log=full,
-        exit_code=exit_code,
-        strictness=strictness,
-        git_branch=git_branch,
-        git_commit=git_commit,
-        git_origin=git_origin,
-        git_repo=git_repo,
         vulnerabilities=vulnerabilities,
         vulnerabilities_exploits=vulnerabilities[
             'exploits'],
@@ -255,6 +281,7 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
             'vulnerability_count_mocked_exploits'],
         vulnerability_count_accepted_exploits=vulnerabilities[
             'vulnerability_count_accepted_exploits'],
+        **metadata_attrs,
     )
 
 
