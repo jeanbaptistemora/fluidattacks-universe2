@@ -42,6 +42,8 @@ REGEX_LOGS_NAME = re.compile(
     r'/(?P<kind>[a-z]+)'
     r'/(?P<name>[a-z\-]+)\.yaml$')
 REGEX_BUILD_ENV = re.compile(r'^BUILD_ENV=(.*)$', flags=re.MULTILINE)
+REGEX_BUILD_TRIGGER_SOURCE = \
+    re.compile(r'^BUILD_TRIGGER_SOURCE=(.*)$', flags=re.MULTILINE)
 REGEX_EXIT_CODE = re.compile(r'^EXIT_CODE=(.*)$', flags=re.MULTILINE)
 REGEX_FA_STRICT = re.compile(r'^FA_STRICT=(.*)$', flags=re.MULTILINE)
 REGEX_GIT_BRANCH = re.compile(r'^GIT_BRANCH=(.*)$', flags=re.MULTILINE)
@@ -95,6 +97,7 @@ class Execution(pynamodb.models.Model):
     exit_code = pynamodb.attributes.UnicodeAttribute()
     strictness = pynamodb.attributes.UnicodeAttribute()
     build_env = pynamodb.attributes.UnicodeAttribute()
+    build_trigger_source = pynamodb.attributes.UnicodeAttribute()
     git_branch = pynamodb.attributes.UnicodeAttribute()
     git_commit = pynamodb.attributes.UnicodeAttribute()
     git_commit_author = pynamodb.attributes.UnicodeAttribute()
@@ -175,6 +178,7 @@ def get_vulnerability_attrs(s3_client, s3_prefix, git_repo) -> dict:
 def get_metadata_attrs(s3_client, s3_prefix) -> dict:
     """"Return attributes found in the metadata.list file."""
     build_env = DEFAULT_COLUMN_VALUE
+    build_trigger_source = DEFAULT_COLUMN_VALUE
     exit_code = DEFAULT_COLUMN_VALUE
     strictness = DEFAULT_COLUMN_VALUE
     git_branch = DEFAULT_COLUMN_VALUE
@@ -191,6 +195,10 @@ def get_metadata_attrs(s3_client, s3_prefix) -> dict:
         match = REGEX_BUILD_ENV.search(metadata)
         if match and match.group(1):
             build_env = match.group(1)
+
+        match = REGEX_BUILD_TRIGGER_SOURCE.search(metadata)
+        if match and match.group(1):
+            build_trigger_source = match.group(1)
 
         match = REGEX_EXIT_CODE.search(metadata)
         if match and match.group(1):
@@ -229,6 +237,7 @@ def get_metadata_attrs(s3_client, s3_prefix) -> dict:
 
     return dict(
         build_env=build_env,
+        build_trigger_source=build_trigger_source,
         exit_code=exit_code,
         strictness=strictness,
         git_branch=git_branch,
