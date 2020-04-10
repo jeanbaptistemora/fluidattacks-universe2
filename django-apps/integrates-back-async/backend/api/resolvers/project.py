@@ -1,7 +1,9 @@
 # pylint: disable=import-error
 
+from datetime import datetime
 import asyncio
 import sys
+import time
 
 import simplejson as json
 from asgiref.sync import sync_to_async
@@ -445,6 +447,39 @@ def resolve_reject_remove_project(_, info, project_name):
             info.context,
             f'Security: Reject project {project} deletion succesfully')
     return dict(success=success)
+
+
+@convert_kwargs_to_snake_case
+@require_login
+@enforce_group_level_auth_async
+@require_project_access
+def resolve_add_project_comment(_, info, **parameters):
+    """Resolve add_project_comment mutation."""
+    project_name = parameters.get('project_name').lower()
+    user_info = util.get_jwt_content(info.context)
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    comment_id = int(round(time.time() * 1000))
+    comment_data = {
+        'user_id': comment_id,
+        'content': parameters.get('content'),
+        'created': current_time,
+        'fullname':
+            str.join(' ', [user_info['first_name'],
+                           user_info['last_name']]),
+        'modified': current_time,
+        'parent': parameters.get('parent')
+    }
+    success = project_domain.add_comment(
+        project_name, user_info['user_email'], comment_data)
+    if success:
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(info.context, f'Security: Added comment to \
+            {project_name} project succesfully')
+    else:
+        util.cloudwatch_log(info.context, f'Security: Attempted to add \
+            comment in {project_name} project')
+    ret = dict(success=success, comment_id=comment_id)
+    return ret
 
 
 @convert_kwargs_to_snake_case

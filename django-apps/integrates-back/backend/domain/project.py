@@ -37,7 +37,7 @@ def get_email_recipients(project_name: str) -> List[str]:
 
 def add_comment(project_name: str, email: str, comment_data: CommentType) -> bool:
     """Add comment in a project."""
-    parent = comment_data.get('parent')
+    parent = str(comment_data.get('parent'))
     if parent != '0':
         project_comments = \
             [str(comment.get('user_id'))

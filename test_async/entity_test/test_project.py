@@ -330,3 +330,43 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['removeAllProjectAccess']
         assert result['data']['removeAllProjectAccess']['success']
+
+    def test_add_project_comment_parent_zero(self):
+        """Check for addProjectComment mutation."""
+        query = '''
+          mutation {
+            addProjectComment(
+              content: "Test comment",
+              parent: "0",
+              projectName: "unittesting",
+            ) {
+              success
+              commentId
+            }
+          }
+          '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addProjectComment']
+        assert result['data']['addProjectComment']['success']
+
+    def test_add_project_comment_parent_non_zero(self):
+        """Check for addProjectComment mutation."""
+        query = '''
+          mutation {
+            addProjectComment(
+              content: "Test comment",
+              parent: "1545946228675",
+              projectName: "unittesting",
+            ) {
+              success
+              commentId
+            }
+          }
+          '''
+        data = {'query': query}
+        result = self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addProjectComment']
+        assert result['data']['addProjectComment']['success']

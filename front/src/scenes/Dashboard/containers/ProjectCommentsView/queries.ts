@@ -20,7 +20,7 @@ export const GET_PROJECT_COMMENTS: DocumentNode = gql`
 
 export const ADD_PROJECT_COMMENT: DocumentNode = gql`
   mutation AddProjectComment(
-    $content: String!, $projectName: String!, $parent: String!
+    $content: String!, $projectName: String!, $parent: GenericScalar!
   ) {
     addProjectComment(content: $content, projectName: $projectName, parent: $parent) {
       commentId

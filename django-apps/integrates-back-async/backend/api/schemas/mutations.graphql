@@ -144,7 +144,7 @@ type Mutation {
     removeAllProjectAccess(projectName: String!): SimplePayload!
     addProjectComment(
         content: String!,
-        parent: String!,
+        parent: GenericScalar!,
         projectName: String!
     ): AddCommentPayload!
     createProject(
@@ -158,7 +158,7 @@ type Mutation {
     addFindingComment(
         content: String!,
         findingId: String!,
-        parent: String!,
+        parent: GenericScalar!,
         type: FindingCommentType!
     ): AddCommentPayload!
     requestRemoveProject(projectName: String!): SimplePayload!

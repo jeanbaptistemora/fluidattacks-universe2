@@ -244,6 +244,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
            "CreateProjectMutation",
            "RequestRemoveProjectMutation",
            "RejectProjectDeletion",
+           "AddProjectComment",
            "AddTagsMutation",
            "RemoveTagMutation",
            "RemoveEvidenceMutation",

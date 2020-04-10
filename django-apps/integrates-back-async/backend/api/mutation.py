@@ -38,6 +38,8 @@ MUTATION.set_field('requestRemoveProject',
                    project.resolve_request_remove_project)
 MUTATION.set_field('rejectRemoveProject',
                    project.resolve_reject_remove_project)
+MUTATION.set_field('addProjectComment',
+                   project.resolve_add_project_comment)
 MUTATION.set_field('addTags', project.resolve_add_tags)
 MUTATION.set_field('removeTag', project.resolve_remove_tag)
 MUTATION.set_field('addAllProjectAccess',
