@@ -1,33 +1,34 @@
 :slug: rules/146/
 :category: cryptography
 :description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of protecting system cryptographic keys by limiting the time they remain in system RAM.
-:keywords: Requirement, Security, Cryptography, Timeout, Cryptographic Keys, RAM
+:keywords: Security, Requirement, Timeout, Cryptographic Keys, RAM, ASVS
 :rules: yes
 
 = REQ.146 Set timeout to cryptographic keys
 
 == Requirement
 
-Cryptographic keys must remain in +RAM+ for maximum +5+ seconds.
+Cryptographic keys must remain in *RAM* for maximum *5* seconds.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]
-There is an explicit policy for how cryptographic keys (if any) are managed,
-and the lifecycle of cryptographic keys is enforced.
-Ideally, follow a key management standard such as +NIST SP 800-57+.
-
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.9+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[OWASP-ASVS v3.1-7.9]
 Verify that there is an explicit policy
 for how cryptographic keys are managed
 (e.g., generated, distributed, revoked, and expired).
 Verify that this key lifecycle is properly enforced.
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.13+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[OWASP-ASVS v3.1-7.13]
 Verify that sensitive passwords or key material maintained in memory
 is overwritten with zeros as soon as it no longer required,
 to mitigate memory dumping attacks.
 
-. [[r4]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[OWASP-ASVS v3.1-9.11]
 Verify that authenticated data is cleared from client storage,
 such as the browser DOM, after the client or session is terminated.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.6 Cryptographic Architectural Requirements.(1.6.1)]
+Verify that there is an explicit policy for management of cryptographic keys
+and that a cryptographic key lifecycle follows a key management standard such
+as **NIST SP 800-57**.
