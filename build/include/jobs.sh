@@ -306,16 +306,16 @@ function job_analytics_timedoctor {
   &&  bucket="$(< s3_files.json jq -r '.bucket_name')" \
   &&  cont_folder=$(< s3_files.json jq -r '.folder_name') \
   &&  new_folder=$(< s3_files.json jq -r '.save_as') \
-  &&  aws s3 cp --recursive "s3://${bucket}/${cont_folder}/" "./${new_folder}/" \
-  &&  cat "./${new_folder}/*" \
+  &&  aws s3 cp --recursive "s3://${bucket}/${cont_folder}/" "${new_folder}/" \
+  &&  cat "${new_folder}"/* \
         > .singer \
   &&  echo '[INFO] Running tap' \
   &&  tap-timedoctor \
         --auth "${TEMP_FILE1}" \
-        --start_date "$(date +"%Y-%m-01")" \
-        --end_date "$(date +"%Y-%m-%d")" \
+        --start-date "$(date +"%Y-%m-01")" \
+        --end-date "$(date +"%Y-%m-%d")" \
         --work-logs \
-        --computer_activity \
+        --computer-activity \
         >> .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
@@ -354,7 +354,7 @@ function job_backup_analytics_timedoctor {
         --auth "${TEMP_FILE2}" \
         --start-date "${start_date}" \
         --end-date "${end_date}" \
-        --computer_activity \
+        --computer-activity \
         > ca.singer \
   &&  echo "[INFO] Uploading backup to s3" \
   &&  bucket=$(< s3_files.json jq -r '.bucket_name') \

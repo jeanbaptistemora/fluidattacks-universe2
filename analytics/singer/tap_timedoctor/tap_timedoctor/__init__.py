@@ -316,7 +316,7 @@ def main():
     parser.add_argument(
         '-e', '--end-date', type=check_date, required=False, default=end_date)
     parser.add_argument('--work-logs', '-w', action='store_true')
-    parser.add_argument('--computer_activity', '-ca', action='store_true')
+    parser.add_argument('--computer-activity', '-ca', action='store_true')
     args = parser.parse_args()
 
     start_date = args.start_date or start_date
