@@ -8,8 +8,8 @@ from backend.domain.user import (
     grant_user_level_role,
 )
 from backend.utils.authorization import (
-    get_group_level_authorization_enforcer_async,
-    get_user_level_authorization_enforcer_async,
+    get_group_level_enforcer_async,
+    get_user_level_enforcer_async,
 )
 
 
@@ -81,7 +81,7 @@ class BasicAbacTest(TestCase):
 
 
 class ActionAbacTest(TestCase):
-    enforcer = get_group_level_authorization_enforcer_async
+    enforcer = get_group_level_enforcer_async
 
     global_actions = {
         'backend_api_resolvers_resource_resolve_resources',
@@ -321,7 +321,7 @@ class ActionAbacTest(TestCase):
 
 
 class UserAbacTest(TestCase):
-    enforcer = get_user_level_authorization_enforcer_async
+    enforcer = get_user_level_enforcer_async
 
     customeradmin_actions: Set[str] = {
         'backend_api_resolvers_me__get_tags',

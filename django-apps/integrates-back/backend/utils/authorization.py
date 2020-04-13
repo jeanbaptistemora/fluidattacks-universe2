@@ -1,6 +1,7 @@
 # Standard library
 import contextlib
 import os
+from typing import Tuple
 
 # Third party library
 from casbin import Enforcer as CasbinEnforcer
@@ -50,7 +51,71 @@ def get_cached_subject_policies(subject: str):
     return fetched_data
 
 
-def get_user_level_authorization_enforcer(subject: str) -> CasbinEnforcer:
+def get_manager_actions() -> Tuple[str, ...]:
+    """Actions that only client's project managers can perform."""
+    return (
+        'backend_api_resolvers_me__get_tags',
+        'backend_api_resolvers_tag_resolve_tag',
+        'backend_api_resolvers_user_resolve_user_list_projects',
+    )
+
+
+def get_internal_manager_actions() -> Tuple[str, ...]:
+    """Actions that only FluidAttacks's project managers can perform."""
+    return (
+        'backend_api_resolvers_project_resolve_create_project',
+        'backend_api_resolvers_user_resolve_user_list_projects',
+    )
+
+
+def get_analyst_actions() -> Tuple[str, ...]:
+    """Actions that only FluidAttacks's hackers can perform."""
+    return (
+        'backend_api_resolvers_cache_resolve_invalidate_cache',
+    )
+
+
+def get_admin_actions() -> Tuple[str, ...]:
+    """Actions that only platform admins can perform."""
+    return (
+        'backend_api_resolvers_cache_resolve_invalidate_cache',
+        'backend_api_resolvers_internal_project_resolve_project_name',
+        'backend_api_resolvers_project_resolve_alive_projects',
+        'backend_api_resolvers_project_resolve_create_project',
+        'backend_api_resolvers_subscription__do_post_broadcast_message',
+        'backend_api_resolvers_user_resolve_add_user',
+    )
+
+
+def list_actions() -> Tuple[str, ...]:
+    all_actions = get_manager_actions() \
+        + get_internal_manager_actions() \
+        + get_analyst_actions() \
+        + get_admin_actions()
+
+    return tuple(set(all_actions))
+
+
+def matches_permission(subject: str, role: str, action: str) -> bool:
+    if action in get_manager_actions() \
+            and role in ['admin', 'customeradmin']:
+        matches = True
+    elif action in get_internal_manager_actions():
+        matches = \
+            role == 'admin' \
+            or role in ['customer', 'customeradmin'] \
+            and subject.endswith('@fluidattacks.com')
+    elif action in get_analyst_actions():
+        matches = role in ['admin', 'analyst']
+    elif action in get_admin_actions():
+        matches = role == 'admin'
+    else:
+        matches = False
+
+    return matches
+
+
+def get_user_level_enforcer(subject: str) -> CasbinEnforcer:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
     adapter = CasbinInMemoryAdapter(policies)
@@ -61,18 +126,22 @@ def get_user_level_authorization_enforcer(subject: str) -> CasbinEnforcer:
     )
 
 
-def get_user_level_authorization_enforcer_async(subject: str) -> CasbinEnforcer:
+def get_user_level_enforcer_async(subject: str) -> CasbinEnforcer:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
     adapter = CasbinInMemoryAdapter(policies)
 
-    return CasbinEnforcer(
+    enforcer = CasbinEnforcer(
         model=get_perm_metamodel_path('user_level_async.conf'),
         adapter=adapter,
     )
 
+    enforcer.fm.add_function('matchesPermission', matches_permission)
 
-def get_group_level_authorization_enforcer(subject: str) -> CasbinEnforcer:
+    return enforcer
+
+
+def get_group_level_enforcer(subject: str) -> CasbinEnforcer:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
     adapter = CasbinInMemoryAdapter(policies)
@@ -83,7 +152,7 @@ def get_group_level_authorization_enforcer(subject: str) -> CasbinEnforcer:
     )
 
 
-def get_group_level_authorization_enforcer_async(subject: str) -> CasbinEnforcer:
+def get_group_level_enforcer_async(subject: str) -> CasbinEnforcer:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
     adapter = CasbinInMemoryAdapter(policies)

@@ -182,7 +182,7 @@ class ProjectTests(TestCase):
            }
         }'''
         data = {'query': query}
-        result = self._get_result(data)
+        result = self._get_result(data, user='unittest@fluidattacks.com')
         assert 'errors' not in result
         assert 'success' in result['data']['createProject']
         assert result['data']['createProject']['success']

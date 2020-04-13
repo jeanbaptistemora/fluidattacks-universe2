@@ -149,7 +149,7 @@ def enforce_group_level_auth(func):
                 })
 
         enforcer = \
-            authorization_utils.get_group_level_authorization_enforcer(subject)
+            authorization_utils.get_group_level_enforcer(subject)
 
         try:
             if not enforcer.enforce(subject, object_, action):
@@ -189,7 +189,7 @@ def enforce_group_level_auth_async(func):
                 })
 
         enforcer = \
-            authorization_utils.get_group_level_authorization_enforcer_async(subject)
+            authorization_utils.get_group_level_enforcer_async(subject)
 
         try:
             if not enforcer.enforce(subject, object_, action):
@@ -214,7 +214,7 @@ def enforce_user_level_auth(func):
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         enforcer = \
-            authorization_utils.get_user_level_authorization_enforcer(subject)
+            authorization_utils.get_user_level_enforcer(subject)
 
         try:
             if not enforcer.enforce(subject, object_, action):
@@ -245,7 +245,7 @@ def enforce_user_level_auth_async(func):
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         enforcer = \
-            authorization_utils.get_user_level_authorization_enforcer_async(subject)
+            authorization_utils.get_user_level_enforcer_async(subject)
 
         try:
             if not enforcer.enforce(subject, object_, action):

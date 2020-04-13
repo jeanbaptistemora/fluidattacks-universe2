@@ -8,8 +8,8 @@ from backend.domain.user import (
     grant_user_level_role,
 )
 from backend.utils.authorization import (
-    get_group_level_authorization_enforcer,
-    get_user_level_authorization_enforcer,
+    get_group_level_enforcer,
+    get_user_level_enforcer,
 )
 
 
@@ -81,7 +81,7 @@ class BasicAbacTest(TestCase):
 
 
 class ActionAbacTest(TestCase):
-    enforcer = get_group_level_authorization_enforcer
+    enforcer = get_group_level_enforcer
 
     global_actions = {
         'backend_api_query_Query_resolve_resources',
@@ -318,7 +318,7 @@ class ActionAbacTest(TestCase):
             self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
 class UserAbacTest(TestCase):
-    enforcer = get_user_level_authorization_enforcer
+    enforcer = get_user_level_enforcer
 
     customeradmin_actions: Set[str] = {
         'backend_api_query_Query_resolve_tag',
