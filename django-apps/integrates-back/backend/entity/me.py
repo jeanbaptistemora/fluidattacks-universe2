@@ -5,7 +5,7 @@ import json
 from django.conf import settings
 from google.auth.transport import requests
 from google.oauth2 import id_token
-from graphene import ObjectType, Mutation, List, String, Boolean, Int
+from graphene import ObjectType, Field, Mutation, List, String, Boolean, Int
 from graphql import GraphQLError
 from jose import jwt
 import rollbar
@@ -14,6 +14,7 @@ from backend.decorators import require_login
 from backend.domain import project as project_domain, user as user_domain
 from backend.entity.project import Project
 from backend.exceptions import InvalidExpirationTime
+from backend.utils import authorization as authorization_utils
 
 from backend import util
 from backend.dal import user as user_dal
@@ -27,6 +28,7 @@ class Me(ObjectType):
     projects = List(Project)
     remember = Boolean()
     role = String(project_name=String(required=False))
+    permissions = Field(List(String), project_name=String(required=False))
 
     def __init__(self):
         super(Me, self).__init__()
@@ -87,6 +89,26 @@ class Me(ObjectType):
         self.remember = user_info if user_info else False
 
         return self.remember
+
+    @staticmethod
+    def resolve_permissions(_, info, project_name=None):
+        """ Get the actions the user is allowed to perform """
+        jwt_content = util.get_jwt_content(info.context)
+        subject = jwt_content['user_email']
+        object_ = project_name if project_name else 'self'
+        # Using the v2 enforcer here is intentional as we need a
+        # standarized list of permissions that will end up being the only one
+        # once the migration finishes
+        enforcer = \
+            authorization_utils.get_group_level_enforcer_async(subject) \
+            if project_name else \
+            authorization_utils.get_user_level_enforcer_async(subject)
+
+        permissions = [
+            action for action in authorization_utils.list_actions()
+            if enforcer.enforce(subject, object_, action)]
+
+        return permissions
 
 
 class SignIn(Mutation):

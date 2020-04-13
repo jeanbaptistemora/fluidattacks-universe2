@@ -6,7 +6,7 @@ import json
 import sys
 
 from collections import defaultdict
-from typing import Any, Dict, List, Sequence, Union
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 from asgiref.sync import sync_to_async
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
@@ -14,6 +14,7 @@ from backend.domain import project as project_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.dal import user as user_dal
 from backend.typing import User as UserType
+from backend.utils import authorization as authorization_utils
 from backend import util
 
 from django.conf import settings
@@ -79,6 +80,22 @@ async def _get_remember(
         sync_to_async(user_domain.get_data)(user_email, 'legal_remember')
     result = remember or False
     return dict(remember=result)
+
+
+async def _get_permissions(
+    _, user_email: str, project_name: Optional[str] = None
+) -> Dict[str, Tuple[str, ...]]:
+    """Get the actions the user is allowed to perform."""
+    subject = user_email
+    object_ = project_name if project_name else 'self'
+    enforcer = \
+        authorization_utils.get_group_level_enforcer_async(subject) \
+        if project_name else \
+        authorization_utils.get_user_level_enforcer_async(subject)
+    permissions = tuple([
+        action for action in authorization_utils.list_actions()
+        if enforcer.enforce(subject, object_, action)])
+    return dict(permissions=permissions)
 
 
 @enforce_user_level_auth_async

@@ -152,6 +152,7 @@ type Me {
     remember: Boolean
     role(projectName: String): String
     tags: [Tag!]
+    permissions(projectName: String): [String]
 }
 
 "Comment type definition"
