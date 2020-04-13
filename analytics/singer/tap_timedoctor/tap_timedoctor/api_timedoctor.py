@@ -2,6 +2,7 @@
 
 import sys
 import time
+import datetime
 import urllib.error
 import urllib.request
 
@@ -71,13 +72,22 @@ class Worker():
         resource = f"{self.url}/v1.1/companies/{company_id}/users"
         return self.request(resource)
 
-    def get_worklogs(self, company_id, limit, offset):
+    def get_worklogs(self,  # pylint: disable=too-many-arguments
+                     company_id,
+                     limit,
+                     offset,
+                     start_date: str = None,
+                     end_date: str = None):
         """Return a collection of users worklogs under the given company id."""
+        today = datetime.date.today()
+        start_date = start_date or today.replace(today.year - 1).isoformat()
+        end_date = end_date or today.isoformat()
+
         resource = (
             f"{self.url}/v1.1/companies/{company_id}/worklogs"
 
             # fetch historical
-            f"?start_date=2019-01-01&end_date=2999-12-31"
+            f"?start_date={start_date}&end_date={end_date}"
             f"&limit={limit}&offset={offset}"
 
             # fetch working time, not breaks
@@ -89,11 +99,18 @@ class Worker():
 
         return self.request(resource)
 
-    def get_computer_activity(self, company_id, user_id):
+    def get_computer_activity(self,  # pylint: disable=too-many-arguments
+                              company_id,
+                              user_id,
+                              start_date: str = None,
+                              end_date: str = None,
+                              limit: int = 20000):
         """Return screenshots, keystrokes, mouse activities for a user_id."""
-        resource = (
-            f"{self.url}/v1.1/companies/{company_id}/screenshots"
-            f"?start_date=2019-01-01&end_date=2999-12-31"
-            f"&user_id={user_id}"
-        )
+        today = datetime.date.today()
+        start_date = start_date or today.replace(today.year - 1).isoformat()
+        end_date = end_date or today.isoformat()
+        resource = (f"{self.url}/v1.1/companies/{company_id}/screenshots"
+                    f"?start_date={start_date}&end_date={end_date}"
+                    f"&user_id={user_id}"
+                    f"&limit=0&screenshots_limit={limit}&offset=0")
         return self.request(resource)

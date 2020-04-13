@@ -63,12 +63,18 @@ def translate_date(date_obj: Any) -> str:
     elif isinstance(date_obj, (int, float)):
         date_obj = datetime.datetime.utcfromtimestamp(date_obj)
     else:
-        date_obj = datetime.datetime(1900, 1, 1, 0, 0, 0)
+        try:
+            date_obj = datetime.datetime.utcfromtimestamp(int(date_obj))
+        except ValueError:
+            date_obj = datetime.datetime(1900, 1, 1, 0, 0, 0)
 
     return date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def sync_worklogs(api_worker, company_id: str) -> None:
+def sync_worklogs(api_worker,
+                  company_id: str,
+                  start_date: str = None,
+                  end_date: str = None) -> None:
     """API version 1.1.
 
     https://webapi.timedoctor.com/doc#worklogs
@@ -122,7 +128,7 @@ def sync_worklogs(api_worker, company_id: str) -> None:
         #   iterate until an empty list is found
         while 1:
             status_code, response = api_worker.get_worklogs(
-                company_id, limit, offset)
+                company_id, limit, offset, start_date, end_date)
             ensure_200(status_code)
             worklogs: JSON = json.loads(response)["worklogs"]
 
@@ -175,7 +181,9 @@ def sync_worklogs(api_worker, company_id: str) -> None:
 def sync_computer_activity(
         api_worker,
         company_id: str,
-        users_list: List[Tuple[str, str]]) -> None:
+        users_list: List[Tuple[str, str]],
+        start_date: str = None,
+        end_date: str = None) -> None:
     """Sync computer activity using API version 1.1.
 
     https://webapi.timedoctor.com/doc#screenshots
@@ -220,7 +228,7 @@ def sync_computer_activity(
             return default if obj is None else obj
 
         (status_code, response) = api_worker.get_computer_activity(
-            company_id, user_id)
+            company_id, user_id, start_date, end_date)
         ensure_200(status_code)
 
         response_obj: JSON = json.loads(response)
@@ -278,14 +286,41 @@ def sync_computer_activity(
 
 def main():
     """Usual entry point."""
+
     # user interface
+    def check_date(date):
+        re_date = r'([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))'
+        if not re.match(re_date, date):
+            raise argparse.ArgumentTypeError(
+                f'{date} does not have the correct format (yyyy-mm-dd)')
+        return date
+
+    # by default all the data from a year ago is extracted
+    today = datetime.date.today()
+    start_date = today.replace(today.year - 1).isoformat()
+    end_date = today.isoformat()
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-a', '--auth',
+        '-a',
+        '--auth',
         required=True,
         help='JSON authentication file',
         type=argparse.FileType('r'))
+    parser.add_argument(
+        '-s',
+        '--start-date',
+        type=check_date,
+        required=False,
+        default=start_date)
+    parser.add_argument(
+        '-e', '--end-date', type=check_date, required=False, default=end_date)
+    parser.add_argument('--work-logs', '-w', action='store_true')
+    parser.add_argument('--computer_activity', '-ca', action='store_true')
     args = parser.parse_args()
+
+    start_date = args.start_date or start_date
+    end_date = args.end_date or end_date
 
     access_token: str = json.load(args.auth)["access_token"]
     api_worker = api_timedoctor.Worker(access_token)
@@ -301,7 +336,17 @@ def main():
     ensure_200(status_code)
 
     # sync
-    sync_worklogs(api_worker, company_id)
+    if args.work_logs:
+        sync_worklogs(api_worker, company_id, start_date, end_date)
+    if args.computer_activity:
+        users: dict = map(lambda x: (x['user_id'], x['full_name']),
+                          json.loads(response)['users'])
+        sync_computer_activity(
+            api_worker,
+            company_id,
+            users,
+            start_date=start_date,
+            end_date=end_date)
 
 
 if __name__ == "__main__":
