@@ -1,7 +1,7 @@
 :slug: rules/223/
 :category: cryptography
 :description: This document contains the details of the security requirements related to definition and management of random numbers in the application and system. This requirement establishes the importance of generating random numbers using a uniform distribution.
-:keywords: Requirement, Security, Random, Numbers, Distribution, System
+:keywords: Random, Numbers, Distribution, CWE, NIST, ASVS
 :rules: yes
 
 = REQ.223 Uniform distribution in random numbers
@@ -11,15 +11,49 @@
 System random numbers must be generated
 using a uniform distribution.
 
+== Descriptions
+
+System cryptographic keys are essential for maintaining the confidentiality
+and integrity of transactions and communications.
+Some of these keys and other critical elements are generated using random
+numbers.
+In these cases, the random numbers themselves must be generated using secure
+mechanisms that guarantee a random distribution,
+
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.6+]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/330.html[CWE-330: Use of Insufficiently Random Values]
+The software uses insufficiently random numbers or values in a security context
+that depends on unpredictable numbers.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/331.html[CWE-331: Insufficient Entropy]
+The software uses an algorithm or scheme that produces insufficient entropy,
+leaving patterns or clusters of values that are more likely to occur than
+others.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/332.html[CWE-332: Insufficient Entropy in PRNG]
+The lack of entropy available for, or used by, a Pseudo-Random Number Generator
+(PRNG) can be a stability and security threat.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/335.html[CWE-335: Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)]
+The software uses a Pseudo-Random Number Generator (PRNG) that does not
+correctly manage seeds.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/338.html[CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)]
+The product uses a Pseudo-Random Number Generator (PRNG) in a security context,
+but the PRNG's algorithm is not cryptographically strong.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/340.html[CWE-340: Generation of Predictable Numbers or Identifiers]
+The product uses a scheme that generates numbers or identifiers that are more
+predictable than required.
+
+. [[r7]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[OWASP-ASVS v3.1-7.6]
 Verify that all random numbers, random file names, random GUIDs,
 and random strings are generated using the cryptographic module’s
 approved random number generator
 when these random values are intended to be not guessable by an attacker.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.15+]
+. [[r8]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[OWASP-ASVS v3.1-7.15]
 Verify that random numbers are created with proper entropy
 even when the application is under heavy load,
 or that the application degrades gracefully in such circumstances.
