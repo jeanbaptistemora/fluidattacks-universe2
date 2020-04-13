@@ -1024,6 +1024,9 @@ def check_finding_title_match_integrates(path: str) -> bool:
         for node in ast.walk(tree):
             # Filtering only function calls
             if isinstance(node, ast.Call)\
+                    and isinstance(node.func, ast.Name):
+                calls.add(node.func.id)
+            elif isinstance(node, ast.Call)\
                     and isinstance(node.func, ast.Attribute):
                 calls.add(node.func.attr)
     return "add_finding" in calls or "generic_static_exploit" in calls
