@@ -8,10 +8,14 @@
 #!   nix-shell --keep BREAK_BUILD_SECRET
 #!   nix-shell --keep CI_JOB_ID
 #!   nix-shell --keep NIX_PATH
+#!   nix-shell --keep CI_COMMIT_REF_NAME
+#!   nix-shell --keep CI_COMMIT_SHA
+#!   nix-shell --keep CI_PIPELINE_SOURCE
 #!   nix-shell --keep CI_PROJECT_DIR
 #!   nix-shell --keep CI_REGISTRY_USER
 #!   nix-shell --keep CI_REGISTRY_PASSWORD
 #!   nix-shell --keep GITLAB_API_TOKEN
+#!   nix-shell --keep GITLAB_CI
 #!   nix-shell --max-jobs auto
 #!   nix-shell --option restrict-eval false
 #!   nix-shell --option sandbox false
