@@ -17,6 +17,7 @@ import botocore.exceptions
 import pynamodb.models
 import pynamodb.attributes
 import ruamel.yaml.reader
+import ruamel.yaml.scanner
 
 # Local libraries
 from toolbox import logger, utils, api
@@ -145,6 +146,7 @@ def get_vulnerabilities_from_log(s3_client, s3_path, git_repo):
         ]
     except (botocore.exceptions.ClientError,
             ruamel.yaml.reader.ReaderError,
+            ruamel.yaml.scanner.ScannerError,
             KeyError):
         return [], 0
     else:
@@ -365,8 +367,8 @@ def load_executions_to_database() -> bool:
                         pynamodb.exceptions.PynamoDBException):
                     logger.error('  The following exception was raised')
                     logger.error(traceback.format_exc())
-                logger.info('  Cooling down 10 seconds')
-                time.sleep(10)
+                logger.info('  Cooling down...')
+                time.sleep(12)
         logger.info('Done')
 
     return True
