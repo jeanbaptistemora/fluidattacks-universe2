@@ -64,7 +64,8 @@ async def _do_remove_evidence(_, info, evidence_id: str,
     if success:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Removed evidence in finding {finding_id}')
+            f'Security: \
+Removed evidence in finding {finding_id}')  # pragma: no cover
         util.invalidate_cache(finding_id)
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
@@ -87,12 +88,12 @@ async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Updated evidence in finding '
-            f'{finding_id} succesfully')
+            f'{finding_id} succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Attempted to update evidence in '
-            f'finding {finding_id}')
+            f'finding {finding_id}')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
@@ -112,11 +113,11 @@ async def _do_update_evidence_description(
             util.invalidate_cache(finding_id)
             await sync_to_async(util.cloudwatch_log)(
                 info.context, f'Security: Evidence description \
-                succesfully updated in finding {finding_id}')
+succesfully updated in finding {finding_id}')  # pragma: no cover
         else:
             await sync_to_async(util.cloudwatch_log)(
                 info.context, f'Security: Attempted to update \
-                evidence description in {finding_id}')
+                evidence description in {finding_id}')  # pragma: no cover
     except KeyError:
         await sync_to_async(rollbar.report_message)('Error: \
 An error occurred updating evidence description', 'error', info.context)
@@ -140,11 +141,11 @@ async def _do_update_severity(_, info,
         util.invalidate_cache(project)
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Updated severity in \
-            finding {finding_id} succesfully')
+            finding {finding_id} succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Attempted to update \
-            severity in finding {finding_id}')
+            severity in finding {finding_id}')  # pragma: no cover
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
 
@@ -166,7 +167,7 @@ async def _do_add_finding_comment(_, info, **parameters):
         if param_type == 'observation' and \
                 role not in ['analyst', 'admin']:
             util.cloudwatch_log(info.context, 'Security: \
-                Unauthorized role attempted to add observation')
+Unauthorized role attempted to add observation')  # pragma: no cover
             raise GraphQLError('Access denied')
 
         user_email = user_data['user_email']
@@ -189,12 +190,12 @@ async def _do_add_finding_comment(_, info, **parameters):
         raise GraphQLError('Invalid comment type')
     if success:
         util.invalidate_cache(parameters.get('finding_id'))
-        util.cloudwatch_log(info.context, 'Security: Added comment in\
-            finding {id} succesfully'.format(id=parameters.get('finding_id')))
+        util.cloudwatch_log(info.context, f'Security: Added comment in\
+            finding {finding_id} succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
-            info.context, 'Security: Attempted to add \
-            comment in finding {id}'.format(id=parameters.get('finding_id')))
+            info.context, f'Security: Attempted to add \
+comment in finding {finding_id}')  # pragma: no cover
     ret = dict(success=success, comment_id=comment_id)
     return ret
 
@@ -218,7 +219,7 @@ async def _do_verify_finding(_, info, finding_id: str,
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Verified the '
-            f'finding_id: {finding_id}')
+            f'finding_id: {finding_id}')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
@@ -249,7 +250,7 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
         util.invalidate_cache(parameters.get('project_name', ''))
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Verified a request '
-            f'in finding_id: {finding_id}')
+            f'in finding_id: {finding_id}')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
@@ -270,11 +271,11 @@ async def _do_update_description(_, info, finding_id: str,
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Updated description in \
-finding {finding_id} succesfully')
+finding {finding_id} succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Attempted to update \
-            description in finding {finding_id}')
+            description in finding {finding_id}')  # pragma: no cover
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
 
@@ -321,12 +322,12 @@ async def _do_update_client_description(
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Updated treatment in '
-            f'finding {finding_id} succesfully')
+            f'finding {finding_id} succesfully')  # pragma: no cover
         util.forces_trigger_deployment(project_name)
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Attempted to update '
-            f'treatment in finding {finding_id}')
+            f'treatment in finding {finding_id}')  # pragma: no cover
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
 
@@ -347,11 +348,13 @@ async def _do_reject_draft(_, info, finding_id: str) -> SimplePayloadType:
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            'Security: Draft {} rejected succesfully'.format(finding_id))
+            f'Security: Draft {finding_id} \
+rejected succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            'Security: Attempted to reject draft {}'.format(finding_id))
+            f'Security: Attempted to reject \
+draft {finding_id}')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
@@ -372,11 +375,13 @@ async def _do_delete_finding(_, info, finding_id: str,
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Deleted finding: {finding_id} succesfully')
+            f'Security: Deleted finding: \
+{finding_id} succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Attempted to delete finding: {finding_id}')
+            f'Security: Attempted to delete \
+finding: {finding_id}')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
@@ -400,11 +405,11 @@ async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Approved draft in \
-            {project_name} project succesfully')
+            {project_name} project succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Attempted to approve \
-            draft in {project_name} project')
+            draft in {project_name} project')  # pragma: no cover
     return ApproveDraftPayloadType(release_date=release_date, success=success)
 
 
@@ -420,7 +425,7 @@ async def _do_create_draft(_, info, project_name: str, title: str,
     if success:
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Created draft in '
-            f'{project_name} project succesfully')
+            f'{project_name} project succesfully')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
@@ -437,5 +442,5 @@ async def _do_submit_draft(_, info, finding_id: str) -> SimplePayloadType:
         util.invalidate_cache(finding_id)
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Submitted draft '
-            f'{finding_id} succesfully')
+            f'{finding_id} succesfully')  # pragma: no cover
     return SimplePayloadType(success=success)

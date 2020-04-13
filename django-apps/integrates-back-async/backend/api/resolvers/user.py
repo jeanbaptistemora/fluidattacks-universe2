@@ -68,10 +68,8 @@ def _create_new_user(context: object, email: str, organization: str,
     else:
         util.cloudwatch_log(
             context,
-            'Security: {email} Attempted to add responsibility to project \
-                {project} without validation'.format(email=email,
-                                                     project=group)
-        )
+            f'Security: {email} Attempted to add responsibility to project '
+            '{group} without validation')  # pragma: no cover
         return False
 
     if phone_number and phone_number[1:].isdigit():
@@ -117,7 +115,8 @@ def resolve_add_user(_, info, **parameters) -> AddUserPayloadType:
     email = parameters.get('email', '')
     success = user_domain.create_without_project(parameters)
     if success:
-        util.cloudwatch_log(info.context, f'Security: Add user {email}')
+        util.cloudwatch_log(info.context,
+                            f'Security: Add user {email}')  # pragma: no cover
         mail_to = [email]
         context = {'admin': email}
         email_send_thread = threading.Thread(
@@ -169,12 +168,12 @@ def resolve_grant_user_access(
         util.cloudwatch_log(
             info.context,
             (f'Security: Given grant access to {new_user_email} '
-             f'in {project_name} project'))
+             f'in {project_name} project'))  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context,
             (f'Security: Attempted to grant access to {new_user_email} '
-             f'in {project_name} project'))
+             f'in {project_name} project'))  # pragma: no cover
 
     return GrantUserAccessPayloadType(
         success=success,
@@ -201,12 +200,12 @@ def resolve_remove_user_access(_, info, project_name: str,
         util.invalidate_cache(user_email)
         util.cloudwatch_log(
             info.context,
-            f'Security: Removed user: {user_email} from {project_name} \
-            project succesfully')
+            f'Security: Removed user: {user_email} from {project_name} '
+            'project succesfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
-            info.context, f'Security: Attempted to remove user: {user_email}\
-            from {project_name} project')
+            info.context, f'Security: Attempted to remove user: {user_email} '
+            f'from {project_name} project')  # pragma: no cover
     return RemoveUserAccessPayloadType(
         success=success,
         removed_email=removed_email
@@ -246,13 +245,14 @@ def resolve_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
         util.invalidate_cache(modified_email)
         util.cloudwatch_log(
             info.context,
-            f'Security: Modified user data:{modified_email} \
-            in {project_name} project successfully')
+            f'Security: Modified user data:{modified_email} '
+            'in {project_name} project successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context,
-            f'Security: Attempted to modify user \
-            data:{modified_email} in {project_name} project')
+            'Security: Attempted to modify user '
+            f'data:{modified_email} in '
+            f'{project_name} project')  # pragma: no cover
 
     return EditUserPayloadType(
         success=success,
@@ -280,7 +280,7 @@ def modify_user_information(context: object,
         util.cloudwatch_log(
             context,
             f'Security: {email} Attempted to add responsibility to project \
-                {project_name} bypassing validation')
+                {project_name} bypassing validation')  # pragma: no cover
         successes.append(False)
 
     if phone and validate_phone_field(phone):
@@ -290,7 +290,7 @@ def modify_user_information(context: object,
         util.cloudwatch_log(
             context,
             f'Security: {email} Attempted to edit user phone bypassing \
-                validation')
+                validation')  # pragma: no cover
         successes.append(False)
 
     return all(successes)

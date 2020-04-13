@@ -29,7 +29,8 @@ async def _resolve_event_async(info, identifier=None):
     """Resolve event query."""
     await sync_to_async(util.cloudwatch_log)(
         info.context,
-        f'Security: Access to Event: {identifier} succesfully')
+        'Security: Access to Event: '
+        f'{identifier} succesfully')  # pragma: no cover
     return await sync_to_async(event_domain.get_event)(identifier)
 
 
@@ -57,7 +58,8 @@ async def _resolve_events_async(event_ids):
 def resolve_events(_, info, project_name):
     """Resolve events query."""
     util.cloudwatch_log(
-        info.context, f'Security: Access to {project_name} events')
+        info.context,
+        f'Security: Access to {project_name} events')  # pragma: no cover
     event_ids = project_domain.list_events(project_name)
     return util.run_async(_resolve_events_async, event_ids)
 
@@ -77,7 +79,8 @@ async def _do_update_event(_, info, event_id, **kwargs):
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Updated event {event_id} succesfully')
+            'Security: '
+            f'Updated event {event_id} succesfully')  # pragma: no cover
     return dict(success=success)
 
 
@@ -94,7 +97,7 @@ async def _do_create_event(
     if success:
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Created event in '
-            f'{project_name} project succesfully')
+            f'{project_name} project succesfully')  # pragma: no cover
         util.invalidate_cache(project_name)
     return dict(success=success)
 
@@ -114,10 +117,14 @@ async def _do_solve_event(_, info, event_id, affectation, date):
         util.invalidate_cache(event_id)
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
-            info.context, f'Security: Solved event {event_id} succesfully')
+            info.context,
+            f'Security: Solved event {event_id} '
+            'succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
-            info.context, f'Security: Attempted to solve event {event_id}')
+            info.context,
+            'Security: Attempted to '
+            f'solve event {event_id}')  # pragma: no cover
     return dict(success=success)
 
 
@@ -135,11 +142,13 @@ async def _do_add_event_comment(_, info, content, event_id, parent):
         util.invalidate_cache(event_id)
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Added comment to event {event_id} succesfully')
+            'Security: Added comment to '
+            f'event {event_id} succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Attempted to add comment in event {event_id}')
+            'Security: Attempted to add comment '
+            f'in event {event_id}')  # pragma: no cover
     return dict(success=success, comment_id=comment_id)
 
 
@@ -157,11 +166,13 @@ async def _do_update_event_evidence(_, info, event_id, evidence_type, file):
         util.invalidate_cache(event_id)
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Updated evidence in event {event_id} succesfully')
+            'Security: Updated evidence in '
+            f'event {event_id} succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Attempted to update evidence in event {event_id}')
+            'Security: Attempted to update evidence '
+            f'in event {event_id}')  # pragma: no cover
     return dict(success=success)
 
 
@@ -176,12 +187,14 @@ async def _do_download_event_file(_, info, event_id, file_name):
     if signed_url:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Downloaded file in event {event_id} succesfully')
+            'Security: Downloaded file in event '
+            f'{event_id} succesfully')  # pragma: no cover
         success = True
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Attempted to download file in event {event_id}')
+            'Security: Attempted to download '
+            f'file in event {event_id}')  # pragma: no cover
     return dict(success=success, url=signed_url)
 
 
@@ -195,6 +208,7 @@ async def _do_remove_event_evidence(_, info, event_id, evidence_type):
     if success:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Removed evidence in event {event_id}')
+            'Security: Removed evidence in '
+            f'event {event_id}')  # pragma: no cover
         util.invalidate_cache(event_id)
     return dict(success=success)

@@ -63,5 +63,6 @@ def resolve_set_alert(_, info, company: str, message: str,
         company, message, project_name)
     if success:
         util.cloudwatch_log(
-            info.context, f'Security: Set alert of {company}')
+            info.context,
+            f'Security: Set alert of {company}')  # pragma: no cover
     return dict(success=success)

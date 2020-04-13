@@ -20,5 +20,6 @@ def resolve_invalidate_cache(_, info, pattern: str) -> Dict[str, bool]:
         success = True
         util.cloudwatch_log(
             info.context,
-            f'Security: Pattern {pattern} was removed from cache')
+            f'Security: Pattern {pattern} was \
+removed from cache')  # pragma: no cover
     return dict(success=success)

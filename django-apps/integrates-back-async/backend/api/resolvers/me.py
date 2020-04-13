@@ -195,7 +195,8 @@ async def _do_sign_in(_, info, auth_token: str, provider: str,
         except ValueError:
             await sync_to_async(util.cloudwatch_log)(
                 info.context,
-                'Security: Sign in attempt using invalid Google token')
+                'Security: Sign in attempt '
+                'using invalid Google token')  # pragma: no cover
             raise GraphQLError('INVALID_AUTH_TOKEN')
     else:
         await sync_to_async(rollbar.report_message)(
@@ -240,16 +241,16 @@ async def _do_update_access_token(
         if success:
             await sync_to_async(util.cloudwatch_log)(
                 info.context, '{email} update access token'.format(
-                    email=user_info['user_email']))
+                    email=user_info['user_email']))  # pragma: no cover
         else:
             await sync_to_async(util.cloudwatch_log)(
                 info.context, '{email} attempted to update access token'
-                .format(email=user_info['user_email']))
+                .format(email=user_info['user_email']))  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, '{email} attempted to use expiration time \
             greater than six months or minor than current time'
-            .format(email=user_info['user_email']))
+            .format(email=user_info['user_email']))  # pragma: no cover
         raise InvalidExpirationTime()
 
     return dict(success=success, session_jwt=session_jwt)
@@ -265,11 +266,11 @@ async def _do_invalidate_access_token(_, info):
     if success:
         await sync_to_async(util.cloudwatch_log)(
             info.context, '{email} invalidate access token'.format(
-                email=user_info['user_email']))
+                email=user_info['user_email']))  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, '{email} attempted to invalidate access token'
-            .format(email=user_info['user_email']))
+            .format(email=user_info['user_email']))  # pragma: no cover
     return dict(success=success)
 
 
