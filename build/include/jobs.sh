@@ -291,9 +291,6 @@ function job_analytics_timedoctor {
       aws_login \
   &&  mkdir ./logs \
   &&  sops_env secrets-prod.yaml default \
-        analytics_aws_access_key \
-        analytics_aws_secret_key \
-        analytics_aws_default_region \
         analytics_auth_redshift \
         analytics_gitlab_token \
         analytics_s3_cache_timedoctor \
@@ -302,34 +299,66 @@ function job_analytics_timedoctor {
           'analytics_auth_timedoctor' \
           "${analytics_gitlab_token}") \
   &&  echo '[INFO] Generating secret files' \
-  &&  {
-        echo '{'
-        echo "\"AWS_ACCESS_KEY_ID\":\"${analytics_aws_access_key}\","
-        echo "\"AWS_SECRET_ACCESS_KEY\":\"${analytics_aws_secret_key}\","
-        echo "\"AWS_DEFAULT_REGION\":\"${analytics_aws_default_region}\""
-        echo '}'
-      } > "${TEMP_FILE1}" \
   &&  echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
-  &&  echo "${analytics_auth_timedoctor}" > "${TEMP_FILE2}" \
-  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE3}" \
+  &&  echo "${analytics_auth_timedoctor}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  echo '[INFO] Downloading backups from S3' \
-  &&  python3 analytics/download_from_aws_sss.py \
-        -auth "${TEMP_FILE1}" \
-        -conf './s3_files.json' \
-  &&  cat 'timedoctor.worklogs.2013-01-01.2018-12-31.singer' \
+  &&  bucket="$(< s3_files.json jq -r '.bucket_name')" \
+  &&  cont_folder=$(< s3_files.json jq -r '.folder_name') \
+  &&  new_folder=$(< s3_files.json jq -r '.save_as') \
+  &&  aws s3 cp --recursive "s3://${bucket}/${cont_folder}/" "./${new_folder}/" \
+  &&  cat "./${new_folder}/*" \
         > .singer \
-  &&  cat 'timedoctor.computer_activity.2018-01-01.2018-12-31.singer' \
-        >> .singer \
   &&  echo '[INFO] Running tap' \
   &&  tap-timedoctor \
-        --auth "${TEMP_FILE2}" \
+        --auth "${TEMP_FILE1}" \
+        --start_date "$(date +"%Y-%m-01")" \
+        --end_date "$(date +"%Y-%m-%d")" \
         >> .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
-        --auth "${TEMP_FILE3}" \
+        --auth "${TEMP_FILE2}" \
         --drop-schema \
         --schema-name 'timedoctor' \
         < .singer
+}
+
+function job_backup_analytics_timedoctor {
+  export analytics_auth_timedoctor
+
+      aws_login \
+  &&  mkdir ./logs \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_gitlab_token \
+        analytics_s3_cache_timedoctor \
+  &&  analytics_auth_timedoctor=$( \
+        helper_get_gitlab_var \
+          'analytics_auth_timedoctor' \
+          "${analytics_gitlab_token}") \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
+  &&  echo "${analytics_auth_timedoctor}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running tap for worklogs' \
+  &&  start_date=$(date -d "$(date +%m)/1 -1 month" "+%Y-%m-%d") \
+  &&  end_date=$(date -d "$(date +%m)/1 +0 month - 1 day" "+%Y-%m-%d") \
+  &&  tap-timedoctor \
+        --auth "${TEMP_FILE2}" \
+        --start-date "${start_date}" \
+        --end-date "${end_date}" \
+        --work-logs \
+        > wl.singer \
+  &&  echo '[INFO] Running tap for computer_activity' \
+  &&  tap-timedoctor \
+        --auth "${TEMP_FILE2}" \
+        --start-date "${start_date}" \
+        --end-date "${end_date}" \
+        --computer_activity \
+        > ca.singer \
+  &&  echo "[INFO] Uploading backup to s3" \
+  &&  bucket=$(< s3_files.json jq -r '.bucket_name') \
+  &&  cont_folder=$(< s3_files.json jq -r '.folder_name') \
+  && aws s3 cp wl.singer "s3://${bucket}/${cont_folder}/timedoctor.worklogs.${start_date}.${end_date}.singer" \
+  && aws s3 cp ca.singer "s3://${bucket}/${cont_folder}/timedoctor.computer_activity.${start_date}.${end_date}.singer"
 }
 
 function job_analytics_zoho {

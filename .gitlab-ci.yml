@@ -142,6 +142,13 @@ analytics_zoho:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_ZOHO]
 
+backup_analytics_timedoctor:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_BACKUP_ANALYTICS_TIMEDOCTOR]
+
 deploy_docker_image_exams:
   <<: *with_nix
   <<: *in_dev_and_master_branch
