@@ -17,6 +17,7 @@ class AlertTests(TestCase):
         query = '''{
             alert(projectName:"unittesting", organization:"fluid"){
                 message
+                __typename
             }
         }'''
         data = {'query': query}

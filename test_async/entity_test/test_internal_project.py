@@ -17,6 +17,7 @@ class InternalProjectTests(TestCase):
         query = '''{
             internalProjectNames{
                 projectName
+                __typename
             }
         }'''
         data = {'query': query}

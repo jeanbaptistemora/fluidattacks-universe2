@@ -27,6 +27,7 @@ class TagTests(TestCase):
                         name
                         openVulnerabilities
                     }
+                    __typename
                 }
             }
         '''

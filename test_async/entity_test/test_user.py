@@ -26,6 +26,7 @@ class UserTests(TestCase):
                     firstLogin
                     lastLogin
                     listProjects
+                    __typename
                 }
             }
         '''

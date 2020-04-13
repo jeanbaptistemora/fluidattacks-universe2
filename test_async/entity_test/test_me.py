@@ -33,6 +33,7 @@ class MeTests(TestCase):
                 }
                 remember
                 role
+                __typename
             }
         }'''
         data = {'query': query}

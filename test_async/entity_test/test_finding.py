@@ -101,6 +101,7 @@ class FindingTests(TestCase):
               vulnerabilities {
                 specific
               }
+              __typename
           }
         }'''
         data = {'query': query}

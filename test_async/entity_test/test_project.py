@@ -113,6 +113,7 @@ class ProjectTests(TestCase):
                   email
                   role
               }
+              __typename
             }
           }
         '''

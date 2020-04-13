@@ -43,6 +43,7 @@ class ResourceTests(TestCase):
           resources(projectName: "unittesting"){
             repositories
             environments
+            __typename
           }
         }'''
         data = {'query': query}

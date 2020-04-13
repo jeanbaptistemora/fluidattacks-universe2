@@ -74,7 +74,8 @@ async def _get_has_forces(_, project_name):
 async def _get_findings(info, project_name):
     """Resolve findings attribute."""
     await sync_to_async(util.cloudwatch_log)(
-        info.context, f'Security: Access to {project_name} findings')
+        info.context,
+        f'Security: Access to {project_name} findings')  # pragma: no cover
     finding_ids = await sync_to_async(finding_domain.filter_deleted_findings)(
         project_domain.list_findings(project_name)
     )
@@ -354,7 +355,8 @@ async def _get_comments(info, project_name):
 async def _get_drafts(info, project_name):
     """Get drafts."""
     await sync_to_async(util.cloudwatch_log)(
-        info.context, f'Security: Access to {project_name} drafts')
+        info.context,
+        f'Security: Access to {project_name} drafts')  # pragma: no cover
     finding_ids = await \
         sync_to_async(finding_domain.filter_deleted_findings)(
             project_domain.list_drafts(project_name)
@@ -371,7 +373,8 @@ async def _get_drafts(info, project_name):
 async def _get_events(info, project_name):
     """Get events."""
     await sync_to_async(util.cloudwatch_log)(
-        info.context, f'Security: Access to {project_name} events')
+        info.context,
+        f'Security: Access to {project_name} events')  # pragma: no cover
     event_ids = await \
         sync_to_async(project_domain.list_events)(project_name)
     events = \
@@ -457,7 +460,8 @@ def resolve_create_project(_, info, **kwargs):
         util.invalidate_cache(user_data['user_email'])
         util.cloudwatch_log(
             info.context,
-            f'Security: Created project {project} successfully')
+            f'Security: Created project {project} '
+            'successfully')  # pragma: no cover
     return dict(success=success)
 
 
@@ -475,7 +479,8 @@ def resolve_request_remove_project(_, info, project_name):
         util.invalidate_cache(project)
         util.cloudwatch_log(
             info.context,
-            f'Security: Pending to remove project {project}')
+            'Security: '
+            f'Pending to remove project {project}')  # pragma: no cover
     return dict(success=success)
 
 
@@ -493,7 +498,8 @@ def resolve_reject_remove_project(_, info, project_name):
         util.invalidate_cache(project)
         util.cloudwatch_log(
             info.context,
-            f'Security: Reject project {project} deletion succesfully')
+            'Security: Reject project '
+            f'{project} deletion succesfully')  # pragma: no cover
     return dict(success=success)
 
 
@@ -522,10 +528,10 @@ def resolve_add_project_comment(_, info, **parameters):
     if success:
         util.invalidate_cache(project_name)
         util.cloudwatch_log(info.context, f'Security: Added comment to \
-            {project_name} project succesfully')
+            {project_name} project succesfully')  # pragma: no cover
     else:
         util.cloudwatch_log(info.context, f'Security: Attempted to add \
-            comment in {project_name} project')
+            comment in {project_name} project')  # pragma: no cover
     ret = dict(success=success, comment_id=comment_id)
     return ret
 
@@ -554,11 +560,11 @@ An error occurred adding tags', 'error', info.context)
         else:
             util.cloudwatch_log(info.context,
                                 'Security: \
-Attempted to upload tags without the allowed structure')
+Attempted to upload tags without the allowed structure')  # pragma: no cover
     else:
         util.cloudwatch_log(info.context,
                             'Security: \
-Attempted to upload tags without the allowed validations')
+Attempted to upload tags without the allowed validations')  # pragma: no cover
     if success:
         util.invalidate_cache(project_name)
     return dict(success=success)
@@ -585,11 +591,13 @@ def resolve_remove_tag(_, info, project_name, tag):
 An error occurred removing a tag', 'error', info.context)
     if success:
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(info.context, 'Security: Removed tag from \
-            {project} project succesfully'.format(project=project_name))
+        util.cloudwatch_log(
+            info.context, 'Security: Removed tag from '
+            f'{project_name} project succesfully')  # pragma: no cover
     else:
-        util.cloudwatch_log(info.context, 'Security: Attempted to remove \
-            tag in {project} project'.format(project=project_name))
+        util.cloudwatch_log(
+            info.context, 'Security: Attempted to remove '
+            f'tag in {project_name} project')  # pragma: no cover
     return dict(success=success)
 
 
@@ -602,7 +610,8 @@ def resolve_add_all_project_access(_, info, project_name):
     if success:
         util.cloudwatch_log(
             info.context,
-            f'Security: Add all project access of {project_name}')
+            'Security: '
+            f'Add all project access of {project_name}')  # pragma: no cover
         util.invalidate_cache(project_name)
     return dict(success=success)
 
@@ -616,7 +625,8 @@ def resolve_remove_all_project_access(_, info, project_name):
     if success:
         util.cloudwatch_log(
             info.context,
-            f'Security: Remove all project access of {project_name}')
+            'Security: Remove '
+            f'all project access of {project_name}')  # pragma: no cover
         util.invalidate_cache(project_name)
     return dict(success=success)
 

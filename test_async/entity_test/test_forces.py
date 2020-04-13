@@ -59,6 +59,7 @@ class ForcesExecutionsTests(TestCase):
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
             ) {
+              __typename
               executions {
                 projectName
                 identifier

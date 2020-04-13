@@ -22,6 +22,7 @@ class EventTests(TestCase):
             event(identifier: "418900971"){
                 projectName
                 detail
+                __typename
             }
         }'''
         data = {'query': query}

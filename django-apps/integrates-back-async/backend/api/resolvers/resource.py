@@ -114,7 +114,8 @@ async def _do_add_repositories(
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Added repos to {project_name} project succesfully')
+            'Security: Added repos to '
+            f'{project_name} project succesfully')  # pragma: no cover
         await sync_to_async(resources.send_mail)(
             project_name, user_email, repos, 'added', 'repository')
     else:
@@ -124,7 +125,8 @@ async def _do_add_repositories(
             payload_data=locals())
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Attempted to add repos to {project_name} project')
+            'Security: Attempted to add '
+            f'repos to {project_name} project')  # pragma: no cover
     return dict(success=success)
 
 
@@ -145,7 +147,8 @@ async def _do_add_environments(
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Added envs to {project_name} project succesfully')
+            'Security: Added envs to '
+            f'{project_name} project succesfully')  # pragma: no cover
         await sync_to_async(resources.send_mail)(
             project_name, user_email, envs, 'added', 'environment')
     else:
@@ -155,7 +158,8 @@ async def _do_add_environments(
             payload_data=locals())
         await sync_to_async(util.cloudwatch_log)(
             info.context,
-            f'Security: Attempted to add envs to {project_name} project')
+            'Security: Attempted to add '
+            f'envs to {project_name} project')  # pragma: no cover
     return dict(success=success)
 
 
@@ -185,12 +189,12 @@ An error occurred uploading file', 'error', info.context)
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Added resource files to \
-            {project_name} project succesfully')
+            {project_name} project succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Attempted to add resource files \
-from {project_name} project')
+from {project_name} project')  # pragma: no cover
     return dict(success=success)
 
 
@@ -217,11 +221,11 @@ An error occurred removing file', 'error', info.context)
         util.invalidate_cache(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Removed Files from \
-            {project_name} project succesfully')
+            {project_name} project succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Attempted to remove files \
-from {project_name} project')
+from {project_name} project')  # pragma: no cover
     return dict(success=success)
 
 
@@ -240,7 +244,8 @@ async def _do_download_file(_, info, **parameters):
         msg = 'Security: Downloaded file {file_name} in \
 project {project} succesfully'\
             .format(project=project_name, file_name=parameters['files_data'])
-        await sync_to_async(util.cloudwatch_log)(info.context, msg)
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, msg)  # pragma: no cover
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
         await sync_to_async(mp_obj.track)(user_email, 'DownloadProjectFile', {
             'Project': project_name.upper(),
@@ -252,8 +257,9 @@ project {project} succesfully'\
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Attempted to download file {file_name} \
-in project {project}'.format(project=project_name,
-                             file_name=parameters['files_data']))
+in project {project}'.format(
+                project=project_name,
+                file_name=parameters['files_data']))  # pragma: no cover
         await sync_to_async(rollbar.report_message)('Error: \
 An error occurred generating signed URL', 'error', info.context)
     return dict(success=success, url=str(signed_url))
@@ -277,7 +283,7 @@ async def _do_update_environment(
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Updated environment state in {project_name} '
-            'project succesfully')
+            'project succesfully')  # pragma: no cover
 
         action = 'activated' if state == 'ACTIVE' else 'deactivated'
         await sync_to_async(resources.send_mail)(
@@ -290,7 +296,7 @@ async def _do_update_environment(
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Attempted to update environment state in '
-            f'{project_name} project')
+            f'{project_name} project')  # pragma: no cover
     return dict(success=success)
 
 
@@ -312,7 +318,7 @@ async def _do_update_repository(
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Updated repository state in {project_name} '
-            'project succesfully')
+            'project succesfully')  # pragma: no cover
 
         action = 'activated' if state == 'ACTIVE' else 'deactivated'
         await sync_to_async(resources.send_mail)(
@@ -325,5 +331,5 @@ async def _do_update_repository(
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Attempted to update repository state in '
-            f'{project_name} project')
+            f'{project_name} project')  # pragma: no cover
     return dict(success=success)
