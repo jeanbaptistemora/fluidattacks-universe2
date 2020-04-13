@@ -20,12 +20,15 @@ Linters:
 import os
 import re
 import ast
+import sys
 import json
+import time
 import argparse
 
 from uuid import uuid4 as gen_id
 from typing import Iterable, Callable, Dict, List, Tuple, Set, Any
 
+import botocore.errorfactory
 import boto3 as amazon_sdk
 import dateutil.parser
 
@@ -46,6 +49,11 @@ class UnrecognizedNumber(Exception):
 class UnrecognizedDate(Exception):
     """Raised when tap didn't find a conversion.
     """
+
+
+def log(msg):
+    """Log a message to stderr."""
+    print(msg, file=sys.stderr)
 
 
 def is_date(date: Any) -> bool:
@@ -196,13 +204,20 @@ def write_queries(db_resource: DB_RSRC, table_name: str) -> None:
     # Table object
     table: Any = db_resource.Table(table_name)
 
-    response: JSON = table.scan()
+    response: JSON = table.scan(Limit=1)
     dump_to_file(response["Items"])
     while "LastEvaluatedKey" in response:
-        response = table.scan(
-            ExclusiveStartKey=response["LastEvaluatedKey"]
-        )
-        dump_to_file(response["Items"])
+        try:
+            response_aux = table.scan(
+                ExclusiveStartKey=response["LastEvaluatedKey"],
+                Limit=10,
+            )
+        except botocore.errorfactory.ProvisionedThroughputExceededException:
+            log(f'[INFO] Throughput exceeded in {table_name}, sleeping...')
+            time.sleep(10)
+        else:
+            response = response_aux
+            dump_to_file(response["Items"])
 
 
 def discover_schema(db_client: DB_CLNT, table_list: List[str]) -> None:
