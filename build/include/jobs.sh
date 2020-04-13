@@ -314,6 +314,8 @@ function job_analytics_timedoctor {
         --auth "${TEMP_FILE1}" \
         --start_date "$(date +"%Y-%m-01")" \
         --end_date "$(date +"%Y-%m-%d")" \
+        --work-logs \
+        --computer_activity \
         >> .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
