@@ -6,9 +6,9 @@
 = Drills
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Severity and Testing Environments
+== Severity and Testing Environments
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 You are able to decide which security requirements will be tested on each
 ethical hacking (profiling). You will know the exact severity for each hacking
 (for inspected and uninspected profiled requirements). Basic service allows you
@@ -16,9 +16,9 @@ to choose a single environment from production, testing or integration. You can
 also add additional testing environments for validation at an additional charge.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Vulnerabilities Management Platform
+== Vulnerabilities Management Platform
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 Security analysts report findings in Fixes, the communication, monitoring and
 reporting platform for projects. You can use it to access general information
 about each finding, check its remediation status, classify it according to age,
@@ -26,9 +26,9 @@ visualize real-time project statistics and progress, as well as other
 functionalities.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Remediation
+== Remediation
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 Multiple finding validation cycles are performed during the subscription period.
 You can check if any findings have been successfully closed as many times as you
 require. In order to perform this remediation validation, you must first define
@@ -37,25 +37,25 @@ through Fixes, a finding validation. You can request clarification on any issue
 by directly contacting Fluid Attacks’ hackers also through Fixes.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Healthcheck
+== Healthcheck
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 All versions of existing code should be attacked up to the subscription start
 point, in addition to the monthly test limit. A healthcheck is intended to catch
 up with the development team within the first *3* months of subscription. Then
 the continuous hacking advances simultaneously with the development.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Critical Information Extraction and Information Removal
+== Critical Information Extraction and Information Removal
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 Whenever findings indicate the need to obtain information, the extraction is
 done to maximize finding impacts without compromising sensitive information.
 *7* days after a customer approves their final report all information gathered
 during ethical hacking is deleted securely from all *Fluid Attacks’* systems.
 
 [role="w-25-ns w-90 dib-ns dn tl v-top pa3"]
-=== {nbsp}
+== {nbsp}
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 {nbsp} +

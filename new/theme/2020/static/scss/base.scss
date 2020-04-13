@@ -143,7 +143,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w-image { width: 37em; }
 .fadein { animation: fadein .7s; }
 .mt-menu-bt { margin-top: .1rem; }
-.item-carousel { width: 22rem; }
+.item-carousel { width: 24rem; }
 .h-small { height: .5rem; }
 .h-cont-bar { height: .6rem; }
 .h-bar { height: .5rem; }
@@ -159,6 +159,12 @@ $codeyellow: rgba(230, 219, 116, 1);
 .lh3 { line-height: 3rem; }
 .w-small {width: .5rem; }
 .hv-svg-red { &:hover { fill: $button-hover; } }
+.mb-products { margin-bottom: 6.25rem; }
+.f-benefits { font-size: 2.375rem; }
+.f-benefits-p { font-size: 1.875rem; }
+.f-key-features { font-size: 1.125rem; }
+.lh-key-features { line-height: 2.25rem; }
+
 
 // Tachyons custom responsive classes
 
@@ -181,6 +187,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .asap-bg-s { background-image: url('../../images/bg-asap-mobile.png'); height: 25rem; }
   .nt-menu { margin-top: -.125rem; }
   .tracked-1 { letter-spacing: .06rem; }
+  .w-products { width: 20rem; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -192,6 +199,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .pv-4-m { padding-bottom: 1.6rem; padding-top: 1.6rem; }
   .w-logo { width: 10rem; }
   .coverm { background-size: cover; }
+  .w-products { width: 20rem; }
 }
 
 //Large screens
@@ -214,6 +222,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .banner-height { height: 21.875rem; }
   .mt-6-l { margin-top: .6rem; }
   .nl-3 { margin-left: -3rem; }
+  .mv-menu { margin-top: 1.875rem; margin-bottom: 1.875rem; }
 }
 
 //Very large screens

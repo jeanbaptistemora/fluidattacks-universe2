@@ -6,9 +6,9 @@
 = Integrates
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Project Indicators and Status Graphs
+== Project Indicators and Status Graphs
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 Integrates provides you information about the current
 status of your project such as: 1) the number of
 security vulnerabilities identified; 2) the current threat
@@ -17,9 +17,9 @@ organization, and 3) the vulnerabilities that have already
 been remediated.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Vulnerability Description
+== Vulnerability Description
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 Through Integrates you have available the visualization
 of the vulnerabilities found and information about their
 current status, location, type and severity of the threat
@@ -29,9 +29,9 @@ them. Access real-time indicators and automated
 reports.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Vulnerability Prioritization and Documentation
+== Vulnerability Prioritization and Documentation
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 Integrates helps you determine which vulnerabilities
 require immediate attention based on parameters
 including: Age; Severity; Status (Open/Closed), and
@@ -40,9 +40,9 @@ Progress/Indefinitely Accepted). After a vulnerability has
 been remediated you can ask FA for documentation.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Forces and Exploitation-Animation
+== Forces and Exploitation-Animation
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 Within Integrates, Forces (Fluid Attacks' service)
 displays the diagnostic script used to expose, or exploit,
 a security vulnerability. This same script can also be
@@ -53,9 +53,9 @@ through a gif an animated representation of the process
 used to exploit a vulnerability.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Compromised Records and Real-Time Events
+== Compromised Records and Real-Time Events
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 In Integrates, Compromised Records shows your
 company information such as names, identifiers,
 balances, products, etc., that would be vulnerable to a
@@ -63,9 +63,9 @@ security breach in a real attack. All events that inhibit
 the testing can also be viewed in Integrates in real-time.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-=== Chat with Us + Email Notification
+== Chat with Us + Email Notification
 
-[role="fw1 f5 lh-2"]
+[role="fw1 f-key-features lh-key-features"]
 When Drills (Fluid Attacks' service) is purchased, Fluid Attacks
 will provide a private forum where your company
 and Fluid Attacks can post messages about any relevant

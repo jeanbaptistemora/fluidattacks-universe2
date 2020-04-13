@@ -10,6 +10,7 @@ image::product-integrates.png[link="../products/integrates/"]
 
 == Integrates
 
+[role="mb-products"]
 *Integrates* is constituted as a platform to control all the remediation
 processes in any stage of the software development life cycle.
 This is a red team management tool for reporting all project findings in the
@@ -20,6 +21,7 @@ image::product-drills.png[link="../products/drills/"]
 
 == Drills
 
+[role="mb-products"]
 All vulnerabilities and security issues are continuously detected and reported
 at high speed during the entire software development life cycle.
 *Drills* performs ethical hacking of applications and infrastructure,
@@ -30,6 +32,7 @@ image::product-forces.png[link="../products/forces/"]
 
 == Forces
 
+[role="mb-products"]
 *Forces* automates attacks with the goal of verifying the status
 (open or closed) of vulnerabilities, and breaks the build to force the
 remediation of open vulnerabilities.
