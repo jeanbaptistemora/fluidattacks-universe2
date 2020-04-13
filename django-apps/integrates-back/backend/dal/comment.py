@@ -42,6 +42,7 @@ def delete(finding_id, user_id) -> bool:
 def get_comments(comment_type: str, finding_id: int) -> List[CommentType]:
     """Get comments of the given finding"""
     key_exp = Key('finding_id').eq(finding_id)
+    comment_type = comment_type.lower()
     if comment_type == 'comment':
         filter_exp: object = Attr('comment_type').eq('comment') \
             | Attr('comment_type').eq('verification')

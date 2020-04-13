@@ -120,7 +120,7 @@ def filter_evidence_filename(evidence_files: List[Dict[str, str]], name: str) ->
 
 def add_comment(user_email: str, comment_data: CommentType,
                 finding_id: str, is_remediation_comment: bool) -> bool:
-    parent = comment_data.get('parent')
+    parent = str(comment_data.get('parent'))
     if parent != '0':
         finding_comments = \
             [str(comment.get('user_id')) for comment in

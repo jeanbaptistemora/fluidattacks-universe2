@@ -40,7 +40,8 @@ export const GET_FINDING_OBSERVATIONS: DocumentNode = gql`
 `;
 
 export const ADD_FINDING_COMMENT: DocumentNode = gql`
-  mutation AddFindingComment($content: String!, $findingId: String!, $parent: String!, $type: FindingCommentType!) {
+  mutation AddFindingComment(
+      $content: String!, $findingId: String!, $parent: GenericScalar!, $type: FindingCommentType!) {
     addFindingComment(content: $content, findingId: $findingId, parent: $parent, type: $type) {
       commentId
       success

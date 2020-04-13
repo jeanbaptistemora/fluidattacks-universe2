@@ -264,6 +264,48 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['updateSeverity']
         assert result['data']['updateSeverity']['success']
 
+    async def test_add_finding_comment_parent_zero(self):
+        """Check for addFindingComment mutation."""
+        query = '''
+          mutation {
+            addFindingComment(
+              content: "This is a comenting test",
+              findingId: "422286126",
+              type: COMMENT,
+              parent: "0"
+            ) {
+              success
+              commentId
+            }
+          }
+          '''
+        data = {'query': query}
+        result = await self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addFindingComment']
+        assert result['data']['addFindingComment']['success']
+
+    async def test_add_finding_comment_parent_non_zero(self):
+        """Check for addFindingComment mutation."""
+        query = '''
+          mutation {
+            addFindingComment(
+              content: "This is a comenting test",
+              findingId: "422286126",
+              type: COMMENT,
+              parent: "1566336916294"
+            ) {
+              success
+              commentId
+            }
+          }
+          '''
+        data = {'query': query}
+        result = await self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['addFindingComment']
+        assert result['data']['addFindingComment']['success']
+
     async def test_verify_finding(self):
         """Check for verifyFinding mutation."""
         query = '''

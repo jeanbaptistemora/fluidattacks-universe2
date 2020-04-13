@@ -264,6 +264,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
            "VerifyRequestVuln",
            "UploadVulnerabilites",
            "DeleteVulnMutation",
+           "AddFindingComment",
            "GetFindingDescription",
            "GetFindingTracking",
            "GetFindingRecords",

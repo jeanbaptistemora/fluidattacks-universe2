@@ -1,6 +1,7 @@
 # pylint: disable=import-error
 
 from collections import namedtuple
+from time import time
 import sys
 from typing import Any, Dict, List, cast
 
@@ -18,6 +19,7 @@ from backend.decorators import (
 from backend.domain import (
     finding as finding_domain,
     project as project_domain,
+    user as user_domain,
     vulnerability as vuln_domain
 )
 from backend.typing import (
@@ -33,7 +35,7 @@ from ariadne import convert_kwargs_to_snake_case
 
 @convert_kwargs_to_snake_case
 def resolve_finding_mutation(obj, info, **parameters):
-    """Resolve update_severity mutation."""
+    """Resolve findings mutation."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return util.run_async(resolver_func, obj, info, **parameters)
@@ -145,6 +147,56 @@ async def _do_update_severity(_, info,
             severity in finding {finding_id}')
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
+
+
+@require_login
+@enforce_group_level_auth_async
+@require_finding_access
+async def _do_add_finding_comment(_, info, **parameters):
+    """Perform add_finding_comment mutation."""
+    param_type = parameters.get('type').lower()
+    if param_type in ['comment', 'observation']:
+        user_data = util.get_jwt_content(info.context)
+        user_email = user_data['user_email']
+        finding_id = parameters.get('finding_id')
+        finding = await sync_to_async(finding_domain.get_finding)(finding_id)
+        group = finding.get('projectName')
+        role = \
+            user_domain.get_group_level_role(user_email, group)
+        if param_type == 'observation' and \
+                role not in ['analyst', 'admin']:
+            util.cloudwatch_log(info.context, 'Security: \
+                Unauthorized role attempted to add observation')
+            raise GraphQLError('Access denied')
+
+        user_email = user_data['user_email']
+        comment_id = int(round(time() * 1000))
+        comment_data = {
+            'user_id': comment_id,
+            'comment_type': param_type,
+            'content': parameters.get('content'),
+            'fullname': str.join(' ', [user_data['first_name'],
+                                 user_data['last_name']]),
+            'parent': parameters.get('parent'),
+        }
+        success = await sync_to_async(finding_domain.add_comment)(
+            user_email=user_email,
+            comment_data=comment_data,
+            finding_id=finding_id,
+            is_remediation_comment=False
+        )
+    else:
+        raise GraphQLError('Invalid comment type')
+    if success:
+        util.invalidate_cache(parameters.get('finding_id'))
+        util.cloudwatch_log(info.context, 'Security: Added comment in\
+            finding {id} succesfully'.format(id=parameters.get('finding_id')))
+    else:
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Attempted to add \
+            comment in finding {id}'.format(id=parameters.get('finding_id')))
+    ret = dict(success=success, comment_id=comment_id)
+    return ret
 
 
 @require_login
