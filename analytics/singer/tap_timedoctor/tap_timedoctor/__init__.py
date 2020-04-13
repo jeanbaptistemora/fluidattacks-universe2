@@ -339,7 +339,7 @@ def main():
     if args.work_logs:
         sync_worklogs(api_worker, company_id, start_date, end_date)
     if args.computer_activity:
-        users: dict = map(lambda x: (x['user_id'], x['full_name']),
+        users: dict = map(lambda x: (str(x['user_id']), x['full_name']),
                           json.loads(response)['users'])
         sync_computer_activity(
             api_worker,
