@@ -189,6 +189,54 @@ async def _get_mean_remediate(_, project_name):
 
 
 @get_entity_cache_async
+async def _get_mean_remediate_low_severity(_, project_name):
+    """Get mean_remediate_low_severity."""
+    mean_remediate_low_severity = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['mean_remediate_low_severity']
+        )
+    mean_remediate_low_severity = mean_remediate_low_severity.get(
+        'mean_remediate_low_severity', 0)
+    return dict(mean_remediate_low_severity=mean_remediate_low_severity)
+
+
+@get_entity_cache_async
+async def _get_mean_remediate_medium_severity(_, project_name):
+    """Get mean_remediate_medium_severity."""
+    mean_remediate_medium_severity = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['mean_remediate_medium_severity']
+        )
+    mean_remediate_medium_severity = mean_remediate_medium_severity.get(
+        'mean_remediate_medium_severity', 0)
+    return dict(mean_remediate_medium_severity=mean_remediate_medium_severity)
+
+
+@get_entity_cache_async
+async def _get_mean_remediate_high_severity(_, project_name):
+    """Get mean_remediate_high_severity."""
+    mean_remediate_high_severity = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['mean_remediate_high_severity']
+        )
+    mean_remediate_high_severity = mean_remediate_high_severity.get(
+        'mean_remediate_high_severity', 0)
+    return dict(mean_remediate_high_severity=mean_remediate_high_severity)
+
+
+@get_entity_cache_async
+async def _get_mean_remediate_critical_severity(_, project_name):
+    """Get mean_remediate_critical_severity."""
+    mean_critical_remediate = await \
+        sync_to_async(project_domain.get_attributes)(
+            project_name, ['mean_remediate_critical_severity']
+        )
+    mean_critical_remediate = mean_critical_remediate.get(
+        'mean_remediate_critical_severity', 0)
+    return dict(mean_remediate_critical_severity=mean_critical_remediate)
+
+
+@get_entity_cache_async
 async def _get_total_findings(info, project_name):
     """Get total_findings."""
     finding_ids = await \

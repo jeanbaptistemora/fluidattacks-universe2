@@ -669,6 +669,19 @@
                                         "S" : "open"
                                     }
                                 }
+                            },
+                            {
+                                "M" : {
+                                    "analyst" : {
+                                        "S" : "unittest@fluidattacks.com"
+                                    },
+                                    "date" : {
+                                        "S" : "2019-08-07 08:45:48"
+                                    },
+                                    "state" : {
+                                        "S" : "closed"
+                                    }
+                                }
                             }
                         ]
                     },

@@ -438,6 +438,39 @@ def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
     return mean_vulnerabilities
 
 
+def get_mean_remediate_severity(project_name: str, min_severity: float,
+                                max_severity: float) -> Decimal:
+    """Get mean time to remediate."""
+    total_vuln = 0
+    total_days = 0
+    tzn = pytz.timezone('America/Bogota')
+    project_name = project_name.lower()
+    finding_ids = list_findings(project_name)
+    finding_ids = [finding_id for finding_id in finding_ids
+                   if finding_domain.validate_finding(finding_id)]
+    findings = finding_domain.get_findings(finding_ids)
+    for finding in findings:
+        if min_severity <= cast(float, finding.get('severityCvss', 0)) <= max_severity:
+            vulnerabilities = finding_dal.get_vulnerabilities(str(finding.get('findingId', '')))
+            for vuln in vulnerabilities:
+                open_vuln_date = get_open_vulnerability_date(vuln)
+                closed_vuln_date = get_last_closing_date(vuln)
+                if open_vuln_date:
+                    if closed_vuln_date:
+                        total_days += int(
+                            (closed_vuln_date - open_vuln_date).days)
+                    else:
+                        current_day = datetime.now(tz=tzn).date()
+                        total_days += int((current_day - open_vuln_date).days)
+                    total_vuln += 1
+    if total_vuln:
+        mean_vulnerabilities = Decimal(
+            round(total_days / float(total_vuln))).quantize(Decimal('0.1'))
+    else:
+        mean_vulnerabilities = Decimal(0).quantize(Decimal('0.1'))
+    return mean_vulnerabilities
+
+
 def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int]:
     """Get the total treatment of all the vulnerabilities"""
     accepted_vuln: int = 0

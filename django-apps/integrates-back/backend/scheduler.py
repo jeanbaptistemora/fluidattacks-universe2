@@ -467,6 +467,14 @@ def get_project_indicators(project: str) -> Dict[str, object]:
     indicators = {
         'last_closing_date': project_domain.get_last_closing_vuln(findings),
         'mean_remediate': project_domain.get_mean_remediate(findings),
+        'mean_remediate_critical_severity': project_domain.get_mean_remediate_severity(
+            project, 9, 10),
+        'mean_remediate_high_severity': project_domain.get_mean_remediate_severity(
+            project, 7, 8.9),
+        'mean_remediate_low_severity': project_domain.get_mean_remediate_severity(
+            project, 0.1, 3.9),
+        'mean_remediate_medium_severity': project_domain.get_mean_remediate_severity(
+            project, 4, 6.9),
         'max_open_severity': project_domain.get_max_open_severity(findings),
         'total_treatment': project_domain.get_total_treatment(findings),
         'remediated_over_time': create_register_by_week(project)

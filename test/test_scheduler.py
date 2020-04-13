@@ -215,5 +215,5 @@ class SchedulerTests(TestCase):
         project_name = 'unittesting'
         test_data = get_project_indicators(project_name)
         assert isinstance(test_data, dict)
-        assert len(test_data) == 5
+        assert len(test_data) == 9
         assert test_data['max_open_severity'] == Decimal(6.3).quantize(Decimal('0.1'))

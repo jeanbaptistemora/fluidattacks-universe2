@@ -15,7 +15,8 @@ from backend.domain.project import (
     is_vulnerability_closed, get_max_severity, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
-    get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete
+    get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
+    get_mean_remediate_severity
 )
 from backend.exceptions import RepeatedValues
 import backend.dal.vulnerability as vuln_dal
@@ -306,3 +307,19 @@ class ProjectTest(TestCase):
         projects = [project['project_name'] for project in projects]
         expected_output = ['pendingproject']
         assert expected_output == projects
+
+    @freeze_time("2020-04-12")
+    def test_get_mean_remediate_severity(self):
+        project_name = 'unittesting'
+        min_severity = 0.1
+        max_severity = 3.9
+        mean_remediate_low_severity = get_mean_remediate_severity(
+            project_name, min_severity, max_severity)
+        expected_output = 232
+        assert mean_remediate_low_severity == expected_output
+        min_severity = 4
+        max_severity = 6.9
+        mean_remediate_medium_severity = get_mean_remediate_severity(
+            project_name, min_severity, max_severity)
+        expected_output = 287
+        assert mean_remediate_medium_severity == expected_output

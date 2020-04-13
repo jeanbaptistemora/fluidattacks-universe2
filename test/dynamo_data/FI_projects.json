@@ -30,6 +30,18 @@
                "mean_remediate" : {
                   "N" : "103"
                },
+               "mean_remediate_critical_severity" : {
+                  "N" : "0"
+               },
+               "mean_remediate_high_severity" : {
+                  "N" : "0"
+               },
+               "mean_remediate_low_severity" : {
+                  "N" : "0"
+               },
+               "mean_remediate_medium_severity" : {
+                  "N" : "0"
+               },
                "project_name" : {
                   "S" : "oneshottest"
                },
@@ -724,6 +736,18 @@
                },
                "mean_remediate" : {
                   "N" : "245"
+               },
+               "mean_remediate_critical_severity" : {
+                  "N" : "0"
+               },
+               "mean_remediate_high_severity" : {
+                  "N" : "0"
+               },
+               "mean_remediate_low_severity" : {
+                  "N" : "232"
+               },
+               "mean_remediate_medium_severity" : {
+                  "N" : "287"
                },
                "project_name" : {
                   "S" : "unittesting"
@@ -1909,6 +1933,18 @@
               "mean_remediate" : {
                  "N" : "245"
               },
+              "mean_remediate_critical_severity" : {
+                 "N" : "0"
+              },
+              "mean_remediate_high_severity" : {
+                 "N" : "0"
+              },
+              "mean_remediate_low_severity" : {
+                 "N" : "0"
+              },
+              "mean_remediate_medium_severity" : {
+                 "N" : "0"
+              },
               "project_name" : {
                  "S" : "continuoustesting"
               },
@@ -2230,6 +2266,18 @@
                },
                "mean_remediate" : {
                   "N" : "245"
+               },
+               "mean_remediate_critical_severity" : {
+                  "N" : "0"
+               },
+               "mean_remediate_high_severity" : {
+                  "N" : "0"
+               },
+               "mean_remediate_low_severity" : {
+                  "N" : "0"
+               },
+               "mean_remediate_medium_severity" : {
+                  "N" : "0"
                },
                "project_name" : {
                   "S" : "suspendedtest"

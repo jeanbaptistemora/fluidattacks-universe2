@@ -121,6 +121,10 @@ type Project {
     lastClosingVuln: Int
     maxSeverity: Float
     maxOpenSeverity: Float
+    meanRemediateCriticalSeverity: Int
+    meanRemediateHighSeverity: Int
+    meanRemediateLowSeverity: Int
+    meanRemediateMediumSeverity: Int
     meanRemediate: Int
     totalFindings: Int
     users: [User!]
