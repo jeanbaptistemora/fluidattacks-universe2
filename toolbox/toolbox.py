@@ -1018,17 +1018,25 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
 
 
 def check_finding_title_match_integrates(path: str) -> bool:
-    calls = set()
+    calls = list()
+    calls_counter = 0
     with open(path, "r") as exploit_file:
         tree = ast.parse(exploit_file.read())
         for node in ast.walk(tree):
             # Filtering only function calls
             if isinstance(node, ast.Call)\
                     and isinstance(node.func, ast.Name):
-                calls.add(node.func.id)
+                calls.append(node.func.id)
             elif isinstance(node, ast.Call)\
                     and isinstance(node.func, ast.Attribute):
-                calls.add(node.func.attr)
+                calls.append(node.func.attr)
+    for call in calls:
+        if call in "generic_static_exploits" or call in "add_finding":
+            calls_counter += 1
+    if calls_counter > 1:
+        logger.error("There are more than one calls of add_finding or "
+                     f"generic_static_exploits in {path}")
+        return False
     return "add_finding" in calls or "generic_static_exploit" in calls
 
 
@@ -1075,7 +1083,8 @@ def lint_exploits(subs: str, exp_name: str) -> bool:
         if ".cannot" not in exploit_path:
             if not check_finding_title_match_integrates(exploit_path):
                 logger.error("There is not add_finding "
-                             f"or generic_static_exploit in {exploit_path}")
+                             f"or generic_static_exploit in {exploit_path}"
+                             " or there are more than one calls of these")
                 logger.info()
                 success = False
         else:
