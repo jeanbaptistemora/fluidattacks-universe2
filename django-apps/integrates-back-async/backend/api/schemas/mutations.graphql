@@ -282,4 +282,10 @@ type Mutation {
     invalidateCache(pattern: String!): SimplePayload!
 
     postBroadcastMessage(message: String!): SimplePayload!
+
+    requestReport(
+        projectName: String!,
+        fileType: String!,
+        lang: String!,
+    ): SimplePayload!
 }

@@ -1,7 +1,7 @@
 # pylint: disable=import-error
 
 from backend.api.resolvers import (
-    alert, cache, event, finding, me, user, resource, project,
+    alert, cache, event, finding, me, user, report, resource, project,
     subscription, vulnerability
 )
 
@@ -80,3 +80,4 @@ MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('postBroadcastMessage',
                    subscription.resolve_subscription_mutation)
+MUTATION.set_field('requestReport', report.resolve_report_mutation)
