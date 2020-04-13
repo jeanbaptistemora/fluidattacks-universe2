@@ -600,9 +600,10 @@ def get_project_info(project: str) -> List[ProjectType]:
     return project_dal.get(project)
 
 
-def get_managers(project_name: str) -> Union[str, List[str]]:
-    project = project_dal.get(project_name)
-    is_admin = cast(List[str], project[0].get('customeradmin', ''))
-    if is_admin is None:
-        is_admin = ''
-    return is_admin
+def get_managers(project_name: str) -> List[str]:
+    return [
+        user_email
+        for user_email in get_users(project_name, active=True)
+        if user_domain.get_group_level_role(
+            user_email, project_name) == 'customeradmin'
+    ]
