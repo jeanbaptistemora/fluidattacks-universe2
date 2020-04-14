@@ -10,6 +10,7 @@ import textwrap
 import functools
 import ast
 import multiprocessing
+import datetime
 
 from time import time
 from typing import Any, Dict, List, Tuple
@@ -442,6 +443,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 success = False
                 outputs_to_show.append(exploit_output_path)
             results.append({
+                'date': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
                 'exploit_path': os.path.relpath(exploit_path),
                 'exploit_type': 'static',
                 'repository': repo,
@@ -567,6 +569,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 success = False
                 outputs_to_show.append(exploit_output_path)
         results.append({
+            'date': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             'exploit_path': os.path.relpath(exploit_path),
             'exploit_type': 'dynamic',
             'result_asserts': amsg,
