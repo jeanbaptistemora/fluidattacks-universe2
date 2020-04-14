@@ -374,6 +374,10 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
         f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
+
+    bb_resources = os.path.abspath(
+        f'subscriptions/{subs}/break-build/static/resources')
+
     for exploit_path in sorted(glob.glob(
             f'subscriptions/{subs}/break-build/static/exploits/*.exp')):
         if '.cannot.exp' in exploit_path:
@@ -418,6 +422,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
                     env={'FA_NOTRACK': 'true',
                          'FA_STRICT': 'true',
                          'BB_FERNET_KEY': fernet_key,
+                         'BB_RESOURCES': bb_resources,
                          'CURRENT_EXPLOIT_KIND': 'static'})
             else:
                 continue
@@ -503,6 +508,9 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
     aws_role_arns_path = (f'subscriptions/{subs}/break-build/dynamic/'
                           'resources/BB_AWS_ROLE_ARNS.list')
 
+    bb_resources = os.path.abspath(
+        f'subscriptions/{subs}/break-build/dynamic/resources')
+
     aws_arn_roles = None
     if os.path.exists(aws_role_arns_path):
         with open(aws_role_arns_path) as file:
@@ -542,6 +550,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
                  'FA_STRICT': 'true',
                  'BB_FERNET_KEY': fernet_key,
                  'CURRENT_EXPLOIT_KIND': 'dynamic',
+                 'BB_RESOURCES': bb_resources,
                  'BB_AWS_ROLE_ARNS': ','.join(aws_arn_roles)})
 
         imsg = 'OPEN' if analyst_status else 'CLOSED'
@@ -664,6 +673,9 @@ def _run_static_exploit(
     exploit_name = os.path.basename(exploit_path)
     repo: str = os.path.basename(repository_path)
 
+    bb_resources = os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(exploit_path))), 'resources')
+
     start_time: float = time()
     status, stdout, _ = utils.run_command(
         cmd=f"""
@@ -675,6 +687,7 @@ def _run_static_exploit(
         env={'FA_NOTRACK': 'true',
              'FA_STRICT': 'true',
              'BB_FERNET_KEY': fernet_key,
+             'BB_RESOURCES': bb_resources,
              'CURRENT_EXPLOIT_KIND': 'static'})
     elapsed: float = time() - start_time
     status = constants.RICH_EXIT_CODES_INV.get(status, 'OTHER').upper()
@@ -766,6 +779,10 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
         f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
+
+    bb_resources = os.path.abspath(
+        f'subscriptions/{subs}/break-build/dynamic/resources')
+
     for exploit_path in sorted(glob.glob(
             f'subscriptions/{subs}/break-build/dynamic/exploits/*.exp')):
 
@@ -790,6 +807,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
             env={'FA_NOTRACK': 'true',
                  'FA_STRICT': 'true',
                  'BB_FERNET_KEY': fernet_key,
+                 'BB_RESOURCES': bb_resources,
                  'CURRENT_EXPLOIT_KIND': 'dynamic'})
         times[exploit_name] = time() - times[exploit_name]
         utils.run_command(
