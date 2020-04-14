@@ -35,11 +35,6 @@ def test_toolbox_statefull_functions(relocate_to_cloned_repo):
     assert not os.system('git checkout -- subscriptions/')
 
 
-def test_toolbox_were_exploits_uploaded(relocate):
-    """Run required toolbox commands."""
-    assert toolbox.were_exploits_uploaded(SUBS)
-
-
 def test_toolbox_lint_exploits(relocate):
     """Run required toolbox commands."""
     assert toolbox.lint_exploits(SUBS, exp_name=None)

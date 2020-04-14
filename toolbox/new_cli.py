@@ -127,10 +127,6 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     help='check if exploits results are the same as on Integrates',
     callback=_convert_exploit)
 @click.option(
-    '--check-uploads',
-    metavar=EXP_METAVAR,
-    help='check if exists all possible exploits')
-@click.option(
     '--decrypt', is_flag=True, help='decrypt the secrets of a subscription')
 @click.option(
     '--encrypt', is_flag=True, help='encrypt the secrets of a subscription')
@@ -156,7 +152,7 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     metavar=EXP_METAVAR,
     help='run a dynamic exploit',
     callback=_convert_exploit)
-def forces_management(subscription, check_sync, check_uploads, decrypt,
+def forces_management(subscription, check_sync, decrypt,
                       encrypt, init_secrets, fill_with_mocks, get_vulns,
                       generate_exploits, lint_exps, run_exps, static, dynamic):
     """Perform operations with the forces service."""
@@ -173,8 +169,6 @@ def forces_management(subscription, check_sync, check_uploads, decrypt,
     elif check_sync is not None:
         sys.exit(0 if toolbox.are_exploits_synced(subscription, check_sync)
                  else 1)
-    elif check_uploads:
-        sys.exit(0 if toolbox.were_exploits_uploaded(subscription) else 1)
     elif fill_with_mocks:
         toolbox.fill_with_mocks(
             subs_glob=(subscription or '*'), create_files=True)

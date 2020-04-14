@@ -626,57 +626,6 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
     return success_static and success_dynamic
 
 
-def were_exploits_uploaded(subs: str) -> bool:
-    """Break build if there are less exploits in continuous than possible."""
-    success = True
-    something_found = False
-
-    static_mocks, dynamic_mocks = fill_with_mocks(
-        subs_glob=subs, create_files=False)
-
-    logger.info(f'Hi!')
-    logger.info('')
-    logger.info('```')
-
-    for kind, finding_types in (('static', constants.SAST),
-                                ('dynamic', constants.DAST)):
-        mock_exploits = static_mocks if kind == 'static' else dynamic_mocks
-        mock_exploits = mock_exploits.get(subs, [])
-        cont_exploits = sorted(glob.glob(
-            f'subscriptions/{subs}/break-build/{kind}/exploits/*.exp'))
-
-        num_exploits = len(cont_exploits)
-        num_possible = num_exploits + len(mock_exploits)
-
-        if mock_exploits:
-            something_found = True
-            logger.info(f'Some {kind} exploits are not in continuous yet')
-            logger.info(f'  All possible exploits: {num_possible}')
-            logger.info(f'  Continuous exploits:   {num_exploits}')
-            logger.info('')
-            for exploit_path in mock_exploits:
-                _, finding_id = scan_exploit_for_kind_and_id(exploit_path)
-                finding_title = \
-                    helper.integrates.get_finding_title(finding_id)
-                exploit_name = os.path.basename(exploit_path).replace(
-                    '.mock.exp', '.exp')
-                finding_state = helper.integrates.is_finding_open(
-                    finding_id, finding_types)
-                finding_status = "OPEN" if finding_state else "CLOSED"
-                logger.info(f'    {finding_status:<6}'
-                            f' {exploit_name:<25} {finding_title}')
-            logger.info()
-            if kind == 'static':
-                success = False
-    if something_found:
-        logger.error(f'Please upload more exploits to your subscription')
-    else:
-        logger.info(f'Thanks for constantly uploading your exploits!')
-    logger.info(f'```')
-
-    return success
-
-
 def _run_static_exploit(
         exploit_path: str, repository_path: str, fernet_key: str):
     """Helper to run 1 exploit."""

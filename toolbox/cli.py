@@ -70,9 +70,6 @@ def main():  # noqa
         '--check-sync',
         action='store_true')
     parser.add_argument(
-        '--check-uploads',
-        action='store_true')
-    parser.add_argument(
         '--decrypt-secrets',
         action='store_true')
     parser.add_argument(
@@ -235,8 +232,6 @@ def main():  # noqa
             elif args.sync_s3_to_fusion:
                 sys.exit(0 if resources.sync_s3_to_fusion(
                     args.subs) else 1)
-            elif args.check_uploads:
-                sys.exit(0 if toolbox.were_exploits_uploaded(args.subs) else 1)
             elif args.init_secrets:
                 sys.exit(0 if toolbox.init_secrets(args.subs) else 1)
             elif args.encrypt_secrets:
