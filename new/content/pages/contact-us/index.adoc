@@ -4,11 +4,3 @@
 :template: contact-us
 
 = Talk to Experts
-
-== and Start Solving your Vulnerabilities Now!
-
-Since 2001, Fluid Attacks has been developing cybersecurity products and
-providing solutions for clients in industries like technology, banking, finance,
-healthcare, insurance, airlines, and retail. Fluid Attacks’ 70 security experts
-work closely with organizations to ensure that their systems’ vulnerabilities
-are recognized and closed at DevOps speed.
