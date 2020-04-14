@@ -3,6 +3,7 @@ import React from "react";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
 import { default as logo } from "../../../../resources/integrates.png";
+import { Can } from "../../../../utils/authz/can";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 
@@ -13,22 +14,9 @@ interface ISidebarProps {
 }
 
 const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
-  const handleOpenAddUserModal: (() => void) = (): void => { props.onOpenAddUserModal(); };
-  const handleOpenUpdateTokenModal: (() => void) = (): void => { props.onOpenAccessTokenModal(); };
-  const handleLogoutClick: (() => void) = (): void => { props.onLogoutClick(); };
+  const { onOpenAddUserModal, onOpenAccessTokenModal, onLogoutClick } = props;
+
   const handleLogoClick: (() => void) = (): void => { location.hash = "#!/home"; };
-  const isAdmin: boolean = _.includes(["admin"], (window as typeof window & { userRole: string }).userRole);
-  const renderAdminTabs: (() => JSX.Element) = (): JSX.Element => (
-    <React.Fragment>
-      <React.StrictMode>
-      <li onClick={handleOpenAddUserModal}>
-          <div className={style.item}><i className="icon pe-7s-plus" />
-            <span className={style.label}>{translate.t("sidebar.user")}</span>
-          </div>
-        </li>
-      </React.StrictMode>
-    </React.Fragment>
-  );
 
   const renderMenu: ((isNormalScreenSize: boolean) => JSX.Element) = (isNormalScreenSize: boolean): JSX.Element => (
     <BurgerMenu
@@ -42,8 +30,14 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
     >
       <img className={style.logo} src={logo} alt="integrates-logo" onClick={handleLogoClick} />
       <ul className={style.menuList}>
-        {isAdmin ? renderAdminTabs() : undefined}
-        <li onClick={handleOpenUpdateTokenModal}>
+        <Can do="backend_api_resolvers_user_resolve_add_user">
+          <li onClick={onOpenAddUserModal}>
+            <div className={style.item}><i className="icon pe-7s-plus" />
+              <span className={style.label}>{translate.t("sidebar.user")}</span>
+            </div>
+          </li>
+        </Can>
+        <li onClick={onOpenAccessTokenModal}>
           <div className={style.item}><i className="icon pe-7s-user" />
             <span className={style.label}>{translate.t("sidebar.token")}</span>
           </div>
@@ -52,7 +46,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
       <div className={style.bottomBar}>
         <div className={style.version}><small>integrates_version</small></div>
         <ul>
-          <li onClick={handleLogoutClick}><a><span className="icon pe-7s-power" /></a></li>
+          <li onClick={onLogoutClick}><a><span className="icon pe-7s-power" /></a></li>
         </ul>
       </div>
     </BurgerMenu>

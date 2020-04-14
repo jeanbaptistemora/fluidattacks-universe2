@@ -25,3 +25,11 @@ export const GET_BROADCAST_MESSAGES: DocumentNode = gql`
     broadcast
   }
 `;
+
+export const GET_PERMISSIONS: DocumentNode = gql`
+  query GetPermissions {
+    me {
+      permissions
+    }
+  }
+`;

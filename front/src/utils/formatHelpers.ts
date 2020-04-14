@@ -537,3 +537,6 @@ export const treatmentGraph: ((props: ITreatmentGraph) => ChartData) = (props: I
 
   return treatmentGraphData;
 };
+
+export const minToSec: ((min: number) => number) = (min: number): number => min * 60;
+export const secToMs: ((min: number) => number) = (min: number): number => min * 1000;
