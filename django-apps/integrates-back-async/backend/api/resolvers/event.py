@@ -1,6 +1,7 @@
 # pylint: disable=import-error
 
 from time import time
+import asyncio
 import sys
 
 from typing import List
@@ -11,6 +12,7 @@ from backend.decorators import (
     get_entity_cache_async, require_login, require_event_access, rename_kwargs,
     require_project_access, enforce_group_level_auth_async
 )
+from backend.domain import comment as comment_domain
 from backend.domain import event as event_domain
 from backend.domain import project as project_domain
 from backend.typing import (
@@ -19,7 +21,126 @@ from backend.typing import (
 )
 from backend import util
 
-from ariadne import convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
+
+
+async def _get_id(_, identifier):
+    """Get bts_url."""
+    return dict(id=identifier)
+
+
+async def _get_analyst(info, identifier):
+    """Get analyst."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(analyst=event['analyst'])
+
+
+async def _get_client(info, identifier):
+    """Get client."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(client=event['client'])
+
+
+async def _get_evidence(info, identifier):
+    """Get evidence."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(evidence=event['evidence'])
+
+
+async def _get_project_name(info, identifier):
+    """Get project_name."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(project_name=event['project_name'])
+
+
+async def _get_client_project(info, identifier):
+    """Get client_project."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(client_project=event['client_project'])
+
+
+async def _get_event_type(info, identifier):
+    """Get event_type."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(event_type=event['event_type'])
+
+
+async def _get_detail(info, identifier):
+    """Get detail."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(detail=event['detail'])
+
+
+async def _get_event_date(info, identifier):
+    """Get event_date."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(event_date=event['event_date'])
+
+
+async def _get_event_status(info, identifier):
+    """Get event_status."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(event_status=event['event_status'])
+
+
+async def _get_historic_state(info, identifier):
+    """Get historic_state."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(historic_state=event['historic_state'])
+
+
+async def _get_affectation(info, identifier):
+    """Get affectation."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(affectation=event['affectation'])
+
+
+async def _get_accessibility(info, identifier):
+    """Get accessibility."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(accessibility=event['accessibility'])
+
+
+async def _get_affected_components(info, identifier):
+    """Get affected_components."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(affected_components=event['affected_components'])
+
+
+async def _get_context(info, identifier):
+    """Get context."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(context=event['context'])
+
+
+async def _get_subscription(info, identifier):
+    """Get subscription."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(subscription=event['subscription'])
+
+
+async def _get_evidence_file(info, identifier):
+    """Get evidence_file."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(evidence_file=event['evidence_file'])
+
+
+async def _get_closing_date(info, identifier):
+    """Get closing_date."""
+    event = await info.context.loaders['event'].load(identifier)
+    return dict(closing_date=event['closing_date'])
+
+
+async def _get_comments(info, identifier):
+    """Get comments."""
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    event = await info.context.loaders['event'].load(identifier)
+    project_name = event['project_name']
+
+    comments = await sync_to_async(comment_domain.get_event_comments)(
+        project_name, identifier, user_email)
+    return dict(comments=comments)
 
 
 @convert_kwargs_to_snake_case
@@ -30,14 +151,39 @@ def resolve_event_mutation(obj, info, **parameters):
     return util.run_async(resolver_func, obj, info, **parameters)
 
 
-@get_entity_cache_async
-async def _resolve_event_async(info, identifier: str = '') -> EventType:
-    """Resolve event query."""
-    await sync_to_async(util.cloudwatch_log)(
-        info.context,
-        'Security: Access to Event: '
-        f'{identifier} succesfully')  # pragma: no cover
-    return await EventLoader().load(identifier)
+async def resolve(info, identifier=None, as_field=False):
+    """Async resolve fields."""
+    result = dict()
+    tasks = list()
+    requested_fields = \
+        util.get_requested_fields('findings',
+                                  info.field_nodes[0].selection_set) \
+        if as_field else info.field_nodes[0].selection_set.selections
+
+    for requested_field in requested_fields:
+        if util.is_skippable(info, requested_field):
+            continue
+        params = {
+            'identifier': identifier
+        }
+        field_params = util.get_field_parameters(requested_field)
+        if field_params:
+            params.update(field_params)
+        requested_field = \
+            convert_camel_case_to_snake(requested_field.name.value)
+        if requested_field.startswith('_'):
+            continue
+        resolver_func = getattr(
+            sys.modules[__name__],
+            f'_get_{requested_field}'
+        )
+        tasks.append(
+            asyncio.ensure_future(resolver_func(info, **params))
+        )
+    tasks_result = await asyncio.gather(*tasks)
+    for dict_result in tasks_result:
+        result.update(dict_result)
+    return result
 
 
 @require_login
@@ -48,7 +194,7 @@ async def _resolve_event_async(info, identifier: str = '') -> EventType:
 @convert_kwargs_to_snake_case
 def resolve_event(_, info, identifier: str = '') -> EventType:
     """Resolve event query."""
-    return util.run_async(_resolve_event_async, info, identifier)
+    return util.run_async(resolve, info, identifier)
 
 
 @get_entity_cache_async

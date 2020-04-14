@@ -8,6 +8,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from jose import jwt
+from backend.api.dataloaders.event import EventLoader
 from backend.api.schema import SCHEMA
 from backend.api.dataloaders.event import EventLoader
 
@@ -20,8 +21,25 @@ class EventTests(TestCase):
         """Check for event."""
         query = '''{
             event(identifier: "418900971"){
+                client
+                evidence
                 projectName
+                clientProject
+                eventType
                 detail
+                eventDate
+                eventStatus
+                historicState
+                affectation
+                accessibility
+                affectedComponents
+                context
+                subscription
+                evidenceFile
+                closingDate
+                comments {
+                    content
+                }
                 __typename
             }
         }'''
@@ -40,7 +58,11 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {
+            'event': EventLoader(),
+        }
         _, result = await graphql(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
         assert 'event' in result['data']
         assert result['data']['event']['projectName'] == 'unittesting'
         assert result['data']['event']['detail'] == 'Integrates unit test'

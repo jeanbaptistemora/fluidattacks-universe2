@@ -15,6 +15,7 @@ type Event {
     projectName: String
     clientProject: String
     detail: String
+    evidence: String
     eventType: String
     eventDate: String
     eventStatus: String
