@@ -59,7 +59,7 @@ class AlertTests(TestCase):
         request.session['company'] = 'unittest'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'unittest',
+                'user_email': 'unittest@fluidattacks.com',
                 'company': 'unittest'
             },
             algorithm='HS512',
