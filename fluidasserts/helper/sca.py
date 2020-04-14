@@ -6,6 +6,9 @@
 import os
 import re
 import urllib.parse
+from typing import (
+    Tuple,
+)
 
 # 3rd party imports
 from functools import reduce
@@ -19,36 +22,45 @@ from fluidasserts.helper import lang, asynchronous
 from fluidasserts.utils.generic import get_sha256
 
 
-def _build_cpe_url(product, version) -> str:
+def _build_cpe_url(
+        product: str,
+        version: str,
+        keywords: Tuple[str, ...] = tuple(),
+        target_software: str = str()) -> str:
     """Return a valid NVD CPE version 2.3 URI for the given parameters."""
     # https://nvd.nist.gov/products/cpe
     cpe_params: dict = dict(
         cpe='cpe',
         cpe_version='2.3',
-        part=str(),
-        vendor=str(),
+        part='*',
+        vendor='*',
         product=product or '__no_product__',
-        version=version or str(),
-        update=str(),
-        edition=str(),
-        language=str(),
-        software_edition=str(),
-        target_software=str(),
-        target_hardware=str(),
-        other=str(),
+        version=version or '*',
+        update='*',
+        edition='*',
+        language='*',
+        software_edition='*',
+        target_software=target_software or '*',
+        target_hardware='*',
+        other='*',
     )
 
-    cpe_uri: str = ':'.join(cpe_params.values()).rstrip(':')
+    cpe_uri: str = ':'.join(cpe_params.values()).rstrip(':*')
 
     cpe_product: str = _url_encode(cpe_uri)
 
-    return (
+    cpe_url: str = (
         'https://nvd.nist.gov/vuln/search/results'
         + f'?cpe_product={cpe_product}'
         + f'&form_type=Advanced'
         + f'&results_type=overview'
         + f'&search_type=all'
     )
+    if keywords:
+        keywords_query = ' '.join(keywords)
+        cpe_url += f'&query={_url_encode(keywords_query)}'
+
+    return cpe_url
 
 
 def _url_encode(string: str) -> str:
@@ -99,9 +111,16 @@ async def get_vulns_vulndb_async(package_manager: str, path: str,
     :param package: Package name.
     :param version: Package version.
     """
-    url = _build_cpe_url(package, version)
+    config: dict = {
+        'npm': {
+            'keywords': ['node'],
+            'target_software': 'node.js',
+        }
+    }.get(package_manager, {})
 
-    timeout = aiohttp.ClientTimeout(total=10.0)
+    url = _build_cpe_url(package, version, **config)
+
+    timeout = aiohttp.ClientTimeout(total=30.0)
     async with aiohttp.ClientSession(trust_env=True,
                                      timeout=timeout) as session:
         async with session.get(url) as response:
@@ -152,7 +171,7 @@ def process_requirements(pkg_mgr: str, path: str,
                   specific=[_get_vuln_line(_path, pkg, ver)],
                   fingerprint={
                       'sha256': get_sha256(_path),
-                      'vulnerabilities': deps[(pkg, ver)],
+                      'associated_CVEs': deps[(pkg, ver)],
                   })
              for _path, deps in proj_vulns.items()
              for pkg, ver in deps]

@@ -144,6 +144,15 @@ def test_npm_package_has_vulnerabilities_close():
     """Search vulnerabilities."""
     assert not npm.package_has_vulnerabilities('extend', '10.0.0')
     assert not npm.package_has_vulnerabilities('npasdasdasm', '10.0.0')
+
+    # https://gitlab.com/fluidattacks/asserts/-/issues/923
+    assert not npm.package_has_vulnerabilities('connect', '2.15')
+    result = npm.package_has_vulnerabilities('connect', '2.8')
+    # Verify that we take into account only the real node-js vulnerabilities
+    #   we must ignore the ones for Adobe, OpenVPN, Windows, etc
+    # https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&query=node&search_type=all&cpe_product=cpe%3A2.3%3A*%3A*%3Aconnect%3A*%3A*%3A*%3A*%3A*%3Anode.js
+    assert len(result.vulns[0].fingerprint['associated_CVEs']) == 3
+
     assert not npm.project_has_vulnerabilities(PROJECT, exclude=['test'])
     assert not npm.project_has_vulnerabilities(NPM_PROJECT_CLOSE)
     assert not npm.project_has_vulnerabilities(NPM_PROJECT_NOT_FOUND)
