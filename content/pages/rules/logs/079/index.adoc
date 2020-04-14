@@ -1,34 +1,34 @@
 :slug: rules/079/
 :category: logs
 :description: This document contains the details of the security requirements related to the definition and management of logs and events. This requirement establishes the importance of recording all relevant time parameters in order to detect the exact moment of occurrence of a security event.
-:keywords: Requirement, Security, Time, Logs, Events, Occurrence
+:keywords: Time, Logs, Events, Occurrence, CWE, ASVS
 :rules: yes
 
 = REQ.079 Record exact occurrence time of events
 
 == Requirement
 
-System must log the exact occurrence time
-(date, hour, seconds, milliseconds, and time zone)
+The system must log the exact occurrence time
+(date, hour, seconds, milliseconds and time zone)
 for each exceptional and security event.
 
 == Description
 
-Event logs must contain the exact detail of occurrence
+Event logs must contain the exact time of occurrence
 in order to allow backtracking in an investigation.
 
 == Implementation
 
-. Once defined all the events to be logged,
-it must be configured that these logs
-contain the date, hour, seconds, milliseconds, and time zone
+. Once all the events to be logged are defined,
+the system must be configured so that these logs
+contain the date, hour, seconds, milliseconds and time zone
 of the event occurrence.
 
 == Attacks
 
 In a security incident scenario,
-event occurrence cannot be clearly identified
-due to the lack of detail in event logs.
+event time and duration cannot be clearly identified
+due to the lack of detail in log records.
 
 == Attributes
 
@@ -40,18 +40,19 @@ due to the lack of detail in event logs.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient logging].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
+When a security-critical event occurs,
+the software either does not record the event or omits important details about
+the event when logging it.
 
-. [[r2]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
-
-. [[r3]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
-
-. [[r4]] link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
-
-. [[r5]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.3+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[OWASP-ASVS v3.1-8.3]
 Verify that each log event includes necessary information
 that would allow for a detailed investigation
 of the timeline when an event happens.
 
-. [[r6]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.13+]
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[OWASP-ASVS v3.1-8.13]
 Time sources should be synchronized to ensure logs have the correct time.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
+Verify that a common logging format and approach is used across the system.
