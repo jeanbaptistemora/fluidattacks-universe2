@@ -3,6 +3,7 @@
 from time import time
 import sys
 
+from typing import List
 from asgiref.sync import sync_to_async
 
 from backend.api.dataloaders.event import EventLoader
@@ -12,6 +13,10 @@ from backend.decorators import (
 )
 from backend.domain import event as event_domain
 from backend.domain import project as project_domain
+from backend.typing import (
+    Event as EventType,
+    SimplePayload as SimplePayloadType,
+)
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
@@ -25,13 +30,14 @@ def resolve_event_mutation(obj, info, **parameters):
     return util.run_async(resolver_func, obj, info, **parameters)
 
 
-async def _resolve_event_async(info, identifier=None):
+@get_entity_cache_async
+async def _resolve_event_async(info, identifier: str = '') -> EventType:
     """Resolve event query."""
     await sync_to_async(util.cloudwatch_log)(
         info.context,
         'Security: Access to Event: '
         f'{identifier} succesfully')  # pragma: no cover
-    return await sync_to_async(event_domain.get_event)(identifier)
+    return await EventLoader().load(identifier)
 
 
 @require_login
@@ -39,14 +45,14 @@ async def _resolve_event_async(info, identifier=None):
 @enforce_group_level_auth_async
 @require_event_access
 @rename_kwargs({'event_id': 'identifier'})
-@get_entity_cache_async
 @convert_kwargs_to_snake_case
-def resolve_event(_, info, identifier=None):
+def resolve_event(_, info, identifier: str = '') -> EventType:
     """Resolve event query."""
     return util.run_async(_resolve_event_async, info, identifier)
 
 
-async def _resolve_events_async(event_ids):
+@get_entity_cache_async
+async def _resolve_events_async(event_ids: List[str]) -> List[EventType]:
     """Async resolve events function."""
     return await EventLoader().load_many(event_ids)
 
@@ -55,7 +61,7 @@ async def _resolve_events_async(event_ids):
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_events(_, info, project_name):
+def resolve_events(_, info, project_name: str) -> List[EventType]:
     """Resolve events query."""
     util.cloudwatch_log(
         info.context,
@@ -67,7 +73,8 @@ def resolve_events(_, info, project_name):
 @require_login
 @enforce_group_level_auth_async
 @require_event_access
-async def _do_update_event(_, info, event_id, **kwargs):
+async def _do_update_event(_, info, event_id: str,
+                           **kwargs) -> SimplePayloadType:
     """Resolve update_event mutation."""
     success = await \
         sync_to_async(event_domain.update_event)(event_id, **kwargs)
@@ -81,15 +88,14 @@ async def _do_update_event(_, info, event_id, **kwargs):
             info.context,
             'Security: '
             f'Updated event {event_id} succesfully')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_create_event(
-    _, info, project_name, image=None, file=None, **kwa
-):
+async def _do_create_event(_, info, project_name: str, image=None, file=None,
+                           **kwa) -> SimplePayloadType:
     """Resolve create_event mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
     success = await sync_to_async(event_domain.create_event)(
@@ -99,7 +105,7 @@ async def _do_create_event(
             info.context, 'Security: Created event in '
             f'{project_name} project succesfully')  # pragma: no cover
         util.invalidate_cache(project_name)
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
