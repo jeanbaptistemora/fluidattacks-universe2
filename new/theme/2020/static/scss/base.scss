@@ -75,6 +75,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .c-codeyellow { color: $codeyellow; }
 .c-dkgrey { color: $darkgray; }
 .c-lightblack { color: $lightblack; }
+.c-lightergray { color: $lightergray; }
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
@@ -164,6 +165,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .f-benefits-p { font-size: 1.875rem; }
 .f-key-features { font-size: 1.125rem; }
 .lh-key-features { line-height: 2.25rem; }
+.bb-form { border-bottom: 1px solid $lightblack; }
 
 
 // Tachyons custom responsive classes
