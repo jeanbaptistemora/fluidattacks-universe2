@@ -51,7 +51,7 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
                   break;
                 default:
                   msgError(translate.t("proj_alerts.error_textsad"));
-                  rollbar.error("An error occurred updating exploit", addCommentError);
+                  rollbar.error("An error occurred posting event comment", addCommentError);
               }
             });
           };

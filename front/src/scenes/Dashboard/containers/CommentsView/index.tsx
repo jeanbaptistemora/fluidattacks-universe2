@@ -67,7 +67,7 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
                   break;
                 default:
                   msgError(translate.t("proj_alerts.error_textsad"));
-                  rollbar.error("An error occurred updating exploit", addCommentError);
+                  rollbar.error(`An error occurred posting ${type}`, addCommentError);
               }
             });
           };
