@@ -21,6 +21,7 @@ import {
 import { msgError } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
+import { HorizontalBarIndicator } from "../../../components/HorizontalBarIndicator";
 import { IndicatorBox } from "../../../components/IndicatorBox";
 import { IndicatorGraph } from "../../../components/IndicatorGraph";
 import { IndicatorStack } from "../../../components/IndicatorStack";
@@ -29,6 +30,7 @@ import { TAG_QUERY } from "./queries";
 
 export type TagsProps = RouteComponentProps<{ tagName: string }>;
 
+type SeverityLevel = "low" | "medium" | "high" | "critical";
 interface IStackedGraph {
   acceptedUndefinedVulnerabilities: number;
   acceptedVulnerabilities: number;
@@ -47,6 +49,10 @@ interface IProjectTag {
   maxOpenSeverity: number;
   maxSeverity: number;
   meanRemediate: number;
+  meanRemediateCriticalSeverity: number;
+  meanRemediateHighSeverity: number;
+  meanRemediateLowSeverity: number;
+  meanRemediateMediumSeverity: number;
   name: string;
   openVulnerabilities: number;
   totalTreatment: string;
@@ -161,6 +167,63 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       name: graphProps.name,
       openVulnerabilities: openPercent,
     };
+  };
+
+  const horizontalBarOptions: ChartOptions = {
+    legend: { display: false },
+    scales: {
+      xAxes: [{ gridLines: { display: false } }],
+      yAxes: [{ gridLines: { display: false } }],
+    },
+  };
+
+  const getMeanRemediateSeverity: ((projects: IProjectTag[], severityLevel: SeverityLevel) => number) = (
+    projects: IProjectTag[], severityLevel: SeverityLevel,
+  ): number => {
+    const remediateBySeverity: number = projects.reduce(
+      (acc: number, project: IProjectTag) => {
+        let meanRemediateSeverity: number;
+        switch (severityLevel) {
+          case "critical":
+            meanRemediateSeverity = project.meanRemediateCriticalSeverity;
+            break;
+          case "high":
+            meanRemediateSeverity = project.meanRemediateHighSeverity;
+            break;
+          case "medium":
+            meanRemediateSeverity = project.meanRemediateMediumSeverity;
+            break;
+          case "low":
+            meanRemediateSeverity = project.meanRemediateLowSeverity;
+            break;
+          default:
+            meanRemediateSeverity = 0;
+        }
+
+        return acc + meanRemediateSeverity;
+      },
+      0);
+
+    return _.round(remediateBySeverity / projects.length, 1);
+  };
+
+  const formatMeanRemediated: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
+    const statusDataset: ChartDataSets = {
+      backgroundColor: "#0b84a5",
+      data: [
+        getMeanRemediateSeverity(projects, "critical"), getMeanRemediateSeverity(projects, "high"),
+        getMeanRemediateSeverity(projects, "medium"), getMeanRemediateSeverity(projects, "low"),
+      ],
+    };
+    const barData: ChartData = {
+      datasets: [statusDataset],
+      labels: [
+        translate.t("tag_indicator.critical_severity"), translate.t("tag_indicator.high_severity"),
+        translate.t("tag_indicator.medium_severity"), translate.t("tag_indicator.low_severity"),
+      ],
+    };
+
+    return barData;
   };
 
   const formatRemediatedAcceptedVuln: ((projects: IProjectTag[]) => ChartData) = (
@@ -462,19 +525,25 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       </Row>
       <br />
       <Row>
-        <Col md={12} sm={12} xs={12}>
-          <Col md={6} sm={12} xs={12} className={style.box_size}>
-            <IndicatorGraph
-              data={formatUndefinedGraph(data.tag.projects)}
-              name={translate.t("tag_indicator.undefined_title")}
-              options={{
-                legend: { labels: { padding: 6, usePointStyle: true } },
-                ...formatDoughnutOptions(
-                  getNumberOfUndefinedVulns(data.tag.projects), translate.t("tag_indicator.undefined_vuln"),
-                ),
-              }}
-            />
-          </Col>
+        <Col md={6} sm={12} xs={12}>
+          <HorizontalBarIndicator
+            data={formatMeanRemediated(data.tag.projects)}
+            height={200}
+            name={translate.t("tag_indicator.mean_remediate")}
+            options={horizontalBarOptions}
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12} className={style.box_size}>
+          <IndicatorGraph
+            data={formatUndefinedGraph(data.tag.projects)}
+            name={translate.t("tag_indicator.undefined_title")}
+            options={{
+              legend: { labels: { padding: 6, usePointStyle: true } },
+              ...formatDoughnutOptions(
+                getNumberOfUndefinedVulns(data.tag.projects), translate.t("tag_indicator.undefined_vuln"),
+              ),
+            }}
+          />
         </Col>
       </Row>
     </React.Fragment>

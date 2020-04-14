@@ -845,6 +845,11 @@ const enTranslations: Dictionary = {
     },
   },
   tag_indicator: {
+    critical_severity: "Critical Severity",
+    high_severity: "High Severity",
+    low_severity: "Low Severity",
+    mean_remediate: "Mean (average) days to remediate",
+    medium_severity: "Medium Severity",
     open_vuln: "open vulns.",
     remediated_accepted_vuln: "How many vulnerabilities are remediated and accepted?",
     remediated_vuln: "How many vulnerabilities are remediated (closed)?",

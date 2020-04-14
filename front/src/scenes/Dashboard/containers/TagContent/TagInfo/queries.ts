@@ -10,6 +10,10 @@ export const TAG_QUERY: DocumentNode = gql`
         lastClosingVuln
         maxOpenSeverity
         maxSeverity
+        meanRemediateCriticalSeverity
+        meanRemediateHighSeverity
+        meanRemediateLowSeverity
+        meanRemediateMediumSeverity
         meanRemediate
         name
         openVulnerabilities

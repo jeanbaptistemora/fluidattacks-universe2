@@ -1,0 +1,4 @@
+:local .styleChart {
+  composes: styleChart from '../IndicatorStack/index.css';
+  text-align: center !important;
+}
