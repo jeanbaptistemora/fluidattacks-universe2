@@ -12,11 +12,10 @@ from typing import Dict
 # local imports
 from fluidasserts import LOW, MEDIUM, DAST
 from fluidasserts.helper import http
-from fluidasserts.proto.http import _has_insecure_value
+from fluidasserts.proto.http import _has_insecure_value, _is_not_header_present
 from fluidasserts.utils.decorators import api, unknown_if
 
 HDR_RGX: Dict[str, str] = {
-    'content-type': '^(\\s)*.+(\\/|-).+(\\s)*;(\\s)*charset.*$',
     'strict-transport-security': (r'^\s*max-age\s*=\s*'
                                   # 123 or "123" as a capture group
                                   r'"?((?<!")\d+(?!")|(?<=")\d+(?="))"?'),
@@ -179,4 +178,4 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _has_insecure_value(url, 'Content-Type', True, *args, **kwargs)
+    return _is_not_header_present(url, 'Content-Type', *args, **kwargs)

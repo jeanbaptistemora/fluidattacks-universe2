@@ -128,7 +128,7 @@ test_api_cloud_azure:
 test_api_cloud_gcp:
   <<: *test_template
 
-test_api_cloud_kubernetes:
+.test_api_cloud_kubernetes:
   <<: *test_template
 
 test_api_db_mssql:

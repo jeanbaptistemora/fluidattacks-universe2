@@ -88,25 +88,7 @@ rec {
     name = "envrc.public";
     path = ../.envrc.public;
   };
-  # echo "${ENCRYPTION_KEY}" \
-  #   | gpg --symmetric \
-  #         --cipher-algo AES256 \
-  #         --digest-algo SHA512 \
-  #         --passphrase-fd 0 \
-  #         --armor \
-  #         --batch \
-  #         --yes \
-  #       secrets/development.sh
   srcEnvVarsDevEncrypted = ../secrets/development.sh.asc;
-  # echo "${ENCRYPTION_KEY_PROD}" \
-  #   | gpg --symmetric \
-  #         --cipher-algo AES256 \
-  #         --digest-algo SHA512 \
-  #         --passphrase-fd 0 \
-  #         --armor \
-  #         --batch \
-  #         --yes \
-  #       secrets/production.sh
   srcEnvVarsProdEncrypted = ../secrets/production.sh.asc;
   srcFluidasserts = ../fluidasserts;
   srcGitLastCommitMsg = ../.tmp/git-last-commit-msg;

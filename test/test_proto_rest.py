@@ -61,8 +61,6 @@ def test_content_options_open():
 def test_content_type_open():
     """Check Content-Type header."""
     assert rest.is_header_content_type_missing(NO_HEADERS).is_open()
-    assert rest.is_header_content_type_missing(
-        '%s/content_type/fail' % (BASE_URL)).is_open()
 
 
 def test_empty_content_type_open():

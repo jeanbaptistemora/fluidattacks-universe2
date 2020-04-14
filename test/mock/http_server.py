@@ -397,28 +397,12 @@ def content_type_ok():
     return resp
 
 
-@APP.route('/http/headers/content_type/fail')
-def content_type_fail():
-    """Header que define mal el tipo de contenido."""
-    resp = Response('Content-Type FAIL')
-    resp.headers['ConTent-Type'] = 'application/json'
-    return resp
-
-
 @APP.route('/rest/content_type/ok')
 def rest_content_type_ok():
     """Header que define bien el tipo de contenido."""
     resp = Response('Content-Type OK')
     resp.headers['ConTent-Type'] = 'application/json; charset=utf-8'
     resp.headers['X-Content-Type-Options'] = 'nosniff'
-    return resp
-
-
-@APP.route('/rest/content_type/fail')
-def rest_content_type_fail():
-    """Header que define mal el tipo de contenido."""
-    resp = Response('Content-Type FAIL')
-    resp.headers['ConTent-Type'] = 'application/json'
     return resp
 
 

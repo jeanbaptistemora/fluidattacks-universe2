@@ -35,7 +35,6 @@ HDR_RGX: Dict[str, str] = {
     'access-control-allow-origin': '^https?:\\/\\/.*$',
     'cache-control': '(?=.*must-revalidate)(?=.*no-cache)(?=.*no-store)',
     'content-security-policy': '^([a-zA-Z]+\\-[a-zA-Z]+|sandbox).*$',
-    'content-type': '^(\\s)*.+(\\/|-).+(\\s)*;(\\s)*charset.*$',
     'expires': '^\\s*0\\s*$',
     'pragma': '^\\s*no-cache\\s*$',
     'strict-transport-security': (r'^\s*max-age\s*=\s*'
@@ -317,7 +316,29 @@ def _is_header_present(url: str, header: str, *args, **kwargs) -> tuple:
         msg_open=f'Header {header} is present',
         msg_closed=f'Header {header} is not present')
     session.add_unit(
-        is_vulnerable=header in session.response.headers)
+        is_vulnerable=any(
+            header.lower() == response_header.lower()
+            for response_header in session.response.headers))
+    return session.get_tuple_result()
+
+
+@unknown_if(http.ParameterError, http.ConnError)
+def _is_not_header_present(url: str, header: str, *args, **kwargs) -> tuple:
+    """
+    Check if header is not present in URL.
+
+    :param url: URL to test.
+    :param header: Header to test if present.
+    """
+    session = http.HTTPSession(url, *args, **kwargs)
+    session.set_messages(
+        source=f'HTTP/Response/Headers/{header}',
+        msg_open=f'Header {header} is not present',
+        msg_closed=f'Header {header} is present')
+    session.add_unit(
+        is_vulnerable=not any(
+            header.lower() == response_header.lower()
+            for response_header in session.response.headers))
     return session.get_tuple_result()
 
 
@@ -707,14 +728,14 @@ def is_header_content_security_policy_missing(url: str,
 @api(risk=LOW, kind=DAST)
 def is_header_content_type_missing(url: str, *args, **kwargs) -> tuple:
     r"""
-    Check if Content-Type HTTP header is properly set.
+    Check if Content-Type HTTP header is present.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _has_insecure_value(url, 'Content-Type', True, *args, **kwargs)
+    return _is_not_header_present(url, 'Content-Type', *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
