@@ -209,3 +209,14 @@ def iterate_results_from_file(
     """Yield (kind, who, where) tuples of open checks in the exploit."""
     with open(asserts_output_path, 'r') as handle:
         yield from iterate_results_from_content(handle.read(), default_repo)
+
+
+def get_exp_result_summary(asserts_output_path: str):
+    """Return the summary of a exploit result."""
+    if not os.path.exists(asserts_output_path):
+        return {}
+
+    with open(asserts_output_path, 'r') as handle:
+        asserts_result = tuple(yaml.safe_load_all(handle.read()))
+
+        return asserts_result[-1].get('summary', {})

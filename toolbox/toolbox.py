@@ -406,6 +406,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
             os.listdir(f'subscriptions/{subs}/fusion')))
 
         integrates_repos: set = set(integrates_status.keys())
+        find_wheres = helper.integrates.get_finding_wheres(finding_id)
 
         for repo in integrates_repos.union(local_repos):
             analyst_status: Any = integrates_status.get(repo, False)
@@ -432,6 +433,14 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
             amsg = constants.RICH_EXIT_CODES_INV.get(
                 asserts_status, 'OTHER').upper()
 
+            asserts_summary = api.asserts.get_exp_result_summary(
+                exploit_output_path)
+
+            repo_vulns_api = tuple(filter(
+                lambda line, rep=repo: line[2]  # type: ignore
+                and line[0] in constants.SAST
+                and line[1].startswith(rep), find_wheres))
+
             if imsg != amsg:
                 if once:
                     logger.info(f'    *{finding_id:<10} {finding_title}*')
@@ -447,8 +456,8 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
                     "%Y-%m-%dT%H:%M:%SZ"),
                 'exploit_path': os.path.relpath(exploit_path),
                 'exploit_type': 'static',
-                'num_open_asserts': 0,
-                'num_open_integrates': 0,
+                'num_open_asserts': asserts_summary.get('vulnerabilities', 0),
+                'num_open_integrates': len(repo_vulns_api),
                 'pipeline_id': os.environ.get('CI_PIPELINE_ID', None),
                 'repository': repo,
                 'result_asserts': amsg,
@@ -541,6 +550,9 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
 
         finding_id = scan_exploit_for_kind_and_id(exploit_path)[1]
         finding_title = helper.integrates.get_finding_title(finding_id)
+        find_wheres = helper.integrates.get_finding_wheres(finding_id)
+        find_wheres = tuple(filter(
+            lambda w: w[2] and w[0] in constants.DAST, find_wheres))
 
         if os.path.isfile(exploit_output_path):
             os.remove(exploit_output_path)
@@ -563,6 +575,9 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
         amsg = constants.RICH_EXIT_CODES_INV.get(
             asserts_status, 'OTHER').upper()
 
+        asserts_summary = api.asserts.get_exp_result_summary(
+            exploit_output_path)
+
         if imsg != amsg:
             if once:
                 logger.info(f'    *{finding_id:<10} {finding_title}*')
@@ -576,8 +591,8 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
             'datetime': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             'exploit_path': os.path.relpath(exploit_path),
             'exploit_type': 'dynamic',
-            'num_open_asserts': 0,
-            'num_open_integrates': 0,
+            'num_open_asserts': asserts_summary.get('vulnerabilities', 0),
+            'num_open_integrates': len(find_wheres),
             'pipeline_id': os.environ.get('CI_PIPELINE_ID', None),
             'result_asserts': amsg,
             'result_integrates': imsg,
