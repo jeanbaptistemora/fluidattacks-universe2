@@ -68,3 +68,11 @@ ApproveDraftPayload = NamedTuple('ApproveDraftPayload', [
     ('success', bool),
     ('release_date', str),
 ])
+AddCommentPayload = NamedTuple('AddCommentPayload', [
+    ('success', bool),
+    ('comment_id', str),
+])
+DownloadFilePayload = NamedTuple('DownloadFilePayload', [
+    ('success', bool),
+    ('url', str),
+])

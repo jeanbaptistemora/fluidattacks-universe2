@@ -1,5 +1,6 @@
 # pylint: disable=import-error
 
+from datetime import datetime
 from time import time
 import asyncio
 import sys
@@ -18,6 +19,8 @@ from backend.domain import project as project_domain
 from backend.typing import (
     Event as EventType,
     SimplePayload as SimplePayloadType,
+    AddCommentPayload as AddCommentPayloadType,
+    DownloadFilePayload as DownloadFilePayloadType,
 )
 from backend import util
 
@@ -257,7 +260,8 @@ async def _do_create_event(_, info, project_name: str, image=None, file=None,
 @require_login
 @enforce_group_level_auth_async
 @require_event_access
-async def _do_solve_event(_, info, event_id, affectation, date):
+async def _do_solve_event(_, info, event_id: str, affectation: str,
+                          date: datetime) -> SimplePayloadType:
     """Resolve solve_event mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
     success = await sync_to_async(event_domain.solve_event)(
@@ -277,13 +281,14 @@ async def _do_solve_event(_, info, event_id, affectation, date):
             info.context,
             'Security: Attempted to '
             f'solve event {event_id}')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_event_access
-async def _do_add_event_comment(_, info, content, event_id, parent):
+async def _do_add_event_comment(_, info, content: str, event_id: str,
+                                parent: str) -> AddCommentPayloadType:
     """Resolve add_event_comment mutation."""
     comment_id = int(round(time() * 1000))
     user_info = util.get_jwt_content(info.context)
@@ -301,13 +306,14 @@ async def _do_add_event_comment(_, info, content, event_id, parent):
             info.context,
             'Security: Attempted to add comment '
             f'in event {event_id}')  # pragma: no cover
-    return dict(success=success, comment_id=comment_id)
+    return AddCommentPayloadType(success=success, comment_id=str(comment_id))
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_event_access
-async def _do_update_event_evidence(_, info, event_id, evidence_type, file):
+async def _do_update_event_evidence(_, info, event_id: str, evidence_type: str,
+                                    file) -> SimplePayloadType:
     """Resolve update_event_evidence mutation."""
     success = False
     if await \
@@ -325,13 +331,14 @@ async def _do_update_event_evidence(_, info, event_id, evidence_type, file):
             info.context,
             'Security: Attempted to update evidence '
             f'in event {event_id}')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_event_access
-async def _do_download_event_file(_, info, event_id, file_name):
+async def _do_download_event_file(_, info, event_id: str,
+                                  file_name: str) -> DownloadFilePayloadType:
     """Resolve download_event_file mutation."""
     success = False
     signed_url = await \
@@ -347,13 +354,14 @@ async def _do_download_event_file(_, info, event_id, file_name):
             info.context,
             'Security: Attempted to download '
             f'file in event {event_id}')  # pragma: no cover
-    return dict(success=success, url=signed_url)
+    return DownloadFilePayloadType(success=success, url=signed_url)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_event_access
-async def _do_remove_event_evidence(_, info, event_id, evidence_type):
+async def _do_remove_event_evidence(_, info, event_id: str,
+                                    evidence_type: str) -> SimplePayloadType:
     """Resolve remove_event_evidence mutation."""
     success = await \
         sync_to_async(event_domain.remove_evidence)(evidence_type, event_id)
@@ -363,4 +371,4 @@ async def _do_remove_event_evidence(_, info, event_id, evidence_type):
             'Security: Removed evidence in '
             f'event {event_id}')  # pragma: no cover
         util.invalidate_cache(event_id)
-    return dict(success=success)
+    return SimplePayloadType(success=success)
