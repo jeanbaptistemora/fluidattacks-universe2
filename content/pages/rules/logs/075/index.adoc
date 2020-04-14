@@ -1,7 +1,7 @@
 :slug: rules/075/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of Logs. This requirement establishes the importance of recording exceptional and security events in logs, allowing the backtracking and proper response in an undesired scenario.
-:keywords: Requirement, Security, GDPR, Logs, Events, Tracking
+:description: This document contains the details of the security requirements related to the definition and management of logs. This requirement establishes the importance of recording exceptional and security events in logs, allowing the backtracking and proper response in an undesired scenario.
+:keywords: Logs, Events, Tracking, CWE, GDPR, ASVS
 :rules: yes
 
 = REQ.075 Record exceptional events in logs
@@ -13,7 +13,7 @@ The system must register all exceptional and security events in logs.
 == Description
 
 The organization must properly record the exceptional and security events
-in duly protected log (confidentiality),
+in duly protected logs (confidentiality),
 considering that an event of this type
 should not show confidential or detailed information of the problem
 in error messages to prevent the use of that information
@@ -43,7 +43,7 @@ Enough information must be recorded
 to allow a system administrator to detect attacks,
 diagnose errors and recover from attacks.
 On the other hand, recording too much information
-can lead to the same problems (+CWE-779+).
+can lead to the same problems (**CWE-779**).
 
 == Attacks
 
@@ -68,7 +68,10 @@ can prove to be very difficult or impossible.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient logging].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
+When a security-critical event occurs,
+the software either does not record the event or omits important details about
+the event when logging it.
 
 . [[r2]] link:https://gdpr-info.eu/art-33-gdpr/[GDPR. Art. 33: Notification of a personal data breach
 to the supervisory authority.(5)]
@@ -76,18 +79,16 @@ The controller shall document any personal data breaches,
 comprising the facts relating to the personal data breach,
 its effects and the remedial action taken.
 
-. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(b):]
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(b):]
 Audit Controls: Implement hardware, software, and/or procedural mechanisms
 that record and examine activity in information systems
 that contain or use electronic protected health information.
 
-. [[r4]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
-
-. [[r5]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
-
-. [[r6]] link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
-
-. [[r7]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-8.3+]
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[OWASP-ASVS v3.1-8.3]
 Verify security logging controls provide the ability
 to log success and particularly failure events
 that are identified as security-relevant
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
+Verify that a common logging format and approach is used across the system.

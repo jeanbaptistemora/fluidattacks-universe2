@@ -1,6 +1,6 @@
 :slug: rules/080/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of Logs and events. This requirement establishes the importance of preventing log modifications or alterations in order to keep permanent records of all system activity.
+:description: This document contains the details of the security requirements related to the definition and management of logs and events. This requirement establishes the importance of preventing log modifications or alterations in order to keep permanent records of all system activity.
 :keywords: Requirement, Security, Logs, Events, Modification, Alteration
 :rules: yes
 
