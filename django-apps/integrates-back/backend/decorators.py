@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Decorators for FluidIntegrates. """
 
+from datetime import datetime
 import functools
 import re
 
@@ -474,7 +475,10 @@ def get_entity_cache_async(func):
             )
         else:
             uniq_id = str(gql_ent)
-        params = '_'.join([str(kwargs[key]) for key in kwargs]) + '_'
+        params = '_'.join(
+            [str(kwargs[key])
+             if not isinstance(kwargs[key], datetime) else str(kwargs[key])[:13]
+             for key in kwargs]) + '_'
         complement = (params if kwargs else '') + uniq_id
         key_name = \
             f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{complement}'

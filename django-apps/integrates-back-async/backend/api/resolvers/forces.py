@@ -7,7 +7,7 @@ import sys
 
 from asgiref.sync import sync_to_async
 from backend.decorators import (
-    enforce_group_level_auth_async, require_login,
+    enforce_group_level_auth_async, get_entity_cache_async, require_login,
     require_project_access
 )
 from backend.dal import forces as forces_dal
@@ -35,27 +35,27 @@ def match_fields(my_dict):
 
 
 @sync_to_async
-def _get_project_name(project_name, **_):
+def _get_project_name(_, project_name, **__):
     """Get project_name."""
     return dict(project_name=project_name)
 
 
 @sync_to_async
-def _get_from_date(from_date, **_):
+def _get_from_date(_, from_date, **__):
     """Get from_date."""
     return dict(from_date=from_date)
 
 
 @sync_to_async
-def _get_to_date(to_date, **_):
+def _get_to_date(_, to_date, **__):
     """Get to_date."""
     return dict(to_date=to_date)
 
 
-@sync_to_async
-def _get_executions(project_name, from_date, to_date):
+@get_entity_cache_async
+async def _get_executions(_, project_name, from_date, to_date):
     """Get executions."""
-    executions_iterator = forces_dal.yield_executions(
+    executions_iterator = await sync_to_async(forces_dal.yield_executions)(
         project_name=project_name,
         from_date=from_date,
         to_date=to_date
@@ -79,7 +79,8 @@ async def _resolve_fields(info, project_name, from_date, to_date):
             f'_get_{snake_field}'
         )
         future = asyncio.ensure_future(
-            resolver_func(project_name=project_name,
+            resolver_func(info,
+                          project_name=project_name,
                           from_date=from_date,
                           to_date=to_date)
         )
