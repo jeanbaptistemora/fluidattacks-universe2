@@ -443,9 +443,13 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 success = False
                 outputs_to_show.append(exploit_output_path)
             results.append({
-                'date': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+                'datetime': datetime.datetime.now().strftime(
+                    "%Y-%m-%dT%H:%M:%SZ"),
                 'exploit_path': os.path.relpath(exploit_path),
                 'exploit_type': 'static',
+                'num_open_asserts': 0,
+                'num_open_integrates': 0,
+                'pipeline_id': os.environ.get('CI_PIPELINE_ID', None),
                 'repository': repo,
                 'result_asserts': amsg,
                 'result_integrates': imsg,
@@ -569,9 +573,12 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 success = False
                 outputs_to_show.append(exploit_output_path)
         results.append({
-            'date': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            'datetime': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             'exploit_path': os.path.relpath(exploit_path),
             'exploit_type': 'dynamic',
+            'num_open_asserts': 0,
+            'num_open_integrates': 0,
+            'pipeline_id': os.environ.get('CI_PIPELINE_ID', None),
             'result_asserts': amsg,
             'result_integrates': imsg,
             'subscription': subs,
