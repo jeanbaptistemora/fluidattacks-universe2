@@ -19,6 +19,38 @@ from fluidasserts.helper import lang, asynchronous
 from fluidasserts.utils.generic import get_sha256
 
 
+def _build_cpe_url(product, version) -> str:
+    """Return a valid NVD CPE version 2.3 URI for the given parameters."""
+    # https://nvd.nist.gov/products/cpe
+    cpe_params: dict = dict(
+        cpe='cpe',
+        cpe_version='2.3',
+        part=str(),
+        vendor=str(),
+        product=product or '__no_product__',
+        version=version or str(),
+        update=str(),
+        edition=str(),
+        language=str(),
+        software_edition=str(),
+        target_software=str(),
+        target_hardware=str(),
+        other=str(),
+    )
+
+    cpe_uri: str = ':'.join(cpe_params.values()).rstrip(':')
+
+    cpe_product: str = _url_encode(cpe_uri)
+
+    return (
+        'https://nvd.nist.gov/vuln/search/results'
+        + f'?cpe_product={cpe_product}'
+        + f'&form_type=Advanced'
+        + f'&results_type=overview'
+        + f'&search_type=all'
+    )
+
+
 def _url_encode(string: str) -> str:
     """Return a url encoded string."""
     return urllib.parse.quote(string, safe='')
@@ -67,17 +99,7 @@ async def get_vulns_vulndb_async(package_manager: str, path: str,
     :param package: Package name.
     :param version: Package version.
     """
-    enc_pkg = _url_encode(package)
-    base_url = 'https://nvd.nist.gov/vuln/search/results?'
-    query_str1 = 'form_type=Advanced&results_type=overview&search_type=all'
-    if version:
-        enc_ver = _url_encode(version)
-        query_str2 = \
-            f'&cpe_product=cpe%3A%2F%3A%3A{enc_pkg}:{enc_ver}'
-    else:
-        query_str2 = f'&cpe_product=cpe%3A%2F%3A%3A{enc_pkg}'
-
-    url = base_url + query_str1 + query_str2
+    url = _build_cpe_url(package, version)
 
     timeout = aiohttp.ClientTimeout(total=10.0)
     async with aiohttp.ClientSession(trust_env=True,
