@@ -252,7 +252,6 @@
         "init_date"
       ],
       "schema": {
-        "companies": "list<dict>",
         "finish_date": "date-time",
         "init_date": "date-time",
         "logged_users": "number",
