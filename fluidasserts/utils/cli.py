@@ -243,7 +243,7 @@ def colorize(parsed_content):
                 style = CLOSE_COLORS
             elif node['status'] == UNKNOWN:
                 style = UNKNOWN_COLORS
-            elif node['status'] == ERROR:
+            elif node['status'].startswith(ERROR):
                 style = OPEN_COLORS
         except KeyError:
             style = SUMMARY_COLORS
@@ -301,7 +301,7 @@ def get_total_unknown_checks(output_list):
 def get_total_error_checks(output_list):
     """Get total error checks."""
     return sum(1 for output in output_list
-               if 'status' in output and output['status'] == ERROR)
+               if 'status' in output and output['status'].startswith(ERROR))
 
 
 def get_total_vulnerabilities(output_list):
@@ -317,7 +317,7 @@ def filter_content(parsed: list, args) -> list:
         node
         for node in parsed
         if 'status' not in node
-        or (node.get('status') == ERROR)
+        or (node.get('status', '').startswith(ERROR))
         or (args.show_open and node.get('status') == OPEN)
         or (args.show_closed and node.get('status') == CLOSED)
         or (args.show_unknown and node.get('status') == UNKNOWN)]
@@ -477,10 +477,10 @@ def exec_wrapper(exploit_name: str, exploit_content: str) -> str:  # noqa
     except BaseException as exc:  # lgtm [py/catch-base-exception]
         print(stderr_result.getvalue(), end='', file=sys.stderr)
         print(stdout_result.getvalue(), end='', file=sys.stdout)
-        return yaml.safe_dump(dict(status=ERROR,
-                                   exploit=exploit_name,
-                                   exception=str(type(exc)),
-                                   message=str(exc)),
+        exc_type = type(exc)
+        exc_name: str = getattr(exc_type, '__name__', str(exc_type))
+        return yaml.safe_dump(dict(status=f'{ERROR}/{exc_name}, {exc}',
+                                   source_file=exploit_name),
                               default_flow_style=False,
                               explicit_start=True,
                               allow_unicode=True)
