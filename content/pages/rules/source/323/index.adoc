@@ -1,0 +1,39 @@
+:slug: rules/323/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of avoiding the inclusion of binary files in source code repositories.
+:keywords: Files, Source Code, Binary, Repository, CWE, ASVS
+:rules: yes
+
+= REQ.323 Avoid including binaries in repositories
+
+== Requirement
+
+Binary files should not be stored in the source code repository.
+
+== Description
+
+Binary files usually have a file size greater than their source counterpart,
+which can eventually affect a repository's performance.
+Changes done to them are often hard to track for versioning tools
+or make no sense for a reviewer.
+Furthermore, security audits on binary files are more complicated or simply
+not performed,
+and these could contain serious vulnerabilities such as back doors, rootkits
+and exposed sensitive information.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor.]
+A trapdoor is a hidden piece of code that responds to a special input,
+allowing its user access to resources without passing through the normal
+security enforcement mechanism.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.3)]
+Verify that the application source code and third party libraries do not contain
+back doors,
+such as hard-coded or additional undocumented accounts or keys,
+code obfuscation, undocumented binary blobs, rootkits,
+or anti-debugging, insecure debugging features,
+or otherwise out of date, insecure, or hidden functionality that could be used
+maliciously if discovered.

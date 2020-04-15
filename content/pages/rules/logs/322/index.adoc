@@ -68,7 +68,7 @@ which eventually will compromise the system security.
 . [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-779: Logging of Excessive Data]
 The software logs too much information,
 making log files hard to process and possibly hindering recovery efforts or
-orensic analysis after an attack.
+forensic analysis after an attack.
 
 . [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
