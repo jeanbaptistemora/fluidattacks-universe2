@@ -211,12 +211,22 @@ def iterate_results_from_file(
         yield from iterate_results_from_content(handle.read(), default_repo)
 
 
-def get_exp_result_summary(asserts_output_path: str):
+def get_exp_result_summary(asserts_output: str):
     """Return the summary of a exploit result."""
-    if not os.path.exists(asserts_output_path):
+    asserts_result = tuple(yaml.safe_load_all(asserts_output))
+    if not asserts_result:
         return {}
 
-    with open(asserts_output_path, 'r') as handle:
-        asserts_result = tuple(yaml.safe_load_all(handle.read()))
+    return asserts_result[-1].get('summary', {})
 
-        return asserts_result[-1].get('summary', {})
+
+def get_exp_error_message(asserts_output: str) -> str:
+    """Return one of the error messages from a exploit, or null str."""
+    bare_nodes: Tuple[NODE, ...] = tuple(yaml.safe_load_all(asserts_output))
+    relevant_nodes: Tuple[NODE, ...] = tuple(filter(_is_relevant, bare_nodes))
+
+    error_nodes = tuple(filter(_is_node_an_error_result, relevant_nodes))
+    if error_nodes:
+        return error_nodes[0]['status']
+
+    return str()

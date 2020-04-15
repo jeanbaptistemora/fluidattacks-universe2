@@ -10,6 +10,7 @@ import functools
 import subprocess
 import contextlib
 from pathlib import Path
+from typing import Tuple
 
 # Third parties libraries
 import dateutil.parser
@@ -40,7 +41,7 @@ def is_branch_master() -> bool:
     return os.environ['CI_COMMIT_REF_NAME'] == 'master'
 
 
-def run_command(cmd: str, cwd: str, env: dict):
+def run_command(cmd: str, cwd: str, env: dict) -> Tuple[int, str, str]:
     """Run a command and return exit code, stdout and stderr."""
     # We are checking the exit code via proc.returncode
     #   in the upstream component

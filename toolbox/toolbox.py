@@ -413,13 +413,20 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
             asserts_status: Any = None
             repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
             if os.path.isdir(repository_path):
-                asserts_status, _, _ = utils.run_command(
+                asserts_status, asserts_stdout, _ = utils.run_command(
                     cmd=(f"echo '---'                          "
                          f"  >> '{exploit_output_path}';       "
                          f"echo 'repository: {repo}'           "
                          f"  >> '{exploit_output_path}';       "
                          f"asserts -eec -n -ms '{exploit_path}'"
-                         f"  >> '{exploit_output_path}'        "),
+                         f"  >  '{exploit_output_path}_';      "
+                         f"exit_code=$?;                       "
+                         f"cat  '{exploit_output_path}_';      "
+                         f"cat  '{exploit_output_path}_'       "
+                         f"  >> '{exploit_output_path}';       "
+                         f"rm   '{exploit_output_path}_'       "
+                         f"  >  /dev/null;                     "
+                         f"exit ${{exit_code}};                "),
                     cwd=repository_path,
                     env={'FA_NOTRACK': 'true',
                          'FA_STRICT': 'true',
@@ -430,11 +437,12 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 continue
 
             imsg = 'OPEN' if analyst_status else 'CLOSED'
-            amsg = constants.RICH_EXIT_CODES_INV.get(
-                asserts_status, 'OTHER').upper()
+            amsg = api.asserts.get_exp_error_message(asserts_stdout) \
+                or constants.RICH_EXIT_CODES_INV.get(
+                    asserts_status, 'OTHER').upper()
 
-            asserts_summary = api.asserts.get_exp_result_summary(
-                exploit_output_path)
+            asserts_summary = \
+                api.asserts.get_exp_result_summary(asserts_stdout)
 
             repo_vulns_api = tuple(filter(
                 lambda line, rep=repo: line[2]  # type: ignore
@@ -560,9 +568,16 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
         analyst_status = helper.integrates.is_finding_open(
             finding_id, constants.DAST)
 
-        asserts_status, _, _ = utils.run_command(
+        asserts_status, asserts_stdout, _ = utils.run_command(
             cmd=(f"asserts -eec -n -ms '{exploit_path}'"
-                 f"  >> '{exploit_output_path}'        "),
+                 f"  >  '{exploit_output_path}_';      "
+                 f"exit_code=$?;                       "
+                 f"cat  '{exploit_output_path}_';      "
+                 f"cat  '{exploit_output_path}_'       "
+                 f"  >> '{exploit_output_path}';       "
+                 f"rm   '{exploit_output_path}_'       "
+                 f"  >  /dev/null;                     "
+                 f"exit ${{exit_code}};                "),
             cwd=f'subscriptions/{subs}',
             env={'FA_NOTRACK': 'true',
                  'FA_STRICT': 'true',
@@ -572,11 +587,12 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
                  'BB_AWS_ROLE_ARNS': ','.join(aws_arn_roles)})
 
         imsg = 'OPEN' if analyst_status else 'CLOSED'
-        amsg = constants.RICH_EXIT_CODES_INV.get(
-            asserts_status, 'OTHER').upper()
+        amsg = api.asserts.get_exp_error_message(asserts_stdout) \
+            or constants.RICH_EXIT_CODES_INV.get(
+                asserts_status, 'OTHER').upper()
 
-        asserts_summary = api.asserts.get_exp_result_summary(
-            exploit_output_path)
+        asserts_summary = \
+            api.asserts.get_exp_result_summary(asserts_stdout)
 
         if imsg != amsg:
             if once:
@@ -584,7 +600,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 once = False
             logger.info('        {i} {a}'.format(
                 i=f'Integrates: {imsg!s:<6}', a=f'Asserts: {amsg!s:<17}'))
-            if amsg == 'EXPLOIT-ERROR':
+            if 'ERROR' in amsg:
                 success = False
                 outputs_to_show.append(exploit_output_path)
         results.append({
@@ -664,9 +680,10 @@ def _run_static_exploit(
              'BB_RESOURCES': bb_resources,
              'CURRENT_EXPLOIT_KIND': 'static'})
     elapsed: float = time() - start_time
-    status = constants.RICH_EXIT_CODES_INV.get(status, 'OTHER').upper()
+    status_str: str = \
+        constants.RICH_EXIT_CODES_INV.get(status, 'OTHER').upper()
     logger.info(
-        f'{exploit_name:<25} : {elapsed:>8.2f} s : {status:<17} : {repo}')
+        f'{exploit_name:<25} : {elapsed:>8.2f} s : {status_str:<17} : {repo}')
     return exploit_name, repo, stdout, elapsed
 
 

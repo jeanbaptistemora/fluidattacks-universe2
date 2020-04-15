@@ -16,7 +16,7 @@ from pydriller.metrics.process.hunks_count import HunksCount
 PROJ = 'puri'
 BASE_DIR = f'../../../subscriptions/{PROJ}/fusion/'
 WHERES_JSON = f'{PROJ}_wheres.json'
-BAD_REPOS = []
+BAD_REPOS: list = []
 
 
 def read_lst(path):
