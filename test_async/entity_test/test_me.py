@@ -33,6 +33,7 @@ class MeTests(TestCase):
                 }
                 remember
                 role
+                permissions
                 __typename
             }
         }'''

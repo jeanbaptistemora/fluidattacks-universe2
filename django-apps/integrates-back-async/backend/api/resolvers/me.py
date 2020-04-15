@@ -93,8 +93,9 @@ async def _get_permissions(
         if project_name else \
         authorization_utils.get_user_level_enforcer_async(subject)
     permissions = tuple([
-        action for action in authorization_utils.list_actions()
-        if enforcer.enforce(subject, object_, action)])
+        action
+        for action in await sync_to_async(authorization_utils.list_actions)()
+        if await sync_to_async(enforcer.enforce)(subject, object_, action)])
     return dict(permissions=permissions)
 
 
