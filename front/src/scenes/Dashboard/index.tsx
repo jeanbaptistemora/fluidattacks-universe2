@@ -14,7 +14,7 @@ import { RouteComponentProps } from "react-router";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
-import { authzContext } from "../../utils/authz/can";
+import { authzContext } from "../../utils/authz/config";
 import { handleGraphQLErrors, minToSec, secToMs } from "../../utils/formatHelpers";
 import { msgSuccess } from "../../utils/notifications";
 import translate from "../../utils/translations/translate";
@@ -22,7 +22,7 @@ import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/A
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { HomeView } from "./containers/HomeView";
-import { PendingRoute } from "./containers/PendingRoute/index";
+import { ProjectRoute } from "./containers/ProjectRoute/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
@@ -100,7 +100,7 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
             <Switch>
               <Route path="/home" exact={true} component={HomeView} />
               <Route path="/reports" component={ReportsView} />
-              <Route path="/project/:projectName" component={PendingRoute} />
+              <Route path="/project/:projectName" component={ProjectRoute} />
               <Route path="/portfolio/:tagName" component={TagContent} />
               <Redirect to="/home" />
             </Switch>

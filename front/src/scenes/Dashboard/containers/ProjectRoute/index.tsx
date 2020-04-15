@@ -11,6 +11,7 @@ import { Trans } from "react-i18next";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
+import { authzContext, groupLevelPermissions } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
@@ -21,18 +22,18 @@ import { default as style } from "./index.css";
 import { GET_PROJECT_DATA, REJECT_REMOVE_PROJECT_MUTATION } from "./queries";
 import { IProjectData, IRejectRemoveProject } from "./types";
 
-type PendingRouteProps = RouteComponentProps<{ projectName: string }>;
+export type ProjectRouteProps = RouteComponentProps<{ projectName: string }>;
 
-const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JSX.Element => {
+const projectRoute: React.FC<ProjectRouteProps> = (props: ProjectRouteProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const [isOpen] = React.useState(true);
 
   const closeRejectProjectModal: (() => void) = (): void => {
     location.assign("/integrates/dashboard#!/home");
   };
 
+  // GraphQL operations
   const { data, error } = useQuery<IProjectData>(GET_PROJECT_DATA, { variables: { projectName } });
-  const [rejectRemoveProject, {loading: submitting}] = useMutation(REJECT_REMOVE_PROJECT_MUTATION, {
+  const [rejectRemoveProject, { loading: submitting }] = useMutation(REJECT_REMOVE_PROJECT_MUTATION, {
     onCompleted: (result: IRejectRemoveProject): void => {
       if (result.rejectRemoveProject.success) {
         closeRejectProjectModal();
@@ -49,8 +50,8 @@ const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JS
   });
 
   const handleSubmit: (() => void) = (): void => {
-    rejectRemoveProject({ variables: { projectName: projectName.toLowerCase() }})
-    .catch();
+    rejectRemoveProject({ variables: { projectName: projectName.toLowerCase() } })
+      .catch();
   };
   if (!_.isUndefined(error)) {
     return (
@@ -64,8 +65,8 @@ const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JS
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
   return (
-    <React.Fragment>
-      {!_.isEmpty(data.project.deletionDate) ?
+    <React.StrictMode>
+      {!_.isEmpty(data.project.deletionDate) ? (
         <Row>
           <div className={style.noData}>
             <Glyphicon glyph="list" />
@@ -74,7 +75,7 @@ const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JS
           <Modal
             footer={<div />}
             headerTitle={translate.t("search_findings.tab_indicators.cancelProjectDeletion")}
-            open={isOpen}
+            open={true}
           >
             <Row>
               <Col md={12}>
@@ -98,8 +99,8 @@ const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JS
             </ButtonToolbar>
           </Modal>
         </Row>
-        :
-        <React.Fragment>
+      ) :
+        <authzContext.Provider value={groupLevelPermissions}>
           <Switch>
             <Route path="/project/:projectName/events/:eventId(\d+)" component={EventContent} />
             <Route
@@ -112,9 +113,10 @@ const pendingRoute: React.FC<PendingRouteProps> = (props: PendingRouteProps): JS
             />
             <Route path="/project/:projectName" component={ProjectContent} />
           </Switch>
-        </React.Fragment>}
-    </React.Fragment>
+        </authzContext.Provider>
+      }
+    </React.StrictMode>
   );
 };
 
-export { pendingRoute as PendingRoute };
+export { projectRoute as ProjectRoute };

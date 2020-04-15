@@ -1,5 +1,4 @@
 import { ApolloProvider } from "@apollo/react-hooks";
-import { PureAbility } from "@casl/ability";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ApolloNetworkStatusProvider, useApolloNetworkStatus } from "react-apollo-network-status";
@@ -18,7 +17,7 @@ import { Dashboard } from "./scenes/Dashboard";
 import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
 import { client } from "./utils/apollo";
-import { authzContext } from "./utils/authz/can";
+import { authzContext, userLevelPermissions } from "./utils/authz/config";
 
 const globalPreloader: React.FC = (): JSX.Element => {
   const status: { numPendingMutations: number; numPendingQueries: number } = useApolloNetworkStatus();
@@ -37,7 +36,7 @@ const app: React.FC = (): JSX.Element => (
       <React.Fragment>
         <ApolloProvider client={client}>
           <ReduxProvider store={store}>
-            <authzContext.Provider value={new PureAbility<string>()}>
+            <authzContext.Provider value={userLevelPermissions}>
               <ApolloNetworkStatusProvider>
                 <Switch>
                   <Route path="/registration" component={Registration} />
