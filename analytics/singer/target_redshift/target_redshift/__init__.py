@@ -404,6 +404,7 @@ class Batcher():
         self.rsize: int = 0
 
         self.sname: str = schema_name
+        self.fields: Dict[str, List[str]] = {}
         self.buckets: Dict[str, Any] = {}
 
     def ex(self, statement: str, do_print: bool = False) -> None:
@@ -420,7 +421,15 @@ class Batcher():
             LOGGER.info(f"EXEC: {statement}.")
         self.dbcur.execute(statement)
 
-    def queue(self, table_name: str, values: List[str]) -> None:
+    def set_field_names(self, table_name: str, field_names: List[str]):
+        """Set the fields for the provided table."""
+        # Load queued rows in case we are changing the fields to be loaded
+        self.load(table_name)
+
+        # Now it's safe to alter the loaded fields
+        self.fields[table_name] = list(set(map(escape, field_names)))
+
+    def queue(self, table_name: str, record: Dict[str, str]) -> None:
         """Queue rows in buckets before pushing them to redshift.
 
         All values must come here as a string representation.
@@ -437,13 +446,13 @@ class Batcher():
         # initialize the bucket
         if table_name not in self.buckets:
             self.buckets[table_name] = {
-                "rows": [],
+                "records": [],
                 "count": 0,
                 "size": 0
             }
 
         # turn a row into a string of values separated by comma
-        row = stringify(values, do_group=False)
+        row = stringify(record.values(), do_group=False)
         row_size = str_len(row)
 
         # a redshift statement must be less than 16MB, save 1KB for the header
@@ -462,7 +471,7 @@ class Batcher():
         # queues the provided row in this function call
         self.msize += row_size
         self.rsize += 1
-        self.buckets[table_name]["rows"].append(row)
+        self.buckets[table_name]["records"].append(record)
         self.buckets[table_name]["count"] += 1
         self.buckets[table_name]["size"] += row_size
 
@@ -473,12 +482,25 @@ class Batcher():
             table_name: Table that owns the rows.
             do_print: True if you want to print the statement to stdout.
         """
+        if table_name not in self.fields \
+                or table_name not in self.buckets \
+                or self.buckets[table_name]["count"] == 0:
+            return
 
-        # take every comma separated string, and surround it with parenthesis
-        values = stringify(self.buckets[table_name]["rows"], do_group=True)
+        fields = stringify([
+            f'"{f}"' for f in self.fields[table_name]
+        ], do_group=False)
+
+        values = stringify([
+            stringify([
+                record.get(field, 'null')
+                for field in self.fields[table_name]
+            ], do_group=False)
+            for record in self.buckets[table_name]["records"]
+        ], do_group=True)
 
         statement = f"""
-            INSERT INTO \"{self.sname}\".\"{table_name}\"
+            INSERT INTO \"{self.sname}\".\"{table_name}\"({fields})
             VALUES {values}"""
         self.ex(statement, do_print)
 
@@ -489,7 +511,7 @@ class Batcher():
 
         self.msize -= self.buckets[table_name]["size"]
         self.rsize -= self.buckets[table_name]["count"]
-        self.buckets[table_name]["rows"] = []
+        self.buckets[table_name]["records"] = []
         self.buckets[table_name]["count"] = 0
         self.buckets[table_name]["size"] = 0
 
@@ -558,7 +580,6 @@ def create_schema(batcher: Batcher, schema_name: str) -> None:
 def create_table(
         batcher: Batcher,
         schema_name: str, table_name: str,
-        table_fields: Iterable[str],
         table_types: Dict[str, str],
         table_pkeys: Iterable[str]) -> None:
     """Creates a table in the schema unless it currently exist.
@@ -572,8 +593,8 @@ def create_table(
         table_types: The table {field: type}.
         table_pkeys: The table primary keys.
     """
-
     # pylint: disable=too-many-arguments
+    table_fields = batcher.fields[table_name]
 
     path = f"\"{schema_name}\".\"{table_name}\""
     fields = ",".join([f"\"{n}\" {table_types[n]}" for n in table_fields])
@@ -638,9 +659,7 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
         batcher: The query executor.
         schema_name: The schema to operate over.
     """
-
-    fields: JSON = {}
-    schemas: JSON = {}
+    schemas: Dict[str, Dict[str, str]] = {}
     validators: Any = {}
 
     for message in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
@@ -648,21 +667,13 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
         if json_obj["type"] == "RECORD":
             tname: str = escape(json_obj["stream"].lower())
             tschema: JSON = schemas[tname]
-            tfields: Iterable = fields[tname]
 
             json_record: JSON = json_obj["record"]
             validate_record(validators[tname], json_record)
 
             record: Dict[str, str] = translate_record(tschema, json_record)
 
-            record_ov: List[str] = []
-            for field in tfields:
-                try:
-                    record_ov.append(record[field])
-                except KeyError:
-                    record_ov.append("null")
-
-            batcher.queue(tname, record_ov)
+            batcher.queue(tname, record)
         elif json_obj["type"] == "SCHEMA":
             tname = escape(json_obj["stream"].lower())
             tkeys = tuple(map(escape, json_obj["key_properties"]))
@@ -672,11 +683,10 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
             validate_schema(validators[tname], tschema)
 
             schemas[tname] = translate_schema(tschema["properties"])
-            fields[tname] = tuple(schemas[tname].keys())
 
-            create_table(
-                batcher, schema_name, tname,
-                fields[tname], schemas[tname], tkeys)
+            batcher.set_field_names(tname, list(schemas[tname].keys()))
+
+            create_table(batcher, schema_name, tname, schemas[tname], tkeys)
         elif json_obj["type"] == "STATE":
             LOGGER.info(json.dumps(json_obj, indent=2))
 
