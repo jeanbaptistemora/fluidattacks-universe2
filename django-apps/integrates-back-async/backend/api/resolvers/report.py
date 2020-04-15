@@ -64,7 +64,7 @@ async def _do_request_report(_, info, **parameters):
 
     findings_ord = util.ord_asc_by_criticidad(findings)
     if report_type == 'PDF':
-        pdf_maker = CreatorPDF(parameters.get('lang', ''), 'tech')
+        pdf_maker = CreatorPDF(parameters.get('lang', 'en'), 'tech')
         secure_pdf = SecurePDF()
         findings = pdf_evidences(findings_ord)
         report_filename = ''
@@ -89,6 +89,7 @@ async def _do_request_report(_, info, **parameters):
         reports.send_report_password_email(user_email,
                                            project_name.lower(),
                                            password, 'XLS', '')
+        success = True
 
     return dict(success=success)
 
