@@ -101,6 +101,18 @@ class FindingTests(TestCase):
               vulnerabilities {
                 specific
               }
+              portsVulns {
+                  specific
+              }
+              inputsVulns {
+                  specific
+              }
+              linesVulns {
+                  specific
+              }
+              pendingVulns {
+                  specific
+              }
               __typename
           }
         }'''

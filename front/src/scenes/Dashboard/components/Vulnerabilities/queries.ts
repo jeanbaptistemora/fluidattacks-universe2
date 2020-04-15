@@ -6,23 +6,19 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     finding(identifier: $identifier) {
       id
       releaseDate
-      portsVulns: vulnerabilities(
-        vulnType: "ports") {
+      portsVulns {
         ...vulnInfo
         lastAnalyst @include(if: $analystField)
       }
-      linesVulns: vulnerabilities(
-        vulnType: "lines") {
+      linesVulns {
         ...vulnInfo
         lastAnalyst @include(if: $analystField)
       }
-      pendingVulns: vulnerabilities(
-        approvalStatus: "PENDING") {
+      pendingVulns {
         ...vulnInfo
         analyst @include(if: $analystField)
       }
-      inputsVulns: vulnerabilities(
-        vulnType: "inputs") {
+      inputsVulns {
         ...vulnInfo
         lastAnalyst @include(if: $analystField)
       }

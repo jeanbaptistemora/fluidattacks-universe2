@@ -79,28 +79,67 @@ class FindingLoader(DataLoader):
 
 
 @get_entity_cache_async
-async def _get_vulnerabilities(
-    info, identifier, vuln_type=None, state=None, approval_status=None
-):
+async def _get_vulnerabilities(info, identifier, state=None):
     """Get vulnerabilities."""
     vuln_filtered = \
         await info.context.loaders['vulnerability'].load(identifier)
-    if vuln_type:
-        vuln_filtered = \
-            [vuln for vuln in vuln_filtered if vuln['vuln_type'] == vuln_type
-             and (vuln['current_approval_status'] != 'PENDING' or
-                  vuln['last_approved_status'])]
     if state:
         vuln_filtered = \
             [vuln for vuln in vuln_filtered
              if vuln_domain.get_current_state(vuln) == state and
              (vuln['current_approval_status'] != 'PENDING' or
               vuln['last_approved_status'])]
-    if approval_status:
-        vuln_filtered = \
-            [vuln for vuln in vuln_filtered
-             if vuln['current_approval_status'] == approval_status]
     return dict(vulnerabilities=vuln_filtered)
+
+
+@get_entity_cache_async
+async def _get_ports_vulns(info, identifier):
+    """Get ports vulnerabilities."""
+    vuln_filtered = \
+        await info.context.loaders['vulnerability'].load(identifier)
+
+    vuln_filtered = \
+        [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'ports'
+            and (vuln['current_approval_status'] != 'PENDING' or
+                 vuln['last_approved_status'])]
+    return dict(ports_vulns=vuln_filtered)
+
+
+@get_entity_cache_async
+async def _get_inputs_vulns(info, identifier):
+    """Get inputs vulnerabilities."""
+    vuln_filtered = \
+        await info.context.loaders['vulnerability'].load(identifier)
+
+    vuln_filtered = \
+        [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'inputs'
+            and (vuln['current_approval_status'] != 'PENDING' or
+                 vuln['last_approved_status'])]
+    return dict(inputs_vulns=vuln_filtered)
+
+
+@get_entity_cache_async
+async def _get_lines_vulns(info, identifier):
+    """Get lines vulnerabilities."""
+    vuln_filtered = \
+        await info.context.loaders['vulnerability'].load(identifier)
+
+    vuln_filtered = \
+        [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'lines'
+            and (vuln['current_approval_status'] != 'PENDING' or
+                 vuln['last_approved_status'])]
+    return dict(lines_vulns=vuln_filtered)
+
+
+@get_entity_cache_async
+async def _get_pending_vulns(info, identifier):
+    """Get pending vulnerabilities."""
+    vuln_filtered = \
+        await info.context.loaders['vulnerability'].load(identifier)
+    vuln_filtered = \
+        [vuln for vuln in vuln_filtered
+            if vuln['current_approval_status'] == 'PENDING']
+    return dict(pending_vulns=vuln_filtered)
 
 
 @sync_to_async

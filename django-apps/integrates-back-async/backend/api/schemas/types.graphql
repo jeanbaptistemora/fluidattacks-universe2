@@ -72,11 +72,11 @@ type Finding {
     title: String
     tracking: [GenericScalar]
     type: String
-    vulnerabilities(
-        vulnType: String,
-        state: String,
-        approvalStatus: String
-    ): [Vulnerability]
+    vulnerabilities(state: String): [Vulnerability]
+    portsVulns: [Vulnerability]
+    inputsVulns: [Vulnerability]
+    linesVulns: [Vulnerability]
+    pendingVulns: [Vulnerability]
 }
 
 "InternalProject type definition"
