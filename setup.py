@@ -46,6 +46,7 @@ distutils.core.setup(
         'toolbox.api',
         'toolbox.forces',
         'toolbox.helper',
+        'toolbox.sorts',
     ],
     install_requires=[
         'awscli==1.17.9',

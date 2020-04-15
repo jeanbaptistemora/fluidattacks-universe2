@@ -10,7 +10,7 @@ import sys
 import click
 
 # Local libraries
-from toolbox import resources, toolbox, logger, analytics, forces, utils
+from toolbox import resources, toolbox, logger, analytics, forces, sorts, utils
 
 
 EXP_METAVAR = '[<EXPLOIT | all>]'
@@ -262,11 +262,26 @@ def utils_management(subscription, get_commit_subs, is_valid_commit, vpn,
         sys.exit(0 if utils.valid_commit_exp() else 1)
 
 
+@click.command(name='sorts', short_help='experimental')
+@click.argument(
+    'subscription',
+    default=_get_actual_subscription(),
+    callback=_valid_subscription)
+@click.option(
+    '--get-data',
+    is_flag=True,
+    help='get subscription commit data')
+def sorts_management(subscription, get_data):
+    if get_data:
+        sys.exit(0 if sorts.get_data.get_project_data(subscription) else 1)
+
+
 cli.add_command(resources_management)
 cli.add_command(analytics_management)
 cli.add_command(forces_management)
 cli.add_command(integrates_management)
 cli.add_command(utils_management)
+cli.add_command(sorts_management)
 
 
 def retry_debugging_on_failure(func):

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# coding: utf-8
 """Produce a dataframe with commit metadata for a project in csv format
 out of open vulnerabilities json from integrates API"""
 
@@ -13,10 +11,8 @@ from git.exc import CommandError
 import pandas as pd
 from pydriller.metrics.process.hunks_count import HunksCount
 
-PROJ = 'puri'
-BASE_DIR = f'../../../subscriptions/{PROJ}/fusion/'
-WHERES_JSON = f'{PROJ}_wheres.json'
-BAD_REPOS: list = []
+BASE_DIR = f'subscriptions/waggo/fusion/'
+INCL_PATH = os.path.dirname(__file__)
 
 
 def read_lst(path):
@@ -28,8 +24,8 @@ def read_lst(path):
     return lst
 
 
-EXTS = read_lst('extensions.lst')
-COMP = read_lst('composites.lst')
+EXTS = read_lst(f'{INCL_PATH}/extensions.lst')
+COMP = read_lst(f'{INCL_PATH}/composites.lst')
 
 
 def get_unique_wheres(wheres):
@@ -72,15 +68,15 @@ def get_bad_repos(repos):
     return filt
 
 
-def filter_code_files(wheres):
+def filter_code_files(wheres, bad_repos):
     """"Select only code files from a list of wheres, discarding binaries, etc.
-    Also skip files from BAD_REPOS.
+    Also skip files from bad_repos.
     """
     wheres_code = []
     for file in wheres:
         repo = file.split('/')[0]
         name = file.split('/')[-1]
-        if repo not in BAD_REPOS:
+        if repo not in bad_repos:
             extn = file.split('.')[-1]
             if extn in EXTS or name in COMP:
                 wheres_code.append(file)
@@ -102,7 +98,8 @@ def get_intro_commit(file):
         try:
             # this could be done after grouping by repo, not per-file
             git_repo = git.Git(BASE_DIR + repo_name)
-            hashes_log = git_repo.log('--pretty=%H', '--', file_rest)
+            hashes_log = git_repo.log('--pretty=%H', '--follow',
+                                      '--', file_rest)
             hashes_list = hashes_log.split('\n')
             intro_commit = hashes_list[-1]
         except FileNotFoundError:
@@ -170,17 +167,24 @@ def balance_df(vuln_df):
     return safe_commits
 
 
-with open(WHERES_JSON) as wheresfile:
-    WHERES = json.loads(wheresfile.read())
-# wheres json comes from request to integrates api,
-# per project, obtained manually via graphiql
-WHERES_UNIQ, _, REPOS = get_unique_wheres(WHERES)
-BAD_REPOS = get_bad_repos(REPOS)
-WHERES_CODE = filter_code_files(WHERES_UNIQ)
-WHERES_CODE['commit'] = WHERES_CODE['file'].apply(get_intro_commit)
-VULN_COMMITS = make_commit_df(WHERES_CODE)
-SAFE_COMMITS = balance_df(VULN_COMMITS)
-BALANCED_COMMITS = pd.concat([VULN_COMMITS, SAFE_COMMITS])
-BALANCED_COMMITS.reset_index(drop=True, inplace=True)
-BALANCED_COMMITS['hunks'] = BALANCED_COMMITS.apply(get_row_hunks, axis=1)
-BALANCED_COMMITS.to_csv(f'{PROJ}_commits_df.csv')
+def get_project_data(subs):
+    """Produce a dataframe with commit metadata for a project in csv format
+    out of open vulnerabilities json from integrates API"""
+    wheres_json = f'{subs}_wheres.json'
+    global BASE_DIR  # pylint: disable=global-statement
+    BASE_DIR = f'subscriptions/{subs}/fusion/'
+    with open(wheres_json) as wheresfile:
+        wheres = json.load(wheresfile)
+    # wheres json comes from request to integrates api,
+    # per project, obtained manually via graphiql
+    wheres_uniq, _, repos = get_unique_wheres(wheres)
+    bad_repos = get_bad_repos(repos)
+    wheres_code = filter_code_files(wheres_uniq, bad_repos)
+    wheres_code['commit'] = wheres_code['file'].apply(get_intro_commit)
+    vuln_commits = make_commit_df(wheres_code)
+    safe_commits = balance_df(vuln_commits)
+    balanced_commits = pd.concat([vuln_commits, safe_commits])
+    balanced_commits.reset_index(drop=True, inplace=True)
+    balanced_commits['hunks'] = balanced_commits.apply(get_row_hunks, axis=1)
+    balanced_commits.to_csv(f'{subs}_commits_df.csv',
+                            index=False)
