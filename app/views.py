@@ -222,11 +222,11 @@ def project_to_xls(request, lang, project):
     data = util.ord_asc_by_criticidad(findings)
     it_report = ITReport(project, data, user_name)
     filepath = it_report.result_filename
-    password = get_passphrase(4)
-    reports.set_xlsx_password(filepath, str(password))
-    reports.send_report_password_email(user_email,
-                                       project.lower(),
-                                       password, 'XLS', '')
+    passphrase = get_passphrase(4)
+    reports.set_xlsx_passphrase(filepath, str(passphrase))
+    reports.send_project_report_email(user_email,
+                                      project.lower(),
+                                      passphrase, 'XLS', '')
 
     with open(filepath, 'rb') as document:
         response = HttpResponse(document.read())
@@ -293,10 +293,10 @@ def project_to_pdf(  # pylint: disable=too-many-locals
                 raise ErrorUploadingFileS3()
             signed_url = cloudfront.sign_url(
                 FI_CLOUDFRONT_REPORTS_DOMAIN, uploaded_file_name, 120.0)
-            reports.send_report_password_email(user_email,
-                                               project.lower(),
-                                               secure_pdf.password, 'PDF',
-                                               signed_url)
+            reports.send_project_report_email(user_email,
+                                              project.lower(),
+                                              secure_pdf.passphrase, 'PDF',
+                                              signed_url)
         else:
             return HttpResponse(
                 'Disabled report generation', content_type='text/html')

@@ -2,7 +2,7 @@ import os
 import threading
 from datetime import datetime
 from django.core.files.base import ContentFile
-from backend.mailer import send_mail_report_passphrase
+from backend.mailer import send_mail_project_report
 from backend.dal.helpers import s3
 from __init__ import FI_AWS_S3_REPORTS_BUCKET
 
@@ -19,18 +19,18 @@ def set_xlsx_passphrase(filepath: str, passphrase: str):
     os.rename('{filepath}-pwd'.format(filepath=filepath), filepath)
 
 
-def send_report_passphrase_email(
+def send_project_report_email(
         user_email: str, project_name: str, passphrase: str, file_type: str, file_link: str = ''):
     report_date = datetime.today().strftime('%Y-%m-%d_%H:%M:%S')
     email_send_thread = threading.Thread(
         name='Report passphrase email thread',
-        target=send_mail_report_passphrase,
+        target=send_mail_project_report,
         args=([user_email], {
             'filetype': file_type,
             'date': report_date.split('_')[0],
             'time': report_date.split('_')[1],
             'projectname': project_name,
-            'password': passphrase,
+            'passphrase': passphrase,
             'filelink': file_link
         }))
 

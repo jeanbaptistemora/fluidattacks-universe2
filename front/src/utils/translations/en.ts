@@ -234,9 +234,9 @@ const enTranslations: Dictionary = {
         btn: "Reports",
         modal_close: "Close",
         modal_title: "Reports",
-        tech_description: "Technical reports are protected by <strong>password</strong>. "
-          + "The <strong>password</strong> is generated randomly and will be sent to your email. "
-          + "This <strong>password</strong> can be used only with the requested report.",
+        tech_description: "Technical reports are protected by <strong>passphrase</strong>. "
+          + "The <strong>passphrase</strong> is generated randomly and will be sent to your email. "
+          + "This <strong>passphrase</strong> can be used only with the requested report.",
         tech_title: "Technical Reports",
       },
       tableSet: {
