@@ -52,3 +52,6 @@ except jose.exceptions.JOSEError:
     print('Please verify the validity of your INTEGRATES_API_TOKEN env var.')
     print('  You can generate one at https://fluidattacks.com/integrates')
     sys.exit(78)
+
+
+EXP_LABELS = ('asserts-bug', 'exploit-bug', 'missing-check', 'toe-change')

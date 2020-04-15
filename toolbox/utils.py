@@ -1,6 +1,7 @@
 # Standard library
 import os
 import io
+import re
 import sys
 import glob
 import datetime
@@ -20,7 +21,7 @@ from pykwalify.errors import SchemaError
 from ruamel.yaml import YAML, safe_load
 
 # Local libraries
-from toolbox import logger
+from toolbox import logger, constants
 
 
 def is_env_ci() -> bool:
@@ -254,3 +255,39 @@ def rfc3339_str_to_date_obj(
 ) -> datetime.datetime:
     """Parse an RFT3339 formatted string into a datetime object."""
     return dateutil.parser.parse(date_str)
+
+
+def get_commit_message():
+    """Return commit message."""
+    return os.popen('git log --max-count 1 --format=%s').read()[:-1]
+
+
+def get_files_in_commit():
+    """Return modified files in actual commit."""
+    return os.popen(
+        'git show --name-only --pretty="" $(git rev-parse HEAD)').read().split(
+            '\n')[:-1]
+
+
+def valid_commit_exp():
+    commit_msg = get_commit_message()
+
+    pattern = r'(\w+)\((exp)\):\s#([0-9.]*)\s(\w+)\s([a-z-]*)'
+
+    if '(exp)' not in commit_msg:
+        return True
+
+    matchs: list = re.search(pattern, commit_msg)
+    groups = matchs.groups() if matchs else None
+    if not groups or groups[-1] not in constants.EXP_LABELS:
+        return False
+
+    proj = groups[3]
+    changed_files = get_files_in_commit()
+
+    exploits = [
+        path for path in changed_files
+        if path.split('/')[4] == 'exploits' and path.split('/')[1] == proj
+    ]
+
+    return len(exploits) == 1
