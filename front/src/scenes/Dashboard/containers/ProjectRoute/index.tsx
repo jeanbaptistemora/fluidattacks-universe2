@@ -13,26 +13,43 @@ import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { authzContext, groupLevelPermissions } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
+import { AlertBox } from "../../components/AlertBox";
 import { EventContent } from "../EventContent";
 import { FindingContent } from "../FindingContent";
 import { ProjectContent } from "../ProjectContent";
 import { default as style } from "./index.css";
-import { GET_PROJECT_DATA, REJECT_REMOVE_PROJECT_MUTATION } from "./queries";
+import { GET_PROJECT_ALERT, GET_PROJECT_DATA, REJECT_REMOVE_PROJECT_MUTATION } from "./queries";
 import { IProjectData, IRejectRemoveProject } from "./types";
 
 export type ProjectRouteProps = RouteComponentProps<{ projectName: string }>;
 
 const projectRoute: React.FC<ProjectRouteProps> = (props: ProjectRouteProps): JSX.Element => {
   const { projectName } = props.match.params;
+  const { userOrganization } = window as typeof window & Dictionary<string>;
 
   const closeRejectProjectModal: (() => void) = (): void => {
     location.assign("/integrates/dashboard#!/home");
   };
 
   // GraphQL operations
-  const { data, error } = useQuery<IProjectData>(GET_PROJECT_DATA, { variables: { projectName } });
+  const { data: alertData } = useQuery(GET_PROJECT_ALERT, {
+    onError: (alertError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading alerts", alertError);
+    },
+    variables: { projectName, organization: userOrganization },
+  });
+
+  const { data, error } = useQuery<IProjectData>(GET_PROJECT_DATA, {
+    onError: (alertError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading deletion date", alertError);
+    },
+    variables: { projectName },
+  });
   const [rejectRemoveProject, { loading: submitting }] = useMutation(REJECT_REMOVE_PROJECT_MUTATION, {
     onCompleted: (result: IRejectRemoveProject): void => {
       if (result.rejectRemoveProject.success) {
@@ -101,6 +118,7 @@ const projectRoute: React.FC<ProjectRouteProps> = (props: ProjectRouteProps): JS
         </Row>
       ) :
         <authzContext.Provider value={groupLevelPermissions}>
+          {alertData?.alert.status === 1 ? <AlertBox message={alertData.alert.message} /> : undefined}
           <Switch>
             <Route path="/project/:projectName/events/:eventId(\d+)" component={EventContent} />
             <Route

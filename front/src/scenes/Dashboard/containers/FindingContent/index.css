@@ -38,11 +38,6 @@
   margin-bottom: 40px;
 }
 
-:local .mainContainer {
-  padding: 10px 35px 0 35px;
-  background-color: white;
-}
-
 :local .active {
   background-color: #EEEEEE !important;
 }

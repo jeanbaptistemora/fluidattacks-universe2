@@ -8,12 +8,10 @@ import { TagsInfo } from "./TagInfo/index";
 
 type IProjectContentProps = RouteComponentProps<{ tagName: string }>;
 
-const tagContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
-  const { tagName } = props.match.params;
-
-  return (
-    <React.StrictMode>
-      <div className={globalStyle.mainContainer} key={tagName}>
+const tagContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => (
+  <React.StrictMode>
+    <React.Fragment>
+      <React.Fragment>
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
@@ -36,9 +34,9 @@ const tagContent: React.FC<IProjectContentProps> = (props: IProjectContentProps)
             </React.Fragment>
           </Col>
         </Row>
-      </div>
-    </React.StrictMode>
-  );
-};
+      </React.Fragment>
+    </React.Fragment>
+  </React.StrictMode>
+);
 
 export { tagContent as TagContent };

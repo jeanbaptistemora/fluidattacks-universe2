@@ -21,7 +21,6 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
-import { AlertBox } from "../../components/AlertBox";
 import { FindingActions } from "../../components/FindingActions";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
@@ -29,7 +28,6 @@ import { CommentsView } from "../CommentsView/index";
 import { DescriptionView } from "../DescriptionView/index";
 import { EvidenceView } from "../EvidenceView/index";
 import { ExploitView } from "../ExploitView/index";
-import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { RecordsView } from "../RecordsView/index";
 import { SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
@@ -42,7 +40,7 @@ import { IFindingContentProps, IHeaderQueryResult } from "./types";
 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
-  const { userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userRole } = window as typeof window & Dictionary<string>;
 
   // State management
   const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
@@ -50,14 +48,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const closeDeleteModal: (() => void) = (): void => { setDeleteModalOpen(false); };
 
   // GraphQL operations
-  const { data: alertData }: QueryResult = useQuery(GET_PROJECT_ALERT, {
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred loading alerts", error);
-    },
-    variables: { projectName, organization: userOrganization },
-  });
-
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], userRole);
 
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
@@ -208,13 +198,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
   return (
     <React.StrictMode>
-      <div className={style.mainContainer}>
+      <React.Fragment>
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
-              {_.isUndefined(alertData) || _.isEmpty(alertData) || alertData.alert.status === 0
-                ? <React.Fragment />
-                : <AlertBox message={alertData.alert.message} />}
               <Row>
                 <Col md={8}>
                   <h2>{headerData.finding.title}</h2>
@@ -312,7 +299,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
             </React.Fragment>
           </Col>
         </Row>
-      </div>
+      </React.Fragment>
       <Modal
         open={isDeleteModalOpen}
         footer={<div />}

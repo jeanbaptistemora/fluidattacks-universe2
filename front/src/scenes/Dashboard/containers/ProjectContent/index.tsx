@@ -27,7 +27,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
 
   return (
     <React.StrictMode>
-      <div className={globalStyle.mainContainer} key={projectName}>
+      <React.Fragment>
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
@@ -106,7 +106,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
             </React.Fragment>
           </Col>
         </Row>
-      </div>
+      </React.Fragment>
     </React.StrictMode>
   );
 };

@@ -33,7 +33,7 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
 
   return (
     <React.StrictMode>
-      <div className={style.mainContainer}>
+      <React.Fragment>
         <Row>
           <Col md={12} sm={12}>
             <Query query={GET_EVENT_HEADER} variables={{ eventId }} onError={handleErrors}>
@@ -73,7 +73,7 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
             </div>
           </Col>
         </Row>
-      </div>
+      </React.Fragment>
     </React.StrictMode >
   );
 };

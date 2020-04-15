@@ -95,8 +95,9 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
               );
             }}
           </ConfirmDialog>
+          <div>
+          <Navbar />
           <div className={style.container}>
-            <Navbar />
             <Switch>
               <Route path="/home" exact={true} component={HomeView} />
               <Route path="/reports" component={ReportsView} />
@@ -104,6 +105,7 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
               <Route path="/portfolio/:tagName" component={TagContent} />
               <Redirect to="/home" />
             </Switch>
+          </div>
           </div>
         </React.Fragment>
       </HashRouter>

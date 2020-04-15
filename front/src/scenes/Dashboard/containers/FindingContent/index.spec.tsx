@@ -12,7 +12,6 @@ import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { FindingContent } from "./index";
 import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
@@ -141,24 +140,6 @@ describe("FindingContent", () => {
               state: "SUBMITTED",
             },
           ],
-        },
-      },
-    },
-  };
-
-  const alertMock: Readonly<MockedResponse> = {
-    request: {
-      query: GET_PROJECT_ALERT,
-      variables: {
-        organization: "Fluid",
-        projectName: "TEST",
-      },
-    },
-    result: {
-      data: {
-        alert: {
-          message: "Hello world",
-          status: 1,
         },
       },
     },
@@ -624,22 +605,5 @@ describe("FindingContent", () => {
     await act(async () => { await wait(0); });
     expect(msgError)
       .toHaveBeenCalled();
-  });
-
-  it("should render alert", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
-    (window as typeof window & { userOrganization: string }).userOrganization = "Fluid";
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider mocks={[findingMock, alertMock]} addTypename={false}>
-            <FindingContent {...mockProps} />
-          </MockedProvider>
-        </Provider>
-      </MemoryRouter>,
-    );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.text())
-      .toContain("Hello world");
   });
 });
