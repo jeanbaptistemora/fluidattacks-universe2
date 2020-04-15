@@ -455,11 +455,11 @@ class Batcher():
         row = stringify(record.values(), do_group=False)
         row_size = str_len(row)
 
-        # a redshift statement must be less than 16MB, save 1KB for the header
+        # a redshift statement must be less than 16MB
         # also load if there are too many queued rows
 
         # if we are to exceed the limit with the current row
-        if self.buckets[table_name]["size"] + row_size >= 10000000 \
+        if self.buckets[table_name]["size"] + row_size >= 4000000 \
                 or self.buckets[table_name]["count"] + 1 >= 100000:
             # load the queued rows to Redshift
             self.load(table_name)
