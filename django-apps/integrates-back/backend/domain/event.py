@@ -251,6 +251,7 @@ def get_events(event_ids: List[str]) -> List[EventType]:
 
 def add_comment(comment_id: int, content: str, event_id: str, parent: str,
                 user_info: UserType) -> Tuple[Union[int, None], bool]:
+    parent = str(parent)
     if parent != '0':
         event_comments = \
             [str(comment.get('user_id')) for comment in

@@ -290,6 +290,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
            "GetEventDescription",
            "GetEventEvidences",
            "GetEventComments",
+           "AddEventComment",
            "GetProjectComments",
            "GetTagsQuery",
            "GetDraftsQuery",
