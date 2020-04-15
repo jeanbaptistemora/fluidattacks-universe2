@@ -80,4 +80,5 @@ MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('postBroadcastMessage',
                    subscription.resolve_subscription_mutation)
-MUTATION.set_field('requestReport', report.resolve_report_mutation)
+MUTATION.set_field('requestProjectReport',
+                   report.resolve_report_mutation)

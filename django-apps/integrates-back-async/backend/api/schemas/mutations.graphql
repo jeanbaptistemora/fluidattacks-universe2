@@ -283,7 +283,7 @@ type Mutation {
 
     postBroadcastMessage(message: String!): SimplePayload!
 
-    requestReport(
+    requestProjectReport(
         projectName: String!,
         reportType: ReportType!,
         lang: ReportLang,
