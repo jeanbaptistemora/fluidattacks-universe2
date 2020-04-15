@@ -5,9 +5,7 @@ import os
 import sys
 import boto3
 from asgiref.sync import sync_to_async
-from backend.decorators import (
-    enforce_group_level_auth_async, require_login
-)
+from backend.decorators import require_login
 from backend.domain import (
     finding as finding_domain, project as project_domain,
     vulnerability as vuln_domain
@@ -43,14 +41,13 @@ def resolve_report_mutation(obj, info, **parameters):
 
 
 @require_login
-@enforce_group_level_auth_async
 # pylint: disable=too-many-locals
 async def _do_request_report(_, info, **parameters):
     success = False
     project_name = parameters.get('project_name')
     file_type = parameters.get('file_type')
     user_info = util.get_jwt_content(info.context)
-    user_email = user_info['email']
+    user_email = user_info['user_email']
     user_name = user_email.split('@')[0]
     findings = \
         await sync_to_async(
