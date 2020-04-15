@@ -38,7 +38,7 @@ def is_branch_master() -> bool:
     Return True if branch is master.
     Return False if branch is dev.
     """
-    return os.environ['CI_COMMIT_REF_NAME'] == 'master'
+    return os.environ.get('CI_COMMIT_REF_NAME') == 'master'
 
 
 def run_command(cmd: str, cwd: str, env: dict) -> Tuple[int, str, str]:
