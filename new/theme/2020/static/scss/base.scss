@@ -142,7 +142,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .fw-max { font-weight: 999; }
 .line-menu { display: none; }
 .w-image { width: 37em; }
-.fadein { animation: fadein .7s; }
+.fadein { animation: fadein .5s; }
 .mt-menu-bt { margin-top: .1rem; }
 .item-carousel { width: 24rem; }
 .h-small { height: .5rem; }
@@ -166,6 +166,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .f-key-features { font-size: 1.125rem; }
 .lh-key-features { line-height: 2.25rem; }
 .bb-form { border-bottom: 1px solid $lightblack; }
+.h-slide-bt { height: .188rem; }
+.slide-bt-trans { transition: background-color 0.6s ease; }
 
 
 // Tachyons custom responsive classes
@@ -350,4 +352,16 @@ $codeyellow: rgba(230, 219, 116, 1);
 .customer-carousel { animation: scroll 40s linear infinite;
   display: flex;
   width: calc(200px * 18);
+}
+
+.active,
+.dot:hover {
+  background-color: $button-hover
+}
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
 }

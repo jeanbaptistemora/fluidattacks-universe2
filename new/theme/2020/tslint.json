@@ -10,7 +10,8 @@
     },
     "jsRules": {},
     "rules": {
-        "no-implicit-dependencies": false
+        "no-implicit-dependencies": false,
+        "no-magic-numbers": false
     },
     "rulesDirectory": []
 }

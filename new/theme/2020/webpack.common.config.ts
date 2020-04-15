@@ -4,6 +4,7 @@ import webpack from "webpack";
 export const commonConfig: webpack.Configuration = {
   entry: {
     carousel: "./static/js/carousel.ts",
+    contactSlides: "./static/js/contactSlides.ts",
     contentHome: "./static/js/contentHome.ts",
     dynClasses: "./static/js/dynClasses.ts",
     progressBar: "./static/js/progressBar.ts",
