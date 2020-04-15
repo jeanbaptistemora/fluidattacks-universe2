@@ -87,7 +87,7 @@ async def _get_permissions(
 ) -> Dict[str, Tuple[str, ...]]:
     """Get the actions the user is allowed to perform."""
     subject = user_email
-    object_ = project_name if project_name else 'self'
+    object_ = project_name.lower() if project_name else 'self'
     enforcer = \
         authorization_utils.get_group_level_enforcer_async(subject) \
         if project_name else \

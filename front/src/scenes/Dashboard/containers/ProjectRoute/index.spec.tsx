@@ -1,39 +1,20 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
+// tslint:disable-next-line: no-import-side-effect
+import "isomorphic-fetch";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { MemoryRouter } from "react-router";
-import { ProjectRoute, ProjectRouteProps } from "./index";
+import { MemoryRouter, Route } from "react-router-dom";
+import { authzContext } from "../../../../utils/authz/config";
+import { ProjectRoute } from "./index";
 import { GET_PROJECT_ALERT, GET_PROJECT_DATA } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ProjectRoute", () => {
-
-  const mockProps: ProjectRouteProps = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { projectName: "TEST" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const projectMock: Readonly<MockedResponse> = {
     request: {
@@ -78,7 +59,7 @@ describe("ProjectRoute", () => {
   it("should render a component", async () => {
     const wrapper: ShallowWrapper = shallow(
       <MockedProvider mocks={[projectMock]} addTypename={false}>
-        <ProjectRoute {...mockProps} />
+        <ProjectRoute />
       </MockedProvider>,
     );
     await act(async () => { await wait(0); });
@@ -87,11 +68,16 @@ describe("ProjectRoute", () => {
   });
 
   it("should render alert", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility();
     (window as typeof window & Dictionary<string>).userOrganization = "Fluid";
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
         <MockedProvider mocks={[projectMock, alertMock]} addTypename={false}>
-          <ProjectRoute {...mockProps} />
+          <Route path="/project/:projectName">
+            <authzContext.Provider value={mockedPermissions}>
+              <ProjectRoute />
+            </authzContext.Provider>
+          </Route>
         </MockedProvider>
       </MemoryRouter>,
     );

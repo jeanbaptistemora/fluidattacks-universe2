@@ -95,7 +95,7 @@ class Me(ObjectType):
         """ Get the actions the user is allowed to perform """
         jwt_content = util.get_jwt_content(info.context)
         subject = jwt_content['user_email']
-        object_ = project_name if project_name else 'self'
+        object_ = project_name.lower() if project_name else 'self'
         # Using the v2 enforcer here is intentional as we need a
         # standarized list of permissions that will end up being the only one
         # once the migration finishes

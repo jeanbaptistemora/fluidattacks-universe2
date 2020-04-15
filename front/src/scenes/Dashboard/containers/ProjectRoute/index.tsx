@@ -3,20 +3,22 @@
  * readability of conditional rendering
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { PureAbility } from "@casl/ability";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
-import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
-import { authzContext, groupLevelPermissions } from "../../../../utils/authz/config";
+import { authzContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { AlertBox } from "../../components/AlertBox";
+import { GET_PERMISSIONS } from "../../queries";
 import { EventContent } from "../EventContent";
 import { FindingContent } from "../FindingContent";
 import { ProjectContent } from "../ProjectContent";
@@ -24,17 +26,30 @@ import { default as style } from "./index.css";
 import { GET_PROJECT_ALERT, GET_PROJECT_DATA, REJECT_REMOVE_PROJECT_MUTATION } from "./queries";
 import { IProjectData, IRejectRemoveProject } from "./types";
 
-export type ProjectRouteProps = RouteComponentProps<{ projectName: string }>;
-
-const projectRoute: React.FC<ProjectRouteProps> = (props: ProjectRouteProps): JSX.Element => {
-  const { projectName } = props.match.params;
+const projectRoute: React.FC = (): JSX.Element => {
+  const { projectName } = useParams<{ projectName: string }>();
+  const { path } = useRouteMatch();
   const { userOrganization } = window as typeof window & Dictionary<string>;
 
   const closeRejectProjectModal: (() => void) = (): void => {
     location.assign("/integrates/dashboard#!/home");
   };
 
+  const permissions: PureAbility<string> = React.useContext(authzContext);
+  // Side effects
+  const onProjectChange: (() => void) = (): void => {
+    permissions.update([]);
+  };
+  React.useEffect(onProjectChange, [projectName]);
+
   // GraphQL operations
+  useQuery(GET_PERMISSIONS, {
+    onCompleted: (permData: { me: { permissions: string[] } }): void => {
+      permissions.update(permData.me.permissions.map((action: string) => ({ action })));
+    },
+    variables: { projectName },
+  });
+
   const { data: alertData } = useQuery(GET_PROJECT_ALERT, {
     onError: (alertError: ApolloError): void => {
       msgError(translate.t("proj_alerts.error_textsad"));
@@ -117,21 +132,16 @@ const projectRoute: React.FC<ProjectRouteProps> = (props: ProjectRouteProps): JS
           </Modal>
         </Row>
       ) :
-        <authzContext.Provider value={groupLevelPermissions}>
+        <React.Fragment>
           {alertData?.alert.status === 1 ? <AlertBox message={alertData.alert.message} /> : undefined}
           <Switch>
-            <Route path="/project/:projectName/events/:eventId(\d+)" component={EventContent} />
-            <Route
-              path="/project/:projectName/:type(findings|drafts)/:findingId(\d+)"
-              component={FindingContent}
-            />
-            <Redirect
-              path="/project/:projectName/:findingId(\d+)"
-              to="/project/:projectName/findings/:findingId(\d+)"
-            />
-            <Route path="/project/:projectName" component={ProjectContent} />
+            <Route path={`${path}/events/:eventId(\\d+)`} component={EventContent} />
+            <Route path={`${path}/:type(findings|drafts)/:findingId(\\d+)`} component={FindingContent} />
+            {/* Necessary to support legacy URLs before finding had its own path */}
+            <Redirect path={`${path}/:findingId(\\d+)`} to={`${path}/findings/:findingId(\\d+)`} />
+            <Route path={path} component={ProjectContent} />
           </Switch>
-        </authzContext.Provider>
+        </React.Fragment>
       }
     </React.StrictMode>
   );

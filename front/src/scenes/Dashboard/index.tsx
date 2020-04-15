@@ -14,8 +14,8 @@ import { RouteComponentProps } from "react-router";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
-import { authzContext } from "../../utils/authz/config";
-import { handleGraphQLErrors, minToSec, secToMs } from "../../utils/formatHelpers";
+import { authzContext, groupLevelPermissions } from "../../utils/authz/config";
+import { handleGraphQLErrors } from "../../utils/formatHelpers";
 import { msgSuccess } from "../../utils/notifications";
 import translate from "../../utils/translations/translate";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
@@ -66,7 +66,6 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
     onCompleted: (data: { me: { permissions: string[] } }): void => {
       permissions.update(data.me.permissions.map((action: string) => ({ action })));
     },
-    pollInterval: secToMs(minToSec(1)),
   });
 
   useSubscription(GET_BROADCAST_MESSAGES, {
@@ -96,16 +95,20 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
             }}
           </ConfirmDialog>
           <div>
-          <Navbar />
-          <div className={style.container}>
-            <Switch>
-              <Route path="/home" exact={true} component={HomeView} />
-              <Route path="/reports" component={ReportsView} />
-              <Route path="/project/:projectName" component={ProjectRoute} />
-              <Route path="/portfolio/:tagName" component={TagContent} />
-              <Redirect to="/home" />
-            </Switch>
-          </div>
+            <Navbar />
+            <div className={style.container}>
+              <Switch>
+                <Route path="/home" exact={true} component={HomeView} />
+                <Route path="/reports" component={ReportsView} />
+                <Route path="/project/:projectName">
+                  <authzContext.Provider value={groupLevelPermissions}>
+                    <ProjectRoute />
+                  </authzContext.Provider>
+                </Route>
+                <Route path="/portfolio/:tagName" component={TagContent} />
+                <Redirect to="/home" />
+              </Switch>
+            </div>
           </div>
         </React.Fragment>
       </HashRouter>

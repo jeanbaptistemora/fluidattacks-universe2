@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { default as globalStyle } from "../../../../styles/global.css";
+import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
@@ -13,20 +13,12 @@ import { ProjectFindingsView } from "../ProjectFindingsView/index";
 import { ProjectForcesView } from "../ProjectForcesView";
 import { ProjectSettingsView } from "../ProjectSettingsView/index";
 import { ProjectUsersView } from "../ProjectUsersView/index";
-import { GET_ROLE } from "./queries";
 
 type IProjectContentProps = RouteComponentProps<{ projectName: string }>;
 
-const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
-  const { projectName } = props.match.params;
-
-  const { data } = useQuery<{ me: { role: string } }>(GET_ROLE, { variables: { projectName } });
-  const userRole: string = _.isUndefined(data) || _.isEmpty(data)
-    ? (window as typeof window & Dictionary<string>).userRole
-    : data.me.role;
-
-  return (
-    <React.StrictMode>
+const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => (
+  <React.StrictMode>
+    <React.Fragment>
       <React.Fragment>
         <Row>
           <Col md={12} sm={12}>
@@ -45,15 +37,14 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                       &nbsp;{translate.t("project.tabs.findings")}
                     </NavLink>
                   </li>
-                  {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
-                  {_.includes(["admin", "analyst"], userRole) ?
+                  <Can do="backend_api_resolvers_project__get_drafts">
                     <li id="draftsTab" className={globalStyle.tab}>
                       <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/drafts`}>
                         <i className="icon pe-7s-stopwatch" />
                         &nbsp;{translate.t("project.tabs.drafts")}
                       </NavLink>
                     </li>
-                    : undefined}
+                  </Can>
                   <li id="forcesTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/forces`}>
                       <i className="icon pe-7s-light" />
@@ -72,15 +63,14 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                       &nbsp;{translate.t("project.tabs.comments")}
                     </NavLink>
                   </li>
-                  {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
-                  {_.includes(["admin", "customeradmin"], userRole) ?
+                  <Can do="backend_api_resolvers_project__get_users">
                     <li id="usersTab" className={globalStyle.tab}>
                       <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/users`}>
                         <i className="icon pe-7s-users" />
                         &nbsp;{translate.t("project.tabs.users")}
                       </NavLink>
                     </li>
-                    : undefined}
+                  </Can>
                   <li id="resourcesTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/resources`}>
                       <i className="icon pe-7s-box1" />
@@ -107,8 +97,8 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
           </Col>
         </Row>
       </React.Fragment>
-    </React.StrictMode>
-  );
-};
+    </React.Fragment>
+  </React.StrictMode>
+);
 
 export { projectContent as ProjectContent };
