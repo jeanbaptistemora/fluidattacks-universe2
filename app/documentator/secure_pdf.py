@@ -13,7 +13,7 @@ class SecurePDF():
     watermark_tpl = ''
     secure_pdf_username = ''
     secure_pdf_filename = ''
-    password = ''
+    passphrase = ''
 
     def __init__(self):
         """Class constructor."""
@@ -51,15 +51,15 @@ class SecurePDF():
         return pdf_foutname
 
     def lock(self, in_filename: str) -> str:
-        """  Add a password to a PDF. """
+        """  Add a passphrase to a PDF. """
         pdf_foutname = self.secure_pdf_username + "_" + in_filename
-        self.password = get_passphrase(4)
+        self.passphrase = get_passphrase(4)
         output = PdfFileWriter()
         input = PdfFileReader(open(self.result_dir + in_filename, 'rb')) # noqa
         for i in range(0, input.getNumPages()):
             output.addPage(input.getPage(i))
         output_stream = open(self.result_dir + pdf_foutname, 'wb')
-        output.encrypt(self.password, use_128bit=True)
+        output.encrypt(self.passphrase, use_128bit=True)
         output.write(output_stream)
         output_stream.close()
         return pdf_foutname

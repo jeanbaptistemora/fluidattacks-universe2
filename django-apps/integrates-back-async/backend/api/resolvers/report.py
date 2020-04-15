@@ -77,18 +77,18 @@ async def _do_request_project_report(_, info, **parameters):
             raise ErrorUploadingFileS3()
         signed_url = cloudfront.sign_url(
             FI_CLOUDFRONT_REPORTS_DOMAIN, uploaded_file_name, 120.0)
-        reports.send_report_password_email(user_email,
-                                           project_name.lower(),
-                                           secure_pdf.password, 'PDF',
-                                           signed_url)
+        reports.send_report_passphrase_email(user_email,
+                                             project_name.lower(),
+                                             secure_pdf.passphrase, 'PDF',
+                                             signed_url)
     elif report_type == 'XLS':
         it_report = ITReport(project_name, findings_ord, user_name)
         filepath = it_report.result_filename
-        password = get_passphrase(4)
-        reports.set_xlsx_password(filepath, str(password))
-        reports.send_report_password_email(user_email,
-                                           project_name.lower(),
-                                           password, 'XLS', '')
+        passphrase = get_passphrase(4)
+        reports.set_xlsx_passphrase(filepath, str(passphrase))
+        reports.send_report_passphrase_email(user_email,
+                                             project_name.lower(),
+                                             passphrase, 'XLS', '')
         success = True
 
     return dict(success=success)
