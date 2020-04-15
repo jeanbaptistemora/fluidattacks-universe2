@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 
 export const PROJECTS_QUERY: DocumentNode = gql`
   query HomeProjects ($tagsField: Boolean!) {
-    me {
+    me(callerOrigin: "FRONT") {
       projects {
         name
         description

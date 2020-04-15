@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 
 export const GET_USERS: DocumentNode = gql`
   query GetUsersQuery($projectName: String!) {
-    me {
+    me(callerOrigin: "FRONT") {
       role(projectName: $projectName)
     }
     project(projectName: $projectName){

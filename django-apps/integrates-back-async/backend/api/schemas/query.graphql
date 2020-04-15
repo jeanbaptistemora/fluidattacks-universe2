@@ -38,7 +38,7 @@ type Query {
     ): ForcesExecutions
 
     "Me entity"
-    me: Me
+    me(callerOrigin: String): Me
 
     "Tag entity"
     tag(tag: String!): Tag

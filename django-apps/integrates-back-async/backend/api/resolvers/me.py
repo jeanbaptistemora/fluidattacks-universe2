@@ -118,6 +118,15 @@ async def _get_tags(
     return dict(tags=tags)
 
 
+async def _get_caller_origin(info, **_) -> Dict[str, List[Dict[str, str]]]:
+    """Get caller_origin."""
+    if hasattr(info.context, 'caller_origin'):
+        origin = info.context.caller_origin
+    else:
+        origin = 'API'
+    return dict(caller_origin=origin)
+
+
 async def _resolve_fields(info) -> Dict[int, Any]:
     """Async resolve fields."""
     result: Dict[int, Any] = dict()
@@ -153,8 +162,17 @@ async def _resolve_fields(info) -> Dict[int, Any]:
 
 @convert_kwargs_to_snake_case
 @require_login
-def resolve_me(_, info) -> Dict[int, Any]:
+def resolve_me(_, info, caller_origin=None) -> Dict[int, Any]:
     """Resolve Me query."""
+    jwt_content = util.get_jwt_content(info.context)
+    user_email = jwt_content.get('user_email')
+
+    info.context.caller_origin = origin = caller_origin or 'API'
+
+    util.cloudwatch_log(
+        info.context,
+        f'Security: User {user_email} is accessing '
+        f'Integrates using {origin}')  # pragma: no cover
     return util.run_async(_resolve_fields, info)
 
 

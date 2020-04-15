@@ -83,7 +83,7 @@ export const GET_PROJECT_DATA: DocumentNode = gql`
     project(projectName: $projectName){
       deletionDate
     }
-    me {
+    me(callerOrigin: "FRONT") {
       role(projectName: $projectName)
     }
   }

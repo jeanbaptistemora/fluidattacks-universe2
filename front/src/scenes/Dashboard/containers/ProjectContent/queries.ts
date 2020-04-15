@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 
 export const GET_ROLE: DocumentNode = gql`
   query GetRole($projectName: String!) {
-    me {
+    me(callerOrigin: "FRONT") {
       role(projectName: $projectName)
     }
   }

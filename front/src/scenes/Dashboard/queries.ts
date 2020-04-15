@@ -28,7 +28,7 @@ export const GET_BROADCAST_MESSAGES: DocumentNode = gql`
 
 export const GET_PERMISSIONS: DocumentNode = gql`
   query GetPermissions {
-    me {
+    me(callerOrigin: "FRONT") {
       permissions
     }
   }

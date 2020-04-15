@@ -18,7 +18,7 @@ class MeTests(TestCase):
     async def test_me(self):
         """Check Me query"""
         query = '''{
-            me {
+            me(callerOrigin: "API") {
                 accessToken
                 authorized
                 projects {
@@ -34,6 +34,7 @@ class MeTests(TestCase):
                 remember
                 role
                 permissions
+                callerOrigin
                 __typename
             }
         }'''
@@ -56,6 +57,7 @@ class MeTests(TestCase):
         assert 'me' in result['data']
         assert 'role' in result['data']['me']
         assert result['data']['me']['role'] == 'admin'
+        assert result['data']['me']['callerOrigin'] == 'API'
         assert 'projects' in result['data']['me']
         assert 'tags' in result['data']['me']
         for tag in result['data']['me']['tags']:
