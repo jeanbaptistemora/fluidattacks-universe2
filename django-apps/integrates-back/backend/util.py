@@ -545,3 +545,14 @@ def is_skippable(info, field):
         return False
     var_name = include_dir[0].arguments[0].value.name.value
     return not info.variable_values[var_name]
+
+
+def camel_case_list_dict(elements: List[Dict]) -> List[Dict]:
+    """Convert a the keys of a list of dicts to camelcase."""
+    return [
+        {
+            snakecase_to_camelcase(k): element[k]
+            for k in element
+        }
+        for element in elements
+    ]

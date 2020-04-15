@@ -105,10 +105,9 @@ async def _do_add_repositories(
 ) -> object:
     """Resolve add_repositories mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
-    repos = [{util.snakecase_to_camelcase(k): repo[k] for k in repo}
-             for repo in repos]
+    new_repos = util.camel_case_list_dict(repos)
     success = await sync_to_async(resources.create_resource)(
-        repos, project_name, 'repository', user_email)
+        new_repos, project_name, 'repository', user_email)
 
     if success:
         util.invalidate_cache(project_name)
@@ -117,7 +116,7 @@ async def _do_add_repositories(
             'Security: Added repos to '
             f'{project_name} project succesfully')  # pragma: no cover
         await sync_to_async(resources.send_mail)(
-            project_name, user_email, repos, 'added', 'repository')
+            project_name, user_email, new_repos, 'added', 'repository')
     else:
         await sync_to_async(rollbar.report_message)(
             'An error occurred adding repositories',
@@ -137,11 +136,10 @@ async def _do_add_environments(
     _, info, envs: _List[Dict[str, str]], project_name: str
 ) -> object:
     """Resolve add_environments mutation."""
-    envs = [{util.snakecase_to_camelcase(k): env[k] for k in env}
-            for env in envs]
+    new_envs = util.camel_case_list_dict(envs)
     user_email = util.get_jwt_content(info.context)['user_email']
     success = await sync_to_async(resources.create_resource)(
-        envs, project_name, 'environment', user_email)
+        new_envs, project_name, 'environment', user_email)
 
     if success:
         util.invalidate_cache(project_name)
@@ -150,7 +148,7 @@ async def _do_add_environments(
             'Security: Added envs to '
             f'{project_name} project succesfully')  # pragma: no cover
         await sync_to_async(resources.send_mail)(
-            project_name, user_email, envs, 'added', 'environment')
+            project_name, user_email, new_envs, 'added', 'environment')
     else:
         await sync_to_async(rollbar.report_message)(
             'An error occurred adding environments',
@@ -170,16 +168,17 @@ async def _do_add_files(_, info, **parameters):
     """Resolve add_files mutation."""
     success = False
     files_data = parameters['files_data']
+    new_files_data = util.camel_case_list_dict(files_data)
     uploaded_file = parameters['file']
     project_name = parameters['project_name']
     user_email = util.get_jwt_content(info.context)['user_email']
-    add_file = await sync_to_async(resources.create_file)(files_data,
+    add_file = await sync_to_async(resources.create_file)(new_files_data,
                                                           uploaded_file,
                                                           project_name,
                                                           user_email)
     if add_file:
         await sync_to_async(resources.send_mail)(
-            project_name, user_email, files_data, 'added', 'file')
+            project_name, user_email, new_files_data, 'added', 'file')
 
         success = True
     else:
@@ -206,7 +205,9 @@ async def _do_remove_files(
 ) -> object:
     """Resolve remove_files mutation."""
     success = False
-    file_name = files_data.get('file_name')
+    files_data = {re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
+                  for k, v in files_data.items()}
+    file_name = files_data.get('fileName')
     user_email = util.get_jwt_content(info.context)['user_email']
     remove_file = await \
         sync_to_async(resources.remove_file)(file_name, project_name)
