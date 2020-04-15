@@ -30,6 +30,7 @@ Resource = Dict[str, Union[
 Event = Dict[str, Union[
     str,
     Historic,
+    List[Comment],
     None
 ]]
 User = Dict[str, Union[
