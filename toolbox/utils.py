@@ -21,7 +21,7 @@ from pykwalify.errors import SchemaError
 from ruamel.yaml import YAML, safe_load
 
 # Local libraries
-from toolbox import logger, constants
+from toolbox import logger, helper
 
 
 def is_env_ci() -> bool:
@@ -272,14 +272,14 @@ def get_files_in_commit():
 def valid_commit_exp():
     commit_msg = get_commit_message()
 
-    pattern = r'(\w+)\((exp)\):\s#([0-9.]*)\s(\w+)\s([a-z-]*)'
+    pattern = r'(\w+)\((exp)\):\s#([0-9.]*)\s(\w+)\s?([a-z-]*)'
 
     if '(exp)' not in commit_msg:
         return True
 
     matchs: list = re.search(pattern, commit_msg)
     groups = matchs.groups() if matchs else None
-    if not groups or groups[-1] not in constants.EXP_LABELS:
+    if not groups:
         return False
 
     proj = groups[3]
@@ -291,3 +291,13 @@ def valid_commit_exp():
     ]
 
     return len(exploits) == 1
+
+
+def get_modified_exps():
+    """Returns the finding id of the exploits modified in the commit."""
+    findigs = []
+    for path in get_files_in_commit():
+        if '/exploits/' in path:
+            _, find = helper.forces.scan_exploit_for_kind_and_id(path)
+            findigs.append(find)
+    return findigs
