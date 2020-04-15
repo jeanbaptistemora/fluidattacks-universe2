@@ -45,7 +45,7 @@ def resolve_report_mutation(obj, info, **parameters):
 async def _do_request_report(_, info, **parameters):
     success = False
     project_name = parameters.get('project_name')
-    file_type = parameters.get('file_type')
+    report_type = parameters.get('report_type')
     user_info = util.get_jwt_content(info.context)
     user_email = user_info['user_email']
     user_name = user_email.split('@')[0]
@@ -63,8 +63,8 @@ async def _do_request_report(_, info, **parameters):
             project_domain.get_description)(project_name.lower())
 
     findings_ord = util.ord_asc_by_criticidad(findings)
-    if file_type == 'PDF':
-        pdf_maker = CreatorPDF(parameters.get('lang'), 'tech')
+    if report_type == 'PDF':
+        pdf_maker = CreatorPDF(parameters.get('lang', ''), 'tech')
         secure_pdf = SecurePDF()
         findings = pdf_evidences(findings_ord)
         report_filename = ''
@@ -81,7 +81,7 @@ async def _do_request_report(_, info, **parameters):
                                            project_name.lower(),
                                            secure_pdf.password, 'PDF',
                                            signed_url)
-    elif file_type == 'XLS':
+    elif report_type == 'XLS':
         it_report = ITReport(project_name, findings_ord, user_name)
         filepath = it_report.result_filename
         password = get_passphrase(4)

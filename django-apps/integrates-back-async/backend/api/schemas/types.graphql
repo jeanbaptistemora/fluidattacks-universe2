@@ -361,3 +361,12 @@ enum EventEvidenceType {
     FILE
     IMAGE
 }
+
+enum ReportType {
+    PDF
+    XLS
+}
+
+enum ReportLang {
+    EN
+}
