@@ -27,10 +27,6 @@ _EXTRAS_REQUIRE = {
     'with_asserts': [
         'fluidasserts',
     ],
-    'with_sorts': [
-        'pandas==1.0.3',
-        'pydriller==1.13',
-    ],
 }
 _EXTRAS_REQUIRE['with_everything'] = [
     extra_requirement
@@ -56,8 +52,10 @@ distutils.core.setup(
         'binaryornot==0.4.4',
         'frozendict==1.2',
         'okta-awscli==0.4.0',
+        'pandas==1.0.3',
         'progress==1.5',
         'prospector[with_everything]==1.2.0',
+        'pydriller==1.13',
         'pynamodb==4.3.1',
         'pykwalify==1.7.0',
         'python-dateutil==2.8.1',
