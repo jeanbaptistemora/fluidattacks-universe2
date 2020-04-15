@@ -51,7 +51,7 @@ def _is_node_an_open_result(node: NODE) -> bool:
 
 def _is_node_an_error_result(node: NODE) -> bool:
     """True if the node is an ERROR result node."""
-    return _is_node_a_result(node) and node['status'] == 'ERROR'
+    return _is_node_a_result(node) and node['status'].startswith('ERROR')
 
 
 def _is_node_a_sast_result(node: NODE) -> bool:
