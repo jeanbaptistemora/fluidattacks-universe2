@@ -1,11 +1,44 @@
 # Standard library
 import functools
+import os
+
+# Third party libraries
+import ruamel.yaml as yaml
 
 # Local libraries
 from toolbox import (
     constants,
     logger,
 )
+
+
+def get_forces_configuration(subs: str) -> dict:
+    """Scans the group configuration file and returns a dict."""
+    config_path: str = f'subscriptions/{subs}/config/config.yml'
+    config: dict = {
+        'schedules': {
+            'synchronization': {
+                'dynamic': {
+                    'run': False,
+                },
+                'static': {
+                    'run': False,
+                },
+            },
+        },
+    }
+
+    if os.path.exists(config_path):
+        with open(config_path) as config_handle:
+            config_obj = yaml.safe_load(config_handle)
+
+        if 'forces' in config_obj:
+            config['schedules']['synchronization']['dynamic'] = \
+                config_obj['forces']['schedules']['synchronization']['dynamic']
+            config['schedules']['synchronization']['static'] = \
+                config_obj['forces']['schedules']['synchronization']['static']
+
+    return config
 
 
 @functools.lru_cache(maxsize=None, typed=True)
