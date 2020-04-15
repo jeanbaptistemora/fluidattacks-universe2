@@ -639,7 +639,7 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
     if utils.is_env_ci():
         logger.info('You can run this check locally:')
         logger.info(f'  continuous $ pip3 install '
-                    f'break-build/packages/toolbox[with_fluidasserts]')
+                    f'break-build/packages/toolbox[with_asserts]')
         logger.info(f'  continuous $ fluid forces --check-sync {subs}')
     else:
         logger.info('You can check the exploits output at:')
