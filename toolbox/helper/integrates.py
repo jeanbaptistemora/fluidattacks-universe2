@@ -1,6 +1,7 @@
 # Standard library
-from typing import Any, Dict, Tuple
+import re
 import json
+from typing import Any, Dict, Tuple
 
 # Local imports
 from toolbox import api, logger
@@ -134,6 +135,20 @@ def get_finding_static_where_states(finding_id: str
         if vuln_type in SAST)
 
     return states
+
+
+def get_finding_static_repos_states(finding_id: str) -> dict:
+    """Return a dict mappin repos to its expected state (OPEN, CLOSED)."""
+    regex = re.compile(r'^([^/\\]+).*$')
+    where_states = get_finding_static_where_states(finding_id)
+    repos_states: dict = {}
+    for repo, state in map(
+            lambda x: (regex.sub(r'\1', x['path']), x['state']), where_states):
+        try:
+            repos_states[repo] = repos_states[repo] or state
+        except KeyError:
+            repos_states[repo] = state
+    return repos_states
 
 
 def get_finding_repos(finding_id: str) -> tuple:

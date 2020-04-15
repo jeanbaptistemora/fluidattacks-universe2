@@ -6,11 +6,9 @@ import re
 import sys
 import glob
 import json
-import textwrap
 import functools
 import ast
 import multiprocessing
-import datetime
 
 from time import time
 from typing import Any, Dict, List, Tuple
@@ -29,24 +27,6 @@ RE_FINDING_TITLE = re.compile(r'^\s*(\w+)[^\d]*(\d+).*$', flags=re.I)
 
 RE_SPACE_CHARS = re.compile(r'\s', flags=re.M)
 RE_NOT_ALLOWED_CHARS = re.compile(r'[^a-zá-úñÁ-ÚÑA-Z0-9\s,._]', flags=re.M)
-
-RE_EXPLOIT_NAME = re.compile(
-    r'/(?:\w+)-\d+-(\d+)\.(exp|mock\.exp|cannot.exp)$')
-
-
-@functools.lru_cache(maxsize=None, typed=True)
-def scan_exploit_for_kind_and_id(exploit_path: str) -> tuple:
-    """Scan the exploit in search of metadata."""
-    # /fin-1234-567890.exp        -> 567890, 'exp'
-    # /fin-1234-567890.mock.exp   -> 567890, 'mock.exp'
-    # /fin-1234-567890.cannot.exp -> 567890, 'cannot.exp'
-    exploit_kind, finding_id = '', ''
-    re_match = RE_EXPLOIT_NAME.search(exploit_path)
-    if re_match:
-        finding_id, exploit_kind = re_match.groups()
-    else:
-        logger.warn('no kind or id found in', exploit_path)
-    return exploit_kind, finding_id
 
 
 def sanitize_string(string: Any) -> str:
@@ -141,26 +121,6 @@ def is_valid_commit() -> bool:
     commit_msg: str = os.popen('git log --max-count 1 --format=%s').read()[:-1]
     return bool(RE_DAILY_COMMIT.search(commit_msg)) or \
         bool(RE_EXPLOITS_COMMIT.search(commit_msg))
-
-
-def is_gitlab_ci_and_master() -> bool:
-    """Return True if we are in the GitLab CI and in the master branch."""
-    return os.environ.get('CI_COMMIT_REF_NAME') == 'master'
-
-
-def get_finding_static_repos_states(finding_id: str) -> dict:
-    """Return a dict mappin repos to its expected state (OPEN, CLOSED)."""
-    regex = re.compile(r'^([^/\\]+).*$')
-    where_states = \
-        helper.integrates.get_finding_static_where_states(finding_id)
-    repos_states: dict = {}
-    for repo, state in map(
-            lambda x: (regex.sub(r'\1', x['path']), x['state']), where_states):
-        try:
-            repos_states[repo] = repos_states[repo] or state
-        except KeyError:
-            repos_states[repo] = state
-    return repos_states
 
 
 @functools.lru_cache(maxsize=None, typed=True)
@@ -261,7 +221,7 @@ def generate_exploits(subs_glob: str) -> bool:
             subscription_regex.search(exploit_path).group(1)  # type: ignore
 
         exploit_kind, finding_id = \
-            scan_exploit_for_kind_and_id(exploit_path)
+            helper.forces.scan_exploit_for_kind_and_id(exploit_path)
 
         if not exploit_kind or not finding_id:
             logger.warn(f'{exploit_path} has no (exploit-kind or finding-id)!')
@@ -330,331 +290,6 @@ def generate_exploits(subs_glob: str) -> bool:
                 exploit_path.replace('exploits', 'mocked-exploits'))
 
     return True
-
-
-def are_exploits_synced__show(outputs_to_show: List[str]):
-    """Print the results of a list of outputs."""
-    if not is_gitlab_ci_and_master():
-        logger.info('')
-        logger.info('Please check the outputs in the following files:')
-        while outputs_to_show:
-            logger.info('- ', outputs_to_show.pop())
-
-
-def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
-    """Check if exploits results are the same as on Integrates."""
-    success: bool = True
-    results: list = []
-    outputs_to_show: list = []
-    if not is_gitlab_ci_and_master():
-        logger.info(textwrap.dedent("""
-            ###################################################################
-
-            We will run your static exploits and see if they are synced.
-
-            The applied logic is:
-                Given an exploit 'E' for the finding 'F' and a repository 'R':
-                    - See the status on Integrates for the finding 'F' and the
-                        repository 'R', (OPEN, CLOSED)
-                    - Run the exploit 'E' over repository 'R' and see the
-                        status (OPEN, CLOSED, UNKNOWN, ERRORS, ETC)
-                    - Break the pipeline if the status Integrates vs Asserts
-                        differs
-
-                There are three possible outcomes:
-                    - The exploit is wrong
-                    - Integrates is wrong
-                    - Both are wrong
-
-                Please update whatever needs to be corrected.
-
-            ###################################################################
-            """))
-
-    fernet_key: str = utils.get_sops_secret(
-        f'break_build_aws_secret_access_key',
-        f'subscriptions/{subs}/config/secrets.yaml',
-        f'continuous-{subs}')
-
-    bb_resources = os.path.abspath(
-        f'subscriptions/{subs}/break-build/static/resources')
-
-    for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/break-build/static/exploits/*.exp')):
-        if '.cannot.exp' in exploit_path:
-            continue
-
-        once: bool = True
-
-        exploit_path = os.path.join(os.getcwd(), exploit_path)
-        exploit_output_path = f'{exploit_path}.out.yml'
-
-        if (exp_name or '') not in exploit_path:
-            logger.debug(f'skipped: {exploit_path}')
-            continue
-
-        finding_id = scan_exploit_for_kind_and_id(exploit_path)[1]
-        finding_title = helper.integrates.get_finding_title(finding_id)
-
-        if os.path.isfile(exploit_output_path):
-            os.remove(exploit_output_path)
-
-        integrates_status = get_finding_static_repos_states(finding_id)
-
-        local_repos: set = set(filter(
-            lambda repo: os.path.isdir(f'subscriptions/{subs}/fusion/{repo}'),
-            os.listdir(f'subscriptions/{subs}/fusion')))
-
-        integrates_repos: set = set(integrates_status.keys())
-        find_wheres = helper.integrates.get_finding_wheres(finding_id)
-
-        for repo in integrates_repos.union(local_repos):
-            analyst_status: Any = integrates_status.get(repo, False)
-            asserts_status: Any = None
-            repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
-            if os.path.isdir(repository_path):
-                asserts_status, asserts_stdout, _ = utils.run_command(
-                    cmd=(f"echo '---'                          "
-                         f"  >> '{exploit_output_path}';       "
-                         f"echo 'repository: {repo}'           "
-                         f"  >> '{exploit_output_path}';       "
-                         f"asserts -eec -n -ms '{exploit_path}'"
-                         f"  >  '{exploit_output_path}_';      "
-                         f"exit_code=$?;                       "
-                         f"cat  '{exploit_output_path}_';      "
-                         f"cat  '{exploit_output_path}_'       "
-                         f"  >> '{exploit_output_path}';       "
-                         f"rm   '{exploit_output_path}_'       "
-                         f"  >  /dev/null;                     "
-                         f"exit ${{exit_code}};                "),
-                    cwd=repository_path,
-                    env={'FA_NOTRACK': 'true',
-                         'FA_STRICT': 'true',
-                         'BB_FERNET_KEY': fernet_key,
-                         'BB_RESOURCES': bb_resources,
-                         'CURRENT_EXPLOIT_KIND': 'static'})
-            else:
-                continue
-
-            imsg = 'OPEN' if analyst_status else 'CLOSED'
-            amsg = api.asserts.get_exp_error_message(asserts_stdout) \
-                or constants.RICH_EXIT_CODES_INV.get(
-                    asserts_status, 'OTHER').upper()
-
-            asserts_summary = \
-                api.asserts.get_exp_result_summary(asserts_stdout)
-
-            repo_vulns_api = tuple(filter(
-                lambda line, rep=repo: line[2]  # type: ignore
-                and line[0] in constants.SAST
-                and line[1].startswith(rep), find_wheres))
-
-            if imsg != amsg:
-                if once:
-                    logger.info(f'    *{finding_id:<10} {finding_title}*')
-                    once = False
-                logger.info('        {i} {a}    {r}'.format(
-                    i=f'Integrates: {imsg!s:<6}',
-                    a=f'Asserts: {amsg!s:<17}',
-                    r=repo))
-                success = False
-                outputs_to_show.append(exploit_output_path)
-            results.append({
-                'datetime': datetime.datetime.now().strftime(
-                    "%Y-%m-%dT%H:%M:%SZ"),
-                'exploit_path': os.path.relpath(exploit_path),
-                'exploit_type': 'static',
-                'num_open_asserts': asserts_summary.get('vulnerabilities', 0),
-                'num_open_integrates': len(repo_vulns_api),
-                'pipeline_id': os.environ.get('CI_PIPELINE_ID', None),
-                'repository': repo,
-                'result_asserts': amsg,
-                'result_integrates': imsg,
-                'subscription': subs,
-                'synced': 'yes' if imsg == amsg else 'no',
-            })
-
-    if not success:
-        logger.info('')
-        logger.error('This subscription is new or has been synced in the past'
-                     '  please maintain it synced')
-        are_exploits_synced__show(outputs_to_show)
-
-    return success, results
-
-
-def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
-    """Check if exploits results are the same as on Integrates."""
-    success: bool = True
-    results: list = []
-    outputs_to_show: list = []
-
-    if not is_gitlab_ci_and_master():
-        logger.info(textwrap.dedent("""
-            ###################################################################
-
-            We will run your dynamic exploits and see if they are synced.
-
-            We are aware that some environments are reachable only via VPN.
-
-            For this reason, we'll only break the pipeline
-            if Asserts says 'EXPLOIT-ERROR'
-
-            The applied logic is:
-                Given an exploit 'E' for the finding 'F':
-                    - See the status on Integrates for
-                        the finding 'F', (OPEN, CLOSED)
-                    - Run the exploit 'E' and see the status
-                        (OPEN, CLOSED, UNKNOWN, ERRORS, ETC)
-                    - Report here if the status Integrates vs Asserts differ
-                    - Break the pipeline if Asserts says 'EXPLOIT-ERROR'
-
-                There are three possible outcomes:
-                    - if the environment needs VPN:
-                        - It's understandable, usually it's not your fault,
-                            if you like you can still check just to make sure
-                    - else:
-                        - The exploit is wrong
-                        - Integrates is wrong
-                        - Both are wrong
-
-                Please update whatever needs to be corrected.
-
-            ###################################################################
-            """))
-
-    fernet_key: str = utils.get_sops_secret(
-        f'break_build_aws_secret_access_key',
-        f'subscriptions/{subs}/config/secrets.yaml',
-        f'continuous-{subs}')
-
-    aws_role_arns_path = (f'subscriptions/{subs}/break-build/dynamic/'
-                          'resources/BB_AWS_ROLE_ARNS.list')
-
-    bb_resources = os.path.abspath(
-        f'subscriptions/{subs}/break-build/dynamic/resources')
-
-    aws_arn_roles = None
-    if os.path.exists(aws_role_arns_path):
-        with open(aws_role_arns_path) as file:
-            aws_arn_roles = tuple(
-                role_arn.strip() for role_arn in file.readlines() if role_arn)
-    else:
-        aws_arn_roles = ()
-
-    for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/break-build/dynamic/exploits/*.exp')):
-        if '.cannot.exp' in exploit_path:
-            continue
-
-        once: bool = True
-
-        exploit_path = os.path.join(os.getcwd(), exploit_path)
-        exploit_output_path = f'{exploit_path}.out.yml'
-
-        if (exp_name or '') not in exploit_path:
-            logger.debug(f'skipped: {exploit_path}')
-            continue
-
-        finding_id = scan_exploit_for_kind_and_id(exploit_path)[1]
-        finding_title = helper.integrates.get_finding_title(finding_id)
-        find_wheres = helper.integrates.get_finding_wheres(finding_id)
-        find_wheres = tuple(filter(
-            lambda w: w[2] and w[0] in constants.DAST, find_wheres))
-
-        if os.path.isfile(exploit_output_path):
-            os.remove(exploit_output_path)
-
-        analyst_status = helper.integrates.is_finding_open(
-            finding_id, constants.DAST)
-
-        asserts_status, asserts_stdout, _ = utils.run_command(
-            cmd=(f"asserts -eec -n -ms '{exploit_path}'"
-                 f"  >  '{exploit_output_path}_';      "
-                 f"exit_code=$?;                       "
-                 f"cat  '{exploit_output_path}_';      "
-                 f"cat  '{exploit_output_path}_'       "
-                 f"  >> '{exploit_output_path}';       "
-                 f"rm   '{exploit_output_path}_'       "
-                 f"  >  /dev/null;                     "
-                 f"exit ${{exit_code}};                "),
-            cwd=f'subscriptions/{subs}',
-            env={'FA_NOTRACK': 'true',
-                 'FA_STRICT': 'true',
-                 'BB_FERNET_KEY': fernet_key,
-                 'CURRENT_EXPLOIT_KIND': 'dynamic',
-                 'BB_RESOURCES': bb_resources,
-                 'BB_AWS_ROLE_ARNS': ','.join(aws_arn_roles)})
-
-        imsg = 'OPEN' if analyst_status else 'CLOSED'
-        amsg = api.asserts.get_exp_error_message(asserts_stdout) \
-            or constants.RICH_EXIT_CODES_INV.get(
-                asserts_status, 'OTHER').upper()
-
-        asserts_summary = \
-            api.asserts.get_exp_result_summary(asserts_stdout)
-
-        if imsg != amsg:
-            if once:
-                logger.info(f'    *{finding_id:<10} {finding_title}*')
-                once = False
-            logger.info('        {i} {a}'.format(
-                i=f'Integrates: {imsg!s:<6}', a=f'Asserts: {amsg!s:<17}'))
-            if 'ERROR' in amsg:
-                success = False
-                outputs_to_show.append(exploit_output_path)
-        results.append({
-            'datetime': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
-            'exploit_path': os.path.relpath(exploit_path),
-            'exploit_type': 'dynamic',
-            'num_open_asserts': asserts_summary.get('vulnerabilities', 0),
-            'num_open_integrates': len(find_wheres),
-            'pipeline_id': os.environ.get('CI_PIPELINE_ID', None),
-            'result_asserts': amsg,
-            'result_integrates': imsg,
-            'subscription': subs,
-            'synced': 'yes' if imsg == amsg else 'no',
-        })
-
-    if not success:
-        logger.info('')
-        msg = 'Some exploit ended with EXPLOIT-ERROR status. Please check.'
-        logger.error(msg)
-        are_exploits_synced__show(outputs_to_show)
-
-    return success, results
-
-
-def are_exploits_synced(subs: str, exp_name: str) -> bool:
-    """Check if exploits results are the same as on Integrates."""
-
-    utils.aws_login(f'continuous-{subs}')
-
-    success_static, results_static = \
-        are_exploits_synced__static(subs, exp_name)
-    success_dynamic, results_dynamic = \
-        are_exploits_synced__dynamic(subs, exp_name)
-
-    logger.info('')
-    if utils.is_env_ci():
-        logger.info('You can run this check locally:')
-        logger.info(f'  continuous $ pip3 install '
-                    f'break-build/packages/toolbox[with_asserts]')
-        logger.info(f'  continuous $ fluid forces --check-sync {subs}')
-    else:
-        logger.info('You can check the exploits output at:')
-        msg = f'  subscriptions/{subs}/break-build/*/exploits/*.exp.out.yml'
-        logger.info(msg)
-
-    with open(f'check-sync-results.{subs}.json.stream', 'w') as results_handle:
-        for json_obj in results_static + results_dynamic:
-            results_handle.write(json.dumps({
-                'stream': 'results',
-                'record': json_obj,
-            }, sort_keys=True))
-            results_handle.write('\n')
-
-    return success_static and success_dynamic
 
 
 def _run_static_exploit(
@@ -820,7 +455,7 @@ def delete_pending_vulnerabilities(subs: str,
                                    run_kind: str = 'all'):
     """Delete pending vulnerabilities for a subscription."""
     for _, vulns_path in utils.iter_vulns_path(subs, exp, run_kind):
-        _, finding_id = scan_exploit_for_kind_and_id(vulns_path)
+        _, finding_id = helper.forces.scan_exploit_for_kind_and_id(vulns_path)
 
         result = False
         exp_kind = vulns_path.split('/')[3]
@@ -845,7 +480,8 @@ def report_vulnerabilities(subs: str, vulns_name: str,
     success: bool = True
     for vulns_path, exploit_path in utils.iter_vulns_path(
             subs, vulns_name, run_kind):
-        _, finding_id = scan_exploit_for_kind_and_id(exploit_path)
+        _, finding_id = \
+            helper.forces.scan_exploit_for_kind_and_id(exploit_path)
 
         kind = vulns_path.split('/')[3]
         if not run_kind == kind and run_kind != 'all':
@@ -989,7 +625,8 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
         integrates_findings = [
             record for record in integrates_findings_
             if any([
-                record[0] in scan_exploit_for_kind_and_id(path)[1]
+                record[0]
+                in helper.forces.scan_exploit_for_kind_and_id(path)[1]
                 for path in exploit_paths
             ])
         ]

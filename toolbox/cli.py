@@ -8,7 +8,7 @@ import functools
 from typing import Pattern, Match
 
 # Local libraries
-from toolbox import analytics, logger, toolbox, resources
+from toolbox import analytics, forces, logger, toolbox, resources
 
 # We need to load some modules at run-time in order to avoid cyclic imports
 # pylint: disable=import-outside-toplevel
@@ -224,7 +224,7 @@ def main():  # noqa
                 sys.exit(0 if toolbox.lint_exploits(
                     args.subs, args.exp) else 1)
             elif args.check_sync:
-                sys.exit(0 if toolbox.are_exploits_synced(
+                sys.exit(0 if forces.quality.are_exploits_synced(
                     args.subs, args.exp) else 1)
             elif args.sync_fusion_to_s3:
                 sys.exit(0 if resources.sync_repositories_to_s3(

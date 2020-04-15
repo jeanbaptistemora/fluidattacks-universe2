@@ -9,7 +9,7 @@ import sys
 import click
 
 # Local libraries
-from toolbox import resources, toolbox, logger, analytics, utils
+from toolbox import resources, toolbox, logger, analytics, forces, utils
 
 
 EXP_METAVAR = '[<EXPLOIT | all>]'
@@ -167,8 +167,8 @@ def forces_management(subscription, check_sync, decrypt,
             sys.exit(0 if toolbox.run_static_exploits(subscription, static)
                      else 1)
     elif check_sync is not None:
-        sys.exit(0 if toolbox.are_exploits_synced(subscription, check_sync)
-                 else 1)
+        success = forces.quality.are_exploits_synced(subscription, check_sync)
+        sys.exit(0 if success else 1)
     elif fill_with_mocks:
         toolbox.fill_with_mocks(
             subs_glob=(subscription or '*'), create_files=True)

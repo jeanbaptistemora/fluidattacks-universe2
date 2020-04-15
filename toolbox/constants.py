@@ -1,5 +1,6 @@
 # Standard library
 import os
+import re
 import sys
 import traceback
 from typing import Dict
@@ -55,3 +56,6 @@ except jose.exceptions.JOSEError:
 
 
 EXP_LABELS = ('asserts-bug', 'exploit-bug', 'missing-check', 'toe-change')
+
+RE_EXPLOIT_NAME = re.compile(
+    r'/(?:\w+)-\d+-(\d+)\.(exp|mock\.exp|cannot.exp)$')

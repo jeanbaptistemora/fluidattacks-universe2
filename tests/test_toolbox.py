@@ -6,7 +6,11 @@ import sys
 import pytest
 
 # Local libraries
-from toolbox import toolbox, helper
+from toolbox import (
+    forces,
+    helper,
+    toolbox,
+)
 
 # Constants
 SUBS: str = 'continuoustest'
@@ -42,7 +46,7 @@ def test_toolbox_lint_exploits(relocate):
 
 def test_toolbox_reporting_cycle(relocate):
     """Test reporting cycle."""
-    assert toolbox.are_exploits_synced(SUBS, exp_name=None)
+    assert forces.quality.are_exploits_synced(SUBS, exp_name=None)
     assert toolbox.run_static_exploits(SUBS, exp_name=None)
     assert toolbox.run_dynamic_exploits(SUBS, exp_name=None)
     assert toolbox.get_vulnerabilities_yaml(SUBS)

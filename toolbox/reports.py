@@ -38,7 +38,7 @@ def process_exp(customer_subs, cache, exp_path):
         if subs not in customer_subs:
             return None
 
-        exp_kind, fin_id = toolbox.scan_exploit_for_kind_and_id(exp_path)
+        exp_kind, fin_id = helper.forces.scan_exploit_for_kind_and_id(exp_path)
 
         int_status = (
             'accepted'
@@ -137,7 +137,7 @@ def process_exploit(exp_path: str):
     subs = exp_path.split('/')[1]
     exp_type = exp_path.split('/')[3]
 
-    exp_kind, finding_id = toolbox.scan_exploit_for_kind_and_id(exp_path)
+    exp_kind, finding_id = helper.forces.scan_exploit_for_kind_and_id(exp_path)
 
     if exp_kind == 'cannot.exp':
         reason_pattern = r'(?::\s*(.*))'

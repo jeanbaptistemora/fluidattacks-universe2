@@ -48,6 +48,7 @@ distutils.core.setup(
         'toolbox',
         'toolbox.analytics',
         'toolbox.api',
+        'toolbox.forces',
         'toolbox.helper',
     ],
     install_requires=[
