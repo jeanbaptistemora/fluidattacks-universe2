@@ -23,16 +23,24 @@ def get_version():
     return datetime.utcnow().strftime(f'%Y.%m.{get_minor_version()}')
 
 
-_EXTRAS_REQUIRE = {
-    'with_asserts': [
-        'fluidasserts',
-    ],
-}
-_EXTRAS_REQUIRE['with_everything'] = [
-    extra_requirement
-    for extra_requirements in _EXTRAS_REQUIRE.values()
-    for extra_requirement in extra_requirements
-]
+def get_extras_require():
+    extras_require = {
+        'with_asserts': [
+            'fluidasserts',
+        ],
+    }
+    extras_require['with_everything'] = [
+        extra_requirement
+        for extra_requirements in extras_require.values()
+        for extra_requirement in extra_requirements
+    ]
+    return extras_require
+
+
+def get_install_requires():
+    with open('requirements.txt') as requirements_handle:
+        return requirements_handle.readlines()
+
 
 distutils.core.setup(
     name='fluidattacks',
@@ -49,26 +57,8 @@ distutils.core.setup(
         'toolbox.sorts',
         'toolbox.drills',
     ],
-    install_requires=[
-        'aiogqlc==1.0.3',
-        'awscli==1.17.9',
-        'binaryornot==0.4.4',
-        'frozendict==1.2',
-        'okta-awscli==0.4.0',
-        'pandas==1.0.3',
-        'progress==1.5',
-        'prospector[with_everything]==1.2.0',
-        'pydriller==1.13',
-        'pynamodb==4.3.1',
-        'pykwalify==1.7.0',
-        'python-dateutil==2.8.1',
-        'python-jose==3.0.1',
-        'requests==2.22.0',
-        'ruamel.yaml==0.16.5',
-        'simplejson==3.16.0',
-        'mandrill-really-maintained==1.2.4',
-    ],
-    extras_require=_EXTRAS_REQUIRE,
+    install_requires=get_install_requires(),
+    extras_require=get_extras_require(),
     entry_points={
         'console_scripts': [
             'fluid=toolbox.cli:main'

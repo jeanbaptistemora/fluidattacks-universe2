@@ -1,3 +1,4 @@
+include requirements.txt
 include toolbox/rules.def
 include toolbox/sorts/extensions.lst
 include toolbox/sorts/composites.lst
