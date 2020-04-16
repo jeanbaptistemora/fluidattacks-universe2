@@ -43,10 +43,10 @@ const contactSlider: (() => void) = (): void => {
       slides[i].style.display = "none";
   }
   for (i = 0; i < dots.length; i += 1) {
-      dots[i].className = dots[i].className.replace(" active", "");
+      dots[i].className = dots[i].className.replace(" active-slide", "");
   }
   slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
+  dots[slideIndex - 1].className += " active-slide";
   };
 
   // Controls the current slide and resets interval if needed

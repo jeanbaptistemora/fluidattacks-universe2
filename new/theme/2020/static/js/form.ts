@@ -2,7 +2,14 @@ import { default as $ } from "jquery";
 
 /* tslint:disable: no-unsafe-any
    this is needed so the plugin works propperly */
-const validateForm: (() => boolean) = (): boolean => {
+
+// tslint:disable-next-line: typedef
+const extendedWindow =
+  // tslint:disable-next-line: no-any
+  window as typeof window & {[key: string]: any };
+
+// tslint:disable-next-line: prefer-const
+extendedWindow.validateForm = (): boolean => {
   let valid: boolean; valid = true;
   const captchaResponse: string = grecaptcha.getResponse();
 
