@@ -2,14 +2,16 @@
 
 import asyncio
 import sys
+from typing import AsyncGenerator
 
 from backend.decorators import require_login, enforce_user_level_auth_async
+from backend.typing import SimplePayload as SimplePayloadType
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
 
 
-QUEUE = asyncio.Queue()
+QUEUE: asyncio.Queue = asyncio.Queue()
 
 
 @convert_kwargs_to_snake_case
@@ -22,13 +24,13 @@ def resolve_subscription_mutation(obj, info, **parameters):
 
 @require_login
 @enforce_user_level_auth_async
-async def _do_post_broadcast_message(*_, message):
+async def _do_post_broadcast_message(*_, message: str) -> SimplePayloadType:
     """Broadcast message mutation."""
     await QUEUE.put(message)
-    return dict(success=True)
+    return SimplePayloadType(success=True)
 
 
-async def broadcast_generator(*_):
+async def broadcast_generator(*_) -> AsyncGenerator[str, None]:
     """Broadcast message generator."""
     while True:
         event = await QUEUE.get()
@@ -36,6 +38,6 @@ async def broadcast_generator(*_):
 
 
 @require_login
-def broadcast_resolver(event, _):
+def broadcast_resolver(event: str, _) -> str:
     """Broadcast message resolver."""
     return f'Broadcast message from FluidAttacks team: {event}'
