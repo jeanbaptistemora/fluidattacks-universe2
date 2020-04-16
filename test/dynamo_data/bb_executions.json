@@ -36,7 +36,7 @@
                                             "where": {
                                                 "S": "HTTP/Implementatioooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooon"
                                             },
-                                            "who": {
+                                            "what": {
                                                 "S": "https://test.com/test/looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong"
                                             }
                                         }
@@ -62,7 +62,7 @@
                                             "where": {
                                                 "S": "HTTP/Implementation"
                                             },
-                                            "who": {
+                                            "what": {
                                                 "S": "https://test.com/test"
                                             }
                                         }
@@ -79,7 +79,7 @@
                                           "where": {
                                               "S": "HTTP/Implementation"
                                           },
-                                          "who": {
+                                          "what": {
                                               "S": "https://test.com/test"
                                           }
                                       }
@@ -139,7 +139,7 @@
                                             "where": {
                                                 "S": "55"
                                             },
-                                            "who": {
+                                            "what": {
                                                 "S": "Repository/folder/folder/file.cs"
                                             }
                                         }
@@ -152,7 +152,7 @@
                                             "where": {
                                                 "S": "3"
                                             },
-                                            "who": {
+                                            "what": {
                                                 "S": "Repository/folder/folder/file2.cs"
                                             }
                                         }
@@ -165,7 +165,7 @@
                                             "where": {
                                                 "S": "8"
                                             },
-                                            "who": {
+                                            "what": {
                                                 "S": "Repository/folder/folder/file3.cs"
                                             }
                                         }
@@ -178,7 +178,7 @@
                                             "where": {
                                                 "S": "9"
                                             },
-                                            "who": {
+                                            "what": {
                                                 "S": "Repository/folder/folder/file3.cs"
                                             }
                                         }
@@ -191,7 +191,7 @@
                                             "where": {
                                                 "S": "10"
                                             },
-                                            "who": {
+                                            "what": {
                                                 "S": "Repository/folder/folder/file4.cs"
                                             }
                                         }

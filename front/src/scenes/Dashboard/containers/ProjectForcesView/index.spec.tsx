@@ -66,22 +66,22 @@ describe("ForcesView", () => {
                   acceptedExploits: [
                     {
                       kind: "DAST",
+                      what: "https://test.com/test",
                       where: "HTTP/Implementation",
-                      who: "https://test.com/test",
                     },
                   ],
                   exploits: [
                     {
                       kind: "DAST",
+                      what: "https://test.com/test",
                       where: "HTTP/Implementation",
-                      who: "https://test.com/test",
                     },
                   ],
                   mockedExploits: [
                     {
                       kind: "DAST",
+                      what: "https://test.com/test",
                       where: "HTTP/Implementation",
-                      who: "https://test.com/test",
                     },
                   ],
                   numOfVulnerabilitiesInAcceptedExploits: 1,

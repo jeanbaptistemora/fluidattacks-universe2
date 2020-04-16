@@ -78,17 +78,17 @@ class ForcesExecutionsTests(TestCase):
                 vulnerabilities {
                   exploits {
                     kind
-                    who
+                    what
                     where
                   }
                   mockedExploits {
                     kind
-                    who
+                    what
                     where
                   }
                   acceptedExploits {
                     kind
-                    who
+                    what
                     where
                   }
                   numOfVulnerabilitiesInExploits
@@ -121,21 +121,21 @@ class ForcesExecutionsTests(TestCase):
             "exploits": [
                 {
                     "kind": "DAST",
-                    "who": "https://test.com/test",
+                    "what": "https://test.com/test",
                     "where": "HTTP/Implementation"
                 }
             ],
             "mockedExploits": [
                 {
                     "kind": "DAST",
-                    "who": "https://test.com/test",
+                    "what": "https://test.com/test",
                     "where": "HTTP/Implementation"
                 }
             ],
             "acceptedExploits": [
                 {
                     "kind": "DAST",
-                    "who": "https://test.com/test/looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
+                    "what": "https://test.com/test/looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
                     "where": "HTTP/Implementatioooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooon"
                 }
             ],
@@ -162,27 +162,27 @@ class ForcesExecutionsTests(TestCase):
             "acceptedExploits": [
                 {
                     "kind": "SAST",
-                    "who": "Repository/folder/folder/file.cs",
+                    "what": "Repository/folder/folder/file.cs",
                     "where": "55"
                 },
                 {
                     "kind": "SAST",
-                    "who": "Repository/folder/folder/file2.cs",
+                    "what": "Repository/folder/folder/file2.cs",
                     "where": "3"
                 },
                 {
                     "kind": "SAST",
-                    "who": "Repository/folder/folder/file3.cs",
+                    "what": "Repository/folder/folder/file3.cs",
                     "where": "8"
                 },
                 {
                     "kind": "SAST",
-                    "who": "Repository/folder/folder/file3.cs",
+                    "what": "Repository/folder/folder/file3.cs",
                     "where": "9"
                 },
                 {
                     "kind": "SAST",
-                    "who": "Repository/folder/folder/file4.cs",
+                    "what": "Repository/folder/folder/file4.cs",
                     "where": "10"
                 }
             ],
