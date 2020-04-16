@@ -318,13 +318,30 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
 
 def are_exploits_synced(subs: str, exp_name: str) -> bool:
     """Check if exploits results are the same as on Integrates."""
-
     utils.aws_login(f'continuous-{subs}')
 
-    success_static, results_static = \
-        are_exploits_synced__static(subs, exp_name)
-    success_dynamic, results_dynamic = \
-        are_exploits_synced__dynamic(subs, exp_name)
+    config = helper.forces.get_forces_configuration(subs)
+    config = config['schedules']['synchronization']
+
+    # Always run locally, and conditionally on the CI
+    should_run_static = \
+        not utils.is_env_ci() or config['static']['run']
+    should_run_dynamic = \
+        not utils.is_env_ci() or config['dynamic']['run']
+
+    # If we didn't run, assume it's synced
+    success_static: bool = True
+    results_static: list = []
+    if should_run_static:
+        success_static, results_static = \
+            are_exploits_synced__static(subs, exp_name)
+
+    # If we didn't run, assume it's synced
+    success_dynamic: bool = True
+    results_dynamic: list = []
+    if should_run_dynamic:
+        success_dynamic, results_dynamic = \
+            are_exploits_synced__dynamic(subs, exp_name)
 
     logger.info('')
     if utils.is_env_ci():
