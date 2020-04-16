@@ -30,10 +30,12 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:GetObject"
+      "s3:List*",
+      "s3:Get*",
+      "s3:Put*"
     ]
     resources = [
-      "arn:aws:s3:::continuous-repositories/continuoustest"
+      "arn:aws:s3:::continuous-repositories/continuoustest/*"
     ]
   }
 
