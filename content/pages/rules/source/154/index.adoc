@@ -1,7 +1,7 @@
 :slug: rules/154/
 :category: source
-:description: This document details the security requirements related to the source code that makes up the company's applications. This requirement establishes the importance of eliminating back doors when reviewing the functional requirements established in the source code.
-:keywords: Requirement, Security, Source Code, Functional Requirements, Different, Back Doors
+:description: This document details the security requirements related to the source code that makes up the company's applications. This requirement establishes the importance of eliminating back doors and other functionalities that are not part of the system's functional specification.
+:keywords: Source Code, Functional Requirements, Rootkit, Back Doors, CWE, ASVS
 :rules: yes
 
 = REQ.154 Eliminate back doors
@@ -10,3 +10,29 @@
 
 The source code of a system must not perform functions
 other than those specified in the functional requirements (back doors).
+
+== Description
+
+Sometimes, functionalities other than the ones for which a system was designed
+are included, during development, to aid the development and testing processes.
+These functions often represent back doors because they leave exposed ports
+or help in bypassing the authentication and/or authorization mechanisms.
+Therefore, they should not be part of the production environment,
+as they could become serious security threats.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor.]
+A trapdoor is a hidden piece of code that responds to a special input,
+allowing its user access to resources without passing through the normal
+security enforcement mechanism.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.3)]
+Verify that the application source code and third party libraries do not contain
+back doors,
+such as hard-coded or additional undocumented accounts or keys,
+code obfuscation, undocumented binary blobs, rootkits,
+or anti-debugging, insecure debugging features,
+or otherwise out of date, insecure, or hidden functionality that could be used
+maliciously if discovered.
