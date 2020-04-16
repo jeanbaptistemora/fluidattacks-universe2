@@ -24,3 +24,16 @@ export const GET_FINDINGS: DocumentNode = gql`
       }
     }
   }`;
+
+export const REQUEST_PROJECT_REPORT: DocumentNode = gql`
+  mutation RequestProjectReport(
+    $projectName: String!,
+    $reportType: ReportType!,
+    $lang: ReportLang) {
+      requestProjectReport(
+        projectName: $projectName,
+        reportType: $reportType,
+        lang: $lang) {
+        success
+      }
+  }`;

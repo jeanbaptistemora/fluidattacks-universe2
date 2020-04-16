@@ -5,10 +5,12 @@
  */
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
+import { useMutation } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { Button as ButtonType, ButtonToolbar, Col, Row } from "react-bootstrap";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
@@ -19,9 +21,10 @@ import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import { formatFindings, formatTreatment, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
-import { GET_FINDINGS } from "./queries";
+import { GET_FINDINGS, REQUEST_PROJECT_REPORT } from "./queries";
 import { IFindingAttr, IProjectFindingsAttr, IProjectFindingsProps } from "./types";
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
@@ -32,6 +35,17 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const [isReportsModalOpen, setReportsModalOpen] = React.useState(false);
   const openReportsModal: (() => void) = (): void => { setReportsModalOpen(true); };
   const closeReportsModal: (() => void) = (): void => { setReportsModalOpen(false); };
+
+  const [requestProjectReport] = useMutation(REQUEST_PROJECT_REPORT, {
+    onCompleted: (): void => {
+      msgSuccess(
+        translate.t(""),
+        translate.t("proj_alerts.title_success"));
+    },
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+    },
+  });
 
   const handleTechPdfClick: (() => void) = (): void => {
     const newTab: Window | null = window.open(`/integrates/pdf/en/project/${projectName}/tech/`, "_blank");
@@ -271,6 +285,21 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
           return finding;
         });
 
+        /* tslint:disable:no-unused-variable */
+        const handleRequestProjectReport: ((event: React.MouseEvent<HTMLElement | ButtonType>) => void) =
+        (event: React.MouseEvent<HTMLElement | ButtonType>): void => {
+          const target: HTMLElement = event.currentTarget as HTMLElement;
+          const span: HTMLSpanElement | null = target.querySelector("span");
+          if (span !== null) {
+            const reportType: string = span.className
+                                            .includes("pdf") ? "PDF" : "XLS";
+            requestProjectReport({variables: {
+              projectName, reportType,
+            }})
+            .catch();
+          }
+        };
+
         return (
           <React.StrictMode>
             <Row>
@@ -298,38 +327,38 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
               search={true}
               striped={true}
             />
-            <Modal
-              open={isReportsModalOpen}
-              footer={<div />}
-              headerTitle={translate.t("project.findings.report.modal_title")}
-            >
-              <Row className={style.modalContainer}>
-                <Col md={12} id="techReport">
-                  <h3>{translate.t("project.findings.report.tech_title")}</h3>
-                  <Trans>
-                    <p>{translate.t("project.findings.report.tech_description")}</p>
-                  </Trans>
-                  <br />
-                  <Row>
-                    <Col md={12} className={style.downloadButtonsContainer}>
-                      <ButtonToolbar>
-                        <Button onClick={handleTechPdfClick}>
-                          <FontAwesome name="file-pdf-o" />&nbsp;PDF
-                            </Button>
-                        <Button onClick={handleTechXlsClick}>
-                          <FontAwesome name="file-excel-o" />&nbsp;XLS
-                            </Button>
-                      </ButtonToolbar>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-              <ButtonToolbar className="pull-right">
-                <Button onClick={closeReportsModal}>
-                  {translate.t("project.findings.report.modal_close")}
-                </Button>
-              </ButtonToolbar>
-            </Modal>
+              <Modal
+                open={isReportsModalOpen}
+                footer={<div />}
+                headerTitle={translate.t("project.findings.report.modal_title")}
+              >
+                <Row className={style.modalContainer}>
+                  <Col md={12} id="techReport">
+                    <h3>{translate.t("project.findings.report.tech_title")}</h3>
+                    <Trans>
+                      <p>{translate.t("project.findings.report.tech_description")}</p>
+                    </Trans>
+                    <br />
+                    <Row>
+                      <Col md={12} className={style.downloadButtonsContainer}>
+                        <ButtonToolbar>
+                          <Button onClick={handleTechPdfClick}>
+                            <FontAwesome name="file-pdf-o" />&nbsp;PDF
+                              </Button>
+                          <Button onClick={handleTechXlsClick}>
+                            <FontAwesome name="file-excel-o" />&nbsp;XLS
+                              </Button>
+                        </ButtonToolbar>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <ButtonToolbar className="pull-right">
+                  <Button onClick={closeReportsModal}>
+                    {translate.t("project.findings.report.modal_close")}
+                  </Button>
+                </ButtonToolbar>
+              </Modal>
           </React.StrictMode>
         );
       }}

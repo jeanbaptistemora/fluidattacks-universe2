@@ -26,3 +26,9 @@ export interface IFindingAttr {
   verified: boolean;
   vulnerabilities: Array<{ where: string }>;
 }
+
+export interface IRequestProjectReportResult {
+  requestProjectReport: {
+    success: boolean;
+  };
+}
