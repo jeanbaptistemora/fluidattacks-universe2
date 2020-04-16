@@ -8,7 +8,7 @@
 
 == Requirement
 
-System must use parameterized sentences
+The system must use parameterized sentences
 or parameterized stored procedures
 to create dynamic sentences (e.g *java.sql.PreparedStatement*).
 

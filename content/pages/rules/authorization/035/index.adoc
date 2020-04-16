@@ -9,3 +9,7 @@
 == Requirement
 
 The system must not allow system actors to modify privileges for themselves.
+
+== Findings
+
+* link:/web/findings/0005/[FIN.S.0005. Privilege escalation]
