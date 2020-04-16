@@ -43,6 +43,7 @@ User = Dict[str, Union[
 Alert = Dict[str, Union[
     int, str
 ]]
+InternalProject = Dict[str, str]
 ExploitResult = Dict[str, str]
 ExecutionVulnerabilities = Dict[str, Union[
     int,

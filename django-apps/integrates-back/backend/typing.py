@@ -59,6 +59,7 @@ User = Dict[str, Union[
 Alert = Dict[str, Union[
     int, str
 ]]
+InternalProject = Dict[str, str]
 AddUserPayload = NamedTuple('AddUserPayload', [
     ('success', bool),
     ('email', str),
