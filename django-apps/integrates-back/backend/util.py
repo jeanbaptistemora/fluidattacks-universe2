@@ -19,7 +19,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
 from graphql import GraphQLError
 try:
-    from graphql.language.ast import NameNode, VariableNode
+    from graphql.language.ast import BooleanValueNode, NameNode, VariableNode
 except ImportError:
     # Old graphql
     pass
@@ -545,6 +545,13 @@ def is_skippable(info, field):
     )
     if not include_dir:
         return False
+    arg_val = include_dir[0].arguments[0].value
+    if isinstance(arg_val, NameNode):
+        var_name = include_dir[0].arguments[0].value.name.value
+        return not info.variable_values[var_name]
+    if isinstance(arg_val, BooleanValueNode):
+        var_name = include_dir[0].arguments[0].value.value
+        return not var_name
     var_name = include_dir[0].arguments[0].value.name.value
     return not info.variable_values[var_name]
 
