@@ -37,7 +37,7 @@ _EXTRAS_REQUIRE['with_everything'] = [
 distutils.core.setup(
     name='fluidattacks',
     version=get_version(),
-    description='Fluid attacks Toolkit and SDK',
+    description='Fluid Attacks Toolkit and SDK',
     author='Fluid Attacks',
     author_email='engineering@fluidattacks.com',
     packages=[
