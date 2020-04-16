@@ -7,6 +7,7 @@ from toolbox import (
     reports,
     toolbox,
     sorts,
+    drills,
 )
 
 # Imported but unused
@@ -17,3 +18,4 @@ assert logger
 assert reports
 assert toolbox
 assert sorts
+assert drills

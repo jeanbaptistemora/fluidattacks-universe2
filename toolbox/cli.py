@@ -10,7 +10,16 @@ import sys
 import click
 
 # Local libraries
-from toolbox import resources, toolbox, logger, analytics, forces, sorts, utils
+from toolbox import (
+    resources,
+    toolbox,
+    logger,
+    analytics,
+    forces,
+    sorts,
+    utils,
+    drills
+)
 
 
 EXP_METAVAR = '[<EXPLOIT | all>]'
@@ -188,6 +197,21 @@ def forces_management(subscription, check_sync, decrypt,
         sys.exit(0 if toolbox.init_secrets(subscription) else 1)
 
 
+@click.command(name='drills', short_help='Tools for ToE analysis')
+@click.argument(
+    'subscription',
+    default=_get_actual_subscription(),
+    callback=_valid_subscription)
+@click.option(
+    '--generate-commit-message',
+    is_flag=True,
+    help='Generate drills commit message for a subscription.')
+def drills_management(subscription, generate_commit_message):
+    """Perform operations with the drills service."""
+    if generate_commit_message:
+        sys.exit(0 if drills.toe.generate_commit_message(subscription) else 1)
+
+
 @click.command(name='integrates', short_help='use the integrates API')
 @click.argument(
     'kind', type=click.Choice(['dynamic', 'static', 'all']), default='all')
@@ -285,6 +309,7 @@ cli.add_command(forces_management)
 cli.add_command(integrates_management)
 cli.add_command(utils_management)
 cli.add_command(sorts_management)
+cli.add_command(drills_management)
 
 
 def retry_debugging_on_failure(func):

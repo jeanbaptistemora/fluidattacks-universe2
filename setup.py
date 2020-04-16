@@ -47,6 +47,7 @@ distutils.core.setup(
         'toolbox.forces',
         'toolbox.helper',
         'toolbox.sorts',
+        'toolbox.drills',
     ],
     install_requires=[
         'aiogqlc==1.0.3',
