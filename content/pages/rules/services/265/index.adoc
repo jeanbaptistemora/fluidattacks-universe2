@@ -19,6 +19,10 @@ They must also have a clear definition of user privileges and roles.
 Functions that execute critical business processes should only be available for
 authenticated users with roles with enough privileges.
 
+== Findings
+
+* link:/web/findings/0004/[FIN.S.0004. Remote command execution]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/269.html[CWE-269: Improper Privilege Management]
