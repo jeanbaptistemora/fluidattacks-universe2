@@ -21,7 +21,7 @@ from pykwalify.errors import SchemaError
 from ruamel.yaml import YAML, safe_load
 
 # Local libraries
-from toolbox import logger, helper
+from toolbox import logger, helper, constants
 
 
 def is_env_ci() -> bool:
@@ -279,7 +279,9 @@ def valid_commit_exp():
 
     matchs: list = re.search(pattern, commit_msg)
     groups = matchs.groups() if matchs else None
-    if not groups:
+
+    if not groups or (len(groups) == 4 and groups[0] == 'fix'
+                      and groups[4] not in constants.EXP_LABELS):
         return False
 
     proj = groups[3]

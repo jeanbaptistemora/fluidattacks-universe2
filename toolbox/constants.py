@@ -55,7 +55,7 @@ except jose.exceptions.JOSEError:
     sys.exit(78)
 
 
-EXP_LABELS = ('asserts-bug', 'exploit-bug', 'missing-check', 'toe-change')
-
+EXP_LABELS = ('product-ch', 'product-ch', 'product-fn',
+              'service-logic', 'toe-location', 'toe-resource', 'toe-unreach')
 RE_EXPLOIT_NAME = re.compile(
     r'/(?:\w+)-\d+-(\d+)\.(exp|mock\.exp|cannot.exp)$')
