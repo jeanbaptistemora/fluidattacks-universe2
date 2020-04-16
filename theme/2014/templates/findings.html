@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block meta %}
+<meta name="description"
+      content="{{ page.description }}">
+<meta name="keywords"
+      content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "en" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+  <div class="pv0 ph2 shadow-4">
+    <!-- navcontent-info -->
+    <div class="df ma-auto">
+      <div class="montsy f6-l f7 tl ttc w-70-l w-100 ma-auto">
+        <ul class="dib list w-100">
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href="{{ SITEURL }}/">
+              <strong>Home</strong>&nbsp;
+            </a>
+            <span class="c-fluid-red v-mid b">&gt;</span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href=".">&nbsp;{{ page.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/{{ page.url }}">
+{% endblock canonical %}
+
+{% block content %}
+  <article class="ma-auto tl mw8 pb4">
+    <h1 class="tc pb3">
+      {{ page.title }}
+    </h1>
+  </article>
+{% endblock content %}
