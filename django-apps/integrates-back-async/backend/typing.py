@@ -2,6 +2,7 @@
 # module about UPPER_CASE naming style with every variable declared here
 # pylint: disable-all
 
+from datetime import datetime
 from decimal import Decimal
 from typing import List, Dict, Union, Set, NamedTuple
 
@@ -41,6 +42,21 @@ User = Dict[str, Union[
 ]]
 Alert = Dict[str, Union[
     int, str
+]]
+ExploitResult = Dict[str, str]
+ExecutionVulnerabilities = Dict[str, Union[
+    int,
+    List[ExploitResult]
+]]
+ForcesExecution = Dict[str, Union[
+    str,
+    datetime,
+    ExecutionVulnerabilities
+]]
+ForcesExecutions = Dict[str, Union[
+    str,
+    List[ForcesExecution],
+    None
 ]]
 AddUserPayload = NamedTuple('AddUserPayload', [
     ('success', bool),

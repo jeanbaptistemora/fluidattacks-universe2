@@ -4,6 +4,7 @@
 # this is necessary for importing types from typing
 # pylint: disable=import-self
 
+from datetime import datetime
 from decimal import Decimal
 from typing import List, Dict, Union, Set, NamedTuple
 
@@ -31,6 +32,21 @@ Event = Dict[str, Union[
     str,
     Historic,
     List[Comment],
+    None
+]]
+ExploitResult = Dict[str, str]
+ExecutionVulnerabilities = Dict[str, Union[
+    int,
+    List[ExploitResult]
+]]
+ForcesExecution = Dict[str, Union[
+    str,
+    datetime,
+    ExecutionVulnerabilities
+]]
+ForcesExecutions = Dict[str, Union[
+    str,
+    List[ForcesExecution],
     None
 ]]
 User = Dict[str, Union[

@@ -505,6 +505,7 @@ function job_lint_back {
         django-apps/integrates-back-async/backend/api/resolvers/cache.py \
         django-apps/integrates-back-async/backend/api/resolvers/event.py \
         django-apps/integrates-back-async/backend/api/resolvers/finding.py \
+        django-apps/integrates-back-async/backend/api/resolvers/forces.py \
         django-apps/integrates-back-async/backend/api/resolvers/me.py \
         django-apps/integrates-back-async/backend/api/resolvers/user.py \
         django-apps/integrates-back-async/backend/api/resolvers/vulnerability.py \
