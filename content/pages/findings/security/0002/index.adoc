@@ -1,0 +1,20 @@
+:slug: findings/0002/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about asymmetric denial-of-service attacks, recommendations to avoid them and related security requirements.
+:keywords: Asymmetric, DoS, Denial of Service, Server, Response Time, Amplification Attack
+:findings: yes
+:type: security
+
+= FIN.S.0002. Asymmetric denial of service
+
+== Description
+
+The server is rendered unresponsive as a result of one of the following:
+
+* An amplification attack,
+which uses a single request to produce multiple responses.
+* A single malicious request that breaks the application or consumes a
+humongous amount of resources.
+
+== Rules
+
+. [[r1]] link:/web/rules/072/[REQ.072 Set maximum response time]

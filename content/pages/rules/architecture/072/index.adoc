@@ -19,6 +19,10 @@ It is also important when it comes to usability and reliance.
 For these reasons the response time must not surpass 5 seconds when the
 number of concurrent users reaches its peak.
 
+== Findings
+
+* link:/web/findings/0002/[FIN.S.0002. Asymmetric denial of service]
+* link:/web/findings/0003/[FIN.S.0003. Symmetric denial of service]
 
 == References
 
