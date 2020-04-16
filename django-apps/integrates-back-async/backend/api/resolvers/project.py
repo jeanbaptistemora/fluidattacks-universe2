@@ -414,15 +414,24 @@ async def resolve(info, project_name, as_field=False):
         if as_field else info.field_nodes[0].selection_set.selections
 
     for requested_field in requested_fields:
-        snake_field = convert_camel_case_to_snake(requested_field.name.value)
-        if snake_field.startswith('_'):
+        if util.is_skippable(info, requested_field):
+            continue
+        params = {
+            'project_name': project_name
+        }
+        field_params = util.get_field_parameters(requested_field)
+        if field_params:
+            params.update(field_params)
+        requested_field = \
+            convert_camel_case_to_snake(requested_field.name.value)
+        if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
             sys.modules[__name__],
-            f'_get_{snake_field}'
+            f'_get_{requested_field}'
         )
         future = asyncio.ensure_future(
-            resolver_func(info, project_name=project_name)
+            resolver_func(info, **params)
         )
         tasks.append(future)
     tasks_result = await asyncio.gather(*tasks)

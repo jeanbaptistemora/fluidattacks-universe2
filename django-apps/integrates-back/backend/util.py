@@ -536,6 +536,8 @@ def get_field_parameters(field, variable_values=None):
 
 def is_skippable(info, field):
     """Check if field is need to be skipped."""
+    if not hasattr(field, 'directives'):
+        return False
     if not field.directives:
         return False
     include_dir = list(

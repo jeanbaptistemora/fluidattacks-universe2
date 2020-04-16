@@ -126,6 +126,8 @@ async def resolve(info, email, project_name, as_field=False):
             if as_field else info.field_nodes[0].selection_set.selections
 
     for requested_field in requested_fields:
+        if util.is_skippable(info, requested_field):
+            continue
         if isinstance(requested_field, str):
             requested_field = convert_camel_case_to_snake(requested_field)
         else:
