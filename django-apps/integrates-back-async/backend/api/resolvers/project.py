@@ -5,6 +5,7 @@ import asyncio
 import sys
 import time
 
+from typing import Dict, List
 import simplejson as json
 from asgiref.sync import sync_to_async
 import rollbar
@@ -23,19 +24,26 @@ from backend.domain import (
     user as user_domain,
     vulnerability as vuln_domain
 )
+from backend.typing import (
+    Comment as CommentType,
+    Event as EventType,
+    Finding as FindingType,
+    Project as ProjectType,
+    User as UserType
+)
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 @sync_to_async
-def _get_name(_, project_name):
+def _get_name(_, project_name: str) -> Dict[str, str]:
     """Get name."""
     return dict(name=project_name)
 
 
 @get_entity_cache_async
-async def _get_remediated_over_time(_, project_name):
+async def _get_remediated_over_time(_, project_name: str) -> Dict[str, str]:
     """Get remediated_over_time."""
     remediated_over_time = await \
         sync_to_async(project_domain.get_attributes)(
@@ -51,7 +59,7 @@ async def _get_remediated_over_time(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_has_drills(_, project_name):
+async def _get_has_drills(_, project_name: str) -> Dict[str, bool]:
     """Get has_drills."""
     attributes = await \
         sync_to_async(project_domain.get_attributes)(
@@ -61,7 +69,7 @@ async def _get_has_drills(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_has_forces(_, project_name):
+async def _get_has_forces(_, project_name: str) -> Dict[str, bool]:
     """Get has_forces."""
     attributes = await \
         sync_to_async(project_domain.get_attributes)(
@@ -71,7 +79,8 @@ async def _get_has_forces(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_findings(info, project_name):
+async def _get_findings(
+        info, project_name: str) -> Dict[str, List[Dict[str, FindingType]]]:
     """Resolve findings attribute."""
     await sync_to_async(util.cloudwatch_log)(
         info.context,
@@ -89,7 +98,7 @@ async def _get_findings(info, project_name):
 
 
 @get_entity_cache_async
-async def _get_open_vulnerabilities(info, project_name):
+async def _get_open_vulnerabilities(info, project_name: str) -> Dict[str, int]:
     """Get open_vulnerabilities."""
     finding_ids = await \
         sync_to_async(finding_domain.filter_deleted_findings)(
@@ -112,7 +121,8 @@ async def _get_open_vulnerabilities(info, project_name):
 
 
 @get_entity_cache_async
-async def _get_closed_vulnerabilities(info, project_name):
+async def _get_closed_vulnerabilities(info,
+                                      project_name: str) -> Dict[str, int]:
     """Get closed_vulnerabilities."""
     finding_ids = await \
         sync_to_async(finding_domain.filter_deleted_findings)(
@@ -135,7 +145,7 @@ async def _get_closed_vulnerabilities(info, project_name):
 
 
 @get_entity_cache_async
-async def _get_pending_closing_check(_, project_name):
+async def _get_pending_closing_check(_, project_name: str) -> Dict[str, int]:
     """Get pending_closing_check."""
     pending_closing_check = await \
         sync_to_async(project_domain.get_pending_closing_check)(project_name)
@@ -143,7 +153,7 @@ async def _get_pending_closing_check(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_last_closing_vuln(_, project_name):
+async def _get_last_closing_vuln(_, project_name: str) -> Dict[str, int]:
     """Get last_closing_vuln."""
     last_closing_vuln = await \
         sync_to_async(project_domain.get_attributes)(
@@ -154,7 +164,7 @@ async def _get_last_closing_vuln(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_max_severity(info, project_name):
+async def _get_max_severity(info, project_name: str) -> Dict[str, float]:
     """Get max_severity."""
     finding_ids = await sync_to_async(finding_domain.filter_deleted_findings)(
         project_domain.list_findings(project_name))
@@ -168,7 +178,7 @@ async def _get_max_severity(info, project_name):
 
 
 @get_entity_cache_async
-async def _get_max_open_severity(_, project_name):
+async def _get_max_open_severity(_, project_name: str) -> Dict[str, float]:
     """Resolve maximum severity in open vulnerability attribute."""
     max_open_severity = await \
         sync_to_async(project_domain.get_attributes)(
@@ -179,7 +189,7 @@ async def _get_max_open_severity(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_mean_remediate(_, project_name):
+async def _get_mean_remediate(_, project_name: str) -> Dict[str, int]:
     """Get mean_remediate."""
     mean_remediate = await \
         sync_to_async(project_domain.get_attributes)(
@@ -190,7 +200,8 @@ async def _get_mean_remediate(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_mean_remediate_low_severity(_, project_name):
+async def _get_mean_remediate_low_severity(
+        _, project_name: str) -> Dict[str, int]:
     """Get mean_remediate_low_severity."""
     mean_remediate_low_severity = await \
         sync_to_async(project_domain.get_attributes)(
@@ -202,7 +213,8 @@ async def _get_mean_remediate_low_severity(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_mean_remediate_medium_severity(_, project_name):
+async def _get_mean_remediate_medium_severity(
+        _, project_name: str) -> Dict[str, int]:
     """Get mean_remediate_medium_severity."""
     mean_remediate_medium_severity = await \
         sync_to_async(project_domain.get_attributes)(
@@ -214,7 +226,8 @@ async def _get_mean_remediate_medium_severity(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_mean_remediate_high_severity(_, project_name):
+async def _get_mean_remediate_high_severity(
+        _, project_name: str) -> Dict[str, int]:
     """Get mean_remediate_high_severity."""
     mean_remediate_high_severity = await \
         sync_to_async(project_domain.get_attributes)(
@@ -226,7 +239,8 @@ async def _get_mean_remediate_high_severity(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_mean_remediate_critical_severity(_, project_name):
+async def _get_mean_remediate_critical_severity(
+        _, project_name: str) -> Dict[str, int]:
     """Get mean_remediate_critical_severity."""
     mean_critical_remediate = await \
         sync_to_async(project_domain.get_attributes)(
@@ -238,7 +252,7 @@ async def _get_mean_remediate_critical_severity(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_total_findings(info, project_name):
+async def _get_total_findings(info, project_name: str) -> Dict[str, int]:
     """Get total_findings."""
     finding_ids = await \
         sync_to_async(finding_domain.filter_deleted_findings)(
@@ -253,7 +267,7 @@ async def _get_total_findings(info, project_name):
 
 
 @get_entity_cache_async
-async def _get_total_treatment(_, project_name):
+async def _get_total_treatment(_, project_name: str) -> Dict[str, str]:
     """Get total_treatment."""
     total_treatment = await \
         sync_to_async(project_domain.get_attributes)(
@@ -266,7 +280,7 @@ async def _get_total_treatment(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_current_month_authors(_, project_name):
+async def _get_current_month_authors(_, project_name: str) -> Dict[str, int]:
     """Get current_month_authors."""
     current_month_authors = await \
         sync_to_async(project_domain.get_current_month_authors)(
@@ -276,7 +290,7 @@ async def _get_current_month_authors(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_current_month_commits(_, project_name):
+async def _get_current_month_commits(_, project_name: str) -> Dict[str, int]:
     """Get current_month_commits."""
     current_month_commits = await \
         sync_to_async(project_domain.get_current_month_commits)(
@@ -286,7 +300,7 @@ async def _get_current_month_commits(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_subscription(_, project_name):
+async def _get_subscription(_, project_name: str) -> Dict[str, str]:
     """Get subscription."""
     project_info = await \
         sync_to_async(project_domain.get_attributes)(
@@ -297,7 +311,7 @@ async def _get_subscription(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_deletion_date(_, project_name):
+async def _get_deletion_date(_, project_name: str) -> Dict[str, str]:
     """Get deletion_date."""
     historic_deletion = await \
         sync_to_async(project_domain.get_historic_deletion)(project_name)
@@ -308,7 +322,7 @@ async def _get_deletion_date(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_user_deletion(_, project_name):
+async def _get_user_deletion(_, project_name: str) -> Dict[str, str]:
     """Get user_deletion."""
     user_deletion = ''
     historic_deletion = await \
@@ -319,7 +333,7 @@ async def _get_user_deletion(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_tags(_, project_name):
+async def _get_tags(_, project_name: str) -> Dict[str, List[str]]:
     """Get tags."""
     project_data = await \
         sync_to_async(project_domain.get_attributes)(project_name, ['tag'])
@@ -329,7 +343,7 @@ async def _get_tags(_, project_name):
 
 
 @get_entity_cache_async
-async def _get_description(_, project_name):
+async def _get_description(_, project_name: str)-> Dict[str, str]:
     """Get description."""
     description = await \
         sync_to_async(project_domain.get_description)(project_name)
@@ -337,7 +351,8 @@ async def _get_description(_, project_name):
 
 
 @enforce_group_level_auth_async
-async def _get_comments(info, project_name):
+async def _get_comments(info,
+                        project_name: str) -> Dict[str, List[CommentType]]:
     """Get comments."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
@@ -348,7 +363,8 @@ async def _get_comments(info, project_name):
 
 
 @enforce_group_level_auth_async
-async def _get_drafts(info, project_name):
+async def _get_drafts(
+        info, project_name: str) -> Dict[str, List[Dict[str, FindingType]]]:
     """Get drafts."""
     await sync_to_async(util.cloudwatch_log)(
         info.context,
@@ -366,7 +382,7 @@ async def _get_drafts(info, project_name):
 
 
 @enforce_group_level_auth_async
-async def _get_events(info, project_name):
+async def _get_events(info, project_name: str) -> Dict[str, List[EventType]]:
     """Get events."""
     await sync_to_async(util.cloudwatch_log)(
         info.context,
@@ -379,7 +395,7 @@ async def _get_events(info, project_name):
 
 
 @enforce_group_level_auth_async
-async def _get_users(info, project_name):
+async def _get_users(info, project_name: str) -> Dict[str, List[UserType]]:
     """Get users."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
@@ -404,9 +420,10 @@ async def _get_users(info, project_name):
     return dict(users=users)
 
 
-async def resolve(info, project_name, as_field=False):
+async def resolve(info, project_name: str,
+                  as_field: bool = False) -> ProjectType:
     """Async resolve fields."""
-    result = dict()
+    result: ProjectType = dict()
     tasks = list()
     requested_fields = \
         util.get_requested_fields(
@@ -444,7 +461,7 @@ async def resolve(info, project_name, as_field=False):
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_project(_, info, project_name):
+def resolve_project(_, info, project_name: str) -> ProjectType:
     """Resolve project query."""
     project_name = project_name.lower()
     return util.run_async(resolve, info, project_name)
