@@ -100,7 +100,7 @@ in rec {
       modules.build.pythonPackageLocal ../../analytics/singer/target_redshift;
 
     python.continuousToolbox =
-      modules.build.pythonPackage "continuous-toolbox";
+      modules.build.pythonPackage "fluidattacks";
 
     python.mandrill =
       modules.build.pythonPackage "mandrill-really-maintained==1.2.4";

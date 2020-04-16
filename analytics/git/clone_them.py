@@ -39,6 +39,10 @@ def clone(subs_path) -> None:
         os.symlink(repo_path, repo_git_path)
 
 
+def _sync_to_s3(subs_path):
+    run_command('fluid resources --sync-fusion-to-s3', cwd=subs_path)
+
+
 def open_vpn(subs_path) -> None:
     """Clone a subs_path which requires a vpn connection."""
     _, output = run_command('yes 2 | fluid utils --vpn', cwd=subs_path)
@@ -52,6 +56,7 @@ def main() -> None:
     subs_paths = glob.glob(f'/git/fluidattacks/continuous/subscriptions/*')
     for subs_path in subs_paths:
         clone(subs_path)
+        _sync_to_s3(subs_path)
 
 
 if __name__ == '__main__':
