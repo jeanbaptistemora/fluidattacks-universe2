@@ -26,6 +26,17 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     ]
   }
 
+  # S3 read continuoustest bucket continuous-repositories
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:GetObject"
+    ]
+    resources = [
+      "arn:aws:s3:::continuous-repositories/continuoustest"
+    ]
+  }
+
   # ECR Auth Token
   statement {
       sid = "ecrBreakBuildAdminAuthToken"
