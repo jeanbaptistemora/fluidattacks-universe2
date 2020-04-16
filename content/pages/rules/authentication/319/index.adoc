@@ -18,6 +18,10 @@ their identity.
 All of these options must have the same security control strength,
 so that there is no weaker alternative.
 
+== Findings
+
+* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence of evasion]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]

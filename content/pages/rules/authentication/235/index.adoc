@@ -10,3 +10,7 @@
 
 The authentication must have a separate interface for on-screen credentials
 input.
+
+== Findings
+
+* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence of evasion]

@@ -11,6 +11,10 @@
 Systems with critical information must define a component
 for biometric verification during authentication process.
 
+== Findings
+
+* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence of evasion]
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/recitals/no-64/[GDPR. Recital 64: Identity verification].

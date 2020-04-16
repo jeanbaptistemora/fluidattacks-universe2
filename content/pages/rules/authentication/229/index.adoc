@@ -19,6 +19,10 @@ These resources should be protected by a secure authentication mechanism that
 prevents unauthorized actors from accessing them.
 The authentication mechanism should request at least a username and a password.
 
+== Findings
+
+* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence of evasion]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function]

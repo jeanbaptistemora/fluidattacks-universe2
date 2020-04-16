@@ -21,6 +21,10 @@ Whenever a non-authenticated actor attempts to access those resources,
 the system must notify them that the resources are only available to authorized
 users.
 
+== Findings
+
+* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence of evasion]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
