@@ -145,30 +145,6 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         return self.closing_date
 
 
-class UpdateEvent(Mutation):
-    """Update event status."""
-
-    class Arguments():
-        event_id = String(required=True)
-    success = Boolean()
-
-    @staticmethod
-    @require_login
-    @enforce_group_level_auth
-    @require_event_access
-    def mutate(_, info, event_id, **kwargs):
-        success = event_domain.update_event(event_id, **kwargs)
-        if success:
-            project_name = event_domain.get_event(event_id).get('project_name')
-            util.invalidate_cache(event_id)
-            util.invalidate_cache(project_name)
-            util.cloudwatch_log(
-                info.context,
-                f'Security: Updated event {event_id} succesfully')
-
-        return UpdateEvent(success=success)
-
-
 class SolveEvent(Mutation):
     """ Marks an event as solved """
     class Arguments():

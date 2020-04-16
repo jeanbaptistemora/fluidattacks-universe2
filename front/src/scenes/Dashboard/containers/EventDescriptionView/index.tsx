@@ -23,7 +23,7 @@ import { dateTimeBeforeToday, numeric, required, validDatetime } from "../../../
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
 import { GET_EVENT_HEADER } from "../EventContent/queries";
-import { GET_EVENT_DESCRIPTION, SOLVE_EVENT_MUTATION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
+import { GET_EVENT_DESCRIPTION, SOLVE_EVENT_MUTATION } from "./queries";
 
 type EventDescriptionProps = RouteComponentProps<{ eventId: string }>;
 
@@ -31,9 +31,13 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
   const { eventId } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
-  const [isEditing, setEditing] = React.useState(false);
-  const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
+  // Side effects
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("EventDescription", { Organization: userOrganization, User: userName });
+  };
+  React.useEffect(onMount, []);
 
+  // State management
   const [isSolvingModalOpen, setSolvingModalOpen] = React.useState(false);
   const openSolvingModal: (() => void) = (): void => {
     setSolvingModalOpen(true);
@@ -42,15 +46,12 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
     setSolvingModalOpen(false);
   };
 
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("EventDescription", { Organization: userOrganization, User: userName });
-  };
-  React.useEffect(onMount, []);
-
   const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
     msgError(translate.t("proj_alerts.error_textsad"));
     rollbar.error("An error occurred loading event description", error);
   };
+
+  const handleDescriptionSubmit: (() => void) = (): void => undefined;
 
   return (
     <React.StrictMode>
@@ -140,35 +141,15 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                   }}
                 </Mutation>
               </Modal>
-              <Mutation mutation={UPDATE_DESCRIPTION_MUTATION} onCompleted={handleUpdateResult}>
-                {(updateDescription: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
-                  const handleSubmit: ((values: { [key: string]: string }) => void) = (
-                    values: { [key: string]: string },
-                  ): void => {
-                    updateDescription({ variables: { eventId, ...values } })
-                      .catch();
-                    setEditing(false);
-                  };
-
-                  return (
-                    <GenericForm name="editEvent" initialValues={data.event} onSubmit={handleSubmit}>
-                      {({ pristine }: InjectedFormProps): React.ReactNode => (
+              <React.Fragment>
+                    <GenericForm name="editEvent" initialValues={data.event} onSubmit={handleDescriptionSubmit}>
+                      <React.Fragment>
                         <React.Fragment>
                           <Row>
                             <ButtonToolbar className="pull-right">
                               <Can do="backend_api_resolvers_event__do_solve_event">
                                 <Button disabled={data.event.eventStatus === "SOLVED"} onClick={openSolvingModal}>
                                   <FluidIcon icon="verified" />&nbsp;{translate.t("search_findings.tab_severity.solve")}
-                                </Button>
-                              </Can>
-                              {isEditing ? (
-                                <Button disabled={pristine || submitting} type="submit">
-                                  <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_severity.update")}
-                                </Button>
-                              ) : undefined}
-                              <Can do="backend_api_resolvers_event__do_update_event">
-                                <Button onClick={handleEditClick}>
-                                  <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
                                 </Button>
                               </Can>
                             </ButtonToolbar>
@@ -248,11 +229,9 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             </Col>
                           </Row>
                         </React.Fragment>
-                      )}
+                      </React.Fragment>
                     </GenericForm>
-                  );
-                }}
-              </Mutation>
+              </React.Fragment>
             </React.Fragment>
           );
         }}

@@ -243,7 +243,6 @@ type Mutation {
         eventId: String!,
         fileName: String!
     ): DownloadFilePayload!
-    updateEvent(eventId: String!): SimplePayload!
     updateEventEvidence(
         eventId: String!,
         evidenceType: EventEvidenceType!,

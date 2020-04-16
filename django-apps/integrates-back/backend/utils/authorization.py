@@ -128,7 +128,6 @@ def get_analyst_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_event__do_remove_event_evidence',
         'backend_api_resolvers_event__do_solve_event',
         'backend_api_resolvers_event__do_update_event_evidence',
-        'backend_api_resolvers_event__do_update_event',
         'backend_api_resolvers_finding__do_create_draft',
         'backend_api_resolvers_finding__do_delete_finding',
         'backend_api_resolvers_finding__do_reject_draft',

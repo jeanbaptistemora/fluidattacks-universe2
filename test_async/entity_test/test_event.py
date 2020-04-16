@@ -95,34 +95,6 @@ class EventTests(TestCase):
         assert result['data']['events'][0]['projectName'] == 'unittesting'
         assert len(result['data']['events'][0]['detail']) >= 1
 
-    async def test_update_event(self):
-        """Check for updateEvent mutation."""
-        query = '''
-            mutation {
-                updateEvent(eventId: "538745942") {
-                    success
-                }
-            }
-        '''
-        data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        _, result = await graphql(SCHEMA, data, context_value=request)
-        assert 'errors' not in result
-        assert 'success' in result['data']['updateEvent']
-
     async def test_create_event(self):
         """Check for createEvent mutation."""
         query = '''

@@ -25,7 +25,7 @@ from backend.entity.project import (
     RemoveAllProjectAccess, RequestRemoveProject, RejectRemoveProject
 )
 from backend.entity.event import (
-    AddEventComment, CreateEvent, DownloadEventFile, SolveEvent, UpdateEvent,
+    AddEventComment, CreateEvent, DownloadEventFile, SolveEvent,
     UpdateEventEvidence, RemoveEventEvidence
 )
 from backend.entity.me import (
@@ -98,7 +98,6 @@ class Mutations(ObjectType):
     add_event_comment = AddEventComment.Field()
     create_event = CreateEvent.Field()
     download_event_file = DownloadEventFile.Field()
-    update_event = UpdateEvent.Field()
     update_event_evidence = UpdateEventEvidence.Field()
     remove_event_evidence = RemoveEventEvidence.Field()
     solve_event = SolveEvent.Field()

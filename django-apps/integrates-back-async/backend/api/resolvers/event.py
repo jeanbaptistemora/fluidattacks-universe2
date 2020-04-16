@@ -225,27 +225,6 @@ def resolve_events(_, info, project_name: str) -> List[EventType]:
 
 @require_login
 @enforce_group_level_auth_async
-@require_event_access
-async def _do_update_event(_, info, event_id: str,
-                           **kwargs) -> SimplePayloadType:
-    """Resolve update_event mutation."""
-    success = await \
-        sync_to_async(event_domain.update_event)(event_id, **kwargs)
-    if success:
-        event = await \
-            sync_to_async(event_domain.get_event)(event_id)
-        project_name = event.get('project_name')
-        util.invalidate_cache(event_id)
-        util.invalidate_cache(project_name)
-        await sync_to_async(util.cloudwatch_log)(
-            info.context,
-            'Security: '
-            f'Updated event {event_id} succesfully')  # pragma: no cover
-    return SimplePayloadType(success=success)
-
-
-@require_login
-@enforce_group_level_auth_async
 @require_project_access
 async def _do_create_event(_, info, project_name: str, image=None, file=None,
                            **kwa) -> SimplePayloadType:
