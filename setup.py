@@ -49,6 +49,7 @@ distutils.core.setup(
         'toolbox.sorts',
     ],
     install_requires=[
+        'aiogqlc==1.0.3',
         'awscli==1.17.9',
         'binaryornot==0.4.4',
         'frozendict==1.2',

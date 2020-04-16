@@ -1,12 +1,16 @@
 # Standard library
+import asyncio
 import os
 import time
 import json
 import textwrap
 import functools
-from typing import Any, List, NamedTuple, Tuple, Optional
+from typing import Any, Callable, List, NamedTuple, Tuple, Optional
 
 # Third parties libraries
+from aiogqlc import GraphQLClient
+from aiogqlc.utils import contains_file_variable
+import aiohttp
 import requests
 import simplejson
 from requests.packages.urllib3.exceptions import (  # noqa: import-error
@@ -34,6 +38,7 @@ Response = NamedTuple('Response', [('ok', bool),
 DEBUGGING: bool = False
 
 # Constants
+INTEGRATES_API_URL = 'https://fluidattacks.com/integrates/api'
 CACHE_SIZE: int = 4**8
 RETRY_MAX_ATTEMPTS: int = 8 if not DEBUGGING else 1
 RETRY_RELAX_SECONDS: float = 2.0
@@ -65,6 +70,26 @@ ERRORS: tuple = (
 
     simplejson.JSONDecodeError,
     json.JSONDecodeError)
+
+
+class CustomGraphQLClient(GraphQLClient):
+    async def execute(self, query: str, variables: dict = None,
+                      operation: str = None) -> aiohttp.ClientResponse:
+        async \
+            with aiohttp.ClientSession(
+                connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            if variables and contains_file_variable(variables):
+                data = self.prepare_multipart(query, variables, operation)
+                headers = self.prepare_headers()
+            else:
+                data = json.dumps(
+                    self.prepare_json_data(query, variables, operation))
+                headers = self.prepare_headers()
+                headers[aiohttp.hdrs.CONTENT_TYPE] = 'application/json'
+            async with session.post(
+                    self.endpoint, data=data, headers=headers) as response:
+                await response.read()
+                return response
 
 
 def _is_bool(string: str) -> bool:
@@ -151,7 +176,7 @@ def _request_handler(api_token: str,
 
     try:
         response = requests.post(
-            url='https://fluidattacks.com/integrates/api',
+            url=INTEGRATES_API_URL,
             proxies=PROXIES,
             headers={
                 'Authorization': f'Bearer {api_token}',
@@ -212,11 +237,73 @@ def _request_handler(api_token: str,
                     errors=errors)
 
 
+def handle_exception(_, context):
+    """Handle async exceptions."""
+    if context.get('exception', ''):
+        raise context['exception']
+
+    msg = context.get('message', '')
+    raise RuntimeError(msg)
+
+
+def run_async(function: Callable, *args, **kwargs):
+    """Run function asynchronous."""
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    loop.set_debug(DEBUGGING)
+    loop.set_exception_handler(handle_exception)
+    try:
+        result = loop.run_until_complete(function(*args, **kwargs))
+    except RuntimeError:
+        result = asyncio.create_task(function(*args, **kwargs))
+    return result
+
+
+async def gql_request(api_token, payload, variables):
+    """Async GraphQL request."""
+    headers = {
+        'Authorization': f'Bearer {api_token}'
+    }
+    client = CustomGraphQLClient(INTEGRATES_API_URL, headers=headers)
+    response = await client.execute(payload, variables=variables)
+    content = await response.json()
+    data: Any = content.get('data')
+    errors: Any = content.get('errors')
+
+    # Guarantee data immutability
+    if isinstance(data, dict):
+        logger.debug('response data is a dict')
+        data = frozendict(data)
+    elif isinstance(data, list):
+        logger.debug('response data is a non-empty tuple')
+        data = tuple(data)
+    else:
+        logger.debug('response data is an empty tuple')
+        data = tuple()
+
+    # Guarantee errors immutability
+    if errors:
+        logger.debug('response errors is a non-empty tuple')
+        errors = tuple(errors)
+    else:
+        logger.debug('response errors is an empty tuple')
+        errors = tuple()
+
+    return Response(ok=200 <= response.status < 400 and not errors,
+                    status_code=response.status,
+                    data=data,
+                    errors=errors)
+
+
 def request(api_token: str,
             body: str,
             params: dict = None,
             files: List[File] = None,
-            expected_types: tuple = tuple()) -> Response:
+            expected_types: tuple = tuple(),
+            use_new_client=False) -> Response:
     """Make a generic query to a GraphQL instance."""
     assert isinstance(body, str)
     if params is not None:
@@ -230,7 +317,10 @@ def request(api_token: str,
     payload = textwrap.dedent(body % params if params else body)
 
     for _ in range(RETRY_MAX_ATTEMPTS):
-        response = _request_handler(api_token, payload, files)
+        if use_new_client:
+            response = run_async(gql_request, api_token, payload, params)
+        else:
+            response = _request_handler(api_token, payload, files)
         if response.errors or isinstance(response.data, expected_types):
             break
         time.sleep(RETRY_RELAX_SECONDS)
@@ -245,7 +335,7 @@ class Queries:
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def me(api_token: str) -> Response:  # pylint: disable=invalid-name
-        """Helper to get an API token from you session token."""
+        """Get an API token from your session token."""
         logger.debug('Query.me()')
         body: str = """
             query {
@@ -264,33 +354,35 @@ class Queries:
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def project(api_token: str,
                 project_name: str,
-                with_drafts: str = 'false',
-                with_findings: str = 'false') -> Response:
-        """Helper to get a project."""
+                with_drafts: bool = False,
+                with_findings: bool = False) -> Response:
+        """Get a project."""
         logger.debug(f'Query.project('
                      f'project_name={project_name}, '
                      f'with_drafts={with_drafts}, '
                      f'with_findings={with_findings})')
         body: str = """
-            query {
-                project(projectName: "%(project_name)s") {
-                    drafts @include(if: %(with_drafts)s) {
-                        id @include(if: %(with_drafts)s)
-                        title @include(if: %(with_drafts)s)
+            query GetProject($projectName: String!, $withDrafts: Boolean!,
+                             $withFindings: Boolean!) {
+                project(projectName: $projectName) {
+                    drafts @include(if: $withDrafts) {
+                        id @include(if: $withDrafts)
+                        title @include(if: $withDrafts)
                     }
-                    findings @include(if: %(with_findings)s) {
-                        id @include(if: %(with_findings)s)
-                        title @include(if: %(with_findings)s)
+                    findings @include(if: $withFindings) {
+                        id @include(if: $withFindings)
+                        title @include(if: $withFindings)
                     }
                 }
             }
             """
         params: dict = {
-            'project_name': project_name,
-            'with_drafts': with_drafts,
-            'with_findings': with_findings,
+            'projectName': project_name,
+            'withDrafts': with_drafts,
+            'withFindings': with_findings,
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params,
+                       expected_types=(frozendict,), use_new_client=True)
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)

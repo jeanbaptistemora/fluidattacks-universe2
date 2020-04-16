@@ -183,7 +183,7 @@ def get_project_findings(project: str) -> Tuple[Tuple[str, str], ...]:
     response = api.integrates.Queries.project(
         api_token=API_TOKEN,
         project_name=project,
-        with_findings='true')
+        with_findings=True)
 
     findings = response.data['project']['findings']
 
