@@ -14,6 +14,7 @@ import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal";
+import { Can } from "../../../../utils/authz/Can";
 import { dateTimeField, textField } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -28,11 +29,8 @@ type EventDescriptionProps = RouteComponentProps<{ eventId: string }>;
 
 const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescriptionProps): JSX.Element => {
   const { eventId } = props.match.params;
-  const { userName, userOrganization, userRole } = (window as typeof window & {
-    userName: string; userOrganization: string; userRole: string;
-  });
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
-  const canEdit: boolean = false;
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
@@ -77,8 +75,6 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
               }
             });
           };
-
-          const canSolve: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "SOLVED";
 
           return (
             <React.Fragment>
@@ -160,21 +156,21 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                         <React.Fragment>
                           <Row>
                             <ButtonToolbar className="pull-right">
-                              {canSolve ? (
-                                <Button onClick={openSolvingModal}>
+                              <Can do="backend_api_resolvers_event__do_solve_event">
+                                <Button disabled={data.event.eventStatus === "SOLVED"} onClick={openSolvingModal}>
                                   <FluidIcon icon="verified" />&nbsp;{translate.t("search_findings.tab_severity.solve")}
                                 </Button>
-                              ) : undefined}
+                              </Can>
                               {isEditing ? (
                                 <Button disabled={pristine || submitting} type="submit">
                                   <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_severity.update")}
                                 </Button>
                               ) : undefined}
-                              {canEdit ? (
+                              <Can do="backend_api_resolvers_event__do_update_event">
                                 <Button onClick={handleEditClick}>
                                   <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
                                 </Button>
-                              ) : undefined}
+                              </Can>
                             </ButtonToolbar>
                           </Row>
                           <Row>

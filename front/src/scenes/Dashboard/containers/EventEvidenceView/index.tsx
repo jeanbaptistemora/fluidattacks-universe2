@@ -15,6 +15,7 @@ import { InjectedFormProps, Validator } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
+import { Can } from "../../../../utils/authz/Can";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -30,7 +31,7 @@ type EventEvidenceProps = RouteComponentProps<{ eventId: string }>;
 
 const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { eventId } = props.match.params;
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
   const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
   // Side effects
@@ -139,7 +140,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     await refetch();
   };
 
-  const canEdit: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "SOLVED";
   const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
 
   const maxFileSize: Validator = isValidFileSize(10);
@@ -149,11 +149,11 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       <React.Fragment>
         <Row>
           <Col md={2} mdOffset={10} xs={12} sm={12}>
-            {canEdit ? (
-              <Button block={true} onClick={handleEditClick}>
+            <Can do="backend_api_resolvers_event__do_update_event_evidence">
+              <Button block={true} disabled={data.event.eventStatus === "SOLVED"} onClick={handleEditClick}>
                 <FluidIcon icon="edit" />&nbsp;{translate.t("project.events.evidence.edit")}
               </Button>
-            ) : undefined}
+            </Can>
           </Col>
         </Row>
         <br />

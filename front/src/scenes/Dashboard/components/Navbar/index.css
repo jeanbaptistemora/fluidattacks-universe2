@@ -1,6 +1,5 @@
 :local .container {
   font-size: 18px;
-  margin-left: 210px;
   margin-right: unset;
   background-color: #F5F5F5;
   border-bottom: 2px #E4E4E4 solid;
@@ -33,6 +32,7 @@
 
 @media (min-width: 768px) {
   .container {
+    margin-left: 210px;
     position: sticky;
     top: 0px;
     z-index: 4;

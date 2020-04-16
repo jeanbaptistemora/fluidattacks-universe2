@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 // tslint:disable-next-line: no-import-side-effect
@@ -11,6 +12,7 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import store from "../../../../store";
+import { authzContext } from "../../../../utils/authz/config";
 import { EventEvidenceView } from "./index";
 import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES } from "./queries";
 
@@ -158,7 +160,7 @@ describe("EventEvidenceView", () => {
       .toHaveLength(1);
   });
 
-  it("should not render edit when closed", async () => {
+  it("should disable edit when closed", async () => {
     const mocks: ReadonlyArray<MockedResponse> = [{
       request: {
         query: GET_EVENT_EVIDENCES,
@@ -175,17 +177,24 @@ describe("EventEvidenceView", () => {
         },
       },
     }];
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_event__do_update_event_evidence" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
+        <Provider store={store}>
+          <authzContext.Provider value={mockedPermissions}>
+            <EventEvidenceView {...mockProps} />
+          </authzContext.Provider>
+        </Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper
       .find("Button")
-      .filterWhere((button: ReactWrapper): boolean => _.includes(button.text(), "Edit")))
-      .toHaveLength(0);
+      .filterWhere((button: ReactWrapper): boolean => _.includes(button.text(), "Edit"))
+      .prop("disabled"))
+      .toEqual(true);
   });
 
   it("should open file link", async () => {
