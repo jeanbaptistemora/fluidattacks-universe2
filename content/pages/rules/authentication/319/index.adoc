@@ -20,7 +20,7 @@ so that there is no weaker alternative.
 
 == Findings
 
-* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence of evasion]
+* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence or evasion]
 
 == References
 

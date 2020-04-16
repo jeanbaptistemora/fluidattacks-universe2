@@ -11,3 +11,7 @@
 The application must ensure that requests
 that execute transactions do not follow
 any distinguishable pattern.
+
+== Findings
+
+* link:/web/findings/0007/[FIN.S.0007. Cross-site request forgery]

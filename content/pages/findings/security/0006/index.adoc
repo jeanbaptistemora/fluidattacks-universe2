@@ -1,10 +1,10 @@
 :slug: findings/0006/
-:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about privilege escalation attacks, recommendations to avoid them and related security requirements.
-:keywords: Command, Execution, Remote, Server, Console, Injection
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about absent or bypassable authentication mechanisms, recommendations to avoid them and related security requirements.
+:keywords: Authentication, Mechanism, Absence, Evasion, Bypass, Finding
 :findings: yes
 :type: security
 
-= FIN.S.0006. Authentication mechanism absence of evasion
+= FIN.S.0006. Authentication mechanism absence or evasion
 
 == Description
 
@@ -14,12 +14,12 @@ The system lacks an authentication mechanism or has one that can be bypassed.
 
 . [[r1]] link:/web/rules/227/[REQ.227 Display access notification]
 
-. [[r1]] link:/web/rules/228/[REQ.228 Authenticate using standard protocols]
+. [[r2]] link:/web/rules/228/[REQ.228 Authenticate using standard protocols]
 
-. [[r1]] link:/web/rules/229/[REQ.229 Request access credentials]
+. [[r3]] link:/web/rules/229/[REQ.229 Request access credentials]
 
-. [[r1]] link:/web/rules/231/[REQ.231 Define a biometric verification component]
+. [[r4]] link:/web/rules/231/[REQ.231 Define a biometric verification component]
 
-. [[r1]] link:/web/rules/235/[REQ.235 Define credentials interface]
+. [[r5]] link:/web/rules/235/[REQ.235 Define credentials interface]
 
-. [[r1]] link:/web/rules/319/[REQ.319 Make authentication options equally secure]
+. [[r6]] link:/web/rules/319/[REQ.319 Make authentication options equally secure]

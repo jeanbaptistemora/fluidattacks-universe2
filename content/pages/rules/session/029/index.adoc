@@ -101,6 +101,10 @@ and extracting the session +cookie+ used for session theft.
 . Phase: Construction.
 . Type of Control: Procedure.
 
+== Findings
+
+* link:/web/findings/0007/[FIN.S.0007. Cross-site request forgery]
+
 == References
 
 . [[r1]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-0462[CVE-2004-0462 HTTP cookie vulnerability].
