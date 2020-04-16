@@ -62,6 +62,11 @@ def test_toolbox_is_valid_commit(relocate):
     toolbox.is_valid_commit()
 
 
+def test_toolbox_is_drills_commit(relocate):
+    """Test toolbox.is_drills_commit."""
+    toolbox.is_drills_commit()
+
+
 def test_toolbox_get_subscription_from_commit_msg(relocate):
     """Test toolbox.get_subscription_from_commit_msg."""
     toolbox.get_subscription_from_commit_msg()

@@ -241,6 +241,7 @@ def analytics_management(analytics_break_build_logs):
     help='get the subscription name from the commmit msg.',
     is_flag=True)
 @click.option('--is-valid-commit', is_flag=True, help='pipelines-only')
+@click.option('--is-drills-commit', is_flag=True, help='pipelines-only')
 @click.option(
     '--commit-exp',
     is_flag=True,
@@ -248,10 +249,12 @@ def analytics_management(analytics_break_build_logs):
 @click.option(
     '--vpn',
     is_flag=True)
-def utils_management(subscription, get_commit_subs, is_valid_commit, vpn,
-                     commit_exp):
+def utils_management(subscription, get_commit_subs, is_valid_commit,
+                     is_drills_commit, vpn, commit_exp):
     if is_valid_commit:
         sys.exit(0 if toolbox.is_valid_commit() else 1)
+    if is_drills_commit:
+        sys.exit(0 if toolbox.is_drills_commit() else 1)
     elif vpn and subscription != 'no-subs':
         sys.exit(0 if resources.vpn(subscription) else 1)
     elif get_commit_subs:

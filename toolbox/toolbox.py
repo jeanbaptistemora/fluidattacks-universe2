@@ -21,6 +21,7 @@ from toolbox import api, constants, helper, logger, utils
 
 # Compiled regular expresions
 RE_DAILY_COMMIT = re.compile(r'proj\(\w+\):\s+(\w+)')
+RE_DRILLS_COMMIT = re.compile(r'drills\(\w+\):\s+(\w+)')
 RE_EXPLOITS_COMMIT = re.compile(r'\w+\(exp\):\s+(?:#\d+(?:\.\d+)?\s*)?(\w+)')
 
 RE_FINDING_TITLE = re.compile(r'^\s*(\w+)[^\d]*(\d+).*$', flags=re.I)
@@ -118,15 +119,22 @@ def create_mock_dynamic_exploit(
 @functools.lru_cache(maxsize=None, typed=True)
 def is_valid_commit() -> bool:
     """Return True if the last commit in git history has the subs name."""
-    commit_msg: str = os.popen('git log --max-count 1 --format=%s').read()[:-1]
+    commit_msg: str = utils.get_commit_message()
     return bool(RE_DAILY_COMMIT.search(commit_msg)) or \
         bool(RE_EXPLOITS_COMMIT.search(commit_msg))
 
 
 @functools.lru_cache(maxsize=None, typed=True)
+def is_drills_commit() -> bool:
+    """Return True if the last commit in git history commit has drills type."""
+    commit_msg: str = utils.get_commit_message()
+    return bool(RE_DRILLS_COMMIT.search(commit_msg))
+
+
+@functools.lru_cache(maxsize=None, typed=True)
 def get_subscription_from_commit_msg() -> str:
     """Return the subscription name from the commmit msg."""
-    commit_msg: str = os.popen('git log --max-count 1 --format=%s').read()[:-1]
+    commit_msg: str = utils.get_commit_message()
     re_search: Any = RE_DAILY_COMMIT.search(commit_msg)
     if not re_search:
         re_search = RE_EXPLOITS_COMMIT.search(commit_msg)
