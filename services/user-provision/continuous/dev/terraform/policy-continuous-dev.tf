@@ -35,8 +35,14 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
       "s3:Put*"
     ]
     resources = [
-      "arn:aws:s3:::continuous-repositories/continuoustest/*"
+      "arn:aws:s3:::continuous-repositories",
+      "arn:aws:s3:::continuous-repositories/*"
     ]
+    condition {
+      test = "StringLike"
+      variable = "s3:prefix"
+      values = ["continuoustest/*"]
+    }
   }
 
   # ECR Auth Token
