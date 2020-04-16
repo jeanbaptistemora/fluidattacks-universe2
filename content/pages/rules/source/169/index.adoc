@@ -10,7 +10,11 @@
 
 System must use parameterized sentences
 or parameterized stored procedures
-to create dynamic sentences (e.g +java.sql.PreparedStatement+).
+to create dynamic sentences (e.g *java.sql.PreparedStatement*).
+
+== Findings
+
+. link:/web/rules/169/[FIN.S.0001. SQL injection]
 
 == References
 

@@ -84,6 +84,15 @@
               <span class="c-fluid-red v-mid b" >&gt;</span>
             </li>
           {% endif %}
+          {% if page.findings %}
+            <li class="dib mt0" >
+              <a class="c-fluid-bk hv-fluid-dkred"
+                 href="{{ SITEURL }}/findings/">&nbsp;
+                 <strong>Findings</strong>&nbsp;
+              </a>
+              <span class="c-fluid-red v-mid b">&gt;</span>
+            </li>
+          {% endif %}
           {% if "misc" not in page.category.name and not page.defends %}
             <li class="dib mt0" >
               {% if page.rules %}
