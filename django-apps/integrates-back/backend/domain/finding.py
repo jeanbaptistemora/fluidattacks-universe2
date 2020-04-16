@@ -272,7 +272,7 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
     vulns = get_vulnerabilities(finding_id)
     resp = True
     for vuln in vulns:
-        if 'treatment_manager' not in [vuln, new_values]:
+        if not any('treatment_manager' in dicts for dicts in [new_values, vuln]):
             finding = finding_dal.get_finding(finding_id)
             group: str = cast(str, finding.get('project_name', ''))
             email: str = updated_values.get('user', '')
@@ -285,8 +285,8 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
                 user_domain.get_group_level_role(email, group) == 'customeradmin',
                 email,
             )
-        result_update_treatment = \
-            vuln_dal.update(finding_id, str(vuln.get('UUID', '')), new_values)
+        result_update_treatment = vuln_dal.update(
+            finding_id, str(vuln.get('UUID', '')), new_values.copy())
         if not result_update_treatment:
             resp = False
     return resp

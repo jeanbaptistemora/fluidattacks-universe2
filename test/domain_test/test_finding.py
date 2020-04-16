@@ -46,9 +46,14 @@ class FindingTests(TestCase):
                               'treatment': 'IN PROGRESS', 'acceptance_date': date}
         test_in_progress = update_treatment(finding_id, values_in_progress, 'integratesuser@gmail.com')
         assert test_in_progress is True
+        vulns = get_vulnerabilities(finding_id)
+        assert 'treatment_manager' in vulns[0]
         values_new = {'treatment': 'NEW'}
-        test_new = update_treatment(finding_id, values_new, 'unittesting@fluidattacks.com')
+        test_new = update_treatment(finding_id, values_new, '')
         assert test_new is True
+        vulns = get_vulnerabilities(finding_id)
+        assert 'treatment_manager' not in vulns[0]
+        assert 'treatment_manager' not in vulns[1]
 
     def test_update_client_description(self):
         Status = namedtuple('Status', 'bts_changed treatment_changed')
