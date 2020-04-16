@@ -35,9 +35,9 @@ _EXTRAS_REQUIRE['with_everything'] = [
 ]
 
 distutils.core.setup(
-    name='continuous-toolbox',
+    name='fluidattacks',
     version=get_version(),
-    description='Continuous Toolbox',
+    description='Fluid attacks Toolkit and SDK',
     author='Fluid Attacks',
     author_email='engineering@fluidattacks.com',
     packages=[
@@ -68,8 +68,7 @@ distutils.core.setup(
     extras_require=_EXTRAS_REQUIRE,
     entry_points={
         'console_scripts': [
-            'toolbox=toolbox.cli:main',
-            'fluid=toolbox.new_cli:main'
+            'fluid=toolbox.cli:main'
         ],
     },
     include_package_data=True,
