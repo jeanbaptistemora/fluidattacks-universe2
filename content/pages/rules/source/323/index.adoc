@@ -4,11 +4,13 @@
 :keywords: Files, Source Code, Binary, Repository, CWE, ASVS
 :rules: yes
 
-= REQ.323 Avoid including binaries in repositories
+= REQ.323 Exclude unverifiable files
 
 == Requirement
 
-Binary files should not be stored in the source code repository.
+Binary and other types of files,
+which are often not audited with security purposes,
+should not be stored in the source code repository.
 
 == Description
 
