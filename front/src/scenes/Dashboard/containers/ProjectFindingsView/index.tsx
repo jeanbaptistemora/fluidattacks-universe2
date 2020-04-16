@@ -22,6 +22,7 @@ import { Modal } from "../../../../components/Modal/index";
 import { formatFindings, formatTreatment, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_FINDINGS, REQUEST_PROJECT_REPORT } from "./queries";
@@ -44,6 +45,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     },
     onError: (error: ApolloError): void => {
       msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred requesting project report", error);
     },
   });
 
