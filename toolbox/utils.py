@@ -272,27 +272,28 @@ def get_files_in_commit():
 def valid_commit_exp():
     commit_msg = get_commit_message()
 
-    pattern = r'(\w+)\((exp)\):\s#([0-9.]*)\s(\w+)\s?([a-z-]*)'
+    pattern = (r'(?P<type>\w+)\((?P<scope>\w+)\):\s?#?(?P<issue>[0-9.]*)'
+               r'\s(?P<subs>\w+)\s?(?P<label>[a-z-]*)')
+    matchs: list = re.search(pattern, commit_msg)
+    group = matchs.groups if matchs else None
 
-    if '(exp)' not in commit_msg:
+    if not group or group('scope') != 'exp':
         return True
 
-    matchs: list = re.search(pattern, commit_msg)
-    groups = matchs.groups() if matchs else None
-
-    if not groups or (len(groups) == 4 and groups[0] == 'fix'
-                      and groups[4] not in constants.EXP_LABELS):
+    if (group('type') == 'fix' and not group('issue')) or (
+            group('type') == 'fix'
+            and group('label') not in constants.EXP_LABELS):
         return False
 
-    proj = groups[3]
     changed_files = get_files_in_commit()
 
     exploits = [
         path for path in changed_files
-        if path.split('/')[4] == 'exploits' and path.split('/')[1] == proj
+        if path.split('/')[4] == 'exploits'
+        and path.split('/')[1] == group('subs')
     ]
 
-    return len(exploits) == 1
+    return len(exploits) in (0, 1)
 
 
 def get_modified_exps():
