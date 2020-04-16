@@ -142,6 +142,9 @@
                size="20"
                type="hidden"
                value="">
+        <label for="mobile"
+           class="db">
+        </label>
           <input  id="mobile"
                   maxlength="40"
                   name="local_mobile"
@@ -157,6 +160,14 @@
                 class="c-fluid-red fr fw8 dn">
           Number is not valid</span>
       </div>
+      {% assets output="static/js/intlTelInput.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
+        <script type="text/javascript"
+                src="{{ SITEURL }}/{{ ASSET_URL }}">
+        </script>
+      {% endassets %}
+      {% assets output="static/js/form.min.js", "js/tmp/form.min.js" %}
+          <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+      {% endassets %}
       <div class="w-70 pv3 ml-auto mr-auto">
         <select  id="00N1I00000NEIK7"
                  name="00N1I00000NEIK7"
@@ -190,10 +201,13 @@
         }
       </script>
       <div class="w-70 pv3 ml-auto mr-auto">
-        <select  id="00N1I00000Lfv4l"
-                 name="00N1I00000Lfv4l"
-                 title="Product of interest"
-                 class="gray db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
+        <label id="poi"
+         class="dn">
+        </label>
+        <select id="00N1I00000Lfv4l"
+                name="00N1I00000Lfv4l"
+                title="Producto de interes"
+                class="gray dn roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
           <option value="">Products of interest:</option>
           <option value="Indeterminado">
                   Undetermined

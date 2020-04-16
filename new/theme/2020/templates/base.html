@@ -97,7 +97,7 @@
         {% endif %}
       {% endfor %}
       <!-- Compress and Minify CSS files and bundle from SASS files -->
-        {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss" %}
+        {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "../node_modules/intl-tel-input/src/css/intlTelInput.scss" %}
           <link rel="stylesheet"
                 type="text/css"
                 href="{{ SITEURL }}/{{ ASSET_URL }}">

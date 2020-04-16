@@ -157,6 +157,7 @@ function helper_deploy_compile_new {
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
   &&  npm run --prefix theme/2020/ build \
+  &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2020/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
   &&  cp -a "${STARTDIR}/new/cache" . || true \
   &&  echo '[INFO] Compiling New site' \
   &&  pelican --fatal errors --fatal warnings content/ \

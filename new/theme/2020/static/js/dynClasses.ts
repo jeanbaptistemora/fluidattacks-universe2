@@ -17,6 +17,8 @@ const dynClasses: (() => void) = (): void => {
     addClasses(".forces-feature > h3 > a", "c-lightblack no-underline");
 
     addClasses(".forces-feature > .paragraph > p > a", "c-lightblack no-underline");
+
+    addClasses(".intl-tel-input", "db");
   });
 };
 
