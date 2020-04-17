@@ -102,7 +102,6 @@ const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
   });
 };
 
-let urlHostApiV1: string;
 let urlHostApiV2: string;
 let wsApiV2: string;
 
@@ -111,23 +110,12 @@ const setIntegratesHeaders: Dictionary = {
 };
 
 if (window.location.hostname === "localhost") {
-    urlHostApiV1 = `${window.location.protocol}//${window.location.hostname}:8080/api`;
     urlHostApiV2 = `${window.location.protocol}//${window.location.hostname}:9090/api`;
     wsApiV2 = `wss://${window.location.hostname}:9090/api`;
-    const authHeader: string = "Authorization";
-    setIntegratesHeaders[authHeader] = `Bearer ${getCookie("integrates_session")}`;
 } else {
-    urlHostApiV1 = `${window.location.origin}/integrates/api`;
-    urlHostApiV2 = `${window.location.origin}/integrates/v2/api`;
-    wsApiV2 = `wss://${window.location.hostname}/integrates/v2/api`;
+    urlHostApiV2 = `${window.location.origin}/integrates/api`;
+    wsApiV2 = `wss://${window.location.hostname}/integrates/api`;
 }
-
-const apiLinkV1: ApolloLink = createUploadLink({
-  credentials: "same-origin",
-  fetch: extendedFetch,
-  headers: setIntegratesHeaders,
-  uri: urlHostApiV1,
-});
 
 const httpLinkV2: ApolloLink = createUploadLink({
   credentials: "same-origin",
@@ -209,99 +197,6 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
         });
       }
     }),
-    ApolloLink.split(
-        // NOTE: Split GraphQL according to migration status
-        (operation: Operation) =>
-          ["HomeProjects",
-           "GetUserAuthorization",
-           "GetAccessTokenQuery",
-           "GetUserDataQuery",
-           "GetRole",
-           "GetPermissions",
-           "AcceptLegalMutation",
-           "InvalidateAccessTokenMutation",
-           "UpdateAccessTokenMutation",
-           "InternalProjectName",
-           "AddUserMutation",
-           "GrantUserMutation",
-           "RemoveUserAccessMutation",
-           "EditUserMutation",
-           "SolveEventMutation",
-           "CreateEventMutation",
-           "UpdateEventEvidenceMutation",
-           "DownloadEventFileMutation",
-           "RemoveEventEvidenceMutation",
-           "GetProjectAlert",
-           "GetRepositoriesQuery",
-           "AddEnvironmentsMutation",
-           "AddRespositoriesMutation",
-           "GetEnvironmentsQuery",
-           "GetFilesQuery",
-           "UploadFileMutation",
-           "DownloadFileMutation",
-           "RemoveFileMutation",
-           "UpdateEnvironmentMutation",
-           "UpdateRespositoryMutation",
-           "GetForcesExecutions",
-           "CreateProjectMutation",
-           "RequestRemoveProjectMutation",
-           "RejectProjectDeletion",
-           "AddProjectComment",
-           "AddTagsMutation",
-           "RemoveTagMutation",
-           "RemoveEvidenceMutation",
-           "UpdateEvidenceMutation",
-           "UpdateDescriptionMutation",
-           "VerifyFinding",
-           "HandleAcceptation",
-           "RejectDraftMutation",
-           "DeleteFindingMutation",
-           "ApproveDraftMutation",
-           "CreateDraftMutation",
-           "SubmitDraftMutation",
-           "ApproveVulnMutation",
-           "DeleteTagsVuln",
-           "UpdateTreatmentVulnMutation",
-           "RequestVerificationVuln",
-           "VerifyRequestVuln",
-           "UploadVulnerabilites",
-           "DeleteVulnMutation",
-           "AddFindingComment",
-           "GetFindingDescription",
-           "GetFindingTracking",
-           "GetFindingRecords",
-           "GetFindingEvidences",
-           "GetFindingComments",
-           "GetVulnerabilitiesQuery",
-           "GetFindingObservations",
-           "GetFindingExploit",
-           "GetSeverityQuery",
-           "GetFindingTreatment",
-           "GetFindingHeader",
-           "GetIndicatorsQuery",
-           "GetForcesIndicatorsQuery",
-           "GetFindingsQuery",
-           "GetUsersQuery",
-           "GetFindingDescription",
-           "GetProjectDataQuery",
-           "GetEventsQuery",
-           "GetEventHeader",
-           "GetEventDescription",
-           "GetEventEvidences",
-           "GetEventComments",
-           "AddEventComment",
-           "GetProjectComments",
-           "GetTagsQuery",
-           "GetDraftsQuery",
-           "GetProjectUsers",
-           "UpdateSeverityMutation",
-           "UpdateFindingDescription",
-           "UpdateTreatmentMutation",
-           "GetBroadcastMessages",
-           "GetTagInfo",
-           "RequestProjectReport"].includes(operation.operationName),
-        apiLinkV2,
-        apiLinkV1,
-       ),
+    apiLinkV2,
   ]),
 });
