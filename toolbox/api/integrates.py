@@ -38,7 +38,7 @@ Response = NamedTuple('Response', [('ok', bool),
 DEBUGGING: bool = False
 
 # Constants
-INTEGRATES_API_URL = 'https://fluidattacks.com/integrates/api'
+INTEGRATES_API_URL = 'https://fluidattacks.com/integrates/v2/api'
 CACHE_SIZE: int = 4**8
 RETRY_MAX_ATTEMPTS: int = 8 if not DEBUGGING else 1
 RETRY_RELAX_SECONDS: float = 2.0
@@ -492,25 +492,22 @@ class Mutations:
         assert isinstance(identifier, str)
         assert isinstance(file_path, str) and os.path.exists(file_path)
         body: str = """
-            mutation {
-                uploadFile(findingId: "%(identifier)s",
-                           file: "",
+            mutation UploadFile($identifier: String!, $file: Upload!) {
+                uploadFile(findingId: $identifier,
+                           file: $file,
                            origin: "toolbox") {
                     success
                 }
             }
             """
+        file_path_handle = open(file_path, 'rb')
         params: dict = {
             'identifier': identifier,
+            'file': file_path_handle
         }
-        with open(file_path, 'rb') as file_path_handle:
-            extra_files: List[File] = [
-                File(name='1',
-                     filename=os.path.basename(file_path),
-                     buffer=file_path_handle.read(),
-                     content_type='application/x-yaml')]
         return request(
-            api_token, body, params, extra_files, expected_types=(frozendict,))
+            api_token, body, params, expected_types=(frozendict,),
+            use_new_client=True)
 
     @staticmethod
     def approve_vulns(api_token: str,

@@ -43,7 +43,7 @@ def is_finding_open(finding_id: str, finding_types: tuple) -> bool:
     is_open: bool = False
     response = api.integrates.Queries.finding(API_TOKEN,
                                               finding_id,
-                                              with_vulns='true')
+                                              with_vulns=True)
     vulnerabilities = response.data['finding']['vulnerabilities']
 
     for vuln in vulnerabilities:
@@ -107,7 +107,7 @@ def get_finding_wheres(finding_id: str) -> Tuple[Tuple[str, str, bool], ...]:
     """Return a tuple of (vuln_type, where, state) of a finding."""
     response = api.integrates.Queries.finding(API_TOKEN,
                                               finding_id,
-                                              with_vulns='true')
+                                              with_vulns=True)
     vulnerabilities = response.data['finding']['vulnerabilities']
 
     vulnerabilities = list(filter(lambda vuln: not any(map(
