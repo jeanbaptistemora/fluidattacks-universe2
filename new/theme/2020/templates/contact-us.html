@@ -30,8 +30,8 @@
 {% endblock title %}
 
 {% block content %}
-<div class="mw9 flex flex-wrap ml-auto mr-auto">
-  <div class="mw7 w-60-l w-100 pl3">
+<div class="mw9 flex flex-wrap ml-auto mr-auto pt4-l pt3">
+  <div class="w-50-l w-100">
     <div class="slideshow-container">
       <div class="slideshow-inner">
         <div class="mySlides fadein">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div style='text-align: center;'>
+      <div class="tc">
         <span class="dot h-slide-bt w2 ma0 bg-fluid-gray dib slide-bt-trans" onclick='currentSlide(1)'></span>
         <span class="dot h-slide-bt w2 ma0 bg-fluid-gray dib slide-bt-trans" onclick='currentSlide(2)'></span>
         <span class="dot h-slide-bt w2 ma0 bg-fluid-gray dib slide-bt-trans" onclick='currentSlide(3)'></span>
@@ -61,16 +61,16 @@
               src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
       {% endassets %}
     </div>
-  <div class="tc w-40-l w-100 items-center justify-center flex">
-    <div>
-      <h1 class="neue fw9 f1 ma0">{{ page.title }}</h1>
+  <div class="tc w-50-l w-100 items-center justify-center flex">
+    <div class="pv0-l pv5 ph0-l ph2">
+      <h1 class="neue fw7 c-fluid-bk f1-l f-title-s f-title-m ma0">{{ page.title }}</h1>
       <h2 class="roboto fw1 f4 ma0">and Start Solving your Vulnerabilities Now!</h2>
     </div>
   </div>
 </div>
-<div class="pb6 mw9 ml-auto mr-auto flex ph3">
-  <div class="w-60-l fl db-l dn">
-    <p class="roboto tl fw1 center f4 lh-2">
+<div class="pb6 mw9 ml-auto mr-auto flex">
+  <div class="w-50-l db-l dn">
+    <p class="roboto tl fw1 f4 lh-2 mr-auto ml-auto w36-l">
       Since 2001, <b class="fw7">Fluid Attacks</b> has been developing cybersecurity<br>
       products and providing solutions for clients in industries like<br>
       technology, banking, finance, healthcare, insurance, airlines,<br>
@@ -79,164 +79,166 @@
       recognized and closed at DevOps speed.
     </p>
   </div>
-  <div class="contact-form mw6-l w-40-l w-100 fr-l">
-    <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
-    <script>
-      function timestamp() {
-        var response = document.getElementById("g-recaptcha-response");
-        if (response == null || response.value.trim() == "") {
-          var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());
-          document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+  <div class="w-50-l w-100">
+    <div class="contact-form w-100">
+      <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+      <script>
+        function timestamp() {
+          var response = document.getElementById("g-recaptcha-response");
+          if (response == null || response.value.trim() == "") {
+            var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());
+            document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+          }
         }
-      }
-      setInterval(timestamp, 500);
-    </script>
-    <div>
-    <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
-          method="POST"
-          onsubmit="return validateForm()"
-          class="mh3">
-      <input type=hidden
-             name='captcha_settings'
-             value='{"keyname":"Fluidattacks","fallback":"true","orgId":"00D1I000001dGP6","ts":""}'>
-      <input type=hidden
-             name="oid"
-             value="00D1I000001dGP6"/>
-      <input type=hidden
-             name="retURL"
-             value="{{ SITEURL }}/contact-us/thank-you/"/>
-      <div class="w-70 pv3 ml-auto mr-auto">
-        <input  id="first_name"
-                maxlength="40"
-                name="first_name"
-                size="20"
-                type="text"
-                class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                required
-                placeholder="First Name" />
-      </div>
-      <div class="w-70 pv3 ml-auto mr-auto">
-        <input  id="last_name"
-                maxlength="40"
-                name="last_name"
-                size="20"
-                type="text"
-                class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                required
-                placeholder="Last name" />
-      </div>
-      <div class="w-70 pv3 ml-auto mr-auto">
-          <input  id="email"
-                  maxlength="80"
-                  name="email"
-                  size="20"
-                  type="text"
-                  class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                  required
-                  placeholder="Email" />
-      </div>
-      <div class="w-70 pv3 ml-auto mr-auto">
-        <input id="country"
-               maxlength="40"
-               name="country"
-               size="20"
-               type="hidden"
-               value="">
-        <label for="mobile"
-           class="db">
-        </label>
-          <input  id="mobile"
+        setInterval(timestamp, 500);
+      </script>
+      <div>
+      <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
+            method="POST"
+            onsubmit="return validateForm()"
+            class="mh3">
+        <input type=hidden
+               name='captcha_settings'
+               value='{"keyname":"Fluidattacks","fallback":"true","orgId":"00D1I000001dGP6","ts":""}'>
+        <input type=hidden
+               name="oid"
+               value="00D1I000001dGP6"/>
+        <input type=hidden
+               name="retURL"
+               value="{{ SITEURL }}/contact-us/thank-you/"/>
+        <div class="w-50-l pv3 ml-auto mr-auto">
+          <input  id="first_name"
                   maxlength="40"
-                  name="local_mobile"
+                  name="first_name"
                   size="20"
                   type="text"
                   class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
                   required
-                  placeholder="Mobile" />
-          <span id="valid-msg"
-                class="green fr fw8 dn">
-          Number is valid</span>
-          <span id="error-msg"
-                class="c-fluid-red fr fw8 dn">
-          Number is not valid</span>
-      </div>
-      {% assets output="static/js/intlTelInput.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
-        <script type="text/javascript"
-                src="{{ SITEURL }}/{{ ASSET_URL }}">
+                  placeholder="First Name" />
+        </div>
+        <div class="w-50-l pv3 ml-auto mr-auto">
+          <input  id="last_name"
+                  maxlength="40"
+                  name="last_name"
+                  size="20"
+                  type="text"
+                  class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                  required
+                  placeholder="Last name" />
+        </div>
+        <div class="w-50-l pv3 ml-auto mr-auto">
+            <input  id="email"
+                    maxlength="80"
+                    name="email"
+                    size="20"
+                    type="text"
+                    class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                    required
+                    placeholder="Email" />
+        </div>
+        <div class="w-50-l pv3 ml-auto mr-auto">
+          <input id="country"
+                 maxlength="40"
+                 name="country"
+                 size="20"
+                 type="hidden"
+                 value="">
+          <label for="mobile"
+             class="db">
+          </label>
+            <input  id="mobile"
+                    maxlength="40"
+                    name="local_mobile"
+                    size="20"
+                    type="text"
+                    class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                    required
+                    placeholder="Mobile" />
+            <span id="valid-msg"
+                  class="green fr fw8 dn">
+            Number is valid</span>
+            <span id="error-msg"
+                  class="c-fluid-red fr fw8 dn">
+            Number is not valid</span>
+        </div>
+        {% assets output="static/js/intlTelInput.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
+          <script type="text/javascript"
+                  src="{{ SITEURL }}/{{ ASSET_URL }}">
+          </script>
+        {% endassets %}
+        {% assets output="static/js/form.min.js", "js/tmp/form.min.js" %}
+            <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+        {% endassets %}
+        <div class="w-50-l pv3 ml-auto mr-auto">
+          <select  id="00N1I00000NEIK7"
+                   name="00N1I00000NEIK7"
+                   title="Request"
+                   class="gray db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1"
+                   onchange="selectedValue()"
+                   required>
+            <option value="">How can we help you?</option>
+            <option value="Quiero una propuesta de servicios">
+              I want a service proposal</option>
+            <option value="Estoy buscando trabajo">
+              I am looking for a job</option>
+            <option value="Quiero una Demo">
+              I want a Demo</option>
+          </select>
+        </div>
+        <script type="text/javascript">
+          function selectedValue() {
+            var opt = document.getElementById("00N1I00000NEIK7");
+            var sel = opt.options[opt.selectedIndex].value;
+            var poi = document.getElementById("poi")
+            var selpoi = document.getElementById("00N1I00000Lfv4l")
+            if (sel != "Quiero una propuesta de servicios"){
+              poi.style.display="none";
+              selpoi.style.display="none";
+            }
+            else {
+              poi.style.display="block";
+              selpoi.style.display="block";
+            }
+          }
         </script>
-      {% endassets %}
-      {% assets output="static/js/form.min.js", "js/tmp/form.min.js" %}
-          <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-      {% endassets %}
-      <div class="w-70 pv3 ml-auto mr-auto">
-        <select  id="00N1I00000NEIK7"
-                 name="00N1I00000NEIK7"
-                 title="Request"
-                 class="gray db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1"
-                 onchange="selectedValue()"
-                 required>
-          <option value="">How can we help you?</option>
-          <option value="Quiero una propuesta de servicios">
-            I want a service proposal</option>
-          <option value="Estoy buscando trabajo">
-            I am looking for a job</option>
-          <option value="Quiero una Demo">
-            I want a Demo</option>
-        </select>
+        <div class="w-50-l pv3 ml-auto mr-auto">
+          <label id="poi"
+           class="dn">
+          </label>
+          <select id="00N1I00000Lfv4l"
+                  name="00N1I00000Lfv4l"
+                  title="Producto de interes"
+                  class="gray dn roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
+            <option value="">Products of interest:</option>
+            <option value="Indeterminado">
+                    Undetermined
+            </option>
+            <option value="Puntual">
+                    One-Shot Hacking
+            </option>
+            <option value="Continuas">
+                    Continuous Hacking
+            </option>
+          </select>
+          <span class="c-fluid-red fr fw8 form-error dn">
+                Please select an option
+          </span>
+        </div>
+        <script src="https://www.google.com/recaptcha/api.js?hl=en"
+                async
+                defer>
+        </script>
+        <div class="g-recaptcha ma-auto w6 mr-auto ml-auto"
+             data-sitekey="6LduWqYUAAAAAArX5eMR9xBwFuQK291lVGoXfHHA"></div>
+        <br>
+        <div class="tc">
+          <input type="submit"
+                 name="submit"
+                 class="bn br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer"
+                 value="Submit"/>
+        </div>
+      </form>
       </div>
-      <script type="text/javascript">
-        function selectedValue() {
-          var opt = document.getElementById("00N1I00000NEIK7");
-          var sel = opt.options[opt.selectedIndex].value;
-          var poi = document.getElementById("poi")
-          var selpoi = document.getElementById("00N1I00000Lfv4l")
-          if (sel != "Quiero una propuesta de servicios"){
-            poi.style.display="none";
-            selpoi.style.display="none";
-          }
-          else {
-            poi.style.display="block";
-            selpoi.style.display="block";
-          }
-        }
-      </script>
-      <div class="w-70 pv3 ml-auto mr-auto">
-        <label id="poi"
-         class="dn">
-        </label>
-        <select id="00N1I00000Lfv4l"
-                name="00N1I00000Lfv4l"
-                title="Producto de interes"
-                class="gray dn roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
-          <option value="">Products of interest:</option>
-          <option value="Indeterminado">
-                  Undetermined
-          </option>
-          <option value="Puntual">
-                  One-Shot Hacking
-          </option>
-          <option value="Continuas">
-                  Continuous Hacking
-          </option>
-        </select>
-        <span class="c-fluid-red fr fw8 form-error dn">
-              Please select an option
-        </span>
-      </div>
-      <script src="https://www.google.com/recaptcha/api.js?hl=en"
-              async
-              defer>
-      </script>
-      <div class="g-recaptcha ma-auto w6 mr-auto ml-auto"
-           data-sitekey="6LduWqYUAAAAAArX5eMR9xBwFuQK291lVGoXfHHA"></div>
-      <br>
-      <div class="tc">
-        <input type="submit"
-               name="submit"
-               class="bn br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer"
-               value="Submit"/>
-      </div>
-    </form>
     </div>
   </div>
 </div>
