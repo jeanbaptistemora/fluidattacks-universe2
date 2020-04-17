@@ -1,0 +1,20 @@
+:slug: findings/0027/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling user enumeration, recommendations to avoid them and related security requirements.
+:keywords: File, Upload, Extension, Malicious, Code, System
+:findings: yes
+:type: security
+
+= FIN.S.0027. Insecure file upload
+
+== Description
+
+The system allows the upload of files with two extensions or with unsafe ones
+such as *.html*, *.php* or *.exe*.
+Furthermore, the system does not validate whether or not the file is free from
+malicious code.
+
+== Rules
+
+. [[r1]] link:/web/rules/040/[REQ.040 Validate file format and extension]
+
+. [[r2]] link:/web/rules/041/[REQ.041 Scan files for malicious code]

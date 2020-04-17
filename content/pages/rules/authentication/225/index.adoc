@@ -10,3 +10,7 @@
 
 System responses to authentication failures
 must not indicate which part of the authentication was incorrect.
+
+== Findings
+
+* link:/web/findings/0026/[FIN.S.0026. User enumeration]

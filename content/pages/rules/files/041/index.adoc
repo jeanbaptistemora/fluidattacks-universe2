@@ -1,6 +1,6 @@
 :slug: rules/041/
 :category: files
-:description: This document details the security guidelines and requirements related to files management within the organization or company. Therefore, in this requirement it is recommended that files transferred to the system be scanned for possible malicious code.
+:description: This document details the security guidelines and requirements related to files management within the organization or company. In this case, it is recommended that the files transferred or uploaded to the system be scanned for possible malicious code.
 :keywords: System, Validate, File, Code, Security, Malicious
 :rules: yes
 
@@ -10,3 +10,7 @@
 
 The system must validate that
 the content of the files transferred to it is free of malicious code.
+
+== Findings
+
+* link:/web/findings/0027/[FIN.S.0027. Insecure file upload]
