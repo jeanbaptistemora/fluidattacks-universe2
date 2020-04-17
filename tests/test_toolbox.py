@@ -23,20 +23,19 @@ FINDING: str = '720412598'
 def test_toolbox_statefull_functions(relocate_to_cloned_repo):
     """Test functions that modify files."""
     # This tests need to be run in a pristine environment
-    assert not os.system('rm -rf subscriptions/')
-    assert not os.system('git checkout -- subscriptions/')
+    assert not os.system('git reset --hard HEAD')
 
-    # Secrets management
-    assert toolbox.init_secrets(SUBS)
-    assert toolbox.encrypt_secrets(SUBS)
-    assert toolbox.decrypt_secrets(SUBS)
+    try:
+        # Secrets management
+        assert toolbox.init_secrets(SUBS)
+        assert toolbox.encrypt_secrets(SUBS)
+        assert toolbox.decrypt_secrets(SUBS)
 
-    # Deployment phase
-    assert toolbox.fill_with_mocks(subs_glob=SUBS, create_files=False)
-    assert toolbox.generate_exploits(subs_glob=SUBS)
-
-    assert not os.system('rm -rf subscriptions/')
-    assert not os.system('git checkout -- subscriptions/')
+        # Deployment phase
+        assert toolbox.fill_with_mocks(subs_glob=SUBS, create_files=True)
+        assert toolbox.generate_exploits(subs_glob=SUBS)
+    finally:
+        os.system('git reset --hard HEAD')
 
 
 def test_toolbox_lint_exploits(relocate):

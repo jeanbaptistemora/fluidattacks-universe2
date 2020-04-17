@@ -21,10 +21,6 @@ SUBS = 'continuoustest'
 def test_resources(relocate):
     runner = CliRunner()
 
-    test_clone = runner.invoke(
-        cli, f'resources --clone-from-customer-git {SUBS}'.split())
-    assert test_clone.exit_code == 0
-
     test_does_subs_exist = runner.invoke(
         cli, f'resources --does-subs-exist {SUBS}'.split())
     assert test_does_subs_exist.exit_code == 0

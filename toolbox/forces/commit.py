@@ -15,6 +15,20 @@ from toolbox import (
 )
 
 
+VALID__TYPES_DESC: Tuple[Tuple[str, str], ...] = (
+    ('rever', 'Revert to a previous commit in history'),
+    ('feat', 'New feature, improvement, enhancement'),
+    ('perf', 'Improves resource consumption (time/space)'),
+    ('fix', 'Someone (or you) did wrong, you are getting things right'),
+    ('refac', 'Neither fixes a bug or adds a feature'),
+    ('test', 'Adding missing tests or correcting existing tests'),
+    ('style', 'Do not affect the meaning of the code (formatting, etc)'),
+)
+
+VALID_TYPES: Tuple[str, ...] = \
+    tuple(map(operator.itemgetter(0), VALID__TYPES_DESC))
+
+
 def is_valid_summary(summary: str) -> bool:
     """Plugable validator for forces commits."""
     is_valid: bool = True
@@ -64,7 +78,8 @@ def is_valid_summary(summary: str) -> bool:
 
     match: Optional[Match] = re.match(base_pattern, summary)
     if match and match.groupdict()['scope'] == 'exp':
-        if match.groupdict()['type'] == 'fix':
+        type_: str = match.groupdict()['type']
+        if type_ == 'fix':
             match = re.match(fix_pattern, summary)
             if match:
                 mod_reason: str = match.groupdict()['mod_reason']
@@ -85,8 +100,16 @@ def is_valid_summary(summary: str) -> bool:
         else:
             match = re.match(regular_pattern, summary)
             if match:
-                logger.info('Commit msg is ok')
-                is_valid = True
+                if type_ in VALID_TYPES:
+                    logger.info('Commit type and scope: OK')
+                    is_valid = True
+                else:
+                    logger.error('Provide a valid commit type(scope)')
+                    logger.info(f'Yours is: {type_}(exp)')
+                    logger.info(f'Valid types are:')
+                    for type_, desc in VALID__TYPES_DESC:
+                        logger.info(f'  - {type_}: {desc}')
+                    is_valid = False
             else:
                 logger.error(f'xxx(exp) commits must match: {regular_pattern}')
                 is_valid = False

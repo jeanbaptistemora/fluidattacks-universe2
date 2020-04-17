@@ -31,9 +31,23 @@ def do_check_commit_msg() -> bool:
 
 @command(name='misc', short_help='miscellaneous checks')
 @option('--check-commit-msg', is_flag=True, help='validate commit msg syntax')
+@option('--is-drills-commit', is_flag=True)
+@option('--is-exploits-commit', is_flag=True)
 def misc_management(
     check_commit_msg,
+    is_drills_commit,
+    is_exploits_commit,
 ):
-    if check_commit_msg:
-        success: bool = do_check_commit_msg()
+    success: bool
+
+    if is_drills_commit:
+        summary: str = utils.get_change_request_summary()
+        success = drills.commit.is_drills_commit(summary)
+        sys.exit(0 if success else 1)
+    elif check_commit_msg:
+        success = do_check_commit_msg()
+        sys.exit(0 if success else 1)
+    elif is_exploits_commit:
+        summary: str = utils.get_change_request_summary()
+        success = forces.commit.is_exploits_commit(summary)
         sys.exit(0 if success else 1)

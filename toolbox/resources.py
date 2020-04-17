@@ -635,7 +635,7 @@ def sync_active_repo_to_fusion(subs: str):
     local_path = f"subscriptions/{subs}/fusion/"
     bucket_path = f"s3://continuous-repositories/{subs}/active/"
     if not os.path.exists(local_path):
-        os.mkdir(local_path)
+        os.makedirs(local_path, exist_ok=True)
     sync_command = ["aws", "s3", "sync", bucket_path, local_path,
                     "--sse", "AES256", "--quiet"]
     subprocess.run(sync_command, check=True)

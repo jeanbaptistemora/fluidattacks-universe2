@@ -25,7 +25,7 @@ def _relocate(path: str = '../'):
     try:
         os.chdir(path)
         logger.info('yield', os.getcwd())
-        yield
+        yield os.getcwd()
     finally:
         # Return to where we were
         logger.info('finally', current_dir)
@@ -35,15 +35,15 @@ def _relocate(path: str = '../'):
 @pytest.fixture(scope='function')
 def relocate(request):
     """Change temporarily the working directory."""
-    with _relocate():
-        yield
+    with _relocate() as new_path:
+        yield new_path
 
 
 @pytest.fixture(scope='function')
 def relocate_to_cloned_repo(request):
     """Change temporarily the working directory."""
-    with _relocate(path=f'../subscriptions/{SUBS}/fusion/continuous'):
-        yield
+    with _relocate(path=f'../subscriptions/{SUBS}/fusion/continuous') as new_path:
+        yield new_path
 
 
 @pytest.fixture(scope='session', autouse=True)

@@ -138,6 +138,8 @@ def forces_management(subscription, check_sync, decrypt,
                       encrypt, init_secrets, fill_with_mocks, get_vulns,
                       generate_exploits, lint_exps, run_exps, static, dynamic):
     """Perform operations with the forces service."""
+    success: str
+
     if not toolbox.has_break_build(subscription):
         raise click.BadArgumentUsage(
             f'{subscription} subscription has no break-build')
