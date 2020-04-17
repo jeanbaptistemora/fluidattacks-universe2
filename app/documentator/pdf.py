@@ -7,6 +7,7 @@ import sys
 import subprocess
 import importlib
 
+from typing import Dict
 import jinja2
 import matplotlib
 
@@ -29,7 +30,7 @@ class CreatorPDF():
     wordlist = None
     out_name = ''
     command = ''
-    context = {}
+    context: Dict[str, str] = {}
 
     def __init__(self, lang, doctype):
         """Class constructor."""

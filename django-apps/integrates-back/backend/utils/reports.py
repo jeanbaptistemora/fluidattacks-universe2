@@ -1,5 +1,6 @@
 import os
 import threading
+from typing import Tuple
 from datetime import datetime
 from django.core.files.base import ContentFile
 from backend.mailer import send_mail_project_report
@@ -37,7 +38,7 @@ def send_project_report_email(
     email_send_thread.start()
 
 
-def upload_report(file_path: str) -> bool:
+def upload_report(file_path: str) -> Tuple[bool, str]:
     file_content = open(file_path, 'rb')
     report = ContentFile(file_content.read())
     timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
