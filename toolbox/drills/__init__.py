@@ -1,9 +1,9 @@
 # Local imports
 from toolbox.drills import (
-    is_valid_commit_msg,
+    commit,
     generate_commit_msg,
 )
 
 # Imported but unused
-assert is_valid_commit_msg
+assert commit
 assert generate_commit_msg

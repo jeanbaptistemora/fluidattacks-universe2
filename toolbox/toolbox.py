@@ -118,7 +118,7 @@ def create_mock_dynamic_exploit(
 @functools.lru_cache(maxsize=None, typed=True)
 def is_valid_commit() -> bool:
     """Return True if the last commit in git history has the subs name."""
-    commit_msg: str = utils.get_commit_message()
+    commit_msg: str = utils.get_commit_summary()
     return bool(RE_DAILY_COMMIT.search(commit_msg)) or \
         bool(RE_EXPLOITS_COMMIT.search(commit_msg))
 
@@ -126,7 +126,7 @@ def is_valid_commit() -> bool:
 @functools.lru_cache(maxsize=None, typed=True)
 def get_subscription_from_commit_msg() -> str:
     """Return the subscription name from the commmit msg."""
-    commit_msg: str = utils.get_commit_message()
+    commit_msg: str = utils.get_commit_summary()
     re_search: Any = RE_DAILY_COMMIT.search(commit_msg)
     if not re_search:
         re_search = RE_EXPLOITS_COMMIT.search(commit_msg)

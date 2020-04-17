@@ -46,7 +46,7 @@ def test_toolbox_lint_exploits(relocate):
 
 def test_toolbox_reporting_cycle(relocate):
     """Test reporting cycle."""
-    assert forces.quality.are_exploits_synced(SUBS, exp_name=None)
+    assert forces.sync.are_exploits_synced(SUBS, exp_name=None)
     assert toolbox.run_static_exploits(SUBS, exp_name=None)
     assert toolbox.run_dynamic_exploits(SUBS, exp_name=None)
     assert toolbox.get_vulnerabilities_yaml(SUBS)

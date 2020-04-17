@@ -86,16 +86,14 @@ def get_scope(lines: Objective, inputs: Objective) -> str:
     return scope
 
 
-def main(subs: str):
-    commit_msg: str
-
+def main(subs: str) -> bool:
     lines: Objective = process_lines_csv(subs)
     inputs: Objective = process_inputs_csv(subs)
 
     scope: str = get_scope(lines, inputs)
     cvrg: float = get_toe_coverage(lines, inputs)
 
-    commit_msg = dedent(f"""    Commit Message:
+    commit_msg: str = dedent(f"""    Commit Message:
 
     drills({scope}): {subs} - {cvrg:0.2f}%, {lines.today} el, {inputs.today} ei
 
@@ -128,3 +126,5 @@ def main(subs: str):
 
     logger.info(f"Pending to test {lines.count - lines.sofar} lines.")
     logger.info(f"Pending to test {inputs.count - inputs.sofar} inputs.")
+
+    return True

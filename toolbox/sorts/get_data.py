@@ -24,10 +24,6 @@ def read_lst(path):
     return lst
 
 
-EXTS = read_lst(f'{INCL_PATH}/extensions.lst')
-COMP = read_lst(f'{INCL_PATH}/composites.lst')
-
-
 def get_unique_wheres(wheres):
     """Given wheres in graphQL format, return a sorted list containing the
     vulnerable files and the total number of vulnerabilities
@@ -73,12 +69,14 @@ def filter_code_files(wheres, bad_repos):
     Also skip files from bad_repos.
     """
     wheres_code = []
+    extensions = read_lst(f'{INCL_PATH}/extensions.lst')
+    composites = read_lst(f'{INCL_PATH}/composites.lst')
     for file in wheres:
         repo = file.split('/')[0]
         name = file.split('/')[-1]
         if repo not in bad_repos:
             extn = file.split('.')[-1]
-            if extn in EXTS or name in COMP:
+            if extn in extensions or name in composites:
                 wheres_code.append(file)
     wheres_code_df = pd.DataFrame(wheres_code, columns=['file'])
     return wheres_code_df

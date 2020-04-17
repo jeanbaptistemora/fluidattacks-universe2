@@ -10,7 +10,7 @@ import unittest.mock
 from click.testing import CliRunner
 
 # Local libraries
-from toolbox.cli import cli
+from toolbox.cli import entrypoint as cli
 
 # constants
 

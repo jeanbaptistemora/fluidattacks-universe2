@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Tuple
 
 # Third parties libraries
+import click
 import dateutil.parser
 import requests
 from pykwalify.core import Core
@@ -257,7 +258,7 @@ def rfc3339_str_to_date_obj(
     return dateutil.parser.parse(date_str)
 
 
-def get_commit_message():
+def get_commit_summary() -> str:
     """Return commit message."""
     return os.popen('git log --max-count 1 --format=%s').read()[:-1]
 
@@ -270,7 +271,7 @@ def get_files_in_commit():
 
 
 def valid_commit_exp():
-    commit_msg = get_commit_message()
+    commit_msg = get_commit_summary()
 
     pattern = (r'(?P<type>\w+)\((?P<scope>\w+)\):\s?#?(?P<issue>[0-9.]*)'
                r'\s(?P<subs>\w+)\s?(?P<label>[a-z-]*)')
@@ -304,3 +305,32 @@ def get_modified_exps():
             _, find = helper.forces.scan_exploit_for_kind_and_id(path)
             findigs.append(find)
     return findigs
+
+
+def go_back_to_continuous():
+    starting_dir: str = os.getcwd()
+    if 'TOOLBOX_SKIP_ROOT_DETECTION' not in os.environ:
+        if 'continuous' not in starting_dir:
+            logger.error('Please run the toolbox inside the continuous repo')
+            sys.exit(78)
+        while not os.getcwd().endswith('continuous'):
+            os.chdir('..')
+            logger.debug('Adjusted working dir to:', os.getcwd())
+
+
+def get_current_subscription() -> str:
+    actual_path: str = os.getcwd()
+    try:
+        return actual_path.split('/continuous/')[1].split('/')[1]
+    except IndexError:
+        return 'unspecified-subs'
+
+
+def is_valid_subscription(ctx, param, subs):  # pylint: disable=unused-argument
+    actual_path: str = os.getcwd()
+    if 'subscriptions' not in actual_path and subs not in os.listdir(
+            'subscriptions') and subs != 'unspecified-subs':
+        msg = f'the subscription {subs} does not exist'
+        raise click.BadParameter(msg)
+    go_back_to_continuous()
+    return subs

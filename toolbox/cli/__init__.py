@@ -3,7 +3,6 @@
 
 # Standard library
 import functools
-import os
 import sys
 
 # Third parties imports
@@ -13,28 +12,17 @@ import click
 from toolbox import (
     resources,
     toolbox,
-    logger,
     analytics,
     forces,
     sorts,
     utils,
-    drills,
 )
+from .drills import drills_management
+from .misc import misc_management
 
 
 EXP_METAVAR = '[<EXPLOIT | all>]'
 SUBS_METAVAR = '[SUBSCRIPTION]'
-
-
-def _back_to_continuous():
-    starting_dir: str = os.getcwd()
-    if 'TOOLBOX_SKIP_ROOT_DETECTION' not in os.environ:
-        if 'continuous' not in starting_dir:
-            logger.error('Please run the toolbox inside the continuous repo')
-            sys.exit(78)
-        while not os.getcwd().endswith('continuous'):
-            os.chdir('..')
-            logger.debug('Adjusted working dir to:', os.getcwd())
 
 
 def _valid_integrates_token(ctx, param, value):
@@ -42,41 +30,23 @@ def _valid_integrates_token(ctx, param, value):
     assert constants
 
 
-def _valid_subscription(ctx, param, subs):
-    actual_path: str = os.getcwd()
-    if 'subscriptions' not in actual_path and subs not in os.listdir(
-            'subscriptions') and subs != 'no-subs':
-        msg = f'the subscription {subs} does not exist'
-        raise click.BadParameter(msg)
-    _back_to_continuous()
-    return subs
-
-
-def _get_actual_subscription():
-    actual_path: str = os.getcwd()
-    try:
-        return actual_path.split('/continuous/')[1].split('/')[1]
-    except IndexError:
-        return 'no-subs'
-
-
 def _convert_exploit(ctx, param, value):
     return '' if value == 'all' else value
 
 
-@click.group()
-def cli():
+@click.group(name='entrypoint')
+def entrypoint():
     """Main comand line group."""
 
 
 @click.command(name='resources', short_help='administrate resources')
 @click.argument(
     'subscription',
-    default=_get_actual_subscription(),
-    callback=_valid_subscription)
+    default=utils.get_current_subscription(),
+    callback=utils.is_valid_subscription)
 @click.option(
     '--check-repos',
-    default=_get_actual_subscription(),
+    default=utils.get_current_subscription(),
     metavar=SUBS_METAVAR)
 @click.option(
     '--clone', is_flag=True, help='clone the repositories of a subscription')
@@ -121,15 +91,15 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     elif login:
         sys.exit(0 if resources.utils.okta_aws_login(
             f'continuous-{subscription}') else 1)
-    elif check_repos != 'no-subs':
+    elif check_repos != 'unspecified-subs':
         sys.exit(0 if resources.check_repositories(check_repos) else 1)
 
 
 @click.command(name='forces', short_help='use the exploits')
 @click.argument(
     'subscription',
-    default=_get_actual_subscription(),
-    callback=_valid_subscription)
+    default=utils.get_current_subscription(),
+    callback=utils.is_valid_subscription)
 @click.option(
     '--check-sync',
     '--sync',
@@ -177,7 +147,7 @@ def forces_management(subscription, check_sync, decrypt,
             sys.exit(0 if toolbox.run_static_exploits(subscription, static)
                      else 1)
     elif check_sync is not None:
-        success = forces.quality.are_exploits_synced(subscription, check_sync)
+        success = forces.sync.are_exploits_synced(subscription, check_sync)
         sys.exit(0 if success else 1)
     elif fill_with_mocks:
         toolbox.fill_with_mocks(
@@ -197,34 +167,13 @@ def forces_management(subscription, check_sync, decrypt,
         sys.exit(0 if toolbox.init_secrets(subscription) else 1)
 
 
-@click.command(name='drills', short_help='Tools for ToE analysis')
-@click.argument(
-    'subscription',
-    default=_get_actual_subscription(),
-    callback=_valid_subscription)
-@click.option(
-    '--is-valid-commit-msg',
-    is_flag=True,
-    help='Check if last commit message has type drills.')
-@click.option(
-    '--generate-commit-msg',
-    is_flag=True,
-    help='Generate drills commit message for a subscription.')
-def drills_management(subscription, is_valid_commit_msg, generate_commit_msg):
-    """Perform operations with the drills service."""
-    if is_valid_commit_msg:
-        sys.exit(0 if drills.is_valid_commit_msg.main() else 1)
-    elif generate_commit_msg:
-        sys.exit(0 if drills.generate_commit_msg.main(subscription) else 1)
-
-
 @click.command(name='integrates', short_help='use the integrates API')
 @click.argument(
     'kind', type=click.Choice(['dynamic', 'static', 'all']), default='all')
 @click.argument(
     'subscription',
-    default=_get_actual_subscription(),
-    callback=_valid_subscription)
+    default=utils.get_current_subscription(),
+    callback=utils.is_valid_subscription)
 @click.option('--check-token', is_flag=True)
 @click.option(
     '--delete-pending-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
@@ -264,8 +213,8 @@ def analytics_management(analytics_break_build_logs):
 @click.command(name='utils')
 @click.argument(
     'subscription',
-    default=_get_actual_subscription(),
-    callback=_valid_subscription)
+    default=utils.get_current_subscription(),
+    callback=utils.is_valid_subscription)
 @click.option(
     '--get-commit-subs',
     help='get the subscription name from the commmit msg.',
@@ -282,7 +231,7 @@ def utils_management(subscription, get_commit_subs,
                      is_valid_commit, vpn, commit_exp):
     if is_valid_commit:
         sys.exit(0 if toolbox.is_valid_commit() else 1)
-    elif vpn and subscription != 'no-subs':
+    elif vpn and subscription != 'unspecified-subs':
         sys.exit(0 if resources.vpn(subscription) else 1)
     elif get_commit_subs:
         subs = toolbox.get_subscription_from_commit_msg()
@@ -295,8 +244,8 @@ def utils_management(subscription, get_commit_subs,
 @click.command(name='sorts', short_help='experimental')
 @click.argument(
     'subscription',
-    default=_get_actual_subscription(),
-    callback=_valid_subscription)
+    default=utils.get_current_subscription(),
+    callback=utils.is_valid_subscription)
 @click.option(
     '--get-data',
     is_flag=True,
@@ -306,13 +255,14 @@ def sorts_management(subscription, get_data):
         sys.exit(0 if sorts.get_data.get_project_data(subscription) else 1)
 
 
-cli.add_command(resources_management)
-cli.add_command(analytics_management)
-cli.add_command(forces_management)
-cli.add_command(integrates_management)
-cli.add_command(utils_management)
-cli.add_command(sorts_management)
-cli.add_command(drills_management)
+entrypoint.add_command(resources_management)
+entrypoint.add_command(analytics_management)
+entrypoint.add_command(forces_management)
+entrypoint.add_command(integrates_management)
+entrypoint.add_command(utils_management)
+entrypoint.add_command(sorts_management)
+entrypoint.add_command(drills_management)
+entrypoint.add_command(misc_management)
 
 
 def retry_debugging_on_failure(func):
@@ -334,4 +284,4 @@ def retry_debugging_on_failure(func):
 @retry_debugging_on_failure
 def main():
     """Usual entrypoint."""
-    cli()
+    entrypoint()

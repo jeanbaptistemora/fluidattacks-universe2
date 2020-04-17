@@ -1,7 +1,9 @@
 # Local imports
 from toolbox.forces import (
-    quality,
+    commit,
+    sync,
 )
 
 # Imported but unused
-assert quality
+assert commit
+assert sync
