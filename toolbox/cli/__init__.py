@@ -49,14 +49,16 @@ def entrypoint():
     default=utils.get_current_subscription(),
     metavar=SUBS_METAVAR)
 @click.option(
-    '--clone', is_flag=True, help='clone the repositories of a subscription')
+    '--clone-from-customer-git',
+    'clone',
+    is_flag=True,
+    help='clone the repositories of a subscription')
 @click.option('--does-subs-exist', 'subs_exist', metavar=SUBS_METAVAR)
 @click.option(
     '--fingerprint',
     is_flag=True,
     help='get the fingerprint of a subscription')
-@click.option(
-    '--login', is_flag=True, help='login to AWS through OKTA')
+@click.option('--login', is_flag=True, help='login to AWS through OKTA')
 @click.option(
     '--mailmap',
     '-mp',
@@ -66,11 +68,11 @@ def entrypoint():
     '--edit', is_flag=True, help='edit the secrets of a subscription')
 @click.option(
     '--read', is_flag=True, help='read the secrets of a subscription')
-@click.option('--sync-fusion-to-s3', is_flag=True)
-@click.option('--sync-s3-to-fusion', is_flag=True)
+@click.option('--push-repos', is_flag=True)
+@click.option('--pull-repos', is_flag=True)
 def resources_management(subscription, check_repos, clone, fingerprint,
-                         mailmap, login, subs_exist, edit, read,
-                         sync_fusion_to_s3, sync_s3_to_fusion):
+                         mailmap, login, subs_exist, edit, read, push_repos,
+                         pull_repos):
     """Allows administration tasks within subscriptions"""
     if mailmap:
         sys.exit(0 if resources.check_mailmap(subscription) else 1)
@@ -82,9 +84,9 @@ def resources_management(subscription, check_repos, clone, fingerprint,
         sys.exit(0 if resources.edit_secrets(subscription) else 1)
     elif read:
         sys.exit(0 if resources.read_secrets(subscription) else 1)
-    elif sync_fusion_to_s3:
+    elif push_repos:
         sys.exit(0 if resources.sync_repositories_to_s3(subscription) else 1)
-    elif sync_s3_to_fusion:
+    elif pull_repos:
         sys.exit(0 if resources.sync_s3_to_fusion(subscription) else 1)
     elif subs_exist:
         sys.exit(0 if toolbox.does_subs_exist(subs_exist) else 1)
