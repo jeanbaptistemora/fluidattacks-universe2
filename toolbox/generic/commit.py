@@ -56,9 +56,9 @@ def is_valid_summary(summary: str) -> bool:
     # fix(back): #123.1 comment, continuted
     generic_pattern = base_pattern + (
         f': '
-        r'(?P<issue>#\d+)'
+        r'(?P<issue>#[1-9]\d*)'
         r'\.'
-        r'(?P<issue_part>[0-9]+)'
+        r'(?P<issue_part>[1-9]\d*)'
         r' '
         r'(?P<comment>[a-z, _-]+)'
         r'$'

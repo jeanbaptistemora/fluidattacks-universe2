@@ -17,7 +17,7 @@ from toolbox import (
 
 
 def do_check_commit_msg() -> bool:
-    summary: str = utils.get_commit_summary()
+    summary: str = utils.get_change_request_summary()
     success: bool = False
 
     if drills.commit.is_drills_commit(summary):

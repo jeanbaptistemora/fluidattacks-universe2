@@ -36,11 +36,11 @@ def is_valid_summary(summary: str) -> bool:
     # fix(exp): #123 subs tag
     fix_pattern = base_pattern + (
         f': '
-        r'(?P<issue>#\d+)?'
+        r'(?P<issue>#[1-9]\d*)'
         r' '
         r'(?P<subscription>[a-z]+)'
         r' '
-        r'(?P<mod_reason>[a-z-]+)?'
+        r'(?P<mod_reason>[a-z-]+)'
         r'$'
     )
     mods__reason_desc: Tuple[Tuple[str, str], ...] = (

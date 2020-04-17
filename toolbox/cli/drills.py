@@ -37,7 +37,7 @@ def drills_management(
     success: bool = True
 
     if is_drills_commit:
-        summary: str = utils.get_commit_summary()
+        summary: str = utils.get_change_request_summary()
         success = drills.commit.is_drills_commit(summary)
         sys.exit(0 if success else 1)
     elif generate_commit_msg:

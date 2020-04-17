@@ -223,14 +223,10 @@ def analytics_management(analytics_break_build_logs):
     is_flag=True)
 @click.option('--is-valid-commit', is_flag=True, help='pipelines-only')
 @click.option(
-    '--commit-exp',
-    is_flag=True,
-    help='check if an exploit commit meets the required criteria')
-@click.option(
     '--vpn',
     is_flag=True)
 def utils_management(subscription, get_commit_subs,
-                     is_valid_commit, vpn, commit_exp):
+                     is_valid_commit, vpn):
     if is_valid_commit:
         sys.exit(0 if toolbox.is_valid_commit() else 1)
     elif vpn and subscription != 'unspecified-subs':
@@ -239,8 +235,6 @@ def utils_management(subscription, get_commit_subs,
         subs = toolbox.get_subscription_from_commit_msg()
         click.echo(subs)
         sys.exit(0 if subs else 1)
-    elif commit_exp:
-        sys.exit(0 if utils.valid_commit_exp() else 1)
 
 
 @click.command(name='sorts', short_help='experimental')

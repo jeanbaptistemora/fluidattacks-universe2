@@ -1,7 +1,6 @@
 # Standard library
 import os
 import io
-import re
 import sys
 import glob
 import datetime
@@ -22,7 +21,7 @@ from pykwalify.errors import SchemaError
 from ruamel.yaml import YAML, safe_load
 
 # Local libraries
-from toolbox import logger, helper, constants
+from toolbox import logger, helper
 
 
 def is_env_ci() -> bool:
@@ -258,9 +257,18 @@ def rfc3339_str_to_date_obj(
     return dateutil.parser.parse(date_str)
 
 
-def get_commit_summary() -> str:
-    """Return commit message."""
-    return os.popen('git log --max-count 1 --format=%s').read()[:-1]
+def get_change_request_summary() -> str:
+    """Return the HEAD commit message, or the merge request title."""
+    commit_summary: str
+    gitlab_summary_var: str = 'CI_MERGE_REQUEST_TITLE'
+
+    if gitlab_summary_var in os.environ:
+        commit_summary = os.environ[gitlab_summary_var]
+    else:
+        commit_summary = os.popen('git log --max-count 1 --format=%s').read()
+        commit_summary = commit_summary[:-1]
+
+    return commit_summary
 
 
 def get_files_in_commit():
@@ -268,33 +276,6 @@ def get_files_in_commit():
     return os.popen(
         'git show --name-only --pretty="" $(git rev-parse HEAD)').read().split(
             '\n')[:-1]
-
-
-def valid_commit_exp():
-    commit_msg = get_commit_summary()
-
-    pattern = (r'(?P<type>\w+)\((?P<scope>\w+)\):\s?#?(?P<issue>[0-9.]*)'
-               r'\s(?P<subs>\w+)\s?(?P<label>[a-z-]*)')
-    matchs: list = re.search(pattern, commit_msg)
-    group = matchs.groups if matchs else None
-
-    if not group or group('scope') != 'exp':
-        return True
-
-    if (group('type') == 'fix' and not group('issue')) or (
-            group('type') == 'fix'
-            and group('label') not in constants.EXP_LABELS):
-        return False
-
-    changed_files = get_files_in_commit()
-
-    exploits = [
-        path for path in changed_files
-        if path.split('/')[4] == 'exploits'
-        and path.split('/')[1] == group('subs')
-    ]
-
-    return len(exploits) in (0, 1)
 
 
 def get_modified_exps():
