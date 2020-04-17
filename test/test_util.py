@@ -151,7 +151,14 @@ class UtilTests(TestCase):
         values = ['hi', 'this is a', 'item']
         test_data = list_to_dict(keys, values)
         expected_output = {'item': 'hi', 'item2': 'this is a', 'item3': 'item'}
+        second_test_data = list_to_dict(keys[0:2], values)
+        second_expected_output = {'item': 'hi', 'item2': 'this is a', 2: 'item'}
+        third_test_data = list_to_dict(keys, values[0:2])
+        third_expected_output = {'item': 'hi', 'item2': 'this is a', 'item3': ''}
         assert test_data == expected_output
+        assert second_test_data == second_expected_output
+        assert third_test_data == third_expected_output
+
 
     def test_camelcase_to_snakecase(self):
         camelcase_string = 'thisIsATest'
@@ -161,12 +168,12 @@ class UtilTests(TestCase):
 
     def test_is_valid_file_name(self):
         name = 'test123.py'
-        test_data = is_valid_file_name(name)
-        expected_output = True
-        assert test_data == expected_output
+        invalid_name = 'test.test.py'
+        assert is_valid_file_name(name)
+        assert not is_valid_file_name(invalid_name)
 
     def test_is_valid_format(self):
         date = '2019-03-30 00:00:00'
-        test_data = is_valid_format(date)
-        expected_output = True
-        assert test_data == expected_output
+        invalid_date = '2019/03/30 00:00:00'
+        assert is_valid_format(date)
+        assert not is_valid_format(invalid_date)
