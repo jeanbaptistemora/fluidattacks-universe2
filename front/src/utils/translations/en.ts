@@ -279,7 +279,7 @@ const enTranslations: Dictionary = {
       },
       strictness: {
         strict: "Strict",
-        title: "Stricness",
+        title: "Strictness",
         tolerant: "Tolerant",
       },
       table_advice: "Click on an execution to see more details",

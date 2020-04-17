@@ -252,7 +252,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               const kind: string = toTitleCase(translate.t(
                 execution.kind === "static" ? "project.forces.kind.static" : "project.forces.kind.dynamic"));
               const strictness: string = toTitleCase(translate.t(
-                execution.strictness === "lex" ? "project.forces.strictness.tolerant" :
+                execution.strictness === "lax" ? "project.forces.strictness.tolerant" :
                 "project.forces.strictness.strict"));
               const foundVulnerabilities: IFoundVulnerabilities = {
                 accepted: execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,

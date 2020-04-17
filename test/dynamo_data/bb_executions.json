@@ -229,6 +229,133 @@
                     }
                 }
             }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "log": {
+                        "S": "# \n# >>> Decrypting exploits and secrets\n# \n#   gpg: directory '/root/.gnupg' created\n#   gpg: keybox '/root/.gnupg/pubring.kbx' created\n#   gpg: AES256 encrypted data\n#   gpg: encrypted with 1 passphrase\n# \n# >>> Extracting exploits\n# \n# >>> Running Fluid Asserts:\n# \n\n#     ________      _     __   ___                        __\n#    / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______\n#   / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \\/ ___/ __/ ___/\n#  / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )\n# /_/   /_/\\__,_/_/\\__,_/  /_/  |_/____/____/\\___/_/   \\__/____/\n#\n# v. 20.2.26999\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n---\nfinding: '[Skipped] FIN.S.0008 (it does not apply to this repo)'\n---\nfinding: '[Skipped] FIN.S.0016 (it does not apply to this repo)'\n---\nfinding: FIN.S.0028. Archivos temporales inseguros\n---\nfinding: '[Skipped] FIN.S.0034 (it does not apply to this repo)'\n---\nfinding: FIN.S.0052. Algoritmo de cifrado inseguro\n---\nfinding: FIN.H.0061. Errores sin trazabilidad\n---\nfinding: FIN.0073. Condicionales sin opcion por defecto\n---\nfinding: '[Skipped] FIN.0073 (it does not apply to this repo)'\n---\nmethod level stats:\n- '[Skipped] FIN.S.0008 (it does not apply to this repo)': {}\n- '[Skipped] FIN.S.0016 (it does not apply to this repo)': {}\n- FIN.S.0028. Archivos temporales inseguros:\n    fluidasserts.lang.core -> file_exists: 0 open, 1 closed, 0 unknown\n- '[Skipped] FIN.S.0034 (it does not apply to this repo)': {}\n- FIN.S.0052. Algoritmo de cifrado inseguro:\n    fluidasserts.lang.csharp -> uses_sha1_hash: 0 open, 1 closed, 0 unknown\n- FIN.H.0061. Errores sin trazabilidad:\n    fluidasserts.lang.csharp -> swallows_exceptions: 0 open, 1 closed, 0 unknown\n- FIN.0073. Condicionales sin opcion por defecto: {}\n- '[Skipped] FIN.0073 (it does not apply to this repo)': {}\n---\nsummary:\n  test time: 0.6227 seconds\n  checks:\n    total: 3 (100%)\n    errors: 0 (0.00%)\n    unknown: 0 (0.00%)\n    closed: 3 (100.00%)\n    opened: 0 (0.00%)\n  risk:\n    high: 0 (0%)\n    medium: 0 (0%)\n    low: 0 (0%)\n  exploits:\n    total: 7\n# \n# >>> Running Fluid Asserts on accepted findings\n#       This is informative, this will not break your build\n# \n\n#     ________      _     __   ___                        __\n#    / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______\n#   / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \\/ ___/ __/ ___/\n#  / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )\n# /_/   /_/\\__,_/_/\\__,_/  /_/  |_/____/____/\\___/_/   \\__/____/\n#\n# v. 20.2.26999\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n---\nfinding: FIN.S.0001. Inyecci\u00f3n SQL\n---\ncheck: fluidasserts.lang.core -> has_any_text\ndescription: Check if any on a list of bad text is present in given source file.\nstatus: OPEN\nvulnerabilities:\n- where: folder/folder/file1.cs\n  specific: '55'\ntest_kind: SAST\nrisk: low\n---\nfinding: 'skipped in this repo: FIN.S.0006. Ausencia o evasion de autenticacion'\n---\nfinding: FIN.S.0011. Uso de componentes con vulnerabilidades conocidas\n---\ncheck: fluidasserts.lang.core -> has_any_text\ndescription: Check if any on a list of bad text is present in given source file.\nstatus: OPEN\nvulnerabilities:\n- where: folder/folder/file2.cs\n  specific: '3'\ntest_kind: SAST\nrisk: low\n---\nfinding: FIN.S.0020. Ausencia de cifradode informacion confidencial\n---\ncheck: fluidasserts.lang.core -> has_any_text\ndescription: Check if any on a list of bad text is present in given source file.\nstatus: OPEN\nvulnerabilities:\n- where: folder/folder/file3.cs\n  specific: 8, 9\ntest_kind: SAST\nrisk: low\n---\nfinding: '[Skipped] FIN.S.0038 (it does not apply to this repo)'\n---\nfinding: '[Skipped] FIN.S.0042 (it does not apply to this repo)'\n---\nfinding: FIN.H.0058.  Depuracion habilitada en produccion\n---\ncheck: fluidasserts.lang.core -> has_any_text\ndescription: Check if any on a list of bad text is present in given source file.\nstatus: OPEN\nvulnerabilities:\n- where: folder/folder/file4.cs\n  specific: '10'\ntest_kind: SAST\nrisk: low\n---\nfinding: '[Skipped] FIN.H.0060 (it does not apply to this repo)'\n---\nfinding: '[Skipped] FIN.S.0063 (it does not apply to this repo)'\n---\nfinding: FIN.H.0074. Codigo funcional comentado\n---\nfinding: '[Skipped] FIN.H.0074 (it does not apply to this repo)'\n---\nfinding: '[Skipped] FIN.H.0079 (it does not apply to this repo)'\n---\nmethod level stats:\n- FIN.S.0001. Inyecci\u00f3n SQL:\n    fluidasserts.lang.core -> has_any_text: 1 open, 0 closed, 0 unknown\n- skipped in this repo FIN.S.0006. Ausencia o evasion de autenticacion: {}\n- FIN.S.0011. Uso de componentes con vulnerabilidades conocidas:\n    fluidasserts.lang.core -> has_any_text: 1 open, 0 closed, 0 unknown\n- FIN.S.0020. Ausencia de cifradode informacion confidencial:\n    fluidasserts.lang.core -> has_any_text: 1 open, 0 closed, 0 unknown\n- '[Skipped] FIN.S.0038 (it does not apply to this repo)': {}\n- '[Skipped] FIN.S.0042 (it does not apply to this repo)': {}\n- FIN.H.0058.  Depuracion habilitada en produccion:\n    fluidasserts.lang.core -> has_any_text: 1 open, 0 closed, 0 unknown\n- '[Skipped] FIN.H.0060 (it does not apply to this repo)': {}\n- '[Skipped] FIN.S.0063 (it does not apply to this repo)': {}\n- FIN.H.0074. Codigo funcional comentado: {}\n- '[Skipped] FIN.H.0074 (it does not apply to this repo)': {}\n- '[Skipped] FIN.H.0079 (it does not apply to this repo)': {}\n---\nsummary:\n  test time: 0.3911 seconds\n  checks:\n    total: 4 (100%)\n    errors: 0 (0.00%)\n    unknown: 0 (0.00%)\n    closed: 0 (0.00%)\n    opened: 4 (100.00%)\n  risk:\n    high: 0 (0.00%)\n    medium: 0 (0.00%)\n    low: 4 (100.00%)\n  exploits:\n    total: 11\n# \n# >>> Finishing with exit code 0\n# \n# >>> Uploading logs to S3\n\n"
+                    },
+                    "date": {
+                        "S": "2020-02-19T19:04:33.000000+0000"
+                    },
+                    "kind": {
+                        "S": "static"
+                    },
+                    "execution_id": {
+                        "S": "a135217504d447ada2b81da3e4bdab0e"
+                    },
+                    "subscription": {
+                        "S": "unittesting"
+                    },
+                    "git_origin": {
+                        "S": "https://test.com/test"
+                    },
+                    "git_branch": {
+                        "S": "awesomeFeature"
+                    },
+                    "vulnerabilities": {
+                        "M": {
+                            "accepted_exploits": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "55"
+                                            },
+                                            "what": {
+                                                "S": "Repository/folder/folder/file.cs"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "3"
+                                            },
+                                            "what": {
+                                                "S": "Repository/folder/folder/file2.cs"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "8"
+                                            },
+                                            "what": {
+                                                "S": "Repository/folder/folder/file3.cs"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "9"
+                                            },
+                                            "what": {
+                                                "S": "Repository/folder/folder/file3.cs"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "10"
+                                            },
+                                            "what": {
+                                                "S": "Repository/folder/folder/file4.cs"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "vulnerability_count_mocked_exploits": {
+                                "N": "0"
+                            },
+                            "vulnerability_count_exploits": {
+                                "N": "0"
+                            },
+                            "vulnerability_count_accepted_exploits": {
+                                "N": "5"
+                            },
+                            "exploits": {
+                                "L": []
+                            },
+                            "mocked_exploits": {
+                                "L": []
+                            }
+                        }
+                    },
+                    "exit_code": {
+                        "S": "0"
+                    },
+                    "git_repo": {
+                        "S": "Repository"
+                    },
+                    "strictness": {
+                        "S": "lax"
+                    },
+                    "git_commit": {
+                        "S": "23c3c76e7fe3bf9f2838f66e7b34c1358db2ff42"
+                    }
+                }
+            }
         }
     ]
 }
