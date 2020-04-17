@@ -4,7 +4,7 @@
 :findings: yes
 :type: security
 
-= FIN.S.0003. Asymmetric denial of service
+= FIN.S.0003. Symmetric denial of service
 
 == Description
 
