@@ -107,6 +107,7 @@ const enTranslations: Dictionary = {
     port_value: "Port value should be between 0 and 65535.",
     range_error: "Range limits are wrong.",
     records_removed: "Records have been removed successfully",
+    report_requested: "You will be receiving a mail with the link of the report in the next minutes",
     request_remove: "Project deletion request has been sent successfully",
     title_success: "Congratulations",
     updated: "Updated",

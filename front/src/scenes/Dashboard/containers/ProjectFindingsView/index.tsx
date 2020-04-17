@@ -40,7 +40,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const [requestProjectReport] = useMutation(REQUEST_PROJECT_REPORT, {
     onCompleted: (): void => {
       msgSuccess(
-        translate.t(""),
+        translate.t("proj_alerts.report_requested"),
         translate.t("proj_alerts.title_success"));
     },
     onError: (error: ApolloError): void => {
@@ -48,15 +48,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       rollbar.error("An error occurred requesting project report", error);
     },
   });
-
-  const handleTechPdfClick: (() => void) = (): void => {
-    const newTab: Window | null = window.open(`/integrates/pdf/en/project/${projectName}/tech/`, "_blank");
-    (newTab as Window).opener = undefined;
-  };
-  const handleTechXlsClick: (() => void) = (): void => {
-    const newTab: Window | null = window.open(`/integrates/xls/en/project/${projectName}`, "_blank");
-    (newTab as Window).opener = undefined;
-  };
 
   const tableSetStorage: (string | null) = localStorage.getItem("tableSet");
 
@@ -287,14 +278,13 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
           return finding;
         });
 
-        /* tslint:disable:no-unused-variable */
         const handleRequestProjectReport: ((event: React.MouseEvent<HTMLElement | ButtonType>) => void) =
         (event: React.MouseEvent<HTMLElement | ButtonType>): void => {
           const target: HTMLElement = event.currentTarget as HTMLElement;
           const span: HTMLSpanElement | null = target.querySelector("span");
           if (span !== null) {
             const reportType: string = span.className
-                                            .includes("pdf") ? "PDF" : "XLS";
+                                           .includes("pdf") ? "PDF" : "XLS";
             requestProjectReport({variables: {
               projectName, reportType,
             }})
@@ -344,10 +334,10 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     <Row>
                       <Col md={12} className={style.downloadButtonsContainer}>
                         <ButtonToolbar>
-                          <Button onClick={handleTechPdfClick}>
+                          <Button onClick={handleRequestProjectReport}>
                             <FontAwesome name="file-pdf-o" />&nbsp;PDF
                               </Button>
-                          <Button onClick={handleTechXlsClick}>
+                          <Button onClick={handleRequestProjectReport}>
                             <FontAwesome name="file-excel-o" />&nbsp;XLS
                               </Button>
                         </ButtonToolbar>
