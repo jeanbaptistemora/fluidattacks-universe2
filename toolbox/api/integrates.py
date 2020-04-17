@@ -348,7 +348,8 @@ class Queries:
                 }
             }
             """
-        return request(api_token, body, expected_types=(frozendict,))
+        return request(api_token, body, expected_types=(frozendict,),
+                       use_new_client=True)
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -388,59 +389,60 @@ class Queries:
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def finding(api_token: str,
                 identifier: str,
-                with_vulns: str = 'false') -> Response:
+                with_vulns: bool = False) -> Response:
         """Helper to get a finding."""
         logger.debug(f'Query.finding('
                      f'identifier={identifier}, '
                      f'with_vulns={with_vulns})')
         assert isinstance(identifier, str)
-        assert _is_bool(with_vulns)
         body: str = """
-            query {
-                finding(identifier: "%(identifier)s") {
+            query GetFinding($identifier: String!, $withVulns: Boolean!) {
+                finding(identifier: $identifier) {
                     attackVectorDesc
-                    closedVulnerabilities @include(if: %(with_vulns)s)
+                    closedVulnerabilities @include(if: $withVulns)
                     description
                     historicTreatment
-                    lastVulnerability @include(if: %(with_vulns)s)
-                    openVulnerabilities @include(if: %(with_vulns)s)
+                    lastVulnerability @include(if: $withVulns)
+                    openVulnerabilities @include(if: $withVulns)
                     projectName
                     recommendation
                     releaseDate
                     severityScore
                     threat
                     title
-                    vulnerabilities @include(if: %(with_vulns)s) {
-                        historicState @include(if: %(with_vulns)s)
-                        id @include(if: %(with_vulns)s)
-                        vulnType @include(if: %(with_vulns)s)
-                        where @include(if: %(with_vulns)s)
+                    vulnerabilities @include(if: $withVulns) {
+                        historicState @include(if: $withVulns)
+                        id @include(if: $withVulns)
+                        vulnType @include(if: $withVulns)
+                        where @include(if: $withVulns)
                     }
                 }
             }
             """
         params: dict = {
             'identifier': identifier,
-            'with_vulns': with_vulns,
+            'withVulns': with_vulns,
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params, expected_types=(frozendict,),
+                       use_new_client=True)
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def resources(api_token: str,
                   project_name: str) -> Response:
-        """Helper to get the project repositories"""
+        """Get the project repositories"""
         logger.debug(f'Query.finding('
                      f'project_name={project_name} ')
-        body: str = """query {
-            resources (projectName : "%(project_name)s") {
+        body: str = """query GetResources($projectName: String!) {
+            resources (projectName: $projectName) {
                 repositories
             }
         }"""
         params: dict = {
-            'project_name': project_name
+            'projectName': project_name
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params, expected_types=(frozendict,),
+                       use_new_client=True)
 
 
 class Mutations:

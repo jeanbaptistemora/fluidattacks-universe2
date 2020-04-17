@@ -3,6 +3,7 @@ import os
 import datetime
 import tempfile
 import textwrap
+from aiohttp.client_exceptions import ContentTypeError
 
 # Third parties libraries
 import pytest
@@ -26,8 +27,8 @@ def test_integrates_queries_me():
     assert not response.ok
 
     # This makes the GraphQL server fail, (too long Authorization header)
-    response = integrates.Queries.me(API_TOKEN_BAD * 1000)
-    assert response.status_code == 400
+    with pytest.raises(ContentTypeError):
+        response = integrates.Queries.me(API_TOKEN_BAD * 1000)
 
 
 def test_integrates_queries_project():
@@ -38,8 +39,8 @@ def test_integrates_queries_project():
     response = integrates.Queries.project(
         api_token=API_TOKEN,
         project_name=PROJECT,
-        with_drafts='true',
-        with_findings='true')
+        with_drafts=True,
+        with_findings=True)
     assert response.ok
 
 
@@ -51,7 +52,18 @@ def test_integrates_queries_finding():
     response = integrates.Queries.finding(
         api_token=API_TOKEN,
         identifier=FINDING,
-        with_vulns='true')
+        with_vulns=True)
+    assert response.ok
+
+
+def test_integrates_queries_resources():
+    """Test integrates queries."""
+    # This will guarantee that we have always our fields updated
+    #   if this query fails then integrates has changed,
+    #   please update ALL our queries
+    response = integrates.Queries.resources(
+        api_token=API_TOKEN,
+        project_name=PROJECT)
     assert response.ok
 
 
