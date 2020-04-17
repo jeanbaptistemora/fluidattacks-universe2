@@ -64,6 +64,10 @@ present in previous versions of the product.
 . Phase: Operation.
 . Type of Control: Recommendation.
 
+== Findings
+
+* link:/web/findings/0011/[FIN.S.0011. Use of software with known vulnerabilities]
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].
