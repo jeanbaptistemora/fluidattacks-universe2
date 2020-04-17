@@ -1,35 +1,20 @@
 
 # pylint: disable=import-error
 
-import os
 import sys
-import boto3
+import threading
 from asgiref.sync import sync_to_async
 from backend.decorators import require_login
 from backend.domain import (
     finding as finding_domain, project as project_domain,
-    vulnerability as vuln_domain
+    report as report_domain, vulnerability as vuln_domain
 )
-from backend.exceptions import ErrorUploadingFileS3
 from backend.utils import reports
-from backend.dal.helpers import cloudfront
 from backend.utils.passphrase import get_passphrase
 from backend import util
-from app.documentator.pdf import CreatorPDF
-from app.documentator.secure_pdf import SecurePDF
 from app.techdoc.it_report import ITReport
-from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
-    FI_CLOUDFRONT_REPORTS_DOMAIN
-)
+
 from ariadne import convert_kwargs_to_snake_case
-
-CLIENT_S3 = boto3.client('s3',
-                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
-                         aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
-
-BUCKET_S3 = FI_AWS_S3_BUCKET
 
 
 @convert_kwargs_to_snake_case
@@ -64,23 +49,17 @@ async def _do_request_project_report(_, info, **parameters):
 
     findings_ord = util.ord_asc_by_criticidad(findings)
     if report_type == 'PDF':
-        pdf_maker = CreatorPDF(parameters.get('lang', 'en'), 'tech')
-        secure_pdf = SecurePDF()
-        findings = pdf_evidences(findings_ord)
-        report_filename = ''
-        pdf_maker.tech(findings, project_name, description)
-        report_filename = secure_pdf.create_full(user_name,
-                                                 pdf_maker.out_name,
-                                                 project_name)
-        success, uploaded_file_name = reports.upload_report(report_filename)
-        if not success:
-            raise ErrorUploadingFileS3()
-        signed_url = cloudfront.sign_url(
-            FI_CLOUDFRONT_REPORTS_DOMAIN, uploaded_file_name, 120.0)
-        reports.send_project_report_email(user_email,
-                                          project_name.lower(),
-                                          secure_pdf.passphrase, 'PDF',
-                                          signed_url)
+        generate_pdf_report_thread = threading.Thread(
+            name='PDF report generation thread',
+            target=report_domain.generate_pdf_report,
+            args=(project_name,
+                  user_email,
+                  parameters.get('lang', 'en'),
+                  findings_ord,
+                  description)
+        )
+        generate_pdf_report_thread.start()
+        success = True
     elif report_type == 'XLS':
         it_report = ITReport(project_name, findings_ord, user_name)
         filepath = it_report.result_filename
@@ -92,26 +71,3 @@ async def _do_request_project_report(_, info, **parameters):
         success = True
 
     return dict(success=success)
-
-
-def pdf_evidences(findings):
-    for finding in findings:
-        folder_name = finding['projectName'] + '/' + finding['findingId']
-        evidence = finding['evidence']
-        evidence_set = [{
-            'id': '{}/{}'.format(folder_name, evidence[ev_item]['url']),
-            'explanation': evidence[ev_item]['description'].capitalize()
-        } for ev_item in evidence if evidence[ev_item]['url'].endswith('.png')]
-
-        if evidence_set:
-            finding['evidence_set'] = evidence_set
-            for evidence in evidence_set:
-                CLIENT_S3.download_file(
-                    BUCKET_S3,
-                    evidence['id'],
-                    '/usr/src/app/app/documentator/images/' +
-                    evidence['id'].split('/')[2])
-                evidence['name'] = 'image::../images/' + \
-                    evidence['id'].split('/')[2] + '[align="center"]'
-
-    return findings
