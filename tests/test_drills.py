@@ -4,6 +4,6 @@ from toolbox import (
 )
 
 
-def test_drills_is_valid_commit_msg(relocate):
-    """Test toolbox.is_drills_commit."""
+def test_is_valid_commit_msg(relocate):
+    """Test drills.is_valid_commit_msg.main"""
     drills.is_valid_commit_msg.main()

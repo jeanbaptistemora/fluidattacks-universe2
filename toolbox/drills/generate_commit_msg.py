@@ -1,6 +1,7 @@
 # Standard library
 from csv import DictReader
 from datetime import datetime, date
+from textwrap import dedent
 
 # Local libraries
 from toolbox import logger
@@ -86,19 +87,44 @@ def get_scope(lines: Objective, inputs: Objective) -> str:
 
 
 def main(subs: str):
+    commit_msg: str
+
     lines: Objective = process_lines_csv(subs)
     inputs: Objective = process_inputs_csv(subs)
 
     scope: str = get_scope(lines, inputs)
     cvrg: float = get_toe_coverage(lines, inputs)
 
-    logger.info(f"""Commit Message:
-    proj({scope}): {subs} - {cvrg:0.2f}%, {lines.today} el, {inputs.today} ei
+    commit_msg = dedent(f"""    Commit Message:
+
+    drills({scope}): {subs} - {cvrg:0.2f}%, {lines.today} el, {inputs.today} ei
 
     - {lines.sofar} el, {inputs.sofar} ei
     - {lines.count} vl, {inputs.count} vi
     - {cvrg:0.2f}% Total coverage
-    """.replace("    ", ""))
+    """)
+
+    if scope != 'cross':
+        if inputs.count == 0:
+            commit_msg += dedent(f"""
+            not-drills(cross)-because: toe-has-lines-only
+            """)
+        elif lines.count == lines.sofar:
+            commit_msg += dedent(f"""
+            not-drills(cross)-because: i-already-tested-all-lines
+            """)
+        elif inputs.count == inputs.sofar:
+            commit_msg += dedent(f"""
+            not-drills(cross)-because: i-already-tested-all-inputs
+            """)
+        else:
+            commit_msg += dedent(f"""
+            not-drills(cross)-because: <EXPLAIN HERE>
+            """)
+    else:
+        pass
+
+    logger.info(commit_msg)
 
     logger.info(f"Pending to test {lines.count - lines.sofar} lines.")
     logger.info(f"Pending to test {inputs.count - inputs.sofar} inputs.")
