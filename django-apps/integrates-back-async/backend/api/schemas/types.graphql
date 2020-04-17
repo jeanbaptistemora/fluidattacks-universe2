@@ -127,6 +127,7 @@ type Project {
     meanRemediateLowSeverity: Int
     meanRemediateMediumSeverity: Int
     meanRemediate: Int
+    openFindings: Int
     totalFindings: Int
     users: [User!]
     totalTreatment: GenericScalar

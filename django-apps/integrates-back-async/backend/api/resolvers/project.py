@@ -121,6 +121,20 @@ async def _get_open_vulnerabilities(info, project_name: str) -> Dict[str, int]:
 
 
 @get_entity_cache_async
+async def _get_open_findings(info, project_name: str) -> Dict[str, int]:
+    """Get open_findings."""
+    finding_ids = await \
+        sync_to_async(finding_domain.filter_deleted_findings)(
+            project_domain.list_findings(project_name)
+        )
+    finding_vulns = \
+        await info.context.loaders['vulnerability'].load_many(finding_ids)
+    open_findings = \
+        await sync_to_async(project_domain.get_open_findings)(finding_vulns)
+    return dict(open_findings=open_findings)
+
+
+@get_entity_cache_async
 async def _get_closed_vulnerabilities(info,
                                       project_name: str) -> Dict[str, int]:
     """Get closed_vulnerabilities."""

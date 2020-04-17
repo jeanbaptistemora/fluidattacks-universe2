@@ -521,6 +521,15 @@ def is_finding_in_drafts(finding_id: str) -> bool:
     return retval
 
 
+def get_open_findings(finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
+    open_findings = [
+        vulns for vulns in finding_vulns
+        if [vuln for vuln in vulns
+            if vuln_domain.get_last_approved_status(vuln) == 'open']
+    ]
+    return len(open_findings)
+
+
 def get_current_month_authors(project_name: str) -> str:
     return project_dal.get_current_month_authors(project_name)
 
