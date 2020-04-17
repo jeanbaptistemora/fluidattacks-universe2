@@ -81,6 +81,10 @@ therefore this information must be validated.
 
 * link:/web/findings/0004/[FIN.S.0004. Remote command execution]
 
+* link:/web/findings/0008/[FIN.S.0008. Reflected cross-site scripting (XSS)]
+
+* link:/web/findings/0010/[FIN.S.0010. Stored cross-site scripting (XSS)]
+
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A1-Injection[A1 Injection OWASP - Top 10 2013]

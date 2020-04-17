@@ -8,7 +8,11 @@
 
 == Requirement
 
-Source code must not contain sensitive information.
+The source code must not contain sensitive information.
+
+== Findings
+
+* link:/web/findings/0009/[FIN.S.0009. Sensitive information in source code]
 
 == References
 

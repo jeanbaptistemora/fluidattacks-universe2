@@ -1,0 +1,16 @@
+:slug: findings/0009/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about sensitive information in source code vulnerabilities, recommendations to avoid them and related security requirements.
+:keywords: Sensitive, Information, Source Code, Repository, Username, Password
+:findings: yes
+:type: security
+
+= FIN.S.0009. Sensitive information in source code
+
+== Description
+
+The source code repository contains sensitive information such as usernames,
+passwords, email addresses and IP addresses, among others.
+
+== Rules
+
+. [[r1]] link:/web/rules/156/[REQ.156 Source code without sensitive information]

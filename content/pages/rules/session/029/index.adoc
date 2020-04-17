@@ -105,6 +105,10 @@ and extracting the session +cookie+ used for session theft.
 
 * link:/web/findings/0007/[FIN.S.0007. Cross-site request forgery]
 
+* link:/web/findings/0008/[FIN.S.0008. Reflected cross-site scripting (XSS)]
+
+* link:/web/findings/0010/[FIN.S.0010. Stored cross-site scripting (XSS)]
+
 == References
 
 . [[r1]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-0462[CVE-2004-0462 HTTP cookie vulnerability].
