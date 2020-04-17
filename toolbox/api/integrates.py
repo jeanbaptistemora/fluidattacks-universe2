@@ -5,30 +5,18 @@ import time
 import json
 import textwrap
 import functools
-from typing import Any, Callable, List, NamedTuple, Tuple, Optional
+from typing import Any, Callable, List, NamedTuple, Tuple
 
 # Third parties libraries
 from aiogqlc import GraphQLClient
 from aiogqlc.utils import contains_file_variable
 import aiohttp
-import requests
-import simplejson
-from requests.packages.urllib3.exceptions import (  # noqa: import-error
-    InsecureRequestWarning
-)
 from frozendict import frozendict
 
 # Local imports
 from toolbox import logger
 
-# On call
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-
 # Containers
-File = NamedTuple('File', [('name', str),
-                           ('filename', Optional[str]),
-                           ('buffer', Optional[bytes]),
-                           ('content_type', Optional[str])])
 Response = NamedTuple('Response', [('ok', bool),
                                    ('status_code', int),
                                    ('data', Any),
@@ -46,30 +34,6 @@ PROXIES = None if not DEBUGGING else {
     "http": "http://127.0.0.1:8080",
     "https": "http://127.0.0.1:8080",
 }
-ERRORS: tuple = (
-    requests.exceptions.ChunkedEncodingError,
-    requests.exceptions.ConnectTimeout,
-    requests.exceptions.ConnectionError,
-    requests.exceptions.ContentDecodingError,
-    requests.exceptions.HTTPError,
-    requests.exceptions.ProxyError,
-    requests.exceptions.ReadTimeout,
-    requests.exceptions.RetryError,
-    requests.exceptions.SSLError,
-    requests.exceptions.StreamConsumedError,
-    requests.exceptions.Timeout,
-    requests.exceptions.TooManyRedirects,
-    requests.exceptions.UnrewindableBodyError,  # type: ignore
-
-    requests.exceptions.URLRequired,
-    requests.exceptions.InvalidHeader,  # type: ignore
-    requests.exceptions.InvalidProxyURL,  # type: ignore
-    requests.exceptions.InvalidSchema,
-    requests.exceptions.InvalidURL,
-    requests.exceptions.MissingSchema,
-
-    simplejson.JSONDecodeError,
-    json.JSONDecodeError)
 
 
 class CustomGraphQLClient(GraphQLClient):
@@ -90,151 +54,6 @@ class CustomGraphQLClient(GraphQLClient):
                     self.endpoint, data=data, headers=headers) as response:
                 await response.read()
                 return response
-
-
-def _is_bool(string: str) -> bool:
-    """Return True if 'string' is a GraphQL boolean."""
-    return string in ('false', 'true')
-
-
-def _request_parse_as_multipart(payload: str, files: List[File]):
-    """Process a request as multipart."""
-    # https://github.com/jaydenseric/graphql-multipart-request-spec
-    num_of_files: int = len(files)
-    single_file: bool = num_of_files == 1
-
-    if single_file:
-        map_json = {
-            files[0].name: ['variables.file']
-        }
-        operations_json = {
-            "query": payload,
-            "variables": {
-                "file": None,
-            },
-        }
-    else:
-        map_json = {
-            file.name: [f'variables.files.{file.name}']
-            for file in files
-        }
-        operations_json = {
-            "query": payload,
-            "variables": {
-                "files": [None] * num_of_files,
-            },
-        }
-    files.insert(0, File(
-        name='operations',
-        filename=None,
-        buffer=json.dumps(operations_json, indent=2, sort_keys=True).encode(),
-        content_type=None))
-    files.insert(1, File(
-        name='map',
-        filename=None,
-        buffer=json.dumps(map_json, indent=2, sort_keys=True).encode(),
-        content_type=None))
-    request_files = {
-        file.name: (
-            file.filename,
-            file.buffer,
-            file.content_type,
-        )
-        for index, file in enumerate(files)
-    }
-    return request_files
-
-
-def _request_parse_as_json(payload: str):
-    """Process a request as JSON."""
-    request_json = {
-        "query": payload
-    }
-    return request_json
-
-
-def _request_handler(api_token: str,
-                     payload: str,
-                     files: List[File],
-                     attempt_no: int = 1
-                     ) -> Response:
-    """Low level generic POST request to a GraphQL instance."""
-    assert isinstance(api_token, str)
-    assert isinstance(payload, str)
-    assert isinstance(files, list)
-    assert isinstance(attempt_no, int)
-    assert all(isinstance(file, File) for file in files)
-
-    if files:
-        # Do multipart
-        request_json = None
-        request_files = _request_parse_as_multipart(payload, files)
-    else:
-        # Do JSON
-        request_files = None
-        request_json = _request_parse_as_json(payload)
-
-    try:
-        response = requests.post(
-            url=INTEGRATES_API_URL,
-            proxies=PROXIES,
-            headers={
-                'Authorization': f'Bearer {api_token}',
-            },
-            json=request_json,
-            files=request_files,
-            verify=False,
-            timeout=None)
-
-        logger.debug('request', request_files)
-
-        content = response.json()
-    except ERRORS as error:
-        if attempt_no == RETRY_MAX_ATTEMPTS:
-            # We've got no option, return the error
-            logger.warn('response with error', str(error))
-            return Response(ok=False,
-                            status_code=(
-                                response.status_code
-                                if isinstance(error, (
-                                    json.JSONDecodeError,
-                                    simplejson.JSONDecodeError,
-                                ))
-                                else 0),
-                            data=None,
-                            errors=(
-                                str(error),
-                            ))
-        # Retry
-        time.sleep(RETRY_RELAX_SECONDS)
-        return _request_handler(api_token, payload, files, attempt_no + 1)
-
-    data: Any = content.get('data')
-    errors: Any = content.get('errors')
-
-    # Guarantee data immutability
-    if isinstance(data, dict):
-        logger.debug('response data is a dict')
-        data = frozendict(data)
-    elif isinstance(data, list):
-        logger.debug('response data is a non-empty tuple')
-        data = tuple(data)
-    else:
-        logger.debug('response data is an empty tuple')
-        data = tuple()
-
-    # Guarantee errors immutability
-    if errors:
-        logger.debug('response errors is a non-empty tuple')
-        errors = tuple(errors)
-    else:
-        logger.debug('response errors is an empty tuple')
-        errors = tuple()
-
-    return Response(ok=200 <= response.status_code < 400 and not errors,
-                    status_code=response.status_code,
-                    data=data,
-                    errors=errors)
 
 
 def handle_exception(_, context):
@@ -301,26 +120,16 @@ async def gql_request(api_token, payload, variables):
 def request(api_token: str,
             body: str,
             params: dict = None,
-            files: List[File] = None,
-            expected_types: tuple = tuple(),
-            use_new_client=False) -> Response:
+            expected_types: tuple = tuple()) -> Response:
     """Make a generic query to a GraphQL instance."""
     assert isinstance(body, str)
     if params is not None:
         assert isinstance(params, dict)
-    if files is not None:
-        assert isinstance(files, list)
-        assert all(isinstance(file, File) for file in files)
-    else:
-        files = []
 
     payload = textwrap.dedent(body % params if params else body)
 
     for _ in range(RETRY_MAX_ATTEMPTS):
-        if use_new_client:
-            response = run_async(gql_request, api_token, payload, params)
-        else:
-            response = _request_handler(api_token, payload, files)
+        response = run_async(gql_request, api_token, payload, params)
         if response.errors or isinstance(response.data, expected_types):
             break
         time.sleep(RETRY_RELAX_SECONDS)
@@ -348,8 +157,7 @@ class Queries:
                 }
             }
             """
-        return request(api_token, body, expected_types=(frozendict,),
-                       use_new_client=True)
+        return request(api_token, body, expected_types=(frozendict,))
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -382,8 +190,7 @@ class Queries:
             'withDrafts': with_drafts,
             'withFindings': with_findings,
         }
-        return request(api_token, body, params,
-                       expected_types=(frozendict,), use_new_client=True)
+        return request(api_token, body, params, expected_types=(frozendict,))
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -423,8 +230,7 @@ class Queries:
             'identifier': identifier,
             'withVulns': with_vulns,
         }
-        return request(api_token, body, params, expected_types=(frozendict,),
-                       use_new_client=True)
+        return request(api_token, body, params, expected_types=(frozendict,))
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -441,8 +247,7 @@ class Queries:
         params: dict = {
             'projectName': project_name
         }
-        return request(api_token, body, params, expected_types=(frozendict,),
-                       use_new_client=True)
+        return request(api_token, body, params, expected_types=(frozendict,))
 
 
 class Mutations:
@@ -464,8 +269,7 @@ class Mutations:
         params: dict = {
             'expirationTime': expiration_time,
         }
-        return request(api_token, body, params, expected_types=(frozendict,),
-                       use_new_client=True)
+        return request(api_token, body, params, expected_types=(frozendict,))
 
     @staticmethod
     def invalidate_access_token(api_token: str) -> Response:
@@ -478,8 +282,7 @@ class Mutations:
                 }
             }
             """
-        return request(api_token, body, expected_types=(frozendict,),
-                       use_new_client=True)
+        return request(api_token, body, expected_types=(frozendict,))
 
     @staticmethod
     def upload_file(api_token: str,
@@ -506,8 +309,7 @@ class Mutations:
             'file': file_path_handle
         }
         return request(
-            api_token, body, params, expected_types=(frozendict,),
-            use_new_client=True)
+            api_token, body, params, expected_types=(frozendict,))
 
     @staticmethod
     def approve_vulns(api_token: str,
@@ -536,8 +338,7 @@ class Mutations:
             'findingId': finding_id,
             'approvalStatus': approval_status,
         }
-        return request(api_token, body, params, expected_types=(frozendict,),
-                       use_new_client=True)
+        return request(api_token, body, params, expected_types=(frozendict,))
 
 
 # Metadata
