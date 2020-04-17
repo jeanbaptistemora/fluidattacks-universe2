@@ -289,6 +289,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
               projectName, reportType,
             }})
             .catch();
+            setReportsModalOpen(false);
           }
         };
 
