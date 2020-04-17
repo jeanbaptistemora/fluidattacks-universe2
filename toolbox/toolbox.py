@@ -21,7 +21,6 @@ from toolbox import api, constants, helper, logger, utils
 
 # Compiled regular expresions
 RE_DAILY_COMMIT = re.compile(r'proj\(\w+\):\s+(\w+)')
-RE_DRILLS_COMMIT = re.compile(r'drills\(\w+\):\s+(\w+)')
 RE_EXPLOITS_COMMIT = re.compile(r'\w+\(exp\):\s+(?:#\d+(?:\.\d+)?\s*)?(\w+)')
 
 RE_FINDING_TITLE = re.compile(r'^\s*(\w+)[^\d]*(\d+).*$', flags=re.I)
@@ -122,13 +121,6 @@ def is_valid_commit() -> bool:
     commit_msg: str = utils.get_commit_message()
     return bool(RE_DAILY_COMMIT.search(commit_msg)) or \
         bool(RE_EXPLOITS_COMMIT.search(commit_msg))
-
-
-@functools.lru_cache(maxsize=None, typed=True)
-def is_drills_commit() -> bool:
-    """Return True if the last commit in git history commit has drills type."""
-    commit_msg: str = utils.get_commit_message()
-    return bool(RE_DRILLS_COMMIT.search(commit_msg))
 
 
 @functools.lru_cache(maxsize=None, typed=True)

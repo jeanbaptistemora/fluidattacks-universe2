@@ -85,7 +85,7 @@ def get_scope(lines: Objective, inputs: Objective) -> str:
     return scope
 
 
-def generate_commit_message(subs: str):
+def main(subs: str):
     lines: Objective = process_lines_csv(subs)
     inputs: Objective = process_inputs_csv(subs)
 

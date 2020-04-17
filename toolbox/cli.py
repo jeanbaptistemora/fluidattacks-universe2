@@ -18,7 +18,7 @@ from toolbox import (
     forces,
     sorts,
     utils,
-    drills
+    drills,
 )
 
 
@@ -203,13 +203,19 @@ def forces_management(subscription, check_sync, decrypt,
     default=_get_actual_subscription(),
     callback=_valid_subscription)
 @click.option(
-    '--generate-commit-message',
+    '--is-valid-commit-msg',
+    is_flag=True,
+    help='Check if last commit message has type drills.')
+@click.option(
+    '--generate-commit-msg',
     is_flag=True,
     help='Generate drills commit message for a subscription.')
-def drills_management(subscription, generate_commit_message):
+def drills_management(subscription, is_valid_commit_msg, generate_commit_msg):
     """Perform operations with the drills service."""
-    if generate_commit_message:
-        sys.exit(0 if drills.toe.generate_commit_message(subscription) else 1)
+    if is_valid_commit_msg:
+        sys.exit(0 if drills.is_valid_commit_msg.main() else 1)
+    elif generate_commit_msg:
+        sys.exit(0 if drills.generate_commit_msg.main(subscription) else 1)
 
 
 @click.command(name='integrates', short_help='use the integrates API')
@@ -265,7 +271,6 @@ def analytics_management(analytics_break_build_logs):
     help='get the subscription name from the commmit msg.',
     is_flag=True)
 @click.option('--is-valid-commit', is_flag=True, help='pipelines-only')
-@click.option('--is-drills-commit', is_flag=True, help='pipelines-only')
 @click.option(
     '--commit-exp',
     is_flag=True,
@@ -273,12 +278,10 @@ def analytics_management(analytics_break_build_logs):
 @click.option(
     '--vpn',
     is_flag=True)
-def utils_management(subscription, get_commit_subs, is_valid_commit,
-                     is_drills_commit, vpn, commit_exp):
+def utils_management(subscription, get_commit_subs,
+                     is_valid_commit, vpn, commit_exp):
     if is_valid_commit:
         sys.exit(0 if toolbox.is_valid_commit() else 1)
-    if is_drills_commit:
-        sys.exit(0 if toolbox.is_drills_commit() else 1)
     elif vpn and subscription != 'no-subs':
         sys.exit(0 if resources.vpn(subscription) else 1)
     elif get_commit_subs:
