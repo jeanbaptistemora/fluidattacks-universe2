@@ -9,22 +9,14 @@ At least once a day:
 
 1. Rebase your local changes to the **master** branch
 2. Update your **subscription repositories**
-3. Update your **Asserts installation**:
-
-   Example:
-
-  .. code:: bash
-
-      continuous $ python3 -m pip install -U --user fluidasserts
-
-
-4. Update your **toolbox** and the **utilities** package:
+3. Update your **fluid-cli** and the **utilities** package:
 
    Example:
 
    .. code:: bash
 
-       continuous $ python3 -m pip install --user break-build/packages/*
+       continuous $ python3 -m pip install --user --upgrade fluidattacks[with_everything]
+       continuous $ python3 -m pip install --user --upgrade break-build/packages/*
 
 Hands-on tutorial
 =================
@@ -97,7 +89,7 @@ Two files are created for the static and dynamic exploits:
 2. secrets.yml:
 
    This is the file we upload to the continuous repository, we'll
-   generate it automatically with the toolbox.
+   generate it automatically with the fluid-cli.
 
 At this point, the directory structure look something like this:
 
@@ -175,7 +167,7 @@ We'll need to add secrets in order to use them in our exploits.
          you_choose_a_pretty_name_2: 'highly-secret-value-456-456'
          you_choose_a_pretty_name_3: 'highly-secret-value-789-789'
 
-2. Encrypt **plaintext.yml** with the toolbox to generate
+2. Encrypt **plaintext.yml** with the fluid-cli to generate
    **secrets.yml**:
 
    .. code:: bash
@@ -235,7 +227,7 @@ Running the exploit
 -------------------
 
 Remember to clone the customer repositories and then
-use the toolbox!
+use the fluid-cli!
 
 .. code:: bash
 

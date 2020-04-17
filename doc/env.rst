@@ -8,7 +8,7 @@ There's a base environment that you can setup easily to have:
 
    A Framework to verify security assumptions.
 
-#. The `Continuous Toolbox <https://fluidattacks.gitlab.io/continuous/reference.html>`_.
+#. The `FLuid CLI <https://fluidattacks.gitlab.io/continuous/reference.html>`_.
 
    A swiss tool to develop **Asserts**'s exploits with high quality,
    run them,

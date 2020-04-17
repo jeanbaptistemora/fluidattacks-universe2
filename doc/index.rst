@@ -26,7 +26,8 @@ The directory structure is (only the most important directories are included):
   - **subscriptions:** Contains all active continuous subscriptions.
   - **suspended:** Contains all suspended continuous subscriptions.
   - **finished:** Contains all finished continuous subscriptions.
-  - **break-build:** Contains all source code for break-build service and toolbox.
+  - **break-build:** Contains all source code for break-build service.
+  - **toolbox:** Contains all source code for the Fluid CLI.
 
 There are ``4`` folders within every subscription:
 
@@ -54,7 +55,7 @@ There are ``4`` folders within every subscription:
 
   - **fusion:** This folder does not come by default.
     It contains the source code of the subscription repositories
-    and can be obtained by cloning it with the :ref:`Toolbox <repo-cloning>`.
+    and can be obtained by cloning it with the :ref:`Fluid CLI <repo-cloning>`.
 
 ==========================
 Target of Evaluation (ToE)
@@ -155,12 +156,12 @@ that allows analysts to decrypt the ``config/secrets.yaml``
 of the subscriptions they have access to.
 
 +++++++++++++++
-Toolbox
+Fluid CLI
 +++++++++++++++
-Toolbox is a software, which makes the hacker's job easier by
+FLuid CLI is a software, which makes the hacker's job easier by
 providing the tools they need in continuous testing.
 
-You can access more documentation about Toolbox :ref:`here <api-reference>`.
+You can access more documentation about it :ref:`here <api-reference>`.
 
 .. _repo-cloning:
 
@@ -176,13 +177,13 @@ Execute the following command from the continuous repo root:
 
 .. code:: bash
 
-  user@PC:~/continuous$ fluid resources --clone <subscription-name>
+  continuous$ fluid resources --clone <subscription-name>
 
 This one could also be executed inside the selected subscription folder
 
 .. code:: bash
 
-  user@PC:~/continuous/subscriptions/subscription$ fluid resources --clone
+  continuous/subscriptions/subscription$ fluid resources --clone
 
 This command will ask for okta credentials.
 
@@ -212,7 +213,7 @@ you have to:
 
   .. code:: bash
 
-    user@PC:~/continuous/subscriptions/subscription$ ../../tools3/update_lines.py
+    continuous/subscriptions/subscription$ ../../tools3/update_lines.py
 
 +++++++++++++++++++
 3. Evaluated-so far
@@ -226,7 +227,7 @@ to the ``lines.csv`` and ``inputs.csv`` files during tests.
 
 .. code:: bash
 
-  user@PC:~/continuous/subscriptions/subscription$ ../../tools3/evaluated_so_far.py
+  continuous/subscriptions/<subscription>$ fluid drills --generate-commit-msg
 
 
 ++++++++++++++
@@ -242,7 +243,7 @@ among others.
 
 .. code:: bash
 
-  user@PC:~/continuous/subscriptions/subscription/fusion$ toolbox resources --fingerprint
+  continuous/subscriptions/<subscription>$ fluid resources --fingerprint
 
 +++++++++++++++
 5. Source Clear

@@ -27,7 +27,7 @@ from toolbox import (
 @option(
     '--generate-commit-msg',
     is_flag=True,
-    help='generate drills commit message for a subscription')
+    help='generate drills commit message')
 def drills_management(
     subscription,
     is_drills_commit,
