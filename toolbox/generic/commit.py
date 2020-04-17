@@ -41,7 +41,7 @@ VALID_TYPES: Tuple[str, ...] = \
     tuple(map(operator.itemgetter(0), VALID__TYPES_DESC))
 
 
-def is_valid_msg(summary: str) -> bool:
+def is_valid_summary(summary: str) -> bool:
     """Plugable validator for forces commits."""
     is_valid: bool = True
 
