@@ -26,11 +26,11 @@ VALID__SCOPES_DESC: Tuple[Tuple[str, str], ...] = (
     ('cross', 'Mix of two or more scopes'),
 )
 VALID__TYPES_DESC: Tuple[Tuple[str, str], ...] = (
-    ('revert', 'Revert to a previous commit in history'),
+    ('rever', 'Revert to a previous commit in history'),
     ('feat', 'New feature, improvement, enhancement'),
     ('perf', 'Improves resource consumption (time/space)'),
     ('fix', 'Someone (or you) did wrong, you are getting things right'),
-    ('refact', 'Neither fixes a bug or adds a feature'),
+    ('refac', 'Neither fixes a bug or adds a feature'),
     ('test', 'Adding missing tests or correcting existing tests'),
     ('style', 'Do not affect the meaning of the code (formatting, etc)'),
 )
