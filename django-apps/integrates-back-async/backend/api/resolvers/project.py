@@ -78,7 +78,6 @@ async def _get_has_forces(_, project_name: str) -> Dict[str, bool]:
     return dict(has_forces=attributes.get('has_forces', False))
 
 
-@get_entity_cache_async
 async def _get_findings(
         info, project_name: str) -> Dict[str, List[Dict[str, FindingType]]]:
     """Resolve findings attribute."""
@@ -408,7 +407,6 @@ async def _get_events(info, project_name: str) -> Dict[str, List[EventType]]:
     return dict(events=events)
 
 
-@enforce_group_level_auth_async
 async def _get_users(info, project_name: str) -> Dict[str, List[UserType]]:
     """Get users."""
     user_data = util.get_jwt_content(info.context)
