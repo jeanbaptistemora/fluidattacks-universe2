@@ -119,6 +119,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .integrates-bg { background-image: url('../../images/products/integrates/integrates-cover.png'); }
 .drills-bg { background-image: url('../../images/products/drills/drills-cover.png'); }
 .forces-bg { background-image: url('../../images/products/forces/forces-cover.png'); }
+.thank-you-bg { background-image: url('../../images/contact-us/bg-thank-you-page.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);
@@ -168,6 +169,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bb-form { border-bottom: 1px solid $lightblack; }
 .h-slide-bt { height: .188rem; }
 .slide-bt-trans { transition: background-color 0.6s ease; }
+.ph-bt { padding-left: 4.25rem; padding-right: 4.25rem; }
+.pv-bt { padding-top: .75rem; padding-bottom: .75rem; }
 
 
 // Tachyons custom responsive classes
@@ -227,6 +230,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .mt-6-l { margin-top: .6rem; }
   .nl-3 { margin-left: -3rem; }
   .mv-menu { margin-top: 1.875rem; margin-bottom: 1.875rem; }
+  .w36-l{ width: 36rem; }
 }
 
 //Very large screens
