@@ -177,13 +177,13 @@ Execute the following command from the continuous repo root:
 
 .. code:: bash
 
-  continuous$ fluid resources --clone <subscription-name>
+  user@PC:~/continuous$ fluid resources --pull-repos <subscription-name>
 
 This one could also be executed inside the selected subscription folder
 
 .. code:: bash
 
-  continuous/subscriptions/subscription$ fluid resources --clone
+  user@PC:~/continuous/subscriptions/subscription$ fluid resources --pull-repos
 
 This command will ask for okta credentials.
 
