@@ -277,7 +277,11 @@ const enTranslations: Dictionary = {
         vulnerabilities: "Vulnerabilities",
         vulnerable: "Vulnerable",
       },
-      strictness: "Strictness",
+      strictness: {
+        strict: "Strict",
+        title: "Stricness",
+        tolerant: "Tolerant",
+      },
       table_advice: "Click on an execution to see more details",
     },
     tabs: {

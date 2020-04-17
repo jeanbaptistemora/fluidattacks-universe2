@@ -174,7 +174,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState, width: "6%", wrapped: true,
     },
     {
-      align: "center", dataField: "strictness", header: translate.t("project.forces.strictness"),
+      align: "center", dataField: "strictness", header: translate.t("project.forces.strictness.title"),
       onSort: onSortState, width: "5%", wrapped: true,
     },
     {
@@ -251,7 +251,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               const date: string = formatDate(execution.date);
               const kind: string = toTitleCase(translate.t(
                 execution.kind === "static" ? "project.forces.kind.static" : "project.forces.kind.dynamic"));
-              const strictness: string = toTitleCase(execution.strictness);
+              const strictness: string = toTitleCase(translate.t(
+                execution.strictness === "lex" ? "project.forces.strictness.tolerant" :
+                "project.forces.strictness.strict"));
               const foundVulnerabilities: IFoundVulnerabilities = {
                 accepted: execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
                 exploitable: execution.vulnerabilities.numOfVulnerabilitiesInExploits,
@@ -303,7 +305,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                     <Col md={8}><p>{currentRow.status}</p></Col>
                   </Row>
                   <Row>
-                    <Col md={4}><p><b>{translate.t("project.forces.strictness")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("project.forces.strictness.title")}</b></p></Col>
                     <Col md={8}><p>{currentRow.strictness}</p></Col>
                   </Row>
                   <Row>
