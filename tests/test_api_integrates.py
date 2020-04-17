@@ -1,4 +1,5 @@
 # Standard library
+from uuid import uuid4
 import os
 import datetime
 import tempfile
@@ -77,6 +78,15 @@ def test_integrates_mutations_invalidate_access_token():
     """Test integrates mutations."""
     response = integrates.Mutations.invalidate_access_token(API_TOKEN_BAD)
     assert not response.ok
+
+
+def test_integrates_mutations_approve_vulnerability():
+    """Test integrates mutations."""
+    uuid = str(uuid4())
+    response = integrates.Mutations.approve_vulns(
+        API_TOKEN, FINDING, uuid, approval_status=False)
+    assert response.ok
+    assert not response.data['approveVulnerability']['success']
 
 
 def test_integrates_mutations_upload_file():

@@ -454,17 +454,18 @@ class Mutations:
         logger.debug(f'Mutations.update_access_token('
                      f'expiration_time={expiration_time})')
         body: str = """
-            mutation {
-                updateAccessToken(expirationTime: %(expiration_time)s) {
+            mutation UpdateAccessToken ($expirationTime: Int!) {
+                updateAccessToken(expirationTime: $expirationTime) {
                     sessionJwt
                     success
                 }
             }
             """
         params: dict = {
-            'expiration_time': expiration_time,
+            'expirationTime': expiration_time,
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params, expected_types=(frozendict,),
+                       use_new_client=True)
 
     @staticmethod
     def invalidate_access_token(api_token: str) -> Response:
@@ -477,7 +478,8 @@ class Mutations:
                 }
             }
             """
-        return request(api_token, body, expected_types=(frozendict,))
+        return request(api_token, body, expected_types=(frozendict,),
+                       use_new_client=True)
 
     @staticmethod
     def upload_file(api_token: str,
@@ -514,7 +516,7 @@ class Mutations:
     def approve_vulns(api_token: str,
                       finding_id: str,
                       uuid: str = '',
-                      approval_status: str = 'false') -> Response:
+                      approval_status: bool = False) -> Response:
         """ApproveVulnMutation."""
         logger.debug(f'Mutations.approve_vulns('
                      f'uuid={uuid}, '
@@ -522,22 +524,23 @@ class Mutations:
                      f'approval_status={approval_status})')
         assert isinstance(uuid, str)
         assert isinstance(finding_id, str)
-        assert _is_bool(approval_status)
         body: str = """
-            mutation {
-                approveVulnerability(uuid: "%(uuid)s",
-                                     findingId: "%(finding_id)s",
-                                     approvalStatus: %(approval_status)s) {
+            mutation ApproveVulnerability($uuid: String!, $findingId: String!,
+                                          $approvalStatus: Boolean!) {
+                approveVulnerability(uuid: $uuid,
+                                     findingId: $findingId,
+                                     approvalStatus: $approvalStatus) {
                     success
                 }
             }
             """
         params: dict = {
             'uuid': uuid,
-            'finding_id': finding_id,
-            'approval_status': approval_status,
+            'findingId': finding_id,
+            'approvalStatus': approval_status,
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params, expected_types=(frozendict,),
+                       use_new_client=True)
 
 
 # Metadata

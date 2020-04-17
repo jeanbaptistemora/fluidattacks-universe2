@@ -199,7 +199,7 @@ def delete_pending_vulns(finding_id: str) -> bool:
     response = api.integrates.Mutations.approve_vulns(
         api_token=API_TOKEN,
         finding_id=finding_id,
-        approval_status='false')
+        approval_status=False)
     return response.data['approveVulnerability']['success']
 
 
