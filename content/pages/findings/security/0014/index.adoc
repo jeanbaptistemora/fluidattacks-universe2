@@ -1,0 +1,16 @@
+:slug: findings/0014/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from insecure functionalities, recommendations to avoid them and related security requirements.
+:keywords: Reference, Insecure, Object, Authentication, Bypass, Session
+:findings: yes
+:type: security
+
+= FIN.S.0014. Insecure functionality
+
+== Description
+
+A functionality that is part of the system can be leveraged by an attacker
+in order to negatively impact it.
+
+== Rules
+
+. [[r1]] link:/web/rules/266/[REQ.266 Disable insecure functionalities]

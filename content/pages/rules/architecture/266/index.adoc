@@ -1,0 +1,50 @@
+:slug: rules/266/
+:category: architecture
+:description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of disabling or controlling system functions that could be harmful for the application.
+:keywords: Insecure, Functionality, System, Hardening, ASVS, CWE
+:rules: yes
+
+= REQ.266 Disable insecure functionalities
+
+== Requirement
+
+The organization must disable or carefully control the insecure functions of a
+system (system hardening).
+
+== Description
+
+Sometimes platforms include functionalities that are not required or could be
+harmful for some applications built on top of or residing in them.
+Other times, applications are developed including functionalities that allow
+actions that could be considered insecure.
+All these functionalities should be disabled or otherwise controlled to prevent
+them from compromising the system's security.
+Furthermore, the system must enforce those controls on trusted enforcement
+points such as access control gateways, severs and serverless functions.
+
+== Findings
+
+* link:/web/findings/0014/[FIN.S.0014. Insecure functionality]
+
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]
+The software does not restrict or incorrectly restricts access to a resource
+from an unauthorized actor.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security]
+The software is composed of a server that relies on the client to implement a
+mechanism that is intended to protect the server.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/749.html[CWE-749: Exposed Dangerous Method or Function]
+The software provides an Applications Programming Interface (API) or similar
+interface for interaction with external actors,
+but the interface includes a dangerous method or function that is not properly
+restricted.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.1)]
+Verify that trusted enforcement points such as at access control gateways,
+servers, and serverless functions enforce access controls.
+Never enforce access controls on the client.
