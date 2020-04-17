@@ -9,10 +9,7 @@ from backend.domain import (
     finding as finding_domain, project as project_domain,
     report as report_domain, vulnerability as vuln_domain
 )
-from backend.utils import reports
-from backend.utils.passphrase import get_passphrase
 from backend import util
-from app.techdoc.it_report import ITReport
 
 from ariadne import convert_kwargs_to_snake_case
 
@@ -33,7 +30,6 @@ async def _do_request_project_report(_, info, **parameters):
     report_type = parameters.get('report_type')
     user_info = util.get_jwt_content(info.context)
     user_email = user_info['user_email']
-    user_name = user_email.split('@')[0]
     findings = \
         await sync_to_async(
             project_domain.list_findings)(project_name.lower())
@@ -61,13 +57,14 @@ async def _do_request_project_report(_, info, **parameters):
         generate_pdf_report_thread.start()
         success = True
     elif report_type == 'XLS':
-        it_report = ITReport(project_name, findings_ord, user_name)
-        filepath = it_report.result_filename
-        passphrase = get_passphrase(4)
-        reports.set_xlsx_passphrase(filepath, str(passphrase))
-        reports.send_project_report_email(user_email,
-                                          project_name.lower(),
-                                          passphrase, 'XLS', '')
+        generate_xls_report_thread = threading.Thread(
+            name='XLS report generation thread',
+            target=report_domain.generate_xls_report,
+            args=(project_name,
+                  user_email,
+                  findings_ord)
+        )
+        generate_xls_report_thread.start()
         success = True
 
     return dict(success=success)

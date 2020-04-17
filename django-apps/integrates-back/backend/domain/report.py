@@ -3,8 +3,10 @@ from typing import cast, Dict, List
 from backend.typing import Finding as FindingType
 from backend.utils import reports
 from backend.dal import finding as finding_dal, report as report_dal
+from backend.utils.passphrase import get_passphrase
 from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
+from app.techdoc.it_report import ITReport
 
 
 def generate_pdf_report(project_name: str, user_email: str, lang: str,
@@ -24,6 +26,20 @@ def generate_pdf_report(project_name: str, user_email: str, lang: str,
                                       project_name.lower(),
                                       secure_pdf.passphrase, 'PDF',
                                       signed_url)
+
+
+def generate_xls_report(project_name: str, user_email: str,
+                        findings_ord: List[Dict[str, FindingType]]):
+    user_name = user_email.split('@')[0]
+    it_report = ITReport(project_name, findings_ord, user_name)
+    filepath = it_report.result_filename
+    passphrase = get_passphrase(4)
+    reports.set_xlsx_passphrase(filepath, str(passphrase))
+    uploaded_file_name = report_dal.upload_report(filepath)
+    signed_url = report_dal.sign_url(uploaded_file_name)
+    reports.send_project_report_email(user_email,
+                                      project_name.lower(),
+                                      passphrase, 'XLS', signed_url)
 
 
 def pdf_evidences(findings: List[Dict[str, FindingType]]):
