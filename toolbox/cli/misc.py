@@ -11,7 +11,7 @@ from click import (
 from toolbox import (
     drills,
     forces,
-    logger,
+    generic,
     utils,
 )
 
@@ -25,8 +25,7 @@ def do_check_commit_msg() -> bool:
     elif forces.commit.is_exploits_commit(summary):
         success = forces.commit.is_valid_msg(summary)
     else:
-        logger.error('Your commit does not fit into any category')
-        success = False
+        success = generic.commit.is_valid_msg(summary)
     return success
 
 
