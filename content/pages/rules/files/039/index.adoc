@@ -9,7 +9,7 @@
 == Requirement
 
 The files manipulated by the system and the users
-must have defined a maximum file size (+5MB+ recommended).
+must have defined a maximum file size (*5MB* recommended).
 
 == Description
 
@@ -47,3 +47,7 @@ because of the lack of space in the system.
 * Scope: Availability.
 * Phase: Operation.
 * Type of Control: Recommendation.
+
+== Findings
+
+* link:/web/findings/0029/[FIN.S.0029. Inadequate file size control]

@@ -59,6 +59,8 @@ the transmitted information.
 
 * link:/web/findings/0022/[FIN.S.0022. Use of an insecure channel]
 
+* link:/web/findings/0030/[FIN.S.0030. Sensitive information sent via URL parameters]
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2014-I4_Lack_of_Transport_Encryption[OWASP Top 10 2014: I4 Top 10 2014-I4 Lack of Transport Encryption]
