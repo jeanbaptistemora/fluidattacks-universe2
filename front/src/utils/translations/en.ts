@@ -846,6 +846,7 @@ const enTranslations: Dictionary = {
   },
   tag_indicator: {
     critical_severity: "Critical Severity",
+    findings_project: "Findings by project",
     high_severity: "High Severity",
     low_severity: "Low Severity",
     mean_remediate: "Mean (average) days to remediate",

@@ -17,6 +17,7 @@ export const TAG_QUERY: DocumentNode = gql`
         meanRemediate
         name
         openVulnerabilities
+        totalFindings
         totalTreatment
       }
     }

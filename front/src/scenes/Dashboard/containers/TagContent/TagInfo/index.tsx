@@ -55,6 +55,7 @@ interface IProjectTag {
   meanRemediateMediumSeverity: number;
   name: string;
   openVulnerabilities: number;
+  totalFindings: number;
   totalTreatment: string;
 }
 interface IBoxInfo {
@@ -267,6 +268,26 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     };
 
     return stackedBarGraphData;
+  };
+
+  const sortByTotalFindings: ((projectA: IProjectTag, projectB: IProjectTag) => number) = (
+    projectA: IProjectTag, projectB: IProjectTag,
+  ): number => (
+    projectB.totalFindings - projectA.totalFindings
+  );
+
+  const formatTotalFindings: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
+    const sortedProjects: IProjectTag[] = projects.sort(sortByTotalFindings);
+    const statusDataset: ChartDataSets = {
+      backgroundColor: "#0b84a5",
+      data: sortedProjects.map((project: IProjectTag) => project.totalFindings),
+    };
+    const barData: ChartData = {
+      datasets: [statusDataset],
+      labels: sortedProjects.map((project: IProjectTag) => project.name),
+    };
+
+    return barData;
   };
 
   const formatRemediatedVuln: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
@@ -495,6 +516,23 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             height={100}
             name={translate.t("tag_indicator.remediated_accepted_vuln")}
             options={chartOptions}
+          />
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col mdOffset={1} md={10} sm={12} xs={12}>
+          <IndicatorStack
+            data={formatTotalFindings(data.tag.projects)}
+            height={100}
+            name={translate.t("tag_indicator.findings_project")}
+            options={{
+              legend: { display: false },
+              scales: {
+                xAxes: [{ gridLines: { display: false }, ticks: { autoSkip: false } }],
+                yAxes: [{ gridLines: { display: false }, ticks: { beginAtZero: true } }],
+              },
+            }}
           />
         </Col>
       </Row>

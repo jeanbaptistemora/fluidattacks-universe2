@@ -60,6 +60,7 @@ describe("Tag Info", () => {
               meanRemediateMediumSeverity: 30,
               name: "test1",
               openVulnerabilities: 3,
+              totalFindings: 2,
               totalTreatment: JSON.stringify({ accepted: 1, inProgress: 0, acceptedUndefined: 1, undefined: 1 }),
             },
             {
@@ -74,6 +75,7 @@ describe("Tag Info", () => {
               meanRemediateMediumSeverity: 20,
               name: "test2",
               openVulnerabilities: 5,
+              totalFindings: 3,
               totalTreatment: JSON.stringify({ accepted: 1, inProgress: 3, acceptedUndefined: 0, undefined: 1 }),
             },
           ],
