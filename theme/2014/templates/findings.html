@@ -59,5 +59,17 @@
     <h1 class="tc pb3">
       {{ page.title }}
     </h1>
+    <div class="ruleslist">
+      {% for fin in pages if fin.findings %}
+        <ul class="pl4">
+           <li>
+             <a class="f4 montsy"
+                href="../{{ fin.slug }}">
+                {{ fin.title }}
+             </a><br>
+           </li>
+         </ul>
+      {% endfor %}
+    </div>
   </article>
 {% endblock content %}
