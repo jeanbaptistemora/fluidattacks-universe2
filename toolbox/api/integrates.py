@@ -194,6 +194,31 @@ class Queries:
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
+    def wheres(api_token: str,
+               project_name: str) -> Response:
+        """Get all the open, code wheres from a project."""
+        logger.debug(f'Query.project('
+                     f'project_name={project_name})')
+        body: str = """
+            query GetWheres($projectName: String!) {
+                project(projectName: $projectName) {
+                    findings {
+                        id
+                        vulnerabilities(vulnType: "lines", state: "open") {
+                            where
+                        }
+                    }
+                }
+            }
+            """
+        params: dict = {
+            'projectName': project_name,
+        }
+        return request(api_token, body, params,
+                       expected_types=(frozendict,))
+
+    @staticmethod
+    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def finding(api_token: str,
                 identifier: str,
                 with_vulns: bool = False) -> Response:

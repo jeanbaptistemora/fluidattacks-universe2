@@ -1,7 +1,6 @@
 """Produce a dataframe with commit metadata for a project in csv format
 out of open vulnerabilities json from integrates API"""
 
-import json
 import os
 import random
 
@@ -10,6 +9,9 @@ import numpy as np
 from git.exc import CommandError
 import pandas as pd
 from pydriller.metrics.process.hunks_count import HunksCount
+
+from toolbox.api import integrates
+from toolbox.constants import API_TOKEN
 
 BASE_DIR = f'subscriptions/waggo/fusion/'
 INCL_PATH = os.path.dirname(__file__)
@@ -24,14 +26,16 @@ def read_lst(path):
     return lst
 
 
-def get_unique_wheres(wheres):
+def get_unique_wheres(subs):
     """Given wheres in graphQL format, return a sorted list containing the
     vulnerable files and the total number of vulnerabilities
     reported as open in the project."""
     wheres_uniq = set()
     total_wheres = 0
     repos = set()
-    for finding in wheres['data']['project']['findings']:
+    response = integrates.Queries.wheres(API_TOKEN, subs)
+    wheres_dict = response.data
+    for finding in wheres_dict['project']['findings']:
         vulns = finding['vulnerabilities']
         total_wheres += len(vulns)
         if vulns:
@@ -168,14 +172,9 @@ def balance_df(vuln_df):
 def get_project_data(subs):
     """Produce a dataframe with commit metadata for a project in csv format
     out of open vulnerabilities json from integrates API"""
-    wheres_json = f'{subs}_wheres.json'
     global BASE_DIR  # pylint: disable=global-statement
     BASE_DIR = f'subscriptions/{subs}/fusion/'
-    with open(wheres_json) as wheresfile:
-        wheres = json.load(wheresfile)
-    # wheres json comes from request to integrates api,
-    # per project, obtained manually via graphiql
-    wheres_uniq, _, repos = get_unique_wheres(wheres)
+    wheres_uniq, _, repos = get_unique_wheres(subs)
     bad_repos = get_bad_repos(repos)
     wheres_code = filter_code_files(wheres_uniq, bad_repos)
     wheres_code['commit'] = wheres_code['file'].apply(get_intro_commit)
