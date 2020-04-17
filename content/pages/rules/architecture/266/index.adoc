@@ -26,7 +26,6 @@ points such as access control gateways, severs and serverless functions.
 
 * link:/web/findings/0014/[FIN.S.0014. Insecure functionality]
 
-
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]

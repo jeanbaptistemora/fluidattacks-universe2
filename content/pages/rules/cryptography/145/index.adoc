@@ -21,6 +21,10 @@ malicious traffic.
 Therefore, these keys must be protected and managed following industry-verified
 standards.
 
+== Findings
+
+* link:/web/findings/0016/[FIN.S.0016. Non-parameterized cryptographic key]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/321.html[CWE-321: Use of Hard-coded Cryptographic Key]

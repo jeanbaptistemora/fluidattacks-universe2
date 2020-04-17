@@ -14,6 +14,8 @@ The source code must not contain sensitive information.
 
 * link:/web/findings/0009/[FIN.S.0009. Sensitive information in source code]
 
+* link:/web/findings/0016/[FIN.S.0016. Non-parameterized cryptographic key]
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]

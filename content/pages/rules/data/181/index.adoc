@@ -53,6 +53,10 @@ the transmitted information.
 * Phase: Operation
 * Type of Control: Recommendation
 
+== Findings
+
+* link:/web/findings/0017/[FIN.S.0017. Sensitive information sent insecurely]
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2014-I4_Lack_of_Transport_Encryption[OWASP Top 10 2014: I4 Top 10 2014-I4 Lack of Transport Encryption]
