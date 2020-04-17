@@ -11,6 +11,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { Button } from "../../../../components/Button/index";
 import { default as globalStyle } from "../../../../styles/global.css";
+import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
 import { RemoveProjectModal } from "../../components/RemoveProjectModal";
 import { Environments } from "./Environments";
@@ -49,10 +50,11 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
         <hr />
         <Environments projectName={props.match.params.projectName} groupRole={data.me.role}/>
         <hr />
-        <Files projectName={props.match.params.projectName} groupRole={data.me.role}/>
+        <Files projectName={props.match.params.projectName} />
         <hr />
-        <Portfolio projectName={props.match.params.projectName} groupRole={data.me.role}/>
-          {_.includes(["customeradmin", "admin"], data.me.role) ? (
+        <Portfolio projectName={props.match.params.projectName} />
+        <Can do="backend_api_resolvers_project_resolve_request_remove_project">
+          <React.Fragment>
             <React.Fragment>
               <hr />
               <Row>
@@ -68,20 +70,21 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
               <Row>
                 <br />
                 <Col md={4} mdOffset={5}>
-                    <ButtonToolbar>
-                      <Button onClick={openRemoveModal}>
-                        <Glyphicon glyph="minus" />&nbsp;{translate.t("search_findings.tab_resources.removeProject")}
-                      </Button>
-                    </ButtonToolbar>
-                    <RemoveProjectModal
-                      isOpen={isRemoveModalOpen}
-                      onClose={closeRemoveModal}
-                      projectName={projectName.toLowerCase()}
-                    />
+                  <ButtonToolbar>
+                    <Button onClick={openRemoveModal}>
+                      <Glyphicon glyph="minus" />&nbsp;{translate.t("search_findings.tab_resources.removeProject")}
+                    </Button>
+                  </ButtonToolbar>
+                  <RemoveProjectModal
+                    isOpen={isRemoveModalOpen}
+                    onClose={closeRemoveModal}
+                    projectName={projectName.toLowerCase()}
+                  />
                 </Col>
               </Row>
             </React.Fragment>
-          ) : undefined}
+          </React.Fragment>
+        </Can>
       </div>
     </React.StrictMode>
   );

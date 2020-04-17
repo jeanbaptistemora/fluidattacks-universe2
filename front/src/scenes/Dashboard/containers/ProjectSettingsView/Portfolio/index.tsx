@@ -12,6 +12,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
+import { Can } from "../../../../../utils/authz/Can";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -19,7 +20,6 @@ import { AddTagsModal } from "../../../components/AddTagsModal/index";
 import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "../queries";
 
 interface IPortfolioProps {
-  groupRole: string;
   projectName: string;
 }
 
@@ -143,39 +143,45 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
         <Col lg={8} md={10} xs={7}>
           <h3>{translate.t("search_findings.tab_resources.tags_title")}</h3>
         </Col>
-        {_.includes(["admin", "customer", "customeradmin"], props.groupRole) ? (
-          <Col lg={4} md={2} xs={5}>
-            <ButtonToolbar className="pull-right">
+        <Col lg={4} md={2} xs={5}>
+          <ButtonToolbar className="pull-right">
+            <Can do="backend_api_resolvers_project_resolve_add_tags">
               <Button onClick={openAddModal}>
                 <Glyphicon glyph="plus" />&nbsp;
               {translate.t("search_findings.tab_resources.add_repository")}
               </Button>
+            </Can>
+            <Can do="backend_api_resolvers_project_resolve_remove_tag">
               <Button onClick={handleRemoveTag} disabled={_.isEmpty(currentRow) || removing}>
                 <Glyphicon glyph="minus" />&nbsp;
               {translate.t("search_findings.tab_resources.remove_repository")}
               </Button>
-            </ButtonToolbar>
-          </Col>
-        ) : undefined}
+            </Can>
+          </ButtonToolbar>
+        </Col>
       </Row>
-      <DataTableNext
-        bordered={true}
-        dataset={tagsDataset}
-        defaultSorted={JSON.parse(_.get(sessionStorage, "portfolioSort", "{}"))}
-        exportCsv={false}
-        search={false}
-        headers={tableHeaders}
-        id="tblTags"
-        pageSize={15}
-        remote={false}
-        striped={true}
-        selectionMode={{
-          clickToSelect: _.includes(["admin", "customer", "customeradmin"], props.groupRole),
-          hideSelectColumn: !_.includes(["admin", "customer", "customeradmin"], props.groupRole),
-          mode: "radio",
-          onSelect: networkStatus === NetworkStatus.refetch || removing ? undefined : setCurrentRow,
-        }}
-      />
+      <Can do="backend_api_resolvers_project_resolve_remove_tag" passThrough={true}>
+        {(canDelete: boolean): JSX.Element => (
+          <DataTableNext
+            bordered={true}
+            dataset={tagsDataset}
+            defaultSorted={JSON.parse(_.get(sessionStorage, "portfolioSort", "{}"))}
+            exportCsv={false}
+            search={false}
+            headers={tableHeaders}
+            id="tblTags"
+            pageSize={15}
+            remote={false}
+            striped={true}
+            selectionMode={{
+              clickToSelect: canDelete,
+              hideSelectColumn: !canDelete,
+              mode: "radio",
+              onSelect: networkStatus === NetworkStatus.refetch || removing ? undefined : setCurrentRow,
+            }}
+          />
+        )}
+      </Can>
       <AddTagsModal isOpen={isAddModalOpen} onClose={closeAddModal} onSubmit={handleTagsAdd} />
     </React.StrictMode>
   );

@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
@@ -12,6 +13,7 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import store from "../../../../store/index";
+import { authzContext } from "../../../../utils/authz/config";
 import { ProjectEventsView } from "./index";
 import { GET_EVENTS } from "./queries";
 
@@ -134,11 +136,15 @@ describe("EventsView", () => {
   });
 
   it("should render new event modal", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_event__do_create_event" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectEventsView {...mockProps} />
+          <authzContext.Provider value={mockedPermissions}>
+            <ProjectEventsView {...mockProps} />
+          </authzContext.Provider>
         </MockedProvider>
       </Provider>,
     );

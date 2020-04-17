@@ -11,6 +11,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
+import { Can } from "../../../../../utils/authz/Can";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -19,7 +20,6 @@ import { FileOptionsModal } from "../../../components/FileOptionsModal";
 import { DOWNLOAD_FILE_MUTATION, GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
 
 interface IFilesProps {
-  groupRole: string;
   projectName: string;
 }
 
@@ -187,7 +187,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         <Col lg={8} md={10} xs={7}>
           <h3>{translate.t("search_findings.tab_resources.files_title")}</h3>
         </Col>
-        {_.includes(["admin", "customer", "customeradmin"], props.groupRole) ? (
+        <Can do="backend_api_resolvers_resource__do_add_files">
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
               <Button onClick={openAddModal}>
@@ -196,7 +196,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
               </Button>
             </ButtonToolbar>
           </Col>
-        ) : undefined}
+        </Can>
       </Row>
       <DataTableNext
         bordered={true}
@@ -221,14 +221,18 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         isUploading={uploading}
         uploadProgress={uploadProgress}
       />
-      <FileOptionsModal
-        canRemove={_.includes(["admin", "customer", "customeradmin"], props.groupRole)}
-        fileName={currentRow.fileName}
-        isOpen={isOptionsModalOpen}
-        onClose={closeOptionsModal}
-        onDelete={handleRemoveFile}
-        onDownload={downloadFile}
-      />
+      <Can do="backend_api_resolvers_resource__do_remove_files" passThrough={true}>
+        {(canRemove: boolean): JSX.Element => (
+          <FileOptionsModal
+            canRemove={canRemove}
+            fileName={currentRow.fileName}
+            isOpen={isOptionsModalOpen}
+            onClose={closeOptionsModal}
+            onDelete={handleRemoveFile}
+            onDownload={downloadFile}
+          />
+        )}
+      </Can>
     </React.StrictMode>
   );
 };

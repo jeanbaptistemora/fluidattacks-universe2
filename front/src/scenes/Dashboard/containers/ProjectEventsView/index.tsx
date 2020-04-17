@@ -20,6 +20,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { default as globalStyle } from "../../../../styles/global.css";
+import { Can } from "../../../../utils/authz/Can";
 import { castEventType, formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import {
   checkboxField, dateTimeField, dropdownField, fileInputField, textAreaField, textField,
@@ -218,18 +219,16 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
               });
             };
 
-            const { userEmail, userRole } = (window as typeof window & { userEmail: string; userRole: string });
-
             return (
               <React.StrictMode>
                 <Row>
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
-                      {_.includes(["admin", "analyst"], userRole) || _.endsWith(userEmail, "@fluidattacks.com")
-                        ? <Button onClick={openNewEventModal}>
+                      <Can do="backend_api_resolvers_event__do_create_event">
+                        <Button onClick={openNewEventModal}>
                           <Glyphicon glyph="plus" />&nbsp;{translate.t("project.events.new")}
                         </Button>
-                        : undefined}
+                      </Can>
                     </ButtonToolbar>
                   </Col>
                 </Row>
