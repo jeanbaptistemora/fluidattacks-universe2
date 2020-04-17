@@ -24,7 +24,8 @@ def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
 
 def clone(subs_path) -> None:
     """Clone a subs_path."""
-    _, output = run_command('fluid resources --clone', cwd=subs_path)
+    _, output = run_command(
+        'fluid resources --clone-from-customer-git', cwd=subs_path)
     print(f'INFO: {subs_path}')
     print(f'      output:')
     print(textwrap.indent(output, ' ' * 16))
@@ -40,7 +41,7 @@ def clone(subs_path) -> None:
 
 
 def _sync_to_s3(subs_path):
-    run_command('fluid resources --sync-fusion-to-s3', cwd=subs_path)
+    run_command('fluid resources --push-repos', cwd=subs_path)
 
 
 def open_vpn(subs_path) -> None:
