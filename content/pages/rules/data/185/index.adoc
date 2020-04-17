@@ -19,6 +19,10 @@ mechanisms.
 Doing so prevents unauthorized actors that may have accessed the storage system
 from obtaining the information.
 
+== Findings
+
+* link:/web/findings/0020/[FIN.S.0020. Non-encrypted confidential information]
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(a).]

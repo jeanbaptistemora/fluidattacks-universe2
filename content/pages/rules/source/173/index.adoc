@@ -85,6 +85,8 @@ therefore this information must be validated.
 
 * link:/web/findings/0010/[FIN.S.0010. Stored cross-site scripting (XSS)]
 
+* link:/web/findings/0023/[FIN.S.0023. Uncontrolled external site redirect]
+
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A1-Injection[A1 Injection OWASP - Top 10 2013]
