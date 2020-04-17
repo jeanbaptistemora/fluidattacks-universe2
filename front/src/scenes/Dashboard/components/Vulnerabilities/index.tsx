@@ -218,8 +218,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
 
     const isEditable: boolean = props.editMode && _.includes(["customer", "customeradmin"], props.userRole);
-    const canRequestVerification: boolean =  props.isRequestVerification === true
-      && _.includes(["customer", "customeradmin"], props.userRole);
+    const canRequestVerification: boolean =  props.isRequestVerification === true;
     const canVerifyRequest: boolean =  props.isVerifyRequest === true
       && _.includes(["admin", "analyst"], props.userRole);
     const hideSelectionColumn: boolean = !(isEditable || canRequestVerification || canVerifyRequest);

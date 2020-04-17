@@ -152,6 +152,7 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_vulnerability__do_delete_vulnerability',
         'backend_api_resolvers_vulnerability__do_upload_file',
         'backend_api_resolvers_vulnerability__do_approve_vulnerability',
+        'backend_api_resolvers_vulnerability__do_request_verification_vuln',
         'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
         'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
         'backend_api_resolvers_event__do_add_event_comment',

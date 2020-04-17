@@ -1,8 +1,10 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { PureAbility } from "@casl/ability";
+import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
+import { authzContext } from "../../../../../utils/authz/config";
 import { ActionButtons, IActionButtonsProps } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -68,18 +70,24 @@ describe("ActionButtons", () => {
       subscription: "continuous",
       userRole: "customer",
     };
-    const wrapper: ShallowWrapper = shallow(
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_vulnerability__do_request_verification_vuln" },
+    ]);
+    const wrapper: ReactWrapper = mount(
       <ActionButtons {...requestMockProps} />,
+      {
+        wrappingComponent: authzContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      },
     );
     expect(wrapper)
       .toHaveLength(1);
-    let buttons: ShallowWrapper = wrapper.find("button");
+    let buttons: ReactWrapper = wrapper.find("Button");
     expect(buttons)
       .toHaveLength(2);
-    let requestButton: ShallowWrapper = buttons
-      .filterWhere((button: ShallowWrapper): boolean =>
+    let requestButton: ReactWrapper = buttons
+      .filterWhere((button: ReactWrapper): boolean =>
         button
-          .render()
           .text()
           .includes("Request"));
     expect(requestButton)
@@ -92,11 +100,10 @@ describe("ActionButtons", () => {
     const { onRequestVerify } = requestMockProps;
     expect(onRequestVerify)
       .toHaveBeenCalled();
-    buttons = wrapper.find("button");
+    buttons = wrapper.find("Button");
     requestButton = buttons
-      .filterWhere((button: ShallowWrapper): boolean =>
+      .filterWhere((button: ReactWrapper): boolean =>
         button
-          .render()
           .text()
           .includes("Cancel"));
     expect(requestButton)

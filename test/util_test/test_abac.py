@@ -153,6 +153,7 @@ class ActionAbacTest(TestCase):
         'backend_entity_vulnerability_ApproveVulnerability_mutate',
         'backend_entity_vulnerability_Vulnerability_resolve_last_analyst',
         'backend_entity_vulnerability_Vulnerability_resolve_analyst',
+        'backend_entity_vulnerability_RequestVerificationVuln_mutate',
         'backend_entity_event_AddEventComment_mutate',
         'backend_entity_event_DownloadEventFile_mutate',
         'backend_entity_event_CreateEvent_mutate',

@@ -8,6 +8,7 @@ import React from "react";
 import { ButtonToolbar, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { FluidIcon } from "../../../../../components/FluidIcon";
+import { Can } from "../../../../../utils/authz/Can";
 import translate from "../../../../../utils/translations/translate";
 import { IHistoricTreatment } from "../types";
 
@@ -38,12 +39,10 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     ["continuous", "continua", "concurrente", "si"], props.subscription.toLowerCase());
 
   const canApproveAcceptation: boolean = _.includes(["admin", "customeradmin"], props.userRole);
-  const canRequestVerification: boolean = _.includes(["admin", "customer", "customeradmin"], props.userRole);
   const canVerify: boolean = _.includes(["admin", "analyst"], props.userRole);
 
   const shouldRenderRequestVerifyBtn: boolean =
-    canRequestVerification
-    && isContinuous
+    isContinuous
     && props.state === "open"
     && !props.isRemediated
     && !(props.isEditing || props.isVerifying);
@@ -69,14 +68,16 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
               : translate.t("search_findings.tab_description.mark_verified")}
           </Button>
         ) : undefined}
-        {shouldRenderRequestVerifyBtn ? (
-          <Button onClick={onRequestVerify}>
-            <FluidIcon icon="verified" />&nbsp;
-            {props.isRequestingVerify
-              ? translate.t("search_findings.tab_description.cancel_verify")
-              : translate.t("search_findings.tab_description.request_verify")}
-          </Button>
-        ) : undefined}
+        <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
+          {shouldRenderRequestVerifyBtn ? (
+            <Button onClick={onRequestVerify}>
+              <FluidIcon icon="verified" />&nbsp;
+              {props.isRequestingVerify
+                ? translate.t("search_findings.tab_description.cancel_verify")
+                : translate.t("search_findings.tab_description.request_verify")}
+            </Button>
+          ) : undefined}
+        </Can>
         {shouldRenderApprovalBtns ? (
           <React.Fragment>
             <Button onClick={onApproveAcceptation}>
