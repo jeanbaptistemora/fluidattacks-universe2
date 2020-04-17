@@ -30,19 +30,15 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:List*",
-      "s3:Get*",
-      "s3:Put*"
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:ListBucket"
     ]
     resources = [
       "arn:aws:s3:::continuous-repositories",
-      "arn:aws:s3:::continuous-repositories/*"
+      "arn:aws:s3:::continuous-repositories/*",
+      "arn:aws:s3:::continuous-repositories/continuoustest/*"
     ]
-    condition {
-      test = "StringLike"
-      variable = "s3:prefix"
-      values = ["continuoustest/*"]
-    }
   }
 
   # ECR Auth Token
