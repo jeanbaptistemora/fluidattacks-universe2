@@ -5,7 +5,7 @@ import time
 import json
 import textwrap
 import functools
-from typing import Any, Callable, List, NamedTuple, Tuple
+from typing import Any, List, NamedTuple, Tuple
 
 # Third parties libraries
 from aiogqlc import GraphQLClient
@@ -56,31 +56,6 @@ class CustomGraphQLClient(GraphQLClient):
                 return response
 
 
-def handle_exception(_, context):
-    """Handle async exceptions."""
-    if context.get('exception', ''):
-        raise context['exception']
-
-    msg = context.get('message', '')
-    raise RuntimeError(msg)
-
-
-def run_async(function: Callable, *args, **kwargs):
-    """Run function asynchronous."""
-    try:
-        loop = asyncio.get_event_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-    loop.set_debug(DEBUGGING)
-    loop.set_exception_handler(handle_exception)
-    try:
-        result = loop.run_until_complete(function(*args, **kwargs))
-    except RuntimeError:
-        result = asyncio.create_task(function(*args, **kwargs))
-    return result
-
-
 async def gql_request(api_token, payload, variables):
     """Async GraphQL request."""
     headers = {
@@ -129,7 +104,9 @@ def request(api_token: str,
     payload = textwrap.dedent(body % params if params else body)
 
     for _ in range(RETRY_MAX_ATTEMPTS):
-        response = run_async(gql_request, api_token, payload, params)
+        response = asyncio.run(
+            gql_request(api_token, payload, params),
+            debug=DEBUGGING)
         if response.errors or isinstance(response.data, expected_types):
             break
         time.sleep(RETRY_RELAX_SECONDS)
