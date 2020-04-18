@@ -125,7 +125,7 @@ def get_subscription_from_commit_msg() -> str:
     subscription: str = ''
 
     summary: str = utils.get_change_request_summary()
-    regex: str = r'\w+\(\w+\):\s+(?P<subscription>\w+)'
+    regex: str = r'\w+\(\w+\):\s+(?:#\d+(?:\.\d+)?\s+)?(?P<subscription>\w+)'
 
     regex_match: Optional[Match] = re.search(regex, summary)
     if regex_match:
