@@ -50,4 +50,6 @@ def relocate_to_cloned_repo(request):
 def prepare(request):
     """Prepare the environment by cloning the test repository."""
     with _relocate():
+        os.system(
+            f'git -C subscriptions/{SUBS}/fusion/continuous reset --hard HEAD')
         assert resources.repo_cloning(SUBS)
