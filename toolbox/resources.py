@@ -359,7 +359,7 @@ def check_mailmap(subs: str) -> bool:
     flag = True
     filename = '.mailmap'
     path = 'subscriptions/' + subs
-    logger.info("Checking " + subs + " mailmap ...\n")
+    logger.info(f'Checking {subs} mailmap')
     if not os.path.exists(f'{path}') or subs == '':
         failuremsg = f"Please run inside a project or use --subs\n"
         failuremsg += 'continuous/subscription/..\n'
@@ -385,7 +385,7 @@ def check_mailmap(subs: str) -> bool:
                 logger.info("^ Mailmap was sorted, I did it for you ;) \n")
                 flag = False
             else:
-                logger.info("Mailmap sorted\n")
+                logger.info("Mailmap sorted")
         regex = re.compile(r'^[A-Z]([a-z]?)+\s([A-z])?[a-z]+\s<')
         mlmp = open(os.path.join(path, filename))
         for line in mlmp:
@@ -396,7 +396,7 @@ def check_mailmap(subs: str) -> bool:
                 logger.error(failuremsg)
                 flag = False
         mlmp.close()
-        logger.info("Done!\n")
+        logger.info("Done!")
     return flag
 
 
