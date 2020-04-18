@@ -360,7 +360,7 @@ def check_mailmap(subs: str) -> bool:
     filename = '.mailmap'
     path = 'subscriptions/' + subs
     logger.info(f'Checking {subs} mailmap')
-    if not os.path.exists(f'{path}') or subs == '':
+    if not os.path.exists(path) or not subs:
         failuremsg = f"Please run inside a project or use --subs\n"
         failuremsg += 'continuous/subscription/..\n'
         logger.error(failuremsg)
@@ -371,7 +371,7 @@ def check_mailmap(subs: str) -> bool:
         flag = False
     else:
         with open(f'{path}/{filename}', 'r+') as mailmap:
-            linelist = [line.rstrip('\n') for line in mailmap]
+            linelist = mailmap.readlines()
             sort = sorted(linelist)
             if linelist == []:
                 flag = False
@@ -386,16 +386,16 @@ def check_mailmap(subs: str) -> bool:
                 flag = False
             else:
                 logger.info("Mailmap sorted")
-        regex = re.compile(r'^[A-Z]([a-z]?)+\s([A-z])?[a-z]+\s<')
-        mlmp = open(os.path.join(path, filename))
-        for line in mlmp:
-            # Check if all authors start with Single name
-            # and Last name on Title case:
-            if not regex.match(line):
-                failuremsg = f" Author {line} is not properly formatted \n\n"
-                logger.error(failuremsg)
-                flag = False
-        mlmp.close()
+
+            mailmap.seek(0)
+            regex = re.compile(r'^[A-Z][a-z]*\s[A-z][a-z]*\s<')
+            for line in mailmap:
+                # Check if all authors start with Single name
+                # and Last name on Title case:
+                if not regex.match(line):
+                    failuremsg = f" Author {line} is not properly formatted \n"
+                    logger.error(failuremsg)
+                    flag = False
         logger.info("Done!")
     return flag
 
