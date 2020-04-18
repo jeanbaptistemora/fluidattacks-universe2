@@ -223,15 +223,11 @@ def analytics_management(analytics_break_build_logs):
     '--get-commit-subs',
     help='get the subscription name from the commmit msg.',
     is_flag=True)
-@click.option('--is-valid-commit', is_flag=True, help='pipelines-only')
 @click.option(
     '--vpn',
     is_flag=True)
-def utils_management(subscription, get_commit_subs,
-                     is_valid_commit, vpn):
-    if is_valid_commit:
-        sys.exit(0 if toolbox.is_valid_commit() else 1)
-    elif vpn and subscription != 'unspecified-subs':
+def utils_management(subscription, get_commit_subs, vpn):
+    if vpn and subscription != 'unspecified-subs':
         sys.exit(0 if resources.vpn(subscription) else 1)
     elif get_commit_subs:
         subs = toolbox.get_subscription_from_commit_msg()

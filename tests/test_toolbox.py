@@ -56,11 +56,6 @@ def test_toolbox_reporting_cycle(relocate):
     assert helper.integrates.delete_pending_vulns(FINDING)
 
 
-def test_toolbox_is_valid_commit(relocate):
-    """Test toolbox.is_valid_commit."""
-    toolbox.is_valid_commit()
-
-
 def test_toolbox_get_subscription_from_commit_msg(relocate):
     """Test toolbox.get_subscription_from_commit_msg."""
     toolbox.get_subscription_from_commit_msg()

@@ -11,7 +11,14 @@ import ast
 import multiprocessing
 
 from time import time
-from typing import Any, Dict, List, Tuple
+from typing import (
+    Any,
+    Dict,
+    List,
+    Match,
+    Optional,
+    Tuple,
+)
 
 # Third parties libraries
 import ruamel.yaml as yaml
@@ -20,9 +27,6 @@ import ruamel.yaml as yaml
 from toolbox import api, constants, helper, logger, utils
 
 # Compiled regular expresions
-RE_DAILY_COMMIT = re.compile(r'proj\(\w+\):\s+(\w+)')
-RE_EXPLOITS_COMMIT = re.compile(r'\w+\(exp\):\s+(?:#\d+(?:\.\d+)?\s*)?(\w+)')
-
 RE_FINDING_TITLE = re.compile(r'^\s*(\w+)[^\d]*(\d+).*$', flags=re.I)
 
 RE_SPACE_CHARS = re.compile(r'\s', flags=re.M)
@@ -116,24 +120,17 @@ def create_mock_dynamic_exploit(
 
 
 @functools.lru_cache(maxsize=None, typed=True)
-def is_valid_commit() -> bool:
-    """Return True if the last commit in git history has the subs name."""
-    commit_msg: str = utils.get_change_request_summary()
-    return bool(RE_DAILY_COMMIT.search(commit_msg)) or \
-        bool(RE_EXPLOITS_COMMIT.search(commit_msg))
-
-
-@functools.lru_cache(maxsize=None, typed=True)
 def get_subscription_from_commit_msg() -> str:
     """Return the subscription name from the commmit msg."""
-    commit_msg: str = utils.get_change_request_summary()
-    re_search: Any = RE_DAILY_COMMIT.search(commit_msg)
-    if not re_search:
-        re_search = RE_EXPLOITS_COMMIT.search(commit_msg)
-    if not re_search:
-        subscription: str = ''
-    else:
-        subscription, = re_search.groups()
+    subscription: str = ''
+
+    summary: str = utils.get_change_request_summary()
+    regex: str = r'\w+\(\w+\):\s+(?P<subscription>\w+)'
+
+    regex_match: Optional[Match] = re.search(regex, summary)
+    if regex_match:
+        subscription = regex_match.groupdict()['subscription']
+
     return subscription
 
 
