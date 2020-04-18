@@ -177,10 +177,12 @@ class Queries:
                     drafts @include(if: $withDrafts) {
                         id @include(if: $withDrafts)
                         title @include(if: $withDrafts)
+                        verified @include(if: $withDrafts)
                     }
                     findings @include(if: $withFindings) {
                         id @include(if: $withFindings)
                         title @include(if: $withFindings)
+                        verified @include(if: $withFindings)
                     }
                 }
             }
