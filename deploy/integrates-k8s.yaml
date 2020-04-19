@@ -36,8 +36,8 @@ spec:
             cpu: 500m
             memory: 2Gi
           limits:
-            cpu: 1000m
-            memory: 4Gi
+            cpu: 4000m
+            memory: 8Gi
         envFrom:
           - secretRef:
               name: integrates-env
