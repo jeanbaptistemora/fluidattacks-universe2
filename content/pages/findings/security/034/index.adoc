@@ -1,0 +1,18 @@
+:slug: findings/034/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from generation random numbers insecurely, recommendations to avoid them and related security requirements.
+:keywords: Random, Number, Generation, Entropy, Normal Distribution, Cryptography
+:findings: yes
+:type: security
+
+= F034. Insecure generation of random numbers
+
+== Description
+
+The system uses functions or ranges to generate random numbers that allow an
+attacker to guess the sequence after a short time.
+
+== Rules
+
+. [[r1]] link:/web/rules/223/[R223 Uniform distribution in random numbers]
+
+. [[r2]] link:/web/rules/224/[R224 Use secure cryptographic mechanisms]

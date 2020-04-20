@@ -1,0 +1,23 @@
+:slug: findings/035/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from generation random numbers insecurely, recommendations to avoid them and related security requirements.
+:keywords: Credential, Policy, Password, Passphrase, Password Guessing, Cryptography
+:findings: yes
+:type: security
+
+= F035. Weak credential policy
+
+== Description
+
+The system's credential policy is not compliant with security regulations.
+
+== Rules
+
+. [[r1]] link:/web/rules/132/[R132 Passphrases with at least 4 words]
+
+. [[r2]] link:/web/rules/133/[R133 Passwords with at least 20 characters]
+
+. [[r3]] link:/web/rules/134/[R134 Store passwords with salt]
+
+. [[r4]] link:/web/rules/135/[R135 Passwords with random salt]
+
+. [[r5]] link:/web/rules/139/[R139 Set minimum password length]

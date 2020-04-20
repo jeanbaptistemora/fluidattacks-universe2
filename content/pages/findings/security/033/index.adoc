@@ -1,0 +1,16 @@
+:slug: findings/033/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from password changes without identity checks, recommendations to avoid them and related security requirements.
+:keywords: Verify, Password, Change, Credentials, Account, Identity
+:findings: yes
+:type: security
+
+= F033. Password change without identity check
+
+== Description
+
+The system allows a user to change their password without requesting the
+previous one or enforcing another identity verification mechanism.
+
+== Rules
+
+. [[r1]] link:/web/rules/238/[R238 Establish safe recovery]

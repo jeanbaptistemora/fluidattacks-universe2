@@ -11,3 +11,7 @@
 The system must guarantee that
 the person performing the password recovery process
 is actually the owner.
+
+== Findings
+
+* link:/web/findings/033/[F033. Password change without identity check]
