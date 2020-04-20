@@ -17,7 +17,7 @@ pytestmark = pytest.mark.asyncio
 class ReportTests(TestCase):
 
     async def test_request_report(self):
-        query = '''
+        query_pdf = '''
             mutation {
                 requestProjectReport(
                     projectName: "oneshottest",
@@ -27,7 +27,17 @@ class ReportTests(TestCase):
                 }
             }
         '''
-        data = {'query': query}
+        query_xls = '''
+            mutation {
+                requestProjectReport(
+                    projectName: "oneshottest",
+                    reportType: XLS) {
+                    success
+                }
+            }
+        '''
+        data_pdf = {'query': query_pdf}
+        data_xls = {'query': query_xls}
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -42,7 +52,9 @@ class ReportTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = await graphql(SCHEMA, data, context_value=request)
-        assert 'errors' not in result
-        assert 'success' in result['data']['requestProjectReport'] and \
+        _, result_pdf = await graphql(SCHEMA, data_pdf, context_value=request)
+        _, result_xls = await graphql(SCHEMA, data_xls, context_value=request)
+        assert any('errors' not in result for result in [result_pdf, result_xls])
+        assert all('success' in result['data']['requestProjectReport'] and
             result['data']['requestProjectReport']['success']
+            for result in [result_pdf, result_xls])
