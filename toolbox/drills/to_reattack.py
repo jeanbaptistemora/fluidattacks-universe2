@@ -31,7 +31,7 @@ def get_exploits(subs_name: str, finding_id: str) -> str:
     return message
 
 
-def findings_pending_to_verify(subs_name: str) -> str:
+def to_reattack(subs_name: str) -> str:
     """
     Return a string with non-verified findings from a subs.
     It includes integrates url and exploits paths in case they exist
@@ -59,7 +59,7 @@ def main():
     """Print all non-verified findings and their exploits"""
     subs_names: List[str] = listdir('subscriptions')
     for subs_name in subs_names:
-        message: str = findings_pending_to_verify(subs_name)
+        message: str = to_reattack(subs_name)
         if message:
             print(subs_name)
             print(message)

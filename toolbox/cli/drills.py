@@ -25,13 +25,13 @@ from toolbox import (
     is_flag=True,
     help='Generate drills commit message')
 @option(
-    '--findings-pending-to-verify',
+    '--to-reattack',
     is_flag=True,
-    help='Show findings pending to verify')
+    help='Show findings pending to re-attack and verify')
 def drills_management(
     subscription,
     generate_commit_msg,
-    findings_pending_to_verify,
+    to_reattack,
 ):
     """Perform operations with the drills service."""
     success: bool = True
@@ -39,5 +39,5 @@ def drills_management(
     if generate_commit_msg:
         success = drills.generate_commit_msg.main(subscription)
         sys.exit(0 if success else 1)
-    elif findings_pending_to_verify:
-        drills.findings_pending_to_verify.main()
+    elif to_reattack:
+        drills.to_reattack.main()
