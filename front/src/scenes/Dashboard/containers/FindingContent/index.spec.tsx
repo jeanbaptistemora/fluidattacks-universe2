@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
@@ -11,6 +12,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store";
+import { authzContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { FindingContent } from "./index";
 import {
@@ -163,11 +165,16 @@ describe("FindingContent", () => {
 
   it("should render header", async () => {
     (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -179,11 +186,17 @@ describe("FindingContent", () => {
 
   it("should render unsubmitted draft actions", async () => {
     (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_submit_draft" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -200,11 +213,17 @@ describe("FindingContent", () => {
 
   it("should prompt delete justification", async () => {
     (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_delete_finding" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -251,11 +270,17 @@ describe("FindingContent", () => {
     };
 
     (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_submit_draft" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitMutationMock, submittedDraftMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -295,11 +320,17 @@ describe("FindingContent", () => {
       },
     };
     (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_submit_draft" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
-          <MockedProvider mocks={[draftMock, submitErrorMock, findingMock]} addTypename={false}>
+          <MockedProvider mocks={[draftMock, submitErrorMock, draftMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -333,11 +364,17 @@ describe("FindingContent", () => {
       },
     };
     (window as typeof window & { userRole: string }).userRole = "admin";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_approve_draft" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveMutationMock, findingMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -387,11 +424,17 @@ describe("FindingContent", () => {
       },
     };
     (window as typeof window & { userRole: string }).userRole = "admin";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_approve_draft" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
-          <MockedProvider mocks={[submittedDraftMock, approveErrorMock, findingMock]} addTypename={false}>
+          <MockedProvider mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -435,11 +478,17 @@ describe("FindingContent", () => {
       },
     };
     (window as typeof window & { userRole: string }).userRole = "admin";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_reject_draft" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectMutationMock, findingMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -488,11 +537,17 @@ describe("FindingContent", () => {
       },
     };
     (window as typeof window & { userRole: string }).userRole = "admin";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_reject_draft" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
-          <MockedProvider mocks={[submittedDraftMock, rejectErrorMock, findingMock]} addTypename={false}>
+          <MockedProvider mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -537,11 +592,17 @@ describe("FindingContent", () => {
       },
     };
     (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_delete_finding" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -581,11 +642,17 @@ describe("FindingContent", () => {
       },
     };
     (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_delete_finding" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
             <FindingContent {...mockProps} />
+            </authzContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
