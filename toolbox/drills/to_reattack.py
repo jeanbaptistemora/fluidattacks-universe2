@@ -1,5 +1,5 @@
 # Standard library
-import glob
+from glob import glob
 from os import listdir
 from typing import List, Dict
 
@@ -21,7 +21,7 @@ def get_exploits(subs_name: str, finding_id: str) -> str:
     message: str = ''
     exp_glob: str = \
         f'./subscriptions/{subs_name}/break-build/*/exploits/*{finding_id}*'
-    exp_paths: List[str] = glob.glob(exp_glob)
+    exp_paths: List[str] = glob(exp_glob)
     for exp_path in exp_paths:
         message += f'        Exploit: {exp_path}'
         if exp_path != exp_paths[-1]:

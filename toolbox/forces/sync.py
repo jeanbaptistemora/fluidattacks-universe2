@@ -60,7 +60,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
         ###################################################################
         """))
 
-    fernet_key: str = utils.get_sops_secret(
+    fernet_key: str = utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
@@ -104,26 +104,27 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
             asserts_status: Any = None
             repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
             if os.path.isdir(repository_path):
-                asserts_status, asserts_stdout, _ = utils.run_command_old(
-                    cmd=(f"echo '---'                          "
-                         f"  >> '{exploit_output_path}';       "
-                         f"echo 'repository: {repo}'           "
-                         f"  >> '{exploit_output_path}';       "
-                         f"asserts -eec -n -ms '{exploit_path}'"
-                         f"  >  '{exploit_output_path}_';      "
-                         f"exit_code=$?;                       "
-                         f"cat  '{exploit_output_path}_';      "
-                         f"cat  '{exploit_output_path}_'       "
-                         f"  >> '{exploit_output_path}';       "
-                         f"rm   '{exploit_output_path}_'       "
-                         f"  >  /dev/null;                     "
-                         f"exit ${{exit_code}};                "),
-                    cwd=repository_path,
-                    env={'FA_NOTRACK': 'true',
-                         'FA_STRICT': 'true',
-                         'BB_FERNET_KEY': fernet_key,
-                         'BB_RESOURCES': bb_resources,
-                         'CURRENT_EXPLOIT_KIND': 'static'})
+                asserts_status, asserts_stdout, _ = \
+                    utils.generic.run_command_old(
+                        cmd=(f"echo '---'                          "
+                             f"  >> '{exploit_output_path}';       "
+                             f"echo 'repository: {repo}'           "
+                             f"  >> '{exploit_output_path}';       "
+                             f"asserts -eec -n -ms '{exploit_path}'"
+                             f"  >  '{exploit_output_path}_';      "
+                             f"exit_code=$?;                       "
+                             f"cat  '{exploit_output_path}_';      "
+                             f"cat  '{exploit_output_path}_'       "
+                             f"  >> '{exploit_output_path}';       "
+                             f"rm   '{exploit_output_path}_'       "
+                             f"  >  /dev/null;                     "
+                             f"exit ${{exit_code}};                "),
+                        cwd=repository_path,
+                        env={'FA_NOTRACK': 'true',
+                             'FA_STRICT': 'true',
+                             'BB_FERNET_KEY': fernet_key,
+                             'BB_RESOURCES': bb_resources,
+                             'CURRENT_EXPLOIT_KIND': 'static'})
             else:
                 continue
 
@@ -213,7 +214,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
         ###################################################################
         """))
 
-    fernet_key: str = utils.get_sops_secret(
+    fernet_key: str = utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
@@ -259,7 +260,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
         analyst_status = helper.integrates.is_finding_open(
             finding_id, constants.DAST)
 
-        asserts_status, asserts_stdout, _ = utils.run_command_old(
+        asserts_status, asserts_stdout, _ = utils.generic.run_command_old(
             cmd=(f"asserts -eec -n -ms '{exploit_path}'"
                  f"  >  '{exploit_output_path}_';      "
                  f"exit_code=$?;                       "
@@ -318,16 +319,16 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
 
 def are_exploits_synced(subs: str, exp_name: str) -> bool:
     """Check if exploits results are the same as on Integrates."""
-    utils.aws_login(f'continuous-{subs}')
+    utils.generic.aws_login(f'continuous-{subs}')
 
     config = helper.forces.get_forces_configuration(subs)
     config = config['schedules']['synchronization']
 
     # Always run locally, and conditionally on the CI
     should_run_static = \
-        not utils.is_env_ci() or config['static']['run']
+        not utils.generic.is_env_ci() or config['static']['run']
     should_run_dynamic = \
-        not utils.is_env_ci() or config['dynamic']['run']
+        not utils.generic.is_env_ci() or config['dynamic']['run']
 
     # If we didn't run, assume it's synced
     success_static: bool = True
@@ -344,7 +345,7 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
             are_exploits_synced__dynamic(subs, exp_name)
 
     logger.info('')
-    if utils.is_env_ci():
+    if utils.generic.is_env_ci():
         logger.info('You can run this check locally:')
         logger.info(
             f'  continuous $ pip3 install fluidattacks[with_everything]')

@@ -17,7 +17,7 @@ from toolbox import (
 
 
 def do_check_commit_msg() -> bool:
-    summary: str = utils.get_change_request_summary()
+    summary: str = utils.generic.get_change_request_summary()
     success: bool = False
 
     if drills.commit.is_drills_commit(summary):
@@ -41,7 +41,7 @@ def misc_management(
     success: bool
 
     if is_drills_commit:
-        summary: str = utils.get_change_request_summary()
+        summary: str = utils.generic.get_change_request_summary()
         success = drills.commit.is_drills_commit(summary)
         sys.exit(0 if success else 1)
 
@@ -50,6 +50,6 @@ def misc_management(
         sys.exit(0 if success else 1)
 
     elif is_exploits_commit:
-        summary: str = utils.get_change_request_summary()
+        summary: str = utils.generic.get_change_request_summary()
         success = forces.commit.is_exploits_commit(summary)
         sys.exit(0 if success else 1)

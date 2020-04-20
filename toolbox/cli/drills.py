@@ -18,8 +18,8 @@ from toolbox import (
 @command(name='drills', short_help='drills service related tools')
 @argument(
     'subscription',
-    default=utils.get_current_subscription(),
-    callback=utils.is_valid_subscription)
+    default=utils.generic.get_current_subscription(),
+    callback=utils.generic.is_valid_subscription)
 @option(
     '--generate-commit-msg',
     is_flag=True,

@@ -42,18 +42,17 @@ def entrypoint():
 @click.command(name='resources', short_help='administrate resources')
 @click.argument(
     'subscription',
-    default=utils.get_current_subscription(),
-    callback=utils.is_valid_subscription)
+    default=utils.generic.get_current_subscription(),
+    callback=utils.generic.is_valid_subscription)
 @click.option(
     '--check-repos',
-    default=utils.get_current_subscription(),
+    default=utils.generic.get_current_subscription(),
     metavar=SUBS_METAVAR)
 @click.option(
     '--clone-from-customer-git',
     'clone',
     is_flag=True,
     help='clone the repositories of a subscription')
-@click.option('--does-subs-exist', 'subs_exist', metavar=SUBS_METAVAR)
 @click.option(
     '--fingerprint',
     is_flag=True,
@@ -71,7 +70,7 @@ def entrypoint():
 @click.option('--push-repos', is_flag=True)
 @click.option('--pull-repos', is_flag=True)
 def resources_management(subscription, check_repos, clone, fingerprint,
-                         mailmap, login, subs_exist, edit, read, push_repos,
+                         mailmap, login, edit, read, push_repos,
                          pull_repos):
     """Allows administration tasks within subscriptions"""
     if mailmap:
@@ -88,10 +87,8 @@ def resources_management(subscription, check_repos, clone, fingerprint,
         sys.exit(0 if resources.sync_repositories_to_s3(subscription) else 1)
     elif pull_repos:
         sys.exit(0 if resources.sync_s3_to_fusion(subscription) else 1)
-    elif subs_exist:
-        sys.exit(0 if toolbox.does_subs_exist(subs_exist) else 1)
     elif login:
-        sys.exit(0 if resources.utils.okta_aws_login(
+        sys.exit(0 if utils.generic.okta_aws_login(
             f'continuous-{subscription}') else 1)
     elif check_repos != 'unspecified-subs':
         sys.exit(0 if resources.check_repositories(check_repos) else 1)
@@ -100,8 +97,8 @@ def resources_management(subscription, check_repos, clone, fingerprint,
 @click.command(name='forces', short_help='use the exploits')
 @click.argument(
     'subscription',
-    default=utils.get_current_subscription(),
-    callback=utils.is_valid_subscription)
+    default=utils.generic.get_current_subscription(),
+    callback=utils.generic.is_valid_subscription)
 @click.option(
     '--check-sync',
     '--sync',
@@ -203,8 +200,8 @@ def forces_management(
     'kind', type=click.Choice(['dynamic', 'static', 'all']), default='all')
 @click.argument(
     'subscription',
-    default=utils.get_current_subscription(),
-    callback=utils.is_valid_subscription)
+    default=utils.generic.get_current_subscription(),
+    callback=utils.generic.is_valid_subscription)
 @click.option('--check-token', is_flag=True)
 @click.option(
     '--delete-pending-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
@@ -241,32 +238,11 @@ def analytics_management(analytics_break_build_logs):
         sys.exit(0 if analytics.logs.load_executions_to_database() else 1)
 
 
-@click.command(name='utils')
-@click.argument(
-    'subscription',
-    default=utils.get_current_subscription(),
-    callback=utils.is_valid_subscription)
-@click.option(
-    '--get-commit-subs',
-    help='get the subscription name from the commmit msg.',
-    is_flag=True)
-@click.option(
-    '--vpn',
-    is_flag=True)
-def utils_management(subscription, get_commit_subs, vpn):
-    if vpn and subscription != 'unspecified-subs':
-        sys.exit(0 if resources.vpn(subscription) else 1)
-    elif get_commit_subs:
-        subs = toolbox.get_subscription_from_commit_msg()
-        click.echo(subs)
-        sys.exit(0 if subs else 1)
-
-
 @click.command(name='sorts', short_help='experimental')
 @click.argument(
     'subscription',
-    default=utils.get_current_subscription(),
-    callback=utils.is_valid_subscription)
+    default=utils.generic.get_current_subscription(),
+    callback=utils.generic.is_valid_subscription)
 @click.option(
     '--get-data',
     is_flag=True,
@@ -280,7 +256,7 @@ entrypoint.add_command(resources_management)
 entrypoint.add_command(analytics_management)
 entrypoint.add_command(forces_management)
 entrypoint.add_command(integrates_management)
-entrypoint.add_command(utils_management)
+entrypoint.add_command(utils.cli.utils_management)
 entrypoint.add_command(sorts_management)
 entrypoint.add_command(drills_management)
 entrypoint.add_command(misc_management)

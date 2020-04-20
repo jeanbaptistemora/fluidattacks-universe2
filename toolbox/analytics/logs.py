@@ -32,8 +32,8 @@ assert os
 BUCKET: str = 'break-build-logs'
 DEFAULT_COLUMN_VALUE: str = 'unable to retrieve'
 DEFAULT_COLUMN_DATE_VALUE: datetime.datetime = \
-    utils.rfc3339_str_to_date_obj(
-        utils.guess_date_from_str(DEFAULT_COLUMN_VALUE))
+    utils.generic.rfc3339_str_to_date_obj(
+        utils.generic.guess_date_from_str(DEFAULT_COLUMN_VALUE))
 DYNAMO_DB_TABLE: str = 'bb_executions'
 LOGS_DATE_FMT = r'%Y%m%d%H%M%S'
 REGEX_LOGS_NAME = re.compile(
@@ -225,8 +225,8 @@ def get_metadata_attrs(s3_client, s3_prefix) -> dict:
         match = REGEX_GIT_COMMIT_AUTHORED_DATE.search(metadata)
         if match and match.group(1):
             git_commit_authored_date = \
-                utils.rfc3339_str_to_date_obj(
-                    utils.guess_date_from_str(match.group(1)))
+                utils.generic.rfc3339_str_to_date_obj(
+                    utils.generic.guess_date_from_str(match.group(1)))
 
         match = REGEX_GIT_ORIGIN.search(metadata)
         if match and match.group(1):
@@ -349,7 +349,7 @@ def batch_iterable(batch_size, iterable):
 
 def load_executions_to_database() -> bool:
     """Process the s3 logs and load richfull data to the database."""
-    utils.aws_login()
+    utils.generic.aws_login()
     s3_client = boto3.client('s3')
     max_put_items = 25
     with multiprocessing.pool.ThreadPool(processes=1) as pool:

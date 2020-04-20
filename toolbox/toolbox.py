@@ -6,16 +6,12 @@ import re
 import sys
 import glob
 import json
-import functools
 import multiprocessing
-
 from time import time
 from typing import (
     Any,
     Dict,
     List,
-    Match,
-    Optional,
     Tuple,
 )
 
@@ -116,21 +112,6 @@ def create_mock_dynamic_exploit(
                     'message': {reason},
                     'source': 'Integrates'}})
             '''[1:], flags=re.MULTILINE))
-
-
-@functools.lru_cache(maxsize=None, typed=True)
-def get_subscription_from_commit_msg() -> str:
-    """Return the subscription name from the commmit msg."""
-    subscription: str = ''
-
-    summary: str = utils.get_change_request_summary()
-    regex: str = r'\w+\(\w+\):\s+(?:#\d+(?:\.\d+)?\s+)?(?P<subscription>\w+)'
-
-    regex_match: Optional[Match] = re.search(regex, summary)
-    if regex_match:
-        subscription = regex_match.groupdict()['subscription']
-
-    return subscription
 
 
 def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
@@ -298,7 +279,7 @@ def _run_static_exploit(
         os.path.abspath(exploit_path))), 'resources')
 
     start_time: float = time()
-    status, stdout, _ = utils.run_command_old(
+    status, stdout, _ = utils.generic.run_command_old(
         cmd=f"""
             echo '---'
             && echo "repository: '{repo}'"
@@ -322,9 +303,9 @@ def run_static_exploits(
         subs: str, exp_name: str, verbose: bool = True) -> bool:
     """Run exploits."""
 
-    utils.aws_login(f'continuous-{subs}')
+    utils.generic.aws_login(f'continuous-{subs}')
 
-    fernet_key: str = utils.get_sops_secret(
+    fernet_key: str = utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
@@ -393,11 +374,11 @@ def run_static_exploits(
 def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
     """Run exploits."""
 
-    utils.aws_login(f'continuous-{subs}')
+    utils.generic.aws_login(f'continuous-{subs}')
 
     start = time()
     times: Dict[str, Any] = {}
-    fernet_key: str = utils.get_sops_secret(
+    fernet_key: str = utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
@@ -422,7 +403,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
             os.remove(exploit_output_path)
 
         times[exploit_name] = time()
-        utils.run_command_old(
+        utils.generic.run_command_old(
             cmd=(f"asserts -n -ms '{exploit_path}'"
                  f"  >> '{exploit_output_path}'   "),
             cwd=f'subscriptions/{subs}',
@@ -432,7 +413,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
                  'BB_RESOURCES': bb_resources,
                  'CURRENT_EXPLOIT_KIND': 'dynamic'})
         times[exploit_name] = time() - times[exploit_name]
-        utils.run_command_old(
+        utils.generic.run_command_old(
             cmd=(f"echo '# elapsed: {times[exploit_name]}'"
                  f"  >> '{exploit_output_path}'"),
             cwd=f'subscriptions/{subs}',
@@ -450,7 +431,7 @@ def delete_pending_vulnerabilities(subs: str,
                                    exp: str = '',
                                    run_kind: str = 'all'):
     """Delete pending vulnerabilities for a subscription."""
-    for _, vulns_path in utils.iter_vulns_path(subs, exp, run_kind):
+    for _, vulns_path in utils.generic.iter_vulns_path(subs, exp, run_kind):
         _, finding_id = helper.forces.scan_exploit_for_kind_and_id(vulns_path)
 
         result = False
@@ -474,7 +455,7 @@ def report_vulnerabilities(subs: str, vulns_name: str,
                            run_kind: str = 'all') -> bool:
     """Automatically report exploit vulnerabilities to integrates."""
     success: bool = True
-    for vulns_path, exploit_path in utils.iter_vulns_path(
+    for vulns_path, exploit_path in utils.generic.iter_vulns_path(
             subs, vulns_name, run_kind):
         _, finding_id = \
             helper.forces.scan_exploit_for_kind_and_id(exploit_path)
@@ -664,21 +645,12 @@ def has_break_build(subs: str) -> bool:
     return os.path.isdir(f'subscriptions/{subs}/break-build')
 
 
-def does_subs_exist(subs: str) -> bool:
-    """Return True if the subscription exists."""
-    if f'subscriptions/{subs}' in glob.glob('subscriptions/*'):
-        return True
-    logger.error(f'"{subs}" is not an existing subscription')
-    logger.info(f'  please adjust your commit message, sire.')
-    return False
-
-
 def encrypt_secrets(subs: str) -> bool:
     """Encrypt a secrets.yml file for a subscription."""
     # pylint: disable=import-outside-toplevel
     from fluidasserts.helper import crypto
 
-    utils.aws_login(f'continuous-{subs}')
+    utils.generic.aws_login(f'continuous-{subs}')
 
     for resources_path in glob.glob(
             f'subscriptions/{subs}/break-build/*/resources'):
@@ -691,7 +663,7 @@ def encrypt_secrets(subs: str) -> bool:
         with open(plaintext_path) as plaintext_handle, \
                 open(encrypted_path, 'w') as encrypted_handle:
             crypto.create_encrypted_yaml(
-                key_b64=utils.get_sops_secret(
+                key_b64=utils.generic.get_sops_secret(
                     f'break_build_aws_secret_access_key',
                     f'subscriptions/{subs}/config/secrets.yaml',
                     f'continuous-{subs}'),
@@ -711,7 +683,7 @@ def decrypt_secrets(subs: str) -> bool:
     # pylint: disable=import-outside-toplevel
     from fluidasserts.helper import crypto
 
-    utils.aws_login(f'continuous-{subs}')
+    utils.generic.aws_login(f'continuous-{subs}')
 
     for resources_path in glob.glob(
             f'subscriptions/{subs}/break-build/*/resources'):
@@ -733,7 +705,7 @@ def decrypt_secrets(subs: str) -> bool:
             sys.exit(78)
         else:
             crypto.create_decrypted_yaml(
-                key_b64=utils.get_sops_secret(
+                key_b64=utils.generic.get_sops_secret(
                     f'break_build_aws_secret_access_key',
                     f'subscriptions/{subs}/config/secrets.yaml',
                     f'continuous-{subs}'),

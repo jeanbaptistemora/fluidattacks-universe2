@@ -13,7 +13,7 @@ from toolbox import (
 
 def _one_exploit_by_path_with_mypy(exploit_path: str) -> bool:
     logger.info(f'Running static checker over: {exploit_path}')
-    status, stdout, stderr = utils.run_command(
+    status, stdout, stderr = utils.generic.run_command(
         cmd=['mypy', '--ignore-missing-imports', exploit_path],
         cwd='.',
         env={})
@@ -30,7 +30,7 @@ def _one_exploit_by_path_with_mypy(exploit_path: str) -> bool:
 
 def _one_exploit_by_path_with_prospector(exploit_path: str) -> bool:
     logger.info(f'Running linter over: {exploit_path}')
-    status, stdout, stderr = utils.run_command(
+    status, stdout, stderr = utils.generic.run_command(
         cmd=[
             'prospector',
             '--output-format', 'vscode',
@@ -107,7 +107,8 @@ def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
 
 def many_exploits_by_change_request() -> bool:
     """Run all linters available over the current change request."""
-    changed_exploits = utils.get_change_request_touched_and_existing_exploits()
+    changed_exploits = \
+        utils.generic.get_change_request_touched_and_existing_exploits()
 
     return all(
         one_exploit_by_path(exploit_path)

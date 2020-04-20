@@ -196,7 +196,8 @@ def process_subscription_exploits(subs: dict) -> List:
     result = []
     with ThreadPoolExecutor(max_workers=cpu_count() * 8) as executor:
         for exploit in executor.map(process_exploit,
-                                    utils.iter_exploit_paths(subs['name'])):
+                                    utils.generic.iter_exploit_paths(
+                                        subs['name'])):
             exploit = exploit._replace(customer=subs['customer'])
             result.append(exploit)
     return result
@@ -215,14 +216,14 @@ def generate_exploits_report(file_name: str = 'report.csv',
             fieldnames=ExploitInfo._fields,
             quoting=csv.QUOTE_NONNUMERIC)
         writer.writeheader()
-        for subs in utils.iter_subscritions_config():
+        for subs in utils.generic.iter_subscritions_config():
             if not toolbox.has_break_build(subs['name']) or (
                     customer and subs['customer'] != customer) or (
                         subscription and subs['name'] != subscription):
                 continue
 
             logger.info(f'Filling with mocks {subs["name"]}')
-            with utils.output_block(indent=4):
+            with utils.generic.output_block(indent=4):
                 toolbox.fill_with_mocks(subs['name'])
 
             logger.info(f'Gereratin report for {subs["name"]}')

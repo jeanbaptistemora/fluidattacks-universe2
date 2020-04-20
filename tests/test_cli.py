@@ -22,7 +22,7 @@ def test_resources(relocate):
     runner = CliRunner()
 
     test_does_subs_exist = runner.invoke(
-        cli, f'resources --does-subs-exist {SUBS}'.split())
+        cli, f'utils --does-subs-exist {SUBS}'.split())
     assert test_does_subs_exist.exit_code == 0
 
     test_mailmap = runner.invoke(cli,

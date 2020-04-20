@@ -66,12 +66,12 @@ def repo_url(subs, baseurl, repo):
         repo_pass = ''
         with open('../config/secrets.yaml') as secrets:
             if f'{user}:' in secrets.read():
-                repo_user = utils.get_sops_secret(
+                repo_user = utils.generic.get_sops_secret(
                     user,
                     f'../config/secrets.yaml',
                     f'continuous-{subs}'
                 )
-                repo_pass = utils.get_sops_secret(
+                repo_pass = utils.generic.get_sops_secret(
                     passw,
                     f'../config/secrets.yaml',
                     f'continuous-{subs}'
@@ -92,7 +92,7 @@ def repo_url(subs, baseurl, repo):
 def ssh_repo_cloning(subs, code) -> bool:
     """ cloning or updated a repository ssh """
     problems: list = []
-    credentials = utils.get_sops_secret(
+    credentials = utils.generic.get_sops_secret(
         'repo_key',
         f'../config/secrets.yaml',
         f'continuous-{subs}'
@@ -259,7 +259,7 @@ def repo_cloning(subs: str) -> bool:
             logger.info(f'Deleting {repo_dif}')
             shutil.rmtree(repo_dif)
 
-        utils.aws_login(f'continuous-{subs}')
+        utils.generic.aws_login(f'continuous-{subs}')
 
         for repo in repos_config:
             repo_type = repo.get('git-type')
@@ -287,50 +287,12 @@ def edit_secrets(subs: str) -> bool:
         logger.error(f'secrets.yaml does not exist in {subs}')
         status = False
     else:
-        utils.aws_login(f'continuous-{subs}')
+        utils.generic.aws_login(f'continuous-{subs}')
         subprocess.call(
             f'sops --aws-profile {profile} {secrets_file}',
             shell=True
         )
     return status
-
-
-def vpn(subs: str) -> bool:
-    """ using subscription vpn """
-
-    success: bool = True
-    config_file = f'toolbox/vpns/{subs}'
-    vpn_list = [f for f in os.listdir('toolbox/vpns/')
-                if os.path.isfile(os.path.join('toolbox/vpns/', f))]
-
-    if (os.path.exists(f'{config_file}-bogota.sh') and
-            os.path.exists(f'{config_file}-medellin.sh')):
-        city = input(('Do you want to use bogota\'s or medellin\'s'
-                      ' VPN? [1: Bogota - 2: Medellin]: '))
-        if city == '1':
-            utils.aws_login(f'continuous-{subs}')
-            subprocess.call(
-                f'./{config_file}-bogota.sh',
-                shell=True
-            )
-        else:
-            utils.aws_login(f'continuous-{subs}')
-            subprocess.call(
-                f'./{config_file}-medellin.sh',
-                shell=True
-            )
-    else:
-        if not os.path.isfile(f'{config_file}.sh'):
-            logger.error("No VPN file found")
-            logger.info(f'Available VPNs:\n{vpn_list}')
-            success = False
-        else:
-            utils.aws_login(f'continuous-{subs}')
-            subprocess.call(
-                f'./{config_file}.sh',
-                shell=True
-            )
-    return success
 
 
 def read_secrets(subs: str) -> bool:
@@ -344,7 +306,7 @@ def read_secrets(subs: str) -> bool:
         logger.error(f'secrets.yaml does not exist in {subs}')
         status = False
     else:
-        utils.aws_login(f'continuous-{subs}')
+        utils.generic.aws_login(f'continuous-{subs}')
         logger.info(f'Printing {subs} secrets: \n')
         subprocess.call(
             f'sops --aws-profile {profile} -d {secrets_file}',
@@ -572,7 +534,7 @@ def yield_subscription_repositories(subs: str) -> Iterator[str]:
 def yield_remote_repositories(subs: str) -> Iterator[str]:
     remote_path = f"'s3://continuous-repositories/{subs}/active/'"
     list_command_s3 = f"aws s3 ls {remote_path}"
-    ls_s3 = utils.run_command_old(list_command_s3, ".", {})
+    ls_s3 = utils.generic.run_command_old(list_command_s3, ".", {})
     repos_set = list(ls_s3[1].replace(" ", "")
                              .replace("PRE", "")
                              .replace("/", "")
@@ -621,7 +583,7 @@ def sync_repositories_to_s3(subs: str) -> bool:
         return False
     remote_repositories = yield_remote_repositories(subs)
     local_repositories = yield_subscription_repositories(subs)
-    utils.aws_login(f"continuous-{subs}")
+    utils.generic.aws_login(f"continuous-{subs}")
     logger.info("Checking inactive repositories")
     for repo in remote_repositories:
         sync_inactive_repo_to_s3(subs, repo)

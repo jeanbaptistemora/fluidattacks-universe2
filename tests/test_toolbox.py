@@ -10,6 +10,7 @@ from toolbox import (
     forces,
     helper,
     toolbox,
+    utils
 )
 
 # Constants
@@ -53,13 +54,13 @@ def test_toolbox_reporting_cycle(relocate):
 
 def test_toolbox_get_subscription_from_commit_msg(relocate):
     """Test toolbox.get_subscription_from_commit_msg."""
-    toolbox.get_subscription_from_commit_msg()
+    utils.get_commit_subs.main()
 
 
 def test_toolbox_does_subs_exist(relocate):
     """Test toolbox.does_subs_exist."""
-    assert toolbox.does_subs_exist(SUBS)
-    assert not toolbox.does_subs_exist(SUBS_BAD)
+    assert utils.does_subs_exist.main(SUBS)
+    assert not utils.does_subs_exist.main(SUBS_BAD)
 
 
 def test_toolbox_get_static_dictionary(relocate):
