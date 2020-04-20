@@ -171,47 +171,6 @@ def logout(request):
     return response
 
 
-def pdf_evidences(findings):
-    for finding in findings:
-        folder_name = finding['projectName'] + '/' + finding['findingId']
-        evidence = finding['evidence']
-        evidence_set = [{
-            'id': '{}/{}'.format(folder_name, evidence[ev_item]['url']),
-            'explanation': evidence[ev_item]['description'].capitalize()
-        } for ev_item in evidence if evidence[ev_item]['url'].endswith('.png')]
-
-        if evidence_set:
-            finding['evidence_set'] = evidence_set
-            for evidence in evidence_set:
-                CLIENT_S3.download_file(
-                    BUCKET_S3,
-                    evidence['id'],
-                    '/usr/src/app/app/documentator/images/' +
-                    evidence['id'].split('/')[2])
-                evidence['name'] = 'image::../images/' + \
-                    evidence['id'].split('/')[2] + '[align="center"]'
-
-    return findings
-
-
-def format_release_date(finding):
-    finding_dynamo = finding_domain.get_finding(finding['findingId'])
-    if finding_dynamo:
-        if finding_dynamo[0].get('releaseDate'):
-            finding['releaseDate'] = finding_dynamo[0].get('releaseDate')
-        if finding_dynamo[0].get('lastVulnerability'):
-            finding['lastVulnerability'] = \
-                finding_dynamo[0].get('lastVulnerability')
-    if finding.get('releaseDate'):
-        final_date = util.calculate_datediff_since(finding['releaseDate'])
-        finding['edad'] = final_date.days
-        final_vuln_date = util.calculate_datediff_since(finding['lastVulnerability'])
-        finding['lastVulnerability'] = final_vuln_date.days
-    else:
-        finding['lastVulnerability'] = '-'
-    return finding
-
-
 @cache_content
 @never_cache
 @csrf_exempt
