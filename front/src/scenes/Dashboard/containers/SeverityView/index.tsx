@@ -95,7 +95,8 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                   <Mutation
                     mutation={UPDATE_SEVERITY_MUTATION}
                     onCompleted={handleMtUpdateSeverityRes}
-                    refetchQueries={[{ query: GET_FINDING_HEADER, variables: { findingId, submissionField: canEdit } }]}
+                    refetchQueries={[
+                      { query: GET_FINDING_HEADER, variables: { findingId, canGetHistoricState: canEdit } }]}
                   >
                     {(updateSeverity: MutationFunction, mutationRes: MutationResult): JSX.Element => {
                       const handleUpdateSeverity: ((values: {}) => void) = (values: {}): void => {

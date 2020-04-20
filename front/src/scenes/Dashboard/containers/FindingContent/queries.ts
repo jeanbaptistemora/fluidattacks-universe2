@@ -2,7 +2,7 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_FINDING_HEADER: DocumentNode = gql`
-  query GetFindingHeader($findingId: String!, $submissionField: Boolean!) {
+  query GetFindingHeader($findingId: String!, $canGetHistoricState: Boolean!) {
     finding(identifier: $findingId) {
       closedVulns: closedVulnerabilities
       id
@@ -12,7 +12,7 @@ export const GET_FINDING_HEADER: DocumentNode = gql`
       severityScore
       state
       title
-      historicState @include(if: $submissionField)
+      historicState @include(if: $canGetHistoricState)
     }
   }
 `;

@@ -88,11 +88,22 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
       mutation={UPLOAD_VULNERABILITIES}
       onCompleted={handleUploadResult}
       onError={handleUploadError}
-      refetchQueries={[{ query: GET_VULNERABILITIES, variables: { analystField: canGetHistoricState,
-                                                                  identifier: props.findingId } },
-                       { query: GET_FINDING_HEADER, variables: { findingId: props.findingId,
-                                                                 submissionField: canGetHistoricState } },
-                       ]}
+      refetchQueries={[
+        {
+          query: GET_VULNERABILITIES,
+          variables: {
+            analystField: canGetHistoricState,
+            identifier: props.findingId,
+          },
+        },
+        {
+          query: GET_FINDING_HEADER,
+          variables: {
+            canGetHistoricState,
+            findingId: props.findingId,
+          },
+        },
+      ]}
     >
       {(uploadVulnerability: MutationFunction, mutationResult: MutationResult): JSX.Element => {
 

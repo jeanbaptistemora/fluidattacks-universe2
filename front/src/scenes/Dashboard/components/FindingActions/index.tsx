@@ -9,6 +9,7 @@ import { ButtonToolbar } from "react-bootstrap";
 import { Button } from "../../../../components/Button";
 import { ConfirmDialog, ConfirmFn } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
 
 interface IFindingActionsProps {
@@ -25,47 +26,52 @@ interface IFindingActionsProps {
 const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsProps): JSX.Element => {
   const { onApprove, onDelete, onReject, onSubmit } = props;
 
-  const userRole: string = (window as typeof window & { userRole: string }).userRole;
   const canApprove: boolean = props.hasVulns && props.hasSubmission;
 
   return (
     <ButtonToolbar className="pull-right">
-      {props.isDraft && !props.hasSubmission
-        ? <Button disabled={props.loading} onClick={onSubmit}>Submit</Button>
-        : undefined}
-      {_.includes(["admin"], userRole) && props.isDraft ? (
+      {props.isDraft ? (
         <React.Fragment>
-          <ConfirmDialog title={translate.t("project.drafts.approve")}>
-            {(confirm: ConfirmFn): React.ReactNode => {
-              const handleClick: (() => void) = (): void => { confirm(() => { onApprove(); }); };
+          <Can do="backend_api_resolvers_finding__do_submit_draft">
+            {props.hasSubmission ? undefined : (
+              <Button disabled={props.loading} onClick={onSubmit}>
+                Submit
+              </Button>
+            )}
+          </Can>
+          <Can do="backend_api_resolvers_finding__do_approve_draft">
+            <ConfirmDialog title={translate.t("project.drafts.approve")}>
+              {(confirm: ConfirmFn): React.ReactNode => {
+                const handleClick: (() => void) = (): void => { confirm(() => { onApprove(); }); };
 
-              return (
-                <Button onClick={handleClick} disabled={!canApprove || props.loading}>
-                  <FluidIcon icon="verified" />&nbsp;Approve
-                </Button>
-              );
-            }}
-          </ConfirmDialog>
-          <ConfirmDialog title={translate.t("project.drafts.reject")}>
-            {(confirm: ConfirmFn): React.ReactNode => {
-              const handleClick: (() => void) = (): void => { confirm(() => { onReject(); }); };
+                return (
+                  <Button onClick={handleClick} disabled={!canApprove || props.loading}>
+                    <FluidIcon icon="verified" />&nbsp;Approve
+                  </Button>
+                );
+              }}
+            </ConfirmDialog>
+          </Can>
+          <Can do="backend_api_resolvers_finding__do_reject_draft">
+            <ConfirmDialog title={translate.t("project.drafts.reject")}>
+              {(confirm: ConfirmFn): React.ReactNode => {
+                const handleClick: (() => void) = (): void => { confirm(() => { onReject(); }); };
 
-              return (
-                <Button onClick={handleClick} disabled={!props.hasSubmission || props.loading}>
-                  Reject
-                </Button>
-              );
-            }}
-          </ConfirmDialog>
-          <Button onClick={onDelete}>
-            <FluidIcon icon="delete" />&nbsp;Delete
-          </Button>
+                return (
+                  <Button onClick={handleClick} disabled={!props.hasSubmission || props.loading}>
+                    Reject
+                  </Button>
+                );
+              }}
+            </ConfirmDialog>
+          </Can>
         </React.Fragment>
-      ) : _.includes(["admin", "analyst"], userRole) ? (
+      ) : undefined}
+      <Can do="backend_api_resolvers_finding__do_delete_finding">
         <Button onClick={onDelete}>
           <FluidIcon icon="delete" />&nbsp;Delete
         </Button>
-      ) : undefined}
+      </Can>
     </ButtonToolbar>
   );
 };

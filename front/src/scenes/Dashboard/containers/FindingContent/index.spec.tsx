@@ -60,8 +60,8 @@ describe("FindingContent", () => {
       request: {
         query: GET_FINDING_HEADER,
         variables: {
+          canGetHistoricState: true,
           findingId: "438679960",
-          submissionField: true,
         },
       },
       result: {
@@ -97,8 +97,8 @@ describe("FindingContent", () => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
+        canGetHistoricState: true,
         findingId: "438679960",
-        submissionField: true,
       },
     },
     result: {
@@ -164,7 +164,6 @@ describe("FindingContent", () => {
   });
 
   it("should render header", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
     ]);
@@ -173,7 +172,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -185,7 +184,6 @@ describe("FindingContent", () => {
   });
 
   it("should render unsubmitted draft actions", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
@@ -195,7 +193,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -212,7 +210,6 @@ describe("FindingContent", () => {
   });
 
   it("should prompt delete justification", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
@@ -222,7 +219,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -269,7 +266,6 @@ describe("FindingContent", () => {
       },
     };
 
-    (window as typeof window & { userRole: string }).userRole = "analyst";
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
@@ -279,7 +275,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitMutationMock, submittedDraftMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -319,7 +315,7 @@ describe("FindingContent", () => {
         ],
       },
     };
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
@@ -329,7 +325,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitErrorMock, draftMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -363,7 +359,7 @@ describe("FindingContent", () => {
         },
       },
     };
-    (window as typeof window & { userRole: string }).userRole = "admin";
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_approve_draft" },
@@ -373,7 +369,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveMutationMock, findingMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -423,7 +419,7 @@ describe("FindingContent", () => {
         ],
       },
     };
-    (window as typeof window & { userRole: string }).userRole = "admin";
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_approve_draft" },
@@ -433,7 +429,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -477,7 +473,7 @@ describe("FindingContent", () => {
         },
       },
     };
-    (window as typeof window & { userRole: string }).userRole = "admin";
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
@@ -487,7 +483,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectMutationMock, findingMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -503,7 +499,7 @@ describe("FindingContent", () => {
     await act(async () => { wrapper.update(); });
     const confirmDialog: ReactWrapper = wrapper.find("findingActions")
       .find("Modal")
-      .at(2);
+      .at(0);
     expect(confirmDialog)
       .toHaveLength(1);
     const proceedButton: ReactWrapper = confirmDialog
@@ -536,7 +532,7 @@ describe("FindingContent", () => {
         ],
       },
     };
-    (window as typeof window & { userRole: string }).userRole = "admin";
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
@@ -546,7 +542,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -562,7 +558,7 @@ describe("FindingContent", () => {
     await act(async () => { wrapper.update(); });
     const confirmDialog: ReactWrapper = wrapper.find("findingActions")
       .find("Modal")
-      .at(2);
+      .at(0);
     expect(confirmDialog)
       .toHaveLength(1);
     const proceedButton: ReactWrapper = confirmDialog
@@ -591,7 +587,7 @@ describe("FindingContent", () => {
         },
       },
     };
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
@@ -601,7 +597,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>
@@ -641,7 +637,7 @@ describe("FindingContent", () => {
         ],
       },
     };
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_dataloaders_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
@@ -651,7 +647,7 @@ describe("FindingContent", () => {
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-            <FindingContent {...mockProps} />
+              <FindingContent {...mockProps} />
             </authzContext.Provider>
           </MockedProvider>
         </Provider>

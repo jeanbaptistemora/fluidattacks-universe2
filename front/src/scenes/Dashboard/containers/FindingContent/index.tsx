@@ -9,6 +9,8 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
@@ -16,6 +18,8 @@ import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
+import { Can } from "../../../../utils/authz/Can";
+import { authzContext } from "../../../../utils/authz/config";
 import { dropdownField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -40,7 +44,7 @@ import { IFindingContentProps, IHeaderQueryResult } from "./types";
 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
-  const { userRole } = window as typeof window & Dictionary<string>;
+  const permissions: PureAbility<string> = useAbility(authzContext);
 
   // State management
   const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
@@ -48,15 +52,16 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const closeDeleteModal: (() => void) = (): void => { setDeleteModalOpen(false); };
 
   // GraphQL operations
-  const canGetHistoricState: boolean = _.includes(["analyst", "admin"], userRole);
-
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
     GET_FINDING_HEADER, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred loading finding header", error);
     },
-    variables: { findingId, submissionField: canGetHistoricState },
+    variables: {
+      canGetHistoricState: permissions.can("backend_api_dataloaders_finding__get_historic_state"),
+      findingId,
+    },
   });
 
   const [submitDraft, { loading: submitting }] = useMutation(
@@ -270,14 +275,14 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                       &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
                     </NavLink>
                   </li>
-                  {_.includes(["admin", "analyst"], userRole) ?
+                  <Can do="backend_api_dataloaders_finding__get_observations">
                     <li id="observationsItem" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`${props.match.url}/observations`}>
                         <i className="icon pe-7s-note" />
                         &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
                       </NavLink>
                     </li>
-                    : undefined}
+                  </Can>
                 </ul>
               </div>
               <div className={style.tabContent}>

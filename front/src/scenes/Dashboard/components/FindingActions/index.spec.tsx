@@ -36,7 +36,6 @@ describe("FindingActions", (): void => {
   });
 
   it("should render analyst finding actions", (): void => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
@@ -68,7 +67,6 @@ describe("FindingActions", (): void => {
   });
 
   it("should render author draft actions", (): void => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_finding__do_delete_finding" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
@@ -106,7 +104,6 @@ describe("FindingActions", (): void => {
   });
 
   it("should render approver draft actions", (): void => {
-    (window as typeof window & { userRole: string }).userRole = "admin";
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_finding__do_approve_draft" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
@@ -149,7 +146,6 @@ describe("FindingActions", (): void => {
   });
 
   it("should disable approve button", (): void => {
-    (window as typeof window & { userRole: string }).userRole = "admin";
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_finding__do_approve_draft" },
     ]);
@@ -170,7 +166,7 @@ describe("FindingActions", (): void => {
       },
     );
     const buttons: ReactWrapper = wrapper.find("Button");
-    const approveButton: ReactWrapper = buttons.at(1);
+    const approveButton: ReactWrapper = buttons.at(0);
 
     expect(wrapper)
       .toHaveLength(1);

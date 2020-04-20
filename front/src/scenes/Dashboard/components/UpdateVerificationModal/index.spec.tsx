@@ -166,8 +166,8 @@ describe("update verification component", () => {
         request: {
           query: GET_FINDING_HEADER,
           variables: {
+            canGetHistoricState: false,
             findingId: "",
-            submissionField: false,
           },
         },
         result: {

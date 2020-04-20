@@ -106,7 +106,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       });
     },
     refetchQueries: [
-      { query: GET_FINDING_HEADER, variables: { findingId: props.findingId, submissionField: canDisplayAnalyst } },
+      { query: GET_FINDING_HEADER, variables: { findingId: props.findingId, canGetHistoricState: canDisplayAnalyst } },
       { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
     ],
   });
