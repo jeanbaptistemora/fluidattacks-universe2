@@ -21,8 +21,8 @@ number of concurrent users reaches its peak.
 
 == Findings
 
-* link:/web/findings/0002/[F002. Asymmetric denial of service]
-* link:/web/findings/0003/[F003. Symmetric denial of service]
+* link:/web/findings/002/[F002. Asymmetric denial of service]
+* link:/web/findings/003/[F003. Symmetric denial of service]
 
 == References
 

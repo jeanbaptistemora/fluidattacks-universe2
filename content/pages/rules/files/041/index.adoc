@@ -13,4 +13,4 @@ the content of the files transferred to it is free of malicious code.
 
 == Findings
 
-* link:/web/findings/0027/[F027. Insecure file upload]
+* link:/web/findings/027/[F027. Insecure file upload]

@@ -14,4 +14,4 @@ any distinguishable pattern.
 
 == Findings
 
-* link:/web/findings/0007/[F007. Cross-site request forgery]
+* link:/web/findings/007/[F007. Cross-site request forgery]

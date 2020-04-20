@@ -55,11 +55,11 @@ the transmitted information.
 
 == Findings
 
-* link:/web/findings/0017/[F017. Sensitive information sent insecurely]
+* link:/web/findings/017/[F017. Sensitive information sent insecurely]
 
-* link:/web/findings/0022/[F022. Use of an insecure channel]
+* link:/web/findings/022/[F022. Use of an insecure channel]
 
-* link:/web/findings/0030/[F030. Sensitive information sent via URL parameters]
+* link:/web/findings/030/[F030. Sensitive information sent via URL parameters]
 
 == References
 

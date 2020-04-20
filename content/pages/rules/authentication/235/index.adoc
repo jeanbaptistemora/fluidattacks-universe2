@@ -13,4 +13,4 @@ input.
 
 == Findings
 
-* link:/web/findings/0006/[F006. Authentication mechanism absence or evasion]
+* link:/web/findings/006/[F006. Authentication mechanism absence or evasion]

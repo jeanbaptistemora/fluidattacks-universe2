@@ -24,7 +24,7 @@ points such as access control gateways, severs and serverless functions.
 
 == Findings
 
-* link:/web/findings/0014/[F014. Insecure functionality]
+* link:/web/findings/014/[F014. Insecure functionality]
 
 == References
 

@@ -13,4 +13,4 @@ the format (structure) of the files corresponds to their extension.
 
 == Findings
 
-* link:/web/findings/0027/[F027. Insecure file upload]
+* link:/web/findings/027/[F027. Insecure file upload]

@@ -1,4 +1,4 @@
-:slug: findings/01/
+:slug: findings/001/
 :description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about SQL injection vulnerabilities, recommendations to avoid them and related security requirements.
 :keywords: Injection, SQL, Validation, Database, Parameterized Statement, Stored Procedure
 :findings: yes

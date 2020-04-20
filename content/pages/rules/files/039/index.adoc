@@ -50,4 +50,4 @@ because of the lack of space in the system.
 
 == Findings
 
-* link:/web/findings/0029/[F029. Inadequate file size control]
+* link:/web/findings/029/[F029. Inadequate file size control]

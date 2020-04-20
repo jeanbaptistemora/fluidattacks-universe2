@@ -25,7 +25,7 @@ be implemented having these restrictions in consideration.
 
 == Findings
 
-* link:/web/findings/0013/[F013. Insecure object reference]
+* link:/web/findings/013/[F013. Insecure object reference]
 
 == References
 
