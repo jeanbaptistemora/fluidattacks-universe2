@@ -1,4 +1,4 @@
-# pylint: disable=import-error
+# pylint: disable=method-hidden
 
 from collections import defaultdict
 import asyncio

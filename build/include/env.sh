@@ -78,20 +78,8 @@ function env_prepare_python_async_packages {
   do
     echo "  [${pkg}] ${!pkg}"
     PATH="${PATH}:${!pkg}/site-packages/bin"
-    PYTHONPATH="${!pkg}/site-packages:${PYTHONPATH}"
+    PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
   done < "${TEMP_FILE1}"
-
-  # Override Graphene-django's graphql-core with Ariadne's graphql-core
-  PYTHONPATH="${pyAsyncPkgReqs}/site-packages:${PYTHONPATH}"
-
-  chmod --recursive u+w "${pyAsyncPkgIntegratesBack}"
-
-  for cursrc in dal decorators.py domain exceptions.py mailer.py \
-        scheduler.py services.py util.py utils; do
-    echo "  [MIGRATION] Copying ${cursrc}..."
-    cp -a "${pyPkgIntegratesBack}"/site-packages/backend/${cursrc} \
-        "${pyAsyncPkgIntegratesBack}"/site-packages/backend/
-    done
 }
 
 function env_prepare_nodejs_modules {

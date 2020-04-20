@@ -489,19 +489,16 @@ function job_lint_back {
       mypy --ignore-missing-imports \
         django-apps/casbin-in-memory-adapter \
   &&  mypy --ignore-missing-imports \
-        django-apps/integrates-back/backend/mailer.py \
-        django-apps/integrates-back/backend/scheduler.py \
-        django-apps/integrates-back/backend/services.py \
-        django-apps/integrates-back/backend/util.py \
-        django-apps/integrates-back/backend/exceptions.py \
-        django-apps/integrates-back/backend/decorators.py \
-        django-apps/integrates-back/backend/entity/resource.py \
-        django-apps/integrates-back/backend/entity/user.py \
-        django-apps/integrates-back/backend/entity/vulnerability.py \
-        django-apps/integrates-back/backend/typing.py \
-        django-apps/integrates-back/backend/domain/*py \
-        django-apps/integrates-back/backend/dal/* \
-        django-apps/integrates-back/backend/utils/* \
+        django-apps/integrates-back-async/backend/mailer.py \
+        django-apps/integrates-back-async/backend/scheduler.py \
+        django-apps/integrates-back-async/backend/services.py \
+        django-apps/integrates-back-async/backend/util.py \
+        django-apps/integrates-back-async/backend/exceptions.py \
+        django-apps/integrates-back-async/backend/decorators.py \
+        django-apps/integrates-back-async/backend/typing.py \
+        django-apps/integrates-back-async/backend/domain/*py \
+        django-apps/integrates-back-async/backend/dal/* \
+        django-apps/integrates-back-async/backend/utils/* \
         django-apps/integrates-back-async/backend/api/resolvers/cache.py \
         django-apps/integrates-back-async/backend/api/resolvers/event.py \
         django-apps/integrates-back-async/backend/api/resolvers/finding.py \
@@ -513,9 +510,9 @@ function job_lint_back {
         django-apps/integrates-back-async/backend/api/resolvers/user.py \
         django-apps/integrates-back-async/backend/api/resolvers/vulnerability.py \
   &&  prospector -F -s high -u django -i node_modules app \
-  &&  prospector -F -s high -u django -i node_modules django-apps/integrates-back/backend/ \
   &&  prospector -F -s veryhigh django-apps/casbin-in-memory-adapter \
-  &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/ \
+  &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/api \
+  &&  prospector -F -s high -u django -i node_modules -i django-apps/integrates-back-async/backend/api django-apps/integrates-back-async/backend/ \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
   &&  npx graphql-schema-linter \

@@ -43,11 +43,7 @@ function cli {
       ;;
     test*)
       env_prepare_dynamodb_local
-      if [ "${function_to_call}" == 'test_back_async' ]; then
-        env_prepare_python_async_packages
-      else
-        env_prepare_python_packages
-      fi
+      env_prepare_python_packages
       ;;
     *)
       env_prepare_dynamodb_local

@@ -110,7 +110,7 @@ coverage_report:
   <<: *with_nix
   <<: *in_mrs
   needs:
-    - test_back
+    - test_back_async
   stage: merge-request
   retry: 1
 
@@ -183,7 +183,6 @@ deploy_container_app:
   script:
     - ./build.sh build_django_apps
     - ./build.sh deploy_container_deps_app
-    - ./build.sh deploy_container_app
     - ./build.sh deploy_container_app_async
   retry: 1
   artifacts:
@@ -338,7 +337,7 @@ send_new_release_email:
   needs:
     - deploy_k8s_back
 
-test_back:
+.test_back:
   <<: *with_nix
   <<: *in_dev_branch_mrs_and_master
   image: "${CI_REGISTRY_IMAGE}/nix:test"
@@ -352,10 +351,15 @@ test_back:
 
 test_back_async:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_branch_mrs_and_master
   image: "${CI_REGISTRY_IMAGE}/nix:test"
   stage: test-code
   retry: 1
+  artifacts:
+    name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
+    paths:
+      - coverage.xml
+    expire_in: 1 week
 
 test_front:
   <<: *with_nix

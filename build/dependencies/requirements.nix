@@ -6,7 +6,7 @@ let
 in
   {
     pyPkgIntegratesBack =
-      builders.pythonPackageLocal ../../django-apps/integrates-back;
+      builders.pythonPackageLocal ../../django-apps/integrates-back-async;
     pyPkgCasbinInMemoryAdapter =
       builders.pythonPackageLocal ../../django-apps/casbin-in-memory-adapter;
     pyPkgReqs =

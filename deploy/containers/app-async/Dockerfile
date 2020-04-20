@@ -19,17 +19,9 @@ WORKDIR /usr/src/app
 
 # Put integrates in container
 COPY . .
-# This is temporal while the migration from graphene to ariadne is ongoing
-RUN cp -a django-apps/integrates-back-async/backend . \
-  && cp -a django-apps/integrates-back/backend/dal backend/ \
-  && cp -a django-apps/integrates-back/backend/domain backend/ \
-  && cp -a django-apps/integrates-back/backend/utils backend/ \
-  && cp -a django-apps/integrates-back/backend/*py backend/ \
-  && pip3 install -U ariadne==0.11.0 graphql-core==3.0.3 wheel aiodataloader==0.2.0 \
-  && pip3 install --no-cache-dir --no-index \
+RUN pip3 install --no-cache-dir --no-index \
       --find-links=django-apps/packages/ \
       --requirement deploy/containers/deps-app/requirements_local_async.txt \
-  # End of temporal code
   && rm -rf /var/www/html \
   && rm -f /etc/td-agent/td-agent.conf \
   && rm -f /etc/init.d/td-agent \

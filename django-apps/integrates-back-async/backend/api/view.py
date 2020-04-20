@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 import newrelic
 
 from backend.api.dataloaders.event import EventLoader
@@ -41,7 +39,8 @@ class APIView(GraphQLView):
     def context_value(self, request):
         """Add dataloaders to context."""
         if callable(super().context_value):
-            context = super().context_value(request)
+            context = \
+                super().context_value(request)  # pylint: disable=not-callable
         else:
             context = super().context_value or request
         return run_async(_context_value, context)

@@ -2,3 +2,4 @@ include LICENSE
 include README.rst
 include backend/entity/schema.yaml
 include backend/api/schemas/*
+include backend/domain/vuln_template.yaml

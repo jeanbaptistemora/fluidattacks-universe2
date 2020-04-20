@@ -79,12 +79,8 @@ INSTALLED_APPS = [
     'storages',
     'channels',
     'backend',
+    'ariadne.contrib.django'
 ]
-
-if 'integrates-back' in get_installed_packages():
-    INSTALLED_APPS.append('graphene_django')
-else:
-    INSTALLED_APPS.append('ariadne.contrib.django')
 
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
