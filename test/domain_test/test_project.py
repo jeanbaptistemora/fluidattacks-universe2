@@ -16,9 +16,11 @@ from backend.domain.project import (
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
-    get_mean_remediate_severity
+    get_mean_remediate_severity, validate_project_services_config
 )
-from backend.exceptions import RepeatedValues
+from backend.exceptions import (
+    InvalidProjectServicesConfig, RepeatedValues
+)
 import backend.dal.vulnerability as vuln_dal
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
@@ -30,6 +32,14 @@ class ProjectTest(TestCase):
         recipients = get_email_recipients('unittesting')
         assert isinstance(recipients, list)
         assert isinstance(recipients[0], str)
+
+    def test_validate_project_services_config(self):
+        with pytest.raises(InvalidProjectServicesConfig):
+            validate_project_services_config(True, False, True)
+        with pytest.raises(InvalidProjectServicesConfig):
+            validate_project_services_config(False, False, True)
+        with pytest.raises(InvalidProjectServicesConfig):
+            validate_project_services_config(False, True, False)
 
     def test_validate_tags(self):
         assert validate_tags(

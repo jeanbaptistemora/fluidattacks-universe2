@@ -98,7 +98,9 @@ class UtilTests(TestCase):
 
     def test_validate_release_date(self):
         finding = get_finding('422286126')
+        unreleased_finding = get_finding('560175507')
         assert validate_release_date(finding)
+        assert not validate_release_date(unreleased_finding)
 
     def test_validate_future_releases(self):
         finding_released = get_finding('475041513')

@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import pytest
 from django.test import TestCase
 from backend.domain.user import (
+    assign_role,
     get_all_users_report,
     get_group_level_role,
     get_user_level_role,
@@ -72,3 +73,7 @@ class UserTests(TestCase):
         assert not get_group_level_role('revOke_group_level_role@gmail.com', 'group')
         assert not get_group_level_role('revoKe_group_level_role@gmail.com', 'other-group')
         assert not get_group_level_role('revokE_group_level_role@gmail.com', 'yet-other-group')
+
+    def test_assign_role(self):
+        assert assign_role('unittest@fluidattacks.com', 'admin')
+        assert not assign_role('unittest@fluidattacks.com', 'other')
