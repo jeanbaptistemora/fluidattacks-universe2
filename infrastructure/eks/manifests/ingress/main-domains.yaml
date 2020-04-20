@@ -45,14 +45,14 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: integrates-app-async
+          serviceName: integrates-app
           servicePort: 80
         path: /integrates/v2(/|$)(.*)
       - backend:
-          serviceName: integrates-app-async
+          serviceName: integrates-app
           servicePort: 80
         path: /integrates(/|$)(.*)
       - backend:
-          serviceName: integrates-app-async
+          serviceName: integrates-app
           servicePort: 80
         path: /(assets.*|oauth.*|index.*|registration.*|silk.*|errors.*)(.*)
