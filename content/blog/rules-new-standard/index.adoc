@@ -16,7 +16,7 @@
 
 = We've Reached a New Standard
 
-Earlier this month our `CEO`, Rafael Alvarez, informed us:
+Earlier this month our `CTO`, Rafael Alvarez, informed us:
 _"We've already finished the synthesis of the `GDPR` standard in Rules_."
 
 What does that mean?
