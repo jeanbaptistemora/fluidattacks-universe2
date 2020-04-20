@@ -41,6 +41,21 @@ VALID_TYPES: Tuple[str, ...] = \
     tuple(map(operator.itemgetter(0), VALID__TYPES_DESC))
 
 
+def has_short_line_length(summary: str, body: str) -> bool:
+    """Verify that summary and body are below max chars threshold."""
+    success: bool = True
+
+    if any(len(summary_line) > 50 for summary_line in summary.splitlines()):
+        logger.error(f'Summary too long, 50 chars max')
+        success = False
+
+    if any(len(body_line) > 72 for body_line in body.splitlines()):
+        logger.error(f'Body lines too long, 72 chars max')
+        success = False
+
+    return success
+
+
 def is_valid_summary(summary: str) -> bool:
     """Plugable validator for forces commits."""
     is_valid: bool = True

@@ -234,6 +234,20 @@ def get_files_in_commit():
             '\n')[:-1]
 
 
+def get_change_request_body() -> str:
+    """Return the HEAD commit message, or the merge request body."""
+    commit_summary: str
+    gitlab_summary_var: str = 'CI_MERGE_REQUEST_DESCRIPTION'
+
+    if gitlab_summary_var in os.environ:
+        commit_summary = os.environ[gitlab_summary_var]
+    else:
+        commit_summary = os.popen('git log --max-count 1 --format=%b').read()
+        commit_summary = commit_summary[:-1]
+
+    return commit_summary
+
+
 def get_change_request_touched_files() -> Tuple[str, ...]:
     """Return touched files in HEAD commit."""
     command: str = 'git show --name-only --pretty= $(git rev-parse HEAD)'

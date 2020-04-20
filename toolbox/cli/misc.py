@@ -18,6 +18,7 @@ from toolbox import (
 
 def do_check_commit_msg() -> bool:
     summary: str = utils.generic.get_change_request_summary()
+    body: str = utils.generic.get_change_request_body()
     success: bool = False
 
     if drills.commit.is_drills_commit(summary):
@@ -25,7 +26,8 @@ def do_check_commit_msg() -> bool:
     elif forces.commit.is_exploits_commit(summary):
         success = forces.commit.is_valid_summary(summary)
     else:
-        success = generic.commit.is_valid_summary(summary)
+        success = generic.commit.is_valid_summary(summary) \
+            and generic.commit.has_short_line_length(summary, body)
     return success
 
 
