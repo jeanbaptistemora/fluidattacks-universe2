@@ -3,7 +3,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -17,7 +16,6 @@ import { RemoveProjectModal } from "../../components/RemoveProjectModal";
 import { Environments } from "./Environments";
 import { Files } from "./Files";
 import { Portfolio } from "./Portfolio";
-import { GET_PROJECT_DATA } from "./queries";
 import { Repositories } from "./Repositories";
 import { ISettingsViewProps } from "./types";
 
@@ -36,19 +34,12 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
   const openRemoveModal: (() => void) = (): void => { setRemoveModalOpen(true); };
   const closeRemoveModal: (() => void) = (): void => { setRemoveModalOpen(false); };
 
-  // GraphQL operations
-  const { data } = useQuery(GET_PROJECT_DATA, { variables: { projectName } });
-
-  if (_.isUndefined(data) || _.isEmpty(data) || !_.isEmpty(data.project.deletionDate)) {
-    return <React.Fragment />;
-  }
-
   return (
     <React.StrictMode>
       <div id="resources" className="tab-pane cont active">
-        <Repositories projectName={props.match.params.projectName} groupRole={data.me.role}/>
+        <Repositories projectName={props.match.params.projectName} />
         <hr />
-        <Environments projectName={props.match.params.projectName} groupRole={data.me.role}/>
+        <Environments projectName={props.match.params.projectName} />
         <hr />
         <Files projectName={props.match.params.projectName} />
         <hr />

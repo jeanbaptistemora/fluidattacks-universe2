@@ -15,6 +15,7 @@ import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialo
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
+import { Can } from "../../../../../utils/authz/Can";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -23,7 +24,6 @@ import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_ENVIRONMENT_MUTATIO
 import { IEnvironmentsAttr, IHistoricState } from "../types";
 
 interface IEnvironmentsProps {
-  groupRole: string;
   projectName: string;
 }
 
@@ -121,7 +121,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
         <Col lg={8} md={10} xs={7}>
           <h3>{translate.t("search_findings.tab_resources.environments_title")}</h3>
         </Col>
-        {_.includes(["admin", "customer", "customeradmin"], props.groupRole) ? (
+        <Can do="backend_api_resolvers_resource__do_add_environments">
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
               <Button onClick={openAddModal}>
@@ -130,8 +130,10 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
               </Button>
             </ButtonToolbar>
           </Col>
-        ) : undefined}
+        </Can>
       </Row>
+      <Can do="backend_api_resolvers_resource__do_update_environment" passThrough={true}>
+        {(canUpdate: boolean): JSX.Element => (
       <ConfirmDialog title="Change environment state">
         {(confirm: ConfirmFn): React.ReactNode => {
           const handleStateUpdate: ((env: Dictionary<string>) => void) = (env: Dictionary<string>): void => {
@@ -177,8 +179,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
               changeFunction: handleStateUpdate,
               dataField: "state",
               filter: filterState,
-              formatter: _.includes(["admin", "customer", "customeradmin"], props.groupRole)
-                ? changeFormatter : statusFormatter,
+              formatter: canUpdate ? changeFormatter : statusFormatter,
               header: translate.t("search_findings.repositories_table.state"),
               onSort: sortState,
               width: "12%",
@@ -202,6 +203,8 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
           );
         }}
       </ConfirmDialog>
+        )}
+      </Can>
       <label>
         <b>{translate.t("search_findings.tab_resources.total_envs")}</b>{envsDataset.length}
       </label>

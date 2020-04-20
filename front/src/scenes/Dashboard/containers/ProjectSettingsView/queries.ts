@@ -78,17 +78,6 @@ query GetEnvironmentsQuery($projectName: String!) {
 }
 `;
 
-export const GET_PROJECT_DATA: DocumentNode = gql`
-  query GetProjectDataQuery($projectName: String!) {
-    project(projectName: $projectName){
-      deletionDate
-    }
-    me(callerOrigin: "FRONT") {
-      role(projectName: $projectName)
-    }
-  }
-`;
-
 export const GET_FILES: DocumentNode = gql`
   query GetFilesQuery($projectName: String!) {
     resources(projectName: $projectName) {

@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
@@ -10,8 +11,9 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
+import { authzContext } from "../../../../utils/authz/config";
 import { ProjectSettingsView } from "./index";
-import { GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_REPOSITORIES, GET_TAGS } from "./queries";
+import { GET_ENVIRONMENTS, GET_REPOSITORIES, GET_TAGS } from "./queries";
 import { ISettingsViewProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -35,22 +37,10 @@ describe("ProjectSettingsView", () => {
     location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
-      params: {projectName: "TEST"},
+      params: { projectName: "TEST" },
       path: "/",
       url: "",
     },
-  };
-
-  const mockProject: Readonly<MockedResponse> = {
-    request: {
-      query: GET_PROJECT_DATA,
-      variables: {
-        projectName: "TEST",
-      },
-    },
-    result: { data: {
-      me: { role: "customeradmin" },
-      project: { deletionDate: "" } } },
   };
 
   const mocksTags: Readonly<MockedResponse> = {
@@ -130,7 +120,7 @@ describe("ProjectSettingsView", () => {
   it("should render tags component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mockProject, mocksTags]} addTypename={false}>
+        <MockedProvider mocks={[mocksTags]} addTypename={false}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
@@ -141,32 +131,37 @@ describe("ProjectSettingsView", () => {
   });
 
   it("should render repositories component", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_update_repository" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mockProject, mocksRepositories]} addTypename={false}>
-          <ProjectSettingsView {...mockProps} />
+        <MockedProvider mocks={[mocksRepositories]} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <ProjectSettingsView {...mockProps} />
+          </authzContext.Provider>
         </MockedProvider>
       </Provider>,
     );
     await act(async () => { await wait(500); wrapper.update(); });
     const onerow: ReactWrapper = wrapper
-                                 .find("BootstrapTable")
-                                 .find("RowPureContent")
-                                 .find("Cell");
+      .find("BootstrapTable")
+      .find("RowPureContent")
+      .find("Cell");
     const statuschecked: boolean | undefined = wrapper
-                                               .find("BootstrapTable")
-                                               .find("RowPureContent")
-                                               .find("Cell")
-                                               .at(3)
-                                               .find("e")
-                                               .prop("checked");
+      .find("BootstrapTable")
+      .find("RowPureContent")
+      .find("Cell")
+      .at(3)
+      .find("e")
+      .prop("checked");
     const protocol: string = wrapper
-                            .find("BootstrapTable")
-                            .find("RowPureContent")
-                            .find("Cell")
-                            .at(0)
-                            .find("td")
-                            .text();
+      .find("BootstrapTable")
+      .find("RowPureContent")
+      .find("Cell")
+      .at(0)
+      .find("td")
+      .text();
     expect(wrapper)
       .toHaveLength(1);
     expect(onerow)
@@ -178,25 +173,30 @@ describe("ProjectSettingsView", () => {
   });
 
   it("should render environments component", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_update_environment" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mockProject, mocksEnvironments]} addTypename={false}>
-          <ProjectSettingsView {...mockProps} />
+        <MockedProvider mocks={[mocksEnvironments]} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <ProjectSettingsView {...mockProps} />
+          </authzContext.Provider>
         </MockedProvider>
       </Provider>,
     );
     await act(async () => { await wait(200); wrapper.update(); });
     const onerow: ReactWrapper = wrapper
-                                 .find("BootstrapTable")
-                                 .find("RowPureContent")
-                                 .find("Cell");
+      .find("BootstrapTable")
+      .find("RowPureContent")
+      .find("Cell");
     const statuschecked: boolean | undefined = wrapper
-                                               .find("BootstrapTable")
-                                               .find("RowPureContent")
-                                               .find("Cell")
-                                               .at(1)
-                                               .find("e")
-                                               .prop("checked");
+      .find("BootstrapTable")
+      .find("RowPureContent")
+      .find("Cell")
+      .at(1)
+      .find("e")
+      .prop("checked");
     expect(wrapper)
       .toHaveLength(1);
     expect(onerow)
@@ -221,7 +221,7 @@ describe("ProjectSettingsView", () => {
   it("should render files component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mockProject, mocksTags]} addTypename={false}>
+        <MockedProvider mocks={[mocksTags]} addTypename={false}>
           <ProjectSettingsView {...mockProps} />
         </MockedProvider>
       </Provider>,
