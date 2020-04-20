@@ -23,7 +23,6 @@ def resolve_report_mutation(obj, info, **parameters):
 
 
 @require_login
-# pylint: disable=too-many-locals
 async def _do_request_project_report(_, info, **parameters):
     success = False
     project_name = parameters.get('project_name')
