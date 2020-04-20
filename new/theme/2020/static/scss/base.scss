@@ -371,3 +371,15 @@ $codeyellow: rgba(230, 219, 116, 1);
   animation-name: fade;
   animation-duration: 1.5s;
 }
+
+.menu-careers::-webkit-scrollbar-track {
+  display: none;
+}
+
+.menu-careers::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.menu-careers::-webkit-scrollbar {
+  width: 12px;
+}
