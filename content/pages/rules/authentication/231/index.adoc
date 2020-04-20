@@ -13,7 +13,7 @@ for biometric verification during authentication process.
 
 == Findings
 
-* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence or evasion]
+* link:/web/findings/0006/[F006. Authentication mechanism absence or evasion]
 
 == References
 

@@ -21,7 +21,7 @@ The authentication mechanism should request at least a username and a password.
 
 == Findings
 
-* link:/web/findings/0006/[FIN.S.0006. Authentication mechanism absence or evasion]
+* link:/web/findings/0006/[F006. Authentication mechanism absence or evasion]
 
 == References
 

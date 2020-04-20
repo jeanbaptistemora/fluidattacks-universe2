@@ -66,7 +66,7 @@ present in previous versions of the product.
 
 == Findings
 
-* link:/web/findings/0011/[FIN.S.0011. Use of software with known vulnerabilities]
+* link:/web/findings/0011/[F011. Use of software with known vulnerabilities]
 
 == References
 

@@ -23,7 +23,7 @@ standards.
 
 == Findings
 
-* link:/web/findings/0016/[FIN.S.0016. Non-parameterized cryptographic key]
+* link:/web/findings/0016/[F016. Non-parameterized cryptographic key]
 
 == References
 

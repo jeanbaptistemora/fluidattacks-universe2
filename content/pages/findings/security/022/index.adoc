@@ -1,0 +1,17 @@
+:slug: findings/022/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from using insecure channels, recommendations to avoid them and related security requirements.
+:keywords: Information, Channel, Confidential, Encryption, Cleartext, Data Transmission
+:findings: yes
+:type: security
+
+= F022. Use of an insecure channel
+
+== Description
+
+The system transmits information through a channel without encryption.
+This allows attackers to capture confidential information and credentials in
+cleartext.
+
+== Rules
+
+. [[r1]] link:/web/rules/181/[R181. Transmit data using secure protocols]

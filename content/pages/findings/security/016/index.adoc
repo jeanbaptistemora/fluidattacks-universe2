@@ -1,0 +1,18 @@
+:slug: findings/016/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from storing cleartext crypto keys in the source code, recommendations to avoid them and related security requirements.
+:keywords: Cleartext, Plain text, Cryptographic Key, Parameterization, Cipher, Source Code
+:findings: yes
+:type: security
+
+= F016. Non-parameterized cryptographic key
+
+== Description
+
+A cryptographic key can be found in cleartext in the source code and it is not
+obtained from a source that guarantees its confidentiality.
+
+== Rules
+
+. [[r1]] link:/web/rules/145/[R145. Protect system cryptographic keys]
+
+. [[r2]] link:/web/rules/156/[R156. Source code without sensitive information]

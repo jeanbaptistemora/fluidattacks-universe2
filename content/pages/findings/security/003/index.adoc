@@ -1,0 +1,16 @@
+:slug: findings/003/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about symmetric denial-of-service attacks, recommendations to avoid them and related security requirements.
+:keywords: Symmetric, DoS, Denial of Service, Server, Response Time, Resource Consumption
+:findings: yes
+:type: security
+
+= F003. Symmetric denial of service
+
+== Description
+
+The server is rendered unresponsive by successively repeating a request which
+consumes a lot of resources or takes too long to be processed.
+
+== Rules
+
+. [[r1]] link:/web/rules/072/[R072. Set maximum response time]

@@ -1,0 +1,16 @@
+:slug: findings/029/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from an inadequate file size control, recommendations to avoid them and related security requirements.
+:keywords: File, Upload, Size, Server, Control, System
+:findings: yes
+:type: security
+
+= F029. Inadequate file size control
+
+== Description
+
+The system does not perform an adequate control of the size of the files that
+can be uploaded to the server.
+
+== Rules
+
+. [[r1]] link:/web/rules/039/[R039. Define maximum file size]

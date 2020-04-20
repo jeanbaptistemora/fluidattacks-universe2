@@ -1,0 +1,24 @@
+:slug: findings/030/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from an inadequate file size control, recommendations to avoid them and related security requirements.
+:keywords: File, Upload, Size, Server, Control, System
+:findings: yes
+:type: security
+
+= F030. Sensitive information sent via URL parameters
+
+== Description
+
+The system sends sensitive information via URL parameters using the GET
+method.
+These parameters:
+
+* are stored in cleartext in the browser history.
+* are sent to external sites via the referrer HTTP header.
+* are sent to external sites via the search bar if the browser interprets the
+URL as query.
+* are visible to scripts running on the browser that may belong to
+third-parties.
+
+== Rules
+
+. [[r1]] link:/web/rules/032/[R032. Avoid session ID leakages]

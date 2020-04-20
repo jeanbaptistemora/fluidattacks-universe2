@@ -1,0 +1,18 @@
+:slug: findings/004/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about remote command execution attacks, recommendations to avoid them and related security requirements.
+:keywords: Command, Execution, Remote, Server, Console, Injection
+:findings: yes
+:type: security
+
+= F004. Remote command execution
+
+== Description
+
+It is possible to execute commands on the server's console due to insecure
+settings, out of date software, unsafe functions or a lack of data validation.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+
+. [[r2]] link:/web/rules/265/[R265. Restrict access to critical processes]

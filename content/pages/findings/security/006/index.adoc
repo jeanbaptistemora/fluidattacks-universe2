@@ -1,0 +1,25 @@
+:slug: findings/006/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about absent or bypassable authentication mechanisms, recommendations to avoid them and related security requirements.
+:keywords: Authentication, Mechanism, Absence, Evasion, Bypass, Finding
+:findings: yes
+:type: security
+
+= F006. Authentication mechanism absence or evasion
+
+== Description
+
+The system lacks an authentication mechanism or has one that can be bypassed.
+
+== Rules
+
+. [[r1]] link:/web/rules/227/[R227. Display access notification]
+
+. [[r2]] link:/web/rules/228/[R228. Authenticate using standard protocols]
+
+. [[r3]] link:/web/rules/229/[R229. Request access credentials]
+
+. [[r4]] link:/web/rules/231/[R231. Define a biometric verification component]
+
+. [[r5]] link:/web/rules/235/[R235. Define credentials interface]
+
+. [[r6]] link:/web/rules/319/[R319. Make authentication options equally secure]

@@ -79,13 +79,13 @@ therefore this information must be validated.
 
 == Findings
 
-* link:/web/findings/0004/[FIN.S.0004. Remote command execution]
+* link:/web/findings/0004/[F004. Remote command execution]
 
-* link:/web/findings/0008/[FIN.S.0008. Reflected cross-site scripting (XSS)]
+* link:/web/findings/0008/[F008. Reflected cross-site scripting (XSS)]
 
-* link:/web/findings/0010/[FIN.S.0010. Stored cross-site scripting (XSS)]
+* link:/web/findings/0010/[F010. Stored cross-site scripting (XSS)]
 
-* link:/web/findings/0023/[FIN.S.0023. Uncontrolled external site redirect]
+* link:/web/findings/0023/[F023. Uncontrolled external site redirect]
 
 == Referencias
 
