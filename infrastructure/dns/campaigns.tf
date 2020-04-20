@@ -158,6 +158,22 @@ resource "aws_route53_record" "rd-thanks" {
   records = ["08ec73f964f04ff8a051d741f659619e.unbouncepages.com"]
 }
 
+resource "aws_route53_record" "sv" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "sv.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["623c981bdfe7446faa1e7a97478a5bd3.unbouncepages.com"]
+}
+
+resource "aws_route53_record" "sv-thanks" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "svthanks.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["1c69701cfb3d4db68c790ae4dbeffd1b.unbouncepages.com"]
+}
+
 resource "aws_route53_record" "report2020" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "report2020.${aws_route53_zone.fs_maindomain.name}"
