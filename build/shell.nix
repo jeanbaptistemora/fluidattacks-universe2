@@ -47,4 +47,6 @@ in
       sha256 = "0alm1k5dj5fvcdyygm9bk58kgpkjnzl2k7p7d5if5cw8j8bi32rb";
     };
     srcDotDotToolboxOthers = ../toolbox/others.sh;
+
+    LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
   }
