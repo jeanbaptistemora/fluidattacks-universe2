@@ -137,7 +137,7 @@ aws dynamodb create-table \
     --provisioned-throughput \
         ReadCapacityUnits=1,WriteCapacityUnits=1
 
-for mock_file in test/dynamo_data/*.json; do
+for mock_file in test_async/dynamo_data/*.json; do
     echo "[INFO] Writing data from: ${mock_file}"
     aws dynamodb batch-write-item --endpoint-url http://localhost:8022 \
     --request-items file://${mock_file}
@@ -148,15 +148,15 @@ iso_date_now=$(date +%Y-%m-%dT%H:%M:%S.000000%z)
 # This will insert two extra rows with current date-time
 # This rows are always visible in the front-end :)
 sed "s/2020-02-19.*/${iso_date_now}\"/g" \
-  < 'test/dynamo_data/bb_executions.json' \
+  < 'test_async/dynamo_data/bb_executions.json' \
   | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
   | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
-  > test/dynamo_data/bb_executions.json.now
+  > test_async/dynamo_data/bb_executions.json.now
 
-echo '[INFO] Writing data from: test/dynamo_data/bb_executions.json.now'
+echo '[INFO] Writing data from: test_async/dynamo_data/bb_executions.json.now'
 aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
-  --request-items 'file://test/dynamo_data/bb_executions.json.now'
+  --request-items 'file://test_async/dynamo_data/bb_executions.json.now'
 
 if test "${CI_JOB_NAME:-}" = "serve_dynamodb_local"
 then

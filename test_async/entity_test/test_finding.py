@@ -203,7 +203,7 @@ class FindingTests(TestCase):
           }
         '''
         filename = os.path.dirname(os.path.abspath(__file__))
-        filename = os.path.join(filename, '../../test/mock/test-anim.gif')
+        filename = os.path.join(filename, '../mock/test-anim.gif')
         with open(filename, 'rb') as test_file:
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),

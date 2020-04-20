@@ -74,17 +74,17 @@ class ResourceTests(TestCase):
         query = '''mutation {
           addRepositories(projectName: "unittesting", repos: [
             {
-              urlRepo: "https://gitlab.com/fluidattacks/integrates.git",
+              urlRepo: "https://gitlab.com/fluidattacks/new_repo1.git",
               branch: "master",
               protocol: "HTTPS"
             },
             {
-              urlRepo: "git@gitlab.com:fluidattacks/serves.git",
+              urlRepo: "git@gitlab.com:fluidattacks/new_repo2.git",
               branch: "master",
               protocol: "SSH"
             },
             {
-              urlRepo: "https://gitlab.com/fluidattacks/web.git",
+              urlRepo: "https://gitlab.com/fluidattacks/new_repo3.git",
               branch: "master",
               protocol: "HTTPS"
             }
@@ -117,7 +117,7 @@ class ResourceTests(TestCase):
     async def test_add_files(self):
         """Check for addFiles mutation."""
         filename = os.path.dirname(os.path.abspath(__file__))
-        filename = os.path.join(filename, '../../test/mock/test-anim.gif')
+        filename = os.path.join(filename, '../mock/test-anim.gif')
         with open(filename, 'rb') as test_file:
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),

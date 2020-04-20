@@ -751,75 +751,14 @@ function job_test_back {
         --maxfail='20' \
         --cov='fluidintegrates' \
         --cov='app' \
-        --cov="${pyPkgIntegratesBack}/site-packages/backend" \
+        --cov="${pyAsyncPkgIntegratesBack}/site-packages/backend" \
         --cov-report='term' \
         --cov-report='html:build/coverage/html' \
         --cov-report='xml:build/coverage/results.xml' \
         --cov-report='annotate:build/coverage/annotate' \
         --disable-warnings \
-        'test' \
-  &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
-  &&  {
-        kill_processes
-        return 0
-      } \
-  ||  {
-        kill_processes
-        return 1
-      }
-}
-
-function job_test_back_async {
-  local processes_to_kill=()
-  local port_dynamo='8022'
-  local port_redis='6379'
-
-  function kill_processes {
-    for process in "${processes_to_kill[@]}"
-    do
-          echo "[INFO] Killing PID: ${process}" \
-      &&  (
-            set +o errexit
-            kill -9 "${process}"
-          )
-    done
-  }
-
-  # shellcheck disable=SC2015
-      helper_set_dev_secrets \
-  &&  echo '[INFO] Launching Redis' \
-  &&  {
-        redis-server --port "${port_redis}" \
-          &
-        processes_to_kill+=( "$!" )
-      } \
-  &&  echo '[INFO] Launching DynamoDB local' \
-  &&  {
-        java \
-          -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
-          -jar "${STARTDIR}/.DynamoDB/DynamoDBLocal.jar" \
-          -inMemory \
-          -port "${port_dynamo}" \
-          -sharedDb \
-          &
-        processes_to_kill+=( "$!" )
-      } \
-  &&  echo '[INFO] Waiting 5 seconds to leave DynamoDB start' \
-  &&  sleep 5 \
-  &&  echo '[INFO] Populating DynamoDB local' \
-  &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
-  &&  pytest \
-        -n auto \
-        --ds='fluidintegrates.settings' \
-        --dist='loadscope' \
-        --verbose \
-        --maxfail='20' \
-        --cov='fluidintegrates' \
-        --cov='app' \
-        --cov="${pyAsyncPkgIntegratesBack}/site-packages/backend" \
-        --cov-report='term' \
-        --disable-warnings \
         'test_async' \
+  &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
   &&  {
         kill_processes
         return 0
@@ -987,8 +926,5 @@ function job_deploy_k8s_stop_ephemeral {
   &&  echo '[INFO] Deleting deployments' \
   &&  kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}" \
   &&  kubectl delete service "service-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete deployment "review-async-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete service "service-async-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete ingress "review-async-${CI_COMMIT_REF_SLUG}"
+  &&  kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}"
 }
