@@ -10,7 +10,9 @@ import functools
 import subprocess
 import contextlib
 from pathlib import Path
-from typing import Tuple
+from typing import (
+    Tuple,
+)
 
 # Third parties libraries
 import click
@@ -21,7 +23,7 @@ from pykwalify.errors import SchemaError
 from ruamel.yaml import YAML, safe_load
 
 # Local libraries
-from toolbox import logger, helper
+from toolbox import logger
 
 
 def is_env_ci() -> bool:
@@ -42,18 +44,33 @@ def is_branch_master() -> bool:
     return os.environ.get('CI_COMMIT_REF_NAME') == 'master'
 
 
-def run_command(cmd: str, cwd: str, env: dict) -> Tuple[int, str, str]:
+def run_command_old(
+    cmd: str,
+    cwd: str,
+    env: dict,
+) -> Tuple[int, str, str]:
     """Run a command and return exit code, stdout and stderr."""
-    # We are checking the exit code via proc.returncode
-    #   in the upstream component
+    return run_command(cmd, cwd, env, shell=True)
+
+
+def run_command(
+    cmd,
+    cwd: str,
+    env: dict,
+    **kwargs,
+) -> Tuple[int, str, str]:
+    """Run a command and return exit-code, stdout and stderr."""
+    # We are checking the exit code in upstream components
     # pylint: disable=subprocess-run-check
-    proc = subprocess.run(cmd,
-                          cwd=cwd,
-                          env={**os.environ.copy(), **env},
-                          shell=True,
-                          stdout=subprocess.PIPE,
-                          stderr=subprocess.PIPE,
-                          universal_newlines=True)
+    proc = subprocess.run(
+        cmd,
+        cwd=cwd,
+        env={**os.environ.copy(), **env},
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+        **kwargs,
+    )
     return proc.returncode, proc.stdout, proc.stderr
 
 
@@ -118,10 +135,19 @@ def aws_login(profile: str = 'default'):
                 os.environ['DEV_AWS_ACCESS_KEY_ID']
             os.environ['AWS_SECRET_ACCESS_KEY'] = \
                 os.environ['DEV_AWS_SECRET_ACCESS_KEY']
-        cmd_access_key = \
-            'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
-        cmd_secret_key = \
-            'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
+
+        aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
+        aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
+
+        cmd_access_key = [
+            'aws', 'configure', 'set',
+            'aws_access_key_id', aws_access_key_id,
+        ]
+        cmd_secret_key = [
+            'aws', 'configure', 'set',
+            'aws_secret_access_key', aws_secret_access_key,
+        ]
+
         run_command(cmd=cmd_access_key, cwd='.', env={})
         run_command(cmd=cmd_secret_key, cwd='.', env={})
     else:
@@ -135,7 +161,13 @@ def get_sops_secret(var: str, path: str, profile: str = 'default') -> str:
     """
     if is_env_ci():
         profile = 'default'
-    cmd = f'sops --aws-profile {profile} -d --extract \'["{var}"]\' {path}'
+    cmd = [
+        'sops',
+        '--aws-profile', profile,
+        '--decrypt',
+        '--extract', f'["{var}"]',
+        path,
+    ]
     code, stdout, stderr = run_command(cmd=cmd, cwd='.', env={})
     if code:
         logger.error('while calling sops:')
@@ -271,32 +303,38 @@ def get_change_request_summary() -> str:
     return commit_summary
 
 
-def get_files_in_commit():
-    """Return modified files in actual commit."""
-    return os.popen(
-        'git show --name-only --pretty="" $(git rev-parse HEAD)').read().split(
-            '\n')[:-1]
+def get_change_request_touched_files() -> Tuple[str, ...]:
+    """Return touched files in HEAD commit."""
+    command: str = 'git show --name-only --pretty= $(git rev-parse HEAD)'
+    return tuple(os.popen(command).read().splitlines())
 
 
-def get_modified_exps():
-    """Returns the finding id of the exploits modified in the commit."""
-    findigs = []
-    for path in get_files_in_commit():
-        if '/exploits/' in path:
-            _, find = helper.forces.scan_exploit_for_kind_and_id(path)
-            findigs.append(find)
-    return findigs
+def get_change_request_touched_and_existing_files() -> Tuple[str, ...]:
+    """Return touched files in HEAD commit."""
+    return tuple(
+        os.path.abspath(path)
+        for path in get_change_request_touched_files()
+        if os.path.exists(path)
+    )
+
+
+def get_change_request_touched_and_existing_exploits() -> Tuple[str, ...]:
+    """Return a tuple of paths to exploits in the last commit."""
+    changed_files = get_change_request_touched_and_existing_files()
+    changed_exploits = \
+        tuple(file for file in changed_files if '/exploits/' in file)
+    return changed_exploits
 
 
 def go_back_to_continuous():
     starting_dir: str = os.getcwd()
-    if 'TOOLBOX_SKIP_ROOT_DETECTION' not in os.environ:
-        if 'continuous' not in starting_dir:
-            logger.error('Please run the toolbox inside the continuous repo')
-            sys.exit(78)
-        while not os.getcwd().endswith('continuous'):
-            os.chdir('..')
-            logger.debug('Adjusted working dir to:', os.getcwd())
+    if 'continuous' not in starting_dir:
+        logger.error('Please run the toolbox inside the continuous repo')
+        sys.exit(78)
+
+    while not os.getcwd().endswith('continuous'):
+        os.chdir('..')
+        logger.debug('Adjusted working dir to:', os.getcwd())
 
 
 def get_current_subscription() -> str:

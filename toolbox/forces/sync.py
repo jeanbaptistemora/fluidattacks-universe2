@@ -104,7 +104,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
             asserts_status: Any = None
             repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
             if os.path.isdir(repository_path):
-                asserts_status, asserts_stdout, _ = utils.run_command(
+                asserts_status, asserts_stdout, _ = utils.run_command_old(
                     cmd=(f"echo '---'                          "
                          f"  >> '{exploit_output_path}';       "
                          f"echo 'repository: {repo}'           "
@@ -259,7 +259,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
         analyst_status = helper.integrates.is_finding_open(
             finding_id, constants.DAST)
 
-        asserts_status, asserts_stdout, _ = utils.run_command(
+        asserts_status, asserts_stdout, _ = utils.run_command_old(
             cmd=(f"asserts -eec -n -ms '{exploit_path}'"
                  f"  >  '{exploit_output_path}_';      "
                  f"exit_code=$?;                       "

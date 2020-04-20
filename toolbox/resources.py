@@ -572,7 +572,7 @@ def yield_subscription_repositories(subs: str) -> Iterator[str]:
 def yield_remote_repositories(subs: str) -> Iterator[str]:
     remote_path = f"'s3://continuous-repositories/{subs}/active/'"
     list_command_s3 = f"aws s3 ls {remote_path}"
-    ls_s3 = utils.run_command(list_command_s3, ".", {})
+    ls_s3 = utils.run_command_old(list_command_s3, ".", {})
     repos_set = list(ls_s3[1].replace(" ", "")
                              .replace("PRE", "")
                              .replace("/", "")

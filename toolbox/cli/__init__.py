@@ -121,6 +121,7 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     metavar=EXP_METAVAR,
     help='lint exploits for a subscription',
     callback=_convert_exploit)
+@click.option('--lint-changed-exploits', is_flag=True)
 @click.option('--run-exps', '--run', '-r', is_flag=True, help='run exploits')
 @click.option(
     '--static',
@@ -134,41 +135,67 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     metavar=EXP_METAVAR,
     help='run a dynamic exploit',
     callback=_convert_exploit)
-def forces_management(subscription, check_sync, decrypt,
-                      encrypt, init_secrets, fill_with_mocks, get_vulns,
-                      generate_exploits, lint_exps, run_exps, static, dynamic):
+def forces_management(
+    subscription,
+    check_sync,
+    decrypt,
+    encrypt,
+    init_secrets,
+    fill_with_mocks,
+    get_vulns,
+    generate_exploits,
+    lint_exps,
+    lint_changed_exploits,
+    run_exps,
+    static,
+    dynamic,
+):
     """Perform operations with the forces service."""
-    success: str
+    success: str = True
+    filter_str: str = ''
 
     if not toolbox.has_break_build(subscription):
         raise click.BadArgumentUsage(
             f'{subscription} subscription has no break-build')
+
     if run_exps:
         if dynamic is not None:
-            sys.exit(0 if toolbox.run_dynamic_exploits(subscription, dynamic)
-                     else 1)
+            success = toolbox.run_dynamic_exploits(subscription, dynamic)
         elif static is not None:
-            sys.exit(0 if toolbox.run_static_exploits(subscription, static)
-                     else 1)
+            success = toolbox.run_static_exploits(subscription, static)
+
     elif check_sync is not None:
         success = forces.sync.are_exploits_synced(subscription, check_sync)
-        sys.exit(0 if success else 1)
+
     elif fill_with_mocks:
-        toolbox.fill_with_mocks(
-            subs_glob=(subscription or '*'), create_files=True)
+        filter_str = subscription or '*'
+        toolbox.fill_with_mocks(subs_glob=filter_str, create_files=True)
+
     elif generate_exploits:
-        toolbox.generate_exploits(subs_glob=(subscription or '*'))
+        filter_str = subscription or '*'
+        toolbox.generate_exploits(subs_glob=filter_str)
+
     elif get_vulns:
-        sys.exit(0 if toolbox.get_vulnerabilities_yaml(subscription,
-                                                       get_vulns) else 1)
+        success = toolbox.get_vulnerabilities_yaml(subscription, get_vulns)
+
     elif lint_exps is not None:
-        sys.exit(0 if toolbox.lint_exploits(subscription, lint_exps) else 1)
+        filter_str = lint_exps
+        success = forces.lint.many_exploits_by_subs_and_filter(
+            subscription, lint_exps)
+
+    elif lint_changed_exploits:
+        success = forces.lint.many_exploits_by_change_request()
+
     elif decrypt:
-        sys.exit(0 if toolbox.decrypt_secrets(subscription) else 1)
+        success = toolbox.decrypt_secrets(subscription)
+
     elif encrypt:
-        sys.exit(0 if toolbox.encrypt_secrets(subscription) else 1)
+        success = toolbox.encrypt_secrets(subscription)
+
     elif init_secrets:
-        sys.exit(0 if toolbox.init_secrets(subscription) else 1)
+        success = toolbox.init_secrets(subscription)
+
+    sys.exit(0 if success else 1)
 
 
 @click.command(name='integrates', short_help='use the integrates API')

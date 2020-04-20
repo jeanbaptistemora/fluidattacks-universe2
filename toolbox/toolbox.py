@@ -7,7 +7,6 @@ import sys
 import glob
 import json
 import functools
-import ast
 import multiprocessing
 
 from time import time
@@ -299,7 +298,7 @@ def _run_static_exploit(
         os.path.abspath(exploit_path))), 'resources')
 
     start_time: float = time()
-    status, stdout, _ = utils.run_command(
+    status, stdout, _ = utils.run_command_old(
         cmd=f"""
             echo '---'
             && echo "repository: '{repo}'"
@@ -423,7 +422,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
             os.remove(exploit_output_path)
 
         times[exploit_name] = time()
-        utils.run_command(
+        utils.run_command_old(
             cmd=(f"asserts -n -ms '{exploit_path}'"
                  f"  >> '{exploit_output_path}'   "),
             cwd=f'subscriptions/{subs}',
@@ -433,7 +432,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
                  'BB_RESOURCES': bb_resources,
                  'CURRENT_EXPLOIT_KIND': 'dynamic'})
         times[exploit_name] = time() - times[exploit_name]
-        utils.run_command(
+        utils.run_command_old(
             cmd=(f"echo '# elapsed: {times[exploit_name]}'"
                  f"  >> '{exploit_output_path}'"),
             cwd=f'subscriptions/{subs}',
@@ -658,81 +657,6 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
         logger.info(json.dumps(dictionary, indent=4, sort_keys=True))
 
     return True
-
-
-def check_finding_title_match_integrates(path: str) -> bool:
-    calls = list()
-    calls_counter = 0
-    with open(path, "r") as exploit_file:
-        tree = ast.parse(exploit_file.read())
-        for node in ast.walk(tree):
-            # Filtering only function calls
-            if isinstance(node, ast.Call)\
-                    and isinstance(node.func, ast.Name):
-                calls.append(node.func.id)
-            elif isinstance(node, ast.Call)\
-                    and isinstance(node.func, ast.Attribute):
-                calls.append(node.func.attr)
-    for call in calls:
-        if "generic_static_exploits" in call or "add_finding" in call:
-            calls_counter += 1
-    if calls_counter > 1:
-        logger.error("There is more than one call of add_finding or "
-                     f"generic_static_exploits in {path}")
-        return False
-    return "add_finding" in calls or "generic_static_exploit" in calls
-
-
-def lint_exploits(subs: str, exp_name: str) -> bool:
-    """Lint exploits for a subscription."""
-    success: bool = True
-    profile_path: str = "break-build/config/prospector/exploits.yml"
-    for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/break-build/*/exploits/*.exp')):
-
-        if (exp_name or '') in exploit_path:
-            logger.info(f'linting: {exploit_path}')
-        else:
-            logger.debug(f'skipped: {exploit_path}')
-            continue
-
-        logger.info(f'LINT: {exploit_path}')
-        status_prosp, stdout_prosp, stderr_prosp = utils.run_command(
-            cmd=(f'prospector'
-                 f'    --output-format=vscode'
-                 f'    --messages-only '
-                 f"    --profile '{profile_path}'"
-                 f"  '{exploit_path}'"),
-            cwd='.',
-            env={})
-        status_mypy, stdout_mypy, stderr_mypy = utils.run_command(
-            cmd=(f'mypy'
-                 f'    --ignore-missing-imports'
-                 f"  '{exploit_path}'"),
-            cwd='.',
-            env={})
-        if status_prosp or status_mypy:
-            if status_prosp:
-                logger.info(stdout_prosp)
-                logger.info(stderr_prosp)
-            if status_mypy:
-                logger.info(stdout_mypy)
-                logger.info(stderr_mypy)
-            success = False
-        else:
-            logger.info('  OK')
-            logger.info()
-        logger.info(f"Checking title match {exploit_path}")
-        if ".cannot" not in exploit_path:
-            if not check_finding_title_match_integrates(exploit_path):
-                logger.error("There is not add_finding "
-                             f"or generic_static_exploit in {exploit_path}"
-                             " or there is more than one call of these")
-                logger.info()
-                success = False
-        else:
-            logger.info(f"skipped {exploit_path}")
-    return success
 
 
 def has_break_build(subs: str) -> bool:

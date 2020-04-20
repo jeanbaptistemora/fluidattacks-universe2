@@ -38,11 +38,6 @@ def test_toolbox_statefull_functions(relocate_to_cloned_repo):
         os.system('git reset --hard HEAD')
 
 
-def test_toolbox_lint_exploits(relocate):
-    """Run required toolbox commands."""
-    assert toolbox.lint_exploits(SUBS, exp_name=None)
-
-
 def test_toolbox_reporting_cycle(relocate):
     """Test reporting cycle."""
     assert forces.sync.are_exploits_synced(SUBS, exp_name=None)

@@ -44,9 +44,11 @@ def misc_management(
         summary: str = utils.get_change_request_summary()
         success = drills.commit.is_drills_commit(summary)
         sys.exit(0 if success else 1)
+
     elif check_commit_msg:
         success = do_check_commit_msg()
         sys.exit(0 if success else 1)
+
     elif is_exploits_commit:
         summary: str = utils.get_change_request_summary()
         success = forces.commit.is_exploits_commit(summary)
