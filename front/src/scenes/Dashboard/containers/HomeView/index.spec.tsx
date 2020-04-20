@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
@@ -7,6 +8,7 @@ import "isomorphic-fetch";
 import * as React from "react";
 import { Provider } from "react-redux";
 import store from "../../../../store/index";
+import { authzContext } from "../../../../utils/authz/config";
 import { HomeView } from "./index";
 import { PROJECTS_QUERY } from "./queries";
 import { IHomeViewProps } from "./types";
@@ -105,12 +107,16 @@ describe("HomeView", () => {
     expect(wrapper)
       .toHaveLength(1);
   });
-  it("should render a component with new project button", () => {
-    (window as typeof window & { userRole: string }).userRole = "admin";
+  it("should render new project button", () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_project_resolve_create_project" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
-          <HomeView {...mockProps} />
+          <authzContext.Provider value={mockedPermissions}>
+            <HomeView {...mockProps} />
+          </authzContext.Provider>
         </MockedProvider>
       </Provider>,
     );

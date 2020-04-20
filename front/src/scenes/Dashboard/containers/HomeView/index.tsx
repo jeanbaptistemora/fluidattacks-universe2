@@ -3,8 +3,9 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
-import { QueryResult } from "@apollo/react-common";
-import { Query } from "@apollo/react-components";
+import { useQuery } from "@apollo/react-hooks";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
@@ -15,6 +16,8 @@ import {
 import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
+import { Can } from "../../../../utils/authz/Can";
+import { authzContext } from "../../../../utils/authz/config";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -43,7 +46,15 @@ const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { na
     goToProject(rowInfo.name);
   };
 
+const tableHeadersTags: IHeader[] = [
+  { dataField: "name", header: "Tag" },
+  { dataField: "projects", header: "Projects" },
+];
+
 const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
+  const permissions: PureAbility<string> = useAbility(authzContext);
+
+  // Side effects
   const onMount: (() => void) = (): void => {
     mixpanel.track("ProjectHome", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
@@ -51,14 +62,8 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
     });
   };
   React.useEffect(onMount, []);
-  const tableHeadersTags: IHeader[] = [
-    { dataField: "name", header: "Tag" },
-    { dataField: "projects", header: "Projects" },
-  ];
 
-  const { userRole } = window as typeof window & Dictionary<string>;
-  const canDisplayTags: boolean = _.includes(["admin", "customeradmin"], userRole);
-
+  // State management
   const [display, setDisplay] = React.useState(_.get(localStorage, "projectsDisplay", "grid"));
   const handleDisplayChange: ((value: string) => void) = (value: string): void => {
     setDisplay(value);
@@ -73,29 +78,36 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   const closeNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(false);
   };
+
+  // GraphQL operations
+  const { data } = useQuery(PROJECTS_QUERY, {
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred loading projects", error);
+    },
+    variables: { tagsField: permissions.can("backend_api_resolvers_me__get_tags") },
+  });
+
   const displayTag: ((choosedTag: string) => void) = (choosedTag: string): void => {
     location.hash = `#!/portfolio/${choosedTag}/indicators`;
   };
 
-  const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) =
-  (_0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }): void => {
+  const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
+    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string },
+  ): void => {
     displayTag(rowInfo.name);
   };
-  const formatTagDescription: ((projects: Array<{name: string}>) => string) = (
-    projects: Array<{name: string}>,
-  ): string => (
+
+  const formatTagDescription: ((projects: Array<{ name: string }>) => string) = (
+    projects: Array<{ name: string }>,
+  ): string =>
     projects.map((project: { name: string }) => project.name)
-      .join(", ")
-  );
+      .join(", ");
+
   const formatTagTableData: ((tags: ITagData[]) => ITagDataTable[]) = (tags: ITagData[]): ITagDataTable[] => (
     tags.map((tagMap: ITagData) =>
       ({ name: tagMap.name, projects: formatTagDescription(tagMap.projects) }))
   );
-
-  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
-    rollbar.error("An error occurred loading projects", error);
-  };
 
   return (
     <React.StrictMode>
@@ -119,7 +131,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
             </ButtonToolbar>
           </Col>
         </Row>
-        {_.includes(["admin"], (window as typeof window & { userRole: string }).userRole) ?
+        <Can do="backend_api_resolvers_project_resolve_create_project">
           <Row>
             <Col md={2} mdOffset={5}>
               <ButtonToolbar>
@@ -129,12 +141,10 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
               </ButtonToolbar>
             </Col>
           </Row>
-          : undefined}
-        <Query query={PROJECTS_QUERY} variables={{ tagsField: canDisplayTags }} onError={handleErrors}>
-          {({ data }: QueryResult<IUserAttr>): JSX.Element => {
-            if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
-
-            return (
+        </Can>
+        {(_.isUndefined(data) || _.isEmpty(data)) ? <React.Fragment /> : (
+          <React.Fragment>
+            <React.Fragment>
               <Row>
                 <Col md={12}>
                   <Row className={style.content}>
@@ -162,8 +172,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
                         />
                       )}
                   </Row>
-                  {canDisplayTags  ?
-                  (
+                  {_.isUndefined(data.me.tags) ? undefined : (
                     <React.Fragment>
                       <h2>{translate.t("home.tags")}</h2>
                       <Row className={style.content}>
@@ -178,6 +187,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
                             </Col>
                           ))
                           : (
+                            <React.Fragment>
                               <DataTableNext
                                 bordered={true}
                                 dataset={formatTagTableData(data.me.tags)}
@@ -189,16 +199,17 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
                                 rowEvents={{ onClick: handleRowTagClick }}
                                 search={true}
                               />
+                            </React.Fragment>
                           )}
                       </Row>
                     </React.Fragment>
-                  ) : undefined}
+                  )}
                 </Col>
                 <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
               </Row>
-            );
-          }}
-        </Query>
+            </React.Fragment>
+          </React.Fragment>
+        )}
       </div>
     </React.StrictMode>
   );
