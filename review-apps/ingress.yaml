@@ -26,18 +26,18 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: service-async-__DEPLOYMENT_NAME__
+          serviceName: service-__DEPLOYMENT_NAME__
           servicePort: 80
         path: /integrates/v2(/|$)(.*)
       - backend:
-          serviceName: service-async-__DEPLOYMENT_NAME__
+          serviceName: service-__DEPLOYMENT_NAME__
           servicePort: 80
         path: /integrates(/|$)(.*)
       - backend:
-          serviceName: service-async-__DEPLOYMENT_NAME__
+          serviceName: service-__DEPLOYMENT_NAME__
           servicePort: 80
         path: /(assets.*|oauth.*|index.*|registration.*|silk.*|errors.*)(.*)
       - backend:
-          serviceName: service-async-__DEPLOYMENT_NAME__
+          serviceName: service-__DEPLOYMENT_NAME__
           servicePort: 80
         path: /
