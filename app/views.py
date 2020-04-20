@@ -25,30 +25,20 @@ from openpyxl import load_workbook, Workbook
 from backend import util
 from backend.domain import (
     finding as finding_domain, project as project_domain, user as user_domain)
-from backend.exceptions import ErrorUploadingFileS3
-from backend.domain.vulnerability import (
-    get_open_vuln_by_type, get_vulnerabilities_by_type
-)
+from backend.domain.vulnerability import get_vulnerabilities_by_type
 from backend.decorators import authenticate, cache_content
 from backend.dal import (
     finding as finding_dal, user as user_dal
 )
-from backend.dal.helpers import cloudfront
 from backend.services import (
-    has_access_to_project, has_access_to_finding, has_access_to_event
+    has_access_to_finding, has_access_to_event
 )
-from backend.utils import reports
-from backend.utils.passphrase import get_passphrase
 
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
-    FI_CLOUDFRONT_REPORTS_DOMAIN
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
 
-from app.documentator.pdf import CreatorPDF
-from app.documentator.secure_pdf import SecurePDF
 from app.documentator.all_vulns import generate_all_vulns_xlsx
-from app.techdoc.it_report import ITReport
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -179,138 +169,6 @@ def logout(request):
     response = redirect("/integrates/index")
     response.delete_cookie(settings.JWT_COOKIE_NAME)
     return response
-
-
-@cache_content
-@never_cache
-@csrf_exempt
-def project_to_xls(request, lang, project):
-    """Create the technical report"""
-    allowed_roles = ['analyst', 'customer', 'customeradmin', 'admin']
-
-    error = enforce_group_level_role(request, project, *allowed_roles)
-
-    if error is not None:
-        return error
-
-    user_email = request.session['username']
-    user_name = user_email.split('@')[0]
-    if project.strip() == '':
-        rollbar.report_message(
-            'Error: Empty fields in project', 'error', request)
-        return util.response([], 'Empty fields', True)
-    if not has_access_to_project(user_email, project):
-        util.cloudwatch_log(
-            request,
-            'Security: Attempted to export project xls without permission')
-        return util.response([], 'Access denied', True)
-    if lang not in ['es', 'en']:
-        rollbar.report_message('Error: Unsupported language', 'error', request)
-        return util.response([], 'Unsupported language', True)
-    findings = finding_domain.get_findings(
-        project_domain.list_findings(project.lower()))
-    if findings:
-        findings = [finding_domain.cast_new_vulnerabilities(
-            get_open_vuln_by_type(finding['findingId'], request), finding)
-            for finding in findings]
-    else:
-        rollbar.report_message(
-            'Project {} does not have findings in dynamo'.format(project),
-            'warning',
-            request)
-        return util.response([], 'Empty fields', True)
-    data = util.ord_asc_by_criticidad(findings)
-    it_report = ITReport(project, data, user_name)
-    filepath = it_report.result_filename
-    passphrase = get_passphrase(4)
-    reports.set_xlsx_passphrase(filepath, str(passphrase))
-    reports.send_project_report_email(user_email,
-                                      project.lower(),
-                                      passphrase, 'XLS', '')
-
-    with open(filepath, 'rb') as document:
-        response = HttpResponse(document.read())
-        response['Content-Type'] = ('application/vnd.openxmlformats'
-                                    '-officedocument.spreadsheetml.sheet')
-        response['Content-Disposition'] = 'inline;filename={}.xlsx'.format(
-            project)
-    return response
-
-
-def validation_project_to_pdf(request, lang, doctype):
-    if lang not in ['es', 'en']:
-        rollbar.report_message('Error: Unsupported language', 'error', request)
-        return util.response([], 'Unsupported language', True)
-    if doctype not in ['tech', 'executive']:
-        rollbar.report_message('Error: Unsupported doctype', 'error', request)
-        return util.response([], 'Unsupported doctype', True)
-    return None
-
-
-@cache_content
-@never_cache
-@csrf_exempt
-def project_to_pdf(  # pylint: disable=too-many-locals
-        request, lang, project, doctype):
-    """Export a project to a PDF"""
-    allowed_roles = ['analyst', 'customer', 'customeradmin', 'admin']
-
-    error = enforce_group_level_role(request, project, *allowed_roles)
-
-    if error is not None:
-        return error
-
-    assert project.strip()
-    if not has_access_to_project(request.session['username'], project):
-        util.cloudwatch_log(request, 'Security: Attempted to export project'
-                                     ' pdf without permission')
-        return util.response([], 'Access denied', True)
-    else:
-        user_email = request.session['username']
-        user_name = user_email.split('@')[0]
-        validator = validation_project_to_pdf(request, lang, doctype)
-        if validator is not None:
-            return validator
-        findings = finding_domain.get_findings(
-            project_domain.list_findings(project.lower()))
-        findings = [finding_domain.cast_new_vulnerabilities(
-            get_open_vuln_by_type(finding['findingId'], request), finding)
-            for finding in findings]
-        description = project_domain.get_description(project.lower())
-
-        pdf_maker = CreatorPDF(lang, doctype)
-        secure_pdf = SecurePDF()
-        findings_ord = util.ord_asc_by_criticidad(findings)
-        findings = pdf_evidences(findings_ord)
-        report_filename = ''
-        if doctype == 'tech':
-            pdf_maker.tech(findings, project, description)
-            report_filename = secure_pdf.create_full(user_name,
-                                                     pdf_maker.out_name,
-                                                     project)
-            success, uploaded_file_name = reports.upload_report(report_filename)
-            if not success:
-                raise ErrorUploadingFileS3()
-            signed_url = cloudfront.sign_url(
-                FI_CLOUDFRONT_REPORTS_DOMAIN, uploaded_file_name, 120.0)
-            reports.send_project_report_email(user_email,
-                                              project.lower(),
-                                              secure_pdf.passphrase, 'PDF',
-                                              signed_url)
-        else:
-            return HttpResponse(
-                'Disabled report generation', content_type='text/html')
-        if not os.path.isfile(report_filename):
-            rollbar.report_message(
-                'Couldn\'t generate pdf report', 'error', request)
-            return HttpResponse(
-                'Couldn\'t generate pdf report', content_type='text/html')
-        with open(report_filename, 'rb') as document:
-            response = HttpResponse(document.read(),
-                                    content_type='application/pdf')
-            response['Content-Disposition'] = \
-                'inline;filename={}_IT.pdf'.format(project)
-        return response
 
 
 def pdf_evidences(findings):
