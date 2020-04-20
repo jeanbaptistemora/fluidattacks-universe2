@@ -10,8 +10,13 @@ from click import (
 
 # Local libraries
 from toolbox import (
-    drills,
     utils,
+)
+
+from toolbox.drills import (
+    generate_commit_msg,
+    to_reattack,
+    vpn,
 )
 
 
@@ -21,23 +26,26 @@ from toolbox import (
     default=utils.generic.get_current_subscription(),
     callback=utils.generic.is_valid_subscription)
 @option(
-    '--generate-commit-msg',
+    '--generate-commit-msg', 'o_generate_commit_msg',
     is_flag=True,
     help='Generate drills commit message')
 @option(
-    '--to-reattack',
+    '--to-reattack', 'o_to_reattack',
     is_flag=True,
     help='Show findings pending to re-attack and verify')
+@option(
+    '--vpn', 'o_vpn',
+    help='Access a subs VPN',
+    is_flag=True)
 def drills_management(
-    subscription,
-    generate_commit_msg,
-    to_reattack,
-):
+        subscription,
+        o_generate_commit_msg,
+        o_to_reattack,
+        o_vpn):
     """Perform operations with the drills service."""
-    success: bool = True
-
-    if generate_commit_msg:
-        success = drills.generate_commit_msg.main(subscription)
-        sys.exit(0 if success else 1)
-    elif to_reattack:
-        drills.to_reattack.main()
+    if o_generate_commit_msg:
+        sys.exit(0 if generate_commit_msg.main(subscription) else 1)
+    elif o_to_reattack:
+        to_reattack.main()
+    elif o_vpn and subscription != 'unspecified-subs':
+        sys.exit(0 if vpn.main(subscription) else 1)

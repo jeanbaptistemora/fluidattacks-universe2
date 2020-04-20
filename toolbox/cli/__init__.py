@@ -16,8 +16,8 @@ from toolbox import (
     forces,
     sorts,
     utils,
+    drills,
 )
-from .drills import drills_management
 from .misc import misc_management
 
 
@@ -258,7 +258,7 @@ entrypoint.add_command(forces_management)
 entrypoint.add_command(integrates_management)
 entrypoint.add_command(utils.cli.utils_management)
 entrypoint.add_command(sorts_management)
-entrypoint.add_command(drills_management)
+entrypoint.add_command(drills.cli.drills_management)
 entrypoint.add_command(misc_management)
 
 
