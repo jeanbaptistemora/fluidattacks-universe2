@@ -110,6 +110,7 @@
     "css-loader": "3.4.2",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
+    "fetch-mock": "9.4.0",
     "file-loader": "6.0.0",
     "identity-obj-proxy": "3.0.0",
     "isomorphic-fetch": "2.2.1",
@@ -137,6 +138,6 @@
     "css": "tcm src/ --silent",
     "lint": "npm run css && tsc -p tsconfig.json && tslint -p tsconfig.json -t codeFrame",
     "start": "ts-node devserver.ts",
-    "test": "npm run css && jest --detectOpenHandles"
+    "test": "npm run css && jest"
   }
 }

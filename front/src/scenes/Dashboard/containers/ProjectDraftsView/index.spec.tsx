@@ -1,10 +1,13 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import fetchMock, { FetchMockStatic } from "fetch-mock";
 import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
+import _fetch from "isomorphic-fetch";
 import * as React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import store from "../../../../store/index";
 import { ProjectDraftsView } from "./index";
@@ -12,6 +15,21 @@ import { GET_DRAFTS } from "./queries";
 import { IProjectDraftsBaseProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
+
+(global as NodeJS.Global & { fetch: typeof fetch }).fetch = _fetch;
+jest.mock("isomorphic-fetch", () => fetchMock.sandbox());
+
+const mockedFetch: FetchMockStatic = _fetch as unknown as FetchMockStatic;
+const baseUrl: string = "https://spreadsheets.google.com/feeds/list";
+const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
+mockedFetch.mock(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json&min-row=2`, {
+  body: {
+    feed: {
+      entry: [],
+    },
+  },
+  status: 200,
+});
 
 describe("ProjectDraftsView", () => {
 
@@ -35,9 +53,7 @@ describe("ProjectDraftsView", () => {
       result: {
         data: {
           project: {
-            __typename: "Project",
             drafts: [{
-              __typename: "Finding",
               currentState: "",
               description: "Xcross site scripting - login.",
               id: "507046047",
@@ -72,39 +88,31 @@ describe("ProjectDraftsView", () => {
       .toEqual("function");
   });
 
-  it("should render a component", () => {
+  it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider mocks={mocks} addTypename={false}>
           <ProjectDraftsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
       .toHaveLength(1);
+    wrapper.unmount();
   });
 
-  it("should render an error in component", () => {
+  it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
+        <MockedProvider mocks={mockError} addTypename={false}>
           <ProjectDraftsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
       .toHaveLength(1);
-  });
-
-  it("should render a component", () => {
-    const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
-          <ProjectDraftsView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
-    );
-    expect(wrapper)
-      .toHaveLength(1);
+    wrapper.unmount();
   });
 });
