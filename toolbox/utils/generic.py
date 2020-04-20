@@ -11,6 +11,7 @@ from functools import lru_cache
 from configparser import ConfigParser
 from pathlib import Path
 from typing import (
+    List,
     Tuple,
 )
 
@@ -72,20 +73,6 @@ def is_branch_master() -> bool:
     Return False if branch is dev.
     """
     return os.environ.get('CI_COMMIT_REF_NAME') == 'master'
-
-
-def get_change_request_summary() -> str:
-    """Return the HEAD commit message, or the merge request title."""
-    commit_summary: str
-    gitlab_summary_var: str = 'CI_MERGE_REQUEST_TITLE'
-
-    if gitlab_summary_var in os.environ:
-        commit_summary = os.environ[gitlab_summary_var]
-    else:
-        commit_summary = os.popen('git log --max-count 1 --format=%s').read()
-        commit_summary = commit_summary[:-1]
-
-    return commit_summary
 
 
 def go_back_to_continuous():
@@ -227,46 +214,108 @@ def rfc3339_str_to_date_obj(
     return dateutil.parser.parse(date_str)
 
 
-def get_files_in_commit():
-    """Return modified files in actual commit."""
-    return os.popen(
-        'git show --name-only --pretty="" $(git rev-parse HEAD)').read().split(
-            '\n')[:-1]
-
-
-def get_change_request_body() -> str:
-    """Return the HEAD commit message, or the merge request body."""
+def get_change_request_summary(ref: str = 'HEAD') -> str:
+    """Return the commit message, or the merge request title."""
+    exit_code: int
     commit_summary: str
-    gitlab_summary_var: str = 'CI_MERGE_REQUEST_DESCRIPTION'
+    gitlab_summary_var: str = 'CI_MERGE_REQUEST_TITLE'
 
     if gitlab_summary_var in os.environ:
         commit_summary = os.environ[gitlab_summary_var]
     else:
-        commit_summary = os.popen('git log --max-count 1 --format=%b').read()
-        commit_summary = commit_summary[:-1]
+        cmd = ['git', 'log', '--max-count', '1', '--format=%s', ref]
+        exit_code, commit_summary, _ = run_command(cmd, cwd='.', env={})
+
+        commit_summary = str() if exit_code else commit_summary[:-1]
 
     return commit_summary
 
 
-def get_change_request_touched_files() -> Tuple[str, ...]:
+def get_change_request_body(ref: str = 'HEAD') -> str:
+    """Return the HEAD commit message, or the merge request body."""
+    cmd: List[str]
+    exit_code: int
+    commit_body: str
+    gitlab_summary_var: str = 'CI_MERGE_REQUEST_DESCRIPTION'
+
+    if gitlab_summary_var in os.environ:
+        commit_body = os.environ[gitlab_summary_var]
+    else:
+        cmd = ['git', 'log', '--max-count', '1', '--format=%b', ref]
+        exit_code, commit_body, _ = run_command(cmd, cwd='.', env={})
+
+        commit_body = str() if exit_code else commit_body[:-1]
+
+    return commit_body
+
+
+def get_change_request_patch(ref: str = 'HEAD') -> str:
+    """Return the HEAD commit patch."""
+    exit_code, patch, _ = \
+        run_command(['git', 'show', '--format=', ref], cwd='.', env={})
+
+    return str() if exit_code else patch[:-1]
+
+
+def get_change_request_hunks(ref: str = 'HEAD') -> List[str]:
+    """Return the HEAD commit patch."""
+    hunks: List[str] = []
+
+    for line in get_change_request_patch(ref).splitlines():
+        if line.startswith('diff'):
+            hunks.append(str())
+
+        hunks[-1] += line + '\n'
+
+    return hunks
+
+
+def get_change_request_deltas(ref: str = 'HEAD') -> int:
+    """Return the HEAD commit deltas."""
+    insertions: int = 0
+    deletions: int = 0
+
+    for hunk in get_change_request_hunks(ref):
+        hunk_lines: List[str] = hunk.splitlines()
+        hunk_diff_lines: List[str] = hunk_lines[4:]
+
+        for hunk_diff_line in hunk_diff_lines:
+            insertions += hunk_diff_line.startswith('+')
+            deletions += hunk_diff_line.startswith('-')
+
+    return insertions + deletions
+
+
+def get_change_request_touched_files(ref: str = 'HEAD') -> Tuple[str, ...]:
     """Return touched files in HEAD commit."""
-    command: str = 'git show --name-only --pretty= $(git rev-parse HEAD)'
-    return tuple(os.popen(command).read().splitlines())
+    exit_code: int
+    stdout: str
+
+    cmd: List[str] = ['git', 'show', '--name-only', '--format=', ref]
+    exit_code, stdout, _ = run_command(cmd, cwd='.', env={})
+
+    stdout = str() if exit_code else stdout
+
+    return tuple(stdout.splitlines())
 
 
-def get_change_request_touched_and_existing_exploits() -> Tuple[str, ...]:
+def get_change_request_touched_and_existing_exploits(
+    ref: str = 'HEAD',
+) -> Tuple[str, ...]:
     """Return a tuple of paths to exploits in the last commit."""
-    changed_files = get_change_request_touched_and_existing_files()
+    changed_files = get_change_request_touched_and_existing_files(ref)
     changed_exploits = \
         tuple(file for file in changed_files if '/exploits/' in file)
     return changed_exploits
 
 
-def get_change_request_touched_and_existing_files() -> Tuple[str, ...]:
+def get_change_request_touched_and_existing_files(
+    ref: str = 'HEAD',
+) -> Tuple[str, ...]:
     """Return touched files in HEAD commit."""
     return tuple(
         os.path.abspath(path)
-        for path in get_change_request_touched_files()
+        for path in get_change_request_touched_files(ref)
         if os.path.exists(path)
     )
 

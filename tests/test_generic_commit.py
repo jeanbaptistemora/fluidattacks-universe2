@@ -1,6 +1,7 @@
 # Local libraries
 from toolbox.generic.commit import (
     has_short_line_length,
+    is_under_100_deltas,
     is_valid_summary,
     VALID_SCOPES,
     VALID_TYPES,
@@ -32,3 +33,8 @@ def test_has_short_line_length():
     assert has_short_line_length('s', 'b' * 72 + '\n' + 'b' * 72)
     assert not has_short_line_length('s', 'b' * 73 + '\n' + 'b' * 72)
     assert not has_short_line_length('s', 'b' * 72 + '\n' + 'b' * 73)
+
+
+def test_is_under_100_deltas():
+    assert is_under_100_deltas('e2035b8')
+    assert not is_under_100_deltas('ff5e8c1')

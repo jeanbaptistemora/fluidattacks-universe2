@@ -12,6 +12,7 @@ from typing import (
 # Local libraries
 from toolbox import (
     logger,
+    utils,
 )
 
 
@@ -54,6 +55,11 @@ def has_short_line_length(summary: str, body: str) -> bool:
         success = False
 
     return success
+
+
+def is_under_100_deltas(ref: str = 'HEAD') -> bool:
+    """Return True if the HEAD commit is under 100 deltas."""
+    return utils.generic.get_change_request_deltas(ref) <= 100
 
 
 def is_valid_summary(summary: str) -> bool:
