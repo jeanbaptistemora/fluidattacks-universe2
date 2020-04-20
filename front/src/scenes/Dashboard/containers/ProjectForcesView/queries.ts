@@ -15,17 +15,17 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
         vulnerabilities {
           acceptedExploits {
             kind
-            what
+            who
             where
           }
           exploits {
             kind
-            what
+            who
             where
           }
           mockedExploits {
             kind
-            what
+            who
             where
           }
           numOfVulnerabilitiesInAcceptedExploits

@@ -223,7 +223,7 @@ type ExecutionVulnerabilities {
 type ExploitResult {
     kind: String
     where: String
-    what: String
+    who: String
 }
 
 input EnvironmentInput {

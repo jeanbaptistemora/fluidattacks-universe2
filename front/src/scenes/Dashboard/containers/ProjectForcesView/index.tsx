@@ -30,8 +30,8 @@ type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
 
 export interface IExploitResult {
   kind: string;
-  what: string;
   where: string;
+  who: string;
 }
 
 export interface IFoundVulnerabilities {
@@ -206,7 +206,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       wrapped: true,
     },
     {
-      dataField: "what",
+      dataField: "who",
       formatter: formatText,
       header: translate.t("project.forces.compromised_toe.what"),
       wrapped: true,

@@ -24,16 +24,16 @@ class ExploitResult(ObjectType):
     """ GraphQL Entity to represent the result of an exploit """
     kind = String()
     where = String()
-    what = String()
+    who = String()
 
     def __init__(self, *,
                  kind: str,
-                 what: str,
+                 who: str,
                  where: str,
                  **_):
         self.kind: str = kind
         self.where: str = where
-        self.what: str = what
+        self.who: str = who
 
 
 class Vulnerabilities(ObjectType):
