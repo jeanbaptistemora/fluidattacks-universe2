@@ -250,9 +250,8 @@ def escape(obj: str) -> str:
     # backslash the backslash
     str_obj = str_obj.replace("\\", "\\\\")
 
-    # backslash the apostrophe and quotation mark
-    for char in ("'", '"'):
-        str_obj = re.sub(char, f"\\{char}", str_obj)
+    # escape double quotes for postgresql query
+    str_obj = str_obj.replace('"', '""')
 
     return str_obj
 
@@ -427,7 +426,7 @@ class Batcher():
         self.load(table_name)
 
         # Now it's safe to alter the loaded fields
-        self.fields[table_name] = list(set(map(escape, field_names)))
+        self.fields[table_name] = field_names
 
     def queue(self, table_name: str, record: Dict[str, str]) -> None:
         """Queue rows in buckets before pushing them to redshift.
@@ -452,14 +451,15 @@ class Batcher():
             }
 
         # turn a row into a string of values separated by comma
-        row = stringify(record.values(), do_group=False)
+        row = stringify([record.get(field, 'null')
+                         for field in self.fields[table_name]], do_group=False)
         row_size = str_len(row)
 
         # a redshift statement must be less than 16MB
         # also load if there are too many queued rows
 
         # if we are to exceed the limit with the current row
-        if self.buckets[table_name]["size"] + row_size >= 4000000 \
+        if self.buckets[table_name]["size"] + row_size >= 13000000 \
                 or self.buckets[table_name]["count"] + 1 >= 100000:
             # load the queued rows to Redshift
             self.load(table_name)
