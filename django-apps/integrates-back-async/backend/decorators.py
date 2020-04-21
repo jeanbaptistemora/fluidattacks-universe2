@@ -12,10 +12,7 @@ from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
-try:
-    from graphql.type import GraphQLResolveInfo
-except ImportError:
-    pass  # old api
+from graphql.type import GraphQLResolveInfo
 from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 from simpleeval import AttributeDoesNotExist

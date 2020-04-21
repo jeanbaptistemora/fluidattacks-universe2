@@ -8,7 +8,6 @@ let
 in
   pkgs.stdenv.mkDerivation (
        (import ../dependencies/requirements.nix pkgs)
-    // (import ../dependencies/requirements-async.nix pkgs)
     // (import ../src/basic.nix)
     // (import ../src/dynamodb-local.nix pkgs)
     // (import ../src/external.nix pkgs)

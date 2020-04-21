@@ -147,35 +147,6 @@ function job_deploy_container_deps_mobile {
         "${dockerfile}"
 }
 
-function job_deploy_container_app {
-  local context='.'
-  local dockerfile='deploy/containers/app/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
-
-      echo '[INFO] Remember that this job needs: build_lambdas' \
-  &&  echo '[INFO] Remember that this job needs: build_django_apps' \
-  &&  echo '[INFO] Computing Fluid Integrates version' \
-  &&  echo -n "${FI_VERSION}" > 'version.txt' \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-        SSL_KEY \
-        SSL_CERT \
-        DRIVE_AUTHORIZATION \
-        DRIVE_AUTHORIZATION_CLIENT \
-  &&  helper_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}" \
-        'CI_API_V4_URL' "${CI_API_V4_URL}" \
-        'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
-        'CI_PROJECT_ID' "${CI_PROJECT_ID}" \
-        'CI_REPOSITORY_URL' "${CI_REPOSITORY_URL}" \
-        'SSL_CERT' "${SSL_CERT}" \
-        'SSL_KEY' "${SSL_KEY}" \
-        'VERSION' "${FI_VERSION}"
-}
-
 function job_deploy_container_app_async {
   local context='.'
   local dockerfile='deploy/containers/app-async/Dockerfile'
@@ -721,7 +692,7 @@ function job_test_back {
         --maxfail='20' \
         --cov='fluidintegrates' \
         --cov='app' \
-        --cov="${pyAsyncPkgIntegratesBack}/site-packages/backend" \
+        --cov="${pyPkgIntegratesBack}/site-packages/backend" \
         --cov-report='term' \
         --cov-report='html:build/coverage/html' \
         --cov-report='xml:build/coverage/results.xml' \

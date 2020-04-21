@@ -9,11 +9,6 @@ from backend import services
 from backend.api.schema import SCHEMA
 from backend.api.view import APIView
 from backend.decorators import verify_csrf
-try:
-    import ariadne  # noqa
-    NEW_API = True
-except ImportError:
-    NEW_API = False
 
 from app import views
 
@@ -51,9 +46,3 @@ urlpatterns = [
     url(r'^/?export_all_vulnerabilities/?$', views.export_all_vulnerabilities),
     url(r'^/?export_users/?$', views.export_users)
 ]
-
-if NEW_API:
-    urlpatterns.append(
-        url(r'^/?v2/?\.*$',
-            csrf_exempt(verify_csrf(APIView.as_view(schema=SCHEMA)))),
-    )

@@ -18,12 +18,7 @@ from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
 from graphql import GraphQLError
-try:
-    from graphql.language.ast import BooleanValueNode, NameNode, VariableNode
-except ImportError:
-    # Old graphql
-    pass
-
+from graphql.language.ast import BooleanValueNode, NameNode, VariableNode
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
@@ -42,11 +37,6 @@ from __init__ import (
     FORCES_TRIGGER_REF,
     FORCES_TRIGGER_TOKEN
 )
-
-try:
-    from ariadne import convert_camel_case_to_snake
-except ImportError:
-    pass
 
 logging.config.dictConfig(settings.LOGGING)  # type: ignore
 LOGGER = logging.getLogger(__name__)
@@ -526,7 +516,7 @@ def get_field_parameters(field, variable_values=None):
     variable_values = variable_values or {}
 
     for args in field.arguments:
-        arg_name = convert_camel_case_to_snake(args.name.value)
+        arg_name = camelcase_to_snakecase(args.name.value)
 
         if isinstance(args.value, VariableNode):
             parameters[arg_name] = variable_values.get(args.value.name.value)

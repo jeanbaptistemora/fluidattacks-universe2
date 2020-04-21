@@ -1,17 +1,11 @@
 """ASGI config for fluidintegrates project."""
-# pylint: disable=invalid-name
-
 import os
 
 import django
 import newrelic.agent
 
-try:
-    from ariadne.asgi import GraphQL  # noqa: E402
-    from ariadne.contrib.tracing.apollotracing import ApolloTracingExtension
-    NEW_API = True
-except ImportError:
-    NEW_API = False
+from ariadne.asgi import GraphQL  # noqa: E402
+from ariadne.contrib.tracing.apollotracing import ApolloTracingExtension
 
 from django.conf import settings  # noqa: E402
 from django.urls import path, re_path  # noqa: E402
@@ -53,28 +47,24 @@ class AsgiHandlerWithNewrelic(AsgiHandler):
         return get_response_custom(request)
 
 
-if NEW_API:
-    class DjangoChannelsGraphQL(GraphQL):
-        def __call__(self, scope) -> None:
-            async def handle(receive, send):
-                await \
-                    super(DjangoChannelsGraphQL, self).__call__(
-                        scope, receive, send)
-            return handle
+class DjangoChannelsGraphQL(GraphQL):
+    def __call__(self, scope) -> None:
+        async def handle(receive, send):
+            await \
+                super(DjangoChannelsGraphQL, self).__call__(
+                    scope, receive, send)
+        return handle
 
-    application = ProtocolTypeRouter({
-        'http': AsgiHandlerWithNewrelic,
-        'websocket': AuthMiddlewareStack(
-            URLRouter(
-                [
-                    re_path(r'^/?api/?\.*$',
-                            DjangoChannelsGraphQL(
-                                SCHEMA, debug=settings.DEBUG,
-                                extensions=[ApolloTracingExtension])),
-                ])
-        )
-    })
-else:
-    application = ProtocolTypeRouter({
-        "http": AsgiHandlerWithNewrelic
-    })
+
+application = ProtocolTypeRouter({  # pylint: disable=invalid-name
+    'http': AsgiHandlerWithNewrelic,
+    'websocket': AuthMiddlewareStack(
+        URLRouter(
+            [
+                re_path(r'^/?api/?\.*$',
+                        DjangoChannelsGraphQL(
+                            SCHEMA, debug=settings.DEBUG,
+                            extensions=[ApolloTracingExtension])),
+            ])
+    )
+})
