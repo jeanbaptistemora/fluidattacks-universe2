@@ -129,40 +129,6 @@ def resolve_project_name(args, kwargs):
     return project_name
 
 
-def enforce_group_level_auth(func):
-    """Enforce authorization using the group-level role."""
-    @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
-        context = args[1].context
-        user_data = util.get_jwt_content(context)
-
-        subject = user_data['user_email']
-        object_ = resolve_project_name(args, kwargs)
-        action = '{}.{}'.format(func.__module__, func.__qualname__).replace('.', '_')
-
-        if not object_:
-            rollbar.report_message(
-                'Unable to identify project name',
-                level='critical',
-                extra_data={
-                    'subject': subject,
-                    'action': action,
-                })
-
-        enforcer = \
-            authorization_utils.get_group_level_enforcer(subject)
-
-        try:
-            if not enforcer.enforce(subject, object_, action):
-                util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
-                raise GraphQLError('Access denied')
-        except AttributeDoesNotExist:
-            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
-            raise GraphQLError('Access denied')
-        return func(*args, **kwargs)
-    return verify_and_call
-
-
 def enforce_group_level_auth_async(func):
     """Enforce authorization using the group-level role."""
     @functools.wraps(func)
@@ -191,31 +157,6 @@ def enforce_group_level_auth_async(func):
 
         enforcer = \
             authorization_utils.get_group_level_enforcer_async(subject)
-
-        try:
-            if not enforcer.enforce(subject, object_, action):
-                util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
-                raise GraphQLError('Access denied')
-        except AttributeDoesNotExist:
-            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
-            raise GraphQLError('Access denied')
-        return func(*args, **kwargs)
-    return verify_and_call
-
-
-def enforce_user_level_auth(func):
-    """Enforce authorization using the user-level role."""
-    @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
-        context = args[1].context
-        user_data = util.get_jwt_content(context)
-
-        subject = user_data['user_email']
-        object_ = 'self'
-        action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
-
-        enforcer = \
-            authorization_utils.get_user_level_enforcer(subject)
 
         try:
             if not enforcer.enforce(subject, object_, action):

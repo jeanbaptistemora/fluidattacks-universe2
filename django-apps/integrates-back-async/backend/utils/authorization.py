@@ -197,17 +197,6 @@ def matches_permission(subject: str, role: str, action: str) -> bool:
     return matches
 
 
-def get_user_level_enforcer(subject: str) -> CasbinEnforcer:
-    """Return a filtered group-level authorization for the provided subject."""
-    policies = get_cached_subject_policies(subject)
-    adapter = CasbinInMemoryAdapter(policies)
-
-    return CasbinEnforcer(
-        model=get_perm_metamodel_path('user_level.conf'),
-        adapter=adapter,
-    )
-
-
 def get_user_level_enforcer_async(subject: str) -> CasbinEnforcer:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
@@ -221,17 +210,6 @@ def get_user_level_enforcer_async(subject: str) -> CasbinEnforcer:
     enforcer.fm.add_function('matchesPermission', matches_permission)
 
     return enforcer
-
-
-def get_group_level_enforcer(subject: str) -> CasbinEnforcer:
-    """Return a filtered group-level authorization for the provided subject."""
-    policies = get_cached_subject_policies(subject)
-    adapter = CasbinInMemoryAdapter(policies)
-
-    return CasbinEnforcer(
-        model=get_perm_metamodel_path('group_level.conf'),
-        adapter=adapter,
-    )
 
 
 def get_group_level_enforcer_async(subject: str) -> CasbinEnforcer:
