@@ -46,7 +46,7 @@ def _sync_to_s3(subs_path):
 
 def open_vpn(subs_path) -> None:
     """Clone a subs_path which requires a vpn connection."""
-    _, output = run_command('yes 2 | fluid utils --vpn', cwd=subs_path)
+    _, output = run_command('yes 2 | fluid drills --vpn', cwd=subs_path)
     print(f'INFO: {subs_path}')
     print(f'      output:')
     print(textwrap.indent(output, ' ' * 16))

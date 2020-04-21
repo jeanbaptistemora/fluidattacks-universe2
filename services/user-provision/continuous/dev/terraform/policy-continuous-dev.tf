@@ -37,7 +37,6 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     resources = [
       "arn:aws:s3:::continuous-repositories",
       "arn:aws:s3:::continuous-repositories/*",
-      "arn:aws:s3:::continuous-repositories/continuoustest/*"
     ]
   }
 
