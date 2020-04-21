@@ -41,7 +41,6 @@ def send_project_report_email(
 def upload_report(file_path: str) -> Tuple[bool, str]:
     file_content = open(file_path, 'rb')
     report = ContentFile(file_content.read())
-    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    file_name = str(timestamp) + '_' + '_'.join(file_path.split('/')[-1].split('_')[-2:])
+    file_name = file_path.split('_')[-1]
     return s3.upload_memory_file(  # type: ignore
         FI_AWS_S3_REPORTS_BUCKET, report, file_name), file_name
