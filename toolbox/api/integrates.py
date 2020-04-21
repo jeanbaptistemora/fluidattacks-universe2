@@ -9,6 +9,7 @@ from typing import Any, List, NamedTuple, Tuple
 
 # Third parties libraries
 import aiohttp
+import aiohttp.client_exceptions
 import aiogqlc
 import aiogqlc.utils
 from frozendict import frozendict
@@ -37,6 +38,11 @@ PROXIES = None if not DEBUGGING else {
 
 
 class CustomGraphQLClient(aiogqlc.GraphQLClient):
+    errors_to_retry: tuple = (
+        asyncio.TimeoutError,
+        aiohttp.client_exceptions.ContentTypeError,
+        aiohttp.client_exceptions.ServerDisconnectedError,
+    )
 
     async def execute(self, query: str, variables: dict = None,
                       operation: str = None) -> aiohttp.ClientResponse:
@@ -60,7 +66,7 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
                 ) as response:
                     try:
                         await response.read()
-                    except asyncio.TimeoutError:
+                    except self.errors_to_retry:
                         time.sleep(RETRY_RELAX_SECONDS)
                     else:
                         return response
