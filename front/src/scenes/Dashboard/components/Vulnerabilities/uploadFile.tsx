@@ -3,6 +3,8 @@
  */
 import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -12,6 +14,7 @@ import { submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
+import { authzContext } from "../../../../utils/authz/config";
 import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -23,8 +26,8 @@ import { IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps } from "./types
 
 const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
 (props: IVulnerabilitiesViewProps): JSX.Element => {
+  const permissions: PureAbility<string> = useAbility(authzContext);
   const baseUrl: string = `${window.location.href.split("/dashboard#!")[0]}`;
-  const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
 
   const handleUploadResult: ((mtResult: IUploadVulnerabilitiesResult) => void) =
   (mtResult: IUploadVulnerabilitiesResult): void => {
@@ -92,14 +95,14 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         {
           query: GET_VULNERABILITIES,
           variables: {
-            analystField: canGetHistoricState,
+            analystField: permissions.can("backend_api_dataloaders_finding__get_analyst"),
             identifier: props.findingId,
           },
         },
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetHistoricState,
+            canGetHistoricState: permissions.can("backend_api_dataloaders_finding__get_historic_state"),
             findingId: props.findingId,
           },
         },

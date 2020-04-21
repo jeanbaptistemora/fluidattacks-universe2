@@ -11,6 +11,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
+import { Can } from "../../../../utils/authz/Can";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -31,7 +32,7 @@ export interface IClosing {
 
 const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JSX.Element => {
   const { findingId } = props.match.params;
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingTracking", { Organization: userOrganization, User: userName });
@@ -53,7 +54,7 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
             <React.Fragment>
               <Row>
                 <Col md={12}>
-                  {_.includes(["admin", "analyst"], userRole) ?
+                  <Can do="backend_api_dataloaders_finding__get_pending_vulns">
                     <Row>
                       <Col md={2} className={style.text_right}>
                         <label className={style.track_title}>
@@ -62,27 +63,23 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
                       </Col>
                       <Col md={10}>
                         <VulnerabilitiesView
-                          analyst={_.includes(["admin", "analyst"], userRole)}
                           editMode={false}
                           editModePending={true}
                           state="PENDING"
                           findingId={findingId}
-                          userRole={userRole}
                         />
                       </Col>
                     </Row>
-                    : undefined}
+                  </Can>
                   <Row>
                     <Col md={2} className={style.text_right}>
                       <label className={style.track_title}>{translate.t("search_findings.tab_tracking.open")}</label>
                     </Col>
                     <Col md={10}>
                       <VulnerabilitiesView
-                        analyst={_.includes(["admin", "analyst"], userRole)}
                         editMode={false}
                         findingId={findingId}
                         state="open"
-                        userRole={userRole}
                       />
                     </Col>
                   </Row>
@@ -92,11 +89,9 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
                     </Col>
                     <Col md={10}>
                       <VulnerabilitiesView
-                        analyst={_.includes(["admin", "analyst"], userRole)}
                         editMode={false}
                         findingId={findingId}
                         state="closed"
-                        userRole={userRole}
                       />
                     </Col>
                   </Row>

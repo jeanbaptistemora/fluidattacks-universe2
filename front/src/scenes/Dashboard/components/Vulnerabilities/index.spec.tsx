@@ -128,7 +128,6 @@ describe("Vulnerabilities view", () => {
           editMode={false}
           findingId="480857698"
           state="open"
-          userRole="analyst"
         />
       </MockedProvider>,
     );
@@ -144,7 +143,6 @@ describe("Vulnerabilities view", () => {
           editMode={false}
           findingId="480857698"
           state="open"
-          userRole="analyst"
         />
       </MockedProvider>,
     );
@@ -184,7 +182,6 @@ describe("Vulnerabilities view", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateTreatmentModal
             findingId=""
-            userRole="analyst"
             vulnerabilities={vulns}
             handleCloseModal={handleOnClose}
           />

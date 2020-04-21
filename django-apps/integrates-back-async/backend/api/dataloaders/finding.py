@@ -131,6 +131,9 @@ async def _get_lines_vulns(info, identifier):
     return dict(lines_vulns=vuln_filtered)
 
 
+@rename_kwargs({'identifier': 'finding_id'})
+@enforce_group_level_auth_async
+@rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_pending_vulns(info, identifier):
     """Get pending vulnerabilities."""

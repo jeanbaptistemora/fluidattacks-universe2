@@ -14,7 +14,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
         ...vulnInfo
         lastAnalyst @include(if: $analystField)
       }
-      pendingVulns {
+      pendingVulns @include(if: $analystField) {
         ...vulnInfo
         analyst @include(if: $analystField)
       }

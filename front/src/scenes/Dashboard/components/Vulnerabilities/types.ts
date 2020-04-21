@@ -79,7 +79,6 @@ export interface IVulnDataType {
 }
 
 export interface IVulnerabilitiesViewProps {
-  analyst?: boolean;
   btsUrl?: string;
   editMode: boolean;
   editModePending?: boolean;
@@ -90,7 +89,6 @@ export interface IVulnerabilitiesViewProps {
   projectName?: string;
   separatedRow?: boolean;
   state: string;
-  userRole: string;
   verificationFn?(vulnerabilities: IVulnDataType[], action: "request" | "verify", clearSelected: () => void): void;
 }
 

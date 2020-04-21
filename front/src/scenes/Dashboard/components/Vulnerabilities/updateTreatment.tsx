@@ -5,6 +5,8 @@
 import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
 import { useQuery } from "@apollo/react-hooks";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -15,6 +17,7 @@ import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import store from "../../../../store";
+import { authzContext } from "../../../../utils/authz/config";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { dropdownField, tagInputField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -33,14 +36,15 @@ export interface IUpdateTreatmentModal {
   findingId: string;
   lastTreatment?: IHistoricTreatment;
   projectName?: string;
-  userRole: string;
   vulnerabilities: IVulnDataType[];
   handleCloseModal(): void;
 }
 
-const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
-(props: IUpdateTreatmentModal): JSX.Element => {
-  const canDisplayAnalyst: boolean = _.includes(["analyst", "admin"], props.userRole);
+const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
+  props: IUpdateTreatmentModal,
+): JSX.Element => {
+  const { userEmail } = window as typeof window & Dictionary<string>;
+  const permissions: PureAbility<string> = useAbility(authzContext);
 
   const sortTags: ((tags: string) => string) = (tags: string): string => {
     const tagSplit: string[] = tags.trim()
@@ -82,18 +86,16 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
     }
   };
 
-  const canEditManager: boolean = _.includes(["admin", "customeradmin"], props.userRole);
-
   const { data } = useQuery(GET_PROJECT_USERS, {
-    skip: !canEditManager,
+    skip: permissions.cannot("backend_api_resolvers_project__get_users"),
     variables: {
       projectName: props.projectName,
     },
   });
 
-  const userEmails: string[] = canEditManager && !(_.isUndefined(data) || _.isEmpty(data))
-    ? data.project.users.map((user: Dictionary<string>): string => user.email)
-    : [(window as typeof window & Dictionary<string>).userEmail];
+  const userEmails: string[] = (_.isUndefined(data) || _.isEmpty(data))
+    ? [userEmail]
+    : data.project.users.map((user: Dictionary<string>): string => user.email);
 
   const lastTreatment: IHistoricTreatment = props.lastTreatment === undefined
     ? {date: "", treatment: "", user: ""}
@@ -104,8 +106,15 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
       mutation={UPDATE_TREATMENT_MUTATION}
       onCompleted={handleUpdateResult}
       onError={handleUpdateTreatError}
-      refetchQueries={[{ query: GET_VULNERABILITIES,
-                         variables: { analystField: canDisplayAnalyst, identifier: props.findingId } }]}
+      refetchQueries={[
+        {
+          query: GET_VULNERABILITIES,
+          variables: {
+            analystField: permissions.can("backend_api_dataloaders_finding__get_analyst"),
+            identifier: props.findingId,
+          },
+        },
+      ]}
     >
       {(updateTreatmentVuln: MutationFunction<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>,
         updateResult: MutationResult): JSX.Element => {
@@ -149,8 +158,15 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
               mutation={DELETE_TAGS_MUTATION}
               onCompleted={handleDeleteResult}
               onError={handleDeleteError}
-              refetchQueries={[{ query: GET_VULNERABILITIES,
-                                 variables: { analystField: canDisplayAnalyst, identifier: props.findingId } }]}
+              refetchQueries={[
+                {
+                  query: GET_VULNERABILITIES,
+                  variables: {
+                    analystField: permissions.can("backend_api_dataloaders_finding__get_analyst"),
+                    identifier: props.findingId,
+                  },
+                },
+              ]}
             >
               {(deleteTagVuln: MutationFunction<IDeleteTagResult, IDeleteTagAttr>,
                 tagsResult: MutationResult): JSX.Element => {

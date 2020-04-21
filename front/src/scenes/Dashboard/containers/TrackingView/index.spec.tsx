@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 // tslint:disable-next-line: no-import-side-effect
@@ -8,6 +9,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
+import { authzContext } from "../../../../utils/authz/config";
 import { TrackingView } from "./index";
 import { GET_FINDING_TRACKING } from "./queries";
 
@@ -78,10 +80,14 @@ describe("FindingExploitView", (): void => {
   });
 
   it("should render pending vulns", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_dataloaders_finding__get_pending_vulns" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <TrackingView {...mockProps} />
+        <authzContext.Provider value={mockedPermissions}>
+          <TrackingView {...mockProps} />
+        </authzContext.Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });

@@ -5,6 +5,8 @@
 */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
@@ -16,6 +18,8 @@ import { DataTableNext } from "../../../../components/DataTableNext";
 import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { Can } from "../../../../utils/authz/Can";
+import { authzContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
@@ -206,6 +210,9 @@ interface ICalculateRowsSelected {
 
 const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
+    const permissions: PureAbility<string> = useAbility(authzContext);
+
+    // State management
     const [modalHidden, setModalHidden] = useState(false);
     const [deleteVulnModal, setDeleteVulnModal] = useState(false);
     const [vulnerabilityId, setVulnerabilityId] = useState("");
@@ -215,17 +222,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [selectRowsLines, setSelectRowsLines] = useState<number[]>([]);
     const [selectRowsPorts, setSelectRowsPorts] = useState<number[]>([]);
 
-    const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
+    const isEditing: boolean = props.editMode
+      || props.isRequestVerification === true
+      || props.isVerifyRequest === true;
 
-    const isEditable: boolean = props.editMode && _.includes(["customer", "customeradmin"], props.userRole);
-    const canRequestVerification: boolean =  props.isRequestVerification === true;
-    const canVerifyRequest: boolean =  props.isVerifyRequest === true
-      && _.includes(["admin", "analyst"], props.userRole);
-    const hideSelectionColumn: boolean = !(isEditable || canRequestVerification || canVerifyRequest);
-    const separatedRow: boolean = !_.isUndefined(props.separatedRow) ? props.separatedRow
-    : false;
-    const getAnalyst: boolean = !_.isUndefined(props.analyst) ? props.analyst : false;
-    const shouldGroup: boolean = !(props.editMode && separatedRow) && !(canRequestVerification || canVerifyRequest);
+    const canGetAnalyst: boolean = permissions.can("backend_api_dataloaders_finding__get_analyst");
+    const shouldGroup: boolean = !isEditing && props.separatedRow === true;
 
     const handleOpenVulnSetClick: () => void = (): void => {
       setModalHidden(true);
@@ -257,7 +259,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     return(
     <Query
       query={GET_VULNERABILITIES}
-      variables={{ identifier: props.findingId, analystField: isAnalystorAdmin }}
+      variables={{ analystField: canGetAnalyst, identifier: props.findingId }}
     >
       {
         ({ error, data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => {
@@ -278,8 +280,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               data.finding.linesVulns, props.state));
             const dataPorts: IVulnsAttr["finding"]["portsVulns"] = newVulnerabilities(filterState(
               data.finding.portsVulns, props.state));
-            const dataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = newVulnerabilities(filterApprovalStatus(
-              data.finding.pendingVulns, props.state));
+            const dataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = _.isEmpty(data.finding.pendingVulns)
+              ? []
+              : newVulnerabilities(filterApprovalStatus(data.finding.pendingVulns, props.state));
 
             const handleMtDeleteVulnRes: ((mtResult: IDeleteVulnAttr) => void) = (mtResult: IDeleteVulnAttr): void => {
               if (!_.isUndefined(mtResult)) {
@@ -533,7 +536,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               );
             }
 
-            if (props.editMode && isAnalystorAdmin) {
+            if (props.editMode && permissions.can("backend_api_resolvers_vulnerability__do_delete_vulnerability")) {
               inputsHeader.push({
                           align: "center",
                           dataField: "id",
@@ -558,7 +561,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           header: translate.t("search_findings.tab_description.action"),
                           width: "10%",
                         });
-            } else if (getAnalyst) {
+            } else if (canGetAnalyst) {
               inputsHeader.push({
                 align: "left",
                 dataField: "lastAnalyst",
@@ -625,7 +628,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
               return (
                 <React.Fragment>
-                  {canRequestVerification ?
+                  <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
                     <Row>
                       <Col mdOffset={5} md={4}>
                         <Button
@@ -638,7 +641,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         </Button>
                       </Col><br/>
                     </Row>
-                  : undefined}
+                  </Can>
                 </React.Fragment>
               );
             };
@@ -653,7 +656,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
               return (
                 <React.Fragment>
-                  {canVerifyRequest ?
+                  {props.isVerifyRequest === true ?
                     <Row>
                       <Col mdOffset={5} md={4}>
                         <Button
@@ -761,7 +764,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     width: "12%",
                     wrapped: true,
                   }];
-                if (getAnalyst) {
+                if (canGetAnalyst) {
                   pendingsHeader.push({
                     align: "left",
                     dataField: "analyst",
@@ -901,7 +904,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 };
                 const selectionModeInputs: SelectRowOptions = {
                   clickToSelect: false,
-                  hideSelectColumn: hideSelectionColumn,
+                  hideSelectColumn: !isEditing,
                   mode: "checkbox",
                   nonSelectable: props.isRequestVerification === true ? inputVulnsRemediated :
                   props.isVerifyRequest === true ? inputVulnsVerified : undefined,
@@ -911,7 +914,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 };
                 const selectionModeLines: SelectRowOptions = {
                   clickToSelect: false,
-                  hideSelectColumn: hideSelectionColumn,
+                  hideSelectColumn: !isEditing,
                   mode: "checkbox",
                   nonSelectable: props.isRequestVerification === true ? lineVulnsRemediated :
                   props.isVerifyRequest === true ? lineVulnsVerified : undefined,
@@ -921,7 +924,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 };
                 const selectionModePorts: SelectRowOptions = {
                   clickToSelect: false,
-                  hideSelectColumn: hideSelectionColumn,
+                  hideSelectColumn: !isEditing,
                   mode: "checkbox",
                   nonSelectable: props.isRequestVerification === true ? portVulnsRemediated :
                   props.isVerifyRequest === true ? portVulnsVerified : undefined,
@@ -1026,7 +1029,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           tableBody={style.tableBody}
                           tableHeader={style.tableHeader}
                         />
-                        {_.includes(["admin", "analyst"], props.userRole) ?
+                        <Can do="backend_api_resolvers_vulnerability__do_approve_vulnerability">
                           <ButtonToolbar className="pull-right">
                             <ConfirmDialog title={translate.t("search_findings.tab_description.approve_all_vulns")}>
                               {(confirm: ConfirmFn): React.ReactNode => {
@@ -1057,7 +1060,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               }}
                             </ConfirmDialog>
                           </ButtonToolbar>
-                        : undefined}
+                        </Can>
                       </React.Fragment>
                       : undefined }
                       <DeleteVulnerabilityModal
@@ -1072,19 +1075,23 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           btsUrl={props.btsUrl}
                           findingId={props.findingId}
                           lastTreatment={props.lastTreatment}
-                          userRole={props.userRole}
                           projectName={props.projectName}
                           vulnerabilities={vulnerabilitiesList}
                           handleCloseModal={handleCloseTableSetClick}
                         />
                       : undefined }
-                      {isEditable ? renderButtonUpdateVuln() : undefined}
-                      {renderRequestVerification()}
+                      {props.editMode ? (
+                        <React.Fragment>
+                          <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
+                            {renderButtonUpdateVuln()}
+                          </Can>
+                          <Can do="backend_api_resolvers_vulnerability__do_upload_file">
+                            <UploadVulnerabilites {...props} />
+                          </Can>
+                        </React.Fragment>
+                      ) : undefined}
+                      {props.isRequestVerification === true ? renderRequestVerification() : undefined}
                       {renderVerifyRequest()}
-                      {props.editMode && _.includes(["admin", "analyst"], props.userRole)
-                        ? <UploadVulnerabilites {...props} />
-                        : undefined
-                      }
                     </React.StrictMode>
                   );
                 }}

@@ -301,7 +301,6 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                     projectName={projectName}
                     separatedRow={true}
                     state="open"
-                    userRole={userRole}
                     verificationFn={openRemediationModal}
                   />
                 </FormGroup>

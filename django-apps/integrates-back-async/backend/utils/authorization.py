@@ -123,6 +123,7 @@ def get_analyst_actions() -> Tuple[str, ...]:
         'backend_api_dataloaders_finding__get_analyst',
         'backend_api_dataloaders_finding__get_historic_state',
         'backend_api_dataloaders_finding__get_observations',
+        'backend_api_dataloaders_finding__get_pending_vulns',
         'backend_api_resolvers_cache_resolve_invalidate_cache',
         'backend_api_resolvers_event__do_create_event',
         'backend_api_resolvers_event__do_remove_event_evidence',
