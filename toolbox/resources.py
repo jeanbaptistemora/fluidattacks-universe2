@@ -488,8 +488,7 @@ def fluidcounts(path):
     doc_langs = ["Markdown"]
     style_langs = ["CSS", "SASS", "LESS", "Stylus"]
     format_langs = ["XML", "XAML"]
-    toolboxpath = os.path.dirname(__file__)
-    rules_file = f'{toolboxpath}/rules.def'
+    rules_file = '../../tools3/rules.def'
     force_lang_def = '--force-lang-def=' + rules_file
     exclude_list = ",".join(doc_langs + style_langs + format_langs)
     exclude_lang = '--exclude-lang=' + exclude_list
@@ -506,7 +505,8 @@ def fluidcounts(path):
               "for this task to work")
         sys.exit(1)
     finally:
-        os.remove('ignored.txt')
+        if os.path.exists('ignored.txt'):
+            os.remove('ignored.txt')
     return filepaths
 
 
