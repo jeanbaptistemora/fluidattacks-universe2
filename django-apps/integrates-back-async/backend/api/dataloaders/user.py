@@ -102,7 +102,8 @@ async def _get_list_projects(email, project_name):
     return dict(list_projects=list_projects)
 
 
-async def resolve(info, email, project_name, as_field=False):
+async def resolve(info, email, project_name, as_field=False,
+                  selection_set=None):
     """Async resolve of fields."""
     email_dict: dict = await _get_email(email)
     role_dict: dict = await _get_role(email, project_name)
@@ -121,8 +122,7 @@ async def resolve(info, email, project_name, as_field=False):
         requested_fields = ['listProjects']
     else:
         requested_fields = \
-            util.get_requested_fields(
-                'users', info.field_nodes[0].selection_set) \
+            util.get_requested_fields('users', selection_set) \
             if as_field else info.field_nodes[0].selection_set.selections
 
     for requested_field in requested_fields:

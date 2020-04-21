@@ -506,11 +506,15 @@ def run_async(function: Callable, *args, **kwargs):
 
 def get_requested_fields(field_name, selection_set):
     """Get requested fields from selections."""
-    field_set = list(
-        filter(lambda sel: sel.name.value == field_name,
-               selection_set.selections)
-    )
-    return field_set[0].selection_set.selections
+    try:
+        field_set = list(
+            filter(lambda sel: sel.name.value == field_name,
+                   selection_set.selections)
+        )
+        selections = field_set[0].selection_set.selections
+    except IndexError:
+        selections = []
+    return selections
 
 
 def get_field_parameters(field, variable_values=None):

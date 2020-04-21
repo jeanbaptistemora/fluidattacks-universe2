@@ -18,7 +18,8 @@ Finding = Union[
 ]
 Project = Dict[str, Union[
     str, object,
-    List[str]
+    List[str],
+    Set[str]
 ]]
 Comment = Dict[str, Union[
     int, str, object
@@ -93,4 +94,8 @@ AddCommentPayload = NamedTuple('AddCommentPayload', [
 DownloadFilePayload = NamedTuple('DownloadFilePayload', [
     ('success', bool),
     ('url', str),
+])
+SimpleProjectPayload = NamedTuple('SimpleProjectPayload', [
+    ('success', bool),
+    ('project', Project),
 ])

@@ -504,13 +504,12 @@ async def _get_verified(info, identifier):
     return dict(verified=finding['verified'])
 
 
-async def resolve(info, identifier, as_field=False):
+async def resolve(info, identifier, as_field=False, selection_set=None):
     """Async resolve fields."""
     result = dict()
     tasks = list()
     requested_fields = \
-        util.get_requested_fields('findings',
-                                  info.field_nodes[0].selection_set) \
+        util.get_requested_fields('findings', selection_set) \
         if as_field else info.field_nodes[0].selection_set.selections
 
     for requested_field in requested_fields:
