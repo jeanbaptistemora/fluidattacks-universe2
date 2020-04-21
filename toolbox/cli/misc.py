@@ -27,7 +27,9 @@ def do_check_commit_msg() -> bool:
         success = forces.commit.is_valid_summary(summary)
     else:
         success = generic.commit.is_valid_summary(summary) \
-            and generic.commit.has_short_line_length(summary, body)
+            and generic.commit.has_short_line_length(summary, body) \
+            and generic.commit.is_under_100_deltas() \
+
     return success
 
 

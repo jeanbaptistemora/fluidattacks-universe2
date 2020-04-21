@@ -38,3 +38,6 @@ def test_has_short_line_length():
 def test_is_under_100_deltas():
     assert is_under_100_deltas('e2035b8')
     assert not is_under_100_deltas('ff5e8c1')
+
+    # This one is over the 100 deltas but have 'no-deltas-check' in the body
+    assert is_under_100_deltas('d204d86')
