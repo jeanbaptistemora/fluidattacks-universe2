@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Class for generate an xlsx file with findings information. """
 import re
+import uuid
 
 from openpyxl import load_workbook
 
@@ -51,13 +52,13 @@ class ITReport():
         'severity': 27,
         'risk': 30}
 
-    def __init__(self, project, data, username, lang='es'):
+    def __init__(self, data, lang='es'):
         """Initialize variables."""
         self.lang = lang
         self.workbook = load_workbook(
             filename=self.templates[self.lang]['TECHNICAL']
         )
-        self.generate(data, project, username)
+        self.generate(data)
 
     def hide_cell(self, data):
         init_row = 3 + 12 * len(data)
@@ -66,12 +67,12 @@ class ITReport():
         for row in range(init_row, end_row):
             self.current_sheet.row_dimensions[row].hidden = True
 
-    def generate(self, data, project, username):
+    def generate(self, data):
         for finding in data:
             self.__write(finding)
             self.row += 12
         self.hide_cell(data)
-        self.__save(project, username)
+        self.__save()
 
     def __select_finding_sheet(self):
         """Select finding sheet."""
@@ -224,9 +225,9 @@ class ITReport():
             self.finding['measurements'],
             self.__get_measure('reportConfidence', row['severity']['reportConfidence']), 10)
 
-    def __save(self, project, username):
+    def __save(self):
         self.result_filename = self.result_path
-        self.result_filename += project + '_' + username + '.xlsx'
+        self.result_filename += str(uuid.uuid4()) + '.xlsx'
         self.workbook.save(self.result_filename)
 
 

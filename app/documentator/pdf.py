@@ -5,6 +5,7 @@ import os
 import time
 import sys
 import subprocess
+import uuid
 import importlib
 
 from typing import Dict
@@ -138,7 +139,7 @@ class CreatorPDF():
     def tech(self, data, project, description):
         """ Create the template to render and apply the context. """
         self.fill_project(data, project, description)
-        self.out_name = project + '_IT.pdf'
+        self.out_name = str(uuid.uuid4()) + '.pdf'
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader,

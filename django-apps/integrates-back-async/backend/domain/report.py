@@ -30,8 +30,7 @@ def generate_pdf_report(project_name: str, user_email: str, lang: str,
 
 def generate_xls_report(project_name: str, user_email: str,
                         findings_ord: List[Dict[str, FindingType]]):
-    user_name = user_email.split('@')[0]
-    it_report = ITReport(project_name, findings_ord, user_name)
+    it_report = ITReport(data=findings_ord)
     filepath = it_report.result_filename
     passphrase = get_passphrase(4)
     reports.set_xlsx_passphrase(filepath, str(passphrase))
