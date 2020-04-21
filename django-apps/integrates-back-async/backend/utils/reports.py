@@ -22,7 +22,7 @@ def set_xlsx_passphrase(filepath: str, passphrase: str):
 
 def send_project_report_email(
         user_email: str, project_name: str, passphrase: str, file_type: str, file_link: str = ''):
-    report_date = datetime.today().strftime('%Y-%m-%d_%H:%M:%S')
+    report_date = datetime.today().strftime('%Y-%m-%d_%H:%M')
     email_send_thread = threading.Thread(
         name='Report passphrase email thread',
         target=send_mail_project_report,
