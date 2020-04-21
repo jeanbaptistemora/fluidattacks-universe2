@@ -198,7 +198,7 @@ type Tag {
 
 type ForcesExecution {
     projectName: String
-    identifier: String
+    execution_id: String
     date: DateTime
     exitCode: String
     gitBranch: String

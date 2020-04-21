@@ -56,9 +56,9 @@ describe("ForcesView", () => {
             executions: [
               {
                 date: "2020-02-19T19:31:18+00:00",
+                execution_id: "33e5d863252940edbfb144ede56d56cf",
                 exitCode: "1",
                 gitRepo: "Repository",
-                identifier: "33e5d863252940edbfb144ede56d56cf",
                 kind: "dynamic",
                 log: "...",
                 strictness: "strict",

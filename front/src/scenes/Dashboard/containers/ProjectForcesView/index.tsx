@@ -52,10 +52,10 @@ export interface IVulnerabilities {
 
 export interface IExecution {
   date: string;
+  execution_id: string;
   exitCode: string;
   foundVulnerabilities: IFoundVulnerabilities;
   gitRepo: string;
-  identifier: string;
   kind: string;
   log: string;
   status: string;
@@ -68,6 +68,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   // States
   const defaultCurrentRow: IExecution = {
     date: "",
+    execution_id: "",
     exitCode: "",
     foundVulnerabilities: {
       accepted: 0,
@@ -76,7 +77,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       total: 0,
     },
     gitRepo: "",
-    identifier: "",
     kind: "",
     log: "",
     status: "",
@@ -186,7 +186,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState, width: "13%", wrapped: true,
     },
     {
-      align: "center", dataField: "identifier", header: translate.t("project.forces.identifier"),
+      align: "center", dataField: "execution_id", header: translate.t("project.forces.identifier"),
       onSort: onSortState, width: "13%", wrapped: true,
     },
   ];
@@ -318,7 +318,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   </Row>
                   <Row>
                     <Col md={4}><p><b>{translate.t("project.forces.identifier")}</b></p></Col>
-                    <Col md={8}><p>{currentRow.identifier}</p></Col>
+                    <Col md={8}><p>{currentRow.execution_id}</p></Col>
                   </Row>
                   <Row>
                     <Col md={4}><p><b>{translate.t("project.forces.found_vulnerabilities.title")}</b></p></Col>

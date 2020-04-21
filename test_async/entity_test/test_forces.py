@@ -62,7 +62,7 @@ class ForcesExecutionsTests(TestCase):
               __typename
               executions {
                 projectName
-                identifier
+                execution_id
                 date
                 exitCode
                 gitBranch

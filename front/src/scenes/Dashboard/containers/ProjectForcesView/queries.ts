@@ -8,7 +8,7 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
         date
         exitCode
         gitRepo
-        identifier
+        execution_id
         kind
         log
         strictness
