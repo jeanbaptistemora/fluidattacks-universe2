@@ -105,10 +105,10 @@ def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
     )
 
 
-def many_exploits_by_change_request() -> bool:
+def many_exploits_by_change_request(ref: str = 'HEAD') -> bool:
     """Run all linters available over the current change request."""
     changed_exploits = \
-        utils.generic.get_change_request_touched_and_existing_exploits()
+        utils.generic.get_change_request_touched_and_existing_exploits(ref)
 
     return all(
         one_exploit_by_path(exploit_path)

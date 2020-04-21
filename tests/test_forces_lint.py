@@ -9,7 +9,7 @@ SUBS: str = 'continuoustest'
 
 
 def test_many_exploits_by_change_request(relocate):
-    assert many_exploits_by_change_request()
+    assert many_exploits_by_change_request('09f574ed')
 
 
 def test_many_exploits_by_subs_and_filter(relocate):

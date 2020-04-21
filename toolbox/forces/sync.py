@@ -3,10 +3,6 @@ import datetime
 import glob
 import json
 import os
-from typing import (
-    Any,
-    Tuple,
-)
 
 # Third party libraries
 
@@ -36,11 +32,9 @@ from toolbox import (
 #     - Report here if the status Integrates vs Asserts differ
 
 
-def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
+def are_exploits_synced__static(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
-    success: bool = True
     results: list = []
-    outputs_to_show: list = []
 
     fernet_key: str = utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
@@ -82,8 +76,8 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
         find_wheres = helper.integrates.get_finding_wheres(finding_id)
 
         for repo in integrates_repos.union(local_repos):
-            analyst_status: Any = integrates_status.get(repo, False)
-            asserts_status: Any = None
+            analyst_status = integrates_status.get(repo, False)
+            asserts_status = None
             repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
             if os.path.isdir(repository_path):
                 asserts_status, asserts_stdout, _ = \
@@ -131,8 +125,6 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
                     i=f'Integrates: {imsg!s:<6}',
                     a=f'Asserts: {amsg!s:<17}',
                     r=repo))
-                success = False
-                outputs_to_show.append(exploit_output_path)
             results.append({
                 'datetime': datetime.datetime.now().strftime(
                     "%Y-%m-%dT%H:%M:%SZ"),
@@ -148,14 +140,12 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 'synced': 'yes' if imsg == amsg else 'no',
             })
 
-    return success, results
+    return results
 
 
-def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
+def are_exploits_synced__dynamic(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
-    success: bool = True
     results: list = []
-    outputs_to_show: list = []
 
     fernet_key: str = utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
@@ -235,23 +225,21 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 once = False
             logger.info('        {i} {a}'.format(
                 i=f'Integrates: {imsg!s:<6}', a=f'Asserts: {amsg!s:<17}'))
-            if 'ERROR' in amsg:
-                success = False
-                outputs_to_show.append(exploit_output_path)
+
         results.append({
             'datetime': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             'exploit_path': os.path.relpath(exploit_path),
             'exploit_type': 'dynamic',
             'num_open_asserts': asserts_summary.get('vulnerabilities', 0),
             'num_open_integrates': len(find_wheres),
-            'pipeline_id': os.environ.get('CI_PIPELINE_ID', None),
+            'pipeline_id': os.environ.get('CI_PIPELINE_ID', ''),
             'result_asserts': amsg,
             'result_integrates': imsg,
             'subscription': subs,
             'synced': 'yes' if imsg == amsg else 'no',
         })
 
-    return success, results
+    return results
 
 
 def are_exploits_synced(subs: str, exp_name: str) -> bool:
@@ -268,29 +256,14 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
         not utils.generic.is_env_ci() or config['dynamic']['run']
 
     # If we didn't run, assume it's synced
-    success_static: bool = True
     results_static: list = []
     if should_run_static:
-        success_static, results_static = \
-            are_exploits_synced__static(subs, exp_name)
+        results_static = are_exploits_synced__static(subs, exp_name)
 
     # If we didn't run, assume it's synced
-    success_dynamic: bool = True
     results_dynamic: list = []
     if should_run_dynamic:
-        success_dynamic, results_dynamic = \
-            are_exploits_synced__dynamic(subs, exp_name)
-
-    logger.info('')
-    if utils.generic.is_env_ci():
-        logger.info('You can run this check locally:')
-        logger.info(
-            f'  continuous $ pip3 install fluidattacks[with_everything]')
-        logger.info(f'  continuous $ fluid forces --check-sync {subs}')
-    else:
-        logger.info('You can check the exploits output at:')
-        msg = f'  subscriptions/{subs}/break-build/*/exploits/*.exp.out.yml'
-        logger.info(msg)
+        results_dynamic = are_exploits_synced__dynamic(subs, exp_name)
 
     with open(f'check-sync-results.{subs}.json.stream', 'w') as results_handle:
         for json_obj in results_static + results_dynamic:
@@ -300,4 +273,4 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
             }, sort_keys=True))
             results_handle.write('\n')
 
-    return success_static and success_dynamic
+    return True
