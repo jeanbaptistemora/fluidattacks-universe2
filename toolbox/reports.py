@@ -226,7 +226,7 @@ def generate_exploits_report(file_name: str = 'report.csv',
             with utils.generic.output_block(indent=4):
                 toolbox.fill_with_mocks(subs['name'])
 
-            logger.info(f'Gereratin report for {subs["name"]}')
+            logger.info(f'Gererating report for {subs["name"]}')
             info = process_subscription_exploits(subs)
             for row in info:
                 writer.writerow(row._asdict())

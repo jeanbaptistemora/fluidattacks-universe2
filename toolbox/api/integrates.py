@@ -8,9 +8,9 @@ import functools
 from typing import Any, List, NamedTuple, Tuple
 
 # Third parties libraries
-from aiogqlc import GraphQLClient
-from aiogqlc.utils import contains_file_variable
 import aiohttp
+import aiogqlc
+import aiogqlc.utils
 from frozendict import frozendict
 
 # Local imports
@@ -36,24 +36,39 @@ PROXIES = None if not DEBUGGING else {
 }
 
 
-class CustomGraphQLClient(GraphQLClient):
+class CustomGraphQLClient(aiogqlc.GraphQLClient):
+
     async def execute(self, query: str, variables: dict = None,
                       operation: str = None) -> aiohttp.ClientResponse:
-        async \
-            with aiohttp.ClientSession(
-                connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
-            if variables and contains_file_variable(variables):
+        connector = aiohttp.TCPConnector(verify_ssl=False)
+
+        async with aiohttp.ClientSession(connector=connector) as session:
+            headers = self.prepare_headers()
+
+            if variables and aiogqlc.utils.contains_file_variable(variables):
                 data = self.prepare_multipart(query, variables, operation)
-                headers = self.prepare_headers()
             else:
+                headers[aiohttp.hdrs.CONTENT_TYPE] = 'application/json'
                 data = json.dumps(
                     self.prepare_json_data(query, variables, operation))
-                headers = self.prepare_headers()
-                headers[aiohttp.hdrs.CONTENT_TYPE] = 'application/json'
-            async with session.post(
-                    self.endpoint, data=data, headers=headers) as response:
-                await response.read()
-                return response
+
+            for _ in range(RETRY_MAX_ATTEMPTS):
+                async with session.post(
+                    self.endpoint,
+                    data=data,
+                    headers=headers,
+                ) as response:
+                    try:
+                        await response.read()
+                    except asyncio.TimeoutError:
+                        time.sleep(RETRY_RELAX_SECONDS)
+                    else:
+                        return response
+
+            logger.error('self.endpoint:', self.endpoint)
+            logger.error('headers:', headers)
+            logger.error('data:', data)
+            raise Exception('Unable to complete query, even after retrying')
 
 
 async def gql_request(api_token, payload, variables):
@@ -213,7 +228,6 @@ class Queries:
                     closedVulnerabilities @include(if: $withVulns)
                     description
                     historicTreatment
-                    lastVulnerability @include(if: $withVulns)
                     openVulnerabilities @include(if: $withVulns)
                     projectName
                     recommendation
