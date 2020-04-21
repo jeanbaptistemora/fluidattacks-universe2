@@ -425,37 +425,6 @@ function job_serve_redis {
   &&  redis-server --port "${port}"
 }
 
-function _job_serve_back_async {
-  local app='fluidintegrates.asgi:application'
-  local host='0.0.0.0'
-  local port='9090'
-  local root_path='/integrates'
-  local workers='4'
-
-      "helper_set_${1}_secrets" \
-  &&  echo "[INFO] Serving async back on port ${port}" \
-  &&  uvicorn \
-        --host="${host}" \
-        --port="${port}" \
-        --root-path="${root_path}" \
-        --ssl-certfile="${srcDerivationsCerts}/fluidla.crt" \
-        --ssl-keyfile="${srcDerivationsCerts}/fluidla.key" \
-        --header="Access-Control-Allow-Origin:*" \
-        --header="Access-Control-Allow-Headers:*" \
-        --workers="${workers}" \
-        --interface=asgi2 \
-        --reload \
-        "${app}"
-}
-
-function job_serve_back_async_dev {
-  _job_serve_back_async "dev"
-}
-
-function job_serve_back_async_prod {
-  _job_serve_back_async "prod"
-}
-
 function _job_serve_back {
   local app='fluidintegrates.asgi:application'
   local host='0.0.0.0'
@@ -472,6 +441,7 @@ function _job_serve_back {
         --ssl-certfile="${srcDerivationsCerts}/fluidla.crt" \
         --ssl-keyfile="${srcDerivationsCerts}/fluidla.key" \
         --workers="${workers}" \
+        --interface=asgi2 \
         --reload \
         "${app}"
 }
@@ -890,12 +860,6 @@ function job_deploy_k8s_back {
       then
             echo '[INFO] Undoing deployment' \
         &&  kubectl rollout undo 'deploy/integrates-app' \
-        &&  return 1
-      fi \
-  &&  if ! kubectl rollout status --timeout=10m 'deploy/integrates-app-async'
-      then
-            echo '[INFO] Undoing deployment' \
-        &&  kubectl rollout undo 'deploy/integrates-app-async' \
         &&  return 1
       fi \
   &&  curl "https://api.rollbar.com/api/1/deploy" \

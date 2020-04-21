@@ -110,8 +110,8 @@ const setIntegratesHeaders: Dictionary = {
 };
 
 if (window.location.hostname === "localhost") {
-    urlHostApiV2 = `${window.location.protocol}//${window.location.hostname}:9090/api`;
-    wsApiV2 = `wss://${window.location.hostname}:9090/api`;
+    urlHostApiV2 = `${window.location.protocol}//${window.location.hostname}:8080/api`;
+    wsApiV2 = `wss://${window.location.hostname}:8080/api`;
 } else {
     urlHostApiV2 = `${window.location.origin}/integrates/api`;
     wsApiV2 = `wss://${window.location.hostname}/integrates/api`;
