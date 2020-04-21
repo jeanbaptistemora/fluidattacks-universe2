@@ -1,0 +1,16 @@
+:slug: findings/041/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from using default credentials, recommendations to avoid them and related security requirements.
+:keywords: Default, Credentials, Username, Password, Database, Low-strength
+:findings: yes
+:type: security
+
+= F041. Enabled default credentials
+
+== Description
+
+It is possible to use low-strength, default credentials to access system
+resources such as the database.
+
+== Rules
+
+. [[r1]] link:/web/rules/142/[R142 Change system default credentials]

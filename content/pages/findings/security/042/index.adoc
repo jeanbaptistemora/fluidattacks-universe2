@@ -1,0 +1,18 @@
+:slug: findings/042/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not setting the security attributes for cookies, recommendations to avoid them and related security requirements.
+:keywords: Cookies, Security Attributes, XSS, Sniffing, CSRF, Cross-site
+:findings: yes
+:type: security
+
+= F042. Insecurely generated cookies
+
+== Description
+
+The application's cookies are generated without properly setting the HttpOnly,
+Secure and SameSite attributes.
+This could enable an attacker to compromise a user's session through XSS,
+sniffing or CSRF attacks.
+
+== Rules
+
+. [[r1]] link:/web/rules/029/[R029 Cookies with security attributes]

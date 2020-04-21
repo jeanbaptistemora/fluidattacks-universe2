@@ -8,90 +8,90 @@
 
 == Requirement
 
-The session +cookies+ of web applications
-must have security attributes (+HttpOnly+, +Secure+).
+The session *cookies* of web applications
+must have security attributes (*HttpOnly*, *Secure*).
 
 == Description
 
 When you have web applications that handle sessions,
 you can use different attributes
-to improve the security related to the +cookies+ that handle these sessions.
-The attributes +HttpOnly+ and +Secure+
-prevent the theft of the session +cookie+
+to improve the security related to the *cookies* that handle these sessions.
+The attributes *HttpOnly* and *Secure*
+prevent the theft of the session *cookie*
 by denying the browser visibility and access to it
-(even when +Cross Site Scripting [XSS]+ attacks are used)
-and allow the +cookie+ to be sent
-only when the request is encrypted (using +HTTPS+),
+(even when *Cross Site Scripting [XSS]* attacks are used)
+and allow the *cookie* to be sent
+only when the request is encrypted (using *HTTPS*),
 in this manner, session theft is greatly mitigated
 and therefore increases the integrity of the application.
 
 == Implementation
 
-. Implement the +HttpOnly+ attribute:
-If the +HttpOnly+ attribute
-is present in the +HTTP+ response header,
-the +cookie+ can not be accessed using client side +scripts+.
+. Implement the *HttpOnly* attribute:
+If the *HttpOnly* attribute
+is present in the *HTTP* response header,
+the *cookie* can not be accessed using client side *scripts*.
 As a result and even if there exist a
-link:https://cwe.mitre.org/data/definitions/87.html[+cross-site scripting (XSS) vulnerability+]
+link:https://cwe.mitre.org/data/definitions/87.html[*cross-site scripting (XSS) vulnerability*]
 and a user accidentally accesses the link that exploits this vulnerability,
-the browser will not reveal the +cookie+ to a third party.
-+
-If a browser does not support +HttpOnly+
-and the website tries to set the +HttpOnly+ attribute,
+the browser will not reveal the *cookie* to a third party.
+*
+If a browser does not support *HttpOnly*
+and the website tries to set the *HttpOnly* attribute,
 said attribute will be ignored by the browser
-thus creating a traditional +cookie+ accessible by +scripts+.
-As a result, the +cookie+ (usually a +session cookie+)
-becomes vulnerable to theft or modification by a +malicious script+.
+thus creating a traditional *cookie* accessible by *scripts*.
+As a result, the *cookie* (usually a *session cookie*)
+becomes vulnerable to theft or modification by a *malicious script*.
 
-. Implement the +Secure+ attribute:
-The link:https://cwe.mitre.org/data/definitions/614.html[+secure+] attribute is an option
+. Implement the *Secure* attribute:
+The link:https://cwe.mitre.org/data/definitions/614.html[*secure*] attribute is an option
 that can be applied from the application server
-when a new +cookie+ is sent to the user in a +HTTP+ response.
-The purpose of the +secure+ attribute
-is to prevent +cookies+ from being viewed by unauthorized third parties
-due to the plain text transmission of the +cookie+.
+when a new *cookie* is sent to the user in a *HTTP* response.
+The purpose of the *secure* attribute
+is to prevent *cookies* from being viewed by unauthorized third parties
+due to the plain text transmission of the *cookie*.
 
 == Exceptions
 
-. Exceptions for the +HttpOnly+ attribute:
+. Exceptions for the *HttpOnly* attribute:
 Web applications that use JavaScript for the majority of their operations
-may use an anti-Cross-Site-Request-Forgery(+CSRF+) technique
+may use an anti-Cross-Site-Request-Forgery(*CSRF*) technique
 that relies on same-origin policy.
 This technique consist of setting a cookie containing a random token.
 Client side JavaScript reads its value
-and copies it into a custom +HTTP CSRF+ header sent with each request.
+and copies it into a custom *HTTP CSRF* header sent with each request.
 The security of this technique
 is based on the assumption that only JavaScript
 running within the same origin will be able to access the cookie.
 JavaScript running from a rogue file or email
 will not be able to read it and copy into the custom header.
-Even though the +CSRF+ cookie will be automatically sent with the rogue request,
-the server will be still expecting a valid +CSRF+ header.
+Even though the *CSRF* cookie will be automatically sent with the rogue request,
+the server will be still expecting a valid *CSRF* header.
 In this implementation,
-the +CSRF+ cookie must not have +HttpOnly+ attribute,
+the *CSRF* cookie must not have *HttpOnly* attribute,
 as it is intended to be read by the JavaScript by design.
 However, the protection provided by this technique
 can be thwarted if the target website disables its same-origin policy
 using one of the following techniques <<r8,^[8]^>>:
 
-* Access-Control-Allow-Origin header set to +*+.
-* +clientaccesspolicy.xml+ file granting unintended access
+* Access-Control-Allow-Origin header set to ***.
+* *clientaccesspolicy.xml* file granting unintended access
 to Silverlight controls.
-* +crossdomain.xml+ file granting unintended access to Flash.
+* *crossdomain.xml* file granting unintended access to Flash.
 
 == Attacks
 
-. An attacker generates a +script+ that is executed
+. An attacker generates a *script* that is executed
 by a valid authenticated user
 without their knowledge,
-without the +HTTPOnly+ and +Secure+ attributes
-the +script+ sends information to the attacker^<<r1,[1]>>,<<r2,[2]>>^
-containing the session +cookie+ used for session theft.
+without the *HTTPOnly* and *Secure* attributes
+the *script* sends information to the attacker^<<r1,[1]>>,<<r2,[2]>>^
+containing the session *cookie* used for session theft.
 
 . An attacker link:https://puppet.com/security/cve/cve-2013-4964[captures]
-+HTTP+ traffic using a +Man in The Middle (MiTM)+ attack
+*HTTP* traffic using a *Man in The Middle (MiTM)* attack
 intercepting request and responses in plain text
-and extracting the session +cookie+ used for session theft.
+and extracting the session *cookie* used for session theft.
 
 == Attributes
 
@@ -109,6 +109,8 @@ and extracting the session +cookie+ used for session theft.
 
 * link:/web/findings/010/[F010. Stored cross-site scripting (XSS)]
 
+* link:/web/findings/042/[F042. Insecurely generated cookies]
+
 == References
 
 . [[r1]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-0462[CVE-2004-0462 HTTP cookie vulnerability].
@@ -121,10 +123,10 @@ and extracting the session +cookie+ used for session theft.
 
 . [[r5]] link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0053[CVE-2012-0053 Information Disclosure vulnerability in Apache HTTP Server].
 
-. [[r6]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.12+].
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[OWASP-ASVS v3.1-3.12].
 Verify that session IDs stored in cookies
-are scoped using the +path+ attribute;
-and have the +HttpOnly+ and +Secure+ cookie flags enabled.
+are scoped using the *path* attribute;
+and have the *HttpOnly* and *Secure* cookie flags enabled.
 
 . [[r7]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
 

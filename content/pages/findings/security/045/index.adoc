@@ -1,0 +1,17 @@
+:slug: findings/045/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities that enable HTML injection attacks, recommendations to avoid them and related security requirements.
+:keywords: HTML, Injection, DOM, Fields, Data Validation, Appearance
+:findings: yes
+:type: security
+
+= F045. HTML code injection
+
+== Description
+
+The application's fields allow the injection of HTML code.
+This could enable attackers to modify the application's appearance in order
+to trick its users into performing undesired actions.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
