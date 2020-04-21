@@ -59,8 +59,19 @@ def has_short_line_length(summary: str, body: str) -> bool:
 
 def is_under_100_deltas(ref: str = 'HEAD') -> bool:
     """Return True if the HEAD commit is under 100 deltas."""
-    return 'no-deltas-check' in utils.generic.get_change_request_body(ref) \
-        or utils.generic.get_change_request_deltas(ref) <= 100
+    skip_check: bool = \
+        '- no-deltas-check' in utils.generic.get_change_request_body(ref)
+
+    if skip_check:
+        logger.info('Deltas check skipped')
+        return True
+
+    request_deltas: int = utils.generic.get_change_request_deltas(ref)
+    if request_deltas > 100:
+        logger.error(f'Your commit has more than 100 deltas: {request_deltas}')
+        return False
+
+    return True
 
 
 def is_valid_summary(summary: str) -> bool:

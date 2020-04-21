@@ -3,7 +3,6 @@ import datetime
 import glob
 import json
 import os
-import textwrap
 from typing import (
     Any,
     Tuple,
@@ -20,36 +19,28 @@ from toolbox import (
     utils,
 )
 
+# The applied logic in static exploits is:
+#   Given an exploit 'E' for the finding 'F' and a repository 'R':
+#     - See the status on Integrates for the finding 'F' and the
+#       repository 'R', (OPEN, CLOSED)
+#     - Run the exploit 'E' over repository 'R' and see the
+#       status (OPEN, CLOSED, UNKNOWN, ERROR, ETC)
+#     - Report here if the status Integrates vs Asserts differ
+#
+# The applied logic in dynamic exploits is:
+#   Given an exploit 'E' for the finding 'F':
+#     - See the status on Integrates for
+#       the finding 'F', (OPEN, CLOSED)
+#     - Run the exploit 'E' and see the status
+#       (OPEN, CLOSED, UNKNOWN, ERROR, ETC)
+#     - Report here if the status Integrates vs Asserts differ
+
 
 def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
     """Check if exploits results are the same as on Integrates."""
     success: bool = True
     results: list = []
     outputs_to_show: list = []
-
-    logger.info(textwrap.dedent("""
-        ###################################################################
-
-        We will run your static exploits and see if they are synced.
-
-        The applied logic is:
-            Given an exploit 'E' for the finding 'F' and a repository 'R':
-                - See the status on Integrates for the finding 'F' and the
-                    repository 'R', (OPEN, CLOSED)
-                - Run the exploit 'E' over repository 'R' and see the
-                    status (OPEN, CLOSED, UNKNOWN, ERRORS, ETC)
-                - Break the pipeline if the status Integrates vs Asserts
-                    differs
-
-            There are three possible outcomes:
-                - The exploit is wrong
-                - Integrates is wrong
-                - Both are wrong
-
-            Please update whatever needs to be corrected.
-
-        ###################################################################
-        """))
 
     fernet_key: str = utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
@@ -165,39 +156,6 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
     success: bool = True
     results: list = []
     outputs_to_show: list = []
-
-    logger.info(textwrap.dedent("""
-        ###################################################################
-
-        We will run your dynamic exploits and see if they are synced.
-
-        We are aware that some environments are reachable only via VPN.
-
-        For this reason, we'll only break the pipeline
-        if Asserts says 'EXPLOIT-ERROR'
-
-        The applied logic is:
-            Given an exploit 'E' for the finding 'F':
-                - See the status on Integrates for
-                    the finding 'F', (OPEN, CLOSED)
-                - Run the exploit 'E' and see the status
-                    (OPEN, CLOSED, UNKNOWN, ERRORS, ETC)
-                - Report here if the status Integrates vs Asserts differ
-                - Break the pipeline if Asserts says 'EXPLOIT-ERROR'
-
-            There are three possible outcomes:
-                - if the environment needs VPN:
-                    - It's understandable, usually it's not your fault,
-                        if you like you can still check just to make sure
-                - else:
-                    - The exploit is wrong
-                    - Integrates is wrong
-                    - Both are wrong
-
-            Please update whatever needs to be corrected.
-
-        ###################################################################
-        """))
 
     fernet_key: str = utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
