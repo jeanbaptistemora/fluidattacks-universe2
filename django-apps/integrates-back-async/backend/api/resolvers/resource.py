@@ -1,6 +1,6 @@
 # pylint: disable=import-error
 
-from typing import Any, Dict, List as _List
+from typing import Any, Dict, List, cast
 import asyncio
 import re
 import sys
@@ -15,6 +15,11 @@ from backend.decorators import (
     enforce_group_level_auth_async
 )
 from backend.domain import resources, project as project_domain
+from backend.typing import (
+    Resource as ResourceType,
+    Resources as ResourcesType,
+    SimplePayload as SimplePayloadType,
+)
 from backend.exceptions import InvalidProject
 from backend import util
 
@@ -22,35 +27,41 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 @sync_to_async
-def _get_repositories(project_name: str):
+def _get_project_name(project_name: str) -> Dict[str, str]:
+    """Get project_name."""
+    return dict(project_name=project_name)
+
+
+@sync_to_async
+def _get_repositories(project_name: str) -> Dict[str, List[ResourceType]]:
     """Get repositories."""
-    project_info = project_domain.get_attributes(
-        project_name, ['repositories']
-    )
+    project_info = cast(Dict[str, List[ResourceType]],
+                        project_domain.get_attributes(project_name,
+                                                      ['repositories']))
     return dict(repositories=project_info.get('repositories', []))
 
 
 @sync_to_async
-def _get_environments(project_name: str):
+def _get_environments(project_name: str) -> Dict[str, List[ResourceType]]:
     """Get environments."""
-    project_info = project_domain.get_attributes(
-        project_name, ['environments']
-    )
+    project_info = cast(Dict[str, List[ResourceType]],
+                        project_domain.get_attributes(project_name,
+                                                      ['environments']))
     return dict(environments=project_info.get('environments', []))
 
 
 @sync_to_async
-def _get_files(project_name: str):
+def _get_files(project_name: str) -> Dict[str, List[ResourceType]]:
     """Get files."""
-    project_info = project_domain.get_attributes(
-        project_name, ['files']
-    )
+    project_info = cast(Dict[str, List[ResourceType]],
+                        project_domain.get_attributes(project_name,
+                                                      ['files']))
     return dict(files=project_info.get('files', []))
 
 
-async def _resolve_fields(info, project_name):
+async def _resolve_fields(info, project_name: str) -> ResourcesType:
     """Async resolve fields."""
-    result = dict(
+    result: ResourcesType = dict(
         repositories=list(),
         environments=list(),
         files=list()
@@ -95,7 +106,7 @@ async def _resolve_fields(info, project_name):
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_resources(_, info, project_name):
+def resolve_resources(_, info, project_name: str) -> ResourcesType:
     """Resolve resources query."""
     return util.run_async(_resolve_fields, info, project_name)
 
@@ -111,9 +122,8 @@ def resolve_resources_mutation(obj, info, **parameters):
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_add_repositories(
-    _, info, repos: _List[Dict[str, str]], project_name: str
-) -> object:
+async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
+                               project_name: str) -> SimplePayloadType:
     """Resolve add_repositories mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
     new_repos = util.camel_case_list_dict(repos)
@@ -137,15 +147,14 @@ async def _do_add_repositories(
             info.context,
             'Security: Attempted to add '
             f'repos to {project_name} project')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_add_environments(
-    _, info, envs: _List[Dict[str, str]], project_name: str
-) -> object:
+async def _do_add_environments(_, info, envs: List[Dict[str, str]],
+                               project_name: str) -> SimplePayloadType:
     """Resolve add_environments mutation."""
     new_envs = util.camel_case_list_dict(envs)
     user_email = util.get_jwt_content(info.context)['user_email']
@@ -169,7 +178,7 @@ async def _do_add_environments(
             info.context,
             'Security: Attempted to add '
             f'envs to {project_name} project')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
