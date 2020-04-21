@@ -32,14 +32,18 @@ from toolbox import (
 #     - Report here if the status Integrates vs Asserts differ
 
 
+def _get_fernet_key(subscription: str) -> str:
+    return utils.generic.get_sops_secret(
+        f'break_build_aws_secret_access_key',
+        f'subscriptions/{subscription}/config/secrets.yaml',
+        f'continuous-{subscription}')
+
+
 def are_exploits_synced__static(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
     results: list = []
 
-    fernet_key: str = utils.generic.get_sops_secret(
-        f'break_build_aws_secret_access_key',
-        f'subscriptions/{subs}/config/secrets.yaml',
-        f'continuous-{subs}')
+    fernet_key: str = _get_fernet_key(subs)
 
     bb_resources = os.path.abspath(
         f'subscriptions/{subs}/break-build/static/resources')
@@ -60,6 +64,13 @@ def are_exploits_synced__static(subs: str, exp_name: str):
 
         finding_id = \
             helper.forces.scan_exploit_for_kind_and_id(exploit_path)[1]
+
+        if not helper.integrates.does_finding_exist(finding_id):
+            logger.error(f'This finding does not exist at integrates!')
+            logger.error(f'  finding_id: {finding_id}')
+            logger.error(f'  exploit_path: {exploit_path}')
+            continue
+
         finding_title = helper.integrates.get_finding_title(finding_id)
 
         if os.path.isfile(exploit_output_path):
@@ -147,10 +158,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
     results: list = []
 
-    fernet_key: str = utils.generic.get_sops_secret(
-        f'break_build_aws_secret_access_key',
-        f'subscriptions/{subs}/config/secrets.yaml',
-        f'continuous-{subs}')
+    fernet_key: str = _get_fernet_key(subs)
 
     aws_role_arns_path = (f'subscriptions/{subs}/break-build/dynamic/'
                           'resources/BB_AWS_ROLE_ARNS.list')
@@ -182,6 +190,13 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str):
 
         finding_id = \
             helper.forces.scan_exploit_for_kind_and_id(exploit_path)[1]
+
+        if not helper.integrates.does_finding_exist(finding_id):
+            logger.error(f'This finding does not exist at integrates!')
+            logger.error(f'  finding_id: {finding_id}')
+            logger.error(f'  exploit_path: {exploit_path}')
+            continue
+
         finding_title = helper.integrates.get_finding_title(finding_id)
         find_wheres = helper.integrates.get_finding_wheres(finding_id)
         find_wheres = tuple(filter(
