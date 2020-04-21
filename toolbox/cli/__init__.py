@@ -68,10 +68,8 @@ def entrypoint():
 @click.option(
     '--read', is_flag=True, help='read the secrets of a subscription')
 @click.option('--push-repos', is_flag=True)
-@click.option('--pull-repos', is_flag=True)
 def resources_management(subscription, check_repos, clone, fingerprint,
-                         mailmap, login, edit, read, push_repos,
-                         pull_repos):
+                         mailmap, login, edit, read, push_repos):
     """Allows administration tasks within subscriptions"""
     if mailmap:
         sys.exit(0 if resources.check_mailmap(subscription) else 1)
@@ -85,8 +83,6 @@ def resources_management(subscription, check_repos, clone, fingerprint,
         sys.exit(0 if resources.read_secrets(subscription) else 1)
     elif push_repos:
         sys.exit(0 if resources.sync_repositories_to_s3(subscription) else 1)
-    elif pull_repos:
-        sys.exit(0 if resources.sync_s3_to_fusion(subscription) else 1)
     elif login:
         sys.exit(0 if utils.generic.okta_aws_login(
             f'continuous-{subscription}') else 1)

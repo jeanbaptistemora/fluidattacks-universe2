@@ -423,3 +423,9 @@ def get_sops_secret(var: str, path: str, profile: str = 'default') -> str:
         logger.error(textwrap.indent(stderr, '    '))
         sys.exit(78)
     return stdout
+
+
+@lru_cache(maxsize=None, typed=True)
+def does_subs_exist(subs: str) -> bool:
+    """Return True if the subscription exists."""
+    return f'subscriptions/{subs}' in glob('subscriptions/*')

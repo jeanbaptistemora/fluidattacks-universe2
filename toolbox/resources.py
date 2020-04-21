@@ -591,21 +591,3 @@ def sync_repositories_to_s3(subs: str) -> bool:
     for repo in local_repositories:
         sync_active_repo_to_s3(subs, repo)
     return True
-
-
-def sync_active_repo_to_fusion(subs: str):
-    local_path = f"subscriptions/{subs}/fusion/"
-    bucket_path = f"s3://continuous-repositories/{subs}/active/"
-    if not os.path.exists(local_path):
-        os.makedirs(local_path, exist_ok=True)
-    sync_command = ["aws", "s3", "sync", bucket_path, local_path,
-                    "--sse", "AES256", "--quiet"]
-    subprocess.run(sync_command, check=True)
-
-
-def sync_s3_to_fusion(subs: str) -> bool:
-    if not does_project_exist(subs):
-        return False
-    logger.info(f"Dowloading {subs} repositories")
-    sync_active_repo_to_fusion(subs)
-    return True
