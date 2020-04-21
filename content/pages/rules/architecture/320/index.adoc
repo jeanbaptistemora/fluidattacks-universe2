@@ -18,8 +18,11 @@ access control gateways, severs and serverless functions.
 Client-side access control enforcement can not be trusted because it is prone
 to being bypassed and/or tampered with.
 
-== References
+== Findings
 
+* link:/web/findings/039/[F039. Improper authorization control for web services]
+
+== References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]
 The software does not restrict or incorrectly restricts access to a resource

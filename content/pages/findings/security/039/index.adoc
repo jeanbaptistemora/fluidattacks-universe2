@@ -1,0 +1,22 @@
+:slug: findings/039/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not properly controlling access to web services, recommendations to avoid them and related security requirements.
+:keywords: Web, Services, Authorization, Bypass, Control, Mechanism
+:findings: yes
+:type: security
+
+= F039. Improper authorization control for web services
+
+== Description
+
+The system's web services do not have an authorization control mechanism or the
+one in place can be bypassed.
+
+== Rules
+
+. [[r1]] link:/web/rules/096/[R096 Set user required privileges]
+
+. [[r2]] link:/web/rules/176/[R176 Restrict system objects]
+
+. [[r3]] link:/web/rules/265/[R265 Restrict access to critical processes]
+
+. [[r4]] link:/web/rules/320/[R320 Avoid client-side control enforcement]

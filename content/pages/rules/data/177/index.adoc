@@ -22,6 +22,10 @@ corrupted.
 Thus, avoiding cache memory and temporary files helps protect sensitive
 information.
 
+== Findings
+
+* link:/web/findings/038/[F038. Business information leak]
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]

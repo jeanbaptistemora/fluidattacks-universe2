@@ -1,0 +1,16 @@
+:slug: findings/040/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from exposing a WSDL file with sensitive information, recommendations to avoid them and related security requirements.
+:keywords: Web, Services, WSDL, Sensitive, Information, Exposed
+:findings: yes
+:type: security
+
+= F040. Exposed web services
+
+== Description
+
+The system's WSDL file contains sensitive information and is exposed for a
+greater audience than it is required.
+
+== Rules
+
+. [[r1]] link:/web/rules/176/[R176 Restrict system objects]

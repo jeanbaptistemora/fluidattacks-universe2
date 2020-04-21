@@ -9,15 +9,19 @@
 == Requirement
 
 Bussiness sensitive data
-(credit card numbers, +CVV+, etc) must be masked.
+(credit card numbers, *CVV*, etc) must be masked.
 
 == Description
 
 Applications usually handle personal information such as credit card numbers,
-`CVV`, personal identifications, social security numbers, etc.
+*CVV*, personal identifications, social security numbers, etc.
 The exposure of this data could severely affect their owners and so they must
 be considered sensitive and specifically protected.
 Masking is a mechanism that contributes to this protection.
+
+== Findings
+
+* link:/web/findings/038/[F038. Business information leak]
 
 == References
 

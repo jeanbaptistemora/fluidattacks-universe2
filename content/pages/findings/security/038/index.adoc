@@ -1,0 +1,29 @@
+:slug: findings/038/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities related with business information leaks, recommendations to avoid them and related security requirements.
+:keywords: Business, Information, Data, Leak, Exposed, Confidential
+:findings: yes
+:type: security
+
+= F038. Business information leak
+
+== Description
+
+It is possible to obtain business information such as:
+
+* Usernames list
+
+* Strategic information
+
+* Employees' information
+
+* Clients' information
+
+* Providers' information
+
+== Rules
+
+. [[r1]] link:/web/rules/176/[R176 Restrict system objects]
+
+. [[r2]] link:/web/rules/177/[R177 Store data securely]
+
+. [[r3]] link:/web/rules/300/[R300 Mask sensitive data]

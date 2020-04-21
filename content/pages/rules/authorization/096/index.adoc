@@ -18,6 +18,10 @@ privilege for accessing resources.
 The privileges of each role must be clearly defined and the role of each user
 should also be clearly stated.
 
+== Findings
+
+* link:/web/findings/039/[F039. Improper authorization control for web services]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
