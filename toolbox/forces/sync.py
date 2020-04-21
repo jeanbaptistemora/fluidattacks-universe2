@@ -6,7 +6,6 @@ import os
 import textwrap
 from typing import (
     Any,
-    List,
     Tuple,
 )
 
@@ -20,14 +19,6 @@ from toolbox import (
     logger,
     utils,
 )
-
-
-def are_exploits_synced__show(outputs_to_show: List[str]):
-    """Print the results of a list of outputs."""
-    logger.info('')
-    logger.info('Please check the outputs in the following files:')
-    while outputs_to_show:
-        logger.info('- ', outputs_to_show.pop())
 
 
 def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
@@ -166,12 +157,6 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> Tuple[bool, Any]:
                 'synced': 'yes' if imsg == amsg else 'no',
             })
 
-    if not success:
-        logger.info('')
-        logger.error('This subscription is new or has been synced in the past'
-                     '  please maintain it synced')
-        are_exploits_synced__show(outputs_to_show)
-
     return success, results
 
 
@@ -307,12 +292,6 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> Tuple[bool, Any]:
             'subscription': subs,
             'synced': 'yes' if imsg == amsg else 'no',
         })
-
-    if not success:
-        logger.info('')
-        msg = 'Some exploit ended with EXPLOIT-ERROR status. Please check.'
-        logger.error(msg)
-        are_exploits_synced__show(outputs_to_show)
 
     return success, results
 
