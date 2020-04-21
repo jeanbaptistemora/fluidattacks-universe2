@@ -856,6 +856,7 @@ const enTranslations: Dictionary = {
     low_severity: "Low Severity",
     mean_remediate: "Mean (average) days to remediate",
     medium_severity: "Medium Severity",
+    open_findings_project: "Open findings by project",
     open_vuln: "open vulns.",
     remediated_accepted_vuln: "How many vulnerabilities are remediated and accepted?",
     remediated_vuln: "How many vulnerabilities are remediated (closed)?",

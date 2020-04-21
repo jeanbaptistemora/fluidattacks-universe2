@@ -54,6 +54,7 @@ interface IProjectTag {
   meanRemediateLowSeverity: number;
   meanRemediateMediumSeverity: number;
   name: string;
+  openFindings: number;
   openVulnerabilities: number;
   totalFindings: number;
   totalTreatment: string;
@@ -268,6 +269,39 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     };
 
     return stackedBarGraphData;
+  };
+
+  const formatYAxesBarLabel: ((value: number) => string | number) = (value: number): string | number => (
+    Math.floor(value) === value ? value : ""
+  );
+
+  const sortByOpenFindings: ((projectA: IProjectTag, projectB: IProjectTag) => number) = (
+    projectA: IProjectTag, projectB: IProjectTag,
+  ): number => (
+    projectB.openFindings - projectA.openFindings
+  );
+
+  const formatOpenFindings: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
+    const sortedProjects: IProjectTag[] = projects.sort(sortByOpenFindings);
+    const statusDataset: ChartDataSets = {
+      backgroundColor: "#0b84a5",
+      data: sortedProjects.map((project: IProjectTag) => project.openFindings),
+      pointRadius: 1,
+    };
+    const barData: ChartData = {
+      datasets: [statusDataset],
+      labels: sortedProjects.map((project: IProjectTag) => project.name),
+    };
+
+    return barData;
+  };
+
+  const chartBarOptions: ChartOptions = {
+    legend: { display: false },
+    scales: {
+      xAxes: [{ gridLines: { display: false }, ticks: { autoSkip: false } }],
+      yAxes: [{ gridLines: { display: false }, ticks: { beginAtZero: true, callback: formatYAxesBarLabel } }],
+    },
   };
 
   const sortByTotalFindings: ((projectA: IProjectTag, projectB: IProjectTag) => number) = (
@@ -526,13 +560,18 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             data={formatTotalFindings(data.tag.projects)}
             height={100}
             name={translate.t("tag_indicator.findings_project")}
-            options={{
-              legend: { display: false },
-              scales: {
-                xAxes: [{ gridLines: { display: false }, ticks: { autoSkip: false } }],
-                yAxes: [{ gridLines: { display: false }, ticks: { beginAtZero: true } }],
-              },
-            }}
+            options={chartBarOptions}
+          />
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col mdOffset={1} md={10} sm={12} xs={12}>
+          <IndicatorStack
+            data={formatOpenFindings(data.tag.projects)}
+            height={100}
+            name={translate.t("tag_indicator.open_findings_project")}
+            options={chartBarOptions}
           />
         </Col>
       </Row>

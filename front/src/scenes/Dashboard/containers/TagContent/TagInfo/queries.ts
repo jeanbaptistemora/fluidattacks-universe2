@@ -16,6 +16,7 @@ export const TAG_QUERY: DocumentNode = gql`
         meanRemediateMediumSeverity
         meanRemediate
         name
+        openFindings
         openVulnerabilities
         totalFindings
         totalTreatment

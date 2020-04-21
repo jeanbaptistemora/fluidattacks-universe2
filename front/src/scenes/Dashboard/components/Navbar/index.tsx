@@ -34,7 +34,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
 
   return (
     <React.StrictMode>
-      <Row className={style.container}>
+      <Row id="navbar" className={style.container}>
         <Col md={9} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
             <BreadcrumbItem>

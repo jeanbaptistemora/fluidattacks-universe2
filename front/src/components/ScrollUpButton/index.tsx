@@ -15,7 +15,7 @@ interface IScrollUPButtonProps {
 const scrollUpButton: React.FC<IScrollUPButtonProps> = (props: IScrollUPButtonProps): JSX.Element => (
   <React.StrictMode>
     <ScrollUp showUnder={props.visibleAt} duration={400}>
-      <span className={style.container} />
+      <span id="scroll-up" className={style.container} />
     </ScrollUp>
   </React.StrictMode>
 );

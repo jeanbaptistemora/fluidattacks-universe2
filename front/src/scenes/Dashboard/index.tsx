@@ -96,7 +96,7 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
           </ConfirmDialog>
           <div>
             <Navbar />
-            <div className={style.container}>
+            <div id="dashboard" className={style.container}>
               <Switch>
                 <Route path="/home" exact={true} component={HomeView} />
                 <Route path="/reports" component={ReportsView} />

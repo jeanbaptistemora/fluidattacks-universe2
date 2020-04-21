@@ -217,3 +217,71 @@ label {
 :local .active {
   background-color: #EEEEEE !important;
 }
+
+@media print {
+  :global(.col-md-1,.col-md-2,.col-md-3,.col-md-4,
+  .col-md-5,.col-md-6,.col-md-7,.col-md-8, 
+  .col-md-9,.col-md-10,.col-md-11,.col-md-12) {
+    float: left;
+  }
+  :global .col-md-offset-1 {
+    margin-left: 8%;
+  }
+  :global .col-md-1 {
+    width: 8%;
+  }
+  :global .col-md-2 {
+    width: 16%;
+  }
+  :global .col-md-3 {
+    width: 25%;
+  }
+  :global .col-md-4 {
+    width: 33%;
+  }
+  :global .col-md-5 {
+    width: 42%;
+  }
+  :global .col-md-6 {
+    width: 50%;
+  }
+  :global .col-md-7 {
+    width: 58%;
+  }
+  :global .col-md-8 {
+    width: 66%;
+  }
+  :global .col-md-9 {
+    width: 75%;
+  }
+  :global .col-md-10 {
+    width: 83%;
+  }
+  :global .col-md-11 {
+    width: 92%;
+  }
+  :global .col-md-12 {
+    width: 100%;
+  }
+  :global #dashboard {
+    margin-left: 0cm;
+  }
+  :global table {
+    page-break-inside: avoid;
+  }
+  :global(h1, h2, h3, h4, h5, h6) {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  :global .alert,
+  :global .btn,
+  :global .bm-menu-wrap,
+  :global nav,
+  :global #navbar,
+  :global #scroll-up {
+    display: none;
+  }
+  @page {
+    margin: 1cm;
+  }
+}

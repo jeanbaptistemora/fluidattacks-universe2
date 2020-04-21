@@ -632,15 +632,19 @@ class ViewTestCase(unittest.TestCase):
             'window.scrollTo(0, 380);')
         selenium.save_screenshot(SCR_PATH + '18-03-tag_indicators.png')
         selenium.execute_script(
-            'window.scrollTo(380, 780);')
+            'window.scrollTo(380, 800);')
         selenium.save_screenshot(SCR_PATH + '18-04-tag_indicators.png')
         selenium.execute_script(
-            'window.scrollTo(780, 1180);')
+            'window.scrollTo(800, 1200);')
         selenium.save_screenshot(SCR_PATH + '18-05-tag_indicators.png')
         selenium.execute_script(
-            'window.scrollTo(1180, 1580);')
+            'window.scrollTo(1200, 1600);')
         selenium.save_screenshot(SCR_PATH + '18-06-tag_indicators.png')
+        selenium.execute_script(
+            'window.scrollTo(1600, 2000);')
+        selenium.save_screenshot(SCR_PATH + '18-07-tag_indicators.png')
         assert 'Findings by project' in selenium.page_source
+        assert 'Open findings by project' in selenium.page_source
         assert 'Mean time to remediate' in selenium.page_source
         assert 'remediated' in selenium.page_source
         assert 'Status' in selenium.page_source
@@ -652,5 +656,5 @@ class ViewTestCase(unittest.TestCase):
                 expected.presence_of_element_located(
                     (By.XPATH,
                      "//*[contains(text(), 'There is no data to display')]")))
-        selenium.save_screenshot(SCR_PATH + '18-07-tag_indicators.png')
+        selenium.save_screenshot(SCR_PATH + '18-08-tag_indicators.png')
         assert 'There is no data to display' in selenium.page_source
