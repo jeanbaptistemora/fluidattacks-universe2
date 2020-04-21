@@ -16,7 +16,7 @@ from backend.domain.project import (
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
-    get_mean_remediate_severity, validate_project_services_config
+    get_mean_remediate_severity, remove_access, validate_project_services_config
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -40,6 +40,10 @@ class ProjectTest(TestCase):
             validate_project_services_config(False, False, True)
         with pytest.raises(InvalidProjectServicesConfig):
             validate_project_services_config(False, True, False)
+
+    def test_remove_access(self):
+        assert remove_access('unittest', 'unittesting')
+        assert not remove_access('', '')
 
     def test_validate_tags(self):
         assert validate_tags(
