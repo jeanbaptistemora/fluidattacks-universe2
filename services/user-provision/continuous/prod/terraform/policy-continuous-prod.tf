@@ -108,6 +108,17 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-*"
     ]
   }
+
+  # Sagemaker for sorts
+  statement {
+    effect  = "Allow"
+    actions = [
+      "sagemaker:*"
+    ]
+    resources = [
+      "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.current.account_id}:role/continuous-admin"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "continuous-prod-policy" {
