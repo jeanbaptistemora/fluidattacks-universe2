@@ -509,8 +509,8 @@ async def resolve(info, identifier, as_field=False, selection_set=None):
     result = dict()
     tasks = list()
     requested_fields = \
-        util.get_requested_fields('findings', selection_set) \
-        if as_field else info.field_nodes[0].selection_set.selections
+        selection_set.selections if as_field else \
+        info.field_nodes[0].selection_set.selections
 
     for requested_field in requested_fields:
         if util.is_skippable(info, requested_field):

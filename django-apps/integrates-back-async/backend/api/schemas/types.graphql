@@ -107,7 +107,7 @@ type User {
 "Project type definition"
 type Project {
     name: String
-    findings: [Finding!]
+    findings(filters: GenericScalar): [Finding]
     hasDrills: Boolean
     hasForces: Boolean
     openVulnerabilities: Int

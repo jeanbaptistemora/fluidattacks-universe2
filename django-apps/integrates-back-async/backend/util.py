@@ -18,7 +18,9 @@ from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
 from graphql import GraphQLError
-from graphql.language.ast import BooleanValueNode, NameNode, VariableNode
+from graphql.language.ast import (
+    BooleanValueNode, NameNode, ObjectValueNode, VariableNode
+)
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
@@ -509,6 +511,8 @@ def get_requested_fields(field_name, selection_set):
 
 def get_field_parameters(field, variable_values=None):
     """Get a dict of parameters for field."""
+    if not hasattr(field, 'arguments'):
+        return None
     if not field.arguments:
         return None
 
@@ -522,6 +526,8 @@ def get_field_parameters(field, variable_values=None):
             parameters[arg_name] = variable_values.get(args.value.name.value)
         elif isinstance(args.value, NameNode):
             parameters[arg_name] = args.value.value
+        elif isinstance(args.value, ObjectValueNode):
+            parameters[arg_name] = args.value.fields
         else:
             parameters[arg_name] = args.value.value
 

@@ -148,6 +148,27 @@ class ProjectTests(TestCase):
         assert len(result['data']['project']['users']) == 4
 
     @pytest.mark.asyncio
+    async def test_project_filtered(self):
+        """Check for project mutation."""
+        query = '''
+          query {
+            project(projectName: "unittesting"){
+              findings(filters: {affectedSystems: "test", actor: "ANY_EMPLOYEE"}) {
+                id
+                actor
+              }
+            }
+          }
+        '''
+        data = {'query': query}
+        result = await self._get_result_async(data)
+        assert 'errors' not in result
+        assert len(result['data']['project']['findings']) == 1
+        assert result['data']['project']['findings'][0]['id'] == "463461507"
+        assert result['data']['project']['findings'][0]['actor'] == "ANY_EMPLOYEE"
+
+
+    @pytest.mark.asyncio
     async def test_alive_projects(self):
         """Check for project mutation."""
         query = '''

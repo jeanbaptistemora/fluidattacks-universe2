@@ -4,8 +4,8 @@ from datetime import datetime
 import asyncio
 import sys
 import time
-from typing import Dict, List, Set, cast
-from graphql.language.ast import SelectionSetNode
+from typing import Dict, List, Set, cast, Union
+from graphql.language.ast import FieldNode, SelectionSetNode, ObjectFieldNode
 import simplejson as json
 from asgiref.sync import sync_to_async
 import rollbar
@@ -83,9 +83,16 @@ async def _get_has_forces(_, project_name: str, **__) -> Dict[str, bool]:
 
 
 async def _get_findings(
-        info, project_name: str, requested_fields: list) -> \
-        Dict[str, List[Dict[str, FindingType]]]:
+        info, project_name: str, requested_fields: list,
+        filters=None) -> Dict[str, List[Dict[str, FindingType]]]:
     """Resolve findings attribute."""
+    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+    req_fields.extend(util.get_requested_fields('findings', selection_set))
+    if filters:
+        req_fields.extend(filters)
+    selection_set.selections = req_fields
     await sync_to_async(util.cloudwatch_log)(
         info.context,
         f'Security: Access to {project_name} findings')  # pragma: no cover
@@ -94,14 +101,19 @@ async def _get_findings(
     )
     findings = await info.context.loaders['finding'].load_many(finding_ids)
     as_field = True
-    selection_set = SelectionSetNode()
-    selection_set.selections = requested_fields
+
     findings = [
         await finding_loader.resolve(info, finding['id'],
                                      as_field, selection_set)
         for finding in findings
         if finding['current_state'] != 'DELETED'
     ]
+    if filters:
+        findings = [
+            finding for finding in findings
+            if all(str(finding[util.camelcase_to_snakecase(filt.name.value)])
+                   == str(filt.value.value) for filt in filters)
+        ]
     return dict(findings=findings)
 
 
