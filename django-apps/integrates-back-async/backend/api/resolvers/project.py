@@ -422,6 +422,7 @@ async def _get_events(info,
     return dict(events=events)
 
 
+@enforce_group_level_auth_async
 async def _get_users(info, project_name: str,
                      requested_fields: list) -> Dict[str, List[UserType]]:
     """Get users."""
