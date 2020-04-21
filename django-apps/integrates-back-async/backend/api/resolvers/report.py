@@ -9,6 +9,7 @@ from backend.domain import (
     finding as finding_domain, project as project_domain,
     report as report_domain, vulnerability as vuln_domain
 )
+from backend.typing import SimplePayload as SimplePayloadType
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
@@ -23,9 +24,10 @@ def resolve_report_mutation(obj, info, **parameters):
 
 
 @require_login
-async def _do_request_project_report(_, info, **parameters):
+async def _do_request_project_report(_, info,
+                                     **parameters) -> SimplePayloadType:
     success = False
-    project_name = parameters.get('project_name')
+    project_name = parameters.get('project_name', '')
     report_type = parameters.get('report_type')
     user_info = util.get_jwt_content(info.context)
     user_email = user_info['user_email']
@@ -66,4 +68,4 @@ async def _do_request_project_report(_, info, **parameters):
         generate_xls_report_thread.start()
         success = True
 
-    return dict(success=success)
+    return SimplePayloadType(success=success)
