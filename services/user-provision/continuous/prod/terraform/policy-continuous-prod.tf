@@ -116,7 +116,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       "sagemaker:*"
     ]
     resources = [
-      "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.current.account_id}:role/continuous-admin"
+      "*"
     ]
   }
 }
