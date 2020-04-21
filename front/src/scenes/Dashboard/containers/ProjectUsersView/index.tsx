@@ -14,6 +14,7 @@ import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { Can } from "../../../../utils/authz/Can";
 import { formatUserlist } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -194,16 +195,20 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
           <Col md={12} sm={12} xs={12}>
             <Row>
               <Col md={12} sm={12}>
-                {_.includes(["admin", "customeradmin"], userRole) ? (
-                  <ButtonToolbar className="pull-right md-12 sm-12">
+                <ButtonToolbar className="pull-right md-12 sm-12">
+                  <Can do="backend_api_resolvers_user_resolve_grant_user_access">
                     <Button id="addUser" onClick={openAddUserModal}>
                       <Glyphicon glyph="plus" />
                       &nbsp;{translate.t("search_findings.tab_users.add_button")}
                     </Button>
+                  </Can>
+                  <Can do="backend_api_resolvers_user_resolve_edit_user">
                     <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
                       <FluidIcon icon="edit" />
                       &nbsp;{translate.t("search_findings.tab_users.edit")}
                     </Button>
+                  </Can>
+                  <Can do="backend_api_resolvers_user_resolve_remove_user_access">
                     <Button
                       id="removeUser"
                       onClick={handleRemoveUser}
@@ -212,8 +217,8 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                       <Glyphicon glyph="minus" />
                       &nbsp;{translate.t("search_findings.tab_users.remove_user")}
                     </Button>
-                  </ButtonToolbar>
-                ) : undefined}
+                  </Can>
+                </ButtonToolbar>
               </Col>
             </Row>
             <br />

@@ -2,8 +2,9 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code in graphql queries
  */
-import { MutationFunction, MutationResult } from "@apollo/react-common";
-import { Mutation } from "@apollo/react-components";
+import { useMutation } from "@apollo/react-hooks";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
@@ -14,6 +15,7 @@ import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
+import { authzContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -26,26 +28,45 @@ import { IRemoveProject, IRemoveProjectModal } from "./types";
 
 const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
   (props: IRemoveProjectModal): JSX.Element => {
+    const { onClose } = props;
     const projectName: string = props.projectName.toLowerCase();
-    const { userRole } = window as typeof window & Dictionary<string>;
-    const canDisplayTags: boolean = _.includes(["admin", "customeradmin"], userRole);
-    const closeRemoveProjectModal: (() => void) = (): void => { props.onClose(); };
-    const removeProjectError: ((error: ApolloError) => void) = (error: ApolloError): void => {
-      closeRemoveProjectModal();
-      handleGraphQLErrors("An error occurred removing project", error);
-    };
+    const permissions: PureAbility<string> = useAbility(authzContext);
+
     const sameProjectName: ConfigurableValidator = sameValue(projectName);
     const selector: (state: {}, ...fields: string[]) => string = formValueSelector("removeProject");
     const projectNameInput: string = useSelector((state: {}) => selector(state, "projectName"));
     const disableButton: boolean = sameProjectName(projectNameInput);
-    const removeProjectResult: ((mtResult: IRemoveProject) => void) = (mtResult: IRemoveProject): void => {
-      if (!_.isUndefined(mtResult) && mtResult.requestRemoveProject.success) {
-        location.assign("/integrates/dashboard#!/home");
-        msgSuccess(
-          translate.t("proj_alerts.request_remove"),
-          translate.t("proj_alerts.title_success"),
-        );
-      }
+
+    const [removeProject, { loading: submitting }] = useMutation(REQUEST_REMOVE_PROJECT_MUTATION, {
+      onCompleted: (mtResult: IRemoveProject): void => {
+        if (mtResult.requestRemoveProject.success) {
+          location.hash = "#!/home";
+          msgSuccess(
+            translate.t("proj_alerts.request_remove"),
+            translate.t("proj_alerts.title_success"),
+          );
+        }
+      },
+      onError: (error: ApolloError): void => {
+        onClose();
+        handleGraphQLErrors("An error occurred removing project", error);
+      },
+      refetchQueries: [
+        {
+          query: PROJECTS_QUERY,
+          variables: { tagsField: permissions.can("backend_api_resolvers_me__get_tags") },
+        },
+      ],
+    });
+
+    const handleSubmit: ((values: { projectName: string }) => void) = async (
+      values: { projectName: string },
+    ): Promise<void> => {
+      await removeProject({
+        variables: {
+          projectName: values.projectName,
+        },
+      });
     };
 
     return (
@@ -53,26 +74,12 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
         <Modal
           footer={<div />}
           headerTitle={translate.t("search_findings.tab_resources.removeProject")}
-          onClose={closeRemoveProjectModal}
+          onClose={onClose}
           open={props.isOpen}
         >
-          <Mutation
-            mutation={REQUEST_REMOVE_PROJECT_MUTATION}
-            onCompleted={removeProjectResult}
-            onError={removeProjectError}
-            refetchQueries={[{ query: PROJECTS_QUERY, variables: { tagsField: canDisplayTags }}]}
-          >
-            {(removeProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
-
-              const handleSubmit: ((values: { projectName: string }) => void) =
-              (values: { projectName: string }): void => {
-                removeProject({ variables: {
-                  projectName: values.projectName,
-                }})
-                .catch();
-              };
-
-              return (
+          <React.Fragment>
+            <React.Fragment>
+              <React.Fragment>
                 <GenericForm name="removeProject" onSubmit={handleSubmit}>
                   {({ pristine }: InjectedFormProps): JSX.Element => (
                     <React.Fragment>
@@ -93,7 +100,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
                       </Row>
                       <br />
                       <ButtonToolbar className="pull-right">
-                        <Button bsStyle="success" onClick={closeRemoveProjectModal}>
+                        <Button bsStyle="success" onClick={onClose}>
                           {translate.t("confirmmodal.cancel")}
                         </Button>
                         <Button bsStyle="success" type="submit" disabled={pristine || submitting || disableButton}>
@@ -103,12 +110,12 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
                     </React.Fragment>
                   )}
                 </GenericForm>
-              );
-            }}
-          </Mutation>
+              </React.Fragment>
+            </React.Fragment>
+          </React.Fragment>
         </Modal>
       </React.StrictMode>
     );
-};
+  };
 
 export { removeProjectModal as RemoveProjectModal };
