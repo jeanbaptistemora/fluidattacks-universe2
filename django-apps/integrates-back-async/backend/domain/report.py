@@ -41,7 +41,7 @@ def generate_xls_report(project_name: str, user_email: str,
                                       passphrase, 'XLS', signed_url)
 
 
-def pdf_evidences(findings: List[Dict[str, FindingType]]):
+def pdf_evidences(findings: List[Dict[str, FindingType]]) -> List[Dict[str, FindingType]]:
     for finding in findings:
         folder_name = str(finding['projectName']) + '/' + str(finding['findingId'])
         evidences = cast(Dict[str, Dict[str, str]], finding['evidence'])
