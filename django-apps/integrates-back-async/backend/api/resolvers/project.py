@@ -30,6 +30,8 @@ from backend.typing import (
     Finding as FindingType,
     Project as ProjectType,
     User as UserType,
+    AddCommentPayload as AddCommentPayloadType,
+    SimplePayload as SimplePayloadType,
     SimpleProjectPayload as SimpleProjectPayloadType,
 )
 from backend import util
@@ -508,7 +510,7 @@ def resolve_project(_, info, project_name: str) -> ProjectType:
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-def resolve_create_project(_, info, **kwargs):
+def resolve_create_project(_, info, **kwargs) -> SimplePayloadType:
     """Resolve create_project mutation."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
@@ -516,20 +518,21 @@ def resolve_create_project(_, info, **kwargs):
     success = project_domain.create_project(
         user_data['user_email'], user_role, **kwargs)
     if success:
-        project = kwargs.get('project_name').lower()
+        project = kwargs.get('project_name', '').lower()
         util.invalidate_cache(user_data['user_email'])
         util.cloudwatch_log(
             info.context,
             f'Security: Created project {project} '
             'successfully')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_request_remove_project(_, info, project_name):
+def resolve_request_remove_project(_, info,
+                                   project_name: str) -> SimplePayloadType:
     """Resolve request_remove_project mutation."""
     user_info = util.get_jwt_content(info.context)
     success = \
@@ -541,14 +544,15 @@ def resolve_request_remove_project(_, info, project_name):
             info.context,
             'Security: '
             f'Pending to remove project {project}')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_reject_remove_project(_, info, project_name):
+def resolve_reject_remove_project(_, info,
+                                  project_name: str) -> SimplePayloadType:
     """Resolve reject_remove_project mutation."""
     user_info = util.get_jwt_content(info.context)
     success = \
@@ -560,16 +564,17 @@ def resolve_reject_remove_project(_, info, project_name):
             info.context,
             'Security: Reject project '
             f'{project} deletion succesfully')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_add_project_comment(_, info, **parameters):
+def resolve_add_project_comment(_, info,
+                                **parameters) -> AddCommentPayloadType:
     """Resolve add_project_comment mutation."""
-    project_name = parameters.get('project_name').lower()
+    project_name = parameters.get('project_name', '').lower()
     user_info = util.get_jwt_content(info.context)
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time.time() * 1000))
@@ -592,7 +597,7 @@ def resolve_add_project_comment(_, info, **parameters):
     else:
         util.cloudwatch_log(info.context, f'Security: Attempted to add \
             comment in {project_name} project')  # pragma: no cover
-    ret = dict(success=success, comment_id=comment_id)
+    ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
     return ret
 
 
@@ -638,13 +643,16 @@ Attempted to upload tags without the allowed validations')  # pragma: no cover
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_remove_tag(_, info, project_name, tag):
+def resolve_remove_tag(_, info, project_name: str,
+                       tag: str) -> SimpleProjectPayloadType:
     """Resolve remove_tag mutation."""
     success = False
     project_name = project_name.lower()
     if project_domain.is_alive(project_name):
-        project_tags = project_domain.get_attributes(project_name, ['tag'])
-        project_tags.get('tag').remove(tag)
+        project_tags = cast(ProjectType,
+                            project_domain.get_attributes(project_name,
+                                                          ['tag']))
+        cast(Set[str], project_tags.get('tag')).remove(tag)
         if project_tags.get('tag') == set():
             project_tags['tag'] = None
         tag_deleted = project_domain.update(project_name, project_tags)
@@ -662,13 +670,15 @@ An error occurred removing a tag', 'error', info.context)
         util.cloudwatch_log(
             info.context, 'Security: Attempted to remove '
             f'tag in {project_name} project')  # pragma: no cover
-    return dict(success=success)
+    project = util.run_async(resolve, info, project_name, True, False)
+    return SimpleProjectPayloadType(success=success, project=project)
 
 
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
-def resolve_add_all_project_access(_, info, project_name):
+def resolve_add_all_project_access(_, info,
+                                   project_name: str) -> SimplePayloadType:
     """Resolve add_all_project_access mutation."""
     success = project_domain.add_all_access_to_project(project_name)
     if success:
@@ -677,13 +687,14 @@ def resolve_add_all_project_access(_, info, project_name):
             'Security: '
             f'Add all project access of {project_name}')  # pragma: no cover
         util.invalidate_cache(project_name)
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
-def resolve_remove_all_project_access(_, info, project_name):
+def resolve_remove_all_project_access(_, info,
+                                      project_name: str) -> SimplePayloadType:
     """Resolve remove_all_project_access mutation."""
     success = project_domain.remove_all_project_access(project_name)
     if success:
@@ -692,18 +703,18 @@ def resolve_remove_all_project_access(_, info, project_name):
             'Security: Remove '
             f'all project access of {project_name}')  # pragma: no cover
         util.invalidate_cache(project_name)
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-def resolve_alive_projects(_, info):
+def resolve_alive_projects(_, info) -> List[ProjectType]:
     """Resolve for ACTIVE and SUSPENDED projects."""
     return util.run_async(_get_alive_projects, info)
 
 
-async def _get_alive_projects(info):
+async def _get_alive_projects(info) -> List[ProjectType]:
     """Resolve for ACTIVE and SUSPENDED projects."""
     alive_projects = await sync_to_async(project_domain.get_alive_projects)()
     return [await resolve(info, project) for project in alive_projects]
