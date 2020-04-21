@@ -252,6 +252,8 @@ def escape(obj: str) -> str:
 
     # escape double quotes for postgresql query
     str_obj = str_obj.replace('"', '""')
+    # escape single quotes for postgresql query
+    str_obj = str_obj.replace("'", "\\'")
 
     return str_obj
 
