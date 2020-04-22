@@ -3,7 +3,7 @@
 }
 
 :local .box_size {
-	max-height: 370px !important;
-	max-width: 370px !important;
-	margin-top: 10px;
+  max-height: 370px !important;
+  max-width: 370px !important;
+  margin: 0 auto;
 }

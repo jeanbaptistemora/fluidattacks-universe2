@@ -430,7 +430,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       Number.MAX_SAFE_INTEGER)
   );
 
-  const sortUndefinedVulns: ((aObject: IBoxInfo, bObject: IBoxInfo) => number) = (
+  const sortBoxInfo: ((aObject: IBoxInfo, bObject: IBoxInfo) => number) = (
     aObject: IBoxInfo, bObject: IBoxInfo,
   ): number => (
     bObject.value - aObject.value
@@ -444,23 +444,81 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     return { value: projectTreatment.undefined, name: project.name };
   };
 
-  const formatUndefinedGraph: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
+  const getTotalVulnsByProject: ((project: IProjectTag) => IBoxInfo) = (
+    project: IProjectTag,
+  ): IBoxInfo => (
+    ({ value: project.openVulnerabilities + project.closedVulnerabilities, name: project.name })
+  );
+
+  const getRandomColor: ((projects: IProjectTag[]) => Dictionary<string>) = (
+    projects: IProjectTag[],
+  ): Dictionary<string> => (
+    Object.assign({}, ...projects.map((project: IProjectTag) => ({
+      [`${project.name}`]:
+        `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`,
+    })))
+  );
+
+  const formatUndefinedGraph: ((projects: IProjectTag[], colors: Dictionary<string>) => ChartData) = (
+    projects: IProjectTag[], colors: Dictionary<string>,
+  ): ChartData => {
     const totalUndefinedVulnerabilities: number = getNumberOfUndefinedVulns(projects);
     const dataGraphs: IBoxInfo[] = projects.map(getPercentUndefinedVulnerabilities);
-    const dataGraphSorted: IBoxInfo[] = dataGraphs.sort(sortUndefinedVulns);
-    const colors: string[] = projects.map((_0: IProjectTag) =>
-      `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`);
+    const dataGraphSorted: IBoxInfo[] = dataGraphs.sort(sortBoxInfo);
     const chartData: ChartData = {
       datasets: [{
-        backgroundColor: colors.map((color: string) => `rgb(${color}, 0.75)`),
+        backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
         data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
-        hoverBackgroundColor: colors.map((color: string) => `rgb(${color}, 1)`),
+        hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
       }],
       labels: dataGraphSorted.map(
         (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalUndefinedVulnerabilities)}% ${dataGraph.name}`),
     };
 
     return chartData;
+  };
+
+  const formatVulnsGraph: ((projects: IProjectTag[], colors: Dictionary<string>) => ChartData) = (
+    projects: IProjectTag[], colors: Dictionary<string>,
+  ): ChartData => {
+    const totalVulnerabilities: number = getNumberOfVulns(projects);
+    const dataGraphs: IBoxInfo[] = projects.map(getTotalVulnsByProject);
+    const dataGraphSorted: IBoxInfo[] = dataGraphs.sort(sortBoxInfo);
+    const chartData: ChartData = {
+      datasets: [{
+        backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
+        data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
+        hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
+      }],
+      labels: dataGraphSorted.map(
+        (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalVulnerabilities)}% ${dataGraph.name}`),
+    };
+
+    return chartData;
+  };
+
+  const formatOpenVulnsGraph: ((projects: IProjectTag[], colors: Dictionary<string>) => ChartData) = (
+    projects: IProjectTag[], colors: Dictionary<string>,
+  ): ChartData => {
+    const totalVulnerabilities: number = getNumberOfOpenVulns(projects);
+    const dataGraphs: IBoxInfo[] = projects.map(
+      (project: IProjectTag) => ({ value: project.openVulnerabilities, name: project.name }));
+    const dataGraphSorted: IBoxInfo[] = dataGraphs.sort(sortBoxInfo);
+    const chartData: ChartData = {
+      datasets: [{
+        backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
+        data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
+        hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
+      }],
+      labels: dataGraphSorted.map(
+        (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalVulnerabilities)}% ${dataGraph.name}`),
+    };
+
+    return chartData;
+  };
+
+  const chartGraphOptions: ChartOptions = {
+    legend: { labels: { padding: 6, usePointStyle: true } },
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
@@ -476,6 +534,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     );
   }
 
+  const randomColors: Dictionary<string> = getRandomColor(data.tag.projects);
   const goToProjectMaxSeverityFindings: (() => void) = (): void => {
     location.hash = `#!/project/${getMaxSeverity(data.tag.projects).name}/findings`;
   };
@@ -575,29 +634,26 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
           />
         </Col>
       </Row>
-      <br />
       <Row>
         <Col md={6} sm={12} xs={12}>
-          <Col md={12} sm={12} xs={12} className={style.box_size}>
-            <IndicatorGraph
-              data={statusGraph(formatStatusGraphData(data.tag.projects))}
-              name={translate.t("search_findings.tab_indicators.status_graph")}
-              options={
-                formatDoughnutOptions(getNumberOfVulns(data.tag.projects), translate.t("tag_indicator.total_vuln"))
-              }
-            />
-          </Col>
+          <IndicatorGraph
+            chartClass={style.box_size}
+            data={statusGraph(formatStatusGraphData(data.tag.projects))}
+            name={translate.t("search_findings.tab_indicators.status_graph")}
+            options={
+              formatDoughnutOptions(getNumberOfVulns(data.tag.projects), translate.t("tag_indicator.total_vuln"))
+            }
+          />
         </Col>
         <Col md={6} sm={12} xs={12}>
-          <Col md={12} sm={12} xs={12} className={style.box_size}>
-            <IndicatorGraph
-              data={treatmentGraph(formatTreatmentGraphData(data.tag.projects))}
-              name={translate.t("search_findings.tab_indicators.treatment_graph")}
-              options={
-                formatDoughnutOptions(getNumberOfOpenVulns(data.tag.projects), translate.t("tag_indicator.open_vuln"))
-              }
-            />
-          </Col>
+          <IndicatorGraph
+            chartClass={style.box_size}
+            data={treatmentGraph(formatTreatmentGraphData(data.tag.projects))}
+            name={translate.t("search_findings.tab_indicators.treatment_graph")}
+            options={
+              formatDoughnutOptions(getNumberOfOpenVulns(data.tag.projects), translate.t("tag_indicator.open_vuln"))
+            }
+          />
         </Col>
       </Row>
       <br />
@@ -610,14 +666,44 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             options={horizontalBarOptions}
           />
         </Col>
-        <Col md={6} sm={12} xs={12} className={style.box_size}>
+        <Col md={6} sm={12} xs={12}>
           <IndicatorGraph
-            data={formatUndefinedGraph(data.tag.projects)}
+            chartClass={style.box_size}
+            data={formatUndefinedGraph(data.tag.projects, randomColors)}
             name={translate.t("tag_indicator.undefined_title")}
             options={{
-              legend: { labels: { padding: 6, usePointStyle: true } },
+              ...chartGraphOptions,
               ...formatDoughnutOptions(
                 getNumberOfUndefinedVulns(data.tag.projects), translate.t("tag_indicator.undefined_vuln"),
+              ),
+            }}
+          />
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col md={6} sm={12} xs={12}>
+          <IndicatorGraph
+            chartClass={style.box_size}
+            data={formatVulnsGraph(data.tag.projects, randomColors)}
+            name={translate.t("tag_indicator.vulns_projects")}
+            options={{
+              ...chartGraphOptions,
+              ...formatDoughnutOptions(
+                getNumberOfVulns(data.tag.projects), translate.t("tag_indicator.total_vuln"),
+              ),
+            }}
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <IndicatorGraph
+            chartClass={style.box_size}
+            data={formatOpenVulnsGraph(data.tag.projects, randomColors)}
+            name={translate.t("tag_indicator.open_vulns_projects")}
+            options={{
+              ...chartGraphOptions,
+              ...formatDoughnutOptions(
+                getNumberOfOpenVulns(data.tag.projects), translate.t("tag_indicator.open_vuln"),
               ),
             }}
           />

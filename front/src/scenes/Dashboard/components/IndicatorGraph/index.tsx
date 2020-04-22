@@ -7,6 +7,7 @@ import { default as style } from "./index.css";
  * Indicator's Doughnut Graph properties
  */
 interface IDoughnutProps {
+  chartClass?: string;
   data: ChartData;
   name: string;
   options?: ChartOptions;
@@ -14,17 +15,18 @@ interface IDoughnutProps {
 /**
  * Project Indicator Doughnut Graph
  */
-const indicatorGraph: React.FunctionComponent<IDoughnutProps> =
-  (props: IDoughnutProps): JSX.Element => (
+const indicatorGraph: React.FunctionComponent<IDoughnutProps> = (props: IDoughnutProps): JSX.Element => (
   <React.StrictMode>
     <Col className={style.text_center}>
       <h3>{props.name}</h3>
-      <Doughnut
-        data={props.data}
-        width={2}
-        height={2}
-        options={{...props.options, cutoutPercentage: 70}}
-      />
+      <Col className={props.chartClass}>
+        <Doughnut
+          data={props.data}
+          width={2}
+          height={2}
+          options={{...props.options, cutoutPercentage: 70}}
+        />
+      </Col>
     </Col>
   </React.StrictMode>
 );

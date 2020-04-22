@@ -858,11 +858,13 @@ const enTranslations: Dictionary = {
     medium_severity: "Medium Severity",
     open_findings_project: "Open findings by project",
     open_vuln: "open vulns.",
+    open_vulns_projects: "Open vulnerabilities by project",
     remediated_accepted_vuln: "How many vulnerabilities are remediated and accepted?",
     remediated_vuln: "How many vulnerabilities are remediated (closed)?",
     total_vuln: "vulnerabilities",
     undefined_title: "Treatmentless by project",
     undefined_vuln: "undefined",
+    vulns_projects: "Vulnerabilities by project",
   },
   update_access_token: {
     access_token: "Personal Access Token",

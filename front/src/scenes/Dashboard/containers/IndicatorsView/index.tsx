@@ -161,14 +161,16 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         </Col>
                       </Col>
                       <Col md={4} sm={12} xs={12}>
-                        <Col md={12} sm={12} xs={12} className={style.box_size}>
+                        <Col md={12} sm={12} xs={12}>
                           <IndicatorGraph
+                            chartClass={style.box_size}
                             data={statusGraph(data.project)}
                             name={translate.t("search_findings.tab_indicators.status_graph")}
                           />
                         </Col>
-                        <Col md={12} sm={12} xs={12} className={style.box_size}>
+                        <Col md={12} sm={12} xs={12}>
                           <IndicatorGraph
+                            chartClass={style.box_size}
                             data={treatmentGraph(data.project)}
                             name={translate.t("search_findings.tab_indicators.treatment_graph")}
                           />

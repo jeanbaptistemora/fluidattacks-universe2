@@ -641,8 +641,12 @@ class ViewTestCase(unittest.TestCase):
             'window.scrollTo(1200, 1600);')
         selenium.save_screenshot(SCR_PATH + '18-06-tag_indicators.png')
         selenium.execute_script(
-            'window.scrollTo(1600, 2000);')
+            'window.scrollTo(1700, 2100);')
         selenium.save_screenshot(SCR_PATH + '18-07-tag_indicators.png')
+        selenium.execute_script(
+            'window.scrollTo(2100, 2500);')
+        selenium.save_screenshot(SCR_PATH + '18-08-tag_indicators.png')
+        assert 'Open vulnerabilities by project' in selenium.page_source
         assert 'Findings by project' in selenium.page_source
         assert 'Open findings by project' in selenium.page_source
         assert 'Mean time to remediate' in selenium.page_source
@@ -656,5 +660,5 @@ class ViewTestCase(unittest.TestCase):
                 expected.presence_of_element_located(
                     (By.XPATH,
                      "//*[contains(text(), 'There is no data to display')]")))
-        selenium.save_screenshot(SCR_PATH + '18-08-tag_indicators.png')
+        selenium.save_screenshot(SCR_PATH + '18-09-tag_indicators.png')
         assert 'There is no data to display' in selenium.page_source
