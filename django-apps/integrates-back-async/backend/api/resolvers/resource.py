@@ -18,6 +18,7 @@ from backend.domain import resources, project as project_domain
 from backend.typing import (
     Resource as ResourceType,
     Resources as ResourcesType,
+    DownloadFilePayload as DownloadFilePayloadType,
     SimplePayload as SimplePayloadType,
 )
 from backend.exceptions import InvalidProject
@@ -184,7 +185,7 @@ async def _do_add_environments(_, info, envs: List[Dict[str, str]],
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_add_files(_, info, **parameters):
+async def _do_add_files(_, info, **parameters) -> SimplePayloadType:
     """Resolve add_files mutation."""
     success = False
     files_data = parameters['files_data']
@@ -214,15 +215,14 @@ An error occurred uploading file', 'error', info.context)
             info.context,
             f'Security: Attempted to add resource files \
 from {project_name} project')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_remove_files(
-    _, info, files_data: Dict[str, Any], project_name: str
-) -> object:
+async def _do_remove_files(_, info, files_data: Dict[str, Any],
+                           project_name: str) -> SimplePayloadType:
     """Resolve remove_files mutation."""
     success = False
     files_data = {re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
@@ -247,13 +247,13 @@ An error occurred removing file', 'error', info.context)
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Attempted to remove files \
 from {project_name} project')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_download_file(_, info, **parameters):
+async def _do_download_file(_, info, **parameters) -> DownloadFilePayloadType:
     """Resolve download_file mutation."""
     success = False
     file_info = parameters['files_data']
@@ -283,15 +283,15 @@ in project {project}'.format(
                 file_name=parameters['files_data']))  # pragma: no cover
         await sync_to_async(rollbar.report_message)('Error: \
 An error occurred generating signed URL', 'error', info.context)
-    return dict(success=success, url=str(signed_url))
+    return DownloadFilePayloadType(success=success, url=str(signed_url))
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_update_environment(
-    _, info, project_name: str, env: Dict[str, str], state: str
-) -> object:
+async def _do_update_environment(_, info, project_name: str,
+                                 env: Dict[str, str],
+                                 state: str) -> SimplePayloadType:
     """Resolve update_environment mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
     env = {re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
@@ -318,15 +318,15 @@ async def _do_update_environment(
             info.context,
             'Security: Attempted to update environment state in '
             f'{project_name} project')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_update_repository(
-    _, info, project_name: str, repo: Dict[str, str], state: str
-) -> object:
+async def _do_update_repository(_, info, project_name: str,
+                                repo: Dict[str, str],
+                                state: str) -> SimplePayloadType:
     """Resolve update_repository mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
     repo = {re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
@@ -353,4 +353,4 @@ async def _do_update_repository(
             info.context,
             'Security: Attempted to update repository state in '
             f'{project_name} project')  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
