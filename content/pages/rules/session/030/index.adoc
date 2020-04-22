@@ -74,6 +74,9 @@ must be invalidated in client and server side.
 . Phase: Construction
 . Type of Control: Recommendation
 
+== Findings
+
+* link:/web/findings/076/[F076. Insecure session management]
 
 == References
 

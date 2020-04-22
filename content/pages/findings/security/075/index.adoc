@@ -1,0 +1,22 @@
+:slug: findings/075/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from improperly implemented access control to files, recommendations to avoid them and related security requirements.
+:keywords: Unauthorized, Access, Files, Confidential, Privileges, Permissions
+:findings: yes
+:type: security
+
+= F075. Unauthorized access to files
+
+== Description
+
+It is possible to access confidential files without being authenticated or
+without having the required permissions.
+
+== Rules
+
+. [[r1]] link:/web/rules/096/[R096. Set user required privileges]
+
+. [[r2]] link:/web/rules/176/[R176. Restrict system objects]
+
+. [[r3]] link:/web/rules/264/[R264. Request authentication]
+
+. [[r4]] link:/web/rules/320/[R320. Avoid client-side control enforcement]

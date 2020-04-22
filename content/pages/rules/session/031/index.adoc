@@ -11,6 +11,10 @@
 When closing a session (automatic or manual),
 all data related to user session must be discarded.
 
+== Findings
+
+* link:/web/findings/076/[F076. Insecure session management]
+
 == References
 
 . [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]

@@ -23,6 +23,8 @@ prevents unauthorized actors from accessing them.
 
 * link:/web/findings/012/[F012. Unauthenticated access to protected resources]
 
+* link:/web/findings/075/[F075. Unauthorized access to files]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]

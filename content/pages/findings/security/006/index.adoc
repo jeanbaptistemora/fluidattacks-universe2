@@ -22,4 +22,6 @@ The system lacks an authentication mechanism or has one that can be bypassed.
 
 . [[r5]] link:/web/rules/235/[R235. Define credentials interface]
 
-. [[r6]] link:/web/rules/319/[R319. Make authentication options equally secure]
+. [[r6]] link:/web/rules/264/[R264. Request authentication]
+
+. [[r7]] link:/web/rules/319/[R319. Make authentication options equally secure]
