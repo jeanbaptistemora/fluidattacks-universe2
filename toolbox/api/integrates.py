@@ -115,7 +115,7 @@ async def gql_request(api_token, payload, variables):
 def request(api_token: str,
             body: str,
             params: dict = None,
-            expected_types: tuple = tuple()) -> Response:
+            expected_types: tuple = (frozendict,)) -> Response:
     """Make a generic query to a GraphQL instance."""
     assert isinstance(body, str)
     if params is not None:
@@ -182,12 +182,10 @@ class Queries:
                     drafts @include(if: $withDrafts) {
                         id @include(if: $withDrafts)
                         title @include(if: $withDrafts)
-                        verified @include(if: $withDrafts)
                     }
                     findings @include(if: $withFindings) {
                         id @include(if: $withFindings)
                         title @include(if: $withFindings)
-                        verified @include(if: $withFindings)
                     }
                 }
             }

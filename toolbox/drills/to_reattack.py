@@ -11,6 +11,20 @@ from toolbox.constants import API_TOKEN
 BASE_URL: str = 'https://fluidattacks.com/integrates/dashboard#!/project'
 
 
+def get_subs_unverified_findings(subs: str):
+    query = f'''
+        query {{
+            project(projectName: "{subs}") {{
+                findings (filters: {{verified: False}}) {{
+                    id
+                }}
+            }}
+        }}
+    '''
+
+    return api.integrates.request(API_TOKEN, query)
+
+
 def get_url(subs_name: str, finding_id: str) -> str:
     """Return a string with an url associated to a subs finding"""
     return f'    {BASE_URL}/{subs_name}/{finding_id}'
@@ -37,21 +51,15 @@ def to_reattack(subs_name: str) -> str:
     It includes integrates url and exploits paths in case they exist
     """
     message: str = ''
-    findings: List[Dict] = api.integrates.Queries.project(
-        api_token=API_TOKEN,
-        project_name=subs_name,
-        with_findings=True).data['project']['findings']
-    for finding in findings:
-        verified: bool = finding['verified']
-        if not verified:
-            identifier: str = finding['id']
-            url: str = get_url(subs_name, identifier)
-            exploits: str = get_exploits(subs_name, identifier)
-            message += f'{url}\n'
-            if exploits:
-                message += f'{exploits}\n'
-        else:
-            pass
+    findings_raw: List[Dict[str, str]] = \
+        get_subs_unverified_findings(subs_name).data['project']['findings']
+    findings_parsed: List[str] = list(map(lambda x: x['id'], findings_raw))
+    for finding_id in findings_parsed:
+        url: str = get_url(subs_name, finding_id)
+        exploits: str = get_exploits(subs_name, finding_id)
+        message += f'{url}\n'
+        if exploits:
+            message += f'{exploits}\n'
     return message
 
 
