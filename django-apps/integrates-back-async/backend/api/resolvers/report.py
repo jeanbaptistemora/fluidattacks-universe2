@@ -4,7 +4,7 @@
 import sys
 import threading
 from asgiref.sync import sync_to_async
-from backend.decorators import require_login
+from backend.decorators import require_login, require_project_access
 from backend.domain import (
     finding as finding_domain, project as project_domain,
     report as report_domain, vulnerability as vuln_domain
@@ -16,6 +16,7 @@ from ariadne import convert_kwargs_to_snake_case
 
 
 @convert_kwargs_to_snake_case
+@require_project_access
 def resolve_report_mutation(obj, info, **parameters):
     """Resolve reports mutation."""
     field = util.camelcase_to_snakecase(info.field_name)
