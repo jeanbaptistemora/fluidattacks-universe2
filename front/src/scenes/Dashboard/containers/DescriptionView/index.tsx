@@ -200,19 +200,19 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={dropdownField}
-                  currentValue={formatFindingType(dataset.type)}
-                  label={translate.t("search_findings.tab_description.type.title")}
-                  name="type"
-                  renderAsEditable={isEditing}
-                  validate={required}
-                  visibleWhileEditing={canEdit}
-                >
-                  <option value="" />
-                  <option value="SECURITY">{translate.t("search_findings.tab_description.type.security")}</option>
-                  <option value="HYGIENE">{translate.t("search_findings.tab_description.type.hygiene")}</option>
-                </EditableField>
+                    <EditableField
+                      component={dropdownField}
+                      currentValue={formatFindingType(dataset.type)}
+                      label={translate.t("search_findings.tab_description.type.title")}
+                      name="type"
+                      renderAsEditable={isEditing}
+                      validate={required}
+                      visibleWhileEditing={canEdit}
+                    >
+                      <option value="" />
+                      <option value="SECURITY">{translate.t("search_findings.tab_description.type.security")}</option>
+                      <option value="HYGIENE">{translate.t("search_findings.tab_description.type.hygiene")}</option>
+                    </EditableField>
                   )}
                 </Can>
               </Col>
@@ -229,38 +229,38 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
             </Row>
             <Can do="backend_api_resolvers_finding__do_update_description">
               {isEditing ? (
-              <Row>
-                <Col md={12}>
-                  <FormGroup>
-                    <ControlLabel>
-                      <b>{translate.t("search_findings.tab_description.title")}</b>
-                    </ControlLabel>
-                    <br />
-                    <Field
-                      component={textField}
-                      name="title"
-                      type="text"
-                      validate={[required, validDraftTitle]}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-            ) : undefined}
+                <Row>
+                  <Col md={12}>
+                    <FormGroup>
+                      <ControlLabel>
+                        <b>{translate.t("search_findings.tab_description.title")}</b>
+                      </ControlLabel>
+                      <br />
+                      <Field
+                        component={textField}
+                        name="title"
+                        type="text"
+                        validate={[required, validDraftTitle]}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+              ) : undefined}
             </Can>
             <Row>
               <Col md={12}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textAreaField}
-                  currentValue={dataset.description}
-                  label={translate.t("search_findings.tab_description.description")}
-                  name="description"
-                  renderAsEditable={isEditing}
-                  type="text"
-                  validate={required}
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textAreaField}
+                      currentValue={dataset.description}
+                      label={translate.t("search_findings.tab_description.description")}
+                      name="description"
+                      renderAsEditable={isEditing}
+                      type="text"
+                      validate={required}
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>
@@ -269,16 +269,16 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
               <Col md={12}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textAreaField}
-                  currentValue={dataset.requirements}
-                  label={translate.t("search_findings.tab_description.requirements")}
-                  name="requirements"
-                  renderAsEditable={isEditing}
-                  type="text"
-                  validate={required}
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textAreaField}
+                      currentValue={dataset.requirements}
+                      label={translate.t("search_findings.tab_description.requirements")}
+                      name="requirements"
+                      renderAsEditable={isEditing}
+                      type="text"
+                      validate={required}
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>
@@ -309,32 +309,32 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textAreaField}
-                  currentValue={dataset.attackVectorDesc}
-                  label={translate.t("search_findings.tab_description.attack_vectors")}
-                  name="attackVectorDesc"
-                  renderAsEditable={isEditing}
-                  type="text"
-                  validate={required}
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textAreaField}
+                      currentValue={dataset.attackVectorDesc}
+                      label={translate.t("search_findings.tab_description.attack_vectors")}
+                      name="attackVectorDesc"
+                      renderAsEditable={isEditing}
+                      type="text"
+                      validate={required}
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textAreaField}
-                  currentValue={dataset.affectedSystems}
-                  label={translate.t("search_findings.tab_description.affected_systems")}
-                  name="affectedSystems"
-                  renderAsEditable={isEditing}
-                  type="text"
-                  validate={required}
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textAreaField}
+                      currentValue={dataset.affectedSystems}
+                      label={translate.t("search_findings.tab_description.affected_systems")}
+                      name="affectedSystems"
+                      renderAsEditable={isEditing}
+                      type="text"
+                      validate={required}
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>
@@ -343,32 +343,32 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textAreaField}
-                  currentValue={dataset.threat}
-                  label={translate.t("search_findings.tab_description.threat")}
-                  name="threat"
-                  renderAsEditable={isEditing}
-                  type="text"
-                  validate={required}
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textAreaField}
+                      currentValue={dataset.threat}
+                      label={translate.t("search_findings.tab_description.threat")}
+                      name="threat"
+                      renderAsEditable={isEditing}
+                      type="text"
+                      validate={required}
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textField}
-                  currentValue={formatCweUrl(dataset.cweUrl)}
-                  label={translate.t("search_findings.tab_description.weakness")}
-                  name="cweUrl"
-                  renderAsEditable={isEditing}
-                  type="number"
-                  validate={[required, numeric]}
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textField}
+                      currentValue={formatCweUrl(dataset.cweUrl)}
+                      label={translate.t("search_findings.tab_description.weakness")}
+                      name="cweUrl"
+                      renderAsEditable={isEditing}
+                      type="number"
+                      validate={[required, numeric]}
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>
@@ -377,16 +377,16 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
               <Col md={12}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textAreaField}
-                  currentValue={dataset.recommendation}
-                  label={translate.t("search_findings.tab_description.recommendation")}
-                  name="recommendation"
-                  renderAsEditable={isEditing}
-                  type="text"
-                  validate={required}
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textAreaField}
+                      currentValue={dataset.recommendation}
+                      label={translate.t("search_findings.tab_description.recommendation")}
+                      name="recommendation"
+                      renderAsEditable={isEditing}
+                      type="text"
+                      validate={required}
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>
@@ -395,31 +395,31 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textAreaField}
-                  currentValue={dataset.compromisedAttributes}
-                  label={translate.t("search_findings.tab_description.compromised_attrs")}
-                  name="compromisedAttributes"
-                  renderAsEditable={isEditing}
-                  type="text"
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textAreaField}
+                      currentValue={dataset.compromisedAttributes}
+                      label={translate.t("search_findings.tab_description.compromised_attrs")}
+                      name="compromisedAttributes"
+                      renderAsEditable={isEditing}
+                      type="text"
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                <EditableField
-                  component={textAreaField}
-                  currentValue={dataset.compromisedRecords}
-                  label={translate.t("search_findings.tab_description.compromised_records")}
-                  name="compromisedRecords"
-                  renderAsEditable={isEditing}
-                  type="number"
-                  validate={[required, numeric]}
-                  visibleWhileEditing={canEdit}
-                />
+                    <EditableField
+                      component={textAreaField}
+                      currentValue={dataset.compromisedRecords}
+                      label={translate.t("search_findings.tab_description.compromised_records")}
+                      name="compromisedRecords"
+                      renderAsEditable={isEditing}
+                      type="number"
+                      validate={[required, numeric]}
+                      visibleWhileEditing={canEdit}
+                    />
                   )}
                 </Can>
               </Col>

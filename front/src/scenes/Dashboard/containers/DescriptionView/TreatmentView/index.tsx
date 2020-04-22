@@ -166,15 +166,15 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                 <Col md={12}>
                   <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                     {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={textField}
-                    currentValue={data.finding.btsUrl}
-                    label={translate.t("search_findings.tab_description.bts")}
-                    name="btsUrl"
-                    renderAsEditable={props.isEditing}
-                    type="text"
-                    visibleWhileEditing={canEdit}
-                  />
+                      <EditableField
+                        component={textField}
+                        currentValue={data.finding.btsUrl}
+                        label={translate.t("search_findings.tab_description.bts")}
+                        name="btsUrl"
+                        renderAsEditable={props.isEditing}
+                        type="text"
+                        visibleWhileEditing={canEdit}
+                      />
                     )}
                   </Can>
                 </Col>
@@ -183,27 +183,27 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                 <Col md={6}>
                   <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                     {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={dropdownField}
-                    currentValue={treatmentLabel}
-                    label={translate.t("search_findings.tab_description.treatment.title")}
-                    name="treatment"
-                    renderAsEditable={props.isEditing}
-                    type="text"
-                    validate={required}
-                    visibleWhileEditing={canEdit}
-                  >
-                    <option value="" />
-                    <option value="IN_PROGRESS">
-                      {translate.t("search_findings.tab_description.treatment.in_progress")}
-                    </option>
-                    <option value="ACCEPTED">
-                      {translate.t("search_findings.tab_description.treatment.accepted")}
-                    </option>
-                    <option value="ACCEPTED_UNDEFINED">
-                      {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
-                    </option>
-                  </EditableField>
+                      <EditableField
+                        component={dropdownField}
+                        currentValue={treatmentLabel}
+                        label={translate.t("search_findings.tab_description.treatment.title")}
+                        name="treatment"
+                        renderAsEditable={props.isEditing}
+                        type="text"
+                        validate={required}
+                        visibleWhileEditing={canEdit}
+                      >
+                        <option value="" />
+                        <option value="IN_PROGRESS">
+                          {translate.t("search_findings.tab_description.treatment.in_progress")}
+                        </option>
+                        <option value="ACCEPTED">
+                          {translate.t("search_findings.tab_description.treatment.accepted")}
+                        </option>
+                        <option value="ACCEPTED_UNDEFINED">
+                          {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
+                        </option>
+                      </EditableField>
                     )}
                   </Can>
                 </Col>
@@ -222,16 +222,16 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                 <Col md={12}>
                   <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                     {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={textAreaField}
-                    currentValue={lastTreatment.justification as string}
-                    label={translate.t("search_findings.tab_description.treatment_just")}
-                    name="justification"
-                    renderAsEditable={props.isEditing}
-                    type="text"
-                    validate={required}
-                    visibleWhileEditing={canEdit}
-                  />
+                      <EditableField
+                        component={textAreaField}
+                        currentValue={lastTreatment.justification as string}
+                        label={translate.t("search_findings.tab_description.treatment_just")}
+                        name="justification"
+                        renderAsEditable={props.isEditing}
+                        type="text"
+                        validate={required}
+                        visibleWhileEditing={canEdit}
+                      />
                     )}
                   </Can>
                 </Col>
@@ -241,16 +241,16 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                   <Col md={4}>
                     <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                       {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={dateField}
-                      currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
-                      label={translate.t("search_findings.tab_description.acceptance_date")}
-                      name="date"
-                      renderAsEditable={props.isEditing}
-                      type="date"
-                      validate={[required, isValidDate, isLowerDate]}
-                      visibleWhileEditing={canEdit}
-                    />
+                        <EditableField
+                          component={dateField}
+                          currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
+                          label={translate.t("search_findings.tab_description.acceptance_date")}
+                          name="date"
+                          renderAsEditable={props.isEditing}
+                          type="date"
+                          validate={[required, isValidDate, isLowerDate]}
+                          visibleWhileEditing={canEdit}
+                        />
                       )}
                     </Can>
                   </Col>
