@@ -2,6 +2,7 @@
 import datetime
 import glob
 import json
+import operator
 import os
 import textwrap
 from typing import (
@@ -43,6 +44,22 @@ def _get_fernet_key(subscription: str) -> str:
         f'continuous-{subscription}')
 
 
+def _get_bb_aws_role_arns(subs: str) -> Tuple[str, ...]:
+    config_path = (
+        f'subscriptions/{subs}'
+        f'/break-build/dynamic/resources/BB_AWS_ROLE_ARNS.list'
+    )
+
+    if os.path.exists(config_path):
+        with open(config_path) as config_handle:
+            return tuple(
+                filter(operator.truth,
+                       map(operator.methodcaller('strip'),
+                           config_handle.readlines())))
+
+    return tuple()
+
+
 def _run_static_exploit(
     *,
     exploit_path: str,
@@ -78,14 +95,47 @@ def _run_static_exploit(
     return utils.generic.run_command_old(cmd=cmd, cwd=repository_path, env=env)
 
 
+def _run_dynamic_exploit(
+    *,
+    exploit_path: str,
+    exploit_output_path: str,
+    subs_path: str,
+    bb_aws_role_arns: Tuple[str, ...],
+    bb_fernet_key: str,
+    bb_resources: str,
+) -> Tuple[int, str, str]:
+    """Run a dynamic exploit and return it's exit_code, stdout and stderr."""
+    cmd: str = f"""
+        asserts -eec -n -ms '{exploit_path}' > '{exploit_output_path}_'
+        exit_code=$?
+        cat '{exploit_output_path}_'
+        cat '{exploit_output_path}_' >> '{exploit_output_path}'
+        rm -f '{exploit_output_path}_' >  /dev/null
+        exit ${{exit_code}}
+        """
+
+    cmd = ';'.join(textwrap.dedent(cmd)[1:-1].splitlines())
+
+    env: Dict[str, str] = {
+        'BB_AWS_ROLE_ARNS': ','.join(bb_aws_role_arns),
+        'BB_FERNET_KEY': bb_fernet_key,
+        'BB_RESOURCES': bb_resources,
+        'CURRENT_EXPLOIT_KIND': 'dynamic',
+        'FA_NOTRACK': 'true',
+        'FA_STRICT': 'true',
+    }
+
+    return utils.generic.run_command_old(cmd=cmd, cwd=subs_path, env=env)
+
+
 def are_exploits_synced__static(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
     results: list = []
 
     bb_fernet_key: str = _get_fernet_key(subs)
 
-    bb_resources = os.path.abspath(
-        f'subscriptions/{subs}/break-build/static/resources')
+    bb_resources = \
+        os.path.abspath(f'subscriptions/{subs}/break-build/static/resources')
 
     for exploit_path in sorted(glob.glob(
             f'subscriptions/{subs}/break-build/static/exploits/*.exp')):
@@ -182,21 +232,10 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
     results: list = []
 
-    fernet_key: str = _get_fernet_key(subs)
-
-    aws_role_arns_path = (f'subscriptions/{subs}/break-build/dynamic/'
-                          'resources/BB_AWS_ROLE_ARNS.list')
-
-    bb_resources = os.path.abspath(
-        f'subscriptions/{subs}/break-build/dynamic/resources')
-
-    aws_arn_roles = None
-    if os.path.exists(aws_role_arns_path):
-        with open(aws_role_arns_path) as file:
-            aws_arn_roles = tuple(
-                role_arn.strip() for role_arn in file.readlines() if role_arn)
-    else:
-        aws_arn_roles = ()
+    bb_aws_role_arns: Tuple[str, ...] = _get_bb_aws_role_arns(subs)
+    bb_fernet_key: str = _get_fernet_key(subs)
+    bb_resources = \
+        os.path.abspath(f'subscriptions/{subs}/break-build/dynamic/resources')
 
     for exploit_path in sorted(glob.glob(
             f'subscriptions/{subs}/break-build/dynamic/exploits/*.exp')):
@@ -232,23 +271,13 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str):
         analyst_status = helper.integrates.is_finding_open(
             finding_id, constants.DAST)
 
-        asserts_status, asserts_stdout, _ = utils.generic.run_command_old(
-            cmd=(f"asserts -eec -n -ms '{exploit_path}'"
-                 f"  >  '{exploit_output_path}_';      "
-                 f"exit_code=$?;                       "
-                 f"cat  '{exploit_output_path}_';      "
-                 f"cat  '{exploit_output_path}_'       "
-                 f"  >> '{exploit_output_path}';       "
-                 f"rm   '{exploit_output_path}_'       "
-                 f"  >  /dev/null;                     "
-                 f"exit ${{exit_code}};                "),
-            cwd=f'subscriptions/{subs}',
-            env={'FA_NOTRACK': 'true',
-                 'FA_STRICT': 'true',
-                 'BB_FERNET_KEY': fernet_key,
-                 'CURRENT_EXPLOIT_KIND': 'dynamic',
-                 'BB_RESOURCES': bb_resources,
-                 'BB_AWS_ROLE_ARNS': ','.join(aws_arn_roles)})
+        asserts_status, asserts_stdout, _ = _run_dynamic_exploit(
+            exploit_path=exploit_path,
+            exploit_output_path=exploit_output_path,
+            subs_path=f'subscriptions/{subs}',
+            bb_aws_role_arns=bb_aws_role_arns,
+            bb_fernet_key=bb_fernet_key,
+            bb_resources=bb_resources)
 
         imsg = 'OPEN' if analyst_status else 'CLOSED'
         amsg = api.asserts.get_exp_error_message(asserts_stdout) \
