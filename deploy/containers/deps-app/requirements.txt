@@ -34,6 +34,7 @@ promise==2.3
 psycopg2==2.8.4
 pykwalify==1.7.0
 pypdf4==1.27.0
+fpdf==1.7.2
 python-i18n==0.3.7
 python-jose==3.1.0
 python-magic==0.4.15

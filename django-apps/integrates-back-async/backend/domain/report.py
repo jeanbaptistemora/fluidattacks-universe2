@@ -11,13 +11,12 @@ from app.techdoc.it_report import ITReport
 
 def generate_pdf_report(project_name: str, user_email: str, lang: str,
                         findings_ord: List[Dict[str, FindingType]], description: str):
-    user_name = user_email.split('@')[0]
     pdf_maker = CreatorPDF(lang, 'tech')
     secure_pdf = SecurePDF()
     findings = pdf_evidences(findings_ord)
     report_filename = ''
     pdf_maker.tech(findings, project_name, description)
-    report_filename = secure_pdf.create_full(user_name,
+    report_filename = secure_pdf.create_full(user_email,
                                              pdf_maker.out_name,
                                              project_name)
     uploaded_file_name = report_dal.upload_report(report_filename)
