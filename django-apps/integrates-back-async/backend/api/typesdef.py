@@ -179,6 +179,16 @@ REPORT_LANG = EnumType(
     }
 )
 
+USER_ROLE = EnumType(
+    'UserRole',
+    {
+        'ADMIN': 'admin',
+        'ANALYST': 'analyst',
+        'CUSTOMER': 'customer',
+        'CUSTOMERADMIN': 'customeradmin',
+    }
+)
+
 CALLER_ORIGIN = EnumType(
     'CallerOrigin',
     {
@@ -200,7 +210,7 @@ ENUMS = [
     ACTIONS_BEFORE_BLOCKING, EVENT_ACCESSIBILITY,
     AFFECTED_COMPONENTS, EVENT_CONTEXT, EVENT_TYPE,
     EVENT_EVIDENCE_TYPE,
-    REPORT_TYPE, REPORT_LANG, CALLER_ORIGIN
+    REPORT_TYPE, REPORT_LANG, USER_ROLE, CALLER_ORIGIN
 ]
 
 TYPES = RAW_TYPES + ENUMS

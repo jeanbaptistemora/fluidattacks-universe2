@@ -11,7 +11,6 @@ export interface IAddUserModalProps {
   open: boolean;
   projectName?: string;
   type: "add" | "edit";
-  userRole: string;
   onClose(): void;
   onSubmit(values: {}): void;
 }

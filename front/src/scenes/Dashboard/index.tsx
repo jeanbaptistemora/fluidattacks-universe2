@@ -58,7 +58,6 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
       handleGraphQLErrors("An error occurred adding user", mtResult);
     }
   };
-  const { userRole } = (window as typeof window & { userRole: string });
 
   const permissions: PureAbility<string> = React.useContext(authzContext);
 
@@ -127,7 +126,6 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
               open={isUserModalOpen}
               type="add"
               onClose={closeUserModal}
-              userRole={userRole}
               initialValues={{}}
             />
           );

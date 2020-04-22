@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
 import { Modal } from "../../../../../components/Modal/index";
+import { Can } from "../../../../../utils/authz/Can";
 import { handleErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";
 import { msgError } from "../../../../../utils/notifications";
@@ -21,21 +22,6 @@ import { required, validEmail } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm/index";
 import { GET_USER } from "./queries";
 import { IAddUserModalProps, IUserDataAttr } from "./types";
-
-const renderManagerRoles: JSX.Element = (
-  <React.Fragment>
-    <option value="customer">{translate.t("search_findings.tab_users.customer")}</option>
-    <option value="customeradmin">{translate.t("search_findings.tab_users.customeradmin")}</option>
-  </React.Fragment>
-);
-
-const renderAllRoles: JSX.Element = (
-  <React.Fragment>
-    <option value="analyst">{translate.t("search_findings.tab_users.analyst")}</option>
-    <option value="admin">{translate.t("search_findings.tab_users.admin")}</option>
-    {renderManagerRoles}
-  </React.Fragment>
-);
 
 const requiredIndicator: JSX.Element = <label style={{ color: "#f22" }}>* </label>;
 
@@ -111,9 +97,13 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                   <FormGroup>
                     <ControlLabel>{requiredIndicator}{translate.t("search_findings.tab_users.role")}</ControlLabel>
                     <Field name="role" component={dropdownField} validate={[required]}>
-                      <option value="" selected={true} />
-                      {props.userRole === "admin" ? renderAllRoles : undefined}
-                      {props.userRole === "customeradmin" ? renderManagerRoles : undefined}
+                      <option value="" />
+                      <Can do="backend_api_resolvers_user__do_grant_user_access_internal_roles">
+                        <option value="ANALYST">{translate.t("search_findings.tab_users.analyst")}</option>
+                        <option value="ADMIN">{translate.t("search_findings.tab_users.admin")}</option>
+                      </Can>
+                      <option value="CUSTOMER">{translate.t("search_findings.tab_users.customer")}</option>
+                      <option value="CUSTOMERADMIN">{translate.t("search_findings.tab_users.customeradmin")}</option>
                     </Field>
                   </FormGroup>
                   {props.projectName !== undefined ? (

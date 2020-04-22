@@ -4,6 +4,8 @@
   * readability of the code in graphql queries
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -15,6 +17,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
+import { authzContext } from "../../../../utils/authz/config";
 import { formatUserlist } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -66,6 +69,7 @@ const tableHeaders: IHeader[] = [
 const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const permissions: PureAbility<string> = useAbility(authzContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
@@ -185,7 +189,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     return <React.Fragment />;
   }
 
-  const userRole: string = data.me.role;
   const userList: IUsersAttr["project"]["users"] = formatUserlist(data.project.users);
 
   return (
@@ -237,7 +240,9 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   title=""
                   selectionMode={{
                     clickToSelect: true,
-                    hideSelectColumn: !_.includes(["admin", "customeradmin"], userRole),
+                    hideSelectColumn:
+                      permissions.cannot("backend_api_resolvers_user__do_edit_user")
+                      || permissions.cannot("backend_api_resolvers_user__do_remove_user_access"),
                     mode: "radio",
                     onSelect: setCurrentRow,
                   }}
@@ -252,7 +257,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
           type={userModalType}
           onClose={closeUserModal}
           projectName={projectName}
-          userRole={userRole}
           initialValues={userModalType === "edit" ? currentRow : {}}
         />
       </div>

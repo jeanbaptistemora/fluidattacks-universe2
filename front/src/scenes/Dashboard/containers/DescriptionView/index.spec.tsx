@@ -6,7 +6,6 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import store from "../../../../store";
-import { GET_ROLE } from "../ProjectContent/queries";
 import { DescriptionView, DescriptionViewProps } from "./index";
 import { GET_FINDING_DESCRIPTION } from "./queries";
 
@@ -36,24 +35,6 @@ describe("Finding Description", () => {
       url: "",
     },
   };
-
-  const roleQuery: ((role: string) => Readonly<MockedResponse>) = (
-    role: string,
-  ): Readonly<MockedResponse> => ({
-    request: {
-      query: GET_ROLE,
-      variables: {
-        projectName: "TEST",
-      },
-    },
-    result: {
-      data: {
-        me: {
-          role,
-        },
-      },
-    },
-  });
 
   const descriptionQuery: Readonly<MockedResponse> = {
     request: {
@@ -103,10 +84,7 @@ describe("Finding Description", () => {
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider
-          mocks={[roleQuery("customer"), descriptionQuery]}
-          addTypename={false}
-        >
+        <MockedProvider mocks={[descriptionQuery]} addTypename={false}>
           <DescriptionView {...mockedProps} />
         </MockedProvider>
       </Provider>,

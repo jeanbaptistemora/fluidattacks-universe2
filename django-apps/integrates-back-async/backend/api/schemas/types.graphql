@@ -377,3 +377,10 @@ enum ReportType {
 enum ReportLang {
     EN
 }
+
+enum UserRole {
+    ADMIN
+    ANALYST
+    CUSTOMER
+    CUSTOMERADMIN
+}

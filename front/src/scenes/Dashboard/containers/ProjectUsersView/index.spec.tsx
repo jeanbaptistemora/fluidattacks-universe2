@@ -49,9 +49,6 @@ describe("Project users view", () => {
       },
       result: {
         data: {
-          me: {
-            role: "customeradmin",
-          },
           project: {
             users: [{
               email: "user@gmail.com",

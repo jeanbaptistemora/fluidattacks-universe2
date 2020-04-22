@@ -3,9 +3,6 @@ import gql from "graphql-tag";
 
 export const GET_USERS: DocumentNode = gql`
   query GetUsersQuery($projectName: String!) {
-    me(callerOrigin: "FRONT") {
-      role(projectName: $projectName)
-    }
     project(projectName: $projectName){
       users {
         email
@@ -39,7 +36,7 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
     $phoneNumber: String,
     $projectName: String,
     $responsibility: String,
-    $role: String!
+    $role: UserRole!
     ) {
     grantUserAccess (
       email: $email,
@@ -69,7 +66,7 @@ export const EDIT_USER_MUTATION: DocumentNode = gql`
     $phoneNumber: String!,
     $projectName: String!,
     $responsibility: String!,
-    $role: String!
+    $role: UserRole!
     ) {
     editUser (
       email: $email,

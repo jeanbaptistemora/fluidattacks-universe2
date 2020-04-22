@@ -19,21 +19,19 @@ from backend.typing import (
     RemoveUserAccessPayload as RemoveUserAccessPayloadType,
     EditUserPayload as EditUserPayloadType,
 )
+from backend import util
+from backend.utils import authorization as authorization_utils
 from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
-
-from backend import util
 
 import rollbar
 
 from ariadne import convert_kwargs_to_snake_case
 
 # Constants
-ROLES_A_USER_CAN_GRANT = {
-    'admin': ['admin', 'analyst', 'customer', 'customeradmin'],
-    'customeradmin': ['customer', 'customeradmin'],
-}
+BASIC_ROLES = ['customer', 'customeradmin']
+INTERNAL_ROLES = ['admin', 'analyst']
 
 
 # pylint: disable=too-many-arguments
@@ -143,17 +141,23 @@ async def _do_add_user(_, info, **parameters) -> AddUserPayloadType:
 async def _do_grant_user_access(
         _, info, **query_args) -> GrantUserAccessPayloadType:
     """Resolve grant_user_access mutation."""
-    project_name = query_args.get('project_name', '')
+    project_name = query_args.get('project_name', '').lower()
     success = False
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    role = await sync_to_async(user_domain.get_group_level_role)(
-        user_email, project_name)
 
     new_user_role = query_args.get('role')
     new_user_email = query_args.get('email', '')
 
-    if new_user_role in ROLES_A_USER_CAN_GRANT.get(role, []):
+    enforcer = authorization_utils.get_group_level_enforcer_async(user_email)
+    if enforcer.enforce(user_email, project_name,
+                        'backend_api_resolvers_user'
+                        '__do_grant_user_access_internal_roles'):
+        allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES
+    else:
+        allowed_roles_to_grant = BASIC_ROLES
+
+    if new_user_role in allowed_roles_to_grant:
         if await _create_new_user(
                 context=info.context,
                 email=new_user_email,
@@ -229,18 +233,23 @@ async def _do_remove_user_access(
 @require_project_access
 async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     """Resolve edit_user mutation."""
-    project_name = modified_user_data['project_name']
+    project_name = modified_user_data['project_name'].lower()
     modified_role = modified_user_data['role']
     modified_email = modified_user_data['email']
 
     success = False
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    role = \
-        await sync_to_async(user_domain.get_group_level_role)(
-            user_email, project_name)
 
-    if modified_role in ROLES_A_USER_CAN_GRANT.get(role, []):
+    enforcer = authorization_utils.get_group_level_enforcer_async(user_email)
+    if enforcer.enforce(user_email, project_name,
+                        'backend_api_resolvers_user'
+                        '__do_grant_user_access_internal_roles'):
+        allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES
+    else:
+        allowed_roles_to_grant = BASIC_ROLES
+
+    if modified_role in allowed_roles_to_grant:
         if await sync_to_async(user_domain.grant_group_level_role)(
                 modified_email, project_name, modified_role):
             success = \

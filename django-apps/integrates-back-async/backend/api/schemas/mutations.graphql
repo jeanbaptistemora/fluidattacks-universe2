@@ -99,7 +99,7 @@ type Mutation {
         email: String!,
         organization: String!,
         responsibility: String,
-        role: String!,
+        role: UserRole!,
         phoneNumber: String
     ): GrantUserAccessPayload!
     removeUserAccess(
@@ -111,13 +111,13 @@ type Mutation {
         email: String!,
         organization: String!,
         responsibility: String!,
-        role: String!,
+        role: UserRole!,
         phoneNumber: String!
     ): EditUserPayload!
     addUser(
         email: String!,
         organization: String!,
-        role: String!,
+        role: UserRole!,
         phoneNumber: String
     ): AddUserPayload!
     updateEvidence(

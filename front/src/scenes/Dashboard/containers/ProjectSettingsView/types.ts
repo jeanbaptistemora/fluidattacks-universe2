@@ -48,9 +48,6 @@ export interface IRepositoriesAttr {
 }
 
 export interface IResourcesAttr {
-  me?: {
-    role: string;
-  };
   resources: {
     environments: string;
     repositories: string;

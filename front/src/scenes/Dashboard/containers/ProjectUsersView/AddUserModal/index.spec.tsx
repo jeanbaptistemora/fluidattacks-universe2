@@ -25,7 +25,6 @@ describe("Add user modal", () => {
     open: true,
     projectName: "TEST",
     type: "add",
-    userRole: "admin",
   };
 
   const mockPropsEdit: IAddUserModalProps = {
@@ -35,7 +34,6 @@ describe("Add user modal", () => {
     open: true,
     projectName: "TEST",
     type: "edit",
-    userRole: "admin",
   };
 
   const store: Store<{}, Action<{}>> = createStore(() => ({}));

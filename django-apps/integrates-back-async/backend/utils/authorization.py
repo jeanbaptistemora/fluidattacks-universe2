@@ -155,11 +155,12 @@ def get_admin_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_finding__do_approve_draft',
         'backend_api_resolvers_internal_project_resolve_project_name',
         'backend_api_resolvers_project__do_add_all_project_access',
-        'backend_api_resolvers_project_resolve_alive_projects',
         'backend_api_resolvers_project__do_create_project',
         'backend_api_resolvers_project__do_remove_all_project_access',
+        'backend_api_resolvers_project_resolve_alive_projects',
         'backend_api_resolvers_subscription__do_post_broadcast_message',
         'backend_api_resolvers_user__do_add_user',
+        'backend_api_resolvers_user__do_grant_user_access_internal_roles',
     )
 
 

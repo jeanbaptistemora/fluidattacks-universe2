@@ -5,7 +5,7 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
   mutation AddUserMutation(
     $email: String!,
     $organization: String!,
-    $role: String!
+    $role: UserRole!
     $phoneNumber: String,
     ) {
     addUser (

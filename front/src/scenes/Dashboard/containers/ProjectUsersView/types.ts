@@ -1,9 +1,6 @@
 import { RouteComponentProps } from "react-router";
 
 export interface IUsersAttr {
-  me: {
-    role: string;
-  };
   project: {
     users: Array<{
       email: string;

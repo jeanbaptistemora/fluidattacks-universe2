@@ -85,7 +85,7 @@ class UserTests(TestCase):
             mutation {
                 addUser(email: "test@test.com",
                         organization: "CustomerInc",
-                        role: "customer",
+                        role: CUSTOMER,
                         phoneNumber: "3331112233") {
                     success
                     email
@@ -123,7 +123,7 @@ class UserTests(TestCase):
                 phoneNumber: "3453453453"
                 projectName: "unittesting",
                 responsibility: "test",
-                role: "customer") {
+                role: CUSTOMER) {
                 success
                 grantedUser {
                     email
@@ -204,7 +204,7 @@ class UserTests(TestCase):
                 phoneNumber: "17364735",
                 projectName: "unittesting",
                 responsibility: "edited",
-                role: "customer") {
+                role: CUSTOMER) {
                   success
                 }
             }
