@@ -132,14 +132,14 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_finding__do_add_finding_comment',
         'backend_api_resolvers_project__get_comments',
         'backend_api_resolvers_project__get_events',
-        'backend_api_resolvers_project_resolve_add_project_comment',
+        'backend_api_resolvers_project__do_add_project_comment',
         'backend_api_resolvers_project__get_drafts',
         'backend_api_resolvers_project_resolve_remove_tag',
         'backend_api_resolvers_project_resolve_add_tags',
         'backend_api_resolvers_project_resolve_add_all_project_access',
         'backend_api_resolvers_project_resolve_remove_all_project_access',
-        'backend_api_resolvers_project_resolve_request_remove_project',
-        'backend_api_resolvers_project_resolve_reject_remove_project',
+        'backend_api_resolvers_project__do_request_remove_project',
+        'backend_api_resolvers_project__do_reject_remove_project',
     }
 
     analyst_allowed_actions = {
@@ -179,7 +179,7 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_finding__do_add_finding_comment',
         'backend_api_resolvers_project__get_comments',
         'backend_api_resolvers_project__get_events',
-        'backend_api_resolvers_project_resolve_add_project_comment',
+        'backend_api_resolvers_project__do_add_project_comment',
         'backend_api_resolvers_project__get_drafts',
     }
 
@@ -207,7 +207,7 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_vulnerability__do_request_verification_vuln',
         'backend_api_resolvers_project__get_comments',
         'backend_api_resolvers_project__get_events',
-        'backend_api_resolvers_project_resolve_add_project_comment',
+        'backend_api_resolvers_project__do_add_project_comment',
         'backend_api_resolvers_project_resolve_remove_tag',
         'backend_api_resolvers_project_resolve_add_tags',
     }
@@ -219,8 +219,8 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_user_resolve_edit_user',
         'backend_api_resolvers_finding__do_handle_acceptation',
         'backend_api_resolvers_project__get_users',
-        'backend_api_resolvers_project_resolve_request_remove_project',
-        'backend_api_resolvers_project_resolve_reject_remove_project',
+        'backend_api_resolvers_project__do_request_remove_project',
+        'backend_api_resolvers_project__do_reject_remove_project',
     }
     customeradmin_allowed_actions.update(customer_allowed_actions)
 
@@ -329,7 +329,7 @@ class UserAbacTest(TestCase):
     }
 
     customeratfluid_actions: Set[str] = {
-        'backend_api_resolvers_project_resolve_create_project',
+        'backend_api_resolvers_project__do_create_project',
         'backend_api_resolvers_user_resolve_user_list_projects'
     }
 

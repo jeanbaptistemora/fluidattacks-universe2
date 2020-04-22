@@ -44,7 +44,7 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
         <Files projectName={props.match.params.projectName} />
         <hr />
         <Portfolio projectName={props.match.params.projectName} />
-        <Can do="backend_api_resolvers_project_resolve_request_remove_project">
+        <Can do="backend_api_resolvers_project__do_request_remove_project">
           <React.Fragment>
             <React.Fragment>
               <hr />

@@ -131,7 +131,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
             </ButtonToolbar>
           </Col>
         </Row>
-        <Can do="backend_api_resolvers_project_resolve_create_project">
+        <Can do="backend_api_resolvers_project__do_create_project">
           <Row>
             <Col md={2} mdOffset={5}>
               <ButtonToolbar>

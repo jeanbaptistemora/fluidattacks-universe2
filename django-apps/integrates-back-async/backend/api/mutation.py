@@ -32,13 +32,13 @@ MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
 MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
 MUTATION.set_field('updateRepository', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
-MUTATION.set_field('createProject', project.resolve_create_project)
+MUTATION.set_field('createProject', project.resolve_project_mutation)
 MUTATION.set_field('requestRemoveProject',
-                   project.resolve_request_remove_project)
+                   project.resolve_project_mutation)
 MUTATION.set_field('rejectRemoveProject',
-                   project.resolve_reject_remove_project)
+                   project.resolve_project_mutation)
 MUTATION.set_field('addProjectComment',
-                   project.resolve_add_project_comment)
+                   project.resolve_project_mutation)
 MUTATION.set_field('addTags', project.resolve_add_tags)
 MUTATION.set_field('removeTag', project.resolve_remove_tag)
 MUTATION.set_field('addAllProjectAccess',

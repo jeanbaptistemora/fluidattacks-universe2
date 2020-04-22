@@ -109,7 +109,7 @@ describe("HomeView", () => {
   });
   it("should render new project button", () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_project_resolve_create_project" },
+      { action: "backend_api_resolvers_project__do_create_project" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

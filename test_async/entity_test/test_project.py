@@ -189,7 +189,8 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert result['data']['aliveProjects'] == expected_projects
 
-    def test_create_project(self):
+    @pytest.mark.asyncio
+    async def test_create_project(self):
         """Check for createProject mutation."""
         query = '''
         mutation {
@@ -205,12 +206,13 @@ class ProjectTests(TestCase):
            }
         }'''
         data = {'query': query}
-        result = self._get_result(data, user='unittest@fluidattacks.com')
+        result = await self._get_result_async(data, user='unittest@fluidattacks.com')
         assert 'errors' not in result
         assert 'success' in result['data']['createProject']
         assert result['data']['createProject']['success']
 
-    def test_request_remove_denied(self):
+    @pytest.mark.asyncio
+    async def test_request_remove_denied(self):
         """Check for createProject mutation."""
         query = '''
         mutation RequestRemoveProjectMutation(
@@ -224,11 +226,12 @@ class ProjectTests(TestCase):
             'projectName': 'OneshottesT'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(PermissionDenied())
 
-    def test_request_remove_pending(self):
+    @pytest.mark.asyncio
+    async def test_request_remove_pending(self):
         """Check for requestRemoveProject mutation."""
         query = '''
         mutation RequestRemoveProjectMutation(
@@ -242,11 +245,12 @@ class ProjectTests(TestCase):
             'projectName': 'pendingproject'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(AlreadyPendingDeletion())
 
-    def test_reject_request_remove_denied(self):
+    @pytest.mark.asyncio
+    async def test_reject_request_remove_denied(self):
         """Check for rejectRemoveProject mutation."""
         query = '''
         mutation RejectRemoveProjectMutation(
@@ -260,11 +264,12 @@ class ProjectTests(TestCase):
             'projectName': 'PendingprojecT'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(PermissionDenied())
 
-    def test_reject_request_remove_not_pending(self):
+    @pytest.mark.asyncio
+    async def test_reject_request_remove_not_pending(self):
         """Check for rejectRemoveProject mutation."""
         query = '''
         mutation RejectRemoveProjectMutation(
@@ -278,7 +283,7 @@ class ProjectTests(TestCase):
             'projectName': 'unittesting'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(NotPendingDeletion())
 
@@ -359,7 +364,8 @@ class ProjectTests(TestCase):
         assert 'success' in result['data']['removeAllProjectAccess']
         assert result['data']['removeAllProjectAccess']['success']
 
-    def test_add_project_comment_parent_zero(self):
+    @pytest.mark.asyncio
+    async def test_add_project_comment_parent_zero(self):
         """Check for addProjectComment mutation."""
         query = '''
           mutation {
@@ -374,12 +380,13 @@ class ProjectTests(TestCase):
           }
           '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' not in result
         assert 'success' in result['data']['addProjectComment']
         assert result['data']['addProjectComment']['success']
 
-    def test_add_project_comment_parent_non_zero(self):
+    @pytest.mark.asyncio
+    async def test_add_project_comment_parent_non_zero(self):
         """Check for addProjectComment mutation."""
         query = '''
           mutation {
@@ -394,7 +401,7 @@ class ProjectTests(TestCase):
           }
           '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' not in result
         assert 'success' in result['data']['addProjectComment']
         assert result['data']['addProjectComment']['success']

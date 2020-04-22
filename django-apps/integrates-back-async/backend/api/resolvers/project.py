@@ -520,71 +520,78 @@ def resolve_project(_, info, project_name: str) -> ProjectType:
 
 
 @convert_kwargs_to_snake_case
+def resolve_project_mutation(obj, info, **parameters):
+    """Wrap project mutations."""
+    field = util.camelcase_to_snakecase(info.field_name)
+    resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
+    return util.run_async(resolver_func, obj, info, **parameters)
+
+
 @require_login
 @enforce_user_level_auth_async
-def resolve_create_project(_, info, **kwargs) -> SimplePayloadType:
+async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
     """Resolve create_project mutation."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    user_role = user_domain.get_user_level_role(user_email)
-    success = project_domain.create_project(
+    user_role = \
+        await sync_to_async(user_domain.get_user_level_role)(user_email)
+    success = await sync_to_async(project_domain.create_project)(
         user_data['user_email'], user_role, **kwargs)
     if success:
         project = kwargs.get('project_name', '').lower()
         util.invalidate_cache(user_data['user_email'])
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Created project {project} '
             'successfully')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_request_remove_project(_, info,
-                                   project_name: str) -> SimplePayloadType:
+async def _do_request_remove_project(
+        _, info, project_name: str) -> SimplePayloadType:
     """Resolve request_remove_project mutation."""
     user_info = util.get_jwt_content(info.context)
     success = \
-        project_domain.request_deletion(project_name, user_info['user_email'])
+        await sync_to_async(project_domain.request_deletion)(
+            project_name, user_info['user_email'])
     if success:
         project = project_name.lower()
         util.invalidate_cache(project)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: '
             f'Pending to remove project {project}')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_reject_remove_project(_, info,
-                                  project_name: str) -> SimplePayloadType:
+async def _do_reject_remove_project(_, info,
+                                    project_name: str) -> SimplePayloadType:
     """Resolve reject_remove_project mutation."""
     user_info = util.get_jwt_content(info.context)
     success = \
-        project_domain.reject_deletion(project_name, user_info['user_email'])
+        await sync_to_async(project_domain.reject_deletion)(
+            project_name, user_info['user_email'])
     if success:
         project = project_name.lower()
         util.invalidate_cache(project)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Reject project '
             f'{project} deletion succesfully')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_add_project_comment(_, info,
-                                **parameters) -> AddCommentPayloadType:
+async def _do_add_project_comment(_, info,
+                                  **parameters) -> AddCommentPayloadType:
     """Resolve add_project_comment mutation."""
     project_name = parameters.get('project_name', '').lower()
     user_info = util.get_jwt_content(info.context)
@@ -600,15 +607,17 @@ def resolve_add_project_comment(_, info,
         'modified': current_time,
         'parent': parameters.get('parent')
     }
-    success = project_domain.add_comment(
+    success = await sync_to_async(project_domain.add_comment)(
         project_name, user_info['user_email'], comment_data)
     if success:
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(info.context, f'Security: Added comment to \
-            {project_name} project succesfully')  # pragma: no cover
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Added comment to '
+            f'{project_name} project succesfully')  # pragma: no cover
     else:
-        util.cloudwatch_log(info.context, f'Security: Attempted to add \
-            comment in {project_name} project')  # pragma: no cover
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: Attempted to add '
+            f'comment in {project_name} project')  # pragma: no cover
     ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
     return ret
 

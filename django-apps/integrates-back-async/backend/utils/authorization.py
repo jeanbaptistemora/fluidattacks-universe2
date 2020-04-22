@@ -64,7 +64,7 @@ def get_basic_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_forces_resolve_forces_executions',
         'backend_api_resolvers_project__get_comments',
         'backend_api_resolvers_project__get_events',
-        'backend_api_resolvers_project_resolve_add_project_comment',
+        'backend_api_resolvers_project__do_add_project_comment',
         'backend_api_resolvers_project_resolve_project',
         'backend_api_resolvers_resource__do_download_file',
         'backend_api_resolvers_resource_resolve_resources',
@@ -96,8 +96,8 @@ def get_manager_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_finding__do_handle_acceptation',
         'backend_api_resolvers_me__get_tags',
         'backend_api_resolvers_project__get_users',
-        'backend_api_resolvers_project_resolve_reject_remove_project',
-        'backend_api_resolvers_project_resolve_request_remove_project',
+        'backend_api_resolvers_project__do_reject_remove_project',
+        'backend_api_resolvers_project__do_request_remove_project',
         'backend_api_resolvers_tag_resolve_tag',
         'backend_api_resolvers_user_resolve_edit_user',
         'backend_api_resolvers_user_resolve_grant_user_access',
@@ -112,7 +112,7 @@ def get_internal_manager_actions() -> Tuple[str, ...]:
     return (
         'backend_api_resolvers_alert_resolve_set_alert',
         'backend_api_resolvers_event__do_create_event',
-        'backend_api_resolvers_project_resolve_create_project',
+        'backend_api_resolvers_project__do_create_project',
         'backend_api_resolvers_user_resolve_user_list_projects',
     )
 
@@ -156,7 +156,7 @@ def get_admin_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_internal_project_resolve_project_name',
         'backend_api_resolvers_project_resolve_add_all_project_access',
         'backend_api_resolvers_project_resolve_alive_projects',
-        'backend_api_resolvers_project_resolve_create_project',
+        'backend_api_resolvers_project__do_create_project',
         'backend_api_resolvers_project_resolve_remove_all_project_access',
         'backend_api_resolvers_subscription__do_post_broadcast_message',
         'backend_api_resolvers_user_resolve_add_user',
