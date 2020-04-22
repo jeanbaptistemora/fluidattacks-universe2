@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 // tslint:disable-next-line: no-import-side-effect
@@ -10,6 +11,7 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import store from "../../../../store";
+import { authzContext } from "../../../../utils/authz/config";
 import { RecordsView } from "./index";
 import { GET_FINDING_RECORDS } from "./queries";
 
@@ -73,11 +75,15 @@ describe("FindingRecordsView", () => {
   });
 
   it("should render as editable", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_finding__do_update_evidence" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <RecordsView {...routePropsMock} />
+          <authzContext.Provider value={mockedPermissions}>
+            <RecordsView {...routePropsMock} />
+          </authzContext.Provider>
         </MockedProvider>
       </Provider>,
     );
@@ -93,7 +99,6 @@ describe("FindingRecordsView", () => {
   });
 
   it("should render as readonly", async () => {
-    (window as typeof window & { userRole: string }).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <RecordsView {...routePropsMock} />
@@ -105,11 +110,15 @@ describe("FindingRecordsView", () => {
   });
 
   it("should render delete button", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_finding__do_update_evidence" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <RecordsView {...routePropsMock} />
+          <authzContext.Provider value={mockedPermissions}>
+            <RecordsView {...routePropsMock} />
+          </authzContext.Provider>
         </MockedProvider>
       </Provider>,
     );

@@ -17,6 +17,7 @@ import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
+import { Can } from "../../../../utils/authz/Can";
 import { fileInputField } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -30,7 +31,7 @@ type IRecordsViewProps = RouteComponentProps<{ findingId: string }>;
 
 const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => {
   const { findingId } = props.match.params;
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingRecords", { Organization: userOrganization, User: userName });
@@ -74,19 +75,17 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
             });
           };
 
-          const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
-
           return (
             <React.Fragment>
-              <Row>
-                <Col md={2} mdOffset={10} xs={12} sm={12}>
-                  {canEdit ? (
+              <Can do="backend_api_resolvers_finding__do_update_evidence">
+                <Row>
+                  <Col md={2} mdOffset={10} xs={12} sm={12}>
                     <Button block={true} onClick={handleEditClick}>
                       <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_evidence.editable")}
                     </Button>
-                  ) : undefined}
-                </Col>
-              </Row>
+                  </Col>
+                </Row>
+              </Can>
               <br />
               {isEditing ? (
                 <Mutation

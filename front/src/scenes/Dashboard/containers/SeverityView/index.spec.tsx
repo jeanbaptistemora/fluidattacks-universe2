@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
@@ -11,6 +12,7 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import store from "../../../../store/index";
+import { authzContext } from "../../../../utils/authz/config";
 import { SeverityView } from "./index";
 import { GET_SEVERITY } from "./queries";
 
@@ -105,7 +107,7 @@ describe("SeverityView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
       .toHaveLength(1);
     expect(wrapper.text())
@@ -120,17 +122,21 @@ describe("SeverityView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
       .toHaveLength(1);
   });
 
   it("should render as editable", async () => {
-    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_finding__do_update_severity" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <SeverityView {...mockProps} />
+          <authzContext.Provider value={mockedPermissions}>
+            <SeverityView {...mockProps} />
+          </authzContext.Provider>
         </MockedProvider>
       </Provider>,
     );
@@ -141,13 +147,12 @@ describe("SeverityView", () => {
     expect(editButton)
       .toHaveLength(1);
     editButton.simulate("click");
-    await act(async () => { wrapper.update(); });
+    act(() => { wrapper.update(); });
     expect(wrapper.text())
       .toContain("Update");
   });
 
   it("should render as readonly", async () => {
-    (window as typeof window & { userRole: string }).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>

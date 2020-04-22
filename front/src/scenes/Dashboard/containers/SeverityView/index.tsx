@@ -5,6 +5,8 @@
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
@@ -15,6 +17,8 @@ import { RouteComponentProps } from "react-router";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { Can } from "../../../../utils/authz/Can";
+import { authzContext } from "../../../../utils/authz/config";
 import { calcCVSSv3 } from "../../../../utils/cvss";
 import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
@@ -33,7 +37,8 @@ type SeverityViewProps = RouteComponentProps<{ findingId: string }>;
 
 const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JSX.Element => {
   const { findingId } = props.match.params;
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const permissions: PureAbility<string> = useAbility(authzContext);
 
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingSeverity", { Organization: userOrganization, User: userName });
@@ -78,25 +83,30 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                   }
                 };
 
-              const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
-
               return (
                 <React.Fragment>
-                  <Row>
-                    <Col md={2} mdOffset={10}>
-                      {canEdit ? (
+                  <Can do="backend_api_resolvers_finding__do_update_severity">
+                    <Row>
+                      <Col md={2} mdOffset={10}>
                         <Button block={true} onClick={handleEditClick}>
                           <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
                         </Button>
-                      ) : undefined}
-                    </Col>
-                  </Row>
+                      </Col>
+                    </Row>
+                  </Can>
                   <br />
                   <Mutation
                     mutation={UPDATE_SEVERITY_MUTATION}
                     onCompleted={handleMtUpdateSeverityRes}
                     refetchQueries={[
-                      { query: GET_FINDING_HEADER, variables: { findingId, canGetHistoricState: canEdit } }]}
+                      {
+                        query: GET_FINDING_HEADER,
+                        variables: {
+                          canGetHistoricState: permissions.can("backend_api_dataloaders_finding__get_historic_state"),
+                          findingId,
+                        },
+                      },
+                    ]}
                   >
                     {(updateSeverity: MutationFunction, mutationRes: MutationResult): JSX.Element => {
                       const handleUpdateSeverity: ((values: {}) => void) = (values: {}): void => {
@@ -172,7 +182,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                     >
                                       <option value="" />
                                       {_.map(field.options, (text: string, value: string) => (
-                                        <option value={value}>{translate.t(text)}</option>
+                                        <option key={text} value={value}>{translate.t(text)}</option>
                                       ))}
                                     </EditableField>
                                   </Row>
