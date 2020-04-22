@@ -225,6 +225,7 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(parameters.get('project_name', ''))
+        util.forces_trigger_deployment(parameters.get('project_name', ''))
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Verified a request '
             f'in finding_id: {finding_id}')  # pragma: no cover
@@ -246,6 +247,7 @@ async def _do_update_description(_, info, finding_id: str,
             sync_to_async(project_domain.get_finding_project_name)(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
+        util.forces_trigger_deployment(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Updated description in \
 finding {finding_id} succesfully')  # pragma: no cover
@@ -297,10 +299,10 @@ async def _do_update_client_description(
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
+        util.forces_trigger_deployment(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Updated treatment in '
             f'finding {finding_id} succesfully')  # pragma: no cover
-        util.forces_trigger_deployment(project_name)
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Attempted to update '
@@ -350,6 +352,7 @@ async def _do_delete_finding(_, info, finding_id: str,
     if success:
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
+        util.forces_trigger_deployment(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Deleted finding: \
@@ -380,6 +383,7 @@ async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
     if success:
         util.invalidate_cache(draft_id)
         util.invalidate_cache(project_name)
+        util.forces_trigger_deployment(project_name)
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Approved draft in \
             {project_name} project succesfully')  # pragma: no cover

@@ -35,6 +35,7 @@ from backend.exceptions import (InvalidAuthorization, InvalidDate,
 from backend.typing import Finding as FindingType, User as UserType
 from __init__ import (
     FI_ENVIRONMENT,
+    FI_TEST_PROJECTS,
     FORCES_TRIGGER_URL,
     FORCES_TRIGGER_REF,
     FORCES_TRIGGER_TOKEN
@@ -414,6 +415,9 @@ def forces_trigger_deployment(project_name: str) -> bool:
         requests.exceptions.TooManyRedirects,
     )
 
+    # cast it to string, just in case
+    project_name = str(project_name).lower()
+
     parameters = {
         'ref': FORCES_TRIGGER_REF,
         'token': FORCES_TRIGGER_TOKEN,
@@ -421,11 +425,13 @@ def forces_trigger_deployment(project_name: str) -> bool:
     }
 
     try:
-        requests.post(
-            url=FORCES_TRIGGER_URL,
-            files={
-                param: (None, value) for param, value in list(parameters.items())
-            })
+        if project_name not in FI_TEST_PROJECTS.split(','):
+            requests.post(
+                url=FORCES_TRIGGER_URL,
+                files={
+                    param: (None, value)
+                    for param, value in parameters.items()
+                })
 
     except exceptions:
         rollbar.report_exc_info()
