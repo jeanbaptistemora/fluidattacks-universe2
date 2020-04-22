@@ -7,12 +7,13 @@ from backend.domain import (
     project as project_domain,
     user as user_domain
 )
+from backend.typing import Tag as TagType
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case
 
 
-async def _resolve_fields(info, tag: str):
+async def _resolve_fields(info, tag: str) -> TagType:
     """Async resolve fields."""
     jwt_content = util.get_jwt_content(info.context)
     user_email = jwt_content.get('user_email')
@@ -36,7 +37,7 @@ async def _resolve_fields(info, tag: str):
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-def resolve_tag(_, info, tag: str):
+def resolve_tag(_, info, tag: str) -> TagType:
     """Resolve alert query."""
     tag = tag.lower()
     return util.run_async(_resolve_fields, info, tag)

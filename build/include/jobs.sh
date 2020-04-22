@@ -450,6 +450,7 @@ function job_lint_back {
         django-apps/integrates-back-async/backend/api/resolvers/report.py \
         django-apps/integrates-back-async/backend/api/resolvers/resource.py \
         django-apps/integrates-back-async/backend/api/resolvers/subscription.py \
+        django-apps/integrates-back-async/backend/api/resolvers/tag.py \
         django-apps/integrates-back-async/backend/api/resolvers/user.py \
         django-apps/integrates-back-async/backend/api/resolvers/vulnerability.py \
   &&  prospector -F -s high -u django -i node_modules app \

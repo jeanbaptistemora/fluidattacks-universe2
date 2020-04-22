@@ -48,6 +48,10 @@ Resources = Dict[str, Union[
     str,
     List[Resource]
 ]]
+Tag = Dict[str, Union[
+    str,
+    List[Project]
+]]
 InternalProject = Dict[str, str]
 ExploitResult = Dict[str, str]
 ExecutionVulnerabilities = Dict[str, Union[
