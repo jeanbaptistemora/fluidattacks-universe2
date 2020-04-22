@@ -6,7 +6,7 @@ from __init__ import FI_CLOUDFRONT_REPORTS_DOMAIN
 
 def sign_url(file_name: str) -> str:
     return cloudfront.sign_url(
-        FI_CLOUDFRONT_REPORTS_DOMAIN, file_name, 120.0)
+        FI_CLOUDFRONT_REPORTS_DOMAIN, file_name, 60.0)
 
 
 def upload_report(file_name: str) -> str:
