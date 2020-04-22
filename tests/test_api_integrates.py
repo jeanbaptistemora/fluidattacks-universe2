@@ -28,8 +28,8 @@ def test_integrates_queries_me():
     assert not response.ok
 
     # This makes the GraphQL server fail, (too long Authorization header)
-    with pytest.raises(ContentTypeError):
-        response = integrates.Queries.me(API_TOKEN_BAD * 1000)
+    response = integrates.Queries.me(API_TOKEN_BAD * 1000)
+    assert not response.ok
 
 
 def test_integrates_queries_project():

@@ -1,5 +1,6 @@
 # Standard library
 import asyncio
+import contextlib
 import os
 import time
 import json
@@ -40,15 +41,23 @@ PROXIES = None if not DEBUGGING else {
 class CustomGraphQLClient(aiogqlc.GraphQLClient):
     errors_to_retry: tuple = (
         asyncio.TimeoutError,
-        aiohttp.client_exceptions.ContentTypeError,
-        aiohttp.client_exceptions.ServerDisconnectedError,
+        aiohttp.client_exceptions.ClientError,
     )
 
     async def execute(self, query: str, variables: dict = None,
                       operation: str = None) -> aiohttp.ClientResponse:
         connector = aiohttp.TCPConnector(verify_ssl=False)
+        timeout = aiohttp.ClientTimeout(
+            total=None,
+            connect=None,
+            sock_connect=None,
+            sock_read=None,
+        )
 
-        async with aiohttp.ClientSession(connector=connector) as session:
+        async with aiohttp.ClientSession(
+            connector=connector,
+            timeout=timeout,
+        ) as session:
             headers = self.prepare_headers()
 
             if variables and aiogqlc.utils.contains_file_variable(variables):
@@ -58,23 +67,13 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
                 data = json.dumps(
                     self.prepare_json_data(query, variables, operation))
 
-            for _ in range(RETRY_MAX_ATTEMPTS):
-                async with session.post(
-                    self.endpoint,
-                    data=data,
-                    headers=headers,
-                ) as response:
-                    try:
-                        await response.read()
-                    except self.errors_to_retry:
-                        time.sleep(RETRY_RELAX_SECONDS)
-                    else:
-                        return response
-
-            logger.error('self.endpoint:', self.endpoint)
-            logger.error('headers:', headers)
-            logger.error('data:', data)
-            raise Exception('Unable to complete query, even after retrying')
+            async with session.post(
+                self.endpoint,
+                data=data,
+                headers=headers,
+            ) as response:
+                await response.read()
+                return response
 
 
 async def gql_request(api_token, payload, variables):
@@ -125,15 +124,23 @@ def request(api_token: str,
     payload = textwrap.dedent(body % params if params else body)
 
     for _ in range(RETRY_MAX_ATTEMPTS):
-        response = asyncio.run(
-            gql_request(api_token, payload, params),
-            debug=DEBUGGING)
-        if response.errors or isinstance(response.data, expected_types):
-            break
+        with contextlib.suppress(*CustomGraphQLClient.errors_to_retry):
+            awaitable = gql_request(api_token, payload, params)
+            response = asyncio.run(awaitable, debug=DEBUGGING)
+
+            if response.errors or isinstance(response.data, expected_types):
+                # It's ok, return
+                logger.debug('response', response)
+                return response
+
         time.sleep(RETRY_RELAX_SECONDS)
 
-    logger.debug('response', response)
-    return response
+    return Response(ok=False,
+                    status_code=0,
+                    data=None,
+                    errors=(
+                        'Unable to get data, even after retrying',
+                    ))
 
 
 class Queries:

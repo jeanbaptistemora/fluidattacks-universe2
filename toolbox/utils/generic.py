@@ -181,7 +181,7 @@ def iter_subscritions_config():
 
     yields subscription_configuration.
     """
-    for config_path in glob('subscriptions/*/config/config.yml'):
+    for config_path in sorted(glob('subscriptions/*/config/config.yml')):
         yield safe_load(open(config_path))
 
 

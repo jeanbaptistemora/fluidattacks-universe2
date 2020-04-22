@@ -6,10 +6,9 @@ import json
 import time
 import contextlib
 import datetime
-import multiprocessing
 import traceback
 from typing import Any
-from itertools import repeat
+from itertools import repeat, starmap
 
 # Third parties libraries
 import boto3
@@ -352,23 +351,20 @@ def load_executions_to_database() -> bool:
     utils.generic.aws_login()
     s3_client = boto3.client('s3')
     max_put_items = 25
-    with multiprocessing.pool.ThreadPool(processes=1) as pool:
-        for batch in batch_iterable(
-                max_put_items, yield_execution_groups(s3_client)):
-            results = pool.starmap(
-                get_execution_object, zip(repeat(s3_client), batch))
-            logger.info('Writing to the database')
-            for result in results:
-                logger.info(
-                    f'  - {result.subscription} {result.execution_id}')
-                try:
-                    result.save()
-                except (botocore.exceptions.ClientError,
-                        pynamodb.exceptions.PynamoDBException):
-                    logger.error('  The following exception was raised')
-                    logger.error(traceback.format_exc())
-                logger.info('  Cooling down...')
-                time.sleep(12)
-        logger.info('Done')
+    for batch in batch_iterable(
+            max_put_items, yield_execution_groups(s3_client)):
+        results = starmap(get_execution_object, zip(repeat(s3_client), batch))
+        for result in results:
+            logger.info(
+                f'  - {result.subscription} {result.execution_id}')
+            try:
+                result.save()
+            except (botocore.exceptions.ClientError,
+                    pynamodb.exceptions.PynamoDBException):
+                logger.error('  The following exception was raised')
+                logger.error(traceback.format_exc())
+            logger.info('  Cooling down...')
+            time.sleep(12)
+    logger.info('Done')
 
     return True

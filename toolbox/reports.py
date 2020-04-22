@@ -5,7 +5,6 @@ import glob
 from multiprocessing import Pool, cpu_count
 from typing import List, NamedTuple
 from itertools import repeat
-from concurrent.futures.thread import ThreadPoolExecutor
 
 # Third parties libraries
 import ruamel.yaml as yaml
@@ -194,12 +193,11 @@ def process_subscription_exploits(subs: dict) -> List:
     :rtype: :class:`List[ExploitInfo]`
     """
     result = []
-    with ThreadPoolExecutor(max_workers=cpu_count() * 8) as executor:
-        for exploit in executor.map(process_exploit,
-                                    utils.generic.iter_exploit_paths(
-                                        subs['name'])):
-            exploit = exploit._replace(customer=subs['customer'])
-            result.append(exploit)
+    subs_name = subs['name']
+    exploit_paths_iterator = utils.generic.iter_exploit_paths(subs_name)
+    for exploit in map(process_exploit, exploit_paths_iterator):
+        exploit = exploit._replace(customer=subs['customer'])
+        result.append(exploit)
     return result
 
 
