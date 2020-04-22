@@ -30,7 +30,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
     >
       <img className={style.logo} src={logo} alt="integrates-logo" onClick={handleLogoClick} />
       <ul className={style.menuList}>
-        <Can do="backend_api_resolvers_user_resolve_add_user">
+        <Can do="backend_api_resolvers_user__do_add_user">
           <li onClick={onOpenAddUserModal}>
             <div className={style.item}><i className="icon pe-7s-plus" />
               <span className={style.label}>{translate.t("sidebar.user")}</span>

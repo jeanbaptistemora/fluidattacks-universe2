@@ -53,33 +53,6 @@ class ProjectTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
-    def _get_result(self, data, user=None):
-        """Get result."""
-        user = user or 'integratesmanager@gmail.com'
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': user,
-                'company': 'fluid',
-                'first_name': 'unit',
-                'last_name': 'test'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {
-            'event': EventLoader(),
-            'finding': FindingLoader(),
-            'vulnerability': VulnerabilityLoader()
-        }
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
-        return result
-
     async def test_project(self):
         """Check for project mutation."""
         query = '''

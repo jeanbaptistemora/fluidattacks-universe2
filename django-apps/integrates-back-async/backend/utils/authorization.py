@@ -99,9 +99,9 @@ def get_manager_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_project__do_reject_remove_project',
         'backend_api_resolvers_project__do_request_remove_project',
         'backend_api_resolvers_tag_resolve_tag',
-        'backend_api_resolvers_user_resolve_edit_user',
-        'backend_api_resolvers_user_resolve_grant_user_access',
-        'backend_api_resolvers_user_resolve_remove_user_access',
+        'backend_api_resolvers_user__do_edit_user',
+        'backend_api_resolvers_user__do_grant_user_access',
+        'backend_api_resolvers_user__do_remove_user_access',
         'backend_api_resolvers_user_resolve_user_list_projects',
         'backend_api_resolvers_user_resolve_user',
     )
@@ -159,7 +159,7 @@ def get_admin_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_project__do_create_project',
         'backend_api_resolvers_project__do_remove_all_project_access',
         'backend_api_resolvers_subscription__do_post_broadcast_message',
-        'backend_api_resolvers_user_resolve_add_user',
+        'backend_api_resolvers_user__do_add_user',
     )
 
 

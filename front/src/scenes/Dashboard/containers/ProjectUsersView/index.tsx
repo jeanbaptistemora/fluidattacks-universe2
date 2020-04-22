@@ -196,19 +196,19 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
             <Row>
               <Col md={12} sm={12}>
                 <ButtonToolbar className="pull-right md-12 sm-12">
-                  <Can do="backend_api_resolvers_user_resolve_grant_user_access">
+                  <Can do="backend_api_resolvers_user__do_grant_user_access">
                     <Button id="addUser" onClick={openAddUserModal}>
                       <Glyphicon glyph="plus" />
                       &nbsp;{translate.t("search_findings.tab_users.add_button")}
                     </Button>
                   </Can>
-                  <Can do="backend_api_resolvers_user_resolve_edit_user">
+                  <Can do="backend_api_resolvers_user__do_edit_user">
                     <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
                       <FluidIcon icon="edit" />
                       &nbsp;{translate.t("search_findings.tab_users.edit")}
                     </Button>
                   </Can>
-                  <Can do="backend_api_resolvers_user_resolve_remove_user_access">
+                  <Can do="backend_api_resolvers_user__do_remove_user_access">
                     <Button
                       id="removeUser"
                       onClick={handleRemoveUser}

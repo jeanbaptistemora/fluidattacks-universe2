@@ -214,9 +214,9 @@ class ActionAbacTest(TestCase):
 
     customeradmin_allowed_actions = {
         'backend_api_resolvers_user_resolve_user',
-        'backend_api_resolvers_user_resolve_grant_user_access',
-        'backend_api_resolvers_user_resolve_remove_user_access',
-        'backend_api_resolvers_user_resolve_edit_user',
+        'backend_api_resolvers_user__do_grant_user_access',
+        'backend_api_resolvers_user__do_remove_user_access',
+        'backend_api_resolvers_user__do_edit_user',
         'backend_api_resolvers_finding__do_handle_acceptation',
         'backend_api_resolvers_project__get_users',
         'backend_api_resolvers_project__do_request_remove_project',
@@ -339,7 +339,7 @@ class UserAbacTest(TestCase):
 
     admin_actions: Set[str] = {
         'backend_api_resolvers_internal_project_resolve_project_name',
-        'backend_api_resolvers_user_resolve_add_user',
+        'backend_api_resolvers_user__do_add_user',
         'backend_api_resolvers_subscription__do_post_broadcast_message',
         'backend_api_resolvers_project_resolve_alive_projects'
     }

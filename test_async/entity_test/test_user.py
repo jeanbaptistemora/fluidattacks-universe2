@@ -8,6 +8,8 @@ from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
 
+pytestmark = pytest.mark.asyncio
+
 
 class UserTests(TestCase):
 
@@ -52,7 +54,6 @@ class UserTests(TestCase):
         assert 'responsibility' in result['data']['user']
         assert 'phoneNumber' in result['data']['user']
 
-    @pytest.mark.asyncio
     async def test_user_list_projects(self):
         """Check for user."""
         query = '''
@@ -78,7 +79,7 @@ class UserTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
 
-    def test_add_user(self):
+    async def test_add_user(self):
         """Check for addUser mutation."""
         query = '''
             mutation {
@@ -106,13 +107,13 @@ class UserTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'addUser' in result['data']
         assert 'success' in result['data']['addUser']
         assert 'email' in result['data']['addUser']
 
-    def test_grant_user_access(self):
+    async def test_grant_user_access(self):
         """Check for grantUserAccess mutation."""
         query = '''
             mutation {
@@ -152,13 +153,13 @@ class UserTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
         assert 'grantedUser' in result['data']['grantUserAccess']
         assert 'email' in result['data']['grantUserAccess']['grantedUser']
 
-    def test_remove_user_access(self):
+    async def test_remove_user_access(self):
         """Check for removeUserAccess mutation."""
         query = '''
             mutation {
@@ -188,12 +189,12 @@ class UserTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['removeUserAccess']
         assert 'removedEmail' in result['data']['removeUserAccess']
 
-    def test_edit_user(self):
+    async def test_edit_user(self):
         """Check for editUser mutation."""
         query = '''
             mutation {
@@ -224,6 +225,6 @@ class UserTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['editUser']
