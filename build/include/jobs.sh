@@ -440,19 +440,7 @@ function job_lint_back {
         django-apps/integrates-back-async/backend/domain/*py \
         django-apps/integrates-back-async/backend/dal/* \
         django-apps/integrates-back-async/backend/utils/* \
-        django-apps/integrates-back-async/backend/api/resolvers/cache.py \
-        django-apps/integrates-back-async/backend/api/resolvers/event.py \
-        django-apps/integrates-back-async/backend/api/resolvers/finding.py \
-        django-apps/integrates-back-async/backend/api/resolvers/forces.py \
-        django-apps/integrates-back-async/backend/api/resolvers/internal_project.py \
-        django-apps/integrates-back-async/backend/api/resolvers/me.py \
-        django-apps/integrates-back-async/backend/api/resolvers/project.py \
-        django-apps/integrates-back-async/backend/api/resolvers/report.py \
-        django-apps/integrates-back-async/backend/api/resolvers/resource.py \
-        django-apps/integrates-back-async/backend/api/resolvers/subscription.py \
-        django-apps/integrates-back-async/backend/api/resolvers/tag.py \
-        django-apps/integrates-back-async/backend/api/resolvers/user.py \
-        django-apps/integrates-back-async/backend/api/resolvers/vulnerability.py \
+        django-apps/integrates-back-async/backend/api/resolvers/* \
   &&  prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s veryhigh django-apps/casbin-in-memory-adapter \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/api \
