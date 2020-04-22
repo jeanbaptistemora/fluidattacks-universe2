@@ -22,6 +22,14 @@ const contentHome: (() => void) = (): void => {
         animationById("#op6", "checked", ".oneshot", ".continuous",
                       "dn fadein active", "dn", "fadein");
     });
+    $('input:radio[name="menu3"]')
+    .on("change", () => {
+
+      animationById("#products-title", "checked", ".products-list", ".usecases-list",
+                    "dn fadein active", "dn", "fadein");
+      animationById("#usecases-title", "checked", ".usecases-list", ".products-list",
+                    "dn fadein active", "dn", "fadein");
+    });
   });
 };
 

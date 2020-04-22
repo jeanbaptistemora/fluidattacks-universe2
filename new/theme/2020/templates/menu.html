@@ -33,19 +33,61 @@
               alt="Young hacker smiling">
           </label>
           <nav class="h-50 relative tc t-50 ty-50 ">
-            <ul class="o-40 menu-trans dib h-100 list ma0 pa0 relative tl">
-              <li class="db h2">
-                <a href="{{ SITEURL }}/products/" class="hv-fluid-rd f3 c-fluid-bk fw3 no-underline menu-txt-trans roboto">
-                  Products <div class="dib w1"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-down.svg" alt="arrow down"></div>
-                </a>
-              </li>
-              <li class="db h2">
-                <a
-                  href="{{ SITEURL }}/use-cases/continuous/"
-                  class="hv-fluid-rd f3 c-fluid-bk fw3 no-underline menu-txt-trans roboto">
-                  Use Cases  <div class="dib w1"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-down.svg" alt="arrow down"></div>
-                </a>
-              </li>
+            <ul class="o-40 menu-trans dib h-100 list ma0 pa0 relative tl w5">
+              <div class="products-menu h-maxcontent">
+                <li class="db">
+                  <input class="dn" type="radio" name="menu3" id="products-title">
+                  <label for="products-title" class="pointer hv-fluid-rd f3 c-fluid-bk fw3 menu-txt-trans roboto">
+                    Products <div class="dib w1"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-down.svg" alt="arrow down"></div></label>
+                  </a>
+                  <div class="products-list dn">
+                    <ul class="list">
+                      <li class="pv2">
+                        <a class="hv-fluid-rd f4 c-fluid-bk fw1 no-underline menu-txt-trans roboto pv"
+                           href="{{ SITEURL }}/products/integrates/">
+                            Integrates
+                        </a>
+                      </li>
+                      <li class="pv2">
+                        <a class="hv-fluid-rd f4 c-fluid-bk fw1 no-underline menu-txt-trans roboto"
+                           href="{{ SITEURL }}/products/drills/">
+                            Drills
+                        </a>
+                      </li>
+                      <li class="pv2">
+                        <a class="hv-fluid-rd f4 c-fluid-bk fw1 no-underline menu-txt-trans roboto"
+                           href="{{ SITEURL }}/products/forces/">
+                            Forces
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </div>
+              <div class="usecases-menu h-maxcontent">
+                <li class="db">
+                  <input class="dn" type="radio" name="menu3" id="usecases-title">
+                  <label for="usecases-title" class="pointer hv-fluid-rd f3 c-fluid-bk fw3 menu-txt-trans roboto">
+                    Use Cases <div class="dib w1"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-down.svg" alt="arrow down"></div></label>
+                  </a>
+                  <div class="usecases-list dn">
+                    <ul class="list">
+                      <li class="pv2">
+                        <a class="hv-fluid-rd f4 c-fluid-bk fw1 no-underline menu-txt-trans roboto"
+                           href="{{ SITEURL }}/use-cases/continuous/">
+                          Continuous Hacking
+                        </a>
+                      </li>
+                      <li class="pv2">
+                        <a class="hv-fluid-rd f4 c-fluid-bk fw1 no-underline menu-txt-trans roboto"
+                           href="{{ SITEURL }}/use-cases/one-shot/">
+                           One-shot Hackng
+                          </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </div>
               <li class="db h2">
                 <a href="#" class="hv-fluid-rd f3 c-fluid-bk fw3 no-underline menu-txt-trans roboto">About Us</a>
               </li>
