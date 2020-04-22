@@ -30,6 +30,8 @@ points such as access control gateways, severs and serverless functions.
 
 * link:/web/findings/048/[F048. Lack of root detection]
 
+* link:/web/findings/055/[F055. Insecure service configuration]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]

@@ -4,7 +4,7 @@
 :keywords: Logs, Sensitive, Events, Information, CWE, ASVS
 :rules: yes
 
-= REQ.083 Avoid sensitive data logging
+= REQ.083 Avoid logging sensitive data
 
 == Requirement
 
@@ -34,6 +34,10 @@ he might be able to compromise other systems using the sensitive information.
 * Scope: Confidentiality
 * Phase: Operation
 * Type of Control: Procedure
+
+== Findings
+
+* link:/web/findings/059/[F059. Sensitive information stored in logs]
 
 == References
 

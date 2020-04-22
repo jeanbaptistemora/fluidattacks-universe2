@@ -57,6 +57,10 @@ in order to perform deeper and more detailed attacks.
 * Phase: Operation
 * Type of Control: Recommendation
 
+== Findings
+
+* link:/web/findings/054/[F054. Exposed administrative services]
+
 == References
 
 . [[r3]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel].

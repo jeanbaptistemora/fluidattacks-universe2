@@ -1,0 +1,16 @@
+:slug: findings/059/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from storing sensitive information in log files, recommendations to avoid them and related security requirements.
+:keywords: Sensitive, Information, Data, Log, File, Logging
+:findings: yes
+:type: security
+
+= F059. Sensitive information stored in logs
+
+== Description
+
+The system stores sensitive information such as credentials, bank accounts
+and file paths in log files.
+
+== Rules
+
+. [[r1]] link:/web/rules/083/[R083. Avoid logging sensitive data]

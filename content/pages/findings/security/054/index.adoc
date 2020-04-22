@@ -1,0 +1,17 @@
+:slug: findings/054/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from having exposed administrative services, recommendations to avoid them and related security requirements.
+:keywords: Administrative, Console, Administration, Exposed, Service, System
+:findings: yes
+:type: security
+
+= F054. Exposed administrative services
+
+== Description
+
+One or more of the system's administration consoles are exposed (possibly on
+the internet),
+which may lead to unauthorized access attempts.
+
+== Rules
+
+. [[r1]] link:/web/rules/033/[R033. Restrict administrative access]
