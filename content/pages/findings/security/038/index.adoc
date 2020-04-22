@@ -22,8 +22,8 @@ It is possible to obtain business information such as:
 
 == Rules
 
-. [[r1]] link:/web/rules/176/[R176 Restrict system objects]
+. [[r1]] link:/web/rules/176/[R176. Restrict system objects]
 
-. [[r2]] link:/web/rules/177/[R177 Store data securely]
+. [[r2]] link:/web/rules/177/[R177. Store data securely]
 
-. [[r3]] link:/web/rules/300/[R300 Mask sensitive data]
+. [[r3]] link:/web/rules/300/[R300. Mask sensitive data]

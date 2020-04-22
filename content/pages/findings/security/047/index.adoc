@@ -1,0 +1,18 @@
+:slug: findings/047/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities that enable automatic information enumeration attacks, recommendations to avoid them and related security requirements.
+:keywords: Automatic, Information, Enumeration, Data, Robot, Indexing
+:findings: yes
+:type: security
+
+= F047. Automatic information enumeration
+
+== Description
+
+It is possible to automatically enumerate system information such as open
+ports, available services, users' personal data.
+
+== Rules
+
+. [[r1]] link:/web/rules/263/[R263. Establish mechanisms against robot attacks]
+
+. [[r2]] link:/web/rules/266/[R266. Disable insecure functionalities]

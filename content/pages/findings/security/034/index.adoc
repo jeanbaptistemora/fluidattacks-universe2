@@ -13,6 +13,6 @@ attacker to guess the sequence after a short time.
 
 == Rules
 
-. [[r1]] link:/web/rules/223/[R223 Uniform distribution in random numbers]
+. [[r1]] link:/web/rules/223/[R223. Uniform distribution in random numbers]
 
-. [[r2]] link:/web/rules/224/[R224 Use secure cryptographic mechanisms]
+. [[r2]] link:/web/rules/224/[R224. Use secure cryptographic mechanisms]

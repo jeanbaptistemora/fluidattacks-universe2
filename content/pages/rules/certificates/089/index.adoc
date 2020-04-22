@@ -9,4 +9,8 @@
 == Requirement
 
 The organization must not use digital certificates
-with a validity of more than two years.
+with a validity greater than two years.
+
+== Findings
+
+* link:/web/findings/049/[F049. Insecure digital certificates]

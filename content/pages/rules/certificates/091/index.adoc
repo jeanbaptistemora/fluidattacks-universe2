@@ -11,3 +11,7 @@
 The organization must use certificates
 signed by valid internal certification authorities
 when these are for internal applications.
+
+== Findings
+
+* link:/web/findings/049/[F049. Insecure digital certificates]

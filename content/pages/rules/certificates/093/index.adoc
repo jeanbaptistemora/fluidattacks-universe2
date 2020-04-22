@@ -8,5 +8,9 @@
 
 == Requirement
 
-Certificates must be used with a consistent identification
-of the organization associated (service, server, among others).
+The system must use digital certificates with a consistent identification
+of the associated organization (service, server, among others).
+
+== Findings
+
+* link:/web/findings/049/[F049. Insecure digital certificates]

@@ -1,0 +1,68 @@
+:slug: rules/263/
+:category: architecture
+:description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of implementing protection mechanisms that shield the system against automated and robot attacks.
+:keywords: Protection, Mechanism, Robot, Attack, CWE, ASVS
+:rules: yes
+
+= REQ.263 Establish mechanisms against robot attacks
+
+== Requirement
+
+The system must implement protection mechanisms against robots that index
+information, landings or resources.
+
+== Description
+
+There exist several attacks that have been automated or depend on a robot
+for their execution.
+This is most often due to the necessity of posting a huge amount of requests
+in a very short period of time.
+The system must implement appropriate mechanisms to completely prevent these
+kinds of attack or severely hinder their effectiveness.
+Furthermore, it should have alert mechanisms that notify administrators
+whenever automated attacks or unusual activities are detected.
+
+== Findings
+
+* link:/web/findings/047/[F047. Automatic information enumeration]
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/307.html[CWE-307: Improper Restriction of Excessive Authentication Attempts]
+The software does not implement sufficient measures to prevent multiple failed
+authentication attempts within in a short time frame,
+making it more susceptible to brute force attacks.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/799.html[CWE-799: Improper Control of Interaction Frequency]
+The software does not properly limit the number or frequency of interactions
+that it has with an actor,
+such as the number of incoming requests.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.2 General Authenticator Requirements.(2.2.1)]
+Verify that anti-automation controls are effective at mitigating breached
+credential testing, brute force, and account lockout attacks.
+Such controls include blocking the most common breached passwords,
+soft lockouts, rate limiting, CAPTCHA, ever increasing delays between attempts,
+IP address restrictions,
+or risk-based restrictions such as location, first login on a device,
+recent attempts to unlock the account, or similar.
+Verify that no more than 100 failed attempts per hour is possible on a single
+account.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.2)]
+Verify the application will only process business logic flows with all steps
+being processed in realistic human time,
+i.e. transactions are not submitted too quickly.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.4)]
+Verify the application has sufficient anti-automation controls to detect and
+protect against data exfiltration, excessive business logic requests, excessive
+file uploads or denial of service attacks.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.8)]
+Verify the application has configurable alerting when automated attacks or
+unusual activity is detected.

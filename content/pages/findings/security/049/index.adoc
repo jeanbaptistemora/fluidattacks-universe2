@@ -1,0 +1,24 @@
+:slug: findings/049/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from the use of insecure digital certificates, recommendations to avoid them and related security requirements.
+:keywords: Digital, Certificates, SSL, Validity, HTTPS, Recommended Practices
+:findings: yes
+:type: security
+
+= F049. Insecure digital certificates
+
+== Description
+
+The application's digital certificate does not comply with the recommended
+security practices.
+
+== Rules
+
+. [[r1]] link:/web/rules/089/[R089. Limit validity of certificates]
+
+. [[r2]] link:/web/rules/090/[R090. Use valid certificates]
+
+. [[r3]] link:/web/rules/091/[R091. Use internally signed certificates]
+
+. [[r4]] link:/web/rules/092/[R092. Use externally signed certificates]
+
+. [[r5]] link:/web/rules/093/[R093. Use consistent certificates]

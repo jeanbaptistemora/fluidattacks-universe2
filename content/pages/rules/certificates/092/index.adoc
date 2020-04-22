@@ -11,3 +11,7 @@
 The organization must use certificates
 signed by valid external certification authorities
 when these are for external applications.
+
+== Findings
+
+* link:/web/findings/049/[F049. Insecure digital certificates]
