@@ -5,6 +5,34 @@ from typing import List, Dict, Any
 import boto3
 
 
+def s3_rm(bucket: str, path: str):
+    """
+    Remove objects in path
+
+    param: bucket: Bucket to work with
+    param: path: Path to remove
+    """
+    s3_client = boto3.client('s3')
+    kwargs_list_objects: Dict[str, Any] = {
+        'Bucket': bucket,
+        'Prefix': path,
+    }
+    files_raw: List[Dict[str, Any]] = []
+    files_parsed: List[Dict[str, str]] = []
+    paginator = s3_client.get_paginator('list_objects_v2')
+    for page in paginator.paginate(**kwargs_list_objects):
+        try:
+            files_raw += page['Contents']
+        except KeyError:
+            break
+        files_parsed += list(map(lambda x: {'Key': x['Key']}, files_raw))
+    kwargs_delete_objects: Dict[str, Any] = {
+        'Bucket': bucket,
+        'Delete': {'Objects': files_parsed, 'Quiet': True},
+    }
+    s3_client.delete_objects(**kwargs_delete_objects)
+
+
 def s3_cp(
         origin_bucket: str,
         destination_bucket: str,
