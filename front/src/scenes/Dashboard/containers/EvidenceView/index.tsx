@@ -16,6 +16,7 @@ import { InjectedFormProps, Validator } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
+import { Can } from "../../../../utils/authz/Can";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -32,7 +33,7 @@ type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
 
 const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { findingId } = props.match.params;
-  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
   const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
   // Side effects
@@ -95,8 +96,6 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
   const evidenceList: string[] = _.uniq(["animation", "exploitation", ...Object.keys(evidenceImages)])
     .filter((name: string) => _.isEmpty(evidenceImages[name].url) ? isEditing : true);
 
-  const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
-
   const handleUpdate: ((values: Dictionary<IEvidenceItem>) => void) = async (
     values: Dictionary<IEvidenceItem>,
   ): Promise<void> => {
@@ -134,11 +133,11 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
     <React.StrictMode>
       <Row>
         <Col md={2} mdOffset={10} xs={12} sm={12}>
-          {canEdit ? (
+          <Can do="backend_api_resolvers_finding__do_update_evidence">
             <Button block={true} onClick={handleEditClick}>
               <FluidIcon icon="edit" />&nbsp;{translate.t("project.findings.evidence.edit")}
             </Button>
-          ) : undefined}
+          </Can>
         </Col>
       </Row>
       <br />

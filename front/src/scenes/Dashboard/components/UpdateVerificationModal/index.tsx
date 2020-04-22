@@ -2,6 +2,8 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of readability of the code
  */
 import { useMutation } from "@apollo/react-hooks";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -9,6 +11,7 @@ import React from "react";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../components/DataTableNext/types";
+import { authzContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -38,12 +41,15 @@ export interface IUpdateVerificationModal {
 }
 
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
+  const permissions: PureAbility<string> = useAbility(authzContext);
+  const canDisplayAnalyst: boolean = permissions.can("backend_api_dataloaders_finding__get_analyst");
+
+  // State management
   const [vulnerabilitiesList, setVulnerabilities] = React.useState(props.vulns);
   const closeRemediationModal: (() => void) = (): void => { props.handleCloseModal(); };
-  const { userRole } = (window as typeof window & { userRole: string });
-  const canDisplayAnalyst: boolean = _.includes(["admin", "analyst"], userRole);
 
-  const [requestVerification, {loading: submittingRequest}] = useMutation(REQUEST_VERIFICATION_VULN, {
+  // GraphQL operations
+  const [requestVerification, { loading: submittingRequest }] = useMutation(REQUEST_VERIFICATION_VULN, {
     onCompleted: (data: IRequestVerificationVulnResult): void => {
       if (data.requestVerificationVuln.success) {
         msgSuccess(
@@ -78,7 +84,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     ],
   });
 
-  const [verifyRequest, {loading: submittingVerify}] = useMutation(VERIFY_VULNERABILITIES, {
+  const [verifyRequest, { loading: submittingVerify }] = useMutation(VERIFY_VULNERABILITIES, {
     onCompleted: (data: IVerifyRequestVulnResult): void => {
       if (data.verifyRequestVuln.success) {
         msgSuccess(
@@ -115,10 +121,12 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     (values: { treatmentJustification: string }): void => {
       if (props.remediationType === "request") {
         const vulnerabilitiesId: string[] = props.vulns.map((vuln: IVulnData) => vuln.id);
-        requestVerification({ variables: {
-          findingId: props.findingId,
-          justification: values.treatmentJustification,
-          vulnerabilities: vulnerabilitiesId },
+        requestVerification({
+          variables: {
+            findingId: props.findingId,
+            justification: values.treatmentJustification,
+            vulnerabilities: vulnerabilitiesId,
+          },
         })
           .catch();
       } else {
@@ -126,27 +134,33 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
           (acc: string[], vuln: IVulnData) => (vuln.currentState === "open" ? [...acc, vuln.id] : acc), []);
         const closedVulnsId: string[] = vulnerabilitiesList.reduce(
           (acc: string[], vuln: IVulnData) => (vuln.currentState === "closed" ? [...acc, vuln.id] : acc), []);
-        verifyRequest({ variables: {
-          closedVulns: closedVulnsId, findingId: props.findingId, justification: values.treatmentJustification,
-          openVulns: openVulnsId }})
+        verifyRequest({
+          variables: {
+            closedVulns: closedVulnsId, findingId: props.findingId, justification: values.treatmentJustification,
+            openVulns: openVulnsId,
+          },
+        })
           .catch();
       }
       closeRemediationModal();
     };
 
   const renderVulnsToVerify: (() => JSX.Element) = (): JSX.Element => {
-    const handleUpdateRepo: ((vulnInfo: { [key: string]: string }) => void) =
-    (vulnInfo: { [key: string]: string }): void => {
+    const handleUpdateRepo: ((vulnInfo: Dictionary<string>) => void) = (
+      vulnInfo: Dictionary<string>,
+    ): void => {
       const newVulnList: IVulnData[] = vulnerabilitiesList.map(
         (vuln: IVulnData) => vuln.id !== vulnInfo.id ? vuln :
-        {...vuln, currentState: vuln.currentState === "open" ? "closed" : "open" });
+          { ...vuln, currentState: vuln.currentState === "open" ? "closed" : "open" });
       setVulnerabilities([...newVulnList]);
     };
     const vulnsHeader: IHeader[] = [
       { align: "left", dataField: "where", header: "Where", width: "55%", wrapped: true },
       { align: "left", dataField: "specific", header: "Specific", width: "25%", wrapped: true },
-      { align: "left", changeFunction: handleUpdateRepo, dataField: "currentState", formatter: changeVulnStateFormatter,
-        header: "State", width: "20%", wrapped: true }];
+      {
+        align: "left", changeFunction: handleUpdateRepo, dataField: "currentState", formatter: changeVulnStateFormatter,
+        header: "State", width: "20%", wrapped: true,
+      }];
 
     return (
       <DataTableNext
@@ -166,27 +180,27 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     );
   };
 
-  return(
+  return (
     <React.StrictMode>
       <RemediationModal
         additionalInfo={
-          props.remediationType === "request" ?
-          translate.t("search_findings.tab_description.remediation_modal.message", { vulns: props.vulns.length })
-          : undefined
+          props.remediationType === "request"
+            ? translate.t("search_findings.tab_description.remediation_modal.message", { vulns: props.vulns.length })
+            : undefined
         }
         isLoading={submittingRequest || submittingVerify}
         isOpen={props.isOpen}
         message={
-          props.remediationType === "request" ?
-          translate.t("search_findings.tab_description.remediation_modal.justification")
-          : translate.t("search_findings.tab_description.remediation_modal.observations")
+          props.remediationType === "request"
+            ? translate.t("search_findings.tab_description.remediation_modal.justification")
+            : translate.t("search_findings.tab_description.remediation_modal.observations")
         }
         onClose={closeRemediationModal}
         onSubmit={handleSubmit}
         title={
-          props.remediationType === "request" ?
-          translate.t("search_findings.tab_description.remediation_modal.title_request")
-          : translate.t("search_findings.tab_description.remediation_modal.title_observations")
+          props.remediationType === "request"
+            ? translate.t("search_findings.tab_description.remediation_modal.title_request")
+            : translate.t("search_findings.tab_description.remediation_modal.title_observations")
         }
       >
         {props.remediationType === "verify" ? renderVulnsToVerify : undefined}
