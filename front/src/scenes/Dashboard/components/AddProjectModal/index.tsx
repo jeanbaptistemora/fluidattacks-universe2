@@ -9,10 +9,9 @@ import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import { change, EventWithDataHandler, Field, InjectedFormProps } from "redux-form";
+import { EventWithDataHandler, Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
-import store from "../../../../store";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -34,8 +33,7 @@ import { IAddProjectModal, IProjectName } from "./types";
   */
 
 const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAddProjectModal): JSX.Element => {
-  const { userOrganization, userRole } = (window as typeof window & { userOrganization: string; userRole: string });
-
+  // State management
   const [hasDrills, setHasDrills] = React.useState(true);
   const [hasForces, setHasForces] = React.useState(true);
 
@@ -44,19 +42,12 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
 
   const [subscriptionType, setSubscriptionType] = React.useState("CONTINUOUS");
 
-  const [projectName, setProjectName] = React.useState("");
-  const isAdmin: boolean  = _.includes(["admin"], userRole);
   const closeNewProjectModal: (() => void) = (): void => { props.onClose(); };
   const handleProjectNameError: ((error: ApolloError) => void) = (error: ApolloError): void => {
     closeNewProjectModal();
     handleGraphQLErrors("An error occurred getting project name", error);
   };
-  const handleProjectNameResult: ((qrResult: IProjectName) => void) = (qrResult: IProjectName): void => {
-    if (!_.isUndefined(qrResult)) {
-      store.dispatch(change("newProject", "name", qrResult.internalProjectNames.projectName.toUpperCase()));
-      setProjectName(qrResult.internalProjectNames.projectName);
-    }
-  };
+
   const isContinuousType: ((subsType: string) => boolean) =
     (subsType: string): boolean => subsType === "CONTINUOUS";
 
@@ -71,10 +62,13 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
         <Query
           query={PROJECTS_NAME_QUERY}
           fetchPolicy="network-only"
-          onCompleted={handleProjectNameResult}
           onError={handleProjectNameError}
         >
-          {({}: QueryResult<IProjectName>): JSX.Element => {
+          {({ data }: QueryResult<IProjectName>): JSX.Element => {
+            const projectName: string = _.isUndefined(data) || _.isEmpty(data)
+              ? ""
+              : data.internalProjectNames.projectName;
+
             const handleMutationResult: ((result: { createProject: { success: boolean } }) => void) = (
               result: { createProject: { success: boolean } },
             ): void => {
@@ -90,8 +84,9 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
               handleGraphQLErrors("An error occurred adding a project", error);
             };
 
-            const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> =
-            (event: React.ChangeEvent<string> | undefined, subsType: string): void => {
+            const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> = (
+              event: React.ChangeEvent<string> | undefined, subsType: string,
+            ): void => {
               setSubscriptionType(subsType);
 
               setHasDrills(isContinuousType(subsType));
@@ -118,28 +113,34 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 mutation={CREATE_PROJECT_MUTATION}
                 onCompleted={handleMutationResult}
                 onError={handleCreateError}
-                refetchQueries={[{ query: PROJECTS_QUERY}]}
+                refetchQueries={[{ query: PROJECTS_QUERY }]}
               >
                 {(createProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
-                  if (!isAdmin) { store.dispatch(change("newProject", "company", userOrganization)); }
 
-                  const handleSubmit: ((values: { company: string; description: string; type: string }) => void) =
-                  (values: { company: string; description: string; type: string }): void => {
-                    const companies: string[] = isAdmin ? values.company.split(",") : [userOrganization];
+                  const handleSubmit: ((values: { company: string; description: string; type: string }) => void) = (
+                    values: { company: string; description: string; type: string },
+                  ): void => {
+                    const companies: string[] = values.company.split(",");
 
-                    createProject({ variables: {
-                      companies,
-                      description: values.description,
-                      hasDrills,
-                      hasForces,
-                      projectName,
-                      subscription: values.type,
-                    }})
-                    .catch();
+                    createProject({
+                      variables: {
+                        companies,
+                        description: values.description,
+                        hasDrills,
+                        hasForces,
+                        projectName,
+                        subscription: values.type,
+                      },
+                    })
+                      .catch();
                   };
 
                   return (
-                    <GenericForm name="newProject" onSubmit={handleSubmit}>
+                    <GenericForm
+                      name="newProject"
+                      initialValues={{ name: projectName.toUpperCase() }}
+                      onSubmit={handleSubmit}
+                    >
                       {({ pristine }: InjectedFormProps): JSX.Element => (
                         <React.Fragment>
                           <Row>
@@ -148,7 +149,6 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 <ControlLabel>{translate.t("home.newProject.company")}</ControlLabel>
                                 <Field
                                   component={textField}
-                                  disabled={!isAdmin}
                                   name="company"
                                   type="text"
                                   validate={[required]}
@@ -201,40 +201,40 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                               </FormGroup>
                             </Col>
                           </Row>
-                          {canHaveDrills
-                            ? <Row>
-                                <Col md={5} sm={5}>
-                                  <FormGroup>
-                                    <ControlLabel>{translate.t("home.newProject.drills")}</ControlLabel>
-                                    <BootstrapSwitchButton
-                                      checked={hasDrills}
-                                      offlabel={translate.t("home.newProject.switch.no")}
-                                      onChange={handleDrillsBtnChange}
-                                      onlabel={translate.t("home.newProject.switch.yes")}
-                                      onstyle="danger"
-                                      style="btn-block"
-                                    />
-                                  </FormGroup>
-                                </Col>
-                              </Row>
-                            : undefined }
-                            {canHaveForces
-                              ? <Row>
-                                  <Col md={5} sm={5}>
-                                    <FormGroup>
-                                      <ControlLabel>{translate.t("home.newProject.forces")}</ControlLabel>
-                                      <BootstrapSwitchButton
-                                        checked={hasForces}
-                                        offlabel={translate.t("home.newProject.switch.no")}
-                                        onChange={handleForcesBtnChange}
-                                        onlabel={translate.t("home.newProject.switch.yes")}
-                                        onstyle="danger"
-                                        style="btn-block"
-                                      />
-                                    </FormGroup>
-                                  </Col>
-                                </Row>
-                              : undefined }
+                          {canHaveDrills ? (
+                            <Row>
+                              <Col md={5} sm={5}>
+                                <FormGroup>
+                                  <ControlLabel>{translate.t("home.newProject.drills")}</ControlLabel>
+                                  <BootstrapSwitchButton
+                                    checked={hasDrills}
+                                    offlabel={translate.t("home.newProject.switch.no")}
+                                    onChange={handleDrillsBtnChange}
+                                    onlabel={translate.t("home.newProject.switch.yes")}
+                                    onstyle="danger"
+                                    style="btn-block"
+                                  />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                          ) : undefined}
+                          {canHaveForces ? (
+                            <Row>
+                              <Col md={5} sm={5}>
+                                <FormGroup>
+                                  <ControlLabel>{translate.t("home.newProject.forces")}</ControlLabel>
+                                  <BootstrapSwitchButton
+                                    checked={hasForces}
+                                    offlabel={translate.t("home.newProject.switch.no")}
+                                    onChange={handleForcesBtnChange}
+                                    onlabel={translate.t("home.newProject.switch.yes")}
+                                    onstyle="danger"
+                                    style="btn-block"
+                                  />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                          ) : undefined}
                           <br />
                           <ButtonToolbar className="pull-right">
                             <Button bsStyle="success" onClick={closeNewProjectModal}>
@@ -251,7 +251,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 }}
               </Mutation>
             );
-        }}
+          }}
         </Query>
       </Modal>
     </React.StrictMode>

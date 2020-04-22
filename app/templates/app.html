@@ -34,7 +34,6 @@
       });
     var userName = "{{ request.session.first_name }}";
     var userEmail = "{{ request.session.username }}";
-    var userRole = "{{ request.session.role }}";
     var userOrganization = "{{ request.session.company }}";
     if (location.toString().indexOf("localhost:8000") == -1){
       mixpanel.track(
