@@ -138,7 +138,6 @@ def get_analyst_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_finding__do_update_evidence_description',
         'backend_api_resolvers_finding__do_update_evidence',
         'backend_api_resolvers_finding__do_update_severity',
-        'backend_api_resolvers_finding__do_verify_finding',
         'backend_api_resolvers_project__get_drafts',
         'backend_api_resolvers_vulnerability__do_approve_vulnerability',
         'backend_api_resolvers_vulnerability__do_delete_vulnerability',

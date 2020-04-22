@@ -17,12 +17,6 @@ export interface IHistoricTreatment {
   user: string;
 }
 
-export interface IVerifyFindingResult {
-  verifyFinding: {
-    success: boolean;
-  };
-}
-
 export interface IFinding {
   actor: string;
   affectedSystems: string;

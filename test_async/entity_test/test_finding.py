@@ -319,25 +319,8 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['addFindingComment']
         assert result['data']['addFindingComment']['success']
 
-    async def test_verify_finding(self):
-        """Check for verifyFinding mutation."""
-        query = '''
-          mutation {
-            verifyFinding(
-                findingId: "463461507",
-                justification: "This is a commenting test, of the verifying of a request."
-            ) {
-              success
-            }
-          }
-        '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' in result
-        assert result['errors'][0]['message'] == str(NotVerificationRequested())
-
     async def test_update_description(self):
-        """Check for verifyFinding mutation."""
+        """Check for updateDescription mutation."""
         query = '''
             mutation UpdateFindingDescription(
                 $actor: String!,
@@ -398,7 +381,7 @@ class FindingTests(TestCase):
         assert result['data']['updateDescription']['success']
 
     async def test_update_description(self):
-        """Check for verifyFinding mutation."""
+        """Check for updateClientDescription mutation."""
         query = '''
             mutation {
                 updateClientDescription (

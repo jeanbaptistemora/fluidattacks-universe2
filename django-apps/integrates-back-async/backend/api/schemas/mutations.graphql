@@ -164,10 +164,6 @@ type Mutation {
     requestRemoveProject(projectName: String!): SimplePayload!
     rejectRemoveProject(projectName: String!): SimplePayload!
 
-    verifyFinding(
-        findingId: String!,
-        justification: String!
-    ): SimplePayload!
     handleAcceptation(
         findingId: String!,
         observations: String!,

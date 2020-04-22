@@ -48,17 +48,6 @@ export const HANDLE_ACCEPTATION: DocumentNode = gql
     }
   }`;
 
-export const VERIFY_FINDING: DocumentNode = gql`
-  mutation VerifyFinding ($findingId: String!, $justification: String!) {
-    verifyFinding(
-      findingId: $findingId,
-      justification: $justification
-    ) {
-      success
-    }
-  }
-`;
-
 export const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   mutation UpdateFindingDescription(
     $actor: String!,

@@ -203,29 +203,6 @@ comment in finding {finding_id}')  # pragma: no cover
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_verify_finding(_, info, finding_id: str,
-                             justification: str) -> SimplePayloadType:
-    """Resolve verify_finding mutation."""
-    project_name = await \
-        sync_to_async(project_domain.get_finding_project_name)(finding_id)
-    user_info = util.get_jwt_content(info.context)
-    success = await sync_to_async(finding_domain.verify_finding)(
-        finding_id, user_info['user_email'],
-        justification,
-        str.join(' ', [user_info['first_name'], user_info['last_name']])
-    )
-    if success:
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project_name)
-        await sync_to_async(util.cloudwatch_log)(
-            info.context, 'Security: Verified the '
-            f'finding_id: {finding_id}')  # pragma: no cover
-    return SimplePayloadType(success=success)
-
-
-@require_login
-@enforce_group_level_auth_async
-@require_finding_access
 async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
     """Resolve handle_acceptation mutation."""
     user_info = util.get_jwt_content(info.context)

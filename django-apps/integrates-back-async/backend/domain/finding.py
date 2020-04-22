@@ -3,14 +3,11 @@ import re
 import random
 from datetime import datetime, timedelta
 from decimal import Decimal
-from time import time
 
 from typing import Dict, List, Optional, Tuple, Union, cast
 import pytz
-import rollbar
 from django.conf import settings
 from django.core.files.base import ContentFile
-from i18n import t
 from magic import Magic
 
 from backend.domain import (
@@ -24,13 +21,11 @@ from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, EvidenceNotFound,
     FindingNotFound, IncompleteDraft, InvalidCommentParent, InvalidDraftTitle,
     InvalidFileSize, InvalidFileStructure, InvalidFileType, NotSubmitted,
-    NotVerificationRequested
 )
-from backend.utils import cvss, notifications, validations, findings as finding_utils
+from backend.utils import cvss, validations, findings as finding_utils
 
 from backend.dal import (
-    comment as comment_dal, finding as finding_dal,
-    project as project_dal, vulnerability as vuln_dal
+    comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
 )
 from backend.typing import (
     Comment as CommentType, Finding as FindingType, User as UserType
@@ -167,56 +162,6 @@ def get_tracking_vulnerabilities(
     order_tracking = sorted(tracking_grouped.items())
     tracking_casted = cast_tracking(order_tracking)
     return tracking_casted
-
-
-def verify_finding(
-        finding_id: str, user_email: str, justification: str, user_fullname: str) -> bool:
-    success = False
-    finding = get_finding(finding_id)
-    project_name = str(finding.get('projectName', ''))
-    finding_name = str(finding.get('finding', ''))
-    historic_verification = cast(
-        List[Dict[str, Union[str, int, datetime]]], finding.get('historicVerification', [{}]))
-    if historic_verification[-1].get('status') == 'REQUESTED' and\
-       not historic_verification[-1].get('vulns', []):
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-        comment_id = int(round(time() * 1000))
-        new_state: Dict[str, Union[str, int, datetime]] = {
-            'date': today,
-            'user': user_email,
-            'status': 'VERIFIED',
-            'comment': comment_id,
-        }
-        comment_data = {
-            'user_id': comment_id,
-            'comment_type': 'verification',
-            'content': justification,
-            'fullname': user_fullname,
-            'parent': str(historic_verification[-1].get('comment', 0)),
-        }
-        historic_verification.append(new_state)
-        add_comment(
-            user_email, comment_data, finding_id, is_remediation_comment=True)
-        success = finding_dal.update(
-            finding_id, {'historic_verification': historic_verification})
-
-        if success:
-            vuln_domain.update_vulnerabilities_date(user_email, finding_id)
-            finding_utils.send_finding_verified_email(finding_id, finding_name, project_name)
-            project_users = project_dal.get_users(project_name)
-            notifications.notify_mobile(
-                project_users,
-                t('notifications.verified.title'),
-                t('notifications.verified.content',
-                    finding=finding_name, project=project_name.upper()))
-        else:
-            rollbar.report_message(
-                'Error: An error occurred verifying the finding', 'error')
-    else:
-        raise NotVerificationRequested()
-
-    return success
 
 
 def handle_acceptation(finding_id: str, observations: str, user_mail: str, response: str) -> bool:
