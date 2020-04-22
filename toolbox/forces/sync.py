@@ -3,7 +3,11 @@ import datetime
 import glob
 import json
 import os
-
+import textwrap
+from typing import (
+    Dict,
+    Tuple,
+)
 # Third party libraries
 
 # Local libraries
@@ -39,11 +43,46 @@ def _get_fernet_key(subscription: str) -> str:
         f'continuous-{subscription}')
 
 
+def _run_static_exploit(
+    *,
+    exploit_path: str,
+    exploit_output_path: str,
+    repository_path: str,
+    bb_fernet_key: str,
+    bb_resources: str,
+) -> Tuple[int, str, str]:
+    """Run a static exploit and return it's exit_code, stdout and stderr."""
+    repo: str = os.path.basename(repository_path)
+
+    cmd: str = f"""
+        echo '---' >> '{exploit_output_path}'
+        echo 'repository: {repo}' >> '{exploit_output_path}'
+        asserts -eec -n -ms '{exploit_path}' > '{exploit_output_path}_'
+        exit_code=$?
+        cat '{exploit_output_path}_'
+        cat '{exploit_output_path}_' >> '{exploit_output_path}'
+        rm -f '{exploit_output_path}_' >  /dev/null
+        exit ${{exit_code}}
+        """
+
+    cmd = ';'.join(textwrap.dedent(cmd)[1:-1].splitlines())
+
+    env: Dict[str, str] = {
+        'FA_NOTRACK': 'true',
+        'FA_STRICT': 'true',
+        'BB_FERNET_KEY': bb_fernet_key,
+        'BB_RESOURCES': bb_resources,
+        'CURRENT_EXPLOIT_KIND': 'static'
+    }
+
+    return utils.generic.run_command_old(cmd=cmd, cwd=repository_path, env=env)
+
+
 def are_exploits_synced__static(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
     results: list = []
 
-    fernet_key: str = _get_fernet_key(subs)
+    bb_fernet_key: str = _get_fernet_key(subs)
 
     bb_resources = os.path.abspath(
         f'subscriptions/{subs}/break-build/static/resources')
@@ -91,27 +130,12 @@ def are_exploits_synced__static(subs: str, exp_name: str):
             asserts_status = None
             repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
             if os.path.isdir(repository_path):
-                asserts_status, asserts_stdout, _ = \
-                    utils.generic.run_command_old(
-                        cmd=(f"echo '---'                          "
-                             f"  >> '{exploit_output_path}';       "
-                             f"echo 'repository: {repo}'           "
-                             f"  >> '{exploit_output_path}';       "
-                             f"asserts -eec -n -ms '{exploit_path}'"
-                             f"  >  '{exploit_output_path}_';      "
-                             f"exit_code=$?;                       "
-                             f"cat  '{exploit_output_path}_';      "
-                             f"cat  '{exploit_output_path}_'       "
-                             f"  >> '{exploit_output_path}';       "
-                             f"rm   '{exploit_output_path}_'       "
-                             f"  >  /dev/null;                     "
-                             f"exit ${{exit_code}};                "),
-                        cwd=repository_path,
-                        env={'FA_NOTRACK': 'true',
-                             'FA_STRICT': 'true',
-                             'BB_FERNET_KEY': fernet_key,
-                             'BB_RESOURCES': bb_resources,
-                             'CURRENT_EXPLOIT_KIND': 'static'})
+                asserts_status, asserts_stdout, _ = _run_static_exploit(
+                    exploit_path=exploit_path,
+                    exploit_output_path=exploit_output_path,
+                    repository_path=repository_path,
+                    bb_fernet_key=bb_fernet_key,
+                    bb_resources=bb_resources)
             else:
                 continue
 
