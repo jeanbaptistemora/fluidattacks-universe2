@@ -68,6 +68,10 @@ ForcesExecutions = Dict[str, Union[
     List[ForcesExecution],
     None
 ]]
+Me = Dict[str, Union[
+    str, bool,
+    List[Union[Project, Tag, str]]
+]]
 AddUserPayload = NamedTuple('AddUserPayload', [
     ('success', bool),
     ('email', str),
@@ -106,4 +110,13 @@ DownloadFilePayload = NamedTuple('DownloadFilePayload', [
 SimpleProjectPayload = NamedTuple('SimpleProjectPayload', [
     ('success', bool),
     ('project', Project),
+])
+SignInPayload = NamedTuple('SignInPayload', [
+    ('success', bool),
+    ('authorized', bool),
+    ('session_jwt', str),
+])
+UpdateAccessTokenPayload = NamedTuple('UpdateAccessTokenPayload', [
+    ('success', bool),
+    ('session_jwt', str),
 ])

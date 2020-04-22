@@ -6,14 +6,21 @@ import json
 import sys
 
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
+from typing import Dict, List, Tuple
 from asgiref.sync import sync_to_async
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.dal import user as user_dal
-from backend.typing import User as UserType
+from backend.typing import (
+    Me as MeType,
+    Project as ProjectType,
+    Tag as TagType,
+    SignInPayload as SignInPayloadType,
+    SimplePayload as SimplePayloadType,
+    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
+)
 from backend.utils import authorization as authorization_utils
 from backend import util
 
@@ -29,9 +36,8 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
-async def _get_role(
-    _, user_email: str, project_name: str = None
-) -> Dict[str, str]:
+async def _get_role(_, user_email: str,
+                    project_name: str = '') -> Dict[str, str]:
     """Get role."""
     if project_name:
         role = await \
@@ -43,7 +49,7 @@ async def _get_role(
     return dict(role=role)
 
 
-async def _get_projects(_, user_email: str) -> Dict[str, List[Dict[str, str]]]:
+async def _get_projects(_, user_email: str) -> Dict[str, List[ProjectType]]:
     """Get projects."""
     projects = []
     for project in await sync_to_async(user_domain.get_projects)(user_email):
@@ -73,18 +79,17 @@ async def _get_authorized(_, user_email: str) -> Dict[str, bool]:
     return dict(authorized=result)
 
 
-async def _get_remember(
-        _, user_email: str) -> Dict[str, Union[bool, str, UserType]]:
+async def _get_remember(_, user_email: str) -> Dict[str, bool]:
     """Get remember preference."""
     remember = await \
         sync_to_async(user_domain.get_data)(user_email, 'legal_remember')
-    result = remember or False
+    result = bool(remember)
     return dict(remember=result)
 
 
 async def _get_permissions(
-    _, user_email: str, project_name: Optional[str] = None
-) -> Dict[str, Tuple[str, ...]]:
+        _, user_email: str,
+        project_name: str = '') -> Dict[str, Tuple[str, ...]]:
     """Get the actions the user is allowed to perform."""
     subject = user_email
     object_ = project_name.lower() if project_name else 'self'
@@ -100,8 +105,7 @@ async def _get_permissions(
 
 
 @enforce_user_level_auth_async
-async def _get_tags(
-        _, user_email: str) -> Dict[str, List[Dict[str, Sequence[str]]]]:
+async def _get_tags(_, user_email: str) -> Dict[str, List[TagType]]:
     """Get tags."""
     projects = await \
         sync_to_async(user_domain.get_projects)(user_email)
@@ -118,7 +122,7 @@ async def _get_tags(
     return dict(tags=tags)
 
 
-async def _get_caller_origin(info, **_) -> Dict[str, List[Dict[str, str]]]:
+async def _get_caller_origin(info, **_) -> Dict[str, str]:
     """Get caller_origin."""
     if hasattr(info.context, 'caller_origin'):
         origin = info.context.caller_origin
@@ -127,9 +131,9 @@ async def _get_caller_origin(info, **_) -> Dict[str, List[Dict[str, str]]]:
     return dict(caller_origin=origin)
 
 
-async def _resolve_fields(info) -> Dict[int, Any]:
+async def _resolve_fields(info) -> MeType:
     """Async resolve fields."""
-    result: Dict[int, Any] = dict()
+    result: MeType = dict()
     tasks = list()
 
     for requested_field in info.field_nodes[0].selection_set.selections:
@@ -162,7 +166,7 @@ async def _resolve_fields(info) -> Dict[int, Any]:
 
 @convert_kwargs_to_snake_case
 @require_login
-def resolve_me(_, info, caller_origin=None) -> Dict[int, Any]:
+def resolve_me(_, info, caller_origin: str = '') -> MeType:
     """Resolve Me query."""
     jwt_content = util.get_jwt_content(info.context)
     user_email = jwt_content.get('user_email')
@@ -185,7 +189,7 @@ def resolve_me_mutation(obj, info, **parameters):
 
 
 async def _do_sign_in(_, info, auth_token: str, provider: str,
-                      push_token: str) -> Dict[str, Union[str, bool]]:
+                      push_token: str) -> SignInPayloadType:
     """Resolve sign_in mutation."""
     authorized = False
     session_jwt = ''
@@ -239,7 +243,7 @@ async def _do_sign_in(_, info, auth_token: str, provider: str,
             'Error: Unknown auth provider' + provider, 'error')
         raise GraphQLError('UNKNOWN_AUTH_PROVIDER')
 
-    return dict(
+    return SignInPayloadType(
         authorized=authorized,
         session_jwt=session_jwt,
         success=success
@@ -248,7 +252,7 @@ async def _do_sign_in(_, info, auth_token: str, provider: str,
 
 @require_login
 async def _do_update_access_token(
-        _, info, expiration_time: int) -> Dict[str, Union[str, bool]]:
+        _, info, expiration_time: int) -> UpdateAccessTokenPayloadType:
     """Resolve update_access_token mutation."""
     user_info = util.get_jwt_content(info.context)
     email = user_info['user_email']
@@ -289,11 +293,12 @@ async def _do_update_access_token(
             .format(email=user_info['user_email']))  # pragma: no cover
         raise InvalidExpirationTime()
 
-    return dict(success=success, session_jwt=session_jwt)
+    return UpdateAccessTokenPayloadType(success=success,
+                                        session_jwt=session_jwt)
 
 
 @require_login
-async def _do_invalidate_access_token(_, info):
+async def _do_invalidate_access_token(_, info) -> SimplePayloadType:
     """Resolve invalidate_access_token mutation."""
     user_info = util.get_jwt_content(info.context)
 
@@ -307,10 +312,11 @@ async def _do_invalidate_access_token(_, info):
         await sync_to_async(util.cloudwatch_log)(
             info.context, '{email} attempted to invalidate access token'
             .format(email=user_info['user_email']))  # pragma: no cover
-    return dict(success=success)
+    return SimplePayloadType(success=success)
 
 
-async def _do_accept_legal(_, info, remember: bool = False) -> Dict[str, bool]:
+async def _do_accept_legal(_, info,
+                           remember: bool = False) -> SimplePayloadType:
     """Resolve accept_legal mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
     is_registered = await sync_to_async(user_domain.is_registered)(user_email)
@@ -323,4 +329,4 @@ async def _do_accept_legal(_, info, remember: bool = False) -> Dict[str, bool]:
         success = True
     else:
         success = False
-    return dict(success=success)
+    return SimplePayloadType(success=success)
