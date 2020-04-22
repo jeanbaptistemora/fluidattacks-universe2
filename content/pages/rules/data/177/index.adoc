@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, Storage, GDPR, Cache
 :rules: yes
 
-= REQ.177 Store data securely
+= REQ.177 Avoid caching and temporary files
 
 == Requirement
 
@@ -25,6 +25,8 @@ information.
 == Findings
 
 * link:/web/findings/038/[F038. Business information leak]
+
+* link:/web/findings/065/[F065. Cached form fields]
 
 == References
 

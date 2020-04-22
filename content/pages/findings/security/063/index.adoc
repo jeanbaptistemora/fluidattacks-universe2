@@ -1,0 +1,20 @@
+:slug: findings/063/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from a lack of data validation, recommendations to avoid them and related security requirements.
+:keywords: Data, Validation, Sanitation, Escaping, Injection, Input
+:findings: yes
+:type: security
+
+= F063. Lack of data validation
+
+== Description
+
+The system does not properly check, on the server's side, whether or not the
+user has enough permissions to modify certain fields,
+and/or allows them to use invalid data in some fields.
+This is the basis for several types of injections.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+
+. [[r2]] link:/web/rules/320/[R320. Avoid client-side control enforcement]

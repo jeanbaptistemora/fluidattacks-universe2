@@ -1,0 +1,16 @@
+:slug: findings/065/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not properly disabling form caching, recommendations to avoid them and related security requirements.
+:keywords: Cache, Caching, Form, Input, Field, Disable
+:findings: yes
+:type: security
+
+= F065. Cached form fields
+
+== Description
+
+The application does not disable caching of input fields,
+thus the information will be stored in the browser's cache.
+
+== Rules
+
+. [[r1]] link:/web/rules/177/[R177. Avoid caching and temporary files]

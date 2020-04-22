@@ -24,6 +24,8 @@ which it is interacting is a human being.
 
 * link:/web/findings/053/[F053. Lack of protection against brute force attacks]
 
+* link:/web/findings/069/[F069. Weak CAPTCHA]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]

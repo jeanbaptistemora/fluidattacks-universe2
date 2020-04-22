@@ -1,0 +1,16 @@
+:slug: findings/069/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from using weak CAPTCHA implementations, recommendations to avoid them and related security requirements.
+:keywords: Weak, Captcha, Human, Optical, Automated Tool, Robot
+:findings: yes
+:type: security
+
+= F069. Weak CAPTCHA
+
+== Description
+
+The system uses an insecure *CAPTCHA* implementation that allows the usage
+of optical recognition tools to automatically pass it.
+
+== Rules
+
+. [[r1]] link:/web/rules/237/[R237. Ascertain human interaction]
