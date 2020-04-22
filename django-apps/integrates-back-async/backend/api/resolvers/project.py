@@ -622,88 +622,94 @@ async def _do_add_project_comment(_, info,
     return ret
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_add_tags(_, info, project_name: str,
-                     tags: List[str]) -> SimpleProjectPayloadType:
+async def _do_add_tags(_, info, project_name: str,
+                       tags: List[str]) -> SimpleProjectPayloadType:
     """Resolve add_tags mutation."""
     success = False
     project_name = project_name.lower()
-    if project_domain.is_alive(project_name):
-        if project_domain.validate_tags(project_name, tags):
-            project_tags = cast(ProjectType,
-                                project_domain.get_attributes(project_name,
-                                                              ['tag']))
+    if await sync_to_async(project_domain.is_alive)(project_name):
+        if await sync_to_async(project_domain.validate_tags)(
+                project_name, tags):
+            project_tags = \
+                await sync_to_async(project_domain.get_attributes)(
+                    project_name, ['tag'])
+            project_tags = cast(ProjectType, project_tags)
             if not project_tags:
-                project_tags = {'tag': set(tag for tag in tags)}
+                project_tags = {'tag': set(tags)}
             else:
                 cast(Set[str], project_tags.get('tag')).update(tags)
-            tags_added = project_domain.update(project_name, project_tags)
+            tags_added = \
+                await sync_to_async(project_domain.update)(
+                    project_name, project_tags)
             if tags_added:
                 success = True
             else:
-                rollbar.report_message('Error: \
+                await sync_to_async(rollbar.report_message)('Error: \
 An error occurred adding tags', 'error', info.context)
         else:
-            util.cloudwatch_log(info.context,
-                                'Security: \
+            await sync_to_async(util.cloudwatch_log)(
+                info.context, 'Security: \
 Attempted to upload tags without the allowed structure')  # pragma: no cover
     else:
-        util.cloudwatch_log(info.context,
-                            'Security: \
+        await sync_to_async(util.cloudwatch_log)(
+            info.context, 'Security: \
 Attempted to upload tags without the allowed validations')  # pragma: no cover
     if success:
         util.invalidate_cache(project_name)
-    project = util.run_async(resolve, info, project_name, True, False)
+    project = await resolve(info, project_name, True, False)
     return SimpleProjectPayloadType(success=success, project=project)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_remove_tag(_, info, project_name: str,
-                       tag: str) -> SimpleProjectPayloadType:
+async def _do_remove_tag(_, info, project_name: str,
+                         tag: str) -> SimpleProjectPayloadType:
     """Resolve remove_tag mutation."""
     success = False
     project_name = project_name.lower()
-    if project_domain.is_alive(project_name):
-        project_tags = cast(ProjectType,
-                            project_domain.get_attributes(project_name,
-                                                          ['tag']))
+    if await sync_to_async(project_domain.is_alive)(project_name):
+        project_tags = \
+            await sync_to_async(project_domain.get_attributes)(
+                project_name, ['tag'])
+        project_tags = cast(ProjectType, project_tags)
         cast(Set[str], project_tags.get('tag')).remove(tag)
         if project_tags.get('tag') == set():
             project_tags['tag'] = None
-        tag_deleted = project_domain.update(project_name, project_tags)
+        tag_deleted = \
+            await sync_to_async(
+                project_domain.update)(project_name, project_tags)
         if tag_deleted:
             success = True
         else:
-            rollbar.report_message('Error: \
+            await sync_to_async(rollbar.report_message)('Error: \
 An error occurred removing a tag', 'error', info.context)
     if success:
         util.invalidate_cache(project_name)
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Removed tag from '
             f'{project_name} project succesfully')  # pragma: no cover
     else:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context, 'Security: Attempted to remove '
             f'tag in {project_name} project')  # pragma: no cover
-    project = util.run_async(resolve, info, project_name, True, False)
+    project = await resolve(info, project_name, True, False)
     return SimpleProjectPayloadType(success=success, project=project)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
-def resolve_add_all_project_access(_, info,
-                                   project_name: str) -> SimplePayloadType:
+async def _do_add_all_project_access(_, info,
+                                     project_name: str) -> SimplePayloadType:
     """Resolve add_all_project_access mutation."""
-    success = project_domain.add_all_access_to_project(project_name)
+    success = \
+        await sync_to_async(project_domain.add_all_access_to_project)(
+            project_name)
     if success:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: '
             f'Add all project access of {project_name}')  # pragma: no cover
@@ -711,15 +717,16 @@ def resolve_add_all_project_access(_, info,
     return SimplePayloadType(success=success)
 
 
-@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
-def resolve_remove_all_project_access(_, info,
-                                      project_name: str) -> SimplePayloadType:
+async def _do_remove_all_project_access(
+        _, info, project_name: str) -> SimplePayloadType:
     """Resolve remove_all_project_access mutation."""
-    success = project_domain.remove_all_project_access(project_name)
+    success = \
+        await sync_to_async(project_domain.remove_all_project_access)(
+            project_name)
     if success:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             'Security: Remove '
             f'all project access of {project_name}')  # pragma: no cover

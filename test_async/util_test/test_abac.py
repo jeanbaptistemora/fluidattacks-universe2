@@ -134,10 +134,10 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_project__get_events',
         'backend_api_resolvers_project__do_add_project_comment',
         'backend_api_resolvers_project__get_drafts',
-        'backend_api_resolvers_project_resolve_remove_tag',
-        'backend_api_resolvers_project_resolve_add_tags',
-        'backend_api_resolvers_project_resolve_add_all_project_access',
-        'backend_api_resolvers_project_resolve_remove_all_project_access',
+        'backend_api_resolvers_project__do_remove_tag',
+        'backend_api_resolvers_project__do_add_tags',
+        'backend_api_resolvers_project__do_add_all_project_access',
+        'backend_api_resolvers_project__do_remove_all_project_access',
         'backend_api_resolvers_project__do_request_remove_project',
         'backend_api_resolvers_project__do_reject_remove_project',
     }
@@ -208,8 +208,8 @@ class ActionAbacTest(TestCase):
         'backend_api_resolvers_project__get_comments',
         'backend_api_resolvers_project__get_events',
         'backend_api_resolvers_project__do_add_project_comment',
-        'backend_api_resolvers_project_resolve_remove_tag',
-        'backend_api_resolvers_project_resolve_add_tags',
+        'backend_api_resolvers_project__do_remove_tag',
+        'backend_api_resolvers_project__do_add_tags',
     }
 
     customeradmin_allowed_actions = {

@@ -145,13 +145,13 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
         </Col>
         <Col lg={4} md={2} xs={5}>
           <ButtonToolbar className="pull-right">
-            <Can do="backend_api_resolvers_project_resolve_add_tags">
+            <Can do="backend_api_resolvers_project__do_add_tags">
               <Button onClick={openAddModal}>
                 <Glyphicon glyph="plus" />&nbsp;
               {translate.t("search_findings.tab_resources.add_repository")}
               </Button>
             </Can>
-            <Can do="backend_api_resolvers_project_resolve_remove_tag">
+            <Can do="backend_api_resolvers_project__do_remove_tag">
               <Button onClick={handleRemoveTag} disabled={_.isEmpty(currentRow) || removing}>
                 <Glyphicon glyph="minus" />&nbsp;
               {translate.t("search_findings.tab_resources.remove_repository")}
@@ -160,7 +160,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
           </ButtonToolbar>
         </Col>
       </Row>
-      <Can do="backend_api_resolvers_project_resolve_remove_tag" passThrough={true}>
+      <Can do="backend_api_resolvers_project__do_remove_tag" passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
           <DataTableNext
             bordered={true}

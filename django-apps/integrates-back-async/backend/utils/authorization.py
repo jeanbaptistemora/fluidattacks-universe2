@@ -76,8 +76,8 @@ def get_customer_actions() -> Tuple[str, ...]:
     """Actions that only client's users can perform."""
     return (
         'backend_api_resolvers_finding__do_update_client_description',
-        'backend_api_resolvers_project_resolve_add_tags',
-        'backend_api_resolvers_project_resolve_remove_tag',
+        'backend_api_resolvers_project__do_add_tags',
+        'backend_api_resolvers_project__do_remove_tag',
         'backend_api_resolvers_resource__do_add_environments',
         'backend_api_resolvers_resource__do_add_files',
         'backend_api_resolvers_resource__do_add_repositories',
@@ -154,10 +154,10 @@ def get_admin_actions() -> Tuple[str, ...]:
         'backend_api_resolvers_cache_resolve_invalidate_cache',
         'backend_api_resolvers_finding__do_approve_draft',
         'backend_api_resolvers_internal_project_resolve_project_name',
-        'backend_api_resolvers_project_resolve_add_all_project_access',
+        'backend_api_resolvers_project__do_add_all_project_access',
         'backend_api_resolvers_project_resolve_alive_projects',
         'backend_api_resolvers_project__do_create_project',
-        'backend_api_resolvers_project_resolve_remove_all_project_access',
+        'backend_api_resolvers_project__do_remove_all_project_access',
         'backend_api_resolvers_subscription__do_post_broadcast_message',
         'backend_api_resolvers_user_resolve_add_user',
     )

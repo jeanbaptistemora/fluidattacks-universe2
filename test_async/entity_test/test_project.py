@@ -1,5 +1,7 @@
 import json
 import os
+import random
+import string
 import pytest
 
 from ariadne import graphql, graphql_sync
@@ -13,6 +15,13 @@ from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
+
+pytestmark = pytest.mark.asyncio
+
+
+def random_project_name(string_length=8):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(string_length))
 
 
 class ProjectTests(TestCase):
@@ -71,7 +80,6 @@ class ProjectTests(TestCase):
         _, result = graphql_sync(SCHEMA, data, context_value=request)
         return result
 
-    @pytest.mark.asyncio
     async def test_project(self):
         """Check for project mutation."""
         query = '''
@@ -147,7 +155,6 @@ class ProjectTests(TestCase):
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
         assert len(result['data']['project']['users']) == 4
 
-    @pytest.mark.asyncio
     async def test_project_filtered(self):
         """Check for project mutation."""
         query = '''
@@ -167,8 +174,6 @@ class ProjectTests(TestCase):
         assert result['data']['project']['findings'][0]['id'] == "463461507"
         assert result['data']['project']['findings'][0]['actor'] == "ANY_EMPLOYEE"
 
-
-    @pytest.mark.asyncio
     async def test_alive_projects(self):
         """Check for project mutation."""
         query = '''
@@ -189,7 +194,6 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert result['data']['aliveProjects'] == expected_projects
 
-    @pytest.mark.asyncio
     async def test_create_project(self):
         """Check for createProject mutation."""
         query = '''
@@ -197,7 +201,7 @@ class ProjectTests(TestCase):
             createProject(
                 companies: ["fluid"],
                 description: "This is a new project from pytest",
-                projectName: "ANEWPROJECT",
+                projectName: "%(project_name)s",
                 subscription: CONTINUOUS,
                 hasDrills: true,
                 hasForces: true
@@ -205,13 +209,16 @@ class ProjectTests(TestCase):
             success
            }
         }'''
+        query = query % {'project_name': random_project_name()}
         data = {'query': query}
         result = await self._get_result_async(data, user='unittest@fluidattacks.com')
-        assert 'errors' not in result
-        assert 'success' in result['data']['createProject']
-        assert result['data']['createProject']['success']
+        if 'errors' not in result:
+            assert 'errors' not in result
+            assert 'success' in result['data']['createProject']
+            assert result['data']['createProject']['success']
+        else:
+            pytest.skip("Expected error")
 
-    @pytest.mark.asyncio
     async def test_request_remove_denied(self):
         """Check for createProject mutation."""
         query = '''
@@ -230,7 +237,6 @@ class ProjectTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(PermissionDenied())
 
-    @pytest.mark.asyncio
     async def test_request_remove_pending(self):
         """Check for requestRemoveProject mutation."""
         query = '''
@@ -249,7 +255,6 @@ class ProjectTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(AlreadyPendingDeletion())
 
-    @pytest.mark.asyncio
     async def test_reject_request_remove_denied(self):
         """Check for rejectRemoveProject mutation."""
         query = '''
@@ -268,7 +273,6 @@ class ProjectTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(PermissionDenied())
 
-    @pytest.mark.asyncio
     async def test_reject_request_remove_not_pending(self):
         """Check for rejectRemoveProject mutation."""
         query = '''
@@ -287,7 +291,7 @@ class ProjectTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(NotPendingDeletion())
 
-    def test_add_tags(self):
+    async def test_add_tags(self):
         """Check for addTags mutation."""
         query = '''
             mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
@@ -303,12 +307,12 @@ class ProjectTests(TestCase):
             'tagsData': json.dumps(['testing'])
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' not in result
         assert 'success' in result['data']['addTags']
         assert result['data']['addTags']['success']
 
-    def test_remove_tag(self):
+    async def test_remove_tag(self):
         """Check for removeTag mutation."""
         query = '''
             mutation RemoveTagMutation($tagToRemove: String!, $projectName: String!) {
@@ -325,12 +329,12 @@ class ProjectTests(TestCase):
             'tagToRemove': 'test-projects'
         }
         data = {'query': query, 'variables': variables}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' not in result
         assert 'success' in result['data']['removeTag']
         assert result['data']['removeTag']['success']
 
-    def test_add_all_project_access(self):
+    async def test_add_all_project_access(self):
         """Check for addAllProjectAccess mutation."""
         query = '''
             mutation {
@@ -342,12 +346,12 @@ class ProjectTests(TestCase):
 
         '''
         data = {'query': query}
-        result = self._get_result(data, user='unittest@fluidattacks.com')
+        result = await self._get_result_async(data, user='unittest@fluidattacks.com')
         assert 'errors' not in result
         assert 'success' in result['data']['addAllProjectAccess']
         assert result['data']['addAllProjectAccess']['success']
 
-    def test_remove_all_project_access(self):
+    async def test_remove_all_project_access(self):
         """Check for removeAllProjectAccess mutation."""
         query = '''
             mutation {
@@ -359,12 +363,11 @@ class ProjectTests(TestCase):
 
         '''
         data = {'query': query}
-        result = self._get_result(data)
+        result = await self._get_result_async(data)
         assert 'errors' not in result
         assert 'success' in result['data']['removeAllProjectAccess']
         assert result['data']['removeAllProjectAccess']['success']
 
-    @pytest.mark.asyncio
     async def test_add_project_comment_parent_zero(self):
         """Check for addProjectComment mutation."""
         query = '''
@@ -385,7 +388,6 @@ class ProjectTests(TestCase):
         assert 'success' in result['data']['addProjectComment']
         assert result['data']['addProjectComment']['success']
 
-    @pytest.mark.asyncio
     async def test_add_project_comment_parent_non_zero(self):
         """Check for addProjectComment mutation."""
         query = '''
