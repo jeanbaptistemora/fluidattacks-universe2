@@ -13,6 +13,7 @@ import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { formValueSelector } from "redux-form";
 import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
+import { Can } from "../../../../../utils/authz/Can";
 import { formatDropdownField, getLastTreatment } from "../../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
@@ -31,7 +32,6 @@ export interface ITreatmentViewProps {
   findingId: string;
   isEditing: boolean;
   projectName: string;
-  userRole: string;
   onCloseApproval(): void;
   setEditing(value: boolean): void;
 }
@@ -48,8 +48,6 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   const { data, refetch } = useQuery(GET_FINDING_TREATMENT, {
     variables: { findingId: props.findingId },
   });
-
-  const canEditTreatment: boolean = _.includes(["customer", "customeradmin"], props.userRole);
 
   const [updateTreatment] = useMutation(UPDATE_TREATMENT_MUTATION, {
     onCompleted: async (result: { updateClientDescription: { success: boolean } }): Promise<void> => {
@@ -166,6 +164,8 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             >
               <Row>
                 <Col md={12}>
+                  <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
+                    {(canEdit: boolean): JSX.Element => (
                   <EditableField
                     component={textField}
                     currentValue={data.finding.btsUrl}
@@ -173,12 +173,16 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                     name="btsUrl"
                     renderAsEditable={props.isEditing}
                     type="text"
-                    visibleWhileEditing={canEditTreatment}
+                    visibleWhileEditing={canEdit}
                   />
+                    )}
+                  </Can>
                 </Col>
               </Row>
               <Row>
                 <Col md={6}>
+                  <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
+                    {(canEdit: boolean): JSX.Element => (
                   <EditableField
                     component={dropdownField}
                     currentValue={treatmentLabel}
@@ -187,7 +191,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                     renderAsEditable={props.isEditing}
                     type="text"
                     validate={required}
-                    visibleWhileEditing={canEditTreatment}
+                    visibleWhileEditing={canEdit}
                   >
                     <option value="" />
                     <option value="IN_PROGRESS">
@@ -200,6 +204,8 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                       {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
                     </option>
                   </EditableField>
+                    )}
+                  </Can>
                 </Col>
                 {lastTreatment.acceptanceStatus === "APPROVED" ? (
                   <Col md={6}>
@@ -214,6 +220,8 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
               </Row>
               <Row>
                 <Col md={12}>
+                  <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
+                    {(canEdit: boolean): JSX.Element => (
                   <EditableField
                     component={textAreaField}
                     currentValue={lastTreatment.justification as string}
@@ -222,13 +230,17 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                     renderAsEditable={props.isEditing}
                     type="text"
                     validate={required}
-                    visibleWhileEditing={canEditTreatment}
+                    visibleWhileEditing={canEdit}
                   />
+                    )}
+                  </Can>
                 </Col>
               </Row>
               {formValues.treatment === "ACCEPTED" ? (
                 <Row>
                   <Col md={4}>
+                    <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
+                      {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={dateField}
                       currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
@@ -237,8 +249,10 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                       renderAsEditable={props.isEditing}
                       type="date"
                       validate={[required, isValidDate, isLowerDate]}
-                      visibleWhileEditing={canEditTreatment}
+                      visibleWhileEditing={canEdit}
                     />
+                      )}
+                    </Can>
                   </Col>
                 </Row>
               ) : undefined}
@@ -248,8 +262,8 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
       </ConfirmDialog>
       <RemediationModal
         additionalInfo={
-          props.approvalModalConfig.type === "APPROVED" ?
-            `${data.finding.openVulnerabilities} vulnerabilities will be assumed`
+          props.approvalModalConfig.type === "APPROVED"
+            ? `${data.finding.openVulnerabilities} vulnerabilities will be assumed`
             : undefined
         }
         isLoading={approving}

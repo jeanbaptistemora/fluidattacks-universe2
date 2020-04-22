@@ -23,7 +23,6 @@ export interface IActionButtonsProps {
   lastTreatment: IHistoricTreatment;
   state: "open" | "closed";
   subscription: string;
-  userRole: string;
   onApproveAcceptation(): void;
   onEdit(): void;
   onRejectAcceptation(): void;
@@ -38,9 +37,6 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
   const isContinuous: boolean = _.includes(
     ["continuous", "continua", "concurrente", "si"], props.subscription.toLowerCase());
 
-  const canApproveAcceptation: boolean = _.includes(["admin", "customeradmin"], props.userRole);
-  const canVerify: boolean = _.includes(["admin", "analyst"], props.userRole);
-
   const shouldRenderRequestVerifyBtn: boolean =
     isContinuous
     && props.state === "open"
@@ -48,18 +44,17 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     && !(props.isEditing || props.isVerifying);
 
   const shouldRenderVerifyBtn: boolean =
-    canVerify
-    && !props.isVerified
+    !props.isVerified
     && !(props.isEditing || props.isRequestingVerify);
 
   const shouldRenderApprovalBtns: boolean =
-    canApproveAcceptation
-    && props.lastTreatment.treatment === "ACCEPTED_UNDEFINED"
+    props.lastTreatment.treatment === "ACCEPTED_UNDEFINED"
     && props.lastTreatment.acceptanceStatus === "SUBMITTED";
 
   return (
     <Row>
       <ButtonToolbar className="pull-right">
+        <Can do="backend_api_resolvers_vulnerability__do_verify_request_vuln">
         {shouldRenderVerifyBtn ? (
           <Button onClick={onVerify}>
             <FluidIcon icon="verified" />&nbsp;
@@ -68,6 +63,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
               : translate.t("search_findings.tab_description.mark_verified")}
           </Button>
         ) : undefined}
+        </Can>
         <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
           {shouldRenderRequestVerifyBtn ? (
             <Button onClick={onRequestVerify}>
@@ -78,6 +74,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
             </Button>
           ) : undefined}
         </Can>
+        <Can do="backend_api_resolvers_finding__do_handle_acceptation">
         {shouldRenderApprovalBtns ? (
           <React.Fragment>
             <Button onClick={onApproveAcceptation}>
@@ -89,6 +86,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
             </Button>
           </React.Fragment>
         ) : undefined}
+        </Can>
         {props.isEditing ? (
           <Button onClick={onUpdate} disabled={props.isPristine}>
             <FluidIcon icon="loading" />&nbsp;

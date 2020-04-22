@@ -5,6 +5,8 @@
  */
 
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
@@ -14,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
+import { Can } from "../../../../utils/authz/Can";
+import { authzContext } from "../../../../utils/authz/config";
 import { formatCweUrl, formatFindingType, getLastTreatment } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -25,7 +29,6 @@ import { GenericForm } from "../../components/GenericForm";
 import { UpdateVerificationModal } from "../../components/UpdateVerificationModal";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IVulnDataType } from "../../components/Vulnerabilities/types";
-import { GET_ROLE } from "../ProjectContent/queries";
 import { ActionButtons } from "./ActionButtons";
 import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 import { TreatmentView } from "./TreatmentView";
@@ -36,6 +39,7 @@ export type DescriptionViewProps = RouteComponentProps<{ findingId: string; proj
 const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const permissions: PureAbility<string> = useAbility(authzContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
@@ -112,31 +116,13 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   };
 
   // GraphQL operations
-  const { data: userData } = useQuery(GET_ROLE, { variables: { projectName } });
-  const userRole: string = _.isUndefined(userData) || _.isEmpty(userData)
-    ? "" : userData.me.role;
-
-  const canEditAffectedSystems: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditCompromisedAttrs: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditCompromisedRecords: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditDescription: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditImpact: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditThreat: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditTitle: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditType: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditRecommendation: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditRequirements: boolean = _.includes(["admin", "analyst"], userRole);
-  const canEditWeakness: boolean = _.includes(["admin", "analyst"], userRole);
-  const canRetrieveAnalyst: boolean = _.includes(["admin", "analyst"], userRole);
-
   const { data, refetch } = useQuery(GET_FINDING_DESCRIPTION, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred loading finding description", error);
     },
-    skip: _.isEmpty(userRole),
     variables: {
-      canRetrieveAnalyst,
+      canRetrieveAnalyst: permissions.can("backend_api_dataloaders_finding__get_analyst"),
       findingId,
       projectName,
     },
@@ -205,7 +191,6 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
         onVerify={toggleVerify}
         state={dataset.state}
         subscription={data.project.subscription}
-        userRole={userRole}
       />
       <br />
       <GenericForm name="editDescription" initialValues={dataset} onSubmit={handleDescriptionSubmit}>
@@ -213,6 +198,8 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
           <React.Fragment>
             <Row>
               <Col md={6}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={dropdownField}
                   currentValue={formatFindingType(dataset.type)}
@@ -220,14 +207,16 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="type"
                   renderAsEditable={isEditing}
                   validate={required}
-                  visibleWhileEditing={canEditType}
+                  visibleWhileEditing={canEdit}
                 >
                   <option value="" />
                   <option value="SECURITY">{translate.t("search_findings.tab_description.type.security")}</option>
                   <option value="HYGIENE">{translate.t("search_findings.tab_description.type.hygiene")}</option>
                 </EditableField>
+                  )}
+                </Can>
               </Col>
-              {canRetrieveAnalyst ? (
+              <Can do="backend_api_dataloaders_finding__get_analyst">
                 <Col md={6}>
                   <FormGroup>
                     <ControlLabel>
@@ -236,9 +225,10 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                     <p>{dataset.analyst}</p>
                   </FormGroup>
                 </Col>
-              ) : undefined}
+              </Can>
             </Row>
-            {isEditing && canEditTitle ? (
+            <Can do="backend_api_resolvers_finding__do_update_description">
+              {isEditing ? (
               <Row>
                 <Col md={12}>
                   <FormGroup>
@@ -256,8 +246,11 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                 </Col>
               </Row>
             ) : undefined}
+            </Can>
             <Row>
               <Col md={12}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textAreaField}
                   currentValue={dataset.description}
@@ -266,12 +259,16 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="text"
                   validate={required}
-                  visibleWhileEditing={canEditDescription}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
             </Row>
             <Row>
               <Col md={12}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textAreaField}
                   currentValue={dataset.requirements}
@@ -280,8 +277,10 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="text"
                   validate={required}
-                  visibleWhileEditing={canEditRequirements}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
             </Row>
             <Row>
@@ -308,6 +307,8 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
             </Row>
             <Row>
               <Col md={6}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textAreaField}
                   currentValue={dataset.attackVectorDesc}
@@ -316,10 +317,14 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="text"
                   validate={required}
-                  visibleWhileEditing={canEditImpact}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
               <Col md={6}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textAreaField}
                   currentValue={dataset.affectedSystems}
@@ -328,12 +333,16 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="text"
                   validate={required}
-                  visibleWhileEditing={canEditAffectedSystems}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
             </Row>
             <Row>
               <Col md={6}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textAreaField}
                   currentValue={dataset.threat}
@@ -342,10 +351,14 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="text"
                   validate={required}
-                  visibleWhileEditing={canEditThreat}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
               <Col md={6}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textField}
                   currentValue={formatCweUrl(dataset.cweUrl)}
@@ -354,12 +367,16 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="number"
                   validate={[required, numeric]}
-                  visibleWhileEditing={canEditWeakness}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
             </Row>
             <Row>
               <Col md={12}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textAreaField}
                   currentValue={dataset.recommendation}
@@ -368,12 +385,16 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="text"
                   validate={required}
-                  visibleWhileEditing={canEditRecommendation}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
             </Row>
             <Row>
               <Col md={6}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textAreaField}
                   currentValue={dataset.compromisedAttributes}
@@ -381,10 +402,14 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   name="compromisedAttributes"
                   renderAsEditable={isEditing}
                   type="text"
-                  visibleWhileEditing={canEditCompromisedAttrs}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
               <Col md={6}>
+                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
                 <EditableField
                   component={textAreaField}
                   currentValue={dataset.compromisedRecords}
@@ -393,8 +418,10 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   renderAsEditable={isEditing}
                   type="number"
                   validate={[required, numeric]}
-                  visibleWhileEditing={canEditCompromisedRecords}
+                  visibleWhileEditing={canEdit}
                 />
+                  )}
+                </Can>
               </Col>
             </Row>
           </React.Fragment>
@@ -407,7 +434,6 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
         onCloseApproval={closeApprovalModal}
         projectName={projectName}
         setEditing={setEditing}
-        userRole={userRole}
       />
       {remediationModalConfig.open ? (
         <UpdateVerificationModal

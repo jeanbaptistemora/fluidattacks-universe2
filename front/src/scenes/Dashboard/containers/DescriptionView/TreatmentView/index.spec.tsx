@@ -20,7 +20,6 @@ describe("Finding Treatment", () => {
     onCloseApproval: jest.fn(),
     projectName: "TEST",
     setEditing: jest.fn(),
-    userRole: "customer",
   };
 
   const treatmentQuery: Readonly<MockedResponse> = {

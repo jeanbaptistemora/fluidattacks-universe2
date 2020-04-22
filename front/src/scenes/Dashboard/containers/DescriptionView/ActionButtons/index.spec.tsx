@@ -1,5 +1,5 @@
 import { PureAbility } from "@casl/ability";
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -34,7 +34,6 @@ describe("ActionButtons", () => {
     onVerify: jest.fn(),
     state: "open",
     subscription: "",
-    userRole: "",
   };
 
   it("should return a function", () => {
@@ -43,18 +42,17 @@ describe("ActionButtons", () => {
   });
 
   it("should render a component", async () => {
-    const wrapper: ShallowWrapper = shallow(
+    const wrapper: ReactWrapper = mount(
       <ActionButtons {...baseMockedProps} />,
     );
     expect(wrapper)
       .toHaveLength(1);
-    const buttons: ShallowWrapper = wrapper.find("button");
+    const buttons: ReactWrapper = wrapper.find("Button");
     expect(buttons)
       .toHaveLength(1);
     expect(buttons
-      .filterWhere((button: ShallowWrapper): boolean =>
+      .filterWhere((button: ReactWrapper): boolean =>
         button
-          .render()
           .text()
           .includes("Edit")))
       .toHaveLength(1);
@@ -68,7 +66,6 @@ describe("ActionButtons", () => {
       isVerified: false,
       state: "open",
       subscription: "continuous",
-      userRole: "customer",
     };
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_vulnerability__do_request_verification_vuln" },
