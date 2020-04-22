@@ -226,8 +226,7 @@ class ITReport():
             self.__get_measure('reportConfidence', row['severity']['reportConfidence']), 10)
 
     def __save(self):
-        self.result_filename = self.result_path
-        self.result_filename += str(uuid.uuid4()) + '.xlsx'
+        self.result_filename = str(uuid.uuid4()) + '.xlsx'
         self.workbook.save(self.result_filename)
 
 
