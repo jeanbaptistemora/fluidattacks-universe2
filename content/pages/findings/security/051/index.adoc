@@ -1,0 +1,20 @@
+:slug: findings/051/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from the use of weak hashing algorithms, recommendations to avoid them and related security requirements.
+:keywords: Weak, Credentials, Hash, Cracking, Password, Reverse, Time
+:findings: yes
+:type: security
+
+= F051. Cracked weak credentials
+
+== Description
+
+The low complexity of the hashes stored in the database considerably reduces
+the amount of time required to crack them.
+
+== Rules
+
+. [[r1]] link:/web/rules/134/[R134. Store passwords with salt]
+
+. [[r2]] link:/web/rules/135/[R135. Passwords with random salt]
+
+. [[r3]] link:/web/rules/150/[R150. Set minimum size for hash functions]

@@ -61,6 +61,8 @@ the transmitted information.
 
 * link:/web/findings/030/[F030. Sensitive information sent via URL parameters]
 
+* link:/web/findings/052/[F052. Insecure encryption algorithm]
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2014-I4_Lack_of_Transport_Encryption[OWASP Top 10 2014: I4 Top 10 2014-I4 Lack of Transport Encryption]

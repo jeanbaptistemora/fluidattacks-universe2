@@ -10,6 +10,12 @@
 
 Hash functions must be used with a minimum size of *256* bits.
 
+== Findings
+
+* link:/web/findings/051/[F051. Cracked weak credentials]
+
+* link:/web/findings/052/[F052. Insecure encryption algorithm]
+
 == References
 
 . [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1

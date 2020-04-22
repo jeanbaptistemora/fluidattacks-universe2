@@ -11,6 +11,10 @@
 The asymmetric encryption mechanism must use a minimum key size of
 **2048 bits**.
 
+== Findings
+
+* link:/web/findings/052/[F052. Insecure encryption algorithm]
+
 == References
 
 . [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(2)(iv):]

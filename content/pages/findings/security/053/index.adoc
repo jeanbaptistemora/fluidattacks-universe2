@@ -1,0 +1,18 @@
+:slug: findings/053/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling brute force attacks, recommendations to avoid them and related security requirements.
+:keywords: Brute, Force, Automated, Attack, Protection, Credentials
+:findings: yes
+:type: security
+
+= F053. Lack of protection against brute force attacks
+
+== Description
+
+The system does not have appropriate protection mechanisms against automated
+attacks for guessing credentials.
+
+== Rules
+
+. [[r1]] link:/web/rules/237/[R237. Ascertain human interaction]
+
+. [[r2]] link:/web/rules/263/[R263. Establish mechanisms against robot attacks]

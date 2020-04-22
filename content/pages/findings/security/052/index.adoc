@@ -1,0 +1,23 @@
+:slug: findings/052/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from the use of insecure encryption algorithms, recommendations to avoid them and related security requirements.
+:keywords: Weak, Encryption, Algorithms, Insecure, Complexity, Cracking
+:findings: yes
+:type: security
+
+= F052. Insecure encryption algorithm
+
+== Description
+
+The server on which the application is hosted supports insecure encryption
+algorithms.
+Alternatively, the application uses insecure encryption algorithms.
+
+== Rules
+
+. [[r1]] link:/web/rules/148/[R148. Set minimum size of asymmetric encryption]
+
+. [[r2]] link:/web/rules/149/[R149. Set minimum size of symmetric encryption]
+
+. [[r3]] link:/web/rules/150/[R150. Set minimum size for hash functions]
+
+. [[r4]] link:/web/rules/181/[R181. Transmit data using secure protocols]

@@ -20,6 +20,10 @@ In order to hinder the effectiveness of these attacks,
 the system must implement mechanisms that help ensure that the entity with
 which it is interacting is a human being.
 
+== Findings
+
+* link:/web/findings/053/[F053. Lack of protection against brute force attacks]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
