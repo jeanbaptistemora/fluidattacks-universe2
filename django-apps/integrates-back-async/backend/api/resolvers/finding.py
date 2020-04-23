@@ -27,6 +27,7 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
     SimpleFindingPayload as SimpleFindingPayloadType,
     ApproveDraftPayload as ApproveDraftPayloadType,
+    AddCommentPayload as AddCommentPayloadType,
 )
 from backend import util
 
@@ -153,9 +154,10 @@ async def _do_update_severity(_, info,
 @require_login
 @enforce_group_level_auth_async
 @require_finding_access
-async def _do_add_finding_comment(_, info, **parameters):
+async def _do_add_finding_comment(_, info,
+                                  **parameters) -> AddCommentPayloadType:
     """Perform add_finding_comment mutation."""
-    param_type = parameters.get('type').lower()
+    param_type = parameters.get('type', '').lower()
     if param_type in ['comment', 'observation']:
         user_data = util.get_jwt_content(info.context)
         user_email = user_data['user_email']
@@ -189,14 +191,14 @@ Unauthorized role attempted to add observation')  # pragma: no cover
     else:
         raise GraphQLError('Invalid comment type')
     if success:
-        util.invalidate_cache(parameters.get('finding_id'))
+        util.invalidate_cache(parameters.get('finding_id', ''))
         util.cloudwatch_log(info.context, f'Security: Added comment in\
             finding {finding_id} succesfully')  # pragma: no cover
     else:
         await sync_to_async(util.cloudwatch_log)(
             info.context, f'Security: Attempted to add \
 comment in finding {finding_id}')  # pragma: no cover
-    ret = dict(success=success, comment_id=comment_id)
+    ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
     return ret
 
 
