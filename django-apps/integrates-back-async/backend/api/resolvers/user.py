@@ -1,5 +1,5 @@
 # pylint: disable=too-many-locals
-from typing import Dict
+from typing import Dict, List
 import sys
 import threading
 
@@ -322,12 +322,12 @@ def modify_user_information(context: object,
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-async def resolve_user_list_projects(_, info, user_email):
+async def resolve_user_list_projects(_, info, user_email: str) -> List[str]:
     """Resolve user_list_projects query."""
     return await _get_user_list_projects(info, user_email)
 
 
-async def _get_user_list_projects(info, user_email):
+async def _get_user_list_projects(info, user_email: str) -> List[str]:
     """Resolve user_list_projects query."""
     user = await user_loader.resolve(info, user_email, project_name=None)
     return user['list_projects']
