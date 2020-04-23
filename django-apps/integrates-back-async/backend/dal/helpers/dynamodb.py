@@ -7,12 +7,16 @@
 import os
 
 import boto3
+import botocore
 
 from __init__ import (
     FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY, FI_ENVIRONMENT,
     FI_DYNAMODB_HOST, FI_DYNAMODB_PORT
 )
 
+CLIENT_CONFIG = botocore.config.Config(
+    max_pool_connections=30,
+)
 
 RESOURCE_OPTIONS = {}
 if FI_ENVIRONMENT == 'development' and FI_DYNAMODB_HOST:
@@ -23,6 +27,7 @@ if FI_ENVIRONMENT == 'development' and FI_DYNAMODB_HOST:
         'aws_secret_access_key': FI_AWS_DYNAMODB_SECRET_KEY,
         'aws_session_token': os.environ.get('AWS_SESSION_TOKEN'),
         'region_name': 'us-east-1',
+        'config': CLIENT_CONFIG,
         'endpoint_url': ENDPOINT_URL
     }
 else:
@@ -31,7 +36,8 @@ else:
         'aws_access_key_id': FI_AWS_DYNAMODB_ACCESS_KEY,
         'aws_secret_access_key': FI_AWS_DYNAMODB_SECRET_KEY,
         'aws_session_token': os.environ.get('AWS_SESSION_TOKEN'),
-        'region_name': 'us-east-1'
+        'region_name': 'us-east-1',
+        'config': CLIENT_CONFIG
     }
 
 DYNAMODB_CLIENT = boto3.client(**RESOURCE_OPTIONS)
