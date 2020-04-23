@@ -19,8 +19,8 @@ that does not correspond to its operational purposes,
 in order to treat it properly
 (for example, rejecting and/or generating timely alerts)
 and so that it does not impact the operation negatively.
-Typical examples of this are: `SQL` queries, `JavaScript` code,
-`OS` commands or `LDAP` queries
+Typical examples of this are: *SQL* queries, *JavaScript* code,
+*OS* commands or *LDAP* queries
 in fields and application parameters;
 text with undesired special characters
 and their possible combinations in fields and parameters;
@@ -41,7 +41,7 @@ will be configured to reject all inputs
 that are not explicitly approved
 discarding all possible scenarios
 and forcing enumeration of strictly allowed inputs.
-E.g. allow only `a-z`, `A-Z` y `0-9`.
+E.g. allow only *a-z*, *A-Z* y *0-9*.
 
 . Use variable highlight:
 If supported, language and compiler
@@ -63,10 +63,10 @@ therefore this information must be validated.
 
 . Inject malicious software or code.
 . Denial of service caused by register overload.
-. Cross-Site Scripting (`XSS`).
-. `OS` command injection.
-. `SQL` injection.
-. `LDAP` injection.
+. Cross-Site Scripting (*XSS*).
+. *OS* command injection.
+. *SQL* injection.
+. *LDAP* injection.
 . Redirect to untrusted pages.
 
 == Attributes
@@ -92,6 +92,12 @@ therefore this information must be validated.
 * link:/web/findings/063/[F063. Lack of data validation]
 
 * link:/web/findings/083/[F083. XML Injection (XXE)]
+
+* link:/web/findings/090/[F090. Code injection (CSV)]
+
+* link:/web/findings/091/[F091. Log injection]
+
+* link:/web/findings/092/[F092. Improper resource allocation]
 
 == Referencias
 
@@ -145,43 +151,43 @@ mechanism that is intended to protect the server.
 . [[r12]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.10]
 Verify that all database queries are protected
 by the use of parameterized queries
-or proper `ORM` usage to avoid `SQL` injection.
+or proper *ORM* usage to avoid *SQL* injection.
 
 . [[r13]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.11]
-Verify that the application is not susceptible to `LDAP` Injection,
-or that security controls prevent `LDAP` Injection.
+Verify that the application is not susceptible to *LDAP* Injection,
+or that security controls prevent *LDAP* Injection.
 
 . [[r14]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.12]
-Verify that the application is not susceptible to `OS` Command Injection,
-or that security controls prevent `OS` Command Injection.
+Verify that the application is not susceptible to *OS* Command Injection,
+or that security controls prevent *OS* Command Injection.
 
 . [[r15]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.13]
 Verify that the application is not susceptible
-to Remote File Inclusion (`RFI`) or Local File Inclusion (`LFI`)
+to Remote File Inclusion (*RFI*) or Local File Inclusion (*LFI*)
 when content is used that is a path to a file.
 
 . [[r16]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.14]
 Verify that the application is not susceptible
-to XPath injection or `XML` injection attacks.
+to XPath injection or *XML* injection attacks.
 
 . [[r17]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.15]
-Verify that all string variables placed into `HTML`
+Verify that all string variables placed into *HTML*
 or other web client code are either properly contextually encoded manually,
 or utilize templates that automatically contextually encode
 to ensure the application is not susceptible to reflected,
-stored or `DOM` Cross-Site Scripting (`XSS`) attacks.
+stored or *DOM* Cross-Site Scripting (*XSS*) attacks.
 
 . [[r18]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.17]
 Verify that the application has defenses
-against `HTTP` parameter pollution attacks,
+against *HTTP* parameter pollution attacks,
 particularly if the application framework makes no distinction
 about the source of request parameters
-(`GET`, `POST`, cookies, headers, environment, etc.)
+(*GET*, *POST*, cookies, headers, environment, etc.)
 
 . [[r19]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.19]
 Verify that all input data is validated,
-not only `HTML` form fields but all sources of input such as `REST` calls,
-query parameters, `HTTP` headers, cookies, batch files, `RSS` feeds, etc;
+not only *HTML* form fields but all sources of input such as *REST* calls,
+query parameters, *HTTP* headers, cookies, batch files, *RSS* feeds, etc;
 using positive validation (whitelisting),
 then lesser forms of validation such as grey listing
 (eliminating known bad strings),
@@ -201,8 +207,8 @@ and characters potentially harmful in given context should be escaped
 (e.g. natural names with Unicode or apostrophes, such as ねこ or O'Hara).
 
 . [[r22]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.22]
-Verify that all untrusted `HTML` input from `WYSIWYG` editors or similar
-is properly sanitized with an `HTML` sanitizer library or framework feature.
+Verify that all untrusted *HTML* input from *WYSIWYG* editors or similar
+is properly sanitized with an *HTML* sanitizer library or framework feature.
 
 . [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]

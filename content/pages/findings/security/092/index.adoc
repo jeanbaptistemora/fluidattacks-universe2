@@ -1,0 +1,16 @@
+:slug: findings/092/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not restricting resource consumption, recommendations to avoid them and related security requirements.
+:keywords: Resource, Allocation, Excessive, Restriction, Request, Server
+:findings: yes
+:type: security
+
+= F092. Improper resource allocation
+
+== Description
+
+The server processes requests that consume a humongous amount of resources
+without any restriction.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]

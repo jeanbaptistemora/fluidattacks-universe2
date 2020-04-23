@@ -1,0 +1,16 @@
+:slug: findings/090/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not validating inputs before exporting them, recommendations to avoid them and related security requirements.
+:keywords: Code, Injection, CSV, Excel, Command, Execution
+:findings: yes
+:type: security
+
+= F090. Code injection (CSV)
+
+== Description
+
+It is possible to inject formulas into fields that are later exported as part
+of CSV files and can be interpreted by Excel.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]

@@ -1,0 +1,16 @@
+:slug: findings/091/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not validating inputs before logging them, recommendations to avoid them and related security requirements.
+:keywords: Code, Injection, Log, Entry, Sanitize, Escaping
+:findings: yes
+:type: security
+
+= F091. Log injection
+
+== Description
+
+The system logs entries that contain input from untrusted sources without
+properly validating, sanitizing or escaping their content.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
