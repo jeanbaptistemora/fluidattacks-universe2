@@ -4,6 +4,7 @@ import os
 from typing import Tuple
 
 # Third party library
+import rollbar
 from casbin import Enforcer as CasbinEnforcer
 from casbin_in_memory_adapter.adapter import (
     Adapter as CasbinInMemoryAdapter,
@@ -51,149 +52,140 @@ def get_cached_subject_policies(subject: str):
     return fetched_data
 
 
-def get_basic_actions() -> Tuple[str, ...]:
-    """Actions that everyone can perform."""
-    return (
-        'backend_api_resolvers_alert_resolve_alert',
-        'backend_api_resolvers_event__do_add_event_comment',
-        'backend_api_resolvers_event__do_download_event_file',
-        'backend_api_resolvers_event_resolve_event',
-        'backend_api_resolvers_event_resolve_events',
-        'backend_api_resolvers_finding__do_add_finding_comment',
-        'backend_api_resolvers_finding_resolve_finding',
-        'backend_api_resolvers_forces_resolve_forces_executions',
-        'backend_api_resolvers_project__get_comments',
-        'backend_api_resolvers_project__get_events',
-        'backend_api_resolvers_project__do_add_project_comment',
-        'backend_api_resolvers_project_resolve_project',
-        'backend_api_resolvers_resource__do_download_file',
-        'backend_api_resolvers_resource_resolve_resources',
-        'backend_api_resolvers_vulnerability__do_request_verification_vuln',
-    )
+# Actions everyone can perform
+BASIC_ACTIONS: Tuple[str, ...] = (
+    'backend_api_resolvers_alert_resolve_alert',
+    'backend_api_resolvers_event__do_add_event_comment',
+    'backend_api_resolvers_event__do_download_event_file',
+    'backend_api_resolvers_event_resolve_event',
+    'backend_api_resolvers_event_resolve_events',
+    'backend_api_resolvers_finding__do_add_finding_comment',
+    'backend_api_resolvers_finding_resolve_finding',
+    'backend_api_resolvers_forces_resolve_forces_executions',
+    'backend_api_resolvers_project__do_add_project_comment',
+    'backend_api_resolvers_project__get_comments',
+    'backend_api_resolvers_project__get_events',
+    'backend_api_resolvers_project_resolve_project',
+    'backend_api_resolvers_resource__do_download_file',
+    'backend_api_resolvers_resource_resolve_resources',
+    'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+)
 
 
-def get_customer_actions() -> Tuple[str, ...]:
-    """Actions that only client's users can perform."""
-    return (
-        'backend_api_resolvers_finding__do_update_client_description',
-        'backend_api_resolvers_project__do_add_tags',
-        'backend_api_resolvers_project__do_remove_tag',
-        'backend_api_resolvers_resource__do_add_environments',
-        'backend_api_resolvers_resource__do_add_files',
-        'backend_api_resolvers_resource__do_add_repositories',
-        'backend_api_resolvers_resource__do_remove_files',
-        'backend_api_resolvers_resource__do_update_environment',
-        'backend_api_resolvers_resource__do_update_repository',
-        'backend_api_resolvers_resource_resolve_add_resources',
-        'backend_api_resolvers_vulnerability__do_delete_tags',
-        'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
-    )
+# Actions client's users can perform
+CUSTOMER_ACTIONS: Tuple[str, ...] = (
+    *BASIC_ACTIONS,
+    'backend_api_resolvers_finding__do_update_client_description',
+    'backend_api_resolvers_project__do_add_tags',
+    'backend_api_resolvers_project__do_remove_tag',
+    'backend_api_resolvers_resource__do_add_environments',
+    'backend_api_resolvers_resource__do_add_files',
+    'backend_api_resolvers_resource__do_add_repositories',
+    'backend_api_resolvers_resource__do_remove_files',
+    'backend_api_resolvers_resource__do_update_environment',
+    'backend_api_resolvers_resource__do_update_repository',
+    'backend_api_resolvers_resource_resolve_add_resources',
+    'backend_api_resolvers_vulnerability__do_delete_tags',
+    'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+)
 
 
-def get_manager_actions() -> Tuple[str, ...]:
-    """Actions that only client's project managers can perform."""
-    return (
-        'backend_api_resolvers_finding__do_handle_acceptation',
-        'backend_api_resolvers_me__get_tags',
-        'backend_api_resolvers_project__get_users',
-        'backend_api_resolvers_project__do_reject_remove_project',
-        'backend_api_resolvers_project__do_request_remove_project',
-        'backend_api_resolvers_tag_resolve_tag',
-        'backend_api_resolvers_user__do_edit_user',
-        'backend_api_resolvers_user__do_grant_user_access',
-        'backend_api_resolvers_user__do_remove_user_access',
-        'backend_api_resolvers_user_resolve_user_list_projects',
-        'backend_api_resolvers_user_resolve_user',
-    )
+# Actions client's project managers can perform
+CUSTOMERADMIN_ACTIONS: Tuple[str, ...] = (
+    *CUSTOMER_ACTIONS,
+    'backend_api_resolvers_finding__do_handle_acceptation',
+    'backend_api_resolvers_me__get_tags',
+    'backend_api_resolvers_project__do_reject_remove_project',
+    'backend_api_resolvers_project__do_request_remove_project',
+    'backend_api_resolvers_project__get_users',
+    'backend_api_resolvers_tag_resolve_tag',
+    'backend_api_resolvers_user__do_edit_user',
+    'backend_api_resolvers_user__do_grant_user_access',
+    'backend_api_resolvers_user__do_remove_user_access',
+    'backend_api_resolvers_user_resolve_user_list_projects',
+    'backend_api_resolvers_user_resolve_user',
+)
 
 
-def get_internal_manager_actions() -> Tuple[str, ...]:
-    """Actions that only FluidAttacks's project managers can perform."""
-    return (
-        'backend_api_resolvers_alert_resolve_set_alert',
-        'backend_api_resolvers_event__do_create_event',
-        'backend_api_resolvers_project__do_create_project',
-        'backend_api_resolvers_user_resolve_user_list_projects',
-    )
+# Actions FluidAttacks's project managers can perform
+INTERNAL_MANAGER_ACTIONS: Tuple[str, ...] = (
+    *CUSTOMERADMIN_ACTIONS,
+    'backend_api_resolvers_alert_resolve_set_alert',
+    'backend_api_resolvers_event__do_create_event',
+    'backend_api_resolvers_project__do_create_project',
+    'backend_api_resolvers_user_resolve_user_list_projects',
+)
 
 
-def get_analyst_actions() -> Tuple[str, ...]:
-    """Actions that only FluidAttacks's hackers can perform."""
-    return (
-        'backend_api_dataloaders_finding__get_analyst',
-        'backend_api_dataloaders_finding__get_historic_state',
-        'backend_api_dataloaders_finding__get_observations',
-        'backend_api_dataloaders_finding__get_pending_vulns',
-        'backend_api_resolvers_cache_resolve_invalidate_cache',
-        'backend_api_resolvers_event__do_create_event',
-        'backend_api_resolvers_event__do_remove_event_evidence',
-        'backend_api_resolvers_event__do_solve_event',
-        'backend_api_resolvers_event__do_update_event_evidence',
-        'backend_api_resolvers_finding__do_create_draft',
-        'backend_api_resolvers_finding__do_delete_finding',
-        'backend_api_resolvers_finding__do_reject_draft',
-        'backend_api_resolvers_finding__do_remove_evidence',
-        'backend_api_resolvers_finding__do_submit_draft',
-        'backend_api_resolvers_finding__do_update_description',
-        'backend_api_resolvers_finding__do_update_evidence_description',
-        'backend_api_resolvers_finding__do_update_evidence',
-        'backend_api_resolvers_finding__do_update_severity',
-        'backend_api_resolvers_project__get_drafts',
-        'backend_api_resolvers_vulnerability__do_approve_vulnerability',
-        'backend_api_resolvers_vulnerability__do_delete_vulnerability',
-        'backend_api_resolvers_vulnerability__do_upload_file',
-        'backend_api_resolvers_vulnerability__do_verify_request_vuln',
-        'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
-        'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
-    )
+# Actions FluidAttacks's hackers can perform
+ANALYST_ACTIONS: Tuple[str, ...] = (
+    *BASIC_ACTIONS,
+    'backend_api_dataloaders_finding__get_analyst',
+    'backend_api_dataloaders_finding__get_historic_state',
+    'backend_api_dataloaders_finding__get_observations',
+    'backend_api_dataloaders_finding__get_pending_vulns',
+    'backend_api_resolvers_cache_resolve_invalidate_cache',
+    'backend_api_resolvers_event__do_create_event',
+    'backend_api_resolvers_event__do_remove_event_evidence',
+    'backend_api_resolvers_event__do_solve_event',
+    'backend_api_resolvers_event__do_update_event_evidence',
+    'backend_api_resolvers_finding__do_create_draft',
+    'backend_api_resolvers_finding__do_delete_finding',
+    'backend_api_resolvers_finding__do_reject_draft',
+    'backend_api_resolvers_finding__do_remove_evidence',
+    'backend_api_resolvers_finding__do_submit_draft',
+    'backend_api_resolvers_finding__do_update_description',
+    'backend_api_resolvers_finding__do_update_evidence_description',
+    'backend_api_resolvers_finding__do_update_evidence',
+    'backend_api_resolvers_finding__do_update_severity',
+    'backend_api_resolvers_project__get_drafts',
+    'backend_api_resolvers_vulnerability__do_approve_vulnerability',
+    'backend_api_resolvers_vulnerability__do_delete_vulnerability',
+    'backend_api_resolvers_vulnerability__do_upload_file',
+    'backend_api_resolvers_vulnerability__do_verify_request_vuln',
+    'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
+    'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+)
 
 
-def get_admin_actions() -> Tuple[str, ...]:
-    """Actions that only platform admins can perform."""
-    return (
-        'backend_api_resolvers_cache_resolve_invalidate_cache',
-        'backend_api_resolvers_finding__do_approve_draft',
-        'backend_api_resolvers_internal_project_resolve_project_name',
-        'backend_api_resolvers_project__do_add_all_project_access',
-        'backend_api_resolvers_project__do_create_project',
-        'backend_api_resolvers_project__do_remove_all_project_access',
-        'backend_api_resolvers_project_resolve_alive_projects',
-        'backend_api_resolvers_subscription__do_post_broadcast_message',
-        'backend_api_resolvers_user__do_add_user',
-        'backend_api_resolvers_user__do_grant_user_access_internal_roles',
-    )
-
-
-def list_actions() -> Tuple[str, ...]:
-    all_actions = get_basic_actions() \
-        + get_customer_actions() \
-        + get_manager_actions() \
-        + get_internal_manager_actions() \
-        + get_analyst_actions() \
-        + get_admin_actions()
-
-    return tuple(set(all_actions))
+ALL_ACTIONS: Tuple[str, ...] = tuple(set((
+    *BASIC_ACTIONS,
+    *CUSTOMER_ACTIONS,
+    *CUSTOMERADMIN_ACTIONS,
+    *INTERNAL_MANAGER_ACTIONS,
+    *ANALYST_ACTIONS,
+    'backend_api_resolvers_cache_resolve_invalidate_cache',
+    'backend_api_resolvers_finding__do_approve_draft',
+    'backend_api_resolvers_internal_project_resolve_project_name',
+    'backend_api_resolvers_project__do_add_all_project_access',
+    'backend_api_resolvers_project__do_create_project',
+    'backend_api_resolvers_project__do_remove_all_project_access',
+    'backend_api_resolvers_project_resolve_alive_projects',
+    'backend_api_resolvers_subscription__do_post_broadcast_message',
+    'backend_api_resolvers_user__do_add_user',
+    'backend_api_resolvers_user__do_grant_user_access_internal_roles',
+)))
 
 
 def matches_permission(subject: str, role: str, action: str) -> bool:
-    if action in get_basic_actions():
-        matches = True
-    elif action in get_customer_actions() \
-            and role in ('admin', 'customer', 'customeradmin'):
-        matches = True
-    elif action in get_manager_actions() \
-            and role in ('admin', 'customeradmin'):
-        matches = True
-    elif action in get_internal_manager_actions() \
-            and role in ('admin', 'customer', 'customeradmin') \
+    if role in ['customer', 'customeradmin'] \
             and subject.endswith('@fluidattacks.com'):
-        matches = True
-    elif action in get_analyst_actions():
-        matches = role in ('admin', 'analyst')
-    elif action in get_admin_actions():
-        matches = role == 'admin'
+        role = 'internal_manager'
+
+    role_actions = {
+        'admin': ALL_ACTIONS,
+        'analyst': ANALYST_ACTIONS,
+        'customer': CUSTOMER_ACTIONS,
+        'customeradmin': CUSTOMERADMIN_ACTIONS,
+        'internal_manager': INTERNAL_MANAGER_ACTIONS,
+    }
+    if role in role_actions:
+        matches = action in role_actions[role]
     else:
         matches = False
+        rollbar.report_message(
+            'No actions set for role',
+            level='error', extra_data={role, subject})
 
     return matches
 
