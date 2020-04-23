@@ -39,7 +39,7 @@ from toolbox import (
 #     - Report here if the status Integrates vs Asserts differ
 
 
-def _get_fernet_key(subscription: str) -> str:
+def _get_bb_fernet_key(subscription: str) -> str:
     return utils.generic.get_sops_secret(
         f'break_build_aws_secret_access_key',
         f'subscriptions/{subscription}/config/secrets.yaml',
@@ -60,6 +60,11 @@ def _get_bb_aws_role_arns(subs: str) -> Tuple[str, ...]:
                            config_handle.readlines())))
 
     return tuple()
+
+
+def _get_bb_resources(subs: str, kind: str) -> str:
+    return \
+        os.path.abspath(f'subscriptions/{subs}/break-build/{kind}/resources')
 
 
 def _run_static_exploit(
@@ -190,7 +195,7 @@ def _validate_one_static_exploit(
             logger.info(
                 f'- {finding_id:<10} {repo:<60}: '
                 f'{imsg!s:<6} on Integrates, '
-                f'{amsg} on Asserts'
+                f'{amsg!s:<6} on Asserts'
             )
 
         asserts_summary = \
@@ -202,7 +207,7 @@ def _validate_one_static_exploit(
             exploit_type='static',
             num_open_asserts=asserts_summary.get('vulnerabilities', 0),
             num_open_integrates=integrates_repositories_vulns.get(repo, 0),
-            pipeline_id=os.environ.get('CI_PIPELINE_ID', None),
+            pipeline_id=os.environ.get('CI_PIPELINE_ID'),
             repository=repo,
             result_asserts=amsg,
             result_integrates=imsg,
@@ -213,16 +218,82 @@ def _validate_one_static_exploit(
     return results
 
 
+def _validate_one_dynamic_exploit(
+    *,
+    bb_aws_role_arns: Tuple[str, ...],
+    bb_fernet_key: str,
+    bb_resources: str,
+    exploit_output_path: str,
+    exploit_path: str,
+    finding_id: str,
+    subs: str,
+) -> List[dict]:
+    """Validate Synchronization in one static exploit and return results."""
+    results: List[dict] = []
+
+    if os.path.isfile(exploit_output_path):
+        os.remove(exploit_output_path)
+
+    integrates_vulns = helper.integrates.get_finding_wheres(finding_id)
+    integrates_vulns = tuple(filter(
+        lambda w: w[2] and w[0] in constants.DAST, integrates_vulns))
+
+    asserts_status, asserts_stdout, _ = _run_dynamic_exploit(
+        exploit_path=exploit_path,
+        exploit_output_path=exploit_output_path,
+        subs_path=f'subscriptions/{subs}',
+        bb_aws_role_arns=bb_aws_role_arns,
+        bb_fernet_key=bb_fernet_key,
+        bb_resources=bb_resources)
+
+    imsg = (
+        'OPEN'
+        if helper.integrates.is_finding_open(finding_id, constants.DAST)
+        else 'CLOSED'
+    )
+
+    amsg = api.asserts.get_exp_error_message(asserts_stdout) \
+        or constants.RICH_EXIT_CODES_INV.get(
+            asserts_status, 'OTHER').upper()
+
+    # The synced equation
+    is_synced = imsg == amsg
+
+    if not is_synced:
+        logger.info(
+            f'- {finding_id:<10}: '
+            f'{imsg!s:<6} on Integrates, '
+            f'{amsg!s:<6} on Asserts'
+        )
+
+    asserts_summary = \
+        api.asserts.get_exp_result_summary(asserts_stdout)
+
+    results.append(dict(
+        datetime=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        exploit_path=os.path.relpath(exploit_path),
+        exploit_type='dynamic',
+        num_open_asserts=asserts_summary.get('vulnerabilities', 0),
+        num_open_integrates=len(integrates_vulns),
+        pipeline_id=os.environ.get('CI_PIPELINE_ID'),
+        repository='',
+        result_asserts=amsg,
+        result_integrates=imsg,
+        subscription=subs,
+        synced='yes' if is_synced else 'no',
+    ))
+
+    return results
+
+
 def are_exploits_synced__static(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
     logger.info('Static exploits:')
 
     results: list = []
 
-    bb_fernet_key: str = _get_fernet_key(subs)
-
-    bb_resources = \
-        os.path.abspath(f'subscriptions/{subs}/break-build/static/resources')
+    bb_fernet_key: str = _get_bb_fernet_key(subs)
+    bb_resources = _get_bb_resources(subs, 'static')
 
     for exploit_path in sorted(glob.glob(
             f'subscriptions/{subs}/break-build/static/exploits/*.exp')):
@@ -262,16 +333,13 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str):
     results: list = []
 
     bb_aws_role_arns: Tuple[str, ...] = _get_bb_aws_role_arns(subs)
-    bb_fernet_key: str = _get_fernet_key(subs)
-    bb_resources = \
-        os.path.abspath(f'subscriptions/{subs}/break-build/dynamic/resources')
+    bb_fernet_key: str = _get_bb_fernet_key(subs)
+    bb_resources = _get_bb_resources(subs, 'dynamic')
 
     for exploit_path in sorted(glob.glob(
             f'subscriptions/{subs}/break-build/dynamic/exploits/*.exp')):
         if '.cannot.exp' in exploit_path:
             continue
-
-        once: bool = True
 
         exploit_path = os.path.join(os.getcwd(), exploit_path)
         exploit_output_path = f'{exploit_path}.out.yml'
@@ -289,52 +357,15 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str):
             logger.error(f'  exploit_path: {exploit_path}')
             continue
 
-        finding_title = helper.integrates.get_finding_title(finding_id)
-        find_wheres = helper.integrates.get_finding_wheres(finding_id)
-        find_wheres = tuple(filter(
-            lambda w: w[2] and w[0] in constants.DAST, find_wheres))
-
-        if os.path.isfile(exploit_output_path):
-            os.remove(exploit_output_path)
-
-        analyst_status = helper.integrates.is_finding_open(
-            finding_id, constants.DAST)
-
-        asserts_status, asserts_stdout, _ = _run_dynamic_exploit(
-            exploit_path=exploit_path,
-            exploit_output_path=exploit_output_path,
-            subs_path=f'subscriptions/{subs}',
+        results.append(_validate_one_dynamic_exploit(
             bb_aws_role_arns=bb_aws_role_arns,
             bb_fernet_key=bb_fernet_key,
-            bb_resources=bb_resources)
-
-        imsg = 'OPEN' if analyst_status else 'CLOSED'
-        amsg = api.asserts.get_exp_error_message(asserts_stdout) \
-            or constants.RICH_EXIT_CODES_INV.get(
-                asserts_status, 'OTHER').upper()
-
-        asserts_summary = \
-            api.asserts.get_exp_result_summary(asserts_stdout)
-
-        if imsg != amsg:
-            if once:
-                logger.info(f'    *{finding_id:<10} {finding_title}*')
-                once = False
-            logger.info('        {i} {a}'.format(
-                i=f'Integrates: {imsg!s:<6}', a=f'Asserts: {amsg!s:<17}'))
-
-        results.append({
-            'datetime': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
-            'exploit_path': os.path.relpath(exploit_path),
-            'exploit_type': 'dynamic',
-            'num_open_asserts': asserts_summary.get('vulnerabilities', 0),
-            'num_open_integrates': len(find_wheres),
-            'pipeline_id': os.environ.get('CI_PIPELINE_ID', ''),
-            'result_asserts': amsg,
-            'result_integrates': imsg,
-            'subscription': subs,
-            'synced': 'yes' if imsg == amsg else 'no',
-        })
+            bb_resources=bb_resources,
+            exploit_output_path=exploit_output_path,
+            exploit_path=exploit_path,
+            finding_id=finding_id,
+            subs=subs,
+        ))
 
     return results
 
