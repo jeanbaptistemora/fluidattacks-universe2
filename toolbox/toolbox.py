@@ -619,14 +619,8 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
         logger.info(finding_id, finding_title)
 
         dictionary: Dict[str, Any] = {}
-        for element in helper.integrates.get_finding_static_where_states(
-                finding_id):
-
-            try:
-                repo, rel_path = element['path'].split('/', 1)
-            except ValueError:
-                logger.warn('Ignored due to bad format:', element['path'])
-                continue
+        for repo, rel_path, _, _ in \
+                helper.integrates.get_finding_static_states(finding_id):
 
             try:
                 dictionary[repo].add(rel_path)

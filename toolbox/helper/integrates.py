@@ -1,11 +1,25 @@
 # Standard library
-import re
 import json
-from typing import Any, Dict, Tuple
+from typing import (
+    Dict,
+    Set,
+    Tuple,
+)
 
 # Local imports
-from toolbox import api, logger
+from toolbox import api
 from toolbox.constants import API_TOKEN, SAST, DAST
+
+
+def _split_repo_and_rel_path(where: str) -> Tuple[str, str]:
+    """Take an Integrates where, and return (repo, relative/path/to/file)."""
+    if '/' in where:
+        repo, relative_path = where.split('/', 1)
+    elif '\\' in where:
+        repo, relative_path = where.split('\\', 1)
+    else:
+        repo, relative_path = where, ''
+    return repo, relative_path
 
 
 def does_finding_exist(finding_id: str) -> bool:
@@ -103,8 +117,10 @@ def get_finding_recommendation(finding_id: str) -> str:
     return recommendation
 
 
-def get_finding_wheres(finding_id: str) -> Tuple[Tuple[str, str, bool], ...]:
-    """Return a tuple of (vuln_type, where, state) of a finding."""
+def get_finding_wheres(
+    finding_id: str,
+) -> Tuple[Tuple[str, str, str, bool], ...]:
+    """Return a tuple of (vuln_type, where, specific, is_open) of a finding."""
     response = api.integrates.Queries.finding(API_TOKEN,
                                               finding_id,
                                               with_vulns=True)
@@ -114,8 +130,13 @@ def get_finding_wheres(finding_id: str) -> Tuple[Tuple[str, str, bool], ...]:
         lambda hist: hist['state'] == 'DELETED', vuln['historicState'])),
         vulnerabilities))
 
-    type_where_state: Tuple[Tuple[str, str, bool], ...] = tuple(
-        (vuln['vulnType'], vuln['where'], current_state['state'] == 'open')
+    type_where_state = tuple(
+        (
+            vuln['vulnType'],
+            vuln['where'],
+            vuln['specific'],
+            current_state['state'] == 'open',
+        )
         for vuln in vulnerabilities
         for current_state in (vuln['historicState'][-1],)
         if current_state.get('approval_status', 'APPROVED') == 'APPROVED'
@@ -123,43 +144,47 @@ def get_finding_wheres(finding_id: str) -> Tuple[Tuple[str, str, bool], ...]:
     return type_where_state
 
 
-def get_finding_static_where_states(finding_id: str
-                                    ) -> Tuple[Dict[str, Any], ...]:
-    """Return a tuple of {'path': str, 'state': bool}, True is OPEN."""
-    states: Tuple[Dict[str, Any], ...] = tuple(
-        {
-            'path': where,
-            'state': state,
-        }
-        for vuln_type, where, state in get_finding_wheres(finding_id)
+def get_finding_static_states(
+    finding_id: str,
+) -> Tuple[Tuple[str, str, str, bool], ...]:
+    """Return a tuple of (repo, relative_path, specific, is_open)."""
+    states: Tuple[Tuple[str, str, str, bool], ...] = tuple(
+        (*_split_repo_and_rel_path(where), specific, is_open)
+        for vuln_type, where, specific, is_open
+        in get_finding_wheres(finding_id)
         if vuln_type in SAST)
+
+    return states
+
+
+def get_finding_dynamic_states(
+    finding_id: str,
+) -> Tuple[Tuple[str, str, bool], ...]:
+    """Return a tuple of (where, specific, is_open)."""
+    states: Tuple[Tuple[str, str, bool], ...] = tuple(
+        (where, specific, is_open)
+        for vuln_type, where, specific, is_open
+        in get_finding_wheres(finding_id)
+        if vuln_type in DAST)
 
     return states
 
 
 def get_finding_static_repos_states(finding_id: str) -> Dict[str, bool]:
     """Return a dict mapping repos to its expected state (OPEN, CLOSED)."""
-    regex = re.compile(r'^([^/\\]+).*$')
-    where_states = get_finding_static_where_states(finding_id)
     repos_states: Dict[str, bool] = {}
-    for repo, state in map(
-            lambda x: (regex.sub(r'\1', x['path']), x['state']), where_states):
+    for repo, _, _, is_open in get_finding_static_states(finding_id):
         try:
-            repos_states[repo] = repos_states[repo] or state
+            repos_states[repo] = repos_states[repo] or is_open
         except KeyError:
-            repos_states[repo] = state
+            repos_states[repo] = is_open
     return repos_states
 
 
 def get_finding_static_repos_vulns(finding_id: str) -> Dict[str, int]:
     """Return a dict mapping repos to its OPEN vulnerabilities."""
     repos_vulns: Dict[str, int] = {}
-    regex_repo_name = re.compile(r'^([^/\\]+).*$')
-    for where in get_finding_static_where_states(finding_id):
-        path: str = where['path']
-        repo: str = regex_repo_name.sub(r'\1', path)
-        is_open: bool = where['state']
-
+    for repo, _, _, is_open in get_finding_static_states(finding_id):
         try:
             repos_vulns[repo] += 1 if is_open else 0
         except KeyError:
@@ -168,29 +193,22 @@ def get_finding_static_repos_vulns(finding_id: str) -> Dict[str, int]:
     return repos_vulns
 
 
-def get_finding_repos(finding_id: str) -> tuple:
+def get_finding_repos(finding_id: str) -> Tuple[str, ...]:
     """Return the repositories of a finding."""
-    repos = set()
-    for element in get_finding_static_where_states(finding_id):
-        where = element['path']
-
-        if '/' in where:
-            repos.add(where.split('/', 1)[0])
-        else:
-            logger.warn(f'weird where: {where} at finding {finding_id}')
-            repos.add(where)
+    repos: Set[str] = set()
+    for repo, _, _, _ in get_finding_static_states(finding_id):
+        repos.add(repo)
     return tuple(repos)
 
 
 def get_finding_type(finding_id: str) -> Tuple[bool, bool]:
     """Return a tuple of booleans (sast, dast) for a finding."""
-    finding_wheres: Tuple[Tuple[str, str, bool], ...] = get_finding_wheres(
-        finding_id)
+    finding_wheres = get_finding_wheres(finding_id)
 
     is_sast: bool = \
-        any(vuln_type in SAST for vuln_type, _, _ in finding_wheres)
+        any(vuln_type in SAST for vuln_type, _, _, _ in finding_wheres)
     is_dast: bool = \
-        any(vuln_type in DAST for vuln_type, _, _ in finding_wheres)
+        any(vuln_type in DAST for vuln_type, _, _, _ in finding_wheres)
 
     return is_sast, is_dast
 

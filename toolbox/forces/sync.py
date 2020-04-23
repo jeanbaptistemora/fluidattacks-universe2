@@ -195,7 +195,7 @@ def _validate_one_static_exploit(
             logger.info(
                 f'- {finding_id:<10} {repo:<60}: '
                 f'{imsg!s:<6} on Integrates, '
-                f'{amsg!s:<6} on Asserts'
+                f'{amsg!s:<7} on Asserts'
             )
 
         asserts_summary = \
@@ -234,9 +234,12 @@ def _validate_one_dynamic_exploit(
     if os.path.isfile(exploit_output_path):
         os.remove(exploit_output_path)
 
-    integrates_vulns = helper.integrates.get_finding_wheres(finding_id)
-    integrates_vulns = tuple(filter(
-        lambda w: w[2] and w[0] in constants.DAST, integrates_vulns))
+    integrates_vulns = \
+        helper.integrates.get_finding_dynamic_states(finding_id)
+    integrates_vulns_open = \
+        sum(1 for _, _, is_open in integrates_vulns if is_open)
+    integrates_vulns_closed = \
+        sum(1 for _, _, is_open in integrates_vulns if not is_open)
 
     asserts_status, asserts_stdout, _ = _run_dynamic_exploit(
         exploit_path=exploit_path,
@@ -262,8 +265,10 @@ def _validate_one_dynamic_exploit(
     if not is_synced:
         logger.info(
             f'- {finding_id:<10}: '
-            f'{imsg!s:<6} on Integrates, '
-            f'{amsg!s:<6} on Asserts'
+            f'{imsg!s:<6} on I ('
+            f'{integrates_vulns_open!s:<3} open, '
+            f'{integrates_vulns_closed!s:<3} closed), '
+            f'{amsg!s:<7} on A'
         )
 
     asserts_summary = \
@@ -274,7 +279,7 @@ def _validate_one_dynamic_exploit(
         exploit_path=os.path.relpath(exploit_path),
         exploit_type='dynamic',
         num_open_asserts=asserts_summary.get('vulnerabilities', 0),
-        num_open_integrates=len(integrates_vulns),
+        num_open_integrates=integrates_vulns_open,
         pipeline_id=os.environ.get('CI_PIPELINE_ID'),
         repository='',
         result_asserts=amsg,
@@ -330,6 +335,7 @@ def are_exploits_synced__static(subs: str, exp_name: str):
 
 def are_exploits_synced__dynamic(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
+    logger.info('Static exploits:')
     results: list = []
 
     bb_aws_role_arns: Tuple[str, ...] = _get_bb_aws_role_arns(subs)

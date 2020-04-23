@@ -251,6 +251,7 @@ class Queries:
                         id @include(if: $withVulns)
                         vulnType @include(if: $withVulns)
                         where @include(if: $withVulns)
+                        specific @include(if: $withVulns)
                     }
                 }
             }

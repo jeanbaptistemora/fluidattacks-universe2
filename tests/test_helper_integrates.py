@@ -8,8 +8,10 @@ from toolbox.helper.integrates import (
     get_finding_attack_vector,
     get_finding_cvss_score,
     get_finding_description,
+    get_finding_dynamic_states,
     get_finding_recommendation,
     get_finding_repos,
+    get_finding_static_states,
     get_finding_static_repos_states,
     get_finding_static_repos_vulns,
     get_finding_threat,
@@ -74,6 +76,28 @@ def test_get_finding_cvss_score():
 def test_get_finding_description():
     """Test helper.get_finding_description."""
     assert get_finding_description(FINDING) == '.'
+
+
+def test_get_finding_static_states():
+    assert get_finding_static_states(FINDING_OPEN) == (
+        ('Test', '2019-09-23 16:24:01.619957', '1', True),
+        ('continuous', '2019-09-23 16:24:01.619957', '1', True),
+    )
+
+
+def test_get_finding_dynamic_states_open():
+    assert get_finding_dynamic_states(FINDING_OPEN) == (
+        ('https://aa.com', 'f', True),
+        ('192.168.1.102', '9999', False),
+        ('192.168.1.104', '2222', False),
+        ('https://bb.com', 'f', True),
+        ('192.168.1.103', '3333', True),
+        ('192.168.1.102', '5555', False),
+        ('https://dd.com', 'phonee', False),
+        ('https://example.com', 'phone', True),
+        ('https://cc.com', 'phonee', True),
+        ('192.168.1.102', '4444', False),
+    )
 
 
 def test_get_finding_static_repos_states_closed():
