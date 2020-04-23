@@ -15,11 +15,11 @@ QUEUE: asyncio.Queue = asyncio.Queue()
 
 
 @convert_kwargs_to_snake_case
-def resolve_subscription_mutation(obj, info, **parameters):
+async def resolve_subscription_mutation(obj, info, **parameters):
     """Wrap me mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return util.run_async(resolver_func, obj, info, **parameters)
+    return await resolver_func(obj, info, **parameters)
 
 
 @require_login

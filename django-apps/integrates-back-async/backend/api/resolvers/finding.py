@@ -38,7 +38,7 @@ def resolve_finding_mutation(obj, info, **parameters):
     """Resolve findings mutation."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return util.run_async(resolver_func, obj, info, **parameters)
+    return resolver_func(obj, info, **parameters)
 
 
 @convert_kwargs_to_snake_case
@@ -47,9 +47,9 @@ def resolve_finding_mutation(obj, info, **parameters):
 @enforce_group_level_auth_async
 @require_finding_access
 @rename_kwargs({'finding_id': 'identifier'})
-def resolve_finding(_, info, identifier: str) -> Dict[str, FindingType]:
+async def resolve_finding(_, info, identifier: str) -> Dict[str, FindingType]:
     """Resolve finding query."""
-    return util.run_async(finding_loader.resolve, info, identifier)
+    return await finding_loader.resolve(info, identifier)
 
 
 @require_login

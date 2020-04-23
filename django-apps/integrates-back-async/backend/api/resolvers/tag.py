@@ -37,7 +37,7 @@ async def _resolve_fields(info, tag: str) -> TagType:
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-def resolve_tag(_, info, tag: str) -> TagType:
+async def resolve_tag(_, info, tag: str) -> TagType:
     """Resolve alert query."""
     tag = tag.lower()
-    return util.run_async(_resolve_fields, info, tag)
+    return await _resolve_fields(info, tag)

@@ -17,11 +17,11 @@ from ariadne import convert_kwargs_to_snake_case
 
 @convert_kwargs_to_snake_case
 @require_project_access
-def resolve_report_mutation(obj, info, **parameters):
+async def resolve_report_mutation(obj, info, **parameters):
     """Resolve reports mutation."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return util.run_async(resolver_func, obj, info, **parameters)
+    return await resolver_func(obj, info, **parameters)
 
 
 @require_login

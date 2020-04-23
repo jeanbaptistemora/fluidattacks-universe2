@@ -379,7 +379,7 @@ async def _get_tags(_, project_name: str, **__) -> Dict[str, List[str]]:
 
 
 @get_entity_cache_async
-async def _get_description(_, project_name: str, **__)-> Dict[str, str]:
+async def _get_description(_, project_name: str, **__) -> Dict[str, str]:
     """Get description."""
     return await \
         sync_to_async(project_domain.get_description)(project_name)
@@ -726,9 +726,9 @@ async def _do_remove_all_project_access(
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-def resolve_alive_projects(_, info) -> List[ProjectType]:
+async def resolve_alive_projects(_, info) -> List[ProjectType]:
     """Resolve for ACTIVE and SUSPENDED projects."""
-    return util.run_async(_get_alive_projects, info)
+    return await _get_alive_projects(info)
 
 
 async def _get_alive_projects(info) -> List[ProjectType]:

@@ -103,13 +103,11 @@ async def _resolve_fields(info, project_name: str, from_date: datetime,
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_forces_executions(
+async def resolve_forces_executions(
         _, info, project_name: str, from_date: datetime = None,
         to_date: datetime = None) -> ForcesExecutionsType:
     """Resolve forces_executions query."""
     project_name = project_name.lower()
     from_date = from_date or util.get_current_time_minus_delta(weeks=1)
     to_date = to_date or datetime.utcnow()
-    return util.run_async(
-        _resolve_fields, info, project_name, from_date, to_date
-    )
+    return await _resolve_fields(info, project_name, from_date, to_date)

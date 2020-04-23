@@ -50,9 +50,9 @@ async def _resolve_fields(project_name: str, organization: str) -> AlertType:
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
+async def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
     """Resolve alert query."""
-    return util.run_async(_resolve_fields, project_name, organization)
+    return await _resolve_fields(project_name, organization)
 
 
 @convert_kwargs_to_snake_case

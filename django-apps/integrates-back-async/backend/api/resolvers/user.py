@@ -99,19 +99,18 @@ def _create_new_user(context: object, email: str, organization: str,
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_user(_, info, project_name: str, user_email: str) -> UserType:
+async def resolve_user(
+        _, info, project_name: str, user_email: str) -> UserType:
     """Resolve user query."""
-    return util.run_async(
-        user_loader.resolve, info, user_email, project_name
-    )
+    return await user_loader.resolve(info, user_email, project_name)
 
 
 @convert_kwargs_to_snake_case
-def resolve_user_mutation(obj, info, **parameters):
+async def resolve_user_mutation(obj, info, **parameters):
     """Wrap user mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return util.run_async(resolver_func, obj, info, **parameters)
+    return await resolver_func(obj, info, **parameters)
 
 
 @require_login
@@ -323,9 +322,9 @@ def modify_user_information(context: object,
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-def resolve_user_list_projects(_, info, user_email):
+async def resolve_user_list_projects(_, info, user_email):
     """Resolve user_list_projects query."""
-    return util.run_async(_get_user_list_projects, info, user_email)
+    return await _get_user_list_projects(info, user_email)
 
 
 async def _get_user_list_projects(info, user_email):

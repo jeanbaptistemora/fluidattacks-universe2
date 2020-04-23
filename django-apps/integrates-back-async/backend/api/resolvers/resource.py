@@ -107,17 +107,17 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_resources(_, info, project_name: str) -> ResourcesType:
+async def resolve_resources(_, info, project_name: str) -> ResourcesType:
     """Resolve resources query."""
-    return util.run_async(_resolve_fields, info, project_name)
+    return await _resolve_fields(info, project_name)
 
 
 @convert_kwargs_to_snake_case
-def resolve_resources_mutation(obj, info, **parameters):
+async def resolve_resources_mutation(obj, info, **parameters):
     """Wrap resources mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return util.run_async(resolver_func, obj, info, **parameters)
+    return await resolver_func(obj, info, **parameters)
 
 
 @require_login

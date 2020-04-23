@@ -150,11 +150,11 @@ async def _get_comments(info, identifier: str) -> Dict[str, List[CommentType]]:
 
 
 @convert_kwargs_to_snake_case
-def resolve_event_mutation(obj, info, **parameters):
+async def resolve_event_mutation(obj, info, **parameters):
     """Resolve update_severity mutation."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return util.run_async(resolver_func, obj, info, **parameters)
+    return await resolver_func(obj, info, **parameters)
 
 
 async def resolve(info, identifier: str = '',
@@ -199,9 +199,9 @@ async def resolve(info, identifier: str = '',
 @require_event_access
 @rename_kwargs({'event_id': 'identifier'})
 @convert_kwargs_to_snake_case
-def resolve_event(_, info, identifier: str = '') -> EventType:
+async def resolve_event(_, info, identifier: str = '') -> EventType:
     """Resolve event query."""
-    return util.run_async(resolve, info, identifier)
+    return await resolve(info, identifier)
 
 
 @get_entity_cache_async
@@ -214,13 +214,13 @@ async def _resolve_events_async(event_ids: List[str]) -> List[EventType]:
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
-def resolve_events(_, info, project_name: str) -> List[EventType]:
+async def resolve_events(_, info, project_name: str) -> List[EventType]:
     """Resolve events query."""
     util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} events')  # pragma: no cover
     event_ids = project_domain.list_events(project_name)
-    return util.run_async(_resolve_events_async, event_ids)
+    return await _resolve_events_async(event_ids)
 
 
 @require_login
