@@ -7,7 +7,7 @@ import { createUploadLink } from "apollo-upload-client";
 import { getMainDefinition } from "apollo-utilities";
 import { FragmentDefinitionNode, GraphQLError, OperationDefinitionNode } from "graphql";
 import _ from "lodash";
-import { getEnvironment } from "./context";
+import { getEnvironment } from "./environment";
 import { msgError } from "./notifications";
 import rollbar from "./rollbar";
 import translate from "./translations/translate";
@@ -102,26 +102,13 @@ const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
   });
 };
 
-let urlHostApiV2: string;
-let wsApiV2: string;
-
-const setIntegratesHeaders: Dictionary = {
-  "X-CSRFToken": getCookie("csrftoken"),
-};
-
-if (window.location.hostname === "localhost") {
-    urlHostApiV2 = `${window.location.protocol}//${window.location.hostname}:8080/api`;
-    wsApiV2 = `wss://${window.location.hostname}:8080/api`;
-} else {
-    urlHostApiV2 = `${window.location.origin}/integrates/api`;
-    wsApiV2 = `wss://${window.location.hostname}/integrates/api`;
-}
-
-const httpLinkV2: ApolloLink = createUploadLink({
+const httpLink: ApolloLink = createUploadLink({
   credentials: "same-origin",
   fetch: extendedFetch,
-  headers: setIntegratesHeaders,
-  uri: urlHostApiV2,
+  headers: {
+    "X-CSRFToken": getCookie("csrftoken"),
+  },
+  uri: `${window.location.origin}/integrates/api`,
 });
 
 const wsLink: ApolloLink = new WebSocketLink({
@@ -129,37 +116,29 @@ const wsLink: ApolloLink = new WebSocketLink({
     lazy: true,
     reconnect: true,
   },
-  uri: wsApiV2,
+  uri: `wss://${window.location.host}/integrates/api`,
 });
 
-const apiLinkV2: ApolloLink = ApolloLink.split(
-    ({ query }: Operation): boolean => {
-        const definition: OperationDefinitionNode | FragmentDefinitionNode = getMainDefinition(query);
+const apiLink: ApolloLink = ApolloLink.split(
+  ({ query }: Operation): boolean => {
+    const definition: OperationDefinitionNode | FragmentDefinitionNode = getMainDefinition(query);
 
-        return (
-        definition.kind === "OperationDefinition" &&
-        definition.operation === "subscription"
-        );
-    },
-    wsLink,
-    httpLinkV2,
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  httpLink,
 );
 
-export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  cache: new InMemoryCache(),
-  connectToDevTools: getEnvironment() !== "production",
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: "cache-and-network",
-    },
-  },
-  link: ApolloLink.from([
-    // Top-level error handling
+// Top-level error handling
+const errorLink: ApolloLink =
     onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
       if (networkError !== undefined) {
         const errorDetails: Dictionary | undefined = _.get(networkError, "extraInfo");
 
-        if (errorDetails === undefined) {
+        if (_.isUndefined(errorDetails) || _.isUndefined(errorDetails.statusCode)) {
           msgError(translate.t("proj_alerts.error_network"), "Offline");
         } else {
           const { statusCode } = errorDetails;
@@ -196,7 +175,15 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
           }
         });
       }
-    }),
-    apiLinkV2,
-  ]),
+});
+
+export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+  cache: new InMemoryCache(),
+  connectToDevTools: getEnvironment() !== "production",
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "cache-and-network",
+    },
+  },
+  link: errorLink.concat(apiLink),
 });

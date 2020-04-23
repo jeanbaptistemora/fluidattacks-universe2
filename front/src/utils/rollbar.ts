@@ -1,5 +1,5 @@
 import Rollbar from "rollbar";
-import { getEnvironment } from "./context";
+import { getEnvironment } from "./environment";
 
 const { userEmail, userName } = window as typeof window & Dictionary<string>;
 
