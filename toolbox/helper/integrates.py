@@ -137,11 +137,11 @@ def get_finding_static_where_states(finding_id: str
     return states
 
 
-def get_finding_static_repos_states(finding_id: str) -> dict:
-    """Return a dict mappin repos to its expected state (OPEN, CLOSED)."""
+def get_finding_static_repos_states(finding_id: str) -> Dict[str, bool]:
+    """Return a dict mapping repos to its expected state (OPEN, CLOSED)."""
     regex = re.compile(r'^([^/\\]+).*$')
     where_states = get_finding_static_where_states(finding_id)
-    repos_states: dict = {}
+    repos_states: Dict[str, bool] = {}
     for repo, state in map(
             lambda x: (regex.sub(r'\1', x['path']), x['state']), where_states):
         try:
@@ -149,6 +149,23 @@ def get_finding_static_repos_states(finding_id: str) -> dict:
         except KeyError:
             repos_states[repo] = state
     return repos_states
+
+
+def get_finding_static_repos_vulns(finding_id: str) -> Dict[str, int]:
+    """Return a dict mapping repos to its OPEN vulnerabilities."""
+    repos_vulns: Dict[str, int] = {}
+    regex_repo_name = re.compile(r'^([^/\\]+).*$')
+    for where in get_finding_static_where_states(finding_id):
+        path: str = where['path']
+        repo: str = regex_repo_name.sub(r'\1', path)
+        is_open: bool = where['state']
+
+        try:
+            repos_vulns[repo] += 1 if is_open else 0
+        except KeyError:
+            repos_vulns[repo] = 1 if is_open else 0
+
+    return repos_vulns
 
 
 def get_finding_repos(finding_id: str) -> tuple:

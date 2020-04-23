@@ -59,6 +59,58 @@ def test_helper_get_finding_description():
     assert integrates.get_finding_description(FINDING) == '.'
 
 
+def test_get_finding_static_repos_states_closed():
+    result = integrates.get_finding_static_repos_states(FINDING_CLOSED)
+    expected = {
+        'NoRepo': False,
+        'Test': False,
+    }
+
+    assert sorted(result.keys()) == sorted(expected.keys())
+
+    for repo in result:
+        assert result[repo] == expected[repo], repo
+
+
+def test_get_finding_static_repos_states_open():
+    result = integrates.get_finding_static_repos_states(FINDING_OPEN)
+    expected = {
+        'Test': True,
+        'continuous': True,
+    }
+
+    assert sorted(result.keys()) == sorted(expected.keys())
+
+    for repo in result:
+        assert result[repo] == expected[repo], repo
+
+
+def test_get_finding_static_repos_vulns_closed():
+    result = integrates.get_finding_static_repos_vulns(FINDING_CLOSED)
+    expected = {
+        'NoRepo': 0,
+        'Test': 0,
+    }
+
+    assert sorted(result.keys()) == sorted(expected.keys())
+
+    for repo in result:
+        assert result[repo] == expected[repo], repo
+
+
+def test_get_finding_static_repos_vulns_open():
+    result = integrates.get_finding_static_repos_vulns(FINDING_OPEN)
+    expected = {
+        'Test': 1,
+        'continuous': 1,
+    }
+
+    assert sorted(result.keys()) == sorted(expected.keys())
+
+    for repo in result:
+        assert result[repo] == expected[repo], repo
+
+
 def test_helper_get_finding_threat():
     """Test helper.get_finding_threat."""
     assert integrates.get_finding_threat(FINDING) == '.'
