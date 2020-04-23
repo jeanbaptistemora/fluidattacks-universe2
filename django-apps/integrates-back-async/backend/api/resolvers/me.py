@@ -166,7 +166,7 @@ async def _resolve_fields(info) -> MeType:
 
 @convert_kwargs_to_snake_case
 @require_login
-def resolve_me(_, info, caller_origin: str = '') -> MeType:
+async def resolve_me(_, info, caller_origin: str = '') -> MeType:
     """Resolve Me query."""
     jwt_content = util.get_jwt_content(info.context)
     user_email = jwt_content.get('user_email')
@@ -177,15 +177,15 @@ def resolve_me(_, info, caller_origin: str = '') -> MeType:
         info.context,
         f'Security: User {user_email} is accessing '
         f'Integrates using {origin}')  # pragma: no cover
-    return util.run_async(_resolve_fields, info)
+    return await _resolve_fields(info)
 
 
 @convert_kwargs_to_snake_case
-def resolve_me_mutation(obj, info, **parameters):
+async def resolve_me_mutation(obj, info, **parameters):
     """Wrap me mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return util.run_async(resolver_func, obj, info, **parameters)
+    return await resolver_func(obj, info, **parameters)
 
 
 async def _do_sign_in(_, info, auth_token: str, provider: str,

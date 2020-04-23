@@ -27,9 +27,9 @@ async def _batch_load_fn(finding_ids):
     """Batch the data load requests within the same execution fragment."""
     findings = defaultdict(list)
 
-    for finding in await sync_to_async(finding_domain.get_findings)(
-        finding_ids
-    ):
+    fins = await sync_to_async(finding_domain.get_findings)(finding_ids)
+
+    for finding in fins:
         findings[finding['findingId']] = dict(
             actor=finding.get('actor', ''),
             affected_systems=finding.get('affectedSystems', ''),

@@ -8,10 +8,11 @@ from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
 
+pytestmark = pytest.mark.asyncio
+
 
 class AlertTests(TestCase):
 
-    @pytest.mark.asyncio
     async def test_get_alert(self):
         """Check for project alert"""
         query = '''{
@@ -41,7 +42,7 @@ class AlertTests(TestCase):
             assert message == 'unittest'
         assert 'alert' in result['data']
 
-    def test_set_alert(self):
+    async def test_set_alert(self):
         """Check for set_alert mutation."""
         query = '''
             mutation {
@@ -65,6 +66,6 @@ class AlertTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['setAlert']

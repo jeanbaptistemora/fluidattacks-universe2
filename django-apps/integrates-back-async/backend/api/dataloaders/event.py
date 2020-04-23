@@ -8,12 +8,12 @@ from backend.domain import event as event_domain
 from aiodataloader import DataLoader
 
 
-@sync_to_async
-def _batch_load_fn(event_ids):
+async def _batch_load_fn(event_ids):
     """Batch the data load requests within the same execution fragment."""
     events = defaultdict(list)
 
-    for event in event_domain.get_events(event_ids):
+    evnts = await sync_to_async(event_domain.get_events)(event_ids)
+    for event in evnts:
         history = event.get('historic_state', [])
         events[event['event_id']] = dict(
             accessibility=event.get('accessibility', ''),

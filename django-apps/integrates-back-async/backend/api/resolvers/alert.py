@@ -58,13 +58,13 @@ def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
-def resolve_set_alert(_, info, company: str, message: str,
-                      project_name: str) -> SimplePayloadType:
+async def resolve_set_alert(_, info, company: str, message: str,
+                            project_name: str) -> SimplePayloadType:
     """Resolve set_alert mutation."""
-    success = alert_domain.set_company_alert(
+    success = await sync_to_async(alert_domain.set_company_alert)(
         company, message, project_name)
     if success:
-        util.cloudwatch_log(
+        await sync_to_async(util.cloudwatch_log)(
             info.context,
             f'Security: Set alert of {company}')  # pragma: no cover
     return SimplePayloadType(success=success)

@@ -1,4 +1,6 @@
-from ariadne import graphql_sync
+import pytest
+
+from ariadne import graphql
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -6,10 +8,12 @@ from django.conf import settings
 from jose import jwt
 from backend.api.schema import SCHEMA
 
+pytestmark = pytest.mark.asyncio
+
 
 class CacheTests(TestCase):
 
-    def test_invalidate_cache(self):
+    async def test_invalidate_cache(self):
         """Check for invalidate_cache mutation."""
         query = '''
             mutation {
@@ -33,6 +37,6 @@ class CacheTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        _, result = graphql_sync(SCHEMA, data, context_value=request)
+        _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['invalidateCache']
