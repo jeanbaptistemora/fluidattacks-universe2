@@ -11,7 +11,6 @@ process and tools.
 
    Home <self>
    ci
-   env
    secrets
    vpns
    break_build_admin
@@ -177,13 +176,13 @@ Execute the following command from the continuous repo root:
 
 .. code:: bash
 
-  user@PC:~/continuous$ fluid resources --pull-repos <subscription-name>
+  continuous$ fluid resources --pull-repos <subscription-name>
 
 This one could also be executed inside the selected subscription folder
 
 .. code:: bash
 
-  user@PC:~/continuous/subscriptions/subscription$ fluid resources --pull-repos
+  continuous/subscriptions/subscription$ fluid resources --pull-repos
 
 This command will ask for okta credentials.
 
@@ -221,9 +220,6 @@ you have to:
 
 As commit messages must follow a
 `standard <https://gitlab.com/fluidattacks/continuous/wikis/Commit-and-MR-Messages>`_,
-The ``evaluated_so_far.py`` script automatically generates
-a valid commit message based on chages made
-to the ``lines.csv`` and ``inputs.csv`` files during tests.
 
 .. code:: bash
 
@@ -265,7 +261,7 @@ Usage:
 
   .. code:: bash
 
-    user@PC:~/continuous$ docker run --name=sourceclear -v $(pwd):/continuous \
+    continuous$ docker run --name=sourceclear -v $(pwd):/continuous \
     --rm -i -t registry.gitlab.com/fluidattacks/continuous:srcclr bash
 
 - Once inside the container, run:
@@ -289,13 +285,13 @@ In oder to access a subscription ``VPN``:
 
   .. code:: bash
 
-    userPC:~/continuous/$ curl https://nixos.org/nix/install | sh
+    continuous$ curl https://nixos.org/nix/install | sh
 
 - Run:
 
   .. code:: bash
 
-    userPC:~/continuous/$ ./vpns/subscription.sh
+    continuous$ ./vpns/subscription.sh
 
 After running this command,
 you will be inside a nix-shell

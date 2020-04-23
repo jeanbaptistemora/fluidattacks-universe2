@@ -27,7 +27,7 @@ Steps
 
    .. code:: sh
 
-       continuous $./build.sh
+       continuous$ ./build.sh
 
    At this point, the script will start fetching the base packages for you.
 
