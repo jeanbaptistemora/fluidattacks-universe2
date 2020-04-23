@@ -110,7 +110,7 @@ def s3_upload(bucket: str, origin_path: str, dest_path: str):
 
     param: bucket: Bucket to work with
     param: origin_path: path of files to upload
-    paran: dest_path: s3 path to upload files
+    param: dest_path: s3 path to upload files
     """
     s3_client = boto3.client('s3')
 
@@ -153,7 +153,6 @@ def main(subs: str) -> bool:
     """
     if generic.does_subs_exist(subs) and generic.does_fusion_exist(subs):
         bucket: str = 'continuous-repositories'
-        generic.aws_login('continuous-admin')
         fusion_dir = f'subscriptions/{subs}/fusion'
         remote_repos_active: List[str] = \
             s3_get_repos(bucket, subs, 'active')
@@ -163,6 +162,7 @@ def main(subs: str) -> bool:
         origin_path: str
         dest_path: str
 
+        generic.aws_login('continuous-admin')
         logger.info('Checking active repositories')
         for repo in local_repos:
             origin_path = f'{fusion_dir}/{repo}/'
