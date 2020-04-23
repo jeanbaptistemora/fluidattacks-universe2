@@ -52,6 +52,17 @@ def test_toolbox_reporting_cycle(relocate):
     assert helper.integrates.delete_pending_vulns(FINDING)
 
 
+def test__get_static_dictionary():
+    assert toolbox._get_static_dictionary(FINDING) == {
+        "Test": [
+            "2019-09-23 16:24:01.619957"
+        ],
+        "continuous": [
+            "2019-09-23 16:24:01.619957"
+        ]
+    }
+
+
 def test_toolbox_get_subscription_from_commit_msg(relocate):
     """Test toolbox.get_subscription_from_commit_msg."""
     utils.get_commit_subs.main()

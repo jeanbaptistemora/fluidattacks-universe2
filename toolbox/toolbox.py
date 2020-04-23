@@ -593,6 +593,23 @@ def get_exps_fragments(subs: str, exp_name: str) -> bool:
     return True
 
 
+def _get_static_dictionary(finding_id) -> dict:
+    dictionary: dict = {}
+
+    for repo, rel_path, _, _ in \
+            helper.integrates.get_finding_static_states(finding_id):
+
+        try:
+            dictionary[repo].add(rel_path)
+        except KeyError:
+            dictionary[repo] = {rel_path}
+
+    return {
+        repo: sorted(dictionary[repo])
+        for repo in sorted(dictionary)
+    }
+
+
 def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
     """Print a dictionary with the subscription findings."""
     exploit_paths = sorted(
@@ -617,18 +634,7 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
 
     for finding_id, finding_title in integrates_findings:
         logger.info(finding_id, finding_title)
-
-        dictionary: Dict[str, Any] = {}
-        for repo, rel_path, _, _ in \
-                helper.integrates.get_finding_static_states(finding_id):
-
-            try:
-                dictionary[repo].add(rel_path)
-            except KeyError:
-                dictionary[repo] = {rel_path}
-
-        dictionary = {k: list(sorted(v)) for k, v in dictionary.items()}
-
+        dictionary = _get_static_dictionary(finding_id)
         logger.info(json.dumps(dictionary, indent=4, sort_keys=True))
 
     return True
