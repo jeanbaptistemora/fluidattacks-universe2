@@ -8,6 +8,14 @@
 :revdate:	{{revdate}}
 :revmark:	Versión inicial
 
+
+'''
+
+
+This report was requested by {{user}} on {{date}} only for their use. +
+Please log into {{link}}[Fluid Integrates^] to request a custom version of this report.
+
+
 //Primera pagina - Contenido
 <<<
 === {{fluid_tpl['content_title']}}

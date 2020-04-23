@@ -136,9 +136,9 @@ class CreatorPDF():
             'fin_status_closed': 'Closed'
         }
 
-    def tech(self, data, project, description):
+    def tech(self, data, project, description, user):
         """ Create the template to render and apply the context. """
-        self.fill_project(data, project, description)
+        self.fill_project(data, project, description, user)
         self.out_name = str(uuid.uuid4()) + '.pdf'
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
@@ -247,7 +247,7 @@ class CreatorPDF():
         close('all')
         return pie_filename
 
-    def fill_project(self, findings, project, description):  # noqa pylint: disable=too-many-locals
+    def fill_project(self, findings, project, description, user):  # noqa pylint: disable=too-many-locals
         """ Add project information. """
         words = self.wordlist[self.lang]
         full_project = description
@@ -328,7 +328,10 @@ class CreatorPDF():
             'path': words['path'],
             'port': words['port'],
             'ports': words['ports'],
-
+            'user': user,
+            'date': time.strftime('%Y-%m-%d'),
+            'link': 'https://fluidattacks.com/integrates/dashboard#!/project/'
+                    + project + '/findings'
         }
 
 

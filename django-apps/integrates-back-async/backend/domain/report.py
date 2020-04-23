@@ -15,7 +15,7 @@ def generate_pdf_report(project_name: str, user_email: str, lang: str,
     secure_pdf = SecurePDF()
     findings = pdf_evidences(findings_ord)
     report_filename = ''
-    pdf_maker.tech(findings, project_name, description)
+    pdf_maker.tech(findings, project_name, description, user_email)
     report_filename = secure_pdf.create_full(user_email,
                                              pdf_maker.out_name,
                                              project_name)
