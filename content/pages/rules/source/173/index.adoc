@@ -14,7 +14,7 @@ obtained via data inputs.
 == Description
 
 Technological devices and, in particular, applications
-must be able to identify the received information
+must be able to notice if the received information
 that does not correspond to its operational purposes,
 in order to treat it properly
 (for example, rejecting and/or generating timely alerts)
@@ -79,6 +79,8 @@ therefore this information must be validated.
 
 == Findings
 
+* link:/web/findings/001/[F001. SQL injection]
+
 * link:/web/findings/004/[F004. Remote command execution]
 
 * link:/web/findings/008/[F008. Reflected cross-site scripting (XSS)]
@@ -110,6 +112,12 @@ therefore this information must be validated.
 * link:/web/findings/100/[F100. Server-side request forgery (SSRF)]
 
 * link:/web/findings/103/[F103. Insufficient data authenticity validation]
+
+* link:/web/findings/105/[F105. Apache Lucene query injection]
+
+* link:/web/findings/106/[F106. NoSQL injection]
+
+* link:/web/findings/107/[F107. LDAP injection]
 
 == Referencias
 

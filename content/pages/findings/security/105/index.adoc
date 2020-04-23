@@ -1,0 +1,20 @@
+:slug: findings/105/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about Apache Lucene query injection attacks, recommendations to avoid them and related security requirements.
+:keywords: Apache, Lucene, Query, Injection, Database, Validation
+:findings: yes
+:type: security
+
+= F105. Apache Lucene query injection
+
+== Description
+
+The system generates Apache Lucene queries dynamically, without validating
+untrusted inputs and without using parameterized statements or stored
+procedures.
+
+
+== Rules
+
+. [[r1]] link:/web/rules/169/[R169. Use parameterized queries]
+
+. [[r2]] link:/web/rules/173/[R173. Discard unsafe inputs]

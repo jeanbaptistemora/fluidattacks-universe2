@@ -1,0 +1,16 @@
+:slug: findings/107/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling LDAP injection attacks, recommendations to avoid them and related security requirements.
+:keywords: LDAP, Injection, Query, Database, Validation, Escaping
+:findings: yes
+:type: security
+
+= F107. LDAP injection
+
+== Description
+
+The system generates LDAP queries dynamically and without validating
+untrusted inputs.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]

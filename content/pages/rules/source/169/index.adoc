@@ -4,21 +4,22 @@
 :keywords: Requirement, Security, Parameterized, Sentences, SQLi, Injection
 :rules: yes
 
-= REQ.169 Use parameterized sentences
+= REQ.169 Use parameterized queries
 
 == Requirement
 
-The system must use parameterized sentences
-or parameterized stored procedures
+The system must use parameterized queries or stored procedures
 to create dynamic sentences (e.g *java.sql.PreparedStatement*).
 
 == Findings
 
 * link:/web/findings/001/[F001. SQL injection]
 
+* link:/web/findings/105/[F105. Apache Lucene query injection]
+
 == References
 
- . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.10+]
- Verify that all database queries are protected
- by the use of parameterized queries
- or proper +ORM+ usage to avoid +SQL+ injection.
+ . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.10]
+Verify that all database queries are protected
+by the use of parameterized queries
+or proper *ORM* usage to avoid *SQL* injection.
