@@ -22,9 +22,11 @@ class PDF(FPDF):
 
 class SecurePDF():
     """ Add basic security to PDF. """
-
+    # pylint: disable=too-many-instance-attributes
+    # eight arguments are reasonable (pylnt limit -> 7)
     result_dir = ''
     watermark_tpl = ''
+    footer_tpl = ''
     secure_pdf_username = ''
     secure_pdf_usermail = ''
     secure_pdf_filename = ''
@@ -36,6 +38,9 @@ class SecurePDF():
         self.watermark_tpl = os.path.join(
             self.base,
             'resources/themes/watermark_integrates_en.pdf')
+        self.footer_tpl = os.path.join(
+            self.base,
+            'resources/themes/overlay_footer.pdf')
         self.result_dir = os.path.join(self.base, 'results/')
 
     def create_full(self, usermail: str, basic_pdf_name: str, project: str) -> str:
@@ -53,8 +58,6 @@ class SecurePDF():
     def overlays(self, in_filename: str) -> str:
         """ Add watermark and footer to all pages of a PDF. """
         pdf_foutname = 'water_' + in_filename
-        overlay_footer_pdf = os.path.join(
-            self.base, 'resources/themes/overlay_footer.pdf')
         footer_pdf = PDF()
         footer_pdf.set_user(self.secure_pdf_usermail)
         footer_pdf.alias_nb_pages()
@@ -62,16 +65,14 @@ class SecurePDF():
         for i in range(1, input.getNumPages()):
             footer_pdf.add_page()
         footer_pdf.add_page()
-        footer_pdf.output(overlay_footer_pdf)
+        footer_pdf.output(self.footer_tpl)
         footer_pdf.close()
-
-        overlay_footer = PdfFileReader(open(overlay_footer_pdf, 'rb'))
         output = PdfFileWriter()
         overlay_watermark = PdfFileReader(open(self.watermark_tpl, 'rb'))
+        overlay_footer = PdfFileReader(open(self.footer_tpl, 'rb'))
         for i in range(0, input.getNumPages()):
-            overlay = overlay_watermark.getPage(0)
             page = input.getPage(i)
-            page.mergePage(overlay)
+            page.mergePage(overlay_watermark.getPage(0))
             if i != 0:
                 page.mergePage(overlay_footer.getPage(i))
             output.addPage(page)
@@ -82,7 +83,7 @@ class SecurePDF():
 
     def lock(self, in_filename: str) -> str:
         """  Add a passphrase to a PDF. """
-        pdf_foutname = self.secure_pdf_username + "_" + in_filename
+        pdf_foutname = self.secure_pdf_username + '_' + in_filename
         self.passphrase = get_passphrase(4)
         output = PdfFileWriter()
         input = PdfFileReader(open(self.result_dir + in_filename, 'rb')) # noqa
