@@ -93,9 +93,11 @@ async def _get_findings(
     await sync_to_async(util.cloudwatch_log)(
         info.context,
         f'Security: Access to {project_name} findings')  # pragma: no cover
-    finding_ids = await sync_to_async(finding_domain.filter_deleted_findings)(
-        project_domain.list_findings(project_name)
-    )
+    all_findings = \
+        await sync_to_async(project_domain.list_findings)(project_name)
+    finding_ids = \
+        await sync_to_async(
+            finding_domain.filter_deleted_findings)(all_findings)
     findings = await info.context.loaders['finding'].load_many(finding_ids)
     as_field = True
 
