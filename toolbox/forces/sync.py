@@ -150,9 +150,9 @@ def _validate_one_static_exploit(
     if os.path.isfile(exploit_output_path):
         os.remove(exploit_output_path)
 
-    integrates_repositories_status: Dict[str, bool] = \
+    integrates_repositories_status = \
         helper.integrates.get_finding_static_repos_states(finding_id)
-    integrates_repositories_vulns: Dict[str, int] = \
+    integrates_repositories_vulns = \
         helper.integrates.get_finding_static_repos_vulns(finding_id)
 
     repositories_local: Set[str] = {
@@ -178,6 +178,11 @@ def _validate_one_static_exploit(
             bb_fernet_key=bb_fernet_key,
             bb_resources=bb_resources)
 
+        integrates_vulns_open = \
+            integrates_repositories_vulns.get(repo, {}).get('open', 0)
+        integrates_vulns_closed = \
+            integrates_repositories_vulns.get(repo, {}).get('closed', 0)
+
         imsg = (
             'OPEN'
             if integrates_repositories_status.get(repo, False)
@@ -193,9 +198,11 @@ def _validate_one_static_exploit(
 
         if not is_synced:
             logger.info(
-                f'- {finding_id:<10} {repo:<60}: '
-                f'{imsg!s:<6} on Integrates, '
-                f'{amsg!s:<7} on Asserts'
+                f'- {finding_id:<10}: {repo:<60} '
+                f'{imsg!s:<6} on I ('
+                f'{integrates_vulns_open!s:<3} open, '
+                f'{integrates_vulns_closed!s:<3} closed), '
+                f'{amsg!s:<7} on A'
             )
 
         asserts_summary = \
@@ -206,7 +213,7 @@ def _validate_one_static_exploit(
             exploit_path=os.path.relpath(exploit_path),
             exploit_type='static',
             num_open_asserts=asserts_summary.get('vulnerabilities', 0),
-            num_open_integrates=integrates_repositories_vulns.get(repo, 0),
+            num_open_integrates=integrates_vulns_open,
             pipeline_id=os.environ.get('CI_PIPELINE_ID'),
             repository=repo,
             result_asserts=amsg,

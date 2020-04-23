@@ -129,8 +129,14 @@ def test_get_finding_static_repos_states_open():
 def test_get_finding_static_repos_vulns_closed():
     result = get_finding_static_repos_vulns(FINDING_CLOSED)
     expected = {
-        'NoRepo': 0,
-        'Test': 0,
+        'NoRepo': {
+            'open': 0,
+            'closed': 1,
+        },
+        'Test': {
+            'open': 0,
+            'closed': 3,
+        },
     }
 
     assert sorted(result.keys()) == sorted(expected.keys())
@@ -142,8 +148,14 @@ def test_get_finding_static_repos_vulns_closed():
 def test_get_finding_static_repos_vulns_open():
     result = get_finding_static_repos_vulns(FINDING_OPEN)
     expected = {
-        'Test': 1,
-        'continuous': 1,
+        'Test': {
+            'open': 1,
+            'closed': 0,
+        },
+        'continuous': {
+            'open': 1,
+            'closed': 0,
+        },
     }
 
     assert sorted(result.keys()) == sorted(expected.keys())

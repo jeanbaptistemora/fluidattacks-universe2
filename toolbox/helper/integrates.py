@@ -126,10 +126,6 @@ def get_finding_wheres(
                                               with_vulns=True)
     vulnerabilities = response.data['finding']['vulnerabilities']
 
-    vulnerabilities = list(filter(lambda vuln: not any(map(
-        lambda hist: hist['state'] == 'DELETED', vuln['historicState'])),
-        vulnerabilities))
-
     type_where_state = tuple(
         (
             vuln['vulnType'],
@@ -140,6 +136,7 @@ def get_finding_wheres(
         for vuln in vulnerabilities
         for current_state in (vuln['historicState'][-1],)
         if current_state.get('approval_status', 'APPROVED') == 'APPROVED'
+        and current_state.get('state') != 'DELETED'
     )
     return type_where_state
 
@@ -181,14 +178,20 @@ def get_finding_static_repos_states(finding_id: str) -> Dict[str, bool]:
     return repos_states
 
 
-def get_finding_static_repos_vulns(finding_id: str) -> Dict[str, int]:
-    """Return a dict mapping repos to its OPEN vulnerabilities."""
-    repos_vulns: Dict[str, int] = {}
+def get_finding_static_repos_vulns(
+    finding_id: str,
+) -> Dict[str, Dict[str, int]]:
+    """Return a dict mapping repos to its vulnerabilities."""
+    repos_vulns: Dict[str, Dict[str, int]] = {}
     for repo, _, _, is_open in get_finding_static_states(finding_id):
         try:
-            repos_vulns[repo] += 1 if is_open else 0
+            repos_vulns[repo]['open'] += 1 if is_open else 0
+            repos_vulns[repo]['closed'] += 1 if not is_open else 0
         except KeyError:
-            repos_vulns[repo] = 1 if is_open else 0
+            repos_vulns[repo] = {
+                'open': 1 if is_open else 0,
+                'closed': 1 if not is_open else 0,
+            }
 
     return repos_vulns
 
