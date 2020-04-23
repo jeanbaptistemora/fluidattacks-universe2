@@ -58,6 +58,9 @@ async def _do_request_project_report(_, info,
         )
         generate_pdf_report_thread.start()
         success = True
+        await sync_to_async(util.cloudwatch_log)(
+            info.context,
+            'Security: PDF report succesfully requested')
     elif report_type == 'XLS':
         generate_xls_report_thread = threading.Thread(
             name='XLS report generation thread',
@@ -68,5 +71,8 @@ async def _do_request_project_report(_, info,
         )
         generate_xls_report_thread.start()
         success = True
+        await sync_to_async(util.cloudwatch_log)(
+            info.context,
+            'Security: XLS report succesfully requested')
 
     return SimplePayloadType(success=success)
