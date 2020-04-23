@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
 
-import asyncio
 import collections
 from datetime import datetime, timedelta, timezone
 import binascii
@@ -9,7 +8,7 @@ import logging
 import logging.config
 import re
 import secrets
-from typing import Dict, List, cast, Callable
+from typing import Dict, List, cast
 import pytz
 import rollbar
 import requests
@@ -17,7 +16,6 @@ import requests
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
-from graphql import GraphQLError
 from graphql.language.ast import (
     BooleanValueNode, NameNode, ObjectValueNode, VariableNode
 )
@@ -475,31 +473,6 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
         updated_values['acceptance_date'] = (
             datetime.now() + timedelta(days=5 + weekend_days)).strftime('%Y-%m-%d %H:%M:%S')
     return updated_values
-
-
-def handle_exception(_, context):
-    """Handle async exceptions."""
-    if context.get('exception', ''):
-        raise context['exception']
-
-    msg = context.get('message', '')
-    raise GraphQLError(msg)
-
-
-def run_async(function: Callable, *args, **kwargs):
-    """Run function asynchronous."""
-    try:
-        loop = asyncio.get_event_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-    loop.set_debug(settings.DEBUG)
-    loop.set_exception_handler(handle_exception)
-    try:
-        result = loop.run_until_complete(function(*args, **kwargs))
-    except RuntimeError:
-        result = asyncio.create_task(function(*args, **kwargs))
-    return result
 
 
 def get_requested_fields(field_name, selection_set):
