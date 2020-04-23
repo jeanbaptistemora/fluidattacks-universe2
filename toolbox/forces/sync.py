@@ -7,6 +7,8 @@ import os
 import textwrap
 from typing import (
     Dict,
+    List,
+    Set,
     Tuple,
 )
 # Third party libraries
@@ -128,8 +130,93 @@ def _run_dynamic_exploit(
     return utils.generic.run_command_old(cmd=cmd, cwd=subs_path, env=env)
 
 
+def _validate_one_static_exploit(
+    *,
+    bb_fernet_key: str,
+    bb_resources: str,
+    exploit_output_path: str,
+    exploit_path: str,
+    finding_id: str,
+    subs: str,
+) -> List[dict]:
+    """Validate Synchronization in one static exploit and return results."""
+    results: List[dict] = []
+
+    if os.path.isfile(exploit_output_path):
+        os.remove(exploit_output_path)
+
+    integrates_repositories_status: Dict[str, bool] = \
+        helper.integrates.get_finding_static_repos_states(finding_id)
+    integrates_repositories_vulns: Dict[str, int] = \
+        helper.integrates.get_finding_static_repos_vulns(finding_id)
+
+    repositories_local: Set[str] = {
+        repository
+        for repository in os.listdir(f'subscriptions/{subs}/fusion')
+        if os.path.isdir(f'subscriptions/{subs}/fusion/{repository}')
+    }
+
+    repositories_integrates: Set[str] = \
+        set(integrates_repositories_status.keys())
+
+    for repo in repositories_integrates.union(repositories_local):
+        repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
+
+        if not os.path.isdir(repository_path):
+            # This repo exist on Integrates and not locally, we cannot test
+            continue
+
+        asserts_status, asserts_stdout, _ = _run_static_exploit(
+            exploit_path=exploit_path,
+            exploit_output_path=exploit_output_path,
+            repository_path=repository_path,
+            bb_fernet_key=bb_fernet_key,
+            bb_resources=bb_resources)
+
+        imsg = (
+            'OPEN'
+            if integrates_repositories_status.get(repo, False)
+            else 'CLOSED'
+        )
+
+        amsg = api.asserts.get_exp_error_message(asserts_stdout) \
+            or constants.RICH_EXIT_CODES_INV.get(
+                asserts_status, 'OTHER').upper()
+
+        # The synced equation
+        is_synced = imsg == amsg
+
+        if not is_synced:
+            logger.info(
+                f'- {finding_id:<10} {repo:<60}: '
+                f'{imsg!s:<6} on Integrates, '
+                f'{amsg} on Asserts'
+            )
+
+        asserts_summary = \
+            api.asserts.get_exp_result_summary(asserts_stdout)
+
+        results.append(dict(
+            datetime=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            exploit_path=os.path.relpath(exploit_path),
+            exploit_type='static',
+            num_open_asserts=asserts_summary.get('vulnerabilities', 0),
+            num_open_integrates=integrates_repositories_vulns.get(repo, 0),
+            pipeline_id=os.environ.get('CI_PIPELINE_ID', None),
+            repository=repo,
+            result_asserts=amsg,
+            result_integrates=imsg,
+            subscription=subs,
+            synced='yes' if is_synced else 'no',
+        ))
+
+    return results
+
+
 def are_exploits_synced__static(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
+    logger.info('Static exploits:')
+
     results: list = []
 
     bb_fernet_key: str = _get_fernet_key(subs)
@@ -141,8 +228,6 @@ def are_exploits_synced__static(subs: str, exp_name: str):
             f'subscriptions/{subs}/break-build/static/exploits/*.exp')):
         if '.cannot.exp' in exploit_path:
             continue
-
-        once: bool = True
 
         exploit_path = os.path.join(os.getcwd(), exploit_path)
         exploit_output_path = f'{exploit_path}.out.yml'
@@ -160,70 +245,14 @@ def are_exploits_synced__static(subs: str, exp_name: str):
             logger.error(f'  exploit_path: {exploit_path}')
             continue
 
-        finding_title = helper.integrates.get_finding_title(finding_id)
-
-        if os.path.isfile(exploit_output_path):
-            os.remove(exploit_output_path)
-
-        integrates_status = \
-            helper.integrates.get_finding_static_repos_states(finding_id)
-
-        local_repos: set = set(filter(
-            lambda repo: os.path.isdir(f'subscriptions/{subs}/fusion/{repo}'),
-            os.listdir(f'subscriptions/{subs}/fusion')))
-
-        integrates_repos: set = set(integrates_status.keys())
-        find_wheres = helper.integrates.get_finding_wheres(finding_id)
-
-        for repo in integrates_repos.union(local_repos):
-            analyst_status = integrates_status.get(repo, False)
-            asserts_status = None
-            repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
-            if os.path.isdir(repository_path):
-                asserts_status, asserts_stdout, _ = _run_static_exploit(
-                    exploit_path=exploit_path,
-                    exploit_output_path=exploit_output_path,
-                    repository_path=repository_path,
-                    bb_fernet_key=bb_fernet_key,
-                    bb_resources=bb_resources)
-            else:
-                continue
-
-            imsg = 'OPEN' if analyst_status else 'CLOSED'
-            amsg = api.asserts.get_exp_error_message(asserts_stdout) \
-                or constants.RICH_EXIT_CODES_INV.get(
-                    asserts_status, 'OTHER').upper()
-
-            asserts_summary = \
-                api.asserts.get_exp_result_summary(asserts_stdout)
-
-            repo_vulns_api = tuple(filter(
-                lambda line, rep=repo: line[2]  # type: ignore
-                and line[0] in constants.SAST
-                and line[1].startswith(rep), find_wheres))
-
-            if imsg != amsg:
-                if once:
-                    logger.info(f'    *{finding_id:<10} {finding_title}*')
-                    once = False
-                logger.info('        {i} {a}    {r}'.format(
-                    i=f'Integrates: {imsg!s:<6}',
-                    a=f'Asserts: {amsg!s:<17}',
-                    r=repo))
-            results.append({
-                'datetime': datetime.datetime.now().strftime(
-                    "%Y-%m-%dT%H:%M:%SZ"),
-                'exploit_path': os.path.relpath(exploit_path),
-                'exploit_type': 'static',
-                'num_open_asserts': asserts_summary.get('vulnerabilities', 0),
-                'num_open_integrates': len(repo_vulns_api),
-                'pipeline_id': os.environ.get('CI_PIPELINE_ID', None),
-                'repository': repo,
-                'result_asserts': amsg,
-                'result_integrates': imsg,
-                'subscription': subs,
-                'synced': 'yes' if imsg == amsg else 'no',
-            })
+        results.append(_validate_one_static_exploit(
+            bb_fernet_key=bb_fernet_key,
+            bb_resources=bb_resources,
+            exploit_output_path=exploit_output_path,
+            exploit_path=exploit_path,
+            finding_id=finding_id,
+            subs=subs,
+        ))
 
     return results
 
