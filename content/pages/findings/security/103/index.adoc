@@ -1,0 +1,18 @@
+:slug: findings/103/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not properly verifying data authenticity, recommendations to avoid them and related security requirements.
+:keywords: Data, Information, Insufficient, Validation, Authenticity, Verification
+:findings: yes
+:type: security
+
+= F103. Insufficient data authenticity validation
+
+== Description
+
+The system does not properly verify the origin or authenticity of the data it
+receives, thus it accepts invalid data.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+
+. [[r2]] link:/web/rules/320/[R320. Avoid client-side control enforcement]

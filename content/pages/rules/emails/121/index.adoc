@@ -11,3 +11,7 @@
 Systems using email accounts for user registration
 must guarantee the uniqueness of the emails.
 This is indicated in the +RFC822+ email address structure standard.
+
+== Findings
+
+* link:/web/findings/102/[F102. Email uniqueness not properly verified]

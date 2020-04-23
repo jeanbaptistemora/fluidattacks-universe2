@@ -10,4 +10,8 @@
 
 All the workstations in production
 must count with an unalterable security suite
-(Anti-virus, +Antispyware+, +Host Firewall+, +Host-IDS+, +Host-IPS+).
+(Anti-virus, *Antispyware*, *Host Firewall*, *Host-IDS*, *Host-IPS*).
+
+== Findings
+
+* link:/web/findings/104/[F104. USB flash drive attacks]

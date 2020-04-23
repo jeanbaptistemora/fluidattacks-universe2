@@ -1,0 +1,17 @@
+:slug: findings/104/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not protecting devices against malware, recommendations to avoid them and related security requirements.
+:keywords: USB, Flash, Drive, Device, Attack, Security Suite
+:findings: yes
+:type: security
+
+= F104. USB flash drive attacks
+
+== Description
+
+It is possible to connect USB flash drives containing viruses to a corporate
+machine.
+This which may allow an attacker to infect it with malicious software.
+
+== Rules
+
+. [[r1]] link:/web/rules/273/[R273. Define fixed security suite]

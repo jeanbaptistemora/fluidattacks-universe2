@@ -1,0 +1,22 @@
+:slug: findings/102/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not properly verifying email uniqueness, recommendations to avoid them and related security requirements.
+:keywords: Email, Uniqueness, Verification, Validation, Special, Character
+:findings: yes
+:type: security
+
+= F102. Email uniqueness not properly verified
+
+== Description
+
+The system performs a partial check on the uniqueness of email addresses,
+as it does not properly filter the "*+*" character.
+As a result, "**user@exam.com**", "**user+1@exam.com**" and
+"**user+100@exam.com**" are considered independent despite the fact that they
+all represent the "**user@exam.com**" email account.
+The same is true for the "**.**" character in Google email accounts.
+This lack of validation could cause two independent accounts to be linked to
+the same email address.
+
+== Rules
+
+. [[r1]] link:/web/rules/121/[R121. Guarantee uniqueness of emails]
