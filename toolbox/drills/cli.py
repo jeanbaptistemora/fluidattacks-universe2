@@ -16,6 +16,7 @@ from toolbox.drills import (
     generate_commit_msg,
     to_reattack,
     pull_repos,
+    push_repos,
     vpn,
 )
 
@@ -36,7 +37,11 @@ from toolbox.drills import (
 @option(
     '--pull-repos', 'o_pull_repos',
     is_flag=True,
-    help='Pull repos from s3 for subs')
+    help='Pull repos from s3 to fusion for a subs')
+@option(
+    '--push-repos', 'o_push_repos',
+    is_flag=True,
+    help='Push repos from fusion to s3 for a subs')
 @option(
     '--vpn', 'o_vpn',
     help='Access a subs VPN',
@@ -46,6 +51,7 @@ def drills_management(
         o_generate_commit_msg,
         o_to_reattack,
         o_pull_repos,
+        o_push_repos,
         o_vpn):
     """Perform operations with the drills service."""
     if o_generate_commit_msg:
@@ -54,5 +60,7 @@ def drills_management(
         to_reattack.main()
     elif o_pull_repos:
         sys.exit(0 if pull_repos.main(subscription) else 1)
+    elif o_push_repos:
+        sys.exit(0 if push_repos.main(subscription) else 1)
     elif o_vpn and subscription != 'unspecified-subs':
         sys.exit(0 if vpn.main(subscription) else 1)
