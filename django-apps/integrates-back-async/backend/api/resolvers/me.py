@@ -1,7 +1,4 @@
-# pylint: disable=import-error
-
 from datetime import datetime, timedelta
-import asyncio
 import json
 import sys
 
@@ -37,7 +34,7 @@ from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
 async def _get_role(_, user_email: str,
-                    project_name: str = '') -> Dict[str, str]:
+                    project_name: str = '') -> str:
     """Get role."""
     if project_name:
         role = await \
@@ -46,10 +43,10 @@ async def _get_role(_, user_email: str,
     else:
         role = await \
             sync_to_async(user_domain.get_user_level_role)(user_email)
-    return dict(role=role)
+    return role
 
 
-async def _get_projects(_, user_email: str) -> Dict[str, List[ProjectType]]:
+async def _get_projects(_, user_email: str) -> List[ProjectType]:
     """Get projects."""
     projects = []
     for project in await sync_to_async(user_domain.get_projects)(user_email):
@@ -58,10 +55,10 @@ async def _get_projects(_, user_email: str) -> Dict[str, List[ProjectType]]:
         projects.append(
             dict(name=project, description=description)
         )
-    return dict(projects=projects)
+    return projects
 
 
-async def _get_access_token(_, user_email: str) -> Dict[str, str]:
+async def _get_access_token(_, user_email: str) -> str:
     """Get access token."""
     access_token = await sync_to_async(user_domain.get_data)(
         user_email, 'access_token')
@@ -70,26 +67,24 @@ async def _get_access_token(_, user_email: str) -> Dict[str, str]:
         'issuedAt': str(access_token.get('iat', ''))
         if isinstance(access_token, dict) else ''
     }
-    return dict(access_token=json.dumps(access_token_dict))
+    return json.dumps(access_token_dict)
 
 
-async def _get_authorized(_, user_email: str) -> Dict[str, bool]:
+async def _get_authorized(_, user_email: str) -> bool:
     """Get user authorization."""
-    result = await sync_to_async(user_domain.is_registered)(user_email)
-    return dict(authorized=result)
+    return await sync_to_async(user_domain.is_registered)(user_email)
 
 
-async def _get_remember(_, user_email: str) -> Dict[str, bool]:
+async def _get_remember(_, user_email: str) -> bool:
     """Get remember preference."""
     remember = await \
         sync_to_async(user_domain.get_data)(user_email, 'legal_remember')
-    result = bool(remember)
-    return dict(remember=result)
+    return bool(remember)
 
 
 async def _get_permissions(
         _, user_email: str,
-        project_name: str = '') -> Dict[str, Tuple[str, ...]]:
+        project_name: str = '') -> Tuple[str, ...]:
     """Get the actions the user is allowed to perform."""
     subject = user_email
     object_ = project_name.lower() if project_name else 'self'
@@ -101,11 +96,11 @@ async def _get_permissions(
         action
         for action in await sync_to_async(authorization_utils.list_actions)()
         if await sync_to_async(enforcer.enforce)(subject, object_, action)])
-    return dict(permissions=permissions)
+    return permissions
 
 
 @enforce_user_level_auth_async
-async def _get_tags(_, user_email: str) -> Dict[str, List[TagType]]:
+async def _get_tags(_, user_email: str) -> List[TagType]:
     """Get tags."""
     projects = await \
         sync_to_async(user_domain.get_projects)(user_email)
@@ -119,22 +114,21 @@ async def _get_tags(_, user_email: str) -> Dict[str, List[TagType]]:
     tags = []
     for tag, projects in tags_dict.items():
         tags.append(dict(name=tag, projects=projects))
-    return dict(tags=tags)
+    return tags
 
 
-async def _get_caller_origin(info, **_) -> Dict[str, str]:
+async def _get_caller_origin(info, **_) -> str:
     """Get caller_origin."""
     if hasattr(info.context, 'caller_origin'):
         origin = info.context.caller_origin
     else:
         origin = 'API'
-    return dict(caller_origin=origin)
+    return origin
 
 
 async def _resolve_fields(info) -> MeType:
     """Async resolve fields."""
     result: MeType = dict()
-    tasks = list()
 
     for requested_field in info.field_nodes[0].selection_set.selections:
         if util.is_skippable(info, requested_field):
@@ -155,12 +149,7 @@ async def _resolve_fields(info) -> MeType:
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
-        tasks.append(
-            asyncio.ensure_future(resolver_func(info, **params))
-        )
-    tasks_result = await asyncio.gather(*tasks)
-    for dict_result in tasks_result:
-        result.update(dict_result)
+        result[requested_field] = resolver_func(info, **params)
     return result
 
 
