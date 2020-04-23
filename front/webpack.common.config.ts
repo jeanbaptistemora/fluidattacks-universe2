@@ -2,11 +2,6 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
 import webpack from "webpack";
 
-const bucketName: string = "fluidintegrates-static";
-const branchName: string = process.env.CI_COMMIT_REF_NAME === undefined
-  ? "master"
-  : process.env.CI_COMMIT_REF_NAME;
-
 export const commonConfig: webpack.Configuration = {
   entry: {
     app: "./src/app.tsx",
@@ -14,19 +9,6 @@ export const commonConfig: webpack.Configuration = {
   },
   module: {
     rules: [
-      {
-        test: /\.(gif|jpg|png|svg)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[hash].[ext]",
-              outputPath: "img/",
-              publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/integrates/assets/dashboard/img/`,
-            },
-          },
-        ],
-      },
       {
         test: /\.tsx?$/,
         use: [

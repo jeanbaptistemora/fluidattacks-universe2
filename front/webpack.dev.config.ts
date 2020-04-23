@@ -18,6 +18,25 @@ const devConfig: webpack.Configuration = {
     ],
   },
   mode: "development",
+  module: {
+    ...commonConfig.module,
+    rules: [
+      ...(commonConfig.module as webpack.Module).rules,
+      {
+        test: /\.(gif|jpg|png|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[hash].[ext]",
+              outputPath: "img/",
+              publicPath: "https://localhost:3000/dashboard/img/",
+            },
+          },
+        ],
+      },
+    ],
+  },
   output: {
     ...commonConfig.output,
     publicPath: "https://localhost:3000/dashboard/",
