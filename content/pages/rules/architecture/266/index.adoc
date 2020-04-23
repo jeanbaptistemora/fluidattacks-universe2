@@ -32,6 +32,8 @@ points such as access control gateways, severs and serverless functions.
 
 * link:/web/findings/055/[F055. Insecure service configuration]
 
+* link:/web/findings/101/[F101. Lack of protection against deletion]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]

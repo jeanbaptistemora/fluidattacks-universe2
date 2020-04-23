@@ -26,4 +26,6 @@ It is possible to obtain business information such as:
 
 . [[r2]] link:/web/rules/177/[R177. Avoid caching and temporary files]
 
-. [[r3]] link:/web/rules/300/[R300. Mask sensitive data]
+. [[r3]] link:/web/rules/261/[R261. Avoid exposing sensitive information]
+
+. [[r4]] link:/web/rules/300/[R300. Mask sensitive data]

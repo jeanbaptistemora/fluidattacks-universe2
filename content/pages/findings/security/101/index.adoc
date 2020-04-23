@@ -1,0 +1,17 @@
+:slug: findings/101/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from lacking protection against accidental deletion, recommendations to avoid them and related security requirements.
+:keywords: Lack, Deletion, Protection, Critical, Elimination, Accidental
+:findings: yes
+:type: security
+
+= F101. Lack of protection against deletion
+
+== Description
+
+The system does not prevent critical objects from being deleted accidentally.
+
+== Rules
+
+. [[r1]] link:/web/rules/266/[R266. Disable insecure functionalities]
+
+. [[r2]] link:/web/rules/269/[R269. Use the principle of least privilege]

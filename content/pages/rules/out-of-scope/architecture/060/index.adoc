@@ -3,6 +3,7 @@
 :description: This document details the security guidelines and requirements related to the management of the attack surface components of a system. In this case, it is recommended that the the attack surface components be identified by the company performing the analysis.
 :keywords: Monitor, System, Requirement, Event, Organization, Security
 :rules: yes
+:extended: yes
 
 = REQ.060 Identify attack components
 

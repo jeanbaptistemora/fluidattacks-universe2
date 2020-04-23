@@ -20,6 +20,10 @@ privilege required to execute their functions.
 A violation of this may become a new vulnerability or leverage for causing a
 greater impact when exploiting other vulnerabilities.
 
+== Findings
+
+* link:/web/findings/099/[F099. Excessive privileges]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/250.html[CWE-250: Execution with Unnecessary Privileges]
