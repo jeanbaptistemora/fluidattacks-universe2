@@ -428,4 +428,9 @@ def get_sops_secret(var: str, path: str, profile: str = 'default') -> str:
 @lru_cache(maxsize=None, typed=True)
 def does_subs_exist(subs: str) -> bool:
     """Return True if the subscription exists."""
-    return f'subscriptions/{subs}' in glob('subscriptions/*')
+    return os.path.isdir(f'subscriptions/{subs}')
+
+
+def does_fusion_exist(subs: str) -> bool:
+    """Return True if fusion folder present in subscription"""
+    return os.path.isdir(f'subscriptions/{subs}/fusion')
