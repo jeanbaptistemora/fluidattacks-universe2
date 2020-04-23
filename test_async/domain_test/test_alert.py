@@ -10,3 +10,4 @@ class AlertTests(TestCase):
         assert set_company_alert('fluid', 'DEACTIVATE', 'unittesting')
         assert set_company_alert('fluid', 'DEACTIVATE', 'all')
         assert set_company_alert('fluid', 'ACTIVATE', 'unittesting')
+        assert set_company_alert('unknown', 'test', 'unittesting')

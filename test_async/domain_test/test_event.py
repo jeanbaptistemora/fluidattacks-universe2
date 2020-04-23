@@ -3,7 +3,9 @@ import pytest
 from aniso8601 import parse_datetime
 
 from backend.domain import event as event_domain
-from backend.exceptions import EventAlreadyClosed, InvalidCommentParent
+from backend.exceptions import (
+    EventAlreadyClosed, EventNotFound, InvalidCommentParent
+)
 
 
 def test_get_event():
@@ -11,6 +13,8 @@ def test_get_event():
     test_data = event_domain.get_event(event_id)
     expected_output = 'unittesting'
     assert test_data.get('project_name') == expected_output
+    with pytest.raises(EventNotFound):
+        event_domain.get_event('000001111')
 
 
 def test_create_event():
