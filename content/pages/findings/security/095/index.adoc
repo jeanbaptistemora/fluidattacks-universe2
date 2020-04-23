@@ -1,0 +1,19 @@
+:slug: findings/095/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from using low-entropy random components, recommendations to avoid them and related security requirements.
+:keywords: Insufficient, Entropy, Random, Normal Distribution, Cryptography, Probabilistic Method
+:findings: yes
+:type: security
+
+= F095. Insufficient entropy
+
+== Description
+
+The system uses a random component with very low entropy,
+which makes it easier for an attacker to predict results using probabilistic
+methods.
+
+== Rules
+
+. [[r1]] link:/web/rules/223/[R223. Uniform distribution in random numbers]
+
+. [[r2]] link:/web/rules/224/[R224. Use secure cryptographic mechanisms]

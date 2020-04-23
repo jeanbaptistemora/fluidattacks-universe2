@@ -1,0 +1,18 @@
+:slug: findings/093/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from trusting data usually invisible to the user, recommendations to avoid them and related security requirements.
+:keywords: Hidden, Fields, Manipulation, Invisible, Undesired, Behavior
+:findings: yes
+:type: security
+
+= F093. Hidden fields manipulation
+
+== Description
+
+It is possible to modify fields that are invisible to the regular user and
+cause undesired behaviors in the application.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+
+. [[r1]] link:/web/rules/320/[R320. Avoid client-side control enforcement]

@@ -25,6 +25,8 @@ authenticated users with roles with enough privileges.
 
 * link:/web/findings/039/[F039. Improper authorization control for web services]
 
+* link:/web/findings/094/[F094. System impersonation]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/269.html[CWE-269: Improper Privilege Management]

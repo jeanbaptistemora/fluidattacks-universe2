@@ -24,6 +24,8 @@ mechanisms that guarantee a random distribution,
 
 * link:/web/findings/034/[F034. Insecure generation of random numbers]
 
+* link:/web/findings/095/[F095. Insufficient entropy]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/330.html[CWE-330: Use of Insufficiently Random Values]

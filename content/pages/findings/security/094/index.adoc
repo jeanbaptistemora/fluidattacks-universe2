@@ -1,0 +1,22 @@
+:slug: findings/094/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling system impersonation attacks, recommendations to avoid them and related security requirements.
+:keywords: System, Impersonation, Message, Unauthorized, Malicious, Exposed
+:findings: yes
+:type: security
+
+= F094. System impersonation
+
+== Description
+
+It is possible to send messages to a user and make it look like they come from
+the system.
+
+== Rules
+
+. [[r1]] link:/web/rules/096/[R096. Set user required privileges]
+
+. [[r2]] link:/web/rules/173/[R173. Discard unsafe inputs]
+
+. [[r3]] link:/web/rules/265/[R265. Restrict access to critical processes]
+
+. [[r4]] link:/web/rules/320/[R320. Avoid client-side control enforcement]

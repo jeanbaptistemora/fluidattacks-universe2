@@ -24,6 +24,8 @@ should also be clearly stated.
 
 * link:/web/findings/075/[F075. Unauthorized access to files]
 
+* link:/web/findings/094/[F094. System impersonation]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
