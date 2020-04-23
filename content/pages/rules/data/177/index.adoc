@@ -28,6 +28,8 @@ information.
 
 * link:/web/findings/065/[F065. Cached form fields]
 
+* link:/web/findings/085/[F085. Sensitive information stored in the local storage]
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]

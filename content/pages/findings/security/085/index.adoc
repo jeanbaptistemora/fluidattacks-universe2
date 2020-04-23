@@ -1,0 +1,16 @@
+:slug: findings/085/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from improperly using the local storage, recommendations to avoid them and related security requirements.
+:keywords: Sensitive, Information, Data, Local, Session, Storage
+:findings: yes
+:type: security
+
+= F085. Sensitive information stored in the local storage
+
+== Description
+
+The application stores sensitive information in the local storage.
+This exposes the information to unauthorized read and write operations.
+
+== Rules
+
+. [[r1]] link:/web/rules/177/[R177. Avoid caching and temporary files]

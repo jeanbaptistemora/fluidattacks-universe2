@@ -1,0 +1,18 @@
+:slug: findings/083/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities that enable XML injection attacks, recommendations to avoid them and related security requirements.
+:keywords: XML, Injection, XXE, Code, Remote, Command
+:findings: yes
+:type: security
+
+= F083. XML Injection (XXE)
+
+== Description
+
+It is possible to inject XML code into the application's requests,
+and it is interpreted by the server.
+This could allow an attacker to perform data exfiltration or execute commands
+remotely.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]

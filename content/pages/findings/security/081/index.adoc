@@ -1,0 +1,25 @@
+:slug: findings/081/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not implementing two-factor authentication, recommendations to avoid them and related security requirements.
+:keywords: Two-factor, Authentication, Dual, Biometric, Critical, Login
+:findings: yes
+:type: security
+
+= F081. Lack of two-factor authentication
+
+== Description
+
+Critical services of the system,
+such as databases, shared resources containing sensitive information and web
+services, are not protected by a two-factor authentication mechanism.
+This makes it easier for an attacker who has compromised a user's account to
+access those resources.
+
+== Rules
+
+. [[r1]] link:/web/rules/229/[R229. Request access credentials]
+
+. [[r2]] link:/web/rules/231/[R231. Define a biometric verification component]
+
+. [[r3]] link:/web/rules/264/[R264. Request authentication]
+
+. [[r4]] link:/web/rules/319/[R319. Make authentication options equally secure]

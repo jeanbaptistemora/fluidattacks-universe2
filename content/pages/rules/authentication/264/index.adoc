@@ -25,6 +25,8 @@ prevents unauthorized actors from accessing them.
 
 * link:/web/findings/075/[F075. Unauthorized access to files]
 
+* link:/web/findings/081/[F081. Lack of two-factor authentication]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]

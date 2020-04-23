@@ -23,6 +23,8 @@ The authentication mechanism should request at least a username and a password.
 
 * link:/web/findings/006/[F006. Authentication mechanism absence or evasion]
 
+* link:/web/findings/081/[F081. Lack of two-factor authentication]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function]

@@ -91,6 +91,8 @@ therefore this information must be validated.
 
 * link:/web/findings/063/[F063. Lack of data validation]
 
+* link:/web/findings/083/[F083. XML Injection (XXE)]
+
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A1-Injection[A1 Injection OWASP - Top 10 2013]
