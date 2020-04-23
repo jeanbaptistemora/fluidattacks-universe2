@@ -103,6 +103,10 @@ therefore this information must be validated.
 
 * link:/web/findings/094/[F094. System impersonation]
 
+* link:/web/findings/096/[F096. Insecure deserialization]
+
+* link:/web/findings/097/[F097. Reverse tabnabbing]
+
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A1-Injection[A1 Injection OWASP - Top 10 2013]

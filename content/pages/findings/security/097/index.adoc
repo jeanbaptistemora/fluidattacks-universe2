@@ -1,0 +1,19 @@
+:slug: findings/097/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not controlling the creation of external links, recommendations to avoid them and related security requirements.
+:keywords: Reverse, Tabnabbing, Referrer, Site, Link, External
+:findings: yes
+:type: security
+
+= F097. Reverse tabnabbing
+
+== Description
+
+The system allows the introduction of a link to an external site controlled by
+a malicious actor.
+This site can then redirect the user to a different site on the original
+tab,
+making it look like a legitimate redirect performed by the system.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]

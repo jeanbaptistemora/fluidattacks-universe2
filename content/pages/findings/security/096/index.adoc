@@ -1,0 +1,18 @@
+:slug: findings/096/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from improperly deserializing objects, recommendations to avoid them and related security requirements.
+:keywords: Insecure, Deserialization, Validation, Casting, Escaping, Sanitizing
+:findings: yes
+:type: security
+
+= F096. Insecure deserialization
+
+== Description
+
+The system deserializes objects without first validating their content nor
+casting them to a specific type.
+
+== Rules
+
+. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+
+. [[r2]] link:/web/rules/321/[R321. Avoid deserializing untrusted data]

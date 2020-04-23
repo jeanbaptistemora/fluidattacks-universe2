@@ -30,6 +30,8 @@ to being bypassed and/or tampered with.
 
 * link:/web/findings/094/[F094. System impersonation]
 
+* link:/web/findings/098/[F098. External control of file name or path]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]

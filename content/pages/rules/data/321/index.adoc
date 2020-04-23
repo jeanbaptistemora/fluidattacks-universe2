@@ -21,6 +21,10 @@ If an object comes from an untrusted source and it is not properly validated
 before being deserialized,
 it can lead to deserialization attacks such as object injection.
 
+== Findings
+
+* link:/web/findings/096/[F096. Insecure deserialization]
+
 == Rereferences
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502: Deserialization of Untrusted Data]

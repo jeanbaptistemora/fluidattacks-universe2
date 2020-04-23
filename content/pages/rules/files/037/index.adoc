@@ -59,6 +59,10 @@ the attacker may block the system access to all users.
 * Phase: Construction
 * Type of Control: Recommendation
 
+== Findings
+
+* link:/web/findings/098/[F098. External control of file name or path]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/22.html[CWE-22: Improper Limitation of a Pathname to a Restricted Directory].

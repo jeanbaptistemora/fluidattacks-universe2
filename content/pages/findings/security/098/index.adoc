@@ -1,0 +1,17 @@
+:slug: findings/098/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from allowing external control of file paths, recommendations to avoid them and related security requirements.
+:keywords: External, Control, File, Name, Path, Upload
+:findings: yes
+:type: security
+
+= F098. External control of file name or path
+
+== Description
+
+It is possible to modify the path to which an uploaded file will be saved.
+
+== Rules
+
+. [[r1]] link:/web/rules/037/[R037. Parameters without sensitive data]
+
+. [[r2]] link:/web/rules/320/[R320. Avoid client-side control enforcement]
