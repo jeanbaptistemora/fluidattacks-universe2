@@ -1,10 +1,9 @@
 """ASGI config for fluidintegrates project."""
 import os
 
-from uvicorn.workers import UvicornWorker
 import django
 import newrelic.agent
-
+from uvicorn.workers import UvicornWorker  # noqa: E402
 
 from ariadne.asgi import GraphQL  # noqa: E402
 from ariadne.contrib.tracing.apollotracing import ApolloTracingExtension
