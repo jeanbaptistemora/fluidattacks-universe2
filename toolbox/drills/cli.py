@@ -17,6 +17,7 @@ from toolbox.drills import (
     to_reattack,
     pull_repos,
     push_repos,
+    update_lines,
     vpn,
 )
 
@@ -30,6 +31,9 @@ from toolbox.drills import (
     '--generate-commit-msg', 'o_generate_commit_msg',
     is_flag=True,
     help='Generate drills commit message')
+@option(
+    '--update-lines', 'o_update_lines', is_flag=True,
+    help='Update a subscription lines.csv with the latest repo info')
 @option(
     '--to-reattack', 'o_to_reattack',
     is_flag=True,
@@ -49,18 +53,25 @@ from toolbox.drills import (
 def drills_management(
         subscription,
         o_generate_commit_msg,
+        o_update_lines,
         o_to_reattack,
         o_pull_repos,
         o_push_repos,
         o_vpn):
     """Perform operations with the drills service."""
+    success: bool = True
+
     if o_generate_commit_msg:
-        sys.exit(0 if generate_commit_msg.main(subscription) else 1)
+        success = generate_commit_msg.main(subscription)
     elif o_to_reattack:
         to_reattack.main()
+    elif o_update_lines:
+        update_lines.main(subscription)
     elif o_pull_repos:
-        sys.exit(0 if pull_repos.main(subscription) else 1)
+        success = pull_repos.main(subscription)
     elif o_push_repos:
-        sys.exit(0 if push_repos.main(subscription) else 1)
+        success = push_repos.main(subscription)
     elif o_vpn and subscription != 'unspecified-subs':
-        sys.exit(0 if vpn.main(subscription) else 1)
+        success = vpn.main(subscription)
+
+    sys.exit(0 if success else 1)

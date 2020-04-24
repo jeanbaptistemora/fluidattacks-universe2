@@ -6,6 +6,8 @@ from toolbox.drills import (
     to_reattack,
     pull_repos,
     push_repos,
+    take_subscription_snapshot,
+    update_lines,
     vpn,
 )
 
@@ -16,4 +18,6 @@ assert generate_commit_msg
 assert to_reattack
 assert pull_repos
 assert push_repos
+assert take_subscription_snapshot
+assert update_lines
 assert vpn

@@ -196,23 +196,18 @@ they have changed
 2. Update-lines
 +++++++++++++++
 
-As source code git respositories from all subscriptions
-are being constantly updated,
+As source code from all subscriptions gets updated by the customer,
 the ``lines.csv`` must be kept updated with such changes.
-By using ``update-lines.py``,
-analysts can syncronize their local ``lines.csv``
-with the latest changes made in subscription's repositories.
-In order to update your ``lines.csv``,
-you have to:
 
-- Clone or update the subscription's
-  source code with ``repo-cloning``.
+You can do this automatically:
+
+- Clone or update the subscription source code.
 
 - Run:
 
   .. code:: bash
 
-    continuous/subscriptions/subscription$ ../../tools3/update_lines.py
+    continuous$ fluid drills --update-lines <subscription>
 
 +++++++++++++++++++
 3. Evaluated-so far
