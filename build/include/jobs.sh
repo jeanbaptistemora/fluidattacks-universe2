@@ -397,23 +397,20 @@ function job_serve_redis {
 }
 
 function _job_serve_back {
-  local app='fluidintegrates.asgi:application'
+  local app='fluidintegrates.asgi:APP'
   local host='0.0.0.0'
   local port='8080'
-  local root_path='/integrates'
   local workers='4'
+  local worker_class='fluidintegrates.asgi.IntegratesWorker'
 
       "helper_set_${1}_secrets" \
   &&  echo "[INFO] Serving back on port ${port}" \
-  &&  uvicorn \
-        --host="${host}" \
-        --port="${port}" \
-        --root-path="${root_path}" \
-        --ssl-certfile="${srcDerivationsCerts}/fluidla.crt" \
-        --ssl-keyfile="${srcDerivationsCerts}/fluidla.key" \
-        --workers="${workers}" \
-        --interface=asgi2 \
-        --reload \
+  &&  gunicorn \
+        --bind="${host}:${port}" \
+        --certfile="${srcDerivationsCerts}/fluidla.crt" \
+        --keyfile="${srcDerivationsCerts}/fluidla.key" \
+	--workers=${workers} \
+	--worker-class=${worker_class} \
         "${app}"
 }
 

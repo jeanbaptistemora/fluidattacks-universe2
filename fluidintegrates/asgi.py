@@ -1,8 +1,10 @@
 """ASGI config for fluidintegrates project."""
 import os
 
+from uvicorn.workers import UvicornWorker
 import django
 import newrelic.agent
+
 
 from ariadne.asgi import GraphQL  # noqa: E402
 from ariadne.contrib.tracing.apollotracing import ApolloTracingExtension
@@ -56,7 +58,7 @@ class DjangoChannelsGraphQL(GraphQL):
         return handle
 
 
-application = ProtocolTypeRouter({  # pylint: disable=invalid-name
+APP = ProtocolTypeRouter({
     'http': AsgiHandlerWithNewrelic,
     'websocket': AuthMiddlewareStack(
         URLRouter(
@@ -68,3 +70,15 @@ application = ProtocolTypeRouter({  # pylint: disable=invalid-name
             ])
     )
 })
+
+
+class IntegratesWorker(UvicornWorker):
+    """Override worker to inject custom params."""
+
+    CONFIG_KWARGS = {
+        'loop': 'uvloop',
+        'http': 'httptools',
+        'root_path': '/integrates',
+        'interface': 'asgi2',
+        'log_level': 'info'
+    }

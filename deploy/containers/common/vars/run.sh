@@ -49,8 +49,8 @@ fi
 
 sleep 10
 
-uvicorn --workers=4 \
-    --host=0.0.0.0 \
-    --port=80 \
-    --root-path=/integrates \
-    fluidintegrates.asgi:application
+gunicorn fluidintegrates.asgi:APP \
+	--bind=0.0.0.0:80 \
+	--workers=4 \
+	--worker-class=fluidintegrates.asgi.IntegratesWorker
+
