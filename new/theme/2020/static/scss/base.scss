@@ -200,6 +200,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
+  .nt-menu { margin-top: -.125rem; }
   .two-columns-m { column-count: 2; }
   .mr-5-m { margin-right: 4rem; }
   .f-title-m { font-size: 2rem; }
