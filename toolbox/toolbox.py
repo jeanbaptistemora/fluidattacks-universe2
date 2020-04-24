@@ -122,9 +122,9 @@ def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
     created_dynamic_mocks: dict = {}
 
     for roots in sorted(glob.glob(
-            f'subscriptions/{subs_glob}/break-build/static')):
+            f'subscriptions/{subs_glob}/forces/static')):
         re_match: Any = re.search(
-            r'subscriptions/(\w+)/break-build/static', roots)
+            r'subscriptions/(\w+)/forces/static', roots)
         subscription = re_match.groups(0)[0]
         created_static_mocks[subscription] = []
         created_dynamic_mocks[subscription] = []
@@ -144,9 +144,9 @@ def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
             sast, dast = helper.integrates.get_finding_type(finding_id)
 
             sast_folder = \
-                f'subscriptions/{subscription}/break-build/static/exploits'
+                f'subscriptions/{subscription}/forces/static/exploits'
             dast_folder = \
-                f'subscriptions/{subscription}/break-build/dynamic/exploits'
+                f'subscriptions/{subscription}/forces/dynamic/exploits'
             sast_path = f'{sast_folder}/{exploit_name}'
             dast_path = f'{dast_folder}/{exploit_name}'
             cannot_sast_path = f'{sast_folder}/{cannot_exploit_name}'
@@ -184,14 +184,14 @@ def generate_exploits(subs_glob: str) -> bool:
     subscription_regex = re.compile(r'subscriptions/(\w+)')
 
     # Create the needed directories
-    for path in sorted(glob.glob(f'subscriptions/{subs_glob}/break-build/*')):
+    for path in sorted(glob.glob(f'subscriptions/{subs_glob}/forces/*')):
         os.makedirs(f'{path}/resources', exist_ok=True)
         os.makedirs(f'{path}/mocked-exploits', exist_ok=True)
         os.makedirs(f'{path}/accepted-exploits', exist_ok=True)
         os.makedirs(f'{path}/extra-packages', exist_ok=True)
 
     for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs_glob}/break-build/*/exploits/*.exp')):
+            f'subscriptions/{subs_glob}/forces/*/exploits/*.exp')):
         logger.info(f'processing {exploit_path}')
 
         subscription = \
@@ -235,7 +235,7 @@ def generate_exploits(subs_glob: str) -> bool:
             finding_recommendation = sanitize_string(
                 helper.integrates.get_finding_recommendation(finding_id))
 
-            if '/break-build/static/exploits/' in exploit_path:
+            if '/forces/static/exploits/' in exploit_path:
                 finding_state = helper.integrates.is_finding_open(
                     finding_id, constants.SAST)
                 finding_repos = helper.integrates.get_finding_repos(
@@ -244,7 +244,7 @@ def generate_exploits(subs_glob: str) -> bool:
                     exploit_path, finding_state, finding_repos,
                     finding_title, finding_description, finding_threat,
                     finding_attack_vector, finding_recommendation)
-            elif '/break-build/dynamic/exploits/' in exploit_path:
+            elif '/forces/dynamic/exploits/' in exploit_path:
                 finding_state = helper.integrates.is_finding_open(
                     finding_id, constants.DAST)
                 create_mock_dynamic_exploit(
@@ -306,7 +306,7 @@ def run_static_exploits(
     utils.generic.aws_login(f'continuous-{subs}')
 
     fernet_key: str = utils.generic.get_sops_secret(
-        f'break_build_aws_secret_access_key',
+        f'forces_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
 
@@ -319,7 +319,7 @@ def run_static_exploits(
         filter(
             lambda e: (exp_name or '') in e,
             glob.glob(
-                f'subscriptions/{subs}/break-build/static/exploits/*.exp'))))
+                f'subscriptions/{subs}/forces/static/exploits/*.exp'))))
 
     for exploit_path in exploits_to_run:
         if os.path.isfile(f'{exploit_path}.out.yml'):
@@ -379,15 +379,15 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
     start = time()
     times: Dict[str, Any] = {}
     fernet_key: str = utils.generic.get_sops_secret(
-        f'break_build_aws_secret_access_key',
+        f'forces_aws_secret_access_key',
         f'subscriptions/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
 
     bb_resources = os.path.abspath(
-        f'subscriptions/{subs}/break-build/dynamic/resources')
+        f'subscriptions/{subs}/forces/dynamic/resources')
 
     for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/break-build/dynamic/exploits/*.exp')):
+            f'subscriptions/{subs}/forces/dynamic/exploits/*.exp')):
 
         exploit_path = os.path.join(os.getcwd(), exploit_path)
         exploit_name = os.path.basename(exploit_path)
@@ -494,7 +494,7 @@ def get_vulnerabilities_yaml(subs: str, run_kind: str = 'all') -> bool:
     vulns: int = 0
     for exploit_path in sorted(filter(
             lambda x: os.path.exists(f'{x}.out.yml'),
-            glob.glob(f'subscriptions/{subs}/break-build/*/exploits/*.exp'))):
+            glob.glob(f'subscriptions/{subs}/forces/*/exploits/*.exp'))):
 
         kind = exploit_path.split('/')[3]
         if not run_kind == kind and run_kind != 'all':
@@ -555,7 +555,7 @@ def get_exps_fragments(subs: str, exp_name: str) -> bool:
     path_to_fusion: str = f'subscriptions/{subs}/fusion'
     for exploit_output_path in sorted(glob.glob(
             f'subscriptions/{subs}'
-            f'/break-build/static/exploits/*.exp.out.yml')):
+            f'/forces/static/exploits/*.exp.out.yml')):
         logger.info(os.path.basename(exploit_output_path), end=' ')
 
         if (exp_name or '') in exploit_output_path:
@@ -613,7 +613,7 @@ def _get_static_dictionary(finding_id) -> dict:
 def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
     """Print a dictionary with the subscription findings."""
     exploit_paths = sorted(
-        glob.glob(f'subscriptions/{subs}/break-build/*/exploits/*.exp'))
+        glob.glob(f'subscriptions/{subs}/forces/*/exploits/*.exp'))
     integrates_findings_ = helper.integrates.get_project_findings(subs)
     if exp == 'local':
         integrates_findings = [
@@ -640,9 +640,9 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
     return True
 
 
-def has_break_build(subs: str) -> bool:
+def has_forces(subs: str) -> bool:
     """Return True if the subscription has an asserts folder."""
-    return os.path.isdir(f'subscriptions/{subs}/break-build')
+    return os.path.isdir(f'subscriptions/{subs}/forces')
 
 
 def encrypt_secrets(subs: str) -> bool:
@@ -653,7 +653,7 @@ def encrypt_secrets(subs: str) -> bool:
     utils.generic.aws_login(f'continuous-{subs}')
 
     for resources_path in glob.glob(
-            f'subscriptions/{subs}/break-build/*/resources'):
+            f'subscriptions/{subs}/forces/*/resources'):
         plaintext_path: str = f'{resources_path}/plaintext.yml'
         encrypted_path: str = f'{resources_path}/secrets.yml'
 
@@ -664,7 +664,7 @@ def encrypt_secrets(subs: str) -> bool:
                 open(encrypted_path, 'w') as encrypted_handle:
             crypto.create_encrypted_yaml(
                 key_b64=utils.generic.get_sops_secret(
-                    f'break_build_aws_secret_access_key',
+                    f'forces_aws_secret_access_key',
                     f'subscriptions/{subs}/config/secrets.yaml',
                     f'continuous-{subs}'),
                 secrets={
@@ -686,7 +686,7 @@ def decrypt_secrets(subs: str) -> bool:
     utils.generic.aws_login(f'continuous-{subs}')
 
     for resources_path in glob.glob(
-            f'subscriptions/{subs}/break-build/*/resources'):
+            f'subscriptions/{subs}/forces/*/resources'):
         plaintext_path: str = f'{resources_path}/plaintext.yml'
         encrypted_path: str = f'{resources_path}/secrets.yml'
 
@@ -706,7 +706,7 @@ def decrypt_secrets(subs: str) -> bool:
         else:
             crypto.create_decrypted_yaml(
                 key_b64=utils.generic.get_sops_secret(
-                    f'break_build_aws_secret_access_key',
+                    f'forces_aws_secret_access_key',
                     f'subscriptions/{subs}/config/secrets.yaml',
                     f'continuous-{subs}'),
                 input_file=encrypted_path,
@@ -719,8 +719,8 @@ def decrypt_secrets(subs: str) -> bool:
 def init_secrets(subs: str) -> bool:
     """Encrypt a secrets.yml file for a subscription."""
     for resources_path in (
-            f'subscriptions/{subs}/break-build/static/resources',
-            f'subscriptions/{subs}/break-build/dynamic/resources'):
+            f'subscriptions/{subs}/forces/static/resources',
+            f'subscriptions/{subs}/forces/dynamic/resources'):
         os.makedirs(resources_path, exist_ok=True)
         plaintext_path: str = f'{resources_path}/plaintext.yml'
 

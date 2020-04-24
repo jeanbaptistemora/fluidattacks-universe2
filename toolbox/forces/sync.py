@@ -40,7 +40,7 @@ from toolbox import (
 
 def _get_bb_fernet_key(subscription: str) -> str:
     return utils.generic.get_sops_secret(
-        f'break_build_aws_secret_access_key',
+        f'forces_aws_secret_access_key',
         f'subscriptions/{subscription}/config/secrets.yaml',
         f'continuous-{subscription}')
 
@@ -48,7 +48,7 @@ def _get_bb_fernet_key(subscription: str) -> str:
 def _get_bb_aws_role_arns(subs: str) -> Tuple[str, ...]:
     config_path = (
         f'subscriptions/{subs}'
-        f'/break-build/dynamic/resources/BB_AWS_ROLE_ARNS.list'
+        f'/forces/dynamic/resources/BB_AWS_ROLE_ARNS.list'
     )
 
     if os.path.exists(config_path):
@@ -63,7 +63,7 @@ def _get_bb_aws_role_arns(subs: str) -> Tuple[str, ...]:
 
 def _get_bb_resources(subs: str, kind: str) -> str:
     return \
-        os.path.abspath(f'subscriptions/{subs}/break-build/{kind}/resources')
+        os.path.abspath(f'subscriptions/{subs}/forces/{kind}/resources')
 
 
 def _print_results_summary(results: List[dict]):
@@ -347,7 +347,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
     bb_resources = _get_bb_resources(subs, 'static')
 
     for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/break-build/static/exploits/*.exp')):
+            f'subscriptions/{subs}/forces/static/exploits/*.exp')):
         if '.cannot.exp' in exploit_path:
             continue
 
@@ -390,7 +390,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> List[dict]:
     bb_resources = _get_bb_resources(subs, 'dynamic')
 
     for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/break-build/dynamic/exploits/*.exp')):
+            f'subscriptions/{subs}/forces/dynamic/exploits/*.exp')):
         if '.cannot.exp' in exploit_path:
             continue
 

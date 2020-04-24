@@ -64,7 +64,7 @@ def test_forces(relocate):
     assert 'fin-0001-720412598.exp' in test_run_dynamic.output
     assert 'fin-0002-975673437.cannot.exp' in test_run_dynamic.output
 
-    plain_text = (f'subscriptions/{SUBS}/break-build/'
+    plain_text = (f'subscriptions/{SUBS}/forces/'
                   'dynamic/resources/plaintext.yml')
     test_decrypt = runner.invoke(cli,
                                  f'forces --decrypt {SUBS}'.split())

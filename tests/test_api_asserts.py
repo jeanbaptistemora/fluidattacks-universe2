@@ -12,7 +12,7 @@ def test_iterate_vulnerabilities_from_content(relocate):
             'asserts',
             '--no-color',
             '--lang',
-            'subscriptions/continuoustest/break-build/static/resources/poc.py',
+            'subscriptions/continuoustest/forces/static/resources/poc.py',
             'this-one-does-not-exists-and-therefore-is-unknown',
         ],
         cwd='.',
@@ -42,7 +42,7 @@ def test_iterate_vulnerabilities_from_content(relocate):
             kind='SAST',
             what=(
                 'continuous/subscriptions/continuoustest/'
-                'break-build/static/resources/poc.py'
+                'forces/static/resources/poc.py'
             ),
             where='5',
         ),

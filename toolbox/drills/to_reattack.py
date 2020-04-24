@@ -34,7 +34,7 @@ def get_exploits(subs_name: str, finding_id: str) -> str:
     """Return a string with exploit paths associated to a subs finding"""
     message: str = ''
     exp_glob: str = \
-        f'./subscriptions/{subs_name}/break-build/*/exploits/*{finding_id}*'
+        f'./subscriptions/{subs_name}/forces/*/exploits/*{finding_id}*'
     exp_paths: List[str] = glob(exp_glob)
     for exp_path in exp_paths:
         message += f'        Exploit: {exp_path}'

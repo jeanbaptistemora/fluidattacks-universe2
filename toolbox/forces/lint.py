@@ -35,7 +35,7 @@ def _one_exploit_by_path_with_prospector(exploit_path: str) -> bool:
             'prospector',
             '--output-format', 'vscode',
             '--messages-only',
-            '--profile', 'break-build/config/prospector/exploits.yml',
+            '--profile', 'forces/config/prospector/exploits.yml',
             exploit_path,
         ],
         cwd='.',
@@ -96,7 +96,7 @@ def one_exploit_by_path(exploit_path: str) -> bool:
 def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
     """Run all linters available over many exploits."""
     filter_str = filter_str or ''
-    glob_pattern = f'subscriptions/{subs}/break-build/*/exploits/*.exp'
+    glob_pattern = f'subscriptions/{subs}/forces/*/exploits/*.exp'
 
     return all(
         one_exploit_by_path(exploit_path)

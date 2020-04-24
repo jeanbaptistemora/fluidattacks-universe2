@@ -31,7 +31,7 @@ def get_customer_subs(customer: str) -> tuple:
 def process_exp(customer_subs, cache, exp_path):
     """Process an exploit."""
     try:
-        subs, exp_type = re.match(pattern=r'^\w+/(\w+)/break-build/(\w+)',
+        subs, exp_type = re.match(pattern=r'^\w+/(\w+)/forces/(\w+)',
                                   string=exp_path).groups()
 
         if subs not in customer_subs:
@@ -116,7 +116,7 @@ def generate_bancolombia_exploits_report(old_csv: str = 'report.csv'):
                     process_exp,
                     zip(repeat(bancolombia_subs),
                         repeat(cache),
-                        glob.glob('subscriptions/*/break-build/*/*/*.exp')))
+                        glob.glob('subscriptions/*/forces/*/*/*.exp')))
                 if row is not None)
 
         for row in rows:
@@ -215,7 +215,7 @@ def generate_exploits_report(file_name: str = 'report.csv',
             quoting=csv.QUOTE_NONNUMERIC)
         writer.writeheader()
         for subs in utils.generic.iter_subscritions_config():
-            if not toolbox.has_break_build(subs['name']) or (
+            if not toolbox.has_forces(subs['name']) or (
                     customer and subs['customer'] != customer) or (
                         subscription and subs['name'] != subscription):
                 continue

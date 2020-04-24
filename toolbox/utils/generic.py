@@ -140,7 +140,7 @@ def iter_vulns_path(subs: str, vulns_name: str, run_kind: str = 'all'):
     yields (vulns_path, exploit_path).
     """
     for vulns_path in sorted(glob(
-            f'subscriptions/{subs}/break-build/*/exploits/*.exp.vulns.yml')):
+            f'subscriptions/{subs}/forces/*/exploits/*.exp.vulns.yml')):
 
         kind = vulns_path.split('/')[3]
         if not run_kind == kind and run_kind != 'all':
@@ -171,7 +171,7 @@ def iter_exploit_paths(subscription: str):
     yields exploit_path.
     """
     for exploit_path in glob(
-            f'subscriptions/{subscription}/break-build/*/*/*.exp'):
+            f'subscriptions/{subscription}/forces/*/*/*.exp'):
         yield exploit_path
 
 

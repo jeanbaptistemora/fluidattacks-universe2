@@ -13,7 +13,7 @@ process and tools.
    ci
    secrets
    vpns
-   break_build_admin
+   forces_admin
    reference
 
 ===================
@@ -25,16 +25,16 @@ The directory structure is (only the most important directories are included):
   - **subscriptions:** Contains all active continuous subscriptions.
   - **suspended:** Contains all suspended continuous subscriptions.
   - **finished:** Contains all finished continuous subscriptions.
-  - **break-build:** Contains all source code for break-build service.
+  - **forces:** Contains all source code for forces service.
   - **toolbox:** Contains all source code for the Fluid CLI.
 
 There are ``4`` folders within every subscription:
 
-  - **break-build:** You can assume a subscription does not have
+  - **forces:** You can assume a subscription does not have
     the service if this folder is missing.
 
-    - **static:** Source code asserts exploits for break-build.
-    - **dynamic:** Application/infrastructure asserts exploits for break-build.
+    - **static:** Source code asserts exploits for forces.
+    - **dynamic:** Application/infrastructure asserts exploits for forces.
 
 
   - **config:**

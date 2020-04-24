@@ -1,5 +1,5 @@
 =================
-Break Build Admin
+Forces Admin
 =================
 
 Ask an administrator for Continuous-Admin role in OKta.
@@ -12,8 +12,8 @@ When a ${SUBS} is added
 
 1. create:
 
-   -  continuous/subscriptions/${SUBS}/break-build/dynamic/exploits/.gitkeep
-   -  continuous/subscriptions/${SUBS}/break-build/static/exploits/.gitkeep
+   -  continuous/subscriptions/${SUBS}/forces/dynamic/exploits/.gitkeep
+   -  continuous/subscriptions/${SUBS}/forces/static/exploits/.gitkeep
 
 2. run:
 
@@ -36,8 +36,8 @@ Credentials are created automatically for projects in the master branch.
 
 Please save:
 
--  break_build_aws_access_key_id
--  break_build_aws_secret_access_key
+-  forces_aws_access_key_id
+-  forces_aws_secret_access_key
 
 In:
 
@@ -49,7 +49,7 @@ Get the credentials with the following commands:
 
 .. code:: bash
 
-   function get_break_build_credentials {
+   function get_forces_credentials {
      local subs
 
      for args in "${@}"; do
@@ -60,24 +60,24 @@ Get the credentials with the following commands:
          | jq -r '.instances[] | select(.index_key == "'${subs}'")' \
          | jq -r '.attributes | {
              subscription: "'${subs}'",
-             break_build_aws_access_key_id: .id,
-             break_build_aws_secret_access_key: .secret
+             forces_aws_access_key_id: .id,
+             forces_aws_secret_access_key: .secret
            }'
      done
    }
 
-   function get_break_build_id {
+   function get_forces_id {
      local subs="${1}"
 
-     get_break_build_credentials "${subs}" \
-       | jq -r '.break_build_aws_access_key_id'
+     get_forces_credentials "${subs}" \
+       | jq -r '.forces_aws_access_key_id'
    }
 
-   function get_break_build_secret {
+   function get_forces_secret {
      local subs="${1}"
 
-     get_break_build_credentials "${subs}" \
-       | jq -r '.break_build_aws_secret_access_key'
+     get_forces_credentials "${subs}" \
+       | jq -r '.forces_aws_secret_access_key'
    }
 
 Breaking the build
@@ -97,37 +97,37 @@ However, it's useful to have the following functions:
 
 .. code:: bash
 
-   function run_break_build {
+   function run_forces {
      # run the production static or dynamic container for a subscription
-     #   run_break_build 'subscription-name' 'static'
-     #   run_break_build 'subscription-name' 'dynamic'
+     #   run_forces 'subscription-name' 'static'
+     #   run_forces 'subscription-name' 'dynamic'
      local subs="${1}"
      local type="${2}"
      local extra="${3}"
 
-     docker pull fluidattacks/break-build
-     bash <(docker run fluidattacks/break-build \
+     docker pull fluidattacks/forces
+     bash <(docker run fluidattacks/forces \
              ${extra} \
              --${type} \
              --no-image-rm \
-             --id $(get_break_build_id "${subs}") \
-             --secret $(get_break_build_secret "${subs}") \
+             --id $(get_forces_id "${subs}") \
+             --secret $(get_forces_secret "${subs}") \
              --cpus 0)
    }
 
-   function run_break_build_test {
-     # useful while developing the break-build container
+   function run_forces_test {
+     # useful while developing the forces container
      local subs="${1}"
      local type="${2}"
      local extra="${3}"
 
-     docker build --tag test ./break-build/containers/break-build
+     docker build --tag test ./forces/containers/forces
      bash <(docker run test \
              ${extra} \
              --${type} \
              --no-image-rm \
-             --id $(get_break_build_id "${subs}") \
-             --secret $(get_break_build_secret "${subs}") \
+             --id $(get_forces_id "${subs}") \
+             --secret $(get_forces_secret "${subs}") \
              --cpus 0)
    }
 

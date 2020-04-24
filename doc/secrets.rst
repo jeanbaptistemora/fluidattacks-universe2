@@ -16,7 +16,7 @@ At least once a day:
    .. code:: bash
 
        continuous $ python3 -m pip install --user --upgrade fluidattacks[with_everything]
-       continuous $ python3 -m pip install --user --upgrade break-build/packages/*
+       continuous $ python3 -m pip install --user --upgrade forces/packages/*
 
 Hands-on tutorial
 =================
@@ -70,13 +70,13 @@ Let's generate them:
 
 .. code:: bash
 
-    Initializing subscriptions/some-subs-name/break-build/static/resources/plaintext.yml
+    Initializing subscriptions/some-subs-name/forces/static/resources/plaintext.yml
       Done!
-    Initializing subscriptions/some-subs-name/break-build/dynamic/resources/plaintext.yml
+    Initializing subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml
       Done!
-    Moving secrets from subscriptions/some-subs-name/break-build/static/resources/plaintext.yml to subscriptions/some-subs-name/break-build/static/resources/secrets.yml
+    Moving secrets from subscriptions/some-subs-name/forces/static/resources/plaintext.yml to subscriptions/some-subs-name/forces/static/resources/secrets.yml
       Done!
-    Moving secrets from subscriptions/some-subs-name/break-build/dynamic/resources/plaintext.yml to subscriptions/some-subs-name/break-build/dynamic/resources/secrets.yml
+    Moving secrets from subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml to subscriptions/some-subs-name/forces/dynamic/resources/secrets.yml
       Done!
 
 Two files are created for the static and dynamic exploits:
@@ -95,11 +95,11 @@ At this point, the directory structure look something like this:
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ tree subscriptions/some-subs-name/break-build/
+    kamado@fluid:/continuous$ tree subscriptions/some-subs-name/forces/
 
 .. code:: bash
 
-    subscriptions/some-subs-name/break-build/
+    subscriptions/some-subs-name/forces/
     ├── dynamic
     │   ├── exploits
     │   │   ├── capec-93-889225719.exp
@@ -130,7 +130,7 @@ The original file:
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/break-build/static/resources/plaintext.yml
+    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/forces/static/resources/plaintext.yml
 
 .. code:: yaml
 
@@ -143,7 +143,7 @@ The encrypted file:
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/break-build/static/resources/secrets.yml
+    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/forces/static/resources/secrets.yml
 
 .. code:: yaml
 
@@ -175,11 +175,11 @@ We'll need to add secrets in order to use them in our exploits.
        kamado@fluid:/continuous$ fluid forces --encrypt-secrets <some-subs-name>
 
        bash Moving secrets from
-       subscriptions/some-subs-name/break-build/static/resources/plaintext.yml to
-       subscriptions/some-subs-name/break-build/static/resources/secrets.yml Done!
+       subscriptions/some-subs-name/forces/static/resources/plaintext.yml to
+       subscriptions/some-subs-name/forces/static/resources/secrets.yml Done!
        Moving secrets from
-       subscriptions/some-subs-name/break-build/dynamic/resources/plaintext.yml to
-       subscriptions/some-subs-name/break-build/dynamic/resources/secrets.yml Done!
+       subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml to
+       subscriptions/some-subs-name/forces/dynamic/resources/secrets.yml Done!
 
 Using the secrets in the exploits
 ---------------------------------
@@ -188,8 +188,8 @@ See this example:
 
 .. code:: diff
 
-    --- a/subscriptions/some-subs-name/break-build/static/exploits/fin-0020-504994991.exp
-    +++ b/subscriptions/some-subs-name/break-build/static/exploits/fin-0020-504994991.exp
+    --- a/subscriptions/some-subs-name/forces/static/exploits/fin-0020-504994991.exp
+    +++ b/subscriptions/some-subs-name/forces/static/exploits/fin-0020-504994991.exp
     @@ -2,6 +2,7 @@ import utilities
      from fluidasserts.proto import git
      from fluidasserts.utils import generic
@@ -243,7 +243,7 @@ Now inspect the output:
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/break-build/static/exploits/fin-0020-504994991.exp.out.yml
+    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/forces/static/exploits/fin-0020-504994991.exp.out.yml
 
 .. code:: yaml
 

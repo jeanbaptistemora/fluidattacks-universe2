@@ -144,9 +144,9 @@ def forces_management(
     success: str = True
     filter_str: str = ''
 
-    if not toolbox.has_break_build(subscription):
+    if not toolbox.has_forces(subscription):
         raise click.BadArgumentUsage(
-            f'{subscription} subscription has no break-build')
+            f'{subscription} subscription has no forces')
 
     if run_exps:
         if dynamic is not None:
@@ -223,11 +223,11 @@ def integrates_management(kind, subscription, check_token,
 
 @click.command(name='analytics')
 @click.option(
-    '--analytics-break-build-logs',
+    '--analytics-forces-logs',
     is_flag=True,
     help='pipelines-only')
-def analytics_management(analytics_break_build_logs):
-    if analytics_break_build_logs:
+def analytics_management(analytics_forces_logs):
+    if analytics_forces_logs:
         sys.exit(0 if analytics.logs.load_executions_to_database() else 1)
 
 

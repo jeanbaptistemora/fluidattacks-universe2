@@ -79,7 +79,7 @@ def test_toolbox_get_static_dictionary(relocate):
     assert toolbox.get_static_dictionary(SUBS)
 
 
-def test_toolbox_has_break_build(relocate):
+def test_toolbox_has_forces(relocate):
     """Run required toolbox commands."""
-    assert toolbox.has_break_build(SUBS)
-    assert not toolbox.has_break_build(SUBS_BAD)
+    assert toolbox.has_forces(SUBS)
+    assert not toolbox.has_forces(SUBS_BAD)

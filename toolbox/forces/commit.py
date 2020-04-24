@@ -133,5 +133,5 @@ def is_valid_forces_content(subs: str):
     with open(f'subscriptions/{subs}/config/config.yml') as reader:
         config = yaml.load(reader.read())
     if not config['forces']['is_enabled']:
-        success = not os.path.exists('subscriptions/{subs}/break-build')
+        success = not os.path.exists('subscriptions/{subs}/forces')
     return success
