@@ -150,7 +150,7 @@ type ForcesExecutions {
 type Me {
     accessToken: String
     authorized: Boolean
-    projects: [Project!]
+    projects: [Project]
     remember: Boolean
     role(projectName: String): String
     tags: [Tag!]

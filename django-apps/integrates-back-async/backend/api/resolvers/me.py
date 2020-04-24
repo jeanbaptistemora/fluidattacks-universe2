@@ -5,6 +5,7 @@ import sys
 from collections import defaultdict
 from typing import Dict, List, Tuple
 from asgiref.sync import sync_to_async
+from backend.api.resolvers import project as project_resolver
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
@@ -46,15 +47,12 @@ async def _get_role(_, user_email: str,
     return role
 
 
-async def _get_projects(_, user_email: str) -> List[ProjectType]:
+async def _get_projects(info, user_email: str) -> List[ProjectType]:
     """Get projects."""
     projects = []
-    for project in await sync_to_async(user_domain.get_projects)(user_email):
-        description = await \
-            sync_to_async(project_domain.get_description)(project)
-        projects.append(
-            dict(name=project, description=description)
-        )
+    for _project in await sync_to_async(user_domain.get_projects)(user_email):
+        project = await project_resolver.resolve(info, _project, as_field=True)
+        projects.append(project)
     return projects
 
 

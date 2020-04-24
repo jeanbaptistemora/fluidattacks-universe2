@@ -66,6 +66,10 @@ APP = ProtocolTypeRouter({
                         DjangoChannelsGraphQL(
                             SCHEMA, debug=settings.DEBUG,
                             extensions=[ApolloTracingExtension])),
+                re_path(r'api',
+                        DjangoChannelsGraphQL(
+                            SCHEMA, debug=settings.DEBUG,
+                            extensions=[ApolloTracingExtension])),
             ])
     )
 })
