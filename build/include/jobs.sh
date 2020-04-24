@@ -400,7 +400,7 @@ function _job_serve_back {
   local app='fluidintegrates.asgi:APP'
   local host='0.0.0.0'
   local port='8080'
-  local workers='4'
+  local workers='5'
   local worker_class='fluidintegrates.asgi.IntegratesWorker'
 
       "helper_set_${1}_secrets" \

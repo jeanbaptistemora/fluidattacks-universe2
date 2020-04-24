@@ -51,6 +51,6 @@ sleep 10
 
 gunicorn fluidintegrates.asgi:APP \
 	--bind=0.0.0.0:80 \
-	--workers=4 \
+	--workers=5 \
 	--worker-class=fluidintegrates.asgi.IntegratesWorker
 
