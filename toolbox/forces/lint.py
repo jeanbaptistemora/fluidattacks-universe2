@@ -114,3 +114,19 @@ def many_exploits_by_change_request(ref: str = 'HEAD') -> bool:
         one_exploit_by_path(exploit_path)
         for exploit_path in changed_exploits
     )
+
+
+def check_folder_content():
+    """Verify that drills do not contain forces code."""
+    path_patterns = (r'\w+\/forces\/\w+\/((.mailmap)|(toe)|(config)'
+                     r'|(\w+.(yaml|yml|csv|adoc)))')
+
+    files = list(utils.generic.glob_re(path_patterns, 'inactive'))
+    if files:
+        logger.error(('The forces folder must not contain drill code, please'
+                      ' relocate the following files'))
+        for path in files:
+            logger.info(f'    {path}')
+        return False
+
+    return True

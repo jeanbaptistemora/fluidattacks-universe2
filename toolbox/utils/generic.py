@@ -1,6 +1,7 @@
 # Standard libraries
 import os
 import io
+import re
 import sys
 import subprocess
 import contextlib
@@ -434,3 +435,12 @@ def does_subs_exist(subs: str) -> bool:
 def does_fusion_exist(subs: str) -> bool:
     """Return True if fusion folder present in subscription"""
     return os.path.isdir(f'subscriptions/{subs}/fusion')
+
+
+def glob_re(pattern, paths='.'):
+    """Return the file paths that are regex compliant."""
+    for dirpath, _, filenames in os.walk(paths):
+        for path in filenames:
+            file_path = os.path.join(dirpath, path)
+            if re.match(pattern, file_path):
+                yield file_path
