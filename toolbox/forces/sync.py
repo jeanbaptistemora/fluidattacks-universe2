@@ -329,11 +329,11 @@ def _validate_one_dynamic_exploit(
     return results
 
 
-def are_exploits_synced__static(subs: str, exp_name: str):
+def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
     """Check if exploits results are the same as on Integrates."""
     logger.info('Static exploits:')
 
-    results: list = []
+    results: List[dict] = []
 
     bb_fernet_key: str = _get_bb_fernet_key(subs)
     bb_resources = _get_bb_resources(subs, 'static')
@@ -359,7 +359,7 @@ def are_exploits_synced__static(subs: str, exp_name: str):
             logger.error(f'  exploit_path: {exploit_path}')
             continue
 
-        results.append(_validate_one_static_exploit(
+        results.extend(_validate_one_static_exploit(
             bb_fernet_key=bb_fernet_key,
             bb_resources=bb_resources,
             exploit_output_path=exploit_output_path,
@@ -371,10 +371,10 @@ def are_exploits_synced__static(subs: str, exp_name: str):
     return results
 
 
-def are_exploits_synced__dynamic(subs: str, exp_name: str):
+def are_exploits_synced__dynamic(subs: str, exp_name: str) -> List[dict]:
     """Check if exploits results are the same as on Integrates."""
     logger.info('Dynamic exploits:')
-    results: list = []
+    results: List[dict] = []
 
     bb_aws_role_arns: Tuple[str, ...] = _get_bb_aws_role_arns(subs)
     bb_fernet_key: str = _get_bb_fernet_key(subs)
@@ -401,7 +401,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str):
             logger.error(f'  exploit_path: {exploit_path}')
             continue
 
-        results.append(_validate_one_dynamic_exploit(
+        results.extend(_validate_one_dynamic_exploit(
             bb_aws_role_arns=bb_aws_role_arns,
             bb_fernet_key=bb_fernet_key,
             bb_resources=bb_resources,
@@ -448,12 +448,12 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
     print_nomenclature()
 
     # If we didn't run, assume it's synced
-    results_static: list = []
+    results_static: List[dict] = []
     if should_run_static:
         results_static = are_exploits_synced__static(subs, exp_name)
 
     # If we didn't run, assume it's synced
-    results_dynamic: list = []
+    results_dynamic: List[dict] = []
     if should_run_dynamic:
         results_dynamic = are_exploits_synced__dynamic(subs, exp_name)
 
