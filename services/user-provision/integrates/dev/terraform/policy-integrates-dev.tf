@@ -187,6 +187,19 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     ]
   }
 
+  # ACM create and read certificate
+  statement {
+    effect  = "Allow"
+    actions = [
+      "acm:RequestCertificate",
+      "acm:DescribeCertificate",
+      "acm:ListTagsForCertificate",
+    ]
+    resources = [
+      "*",
+    ]
+  }
+
   # Route 53 basic read
   statement {
     effect  = "Allow"
