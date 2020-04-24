@@ -152,8 +152,9 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
-    minimum_protocol_version       = "TLSv1"
+    acm_certificate_arn = aws_acm_certificate.files-certificate.arn
+    minimum_protocol_version = "TLSv1.2_2018"
+    ssl_support_method = "sni-only"
   }
 
   tags = {
