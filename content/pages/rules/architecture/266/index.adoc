@@ -36,6 +36,12 @@ points such as access control gateways, severs and serverless functions.
 
 * link:/web/findings/110/[F110. HTTP request smuggling]
 
+* link:/web/findings/111/[F111. Out-of-bounds Read]
+
+* link:/web/findings/115/[F115. Security controls bypass]
+
+* link:/web/findings/116/[F116. XS-Leaks]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]

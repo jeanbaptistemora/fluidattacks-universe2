@@ -1,0 +1,20 @@
+:slug: findings/116/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling cross-site leak attacks, recommendations to avoid them and related security requirements.
+:keywords: Cross-site, Leaks, XS, Browser, Side-channel, Information
+:findings: yes
+:type: security
+
+= F116. XS-Leaks
+
+== Description
+
+It is possible to use browser side-channels to obtain sensitive information
+of the users.
+
+== Rules
+
+. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
+
+. [[r2]] link:/web/rules/176/[R176. Restrict system objects]
+
+. [[r2]] link:/web/rules/266/[R266. Disable insecure functionalities]

@@ -1,7 +1,7 @@
 :slug: rules/115/
 :category: emails
 :description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. This requirement establishes the importance of avoiding malicious emails using anti-spam filters for incoming and outgoing emails.
-:keywords: Security, Requirement, Emails, Filter, Spam, Maldware.
+:keywords: Security, Requirement, Emails, Filter, Spam, Malware.
 :rules: yes
 
 = REQ.115 Filter malicious emails
@@ -9,4 +9,8 @@
 == Requirement
 
 All incoming and outgoing emails
-must be checked with an +anti-spam+ filter.
+must be checked with an *anti-spam* filter.
+
+== Findings
+
+* link:/web/findings/114/[F114. Phishing]

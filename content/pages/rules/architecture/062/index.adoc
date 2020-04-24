@@ -24,6 +24,12 @@ integrity, availability and resilience of systems and services.
 
 * link:/web/findings/110/[F110. HTTP request smuggling]
 
+* link:/web/findings/111/[F111. Out-of-bounds Read]
+
+* link:/web/findings/115/[F115. Security controls bypass]
+
+* link:/web/findings/116/[F116. XS-Leaks]
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(b).]

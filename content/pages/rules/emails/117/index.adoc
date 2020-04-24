@@ -9,4 +9,8 @@
 == Requirement
 
 The client of business emails
-must not display +HTML+ code by default.
+must not display *HTML* code by default.
+
+== Findings
+
+* link:/web/findings/114/[F114. Phishing]

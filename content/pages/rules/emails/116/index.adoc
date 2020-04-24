@@ -10,3 +10,7 @@
 
 The corporate email client must not display, by default,
 images whose origin is unknown.
+
+== Findings
+
+* link:/web/findings/114/[F114. Phishing]

@@ -18,7 +18,7 @@ web server software each one uses delimits requests differently.
 
 == Rules
 
-. [[r1]] link:/web/rules/062/[R062. Define standard configurations
+. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
 
 . [[r2]] link:/web/rules/173/[R173. Discard unsafe inputs]
 

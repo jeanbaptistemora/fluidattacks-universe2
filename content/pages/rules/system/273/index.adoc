@@ -15,3 +15,5 @@ must count with an unalterable security suite
 == Findings
 
 * link:/web/findings/104/[F104. USB flash drive attacks]
+
+* link:/web/findings/115/[F115. Security controls bypass]

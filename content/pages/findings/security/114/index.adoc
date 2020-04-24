@@ -1,0 +1,28 @@
+:slug: findings/114/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about phishing and social engineering attacks, recommendations to avoid them and related security requirements.
+:keywords: Phishing, Social, Engineering, Email, Account, User
+:findings: yes
+:type: security
+
+= F114. Phishing
+
+== Description
+
+The application users are susceptible to phishing,
+a social engineering technique.
+Attackers present themselves as a legitimate entity that the victim trusts
+and request confidential information (usually credentials).
+These attacks are often possible due to improperly configured corporate
+email clients.
+
+== Rules
+
+. [[r1]] link:/web/rules/115/[R115. Filter malicious emails]
+
+. [[r2]] link:/web/rules/116/[R116. Disable images of unknown origin]
+
+. [[r3]] link:/web/rules/117/[R117. Do not interpret HTML code]
+
+. [[r4]] link:/web/rules/118/[R118. Inspect attachments]
+
+. [[r5]] link:/web/rules/144/[R144. Purge accounts periodically]

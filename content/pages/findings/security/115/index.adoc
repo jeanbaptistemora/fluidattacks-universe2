@@ -1,0 +1,19 @@
+:slug: findings/115/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about security controls that can be bypassed, recommendations to avoid them and related security requirements.
+:keywords: Security, Control, Bypass, Evasion, Override, System
+:findings: yes
+:type: security
+
+= F115. Security controls bypass
+
+== Description
+
+The system has security controls that can be bypassed.
+
+== Rules
+
+. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
+
+. [[r2]] link:/web/rules/266/[R266. Disable insecure functionalities]
+
+. [[r3]] link:/web/rules/273/[R273. Define fixed security suite]

@@ -1,0 +1,18 @@
+:slug: findings/111/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from improperly managing memory allocation, recommendations to avoid them and related security requirements.
+:keywords: Out-of-bounds, Read, Memory, RAM, Allocation, Buffer
+:findings: yes
+:type: security
+
+= F111. Out-of-bounds Read
+
+== Description
+
+It is possible to make the system read data before or beyond the intended
+buffer.
+
+== Rules
+
+. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
+
+. [[r2]] link:/web/rules/266/[R266. Disable insecure functionalities]
