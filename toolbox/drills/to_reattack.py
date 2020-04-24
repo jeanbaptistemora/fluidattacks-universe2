@@ -45,29 +45,42 @@ def get_exploits(subs_name: str, finding_id: str) -> str:
     return message
 
 
-def to_reattack(subs_name: str) -> str:
+def to_reattack(subs_name: str, with_exp: bool) -> str:
     """
     Return a string with non-verified findings from a subs.
     It includes integrates url and exploits paths in case they exist
+
+    param: subs_name: Name of the subscription to check
+    param: with_exp: Show findings with or without exploits
     """
     message: str = ''
     findings_raw: List[Dict[str, str]] = \
         get_subs_unverified_findings(subs_name).data['project']['findings']
     findings_parsed: List[str] = list(map(lambda x: x['id'], findings_raw))
     for finding_id in findings_parsed:
-        url: str = get_url(subs_name, finding_id)
+        url: str
         exploits: str = get_exploits(subs_name, finding_id)
-        message += f'{url}\n'
-        if exploits:
-            message += f'{exploits}\n'
+        if with_exp:
+            if exploits:
+                url = get_url(subs_name, finding_id)
+                message += f'{url}\n'
+                message += f'{exploits}\n'
+        else:
+            if not exploits:
+                url = get_url(subs_name, finding_id)
+                message += f'{url}\n'
     return message
 
 
-def main():
-    """Print all non-verified findings and their exploits"""
+def main(with_exp: bool):
+    """
+    Print all non-verified findings and their exploits
+
+    param: with_exp: Show findings with or without exploits
+    """
     subs_names: List[str] = listdir('subscriptions')
     for subs_name in subs_names:
-        message: str = to_reattack(subs_name)
+        message: str = to_reattack(subs_name, with_exp)
         if message:
             print(subs_name)
             print(message)

@@ -37,7 +37,11 @@ from toolbox.drills import (
 @option(
     '--to-reattack', 'o_to_reattack',
     is_flag=True,
-    help='Show findings pending to re-attack and verify')
+    help='Show findings without exploit pending to re-attack and verify')
+@option(
+    '--to-reattack-exp', 'o_to_reattack_exp',
+    is_flag=True,
+    help='Show findings with exploit pending to re-attack and verify')
 @option(
     '--pull-repos', 'o_pull_repos',
     is_flag=True,
@@ -55,6 +59,7 @@ def drills_management(
         o_generate_commit_msg,
         o_update_lines,
         o_to_reattack,
+        o_to_reattack_exp,
         o_pull_repos,
         o_push_repos,
         o_vpn):
@@ -63,10 +68,12 @@ def drills_management(
 
     if o_generate_commit_msg:
         success = generate_commit_msg.main(subscription)
-    elif o_to_reattack:
-        to_reattack.main()
     elif o_update_lines:
         update_lines.main(subscription)
+    elif o_to_reattack:
+        to_reattack.main(False)
+    elif o_to_reattack_exp:
+        to_reattack.main(True)
     elif o_pull_repos:
         success = pull_repos.main(subscription)
     elif o_push_repos:

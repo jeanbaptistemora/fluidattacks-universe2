@@ -3,10 +3,16 @@ from toolbox.drills.to_reattack import (
     to_reattack
 )
 
-EXPECTED_URL: str = 'https://fluidattacks.com/integrates/dashboard#!/project/continuoustest/508273958'
-UNEXPECTED_URL: str = 'https://fluidattacks.com/integrates/dashboard#!/project/continuoustest/975673437'
+EXP_EXPECTED_URL: str = 'https://fluidattacks.com/integrates/dashboard#!/project/continuoustest/508273958'
+EXP_UNEXPECTED_URL: str = 'https://fluidattacks.com/integrates/dashboard#!/project/continuoustest/975673437'
 
-def test_drills_to_reattack():
-    message: str = to_reattack('continuoustest')
-    assert EXPECTED_URL in message
-    assert UNEXPECTED_URL not in message
+NO_EXP_EXPECTED_URL: str = 'https://fluidattacks.com/integrates/dashboard#!/project/continuoustest/710340580'
+NO_EXP_UNEXPECTED_URL: str = 'https://fluidattacks.com/integrates/dashboard#!/project/continuoustest/975673437'
+
+def test_drills_to_reattack(relocate):
+    exp_message: str = to_reattack('continuoustest', True)
+    no_exp_message: str = to_reattack('continuoustest', False)
+    assert EXP_EXPECTED_URL in exp_message
+    assert EXP_UNEXPECTED_URL not in exp_message
+    assert NO_EXP_EXPECTED_URL in no_exp_message
+    assert NO_EXP_UNEXPECTED_URL not in no_exp_message
