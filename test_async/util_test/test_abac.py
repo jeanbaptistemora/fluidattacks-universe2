@@ -313,10 +313,19 @@ class ActionAbacTest(TestCase):
 
         self._grant_group_level_access(sub, obj, 'admin')
 
-        should_allow = self.global_actions
+        should_deny = {
+            'backend_api_resolvers_finding__do_handle_acceptation',
+            'backend_api_resolvers_finding__do_update_client_description',
+            'backend_api_resolvers_vulnerability__do_delete_tags',
+            'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+        }
+        should_allow = self.global_actions - should_deny
 
         for action in should_allow:
             self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+
+        for action in should_deny:
+            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
 
 
 class UserAbacTest(TestCase):

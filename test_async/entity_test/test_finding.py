@@ -21,18 +21,16 @@ pytestmark = pytest.mark.asyncio
 
 class FindingTests(TestCase):
 
-    async def _get_result(self, data):
+    async def _get_result(self, data, user='integratesmanager@gmail.com'):
         """Get result."""
         request = RequestFactory().post('/',
                                         {'data': 'finding(identifier: "422286126")'})
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'integratesmanager@gmail.com'
-        request.session['company'] = 'fluid'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'integratesmanager@gmail.com',
+                'user_email': user,
                 'company': 'fluid',
                 'first_name': 'unit',
                 'last_name': 'test'
@@ -380,7 +378,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['updateDescription']
         assert result['data']['updateDescription']['success']
 
-    async def test_update_description(self):
+    async def test_update_client_description(self):
         """Check for updateClientDescription mutation."""
         query = '''
             mutation {
@@ -400,7 +398,7 @@ class FindingTests(TestCase):
             }
         '''
         data = {'query': query}
-        result = await self._get_result(data)
+        result = await self._get_result(data, user='integratesuser@gmail.com')
         assert 'errors' not in result
         assert 'success' in result['data']['updateClientDescription']
         assert result['data']['updateClientDescription']['success']

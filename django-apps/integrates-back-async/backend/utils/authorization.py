@@ -166,6 +166,16 @@ ALL_ACTIONS: Tuple[str, ...] = tuple(set((
     'backend_api_resolvers_user__do_grant_user_access_internal_roles',
 )))
 
+ADMIN_RESTRICTIONS: Tuple[str, ...] = (
+    'backend_api_resolvers_finding__do_handle_acceptation',
+    'backend_api_resolvers_finding__do_update_client_description',
+    'backend_api_resolvers_vulnerability__do_delete_tags',
+    'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+)
+ADMIN_ACTIONS: Tuple[str, ...] = tuple([
+    action for action in ALL_ACTIONS
+    if action not in ADMIN_RESTRICTIONS])
+
 
 def matches_permission(subject: str, role: str, action: str) -> bool:
     if role in ['customer', 'customeradmin'] \
@@ -173,7 +183,7 @@ def matches_permission(subject: str, role: str, action: str) -> bool:
         role = 'internal_manager'
 
     role_actions = {
-        'admin': ALL_ACTIONS,
+        'admin': ADMIN_ACTIONS,
         'analyst': ANALYST_ACTIONS,
         'customer': CUSTOMER_ACTIONS,
         'customeradmin': CUSTOMERADMIN_ACTIONS,
