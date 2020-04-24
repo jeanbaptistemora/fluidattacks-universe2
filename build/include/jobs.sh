@@ -213,20 +213,30 @@ function job_deploy_mobile {
               "secrets-${ENVIRONMENT_NAME}.yaml" \
         &&  echo '[INFO] Installing deps' \
         &&  pushd mobile \
+          &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
           &&  npm install \
-          &&  npx expo login -u "${EXPO_USER}" -p "${EXPO_PASS}" \
+          &&  npx --no-install expo login \
+                --username "${EXPO_USER}" \
+                --password "${EXPO_PASS}" \
           &&  echo '[INFO] Replacing versions' \
           &&  sed -i "s/integrates_version/${FI_VERSION}/g" ./app.json \
           &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${FI_VERSION_MOBILE}/g" ./app.json \
+          &&  echo '[INFO] Launching expo bundler' \
+          &&  { npx --no-install expo start --non-interactive & } \
+          &&  EXPO_PID=$! \
+          &&  echo '[INFO] Waiting 10 seconds to leave the bundler start' \
+          &&  sleep 10 \
           &&  echo '[INFO] Publishing update' \
-          &&  npx expo publish \
-                --release-channel "${CI_COMMIT_REF_NAME}" --non-interactive \
+          &&  npx --no-install expo publish \
+                --non-interactive \
+                --release-channel "${CI_COMMIT_REF_NAME}" \
+          &&  kill -9 "${EXPO_PID}" \
           &&  if test "${ENVIRONMENT_NAME}" = 'production'
               then
                     echo '[INFO] Sending report to rollbar' \
                 &&  curl "https://api.rollbar.com/api/1/deploy" \
                       --form "access_token=${ROLLBAR_ACCESS_TOKEN}" \
-                      --form 'environment=production' \
+                      --form 'environment=mobile-production' \
                       --form "revision=${CI_COMMIT_SHA}" \
                       --form "local_username=${CI_COMMIT_AUTHOR}"
               fi \
