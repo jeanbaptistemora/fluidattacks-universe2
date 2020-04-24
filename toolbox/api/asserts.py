@@ -2,14 +2,17 @@
 
 # Standard library
 import os
-from typing import Any, Dict, Iterator, Tuple
+from typing import (
+    Any,
+    Dict,
+    Iterator,
+    NamedTuple,
+    Tuple
+)
 from itertools import repeat
 
 # Third parties libraries
 import ruamel.yaml as yaml
-
-# Local imports
-from toolbox import logger
 
 # Constants
 NODE = Dict[str, Any]
@@ -21,6 +24,19 @@ class Error(Exception):
 
 class ExploitError(Error):
     """Exploit have ERROR nodes in its output."""
+
+
+Vulnerability = NamedTuple('Vulnerability', [
+    # Context properties
+    ('finding_title', str),
+    ('finding_id', str),
+
+    # Asserts properties
+    ('status', str),
+    ('what', str),
+    ('where', str),
+    ('kind', str),
+])
 
 
 def _is_node_a_repo_marker(node: NODE) -> bool:
@@ -54,24 +70,30 @@ def _is_node_an_error_result(node: NODE) -> bool:
     return _is_node_a_result(node) and node['status'].startswith('ERROR')
 
 
+def _is_node_an_unknown_result(node: NODE) -> bool:
+    """True if the node is an UNKNOWN result node."""
+    return _is_node_a_result(node) and node['status'] == 'UNKNOWN'
+
+
 def _is_node_a_sast_result(node: NODE) -> bool:
     """True if the node is a SAST result node."""
-    return _is_node_a_result(node) and node['test_kind'] == 'SAST'
+    return _is_node_a_result(node) and _get_node_kind(node) == 'SAST'
 
 
 def _is_node_a_sca_result(node: NODE) -> bool:
     """True if the node is a SCA result node."""
-    return _is_node_a_result(node) and node['test_kind'] == 'SCA'
+    return _is_node_a_result(node) and _get_node_kind(node) == 'SCA'
 
 
 def _is_node_a_dast_result(node: NODE) -> bool:
     """True if the node is a DAST result node."""
-    return _is_node_a_result(node) and node['test_kind'] == 'DAST'
+    return _is_node_a_result(node) and _get_node_kind(node) == 'DAST'
 
 
 def _is_node_a_iast_result(node: NODE) -> bool:
     """True if the node is a Generic result node."""
-    return _is_node_a_result(node) and node['test_kind'] in ('IAST', 'Generic')
+    return _is_node_a_result(node) \
+        and _get_node_kind(node) in ('IAST', 'Generic')
 
 
 def _is_node_a_mock_result(node: NODE) -> bool:
@@ -114,6 +136,11 @@ def _helper_split_specific(specific: str) -> Iterator[str]:
     yield item.strip()
 
 
+def _get_node_result_status(node: NODE) -> str:
+    """Return the status of a result node."""
+    return node['status']
+
+
 def _get_node_repo(node: NODE) -> str:
     """Return the repository from a repository node."""
     return node['repository']
@@ -124,10 +151,14 @@ def _get_node_finding(node: NODE) -> str:
     return node['finding']
 
 
+def _get_node_kind(node: NODE) -> str:
+    return node['test_kind']
+
+
 def _get_node_sast_results(node: NODE, current_repo: str
                            ) -> Iterator[Tuple[str, str, str]]:
     """Yield (Kind, Path, Where) for the given node vulnerabilities."""
-    for vulnerability in node['vulnerabilities']:
+    for vulnerability in node.get('vulnerabilities', []):
         where: str = vulnerability['where']
         specific: str = vulnerability.get('specific', '0')
         full_where: str = os.path.normpath(os.path.join(current_repo, where))
@@ -139,7 +170,7 @@ def _get_node_sast_results(node: NODE, current_repo: str
 def _get_node_sca_results(node: NODE, current_repo: str
                           ) -> Iterator[Tuple[str, str, str]]:
     """Yield (Kind, Path, Where) for the given node vulnerabilities."""
-    for vulnerability in node['vulnerabilities']:
+    for vulnerability in node.get('vulnerabilities', []):
         where: str = vulnerability['where']
         specific: str = vulnerability.get('specific', '0')
         full_where: str = os.path.normpath(os.path.join(current_repo, where))
@@ -149,17 +180,17 @@ def _get_node_sca_results(node: NODE, current_repo: str
 
 
 def _get_node_dast_results(node: NODE) -> Iterator[Tuple[str, str, str]]:
-    """Yield (Kind, Who, Where) for the given node vulnerabilities."""
-    for vulnerability in node['vulnerabilities']:
-        who: str = vulnerability['where']
+    """Yield (Kind, What, Where) for the given node vulnerabilities."""
+    for vulnerability in node.get('vulnerabilities', []):
+        what: str = vulnerability['where']
         yield from zip(repeat('DAST'),
-                       repeat(who),
+                       repeat(what),
                        _helper_split_specific(
                            vulnerability.get('specific', '')))
 
 
 def _get_node_iast_results(node: NODE) -> Iterator[Tuple[str, str, str]]:
-    """Yield (Kind, Who, Where) for the given node vulnerabilities."""
+    """Yield (Kind, What, Where) for the given node vulnerabilities."""
     if _is_node_a_mock_result(node):
         # A mock
         metadata = node['parameters']['metadata']
@@ -167,48 +198,99 @@ def _get_node_iast_results(node: NODE) -> Iterator[Tuple[str, str, str]]:
         attack_vector = metadata.get('attack_vector', '')
         yield ('IAST', description, attack_vector)
     else:
-        for vulnerability in node['vulnerabilities']:
-            who: str = vulnerability['where']
+        for vulnerability in node.get('vulnerabilities', []):
+            what: str = vulnerability['where']
             yield from zip(
                 repeat('IAST'),
-                repeat(who),
+                repeat(what),
                 _helper_split_specific(
                     vulnerability.get('specific', '')))
 
 
-def iterate_results_from_content(
+def iterate_open_results_from_content(
         asserts_output: str,
         default_repo: str = '.') -> Iterator[Tuple[str, str, str]]:
+    for vulnerability in \
+            iterate_vulnerabilities_from_content(asserts_output, default_repo):
+        if vulnerability.status == 'OPEN':
+            yield (
+                vulnerability.kind,
+                vulnerability.what,
+                vulnerability.where,
+            )
+
+
+def iterate_vulnerabilities_from_content(
+        asserts_output: str,
+        default_repo: str = '.',
+) -> Iterator[Vulnerability]:
+    """Yield vulnerabilities and its attributes from the asserts_output."""
     bare_nodes: Tuple[NODE, ...] = tuple(yaml.safe_load_all(asserts_output))
     relevant_nodes: Tuple[NODE, ...] = tuple(filter(_is_relevant, bare_nodes))
 
-    # Quality Assertions
-    if any(map(_is_node_an_error_result, relevant_nodes)):
-        logger.warn(f'Some parts of the exploit contain errors!')
-
+    current_finding_id: str = ''
+    current_finding_title: str = 'unknown-finding'
     current_repo: str = default_repo
+    current_result_status: str
     for node in relevant_nodes:
         if _is_node_a_repo_marker(node):
             current_repo = _get_node_repo(node)
         elif _is_node_a_finding_marker(node):
-            _get_node_finding(node)
-        elif _is_node_an_open_result(node):
-            if _is_node_a_dast_result(node):
-                yield from _get_node_dast_results(node)
-            elif _is_node_a_sast_result(node):
-                yield from _get_node_sast_results(node, current_repo)
-            elif _is_node_a_sca_result(node):
-                yield from _get_node_sca_results(node, current_repo)
-            elif _is_node_a_iast_result(node):
-                yield from _get_node_iast_results(node)
+            current_finding_title = _get_node_finding(node)
+        elif _is_node_a_result(node):
+            current_result_status = _get_node_result_status(node)
+            vulnerability_iterators = {
+                _is_node_a_dast_result(node):
+                _get_node_dast_results(node),
+                _is_node_a_sast_result(node):
+                _get_node_sast_results(node, current_repo),
+                _is_node_a_sca_result(node):
+                _get_node_sca_results(node, current_repo),
+                _is_node_a_iast_result(node):
+                _get_node_iast_results(node),
+            }
+
+            for kind, what, where in vulnerability_iterators.get(True, []):
+                yield Vulnerability(
+                    finding_id=current_finding_id,
+                    finding_title=current_finding_title,
+                    status=current_result_status,
+                    kind=kind,
+                    what=what,
+                    where=where,
+                )
+
+            # Some node types like unknown or error do not have whats
+            #   and wheres associated to them
+            # Let's yield a default vulnerability just to symbolize they exist
+            if 'vulnerabilities' not in node:
+                yield Vulnerability(
+                    finding_id=current_finding_id,
+                    finding_title=current_finding_title,
+                    status=current_result_status,
+                    kind='',
+                    what='',
+                    where='',
+                )
 
 
-def iterate_results_from_file(
+def iterate_open_results_from_file(
         asserts_output_path: str,
         default_repo: str = '.') -> Iterator[Tuple[str, str, str]]:
-    """Yield (kind, who, where) tuples of open checks in the exploit."""
+    """Yield (kind, what, where) tuples of open checks in the exploit."""
     with open(asserts_output_path, 'r') as handle:
-        yield from iterate_results_from_content(handle.read(), default_repo)
+        yield from \
+            iterate_open_results_from_content(handle.read(), default_repo)
+
+
+def iterate_vulnerabilities_from_file(
+    asserts_output_path: str,
+    default_repo: str = '.',
+) -> Iterator[Vulnerability]:
+    """Yield (kind, what, where, status) of open checks in the exploit."""
+    with open(asserts_output_path, 'r') as handle:
+        yield from \
+            iterate_vulnerabilities_from_content(handle.read(), default_repo)
 
 
 def get_exp_result_summary(asserts_output: str):

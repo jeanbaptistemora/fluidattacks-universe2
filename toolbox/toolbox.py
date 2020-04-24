@@ -511,7 +511,7 @@ def get_vulnerabilities_yaml(subs: str, run_kind: str = 'all') -> bool:
         lines: List[Tuple[str, str]] = []
         inputs: List[Tuple[str, str]] = []
 
-        for kind, who, where in api.asserts.iterate_results_from_file(
+        for kind, who, where in api.asserts.iterate_open_results_from_file(
                 exploit_output_path):
             vulns += 1
             if kind == 'SAST':
@@ -571,7 +571,7 @@ def get_exps_fragments(subs: str, exp_name: str) -> bool:
             os.remove(fragments_path)
 
         with open(fragments_path, 'a+') as fragments_file:
-            for kind, who, where in api.asserts.iterate_results_from_file(
+            for kind, who, where in api.asserts.iterate_open_results_from_file(
                     exploit_output_path):
                 if kind != 'SAST':
                     continue

@@ -140,7 +140,8 @@ def get_vulnerabilities_from_log(s3_client, s3_path, git_repo):
                 'who': str(who) or DEFAULT_COLUMN_VALUE,
                 'where': str(where) or DEFAULT_COLUMN_VALUE,
             }
-            for kind, who, where in api.asserts.iterate_results_from_content(
+            for kind, who, where
+            in api.asserts.iterate_open_results_from_content(
                 log_content, git_repo)
         ]
     except (botocore.exceptions.ClientError,
