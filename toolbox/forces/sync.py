@@ -66,6 +66,13 @@ def _get_bb_resources(subs: str, kind: str) -> str:
         os.path.abspath(f'subscriptions/{subs}/break-build/{kind}/resources')
 
 
+def _print_results_summary(results: List[dict]):
+    if all(result['synced'] == 'yes' for result in results):
+        logger.info(f'Summary: {len(results)} tests, all ok!')
+    else:
+        logger.info(f'Summary: {len(results)} tests, some of them failed')
+
+
 def _run_static_exploit(
     *,
     exploit_path: str,
@@ -212,7 +219,7 @@ def _validate_one_static_exploit(
 
         if not is_synced:
             logger.info(
-                f'- {finding_id:<10}: {repo:<60} '
+                f'  {finding_id:<10}: {repo:<60} '
                 f'{imsg!s:<6} I ('
                 f'{integrates_vulns_open!s:<3} o, '
                 f'{integrates_vulns_closed!s:<3} c), '
@@ -302,7 +309,7 @@ def _validate_one_dynamic_exploit(
 
     if not is_synced:
         logger.info(
-            f'- {finding_id:<10}: '
+            f'  {finding_id:<10}: {str():<60} '
             f'{imsg!s:<6} I ('
             f'{integrates_vulns_open!s:<3} o, '
             f'{integrates_vulns_closed!s:<3} c), '
@@ -331,6 +338,7 @@ def _validate_one_dynamic_exploit(
 
 def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
     """Check if exploits results are the same as on Integrates."""
+    logger.info()
     logger.info('Static exploits:')
 
     results: List[dict] = []
@@ -373,6 +381,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
 
 def are_exploits_synced__dynamic(subs: str, exp_name: str) -> List[dict]:
     """Check if exploits results are the same as on Integrates."""
+    logger.info()
     logger.info('Dynamic exploits:')
     results: List[dict] = []
 
@@ -428,7 +437,6 @@ def print_nomenclature():
     logger.info()
     logger.info('Something is synced if:')
     logger.info('  (E) has no (e), and #(o) on (I) equals #(o) on (E)')
-    logger.info()
 
 
 def are_exploits_synced(subs: str, exp_name: str) -> bool:
@@ -451,11 +459,19 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
     results_static: List[dict] = []
     if should_run_static:
         results_static = are_exploits_synced__static(subs, exp_name)
+        _print_results_summary(results_static)
+    else:
+        logger.warn()
+        logger.warn('Ignoring Static check due to subscription config')
 
     # If we didn't run, assume it's synced
     results_dynamic: List[dict] = []
     if should_run_dynamic:
         results_dynamic = are_exploits_synced__dynamic(subs, exp_name)
+        _print_results_summary(results_dynamic)
+    else:
+        logger.warn()
+        logger.warn('Ignoring Dynamic check due to subscription config')
 
     with open(f'check-sync-results.{subs}.json.stream', 'w') as results_handle:
         for json_obj in results_static + results_dynamic:

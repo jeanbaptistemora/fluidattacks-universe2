@@ -15,7 +15,7 @@ def info(*args, **kwargs):
 
 def warn(*args, **kwargs):
     """Logger for warn category."""
-    print('[WARNING] ', *args, **kwargs)
+    print('[WARN]', *args, **kwargs)
 
 
 def error(*args, **kwargs):
