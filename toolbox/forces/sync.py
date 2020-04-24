@@ -199,10 +199,10 @@ def _validate_one_static_exploit(
         if not is_synced:
             logger.info(
                 f'- {finding_id:<10}: {repo:<60} '
-                f'{imsg!s:<6} on I ('
+                f'{imsg!s:<6} I ('
                 f'{integrates_vulns_open!s:<3} open, '
                 f'{integrates_vulns_closed!s:<3} closed), '
-                f'{amsg!s:<7} on A'
+                f'{amsg!s:<7} E'
             )
 
         asserts_summary = \
@@ -272,10 +272,10 @@ def _validate_one_dynamic_exploit(
     if not is_synced:
         logger.info(
             f'- {finding_id:<10}: '
-            f'{imsg!s:<6} on I ('
+            f'{imsg!s:<6} I ('
             f'{integrates_vulns_open!s:<3} open, '
             f'{integrates_vulns_closed!s:<3} closed), '
-            f'{amsg!s:<7} on A'
+            f'{amsg!s:<7} E'
         )
 
     asserts_summary = \
@@ -342,7 +342,7 @@ def are_exploits_synced__static(subs: str, exp_name: str):
 
 def are_exploits_synced__dynamic(subs: str, exp_name: str):
     """Check if exploits results are the same as on Integrates."""
-    logger.info('Static exploits:')
+    logger.info('Dynamic exploits:')
     results: list = []
 
     bb_aws_role_arns: Tuple[str, ...] = _get_bb_aws_role_arns(subs)
@@ -383,6 +383,19 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str):
     return results
 
 
+def print_nomenclature():
+    """Impure function to show the used nomenclature."""
+    logger.info('Nomenclature:')
+    logger.info()
+    logger.info('  E: Exploit')
+    logger.info('  I: Integrates')
+    logger.info()
+    logger.info('  c: closed')
+    logger.info('  e: error')
+    logger.info('  o: open')
+    logger.info('  u: unknown')
+
+
 def are_exploits_synced(subs: str, exp_name: str) -> bool:
     """Check if exploits results are the same as on Integrates."""
     utils.generic.aws_login(f'continuous-{subs}')
@@ -395,6 +408,9 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
         not utils.generic.is_env_ci() or config['static']['run']
     should_run_dynamic = \
         not utils.generic.is_env_ci() or config['dynamic']['run']
+
+    # Let users know what are we talking about
+    print_nomenclature()
 
     # If we didn't run, assume it's synced
     results_static: list = []
