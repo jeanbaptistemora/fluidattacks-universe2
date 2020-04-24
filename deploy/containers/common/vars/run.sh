@@ -49,6 +49,8 @@ fi
 
 sleep 10
 
+# http://docs.gunicorn.org/en/latest/design.html#how-many-workers
+# Current number of CPUs defined at deploy/integrates-k8s.yaml
 gunicorn fluidintegrates.asgi:APP \
 	--bind=0.0.0.0:80 \
 	--workers=5 \
