@@ -12,6 +12,7 @@ import unittest.mock
 # Local libraries
 import toolbox.toolbox
 from toolbox import logger
+from toolbox.utils import generic
 from toolbox import resources
 
 # Constants
@@ -50,7 +51,9 @@ def relocate_to_cloned_repo(request):
 @pytest.fixture(scope='function')
 def prepare_s3_continuous_repositories(request):
     """Create empty continuous-repositories s3 bucket"""
-    endpoint_url: str = 'http://localhost:4566'
+    localstack_endpoint: str = \
+        'localstack' if generic.is_env_ci() else 'localhost'
+    endpoint_url: str = f'http://{localstack_endpoint}:4566'
     bucket_name: str = 'continuous-repositories'
     s3_client = boto3.client('s3', endpoint_url=endpoint_url)
     s3_client.create_bucket(Bucket=bucket_name)
