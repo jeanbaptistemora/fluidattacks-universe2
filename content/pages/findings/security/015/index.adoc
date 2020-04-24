@@ -1,0 +1,19 @@
+:slug: findings/015/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from implementing insecure authentication methods, recommendations to avoid them and related security requirements.
+:keywords: Insecure, Authentication, Method, Basic, HTTP, Login
+:findings: yes
+:type: security
+
+= F015. Insecure authentication method
+
+== Description
+
+The system uses insecure authentication methods such as Basic HTTP.
+
+== Rules
+
+. [[r1]] link:/web/rules/030/[R030. Avoid object reutilization]
+
+. [[r2]] link:/web/rules/228/[R228. Authenticate using standard protocols]
+
+. [[r3]] link:/web/rules/319/[R319. Make authentication options equally secure]

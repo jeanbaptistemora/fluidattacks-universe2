@@ -87,6 +87,8 @@ therefore this information must be validated.
 
 * link:/web/findings/010/[F010. Stored cross-site scripting (XSS)]
 
+* link:/web/findings/021/[F021. XPath Injection]
+
 * link:/web/findings/023/[F023. Uncontrolled external site redirect]
 
 * link:/web/findings/045/[F045. HTML code injection]

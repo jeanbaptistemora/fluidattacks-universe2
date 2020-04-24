@@ -8,9 +8,11 @@
 
 == Requirement
 
-The organization must implement the Single Sign On (+SSO+) process
-using standard protocols (e.g., +SAML+).
+The organization must implement the Single Sign On (*SSO*) process
+using standard protocols (e.g., *SAML*).
 
 == Findings
 
 * link:/web/findings/006/[F006. Authentication mechanism absence or evasion]
+
+* link:/web/findings/015/[F015. Insecure authentication method]

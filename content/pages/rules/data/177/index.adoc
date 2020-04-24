@@ -24,6 +24,8 @@ information.
 
 == Findings
 
+* link:/web/findings/019/[F019. Administrative credentials stored in cache memory]
+
 * link:/web/findings/038/[F038. Business information leak]
 
 * link:/web/findings/065/[F065. Cached form fields]

@@ -59,6 +59,8 @@ the transmitted information.
 
 * link:/web/findings/022/[F022. Use of an insecure channel]
 
+* link:/web/findings/025/[F025. Call interception]
+
 * link:/web/findings/030/[F030. Sensitive information sent via URL parameters]
 
 * link:/web/findings/052/[F052. Insecure encryption algorithm]

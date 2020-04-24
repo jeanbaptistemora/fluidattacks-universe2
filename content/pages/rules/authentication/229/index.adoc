@@ -23,6 +23,8 @@ The authentication mechanism should request at least a username and a password.
 
 * link:/web/findings/006/[F006. Authentication mechanism absence or evasion]
 
+* link:/web/findings/018/[F018. Improper authentication for shared folders]
+
 * link:/web/findings/081/[F081. Lack of two-factor authentication]
 
 == References

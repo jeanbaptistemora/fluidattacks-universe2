@@ -21,7 +21,11 @@ prevents unauthorized actors from accessing them.
 
 == Findings
 
+* link:/web/findings/006/[F006. Authentication mechanism absence or evasion]
+
 * link:/web/findings/012/[F012. Unauthenticated access to protected resources]
+
+* link:/web/findings/018/[F018. Improper authentication for shared folders]
 
 * link:/web/findings/075/[F075. Unauthorized access to files]
 

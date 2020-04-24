@@ -78,6 +78,8 @@ must be invalidated in client and server side.
 
 * link:/web/findings/076/[F076. Insecure session management]
 
+* link:/web/findings/015/[F015. Insecure authentication method]
+
 == References
 
 . [[r1]] link:http://capec.mitre.org/data/definitions/60.html[CAPEC-60: Reusing Session IDs (aka Session Replay)].

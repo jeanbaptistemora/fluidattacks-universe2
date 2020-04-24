@@ -22,6 +22,8 @@ so that there is no weaker alternative.
 
 * link:/web/findings/006/[F006. Authentication mechanism absence or evasion]
 
+* link:/web/findings/015/[F015. Insecure authentication method]
+
 * link:/web/findings/081/[F081. Lack of two-factor authentication]
 
 == References

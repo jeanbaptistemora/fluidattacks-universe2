@@ -1,0 +1,18 @@
+:slug: findings/018/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from publicly sharing folders, recommendations to avoid them and related security requirements.
+:keywords: Authentication, Network, Shared, Folders, Credentials, Access
+:findings: yes
+:type: security
+
+= F018. Improper authentication for shared folders
+
+== Description
+
+The folders that are shared over the network do not require any authentication
+to be accessed.
+
+== Rules
+
+. [[r1]] link:/web/rules/229/[R229. Request access credentials]
+
+. [[r2]] link:/web/rules/264/[R264. Request authentication]
