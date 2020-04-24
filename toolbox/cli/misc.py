@@ -1,5 +1,6 @@
 # Local libraries
 import sys
+import os
 
 # Third party libraries
 from click import (
@@ -50,8 +51,13 @@ def misc_management(
         sys.exit(0 if success else 1)
 
     elif check_commit_msg:
-        success = do_check_commit_msg()
-        sys.exit(0 if success else 1)
+        success_message = do_check_commit_msg()
+        commit_subs = utils.get_commit_subs.main()
+        success_content = True
+        if os.path.exists(f'subscriptions/{commit_subs}'):
+            success_content = forces.commit.is_valid_forces_content(
+                commit_subs)
+        sys.exit(0 if success_message and success_content else 1)
 
     elif is_exploits_commit:
         summary: str = utils.generic.get_change_request_summary()

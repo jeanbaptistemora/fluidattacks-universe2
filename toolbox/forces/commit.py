@@ -1,6 +1,7 @@
 # Standard library
 import operator
 import re
+import os
 from typing import (
     Match,
     Optional,
@@ -8,6 +9,7 @@ from typing import (
 )
 
 # Third party libraries
+import yaml
 
 # Local libraries
 from toolbox import (
@@ -123,3 +125,13 @@ def is_valid_summary(summary: str) -> bool:
 def is_exploits_commit(summary: str) -> bool:
     """Return True if this is a forces commit."""
     return '(exp)' in summary
+
+
+def is_valid_forces_content(subs: str):
+    """Check if there can be content of forces in the subscription."""
+    success = True
+    with open(f'subscriptions/{subs}/config/config.yml') as reader:
+        config = yaml.load(reader.read())
+    if not config['forces']['is_enabled']:
+        success = not os.path.exists('subscriptions/{subs}/break-build')
+    return success
