@@ -27,6 +27,8 @@ number of concurrent users reaches its peak.
 
 * link:/web/findings/092/[F092. Improper resource allocation]
 
+* link:/web/findings/108/[F108. Improper control of interaction frequency]
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(c).]

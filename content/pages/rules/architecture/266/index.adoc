@@ -34,6 +34,8 @@ points such as access control gateways, severs and serverless functions.
 
 * link:/web/findings/101/[F101. Lack of protection against deletion]
 
+* link:/web/findings/110/[F110. HTTP request smuggling]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]

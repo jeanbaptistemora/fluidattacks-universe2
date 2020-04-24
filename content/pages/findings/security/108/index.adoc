@@ -1,0 +1,16 @@
+:slug: findings/108/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not establishing a rate limit, recommendations to avoid them and related security requirements.
+:keywords: Improper, Control, Interaction, Frequency, Rate, Limit
+:findings: yes
+:type: security
+
+= F108. Improper control of interaction frequency
+
+== Description
+
+The system does not limit the amount of requests (rate limit) that a user can
+post to the server in a short period of time.
+
+== Rules
+
+. [[r1]] link:/web/rules/072/[R072. Set maximum response time]

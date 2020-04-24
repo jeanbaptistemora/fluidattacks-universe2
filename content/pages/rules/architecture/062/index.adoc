@@ -8,17 +8,21 @@
 
 == Requirement
 
-The organization must define standard configurations
-that correct all known vulnerabilities
-and that are consistent with industry standards (e.g., baselines).
+The organization must define standard configurations that correct all known
+vulnerabilities.
+These configurations must also be consistent with industry standards.
 
 == Description
 
 System configuration is essential when it comes to security issues.
 The system must follow the industry's standard configurations that prevent
 all known vulnerabilities.
-These standard settings also contribute to ensuring the ongoing confidentiality,
-integrity, availability and resilience of processing systems and services.
+These settings also contribute to ensuring the ongoing confidentiality,
+integrity, availability and resilience of systems and services.
+
+== Findings
+
+* link:/web/findings/110/[F110. HTTP request smuggling]
 
 == References
 

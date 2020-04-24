@@ -1,0 +1,25 @@
+:slug: findings/110/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about HTTP request smuggling attacks, recommendations to avoid them and related security requirements.
+:keywords: HTTP, Request, Smuggling, Server, Malformed, Client
+:findings: yes
+:type: security
+
+= F110. HTTP request smuggling
+
+== Description
+
+The system uses one or more entities, such as a proxy or a firewall,
+to process requests between the client and the server.
+These entities do not process HTTP requests consistently,
+thus it is possible to post malformed requests to make one of the entities
+process a request without the other ones noticing it.
+The reason the entities do not process the requests consistently is that the
+web server software each one uses delimits requests differently.
+
+== Rules
+
+. [[r1]] link:/web/rules/062/[R062. Define standard configurations
+
+. [[r2]] link:/web/rules/173/[R173. Discard unsafe inputs]
+
+. [[r3]] link:/web/rules/266/[R266. Disable insecure functionalities]
