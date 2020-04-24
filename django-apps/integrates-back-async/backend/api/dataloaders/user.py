@@ -1,7 +1,6 @@
 # pylint: disable=import-error
 
 from datetime import datetime
-import asyncio
 import sys
 
 from asgiref.sync import sync_to_async
@@ -22,7 +21,7 @@ from ariadne import convert_camel_case_to_snake
 @sync_to_async
 def _get_email(email, _=None):
     """Get email."""
-    return dict(email=email.lower())
+    return email.lower()
 
 
 @sync_to_async
@@ -33,14 +32,13 @@ def _get_role(email, project_name):
     else:
         role = user_domain.get_user_level_role(email)
 
-    return dict(role=role)
+    return role
 
 
 @sync_to_async
 def _get_phone_number(email, _=None):
     """Get phone number."""
-    result = has_phone_number(email)
-    return dict(phone_number=result)
+    return has_phone_number(email)
 
 
 @sync_to_async
@@ -49,21 +47,20 @@ def _get_responsibility(email, project_name):
     result = has_responsibility(
         project_name, email
     ) if project_name else ''
-    return dict(responsibility=result)
+    return result
 
 
 @sync_to_async
 def _get_organization(email, _=None):
     """Get organization."""
     org = user_domain.get_data(email, 'company')
-    return dict(organization=org.title())
+    return org.title()
 
 
 @sync_to_async
 def _get_first_login(email, _=None):
     """Get first login."""
-    result = user_domain.get_data(email, 'date_joined')
-    return dict(first_login=result)
+    return user_domain.get_data(email, 'date_joined')
 
 
 @sync_to_async
@@ -77,7 +74,7 @@ def _get_last_login(email, _=None):
             datetime.now() - datetime.strptime(last_login, '%Y-%m-%d %H:%M:%S')
         diff_last_login = [dates_difference.days, dates_difference.seconds]
         last_login = diff_last_login
-    return dict(last_login=str(last_login))
+    return str(last_login)
 
 
 async def _get_list_projects(email, project_name):
@@ -99,16 +96,14 @@ async def _get_list_projects(email, project_name):
                 for proj in await sync_to_async(user_domain.get_projects)(
                     email, active=False)]
         list_projects = projs_active + projs_suspended
-    return dict(list_projects=list_projects)
+    return list_projects
 
 
 async def resolve(info, email, project_name, as_field=False,
                   selection_set=None):
     """Async resolve of fields."""
-    email_dict: dict = await _get_email(email)
-    role_dict: dict = await _get_role(email, project_name)
-    email: str = email_dict['email']
-    role: str = role_dict['role']
+    email: dict = await _get_email(email)
+    role: dict = await _get_role(email, project_name)
 
     if project_name and role:
         if not user_domain.get_data(email, 'email') or \
@@ -116,8 +111,6 @@ async def resolve(info, email, project_name, as_field=False,
             raise UserNotFound()
 
     result = dict()
-    tasks = list()
-
     if not info.field_nodes[0].selection_set:
         requested_fields = ['listProjects']
     else:
@@ -139,10 +132,5 @@ async def resolve(info, email, project_name, as_field=False,
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
-        tasks.append(
-            asyncio.ensure_future(resolver_func(email, project_name))
-        )
-    tasks_result = await asyncio.gather(*tasks)
-    for dict_result in tasks_result:
-        result.update(dict_result)
+        result[requested_field] = resolver_func(email, project_name)
     return result

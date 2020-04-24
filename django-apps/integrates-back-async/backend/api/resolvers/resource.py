@@ -1,7 +1,6 @@
 # pylint: disable=import-error
 
 from typing import Any, Dict, List, cast
-import asyncio
 import re
 import sys
 
@@ -28,36 +27,36 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 @sync_to_async
-def _get_project_name(project_name: str) -> Dict[str, str]:
+def _get_project_name(project_name: str) -> str:
     """Get project_name."""
-    return dict(project_name=project_name)
+    return project_name
 
 
 @sync_to_async
-def _get_repositories(project_name: str) -> Dict[str, List[ResourceType]]:
+def _get_repositories(project_name: str) -> List[ResourceType]:
     """Get repositories."""
     project_info = cast(Dict[str, List[ResourceType]],
                         project_domain.get_attributes(project_name,
                                                       ['repositories']))
-    return dict(repositories=project_info.get('repositories', []))
+    return project_info.get('repositories', [])
 
 
 @sync_to_async
-def _get_environments(project_name: str) -> Dict[str, List[ResourceType]]:
+def _get_environments(project_name: str) -> List[ResourceType]:
     """Get environments."""
     project_info = cast(Dict[str, List[ResourceType]],
                         project_domain.get_attributes(project_name,
                                                       ['environments']))
-    return dict(environments=project_info.get('environments', []))
+    return project_info.get('environments', [])
 
 
 @sync_to_async
-def _get_files(project_name: str) -> Dict[str, List[ResourceType]]:
+def _get_files(project_name: str) -> List[ResourceType]:
     """Get files."""
     project_info = cast(Dict[str, List[ResourceType]],
                         project_domain.get_attributes(project_name,
                                                       ['files']))
-    return dict(files=project_info.get('files', []))
+    return project_info.get('files', [])
 
 
 async def _resolve_fields(info, project_name: str) -> ResourcesType:
@@ -67,7 +66,6 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
         environments=list(),
         files=list()
     )
-    tasks = list()
     project_name = project_name.lower()
 
     project_exist = project_domain.get_attributes(
@@ -92,14 +90,7 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
-        future = asyncio.ensure_future(
-            resolver_func(**params)
-        )
-        tasks.append(future)
-    tasks_result = await asyncio.gather(*tasks)
-    for dict_result in tasks_result:
-        result.update(dict_result)
-
+        result[requested_field] = resolver_func(**params)
     return result
 
 
