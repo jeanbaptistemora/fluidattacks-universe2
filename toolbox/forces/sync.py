@@ -171,7 +171,7 @@ def _validate_one_static_exploit(
             # This repo exist on Integrates and not locally, we cannot test
             continue
 
-        asserts_status, asserts_stdout, _ = _run_static_exploit(
+        _, asserts_stdout, _ = _run_static_exploit(
             exploit_path=exploit_path,
             exploit_output_path=exploit_output_path,
             repository_path=repository_path,
@@ -183,26 +183,44 @@ def _validate_one_static_exploit(
         integrates_vulns_closed = \
             integrates_repositories_vulns.get(repo, {}).get('closed', 0)
 
-        imsg = (
-            'OPEN'
-            if integrates_repositories_status.get(repo, False)
-            else 'CLOSED'
-        )
+        asserts_vulns = tuple(
+            api.asserts.iterate_vulnerabilities_from_content(
+                asserts_stdout, repo))
+        asserts_vulns_open = \
+            sum(vul.status.startswith('OPEN') for vul in asserts_vulns)
+        asserts_vulns_unknown = \
+            sum(vul.status.startswith('UNKNOWN') for vul in asserts_vulns)
+        asserts_vulns_error = \
+            sum(vul.status.startswith('ERROR') for vul in asserts_vulns)
 
-        amsg = api.asserts.get_exp_error_message(asserts_stdout) \
-            or constants.RICH_EXIT_CODES_INV.get(
-                asserts_status, 'OTHER').upper()
+        # Open if at least one vuln is open
+        imsg = 'OPEN' if integrates_vulns_open > 0 else 'CLOSED'
+
+        # Error if at least one error
+        # Open if at least one open and no errors
+        # Unknown if at least one unknown, no errors and no opens
+        # Closed if no errors or opens or unknowns
+        amsg = {
+            asserts_vulns_unknown > 0: 'UNKNOWN',
+            asserts_vulns_open > 0: 'OPEN',
+            asserts_vulns_error > 0: 'ERROR',
+        }.get(True, 'CLOSED')
 
         # The synced equation
-        is_synced = imsg == amsg
+        is_synced = \
+            asserts_vulns_error == 0 \
+            and asserts_vulns_open == integrates_vulns_open
 
         if not is_synced:
             logger.info(
                 f'- {finding_id:<10}: {repo:<60} '
                 f'{imsg!s:<6} I ('
-                f'{integrates_vulns_open!s:<3} open, '
-                f'{integrates_vulns_closed!s:<3} closed), '
-                f'{amsg!s:<7} E'
+                f'{integrates_vulns_open!s:<3} o, '
+                f'{integrates_vulns_closed!s:<3} c), '
+                f'{amsg!s:<7} E ('
+                f'{asserts_vulns_error!s:<3} e, '
+                f'{asserts_vulns_open!s:<3} o, '
+                f'{asserts_vulns_unknown!s:<3} u)'
             )
 
         asserts_summary = \
@@ -394,6 +412,7 @@ def print_nomenclature():
     logger.info('  e: error')
     logger.info('  o: open')
     logger.info('  u: unknown')
+    logger.info()
 
 
 def are_exploits_synced(subs: str, exp_name: str) -> bool:
