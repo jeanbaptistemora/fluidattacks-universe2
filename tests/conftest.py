@@ -5,6 +5,7 @@ import shlex
 import contextlib
 
 # Third parties libraries
+import boto3
 import pytest
 import unittest.mock
 
@@ -46,10 +47,20 @@ def relocate_to_cloned_repo(request):
         yield new_path
 
 
+@pytest.fixture(scope='function')
+def prepare_s3_continuous_repositories(request):
+    """Create empty continuous-repositories s3 bucket"""
+    endpoint_url: str = 'http://localhost:4566'
+    bucket_name: str = 'continuous-repositories'
+    s3_client = boto3.client('s3', endpoint_url=endpoint_url)
+    s3_client.create_bucket(Bucket=bucket_name)
+
+
 @pytest.fixture(scope='session', autouse=True)
 def prepare(request):
     """Prepare the environment by cloning the test repository."""
     with _relocate():
         os.system(
-            f'git -C subscriptions/{SUBS}/fusion/continuous reset --hard HEAD')
+            f'git -C subscriptions/{SUBS}/fusion/continuous reset --hard HEAD'
+        )
         assert resources.repo_cloning(SUBS)
