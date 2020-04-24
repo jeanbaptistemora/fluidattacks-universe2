@@ -12,8 +12,8 @@
 '''
 
 
-This report was requested by {{user}} on {{date}} only for their use. +
-Please log into {{link}}[Fluid Integrates^] to request a custom version of this report.
+This report was requested by {{user}} on {{date}} and it is only intended for their use.
+If you are reading this report and you are not {{user}}, you are not authorized to read nor keep this document. Please stop reading at the end of this paragraph, delete this document, and report the incident to {{user}}, the owner. To get an updated version of this report for yourself, please request a copy following this link [{{link}}[Fluid Integrates] > Reports > PDF].
 
 
 //Primera pagina - Contenido
