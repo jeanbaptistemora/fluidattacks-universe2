@@ -99,7 +99,8 @@ def _is_node_a_iast_result(node: NODE) -> bool:
 def _is_node_a_mock_result(node: NODE) -> bool:
     """True if node contains parameter.metadata keys."""
     return 'parameters' in node \
-        and 'metadata' in node['parameters']
+        and 'metadata' in node['parameters'] \
+        and node['parameters']['metadata']
 
 
 def _is_relevant(node: NODE) -> bool:

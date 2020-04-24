@@ -15,7 +15,6 @@ from typing import (
 
 # Local libraries
 from toolbox import (
-    constants,
     helper,
     api,
     logger,
@@ -266,7 +265,7 @@ def _validate_one_dynamic_exploit(
     integrates_vulns_closed = \
         sum(1 for _, _, is_open in integrates_vulns if not is_open)
 
-    asserts_status, asserts_stdout, _ = _run_dynamic_exploit(
+    _, asserts_stdout, _ = _run_dynamic_exploit(
         exploit_path=exploit_path,
         exploit_output_path=exploit_output_path,
         subs_path=f'subscriptions/{subs}',
@@ -274,36 +273,50 @@ def _validate_one_dynamic_exploit(
         bb_fernet_key=bb_fernet_key,
         bb_resources=bb_resources)
 
-    imsg = (
-        'OPEN'
-        if helper.integrates.is_finding_open(finding_id, constants.DAST)
-        else 'CLOSED'
-    )
+    asserts_vulns = tuple(
+        api.asserts.iterate_vulnerabilities_from_content(asserts_stdout))
+    asserts_vulns_open = \
+        sum(vul.status.startswith('OPEN') for vul in asserts_vulns)
+    asserts_vulns_unknown = \
+        sum(vul.status.startswith('UNKNOWN') for vul in asserts_vulns)
+    asserts_vulns_error = \
+        sum(vul.status.startswith('ERROR') for vul in asserts_vulns)
 
-    amsg = api.asserts.get_exp_error_message(asserts_stdout) \
-        or constants.RICH_EXIT_CODES_INV.get(
-            asserts_status, 'OTHER').upper()
+    # Open if at least one vuln is open
+    imsg = 'OPEN' if integrates_vulns_open > 0 else 'CLOSED'
+
+    # Error if at least one error
+    # Open if at least one open and no errors
+    # Unknown if at least one unknown, no errors and no opens
+    # Closed if no errors or opens or unknowns
+    amsg = {
+        asserts_vulns_unknown > 0: 'UNKNOWN',
+        asserts_vulns_open > 0: 'OPEN',
+        asserts_vulns_error > 0: 'ERROR',
+    }.get(True, 'CLOSED')
 
     # The synced equation
-    is_synced = imsg == amsg
+    is_synced = \
+        asserts_vulns_error == 0 \
+        and asserts_vulns_open == integrates_vulns_open
 
     if not is_synced:
         logger.info(
             f'- {finding_id:<10}: '
             f'{imsg!s:<6} I ('
-            f'{integrates_vulns_open!s:<3} open, '
-            f'{integrates_vulns_closed!s:<3} closed), '
-            f'{amsg!s:<7} E'
+            f'{integrates_vulns_open!s:<3} o, '
+            f'{integrates_vulns_closed!s:<3} c), '
+            f'{amsg!s:<7} E ('
+            f'{asserts_vulns_error!s:<3} e, '
+            f'{asserts_vulns_open!s:<3} o, '
+            f'{asserts_vulns_unknown!s:<3} u)'
         )
-
-    asserts_summary = \
-        api.asserts.get_exp_result_summary(asserts_stdout)
 
     results.append(dict(
         datetime=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         exploit_path=os.path.relpath(exploit_path),
         exploit_type='dynamic',
-        num_open_asserts=asserts_summary.get('vulnerabilities', 0),
+        num_open_asserts=asserts_vulns_open,
         num_open_integrates=integrates_vulns_open,
         pipeline_id=os.environ.get('CI_PIPELINE_ID'),
         repository='',
@@ -412,6 +425,9 @@ def print_nomenclature():
     logger.info('  e: error')
     logger.info('  o: open')
     logger.info('  u: unknown')
+    logger.info()
+    logger.info('Something is synced if:')
+    logger.info('  (E) has no (e), and #(o) on (I) equals #(o) on (E)')
     logger.info()
 
 
