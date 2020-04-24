@@ -25,6 +25,7 @@ variable "dynamodb-tables" {
     "FI_comments",
     "fi_events",
     "FI_findings",
+    "fi_portfolios",
     "FI_project_access",
     "fi_project_comments",
     "fi_project_names",

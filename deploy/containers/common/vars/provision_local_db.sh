@@ -102,6 +102,16 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
+--table-name fi_portfolios \
+--attribute-definitions \
+    AttributeName=organization,AttributeType=S \
+    AttributeName=tag,AttributeType=S \
+--key-schema \
+    AttributeName=organization,KeyType=HASH \
+    AttributeName=tag,KeyType=RANGE \
+--provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+
+aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --table-name FI_users \
 --attribute-definitions AttributeName=email,AttributeType=S \
 --key-schema AttributeName=email,KeyType=HASH \

@@ -14,7 +14,7 @@ from django.conf import settings
 from backend.domain import (
     finding as finding_domain, project as project_domain,
     user as user_domain, vulnerability as vuln_domain,
-    event as event_domain
+    event as event_domain, tag as tag_domain
 )
 from backend.mailer import (
     send_mail_new_vulnerabilities, send_mail_new_remediated,
@@ -545,3 +545,24 @@ def delete_pending_projects():
         if deletion_date < today:
             project_domain.remove_project(project.get('project_name'), '')
             util.invalidate_cache(project.get('project_name'))
+
+
+def update_tags_indicators():
+    """Update tag indicators in dynamo."""
+    rollbar.report_message('Warning: Function to update tag'
+                           'indicators in DynamoDB is running', 'warning')
+    projects = project_domain.get_active_projects()
+    projects = [project_domain.get_attributes(project, ['companies', 'project_name', 'tag'])
+                for project in projects]
+    all_organization = {
+        organization.lower()
+        for project in projects
+        for organization in project.get('companies', [])
+    }
+    for organization in all_organization:
+        try:
+            tag_domain.update_organization_indicators(organization, projects)
+        except ClientError:
+            rollbar.report_message(
+                'Error: An error ocurred updating tag '
+                f'indicators of organizaion {organization}', 'error')

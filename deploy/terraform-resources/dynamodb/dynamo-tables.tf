@@ -275,3 +275,24 @@ resource "aws_dynamodb_table" "vulnerabilities" {
     enabled = true
   }
 }
+
+resource "aws_dynamodb_table" "portfolios" {
+  name           = "fi_portfolios"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "organization"
+  range_key      = "tag"
+
+  attribute {
+    name = "organization"
+    type = "S"
+  }
+
+  attribute {
+    name = "tag"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
