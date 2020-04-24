@@ -41,7 +41,7 @@ def clone(subs_path) -> None:
 
 
 def _sync_to_s3(subs_path):
-    run_command('fluid resources --push-repos', cwd=subs_path)
+    _, _ = run_command('fluid resources --push-repos', cwd=subs_path)
 
 
 def open_vpn(subs_path) -> None:
