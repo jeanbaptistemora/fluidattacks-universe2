@@ -116,6 +116,8 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
     }
   }
 
+  aliases = ["files.fluidattacks.com"]
+
   default_cache_behavior {
     target_origin_id       = "S3-fluidintegrates.reports"
     compress               = true
