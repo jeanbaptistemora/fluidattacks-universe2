@@ -52,8 +52,8 @@ def get_cached_subject_policies(subject: str):
     return fetched_data
 
 
-# Actions everyone can perform
-BASIC_ACTIONS: Tuple[str, ...] = (
+# Actions client's users can perform
+CUSTOMER_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_alert_resolve_alert',
     'backend_api_resolvers_event__do_add_event_comment',
     'backend_api_resolvers_event__do_download_event_file',
@@ -69,12 +69,6 @@ BASIC_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_resource__do_download_file',
     'backend_api_resolvers_resource_resolve_resources',
     'backend_api_resolvers_vulnerability__do_request_verification_vuln',
-)
-
-
-# Actions client's users can perform
-CUSTOMER_ACTIONS: Tuple[str, ...] = (
-    *BASIC_ACTIONS,
     'backend_api_resolvers_finding__do_update_client_description',
     'backend_api_resolvers_project__do_add_tags',
     'backend_api_resolvers_project__do_remove_tag',
@@ -92,7 +86,33 @@ CUSTOMER_ACTIONS: Tuple[str, ...] = (
 
 # Actions client's project managers can perform
 CUSTOMERADMIN_ACTIONS: Tuple[str, ...] = (
-    *CUSTOMER_ACTIONS,
+    'backend_api_resolvers_alert_resolve_alert',
+    'backend_api_resolvers_event__do_add_event_comment',
+    'backend_api_resolvers_event__do_download_event_file',
+    'backend_api_resolvers_event_resolve_event',
+    'backend_api_resolvers_event_resolve_events',
+    'backend_api_resolvers_finding__do_add_finding_comment',
+    'backend_api_resolvers_finding_resolve_finding',
+    'backend_api_resolvers_forces_resolve_forces_executions',
+    'backend_api_resolvers_project__do_add_project_comment',
+    'backend_api_resolvers_project__get_comments',
+    'backend_api_resolvers_project__get_events',
+    'backend_api_resolvers_project_resolve_project',
+    'backend_api_resolvers_resource__do_download_file',
+    'backend_api_resolvers_resource_resolve_resources',
+    'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+    'backend_api_resolvers_finding__do_update_client_description',
+    'backend_api_resolvers_project__do_add_tags',
+    'backend_api_resolvers_project__do_remove_tag',
+    'backend_api_resolvers_resource__do_add_environments',
+    'backend_api_resolvers_resource__do_add_files',
+    'backend_api_resolvers_resource__do_add_repositories',
+    'backend_api_resolvers_resource__do_remove_files',
+    'backend_api_resolvers_resource__do_update_environment',
+    'backend_api_resolvers_resource__do_update_repository',
+    'backend_api_resolvers_resource_resolve_add_resources',
+    'backend_api_resolvers_vulnerability__do_delete_tags',
+    'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
     'backend_api_resolvers_finding__do_handle_acceptation',
     'backend_api_resolvers_me__get_tags',
     'backend_api_resolvers_project__do_reject_remove_project',
@@ -109,7 +129,44 @@ CUSTOMERADMIN_ACTIONS: Tuple[str, ...] = (
 
 # Actions FluidAttacks's project managers can perform
 INTERNAL_MANAGER_ACTIONS: Tuple[str, ...] = (
-    *CUSTOMERADMIN_ACTIONS,
+    'backend_api_resolvers_alert_resolve_alert',
+    'backend_api_resolvers_event__do_add_event_comment',
+    'backend_api_resolvers_event__do_download_event_file',
+    'backend_api_resolvers_event_resolve_event',
+    'backend_api_resolvers_event_resolve_events',
+    'backend_api_resolvers_finding__do_add_finding_comment',
+    'backend_api_resolvers_finding_resolve_finding',
+    'backend_api_resolvers_forces_resolve_forces_executions',
+    'backend_api_resolvers_project__do_add_project_comment',
+    'backend_api_resolvers_project__get_comments',
+    'backend_api_resolvers_project__get_events',
+    'backend_api_resolvers_project_resolve_project',
+    'backend_api_resolvers_resource__do_download_file',
+    'backend_api_resolvers_resource_resolve_resources',
+    'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+    'backend_api_resolvers_finding__do_update_client_description',
+    'backend_api_resolvers_project__do_add_tags',
+    'backend_api_resolvers_project__do_remove_tag',
+    'backend_api_resolvers_resource__do_add_environments',
+    'backend_api_resolvers_resource__do_add_files',
+    'backend_api_resolvers_resource__do_add_repositories',
+    'backend_api_resolvers_resource__do_remove_files',
+    'backend_api_resolvers_resource__do_update_environment',
+    'backend_api_resolvers_resource__do_update_repository',
+    'backend_api_resolvers_resource_resolve_add_resources',
+    'backend_api_resolvers_vulnerability__do_delete_tags',
+    'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+    'backend_api_resolvers_finding__do_handle_acceptation',
+    'backend_api_resolvers_me__get_tags',
+    'backend_api_resolvers_project__do_reject_remove_project',
+    'backend_api_resolvers_project__do_request_remove_project',
+    'backend_api_resolvers_project__get_users',
+    'backend_api_resolvers_tag_resolve_tag',
+    'backend_api_resolvers_user__do_edit_user',
+    'backend_api_resolvers_user__do_grant_user_access',
+    'backend_api_resolvers_user__do_remove_user_access',
+    'backend_api_resolvers_user_resolve_user_list_projects',
+    'backend_api_resolvers_user_resolve_user',
     'backend_api_resolvers_alert_resolve_set_alert',
     'backend_api_resolvers_event__do_create_event',
     'backend_api_resolvers_project__do_create_project',
@@ -119,7 +176,21 @@ INTERNAL_MANAGER_ACTIONS: Tuple[str, ...] = (
 
 # Actions FluidAttacks's hackers can perform
 ANALYST_ACTIONS: Tuple[str, ...] = (
-    *BASIC_ACTIONS,
+    'backend_api_resolvers_alert_resolve_alert',
+    'backend_api_resolvers_event__do_add_event_comment',
+    'backend_api_resolvers_event__do_download_event_file',
+    'backend_api_resolvers_event_resolve_event',
+    'backend_api_resolvers_event_resolve_events',
+    'backend_api_resolvers_finding__do_add_finding_comment',
+    'backend_api_resolvers_finding_resolve_finding',
+    'backend_api_resolvers_forces_resolve_forces_executions',
+    'backend_api_resolvers_project__do_add_project_comment',
+    'backend_api_resolvers_project__get_comments',
+    'backend_api_resolvers_project__get_events',
+    'backend_api_resolvers_project_resolve_project',
+    'backend_api_resolvers_resource__do_download_file',
+    'backend_api_resolvers_resource_resolve_resources',
+    'backend_api_resolvers_vulnerability__do_request_verification_vuln',
     'backend_api_dataloaders_finding__get_analyst',
     'backend_api_dataloaders_finding__get_historic_state',
     'backend_api_dataloaders_finding__get_observations',
@@ -148,12 +219,71 @@ ANALYST_ACTIONS: Tuple[str, ...] = (
 )
 
 
-ALL_ACTIONS: Tuple[str, ...] = tuple(set((
-    *BASIC_ACTIONS,
-    *CUSTOMER_ACTIONS,
-    *CUSTOMERADMIN_ACTIONS,
-    *INTERNAL_MANAGER_ACTIONS,
-    *ANALYST_ACTIONS,
+# Actions Administrators can perform
+ADMIN_ACTIONS: Tuple[str, ...] = (
+    'backend_api_resolvers_alert_resolve_alert',
+    'backend_api_resolvers_event__do_add_event_comment',
+    'backend_api_resolvers_event__do_download_event_file',
+    'backend_api_resolvers_event_resolve_event',
+    'backend_api_resolvers_event_resolve_events',
+    'backend_api_resolvers_finding__do_add_finding_comment',
+    'backend_api_resolvers_finding_resolve_finding',
+    'backend_api_resolvers_forces_resolve_forces_executions',
+    'backend_api_resolvers_project__do_add_project_comment',
+    'backend_api_resolvers_project__get_comments',
+    'backend_api_resolvers_project__get_events',
+    'backend_api_resolvers_project_resolve_project',
+    'backend_api_resolvers_resource__do_download_file',
+    'backend_api_resolvers_resource_resolve_resources',
+    'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+    'backend_api_resolvers_project__do_add_tags',
+    'backend_api_resolvers_project__do_remove_tag',
+    'backend_api_resolvers_resource__do_add_environments',
+    'backend_api_resolvers_resource__do_add_files',
+    'backend_api_resolvers_resource__do_add_repositories',
+    'backend_api_resolvers_resource__do_remove_files',
+    'backend_api_resolvers_resource__do_update_environment',
+    'backend_api_resolvers_resource__do_update_repository',
+    'backend_api_resolvers_resource_resolve_add_resources',
+    'backend_api_resolvers_me__get_tags',
+    'backend_api_resolvers_project__do_reject_remove_project',
+    'backend_api_resolvers_project__do_request_remove_project',
+    'backend_api_resolvers_project__get_users',
+    'backend_api_resolvers_tag_resolve_tag',
+    'backend_api_resolvers_user__do_edit_user',
+    'backend_api_resolvers_user__do_grant_user_access',
+    'backend_api_resolvers_user__do_remove_user_access',
+    'backend_api_resolvers_user_resolve_user_list_projects',
+    'backend_api_resolvers_user_resolve_user',
+    'backend_api_resolvers_alert_resolve_set_alert',
+    'backend_api_resolvers_event__do_create_event',
+    'backend_api_resolvers_project__do_create_project',
+    'backend_api_resolvers_user_resolve_user_list_projects',
+    'backend_api_dataloaders_finding__get_analyst',
+    'backend_api_dataloaders_finding__get_historic_state',
+    'backend_api_dataloaders_finding__get_observations',
+    'backend_api_dataloaders_finding__get_pending_vulns',
+    'backend_api_resolvers_cache_resolve_invalidate_cache',
+    'backend_api_resolvers_event__do_create_event',
+    'backend_api_resolvers_event__do_remove_event_evidence',
+    'backend_api_resolvers_event__do_solve_event',
+    'backend_api_resolvers_event__do_update_event_evidence',
+    'backend_api_resolvers_finding__do_create_draft',
+    'backend_api_resolvers_finding__do_delete_finding',
+    'backend_api_resolvers_finding__do_reject_draft',
+    'backend_api_resolvers_finding__do_remove_evidence',
+    'backend_api_resolvers_finding__do_submit_draft',
+    'backend_api_resolvers_finding__do_update_description',
+    'backend_api_resolvers_finding__do_update_evidence_description',
+    'backend_api_resolvers_finding__do_update_evidence',
+    'backend_api_resolvers_finding__do_update_severity',
+    'backend_api_resolvers_project__get_drafts',
+    'backend_api_resolvers_vulnerability__do_approve_vulnerability',
+    'backend_api_resolvers_vulnerability__do_delete_vulnerability',
+    'backend_api_resolvers_vulnerability__do_upload_file',
+    'backend_api_resolvers_vulnerability__do_verify_request_vuln',
+    'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
+    'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
     'backend_api_resolvers_cache_resolve_invalidate_cache',
     'backend_api_resolvers_finding__do_approve_draft',
     'backend_api_resolvers_internal_project_resolve_project_name',
@@ -164,17 +294,16 @@ ALL_ACTIONS: Tuple[str, ...] = tuple(set((
     'backend_api_resolvers_subscription__do_post_broadcast_message',
     'backend_api_resolvers_user__do_add_user',
     'backend_api_resolvers_user__do_grant_user_access_internal_roles',
-)))
-
-ADMIN_RESTRICTIONS: Tuple[str, ...] = (
-    'backend_api_resolvers_finding__do_handle_acceptation',
-    'backend_api_resolvers_finding__do_update_client_description',
-    'backend_api_resolvers_vulnerability__do_delete_tags',
-    'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
 )
-ADMIN_ACTIONS: Tuple[str, ...] = tuple([
-    action for action in ALL_ACTIONS
-    if action not in ADMIN_RESTRICTIONS])
+
+
+ALL_ACTIONS: Tuple[str, ...] = tuple(set((
+    *CUSTOMER_ACTIONS,
+    *CUSTOMERADMIN_ACTIONS,
+    *INTERNAL_MANAGER_ACTIONS,
+    *ANALYST_ACTIONS,
+    *ADMIN_ACTIONS,
+)))
 
 
 def matches_permission(subject: str, role: str, action: str) -> bool:
