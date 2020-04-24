@@ -210,6 +210,31 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     ]
   }
 
+  # Route 53 basic read
+  statement {
+    effect  = "Allow"
+    actions = [
+      "route53:ListHostedZones",
+      "route53:GetHostedZone",
+      "route53:GetChange"
+    ]
+    resources = [
+      "*",
+    ]
+  }
+
+  # Route 53 read/write over fluidattacks hosted zone
+  statement {
+    effect  = "Allow"
+    actions = [
+      "route53:ListTagsForResource",
+      "route53:ChangeResourceRecordSets",
+      "route53:ListResourceRecordSets"
+    ]
+    resources = [
+      "arn:aws:route53:::hostedzone/${data.aws_route53_zone.fluidattacks.zone_id}",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-prod-policy" {
