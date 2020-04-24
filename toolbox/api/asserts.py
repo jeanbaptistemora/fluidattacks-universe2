@@ -153,7 +153,7 @@ def _get_node_finding(node: NODE) -> str:
 
 
 def _get_node_kind(node: NODE) -> str:
-    return node['test_kind']
+    return node.get('test_kind', '')
 
 
 def _get_node_sast_results(node: NODE, current_repo: str
