@@ -36,4 +36,5 @@ class InternalProjectTests(TestCase):
             key=settings.JWT_SECRET,
         )
         _, result = await graphql(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
         assert 'internalProjectNames' in result['data']

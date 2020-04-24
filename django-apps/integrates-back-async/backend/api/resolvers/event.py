@@ -1,11 +1,8 @@
-# pylint: disable=import-error
-
 from datetime import datetime
 from time import time
-import asyncio
 import sys
 
-from typing import Dict, List
+from typing import List
 from asgiref.sync import sync_to_async
 
 from backend.api.dataloaders.event import EventLoader
@@ -29,115 +26,115 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
-async def _get_id(_, identifier: str) -> Dict[str, str]:
+async def _get_id(_, identifier: str) -> str:
     """Get bts_url."""
-    return dict(id=identifier)
+    return identifier
 
 
-async def _get_analyst(info, identifier: str) -> Dict[str, str]:
+async def _get_analyst(info, identifier: str) -> str:
     """Get analyst."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(analyst=event['analyst'])
+    return event['analyst']
 
 
-async def _get_client(info, identifier: str) -> Dict[str, str]:
+async def _get_client(info, identifier: str) -> str:
     """Get client."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(client=event['client'])
+    return event['client']
 
 
-async def _get_evidence(info, identifier: str) -> Dict[str, str]:
+async def _get_evidence(info, identifier: str) -> str:
     """Get evidence."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(evidence=event['evidence'])
+    return event['evidence']
 
 
-async def _get_project_name(info, identifier: str) -> Dict[str, str]:
+async def _get_project_name(info, identifier: str) -> str:
     """Get project_name."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(project_name=event['project_name'])
+    return event['project_name']
 
 
-async def _get_client_project(info, identifier: str) -> Dict[str, str]:
+async def _get_client_project(info, identifier: str) -> str:
     """Get client_project."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(client_project=event['client_project'])
+    return event['client_project']
 
 
-async def _get_event_type(info, identifier: str) -> Dict[str, str]:
+async def _get_event_type(info, identifier: str) -> str:
     """Get event_type."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(event_type=event['event_type'])
+    return event['event_type']
 
 
-async def _get_detail(info, identifier: str) -> Dict[str, str]:
+async def _get_detail(info, identifier: str) -> str:
     """Get detail."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(detail=event['detail'])
+    return event['detail']
 
 
-async def _get_event_date(info, identifier: str) -> Dict[str, str]:
+async def _get_event_date(info, identifier: str) -> str:
     """Get event_date."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(event_date=event['event_date'])
+    return event['event_date']
 
 
-async def _get_event_status(info, identifier: str) -> Dict[str, str]:
+async def _get_event_status(info, identifier: str) -> str:
     """Get event_status."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(event_status=event['event_status'])
+    return event['event_status']
 
 
 async def _get_historic_state(info,
-                              identifier: str) -> Dict[str, HistoricType]:
+                              identifier: str) -> HistoricType:
     """Get historic_state."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(historic_state=event['historic_state'])
+    return event['historic_state']
 
 
-async def _get_affectation(info, identifier: str) -> Dict[str, str]:
+async def _get_affectation(info, identifier: str) -> str:
     """Get affectation."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(affectation=event['affectation'])
+    return event['affectation']
 
 
-async def _get_accessibility(info, identifier: str) -> Dict[str, str]:
+async def _get_accessibility(info, identifier: str) -> str:
     """Get accessibility."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(accessibility=event['accessibility'])
+    return event['accessibility']
 
 
-async def _get_affected_components(info, identifier: str) -> Dict[str, str]:
+async def _get_affected_components(info, identifier: str) -> str:
     """Get affected_components."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(affected_components=event['affected_components'])
+    return event['affected_components']
 
 
-async def _get_context(info, identifier: str) -> Dict[str, str]:
+async def _get_context(info, identifier: str) -> str:
     """Get context."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(context=event['context'])
+    return event['context']
 
 
-async def _get_subscription(info, identifier: str) -> Dict[str, str]:
+async def _get_subscription(info, identifier: str) -> str:
     """Get subscription."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(subscription=event['subscription'])
+    return event['subscription']
 
 
-async def _get_evidence_file(info, identifier: str) -> Dict[str, str]:
+async def _get_evidence_file(info, identifier: str) -> str:
     """Get evidence_file."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(evidence_file=event['evidence_file'])
+    return event['evidence_file']
 
 
-async def _get_closing_date(info, identifier: str) -> Dict[str, str]:
+async def _get_closing_date(info, identifier: str) -> str:
     """Get closing_date."""
     event = await info.context.loaders['event'].load(identifier)
-    return dict(closing_date=event['closing_date'])
+    return event['closing_date']
 
 
-async def _get_comments(info, identifier: str) -> Dict[str, List[CommentType]]:
+async def _get_comments(info, identifier: str) -> List[CommentType]:
     """Get comments."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
@@ -146,7 +143,7 @@ async def _get_comments(info, identifier: str) -> Dict[str, List[CommentType]]:
 
     comments = await sync_to_async(comment_domain.get_event_comments)(
         project_name, identifier, user_email)
-    return dict(comments=comments)
+    return comments
 
 
 @convert_kwargs_to_snake_case
@@ -161,7 +158,6 @@ async def resolve(info, identifier: str = '',
                   as_field: bool = False) -> EventType:
     """Async resolve fields."""
     result: EventType = dict()
-    tasks = list()
     requested_fields = \
         util.get_requested_fields('findings',
                                   info.field_nodes[0].selection_set) \
@@ -184,12 +180,7 @@ async def resolve(info, identifier: str = '',
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
-        tasks.append(
-            asyncio.ensure_future(resolver_func(info, **params))
-        )
-    tasks_result = await asyncio.gather(*tasks)
-    for dict_result in tasks_result:
-        result.update(dict_result)
+        result[requested_field] = resolver_func(info, **params)
     return result
 
 

@@ -83,3 +83,6 @@ django-apps/**/dist
 /.coverage*
 /.DynamoDB
 /.tmp
+
+# Reports
+*.xlsx
