@@ -6,6 +6,7 @@ import functools
 import re
 
 import rollbar
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -397,12 +398,12 @@ def get_entity_cache_async(func):
             f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{complement}'
         key_name = key_name.lower()
         try:
-            ret = cache.get(key_name)
+            ret = await sync_to_async(cache.get)(key_name)
             if ret is None:
                 ret = await func(*args, **kwargs)
                 if isinstance(ret, Promise):
                     ret = ret.get()
-                cache.set(key_name, ret, timeout=CACHE_TTL)
+                await sync_to_async(cache.set)(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException:
             rollbar.report_exc_info()
