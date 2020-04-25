@@ -22,6 +22,8 @@ greater impact when exploiting other vulnerabilities.
 
 == Findings
 
+* link:/web/findings/031/[F031. Unnecessary application privileges]
+
 * link:/web/findings/099/[F099. Excessive privileges]
 
 == References

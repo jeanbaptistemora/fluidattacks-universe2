@@ -1,0 +1,20 @@
+:slug: findings/031/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising form granting an application unnecessary privileges, recommendations to avoid them and related security requirements.
+:keywords: Excessive, Privileges, Permissions, Unnecessary, Application, System
+:findings: yes
+:type: security
+
+= F031. Unnecessary application privileges
+
+== Description
+
+The application has unnecessary privileges over the system on which it is
+running.
+This can be leveraged by an attacker to execute normally restricted actions on
+the system.
+
+== Rules
+
+. [[r1]] link:/web/rules/186/[R186. Use minimum level of privileges]
+
+. [[r2]] link:/web/rules/269/[R269. Use the principle of least privilege]

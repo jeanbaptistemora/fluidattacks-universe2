@@ -1,0 +1,16 @@
+:slug: findings/036/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from having an unencrypted ViewState, recommendations to avoid them and related security requirements.
+:keywords: ViewState, View, Stated, Encrypt, Unencrypted, Session
+:findings: yes
+:type: security
+
+= F036. ViewState not encrypted
+
+== Description
+
+The state information of application forms that is stored in the ViewState is
+not encrypted.
+
+== Rules
+
+. [[r1]] link:/web/rules/026/[R026. Encrypt client-side session information]

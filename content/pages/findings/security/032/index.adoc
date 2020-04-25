@@ -1,0 +1,22 @@
+:slug: findings/032/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling user impersonation attacks, recommendations to avoid them and related security requirements.
+:keywords: User, Impersonation, Privilege, Escalation, Permissions, Account
+:findings: yes
+:type: security
+
+= F032. User impersonation
+
+== Description
+
+It is possible to modify sensitive information of privileged accounts using a
+standard account.
+
+== Rules
+
+. [[r1]] link:/web/rules/035/[R035. Manage privilege modifications]
+
+. [[r2]] link:/web/rules/096/[R096. Set user required privileges]
+
+. [[r3]] link:/web/rules/176/[R176. Restrict system objects]
+
+. [[r4]] link:/web/rules/320/[R320. Avoid client-side control enforcement]

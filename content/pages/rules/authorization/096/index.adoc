@@ -20,6 +20,8 @@ should also be clearly stated.
 
 == Findings
 
+* link:/web/findings/032/[F032. User impersonation]
+
 * link:/web/findings/039/[F039. Improper authorization control for web services]
 
 * link:/web/findings/075/[F075. Unauthorized access to files]

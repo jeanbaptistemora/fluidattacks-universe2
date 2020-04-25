@@ -1,0 +1,18 @@
+:slug: findings/028/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from storing credentials in cache memory, recommendations to avoid them and related security requirements.
+:keywords: Administrative, Credential, Cache, Memory, Obtain, System
+:findings: yes
+:type: security
+
+= F028. Insecure temporary files
+
+== Description
+
+The system uses temporary files to store sensitive information.
+Alternatively, deploys sensitive temporary files to the production environment.
+
+== Rules
+
+. [[r1]] link:/web/rules/036/[R036. Do not deploy temporary files]
+
+. [[r2]] link:/web/rules/177/[R177. Avoid caching and temporary files]

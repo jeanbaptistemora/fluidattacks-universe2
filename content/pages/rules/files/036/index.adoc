@@ -8,4 +8,8 @@
 
 == Requirement
 
-The system must not deploy temporary files in production environments.
+The system must not deploy temporary files to production environments.
+
+== Findings
+
+* link:/web/findings/028/[F028. Insecure temporary files]

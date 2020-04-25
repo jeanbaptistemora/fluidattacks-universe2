@@ -20,6 +20,8 @@ to being bypassed and/or tampered with.
 
 == Findings
 
+* link:/web/findings/032/[F032. User impersonation]
+
 * link:/web/findings/039/[F039. Improper authorization control for web services]
 
 * link:/web/findings/063/[F063. Lack of data validation]

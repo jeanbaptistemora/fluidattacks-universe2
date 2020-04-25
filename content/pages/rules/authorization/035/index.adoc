@@ -13,3 +13,5 @@ The system must not allow system actors to modify privileges for themselves.
 == Findings
 
 * link:/web/findings/005/[F005. Privilege escalation]
+
+* link:/web/findings/032/[F032. User impersonation]

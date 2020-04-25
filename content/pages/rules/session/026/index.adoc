@@ -11,6 +11,10 @@
 The system must encrypt and verify
 client-side session information (ViewState).
 
+== Findings
+
+* link:/web/findings/036/[F036. ViewState not encrypted]
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
