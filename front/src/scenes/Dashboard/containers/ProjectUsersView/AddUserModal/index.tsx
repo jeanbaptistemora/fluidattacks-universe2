@@ -31,7 +31,9 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
     ? translate.t("search_findings.tab_users.title")
     : translate.t("search_findings.tab_users.edit_user_title");
   title = props.projectName === undefined ? translate.t("sidebar.user") : title;
-
+  const adminOption: JSX.Element | undefined = props.isSideBar ?
+    <option value="ADMIN">{translate.t("search_findings.tab_users.admin")}</option> :
+    undefined;
   const selector: (state: {}, ...field: string[]) => string = formValueSelector("addUser");
   const userEmail: string = useSelector((state: {}) => selector(state, "email"));
 
@@ -100,7 +102,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                       <option value="" />
                       <Can do="backend_api_resolvers_user__do_grant_user_access_internal_roles">
                         <option value="ANALYST">{translate.t("search_findings.tab_users.analyst")}</option>
-                        <option value="ADMIN">{translate.t("search_findings.tab_users.admin")}</option>
+                        {adminOption}
                       </Can>
                       <option value="CUSTOMER">{translate.t("search_findings.tab_users.customer")}</option>
                       <option value="CUSTOMERADMIN">{translate.t("search_findings.tab_users.customeradmin")}</option>

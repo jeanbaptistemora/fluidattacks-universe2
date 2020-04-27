@@ -8,6 +8,7 @@ export interface IUserDataAttr {
 
 export interface IAddUserModalProps {
   initialValues: {};
+  isSideBar: boolean;
   open: boolean;
   projectName?: string;
   type: "add" | "edit";
