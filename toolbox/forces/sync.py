@@ -15,7 +15,6 @@ from typing import (
 
 # Local libraries
 from toolbox import (
-    helper,
     api,
     logger,
     utils,
@@ -157,9 +156,9 @@ def _validate_one_static_exploit(
         os.remove(exploit_output_path)
 
     integrates_repositories_status = \
-        helper.integrates.get_finding_static_repos_states(finding_id)
+        utils.integrates.get_finding_static_repos_states(finding_id)
     integrates_repositories_vulns = \
-        helper.integrates.get_finding_static_repos_vulns(finding_id)
+        utils.integrates.get_finding_static_repos_vulns(finding_id)
 
     repositories_local: Set[str] = {
         repository
@@ -266,7 +265,7 @@ def _validate_one_dynamic_exploit(
         os.remove(exploit_output_path)
 
     integrates_vulns = \
-        helper.integrates.get_finding_dynamic_states(finding_id)
+        utils.integrates.get_finding_dynamic_states(finding_id)
     integrates_vulns_open = \
         sum(1 for _, _, is_open in integrates_vulns if is_open)
     integrates_vulns_closed = \
@@ -359,9 +358,9 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
             continue
 
         finding_id = \
-            helper.forces.scan_exploit_for_kind_and_id(exploit_path)[1]
+            utils.forces.scan_exploit_for_kind_and_id(exploit_path)[1]
 
-        if not helper.integrates.does_finding_exist(finding_id):
+        if not utils.integrates.does_finding_exist(finding_id):
             logger.error(f'This finding does not exist at integrates!')
             logger.error(f'  finding_id: {finding_id}')
             logger.error(f'  exploit_path: {exploit_path}')
@@ -402,9 +401,9 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> List[dict]:
             continue
 
         finding_id = \
-            helper.forces.scan_exploit_for_kind_and_id(exploit_path)[1]
+            utils.forces.scan_exploit_for_kind_and_id(exploit_path)[1]
 
-        if not helper.integrates.does_finding_exist(finding_id):
+        if not utils.integrates.does_finding_exist(finding_id):
             logger.error(f'This finding does not exist at integrates!')
             logger.error(f'  finding_id: {finding_id}')
             logger.error(f'  exploit_path: {exploit_path}')
@@ -443,7 +442,7 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
     """Check if exploits results are the same as on Integrates."""
     utils.generic.aws_login(f'continuous-{subs}')
 
-    config = helper.forces.get_forces_configuration(subs)
+    config = utils.forces.get_config(subs)
     config = config['schedules']['synchronization']
 
     # Always run locally, and conditionally on the CI

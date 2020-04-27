@@ -1,6 +1,6 @@
 # Local libraries
-from toolbox.helper.forces import (
-    get_forces_configuration,
+from toolbox.utils.forces import (
+    get_config,
 )
 
 # Constants
@@ -8,8 +8,8 @@ SUBS: str = 'continuoustest'
 SUBS_BAD: str = 'not-existing-subscription'
 
 
-def test_get_forces_configuration(relocate):
-    assert get_forces_configuration(SUBS) == {
+def test_get_config(relocate):
+    assert get_config(SUBS) == {
         'schedules': {
             'synchronization': {
                 'dynamic': {
@@ -21,7 +21,7 @@ def test_get_forces_configuration(relocate):
             },
         },
     }
-    assert get_forces_configuration(SUBS_BAD) == {
+    assert get_config(SUBS_BAD) == {
         'schedules': {
             'synchronization': {
                 'dynamic': {

@@ -10,7 +10,7 @@ from itertools import repeat
 import ruamel.yaml as yaml
 
 # Local imports
-from toolbox import constants, helper, logger, toolbox, utils
+from toolbox import constants, logger, toolbox, utils
 
 ExploitInfo = NamedTuple(
     'ExploitInfo',
@@ -37,14 +37,14 @@ def process_exp(customer_subs, cache, exp_path):
         if subs not in customer_subs:
             return None
 
-        exp_kind, fin_id = helper.forces.scan_exploit_for_kind_and_id(exp_path)
+        exp_kind, fin_id = utils.forces.scan_exploit_for_kind_and_id(exp_path)
 
         int_status = (
             'accepted'
             if 'accepted' in exp_path
             else (
                 'open'
-                if helper.integrates.is_finding_open(
+                if utils.integrates.is_finding_open(
                     finding_id=fin_id,
                     finding_types=(
                         constants.SAST
@@ -54,8 +54,8 @@ def process_exp(customer_subs, cache, exp_path):
                 )
                 else 'closed'
             ))
-        int_score = helper.integrates.get_finding_cvss_score(fin_id)
-        int_title = helper.integrates.get_finding_title(fin_id)
+        int_score = utils.integrates.get_finding_cvss_score(fin_id)
+        int_title = utils.integrates.get_finding_title(fin_id)
 
         row = {
             'subscription': subs,
@@ -136,7 +136,7 @@ def process_exploit(exp_path: str):
     subs = exp_path.split('/')[1]
     exp_type = exp_path.split('/')[3]
 
-    exp_kind, finding_id = helper.forces.scan_exploit_for_kind_and_id(exp_path)
+    exp_kind, finding_id = utils.forces.scan_exploit_for_kind_and_id(exp_path)
 
     if exp_kind == 'cannot.exp':
         reason_pattern = constants.RE_EXPLOIT_REASON
@@ -147,14 +147,14 @@ def process_exploit(exp_path: str):
             if search_r and len(search_r.groups()) >= 1:
                 reason = search_r.groups()[0]
 
-    if helper.integrates.does_finding_exist(finding_id):
-        score = helper.integrates.get_finding_cvss_score(finding_id)
-        title = helper.integrates.get_finding_title(finding_id)
+    if utils.integrates.does_finding_exist(finding_id):
+        score = utils.integrates.get_finding_cvss_score(finding_id)
+        title = utils.integrates.get_finding_title(finding_id)
 
         url = ('https://fluidattacks.com/integrates/dashboard#!/'
                f'project/{subs}/findings/{finding_id}/evidence')
         status = ('accepted' if 'accepted' in exp_path else
-                  ('open' if helper.integrates.is_finding_open(
+                  ('open' if utils.integrates.is_finding_open(
                       finding_id=finding_id,
                       finding_types=(constants.SAST if exp_type == 'static'
                                      else constants.DAST)) else 'closed'))

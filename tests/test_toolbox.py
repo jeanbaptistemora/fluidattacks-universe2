@@ -8,7 +8,6 @@ import pytest
 # Local libraries
 from toolbox import (
     forces,
-    helper,
     toolbox,
     utils
 )
@@ -48,7 +47,7 @@ def test_toolbox_reporting_cycle(relocate):
     assert toolbox.report_vulnerabilities(SUBS, vulns_name=None)
 
     # remove the reported vulnerabilities
-    assert helper.integrates.delete_pending_vulns(FINDING)
+    assert utils.integrates.delete_pending_vulns(FINDING)
 
 
 def test__get_static_dictionary():

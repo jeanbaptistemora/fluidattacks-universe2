@@ -18,7 +18,7 @@ from typing import (
 import ruamel.yaml as yaml
 
 # Local libraries
-from toolbox import api, constants, helper, logger, utils
+from toolbox import api, constants, logger, utils
 
 # Compiled regular expresions
 RE_FINDING_TITLE = re.compile(r'^\s*(\w+)[^\d]*(\d+).*$', flags=re.I)
@@ -129,7 +129,7 @@ def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
         created_dynamic_mocks[subscription] = []
 
         for finding_id, finding_title in \
-                helper.integrates.get_project_findings(subscription):
+                utils.integrates.get_project_findings(subscription):
             re_match = RE_FINDING_TITLE.search(finding_title)
             if not re_match:
                 logger.error(f'bad title format for {finding_title}')
@@ -140,7 +140,7 @@ def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
             cannot_exploit_name = \
                 f'{let.lower()}-{num}-{finding_id}.cannot.exp'
 
-            sast, dast = helper.integrates.get_finding_type(finding_id)
+            sast, dast = utils.integrates.get_finding_type(finding_id)
 
             sast_folder = \
                 f'subscriptions/{subscription}/forces/static/exploits'
@@ -151,7 +151,7 @@ def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
             cannot_sast_path = f'{sast_folder}/{cannot_exploit_name}'
             cannot_dast_path = f'{dast_folder}/{cannot_exploit_name}'
 
-            finding_title = helper.integrates.get_finding_title(finding_id)
+            finding_title = utils.integrates.get_finding_title(finding_id)
 
             if sast and not any(map(os.path.exists,
                                     (sast_path, cannot_sast_path))):
@@ -197,24 +197,24 @@ def generate_exploits(subs_glob: str) -> bool:
             subscription_regex.search(exploit_path).group(1)  # type: ignore
 
         exploit_kind, finding_id = \
-            helper.forces.scan_exploit_for_kind_and_id(exploit_path)
+            utils.forces.scan_exploit_for_kind_and_id(exploit_path)
 
         if not exploit_kind or not finding_id:
             logger.warn(f'{exploit_path} has no (exploit-kind or finding-id)!')
             os.remove(exploit_path)
             continue
 
-        if not helper.integrates.does_finding_exist(finding_id):
+        if not utils.integrates.does_finding_exist(finding_id):
             logger.warn(f'{exploit_path} does not exist on Integrates!')
             os.remove(exploit_path)
             continue
 
-        if not helper.integrates.is_finding_released(finding_id):
+        if not utils.integrates.is_finding_released(finding_id):
             logger.warn(f'{exploit_path} has not been released on Integrates!')
             os.remove(exploit_path)
             continue
 
-        if not helper.integrates.is_finding_in_subscription(
+        if not utils.integrates.is_finding_in_subscription(
                 finding_id, subscription):
             logger.warn(f'{exploit_path} is not member of {subscription}!')
             os.remove(exploit_path)
@@ -224,27 +224,27 @@ def generate_exploits(subs_glob: str) -> bool:
         is_a_mock: bool = exploit_kind in ('mock.exp', 'cannot.exp')
         if is_a_mock:
             finding_title = sanitize_string(
-                helper.integrates.get_finding_title(finding_id))
+                utils.integrates.get_finding_title(finding_id))
             finding_description = sanitize_string(
-                helper.integrates.get_finding_description(finding_id))
+                utils.integrates.get_finding_description(finding_id))
             finding_threat = sanitize_string(
-                helper.integrates.get_finding_threat(finding_id))
+                utils.integrates.get_finding_threat(finding_id))
             finding_attack_vector = sanitize_string(
-                helper.integrates.get_finding_attack_vector(finding_id))
+                utils.integrates.get_finding_attack_vector(finding_id))
             finding_recommendation = sanitize_string(
-                helper.integrates.get_finding_recommendation(finding_id))
+                utils.integrates.get_finding_recommendation(finding_id))
 
             if '/forces/static/exploits/' in exploit_path:
-                finding_state = helper.integrates.is_finding_open(
+                finding_state = utils.integrates.is_finding_open(
                     finding_id, constants.SAST)
-                finding_repos = helper.integrates.get_finding_repos(
+                finding_repos = utils.integrates.get_finding_repos(
                     finding_id)
                 create_mock_static_exploit(
                     exploit_path, finding_state, finding_repos,
                     finding_title, finding_description, finding_threat,
                     finding_attack_vector, finding_recommendation)
             elif '/forces/dynamic/exploits/' in exploit_path:
-                finding_state = helper.integrates.is_finding_open(
+                finding_state = utils.integrates.is_finding_open(
                     finding_id, constants.DAST)
                 create_mock_dynamic_exploit(
                     exploit_path, finding_state,
@@ -254,7 +254,7 @@ def generate_exploits(subs_glob: str) -> bool:
                 logger.warn(f'{exploit_path} is not static nor dynamic')
 
         # If it's accepted, move it to the accepted-exploits folder
-        if helper.integrates.is_finding_accepted(finding_id):
+        if utils.integrates.is_finding_accepted(finding_id):
             logger.info(f'MOVE: {exploit_path} is accepted...')
             os.rename(
                 exploit_path,
@@ -431,7 +431,7 @@ def delete_pending_vulnerabilities(subs: str,
                                    run_kind: str = 'all'):
     """Delete pending vulnerabilities for a subscription."""
     for _, vulns_path in utils.generic.iter_vulns_path(subs, exp, run_kind):
-        _, finding_id = helper.forces.scan_exploit_for_kind_and_id(vulns_path)
+        _, finding_id = utils.forces.scan_exploit_for_kind_and_id(vulns_path)
 
         result = False
         exp_kind = vulns_path.split('/')[3]
@@ -441,7 +441,7 @@ def delete_pending_vulnerabilities(subs: str,
         logger.info(
             f'deleting: {vulns_path}')
 
-        result = helper.integrates.delete_pending_vulns(
+        result = utils.integrates.delete_pending_vulns(
             finding_id=finding_id)
 
         if result:
@@ -457,7 +457,7 @@ def report_vulnerabilities(subs: str, vulns_name: str,
     for vulns_path, exploit_path in utils.generic.iter_vulns_path(
             subs, vulns_name, run_kind):
         _, finding_id = \
-            helper.forces.scan_exploit_for_kind_and_id(exploit_path)
+            utils.forces.scan_exploit_for_kind_and_id(exploit_path)
 
         kind = vulns_path.split('/')[3]
         if not run_kind == kind and run_kind != 'all':
@@ -596,7 +596,7 @@ def _get_static_dictionary(finding_id) -> dict:
     dictionary: dict = {}
 
     for repo, rel_path, _, _ in \
-            helper.integrates.get_finding_static_states(finding_id):
+            utils.integrates.get_finding_static_states(finding_id):
 
         try:
             dictionary[repo].add(rel_path)
@@ -613,13 +613,13 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
     """Print a dictionary with the subscription findings."""
     exploit_paths = sorted(
         glob.glob(f'subscriptions/{subs}/forces/*/exploits/*.exp'))
-    integrates_findings_ = helper.integrates.get_project_findings(subs)
+    integrates_findings_ = utils.integrates.get_project_findings(subs)
     if exp == 'local':
         integrates_findings = [
             record for record in integrates_findings_
             if any([
                 record[0]
-                in helper.forces.scan_exploit_for_kind_and_id(path)[1]
+                in utils.forces.scan_exploit_for_kind_and_id(path)[1]
                 for path in exploit_paths
             ])
         ]

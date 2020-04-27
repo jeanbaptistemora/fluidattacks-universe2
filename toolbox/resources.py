@@ -22,7 +22,7 @@ import ruamel.yaml as yaml
 
 # Local libraries
 from toolbox import logger
-from toolbox import utils, helper
+from toolbox import utils
 
 
 def cmd_execute(cmnd, folder='.'):
@@ -415,7 +415,7 @@ def get_active_missing_repos(subs):
         config = yaml.safe_load(config_handle.read())
         if not config.get('code'):
             return (None, None)
-    repositories = helper.integrates.get_project_repos(subs)
+    repositories = utils.integrates.get_project_repos(subs)
     integrates_active: list = []
     # Filter active repositories
     for repo in repositories:

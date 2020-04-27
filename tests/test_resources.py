@@ -7,7 +7,7 @@ import sys
 import pytest
 
 # Local libraries
-from toolbox import resources, helper
+from toolbox import resources
 
 # Constants
 SUBS: str = 'continuoustest'

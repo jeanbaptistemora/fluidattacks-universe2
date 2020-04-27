@@ -1,7 +1,7 @@
 # Local imports
 from toolbox import (
     api,
-    helper,
+    utils,
     constants,
     logger,
     reports,
@@ -12,7 +12,7 @@ from toolbox import (
 
 # Imported but unused
 assert api
-assert helper
+assert utils
 assert constants
 assert logger
 assert reports
