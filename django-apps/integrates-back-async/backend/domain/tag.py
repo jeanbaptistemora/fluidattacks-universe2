@@ -61,3 +61,7 @@ def update_organization_indicators(company: str,
         }
         success.append(tag_dal.update(company, tag, tag_info))
     return all(success)
+
+
+def get_attributes(organization: str, tag: str, attributes: List[str]) -> Dict[str, str]:
+    return tag_dal.get_attributes(organization, tag, attributes)

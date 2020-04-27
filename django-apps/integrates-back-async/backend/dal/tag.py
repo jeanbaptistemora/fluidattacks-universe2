@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List, Union
 import rollbar
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
@@ -40,3 +40,13 @@ def update(organization: str, tag: str, data: Dict[str, float]) -> bool:
     except ClientError:
         rollbar.report_message('Error: Couldn\'nt update tag', 'error')
     return success
+
+
+def get_attributes(
+        organization: str, tag: str, attributes: List[str]) -> Dict[str, str]:
+    item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
+        'Key': {'organization': organization.lower(), 'tag': tag.lower()},
+        'AttributesToGet': attributes
+    }
+    response = TABLE.get_item(**item_attrs)
+    return response.get('Item', {})

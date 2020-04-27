@@ -50,6 +50,7 @@ Resources = Dict[str, Union[
 ]]
 Tag = Dict[str, Union[
     str,
+    float,
     List[Project]
 ]]
 InternalProject = Dict[str, str]

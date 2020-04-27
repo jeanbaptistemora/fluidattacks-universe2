@@ -192,7 +192,15 @@ type Vulnerability {
 
 "Tag type definition"
 type Tag {
+    lastClosingVuln: Float
     name: String
+    maxSeverity: Float
+    maxOpenSeverity: Float
+    meanRemediateCriticalSeverity: Float
+    meanRemediateHighSeverity: Float
+    meanRemediateLowSeverity: Float
+    meanRemediateMediumSeverity: Float
+    meanRemediate: Float
     projects: [Project]
 }
 
