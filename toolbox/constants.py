@@ -59,3 +59,4 @@ EXP_LABELS = ('product-ch', 'product-ch', 'product-fn',
               'service-logic', 'toe-location', 'toe-resource', 'toe-unreach')
 RE_EXPLOIT_NAME = re.compile(
     r'/(?:\w+)-\d+-(\d+)\.(exp|mock\.exp|cannot.exp)$')
+RE_EXPLOIT_REASON = re.compile(r'(?::\s*(?P<reason>[\w ]+))')

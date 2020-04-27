@@ -139,7 +139,7 @@ def process_exploit(exp_path: str):
     exp_kind, finding_id = helper.forces.scan_exploit_for_kind_and_id(exp_path)
 
     if exp_kind == 'cannot.exp':
-        reason_pattern = r'(?::\s*(.*))'
+        reason_pattern = constants.RE_EXPLOIT_REASON
         with open(exp_path, 'r') as reader:
             reader.readline()
             reason_line = reader.readline()

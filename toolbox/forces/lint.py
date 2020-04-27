@@ -1,11 +1,15 @@
 # Standard library
 import ast
 from glob import glob
+from typing import (
+    Tuple,
+)
 
 # Third party libraries
 
 # Local libraries
 from toolbox import (
+    constants,
     logger,
     utils,
 )
@@ -86,11 +90,53 @@ def _one_exploit_by_path_for_deprecated_methods(exploit_path: str) -> bool:
     return True
 
 
+def _one_exploit_by_path_for_reason(exploit_path: str) -> bool:
+    success: bool = True
+    valid_reasons: Tuple[str, ...] = (
+        'ASSERTS CAPABILITIES',
+        'AVAILABILITY CONCERNS',
+        'REQUIRED HUMAN INTERACTION',
+        'UNREACHABLE ENVIRONMENT',
+        'OTHER',
+    )
+
+    if '.cannot' in exploit_path:
+        with open(exploit_path) as handle:
+            exploit_content = handle.read()
+
+        regex = constants.RE_EXPLOIT_REASON
+        regex_match = regex.search(exploit_content)
+        if regex_match:
+            reason = regex_match.groupdict().get('reason', '')
+            if reason in valid_reasons:
+                success = True
+            else:
+                success = False
+                logger.error(f"Invalid reason: {reason}")
+                logger.info(f'Valid exploit reasons are:')
+                for reason in valid_reasons:
+                    logger.info(f'- {reason}')
+        else:
+            success = False
+            logger.error(f'Exploit reasons must match: {regex}')
+            logger.info()
+            logger.info('Example:')
+            logger.info()
+            logger.info(
+                f'# Not possible exploit due to: UNREACHABLE ENVIRONMENT')
+            logger.info()
+    else:
+        success = True
+
+    return success
+
+
 def one_exploit_by_path(exploit_path: str) -> bool:
     """Run all linters available over one exploit."""
     return _one_exploit_by_path_with_prospector(exploit_path) \
         and _one_exploit_by_path_with_mypy(exploit_path) \
-        and _one_exploit_by_path_for_deprecated_methods(exploit_path)
+        and _one_exploit_by_path_for_deprecated_methods(exploit_path) \
+        and _one_exploit_by_path_for_reason(exploit_path)
 
 
 def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
