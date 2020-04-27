@@ -99,21 +99,28 @@ async def _get_findings(
         await sync_to_async(
             finding_domain.filter_deleted_findings)(all_findings)
     findings = await info.context.loaders['finding'].load_many(finding_ids)
-    as_field = True
 
     findings = [
-        await finding_loader.resolve(info, finding['id'],
-                                     as_field, selection_set)
+        await finding_loader.resolve(info, finding['id'], as_field=True,
+                                     selection_set=selection_set)
         for finding in findings
         if finding['current_state'] != 'DELETED'
     ]
+
+    # This should be called with all() in the future, but there's a known bug
+    # of Python that currently prevents it: https://bugs.python.org/issue39562
+    filtered = []
     if filters:
-        findings = [
-            finding for finding in findings
-            if all(str(finding[util.camelcase_to_snakecase(filt.name.value)])
-                   == str(filt.value.value) for filt in filters)
-        ]
-    return findings
+        for finding in findings:
+            hit_counter = 0
+            len_filters = len(filters)
+            for filt in filters:
+                filt_key = util.camelcase_to_snakecase(filt.name.value)
+                if await finding[filt_key] == str(filt.value.value):
+                    hit_counter += 1
+            if hit_counter == len_filters:
+                filtered.append(finding)
+    return filtered if filters else findings
 
 
 @get_entity_cache_async
@@ -127,16 +134,16 @@ async def _get_open_vulnerabilities(info, project_name: str,
     finding_vulns = \
         await info.context.loaders['vulnerability'].load_many(finding_ids)
 
-    # This should be async in the future, but there's a known bug of
-    # Python that currently prevents it: https://bugs.python.org/issue39562
-    open_vulnerabilities = sum([
-        sum(1 for vuln in vulns
-            if vuln_domain.get_current_state(vuln) == 'open'
-            and
-            (vuln['current_approval_status'] != 'PENDING' or
-             vuln['last_approved_status']))
-        for vulns in finding_vulns
-    ])
+    # This should be a list comprehension in the future, but there's a known
+    # bug of Python that prevents it: https://bugs.python.org/issue39562
+    open_vulnerabilities = 0
+    for vulns in finding_vulns:
+        for vuln in vulns:
+            state = await sync_to_async(vuln_domain.get_current_state)(vuln)
+            if state == 'open' and \
+                (vuln['current_approval_status'] != 'PENDING' or
+                 vuln['last_approved_status']):
+                open_vulnerabilities += 1
     return open_vulnerabilities
 
 
@@ -166,16 +173,16 @@ async def _get_closed_vulnerabilities(
     finding_vulns = \
         await info.context.loaders['vulnerability'].load_many(finding_ids)
 
-    # This should be async in the future, but there's a known bug of
-    # Python that currently prevents it: https://bugs.python.org/issue39562
-    closed_vulnerabilities = sum([
-        sum(1 for vuln in vulns
-            if vuln_domain.get_current_state(vuln) == 'closed'
-            and
-            (vuln['current_approval_status'] != 'PENDING' or
-             vuln['last_approved_status']))
-        for vulns in finding_vulns
-    ])
+    # This should be a list comprehension in the future, but there's a known
+    # bug of Python that prevents it: https://bugs.python.org/issue39562
+    closed_vulnerabilities = 0
+    for vulns in finding_vulns:
+        for vuln in vulns:
+            state = await sync_to_async(vuln_domain.get_current_state)(vuln)
+            if state == 'closed' and \
+                (vuln['current_approval_status'] != 'PENDING' or
+                 vuln['last_approved_status']):
+                closed_vulnerabilities += 1
     return closed_vulnerabilities
 
 

@@ -1,7 +1,6 @@
 # pylint: disable=method-hidden
 
 from collections import defaultdict
-import asyncio
 import sys
 
 from asgiref.sync import sync_to_async
@@ -89,7 +88,7 @@ async def _get_vulnerabilities(info, identifier, state=None):
              if vuln_domain.get_current_state(vuln) == state and
              (vuln['current_approval_status'] != 'PENDING' or
               vuln['last_approved_status'])]
-    return dict(vulnerabilities=vuln_filtered)
+    return vuln_filtered
 
 
 @get_entity_cache_async
@@ -102,7 +101,7 @@ async def _get_ports_vulns(info, identifier):
         [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'ports'
             and (vuln['current_approval_status'] != 'PENDING' or
                  vuln['last_approved_status'])]
-    return dict(ports_vulns=vuln_filtered)
+    return vuln_filtered
 
 
 @get_entity_cache_async
@@ -115,7 +114,7 @@ async def _get_inputs_vulns(info, identifier):
         [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'inputs'
             and (vuln['current_approval_status'] != 'PENDING' or
                  vuln['last_approved_status'])]
-    return dict(inputs_vulns=vuln_filtered)
+    return vuln_filtered
 
 
 @get_entity_cache_async
@@ -128,7 +127,7 @@ async def _get_lines_vulns(info, identifier):
         [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'lines'
             and (vuln['current_approval_status'] != 'PENDING' or
                  vuln['last_approved_status'])]
-    return dict(lines_vulns=vuln_filtered)
+    return vuln_filtered
 
 
 @rename_kwargs({'identifier': 'finding_id'})
@@ -142,20 +141,20 @@ async def _get_pending_vulns(info, identifier):
     vuln_filtered = \
         [vuln for vuln in vuln_filtered
             if vuln['current_approval_status'] == 'PENDING']
-    return dict(pending_vulns=vuln_filtered)
+    return vuln_filtered
 
 
 @sync_to_async
 def _get_id(_, identifier):
     """Get id."""
-    return dict(id=identifier)
+    return identifier
 
 
 @get_entity_cache_async
 async def _get_project_name(info, identifier):
     """Get project_name."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(project_name=finding['project_name'])
+    return finding['project_name']
 
 
 @get_entity_cache_async
@@ -169,7 +168,7 @@ async def _get_open_vulnerabilities(info, identifier):
         and
         (vuln['current_approval_status'] != 'PENDING' or
             vuln['last_approved_status'])])
-    return dict(open_vulnerabilities=open_vulnerabilities)
+    return open_vulnerabilities
 
 
 @get_entity_cache_async
@@ -183,7 +182,7 @@ async def _get_closed_vulnerabilities(info, identifier):
         and
         (vuln['current_approval_status'] != 'PENDING' or
             vuln['last_approved_status'])])
-    return dict(closed_vulnerabilities=closed_vulnerabilities)
+    return closed_vulnerabilities
 
 
 @get_entity_cache_async
@@ -198,7 +197,7 @@ async def _get_release_date(info, identifier):
         user_domain.get_group_level_role(user_email, finding['project_name'])
     if not release_date and curr_user_role not in allowed_roles:
         raise GraphQLError('Access denied')
-    return dict(release_date=release_date)
+    return release_date
 
 
 @get_entity_cache_async
@@ -213,7 +212,7 @@ async def _get_tracking(info, identifier):
             sync_to_async(finding_domain.get_tracking_vulnerabilities)(vulns)
     else:
         tracking = []
-    return dict(tracking=tracking)
+    return tracking
 
 
 @get_entity_cache_async
@@ -225,21 +224,21 @@ async def _get_records(info, identifier):
             finding['project_name'], finding['id'], finding['records']['url'])
     else:
         records = []
-    return dict(records=records)
+    return records
 
 
 @get_entity_cache_async
 async def _get_severity(info, identifier):
     """Get severity."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(severity=finding['severity'])
+    return finding['severity']
 
 
 @get_entity_cache_async
 async def _get_cvss_version(info, identifier):
     """Get cvss_version."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(cvss_version=finding['cvss_version'])
+    return finding['cvss_version']
 
 
 @get_entity_cache_async
@@ -254,14 +253,14 @@ async def _get_exploit(info, identifier):
                 finding['exploit']['url'])
     else:
         exploit = ''
-    return dict(exploit=exploit)
+    return exploit
 
 
 @get_entity_cache_async
 async def _get_evidence(info, identifier):
     """Get evidence."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(evidence=finding['evidence'])
+    return finding['evidence']
 
 
 @get_entity_cache_async
@@ -276,7 +275,7 @@ async def _get_comments(info, identifier):
     comments = await sync_to_async(comment_domain.get_comments)(
         project_name, finding_id, user_email
     )
-    return dict(comments=comments)
+    return comments
 
 
 @rename_kwargs({'identifier': 'finding_id'})
@@ -293,7 +292,7 @@ async def _get_observations(info, identifier):
     observations = await sync_to_async(comment_domain.get_observations)(
         project_name, finding_id, user_email
     )
-    return dict(observations=observations)
+    return observations
 
 
 @get_entity_cache_async
@@ -306,7 +305,7 @@ async def _get_state(info, identifier):
             if await sync_to_async(vuln_domain.get_last_approved_status)(vuln)
             == 'open'] \
         else 'closed'
-    return dict(state=state)
+    return state
 
 
 @get_entity_cache_async
@@ -315,8 +314,7 @@ async def _get_last_vulnerability(info, identifier):
     finding = await info.context.loaders['finding'].load(identifier)
     last_vuln_date = \
         util.calculate_datediff_since(finding['last_vulnerability'])
-    last_vulnerability = last_vuln_date.days
-    return dict(last_vulnerability=last_vulnerability)
+    return last_vuln_date.days
 
 
 @rename_kwargs({'identifier': 'finding_id'})
@@ -326,147 +324,147 @@ async def _get_last_vulnerability(info, identifier):
 async def _get_historic_state(info, identifier):
     """Get historic_state."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(historic_state=finding['historic_state'])
+    return finding['historic_state']
 
 
 @get_entity_cache_async
 async def _get_title(info, identifier):
     """Get title."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(title=finding['title'])
+    return finding['title']
 
 
 @get_entity_cache_async
 async def _get_scenario(info, identifier):
     """Get scenario."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(scenario=finding['scenario'])
+    return finding['scenario']
 
 
 @get_entity_cache_async
 async def _get_actor(info, identifier):
     """Get actor."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(actor=finding['actor'])
+    return finding['actor']
 
 
 @get_entity_cache_async
 async def _get_description(info, identifier):
     """Get description."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(description=finding['description'])
+    return finding['description']
 
 
 @get_entity_cache_async
 async def _get_requirements(info, identifier):
     """Get requirements."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(requirements=finding['requirements'])
+    return finding['requirements']
 
 
 @get_entity_cache_async
 async def _get_attack_vector_desc(info, identifier):
     """Get attack_vector_desc."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(attack_vector_desc=finding['attack_vector_desc'])
+    return finding['attack_vector_desc']
 
 
 @get_entity_cache_async
 async def _get_threat(info, identifier):
     """Get threat."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(threat=finding['threat'])
+    return finding['threat']
 
 
 @get_entity_cache_async
 async def _get_recommendation(info, identifier):
     """Get recommendation."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(recommendation=finding['recommendation'])
+    return finding['recommendation']
 
 
 @get_entity_cache_async
 async def _get_affected_systems(info, identifier):
     """Get affected_systems."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(affected_systems=finding['affected_systems'])
+    return finding['affected_systems']
 
 
 @get_entity_cache_async
 async def _get_compromised_attributes(info, identifier):
     """Get compromised_attributes."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(compromised_attributes=finding['compromised_attributes'])
+    return finding['compromised_attributes']
 
 
 @get_entity_cache_async
 async def _get_compromised_records(info, identifier):
     """Get compromised_records."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(compromised_records=finding['compromised_records'])
+    return finding['compromised_records']
 
 
 @get_entity_cache_async
 async def _get_cwe_url(info, identifier):
     """Get cwe_url."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(cwe_url=finding['cwe_url'])
+    return finding['cwe_url']
 
 
 @get_entity_cache_async
 async def _get_bts_url(info, identifier):
     """Get bts_url."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(bts_url=finding['bts_url'])
+    return finding['bts_url']
 
 
 @get_entity_cache_async
 async def _get_risk(info, identifier):
     """Get risk."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(risk=finding['risk'])
+    return finding['risk']
 
 
 @get_entity_cache_async
 async def _get_remediated(info, identifier):
     """Get remediated."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(remediated=finding['remediated'])
+    return finding['remediated']
 
 
 @get_entity_cache_async
 async def _get_type(info, identifier):
     """Get type."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(type=finding['type'])
+    return finding['type']
 
 
 @get_entity_cache_async
 async def _get_age(info, identifier):
     """Get age."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(age=finding['age'])
+    return finding['age']
 
 
 @get_entity_cache_async
 async def _get_is_exploitable(info, identifier):
     """Get is_exploitable."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(is_exploitable=finding['is_exploitable'])
+    return finding['is_exploitable']
 
 
 @get_entity_cache_async
 async def _get_severity_score(info, identifier):
     """Get severity_score."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(severity_score=finding['severity_score'])
+    return finding['severity_score']
 
 
 @get_entity_cache_async
 async def _get_report_date(info, identifier):
     """Get report_date."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(report_date=finding['report_date'])
+    return finding['report_date']
 
 
 @rename_kwargs({'identifier': 'finding_id'})
@@ -476,41 +474,40 @@ async def _get_report_date(info, identifier):
 async def _get_analyst(info, identifier):
     """Get analyst."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(analyst=finding['analyst'])
+    return finding['analyst']
 
 
 @get_entity_cache_async
 async def _get_historic_treatment(info, identifier):
     """Get historic_treatment."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(historic_treatment=finding['historic_treatment'])
+    return finding['historic_treatment']
 
 
 @get_entity_cache_async
 async def _get_current_state(info, identifier):
     """Get current_state."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(current_state=finding['current_state'])
+    return finding['current_state']
 
 
 @get_entity_cache_async
 async def _get_new_remediated(info, identifier):
     """Get new_remediated."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(new_remediated=finding['new_remediated'])
+    return finding['new_remediated']
 
 
 @get_entity_cache_async
 async def _get_verified(info, identifier):
     """Get verified."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return dict(verified=finding['verified'])
+    return finding['verified']
 
 
 async def resolve(info, identifier, as_field=False, selection_set=None):
     """Async resolve fields."""
     result = dict()
-    tasks = list()
     requested_fields = \
         selection_set.selections if as_field else \
         info.field_nodes[0].selection_set.selections
@@ -532,10 +529,5 @@ async def resolve(info, identifier, as_field=False, selection_set=None):
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
-        tasks.append(
-            asyncio.ensure_future(resolver_func(info, **params))
-        )
-    tasks_result = await asyncio.gather(*tasks)
-    for dict_result in tasks_result:
-        result.update(dict_result)
+        result[requested_field] = resolver_func(info, **params)
     return result
