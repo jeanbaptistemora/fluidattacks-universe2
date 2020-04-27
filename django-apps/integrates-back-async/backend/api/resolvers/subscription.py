@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 import asyncio
 import sys
 from typing import AsyncGenerator

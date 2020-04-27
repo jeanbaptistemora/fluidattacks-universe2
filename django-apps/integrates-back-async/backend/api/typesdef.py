@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 from ariadne import ObjectType, EnumType
 
 ALERT = ObjectType('Alert')

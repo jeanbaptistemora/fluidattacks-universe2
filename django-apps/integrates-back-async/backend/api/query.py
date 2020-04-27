@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 from backend.api.resolvers import (
     alert, finding, internal_project, event,
     forces, me, project, resource, tag, user

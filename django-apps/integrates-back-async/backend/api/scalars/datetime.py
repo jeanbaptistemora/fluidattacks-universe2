@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 from datetime import datetime
 import dateutil
 

@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 import json
 
 from ariadne import ScalarType

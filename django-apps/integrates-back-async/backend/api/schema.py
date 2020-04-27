@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 import os
 
 from backend.api.query import QUERY

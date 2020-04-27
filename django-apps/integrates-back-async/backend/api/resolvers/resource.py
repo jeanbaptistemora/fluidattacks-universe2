@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 from typing import Any, Dict, List, cast
 import re
 import sys

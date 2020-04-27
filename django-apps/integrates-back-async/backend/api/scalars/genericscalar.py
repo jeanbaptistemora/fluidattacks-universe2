@@ -1,4 +1,3 @@
-# pylint: disable=import-error
 from graphql.language.ast import (
     StringValueNode,
     BooleanValueNode,

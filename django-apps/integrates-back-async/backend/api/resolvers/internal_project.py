@@ -11,7 +11,7 @@ from ariadne import convert_kwargs_to_snake_case
 
 async def _resolve_fields() -> InternalProjectType:
     """Async resolve fields."""
-    name = sync_to_async(internal_project_domain.get_project_name)()
+    name = await sync_to_async(internal_project_domain.get_project_name)()
     result: InternalProjectType = dict()
     result['project_name'] = name
     return result

@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 from backend.api.resolvers import subscription
 
 from ariadne import SubscriptionType

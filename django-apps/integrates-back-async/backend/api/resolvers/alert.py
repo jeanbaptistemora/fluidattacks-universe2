@@ -1,7 +1,3 @@
-# pylint: disable=import-error
-
-import asyncio
-
 from asgiref.sync import sync_to_async
 from backend.decorators import (
     enforce_group_level_auth_async, require_login,
@@ -34,25 +30,13 @@ def _get_alert_fields(project_name: str, organization: str) -> AlertType:
     return result
 
 
-async def _resolve_fields(project_name: str, organization: str) -> AlertType:
-    """Async resolve fields."""
-    result: AlertType = dict()
-    future = asyncio.ensure_future(
-        _get_alert_fields(project_name, organization)
-    )
-    tasks_result = await asyncio.gather(future)
-    for dict_result in tasks_result:
-        result.update(dict_result)
-    return result
-
-
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_project_access
 async def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
     """Resolve alert query."""
-    return await _resolve_fields(project_name, organization)
+    return await _get_alert_fields(project_name, organization)
 
 
 @convert_kwargs_to_snake_case

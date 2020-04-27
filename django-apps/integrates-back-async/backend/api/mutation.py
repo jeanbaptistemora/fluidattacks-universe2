@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 from backend.api.resolvers import (
     alert, cache, event, finding, me, user, report, resource, project,
     subscription, vulnerability

@@ -1,4 +1,3 @@
-# pylint: disable=import-error
 import re
 
 from asgiref.sync import sync_to_async

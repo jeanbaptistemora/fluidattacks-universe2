@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-
 from collections import namedtuple
 from time import time
 import sys
