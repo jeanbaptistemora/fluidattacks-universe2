@@ -36,6 +36,25 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
+async def __get_filtered_findings(findings, filters):
+    """Return filtered findings accorging to filters."""
+    # This should be called with all() in the future, but there's a known bug
+    # of Python that currently prevents it: https://bugs.python.org/issue39562
+    filtered = []
+    if filters:
+        for finding in findings:
+            hit_counter = 0
+            len_filters = len(filters)
+            for filt in filters:
+                filt_key = util.camelcase_to_snakecase(filt.name.value)
+                coro_result = await finding[filt_key]
+                if str(coro_result) == str(filt.value.value):
+                    hit_counter += 1
+            if hit_counter == len_filters:
+                filtered.append(finding)
+    return filtered
+
+
 @sync_to_async
 def _get_name(_, project_name: str, **__) -> str:
     """Get name."""
@@ -106,20 +125,7 @@ async def _get_findings(
         for finding in findings
         if finding['current_state'] != 'DELETED'
     ]
-
-    # This should be called with all() in the future, but there's a known bug
-    # of Python that currently prevents it: https://bugs.python.org/issue39562
-    filtered = []
-    if filters:
-        for finding in findings:
-            hit_counter = 0
-            len_filters = len(filters)
-            for filt in filters:
-                filt_key = util.camelcase_to_snakecase(filt.name.value)
-                if await finding[filt_key] == str(filt.value.value):
-                    hit_counter += 1
-            if hit_counter == len_filters:
-                filtered.append(finding)
+    filtered = await __get_filtered_findings(findings, filters)
     return filtered if filters else findings
 
 
