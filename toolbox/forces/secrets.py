@@ -1,7 +1,6 @@
 # Standard library
 import glob
 import os
-import sys
 
 # Third party imports
 import ruamel.yaml as yaml
@@ -20,16 +19,14 @@ def encrypt(subs: str) -> bool:
 
     utils.generic.aws_login(f'continuous-{subs}')
 
-    for resources_path in glob.glob(
-            f'subscriptions/{subs}/forces/*/resources'):
-        plaintext_path: str = f'{resources_path}/plaintext.yml'
-        encrypted_path: str = f'{resources_path}/secrets.yml'
+    for resources in glob.glob(f'subscriptions/{subs}/forces/*/resources'):
+        plaintext: str = f'{resources}/plaintext.yml'
+        secrets: str = f'{resources}/secrets.yml'
 
-        logger.info(
-            f'Moving secrets from {plaintext_path} to {encrypted_path}')
+        logger.info(f'Moving secrets from {plaintext} to {secrets}')
 
-        with open(plaintext_path) as plaintext_handle, \
-                open(encrypted_path, 'w') as encrypted_handle:
+        with open(plaintext) as plaintext_handle, \
+                open(secrets, 'w') as encrypted_handle:
             crypto.create_encrypted_yaml(
                 key_b64=utils.generic.get_sops_secret(
                     f'forces_aws_secret_access_key',
@@ -53,54 +50,30 @@ def decrypt(subs: str) -> bool:
 
     utils.generic.aws_login(f'continuous-{subs}')
 
-    for resources_path in glob.glob(
-            f'subscriptions/{subs}/forces/*/resources'):
-        plaintext_path: str = f'{resources_path}/plaintext.yml'
-        encrypted_path: str = f'{resources_path}/secrets.yml'
+    for resources in glob.glob(f'subscriptions/{subs}/forces/*/resources'):
+        plaintext: str = f'{resources}/plaintext.yml'
+        secrets: str = f'{resources}/secrets.yml'
 
-        logger.info(
-            f'Moving secrets from {encrypted_path} to {plaintext_path}')
-
-        if not os.path.exists(encrypted_path):
-            logger.error(
-                f'  No secrets.yml file found for {subs}')
-            logger.error(
-                f'    1. run $ fluid forces --init-secrets {subs}')
-            logger.error(
-                f'    2. put your secrets in {plaintext_path}')
-            logger.error(
-                f'    3. run $ fluid forces --encrypt {subs} ')
-            sys.exit(78)
-        else:
-            crypto.create_decrypted_yaml(
-                key_b64=utils.generic.get_sops_secret(
-                    f'forces_aws_secret_access_key',
-                    f'subscriptions/{subs}/config/secrets.yaml',
-                    f'continuous-{subs}'),
-                input_file=encrypted_path,
-                output_file=plaintext_path)
-
-            logger.info('  Done!')
-    return True
-
-
-def init(subs: str) -> bool:
-    """Encrypt a secrets.yml file for a subscription."""
-    for resources_path in (
-            f'subscriptions/{subs}/forces/static/resources',
-            f'subscriptions/{subs}/forces/dynamic/resources'):
-        os.makedirs(resources_path, exist_ok=True)
-        plaintext_path: str = f'{resources_path}/plaintext.yml'
-
-        logger.info(f'Initializing {plaintext_path}')
-        if not os.path.exists(plaintext_path):
-            with open(plaintext_path, 'w') as plaintext_handle:
+        if not os.path.exists(secrets):
+            logger.info(f'Initializing {plaintext} because it did not exist')
+            with open(plaintext, 'w') as plaintext_handle:
                 plaintext_handle.write(yaml.safe_dump({  # type: ignore
                     'secrets': {
                         'test_user': 'Einstein',
                         'test_password': 'E=m*C^2',
                     },
                 }))
+        else:
+            logger.info(f'Moving secrets from {secrets} to {plaintext}')
+
+            crypto.create_decrypted_yaml(
+                key_b64=utils.generic.get_sops_secret(
+                    f'forces_aws_secret_access_key',
+                    f'subscriptions/{subs}/config/secrets.yaml',
+                    f'continuous-{subs}'),
+                input_file=secrets,
+                output_file=plaintext)
+
         logger.info('  Done!')
 
     encrypt(subs)

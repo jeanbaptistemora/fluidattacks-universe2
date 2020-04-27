@@ -28,9 +28,8 @@ def test_toolbox_statefull_functions(relocate_to_cloned_repo):
 
     try:
         # Secrets management
-        assert forces.secrets.init(SUBS)
-        assert forces.secrets.encrypt(SUBS)
         assert forces.secrets.decrypt(SUBS)
+        assert forces.secrets.encrypt(SUBS)
 
         # Deployment phase
         assert toolbox.fill_with_mocks(subs_glob=SUBS, create_files=True)

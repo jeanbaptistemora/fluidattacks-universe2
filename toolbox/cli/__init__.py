@@ -102,7 +102,6 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     '--decrypt', is_flag=True, help='decrypt the secrets of a subscription')
 @click.option(
     '--encrypt', is_flag=True, help='encrypt the secrets of a subscription')
-@click.option('--init-secrets', '--init', is_flag=True)
 @click.option('--fill-with-mocks', is_flag=True)
 @click.option('--generate-exploits', is_flag=True)
 @click.option('--get-vulns', type=click.Choice(['dynamic', 'static', 'all']))
@@ -130,7 +129,6 @@ def forces_management(
     check_sync,
     decrypt,
     encrypt,
-    init_secrets,
     fill_with_mocks,
     get_vulns,
     generate_exploits,
@@ -181,9 +179,6 @@ def forces_management(
 
     elif encrypt:
         success = forces.secrets.encrypt(subscription)
-
-    elif init_secrets:
-        success = forces.secrets.init(subscription)
 
     sys.exit(0 if success else 1)
 
