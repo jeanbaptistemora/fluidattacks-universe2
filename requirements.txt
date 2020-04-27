@@ -41,6 +41,7 @@ oyaml==0.9                  # fluidasserts
 paramiko==2.7.1             # fluidasserts.helper.ssh_helper
 pillow==7.1.1               # fluidasserts.format.captcha
 psycopg2==2.8.5             # fluidasserts.db.postgresql
+pydriller==1.14             # fluidasserts.proto.git
 pyhcl==0.4.3                # fluidasserts.cloud.aws.terraform
 pyopenssl==19.1.0           # fluidasserts.proto.ssl
 pygments==2.6.1             # fluidasserts

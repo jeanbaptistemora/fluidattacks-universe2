@@ -6,11 +6,11 @@
 # None
 
 # 3rd party imports
+from fluidasserts.proto import git
 import pytest
 pytestmark = pytest.mark.asserts_module('proto_git')
 
 # local imports
-from fluidasserts.proto import git
 
 
 # Constants
@@ -55,3 +55,15 @@ def test_has_insecure_gitignore_close():
     """Commit has insecure .gitignore?."""
     assert not git.has_insecure_gitignore(REPO_CLOSE)
     assert not git.has_insecure_gitignore(REPO_NOT_FOUND)
+
+def test_has_secret_in_git_history_open():
+    """Git history has secret."""
+    assert git.has_secret_in_git_history(
+        '.', 'test/static/lang/java/GenericExceptionsOpen.java',
+        'Q68+KUykdS_v+Tc%').is_open()
+
+def test_has_secret_in_git_history_closed():
+    """Git history has secret."""
+    assert git.has_secret_in_git_history(
+        '.', 'test/static/lang/java/GenericExceptionsClose.java',
+        'Q68+KUykdS_v+Tc%').is_closed()
