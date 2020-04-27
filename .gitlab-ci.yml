@@ -59,6 +59,17 @@ stages:
     refs:
       - master
 
+.in_mrs_and_master_branch: &in_mrs_and_master_branch
+  only:
+    refs:
+      - master
+      - merge_requests
+  except:
+    refs:
+      - branches
+      - triggers
+      - schedules
+
 .in_mrs: &in_mrs
   only:
     refs:
@@ -108,7 +119,7 @@ build_lambdas:
 
 coverage_report:
   <<: *with_nix
-  <<: *in_mrs
+  <<: *in_mrs_and_master_branch
   needs:
     - test_back
   stage: merge-request
