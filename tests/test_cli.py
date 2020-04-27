@@ -55,14 +55,14 @@ def test_forces(relocate):
     test_run_static = runner.invoke(
         cli, f'forces --run-exps --static all {SUBS}'.split())
     assert test_run_static.exit_code == 0
-    assert 'fin-0002-975673437.exp' in test_run_static.output
-    assert 'fin-0077-508273958.cannot.exp' in test_run_static.output
+    assert '975673437.exp' in test_run_static.output
+    assert '508273958.cannot.exp' in test_run_static.output
 
     test_run_dynamic = runner.invoke(
         cli, f'forces --run-exps --dynamic all {SUBS}'.split())
     assert test_run_dynamic.exit_code == 0
-    assert 'fin-0001-720412598.exp' in test_run_dynamic.output
-    assert 'fin-0002-975673437.cannot.exp' in test_run_dynamic.output
+    assert '720412598.exp' in test_run_dynamic.output
+    assert '975673437.cannot.exp' in test_run_dynamic.output
 
     plain_text = (f'subscriptions/{SUBS}/forces/'
                   'dynamic/resources/plaintext.yml')

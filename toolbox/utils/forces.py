@@ -1,6 +1,7 @@
 # Standard library
 import functools
 import os
+import re
 from typing import Tuple
 
 # Third party libraries
@@ -8,7 +9,6 @@ import ruamel.yaml as yaml
 
 # Local libraries
 from toolbox import (
-    constants,
     logger,
 )
 
@@ -45,11 +45,11 @@ def get_config(subs: str) -> dict:
 @functools.lru_cache(maxsize=None, typed=True)
 def scan_exploit_for_kind_and_id(exploit_path: str) -> Tuple[str, str]:
     """Scan the exploit in search of metadata."""
-    # /fin-1234-567890.exp        -> 567890, 'exp'
-    # /fin-1234-567890.mock.exp   -> 567890, 'mock.exp'
-    # /fin-1234-567890.cannot.exp -> 567890, 'cannot.exp'
+    # /567890.exp        -> 567890, 'exp'
+    # /567890.mock.exp   -> 567890, 'mock.exp'
+    # /567890.cannot.exp -> 567890, 'cannot.exp'
     exploit_kind, finding_id = '', ''
-    re_match = constants.RE_EXPLOIT_NAME.search(exploit_path)
+    re_match = re.search(r'/(\d+)\.(exp|mock.exp|cannot.exp)$', exploit_path)
     if re_match:
         finding_id, exploit_kind = re_match.groups()
     else:
