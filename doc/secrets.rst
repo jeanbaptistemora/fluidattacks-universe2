@@ -97,26 +97,26 @@ At this point, the directory structure looks something like this:
     subscriptions/some-subs-name/forces/
     ├── dynamic
     │   ├── exploits
-    │   │   ├── capec-93-889225719.exp
-    │   │   ├── fin-0043-601083224.exp
-    │   │   ├── fin-0063-695302231.cannot.exp
-    │   │   └── fin-0076-612653721.cannot.exp
+    │   │   ├── 889225719.exp
+    │   │   ├── 601083224.exp
+    │   │   ├── 695302231.cannot.exp
+    │   │   └── 612653721.cannot.exp
     │   └── resources
     │       ├── plaintext.yml
     │       └── secrets.yml
     └── static
         ├── exploits
-        │   ├── capec-0210-531993653.exp
-        │   ├── fin-0006-529485525.exp
-        │   ├── fin-0007-506022632.exp
-        │   ├── fin-0011-522244264.exp
-        │   ├── fin-0020-504994991.exp
-        │   ├── fin-0037-505041691.exp
-        │   ├── fin-0039-540214551.exp
-        │   ├── fin-0044-506033283.exp
-        │   ├── fin-0060-522308864.exp
-        │   ├── fin-0061-967254060.exp
-        │   └── fin-0063-528871763.exp
+        │   ├── 531993653.exp
+        │   ├── 529485525.exp
+        │   ├── 506022632.exp
+        │   ├── 522244264.exp
+        │   ├── 504994991.exp
+        │   ├── 505041691.exp
+        │   ├── 540214551.exp
+        │   ├── 506033283.exp
+        │   ├── 522308864.exp
+        │   ├── 967254060.exp
+        │   └── 528871763.exp
         └── resources
             ├── plaintext.yml
             └── secrets.yml
@@ -180,8 +180,8 @@ See this example:
 
 .. code:: diff
 
-    --- a/subscriptions/some-subs-name/forces/static/exploits/fin-0020-504994991.exp
-    +++ b/subscriptions/some-subs-name/forces/static/exploits/fin-0020-504994991.exp
+    --- a/subscriptions/some-subs-name/forces/static/exploits/504994991.exp
+    +++ b/subscriptions/some-subs-name/forces/static/exploits/504994991.exp
     @@ -2,6 +2,7 @@ import utilities
      from fluidasserts.proto import git
      from fluidasserts.utils import generic
@@ -235,7 +235,7 @@ Now inspect the output:
 
 .. code:: bash
 
-    continuous$ cat subscriptions/some-subs-name/forces/static/exploits/fin-0020-504994991.exp.out.yml
+    continuous$ cat subscriptions/some-subs-name/forces/static/exploits/504994991.exp.out.yml
 
 .. code:: yaml
 
