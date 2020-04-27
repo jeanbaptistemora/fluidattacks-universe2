@@ -39,9 +39,9 @@ def do_check_commit_msg() -> bool:
 @option('--is-drills-commit', is_flag=True)
 @option('--is-exploits-commit', is_flag=True)
 def misc_management(
-    check_commit_msg,
-    is_drills_commit,
-    is_exploits_commit,
+        check_commit_msg,
+        is_drills_commit,
+        is_exploits_commit,
 ):
     success: bool
 
@@ -55,8 +55,10 @@ def misc_management(
         commit_subs = utils.get_commit_subs.main()
         success_content = True
         if os.path.exists(f'subscriptions/{commit_subs}'):
-            success_content = forces.commit.is_valid_forces_content(
-                commit_subs)
+            success_content = (
+                forces.commit.is_valid_forces_content(commit_subs)
+                and forces.lint.check_folder_content()
+                and drills.lint.check_folder_content())
         sys.exit(0 if success_message and success_content else 1)
 
     elif is_exploits_commit:
