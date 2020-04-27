@@ -18,6 +18,7 @@ from toolbox.drills import (
     pull_repos,
     push_repos,
     update_lines,
+    upload_history,
     vpn,
 )
 
@@ -34,6 +35,9 @@ from toolbox.drills import (
 @option(
     '--update-lines', 'o_update_lines', is_flag=True,
     help='Update a subscription lines.csv with the latest repo info')
+@option(
+    '--upload-history', 'o_upload_history', is_flag=True,
+    help='Show last upload dates on s3 for all subscriptions')
 @option(
     '--to-reattack', 'o_to_reattack',
     is_flag=True,
@@ -58,6 +62,7 @@ def drills_management(
         subscription,
         o_generate_commit_msg,
         o_update_lines,
+        o_upload_history,
         o_to_reattack,
         o_to_reattack_exp,
         o_pull_repos,
@@ -70,6 +75,8 @@ def drills_management(
         success = generate_commit_msg.main(subscription)
     elif o_update_lines:
         update_lines.main(subscription)
+    elif o_upload_history:
+        upload_history.main()
     elif o_to_reattack:
         to_reattack.main(False)
     elif o_to_reattack_exp:

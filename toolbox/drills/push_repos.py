@@ -16,6 +16,7 @@ def s3_rm(bucket: str, path: str, endpoint_url: str = None):
 
     param: bucket: Bucket to work with
     param: path: Path to remove
+    param: endpoint_url: aws endpoint to send API requests
     """
     s3_client = boto3.client('s3', endpoint_url=endpoint_url)
     kwargs_list_objects: Dict[str, Any] = {
@@ -54,6 +55,7 @@ def s3_cp(
     param: dest_bucket: Bucket to move files to
     param: origin: Location of objects to copy
     param: dest: Location of objects to put
+    param: endpoint_url: aws endpoint to send API requests
     """
     s3_client = boto3.client('s3', endpoint_url=endpoint_url)
     kwargs_copy_file: Dict[str, Any] = {
@@ -87,6 +89,7 @@ def s3_ls(bucket: str, path: str, endpoint_url: str = None) -> List[str]:
 
     param: bucket: Bucket to work with
     param: path: Path to look for directories
+    param: endpoint_url: aws endpoint to send API requests
     """
     s3_client = boto3.client('s3', endpoint_url=endpoint_url)
     response_raw: List[Dict] = []
@@ -116,6 +119,7 @@ def s3_upload(
     param: bucket: Bucket to work with
     param: origin_path: path of files to upload
     param: dest_path: s3 path to upload files
+    param: endpoint_url: aws endpoint to send API requests
     """
     s3_client = boto3.client('s3', endpoint_url=endpoint_url)
 
@@ -143,6 +147,7 @@ def s3_get_repos(
     param: bucket: Bucket to work with
     param: subs: Subscription to obtain repos from
     param: repos_type: active or inactive repos
+    param: endpoint_url: aws endpoint to send API requests
     """
     path: str = f'{subs}/{repos_type}/'
 
@@ -164,6 +169,10 @@ def main(
     3. Move repos that were not found in fusion from active to inactive
 
     param: subs: Subscription to work with
+    param: bucket: Bucket to work with
+    param: aws_login: where or not to login to aws
+    param: profile: which profile-role to use in case aws_login is true
+    param: endpoint_url: aws endpoint to send API requests
     """
     if generic.does_subs_exist(subs) and generic.does_fusion_exist(subs):
         fusion_dir: str = f'subscriptions/{subs}/fusion'
