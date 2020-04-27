@@ -9,4 +9,4 @@
 == Requirement
 
 The organization must remove file metadata
-before being shared with others or making it public.
+before sharing it or making it public.

@@ -1,0 +1,17 @@
+:slug: findings/082/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from deleting data insecurely, recommendations to avoid them and related security requirements.
+:keywords: Files, Deletion, Insecure, Retrieve, Recycle, Bin
+:findings: yes
+:type: security
+
+= F082. Insecurely deleted files
+
+== Description
+
+It is possible to retrieve deleted files with sensitive information because
+they were merely sent to the **Recycle Bin** or removed using insecure
+protocols.
+
+== Rules
+
+. [[r1]] link:/web/rules/183/[R183. Delete sensitive data securely]

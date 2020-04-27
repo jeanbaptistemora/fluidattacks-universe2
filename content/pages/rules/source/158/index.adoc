@@ -12,6 +12,10 @@ System source code must be implemented
 in a stable, updated, tested, and free of known vulnerabilities
 version of the chosen programming language.
 
+== Findings
+
+* link:/web/findings/067/[F067. Performance loss]
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.9+]

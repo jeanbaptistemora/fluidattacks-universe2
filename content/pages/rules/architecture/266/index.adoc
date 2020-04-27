@@ -32,6 +32,8 @@ points such as access control gateways, severs and serverless functions.
 
 * link:/web/findings/055/[F055. Insecure service configuration]
 
+* link:/web/findings/057/[F057. Emails sent without authorization]
+
 * link:/web/findings/101/[F101. Lack of protection against deletion]
 
 * link:/web/findings/110/[F110. HTTP request smuggling]

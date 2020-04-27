@@ -20,6 +20,10 @@ These regulations usually demand that data be removed after it is no longer
 required and that its deletion follow secure procedures that prevent it
 from being recovered.
 
+== Findings
+
+* link:/web/findings/082/[F082. Insecurely deleted files]
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(e).]

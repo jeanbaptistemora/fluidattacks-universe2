@@ -1,5 +1,5 @@
 :slug: findings/012/
-:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about the unauthenticated access to protected resources, recommendations to avoid them and related security requirements.
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from the unauthenticated access to resources, recommendations to avoid them and related security requirements.
 :keywords: Unauthenticated, Protected Resources, Access, Access Control, Bypass, Session
 :findings: yes
 :type: security

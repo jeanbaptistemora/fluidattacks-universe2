@@ -1,0 +1,22 @@
+:slug: findings/056/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from allowing anonymous connections to the services, recommendations to avoid them and related security requirements.
+:keywords: Anonymous, Connection, FTP, Access Control, Credentials, Configuration
+:findings: yes
+:type: security
+
+= F056. Anonymous connection
+
+== Description
+
+Due to an improper configuration of the server
+(E.g. FTP service with username:anonymous and password: guest),
+it is possible to make anonymous connections to it and access otherwise
+protected resources.
+
+== Rules
+
+. [[r1]] link:/web/rules/142/[R142. Change system default credentials]
+
+. [[r2]] link:/web/rules/264/[R264. Request authentication]
+
+. [[r3]] link:/web/rules/319/[R319. Make authentication options equally secure]

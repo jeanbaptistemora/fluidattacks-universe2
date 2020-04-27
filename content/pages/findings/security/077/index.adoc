@@ -1,0 +1,18 @@
+:slug: findings/077/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling ARP spoofing attacks, recommendations to avoid them and related security requirements.
+:keywords: ARP, Spoofing, Gateway, MAC, Address, Supplant
+:findings: yes
+:type: security
+
+= F077. ARP spoofing
+
+== Description
+
+It is possible to supersede other MAC addresses in the network because the
+associated switch lacks protection mechanisms such as PortSecurity.
+
+== Rules
+
+. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
+
+. [[r2]] link:/web/rules/273/[R273. Define fixed security suite]

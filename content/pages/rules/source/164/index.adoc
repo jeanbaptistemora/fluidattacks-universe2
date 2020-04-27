@@ -9,3 +9,7 @@
 == Requirement
 
 The code must use optimized data containers or structures.
+
+== Findings
+
+* link:/web/findings/067/[F067. Performance loss]

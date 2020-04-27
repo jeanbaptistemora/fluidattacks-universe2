@@ -24,6 +24,8 @@ so that there is no weaker alternative.
 
 * link:/web/findings/015/[F015. Insecure authentication method]
 
+* link:/web/findings/056/[F056. Anonymous connection]
+
 * link:/web/findings/081/[F081. Lack of two-factor authentication]
 
 == References
