@@ -1,13 +1,12 @@
 /* tslint:disable:jsx-no-multiline-js
  *
- * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
-  * readability of the code in graphql queries
+ * Necessary for mapping projects
  */
 
-import { NetworkStatus } from "apollo-boost";
+import { useQuery } from "@apollo/react-hooks";
+import { NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import React from "react";
-import { Query } from "react-apollo";
 import { RefreshControl, ScrollView, View } from "react-native";
 import { Appbar, Card, Paragraph, Title } from "react-native-paper";
 
@@ -17,25 +16,33 @@ import { translate } from "../../utils/translations/translate";
 
 import { PROJECTS_QUERY } from "./queries";
 import { styles } from "./styles";
-import { IMenuProps, IProject, PROJECTS_RESULT } from "./types";
+import { IMenuProps, IProject, IProjectsResult } from "./types";
 
 const menuView: React.FunctionComponent<IMenuProps> = (): JSX.Element => {
   const { t } = translate;
+
+  // GraphQL operations
+  const { data, loading, networkStatus, refetch } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
+    notifyOnNetworkStatusChange: true,
+    onError: (): void => {
+      errorDialog.show();
+    },
+  });
+
+  const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+  if (loading && !isRefetching) {
+    return (<Preloader />);
+  }
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <React.Fragment />;
+  }
 
   return (
     <View style={styles.container}>
       <Appbar.Header>
         <Appbar.Content title={t("menu.myProjects")} />
       </Appbar.Header>
-      <Query query={PROJECTS_QUERY} notifyOnNetworkStatusChange={true}>
-        {({ data, loading, error, refetch, networkStatus }: PROJECTS_RESULT): React.ReactNode => {
-          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
-          if (loading && !isRefetching) { return (<Preloader />); }
-          if (!_.isUndefined(error)) { errorDialog.show(); }
-
-          return _.isUndefined(data)
-            ? <React.Fragment />
-            : (
               <ScrollView
                 contentContainerStyle={styles.projectList}
                 refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
@@ -49,9 +56,6 @@ const menuView: React.FunctionComponent<IMenuProps> = (): JSX.Element => {
                   </Card>
                 ))}
               </ScrollView>
-            );
-        }}
-      </Query>
     </View>
   );
 };

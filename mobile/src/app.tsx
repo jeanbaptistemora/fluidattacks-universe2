@@ -1,5 +1,5 @@
+import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
-import { ApolloProvider } from "react-apollo";
 import { StatusBar } from "react-native";
 import { DefaultTheme, Provider as ThemeProvider, ThemeShape } from "react-native-paper";
 import { Provider as ReduxProvider } from "react-redux";

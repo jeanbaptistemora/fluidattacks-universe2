@@ -1,4 +1,3 @@
-import { MutationResult } from "react-apollo";
 import { RouteComponentProps } from "react-router-native";
 
 import { ILoginState } from "../LoginView/reducer";
@@ -10,10 +9,13 @@ export type IWelcomeProps = RouteComponentProps<{}, {}, {
   userInfo: ILoginState["userInfo"];
 }>;
 
-export type SIGN_IN_RESULT = MutationResult<{
+/**
+ * Sign in response type
+ */
+export interface ISignInResult {
   signIn: {
     authorized: boolean;
     sessionJwt: string;
     success: boolean;
   };
-}>["data"];
+}

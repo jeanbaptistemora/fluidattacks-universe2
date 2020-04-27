@@ -1,6 +1,6 @@
-import React from "react";
 // tslint:disable-next-line: no-submodule-imports
-import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import React from "react";
 import { RouteComponentProps } from "react-router-native";
 import renderer, { ReactTestRenderer } from "react-test-renderer";
 import wait from "waait";

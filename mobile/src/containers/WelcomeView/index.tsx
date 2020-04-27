@@ -4,13 +4,12 @@
   * readability of the code in graphql queries
  */
 
+import { useMutation } from "@apollo/react-hooks";
 import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { Image, Text, View } from "react-native";
 
-import { MutationTrigger } from "../../components/MutationTrigger";
 import { Preloader } from "../../components/Preloader";
 import * as errorDialog from "../../utils/errorDialog";
 import { rollbar } from "../../utils/rollbar";
@@ -18,18 +17,19 @@ import { translate } from "../../utils/translations/translate";
 
 import { SIGN_IN_MUTATION } from "./queries";
 import { styles } from "./styles";
-import { IWelcomeProps, SIGN_IN_RESULT } from "./types";
+import { ISignInResult, IWelcomeProps } from "./types";
 
 const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProps): JSX.Element => {
   const { authProvider, authToken, pushToken, userInfo } = props.location.state;
   const { t } = translate;
 
-  const handleMutationResult: ((data: SIGN_IN_RESULT) => void) = (data: SIGN_IN_RESULT): void => {
-    if (!_.isUndefined(data)) {
-      if (data.signIn.success) {
-        SecureStore.setItemAsync("integrates_session", data.signIn.sessionJwt)
+  // GraphQL operations
+  const [signIn, { data, loading }] = useMutation(SIGN_IN_MUTATION, {
+    onCompleted: (result: ISignInResult): void => {
+      if (result.signIn.success) {
+        SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt)
           .then((): void => {
-            if (data.signIn.authorized) {
+            if (result.signIn.authorized) {
               props.history.push("/Menu");
             }
           })
@@ -39,29 +39,30 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
       } else {
         errorDialog.show();
       }
-    }
+    },
+    onError: (): void => {
+      errorDialog.show();
+    },
+    variables: { authToken, provider: authProvider, pushToken },
+  });
+
+  const unauthorized: boolean = data !== undefined && !data.signIn.authorized;
+
+  // Side effects
+  const onMount: (() => void) = (): void => {
+    const executeMutation: (() => void) = async (): Promise<void> => {
+      await signIn();
+    };
+    executeMutation();
   };
+  React.useEffect(onMount, []);
 
   return (
     <View style={styles.container}>
       <Image style={styles.profilePicture} source={{ uri: userInfo.photoUrl }} />
       <Text style={styles.greeting}>{t("welcome.greetingText")} {userInfo.givenName}!</Text>
-      <Mutation
-        mutation={SIGN_IN_MUTATION}
-        variables={{ authToken, provider: authProvider, pushToken }}
-        onCompleted={handleMutationResult}
-      >
-        {(doAuth: MutationFn, { data, error, loading, called }: MutationResult<SIGN_IN_RESULT>): React.ReactNode => {
-          if (loading) { return (<Preloader />); }
-          if (!_.isUndefined(error)) { errorDialog.show(); }
-          if (!called) { return (<MutationTrigger onMount={doAuth} />); }
-          const isAuthorized: boolean = !_.isUndefined(data) && data.signIn.authorized;
-
-          return isAuthorized
-            ? <Preloader />
-            : <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>;
-        }}
-      </Mutation>
+      {loading ? <Preloader /> : undefined}
+      {unauthorized ? <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text> : undefined}
     </View>
   );
 };

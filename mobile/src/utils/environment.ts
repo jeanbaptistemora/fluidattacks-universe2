@@ -17,7 +17,7 @@ export const getEnvironment: (() => IEnvironment) = (): IEnvironment => {
     environment = {
       name: "development",
       url: `http://${String(Constants.manifest.hostUri)
-        .split(":")[0]}`,
+        .split(":")[0]}:8080`,
     };
   } else if (releaseChannel === "master") {
     environment = { name: "production", url: "https://fluidattacks.com" };
