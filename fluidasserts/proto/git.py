@@ -65,6 +65,7 @@ def has_insecure_gitignore(repo: str) -> tuple:
 
 
 @api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
 def has_secret_in_git_history(repo: str, file_path: str, secret: str):
     r"""
     Check if git history has the provide secret.
