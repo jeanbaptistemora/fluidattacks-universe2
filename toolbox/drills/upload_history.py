@@ -15,7 +15,9 @@ def main():
     '''
     bucket: str = 'continuous-repositories'
     subs_names: List[str] = listdir('subscriptions')
-    print('{:<25} {:<25}'.format('SUBSCRIPTION', 'DAYS SINCE LAST UPLOAD'))
+    table_format: str = '{:<25} {:<25}'
+
+    print(table_format.format('SUBSCRIPTION', 'DAYS SINCE LAST UPLOAD'))
     print('---------------------------------------------------')
     for subs in subs_names:
         if drills_generic.s3_path_exists(bucket, f'{subs}/'):
@@ -23,4 +25,6 @@ def main():
                 drills_generic.get_last_upload(bucket, f'{subs}/')
             days: int = drills_generic.calculate_days_ago(last_upload_date)
             if days != 0:
-                print('{:<25} {:<25}'.format(subs, days))
+                print(table_format.format(subs, days))
+        else:
+            print(table_format.format(subs, 'NOT UPLOADED'))
