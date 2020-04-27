@@ -23,7 +23,7 @@ module.exports = {
     "jest-canvas-mock"
   ],
   setupFilesAfterEnv: [
-    "<rootDir>/setup.ts"
+    "<rootDir>/jestSetup.ts"
   ],
   transform: {
     "^.+\\.(j|t)sx?$": "ts-jest"

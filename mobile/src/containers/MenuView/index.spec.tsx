@@ -8,8 +8,8 @@ import wait from "waait";
 import { MenuView } from "./index";
 import { PROJECTS_QUERY } from "./queries";
 
-describe("MenuView", () => {
-  it("should render", async () => {
+describe("MenuView", (): void => {
+  it("should render", async (): Promise<void> => {
 
     const mockProps: RouteComponentProps = {
       history: {

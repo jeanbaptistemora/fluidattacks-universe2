@@ -14,7 +14,6 @@ RUN echo 'deb http://ftp.us.debian.org/debian unstable main' \
     git \
     make \
     openjdk-8-jdk-headless \
-    patch \
     procps \
     python3 \
     python3-dev \
@@ -52,12 +51,8 @@ COPY /mobile/package.json .
 RUN npm install
 
 # Install turtle
-RUN npx turtle setup:android --sdk-version 33.0.0 \
+RUN npx turtle setup:android --sdk-version 37.0.0 \
     && yes | ~/.turtle/androidDependencies/sdk/tools/bin/sdkmanager --licenses
-
-# Apply some patches
-COPY deploy/containers/deps-mobile/fix_standalone_google_login.diff /tmp
-RUN patch -d node_modules/expo/build -p1 < /tmp/fix_standalone_google_login.diff
 
 # Clean
 RUN rm -rf /tmp/*

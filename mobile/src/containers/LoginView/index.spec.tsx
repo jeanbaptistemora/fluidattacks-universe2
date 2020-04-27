@@ -4,15 +4,20 @@ import renderer, { ReactTestRenderer } from "react-test-renderer";
 import { ILoginProps, loginView as LoginView } from "./index";
 import { initialState } from "./reducer";
 
-jest.mock("Platform", () => {
-  const platform: { OS: string } = (jest.requireActual("Platform") as { OS: string });
-  platform.OS = "test-env";
+/** Mocked types for react-native */
+interface IMockedRN {
+  Platform: { OS: string };
+}
 
-  return platform;
+jest.mock("react-native", (): IMockedRN => {
+  const mockedRN: IMockedRN = jest.requireActual("react-native") as IMockedRN;
+  mockedRN.Platform.OS = "test-env";
+
+  return mockedRN;
 });
 
-describe("LoginView", () => {
-  it("should render", () => {
+describe("LoginView", (): void => {
+  it("should render", (): void => {
 
     const mockProps: ILoginProps = {
       history: {

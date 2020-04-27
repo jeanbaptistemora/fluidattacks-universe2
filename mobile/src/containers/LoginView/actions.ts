@@ -1,4 +1,4 @@
-import { Google } from "expo";
+import * as Google from "expo-google-app-auth";
 
 import { IActionStructure, ThunkDispatcher, ThunkResult } from "../../store";
 import {
@@ -45,7 +45,7 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
         // User canceled the operation
       }
     })
-    .catch((error: Error) => {
+    .catch((error: Error): void => {
       errorDialog.show();
       rollbar.error("Error: An error occurred authenticating with Google", error);
     });

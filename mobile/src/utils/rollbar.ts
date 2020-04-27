@@ -2,13 +2,13 @@
 import Rollbar from "rollbar/src/react-native/rollbar";
 
 import { ROLLBAR_KEY } from "./constants";
-import { getEnvironment } from "./context";
+import { getEnvironment } from "./environment";
 
 const config: Rollbar.Configuration = {
   accessToken: ROLLBAR_KEY,
   captureUncaught: true,
   captureUnhandledRejections: true,
-  enabled: true,
+  enabled: getEnvironment().name !== "development",
   environment: `mobile-${getEnvironment().name}`,
 };
 

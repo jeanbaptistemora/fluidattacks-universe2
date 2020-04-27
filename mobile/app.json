@@ -3,7 +3,6 @@
     "name": "Integrates",
     "slug": "integrates",
     "privacy": "public",
-    "sdkVersion": "33.0.0",
     "platforms": [
       "ios",
       "android"
