@@ -66,7 +66,6 @@ stages:
       - merge_requests
   except:
     refs:
-      - branches
       - triggers
       - schedules
 
