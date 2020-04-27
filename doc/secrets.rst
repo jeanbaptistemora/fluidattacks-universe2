@@ -9,14 +9,13 @@ At least once a day:
 
 1. Rebase your local changes to the **master** branch
 2. Update your **subscription repositories**
-3. Update your **fluid-cli** and the **utilities** package:
+3. Update your tools
 
    Example:
 
    .. code:: bash
 
-       continuous $ python3 -m pip install --user --upgrade fluidattacks[with_everything]
-       continuous $ python3 -m pip install --user --upgrade forces/packages/*
+       continuous $ ./install.sh
 
 Hands-on tutorial
 =================
@@ -58,26 +57,22 @@ going to use the **decrypted values** to perform the security checks.
 If your are going to add secrets for the first time
 ---------------------------------------------------
 
-We need to create two dummy secret files, once created we'll add our
-secrets, and encrypt them:
-
-Let's generate them:
+Let's generate them.
+Decrypting will setup files even if there is nothing to decrypt, yet:
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ fluid forces --init-secrets <some-subs-name>
-
+    continuous$ fluid forces --decrypt <some-subs-name>
 
 .. code:: bash
-
-    Initializing subscriptions/some-subs-name/forces/static/resources/plaintext.yml
-      Done!
-    Initializing subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml
-      Done!
-    Moving secrets from subscriptions/some-subs-name/forces/static/resources/plaintext.yml to subscriptions/some-subs-name/forces/static/resources/secrets.yml
-      Done!
-    Moving secrets from subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml to subscriptions/some-subs-name/forces/dynamic/resources/secrets.yml
-      Done!
+    [INFO] Initializing subscriptions/some-subs-name/forces/static/resources/plaintext.yml because it did not exist
+    [INFO]   Done!
+    [INFO] Initializing subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml because it did not exist
+    [INFO]   Done!
+    [INFO] Moving secrets from subscriptions/some-subs-name/forces/static/resources/plaintext.yml to subscriptions/some-subs-name/forces/static/resources/secrets.yml
+    [INFO]   Done!
+    [INFO] Moving secrets from subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml to subscriptions/some-subs-name/forces/dynamic/resources/secrets.yml
+    [INFO]   Done!
 
 Two files are created for the static and dynamic exploits:
 
@@ -91,11 +86,11 @@ Two files are created for the static and dynamic exploits:
    This is the file we upload to the continuous repository, we'll
    generate it automatically with the fluid-cli.
 
-At this point, the directory structure look something like this:
+At this point, the directory structure looks something like this:
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ tree subscriptions/some-subs-name/forces/
+    continuous$ tree subscriptions/some-subs-name/forces/
 
 .. code:: bash
 
@@ -130,7 +125,7 @@ The original file:
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/forces/static/resources/plaintext.yml
+    continuous$ cat subscriptions/some-subs-name/forces/static/resources/plaintext.yml
 
 .. code:: yaml
 
@@ -140,10 +135,9 @@ The original file:
 
 The encrypted file:
 
-
 .. code:: bash
 
-    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/forces/static/resources/secrets.yml
+    continuous$ cat subscriptions/some-subs-name/forces/static/resources/secrets.yml
 
 .. code:: yaml
 
@@ -172,14 +166,12 @@ We'll need to add secrets in order to use them in our exploits.
 
    .. code:: bash
 
-       kamado@fluid:/continuous$ fluid forces --encrypt-secrets <some-subs-name>
+       continuous$ fluid forces --encrypt <some-subs-name>
 
-       bash Moving secrets from
-       subscriptions/some-subs-name/forces/static/resources/plaintext.yml to
-       subscriptions/some-subs-name/forces/static/resources/secrets.yml Done!
-       Moving secrets from
-       subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml to
-       subscriptions/some-subs-name/forces/dynamic/resources/secrets.yml Done!
+      [INFO] Moving secrets from subscriptions/some-subs-name/forces/static/resources/plaintext.yml to subscriptions/some-subs-name/forces/static/resources/secrets.yml
+      [INFO]   Done!
+      [INFO] Moving secrets from subscriptions/some-subs-name/forces/dynamic/resources/plaintext.yml to subscriptions/some-subs-name/forces/dynamic/resources/secrets.yml
+      [INFO]   Done!
 
 Using the secrets in the exploits
 ---------------------------------
@@ -231,112 +223,65 @@ use the fluid-cli!
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ fluid forces --run --static all <some-subs-name>
+    continuous$ fluid forces --run --static all <some-subs-name>
 
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ fluid forces --run --dynamic all <some-subs-name>
+    continuous$ fluid forces --run --dynamic all <some-subs-name>
 
 Now inspect the output:
 
 
 .. code:: bash
 
-    kamado@fluid:/continuous$ cat subscriptions/some-subs-name/forces/static/exploits/fin-0020-504994991.exp.out.yml
+    continuous$ cat subscriptions/some-subs-name/forces/static/exploits/fin-0020-504994991.exp.out.yml
 
 .. code:: yaml
 
     ---
     repository: 'Some-Customer-Repository'
 
-    #    ________      _     __   ___                        __
-    #   / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______
-    #  / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \/ ___/ __/ ___/
-    # / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )
-    #/_/   /_/\__,_/_/\__,_/  /_/  |_/____/____/\___/_/   \__/____/
-    #
-    # v. 19.10.22490
     #  ___
     # | >>|> fluid
     # |___|  attacks, we hack your software
     #
-    # Loading attack modules ...
-    #
-    ---
-    finding: FIN.0020. Ausencia de cifrado de información confidencial
-      check: fluidasserts.proto.git -> commit_has_secret
-      check: fluidasserts.proto.git -> commit_has_secret
-      check: fluidasserts.proto.git -> commit_has_secret
-      check: fluidasserts.proto.git -> commit_has_secret
     ---
     finding: FIN.0020. Ausencia de cifrado de información confidencial
     ---
     check: fluidasserts.proto.git -> commit_has_secret
     description: Check if commit has given secret.
     status: OPEN
-    message: Secret found in commit 6bddfc015080ddf04c33aeb94bbc59c3431c6550
     vulnerabilities:
-    - where: ''
-      specific: Secret found in commit 6bddfc015080ddf04c33aeb94bbc59c3431c6550
-    parameters:
-      repo: ''
-      commit_id: 6bddfc015080ddf04c33aeb94bbc59c3431c6550
-      secret: 'highly-secret-value-123-123'
+    - specific: Secret found in commit 6bddfc015080ddf04c33aeb94bbc59c3431c6550
     vulnerable_incidences: 1
-    when: 2019-10-16T15:52:19-0500
-    elapsed_seconds: 0.0
     test_kind: SAST
     risk: low
     ---
     check: fluidasserts.proto.git -> commit_has_secret
     description: Check if commit has given secret.
     status: OPEN
-    message: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
     vulnerabilities:
-    - where: ''
-      specific: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
-    parameters:
-      repo: ''
-      commit_id: fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
-      secret: 'highly-secret-value-123-123'
+    - specific: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
     vulnerable_incidences: 1
-    when: 2019-10-16T15:52:19-0500
-    elapsed_seconds: 0.0
     test_kind: SAST
     risk: low
     ---
     check: fluidasserts.proto.git -> commit_has_secret
     description: Check if commit has given secret.
     status: OPEN
-    message: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
     vulnerabilities:
-    - where: ''
-      specific: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
-    parameters:
-      repo: ''
-      commit_id: fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
-      secret: highly-secret-value-456-456
+    - specific: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
     vulnerable_incidences: 1
-    when: 2019-10-16T15:52:19-0500
-    elapsed_seconds: 0.0
     test_kind: SAST
     risk: low
     ---
     check: fluidasserts.proto.git -> commit_has_secret
     description: Check if commit has given secret.
     status: OPEN
-    message: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
     vulnerabilities:
-    - where: ''
-      specific: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
-    parameters:
-      repo: ''
-      commit_id: fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
-      secret: highly-secret-value-789-789
+    - specific: Secret found in commit fb2fb6d96ea205f03a8f9aa32ffb4a90c0027f27
     vulnerable_incidences: 1
-    when: 2019-10-16T15:52:19-0500
-    elapsed_seconds: 0.0
     test_kind: SAST
     risk: low
     ---
@@ -356,4 +301,3 @@ Now inspect the output:
         high: 0 (0.00%)
         medium: 0 (0.00%)
         low: 4 (100.00%)
-    # elapsed: 0.3631293773651123
