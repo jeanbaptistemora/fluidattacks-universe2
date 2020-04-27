@@ -30,7 +30,6 @@ import { TAG_QUERY } from "./queries";
 
 export type TagsProps = RouteComponentProps<{ tagName: string }>;
 
-type SeverityLevel = "low" | "medium" | "high" | "critical";
 interface IStackedGraph {
   acceptedUndefinedVulnerabilities: number;
   acceptedVulnerabilities: number;
@@ -45,14 +44,6 @@ interface IStatusGraphName extends IStatusGraph {
 
 interface IProjectTag {
   closedVulnerabilities: number;
-  lastClosingVuln: number;
-  maxOpenSeverity: number;
-  maxSeverity: number;
-  meanRemediate: number;
-  meanRemediateCriticalSeverity: number;
-  meanRemediateHighSeverity: number;
-  meanRemediateLowSeverity: number;
-  meanRemediateMediumSeverity: number;
   name: string;
   openFindings: number;
   openVulnerabilities: number;
@@ -65,6 +56,14 @@ interface IBoxInfo {
 }
 interface ITag {
   tag: {
+    lastClosingVuln: number;
+    maxOpenSeverity: number;
+    maxSeverity: number;
+    meanRemediate: number;
+    meanRemediateCriticalSeverity: number;
+    meanRemediateHighSeverity: number;
+    meanRemediateLowSeverity: number;
+    meanRemediateMediumSeverity: number;
     name: string;
     projects: IProjectTag[];
   };
@@ -179,42 +178,12 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     },
   };
 
-  const getMeanRemediateSeverity: ((projects: IProjectTag[], severityLevel: SeverityLevel) => number) = (
-    projects: IProjectTag[], severityLevel: SeverityLevel,
-  ): number => {
-    const remediateBySeverity: number = projects.reduce(
-      (acc: number, project: IProjectTag) => {
-        let meanRemediateSeverity: number;
-        switch (severityLevel) {
-          case "critical":
-            meanRemediateSeverity = project.meanRemediateCriticalSeverity;
-            break;
-          case "high":
-            meanRemediateSeverity = project.meanRemediateHighSeverity;
-            break;
-          case "medium":
-            meanRemediateSeverity = project.meanRemediateMediumSeverity;
-            break;
-          case "low":
-            meanRemediateSeverity = project.meanRemediateLowSeverity;
-            break;
-          default:
-            meanRemediateSeverity = 0;
-        }
-
-        return acc + meanRemediateSeverity;
-      },
-      0);
-
-    return _.round(remediateBySeverity / projects.length, 1);
-  };
-
-  const formatMeanRemediated: ((projects: IProjectTag[]) => ChartData) = (projects: IProjectTag[]): ChartData => {
+  const formatMeanRemediated: ((tag: ITag["tag"]) => ChartData) = (tag: ITag["tag"]): ChartData => {
     const statusDataset: ChartDataSets = {
       backgroundColor: "#0b84a5",
       data: [
-        getMeanRemediateSeverity(projects, "critical"), getMeanRemediateSeverity(projects, "high"),
-        getMeanRemediateSeverity(projects, "medium"), getMeanRemediateSeverity(projects, "low"),
+        _.round(tag.meanRemediateCriticalSeverity, 1), _.round(tag.meanRemediateHighSeverity, 1),
+        _.round(tag.meanRemediateMediumSeverity, 1), _.round(tag.meanRemediateLowSeverity, 1),
       ],
     };
     const barData: ChartData = {
@@ -384,52 +353,6 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     },
   });
 
-  const calculateMeanToRemediate: ((projects: IProjectTag[]) => number) = (projects: IProjectTag[]): number => (
-    Math.ceil(
-      projects.reduce((acc: number, project: IProjectTag) => acc + project.meanRemediate, 0) / projects.length)
-  );
-
-  const getMaxSeverity: ((projects: IProjectTag[]) => IBoxInfo) = (projects: IProjectTag[]): IBoxInfo => {
-    let projectName: string = "";
-    const maxFound: number = projects.reduce(
-      (maxValue: number, project: IProjectTag) => {
-        let max: number = maxValue;
-        if (project.maxSeverity > maxValue) {
-          max = project.maxSeverity;
-          projectName = project.name;
-        }
-
-        return max;
-      },
-      0);
-
-    return { name: projectName, value: maxFound };
-  };
-
-  const getMaxOpenSeverity: ((projects: IProjectTag[]) => IBoxInfo) = (projects: IProjectTag[]): IBoxInfo => {
-    let projectName: string = "";
-    const maxOpen: number = projects.reduce(
-      (maxValue: number, project: IProjectTag) => {
-        let max: number = maxValue;
-        if (project.maxOpenSeverity > maxValue) {
-          max = project.maxOpenSeverity;
-          projectName = project.name;
-        }
-
-        return max;
-      },
-      0);
-
-    return { name: projectName, value: maxOpen };
-  };
-
-  const getLastClosingVuln: ((projects: IProjectTag[]) => number) = (projects: IProjectTag[]): number => (
-    projects.reduce(
-      (maxValue: number, project: IProjectTag) => project.lastClosingVuln < maxValue ?
-        project.lastClosingVuln : maxValue,
-      Number.MAX_SAFE_INTEGER)
-  );
-
   const sortBoxInfo: ((aObject: IBoxInfo, bObject: IBoxInfo) => number) = (
     aObject: IBoxInfo, bObject: IBoxInfo,
   ): number => (
@@ -535,14 +458,6 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   }
 
   const randomColors: Dictionary<string> = getRandomColor(data.tag.projects);
-  const goToProjectMaxSeverityFindings: (() => void) = (): void => {
-    location.hash = `#!/project/${getMaxSeverity(data.tag.projects).name}/findings`;
-  };
-  const goToProjectMaxOpenSeverityFindings: (() => void) = (): void => {
-    location.hash = `#!/project/${getMaxOpenSeverity(data.tag.projects).name}/findings`;
-  };
-  const projectWithMaxSeverity: IBoxInfo = getMaxSeverity(data.tag.projects);
-  const projectWithMaxOpenSeverity: IBoxInfo = getMaxOpenSeverity(data.tag.projects);
 
   return (
     <React.Fragment>
@@ -551,7 +466,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
           <IndicatorBox
             icon="graph"
             name={translate.t("search_findings.tab_indicators.mean_remediate")}
-            quantity={calculateMeanToRemediate(data.tag.projects)}
+            quantity={_.round(data.tag.meanRemediate, 1)}
             title=""
             total={translate.t("search_findings.tab_indicators.days")}
           />
@@ -560,31 +475,27 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
           <IndicatorBox
             icon="vectorLocal"
             name={translate.t("search_findings.tab_indicators.max_severity")}
-            quantity={projectWithMaxSeverity.value}
+            quantity={_.round(data.tag.maxSeverity, 1)}
             title=""
             total="/10"
-            description={projectWithMaxSeverity.name}
             small={true}
-            onClick={goToProjectMaxSeverityFindings}
           />
         </Col>
         <Col md={3} sm={12} xs={12}>
           <IndicatorBox
             icon="openVulnerabilities"
             name={translate.t("search_findings.tab_indicators.max_open_severity")}
-            quantity={projectWithMaxOpenSeverity.value}
+            quantity={_.round(data.tag.maxOpenSeverity, 1)}
             title=""
             total="/10"
-            description={projectWithMaxOpenSeverity.name}
             small={true}
-            onClick={goToProjectMaxOpenSeverityFindings}
           />
         </Col>
         <Col md={3} sm={12} xs={12}>
           <IndicatorBox
             icon="calendar"
             name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
-            quantity={getLastClosingVuln(data.tag.projects)}
+            quantity={_.round(data.tag.lastClosingVuln, 1)}
             title=""
             total=""
           />
@@ -660,7 +571,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       <Row>
         <Col md={6} sm={12} xs={12}>
           <HorizontalBarIndicator
-            data={formatMeanRemediated(data.tag.projects)}
+            data={formatMeanRemediated(data.tag)}
             height={200}
             name={translate.t("tag_indicator.mean_remediate")}
             options={horizontalBarOptions}

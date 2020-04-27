@@ -46,18 +46,18 @@ describe("Tag Info", () => {
     result: {
       data: {
         tag: {
+          lastClosingVuln: 10,
+          maxOpenSeverity: 5,
+          maxSeverity: 6,
+          meanRemediate: 20,
+          meanRemediateCriticalSeverity: 10,
+          meanRemediateHighSeverity: 15,
+          meanRemediateLowSeverity: 25,
+          meanRemediateMediumSeverity: 30,
           name: "TEST-PROJECTS",
           projects: [
             {
               closedVulnerabilities: 1,
-              lastClosingVuln: 10,
-              maxOpenSeverity: 5,
-              maxSeverity: 6,
-              meanRemediate: 20,
-              meanRemediateCriticalSeverity: 10,
-              meanRemediateHighSeverity: 15,
-              meanRemediateLowSeverity: 25,
-              meanRemediateMediumSeverity: 30,
               name: "test1",
               openFindings: 1,
               openVulnerabilities: 3,
@@ -66,14 +66,6 @@ describe("Tag Info", () => {
             },
             {
               closedVulnerabilities: 3,
-              lastClosingVuln: 3,
-              maxOpenSeverity: 8,
-              maxSeverity: 9,
-              meanRemediate: 10,
-              meanRemediateCriticalSeverity: 5,
-              meanRemediateHighSeverity: 10,
-              meanRemediateLowSeverity: 15,
-              meanRemediateMediumSeverity: 20,
               name: "test2",
               openFindings: 2,
               openVulnerabilities: 5,
