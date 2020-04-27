@@ -25,9 +25,9 @@ resource "aws_acm_certificate_validation" "files-certificate-validation" {
 }
 
 resource "aws_route53_record" "files-alias" {
-  zone_id = "fluidattacks.com."
-  name    =  data.aws_route53_zone.fluidattacks.id
-  type    = "A"
+  zone_id                  =  data.aws_route53_zone.fluidattacks.id
+  name                     = "files.fluidattacks.com"
+  type                     = "A"
   alias {
     name                   = aws_cloudfront_distribution.fi_reports_cloudfront.domain_name
     zone_id                = aws_cloudfront_distribution.fi_reports_cloudfront.hosted_zone_id
