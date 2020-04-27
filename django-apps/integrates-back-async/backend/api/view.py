@@ -1,10 +1,9 @@
 # pylint: disable=not-callable
-import asyncio
-
 from typing import cast
 
 import newrelic
 
+from asgiref.sync import async_to_sync
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
@@ -80,4 +79,7 @@ class APIView(GraphQLView):
 
     def execute_query(self, request: HttpRequest, data: dict) -> GraphQLResult:
         """Execute async query."""
-        return asyncio.run(self._execute(request, data))
+        # Use this instead of asyncio.run
+        # https://docs.djangoproject.com/en/3.0/topics/async/#async-to-sync
+        # https://stackoverflow.com/questions/59503825/django-async-to-sync-vs-asyncio-run
+        return async_to_sync(self._execute)(request, data)
