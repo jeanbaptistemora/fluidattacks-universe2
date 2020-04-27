@@ -6,6 +6,7 @@ import unittest
 
 import boto3
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
@@ -63,6 +64,15 @@ class ViewTestCase(unittest.TestCase):
         self.selenium.quit()
         super(ViewTestCase, self).tearDown()
 
+    def __check_legal_notice(self):
+        selenium = self.selenium
+        WebDriverWait(selenium, self.delay/5).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Legal notice')]")))
+        selenium.find_element_by_xpath("//*[@name='remember']").click()
+        selenium.find_element_by_xpath(
+            "//*[contains(text(), 'Accept and continue')]").click()
+
     def __login(self):
         selenium = self.selenium
         selenium.get(self.url)
@@ -74,6 +84,11 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
         selenium.find_element_by_xpath(
             "//*[contains(text(), 'Access with Google')]").click()
+        try:
+            self.__check_legal_notice()
+        except TimeoutException:
+            # User has already checked the legal notice
+            pass
         WebDriverWait(
             selenium, self.delay).until(
                 expected.presence_of_element_located(
