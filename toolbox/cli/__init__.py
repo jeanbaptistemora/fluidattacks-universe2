@@ -177,13 +177,13 @@ def forces_management(
         success = forces.lint.many_exploits_by_change_request()
 
     elif decrypt:
-        success = toolbox.decrypt_secrets(subscription)
+        success = forces.secrets.decrypt(subscription)
 
     elif encrypt:
-        success = toolbox.encrypt_secrets(subscription)
+        success = forces.secrets.encrypt(subscription)
 
     elif init_secrets:
-        success = toolbox.init_secrets(subscription)
+        success = forces.secrets.init(subscription)
 
     sys.exit(0 if success else 1)
 
