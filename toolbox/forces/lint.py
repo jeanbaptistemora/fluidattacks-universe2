@@ -78,7 +78,7 @@ def _one_exploit_by_path_for_deprecated_methods(exploit_path: str) -> bool:
     generic_static_exploits: int = \
         sum('generic_static_exploit' in call for call in calls)
 
-    if add_findings + generic_static_exploits > 1:
+    if add_findings + generic_static_exploits != 1:
         logger.error('Exploits must have 1 (and only 1) add_finding')
         logger.error()
         logger.info('The following functions are allowed:')

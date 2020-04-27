@@ -21,8 +21,6 @@ import ruamel.yaml as yaml
 from toolbox import api, constants, logger, utils
 
 # Compiled regular expresions
-RE_FINDING_TITLE = re.compile(r'^\s*(\w+)[^\d]*(\d+).*$', flags=re.I)
-
 RE_SPACE_CHARS = re.compile(r'\s', flags=re.M)
 RE_NOT_ALLOWED_CHARS = re.compile(r'[^a-zá-úñÁ-ÚÑA-Z0-9\s,._]', flags=re.M)
 
@@ -130,15 +128,8 @@ def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
 
         for finding_id, finding_title in \
                 utils.integrates.get_project_findings(subscription):
-            re_match = RE_FINDING_TITLE.search(finding_title)
-            if not re_match:
-                logger.error(f'bad title format for {finding_title}')
-                continue
-            let, num = re_match.groups(0)
-
-            exploit_name = f'{let.lower()}-{num}-{finding_id}.exp'
-            cannot_exploit_name = \
-                f'{let.lower()}-{num}-{finding_id}.cannot.exp'
+            exploit_name = f'{finding_id}.exp'
+            cannot_exploit_name = f'{finding_id}.cannot.exp'
 
             sast, dast = utils.integrates.get_finding_type(finding_id)
 

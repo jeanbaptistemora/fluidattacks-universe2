@@ -1,6 +1,7 @@
 # Standard library
 import functools
 import os
+from typing import Tuple
 
 # Third party libraries
 import ruamel.yaml as yaml
@@ -42,7 +43,7 @@ def get_config(subs: str) -> dict:
 
 
 @functools.lru_cache(maxsize=None, typed=True)
-def scan_exploit_for_kind_and_id(exploit_path: str) -> tuple:
+def scan_exploit_for_kind_and_id(exploit_path: str) -> Tuple[str, str]:
     """Scan the exploit in search of metadata."""
     # /fin-1234-567890.exp        -> 567890, 'exp'
     # /fin-1234-567890.mock.exp   -> 567890, 'mock.exp'
