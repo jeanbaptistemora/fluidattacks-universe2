@@ -7,6 +7,8 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from graphql.type import GraphQLResolveInfo
 from jose import jwt
+from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.api.resolvers import tag
 
@@ -21,6 +23,12 @@ class TagTests(TestCase):
         query = '''
             query{
                 tag(tag: "test-projects"){
+                    lastClosingVuln
+                    maxOpenSeverity
+                    maxSeverity
+                    meanRemediateLowSeverity
+                    meanRemediateMediumSeverity
+                    meanRemediate
                     name
                     projects {
                         closedVulnerabilities
@@ -33,14 +41,18 @@ class TagTests(TestCase):
         '''
         data = {'query': query}
         request = RequestFactory().get('/')
+        request.loaders = {
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'unittest'
+        request.session['username'] = 'integratesuser@gmail.com'
         request.session['company'] = 'unittest'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'unittest',
+                'user_email': 'integratesuser@gmail.com',
                 'company': 'unittest'
             },
             algorithm='HS512',
@@ -49,3 +61,9 @@ class TagTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'projects' in result['data']['tag']
+        assert result['data']['tag']['lastClosingVuln'] == 23
+        assert result['data']['tag']['meanRemediateLowSeverity'] == 116
+        assert result['data']['tag']['meanRemediateMediumSeverity'] == 143.5
+        assert result['data']['tag']['meanRemediate'] == 174
+        assert result['data']['tag']['maxOpenSeverity'] == 4.9
+        assert result['data']['tag']['maxSeverity'] == 6.3

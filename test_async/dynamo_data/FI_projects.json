@@ -25,7 +25,7 @@
                   "N" : "45"
                },
                "max_open_severity" : {
-                  "N" : "10"
+                  "N" : "3.9"
                },
                "mean_remediate" : {
                   "N" : "103"

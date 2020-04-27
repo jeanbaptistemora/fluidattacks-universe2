@@ -1,0 +1,76 @@
+{
+    "fi_portfolios" : [  
+        {
+            "PutRequest" : {
+                "Item" : {
+                    "last_closing_date": {
+                        "N": "23"
+                    },
+                    "mean_remediate": {
+                        "N": "174"
+                    },
+                    "max_open_severity": {
+                        "N": "4.9"
+                    },
+                    "max_severity": {
+                        "N": "6.3"
+                    },
+                    "mean_remediate_critical_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_high_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_low_severity": {
+                        "N": "116"
+                    },
+                    "mean_remediate_medium_severity": {
+                        "N": "143.5"
+                    },
+                    "organization": {
+                        "S": "fluid"
+                    },
+                    "tag": {
+                        "S": "test-projects"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest" : {
+                "Item" : {
+                    "last_closing_date": {
+                        "N": "45"
+                    },
+                    "mean_remediate": {
+                        "N": "103"
+                    },
+                    "max_open_severity": {
+                        "N": "3.9"
+                    },
+                    "max_severity": {
+                        "N": "3.9"
+                    },
+                    "mean_remediate_critical_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_high_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_low_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_medium_severity": {
+                        "N": "0"
+                    },
+                    "organization": {
+                        "S": "fluid"
+                    },
+                    "tag": {
+                        "S": "another-tag"
+                    }
+                }
+            }
+        }
+    ]
+}
