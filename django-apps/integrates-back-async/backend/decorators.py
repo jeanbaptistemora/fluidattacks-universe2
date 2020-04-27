@@ -14,7 +14,6 @@ from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
 from graphql.type import GraphQLResolveInfo
-from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 from simpleeval import AttributeDoesNotExist
 
@@ -68,9 +67,6 @@ def verify_csrf(func):
             ret = csrf_protect(func)(*args, **kwargs)
         else:
             ret = func(*args, **kwargs)
-
-        if isinstance(ret, Promise):
-            ret = ret.get()
         return ret
     return verify_and_call
 
@@ -364,8 +360,6 @@ def get_cached(func):
             if ret:
                 return ret
             ret = func(*args, **kwargs)
-            if isinstance(ret, Promise):
-                ret = ret.get()
             cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException:
@@ -401,8 +395,6 @@ def get_entity_cache_async(func):
             ret = await sync_to_async(cache.get)(key_name)
             if ret is None:
                 ret = await func(*args, **kwargs)
-                if isinstance(ret, Promise):
-                    ret = ret.get()
                 await sync_to_async(cache.set)(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException:

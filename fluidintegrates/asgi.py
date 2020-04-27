@@ -3,19 +3,19 @@ import os
 
 import django
 import newrelic.agent
-from uvicorn.workers import UvicornWorker  # noqa: E402
-
-from ariadne.asgi import GraphQL  # noqa: E402
-from ariadne.contrib.tracing.apollotracing import ApolloTracingExtension
 
 from django.conf import settings  # noqa: E402
-from django.urls import path, re_path  # noqa: E402
 
 # Init New Relic agent
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fluidintegrates.settings")
 django.setup()
 NEW_RELIC_CONF_FILE = os.path.join(settings.BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
+
+from django.urls import path, re_path  # noqa: E402
+from uvicorn.workers import UvicornWorker  # noqa: E402
+
+from ariadne.asgi import GraphQL  # noqa: E402
 
 from channels.auth import AuthMiddlewareStack  # noqa: E402
 from channels.http import AsgiHandler  # noqa: E402
@@ -64,12 +64,10 @@ APP = ProtocolTypeRouter({
             [
                 re_path(r'^/?api/?\.*$',
                         DjangoChannelsGraphQL(
-                            SCHEMA, debug=settings.DEBUG,
-                            extensions=[ApolloTracingExtension])),
+                            SCHEMA, debug=settings.DEBUG)),
                 re_path(r'api',
                         DjangoChannelsGraphQL(
-                            SCHEMA, debug=settings.DEBUG,
-                            extensions=[ApolloTracingExtension])),
+                            SCHEMA, debug=settings.DEBUG)),
             ])
     )
 })
