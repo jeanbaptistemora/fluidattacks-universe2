@@ -29,9 +29,26 @@ VALID_SCOPES: Tuple[str, ...] = \
     tuple(map(operator.itemgetter(0), VALID__SCOPES_DESC))
 VALID_TYPES: Tuple[str, ...] = \
     tuple(map(operator.itemgetter(0), VALID__TYPES_DESC))
+VALID_REASONS: Tuple[str, ...] = \
+    tuple(map(lambda r: f'not-drills(cross)-because: {r}', (
+        'i-already-tested-all-lines',
+        'i-already-tested-all-inputs',
+        'i-was-increasing-lines-coverage',
+        'i-was-increasing-inputs-coverage',
+        'toe-has-lines-only',
+        'there-is-a-lines-eventuality',
+        'there-is-an-inputs-eventuality',
+        'inputs-have-no-corresponding-lines',
+        'i-think-lines-have-more-vulns-than-inputs',
+        'i-think-inputs-have-more-vulns-than-lines',
+        'other: <please specify here>',
+    )))
 
 
-def is_valid_summary(summary: str) -> bool:
+def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
+    summary: str,
+    body: str = str(),
+) -> bool:
     """Plugable validator for drills commits."""
     is_valid: bool = True
 
@@ -82,8 +99,16 @@ def is_valid_summary(summary: str) -> bool:
         if type_ == 'drills' and scope in ('lines', 'inputs', 'cross'):
             match = re.match(daily_pattern, summary)
             if match:
-                logger.info('Drills daily commit: OK')
-                is_valid = True
+                if scope == 'cross' \
+                        or any(reason in body for reason in VALID_REASONS):
+                    logger.info('Drills daily commit: OK')
+                    is_valid = True
+                else:
+                    logger.error('Provide a valid reason for non-cross hack')
+                    logger.info(f'Valid reasons are:')
+                    for reason in VALID_REASONS:
+                        logger.info(f'  - {reason}')
+                    is_valid = False
             else:
                 logger.error(f'Daily commit must match: {daily_pattern}')
                 is_valid = False

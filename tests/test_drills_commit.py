@@ -15,8 +15,12 @@ def test_is_drills_commit():
 
 
 def test_is_valid_summary():
-    assert is_valid_summary('drills(lines): test - 72.75%, 0 el, 6 ei')
-    assert is_valid_summary('drills(inputs): test - 72.75%, 0 el, 6 ei')
+    assert is_valid_summary(
+        'drills(lines): test - 72.75%, 0 el, 6 ei',
+        'not-drills(cross)-because: toe-has-lines-only')
+    assert is_valid_summary(
+        'drills(inputs): test - 72.75%, 0 el, 6 ei',
+        'not-drills(cross)-because: toe-has-lines-only')
     assert is_valid_summary('drills(cross): test - 72.75%, 0 el, 6 ei')
     assert not is_valid_summary('drills(cross): test 72.75%, 0 el, 6 ei')
     assert not is_valid_summary('drills(cross): test - 72.7%, 0 el, 6 ei')

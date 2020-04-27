@@ -23,7 +23,7 @@ def do_check_commit_msg() -> bool:
     success: bool = False
 
     if drills.commit.is_drills_commit(summary):
-        success = drills.commit.is_valid_summary(summary)
+        success = drills.commit.is_valid_summary(summary, body)
     elif forces.commit.is_exploits_commit(summary):
         success = forces.commit.is_valid_summary(summary)
     else:
