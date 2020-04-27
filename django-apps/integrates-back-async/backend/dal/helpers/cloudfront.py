@@ -12,7 +12,7 @@ from __init__ import (
 
 def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
     filename = urllib.parse.quote_plus(str(file_name))
-    url = domain + "/" + filename
+    url = domain + '/' + filename
     key_id = FI_CLOUDFRONT_ACCESS_KEY
     now_time = datetime.utcnow()
     expire_date = now_time + timedelta(minutes=expire_mins)
@@ -33,5 +33,5 @@ def rsa_signer(message: str) -> bool:
 
 def download_file(file_info: str, project_name: str, domain: str, expire_mins: float) -> str:
     project_name = project_name.lower()
-    file_url = project_name + "/" + file_info
+    file_url = project_name + '/' + file_info
     return sign_url(domain, file_url, expire_mins)
