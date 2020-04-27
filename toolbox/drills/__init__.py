@@ -9,6 +9,7 @@ from toolbox.drills import (
     take_subscription_snapshot,
     update_lines,
     vpn,
+    lint
 )
 
 # Imported but unused
@@ -21,3 +22,4 @@ assert push_repos
 assert take_subscription_snapshot
 assert update_lines
 assert vpn
+assert lint

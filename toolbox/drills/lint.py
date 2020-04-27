@@ -16,7 +16,7 @@ def check_folder_content():
     if exploits:
         logger.error(('The drills folder must not contain code'
                       ' from forces, please relocate the following folders'))
-        for exp in glob(path_pattern):
+        for exp in exploits:
             logger.info(f'    {exp}')
         return False
 
