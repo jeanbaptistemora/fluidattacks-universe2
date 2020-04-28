@@ -9,7 +9,7 @@ from mixpanel import Mixpanel
 
 from backend.decorators import (
     require_login, require_project_access,
-    enforce_group_level_auth_async
+    enforce_group_level_auth_async, get_entity_cache_async
 )
 from backend.domain import resources, project as project_domain
 from backend.typing import (
@@ -24,14 +24,16 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
+@get_entity_cache_async
 @sync_to_async
-def _get_project_name(project_name: str) -> str:
+def _get_project_name(_, project_name: str) -> str:
     """Get project_name."""
     return project_name
 
 
+@get_entity_cache_async
 @sync_to_async
-def _get_repositories(project_name: str) -> List[ResourceType]:
+def _get_repositories(_, project_name: str) -> List[ResourceType]:
     """Get repositories."""
     project_info = cast(Dict[str, List[ResourceType]],
                         project_domain.get_attributes(project_name,
@@ -39,8 +41,9 @@ def _get_repositories(project_name: str) -> List[ResourceType]:
     return project_info.get('repositories', [])
 
 
+@get_entity_cache_async
 @sync_to_async
-def _get_environments(project_name: str) -> List[ResourceType]:
+def _get_environments(_, project_name: str) -> List[ResourceType]:
     """Get environments."""
     project_info = cast(Dict[str, List[ResourceType]],
                         project_domain.get_attributes(project_name,
@@ -48,8 +51,9 @@ def _get_environments(project_name: str) -> List[ResourceType]:
     return project_info.get('environments', [])
 
 
+@get_entity_cache_async
 @sync_to_async
-def _get_files(project_name: str) -> List[ResourceType]:
+def _get_files(_, project_name: str) -> List[ResourceType]:
     """Get files."""
     project_info = cast(Dict[str, List[ResourceType]],
                         project_domain.get_attributes(project_name,
@@ -88,7 +92,7 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
-        result[requested_field] = resolver_func(**params)
+        result[requested_field] = resolver_func(info, **params)
     return result
 
 

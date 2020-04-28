@@ -1,7 +1,7 @@
 from asgiref.sync import sync_to_async
 from backend.decorators import (
     enforce_group_level_auth_async, require_login,
-    require_project_access
+    require_project_access, get_entity_cache_async
 )
 from backend.domain import alert as alert_domain
 from backend.typing import (
@@ -13,6 +13,7 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case
 
 
+@get_entity_cache_async
 @sync_to_async
 def _get_alert_fields(project_name: str, organization: str) -> AlertType:
     """Resolve alert query."""

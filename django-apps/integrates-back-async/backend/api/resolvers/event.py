@@ -26,65 +26,76 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
+@get_entity_cache_async
 async def _get_id(_, identifier: str) -> str:
     """Get bts_url."""
     return identifier
 
 
+@get_entity_cache_async
 async def _get_analyst(info, identifier: str) -> str:
     """Get analyst."""
     event = await info.context.loaders['event'].load(identifier)
     return event['analyst']
 
 
+@get_entity_cache_async
 async def _get_client(info, identifier: str) -> str:
     """Get client."""
     event = await info.context.loaders['event'].load(identifier)
     return event['client']
 
 
+@get_entity_cache_async
 async def _get_evidence(info, identifier: str) -> str:
     """Get evidence."""
     event = await info.context.loaders['event'].load(identifier)
     return event['evidence']
 
 
+@get_entity_cache_async
 async def _get_project_name(info, identifier: str) -> str:
     """Get project_name."""
     event = await info.context.loaders['event'].load(identifier)
     return event['project_name']
 
 
+@get_entity_cache_async
 async def _get_client_project(info, identifier: str) -> str:
     """Get client_project."""
     event = await info.context.loaders['event'].load(identifier)
     return event['client_project']
 
 
+@get_entity_cache_async
 async def _get_event_type(info, identifier: str) -> str:
     """Get event_type."""
     event = await info.context.loaders['event'].load(identifier)
     return event['event_type']
 
 
+@get_entity_cache_async
 async def _get_detail(info, identifier: str) -> str:
     """Get detail."""
     event = await info.context.loaders['event'].load(identifier)
     return event['detail']
 
 
+@get_entity_cache_async
 async def _get_event_date(info, identifier: str) -> str:
     """Get event_date."""
     event = await info.context.loaders['event'].load(identifier)
     return event['event_date']
 
 
+@get_entity_cache_async
 async def _get_event_status(info, identifier: str) -> str:
     """Get event_status."""
     event = await info.context.loaders['event'].load(identifier)
     return event['event_status']
 
 
+@get_entity_cache_async
 async def _get_historic_state(info,
                               identifier: str) -> HistoricType:
     """Get historic_state."""
@@ -92,48 +103,56 @@ async def _get_historic_state(info,
     return event['historic_state']
 
 
+@get_entity_cache_async
 async def _get_affectation(info, identifier: str) -> str:
     """Get affectation."""
     event = await info.context.loaders['event'].load(identifier)
     return event['affectation']
 
 
+@get_entity_cache_async
 async def _get_accessibility(info, identifier: str) -> str:
     """Get accessibility."""
     event = await info.context.loaders['event'].load(identifier)
     return event['accessibility']
 
 
+@get_entity_cache_async
 async def _get_affected_components(info, identifier: str) -> str:
     """Get affected_components."""
     event = await info.context.loaders['event'].load(identifier)
     return event['affected_components']
 
 
+@get_entity_cache_async
 async def _get_context(info, identifier: str) -> str:
     """Get context."""
     event = await info.context.loaders['event'].load(identifier)
     return event['context']
 
 
+@get_entity_cache_async
 async def _get_subscription(info, identifier: str) -> str:
     """Get subscription."""
     event = await info.context.loaders['event'].load(identifier)
     return event['subscription']
 
 
+@get_entity_cache_async
 async def _get_evidence_file(info, identifier: str) -> str:
     """Get evidence_file."""
     event = await info.context.loaders['event'].load(identifier)
     return event['evidence_file']
 
 
+@get_entity_cache_async
 async def _get_closing_date(info, identifier: str) -> str:
     """Get closing_date."""
     event = await info.context.loaders['event'].load(identifier)
     return event['closing_date']
 
 
+@get_entity_cache_async
 async def _get_comments(info, identifier: str) -> List[CommentType]:
     """Get comments."""
     user_data = util.get_jwt_content(info.context)

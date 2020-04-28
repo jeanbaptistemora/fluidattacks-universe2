@@ -2,7 +2,9 @@ import sys
 from typing import List
 from asgiref.sync import sync_to_async
 from backend.api.resolvers import project as project_loader
-from backend.decorators import enforce_user_level_auth_async, require_login
+from backend.decorators import (
+    enforce_user_level_auth_async, get_entity_cache_async, require_login
+)
 from backend.domain import (
     project as project_domain, tag as tag_domain,
     user as user_domain
@@ -74,6 +76,7 @@ async def _get_name(_, tag: str, **__) -> str:
     return tag
 
 
+@get_entity_cache_async
 async def _get_last_closing_vuln(
         _, tag: str, organization: str, **__) -> float:
     """Get tag last_closing_vuln."""
@@ -85,6 +88,7 @@ async def _get_last_closing_vuln(
     return last_closing_vuln
 
 
+@get_entity_cache_async
 async def _get_max_severity(_, tag: str, organization: str, **__) -> float:
     """Get tag max_severity."""
     max_severity = await \
@@ -95,6 +99,7 @@ async def _get_max_severity(_, tag: str, organization: str, **__) -> float:
     return max_severity
 
 
+@get_entity_cache_async
 async def _get_max_open_severity(_, tag: str, organization: str,
                                  **__) -> float:
     """Resolve tag maximum severity"""
@@ -105,6 +110,7 @@ async def _get_max_open_severity(_, tag: str, organization: str,
     return max_open_severity.get('max_open_severity', 0)
 
 
+@get_entity_cache_async
 async def _get_mean_remediate(_, tag: str, organization: str, **__) -> float:
     """Get tag mean_remediate."""
     mean_remediate = await \
@@ -115,6 +121,7 @@ async def _get_mean_remediate(_, tag: str, organization: str, **__) -> float:
     return mean_remediate
 
 
+@get_entity_cache_async
 async def _get_mean_remediate_low_severity(
         _, tag: str, organization: str, **__) -> float:
     """Get tag mean_remediate_low_severity."""
@@ -127,6 +134,7 @@ async def _get_mean_remediate_low_severity(
     return mean_remediate_low_severity
 
 
+@get_entity_cache_async
 async def _get_mean_remediate_medium_severity(
         _, tag: str, organization: str, **__) -> float:
     """Get tag mean_remediate_medium_severity."""
@@ -139,6 +147,7 @@ async def _get_mean_remediate_medium_severity(
     return mean_remediate_medium_severity
 
 
+@get_entity_cache_async
 async def _get_mean_remediate_high_severity(
         _, tag: str, organization: str, **__) -> float:
     """Get tag mean_remediate_high_severity."""
@@ -151,6 +160,7 @@ async def _get_mean_remediate_high_severity(
     return mean_remediate_high_severity
 
 
+@get_entity_cache_async
 async def _get_mean_remediate_critical_severity(
         _, tag: str, organization: str, **__) -> float:
     """Get tag mean_remediate_critical_severity."""
