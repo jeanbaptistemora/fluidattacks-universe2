@@ -375,7 +375,7 @@ test_front:
       - front/coverage.lcov
     expire_in: 1 week
 
-test_mobile:
+.test_mobile:
   <<: *with_nix
   <<: *in_dev_and_master_branch
   image: "${CI_REGISTRY_IMAGE}/nix:test"
