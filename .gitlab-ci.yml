@@ -9,6 +9,7 @@ stages:
   - deploy-infra
   - deploy-app
   - post-deploy
+  - external
 
 .in_branches_and_mrs: &in_branches_and_mrs
   only:
@@ -122,7 +123,8 @@ coverage_report:
   needs:
     - test_back
     - test_front
-  stage: merge-request
+  stage: external
+  when: always
   retry: 1
 
 clean_registries:
@@ -419,7 +421,6 @@ forces_dynamic:
               --gitlab-docker-socket-binding
              )
   interruptible: true
-  allow_failure: true
   <<: *in_master_branch
 
 lint_commit_msg:
