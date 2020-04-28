@@ -29,6 +29,8 @@ be implemented having these restrictions in consideration.
 
 * link:/web/findings/032/[F032. User impersonation]
 
+* link:/web/findings/037/[F037. Technical information leak]
+
 * link:/web/findings/038/[F038. Business information leak]
 
 * link:/web/findings/039/[F039. Improper authorization control for web services]

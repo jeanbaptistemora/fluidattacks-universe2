@@ -9,5 +9,9 @@
 == Requirement
 
 The application must not disclosure internal system information
-such as +stack traces+, +SQL+ sentences fragments,
+such as **stack traces**, **SQL** sentences fragments,
 database names or table names.
+
+== Findings
+
+* link:/web/findings/037/[F037. Technical information leak]

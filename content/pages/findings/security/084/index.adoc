@@ -1,0 +1,22 @@
+:slug: findings/084/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling MDNS spoofing attacks, recommendations to avoid them and related security requirements.
+:keywords: MDNS, Spoofing, Multicast, Address, Hijack, DNS
+:findings: yes
+:type: security
+
+= F084. MDNS spoofing
+
+== Description
+
+The configuration of the mDNS services allows an attacker to spoof IP
+addresses,
+effectively hijacking them or causing a denial-of-service.
+Alternatively, due to a lack of certain security measures,
+it is possible to intercept requests to mDNS services and obtain
+information about the connected devices.
+
+== Rules
+
+. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
+
+. [[r2]] link:/web/rules/273/[R273. Define fixed security suite]

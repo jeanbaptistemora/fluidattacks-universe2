@@ -4,4 +4,4 @@
 :findingsindex: yes
 :template: findings
 
-= Security Findings
+= Findings

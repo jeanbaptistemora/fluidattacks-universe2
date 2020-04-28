@@ -1,0 +1,22 @@
+:slug: findings/037/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities related with technical information leaks, recommendations to avoid them and related security requirements.
+:keywords: Technical, Information, Data, Leak, Exposed, Configuration
+:findings: yes
+:type: hygiene
+
+= F037. Technical information leak
+
+== Description
+
+It is possible to obtain technical information such as:
+
+* System component versions (*HTTP* headers, service banner, etc)
+
+* Specific information about the configuration of server components
+(**php.ini**, **web.config**)
+
+== Rules
+
+. [[r1]] link:/web/rules/077/[R077. Avoid information disclosure]
+
+. [[r2]] link:/web/rules/176/[R176. Restrict system objects]

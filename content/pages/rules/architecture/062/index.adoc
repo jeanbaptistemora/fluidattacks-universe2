@@ -24,6 +24,8 @@ integrity, availability and resilience of systems and services.
 
 * link:/web/findings/077/[F077. ARP spoofing]
 
+* link:/web/findings/084/[F084. MDNS spoofing]
+
 * link:/web/findings/110/[F110. HTTP request smuggling]
 
 * link:/web/findings/111/[F111. Out-of-bounds Read]
