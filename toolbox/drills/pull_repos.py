@@ -45,7 +45,11 @@ def main(subs: str) -> bool:
     if not utils_generic.does_subs_exist(subs):
         logger.error(f'Subscription {subs} does not exist.')
         passed = False
-    elif not drills_generic.s3_path_exists(bucket, f'{subs}/'):
+        return passed
+
+    utils_generic.aws_login(f'continuous-{subs}')
+
+    if not drills_generic.s3_path_exists(bucket, f'{subs}/'):
         logger.error(f'Subscription {subs} does not have repos uploaded to s3')
         passed = False
     else:
@@ -53,7 +57,6 @@ def main(subs: str) -> bool:
         last_upload_date: datetime = \
             drills_generic.get_last_upload(bucket, f'{subs}/')
         days: int = drills_generic.calculate_days_ago(last_upload_date)
-        utils_generic.aws_login(f'continuous-{subs}')
         passed = passed and pull_repos_s3_to_fusion(subs, local_path)
         logger.info(f'Subscription {subs} was last updated {days} days ago')
     return passed
