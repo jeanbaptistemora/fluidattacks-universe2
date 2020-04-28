@@ -492,7 +492,8 @@ function job_lint_mobile {
 
 function job_lint_secrets {
   local files_to_verify=(
-    'secrets-development.yaml'
+    secrets-development.yaml
+    secrets-production.yaml
   )
 
       echo "[INFO] Veryfing that secrets is sorted" \
