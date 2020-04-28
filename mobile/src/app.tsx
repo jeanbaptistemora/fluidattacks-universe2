@@ -11,7 +11,7 @@ import { WelcomeView } from "./containers/WelcomeView";
 import { store } from "./store";
 import { client } from "./utils/apollo";
 
-const theme: Theme = {
+export const theme: Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,

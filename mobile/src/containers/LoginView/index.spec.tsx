@@ -1,8 +1,11 @@
 import React from "react";
+import { Provider as ThemeProvider } from "react-native-paper";
+import { NativeRouter } from "react-router-native";
 import renderer, { ReactTestRenderer } from "react-test-renderer";
 
-import { ILoginProps, loginView as LoginView } from "./index";
-import { initialState } from "./reducer";
+import { theme } from "../../app";
+
+import { ILoginProps, LoginView } from "./index";
 
 /** Mocked types for react-native */
 interface IMockedRN {
@@ -50,11 +53,14 @@ describe("LoginView", (): void => {
         path: "/",
         url: "",
       },
-      ...initialState,
-      onGoogleLogin: (): void => undefined,
-      onResolveVersion: (): void => undefined,
     };
-    const renderedComponent: ReactTestRenderer = renderer.create(<LoginView {...mockProps} />);
+    const renderedComponent: ReactTestRenderer = renderer.create(
+      <ThemeProvider theme={theme}>
+        <NativeRouter initialEntries={["/"]}>
+          <LoginView  {...mockProps} />
+        </NativeRouter>
+      </ThemeProvider>,
+    );
     expect(renderedComponent.toJSON())
       .toBeTruthy();
   });
