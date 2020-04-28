@@ -56,7 +56,7 @@ def _one_exploit_by_path_with_prospector(exploit_path: str) -> bool:
 
 
 def _one_exploit_by_path_for_deprecated_methods(exploit_path: str) -> bool:
-    logger.info(f'Running linter for exploit title over: {exploit_path}')
+    logger.info(f'Running linter for add_finding over: {exploit_path}')
 
     if '.cannot' in exploit_path:
         return True
@@ -75,16 +75,9 @@ def _one_exploit_by_path_for_deprecated_methods(exploit_path: str) -> bool:
     add_findings: int = \
         sum('add_finding' in call for call in calls)
 
-    generic_static_exploits: int = \
-        sum('generic_static_exploit' in call for call in calls)
-
-    if add_findings + generic_static_exploits != 1:
-        logger.error('Exploits must have 1 (and only 1) add_finding')
+    if add_findings > 0:
+        logger.error('Exploits must not have add_finding')
         logger.error()
-        logger.info('The following functions are allowed:')
-        logger.info('- generic.add_finding')
-        logger.info('- utilities.generic_static_exploit')
-        logger.info()
         return False
 
     return True
