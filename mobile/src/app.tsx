@@ -2,13 +2,11 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
 import { StatusBar } from "react-native";
 import { DefaultTheme, Provider as ThemeProvider, Theme } from "react-native-paper";
-import { Provider as ReduxProvider } from "react-redux";
 import { NativeRouter, Route, Switch } from "react-router-native";
 
 import { LoginView } from "./containers/LoginView";
 import { MenuView } from "./containers/MenuView";
 import { WelcomeView } from "./containers/WelcomeView";
-import { store } from "./store";
 import { client } from "./utils/apollo";
 
 export const theme: Theme = {
@@ -23,7 +21,6 @@ export const theme: Theme = {
 
 const app: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
-    <ReduxProvider store={store}>
       <ThemeProvider theme={theme}>
         <StatusBar barStyle="light-content" />
         <NativeRouter>
@@ -34,7 +31,6 @@ const app: React.FunctionComponent = (): JSX.Element => (
           </Switch>
         </NativeRouter>
       </ThemeProvider>
-    </ReduxProvider>
   </ApolloProvider>
 );
 
