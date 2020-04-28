@@ -1,9 +1,6 @@
-======================================
-Welcome to Continuous's documentation!
-======================================
-
-Here you can find plenty of information regarding the continuous-hacking
-process and tools.
+=========================================
+Welcome to Fluid Services' documentation!
+=========================================
 
 .. toctree::
    :hidden:
@@ -11,10 +8,9 @@ process and tools.
 
    Home <self>
    ci
-   secrets
-   vpns
+   drills_vpns
+   forces_exploits
    forces_admin
-   reference
 
 ===================
 Structure and files
@@ -22,10 +18,9 @@ Structure and files
 
 The directory structure is (only the most important directories are included):
 
-  - **subscriptions:** Contains all active continuous subscriptions.
-  - **suspended:** Contains all suspended continuous subscriptions.
-  - **finished:** Contains all finished continuous subscriptions.
+  - **build:** Source code for the build system
   - **forces:** Contains all source code for forces service.
+  - **subscriptions:** Contains all active subscriptions.
   - **toolbox:** Contains all source code for the Fluid CLI.
 
 There are ``4`` folders within every subscription:
@@ -43,7 +38,6 @@ There are ``4`` folders within every subscription:
       source code repositories, customer, cloning method, vpn, etc.
     - **secrets.yaml:** File for secrets like users, passwords, repo ssh keys, etc.
 
-
   - **toe:**
 
     - :ref:`lines-csv` File for tracking
@@ -52,16 +46,18 @@ There are ``4`` folders within every subscription:
       which application/infrastructure inputs
       have been reviewed.
 
-  - **fusion:** This folder does not come by default.
-    It contains the source code of the subscription repositories
-    and can be obtained by cloning it with the :ref:`Fluid CLI <repo-cloning>`.
+  - **fusion:**
+
+    - This folder does not come by default.
+      It contains the source code of the subscription repositories
+      and can be obtained as shown in later steps of this tutorial.
 
 ==========================
 Target of Evaluation (ToE)
 ==========================
 
 It consists of lines and fields
-(see `Fluid Rules <https://fluidattacks.com/web/en/rules/>`_)
+(see `Fluid Rules <https://fluidattacks.com/web/rules/>`_)
 that must be tested.
 
 .. _lines-csv:
@@ -103,9 +99,6 @@ It contains the following columns:
 | comments        | Found vulnerabilities in the file                | UseOfHardCodedCredentials(CWE-798) |
 +-----------------+--------------------------------------------------+------------------------------------+
 
-``lines.csv`` files must comply with the rules
-defined in ``templates/lines.csv``.
-
 .. _inputs-csv:
 
 ++++++++++
@@ -135,112 +128,109 @@ in the subscription application.
 +---------------+------------------------------------------------+------------------------------------+
 | vulns         | Found vulnerabilities in the input             | InformationExposure(CWE-200)       |
 +---------------+------------------------------------------------+------------------------------------+
-| modified_date | | Last modification date of the entry          | UseOfHardCodedCredentials(CWE-798) |
-|               | | in ``YYYY-MM-DD`` format                     |                                    |
-+---------------+------------------------------------------------+------------------------------------+
-
-``inputs.csv`` files must comply with the rules
-defined in ``templates/inputs.csv``.
 
 =====
 Tools
 =====
 
-Before you use any of the following tools,
-please install the lastest version of
-`SOPS <https://github.com/mozilla/sops/releases>`_.
+All tools you may need can be installed in your system with:
 
-SOPS is a secret encrypting tool developed by Mozilla
-that allows analysts to decrypt the ``config/secrets.yaml``
-of the subscriptions they have access to.
+.. code:: bash
 
-+++++++++++++++
+    continuous$ ./install.sh
+
+It's the official way, and the only one we support.
+
++++++++++
 Fluid CLI
-+++++++++++++++
-FLuid CLI is a software, which makes the hacker's job easier by
-providing the tools they need in continuous testing.
++++++++++
 
-You can access more documentation about it :ref:`here <api-reference>`.
-
-.. _repo-cloning:
-
-+++++++++++++++
-1. Repo-cloning
-+++++++++++++++
-
-This script allows analysts to clone all
-the repositories associated to a specific subscription
-as long as they have access to it in Okta.
-
-Execute the following command from the continuous repo root:
+Bundle of scripts for daily operations:
 
 .. code:: bash
 
-  continuous$ fluid resources --pull-repos <subscription-name>
+    continuous$ fluid --help
 
-This one could also be executed inside the selected subscription folder
++++++++++++++
+FLuid Asserts
++++++++++++++
+
+`Hacking framework and knowledge library <https://fluidattacks.com/asserts/>`_.
 
 .. code:: bash
 
-  continuous/subscriptions/subscription$ fluid resources --pull-repos
+    continuous$ asserts --help
 
-This command will ask for okta credentials.
+======================
+Hacking and Exploiting
+======================
 
-Once permissions get validated, a fusion folder is created with all
-repositories from the selected subscription
+Ask an administrator to grant you the corresponding **Okta** roles
+depending on the subscriptions you are assigned to.
+Having privileges is the starting point of the following tutorial.
 
-This command could also be used for updating repositories in case
-they have changed
++++++++++
+Resources
++++++++++
+
+In order to hack you need the customer's source code,
+you can have it or update it with:
+
+.. code:: bash
+
+    continuous$ fluid resources --pull-repos <subscription-name>
+
+Please do so at least once a day, before hacking and everything else
 
 +++++++++++++++
-2. Update-lines
+Toe-Enumeration
 +++++++++++++++
 
-As source code from all subscriptions gets updated by the customer,
-the ``lines.csv`` must be kept updated with such changes.
+As source code gets updated by the customer,
+the ``lines.csv`` and ``inputs.csv`` must be kept updated with such changes.
 
-You can do this automatically:
+The first step is to enumerate the ToE, this will update the ``lines.csv`` file:
 
-- Clone or update the subscription source code.
-
-- Run:
-
-  .. code:: bash
+.. code:: bash
 
     continuous$ fluid drills --update-lines <subscription>
 
-+++++++++++++++++++
-3. Evaluated-so far
-+++++++++++++++++++
+Once you hack the ToE,
+manually modify these files to indicate which lines and inputs where tested.
 
-As commit messages must follow a
-`standard <https://gitlab.com/fluidattacks/continuous/wikis/Commit-and-MR-Messages>`_,
-
-.. code:: bash
-
-  continuous/subscriptions/<subscription>$ fluid drills --generate-commit-msg
-
-
-++++++++++++++
-4. Fingerprint
-++++++++++++++
-
-Allows to extract information
-from already cloned repositories
-using ``repo-cloning``.
-It provides repository name,
-last commit hash and date,
-among others.
+While updating the ``inputs.csv``,
+computing the commit and dates of modification of an input can be obtained with:
 
 .. code:: bash
 
-  continuous/subscriptions/<subscription>$ fluid resources --fingerprint
+  continuous$ fluid resources --fingerprint
 
-+++++++++++++++
-5. Source Clear
-+++++++++++++++
+++++++++++
+Exploiting
+++++++++++
 
-Tool used for Static Analysis Security Testing (``SAST``)
+Please refer to the `Exploits Documentation <forces_exploits.html>`__
+for further information.
+
++++++++++++++++++++++
+Commit and MR Message
++++++++++++++++++++++
+
+Every day, at the end, you must commit the changes you made.
+
+All commit messages must follow the
+`Commit and MR Standard <https://gitlab.com/fluidattacks/continuous/wikis/Commit-and-MR-Messages>`_,
+this tool will help you with the math:
+
+.. code:: bash
+
+  continuous$ fluid drills --generate-commit-msg <subscription>
+
+++++++++++++
+Source Clear
+++++++++++++
+
+Use this for Static Analysis Security Testing (``SAST``)
 on the source code of subscriptions.
 Usage:
 
@@ -250,14 +240,11 @@ Usage:
 
   .. code:: bash
 
-    docker login registry.gitlab.com
-
-- Preparare the container:
-
-  .. code:: bash
-
-    continuous$ docker run --name=sourceclear -v $(pwd):/continuous \
-    --rm -i -t registry.gitlab.com/fluidattacks/continuous:srcclr bash
+    continuous$ docker login registry.gitlab.com
+    continuous$ docker run -i -t --rm \
+      --name sourceclear \
+      --volume "$(pwd):/continuous" \
+      registry.gitlab.com/fluidattacks/continuous:srcclr bash
 
 - Once inside the container, run:
 
@@ -267,27 +254,4 @@ Usage:
     cd /continuous
     srcclr scan --recursive --allow-dirty subscriptions/subscription/fusion
 
-===
-VPN
-===
-
-Some subscriptions need a ``VPN``
-for either accessing their applications
-or cloning their source code.
-In oder to access a subscription ``VPN``:
-
-- Run the following command to install Nix:
-
-  .. code:: bash
-
-    continuous$ curl https://nixos.org/nix/install | sh
-
-- Run:
-
-  .. code:: bash
-
-    continuous$ ./vpns/subscription.sh
-
-After running this command,
-you will be inside a nix-shell
-that is connected to the subscription's VPN.
+  You can obtain the asked token by login-in to **Source Clear** through Okta.

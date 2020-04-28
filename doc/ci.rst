@@ -13,9 +13,9 @@ Requirements
 Steps
 =====
 
-#. Clone the continuous repository `here <https://gitlab.com/fluidattacks/continuous>`_.
+#. Clone the `repository <https://gitlab.com/fluidattacks/continuous>`_.
 
-#. Install Nix, as explained `here <https://nixos.org/nix/download.html>`_.
+#. Install `Nix <https://nixos.org/nix/download.html>`_.
 
    On most systems:
 
