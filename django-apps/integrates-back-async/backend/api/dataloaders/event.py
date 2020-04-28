@@ -2,15 +2,16 @@
 
 from collections import defaultdict
 
+from typing import Dict, List
 from asgiref.sync import sync_to_async
 from backend.domain import event as event_domain
-
+from backend.typing import Event as EventType
 from aiodataloader import DataLoader
 
 
-async def _batch_load_fn(event_ids):
+async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
     """Batch the data load requests within the same execution fragment."""
-    events = defaultdict(list)
+    events: Dict[str, EventType] = defaultdict(EventType)
 
     evnts = await sync_to_async(event_domain.get_events)(event_ids)
     for event in evnts:
@@ -36,10 +37,10 @@ async def _batch_load_fn(event_ids):
             subscription=event.get('subscription', '')
         )
 
-    return [events.get(event_id, []) for event_id in event_ids]
+    return [events.get(event_id, dict()) for event_id in event_ids]
 
 
 # pylint: disable=too-few-public-methods
 class EventLoader(DataLoader):
-    async def batch_load_fn(self, event_ids):
+    async def batch_load_fn(self, event_ids: List[str]) -> List[EventType]:
         return await _batch_load_fn(event_ids)

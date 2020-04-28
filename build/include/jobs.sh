@@ -447,6 +447,7 @@ function job_lint_back {
         django-apps/integrates-back-async/backend/domain/*py \
         django-apps/integrates-back-async/backend/dal/* \
         django-apps/integrates-back-async/backend/utils/* \
+        django-apps/integrates-back-async/backend/api/dataloaders/event.py \
         django-apps/integrates-back-async/backend/api/resolvers/* \
   &&  prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s veryhigh django-apps/casbin-in-memory-adapter \
