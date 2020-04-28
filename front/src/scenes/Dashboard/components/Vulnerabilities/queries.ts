@@ -81,8 +81,8 @@ mutation UploadVulnerabilites ($file: Upload!, $findingId: String!){
 }`;
 
 export const DELETE_TAGS_MUTATION: DocumentNode = gql`
-mutation DeleteTagsVuln ($findingId: String!, $vulnerabilities: [String]!){
-  deleteTags(findingId: $findingId, vulnerabilities: $vulnerabilities) {
+mutation DeleteTagsVuln ($findingId: String!, $tag: String, $vulnerabilities: [String]!){
+  deleteTags(findingId: $findingId, tag: $tag, vulnerabilities: $vulnerabilities) {
     success
   }
 }`;

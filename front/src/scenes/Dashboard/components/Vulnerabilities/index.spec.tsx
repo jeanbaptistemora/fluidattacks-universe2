@@ -5,6 +5,8 @@ import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
 import React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store";
@@ -17,11 +19,11 @@ configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Vulnerabilities view", () => {
 
-  const mocks: ReadonlyArray<MockedResponse> = [
-    {
+  const mocks: MockedResponse = {
       request: {
         query: GET_VULNERABILITIES,
         variables: {
+          analystField: false,
           identifier: "480857698",
         },
       },
@@ -38,9 +40,10 @@ describe("Vulnerabilities view", () => {
               findingId: "480857698",
               id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
               lastApprovedStatus: "",
+              remediated: false,
+              severity: 1,
               specific: "email",
-              treatment: "New",
-              treatmentJustification: "",
+              tag: "",
               treatmentManager: "user@test.com",
               verification: "",
               vulnType: "inputs",
@@ -54,9 +57,10 @@ describe("Vulnerabilities view", () => {
               findingId: "480857698",
               id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
               lastApprovedStatus: "",
+              remediated: false,
+              severity: 1,
               specific: "12",
-              treatment: "New",
-              treatmentJustification: "",
+              tag: "",
               treatmentManager: "user@test.com",
               verification: "",
               vulnType: "lines",
@@ -95,12 +99,10 @@ describe("Vulnerabilities view", () => {
               where: "192.168.0.0",
             }],
             releaseDate: "2019-03-12 00:00:00",
-            success: true,
           },
         },
       },
-    },
-  ];
+    };
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -138,7 +140,7 @@ describe("Vulnerabilities view", () => {
 
   it("should render vulnerabilities", async () => {
     const wrapper: ShallowWrapper = shallow(
-      <MockedProvider mocks={mocks} addTypename={true}>
+      <MockedProvider mocks={[mocks]} addTypename={true}>
         <VulnerabilitiesView
           editMode={false}
           findingId="480857698"
@@ -151,19 +153,18 @@ describe("Vulnerabilities view", () => {
       .toBeTruthy();
   });
 
-  it("should render update treatment", () => {
+  it("should render update treatment", async () => {
     const handleOnClose: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnTreatment = { updateTreatmentVuln : { success: true } };
-    const mocksMutation: MockedResponse[] = [{
+    const mocksMutation: MockedResponse = {
       request: {
         query: UPDATE_TREATMENT_MUTATION,
         variables: {
-          acceptanceDate: undefined, btsUrl: undefined, findingId: "", severity: "-1", tag: undefined,
-          treatment: undefined, treatmentJustification: undefined, treatmentManager: undefined, vulnerabilities: [""],
+          findingId: "480857698", severity: -1, tag: "one", treatmentManager: "", vulnerabilities: ["test"],
         },
       },
       result: { data: updateTreatment},
-    }];
+    };
     const vulns: IVulnDataType[] = [
       {
         currentState: "",
@@ -179,15 +180,17 @@ describe("Vulnerabilities view", () => {
     ];
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
+        <MockedProvider mocks={[mocksMutation, mocks]} addTypename={false}>
           <UpdateTreatmentModal
-            findingId=""
+            findingId="480857698"
             vulnerabilities={vulns}
             handleCloseModal={handleOnClose}
           />
         </MockedProvider>
       </Provider>,
     );
+    await act(async () => { await wait(0); wrapper.update(); });
+
     const closeButton: ReactWrapper = wrapper
       .find("Button")
       .filterWhere((element: ReactWrapper) => element.contains("Close"));
@@ -200,6 +203,53 @@ describe("Vulnerabilities view", () => {
       .toHaveLength(1);
     expect(handleOnClose.mock.calls.length)
       .toEqual(1);
+  });
+
+  it("should render error update treatment", async () => {
+    const handleOnClose: jest.Mock = jest.fn();
+    const mocksError: MockedResponse = {
+      request: {
+        query: UPDATE_TREATMENT_MUTATION,
+        variables: {
+          findingId: "480857698", severity: -1, tag: "one", treatmentManager: "", vulnerabilities: ["test"],
+        },
+      },
+      result: {
+        errors: [new GraphQLError("Invalid treatment manager")],
+      },
+    };
+    const vulns: IVulnDataType[] = [
+      {
+        currentState: "",
+        id: "test",
+        specific: "",
+        treatments: {
+          severity: "",
+          tag: "one",
+          treatmentManager: "",
+        },
+        where: "",
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={[mocksError, mocks]} addTypename={false}>
+          <UpdateTreatmentModal
+            findingId="480857698"
+            vulnerabilities={vulns}
+            handleCloseModal={handleOnClose}
+          />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+
+    const proceedButton: ReactWrapper = wrapper
+    .find("Button")
+    .filterWhere((element: ReactWrapper) => element.contains("Proceed"));
+    proceedButton.simulate("click");
+    expect(wrapper)
+      .toHaveLength(1);
   });
 
   it("should subtract 10 - 5", async () => {

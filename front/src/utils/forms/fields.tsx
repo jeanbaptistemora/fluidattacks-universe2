@@ -90,9 +90,11 @@ export const textField: React.FC<CustomFieldProps> =
     </div>
   );
 
-export const tagInputField: React.FC<CustomFieldProps> =
-  (fieldProps: CustomFieldProps): JSX.Element => {
+type tagFieldProps = CustomFieldProps & { onDeletion(tag: string): void };
+export const tagInputField: React.FC<tagFieldProps> =
+  (fieldProps: tagFieldProps): JSX.Element => {
     const tagsEmpty: Tag[] = [];
+    const { onDeletion } = fieldProps;
     const [tagsInput, setTagsInput] = React.useState(tagsEmpty);
 
     const onMount: (() => void) = (): void => {
@@ -115,8 +117,13 @@ export const tagInputField: React.FC<CustomFieldProps> =
     };
     const handleDelete: ((index: number) => void) = (index: number): void => {
       let newTags: Tag[] = tagsInput;
-      newTags = newTags.filter((tag: Tag, indexFilter: number) => indexFilter !== index);
+      newTags = newTags.filter((_0: Tag, indexFilter: number) => indexFilter !== index);
+      const deletedTags: string = tagsInput.reduce(
+        (tagValue: string, currentTag: Tag, indexFilter: number) =>
+        (indexFilter === index ? currentTag.text : tagValue),
+        "");
       setTagsInput(newTags);
+      onDeletion(deletedTags);
       const newTag: string = tagToString(newTags);
       fieldProps.input.onChange(newTag);
       fieldProps.input.value = newTag;

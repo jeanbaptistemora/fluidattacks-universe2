@@ -63,7 +63,9 @@ export interface IDeleteTagResult {
 }
 
 export interface IDeleteTagAttr {
-  findingId: string; vulnerabilities: string[];
+  findingId: string;
+  tag?: string;
+  vulnerabilities: string[];
 }
 
 export interface IVulnDataType {

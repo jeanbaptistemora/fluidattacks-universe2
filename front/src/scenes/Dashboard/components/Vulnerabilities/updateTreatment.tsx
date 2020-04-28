@@ -46,16 +46,14 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
   const { userEmail } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzContext);
 
-  const sortTags: ((tags: string) => string) = (tags: string): string => {
+  const sortTags: ((tags: string) => string[]) = (tags: string): string[] => {
     const tagSplit: string[] = tags.trim()
       .split(",");
 
-    return tagSplit.sort()
-      .join(", ");
+    return tagSplit.map((tag: string) => tag.trim());
   };
 
-  const sameTags: boolean = props.vulnerabilities.every(
-    (vuln: IVulnDataType) => sortTags(vuln.treatments.tag) === sortTags(props.vulnerabilities[0].treatments.tag));
+  const vulnsTags: string[][] = props.vulnerabilities.map((vuln: IVulnDataType) => sortTags(vuln.treatments.tag));
 
   const handleUpdateTreatError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
@@ -148,7 +146,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                 msgSuccess(
                   translate.t("search_findings.tab_description.update_vulnerabilities"),
                   translate.t("proj_alerts.title_success"));
-                props.handleCloseModal();
               }
             }
           };
@@ -181,6 +178,14 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                     .catch();
                   }
                 };
+                const handleDeletion: ((tag: string) => void) = (tag: string): void => {
+                  deleteTagVuln({variables: {
+                    findingId: props.findingId,
+                    tag,
+                    vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
+                  }})
+                  .catch();
+                };
 
                 return (
                   <Modal
@@ -204,7 +209,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                     name="editTreatmentVulnerability"
                     onSubmit={handleUpdateTreatmentVuln}
                     initialValues={{
-                      tag: sameTags ? props.vulnerabilities[0].treatments.tag : undefined,
+                      tag: _.join((_.intersection(...vulnsTags)), ","),
                       treatmentManager: props.vulnerabilities[0].treatments.treatmentManager,
                     }}
                   >
@@ -262,7 +267,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                             <ControlLabel>
                               <b>{translate.t("search_findings.tab_description.tag")}</b>
                             </ControlLabel>
-                            <Field component={tagInputField} name="tag" type="text" />
+                            <Field component={tagInputField} name="tag" onDeletion={handleDeletion} type="text" />
                           </FormGroup>
                         </Col>
                         <Col md={6}>
