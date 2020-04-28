@@ -232,6 +232,7 @@ def key_existing_list(key):
 @cache_content
 @never_cache
 @csrf_exempt
+@authenticate
 @require_http_methods(['GET'])
 def download_vulnerabilities(request, findingid):
     """Download a file with all the vulnerabilities."""
