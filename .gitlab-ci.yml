@@ -121,6 +121,7 @@ coverage_report:
   <<: *in_mrs_and_master_branch
   needs:
     - test_back
+    - test_front
   stage: merge-request
   retry: 1
 
