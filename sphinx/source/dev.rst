@@ -286,8 +286,6 @@ to keep in mind when developing ``Fluid Asserts``:
 * https://wiki.owasp.org/index.php/OWASP_Secure_TDD_Project
 * https://dadario.com.br/security-unit-tests-are-important/
 * https://owasp.blogspot.com/2012/08/owasp-xelenium-security-unit-tests.html
-* https://www.owasp.org/images/9/99/AutomatedSecurityTestingofWebApplications-StephendeVries.pdf
-* https://www.owasp.org/images/6/62/OWASPAppSecEU2006_SecurityTestingthruAutomatedSWTests.ppt
 * https://spring.io/blog/2014/05/07/preview-spring-security-test-method-security
 * https://www.adapttransformation.com/devops-toolchain/test/testing/security-testing/
 * https://blogs.adobe.com/security/2014/07/overview-of-behavior-driven-development.html
