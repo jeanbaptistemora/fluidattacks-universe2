@@ -2,6 +2,7 @@
 
 from collections import defaultdict
 import sys
+from typing import Dict, List
 
 from asgiref.sync import sync_to_async
 from graphql import GraphQLError
@@ -15,6 +16,10 @@ from backend.domain import (
     user as user_domain,
     vulnerability as vuln_domain
 )
+from backend.typing import (
+    Finding as FindingType,
+    Vulnerability as VulnerabilityType,
+)
 from backend.utils import findings as finding_utils
 from backend import util
 
@@ -22,9 +27,11 @@ from aiodataloader import DataLoader
 from ariadne import convert_camel_case_to_snake
 
 
-async def _batch_load_fn(finding_ids):
+async def _batch_load_fn(
+        finding_ids: List[str]) -> List[Dict[str, FindingType]]:
     """Batch the data load requests within the same execution fragment."""
-    findings = defaultdict(list)
+    findings: Dict[str, Dict[str, FindingType]] = \
+        defaultdict(Dict[str, FindingType])
 
     fins = await sync_to_async(finding_domain.get_findings)(finding_ids)
 
@@ -68,17 +75,19 @@ async def _batch_load_fn(finding_ids):
                 'historicState', [{}])[-1].get('state', '')
         )
 
-    return [findings.get(finding_id, []) for finding_id in finding_ids]
+    return [findings.get(finding_id, dict()) for finding_id in finding_ids]
 
 
 # pylint: disable=too-few-public-methods
 class FindingLoader(DataLoader):
-    async def batch_load_fn(self, finding_ids):
+    async def batch_load_fn(
+            self, finding_ids: List[str]) -> List[Dict[str, FindingType]]:
         return await _batch_load_fn(finding_ids)
 
 
 @get_entity_cache_async
-async def _get_vulnerabilities(info, identifier, state=None):
+async def _get_vulnerabilities(info, identifier: str,
+                               state: str = '') -> List[VulnerabilityType]:
     """Get vulnerabilities."""
     vuln_filtered = \
         await info.context.loaders['vulnerability'].load(identifier)
@@ -92,7 +101,7 @@ async def _get_vulnerabilities(info, identifier, state=None):
 
 
 @get_entity_cache_async
-async def _get_ports_vulns(info, identifier):
+async def _get_ports_vulns(info, identifier: str) -> List[VulnerabilityType]:
     """Get ports vulnerabilities."""
     vuln_filtered = \
         await info.context.loaders['vulnerability'].load(identifier)
@@ -105,7 +114,7 @@ async def _get_ports_vulns(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_inputs_vulns(info, identifier):
+async def _get_inputs_vulns(info, identifier: str) -> List[VulnerabilityType]:
     """Get inputs vulnerabilities."""
     vuln_filtered = \
         await info.context.loaders['vulnerability'].load(identifier)
@@ -118,7 +127,7 @@ async def _get_inputs_vulns(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_lines_vulns(info, identifier):
+async def _get_lines_vulns(info, identifier: str) -> List[VulnerabilityType]:
     """Get lines vulnerabilities."""
     vuln_filtered = \
         await info.context.loaders['vulnerability'].load(identifier)
@@ -134,7 +143,7 @@ async def _get_lines_vulns(info, identifier):
 @enforce_group_level_auth_async
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
-async def _get_pending_vulns(info, identifier):
+async def _get_pending_vulns(info, identifier: str) -> List[VulnerabilityType]:
     """Get pending vulnerabilities."""
     vuln_filtered = \
         await info.context.loaders['vulnerability'].load(identifier)

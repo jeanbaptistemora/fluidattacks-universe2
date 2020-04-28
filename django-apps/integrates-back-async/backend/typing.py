@@ -73,6 +73,11 @@ Me = Dict[str, Union[
     str, bool,
     List[Union[Project, Tag, str]]
 ]]
+Vulnerability = Dict[str, Union[
+    str, bool,
+    Historic,
+    List[str]
+]]
 AddUserPayload = NamedTuple('AddUserPayload', [
     ('success', bool),
     ('email', str),
