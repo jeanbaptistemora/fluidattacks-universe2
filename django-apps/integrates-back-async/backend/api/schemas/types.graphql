@@ -101,7 +101,7 @@ type User {
     organization: String
     firstLogin: String
     lastLogin: String
-    listProjects: [String!]
+    projects: [Project]
 }
 
 "Project type definition"

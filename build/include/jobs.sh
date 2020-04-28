@@ -670,7 +670,8 @@ function job_test_back {
       &&  (
             set +o errexit
             kill -9 "${process}"
-          )
+          ) \
+      && redis-cli KEYS "*" | xargs -d "\n" redis-cli DEL
     done
   }
 

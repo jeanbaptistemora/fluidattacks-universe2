@@ -480,6 +480,7 @@ async def _get_users(info, project_name: str,
 async def resolve(info, project_name: str,
                   as_field: bool = False, as_list: bool = True) -> ProjectType:
     """Async resolve fields."""
+    project_name = project_name.lower()
     result: ProjectType = dict()
 
     if as_field and as_list:
@@ -519,7 +520,6 @@ async def resolve(info, project_name: str,
 @require_project_access
 async def resolve_project(_, info, project_name: str) -> ProjectType:
     """Resolve project query."""
-    project_name = project_name.lower()
     return await resolve(info, project_name)
 
 

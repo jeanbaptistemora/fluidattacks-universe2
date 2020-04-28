@@ -25,7 +25,7 @@ type Query {
     user(projectName: String!, userEmail: String!): User
 
     "List projects a user is subscribed to"
-    userListProjects(userEmail: String!): [String]
+    userListProjects(userEmail: String!): [Project]
 
     "Project entity"
     project(projectName: String!): Project

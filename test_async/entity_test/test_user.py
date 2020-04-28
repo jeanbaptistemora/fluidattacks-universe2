@@ -27,7 +27,9 @@ class UserTests(TestCase):
                     organization
                     firstLogin
                     lastLogin
-                    listProjects
+                    projects {
+                        name
+                    }
                     __typename
                 }
             }
@@ -58,7 +60,9 @@ class UserTests(TestCase):
         """Check for user."""
         query = '''
             query {
-                userListProjects(userEmail: "continuoushacking@gmail.com")
+                userListProjects(userEmail: "continuoushacking@gmail.com") {
+                    name
+                }
             }
         '''
         data = {'query': query}
@@ -78,6 +82,7 @@ class UserTests(TestCase):
         )
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
+        assert result['data']['userListProjects'][0]['name'] == 'oneshottest'
 
     async def test_add_user(self):
         """Check for addUser mutation."""
