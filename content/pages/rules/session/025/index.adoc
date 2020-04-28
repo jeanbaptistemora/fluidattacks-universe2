@@ -48,6 +48,10 @@ without traceability nor authorization.
 . Phase: Operation.
 . Control Type: Procedure.
 
+== Findings
+
+* link:/web/findings/062/[F062. Concurrent sessions]
+
 == References
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].

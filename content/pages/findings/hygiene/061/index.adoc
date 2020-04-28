@@ -1,0 +1,17 @@
+:slug: findings/061/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not tracing errors properly, recommendations to avoid them and related security requirements.
+:keywords: Error, Exception, Traceability, Handling, Logging, Log
+:findings: yes
+:type: hygiene
+
+= F061. Errors without traceability
+
+== Description
+
+Application errors are handled neither by throwing an exception nor by
+triggering a logging event,
+which causes a loss of traceability.
+
+== Rules
+
+. [[r1]] link:/web/rules/075/[R075. Record exceptional events in logs]

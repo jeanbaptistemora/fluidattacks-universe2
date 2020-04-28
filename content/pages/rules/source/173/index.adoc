@@ -73,7 +73,7 @@ therefore this information must be validated.
 
 * Layer: Application Layer
 * Asset: Source code
-* Scope: Matureness
+* Scope: Maturity
 * Phase: Building
 * Type of Control: Recommendation
 

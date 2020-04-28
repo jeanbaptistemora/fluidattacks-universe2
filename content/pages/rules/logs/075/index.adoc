@@ -66,6 +66,12 @@ can prove to be very difficult or impossible.
 
 * Type of Control: Procedure.
 
+== Findings
+
+* link:/web/findings/061/[F061. Errors without traceability]
+
+* link:/web/findings/064/[F064. Traceability loss]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].

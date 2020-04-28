@@ -35,7 +35,7 @@ it will probably exist vulnerabilities within the source code.
 in order to guarantee the implementation of good programming practices
 in the source code development.
 
-. In the development lifecycle there must be a responsible
+. In the development life cycle there must be a responsible
 for the product review from the source code to the system behavior
 in order to avoid unexpected behaviors
 in final stage of the implementation.
@@ -59,9 +59,13 @@ to validate and discard false positives.
 
 * Layer: Application Layer
 * Asset: Source Code
-* Scope: Matureness
+* Scope: Maturity
 * Phase: Building
 * Type of Control: Recommendation
+
+== Findings
+
+* link:/web/findings/060/[F060. Insecure exceptions]
 
 == References
 

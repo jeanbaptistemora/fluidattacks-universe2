@@ -1,0 +1,19 @@
+:slug: findings/064/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from triggering logging events from the front-end, recommendations to avoid them and related security requirements.
+:keywords: Loss, Event, Traceability, Front-end, Logging, Trigger
+:findings: yes
+:type: hygiene
+
+= F064. Traceability loss
+
+== Description
+
+The application triggers logging events exclusively from the front-end.
+This could be used by an attacker to disrupt the traceability of his actions
+by dropping the logging requests.
+
+== Rules
+
+. [[r1]] link:/web/rules/075/[R075. Record exceptional events in logs]
+
+. [[r2]] link:/web/rules/320/[R320. Avoid client-side control enforcement]

@@ -14,6 +14,8 @@ Source code must be obfuscated in production environments.
 
 * link:/web/findings/046/[F046. Non-obfuscated binaries]
 
+* link:/web/findings/066/[F066. Non-obfuscated JavaScript code]
+
 == References
 
 . [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2  Use code protection].

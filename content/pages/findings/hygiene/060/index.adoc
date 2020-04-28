@@ -1,0 +1,29 @@
+:slug: findings/060/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from catching generic exceptions, recommendations to avoid them and related security requirements.
+:keywords: Insecure, Generic, Exception, Error, Unexpected, Handling
+:findings: yes
+:type: hygiene
+
+= F060. Insecure exceptions
+
+== Description
+
+The source code uses generic exceptions to handle unexpected errors.
+Catching generic exceptions obscures the problem that caused the error and
+promotes a generic way to handle different categories or sources of error.
+This may cause security vulnerabilities to materialize,
+as some special flows go unnoticed.
+
+Using a "*catch*" statement to catch a high-level class such as "*Exception*"
+can hide exceptions that deserve special treatment,
+or that should not be handled at that point in the program.
+It negates the purpose of typified exceptions (e.g. "*ValueError*",
+"*ConnectionError*" and "*NullPointerException*"),
+and it can be particularly dangerous if the program grows and starts throwing
+new types of exceptions,
+as the new types will not receive any attention when
+caught by the "*catch*" statement.
+
+== Rules
+
+. [[r1]] link:/web/rules/161/[R161. Define secure default options]

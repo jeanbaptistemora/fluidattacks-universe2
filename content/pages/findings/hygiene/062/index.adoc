@@ -1,0 +1,20 @@
+:slug: findings/062/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not controlling concurrent sessions, recommendations to avoid them and related security requirements.
+:keywords: Concurrent, Session, Login, Notification, Alert, Active
+:findings: yes
+:type: hygiene
+
+= F062. Concurrent sessions
+
+== Description
+
+The application does not validate the number of active sessions each user has,
+thus a user can login more than once at the same time.
+Furthermore, the application does not notify the user when a session has
+already been initiated nor when a second one commences from a different
+location.
+
+
+== Rules
+
+. [[r1]] link:/web/rules/025/[R025. Manage concurrent sessions]

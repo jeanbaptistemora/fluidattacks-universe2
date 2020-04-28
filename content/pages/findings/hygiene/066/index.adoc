@@ -1,0 +1,17 @@
+:slug: findings/066/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not obfuscating JavaScript code, recommendations to avoid them and related security requirements.
+:keywords: Obfuscation, File, JavaScript, Technical, Information, Code
+:findings: yes
+:type: hygiene
+
+= F066. Non-obfuscated JavaScript code
+
+== Description
+
+The system has exposed, non-obfuscated, JavaScript code containing technical
+information,
+which may allow an attacker to identify file paths, validations and parameters.
+
+== Rules
+
+. [[r1]] link:/web/rules/159/[R159. Obfuscate code]
