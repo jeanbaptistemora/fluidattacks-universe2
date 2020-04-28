@@ -100,8 +100,9 @@ def get_current_subscription() -> str:
 
 def is_valid_subscription(ctx, param, subs):  # pylint: disable=unused-argument
     actual_path: str = os.getcwd()
-    if 'subscriptions' not in actual_path and subs not in os.listdir(
-            'subscriptions') and subs != 'unspecified-subs':
+    if 'subscriptions' not in actual_path \
+            and subs not in os.listdir('subscriptions') \
+            and subs not in ('admin', 'unspecified-subs'):
         msg = f'the subscription {subs} does not exist'
         raise BadParameter(msg)
     go_back_to_continuous()
