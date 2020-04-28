@@ -1,13 +1,11 @@
 let
   pkgs = import ../pkgs/stable.nix;
 
-  builders.pythonPackage = import ../builders/python-package pkgs;
   builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
 in
   pkgs.stdenv.mkDerivation (
-       (import ../dependencies/requirements.nix pkgs)
-    // (import ../src/basic.nix)
+       (import ../src/basic.nix)
     // (import ../src/dynamodb-local.nix pkgs)
     // (import ../src/external.nix pkgs)
     // (rec {
@@ -33,5 +31,14 @@ in
           wheel
         ]))
       ];
+
+      pyPkgIntegratesBack =
+        builders.pythonPackageLocal ../../django-apps/integrates-back-async;
+      pyPkgCasbinInMemoryAdapter =
+        builders.pythonPackageLocal ../../django-apps/casbin-in-memory-adapter;
+      pyPkgReqs =
+        builders.pythonRequirements ./requirements.txt;
+      pyPkgReqsApp =
+        builders.pythonRequirements ../../deploy/containers/deps-app/requirements.txt;
     })
   )

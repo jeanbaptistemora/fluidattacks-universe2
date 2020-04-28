@@ -18,6 +18,6 @@ in
         pkgs.sops
         pkgs.jq
         pkgs.git
-        ];
+      ];
     })
   )

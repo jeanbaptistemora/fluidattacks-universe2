@@ -1,15 +1,12 @@
 let
   pkgs = import ../pkgs/stable.nix;
 
-  builders.pythonPackage = import ../builders/python-package pkgs;
   builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
   builders.rubyGem = import ../builders/ruby-gem pkgs;
 in
   pkgs.stdenv.mkDerivation (
-       (import ../dependencies/requirements.nix pkgs)
-    // (import ../dependencies/selenium.nix pkgs)
-    // (import ../src/basic.nix)
+       (import ../src/basic.nix)
     // (import ../src/dynamodb-local.nix pkgs)
     // (import ../src/external.nix pkgs)
     // (rec {
@@ -46,6 +43,9 @@ in
         ]))
       ];
 
+      pkgGeckoDriver = pkgs.geckodriver;
+      pkgFirefox = pkgs.firefox;
+
       rubyGemConcurrentRuby =
         builders.rubyGem "concurrent-ruby:1.1.6";
 
@@ -54,6 +54,15 @@ in
 
       rubyGemAsciidoctorPdf =
         builders.rubyGem "asciidoctor-pdf:1.5.3";
+
+      pyPkgIntegratesBack =
+        builders.pythonPackageLocal ../../django-apps/integrates-back-async;
+      pyPkgCasbinInMemoryAdapter =
+        builders.pythonPackageLocal ../../django-apps/casbin-in-memory-adapter;
+      pyPkgReqs =
+        builders.pythonRequirements ./requirements.txt;
+      pyPkgReqsApp =
+        builders.pythonRequirements ../../deploy/containers/deps-app/requirements.txt;
 
       srcDerivationsCerts = import ../derivations/certs pkgs;
     })

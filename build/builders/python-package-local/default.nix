@@ -14,12 +14,12 @@ in
       builder = ./builder.sh;
       buildInputs = [
         (pkgs.python37.withPackages (ps: with ps; [
-            matplotlib
-            pip
-            python_magic
-            selenium
-            setuptools
-            wheel
+          matplotlib
+          pip
+          python_magic
+          selenium
+          setuptools
+          wheel
         ]))
       ];
     }
