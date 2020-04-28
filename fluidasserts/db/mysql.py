@@ -86,7 +86,8 @@ def have_access(server: str, username: str, password: str,
         with database(connection_string):
             success = True
     except mysql.connector.Error as exc:
-        if exc.errno != mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR:
+        if exc.errno not in (mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR,
+                             mysql.connector.errorcode.CR_CONN_HOST_ERROR):
             raise exc
 
     vulns: List[str] = []
