@@ -29,7 +29,7 @@ def remove_project_name(project_name: str) -> bool:
 
 def get_all_project_names() -> List[str]:
     table = DYNAMODB_RESOURCE.Table(TABLE)
-    response = table.scan({})
+    response = table.scan()
     projects = response['Items']
     while response.get('LastEvaluatedKey'):
         response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])

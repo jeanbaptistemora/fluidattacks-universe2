@@ -20,7 +20,8 @@ from simpleeval import AttributeDoesNotExist
 from backend.dal import finding as finding_dal
 
 from backend.domain import (
-    user as user_domain, event as event_domain, finding as finding_domain
+    user as user_domain, event as event_domain,
+    project as project_domain
 )
 from backend.services import (
     has_valid_access_token
@@ -126,7 +127,7 @@ def resolve_project_name(args, kwargs):
 def enforce_group_level_auth_async(func):
     """Enforce authorization using the group-level role."""
     @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs):
         if hasattr(args[0], 'context'):
             context = args[0].context
         elif hasattr(args[1], 'context'):
@@ -153,20 +154,23 @@ def enforce_group_level_auth_async(func):
             authorization_utils.get_group_level_enforcer_async(subject)
 
         try:
-            if not enforcer.enforce(subject, object_, action):
-                util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            if not await sync_to_async(enforcer.enforce)(
+                    subject, object_, action):
+                await sync_to_async(util.cloudwatch_log)(
+                    context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
-            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            await sync_to_async(util.cloudwatch_log)(
+                context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
-        return func(*args, **kwargs)
+        return await func(*args, **kwargs)
     return verify_and_call
 
 
 def enforce_user_level_auth_async(func):
     """Enforce authorization using the user-level role."""
     @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs):
         if hasattr(args[0], 'context'):
             context = args[0].context
         elif hasattr(args[1], 'context'):
@@ -182,15 +186,17 @@ def enforce_user_level_auth_async(func):
 
         enforcer = \
             authorization_utils.get_user_level_enforcer_async(subject)
-
         try:
-            if not enforcer.enforce(subject, object_, action):
-                util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            if not await sync_to_async(enforcer.enforce)(
+                    subject, object_, action):
+                await sync_to_async(util.cloudwatch_log)(
+                    context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
-            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            await sync_to_async(util.cloudwatch_log)(
+                context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
-        return func(*args, **kwargs)
+        return await func(*args, **kwargs)
     return verify_and_call
 
 
@@ -206,7 +212,7 @@ def require_project_access(func):
     Verifies that the current user has access to a given project
     """
     @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs):
         context = args[1].context
         project_name = kwargs.get('project_name')
 
@@ -214,30 +220,31 @@ def require_project_access(func):
         user_email = user_data['user_email']
 
         user_data['subscribed_projects'] = \
-            user_domain.get_projects(user_email)
-        user_data['subscribed_projects'] += \
-            user_domain.get_projects(user_email, active=False)
-        user_data['role'] = \
-            user_domain.get_group_level_role(user_email, project_name)
+            await sync_to_async(user_domain.get_projects)(user_email)
+        user_data['subscribed_projects'] += await \
+            sync_to_async(user_domain.get_projects)(user_email, active=False)
+        user_data['role'] = await \
+            sync_to_async(user_domain.get_group_level_role)(
+                user_email, project_name)
 
         if not project_name:
-            rollbar.report_message('Error: Empty fields in project',
-                                   'error', context)
+            await sync_to_async(rollbar.report_message)(
+                'Error: Empty fields in project', 'error', context)
             raise GraphQLError('Access denied')
         try:
-            if not ENFORCER_PROJECT_ACCESS.enforce(
+            if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
                     user_data, project_name.lower()):
-                util.cloudwatch_log(context,
-                                    'Security: \
-Attempted to retrieve {project} project info without permission'
-                                    .format(project=kwargs.get('project_name')))
+                await sync_to_async(util.cloudwatch_log)(
+                    context, 'Security: Attempted to retrieve '
+                    f'{kwargs.get("project_name")} project info '
+                    'without permission')
                 raise GraphQLError('Access denied')
-            util.cloudwatch_log(context,
-                                'Security: Access to {project} project'
-                                .format(project=kwargs.get('project_name')))
+            await sync_to_async(util.cloudwatch_log)(
+                context, 'Security: Access to '
+                f'{kwargs.get("project_name")} project')
         except AttributeDoesNotExist:
             return GraphQLError('Access denied')
-        return func(*args, **kwargs)
+        return await func(*args, **kwargs)
     return verify_and_call
 
 
@@ -248,33 +255,36 @@ def require_finding_access(func):
     Verifies that the current user has access to a given finding
     """
     @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs):
         context = args[1].context
         finding_id = kwargs.get('finding_id') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
         user_data['subscribed_projects'] = \
-            user_domain.get_projects(user_email)
-        user_data['subscribed_projects'] += \
-            user_domain.get_projects(user_email, active=False)
-        finding_project = finding_domain.get_finding(finding_id).get('projectName')
-        user_data['role'] = user_domain.get_group_level_role(user_email, finding_project)
+            await sync_to_async(user_domain.get_projects)(user_email)
+        user_data['subscribed_projects'] += await \
+            sync_to_async(user_domain.get_projects)(user_email, active=False)
+        finding_project = await \
+            sync_to_async(project_domain.get_finding_project_name)(finding_id)
+        user_data['role'] = \
+            await sync_to_async(user_domain.get_group_level_role)(
+                user_email, finding_project)
 
         if not re.match('^[0-9]*$', finding_id):
-            rollbar.report_message('Error: Invalid finding id format',
-                                   'error', context)
+            await sync_to_async(rollbar.report_message)(
+                'Error: Invalid finding id format', 'error', context)
             raise GraphQLError('Invalid finding id format')
         try:
-            if not ENFORCER_PROJECT_ACCESS.enforce(
+            if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
                     user_data, finding_project.lower()):
-                util.cloudwatch_log(context,
-                                    'Security: \
-    Attempted to retrieve finding-related info without permission')
+                await sync_to_async(util.cloudwatch_log)(
+                    context, 'Security:  Attempted to retrieve '
+                    'finding-related info without permission')
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
             return GraphQLError('Access denied')
-        return func(*args, **kwargs)
+        return await func(*args, **kwargs)
     return verify_and_call
 
 
@@ -285,34 +295,37 @@ def require_event_access(func):
     Verifies that the current user has access to a given event
     """
     @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs):
         context = args[1].context
         event_id = kwargs.get('event_id') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
         user_data['subscribed_projects'] = \
-            user_domain.get_projects(user_email)
-        user_data['subscribed_projects'] += \
-            user_domain.get_projects(user_data['user_email'], active=False)
-        event_project = event_domain.get_event(event_id).get('project_name')
-        user_data['role'] = \
-            user_domain.get_group_level_role(user_email, event_project)
+            await sync_to_async(user_domain.get_projects)(user_email)
+        user_data['subscribed_projects'] += await \
+            sync_to_async(user_domain.get_projects)(
+                user_data['user_email'], active=False)
+        event_project = await sync_to_async(event_domain.get_event)(event_id)
+        event_project = event_project.get('project_name')
+        user_data['role'] = await \
+            sync_to_async(user_domain.get_group_level_role)(
+                user_email, event_project)
 
         if not re.match('^[0-9]*$', event_id):
-            rollbar.report_message('Error: Invalid event id format',
-                                   'error', context)
+            await sync_to_async(rollbar.report_message)(
+                'Error: Invalid event id format', 'error', context)
             raise GraphQLError('Invalid event id format')
         try:
-            if not ENFORCER_PROJECT_ACCESS.enforce(
+            if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
                     user_data, event_project.lower()):
-                util.cloudwatch_log(context,
-                                    'Security: \
-    Attempted to retrieve event-related info without permission')
+                await sync_to_async(util.cloudwatch_log)(
+                    context, 'Security: Attempted to retrieve '
+                    'event-related info without permission')
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
             return GraphQLError('Access denied: Missing attributes')
-        return func(*args, **kwargs)
+        return await func(*args, **kwargs)
     return verify_and_call
 
 
