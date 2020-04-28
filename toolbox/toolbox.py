@@ -1,11 +1,13 @@
 """Main module to build and check Assert Exploits."""
 
 # Standard library
+import datetime
 import os
 import re
 import glob
 import json
 import multiprocessing
+import textwrap
 from time import time
 from typing import (
     Any,
@@ -50,6 +52,27 @@ def create_mock__get_reason(exploit_path: str) -> str:
     return reason
 
 
+def append_finding_title_to_exploit(
+    exploit_path: str,
+    finding_title: str,
+):
+    """Append the finding title to an exploit at the beginning."""
+    with open(exploit_path) as exploit:
+        exploit_content = exploit.read()
+
+    with open(exploit_path, 'w') as exploit:
+        exploit.write(textwrap.dedent(
+            f"""
+            # {datetime.datetime.utcnow()}
+            from fluidasserts.utils import generic
+
+            generic.add_finding('{finding_title}')
+            del generic
+
+            """)[1:])
+        exploit.write(exploit_content)
+
+
 def create_mock_static_exploit(
         exploit_path: str, finding_state: bool, finding_repos: tuple,
         finding_title: str, finding_description: str, finding_threat: str,
@@ -63,12 +86,12 @@ def create_mock_static_exploit(
     finding_repos_str = ','.join(f"'{repo}'" for repo in finding_repos_escaped)
 
     with open(exploit_path, 'w') as exploit:
-        exploit.write(re.sub(r'^[ ]{12}', '', f'''
+        exploit.write(textwrap.dedent(
+            f"""
             import utilities
             from fluidasserts.utils import generic
 
             if utilities.is_current_dir_in_repositories({finding_repos_str}):
-                generic.add_finding('{finding_title}')
                 generic.check_function(
                     lambda: {finding_state},
                     metadata = {{
@@ -79,11 +102,7 @@ def create_mock_static_exploit(
                         'recommendation': '{finding_recommendation}',
                         'message': {reason},
                         'source': 'Integrates'}})
-            else:
-                generic.add_finding((
-                    '[Skipped] {finding_title} '
-                    '(it does not apply to this repo)'))
-            '''[1:], flags=re.MULTILINE))
+            """))
 
 
 def create_mock_dynamic_exploit(
@@ -94,10 +113,10 @@ def create_mock_dynamic_exploit(
     reason: str = create_mock__get_reason(exploit_path)
 
     with open(exploit_path, 'w') as exploit:
-        exploit.write(re.sub(r'^[ ]{12}', '', f'''
+        exploit.write(textwrap.dedent(
+            f"""
             from fluidasserts.utils import generic
 
-            generic.add_finding('{finding_title}')
             generic.check_function(
                 lambda: {finding_state},
                 metadata = {{
@@ -108,7 +127,7 @@ def create_mock_dynamic_exploit(
                     'recommendation': '{finding_recommendation}',
                     'message': {reason},
                     'source': 'Integrates'}})
-            '''[1:], flags=re.MULTILINE))
+            """))
 
 
 def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
@@ -211,11 +230,12 @@ def generate_exploits(subs_glob: str) -> bool:
             os.remove(exploit_path)
             continue
 
+        finding_title = sanitize_string(
+            utils.integrates.get_finding_title(finding_id))
+
         # If it's a mock, then create it on the mocks folder
         is_a_mock: bool = exploit_kind in ('mock.exp', 'cannot.exp')
         if is_a_mock:
-            finding_title = sanitize_string(
-                utils.integrates.get_finding_title(finding_id))
             finding_description = sanitize_string(
                 utils.integrates.get_finding_description(finding_id))
             finding_threat = sanitize_string(
@@ -243,6 +263,9 @@ def generate_exploits(subs_glob: str) -> bool:
                     finding_attack_vector, finding_recommendation)
             else:
                 logger.warn(f'{exploit_path} is not static nor dynamic')
+
+        # Append the finding id to the exploit
+        append_finding_title_to_exploit(exploit_path, finding_title)
 
         # If it's accepted, move it to the accepted-exploits folder
         if utils.integrates.is_finding_accepted(finding_id):
