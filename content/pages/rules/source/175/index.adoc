@@ -9,4 +9,8 @@
 == Requirement
 
 Web pages must be protected from being embebed
-in malicious sites (+clickjacking+).
+in malicious sites (*clickjacking*).
+
+== Findings
+
+* link:/web/findings/043/[F043. Improperly set HTTP headers]

@@ -1,0 +1,19 @@
+:slug: findings/043/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from improperly set HTTP headers, recommendations to avoid them and related security requirements.
+:keywords: HTTP, Header, Configuration, Setting, Improper, Clickjacking
+:findings: yes
+:type: hygiene
+
+= F043. Improperly set HTTP headers
+
+== Description
+
+Some of the server's response headers are not properly set.
+They are needed because they make the pages it hosts less
+susceptible to attacks such as click-jacking and XSS.
+
+== Rules
+
+. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
+
+. [[r2]] link:/web/rules/175/[R175. Protect pages from clickjacking]

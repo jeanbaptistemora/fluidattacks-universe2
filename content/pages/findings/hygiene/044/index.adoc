@@ -1,0 +1,17 @@
+:slug: findings/044/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from enabling insecure HTTP methods, recommendations to avoid them and related security requirements.
+:keywords: HTTP, Method, Configuration, Setting, Server, Enable
+:findings: yes
+:type: hygiene
+
+= F044. Insecure HTTP methods enabled
+
+== Description
+
+HTTP methods such as *TRACE*, *PUT* and *DELETE* are enabled on the server.
+These methods may allow an attacker to include and/or delete files,
+or perform cross-site tracing attacks.
+
+== Rules
+
+. [[r1]] link:/web/rules/266/[R266. Disable insecure functionalities]

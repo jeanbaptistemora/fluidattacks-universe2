@@ -15,3 +15,5 @@ database names or table names.
 == Findings
 
 * link:/web/findings/037/[F037. Technical information leak]
+
+* link:/web/findings/058/[F058. Debugging enabled in production]

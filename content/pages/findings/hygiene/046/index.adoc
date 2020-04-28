@@ -1,0 +1,17 @@
+:slug: findings/046/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not obfuscating binary files, recommendations to avoid them and related security requirements.
+:keywords: Obfuscation, Binary, File, Technical, Information, Source Code
+:findings: yes
+:type: hygiene
+
+= F046. Non-obfuscated binaries
+
+== Description
+
+The application's binary files are not obfuscated,
+thus an attacker could read the source code and get technical and sensitive
+information.
+
+== Rules
+
+. [[r1]] link:/web/rules/159/[R159. Obfuscate code]

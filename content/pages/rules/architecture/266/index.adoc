@@ -26,6 +26,8 @@ points such as access control gateways, severs and serverless functions.
 
 * link:/web/findings/014/[F014. Insecure functionality]
 
+* link:/web/findings/044/[F044. Insecure HTTP methods enabled]
+
 * link:/web/findings/047/[F047. Automatic information enumeration]
 
 * link:/web/findings/048/[F048. Lack of root detection]
