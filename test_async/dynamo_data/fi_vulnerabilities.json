@@ -1,5 +1,5 @@
 {
-    "FI_vulnerabilities" : [  
+    "FI_vulnerabilities" : [
         {
             "PutRequest" : {
                 "Item" : {

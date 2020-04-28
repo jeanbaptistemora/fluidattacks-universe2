@@ -178,6 +178,7 @@ type Vulnerability {
     where: String
     specific: String
     historicState: [GenericScalar]
+    historicVerification: [Verification]
     currentState: String
     currentApprovalStatus: String
     lastAnalyst: String
@@ -188,6 +189,12 @@ type Vulnerability {
     tags: [String!]
     remediated: Boolean
     verification: String
+}
+
+"Verification type definition"
+type Verification {
+    date: String
+    status: String
 }
 
 "Tag type definition"
