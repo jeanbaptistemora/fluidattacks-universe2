@@ -1,7 +1,6 @@
 let
   pkgs = import ../pkgs/stable.nix;
 
-  builders.nodejsModule = import ../builders/nodejs-module pkgs;
   builders.pythonPackage = import ../builders/python-package pkgs;
   builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
@@ -15,7 +14,6 @@ in
       name = "builder";
 
       buildInputs = []
-        ++ (import ../dependencies/nodejs.nix pkgs)
         ++ (import ../dependencies/python-with-tools.nix pkgs)
         ++ (import ../dependencies/secret-management.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
@@ -23,6 +21,7 @@ in
           pkgs.openjdk
           pkgs.redis
           pkgs.unzip
+          pkgs.nodejs
         ];
     })
   )

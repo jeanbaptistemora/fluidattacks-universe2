@@ -8,11 +8,11 @@ in
       name = "builder";
 
       buildInputs = []
-        ++ (import ../dependencies/nodejs.nix pkgs)
         ++ (import ../dependencies/secret-management.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
           pkgs.sysctl
+          pkgs.nodejs
         ];
     })
   )

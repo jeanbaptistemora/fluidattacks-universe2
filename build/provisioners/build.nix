@@ -8,13 +8,13 @@ in
       name = "builder";
 
       buildInputs = []
-        ++ (import ../dependencies/nodejs.nix pkgs)
         ++ (import ../dependencies/python.nix pkgs)
         ++ (import ../dependencies/secret-management.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
           pkgs.python37Packages.setuptools
           pkgs.zip
+          pkgs.nodejs
         ];
     })
   )

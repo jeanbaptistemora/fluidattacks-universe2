@@ -1,7 +1,6 @@
 let
   pkgs = import ../pkgs/stable.nix;
 
-  builders.nodejsModule = import ../builders/nodejs-module pkgs;
   builders.pythonPackage = import ../builders/python-package pkgs;
   builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
@@ -18,7 +17,6 @@ in
 
       buildInputs = []
         ++ (import ../dependencies/infra.nix pkgs)
-        ++ (import ../dependencies/nodejs.nix pkgs)
         ++ (import ../dependencies/python.nix pkgs)
         ++ (import ../dependencies/python-with-tools.nix pkgs)
         ++ (import ../dependencies/ruby.nix pkgs)
@@ -30,10 +28,8 @@ in
           pkgs.openjdk
           pkgs.redis
           pkgs.shellcheck
+          pkgs.nodejs
         ];
-
-      nodejsModuleGraphqlSchemaLinter =
-        builders.nodejsModule "graphql-schema-linter@0.2.4";
 
       rubyGemConcurrentRuby =
         builders.rubyGem "concurrent-ruby:1.1.6";

@@ -82,21 +82,6 @@ function env_prepare_python_async_packages {
   done < "${TEMP_FILE1}"
 }
 
-function env_prepare_nodejs_modules {
-  export NODE_PATH
-  local module
-
-  echo '[INFO] Preparing Node.js modules'
-
-  helper_list_vars_with_regex 'nodejsModule[a-zA-Z0-9]+' > "${TEMP_FILE1}"
-
-  while read -r module
-  do
-    echo "  [${module}] ${!module}"
-    NODE_PATH="${NODE_PATH}:${!module}/node_modules"
-  done < "${TEMP_FILE1}"
-}
-
 function env_prepare_ruby_modules {
   export PATH
   export GEM_PATH
