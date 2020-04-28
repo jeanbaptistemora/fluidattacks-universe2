@@ -5,15 +5,35 @@ from fluidasserts.cloud.kubernetes import deployments, pods
 import os
 
 # 3rd party imports
+import jmespath
+import boto3
 import pytest
 pytestmark = pytest.mark.asserts_module('cloud_kubernetes')
 
 # local imports
 
-KUBERNETES_API_SERVER = os.environ['KUBERNETES_API_SERVER']
-KUBERNETES_API_TOKEN = os.environ['KUBERNETES_API_TOKEN']
+
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 BAD_KUBERNETES_API_SERVER = 'https://1.2.3.4:16443'
 BAD_KUBERNETES_API_TOKEN = 'some-value'
+AWS_EC2_INSTANCE = os.environ['AWS_EC2_INSTANCE']
+client = boto3.client(
+    'ec2',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    region_name='us-east-1')
+try:
+    HOST = jmespath.search(
+        (f"Reservations[].Instances[?InstanceId=='{AWS_EC2_INSTANCE}']"
+         ".NetworkInterfaces[][].Association.PublicIp"),
+        client.describe_instances())[0]
+except IndexError:
+    raise Exception(f'The instance {AWS_EC2_INSTANCE} does not '
+                    'have associated public IP address')
+
+KUBERNETES_API_SERVER = f"https://{HOST}:16443"
+KUBERNETES_API_TOKEN = os.environ['KUBERNETES_API_TOKEN']
 
 
 #
