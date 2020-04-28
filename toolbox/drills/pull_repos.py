@@ -21,10 +21,21 @@ def pull_repos_s3_to_fusion(subs: str, local_path: str) -> bool:
     sync_command: List[str] = ['aws', 's3', 'sync', bucket_path, local_path,
                                '--sse', 'AES256']
     logger.info(f'Dowloading {subs} repositories')
+
+    # Passing None to stdout and stderr shows the s3 progress
+    # We want the CI to be as quiet as possible to have clean logs
+    kwargs = dict() if utils_generic.is_env_ci() else dict(
+        stdout=None,
+        stderr=None,
+    )
+
     status, stdout, stderr = utils_generic.run_command(
         cmd=sync_command,
         cwd='.',
-        env={})
+        env={},
+        **kwargs,
+    )
+
     if status:
         logger.error('Sync from bucket has failed:')
         logger.info(stdout)
@@ -58,5 +69,5 @@ def main(subs: str) -> bool:
             drills_generic.get_last_upload(bucket, f'{subs}/')
         days: int = drills_generic.calculate_days_ago(last_upload_date)
         passed = passed and pull_repos_s3_to_fusion(subs, local_path)
-        logger.info(f'Subscription {subs} was last updated {days} days ago')
+        logger.info(f'Data for {subs} was uploaded to S3 {days} days ago')
     return passed

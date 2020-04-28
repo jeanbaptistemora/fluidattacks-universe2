@@ -41,6 +41,9 @@ def run_command(
     cmd,
     cwd: str,
     env: dict,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    universal_newlines=True,
     **kwargs,
 ) -> Tuple[int, str, str]:
     """Run a command and return exit-code, stdout and stderr."""
@@ -50,9 +53,9 @@ def run_command(
         cmd,
         cwd=cwd,
         env={**os.environ.copy(), **env},
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        universal_newlines=True,
+        stdout=stdout,
+        stderr=stderr,
+        universal_newlines=universal_newlines,
         **kwargs,
     )
     return proc.returncode, proc.stdout, proc.stderr
