@@ -9,12 +9,22 @@ in
       name = "builder";
 
       buildInputs = []
-        ++ (import ../dependencies/infra.nix pkgs-unstable)
-        ++ (import ../dependencies/secret-management.nix pkgs)
-        ++ (import ../dependencies/tools.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
           pkgs.docker
+          pkgs.cacert
+          pkgs.curl
+          pkgs.hostname
+          pkgs.jq
+          pkgs.rpl
+          pkgs.unzip
+          pkgs.wget
+          pkgs.zip
+          pkgs.awscli
+          pkgs.sops
+          pkgs-unstable.kubectl
+          pkgs-unstable.terraform
+          pkgs-unstable.tflint
         ];
     })
   )

@@ -16,12 +16,6 @@ in
       name = "builder";
 
       buildInputs = []
-        ++ (import ../dependencies/infra.nix pkgs)
-        ++ (import ../dependencies/python.nix pkgs)
-        ++ (import ../dependencies/python-with-tools.nix pkgs)
-        ++ (import ../dependencies/ruby.nix pkgs)
-        ++ (import ../dependencies/secret-management.nix pkgs)
-        ++ (import ../dependencies/tools.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
           pkgs.nix-linter
@@ -29,6 +23,28 @@ in
           pkgs.redis
           pkgs.shellcheck
           pkgs.nodejs
+          pkgs.ruby
+          pkgs.kubectl
+          pkgs.terraform
+          pkgs.tflint
+          pkgs.cacert
+          pkgs.curl
+          pkgs.hostname
+          pkgs.jq
+          pkgs.rpl
+          pkgs.unzip
+          pkgs.wget
+          pkgs.zip
+          pkgs.awscli
+          pkgs.sops
+          (pkgs.python37.withPackages (ps: with ps; [
+            matplotlib
+            pip
+            python_magic
+            selenium
+            setuptools
+            wheel
+          ]))
         ];
 
       rubyGemConcurrentRuby =

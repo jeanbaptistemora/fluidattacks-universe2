@@ -8,11 +8,15 @@ in
       name = "builder";
 
       buildInputs = []
-        ++ (import ../dependencies/secret-management.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
           pkgs.sysctl
           pkgs.nodejs
+          pkgs.awscli
+          pkgs.curl
+          pkgs.cacert
+          pkgs.sops
+          pkgs.jq
         ];
     })
   )

@@ -9,10 +9,21 @@ in
       name = "builder";
 
       buildInputs = []
-        ++ (import ../dependencies/python-with-tools.nix pkgs)
-        ++ (import ../dependencies/secret-management.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
+          (pkgs.python37.withPackages (ps: with ps; [
+            matplotlib
+            pip
+            python_magic
+            selenium
+            setuptools
+            wheel
+          ]))
+          pkgs.awscli
+          pkgs.curl
+          pkgs.cacert
+          pkgs.sops
+          pkgs.jq
         ];
     })
   )

@@ -8,13 +8,17 @@ in
       name = "builder";
 
       buildInputs = []
-        ++ (import ../dependencies/python.nix pkgs)
-        ++ (import ../dependencies/secret-management.nix pkgs)
         ++ (import ../dependencies/version-control.nix pkgs)
         ++ [
           pkgs.python37Packages.setuptools
           pkgs.zip
           pkgs.nodejs
+          pkgs.python37
+          pkgs.awscli
+          pkgs.curl
+          pkgs.cacert
+          pkgs.sops
+          pkgs.jq
         ];
     })
   )

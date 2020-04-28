@@ -1,7 +1,6 @@
 pkgs:
 
 let
-  customPkgs.python = import ../../dependencies/python-with-tools.nix pkgs;
   stringToDerivationName = import ../../lambdas/string-to-derivation-name pkgs;
 in
   path:
@@ -14,6 +13,13 @@ in
 
       builder = ./builder.sh;
       buildInputs = [
-        customPkgs.python
+        (pkgs.python37.withPackages (ps: with ps; [
+            matplotlib
+            pip
+            python_magic
+            selenium
+            setuptools
+            wheel
+        ]))
       ];
     }
