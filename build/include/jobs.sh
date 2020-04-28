@@ -490,6 +490,21 @@ function job_lint_mobile {
   ||  return 1
 }
 
+function job_lint_secrets {
+  local files_to_verify=(
+    'secrets-development.yaml'
+  )
+
+      echo "[INFO] Veryfing that secrets is sorted" \
+  &&  for sf in "${files_to_verify[@]}"
+      do
+            echo "  [INFO] Veryfing that ${sf} is sorted" \
+        &&  head -n -13 "${sf}" > "temp-${sf}" \
+        &&  yamllint --no-warnings -d "{extends: relaxed, rules: {key-ordering: {level: error}}}" "temp-${sf}" \
+        &&  rm "temp-${sf}"
+      done
+}
+
 function job_infra_backup_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password

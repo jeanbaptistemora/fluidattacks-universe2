@@ -326,6 +326,11 @@ lint_mobile:
   <<: *in_dev_and_master_branch
   stage: lint-code
 
+lint_secrets:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: lint-code
+
 renew_certificates:
   <<: *with_nix
   <<: *in_schedule_nightly_build
