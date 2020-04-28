@@ -336,10 +336,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                       <Col md={12} className={style.downloadButtonsContainer}>
                         <ButtonToolbar>
                           <Button onClick={handleRequestProjectReport}>
-                            <FontAwesome name="file-pdf-o" />&nbsp;PDF
+                            <FontAwesome name="file-pdf-o" />
+                              {translate.t("project.findings.report.pdf")}
                               </Button>
                           <Button onClick={handleRequestProjectReport}>
-                            <FontAwesome name="file-excel-o" />&nbsp;XLS
+                            <FontAwesome name="file-excel-o" />
+                              {translate.t("project.findings.report.xls")}
                               </Button>
                         </ButtonToolbar>
                       </Col>
