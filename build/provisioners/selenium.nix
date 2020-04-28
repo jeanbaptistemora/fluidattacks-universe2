@@ -9,16 +9,15 @@ in
     // (rec {
       name = "builder";
 
-      buildInputs = []
-        ++ (import ../dependencies/version-control.nix pkgs)
-        ++ [
-          pkgs.nodejs
-          pkgs.python37
-          pkgs.awscli
-          pkgs.curl
-          pkgs.cacert
-          pkgs.sops
-          pkgs.jq
-        ];
+      buildInputs = [
+        pkgs.git
+        pkgs.nodejs
+        pkgs.python37
+        pkgs.awscli
+        pkgs.curl
+        pkgs.cacert
+        pkgs.sops
+        pkgs.jq
+      ];
     })
   )

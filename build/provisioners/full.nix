@@ -15,37 +15,36 @@ in
     // (rec {
       name = "builder";
 
-      buildInputs = []
-        ++ (import ../dependencies/version-control.nix pkgs)
-        ++ [
-          pkgs.nix-linter
-          pkgs.openjdk
-          pkgs.redis
-          pkgs.shellcheck
-          pkgs.nodejs
-          pkgs.ruby
-          pkgs.kubectl
-          pkgs.terraform
-          pkgs.tflint
-          pkgs.cacert
-          pkgs.curl
-          pkgs.hostname
-          pkgs.jq
-          pkgs.rpl
-          pkgs.unzip
-          pkgs.wget
-          pkgs.zip
-          pkgs.awscli
-          pkgs.sops
-          (pkgs.python37.withPackages (ps: with ps; [
-            matplotlib
-            pip
-            python_magic
-            selenium
-            setuptools
-            wheel
-          ]))
-        ];
+      buildInputs = [
+        pkgs.git
+        pkgs.nix-linter
+        pkgs.openjdk
+        pkgs.redis
+        pkgs.shellcheck
+        pkgs.nodejs
+        pkgs.ruby
+        pkgs.kubectl
+        pkgs.terraform
+        pkgs.tflint
+        pkgs.cacert
+        pkgs.curl
+        pkgs.hostname
+        pkgs.jq
+        pkgs.rpl
+        pkgs.unzip
+        pkgs.wget
+        pkgs.zip
+        pkgs.awscli
+        pkgs.sops
+        (pkgs.python37.withPackages (ps: with ps; [
+          matplotlib
+          pip
+          python_magic
+          selenium
+          setuptools
+          wheel
+        ]))
+      ];
 
       rubyGemConcurrentRuby =
         builders.rubyGem "concurrent-ruby:1.1.6";

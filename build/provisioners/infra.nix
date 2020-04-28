@@ -8,23 +8,22 @@ in
     // (rec {
       name = "builder";
 
-      buildInputs = []
-        ++ (import ../dependencies/version-control.nix pkgs)
-        ++ [
-          pkgs.docker
-          pkgs.cacert
-          pkgs.curl
-          pkgs.hostname
-          pkgs.jq
-          pkgs.rpl
-          pkgs.unzip
-          pkgs.wget
-          pkgs.zip
-          pkgs.awscli
-          pkgs.sops
-          pkgs-unstable.kubectl
-          pkgs-unstable.terraform
-          pkgs-unstable.tflint
-        ];
+      buildInputs = [
+        pkgs.git
+        pkgs.docker
+        pkgs.cacert
+        pkgs.curl
+        pkgs.hostname
+        pkgs.jq
+        pkgs.rpl
+        pkgs.unzip
+        pkgs.wget
+        pkgs.zip
+        pkgs.awscli
+        pkgs.sops
+        pkgs-unstable.kubectl
+        pkgs-unstable.terraform
+        pkgs-unstable.tflint
+      ];
     })
   )

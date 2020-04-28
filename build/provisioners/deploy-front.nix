@@ -8,22 +8,21 @@ in
     // (rec {
       name = "builder";
 
-      buildInputs = []
-        ++ (import ../dependencies/version-control.nix pkgs)
-        ++ [
-          (pkgs.python37.withPackages (ps: with ps; [
-            matplotlib
-            pip
-            python_magic
-            selenium
-            setuptools
-            wheel
-          ]))
-          pkgs.awscli
-          pkgs.curl
-          pkgs.cacert
-          pkgs.sops
-          pkgs.jq
-        ];
+      buildInputs = [
+        (pkgs.python37.withPackages (ps: with ps; [
+          matplotlib
+          pip
+          python_magic
+          selenium
+          setuptools
+          wheel
+        ]))
+        pkgs.awscli
+        pkgs.curl
+        pkgs.cacert
+        pkgs.sops
+        pkgs.jq
+        pkgs.git
+      ];
     })
   )

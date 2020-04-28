@@ -13,26 +13,25 @@ in
     // (rec {
       name = "builder";
 
-      buildInputs = []
-        ++ (import ../dependencies/version-control.nix pkgs)
-        ++ [
-          pkgs.openjdk
-          pkgs.redis
-          pkgs.unzip
-          pkgs.nodejs
-          pkgs.awscli
-          pkgs.curl
-          pkgs.cacert
-          pkgs.sops
-          pkgs.jq
-          (pkgs.python37.withPackages (ps: with ps; [
-            matplotlib
-            pip
-            python_magic
-            selenium
-            setuptools
-            wheel
-          ]))
-        ];
+      buildInputs = [
+        pkgs.git
+        pkgs.openjdk
+        pkgs.redis
+        pkgs.unzip
+        pkgs.nodejs
+        pkgs.awscli
+        pkgs.curl
+        pkgs.cacert
+        pkgs.sops
+        pkgs.jq
+        (pkgs.python37.withPackages (ps: with ps; [
+          matplotlib
+          pip
+          python_magic
+          selenium
+          setuptools
+          wheel
+        ]))
+      ];
     })
   )
