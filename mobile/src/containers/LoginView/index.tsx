@@ -6,7 +6,6 @@ import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
 import { connect, ConnectedComponentClass, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RedirectProps } from "react-router";
 import { Redirect, RouteComponentProps } from "react-router-native";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 
 // tslint:disable-next-line: no-default-import
 import { default as FluidLogo } from "../../../assets/logo.png";
@@ -35,29 +34,30 @@ export type ILoginProps = ILoginBaseProps & (ILoginState & ILoginDispatchProps);
 type manifestStructure = NativeConstants["manifest"] & { android: { package: string } };
 const manifest: manifestStructure = (Constants.manifest as manifestStructure);
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<ILoginProps, {}>({
-  componentDidMount(): void {
-    const { onResolveVersion } = this.props;
-
-    const shouldSkipCheck: boolean = _.includes(["ios", "test-env"], Platform.OS) || __DEV__;
-    if (shouldSkipCheck) {
-      onResolveVersion(false);
-    } else {
-      checkVersion()
-        .then((isOutdated: boolean): void => {
-          onResolveVersion(isOutdated);
-        })
-        .catch((error: Error): void => {
-          rollbar.error("Error: An error occurred getting latest version", error);
-        });
-    }
-  },
-});
-
 export const loginView: React.FunctionComponent<ILoginProps> = (props: ILoginProps): JSX.Element => {
   const handleGoogleButtonClick: (() => void) = (): void => { props.onGoogleLogin(); };
 
   const { t } = translate;
+
+  // Side effects
+  const onMount: (() => void) = (): void => {
+    const executeCheckVersion: (() => void) = async (): Promise<void> => {
+      try {
+        const isOutdated: boolean = await checkVersion();
+        props.onResolveVersion(isOutdated);
+      } catch (error) {
+        rollbar.error("Error: An error occurred getting latest version", error as Error);
+      }
+    };
+
+    const shouldSkipCheck: boolean = _.includes(["ios", "test-env"], Platform.OS) || __DEV__;
+    if (shouldSkipCheck) {
+      props.onResolveVersion(false);
+    } else {
+      executeCheckVersion();
+    }
+  };
+  React.useEffect(onMount, []);
 
   const redirectParams: RedirectProps["to"] = {
     pathname: "/Welcome",
@@ -112,8 +112,8 @@ const mapDispatchToProps: MapDispatchToProps<ILoginDispatchProps, ILoginBaseProp
   onResolveVersion: (isOutdated: boolean): void => { dispatch(actions.resolveVersion(isOutdated)); },
 });
 
-const connectedLoginView: ConnectedComponentClass<React.ComponentClass<ILoginProps>, ILoginBaseProps> = connect(
+const connectedLoginView: ConnectedComponentClass<React.FC<ILoginProps>, ILoginBaseProps> = connect(
   mapStateToProps, mapDispatchToProps,
-)(enhance(loginView));
+)(loginView);
 
 export { connectedLoginView as LoginView };

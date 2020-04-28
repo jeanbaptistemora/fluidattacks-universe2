@@ -10,9 +10,6 @@
     "noEmit": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2018"
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    "target": "ES2018"
+  }
 }
