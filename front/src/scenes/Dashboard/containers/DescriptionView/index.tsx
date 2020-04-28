@@ -18,7 +18,9 @@ import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import { Can } from "../../../../utils/authz/Can";
 import { authzContext } from "../../../../utils/authz/config";
-import { formatCweUrl, formatFindingType, getLastTreatment } from "../../../../utils/formatHelpers";
+import {
+  formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
+} from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -170,7 +172,10 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
     return <React.Fragment />;
   }
 
-  const dataset: IFinding = data.finding;
+  const dataset: IFinding = {
+    ...data.finding,
+    compromisedRecords: formatCompromisedRecords(data.finding.compromisedRecords),
+  };
   const lastTreatment: IHistoricTreatment = getLastTreatment(dataset.historicTreatment);
 
   return (
