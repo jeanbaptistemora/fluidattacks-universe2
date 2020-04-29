@@ -17,6 +17,7 @@ from backend.domain import (
     vulnerability as vuln_domain
 )
 from backend.typing import (
+    Comment as CommentType,
     Finding as FindingType,
     Vulnerability as VulnerabilityType,
 )
@@ -154,20 +155,20 @@ async def _get_pending_vulns(info, identifier: str) -> List[VulnerabilityType]:
 
 
 @sync_to_async
-def _get_id(_, identifier):
+def _get_id(_, identifier: str) -> str:
     """Get id."""
     return identifier
 
 
 @get_entity_cache_async
-async def _get_project_name(info, identifier):
+async def _get_project_name(info, identifier: str) -> str:
     """Get project_name."""
     finding = await info.context.loaders['finding'].load(identifier)
     return finding['project_name']
 
 
 @get_entity_cache_async
-async def _get_open_vulnerabilities(info, identifier):
+async def _get_open_vulnerabilities(info, identifier: str) -> int:
     """Get open_vulnerabilities."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
 
@@ -181,7 +182,7 @@ async def _get_open_vulnerabilities(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_closed_vulnerabilities(info, identifier):
+async def _get_closed_vulnerabilities(info, identifier: str) -> int:
     """Get closed_vulnerabilities."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
 
@@ -195,7 +196,7 @@ async def _get_closed_vulnerabilities(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_release_date(info, identifier):
+async def _get_release_date(info, identifier: str) -> str:
     """Get release date."""
     allowed_roles = ['admin', 'analyst']
     finding = await info.context.loaders['finding'].load(identifier)
@@ -210,7 +211,7 @@ async def _get_release_date(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_tracking(info, identifier):
+async def _get_tracking(info, identifier: str) -> List[Dict[str, int]]:
     """Get tracking."""
     finding = await info.context.loaders['finding'].load(identifier)
     release_date = finding['release_date']
@@ -225,7 +226,7 @@ async def _get_tracking(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_records(info, identifier):
+async def _get_records(info, identifier: str) -> List[Dict[object, object]]:
     """Get records."""
     finding = await info.context.loaders['finding'].load(identifier)
     if finding['records']['url']:
@@ -237,21 +238,21 @@ async def _get_records(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_severity(info, identifier):
+async def _get_severity(info, identifier: str) -> Dict[str, str]:
     """Get severity."""
     finding = await info.context.loaders['finding'].load(identifier)
     return finding['severity']
 
 
 @get_entity_cache_async
-async def _get_cvss_version(info, identifier):
+async def _get_cvss_version(info, identifier: str) -> str:
     """Get cvss_version."""
     finding = await info.context.loaders['finding'].load(identifier)
     return finding['cvss_version']
 
 
 @get_entity_cache_async
-async def _get_exploit(info, identifier):
+async def _get_exploit(info, identifier: str) -> str:
     """Get exploit."""
     finding = await info.context.loaders['finding'].load(identifier)
     if finding['exploit']['url']:
@@ -266,14 +267,14 @@ async def _get_exploit(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_evidence(info, identifier):
+async def _get_evidence(info, identifier: str) -> Dict[str, Dict[str, str]]:
     """Get evidence."""
     finding = await info.context.loaders['finding'].load(identifier)
     return finding['evidence']
 
 
 @get_entity_cache_async
-async def _get_comments(info, identifier):
+async def _get_comments(info, identifier: str) -> List[CommentType]:
     """Get comments."""
     finding = await info.context.loaders['finding'].load(identifier)
     finding_id = finding['id']
@@ -291,7 +292,7 @@ async def _get_comments(info, identifier):
 @enforce_group_level_auth_async
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
-async def _get_observations(info, identifier):
+async def _get_observations(info, identifier: str) -> List[CommentType]:
     """Get observations."""
     finding = await info.context.loaders['finding'].load(identifier)
     finding_id = finding['id']
@@ -305,7 +306,7 @@ async def _get_observations(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_state(info, identifier):
+async def _get_state(info, identifier: str) -> str:
     """Get state."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
 
@@ -318,7 +319,7 @@ async def _get_state(info, identifier):
 
 
 @get_entity_cache_async
-async def _get_last_vulnerability(info, identifier):
+async def _get_last_vulnerability(info, identifier: str) -> int:
     """Get last_vulnerability."""
     finding = await info.context.loaders['finding'].load(identifier)
     last_vuln_date = \
@@ -330,21 +331,21 @@ async def _get_last_vulnerability(info, identifier):
 @enforce_group_level_auth_async
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
-async def _get_historic_state(info, identifier):
+async def _get_historic_state(info, identifier: str) -> List[Dict[str, str]]:
     """Get historic_state."""
     finding = await info.context.loaders['finding'].load(identifier)
     return finding['historic_state']
 
 
 @get_entity_cache_async
-async def _get_title(info, identifier):
+async def _get_title(info, identifier: str) -> str:
     """Get title."""
     finding = await info.context.loaders['finding'].load(identifier)
     return finding['title']
 
 
 @get_entity_cache_async
-async def _get_scenario(info, identifier):
+async def _get_scenario(info, identifier: str) -> str:
     """Get scenario."""
     finding = await info.context.loaders['finding'].load(identifier)
     return finding['scenario']
