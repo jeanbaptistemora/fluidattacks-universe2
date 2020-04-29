@@ -8,15 +8,18 @@ import { ApolloError, NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { Alert, RefreshControl, ScrollView, View } from "react-native";
+import { Appbar, Card, Paragraph, Title, useTheme } from "react-native-paper";
 
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
+import { translate } from "../../utils/translations/translate";
 
 import { PROJECTS_QUERY } from "./queries";
 import { styles } from "./styles";
 import { IProject, IProjectsResult } from "./types";
 
 const menuView: React.FunctionComponent = (): JSX.Element => {
+  const { colors } = useTheme();
   const { t } = translate;
 
   // GraphQL operations
@@ -35,7 +38,7 @@ const menuView: React.FunctionComponent = (): JSX.Element => {
     : data.me.projects;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Appbar.Header>
         <Appbar.Content title={t("menu.myProjects")} />
       </Appbar.Header>

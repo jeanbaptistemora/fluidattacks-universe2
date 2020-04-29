@@ -9,14 +9,14 @@ import { MenuView } from "./containers/MenuView";
 import { WelcomeView } from "./containers/WelcomeView";
 import { client } from "./utils/apollo";
 
-export const theme: Theme = {
+const theme: Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    accent: "#272727",
-    primary: "#ff3435",
+    accent: "#FF3435",
+    primary: "#FF3435",
   },
-  dark: true,
+  dark: false,
 };
 
 const app: React.FunctionComponent = (): JSX.Element => (
