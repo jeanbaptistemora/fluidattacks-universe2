@@ -12,9 +12,7 @@ Source code must be obfuscated in production environments.
 
 == Findings
 
-* link:/web/findings/046/[F046. Non-obfuscated binaries]
-
-* link:/web/findings/066/[F066. Non-obfuscated JavaScript code]
+* link:/web/findings/046/[F046. Missing secure obfuscation]
 
 == References
 

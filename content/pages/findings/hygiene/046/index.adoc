@@ -4,13 +4,14 @@
 :findings: yes
 :type: hygiene
 
-= F046. Non-obfuscated binaries
+= F046. Missing secure obfuscation
 
 == Description
 
-The application's binary files are not obfuscated,
-thus an attacker could read the source code and get technical and sensitive
-information.
+It is possible to obtain source code of the application because it has not been
+obfuscated using a secure mechanism.
+This could allow an attacker to understand the inner workings of the
+application or get technical or sensitive information.
 
 == Rules
 
