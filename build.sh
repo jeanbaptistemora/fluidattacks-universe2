@@ -21,6 +21,7 @@ function decide_and_call_provisioner {
       case "${job}" in
         build*           ) provisioner='build';;
         deploy_container_app) provisioner='build-and-docker';;
+        deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
         deploy_container*) provisioner='docker';;
         deploy_front     ) provisioner='deploy-front';;
         deploy_mobile    ) provisioner='deploy-mobile';;
