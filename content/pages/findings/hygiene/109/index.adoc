@@ -1,0 +1,18 @@
+:slug: findings/109/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from having binary files in the repository, recommendations to avoid them and related security requirements.
+:keywords: Source, Code, Binary, Repository, Incomplete, Repository
+:findings: yes
+:type: hygiene
+
+= F109. Incomplete source code
+
+== Description
+
+There are binary files in the repository without their corresponding source
+code files.
+These binaries could be malicious or contain vulnerabilities or sensitive
+information.
+
+== Rules
+
+. [[r1]] link:/web/rules/051/[R051. Store source code in repository]

@@ -23,6 +23,10 @@ not performed,
 and these could contain serious vulnerabilities such as back doors, rootkits
 and exposed sensitive information.
 
+== Findings
+
+* link:/web/findings/117/[F117. Unverifiable files]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor.]

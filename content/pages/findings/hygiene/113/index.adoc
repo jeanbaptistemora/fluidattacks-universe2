@@ -1,0 +1,18 @@
+:slug: findings/113/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from using the variant data type, recommendations to avoid them and related security requirements.
+:keywords: Source, Code, Variable, Variant, Type, Conversion
+:findings: yes
+:type: hygiene
+
+= F113. Incorrect type conversion
+
+== Description
+
+There are variant variables in the source code,
+i.e., no specific type is declared for them.
+This can be inefficient as it becomes necessary to identify the variable's data
+type and cast it to it every time it will be used.
+
+== Rules
+
+. [[r1]] link:/web/rules/164/[R164. Use optimized structures]

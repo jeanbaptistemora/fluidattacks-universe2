@@ -1,0 +1,17 @@
+:slug: findings/079/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from including dependencies directly in repositories, recommendations to avoid them and related security requirements.
+:keywords: Non-upgradable, Upgrade, Update, Dependency, Library, Repository
+:findings: yes
+:type: hygiene
+
+= F079. Non-upgradable dependencies
+
+== Description
+
+The application's dependencies are not explicitly declared in the source code
+(name and version).
+They are directly included in the source code repositories.
+
+== Rules
+
+. [[r1]] link:/web/rules/302/[R302. Declare dependencies explicitly]

@@ -1,0 +1,15 @@
+:slug: findings/117/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from including unverifiable files in the repository, recommendations to avoid them and related security requirements.
+:keywords: Source, Code, Binary, Repository, Unverifiable, File
+:findings: yes
+:type: hygiene
+
+= F117. Unverifiable files
+
+== Description
+
+The source code repository contains binary or unverifiable files.
+
+== Rules
+
+. [[r1]] link:/web/rules/323/[R323. Exclude unverifiable files]

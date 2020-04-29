@@ -11,3 +11,8 @@
 All dependencies (third-party software/libraries)
 must be explicitly declared (name and version)
 in a file inside the source code.
+
+
+== Findings
+
+* link:/web/findings/079/[F079. Non-upgradable dependencies]
