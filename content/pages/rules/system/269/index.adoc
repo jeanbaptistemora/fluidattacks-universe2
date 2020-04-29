@@ -13,9 +13,7 @@ according to the principle of least privilege (*umask*).
 
 == Findings
 
-* link:/web/findings/031/[F031. Unnecessary application privileges]
-
-* link:/web/findings/099/[F099. Excessive privileges]
+* link:/web/findings/031/[F031. Excessive privileges]
 
 * link:/web/findings/101/[F101. Lack of protection against deletion]
 

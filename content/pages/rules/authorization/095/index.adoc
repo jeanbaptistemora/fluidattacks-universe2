@@ -13,7 +13,7 @@ privileges must be defined.
 
 == Findings
 
-* link:/web/findings/099/[F099. Excessive privileges]
+* link:/web/findings/031/[F031. Excessive privileges]
 
 == References
 

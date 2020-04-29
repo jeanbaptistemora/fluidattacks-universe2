@@ -20,6 +20,8 @@ should also be clearly stated.
 
 == Findings
 
+* link:/web/findings/031/[F031. Excessive privileges]
+
 * link:/web/findings/032/[F032. User impersonation]
 
 * link:/web/findings/039/[F039. Improper authorization control for web services]
@@ -27,8 +29,6 @@ should also be clearly stated.
 * link:/web/findings/075/[F075. Unauthorized access to files]
 
 * link:/web/findings/094/[F094. System impersonation]
-
-* link:/web/findings/099/[F099. Excessive privileges]
 
 == References
 
