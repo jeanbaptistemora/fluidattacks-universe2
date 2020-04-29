@@ -421,6 +421,7 @@ forces_dynamic:
               --gitlab-docker-socket-binding
              )
   interruptible: true
+  allow_failure: true
   <<: *in_master_branch
 
 lint_commit_msg:
