@@ -86,7 +86,7 @@ def parse_single(grammar: ParserElement,
 
     results: List[Unit] = [Unit(where=path,
                                 source='Lines',
-                                specific=line_numbers,
+                                specific=list(dict.fromkeys(line_numbers)),
                                 fingerprint=get_sha256(path))]
 
     return (results, []) if line_numbers else ([], results)
