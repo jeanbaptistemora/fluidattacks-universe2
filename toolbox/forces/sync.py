@@ -78,28 +78,27 @@ def _diff_vulnerabilities(
     integrates: List[Dict[str, str]],
 ):
     exploit_open = tuple(sorted(set(
-        f'{vul.what} @ {vul.where}'
+        f'{vul.what} @ {vul.where}\n'
         for vul in exploit
         if vul.status == 'OPEN'
     )))
 
     integrates_open = tuple(sorted(set(
-        f"{vul['full_path']} @ {vul['specific']}"
+        f"{vul['full_path']} @ {vul['specific']}\n"
         for vul in integrates
         if vul['status'] == 'OPEN'
     )))
 
-    diff = '\n'.join(difflib.unified_diff(
+    diff = difflib.unified_diff(
         exploit_open,
         integrates_open,
         fromfile=exploit_ref,
         tofile=integrates_ref
-    ))
+    )
 
     patch_file_name = _get_patch_file_name(subs)
     with open(patch_file_name, 'a') as patch_file_handle:
-        patch_file_handle.write(diff)
-        patch_file_handle.write('\n')
+        patch_file_handle.writelines(diff)
         patch_file_handle.write('\n')
 
 
@@ -534,5 +533,5 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
 
     logger.info()
     logger.info(f'Helpful files were generated:')
-    logger.info(f'- continuous/{patch_file}')
+    logger.info(f'- {patch_file}')
     return True
