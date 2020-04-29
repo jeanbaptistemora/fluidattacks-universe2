@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
 
+import asyncio
 import collections
 from datetime import datetime, timedelta, timezone
 import binascii
@@ -13,6 +14,7 @@ import pytz
 import rollbar
 import requests
 
+from asgiref.sync import sync_to_async
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
@@ -197,6 +199,15 @@ def validate_future_releases(finding: Dict[str, str]) -> bool:
 
 
 def cloudwatch_log(request, msg: str):
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    loop.create_task(cloudwatch_log_queue(request, msg))
+
+
+def cloudwatch_log_sync(request, msg: str):
     user_data = get_jwt_content(request)
     info = [str(user_data["user_email"]), str(user_data["company"])]
     for parameter in ["project", "findingid"]:
@@ -207,6 +218,19 @@ def cloudwatch_log(request, msg: str):
     info.append(FI_ENVIRONMENT)
     info.append(msg)
     LOGGER.info(":".join(info))
+
+
+async def cloudwatch_log_queue(request, msg: str):
+    user_data = get_jwt_content(request)
+    info = [str(user_data["user_email"]), str(user_data["company"])]
+    for parameter in ["project", "findingid"]:
+        if parameter in request.POST.dict():
+            info.append(request.POST.dict()[parameter])
+        elif parameter in request.GET.dict():
+            info.append(request.GET.dict()[parameter])
+    info.append(FI_ENVIRONMENT)
+    info.append(msg)
+    asyncio.create_task(sync_to_async(LOGGER.info)(":".join(info)))
 
 
 def get_jwt_content(context) -> Dict[str, str]:

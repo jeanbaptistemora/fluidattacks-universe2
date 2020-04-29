@@ -56,7 +56,7 @@ async def _do_request_project_report(_, info,
         )
         generate_pdf_report_thread.start()
         success = True
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             'Security: PDF report succesfully requested')
     elif report_type == 'XLS':
@@ -69,7 +69,7 @@ async def _do_request_project_report(_, info,
         )
         generate_xls_report_thread.start()
         success = True
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             'Security: XLS report succesfully requested')
 

@@ -156,11 +156,11 @@ def enforce_group_level_auth_async(func):
         try:
             if not await sync_to_async(enforcer.enforce)(
                     subject, object_, action):
-                await sync_to_async(util.cloudwatch_log)(
+                util.cloudwatch_log(
                     context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
-            await sync_to_async(util.cloudwatch_log)(
+            util.cloudwatch_log(
                 context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
@@ -189,11 +189,11 @@ def enforce_user_level_auth_async(func):
         try:
             if not await sync_to_async(enforcer.enforce)(
                     subject, object_, action):
-                await sync_to_async(util.cloudwatch_log)(
+                util.cloudwatch_log(
                     context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
-            await sync_to_async(util.cloudwatch_log)(
+            util.cloudwatch_log(
                 context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
@@ -234,12 +234,12 @@ def require_project_access(func):
         try:
             if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
                     user_data, project_name.lower()):
-                await sync_to_async(util.cloudwatch_log)(
+                util.cloudwatch_log(
                     context, 'Security: Attempted to retrieve '
                     f'{kwargs.get("project_name")} project info '
                     'without permission')
                 raise GraphQLError('Access denied')
-            await sync_to_async(util.cloudwatch_log)(
+            util.cloudwatch_log(
                 context, 'Security: Access to '
                 f'{kwargs.get("project_name")} project')
         except AttributeDoesNotExist:
@@ -278,7 +278,7 @@ def require_finding_access(func):
         try:
             if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
                     user_data, finding_project.lower()):
-                await sync_to_async(util.cloudwatch_log)(
+                util.cloudwatch_log(
                     context, 'Security:  Attempted to retrieve '
                     'finding-related info without permission')
                 raise GraphQLError('Access denied')
@@ -319,7 +319,7 @@ def require_event_access(func):
         try:
             if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
                     user_data, event_project.lower()):
-                await sync_to_async(util.cloudwatch_log)(
+                util.cloudwatch_log(
                     context, 'Security: Attempted to retrieve '
                     'event-related info without permission')
                 raise GraphQLError('Access denied')

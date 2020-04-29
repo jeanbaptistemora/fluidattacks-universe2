@@ -121,7 +121,7 @@ async def _do_add_user(_, info, **parameters) -> AddUserPayloadType:
     success = \
         await sync_to_async(user_domain.create_without_project)(parameters)
     if success:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, f'Security: Add user {email}')  # pragma: no cover
         mail_to = [email]
         context = {'admin': email}
@@ -177,12 +177,12 @@ async def _do_grant_user_access(
     if success:
         util.invalidate_cache(project_name)
         util.invalidate_cache(new_user_email)
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             (f'Security: Given grant access to {new_user_email} '
              f'in {project_name} project'))  # pragma: no cover
     else:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             (f'Security: Attempted to grant access to {new_user_email} '
              f'in {project_name} project'))  # pragma: no cover
@@ -213,12 +213,12 @@ async def _do_remove_user_access(
     if success:
         util.invalidate_cache(project_name)
         util.invalidate_cache(user_email)
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             f'Security: Removed user: {user_email} from {project_name} '
             'project succesfully')  # pragma: no cover
     else:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, f'Security: Attempted to remove user: {user_email} '
             f'from {project_name} project')  # pragma: no cover
     return RemoveUserAccessPayloadType(
@@ -265,12 +265,12 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     if success:
         util.invalidate_cache(project_name)
         util.invalidate_cache(modified_email)
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             f'Security: Modified user data:{modified_email} '
             'in {project_name} project successfully')  # pragma: no cover
     else:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             'Security: Attempted to modify user '
             f'data:{modified_email} in '

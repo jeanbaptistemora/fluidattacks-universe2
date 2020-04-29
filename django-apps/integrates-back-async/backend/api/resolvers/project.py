@@ -109,7 +109,7 @@ async def _get_findings(
     if filters:
         req_fields.extend(filters)
     selection_set.selections = req_fields
-    await sync_to_async(util.cloudwatch_log)(
+    util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} findings')  # pragma: no cover
     all_findings = \
@@ -417,7 +417,7 @@ async def _get_drafts(
         info, project_name: str, **__) -> \
         List[Dict[str, FindingType]]:
     """Get drafts."""
-    await sync_to_async(util.cloudwatch_log)(
+    util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} drafts')  # pragma: no cover
     finding_ids = await \
@@ -436,7 +436,7 @@ async def _get_drafts(
 async def _get_events(info,
                       project_name: str, **__) -> Dict[str, List[EventType]]:
     """Get events."""
-    await sync_to_async(util.cloudwatch_log)(
+    util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} events')  # pragma: no cover
     event_ids = await \
@@ -544,7 +544,7 @@ async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
     if success:
         project = kwargs.get('project_name', '').lower()
         util.invalidate_cache(user_data['user_email'])
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             f'Security: Created project {project} '
             'successfully')  # pragma: no cover
@@ -564,7 +564,7 @@ async def _do_request_remove_project(
     if success:
         project = project_name.lower()
         util.invalidate_cache(project)
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             'Security: '
             f'Pending to remove project {project}')  # pragma: no cover
@@ -584,7 +584,7 @@ async def _do_reject_remove_project(_, info,
     if success:
         project = project_name.lower()
         util.invalidate_cache(project)
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             'Security: Reject project '
             f'{project} deletion succesfully')  # pragma: no cover
@@ -615,11 +615,11 @@ async def _do_add_project_comment(_, info,
         project_name, user_info['user_email'], comment_data)
     if success:
         util.invalidate_cache(project_name)
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, 'Security: Added comment to '
             f'{project_name} project succesfully')  # pragma: no cover
     else:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, 'Security: Attempted to add '
             f'comment in {project_name} project')  # pragma: no cover
     ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
@@ -654,11 +654,11 @@ async def _do_add_tags(_, info, project_name: str,
                 await sync_to_async(rollbar.report_message)('Error: \
 An error occurred adding tags', 'error', info.context)
         else:
-            await sync_to_async(util.cloudwatch_log)(
+            util.cloudwatch_log(
                 info.context, 'Security: \
 Attempted to upload tags without the allowed structure')  # pragma: no cover
     else:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, 'Security: \
 Attempted to upload tags without the allowed validations')  # pragma: no cover
     if success:
@@ -693,11 +693,11 @@ async def _do_remove_tag(_, info, project_name: str,
 An error occurred removing a tag', 'error', info.context)
     if success:
         util.invalidate_cache(project_name)
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, 'Security: Removed tag from '
             f'{project_name} project succesfully')  # pragma: no cover
     else:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, 'Security: Attempted to remove '
             f'tag in {project_name} project')  # pragma: no cover
     project = await resolve(info, project_name, True, False)
@@ -713,7 +713,7 @@ async def _do_add_all_project_access(_, info,
         await sync_to_async(project_domain.add_all_access_to_project)(
             project_name)
     if success:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             'Security: '
             f'Add all project access of {project_name}')  # pragma: no cover
@@ -730,7 +730,7 @@ async def _do_remove_all_project_access(
         await sync_to_async(project_domain.remove_all_project_access)(
             project_name)
     if success:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             'Security: Remove '
             f'all project access of {project_name}')  # pragma: no cover

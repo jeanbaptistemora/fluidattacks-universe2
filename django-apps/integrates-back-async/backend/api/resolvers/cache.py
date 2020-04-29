@@ -18,7 +18,7 @@ async def resolve_invalidate_cache(_, info, pattern: str) -> SimplePayloadType:
     if re.match(regex, pattern):
         await sync_to_async(util.invalidate_cache)(pattern)
         success = True
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             f'Security: Pattern {pattern} was \
 removed from cache')  # pragma: no cover

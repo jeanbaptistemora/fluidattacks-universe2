@@ -49,7 +49,7 @@ async def resolve_set_alert(_, info, company: str, message: str,
     success = await sync_to_async(alert_domain.set_company_alert)(
         company, message, project_name)
     if success:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context,
             f'Security: Set alert of {company}')  # pragma: no cover
     return SimplePayloadType(success=success)

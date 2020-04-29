@@ -220,7 +220,7 @@ async def _do_sign_in(_, info, auth_token: str, provider: str,
             )
             success = True
         except ValueError:
-            await sync_to_async(util.cloudwatch_log)(
+            util.cloudwatch_log(
                 info.context,
                 'Security: Sign in attempt '
                 'using invalid Google token')  # pragma: no cover
@@ -266,15 +266,15 @@ async def _do_update_access_token(
         success = await \
             sync_to_async(user_domain.update_access_token)(email, token_data)
         if success:
-            await sync_to_async(util.cloudwatch_log)(
+            util.cloudwatch_log(
                 info.context, '{email} update access token'.format(
                     email=user_info['user_email']))  # pragma: no cover
         else:
-            await sync_to_async(util.cloudwatch_log)(
+            util.cloudwatch_log(
                 info.context, '{email} attempted to update access token'
                 .format(email=user_info['user_email']))  # pragma: no cover
     else:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, '{email} attempted to use expiration time \
             greater than six months or minor than current time'
             .format(email=user_info['user_email']))  # pragma: no cover
@@ -292,11 +292,11 @@ async def _do_invalidate_access_token(_, info) -> SimplePayloadType:
     success = await \
         sync_to_async(user_domain.remove_access_token)(user_info['user_email'])
     if success:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, '{email} invalidate access token'.format(
                 email=user_info['user_email']))  # pragma: no cover
     else:
-        await sync_to_async(util.cloudwatch_log)(
+        util.cloudwatch_log(
             info.context, '{email} attempted to invalidate access token'
             .format(email=user_info['user_email']))  # pragma: no cover
     return SimplePayloadType(success=success)

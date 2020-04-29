@@ -393,7 +393,7 @@ def delete_all_evidences_s3(finding_id: str, project: str, context) -> bool:
             list(map(finding_dal.remove_evidence, evidences_list))  # type: ignore
         is_evidence_deleted = any(is_evidence_deleted_s3)
     else:
-        util.cloudwatch_log(
+        util.cloudwatch_log_sync(
             context,
             'Info: Finding ' + finding_id + ' does not have evidences in s3')
         is_evidence_deleted = True
