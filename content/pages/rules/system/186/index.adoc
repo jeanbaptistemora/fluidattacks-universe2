@@ -1,15 +1,15 @@
 :slug: rules/186/
-:category: data
-:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of setting the minimum level of privileges to access other systems or databases.
-:keywords: Data, Privileges, System, ASVS, NIST, CWE
+:category: system
+:description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of applying the principle of least privilege when accessing systems and assigning permissions.
+:keywords: Principle, Least, Privilege, NIST, ASVS, CWE
 :rules: yes
 
-= REQ.186 Use minimum level of privileges
+= REQ.186 Use the principle of least privilege
 
 == Requirement
 
-The system must use the minimum level of privileges
-when accessing other systems or databases.
+The principle of least privilege must be applied when creating new objects and
+roles, setting access permissions and accessing other systems.
 
 == Description
 
@@ -23,6 +23,8 @@ greater impact when exploiting other vulnerabilities.
 == Findings
 
 * link:/web/findings/031/[F031. Excessive privileges]
+
+* link:/web/findings/101/[F101. Lack of protection against deletion]
 
 == References
 

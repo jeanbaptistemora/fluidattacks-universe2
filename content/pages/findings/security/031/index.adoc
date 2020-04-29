@@ -14,10 +14,8 @@ a system.
 
 == Rules
 
-. [[r1]] link:/web/rules/095/[R095. Define users with privileges]
+. [[r1]] link:/web/rules/186/[R186. Use the principle of least privilege]
 
-. [[r2]] link:/web/rules/096/[R096. Set user required privileges]
+. [[r2]] link:/web/rules/095/[R095. Define users with privileges]
 
-. [[r3]] link:/web/rules/186/[R186. Use minimum level of privileges]
-
-. [[r4]] link:/web/rules/269/[R269. Use the principle of least privilege]
+. [[r3]] link:/web/rules/096/[R096. Set user required privileges]
