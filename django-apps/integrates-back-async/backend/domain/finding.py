@@ -1,3 +1,4 @@
+import asyncio
 import io
 import re
 import random
@@ -6,6 +7,8 @@ from decimal import Decimal
 
 from typing import Dict, List, Optional, Tuple, Union, cast
 import pytz
+
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.core.files.base import ContentFile
 from magic import Magic
@@ -531,6 +534,20 @@ def get_findings(finding_ids: List[str]) -> List[Dict[str, FindingType]]:
     """Retrieves all attributes for the requested findings"""
     findings = [get_finding(finding_id) for finding_id in finding_ids
                 if validate_finding(finding_id=finding_id)]
+    if not findings and finding_ids:
+        raise FindingNotFound()
+    return findings
+
+
+async def get_findings_async(
+        finding_ids: List[str]) -> List[Dict[str, FindingType]]:
+    """Retrieves all attributes for the requested findings"""
+    findings_tasks = [
+        asyncio.create_task(sync_to_async(get_finding)(finding_id))
+        for finding_id in finding_ids
+        if validate_finding(finding_id=finding_id)
+    ]
+    findings = await asyncio.gather(*findings_tasks)
     if not findings and finding_ids:
         raise FindingNotFound()
     return findings

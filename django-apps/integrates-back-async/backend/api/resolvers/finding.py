@@ -373,9 +373,11 @@ async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
     project_name = await \
         sync_to_async(project_domain.get_finding_project_name)(draft_id)
 
-    has_vulns = [vuln for vuln in vuln_domain.list_vulnerabilities([draft_id])
-                 if cast(List[Dict[str, Any]],
-                         vuln['historic_state'])[-1].get('state') != 'DELETED']
+    has_vulns = [
+        vuln for vuln in
+        await vuln_domain.list_vulnerabilities_async([draft_id])
+        if cast(List[Dict[str, Any]],
+                vuln['historic_state'])[-1].get('state') != 'DELETED']
     if not has_vulns:
         raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
     success, release_date = await sync_to_async(finding_domain.approve_draft)(

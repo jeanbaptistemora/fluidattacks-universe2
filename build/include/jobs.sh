@@ -437,7 +437,7 @@ function job_serve_back_prod {
 function job_lint_back {
       mypy --ignore-missing-imports \
         django-apps/casbin-in-memory-adapter \
-  &&  mypy --ignore-missing-imports \
+  &&  mypy --ignore-missing-imports --follow-imports=skip \
         django-apps/integrates-back-async/backend/mailer.py \
         django-apps/integrates-back-async/backend/scheduler.py \
         django-apps/integrates-back-async/backend/services.py \
@@ -448,8 +448,6 @@ function job_lint_back {
         django-apps/integrates-back-async/backend/domain/*py \
         django-apps/integrates-back-async/backend/dal/* \
         django-apps/integrates-back-async/backend/utils/* \
-        django-apps/integrates-back-async/backend/api/dataloaders/event.py \
-        django-apps/integrates-back-async/backend/api/dataloaders/finding.py \
         django-apps/integrates-back-async/backend/api/dataloaders/user.py \
         django-apps/integrates-back-async/backend/api/resolvers/* \
   &&  prospector -F -s high -u django -i node_modules app \

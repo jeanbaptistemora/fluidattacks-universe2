@@ -36,7 +36,7 @@ async def _batch_load_fn(
     findings: Dict[str, Dict[str, FindingType]] = \
         defaultdict(Dict[str, FindingType])
 
-    fins = await sync_to_async(finding_domain.get_findings)(finding_ids)
+    fins = await finding_domain.get_findings_async(finding_ids)
 
     for finding in fins:
         findings[finding['findingId']] = dict(

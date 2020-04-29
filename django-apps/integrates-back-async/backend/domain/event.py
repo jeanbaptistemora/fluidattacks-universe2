@@ -1,10 +1,12 @@
 """Domain functions for events."""
 from typing import Dict, List, Tuple, Union, cast
+import asyncio
 import random
 import threading
 from datetime import datetime
 
 import pytz
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from magic import Magic
 
@@ -243,9 +245,16 @@ def get_event(event_id: str) -> EventType:
     return event
 
 
-def get_events(event_ids: List[str]) -> List[EventType]:
-    events = [event_utils.format_data(get_event(event_id)) for event_id in event_ids]
-
+async def get_events(event_ids: List[str]) -> List[EventType]:
+    events_tasks = [
+        asyncio.create_task(
+            sync_to_async(event_utils.format_data)(
+                get_event(event_id)
+            )
+        )
+        for event_id in event_ids
+    ]
+    events = await asyncio.gather(*events_tasks)
     return events
 
 

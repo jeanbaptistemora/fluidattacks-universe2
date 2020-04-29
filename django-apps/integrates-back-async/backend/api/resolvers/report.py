@@ -29,7 +29,7 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
     findings = \
         await sync_to_async(
             project_domain.list_findings)(project_name.lower())
-    findings = await sync_to_async(finding_domain.get_findings)(findings)
+    findings = await finding_domain.get_findings_async(findings)
     findings = [
         await sync_to_async(finding_domain.cast_new_vulnerabilities)
         (await sync_to_async(vuln_domain.get_open_vuln_by_type)

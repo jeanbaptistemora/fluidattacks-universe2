@@ -2,10 +2,9 @@
 
 from collections import defaultdict
 
-from typing import Dict, List
-from asgiref.sync import sync_to_async
+from typing import Dict, List, cast
 from backend.domain import event as event_domain
-from backend.typing import Event as EventType
+from backend.typing import Event as EventType, Historic
 from aiodataloader import DataLoader
 
 
@@ -13,9 +12,9 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
     """Batch the data load requests within the same execution fragment."""
     events: Dict[str, EventType] = defaultdict(EventType)
 
-    evnts = await sync_to_async(event_domain.get_events)(event_ids)
+    evnts = await event_domain.get_events(event_ids)
     for event in evnts:
-        history = event.get('historic_state', [])
+        history: Historic = cast(Historic, event.get('historic_state', []))
         events[event['event_id']] = dict(
             accessibility=event.get('accessibility', ''),
             affectation=history[-1].get('affectation', ''),
