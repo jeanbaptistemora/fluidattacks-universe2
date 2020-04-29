@@ -2,7 +2,10 @@ import i18next from "i18next";
 
 export const enTranslations: i18next.ResourceLanguage = {
   common: {
-    error: "Oops! There is an error.",
+    error: {
+      msg: "There is an error :(",
+      title: "Oops!",
+    },
   },
   login: {
     authLoadingText: "Authenticating...",

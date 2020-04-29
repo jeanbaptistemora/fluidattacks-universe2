@@ -2,7 +2,7 @@ import { default as Constants, NativeConstants } from "expo-constants";
 import * as Google from "expo-google-app-auth";
 import _ from "lodash";
 import React from "react";
-import { Image, Linking, Platform, View } from "react-native";
+import { Alert, Image, Linking, Platform, View } from "react-native";
 import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
@@ -15,7 +15,6 @@ import {
   GOOGLE_LOGIN_KEY_IOS_DEV,
   GOOGLE_LOGIN_KEY_IOS_PROD,
 } from "../../utils/constants";
-import * as errorDialog from "../../utils/errorDialog";
 import { getPushToken } from "../../utils/notifications";
 import { rollbar } from "../../utils/rollbar";
 import { translate } from "../../utils/translations/translate";
@@ -78,8 +77,8 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
       }
     } catch (error) {
       setLoading(false);
-      errorDialog.show();
       rollbar.error("An error occurred authenticating with Google", error as Error);
+      Alert.alert(t("common.error.title"), t("common.error.msg"));
     }
   };
 
