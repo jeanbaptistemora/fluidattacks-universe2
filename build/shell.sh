@@ -128,6 +128,8 @@ function test_fluidasserts {
         --asserts-module "${marker_name}" \
         --capture=no \
         --no-cov \
+        --reruns 10 \
+        --reruns-delay 1 \
       "test/test_others_${action}.py"
   }
 

@@ -5,5 +5,7 @@ flask==1.1.2
 graphene==2.1.8
 pytest-cov==2.8.1
 pytest-random-order==1.0.4
+pytest-rerunfailures==9.0
+pytest-xdist==1.29.0
 pytest==5.4.1
 wait==0.0.3
