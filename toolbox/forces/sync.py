@@ -1,11 +1,11 @@
 # Standard library
 import difflib
-import datetime
 import glob
 import json
 import operator
 import os
 import textwrap
+from datetime import datetime
 from typing import (
     Dict,
     List,
@@ -17,25 +17,35 @@ from typing import (
 # Local libraries
 from toolbox import (
     api,
+    constants,
     logger,
     utils,
 )
 
-# The applied logic in static exploits is:
-#   Given an exploit 'E' for the finding 'F' and a repository 'R':
-#     - See the status on Integrates for the finding 'F' and the
-#       repository 'R', (OPEN, CLOSED)
-#     - Run the exploit 'E' over repository 'R' and see the
-#       status (OPEN, CLOSED, UNKNOWN, ERROR, ETC)
-#     - Report here if the status Integrates vs Asserts differ
-#
-# The applied logic in dynamic exploits is:
-#   Given an exploit 'E' for the finding 'F':
-#     - See the status on Integrates for
-#       the finding 'F', (OPEN, CLOSED)
-#     - Run the exploit 'E' and see the status
-#       (OPEN, CLOSED, UNKNOWN, ERROR, ETC)
-#     - Report here if the status Integrates vs Asserts differ
+
+def _get_asserts_msg(
+    *,
+    num_error_asserts: int,
+    num_open_asserts: int,
+    num_unknown_asserts: int,
+) -> str:
+    # Error if at least one error
+    # Open if at least one open and no errors
+    # Unknown if at least one unknown, no errors and no opens
+    # Closed if no errors or opens or unknowns
+    return {
+        num_unknown_asserts > 0: 'UNKNOWN',
+        num_open_asserts > 0: 'OPEN',
+        num_error_asserts > 0: 'ERROR',
+    }.get(True, 'CLOSED')
+
+
+def _get_integrates_msg(
+    *,
+    num_open_integrates: int,
+) -> str:
+    # Open if at least one is open
+    return 'OPEN' if num_open_integrates > 0 else 'CLOSED'
 
 
 def _get_bb_fernet_key(subscription: str) -> str:
@@ -68,6 +78,16 @@ def _get_bb_resources(subs: str, kind: str) -> str:
 
 def _get_patch_file_name(subs: str) -> str:
     return f'check-sync-results.{subs}.patch'
+
+
+def _is_synced(
+    *,
+    num_error_asserts: int,
+    num_open_asserts: int,
+    num_open_integrates: int,
+) -> bool:
+    return num_error_asserts == 0 \
+        and num_open_asserts == num_open_integrates
 
 
 def _diff_vulnerabilities(
@@ -103,10 +123,18 @@ def _diff_vulnerabilities(
 
 
 def _print_results_summary(results: List[dict]):
-    if all(result['synced'] == 'yes' for result in results):
-        logger.info(f'Summary: {len(results)} tests, all ok!')
+    num_tests = len(results)
+    num_synced = sum(result['is_synced'] for result in results)
+    num_not_synced = num_tests - num_synced
+    exploits = 'exploit' if num_tests == 1 else 'exploits'
+
+    if num_tests == num_synced:
+        logger.info(f'Summary: {num_tests} {exploits} tested, all ok!')
     else:
-        logger.info(f'Summary: {len(results)} tests, some of them failed')
+        logger.info(
+            f'Summary: {num_tests} {exploits} tested'
+            f', {num_synced} synced'
+            f', {num_not_synced} not synced')
 
 
 def _run_static_exploit(
@@ -222,49 +250,48 @@ def _validate_one_static_exploit(
 
         integrates_vulns = \
             integrates_repositories_data.get(repo, [])
-        integrates_vulns_open = \
+        num_open_integrates = \
             integrates_repositories_vulns.get(repo, {}).get('open', 0)
-        integrates_vulns_closed = \
+        num_closed_integrates = \
             integrates_repositories_vulns.get(repo, {}).get('closed', 0)
 
         asserts_vulns = tuple(
             api.asserts.iterate_vulnerabilities_from_content(
                 asserts_stdout, repo))
-        asserts_vulns_open = \
+        num_open_asserts = \
             sum(vul.status.startswith('OPEN') for vul in asserts_vulns)
-        asserts_vulns_unknown = \
+        num_unknown_asserts = \
             sum(vul.status.startswith('UNKNOWN') for vul in asserts_vulns)
-        asserts_vulns_error = \
+        num_error_asserts = \
             sum(vul.status.startswith('ERROR') for vul in asserts_vulns)
 
         # Open if at least one vuln is open
-        imsg = 'OPEN' if integrates_vulns_open > 0 else 'CLOSED'
-
-        # Error if at least one error
-        # Open if at least one open and no errors
-        # Unknown if at least one unknown, no errors and no opens
-        # Closed if no errors or opens or unknowns
-        amsg = {
-            asserts_vulns_unknown > 0: 'UNKNOWN',
-            asserts_vulns_open > 0: 'OPEN',
-            asserts_vulns_error > 0: 'ERROR',
-        }.get(True, 'CLOSED')
+        amsg = _get_asserts_msg(
+            num_error_asserts=num_error_asserts,
+            num_open_asserts=num_open_asserts,
+            num_unknown_asserts=num_unknown_asserts,
+        )
+        imsg = _get_integrates_msg(
+            num_open_integrates=num_open_integrates,
+        )
 
         # The synced equation
-        is_synced = \
-            asserts_vulns_error == 0 \
-            and asserts_vulns_open == integrates_vulns_open
+        is_synced = _is_synced(
+            num_error_asserts=num_error_asserts,
+            num_open_asserts=num_open_asserts,
+            num_open_integrates=num_open_integrates,
+        )
 
         if not is_synced:
             logger.info(
                 f'  {finding_id:<10}: {repo:<60} '
                 f'{imsg!s:<6} I ('
-                f'{integrates_vulns_open!s:<3} o, '
-                f'{integrates_vulns_closed!s:<3} c), '
+                f'{num_open_integrates!s:<3} o, '
+                f'{num_closed_integrates!s:<3} c), '
                 f'{amsg!s:<7} E ('
-                f'{asserts_vulns_error!s:<3} e, '
-                f'{asserts_vulns_open!s:<3} o, '
-                f'{asserts_vulns_unknown!s:<3} u)'
+                f'{num_error_asserts!s:<3} e, '
+                f'{num_open_asserts!s:<3} o, '
+                f'{num_unknown_asserts!s:<3} u)'
             )
             _diff_vulnerabilities(
                 subs,
@@ -273,24 +300,44 @@ def _validate_one_static_exploit(
                 asserts_vulns,
                 integrates_vulns)
 
-        asserts_summary = \
-            api.asserts.get_exp_result_summary(asserts_stdout)
-
         results.append(dict(
-            datetime=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
-            exploit_path=os.path.relpath(exploit_path),
-            exploit_type='static',
-            num_open_asserts=asserts_summary.get('vulnerabilities', 0),
-            num_open_integrates=integrates_vulns_open,
-            pipeline_id=os.environ.get('CI_PIPELINE_ID'),
+            num_error_asserts=num_error_asserts,
+            num_open_asserts=num_open_asserts,
+            num_unknown_asserts=num_unknown_asserts,
+            num_open_integrates=num_open_integrates,
+            num_closed_integrates=num_closed_integrates,
             repository=repo,
-            result_asserts=amsg,
-            result_integrates=imsg,
-            subscription=subs,
-            synced='yes' if is_synced else 'no',
         ))
 
-    return results
+    summary: dict = dict(
+        exploit_path=os.path.relpath(exploit_path),
+        exploit_type='static',
+        **{
+            key: sum(result[key] for result in results)
+            for key in (
+                'num_error_asserts',
+                'num_open_asserts',
+                'num_unknown_asserts',
+                'num_open_integrates',
+                'num_closed_integrates',
+            )
+        },
+    )
+    summary['result_asserts'] = _get_asserts_msg(
+        num_error_asserts=summary['num_error_asserts'],
+        num_open_asserts=summary['num_open_asserts'],
+        num_unknown_asserts=summary['num_unknown_asserts'],
+    )
+    summary['result_integrates'] = _get_integrates_msg(
+        num_open_integrates=summary['num_open_integrates'],
+    )
+    summary['is_synced'] = _is_synced(
+        num_error_asserts=summary['num_error_asserts'],
+        num_open_asserts=summary['num_open_asserts'],
+        num_open_integrates=summary['num_open_integrates'],
+    )
+
+    return [summary]
 
 
 def _validate_one_dynamic_exploit(
@@ -304,16 +351,14 @@ def _validate_one_dynamic_exploit(
     subs: str,
 ) -> List[dict]:
     """Validate Synchronization in one static exploit and return results."""
-    results: List[dict] = []
-
     if os.path.isfile(exploit_output_path):
         os.remove(exploit_output_path)
 
     integrates_vulns = \
         utils.integrates.get_finding_dynamic_states(finding_id)
-    integrates_vulns_open = \
+    num_open_integrates = \
         sum(1 for _, _, is_open in integrates_vulns if is_open)
-    integrates_vulns_closed = \
+    num_closed_integrates = \
         sum(1 for _, _, is_open in integrates_vulns if not is_open)
 
     _, asserts_stdout, _ = _run_dynamic_exploit(
@@ -326,58 +371,53 @@ def _validate_one_dynamic_exploit(
 
     asserts_vulns = tuple(
         api.asserts.iterate_vulnerabilities_from_content(asserts_stdout))
-    asserts_vulns_open = \
+    num_open_asserts = \
         sum(vul.status.startswith('OPEN') for vul in asserts_vulns)
-    asserts_vulns_unknown = \
+    num_unknown_asserts = \
         sum(vul.status.startswith('UNKNOWN') for vul in asserts_vulns)
-    asserts_vulns_error = \
+    num_error_asserts = \
         sum(vul.status.startswith('ERROR') for vul in asserts_vulns)
 
-    # Open if at least one vuln is open
-    imsg = 'OPEN' if integrates_vulns_open > 0 else 'CLOSED'
-
-    # Error if at least one error
-    # Open if at least one open and no errors
-    # Unknown if at least one unknown, no errors and no opens
-    # Closed if no errors or opens or unknowns
-    amsg = {
-        asserts_vulns_unknown > 0: 'UNKNOWN',
-        asserts_vulns_open > 0: 'OPEN',
-        asserts_vulns_error > 0: 'ERROR',
-    }.get(True, 'CLOSED')
+    amsg = _get_asserts_msg(
+        num_error_asserts=num_error_asserts,
+        num_open_asserts=num_open_asserts,
+        num_unknown_asserts=num_unknown_asserts,
+    )
+    imsg = _get_integrates_msg(
+        num_open_integrates=num_open_integrates,
+    )
 
     # The synced equation
-    is_synced = \
-        asserts_vulns_error == 0 \
-        and asserts_vulns_open == integrates_vulns_open
+    is_synced = _is_synced(
+        num_error_asserts=num_error_asserts,
+        num_open_asserts=num_open_asserts,
+        num_open_integrates=num_open_integrates,
+    )
 
     if not is_synced:
         logger.info(
             f'  {finding_id:<10}: {str():<60} '
             f'{imsg!s:<6} I ('
-            f'{integrates_vulns_open!s:<3} o, '
-            f'{integrates_vulns_closed!s:<3} c), '
+            f'{num_open_integrates!s:<3} o, '
+            f'{num_closed_integrates!s:<3} c), '
             f'{amsg!s:<7} E ('
-            f'{asserts_vulns_error!s:<3} e, '
-            f'{asserts_vulns_open!s:<3} o, '
-            f'{asserts_vulns_unknown!s:<3} u)'
+            f'{num_error_asserts!s:<3} e, '
+            f'{num_open_asserts!s:<3} o, '
+            f'{num_unknown_asserts!s:<3} u)'
         )
 
-    results.append(dict(
-        datetime=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+    return [dict(
         exploit_path=os.path.relpath(exploit_path),
         exploit_type='dynamic',
-        num_open_asserts=asserts_vulns_open,
-        num_open_integrates=integrates_vulns_open,
-        pipeline_id=os.environ.get('CI_PIPELINE_ID'),
-        repository='',
+        num_error_asserts=num_error_asserts,
+        num_open_asserts=num_open_asserts,
+        num_unknown_asserts=num_unknown_asserts,
+        num_open_integrates=num_open_integrates,
+        num_closed_integrates=num_closed_integrates,
         result_asserts=amsg,
         result_integrates=imsg,
-        subscription=subs,
-        synced='yes' if is_synced else 'no',
-    ))
-
-    return results
+        is_synced=is_synced,
+    )]
 
 
 def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
@@ -525,6 +565,11 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
 
     with open(f'check-sync-results.{subs}.json.stream', 'w') as results_handle:
         for json_obj in results_static + results_dynamic:
+            json_obj.update(dict(
+                datetime=datetime.now().strftime(constants.DATE_FORMAT),
+                pipeline_id=os.environ.get('CI_PIPELINE_ID', 'unknown'),
+                subscription=subs,
+            ))
             results_handle.write(json.dumps({
                 'stream': 'results',
                 'record': json_obj,

@@ -13,6 +13,7 @@ import jose.exceptions
 SAST: tuple = ('lines',)
 DAST: tuple = ('inputs', 'ports',)
 API_TOKEN: str = os.environ.get('INTEGRATES_API_TOKEN', '')
+DATE_FORMAT: str = '%Y-%m-%dT%H:%M:%SZ'
 
 RICH_EXIT_CODES: Dict[str, int] = {
     'closed': 0,
