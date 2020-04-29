@@ -23,6 +23,10 @@ not performed,
 and these could contain serious vulnerabilities such as back doors, rootkits
 and exposed sensitive information.
 
+== Exceptions
+
+* Image files.
+
 == Findings
 
 * link:/web/findings/117/[F117. Unverifiable files]
