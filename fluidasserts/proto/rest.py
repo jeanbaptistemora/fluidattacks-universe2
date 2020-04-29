@@ -14,6 +14,7 @@ from fluidasserts import LOW, MEDIUM, DAST
 from fluidasserts.helper import http
 from fluidasserts.proto.http import _has_insecure_value, _is_not_header_present
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.helper import proxy
 
 HDR_RGX: Dict[str, str] = {
     'strict-transport-security': (r'^\s*max-age\s*=\s*'
@@ -63,17 +64,32 @@ def accepts_empty_content_type(url: str,
     """
     accepted_codes = [406, 415]
     accepted_codes.extend(status_codes or [])
-    if 'headers' in kwargs:
-        if 'Content-Type' in kwargs['headers']:
-            kwargs['headers'].pop('Content-Type', None)
 
-    session = http.HTTPSession(url, *args, **kwargs)
-    session.set_messages(
-        source=f'REST/Request/Headers/Content-Type',
-        msg_open='Endpoint accepts empty Content-Type requests',
-        msg_closed='Endpoint rejects empty Content-Type requests')
-    session.add_unit(
-        is_vulnerable=session.response.status_code not in accepted_codes)
+    def mod_request(flow):
+        flow.request.headers.pop('Content-Type', None)
+        return flow
+
+    addons = [proxy.AddOn(request=mod_request)]
+
+    proxies = {
+        "http": "http://127.0.0.1:8085",
+        "https": "https://127.0.0.1:8085"
+    }
+    with proxy.proxy_server(addons=addons):
+        session = http.HTTPSession(
+            url,
+            proxies=proxies,
+            verify=proxy.get_certificate_path(),
+            *args,
+            **kwargs)
+        if session.response.status_code == 502:
+            session = http.HTTPSession(url, *args, **kwargs)
+        session.set_messages(
+            source=f'REST/Request/Headers/Content-Type',
+            msg_open='Endpoint accepts empty Content-Type requests',
+            msg_closed='Endpoint rejects empty Content-Type requests')
+        session.add_unit(
+            is_vulnerable=session.response.status_code not in accepted_codes)
     return session.get_tuple_result()
 
 

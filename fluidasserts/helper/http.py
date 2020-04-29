@@ -184,7 +184,9 @@ class HTTPSession():
     def __do_post_json(self) -> Optional[requests.Response]:
         self.verb_used = 'POST'
         try:
-            return requests.post(self.url, verify=False,
+            return requests.post(self.url,
+                                 verify=self.requests_kwargs.pop(
+                                     'verify', False),
                                  auth=HttpNtlmAuth(*self.ntlm_auth)
                                  if self.ntlm_auth else self.auth,
                                  json=self.json,
@@ -202,7 +204,9 @@ class HTTPSession():
     def __do_post_files(self) -> Optional[requests.Response]:
         self.verb_used = 'POST'
         try:
-            return requests.post(self.url, verify=False,
+            return requests.post(self.url,
+                                 verify=self.requests_kwargs.pop(
+                                     'verify', False),
                                  auth=HttpNtlmAuth(*self.ntlm_auth)
                                  if self.ntlm_auth else self.auth,
                                  files=self.files,
@@ -220,7 +224,9 @@ class HTTPSession():
     def __do_get(self) -> Optional[requests.Response]:
         self.verb_used = 'GET'
         try:
-            return requests.get(self.url, verify=False,
+            return requests.get(self.url,
+                                verify=self.requests_kwargs.pop(
+                                    'verify', False),
                                 auth=HttpNtlmAuth(*self.ntlm_auth)
                                 if self.ntlm_auth else self.auth,
                                 params=self.params,
@@ -238,7 +244,9 @@ class HTTPSession():
     def __do_post(self) -> Optional[requests.Response]:
         self.verb_used = 'POST'
         try:
-            return requests.post(self.url, verify=False,
+            return requests.post(self.url,
+                                 verify=self.requests_kwargs.pop(
+                                     'verify', False),
                                  data=self.data,
                                  auth=HttpNtlmAuth(*self.ntlm_auth)
                                  if self.ntlm_auth else self.auth,
@@ -271,7 +279,8 @@ class HTTPSession():
                                     timeout=self.timeout,
                                     allow_redirects=self.redirect,
                                     stream=self.stream,
-                                    verify=False,
+                                    verify=self.requests_kwargs.pop(
+                                        'verify', False),
                                     **self.requests_kwargs)
         except ConnError.errors as exc:
             raise ConnError(exc)
