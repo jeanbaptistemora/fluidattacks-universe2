@@ -21,16 +21,16 @@ export const theme: Theme = {
 
 const app: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <StatusBar barStyle="light-content" />
-        <NativeRouter>
-          <Switch>
-            <Route path="/" component={LoginView} exact={true} />
-            <Route path="/Welcome" component={WelcomeView} exact={true} />
-            <Route path="/Menu" component={MenuView} exact={true} />
-          </Switch>
-        </NativeRouter>
-      </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <StatusBar barStyle="light-content" />
+      <NativeRouter>
+        <Switch>
+          <Route path="/" component={LoginView} exact={true} />
+          <Route path="/Welcome" component={WelcomeView} exact={true} />
+          <Route path="/Menu" component={MenuView} exact={true} />
+        </Switch>
+      </NativeRouter>
+    </ThemeProvider>
   </ApolloProvider>
 );
 

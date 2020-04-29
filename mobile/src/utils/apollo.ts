@@ -13,22 +13,22 @@ import { rollbar } from "./rollbar";
 const apiHost: string = getEnvironment().url;
 
 const errorLink: ApolloLink = onError((error: ErrorResponse): void => {
-    rollbar.error("Error: An error occurred executing API request", error);
+  rollbar.error("An error occurred executing API request", error);
 });
 
 const authLink: ApolloLink = setContext(async (): Promise<Dictionary> => {
-    let token: string;
-    try {
-      token = await SecureStore.getItemAsync("integrates_session") as string;
-    } catch (exception) {
-      token = "";
-      await SecureStore.deleteItemAsync("integrates_session");
-    }
+  let token: string;
+  try {
+    token = await SecureStore.getItemAsync("integrates_session") as string;
+  } catch (exception) {
+    token = "";
+    await SecureStore.deleteItemAsync("integrates_session");
+  }
 
-    return {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
+  return {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
   };
 });
 
