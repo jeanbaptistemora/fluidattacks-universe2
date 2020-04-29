@@ -31,7 +31,7 @@ from ariadne import convert_kwargs_to_snake_case
 
 # Constants
 BASIC_ROLES = ['customer', 'customeradmin']
-INTERNAL_ROLES = ['admin', 'analyst']
+INTERNAL_ROLES = ['admin', 'analyst', 'internal_manager']
 
 
 # pylint: disable=too-many-arguments

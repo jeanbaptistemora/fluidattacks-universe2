@@ -391,4 +391,5 @@ enum UserRole {
     ANALYST
     CUSTOMER
     CUSTOMERADMIN
+    INTERNAL_MANAGER
 }

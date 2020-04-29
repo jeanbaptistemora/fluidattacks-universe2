@@ -105,7 +105,15 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                         {adminOption}
                       </Can>
                       <option value="CUSTOMER">{translate.t("search_findings.tab_users.customer")}</option>
-                      <option value="CUSTOMERADMIN">{translate.t("search_findings.tab_users.customeradmin")}</option>
+                      {props.projectName !== undefined ? (
+                        <option value="CUSTOMERADMIN">
+                          {translate.t("search_findings.tab_users.customeradmin")}
+                        </option>
+                      ) : (
+                        <option value="INTERNAL_MANAGER">
+                          {translate.t("search_findings.tab_users.internal_manager")}
+                        </option>
+                      )}
                     </Field>
                   </FormGroup>
                   {props.projectName !== undefined ? (

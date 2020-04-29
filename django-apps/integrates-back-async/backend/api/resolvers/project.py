@@ -461,7 +461,7 @@ async def _get_users(info, project_name: str,
         sync_to_async(project_domain.get_users)(project_name)
     user_email_list = util.user_email_filter(
         init_email_list, user_email)
-    user_roles_to_retrieve = ['customer', 'customeradmin']
+    user_roles_to_retrieve = ['customer', 'customeradmin', 'internal_manager']
     if user_role == 'admin':
         user_roles_to_retrieve.append('admin')
         user_roles_to_retrieve.append('analyst')

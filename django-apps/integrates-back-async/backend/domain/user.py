@@ -10,7 +10,7 @@ from backend.utils.validations import (
 from backend.utils import (
     authorization as authorization_util
 )
-VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin'}
+VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin', 'internal_manager'}
 
 
 def get_user_level_role(email: str) -> str:
@@ -89,7 +89,7 @@ def add_phone_to_user(email: str, phone: str) -> bool:
 
 
 def assign_role(email: str, role: str, group: str = None) -> bool:
-    if role not in ('analyst', 'customer', 'admin', 'customeradmin'):
+    if role not in ('analyst', 'customer', 'admin', 'customeradmin', 'internal_manager'):
         return False
 
     if group:

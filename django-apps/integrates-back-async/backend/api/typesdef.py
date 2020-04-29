@@ -184,6 +184,7 @@ USER_ROLE = EnumType(
         'ANALYST': 'analyst',
         'CUSTOMER': 'customer',
         'CUSTOMERADMIN': 'customeradmin',
+        'INTERNAL_MANAGER': 'internal_manager',
     }
 )
 
