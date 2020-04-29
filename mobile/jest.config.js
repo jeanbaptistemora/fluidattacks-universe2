@@ -2,13 +2,16 @@
 
 module.exports = {
   collectCoverage: true,
+  coverageDirectory: "coverage",
   coverageReporters: [
-    "text"
+    "text",
+    "lcov"
   ],
   preset: "jest-expo",
   setupFilesAfterEnv: [
     "<rootDir>/jestSetup.ts"
   ],
+  testEnvironment: "jsdom",
   transformIgnorePatterns: [
     "node_modules/?!(react-router-native)"
   ],

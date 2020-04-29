@@ -1,9 +1,6 @@
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { Provider as ThemeProvider } from "react-native-paper";
 import { NativeRouter } from "react-router-native";
-import renderer, { ReactTestRenderer } from "react-test-renderer";
-
-import { theme } from "../../app";
 
 import { ILoginProps, LoginView } from "./index";
 
@@ -54,14 +51,12 @@ describe("LoginView", (): void => {
         url: "",
       },
     };
-    const renderedComponent: ReactTestRenderer = renderer.create(
-      <ThemeProvider theme={theme}>
-        <NativeRouter initialEntries={["/"]}>
-          <LoginView  {...mockProps} />
-        </NativeRouter>
-      </ThemeProvider>,
+    const wrapper: ShallowWrapper = shallow(
+      <NativeRouter initialEntries={["/"]}>
+        <LoginView  {...mockProps} />
+      </NativeRouter>,
     );
-    expect(renderedComponent.toJSON())
-      .toBeTruthy();
+    expect(wrapper)
+      .toHaveLength(1);
   });
 });

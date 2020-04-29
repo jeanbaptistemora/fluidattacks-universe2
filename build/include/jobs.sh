@@ -340,6 +340,7 @@ function job_reset {
     'build/coverage'
     'django-apps/*/*.egg-info'
     'front/coverage'
+    'mobile/coverage'
     'front/node_modules'
     'lambda/.venv.*'
     '*coverage*'
@@ -740,6 +741,7 @@ function job_test_mobile {
       pushd mobile \
     &&  npm install --unsafe-perm \
     &&  npm test \
+    &&  mv coverage/lcov.info coverage.lcov \
   &&  popd \
   ||  return 1
 }

@@ -1,8 +1,10 @@
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { mount, ReactWrapper } from "enzyme";
 import React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router-native";
-import renderer, { ReactTestRenderer } from "react-test-renderer";
 import wait from "waait";
 
 import { MenuView } from "./index";
@@ -48,7 +50,7 @@ describe("MenuView", (): void => {
       },
     };
 
-    const mocks: ReadonlyArray<MockedResponse> = [{
+    const projectMock: Readonly<MockedResponse> = {
       request: {
         query: PROJECTS_QUERY,
       },
@@ -61,17 +63,16 @@ describe("MenuView", (): void => {
           },
         },
       },
-    }];
+    };
 
-    const renderedComponent: ReactTestRenderer = renderer.create(
-      (
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <MenuView {...mockProps} />
-        </MockedProvider>
-      ),
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={[projectMock]} addTypename={false}>
+        <MenuView {...mockProps} />
+      </MockedProvider>,
     );
-    await wait(0);
-    expect(renderedComponent.toJSON())
-      .toBeTruthy();
+    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
+
+    expect(wrapper)
+      .toHaveLength(1);
   });
 });

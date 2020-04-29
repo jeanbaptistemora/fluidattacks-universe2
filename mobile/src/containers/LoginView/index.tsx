@@ -39,7 +39,7 @@ const loginView: React.FunctionComponent<ILoginProps> = (): JSX.Element => {
   const onMount: (() => void) = (): void => {
     const executeCheckVersion: (() => void) = async (): Promise<void> => {
       try {
-        const shouldSkipCheck: boolean = _.includes(["ios", "test-env"], Platform.OS) || __DEV__;
+        const shouldSkipCheck: boolean = Platform.OS === "ios" || __DEV__;
         if (shouldSkipCheck) {
           setOutdated(false);
         } else {

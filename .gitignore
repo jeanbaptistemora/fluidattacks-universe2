@@ -53,6 +53,7 @@ front/.nyc_output
 front/coverage.lcov
 front/coverage_results.txt
 front/coverage
+mobile/coverage
 
 # npm
 package-lock.json
