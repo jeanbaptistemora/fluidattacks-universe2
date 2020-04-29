@@ -3,6 +3,7 @@
 :description: This document details the security requirements related to the proper management of the organization's physical devices. In this requirement it is recommended that every device be capable of preventing a third party from observing the information entered.
 :keywords: Device, Entry, Information, Confidential, Observing, Security
 :rules: yes
+:extended: yes
 
 = REQ.203 Hide information entry
 
