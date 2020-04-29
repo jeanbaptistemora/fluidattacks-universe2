@@ -199,12 +199,7 @@ def validate_future_releases(finding: Dict[str, str]) -> bool:
 
 
 def cloudwatch_log(request, msg: str):
-    try:
-        loop = asyncio.get_event_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-    loop.create_task(cloudwatch_log_queue(request, msg))
+    asyncio.create_task(cloudwatch_log_queue(request, msg))
 
 
 def cloudwatch_log_sync(request, msg: str):

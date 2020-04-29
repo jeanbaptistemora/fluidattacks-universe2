@@ -1,6 +1,5 @@
 
-import sys
-import threading
+import asyncio
 from asgiref.sync import sync_to_async
 from backend.decorators import require_login, require_project_access
 from backend.domain import (
@@ -14,17 +13,14 @@ from ariadne import convert_kwargs_to_snake_case
 
 
 @convert_kwargs_to_snake_case
-@require_project_access
-async def resolve_report_mutation(obj, info, **parameters):
-    """Resolve reports mutation."""
-    field = util.camelcase_to_snakecase(info.field_name)
-    resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return await resolver_func(obj, info, **parameters)
-
-
 @require_login
-async def _do_request_project_report(_, info,
-                                     **parameters) -> SimplePayloadType:
+@require_project_access
+async def resolve_report_mutation(_, info, **parameters):
+    """Resolve reports mutation."""
+    return await _do_request_project_report(info, **parameters)
+
+
+async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
     success = False
     project_name = parameters.get('project_name', '')
     report_type = parameters.get('report_type')
@@ -45,29 +41,22 @@ async def _do_request_project_report(_, info,
 
     findings_ord = util.ord_asc_by_criticidad(findings)
     if report_type == 'PDF':
-        generate_pdf_report_thread = threading.Thread(
-            name='PDF report generation thread',
-            target=report_domain.generate_pdf_report,
-            args=(project_name,
-                  user_email,
-                  parameters.get('lang', 'en'),
-                  findings_ord,
-                  description)
+        asyncio.create_task(
+            sync_to_async(report_domain.generate_pdf_report)(
+                project_name, user_email, parameters.get('lang', 'en'),
+                findings_ord, description
+            )
         )
-        generate_pdf_report_thread.start()
         success = True
         util.cloudwatch_log(
             info.context,
             'Security: PDF report succesfully requested')
     elif report_type == 'XLS':
-        generate_xls_report_thread = threading.Thread(
-            name='XLS report generation thread',
-            target=report_domain.generate_xls_report,
-            args=(project_name,
-                  user_email,
-                  findings_ord)
+        asyncio.create_task(
+            sync_to_async(report_domain.generate_xls_report)(
+                project_name, user_email, findings_ord
+            )
         )
-        generate_xls_report_thread.start()
         success = True
         util.cloudwatch_log(
             info.context,
