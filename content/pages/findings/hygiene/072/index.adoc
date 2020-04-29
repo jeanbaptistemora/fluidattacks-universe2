@@ -1,0 +1,16 @@
+:slug: findings/072/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from having duplicate source code, recommendations to avoid them and related security requirements.
+:keywords: Duplicate, Code, Source, Coding, Practice, Bad
+:findings: yes
+:type: hygiene
+
+= F072. Duplicate code
+
+== Description
+
+The application's source code has duplicate code,
+which may cause unexpected behaviors.
+
+== Rules
+
+. [[r1]] link:/web/rules/162/[R162. Avoid duplicate code]

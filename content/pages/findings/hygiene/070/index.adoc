@@ -1,0 +1,16 @@
+:slug: findings/070/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from using inappropriate coding practices, recommendations to avoid them and related security requirements.
+:keywords: Inappropriate, Bad, Programming, Coding, Practice, Source Code
+:findings: yes
+:type: hygiene
+
+= F070. Inappropriate coding practices
+
+== Description
+
+There are coding practices in the source code that can be deemed unsafe and
+increase the chances that an exploitable vulnerability will be present.
+
+== Rules
+
+. [[r1]] link:/web/rules/158/[R158. Define secure programming language]

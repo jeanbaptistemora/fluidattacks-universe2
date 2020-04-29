@@ -1,0 +1,15 @@
+:slug: findings/068/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from setting an insecure session expiration time, recommendations to avoid them and related security requirements.
+:keywords: Session, Expiration, Time, Inactivity, Expiry, Login
+:findings: yes
+:type: hygiene
+
+= F068. Insecure session expiration time
+
+== Description
+
+User sessions do not expire after 5 minutes of inactivity.
+
+== Rules
+
+. [[r1]] link:/web/rules/023/[R023. Close inactive users sessions]

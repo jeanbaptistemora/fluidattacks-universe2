@@ -67,6 +67,9 @@ to validate and discard false positives.
 
 * link:/web/findings/060/[F060. Insecure exceptions]
 
+* link:/web/findings/073/[F073. Conditional statement without a default option]
+
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/388.html[+CWE-388+: Error Handling].

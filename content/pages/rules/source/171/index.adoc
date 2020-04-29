@@ -1,0 +1,23 @@
+:slug: rules/171/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of removing commented-out code before deploying source code to the production environment.
+:keywords: Commented-out, Code, Source, Production, Environment, CWE
+:rules: yes
+
+= REQ.171 Remove commented-out code
+
+== Requirement
+
+The source code must not contain commented-out code when it is deployed to the
+production environment.
+
+== Findings
+
+* link:/web/findings/074/[F074. Commented-out code]
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/1085.html[CWE-1085: Invokable Control Element with Excessive Volume of
+Commented-out Code].
+A function, method, procedure, etc. contains an excessive amount of code
+that has been commented out within its body.

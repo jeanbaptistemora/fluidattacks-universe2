@@ -1,0 +1,16 @@
+:slug: findings/073/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from having conditionals without a default option, recommendations to avoid them and related security requirements.
+:keywords: Conditional, Code, Source, Option, Default, Statement
+:findings: yes
+:type: hygiene
+
+= F073. Conditional statement without a default option
+
+== Description
+
+The source code has conditional statements without a default option.
+E.g. there is a switch statement without a default case.
+
+== Rules
+
+. [[r1]] link:/web/rules/161/[R161. Define secure default options]

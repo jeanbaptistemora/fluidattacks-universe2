@@ -1,0 +1,17 @@
+:slug: findings/074/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from having commented-out code in production, recommendations to avoid them and related security requirements.
+:keywords: Commented-out, Code, Source, Production, Maintenance, Uncomment
+:findings: yes
+:type: hygiene
+
+= F074. Commented-out code
+
+== Description
+
+The application's production source code contains commented-out code.
+This increases the chances that it will be uncommented during maintenance,
+introducing vulnerabilities or causing unexpected behaviors.
+
+== Rules
+
+. [[r1]] link:/web/rules/171/[R171. Remove commented-out code]

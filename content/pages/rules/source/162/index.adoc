@@ -1,0 +1,24 @@
+:slug: rules/162/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of avoiding the inclusion of duplicate code in the application source code.
+:keywords: Duplicate, Code, Source, Method, Class, CWE
+:rules: yes
+
+= REQ.162 Avoid duplicate code
+
+== Requirement
+
+The source code must not have repeated functions, methods or classes.
+
+== Findings
+
+* link:/web/findings/072/[F072. Duplicate code]
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/474.html[CWE-474: Use of Function with Inconsistent Implementations].
+The code uses a function that has inconsistent implementations across operating
+systems and versions.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/561.html[CWE-561: Dead Code].
+The software contains dead code, which can never be executed.

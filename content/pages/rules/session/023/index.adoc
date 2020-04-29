@@ -9,7 +9,7 @@
 == Requirement
 
 The system must close a session if there is a period of inactivity
-on the user side, greater than or equal to +5+ minutes.
+on the user side, greater than or equal to *5* minutes.
 
 == Description
 
@@ -33,7 +33,7 @@ its users and the information it contains.
 Set the session times: Depending on the business needs
 and/or the company's session management policies,
 end times of unattended sessions must be set at a prudential time
-(recommended of +5+ minutes).
+(recommended of *5* minutes).
 
 == Attacks
 
@@ -56,29 +56,33 @@ by deploying and maintaining session objects.
 
 * Type of Control: Procedure.
 
+== Findings
+
+* link:/web/findings/068/[F068. Insecure session expiration time]
+
 == References
 
-. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[BSSIM9 SM2.6:]
 Require security sign-off.
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iii):]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(2)(iii):]
 Automatic Logoff: Implement electronic procedures
 that terminate an electronic session after a predetermined time of inactivity.
 
-. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-12[+NIST+ 800-53 AC-12]
+. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-12[NIST 800-53 AC-12]
 Session termination: The information system automatically terminates
 a user session after organization-defined conditions
 or trigger events requiring session disconnect.
 
-. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (2)]
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (2)]
 The organization requires that users log out when
 [Assignment: organization-defined time-period of expected inactivity
 or description of when to log out].
 
-. [[r5]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.3+].
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[OWASP-ASVS v3.1-3.3].
 Verify that sessions timeout after a specified period of inactivity.
 
-. [[r6]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.4+].
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[OWASP-ASVS v3.1-3.4].
 Verify that sessions timeout after an administratively-configurable
 maximum time period regardless of activity (an absolute timeout).
 
