@@ -473,7 +473,7 @@ def exec_wrapper(exploit_name: str, exploit_content: str) -> str:  # noqa
     try:
         with stdout_redir() as stdout_result, stderr_redir() as stderr_result:
             code = compile(exploit_content, exploit_name, 'exec', optimize=0)
-            exec(code, dict(), dict())
+            exec(code, {'print': lambda *x, **y: (x, y)}, dict())
     except BaseException as exc:  # lgtm [py/catch-base-exception]
         print(stderr_result.getvalue(), end='', file=sys.stderr)
         print(stdout_result.getvalue(), end='', file=sys.stdout)
