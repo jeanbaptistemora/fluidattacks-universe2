@@ -4,7 +4,6 @@ import contextlib
 import os
 import time
 import json
-import textwrap
 import functools
 from typing import Any, List, NamedTuple, Tuple
 
@@ -32,16 +31,14 @@ INTEGRATES_API_URL = 'https://fluidattacks.com/integrates/api'
 CACHE_SIZE: int = 4**8
 RETRY_MAX_ATTEMPTS: int = 8 if not DEBUGGING else 1
 RETRY_RELAX_SECONDS: float = 2.0
-PROXIES = None if not DEBUGGING else {
-    "http": "http://127.0.0.1:8080",
-    "https": "http://127.0.0.1:8080",
-}
+PROXY = 'http://127.0.0.1:8080' if DEBUGGING else None
 
 
 class CustomGraphQLClient(aiogqlc.GraphQLClient):
     errors_to_retry: tuple = (
         asyncio.TimeoutError,
         aiohttp.client_exceptions.ClientError,
+        ValueError,
     )
 
     async def execute(self, query: str, variables: dict = None,
@@ -71,6 +68,7 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
                 self.endpoint,
                 data=data,
                 headers=headers,
+                proxy=PROXY,
             ) as response:
                 await response.read()
                 return response
@@ -121,11 +119,13 @@ def request(api_token: str,
     if params is not None:
         assert isinstance(params, dict)
 
-    payload = textwrap.dedent(body % params if params else body)
-
     for _ in range(RETRY_MAX_ATTEMPTS):
         with contextlib.suppress(*CustomGraphQLClient.errors_to_retry):
-            awaitable = gql_request(api_token, payload, params)
+            if params and 'fileHandle' in params:
+                # Reset the file pointer to BOF
+                params['fileHandle'].seek(0)
+
+            awaitable = gql_request(api_token, body, params)
             response = asyncio.run(awaitable, debug=DEBUGGING)
 
             if response.errors or isinstance(response.data, expected_types):
@@ -162,7 +162,7 @@ class Queries:
                 }
             }
             """
-        return request(api_token, body, expected_types=(frozendict,))
+        return request(api_token, body)
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -195,7 +195,7 @@ class Queries:
             'withDrafts': with_drafts,
             'withFindings': with_findings,
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params)
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -219,8 +219,7 @@ class Queries:
         params: dict = {
             'projectName': project_name,
         }
-        return request(api_token, body, params,
-                       expected_types=(frozendict,))
+        return request(api_token, body, params)
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -260,7 +259,7 @@ class Queries:
             'identifier': identifier,
             'withVulns': with_vulns,
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params)
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -277,7 +276,7 @@ class Queries:
         params: dict = {
             'projectName': project_name
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params)
 
 
 class Mutations:
@@ -299,7 +298,7 @@ class Mutations:
         params: dict = {
             'expirationTime': expiration_time,
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params)
 
     @staticmethod
     def invalidate_access_token(api_token: str) -> Response:
@@ -312,7 +311,7 @@ class Mutations:
                 }
             }
             """
-        return request(api_token, body, expected_types=(frozendict,))
+        return request(api_token, body)
 
     @staticmethod
     def upload_file(api_token: str,
@@ -325,21 +324,22 @@ class Mutations:
         assert isinstance(identifier, str)
         assert isinstance(file_path, str) and os.path.exists(file_path)
         body: str = """
-            mutation UploadFile($identifier: String!, $file: Upload!) {
+            mutation UploadFile($identifier: String!, $fileHandle: Upload!) {
                 uploadFile(findingId: $identifier,
-                           file: $file,
+                           file: $fileHandle,
                            origin: "toolbox") {
                     success
                 }
             }
             """
-        file_path_handle = open(file_path, 'rb')
-        params: dict = {
-            'identifier': identifier,
-            'file': file_path_handle
-        }
-        return request(
-            api_token, body, params, expected_types=(frozendict,))
+
+        with open(file_path, 'rb') as file_handle:
+            params: dict = {
+                'identifier': identifier,
+                'fileHandle': file_handle,
+            }
+
+            return request(api_token, body, params)
 
     @staticmethod
     def approve_vulns(api_token: str,
@@ -368,7 +368,7 @@ class Mutations:
             'findingId': finding_id,
             'approvalStatus': approval_status,
         }
-        return request(api_token, body, params, expected_types=(frozendict,))
+        return request(api_token, body, params)
 
 
 # Metadata
