@@ -1,4 +1,5 @@
 # Standard library
+import difflib
 import datetime
 import glob
 import json
@@ -63,6 +64,43 @@ def _get_bb_aws_role_arns(subs: str) -> Tuple[str, ...]:
 def _get_bb_resources(subs: str, kind: str) -> str:
     return \
         os.path.abspath(f'subscriptions/{subs}/forces/{kind}/resources')
+
+
+def _get_patch_file_name(subs: str) -> str:
+    return f'check-sync-results.{subs}.patch'
+
+
+def _diff_vulnerabilities(
+    subs: str,
+    exploit_ref: str,
+    integrates_ref: str,
+    exploit: Tuple[api.asserts.Vulnerability, ...],
+    integrates: List[Dict[str, str]],
+):
+    exploit_open = tuple(sorted(set(
+        f'{vul.what} @ {vul.where}'
+        for vul in exploit
+        if vul.status == 'OPEN'
+    )))
+
+    integrates_open = tuple(sorted(set(
+        f"{vul['full_path']} @ {vul['specific']}"
+        for vul in integrates
+        if vul['status'] == 'OPEN'
+    )))
+
+    diff = '\n'.join(difflib.unified_diff(
+        exploit_open,
+        integrates_open,
+        fromfile=exploit_ref,
+        tofile=integrates_ref
+    ))
+
+    patch_file_name = _get_patch_file_name(subs)
+    with open(patch_file_name, 'a') as patch_file_handle:
+        patch_file_handle.write(diff)
+        patch_file_handle.write('\n')
+        patch_file_handle.write('\n')
 
 
 def _print_results_summary(results: List[dict]):
@@ -155,8 +193,8 @@ def _validate_one_static_exploit(
     if os.path.isfile(exploit_output_path):
         os.remove(exploit_output_path)
 
-    integrates_repositories_status = \
-        utils.integrates.get_finding_static_repos_states(finding_id)
+    integrates_repositories_data = \
+        utils.integrates.get_finding_static_data(finding_id)
     integrates_repositories_vulns = \
         utils.integrates.get_finding_static_repos_vulns(finding_id)
 
@@ -167,7 +205,7 @@ def _validate_one_static_exploit(
     }
 
     repositories_integrates: Set[str] = \
-        set(integrates_repositories_status.keys())
+        set(integrates_repositories_data.keys())
 
     for repo in repositories_integrates.union(repositories_local):
         repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
@@ -183,6 +221,8 @@ def _validate_one_static_exploit(
             bb_fernet_key=bb_fernet_key,
             bb_resources=bb_resources)
 
+        integrates_vulns = \
+            integrates_repositories_data.get(repo, [])
         integrates_vulns_open = \
             integrates_repositories_vulns.get(repo, {}).get('open', 0)
         integrates_vulns_closed = \
@@ -227,6 +267,12 @@ def _validate_one_static_exploit(
                 f'{asserts_vulns_open!s:<3} o, '
                 f'{asserts_vulns_unknown!s:<3} u)'
             )
+            _diff_vulnerabilities(
+                subs,
+                exploit_output_path,
+                utils.integrates.get_integrates_url(subs, finding_id),
+                asserts_vulns,
+                integrates_vulns)
 
         asserts_summary = \
             api.asserts.get_exp_result_summary(asserts_stdout)
@@ -454,6 +500,12 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
     # Let users know what are we talking about
     print_nomenclature()
 
+    # Perform some clean up
+    patch_file = _get_patch_file_name(subs)
+    with open(patch_file, 'w'):
+        # Empty the file or create it if it does not exist
+        pass
+
     # If we didn't run, assume it's synced
     results_static: List[dict] = []
     if should_run_static:
@@ -480,4 +532,7 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
             }, sort_keys=True))
             results_handle.write('\n')
 
+    logger.info()
+    logger.info(f'Helpful files were generated:')
+    logger.info(f'- continuous/{patch_file}')
     return True

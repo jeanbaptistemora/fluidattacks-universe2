@@ -13,6 +13,13 @@ from toolbox import api
 from toolbox.constants import API_TOKEN, SAST, DAST
 
 
+def get_integrates_url(group: str, finding_id: str) -> str:
+    return (
+        f'https://fluidattacks.com/integrates/dashboard'
+        f'#!/project/{group.upper()}/findings/{finding_id}/description'
+    )
+
+
 def _split_repo_and_rel_path(where: str) -> Tuple[str, str]:
     """Take an Integrates where, and return (repo, relative/path/to/file)."""
     if '/' in where:
