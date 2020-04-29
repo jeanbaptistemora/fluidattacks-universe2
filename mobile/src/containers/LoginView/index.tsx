@@ -4,7 +4,7 @@ import _ from "lodash";
 import React from "react";
 import { Image, Linking, Platform, View } from "react-native";
 import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
-import { RouteComponentProps, useHistory } from "react-router-native";
+import { useHistory } from "react-router-native";
 
 // tslint:disable-next-line: no-default-import
 import { default as FluidLogo } from "../../../assets/logo.png";
@@ -23,11 +23,10 @@ import { checkVersion } from "../../utils/version";
 
 import { styles } from "./styles";
 
-export type ILoginProps = RouteComponentProps;
 type manifestStructure = NativeConstants["manifest"] & { android: { package: string } };
 const manifest: manifestStructure = (Constants.manifest as manifestStructure);
 
-const loginView: React.FunctionComponent<ILoginProps> = (): JSX.Element => {
+const loginView: React.FunctionComponent = (): JSX.Element => {
   const { t } = translate;
   const history: ReturnType<typeof useHistory> = useHistory();
 

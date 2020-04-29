@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
 import { StatusBar } from "react-native";
 import { DefaultTheme, Provider as ThemeProvider, Theme } from "react-native-paper";
-import { NativeRouter, Route, Switch } from "react-router-native";
+import { BackButton, NativeRouter, Route, Switch } from "react-router-native";
 
 import { LoginView } from "./containers/LoginView";
 import { MenuView } from "./containers/MenuView";
@@ -24,11 +24,13 @@ const app: React.FunctionComponent = (): JSX.Element => (
     <ThemeProvider theme={theme}>
       <StatusBar barStyle="light-content" />
       <NativeRouter>
-        <Switch>
-          <Route path="/" component={LoginView} exact={true} />
-          <Route path="/Welcome" component={WelcomeView} exact={true} />
-          <Route path="/Menu" component={MenuView} exact={true} />
-        </Switch>
+        <BackButton>
+          <Switch>
+            <Route path="/" component={LoginView} exact={true} />
+            <Route path="/Welcome" component={WelcomeView} exact={true} />
+            <Route path="/Menu" component={MenuView} exact={true} />
+          </Switch>
+        </BackButton>
       </NativeRouter>
     </ThemeProvider>
   </ApolloProvider>

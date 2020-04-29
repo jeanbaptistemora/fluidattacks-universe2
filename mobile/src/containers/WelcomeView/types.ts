@@ -1,15 +1,17 @@
 import { GoogleUser } from "expo-google-app-auth";
-import { RouteComponentProps } from "react-router-native";
 
-export type IWelcomeProps = RouteComponentProps<{}, {}, {
+/**
+ * Social auth response
+ */
+export interface IAuthResult {
   authProvider: string;
   authToken: string;
   pushToken: string;
   userInfo: GoogleUser;
-}>;
+}
 
 /**
- * Sign in response type
+ * Sign in mutation response
  */
 export interface ISignInResult {
   signIn: {

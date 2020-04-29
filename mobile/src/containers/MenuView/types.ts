@@ -1,7 +1,3 @@
-import { RouteComponentProps } from "react-router-native";
-
-export type IMenuProps = RouteComponentProps;
-
 /**
  * Project attributes
  */

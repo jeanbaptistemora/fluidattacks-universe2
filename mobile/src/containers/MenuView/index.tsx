@@ -16,9 +16,9 @@ import { translate } from "../../utils/translations/translate";
 
 import { PROJECTS_QUERY } from "./queries";
 import { styles } from "./styles";
-import { IMenuProps, IProject, IProjectsResult } from "./types";
+import { IProject, IProjectsResult } from "./types";
 
-const menuView: React.FunctionComponent<IMenuProps> = (): JSX.Element => {
+const menuView: React.FunctionComponent = (): JSX.Element => {
   const { t } = translate;
 
   // GraphQL operations
@@ -43,19 +43,19 @@ const menuView: React.FunctionComponent<IMenuProps> = (): JSX.Element => {
       <Appbar.Header>
         <Appbar.Content title={t("menu.myProjects")} />
       </Appbar.Header>
-              <ScrollView
-                contentContainerStyle={styles.projectList}
-                refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
-              >
-                {data.me.projects.map((project: IProject, index: number): JSX.Element => (
-                  <Card key={index} style={styles.projectCard}>
-                    <Card.Content>
-                      <Title>{project.name.toUpperCase()}</Title>
-                      <Paragraph>{project.description}</Paragraph>
-                    </Card.Content>
-                  </Card>
-                ))}
-              </ScrollView>
+      <ScrollView
+        contentContainerStyle={styles.projectList}
+        refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+      >
+        {data.me.projects.map((project: IProject, index: number): JSX.Element => (
+          <Card key={index} style={styles.projectCard}>
+            <Card.Content>
+              <Title>{project.name.toUpperCase()}</Title>
+              <Paragraph>{project.description}</Paragraph>
+            </Card.Content>
+          </Card>
+        ))}
+      </ScrollView>
     </View>
   );
 };
