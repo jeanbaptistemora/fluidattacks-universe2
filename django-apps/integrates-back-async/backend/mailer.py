@@ -252,6 +252,10 @@ def send_mail_verified_finding(email_to: List[str], context: Dict[str, Union[str
     _send_mail('verified-finding', email_to, context=context, tags=VERIFY_TAG)
 
 
+def send_mail_updated_manager(email_to: List[str], context: Dict[str, Union[str, int]]):
+    _send_mail('manager-updated', email_to, context=context, tags=GENERAL_TAG)
+
+
 def send_mail_new_remediated(email_to: List[str], context: Dict[str, Union[str, int]]):
     _send_mail('newremediatefindingintegrates', email_to, context=context, tags=GENERAL_TAG)
 
