@@ -7,12 +7,12 @@ import { useQuery } from "@apollo/react-hooks";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, RefreshControl, ScrollView, View } from "react-native";
 import { Appbar, Card, Paragraph, Title, useTheme } from "react-native-paper";
 
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
-import { translate } from "../../utils/translations/translate";
 
 import { PROJECTS_QUERY } from "./queries";
 import { styles } from "./styles";
@@ -20,7 +20,7 @@ import { IProject, IProjectsResult } from "./types";
 
 const menuView: React.FunctionComponent = (): JSX.Element => {
   const { colors } = useTheme();
-  const { t } = translate;
+  const { t } = useTranslation();
 
   // GraphQL operations
   const { data, loading, networkStatus, refetch } = useQuery<IProjectsResult>(PROJECTS_QUERY, {

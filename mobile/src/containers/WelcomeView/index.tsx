@@ -3,19 +3,19 @@ import { ApolloError } from "apollo-client";
 import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, Image, Text, View } from "react-native";
 import { useHistory } from "react-router";
 
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
-import { translate } from "../../utils/translations/translate";
 
 import { SIGN_IN_MUTATION } from "./queries";
 import { styles } from "./styles";
 import { IAuthResult, ISignInResult } from "./types";
 
 const welcomeView: React.FunctionComponent = (): JSX.Element => {
-  const { t } = translate;
+  const { t } = useTranslation();
   const history: ReturnType<typeof useHistory> = useHistory();
   const { authProvider, authToken, pushToken, userInfo } = history.location.state as IAuthResult;
 

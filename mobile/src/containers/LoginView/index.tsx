@@ -2,6 +2,7 @@ import { default as Constants, NativeConstants } from "expo-constants";
 import * as Google from "expo-google-app-auth";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, Image, Linking, Platform, View } from "react-native";
 import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
 import { useHistory } from "react-router-native";
@@ -17,7 +18,6 @@ import {
 } from "../../utils/constants";
 import { getPushToken } from "../../utils/notifications";
 import { rollbar } from "../../utils/rollbar";
-import { translate } from "../../utils/translations/translate";
 import { checkVersion } from "../../utils/version";
 
 import { styles } from "./styles";
@@ -26,7 +26,7 @@ type manifestStructure = NativeConstants["manifest"] & { android: { package: str
 const manifest: manifestStructure = (Constants.manifest as manifestStructure);
 
 const loginView: React.FunctionComponent = (): JSX.Element => {
-  const { t } = translate;
+  const { t } = useTranslation();
   const history: ReturnType<typeof useHistory> = useHistory();
 
   // State management
