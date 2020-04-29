@@ -1,7 +1,9 @@
 # Standard library
 import json
+import os
 from typing import (
     Dict,
+    List,
     Set,
     Tuple,
 )
@@ -165,6 +167,28 @@ def get_finding_dynamic_states(
         if vuln_type in DAST)
 
     return states
+
+
+def get_finding_static_data(
+    finding_id: str,
+) -> Dict[str, List[Dict[str, str]]]:
+    """Return a dict mapping repos to its cardinalities."""
+    repo_to_cardinalities: Dict[str, List[Dict[str, str]]] = {}
+    for repo, relative_path, specific, is_open in \
+            get_finding_static_states(finding_id):
+
+        data: Dict[str, str] = {
+            'full_path': os.path.join(repo, relative_path),
+            'relative_path': relative_path,
+            'specific': specific,
+            'status': 'OPEN' if is_open else 'CLOSED',
+        }
+
+        try:
+            repo_to_cardinalities[repo].append(data)
+        except KeyError:
+            repo_to_cardinalities[repo] = [data]
+    return repo_to_cardinalities
 
 
 def get_finding_static_repos_states(finding_id: str) -> Dict[str, bool]:

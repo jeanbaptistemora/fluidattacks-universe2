@@ -11,6 +11,7 @@ from toolbox.utils.integrates import (
     get_finding_dynamic_states,
     get_finding_recommendation,
     get_finding_repos,
+    get_finding_static_data,
     get_finding_static_states,
     get_finding_static_repos_states,
     get_finding_static_repos_vulns,
@@ -76,6 +77,58 @@ def test_get_finding_cvss_score():
 def test_get_finding_description():
     """Test utils.get_finding_description."""
     assert get_finding_description(FINDING) == '.'
+
+
+def test_get_finding_static_data():
+    assert get_finding_static_data(FINDING_OPEN) == {
+        'Test': [
+            {
+                'full_path': 'Test/2019-09-23 16:24:01.619957',
+                'relative_path': '2019-09-23 16:24:01.619957',
+                'specific': '1',
+                'status': 'OPEN',
+            },
+        ],
+        'continuous': [
+            {
+                'full_path': 'continuous/2019-09-23 16:24:01.619957',
+                'relative_path': '2019-09-23 16:24:01.619957',
+                'specific': '1',
+                'status': 'OPEN',
+            }
+        ],
+    }
+
+    assert get_finding_static_data(FINDING_CLOSED) == {
+        'NoRepo': [
+            {
+                'full_path': 'NoRepo/',
+                'relative_path': '',
+                'specific': '1',
+                'status': 'CLOSED',
+            },
+        ],
+        'Test': [
+            {
+                'full_path': 'Test/2020-04-17 15:21:34.006546',
+                'relative_path': '2020-04-17 15:21:34.006546',
+                'specific': '1',
+                'status': 'CLOSED',
+            },
+            {
+                'full_path': 'Test/',
+                'relative_path': '',
+                'specific': '1',
+                'status': 'CLOSED',
+            },
+            {
+                'full_path': 'Test/2020-04-17 15:19:43.176526',
+                'relative_path': '2020-04-17 15:19:43.176526',
+                'specific': '1',
+                'status': 'CLOSED',
+            },
+        ],
+    }
 
 
 def test_get_finding_static_states():
