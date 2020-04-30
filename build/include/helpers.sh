@@ -84,6 +84,25 @@ function helper_docker_build_and_push {
   &&  docker image remove "${tag}"
 }
 
+function helper_build_nix_caches_parallel {
+  local num_provisioners
+  local num_provisioners_per_group
+  local num_provisioners_remaining
+  export lower_limit
+  export upper_limit
+
+      num_provisioners=$(find build/provisioners/ -type f | wc -l) \
+  &&  num_provisioners_per_group=$(( num_provisioners/CI_NODE_TOTAL )) \
+  &&  num_provisioners_remaining=$(( num_provisioners%CI_NODE_TOTAL )) \
+  &&  if [ "${num_provisioners_remaining}" -gt '0' ]
+      then
+        num_provisioners_per_group=$(( num_provisioners_per_group+=1 ))
+      fi \
+  &&  lower_limit=$(( (CI_NODE_INDEX-1)*num_provisioners_per_group )) \
+  &&  upper_limit=$(( CI_NODE_INDEX*num_provisioners_per_group-1 )) \
+  &&  upper_limit=$(( upper_limit > num_provisioners-1 ? num_provisioners-1 : upper_limit ))
+}
+
 function helper_get_gitlab_var {
   local gitlab_var_name="${1}"
       echo "[INFO] Retrieving var from GitLab: ${gitlab_var_name}" 1>&2 \
