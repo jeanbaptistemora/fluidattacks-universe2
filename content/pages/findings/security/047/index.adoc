@@ -9,7 +9,7 @@
 == Description
 
 It is possible to automatically enumerate system information such as open
-ports, available services, users' personal data.
+ports, available services and users' personal data.
 
 == Rules
 

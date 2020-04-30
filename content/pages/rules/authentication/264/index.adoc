@@ -29,8 +29,6 @@ prevents unauthorized actors from accessing them.
 
 * link:/web/findings/056/[F056. Anonymous connection]
 
-* link:/web/findings/057/[F057. Emails sent without authorization]
-
 * link:/web/findings/075/[F075. Unauthorized access to files]
 
 * link:/web/findings/081/[F081. Lack of two-factor authentication]
