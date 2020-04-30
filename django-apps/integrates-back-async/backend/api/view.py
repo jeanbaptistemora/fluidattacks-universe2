@@ -56,10 +56,7 @@ class APIView(GraphQLView):
 
     async def _execute(
             self, request: HttpRequest, data: dict) -> GraphQLResult:
-        """Apply configs for performance tracking."""
-        name = data.get('operationName', 'External (unnamed)')
-        newrelic.agent.set_transaction_name(f'v2/api:{name}')
-        newrelic.agent.add_custom_parameters(tuple(data.items()))
+        """Execute query"""
 
         if callable(self.context_value):
             context_value = \
@@ -80,7 +77,11 @@ class APIView(GraphQLView):
         )
 
     def execute_query(self, request: HttpRequest, data: dict) -> GraphQLResult:
-        """Execute async query."""
+        """Execute async query and apply configs for performance tracking"""
+        name = data.get('operationName', 'External (unnamed)')
+        newrelic.agent.set_transaction_name(f'api:{name}')
+        newrelic.agent.add_custom_parameters(tuple(data.items()))
+
         # Use this instead of asyncio.run
         # https://docs.djangoproject.com/en/3.0/topics/async/#async-to-sync
         # https://stackoverflow.com/questions/59503825/django-async-to-sync-vs-asyncio-run
