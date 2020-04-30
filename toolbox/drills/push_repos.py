@@ -47,7 +47,7 @@ def s3_mv_active_to_inactive(
         subs: str,
         bucket: str = 'continuous-repositories',
         endpoint_url: str = None) -> bool:
-    fusion_dir: str = f'subscriptions/{subs}/fusion'
+    fusion_dir: str = f'groups/{subs}/fusion'
     s3_subs_active_repos_path: str = f'{subs}/active/'
     s3_subs_active_repos: List[str] = \
         s3_ls(bucket, s3_subs_active_repos_path, endpoint_url)
@@ -90,7 +90,7 @@ def s3_sync_fusion_to_s3(
         subs: str,
         bucket: str = 'continuous-repositories',
         endpoint_url: str = None) -> bool:
-    fusion_dir: str = f'subscriptions/{subs}/fusion'
+    fusion_dir: str = f'groups/{subs}/fusion'
     s3_subs_active_repos_path: str = f'{subs}/active/'
     kwargs = dict() if generic.is_env_ci() else dict(
         stdout=None,
@@ -135,7 +135,7 @@ def main(
     1. Move repos that were not found in fusion from active to inactive
     2. Upload all repos from fusion to s3/active
 
-    param: subs: Subscription to work with
+    param: subs: group to work with
     param: bucket: Bucket to work with
     param: aws_login: where or not to login to aws
     param: aws_profile: which profile-role to use in case aws_login is true

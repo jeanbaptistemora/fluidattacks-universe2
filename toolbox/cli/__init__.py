@@ -22,7 +22,7 @@ from .misc import misc_management
 
 
 EXP_METAVAR = '[<EXPLOIT | all>]'
-SUBS_METAVAR = '[SUBSCRIPTION]'
+SUBS_METAVAR = '[GROUP]'
 
 
 def _valid_integrates_token(ctx, param, value):
@@ -41,57 +41,57 @@ def entrypoint():
 
 @click.command(name='resources', short_help='administrate resources')
 @click.argument(
-    'subscription',
-    default=utils.generic.get_current_subscription(),
-    callback=utils.generic.is_valid_subscription)
+    'group',
+    default=utils.generic.get_current_group(),
+    callback=utils.generic.is_valid_group)
 @click.option(
     '--check-repos',
-    default=utils.generic.get_current_subscription(),
+    default=utils.generic.get_current_group(),
     metavar=SUBS_METAVAR)
 @click.option(
     '--clone-from-customer-git',
     'clone',
     is_flag=True,
-    help='clone the repositories of a subscription')
+    help='clone the repositories of a group')
 @click.option(
     '--fingerprint',
     is_flag=True,
-    help='get the fingerprint of a subscription')
+    help='get the fingerprint of a group')
 @click.option('--login', is_flag=True, help='login to AWS through OKTA')
 @click.option(
     '--mailmap',
     '-mp',
     is_flag=True,
-    help='check if the mailmap of a subscription is valid')
+    help='check if the mailmap of a group is valid')
 @click.option(
-    '--edit', is_flag=True, help='edit the secrets of a subscription')
+    '--edit', is_flag=True, help='edit the secrets of a group')
 @click.option(
-    '--read', is_flag=True, help='read the secrets of a subscription')
-def resources_management(subscription, check_repos, clone, fingerprint,
+    '--read', is_flag=True, help='read the secrets of a group')
+def resources_management(group, check_repos, clone, fingerprint,
                          mailmap, login, edit, read):
-    """Allows administration tasks within subscriptions"""
+    """Allows administration tasks within groups"""
     if mailmap:
-        sys.exit(0 if resources.check_mailmap(subscription) else 1)
+        sys.exit(0 if resources.check_mailmap(group) else 1)
     elif clone:
-        sys.exit(0 if resources.repo_cloning(subscription) else 1)
+        sys.exit(0 if resources.repo_cloning(group) else 1)
     elif fingerprint:
-        sys.exit(0 if resources.get_fingerprint(subscription) else 1)
+        sys.exit(0 if resources.get_fingerprint(group) else 1)
     elif edit:
-        sys.exit(0 if resources.edit_secrets(subscription) else 1)
+        sys.exit(0 if resources.edit_secrets(group) else 1)
     elif read:
-        sys.exit(0 if resources.read_secrets(subscription) else 1)
+        sys.exit(0 if resources.read_secrets(group) else 1)
     elif login:
         sys.exit(0 if utils.generic.okta_aws_login(
-            f'continuous-{subscription}') else 1)
+            f'continuous-{group}') else 1)
     elif check_repos != 'unspecified-subs':
         sys.exit(0 if resources.check_repositories(check_repos) else 1)
 
 
 @click.command(name='forces', short_help='use the exploits')
 @click.argument(
-    'subscription',
-    default=utils.generic.get_current_subscription(),
-    callback=utils.generic.is_valid_subscription)
+    'group',
+    default=utils.generic.get_current_group(),
+    callback=utils.generic.is_valid_group)
 @click.option(
     '--check-sync',
     '--sync',
@@ -99,16 +99,16 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     help='check if exploits results are the same as on Integrates',
     callback=_convert_exploit)
 @click.option(
-    '--decrypt', is_flag=True, help='decrypt the secrets of a subscription')
+    '--decrypt', is_flag=True, help='decrypt the secrets of a group')
 @click.option(
-    '--encrypt', is_flag=True, help='encrypt the secrets of a subscription')
+    '--encrypt', is_flag=True, help='encrypt the secrets of a group')
 @click.option('--fill-with-iexps', is_flag=True)
 @click.option('--generate-exploits', is_flag=True)
 @click.option('--get-vulns', type=click.Choice(['dynamic', 'static', 'all']))
 @click.option(
     '--lint-exps',
     metavar=EXP_METAVAR,
-    help='lint exploits for a subscription',
+    help='lint exploits for a group',
     callback=_convert_exploit)
 @click.option('--lint-changed-exploits', is_flag=True)
 @click.option('--run-exps', '--run', '-r', is_flag=True, help='run exploits')
@@ -125,7 +125,7 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     help='run a dynamic exploit',
     callback=_convert_exploit)
 def forces_management(
-    subscription,
+    group,
     check_sync,
     decrypt,
     encrypt,
@@ -142,43 +142,43 @@ def forces_management(
     success: str = True
     filter_str: str = ''
 
-    if not toolbox.has_forces(subscription):
+    if not toolbox.has_forces(group):
         raise click.BadArgumentUsage(
-            f'{subscription} subscription has no forces')
+            f'{group} group has no forces')
 
     if run_exps:
         if dynamic is not None:
-            success = toolbox.run_dynamic_exploits(subscription, dynamic)
+            success = toolbox.run_dynamic_exploits(group, dynamic)
         elif static is not None:
-            success = toolbox.run_static_exploits(subscription, static)
+            success = toolbox.run_static_exploits(group, static)
 
     elif check_sync is not None:
-        success = forces.sync.are_exploits_synced(subscription, check_sync)
+        success = forces.sync.are_exploits_synced(group, check_sync)
 
     elif fill_with_iexps:
-        filter_str = subscription or '*'
+        filter_str = group or '*'
         toolbox.fill_with_iexps(subs_glob=filter_str, create_files=True)
 
     elif generate_exploits:
-        filter_str = subscription or '*'
+        filter_str = group or '*'
         toolbox.generate_exploits(subs_glob=filter_str)
 
     elif get_vulns:
-        success = toolbox.get_vulnerabilities_yaml(subscription, get_vulns)
+        success = toolbox.get_vulnerabilities_yaml(group, get_vulns)
 
     elif lint_exps is not None:
         filter_str = lint_exps
         success = forces.lint.many_exploits_by_subs_and_filter(
-            subscription, lint_exps)
+            group, lint_exps)
 
     elif lint_changed_exploits:
         success = forces.lint.many_exploits_by_change_request()
 
     elif decrypt:
-        success = forces.secrets.decrypt(subscription)
+        success = forces.secrets.decrypt(group)
 
     elif encrypt:
-        success = forces.secrets.encrypt(subscription)
+        success = forces.secrets.encrypt(group)
 
     sys.exit(0 if success else 1)
 
@@ -187,29 +187,29 @@ def forces_management(
 @click.argument(
     'kind', type=click.Choice(['dynamic', 'static', 'all']), default='all')
 @click.argument(
-    'subscription',
-    default=utils.generic.get_current_subscription(),
-    callback=utils.generic.is_valid_subscription)
+    'group',
+    default=utils.generic.get_current_group(),
+    callback=utils.generic.is_valid_group)
 @click.option('--check-token', is_flag=True)
 @click.option(
     '--delete-pending-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
 @click.option(
     '--get-static-dict',
     metavar='[<find_id> | all | local]',
-    help='execute in subscription path')
+    help='execute in group path')
 @click.option('--report-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
-def integrates_management(kind, subscription, check_token,
+def integrates_management(kind, group, check_token,
                           delete_pending_vulns, get_static_dict, report_vulns):
     """Perform operations with the Integrates API."""
     if delete_pending_vulns is not None:
         sys.exit(0 if toolbox.delete_pending_vulnerabilities(
-            subscription, delete_pending_vulns, kind) else 1)
+            group, delete_pending_vulns, kind) else 1)
     elif report_vulns:
         sys.exit(0 if toolbox.report_vulnerabilities(
-            subscription, report_vulns, kind) else 1)
+            group, report_vulns, kind) else 1)
     elif get_static_dict:
         sys.exit(0 if toolbox.get_static_dictionary(
-            subscription, get_static_dict) else 1)
+            group, get_static_dict) else 1)
     elif check_token:
         from toolbox import constants
         assert constants
@@ -228,16 +228,16 @@ def analytics_management(analytics_forces_logs):
 
 @click.command(name='sorts', short_help='experimental')
 @click.argument(
-    'subscription',
-    default=utils.generic.get_current_subscription(),
-    callback=utils.generic.is_valid_subscription)
+    'group',
+    default=utils.generic.get_current_group(),
+    callback=utils.generic.is_valid_group)
 @click.option(
     '--get-data',
     is_flag=True,
-    help='get subscription commit data')
-def sorts_management(subscription, get_data):
+    help='get group commit data')
+def sorts_management(group, get_data):
     if get_data:
-        sys.exit(0 if sorts.get_data.get_project_data(subscription) else 1)
+        sys.exit(0 if sorts.get_data.get_project_data(group) else 1)
 
 
 entrypoint.add_command(resources_management)

@@ -13,13 +13,13 @@ from toolbox import (
 
 
 def encrypt(subs: str) -> bool:
-    """Encrypt a secrets.yml file for a subscription."""
+    """Encrypt a secrets.yml file for a group."""
     # pylint: disable=import-outside-toplevel
     from fluidasserts.helper import crypto
 
     utils.generic.aws_login(f'continuous-{subs}')
 
-    for resources in glob.glob(f'subscriptions/{subs}/forces/*/resources'):
+    for resources in glob.glob(f'groups/{subs}/forces/*/resources'):
         plaintext: str = f'{resources}/plaintext.yml'
         secrets: str = f'{resources}/secrets.yml'
 
@@ -30,7 +30,7 @@ def encrypt(subs: str) -> bool:
             crypto.create_encrypted_yaml(
                 key_b64=utils.generic.get_sops_secret(
                     f'forces_aws_secret_access_key',
-                    f'subscriptions/{subs}/config/secrets.yaml',
+                    f'groups/{subs}/config/secrets.yaml',
                     f'continuous-{subs}'),
                 secrets={
                     str(key): str(value)
@@ -44,13 +44,13 @@ def encrypt(subs: str) -> bool:
 
 
 def decrypt(subs: str) -> bool:
-    """Decrypt a secrets.yml file for a subscription."""
+    """Decrypt a secrets.yml file for a group."""
     # pylint: disable=import-outside-toplevel
     from fluidasserts.helper import crypto
 
     utils.generic.aws_login(f'continuous-{subs}')
 
-    for resources in glob.glob(f'subscriptions/{subs}/forces/*/resources'):
+    for resources in glob.glob(f'groups/{subs}/forces/*/resources'):
         plaintext: str = f'{resources}/plaintext.yml'
         secrets: str = f'{resources}/secrets.yml'
 
@@ -69,7 +69,7 @@ def decrypt(subs: str) -> bool:
             crypto.create_decrypted_yaml(
                 key_b64=utils.generic.get_sops_secret(
                     f'forces_aws_secret_access_key',
-                    f'subscriptions/{subs}/config/secrets.yaml',
+                    f'groups/{subs}/config/secrets.yaml',
                     f'continuous-{subs}'),
                 input_file=secrets,
                 output_file=plaintext)

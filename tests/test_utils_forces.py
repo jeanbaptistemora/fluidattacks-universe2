@@ -5,7 +5,7 @@ from toolbox.utils.forces import (
 
 # Constants
 SUBS: str = 'continuoustest'
-SUBS_BAD: str = 'not-existing-subscription'
+SUBS_BAD: str = 'not-existing-group'
 
 
 def test_get_config(relocate):

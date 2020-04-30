@@ -90,7 +90,7 @@ def go_back_to_continuous():
         logger.debug('Adjusted working dir to:', os.getcwd())
 
 
-def get_current_subscription() -> str:
+def get_current_group() -> str:
     actual_path: str = os.getcwd()
     try:
         return actual_path.split('/continuous/')[1].split('/')[1]
@@ -98,12 +98,12 @@ def get_current_subscription() -> str:
         return 'unspecified-subs'
 
 
-def is_valid_subscription(ctx, param, subs):  # pylint: disable=unused-argument
+def is_valid_group(ctx, param, subs):  # pylint: disable=unused-argument
     actual_path: str = os.getcwd()
-    if 'subscriptions' not in actual_path \
-            and subs not in os.listdir('subscriptions') \
+    if 'groups' not in actual_path \
+            and subs not in os.listdir('groups') \
             and subs not in ('admin', 'unspecified-subs'):
-        msg = f'the subscription {subs} does not exist'
+        msg = f'the group {subs} does not exist'
         raise BadParameter(msg)
     go_back_to_continuous()
     return subs
@@ -140,12 +140,12 @@ def validate_vulns_file_schema(file_url: str) -> bool:
 
 def iter_vulns_path(subs: str, vulns_name: str, run_kind: str = 'all'):
     """
-    Create a interable for vulns path and exploit path of a subscription.
+    Create a interable for vulns path and exploit path of a group.
 
     yields (vulns_path, exploit_path).
     """
     for vulns_path in sorted(glob(
-            f'subscriptions/{subs}/forces/*/exploits/*.exp.vulns.yml')):
+            f'groups/{subs}/forces/*/exploits/*.exp.vulns.yml')):
 
         kind = vulns_path.split('/')[3]
         if not run_kind == kind and run_kind != 'all':
@@ -167,26 +167,26 @@ def iter_vulns_path(subs: str, vulns_name: str, run_kind: str = 'all'):
         yield (vulns_path, exploit_path)
 
 
-def iter_exploit_paths(subscription: str):
+def iter_exploit_paths(group: str):
     """
-    Create a generator for the exploits of a subscription.
+    Create a generator for the exploits of a group.
 
-    :parameter subscription: Subscription name.
+    :parameter group: group name.
 
     yields exploit_path.
     """
     for exploit_path in glob(
-            f'subscriptions/{subscription}/forces/*/*/*.exp'):
+            f'groups/{group}/forces/*/*/*.exp'):
         yield exploit_path
 
 
 def iter_subscritions_config():
     """
-    Create a generator for config of subscriptions.
+    Create a generator for config of groups.
 
-    yields subscription_configuration.
+    yields group_configuration.
     """
-    for config_path in sorted(glob('subscriptions/*/config/config.yml')):
+    for config_path in sorted(glob('groups/*/config/config.yml')):
         yield safe_load(open(config_path))
 
 
@@ -432,13 +432,13 @@ def get_sops_secret(var: str, path: str, profile: str = 'default') -> str:
 
 @lru_cache(maxsize=None, typed=True)
 def does_subs_exist(subs: str) -> bool:
-    """Return True if the subscription exists."""
-    return os.path.isdir(f'subscriptions/{subs}')
+    """Return True if the group exists."""
+    return os.path.isdir(f'groups/{subs}')
 
 
 def does_fusion_exist(subs: str) -> bool:
-    """Return True if fusion folder present in subscription"""
-    return os.path.isdir(f'subscriptions/{subs}/fusion')
+    """Return True if fusion folder present in group"""
+    return os.path.isdir(f'groups/{subs}/fusion')
 
 
 def glob_re(pattern, paths='.'):

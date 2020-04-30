@@ -117,7 +117,7 @@ def one_exploit_by_path(exploit_path: str) -> bool:
 def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
     """Run all linters available over many exploits."""
     filter_str = filter_str or ''
-    pattern_exp = f'subscriptions/{subs}/forces/*/exploits/*.exp'
+    pattern_exp = f'groups/{subs}/forces/*/exploits/*.exp'
 
     return all(
         one_exploit_by_path(exploit_path)

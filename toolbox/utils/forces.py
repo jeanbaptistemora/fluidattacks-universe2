@@ -16,7 +16,7 @@ from toolbox import (
 
 def get_config(subs: str) -> dict:
     """Scans the group configuration file and returns a dict."""
-    config_path: str = f'subscriptions/{subs}/config/config.yml'
+    config_path: str = f'groups/{subs}/config/config.yml'
     config: dict = {
         'schedules': {
             'synchronization': {

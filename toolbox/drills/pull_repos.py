@@ -13,7 +13,7 @@ def pull_repos_s3_to_fusion(subs: str, local_path: str) -> bool:
     '''
     Download repos from s3 to a provided path
 
-    param: subs: Subscription to work with
+    param: subs: group to work with
     param: local_path: Path to store downloads
     '''
     bucket_path: str = f's3://continuous-repositories/{subs}/active/'
@@ -47,24 +47,24 @@ def pull_repos_s3_to_fusion(subs: str, local_path: str) -> bool:
 
 def main(subs: str) -> bool:
     '''
-    Clone all repos for a subscription
+    Clone all repos for a group
 
-    param: subs: Subscription to work with
+    param: subs: group to work with
     '''
     bucket: str = 'continuous-repositories'
     passed: bool = True
     if not utils_generic.does_subs_exist(subs):
-        logger.error(f'Subscription {subs} does not exist.')
+        logger.error(f'group {subs} does not exist.')
         passed = False
         return passed
 
     utils_generic.aws_login(f'continuous-{subs}')
 
     if not drills_generic.s3_path_exists(bucket, f'{subs}/'):
-        logger.error(f'Subscription {subs} does not have repos uploaded to s3')
+        logger.error(f'group {subs} does not have repos uploaded to s3')
         passed = False
     else:
-        local_path: str = f'subscriptions/{subs}/fusion/'
+        local_path: str = f'groups/{subs}/fusion/'
         last_upload_date: datetime = \
             drills_generic.get_last_upload(bucket, f'{subs}/')
         days: int = drills_generic.calculate_days_ago(last_upload_date)

@@ -14,7 +14,7 @@ from toolbox import (
 
 # Constants
 SUBS: str = 'continuoustest'
-SUBS_BAD: str = 'not-existing-subscription'
+SUBS_BAD: str = 'not-existing-group'
 SUCCESS: int = 0
 FAILURE: int = 1
 FINDING: str = '720412598'
@@ -61,8 +61,8 @@ def test__get_static_dictionary():
     }
 
 
-def test_toolbox_get_subscription_from_commit_msg(relocate):
-    """Test toolbox.get_subscription_from_commit_msg."""
+def test_toolbox_get_group_from_commit_msg(relocate):
+    """Test toolbox.get_group_from_commit_msg."""
     utils.get_commit_subs.main()
 
 

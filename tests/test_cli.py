@@ -41,7 +41,7 @@ def test_forces(relocate):
 
     bad_subs = runner.invoke(cli, f'forces --run -d all bad-repo'.split())
 
-    assert 'the subscription bad-repo does not exist' in bad_subs.output
+    assert 'the group bad-repo does not exist' in bad_subs.output
 
     test_check_sync = runner.invoke(
         cli, f'forces --check-sync all {SUBS}'.split())
@@ -63,7 +63,7 @@ def test_forces(relocate):
     assert test_run_dynamic.exit_code == 0
     assert '720412598.exp' in test_run_dynamic.output
 
-    plain_text = (f'subscriptions/{SUBS}/forces/'
+    plain_text = (f'groups/{SUBS}/forces/'
                   'dynamic/resources/plaintext.yml')
     test_decrypt = runner.invoke(cli,
                                  f'forces --decrypt {SUBS}'.split())

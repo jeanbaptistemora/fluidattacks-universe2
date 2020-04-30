@@ -36,7 +36,7 @@ DEFAULT_COLUMN_DATE_VALUE: datetime.datetime = \
 DYNAMO_DB_TABLE: str = 'bb_executions'
 LOGS_DATE_FMT = r'%Y%m%d%H%M%S'
 REGEX_LOGS_NAME = re.compile(
-    r'^(?P<subscription>[a-z]+)'
+    r'^(?P<group>[a-z]+)'
     r'/(?P<execution_id>[0-9a-f]+)'
     r'/(?P<date>[0-9]+)'
     r'/(?P<kind>[a-z]+)'
@@ -259,12 +259,12 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
 
     logger.info(f'Processing {execution_group_match_json}')
 
-    subscription = execution_group_match.group('subscription')
+    group = execution_group_match.group('group')
     execution_id = execution_group_match.group('execution_id')
     date = execution_group_match.group('date')
     kind = execution_group_match.group('kind')
 
-    s3_prefix = f'{subscription}/{execution_id}/{date}/{kind}'
+    s3_prefix = f'{group}/{execution_id}/{date}/{kind}'
 
     full = \
         get_execution_attr_full(s3_client, s3_prefix)
@@ -275,7 +275,7 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
             s3_client, s3_prefix, metadata_attrs['git_repo'])
 
     return Execution(
-        subscription=subscription,
+        subscription=group,
         execution_id=execution_id,
         date=datetime.datetime.strptime(date, LOGS_DATE_FMT),
         kind=kind,
@@ -298,8 +298,8 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
 
 
 def yield_execution_groups(s3_client):
-    """Yield patterns like <subscription>/<execution_id>/<date>/<kind>."""
-    # use Prefix='subscription' to retrieve only from 1 subscription
+    """Yield patterns like <group>/<execution_id>/<date>/<kind>."""
+    # use Prefix='group' to retrieve only from 1 group
     s3_client_paginator = s3_client.get_paginator('list_objects_v2')
     s3_client_paginator_iterator = s3_client_paginator.paginate(
         Bucket=BUCKET,
@@ -325,7 +325,7 @@ def yield_execution_groups(s3_client):
                 continue
 
             primary_key = (
-                execution_group_match.group('subscription'),
+                execution_group_match.group('group'),
                 execution_group_match.group('execution_id'),
             )
 

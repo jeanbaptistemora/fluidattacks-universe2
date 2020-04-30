@@ -13,7 +13,7 @@ from pydriller.metrics.process.hunks_count import HunksCount
 from toolbox.api import integrates
 from toolbox.constants import API_TOKEN
 
-BASE_DIR = f'subscriptions/waggo/fusion/'
+BASE_DIR = f'groups/waggo/fusion/'
 INCL_PATH = os.path.dirname(__file__)
 
 
@@ -173,7 +173,7 @@ def get_project_data(subs):
     """Produce a dataframe with commit metadata for a project in csv format
     out of open vulnerabilities json from integrates API"""
     global BASE_DIR  # pylint: disable=global-statement
-    BASE_DIR = f'subscriptions/{subs}/fusion/'
+    BASE_DIR = f'groups/{subs}/fusion/'
     wheres_uniq, _, repos = get_unique_wheres(subs)
     bad_repos = get_bad_repos(repos)
     wheres_code = filter_code_files(wheres_uniq, bad_repos)

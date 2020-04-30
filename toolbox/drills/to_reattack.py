@@ -34,7 +34,7 @@ def get_exploits(subs_name: str, finding_id: str) -> str:
     """Return a string with exploit paths associated to a subs finding"""
     message: str = ''
     exp_glob: str = \
-        f'./subscriptions/{subs_name}/forces/*/exploits/*{finding_id}*'
+        f'./groups/{subs_name}/forces/*/exploits/*{finding_id}*'
     exp_paths: List[str] = glob(exp_glob)
     for exp_path in exp_paths:
         message += f'        Exploit: {exp_path}'
@@ -50,7 +50,7 @@ def to_reattack(subs_name: str, with_exp: bool) -> str:
     Return a string with non-verified findings from a subs.
     It includes integrates url and exploits paths in case they exist
 
-    param: subs_name: Name of the subscription to check
+    param: subs_name: Name of the group to check
     param: with_exp: Show findings with or without exploits
     """
     message: str = ''
@@ -78,7 +78,7 @@ def main(with_exp: bool):
 
     param: with_exp: Show findings with or without exploits
     """
-    subs_names: List[str] = listdir('subscriptions')
+    subs_names: List[str] = listdir('groups')
     for subs_name in subs_names:
         message: str = to_reattack(subs_name, with_exp)
         if message:

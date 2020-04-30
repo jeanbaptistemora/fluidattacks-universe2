@@ -17,7 +17,7 @@ from toolbox.drills import (
 BUCKET: str = 'continuous-repositories'
 SUBS: str = 'continuoustests3'
 AWS_LOGIN: bool = False
-SUBS_PATH: str = f'subscriptions/{SUBS}'
+SUBS_PATH: str = f'groups/{SUBS}'
 SUBS_FUSION: str = f'{SUBS_PATH}/fusion'
 LOCALSTACK_ENDPOINT: str = \
     'localstack' if generic.is_env_ci() else 'localhost'

@@ -14,10 +14,10 @@ def main():
     2. Their repos were last uploaded at least 1 day ago
     '''
     bucket: str = 'continuous-repositories'
-    subs_names: List[str] = listdir('subscriptions')
+    subs_names: List[str] = listdir('groups')
     table_format: str = '{:<25} {:<25}'
 
-    print(table_format.format('SUBSCRIPTION', 'DAYS SINCE LAST UPLOAD'))
+    print(table_format.format('GROUP', 'DAYS SINCE LAST UPLOAD'))
     print('---------------------------------------------------')
     for subs in subs_names:
         if drills_generic.s3_path_exists(bucket, f'{subs}/'):

@@ -44,7 +44,7 @@ def relocate(request):
 @pytest.fixture(scope='function')
 def relocate_to_cloned_repo(request):
     """Change temporarily the working directory."""
-    with _relocate(path=f'../subscriptions/{SUBS}/fusion/continuous') as new_path:
+    with _relocate(path=f'../groups/{SUBS}/fusion/continuous') as new_path:
         yield new_path
 
 
@@ -64,6 +64,6 @@ def prepare(request):
     """Prepare the environment by cloning the test repository."""
     with _relocate():
         os.system(
-            f'git -C subscriptions/{SUBS}/fusion/continuous reset --hard HEAD'
+            f'git -C groups/{SUBS}/fusion/continuous reset --hard HEAD'
         )
         assert resources.repo_cloning(SUBS)

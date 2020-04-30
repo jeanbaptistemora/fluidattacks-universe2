@@ -25,19 +25,19 @@ from toolbox.drills import (
 
 @command(name='drills', short_help='drills service related tools')
 @argument(
-    'subscription',
-    default=utils.generic.get_current_subscription(),
-    callback=utils.generic.is_valid_subscription)
+    'group',
+    default=utils.generic.get_current_group(),
+    callback=utils.generic.is_valid_group)
 @option(
     '--generate-commit-msg', 'o_generate_commit_msg',
     is_flag=True,
     help='Generate drills commit message')
 @option(
     '--update-lines', 'o_update_lines', is_flag=True,
-    help='Update a subscription lines.csv with the latest repo info')
+    help='Update a group lines.csv with the latest repo info')
 @option(
     '--upload-history', 'o_upload_history', is_flag=True,
-    help='Show last upload dates on s3 for all subscriptions')
+    help='Show last upload dates on s3 for all groups')
 @option(
     '--to-reattack', 'o_to_reattack',
     is_flag=True,
@@ -59,7 +59,7 @@ from toolbox.drills import (
     help='Access a subs VPN',
     is_flag=True)
 def drills_management(
-        subscription,
+        group,
         o_generate_commit_msg,
         o_update_lines,
         o_upload_history,
@@ -72,9 +72,9 @@ def drills_management(
     success: bool = True
 
     if o_generate_commit_msg:
-        success = generate_commit_msg.main(subscription)
+        success = generate_commit_msg.main(group)
     elif o_update_lines:
-        update_lines.main(subscription)
+        update_lines.main(group)
     elif o_upload_history:
         upload_history.main()
     elif o_to_reattack:
@@ -82,10 +82,10 @@ def drills_management(
     elif o_to_reattack_exp:
         to_reattack.main(True)
     elif o_pull_repos:
-        success = pull_repos.main(subscription)
+        success = pull_repos.main(group)
     elif o_push_repos:
-        success = push_repos.main(subscription)
-    elif o_vpn and subscription != 'unspecified-subs':
-        success = vpn.main(subscription)
+        success = push_repos.main(group)
+    elif o_vpn and group != 'unspecified-subs':
+        success = vpn.main(group)
 
     sys.exit(0 if success else 1)

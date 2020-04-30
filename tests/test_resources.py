@@ -11,7 +11,7 @@ from toolbox import resources
 
 # Constants
 SUBS: str = 'continuoustest'
-SUBS_BAD: str = 'not-existing-subscription'
+SUBS_BAD: str = 'not-existing-group'
 SUCCESS: int = 0
 FAILURE: int = 1
 FINDING: str = '720412598'
@@ -23,9 +23,9 @@ def test_toolbox_check_mailmap(relocate):
     assert resources.check_mailmap(SUBS)
     assert not resources.check_mailmap(SUBS_BAD)
     assert not resources.check_mailmap('')
-    os.mkdir(os.path.join('subscriptions', "TEST"))
+    os.mkdir(os.path.join('groups', "TEST"))
     assert not resources.check_mailmap('TEST')
-    pathfile = os.path.join('subscriptions/TEST', ".mailmap")
+    pathfile = os.path.join('groups/TEST', ".mailmap")
     mailmap = open(pathfile, "w+")
     mailmap.close()
     assert not resources.check_mailmap('TEST')
@@ -42,19 +42,19 @@ def test_toolbox_check_mailmap(relocate):
     mailmap.close()
     assert not resources.check_mailmap('TEST')
     os.remove(pathfile)
-    os.rmdir(os.path.join('subscriptions', "TEST"))
+    os.rmdir(os.path.join('groups', "TEST"))
 
 
 def test_toolbox_get_fingerprint(relocate):
     """Run required toolbox commands."""
     assert resources.get_fingerprint(SUBS)
     assert not resources.get_fingerprint(SUBS_BAD)
-    os.mkdir(os.path.join('subscriptions', "testfinger"))
+    os.mkdir(os.path.join('groups', "testfinger"))
     assert not resources.get_fingerprint('testfinger')
-    os.mkdir(os.path.join('subscriptions/testfinger', "fusion"))
+    os.mkdir(os.path.join('groups/testfinger', "fusion"))
     assert not resources.get_fingerprint('testfinger')
-    os.rmdir(os.path.join('subscriptions/testfinger', "fusion"))
-    os.rmdir(os.path.join('subscriptions', "testfinger"))
+    os.rmdir(os.path.join('groups/testfinger', "fusion"))
+    os.rmdir(os.path.join('groups', "testfinger"))
 
 
 def test_toolbox_check_repositories(relocate):

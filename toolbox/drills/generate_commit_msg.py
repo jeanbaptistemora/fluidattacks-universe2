@@ -16,7 +16,7 @@ class Objective:
 
 
 def process_lines_csv(subs: str) -> Objective:
-    path: str = f'subscriptions/{subs}/toe/lines.csv'
+    path: str = f'groups/{subs}/toe/lines.csv'
     date_format: str = '%Y-%m-%d'
     lines: Objective = Objective(count=0, sofar=0, today=0)
     try:
@@ -36,7 +36,7 @@ def process_lines_csv(subs: str) -> Objective:
 
 
 def process_inputs_csv(subs: str) -> Objective:
-    path: str = f'subscriptions/{subs}/toe/inputs.csv'
+    path: str = f'groups/{subs}/toe/inputs.csv'
     date_format: str = '%Y-%m-%d'
     inputs: Objective = Objective(count=0, sofar=0, today=0)
     try:

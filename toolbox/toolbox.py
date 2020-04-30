@@ -123,24 +123,24 @@ def fill_with_iexps(subs_glob: str, create_files: bool = True) -> tuple:
     created_dynamic_iexps: dict = {}
 
     for roots in sorted(glob.glob(
-            f'subscriptions/{subs_glob}/forces/static')):
+            f'groups/{subs_glob}/forces/static')):
         re_match: Any = re.search(
-            r'subscriptions/(\w+)/forces/static', roots)
-        subscription = re_match.groups(0)[0]
-        created_static_iexps[subscription] = []
-        created_dynamic_iexps[subscription] = []
+            r'groups/(\w+)/forces/static', roots)
+        group = re_match.groups(0)[0]
+        created_static_iexps[group] = []
+        created_dynamic_iexps[group] = []
 
         for finding_id, finding_title in \
-                utils.integrates.get_project_findings(subscription):
+                utils.integrates.get_project_findings(group):
             exploit_name = f'{finding_id}.exp'
             reason_exploit_name = f'{finding_id}.reason.exp'
 
             sast, dast = utils.integrates.get_finding_type(finding_id)
 
             sast_folder = \
-                f'subscriptions/{subscription}/forces/static/exploits'
+                f'groups/{group}/forces/static/exploits'
             dast_folder = \
-                f'subscriptions/{subscription}/forces/dynamic/exploits'
+                f'groups/{group}/forces/dynamic/exploits'
             sast_path = f'{sast_folder}/{exploit_name}'
             dast_path = f'{dast_folder}/{exploit_name}'
             reason_sast_path = f'{sast_folder}/{reason_exploit_name}'
@@ -153,7 +153,7 @@ def fill_with_iexps(subs_glob: str, create_files: bool = True) -> tuple:
                 if not os.path.exists(sast_folder):
                     os.makedirs(sast_folder)
                 sast_path_iexp = sast_path.replace('.exp', '.integrates.exp')
-                created_static_iexps[subscription].append(sast_path_iexp)
+                created_static_iexps[group].append(sast_path_iexp)
                 if create_files:
                     with open(sast_path_iexp, 'w+'):
                         logger.info(f'iexp supplied for {finding_title}')
@@ -163,7 +163,7 @@ def fill_with_iexps(subs_glob: str, create_files: bool = True) -> tuple:
                 if not os.path.exists(dast_folder):
                     os.makedirs(dast_folder)
                 dast_path_iexp = dast_path.replace('.exp', '.integrates.exp')
-                created_dynamic_iexps[subscription].append(dast_path_iexp)
+                created_dynamic_iexps[group].append(dast_path_iexp)
                 if create_files:
                     with open(dast_path_iexp, 'w+'):
                         logger.info(f'iexp supplied for {finding_title}')
@@ -175,21 +175,21 @@ def fill_with_iexps(subs_glob: str, create_files: bool = True) -> tuple:
 def generate_exploits(subs_glob: str) -> bool:
     """Generate needed arsenal and move troops to the battlefield."""
     subs_glob = subs_glob.lower()
-    subscription_regex = re.compile(r'subscriptions/(\w+)')
+    group_regex = re.compile(r'groups/(\w+)')
 
     # Create the needed directories
-    for path in sorted(glob.glob(f'subscriptions/{subs_glob}/forces/*')):
+    for path in sorted(glob.glob(f'groups/{subs_glob}/forces/*')):
         os.makedirs(f'{path}/resources', exist_ok=True)
         os.makedirs(f'{path}/integrates-exploits', exist_ok=True)
         os.makedirs(f'{path}/accepted-exploits', exist_ok=True)
         os.makedirs(f'{path}/extra-packages', exist_ok=True)
 
     for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs_glob}/forces/*/exploits/*.exp')):
+            f'groups/{subs_glob}/forces/*/exploits/*.exp')):
         logger.info(f'processing {exploit_path}')
 
-        subscription = \
-            subscription_regex.search(exploit_path).group(1)  # type: ignore
+        group = \
+            group_regex.search(exploit_path).group(1)  # type: ignore
 
         exploit_kind, finding_id = \
             utils.forces.scan_exploit_for_kind_and_id(exploit_path)
@@ -209,9 +209,9 @@ def generate_exploits(subs_glob: str) -> bool:
             os.remove(exploit_path)
             continue
 
-        if not utils.integrates.is_finding_in_subscription(
-                finding_id, subscription):
-            logger.warn(f'{exploit_path} is not member of {subscription}!')
+        if not utils.integrates.is_finding_in_group(
+                finding_id, group):
+            logger.warn(f'{exploit_path} is not member of {group}!')
             os.remove(exploit_path)
             continue
 
@@ -306,19 +306,19 @@ def run_static_exploits(
 
     fernet_key: str = utils.generic.get_sops_secret(
         f'forces_aws_secret_access_key',
-        f'subscriptions/{subs}/config/secrets.yaml',
+        f'groups/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
 
     repositories_to_run: tuple = tuple(map(
         lambda repository_path: os.path.join(os.getcwd(), repository_path),
-        sorted(glob.glob(f'subscriptions/{subs}/fusion/*'))))
+        sorted(glob.glob(f'groups/{subs}/fusion/*'))))
 
     exploits_to_run: tuple = tuple(map(
         lambda exploit_path: os.path.join(os.getcwd(), exploit_path),
         filter(
             lambda e: (exp_name or '') in e,
             glob.glob(
-                f'subscriptions/{subs}/forces/static/exploits/*.exp'))))
+                f'groups/{subs}/forces/static/exploits/*.exp'))))
 
     for exploit_path in exploits_to_run:
         if os.path.isfile(f'{exploit_path}.out.yml'):
@@ -379,14 +379,14 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
     times: Dict[str, Any] = {}
     fernet_key: str = utils.generic.get_sops_secret(
         f'forces_aws_secret_access_key',
-        f'subscriptions/{subs}/config/secrets.yaml',
+        f'groups/{subs}/config/secrets.yaml',
         f'continuous-{subs}')
 
     bb_resources = os.path.abspath(
-        f'subscriptions/{subs}/forces/dynamic/resources')
+        f'groups/{subs}/forces/dynamic/resources')
 
     for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/forces/dynamic/exploits/*.exp')):
+            f'groups/{subs}/forces/dynamic/exploits/*.exp')):
 
         exploit_path = os.path.join(os.getcwd(), exploit_path)
         exploit_name = os.path.basename(exploit_path)
@@ -405,7 +405,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
         utils.generic.run_command_old(
             cmd=(f"asserts -n -ms '{exploit_path}'"
                  f"  >> '{exploit_output_path}'   "),
-            cwd=f'subscriptions/{subs}',
+            cwd=f'groups/{subs}',
             env={'FA_NOTRACK': 'true',
                  'FA_STRICT': 'true',
                  'BB_FERNET_KEY': fernet_key,
@@ -415,7 +415,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
         utils.generic.run_command_old(
             cmd=(f"echo '# elapsed: {times[exploit_name]}'"
                  f"  >> '{exploit_output_path}'"),
-            cwd=f'subscriptions/{subs}',
+            cwd=f'groups/{subs}',
             env={})
 
     logger.info('')
@@ -429,7 +429,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
 def delete_pending_vulnerabilities(subs: str,
                                    exp: str = '',
                                    run_kind: str = 'all'):
-    """Delete pending vulnerabilities for a subscription."""
+    """Delete pending vulnerabilities for a group."""
     for _, vulns_path in utils.generic.iter_vulns_path(subs, exp, run_kind):
         _, finding_id = utils.forces.scan_exploit_for_kind_and_id(vulns_path)
 
@@ -493,7 +493,7 @@ def get_vulnerabilities_yaml(subs: str, run_kind: str = 'all') -> bool:
     vulns: int = 0
     for exploit_path in sorted(filter(
             lambda x: os.path.exists(f'{x}.out.yml'),
-            glob.glob(f'subscriptions/{subs}/forces/*/exploits/*.exp'))):
+            glob.glob(f'groups/{subs}/forces/*/exploits/*.exp'))):
 
         kind = exploit_path.split('/')[3]
         if not run_kind == kind and run_kind != 'all':
@@ -551,9 +551,9 @@ def get_vulnerabilities_yaml(subs: str, run_kind: str = 'all') -> bool:
 def get_exps_fragments(subs: str, exp_name: str) -> bool:
     """Run exploits."""
     specific_context: int = 10
-    path_to_fusion: str = f'subscriptions/{subs}/fusion'
+    path_to_fusion: str = f'groups/{subs}/fusion'
     for exploit_output_path in sorted(glob.glob(
-            f'subscriptions/{subs}'
+            f'groups/{subs}'
             f'/forces/static/exploits/*.exp.out.yml')):
         logger.info(os.path.basename(exploit_output_path), end=' ')
 
@@ -610,9 +610,9 @@ def _get_static_dictionary(finding_id) -> dict:
 
 
 def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
-    """Print a dictionary with the subscription findings."""
+    """Print a dictionary with the group findings."""
     exploit_paths = sorted(
-        glob.glob(f'subscriptions/{subs}/forces/*/exploits/*.exp'))
+        glob.glob(f'groups/{subs}/forces/*/exploits/*.exp'))
     integrates_findings_ = utils.integrates.get_project_findings(subs)
     if exp == 'local':
         integrates_findings = [
@@ -640,5 +640,5 @@ def get_static_dictionary(subs: str, exp: str = 'all') -> bool:
 
 
 def has_forces(subs: str) -> bool:
-    """Return True if the subscription has an asserts folder."""
-    return os.path.isdir(f'subscriptions/{subs}/forces')
+    """Return True if the group has an asserts folder."""
+    return os.path.isdir(f'groups/{subs}/forces')

@@ -19,23 +19,23 @@ from toolbox.utils import (
 
 @command(name='utils', short_help='Generic utilities')
 @argument(
-    'subscription',
-    default=generic.get_current_subscription(),
-    callback=generic.is_valid_subscription)
+    'group',
+    default=generic.get_current_group(),
+    callback=generic.is_valid_group)
 @option(
     '--does-subs-exist', 'o_does_subs_exist',
-    help='Check if a subscription exists.',
+    help='Check if a group exists.',
     is_flag=True)
 @option(
     '--get-commit-subs', 'o_get_commit_subs',
-    help='get the subscription name from the commmit msg.',
+    help='get the group name from the commmit msg.',
     is_flag=True)
 def utils_management(
-        subscription,
+        group,
         o_does_subs_exist,
         o_get_commit_subs):
     if o_does_subs_exist:
-        sys.exit(0 if does_subs_exist.main(subscription) else 1)
+        sys.exit(0 if does_subs_exist.main(group) else 1)
     elif o_get_commit_subs:
         subs = get_commit_subs.main()
         echo(subs)

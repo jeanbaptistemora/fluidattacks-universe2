@@ -51,7 +51,7 @@ def print_problems(problems, branches):
 
 
 def has_vpn(code, subs):
-    """ check if the subscription has a vpn """
+    """ check if the group has a vpn """
     does_have_vpn = code.get('vpn')
     if does_have_vpn:
         logger.info(f"{subs} needs VPN. ")
@@ -227,8 +227,8 @@ def repo_cloning(subs: str) -> bool:
 
     success = True
     original_dir: str = os.getcwd()
-    config_file = f'subscriptions/{subs}/config/config.yml'
-    destination_folder = f'subscriptions/{subs}/fusion'
+    config_file = f'groups/{subs}/config/config.yml'
+    destination_folder = f'groups/{subs}/fusion'
 
     if not os.path.isfile(config_file):
         logger.error("No config file in the current directory")
@@ -268,7 +268,7 @@ def repo_cloning(subs: str) -> bool:
             elif repo_type == 'https':
                 success = http_repo_cloning(subs, repo)
             else:
-                logger.info(f"Invalid git-type on subscription {subs}")
+                logger.info(f"Invalid git-type on group {subs}")
                 success = False
 
     os.chdir(original_dir)
@@ -282,7 +282,7 @@ def edit_secrets(subs: str) -> bool:
     """
     status: bool = True
     profile = f'continuous-{subs}'
-    secrets_file = f'subscriptions/{subs}/config/secrets.yaml'
+    secrets_file = f'groups/{subs}/config/secrets.yaml'
     if not os.path.exists(secrets_file):
         logger.error(f'secrets.yaml does not exist in {subs}')
         status = False
@@ -301,7 +301,7 @@ def read_secrets(subs: str) -> bool:
     """
     status: bool = True
     profile = f'continuous-{subs}'
-    secrets_file = f'subscriptions/{subs}/config/secrets.yaml'
+    secrets_file = f'groups/{subs}/config/secrets.yaml'
     if not os.path.exists(secrets_file):
         logger.error(f'secrets.yaml does not exist in {subs}')
         status = False
@@ -320,11 +320,11 @@ def check_mailmap(subs: str) -> bool:
     """
     flag = True
     filename = '.mailmap'
-    path = 'subscriptions/' + subs
+    path = 'groups/' + subs
     logger.info(f'Checking {subs} mailmap')
     if not os.path.exists(path) or not subs:
         failuremsg = f"Please run inside a project or use --subs\n"
-        failuremsg += 'continuous/subscription/..\n'
+        failuremsg += 'continuous/group/..\n'
         logger.error(failuremsg)
         flag = False
     elif not os.path.exists(f'{path}/{filename}'):
@@ -368,16 +368,16 @@ def get_fingerprint(subs: str) -> bool:
     results = []
     max_hash = None
     max_date = ''
-    path = f"subscriptions/{subs}"
+    path = f"groups/{subs}"
     if not os.path.exists(path):
         logger.error(f"There is no project with the name: {subs}")
         logger.info("Please run fingerprint inside a project or use subs")
         return False
     path += "/fusion"
     if not os.path.exists(path):
-        logger.error("There is no a fusion folder in the subscription")
+        logger.error("There is no a fusion folder in the group")
         return False
-    listpath = os.listdir(f"subscriptions/{subs}/fusion")
+    listpath = os.listdir(f"groups/{subs}/fusion")
 
     for repo in (r for r in listpath if os.path.isdir(f'{path}/{r}')):
         # com -> commom command
@@ -405,9 +405,9 @@ def get_fingerprint(subs: str) -> bool:
 
 def get_active_missing_repos(subs):
     """ Get inactive and missing repositories in the config file """
-    path = f"subscriptions/{subs}"
+    path = f"groups/{subs}"
     repos: tuple = (None, None)
-    config_file = f'subscriptions/{subs}/config/config.yml'
+    config_file = f'groups/{subs}/config/config.yml'
     if not os.path.exists(path):
         logger.error(f"There is no project with the name: {subs}")
         return (None, None)
@@ -456,12 +456,12 @@ def get_active_missing_repos(subs):
     return repos
 
 
-def print_inactive_missing_repos(subscription, inactive_repos,
+def print_inactive_missing_repos(group, inactive_repos,
                                  missing_repos) -> None:
     print(json.dumps({
         'stream': 'repositories',
         'record': {
-            'subscription': subscription,
+            'subscription': group,
             'inactive': inactive_repos,
             'missing': missing_repos,
         }
@@ -469,7 +469,7 @@ def print_inactive_missing_repos(subscription, inactive_repos,
 
 
 def check_repositories(subs)-> bool:
-    projects = os.listdir('subscriptions')
+    projects = os.listdir('groups')
     if subs != 'all':
         projects = [subs]
     for project in projects:

@@ -54,11 +54,11 @@ def is_finding_released(finding_id: str) -> bool:
     return bool(released_date)
 
 
-def is_finding_in_subscription(finding_id: str, subscription: str) -> bool:
-    """Return True if the finding is member of the provided subscription."""
+def is_finding_in_group(finding_id: str, group: str) -> bool:
+    """Return True if the finding is member of the provided group."""
     response = api.integrates.Queries.finding(API_TOKEN, finding_id)
     project_name: str = response.data['finding']['projectName']
-    return project_name == subscription
+    return project_name == group
 
 
 def is_finding_open(finding_id: str, finding_types: tuple) -> bool:

@@ -48,16 +48,16 @@ def _get_integrates_msg(
     return 'OPEN' if num_open_integrates > 0 else 'CLOSED'
 
 
-def _get_bb_fernet_key(subscription: str) -> str:
+def _get_bb_fernet_key(group: str) -> str:
     return utils.generic.get_sops_secret(
         f'forces_aws_secret_access_key',
-        f'subscriptions/{subscription}/config/secrets.yaml',
-        f'continuous-{subscription}')
+        f'groups/{group}/config/secrets.yaml',
+        f'continuous-{group}')
 
 
 def _get_bb_aws_role_arns(subs: str) -> Tuple[str, ...]:
     config_path = (
-        f'subscriptions/{subs}'
+        f'groups/{subs}'
         f'/forces/dynamic/resources/BB_AWS_ROLE_ARNS.list'
     )
 
@@ -73,7 +73,7 @@ def _get_bb_aws_role_arns(subs: str) -> Tuple[str, ...]:
 
 def _get_bb_resources(subs: str, kind: str) -> str:
     return \
-        os.path.abspath(f'subscriptions/{subs}/forces/{kind}/resources')
+        os.path.abspath(f'groups/{subs}/forces/{kind}/resources')
 
 
 def _get_patch_file_name(subs: str) -> str:
@@ -227,15 +227,15 @@ def _validate_one_static_exploit(
 
     repositories_local: Set[str] = {
         repository
-        for repository in os.listdir(f'subscriptions/{subs}/fusion')
-        if os.path.isdir(f'subscriptions/{subs}/fusion/{repository}')
+        for repository in os.listdir(f'groups/{subs}/fusion')
+        if os.path.isdir(f'groups/{subs}/fusion/{repository}')
     }
 
     repositories_integrates: Set[str] = \
         set(integrates_repositories_data.keys())
 
     for repo in repositories_integrates.union(repositories_local):
-        repository_path: str = f'subscriptions/{subs}/fusion/{repo}'
+        repository_path: str = f'groups/{subs}/fusion/{repo}'
 
         if not os.path.isdir(repository_path):
             # This repo exist on Integrates and not locally, we cannot test
@@ -364,7 +364,7 @@ def _validate_one_dynamic_exploit(
     _, asserts_stdout, _ = _run_dynamic_exploit(
         exploit_path=exploit_path,
         exploit_output_path=exploit_output_path,
-        subs_path=f'subscriptions/{subs}',
+        subs_path=f'groups/{subs}',
         bb_aws_role_arns=bb_aws_role_arns,
         bb_fernet_key=bb_fernet_key,
         bb_resources=bb_resources)
@@ -431,7 +431,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
     bb_resources = _get_bb_resources(subs, 'static')
 
     for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/forces/static/exploits/*.exp')):
+            f'groups/{subs}/forces/static/exploits/*.exp')):
         exploit_path = os.path.join(os.getcwd(), exploit_path)
         exploit_output_path = f'{exploit_path}.out.yml'
 
@@ -471,7 +471,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> List[dict]:
     bb_resources = _get_bb_resources(subs, 'dynamic')
 
     for exploit_path in sorted(glob.glob(
-            f'subscriptions/{subs}/forces/dynamic/exploits/*.exp')):
+            f'groups/{subs}/forces/dynamic/exploits/*.exp')):
         exploit_path = os.path.join(os.getcwd(), exploit_path)
         exploit_output_path = f'{exploit_path}.out.yml'
 
@@ -546,7 +546,7 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
         _print_results_summary(results_static)
     else:
         logger.warn()
-        logger.warn('Ignoring Static check due to subscription config')
+        logger.warn('Ignoring Static check due to group config')
 
     # If we didn't run, assume it's synced
     results_dynamic: List[dict] = []
@@ -555,14 +555,14 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
         _print_results_summary(results_dynamic)
     else:
         logger.warn()
-        logger.warn('Ignoring Dynamic check due to subscription config')
+        logger.warn('Ignoring Dynamic check due to group config')
 
     with open(f'check-sync-results.{subs}.json.stream', 'w') as results_handle:
         for json_obj in results_static + results_dynamic:
             json_obj.update(dict(
                 datetime=datetime.now().strftime(constants.DATE_FORMAT),
                 pipeline_id=os.environ.get('CI_PIPELINE_ID', 'unknown'),
-                subscription=subs,
+                group=subs,
             ))
             results_handle.write(json.dumps({
                 'stream': 'results',

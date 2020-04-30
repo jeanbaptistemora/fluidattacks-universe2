@@ -54,7 +54,7 @@ def misc_management(
         success_message = do_check_commit_msg()
         commit_subs = utils.get_commit_subs.main()
         success_content = True
-        if os.path.exists(f'subscriptions/{commit_subs}'):
+        if os.path.exists(f'groups/{commit_subs}'):
             success_content = (
                 forces.commit.is_valid_forces_content(commit_subs))
         success_content = (success_content

@@ -16,7 +16,7 @@ function get_secret {
   local subs
 
       subs="$(get_subs)" \
-  &&  secrets="subscriptions/${subs}/config/secrets.yaml" \
+  &&  secrets="groups/${subs}/config/secrets.yaml" \
   &&  sops \
         --aws-profile "continuous-${subs}" \
         -d \

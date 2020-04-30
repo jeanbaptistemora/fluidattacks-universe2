@@ -5,7 +5,7 @@ import sys
 
 # Local libraries
 from toolbox.drills import (
-    take_subscription_snapshot,
+    take_group_snapshot,
 )
 
 UNIQ = "----"
@@ -102,12 +102,12 @@ def main(subs: str):
     init_dir: str = os.getcwd()
 
     try:
-        os.chdir(f'subscriptions/{subs}')
+        os.chdir(f'groups/{subs}')
 
         # We are going to operate over lines.stream until the end
         command("cp toe/lines.csv toe/lines.stream")
         # Create an snapshot of the current lines, dates, and hash
-        take_subscription_snapshot.do_gen_stats()
+        take_group_snapshot.do_gen_stats()
         # Literraly dump the snapshot into the lines.stream creating duplicates
         append_changes("toe/lines.stream")
         # Clean up the snapshot

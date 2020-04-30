@@ -46,7 +46,7 @@ def is_valid_summary(summary: str) -> bool:
     # feat(exp): subs
     regular_pattern = base_pattern + (
         f': '
-        r'(?P<subscription>[a-z]+)'
+        r'(?P<group>[a-z]+)'
         r'$'
     )
     # fix(exp): #123 subs tag
@@ -54,7 +54,7 @@ def is_valid_summary(summary: str) -> bool:
         f': '
         r'(?P<issue>#[1-9]\d*)'
         r' '
-        r'(?P<subscription>[a-z]+)'
+        r'(?P<group>[a-z]+)'
         r' '
         r'(?P<mod_reason>[a-z-]+)'
         r'$'
@@ -128,10 +128,10 @@ def is_exploits_commit(summary: str) -> bool:
 
 
 def is_valid_forces_content(subs: str):
-    """Check if there can be content of forces in the subscription."""
+    """Check if there can be content of forces in the group."""
     success = True
-    with open(f'subscriptions/{subs}/config/config.yml') as reader:
+    with open(f'groups/{subs}/config/config.yml') as reader:
         config = yaml.load(reader.read())
     if not config['forces']['is_enabled']:
-        success = not os.path.exists('subscriptions/{subs}/forces')
+        success = not os.path.exists('groups/{subs}/forces')
     return success
