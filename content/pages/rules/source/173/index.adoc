@@ -91,6 +91,8 @@ therefore this information must be validated.
 
 * link:/web/findings/023/[F023. Uncontrolled external site redirect]
 
+* link:/web/findings/032/[F032. Spoofing]
+
 * link:/web/findings/045/[F045. HTML code injection]
 
 * link:/web/findings/063/[F063. Lack of data validation]
@@ -104,8 +106,6 @@ therefore this information must be validated.
 * link:/web/findings/091/[F091. Log injection]
 
 * link:/web/findings/093/[F093. Hidden fields manipulation]
-
-* link:/web/findings/094/[F094. System impersonation]
 
 * link:/web/findings/096/[F096. Insecure deserialization]
 

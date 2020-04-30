@@ -27,7 +27,7 @@ be implemented having these restrictions in consideration.
 
 * link:/web/findings/013/[F013. Insecure object reference]
 
-* link:/web/findings/032/[F032. User impersonation]
+* link:/web/findings/032/[F032. Spoofing]
 
 * link:/web/findings/037/[F037. Technical information leak]
 

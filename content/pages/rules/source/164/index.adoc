@@ -16,4 +16,4 @@ The code must use optimized data containers or structures.
 
 * link:/web/findings/112/[F112. Inefficient use of CPU]
 
-* link:/web/findings/113/[F113. Incorrect type conversion]
+* link:/web/findings/113/[F113. Improper type assignation]

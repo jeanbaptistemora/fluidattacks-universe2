@@ -4,7 +4,7 @@
 :findings: yes
 :type: hygiene
 
-= F113. Incorrect type conversion
+= F113. Improper type assignation
 
 == Description
 

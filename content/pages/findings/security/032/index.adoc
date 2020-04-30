@@ -1,15 +1,17 @@
 :slug: findings/032/
-:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling user impersonation attacks, recommendations to avoid them and related security requirements.
-:keywords: User, Impersonation, Privilege, Escalation, Permissions, Account
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities enabling impersonation attacks, recommendations to avoid them and related security requirements.
+:keywords: System, Impersonation, Privilege, Message, Spoofing, Unauthorized
 :findings: yes
 :type: security
 
-= F032. User impersonation
+= F032. Spoofing
 
 == Description
 
-It is possible to modify sensitive information of privileged accounts using a
-standard account.
+It is possible to perform actions in the application and make it look as if
+they were coming from the system or another user.
+Examples include sending messages that appear to come from the system and
+modifying data in the name of other users (who may have more privileges).
 
 == Rules
 
@@ -17,6 +19,10 @@ standard account.
 
 . [[r2]] link:/web/rules/096/[R096. Set user required privileges]
 
-. [[r3]] link:/web/rules/176/[R176. Restrict system objects]
+. [[r3]] link:/web/rules/173/[R173. Discard unsafe inputs]
 
-. [[r4]] link:/web/rules/320/[R320. Avoid client-side control enforcement]
+. [[r4]] link:/web/rules/176/[R176. Restrict system objects]
+
+. [[r5]] link:/web/rules/265/[R265. Restrict access to critical processes]
+
+. [[r6]] link:/web/rules/320/[R320. Avoid client-side control enforcement]
