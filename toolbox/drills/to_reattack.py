@@ -16,7 +16,11 @@ def get_subs_unverified_findings(subs: str):
         query {{
             project(projectName: "{subs}") {{
                 findings (filters: {{verified: False}}) {{
-                    id
+                    id,
+                    age,
+                    vulnerabilities (state: "open"){{
+                      id
+                    }}
                 }}
             }}
         }}
@@ -45,7 +49,7 @@ def get_exploits(subs_name: str, finding_id: str) -> str:
     return message
 
 
-def to_reattack(subs_name: str, with_exp: bool) -> str:
+def to_reattack(subs_name: str, with_exp: bool) -> tuple:
     """
     Return a string with non-verified findings from a subs.
     It includes integrates url and exploits paths in case they exist
@@ -56,8 +60,15 @@ def to_reattack(subs_name: str, with_exp: bool) -> str:
     message: str = ''
     findings_raw: List[Dict[str, str]] = \
         get_subs_unverified_findings(subs_name).data['project']['findings']
-    findings_parsed: List[str] = list(map(lambda x: x['id'], findings_raw))
-    for finding_id in findings_parsed:
+    findings_parsed: List[Dict] = list(map(
+        lambda x: {'id': x['id'],
+                   "age": x['age'],
+                   "vulns": len(x['vulnerabilities'])},
+        findings_raw))
+    findings_sorted = \
+        sorted(findings_parsed, key=lambda x: x['age'], reverse=True)
+    for finding in findings_sorted:
+        finding_id = finding['id']
         url: str
         exploits: str = get_exploits(subs_name, finding_id)
         if with_exp:
@@ -69,7 +80,8 @@ def to_reattack(subs_name: str, with_exp: bool) -> str:
             if not exploits:
                 url = get_url(subs_name, finding_id)
                 message += f'{url}\n'
-    return message
+
+    return message, findings_parsed
 
 
 def main(with_exp: bool):
@@ -79,8 +91,18 @@ def main(with_exp: bool):
     param: with_exp: Show findings with or without exploits
     """
     subs_names: List[str] = listdir('groups')
+    total_vulns: int = 0
+    total_fin: int = 0
+    oldest: tuple = (0, 'null')
     for subs_name in subs_names:
-        message: str = to_reattack(subs_name, with_exp)
+        message, pending_findings = to_reattack(subs_name, with_exp)
         if message:
             print(subs_name)
             print(message)
+            total_vulns += sum(map(lambda x: x['vulns'], pending_findings))
+            total_fin += len(pending_findings)
+            old = pending_findings[-1]['age']
+            oldest = (old, subs_name) if old > oldest[0] else oldest
+    summary = (f"TO-DO: FIN: {total_fin}; Vulns: {total_vulns}; Days since "
+               "oldest request: {oldest[0]}; subs: {oldest[1]};")
+    print(summary)
