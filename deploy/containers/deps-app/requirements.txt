@@ -22,6 +22,7 @@ google-auth==1.11.2
 graphql-core==3.0.3
 gunicorn==20.0.4
 future==0.18.2
+httpx==0.12.1
 httplib2==0.17.0
 idna==2.9
 jinja2==2.11.1

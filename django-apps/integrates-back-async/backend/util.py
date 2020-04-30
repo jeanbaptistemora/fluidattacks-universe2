@@ -10,9 +10,10 @@ import logging.config
 import re
 import secrets
 from typing import Dict, List, cast
+import httpx
 import pytz
 import rollbar
-import requests
+
 
 from asgiref.sync import sync_to_async
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
@@ -29,6 +30,7 @@ from django.core.files.uploadedfile import (
 )
 from django.core.cache import cache
 from jose import jwt, JWTError
+
 
 from backend.exceptions import (InvalidAuthorization, InvalidDate,
                                 InvalidDateFormat)
@@ -417,19 +419,30 @@ def is_valid_format(date: str) -> bool:
 def forces_trigger_deployment(project_name: str) -> bool:
     success = False
 
+    # pylint: disable=protected-access
     exceptions = (
-        requests.exceptions.ChunkedEncodingError,
-        requests.exceptions.ConnectTimeout,
-        requests.exceptions.ConnectionError,
-        requests.exceptions.ContentDecodingError,
-        requests.exceptions.HTTPError,
-        requests.exceptions.ProxyError,
-        requests.exceptions.ReadTimeout,
-        requests.exceptions.RetryError,
-        requests.exceptions.SSLError,
-        requests.exceptions.StreamConsumedError,
-        requests.exceptions.Timeout,
-        requests.exceptions.TooManyRedirects,
+        httpx._exceptions.ConnectTimeout,
+        httpx._exceptions.ConnectionClosed,
+        httpx._exceptions.CookieConflict,
+        httpx._exceptions.DecodingError,
+        httpx._exceptions.HTTPError,
+        httpx._exceptions.InvalidURL,
+        httpx._exceptions.NetworkError,
+        httpx._exceptions.NotRedirectResponse,
+        httpx._exceptions.PoolTimeout,
+        httpx._exceptions.ProtocolError,
+        httpx._exceptions.ProxyError,
+        httpx._exceptions.ReadTimeout,
+        httpx._exceptions.RedirectError,
+        httpx._exceptions.RequestBodyUnavailable,
+        httpx._exceptions.RequestNotRead,
+        httpx._exceptions.ResponseClosed,
+        httpx._exceptions.ResponseNotRead,
+        httpx._exceptions.StreamConsumed,
+        httpx._exceptions.StreamError,
+        httpx._exceptions.TimeoutException,
+        httpx._exceptions.TooManyRedirects,
+        httpx._exceptions.WriteTimeout,
     )
 
     # cast it to string, just in case
@@ -443,18 +456,20 @@ def forces_trigger_deployment(project_name: str) -> bool:
 
     try:
         if project_name not in FI_TEST_PROJECTS.split(','):
-            requests.post(
+            client = httpx.AsyncClient()
+            req_coro = client.post(
                 url=FORCES_TRIGGER_URL,
                 files={
                     param: (None, value)
                     for param, value in parameters.items()
-                })
+                }
+            )
+            asyncio.create_task(req_coro)
 
     except exceptions:
         rollbar.report_exc_info()
     else:
         success = True
-
     return success
 
 
