@@ -11,7 +11,7 @@ from typing import List
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 from pyparsing import (makeHTMLTags, CaselessKeyword, ParseException,
-                       Literal, SkipTo, stringEnd)
+                       Literal, SkipTo, stringEnd, Optional, Regex)
 
 # local imports
 from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, SAST
@@ -196,7 +196,7 @@ def is_header_content_type_missing(filename: str) -> tuple:
     prs_cont_typ = tk_content + Literal('-') + tk_type
 
     tk_type = SkipTo(Literal('/'), include=True)
-    tk_subtype = SkipTo(Literal(';'), include=True)
+    tk_subtype = Optional(SkipTo(Literal(';'), include=True))
     prs_mime = tk_type + tk_subtype
 
     tk_charset = CaselessKeyword('charset')
@@ -209,6 +209,15 @@ def is_header_content_type_missing(filename: str) -> tuple:
              'content': prs_content_val}
 
     has_content_type = _has_attributes(filename, tag, attrs)
+
+    if not has_content_type:
+        attrs = {'http-equiv': prs_cont_typ,
+                 'content': prs_mime}
+
+        valid = _has_attributes(filename, tag, attrs)
+        if valid:
+            attrs = {'charset': Regex(r'[A-Za-z_][A-Za-z_0-9]*')}
+            has_content_type = _has_attributes(filename, tag, attrs)
 
     units: List[Unit] = [
         Unit(where=filename,

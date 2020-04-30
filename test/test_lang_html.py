@@ -57,6 +57,8 @@ def test_is_header_content_type_missing_open():
     estan definidas en el codigo HTML de vulnerable.html
     """
     assert html.is_header_content_type_missing(INSECURE_CODE)
+    assert html.is_header_content_type_missing(
+        CODE_DIR + 'content_type_weak.html')
 
 
 def test_open_has_reverse_tab_nabbing():
@@ -105,6 +107,8 @@ def test_is_header_content_type_missing_close():
     """
     assert not html.is_header_content_type_missing(SECURE_CODE)
     assert not html.is_header_content_type_missing(NOT_CODE)
+    assert not html.is_header_content_type_missing(
+        CODE_DIR + 'content_type_safe.html')
 
 
 def test_closed_has_reverse_tab_nabbing():
