@@ -1,15 +1,13 @@
 # Standard library
 import ast
 from glob import glob
-from typing import (
-    Tuple,
-)
 
 # Third party libraries
+import pykwalify.core
+import pykwalify.errors
 
 # Local libraries
 from toolbox import (
-    constants,
     logger,
     utils,
 )
@@ -85,61 +83,51 @@ def _one_exploit_by_path_for_deprecated_methods(exploit_path: str) -> bool:
 
 def _one_exploit_by_path_for_reason(exploit_path: str) -> bool:
     success: bool = True
-    valid_reasons: Tuple[str, ...] = (
-        'ASSERTS CAPABILITIES',
-        'AVAILABILITY CONCERNS',
-        'REQUIRED HUMAN INTERACTION',
-        'UNREACHABLE ENVIRONMENT',
-        'OTHER',
-    )
 
-    if '.cannot' in exploit_path:
-        with open(exploit_path) as handle:
-            exploit_content = handle.read()
+    if '.reason' in exploit_path:
+        if exploit_path.endswith('.reason.yaml'):
+            schema_path: str = \
+                'forces/config/schemas/.reason.yaml'
+            validator = pykwalify.core.Core(
+                source_file=exploit_path,
+                schema_files=[
+                    schema_path,
+                ])
 
-        regex = constants.RE_EXPLOIT_REASON
-        regex_match = regex.search(exploit_content)
-        if regex_match:
-            reason = regex_match.groupdict().get('reason', '')
-            if reason in valid_reasons:
-                success = True
-            else:
+            try:
+                validator.validate(raise_exception=True)
+            except pykwalify.errors.SchemaError as exc:
+                logger.error(f'{exploit_path} must match schema')
+                logger.info()
+                logger.info(f'The schema can be found at: {schema_path}')
+                logger.info(f'The problem was: {exc}')
                 success = False
-                logger.error(f"Invalid reason: {reason}")
-                logger.info(f'Valid exploit reasons are:')
-                for reason in valid_reasons:
-                    logger.info(f'- {reason}')
         else:
+            logger.error(f'The name must conform: <id>.reason.yaml')
             success = False
-            logger.error(f'Exploit reasons must match: {regex}')
-            logger.info()
-            logger.info('Example:')
-            logger.info()
-            logger.info(
-                f'# Not possible exploit due to: UNREACHABLE ENVIRONMENT')
-            logger.info()
-    else:
-        success = True
 
     return success
 
 
 def one_exploit_by_path(exploit_path: str) -> bool:
     """Run all linters available over one exploit."""
+    if '.reason' in exploit_path:
+        return _one_exploit_by_path_for_reason(exploit_path)
+
     return _one_exploit_by_path_with_prospector(exploit_path) \
         and _one_exploit_by_path_with_mypy(exploit_path) \
-        and _one_exploit_by_path_for_deprecated_methods(exploit_path) \
-        and _one_exploit_by_path_for_reason(exploit_path)
+        and _one_exploit_by_path_for_deprecated_methods(exploit_path)
 
 
 def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
     """Run all linters available over many exploits."""
     filter_str = filter_str or ''
-    glob_pattern = f'subscriptions/{subs}/forces/*/exploits/*.exp'
+    pattern_exp = f'subscriptions/{subs}/forces/*/exploits/*.exp'
+    pattern_reason = f'subscriptions/{subs}/forces/*/exploits/*.reason.*'
 
     return all(
         one_exploit_by_path(exploit_path)
-        for exploit_path in sorted(glob(glob_pattern))
+        for exploit_path in sorted(glob(pattern_exp) + glob(pattern_reason))
         if filter_str in exploit_path
     )
 

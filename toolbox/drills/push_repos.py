@@ -175,6 +175,9 @@ def main(
     param: endpoint_url: aws endpoint to send API requests
     """
     if generic.does_subs_exist(subs) and generic.does_fusion_exist(subs):
+        if aws_login:
+            generic.aws_login(profile)
+
         fusion_dir: str = f'subscriptions/{subs}/fusion'
         remote_repos_active: List[str] = \
             s3_get_repos(bucket, subs, 'active', endpoint_url)
@@ -184,8 +187,6 @@ def main(
         origin_path: str
         dest_path: str
 
-        if aws_login:
-            generic.aws_login(profile)
         logger.info('Checking active repositories')
         for repo in local_repos:
             origin_path = f'{fusion_dir}/{repo}/'
