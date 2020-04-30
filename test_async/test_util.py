@@ -15,7 +15,7 @@ from __init__ import (
 import json
 
 from backend.util import (
-    response, is_name, is_numeric, ord_asc_by_criticidad, user_email_filter,
+    response, is_name, is_numeric, ord_asc_by_criticality, user_email_filter,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
     validate_future_releases, get_jwt_content, list_s3_objects, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_file_name, is_valid_format)
@@ -50,13 +50,13 @@ class UtilTests(TestCase):
             assert not is_numeric(data)
         assert is_numeric(good_input)
 
-    def test_ord_asc_by_criticidad(self):
+    def test_ord_asc_by_criticality(self):
         sortable_data = [
             {'severityCvss': 40}, {'severityCvss': 13}, {'severityCvss': 20},
             {'severityCvss': 30}, {'severityCvss': 12}, {'severityCvss': 1},
             {'severityCvss': 54}
         ]
-        test_data = ord_asc_by_criticidad(sortable_data)
+        test_data = ord_asc_by_criticality(sortable_data)
         expected_output = [
             {'severityCvss': 54}, {'severityCvss': 40}, {'severityCvss': 30},
             {'severityCvss': 20}, {'severityCvss': 13}, {'severityCvss': 12},

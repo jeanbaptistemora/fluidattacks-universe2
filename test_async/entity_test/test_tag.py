@@ -8,6 +8,7 @@ from django.conf import settings
 from graphql.type import GraphQLResolveInfo
 from jose import jwt
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.api.resolvers import tag
@@ -43,6 +44,7 @@ class TagTests(TestCase):
         request = RequestFactory().get('/')
         request.loaders = {
             'finding': FindingLoader(),
+            'project': ProjectLoader(),
             'vulnerability': VulnerabilityLoader()
         }
         middleware = SessionMiddleware()

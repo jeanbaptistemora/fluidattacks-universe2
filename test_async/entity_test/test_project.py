@@ -12,6 +12,7 @@ from django.conf import settings
 from jose import jwt
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
@@ -48,6 +49,7 @@ class ProjectTests(TestCase):
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),
+            'project': ProjectLoader(),
             'vulnerability': VulnerabilityLoader()
         }
         _, result = await graphql(SCHEMA, data, context_value=request)

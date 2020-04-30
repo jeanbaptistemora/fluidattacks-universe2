@@ -62,15 +62,13 @@ def _get_name(_, project_name: str, **__) -> str:
 
 
 @get_entity_cache_async
-async def _get_remediated_over_time(_, project_name: str,
-                                    **__) -> Dict[str, str]:
+async def _get_remediated_over_time(info, project_name: str,
+                                    **__) -> str:
     """Get remediated_over_time."""
-    remediated_over_time = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['remediated_over_time']
-        )
-    remediate_over_time_decimal = \
-        remediated_over_time.get('remediated_over_time', {})
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    remediate_over_time_decimal = project_attrs.get('remediated_over_time', {})
     remediated_twelve_weeks = \
         [lst_rem[-12:] for lst_rem in remediate_over_time_decimal]
     remediated_over_time = json.dumps(
@@ -79,23 +77,21 @@ async def _get_remediated_over_time(_, project_name: str,
 
 
 @get_entity_cache_async
-async def _get_has_drills(_, project_name: str, **__) -> Dict[str, bool]:
+async def _get_has_drills(info, project_name: str, **__) -> Dict[str, bool]:
     """Get has_drills."""
-    attributes = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['has_drills']
-        )
-    return attributes.get('has_drills', False)
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('has_drills', False)
 
 
 @get_entity_cache_async
-async def _get_has_forces(_, project_name: str, **__) -> Dict[str, bool]:
+async def _get_has_forces(info, project_name: str, **__) -> Dict[str, bool]:
     """Get has_forces."""
-    attributes = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['has_forces']
-        )
-    return attributes.get('has_forces', False)
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('has_forces', False)
 
 
 async def _get_findings(
@@ -112,11 +108,12 @@ async def _get_findings(
     util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} findings')  # pragma: no cover
-    all_findings = \
-        await sync_to_async(project_domain.list_findings)(project_name)
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
     finding_ids = \
         await sync_to_async(
-            finding_domain.filter_deleted_findings)(all_findings)
+            finding_domain.filter_deleted_findings)(project_findings)
     findings = await info.context.loaders['finding'].load_many(finding_ids)
 
     findings = [
@@ -133,10 +130,11 @@ async def _get_findings(
 async def _get_open_vulnerabilities(info, project_name: str,
                                     **__) -> int:
     """Get open_vulnerabilities."""
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
     finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(
-            project_domain.list_findings(project_name)
-        )
+        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     finding_vulns = \
         await info.context.loaders['vulnerability'].load_many(finding_ids)
 
@@ -157,10 +155,11 @@ async def _get_open_vulnerabilities(info, project_name: str,
 async def _get_open_findings(info,
                              project_name: str, **__) -> int:
     """Get open_findings."""
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
     finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(
-            project_domain.list_findings(project_name)
-        )
+        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     finding_vulns = \
         await info.context.loaders['vulnerability'].load_many(finding_ids)
     open_findings = \
@@ -172,10 +171,11 @@ async def _get_open_findings(info,
 async def _get_closed_vulnerabilities(
         info, project_name: str, **__) -> int:
     """Get closed_vulnerabilities."""
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
     finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(
-            project_domain.list_findings(project_name)
-        )
+        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     finding_vulns = \
         await info.context.loaders['vulnerability'].load_many(finding_ids)
 
@@ -202,21 +202,23 @@ async def _get_pending_closing_check(_, project_name: str,
 
 
 @get_entity_cache_async
-async def _get_last_closing_vuln(_, project_name: str, **__) -> int:
+async def _get_last_closing_vuln(info, project_name: str, **__) -> int:
     """Get last_closing_vuln."""
-    last_closing_vuln = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['last_closing_date']
-        )
-    last_closing_vuln = last_closing_vuln.get('last_closing_date', 0)
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    last_closing_vuln = project_attrs.get('last_closing_date', 0)
     return last_closing_vuln
 
 
 @get_entity_cache_async
 async def _get_max_severity(info, project_name: str, **__) -> float:
     """Get max_severity."""
-    finding_ids = await sync_to_async(finding_domain.filter_deleted_findings)(
-        project_domain.list_findings(project_name))
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
+    finding_ids = await \
+        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     findings = \
         await info.context.loaders['finding'].load_many(finding_ids)
 
@@ -227,86 +229,72 @@ async def _get_max_severity(info, project_name: str, **__) -> float:
 
 
 @get_entity_cache_async
-async def _get_max_open_severity(_, project_name: str,
+async def _get_max_open_severity(info, project_name: str,
                                  **__) -> float:
     """Resolve maximum severity in open vulnerability attribute."""
-    max_open_severity = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['max_open_severity']
-        )
-    return max_open_severity.get('max_open_severity', 0)
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('max_open_severity', 0)
 
 
 @get_entity_cache_async
-async def _get_mean_remediate(_, project_name: str, **__) -> Dict[str, int]:
+async def _get_mean_remediate(info, project_name: str, **__) -> Dict[str, int]:
     """Get mean_remediate."""
-    mean_remediate = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['mean_remediate']
-        )
-    mean_remediate = mean_remediate.get('mean_remediate', 0)
-    return mean_remediate
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('mean_remediate', 0)
 
 
 @get_entity_cache_async
 async def _get_mean_remediate_low_severity(
-        _, project_name: str, **__) -> int:
+        info, project_name: str, **__) -> int:
     """Get mean_remediate_low_severity."""
-    mean_remediate_low_severity = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['mean_remediate_low_severity']
-        )
-    mean_remediate_low_severity = mean_remediate_low_severity.get(
-        'mean_remediate_low_severity', 0)
-    return mean_remediate_low_severity
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('mean_remediate_low_severity', 0)
 
 
 @get_entity_cache_async
 async def _get_mean_remediate_medium_severity(
-        _, project_name: str, **__) -> int:
+        info, project_name: str, **__) -> int:
     """Get mean_remediate_medium_severity."""
-    mean_remediate_medium_severity = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['mean_remediate_medium_severity']
-        )
-    mean_remediate_medium_severity = mean_remediate_medium_severity.get(
-        'mean_remediate_medium_severity', 0)
-    return mean_remediate_medium_severity
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('mean_remediate_medium_severity', 0)
 
 
 @get_entity_cache_async
 async def _get_mean_remediate_high_severity(
-        _, project_name: str, **__) -> int:
+        info, project_name: str, **__) -> int:
     """Get mean_remediate_high_severity."""
-    mean_remediate_high_severity = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['mean_remediate_high_severity']
-        )
-    mean_remediate_high_severity = mean_remediate_high_severity.get(
-        'mean_remediate_high_severity', 0)
-    return mean_remediate_high_severity
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('mean_remediate_high_severity', 0)
 
 
 @get_entity_cache_async
 async def _get_mean_remediate_critical_severity(
-        _, project_name: str, **__) -> int:
+        info, project_name: str, **__) -> int:
     """Get mean_remediate_critical_severity."""
-    mean_critical_remediate = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['mean_remediate_critical_severity']
-        )
-    mean_critical_remediate = mean_critical_remediate.get(
-        'mean_remediate_critical_severity', 0)
-    return mean_critical_remediate
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('mean_remediate_critical_severity', 0)
 
 
 @get_entity_cache_async
 async def _get_total_findings(info, project_name: str, **__) -> int:
     """Get total_findings."""
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
     finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(
-            project_domain.list_findings(project_name)
-        )
+        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     findings = \
         await info.context.loaders['finding'].load_many(finding_ids)
 
@@ -316,13 +304,12 @@ async def _get_total_findings(info, project_name: str, **__) -> int:
 
 
 @get_entity_cache_async
-async def _get_total_treatment(_, project_name: str, **__) -> int:
+async def _get_total_treatment(info, project_name: str, **__) -> str:
     """Get total_treatment."""
-    total_treatment = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['total_treatment']
-        )
-    total_treatment_decimal = total_treatment.get('total_treatment', {})
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    total_treatment_decimal = project_attrs.get('total_treatment', {})
     total_treatment = json.dumps(
         total_treatment_decimal, use_decimal=True)
     return total_treatment
@@ -351,14 +338,12 @@ async def _get_current_month_commits(_, project_name: str,
 
 
 @get_entity_cache_async
-async def _get_subscription(_, project_name: str, **__) -> Dict[str, str]:
+async def _get_subscription(info, project_name: str, **__) -> Dict[str, str]:
     """Get subscription."""
-    project_info = await \
-        sync_to_async(project_domain.get_attributes)(
-            project_name, ['type']
-        )
-    subscription = project_info.get('type', '') if project_info else ''
-    return subscription
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('type', '')
 
 
 @get_entity_cache_async
@@ -384,13 +369,12 @@ async def _get_user_deletion(_, project_name: str, **__) -> str:
 
 
 @get_entity_cache_async
-async def _get_tags(_, project_name: str, **__) -> Dict[str, List[str]]:
+async def _get_tags(info, project_name: str, **__) -> Dict[str, List[str]]:
     """Get tags."""
-    project_data = await \
-        sync_to_async(project_domain.get_attributes)(project_name, ['tag'])
-    tags = \
-        project_data['tag'] if project_data and 'tag' in project_data else []
-    return tags
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('tag', [])
 
 
 @get_entity_cache_async
@@ -420,10 +404,11 @@ async def _get_drafts(
     util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} drafts')  # pragma: no cover
+    project_drafts = \
+        await info.context.loaders['project'].load(project_name)
+    project_drafts = project_drafts['drafts']
     finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(
-            project_domain.list_drafts(project_name)
-        )
+        sync_to_async(finding_domain.filter_deleted_findings)(project_drafts)
     findings = \
         await info.context.loaders['finding'].load_many(finding_ids)
 

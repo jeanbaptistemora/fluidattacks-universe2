@@ -26,10 +26,10 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
     report_type = parameters.get('report_type')
     user_info = util.get_jwt_content(info.context)
     user_email = user_info['user_email']
-    findings = \
-        await sync_to_async(
-            project_domain.list_findings)(project_name.lower())
-    findings = await finding_domain.get_findings_async(findings)
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
+    findings = await finding_domain.get_findings_async(project_findings)
     findings = [
         await sync_to_async(finding_domain.cast_new_vulnerabilities)
         (await sync_to_async(vuln_domain.get_open_vuln_by_type)
@@ -39,7 +39,7 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
         await sync_to_async(
             project_domain.get_description)(project_name.lower())
 
-    findings_ord = util.ord_asc_by_criticidad(findings)
+    findings_ord = util.ord_asc_by_criticality(findings)
     if report_type == 'PDF':
         asyncio.create_task(
             sync_to_async(report_domain.generate_pdf_report)(

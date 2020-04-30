@@ -83,12 +83,13 @@ def is_numeric(name: str) -> bool:
     return valid
 
 
-def ord_asc_by_criticidad(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
+def ord_asc_by_criticality(
+        data: List[Dict[str, FindingType]]) -> List[Dict[str, FindingType]]:
     """ Sort the findings by criticality """
     for i in range(0, len(data) - 1):
         for j in range(i + 1, len(data)):
-            firstc = float(data[i]["severityCvss"])
-            seconc = float(data[j]["severityCvss"])
+            firstc = float(cast(float, data[i]["severityCvss"]))
+            seconc = float(cast(float, data[j]["severityCvss"]))
             if firstc < seconc:
                 aux = data[i]
                 data[i] = data[j]

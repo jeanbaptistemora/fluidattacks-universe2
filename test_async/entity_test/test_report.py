@@ -9,6 +9,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from jose import jwt
+from backend.api.dataloaders.project import ProjectLoader
 from backend.api.schema import SCHEMA
 
 pytestmark = pytest.mark.asyncio
@@ -52,6 +53,9 @@ class ReportTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {
+            'project': ProjectLoader(),
+        }
         _, result_pdf = await graphql(SCHEMA, data_pdf, context_value=request)
         _, result_xls = await graphql(SCHEMA, data_xls, context_value=request)
         assert any('errors' not in result for result in [result_pdf, result_xls])

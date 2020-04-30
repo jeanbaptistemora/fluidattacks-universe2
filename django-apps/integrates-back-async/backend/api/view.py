@@ -6,6 +6,7 @@ import newrelic
 from asgiref.sync import async_to_sync
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
 from django.conf import settings
@@ -22,6 +23,7 @@ async def _context_value(context):
     context.loaders = {
         'event': EventLoader(),
         'finding': FindingLoader(),
+        'project': ProjectLoader(),
         'vulnerability': VulnerabilityLoader()
     }
     return context
