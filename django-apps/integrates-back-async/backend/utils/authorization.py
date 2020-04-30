@@ -307,10 +307,6 @@ ALL_ACTIONS: Tuple[str, ...] = tuple(set((
 
 
 def matches_permission(subject: str, role: str, action: str) -> bool:
-    if role in ['customer', 'customeradmin'] \
-            and subject.endswith('@fluidattacks.com'):
-        role = 'internal_manager'
-
     role_actions = {
         'admin': ADMIN_ACTIONS,
         'analyst': ANALYST_ACTIONS,

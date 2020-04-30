@@ -280,7 +280,7 @@ class ActionAbacTest(TestCase):
         sub = 'customeradmin@fluidattacks.com'
         obj = 'unittesting'
 
-        self._grant_group_level_access(sub, obj, 'customeradmin')
+        self._grant_group_level_access(sub, obj, 'internal_manager')
 
         should_deny = \
             self.global_actions - self.customeradminfluid_allowed_actions
@@ -390,7 +390,7 @@ class UserAbacTest(TestCase):
         sub = 'test_action_customeratfluid_role@fluidattacks.com'
         obj = 'self'
 
-        self._grant_user_level_access(sub, 'customer')
+        self._grant_user_level_access(sub, 'internal_manager')
 
         for act in self.customeratfluid_actions:
             self.assertTrue(UserAbacTest.enforcer(sub).enforce(sub, obj, act))
