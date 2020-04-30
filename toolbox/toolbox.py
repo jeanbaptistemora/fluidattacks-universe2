@@ -35,23 +35,6 @@ def sanitize_string(string: Any) -> str:
     return string
 
 
-def create_mock__get_reason(exploit_path: str) -> str:
-    """Return the reason of why an exploit was not created."""
-    with open(exploit_path, 'r') as exploit:
-        reasons: List[str] = []
-
-        for line in exploit.read().splitlines():
-            reason = re.sub(r'^[#s]+', '', line)
-            reason = reason.replace("\\", "\\\\").replace("'", "\\'").strip()
-            if reason:
-                reasons.append(f"' {reason}'")
-
-        reason = '[' + ','.join(reasons) + ']'
-    if not reasons:
-        reason = """['We are working on it, you will see it soon!']"""
-    return reason
-
-
 def append_finding_title_to_exploit(
     exploit_path: str,
     finding_title: str,
@@ -73,12 +56,13 @@ def append_finding_title_to_exploit(
         exploit.write(exploit_content)
 
 
-def create_mock_static_exploit(
+def create_iexp_static_exploit(
         exploit_path: str, finding_state: bool, finding_repos: tuple,
         finding_title: str, finding_description: str, finding_threat: str,
         finding_attack_vector: str, finding_recommendation: str) -> None:
-    """Mock a exploit according to it's status."""
-    reason: str = create_mock__get_reason(exploit_path)
+    """Create an Integrates exploit according to it's status."""
+    justification: str = \
+        utils.forces.get_integrates_exploit_justification(exploit_path)
 
     finding_repos_escaped = [
         repo.replace("\\", "\\\\").replace("'", "\\'")
@@ -100,17 +84,18 @@ def create_mock_static_exploit(
                         'threat': '{finding_threat}',
                         'attack_vector': '{finding_attack_vector}',
                         'recommendation': '{finding_recommendation}',
-                        'message': {reason},
-                        'source': 'Integrates'}})
+                        'justification': '{justification}',
+                    }})
             """))
 
 
-def create_mock_dynamic_exploit(
+def create_iexp_dynamic_exploit(
         exploit_path: str, finding_state: bool,
         finding_title: str, finding_description: str, finding_threat: str,
         finding_attack_vector: str, finding_recommendation: str) -> None:
-    """Mock a exploit according to it's status."""
-    reason: str = create_mock__get_reason(exploit_path)
+    """Create an iexp exploit according to it's status."""
+    justification: str = \
+        utils.forces.get_integrates_exploit_justification(exploit_path)
 
     with open(exploit_path, 'w') as exploit:
         exploit.write(textwrap.dedent(
@@ -125,30 +110,30 @@ def create_mock_dynamic_exploit(
                     'threat': '{finding_threat}',
                     'attack_vector': '{finding_attack_vector}',
                     'recommendation': '{finding_recommendation}',
-                    'message': {reason},
-                    'source': 'Integrates'}})
+                    'justification': '{justification}',
+                }})
             """))
 
 
-def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
-    """Fill every exploit in continuous repository with a mock."""
+def fill_with_iexps(subs_glob: str, create_files: bool = True) -> tuple:
+    """Fill pending exploits with integrates exploits."""
     subs_glob = subs_glob.lower()
 
-    created_static_mocks: dict = {}
-    created_dynamic_mocks: dict = {}
+    created_static_iexps: dict = {}
+    created_dynamic_iexps: dict = {}
 
     for roots in sorted(glob.glob(
             f'subscriptions/{subs_glob}/forces/static')):
         re_match: Any = re.search(
             r'subscriptions/(\w+)/forces/static', roots)
         subscription = re_match.groups(0)[0]
-        created_static_mocks[subscription] = []
-        created_dynamic_mocks[subscription] = []
+        created_static_iexps[subscription] = []
+        created_dynamic_iexps[subscription] = []
 
         for finding_id, finding_title in \
                 utils.integrates.get_project_findings(subscription):
             exploit_name = f'{finding_id}.exp'
-            cannot_exploit_name = f'{finding_id}.cannot.exp'
+            reason_exploit_name = f'{finding_id}.reason.exp'
 
             sast, dast = utils.integrates.get_finding_type(finding_id)
 
@@ -158,33 +143,33 @@ def fill_with_mocks(subs_glob: str, create_files: bool = True) -> tuple:
                 f'subscriptions/{subscription}/forces/dynamic/exploits'
             sast_path = f'{sast_folder}/{exploit_name}'
             dast_path = f'{dast_folder}/{exploit_name}'
-            cannot_sast_path = f'{sast_folder}/{cannot_exploit_name}'
-            cannot_dast_path = f'{dast_folder}/{cannot_exploit_name}'
+            reason_sast_path = f'{sast_folder}/{reason_exploit_name}'
+            reason_dast_path = f'{dast_folder}/{reason_exploit_name}'
 
             finding_title = utils.integrates.get_finding_title(finding_id)
 
             if sast and not any(map(os.path.exists,
-                                    (sast_path, cannot_sast_path))):
+                                    (sast_path, reason_sast_path))):
                 if not os.path.exists(sast_folder):
                     os.makedirs(sast_folder)
-                sast_path_mock = sast_path.replace('.exp', '.mock.exp')
-                created_static_mocks[subscription].append(sast_path_mock)
+                sast_path_iexp = sast_path.replace('.exp', '.integrates.exp')
+                created_static_iexps[subscription].append(sast_path_iexp)
                 if create_files:
-                    with open(sast_path_mock, 'w+'):
-                        logger.info(f'mock supplied for {finding_title}')
-                        logger.info(f'mock supplied for {sast_path}')
+                    with open(sast_path_iexp, 'w+'):
+                        logger.info(f'iexp supplied for {finding_title}')
+                        logger.info(f'iexp supplied for {sast_path}')
             if dast and not any(map(os.path.exists,
-                                    (dast_path, cannot_dast_path))):
+                                    (dast_path, reason_dast_path))):
                 if not os.path.exists(dast_folder):
                     os.makedirs(dast_folder)
-                dast_path_mock = dast_path.replace('.exp', '.mock.exp')
-                created_dynamic_mocks[subscription].append(dast_path_mock)
+                dast_path_iexp = dast_path.replace('.exp', '.integrates.exp')
+                created_dynamic_iexps[subscription].append(dast_path_iexp)
                 if create_files:
-                    with open(dast_path_mock, 'w+'):
-                        logger.info(f'mock supplied for {finding_title}')
-                        logger.info(f'mock supplied for {sast_path}')
+                    with open(dast_path_iexp, 'w+'):
+                        logger.info(f'iexp supplied for {finding_title}')
+                        logger.info(f'iexp supplied for {sast_path}')
 
-    return created_static_mocks, created_dynamic_mocks
+    return created_static_iexps, created_dynamic_iexps
 
 
 def generate_exploits(subs_glob: str) -> bool:
@@ -195,7 +180,7 @@ def generate_exploits(subs_glob: str) -> bool:
     # Create the needed directories
     for path in sorted(glob.glob(f'subscriptions/{subs_glob}/forces/*')):
         os.makedirs(f'{path}/resources', exist_ok=True)
-        os.makedirs(f'{path}/mocked-exploits', exist_ok=True)
+        os.makedirs(f'{path}/integrates-exploits', exist_ok=True)
         os.makedirs(f'{path}/accepted-exploits', exist_ok=True)
         os.makedirs(f'{path}/extra-packages', exist_ok=True)
 
@@ -233,9 +218,9 @@ def generate_exploits(subs_glob: str) -> bool:
         finding_title = sanitize_string(
             utils.integrates.get_finding_title(finding_id))
 
-        # If it's a mock, then create it on the mocks folder
-        is_a_mock: bool = exploit_kind in ('mock.exp', 'cannot.exp')
-        if is_a_mock:
+        # If it's an integrates exploit, then create it on that folder
+        is_i_exp: bool = exploit_kind in ('integrates.exp', 'reason.exp')
+        if is_i_exp:
             finding_description = sanitize_string(
                 utils.integrates.get_finding_description(finding_id))
             finding_threat = sanitize_string(
@@ -250,14 +235,14 @@ def generate_exploits(subs_glob: str) -> bool:
                     finding_id, constants.SAST)
                 finding_repos = utils.integrates.get_finding_repos(
                     finding_id)
-                create_mock_static_exploit(
+                create_iexp_static_exploit(
                     exploit_path, finding_state, finding_repos,
                     finding_title, finding_description, finding_threat,
                     finding_attack_vector, finding_recommendation)
             elif '/forces/dynamic/exploits/' in exploit_path:
                 finding_state = utils.integrates.is_finding_open(
                     finding_id, constants.DAST)
-                create_mock_dynamic_exploit(
+                create_iexp_dynamic_exploit(
                     exploit_path, finding_state,
                     finding_title, finding_description, finding_threat,
                     finding_attack_vector, finding_recommendation)
@@ -273,11 +258,12 @@ def generate_exploits(subs_glob: str) -> bool:
             os.rename(
                 exploit_path,
                 exploit_path.replace('exploits', 'accepted-exploits'))
-        elif is_a_mock:
-            logger.info(f'MOVE: {exploit_path} is mocked and not accepted...')
+        elif is_i_exp:
+            logger.info(
+                f'MOVE: {exploit_path} is an iexp and not accepted...')
             os.rename(
                 exploit_path,
-                exploit_path.replace('exploits', 'mocked-exploits'))
+                exploit_path.replace('exploits', 'integrates-exploits'))
 
     return True
 

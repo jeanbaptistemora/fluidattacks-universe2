@@ -102,7 +102,7 @@ def resources_management(subscription, check_repos, clone, fingerprint,
     '--decrypt', is_flag=True, help='decrypt the secrets of a subscription')
 @click.option(
     '--encrypt', is_flag=True, help='encrypt the secrets of a subscription')
-@click.option('--fill-with-mocks', is_flag=True)
+@click.option('--fill-with-iexps', is_flag=True)
 @click.option('--generate-exploits', is_flag=True)
 @click.option('--get-vulns', type=click.Choice(['dynamic', 'static', 'all']))
 @click.option(
@@ -129,7 +129,7 @@ def forces_management(
     check_sync,
     decrypt,
     encrypt,
-    fill_with_mocks,
+    fill_with_iexps,
     get_vulns,
     generate_exploits,
     lint_exps,
@@ -155,9 +155,9 @@ def forces_management(
     elif check_sync is not None:
         success = forces.sync.are_exploits_synced(subscription, check_sync)
 
-    elif fill_with_mocks:
+    elif fill_with_iexps:
         filter_str = subscription or '*'
-        toolbox.fill_with_mocks(subs_glob=filter_str, create_files=True)
+        toolbox.fill_with_iexps(subs_glob=filter_str, create_files=True)
 
     elif generate_exploits:
         filter_str = subscription or '*'

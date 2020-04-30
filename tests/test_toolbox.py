@@ -31,7 +31,7 @@ def test_toolbox_statefull_functions(relocate_to_cloned_repo):
         assert forces.secrets.encrypt(SUBS)
 
         # Deployment phase
-        assert toolbox.fill_with_mocks(subs_glob=SUBS, create_files=True)
+        assert toolbox.fill_with_iexps(subs_glob=SUBS, create_files=True)
         assert toolbox.generate_exploits(subs_glob=SUBS)
     finally:
         os.system('git reset --hard HEAD')

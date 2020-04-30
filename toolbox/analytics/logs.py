@@ -79,7 +79,7 @@ def retrieve_from_s3(s3_client, log_s3_key) -> str:
 def get_initial_date_to_sync_from() -> datetime.datetime:
     """Return a customized date to start fetching logs."""
     now = datetime.datetime.utcnow()
-    now_minus_delta = now - datetime.timedelta(days=1)
+    now_minus_delta = now - datetime.timedelta(hours=6)
     now_minus_delta = now_minus_delta.replace(tzinfo=datetime.timezone.utc)
     return now_minus_delta
 
@@ -108,13 +108,13 @@ class Execution(pynamodb.models.Model):
         pynamodb.attributes.MapAttribute()
     vulnerabilities_exploits: Any = \
         pynamodb.attributes.ListAttribute()
-    vulnerabilities_mocked_exploits: Any = \
+    vulnerabilities_integrates_exploits: Any = \
         pynamodb.attributes.ListAttribute()
     vulnerabilities_accepted_exploits: Any = \
         pynamodb.attributes.ListAttribute()
     vulnerability_count_exploits: Any = \
         pynamodb.attributes.NumberAttribute()
-    vulnerability_count_mocked_exploits: Any = \
+    vulnerability_count_integrates_exploits: Any = \
         pynamodb.attributes.NumberAttribute()
     vulnerability_count_accepted_exploits: Any = \
         pynamodb.attributes.NumberAttribute()
@@ -159,9 +159,9 @@ def get_vulnerability_attrs(s3_client, s3_prefix, git_repo) -> dict:
         get_vulnerabilities_from_log(
             s3_client, f'{s3_prefix}/exploits.yaml', git_repo)
 
-    vulns_mocked_exploits, len_vulns_mocked_exploits = \
+    vulns_integrates_exploits, len_vulns_integrates_exploits = \
         get_vulnerabilities_from_log(
-            s3_client, f'{s3_prefix}/mocked-exploits.yaml', git_repo)
+            s3_client, f'{s3_prefix}/integrates-exploits.yaml', git_repo)
 
     vulns_accepted_exploits, len_vulns_accepted_exploits = \
         get_vulnerabilities_from_log(
@@ -169,10 +169,11 @@ def get_vulnerability_attrs(s3_client, s3_prefix, git_repo) -> dict:
 
     return {
         'exploits': vulns_exploits,
-        'mocked_exploits': vulns_mocked_exploits,
+        'integrates_exploits': vulns_integrates_exploits,
         'accepted_exploits': vulns_accepted_exploits,
         'vulnerability_count_exploits': len_vulns_exploits,
-        'vulnerability_count_mocked_exploits': len_vulns_mocked_exploits,
+        'vulnerability_count_integrates_exploits':
+        len_vulns_integrates_exploits,
         'vulnerability_count_accepted_exploits': len_vulns_accepted_exploits,
     }
 
@@ -282,14 +283,14 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
         vulnerabilities=vulnerabilities,
         vulnerabilities_exploits=vulnerabilities[
             'exploits'],
-        vulnerabilities_mocked_exploits=vulnerabilities[
-            'mocked_exploits'],
+        vulnerabilities_integrates_exploits=vulnerabilities[
+            'integrates_exploits'],
         vulnerabilities_accepted_exploits=vulnerabilities[
             'accepted_exploits'],
         vulnerability_count_exploits=vulnerabilities[
             'vulnerability_count_exploits'],
-        vulnerability_count_mocked_exploits=vulnerabilities[
-            'vulnerability_count_mocked_exploits'],
+        vulnerability_count_integrates_exploits=vulnerabilities[
+            'vulnerability_count_integrates_exploits'],
         vulnerability_count_accepted_exploits=vulnerabilities[
             'vulnerability_count_accepted_exploits'],
         **metadata_attrs,

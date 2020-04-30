@@ -46,11 +46,12 @@ def test_forces(relocate):
     test_check_sync = runner.invoke(
         cli, f'forces --check-sync all {SUBS}'.split())
     assert test_check_sync.exit_code == 0, \
-        test_check_sync.stdout + test_check_sync.stderr
+        test_check_sync.output
 
     test_lint_exps = runner.invoke(
         cli, f'forces --lint-exps all {SUBS}'.split())
-    assert test_lint_exps.exit_code == 0
+    assert test_lint_exps.exit_code == 0, \
+        test_lint_exps.output
 
     test_run_static = runner.invoke(
         cli, f'forces --run-exps --static all {SUBS}'.split())

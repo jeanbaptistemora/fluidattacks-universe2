@@ -1,4 +1,5 @@
 # Standard library
+import contextlib
 import functools
 import os
 import re
@@ -42,14 +43,41 @@ def get_config(subs: str) -> dict:
     return config
 
 
+def get_integrates_exploit_justification(exploit_path: str) -> str:
+    justification: str = \
+        'We are working on this exploit! This is an Integrates exploit for now'
+
+    if os.path.exists(exploit_path) and '.reason' in exploit_path:
+        with open(exploit_path) as exploit_handle:
+            with contextlib.suppress(yaml.error.YAMLError):
+                exploit_content = yaml.safe_load(exploit_handle)
+                justification = exploit_content['justification']
+
+    return justification
+
+
+def get_integrates_exploit_category(exploit_path: str) -> str:
+    category: str = 'OTHER'
+
+    if os.path.exists(exploit_path) and '.reason' in exploit_path:
+        with open(exploit_path) as exploit_handle:
+            with contextlib.suppress(yaml.error.YAMLError):
+                exploit_content = yaml.safe_load(exploit_handle)
+                category = exploit_content['category']
+
+    return category
+
+
 @functools.lru_cache(maxsize=None, typed=True)
 def scan_exploit_for_kind_and_id(exploit_path: str) -> Tuple[str, str]:
     """Scan the exploit in search of metadata."""
-    # /567890.exp        -> 567890, 'exp'
-    # /567890.mock.exp   -> 567890, 'mock.exp'
-    # /567890.cannot.exp -> 567890, 'cannot.exp'
+    # /567890.exp            -> 567890, 'exp'
+    # /567890.integrates.exp -> 567890, 'integrates.exp'
+    # /567890.reason.exp     -> 567890, 'reason.exp'
     exploit_kind, finding_id = '', ''
-    re_match = re.search(r'/(\d+)\.(exp|mock.exp|cannot.exp)$', exploit_path)
+    re_match = \
+        re.search(r'/(\d+)\.(exp|integrates.exp|reason.exp)$', exploit_path)
+
     if re_match:
         finding_id, exploit_kind = re_match.groups()
     else:

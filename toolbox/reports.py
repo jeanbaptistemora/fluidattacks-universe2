@@ -132,20 +132,11 @@ def process_exploit(exp_path: str):
     :rtype: :class:`ExploitInfo`
     """
     result = None
-    reason = ''
     subs = exp_path.split('/')[1]
     exp_type = exp_path.split('/')[3]
 
     exp_kind, finding_id = utils.forces.scan_exploit_for_kind_and_id(exp_path)
-
-    if exp_kind == 'cannot.exp':
-        reason_pattern = constants.RE_EXPLOIT_REASON
-        with open(exp_path, 'r') as reader:
-            reader.readline()
-            reason_line = reader.readline()
-            search_r = re.search(reason_pattern, reason_line)
-            if search_r and len(search_r.groups()) >= 1:
-                reason = search_r.groups()[0]
+    reason = utils.forces.get_integrates_exploit_category(exp_path)
 
     if utils.integrates.does_finding_exist(finding_id):
         score = utils.integrates.get_finding_cvss_score(finding_id)
@@ -220,9 +211,9 @@ def generate_exploits_report(file_name: str = 'report.csv',
                         subscription and subs['name'] != subscription):
                 continue
 
-            logger.info(f'Filling with mocks {subs["name"]}')
+            logger.info(f'Filling with iexps {subs["name"]}')
             with utils.generic.output_block(indent=4):
-                toolbox.fill_with_mocks(subs['name'])
+                toolbox.fill_with_iexps(subs['name'])
 
             logger.info(f'Gererating report for {subs["name"]}')
             info = process_subscription_exploits(subs)

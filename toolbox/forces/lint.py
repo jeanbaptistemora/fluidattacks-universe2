@@ -5,6 +5,7 @@ from glob import glob
 # Third party libraries
 import pykwalify.core
 import pykwalify.errors
+import ruamel.yaml as yaml
 
 # Local libraries
 from toolbox import (
@@ -31,7 +32,8 @@ def _one_exploit_by_path_with_mypy(exploit_path: str) -> bool:
 
 
 def _one_exploit_by_path_with_prospector(exploit_path: str) -> bool:
-    logger.info(f'Running linter over: {exploit_path}')
+    logger.info(f'Running prospector over: {exploit_path}')
+
     status, stdout, stderr = utils.generic.run_command(
         cmd=[
             'prospector',
@@ -56,9 +58,6 @@ def _one_exploit_by_path_with_prospector(exploit_path: str) -> bool:
 def _one_exploit_by_path_for_deprecated_methods(exploit_path: str) -> bool:
     logger.info(f'Running linter for add_finding over: {exploit_path}')
 
-    if '.cannot' in exploit_path:
-        return True
-
     calls = list()
     with open(exploit_path) as exploit_handle:
         exploit_content: str = exploit_handle.read()
@@ -82,29 +81,25 @@ def _one_exploit_by_path_for_deprecated_methods(exploit_path: str) -> bool:
 
 
 def _one_exploit_by_path_for_reason(exploit_path: str) -> bool:
-    success: bool = True
+    logger.info(f'Running linter for exploit reason: {exploit_path}')
 
-    if '.reason' in exploit_path:
-        if exploit_path.endswith('.reason.yaml'):
-            schema_path: str = \
-                'forces/config/schemas/.reason.yaml'
-            validator = pykwalify.core.Core(
-                source_file=exploit_path,
+    success: bool = True
+    schema_path: str = 'forces/config/schemas/.reason.yaml'
+
+    try:
+        with open(exploit_path) as exploit_handle:
+            pykwalify.core.Core(
+                source_data=yaml.safe_load(exploit_handle),
                 schema_files=[
                     schema_path,
-                ])
-
-            try:
-                validator.validate(raise_exception=True)
-            except pykwalify.errors.SchemaError as exc:
-                logger.error(f'{exploit_path} must match schema')
-                logger.info()
-                logger.info(f'The schema can be found at: {schema_path}')
-                logger.info(f'The problem was: {exc}')
-                success = False
-        else:
-            logger.error(f'The name must conform: <id>.reason.yaml')
-            success = False
+                ],
+            ).validate(raise_exception=True)
+    except (pykwalify.errors.SchemaError, yaml.error.YAMLError) as exc:
+        logger.error(f'{exploit_path} must match schema')
+        logger.info()
+        logger.info(f'The schema can be found at: {schema_path}')
+        logger.info(f'The problem was: {exc}')
+        success = False
 
     return success
 
@@ -123,11 +118,10 @@ def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
     """Run all linters available over many exploits."""
     filter_str = filter_str or ''
     pattern_exp = f'subscriptions/{subs}/forces/*/exploits/*.exp'
-    pattern_reason = f'subscriptions/{subs}/forces/*/exploits/*.reason.*'
 
     return all(
         one_exploit_by_path(exploit_path)
-        for exploit_path in sorted(glob(pattern_exp) + glob(pattern_reason))
+        for exploit_path in sorted(glob(pattern_exp))
         if filter_str in exploit_path
     )
 

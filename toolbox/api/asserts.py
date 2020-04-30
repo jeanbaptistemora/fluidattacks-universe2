@@ -96,7 +96,7 @@ def _is_node_a_iast_result(node: NODE) -> bool:
         and _get_node_kind(node) in ('IAST', 'Generic')
 
 
-def _is_node_a_mock_result(node: NODE) -> bool:
+def _is_node_an_iexp_result(node: NODE) -> bool:
     """True if node contains parameter.metadata keys."""
     return 'parameters' in node \
         and 'metadata' in node['parameters'] \
@@ -192,8 +192,7 @@ def _get_node_dast_results(node: NODE) -> Iterator[Tuple[str, str, str]]:
 
 def _get_node_iast_results(node: NODE) -> Iterator[Tuple[str, str, str]]:
     """Yield (Kind, What, Where) for the given node vulnerabilities."""
-    if _is_node_a_mock_result(node):
-        # A mock
+    if _is_node_an_iexp_result(node):
         metadata = node['parameters']['metadata']
         description = metadata.get('description', '')
         attack_vector = metadata.get('attack_vector', '')
