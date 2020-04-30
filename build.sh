@@ -19,6 +19,7 @@ function decide_and_call_provisioner {
 
   # shellcheck disable=2016
       case "${job}" in
+        build_nix_caches ) provisioner="${job}";;
         build*           ) provisioner='build';;
         deploy_container_app) provisioner='build-and-docker';;
         deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;

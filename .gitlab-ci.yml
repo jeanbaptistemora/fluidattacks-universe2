@@ -15,6 +15,23 @@ stages:
     - branches
     - merge_requests
 
+.in_everywhere_except_build_nix_caches: &in_everywhere_except_build_nix_caches
+  except:
+    refs:
+      - schedules
+    variables:
+      - $build_nix_caches
+
+.in_master_except_build_nix_caches: &in_master_except_build_nix_caches
+  only:
+    refs:
+      - master
+  except:
+    refs:
+      - schedules
+    variables:
+      - $build_nix_caches
+
 .in_dev_branch: &in_dev_branch
   except:
     refs:
@@ -53,11 +70,6 @@ stages:
   except:
     refs:
       - triggers
-
-.in_master_branch_and_schedules_and_triggers: &in_master_branch_and_schedules_and_triggers
-  only:
-    refs:
-      - master
 
 .in_mrs_and_master_branch: &in_mrs_and_master_branch
   only:
@@ -111,6 +123,7 @@ stages:
 
 build_front:
   <<: *with_nix
+  <<: *in_everywhere_except_build_nix_caches
   image: "${CI_REGISTRY_IMAGE}/nix:build"
   stage: build
   retry: 1
@@ -169,7 +182,7 @@ deploy_k8s_back_ephemeral:
 #   https://gitlab.com/fluidattacks/serves/-/blob/0cb7556d236a3668bdcae64027941565e92131ad/build/include/helpers.sh#L180
 deploy_k8s_back:
   <<: *with_nix
-  <<: *in_master_branch_and_schedules_and_triggers
+  <<: *in_master_except_build_nix_caches
   image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
   needs: [deploy_container_app]
@@ -190,6 +203,7 @@ deploy_k8s_stop_ephemeral:
 
 deploy_mobile:
   <<: *with_nix
+  <<: *in_everywhere_except_build_nix_caches
   image: "${CI_REGISTRY_IMAGE}/nix:deploy-mobile"
   stage: deploy-app
   tags: [autoscaling-large]
@@ -199,12 +213,14 @@ deploy_mobile:
 
 deploy_container_deps_mobile:
   <<: *with_nix
+  <<: *in_everywhere_except_build_nix_caches
   image: "${CI_REGISTRY_IMAGE}/nix:docker"
   tags: [autoscaling-large]
   stage: build
 
 deploy_container_app:
   <<: *with_nix
+  <<: *in_everywhere_except_build_nix_caches
   image: "${CI_REGISTRY_IMAGE}/nix:build-and-docker"
   stage: build
   script:
@@ -231,6 +247,7 @@ build_nix_caches:
 
 deploy_front:
   <<: *with_nix
+  <<: *in_everywhere_except_build_nix_caches
   image: "${CI_REGISTRY_IMAGE}/nix:deploy-front"
   stage: deploy-app
   needs: [build_front]
