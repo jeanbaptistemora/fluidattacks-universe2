@@ -55,7 +55,7 @@ def print_tutorial() -> None:
             $ taint.py get coverage
                 Compute the coverage for the working subscription.
             $ taint.py get coverages
-                Compute the coverage for all subscriptions.
+                Compute the coverage for all groups.
 
         Admins only:
             $ taint.py database init
@@ -636,8 +636,8 @@ def row__logs__insert(
         conn.commit()
 
 
-def get_all_subscriptions(credentials: JSON) -> List[str]:
-    """Return a list with all subscriptions in the database."""
+def get_all_groups(credentials: JSON) -> List[str]:
+    """Return a list with all groups in the database."""
     with database(credentials) as (conn, curr):
         curr.execute("""
             SELECT
@@ -704,11 +704,11 @@ def get_files_with_state(file_state: str) -> None:
 
 
 def get_coverage(all_subs: bool = True) -> None:
-    """Compute the coverage for one or all subscriptions."""
+    """Compute the coverage for one or all groups."""
     if all_subs:
         previous_subs_name: str = get_subs_name()
         credentials: JSON = get_credentials()
-        for subs_name in get_all_subscriptions(credentials):
+        for subs_name in get_all_groups(credentials):
             set_subs_name(subs_name)
             get_coverage(all_subs=False)
         set_subs_name(previous_subs_name)
