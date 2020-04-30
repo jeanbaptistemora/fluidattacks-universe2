@@ -249,16 +249,16 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
     return verify_and_call
 
 
-def require_finding_access(func):
+def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
     """
     Require_finding_access decorator.
 
     Verifies that the current user has access to a given finding
     """
     @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
-        finding_id = kwargs.get('finding_id') \
+        finding_id = kwargs.get('finding_id', '') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
@@ -289,16 +289,16 @@ def require_finding_access(func):
     return verify_and_call
 
 
-def require_event_access(func):
+def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
     """
     Require_event_access decorator
 
     Verifies that the current user has access to a given event
     """
     @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
-        event_id = kwargs.get('event_id') \
+        event_id = kwargs.get('event_id', '') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
@@ -330,10 +330,10 @@ def require_event_access(func):
     return verify_and_call
 
 
-def cache_content(func):
+def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
     """Get cached content from a django view with a request object."""
     @functools.wraps(func)
-    def decorated(*args, **kwargs):
+    def decorated(*args, **kwargs) -> Callable[..., Any]:
         """Get cached content from a django view with a request object."""
         req = args[0]
         assert isinstance(req, HttpRequest)
@@ -360,10 +360,10 @@ def cache_content(func):
     return decorated
 
 
-def get_cached(func):
+def get_cached(func: Callable[..., Any]) -> Callable[..., Any]:
     """Get cached response from function if it exists."""
     @functools.wraps(func)
-    def decorated(*args, **kwargs):
+    def decorated(*args, **kwargs) -> Callable[..., Any]:
         """Get cached response from function if it exists."""
         uniq_id = "_".join([str(kwargs[x])[:24] for x in kwargs])
         key_name = \
@@ -382,10 +382,10 @@ def get_cached(func):
     return decorated
 
 
-def get_entity_cache_async(func):
+def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
     """Get cached response of a GraphQL entity if it exists."""
     @functools.wraps(func)
-    async def decorated(*args, **kwargs):
+    async def decorated(*args, **kwargs) -> Callable[..., Any]:
         """Get cached response from function if it exists."""
         gql_ent = args[0]
 
@@ -417,16 +417,16 @@ def get_entity_cache_async(func):
     return decorated
 
 
-def rename_kwargs(mapping):
+def rename_kwargs(mapping: Dict[str, str]) -> Callable[..., Any]:
     """Decorator to rename function's kwargs.
 
     Useful to perform breaking changes,
     with backwards compatibility.
     """
 
-    def wrapped(func):
+    def wrapped(func: Callable[..., Any]) -> Callable[..., Any]:
         @functools.wraps(func)
-        def decorated(*args, **kwargs):
+        def decorated(*args, **kwargs) -> Callable[..., Any]:
             kwargs = {
                 mapping.get(key, key): val
                 for key, val in kwargs.items()
