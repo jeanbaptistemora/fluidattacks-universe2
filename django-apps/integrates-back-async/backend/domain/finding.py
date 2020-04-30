@@ -25,7 +25,10 @@ from backend.exceptions import (
     FindingNotFound, IncompleteDraft, InvalidCommentParent, InvalidDraftTitle,
     InvalidFileSize, InvalidFileStructure, InvalidFileType, NotSubmitted,
 )
-from backend.utils import cvss, validations, findings as finding_utils
+from backend.utils import (
+    cvss, validations, findings as finding_utils,
+    vulnerabilities as vuln_utils
+)
 
 from backend.dal import (
     comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
@@ -855,22 +858,22 @@ def cast_new_vulnerabilities(finding_new: Dict[str, FindingType],
     where = '-'
     if finding_new.get('portsVulns'):
         finding['portsVulns'] = \
-            vuln_domain.group_specific(cast(List[str], finding_new.get('portsVulns')), 'ports')
-        where = vuln_domain.format_where(where, cast(List[Dict[str, str]], finding['portsVulns']))
+            vuln_utils.group_specific(cast(List[str], finding_new.get('portsVulns')), 'ports')
+        where = vuln_utils.format_where(where, cast(List[Dict[str, str]], finding['portsVulns']))
     else:
         # This finding does not have ports vulnerabilities
         pass
     if finding_new.get('linesVulns'):
         finding['linesVulns'] = \
-            vuln_domain.group_specific(cast(List[str], finding_new.get('linesVulns')), 'lines')
-        where = vuln_domain.format_where(where, cast(List[Dict[str, str]], finding['linesVulns']))
+            vuln_utils.group_specific(cast(List[str], finding_new.get('linesVulns')), 'lines')
+        where = vuln_utils.format_where(where, cast(List[Dict[str, str]], finding['linesVulns']))
     else:
         # This finding does not have lines vulnerabilities
         pass
     if finding_new.get('inputsVulns'):
         finding['inputsVulns'] = \
-            vuln_domain.group_specific(cast(List[str], finding_new.get('inputsVulns')), 'inputs')
-        where = vuln_domain.format_where(where, cast(List[Dict[str, str]], finding['inputsVulns']))
+            vuln_utils.group_specific(cast(List[str], finding_new.get('inputsVulns')), 'inputs')
+        where = vuln_utils.format_where(where, cast(List[Dict[str, str]], finding['inputsVulns']))
     else:
         # This finding does not have inputs vulnerabilities
         pass
