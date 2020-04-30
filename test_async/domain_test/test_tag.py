@@ -12,4 +12,6 @@ class TagTest(TestCase):
                 for project in projects]
         assert update_organization_indicators('fluid', projects)
         tag_info = tag_dal.get('fluid', 'test-projects')
+        expected_projects = ['oneshottest', 'unittesting']
         assert tag_info['mean_remediate_low_severity'] == 116
+        assert sorted(tag_info.get('projects', [])) == sorted(expected_projects)

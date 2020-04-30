@@ -1,4 +1,5 @@
 from typing import Dict, List, Union
+from decimal import Decimal
 import rollbar
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
@@ -14,7 +15,8 @@ def get(organization: str, tag: str) -> Dict[str, TagType]:
     return response.get('Item', {})
 
 
-def update(organization: str, tag: str, data: Dict[str, float]) -> bool:
+def update(organization: str, tag: str,
+           data: Dict[str, Union[List[str], Decimal]]) -> bool:
     success = False
     primary_keys = {'organization': organization, 'tag': tag}
     try:
@@ -42,8 +44,8 @@ def update(organization: str, tag: str, data: Dict[str, float]) -> bool:
     return success
 
 
-def get_attributes(
-        organization: str, tag: str, attributes: List[str]) -> Dict[str, str]:
+def get_attributes(organization: str, tag: str,
+                   attributes: List[str]) -> Dict[str, Union[List[str], str]]:
     item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
         'Key': {'organization': organization.lower(), 'tag': tag.lower()},
         'AttributesToGet': attributes
