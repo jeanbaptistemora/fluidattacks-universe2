@@ -23,6 +23,7 @@ async def resolve_report_mutation(_, info, **parameters):
 async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
     success = False
     project_name = parameters.get('project_name', '')
+    project_name = project_name.lower()
     report_type = parameters.get('report_type')
     user_info = util.get_jwt_content(info.context)
     user_email = user_info['user_email']
