@@ -68,18 +68,6 @@ def test_integrates_queries_resources():
     assert response.ok
 
 
-def test_integrates_mutations_update_access_token():
-    """Test integrates mutations."""
-    response = integrates.Mutations.update_access_token(API_TOKEN_BAD, 0)
-    assert not response.ok
-
-
-def test_integrates_mutations_invalidate_access_token():
-    """Test integrates mutations."""
-    response = integrates.Mutations.invalidate_access_token(API_TOKEN_BAD)
-    assert not response.ok
-
-
 def test_integrates_mutations_approve_vulnerability():
     """Test integrates mutations."""
     uuid = str(uuid4())

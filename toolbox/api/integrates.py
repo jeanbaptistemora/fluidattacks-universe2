@@ -283,37 +283,6 @@ class Mutations:
     """Namespace for Integrates's GraphQL Mutations."""
 
     @staticmethod
-    def update_access_token(api_token: str, expiration_time: int) -> Response:
-        """UpdateAccessToken."""
-        logger.debug(f'Mutations.update_access_token('
-                     f'expiration_time={expiration_time})')
-        body: str = """
-            mutation UpdateAccessToken ($expirationTime: Int!) {
-                updateAccessToken(expirationTime: $expirationTime) {
-                    sessionJwt
-                    success
-                }
-            }
-            """
-        params: dict = {
-            'expirationTime': expiration_time,
-        }
-        return request(api_token, body, params)
-
-    @staticmethod
-    def invalidate_access_token(api_token: str) -> Response:
-        """InvalidateAccessToken."""
-        logger.debug(f'Mutations.invalidate_access_token()')
-        body: str = """
-            mutation {
-                invalidateAccessToken {
-                    success
-                }
-            }
-            """
-        return request(api_token, body)
-
-    @staticmethod
     def upload_file(api_token: str,
                     identifier: str,
                     file_path: str) -> Response:
@@ -384,3 +353,5 @@ def clear_cache():
     Queries.me.cache_clear()
     Queries.project.cache_clear()
     Queries.finding.cache_clear()
+    Queries.resources.cache_clear()
+    Queries.wheres.cache_clear()
