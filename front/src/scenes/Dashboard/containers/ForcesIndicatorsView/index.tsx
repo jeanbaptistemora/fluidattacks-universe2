@@ -56,11 +56,11 @@ const forcesIndicatorsView: React.FC<IForcesIndicatorsViewBaseProps> =
             const executionsInAnyModeWithVulns: IForcesExecution[] =
               executions.filter((execution: IForcesExecution): boolean => (
                 execution.vulnerabilities.numOfVulnerabilitiesInExploits > 0
-                  || execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits > 0));
+                  || execution.vulnerabilities.numOfVulnerabilitiesInIntegratesExploits > 0));
             const executionsInStrictModeWithVulns: IForcesExecution[] =
               executionsInStrictMode.filter((execution: IForcesExecution): boolean => (
                 execution.vulnerabilities.numOfVulnerabilitiesInExploits > 0
-                  || execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits > 0));
+                  || execution.vulnerabilities.numOfVulnerabilitiesInIntegratesExploits > 0));
 
             const executionsInAnyModeNumber: number = executions.length;
             const executionsInAnyModeWithVulnsNumber: number = executionsInAnyModeWithVulns.length;

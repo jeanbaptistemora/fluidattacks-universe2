@@ -78,7 +78,7 @@ class ForcesExecutionsTests(TestCase):
                     who
                     where
                   }
-                  mockedExploits {
+                  integratesExploits {
                     kind
                     who
                     where
@@ -89,7 +89,7 @@ class ForcesExecutionsTests(TestCase):
                     where
                   }
                   numOfVulnerabilitiesInExploits
-                  numOfVulnerabilitiesInMockedExploits
+                  numOfVulnerabilitiesInIntegratesExploits
                   numOfVulnerabilitiesInAcceptedExploits
                 }
               }
@@ -118,7 +118,7 @@ class ForcesExecutionsTests(TestCase):
                     "where": "HTTP/Implementation"
                 }
             ],
-            "mockedExploits": [
+            "integratesExploits": [
                 {
                     "kind": "DAST",
                     "who": "https://test.com/test",
@@ -133,7 +133,7 @@ class ForcesExecutionsTests(TestCase):
                 }
             ],
             "numOfVulnerabilitiesInExploits": 1,
-            "numOfVulnerabilitiesInMockedExploits": 1,
+            "numOfVulnerabilitiesInIntegratesExploits": 1,
             "numOfVulnerabilitiesInAcceptedExploits": 1
         }
         assert executions[1]['date'] == '2020-02-19T19:04:33+00:00'
@@ -148,7 +148,7 @@ class ForcesExecutionsTests(TestCase):
         assert executions[1]['strictness'] == 'strict'
         assert executions[1]['vulnerabilities'] == {
             "exploits": [],
-            "mockedExploits": [],
+            "integratesExploits": [],
             "acceptedExploits": [
                 {
                     "kind": "SAST",
@@ -177,6 +177,6 @@ class ForcesExecutionsTests(TestCase):
                 }
             ],
             "numOfVulnerabilitiesInExploits": 0,
-            "numOfVulnerabilitiesInMockedExploits": 0,
+            "numOfVulnerabilitiesInIntegratesExploits": 0,
             "numOfVulnerabilitiesInAcceptedExploits": 5
         }

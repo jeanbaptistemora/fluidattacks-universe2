@@ -21,8 +21,12 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 def match_fields(my_dict: Dict[str, Any]) -> ForcesExecutionType:
     """Replace fields from response according to schema."""
     replace_tuple = (
+        ('mocked_exploits',
+         'integrates_exploits'),
         ('vulnerability_count_mocked_exploits',
-         'num_of_vulnerabilities_in_mocked_exploits'),
+         'num_of_vulnerabilities_in_integrates_exploits'),
+        ('vulnerability_count_integrates_exploits',
+         'num_of_vulnerabilities_in_integrates_exploits'),
         ('vulnerability_count_exploits',
          'num_of_vulnerabilities_in_exploits'),
         ('vulnerability_count_accepted_exploits',

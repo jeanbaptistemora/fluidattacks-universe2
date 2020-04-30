@@ -9,7 +9,7 @@ export const GET_INDICATORS: DocumentNode = gql`
         vulnerabilities {
           numOfVulnerabilitiesInAcceptedExploits
           numOfVulnerabilitiesInExploits
-          numOfVulnerabilitiesInMockedExploits
+          numOfVulnerabilitiesInIntegratesExploits
         }
       }
     }

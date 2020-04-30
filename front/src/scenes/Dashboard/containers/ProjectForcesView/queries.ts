@@ -23,14 +23,14 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
             who
             where
           }
-          mockedExploits {
+          integratesExploits {
             kind
             who
             where
           }
           numOfVulnerabilitiesInAcceptedExploits
           numOfVulnerabilitiesInExploits
-          numOfVulnerabilitiesInMockedExploits
+          numOfVulnerabilitiesInIntegratesExploits
         }
       }
     }

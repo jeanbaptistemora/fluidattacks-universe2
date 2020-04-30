@@ -44,10 +44,10 @@ export interface IFoundVulnerabilities {
 export interface IVulnerabilities {
   acceptedExploits: IExploitResult[];
   exploits: IExploitResult[];
-  mockedExploits: IExploitResult[];
+  integratesExploits: IExploitResult[];
   numOfVulnerabilitiesInAcceptedExploits: number;
   numOfVulnerabilitiesInExploits: number;
-  numOfVulnerabilitiesInMockedExploits: number;
+  numOfVulnerabilitiesInIntegratesExploits: number;
 }
 
 export interface IExecution {
@@ -84,10 +84,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     vulnerabilities: {
       acceptedExploits: [],
       exploits: [],
-      mockedExploits: [],
+      integratesExploits: [],
       numOfVulnerabilitiesInAcceptedExploits: 0,
       numOfVulnerabilitiesInExploits: 0,
-      numOfVulnerabilitiesInMockedExploits: 0,
+      numOfVulnerabilitiesInIntegratesExploits: 0,
     },
   };
   const [currentRow, updateRow] = React.useState(defaultCurrentRow);
@@ -131,11 +131,11 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     const acceptedExploits: Dictionary[] = vulnerabilities.acceptedExploits.map((elem: IExploitResult) => ({
       ...elem, riskState: translate.t("project.forces.found_vulnerabilities.accepted"),
     }));
-    const mockedExploits: Dictionary[] = vulnerabilities.mockedExploits.map((elem: IExploitResult) => ({
+    const integratesExploits: Dictionary[] = vulnerabilities.integratesExploits.map((elem: IExploitResult) => ({
       ...elem, riskState: translate.t("project.forces.found_vulnerabilities.not_exploitable"),
     }));
 
-    return exploits.concat(acceptedExploits.concat(mockedExploits));
+    return exploits.concat(acceptedExploits.concat(integratesExploits));
   };
 
   const formatDate: ((date: string) => string) = (date: string): string => {
@@ -257,9 +257,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               const foundVulnerabilities: IFoundVulnerabilities = {
                 accepted: execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
                 exploitable: execution.vulnerabilities.numOfVulnerabilitiesInExploits,
-                notExploitable: execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits,
+                notExploitable: execution.vulnerabilities.numOfVulnerabilitiesInIntegratesExploits,
                 total: execution.vulnerabilities.numOfVulnerabilitiesInExploits
-                  + execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits
+                  + execution.vulnerabilities.numOfVulnerabilitiesInIntegratesExploits
                   + execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
               };
               const status: ReactElement = statusFormatter(translate.t(

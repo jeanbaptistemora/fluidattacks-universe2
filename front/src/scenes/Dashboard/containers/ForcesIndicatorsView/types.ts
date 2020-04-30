@@ -5,7 +5,7 @@ export interface IForcesIndicatorsViewBaseProps {
 export interface IForcesVulnerabilities {
   numOfVulnerabilitiesInAcceptedExploits: number;
   numOfVulnerabilitiesInExploits: number;
-  numOfVulnerabilitiesInMockedExploits: number;
+  numOfVulnerabilitiesInIntegratesExploits: number;
 }
 
 export interface IForcesExecution {

@@ -43,7 +43,7 @@
                                     }
                                 ]
                             },
-                            "vulnerability_count_mocked_exploits": {
+                            "vulnerability_count_integrates_exploits": {
                                 "N": "1"
                             },
                             "vulnerability_count_exploits": {
@@ -69,7 +69,7 @@
                                     }
                                 ]
                             },
-                            "mocked_exploits": {
+                            "integrates_exploits": {
                                 "L": [
                                   {
                                       "M": {
@@ -198,7 +198,7 @@
                                     }
                                 ]
                             },
-                            "vulnerability_count_mocked_exploits": {
+                            "vulnerability_count_integrates_exploits": {
                                 "N": "0"
                             },
                             "vulnerability_count_exploits": {
@@ -210,7 +210,7 @@
                             "exploits": {
                                 "L": []
                             },
-                            "mocked_exploits": {
+                            "integrates_exploits": {
                                 "L": []
                             }
                         }
@@ -325,7 +325,7 @@
                                     }
                                 ]
                             },
-                            "vulnerability_count_mocked_exploits": {
+                            "vulnerability_count_integrates_exploits": {
                                 "N": "0"
                             },
                             "vulnerability_count_exploits": {
@@ -337,7 +337,7 @@
                             "exploits": {
                                 "L": []
                             },
-                            "mocked_exploits": {
+                            "integrates_exploits": {
                                 "L": []
                             }
                         }

@@ -228,10 +228,10 @@ type ForcesExecution {
 
 type ExecutionVulnerabilities {
     exploits: [ExploitResult!]
-    mockedExploits: [ExploitResult!]
+    integratesExploits: [ExploitResult!]
     acceptedExploits: [ExploitResult!]
     numOfVulnerabilitiesInExploits: Int
-    numOfVulnerabilitiesInMockedExploits: Int
+    numOfVulnerabilitiesInIntegratesExploits: Int
     numOfVulnerabilitiesInAcceptedExploits: Int
 }
 

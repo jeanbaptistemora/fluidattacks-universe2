@@ -72,7 +72,7 @@ describe("ForcesView", () => {
                       who: "https://test.com/test",
                     },
                   ],
-                  mockedExploits: [
+                  integratesExploits: [
                     {
                       kind: "DAST",
                       where: "HTTP/Implementation",
@@ -81,7 +81,7 @@ describe("ForcesView", () => {
                   ],
                   numOfVulnerabilitiesInAcceptedExploits: 1,
                   numOfVulnerabilitiesInExploits: 1,
-                  numOfVulnerabilitiesInMockedExploits: 1,
+                  numOfVulnerabilitiesInIntegratesExploits: 1,
                 },
               },
             ],

@@ -30,7 +30,7 @@ describe("ForcesIndicatorsView", () => {
                 vulnerabilities: {
                   numOfVulnerabilitiesInAcceptedExploits: 1,
                   numOfVulnerabilitiesInExploits: 2,
-                  numOfVulnerabilitiesInMockedExploits: 3,
+                  numOfVulnerabilitiesInIntegratesExploits: 3,
                 },
               },
             ],
