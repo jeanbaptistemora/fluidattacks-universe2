@@ -31,8 +31,16 @@ def s3_ls(bucket: str, path: str, endpoint_url: str = None) -> List[str]:
         cwd='.',
         env={},
     )
-    response = json.loads(stdout)
-    return list(map(lambda x: x['Prefix'], response['CommonPrefixes']))
+    try:
+        response = json.loads(stdout)
+        return list(map(lambda x: x['Prefix'], response['CommonPrefixes']))
+    except KeyError as key_error:
+        logger.error('Looks like response does not have Common Prefixes:')
+        logger.error(key_error)
+    except json.decoder.JSONDecodeError as json_decode_error:
+        logger.error('Looks like response was not parseable')
+        logger.error(json_decode_error)
+    return []
 
 
 def s3_mv_active_to_inactive(
