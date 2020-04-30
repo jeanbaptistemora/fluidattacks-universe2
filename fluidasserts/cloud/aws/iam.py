@@ -597,7 +597,9 @@ def have_full_access_policies(key_id: str,
         service='iam',
         func='list_policies',
         param='Policies',
-        retry=retry)
+        retry=retry,
+        Scope='Local',
+        OnlyAttached=True)
 
     msg_open: str = 'Policies allow full administrative privileges'
     msg_closed: str = 'Policies does not allow full administrative privileges'
@@ -605,12 +607,6 @@ def have_full_access_policies(key_id: str,
     vulns, safes = [], []
 
     for policy in policies:
-        if policy['AttachmentCount'] == 0:
-            # AWS built-in policies cannot be deleted
-            # Given that, we'll check if they are used and if so
-            # we'll report them if vulnerable
-            continue
-
         pol_arn = policy['Arn']
         pol_ver = aws.run_boto3_func(
             key_id=key_id,
@@ -1119,15 +1115,11 @@ def has_wildcard_resource_on_write_action(key_id: str,
         boto3_client_kwargs={'aws_session_token': session_token},
         service='iam',
         func='list_policies',
-        retry=retry)['Policies']
+        retry=retry,
+        Scope='Local',
+        OnlyAttached=True)['Policies']
 
     for policy in policies:
-        if policy['AttachmentCount'] == 0:
-            # AWS built-in policies cannot be deleted
-            # Given that, we'll check if they are used and if so
-            # we'll report them if vulnerable
-            continue
-
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
@@ -1181,15 +1173,11 @@ def has_privileges_over_iam(key_id: str,
         secret=secret,
         boto3_client_kwargs={'aws_session_token': session_token},
         service='iam',
-        func='list_policies')['Policies']
+        func='list_policies',
+        Scope='Local',
+        OnlyAttached=True)['Policies']
 
     for policy in policies:
-        if policy['AttachmentCount'] == 0:
-            # AWS built-in policies cannot be deleted
-            # Given that, we'll check if they are used and if so
-            # we'll report them if vulnerable
-            continue
-
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
@@ -1266,6 +1254,70 @@ def users_with_multiple_access_keys(key_id: str,
     return _get_result_as_tuple(
         service='IAM',
         objects='Users',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_full_access_to_ssm(key_id: str,
+                           secret: str,
+                           session_token: str = None,
+                           retry: bool = True,
+                           **boto3_kwargs):
+    """
+    Check if there are policy documents that allow full access to ssm agent.
+
+    SSM allows everyone with access to run commands as root on EC2 instances
+
+    https://cloudonaut.io/aws-ssm-is-a-trojan-horse-fix-it-now/
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are policy documents that allow full
+                access to ssm.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open = 'Policies have privileges over iam.'
+    msg_closed = 'Policies have no privileges over iam.'
+    vulns, safes = [], []
+    policies = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={
+            'aws_session_token': session_token, **boto3_kwargs},
+        service='iam',
+        func='list_policies',
+        Scope='Local',
+        OnlyAttached=True)['Policies']
+
+    for policy in policies:
+        policy_version = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            boto3_client_kwargs={
+                'aws_session_token': session_token, **boto3_kwargs},
+            service='iam',
+            func='get_policy_version',
+            param='PolicyVersion',
+            PolicyArn=policy['Arn'],
+            VersionId=policy['DefaultVersionId'],
+            retry=retry)
+
+        for sts in aws.force_list(policy_version['Document']['Statement']):
+            vulnerable = sts['Effect'] == 'Allow' and 'Resource' in sts and \
+                aws.resource_all(sts['Resource']) and 'ssm:*' in sts['Action']
+            (vulns if vulnerable else safes).append(
+                (policy['Arn'], 'has full access over ssm agent'))
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Policies',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,

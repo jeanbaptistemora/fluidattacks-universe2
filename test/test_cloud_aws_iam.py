@@ -124,9 +124,21 @@ def test_users_with_multiple_access_keys_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_full_access_to_ssm_open():
+    """Search policies that allow full access to SSM."""
+    assert iam.has_full_access_to_ssm(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_has_full_access_to_ssm_close():
+    """Search policies that allow full access to SSM."""
+    assert iam.has_full_access_to_ssm(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD, retry=False).is_unknown()
 
 
 def test_has_old_ssh_public_keys_close():
