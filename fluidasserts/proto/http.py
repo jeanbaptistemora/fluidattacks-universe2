@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple, Union
 # 3rd party imports
 from difflib import SequenceMatcher
 from urllib.parse import parse_qsl
+from urllib.parse import urlparse
 from pytz import timezone
 from bs4 import BeautifulSoup
 from viewstate import ViewState, ViewStateException
@@ -1252,8 +1253,10 @@ def has_xsleak_by_frames_discrepancy(url_a: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(http.ParameterError, http.ConnError)
-def has_not_subresource_integrity(
-        url: str, *request_args, **request_kwargs) -> tuple:
+def has_not_subresource_integrity(url: str,
+                                  *request_args,
+                                  trusted_hosts: List[str] = None,
+                                  **request_kwargs) -> tuple:
     r"""
     Check if elements fetched by the provided url have `SRI`.
 
@@ -1265,6 +1268,8 @@ def has_not_subresource_integrity(
     :param \*\*request_kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
+    trusted_hosts = trusted_hosts or []
+    trusted_hosts.append(urlparse(url).netloc)
     session = http.HTTPSession(url, *request_args, **request_kwargs)
     html = session.response.text
     fingerprint = session.get_fingerprint()
@@ -1275,20 +1280,25 @@ def has_not_subresource_integrity(
     safes: List[Unit] = []
 
     for elem_types in ('link', 'script'):
-        vulnerable: bool = any(
-            elem.get('integrity') is None for elem in soup(elem_types))
-        asserts: str = 'has not' if vulnerable else 'has'
+        lines_vuln, lines_safe = [], []
+        for elem in soup(elem_types):
+            vulnerable = elem.get('integrity') is None if urlparse(
+                elem.get('href')).netloc not in trusted_hosts else True
 
-        unit: Unit = Unit(
-            where=url,
-            source=f'HTTP/Response/HTML/Tag/{elem_types}',
-            specific=[f'{elem_types} element {asserts} integrity attributes'],
-            fingerprint=fingerprint)
+            (lines_vuln if vulnerable else lines_safe).append(elem.sourceline)
 
-        if vulnerable:
-            vulns.append(unit)
-        else:
-            safes.append(unit)
+        if lines_safe:
+            safes.append(Unit(
+                where=url,
+                source=f'HTTP/Response/HTML/Tag/{elem_types}',
+                specific=lines_safe,
+                fingerprint=fingerprint))
+        if lines_vuln:
+            vulns.append(Unit(
+                where=url,
+                source=f'HTTP/Response/HTML/Tag/{elem_types}',
+                specific=lines_vuln,
+                fingerprint=fingerprint))
 
     if vulns:
         msg = 'Site does not implement Subresource Integrity Checks'
