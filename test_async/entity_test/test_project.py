@@ -107,7 +107,7 @@ class ProjectTests(TestCase):
         assert result['data']['project']['hasDrills']
         assert result['data']['project']['hasForces']
         assert len(result['data']['project']['findings']) == 6
-        assert result['data']['project']['openVulnerabilities'] == 31
+        assert result['data']['project']['openVulnerabilities'] == 32
         assert result['data']['project']['closedVulnerabilities'] == 8
         assert 'lastClosingVuln' in result['data']['project']
         assert result['data']['project']['pendingClosingCheck'] == 2
