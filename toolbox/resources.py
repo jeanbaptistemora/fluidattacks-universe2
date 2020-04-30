@@ -14,7 +14,7 @@ import urllib.parse
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
 from subprocess import Popen, PIPE, check_output
-from typing import Dict, Iterator
+from typing import Dict
 
 # Third parties imports
 from progress.bar import ChargingBar
@@ -508,86 +508,3 @@ def fluidcounts(path):
         if os.path.exists('ignored.txt'):
             os.remove('ignored.txt')
     return filepaths
-
-
-def does_project_exist(subs: str) -> bool:
-    path = f"subscriptions/{subs}"
-    if not os.path.exists(path):
-        logger.info(f"There is no project with the name: {subs}")
-        return False
-    return True
-
-
-def does_project_have_fusion_folder(subs: str) -> bool:
-    path = f"subscriptions/{subs}/fusion"
-    if not os.path.exists(path):
-        logger.info(f"There is no fusion folder in the subscription")
-        return False
-    return True
-
-
-def yield_subscription_repositories(subs: str) -> Iterator[str]:
-    repositories = os.listdir(f"subscriptions/{subs}/fusion")
-    yield from repositories
-
-
-def yield_remote_repositories(subs: str) -> Iterator[str]:
-    remote_path = f"'s3://continuous-repositories/{subs}/active/'"
-    list_command_s3 = f"aws s3 ls {remote_path}"
-    ls_s3 = utils.generic.run_command_old(list_command_s3, ".", {})
-    repos_set = list(ls_s3[1].replace(" ", "")
-                             .replace("PRE", "")
-                             .replace("/", "")
-                             .splitlines())
-    yield from repos_set
-
-
-def sync_inactive_repo_to_s3(subs: str, repo: str):
-    active_s3_bucket = f"s3://continuous-repositories/{subs}/active/{repo}/"
-    inactive_s3_bucket = (f"s3://continuous-repositories/"
-                          f"{subs}/inactive/{repo}/")
-    if not is_in_local(subs, repo):
-        logger.info(f"Moving {repo} to inactive folder in s3")
-        sync_command = ["aws", "s3", "mv", active_s3_bucket,
-                        inactive_s3_bucket,
-                        "--recursive",
-                        "--sse", "AES256"]
-        subprocess.run(sync_command, check=True)
-        logger.info(f"Repo {repo} moved to inactive folder!")
-
-
-def sync_active_repo_to_s3(subs: str, repo: str):
-    active_s3_bucket = f"s3://continuous-repositories/{subs}/active/{repo}/"
-    logger.info(f"Uploading {repo} to s3")
-    subs_path = f"subscriptions/{subs}/fusion/{repo}"
-    sync_command = ["aws", "s3", "sync", subs_path, active_s3_bucket,
-                    "--sse", "AES256"]
-    subprocess.run(sync_command, check=True)
-    logger.info(f"Repo {repo} sync completed!")
-
-
-def is_in_s3(subs: str, repo: str) -> bool:
-    repos_set = set(yield_remote_repositories(subs))
-    return repo in repos_set
-
-
-def is_in_local(subs: str, repo: str) -> bool:
-    local_path = f"subscriptions/{subs}/fusion/"
-    repos_set = set(os.listdir(local_path))
-    return repo in repos_set
-
-
-def sync_repositories_to_s3(subs: str) -> bool:
-    if not does_project_exist(subs) or\
-       not does_project_have_fusion_folder(subs):
-        return False
-    remote_repositories = yield_remote_repositories(subs)
-    local_repositories = yield_subscription_repositories(subs)
-    utils.generic.aws_login(f"continuous-{subs}")
-    logger.info("Checking inactive repositories")
-    for repo in remote_repositories:
-        sync_inactive_repo_to_s3(subs, repo)
-    logger.info("Checking active repositories")
-    for repo in local_repositories:
-        sync_active_repo_to_s3(subs, repo)
-    return True
