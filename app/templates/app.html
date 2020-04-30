@@ -1,5 +1,4 @@
 {% load mixpanel %}
-{% load intercom %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +32,7 @@
         "$last_login": new Date(),
       });
     var userName = "{{ request.session.first_name }}";
+    var fullName = "{{ request.session.first_name }} " + "{{ request.session.last_name }}"
     var userEmail = "{{ request.session.username }}";
     var userOrganization = "{{ request.session.company }}";
     if (location.toString().indexOf("localhost:8000") == -1){
@@ -46,11 +46,17 @@
       }
       </script>
     <script src="{% static 'app/delighted.js' %}" type="text/javascript"></script>
-    {% if "@fluidattacks.com" in request.session.username or request.session.username == "juancarr@bancolombia.com.co" %}
     <!-- Start of fluidattacks Zendesk Widget script -->
     <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=dc2bbf98-b773-4e25-ac9f-6cb800f7d293"></script>
     <!-- End of fluidattacks Zendesk Widget script -->
-    {% endif %}
+    <script type="text/javascript">
+      zE(function() {
+        zE.identify({
+          name: fullName,
+          email: userEmail
+        });
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
@@ -61,6 +67,5 @@
     {% endif %}
     <script src="https://rum-static.pingdom.net/pa-5ae7406129ccc50006000057.js" async></script>
     {% csrf_token %}
-    {% intercom_tag %}
   </body>
 </html>

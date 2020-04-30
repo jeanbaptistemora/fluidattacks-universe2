@@ -160,7 +160,6 @@ def app(request):
 def logout(request):
     """Close a user's active session"""
 
-    HttpResponse("<script>Intercom('shutdown');</script>")
     try:
         request.session.flush()
     except KeyError:

@@ -25,7 +25,7 @@ import rollbar
 
 from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
     FI_DB_HOST, FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, \
-    FI_MIXPANEL_API_TOKEN, FI_INTERCOM_APPID, FI_INTERCOM_SECURE_KEY, \
+    FI_MIXPANEL_API_TOKEN, \
     FI_GOOGLE_OAUTH2_KEY, FI_DEBUG, \
     FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
     FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, \
@@ -75,7 +75,6 @@ INSTALLED_APPS = [
     'social_django',
     'django_crontab',
     'analytical',
-    'django_intercom',
     'storages',
     'channels',
     'backend',
@@ -408,14 +407,6 @@ USE_X_FORWARDED_HOST = True
 MIXPANEL_API_TOKEN = FI_MIXPANEL_API_TOKEN
 ANALYTICAL_AUTO_IDENTIFY = False
 
-# Intercom
-INTERCOM_APPID = FI_INTERCOM_APPID
-INTERCOM_SECURE_KEY = FI_INTERCOM_SECURE_KEY
-INTERCOM_USER_DATA_CLASS = 'app.pipeline.intercom_custom_data.IntercomUserData'
-INTERCOM_INCLUDE_USERID = False
-INTERCOM_CUSTOM_DATA_CLASSES = [
-    'app.pipeline.intercom_custom_data.IntercomCustomData',
-]
 
 if DEBUG:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/integrates/registration'
