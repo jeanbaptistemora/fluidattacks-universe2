@@ -1,11 +1,8 @@
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import _ from "lodash";
 import React from "react";
 import { Can } from "./Can/index";
 import { authzContext, userLevelPermissions } from "./config";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Authorization", () => {
 

@@ -1,10 +1,7 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProjectBox } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
 

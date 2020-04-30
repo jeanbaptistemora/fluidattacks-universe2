@@ -1,12 +1,9 @@
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import store from "../../../../store";
 import { GenericForm } from "../GenericForm";
 import { evidenceImage as EvidenceImage } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Evidence image", () => {
 

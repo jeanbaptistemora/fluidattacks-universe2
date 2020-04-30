@@ -1,11 +1,8 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { useStoredState } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Custom utility hooks", () => {
 

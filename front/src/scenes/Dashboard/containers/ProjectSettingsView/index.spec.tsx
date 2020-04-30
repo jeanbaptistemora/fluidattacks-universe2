@@ -1,10 +1,7 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -15,8 +12,6 @@ import { authzContext } from "../../../../utils/authz/config";
 import { ProjectSettingsView } from "./index";
 import { GET_ENVIRONMENTS, GET_REPOSITORIES, GET_TAGS } from "./queries";
 import { ISettingsViewProps } from "./types";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ProjectSettingsView", () => {
 

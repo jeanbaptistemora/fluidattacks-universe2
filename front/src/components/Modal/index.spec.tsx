@@ -1,10 +1,7 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 import { Button, ModalBody, ModalFooter, ModalHeader, ModalTitle } from "react-bootstrap";
 import { Modal } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 const functionMock: (() => void) = (): void => undefined;
 

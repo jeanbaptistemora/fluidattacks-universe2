@@ -1,6 +1,5 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -8,8 +7,6 @@ import { Provider } from "react-redux";
 import store from "../../../../store";
 import { DescriptionView, DescriptionViewProps } from "./index";
 import { GET_FINDING_DESCRIPTION } from "./queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Finding Description", () => {
 

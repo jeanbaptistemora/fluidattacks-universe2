@@ -1,11 +1,8 @@
 import { PureAbility } from "@casl/ability";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import * as React from "react";
 import { authzContext } from "../../../../utils/authz/config";
 import { FindingActions } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("FindingActions", (): void => {
 

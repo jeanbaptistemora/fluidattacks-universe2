@@ -1,10 +1,7 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import * as React from "react";
 import { Provider } from "react-redux";
 import store from "../../../../store/index";
@@ -12,8 +9,6 @@ import { authzContext } from "../../../../utils/authz/config";
 import { HomeView } from "./index";
 import { PROJECTS_QUERY } from "./queries";
 import { IHomeViewProps } from "./types";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("HomeView", () => {
 

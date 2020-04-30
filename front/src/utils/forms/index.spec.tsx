@@ -1,5 +1,4 @@
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import { Field } from "redux-form";
@@ -10,8 +9,6 @@ import {
   autocompleteTextField, dateField, dropdownField, fileInputField, phoneNumberField, tagInputField, textAreaField,
   textField,
 } from "./fields";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Form fields", () => {
 

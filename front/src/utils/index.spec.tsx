@@ -1,13 +1,9 @@
-import { configure } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { ConfigurableValidator } from "revalidate";
 import {
   alphaNumeric, isLowerDate, isValidDate, isValidFileName, isValidFileSize,
   minLength, numberBetween, numeric, required, validEmail, validEvidenceImage,
   validExploitFile, validRecordsFile, validTag,
 } from "./validations";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Validations", () => {
 

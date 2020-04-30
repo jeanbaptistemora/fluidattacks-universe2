@@ -1,8 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
+import { mount, ReactWrapper } from "enzyme";
 import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -14,7 +11,6 @@ import store from "../../../../store";
 import { EvidenceView } from "./index";
 import { GET_FINDING_EVIDENCES } from "./queries";
 
-configure({ adapter: new ReactSixteenAdapter() });
 describe("FindingEvidenceView", () => {
 
   const mockProps: RouteComponentProps<{ findingId: string }> = {

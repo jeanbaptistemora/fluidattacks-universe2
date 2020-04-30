@@ -1,6 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import _ from "lodash";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -11,8 +10,6 @@ import wait from "waait";
 import store from "../../../../store";
 import { WelcomeView } from "./index";
 import { GET_USER_AUTHORIZATION } from "./queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Welcome view", () => {
 

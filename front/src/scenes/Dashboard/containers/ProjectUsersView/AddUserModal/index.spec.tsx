@@ -1,9 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import React from "react";
 import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
@@ -11,8 +8,6 @@ import wait from "waait";
 import { addUserModal as AddUserModal } from "./index";
 import { GET_USER } from "./queries";
 import { IAddUserModalProps } from "./types";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 const functionMock: (() => void) = (): void => undefined;
 

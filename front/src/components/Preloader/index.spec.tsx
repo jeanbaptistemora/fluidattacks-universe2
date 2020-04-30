@@ -1,11 +1,8 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 import { default as loadingAnim } from "../../resources/loading.gif";
 import { Preloader } from "./index";
 import { default as style } from "./index.css";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Preloader", () => {
 

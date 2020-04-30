@@ -1,13 +1,10 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 import { BreadcrumbItem } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
 import translate from "../../../../utils/translations/translate";
 import { navbarComponent as NavbarComponent } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Navbar", () => {
 

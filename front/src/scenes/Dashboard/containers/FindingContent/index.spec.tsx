@@ -1,10 +1,7 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -19,8 +16,6 @@ import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
 } from "./queries";
 import { IFindingContentProps } from "./types";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 jest.mock("../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");

@@ -1,9 +1,6 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 import { FileInput } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("File input", () => {
   it("should return a function", () => {

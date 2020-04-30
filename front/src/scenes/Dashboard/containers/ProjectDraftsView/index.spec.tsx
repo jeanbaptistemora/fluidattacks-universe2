@@ -1,10 +1,7 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
-import fetchMock, { FetchMockStatic } from "fetch-mock";
+import { mount, ReactWrapper } from "enzyme";
+import { FetchMockStatic } from "fetch-mock";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import _fetch from "isomorphic-fetch";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -14,12 +11,7 @@ import { ProjectDraftsView } from "./index";
 import { GET_DRAFTS } from "./queries";
 import { IProjectDraftsBaseProps } from "./types";
 
-configure({ adapter: new ReactSixteenAdapter() });
-
-(global as NodeJS.Global & { fetch: typeof fetch }).fetch = _fetch;
-jest.mock("isomorphic-fetch", () => fetchMock.sandbox());
-
-const mockedFetch: FetchMockStatic = _fetch as unknown as FetchMockStatic;
+const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
 const baseUrl: string = "https://spreadsheets.google.com/feeds/list";
 const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
 mockedFetch.mock(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json&min-row=2`, {

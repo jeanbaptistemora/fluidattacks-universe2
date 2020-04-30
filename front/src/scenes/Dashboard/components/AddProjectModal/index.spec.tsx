@@ -1,16 +1,11 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
+import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import store from "../../../../store";
 import { AddProjectModal } from "./index";
 import { PROJECTS_NAME_QUERY } from "./queries";
 import { IProjectName } from "./types";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("AddProjectModal component", () => {
   it("should render add project modal", () => {

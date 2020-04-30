@@ -1,16 +1,11 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import _ from "lodash";
 import * as React from "react";
 import { MemoryRouter, RouteComponentProps } from "react-router";
 import wait from "waait";
 import { EventContent } from "./index";
 import { GET_EVENT_HEADER } from "./queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("EventContent", () => {
   const mockProps: RouteComponentProps<{ eventId: string }> = {

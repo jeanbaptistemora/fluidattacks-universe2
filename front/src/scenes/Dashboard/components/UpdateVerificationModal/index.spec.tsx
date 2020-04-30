@@ -1,9 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -14,8 +11,6 @@ import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { GET_VULNERABILITIES } from "../Vulnerabilities/queries";
 import { UpdateVerificationModal } from "./index";
 import { REQUEST_VERIFICATION_VULN, VERIFY_VULNERABILITIES } from "./queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("update verification component", () => {
   const mocksVulns: MockedResponse = {

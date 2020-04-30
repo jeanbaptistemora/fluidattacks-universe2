@@ -1,11 +1,9 @@
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { approveFormatter, changeFormatter, deleteFormatter, statusFormatter } from "./formatters";
 import { DataTableNext } from "./index";
 import { IHeader } from "./types";
 
-configure({ adapter: new ReactSixteenAdapter() });
 const selectionMode: SelectRowOptions = {
     clickToSelect: true,
     mode: "checkbox",

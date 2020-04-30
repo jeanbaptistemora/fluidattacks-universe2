@@ -1,9 +1,9 @@
 import { configure } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
-import fetch from "node-fetch";
+import fetchMock from "fetch-mock";
 
-// Polyfill fetch
-Object.assign(global, { fetch });
+// Mock fetch
+Object.assign(global, { fetch: fetchMock });
 
 // Configure enzyme
 configure({ adapter: new ReactSixteenAdapter() });

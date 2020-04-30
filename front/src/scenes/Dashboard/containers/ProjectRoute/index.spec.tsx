@@ -1,9 +1,6 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -11,8 +8,6 @@ import { MemoryRouter, Route } from "react-router-dom";
 import { authzContext } from "../../../../utils/authz/config";
 import { ProjectRoute } from "./index";
 import { GET_PROJECT_ALERT, GET_PROJECT_DATA } from "./queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ProjectRoute", () => {
 

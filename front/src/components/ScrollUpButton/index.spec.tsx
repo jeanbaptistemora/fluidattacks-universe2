@@ -1,9 +1,6 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { ScrollUpButton } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ScrollUpButton", () => {
 

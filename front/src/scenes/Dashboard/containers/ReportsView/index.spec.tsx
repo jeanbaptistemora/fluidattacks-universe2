@@ -1,11 +1,8 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Button } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { ReportsView } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ReportsView", () => {
 

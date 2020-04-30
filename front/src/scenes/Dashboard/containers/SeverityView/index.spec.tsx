@@ -1,10 +1,7 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -15,8 +12,6 @@ import store from "../../../../store/index";
 import { authzContext } from "../../../../utils/authz/config";
 import { SeverityView } from "./index";
 import { GET_SEVERITY } from "./queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("SeverityView", () => {
 

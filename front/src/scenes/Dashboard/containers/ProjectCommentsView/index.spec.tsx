@@ -1,8 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
+import { mount, ReactWrapper } from "enzyme";
 import { default as $ } from "jquery";
 import _ from "lodash";
 import * as React from "react";
@@ -12,8 +9,6 @@ import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import { ProjectCommentsView } from "./index";
 import { GET_PROJECT_COMMENTS } from "./queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 jest.mock("jquery-comments_brainkit", () => jest.requireActual("jquery-comments_brainkit")($));
 

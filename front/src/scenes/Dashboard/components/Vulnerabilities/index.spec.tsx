@@ -1,9 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -14,8 +11,6 @@ import { compareNumbers, VulnerabilitiesView } from "./index";
 import { GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IUpdateVulnTreatment, IVulnDataType } from "./types";
 import { UpdateTreatmentModal } from "./updateTreatment";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Vulnerabilities view", () => {
 

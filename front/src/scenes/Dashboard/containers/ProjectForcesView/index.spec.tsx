@@ -1,9 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -14,8 +11,6 @@ import wait from "waait";
 import store from "../../../../store/index";
 import { ProjectForcesView } from "./index";
 import { GET_FORCES_EXECUTIONS } from "./queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ForcesView", () => {
 

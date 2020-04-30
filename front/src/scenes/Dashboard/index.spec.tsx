@@ -1,14 +1,9 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
+import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import store from "../../store/index";
 import { Dashboard } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Dashboard", () => {
 

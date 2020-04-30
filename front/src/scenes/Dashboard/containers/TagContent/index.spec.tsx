@@ -1,14 +1,11 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter, RouteComponentProps } from "react-router-dom";
 import store from "../../../../store/index";
 import { TagContent } from "./index";
 import { TAG_QUERY } from "./TagInfo/queries";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("TagContent", () => {
 

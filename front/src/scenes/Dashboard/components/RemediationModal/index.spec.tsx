@@ -1,11 +1,8 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
 import { RemediationModal } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 const functionMock: (() => void) = (): void => undefined;
 

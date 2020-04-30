@@ -1,9 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import * as React from "react";
 import { Provider } from "react-redux";
 import wait from "waait";
@@ -11,8 +8,6 @@ import store from "../../../../store/index";
 import { ProjectFindingsView } from "./index";
 import { GET_FINDINGS } from "./queries";
 import { IProjectFindingsProps } from "./types";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ProjectFindingsView", () => {
 

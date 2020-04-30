@@ -1,9 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter, RouteComponentProps } from "react-router-dom";
@@ -11,8 +8,6 @@ import wait from "waait";
 import store from "../../../../store/index";
 import { GET_INDICATORS } from "../IndicatorsView/queries";
 import { ProjectContent } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("ProjectContent", () => {
 

@@ -1,11 +1,8 @@
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Provider } from "react-redux";
 import store from "../../../../store";
 import { AddFilesModal } from "./index";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Add Files modal", (): void => {
 

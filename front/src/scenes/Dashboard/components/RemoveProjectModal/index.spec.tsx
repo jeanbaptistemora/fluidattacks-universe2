@@ -1,8 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, mount, ReactWrapper } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
-// tslint:disable-next-line: no-import-side-effect
-import "isomorphic-fetch";
+import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -13,8 +10,6 @@ import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
 import { RemoveProjectModal } from "./index";
 import { REQUEST_REMOVE_PROJECT_MUTATION } from "./queries";
 import { IRemoveProject } from "./types";
-
-configure({ adapter: new ReactSixteenAdapter() });
 
 describe("RemoveProjectModal component", () => {
   it("should render remove project modal", () => {
