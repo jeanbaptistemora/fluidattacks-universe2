@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
 import { I18nextProvider } from "react-i18next";
 import { StatusBar } from "react-native";
-import { DefaultTheme, Provider as ThemeProvider, Theme } from "react-native-paper";
+import { DefaultTheme, Provider as PaperProvider, Theme } from "react-native-paper";
 import { BackButton, NativeRouter, Route, Switch } from "react-router-native";
 
 import { LoginView } from "./containers/LoginView";
@@ -23,7 +23,7 @@ const theme: Theme = {
 
 const app: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
-    <ThemeProvider theme={theme}>
+    <PaperProvider theme={theme}>
       <I18nextProvider i18n={i18next}>
         <StatusBar barStyle="light-content" />
         <NativeRouter>
@@ -36,7 +36,7 @@ const app: React.FunctionComponent = (): JSX.Element => (
           </BackButton>
         </NativeRouter>
       </I18nextProvider>
-    </ThemeProvider>
+    </PaperProvider>
   </ApolloProvider>
 );
 

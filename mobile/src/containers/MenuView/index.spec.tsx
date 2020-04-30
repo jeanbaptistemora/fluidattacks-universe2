@@ -4,8 +4,12 @@ import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
+import { I18nextProvider } from "react-i18next";
+import { Provider as PaperProvider } from "react-native-paper";
 import { NativeRouter } from "react-router-native";
 import wait from "waait";
+
+import { i18next } from "../../utils/translations/translate";
 
 import { MenuView } from "./index";
 import { PROJECTS_QUERY } from "./queries";
@@ -29,11 +33,15 @@ describe("MenuView", (): void => {
     };
 
     const wrapper: ReactWrapper = mount(
-      <NativeRouter initialEntries={["/Menu"]}>
-        <MockedProvider mocks={[projectMock]} addTypename={false}>
-          <MenuView />
-        </MockedProvider>
-      </NativeRouter>,
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <NativeRouter initialEntries={["/Menu"]}>
+            <MockedProvider mocks={[projectMock]} addTypename={false}>
+              <MenuView />
+            </MockedProvider>
+          </NativeRouter>
+        </I18nextProvider>
+      </PaperProvider>,
     );
     await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
 

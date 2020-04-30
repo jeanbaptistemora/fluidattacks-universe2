@@ -10,17 +10,13 @@ import { styles } from "./styles";
  * Preloader component props
  */
 interface IPreloaderProps {
-  visible?: boolean;
+  visible: boolean;
 }
 
 const preloader: React.FC<IPreloaderProps> = (props: IPreloaderProps): JSX.Element => (
   <View style={styles.container}>
-    {props.visible === true ? <Image source={loadingGif} style={styles.loadingGif} /> : undefined}
+    {props.visible ? <Image source={loadingGif} style={styles.loadingGif} /> : undefined}
   </View>
 );
-
-preloader.defaultProps = {
-  visible: true,
-};
 
 export { preloader as Preloader };

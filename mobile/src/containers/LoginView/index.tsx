@@ -1,4 +1,4 @@
-import { default as Constants, NativeConstants } from "expo-constants";
+import { AppOwnership, default as Constants, NativeConstants } from "expo-constants";
 import * as Google from "expo-google-app-auth";
 import _ from "lodash";
 import React from "react";
@@ -37,7 +37,10 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   const onMount: (() => void) = (): void => {
     const executeCheckVersion: (() => void) = async (): Promise<void> => {
       try {
-        const shouldSkipCheck: boolean = Platform.OS === "ios" || __DEV__;
+        const shouldSkipCheck: boolean =
+          Platform.OS === "ios"
+          || Constants.appOwnership === AppOwnership.Expo;
+
         if (shouldSkipCheck) {
           setOutdated(false);
         } else {
@@ -91,7 +94,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
       <Image source={FluidLogo} style={styles.logo} />
       <View style={styles.buttonsContainer}>
         <Button
-          disabled={isLoading || isOutdated}
+          disabled={isLoading ? true : isOutdated}
           mode="contained"
           onPress={handleGoogleButtonClick}
         >

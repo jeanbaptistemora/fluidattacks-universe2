@@ -7,6 +7,7 @@ Object.assign(global, { fetch: fetchMock });
 
 // Configure enzyme
 configure({ adapter: new ReactSixteenAdapter() });
+jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
 
 /**
  * Supress DOM-related warnings
