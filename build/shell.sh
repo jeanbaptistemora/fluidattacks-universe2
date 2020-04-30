@@ -6,6 +6,7 @@
 #!   nix-shell --keep AWS_SECRET_ACCESS_KEY
 #!   nix-shell --keep BREAK_BUILD_ID
 #!   nix-shell --keep BREAK_BUILD_SECRET
+#!   nix-shell --keep CI
 #!   nix-shell --keep CI_JOB_ID
 #!   nix-shell --keep NIX_PATH
 #!   nix-shell --keep CI_COMMIT_REF_NAME

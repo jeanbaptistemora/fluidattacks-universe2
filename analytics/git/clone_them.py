@@ -41,7 +41,7 @@ def clone(subs_path) -> None:
 
 
 def sync_to_s3(subs_path):
-    _, output = run_command('fluid resources --push-repos', cwd=subs_path)
+    _, output = run_command('fluid drills --push-repos', cwd=subs_path)
     print(f'INFO: {subs_path}')
     print(f'      output:')
     print(textwrap.indent(output, ' ' * 16))
