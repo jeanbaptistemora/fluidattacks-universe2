@@ -28,6 +28,8 @@ function decide_and_call_provisioner {
         deploy_k8s*      ) provisioner='infra';;
         infra_backup_test) provisioner='infra_backup_test';;
         infra_backup_deploy) provisioner='infra_backup_deploy';;
+        infra_cache_db_test) provisioner='infra_cache_db_test';;
+        infra_cache_db_deploy) provisioner='infra_cache_db_deploy';;
         infra*           ) provisioner='infra';;
         functional_tests*) provisioner='selenium';;
         test*            ) provisioner='test';;
