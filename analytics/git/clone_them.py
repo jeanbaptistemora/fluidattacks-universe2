@@ -40,8 +40,11 @@ def clone(subs_path) -> None:
         os.symlink(repo_path, repo_git_path)
 
 
-def _sync_to_s3(subs_path):
-    _, _ = run_command('fluid drills --push-repos', cwd=subs_path)
+def sync_to_s3(subs_path):
+    _, output = run_command('fluid resources --push-repos', cwd=subs_path)
+    print(f'INFO: {subs_path}')
+    print(f'      output:')
+    print(textwrap.indent(output, ' ' * 16))
 
 
 def open_vpn(subs_path) -> None:
@@ -57,7 +60,7 @@ def main() -> None:
     subs_paths = glob.glob(f'/git/fluidattacks/continuous/subscriptions/*')
     for subs_path in subs_paths:
         clone(subs_path)
-        _sync_to_s3(subs_path)
+        sync_to_s3(subs_path)
 
 
 if __name__ == '__main__':
