@@ -4,6 +4,7 @@
 from datetime import datetime
 import functools
 import re
+from typing import Any, Callable, Dict
 
 import rollbar
 from asgiref.sync import sync_to_async
@@ -41,9 +42,9 @@ ENFORCER_PROJECT_ACCESS = getattr(settings, 'ENFORCER_PROJECT_ACCESS')
 UNAUTHORIZED_ROLE_MSG = 'Security: Unauthorized role attempted to perform operation'
 
 
-def authenticate(func):
+def authenticate(func: Callable[..., Any]) -> Callable[..., Any]:
     @functools.wraps(func)
-    def authenticate_and_call(*args, **kwargs):
+    def authenticate_and_call(*args, **kwargs) -> Callable[..., Any]:
         request = args[0]
         if "username" not in request.session or request.session["username"] is None:
             return HttpResponse('Unauthorized \
@@ -55,14 +56,14 @@ def authenticate(func):
 
 
 # Access control decorators for GraphQL
-def verify_csrf(func):
+def verify_csrf(func: Callable[..., Any]) -> Callable[..., Any]:
     """
     Conditional CSRF decorator
 
     Enables django CSRF protection if using cookie-based authentication
     """
     @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
+    def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         request = args[0]
         if request.COOKIES.get(settings.JWT_COOKIE_NAME):
             ret = csrf_protect(func)(*args, **kwargs)
@@ -72,14 +73,14 @@ def verify_csrf(func):
     return verify_and_call
 
 
-def require_login(func):
+def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
     """
     Require_login decorator
 
     Verifies that the user is logged in with a valid JWT
     """
     @functools.wraps(func)
-    def verify_and_call(*args, **kwargs):
+    def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
         try:
             user_data = util.get_jwt_content(context)
@@ -93,7 +94,7 @@ def require_login(func):
     return verify_and_call
 
 
-def resolve_project_name(args, kwargs):
+def resolve_project_name(args, kwargs) -> str:
     """Get project name based on args passed."""
     if args and hasattr(args[0], 'name'):
         project_name = args[0].name
@@ -124,10 +125,10 @@ def resolve_project_name(args, kwargs):
     return project_name
 
 
-def enforce_group_level_auth_async(func):
+def enforce_group_level_auth_async(func: Callable[..., Any]) -> Callable[..., Any]:
     """Enforce authorization using the group-level role."""
     @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         if hasattr(args[0], 'context'):
             context = args[0].context
         elif hasattr(args[1], 'context'):
@@ -167,10 +168,10 @@ def enforce_group_level_auth_async(func):
     return verify_and_call
 
 
-def enforce_user_level_auth_async(func):
+def enforce_user_level_auth_async(func: Callable[..., Any]) -> Callable[..., Any]:
     """Enforce authorization using the user-level role."""
     @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         if hasattr(args[0], 'context'):
             context = args[0].context
         elif hasattr(args[1], 'context'):
@@ -200,19 +201,19 @@ def enforce_user_level_auth_async(func):
     return verify_and_call
 
 
-def verify_jti(email, context, jti):
+def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
     if not has_valid_access_token(email, context, jti):
         raise InvalidAuthorization()
 
 
-def require_project_access(func):
+def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
     """
     Require_project_access decorator
 
     Verifies that the current user has access to a given project
     """
     @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs):
+    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
         project_name = kwargs.get('project_name')
 
