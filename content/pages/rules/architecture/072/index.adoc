@@ -25,7 +25,7 @@ number of concurrent users reaches its peak.
 
 * link:/web/findings/003/[F003. Symmetric denial of service]
 
-* link:/web/findings/092/[F092. Improper resource allocation]
+* link:/web/findings/067/[F067. Improper resource allocation]
 
 * link:/web/findings/108/[F108. Improper control of interaction frequency]
 

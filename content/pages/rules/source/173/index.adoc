@@ -95,13 +95,13 @@ therefore this information must be validated.
 
 * link:/web/findings/063/[F063. Lack of data validation]
 
+* link:/web/findings/067/[F067. Improper resource allocation]
+
 * link:/web/findings/083/[F083. XML Injection (XXE)]
 
 * link:/web/findings/090/[F090. Code injection (CSV)]
 
 * link:/web/findings/091/[F091. Log injection]
-
-* link:/web/findings/092/[F092. Improper resource allocation]
 
 * link:/web/findings/093/[F093. Hidden fields manipulation]
 
