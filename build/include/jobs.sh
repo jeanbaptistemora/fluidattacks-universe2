@@ -423,6 +423,7 @@ function _job_serve_back {
         --keyfile="${srcDerivationsCerts}/fluidla.key" \
 	--workers=${workers} \
 	--worker-class=${worker_class} \
+	--timeout=300 \
         "${app}"
 }
 

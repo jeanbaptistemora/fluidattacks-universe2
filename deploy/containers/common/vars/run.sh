@@ -54,5 +54,6 @@ sleep 10
 gunicorn fluidintegrates.asgi:APP \
 	--bind=0.0.0.0:80 \
 	--workers=5 \
-	--worker-class=fluidintegrates.asgi.IntegratesWorker
+	--worker-class=fluidintegrates.asgi.IntegratesWorker \
+	--timeout=300
 
