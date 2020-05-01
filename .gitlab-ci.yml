@@ -257,7 +257,7 @@ deploy_front:
   image: "${CI_REGISTRY_IMAGE}/nix:selenium"
   stage: post-deploy
   retry: 1
-  parallel: 17
+  parallel: 6
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
