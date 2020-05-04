@@ -109,7 +109,7 @@ class ProjectTests(TestCase):
         assert result['data']['project']['hasDrills']
         assert result['data']['project']['hasForces']
         assert len(result['data']['project']['findings']) == 6
-        assert result['data']['project']['openVulnerabilities'] == 31
+        assert result['data']['project']['openVulnerabilities'] == 30
         assert result['data']['project']['closedVulnerabilities'] == 9
         assert 'lastClosingVuln' in result['data']['project']
         assert result['data']['project']['pendingClosingCheck'] == 2
@@ -117,7 +117,7 @@ class ProjectTests(TestCase):
         assert result['data']['project']['meanRemediate'] == 245
         assert result['data']['project']['meanRemediateLowSeverity'] == 232
         assert result['data']['project']['meanRemediateMediumSeverity'] == 287
-        assert result['data']['project']['openFindings'] == 5
+        assert result['data']['project']['openFindings'] == 4
         assert result['data']['project']['totalFindings'] == 6
         assert 'totalTreatment' in result['data']['project']
         assert result['data']['project']['subscription'] == 'continuous'
