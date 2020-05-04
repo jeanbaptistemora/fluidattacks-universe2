@@ -69,3 +69,39 @@ class TagTests(TestCase):
         assert result['data']['tag']['meanRemediate'] == 174
         assert result['data']['tag']['maxOpenSeverity'] == 4.9
         assert result['data']['tag']['maxSeverity'] == 6.3
+
+    async def test_get_tag_query_access_denied(self):
+        query = '''
+            query{
+                tag(tag: "another-tag"){
+                    lastClosingVuln
+                    maxOpenSeverity
+                    meanRemediate
+                    name
+                    projects {
+                        closedVulnerabilities
+                        name
+                        openVulnerabilities
+                    }
+                    __typename
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'integratesuser@gmail.com'
+        request.session['company'] = 'unittest'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'integratesuser@gmail.com',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = await graphql(SCHEMA, data, context_value=request)
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == 'Access denied'

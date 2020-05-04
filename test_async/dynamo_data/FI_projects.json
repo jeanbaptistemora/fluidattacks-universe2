@@ -1949,7 +1949,7 @@
                  "S" : "continuoustesting"
               },
               "project_status" : {
-                 "S" : "FINISHED"
+                 "S" : "ACTIVE"
               },
               "remediated_over_time" : {
                  "L" : [
@@ -2117,7 +2117,7 @@
               },
               "tag" : {
                  "SS" : [
-                    "test-projects"
+                    "another-tag"
                  ]
               },
               "total_treatment" : {

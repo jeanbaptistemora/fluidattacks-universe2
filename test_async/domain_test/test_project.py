@@ -301,7 +301,7 @@ class ProjectTest(TestCase):
 
     def test_get_alive_projects(self):
         test_data = get_alive_projects()
-        expected_output = ['suspendedtest', 'oneshottest', 'unittesting']
+        expected_output = ['suspendedtest', 'oneshottest', 'unittesting', 'continuoustesting']
         assert sorted(test_data) == sorted(expected_output)
 
     def test_list_findings(self):

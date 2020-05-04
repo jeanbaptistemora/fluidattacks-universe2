@@ -1,6 +1,7 @@
 import sys
 from typing import List
 from asgiref.sync import sync_to_async
+from graphql import GraphQLError
 from backend.api.resolvers import project as project_loader
 from backend.decorators import (
     enforce_user_level_auth_async, get_entity_cache_async, require_login
@@ -26,7 +27,10 @@ async def resolve(info, tag: str) -> TagType:
         organizations = await sync_to_async(project_domain.get_attributes)(
             projects[0], ['companies'])
         organization = organizations.get('companies', ['-'])[0]
-
+    allowed_tags = await sync_to_async(tag_domain.filter_allowed_tags)(
+        organization, projects)
+    if tag not in allowed_tags:
+        raise GraphQLError('Access denied')
     for requested_field in requested_fields:
         if util.is_skippable(info, requested_field):
             continue
@@ -53,7 +57,8 @@ async def resolve(info, tag: str) -> TagType:
 
 async def get_list_projects(user_email: str, tag: str) -> List[str]:
     projects = []
-    user_projects = await sync_to_async(user_domain.get_projects)(user_email)
+    user_projects = await sync_to_async(user_domain.get_projects)(
+        user_email, access_pending_projects=False)
     for project in user_projects:
         project_attrs = await sync_to_async(project_domain.get_attributes)(
             project, ['tag'])

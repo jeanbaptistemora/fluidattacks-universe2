@@ -30,6 +30,11 @@
                     "organization": {
                         "S": "fluid"
                     },
+                    "projects" : {
+                        "SS" : [
+                           "unittesting", "oneshottest"
+                        ]
+                     },
                     "tag": {
                         "S": "test-projects"
                     }
@@ -66,6 +71,11 @@
                     "organization": {
                         "S": "fluid"
                     },
+                    "projects" : {
+                        "SS" : [
+                           "continuoustesting", "oneshottest"
+                        ]
+                     },
                     "tag": {
                         "S": "another-tag"
                     }

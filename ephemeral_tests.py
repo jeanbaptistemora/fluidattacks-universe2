@@ -674,6 +674,5 @@ class ViewTestCase(unittest.TestCase):
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH,
-                     "//*[contains(text(), 'There is no data to display')]")))
+                     "//*[contains(text(), 'Access denied')]")))
         selenium.save_screenshot(SCR_PATH + '18-09-tag_indicators.png')
-        assert 'There is no data to display' in selenium.page_source

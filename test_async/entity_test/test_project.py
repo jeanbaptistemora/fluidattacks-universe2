@@ -176,7 +176,8 @@ class ProjectTests(TestCase):
         expected_projects = [
             {'name': 'suspendedtest'},
             {'name': 'oneshottest'},
-            {'name': 'unittesting'}
+            {'name': 'unittesting'},
+            {'name': 'continuoustesting'}
         ]
 
         result = await self._get_result_async(data)
@@ -314,8 +315,8 @@ class ProjectTests(TestCase):
             }
         '''
         variables = {
-            'projectName': 'unittesting',
-            'tagToRemove': 'test-projects'
+            'projectName': 'oneshottest',
+            'tagToRemove': 'another-tag'
         }
         data = {'query': query, 'variables': variables}
         result = await self._get_result_async(data)

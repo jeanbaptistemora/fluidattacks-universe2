@@ -9,6 +9,7 @@ from backend.api.resolvers import project as project_resolver
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
 from backend.domain import project as project_domain
+from backend.domain import tag as tag_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.dal import user as user_dal
 from backend.typing import (
@@ -98,11 +99,18 @@ async def _get_permissions(
 
 
 @enforce_user_level_auth_async
-async def _get_tags(_, user_email: str) -> List[TagType]:
+async def _get_tags(info, user_email: str) -> List[TagType]:
     """Get tags."""
-    projects = await \
-        sync_to_async(user_domain.get_projects)(user_email)
+    projects = await sync_to_async(user_domain.get_projects)(
+        user_email, access_pending_projects=False)
     tags_dict: Dict[str, List] = defaultdict(list)
+    organization: str = '-'
+    if projects:
+        project_attrs = \
+            await info.context.loaders['project'].load(projects[0])
+        organization = project_attrs['attrs'].get('companies', ['-'])[0]
+    allowed_tags = await sync_to_async(tag_domain.filter_allowed_tags)(
+        organization, projects)
     for project in projects:
         project_tag = await sync_to_async(project_domain.get_attributes)(
             project, ['tag'])
@@ -112,6 +120,7 @@ async def _get_tags(_, user_email: str) -> List[TagType]:
     tags = []
     for tag, projects in tags_dict.items():
         tags.append(dict(name=tag, projects=projects))
+    tags = [tag for tag in tags if tag.get('name', '') in allowed_tags]
     return tags
 
 

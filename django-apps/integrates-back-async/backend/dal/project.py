@@ -295,7 +295,8 @@ def is_alive(project: str) -> bool:
     return is_valid_project
 
 
-def can_user_access_pending_deletion(project: str, role: str) -> bool:
+def can_user_access_pending_deletion(
+        project: str, role: str, should_access_pending: bool = True) -> bool:
     allow_roles = ['admin', 'customeradmin']
     is_user_allowed = False
     if not is_alive(project):
@@ -304,7 +305,7 @@ def can_user_access_pending_deletion(project: str, role: str) -> bool:
             ['historic_deletion', 'project_status']
         )
         if project_data.get('project_status') == 'PENDING_DELETION':
-            is_user_allowed = role in allow_roles
+            is_user_allowed = role in allow_roles and should_access_pending
     else:
         is_user_allowed = True
     return is_user_allowed

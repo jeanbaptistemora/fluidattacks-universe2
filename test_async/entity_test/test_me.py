@@ -8,6 +8,7 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
+from backend.api.dataloaders.project import ProjectLoader
 from backend.api.schema import SCHEMA
 
 pytestmark = pytest.mark.asyncio
@@ -40,6 +41,9 @@ class MeTests(TestCase):
         }'''
         data = {'query': query}
         request = RequestFactory().get('/')
+        request.loaders = {
+            'project': ProjectLoader(),
+        }
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
