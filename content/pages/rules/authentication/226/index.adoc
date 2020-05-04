@@ -1,19 +1,29 @@
 :slug: rules/226/
 :category: authentication
 :description: This document contains the details of the security requirements related to the definition and management of authentication process in the organization. This requirement establishes the importance of preventing denial of service  attacks by avoiding account lockouts.
-:keywords: Requirement, Security, Account, Authentication, Attempt, Lockout.
+:keywords: Account, Authentication, Attempt, Lockout, ASVS, CWE
 :rules: yes
 
 = REQ.226 Avoid account lockouts
 
 == Requirement
 
-System must never block a user account
+The system must never block a user account
 given one or several failed authentication attempts.
+
+== Findings
+
+* link:/web/findings/087/[F087. Account lockout]
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.20+]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/645.html[CWE-645: Overly Restrictive Account Lockout Mechanism]
+The software contains an account lockout protection mechanism,
+but the mechanism is too restrictive and can be triggered too easily,
+which allows attackers to deny service to legitimate users by causing their
+accounts to be locked out.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[OWASP-ASVS v3.1-2.20]
 Verify that anti-automation is in place
 to prevent breached credential testing, brute forcing,
 and account lockout attacks.

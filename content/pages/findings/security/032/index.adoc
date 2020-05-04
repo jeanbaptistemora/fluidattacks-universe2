@@ -9,7 +9,7 @@
 == Description
 
 It is possible to perform actions in the application and make it look as if
-they were coming from the system or another user.
+they were performed by the system or another user.
 Examples include sending messages that appear to come from the system and
 modifying data in the name of other users (who may have more privileges).
 

@@ -1,0 +1,16 @@
+:slug: findings/087/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from implementing account lockouts, recommendations to avoid them and related security requirements.
+:keywords: Account, Lockout, Block, Login, Session, Access
+:findings: yes
+:type: security
+
+= F087. Account lockout
+
+== Description
+
+It is possible to cause account lockouts,
+effectively blocking users from accessing the system.
+
+== Rules
+
+. [[r1]] link:/web/rules/226/[R226. Avoid account lockouts]
