@@ -81,7 +81,7 @@ def test_forces_7(relocate, cli_runner):
         'forces', '--upload-exps-from-repo-to-integrates', GROUP,
     ])
 
-    assert result.exit_code == 0
+    assert result.exit_code == 0, result.output
 
 
 def test_forces_8(relocate, cli_runner):
@@ -89,7 +89,7 @@ def test_forces_8(relocate, cli_runner):
         'forces', '--upload-exps-from-repo-to-integrates', GROUP_BAD,
     ])
 
-    assert result.exit_code != 0
+    assert result.exit_code != 0, result.output
 
 
 def test_integrates_1(relocate, cli_runner):

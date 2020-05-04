@@ -1,5 +1,4 @@
 # Standard library
-from datetime import datetime
 from glob import glob
 from textwrap import dedent, indent
 from typing import (
@@ -36,7 +35,6 @@ def _get_exploits_for_finding(group: str, finding_id: str) -> Dict[str, str]:
 def _get_exploits_bundles(group: str) -> Dict[str, str]:
     """Return a dictionary mapping (finding_id -> exploit_bundle)."""
     data: Dict[str, str] = {}
-    date: str = str(datetime.utcnow())
 
     for finding_id, _ in utils.integrates.get_project_findings(group):
         logger.info(f'---')
@@ -46,7 +44,8 @@ def _get_exploits_bundles(group: str) -> Dict[str, str]:
         exploits = _get_exploits_for_finding(group, finding_id)
 
         data[finding_id] = dedent(f"""
-            # date: {date}
+            # group: {group}
+            # id: {finding_id}
             #
             """)
         for exp_path, exp_content in exploits.items():
