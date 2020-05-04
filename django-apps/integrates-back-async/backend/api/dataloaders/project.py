@@ -11,6 +11,7 @@ async def _batch_load_fn(projects: List[str]):
     projects_data: Dict = dict()
 
     for project in projects:
+        project = project.lower()
         findings = await sync_to_async(project_domain.list_findings)(project)
         drafts = await sync_to_async(project_domain.list_drafts)(project)
         attrs = await sync_to_async(project_domain.get_attributes)(project, [])

@@ -398,8 +398,10 @@ async def _get_drafts(
     project_drafts = \
         await info.context.loaders['project'].load(project_name)
     project_drafts = project_drafts['drafts']
+    drafts_ids = await \
+        sync_to_async(finding_domain.filter_deleted_findings)(project_drafts)
     findings = \
-        await info.context.loaders['finding'].load_many(project_drafts)
+        await info.context.loaders['finding'].load_many(drafts_ids)
 
     drafts = [draft for draft in findings
               if 'current_state' in draft and
