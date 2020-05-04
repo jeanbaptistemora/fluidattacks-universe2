@@ -97,3 +97,26 @@ def test_integrates_mutations_upload_file():
             API_TOKEN, FINDING, file.name)
 
         assert response.ok
+
+
+def test_integrates_mutations_update_evidence():
+    with tempfile.NamedTemporaryFile(suffix='exploit.exp') as file:
+        now_str: str = str(datetime.datetime.utcnow())
+        file.write(textwrap.dedent(f"""
+            #! /usr/bin/env asserts
+            # {now_str}
+
+            from fluidasserts.db import postgresql
+
+            postgresql.has_not_data_checksums_enabled(
+                dbname,
+                user, password,
+                host, port,
+            )
+            """[1:]).encode())
+        file.seek(0)
+
+        response = integrates.Mutations.update_evidence(
+            API_TOKEN, FINDING, 'EXPLOIT', file.name)
+
+        assert response.ok

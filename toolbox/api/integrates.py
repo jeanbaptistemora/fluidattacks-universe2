@@ -283,6 +283,49 @@ class Mutations:
     """Namespace for Integrates's GraphQL Mutations."""
 
     @staticmethod
+    def update_evidence(
+        api_token: str,
+        finding_id: str,
+        evidence_id: str,
+        file_path: str,
+    ) -> Response:
+        """UpdateEvidence."""
+        logger.debug(f'Mutations.update_evidence('
+                     f'finding_id={finding_id}, '
+                     f'evidence_id={evidence_id}, '
+                     f'file_path={file_path}, '
+                     f')')
+        assert isinstance(finding_id, str)
+        assert isinstance(evidence_id, str) and evidence_id in (
+            'EXPLOIT',
+        )
+        assert isinstance(file_path, str) and os.path.exists(file_path)
+        body: str = """
+            mutation UpdateEvidence(
+                $evidenceId: EvidenceType!,
+                $fileHandle: Upload!,
+                $findingId: String!,
+            ) {
+                updateEvidence(
+                    evidenceId: $evidenceId,
+                    file: $fileHandle,
+                    findingId: $findingId,
+                ) {
+                    success
+                }
+            }
+            """
+
+        with open(file_path, 'rb') as file_handle:
+            params: dict = {
+                'findingId': finding_id,
+                'evidenceId': evidence_id,
+                'fileHandle': file_handle,
+            }
+
+            return request(api_token, body, params)
+
+    @staticmethod
     def upload_file(api_token: str,
                     identifier: str,
                     file_path: str) -> Response:
