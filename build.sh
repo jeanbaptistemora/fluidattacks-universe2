@@ -21,10 +21,11 @@ function decide_and_call_provisioner {
       case "${job}" in
         build_nix_caches ) provisioner="${job}";;
         build_container_app) provisioner="${job}";;
+        build_front) provisioner="${job}";;
+        deploy_front) provisioner="${job}";;
         build*           ) provisioner='build';;
         deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
         deploy_container*) provisioner='docker';;
-        deploy_front     ) provisioner='deploy-front';;
         deploy_mobile    ) provisioner='deploy-mobile';;
         deploy_k8s*      ) provisioner='infra';;
         infra_*          ) provisioner="${job}";;

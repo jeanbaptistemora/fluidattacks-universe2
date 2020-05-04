@@ -122,9 +122,8 @@ stages:
   interruptible: true
 
 build_front:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_everywhere_except_build_nix_caches
-  image: "${CI_REGISTRY_IMAGE}/nix:build"
   stage: build
   retry: 1
   artifacts:
@@ -241,9 +240,8 @@ build_nix_caches:
   parallel: 20
 
 deploy_front:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_everywhere_except_build_nix_caches
-  image: "${CI_REGISTRY_IMAGE}/nix:deploy-front"
   stage: deploy-app
   needs: [build_front]
 

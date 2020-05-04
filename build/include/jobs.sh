@@ -1,5 +1,6 @@
 # shellcheck shell=bash
 
+source "${srcEnv}"
 source "${srcIncludeHelpers}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
@@ -149,7 +150,8 @@ function job_build_container_app {
 }
 
 function job_deploy_front {
-      aws_login "${ENVIRONMENT_NAME}" \
+      env_prepare_python_packages \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_vars "${ENVIRONMENT_NAME}" \
   &&  ./manage.py collectstatic --no-input
 }
