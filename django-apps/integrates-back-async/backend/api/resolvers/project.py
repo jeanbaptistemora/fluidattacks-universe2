@@ -110,16 +110,14 @@ async def _get_findings(
     project_findings = \
         await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    finding_ids = \
-        await sync_to_async(
-            finding_domain.filter_deleted_findings)(project_findings)
-    findings = await info.context.loaders['finding'].load_many(finding_ids)
+    findings = \
+        await info.context.loaders['finding'].load_many(project_findings)
 
     findings = [
         await finding_loader.resolve(info, finding['id'], as_field=True,
                                      selection_set=selection_set)
         for finding in findings
-        if finding['current_state'] != 'DELETED'
+        if 'current_state' in finding and finding['current_state'] != 'DELETED'
     ]
     filtered = await __get_filtered_findings(findings, filters)
     return filtered if filters else findings
@@ -132,17 +130,16 @@ async def _get_open_vulnerabilities(info, project_name: str,
     project_findings = \
         await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     finding_vulns = \
-        await info.context.loaders['vulnerability'].load_many(finding_ids)
+        await info.context.loaders['vulnerability'].load_many(project_findings)
 
     # This should be a list comprehension in the future, but there's a known
     # bug of Python that prevents it: https://bugs.python.org/issue39562
     open_vulnerabilities = 0
     for vulns in finding_vulns:
         for vuln in vulns:
-            if vuln['current_state'] == 'open' and \
+            if 'current_state' in vuln and \
+                vuln['current_state'] == 'open' and \
                 (vuln['current_approval_status'] != 'PENDING' or
                  vuln['last_approved_status']):
                 open_vulnerabilities += 1
@@ -172,17 +169,16 @@ async def _get_closed_vulnerabilities(
     project_findings = \
         await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     finding_vulns = \
-        await info.context.loaders['vulnerability'].load_many(finding_ids)
+        await info.context.loaders['vulnerability'].load_many(project_findings)
 
     # This should be a list comprehension in the future, but there's a known
     # bug of Python that prevents it: https://bugs.python.org/issue39562
     closed_vulnerabilities = 0
     for vulns in finding_vulns:
         for vuln in vulns:
-            if vuln['current_state'] == 'closed' and \
+            if 'current_state' in vuln and \
+                vuln['current_state'] == 'closed' and \
                 (vuln['current_approval_status'] != 'PENDING' or
                  vuln['last_approved_status']):
                 closed_vulnerabilities += 1
@@ -214,14 +210,13 @@ async def _get_max_severity(info, project_name: str, **__) -> float:
     project_findings = \
         await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     findings = \
-        await info.context.loaders['finding'].load_many(finding_ids)
+        await info.context.loaders['finding'].load_many(project_findings)
 
     max_severity = max(
         [finding['severity_score'] for finding in findings
-         if finding['current_state'] != 'DELETED']) if findings else 0
+         if 'current_state' in finding and
+         finding['current_state'] != 'DELETED']) if findings else 0
     return max_severity
 
 
@@ -290,13 +285,12 @@ async def _get_total_findings(info, project_name: str, **__) -> int:
     project_findings = \
         await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     findings = \
-        await info.context.loaders['finding'].load_many(finding_ids)
+        await info.context.loaders['finding'].load_many(project_findings)
 
     total_findings = sum(1 for finding in findings
-                         if finding['current_state'] != 'DELETED')
+                         if 'current_state' in finding and
+                         finding['current_state'] != 'DELETED')
     return total_findings
 
 
@@ -404,13 +398,12 @@ async def _get_drafts(
     project_drafts = \
         await info.context.loaders['project'].load(project_name)
     project_drafts = project_drafts['drafts']
-    finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(project_drafts)
     findings = \
-        await info.context.loaders['finding'].load_many(finding_ids)
+        await info.context.loaders['finding'].load_many(project_drafts)
 
     drafts = [draft for draft in findings
-              if draft['current_state'] != 'DELETED']
+              if 'current_state' in draft and
+              draft['current_state'] != 'DELETED']
     return drafts
 
 
