@@ -9,7 +9,7 @@ import logging
 import logging.config
 import re
 import secrets
-from typing import Dict, List, cast
+from typing import Any, Dict, List, cast
 import httpx
 import pytz
 import rollbar
@@ -20,7 +20,7 @@ from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
 from graphql.language.ast import (
-    BooleanValueNode, NameNode, ObjectValueNode, VariableNode
+    BooleanValueNode, NameNode, ObjectValueNode, VariableNode, SelectionSetNode, FieldNode
 )
 from magic import Magic
 from django.conf import settings
@@ -201,11 +201,11 @@ def validate_future_releases(finding: Dict[str, str]) -> bool:
     return result
 
 
-def cloudwatch_log(request, msg: str):
+def cloudwatch_log(request, msg: str) -> None:
     asyncio.create_task(cloudwatch_log_queue(request, msg))
 
 
-def cloudwatch_log_sync(request, msg: str):
+def cloudwatch_log_sync(request, msg: str) -> None:
     user_data = get_jwt_content(request)
     info = [str(user_data["user_email"]), str(user_data["company"])]
     for parameter in ["project", "findingid"]:
@@ -218,7 +218,7 @@ def cloudwatch_log_sync(request, msg: str):
     LOGGER.info(":".join(info))
 
 
-async def cloudwatch_log_queue(request, msg: str):
+async def cloudwatch_log_queue(request, msg: str) -> None:
     user_data = get_jwt_content(request)
     info = [str(user_data["user_email"]), str(user_data["company"])]
     for parameter in ["project", "findingid"]:
@@ -321,7 +321,7 @@ def snakecase_to_camelcase(str_value: str) -> str:
     return re.sub('_.', lambda x: x.group()[1].upper(), str_value)
 
 
-def invalidate_cache(key_pattern: str):
+def invalidate_cache(key_pattern: str) -> None:
     """Remove keys from cache that matches a given pattern."""
     cache.delete_pattern('*' + str(key_pattern).lower() + '*')
 
@@ -510,7 +510,7 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
     return updated_values
 
 
-def get_requested_fields(field_name, selection_set):
+def get_requested_fields(field_name: str, selection_set: SelectionSetNode) -> List[FieldNode]:
     """Get requested fields from selections."""
     try:
         field_set = list(
@@ -523,12 +523,13 @@ def get_requested_fields(field_name, selection_set):
     return selections
 
 
-def get_field_parameters(field, variable_values=None):
+def get_field_parameters(field: FieldNode,
+                         variable_values: Dict[str, Any] = None) -> Dict[str, Any]:
     """Get a dict of parameters for field."""
     if not hasattr(field, 'arguments'):
-        return None
+        return {}
     if not field.arguments:
-        return None
+        return {}
 
     parameters = {}
     variable_values = variable_values or {}
@@ -548,7 +549,7 @@ def get_field_parameters(field, variable_values=None):
     return parameters
 
 
-def is_skippable(info, field):
+def is_skippable(info, field: FieldNode) -> Any:
     """Check if field is need to be skipped."""
     if not hasattr(field, 'directives'):
         return False
