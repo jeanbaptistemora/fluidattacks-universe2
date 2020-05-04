@@ -3,6 +3,7 @@
 from django.conf.urls import (
     url, include, handler400, handler403, handler404, handler500
 )
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from backend import services
@@ -22,6 +23,21 @@ handler403 = 'app.views.error401'
 handler404 = 'app.views.error401'
 handler500 = 'app.views.error500'
 
+
+@csrf_exempt
+def api_dispatcher(request):
+    # Answer preflight requests properly
+    #   see: https://gitlab.com/fluidattacks/integrates/-/issues/1958
+    if request.method == 'OPTIONS':
+        response = HttpResponse()
+    else:
+        response = verify_csrf(APIView.as_view(schema=SCHEMA))(request)
+
+    response['Access-Control-Allow-Origin'] = '*'
+    response['Access-Control-Allow-Headers'] = '*'
+    return response
+
+
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Principal process.
@@ -33,8 +49,7 @@ urlpatterns = [
     url(r'^/?dashboard/?$', views.app, name='dashboard'),
     url(r'^/?registration/?$', views.app, name='registration'),
     url(r'^/?oauth/', include('social_django.urls', namespace='social')),
-    url(r'^/?api/?\.*$',
-        csrf_exempt(verify_csrf(APIView.as_view(schema=SCHEMA)))),
+    url(r'^/?api/?\.*$', api_dispatcher),
     # Use of Formstack services.
     url(r'^/?project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',
