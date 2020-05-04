@@ -57,3 +57,20 @@ def test_no_alarm_on_config_changes_closed():
     with no_connection():
         assert not cloudwatch.no_alarm_on_config_changes(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_no_alarm_on_single_fa_login_open():
+    """Check if there are alarms set on AWS sfa login."""
+    assert cloudwatch.no_alarm_on_config_changes(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+def test_no_alarm_on_single_fa_login_closed():
+    """Check if there are alarms set on AWS sfa login."""
+    assert not \
+        cloudwatch.no_alarm_on_single_fa_login(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_single_fa_login(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
