@@ -3,17 +3,22 @@ import os
 import sys
 import shlex
 import contextlib
+from typing import (
+    List,
+)
 
 # Third parties libraries
 import boto3
 import pytest
 import unittest.mock
+from click.testing import CliRunner
 
 # Local libraries
 import toolbox.toolbox
 from toolbox import logger
 from toolbox.utils import generic
 from toolbox import resources
+from toolbox.cli import entrypoint as cli
 
 # Constants
 SUBS: str = 'continuoustest'
@@ -67,3 +72,12 @@ def prepare(request):
             f'git -C groups/{SUBS}/fusion/continuous reset --hard HEAD'
         )
         assert resources.repo_cloning(SUBS)
+
+
+@pytest.fixture(scope='session', autouse=True)
+def cli_runner(request):
+    def executor(command: List[str]):
+        runner = CliRunner()
+        return runner.invoke(cli, command)
+
+    return executor

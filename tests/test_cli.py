@@ -14,75 +14,84 @@ from toolbox.cli import entrypoint as cli
 
 # constants
 
-SUBS = 'continuoustest'
+GROUP = 'continuoustest'
+GROUP_BAD = 'does-not-exist'
 
 
-# test resources command
-def test_resources(relocate):
-    runner = CliRunner()
-
-    test_does_subs_exist = runner.invoke(
-        cli, f'utils --does-subs-exist {SUBS}'.split())
-    assert test_does_subs_exist.exit_code == 0
-
-    test_mailmap = runner.invoke(cli,
-                                 f'resources --mailmap {SUBS}'.split())
-
-    assert test_mailmap.exit_code == 0
-    assert 'Mailmap sorted' in test_mailmap.output
-
-    test_read = runner.invoke(cli, f'resources --read {SUBS}'.split())
-    assert test_read.exit_code == 0
+def test_resources_1(relocate, cli_runner):
+    result = cli_runner(f'utils --does-subs-exist {GROUP}'.split())
+    assert result.exit_code == 0
 
 
-# test forces command
-def test_forces(relocate):
-    runner = CliRunner()
+def test_resources_2(relocate, cli_runner):
+    result = cli_runner(f'resources --mailmap {GROUP}'.split())
+    assert result.exit_code == 0
+    assert 'Mailmap sorted' in result.output
 
-    bad_subs = runner.invoke(cli, f'forces --run -d all bad-repo'.split())
 
-    assert 'the group bad-repo does not exist' in bad_subs.output
+def test_resources_3(relocate, cli_runner):
+    result = cli_runner(f'resources --read {GROUP}'.split())
+    assert result.exit_code == 0
 
-    test_check_sync = runner.invoke(
-        cli, f'forces --check-sync all {SUBS}'.split())
-    assert test_check_sync.exit_code == 0, \
-        test_check_sync.output
 
-    test_lint_exps = runner.invoke(
-        cli, f'forces --lint-exps all {SUBS}'.split())
-    assert test_lint_exps.exit_code == 0, \
-        test_lint_exps.output
+def test_forces_1(relocate, cli_runner):
+    result = cli_runner(f'forces --run -d all bad-repo'.split())
+    assert 'the group bad-repo does not exist' in result.output
 
-    test_run_static = runner.invoke(
-        cli, f'forces --run-exps --static all {SUBS}'.split())
-    assert test_run_static.exit_code == 0
-    assert '975673437.exp' in test_run_static.output
 
-    test_run_dynamic = runner.invoke(
-        cli, f'forces --run-exps --dynamic all {SUBS}'.split())
-    assert test_run_dynamic.exit_code == 0
-    assert '720412598.exp' in test_run_dynamic.output
+def test_forces_2(relocate, cli_runner):
+    result = cli_runner(f'forces --check-sync all {GROUP}'.split())
+    assert result.exit_code == 0, result.output
 
-    plain_text = (f'groups/{SUBS}/forces/'
-                  'dynamic/resources/plaintext.yml')
-    test_decrypt = runner.invoke(cli,
-                                 f'forces --decrypt {SUBS}'.split())
-    assert test_decrypt.exit_code == 0
+
+def test_forces_3(relocate, cli_runner):
+    result = cli_runner(f'forces --lint-exps all {GROUP}'.split())
+    assert result.exit_code == 0, result.output
+
+
+def test_forces_4(relocate, cli_runner):
+    result = cli_runner(f'forces --run-exps --static all {GROUP}'.split())
+    assert result.exit_code == 0
+    assert '975673437.exp' in result.output
+
+
+def test_forces_5(relocate, cli_runner):
+    result = cli_runner(f'forces --run-exps --dynamic all {GROUP}'.split())
+    assert result.exit_code == 0
+    assert '720412598.exp' in result.output
+
+
+def test_forces_6(relocate, cli_runner):
+    plain_text = f'groups/{GROUP}/forces/dynamic/resources/plaintext.yml'
+
+    result = cli_runner(f'forces --decrypt {GROUP}'.split())
+    assert result.exit_code == 0
     assert os.path.isfile(plain_text)
 
     secretest = yaml.load(open(plain_text))
     assert secretest['secrets']['test_user'] == 'Einstein'
     assert secretest['secrets']['test_password'] == 'E=m*C^2'
 
-    test_encrypt = runner.invoke(cli,
-                                 f'forces --encrypt {SUBS}'.split())
-    assert test_encrypt.exit_code == 0
+    result = cli_runner(f'forces --encrypt {GROUP}'.split())
+    assert result.exit_code == 0
 
 
-# test integrates command
-def test_integrates(relocate):
-    runner = CliRunner()
+def test_forces_7(relocate, cli_runner):
+    result = cli_runner([
+        'forces', '--upload-exps-from-repo-to-integrates', GROUP,
+    ])
 
-    test_get_dict = runner.invoke(
-        cli, f'integrates --get-static-dict {SUBS}'.split())
-    assert test_get_dict.exit_code == 0
+    assert result.exit_code == 0
+
+
+def test_forces_8(relocate, cli_runner):
+    result = cli_runner([
+        'forces', '--upload-exps-from-repo-to-integrates', GROUP_BAD,
+    ])
+
+    assert result.exit_code != 0
+
+
+def test_integrates_1(relocate, cli_runner):
+    result = cli_runner(f'integrates --get-static-dict {GROUP}'.split())
+    assert result.exit_code == 0

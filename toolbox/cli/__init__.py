@@ -124,6 +124,7 @@ def resources_management(group, check_repos, clone, fingerprint,
     metavar=EXP_METAVAR,
     help='run a dynamic exploit',
     callback=_convert_exploit)
+@click.option('--upload-exps-from-repo-to-integrates', is_flag=True)
 def forces_management(
     group,
     check_sync,
@@ -137,6 +138,7 @@ def forces_management(
     run_exps,
     static,
     dynamic,
+    upload_exps_from_repo_to_integrates,
 ):
     """Perform operations with the forces service."""
     success: str = True
@@ -179,6 +181,9 @@ def forces_management(
 
     elif encrypt:
         success = forces.secrets.encrypt(group)
+
+    elif upload_exps_from_repo_to_integrates:
+        success = forces.upload.from_repo_to_integrates(group)
 
     sys.exit(0 if success else 1)
 
