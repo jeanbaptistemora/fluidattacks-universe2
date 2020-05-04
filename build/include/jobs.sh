@@ -411,20 +411,34 @@ function job_serve_redis {
 function _job_serve_back {
   local app='fluidintegrates.asgi:APP'
   local host='0.0.0.0'
-  local port='8080'
+  local http_port='8000'
+  local https_port='8080'
   local workers='5'
   local worker_class='fluidintegrates.asgi.IntegratesWorker'
+  local common_args=(
+    --workers "${workers}"
+    --worker-class "${worker_class}"
+    --timeout 300
+  )
 
       "helper_set_${1}_secrets" \
-  &&  echo "[INFO] Serving back on port ${port}" \
+  &&  echo "[INFO] Serving HTTP on port ${http_port}" \
+  &&  {
+        gunicorn \
+          "${common_args[@]}" \
+          --bind="${host}:${http_port}" \
+          "${app}" \
+          &
+        HTTP_PID=$!
+      } \
+  &&  echo "[INFO] Serving HTTPS on port ${https_port}" \
   &&  gunicorn \
-        --bind="${host}:${port}" \
+        "${common_args[@]}" \
+        --bind="${host}:${https_port}" \
         --certfile="${srcDerivationsCerts}/fluidla.crt" \
         --keyfile="${srcDerivationsCerts}/fluidla.key" \
-	--workers=${workers} \
-	--worker-class=${worker_class} \
-	--timeout=300 \
-        "${app}"
+        "${app}" \
+  &&  kill -TERM "${HTTP_PID}"
 }
 
 function job_serve_back_dev {
