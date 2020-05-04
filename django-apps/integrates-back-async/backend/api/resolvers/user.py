@@ -1,16 +1,18 @@
 # pylint: disable=too-many-locals
-from typing import Dict, List
+from datetime import datetime
+from typing import Dict, List, cast
 import sys
 import threading
 
 from asgiref.sync import sync_to_async
-from backend.api.dataloaders import user as user_loader
+from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
     require_login, require_project_access,
     enforce_group_level_auth_async,
     enforce_user_level_auth_async,
 )
 from backend.domain import project as project_domain, user as user_domain
+from backend.exceptions import UserNotFound
 from backend.mailer import send_mail_access_granted
 from backend.typing import (
     User as UserType,
@@ -18,16 +20,21 @@ from backend.typing import (
     GrantUserAccessPayload as GrantUserAccessPayloadType,
     RemoveUserAccessPayload as RemoveUserAccessPayloadType,
     EditUserPayload as EditUserPayloadType,
+    Project as ProjectType,
 )
-from backend import util
+from backend.services import (
+    has_responsibility, has_phone_number,
+    has_access_to_project
+)
 from backend.utils import authorization as authorization_utils
 from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
+from backend import util
 
 import rollbar
 
-from ariadne import convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 # Constants
 BASIC_ROLES = ['customer', 'customeradmin']
@@ -95,6 +102,115 @@ def _create_new_user(context: object, email: str, organization: str,
     return success
 
 
+@sync_to_async
+def _get_email(_, email: str, **__) -> str:
+    """Get email."""
+    return email.lower()
+
+
+@sync_to_async
+def _get_role(_, email: str, project_name: str, **__) -> str:
+    """Get role."""
+    if project_name:
+        role = user_domain.get_group_level_role(email, project_name)
+    else:
+        role = user_domain.get_user_level_role(email)
+
+    return role
+
+
+@sync_to_async
+def _get_phone_number(_, email: str, **__) -> str:
+    """Get phone number."""
+    return has_phone_number(email)
+
+
+@sync_to_async
+def _get_responsibility(_, email: str, project_name: str, **__) -> str:
+    """Get responsibility."""
+    result = has_responsibility(
+        project_name, email
+    ) if project_name else ''
+    return result
+
+
+@sync_to_async
+def _get_organization(_, email: str, **__) -> str:
+    """Get organization."""
+    org = cast(str, user_domain.get_data(email, 'company'))
+    return org.title()
+
+
+@sync_to_async
+def _get_first_login(_, email: str, **__) -> str:
+    """Get first login."""
+    return cast(str, user_domain.get_data(email, 'date_joined'))
+
+
+@sync_to_async
+def _get_last_login(_, email: str, **__) -> str:
+    """Get last_login."""
+    last_login_response = cast(str, user_domain.get_data(email, 'last_login'))
+    if last_login_response == '1111-1-1 11:11:11' or not last_login_response:
+        last_login = [-1, -1]
+    else:
+        dates_difference = \
+            datetime.now() - datetime.strptime(last_login_response,
+                                               '%Y-%m-%d %H:%M:%S')
+        diff_last_login = [dates_difference.days, dates_difference.seconds]
+        last_login = diff_last_login
+    return str(last_login)
+
+
+async def _get_projects(info, email: str,
+                        project_as_field: bool, **__) -> List[ProjectType]:
+    """Get list projects."""
+    list_projects = list()
+    active = await sync_to_async(user_domain.get_projects)(email)
+    inactive = \
+        await sync_to_async(user_domain.get_projects)(email, active=False)
+    user_projects = active + inactive
+    list_projects = \
+        [await project_resolver.resolve(
+            info, project, as_field=project_as_field)
+         for project in user_projects]
+    return list_projects
+
+
+async def resolve(info, email: str, project_name: str, as_field: bool = False,
+                  selection_set: object = None) -> UserType:
+    """Async resolve of fields."""
+    email = await _get_email(info, email)
+    role: dict = await _get_role(info, email, project_name=project_name)
+
+    if project_name and role:
+        if not user_domain.get_data(email, 'email') or \
+                not has_access_to_project(email, project_name):
+            raise UserNotFound()
+
+    result = dict()
+    requested_fields = \
+        util.get_requested_fields('users', selection_set) \
+        if as_field else info.field_nodes[0].selection_set.selections
+
+    for requested_field in requested_fields:
+        if util.is_skippable(info, requested_field):
+            continue
+        requested_field = \
+            convert_camel_case_to_snake(requested_field.name.value)
+        if requested_field.startswith('_'):
+            continue
+        resolver_func = getattr(
+            sys.modules[__name__],
+            f'_get_{requested_field}'
+        )
+        result[requested_field] = \
+            resolver_func(info, email,
+                          project_name=project_name,
+                          project_as_field=True)
+    return result
+
+
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
@@ -102,7 +218,7 @@ def _create_new_user(context: object, email: str, organization: str,
 async def resolve_user(
         _, info, project_name: str, user_email: str) -> UserType:
     """Resolve user query."""
-    return await user_loader.resolve(info, user_email, project_name)
+    return await resolve(info, user_email, project_name)
 
 
 @convert_kwargs_to_snake_case
@@ -322,6 +438,9 @@ def modify_user_information(context: object,
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-async def resolve_user_list_projects(_, info, user_email: str) -> List[str]:
+async def resolve_user_list_projects(
+        _, info, user_email: str) -> List[ProjectType]:
     """Resolve user_list_projects query."""
-    return await user_loader.resolve_user_list_projects(info, user_email)
+    email: str = await _get_email(info, user_email)
+
+    return await _get_projects(info, email, project_as_field=False)
