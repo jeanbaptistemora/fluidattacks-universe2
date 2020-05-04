@@ -10,6 +10,7 @@ from aiohttp.client_exceptions import ContentTypeError
 import pytest
 
 # Local libraries
+import toolbox
 from toolbox.api import integrates
 from toolbox.constants import API_TOKEN
 
@@ -79,44 +80,40 @@ def test_integrates_mutations_approve_vulnerability():
 
 def test_integrates_mutations_upload_file():
     """Test integrates mutations."""
-    with tempfile.NamedTemporaryFile(suffix='vulns.yaml') as file:
-        now_str: str = str(datetime.datetime.utcnow())
-        file.write(textwrap.dedent(f"""
-            inputs:
-            - url: 'https://{now_str}'
-              field: 'test'
-              state: open
-            lines:
-            - path: 'Test/{now_str}'
-              line: '1'
-              state: open
-            """[1:]).encode())
-        file.seek(0)
+    now_str: str = str(datetime.datetime.utcnow())
+    content = f"""
+        inputs:
+        - url: 'https://{now_str}'
+          field: 'test'
+          state: open
+        lines:
+        - path: 'Test/{now_str}'
+          line: '1'
+          state: open
+        """
 
-        response = integrates.Mutations.upload_file(
-            API_TOKEN, FINDING, file.name)
-
+    with toolbox.utils.tempfile.create('vulns.yaml', content) as file:
+        response = integrates.Mutations.upload_file(API_TOKEN, FINDING, file)
         assert response.ok
 
 
 def test_integrates_mutations_update_evidence():
-    with tempfile.NamedTemporaryFile(suffix='exploit.exp') as file:
-        now_str: str = str(datetime.datetime.utcnow())
-        file.write(textwrap.dedent(f"""
-            #! /usr/bin/env asserts
-            # {now_str}
+    now_str: str = str(datetime.datetime.utcnow())
+    content: str = f"""
+        #! /usr/bin/env asserts
+        # {now_str}
 
-            from fluidasserts.db import postgresql
+        from fluidasserts.db import postgresql
 
-            postgresql.has_not_data_checksums_enabled(
-                dbname,
-                user, password,
-                host, port,
-            )
-            """[1:]).encode())
-        file.seek(0)
+        postgresql.has_not_data_checksums_enabled(
+            dbname,
+            user, password,
+            host, port,
+        )
+        """
 
+    with toolbox.utils.tempfile.create('exploit.exp', content) as file:
         response = integrates.Mutations.update_evidence(
-            API_TOKEN, FINDING, 'EXPLOIT', file.name)
+            API_TOKEN, FINDING, 'EXPLOIT', file)
 
         assert response.ok
