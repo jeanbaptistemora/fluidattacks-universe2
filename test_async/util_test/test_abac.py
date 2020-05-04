@@ -227,6 +227,8 @@ class ActionAbacTest(TestCase):
     customeradminfluid_allowed_actions = {
         'backend_api_resolvers_alert_resolve_set_alert',
         'backend_api_resolvers_event__do_create_event',
+        'backend_api_resolvers_event__do_solve_event',
+        'backend_api_resolvers_project__get_drafts',
     }
 
     customeradminfluid_allowed_actions.update(customer_allowed_actions)
