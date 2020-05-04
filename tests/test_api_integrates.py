@@ -92,7 +92,7 @@ def test_integrates_mutations_upload_file():
           state: open
         """
 
-    with toolbox.utils.tempfile.create('vulns.yaml', content) as file:
+    with toolbox.utils.file.create_ephemeral('vulns.yaml', content) as file:
         response = integrates.Mutations.upload_file(API_TOKEN, FINDING, file)
         assert response.ok
 
@@ -112,7 +112,7 @@ def test_integrates_mutations_update_evidence():
         )
         """
 
-    with toolbox.utils.tempfile.create('exploit.exp', content) as file:
+    with toolbox.utils.file.create_ephemeral('exploit.exp', content) as file:
         response = integrates.Mutations.update_evidence(
             API_TOKEN, FINDING, 'EXPLOIT', file)
 

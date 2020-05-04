@@ -67,7 +67,7 @@ def from_repo_to_integrates(group: str) -> bool:
 
     logger.info('---')
     for finding_id, exp_bundle in exploits_bundles.items():
-        with utils.tempfile.create('bundle.exp', exp_bundle) as file:
+        with utils.file.create_ephemeral('bundle.exp', exp_bundle) as file:
             response = api.integrates.Mutations.update_evidence(
                 constants.API_TOKEN,
                 finding_id,
