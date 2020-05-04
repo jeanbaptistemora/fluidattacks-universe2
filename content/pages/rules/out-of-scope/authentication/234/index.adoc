@@ -3,19 +3,17 @@
 :description: This document contains the details of the security requirements related to the definition and management of authentication process in the organization. This requirement establishes the importance of protecting credentials with critical business information under custody of two users.
 :keywords: Requirement, Security, Credential, Business, Information, Users
 :rules: yes
+:extended: yes
 
 = REQ.234 Protect authentication credentials
 
 == Requirement
 
-Credentials for system authentication
-with critical business information
-must be guarded by two authorized users.
+Access credentials for systems with critical business information must be
+guarded by two authorized users.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[OWASP-ASVS v3.1-4.4]
 Verify that access to sensitive records is protected,
-such that only authorized objects or data is accessible to each user
-(for example, protect against users
-tampering with a parameter to see or alter another user's account).
+such that only authorized objects or data is accessible to each user.
