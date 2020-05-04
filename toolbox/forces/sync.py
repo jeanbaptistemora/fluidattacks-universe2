@@ -562,7 +562,7 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
             json_obj.update(dict(
                 datetime=datetime.now().strftime(constants.DATE_FORMAT),
                 pipeline_id=os.environ.get('CI_PIPELINE_ID', 'unknown'),
-                group=subs,
+                subscription=subs,
             ))
             results_handle.write(json.dumps({
                 'stream': 'results',
