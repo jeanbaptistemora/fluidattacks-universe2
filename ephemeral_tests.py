@@ -561,47 +561,47 @@ class ViewTestCase(unittest.TestCase):
         assert 'Now we can post comments on projects' in selenium.page_source
 
     def test_16_forces(self):
+        if self.branch == 'master':
+            project_name = 'BWAPP'
+            expected_description = 'a Buggy-Web-Application'
+            expected_exploitability =\
+                '1 Exploitable, 0 Accepted, 1 Not exploitable'
+        else:
+            project_name = 'UNITTESTING'
+            expected_description = 'Integrates unit test project'
+            expected_exploitability =\
+                '1 Exploitable, 1 Accepted, 1 Not exploitable'
+
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), '{}')]".format(
+                    expected_description))))
         selenium.save_screenshot(SCR_PATH + '16.01-dashboard.png')
+
         proj_elem.click()
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/forces')
+        selenium.get(
+            self.url + '/dashboard#!/project/{}/forces'.format(project_name))
         time.sleep(3.0)
         selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
 
-        if self.branch == 'master':
-            # Real DynamoDB does not have current-time rows
-            assert True
-            return
-
-        WebDriverWait(selenium, self.delay).until(
+        forces_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Source Code')]")))
-
+                (By.XPATH, "//*[contains(text(), 'Deployed System')]")))
         selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
 
-        selenium.find_element_by_xpath(
-            '//*/td[contains(text(), "Source Code")]').click()
-
+        forces_elem.click()
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'bbb')]")))
+                (By.XPATH, "//*[contains(text(), 'Exploitable')]")))
         time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
 
-        assert True
+        assert expected_exploitability in selenium.page_source
 
     def test_17_pending_to_delete(self):
         selenium = self.__login()
 
-        if self.branch == 'master':
-            # Real DynamoDB does not have a project pending to delete
-            assert True
-            return
         WebDriverWait(
             selenium, self.delay).until(
                 expected.presence_of_element_located(
@@ -618,7 +618,6 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '17-02-pending_to_delete.png')
         cancel_modal_text = selenium.find_element_by_xpath(
             "//*[contains(text(), 'This project is expected to be removed')]").text
-        assert 'Requested by integratesmanager@gmail.com' in cancel_modal_text
         assert 'Project pending to delete' in selenium.page_source
         selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/findings')
         WebDriverWait(
