@@ -4,6 +4,7 @@ from toolbox.forces import (
     lint,
     secrets,
     sync,
+    upload,
 )
 
 # Imported but unused
@@ -11,3 +12,4 @@ assert secrets
 assert commit
 assert lint
 assert sync
+assert upload
