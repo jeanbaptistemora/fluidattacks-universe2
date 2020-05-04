@@ -60,7 +60,7 @@ in
       pyPkgCasbinInMemoryAdapter =
         builders.pythonPackageLocal ../../django-apps/casbin-in-memory-adapter;
       pyPkgReqs =
-        builders.pythonRequirements ./requirements.txt;
+        builders.pythonRequirements ../dependencies/requirements.txt;
       pyPkgReqsApp =
         builders.pythonRequirements ../../deploy/containers/deps-app/requirements.txt;
 
