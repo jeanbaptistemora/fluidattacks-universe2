@@ -40,6 +40,14 @@ function cli {
     functional_tests*)
       env_prepare_python_packages
       ;;
+    lint_front)
+      ;;
+    lint_mobile)
+      ;;
+    test_front)
+      ;;
+    test_mobile)
+      ;;
     test*)
       env_prepare_dynamodb_local
       env_prepare_python_packages

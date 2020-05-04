@@ -26,10 +26,14 @@ function decide_and_call_provisioner {
         build*           ) provisioner='build';;
         deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
         deploy_container*) provisioner='docker';;
-        deploy_mobile    ) provisioner='deploy-mobile';;
+        deploy_mobile    ) provisioner="${job}";;
         deploy_k8s*      ) provisioner='infra';;
         infra_*          ) provisioner="${job}";;
         functional_tests*) provisioner='selenium';;
+        lint_front       ) provisioner="${job}";;
+        lint_mobile      ) provisioner="${job}";;
+        test_front       ) provisioner="${job}";;
+        test_mobile      ) provisioner="${job}";;
         test*            ) provisioner='test';;
                         *) provisioner='full';;
       esac \

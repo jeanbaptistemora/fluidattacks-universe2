@@ -9,7 +9,6 @@ in
 
       buildInputs = [
         pkgs.git
-        pkgs.jq
         pkgs.nodejs
       ];
     })

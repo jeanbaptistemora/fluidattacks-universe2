@@ -7,10 +7,7 @@ source "${srcExternalSops}"
 source "${srcCiScriptsHelpersSops}"
 
 function job_build_front {
-      echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_vars "${ENVIRONMENT_NAME}" \
-  &&  pushd front \
+      pushd front \
     &&  npm install \
     &&  npm run build \
   &&  popd \

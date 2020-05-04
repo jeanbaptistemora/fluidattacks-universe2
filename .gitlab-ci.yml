@@ -201,13 +201,12 @@ deploy_k8s_stop_ephemeral:
     action: stop
 
 deploy_mobile:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_everywhere_except_build_nix_caches
-  image: "${CI_REGISTRY_IMAGE}/nix:deploy-mobile"
   stage: deploy-app
   tags: [autoscaling-large]
   environment:
-    name: "mobile-review/$CI_COMMIT_REF_NAME"
+    name: "mobile/$CI_COMMIT_REF_NAME"
     url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
 
 deploy_container_deps_mobile:
@@ -331,7 +330,7 @@ lint_back:
   stage: lint-code
 
 lint_front:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_and_master_branch
   stage: lint-code
 
@@ -341,7 +340,7 @@ lint_build_system:
   stage: lint-code
 
 lint_mobile:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_and_master_branch
   stage: lint-code
 
@@ -383,9 +382,8 @@ test_back:
     expire_in: 1 week
 
 test_front:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_branch_mrs_and_master
-  image: "${CI_REGISTRY_IMAGE}/nix:test"
   stage: test-code
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
@@ -394,9 +392,8 @@ test_front:
     expire_in: 1 week
 
 test_mobile:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_branch_mrs_and_master
-  image: "${CI_REGISTRY_IMAGE}/nix:test"
   stage: test-code
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
