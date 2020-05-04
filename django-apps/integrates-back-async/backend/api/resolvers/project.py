@@ -18,8 +18,7 @@ from backend.decorators import (
 from backend.domain import (
     finding as finding_domain,
     project as project_domain,
-    user as user_domain,
-    vulnerability as vuln_domain
+    user as user_domain
 )
 from backend.typing import (
     Comment as CommentType,
@@ -143,8 +142,7 @@ async def _get_open_vulnerabilities(info, project_name: str,
     open_vulnerabilities = 0
     for vulns in finding_vulns:
         for vuln in vulns:
-            state = await sync_to_async(vuln_domain.get_current_state)(vuln)
-            if state == 'open' and \
+            if vuln['current_state'] == 'open' and \
                 (vuln['current_approval_status'] != 'PENDING' or
                  vuln['last_approved_status']):
                 open_vulnerabilities += 1
@@ -184,8 +182,7 @@ async def _get_closed_vulnerabilities(
     closed_vulnerabilities = 0
     for vulns in finding_vulns:
         for vuln in vulns:
-            state = await sync_to_async(vuln_domain.get_current_state)(vuln)
-            if state == 'closed' and \
+            if vuln['current_state'] == 'closed' and \
                 (vuln['current_approval_status'] != 'PENDING' or
                  vuln['last_approved_status']):
                 closed_vulnerabilities += 1

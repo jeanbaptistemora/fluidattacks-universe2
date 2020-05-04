@@ -97,7 +97,7 @@ async def _get_vulnerabilities(info, identifier: str,
     if state:
         vuln_filtered = \
             [vuln for vuln in vuln_filtered
-             if vuln_domain.get_current_state(vuln) == state and
+             if vuln['current_state'] == state and
              (vuln['current_approval_status'] != 'PENDING' or
               vuln['last_approved_status'])]
     return vuln_filtered
@@ -176,7 +176,7 @@ async def _get_open_vulnerabilities(info, identifier: str) -> int:
 
     open_vulnerabilities = len([
         vuln for vuln in vulns
-        if await sync_to_async(vuln_domain.get_current_state)(vuln) == 'open'
+        if vuln['current_state'] == 'open'
         and
         (vuln['current_approval_status'] != 'PENDING' or
             vuln['last_approved_status'])])
@@ -190,7 +190,7 @@ async def _get_closed_vulnerabilities(info, identifier: str) -> int:
 
     closed_vulnerabilities = len([
         vuln for vuln in vulns
-        if await sync_to_async(vuln_domain.get_current_state)(vuln) == 'closed'
+        if vuln['current_state'] == 'closed'
         and
         (vuln['current_approval_status'] != 'PENDING' or
             vuln['last_approved_status'])])
