@@ -1,6 +1,7 @@
 # Standard library
 from glob import glob
 from os import listdir
+from os.path import relpath
 from typing import List, Dict
 
 # Local libraries
@@ -31,7 +32,7 @@ def get_subs_unverified_findings(subs: str):
 
 def get_url(subs_name: str, finding_id: str) -> str:
     """Return a string with an url associated to a subs finding"""
-    return f'    {BASE_URL}/{subs_name}/{finding_id}'
+    return f'  url:       {BASE_URL}/{subs_name}/{finding_id}'
 
 
 def get_exploits(subs_name: str, finding_id: str) -> str:
@@ -40,12 +41,8 @@ def get_exploits(subs_name: str, finding_id: str) -> str:
     exp_glob: str = \
         f'./groups/{subs_name}/forces/*/exploits/*{finding_id}*'
     exp_paths: List[str] = glob(exp_glob)
-    for exp_path in exp_paths:
-        message += f'        Exploit: {exp_path}'
-        if exp_path != exp_paths[-1]:
-            message += '\n'
-        else:
-            pass
+    for exp_path in map(relpath, exp_paths):
+        message += f'  exploit:   {exp_path}\n'
     return message
 
 
@@ -69,17 +66,20 @@ def to_reattack(subs_name: str, with_exp: bool) -> tuple:
         sorted(findings_parsed, key=lambda x: x['age'], reverse=True)
     for finding in findings_sorted:
         finding_id = finding['id']
+        finding_age = finding['age']
         url: str
         exploits: str = get_exploits(subs_name, finding_id)
         if with_exp:
             if exploits:
                 url = get_url(subs_name, finding_id)
                 message += f'{url}\n'
-                message += f'{exploits}\n'
+                message += exploits
+                message += f'  requested: {finding_age} days ago\n\n'
         else:
             if not exploits:
                 url = get_url(subs_name, finding_id)
                 message += f'{url}\n'
+                message += f'  requested: {finding_age} days ago\n\n'
 
     return message, findings_parsed
 
@@ -103,6 +103,10 @@ def main(with_exp: bool):
             total_fin += len(pending_findings)
             old = pending_findings[-1]['age']
             oldest = (old, subs_name) if old > oldest[0] else oldest
-    summary = (f"TO-DO: FIN: {total_fin}; Vulns: {total_vulns}; Days since "
-               "oldest request: {oldest[0]}; subs: {oldest[1]};")
+    summary = (
+        f"TO-DO: FIN: {total_fin}; "
+        f"Vulns: {total_vulns}; "
+        f"Days since oldest request: {oldest[0]}; "
+        f"Group: {oldest[1]};"
+    )
     print(summary)
