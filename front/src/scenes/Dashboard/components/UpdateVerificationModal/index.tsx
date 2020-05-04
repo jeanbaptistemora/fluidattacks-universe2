@@ -42,7 +42,7 @@ export interface IUpdateVerificationModal {
 
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzContext);
-  const canDisplayAnalyst: boolean = permissions.can("backend_api_dataloaders_finding__get_analyst");
+  const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_finding__get_analyst");
 
   // State management
   const [vulnerabilitiesList, setVulnerabilities] = React.useState(props.vulns);

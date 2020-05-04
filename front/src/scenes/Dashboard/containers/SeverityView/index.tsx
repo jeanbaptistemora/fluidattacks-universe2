@@ -102,7 +102,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                       {
                         query: GET_FINDING_HEADER,
                         variables: {
-                          canGetHistoricState: permissions.can("backend_api_dataloaders_finding__get_historic_state"),
+                          canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
                           findingId,
                         },
                       },

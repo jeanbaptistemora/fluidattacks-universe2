@@ -160,7 +160,7 @@ describe("FindingContent", () => {
 
   it("should render header", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
@@ -180,7 +180,7 @@ describe("FindingContent", () => {
 
   it("should render unsubmitted draft actions", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -206,7 +206,7 @@ describe("FindingContent", () => {
 
   it("should prompt delete justification", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -262,7 +262,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -312,7 +312,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -356,7 +356,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_approve_draft" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -416,7 +416,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_approve_draft" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -470,7 +470,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -529,7 +529,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -584,7 +584,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -634,7 +634,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_dataloaders_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
     const wrapper: ReactWrapper = mount(

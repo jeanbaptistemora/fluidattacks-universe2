@@ -108,7 +108,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
         {
           query: GET_VULNERABILITIES,
           variables: {
-            analystField: permissions.can("backend_api_dataloaders_finding__get_analyst"),
+            analystField: permissions.can("backend_api_resolvers_finding__get_analyst"),
             identifier: props.findingId,
           },
         },
@@ -159,7 +159,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                 {
                   query: GET_VULNERABILITIES,
                   variables: {
-                    analystField: permissions.can("backend_api_dataloaders_finding__get_analyst"),
+                    analystField: permissions.can("backend_api_resolvers_finding__get_analyst"),
                     identifier: props.findingId,
                   },
                 },

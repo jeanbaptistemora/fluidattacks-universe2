@@ -124,7 +124,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
       rollbar.error("An error occurred loading finding description", error);
     },
     variables: {
-      canRetrieveAnalyst: permissions.can("backend_api_dataloaders_finding__get_analyst"),
+      canRetrieveAnalyst: permissions.can("backend_api_resolvers_finding__get_analyst"),
       findingId,
       projectName,
     },
@@ -221,7 +221,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   )}
                 </Can>
               </Col>
-              <Can do="backend_api_dataloaders_finding__get_analyst">
+              <Can do="backend_api_resolvers_finding__get_analyst">
                 <Col md={6}>
                   <FormGroup>
                     <ControlLabel>

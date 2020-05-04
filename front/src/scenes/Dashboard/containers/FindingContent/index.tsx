@@ -59,7 +59,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
       rollbar.error("An error occurred loading finding header", error);
     },
     variables: {
-      canGetHistoricState: permissions.can("backend_api_dataloaders_finding__get_historic_state"),
+      canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
       findingId,
     },
   });
@@ -275,7 +275,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                       &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
                     </NavLink>
                   </li>
-                  <Can do="backend_api_dataloaders_finding__get_observations">
+                  <Can do="backend_api_resolvers_finding__get_observations">
                     <li id="observationsItem" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`${props.match.url}/observations`}>
                         <i className="icon pe-7s-note" />

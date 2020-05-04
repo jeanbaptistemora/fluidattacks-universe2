@@ -226,7 +226,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       || props.isRequestVerification === true
       || props.isVerifyRequest === true;
 
-    const canGetAnalyst: boolean = permissions.can("backend_api_dataloaders_finding__get_analyst");
+    const canGetAnalyst: boolean = permissions.can("backend_api_resolvers_finding__get_analyst");
     const shouldGroup: boolean = !isEditing && props.separatedRow === true;
 
     const handleOpenVulnSetClick: () => void = (): void => {

@@ -7,10 +7,10 @@ import simplejson as json
 from asgiref.sync import sync_to_async
 import rollbar
 
-from backend.api.dataloaders import (
-    finding as finding_loader,
-    user as user_loader
-)
+from backend.api.dataloaders import user as user_loader
+
+from backend.api.resolvers import finding as finding_loader
+
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, require_login,
     require_project_access, enforce_user_level_auth_async

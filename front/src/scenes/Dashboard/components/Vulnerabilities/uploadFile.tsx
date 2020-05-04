@@ -95,14 +95,14 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         {
           query: GET_VULNERABILITIES,
           variables: {
-            analystField: permissions.can("backend_api_dataloaders_finding__get_analyst"),
+            analystField: permissions.can("backend_api_resolvers_finding__get_analyst"),
             identifier: props.findingId,
           },
         },
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetHistoricState: permissions.can("backend_api_dataloaders_finding__get_historic_state"),
+            canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
             findingId: props.findingId,
           },
         },
