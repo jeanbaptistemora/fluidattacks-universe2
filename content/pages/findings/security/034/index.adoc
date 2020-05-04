@@ -1,6 +1,6 @@
 :slug: findings/034/
 :description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from generation random numbers insecurely, recommendations to avoid them and related security requirements.
-:keywords: Random, Number, Generation, Entropy, Normal Distribution, Cryptography
+:keywords: Random, Number, Generation, Entropy, Normal Distribution, Probabilistic Method
 :findings: yes
 :type: security
 
@@ -8,8 +8,10 @@
 
 == Description
 
-The system uses functions or ranges to generate random numbers that allow an
-attacker to guess the sequence after a short time.
+The system uses insecure functions, insufficient ranges or low-entropy
+components to generate random numbers.
+This could allow an attacker to guess the generation sequence after a short
+time or predict results using probabilistic methods.
 
 == Rules
 
