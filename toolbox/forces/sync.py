@@ -432,6 +432,9 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
 
     for exploit_path in sorted(glob.glob(
             f'groups/{subs}/forces/static/exploits/*.exp')):
+        if '.reason.exp' in exploit_path:
+            continue
+
         exploit_path = os.path.join(os.getcwd(), exploit_path)
         exploit_output_path = f'{exploit_path}.out.yml'
 
@@ -472,6 +475,9 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> List[dict]:
 
     for exploit_path in sorted(glob.glob(
             f'groups/{subs}/forces/dynamic/exploits/*.exp')):
+        if '.reason.exp' in exploit_path:
+            continue
+
         exploit_path = os.path.join(os.getcwd(), exploit_path)
         exploit_output_path = f'{exploit_path}.out.yml'
 
