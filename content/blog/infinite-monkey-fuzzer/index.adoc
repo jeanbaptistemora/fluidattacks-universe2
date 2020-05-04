@@ -265,7 +265,7 @@ in a potentially vulnerable way:
 
 [source,c]
 ----
-    for (i=0; i<num_palette; ``i) {
+    for (i=0; i<num_palette; ++i) {
         bmh.palette[i][0] = tmp_palette[i].red;
         bmh.palette[i][1] = tmp_palette[i].green;
         bmh.palette[i][2] = tmp_palette[i].blue;
