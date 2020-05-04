@@ -165,7 +165,7 @@ deploy_k8s_back_ephemeral:
   <<: *in_dev_branch
   image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
-  needs: [deploy_container_app]
+  needs: [build_container_app]
   retry: 1
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
@@ -185,7 +185,7 @@ deploy_k8s_back:
   <<: *in_master_except_build_nix_caches
   image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
-  needs: [deploy_container_app]
+  needs: [build_container_app]
   retry: 1
   environment:
     name: "production"
@@ -218,15 +218,10 @@ deploy_container_deps_mobile:
   tags: [autoscaling-large]
   stage: build
 
-deploy_container_app:
-  <<: *with_nix
+build_container_app:
+  <<: *with_nix_2
   <<: *in_everywhere_except_build_nix_caches
-  image: "${CI_REGISTRY_IMAGE}/nix:build-and-docker"
   stage: build
-  script:
-    - ./build.sh build_django_apps
-    - ./build.sh deploy_container_deps_app
-    - ./build.sh deploy_container_app_async
   retry: 1
   artifacts:
     expire_in: 1 day

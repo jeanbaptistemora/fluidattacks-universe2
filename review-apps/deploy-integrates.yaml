@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: integrates
-        image: registry.gitlab.com/fluidattacks/integrates/app-async:__DEPLOYMENT_NAME__
+        image: registry.gitlab.com/fluidattacks/integrates/app:__DEPLOYMENT_NAME__
         imagePullPolicy: Always
         resources:
           requests:

@@ -206,3 +206,19 @@ function helper_set_prod_secrets {
   &&  export REDIS_SERVER='localhost' \
 
 }
+
+function helper_build_django_apps {
+  local app
+
+  for app in \
+    'django-apps/integrates-'* \
+    'django-apps/casbin-in-memory-adapter' \
+
+  do
+        echo "[INFO] Building: ${app}" \
+    &&  pushd "${app}" \
+      &&  python3 setup.py sdist -d ../packages/ \
+    &&  popd
+  done \
+  ||  return 1
+}

@@ -39,6 +39,6 @@ in
       pyPkgReqs =
         builders.pythonRequirements ../dependencies/requirements.txt;
       pyPkgReqsApp =
-        builders.pythonRequirements ../../deploy/containers/deps-app/requirements.txt;
+        builders.pythonRequirements ../../deploy/containers/app/requirements.txt;
     })
   )

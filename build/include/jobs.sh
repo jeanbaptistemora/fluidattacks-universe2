@@ -5,22 +5,6 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcCiScriptsHelpersSops}"
 
-function job_build_django_apps {
-  local app
-
-  for app in \
-    'django-apps/integrates-'* \
-    'django-apps/casbin-in-memory-adapter' \
-
-  do
-        echo "[INFO] Building: ${app}" \
-    &&  pushd "${app}" \
-      &&  python3 setup.py sdist -d ../packages/ \
-    &&  popd
-  done \
-  ||  return 1
-}
-
 function job_build_front {
       echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
@@ -82,7 +66,7 @@ function job_coverage_report {
 }
 
 function job_clean_registries {
-  local registry_name='deps-app'
+  local registry_name='app'
   local registry_id
 
   if helper_is_today_first_day_of_month
@@ -124,18 +108,6 @@ function job_build_nix_caches {
       done
 }
 
-function job_deploy_container_deps_app {
-  local context='.'
-  local dockerfile='deploy/containers/deps-app/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/deps-app:${CI_COMMIT_REF_NAME}"
-
-      helper_use_pristine_workdir \
-  &&  helper_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}"
-}
-
 function job_deploy_container_deps_mobile {
   local context='.'
   local dockerfile='deploy/containers/deps-mobile/Dockerfile'
@@ -148,13 +120,13 @@ function job_deploy_container_deps_mobile {
         "${dockerfile}"
 }
 
-function job_deploy_container_app_async {
+function job_build_container_app {
   local context='.'
-  local dockerfile='deploy/containers/app-async/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/app-async:${CI_COMMIT_REF_NAME}"
+  local dockerfile='deploy/containers/app/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
 
       echo '[INFO] Remember that this job needs: build_lambdas' \
-  &&  echo '[INFO] Remember that this job needs: build_django_apps' \
+  &&  helper_build_django_apps \
   &&  echo '[INFO] Computing Fluid Integrates version' \
   &&  echo -n "${FI_VERSION}" > 'version.txt' \
   &&  echo '[INFO] Logging in to AWS' \
@@ -162,8 +134,6 @@ function job_deploy_container_app_async {
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         SSL_KEY \
         SSL_CERT \
-        DRIVE_AUTHORIZATION \
-        DRIVE_AUTHORIZATION_CLIENT \
   &&  helper_docker_build_and_push \
         "${tag}" \
         "${context}" \
