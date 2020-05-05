@@ -4,6 +4,7 @@ from toolbox.drills import (
     commit,
     generate_commit_msg,
     to_reattack,
+    count_toe,
     pull_repos,
     push_repos,
     take_group_snapshot,
@@ -21,6 +22,7 @@ assert to_reattack
 assert pull_repos
 assert push_repos
 assert take_group_snapshot
+assert count_toe
 assert update_lines
 assert upload_history
 assert vpn
