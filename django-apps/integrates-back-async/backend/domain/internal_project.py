@@ -8,3 +8,7 @@ def get_project_name() -> str:
     if not list_project_name:
         raise EmptyPoolProjectName()
     return random.choice(list_project_name)
+
+
+def remove_project_name(project_name: str) -> bool:
+    return internal_project_dal.remove_project_name(project_name)

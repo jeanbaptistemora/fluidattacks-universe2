@@ -17,9 +17,11 @@ from backend.dal import (
 from backend.typing import (
     Comment as CommentType, Finding as FindingType, Project as ProjectType
 )
-from backend.domain import comment as comment_domain, resources as resources_domain
-from backend.domain import finding as finding_domain, user as user_domain
-from backend.domain import vulnerability as vuln_domain
+from backend.domain import (
+    comment as comment_domain, resources as resources_domain,
+    finding as finding_domain, user as user_domain,
+    vulnerability as vuln_domain, internal_project as internal_project_domain
+)
 from backend.exceptions import (
     AlreadyPendingDeletion, InvalidCommentParent, InvalidParameter, InvalidProjectName,
     NotPendingDeletion, PermissionDenied, RepeatedValues, InvalidProjectServicesConfig
@@ -112,6 +114,7 @@ def create_project(
             }
             resp = project_dal.create(project)
             if resp:
+                internal_project_domain.remove_project_name(project_name)
                 if not is_user_admin:
                     add_user_access = user_domain.update_project_access(
                         user_email, project_name, True)
