@@ -17,3 +17,5 @@ making it look like a legitimate redirect performed by the system.
 == Rules
 
 . [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+
+. [[r2]] link:/web/rules/324/[R324. Control redirects]
