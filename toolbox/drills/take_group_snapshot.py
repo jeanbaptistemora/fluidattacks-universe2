@@ -27,8 +27,10 @@ def get_files_in_head(repo_path: str):
     filepaths = fluidcounts(repo_path)
     for tree in trees:
         path = f'{repo_path[7:]}/{tree.path}'
-        symbolic = os.path.islink(f'fusion/{path}')
-        if tree.type == 'blob' and path not in filepaths and not symbolic:
+        if tree.type == 'blob' \
+                and os.path.exists(os.path.join('fusion', path)) \
+                and not os.path.islink(os.path.join('fusion', path)) \
+                and path not in filepaths:
             yield path
     print(f'Finished getting the paths {repo_path}')
 
