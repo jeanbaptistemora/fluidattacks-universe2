@@ -229,137 +229,98 @@ class ViewTestCase(unittest.TestCase):
 
     def test_07_evidence(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '07-01-evidence.png')
-        proj_elem.click()
-
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
-        find_ele = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        finding_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        selenium.save_screenshot(SCR_PATH + '07-01-evidence.png')
+
+        self.__click(finding_elem)
+        sev_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located((By.ID, 'evidenceItem')))
         selenium.save_screenshot(SCR_PATH + '07-02-evidence.png')
-        find_ele.click()
-        sev_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.ID, 'evidenceItem')))
-        selenium.save_screenshot(SCR_PATH + '07-03-evidence.png')
+
         evidences = sev_elem.find_element_by_link_text('Evidence')
-        evidences.click()
-        selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Comentario')]")))
+        self.__click(evidences)
+        selenium.save_screenshot(SCR_PATH + '07-03-evidence.png')
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Comentario')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + '07-05-evidence.png')
+        selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
         assert 'Comentario' in selenium.page_source
 
     def test_08_exploit(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '08-01-exploit.png')
-        proj_elem.click()
-
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
-        find_ele = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        finding_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        selenium.save_screenshot(SCR_PATH + '08-01-exploit.png')
+
+        self.__click(finding_elem)
+        sev_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located((By.ID, 'exploitItem')))
         selenium.save_screenshot(SCR_PATH + '08-02-exploit.png')
-        find_ele.click()
-        sev_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.ID, 'exploitItem')))
-        selenium.save_screenshot(SCR_PATH + '08-03-exploit.png')
-        sev_elem.click()
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'It works')]")))
+
+        self.__click(sev_elem)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'It works')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + '08-04-exploit.png')
+        selenium.save_screenshot(SCR_PATH + '08-03-exploit.png')
         assert 'It works' in selenium.page_source
 
     def test_09_tracking(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '09-01-tracking.png')
-        proj_elem.click()
-
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
-        find_ele = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
-        selenium.save_screenshot(SCR_PATH + '09-02-tracking.png')
-        find_ele.click()
-        sev_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.ID, 'trackingItem')))
+        finding_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        selenium.save_screenshot(SCR_PATH + '09-01-tracking.png')
+
+        self.__click(finding_elem)
+        sev_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located((By.ID, 'trackingItem')))
         tracking = sev_elem.find_element_by_link_text('Tracking')
-        tracking.click()
-        selenium.save_screenshot(SCR_PATH + '09-03-tracking.png')
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), '2019-09-16')]")))
+        self.__click(tracking)
+        selenium.save_screenshot(SCR_PATH + '09-02-tracking.png')
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), '2019-09-16')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + '09-04-tracking.png')
+        selenium.save_screenshot(SCR_PATH + '09-03-tracking.png')
         assert '2019-09-16' in selenium.page_source
 
     def test_10_comments(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '10-01-comments.png')
-        proj_elem.click()
-
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
-        find_ele = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        finding_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        selenium.save_screenshot(SCR_PATH + '10-01-comments.png')
+
+        self.__click(finding_elem)
+        sev_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located((By.ID, 'commentItem')))
         selenium.save_screenshot(SCR_PATH + '10-02-comments.png')
-        find_ele.click()
-        sev_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.ID, 'commentItem')))
-        selenium.save_screenshot(SCR_PATH + '10-03-comments.png')
-        sev_elem.click()
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Oldest')]")))
+
+        self.__click(sev_elem)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Oldest')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + '10-04-comments.png')
+        selenium.save_screenshot(SCR_PATH + '10-03-comments.png')
         assert 'oldest' in selenium.page_source
 
     def test_11_techpdf(self):
