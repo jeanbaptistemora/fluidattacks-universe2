@@ -24,13 +24,13 @@ function decide_and_call_provisioner {
         deploy_k8s*      ) provisioner="${job}";;
         infra_*          ) provisioner="${job}";;
         lint_*           ) provisioner="${job}";;
-        test_front       ) provisioner="${job}";;
-        test_mobile      ) provisioner="${job}";;
+        test_*           ) provisioner="${job}";;
         deploy_mobile    ) provisioner="${job}";;
+        coverage_report  ) provisioner="${job}";;
+        clean_registries ) provisioner="${job}";;
         deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
         deploy_container*) provisioner='docker';;
         functional_tests*) provisioner='selenium';;
-        test*            ) provisioner='test';;
                         *) provisioner='full';;
       esac \
   &&  provisioner="./build/provisioners/${provisioner}.nix" \

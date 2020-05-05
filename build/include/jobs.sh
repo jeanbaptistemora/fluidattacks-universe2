@@ -56,7 +56,8 @@ function job_build_lambdas {
 }
 
 function job_coverage_report {
-      echo '[INFO] Logging in to AWS' \
+      env_prepare_python_packages \
+  &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         CODECOV_TOKEN \
@@ -664,8 +665,11 @@ function job_test_back {
     done
   }
 
+  trap kill_processes EXIT
+
   # shellcheck disable=SC2015
-      helper_set_dev_secrets \
+      env_prepare_python_packages \
+  &&  helper_set_dev_secrets \
   &&  echo '[INFO] Launching Redis' \
   &&  {
         redis-server --port "${port_redis}" \

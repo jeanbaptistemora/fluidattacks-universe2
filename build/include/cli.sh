@@ -50,9 +50,16 @@ function cli {
       ;;
     test_front)
       ;;
+    test_back)
+      env_prepare_dynamodb_local
+      ;;
     lint_back)
       ;;
     test_mobile)
+      ;;
+    coverage_report)
+      ;;
+    clean_registries)
       ;;
     test*)
       env_prepare_dynamodb_local

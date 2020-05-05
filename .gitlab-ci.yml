@@ -143,7 +143,7 @@ build_lambdas:
     when: on_success
 
 coverage_report:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_mrs_and_master_branch
   needs:
     - test_back
@@ -154,7 +154,7 @@ coverage_report:
   retry: 1
 
 clean_registries:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_schedule_nightly_build
   stage: post-deploy
 
@@ -368,9 +368,8 @@ send_new_release_email:
     - deploy_k8s_back
 
 test_back:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_branch_mrs_and_master
-  image: "${CI_REGISTRY_IMAGE}/nix:test"
   stage: test-code
   retry: 1
   artifacts:
