@@ -83,9 +83,11 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay/5).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Legal notice')]")))
-        selenium.find_element_by_xpath("//*[@name='remember']").click()
-        selenium.find_element_by_xpath(
-            "//*[contains(text(), 'Accept and continue')]").click()
+        checkbox = selenium.find_element_by_xpath("//*[@name='remember']")
+        self.__click(checkbox)
+        accept_btn = selenium.find_element_by_xpath(
+            "//*[contains(text(), 'Accept and continue')]")
+        self.__click(accept_btn)
 
     def __click(self, element):
         try:
@@ -96,35 +98,33 @@ class ViewTestCase(unittest.TestCase):
     def __login(self):
         selenium = self.selenium
         selenium.get(self.url)
-        WebDriverWait(selenium,
-                      self.delay).until(
-                          expected.presence_of_element_located(
-                              (By.XPATH,
-                               "//*[contains(text(), 'Access with Google')]")))
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Access with Google')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
-        selenium.find_element_by_xpath(
-            "//*[contains(text(), 'Access with Google')]").click()
+        google_login = selenium.find_element_by_xpath(
+            "//*[contains(text(), 'Access with Google')]")
+        self.__click(google_login)
+
         try:
             self.__check_legal_notice()
         except TimeoutException:
             # User has already checked the legal notice
             pass
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
+
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.01-after-login.png')
         return selenium
 
     def test_01_init_page(self):
         selenium = self.selenium
         selenium.get(self.url)
-        WebDriverWait(selenium,
-                      self.delay).until(
-                          expected.presence_of_element_located(
-                              (By.XPATH,
-                               "//*[contains(text(), 'Access with Google')]")))
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Access with Google')]")))
         selenium.save_screenshot(SCR_PATH + '01-init_page.png')
         assert 'Access with Google' in selenium.page_source
 
@@ -134,133 +134,97 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH,
                  "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '02-dashboard.png')
+        selenium.save_screenshot(SCR_PATH + '01-dashboard.png')
         assert 'My Portfolios' in selenium.page_source
         assert 'Integrates unit test project' in selenium.page_source
 
     def test_03_indicators(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
+        self.__access_project_by_description('Integrates unit test project')
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+               (By.XPATH, "//*[contains(text(), 'Max severity found')]")))
         selenium.save_screenshot(SCR_PATH + '03-01-indicators.png')
-        proj_elem.click()
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Max severity found')]")))
-        selenium.save_screenshot(SCR_PATH + '03-02-indicators.png')
         assert 'Max severity found' in selenium.page_source
 
     def test_04_findings(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '04-01-findings.png')
-        proj_elem.click()
-
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
-        selenium.save_screenshot(SCR_PATH + '04-02-findings.png')
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        selenium.save_screenshot(SCR_PATH + '04-01-findings.png')
         assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
 
     def test_05_finding(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '05-01-finding.png')
-        proj_elem.click()
-
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
-        find_ele = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.S.0051. Weak passwords reversed')]")))
+        finding_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.S.0051. Weak passwords reversed')]")))
+        selenium.save_screenshot(SCR_PATH + '05-01-finding.png')
+
+        self.__click(finding_elem)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'REQ.0132. Passwords (phrase type) must be at least 3 words long')]")))
+        time.sleep(5)
         selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
 
-        find_ele.click()
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'REQ.0132. Passwords (phrase type) must be at least 3 words long')]")))
-
-        time.sleep(5)
+        verify_btn = selenium.find_element_by_xpath(
+            '//*/button[text()[contains(., "Request verification")]]')
+        self.__click(verify_btn)
         selenium.save_screenshot(SCR_PATH + '05-03-finding.png')
-        selenium.find_element_by_xpath(
-            '//*/button[text()[contains(., "Request verification")]]').click()
-        selenium.save_screenshot(SCR_PATH + '05-04-finding.png')
+
         checkboxes = selenium.find_elements_by_css_selector("#inputsVulns input[type='checkbox']")
         for checkbox in checkboxes:
             if not checkbox.is_selected():
-                checkbox.click()
+                self.__click(checkbox)
         time.sleep(2)
-        selenium.save_screenshot(SCR_PATH + '05-05-finding.png')
-        selenium.find_element_by_id(
-            'request_verification_vulns').click()
+        selenium.save_screenshot(SCR_PATH + '05-04-finding.png')
 
+        verify_vulns = selenium.find_element_by_id('request_verification_vulns')
+        self.__click(verify_vulns)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Justification')]")))
         time.sleep(2)
-        selenium.save_screenshot(SCR_PATH + '05-06-finding.png')
-        selenium.find_element_by_xpath(
-            '//*[@class="modal-body"]/form/div[2]/button[1]').click()
+        selenium.save_screenshot(SCR_PATH + '05-05-finding.png')
+
+        modal_btn = selenium.find_element_by_xpath(
+            '//*[@class="modal-body"]/form/div[2]/button[1]')
+        self.__click(modal_btn)
         time.sleep(1)
-
         selenium.execute_script('window.scrollTo(0, 0);')
-
-        selenium.find_element_by_xpath(
-            '//*/button[text()[contains(., "Cancel Request")]]').click()
         assert 'possible reverse the users credentials due that password' in selenium.page_source
 
     def test_06_severity(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '06-01-severity.png')
-        proj_elem.click()
-
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
-        find_ele = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        finding_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        selenium.save_screenshot(SCR_PATH + '06-01-severity.png')
+
+        self.__click(finding_elem)
+        sev_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located((By.ID, 'cssv2Item')))
         selenium.save_screenshot(SCR_PATH + '06-02-severity.png')
-        find_ele.click()
-        sev_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.ID, 'cssv2Item')))
-        selenium.save_screenshot(SCR_PATH + '06-03-severity.png')
-        sev_elem.click()
 
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Confidentiality Impact')]")))
-
+        self.__click(sev_elem)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'Confidentiality Impact')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + '06-04-severity.png')
+        selenium.save_screenshot(SCR_PATH + '06-03-severity.png')
         assert 'Proof of Concept' in selenium.page_source
 
     def test_07_evidence(self):
