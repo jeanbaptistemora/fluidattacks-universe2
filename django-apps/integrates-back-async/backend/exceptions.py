@@ -166,6 +166,14 @@ class InvalidSpecific(Exception):
         super(InvalidSpecific, self).__init__(msg)
 
 
+class InvalidField(Exception):
+    """Exception to control invalid fields in forms"""
+    def __init__(self):
+        """Constructor"""
+        msg = 'Exception - Invalid field in form'
+        super(InvalidField, self).__init__(msg)
+
+
 class InvalidProject(Exception):
     """Exception to control a valid project."""
     def __init__(self):

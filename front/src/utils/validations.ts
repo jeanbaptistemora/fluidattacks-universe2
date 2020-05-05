@@ -73,6 +73,12 @@ export const alphaNumeric: Validator = isAlphaNumeric({
   message: translate.t("validations.alphanumeric"),
 });
 
+export const validAlphanumericSpace: Validator = matchesPattern(
+  /^[a-z\d\s]+$/i,
+)({
+  message: translate.t("validations.alphanumeric"),
+});
+
 export const validEmail: Validator = matchesPattern(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 )({

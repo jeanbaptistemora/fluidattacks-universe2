@@ -1,9 +1,9 @@
 import re
-from operator import methodcaller
 from typing import List
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from graphql.error import GraphQLError
+from backend.exceptions import InvalidField
 
 
 def validate_email_address(email: str) -> bool:
@@ -23,12 +23,10 @@ def validate_field(field: List[str]) -> bool:
 
 def validate_alphanumeric_field(field: str) -> bool:
     """Optional whitespace separated string, with alphanumeric characters."""
-    if isinstance(field, str):
-        return all(map(methodcaller('isalnum'), field.split())) \
-            or field == '-' \
-            or field == ''
-
-    return field[0] is None
+    is_alnum = all([word.isalnum() for word in field.split()])
+    if is_alnum or field == '-' or not field:
+        return True
+    raise InvalidField()
 
 
 def validate_phone_field(phone_field: str) -> bool:

@@ -417,8 +417,13 @@ def modify_user_information(context: object,
     responsibility = modified_user_data['responsibility']
     phone = modified_user_data['phone_number']
     organization = modified_user_data['organization']
-    user_domain.update(email, organization.lower(), 'company')
     successes = []
+
+    if organization and validate_alphanumeric_field(organization):
+        result = user_domain.update(email, organization.lower(), 'company')
+        successes.append(result)
+    else:
+        successes.append(False)
 
     if responsibility and len(responsibility) <= 50:
         result = project_domain.add_access(

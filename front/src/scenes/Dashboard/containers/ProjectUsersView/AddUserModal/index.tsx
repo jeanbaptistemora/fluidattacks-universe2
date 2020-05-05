@@ -18,7 +18,7 @@ import { handleErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";
 import { msgError } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
-import { required, validEmail } from "../../../../../utils/validations";
+import { required, validAlphanumericSpace, validEmail } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm/index";
 import { GET_USER } from "./queries";
 import { IAddUserModalProps, IUserDataAttr } from "./types";
@@ -94,7 +94,12 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                       {requiredIndicator}
                       {translate.t("search_findings.tab_users.user_organization")}
                     </ControlLabel>
-                    <Field name="organization" component={textField} type="text" validate={[required]} />
+                    <Field
+                      name="organization"
+                      component={textField}
+                      type="text"
+                      validate={[required, validAlphanumericSpace]}
+                    />
                   </FormGroup>
                   <FormGroup>
                     <ControlLabel>{requiredIndicator}{translate.t("search_findings.tab_users.role")}</ControlLabel>
