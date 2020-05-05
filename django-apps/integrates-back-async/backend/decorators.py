@@ -2,6 +2,7 @@
 """ Decorators for FluidIntegrates. """
 
 from datetime import datetime
+import asyncio
 import functools
 import re
 from typing import Any, Callable, Dict
@@ -409,7 +410,9 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
             ret = await sync_to_async(cache.get)(key_name)
             if ret is None:
                 ret = await func(*args, **kwargs)
-                await sync_to_async(cache.set)(key_name, ret, timeout=CACHE_TTL)
+                cache_set_coro = \
+                    sync_to_async(cache.set)(key_name, ret, timeout=CACHE_TTL)
+                asyncio.create_task(cache_set_coro)
             return ret
         except RedisClusterException:
             rollbar.report_exc_info()
