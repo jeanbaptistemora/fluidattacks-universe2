@@ -30,8 +30,6 @@ points such as access control gateways, severs and serverless functions.
 
 * link:/web/findings/047/[F047. Automatic information enumeration]
 
-* link:/web/findings/048/[F048. Lack of root detection]
-
 * link:/web/findings/055/[F055. Insecure service configuration]
 
 * link:/web/findings/056/[F056. Anonymous connection]

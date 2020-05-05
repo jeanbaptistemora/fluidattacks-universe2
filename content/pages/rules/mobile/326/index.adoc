@@ -1,0 +1,36 @@
+:slug: rules/326/
+:category: mobile
+:description: This document contains the details of the security requirements related to the definition and management of mobile devices in the organization. This requirement establishes the importance of checking whether a device on which mobile applications will run has been rooted.
+:keywords: Detection, Root, Device, Rooting, Mobile Device, CWE
+:rules: yes
+
+= REQ.326 Detect rooted devices
+
+== Requirement
+
+Mobile applications must check whether the device on which they will run is
+rooted.
+
+== Description
+
+Rooting is a process that grants mobile device users privileged control over
+the device's system.
+Applications running on such devices are susceptible to technical information
+leaks (database connection strings, source code, certificates, etc.).
+Therefore, applications must check whether the device is rooted and inform the
+user about the associated risks, or prevent its own execution.
+
+== Findings
+
+* link:/web/findings/048/[F048. Lack of root detection]
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/250.html[CWE-250: Execution with Unnecessary Privileges]
+The software performs an operation at a privilege level that is higher than the
+minimum level required,
+which creates new weaknesses or amplifies the consequences of other weaknesses.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/693.html[CWE-693: Protection Mechanism Failure]
+The product does not use or incorrectly uses a protection mechanism that
+provides sufficient defense against directed attacks against the product.

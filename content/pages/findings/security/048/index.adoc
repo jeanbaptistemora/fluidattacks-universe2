@@ -13,4 +13,4 @@ running has been rooted.
 
 == Rules
 
-. [[r1]] link:/web/rules/266/[R266. Disable insecure functionalities]
+. [[r1]] link:/web/rules/326/[R326. Detect rooted devices]
