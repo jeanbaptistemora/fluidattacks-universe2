@@ -160,9 +160,8 @@ clean_registries:
   stage: post-deploy
 
 deploy_k8s_back_ephemeral:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_branch
-  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
   needs: [build_container_app]
   retry: 1
@@ -180,9 +179,8 @@ deploy_k8s_back_ephemeral:
 # Please follow the link and adjust if needed, thanks!
 #   https://gitlab.com/fluidattacks/serves/-/blob/0cb7556d236a3668bdcae64027941565e92131ad/build/include/helpers.sh#L180
 deploy_k8s_back:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_master_except_build_nix_caches
-  image: "${CI_REGISTRY_IMAGE}/nix:infra"
   stage: deploy-app
   needs: [build_container_app]
   retry: 1
@@ -191,7 +189,7 @@ deploy_k8s_back:
     url: "https://fluidattacks.com/integrates"
 
 deploy_k8s_stop_ephemeral:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_branch
   stage: deploy-app
   retry: 1

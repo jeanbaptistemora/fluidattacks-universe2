@@ -23,17 +23,17 @@ function decide_and_call_provisioner {
         build_container_app) provisioner="${job}";;
         build_front) provisioner="${job}";;
         deploy_front) provisioner="${job}";;
-        build*           ) provisioner='build';;
-        deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
-        deploy_container*) provisioner='docker';;
-        deploy_mobile    ) provisioner="${job}";;
-        deploy_k8s*      ) provisioner='infra';;
+        deploy_k8s*      ) provisioner="${job}";;
         infra_*          ) provisioner="${job}";;
-        functional_tests*) provisioner='selenium';;
         lint_front       ) provisioner="${job}";;
         lint_mobile      ) provisioner="${job}";;
         test_front       ) provisioner="${job}";;
         test_mobile      ) provisioner="${job}";;
+        deploy_mobile    ) provisioner="${job}";;
+        build*           ) provisioner='build';;
+        deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
+        deploy_container*) provisioner='docker';;
+        functional_tests*) provisioner='selenium';;
         test*            ) provisioner='test';;
                         *) provisioner='full';;
       esac \
