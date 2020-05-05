@@ -2,15 +2,19 @@
 import os
 import csv
 import glob
-import logging
 from datetime import datetime
 
 # Third party libraries
 import ruamel.yaml as yaml
-from boto3 import resource
+import boto3
 from botocore.exceptions import ClientError
 
+# Local libraries
+from toolbox import (
+    logger,
+)
 
+# Constants
 EXCLUDES: tuple = (
     '/bower_components/',
     '/node_modules/',
@@ -24,24 +28,16 @@ EXCLUDES_BY_SUBS: dict = {
 
 
 def get_dynamodb_resource():
-    """Get resource from DynamoDB Database. """
-    try:
-        aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
-        aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
-        aws_region = os.environ['AWS_DEFAULT_REGION']
-    except KeyError as err:
-        print("Environment variable " + err.args[0] + " doesn't exist")
-        raise
-
-    dynamodb_resource = resource('dynamodb',
-                                 aws_access_key_id=aws_access_key_id,
-                                 aws_secret_access_key=aws_secret_access_key,
-                                 region_name=aws_region)
-    return dynamodb_resource
+    return boto3.resource(
+        'dynamodb',
+        aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+        region_name=os.environ['AWS_DEFAULT_REGION'],
+    )
 
 
-def check_lines(subs, file_csv):
-    """Insert lineas.csv"""
+def count_lines(subs, file_csv):
+    """Insert lines.csv"""
     with open(file_csv) as f_csv:
         reader = csv.reader(f_csv)
         next(reader, None)
@@ -64,11 +60,11 @@ def check_lines(subs, file_csv):
                     tested_lines += int(row[2])
                 else:
                     pass
-        print('skipped', file_csv, skipped)
+        logger.info('skipped', file_csv, skipped)
     return (lines, tested_lines)
 
 
-def check_fields(file_csv):
+def count_inputs(file_csv):
     """Insert campos.csv"""
     with open(file_csv) as f_csv:
         reader = csv.reader(f_csv)
@@ -86,80 +82,51 @@ def check_fields(file_csv):
     return (fields, tested_fields)
 
 
-def insert_data(project, lines, tested_lines, fields, tested_fields):
+def insert_data(group, lines, tested_lines, fields, tested_fields):
     """Insert data into table"""
-    dynamodb_resource = get_dynamodb_resource()
-    table_name = 'FI_toe'
-    table = dynamodb_resource.Table(table_name)
+    success: bool = True
+    table = get_dynamodb_resource().Table('FI_toe')
     try:
         response = table.put_item(Item={
-            'project': project,
+            'project': group,
             'lines': lines,
             'lines_tested': tested_lines,
             'fields': fields,
             'fields_tested': tested_fields,
             'last_update': str(datetime.now().date()),
         })
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        return False
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as exc:
+        logger.error(f'Could not insert data for {group}: {exc}')
+        success = False
+    else:
+        logger.info(
+            f'{group}, {lines} lines, {tested_lines} tested lines, '
+            f'{fields} inputs, {tested_fields} tested inputs'
+        )
+
+    return success
 
 
-def get_projects(path):
-    """Get list of projects"""
-    projects = []
-    for item in os.listdir(path):
-        config_file = os.path.join(path, item, 'config/config.yml')
-        project_path = os.path.join(path, item)
-        if os.path.exists(config_file):
-            projects.append(project_path)
-        elif os.path.isdir(project_path):
-            projects += (get_projects(project_path))
-    projects.sort()
-    return projects
-
-
-def main():
+def main(target_group: str):
     """main function"""
-    logger = logging.getLogger('ERROR')
-    logger = logging.getLogger('INFO')
-    logger.setLevel(logging.ERROR)
-    logger.setLevel(logging.INFO)
-    stream_handler = logging.StreamHandler()
-    stream_handler.setLevel(logging.ERROR)
-    stream_handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(levelname)s - %(message)s')
-    stream_handler.setFormatter(formatter)
-    logger.addHandler(stream_handler)
+    success: bool = True
 
-    path = 'groups'
-    projects = get_projects(path)
-    for project in projects:
-        subs: str = project.replace('groups/', '')
-        fields = 0
-        tested_fields = 0
-        lines = 0
-        tested_lines = 0
-        inputs_file = os.path.join(project, 'toe/inputs.csv')
-        lines_file = os.path.join(project, 'toe/lines.csv')
-        project_name = os.path.basename(project).lower()
+    groups = os.listdir('groups') if target_group == 'all' else [target_group]
+
+    for group in sorted(groups):
+        fields, tested_fields, lines, tested_lines = 0, 0, 0, 0
+
+        inputs_file = os.path.join('groups', group, 'toe/inputs.csv')
+        lines_file = os.path.join('groups', group, 'toe/lines.csv')
+
         if os.path.exists(inputs_file):
-            fields, tested_fields = check_fields(inputs_file)
-        else:
-            pass
+            fields, tested_fields = count_inputs(inputs_file)
+
         if os.path.exists(lines_file):
-            lines, tested_lines = check_lines(subs, lines_file)
-        else:
-            pass
+            lines, tested_lines = count_lines(group, lines_file)
 
-        response = insert_data(project_name, lines, tested_lines, fields,
-                               tested_fields)
+        success = success \
+            and insert_data(group, lines, tested_lines, fields, tested_fields)
 
-        if response:
-            logger.info("Insertado exitoso: proyecto: %s, lines: %d, "
-                        "tested lines: %d, fields: %d, tested fields: %d",
-                        project_name, lines, tested_lines, fields,
-                        tested_fields)
-        else:
-            logger.error("Error insertando, proyecto: %s", project_name)
+    return success
