@@ -258,7 +258,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
           onClose={closeUserModal}
           projectName={projectName}
           initialValues={userModalType === "edit" ? currentRow : {}}
-          isSideBar={false}
         />
       </div>
     </React.StrictMode>

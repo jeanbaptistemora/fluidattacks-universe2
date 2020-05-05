@@ -127,7 +127,6 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
               type="add"
               onClose={closeUserModal}
               initialValues={{}}
-              isSideBar={true}
             />
           );
         }}

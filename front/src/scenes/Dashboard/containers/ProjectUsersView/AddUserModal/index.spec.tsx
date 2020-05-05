@@ -15,7 +15,6 @@ describe("Add user modal", () => {
 
   const mockPropsAdd: IAddUserModalProps = {
     initialValues: {},
-    isSideBar: false,
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,
@@ -25,7 +24,6 @@ describe("Add user modal", () => {
 
   const mockPropsEdit: IAddUserModalProps = {
     initialValues: {},
-    isSideBar: false,
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,

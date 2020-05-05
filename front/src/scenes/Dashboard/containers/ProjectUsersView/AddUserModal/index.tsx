@@ -31,7 +31,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
     ? translate.t("search_findings.tab_users.title")
     : translate.t("search_findings.tab_users.edit_user_title");
   title = props.projectName === undefined ? translate.t("sidebar.user") : title;
-  const adminOption: JSX.Element | undefined = props.isSideBar ?
+  const adminOption: JSX.Element | undefined = props.projectName === undefined ?
     <option value="ADMIN">{translate.t("search_findings.tab_users.admin")}</option> :
     undefined;
   const selector: (state: {}, ...field: string[]) => string = formValueSelector("addUser");
