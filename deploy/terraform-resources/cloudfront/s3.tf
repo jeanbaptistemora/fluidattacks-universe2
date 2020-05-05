@@ -1,6 +1,7 @@
 variable "bucket_name" {}
 variable "evidences_bucket_name" {}
 variable "reports_bucket_name" {}
+variable "build_bucket_name" {}
 
 resource "aws_s3_bucket" "fi_resources_bucket" {
   bucket = var.bucket_name
@@ -61,6 +62,27 @@ resource "aws_s3_bucket" "fi_reports_bucket" {
     enabled = true
     expiration {
       days = 1
+    }
+  }
+
+  tags = {
+    Pry = "Integrates"
+  }
+}
+
+resource "aws_s3_bucket" "fi_build_bucket" {
+  bucket = var.build_bucket_name
+  acl    = "private"
+
+  versioning {
+    enabled = true
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
     }
   }
 
@@ -166,4 +188,12 @@ output "fi_reports_bucket_id" {
 
 output "fi_reports_bucket_arn" {
   value = aws_s3_bucket.fi_reports_bucket.arn
+}
+
+output "fi_build_bucket_id" {
+  value = aws_s3_bucket.fi_build_bucket.id
+}
+
+output "fi_build_bucket_arn" {
+  value = aws_s3_bucket.fi_build_bucket.arn
 }
