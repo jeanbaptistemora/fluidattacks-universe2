@@ -14,3 +14,5 @@ greater audience than it is required.
 == Rules
 
 . [[r1]] link:/web/rules/176/[R176. Restrict system objects]
+
+. [[r2]] link:/web/rules/325/[R325. Protect WSDL files]
