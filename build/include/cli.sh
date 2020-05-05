@@ -38,7 +38,6 @@ function cli {
     infra*)
       ;;
     functional_tests*)
-      env_prepare_python_packages
       ;;
     lint_front)
       ;;
@@ -60,6 +59,12 @@ function cli {
     coverage_report)
       ;;
     clean_registries)
+      ;;
+    renew_certificates)
+      ;;
+    send_new_release_email)
+      ;;
+    rotate_jwt_token)
       ;;
     test*)
       env_prepare_dynamodb_local

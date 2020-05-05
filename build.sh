@@ -28,9 +28,12 @@ function decide_and_call_provisioner {
         deploy_mobile    ) provisioner="${job}";;
         coverage_report  ) provisioner="${job}";;
         clean_registries ) provisioner="${job}";;
+        renew_certificates) provisioner="${job}";;
+        send_new_release_email) provisioner="${job}";;
+        rotate_jwt_token) provisioner="${job}";;
+        functional_tests*) provisioner="${job}";;
         deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
         deploy_container*) provisioner='docker';;
-        functional_tests*) provisioner='selenium';;
                         *) provisioner='full';;
       esac \
   &&  provisioner="./build/provisioners/${provisioner}.nix" \

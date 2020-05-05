@@ -219,7 +219,8 @@ function job_deploy_mobile {
 }
 
 function _job_functional_tests {
-      echo '[INFO] Logging in to AWS' \
+      env_prepare_python_packages \
+  &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  echo "[INFO] Firefox: ${pkgFirefox}" \
   &&  echo "[INFO] GeckoDriver:  ${pkgGeckoDriver}" \
@@ -349,7 +350,8 @@ function job_serve_dynamodb_local {
 }
 
 function job_send_new_release_email {
-      CI_COMMIT_REF_NAME=master aws_login 'production' \
+      env_prepare_python_packages \
+  &&  CI_COMMIT_REF_NAME=master aws_login 'production' \
   &&  sops_env "secrets-production.yaml" default \
         MANDRILL_APIKEY \
         MANDRILL_EMAIL_TO \
@@ -706,15 +708,7 @@ function job_test_back {
         --cov-report='annotate:build/coverage/annotate' \
         --disable-warnings \
         'test_async' \
-  &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
-  &&  {
-        kill_processes
-        return 0
-      } \
-  ||  {
-        kill_processes
-        return 1
-      }
+  &&  cp -a 'build/coverage/results.xml' "coverage.xml"
 }
 
 function job_test_front {
