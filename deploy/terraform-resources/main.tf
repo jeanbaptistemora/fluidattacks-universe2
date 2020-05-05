@@ -49,7 +49,7 @@ module "cloudfront" {
   bucket_name           = var.aws_s3_resources_bucket
   evidences_bucket_name = var.aws_s3_evidences_bucket
   reports_bucket_name   = var.aws_s3_reports_bucket
-  build_bucket_name   = var.aws_s3_build_bucket
+  build_bucket_name     = var.aws_s3_build_bucket
 }
 
 module "sqs" {
