@@ -5,6 +5,7 @@ import os
 import re
 import tempfile
 import textwrap
+from itertools import filterfalse
 from operator import methodcaller
 from typing import (
     Generator,
@@ -72,32 +73,23 @@ def is_covered(
         and is_included_in_any_rule
 
 
-def iter_matching_files(
+def iter_non_matching_files(
     *,
     path: str,
     include_regexps: Tuple[str, ...],
     exclude_regexps: Tuple[str, ...],
 ) -> Iterator[str]:
-    """Yield paths matching the include/exclude regular expresions.
+    """Yield non-matching paths for the include/exclude regular expresions.
 
     Include/exclude regular expresions are considered relative.
     This means that regular expresions will be matched against the string
     that is after 'path/'
     """
-    include_c_regexps = tuple(
-        re.compile(include_regex)
-        for include_regex in include_regexps
-    )
-    exclude_c_regexps = tuple(
-        re.compile(exclude_regex)
-        for exclude_regex in exclude_regexps
-    )
-
-    yield from (
-        path
-        for path in _iter_rel_paths(path)
-        if (
-            any(map(methodcaller('match', path), include_c_regexps))
-            and not any(map(methodcaller('match', path), exclude_c_regexps))
+    def predicate(file: str) -> bool:
+        return is_covered(
+            path=file,
+            include_regexps=include_regexps,
+            exclude_regexps=exclude_regexps,
         )
-    )
+
+    yield from filterfalse(predicate, _iter_rel_paths(path))
