@@ -102,7 +102,7 @@ def is_valid_group(ctx, param, subs):  # pylint: disable=unused-argument
     actual_path: str = os.getcwd()
     if 'groups' not in actual_path \
             and subs not in os.listdir('groups') \
-            and subs not in ('admin', 'unspecified-subs'):
+            and subs not in ('admin', 'all', 'unspecified-subs'):
         msg = f'the group {subs} does not exist'
         raise BadParameter(msg)
     go_back_to_continuous()
