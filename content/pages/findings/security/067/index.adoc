@@ -1,6 +1,6 @@
 :slug: findings/067/
 :description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from improperly allocating resources, recommendations to avoid them and related security requirements.
-:keywords: Performance, Allocation, Excessive, Request, System, Resource
+:keywords: Performance, Allocation, Excessive, Inefficient, System, Resource
 :findings: yes
 :type: security
 
@@ -9,7 +9,7 @@
 == Description
 
 The system allocates unnecessary resources due to the use of improper
-programming practices.
+programming practices or inefficient algorithms.
 Alternatively, the allocation can be controlled by an external source (e.g.
 user input),
 hence, requests that consume a humongous amount of resources are processed
