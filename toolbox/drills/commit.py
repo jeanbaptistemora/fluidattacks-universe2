@@ -63,7 +63,7 @@ def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
     # drills(lines/inputs/cross): continuoustest - 72.75%, 0 el, 6 ei
     daily_pattern: str = base_pattern + (
         r': '
-        r'(?P<group>[a-z]+)'
+        r'(?P<group>[a-z0-9]+)'
         r' - '
         r'(?P<coverage>\d+\.\d{2}%)'
         r', '
@@ -75,7 +75,7 @@ def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
     # drills(enum): continuoustest - 0 nl, 3ni
     enum_pattern: str = base_pattern + (
         r': '
-        r'(?P<group>[a-z]+)'
+        r'(?P<group>[a-z0-9]+)'
         r' - '
         r'(?P<new_lines>\d+) nl'
         r', '
@@ -85,7 +85,7 @@ def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
     # drills(conf): continuoustest - comment, continued
     config_pattern = base_pattern + (
         f': '
-        r'(?P<group>[a-z]+)'
+        r'(?P<group>[a-z0-9]+)'
         r' - '
         r'(?P<comment>[a-z, _-]+)'
         r'$'
