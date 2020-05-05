@@ -99,3 +99,20 @@ def test_is_event_bus_exposed_closed():
                                                    retry=False,
                                                    region_name='us-east-2',)
 
+
+def test_no_alarm_on_org_changes_open():
+    """Check if there are alarms set on organization changes."""
+    assert cloudwatch.no_alarm_on_config_changes(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_org_changes_closed():
+    """Check if there are alarms set on organization changes."""
+    assert not \
+        cloudwatch.no_alarm_on_single_fa_login(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_single_fa_login(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
