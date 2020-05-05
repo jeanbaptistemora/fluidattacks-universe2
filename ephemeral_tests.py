@@ -26,7 +26,7 @@ class ViewTestCase(unittest.TestCase):
         self.firefox = os.environ['pkgFirefox']
         self.firefox = f'{self.firefox}/bin/firefox'
 
-        s3_bucket = 'fluidintegrates.resources'
+        s3_bucket = 'fluidintegrates.build'
         profile_path = './test/functional/profile'
         if not os.path.exists(profile_path):
             session = boto3.Session(
