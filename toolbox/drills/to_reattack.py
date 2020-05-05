@@ -1,4 +1,5 @@
 # Standard library
+from datetime import datetime as dt
 from glob import glob
 from os import listdir
 from os.path import relpath
@@ -18,9 +19,11 @@ def get_subs_unverified_findings(subs: str):
             project(projectName: "{subs}") {{
                 findings (filters: {{verified: False}}) {{
                     id,
-                    age,
                     vulnerabilities (state: "open"){{
-                      id
+                      id,
+                      historicVerification {{
+                          status,date
+                        }}
                     }}
                 }}
             }}
@@ -55,18 +58,26 @@ def to_reattack(subs_name: str, with_exp: bool) -> tuple:
     param: with_exp: Show findings with or without exploits
     """
     message: str = ''
-    findings_raw: List[Dict[str, str]] = \
+    findings_raw: List[Dict] = \
         get_subs_unverified_findings(subs_name).data['project']['findings']
-    findings_parsed: List[Dict] = list(map(
-        lambda x: {'id': x['id'],
-                   "age": x['age'],
-                   "vulns": len(x['vulnerabilities'])},
-        findings_raw))
+    findings_parsed: List[Dict] = []
+    for finding in findings_raw:
+        verivulns = filter(lambda x: bool(x['historicVerification']),
+                           finding['vulnerabilities'])
+        vulnsort = sorted(verivulns,
+                          key=lambda x: x['historicVerification'][-1]['date'],)
+        oldest = (dt.now() -
+                  dt.strptime(vulnsort[0]['historicVerification'][-1]['date'],
+                              '%Y-%m-%d %H:%M:%S')).days
+        findings_parsed.append({'id': finding['id'],
+                                'vulns': len(finding['vulnerabilities']),
+                                'oldest': oldest})
     findings_sorted = \
-        sorted(findings_parsed, key=lambda x: x['age'], reverse=True)
+        sorted(findings_parsed, key=lambda x: x['oldest'], reverse=True)
+
     for finding in findings_sorted:
         finding_id = finding['id']
-        finding_age = finding['age']
+        finding_oldest = finding['oldest']
         url: str
         exploits: str = get_exploits(subs_name, finding_id)
         if with_exp:
@@ -74,12 +85,12 @@ def to_reattack(subs_name: str, with_exp: bool) -> tuple:
                 url = get_url(subs_name, finding_id)
                 message += f'{url}\n'
                 message += exploits
-                message += f'  requested: {finding_age} days ago\n\n'
+                message += f'  requested: {finding_oldest} days ago\n\n'
         else:
             if not exploits:
                 url = get_url(subs_name, finding_id)
                 message += f'{url}\n'
-                message += f'  requested: {finding_age} days ago\n\n'
+                message += f'  requested: {finding_oldest} days ago\n\n'
 
     return message, findings_parsed
 
@@ -101,7 +112,7 @@ def main(with_exp: bool):
             print(message)
             total_vulns += sum(map(lambda x: x['vulns'], pending_findings))
             total_fin += len(pending_findings)
-            old = pending_findings[-1]['age']
+            old = pending_findings[-1]['oldest']
             oldest = (old, subs_name) if old > oldest[0] else oldest
     summary = (
         f"TO-DO: FIN: {total_fin}; "
