@@ -67,14 +67,6 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
         and authorization_util.revoke_cached_subject_policies(email)
 
 
-def revoke_user_level_role(email: str) -> bool:
-    """Revoke a user-level role from a user."""
-    subject: str = email
-    object_: str = 'self'
-    return user_dal.delete_subject_policy(subject, object_) \
-        and authorization_util.revoke_cached_subject_policies(subject)
-
-
 def revoke_group_level_role(email: str, group: str) -> bool:
     """Revoke a group-level role from a user."""
     subject: str = email
@@ -86,15 +78,6 @@ def revoke_group_level_role(email: str, group: str) -> bool:
 def add_phone_to_user(email: str, phone: str) -> bool:
     """ Update user phone number. """
     return user_dal.update(email, {'phone': phone})
-
-
-def assign_role(email: str, role: str, group: str = None) -> bool:
-    if role not in ('analyst', 'customer', 'admin', 'customeradmin', 'internal_manager'):
-        return False
-
-    if group:
-        return grant_group_level_role(email, group, role)
-    return grant_user_level_role(email, role)
 
 
 def get_all_companies() -> List[str]:

@@ -12,9 +12,9 @@ from backend.domain.project import (
     add_comment,
     get_email_recipients, validate_tags, is_alive, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
-    is_vulnerability_closed, get_max_severity, get_max_open_severity,
+    is_vulnerability_closed, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
-    is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
+    list_drafts, list_comments, get_active_projects,
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config
 )
@@ -155,18 +155,6 @@ class ProjectTest(TestCase):
         assert is_vulnerability_closed(closed_vulnerability)
         assert not is_vulnerability_closed(open_vulnerability)
 
-    def test_get_max_severity(self):
-        findings_to_get = ['463558592', '422286126']
-        findings = [
-            DYNAMODB_RESOURCE.Table('FI_findings').get_item(
-                TableName='FI_findings',
-                Key={'finding_id': finding_id}
-            )['Item']
-            for finding_id in findings_to_get]
-        test_data = get_max_severity(findings)
-        expected_output = Decimal(4.3).quantize(Decimal('0.1'))
-        assert test_data == expected_output
-
     def test_get_max_open_severity(self):
         findings_to_get = ['463558592', '422286126']
         findings = [
@@ -248,12 +236,6 @@ class ProjectTest(TestCase):
             {'inProgress': 1, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
         assert test_data == expected_output
 
-    def test_is_finding_in_drafts(self):
-        finding_id = '463558592'
-        draft_id = '475041513'
-
-        assert not is_finding_in_drafts(finding_id)
-        assert is_finding_in_drafts(draft_id)
 
     def test_list_drafts(self):
         project_name = 'unittesting'

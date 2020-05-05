@@ -113,12 +113,6 @@ def cast_tracking(tracking) -> List[Dict[str, int]]:
     return tracking_casted
 
 
-def filter_evidence_filename(evidence_files: List[Dict[str, str]], name: str) -> str:
-    evidence_info = [evidence for evidence in evidence_files
-                     if evidence['name'] == name]
-    return evidence_info[0].get('file_url', '') if evidence_info else ''
-
-
 def add_comment(user_email: str, comment_data: CommentType,
                 finding_id: str, is_remediation_comment: bool) -> bool:
     parent = str(comment_data.get('parent'))
@@ -185,10 +179,6 @@ def handle_acceptation(finding_id: str, observations: str, user_mail: str, respo
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         historic_treatment.append({'treatment': 'NEW', 'date': today})
     return finding_dal.update(finding_id, {'historic_treatment': historic_treatment})
-
-
-def calc_risk_level(probability: float, severity: float) -> str:
-    return str(round((probability / 100) * severity, 1))
 
 
 def update_description(finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
@@ -380,30 +370,6 @@ def delete_comment(comment: CommentType) -> bool:
     else:
         response = True
     return response
-
-
-def delete_all_comments(finding_id: str) -> bool:
-    """Delete all comments of a finding."""
-    all_comments = comment_dal.get_comments('comment', int(finding_id))
-    comments_deleted = [delete_comment(i) for i in all_comments]
-    util.invalidate_cache(finding_id)
-    return all(comments_deleted)
-
-
-def delete_all_evidences_s3(finding_id: str, project: str, context) -> bool:
-    """Delete s3 evidences files."""
-    evidences_list = finding_dal.search_evidence(project + '/' + finding_id)
-    is_evidence_deleted = False
-    if evidences_list:
-        is_evidence_deleted_s3 = \
-            list(map(finding_dal.remove_evidence, evidences_list))  # type: ignore
-        is_evidence_deleted = any(is_evidence_deleted_s3)
-    else:
-        util.cloudwatch_log_sync(
-            context,
-            'Info: Finding ' + finding_id + ' does not have evidences in s3')
-        is_evidence_deleted = True
-    return is_evidence_deleted
 
 
 def reject_draft(draft_id: str, reviewer_email: str) -> bool:

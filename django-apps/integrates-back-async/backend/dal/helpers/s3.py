@@ -72,17 +72,3 @@ def upload_memory_file(bucket, file_object, file_name):
                                'error', payload_data=locals())
 
     return success
-
-
-def upload_stored_file(bucket, file_path, file_name):
-    success = False
-    try:
-        with open(file_path, 'r') as file_object:
-            _send_to_s3(bucket, file_object, file_name)
-        os.unlink(file_path)
-        success = True
-    except IOError as ex:
-        rollbar.report_message('Error: Attempt to upload nonexistent file',
-                               'error', extra_data=ex, payload_data=locals())
-
-    return success

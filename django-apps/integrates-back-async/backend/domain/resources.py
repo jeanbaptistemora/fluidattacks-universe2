@@ -282,19 +282,19 @@ def mask(project_name: str) -> NamedTuple:
     files_result = project_dal.update(project_name, {
         'files': [
             {'fileName': 'Masked', 'description': 'Masked', 'uploader': 'Masked'}
-            for file_resource in project.get('files', [])
+            for _ in project.get('files', [])
         ]
     })
     environments_result = project_dal.update(project_name, {
         'environments': [
             {'urlEnv': 'Masked'}
-            for file_resource in project.get('environments', [])
+            for _ in project.get('environments', [])
         ]
     })
     repositories_result = project_dal.update(project_name, {
         'repositories': [
             {'protocol': 'Masked', 'urlRepo': 'Masked'}
-            for file_resource in project.get('repositories', [])
+            for _ in project.get('repositories', [])
         ]
     })
     success = cast(

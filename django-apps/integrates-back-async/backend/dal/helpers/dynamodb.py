@@ -40,5 +40,4 @@ else:
         'config': CLIENT_CONFIG
     }
 
-DYNAMODB_CLIENT = boto3.client(**RESOURCE_OPTIONS)
 DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)

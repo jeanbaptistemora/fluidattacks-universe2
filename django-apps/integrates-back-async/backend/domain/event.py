@@ -31,20 +31,6 @@ from __init__ import (
 )
 
 
-def update_event(event_id: str, **kwargs) -> bool:
-    """Update an event associated to a project."""
-    event = get_event(event_id)
-    success = False
-
-    if cast(List[Dict[str, str]],
-            event.get('historic_state', []))[-1].get('state') == 'SOLVED':
-        raise EventAlreadyClosed()
-
-    success = event_dal.update(event_id, kwargs)
-
-    return success
-
-
 def solve_event(event_id: str, affectation: str, analyst_email: str, date: datetime) -> bool:
     event = get_event(event_id)
     success = False

@@ -157,12 +157,6 @@ def list_internal_managers(project_name: str) -> List[str]:
     return internal_managers
 
 
-def get_all_projects() -> List[str]:
-    """Get all projects in DynamoDB"""
-    projects = get_all(data_attr='')
-    return cast(List[str], [prj['project_name'] for prj in projects])
-
-
 def get_description(project: str) -> str:
     """ Get the description of a project. """
     description = get_attributes(project, ['description'])

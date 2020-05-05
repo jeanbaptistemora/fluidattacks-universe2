@@ -375,16 +375,6 @@ def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     return vuln_domain.get_last_approved_status(vuln) == 'closed'
 
 
-def get_max_severity(findings: List[Dict[str, FindingType]]) -> float:
-    """Get maximum severity of a project."""
-    total_severity = cast(List[float], [fin.get('cvss_temporal') for fin in findings])
-    if total_severity:
-        max_severity: float = max(total_severity)
-    else:
-        max_severity = 0
-    return max_severity if max_severity else 0.0
-
-
 def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decimal:
     """Get maximum severity of project with open vulnerabilities."""
     total_severity: List[float] = \
@@ -502,27 +492,6 @@ def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int
         'undefined': undefined_treatment
     }
     return treatment
-
-
-def is_finding_in_drafts(finding_id: str) -> bool:
-    release_date: Dict[str, str] = cast(Dict[str, str],
-                                        finding_dal.get_attributes(finding_id, ['releaseDate']))
-    retval = False
-    if release_date:
-        tzn = pytz.timezone('America/Bogota')
-        release_datetime = datetime.strptime(
-            str(release_date.get('releaseDate', '')).split(' ')[0],
-            '%Y-%m-%d'
-        ).date()
-        now_time = datetime.now(tz=tzn).date()
-        if release_datetime > now_time:
-            retval = True
-        else:
-            # Finding is currently released
-            pass
-    else:
-        retval = True
-    return retval
 
 
 def get_open_findings(finding_vulns: List[List[Dict[str, FindingType]]]) -> int:

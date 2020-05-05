@@ -5,13 +5,11 @@ import pytest
 from django.conf import settings
 from django.test import TestCase
 from backend.domain.user import (
-    assign_role,
     get_all_users_report,
     get_group_level_role,
     get_user_level_role,
     grant_user_level_role,
     grant_group_level_role,
-    revoke_user_level_role,
     revoke_group_level_role,
     get_current_date,
 )
@@ -54,12 +52,6 @@ class UserTests(TestCase):
         assert get_group_level_role('..test2@gmail.com', 'GROUP') == 'customer'
         assert not get_group_level_role('..test2@gmail.com', 'other-group')
 
-    def test_revoke_user_level_role(self):
-        assert grant_user_level_role('revoke_user_LEVEL_role@gmail.com', 'customer')
-        assert get_user_level_role('revoke_user_level_role@gmail.com') == 'customer'
-        assert revoke_user_level_role('revoke_USER_level_role@gmail.com')
-        assert not get_user_level_role('revoke_user_level_ROLE@gmail.com')
-
     def test_revoke_group_level_role(self):
         assert grant_group_level_role('revoke_group_LEVEL_role@gmail.com', 'group', 'customer')
         assert grant_group_level_role('REVOKE_group_level_role@gmail.com', 'other-group', 'customer')
@@ -77,10 +69,6 @@ class UserTests(TestCase):
         assert not get_group_level_role('revOke_group_level_role@gmail.com', 'group')
         assert not get_group_level_role('revoKe_group_level_role@gmail.com', 'other-group')
         assert not get_group_level_role('revokE_group_level_role@gmail.com', 'yet-other-group')
-
-    def test_assign_role(self):
-        assert assign_role('unittest@fluidattacks.com', 'admin')
-        assert not assign_role('unittest@fluidattacks.com', 'other')
 
     def test_get_current_date(self):
         tzn = pytz.timezone(settings.TIME_ZONE)
