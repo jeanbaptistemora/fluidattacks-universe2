@@ -47,6 +47,7 @@ def test_no_alarm_on_config_changes_open():
     assert cloudwatch.no_alarm_on_config_changes(AWS_ACCESS_KEY_ID,
                                                        AWS_SECRET_ACCESS_KEY)
 
+
 def test_no_alarm_on_config_changes_closed():
     """Check if there are alarms set on AWS config settings."""
     assert not \
@@ -64,6 +65,7 @@ def test_no_alarm_on_single_fa_login_open():
     assert cloudwatch.no_alarm_on_config_changes(AWS_ACCESS_KEY_ID,
                                                        AWS_SECRET_ACCESS_KEY)
 
+
 def test_no_alarm_on_single_fa_login_closed():
     """Check if there are alarms set on AWS sfa login."""
     assert not \
@@ -74,3 +76,26 @@ def test_no_alarm_on_single_fa_login_closed():
     with no_connection():
         assert not cloudwatch.no_alarm_on_single_fa_login(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_is_event_bus_exposed_open():
+    """Check if there is an exposed event bus."""
+    assert cloudwatch.is_event_bus_exposed(AWS_ACCESS_KEY_ID,
+                                           AWS_SECRET_ACCESS_KEY,
+                                           region_name='us-east-2',)
+
+
+def test_is_event_bus_exposed_closed():
+    """Check if there is an exposed event bus."""
+    assert not \
+        cloudwatch.is_event_bus_exposed(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        region_name='us-east-2',
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.is_event_bus_exposed(AWS_ACCESS_KEY_ID,
+                                                   AWS_SECRET_ACCESS_KEY,
+                                                   retry=False,
+                                                   region_name='us-east-2',)
+
