@@ -8,7 +8,6 @@ from asgiref.sync import sync_to_async
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
-from backend.domain import project as project_domain
 from backend.domain import tag as tag_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.dal import user as user_dal
@@ -112,9 +111,8 @@ async def _get_tags(info, user_email: str) -> List[TagType]:
     allowed_tags = await sync_to_async(tag_domain.filter_allowed_tags)(
         organization, projects)
     for project in projects:
-        project_tag = await sync_to_async(project_domain.get_attributes)(
-            project, ['tag'])
-        project_tag = project_tag.get('tag', [])
+        project_attrs = await info.context.loaders['project'].load(project)
+        project_tag = project_attrs['attrs'].get('tag', [])
         for tag in project_tag:
             tags_dict[tag].append(dict(name=project))
     tags = []
