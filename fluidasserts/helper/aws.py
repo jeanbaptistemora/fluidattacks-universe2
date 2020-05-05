@@ -440,11 +440,13 @@ def force_list(obj: Any) -> List[Any]:
 
 def get_line(obj: any):
     """Return the line of an cloudformation node."""
-    line = 0
-    if getattr(obj, '_line_', None):
-        line = getattr(obj, '_line_', 0)
-    else:
-        line = obj['line']
+    line = getattr(obj, '_line_', None)
+    with suppress(AttributeError):
+        line = line or obj.get('__line__')
+    with suppress(KeyError, TypeError):
+        line = line or obj['line']
+    line = line or 0
+
     return line
 
 
