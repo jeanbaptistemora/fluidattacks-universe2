@@ -4,11 +4,9 @@ source "${stdenv}/setup"
 source "${srcIncludeGenericShellOptions}"
 source "${srcIncludeGenericDirStructure}"
 
-pushd root/gems || exit 1
-
 gem install \
-  --install-dir ./ \
+  --install-dir root/gems \
   --no-document "${requirement}"
 
 mkdir "${out}"
-mv ./* "${out}"
+mv root/gems/* "${out}"

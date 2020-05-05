@@ -12,6 +12,9 @@ mkdir root/python
 mkdir root/python/cache-dir
 mkdir root/python/site-packages
 
+# where turtle shell will be stored
+mkdir root/turtle
+
 # where ruby gems will be stored
 mkdir root/gems
 

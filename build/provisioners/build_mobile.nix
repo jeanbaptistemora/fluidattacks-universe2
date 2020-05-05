@@ -1,5 +1,7 @@
 let
   pkgs = import ../pkgs/stable.nix;
+
+  builders.turtleShell = import ../builders/turtle-shell pkgs;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -8,13 +10,10 @@ in
       name = "builder";
 
       buildInputs = [
-        pkgs.sysctl
-        pkgs.nodejs
-        pkgs.awscli
-        pkgs.curl
-        pkgs.cacert
-        pkgs.sops
         pkgs.git
+        pkgs.nodejs
       ];
+
+      turtleShell = builders.turtleShell "37.0.0";
     })
   )
