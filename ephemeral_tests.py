@@ -325,70 +325,49 @@ class ViewTestCase(unittest.TestCase):
 
     def test_11_techpdf(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '11-01-techpdf.png')
-        proj_elem.click()
-
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+        rep_modal = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//button[contains(text(),'Reports')]")))
+        selenium.save_screenshot(SCR_PATH + '11-01-techpdf.png')
 
-        rep_modal = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//button[contains(text(),'Reports')]")))
+        self.__click(rep_modal)
+        tech_pdf_report = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//div[@id='techReport']//button[contains(text(), 'PDF')]")))
         selenium.save_screenshot(SCR_PATH + '11-02-techpdf.png')
-        rep_modal.click()
-        tech_pdf_report = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//div[@id='techReport']//button[contains(text(), 'PDF')]")))
 
+        self.__click(tech_pdf_report)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.0037. Fuga de información')]")))
         selenium.save_screenshot(SCR_PATH + '11-03-techpdf.png')
-        tech_pdf_report.click()
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'FIN.H.0037. Fuga de información')]")))
-        selenium.save_screenshot(SCR_PATH + '11-04-techpdf.png')
         assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
 
     def test_13_events(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '13-01-events.png')
-        proj_elem.click()
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/events')
+        event_tab = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'This is an eventuality with evidence')]")))
+        selenium.save_screenshot(SCR_PATH + '13-01-events.png')
 
-        event_tab = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'This is an eventuality with evidence')]")))
-        selenium.save_screenshot(SCR_PATH + '13-02-events.png')
-        event_tab.click()
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'This is an eventuality with evidence')]")))
-
+        self.__click(event_tab)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'This is an eventuality with evidence')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + '13-03-events.png')
+        selenium.save_screenshot(SCR_PATH + '13-02-events.png')
         assert 'This is an eventuality with evidence' in selenium.page_source
 
     def test_14_resources(self):
@@ -473,22 +452,14 @@ class ViewTestCase(unittest.TestCase):
 
     def test_15_project_comments(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '15-01-proj_comments.png')
-        proj_elem.click()
+        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/dashboard#!/project/UNITTESTING/comments')
-
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
                  "//*[contains(text(), 'Now we can post comments on projects')]")))
-
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + '15-02-proj_comments.png')
+        selenium.save_screenshot(SCR_PATH + '15-01-proj_comments.png')
         assert 'Now we can post comments on projects' in selenium.page_source
 
     def test_16_forces(self):
@@ -504,17 +475,11 @@ class ViewTestCase(unittest.TestCase):
                 '1 Exploitable, 1 Accepted, 1 Not exploitable'
 
         selenium = self.__login()
-        proj_elem = WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), '{}')]".format(
-                    expected_description))))
-        selenium.save_screenshot(SCR_PATH + '16.01-dashboard.png')
-
-        proj_elem.click()
+        self.__access_project_by_description(expected_description)
         selenium.get(
             self.url + '/dashboard#!/project/{}/forces'.format(project_name))
         time.sleep(3.0)
-        selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
+        selenium.save_screenshot(SCR_PATH + '16.01-forces-executions.png')
 
         forces_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -527,70 +492,61 @@ class ViewTestCase(unittest.TestCase):
                 (By.XPATH, "//*[contains(text(), 'Exploitable')]")))
         time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
-
         assert expected_exploitability in selenium.page_source
 
     def test_17_pending_to_delete(self):
         selenium = self.__login()
-
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'test project pending to deleted')]")))
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'test project pending to deleted')]")))
         selenium.save_screenshot(SCR_PATH + '17-01-pending_to_delete.png')
+
         selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/resources')
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Cancel project deletion')]")))
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Cancel project deletion')]")))
         time.sleep(2)
         selenium.save_screenshot(SCR_PATH + '17-02-pending_to_delete.png')
+
         cancel_modal_text = selenium.find_element_by_xpath(
             "//*[contains(text(), 'This project is expected to be removed')]").text
         assert 'Project pending to delete' in selenium.page_source
+
         selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/findings')
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Cancel project deletion')]")))
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Cancel project deletion')]")))
         selenium.save_screenshot(SCR_PATH + '17-03-pending_to_delete.png')
         assert 'Project pending to delete' in selenium.page_source
 
     def test_18_tag_indicators(self):
         selenium = self.__login()
-        tag_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH, "//*[contains(text(), 'TEST-PROJECTS')]")))
-        selenium.save_screenshot(SCR_PATH + '18-01-tag_indicators.png')
-        tag_elem.click()
+        self.__access_project_by_description('TEST-PROJECTS')
         time.sleep(2)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH,
-                    "//*[contains(text(), 'Max open severity')]")))
+                (By.XPATH, "//*[contains(text(), 'Max open severity')]")))
+        selenium.save_screenshot(SCR_PATH + '18-01-tag_indicators.png')
+
+        selenium.execute_script('window.scrollTo(0, 380);')
         selenium.save_screenshot(SCR_PATH + '18-02-tag_indicators.png')
-        selenium.execute_script(
-            'window.scrollTo(0, 380);')
+
+        selenium.execute_script('window.scrollTo(380, 800);')
         selenium.save_screenshot(SCR_PATH + '18-03-tag_indicators.png')
-        selenium.execute_script(
-            'window.scrollTo(380, 800);')
+
+        selenium.execute_script('window.scrollTo(800, 1200);')
         selenium.save_screenshot(SCR_PATH + '18-04-tag_indicators.png')
-        selenium.execute_script(
-            'window.scrollTo(800, 1200);')
+
+        selenium.execute_script('window.scrollTo(1200, 1600);')
         selenium.save_screenshot(SCR_PATH + '18-05-tag_indicators.png')
-        selenium.execute_script(
-            'window.scrollTo(1200, 1600);')
+
+        selenium.execute_script('window.scrollTo(1700, 2100);')
         selenium.save_screenshot(SCR_PATH + '18-06-tag_indicators.png')
-        selenium.execute_script(
-            'window.scrollTo(1700, 2100);')
+
+        selenium.execute_script('window.scrollTo(2100, 2500);')
         selenium.save_screenshot(SCR_PATH + '18-07-tag_indicators.png')
-        selenium.execute_script(
-            'window.scrollTo(2100, 2500);')
-        selenium.save_screenshot(SCR_PATH + '18-08-tag_indicators.png')
+
         assert 'Open vulnerabilities by project' in selenium.page_source
         assert 'Findings by project' in selenium.page_source
         assert 'Open findings by project' in selenium.page_source
@@ -599,10 +555,9 @@ class ViewTestCase(unittest.TestCase):
         assert 'Status' in selenium.page_source
         assert 'Treatment' in selenium.page_source
         assert 'Treatmentless by project' in selenium.page_source
+
         selenium.get(self.url + '/dashboard#!/portfolio/DOESNOTEXIST/indicators')
-        WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Access denied')]")))
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Access denied')]")))
         selenium.save_screenshot(SCR_PATH + '18-09-tag_indicators.png')
