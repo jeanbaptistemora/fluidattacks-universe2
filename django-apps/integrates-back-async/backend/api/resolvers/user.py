@@ -1,6 +1,7 @@
 # pylint: disable=too-many-locals
 from datetime import datetime
 from typing import Dict, List, cast
+import asyncio
 import sys
 import threading
 
@@ -325,8 +326,10 @@ async def _do_remove_user_access(
     """Resolve remove_user_access mutation."""
     success = False
 
-    await sync_to_async(project_domain.remove_user_access)(
-        project_name, user_email)
+    asyncio.create_task(
+        sync_to_async(project_domain.remove_user_access)(
+            project_name, user_email)
+    )
     success = \
         await sync_to_async(project_domain.remove_access)(
             user_email, project_name)
