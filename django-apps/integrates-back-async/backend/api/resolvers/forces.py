@@ -63,13 +63,13 @@ async def _get_executions(
         _, project_name: str, from_date: datetime, to_date: datetime) -> \
         List[ForcesExecutionType]:
     """Get executions."""
-    executions_iterator = await sync_to_async(forces_dal.yield_executions)(
+    executions_iterator = forces_dal.yield_executions(
         project_name=project_name,
         from_date=from_date,
         to_date=to_date
     )
     res = [
-        match_fields(execution) for execution in executions_iterator
+        match_fields(execution) async for execution in executions_iterator
     ]
     return res
 
