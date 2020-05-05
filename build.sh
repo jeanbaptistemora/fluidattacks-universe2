@@ -19,18 +19,14 @@ function decide_and_call_provisioner {
 
   # shellcheck disable=2016
       case "${job}" in
-        build_nix_caches ) provisioner="${job}";;
-        build_container_app) provisioner="${job}";;
-        build_front) provisioner="${job}";;
-        deploy_front) provisioner="${job}";;
+        build*           ) provisioner="${job}";;
+        deploy_front     ) provisioner="${job}";;
         deploy_k8s*      ) provisioner="${job}";;
         infra_*          ) provisioner="${job}";;
-        lint_front       ) provisioner="${job}";;
-        lint_mobile      ) provisioner="${job}";;
+        lint_*           ) provisioner="${job}";;
         test_front       ) provisioner="${job}";;
         test_mobile      ) provisioner="${job}";;
         deploy_mobile    ) provisioner="${job}";;
-        build*           ) provisioner='build';;
         deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
         deploy_container*) provisioner='docker';;
         functional_tests*) provisioner='selenium';;

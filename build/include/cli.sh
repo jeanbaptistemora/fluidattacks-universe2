@@ -42,9 +42,15 @@ function cli {
       ;;
     lint_front)
       ;;
+    lint_build_system)
+      ;;
     lint_mobile)
       ;;
+    lint_secrets)
+      ;;
     test_front)
+      ;;
+    lint_back)
       ;;
     test_mobile)
       ;;

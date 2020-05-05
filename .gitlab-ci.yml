@@ -133,9 +133,8 @@ build_front:
     when: on_success
 
 build_lambdas:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_and_master_branch
-  image: "${CI_REGISTRY_IMAGE}/nix:build"
   stage: build
   artifacts:
     expire_in: 1 day
@@ -235,6 +234,7 @@ build_nix_caches:
   before_script:
     - apk add --no-cache bash
   parallel: 20
+  interruptible: false
 
 deploy_front:
   <<: *with_nix_2
@@ -323,7 +323,7 @@ infra_secret_management_test:
   stage: test-infra
 
 lint_back:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_and_master_branch
   stage: lint-code
 
@@ -333,7 +333,7 @@ lint_front:
   stage: lint-code
 
 lint_build_system:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_and_master_branch
   stage: lint-code
 
@@ -343,7 +343,7 @@ lint_mobile:
   stage: lint-code
 
 lint_secrets:
-  <<: *with_nix
+  <<: *with_nix_2
   <<: *in_dev_and_master_branch
   stage: lint-code
 

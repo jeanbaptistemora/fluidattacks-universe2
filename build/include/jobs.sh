@@ -420,7 +420,8 @@ function job_serve_back_prod {
 
 
 function job_lint_back {
-      mypy --ignore-missing-imports \
+      env_prepare_python_packages \
+  &&  mypy --ignore-missing-imports \
         django-apps/casbin-in-memory-adapter \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         django-apps/integrates-back-async/backend/mailer.py \
@@ -482,8 +483,8 @@ function job_lint_secrets {
     secrets-development.yaml
     secrets-production.yaml
   )
-
-      echo "[INFO] Veryfing that secrets is sorted" \
+      env_prepare_python_packages \
+  &&  echo "[INFO] Veryfing that secrets is sorted" \
   &&  for sf in "${files_to_verify[@]}"
       do
             echo "  [INFO] Veryfing that ${sf} is sorted" \
