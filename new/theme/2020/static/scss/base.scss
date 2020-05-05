@@ -158,7 +158,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .f-sub { font-size: 1.9rem; }
 .right-small { right: .6rem; }
 .nbs {margin-bottom: -.15rem; }
-.banner-height { height: 10.93rem; }
+.banner-height { height: 21.875rem; }
 .lh3 { line-height: 3rem; }
 .w-small {width: .5rem; }
 .hv-svg-red { &:hover { fill: $button-hover; } }
@@ -173,6 +173,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .ph-bt { padding-left: 4.25rem; padding-right: 4.25rem; }
 .pv-bt { padding-top: .75rem; padding-bottom: .75rem; }
 .h-maxcontent { height: max-content; }
+.mw-banner { max-width: 56.25rem; }
 
 // Tachyons custom responsive classes
 
@@ -197,6 +198,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .tracked-1 { letter-spacing: .06rem; }
   .w-products { width: 20rem; }
   .f-title-s { font-size: 2rem; }
+  .banner-height { height: 12.5rem; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -229,7 +231,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .bg-banner-sz { background-size: 100% 100%; }
   .w-15-l { width: 15%; }
   .w40-l { width: 40rem; }
-  .banner-height { height: 21.875rem; }
   .mt-6-l { margin-top: .6rem; }
   .nl-3 { margin-left: -3rem; }
   .mv-menu { margin-top: 1.875rem; margin-bottom: 1.875rem; }
