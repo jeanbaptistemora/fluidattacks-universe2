@@ -521,7 +521,7 @@ def get_finding(finding_id: str) -> Dict[str, FindingType]:
 
 
 def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
-    return finding_dal.get_vulnerabilities(finding_id)
+    return vuln_dal.get_vulnerabilities(finding_id)
 
 
 def get_project(finding_id: str) -> str:
@@ -798,7 +798,7 @@ def mask_finding(finding_id: str) -> bool:
 
     vulns_result = all([
         vuln_domain.mask_vuln(finding_id, str(vuln['UUID']))
-        for vuln in vuln_domain.get_vulnerabilities(finding_id)])
+        for vuln in vuln_dal.get_vulnerabilities(finding_id)])
 
     success = all([
         finding_result, evidence_result, comments_result, vulns_result])

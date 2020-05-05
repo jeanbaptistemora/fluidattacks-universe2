@@ -9,7 +9,11 @@ import pytz
 
 from django.conf import settings
 
-from backend.dal import finding as finding_dal, project as project_dal
+from backend.dal import (
+    finding as finding_dal,
+    project as project_dal,
+    vulnerability as vuln_dal
+)
 from backend.typing import (
     Comment as CommentType, Finding as FindingType, Project as ProjectType
 )
@@ -292,7 +296,7 @@ def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     if finding_domain.validate_finding(finding_id):
-        vulnerabilities = finding_dal.get_vulnerabilities(finding_id)
+        vulnerabilities = vuln_dal.get_vulnerabilities(finding_id)
         for vuln in vulnerabilities:
             current_state = vuln_domain.get_last_approved_status(vuln)
             if current_state == 'open':
@@ -330,7 +334,7 @@ def get_last_closing_vuln(findings: List[Dict[str, FindingType]]) -> Decimal:
     closing_dates = []
     for fin in findings:
         if finding_domain.validate_finding(str(fin['finding_id'])):
-            vulnerabilities = finding_dal.get_vulnerabilities(
+            vulnerabilities = vuln_dal.get_vulnerabilities(
                 str(fin.get('finding_id', '')))
             closing_vuln_date = [get_last_closing_date(vuln)
                                  for vuln in vulnerabilities
@@ -418,7 +422,7 @@ def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
     tzn = pytz.timezone('America/Bogota')
     for finding in findings:
         if finding_domain.validate_finding(str(finding['finding_id'])):
-            vulnerabilities = finding_dal.get_vulnerabilities(str(finding.get('finding_id', '')))
+            vulnerabilities = vuln_dal.get_vulnerabilities(str(finding.get('finding_id', '')))
             for vuln in vulnerabilities:
                 open_vuln_date = get_open_vulnerability_date(vuln)
                 closed_vuln_date = get_last_closing_date(vuln)
@@ -451,7 +455,7 @@ def get_mean_remediate_severity(project_name: str, min_severity: float,
     findings = finding_domain.get_findings(finding_ids)
     for finding in findings:
         if min_severity <= cast(float, finding.get('severityCvss', 0)) <= max_severity:
-            vulnerabilities = finding_dal.get_vulnerabilities(str(finding.get('findingId', '')))
+            vulnerabilities = vuln_dal.get_vulnerabilities(str(finding.get('findingId', '')))
             for vuln in vulnerabilities:
                 open_vuln_date = get_open_vulnerability_date(vuln)
                 closed_vuln_date = get_last_closing_date(vuln)

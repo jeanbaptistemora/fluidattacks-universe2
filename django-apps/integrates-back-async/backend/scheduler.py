@@ -22,7 +22,11 @@ from backend.mailer import (
 )
 
 from backend import util
-from backend.dal import finding as finding_dal, project as project_dal
+from backend.dal import (
+    finding as finding_dal,
+    project as project_dal,
+    vulnerability as vuln_dal
+)
 from backend.typing import Event as EventType, Finding as FindingType
 
 from __init__ import (
@@ -221,7 +225,7 @@ def get_all_vulns_by_project(
     """Get all vulnerabilities by project"""
     vulns: List[Dict[str, FindingType]] = []
     for finding in findings_released:
-        vulns += finding_dal.get_vulnerabilities(str(finding.get('finding_id', '')))
+        vulns += vuln_dal.get_vulnerabilities(str(finding.get('finding_id', '')))
     return vulns
 
 
@@ -287,7 +291,7 @@ def get_new_vulnerabilities():
 
 
 def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
-    vulns = finding_dal.get_vulnerabilities(act_finding['finding_id'])
+    vulns = vuln_dal.get_vulnerabilities(act_finding['finding_id'])
     all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
     if len(all_tracking) > 1:
