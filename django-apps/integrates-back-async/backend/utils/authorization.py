@@ -281,6 +281,7 @@ ADMIN_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_tag_resolve_tag',
     'backend_api_resolvers_user__do_add_user',
     'backend_api_resolvers_user__do_edit_user',
+    'backend_api_resolvers_user__do_grant_user_access_admin_roles',
     'backend_api_resolvers_user__do_grant_user_access_internal_roles',
     'backend_api_resolvers_user__do_grant_user_access',
     'backend_api_resolvers_user__do_remove_user_access',

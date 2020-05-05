@@ -38,7 +38,8 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 # Constants
 BASIC_ROLES = ['customer', 'customeradmin']
-INTERNAL_ROLES = ['admin', 'analyst', 'internal_manager']
+INTERNAL_ROLES = ['analyst']
+ADMIN_ROLES = ['admin', 'closer', 'internal_manager', 'reviewer']
 
 
 # pylint: disable=too-many-arguments
@@ -267,7 +268,11 @@ async def _do_grant_user_access(
     enforcer = authorization_utils.get_group_level_enforcer_async(user_email)
     if enforcer.enforce(user_email, project_name,
                         'backend_api_resolvers_user'
-                        '__do_grant_user_access_internal_roles'):
+                        '__do_grant_user_access_admin_roles'):
+        allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES + ADMIN_ROLES
+    elif enforcer.enforce(user_email, project_name,
+                          'backend_api_resolvers_user'
+                          '__do_grant_user_access_internal_roles'):
         allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES
     else:
         allowed_roles_to_grant = BASIC_ROLES
@@ -359,7 +364,11 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     enforcer = authorization_utils.get_group_level_enforcer_async(user_email)
     if enforcer.enforce(user_email, project_name,
                         'backend_api_resolvers_user'
-                        '__do_grant_user_access_internal_roles'):
+                        '__do_grant_user_access_admin_roles'):
+        allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES + ADMIN_ROLES
+    elif enforcer.enforce(user_email, project_name,
+                          'backend_api_resolvers_user'
+                          '__do_grant_user_access_internal_roles'):
         allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES
     else:
         allowed_roles_to_grant = BASIC_ROLES
