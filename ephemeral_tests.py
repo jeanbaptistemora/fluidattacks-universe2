@@ -6,11 +6,13 @@ import unittest
 
 import boto3
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import (
+    ElementClickInterceptedException, TimeoutException)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.support.ui import WebDriverWait
+
 
 SCR_PATH = './test/functional/screenshots/'
 
@@ -64,6 +66,18 @@ class ViewTestCase(unittest.TestCase):
         self.selenium.quit()
         super(ViewTestCase, self).tearDown()
 
+    def __access_project_by_description(self, description):
+        project = WebDriverWait(self.selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), '{}')]".format(description))))
+        self.__click(project)
+
+    def __cancel_modal(self):
+        cancel_btn = self.selenium.find_element_by_xpath(
+            '//*/button[contains(text(), "Cancel")]')
+        self.__click(cancel_btn)
+        time.sleep(2)
+
     def __check_legal_notice(self):
         selenium = self.selenium
         WebDriverWait(selenium, self.delay/5).until(
@@ -72,6 +86,12 @@ class ViewTestCase(unittest.TestCase):
         selenium.find_element_by_xpath("//*[@name='remember']").click()
         selenium.find_element_by_xpath(
             "//*[contains(text(), 'Accept and continue')]").click()
+
+    def __click(self, element):
+        try:
+            element.click()
+        except ElementClickInterceptedException:
+            self.selenium.execute_script('arguments[0].click()', element)
 
     def __login(self):
         selenium = self.selenium
@@ -448,93 +468,79 @@ class ViewTestCase(unittest.TestCase):
 
     def test_14_resources(self):
         selenium = self.__login()
-        proj_elem = WebDriverWait(
-            selenium, self.delay).until(
-                expected.presence_of_element_located(
-                    (By.XPATH,
-                     "//*[contains(text(), 'Integrates unit test project')]")))
-        selenium.save_screenshot(SCR_PATH + '14-01-resources.png')
-        proj_elem.click()
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/resources')
+        self.__access_project_by_description('Integrates unit test project')
 
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/resources')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Repositories')]")))
-
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Environments')]")))
+        selenium.save_screenshot(SCR_PATH + '14-01-resources.png')
 
-        selenium.save_screenshot(SCR_PATH + '14-02-resources.png')
-
-        selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[1]/div[2]/div/button').click()
-
+        add_repos = selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[1]/div[2]/div/button')
+        self.__click(add_repos)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Add repository')]")))
         time.sleep(1)
-        selenium.save_screenshot(SCR_PATH + '14-03-resources.png')
-        selenium.find_element_by_xpath(
-            '//*/button[contains(text(), "Cancel")]').click()
-        time.sleep(2)
+        selenium.save_screenshot(SCR_PATH + '14-02-resources.png')
+        self.__cancel_modal()
 
-        selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[3]/div[2]/div/button').click()
+        add_envs = selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[3]/div[2]/div/button')
+        self.__click(add_envs)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Add environment')]")))
         time.sleep(1)
-        selenium.save_screenshot(SCR_PATH + '14-04-resources.png')
-        selenium.find_element_by_xpath(
-            '//*/button[contains(text(), "Cancel")]').click()
-        time.sleep(2)
+        selenium.save_screenshot(SCR_PATH + '14-03-resources.png')
+        self.__cancel_modal()
 
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Files')]")))
-
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Portfolio')]")))
-
         selenium.execute_script(
             'window.scrollTo(0, 680);')
-        selenium.save_screenshot(SCR_PATH + '14-05-resources.png')
+        selenium.save_screenshot(SCR_PATH + '14-04-resources.png')
 
-        selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[5]/div[2]/div/button').click()
+        add_files = selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[5]/div[2]/div/button')
+        self.__click(add_files)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Add file')]")))
         time.sleep(1)
-        selenium.save_screenshot(SCR_PATH + '14-06-resources.png')
-        selenium.find_element_by_xpath(
-            '//*/button[contains(text(), "Cancel")]').click()
-        time.sleep(2)
+        selenium.save_screenshot(SCR_PATH + '14-05-resources.png')
+        self.__cancel_modal()
 
-        selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[7]/div[2]/div/button[1]').click()
+        add_tags = selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[7]/div[2]/div/button[1]')
+        self.__click(add_tags)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Add tags')]")))
         time.sleep(1)
-        selenium.save_screenshot(SCR_PATH + '14-07-resources.png')
-        selenium.find_element_by_xpath(
-            '//*/button[contains(text(), "Cancel")]').click()
+        selenium.save_screenshot(SCR_PATH + '14-06-resources.png')
+        self.__cancel_modal()
 
-        selenium.execute_script(
-            'window.scrollTo(680, 980);')
-        selenium.save_screenshot(SCR_PATH + '14-08-resources.png')
-        selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[10]/div/div/button ').click()
+        selenium.execute_script('window.scrollTo(680, 980);')
+        selenium.save_screenshot(SCR_PATH + '14-07-resources.png')
+
+        del_project = selenium.find_element_by_xpath(
+            '//*[@id="resources"]/div[10]/div/div/button')
+        self.__click(del_project)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Delete Project')]")))
         time.sleep(1)
-        selenium.save_screenshot(SCR_PATH + '14-09-resources.png')
-        selenium.find_element_by_xpath(
-            '//*/button[contains(text(), "Cancel")]').click()
+        selenium.save_screenshot(SCR_PATH + '14-08-resources.png')
+        self.__cancel_modal()
 
         total_tables = len(selenium.find_elements_by_tag_name("table"))
         assert total_tables == 4
