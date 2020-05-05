@@ -1,5 +1,6 @@
 # Standard library
 import contextlib
+import functools
 import os
 import re
 import tempfile
@@ -8,8 +9,14 @@ from operator import methodcaller
 from typing import (
     Generator,
     Iterator,
+    Pattern,
     Tuple,
 )
+
+
+@functools.lru_cache(maxsize=None, typed=True)
+def _compile(regexps: Tuple[str, ...]) -> Tuple[Pattern, ...]:
+    return tuple(map(re.compile, regexps))
 
 
 def _iter_full_paths(path: str) -> Iterator[str]:
@@ -46,6 +53,23 @@ def create_ephemeral(
         file.seek(0)
 
         yield file.name
+
+
+def is_covered(
+    *,
+    path: str,
+    include_regexps: Tuple[str, ...],
+    exclude_regexps: Tuple[str, ...],
+) -> bool:
+    """Return True if a file should be included according to the filters."""
+    is_included_in_any_rule: bool = \
+        any(map(methodcaller('match', path), _compile(include_regexps)))
+    is_excluded_in_any_rule: bool = \
+        any(map(methodcaller('match', path), _compile(exclude_regexps)))
+
+    return \
+        not is_excluded_in_any_rule \
+        and is_included_in_any_rule
 
 
 def iter_matching_files(

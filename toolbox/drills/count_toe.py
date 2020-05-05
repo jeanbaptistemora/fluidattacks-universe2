@@ -12,16 +12,19 @@ from botocore.exceptions import ClientError
 # Local libraries
 from toolbox import (
     logger,
+    utils,
 )
 
 # Constants
-EXCLUDES: tuple = (
-    '/bower_components/',
-    '/node_modules/',
-)
+INCLUDES_BY_SUBS: dict = {
+    config['name']:
+    tuple(config.get('coverage', {}).get('lines', {}).get('include', []))
+    for config_path in glob.glob('groups/*/config/config.yml')
+    for config in (yaml.safe_load(open(config_path)),)
+}
 EXCLUDES_BY_SUBS: dict = {
     config['name']:
-    config.get('coverage', {}).get('lines', {}).get('exclude', [])
+    tuple(config.get('coverage', {}).get('lines', {}).get('exclude', []))
     for config_path in glob.glob('groups/*/config/config.yml')
     for config in (yaml.safe_load(open(config_path)),)
 }
@@ -46,8 +49,10 @@ def count_lines(subs, file_csv):
             if not row:
                 continue
             filename: str = row[0]
-            if any(e in filename for e in EXCLUDES) \
-                    or any(e in filename for e in EXCLUDES_BY_SUBS[subs]):
+            if not utils.file.is_covered(
+                    path=filename,
+                    include_regexps=INCLUDES_BY_SUBS[subs],
+                    exclude_regexps=EXCLUDES_BY_SUBS[subs]):
                 skipped += int(row[1]) if row[1] else 0
                 continue
 
