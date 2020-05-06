@@ -1,6 +1,5 @@
 let
   pkgs = import ../pkgs/stable.nix;
-  builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
 in
   pkgs.stdenv.mkDerivation (
@@ -22,7 +21,7 @@ in
       pkgFirefox = pkgs.firefox;
 
       pyPkgIntegratesBack =
-        builders.pythonPackageLocal ../../django-apps/integrates-back-async;
+        import ../../django-apps/integrates-back-async pkgs;
 
       pyPkgReqs =
         builders.pythonRequirements ../dependencies/requirements.txt;

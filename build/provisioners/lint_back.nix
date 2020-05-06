@@ -24,6 +24,6 @@ in
       pyPkgCasbinInMemoryAdapter =
         builders.pythonPackageLocal ../../django-apps/casbin-in-memory-adapter;
       pyPkgIntegratesBack =
-        builders.pythonPackageLocal ../../django-apps/integrates-back-async;
+        import ../../django-apps/integrates-back-async pkgs;
     })
   )

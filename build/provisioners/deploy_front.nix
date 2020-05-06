@@ -1,7 +1,6 @@
 let
   pkgs = import ../pkgs/stable.nix;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
-  builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -20,7 +19,7 @@ in
       ];
 
       pyPkgIntegratesBack =
-        builders.pythonPackageLocal ../../django-apps/integrates-back-async;
+        import ../../django-apps/integrates-back-async pkgs;
       pyPkgReqsApp =
         builders.pythonRequirements ../../deploy/containers/app/requirements.txt;
     })
