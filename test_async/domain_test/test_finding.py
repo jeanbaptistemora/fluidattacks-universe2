@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, get_findings, update_treatment,
-    handle_acceptation
+    handle_acceptation, mask_finding
 )
 from backend.mailer import get_email_recipients
 from backend.dal.vulnerability import get_vulnerabilities
@@ -114,6 +114,13 @@ class FindingTests(TestCase):
         user_mail = 'unittest@fluidattacks.com'
         response = 'REJECTED'
         test_data = handle_acceptation(finding_id, observations, user_mail, response)
+        expected_output = True
+        assert isinstance(test_data, bool)
+        assert test_data == expected_output
+
+    def test_mask_finding(self):
+        finding_id = '475041524'
+        test_data = mask_finding(finding_id)
         expected_output = True
         assert isinstance(test_data, bool)
         assert test_data == expected_output
