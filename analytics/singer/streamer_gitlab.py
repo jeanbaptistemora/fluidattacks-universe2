@@ -51,12 +51,12 @@ class API():
         else:
             self.success = True
 
-    def paginate(self, resource):
+    def paginate(self, resource, extra_query_args: str = ''):
         """Paginate a resource."""
         page: int = 1
         errors: int = 0
         while True:
-            self.get(f'{resource}?page={page}')
+            self.get(f'{resource}?page={page}{extra_query_args}')
             if self.success:
                 page += 1
                 errors = 0
@@ -79,6 +79,10 @@ def main():
     else:
         api = API(token)
         project = urllib.parse.quote(sys.argv[1], safe='')
+        for _ in api.paginate(
+                f'projects/{project}/merge_requests', '&scope=all'):
+            for obj in api.json:
+                print(json.dumps({'stream': 'merge_requests', 'record': obj}))
         for _ in api.paginate(f'projects/{project}/jobs'):
             for obj in api.json:
                 print(json.dumps({'stream': 'jobs', 'record': obj}))
