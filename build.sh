@@ -18,25 +18,11 @@ function decide_and_call_provisioner {
   local provisioner
 
   # shellcheck disable=2016
-      case "${job}" in
-        build*           ) provisioner="${job}";;
-        deploy_front     ) provisioner="${job}";;
-        deploy_k8s*      ) provisioner="${job}";;
-        infra_*          ) provisioner="${job}";;
-        lint_*           ) provisioner="${job}";;
-        test_*           ) provisioner="${job}";;
-        deploy_mobile    ) provisioner="${job}";;
-        coverage_report  ) provisioner="${job}";;
-        clean_registries ) provisioner="${job}";;
-        renew_certificates) provisioner="${job}";;
-        send_new_release_email) provisioner="${job}";;
-        rotate_jwt_token) provisioner="${job}";;
-        functional_tests*) provisioner="${job}";;
-        deploy_container_deps_mobile) provisioner='deploy_container_deps_mobile';;
-        deploy_container*) provisioner='docker';;
-                        *) provisioner='full';;
-      esac \
-  &&  provisioner="./build/provisioners/${provisioner}.nix" \
+      provisioner="./build/provisioners/${job}.nix" \
+  &&  if [ ! -f "${provisioner}" ]
+      then
+        provisioner='./build/provisioners/build_nix_caches.nix'
+      fi \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
   &&  nix-shell \
         --cores 0 \

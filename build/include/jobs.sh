@@ -380,7 +380,7 @@ function job_serve_redis {
   &&  redis-server --port "${port}"
 }
 
-function _job_serve_back {
+function job_serve_back {
   local app='fluidintegrates.asgi:APP'
   local host='0.0.0.0'
   local http_port='8000'
@@ -393,7 +393,8 @@ function _job_serve_back {
     --timeout 300
   )
 
-      "helper_set_${1}_secrets" \
+      env_prepare_python_packages \
+  &&  helper_set_dev_secrets \
   &&  echo "[INFO] Serving HTTP on port ${http_port}" \
   &&  {
         gunicorn \
@@ -412,15 +413,6 @@ function _job_serve_back {
         "${app}" \
   &&  kill -TERM "${HTTP_PID}"
 }
-
-function job_serve_back_dev {
-  _job_serve_back "dev"
-}
-
-function job_serve_back_prod {
-  _job_serve_back "prod"
-}
-
 
 function job_lint_back {
       env_prepare_python_packages \

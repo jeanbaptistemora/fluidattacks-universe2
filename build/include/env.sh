@@ -65,23 +65,6 @@ function env_prepare_python_packages {
   done < "${TEMP_FILE1}"
 }
 
-function env_prepare_python_async_packages {
-  export PATH
-  export PYTHONPATH
-  local pkg
-
-  echo '[INFO] Preparing extra python packages'
-
-  helper_list_vars_with_regex 'pyAsyncPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
-
-  while read -r pkg
-  do
-    echo "  [${pkg}] ${!pkg}"
-    PATH="${PATH}:${!pkg}/site-packages/bin"
-    PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
-  done < "${TEMP_FILE1}"
-}
-
 function env_prepare_ruby_modules {
   export PATH
   export GEM_PATH

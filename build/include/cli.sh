@@ -25,59 +25,13 @@ function cli {
   env_prepare_environment_variables "${function_to_call}"
   env_prepare_ephemeral_vars
   case "${function_to_call}" in
-    build*)
-      ;;
-    deploy_container*)
-      ;;
-    deploy_front)
-      ;;
-    deploy_mobile)
-      ;;
-    deploy_k8s*)
-      ;;
-    infra*)
-      ;;
-    functional_tests*)
-      ;;
-    lint_front)
-      ;;
-    lint_build_system)
-      ;;
-    lint_mobile)
-      ;;
-    lint_secrets)
-      ;;
-    test_front)
-      ;;
     test_back)
       env_prepare_dynamodb_local
       ;;
-    lint_back)
-      ;;
-    test_mobile)
-      ;;
-    coverage_report)
-      ;;
-    clean_registries)
-      ;;
-    renew_certificates)
-      ;;
-    send_new_release_email)
-      ;;
-    rotate_jwt_token)
-      ;;
-    test*)
+    serve_dynamodb_local)
       env_prepare_dynamodb_local
-      env_prepare_python_packages
       ;;
     *)
-      env_prepare_dynamodb_local
-      env_prepare_ruby_modules
-      if [ "${function_to_call}" == 'serve_back_async_dev' ]; then
-        env_prepare_python_async_packages
-      else
-        env_prepare_python_packages
-      fi
       ;;
   esac
 
