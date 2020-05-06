@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Breadcrumb, BreadcrumbItem, Col, InputGroup, Row } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
@@ -13,9 +13,10 @@ import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";
 
 export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
+  const { push } = useHistory();
   const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
-    const projectName: string = values.projectName.toUpperCase();
-    if (!_.isEmpty(projectName)) { location.hash = `#!/project/${projectName}/indicators`; }
+    const projectName: string = values.projectName.toLowerCase();
+    if (!_.isEmpty(projectName)) { push(`/project/${projectName}/indicators`); }
   };
 
   const pathData: string[] = props.location.pathname.split("/")

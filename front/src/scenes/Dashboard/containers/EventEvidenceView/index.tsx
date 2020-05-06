@@ -32,7 +32,6 @@ type EventEvidenceProps = RouteComponentProps<{ eventId: string }>;
 const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { eventId } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
-  const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
   // Side effects
   const onMount: (() => void) = (): void => {
@@ -178,7 +177,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
               {!_.isEmpty(data.event.evidence) || isEditing ? (
                 <EvidenceImage
                   acceptedMimes="image/jpeg,image/gif,image/png"
-                  content={showEmpty ? <div /> : `${baseUrl}/${data.event.evidence}`}
+                  content={showEmpty ? <div /> : `${location.href}/${data.event.evidence}`}
                   description="Evidence"
                   isDescriptionEditable={false}
                   isEditing={isEditing}

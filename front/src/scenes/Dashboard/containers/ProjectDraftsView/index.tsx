@@ -10,6 +10,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
+import { useHistory } from "react-router-dom";
 import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
@@ -27,6 +28,7 @@ import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
 
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
+  const { push } = useHistory();
 
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
     _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
@@ -35,7 +37,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
-    location.hash = `#!/project/${projectName}/drafts/${rowInfo.id}/description`;
+    push(`/project/${projectName}/drafts/${rowInfo.id}/description`);
   };
 
   const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (): void => {

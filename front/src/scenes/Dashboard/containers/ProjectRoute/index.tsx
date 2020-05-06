@@ -9,7 +9,7 @@ import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
-import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { authzContext } from "../../../../utils/authz/config";
@@ -27,12 +27,13 @@ import { GET_PROJECT_ALERT, GET_PROJECT_DATA, REJECT_REMOVE_PROJECT_MUTATION } f
 import { IProjectData, IRejectRemoveProject } from "./types";
 
 const projectRoute: React.FC = (): JSX.Element => {
+  const { push } = useHistory();
   const { projectName } = useParams<{ projectName: string }>();
   const { path } = useRouteMatch();
   const { userOrganization } = window as typeof window & Dictionary<string>;
 
   const closeRejectProjectModal: (() => void) = (): void => {
-    location.assign("/integrates/dashboard#!/home");
+    push("/home");
   };
 
   const permissions: PureAbility<string> = React.useContext(authzContext);

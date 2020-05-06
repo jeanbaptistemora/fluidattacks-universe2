@@ -11,7 +11,7 @@ import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { authzContext, groupLevelPermissions } from "../../utils/authz/config";
@@ -34,6 +34,7 @@ import { IAddUserAttr } from "./types";
 type IDashboardProps = RouteComponentProps;
 
 const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
+  const { hash } = useLocation();
   const [isTokenModalOpen, setTokenModalOpen] = React.useState(false);
   const openTokenModal: (() => void) = (): void => { setTokenModalOpen(true); };
   const closeTokenModal: (() => void) = (): void => { setTokenModalOpen(false); };
@@ -76,7 +77,7 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <HashRouter hashType="hashbang">
+      <BrowserRouter basename="/integrates">
         <React.Fragment>
           <ConfirmDialog title="Logout">
             {(confirm: ConfirmFn): React.ReactNode => {
@@ -105,12 +106,14 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
                   </authzContext.Provider>
                 </Route>
                 <Route path="/portfolio/:tagName" component={TagContent} />
+                {/* Necessary to support hashrouter URLs */}
+                <Redirect path="/dashboard" to={hash.replace("#!", "")} />
                 <Redirect to="/home" />
               </Switch>
             </div>
           </div>
         </React.Fragment>
-      </HashRouter>
+      </BrowserRouter>
       <ScrollUpButton visibleAt={400} />
       <UpdateAccessTokenModal open={isTokenModalOpen} onClose={closeTokenModal} />
       <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes} onError={handleMtAddUserError}>

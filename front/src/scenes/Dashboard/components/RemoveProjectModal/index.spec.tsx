@@ -4,6 +4,7 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store";
 import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
@@ -28,6 +29,7 @@ describe("RemoveProjectModal component", () => {
         },
       }];
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/resources"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <RemoveProjectModal
@@ -36,7 +38,8 @@ describe("RemoveProjectModal component", () => {
             projectName={""}
           />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
 
     const cancelButton: ReactWrapper = wrapper
@@ -71,6 +74,7 @@ describe("RemoveProjectModal component", () => {
         },
       }];
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/resources"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <RemoveProjectModal
@@ -79,7 +83,8 @@ describe("RemoveProjectModal component", () => {
             projectName={"test"}
           />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     const projectName: ReactWrapper = wrapper.find("input[value=\"\"]");
     projectName.simulate("change", { target: { value: "test" } });

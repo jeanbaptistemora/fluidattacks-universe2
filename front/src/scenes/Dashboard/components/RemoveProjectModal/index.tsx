@@ -11,6 +11,7 @@ import React from "react";
 import { ButtonToolbar, Col, FormGroup, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
@@ -28,6 +29,7 @@ import { IRemoveProject, IRemoveProjectModal } from "./types";
 
 const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
   (props: IRemoveProjectModal): JSX.Element => {
+    const { push } = useHistory();
     const { onClose } = props;
     const projectName: string = props.projectName.toLowerCase();
     const permissions: PureAbility<string> = useAbility(authzContext);
@@ -40,7 +42,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
     const [removeProject, { loading: submitting }] = useMutation(REQUEST_REMOVE_PROJECT_MUTATION, {
       onCompleted: (mtResult: IRemoveProject): void => {
         if (mtResult.requestRemoveProject.success) {
-          location.hash = "#!/home";
+          push("/home");
           msgSuccess(
             translate.t("proj_alerts.request_remove"),
             translate.t("proj_alerts.title_success"),

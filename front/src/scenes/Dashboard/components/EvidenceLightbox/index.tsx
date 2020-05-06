@@ -14,8 +14,6 @@ interface IEvidenceLightboxProps {
 }
 
 const evidenceLightbox: React.FC<IEvidenceLightboxProps> = (props: IEvidenceLightboxProps): JSX.Element => {
-  const baseUrl: string = window.location.href.replace("dashboard#!/", "");
-
   const nextIndex: number = (props.index + 1) % props.evidenceImages.length;
   const moveNext: (() => void) = (): void => { props.onChange(nextIndex); };
 
@@ -38,9 +36,9 @@ const evidenceLightbox: React.FC<IEvidenceLightboxProps> = (props: IEvidenceLigh
 
   return props.index > -1 ? (
     <Lightbox
-      mainSrc={`${baseUrl}/${props.evidenceImages[props.index].url}`}
-      nextSrc={`${baseUrl}/${props.evidenceImages[nextIndex].url}`}
-      prevSrc={`${baseUrl}/${props.evidenceImages[previousIndex].url}`}
+      mainSrc={`${location.href}/${props.evidenceImages[props.index].url}`}
+      nextSrc={`${location.href}/${props.evidenceImages[nextIndex].url}`}
+      prevSrc={`${location.href}/${props.evidenceImages[previousIndex].url}`}
       imagePadding={50}
       imageTitle={props.evidenceImages[props.index].description}
       onAfterOpen={adjustZoom}

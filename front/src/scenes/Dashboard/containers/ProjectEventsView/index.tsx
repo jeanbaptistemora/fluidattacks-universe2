@@ -12,7 +12,7 @@ import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import { Field, FormSection, formValueSelector, InjectedFormProps, Validator } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
@@ -38,6 +38,7 @@ import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 type EventsViewProps = RouteComponentProps<{ projectName: string }>;
 
 const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: EventsViewProps): JSX.Element => {
+  const { push } = useHistory();
   const selectOptionsStatus: optionSelectFilterProps[] = [
     { value: "Solved", label: "Solved" },
     { value: "Unsolved", label: "Unsolved" },
@@ -150,7 +151,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
-    location.hash = `#!/project/${projectName}/events/${rowInfo.id}/description`;
+    push(`/project/${projectName}/events/${rowInfo.id}/description`);
   };
 
   const [isEventModalOpen, setEventModalOpen] = React.useState(false);

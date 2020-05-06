@@ -43,11 +43,11 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
 
   const [isLegalModalOpen, setLegalModalOpen] = React.useState(true);
 
-  const initialUrl: string = _.get(localStorage, "url_inicio", "!/home");
+  const initialUrl: string = _.get(localStorage, "start_url", "/home");
   const loadDashboard: (() => void) = (): void => {
     localStorage.removeItem("showAlreadyLoggedin");
-    localStorage.removeItem("url_inicio");
-    location.assign(`/integrates/dashboard#${initialUrl}`);
+    localStorage.removeItem("start_url");
+    location.assign(`/integrates${initialUrl}`);
   };
 
   const { userEmail, userName } = window as typeof window & Dictionary<string>;
@@ -86,7 +86,7 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
                   <React.Fragment>
                     {data.me.authorized
                       ? data.me.remember
-                        ? <Redirect to={`/dashboard#${initialUrl}`} />
+                        ? <Redirect to={initialUrl} />
                         :
                         <Mutation mutation={ACCEPT_LEGAL_MUTATION} onCompleted={loadDashboard}>
                           {(acceptLegal: MutationFunction): JSX.Element => {

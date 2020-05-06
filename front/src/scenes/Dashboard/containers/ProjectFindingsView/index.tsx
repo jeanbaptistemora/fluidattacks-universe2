@@ -14,6 +14,7 @@ import { Button as ButtonType, ButtonToolbar, Col, Row } from "react-bootstrap";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { limitFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
@@ -31,6 +32,7 @@ import { IFindingAttr, IProjectFindingsAttr, IProjectFindingsProps } from "./typ
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { push } = useHistory();
 
   // State management
   const [isReportsModalOpen, setReportsModalOpen] = React.useState(false);
@@ -120,7 +122,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
     (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
       mixpanel.track("ReadFinding", { Organization: userOrganization, User: userName });
-      location.hash = `#!/project/${projectName}/findings/${rowInfo.id}/description`;
+      push(`/project/${projectName}/findings/${rowInfo.id}/description`);
     };
 
   const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {

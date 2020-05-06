@@ -34,7 +34,6 @@ type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
 const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { findingId } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
-  const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
   // Side effects
   const onMount: (() => void) = (): void => {
@@ -181,7 +180,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                     return (
                       <EvidenceImage
                         acceptedMimes="image/jpeg,image/gif,image/png"
-                        content={showEmpty ? <div /> : `${baseUrl}/${evidence.url}`}
+                        content={showEmpty ? <div /> : `${location.href}/${evidence.url}`}
                         description={evidence.description}
                         isDescriptionEditable={index > 1}
                         isEditing={isEditing}

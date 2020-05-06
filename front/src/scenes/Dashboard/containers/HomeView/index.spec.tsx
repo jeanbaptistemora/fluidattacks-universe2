@@ -4,6 +4,7 @@ import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import * as React from "react";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 import store from "../../../../store/index";
 import { authzContext } from "../../../../utils/authz/config";
 import { HomeView } from "./index";
@@ -81,11 +82,13 @@ describe("HomeView", () => {
 
   it("should render an error in component", () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/home"]}>
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
           <HomeView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     expect(wrapper)
       .toHaveLength(1);
@@ -93,11 +96,13 @@ describe("HomeView", () => {
 
   it("should render a component", () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/home"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
           <HomeView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     expect(wrapper)
       .toHaveLength(1);
@@ -107,13 +112,15 @@ describe("HomeView", () => {
       { action: "backend_api_resolvers_project__do_create_project" },
     ]);
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/home"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
           <authzContext.Provider value={mockedPermissions}>
             <HomeView {...mockProps} />
           </authzContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     const displayList: ReactWrapper = wrapper.find("input[value=\"list\"]");
     displayList.simulate("change", { target: { checked: true } });

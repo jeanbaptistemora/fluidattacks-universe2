@@ -3,6 +3,7 @@ import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import * as React from "react";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store/index";
 import { ProjectIndicatorsView } from "./index";
@@ -79,11 +80,13 @@ describe("ProjectIndicatorsView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/indicators"]}>
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
           <ProjectIndicatorsView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     await wait(0);
     expect(wrapper)
@@ -92,11 +95,13 @@ describe("ProjectIndicatorsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/indicators"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
           <ProjectIndicatorsView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     await wait(0);
     expect(wrapper)

@@ -1,8 +1,10 @@
-import { shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { BreadcrumbItem } from "react-bootstrap";
+import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, MemoryRouter } from "react-router-dom";
+import store from "../../../../store";
 import translate from "../../../../utils/translations/translate";
 import { navbarComponent as NavbarComponent } from "./index";
 
@@ -50,8 +52,10 @@ describe("Navbar", () => {
         url: "",
       },
     };
-    const wrapper: ShallowWrapper = shallow(
-      <NavbarComponent {...mockProps}/>,
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/home"]}>
+      <Provider store={store}><NavbarComponent {...mockProps}/></Provider>
+      </MemoryRouter>,
     );
     expect(wrapper.contains(
       <BreadcrumbItem active={false}>

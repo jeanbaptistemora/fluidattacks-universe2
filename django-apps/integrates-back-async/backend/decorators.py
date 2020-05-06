@@ -49,8 +49,8 @@ def authenticate(func: Callable[..., Any]) -> Callable[..., Any]:
         request = args[0]
         if "username" not in request.session or request.session["username"] is None:
             return HttpResponse('Unauthorized \
-            <script>var getUrl=window.location.hash.substr(1); \
-            localStorage.setItem("url_inicio",getUrl); \
+            <script>var getUrl=window.location.href.split(`${window.location.host}/integrates`);\
+            localStorage.setItem("start_url",getUrl[getUrl.length - 1]);\
             location = "/integrates/index"; </script>')
         return func(*args, **kwargs)
     return authenticate_and_call

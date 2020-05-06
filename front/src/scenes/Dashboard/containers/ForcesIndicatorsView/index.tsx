@@ -9,6 +9,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
@@ -19,9 +20,10 @@ import { IForcesExecution, IForcesIndicatorsProps, IForcesIndicatorsViewBaseProp
 const forcesIndicatorsView: React.FC<IForcesIndicatorsViewBaseProps> =
 (props: IForcesIndicatorsViewBaseProps): JSX.Element => {
   const projectName: string = props.projectName;
+  const { push } = useHistory();
 
   const goToProjectForces: (() => void) = (): void => {
-    location.hash = `#!/project/${projectName}/forces`;
+    push(`/project/${projectName}/forces`);
   };
 
   const handleQryResult: ((qrResult: IForcesIndicatorsProps) => void) = (qrResult: IForcesIndicatorsProps): void => {

@@ -2,6 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
+import { useHistory } from "react-router-dom";
 import { default as logo } from "../../../../resources/integrates.png";
 import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
@@ -15,8 +16,9 @@ interface ISidebarProps {
 
 const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
   const { onOpenAddUserModal, onOpenAccessTokenModal, onLogoutClick } = props;
+  const { push } = useHistory();
 
-  const handleLogoClick: (() => void) = (): void => { location.hash = "#!/home"; };
+  const handleLogoClick: (() => void) = (): void => { push("/home"); };
 
   const renderMenu: ((isNormalScreenSize: boolean) => JSX.Element) = (isNormalScreenSize: boolean): JSX.Element => (
     <BurgerMenu

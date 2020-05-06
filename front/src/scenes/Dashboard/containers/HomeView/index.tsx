@@ -13,6 +13,7 @@ import React from "react";
 import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
@@ -32,19 +33,10 @@ interface ITagDataTable {
   projects: string;
 }
 
-const goToProject: ((projectName: string) => void) = (projectName: string): void => {
-  location.hash = `#!/project/${projectName.toUpperCase()}/indicators`;
-};
-
 const tableHeaders: IHeader[] = [
   { dataField: "name", header: "Project Name" },
   { dataField: "description", header: "Description" },
 ];
-
-const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) =
-  (event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }): void => {
-    goToProject(rowInfo.name);
-  };
 
 const tableHeadersTags: IHeader[] = [
   { dataField: "name", header: "Tag" },
@@ -53,6 +45,17 @@ const tableHeadersTags: IHeader[] = [
 
 const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzContext);
+  const { push } = useHistory();
+
+  const goToProject: ((projectName: string) => void) = (projectName: string): void => {
+    push(`/project/${projectName.toLowerCase()}/indicators`);
+  };
+
+  const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
+    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string },
+  ): void => {
+    goToProject(rowInfo.name);
+  };
 
   // Side effects
   const onMount: (() => void) = (): void => {
@@ -89,7 +92,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   });
 
   const displayTag: ((choosedTag: string) => void) = (choosedTag: string): void => {
-    location.hash = `#!/portfolio/${choosedTag}/indicators`;
+    push(`/portfolio/${choosedTag.toLowerCase()}/indicators`);
   };
 
   const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (

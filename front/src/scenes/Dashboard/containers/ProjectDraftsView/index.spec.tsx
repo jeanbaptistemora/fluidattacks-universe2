@@ -6,6 +6,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 import store from "../../../../store/index";
 import { ProjectDraftsView } from "./index";
 import { GET_DRAFTS } from "./queries";
@@ -82,11 +83,13 @@ describe("ProjectDraftsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/drafts"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <ProjectDraftsView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
@@ -96,11 +99,13 @@ describe("ProjectDraftsView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/drafts"]}>
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={false}>
           <ProjectDraftsView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)

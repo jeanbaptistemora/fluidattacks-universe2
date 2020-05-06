@@ -10,6 +10,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { handleGraphQLErrors, statusGraph, treatmentGraph } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
@@ -23,13 +24,14 @@ import { IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
 
 const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsViewBaseProps): JSX.Element => {
   const projectName: string = props.match.params.projectName;
+  const { push } = useHistory();
 
   const goToProjectFindings: (() => void) = (): void => {
-    location.hash = `#!/project/${projectName}/findings`;
+    push(`/project/${projectName}/findings`);
   };
 
   const goToProjectSettings: (() => void) = (): void => {
-    location.hash = `#!/project/${projectName}/resources`;
+    push(`/project/${projectName}/resources`);
   };
 
   const handleQryResult: ((qrResult: IIndicatorsProps) => void) = (qrResult: IIndicatorsProps): void => {

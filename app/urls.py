@@ -59,5 +59,7 @@ urlpatterns = [
     # Documentation.
     url(r'^/?complete_report/?$', views.generate_complete_report),
     url(r'^/?export_all_vulnerabilities/?$', views.export_all_vulnerabilities),
-    url(r'^/?export_users/?$', views.export_users)
+    url(r'^/?export_users/?$', views.export_users),
+    # catch all others because of the no longer use hash location
+    url(r'', views.app),
 ]

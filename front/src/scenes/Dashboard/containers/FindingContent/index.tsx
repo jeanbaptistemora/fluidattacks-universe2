@@ -14,7 +14,7 @@ import { useAbility } from "@casl/react";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import { NavLink, Redirect, Route, Switch } from "react-router-dom";
+import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
@@ -45,6 +45,7 @@ import { IFindingContentProps, IHeaderQueryResult } from "./types";
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const permissions: PureAbility<string> = useAbility(authzContext);
+  const { push } = useHistory();
 
   // State management
   const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
@@ -178,7 +179,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           translate.t("search_findings.finding_deleted", { findingId }),
           translate.t("project.drafts.title_success"),
         );
-        location.hash = `#!/project/${projectName}/findings`;
+        push(`/project/${projectName}/findings`);
       }
     },
     onError: (rejectError: ApolloError): void => {

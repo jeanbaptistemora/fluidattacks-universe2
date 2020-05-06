@@ -40,7 +40,7 @@ const app: React.FC = (): JSX.Element => (
               <ApolloNetworkStatusProvider>
                 <Switch>
                   <Route path="/registration" component={Registration} />
-                  <Route path="/dashboard" component={Dashboard} />
+                  <Route path="/" component={Dashboard} />
                 </Switch>
                 {React.createElement(globalPreloader)}
               </ApolloNetworkStatusProvider>

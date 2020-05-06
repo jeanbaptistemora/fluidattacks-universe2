@@ -27,7 +27,6 @@ import { IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps } from "./types
 const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
 (props: IVulnerabilitiesViewProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzContext);
-  const baseUrl: string = `${window.location.href.split("/dashboard#!")[0]}`;
 
   const handleUploadResult: ((mtResult: IUploadVulnerabilitiesResult) => void) =
   (mtResult: IUploadVulnerabilitiesResult): void => {
@@ -129,7 +128,10 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         <React.Fragment>
           <Row>
             <Col md={4} sm={12}>
-              <Button bsStyle="default" href={`${baseUrl}/${props.findingId}/download_vulnerabilities`}>
+              <Button
+                bsStyle="default"
+                href={`https://${location.host}/integrates/${props.findingId}/download_vulnerabilities`}
+              >
                 <FluidIcon icon="export" />
                 &nbsp;{translate.t("search_findings.tab_description.download_vulnerabilities")}
               </Button>

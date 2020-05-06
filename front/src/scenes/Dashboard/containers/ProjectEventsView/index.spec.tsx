@@ -8,6 +8,7 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
+import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store/index";
 import { authzContext } from "../../../../utils/authz/config";
@@ -84,11 +85,13 @@ describe("EventsView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/events"]}>
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={false}>
           <ProjectEventsView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("Query")
@@ -98,11 +101,13 @@ describe("EventsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/events"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <ProjectEventsView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     expect(wrapper)
       .toHaveLength(1);
@@ -110,11 +115,13 @@ describe("EventsView", () => {
 
   it("should render events table", async () => {
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/events"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <ProjectEventsView {...mockProps} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("table"))
@@ -135,13 +142,15 @@ describe("EventsView", () => {
       { action: "backend_api_resolvers_event__do_create_event" },
     ]);
     const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/test/events"]}>
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <authzContext.Provider value={mockedPermissions}>
             <ProjectEventsView {...mockProps} />
           </authzContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const newButton: ReactWrapper = wrapper

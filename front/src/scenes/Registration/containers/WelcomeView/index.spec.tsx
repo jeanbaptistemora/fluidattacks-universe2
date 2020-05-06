@@ -119,7 +119,7 @@ describe("Welcome view", () => {
       },
     }];
     localStorage.setItem("showAlreadyLoggedin", "1");
-    localStorage.setItem("url_inicio", "!/project/BWAPP/findings/413372600/comments");
+    localStorage.setItem("start_url", "/project/BWAPP/findings/413372600/comments");
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <WelcomeView {...routeProps} />
@@ -130,7 +130,7 @@ describe("Welcome view", () => {
       .simulate("click");
     expect(_.get(localStorage, "showAlreadyLoggedin"))
       .toEqual(undefined);
-    expect(_.get(localStorage, "url_inicio"))
+    expect(_.get(localStorage, "start_url"))
       .toEqual(undefined);
   });
 });

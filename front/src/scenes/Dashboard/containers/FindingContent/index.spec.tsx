@@ -613,8 +613,6 @@ describe("FindingContent", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgSuccess)
       .toHaveBeenCalled();
-    expect(window.location.hash)
-      .toEqual("#!/project/TEST/findings");
   });
 
   it("should handle deletion errors", async () => {

@@ -60,8 +60,8 @@ def enforce_user_level_role(request, *allowed_roles):
         # The user is not even authenticated. Redirect to login
         return HttpResponse("""
             <script>
-                var getUrl=window.location.hash.substr(1);
-                localStorage.setItem("url_inicio",getUrl);
+                var getUrl=window.location.href.split(`${window.location.host}/integrates`);
+                localStorage.setItem("start_url",getUrl[getUrl.length - 1]);
                 location = "/integrates/index";
             </script>
             """)
@@ -84,8 +84,8 @@ def enforce_group_level_role(request, group, *allowed_roles):
         # The user is not even authenticated. Redirect to login
         return HttpResponse("""
             <script>
-                var getUrl=window.location.hash.substr(1);
-                localStorage.setItem("url_inicio",getUrl);
+                var getUrl=window.location.href.split(`${window.location.host}/integrates`);
+                localStorage.setItem("start_url",getUrl[getUrl.length - 1]);
                 location = "/integrates/index";
             </script>
             """)

@@ -1,5 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
+import { MemoryRouter } from "react-router-dom";
 import { Sidebar } from "./index";
 
 const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
@@ -13,7 +14,9 @@ describe("Sidebar", () => {
 
   it("should render a sidebar", () => {
     const wrapper: ShallowWrapper = shallow(
-      <Sidebar onLogoutClick={functionMock} onOpenAccessTokenModal={functionMock} onOpenAddUserModal={functionMock}/>,
+      <MemoryRouter initialEntries={["/home"]}>
+      <Sidebar onLogoutClick={functionMock} onOpenAccessTokenModal={functionMock} onOpenAddUserModal={functionMock}/>
+      </MemoryRouter>,
     );
     expect(wrapper)
       .toHaveLength(1);
