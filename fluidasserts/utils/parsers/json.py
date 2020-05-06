@@ -3,6 +3,7 @@
 
 # standard imports
 from collections import UserDict, UserList
+from typing import Any
 
 # 3rd party imports
 from lark import Lark, Transformer, v_args, Tree
@@ -161,3 +162,12 @@ def parse(json_string: str):
         transformer=TreeToJson())
 
     return json_parser.parse(json_string)
+
+
+def standardize_objects(obj: Any):
+    """Combert custom objects to standar objects."""
+    if isinstance(obj, CustomList):
+        obj = list(obj)
+    elif isinstance(obj, CustomDict):
+        obj = dict(obj)
+    return obj
