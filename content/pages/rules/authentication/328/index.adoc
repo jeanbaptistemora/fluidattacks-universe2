@@ -1,0 +1,65 @@
+:slug: rules/328/
+:category: authentication
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended multi-factor authentication (MFA) be enabled and required to access critical systems.
+:keywords: MFA, Authentication, Multi, Factor, ASVS, CWE
+:rules: yes
+
+= REQ.328 Request MFA for critical systems
+
+== Requirement
+
+Access to critical systems must be protected by a multi-factor
+authentication (*MFA*) mechanism.
+
+== Description
+
+Single-factor authentication mechanisms often offer poor security due to
+the weak, common or easy-to-guess passwords that users tend to set.
+There also exist several applications and sets of data whose sole purpose
+is breaking into systems protected by single-factor authentication.
+Therefore, critical systems should not rely only on it but take advantage of
+the protection offered by multi-factor authentication (*MFA*).
+
+== Findings
+
+* link:/web/findings/081/[F081. Lack of multi-factor authentication]
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
+When an actor claims to have a given identity,
+the software does not prove or insufficiently proves that the claim is correct.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/304.html[CWE-304: Missing Critical Step in Authentication]
+The software implements an authentication technique,
+but it skips a step that weakens the technique.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/308.html[CWE-308: Use of Single-factor Authentication]
+The use of single-factor authentication can lead to unnecessary risk of
+compromise when compared with the benefits of a dual-factor authentication
+scheme.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/654.html[CWE-654: Reliance on a Single Factor in a Security Decision]
+A protection mechanism relies exclusively, or to a large extent, on the
+evaluation of a single condition or the integrity of a single object or entity
+in order to make a decision about granting access to restricted resources or
+functionality.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.4)]
+Verify that all authentication pathways and identity management APIs implement
+consistent authentication security control strength,
+such that there are no weaker alternatives per the risk of the application.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.2 General Authenticator Requirements.(2.2.4)]
+Verify impersonation resistance against phishing,
+such as the use of multi-factor authentication, cryptographic devices with
+intent (such as connected keys with a push to authenticate),
+or at higher AAL levels, client-side certificates.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.3 Other Access Control Considerations.(4.3.1)]
+Verify that all authentication pathways and identity management APIs implement
+consistent authentication security control strength,
+such that there are no weaker alternatives per the risk of the application.
