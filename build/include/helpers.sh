@@ -256,3 +256,23 @@ function helper_serve_back {
         "${app}" \
   &&  kill -TERM "${HTTP_PID}"
 }
+
+function helper_functional_tests {
+      env_prepare_python_packages \
+  &&  echo '[INFO] Logging in to AWS' \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  echo "[INFO] Firefox: ${pkgFirefox}" \
+  &&  echo "[INFO] GeckoDriver:  ${pkgGeckoDriver}" \
+  &&  echo '[INFO] Exporting vars' \
+  &&  sops_vars "${ENVIRONMENT_NAME}" \
+  &&  echo "[INFO] Running test suite: ${CI_NODE_INDEX}/${CI_NODE_TOTAL}" \
+  &&  mkdir -p test/functional/screenshots \
+  &&  pytest \
+        --ds='fluidintegrates.settings' \
+        --verbose \
+        --exitfirst \
+        --basetemp='build/test' \
+        --test-group-count "${CI_NODE_TOTAL}" \
+        --test-group "${CI_NODE_INDEX}" \
+        ephemeral_tests.py
+}

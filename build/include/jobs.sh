@@ -218,36 +218,16 @@ function job_deploy_mobile {
       fi
 }
 
-function _job_functional_tests {
-      env_prepare_python_packages \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
-  &&  echo "[INFO] Firefox: ${pkgFirefox}" \
-  &&  echo "[INFO] GeckoDriver:  ${pkgGeckoDriver}" \
-  &&  echo '[INFO] Exporting vars' \
-  &&  sops_vars "${ENVIRONMENT_NAME}" \
-  &&  echo "[INFO] Running test suite: ${CI_NODE_INDEX}/${CI_NODE_TOTAL}" \
-  &&  mkdir -p test/functional/screenshots \
-  &&  pytest \
-        --ds='fluidintegrates.settings' \
-        --verbose \
-        --exitfirst \
-        --basetemp='build/test' \
-        --test-group-count "${CI_NODE_TOTAL}" \
-        --test-group "${CI_NODE_INDEX}" \
-        ephemeral_tests.py
-}
-
 function job_functional_tests_local {
-  _job_functional_tests
+  helper_functional_tests
 }
 
 function job_functional_tests_dev {
-  CI='true' _job_functional_tests
+  CI='true' helper_functional_tests
 }
 
 function job_functional_tests_prod {
-  CI_COMMIT_REF_NAME='master' _job_functional_tests
+  CI_COMMIT_REF_NAME='master' helper_functional_tests
 }
 
 function job_renew_certificates {
@@ -330,7 +310,8 @@ function job_reset {
 function job_serve_dynamodb_local {
   local port=8022
 
-      echo '[INFO] Launching DynamoDB local' \
+      env_prepare_dynamodb_local \
+  &&  echo '[INFO] Launching DynamoDB local' \
   &&  {
         java \
           -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
@@ -637,6 +618,7 @@ function job_test_back {
 
   # shellcheck disable=SC2015
       env_prepare_python_packages \
+  &&  env_prepare_dynamodb_local \
   &&  helper_set_dev_secrets \
   &&  echo '[INFO] Launching Redis' \
   &&  {

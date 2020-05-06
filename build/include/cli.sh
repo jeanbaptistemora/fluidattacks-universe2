@@ -24,17 +24,6 @@ function cli {
   echo '---'
   env_prepare_environment_variables "${function_to_call}"
   env_prepare_ephemeral_vars
-  case "${function_to_call}" in
-    test_back)
-      env_prepare_dynamodb_local
-      ;;
-    serve_dynamodb_local)
-      env_prepare_dynamodb_local
-      ;;
-    *)
-      ;;
-  esac
-
   echo "[INFO] Executing function: job_${function_to_call}"
   if "job_${function_to_call}"
   then
