@@ -34,7 +34,7 @@ export ENV_NAME
 ENV_NAME='development'
 
 # Import functions
-. ci-scripts/helpers/sops.sh
+. build/include/helpers.sh
 
 aws_login "$ENV_NAME"
 

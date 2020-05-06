@@ -276,3 +276,181 @@ function helper_functional_tests {
         --test-group "${CI_NODE_INDEX}" \
         ephemeral_tests.py
 }
+
+reg_registry_id() {
+  # Get the id of a gitlab registry
+  # e.g reg_registry_id deps-base
+
+  local registry_name="$1"
+  local integrates_id='4620828'
+  local check_url
+
+      check_url="https://gitlab.com/api/v4/projects/${integrates_id}/registry/repositories" \
+  &&  wget -O - "${check_url}" 2> /dev/null | jq ".[] | select (.name == \"${registry_name}\") | .id"
+}
+
+reg_registry_delete() {
+  # Delete registry
+  # e.g: reg_registry_delete deps-production TOKEN
+
+  local registry_name="$1"
+  local token="$2"
+  local registry_id
+  local delete_url
+
+      registry_id=$(reg_registry_id "${registry_name}") \
+  &&  delete_url="https://gitlab.com/api/v4/projects/4620828/registry/repositories/${registry_id}" \
+  &&  curl --request DELETE --header "PRIVATE-TOKEN: ${token}" "${delete_url}"
+}
+
+mobile_get_version() {
+  # Get the current version for a mobile deployment
+
+  local minutes
+  local fi_version
+
+      minutes=$(
+        printf "%05d" $((
+        ($(date +%d | sed 's/^0//') -1) * 1440 +
+        $(date +%H | sed 's/^0//') * 60 +
+        $(date +%M | sed 's/^0//')
+        ))
+      ) \
+  &&  if [ "$1" = "basic" ]; then
+            fi_version="$(date +%y.%m.)${minutes}" \
+        &&  echo "${fi_version}"
+      elif [ "$1" = "code" ]; then
+            fi_version="$(date +%y%m)${minutes}" \
+        &&  echo "${fi_version}"
+      else
+            echo "Error. Only basic or code allowed as params" \
+        &&  exit 1
+      fi
+}
+
+minutes_of_month () {
+  # Returns minutes that have passed during the current month
+
+  local minutes_of_passed_days
+  local minutes_of_passed_hours
+  local minutes_of_current_hour
+  local minutes_of_month
+
+      minutes_of_passed_days=$((
+        ($(date +%d | sed 's/^0//') -1) * 1440
+      )) \
+  &&  minutes_of_passed_hours=$((
+        $(date +%H | sed 's/^0//') * 60
+      )) \
+  &&  minutes_of_current_hour=$((
+        $(date +%M | sed 's/^0//')
+      )) \
+  &&  minutes_of_month=$((
+        minutes_of_passed_days +
+        minutes_of_passed_hours +
+        minutes_of_current_hour
+      )) \
+  &&  echo "${minutes_of_month}"
+}
+
+app_version () {
+  # Return a version for integrates app
+
+  local minutes
+
+      minutes=$(minutes_of_month) \
+  &&  echo "$(date +%y.%m.)${minutes}"
+}
+
+aws_login() {
+
+  # Log in to aws for resources
+
+  local user="$1"
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+
+      if [ "${user}"  == 'production' ]; then
+        if [ "${CI_COMMIT_REF_NAME}" == 'master' ]; then
+              AWS_ACCESS_KEY_ID="${PROD_AWS_ACCESS_KEY_ID}" \
+          &&  AWS_SECRET_ACCESS_KEY="${PROD_AWS_SECRET_ACCESS_KEY}"
+        else
+              echo 'Not enough permissions for logging in as production' \
+          &&  return 1
+        fi
+      elif [ "${user}" == 'development' ]; then
+            AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}"
+      else
+            echo 'No valid user was provided' \
+        &&  return 1
+      fi \
+  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+}
+
+get_sops_env() {
+  local tmp_file
+  local src='https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh'
+
+      tmp_file=$(mktemp) \
+  &&  curl -sL "${src}" \
+        > "${tmp_file}" \
+  &&  echo "${tmp_file}"
+}
+
+sops_vars() {
+  # Set necessary vars for integrates
+
+  local env_name="$1"
+
+  sops_env "secrets-${env_name}.yaml" default \
+    AWS_DEFAULT_REGION \
+    AWS_REDSHIFT_DBNAME \
+    AWS_REDSHIFT_HOST \
+    AWS_REDSHIFT_PASSWORD \
+    AWS_REDSHIFT_USER \
+    AZUREAD_OAUTH2_KEY \
+    AZUREAD_OAUTH2_SECRET \
+    COMMUNITY_PROJECTS \
+    CLOUDFRONT_ACCESS_KEY \
+    CLOUDFRONT_PRIVATE_KEY \
+    CLOUDFRONT_RESOURCES_DOMAIN \
+    CLOUDFRONT_REPORTS_DOMAIN \
+    DB_HOST \
+    DB_PASSWD \
+    DB_USER \
+    DEBUG \
+    DJANGO_SECRET_KEY \
+    DYNAMODB_HOST \
+    DYNAMODB_PORT \
+    ENVIRONMENT \
+    FORCES_TRIGGER_REF \
+    FORCES_TRIGGER_TOKEN \
+    FORCES_TRIGGER_URL \
+    GOOGLE_OAUTH2_KEY \
+    GOOGLE_OAUTH2_KEY_ANDROID \
+    GOOGLE_OAUTH2_KEY_IOS \
+    GOOGLE_OAUTH2_SECRET \
+    JWT_SECRET \
+    JWT_SECRET_API \
+    MAIL_CONTINUOUS \
+    MAIL_PRODUCTION \
+    MAIL_PROJECTS \
+    MAIL_REVIEWERS \
+    MAIL_RESOURCERS \
+    MANDRILL_APIKEY \
+    MIXPANEL_API_TOKEN \
+    NEW_RELIC_API_KEY \
+    NEW_RELIC_APP_ID \
+    NEW_RELIC_LICENSE_KEY \
+    NEW_RELIC_ENVIRONMENT \
+    REDIS_SERVER \
+    ROLLBAR_ACCESS_TOKEN \
+    SQS_QUEUE_URL \
+    TEST_PROJECTS
+}

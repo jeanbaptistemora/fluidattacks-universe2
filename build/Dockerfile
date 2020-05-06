@@ -7,7 +7,6 @@ RUN apk add --no-cache \
 ARG PROVISIONER
 
 COPY build       /code/build
-COPY ci-scripts  /code/ci-scripts
 COPY deploy      /code/deploy
 COPY django-apps /code/django-apps
 

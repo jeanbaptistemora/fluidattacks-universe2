@@ -10,6 +10,7 @@ in
       name = "builder";
 
       buildInputs = [
+        pkgs.jq
         pkgs.sysctl
         pkgs.nodejs
         pkgs.awscli

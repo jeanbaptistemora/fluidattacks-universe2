@@ -444,6 +444,7 @@ lint_commit_msg:
 danger:
   <<: *in_mrs
   tags: [autoscaling]
+  needs: []
   stage: merge-request
   image: fluidattacks/danger-ruby
   variables:

@@ -6,7 +6,8 @@ source /root/.profile
 
 run_cron() {
     cd /usr/src/app
-    source ci-scripts/helpers/sops.sh
+    source build/include/helpers.sh
+    source $(get_sops_env)
     sops_vars production
 
     if /usr/bin/python3 /usr/src/app/manage.py crontab run ${JOB_ID}; then

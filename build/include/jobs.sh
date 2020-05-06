@@ -4,7 +4,6 @@ source "${srcEnv}"
 source "${srcIncludeHelpers}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
-source "${srcCiScriptsHelpersSops}"
 
 function job_build_front {
       pushd front \
