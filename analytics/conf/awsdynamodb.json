@@ -11,6 +11,7 @@
         "build_env": "string",
         "build_trigger_source": "string",
         "date": "date-time",
+        "did_finished": "string",
         "exit_code": "string",
         "git_branch": "string",
         "git_commit": "string",
