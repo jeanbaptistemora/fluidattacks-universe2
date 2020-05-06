@@ -116,3 +116,22 @@ def test_no_alarm_on_org_changes_closed():
     with no_connection():
         assert not cloudwatch.no_alarm_on_single_fa_login(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_no_alarm_on_unauthorized_api_calls_open():
+    """Check if there are alarms set on organization changes."""
+    assert cloudwatch.no_alarm_on_unauthorized_api_calls(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_unauthorized_api_calls_closed():
+    """Check if there are alarms set on organization changes."""
+    assert not \
+        cloudwatch.no_alarm_on_unauthorized_api_calls(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_unauthorized_api_calls(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+

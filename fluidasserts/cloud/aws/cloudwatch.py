@@ -176,3 +176,44 @@ def no_alarm_on_org_changes(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def no_alarm_on_unauthorized_api_calls(key_id: str,
+                                       secret: str,
+                                       session_token: str = None,
+                                       retry: bool = True) -> tuple:
+    """
+    Check if alarms are set for unauthorized AWS API calls.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    alarms = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='cloudwatch',
+        func='describe_alarms_for_metric',
+        MetricName='AuthorizationFailureCount',
+        Namespace='CloudTrailMetrics',
+        boto3_client_kwargs={'aws_session_token': session_token},
+        param='MetricAlarms',
+        retry=retry)
+
+    msg_open: str = 'There are no alarms set for unauthorized AWS API calls'
+    msg_closed: str = 'There are alarms set for unauthorized AWS API calls'
+
+    vulns, safes = [], []
+
+    if not alarms:
+        vulns.append(('CloudWatch',
+                      'Must have alarms unauthorized AWS API calls'))
+
+    return _get_result_as_tuple(
+        service='CloudWatch',
+        objects='',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
