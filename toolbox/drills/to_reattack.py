@@ -61,8 +61,12 @@ def to_reattack(subs_name: str, with_exp: bool) -> tuple:
     findings_raw: List[Dict] = \
         get_subs_unverified_findings(subs_name).data['project']['findings']
     findings_parsed: List[Dict] = []
+    findings_ret: List[Dict] = []
     for finding in findings_raw:
-        verivulns = filter(lambda x: bool(x['historicVerification']),
+        # Find the oldest verification request
+        verivulns = filter(lambda x: x['historicVerification'] and
+                           x['historicVerification'][-1]['status']
+                           == 'REQUESTED',
                            finding['vulnerabilities'])
         vulnsort = sorted(verivulns,
                           key=lambda x: x['historicVerification'][-1]['date'],)
@@ -70,7 +74,7 @@ def to_reattack(subs_name: str, with_exp: bool) -> tuple:
                   dt.strptime(vulnsort[0]['historicVerification'][-1]['date'],
                               '%Y-%m-%d %H:%M:%S')).days
         findings_parsed.append({'id': finding['id'],
-                                'vulns': len(finding['vulnerabilities']),
+                                'vulns': len(vulnsort),
                                 'oldest': oldest})
     findings_sorted = \
         sorted(findings_parsed, key=lambda x: x['oldest'], reverse=True)
@@ -82,17 +86,21 @@ def to_reattack(subs_name: str, with_exp: bool) -> tuple:
         exploits: str = get_exploits(subs_name, finding_id)
         if with_exp:
             if exploits:
+                findings_ret.append(finding)
                 url = get_url(subs_name, finding_id)
                 message += f'{url}\n'
                 message += exploits
-                message += f'  requested: {finding_oldest} days ago\n\n'
+                message += f'  requested: {finding_oldest} days ago\n' \
+                           f'  vulns to verify: {finding["vulns"]}\n\n'
         else:
             if not exploits:
+                findings_ret.append(finding)
                 url = get_url(subs_name, finding_id)
                 message += f'{url}\n'
-                message += f'  requested: {finding_oldest} days ago\n\n'
+                message += f'  requested: {finding_oldest} days ago\n' \
+                           f'  vulns to verify: {finding["vulns"]}\n\n'
 
-    return message, findings_parsed
+    return message, findings_ret
 
 
 def main(with_exp: bool):
@@ -112,7 +120,7 @@ def main(with_exp: bool):
             print(message)
             total_vulns += sum(map(lambda x: x['vulns'], pending_findings))
             total_fin += len(pending_findings)
-            old = pending_findings[-1]['oldest']
+            old = pending_findings[0]['oldest']
             oldest = (old, subs_name) if old > oldest[0] else oldest
     summary = (
         f"TO-DO: FIN: {total_fin}; "
