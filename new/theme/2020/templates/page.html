@@ -31,13 +31,32 @@
 {% endblock canonical %}
 
 {% block breadcrumb %}
-
+<div class="pv0">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-banner ml-auto mr-auto">
+      <ul class="dib list w-100">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hv-fluid-rd no-underline"
+             href="{{ SITEURL }}/">
+            <strong>Home</strong>
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hv-fluid-rd no-underline"
+              href=".">{{ page.title }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 {% endblock breadcrumb %}
 
 {% block header %}
 <div class="bg-graylight">
   <div
-    class="{{ page.banner }} coverm cover-s banner-height justify-center items-center flex mt3-l bg-center mw-banner ml-auto mr-auto">
+    class="{{ page.banner }} coverm cover-s banner-height justify-center items-center flex bg-center mw-banner ml-auto mr-auto">
     <div class="w-100 center">
       <h1 class="white fw6 f1-l f2 roboto tc ma0">
         {{ page.subtitle }}
@@ -53,7 +72,7 @@
 {% endblock header %}
 {% block content %}
 <div class="bg-graylight">
-  <div class="internal mw-banner ml-auto mr-auto roboto bg-white ph5-l ph4 pt5-l pt4 pb5">
+  <div class="roboto internal mw-banner ml-auto mr-auto roboto bg-white ph5-l ph4 pt5-l pt4 pb5">
     {{ page.content }}
   </div>
 </div>

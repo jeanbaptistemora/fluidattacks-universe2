@@ -21,6 +21,26 @@
 Blog | {{ SITENAME }}
 {% endblock title %}
 
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-banner ml-auto mr-auto">
+      <ul class="dib list w-100">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hv-fluid-rd no-underline"
+             href="{{ SITEURL }}/">
+            <strong>Home</strong>
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
+
 {% block content %}
 
 {% endblock content %}
