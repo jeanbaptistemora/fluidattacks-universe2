@@ -29,8 +29,8 @@ DEBUGGING: bool = False
 # Constants
 INTEGRATES_API_URL = 'https://fluidattacks.com/integrates/api'
 CACHE_SIZE: int = 4**8
-RETRY_MAX_ATTEMPTS: int = 8 if not DEBUGGING else 1
-RETRY_RELAX_SECONDS: float = 2.0
+RETRY_MAX_ATTEMPTS: int = 3 if DEBUGGING else 12
+RETRY_RELAX_SECONDS: float = 3.0
 PROXY = 'http://127.0.0.1:8080' if DEBUGGING else None
 
 
@@ -122,8 +122,14 @@ def request(api_token: str,
     for _ in range(RETRY_MAX_ATTEMPTS):
         with contextlib.suppress(*CustomGraphQLClient.errors_to_retry):
             if params and 'fileHandle' in params:
-                # Reset the file pointer to BOF
-                params['fileHandle'].seek(0)
+                if params['fileHandle'].closed:
+                    # Reopen it again
+                    params['fileHandle'] = open(
+                        params['fileHandle'].name,
+                        params['fileHandle'].mode)
+                else:
+                    # Reset the file pointer to BOF
+                    params['fileHandle'].seek(0)
 
             awaitable = gql_request(api_token, body, params)
             response = asyncio.run(awaitable, debug=DEBUGGING)
