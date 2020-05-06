@@ -6,3 +6,11 @@
 :banner: careers-main-bg
 
 = Careers
+
+[.f3.tl.fw6]
+== Overview
+
+[.f4.fw3.tl]
+This is the first step in the hiring process to become part of the Fluid Attacks
+team. This step provides you with a brief overview of our candidate selection
+process. This step requires an estimated 4 to 6 minutes to complete.
