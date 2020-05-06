@@ -182,8 +182,7 @@ def handle_acceptation(finding_id: str, observations: str, user_mail: str, respo
 
 
 def update_description(finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
-    for value in updated_values.values():
-        validations.validate_field(cast(List[str], str(value)))
+    validations.validate_fields(list(cast(Dict[str, str], updated_values.values())))
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
     updated_values['effect_solution'] = updated_values.get('recommendation')
@@ -235,8 +234,7 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
 
 def update_client_description(finding_id: str, updated_values: Dict[str, str],
                               user_mail: str, update) -> bool:
-    for value in updated_values.values():
-        validations.validate_field(cast(List[str], str(value)))
+    validations.validate_fields(list(updated_values.values()))
     success_treatment, success_external_bts = True, True
     if update.bts_changed:
         success_external_bts = finding_dal.update(

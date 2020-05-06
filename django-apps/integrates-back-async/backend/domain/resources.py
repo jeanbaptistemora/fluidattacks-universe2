@@ -74,7 +74,7 @@ def validate_file_size(uploaded_file, file_size: int) -> bool:
 
 def create_file(files_data: List[Dict[str, str]], uploaded_file,
                 project_name: str, user_email: str) -> bool:
-    validations.validate_field(cast(List[str], files_data[0]['description']))
+    validations.validate_fields(cast(List[str], [files_data[0]['description']]))
     project_name = project_name.lower()
     json_data: List[resources_dal.ResourceType] = []
     for file_info in files_data:
@@ -182,8 +182,7 @@ def has_repeated_repos(
 
 def create_resource(res_data: List[Dict[str, str]], project_name: str,
                     res_type: str, user_email: str) -> bool:
-    for value in res_data[0].values():
-        validations.validate_field(cast(List[str], value))
+    validations.validate_fields(list(res_data[0].values()))
     project_name = project_name.lower()
     if res_type == 'repository':
         res_id = 'urlRepo'

@@ -14,11 +14,11 @@ def validate_email_address(email: str) -> bool:
         raise GraphQLError('Exception - Email is not valid')
 
 
-def validate_field(field: List[str]) -> bool:
+def validate_fields(fields: List[str]):
     risk_chars = ['=']
-    if not field or field[0] not in risk_chars:
-        return True
-    raise GraphQLError('Exception - Parameter is not valid')
+    for field in fields:
+        if field and str(field)[0] in risk_chars:
+            raise GraphQLError('Exception - Parameter is not valid')
 
 
 def validate_alphanumeric_field(field: str) -> bool:
