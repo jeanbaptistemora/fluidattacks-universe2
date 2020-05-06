@@ -135,3 +135,21 @@ def test_no_alarm_on_unauthorized_api_calls_closed():
         assert not cloudwatch.no_alarm_on_unauthorized_api_calls(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
+
+
+def test_no_alarm_on_cmk_config_changes_open():
+    """Check if there are alarms set on CMK configuration changes."""
+    assert cloudwatch.no_alarm_on_cmk_config_changes(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_cmk_config_changes_closed():
+    """Check if there are alarms set on CMK configuration changes."""
+    assert not \
+        cloudwatch.no_alarm_on_cmk_config_changes(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_cmk_config_changes(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
