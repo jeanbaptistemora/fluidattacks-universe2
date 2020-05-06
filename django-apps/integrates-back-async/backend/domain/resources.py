@@ -56,7 +56,7 @@ def send_mail(project_name: str, user_email: str,
         'resource_type': resource_type,
         'resource_list': resource_description,
         'project_url':
-            'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+            'https://fluidattacks.com/integrates/project/{project!s}/resources'
         .format(project=project_name)
     }
     threading.Thread(name='Remove repositories email thread',

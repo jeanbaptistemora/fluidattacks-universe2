@@ -132,7 +132,7 @@ def _send_new_event_mail(
         'analyst_email': analyst,
         'event_id': event_id,
         'event_url': (
-            'https://fluidattacks.com/integrates/dashboard#!/'
+            'https://fluidattacks.com/integrates/'
             f'project/{project}/events/{event_id}'),
         'project': project
     }

@@ -89,7 +89,7 @@ class SchedulerTests(TestCase):
     def test_get_finding_url(self):
         dumb_finding_dict = {'project_name': 'test', 'finding_id': 'test'}
         test_data = get_finding_url(dumb_finding_dict)
-        expected_output = 'https://fluidattacks.com/integrates/dashboard#!\
+        expected_output = 'https://fluidattacks.com/integrates\
 /project/test/test/description'
         assert test_data == expected_output
 

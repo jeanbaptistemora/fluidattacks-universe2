@@ -330,7 +330,7 @@ class CreatorPDF():
             'ports': words['ports'],
             'user': user,
             'date': time.strftime('%Y-%m-%d at %H:%M'),
-            'link': 'https://fluidattacks.com/integrates/dashboard#!/project/'
+            'link': 'https://fluidattacks.com/integrates/project/'
                     + project + '/findings'
         }
 

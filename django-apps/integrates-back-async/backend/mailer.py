@@ -135,7 +135,7 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
                       user_mail: str, comment_type: str = '',
                       entity: Union[str, Dict[str, FindingType], EventType, ProjectType] = ''):
     parent = comment_data['parent']
-    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    base_url = 'https://fluidattacks.com/integrates'
     email_context = {
         'user_email': user_mail,
         'comment': str(comment_data['content']).replace('\n', ' '),
@@ -166,7 +166,7 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
         email_context['finding_id'] = event_id
         email_context['finding_name'] = f'Event #{event_id}'
         comment_url = (
-            'https://fluidattacks.com/integrates/dashboard#!/'
+            'https://fluidattacks.com/integrates/'
             f'project/{project_name}/events/{event_id}/comments')
 
     elif entity_name == 'project':
