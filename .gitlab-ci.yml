@@ -437,19 +437,23 @@ forces_dynamic:
   <<: *in_master_branch
 
 lint_commit_msg:
-  stage: lint-code
-  tags: [autoscaling]
-  needs: []
-  image: starefossen/ruby-node:2-10
-  script:
-    - npm install --unsafe-perm
-    - ./ci-scripts/jobs/commitlint.sh
+  <<: *with_nix
   <<: *in_dev_and_master_branch
+  stage: lint-code
 
 danger:
-  stage: merge-request
-  tags: [autoscaling]
-  image: fluidattacks/danger-ruby
-  script:
-    - ./ci-scripts/jobs/danger.sh
   <<: *in_mrs
+  tags: [autoscaling]
+  stage: merge-request
+  image: fluidattacks/danger-ruby
+  variables:
+    DANGER_GITLAB_API_TOKEN: $DANGER_TOKEN
+  before_script:
+    - curl -LOJ https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js
+    - curl -LOJ https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/commitlint.config.js
+    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
+      | grep ${CI_COMMIT_SHA}
+      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - npm install @commitlint/{config-conventional,cli}
+  script:
+    - danger --verbose --fail-on-errors=true
