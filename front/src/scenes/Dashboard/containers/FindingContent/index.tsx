@@ -45,7 +45,7 @@ import { IFindingContentProps, IHeaderQueryResult } from "./types";
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const permissions: PureAbility<string> = useAbility(authzContext);
-  const { push } = useHistory();
+  const { replace } = useHistory();
 
   // State management
   const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
@@ -179,7 +179,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           translate.t("search_findings.finding_deleted", { findingId }),
           translate.t("project.drafts.title_success"),
         );
-        push(`/project/${projectName}/findings`);
+        replace(`/project/${projectName}/findings`);
       }
     },
     onError: (rejectError: ApolloError): void => {

@@ -24,6 +24,14 @@ jest.mock("../../../../utils/notifications", () => {
 
   return mockedNotifications;
 });
+const mockHistoryReplace: jest.Mock = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useHistory: (): { replace(path: string): void} => ({
+    replace: mockHistoryReplace,
+  }),
+}));
 
 describe("FindingContent", () => {
 
@@ -44,7 +52,7 @@ describe("FindingContent", () => {
     location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
-      params: { findingId: "438679960", projectName: "TEST" },
+      params: { findingId: "438679960", projectName: "test" },
       path: "/",
       url: "",
     },
@@ -588,7 +596,7 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/test/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
@@ -613,6 +621,8 @@ describe("FindingContent", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgSuccess)
       .toHaveBeenCalled();
+    expect(mockHistoryReplace)
+      .toHaveBeenCalledWith("/project/test/findings");
   });
 
   it("should handle deletion errors", async () => {
