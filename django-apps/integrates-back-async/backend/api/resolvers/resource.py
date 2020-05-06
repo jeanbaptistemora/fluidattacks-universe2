@@ -11,7 +11,7 @@ from backend.decorators import (
     require_login, require_project_access,
     enforce_group_level_auth_async, get_entity_cache_async
 )
-from backend.domain import resources, project as project_domain
+from backend.domain import resources
 from backend.typing import (
     Resource as ResourceType,
     Resources as ResourcesType,
@@ -32,32 +32,35 @@ def _get_project_name(_, project_name: str) -> str:
 
 
 @get_entity_cache_async
-@sync_to_async
-def _get_repositories(_, project_name: str) -> List[ResourceType]:
+async def _get_repositories(info, project_name: str) -> List[ResourceType]:
     """Get repositories."""
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
     project_info = cast(Dict[str, List[ResourceType]],
-                        project_domain.get_attributes(project_name,
-                                                      ['repositories']))
+                        project_attrs)
     return project_info.get('repositories', [])
 
 
 @get_entity_cache_async
-@sync_to_async
-def _get_environments(_, project_name: str) -> List[ResourceType]:
+async def _get_environments(info, project_name: str) -> List[ResourceType]:
     """Get environments."""
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
     project_info = cast(Dict[str, List[ResourceType]],
-                        project_domain.get_attributes(project_name,
-                                                      ['environments']))
+                        project_attrs)
     return project_info.get('environments', [])
 
 
 @get_entity_cache_async
-@sync_to_async
-def _get_files(_, project_name: str) -> List[ResourceType]:
+async def _get_files(info, project_name: str) -> List[ResourceType]:
     """Get files."""
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
     project_info = cast(Dict[str, List[ResourceType]],
-                        project_domain.get_attributes(project_name,
-                                                      ['files']))
+                        project_attrs)
     return project_info.get('files', [])
 
 
@@ -70,9 +73,11 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
     )
     project_name = project_name.lower()
 
-    project_exist = project_domain.get_attributes(
-        project_name, ['project_name']
-    )
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+
+    project_exist = project_attrs.get('project_name', '')
     if not project_exist:
         raise InvalidProject
     for requested_field in info.field_nodes[0].selection_set.selections:

@@ -7,6 +7,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from graphql.type import GraphQLResolveInfo
 from jose import jwt
+from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
@@ -43,9 +44,7 @@ class TagTests(TestCase):
         data = {'query': query}
         request = RequestFactory().get('/')
         request.loaders = {
-            'finding': FindingLoader(),
             'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader()
         }
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -60,6 +59,12 @@ class TagTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {
+            'event': EventLoader(),
+            'finding': FindingLoader(),
+            'project': ProjectLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'projects' in result['data']['tag']
@@ -102,6 +107,12 @@ class TagTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {
+            'event': EventLoader(),
+            'finding': FindingLoader(),
+            'project': ProjectLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'Access denied'

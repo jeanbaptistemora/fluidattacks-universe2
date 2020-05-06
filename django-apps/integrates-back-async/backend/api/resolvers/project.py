@@ -615,10 +615,11 @@ async def _do_add_tags(_, info, project_name: str,
     if await sync_to_async(project_domain.is_alive)(project_name):
         if await sync_to_async(project_domain.validate_tags)(
                 project_name, tags):
-            project_tags = \
-                await sync_to_async(project_domain.get_attributes)(
-                    project_name, ['tag'])
-            project_tags = cast(ProjectType, project_tags)
+            project_attrs = \
+                await info.context.loaders['project'].load(project_name)
+            project_attrs = project_attrs['attrs']
+            project_tags = cast(ProjectType, project_attrs.get('tag', {}))
+            project_tags = {'tag': project_tags}
             if not project_tags:
                 project_tags = {'tag': set(tags)}
             else:
@@ -654,10 +655,11 @@ async def _do_remove_tag(_, info, project_name: str,
     success = False
     project_name = project_name.lower()
     if await sync_to_async(project_domain.is_alive)(project_name):
-        project_tags = \
-            await sync_to_async(project_domain.get_attributes)(
-                project_name, ['tag'])
-        project_tags = cast(ProjectType, project_tags)
+        project_attrs = \
+            await info.context.loaders['project'].load(project_name)
+        project_attrs = project_attrs['attrs']
+        project_tags = cast(ProjectType, project_attrs.get('tag', {}))
+        project_tags = {'tag': project_tags}
         cast(Set[str], project_tags.get('tag')).remove(tag)
         if project_tags.get('tag') == set():
             project_tags['tag'] = None

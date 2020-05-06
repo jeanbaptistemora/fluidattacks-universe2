@@ -7,7 +7,7 @@ from backend.decorators import (
     enforce_user_level_auth_async, get_entity_cache_async, require_login
 )
 from backend.domain import (
-    project as project_domain, tag as tag_domain,
+    tag as tag_domain,
     user as user_domain
 )
 from backend.typing import Project as ProjectType, Tag as TagType
@@ -21,12 +21,13 @@ async def resolve(info, tag: str) -> TagType:
     result: TagType = dict()
     requested_fields = info.field_nodes[0].selection_set.selections
     user_email = util.get_jwt_content(info.context).get('user_email', '')
-    projects: List[str] = await get_list_projects(user_email, tag)
+    projects: List[str] = await get_list_projects(info, user_email, tag)
     organization: str = '-'
     if projects:
-        organizations = await sync_to_async(project_domain.get_attributes)(
-            projects[0], ['companies'])
-        organization = organizations.get('companies', ['-'])[0]
+        project_attrs = \
+            await info.context.loaders['project'].load(projects[0])
+        project_attrs = project_attrs['attrs']
+        organization = project_attrs.get('companies', ['-'])[0]
     allowed_tags = await sync_to_async(tag_domain.filter_allowed_tags)(
         organization, projects)
     if tag not in allowed_tags:
@@ -55,13 +56,14 @@ async def resolve(info, tag: str) -> TagType:
     return result
 
 
-async def get_list_projects(user_email: str, tag: str) -> List[str]:
+async def get_list_projects(info, user_email: str, tag: str) -> List[str]:
     projects = []
     user_projects = await sync_to_async(user_domain.get_projects)(
         user_email, access_pending_projects=False)
     for project in user_projects:
-        project_attrs = await sync_to_async(project_domain.get_attributes)(
-            project, ['tag'])
+        project_attrs = \
+            await info.context.loaders['project'].load(project)
+        project_attrs = project_attrs['attrs']
         project_tag = project_attrs.get('tag', [])
         project_tag = [proj_tag.lower() for proj_tag in project_tag]
         if tag in project_tag:

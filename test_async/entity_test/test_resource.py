@@ -11,6 +11,7 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
+from backend.api.dataloaders.project import ProjectLoader
 from backend.api.schema import SCHEMA
 
 pytestmark = pytest.mark.asyncio
@@ -61,6 +62,9 @@ class ResourceTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {
+            'project': ProjectLoader(),
+        }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'resources' in result['data']
