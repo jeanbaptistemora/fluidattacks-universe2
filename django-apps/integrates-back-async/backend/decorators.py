@@ -361,28 +361,6 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
     return decorated
 
 
-def get_cached(func: Callable[..., Any]) -> Callable[..., Any]:
-    """Get cached response from function if it exists."""
-    @functools.wraps(func)
-    def decorated(*args, **kwargs) -> Callable[..., Any]:
-        """Get cached response from function if it exists."""
-        uniq_id = "_".join([str(kwargs[x])[:24] for x in kwargs])
-        key_name = \
-            f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{uniq_id}'
-        key_name = key_name.lower()
-        try:
-            ret = cache.get(key_name)
-            if ret:
-                return ret
-            ret = func(*args, **kwargs)
-            cache.set(key_name, ret, timeout=CACHE_TTL)
-            return ret
-        except RedisClusterException:
-            rollbar.report_exc_info()
-            return func(*args, **kwargs)
-    return decorated
-
-
 def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
     """Get cached response of a GraphQL entity if it exists."""
     @functools.wraps(func)

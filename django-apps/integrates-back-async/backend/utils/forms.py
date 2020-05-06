@@ -11,10 +11,6 @@ def dict_concatenation(
     return dict_1_copy
 
 
-def remove_standard_keys(dictionary: Dict[object, object]) -> Dict[object, object]:
-    return {dictionary['field']: dictionary['value']}
-
-
 def is_exploitable(explotability: float, version: str) -> str:
     if version == '3.1':
         if explotability >= 0.97:

@@ -75,36 +75,6 @@ def ord_asc_by_criticality(
     return data
 
 
-def get_evidence_set(finding: Dict[str, FindingType]) -> List[Dict[str, FindingType]]:
-    evidence_set = []
-    if "evidence_route_1" in finding and "evidence_description_1" in finding:
-        evidence_set.append({
-            "id": finding["evidence_route_1"],
-            "explanation": str(finding["evidence_description_1"]).capitalize()
-        })
-    if "evidence_route_2" in finding and "evidence_description_2" in finding:
-        evidence_set.append({
-            "id": finding["evidence_route_2"],
-            "explanation": str(finding["evidence_description_2"]).capitalize()
-        })
-    if "evidence_route_3" in finding and "evidence_description_3" in finding:
-        evidence_set.append({
-            "id": finding["evidence_route_3"],
-            "explanation": str(finding["evidence_description_3"]).capitalize()
-        })
-    if "evidence_route_4" in finding and "evidence_description_4" in finding:
-        evidence_set.append({
-            "id": finding["evidence_route_4"],
-            "explanation": str(finding["evidence_description_4"]).capitalize()
-        })
-    if "evidence_route_5" in finding and "evidence_description_5" in finding:
-        evidence_set.append({
-            "id": finding["evidence_route_5"],
-            "explanation": str(finding["evidence_description_5"]).capitalize()
-        })
-    return evidence_set
-
-
 def get_current_time_minus_delta(*, weeks: int) -> datetime:
     """ Return a customized no-naive date n weeks back to the past """
     now = datetime.utcnow()
