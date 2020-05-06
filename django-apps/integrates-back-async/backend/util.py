@@ -61,28 +61,6 @@ def response(data: object, message: str, error: bool) -> JsonResponse:
     return JsonResponse(response_data)
 
 
-def is_name(name: str) -> bool:
-    """ Verify that a parameter has the appropriate name format. """
-    valid = True
-    try:
-        if not name or not name.isalnum():
-            raise ValueError('')
-    except ValueError:
-        valid = False
-    return valid
-
-
-def is_numeric(name: str) -> bool:
-    """ Verify that a parameter has the appropriate number format. """
-    valid = True
-    try:
-        if not name or not name.isdigit():
-            raise ValueError('')
-    except ValueError:
-        valid = False
-    return valid
-
-
 def ord_asc_by_criticality(
         data: List[Dict[str, FindingType]]) -> List[Dict[str, FindingType]]:
     """ Sort the findings by criticality """
@@ -184,18 +162,6 @@ def validate_release_date(finding: Dict[str, str]) -> bool:
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today_day = datetime.now(tz=tzn).date()
         result = last_vuln <= today_day
-    else:
-        result = False
-    return result
-
-
-def validate_future_releases(finding: Dict[str, str]) -> bool:
-    """Validate if a finding has a future release."""
-    if has_release(finding):
-        last_vuln = get_last_vuln(finding)
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        today_day = datetime.now(tz=tzn).date()
-        result = last_vuln > today_day
     else:
         result = False
     return result

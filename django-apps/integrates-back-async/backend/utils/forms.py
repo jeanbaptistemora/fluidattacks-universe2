@@ -1,14 +1,7 @@
 # coding=utf-8
 """ Auxiliar functions for forms handling """
 
-from datetime import datetime
-from typing import Dict, List
-
-# pylint: disable=redefined-builtin
-try:
-    type(reduce)
-except NameError:
-    from functools import reduce
+from typing import Dict
 
 
 def dict_concatenation(
@@ -20,12 +13,6 @@ def dict_concatenation(
 
 def remove_standard_keys(dictionary: Dict[object, object]) -> Dict[object, object]:
     return {dictionary['field']: dictionary['value']}
-
-
-def merge_dicts_list_into_dict(dicts_list: List[Dict[object, object]]) -> Dict[object, object]:
-    dicts_without_standard_keys = [remove_standard_keys(x)
-                                   for x in dicts_list]
-    return reduce(dict_concatenation, dicts_without_standard_keys)
 
 
 def is_exploitable(explotability: float, version: str) -> str:
@@ -40,7 +27,3 @@ def is_exploitable(explotability: float, version: str) -> str:
         else:
             exploitable = 'No'
     return exploitable
-
-
-def string_to_date(string: str) -> datetime:
-    return datetime.strptime(string, "%Y-%m-%d %H:%M:%S")

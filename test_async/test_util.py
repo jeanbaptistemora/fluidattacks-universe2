@@ -15,9 +15,9 @@ from __init__ import (
 import json
 
 from backend.util import (
-    response, is_name, is_numeric, ord_asc_by_criticality, user_email_filter,
+    response, ord_asc_by_criticality, user_email_filter,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
-    validate_future_releases, get_jwt_content, list_s3_objects, replace_all,
+    get_jwt_content, list_s3_objects, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_file_name, is_valid_format)
 
 from backend.dal.finding import get_finding
@@ -34,21 +34,6 @@ class UtilTests(TestCase):
                             'message': 'this is a test',
                             'error': '500'}
         assert json.loads(test_data.content.decode('utf-8')) == expected_output
-
-    def test_is_name(self):
-        bad_names = ['', 'asd>;', 'asd asd']
-        good_names = ['name', 'name1234']
-        for name in bad_names:
-            assert not is_name(name)
-        for name in good_names:
-            assert is_name(name)
-
-    def test_is_numeric(self):
-        bad_inputs = ['', '123a', 'aaaa', '123>']
-        good_input = '123123'
-        for data in bad_inputs:
-            assert not is_numeric(data)
-        assert is_numeric(good_input)
 
     def test_ord_asc_by_criticality(self):
         sortable_data = [
@@ -101,10 +86,6 @@ class UtilTests(TestCase):
         unreleased_finding = get_finding('560175507')
         assert validate_release_date(finding)
         assert not validate_release_date(unreleased_finding)
-
-    def test_validate_future_releases(self):
-        finding_released = get_finding('475041513')
-        assert not validate_future_releases(finding_released)
 
     def test_get_jwt_content(self):
         request = RequestFactory().get('/')

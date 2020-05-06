@@ -363,15 +363,6 @@ def save_severity(finding: Dict[str, FindingType]) -> bool:
     return response
 
 
-def delete_comment(comment: CommentType) -> bool:
-    """Delete comment."""
-    if comment:
-        response = comment_dal.delete(comment['finding_id'], comment['user_id'])
-    else:
-        response = True
-    return response
-
-
 def reject_draft(draft_id: str, reviewer_email: str) -> bool:
     draft_data = get_finding(draft_id)
     history = cast(List[Dict[str, str]], draft_data.get('historicState', [{}]))

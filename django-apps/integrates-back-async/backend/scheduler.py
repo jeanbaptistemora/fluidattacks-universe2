@@ -37,7 +37,6 @@ logging.config.dictConfig(settings.LOGGING)  # type: ignore
 LOGGER = logging.getLogger(__name__)
 
 BASE_URL = 'https://fluidattacks.com/integrates'
-BASE_WEB_URL = 'https://fluidattacks.com/web'
 
 
 def is_not_a_fluidattacks_email(email: str) -> bool:

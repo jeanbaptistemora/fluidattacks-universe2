@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from backend.utils.forms import (
-    dict_concatenation, is_exploitable, string_to_date,
+    dict_concatenation, is_exploitable
 )
 
 from django.test import TestCase
@@ -32,9 +32,3 @@ class FormsTests(TestCase):
             assert is_exploitable(exploitability, version) == 'Si'
         non_exploitable_exploitability = 0.5
         assert is_exploitable(non_exploitable_exploitability, version) == 'No'
-
-    def test_string_to_date(self):
-        string_date = '2019-01-01 12:23:56'
-        test_data = string_to_date(string_date)
-        expected_output = datetime(2019, 1, 1, 12, 23, 56)
-        assert test_data == expected_output
