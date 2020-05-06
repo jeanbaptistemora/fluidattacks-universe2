@@ -18,27 +18,26 @@
 `DevOps` is a link:https://www.researchgate.net/publication/297573467_Towards_DevOps_in_the_Embedded_Systems_Domain_Why_is_It_so_Hard[predominant phenomenon],
 a link:https://dl.acm.org/doi/pdf/10.1145/2962695.2962707[new way of thinking] and working in software engineering
 that is receiving a lot of attention nowadays.
-
 The word `DevOps` is a way
 we can combine the words 'Development' and 'Operations.'
 For this concept, over there in *2016*,
 link:https://dl.acm.org/doi/pdf/10.1145/2962695.2962707[Jabbari et al.] said that
 there was no concrete or complete definition.
-
-That's why Jabbari and colleagues decided to do a review and collect,
+That's why they decided to do a review and collect,
 analyze, and compare definitions from scientific papers to consolidate one.
 
 According to these authors, in their research,
 *49* primary studies were meeting their requirements.
 They identified in those studies
 "the central components of `DevOps` definition."
-
-Before presenting them, we can see *Figure 1*,
+But, before presenting them, we can see *Figure 1*,
 a word-cloud with the common terms used in the definitions,
 excluding the obvious ones: 'Development' and 'Operations.'
 
 .taken from link:https://dl.acm.org/doi/pdf/10.1145/2962695.2962707[Jabbari et al. (2016)]
 image::cloud.png[Word-cloud]
+
+== Components of DevOps definition
 
 As a first component (*C1*),
 link:https://dl.acm.org/doi/pdf/10.1145/2962695.2962707[Jabbari et al. (2016)] show us the already mentioned combination of terms
@@ -77,12 +76,13 @@ With this definition as a guide,
 we can easily delve into different issues about `DevOps`
 and always know what component or part of this methodology we are referring to.
 
+== Digging deeper into DevOps
+
 So, for instance, let's expand what is said in *C1*, *C2*, and *C3*.
 As our `CTO`, Rafael Alvarez, explains to us in [inner]#link:../../events/burn-the-datacenter/[one of his conferences]#,
 in a company where software is created and sold as a product or service,
 there are typically two teams.
 A team of developers and a team of operators.
-
 In short, the first team,
 with its programming knowledge, creates the application.
 The second team, which manages the hardware and operating systems,
@@ -95,7 +95,6 @@ In contrast, the operations team is asked to ensure
 that the infrastructure remains stable and changes slowly.
 From this point, there tends to be a struggle between the parties,
 "political noise," which slows down the overall process.
-
 Here is where the `DevOps` methodology comes into play,
 bringing those two teams together.
 As our `CTO` says, people are no longer grouped by task or function
@@ -115,7 +114,6 @@ Waterfall is a traditional linear plan-driven approach to software development.
 So, it is assumed that
 all requirements can be specified before starting the development process.
 Each phase must end before moving on to the next.
-
 In Waterfall, each phase of development results in detailed documents
 that must be signed and that are measures of progress.
 In this model, the integration of later changes
@@ -138,7 +136,6 @@ is more oriented towards improving production system operations,
 project management, and the delivery of products and services.
 Some people see Lean as a way to bring agility
 from the project level to the organization level.
-
 In the Lean methodology, there's an essential aim:
 the elimination of waste,
 anything that doesn't add value to the development process.
