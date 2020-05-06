@@ -105,6 +105,8 @@ class Execution(pynamodb.models.Model):
     git_commit_authored_date = pynamodb.attributes.UTCDateTimeAttribute()
     git_origin = pynamodb.attributes.UnicodeAttribute()
     git_repo = pynamodb.attributes.UnicodeAttribute()
+    trace_init = pynamodb.attributes.BooleanAttribute()
+    trace_end = pynamodb.attributes.BooleanAttribute()
     vulnerabilities: pynamodb.attributes.MapAttribute = \
         pynamodb.attributes.MapAttribute()
     vulnerabilities_exploits: Any = \
@@ -119,6 +121,17 @@ class Execution(pynamodb.models.Model):
         pynamodb.attributes.NumberAttribute()
     vulnerability_count_accepted_exploits: Any = \
         pynamodb.attributes.NumberAttribute()
+
+
+def does_s3_file_exists(s3_client, s3_key: str) -> bool:
+    try:
+        retrieve_from_s3(s3_client, s3_key)
+    except botocore.exceptions.ClientError:
+        logger.info('does_s3_file_exists', 'false')
+        return False
+    else:
+        logger.info('does_s3_file_exists', 'true')
+        return True
 
 
 def get_execution_attr_full(s3_client, s3_prefix):
@@ -265,7 +278,8 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
     date = execution_group_match.group('date')
     kind = execution_group_match.group('kind')
 
-    s3_prefix = f'{group}/{execution_id}/{date}/{kind}'
+    s3_execution_folder = f'{group}/{execution_id}/{date}'
+    s3_prefix = f'{s3_execution_folder}/{kind}'
 
     full = \
         get_execution_attr_full(s3_client, s3_prefix)
@@ -275,9 +289,16 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
         get_vulnerability_attrs(
             s3_client, s3_prefix, metadata_attrs['git_repo'])
 
+    trace_init: bool = \
+        does_s3_file_exists(s3_client, f'{s3_execution_folder}/trace_init')
+    trace_end: bool = \
+        does_s3_file_exists(s3_client, f'{s3_execution_folder}/trace_end')
+
     return Execution(
         subscription=group,
         execution_id=execution_id,
+        trace_init=trace_init,
+        trace_end=trace_end,
         date=datetime.datetime.strptime(date, LOGS_DATE_FMT),
         kind=kind,
         log=full,
