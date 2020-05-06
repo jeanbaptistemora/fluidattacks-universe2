@@ -615,8 +615,8 @@ async def _do_add_tags(_, info, project_name: str,
     if await sync_to_async(project_domain.is_alive)(project_name):
         if await sync_to_async(project_domain.validate_tags)(
                 project_name, tags):
-            project_attrs = \
-                await info.context.loaders['project'].load(project_name)
+            project_loader = info.context.loaders['project']
+            project_attrs = await project_loader.load(project_name)
             project_attrs = project_attrs['attrs']
             project_tags = cast(ProjectType, project_attrs.get('tag', {}))
             project_tags = {'tag': project_tags}
@@ -641,6 +641,7 @@ Attempted to upload tags without the allowed structure')  # pragma: no cover
             info.context, 'Security: \
 Attempted to upload tags without the allowed validations')  # pragma: no cover
     if success:
+        project_loader.clear(project_name)
         util.invalidate_cache(project_name)
     project = await resolve(info, project_name, True, False)
     return SimpleProjectPayloadType(success=success, project=project)
@@ -655,8 +656,8 @@ async def _do_remove_tag(_, info, project_name: str,
     success = False
     project_name = project_name.lower()
     if await sync_to_async(project_domain.is_alive)(project_name):
-        project_attrs = \
-            await info.context.loaders['project'].load(project_name)
+        project_loader = info.context.loaders['project']
+        project_attrs = await project_loader.load(project_name)
         project_attrs = project_attrs['attrs']
         project_tags = cast(ProjectType, project_attrs.get('tag', {}))
         project_tags = {'tag': project_tags}
@@ -672,6 +673,7 @@ async def _do_remove_tag(_, info, project_name: str,
             await sync_to_async(rollbar.report_message)('Error: \
 An error occurred removing a tag', 'error', info.context)
     if success:
+        project_loader.clear(project_name)
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context, 'Security: Removed tag from '

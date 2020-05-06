@@ -596,10 +596,13 @@ async def _do_update_severity(_, info,
     data = parameters.get('data', dict())
     data = {util.snakecase_to_camelcase(k): data[k] for k in data}
     finding_id = parameters.get('finding_id', '')
-    project = await sync_to_async(finding_domain.get_project)(finding_id)
+    finding_loader = info.context.loaders['finding']
+    finding_data = await finding_loader.load(finding_id)
+    project = finding_data['project_name']
     success = False
     success = await sync_to_async(finding_domain.save_severity)(data)
     if success:
+        finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
         util.cloudwatch_log(
@@ -624,8 +627,9 @@ async def _do_add_finding_comment(_, info,
         user_data = util.get_jwt_content(info.context)
         user_email = user_data['user_email']
         finding_id = parameters.get('finding_id')
-        finding = await sync_to_async(finding_domain.get_finding)(finding_id)
-        group = finding.get('projectName')
+        finding_loader = info.context.loaders['finding']
+        finding = await finding_loader.load(finding_id)
+        group = finding.get('project_name')
         role = \
             user_domain.get_group_level_role(user_email, group)
         if param_type == 'observation' and \
@@ -653,6 +657,7 @@ Unauthorized role attempted to add observation')  # pragma: no cover
     else:
         raise GraphQLError('Invalid comment type')
     if success:
+        finding_loader.clear(finding_id)
         util.invalidate_cache(parameters.get('finding_id', ''))
         util.cloudwatch_log(info.context, f'Security: Added comment in\
             finding {finding_id} succesfully')  # pragma: no cover
@@ -672,10 +677,9 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
     user_info = util.get_jwt_content(info.context)
     user_mail = user_info['user_email']
     finding_id = parameters.get('finding_id', '')
-    historic_treatment = await \
-        sync_to_async(finding_domain.get_finding_historic_treatment)(
-            finding_id
-        )
+    finding_loader = info.context.loaders['finding']
+    finding_data = await finding_loader.load(finding_id)
+    historic_treatment = finding_data.get('historic_treatment', [{}])
     if historic_treatment[-1]['acceptance_status'] != 'SUBMITTED':
         raise GraphQLError(
             'It cant be approved/rejected a finding' +
@@ -687,6 +691,7 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
             parameters.get('response')
         )
     if success:
+        finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(parameters.get('project_name', ''))
         util.forces_trigger_deployment(parameters.get('project_name', ''))
@@ -707,8 +712,10 @@ async def _do_update_description(_, info, finding_id: str,
             finding_id, parameters
         )
     if success:
-        project_name = await \
-            sync_to_async(project_domain.get_finding_project_name)(finding_id)
+        finding_loader = info.context.loaders['finding']
+        finding_data = await finding_loader.load(finding_id)
+        project_name = finding_data['project_name']
+        finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         util.forces_trigger_deployment(project_name)
@@ -729,13 +736,13 @@ finding {finding_id} succesfully')  # pragma: no cover
 async def _do_update_client_description(
         _, info, finding_id: str, **parameters) -> SimpleFindingPayloadType:
     """Perform update_client_description mutation."""
-    finding = await \
-        sync_to_async(finding_domain.get_finding)(finding_id)
-    project_name = finding['projectName']
+    finding_loader = info.context.loaders['finding']
+    finding = await finding_loader.load(finding_id)
+    project_name = finding['project_name']
     user_mail = util.get_jwt_content(info.context)['user_email']
     if parameters.get('acceptance_status') == '':
         del parameters['acceptance_status']
-    historic_treatment = finding['historicTreatment']
+    historic_treatment = finding['historic_treatment']
     last_state = {
         key: value for key, value in historic_treatment[-1].items()
         if key not in ['date', 'user']}
@@ -747,8 +754,8 @@ async def _do_update_client_description(
         sync_to_async(finding_domain.compare_historic_treatments)(
             last_state, new_state):
         treatment_changed = False
-    if 'externalBts' in finding and \
-            parameters.get('bts_url') == finding['externalBts']:
+    if 'bts_url' in finding and \
+            parameters.get('bts_url') == finding['bts_url']:
         bts_changed = False
     update = Status(bts_changed=bts_changed,
                     treatment_changed=treatment_changed)
@@ -761,6 +768,7 @@ async def _do_update_client_description(
             finding_id, parameters, user_mail, update
         )
     if success:
+        finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         util.forces_trigger_deployment(project_name)
@@ -781,12 +789,13 @@ async def _do_update_client_description(
 async def _do_reject_draft(_, info, finding_id: str) -> SimplePayloadType:
     """Resolve reject_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
-    project_name = await \
-        sync_to_async(project_domain.get_finding_project_name)(finding_id)
-
     success = await \
         sync_to_async(finding_domain.reject_draft)(finding_id, reviewer_email)
     if success:
+        finding_loader = info.context.loaders['finding']
+        finding_data = await finding_loader.load(finding_id)
+        project_name = finding_data['project_name']
+        finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
@@ -807,13 +816,15 @@ draft {finding_id}')  # pragma: no cover
 async def _do_delete_finding(_, info, finding_id: str,
                              justification: str) -> SimplePayloadType:
     """Resolve delete_finding mutation."""
-    project_name = await \
-        sync_to_async(project_domain.get_finding_project_name)(finding_id)
+    finding_loader = info.context.loaders['finding']
+    finding_data = await finding_loader.load(finding_id)
+    project_name = finding_data['project_name']
 
     success = await \
         sync_to_async(finding_domain.delete_finding)(
             finding_id, project_name, justification, info.context)
     if success:
+        finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         util.forces_trigger_deployment(project_name)
