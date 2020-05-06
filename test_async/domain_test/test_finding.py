@@ -7,7 +7,9 @@ from django.test import TestCase
 from datetime import datetime, timedelta
 from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
-    get_tracking_vulnerabilities, get_findings, update_treatment)
+    get_tracking_vulnerabilities, get_findings, update_treatment,
+    handle_acceptation
+)
 from backend.mailer import get_email_recipients
 from backend.dal.vulnerability import get_vulnerabilities
 from backend.exceptions import (InvalidDateFormat, InvalidDate)
@@ -105,3 +107,13 @@ class FindingTests(TestCase):
         comment_data['modified'] = current_time
         comment_data['parent'] = str(comment_id)
         assert add_comment('unittest@fluidattacks.com', comment_data, finding_id, False)
+
+    def test_handle_acceptation(self):
+        finding_id = '463461507'
+        observations = 'Test observations'
+        user_mail = 'unittest@fluidattacks.com'
+        response = 'REJECTED'
+        test_data = handle_acceptation(finding_id, observations, user_mail, response)
+        expected_output = True
+        assert isinstance(test_data, bool)
+        assert test_data == expected_output
