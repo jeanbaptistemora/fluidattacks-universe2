@@ -16,3 +16,5 @@ attacks for guessing credentials.
 . [[r1]] link:/web/rules/237/[R237. Ascertain human interaction]
 
 . [[r2]] link:/web/rules/263/[R263. Establish mechanisms against robot attacks]
+
+. [[r3]] link:/web/rules/327/[R327. Set rate limit]

@@ -13,4 +13,4 @@ post to the server in a short period of time.
 
 == Rules
 
-. [[r1]] link:/web/rules/072/[R072. Set maximum response time]
+. [[r1]] link:/web/rules/327/[R327. Set rate limit]

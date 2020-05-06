@@ -1,0 +1,63 @@
+:slug: rules/327/
+:category: architecture
+:description: This document contains the details of the security requirements related to the definition and management of resources and services in the organization. This requirement establishes the importance of establishing a rate limit to control interaction frequency.
+:keywords: Rate, Limit, Interaction, Frequency, ASVS, CWE
+:rules: yes
+
+= REQ.327 Set rate limit
+
+== Requirement
+
+The server must have a rate limit to control interaction frequency.
+
+== Description
+
+Several attacks depend on executing a huge amount of requests from a single
+host.
+For instance, it is possible to exhaust a server's connection pool with a
+single machine by using asynchronous requests,
+effectively causing a Denial of Service (*DoS*).
+These and other attacks such as the ones depending on brute force
+can be thwarted, or severely hindered, by limiting the number of requests that
+a single host can send to the server in a short period of time.
+Therefore, server settings should include a rate limit that considers a regular
+request flow between a host and the server.
+
+== Findings
+
+* link:/web/findings/047/[F047. Automatic information enumeration]
+
+* link:/web/findings/053/[F053. Lack of protection against brute force attacks]
+
+* link:/web/findings/108/[F108. Improper control of interaction frequency]
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/799.html[CWE-799: Improper Control of Interaction Frequency]
+The software does not properly limit the number or frequency of interactions
+that it has with an actor,
+such as the number of incoming requests.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.2 General Authenticator Requirements.(2.2.1)]
+Verify that anti-automation controls are effective at mitigating breached
+credential testing, brute force, and account lockout attacks.
+Such controls include blocking the most common breached passwords,
+soft lockouts, rate limiting, CAPTCHA, ever increasing delays between attempts,
+IP address restrictions,
+or risk-based restrictions such as location, first login on a device,
+recent attempts to unlock the account, or similar.
+Verify that no more than 100 failed attempts per hour is possible on a single
+account.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.2)]
+Verify the application will only process business logic flows with all steps
+being processed in realistic human time,
+i.e. transactions are not submitted too quickly.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.4)]
+Verify the application has sufficient anti-automation controls to detect and
+protect against data exfiltration, excessive business logic requests, excessive
+file uploads or denial of service attacks.

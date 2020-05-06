@@ -25,6 +25,8 @@ redirected to trusted sites.
 
 * link:/web/findings/097/[F097. Reverse tabnabbing]
 
+* link:/web/findings/100/[F100. Server-side request forgery (SSRF)]
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/601.html[CWE-601: URL Redirection to Untrusted Site ('Open Redirect')]
