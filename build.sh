@@ -21,7 +21,7 @@ function decide_and_call_provisioner {
       provisioner="./build/provisioners/${job}.nix" \
   &&  if [ ! -f "${provisioner}" ]
       then
-        provisioner='./build/provisioners/build_nix_caches.nix'
+        provisioner='./build/provisioners/reset.nix'
       fi \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
   &&  nix-shell \
