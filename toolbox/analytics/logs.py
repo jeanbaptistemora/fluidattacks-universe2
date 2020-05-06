@@ -7,8 +7,9 @@ import time
 import contextlib
 import datetime
 import traceback
-from typing import Any
-from itertools import repeat, starmap
+from typing import (
+    Any,
+)
 
 # Third parties libraries
 import boto3
@@ -40,7 +41,7 @@ REGEX_LOGS_NAME = re.compile(
     r'/(?P<execution_id>[0-9a-f]+)'
     r'/(?P<date>[0-9]+)'
     r'/(?P<kind>[a-z]+)'
-    r'/(?P<name>[a-z\-]+)\.yaml$')
+    r'/(?P<name>.+)$')
 REGEX_BUILD_ENV = re.compile(r'^BUILD_ENV=(.*)$', flags=re.MULTILINE)
 REGEX_BUILD_TRIGGER_SOURCE = \
     re.compile(r'^BUILD_TRIGGER_SOURCE=(.*)$', flags=re.MULTILINE)
@@ -63,7 +64,7 @@ REGEXES_GIT_REPO_FROM_ORIGIN = [
 
 def retrieve_from_s3(s3_client, log_s3_key) -> str:
     """Return as a safe utf8 string the provided s3 object."""
-    logger.info(f'Downloading s3://{log_s3_key}')
+    logger.info(f'Downloading s3://{BUCKET}/{log_s3_key}')
 
     # In-memory buffer to store the download
     bytes_io = io.BytesIO()
@@ -297,8 +298,8 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
     )
 
 
-def yield_execution_groups(s3_client):
-    """Yield patterns like <group>/<execution_id>/<date>/<kind>."""
+def yield_execution_paths(s3_client):
+    """Yield paths to files in S3."""
     # use Prefix='group' to retrieve only from 1 group
     s3_client_paginator = s3_client.get_paginator('list_objects_v2')
     s3_client_paginator_iterator = s3_client_paginator.paginate(
@@ -311,27 +312,33 @@ def yield_execution_groups(s3_client):
     )
 
     initial_date_to_sync_from = get_initial_date_to_sync_from()
+    yield from (
+        content['Key']
+        for response in s3_client_paginator_iterator
+        for content in response['Contents']
+        if content['LastModified'] > initial_date_to_sync_from
+    )
 
+
+def yield_execution_groups(s3_client):
+    """Yield patterns like <group>/<execution_id>/<date>/<kind>."""
     seen_groups = set()
-    for response in s3_client_paginator_iterator:
-        for content in response['Contents']:
-            if '__project__' in content['Key'] \
-                    or content['LastModified'] < initial_date_to_sync_from:
-                continue
+    for key in yield_execution_paths(s3_client):
+        execution_group_match = REGEX_LOGS_NAME.match(key)
 
-            execution_group_match = REGEX_LOGS_NAME.match(content['Key'])
+        if not execution_group_match:
+            continue
 
-            if not execution_group_match:
-                continue
+        primary_key = (
+            execution_group_match.group('group'),
+            execution_group_match.group('execution_id'),
+            execution_group_match.group('date'),
+            execution_group_match.group('kind'),
+        )
 
-            primary_key = (
-                execution_group_match.group('group'),
-                execution_group_match.group('execution_id'),
-            )
-
-            if primary_key not in seen_groups:
-                seen_groups.add(primary_key)
-                yield execution_group_match
+        if primary_key not in seen_groups:
+            seen_groups.add(primary_key)
+            yield execution_group_match
 
 
 def batch_iterable(batch_size, iterable):
@@ -352,21 +359,20 @@ def load_executions_to_database() -> bool:
     """Process the s3 logs and load richfull data to the database."""
     utils.generic.aws_login()
     s3_client = boto3.client('s3')
-    max_put_items = 25
-    for batch in batch_iterable(
-            max_put_items, yield_execution_groups(s3_client)):
-        results = starmap(get_execution_object, zip(repeat(s3_client), batch))
-        for result in results:
-            logger.info(
-                f'  - {result.subscription} {result.execution_id}')
-            try:
-                result.save()
-            except (botocore.exceptions.ClientError,
-                    pynamodb.exceptions.PynamoDBException):
-                logger.error('  The following exception was raised')
-                logger.error(traceback.format_exc())
-            logger.info('  Cooling down...')
-            time.sleep(12)
+
+    for execution_group in yield_execution_groups(s3_client):
+        result = get_execution_object(s3_client, execution_group)
+        try:
+            logger.info(f'  - {result.subscription} {result.execution_id}')
+            result.save()
+        except (botocore.exceptions.ClientError,
+                pynamodb.exceptions.PynamoDBException):
+            logger.error('  The following exception was raised')
+            logger.error(traceback.format_exc())
+
+        logger.info('  Cooling down...')
+        time.sleep(12)
+
     logger.info('Done')
 
     return True
