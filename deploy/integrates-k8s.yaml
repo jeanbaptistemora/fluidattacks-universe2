@@ -33,11 +33,11 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 500m
-            memory: 2Gi
+            cpu: 1500m
+            memory: 3Gi
           limits:
-            cpu: 2000m
-            memory: 4Gi
+            cpu: 3000m
+            memory: 6Gi
         envFrom:
           - secretRef:
               name: integrates-env
