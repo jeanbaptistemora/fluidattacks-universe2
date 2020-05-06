@@ -44,4 +44,30 @@ describe("Add Environments modal", () => {
       .find(".glyphicon-plus"))
       .toHaveLength(1);
   });
+
+  it("should add and remove input field", (): void => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <AddEnvironmentsModal
+          isOpen={true}
+          onClose={functionMock}
+          onSubmit={functionMock}
+        />
+      </Provider>,
+    );
+
+    const addButton: ReactWrapper = wrapper.find("renderEnvsFields")
+                                      .find(".glyphicon-plus");
+    addButton.simulate("click");
+    expect(wrapper.find("renderEnvsFields")
+      .find("textarea"))
+      .toHaveLength(2);
+
+    const removeButton: ReactWrapper = wrapper.find("renderEnvsFields")
+                                         .find(".glyphicon-trash");
+    removeButton.simulate("click");
+    expect(wrapper.find("renderEnvsFields")
+      .find("textarea"))
+      .toHaveLength(1);
+  });
 });
