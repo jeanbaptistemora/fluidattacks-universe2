@@ -18,13 +18,13 @@ from toolbox import (
 # Constants
 INCLUDES_BY_SUBS: dict = {
     config['name']:
-    tuple(config.get('coverage', {}).get('lines', {}).get('include', []))
+    tuple(rule['regex'] for rule in config['coverage']['lines']['include'])
     for config_path in glob.glob('groups/*/config/config.yml')
     for config in (yaml.safe_load(open(config_path)),)
 }
 EXCLUDES_BY_SUBS: dict = {
     config['name']:
-    tuple(config.get('coverage', {}).get('lines', {}).get('exclude', []))
+    tuple(rule['regex'] for rule in config['coverage']['lines']['exclude'])
     for config_path in glob.glob('groups/*/config/config.yml')
     for config in (yaml.safe_load(open(config_path)),)
 }

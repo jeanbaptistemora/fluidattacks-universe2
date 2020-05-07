@@ -37,8 +37,10 @@ def delete_out_of_scope_files(group: str) -> bool:
     with open(path_to_config) as config_handle:
         config_obj: dict = yaml.safe_load(config_handle)
 
-    include_regexps = tuple(config_obj['coverage']['lines']['include'])
-    exclude_regexps = tuple(config_obj['coverage']['lines']['exclude'])
+    include_regexps = tuple(
+        rule['regex'] for rule in config_obj['coverage']['lines']['include'])
+    exclude_regexps = tuple(
+        rule['regex'] for rule in config_obj['coverage']['lines']['exclude'])
 
     non_matching_files_iterator = utils.file.iter_non_matching_files(
         path=path_to_fusion,
