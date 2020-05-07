@@ -5,6 +5,7 @@ import asyncio
 import collections
 from datetime import datetime, timedelta, timezone
 import binascii
+import functools
 import logging
 import logging.config
 import re
@@ -354,6 +355,9 @@ def is_valid_format(date: str) -> bool:
 
 
 def forces_trigger_deployment(project_name: str) -> bool:
+    def callback(client: httpx.AsyncClient, _):
+        client.close()
+
     success = False
 
     # pylint: disable=protected-access
@@ -401,7 +405,8 @@ def forces_trigger_deployment(project_name: str) -> bool:
                     for param, value in parameters.items()
                 }
             )
-            asyncio.create_task(req_coro)
+            task = asyncio.create_task(req_coro)
+            task.add_done_callback(functools.partial(callback, client))
 
     except exceptions:
         rollbar.report_exc_info()
