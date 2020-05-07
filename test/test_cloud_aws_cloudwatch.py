@@ -153,3 +153,21 @@ def test_no_alarm_on_cmk_config_changes_closed():
     with no_connection():
         assert not cloudwatch.no_alarm_on_cmk_config_changes(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_no_alarm_on_cloudtrail_config_changes_open():
+    """Check if there are alarms set on CloudTrail configuration changes."""
+    assert cloudwatch.no_alarm_on_cmk_config_changes(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_cloudtrail_config_changes_closed():
+    """Check if there are alarms set on CloudTrail configuration changes."""
+    assert not \
+        cloudwatch.no_alarm_on_cmk_config_changes(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_cmk_config_changes(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
