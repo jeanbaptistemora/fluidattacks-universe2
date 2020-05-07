@@ -12,6 +12,7 @@ from typing import Dict
 import jinja2
 import matplotlib
 
+from __init__ import BASE_URL
 matplotlib.use('Agg')
 from pylab import figure, pie, axis, savefig, cla, clf, close  # noqa
 
@@ -330,8 +331,7 @@ class CreatorPDF():
             'ports': words['ports'],
             'user': user,
             'date': time.strftime('%Y-%m-%d at %H:%M'),
-            'link': 'https://fluidattacks.com/integrates/project/'
-                    + project + '/findings'
+            'link': f'{BASE_URL}/project/{project}/findings'
         }
 
 

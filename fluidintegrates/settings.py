@@ -23,7 +23,7 @@ import casbin
 
 import rollbar
 
-from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
+from __init__ import BASE_URL, FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD,\
     FI_DB_HOST, FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, \
     FI_MIXPANEL_API_TOKEN, \
     FI_GOOGLE_OAUTH2_KEY, FI_DEBUG, \
@@ -412,10 +412,8 @@ if DEBUG:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/integrates/registration'
     SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/integrates/registration'
 else:
-    SOCIAL_AUTH_LOGIN_REDIRECT_URL = \
-        'https://fluidattacks.com/integrates/registration'
-    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = \
-        'https://fluidattacks.com/integrates/registration'
+    SOCIAL_AUTH_LOGIN_REDIRECT_URL = f'{BASE_URL}/registration'
+    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = f'{BASE_URL}/registration'
 
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/integrates/index'
 SOCIAL_AUTH_INACTIVE_USER_URL = '/integrates/index'

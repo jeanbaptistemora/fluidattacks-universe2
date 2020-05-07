@@ -13,6 +13,8 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.support.ui import WebDriverWait
 
+from __init__ import BASE_URL
+
 
 SCR_PATH = './test/functional/screenshots/'
 
@@ -53,7 +55,7 @@ class ViewTestCase(unittest.TestCase):
         self.branch = os.environ['CI_COMMIT_REF_NAME']
         self.in_ci = bool(os.environ['CI'])
         if self.branch == 'master':
-            self.url = 'https://fluidattacks.com/integrates'
+            self.url = BASE_URL
         elif self.in_ci:
             self.url = \
                 f'https://{self.branch}.integrates.env.fluidattacks.com/integrates'

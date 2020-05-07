@@ -16,7 +16,7 @@ from backend.exceptions import InvalidFileSize, RepeatedValues
 from backend.mailer import send_mail_resources
 from backend.utils import validations
 
-from __init__ import FI_MAIL_RESOURCERS
+from __init__ import BASE_URL, FI_MAIL_RESOURCERS
 
 
 def format_resource(
@@ -55,9 +55,7 @@ def send_mail(project_name: str, user_email: str,
         'action': action,
         'resource_type': resource_type,
         'resource_list': resource_description,
-        'project_url':
-            'https://fluidattacks.com/integrates/project/{project!s}/resources'
-        .format(project=project_name)
+        'project_url': f'{BASE_URL}/project/{project_name}/resources'
     }
     threading.Thread(name='Remove repositories email thread',
                      target=send_mail_resources,

@@ -48,7 +48,6 @@ CLIENT_S3 = boto3.client('s3',
                          aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
-BASE_URL = 'https://fluidattacks.com/integrates'
 
 
 def enforce_user_level_role(request, *allowed_roles):

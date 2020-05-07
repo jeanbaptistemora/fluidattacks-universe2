@@ -30,13 +30,12 @@ from backend.dal import (
 from backend.typing import Event as EventType, Finding as FindingType
 
 from __init__ import (
-    FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+    BASE_URL, FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS,
+    FI_MAIL_REVIEWERS
 )
 
 logging.config.dictConfig(settings.LOGGING)  # type: ignore
 LOGGER = logging.getLogger(__name__)
-
-BASE_URL = 'https://fluidattacks.com/integrates'
 
 
 def is_not_a_fluidattacks_email(email: str) -> bool:
@@ -72,7 +71,6 @@ def send_unsolved_events_email(project: str):
     unsolved_events = get_unsolved_events(project)
     mail_to = get_external_recipients(project)
     project_info = project_domain.get_project_info(project)
-    base_url = 'https://fluidattacks.com/integrates'
     if project_info and \
             project_info[0].get('type') == 'continuous':
         mail_to.append(FI_MAIL_CONTINUOUS)
@@ -84,7 +82,7 @@ def send_unsolved_events_email(project: str):
     context_event: Dict[str, Union[str, int]] = {
         'project': project.capitalize(),
         'events_len': int(len(events_info_for_email)),
-        'event_url': '{}/project/{}/events'.format(base_url, project)}
+        'event_url': f'{BASE_URL}/project/{project}/events'}
     if context_event['events_len'] and mail_to:
         send_mail_unsolved_events(mail_to, context_event)
 

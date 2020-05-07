@@ -37,6 +37,8 @@ import rollbar
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
+from __init__ import BASE_URL
+
 # Constants
 BASIC_ROLES = ['customer', 'customeradmin']
 INTERNAL_ROLES = ['analyst']
@@ -86,8 +88,7 @@ def _create_new_user(context: object, email: str, organization: str,
     if group and user_domain.update_project_access(email, group, True):
         description = project_domain.get_description(group.lower())
         project_url = \
-            'https://fluidattacks.com/integrates/project/' \
-            + group.lower() + '/indicators'
+            f'{BASE_URL}/project/{group.lower()}/indicators'
         mail_to = [email]
         context = {
             'admin': email,

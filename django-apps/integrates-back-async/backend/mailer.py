@@ -15,7 +15,7 @@ from backend.typing import (
     Event as EventType, Finding as FindingType, Project as ProjectType
 )
 
-from __init__ import (FI_MAIL_REVIEWERS, FI_MANDRILL_API_KEY,
+from __init__ import (BASE_URL, FI_MAIL_REVIEWERS, FI_MANDRILL_API_KEY,
                       FI_TEST_PROJECTS, FI_AWS_DYNAMODB_ACCESS_KEY,
                       FI_AWS_DYNAMODB_SECRET_KEY, SQS_QUEUE_URL)
 
@@ -135,7 +135,6 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
                       user_mail: str, comment_type: str = '',
                       entity: Union[str, Dict[str, FindingType], EventType, ProjectType] = ''):
     parent = comment_data['parent']
-    base_url = 'https://fluidattacks.com/integrates'
     email_context = {
         'user_email': user_mail,
         'comment': str(comment_data['content']).replace('\n', ' '),
@@ -151,7 +150,7 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
         email_context['finding_id'] = str(finding.get('findingId', ''))
         email_context['finding_name'] = str(finding.get('finding', ''))
         comment_url = (
-            base_url +
+            BASE_URL +
             '/project/{project}/{finding_type}/{id}/{comment_type}s'.format(
                 comment_type=comment_type,
                 finding_type='findings' if is_draft else 'drafts',
@@ -166,14 +165,13 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
         email_context['finding_id'] = event_id
         email_context['finding_name'] = f'Event #{event_id}'
         comment_url = (
-            'https://fluidattacks.com/integrates/'
-            f'project/{project_name}/events/{event_id}/comments')
+            f'{BASE_URL}/project/{project_name}/events/{event_id}/comments')
 
     elif entity_name == 'project':
         project_name = str(entity)
         recipients = get_email_recipients(project_name, True)
         comment_url = (
-            base_url + '/project/{project!s}/comments'.format(project=project_name))
+            f'{BASE_URL}/project/{project_name}/comments')
 
     email_context['comment_url'] = comment_url
     email_context['project'] = project_name

@@ -18,7 +18,7 @@ from backend.mailer import (
     send_mail_accepted_finding, send_mail_reject_draft, send_mail_new_draft
 )
 from __init__ import (
-    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+    BASE_URL, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 
 
@@ -174,7 +174,6 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
 def send_finding_verified_email(finding_id: str, finding_name: str, project_name: str):
     recipients = project_dal.get_users(project_name)
 
-    base_url = 'https://fluidattacks.com/integrates'
     email_send_thread = threading.Thread(
         name='Verified finding email thread',
         target=send_mail_verified_finding,
@@ -182,8 +181,7 @@ def send_finding_verified_email(finding_id: str, finding_name: str, project_name
             'project': project_name,
             'finding_name': finding_name,
             'finding_url':
-                base_url + '/project/{project!s}/{finding!s}/tracking'
-            .format(project=project_name, finding=finding_id),
+                f'{BASE_URL}/project/{project_name}/findings/{finding_id}/tracking',
             'finding_id': finding_id
         }))
 
@@ -212,7 +210,6 @@ def send_finding_delete_mail(finding_id: str, finding_name: str, project_name: s
 def send_remediation_email(user_email: str, finding_id: str, finding_name: str,
                            project_name: str, justification: str):
     recipients = project_dal.get_users(project_name)
-    base_url = 'https://fluidattacks.com/integrates'
     email_send_thread = threading.Thread(
         name='Remediate finding email thread',
         target=send_mail_remediate_finding,
@@ -220,8 +217,7 @@ def send_remediation_email(user_email: str, finding_id: str, finding_name: str,
             'project': project_name.lower(),
             'finding_name': finding_name,
             'finding_url':
-                base_url + '/project/{project!s}/{finding!s}/description'
-            .format(project=project_name, finding=finding_id),
+                f'{BASE_URL}/project/{project_name}/{finding_id}/description',
             'finding_id': finding_id,
             'user_email': user_email,
             'solution_description': justification
@@ -257,12 +253,11 @@ def send_draft_reject_mail(draft_id: str, project_name: str, discoverer_email: s
                            finding_name: str, reviewer_email: str):
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
-    base_url = 'https://fluidattacks.com/integrates'
     email_context = {
         'admin_mail': reviewer_email,
         'analyst_mail': discoverer_email,
-        'draft_url': '{}/project/{}/drafts/{}/description'.format(
-            base_url, project_name, draft_id),
+        'draft_url':
+            f'{BASE_URL}/project/{project_name}/drafts/{draft_id}/description',
         'finding_id': draft_id,
         'finding_name': finding_name,
         'project': project_name
@@ -280,14 +275,12 @@ def send_new_draft_mail(
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients += project_dal.list_internal_managers(project_name)
 
-    base_url = 'https://fluidattacks.com/integrates'
     email_context = {
         'analyst_email': analyst_email,
         'finding_id': finding_id,
         'finding_name': finding_title,
-        'finding_url': base_url + '/project/{project!s}/drafts/{id!s}'
-                                  '/description'.format(
-                                      project=project_name, id=finding_id),
+        'finding_url':
+            f'{BASE_URL}/project/{project_name}/drafts/{finding_id}/description',
         'project': project_name
     }
     email_send_thread = threading.Thread(

@@ -27,7 +27,8 @@ from backend.typing import Event as EventType, User as UserType
 from backend.utils import events as event_utils, validations
 
 from __init__ import (
-    FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+    BASE_URL, FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS,
+    FI_MAIL_REVIEWERS
 )
 
 
@@ -131,9 +132,7 @@ def _send_new_event_mail(
     email_context = {
         'analyst_email': analyst,
         'event_id': event_id,
-        'event_url': (
-            'https://fluidattacks.com/integrates/'
-            f'project/{project}/events/{event_id}'),
+        'event_url': f'{BASE_URL}/project/{project}/events/{event_id}',
         'project': project
     }
 
