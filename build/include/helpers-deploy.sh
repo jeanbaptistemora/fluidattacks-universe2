@@ -154,6 +154,11 @@ function helper_deploy_compile_new {
       pushd new/ || return 1 \
   &&  env_prepare_python_packages \
   &&  helper_deploy_install_plugins_new \
+  &&  popd || return 1 \
+  &&  mkdir new/content/pages/careers/ \
+  &&  ln -s "$(pwd)"/content/pages/careers/index.adoc new/content/pages/careers/index.adoc \
+  &&  ls -l \
+  &&  pushd new/ || return 1 \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
   &&  npm run --prefix theme/2020/ build \
