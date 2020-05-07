@@ -268,13 +268,20 @@ async def _do_grant_user_access(
     new_user_email = query_args.get('email', '')
 
     enforcer = authorization_utils.get_group_level_enforcer_async(user_email)
-    if enforcer.enforce(user_email, project_name,
-                        'backend_api_resolvers_user'
-                        '__do_grant_user_access_admin_roles'):
+    enforce_admin_coro = \
+        sync_to_async(enforcer.enforce)(
+            user_email, project_name,
+            'backend_api_resolvers_user__do_grant_user_access_admin_roles'
+        )
+
+    enforcer_interal_user_coro = \
+        sync_to_async(enforcer.enforce)(
+            user_email, project_name,
+            'backend_api_resolvers_user__do_grant_user_access_internal_roles'
+        )
+    if await enforce_admin_coro:
         allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES + ADMIN_ROLES
-    elif enforcer.enforce(user_email, project_name,
-                          'backend_api_resolvers_user'
-                          '__do_grant_user_access_internal_roles'):
+    elif await enforcer_interal_user_coro:
         allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES
     else:
         allowed_roles_to_grant = BASIC_ROLES
