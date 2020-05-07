@@ -82,14 +82,15 @@ def is_tag_allowed(user_projects: List[Dict[str, Union[str, List[str]]]],
                    organization: str, tag: str) -> bool:
     all_projects_tag = get_attributes(organization, tag, ['projects'])
     user_projects_tag = \
-        [project for project in user_projects
+        [str(project.get('project_name', '')).lower() for project in user_projects
          if tag in [p_tag.lower() for p_tag in project.get('tag', [])]]
-    return len(user_projects_tag) >= len(all_projects_tag.get('projects', []))
+    return all(project.lower() in user_projects_tag
+               for project in all_projects_tag.get('projects', []))
 
 
 def filter_allowed_tags(organization: str, user_projects: List[str]) -> List[str]:
     tags = []
-    projects = [project_domain.get_attributes(project, ['tag'])
+    projects = [project_domain.get_attributes(project, ['tag', 'project_name'])
                 for project in user_projects]
     all_tags = {tag.lower() for project in projects
                 for tag in project.get('tag', [])}
