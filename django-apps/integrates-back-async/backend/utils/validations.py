@@ -23,6 +23,11 @@ def validate_fields(fields: List[str]):
             raise GraphQLError('Exception - Parameter is not valid')
 
 
+def validate_project_name(project_name: str):
+    if not project_name.isalnum():
+        raise GraphQLError('Exception - Parameter is not valid')
+
+
 def validate_alphanumeric_field(field: str) -> bool:
     """Optional whitespace separated string, with alphanumeric characters."""
     is_alnum = all([word.isalnum() for word in field.split()])

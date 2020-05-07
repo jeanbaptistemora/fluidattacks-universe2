@@ -27,6 +27,7 @@ from backend.exceptions import (
     NotPendingDeletion, PermissionDenied, RepeatedValues, InvalidProjectServicesConfig
 )
 from backend.mailer import send_comment_mail
+from backend.utils import validations
 from backend import util
 
 from __init__ import FI_MAIL_REVIEWERS
@@ -75,16 +76,18 @@ def create_project(
         user_email: str,
         user_role: str,
         **kwargs: Dict[str, Union[bool, str, List[str]]]) -> bool:
+    project_name = str(kwargs.get('project_name', '')).lower()
+    description = str(kwargs.get('description', ''))
+    validations.validate_project_name(project_name)
+    validations.validate_fields([description])
     is_user_admin = user_role == 'admin'
     if is_user_admin or \
        cast(List[str], kwargs.get('companies', [])):
         companies = [company.lower() for company in kwargs.get('companies', [])]
     else:
         companies = [str(user_domain.get_data(user_email, 'company'))]
-    description = str(kwargs.get('description', ''))
     has_drills = cast(bool, kwargs.get('has_drills', False))
     has_forces = cast(bool, kwargs.get('has_forces', False))
-    project_name = str(kwargs.get('project_name', '')).lower()
     if kwargs.get('subscription'):
         subscription = str(kwargs.get('subscription'))
     else:
