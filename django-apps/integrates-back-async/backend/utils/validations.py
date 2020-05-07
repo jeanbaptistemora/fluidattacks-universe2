@@ -15,9 +15,11 @@ def validate_email_address(email: str) -> bool:
 
 
 def validate_fields(fields: List[str]):
-    risk_chars = ['=']
+    risk_start_chars = ['=', '?', '<', '`']
+    risk_chars = ['\'', '`']
     for field in fields:
-        if field and str(field)[0] in risk_chars:
+        if field and (str(field)[0] in risk_start_chars or
+           any(char for char in risk_chars if char in str(field))):
             raise GraphQLError('Exception - Parameter is not valid')
 
 
