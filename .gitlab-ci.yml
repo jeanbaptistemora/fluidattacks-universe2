@@ -78,7 +78,7 @@ analytics_dynamodb:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
 
-analytics_continuous_toe:
+analytics_services_toe:
   <<: *with_nix
   stage: analytics
   only:
@@ -266,32 +266,32 @@ send_new_version_email:
   when: always
   stage: postdeploy
 
-user_provision_continuous_dev_test:
+user_provision_services_dev_test:
   <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
-user_provision_continuous_dev_deploy:
+user_provision_services_dev_deploy:
   <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
-user_provision_continuous_dev_rotate_keys:
+user_provision_services_dev_rotate_keys:
   <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
-user_provision_continuous_prod_test:
+user_provision_services_prod_test:
   <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
-user_provision_continuous_prod_deploy:
+user_provision_services_prod_deploy:
   <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
-user_provision_continuous_prod_rotate_keys:
+user_provision_services_prod_rotate_keys:
   <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation

@@ -295,7 +295,7 @@ function helper_get_resource_to_taint_number {
       fi
 }
 
-function helper_move_continuous_fusion_to_master_git {
+function helper_move_services_fusion_to_master_git {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local path_empty_repos="${PWD}/repos_to_get_from_cache.lst"
 
@@ -303,7 +303,7 @@ function helper_move_continuous_fusion_to_master_git {
   set +o nounset
 
   ls
-  pushd '/git/fluidattacks/continuous'
+  pushd '/git/fluidattacks/services'
     while read -r subs
     do
           echo "[INFO] Fetching ${subs} from S3" \

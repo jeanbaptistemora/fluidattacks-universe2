@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# continuous repo
-continuous_path="/git/fluidattacks/continuous"
+# services repo
+services_path="/git/fluidattacks/services"
 
 # /config.json: A list of JSON with subscription, repository, location and branches
 output=$( \
@@ -25,7 +25,7 @@ done
 ./analytics/git/taint.py set username "lines.csv"
 echo "$output" | grep -o -E '^[a-zA-Z0-9_-]+' | uniq | while read -r subs
 do
-  lines_csv_path="$continuous_path/groups/${subs/-//}/toe/lines.csv"
+  lines_csv_path="$services_path/groups/${subs/-//}/toe/lines.csv"
   echo "path: $lines_csv_path"
   if [ -f "$lines_csv_path" ]; then
     ./analytics/git/taint.py database wring "$lines_csv_path"

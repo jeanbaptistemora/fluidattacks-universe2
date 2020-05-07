@@ -40,7 +40,7 @@ def main():
             'fluidattacks/integrates',
             'fluidattacks/bwapp',
             'fluidattacks/serves',
-            'fluidattacks/continuous',
+            'fluidattacks/services',
             'fluidattacks/private',
         ])
 

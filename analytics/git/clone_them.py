@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Clone or update repositories for groups in the continuous repo."""
+"""Clone or update repositories for groups in the services repo."""
 
 import os
 import glob
@@ -57,7 +57,7 @@ def open_vpn(subs_path) -> None:
 
 def main() -> None:
     """Usual entry point."""
-    subs_paths = glob.glob(f'/git/fluidattacks/continuous/groups/*')
+    subs_paths = glob.glob(f'/git/fluidattacks/services/groups/*')
     for subs_path in subs_paths:
         clone(subs_path)
         sync_to_s3(subs_path)

@@ -47,7 +47,7 @@ in rec {
       python.analytics.singer.tapJson
       python.analytics.singer.tapTimedoctor
       python.analytics.singer.targetRedshift
-      python.continuousToolbox
+      python.fluidAttacks
       python.mandrill
       python.prospector
       python.urllib3
@@ -99,7 +99,7 @@ in rec {
     python.analytics.singer.targetRedshift =
       modules.build.pythonPackageLocal ../../analytics/singer/target_redshift;
 
-    python.continuousToolbox =
+    python.fluidAttacks =
       modules.build.pythonPackage "fluidattacks";
 
     python.mandrill =

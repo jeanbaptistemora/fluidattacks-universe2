@@ -35,8 +35,8 @@ function cli {
     &&  job_infra_monolith_test \
     &&  job_run_break_build_static \
     &&  job_run_break_build_dynamic \
-    &&  job_user_provision_continuous_prod_test \
-    &&  job_user_provision_continuous_dev_test \
+    &&  job_user_provision_services_prod_test \
+    &&  job_user_provision_services_dev_test \
     &&  job_user_provision_integrates_prod_test \
     &&  job_user_provision_integrates_dev_test \
     &&  job_user_provision_web_prod_test \

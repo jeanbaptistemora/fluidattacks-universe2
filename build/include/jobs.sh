@@ -5,7 +5,7 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcDotDotToolboxOthers}"
 
-function job_analytics_continuous_toe {
+function job_analytics_services_toe {
       aws_login \
   &&  sops_env secrets-prod.yaml default \
         analytics_gitlab_user \
@@ -13,10 +13,10 @@ function job_analytics_continuous_toe {
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  pushd analytics/continuous \
-    &&  echo '[INFO] Cloning continuous repository' \
+  &&  pushd analytics/services \
+    &&  echo '[INFO] Cloning services repository' \
     &&  git clone --depth 1 --single-branch \
-          "https://${analytics_gitlab_user}:${analytics_gitlab_token}@gitlab.com/fluidattacks/continuous.git" \
+          "https://${analytics_gitlab_user}:${analytics_gitlab_token}@gitlab.com/fluidattacks/services.git" \
     &&  echo '[INFO] Running streamer' \
     &&  ./streamer_toe.py \
           > .jsonstream \
@@ -119,7 +119,7 @@ function job_analytics_git {
   &&  echo '[INFO] Generating stats' \
   &&  python3 analytics/git/generate_stats.py \
         || true \
-  &&  helper_move_continuous_fusion_to_master_git \
+  &&  helper_move_services_fusion_to_master_git \
   &&  python3 analytics/git/generate_stats.py \
         || true \
   &&  echo '[INFO] Generating config' \
@@ -225,7 +225,7 @@ function job_analytics_gitlab {
   local projects=(
     'autonomicmind/default'
     'autonomicmind/training'
-    'fluidattacks/continuous'
+    'fluidattacks/services'
     'fluidattacks/asserts'
     'fluidattacks/integrates'
     'fluidattacks/private'
@@ -753,20 +753,20 @@ function job_send_new_version_email {
   &&  python "${source_file}"
 }
 
-function job_user_provision_continuous_dev_test {
+function job_user_provision_services_dev_test {
       helper_terraform_init \
-        services/user-provision/continuous/dev/terraform \
+        services/user-provision/services/dev/terraform \
   &&  helper_terraform_plan \
-        services/user-provision/continuous/dev/terraform
+        services/user-provision/services/dev/terraform
 }
 
-function job_user_provision_continuous_dev_deploy {
+function job_user_provision_services_dev_deploy {
       helper_terraform_apply \
-        services/user-provision/continuous/dev/terraform
+        services/user-provision/services/dev/terraform
 }
 
-function job_user_provision_continuous_dev_rotate_keys {
-  local terraform_dir='services/user-provision/continuous/dev/terraform'
+function job_user_provision_services_dev_rotate_keys {
+  local terraform_dir='services/user-provision/services/dev/terraform'
   local resource_to_taint='aws_iam_access_key.continuous-dev-key'
   local output_key_id_name='continuous-dev-secret-key-id'
   local output_secret_key_name='continuous-dev-secret-key'
@@ -788,20 +788,20 @@ function job_user_provision_continuous_dev_rotate_keys {
         "${gitlab_protected}"
 }
 
-function job_user_provision_continuous_prod_test {
+function job_user_provision_services_prod_test {
       helper_terraform_init \
-        services/user-provision/continuous/prod/terraform \
+        services/user-provision/services/prod/terraform \
   &&  helper_terraform_plan \
-        services/user-provision/continuous/prod/terraform
+        services/user-provision/services/prod/terraform
 }
 
-function job_user_provision_continuous_prod_deploy {
+function job_user_provision_services_prod_deploy {
       helper_terraform_apply \
-        services/user-provision/continuous/prod/terraform
+        services/user-provision/services/prod/terraform
 }
 
-function job_user_provision_continuous_prod_rotate_keys {
-  local terraform_dir='services/user-provision/continuous/prod/terraform'
+function job_user_provision_services_prod_rotate_keys {
+  local terraform_dir='services/user-provision/services/prod/terraform'
   local resource_to_taint='aws_iam_access_key.continuous-prod-key'
   local output_key_id_name='continuous-prod-secret-key-id'
   local output_secret_key_name='continuous-prod-secret-key'

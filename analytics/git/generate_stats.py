@@ -13,7 +13,7 @@ def main():  # noqa
     stats = {}
     branches = get_repos_and_branches(all_subs=True)
 
-    for subs_path in glob.glob('/git/fluidattacks/continuous/groups/*'):
+    for subs_path in glob.glob('/git/fluidattacks/services/groups/*'):
         subs_name = os.path.basename(subs_path)
 
         if subs_name in FLUID_SUBS:

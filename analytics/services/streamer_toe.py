@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Minimalistic yet complete Streamer for continuous's toe files."""
+"""Minimalistic yet complete Streamer for services's toe files."""
 
 import re
 import csv
@@ -45,9 +45,9 @@ def stream_lines_csv(subs: str, lines_csv_path: str) -> None:
 
 def main():
     """Usual entry point."""
-    lines_csv_glob: str = 'continuous/groups/*/toe/lines.csv'
+    lines_csv_glob: str = 'services/groups/*/toe/lines.csv'
     for lines_csv_path in glob.glob(lines_csv_glob):
-        subs, = re.match(pattern=r'continuous/groups/(\w+)',
+        subs, = re.match(pattern=r'services/groups/(\w+)',
                          string=lines_csv_path).groups(1)
         stream_lines_csv(subs, lines_csv_path)
 
