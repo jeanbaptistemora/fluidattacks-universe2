@@ -17,11 +17,11 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
 spec:
-  replicas: 3
+  replicas: 4
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
+      maxSurge: 2
+      maxUnavailable: 2
   template:
     metadata:
       labels:
