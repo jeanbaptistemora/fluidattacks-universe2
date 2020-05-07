@@ -28,7 +28,7 @@ import argparse
 from uuid import uuid4 as gen_id
 from typing import Iterable, Callable, Dict, List, Tuple, Set, Any
 
-import botocore.errorfactory
+import botocore.exceptions
 import boto3 as amazon_sdk
 import dateutil.parser
 
@@ -212,8 +212,10 @@ def write_queries(db_resource: DB_RSRC, table_name: str) -> None:
                 ExclusiveStartKey=response["LastEvaluatedKey"],
                 Limit=10,
             )
-        except botocore.errorfactory.ProvisionedThroughputExceededException:
-            log(f'[INFO] Throughput exceeded in {table_name}, sleeping...')
+        except (botocore.exceptions.ClientError,
+                botocore.exceptions.BotoCoreError) as exc:
+            log(f'[ERROR] An error ocurred in {table_name}: {exc}')
+            log(f'[INFO] sleeping...')
             time.sleep(10)
         else:
             response = response_aux
