@@ -16,6 +16,7 @@ in
         pkgs.nodejs
         pkgs.python38
         pkgs.awscli
+        pkgs.rsync
       ];
 
       pyPkgPelican = builders.pythonPackage "pelican==4.2.0";

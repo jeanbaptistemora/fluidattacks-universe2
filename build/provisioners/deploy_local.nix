@@ -15,6 +15,7 @@ in
         pkgs.asciidoctor
         pkgs.nodejs
         pkgs.python38
+        pkgs.rsync
       ];
 
       pyPkgPelican = builders.pythonPackage "pelican==4.2.0";
