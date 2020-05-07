@@ -12,6 +12,44 @@ Some of the server's response headers are not properly set.
 They are needed because they make the pages it hosts less
 susceptible to attacks such as click-jacking and XSS.
 
+== Recommendation
+
+For application servers, the required HTTP headers are the following:
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_access_control_allow_origin_missing[Access-Control-Allow-Origin].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_cache_control_missing[Cache-Control].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_content_security_policy_missing[Content-Security-Policy].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_expires_missing[Expires].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_content_type_missing[Content-Type].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_hsts_missing[Strict-Transport-Security (*HSTS*)].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_perm_cross_dom_pol_missing[X-Permitted-Cross-Domain-Policies ].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_pragma_missing[Pragma].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_x_content_type_options_missing[X-Content-Type-Options].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_x_frame_options_missing[X-Frame-Options].
+
+* link:/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_x_xxs_protection_missing[X-XSS-Protection].
+
+For API servers, the required HTTP headers are the following:
+
+* link:/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.is_header_content_type_missing[Content-Type].
+
+* link:/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.accepts_insecure_accept_header[Accept].
+
+* link:/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.is_header_hsts_missing[Strict-Transport-Security (*HSTS*)].
+
+* link:/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.is_header_x_content_type_options_missing[X-Content-Type-Options].
+
+* link:/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.is_header_x_frame_options_missing[X-Frame-Options].
+
 == Rules
 
 . [[r1]] link:/web/rules/062/[R062. Define standard configurations]
