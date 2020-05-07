@@ -21,7 +21,7 @@ def test_iterate_vulnerabilities_from_content(relocate):
     assert not status
 
     vulnerabilities = \
-        tuple(iterate_vulnerabilities_from_content(stdout, 'continuous'))
+        tuple(iterate_vulnerabilities_from_content(stdout, 'services'))
 
     vulnerabilities_open = \
         tuple(vul for vul in vulnerabilities if vul.status == 'OPEN')
@@ -41,7 +41,7 @@ def test_iterate_vulnerabilities_from_content(relocate):
             status='OPEN',
             kind='SAST',
             what=(
-                'continuous/groups/continuoustest/'
+                'services/groups/continuoustest/'
                 'forces/static/resources/poc.py'
             ),
             where='5',

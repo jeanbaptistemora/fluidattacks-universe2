@@ -24,7 +24,7 @@ def test_is_valid_summary():
     assert is_valid_summary('fix(exp): #123 continuoustest asserts-fn')
     assert is_valid_summary('fix(exp): #123 continuoustest asserts-fp')
     assert is_valid_summary('fix(exp): #123 continuoustest service-logic')
-    assert is_valid_summary('fix(exp): #123 continuous toe-availability')
+    assert is_valid_summary('fix(exp): #123 continuoustest toe-availability')
     assert is_valid_summary('fix(exp): #123 continuoustest toe-location')
     assert is_valid_summary('fix(exp): #123 continuoustest toe-resource')
     assert not is_valid_summary('feat(exp): #123 continuoustest toe-resource')

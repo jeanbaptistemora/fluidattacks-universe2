@@ -324,7 +324,7 @@ def check_mailmap(subs: str) -> bool:
     logger.info(f'Checking {subs} mailmap')
     if not os.path.exists(path) or not subs:
         failuremsg = f"Please run inside a project or use --subs\n"
-        failuremsg += 'continuous/group/..\n'
+        failuremsg += 'services/group/..\n'
         logger.error(failuremsg)
         flag = False
     elif not os.path.exists(f'{path}/{filename}'):
