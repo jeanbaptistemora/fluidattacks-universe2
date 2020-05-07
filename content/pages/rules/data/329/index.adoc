@@ -1,0 +1,39 @@
+:slug: rules/329/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of avoiding the storage of sensitive information in the localStorage.
+:keywords: Local, Session, Storage, Data, ASVS, CWE
+:rules: yes
+
+= REQ.329 Keep sensitive data out of the localStorage
+
+
+== Requirement
+
+Sensitive and session data must not be stored in the *localStorage* nor in the
+*sessionStorage*.
+
+== Description
+
+Data placed in the *localStorage* persists after a session is closed,
+thus any actor with access to the browser will be able to get it.
+Furthermore, data in the *localStorage* or in the *sessionStorage* is visible to
+scripts that are running on the browser,
+and these scripts could belong to malicious third-parties.
+Therefore, no sensitive or session information should be stored in the
+client-side storage.
+
+== Findings
+
+* link:/web/findings/085/[F085. Sensitive data stored in the client-side storage]
+
+== Rereferences
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/922.html[CWE-922: Insecure Storage of Sensitive Information]
+The software stores sensitive information without properly limiting read or
+write access by unauthorized actors.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.2 Client-side Data Protection.(8.2.2)]
+Verify that data stored in client side storage (such as HTML5 local storage,
+session storage, IndexedDB, regular cookies or Flash cookies) does not contain
+sensitive data or PII.

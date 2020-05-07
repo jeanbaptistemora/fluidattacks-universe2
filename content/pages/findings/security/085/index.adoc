@@ -4,13 +4,16 @@
 :findings: yes
 :type: security
 
-= F085. Sensitive information stored in the local storage
+= F085. Sensitive data stored in the client-side storage
 
 == Description
 
-The application stores sensitive information in the local storage.
+The application stores sensitive information in the client-side storage
+(*localStorage* or *sessionStorage*).
 This exposes the information to unauthorized read and write operations.
 
 == Rules
 
 . [[r1]] link:/web/rules/177/[R177. Avoid caching and temporary files]
+
+. [[r2]] link:/web/rules/329/[R329. Keep sensitive data out of the localStorage]

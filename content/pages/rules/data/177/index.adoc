@@ -32,7 +32,7 @@ information.
 
 * link:/web/findings/065/[F065. Cached form fields]
 
-* link:/web/findings/085/[F085. Sensitive information stored in the local storage]
+* link:/web/findings/085/[F085. Sensitive data stored in the client-side storage]
 
 == References
 
