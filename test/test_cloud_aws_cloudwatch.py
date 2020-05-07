@@ -102,19 +102,19 @@ def test_is_event_bus_exposed_closed():
 
 def test_no_alarm_on_org_changes_open():
     """Check if there are alarms set on organization changes."""
-    assert cloudwatch.no_alarm_on_config_changes(AWS_ACCESS_KEY_ID,
+    assert cloudwatch.no_alarm_on_org_changes(AWS_ACCESS_KEY_ID,
                                                        AWS_SECRET_ACCESS_KEY)
 
 
 def test_no_alarm_on_org_changes_closed():
     """Check if there are alarms set on organization changes."""
     assert not \
-        cloudwatch.no_alarm_on_single_fa_login(AWS_ACCESS_KEY_ID,
+        cloudwatch.no_alarm_on_org_changes(AWS_ACCESS_KEY_ID,
                                         AWS_SECRET_ACCESS_KEY_BAD,
                                         retry=False)
 
     with no_connection():
-        assert not cloudwatch.no_alarm_on_single_fa_login(
+        assert not cloudwatch.no_alarm_on_org_changes(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
@@ -157,17 +157,35 @@ def test_no_alarm_on_cmk_config_changes_closed():
 
 def test_no_alarm_on_cloudtrail_config_changes_open():
     """Check if there are alarms set on CloudTrail configuration changes."""
-    assert cloudwatch.no_alarm_on_cmk_config_changes(AWS_ACCESS_KEY_ID,
+    assert cloudwatch.no_alarm_on_cloudtrail_config_changes(AWS_ACCESS_KEY_ID,
                                                        AWS_SECRET_ACCESS_KEY)
 
 
 def test_no_alarm_on_cloudtrail_config_changes_closed():
     """Check if there are alarms set on CloudTrail configuration changes."""
     assert not \
-        cloudwatch.no_alarm_on_cmk_config_changes(AWS_ACCESS_KEY_ID,
+        cloudwatch.no_alarm_on_cloudtrail_config_changes(AWS_ACCESS_KEY_ID,
                                         AWS_SECRET_ACCESS_KEY_BAD,
                                         retry=False)
 
     with no_connection():
-        assert not cloudwatch.no_alarm_on_cmk_config_changes(
+        assert not cloudwatch.no_alarm_on_cloudtrail_config_changes(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_no_alarm_on_signin_fail_open():
+    """Check if there are alarms set on console login failures."""
+    assert cloudwatch.no_alarm_on_signin_fail(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_signin_fail_closed():
+    """Check if there are alarms set on console login failures."""
+    assert not \
+        cloudwatch.no_alarm_on_signin_fail(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_signin_fail(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)

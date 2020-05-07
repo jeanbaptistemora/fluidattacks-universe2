@@ -299,3 +299,44 @@ def no_alarm_on_cloudtrail_config_changes(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def no_alarm_on_signin_fail(key_id: str,
+                            secret: str,
+                            session_token: str = None,
+                            retry: bool = True) -> tuple:
+    """
+    Check if alarms are set for console sign in failures.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    alarms = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='cloudwatch',
+        func='describe_alarms_for_metric',
+        MetricName='ConsoleSignInFailureCount',
+        Namespace='CloudTrailMetrics',
+        boto3_client_kwargs={'aws_session_token': session_token},
+        param='MetricAlarms',
+        retry=retry)
+
+    msg_open: str = 'There are no alarms set for console sign in failures'
+    msg_closed: str = 'There are alarms set for console sign in failures'
+
+    vulns, safes = [], []
+
+    if not alarms:
+        vulns.append(('CloudWatch',
+                      'Must have alarms on console sign in failures'))
+
+    return _get_result_as_tuple(
+        service='CloudWatch',
+        objects='',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
