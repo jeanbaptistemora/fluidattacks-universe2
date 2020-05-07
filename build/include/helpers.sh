@@ -233,7 +233,6 @@ function helper_serve_back {
   local common_args=(
     --workers "${workers}"
     --worker-class "${worker_class}"
-    --timeout 300
   )
 
       env_prepare_python_packages \
