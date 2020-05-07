@@ -356,7 +356,7 @@ def is_valid_format(date: str) -> bool:
 
 def forces_trigger_deployment(project_name: str) -> bool:
     def callback(client: httpx.AsyncClient, _):
-        client.close()
+        asyncio.create_task(client.aclose())
 
     success = False
 
