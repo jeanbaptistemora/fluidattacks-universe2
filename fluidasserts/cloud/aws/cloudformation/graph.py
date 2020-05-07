@@ -259,11 +259,18 @@ class Batcher():
             self.statement_params[f'{condition_name}_value'] = condition_name
             # create relationship between the condition and the function it
             #  executes
-            statement_condition += self._load_condition_funcs((alias_condition,
-                                                               condition))
+            statement_condition += self._load_condition_funcs(
+                (alias_condition, condition), {alias_condition})
             trans.run(statement_condition, **self.statement_params)
 
-    def _load_condition_funcs(self, func: tuple) -> str:
+    def _load_condition_funcs(self, func: tuple, context: set) -> str:
+        """
+        Create a statement to load a function.
+
+        Context lets inherit contexts from top nodes to create relationships.
+        :param func: Function to load.
+        :param context: Context to execute statements.
+        """
         alias_f, func_exc = func
         fn_name = list(func_exc.keys())[0]
 
@@ -273,23 +280,31 @@ class Batcher():
             reference = func_exc['Ref']
             self.statement_params[
                 f'ref_{alias_f}_{reference}_name'] = reference
+            # add node to context
+            context.update([f'ref_{alias_f}_{reference}', alias_f])
+            contexts_str = ', '.join(context)
+
             return (
                 f"MATCH (ref_{alias_f}_{reference}: Parameter)\n"
                 f"WHERE ref_{alias_f}_{reference}.name = "
                 f"$ref_{alias_f}_{reference}_name\n"
-                f"WITH ref_{alias_f}_{reference}, {alias_f}\n"
+                f"WITH {contexts_str}\n"
                 f"MERGE ({alias_f})-[:REFERENCE_TO]->"
                 f"(ref_{alias_f}_{reference})\n"
-                f"WITH {alias_f}\n")
+                f"WITH {contexts_str}\n")
 
         fn_name_node = fn_name.replace('::', ':')
         alias_fn_name = fn_name_node.lower().replace(':', '_')
         alias_fn_node = f'fn_{alias_f}_{alias_fn_name}_{_random_string(5)}'
+        # add node to context
+        context.update([alias_fn_node, alias_f])
+        contexts_str = ', '.join(context)
+
         # create relationship with condition
         statement = (f"CREATE ({alias_f})-"
                      f"[rel_{alias_f}_{alias_fn_name}:EXCECUTE_FN]->"
                      f"({alias_fn_node}:{fn_name_node})\n"
-                     f"WITH {alias_fn_node}\n")
+                     f"WITH {contexts_str}\n")
         # add function parameters
         for param in func_exc[fn_name]:
             if not isinstance(param, (OrderedDict, dict, list)):
@@ -299,8 +314,8 @@ class Batcher():
                     f'fn_{alias_f}_{alias_fn_name}_value'] = param
             else:
                 # if the parameter is a function it makes a recursive call
-                statement += self._load_condition_funcs((f'{alias_fn_node}',
-                                                         param))
+                statement += self._load_condition_funcs(
+                    (f'{alias_fn_node}', param), context)
         return statement
 
     def _create_constraints_template(self, trans: Transaction):
