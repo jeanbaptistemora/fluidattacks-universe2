@@ -2,7 +2,7 @@ import _ from "lodash";
 import moment, { Moment } from "moment";
 import { Validator } from "redux-form";
 import {
-  hasLengthGreaterThan, isAlphaNumeric, isNumeric, isRequired, matchesPattern,
+  hasLengthGreaterThan, hasLengthLessThan, isAlphaNumeric, isNumeric, isRequired, matchesPattern,
 } from "revalidate";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
@@ -61,6 +61,9 @@ export const numberBetween: ((min: number, max: number) => Validator) =
 
 export const minLength: ((min: number) => Validator) = (min: number): Validator =>
   hasLengthGreaterThan(min - 1)({ message: translate.t("validations.minLength", { count: min }) });
+
+export const maxLength: ((max: number) => Validator) = (max: number): Validator =>
+  hasLengthLessThan(max)({ message: translate.t("validations.maxLength", { count: max }) });
 
 export const sameValue: ((projectName: string) => Validator) = (projectName: string): Validator =>
   (value: string): string | undefined => value !== projectName ? translate.t("validations.required") : undefined;

@@ -904,6 +904,7 @@ const enTranslations: Dictionary = {
     invalidPhoneNumberInField: "The phone number inserted is not valid",
     invalidValueInField: "The value inserted in one of the fields is not valid",
     lower_date: "Invalid date",
+    maxLength: "This field requires less than {{count}} characters",
     minLength: "This field requires at least {{count}} characters",
     numeric: "This field can only contain numbers",
     required: "Required field",

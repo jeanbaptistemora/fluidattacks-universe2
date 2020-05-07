@@ -6,11 +6,12 @@
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
+import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required, validField } from "../../../../utils/validations";
+import { maxLength, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 
 export interface IAddEnvironmentsModalProps {
@@ -19,6 +20,7 @@ export interface IAddEnvironmentsModalProps {
   onSubmit(values: {}): void;
 }
 
+const maxEnvUrlLength: ConfigurableValidator = maxLength(400);
 const renderEnvsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldArrayProps): JSX.Element => {
   const addItem: (() => void) = (): void => {
     props.fields.push({ urlEnv: "" });
@@ -40,7 +42,7 @@ const renderEnvsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
                 component={textAreaField}
                 name={`${fieldName}.urlEnv`}
                 type="text"
-                validate={[required, validField]}
+                validate={[required, validField, maxEnvUrlLength]}
               />
             </Col>
             {index > 0 ? (

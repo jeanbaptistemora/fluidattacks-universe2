@@ -6,11 +6,12 @@
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
+import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required, validField } from "../../../../utils/validations";
+import { maxLength, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";
 
@@ -20,6 +21,7 @@ export interface IAddRepositoriesModalProps {
   onSubmit(values: {}): void;
 }
 
+const maxRepoUrlLength: ConfigurableValidator = maxLength(150);
 const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldArrayProps): JSX.Element => {
   const addItem: (() => void) = (): void => {
     props.fields.push({ urlRepo: "", branch: "" });
@@ -55,7 +57,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   component={textField}
                   placeholder={translate.t("search_findings.tab_resources.base_url_placeholder")}
                   type="text"
-                  validate={[required, validField]}
+                  validate={[required, validField, maxRepoUrlLength]}
                 />
               </Col>
             </Row>
