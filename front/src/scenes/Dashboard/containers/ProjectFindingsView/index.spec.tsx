@@ -92,11 +92,11 @@ describe("ProjectFindingsView", () => {
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/findings"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={apolloDataMock} addTypename={true}>
-          <ProjectFindingsView {...propsMock} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={apolloDataMock} addTypename={true}>
+            <ProjectFindingsView {...propsMock} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await wait(0);
@@ -107,11 +107,11 @@ describe("ProjectFindingsView", () => {
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/findings"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
-          <ProjectFindingsView {...propsMock} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={true}>
+            <ProjectFindingsView {...propsMock} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await wait(0);

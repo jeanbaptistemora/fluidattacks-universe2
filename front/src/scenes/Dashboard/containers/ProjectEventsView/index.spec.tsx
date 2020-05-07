@@ -86,11 +86,11 @@ describe("EventsView", () => {
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/events"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={false}>
-          <ProjectEventsView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={false}>
+            <ProjectEventsView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
@@ -102,11 +102,11 @@ describe("EventsView", () => {
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/events"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectEventsView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <ProjectEventsView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     expect(wrapper)
@@ -116,11 +116,11 @@ describe("EventsView", () => {
   it("should render events table", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/events"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectEventsView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <ProjectEventsView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
@@ -143,13 +143,13 @@ describe("EventsView", () => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/events"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <authzContext.Provider value={mockedPermissions}>
-            <ProjectEventsView {...mockProps} />
-          </authzContext.Provider>
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <authzContext.Provider value={mockedPermissions}>
+              <ProjectEventsView {...mockProps} />
+            </authzContext.Provider>
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });

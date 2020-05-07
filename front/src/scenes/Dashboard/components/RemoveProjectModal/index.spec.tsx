@@ -30,15 +30,15 @@ describe("RemoveProjectModal component", () => {
       }];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/resources"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
-          <RemoveProjectModal
-            isOpen={true}
-            onClose={handleOnClose}
-            projectName={""}
-          />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocksMutation} addTypename={false}>
+            <RemoveProjectModal
+              isOpen={true}
+              onClose={handleOnClose}
+              projectName={""}
+            />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
 
@@ -75,15 +75,15 @@ describe("RemoveProjectModal component", () => {
       }];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/resources"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
-          <RemoveProjectModal
-            isOpen={true}
-            onClose={handleOnClose}
-            projectName={"test"}
-          />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocksMutation} addTypename={false}>
+            <RemoveProjectModal
+              isOpen={true}
+              onClose={handleOnClose}
+              projectName={"test"}
+            />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     const projectName: ReactWrapper = wrapper.find("input[value=\"\"]");

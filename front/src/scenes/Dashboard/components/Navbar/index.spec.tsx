@@ -54,7 +54,7 @@ describe("Navbar", () => {
     };
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/home"]}>
-      <Provider store={store}><NavbarComponent {...mockProps}/></Provider>
+        <Provider store={store}><NavbarComponent {...mockProps}/></Provider>
       </MemoryRouter>,
     );
     expect(wrapper.contains(

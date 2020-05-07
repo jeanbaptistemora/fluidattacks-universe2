@@ -83,11 +83,11 @@ describe("HomeView", () => {
   it("should render an error in component", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/home"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
-          <HomeView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={true}>
+            <HomeView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     expect(wrapper)
@@ -97,11 +97,11 @@ describe("HomeView", () => {
   it("should render a component", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/home"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
-          <HomeView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={true}>
+            <HomeView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     expect(wrapper)
@@ -113,13 +113,13 @@ describe("HomeView", () => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/home"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
-          <authzContext.Provider value={mockedPermissions}>
-            <HomeView {...mockProps} />
-          </authzContext.Provider>
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={true}>
+            <authzContext.Provider value={mockedPermissions}>
+              <HomeView {...mockProps} />
+            </authzContext.Provider>
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     const displayList: ReactWrapper = wrapper.find("input[value=\"list\"]");

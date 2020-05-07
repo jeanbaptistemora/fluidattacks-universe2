@@ -84,11 +84,11 @@ describe("ProjectDraftsView", () => {
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/drafts"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectDraftsView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <ProjectDraftsView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
@@ -100,11 +100,11 @@ describe("ProjectDraftsView", () => {
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/drafts"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={false}>
-          <ProjectDraftsView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={false}>
+            <ProjectDraftsView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });

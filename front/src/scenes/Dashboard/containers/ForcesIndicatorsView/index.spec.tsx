@@ -64,11 +64,11 @@ describe("ForcesIndicatorsView", () => {
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/forces"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
-          <ForcesIndicatorsView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={true}>
+            <ForcesIndicatorsView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await wait(0);
@@ -79,11 +79,11 @@ describe("ForcesIndicatorsView", () => {
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/forces"]}>
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
-          <ForcesIndicatorsView {...mockProps} />
-        </MockedProvider>
-      </Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={true}>
+            <ForcesIndicatorsView {...mockProps} />
+          </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
     await wait(0);
