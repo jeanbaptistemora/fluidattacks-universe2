@@ -6,6 +6,8 @@
 import csv
 import time
 import functools
+import random
+import string
 from io import StringIO
 from contextlib import suppress
 from typing import Any, Callable, Dict, Iterator, Tuple, List, Set, NoReturn
@@ -485,3 +487,9 @@ def policy_actions_has_privilege(action, privilege) -> bool:
                         act in write_actions.get(serv, {})[privilege])
             success = any(actions)
     return success
+
+
+def _random_string(string_length=5):
+    """Generate a random string of fixed length."""
+    letters = string.ascii_lowercase
+    return ''.join(random.sample(letters, string_length))

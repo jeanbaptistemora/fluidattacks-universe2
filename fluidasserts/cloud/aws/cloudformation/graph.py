@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 """This module provide tools to convert Cloudformation templates in graphs."""
 
+# standar imports
+from collections import OrderedDict
+
 # 3rd party imports
 from neo4j import Transaction
 
 # local imports
 from fluidasserts.helper.aws import load_cfn_template
 from fluidasserts.db.neo4j_connection import ConnectionString, database, runner
-from fluidasserts.helper.aws import get_line
+from fluidasserts.helper.aws import get_line, _random_string
 from fluidasserts.utils.parsers.json import standardize_objects
 
 
@@ -35,6 +38,7 @@ class Batcher():
                 self.create_template(transactor)
                 self.load_parameters(transactor)
                 self.load_mappings(transactor)
+                self.load_conditions(transactor)
 
     def _load_template_data(self):
         self.template = load_cfn_template(self.path)
@@ -59,22 +63,24 @@ class Batcher():
     def _load_parameter_attributes(self, parameter: tuple) -> str:
         """Create a statement to create the attribute nodes of a parameter."""
         param_name, param_attrs = parameter
+        alias_param = param_name.replace('-', '_').lower()
         statement = ""
         for attr_name, attr_value in param_attrs.items():
             if attr_name.startswith('__'):
                 continue
+            alias_attr_name = attr_name.replace('-', '_').lower()
             attr_properties = (
-                f"{{name: $param_{param_name}_{attr_name.lower()}_name, "
-                f"value: $param_{param_name}_{attr_name.lower()}_value}}")
+                f"{{name: $param_{alias_param}_{alias_attr_name}_name, "
+                f"value: $param_{alias_param}_{alias_attr_name}_value}}")
             statement += (
-                f"MERGE ({param_name}_{attr_name.lower()}_:ParameterAttribute"
+                f"MERGE ({alias_param}_{alias_attr_name}_:ParameterAttribute"
                 f" {attr_properties})\n"
                 # create relationship between attribute and parameter
-                f"MERGE (param_{param_name.lower()})-"
-                f"[rel_{param_name}_{attr_name.lower()}:HAS_ATTRIBUTES]->"
-                f"({param_name}_{attr_name.lower()}_)\n"
-                f"SET rel_{param_name}_{attr_name.lower()}.line ="
-                f" $param_{param_name}_{attr_name.lower()}_line\n")
+                f"MERGE (param_{alias_param})-"
+                f"[rel_{alias_param}_{alias_attr_name}:HAS_ATTRIBUTES]->"
+                f"({alias_param}_{alias_attr_name}_)\n"
+                f"SET rel_{alias_param}_{alias_attr_name}.line ="
+                f" $param_{alias_param}_{alias_attr_name}_line\n")
 
             try:
                 line = param_attrs[f'{attr_name}.line']
@@ -82,48 +88,45 @@ class Batcher():
                 line = get_line(param_attrs)
 
             self.statement_params[
-                f'param_{param_name}_{attr_name.lower()}_name'] = attr_name
-            attr_value = standardize_objects(
-                attr_value)
+                f'param_{alias_param}_{alias_attr_name}_name'] = attr_name
+            attr_value = standardize_objects(attr_value)
             self.statement_params[
-                f'param_{param_name}_{attr_name.lower()}_value'] = attr_value
+                f'param_{alias_param}_{alias_attr_name}_value'] = attr_value
             self.statement_params[
-                f'param_{param_name}_{attr_name.lower()}_line'] = line
+                f'param_{alias_param}_{alias_attr_name}_line'] = line
         return statement
 
     def _load_map_options(self, map_: tuple):
         """Create a statement to create the option nodes of a Mapping."""
-        map_name_, map_options = map_
-        map_name = map_name_.replace('-', '_')
+        map_name, map_options = map_
+        alias_map = map_name.replace('-', '_').lower()
         statement = ""
-        for opt_name_, opt_values in map_options.items():
-            if opt_name_.startswith('__'):
+        for opt_name, opt_values in map_options.items():
+            if opt_name.startswith('__'):
                 continue
-            opt_name = opt_name_.replace('-', '_')
-            map_properties = (
-                f"{{name: $map_{map_name}_{opt_name.lower()}_name}}")
+            alias_opt = opt_name.replace('-', '_').lower()
+            map_properties = (f"{{name: $map_{alias_map}_{alias_opt}_name}}")
 
             statement += (
-                f"MERGE ({map_name}_{opt_name.lower()}_:MapOption"
+                f"MERGE ({alias_map}_{alias_opt}_:MapOption"
                 f" {map_properties})\n"
-                f"MERGE (map_{map_name.lower()})-"
-                f"[rel_{map_name}_{opt_name.lower()}:HAS_OPTIONS]->"
-                f"({map_name}_{opt_name.lower()}_)\n"
-                f"SET rel_{map_name}_{opt_name.lower()}.line ="
-                f" $map_{map_name}_{opt_name.lower()}_line\n")
+                f"MERGE (map_{alias_map})-"
+                f"[rel_{alias_map}_{alias_opt}:HAS_OPTIONS]->"
+                f"({alias_map}_{alias_opt}_)\n"
+                f"SET rel_{alias_map}_{alias_opt}.line ="
+                f" $map_{alias_map}_{alias_opt}_line\n")
             try:
-                line = opt_values[f'{opt_name_}.line']
+                line = opt_values[f'{opt_name}.line']
             except KeyError:
                 line = get_line(opt_values)
             self.statement_params[
-                f'map_{map_name}_{opt_name.lower()}_name'] = opt_name_
+                f'map_{alias_map}_{alias_opt}_name'] = opt_name
 
             opt_values = standardize_objects(opt_values)
             self.statement_params[
-                f'map_{map_name}_{opt_name.lower()}_value'] = opt_values
+                f'map_{alias_map}_{alias_opt}_value'] = opt_values
 
-            self.statement_params[
-                f'map_{map_name}_{opt_name.lower()}_line'] = line
+            self.statement_params[f'map_{alias_map}_{alias_opt}_line'] = line
 
         return statement
 
@@ -150,15 +153,16 @@ class Batcher():
         for param_name, param_attrs in self.template['Parameters'].items():
             if param_name.startswith('__'):
                 continue
+            alias_param = param_name.replace('-', '_').lower()
             # create the node for the parameter
             param_statement = (
                 f"MERGE ({alias_parameters})-[:DECLARE_PARAMETER]->"
-                f"(param_{param_name.lower()}:Parameter"
+                f"(param_{alias_param}:Parameter"
                 # set attributes of node
-                f" {{name: $param_name_{param_name},"
-                f" line: $line_param_{param_name}}})\n")
-            self.statement_params[f'param_name_{param_name}'] = param_name
-            self.statement_params[f'line_param_{param_name}'] = get_line(
+                f" {{name: $param_name_{alias_param},"
+                f" line: $line_param_{alias_param}}})\n")
+            self.statement_params[f'param_name_{alias_param}'] = param_name
+            self.statement_params[f'line_param_{alias_param}'] = get_line(
                 self.template['Parameters'][param_name])
             # add parameter attributes
             param_statement += self._load_parameter_attributes((param_name,
@@ -188,21 +192,116 @@ class Batcher():
             self.template['Mappings'])
 
         for map_name, map_options in self.template['Mappings'].items():
-            map_name = map_name.replace('-', '_')
             if map_name.startswith('__'):
                 continue
-            map_statement = (f"MERGE ({alias_mappings})-[:DECLARE_MAP]->"
-                             f"(map_{map_name.lower()}:Mapping "
-                             f"{{name: $map_name_{map_name}, "
-                             f"line: $line_map_{map_name}}})\n")
-            self.statement_params[f'map_name_{map_name}'] = map_name
-            self.statement_params[f'line_map_{map_name}'] = get_line(
+            alias_map = map_name.replace('-', '_').lower()
+            map_statement = (
+                f"MERGE ({alias_mappings})-[:DECLARE_MAP]->"
+                f"(map_{alias_map}:Mapping {{name: $map_name_{alias_map}, "
+                f"line: $line_map_{alias_map}}})\n")
+            self.statement_params[f'map_name_{alias_map}'] = map_name
+            self.statement_params[f'line_map_{alias_map}'] = get_line(
                 self.template['Mappings'][map_name])
 
             map_statement += self._load_map_options((map_name, map_options))
 
             statement += map_statement
         trans.run(statement, **self.statement_params)
+
+    def load_conditions(self, trans: Transaction):
+        """
+        Execute a statement that creates the nodes for the template Conditions.
+
+        :param trans: Transaction to execute the statement.
+        """
+        alias_conditions_f = self.template['Conditions'][
+            '__node_alias__'] = "conditions_node"
+        alias_template = self.template['__node_alias__']
+        node_template_name = self.template['__node_name__']
+        # create relationship between templeate and node conditions
+        statement = (
+            f"MATCH ({alias_template}:{node_template_name})\n"
+            f'WHERE {alias_template}.path = "{self.path}"\n'
+            f"MERGE ({alias_template})-[:CONTAINS]->"
+            f"({alias_conditions_f}:Conditions"
+            " {line: $line_node_parameters})\n")
+        self.statement_params['line_node_conditions'] = get_line(
+            self.template['Conditions'])
+
+        # Create create relationship between contition nodes and each condition
+        for condition_name, condition in self.template['Conditions'].items():
+            if condition_name.startswith('__'):
+                continue
+            alias_condition = f"con_{condition_name.replace('-', '_').lower()}"
+            statement += (
+                f"MERGE ({alias_conditions_f})-[:DECLARE_CONDITION]->"
+                f"({alias_condition}:Condition "
+                f"{{name: $con_name_{alias_condition}, "
+                f"line: $line_con_{alias_condition}}})\n")
+            self.statement_params[
+                f'con_name_{alias_condition}'] = condition_name
+            self.statement_params[f'line_con_{alias_condition}'] = get_line(
+                self.template['Conditions'][condition_name])
+
+        trans.run(statement, **self.statement_params)
+
+        # create relationship between the conditions and the functions that
+        # each one executes
+        for condition_name, condition in self.template['Conditions'].items():
+            if condition_name.startswith('__'):
+                continue
+            alias_condition = f"con_{condition_name.replace('-', '_').lower()}"
+            # create reference to condition
+            statement_condition = (
+                f"MATCH ({alias_condition}:Condition)\n"
+                f"WHERE {alias_condition}.name = ${condition_name}_value\n"
+                f"WITH {alias_condition}\n")
+            self.statement_params[f'{condition_name}_value'] = condition_name
+            # create relationship between the condition and the function it
+            #  executes
+            statement_condition += self._load_condition_funcs((alias_condition,
+                                                               condition))
+            trans.run(statement_condition, **self.statement_params)
+
+    def _load_condition_funcs(self, func: tuple) -> str:
+        alias_f, func_exc = func
+        fn_name = list(func_exc.keys())[0]
+
+        # if the function is a reference it creates the relationship with
+        # the parameter
+        if fn_name == 'Ref':
+            reference = func_exc['Ref']
+            self.statement_params[
+                f'ref_{alias_f}_{reference}_name'] = reference
+            return (
+                f"MATCH (ref_{alias_f}_{reference}: Parameter)\n"
+                f"WHERE ref_{alias_f}_{reference}.name = "
+                f"$ref_{alias_f}_{reference}_name\n"
+                f"WITH ref_{alias_f}_{reference}, {alias_f}\n"
+                f"MERGE ({alias_f})-[:REFERENCE_TO]->"
+                f"(ref_{alias_f}_{reference})\n"
+                f"WITH {alias_f}\n")
+
+        fn_name_node = fn_name.replace('::', ':')
+        alias_fn_name = fn_name_node.lower().replace(':', '_')
+        alias_fn_node = f'fn_{alias_f}_{alias_fn_name}_{_random_string(5)}'
+        # create relationship with condition
+        statement = (f"CREATE ({alias_f})-"
+                     f"[rel_{alias_f}_{alias_fn_name}:EXCECUTE_FN]->"
+                     f"({alias_fn_node}:{fn_name_node})\n"
+                     f"WITH {alias_fn_node}\n")
+        # add function parameters
+        for param in func_exc[fn_name]:
+            if not isinstance(param, (OrderedDict, dict, list)):
+                statement += (f"SET {alias_fn_node}.param_value = "
+                              f"$fn_{alias_f}_{alias_fn_name}_value\n")
+                self.statement_params[
+                    f'fn_{alias_f}_{alias_fn_name}_value'] = param
+            else:
+                # if the parameter is a function it makes a recursive call
+                statement += self._load_condition_funcs((f'{alias_fn_node}',
+                                                         param))
+        return statement
 
     def _create_constraints_template(self, trans: Transaction):
         self.template['__node_name__'] = 'CloudFormationTemplate'
