@@ -54,6 +54,7 @@
 {% endblock breadcrumb %}
 
 {% block header %}
+{% if page.banner %}
 <div class="bg-graylight">
   <div
     class="{{ page.banner }} coverm cover-s banner-height justify-center items-center flex bg-center mw-banner ml-auto mr-auto">
@@ -69,6 +70,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock header %}
 {% block content %}
 <div class="bg-graylight">
