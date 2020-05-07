@@ -10,7 +10,8 @@ from datetime import datetime, timedelta
 from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, get_findings, update_treatment,
-    handle_acceptation, mask_finding, validate_evidence
+    handle_acceptation, mask_finding, validate_evidence,
+    get_finding_historic_treatment
 )
 from backend.mailer import get_email_recipients
 from backend.dal.vulnerability import get_vulnerabilities
@@ -178,3 +179,13 @@ class FindingTests(TestCase):
         with self.assertRaises(InvalidFileType) as context:
             validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
+
+    def test_get_finding_historic_treatment(self):
+        finding_id = '457497318'
+        test_data = get_finding_historic_treatment(finding_id)
+        assert isinstance(test_data, list)
+        assert len(test_data) >= 1
+        assert test_data[0]['date'] == '2020-01-03 12:46:10'
+        assert test_data[0]['justification'] == 'test justification'
+        assert test_data[0]['treatment'] == 'IN PROGRESS'
+        assert test_data[0]['user'] == 'unittest@fluidattacks.com'
