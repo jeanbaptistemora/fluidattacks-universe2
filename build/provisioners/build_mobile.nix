@@ -10,8 +10,12 @@ in
       name = "builder";
 
       buildInputs = [
+        pkgs.awscli
         pkgs.git
+        pkgs.jq
         pkgs.nodejs
+        pkgs.openjdk
+        pkgs.sops
       ];
 
       turtleShell = builders.turtleShell "37.0.0";

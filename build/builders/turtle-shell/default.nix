@@ -14,5 +14,7 @@ in
       builder = ./builder.sh;
       buildInputs = [
         pkgs.nodejs
+        pkgs.openjdk
+        pkgs.python37
       ];
     }
