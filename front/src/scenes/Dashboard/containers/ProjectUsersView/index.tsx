@@ -120,8 +120,14 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
           case "Exception - Email is not valid":
             msgError(translate.t("validations.email"));
             break;
-          case "Exception - Parameter is not valid":
+          case "Exception - Invalid field in form":
             msgError(translate.t("validations.invalidValueInField"));
+            break;
+          case "Exception - Invalid phone number in form":
+            msgError(translate.t("validations.invalidPhoneNumberInField"));
+            break;
+          case "Exception - Invalid email address in form":
+            msgError(translate.t("validations.invalidPhoneNumberInField"));
             break;
           default:
             msgError(translate.t("proj_alerts.error_textsad"));

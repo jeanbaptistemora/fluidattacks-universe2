@@ -48,7 +48,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
     onError: (reposError: ApolloError): void => {
       reposError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
-          case "Exception - Parameter is not valid":
+          case "Exception - Invalid field in form":
             msgError(translate.t("validations.invalidValueInField"));
             break;
           case "Exception - One or more values already exist":

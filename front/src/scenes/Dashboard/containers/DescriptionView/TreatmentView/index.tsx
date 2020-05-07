@@ -68,6 +68,9 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
           case "Exception - The inserted date is invalid":
             msgError(translate.t("proj_alerts.invalid_date"));
             break;
+          case "Exception - Invalid field in form":
+            msgError(translate.t("validations.invalidValueInField"));
+            break;
           default:
             msgError(translate.t("proj_alerts.error_textsad"));
             rollbar.error("An error occurred updating treatment", updateError);

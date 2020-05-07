@@ -8,6 +8,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -141,8 +142,16 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
       }
     },
     onError: (updateError: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred updating finding description", updateError);
+      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Invalid field in form":
+            msgError(translate.t("validations.invalidValueInField"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred updating treatment", updateError);
+        }
+      });
     },
   });
 

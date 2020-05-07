@@ -48,7 +48,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
     onError: (envsError: ApolloError): void => {
       envsError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
-          case "Exception - Parameter is not valid":
+          case "Exception - Invalid field in form":
             msgError(translate.t("validations.invalidValueInField"));
             break;
           case "Exception - One or more values already exist":

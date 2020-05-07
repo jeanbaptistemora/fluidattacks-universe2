@@ -168,9 +168,9 @@ class InvalidSpecific(Exception):
 
 class InvalidField(Exception):
     """Exception to control invalid fields in forms"""
-    def __init__(self):
+    def __init__(self, field='field'):
         """Constructor"""
-        msg = 'Exception - Invalid field in form'
+        msg = 'Exception - Invalid {} in form'.format(field)
         super(InvalidField, self).__init__(msg)
 
 

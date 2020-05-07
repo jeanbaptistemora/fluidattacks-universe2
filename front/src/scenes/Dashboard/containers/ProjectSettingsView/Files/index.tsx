@@ -105,7 +105,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     onError: (filesError: ApolloError): void => {
       filesError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        if (message === "Exception - Parameter is not valid") {
+        if (message === "Exception - Invalid field in form") {
           msgError(translate.t("validations.invalidValueInField"));
         } else {
           msgError(translate.t("proj_alerts.error_textsad"));
