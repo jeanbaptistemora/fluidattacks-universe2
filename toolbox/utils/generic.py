@@ -79,13 +79,13 @@ def is_branch_master() -> bool:
     return os.environ.get('CI_COMMIT_REF_NAME') == 'master'
 
 
-def go_back_to_continuous():
+def go_back_to_services():
     starting_dir: str = os.getcwd()
-    if 'continuous' not in starting_dir:
-        logger.error('Please run the toolbox inside the continuous repo')
+    if 'services' not in starting_dir:
+        logger.error('Please run the toolbox inside the services repo')
         sys.exit(78)
 
-    while not os.getcwd().endswith('continuous'):
+    while not os.getcwd().endswith('services'):
         os.chdir('..')
         logger.debug('Adjusted working dir to:', os.getcwd())
 
@@ -93,7 +93,7 @@ def go_back_to_continuous():
 def get_current_group() -> str:
     actual_path: str = os.getcwd()
     try:
-        return actual_path.split('/continuous/')[1].split('/')[1]
+        return actual_path.split('/services/')[1].split('/')[1]
     except IndexError:
         return 'unspecified-subs'
 
@@ -105,7 +105,7 @@ def is_valid_group(ctx, param, subs):  # pylint: disable=unused-argument
             and subs not in ('admin', 'all', 'unspecified-subs'):
         msg = f'the group {subs} does not exist'
         raise BadParameter(msg)
-    go_back_to_continuous()
+    go_back_to_services()
     return subs
 
 
