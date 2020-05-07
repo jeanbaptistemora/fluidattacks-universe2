@@ -189,3 +189,21 @@ def test_no_alarm_on_signin_fail_closed():
     with no_connection():
         assert not cloudwatch.no_alarm_on_signin_fail(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_no_alarm_on_ec2_instance_changes_open():
+    """Check if there are alarms set on EC2 instance changes."""
+    assert cloudwatch.no_alarm_on_ec2_instance_changes(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_ec2_instance_changes_closed():
+    """Check if there are alarms set on EC2 instance changes."""
+    assert not \
+        cloudwatch.no_alarm_on_ec2_instance_changes(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_ec2_instance_changes(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
