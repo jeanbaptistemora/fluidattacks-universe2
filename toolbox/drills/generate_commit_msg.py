@@ -44,9 +44,9 @@ def process_inputs_csv(subs: str) -> Objective:
             for file in DictReader(inputs_csv):
                 if file['entry_point']:
                     inputs.count += 1
-                    if file['verified'] == 'Yes' and file['date']:
+                    if file['verified'] == 'Yes' and file['tested_date']:
                         tested_date: date = datetime.strptime(
-                            file['date'], date_format).date()
+                            file['tested_date'], date_format).date()
                         if tested_date <= date.today():
                             inputs.sofar += 1
                             if tested_date == date.today():
