@@ -59,12 +59,17 @@
     <h1 class="tc pb3">
       {{ page.title }}
     </h1>
-    {% set categorder = ["credentials", "authentication", "authorization", "session", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "mobile", "social"] %}
-    <div class="categlist hover-bg-light-gray flex">
-      <h3 class="w-90">Toggle all</h3>
+    <div class="expall hover-bg-light-gray flex">
+      <h3 class="w-90">Expand all</h3>
       <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
            alt="Fluid Arrow">
     </div>
+    <div class="collall hover-bg-light-gray flex">
+      <h3 class="w-90 dn">Collapse all</h3>
+      <img class="dn" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+           alt="Fluid Arrow">
+    </div>
+    {% set categorder = ["credentials", "authentication", "authorization", "session", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "mobile", "social"] %}
     {% for categ in categorder %}
       <div class="rulescat hover-bg-light-gray flex">
         <h3 class="w-90">{{ categ |replace('-', ' ') | capitalize }}</h3>
@@ -84,7 +89,6 @@
       {% endfor %}
       </div>
     {% endfor %}
-
     {% assets output="static/js/rules.min.js", "js/tmp/rules.min.js" %}
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
