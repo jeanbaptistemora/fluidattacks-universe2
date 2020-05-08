@@ -22,6 +22,7 @@ export interface IAddRepositoriesModalProps {
 }
 
 const maxRepoUrlLength: ConfigurableValidator = maxLength(150);
+const maxRepoBranchLength: ConfigurableValidator = maxLength(30);
 const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldArrayProps): JSX.Element => {
   const addItem: (() => void) = (): void => {
     props.fields.push({ urlRepo: "", branch: "" });
@@ -72,7 +73,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   component={textField}
                   placeholder={translate.t("search_findings.tab_resources.branch_placeholder")}
                   type="text"
-                  validate={[required, validField]}
+                  validate={[required, validField, maxRepoBranchLength]}
                 />
               </Col>
               {index > 0 ? (

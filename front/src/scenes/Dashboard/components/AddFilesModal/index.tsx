@@ -5,11 +5,12 @@
 import React from "react";
 import { ButtonToolbar, Col, ProgressBar, Row } from "react-bootstrap";
 import { Field, InjectedFormProps, Validator } from "redux-form";
+import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { isValidFileName, isValidFileSize, required, validField } from "../../../../utils/validations";
+import { isValidFileName, isValidFileSize, maxLength, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 
 export interface IAddFilesModalProps {
@@ -28,6 +29,7 @@ const renderUploadBar: ((props: IAddFilesModalProps) => JSX.Element) = (props: I
   </React.Fragment>
 );
 
+const maxFileDescriptionLength: ConfigurableValidator = maxLength(200);
 const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps): JSX.Element => {
   const handleClose: (() => void) = (): void => { props.onClose(); };
   const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onSubmit(values); };
@@ -69,7 +71,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
                     component={textAreaField}
                     name="description"
                     type="text"
-                    validate={[required, validField]}
+                    validate={[required, validField, maxFileDescriptionLength]}
                   />
                 </Col>
               </Row>

@@ -10,13 +10,14 @@ import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { EventWithDataHandler, Field, InjectedFormProps } from "redux-form";
+import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
+import { maxLength, required } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
 import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "./queries";
@@ -32,6 +33,9 @@ import { IAddProjectModal, IProjectName } from "./types";
   *   - If Integrates is turned off the project will be scheduled for deletion
   */
 
+const maxDescriptionLength: ConfigurableValidator = maxLength(200);
+const maxProjectNameLength: ConfigurableValidator = maxLength(50);
+const maxCompanyLength: ConfigurableValidator = maxLength(50);
 const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAddProjectModal): JSX.Element => {
   // State management
   const [hasDrills, setHasDrills] = React.useState(true);
@@ -151,7 +155,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                   component={textField}
                                   name="company"
                                   type="text"
-                                  validate={[required]}
+                                  validate={[required, maxCompanyLength]}
                                 />
                               </FormGroup>
                               <FormGroup>
@@ -161,7 +165,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                   disabled={true}
                                   name="name"
                                   type="text"
-                                  validate={[required]}
+                                  validate={[required, maxProjectNameLength]}
                                 />
                               </FormGroup>
                               <FormGroup>
@@ -170,7 +174,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                   component={textField}
                                   name="description"
                                   type="text"
-                                  validate={[required]}
+                                  validate={[required, maxDescriptionLength]}
                                 />
                               </FormGroup>
                               <FormGroup>
