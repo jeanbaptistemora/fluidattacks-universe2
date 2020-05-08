@@ -314,7 +314,7 @@ class ProjectTest(TestCase):
         max_severity = 3.9
         mean_remediate_low_severity = get_mean_remediate_severity(
             project_name, min_severity, max_severity)
-        expected_output = (219, 232)
+        expected_output = (218, 232)
         assert mean_remediate_low_severity in expected_output
         min_severity = 4
         max_severity = 6.9
