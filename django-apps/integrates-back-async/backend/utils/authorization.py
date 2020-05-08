@@ -1,7 +1,12 @@
 # Standard library
 import contextlib
 import os
-from typing import Tuple
+from operator import itemgetter
+from typing import (
+    Callable,
+    Coroutine,
+    Tuple,
+)
 
 # Third party library
 import rollbar
@@ -14,6 +19,10 @@ from django.conf import settings
 from django.core.cache import cache
 from rediscluster.nodemanager import RedisClusterException
 from backend.dal import user as user_dal
+
+
+# Typing aliases
+ENFORCER_FUNCTION = Callable[[str, str, str], Coroutine]
 
 
 def get_subject_cache_key(subject: str) -> str:
@@ -358,6 +367,42 @@ def get_group_level_enforcer_async(subject: str) -> CasbinEnforcer:
     )
 
     enforcer.fm.add_function('matchesPermission', matches_permission)
+
+    return enforcer
+
+
+def get_user_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
+    """Return a filtered group-level authorization for the provided subject."""
+    policies = tuple(map(itemgetter(1), get_cached_subject_policies(subject)))
+
+    async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
+        should_grant_access: bool = any(
+            p_level == 'user'
+            and r_subject == p_subject
+            and r_object == p_object
+            and matches_permission(r_subject, p_role, r_action)
+            for p_level, p_subject, p_object, p_role in policies
+        )
+
+        return should_grant_access
+
+    return enforcer
+
+
+def get_group_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
+    """Return a filtered group-level authorization for the provided subject."""
+    policies = tuple(map(itemgetter(1), get_cached_subject_policies(subject)))
+
+    async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
+        should_grant_access: bool = any(
+            r_subject == p_subject
+            and ((p_level == 'user' and p_role == 'admin') or
+                 (p_level == 'group' and r_object == p_object))
+            and matches_permission(r_subject, p_role, r_action)
+            for p_level, p_subject, p_object, p_role in policies
+        )
+
+        return should_grant_access
 
     return enforcer
 

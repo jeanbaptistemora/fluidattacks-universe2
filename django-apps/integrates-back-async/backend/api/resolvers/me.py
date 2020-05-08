@@ -87,13 +87,13 @@ async def _get_permissions(
     subject = user_email
     object_ = project_name.lower() if project_name else 'self'
     enforcer = \
-        authorization_utils.get_group_level_enforcer_async(subject) \
+        authorization_utils.get_group_level_enforcer(subject) \
         if project_name else \
-        authorization_utils.get_user_level_enforcer_async(subject)
+        authorization_utils.get_user_level_enforcer(subject)
     permissions = tuple([
         action
         for action in authorization_utils.ALL_ACTIONS
-        if await sync_to_async(enforcer.enforce)(subject, object_, action)])
+        if await enforcer(subject, object_, action)])
     return permissions
 
 

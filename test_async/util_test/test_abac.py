@@ -1,6 +1,7 @@
 from typing import Set
 
 import casbin
+import pytest
 from django.conf import settings
 from django.test import TestCase
 from backend.domain.user import (
@@ -8,7 +9,7 @@ from backend.domain.user import (
     grant_user_level_role,
 )
 from backend.utils.authorization import (
-    get_group_level_enforcer_async,
+    get_group_level_enforcer,
     get_user_level_enforcer_async,
 )
 
@@ -81,7 +82,7 @@ class BasicAbacTest(TestCase):
 
 
 class ActionAbacTest(TestCase):
-    enforcer = get_group_level_enforcer_async
+    enforcer = get_group_level_enforcer
 
     global_actions = {
         'backend_api_resolvers_resource_resolve_resources',
@@ -247,7 +248,8 @@ class ActionAbacTest(TestCase):
         for action in should_deny:
             self.assertFalse(UserAbacTest.enforcer(sub).enforce(sub, obj, action))
 
-    def test_action_customer_role(self):
+    @pytest.mark.asyncio
+    async def test_action_customer_role(self):
         """Tests for an user with a expected role."""
         sub = 'someone@customer.com'
         obj = 'unittesting'
@@ -257,12 +259,13 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions - self.customer_allowed_actions
 
         for action in self.customer_allowed_actions:
-            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertTrue(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertFalse(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
-    def test_action_customeradmin_role(self):
+    @pytest.mark.asyncio
+    async def test_action_customeradmin_role(self):
         """Tests for an user with a expected role."""
         sub = 'admin@customer.com'
         obj = 'unittesting'
@@ -272,12 +275,13 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions - self.customeradmin_allowed_actions
 
         for action in self.customeradmin_allowed_actions:
-            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertTrue(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertFalse(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
-    def test_action_customeradminfluid_role(self):
+    @pytest.mark.asyncio
+    async def test_action_customeradminfluid_role(self):
         """Tests for an user with a expected role."""
         sub = 'customeradmin@fluidattacks.com'
         obj = 'unittesting'
@@ -288,12 +292,13 @@ class ActionAbacTest(TestCase):
             self.global_actions - self.customeradminfluid_allowed_actions
 
         for action in self.customeradminfluid_allowed_actions:
-            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertTrue(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertFalse(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
-    def test_action_analyst_role(self):
+    @pytest.mark.asyncio
+    async def test_action_analyst_role(self):
         """Tests for an user with a expected role."""
         sub = 'analyst@fluidattacks.com'
         obj = 'unittesting'
@@ -303,12 +308,13 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions - self.analyst_allowed_actions
 
         for action in self.analyst_allowed_actions:
-            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertTrue(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertFalse(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
-    def test_action_admin_role(self):
+    @pytest.mark.asyncio
+    async def test_action_admin_role(self):
         """Tests for an user with a expected role."""
         sub = 'admin@fluidattacks.com'
         obj = 'unittesting'
@@ -324,10 +330,10 @@ class ActionAbacTest(TestCase):
         should_allow = self.global_actions - should_deny
 
         for action in should_allow:
-            self.assertTrue(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertTrue(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
         for action in should_deny:
-            self.assertFalse(ActionAbacTest.enforcer(sub).enforce(sub, obj, action))
+            self.assertFalse(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
 
 class UserAbacTest(TestCase):
