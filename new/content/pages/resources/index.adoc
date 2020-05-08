@@ -1,0 +1,13 @@
+:slug: resources/
+:description: The purpose of this page is to present resources of Fluid Attacks. Here are the datasheets of our products: Drills, Forces, and Integrates. Besides, all the annual reports will appear. Users who visit our website can download all the elements presented here.
+:keywords: Fluid Attacks, Products, Software, Documentation, Security, Information.
+
+= Resources
+
+== link:[Annual Report 2020]
+
+== link:[Drills Datasheet]
+
+== link:[Forces Datasheet]
+
+== link:[Integrates Datasheet]
