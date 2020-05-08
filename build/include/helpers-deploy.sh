@@ -155,12 +155,15 @@ function helper_deploy_compile_new {
   &&  env_prepare_python_packages \
   &&  helper_deploy_install_plugins_new \
   &&  popd || return 1 \
-  &&  mkdir new/content/pages/careers/ \
-  &&  ln -s "$(pwd)"/content/pages/careers/index.adoc new/content/pages/careers/index.adoc \
   &&  rsync -av --progress content/pages/ new/content/pages/ --exclude contact-us \
         --exclude products --exclude services --exclude careers/* \
         --exclude defends --exclude findings --exclude location --exclude rules \
         --exclude subscription \
+  &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
+  &&  sed -i "s|:template: faq||g" new/content/pages/careers/faq/index.adoc \
+  &&  rsync -av --progress content/pages/services/ new/content/pages/use-cases/ \
+        --exclude continuous-hacking --exclude one-shot-hacking \
+  &&  sed -i "s|:slug: services/|:slug: use-cases/|g" new/content/pages/use-cases/*/index.adoc \
   &&  pushd new/ || return 1 \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
