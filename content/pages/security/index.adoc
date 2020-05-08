@@ -1,0 +1,247 @@
+:slug: security/
+:description: This page summarizes all the best practices and technology Fluid Attacks implements in order to keep internal products and customer data secure. It goes from philosophies as having open source code, to particular ciphering algorithms used and internal behavioral policies.
+:keywords: Fluid Attacks, Security, Data, Policy, Breach, Best practices
+
+= Security
+
+As a security company,
+Fluid Attacks is aware of the importance of:
+
+. Developing products
+  that comply with the highest worldwide security standards.
+. Aquiring only compliant services and products for internal use.
+. Implementing best security practices within our organization.
+. Being completely transparent with our clients,
+  especially regarding their data, how we use it,
+  and what we do to protect it.
+
+This concerns,
+concieved since the early days of the company,
+have allowed us to implement
+a huge number of measures
+throughout the years.
+In this page we will mention
+the ones that provide the highest
+value to our customers in
+terms of security.
+
+== 1. Open Source
+
+The source code of all our applications
+is available to the entire Internet.
+There are no backdoors or exposed sensitive data.
+The code is transparent and can be reviewed by anyone.
+All our source code can be found
+link:https://gitlab.com/fluidattacks[here]
+
+== 2. Encryption
+
+We offer both
+encryption at rest
+and encryption in transit
+with cutting-edge industry standards.
+
+=== 2.1 Encryption at rest
+
+All our applications and services have
+industry-standard encryption at rest.
+
+- All the sesitive data provided by our clients
+  (Repo access keys, vpn credentials, etc)
+  is ciphered using
+  link:https://github.com/mozilla/sops#sops-secrets-operations[Mozilla SOPS]
+  and
+  link:https://aws.amazon.com/kms[AWS KMS]
+  symmetric algorithm
+  based on Advanced Encryption Standard (AES)
+  in Galois Counter Mode (GCM)
+  with 256-bit keys.
+- All our clients repositories are
+  stored in private, AES256 ciphered
+  link:https://aws.amazon.com/s3/[AWS buckets].
+- Forces exploits are stored encrypted using AES256 keys.
+- All
+  [inner]#link:../products/integrates[Integrates]#
+  data is stored in a
+  link:https://aws.amazon.com/es/dynamodb/[AWS DynamoDB]
+  AES256 encrypted database.
+- All our products use
+  link:https://github.com/mozilla/sops[Mozilla SOPS]
+  and
+  link:https://aws.amazon.com/kms/https://aws.amazon.com/kms/[AWS KMS]
+  for both development and production secrets.
+
+
+=== 2.2 Encryption in transit
+
+All our applications and services have
+industry-standard encryption in transit.
+
+- The link:https://fluidattacks.com[Fluid Attacks] domain
+  uses the latest TLSv1.3 cryptographic
+  protocol for maximum in transit protection.
+- [inner]#link:../products/integrates[Integrates]#'s
+  DynamoDB database uses TLSv1.2
+  for in transit protection.
+
+== 3. Authentication
+
+=== 3.1 For Clients
+
+As
+[inner]#link:../products/integrates[Integrates]#
+uses OAuth with Google and Microsoft Accounts,
+The only personal information we store of our clients are:
+
+- Full name (Provided by Google or Microsoft).
+- Company and cellphone (Only if shared, user can decide).
+
+=== 3.2 Internal
+
+We use
+link:https://www.okta.com/[Okta]
+as a centralized authentication platform,
+allowing us to manage all the applications
+we internally use from just one place. Our employees do
+not know any of the passwords of the managed applications,
+they only know their own
+link:https://www.okta.com/[Okta]
+password. Once they log in to
+link:https://www.okta.com/[Okta],
+they can access applications assigned to them.
+Okta supports MFA and strong password policies.
+
+== 4. Authorization
+
+=== 4.1 For Clients
+
+[inner]#link:../products/integrates[Integrates]#
+has a set of roles that are necessary on every hacking project,
+providing project managers with the ability
+to assign the minimum required permissions
+to each team member.
+Some of these roles are: analyst, admin,
+user, project manager, etc.
+
+=== 4.2 Internal
+
+Every application we use must have user-granular authorization settings
+in order to grant minimum-privilege policy at all times.
+Some examples are:
+
+- link:https://www.okta.com/[SOPS]
+  and
+  link:https://aws.amazon.com/kms/https://aws.amazon.com/kms/[AWS KMS]:
+  These two tools are widely used within Fluid Attacks.
+  They allow us to ensure
+  that hackers can only access source code,
+  environments, exploits and secrets
+  from projects they have access to.
+  Access can be easily removed
+  should the need arise,
+  with no users/passwords leaked.
+  These tools also let us keep application
+  production secrets hidden from developers
+  (Production-Development secrets separation).
+- link:https://www.okta.com/[Okta]:
+  With link:https://www.okta.com/[Okta]
+  we can grant application access on a user level.
+  Granting us the ability to give employees access
+  only to what they need to execute their tasks.
+  Giving or removing access to applications
+  is simple, and no users/passwords are leaked.
+
+
+== 5. Secret rotation
+
+Key rotation is of the essence when dealing with
+sensitive data. The best way to prevent a key leakage is by
+regularily changing it . We continuously rotate:
+
+- link:https://aws.amazon.com/kms/https://aws.amazon.com/kms/[AWS KMS] keys.
+  These keys are used to encrypt
+  all the sensitive data within the organization,
+  from applications secrets to clients data.
+- JWT Tokens
+- Digital Certificates
+- link:https://aws.amazon.com/iam/[AWS IAM] credentials
+- link:https://www.okta.com/[Okta] passwords
+
+== 6. We hack ourselves
+
+We have full-time projects focused on hacking our own software.
+To us, seting an example of secure software is essential,
+that is why today,
+our entire technological stack goes through a
+link:../services/continuous-hacking[Continuous Hacking]
+process.
+
+== 7. Secure Chat
+
+We use link:https://rocket.chat/[Rocket.chat]
+with link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
+and
+link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
+for messaging within the organization.
+Also, all chat histories reset on a weekly basis as
+an extra measure to avoid leaks.
+
+== 8. Secure workstation policies
+
+At Fluid Attacks,
+we do not posses any other physical infrastructure
+different from our own laptops.
+Everything else is in the cloud,
+protected by all the mechanisms previously mentioned.
+
+For the laptops, the following policies are applied:
+
+- All laptops have Password-protected BIOS
+- All laptops have hard drive encryption
+
+It is also worth mentioning
+that personal phones do not have direct access to the corporate email,
+as they usually are weak devices hackers try to attack.
+
+== 9. All our hired personnel must accept a NDA
+
+Everyone within our company knows
+how important it is to keep our
+clients's information secure.
+We enforce this by requiring
+all our new employees to sign a
+Non disclosure agreement.
+
+== 10. Data policies
+
+The following policies apply to all the information
+provided by a client in a project context.
+
+=== 10.1 Data use policy
+
+We are commited to use our clients data
+exclusively for vulnerability seeking
+in the context of the service we are providing.
+No other activities will be executed
+over the provided information.
+
+=== 10.2 Data retention policy
+
+All the data related to a project
+can be deleted from
+[inner]#link:../products/integrates[Integrates]#
+by a user with a project manager role.
+Once this action is triggered, a deletion window of 30 days begins.
+Any project manager can undo the deletion action.
+After the 30 days waiting period, the project,
+source code, secrets, metadata and any other project related
+data is completely removed from all our infrastructure.
+
+=== 10.3 Data leakeage policy
+
+In case Fluid Attacks detects a breach,
+emails notyifing the involved parties will be sent.
+Emails will contain information on what data was leaked or compromised,
+when and for how long (to the extent this information is available).
+For a breach that exposes private data for a large number of users,
+the public will also be informed via email.
