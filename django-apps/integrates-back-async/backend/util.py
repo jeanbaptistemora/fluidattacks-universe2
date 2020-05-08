@@ -10,7 +10,7 @@ import logging
 import logging.config
 import re
 import secrets
-from typing import Any, Dict, List, cast
+from typing import Any, Dict, List, Union, cast
 import httpx
 import pytz
 import rollbar
@@ -21,7 +21,8 @@ from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
 from graphql.language.ast import (
-    BooleanValueNode, NameNode, ObjectValueNode, VariableNode, SelectionSetNode, FieldNode
+    BooleanValueNode, NameNode, ObjectFieldNode, ObjectValueNode,
+    VariableNode, SelectionSetNode, FieldNode, StringValueNode
 )
 from magic import Magic
 from django.conf import settings
@@ -521,3 +522,38 @@ def camel_case_list_dict(elements: List[Dict]) -> List[Dict]:
         }
         for element in elements
     ]
+
+
+def dict_to_object_field_node(input_dict: dict) -> List[Union[None, ObjectFieldNode]]:
+    """Convert a dict into a list of ObjectFieldNode objects."""
+    if not input_dict:
+        return []
+    result = []
+    for key in input_dict:
+        ofn = ObjectFieldNode(
+            name=NameNode(value=key),
+            value=StringValueNode(value=str(input_dict[key]))
+        )
+        result.append(ofn)
+    return result
+
+
+async def get_filtered_elements(elements, filters):
+    """Return filtered findings accorging to filters."""
+    # This should be called with all() in the future, but there's a known bug
+    # of Python that currently prevents it: https://bugs.python.org/issue39562
+    filtered = []
+    if filters:
+        for element in elements:
+            hit_counter = 0
+            len_filters = len(filters)
+            for filt in filters:
+                filt_key = camelcase_to_snakecase(filt.name.value)
+                coro_result = await element[filt_key]
+                if str(coro_result) == str(filt.value.value):
+                    hit_counter += 1
+            if hit_counter == len_filters:
+                filtered.append(element)
+    else:
+        filtered = elements
+    return filtered

@@ -164,10 +164,10 @@ class ProjectTests(TestCase):
         assert len(result['data']['project']['findings']) == 0
 
     async def test_alive_projects(self):
-        """Check for project mutation."""
+        """Check for projects mutation."""
         query = '''
           query {
-            aliveProjects {
+            projects {
               name
             }
           }
@@ -182,7 +182,25 @@ class ProjectTests(TestCase):
 
         result = await self._get_result_async(data)
         assert 'errors' not in result
-        assert result['data']['aliveProjects'] == expected_projects
+        assert result['data']['projects'] == expected_projects
+
+    async def test_alive_projects_filtered(self):
+        """Check for projects mutation."""
+        query = '''
+          query {
+            projects(filters: {name: "unittesting"}) {
+              subscription
+            }
+          }
+        '''
+        data = {'query': query}
+        expected_output = [
+            {'subscription': 'continuous'}
+        ]
+
+        result = await self._get_result_async(data)
+        assert 'errors' not in result
+        assert result['data']['projects'] == expected_output
 
     async def test_create_project(self):
         """Check for createProject mutation."""

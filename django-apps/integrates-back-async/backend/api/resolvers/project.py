@@ -36,25 +36,6 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
-async def __get_filtered_findings(findings, filters):
-    """Return filtered findings accorging to filters."""
-    # This should be called with all() in the future, but there's a known bug
-    # of Python that currently prevents it: https://bugs.python.org/issue39562
-    filtered = []
-    if filters:
-        for finding in findings:
-            hit_counter = 0
-            len_filters = len(filters)
-            for filt in filters:
-                filt_key = util.camelcase_to_snakecase(filt.name.value)
-                coro_result = await finding[filt_key]
-                if str(coro_result) == str(filt.value.value):
-                    hit_counter += 1
-            if hit_counter == len_filters:
-                filtered.append(finding)
-    return filtered
-
-
 @sync_to_async
 def _get_name(_, project_name: str, **__) -> str:
     """Get name."""
@@ -98,6 +79,7 @@ async def _get_findings(
         info, project_name: str, requested_fields: list,
         filters=None) -> Dict[str, List[Dict[str, FindingType]]]:
     """Resolve findings attribute."""
+
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields
@@ -120,8 +102,7 @@ async def _get_findings(
         for finding in findings
         if 'current_state' in finding and finding['current_state'] != 'DELETED'
     ]
-    filtered = await __get_filtered_findings(findings, filters)
-    return filtered if filters else findings
+    return await util.get_filtered_elements(findings, filters)
 
 
 @get_entity_cache_async
@@ -455,27 +436,31 @@ async def _get_users(info, project_name: str,
     return users
 
 
-async def resolve(info, project_name: str,
-                  as_field: bool = False, as_list: bool = True) -> ProjectType:
+async def resolve(
+        info, project_name: str, as_field: bool = False, as_list: bool = True,
+        selection_set: SelectionSetNode = None) -> ProjectType:
     """Async resolve fields."""
     project_name = project_name.lower()
     result: ProjectType = dict()
+    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
 
     if as_field and as_list:
-        requested_fields = util.get_requested_fields(
-            'projects', info.field_nodes[0].selection_set)
+        req_fields.extend(util.get_requested_fields(
+            'projects', info.field_nodes[0].selection_set))
     elif as_field:
-        requested_fields = util.get_requested_fields(
-            'project', info.field_nodes[0].selection_set)
+        req_fields.extend(util.get_requested_fields(
+            'project', info.field_nodes[0].selection_set))
     else:
-        requested_fields = info.field_nodes[0].selection_set.selections
+        req_fields.extend(info.field_nodes[0].selection_set.selections)
+    if selection_set:
+        req_fields.extend(selection_set.selections)
 
-    for requested_field in requested_fields:
+    for requested_field in req_fields:
         if util.is_skippable(info, requested_field):
             continue
         params = {
             'project_name': project_name,
-            'requested_fields': requested_fields
+            'requested_fields': req_fields
         }
         field_params = util.get_field_parameters(requested_field)
         if field_params:
@@ -723,12 +708,22 @@ async def _do_remove_all_project_access(
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async
-async def resolve_alive_projects(_, info) -> List[ProjectType]:
+async def resolve_alive_projects(_, info, filters=None) -> List[ProjectType]:
     """Resolve for ACTIVE and SUSPENDED projects."""
-    return await _get_alive_projects(info)
+    return await _get_alive_projects(info, filters)
 
 
-async def _get_alive_projects(info) -> List[ProjectType]:
+async def _get_alive_projects(info, filters) -> List[ProjectType]:
     """Resolve for ACTIVE and SUSPENDED projects."""
     alive_projects = await sync_to_async(project_domain.get_alive_projects)()
-    return [await resolve(info, project) for project in alive_projects]
+    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
+    selection_set = SelectionSetNode()
+    if filters:
+        filters = util.dict_to_object_field_node(filters)
+        req_fields.extend(filters)
+    selection_set.selections = req_fields
+    projects = [
+        await resolve(info, project, selection_set=selection_set)
+        for project in alive_projects
+    ]
+    return await util.get_filtered_elements(projects, filters)

@@ -305,6 +305,8 @@ class ProjectTest(TestCase):
         expected_output = ['pendingproject']
         assert expected_output == projects
 
+    @pytest.mark.skip(
+        reason="https://gitlab.com/fluidattacks/integrates/issues/1761")
     @freeze_time("2020-04-12")
     def test_get_mean_remediate_severity(self):
         project_name = 'unittesting'

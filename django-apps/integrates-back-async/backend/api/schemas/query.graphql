@@ -15,9 +15,6 @@ type Query {
     "InternalProject entity"
     internalProjectNames: InternalProject
 
-    "List of alive projects"
-    aliveProjects: [Project]
-
     "Get resources from project"
     resources(projectName: String!): Resource
 
@@ -42,4 +39,14 @@ type Query {
 
     "Tag entity"
     tag(tag: String!): Tag
+
+    "List of alive projects"
+    projects(filters: GenericScalar): [Project]
+
+    "List of alive projects"
+    aliveProjects(filters: GenericScalar): [Project] @deprecated(reason:
+        """
+        This query is deprecated and will be removed in the future.
+        Please use the `projects` query instead
+        """)
 }
