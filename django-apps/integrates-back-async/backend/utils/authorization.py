@@ -127,8 +127,8 @@ CUSTOMERADMIN_ACTIONS: Tuple[str, ...] = (
 )
 
 
-# Actions FluidAttacks's project managers can perform
-INTERNAL_MANAGER_ACTIONS: Tuple[str, ...] = (
+# Actions FluidAttacks's project managers can perform on group level
+GROUP_MANAGER_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_alert_resolve_alert',
     'backend_api_resolvers_alert_resolve_set_alert',
     'backend_api_resolvers_event__do_add_event_comment',
@@ -142,11 +142,8 @@ INTERNAL_MANAGER_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_finding__do_update_client_description',
     'backend_api_resolvers_finding_resolve_finding',
     'backend_api_resolvers_forces_resolve_forces_executions',
-    'backend_api_resolvers_internal_project_resolve_project_name',
-    'backend_api_resolvers_me__get_tags',
     'backend_api_resolvers_project__do_add_project_comment',
     'backend_api_resolvers_project__do_add_tags',
-    'backend_api_resolvers_project__do_create_project',
     'backend_api_resolvers_project__do_reject_remove_project',
     'backend_api_resolvers_project__do_remove_tag',
     'backend_api_resolvers_project__do_request_remove_project',
@@ -164,16 +161,24 @@ INTERNAL_MANAGER_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_resource__do_update_repository',
     'backend_api_resolvers_resource_resolve_add_resources',
     'backend_api_resolvers_resource_resolve_resources',
-    'backend_api_resolvers_tag_resolve_tag',
     'backend_api_resolvers_user__do_edit_user',
     'backend_api_resolvers_user__do_grant_user_access_internal_roles',
     'backend_api_resolvers_user__do_grant_user_access',
     'backend_api_resolvers_user__do_remove_user_access',
-    'backend_api_resolvers_user_resolve_user_list_projects',
     'backend_api_resolvers_user_resolve_user',
     'backend_api_resolvers_vulnerability__do_delete_tags',
     'backend_api_resolvers_vulnerability__do_request_verification_vuln',
     'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+)
+
+
+# Actions FluidAttacks's project managers can perform on user level
+INTERNAL_MANAGER_ACTIONS: Tuple[str, ...] = (
+    'backend_api_resolvers_internal_project_resolve_project_name',
+    'backend_api_resolvers_me__get_tags',
+    'backend_api_resolvers_project__do_create_project',
+    'backend_api_resolvers_tag_resolve_tag',
+    'backend_api_resolvers_user_resolve_user_list_projects',
 )
 
 
@@ -300,6 +305,7 @@ ADMIN_ACTIONS: Tuple[str, ...] = (
 ALL_ACTIONS: Tuple[str, ...] = tuple(set((
     *CUSTOMER_ACTIONS,
     *CUSTOMERADMIN_ACTIONS,
+    *GROUP_MANAGER_ACTIONS,
     *INTERNAL_MANAGER_ACTIONS,
     *ANALYST_ACTIONS,
     *ADMIN_ACTIONS,
@@ -312,6 +318,7 @@ def matches_permission(subject: str, role: str, action: str) -> bool:
         'analyst': ANALYST_ACTIONS,
         'customer': CUSTOMER_ACTIONS,
         'customeradmin': CUSTOMERADMIN_ACTIONS,
+        'group_manager': GROUP_MANAGER_ACTIONS,
         'internal_manager': INTERNAL_MANAGER_ACTIONS,
     }
     if role in role_actions:

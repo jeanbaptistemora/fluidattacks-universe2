@@ -34,6 +34,9 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
   const adminOption: JSX.Element | undefined = props.projectName === undefined ?
     <option value="ADMIN">{translate.t("search_findings.tab_users.admin")}</option> :
     undefined;
+  const groupManagerOption: JSX.Element | undefined = props.projectName !== undefined ?
+    <option value="GROUP_MANAGER">{translate.t("search_findings.tab_users.group_manager")}</option> :
+    undefined;
   const selector: (state: {}, ...field: string[]) => string = formValueSelector("addUser");
   const userEmail: string = useSelector((state: {}) => selector(state, "email"));
 
@@ -108,6 +111,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                       <Can do="backend_api_resolvers_user__do_grant_user_access_internal_roles">
                         <option value="ANALYST">{translate.t("search_findings.tab_users.analyst")}</option>
                         {adminOption}
+                        {groupManagerOption}
                       </Can>
                       <option value="CUSTOMER">{translate.t("search_findings.tab_users.customer")}</option>
                       {props.projectName !== undefined ? (

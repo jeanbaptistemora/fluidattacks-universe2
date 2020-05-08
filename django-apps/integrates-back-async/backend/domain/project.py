@@ -122,7 +122,7 @@ def create_project(
                     add_user_access = user_domain.update_project_access(
                         user_email, project_name, True)
                     add_user_manager = user_domain.grant_group_level_role(
-                        user_email, project_name, 'customeradmin')
+                        user_email, project_name, 'group_manager')
                     resp = all([add_user_access, add_user_manager])
         else:
             raise InvalidProjectName()

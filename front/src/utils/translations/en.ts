@@ -811,6 +811,7 @@ const enTranslations: Dictionary = {
       edit: "Edit",
       edit_user_title: "Edit user information",
       email: "someone@domain.com",
+      group_manager: "Group Manager",
       hours_ago: "{{count}} hour ago",
       hours_ago_plural: "{{count}} hours ago",
       internal_manager: "Manager",

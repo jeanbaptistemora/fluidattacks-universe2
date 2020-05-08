@@ -10,7 +10,8 @@ from backend.utils.validations import (
 from backend.utils import (
     authorization as authorization_util
 )
-VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin', 'internal_manager'}
+VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin',
+                         'group_manager', 'internal_manager'}
 
 
 def get_user_level_role(email: str) -> str:

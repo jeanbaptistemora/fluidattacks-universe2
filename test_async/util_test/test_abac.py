@@ -282,7 +282,7 @@ class ActionAbacTest(TestCase):
         sub = 'customeradmin@fluidattacks.com'
         obj = 'unittesting'
 
-        self._grant_group_level_access(sub, obj, 'internal_manager')
+        self._grant_group_level_access(sub, obj, 'group_manager')
 
         should_deny = \
             self.global_actions - self.customeradminfluid_allowed_actions

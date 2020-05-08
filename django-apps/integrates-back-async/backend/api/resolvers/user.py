@@ -42,7 +42,8 @@ from __init__ import BASE_URL
 # Constants
 BASIC_ROLES = ['customer', 'customeradmin']
 INTERNAL_ROLES = ['analyst']
-ADMIN_ROLES = ['admin', 'closer', 'internal_manager', 'reviewer']
+ADMIN_ROLES = ['admin', 'closer', 'group_manager', 'internal_manager',
+               'reviewer']
 
 
 # pylint: disable=too-many-arguments
