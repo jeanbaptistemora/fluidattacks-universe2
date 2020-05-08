@@ -306,7 +306,7 @@ def run_static_exploits(
 
     fernet_key: str = utils.generic.get_sops_secret(
         f'forces_aws_secret_access_key',
-        f'groups/{subs}/config/secrets.yaml',
+        f'groups/{subs}/config/secrets-dev.yaml',
         f'continuous-{subs}')
 
     repositories_to_run: tuple = tuple(map(
@@ -379,7 +379,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
     times: Dict[str, Any] = {}
     fernet_key: str = utils.generic.get_sops_secret(
         f'forces_aws_secret_access_key',
-        f'groups/{subs}/config/secrets.yaml',
+        f'groups/{subs}/config/secrets-dev.yaml',
         f'continuous-{subs}')
 
     bb_resources = os.path.abspath(

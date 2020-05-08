@@ -64,27 +64,48 @@ def entrypoint():
     is_flag=True,
     help='check if the mailmap of a group is valid')
 @click.option(
-    '--edit', is_flag=True, help='edit the secrets of a group')
+    '--edit-dev', is_flag=True, help='edit the dev secrets of a group')
 @click.option(
-    '--read', is_flag=True, help='read the secrets of a group')
-def resources_management(group, check_repos, clone, fingerprint,
-                         mailmap, login, edit, read):
+    '--read-dev', is_flag=True, help='read the dev secrets of a group')
+@click.option(
+    '--edit-prod', is_flag=True, help='edit the prod secrets of a group')
+@click.option(
+    '--read-prod', is_flag=True, help='read the prod secrets of a group')
+def resources_management(
+    group,
+    check_repos,
+    clone,
+    fingerprint,
+    mailmap,
+    login,
+    edit_dev,
+    read_dev,
+    edit_prod,
+    read_prod,
+):
     """Allows administration tasks within groups"""
+    success: bool = True
+
     if mailmap:
-        sys.exit(0 if resources.check_mailmap(group) else 1)
+        success = resources.check_mailmap(group)
     elif clone:
-        sys.exit(0 if resources.repo_cloning(group) else 1)
+        success = resources.repo_cloning(group)
     elif fingerprint:
-        sys.exit(0 if resources.get_fingerprint(group) else 1)
-    elif edit:
-        sys.exit(0 if resources.edit_secrets(group) else 1)
-    elif read:
-        sys.exit(0 if resources.read_secrets(group) else 1)
+        success = resources.get_fingerprint(group)
+    elif edit_dev:
+        success = resources.edit_secrets(group, 'dev', f'continuous-{group}')
+    elif read_dev:
+        success = resources.read_secrets(group, 'dev', f'continuous-{group}')
+    elif edit_prod:
+        success = resources.edit_secrets(group, 'prod', f'continuous-admin')
+    elif read_prod:
+        success = resources.read_secrets(group, 'prod', f'continuous-admin')
     elif login:
-        sys.exit(0 if utils.generic.okta_aws_login(
-            f'continuous-{group}') else 1)
+        success = utils.generic.okta_aws_login(f'continuous-{group}')
     elif check_repos != 'unspecified-subs':
-        sys.exit(0 if resources.check_repositories(check_repos) else 1)
+        success = resources.check_repositories(check_repos)
+
+    sys.exit(0 if success else 1)
 
 
 @click.command(name='forces', short_help='use the exploits')

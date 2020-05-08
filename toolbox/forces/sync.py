@@ -51,7 +51,7 @@ def _get_integrates_msg(
 def _get_bb_fernet_key(group: str) -> str:
     return utils.generic.get_sops_secret(
         f'forces_aws_secret_access_key',
-        f'groups/{group}/config/secrets.yaml',
+        f'groups/{group}/config/secrets-dev.yaml',
         f'continuous-{group}')
 
 

@@ -58,23 +58,23 @@ def has_vpn(code, subs):
         logger.info("Make sure to run your VPN software before cloning.\n")
 
 
-def repo_url(subs, baseurl, repo):
+def repo_url(baseurl, repo):
     """ return the repo url """
     for user, passw in ['repo_user', 'repo_pass'], \
                        ['repo_user_2', 'repo_pass_2']:
         repo_user = ''
         repo_pass = ''
-        with open('../config/secrets.yaml') as secrets:
+        with open('../config/secrets-prod.yaml') as secrets:
             if f'{user}:' in secrets.read():
                 repo_user = utils.generic.get_sops_secret(
                     user,
-                    f'../config/secrets.yaml',
-                    f'continuous-{subs}'
+                    f'../config/secrets-prod.yaml',
+                    f'continuous-admin'
                 )
                 repo_pass = utils.generic.get_sops_secret(
                     passw,
-                    f'../config/secrets.yaml',
-                    f'continuous-{subs}'
+                    f'../config/secrets-prod.yaml',
+                    f'continuous-admin'
                 )
                 repo_user = urllib.parse.quote_plus(repo_user)
                 repo_pass = urllib.parse.quote_plus(repo_pass)
@@ -94,8 +94,8 @@ def ssh_repo_cloning(subs, code) -> bool:
     problems: list = []
     credentials = utils.generic.get_sops_secret(
         'repo_key',
-        f'../config/secrets.yaml',
-        f'continuous-{subs}'
+        f'../config/secrets-prod.yaml',
+        f'continuous-admin'
     )
     key = base64.b64decode(credentials).decode('utf-8')
     # Improve compatibility with windows
@@ -181,7 +181,7 @@ def http_repo_cloning(subs, code) -> bool:
     def action(repo_br):
         has_vpn(code, subs)
         repo = '/'.join(repo_br.split('/')[0:-1])
-        uri = repo_url(subs, baseurl, repo)
+        uri = repo_url(baseurl, repo)
         branch = repo_br.split('/')[-1]
         folder = repo.split('/')[-1]
         if os.path.isdir(folder):
@@ -259,7 +259,7 @@ def repo_cloning(subs: str) -> bool:
             logger.info(f'Deleting {repo_dif}')
             shutil.rmtree(repo_dif)
 
-        utils.generic.aws_login(f'continuous-{subs}')
+        utils.generic.aws_login('continuous-admin')
 
         for repo in repos_config:
             repo_type = repo.get('git-type')
@@ -276,18 +276,14 @@ def repo_cloning(subs: str) -> bool:
     return success
 
 
-def edit_secrets(subs: str) -> bool:
-    """
-    Open config/secrets.yaml file of a project
-    """
+def edit_secrets(group: str, suffix: str, profile: str) -> bool:
     status: bool = True
-    profile = f'continuous-{subs}'
-    secrets_file = f'groups/{subs}/config/secrets.yaml'
+    secrets_file: str = f'groups/{group}/config/secrets-{suffix}.yaml'
     if not os.path.exists(secrets_file):
-        logger.error(f'secrets.yaml does not exist in {subs}')
+        logger.error(f'secrets-{suffix}.yaml does not exist in {group}')
         status = False
     else:
-        utils.generic.aws_login(f'continuous-{subs}')
+        utils.generic.aws_login(profile)
         subprocess.call(
             f'sops --aws-profile {profile} {secrets_file}',
             shell=True
@@ -295,21 +291,16 @@ def edit_secrets(subs: str) -> bool:
     return status
 
 
-def read_secrets(subs: str) -> bool:
-    """
-    Print config/secrets.yaml file of a project to stdout
-    """
+def read_secrets(group: str, suffix: str, profile: str) -> bool:
     status: bool = True
-    profile = f'continuous-{subs}'
-    secrets_file = f'groups/{subs}/config/secrets.yaml'
+    secrets_file: str = f'groups/{group}/config/secrets-{suffix}.yaml'
     if not os.path.exists(secrets_file):
-        logger.error(f'secrets.yaml does not exist in {subs}')
+        logger.error(f'secrets-{suffix}.yaml does not exist in {group}')
         status = False
     else:
-        utils.generic.aws_login(f'continuous-{subs}')
-        logger.info(f'Printing {subs} secrets: \n')
+        utils.generic.aws_login(profile)
         subprocess.call(
-            f'sops --aws-profile {profile} -d {secrets_file}',
+            f'sops --aws-profile {profile} --decrypt {secrets_file}',
             shell=True
         )
     return status
@@ -366,7 +357,7 @@ def get_fingerprint(subs: str) -> bool:
     """ Get the hash and date of every folder in fusion
     """
     results = []
-    max_hash = None
+    max_hash = ''
     max_date = ''
     path = f"groups/{subs}"
     if not os.path.exists(path):

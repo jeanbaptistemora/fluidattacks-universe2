@@ -30,7 +30,7 @@ def test_resources_2(relocate, cli_runner):
 
 
 def test_resources_3(relocate, cli_runner):
-    result = cli_runner(f'resources --read {GROUP}'.split())
+    result = cli_runner(f'resources --read-dev {GROUP}'.split())
     assert result.exit_code == 0
 
 

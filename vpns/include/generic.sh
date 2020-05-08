@@ -10,13 +10,13 @@ function get_subs {
 }
 
 function get_secret {
-  # Read a var from secrets.yaml and echo its value to stdout
+  # Read a var from secrets-dev.yaml and echo its value to stdout
   local variable="${1}"
   local secrets
   local subs
 
       subs="$(get_subs)" \
-  &&  secrets="groups/${subs}/config/secrets.yaml" \
+  &&  secrets="groups/${subs}/config/secrets-dev.yaml" \
   &&  sops \
         --aws-profile "continuous-${subs}" \
         -d \

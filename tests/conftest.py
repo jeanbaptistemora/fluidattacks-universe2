@@ -65,16 +65,6 @@ def prepare_s3_continuous_repositories(request):
 
 
 @pytest.fixture(scope='session', autouse=True)
-def prepare(request):
-    """Prepare the environment by cloning the test repository."""
-    with _relocate():
-        os.system(
-            f'git -C groups/{SUBS}/fusion/services reset --hard HEAD'
-        )
-        assert resources.repo_cloning(SUBS)
-
-
-@pytest.fixture(scope='session', autouse=True)
 def cli_runner(request):
     def executor(command: List[str]):
         runner = CliRunner()
