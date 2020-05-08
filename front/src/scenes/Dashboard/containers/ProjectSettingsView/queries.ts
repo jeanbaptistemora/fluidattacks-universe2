@@ -63,7 +63,7 @@ export const ADD_ENVIRONMENTS_MUTATION: DocumentNode = gql`
 `;
 
 export const ADD_REPOSITORIES_MUTATION: DocumentNode = gql`
-  mutation AddRespositoriesMutation($projectName: String!, $repos: [RepositoryInput]!) {
+  mutation AddRepositoriesMutation($projectName: String!, $repos: [RepositoryInput]!) {
     addRepositories(projectName: $projectName, repos: $repos) {
       success
     }
