@@ -129,8 +129,8 @@ The only personal information we store of our clients are:
 - Full name (Provided by Google or Microsoft).
 - Company and cellphone (Only if shared, user can decide).
 
-It is also worth noting that once a user losses her
-corporate email, she also loses access to her
+It is also worth noting that once users lose their
+corporate email, they also lose access to their
 [inner]#link:../products/integrates[Integrates]#
 account. Allowing clients to easily manage
 who has and who does not have access to
@@ -165,8 +165,8 @@ Some of our IAM specifications and requirements are:
 Authorization refers to the ability of giving
 users within an application,
 the minimum privileges they need to do
-their work. No user should have the ability
-to do what she should not.
+their work. No users should have the ability
+to do what they should not.
 
 === 4.1 For Clients
 
@@ -331,11 +331,11 @@ utilize a GDPR cookie plugin that:
 
 - Informs the user about
   every cookie the page creates
-- Lets the user specify
+- Lets users specify
   which ones to allow,
-  thus giving the user full control
+  thus giving them full control
   over what information we're creating
-  and manipulating within her browser
+  and manipulating within their browser
 
 By doing this, we become compliant with
 security rules like:
@@ -426,7 +426,7 @@ BYOD is not allowed.
 === 13.8 No physical keys to our offices
 
 All our offices have digital locks.
-Every employee has her own password to open the doors.
+Employees have their own password to open the doors.
 All successful and failed access attempts are logged.
 
 === 13.9 Only Wifi
