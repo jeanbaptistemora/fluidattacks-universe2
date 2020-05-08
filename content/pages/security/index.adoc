@@ -1,18 +1,23 @@
 :slug: security/
 :description: This page summarizes all the best practices and technology Fluid Attacks implements in order to keep internal products and customer data secure. It goes from philosophies as having open source code, to particular ciphering algorithms used and internal behavioral policies.
 :keywords: Fluid Attacks, Security, Data, Policy, Breach, Best practices
+:subtitle: How we keep things secure
 
 = Security
 
 As a security company,
 Fluid Attacks is aware of the importance of:
 
+. Having honesty, team work and discipline
+  as immovable principles.
+  Our full manifest can be found
+  [inner]#link:..values/[here]#
 . Developing products
   that comply with the highest worldwide security standards.
 . Aquiring only compliant services and products for internal use.
 . Implementing best security practices within our organization.
 . Being completely transparent with our clients,
-  especially regarding their data, how we use it,
+  especially regarding their data: how we use it,
   and what we do to protect it.
 
 This concerns,
@@ -48,29 +53,29 @@ industry-standard encryption at rest.
 
 - All the sesitive data provided by our clients
   (Repo access keys, vpn credentials, etc)
-  is ciphered using
-  link:https://github.com/mozilla/sops#sops-secrets-operations[Mozilla SOPS]
-  and
-  link:https://aws.amazon.com/kms[AWS KMS]
+  is ciphered using our key management system KMS
   symmetric algorithm
   based on Advanced Encryption Standard (AES)
   in Galois Counter Mode (GCM)
   with 256-bit keys.
 - All our clients repositories are
   stored in private, AES256 ciphered
-  link:https://aws.amazon.com/s3/[AWS buckets].
+  cloud storage system.
 - Forces exploits are stored encrypted using AES256 keys.
 - All
   [inner]#link:../products/integrates[Integrates]#
-  data is stored in a
-  link:https://aws.amazon.com/es/dynamodb/[AWS DynamoDB]
-  AES256 encrypted database.
-- All our products use
-  link:https://github.com/mozilla/sops[Mozilla SOPS]
-  and
-  link:https://aws.amazon.com/kms/https://aws.amazon.com/kms/[AWS KMS]
+  data is stored in a AES256 encrypted
+  non-relational database.
+- All our products use our KMS
   for both development and production secrets.
-
+- All our Windows laptops
+  have their hard drives encrypted
+  using Bitlocker.
+  Adherence to this policy is continuously checked
+  by a domain controller.
+- All our Linux laptos
+  have their hard drives encrypted
+  from bootloader using LUKS.
 
 === 2.2 Encryption in transit
 
@@ -83,6 +88,10 @@ industry-standard encryption in transit.
 - [inner]#link:../products/integrates[Integrates]#'s
   DynamoDB database uses TLSv1.2
   for in transit protection.
+- We possess fully dedicated channels with some of our biggest clients,
+  allowing us to isolate all unwanted traffic. This is especially useful
+  for running secure dynamic application hacking.
+- For the rest of our clients, we use fully encrypted VPNs.
 
 == 3. Authentication
 
@@ -90,26 +99,43 @@ industry-standard encryption in transit.
 
 As
 [inner]#link:../products/integrates[Integrates]#
-uses OAuth with Google and Microsoft Accounts,
+uses SSO with Google and Microsoft Accounts,
+we do not store any account passwords.
 The only personal information we store of our clients are:
 
 - Full name (Provided by Google or Microsoft).
 - Company and cellphone (Only if shared, user can decide).
 
+It is also worth noting that once a user losses her
+corporate email, she also loses access to her
+[inner]#link:../products/integrates[Integrates]#
+account. Allowing clients to easily manage
+who has and who does not have access to
+their projects.
+
 === 3.2 Internal
 
-We use
-link:https://www.okta.com/[Okta]
-as a centralized authentication platform,
+Our IAM is a centralized authentication platform,
 allowing us to manage all the applications
 we internally use from just one place. Our employees do
 not know any of the passwords of the managed applications,
-they only know their own
-link:https://www.okta.com/[Okta]
-password. Once they log in to
-link:https://www.okta.com/[Okta],
+they only know their own IAM passphrase.
+Once they log in to IAM,
 they can access applications assigned to them.
-Okta supports MFA and strong password policies.
+
+Some of our IAM specifications and requirements are:
+
+- Passphrases instead of passwords
+  (More information [inner]#link:..blog/requiem-password/[here]#).
+- Passphrases expire every 90 days.
+- Previous passphrases can only be reused after a 24 reset cycle.
+- Multi-factor authentication from a mobile device must be
+  set. Our MFA uses
+  link:https://doubleoctopus.com/security-wiki/authentication/out-of-band-authentication/[OOB],
+  which reduces risk in case a comunnication channel becomes compromised.
+- In case a mobile phone supports biometric authentication,
+  our IAM enforces its usage.
+- All successful sessions have a duration of 9 hours.
 
 == 4. Authorization
 
@@ -120,7 +146,8 @@ has a set of roles that are necessary on every hacking project,
 providing project managers with the ability
 to assign the minimum required permissions
 to each team member.
-Some of these roles are: analyst, admin,
+Some of these roles are:
+hacker, admin, releaser, escaper,
 user, project manager, etc.
 
 === 4.2 Internal
@@ -129,9 +156,7 @@ Every application we use must have user-granular authorization settings
 in order to grant minimum-privilege policy at all times.
 Some examples are:
 
-- link:https://www.okta.com/[SOPS]
-  and
-  link:https://aws.amazon.com/kms/https://aws.amazon.com/kms/[AWS KMS]:
+- IAM and KMS:
   These two tools are widely used within Fluid Attacks.
   They allow us to ensure
   that hackers can only access source code,
@@ -143,8 +168,7 @@ Some examples are:
   These tools also let us keep application
   production secrets hidden from developers
   (Production-Development secrets separation).
-- link:https://www.okta.com/[Okta]:
-  With link:https://www.okta.com/[Okta]
+- IAM:
   we can grant application access on a user level.
   Granting us the ability to give employees access
   only to what they need to execute their tasks.
@@ -158,16 +182,35 @@ Key rotation is of the essence when dealing with
 sensitive data. The best way to prevent a key leakage is by
 regularily changing it . We continuously rotate:
 
-- link:https://aws.amazon.com/kms/https://aws.amazon.com/kms/[AWS KMS] keys.
-  These keys are used to encrypt
-  all the sensitive data within the organization,
-  from applications secrets to clients data.
+- KMS keys
 - JWT Tokens
 - Digital Certificates
-- link:https://aws.amazon.com/iam/[AWS IAM] credentials
-- link:https://www.okta.com/[Okta] passwords
+- IAM passphrases.
 
-== 6. We hack ourselves
+== 6. Infrastructure
+
+=== 6.1 Regenerable
+
+All our infrastructure is in the cloud.
+The only hardware we manage are our employee's laptops.
+
+Having everything in the cloud allows us to keep
+the entirety of our infrastructure written as code.
+Providing us with the ability to recreate our infrastructure
+in a daily basis,
+destroying any possible
+trojans or malicious injected scripts in the process.
+
+=== 6.2 Immutable
+
+Due to all our infrastructure being completely written as code,
+Everything in it can be audited and changes can only be made
+by changing such code. This provides full transparency
+on what was changed, when and who did it.
+Also, no administrative protocols like ssh
+or administrative accounts are needed.
+
+== 7. We hack ourselves
 
 We have full-time projects focused on hacking our own software.
 To us, seting an example of secure software is essential,
@@ -176,7 +219,7 @@ our entire technological stack goes through a
 link:../services/continuous-hacking[Continuous Hacking]
 process.
 
-== 7. Secure Chat
+== 8. Secure Chat
 
 We use link:https://rocket.chat/[Rocket.chat]
 with link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
@@ -186,24 +229,9 @@ for messaging within the organization.
 Also, all chat histories reset on a weekly basis as
 an extra measure to avoid leaks.
 
-== 8. Secure workstation policies
+== 9. Information security culture
 
-At Fluid Attacks,
-we do not posses any other physical infrastructure
-different from our own laptops.
-Everything else is in the cloud,
-protected by all the mechanisms previously mentioned.
-
-For the laptops, the following policies are applied:
-
-- All laptops have Password-protected BIOS
-- All laptops have hard drive encryption
-
-It is also worth mentioning
-that personal phones do not have direct access to the corporate email,
-as they usually are weak devices hackers try to attack.
-
-== 9. All our hired personnel must accept a NDA
+=== 9.1 All our hired personnel must accept a NDA
 
 Everyone within our company knows
 how important it is to keep our
@@ -211,6 +239,57 @@ clients's information secure.
 We enforce this by requiring
 all our new employees to sign a
 Non disclosure agreement.
+
+=== 9.2 Poligraph tests
+
+We continuously run poligraph checks on all
+employees with access to sensitive information.
+The test fully focuses on identifying
+if an employee disclosed such data
+to a third party.
+
+=== 9.3 Extensive hiring process
+
+All job applicans must go through
+an extense [inner]#link:../careers[testing process]# in order to prove
+their technical capabilities and human values.
+
+=== 9.4 Employee time tracking software
+
+We use a time tracking system that takes periodical
+screnshots from laptop screens when
+employees are working. Only managers have access to such
+screenshots in case an incident happens. Employees
+have control over the software, which means once they
+stop working, no screen recording occurs.
+
+=== 9.5 Everyone has a standard laptop
+
+A standard laptop is given to every employee,
+allowing us to sieze the computer should the
+need arise. All laptops have a password-secured BIOS,
+link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
+hardware and biometric fingerprint reader.
+BYOD is not allowed.
+
+=== 9.6 No physical keys to our offices
+
+All our offices have digital locks.
+Every employee has her own password.
+All successful and failed access attempts are logged.
+
+=== 9.7 Only Wifi
+
+We only use wifi connections with strong random generated passwords.
+Connections are always encrypted using WPA2-AES
+
+=== 9.8 We only hire directly
+
+All our employees have indefinite time contracts
+directly with the company.
+Due to the nature of our business, we never
+hire through contractors, freelance or any
+other third parties.
 
 == 10. Data policies
 
