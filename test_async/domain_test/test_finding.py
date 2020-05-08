@@ -1,8 +1,10 @@
 import os
 import pytest
+import pytz
 import time
 
 from collections import namedtuple
+from django.conf import settings
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -11,7 +13,7 @@ from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, get_findings, update_treatment,
     handle_acceptation, mask_finding, validate_evidence,
-    get_finding_historic_treatment
+    get_finding_historic_treatment, approve_draft
 )
 from backend.mailer import get_email_recipients
 from backend.dal.vulnerability import get_vulnerabilities
@@ -189,3 +191,15 @@ class FindingTests(TestCase):
         assert test_data[0]['justification'] == 'test justification'
         assert test_data[0]['treatment'] == 'IN PROGRESS'
         assert test_data[0]['user'] == 'unittest@fluidattacks.com'
+
+    def test_approve_draft(self):
+        finding_id = '475041513'
+        reviewer_email = 'unittest@fluidattacks.com'
+        test_success, test_date = approve_draft(finding_id, reviewer_email)
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today()
+        date = str(today.strftime('%Y-%m-%d %H:%M'))
+        expected_output =  True, date
+        assert isinstance(test_success, bool)
+        assert isinstance(test_date, str)
+        assert test_success, test_date[-3] == expected_output

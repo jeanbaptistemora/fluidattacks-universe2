@@ -240,7 +240,7 @@ class ProjectTest(TestCase):
     def test_list_drafts(self):
         project_name = 'unittesting'
         test_data = list_drafts(project_name)
-        expected_output = ['475041513', '560175507']
+        expected_output = ['560175507']
         assert test_data == expected_output
 
     def test_list_comments(self):
@@ -297,7 +297,7 @@ class ProjectTest(TestCase):
     def test_get_finding_project_name(self):
         finding_id = '475041513'
         test_data = get_finding_project_name(finding_id)
-        assert test_data == 'unittesting'
+        assert test_data == 'oneshottest'
 
     def test_get_pending_to_delete(self):
         projects = get_pending_to_delete()

@@ -19,7 +19,7 @@
             "N": "1"
           },
           "project_name": {
-            "S": "unittesting"
+            "S": "oneshottest"
           },
           "attack_vector_desc": {
             "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
