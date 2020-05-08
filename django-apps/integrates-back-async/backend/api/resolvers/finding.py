@@ -152,8 +152,9 @@ async def _get_release_date(info, identifier: str) -> str:
     release_date = finding['release_date']
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    curr_user_role = \
-        user_domain.get_group_level_role(user_email, finding['project_name'])
+    curr_user_role = await \
+        sync_to_async(user_domain.get_group_level_role)(
+            user_email, finding['project_name'])
     if not release_date and curr_user_role not in allowed_roles:
         raise GraphQLError('Access denied')
     return release_date
@@ -166,8 +167,7 @@ async def _get_tracking(info, identifier: str) -> List[Dict[str, int]]:
     release_date = finding['release_date']
     if release_date:
         vulns = await info.context.loaders['vulnerability'].load(identifier)
-        tracking = \
-            await \
+        tracking = await \
             sync_to_async(finding_domain.get_tracking_vulnerabilities)(vulns)
     else:
         tracking = []
@@ -261,8 +261,7 @@ async def _get_state(info, identifier: str) -> str:
 
     state = 'open' \
         if [vuln for vuln in vulns
-            if await sync_to_async(vuln_domain.get_last_approved_status)(vuln)
-            == 'open'] \
+            if vuln['last_approved_status'] == 'open'] \
         else 'closed'
     return state
 
