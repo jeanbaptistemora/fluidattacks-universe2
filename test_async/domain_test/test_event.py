@@ -1,7 +1,9 @@
+import os
 from time import time
 import pytest
 from aniso8601 import parse_datetime
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from backend.domain import event as event_domain
 from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent
@@ -87,3 +89,17 @@ def test_add_comment():
                 'first_name': 'Unit',
                 'last_name': 'test'
             })
+
+def test_update_evidence():
+    event_id = '418900978'
+    evidence_type = 'records'
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, '../mock/test-file-records.csv')
+    with open(filename, 'rb') as test_file:
+        uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                            content=test_file.read(),
+                                            content_type='text/csv')
+    test_data = event_domain.update_evidence(event_id, evidence_type, uploaded_file)
+    expected_output = True
+    assert isinstance(test_data, bool)
+    assert test_data == expected_output
