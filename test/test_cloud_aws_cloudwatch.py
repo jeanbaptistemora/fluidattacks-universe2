@@ -245,13 +245,13 @@ def test_no_alarm_on_gateway_changes_closed():
 
 
 def test_no_alarm_on_network_acl_changes_open():
-    """Check if there are alarms set on gateway changes."""
+    """Check if there are alarms set on network ACL changes."""
     assert cloudwatch.no_alarm_on_network_acl_changes(AWS_ACCESS_KEY_ID,
                                                        AWS_SECRET_ACCESS_KEY)
 
 
 def test_no_alarm_on_network_acl_changes_closed():
-    """Check if there are alarms set on gateway changes."""
+    """Check if there are alarms set on network ACL changes."""
     assert not \
         cloudwatch.no_alarm_on_network_acl_changes(AWS_ACCESS_KEY_ID,
                                         AWS_SECRET_ACCESS_KEY_BAD,
@@ -259,4 +259,22 @@ def test_no_alarm_on_network_acl_changes_closed():
 
     with no_connection():
         assert not cloudwatch.no_alarm_on_network_acl_changes(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_no_alarm_on_root_usage_open():
+    """Check if there are alarms set on root account usage."""
+    assert cloudwatch.no_alarm_on_root_usage(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_root_usage_closed():
+    """Check if there are alarms set on gateway changes."""
+    assert not \
+        cloudwatch.no_alarm_on_root_usage(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_root_usage(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
