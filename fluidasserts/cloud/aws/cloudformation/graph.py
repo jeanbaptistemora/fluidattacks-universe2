@@ -12,6 +12,7 @@ from fluidasserts.helper.aws import load_cfn_template
 from fluidasserts.db.neo4j_connection import ConnectionString, database, runner
 from fluidasserts.helper.aws import get_line, _random_string
 from fluidasserts.utils.parsers.json import standardize_objects
+from fluidasserts.utils.parsers.json import CustomDict
 
 
 class Batcher():
@@ -111,18 +112,39 @@ class Batcher():
                 f"MERGE ({alias_map}_{alias_opt}_:MapOption"
                 f" {map_properties})\n"
                 f"MERGE (map_{alias_map})-"
-                f"[rel_{alias_map}_{alias_opt}:HAS_OPTIONS]->"
+                f"[rel_{alias_map}_{alias_opt}:HAS_OPTION]->"
                 f"({alias_map}_{alias_opt}_)\n"
                 f"SET rel_{alias_map}_{alias_opt}.line ="
                 f" $map_{alias_map}_{alias_opt}_line\n")
-            try:
-                line = opt_values[f'{opt_name}.line']
-            except KeyError:
-                line = get_line(opt_values)
+
+            line = get_line(map_options[opt_name])
+
             self.statement_params[
                 f'map_{alias_map}_{alias_opt}_name'] = opt_name
 
             opt_values = standardize_objects(opt_values)
+            for var_name, var_value in opt_values.items():
+                if var_name.startswith('__'):
+                    continue
+                try:
+                    line_var = map_options[opt_name][f'{var_name}.line']
+                except KeyError:
+                    line_var = get_line(map_options[opt_name])
+
+                statement += (
+                    f"MERGE ({alias_map}_{alias_opt}_)-"
+                    f"[rel_{alias_map}_{alias_opt}_{var_name}:HAS_VAR]-"
+                    f"(:MapVar "
+                    f"{{name: ${alias_map}_{alias_opt}_{var_name}_name,"
+                    f" value: ${alias_map}_{alias_opt}_{var_name}_value}})"
+                    f"SET rel_{alias_map}_{alias_opt}_{var_name}.line ="
+                    f"$rel_{alias_map}_{alias_opt}_{var_name}_line\n")
+                self.statement_params[
+                    f'{alias_map}_{alias_opt}_{var_name}_name'] = var_name
+                self.statement_params[
+                    f'{alias_map}_{alias_opt}_{var_name}_value'] = var_value
+                self.statement_params[
+                    f'rel_{alias_map}_{alias_opt}_{var_name}_line'] = line_var
             self.statement_params[
                 f'map_{alias_map}_{alias_opt}_value'] = opt_values
 
@@ -140,15 +162,16 @@ class Batcher():
         alias_parameters = self.template['Parameters'][
             '__node_alias__'] = "params"
 
-        self.statement_params['line_node_parameters'] = get_line(
-            self.template['Parameters'])
-
         node_template_name = self.template['__node_name__']
         statement = (f"MATCH ({alias_template}:{node_template_name})\n"
                      f'WHERE {alias_template}.path = "{self.path}"\n'
-                     f"MERGE ({alias_template})-[:CONTAINS]->"
-                     f"({alias_parameters}:Parameters"
-                     " {line: $line_node_parameters})\n")
+                     f"CREATE ({alias_template})-"
+                     f"[rel_{alias_parameters}:CONTAINS]->"
+                     f"({alias_parameters}:Parameters)\n"
+                     f"SET rel_{alias_parameters}.line ="
+                     f" $rel_{alias_parameters}_line\n")
+        self.statement_params[f'rel_{alias_parameters}_line'] = get_line(
+            self.template['Parameters'])
 
         for param_name, param_attrs in self.template['Parameters'].items():
             if param_name.startswith('__'):
@@ -156,13 +179,14 @@ class Batcher():
             alias_param = param_name.replace('-', '_').lower()
             # create the node for the parameter
             param_statement = (
-                f"MERGE ({alias_parameters})-[:DECLARE_PARAMETER]->"
+                f"CREATE ({alias_parameters})-"
+                f"[rel_{alias_param}:DECLARE_PARAMETER]->"
                 f"(param_{alias_param}:Parameter"
                 # set attributes of node
-                f" {{name: $param_name_{alias_param},"
-                f" line: $line_param_{alias_param}}})\n")
+                f" {{name: $param_name_{alias_param}}})\n"
+                f"SET rel_{alias_param}.line = $line_rel_{alias_param}\n")
             self.statement_params[f'param_name_{alias_param}'] = param_name
-            self.statement_params[f'line_param_{alias_param}'] = get_line(
+            self.statement_params[f'line_rel_{alias_param}'] = get_line(
                 self.template['Parameters'][param_name])
             # add parameter attributes
             param_statement += self._load_parameter_attributes((param_name,
@@ -185,10 +209,12 @@ class Batcher():
 
         statement = (f"MATCH ({alias_template}:{node_template_name})\n"
                      f'WHERE {alias_template}.path = "{self.path}"\n'
-                     f"MERGE ({alias_template})-[:CONTAINS]->"
-                     f"({alias_mappings}:Mappings"
-                     " {line: $line_node_parameters})\n")
-        self.statement_params['line_node_mappings'] = get_line(
+                     f"CREATE ({alias_template})-"
+                     f"[rel_{alias_mappings}:CONTAINS]->"
+                     f"({alias_mappings}:Mappings)\n"
+                     f"SET rel_{alias_mappings}.line = "
+                     f"$rel_{alias_mappings}_line\n")
+        self.statement_params[f'rel_{alias_mappings}_line'] = get_line(
             self.template['Mappings'])
 
         for map_name, map_options in self.template['Mappings'].items():
@@ -196,11 +222,11 @@ class Batcher():
                 continue
             alias_map = map_name.replace('-', '_').lower()
             map_statement = (
-                f"MERGE ({alias_mappings})-[:DECLARE_MAP]->"
-                f"(map_{alias_map}:Mapping {{name: $map_name_{alias_map}, "
-                f"line: $line_map_{alias_map}}})\n")
+                f"CREATE ({alias_mappings})-[rel_{alias_map}:DECLARE_MAP]->"
+                f"(map_{alias_map}:Mapping {{name: $map_name_{alias_map}}})\n"
+                f"SET rel_{alias_map}.line = $rel_{alias_map}_line\n")
             self.statement_params[f'map_name_{alias_map}'] = map_name
-            self.statement_params[f'line_map_{alias_map}'] = get_line(
+            self.statement_params[f'rel_{alias_map}_line'] = get_line(
                 self.template['Mappings'][map_name])
 
             map_statement += self._load_map_options((map_name, map_options))
@@ -214,7 +240,7 @@ class Batcher():
 
         :param trans: Transaction to execute the statement.
         """
-        alias_conditions_f = self.template['Conditions'][
+        alias_conditions = self.template['Conditions'][
             '__node_alias__'] = "conditions_node"
         alias_template = self.template['__node_alias__']
         node_template_name = self.template['__node_name__']
@@ -222,25 +248,28 @@ class Batcher():
         statement = (
             f"MATCH ({alias_template}:{node_template_name})\n"
             f'WHERE {alias_template}.path = "{self.path}"\n'
-            f"MERGE ({alias_template})-[:CONTAINS]->"
-            f"({alias_conditions_f}:Conditions"
-            " {line: $line_node_parameters})\n")
-        self.statement_params['line_node_conditions'] = get_line(
+            f"CREATE ({alias_template})-[rel_{alias_conditions}:CONTAINS]->"
+            f"({alias_conditions}:Conditions)\n"
+            f"SET rel_{alias_conditions}.line = $rel_{alias_conditions}_line\n"
+        )
+
+        self.statement_params[f'rel_{alias_conditions}_line'] = get_line(
             self.template['Conditions'])
 
         # Create create relationship between contition nodes and each condition
         for condition_name, condition in self.template['Conditions'].items():
             if condition_name.startswith('__'):
                 continue
-            alias_condition = f"con_{condition_name.replace('-', '_').lower()}"
+            alias_con = f"con_{condition_name.replace('-', '_').lower()}"
             statement += (
-                f"MERGE ({alias_conditions_f})-[:DECLARE_CONDITION]->"
-                f"({alias_condition}:Condition "
-                f"{{name: $con_name_{alias_condition}, "
-                f"line: $line_con_{alias_condition}}})\n")
+                f"CREATE ({alias_conditions})-"
+                f"[rel_{alias_con}:DECLARE_CONDITION]->"
+                f"({alias_con}:Condition "
+                f"{{name: $con_name_{alias_con}}})\n"
+                f"SET rel_{alias_con}.line = $rel_{alias_con}_line\n")
             self.statement_params[
-                f'con_name_{alias_condition}'] = condition_name
-            self.statement_params[f'line_con_{alias_condition}'] = get_line(
+                f'con_name_{alias_con}'] = condition_name
+            self.statement_params[f'rel_{alias_con}_line'] = get_line(
                 self.template['Conditions'][condition_name])
 
         trans.run(statement, **self.statement_params)
@@ -283,31 +312,45 @@ class Batcher():
             # add node to context
             context.update([f'ref_{alias_f}_{reference}', alias_f])
             contexts_str = ', '.join(context)
-
+            try:
+                line = func_exc['Ref.line']
+            except KeyError:
+                line = 'unknown'
+            self.statement_params[f'rel_{alias_f}_{reference}_line'] = line
             return (
                 f"MATCH (ref_{alias_f}_{reference}: Parameter)\n"
                 f"WHERE ref_{alias_f}_{reference}.name = "
                 f"$ref_{alias_f}_{reference}_name\n"
                 f"WITH {contexts_str}\n"
-                f"MERGE ({alias_f})-[:REFERENCE_TO]->"
+                f"CREATE ({alias_f})-"
+                f"[rel_{alias_f}_{reference}:REFERENCE_TO]->"
                 f"(ref_{alias_f}_{reference})\n"
+                f"SET rel_{alias_f}_{reference}.line = "
+                f"$rel_{alias_f}_{reference}_line\n"
                 f"WITH {contexts_str}\n")
 
         fn_name_node = fn_name.replace('::', ':')
         alias_fn_name = fn_name_node.lower().replace(':', '_')
         alias_fn_node = f'fn_{alias_f}_{alias_fn_name}_{_random_string(5)}'
+        alias_rel = f'rel_{alias_f}_{alias_fn_name}_{_random_string(5)}'
         # add node to context
         context.update([alias_fn_node, alias_f])
         contexts_str = ', '.join(context)
 
         # create relationship with condition
         statement = (f"CREATE ({alias_f})-"
-                     f"[rel_{alias_f}_{alias_fn_name}:EXCECUTE_FN]->"
+                     f"[{alias_rel}:EXECUTE_FN]->"
                      f"({alias_fn_node}:{fn_name_node})\n"
+                     f"SET {alias_rel}.line = ${alias_rel}_line\n"
                      f"WITH {contexts_str}\n")
+        try:
+            line = func_exc[f'{fn_name}.line']
+        except KeyError:
+            line = 'unknown'
+        self.statement_params[f'{alias_rel}_line'] = line
         # add function parameters
         for param in func_exc[fn_name]:
-            if not isinstance(param, (OrderedDict, dict, list)):
+            if not isinstance(param, (OrderedDict, dict, list, CustomDict)):
                 statement += (f"SET {alias_fn_node}.param_value = "
                               f"$fn_{alias_f}_{alias_fn_name}_value\n")
                 self.statement_params[
