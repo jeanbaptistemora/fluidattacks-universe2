@@ -47,4 +47,36 @@ describe("Add Repositories modal", () => {
       .find(".glyphicon-plus"))
       .toHaveLength(1);
   });
+
+  it("should add and remove input fields", (): void => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <AddRepositoriesModal
+          isOpen={true}
+          onClose={functionMock}
+          onSubmit={functionMock}
+        />
+      </Provider>,
+    );
+
+    const addButton: ReactWrapper = wrapper.find("renderReposFields")
+                                      .find(".glyphicon-plus");
+    addButton.simulate("click");
+    expect(wrapper.find("renderReposFields")
+      .find("select"))
+      .toHaveLength(2);
+    expect(wrapper.find("renderReposFields")
+      .find("input"))
+      .toHaveLength(4);
+
+    const removeButton: ReactWrapper = wrapper.find("renderReposFields")
+                                         .find(".glyphicon-trash");
+    removeButton.simulate("click");
+    expect(wrapper.find("renderReposFields")
+      .find("select"))
+      .toHaveLength(1);
+    expect(wrapper.find("renderReposFields")
+      .find("input"))
+      .toHaveLength(2);
+  });
 });
