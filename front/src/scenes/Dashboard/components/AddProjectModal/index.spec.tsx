@@ -94,4 +94,26 @@ describe("AddProjectModal component", () => {
       .toHaveLength(1);
 
   });
+
+  it("should remove Forces and Drills switches", () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksMutation} addTypename={false}>
+          <AddProjectModal
+            isOpen={true}
+            onClose={handleOnClose}
+          />
+        </MockedProvider>
+      </Provider>,
+    );
+
+    wrapper
+      .find({ name: "type" })
+      .find("select")
+      .simulate("change", { target: { value: "ONESHOT" } });
+
+    expect(wrapper.find({ checked: true })
+      .find(".switch-group"))
+      .toHaveLength(1);
+  });
 });
