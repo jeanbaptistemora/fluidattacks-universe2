@@ -342,3 +342,23 @@ def no_alarm_on_route_table_changes(key_id: str,
                             session_token,
                             'RouteTableEventCount',
                             'route table changes')
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def no_alarm_on_s3_bucket_changes(key_id: str,
+                                  secret: str,
+                                  session_token: str = None,
+                                  retry: bool = True) -> tuple:
+    """
+    Check if alarms are set for network ACL changes.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    return _check_for_alarm(key_id,
+                            retry,
+                            secret,
+                            session_token,
+                            'S3BucketEventCount',
+                            'S3 bucket changes')

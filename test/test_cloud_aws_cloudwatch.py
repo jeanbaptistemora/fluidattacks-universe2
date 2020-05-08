@@ -281,7 +281,7 @@ def test_no_alarm_on_root_usage_closed():
 
 
 def test_no_alarm_on_route_table_changes_open():
-    """Check if there are alarms set on root account usage."""
+    """Check if there are alarms set on route table changes."""
     assert cloudwatch.no_alarm_on_route_table_changes(AWS_ACCESS_KEY_ID,
                                                        AWS_SECRET_ACCESS_KEY)
 
@@ -295,4 +295,21 @@ def test_no_alarm_on_route_table_changes_closed():
 
     with no_connection():
         assert not cloudwatch.no_alarm_on_route_table_changes(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+def test_no_alarm_on_s3_bucket_changes_open():
+    """Check if there are alarms set on s3 bucket changes."""
+    assert cloudwatch.no_alarm_on_s3_bucket_changes(AWS_ACCESS_KEY_ID,
+                                                       AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_s3_bucket_changes_closed():
+    """Check if there are alarms set on s3 bucket changes."""
+    assert not \
+        cloudwatch.no_alarm_on_s3_bucket_changes(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_s3_bucket_changes(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
