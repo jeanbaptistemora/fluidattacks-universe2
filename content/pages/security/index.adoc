@@ -11,10 +11,10 @@ Fluid Attacks is aware of the importance of:
 . Having honesty, team work and discipline
   as immovable principles.
   Our full manifest can be found
-  [inner]#link:..values/[here]#
+  [inner]#link:../values/[here]#
 . Developing products
   that comply with the highest worldwide
-  [inner]#link:..products/rules/[security standards]#.
+  [inner]#link:../products/rules/[security standards]#.
 . Aquiring only compliant services and products for internal use.
 . Implementing best security practices within our organization.
 . Being completely transparent with our clients,
@@ -83,7 +83,7 @@ industry-standard encryption at rest.
 All our applications and services have
 industry-standard encryption in transit.
 
-- The link:https://fluidattacks.com[Fluid Attacks] domain
+- The [inner]#link:../../[Fluid Attacks]# domain
   uses the latest TLSv1.3 cryptographic
   protocol for maximum in transit protection.
 - [inner]#link:../products/integrates[Integrates]#'s
@@ -141,7 +141,7 @@ they can access applications assigned to them.
 Some of our IAM specifications and requirements are:
 
 - Passphrases instead of passwords
-  (More information [inner]#link:..blog/requiem-password/[here]#).
+  (More information [inner]#link:../blog/requiem-password/[here]#).
 - Passphrases expire every 90 days.
 - Previous passphrases can only be reused after a 24 reset cycle.
 - Multi-factor authentication from a mobile device must be
@@ -295,7 +295,7 @@ We have full-time projects focused on hacking our own software.
 To us, seting an example of secure software is essential,
 that is why today,
 our entire technological stack goes through a
-link:../services/continuous-hacking[Continuous Hacking]
+[inner]#link:../services/continuous-hacking[Continuous Hacking]#
 process.
 
 == 12. Secure Chat
