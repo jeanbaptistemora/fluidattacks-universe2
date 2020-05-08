@@ -382,6 +382,10 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     })))
   );
 
+  const customDoughnutBorder: ChartDataSets = {
+    borderWidth: 0, hoverBorderWidth: 2,
+  };
+
   const formatUndefinedGraph: ((projects: IProjectTag[], colors: Dictionary<string>) => ChartData) = (
     projects: IProjectTag[], colors: Dictionary<string>,
   ): ChartData => {
@@ -393,6 +397,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
         backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
         data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
         hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
+        ...customDoughnutBorder,
       }],
       labels: dataGraphSorted.map(
         (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalUndefinedVulnerabilities)}% ${dataGraph.name}`),
@@ -412,6 +417,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
         backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
         data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
         hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
+        ...customDoughnutBorder,
       }],
       labels: dataGraphSorted.map(
         (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalVulnerabilities)}% ${dataGraph.name}`),
@@ -432,6 +438,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
         backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
         data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
         hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
+        ...customDoughnutBorder,
       }],
       labels: dataGraphSorted.map(
         (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalVulnerabilities)}% ${dataGraph.name}`),

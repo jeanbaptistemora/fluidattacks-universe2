@@ -1,5 +1,6 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
+import { GraphQLError } from "graphql";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -75,6 +76,18 @@ describe("Tag Info", () => {
     },
   };
 
+  const tagQueryError: Readonly<MockedResponse> = {
+    request: {
+      query: TAG_QUERY,
+      variables: {
+        tag: "another-tag",
+      },
+    },
+    result: {
+      errors: [new GraphQLError("Access denied")],
+    },
+  };
+
   it("should return a function", () => {
     expect(typeof (TagsInfo))
       .toEqual("function");
@@ -84,6 +97,21 @@ describe("Tag Info", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[tagQuery]} addTypename={false}>
+          <TagsInfo {...baseMockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+
+    await act(async () => { await wait(10); wrapper.update(); });
+
+    expect(wrapper)
+      .toHaveLength(1);
+  });
+
+  it("should render an error in component", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={[tagQueryError]} addTypename={false}>
           <TagsInfo {...baseMockProps} />
         </MockedProvider>
       </Provider>,
