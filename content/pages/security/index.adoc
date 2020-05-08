@@ -21,10 +21,10 @@ Fluid Attacks is aware of the importance of:
   especially regarding their data: how we use it,
   and what we do to protect it.
 
-This concerns,
+These concerns,
 concieved since the early days of the company,
 have allowed us to implement
-a huge number of measures
+a big number of measures
 throughout the years.
 In this page we will mention
 the ones that provide the highest
@@ -38,7 +38,15 @@ is available to the entire Internet.
 There are no backdoors or exposed sensitive data.
 The code is transparent and can be reviewed by anyone.
 All our source code can be found
-link:https://gitlab.com/fluidattacks[here]
+link:https://gitlab.com/fluidattacks[here].
+
+Commit history for all repositories:
+
+- link:https://gitlab.com/fluidattacks/web/-/commits/master[Web]
+- link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
+- link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
+- link:https://gitlab.com/fluidattacks/public/-/commits/master[Public]
+- link:https://gitlab.com/fluidattacks/writeups/-/commits/master[Writeups]
 
 == 2. Encryption
 
@@ -142,7 +150,7 @@ Some of our IAM specifications and requirements are:
 
 - Passphrases instead of passwords
   (More information [inner]#link:../blog/requiem-password/[here]#).
-- Passphrases expire every 90 days.
+- Passphrases expire every 30 days.
 - Previous passphrases can only be reused after a 24 reset cycle.
 - Multi-factor authentication from a mobile device must be
   set. Our MFA uses
@@ -254,7 +262,7 @@ All our infrastructure is in the cloud.
 The only hardware we manage are our employee's laptops.
 Having everything in the cloud gives us some advantages.
 
-=== 10.1 Regenerable
+=== 9.1 Regenerable
 
 It provides us with the ability
 to recreate our infrastructure
@@ -269,7 +277,7 @@ brings the following advantages:
 - The capability of deploying our infrastructure
   from 0 to production in an automated process.
 
-=== 10.2 Immutable
+=== 9.2 Immutable
 
 The infrastructure code can be audited and changes can only be made
 by changing such code. This provides full transparency
@@ -277,7 +285,7 @@ on what was changed, when and who did it.
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
-=== 10.3 Always available
+=== 9.3 Always available
 
 [inner]#link:../products/integrates[Integrates]#
 is hosted in a Kubernetes cluster with
@@ -289,7 +297,7 @@ working. Every cluster node has
 [inner]#link:../products/integrates[Integrates]#
 running in it.
 
-== 11. We hack ourselves
+== 10. We hack ourselves
 
 We have full-time projects focused on hacking our own software.
 To us, seting an example of secure software is essential,
@@ -298,7 +306,14 @@ our entire technological stack goes through a
 [inner]#link:../services/continuous-hacking[Continuous Hacking]#
 process.
 
-== 12. Secure Chat
+Aditionally, all our development projects run
+link:https://en.wikipedia.org/wiki/Continuous_integration[Continuous Integration]
+pipelines,
+Including Forces exploits and strict linters
+to ensure that no known vulnerabilities
+are released to production.
+
+== 11. Secure Chat
 
 We use a messaging system with
 link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
@@ -308,7 +323,7 @@ for communication within the organization.
 Also, all chat histories reset on a weekly basis as
 an extra measure to avoid leaks.
 
-== 13. Transparent cookie usage
+== 12. Transparent cookie usage
 
 Both [inner]#link:../products/integrates[Integrates]#
 and [inner]#link:../[Web]#
@@ -329,14 +344,14 @@ security rules like:
 - [inner]#link:../rules/314/[Provide processing confirmation]#
 - [inner]#link:../rules/315/[Provide processed data information]#
 
-== 14. Information security culture
+== 13. Information security culture
 
 This section provides details
 regarding all the best practices
 we follow in order to have a strong
 information security culture.
 
-=== 14.1 All our hired personnel must accept a NDA
+=== 13.1 All our hired personnel must accept a NDA
 
 Everyone within our company knows
 how important it is to keep our
@@ -345,7 +360,18 @@ We enforce this by requiring
 all our new employees to sign a
 Non disclosure agreement.
 
-=== 14.2 Poligraph tests
+=== 13.2 Certified hackers
+
+We continuously encourage our hackers
+to certify their knowledge.
+Usually, hackers start applying for
+certificates after spending 6 months
+in the company.
+[inner]#link:../services/certifications/[Here]#
+you can find a comprenhensive list of certifications
+our hackers team currently has.
+
+=== 13.3 Poligraph tests
 
 We continuously run poligraph checks on all
 employees with access to sensitive information.
@@ -353,13 +379,25 @@ The test fully focuses on identifying
 if an employee disclosed such data
 to a third party.
 
-=== 14.3 Extensive hiring process
+=== 13.4 Extensive hiring process
 
 All job applicans must go through
 an extense [inner]#link:../careers[testing process]# in order to prove
 their technical capabilities and human values.
 
-=== 14.4 Employee time tracking software
+The technical part of the testing process
+consists of solving programming and hacking challenges,
+upload them to a git repository with highly strict linters and compilers,
+and ascend in a [inner]#link:../training/[organizational ranking]#
+
+The human values part of the testing process
+includes creating a portfolio with the five most
+important achievements of the candidate,
+going to the office during a training
+phase to work alongside the team,
+job inverviews, among others.
+
+=== 13.5 Employee time tracking software
 
 We use a time tracking system that takes periodical
 screnshots from laptop screens when
@@ -368,7 +406,7 @@ screenshots in case an incident happens. Employees
 have control over the software, which means once they
 stop working, no screen recording occurs.
 
-=== 14.5 Audit reports of every employee
+=== 13.6 Audit reports of every employee
 
 Our collaboration systems,
 like mail, document editors, calendar, etc.
@@ -376,7 +414,7 @@ Have detailed reports on employees activities,
 allowing us to keep full track
 of what they do within the collaboration platforms.
 
-=== 14.6 Everyone has a standard laptop
+=== 13.7 Everyone has a standard laptop
 
 A standard laptop is given to every employee,
 allowing us to sieze the computer should the
@@ -385,18 +423,18 @@ link:https://docs.microsoft.com/en-us/windows/security/information-protection/tp
 hardware and biometric fingerprint reader.
 BYOD is not allowed.
 
-=== 14.7 No physical keys to our offices
+=== 13.8 No physical keys to our offices
 
 All our offices have digital locks.
 Every employee has her own password to open the doors.
 All successful and failed access attempts are logged.
 
-=== 14.8 Only Wifi
+=== 13.9 Only Wifi
 
 We only use wifi connections with strong random generated passwords.
 Connections are always encrypted using WPA2-AES
 
-=== 14.9 We only hire directly
+=== 13.10 We only hire directly
 
 All our employees have indefinite time contracts
 directly with the company.
@@ -404,12 +442,12 @@ Due to the nature of our business, we never
 hire through contractors, freelance or any
 other third parties.
 
-== 15. Data policies
+== 14. Data policies
 
 The following policies apply to all the information
 provided by a client in a project context.
 
-=== 15.1 Data use policy
+=== 14.1 Data use policy
 
 We are commited to use our clients data
 exclusively for vulnerability seeking
@@ -417,7 +455,7 @@ in the context of the service we are providing.
 No other activities will be executed
 over the provided information.
 
-=== 15.2 Data retention policy
+=== 14.2 Data retention policy
 
 All the data related to a project
 can be deleted from
@@ -429,7 +467,7 @@ After the 30 days waiting period, the project,
 source code, secrets, metadata and any other project related
 data is completely removed from all our infrastructure.
 
-=== 15.3 Data leakeage policy
+=== 14.3 Data leakeage policy
 
 In case Fluid Attacks detects a breach,
 emails notyifing the involved parties will be sent.
