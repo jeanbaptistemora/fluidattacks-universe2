@@ -1,7 +1,5 @@
 # Standard library
 import contextlib
-import os
-from operator import itemgetter
 from typing import (
     Callable,
     Coroutine,
@@ -10,12 +8,6 @@ from typing import (
 
 # Third party library
 import rollbar
-from casbin import Enforcer as CasbinEnforcer
-from casbin_in_memory_adapter.adapter import (
-    Adapter as CasbinInMemoryAdapter,
-    Policies as CasbinInMemoryPolicies,
-)
-from django.conf import settings
 from django.core.cache import cache
 from rediscluster.nodemanager import RedisClusterException
 from backend.dal import user as user_dal
@@ -27,18 +19,6 @@ ENFORCER_FUNCTION = Callable[[str, str, str], Coroutine]
 
 def get_subject_cache_key(subject: str) -> str:
     return f'authorization.{subject.lower().encode().hex()}'
-
-
-def get_perm_metamodel_path(name: str) -> str:
-    return os.path.join(settings.BASE_DIR, 'authorization', name)
-
-
-def get_subject_policies(subject: str) -> CasbinInMemoryPolicies:
-    """Get all policies associated with a user."""
-    subject_policies: CasbinInMemoryPolicies = tuple(
-        ('p', (policy.level, policy.subject, policy.object, policy.role))
-        for policy in user_dal.get_subject_policies(subject))
-    return subject_policies
 
 
 def get_cached_subject_policies(subject: str):
@@ -53,7 +33,9 @@ def get_cached_subject_policies(subject: str):
             return cached_data
 
     # Let's fetch the data from the database
-    fetched_data = get_subject_policies(subject)
+    fetched_data = tuple(
+        (policy.level, policy.subject, policy.object, policy.role)
+        for policy in user_dal.get_subject_policies(subject))
 
     # Put the data in the cache
     cache.set(cache_key, fetched_data, timeout=300)
@@ -341,39 +323,9 @@ def matches_permission(subject: str, role: str, action: str) -> bool:
     return matches
 
 
-def get_user_level_enforcer_async(subject: str) -> CasbinEnforcer:
-    """Return a filtered group-level authorization for the provided subject."""
-    policies = get_cached_subject_policies(subject)
-    adapter = CasbinInMemoryAdapter(policies)
-
-    enforcer = CasbinEnforcer(
-        model=get_perm_metamodel_path('user_level_async.conf'),
-        adapter=adapter,
-    )
-
-    enforcer.fm.add_function('matchesPermission', matches_permission)
-
-    return enforcer
-
-
-def get_group_level_enforcer_async(subject: str) -> CasbinEnforcer:
-    """Return a filtered group-level authorization for the provided subject."""
-    policies = get_cached_subject_policies(subject)
-    adapter = CasbinInMemoryAdapter(policies)
-
-    enforcer = CasbinEnforcer(
-        model=get_perm_metamodel_path('group_level_async.conf'),
-        adapter=adapter,
-    )
-
-    enforcer.fm.add_function('matchesPermission', matches_permission)
-
-    return enforcer
-
-
 def get_user_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
     """Return a filtered group-level authorization for the provided subject."""
-    policies = tuple(map(itemgetter(1), get_cached_subject_policies(subject)))
+    policies = get_cached_subject_policies(subject)
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
         should_grant_access: bool = any(
@@ -391,7 +343,7 @@ def get_user_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
 
 def get_group_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
     """Return a filtered group-level authorization for the provided subject."""
-    policies = tuple(map(itemgetter(1), get_cached_subject_policies(subject)))
+    policies = get_cached_subject_policies(subject)
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
         should_grant_access: bool = any(
