@@ -1,6 +1,5 @@
 let
   pkgs = import ../pkgs/stable.nix;
-  builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
 in
   pkgs.stdenv.mkDerivation (
@@ -21,8 +20,6 @@ in
 
       pyPkgIntegratesBack =
         import ../../django-apps/integrates-back-async pkgs;
-      pyPkgCasbinInMemoryAdapter =
-        builders.pythonPackageLocal ../../django-apps/casbin-in-memory-adapter;
 
       pyPkgReqsApp =
         builders.pythonRequirements ../../deploy/containers/app/requirements.txt;

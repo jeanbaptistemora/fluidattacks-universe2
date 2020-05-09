@@ -1,2 +1,1 @@
-casbin-in-memory-adapter
 integrates-back-async

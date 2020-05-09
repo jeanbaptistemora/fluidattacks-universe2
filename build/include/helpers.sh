@@ -212,7 +212,6 @@ function helper_build_django_apps {
 
   for app in \
     'django-apps/integrates-'* \
-    'django-apps/casbin-in-memory-adapter' \
 
   do
         echo "[INFO] Building: ${app}" \
