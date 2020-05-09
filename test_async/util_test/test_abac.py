@@ -1,6 +1,5 @@
 from typing import Set
 
-import casbin
 import pytest
 from django.conf import settings
 from django.test import TestCase
@@ -9,16 +8,18 @@ from backend.domain.user import (
     grant_user_level_role,
 )
 from backend.utils.authorization import (
+    get_group_access_enforcer,
     get_group_level_enforcer,
     get_user_level_enforcer,
 )
 
-
-def get_project_access_enforcer():
-    return settings.ENFORCER_PROJECT_ACCESS
+# Constants
+pytestmark = pytest.mark.asyncio
 
 
 class BasicAbacTest(TestCase):
+    enforcer = get_group_access_enforcer()
+
     global_project_list = {
         'verysensitiveproject',
         'continuoustesting',
@@ -26,62 +27,49 @@ class BasicAbacTest(TestCase):
         'unittesting',
     }
 
-    def test_basic_enforcer_user_wrong_role(self):
+    async def test_basic_enforcer_user_wrong_role(self):
         """Tests for an user with a wrong role."""
-        enfor = get_project_access_enforcer()
-
-        class TestItem:
-            pass
-
-        sub = TestItem()
-        sub.user_email = 'someone'
-        sub.role = 'guest'
-        sub.subscribed_projects = {}
+        sub = {
+            'user_email': 'someone',
+            'role': 'guest',
+            'subscribed_projects': {}
+        }
 
         should_deny = self.global_project_list
 
         for project in should_deny:
-            self.assertFalse(enfor.enforce(sub, project))
+            self.assertFalse(await BasicAbacTest.enforcer(sub, project))
 
-    def test_basic_enforcer_customer(self):
+    async def test_basic_enforcer_customer(self):
         """Tests for an customer user."""
-        enfor = get_project_access_enforcer()
+        sub = {
+            'username': 'someone@customer.com',
+            'role': 'customer',
+            'subscribed_projects': {'oneshottest', 'unittesting'}
+        }
 
-        class TestItem:
-            pass
+        for project in sub['subscribed_projects']:
+            self.assertTrue(await BasicAbacTest.enforcer(sub, project))
 
-        sub = TestItem()
-        sub.username = 'someone@customer.com'
-        sub.role = 'customer'
-        sub.subscribed_projects = {'oneshottest', 'unittesting'}
-
-        for project in sub.subscribed_projects:
-            self.assertTrue(enfor.enforce(sub, project))
-
-        should_deny = self.global_project_list - sub.subscribed_projects
+        should_deny = self.global_project_list - sub['subscribed_projects']
 
         for project in should_deny:
-            self.assertFalse(enfor.enforce(sub, project))
+            self.assertFalse(await BasicAbacTest.enforcer(sub, project))
 
-    def test_basic_enforcer_admin(self):
+    async def test_basic_enforcer_admin(self):
         """Tests for an admin user."""
-        enfor = get_project_access_enforcer()
-
-        class TestItem:
-            pass
-
-        sub = TestItem()
-        sub.username = 'admin@fluidattacks.com'
-        sub.role = 'admin'
-        sub.subscribed_projects = {'oneshottest', 'unittesting'}
+        sub = {
+            'username': 'admin@fluidattacks.com',
+            'role': 'admin',
+            'subscribed_projects': {'oneshottest', 'unittesting'}
+        }
 
         should_allow = self.global_project_list
 
         for project in should_allow:
-            self.assertTrue(enfor.enforce(sub, project))
+            self.assertTrue(await BasicAbacTest.enforcer(sub, project))
 
 
-@pytest.mark.asyncio
 class ActionAbacTest(TestCase):
     enforcer = get_group_level_enforcer
 
@@ -332,7 +320,6 @@ class ActionAbacTest(TestCase):
             self.assertFalse(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
 
-@pytest.mark.asyncio
 class UserAbacTest(TestCase):
     enforcer = get_user_level_enforcer
 

@@ -38,8 +38,6 @@ from backend.exceptions import InvalidAuthorization
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-ENFORCER_PROJECT_ACCESS = getattr(settings, 'ENFORCER_PROJECT_ACCESS')
-
 UNAUTHORIZED_ROLE_MSG = 'Security: Unauthorized role attempted to perform operation'
 
 
@@ -231,8 +229,9 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 'Error: Empty fields in project', 'error', context)
             raise GraphQLError('Access denied')
         try:
-            if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
-                    user_data, project_name.lower()):
+            enforcer = authorization_utils.get_group_access_enforcer()
+
+            if not await enforcer(user_data, project_name):
                 util.cloudwatch_log(
                     context, 'Security: Attempted to retrieve '
                     f'{kwargs.get("project_name")} project info '
@@ -275,8 +274,9 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 'Error: Invalid finding id format', 'error', context)
             raise GraphQLError('Invalid finding id format')
         try:
-            if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
-                    user_data, finding_project.lower()):
+            enforcer = authorization_utils.get_group_access_enforcer()
+
+            if not await enforcer(user_data, finding_project):
                 util.cloudwatch_log(
                     context, 'Security:  Attempted to retrieve '
                     'finding-related info without permission')
@@ -316,8 +316,9 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 'Error: Invalid event id format', 'error', context)
             raise GraphQLError('Invalid event id format')
         try:
-            if not await sync_to_async(ENFORCER_PROJECT_ACCESS.enforce)(
-                    user_data, event_project.lower()):
+            enforcer = authorization_utils.get_group_access_enforcer()
+
+            if not await enforcer(user_data, event_project):
                 util.cloudwatch_log(
                     context, 'Security: Attempted to retrieve '
                     'event-related info without permission')

@@ -19,7 +19,6 @@ import i18n
 
 from boto3.session import Session
 from botocore.exceptions import ClientError
-import casbin
 
 import rollbar
 
@@ -434,8 +433,3 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = FI_GOOGLE_OAUTH2_SECRET  # noqa
 SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET  # noqa
 SOCIAL_AUTH_AZUREAD_OAUTH2_RESOURCE = 'https://graph.microsoft.com/'
-
-ENFORCER_PROJECT_ACCESS = casbin.Enforcer(
-    model=os.path.join(BASE_DIR, 'authorization', 'project_access.conf'),
-    enable_log=False
-)
