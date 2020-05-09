@@ -204,8 +204,91 @@ Some examples are:
   Giving or removing access to applications
   is simple, and no users/passwords are leaked.
 
+== 5. Non-repudiation
 
-== 5. Client and project pseudonymization
+Non-repudiation refers to the capability
+of keeping a log of every action
+taken in a system.
+What was done, who did it and when.
+By knowing this,
+no one can deny their actions.
+
+We implement this in several ways
+depending of the context.
+
+=== 5.1 Everything as code
+
+At Fluid Attacks we try to keep everything we can
+versioned in a Git repository.
+By doing so, we are capable of having
+comprenhensive logs of:
+
+- What was exactly changed
+- Who changed
+- When was it changed
+- Who approved a change
+
+Currently, we keep the following systems as code:
+
+- link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
+- link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
+- link:https://gitlab.com/fluidattacks/web/-/commits/master[Website]
+- [inner]#link:../services/continuous-hacking[Continuous Hacking]#
+- <<IAC, Infrastructure>>
+- General documentation
+
+=== 5.2 Logs
+
+Typical logs are also essential
+for a non-repudiation policy to be successful.
+Currently, we store logs for:
+
+- [inner]#link:../products/integrates[Integrates]#'s
+  logging system:
+  Integrates stores a historic state
+  of projects, findings, vulnerabilities
+  and other critical components.
+  Changes made to these components
+  are always tied to a user and a date.
+  The historic state never expires.
+- [inner]#link:../products/integrates[Integrates]#'s
+  error tracking system:
+  It provides real-time logging
+  of errors that occur in its production environments.
+  It is especially useful for quickly detecting
+  new errors and hacking attempts.
+  These logs never expire.
+- Cloud logging system:
+  It stores comprehensive logs
+  of all our cloud infrastrucutre components.
+  Logs here never expire.
+- Forces executions:
+  Every time a CI pipeline runs Forces,
+  logs containing information like who ran it,
+  vulnerability status and other relevant data
+  are uploaded to our cloud storage systems,
+  allowing us to always know the current status
+  of our client's Forces service.
+  Logs here never expire.
+- IAM authentication:
+  Our IAM stores logs of
+  login attempts made by users,
+  accessed applications
+  and possible threats.
+  Logs here expire after 7 days.
+- Collaboration systems activity:
+  Our collaboration systems like mail, calendar, etc.
+  Store comprehensive logs of spam mails,
+  suspicious login attempts,
+  and other possible threats.
+  Logs here expire after 30 days.
+- CI job logs:
+  All our CI jobs provide full logging
+  of who triggerd them, when,
+  and console output.
+  These logs never expire.
+
+== 6. Client and project pseudonymization
 
 Both clients and projects have a pseudonym within our systems,
 briging with it advantages like:
@@ -220,14 +303,14 @@ Generally speaking, only the people who need to know
 whose whose client a pseudonym is and
 whose client a project is, do actually know it.
 
-== 6. Secure delivery of sensitive data
+== 7. Secure delivery of sensitive data
 
 We use an information sharing system with
 link:https://en.wikipedia.org/wiki/Data_loss_prevention_software[DPL]
 when sending any sensitive information to our clients.
 This includes contracts, portfolios and other sensitive documents.
 
-== 7. Everything is backed up in the cloud
+== 8. Everything is backed up in the cloud
 
 As data is most likely our most important asset,
 we have strong backup policies for everything.
@@ -236,16 +319,18 @@ For example:
 - Our cloud storage system is full versioned,
   meaning that any file can be recovered
   or returned to a previous version.
-- Integrates's database has weekly, trimestral
+- [inner]#link:../products/integrates[Integrates]#'s
+  database has weekly, trimestral
   and annual full backup schedules.
-- Integrates's database has point-in-time
+- [inner]#link:../products/integrates[Integrates]#'s
+  database has point-in-time
   recovery with the capability of recovering
   the database to a state it was during
   the current day. It creates a backup every
   five minutes.
 - All Forces exploits are versioned.
 
-== 8. Secret rotation
+== 9. Secret rotation
 
 Key rotation is of the essence when dealing with
 sensitive data. The best way to prevent a key leakage is by
@@ -256,13 +341,24 @@ regularily changing it. We continuously rotate:
 - Digital Certificates change every three months
 - IAM passphrases change every three months
 
-== 9. Infrastructure
+== 10. Infrastructure
 
 All our infrastructure is in the cloud.
 The only hardware we manage are our employee's laptops.
 Having everything in the cloud gives us some advantages.
 
-=== 9.1 Regenerable
+[IAC]
+=== 10.1 Infrastructure as code (IaC)
+
+All our cloud infrastructure is versioned
+in a Git repository written as code.
+Such code can be deployed anywhere
+and has all the properties of any
+other source code,
+such as auditability, history,
+revert capabilities, etc.
+
+=== 10.2 Regenerable
 
 It provides us with the ability
 to recreate our infrastructure
@@ -277,7 +373,7 @@ brings the following advantages:
 - The capability of deploying our infrastructure
   from 0 to production in an automated process.
 
-=== 9.2 Immutable
+=== 10.3 Immutable
 
 The infrastructure code can be audited and changes can only be made
 by changing such code. This provides full transparency
@@ -285,7 +381,7 @@ on what was changed, when and who did it.
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
-=== 9.3 Always available
+=== 10.4 Always available
 
 [inner]#link:../products/integrates[Integrates]#
 is hosted in a Kubernetes cluster with
@@ -297,7 +393,7 @@ working. Every cluster node has
 [inner]#link:../products/integrates[Integrates]#
 running in it.
 
-== 10. We hack ourselves
+== 11. We hack ourselves
 
 We have full-time projects focused on hacking our own software.
 To us, seting an example of secure software is essential,
@@ -313,7 +409,7 @@ Including Forces exploits and strict linters
 to ensure that no known vulnerabilities
 are released to production.
 
-== 11. Secure Chat
+== 12. Secure Chat
 
 We use a messaging system with
 link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
@@ -323,7 +419,7 @@ for communication within the organization.
 Also, all chat histories reset on a weekly basis as
 an extra measure to avoid leaks.
 
-== 12. Transparent cookie usage
+== 13. Transparent cookie usage
 
 Both [inner]#link:../products/integrates[Integrates]#
 and [inner]#link:../[Web]#
@@ -340,18 +436,18 @@ utilize a GDPR cookie plugin that:
 By doing this, we become compliant with
 security rules like:
 
-- [inner]#link:../rules/189/[Specify the purpose of data collection]#
-- [inner]#link:../rules/314/[Provide processing confirmation]#
+- [inner]#link:../rules/310/[Request user consent]#
+- [inner]#link:../rules/312/[Allow user consent revocation]#
 - [inner]#link:../rules/315/[Provide processed data information]#
 
-== 13. Information security culture
+== 14. Information security culture
 
 This section provides details
 regarding all the best practices
 we follow in order to have a strong
 information security culture.
 
-=== 13.1 All our hired personnel must accept a NDA
+=== 14.1 All our hired personnel must accept a NDA
 
 Everyone within our company knows
 how important it is to keep our
@@ -360,7 +456,7 @@ We enforce this by requiring
 all our new employees to sign a
 Non disclosure agreement.
 
-=== 13.2 Certified hackers
+=== 14.2 Certified hackers
 
 We continuously encourage our hackers
 to certify their knowledge.
@@ -371,7 +467,7 @@ in the company.
 you can find a comprenhensive list of certifications
 our hackers team currently has.
 
-=== 13.3 Poligraph tests
+=== 14.3 Poligraph tests
 
 We continuously run poligraph checks on all
 employees with access to sensitive information.
@@ -379,7 +475,7 @@ The test fully focuses on identifying
 if an employee disclosed such data
 to a third party.
 
-=== 13.4 Extensive hiring process
+=== 14.4 Extensive hiring process
 
 All job applicans must go through
 an extense [inner]#link:../careers[testing process]# in order to prove
@@ -397,7 +493,7 @@ going to the office during a training
 phase to work alongside the team,
 job inverviews, among others.
 
-=== 13.5 Employee time tracking software
+=== 14.5 Employee time tracking software
 
 We use a time tracking system that takes periodical
 screnshots from laptop screens when
@@ -406,7 +502,7 @@ screenshots in case an incident happens. Employees
 have control over the software, which means once they
 stop working, no screen recording occurs.
 
-=== 13.6 Audit reports of every employee
+=== 14.6 Audit reports of every employee
 
 Our collaboration systems,
 like mail, document editors, calendar, etc.
@@ -414,7 +510,7 @@ Have detailed reports on employees activities,
 allowing us to keep full track
 of what they do within the collaboration platforms.
 
-=== 13.7 Everyone has a standard laptop
+=== 14.7 Everyone has a standard laptop
 
 A standard laptop is given to every employee,
 allowing us to sieze the computer should the
@@ -423,7 +519,7 @@ link:https://docs.microsoft.com/en-us/windows/security/information-protection/tp
 hardware and biometric fingerprint reader.
 BYOD is not allowed.
 
-=== 13.8 Secure policies for enrolled mobile devices
+=== 14.8 Secure policies for enrolled mobile devices
 
 Our collaboration systems also provide security requirements
 mobile devices must comply with
@@ -432,18 +528,18 @@ This is especially useful,
 as personal mobile devices
 are common targets for malicious hackers.
 
-=== 13.9 No physical keys to our offices
+=== 14.9 No physical keys to our offices
 
 All our offices have digital locks.
 Employees have their own password to open the doors.
 All successful and failed access attempts are logged.
 
-=== 13.10 Only Wifi
+=== 14.10 Only Wifi
 
 We only use wifi connections with strong random generated passwords.
 Connections are always encrypted using WPA2-AES
 
-=== 13.11 We only hire directly
+=== 14.11 We only hire directly
 
 All our employees have indefinite time contracts
 directly with the company.
@@ -451,12 +547,12 @@ Due to the nature of our business, we never
 hire through contractors, freelance or any
 other third parties.
 
-== 14. Data policies
+== 15. Data policies
 
 The following policies apply to all the information
 provided by a client in a project context.
 
-=== 14.1 Data use policy
+=== 15.1 Data use policy
 
 We are commited to use our clients data
 exclusively for vulnerability seeking
@@ -464,7 +560,7 @@ in the context of the service we are providing.
 No other activities will be executed
 over the provided information.
 
-=== 14.2 Data retention policy
+=== 15.2 Data retention policy
 
 All the data related to a project
 can be deleted from
@@ -476,7 +572,7 @@ After the 30 days waiting period, the project,
 source code, secrets, metadata and any other project related
 data is completely removed from all our infrastructure.
 
-=== 14.3 Data leakeage policy
+=== 15.3 Data leakeage policy
 
 In case Fluid Attacks detects a breach,
 emails notyifing the involved parties will be sent.
