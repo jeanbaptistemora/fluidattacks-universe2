@@ -184,11 +184,10 @@ def enforce_user_level_auth_async(func: Callable[..., Any]) -> Callable[..., Any
         object_ = 'self'
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
-        enforcer = \
-            authorization_utils.get_user_level_enforcer_async(subject)
+        enforcer = authorization_utils.get_user_level_enforcer(subject)
+
         try:
-            if not await sync_to_async(enforcer.enforce)(
-                    subject, object_, action):
+            if not await enforcer(subject, object_, action):
                 util.cloudwatch_log(
                     context, UNAUTHORIZED_ROLE_MSG)
                 raise GraphQLError('Access denied')
