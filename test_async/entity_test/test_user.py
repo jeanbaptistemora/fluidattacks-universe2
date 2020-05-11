@@ -13,6 +13,8 @@ pytestmark = pytest.mark.asyncio
 
 class UserTests(TestCase):
 
+    @pytest.mark.no_changes_db
+    @pytest.mark.asyncio
     async def test_get_user(self):
         """Check for user."""
         query = '''
@@ -55,6 +57,7 @@ class UserTests(TestCase):
         assert 'responsibility' in result['data']['user']
         assert 'phoneNumber' in result['data']['user']
 
+    @pytest.mark.no_changes_db
     async def test_user_list_projects(self):
         """Check for user."""
         query = '''
@@ -83,6 +86,7 @@ class UserTests(TestCase):
         assert 'errors' not in result
         assert result['data']['userListProjects'][0]['name'] == 'oneshottest'
 
+    @pytest.mark.changes_db
     async def test_add_user(self):
         """Check for addUser mutation."""
         query = '''
@@ -117,6 +121,7 @@ class UserTests(TestCase):
         assert 'success' in result['data']['addUser']
         assert 'email' in result['data']['addUser']
 
+    @pytest.mark.changes_db
     async def test_grant_user_access_1(self):
         """Check for grantUserAccess mutation."""
         query = '''
@@ -163,6 +168,7 @@ class UserTests(TestCase):
         assert 'grantedUser' in result['data']['grantUserAccess']
         assert 'email' in result['data']['grantUserAccess']['grantedUser']
 
+    @pytest.mark.changes_db
     async def test_grant_user_access_2(self):
         """Check for grantUserAccess mutation."""
         query = '''
@@ -210,6 +216,7 @@ class UserTests(TestCase):
             'only have Hackers provided by Fluid Attacks'
         )
 
+    @pytest.mark.changes_db
     async def test_grant_user_access_3(self):
         """Check for grantUserAccess mutation."""
         query = '''
@@ -256,6 +263,7 @@ class UserTests(TestCase):
         assert 'grantedUser' in result['data']['grantUserAccess']
         assert 'email' in result['data']['grantUserAccess']['grantedUser']
 
+    @pytest.mark.changes_db
     async def test_remove_user_access(self):
         """Check for removeUserAccess mutation."""
         query = '''
@@ -291,6 +299,7 @@ class UserTests(TestCase):
         assert 'success' in result['data']['removeUserAccess']
         assert 'removedEmail' in result['data']['removeUserAccess']
 
+    @pytest.mark.changes_db
     async def test_edit_user(self):
         """Check for editUser mutation."""
         query = '''

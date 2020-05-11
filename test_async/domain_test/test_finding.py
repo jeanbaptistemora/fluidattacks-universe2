@@ -24,6 +24,7 @@ from backend.exceptions import (
 
 class FindingTests(TestCase):
 
+    @pytest.mark.no_changes_db
     def test_get_email_recipients(self):
         comment_type = 'comment'
         finding_id = '436992569'
@@ -32,6 +33,7 @@ class FindingTests(TestCase):
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], str)
 
+    @pytest.mark.no_changes_db
     def test_get_tracking_vulnerabilities(self):
         finding_id = '436992569'
         vulnerabilities = get_vulnerabilities(finding_id)
@@ -40,6 +42,7 @@ class FindingTests(TestCase):
                            'open': 1, 'closed': 0, 'cycle': 0}
         assert test_data[0] == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_findings(self):
         finding_ids = ['436992569', '422286126']
         test_data = get_findings(finding_ids)
@@ -47,6 +50,7 @@ class FindingTests(TestCase):
         assert isinstance(test_data[0], dict)
         assert test_data[0]['findingId'] == '436992569'
 
+    @pytest.mark.changes_db
     def test_update_treatment(self):
         finding_id = '463461507'
         date = datetime.now() + timedelta(days=181)
@@ -64,6 +68,7 @@ class FindingTests(TestCase):
         assert 'treatment_manager' not in vulns[0]
         assert 'treatment_manager' not in vulns[1]
 
+    @pytest.mark.changes_db
     def test_update_client_description(self):
         Status = namedtuple('Status', 'bts_changed treatment_changed')
         update = Status(bts_changed=True, treatment_changed=True)
@@ -94,6 +99,7 @@ class FindingTests(TestCase):
             assert update_client_description(
                 finding_id, values_accepted_format_error, 'unittesting@fluidattacks.com', update)
 
+    @pytest.mark.changes_db
     def test_add_comment(self):
         finding_id = '463461507'
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -115,6 +121,7 @@ class FindingTests(TestCase):
         comment_data['parent'] = str(comment_id)
         assert add_comment('unittest@fluidattacks.com', comment_data, finding_id, False)
 
+    @pytest.mark.changes_db
     def test_handle_acceptation(self):
         finding_id = '463461507'
         observations = 'Test observations'
@@ -125,6 +132,7 @@ class FindingTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
+    @pytest.mark.changes_db
     def test_mask_finding(self):
         finding_id = '475041524'
         test_data = mask_finding(finding_id)
@@ -132,6 +140,7 @@ class FindingTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_validate_evidence_exploit(self):
         evidence_id = 'exploit'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -145,6 +154,7 @@ class FindingTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_validate_evidence_exploit_invalid_type(self):
         evidence_id = 'exploit'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -157,6 +167,7 @@ class FindingTests(TestCase):
             validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
+    @pytest.mark.no_changes_db
     def test_validate_evidence_records(self):
         evidence_id = 'fileRecords'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -170,6 +181,7 @@ class FindingTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_validate_evidence_records_invalid_type(self):
         evidence_id = 'fileRecords'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -182,6 +194,7 @@ class FindingTests(TestCase):
             validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
+    @pytest.mark.no_changes_db
     def test_get_finding_historic_treatment(self):
         finding_id = '457497318'
         test_data = get_finding_historic_treatment(finding_id)
@@ -192,6 +205,7 @@ class FindingTests(TestCase):
         assert test_data[0]['treatment'] == 'IN PROGRESS'
         assert test_data[0]['user'] == 'unittest@fluidattacks.com'
 
+    @pytest.mark.changes_db
     def test_approve_draft(self):
         finding_id = '475041513'
         reviewer_email = 'unittest@fluidattacks.com'

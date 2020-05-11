@@ -16,6 +16,7 @@ pytestmark = pytest.mark.asyncio
 
 class MeTests(TestCase):
 
+    @pytest.mark.no_changes_db
     async def test_me(self):
         """Check Me query"""
         query = '''{
@@ -71,6 +72,7 @@ class MeTests(TestCase):
             assert 'name' in project
             assert 'description' in project
 
+    @pytest.mark.changes_db
     async def test_sign_in(self):
         """Check for signIn mutation."""
         query = '''
@@ -105,6 +107,7 @@ class MeTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'INVALID_AUTH_TOKEN'
 
+    @pytest.mark.changes_db
     async def test_update_access_token(self):
         """Check for updateAccessToken mutation."""
         query = '''
@@ -145,6 +148,7 @@ class MeTests(TestCase):
         assert 'updateAccessToken' in result['data']
         assert 'success' in result['data']['updateAccessToken']
 
+    @pytest.mark.changes_db
     async def test_invalidate_access_token(self):
         """Check invalidateAccessToken query"""
         query = '''
@@ -173,6 +177,7 @@ class MeTests(TestCase):
         assert 'invalidateAccessToken' in result['data']
         assert 'success' in result['data']['invalidateAccessToken']
 
+    @pytest.mark.changes_db
     async def test_accept_legal(self):
         """Check acceptLegal query"""
         query = '''

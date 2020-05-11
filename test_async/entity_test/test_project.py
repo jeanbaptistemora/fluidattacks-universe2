@@ -55,6 +55,7 @@ class ProjectTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
+    @pytest.mark.no_changes_db
     async def test_project(self):
         """Check for project mutation."""
         query = '''
@@ -109,10 +110,10 @@ class ProjectTests(TestCase):
         assert result['data']['project']['hasDrills']
         assert result['data']['project']['hasForces']
         assert len(result['data']['project']['findings']) == 6
-        assert result['data']['project']['openVulnerabilities'] == 32
-        assert result['data']['project']['closedVulnerabilities'] == 9
+        assert result['data']['project']['openVulnerabilities'] == 31
+        assert result['data']['project']['closedVulnerabilities'] == 8
         assert 'lastClosingVuln' in result['data']['project']
-        assert result['data']['project']['pendingClosingCheck'] == 1
+        assert result['data']['project']['pendingClosingCheck'] == 2
         assert result['data']['project']['maxSeverity'] == 6.3
         assert result['data']['project']['meanRemediate'] == 245
         assert result['data']['project']['meanRemediateLowSeverity'] == 232
@@ -123,13 +124,14 @@ class ProjectTests(TestCase):
         assert result['data']['project']['subscription'] == 'continuous'
         assert result['data']['project']['deletionDate'] == ''
         assert result['data']['project']['userDeletion'] == ''
-        assert result['data']['project']['tags'][0] == 'testing'
+        assert result['data']['project']['tags'][0] == 'test-projects'
         assert result['data']['project']['description'] == 'Integrates unit test project'
-        assert 1 <= len(result['data']['project']['drafts']) <= 2
-        assert 5 <= len(result['data']['project']['events']) == 7
+        assert len(result['data']['project']['drafts']) == 1
+        assert len(result['data']['project']['events']) == 5
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
         assert len(result['data']['project']['users']) == 4
 
+    @pytest.mark.no_changes_db
     async def test_project_filtered(self):
         """Check for project mutation."""
         query = '''
@@ -147,6 +149,7 @@ class ProjectTests(TestCase):
         assert len(result['data']['project']['findings']) == 1
         assert result['data']['project']['findings'][0]['id'] == "463461507"
 
+    @pytest.mark.no_changes_db
     async def test_project_filter_not_match(self):
         """Check for project mutation."""
         query = '''
@@ -163,6 +166,7 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert len(result['data']['project']['findings']) == 0
 
+    @pytest.mark.no_changes_db
     async def test_alive_projects(self):
         """Check for projects mutation."""
         query = '''
@@ -184,6 +188,7 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert result['data']['projects'] == expected_projects
 
+    @pytest.mark.no_changes_db
     async def test_alive_projects_filtered(self):
         """Check for projects mutation."""
         query = '''
@@ -202,6 +207,7 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert result['data']['projects'] == expected_output
 
+    @pytest.mark.changes_db
     async def test_create_project(self):
         """Check for createProject mutation."""
         query = '''
@@ -227,6 +233,7 @@ class ProjectTests(TestCase):
         else:
             pytest.skip("Expected error")
 
+    @pytest.mark.changes_db
     async def test_request_remove_denied(self):
         """Check for createProject mutation."""
         query = '''
@@ -245,6 +252,7 @@ class ProjectTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(PermissionDenied())
 
+    @pytest.mark.changes_db
     async def test_request_remove_pending(self):
         """Check for requestRemoveProject mutation."""
         query = '''
@@ -263,6 +271,7 @@ class ProjectTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(AlreadyPendingDeletion())
 
+    @pytest.mark.changes_db
     async def test_reject_request_remove_denied(self):
         """Check for rejectRemoveProject mutation."""
         query = '''
@@ -281,6 +290,7 @@ class ProjectTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(PermissionDenied())
 
+    @pytest.mark.changes_db
     async def test_reject_request_remove_not_pending(self):
         """Check for rejectRemoveProject mutation."""
         query = '''
@@ -299,6 +309,7 @@ class ProjectTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(NotPendingDeletion())
 
+    @pytest.mark.changes_db
     async def test_add_tags(self):
         """Check for addTags mutation."""
         query = '''
@@ -320,6 +331,7 @@ class ProjectTests(TestCase):
         assert 'success' in result['data']['addTags']
         assert result['data']['addTags']['success']
 
+    @pytest.mark.changes_db
     async def test_remove_tag(self):
         """Check for removeTag mutation."""
         query = '''
@@ -342,6 +354,7 @@ class ProjectTests(TestCase):
         assert 'success' in result['data']['removeTag']
         assert result['data']['removeTag']['success']
 
+    @pytest.mark.changes_db
     async def test_add_all_project_access(self):
         """Check for addAllProjectAccess mutation."""
         query = '''
@@ -359,6 +372,7 @@ class ProjectTests(TestCase):
         assert 'success' in result['data']['addAllProjectAccess']
         assert result['data']['addAllProjectAccess']['success']
 
+    @pytest.mark.changes_db
     async def test_remove_all_project_access(self):
         """Check for removeAllProjectAccess mutation."""
         query = '''
@@ -376,6 +390,7 @@ class ProjectTests(TestCase):
         assert 'success' in result['data']['removeAllProjectAccess']
         assert result['data']['removeAllProjectAccess']['success']
 
+    @pytest.mark.changes_db
     async def test_add_project_comment_parent_zero(self):
         """Check for addProjectComment mutation."""
         query = '''
@@ -396,6 +411,7 @@ class ProjectTests(TestCase):
         assert 'success' in result['data']['addProjectComment']
         assert result['data']['addProjectComment']['success']
 
+    @pytest.mark.changes_db
     async def test_add_project_comment_parent_non_zero(self):
         """Check for addProjectComment mutation."""
         query = '''

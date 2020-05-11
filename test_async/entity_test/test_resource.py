@@ -38,6 +38,7 @@ class ResourceTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
+    @pytest.mark.no_changes_db
     async def test_get_resources(self):
         """Check for project resources"""
         query = '''{
@@ -80,6 +81,7 @@ class ResourceTests(TestCase):
         assert 'https://fluidattacks.com/' in \
             result['data']['resources']['environments']
 
+    @pytest.mark.changes_db
     async def test_add_repositories(self):
         """Check for addRepositories mutation."""
         query = '''mutation {
@@ -109,6 +111,7 @@ class ResourceTests(TestCase):
         assert 'success' in result['data']['addRepositories']
         assert result['data']['addRepositories']['success']
 
+    @pytest.mark.changes_db
     async def test_add_environments(self):
         """Check for addEnvironments mutation."""
         query = '''mutation {
@@ -125,6 +128,7 @@ class ResourceTests(TestCase):
         assert 'success' in result['data']['addEnvironments']
         assert result['data']['addEnvironments']['success']
 
+    @pytest.mark.changes_db
     async def test_add_files(self):
         """Check for addFiles mutation."""
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -164,6 +168,7 @@ class ResourceTests(TestCase):
         else:
             pytest.skip("Expected error")
 
+    @pytest.mark.changes_db
     async def test_download_file(self):
         """Check for downloadFile mutation."""
         query = '''
@@ -183,6 +188,7 @@ class ResourceTests(TestCase):
         assert result['data']['downloadFile']['success']
         assert 'url' in result['data']['downloadFile']
 
+    @pytest.mark.changes_db
     async def test_remove_files(self):
         """Check for removeFiles mutation."""
         file_data = {
@@ -207,6 +213,7 @@ class ResourceTests(TestCase):
         assert 'success' in result['data']['removeFiles']
         assert result['data']['removeFiles']['success']
 
+    @pytest.mark.changes_db
     async def test_update_repository(self):
         """Check for updateRepository mutation."""
         query = '''mutation {
@@ -224,6 +231,7 @@ class ResourceTests(TestCase):
         assert 'success' in result['data']['updateRepository']
         assert result['data']['updateRepository']['success']
 
+    @pytest.mark.changes_db
     async def test_update_environment(self):
         """Check for updateEnvironment mutation."""
         query = '''mutation {

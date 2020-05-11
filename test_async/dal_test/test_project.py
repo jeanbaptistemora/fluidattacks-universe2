@@ -28,6 +28,7 @@ class ProjectTests(TestCase):
         assert get_current_month_information(
             project_name, query_commits) is not None
 
+    @pytest.mark.no_changes_db
     def test_get_pending_verification_findings(self):
         project_name = 'unittesting'
         findings = get_pending_verification_findings(project_name)

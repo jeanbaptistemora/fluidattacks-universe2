@@ -1,6 +1,7 @@
 from tempfile import NamedTemporaryFile
 import json
 import os
+import pytest
 
 from ariadne import graphql
 from django.test import TestCase
@@ -37,6 +38,7 @@ class ForcesExecutionsTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
+    @pytest.mark.no_changes_db
     async def test_project_name(self):
         """Check for project_name field."""
         query = '''{
@@ -50,6 +52,7 @@ class ForcesExecutionsTests(TestCase):
         assert result['data']['forcesExecutions']['projectName'] \
             == 'unittesting'
 
+    @pytest.mark.no_changes_db
     async def test_executions(self):
         """Check for executions field."""
         query = """

@@ -26,12 +26,14 @@ from backend.scheduler import (
 
 class SchedulerTests(TestCase):
 
+    @pytest.mark.no_changes_db
     def test_is_not_a_fluid_attacks_email(self):
         fluid_attacks_email = 'test@fluidattacks.com'
         not_fluid_attacks_email = 'test@test.com'
         assert is_not_a_fluidattacks_email(not_fluid_attacks_email)
         assert not is_not_a_fluidattacks_email(fluid_attacks_email)
 
+    @pytest.mark.no_changes_db
     def test_remove_fluid_from_recipients(self):
         emails = [
             'test@fluidattacks.com', 'test2@fluidattacks.com', 'test@test.com',
@@ -41,6 +43,7 @@ class SchedulerTests(TestCase):
         expected_output = ['test@test.com', 'test2@test.com']
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_is_a_unsolved_event(self):
         dumb_unsolved_event = {
             'id': 'testid',
@@ -57,6 +60,7 @@ class SchedulerTests(TestCase):
         assert is_a_unsolved_event(dumb_unsolved_event)
         assert not is_a_unsolved_event(dumb_solved_event)
 
+    @pytest.mark.no_changes_db
     def test_get_unsolved_events(self):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
@@ -78,6 +82,7 @@ class SchedulerTests(TestCase):
         assert isinstance(test_data[0], dict)
         assert [ev for ev in test_data if ev['event_id'] == '540462628']
 
+    @pytest.mark.no_changes_db
     def test_extract_info_from_event_dict(self):
         dumb_event_dict = {
             'id': 'testid', 'event_type': 'test', 'detail': 'detail'
@@ -86,6 +91,7 @@ class SchedulerTests(TestCase):
         expected_output = {'type': 'test', 'details': 'detail'}
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_finding_url(self):
         dumb_finding_dict = {'project_name': 'test', 'finding_id': 'test'}
         test_data = get_finding_url(dumb_finding_dict)
@@ -93,6 +99,7 @@ class SchedulerTests(TestCase):
 /project/test/test/description'
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_status_vulns_by_time_range(self):
         released_findings = get_released_findings('UNITTESTING')
         first_day = '2019-01-01 12:00:00'
@@ -104,12 +111,14 @@ class SchedulerTests(TestCase):
         expected_output = {'found': 8, 'accepted': 4, 'closed': 2}
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_create_weekly_date(self):
         first_date = '2019-09-19 13:23:32'
         test_data = create_weekly_date(first_date)
         expected_output = 'Sep 16 - 22, 2019'
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_accepted_vulns(self):
         released_findings = get_released_findings('UNITTESTING')
         first_day = '2019-01-01 12:00:00'
@@ -121,6 +130,7 @@ class SchedulerTests(TestCase):
         expected_output = 4
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_by_time_range(self):
         finding = get_finding('422286126')
         first_day = '2019-01-01 12:00:00'
@@ -132,6 +142,7 @@ class SchedulerTests(TestCase):
         expected_output = 1
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_create_register_by_week(self):
         project_name = 'unittesting'
         test_data = create_register_by_week(project_name)
@@ -141,6 +152,7 @@ class SchedulerTests(TestCase):
             assert isinstance(item[0], dict)
             assert item[0] is not None
 
+    @pytest.mark.no_changes_db
     def test_create_data_format_chart(self):
         registers = OrderedDict(
             [('Sep 24 - 30, 2018',
@@ -155,6 +167,7 @@ class SchedulerTests(TestCase):
         ]
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_all_vulns_by_project(self):
         all_registers = get_released_findings('UNITTESTING')
         test_data = get_all_vulns_by_project(all_registers)
@@ -163,18 +176,21 @@ class SchedulerTests(TestCase):
             assert isinstance(item, dict)
         assert test_data[0]['finding_id']
 
+    @pytest.mark.no_changes_db
     def test_get_first_week_dates(self):
         vulns = get_vulnerabilities('422286126')
         test_data = get_first_week_dates(vulns)
         expected_output = ('2018-09-24 00:00:00', '2018-09-30 23:59:59')
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_date_last_vulns(self):
         vulns = get_vulnerabilities('422286126')
         test_data = get_date_last_vulns(vulns)
         expected_output = '2019-01-07 16:01:26'
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_format_vulnerabilities(self):
         act_finding = get_finding('422286126')
         positive_delta = 1
@@ -193,6 +209,7 @@ class SchedulerTests(TestCase):
         expected_output = 'FIN.S.0051. Weak passwords reversed (-1)'
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_create_msj_finding_pending(self):
         not_new_treatment_finding = get_finding('422286126')
         new_treatment_finding = get_finding('436992569')
@@ -205,12 +222,14 @@ class SchedulerTests(TestCase):
         expected_output = u'FIN.S.0038. Fuga de información de negocio'
         assert expected_output in test_data
 
+    @pytest.mark.no_changes_db
     def test_all_user_formatted(self):
         company = '_test_'
         test_data = all_users_formatted(company)
         expected_output = {company: 0}
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_project_indicators(self):
         project_name = 'unittesting'
         test_data = get_project_indicators(project_name)

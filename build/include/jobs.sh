@@ -594,6 +594,22 @@ function job_rotate_jwt_token {
 }
 
 function job_test_back {
+  local common_args=(
+    -n auto
+    --ds 'fluidintegrates.settings'
+    --dist 'loadscope'
+    --verbose
+    --maxfail '20'
+    --cov 'fluidintegrates'
+    --cov 'app'
+    --cov "${pyPkgIntegratesBack}/site-packages/backend"
+    --disable-warnings
+  )
+  local full_args=()
+  local markers=(
+    no_changes_db
+    changes_db
+  )
   local processes_to_kill=()
   local port_dynamo='8022'
   local port_redis='6379'
@@ -637,21 +653,29 @@ function job_test_back {
   &&  sleep 5 \
   &&  echo '[INFO] Populating DynamoDB local' \
   &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
-  &&  pytest \
-        -n auto \
-        --ds='fluidintegrates.settings' \
-        --dist='loadscope' \
-        --verbose \
-        --maxfail='20' \
-        --cov='fluidintegrates' \
-        --cov='app' \
-        --cov="${pyPkgIntegratesBack}/site-packages/backend" \
-        --cov-report='term' \
-        --cov-report='html:build/coverage/html' \
-        --cov-report='xml:build/coverage/results.xml' \
-        --cov-report='annotate:build/coverage/annotate' \
-        --disable-warnings \
-        'test_async' \
+  &&  for i in "${!markers[@]}"
+      do
+        if [[ "${i}" = 0 ]]
+        then
+          full_args=(
+            "${common_args[@]}"
+            --cov-report 'term'
+            --cov-report 'html:build/coverage/html'
+            --cov-report 'xml:build/coverage/results.xml'
+            --cov-report 'annotate:build/coverage/annotate'
+          )
+        else
+          full_args=(
+            "${common_args[@]}"
+            --cov-append
+          )
+        fi
+        pytest \
+          -m "${markers[i]}" \
+          "${full_args[@]}" \
+          'test_async/' \
+        || return 1
+      done \
   &&  cp -a 'build/coverage/results.xml' "coverage.xml"
 }
 

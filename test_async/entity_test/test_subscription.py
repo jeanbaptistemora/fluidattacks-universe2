@@ -47,6 +47,7 @@ class SubscriptionTest(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
+    @pytest.mark.changes_db
     @pytest.mark.asyncio
     async def test_post_broadcast(self):
         """Check for post_broadcast_message mutation."""
@@ -62,6 +63,7 @@ class SubscriptionTest(TestCase):
         assert 'errors' not in result
         assert result['data']['postBroadcastMessage']['success']
 
+    @pytest.mark.no_changes_db
     def test_websocket_connection(self):
         """Test websocket consumer."""
         client = TestClient(GraphQL(SCHEMA))

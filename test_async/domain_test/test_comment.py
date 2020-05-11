@@ -8,6 +8,7 @@ import backend.domain.comment as comment_domain
 
 class CommentTests(TestCase):
 
+    @pytest.mark.no_changes_db
     def test_list_comments(self):
         finding_id = '422286126'
 
@@ -29,6 +30,7 @@ class CommentTests(TestCase):
         # Must be enabled later
         # assert test_data == expected_output
 
+    @pytest.mark.changes_db
     def test_fill_comment_data(self):
         test_data = {
             'content': 'test content',

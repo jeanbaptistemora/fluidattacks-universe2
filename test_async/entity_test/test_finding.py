@@ -45,6 +45,7 @@ class FindingTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
+    @pytest.mark.no_changes_db
     async def test_finding(self):
         """Check for finding query."""
         query = '''{
@@ -169,6 +170,7 @@ class FindingTests(TestCase):
         assert 'vulnerabilities' in result['data']['finding']
         assert result['data']['finding']['vulnerabilities'][0]['specific'] == 'phone'
 
+    @pytest.mark.changes_db
     async def test_remove_evidence(self):
         """Check for removeEvidence mutation."""
         query = '''
@@ -187,6 +189,7 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['removeEvidence']
 
+    @pytest.mark.changes_db
     async def test_update_evidence(self):
         """Check for updateEvidence mutation."""
         query = '''
@@ -220,6 +223,7 @@ class FindingTests(TestCase):
         else:
             pytest.skip("Expected error")
 
+    @pytest.mark.changes_db
     async def test_update_evidence_description(self):
         """Check for updateEvidenceDescription mutation."""
         query = '''
@@ -238,6 +242,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['updateEvidenceDescription']
         assert result['data']['updateEvidenceDescription']
 
+    @pytest.mark.changes_db
     async def test_update_severity(self):
         """Check for updateSeverity mutation."""
         query = '''
@@ -275,6 +280,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['updateSeverity']
         assert result['data']['updateSeverity']['success']
 
+    @pytest.mark.changes_db
     async def test_add_finding_comment_parent_zero(self):
         """Check for addFindingComment mutation."""
         query = '''
@@ -296,6 +302,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['addFindingComment']
         assert result['data']['addFindingComment']['success']
 
+    @pytest.mark.changes_db
     async def test_add_finding_comment_parent_non_zero(self):
         """Check for addFindingComment mutation."""
         query = '''
@@ -317,6 +324,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['addFindingComment']
         assert result['data']['addFindingComment']['success']
 
+    @pytest.mark.changes_db
     async def test_update_description(self):
         """Check for updateDescription mutation."""
         query = '''
@@ -378,6 +386,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['updateDescription']
         assert result['data']['updateDescription']['success']
 
+    @pytest.mark.changes_db
     async def test_update_client_description(self):
         """Check for updateClientDescription mutation."""
         query = '''
@@ -403,6 +412,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['updateClientDescription']
         assert result['data']['updateClientDescription']['success']
 
+    @pytest.mark.changes_db
     async def test_reject_draft(self):
         """Check for rejectDraft mutation."""
         query = '''
@@ -418,6 +428,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['rejectDraft']
         assert result['data']['rejectDraft']
 
+    @pytest.mark.changes_db
     async def test_delete_finding(self):
         """Check for deleteFinding mutation."""
         query = '''
@@ -435,6 +446,7 @@ class FindingTests(TestCase):
         with pytest.raises(FindingNotFound):
             assert get_finding('560175507')
 
+    @pytest.mark.changes_db
     async def test_approve_draft(self):
         """Check for approveDraft mutation."""
         query = '''
@@ -449,6 +461,7 @@ class FindingTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'CANT_APPROVE_FINDING_WITHOUT_VULNS'
 
+    @pytest.mark.changes_db
     async def test_create_draft(self):
         """Check for createDraft mutation."""
         query = '''
@@ -495,6 +508,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['createDraft']
         assert result['data']['createDraft']['success']
 
+    @pytest.mark.changes_db
     async def test_submit_draft(self):
         """Check for submitDraft mutation."""
         query = '''
@@ -510,6 +524,7 @@ class FindingTests(TestCase):
         expected_error = 'Exception - This draft has missing fields: vulnerabilities'
         assert result['errors'][0]['message'] == expected_error
 
+    @pytest.mark.changes_db
     async def test_handle_acceptation(self):
         """Check for handleAcceptation mutation."""
         query = '''

@@ -10,6 +10,7 @@ from backend.exceptions import InvalidFileSize
 
 class ResourcesTests(TestCase):
 
+    @pytest.mark.no_changes_db
     def test_validate_file_size(self):
         filename = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(filename, '../mock/test-vulns.yaml')
@@ -19,6 +20,7 @@ class ResourcesTests(TestCase):
             with pytest.raises(InvalidFileSize):
                 assert resources_domain.validate_file_size(file_to_test, 0)
 
+    @pytest.mark.no_changes_db
     def test_has_repeated_envs(self):
         envs = [{'urlEnv': 'https://test.com/new'}]
         repeated_inputs = [
@@ -32,6 +34,7 @@ class ResourcesTests(TestCase):
             'unittesting', repeated_inputs)
         assert resources_domain.has_repeated_envs('unittesting', repeated_envs)
 
+    @pytest.mark.no_changes_db
     def test_has_repeated_repos(self):
         repos = [
             {

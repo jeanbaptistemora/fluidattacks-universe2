@@ -16,12 +16,14 @@ from backend.domain.user import (
 
 class UserTests(TestCase):
 
+    @pytest.mark.no_changes_db
     def test_get_all_users_report(self):
         finish_date = \
             (datetime.today() - timedelta(days=1)).date().strftime('%Y-%m-%d')
         users = get_all_users_report('FLUID', finish_date)
         assert users >= 1
 
+    @pytest.mark.no_changes_db
     def test_get_group_level_role(self):
         assert get_group_level_role('continuoushacking@gmail.com', 'unittesting') == 'customeradmin'
         assert get_group_level_role('integratesanalyst@gmail.com', 'unittesting') == 'analyst'
@@ -29,6 +31,7 @@ class UserTests(TestCase):
         assert get_group_level_role('unittest@fluidattacks.com', 'any-group') == 'admin'
         assert not get_group_level_role('asdfasdfasdfasdf@gmail.com', 'unittesting')
 
+    @pytest.mark.no_changes_db
     def test_get_user_level_role(self):
         assert get_user_level_role('continuoushacking@gmail.com') == 'customeradmin'
         assert get_user_level_role('integratesanalyst@gmail.com') == 'analyst'
@@ -36,6 +39,7 @@ class UserTests(TestCase):
         assert get_user_level_role('unittest@fluidattacks.com') == 'admin'
         assert not get_user_level_role('asdfasdfasdfasdf@gmail.com')
 
+    @pytest.mark.changes_db
     def test_grant_user_level_role(self):
         assert grant_user_level_role('..TEST@gmail.com', 'customer')
         assert get_user_level_role('..test@gmail.com') == 'customer'
@@ -45,6 +49,7 @@ class UserTests(TestCase):
         assert get_user_level_role('..test@gmail.com') == 'admin'
         assert get_group_level_role('..tEst@gmail.com', 'a-group') == 'admin'
 
+    @pytest.mark.changes_db
     def test_grant_group_level_role(self):
         assert grant_group_level_role('..TEST2@gmail.com', 'group', 'customer')
         assert get_user_level_role('..test2@gmail.com') == 'customer'
@@ -52,6 +57,7 @@ class UserTests(TestCase):
         assert get_group_level_role('..test2@gmail.com', 'GROUP') == 'customer'
         assert not get_group_level_role('..test2@gmail.com', 'other-group')
 
+    @pytest.mark.changes_db
     def test_revoke_group_level_role(self):
         assert grant_group_level_role('revoke_group_LEVEL_role@gmail.com', 'group', 'customer')
         assert grant_group_level_role('REVOKE_group_level_role@gmail.com', 'other-group', 'customer')
@@ -70,6 +76,7 @@ class UserTests(TestCase):
         assert not get_group_level_role('revoKe_group_level_role@gmail.com', 'other-group')
         assert not get_group_level_role('revokE_group_level_role@gmail.com', 'yet-other-group')
 
+    @pytest.mark.no_changes_db
     def test_get_current_date(self):
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today()

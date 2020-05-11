@@ -13,6 +13,7 @@ pytestmark = pytest.mark.asyncio
 
 class AlertTests(TestCase):
 
+    @pytest.mark.no_changes_db
     async def test_get_alert(self):
         """Check for project alert"""
         query = '''{
@@ -42,6 +43,7 @@ class AlertTests(TestCase):
             assert message == 'unittest'
         assert 'alert' in result['data']
 
+    @pytest.mark.changes_db
     async def test_set_alert(self):
         """Check for set_alert mutation."""
         query = '''

@@ -17,6 +17,7 @@ pytestmark = pytest.mark.asyncio
 
 class EventTests(TestCase):
 
+    @pytest.mark.no_changes_db
     async def test_event(self):
         """Check for event."""
         query = '''{
@@ -67,6 +68,7 @@ class EventTests(TestCase):
         assert result['data']['event']['projectName'] == 'unittesting'
         assert result['data']['event']['detail'] == 'Integrates unit test'
 
+    @pytest.mark.no_changes_db
     async def test_events(self):
         """Check for events."""
         query = '''{
@@ -95,6 +97,7 @@ class EventTests(TestCase):
         assert result['data']['events'][0]['projectName'] == 'unittesting'
         assert len(result['data']['events'][0]['detail']) >= 1
 
+    @pytest.mark.changes_db
     async def test_create_event(self):
         """Check for createEvent mutation."""
         query = '''
@@ -130,6 +133,7 @@ class EventTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['createEvent']
 
+    @pytest.mark.changes_db
     async def test_solve_event(self):
         """Check for solveEvent mutation."""
         query = '''
@@ -163,6 +167,7 @@ class EventTests(TestCase):
         else:
             assert 'The event has already been closed' in result['errors'][0]['message']
 
+    @pytest.mark.changes_db
     async def test_add_event_comment(self):
         """Check for addEventComment mutation."""
         query = '''
@@ -197,6 +202,7 @@ class EventTests(TestCase):
         assert 'success' in result['data']['addEventComment']
         assert 'commentId' in result['data']['addEventComment']
 
+    @pytest.mark.changes_db
     async def test_update_event_evidence(self):
         """Check for updateEventEvidence mutation."""
         query = '''
@@ -245,6 +251,7 @@ class EventTests(TestCase):
         else:
             pytest.skip("Expected error")
 
+    @pytest.mark.changes_db
     async def test_download_event_file(self):
         """Check for downloadEventFile mutation."""
         query = '''
@@ -276,6 +283,7 @@ class EventTests(TestCase):
         assert 'success' in result['data']['downloadEventFile']
         assert 'url' in result['data']['downloadEventFile']
 
+    @pytest.mark.changes_db
     async def test_remove_event_evidence(self):
         """Check for removeEventEvidence mutation."""
         query = '''

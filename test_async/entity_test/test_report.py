@@ -17,6 +17,7 @@ pytestmark = pytest.mark.asyncio
 
 class ReportTests(TestCase):
 
+    @pytest.mark.changes_db
     async def test_request_report(self):
         query_pdf = '''
             mutation {

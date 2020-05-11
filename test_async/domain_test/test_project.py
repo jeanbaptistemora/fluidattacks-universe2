@@ -29,17 +29,20 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 class ProjectTest(TestCase):
 
+    @pytest.mark.no_changes_db
     @pytest.mark.asyncio
     async def does_group_has_drills(self):
         assert await does_group_has_drills('unittesting')
         assert not await does_group_has_drills('oneshottest')
         assert not await does_group_has_drills('asdfasdf')
 
+    @pytest.mark.no_changes_db
     def test_get_email_recipients(self):
         recipients = get_email_recipients('unittesting')
         assert isinstance(recipients, list)
         assert isinstance(recipients[0], str)
 
+    @pytest.mark.no_changes_db
     def test_validate_project_services_config(self):
         with pytest.raises(InvalidProjectServicesConfig):
             validate_project_services_config(True, False, True)
@@ -48,10 +51,12 @@ class ProjectTest(TestCase):
         with pytest.raises(InvalidProjectServicesConfig):
             validate_project_services_config(False, True, False)
 
+    @pytest.mark.changes_db
     def test_remove_access(self):
         assert remove_access('unittest', 'unittesting')
         assert not remove_access('', '')
 
+    @pytest.mark.no_changes_db
     def test_validate_tags(self):
         assert validate_tags(
             'unittesting', ['testtag', 'this-is-ok', 'th15-4l50'])
@@ -64,10 +69,12 @@ class ProjectTest(TestCase):
         with pytest.raises(RepeatedValues):
             assert validate_tags('unittesting', ['test-projects'])
 
+    @pytest.mark.no_changes_db
     def test_is_alive(self):
         assert is_alive('unittesting')
         assert not is_alive('unexisting_project')
 
+    @pytest.mark.no_changes_db
     def test_get_vulnerabilities(self):
         findings_to_get = ['463558592', '422286126']
         findings = [
@@ -85,6 +92,7 @@ class ProjectTest(TestCase):
         expected_output = 2
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_pending_closing_checks(self):
         test_data = get_pending_closing_check('unittesting')
         expected_output = 2
@@ -106,6 +114,7 @@ class ProjectTest(TestCase):
         expected_output = actual_date - initial_date
         assert test_data == expected_output.days
 
+    @pytest.mark.no_changes_db
     def test_get_last_closing_date(self):
         closed_vulnerability = {
             'specific': 'phone',
@@ -136,6 +145,7 @@ class ProjectTest(TestCase):
         test_data = get_last_closing_date(open_vulnerability)
         assert test_data is None
 
+    @pytest.mark.no_changes_db
     def test_is_vulnerability_closed(self):
         closed_vulnerability = {
             'specific': 'phone',
@@ -162,6 +172,7 @@ class ProjectTest(TestCase):
         assert is_vulnerability_closed(closed_vulnerability)
         assert not is_vulnerability_closed(open_vulnerability)
 
+    @pytest.mark.no_changes_db
     def test_get_max_open_severity(self):
         findings_to_get = ['463558592', '422286126']
         findings = [
@@ -174,6 +185,7 @@ class ProjectTest(TestCase):
         expected_output = Decimal(4.3).quantize(Decimal('0.1'))
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_open_vulnerability_date(self):
         closed_vulnerability = {
             'specific': 'phone',
@@ -204,6 +216,7 @@ class ProjectTest(TestCase):
         test_data = get_open_vulnerability_date(closed_vulnerability)
         assert test_data is None
 
+    @pytest.mark.no_changes_db
     @freeze_time("2019-12-01")
     def test_get_mean_remediate(self):
         open_vuln_finding = ['463558592']
@@ -230,6 +243,7 @@ class ProjectTest(TestCase):
         expected_output = 293
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_total_treatment(self):
         findings_to_get = ['463558592', '422286126']
         findings = [
@@ -243,13 +257,14 @@ class ProjectTest(TestCase):
             {'inProgress': 1, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
         assert test_data == expected_output
 
-
+    @pytest.mark.no_changes_db
     def test_list_drafts(self):
         project_name = 'unittesting'
         test_data = list_drafts(project_name)
         expected_output = ['560175507']
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_list_comments(self):
         project_name = 'unittesting'
         test_data = list_comments(project_name, 'admin')
@@ -264,6 +279,7 @@ class ProjectTest(TestCase):
         }
         assert test_data[0] == expected_output
 
+    @pytest.mark.changes_db
     def test_add_comment(self):
         project_name = 'unittesting'
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -284,15 +300,18 @@ class ProjectTest(TestCase):
         comment_data['parent'] = str(comment_id)
         assert add_comment(project_name, 'unittest@fluidattacks.com', comment_data)
 
+    @pytest.mark.no_changes_db
     def test_get_active_projects(self):
         test_data = get_active_projects()
         assert test_data is not None
 
+    @pytest.mark.no_changes_db
     def test_get_alive_projects(self):
         test_data = get_alive_projects()
         expected_output = ['suspendedtest', 'oneshottest', 'unittesting', 'continuoustesting']
         assert sorted(test_data) == sorted(expected_output)
 
+    @pytest.mark.no_changes_db
     def test_list_findings(self):
         project_name = 'unittesting'
         test_data = list_findings(project_name)
@@ -301,19 +320,20 @@ class ProjectTest(TestCase):
         ]
         assert expected_output == test_data
 
+    @pytest.mark.no_changes_db
     def test_get_finding_project_name(self):
         finding_id = '475041513'
         test_data = get_finding_project_name(finding_id)
         assert test_data == 'oneshottest'
 
+    @pytest.mark.no_changes_db
     def test_get_pending_to_delete(self):
         projects = get_pending_to_delete()
         projects = [project['project_name'] for project in projects]
         expected_output = ['pendingproject']
         assert expected_output == projects
 
-    @pytest.mark.skip(
-        reason="https://gitlab.com/fluidattacks/integrates/issues/1761")
+    @pytest.mark.no_changes_db
     @freeze_time("2020-04-12")
     def test_get_mean_remediate_severity(self):
         project_name = 'unittesting'

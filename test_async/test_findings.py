@@ -1,4 +1,5 @@
 import os
+import pytest
 from collections import OrderedDict
 
 from django.test import TestCase
@@ -12,6 +13,7 @@ from backend.dal.finding import get_finding
 
 class FindingsTests(TestCase):
 
+    @pytest.mark.no_changes_db
     def test_get_evidence(self):
         name = 'test_name'
         item = [
@@ -29,6 +31,7 @@ class FindingsTests(TestCase):
         expected_output = {'url': '', 'description': ''}
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_download_evidence_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
@@ -41,6 +44,7 @@ class FindingsTests(TestCase):
         )
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_records_from_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
@@ -66,6 +70,7 @@ class FindingsTests(TestCase):
 
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_get_exploit_from_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
@@ -74,6 +79,7 @@ class FindingsTests(TestCase):
         expected_output = 'print "It works!"\n'
         assert test_data == expected_output
 
+    @pytest.mark.no_changes_db
     def test_format_data(self):
         finding_id = '422286126'
         finding_to_test = get_finding(finding_id)
