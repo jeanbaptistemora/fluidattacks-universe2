@@ -116,4 +116,30 @@ describe("AddProjectModal component", () => {
       .find(".switch-group"))
       .toHaveLength(1);
   });
+
+  it("should remove Forces Service switch", () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksMutation} addTypename={false}>
+          <AddProjectModal
+            isOpen={true}
+            onClose={handleOnClose}
+          />
+        </MockedProvider>
+      </Provider>,
+    );
+
+    const drillsSwitch: ReactWrapper = wrapper
+      .find({ checked: true })
+      .find(".switch-group")
+      .at(1);
+
+    drillsSwitch
+      .simulate("click");
+
+    expect(wrapper
+      .find({ checked: true })
+      .find(".switch-group"))
+      .toHaveLength(1);
+  });
 });
