@@ -145,6 +145,25 @@
                     "S": "unittest@fluidattacks.com"
                   }
                 }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:59:06"
+                  },
+                  "treatment": {
+                    "S": "ACCEPTED_UNDEFINED"
+                  },
+                  "justification": {
+                    "S": "test justification eternally accepted"
+                  },
+                  "user": {
+                    "S": "continuoushacking@gmail.com"
+                  },
+                  "acceptance_status": {
+                    "S": "SUBMITTED"
+                  }
+                }
               }
             ]
           },

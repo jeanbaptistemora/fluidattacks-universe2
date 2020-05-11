@@ -509,3 +509,34 @@ class FindingTests(TestCase):
         assert 'errors' in result
         expected_error = 'Exception - This draft has missing fields: vulnerabilities'
         assert result['errors'][0]['message'] == expected_error
+
+    async def test_handle_acceptation(self):
+        """Check for handleAcceptation mutation."""
+        query = '''
+            mutation HandleAcceptationMutation(
+                $findingId: String!,
+                $observations: String!,
+                $projectName: String!,
+                $response: String!
+                ) {
+                handleAcceptation(
+                findingId: $findingId,
+                observations: $observations,
+                projectName: $projectName,
+                response: $response
+                ) {
+                success
+                }
+            }
+        '''
+        variables = {
+            'findingId': '475041513',
+            'observations': 'Test observations',
+            'projectName': 'oneshottest',
+            'response': 'IN PROGRESS'
+        }
+        data = {'query': query, 'variables': variables}
+        result = await self._get_result(data, user='continuoushacking@gmail.com')
+        assert 'errors' not in result
+        assert 'success' in result['data']['handleAcceptation']
+        assert result['data']['handleAcceptation']['success']
