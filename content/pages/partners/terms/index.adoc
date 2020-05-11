@@ -7,58 +7,94 @@
 
 Terms of the contractual relationship between `Fluid Attacks` and its PARTNERS
 (be them channels or integrators).
-Commissions, cut-off dates,  and goals to be achieved
+Commissions, cut-off dates, and goals to be achieved
 to stay within a commission range are specified, among other aspects.
 These can change at any time and are established
 only by signing the physical document.
 
-. `Fluid Attacks` together with the PARTNER
-will set the final sale price for each CUSTOMER.
+. `Fluid Attacks`, together with the PARTNER,
+will set the final sale price for each CLIENT.
 
-. The final price for the CUSTOMER will be the base value
+. The final price for the CLIENT will be the base value
 used to calculate the commission to be paid to the PARTNER.
 
-. `Fluid Attacks` will always be a visible brand to the end CUSTOMER.
+. `Fluid Attacks` will always be a visible brand to the end CLIENT.
 Co-branding is also an option, but white-labeling is not.
 
-. All the PARTNERS start with a minimum commission of *30%*,
+. All the PARTNERS start with a minimum commission
+according to the table below,
 until *2 cut-off dates* have elapsed.
 
-. The cut-off date will be *December 31* of each year.
+.. Definition
+
+... Referral fee: means compensation for recommending
+or referring Fluid Attacks services.
+
+... Selling: means the PARTNER has to handle all the sales cycle
+from getting the lead until closing it.
+The PARTNER must register every potential lead at the `Fluid Attacks` platform.
+
+.. Value fees
+
+... Referral
++
+.Referral
+|===
+| *Item* | *Percentage*
+|Referral fee |5%
+|===
+
+... Selling
++
+.Selling
+|===
+| *Item* | *Percentage*
+|Selling |25%
+|The first partner in announcing any deal, they will have an additional |5%
+|The second partner in announcing the same deal,
+they will have an additional |3%
+|===
+
+. The cut-off date will be *December 31st* of each year.
 
 . Every *15th of January* after the second cut-off date,
-the growth of the cash collected by `Fluid Attacks`
+the growth of the *cash collected* by `Fluid Attacks`
 between the two previous cut-off dates will be evaluated
 to determine the commission of the year that starts:
 
-.. If the growth was equal to, or greater than *30%*,
-the PARTNER will receive a commission of *30%*.
+.. If the growth was equal to or greater than *30%*,
+the PARTNER will keep their percentages.
 
-.. Otherwise, the commission will be of *15%*.
+.. Otherwise, the commission will be
++
+.commission
+|===
+| *Item* | *Percentage*
+|Referral fee |2.5%
+|Selling |10%
+|The first partner in announcing any deal, they will have an additional |3%
+|The second partner in announcing the same deal,
+they will have an additional |2%
+|===
 
-. If the PARTNER wishes to add more value to the CUSTOMER on their own accord,
-the commission can be higher, with previous mutual agreement of:
+. If the PARTNER wishes to add more value to the CLIENT on their own accord,
+the commission can be higher, with previous mutual agreement of
 added value that will be given by the PARTNER, minimum and desired final price,
-and commision percentage for the PARTNER
-(higher than *30%*).
+and commision percentage for the PARTNER (higher than *25%*).
 
-.. This option is also susceptible to the *15* percentual points
-reduction in the comission
-(*50%* of the minimum *30%*) if there is no yearly growth.
+. `Fluid Attacks` will bill the end CLIENT
+and collect the payment from the US through an automatic recurring system
+on the Internet, which requires a credit card.
 
-. `Fluid Attacks` will bill the end CUSTOMER
-and collect the payment from the USA, through an automatic recurring system
-on the Internet which requires credit card.
-
-.. In any other situation, or at the PARTNER's will,
+. In any other situation, or at the PARTNER's will,
 the PARTNER will be in charge of billing and collection.
-Any risk or delay derived from the non-payment of the end CUSTOMER
-will not be transfered to `Fluid Attacks`.
+Any risk or delay derived from the non-payment of the end CLIENT
+will not be transferred to `Fluid Attacks`.
 
 . `Fluid Attacks` will start the service *1 day* after receiving the payment
 regarding configuration and first month of service.
 
-.. From the second month of service and on, the CUSTOMER or the PARTNER
+. From the second month of service and on, the CLIENT or the PARTNER
 has a grace period of *15 days* without payment
 before the service is suspended.
 
@@ -75,31 +111,32 @@ before the service is suspended.
 . The PARTNER must sign a confidentiality and non-solicitation agreement.
 
 . Each party is responsible for paying their respective taxes
-based on the USA tax legislation.
+based on their tax legislation.
 
 . The PARTNER is obliged to inform in advance
-about the potential CUSTOMERS where `Fluid Attacks` professional services
-will be presented.
+about the potential CLIENTS
+where `Fluid Attacks` professional services will be presented.
 
-. If `Fluid Attacks` bills the end CUSTOMER in Latin America,
+. If `Fluid Attacks` bills the end CLIENT in Latin America,
 the contractual relationship between the PARTNER and `Fluid Attacks`
-will be carried out through a Letter of Attorney
+will be carried out through a Letter of Attorney.
 
-. `Fluid Attacks` will not approach  the prospects
+. `Fluid Attacks` will not approach the prospects
 that the PARTNER has nominated for sales
 if the PARTNER provides evidence of sales progress
 every *30 days* or less.
 
-. The PARTNER will collect every `25` day of each month.
-The PARTNER will consolidate all the payments made before
-that day and proceeds to make the payment.
+. The PARTNER will collect every 25th day of each month.
+The PARTNER will consolidate all the payments made before that day
+and proceed to make the payment.
 
-. `Fluid Attacks` will collect every `25` day of each month.
-`Fluid Attacks` will consolidate all the payments made before
-that day and proceeds to make the payment.
+. `Fluid Attacks` will collect every 25th day of each month.
+`Fluid Attacks` will consolidate all the payments made before that day
+and proceed to make the payment.
 
-. This agreement is reciprocal in its entirety, which means that
-the same clauses apply if `Fluid Attacks` successfully sells the PARTNER.
+. This agreement is reciprocal in its entirety,
+which means that the same clauses apply
+if `Fluid Attacks` successfully sells the PARTNER.
 
-. For more information, please check our
+. For further information, please check our
 [inner]#link:https://fluidattacks.docsend.com/view/5fqdzxz[partnership agreement]#.
