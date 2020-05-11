@@ -51,7 +51,7 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
         success = True
         util.cloudwatch_log(
             info.context,
-            'Security: PDF report succesfully requested')
+            'Security: PDF report successfully requested')
     elif report_type == 'XLS':
         asyncio.create_task(
             sync_to_async(report_domain.generate_xls_report)(
@@ -61,6 +61,6 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
         success = True
         util.cloudwatch_log(
             info.context,
-            'Security: XLS report succesfully requested')
+            'Security: XLS report successfully requested')
 
     return SimplePayloadType(success=success)

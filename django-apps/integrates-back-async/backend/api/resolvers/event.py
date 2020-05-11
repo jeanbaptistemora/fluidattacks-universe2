@@ -245,7 +245,7 @@ async def _do_create_event(_, info, project_name: str, image=None, file=None,
     if success:
         util.cloudwatch_log(
             info.context, 'Security: Created event in '
-            f'{project_name} project succesfully')  # pragma: no cover
+            f'{project_name} project successfully')  # pragma: no cover
         util.invalidate_cache(project_name)
     return SimplePayloadType(success=success)
 
@@ -268,7 +268,7 @@ async def _do_solve_event(_, info, event_id: str, affectation: str,
         util.cloudwatch_log(
             info.context,
             f'Security: Solved event {event_id} '
-            'succesfully')  # pragma: no cover
+            'successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context,
@@ -293,7 +293,7 @@ async def _do_add_event_comment(_, info, content: str, event_id: str,
         util.cloudwatch_log(
             info.context,
             'Security: Added comment to '
-            f'event {event_id} succesfully')  # pragma: no cover
+            f'event {event_id} successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context,
@@ -318,7 +318,7 @@ async def _do_update_event_evidence(_, info, event_id: str, evidence_type: str,
         util.cloudwatch_log(
             info.context,
             'Security: Updated evidence in '
-            f'event {event_id} succesfully')  # pragma: no cover
+            f'event {event_id} successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context,
@@ -340,7 +340,7 @@ async def _do_download_event_file(_, info, event_id: str,
         util.cloudwatch_log(
             info.context,
             'Security: Downloaded file in event '
-            f'{event_id} succesfully')  # pragma: no cover
+            f'{event_id} successfully')  # pragma: no cover
         success = True
     else:
         util.cloudwatch_log(

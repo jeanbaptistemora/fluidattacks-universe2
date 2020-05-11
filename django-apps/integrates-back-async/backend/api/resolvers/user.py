@@ -363,7 +363,7 @@ async def _do_remove_user_access(
         util.cloudwatch_log(
             info.context,
             f'Security: Removed user: {user_email} from {project_name} '
-            'project succesfully')  # pragma: no cover
+            'project successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context, f'Security: Attempted to remove user: {user_email} '

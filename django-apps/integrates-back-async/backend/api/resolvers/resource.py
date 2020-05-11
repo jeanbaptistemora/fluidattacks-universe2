@@ -134,7 +134,7 @@ async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
         util.cloudwatch_log(
             info.context,
             'Security: Added repos to '
-            f'{project_name} project succesfully')  # pragma: no cover
+            f'{project_name} project successfully')  # pragma: no cover
         await sync_to_async(resources.send_mail)(
             project_name, user_email, new_repos, 'added', 'repository')
     else:
@@ -165,7 +165,7 @@ async def _do_add_environments(_, info, envs: List[Dict[str, str]],
         util.cloudwatch_log(
             info.context,
             'Security: Added envs to '
-            f'{project_name} project succesfully')  # pragma: no cover
+            f'{project_name} project successfully')  # pragma: no cover
         await sync_to_async(resources.send_mail)(
             project_name, user_email, new_envs, 'added', 'environment')
     else:
@@ -207,7 +207,7 @@ An error occurred uploading file', 'error', info.context)
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context, f'Security: Added resource files to \
-            {project_name} project succesfully')  # pragma: no cover
+            {project_name} project successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context,
@@ -240,7 +240,7 @@ An error occurred removing file', 'error', info.context)
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context, f'Security: Removed Files from \
-            {project_name} project succesfully')  # pragma: no cover
+            {project_name} project successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context, f'Security: Attempted to remove files \
@@ -261,7 +261,7 @@ async def _do_download_file(_, info, **parameters) -> DownloadFilePayloadType:
         sync_to_async(resources.download_file)(file_info, project_name)
     if signed_url:
         msg = 'Security: Downloaded file {file_name} in \
-project {project} succesfully'\
+project {project} successfully'\
             .format(project=project_name, file_name=parameters['files_data'])
         util.cloudwatch_log(
             info.context, msg)  # pragma: no cover
@@ -302,7 +302,7 @@ async def _do_update_environment(_, info, project_name: str,
         util.cloudwatch_log(
             info.context,
             f'Security: Updated environment state in {project_name} '
-            'project succesfully')  # pragma: no cover
+            'project successfully')  # pragma: no cover
 
         action = 'activated' if state == 'ACTIVE' else 'deactivated'
         await sync_to_async(resources.send_mail)(
@@ -337,7 +337,7 @@ async def _do_update_repository(_, info, project_name: str,
         util.cloudwatch_log(
             info.context,
             f'Security: Updated repository state in {project_name} '
-            'project succesfully')  # pragma: no cover
+            'project successfully')  # pragma: no cover
 
         action = 'activated' if state == 'ACTIVE' else 'deactivated'
         await sync_to_async(resources.send_mail)(

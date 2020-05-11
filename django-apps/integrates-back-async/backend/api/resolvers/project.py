@@ -550,7 +550,7 @@ async def _do_reject_remove_project(_, info,
         util.cloudwatch_log(
             info.context,
             'Security: Reject project '
-            f'{project} deletion succesfully')  # pragma: no cover
+            f'{project} deletion successfully')  # pragma: no cover
     return SimplePayloadType(success=success)
 
 
@@ -580,7 +580,7 @@ async def _do_add_project_comment(_, info,
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context, 'Security: Added comment to '
-            f'{project_name} project succesfully')  # pragma: no cover
+            f'{project_name} project successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context, 'Security: Attempted to add '
@@ -662,7 +662,7 @@ An error occurred removing a tag', 'error', info.context)
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context, 'Security: Removed tag from '
-            f'{project_name} project succesfully')  # pragma: no cover
+            f'{project_name} project successfully')  # pragma: no cover
     else:
         util.cloudwatch_log(
             info.context, 'Security: Attempted to remove '
