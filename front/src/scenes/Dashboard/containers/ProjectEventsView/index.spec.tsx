@@ -159,7 +159,57 @@ describe("EventsView", () => {
     expect(newButton)
       .toHaveLength(1);
     newButton.simulate("click");
+
+    const dateField: ReactWrapper = wrapper
+      .find({ name: "eventDate" })
+      .find("input");
+
+    const typeField: ReactWrapper = wrapper
+      .find({ name: "eventType" })
+      .find("select");
+
+    const contextField: ReactWrapper = wrapper
+      .find({ name: "context" })
+      .find("select");
+
+    const checkBoxes: ReactWrapper = wrapper
+      .find({ name: "accessibility" })
+      .find("Field")
+      .find(".checkbox");
+
+    const textAreaField: ReactWrapper = wrapper
+      .find({ name: "detail" })
+      .find("textarea");
+
+    const actionBeforeBlockingField: ReactWrapper = wrapper
+      .find({ name: "actionBeforeBlocking" })
+      .find("select");
+
+    const actionAfterBlockedField: ReactWrapper = wrapper
+      .find({ name: "actionAfterBlocking" })
+      .find("select");
+
+    const evidenceFiles: ReactWrapper = wrapper
+      .find("span")
+      .find(".glyphicon-search");
+
     expect(wrapper.containsMatchingElement(<h4>New Event</h4>))
       .toBe(true);
+    expect(dateField)
+      .toHaveLength(1);
+    expect(typeField)
+      .toHaveLength(1);
+    expect(contextField)
+      .toHaveLength(1);
+    expect(checkBoxes)
+      .toHaveLength(2);
+    expect(textAreaField)
+      .toHaveLength(1);
+    expect(actionBeforeBlockingField)
+      .toHaveLength(1);
+    expect(actionAfterBlockedField)
+      .toHaveLength(1);
+    expect(evidenceFiles)
+      .toHaveLength(2);
   });
 });
