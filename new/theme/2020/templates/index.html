@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
+{% block meta %}
+  <meta name="description"
+        content="Here you can find all the articles published to the blog, which may
+        address an opinion, a solution to a challenge, or just general
+        information, all related to the field of Information Security.">
+  <meta name="keywords"
+        content="Articles, Blog, Opinion, Challenge, Information, Security">
+{% endblock meta %}
+
+{% block canonical %}
+<link rel="canonical"
+      href="{{ SITEURL }}/blog/index.html">
+{% endblock canonical %}
+
+{% block title %}
+Blog | {{ SITENAME }}
+{% endblock title %}
+
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-banner ml-auto mr-auto">
+      <ul class="dib list w-100">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hv-fluid-rd no-underline"
+             href="{{ SITEURL }}/">
+            <strong>Home</strong>
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
+
+{% block content %}
+ <!-- Div Index -->
+ <div class="roboto flex-ns flex-wrap-ns justify-between-m pt3 pb3 pl2 pr0">
+  <!-- Blog Posts -->
+  {% for article in articles_page.object_list %}
+    <div class="ba1 shadow-1 mb3 relative dt-ns mt0-ns w-100 w-75-m w-30-l pr3-ns pl3-ns pt3 ma-auto">
+      {% if  article.featured_image %}
+        <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}"
+             alt="{{ article.alt }}">
+      {% endif %}
+      <!-- Article Preview: Title, Description, Author, Tags ... -->
+      <div class="h-28em-l h-auto-vl">
+        <a href="{{ SITEURL }}/{{ article.url }}"
+           rel="bookmark"
+           title="Permalink to {{ article.title|striptags }}">
+          <!-- Title -->
+          <h1 class="post-title c-fluid-bk mb0 tc hv-fluid-dkred f4">
+            {{ article.title }}
+          </h1>
+        </a>
+        {% if article.subtitle %}
+          <!-- Subtitle -->
+          <span class="db f5 c-fluid-bk db i tc b pt3">
+            {{ article.subtitle }}
+          </span>
+        {% endif %}<br/>
+        <div class='post-info tl pl2'>
+          <!-- Author -->
+          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"
+               alt="Quill icon">
+          {% for author in article.authors %}
+            <a class=" c-fluid-bk ttc hv-fluid-dkred "
+               href="{{ SITEURL }}/{{ author.url }}">
+               {{ author }}
+            </a><br/>
+          {% endfor %}
+          <!-- Category -->
+          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"
+               alt="Folder icon">
+          <a class=" c-fluid-bk ttc hv-fluid-dkred "
+             href="{{ SITEURL }}/{{ article.category.url }}">
+             {{ article.category|replace("-", " ") }}
+          </a><br/>
+          <!-- Tags -->
+          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"
+               alt="Tag icon">
+          {% for tag in article.tags %}
+            {% if loop.last %}
+              <a class=" c-fluid-bk ttc hv-fluid-dkred "
+                 href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
+            {% else %}
+              <a class=" c-fluid-bk ttc hv-fluid-dkred "
+                 href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <!-- Summary -->
+        <p class="article-summary f5 pl2 mt0 pt1 mt2 mb4 overflow-hidden ">
+          {% if article.has_summary %}
+            {{ article.summary }}
+          {% elif article.summary %}
+            {{ article.summary|striptags|truncate(200) }}
+          {% endif %}
+        </p>
+        <br><br>
+        <!-- Read More Button -->
+        <div class="divread absolute bottom-2">
+          <span class="button f4 pa2">
+            <a href="{{ SITEURL }}/{{ article.url }}">
+               Read More
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock content %}
