@@ -126,7 +126,7 @@ class ProjectTests(TestCase):
         assert result['data']['project']['tags'][0] == 'testing'
         assert result['data']['project']['description'] == 'Integrates unit test project'
         assert 1 <= len(result['data']['project']['drafts']) <= 2
-        assert 5 <= len(result['data']['project']['events']) == 6
+        assert 5 <= len(result['data']['project']['events']) == 7
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
         assert len(result['data']['project']['users']) == 4
 

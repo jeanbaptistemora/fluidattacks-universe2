@@ -38,6 +38,36 @@ class EventTests(TestCase):
         assert event_domain.create_event(**attrs)
 
 
+    def test_create_event_file_image(self):
+        attrs = {
+            'action_after_blocking': 'TRAINING',
+            'action_before_blocking': 'DOCUMENT_PROJECT',
+            'accessibility': 'REPOSITORY',
+            'analyst_email': 'unittesting@fluidattacks.com',
+            'context': 'OTHER',
+            'detail': 'Something happened.',
+            'event_date': parse_datetime('2019-12-09T05:00:00.000Z'),
+            'event_type': 'CLIENT_DETECTS_ATTACK',
+            'project_name': 'unittesting'
+        }
+        filename = os.path.dirname(os.path.abspath(__file__))
+        filename = os.path.join(filename, '../mock/test-file-records.csv')
+        with open(filename, 'rb') as test_file:
+            uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                                content=test_file.read(),
+                                                content_type='text/csv')
+        imagename = os.path.dirname(os.path.abspath(__file__))
+        imagename = os.path.join(imagename, '../mock/test-anim.gif')
+        with open(imagename, 'rb') as image_test:
+            uploaded_image = SimpleUploadedFile(name=image_test.name,
+                                                content=image_test.read(),
+                                                content_type='image/gif')
+        test_data = event_domain.create_event(**attrs, file=uploaded_file, image=uploaded_image)
+        expected_output = True
+        assert isinstance(test_data, bool)
+        assert test_data == expected_output
+
+
     def test_solve_event(self):
         assert event_domain.solve_event(
             event_id='538745942',
