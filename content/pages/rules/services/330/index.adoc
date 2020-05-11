@@ -1,0 +1,38 @@
+:slug: rules/330/
+:category: services
+:description: This document contains the details of the security requirements related to the definition and management of resources and services in the organization. This requirement establishes the importance of using Subresource Integrity to validate the integrity of externally hosted resources.
+:keywords: Subresource, Integrity, External, Hosting, ASVS, CWE
+:rules: yes
+
+= REQ.330 Verify Subresource Integrity
+
+== Requirement
+
+The application must verify the integrity of all externally hosted resources
+and dependencies using **Subresource Integrity** (*SRI*).
+
+== Description
+
+Applications often use resources or have dependencies that are hosted on
+external servers such as a content delivery network (*CDN*).
+Applications must validate the integrity of such assets using **Subresource
+Integrity** (*SRI*),
+in case those systems are compromised.
+
+== Findings
+
+* [inner]#link:/web/findings/086/[F086. Missing subresource integrity check]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/353.html[CWE-353: Missing Support for Integrity Check]
+The software uses a transmission protocol that does not include a mechanism for
+verifying the integrity of the data during transmission, such as a checksum.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.3)]
+Verify that if application assets, such as *JavaScript* libraries, *CSS*
+stylesheets or web fonts, are hosted externally on a content delivery
+network (*CDN*) or external provider,
+**Subresource Integrity** (*SRI*) is used to validate the integrity of the
+asset.

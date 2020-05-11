@@ -14,3 +14,5 @@ third-party servers.
 == Rules
 
 . [[r1]] [inner]#link:/web/rules/262/[R262. Verify third-party components]#
+
+. [[r2]] [inner]#link:/web/rules/330/[R330. Verify Subresource Integrity]#
