@@ -331,3 +331,21 @@ def test_no_alarm_on_security_group_changes_closed():
     with no_connection():
         assert not cloudwatch.no_alarm_on_security_group_changes(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_no_alarm_on_vpc_changes_open():
+    """Check if there are alarms set on vpc changes."""
+    assert cloudwatch.no_alarm_on_vpc_changes(AWS_ACCESS_KEY_ID,
+                                                         AWS_SECRET_ACCESS_KEY)
+
+
+def test_no_alarm_on_vpc_changes_closed():
+    """Check if there are alarms set on vpc changes."""
+    assert not \
+        cloudwatch.no_alarm_on_vpc_changes(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    with no_connection():
+        assert not cloudwatch.no_alarm_on_vpc_changes(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)

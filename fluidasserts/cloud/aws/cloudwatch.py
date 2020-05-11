@@ -382,3 +382,23 @@ def no_alarm_on_security_group_changes(key_id: str,
                             session_token,
                             'SecurityGroupEventCount',
                             'security group changes')
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def no_alarm_on_vpc_changes(key_id: str,
+                            secret: str,
+                            session_token: str = None,
+                            retry: bool = True) -> tuple:
+    """
+    Check if alarms are set for vpc changes.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    return _check_for_alarm(key_id,
+                            retry,
+                            secret,
+                            session_token,
+                            'VpcEventCount',
+                            'VPC changes')
