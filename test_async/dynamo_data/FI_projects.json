@@ -372,6 +372,9 @@
                                  }
                               ]
                            },
+                           "protocol": {
+                              "S": "HTTPS"
+                           },
                            "urlRepo" : {
                               "S" : "https://gitlab.com/fluidsignal/integrates"
                            }
@@ -398,6 +401,9 @@
                                     }
                                  }
                               ]
+                           },
+                           "protocol": {
+                              "S": "HTTPS"
                            },
                            "urlRepo" : {
                               "S" : "https://someoneatfluid.integrates.env.fluidattacks.com/index"
@@ -1719,8 +1725,8 @@
                                  }
                               ]
                            },
-                           "protocol" : {
-                              "NULL" : true
+                           "protocol": {
+                              "S": "HTTPS"
                            },
                            "uploadDate" : {
                               "S" : "2019-10-29 13:40"
@@ -1765,8 +1771,8 @@
                                  }
                               ]
                            },
-                           "protocol" : {
-                              "NULL" : true
+                           "protocol": {
+                              "S": "HTTPS"
                            },
                            "uploadDate" : {
                               "S" : "2019-10-29 13:40"
@@ -2075,6 +2081,9 @@
                                  }
                               ]
                            },
+                           "protocol": {
+                              "S": "HTTPS"
+                           },
                           "urlRepo" : {
                              "S" : "https://gitlab.com/fluidsignal/engineering/"
                           }
@@ -2102,9 +2111,9 @@
                                  }
                               ]
                            },
-                          "protocol" : {
-                             "NULL" : true
-                          },
+                           "protocol": {
+                              "S": "HTTPS"
+                           },
                           "uploadDate" : {
                              "S" : "2019-10-29 13:40"
                           },
@@ -2409,6 +2418,9 @@
                                  }
                               ]
                            },
+                           "protocol": {
+                              "S": "HTTPS"
+                           },
                            "urlRepo" : {
                               "S" : "https://gitlab.com/fluidsignal/engineering/"
                            }
@@ -2419,8 +2431,8 @@
                            "branch" : {
                               "S" : "master"
                            },
-                           "protocol" : {
-                              "NULL" : true
+                           "protocol": {
+                              "S": "HTTPS"
                            },
                            "uploadDate" : {
                               "S" : "2019-10-29 13:40"
