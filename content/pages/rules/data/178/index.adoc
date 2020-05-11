@@ -1,7 +1,7 @@
 :slug: rules/178/
 :category: data
 :description: This document details the security guidelines and requirements related to the organization's sensitive data. The objective of this security requirement is to establish the importance of using digital signatures to guarantee the authenticity of the information.
-:keywords: Requirement, Security, Data, Digital Signatures, Authenticity, Information
+:keywords: Data, Digital Signatures, Authenticity, Information, ASVS, CWE
 :rules: yes
 
 = REQ.178 Use digital signatures
@@ -10,3 +10,39 @@
 
 The system must use digital signatures
 to ensure the authenticity of sensitive information.
+
+== Description
+
+A digital signature is a cryptographic mechanism that helps identify the sender
+of a message, and guarantee its authenticity and integrity.
+They should be used when dealing with very sensitive information or with
+data and resources that are susceptible to being affected by third parties.
+
+== Findings
+
+* [inner]#link:/web/findings/086/[F086. Missing subresource integrity check]#
+
+* [inner]#link:/web/findings/103/[F103. Insufficient data authenticity validation]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/345.html[CWE-345: Insufficient Verification of Data Authenticity]
+The software does not sufficiently verify the origin or authenticity of data,
+in a way that causes it to accept invalid data.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/347.html[CWE-347: Improper Verification of Cryptographic Signature]
+The software does not verify, or incorrectly verifies,
+the cryptographic signature for data.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.5 Token-based Session Management.(3.5.3)]
+Verify that stateless session tokens use digital signatures, encryption, and
+other countermeasures to protect against tampering, enveloping, replay,
+null cipher, and key substitution attacks.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.1)]
+Verify that if the application has a client or server auto-update feature,
+updates should be obtained over secure channels and digitally signed.
+The update code must validate the digital signature of the update before
+installing or executing the update.
