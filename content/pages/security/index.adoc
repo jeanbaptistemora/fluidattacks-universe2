@@ -58,7 +58,7 @@ Commit history of all repositories:
 === 1.2 Public incidents
 
 Every public incident is reported in our
-link:https://community.fluidattacks.com/c/announce/[Community Site]
+link:https://community.fluidattacks.com/tag/transparency/[Community Site]
 with details like *_what happened_*, *_what we've done_*,
 *_what's the impact_* and *_what are we doing to help_*.
 
@@ -104,14 +104,13 @@ industry-standard encryption at rest.
   [inner]#link:../rules/150/[256-bit]#
   [inner]#link:../rules/145/[private keys]#.
 - All our clients repositories are
-  stored in a private,
+  stored in private,
   [inner]#link:../rules/185/[AES256 ciphered]#
-  cloud storage system.
+  redundant datacenters.
 - Forces exploits are stored encrypted using AES256 keys.
 - All
   [inner]#link:../products/integrates[Integrates]#
-  data is stored in a AES256 encrypted
-  non-relational database.
+  data is stored in a AES256 encrypted database.
 - All our products use our KMS
   for both development and production secrets.
 - All our Windows laptops
@@ -133,29 +132,15 @@ industry-standard encryption in transit.
   [inner]#link:../rules/181/[TLSv1.3]#
   cryptographic protocol for maximum in transit protection.
 - [inner]#link:../products/integrates[Integrates]#'s
-  DynamoDB database uses TLSv1.2
-  for in transit protection.
+  database uses TLSv1.2 for in transit protection.
 - We possess fully dedicated channels with some of our biggest clients,
   allowing us to isolate all unwanted traffic. This is especially useful
   for running secure dynamic application hacking.
 - For the rest of our clients, we use fully encrypted VPNs.
-- We use a messaging system with
-  link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
-  and
-  link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
-  for communication within the organization.
-  Also, all chat histories
-  [inner]#link:../rules/183/[reset on a weekly basis]#
-  as an extra measure to avoid leaks.
-- Instead of having long-term development environments like
-  staging, we use testing environments that get created
-  during a pipeline. We call them ephemeral environments,
-  as they only exist in pipeline time. These environments
-  get created on demand and always bring a digital certificate,
+- <<EPH, Ephemeral environments>>
+  always bring a digital certificate,
   validated with ACME protocol and
   [inner]#link:../rules/092/[not self-signed]#.
-  Once a change reaches production, its ephemeral environment
-  is destroyed forever.
 
 == 3. Authentication
 
@@ -167,10 +152,14 @@ and other third party services we use.
 
 === 3.1 For Clients
 
-As
 [inner]#link:../products/integrates[Integrates]#
-uses SSO with Google and Microsoft Accounts,
-we do not store any account passwords.
+only uses
+link:https://en.wikipedia.org/wiki/Single_sign-on[SSO]
+with Google and Microsoft Accounts.
+link:https://oauth.net/2/[Oauth2] protocol is used.
+Such protocol only accepts login attempts from trusted urls
+and has industry-standard 2048 bytes access tokens.
+We do not store any account passwords.
 The only personal information we store of our clients are:
 
 - Full name (Provided by Google or Microsoft).
@@ -209,6 +198,14 @@ Some of our IAM specifications and requirements are:
   Our MFA uses
   [inner]#link:../rules/153/[OOB]#,
   which reduces risk in case a comunnication channel becomes compromised.
+- We use both
+  link:https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language[SAML]
+  and
+  link:https://oauth.net/2/[Oauth2]
+  for logging in.
+  These two protocols allow us to login to external applications
+  by only having our IAM active account.
+  No passwords or users are needed.
 - In case a mobile phone supports
   [inner]#link:../rules/231/[biometric authentication]#,
   our IAM enforces its usage.
@@ -229,13 +226,17 @@ to do what they should not.
 [inner]#link:../products/integrates[Integrates]#
 has a set of
 [inner]#link:../rules/096/[roles]#
-that are necessary on every hacking project,
-providing project managers with the
+that are necessary on every hacking project.
+Once the client decides
+which members of its team
+should be *_project managers_*,
+Fluid Attacks assigns them to such role,
+providing them with the
 [inner]#link:../rules/035/[ability to assign]#
 the
 [inner]#link:../rules/186/[minimum required permissions]#
-to each team member.
-Some of these roles are:
+to other members of the client's team.
+Some of the available roles are:
 hacker, admin, releaser, escaper,
 user, project manager, etc.
 
@@ -264,6 +265,61 @@ Some examples are:
   to execute their tasks.
   [inner]#link:../rules/034/[Giving or removing access to applications]#
   is simple, and no users/passwords are leaked.
+
+=== 4.3 Secret rotation
+
+[inner]#link:../rules/130/[Key rotation]#
+is of the essence when dealing with
+sensitive data. The best way to prevent a key leakage is by
+regularily changing it. We continuously rotate:
+
+- KMS keys change on a yearly basis or before in case it is needed.
+- JWT Tokens change on a daily basis.
+- Digital Certificates
+  [inner]#link:../rules/089/[change every three months]#.
+- IAM passphrases change every three months.
+
+Rotations are done in two different ways:
+
+- *Automatic rotation:*
+  Stored stored in secret vaults only
+  accesible by administrators are rotated
+  on a daily basis.
+  These secrets include JWT Tokens,
+  IAM passphrases and digital certificates.
+
+- *Manual rotation:*
+  Some secrets are stored versioned and encrypted
+  in git repositories using AES256 symmetric keys.
+  They are treated as code,
+  meaning that in order to be rotated,
+  a manual approval needs to be done.
+  These secrets include KMS keys and
+  other application credentials.
+
+=== 4.4 Access revocation
+
+When employees go on vacation or leave the company,
+revocating access to the systems and information
+the had access to is essential.
+In Fluid Attacks we have a two-step process for
+access revocation:
+
+  . *Deactivating IAM account:*
+    By doing this, users lose
+    access to all the company applications and client's
+    data they used to have.
+    This includes
+    Integrates, Forces, mail, etc.
+  . *Removing git repository access:*
+    Users can no longer see repository confidential information
+    like registry images, confidential issues,
+    merge requests, etc.
+
+It is worth noting that ease of access revocation
+is fundamental when dealing with sensitive data in an organization,
+that is why we have put so much effort
+on making this process as simple as possible.
 
 == 5. Privacy
 
@@ -294,7 +350,7 @@ This includes contracts, portfolios and other sensitive documents.
 
 Both [inner]#link:../products/integrates[Integrates]#
 and [inner]#link:../[Web]#
-utilize a GDPR cookie plugin that:
+utilize a GDPR module that:
 
 - Informs the user about
   every cookie the page creates
@@ -310,6 +366,17 @@ security rules like:
 - [inner]#link:../rules/310/[Request user consent]#
 - [inner]#link:../rules/312/[Allow user consent revocation]#
 - [inner]#link:../rules/315/[Provide processed data information]#
+
+=== 5.4 OTR Messaging
+
+We use a messaging system with
+link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
+and
+link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
+for communication within the organization.
+Also, all chat histories
+[inner]#link:../rules/183/[reset on a weekly basis]#
+as an extra measure to avoid leaks.
 
 === 5.4 Data policies
 
@@ -338,20 +405,7 @@ source code, secrets, metadata and any other project related
 [inner]#link:../rules/183/[data is completely removed]#
 from all our infrastructure.
 
-=== 5.5 Secret rotation
-
-[inner]#link:../rules/130/[Key rotation]#
-is of the essence when dealing with
-sensitive data. The best way to prevent a key leakage is by
-regularily changing it. We continuously rotate:
-
-- KMS keys change on a yearly basis or before in case it is needed.
-- JWT Tokens change on a daily basis.
-- Digital Certificates
-  [inner]#link:../rules/089/[change every three months]#.
-- IAM passphrases change every three months.
-
-=== 5.6 Employee time tracking software
+=== 5.5 Employee time tracking software
 
 We use a time tracking system that takes periodical
 screnshots from laptop screens when
@@ -360,7 +414,7 @@ screenshots in case an incident happens. Employees
 have control over the software, which means once they
 stop working, no screen recording occurs.
 
-=== 5.7 Poligraph tests
+=== 5.6 Poligraph tests
 
 We continuously run poligraph checks on all
 employees with access to sensitive information.
@@ -423,15 +477,15 @@ Currently, we store logs for:
   It is especially useful for quickly detecting
   new errors and hacking attempts.
   These logs never expire.
-- *Cloud logging system:*
-  It stores comprehensive logs
-  of all our cloud infrastrucutre components.
+- *Redundant datacenters:*
+  They store comprehensive logs
+  of all our infrastrucutre components.
   Logs here never expire.
 - *Forces executions:*
   Every time a CI pipeline runs Forces,
   logs containing information like who ran it,
   vulnerability status and other relevant data
-  are uploaded to our cloud storage systems,
+  are uploaded to our datacenters,
   allowing us to always know the current status
   of our client's Forces service.
   Logs here never expire.
@@ -472,7 +526,7 @@ of:
 
 All our infrastructure is in the cloud.
 The only hardware we manage are our employee's laptops.
-All our cloud infrastructure is versioned
+The entire infrastructure is versioned
 in a Git repository written as code.
 Such code can be deployed anywhere
 and has all the properties of any
@@ -505,13 +559,34 @@ This provides full transparency on
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
-=== 7.2 Everything is backed up in the cloud
+[EPH]
+=== 7.2 Ephemeral environments
+
+Instead of having long-term development environments
+like *_staging_*,
+we use testing environments
+that get created during a CI pipeline.
+We call them ephemeral environments,
+as they only exist in pipeline time.
+These environments get created on demand
+when a developer triggers a CI pipeline.
+These environments are also written as code,
+regenerable and immutable,
+allowing us to certify
+that a new version of an application
+is stable and secure
+before it reaches production environments.
+Once a change reaches production,
+its ephemeral environment
+is destroyed forever.
+
+=== 7.3 Everything is backed up
 
 As data is most likely our most important asset,
 we have strong backup policies for everything.
 For example:
 
-- Our cloud storage system is full versioned,
+- Our redundant datacenters are fully versioned,
   meaning that any file can be recovered
   or returned to a previous version.
 - [inner]#link:../products/integrates[Integrates]#'s
@@ -568,7 +643,7 @@ has a minimum of two different employees
 executing its tasks.
 This allows us to be able to fill the gap
 in case an employee goes on sick leave,
-vacations, etc.
+vacation, etc.
 
 === 9.2 Everything is in the cloud
 
