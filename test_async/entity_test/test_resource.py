@@ -42,8 +42,10 @@ class ResourceTests(TestCase):
         """Check for project resources"""
         query = '''{
           resources(projectName: "unittesting"){
+            projectName
             repositories
             environments
+            files
             __typename
           }
         }'''
@@ -68,6 +70,11 @@ class ResourceTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'resources' in result['data']
+        assert result['data']['resources']['projectName'] == 'unittesting'
+        assert 'test.zip' in result['data']['resources']['files']
+        assert 'shell.exe' in result['data']['resources']['files']
+        assert 'shell2.exe' in result['data']['resources']['files']
+        assert 'asdasd.py' in result['data']['resources']['files']
         assert 'https://gitlab.com/fluidsignal/engineering/' in \
             result['data']['resources']['repositories']
         assert 'https://fluidattacks.com/' in \
