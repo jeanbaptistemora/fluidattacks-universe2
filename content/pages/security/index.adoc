@@ -101,6 +101,13 @@ industry-standard encryption in transit.
   allowing us to isolate all unwanted traffic. This is especially useful
   for running secure dynamic application hacking.
 - For the rest of our clients, we use fully encrypted VPNs.
+- We use a messaging system with
+  link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
+  and
+  link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
+  for communication within the organization.
+  Also, all chat histories reset on a weekly basis as
+  an extra measure to avoid leaks.
 - Instead of having long-term development environments like
   staging, we use testing environments that get created
   during a pipeline. We call them ephemeral environments,
@@ -204,7 +211,97 @@ Some examples are:
   Giving or removing access to applications
   is simple, and no users/passwords are leaked.
 
-== 5. Non-repudiation
+== 5. Privacy
+
+=== 5.1 Client and project pseudonymization
+
+Both clients and projects have a pseudonym within our systems,
+briging with it advantages like:
+
+- Employees without direct access to the project do not
+  know the client's name or any other information
+  that can help them vinculate a project with the client.
+- Internal analytics charts and other documents
+  never use the clients name, they user their pseudonym.
+
+Generally speaking, only the people who need to know
+whose whose client a pseudonym is and
+whose client a project is, do actually know it.
+
+=== 5.2 Transparent cookie usage
+
+Both [inner]#link:../products/integrates[Integrates]#
+and [inner]#link:../[Web]#
+utilize a GDPR cookie plugin that:
+
+- Informs the user about
+  every cookie the page creates
+- Lets users specify
+  which ones to allow,
+  thus giving them full control
+  over what information we're creating
+  and manipulating within their browser
+
+By doing this, we become compliant with
+security rules like:
+
+- [inner]#link:../rules/310/[Request user consent]#
+- [inner]#link:../rules/312/[Allow user consent revocation]#
+- [inner]#link:../rules/315/[Provide processed data information]#
+
+=== 5.3 Data policies
+
+The following policies apply to all the information
+provided by a client in a project context.
+
+==== 5.3.1 Data use policy
+
+We are commited to use our clients data
+exclusively for vulnerability seeking
+in the context of the service we are providing.
+No other activities will be executed
+over the provided information.
+
+==== 5.3.2 Data retention policy
+
+All the data related to a project
+can be deleted from
+[inner]#link:../products/integrates[Integrates]#
+by a user with a project manager role.
+Once this action is triggered, a deletion window of 30 days begins.
+Any project manager can undo the deletion action.
+After the 30 days waiting period, the project,
+source code, secrets, metadata and any other project related
+data is completely removed from all our infrastructure.
+
+==== 5.3.3 Data leakeage policy
+
+In case Fluid Attacks detects a breach,
+emails notyifing the involved parties will be sent.
+Emails will contain information on what data was leaked or compromised,
+when and for how long (to the extent this information is available).
+For a breach that exposes private data for a large number of users,
+the public will also be informed via email.
+
+=== 5.4 Employee time tracking software
+
+We use a time tracking system that takes periodical
+screnshots from laptop screens when
+employees are working. Only managers have access to such
+screenshots in case an incident happens. Employees
+have control over the software, which means once they
+stop working, no screen recording occurs.
+
+=== 5.5 Poligraph tests
+
+We continuously run poligraph checks on all
+employees with access to sensitive information.
+The test fully focuses on identifying
+if an employee disclosed such data
+to a third party,
+and personal questions are never aksed.
+
+== 6. Non-repudiation
 
 Non-repudiation refers to the capability
 of keeping a log of every action
@@ -216,7 +313,7 @@ no one can deny their actions.
 We implement this in several ways
 depending of the context.
 
-=== 5.1 Everything as code
+=== 6.1 Everything as code
 
 At Fluid Attacks we try to keep everything we can
 versioned in a Git repository.
@@ -237,7 +334,7 @@ Currently, we keep the following systems as code:
 - <<IAC, Infrastructure>>
 - General documentation
 
-=== 5.2 Logs
+=== 6.2 Logs
 
 Typical logs are also essential
 for a non-repudiation policy to be successful.
@@ -287,21 +384,6 @@ Currently, we store logs for:
   of who triggerd them, when,
   and console output.
   These logs never expire.
-
-== 6. Client and project pseudonymization
-
-Both clients and projects have a pseudonym within our systems,
-briging with it advantages like:
-
-- Employees without direct access to the project do not
-  know the client's name or any other information
-  that can help them vinculate a project with the client.
-- Internal analytics charts and other documents
-  never use the clients name, they user their pseudonym.
-
-Generally speaking, only the people who need to know
-whose whose client a pseudonym is and
-whose client a project is, do actually know it.
 
 == 7. Secure delivery of sensitive data
 
@@ -409,45 +491,14 @@ Including Forces exploits and strict linters
 to ensure that no known vulnerabilities
 are released to production.
 
-== 12. Secure Chat
-
-We use a messaging system with
-link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
-and
-link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
-for communication within the organization.
-Also, all chat histories reset on a weekly basis as
-an extra measure to avoid leaks.
-
-== 13. Transparent cookie usage
-
-Both [inner]#link:../products/integrates[Integrates]#
-and [inner]#link:../[Web]#
-utilize a GDPR cookie plugin that:
-
-- Informs the user about
-  every cookie the page creates
-- Lets users specify
-  which ones to allow,
-  thus giving them full control
-  over what information we're creating
-  and manipulating within their browser
-
-By doing this, we become compliant with
-security rules like:
-
-- [inner]#link:../rules/310/[Request user consent]#
-- [inner]#link:../rules/312/[Allow user consent revocation]#
-- [inner]#link:../rules/315/[Provide processed data information]#
-
-== 14. Information security culture
+== 12. Information security culture
 
 This section provides details
 regarding all the best practices
 we follow in order to have a strong
 information security culture.
 
-=== 14.1 All our hired personnel must accept a NDA
+=== 12.1 All our hired personnel must accept a NDA
 
 Everyone within our company knows
 how important it is to keep our
@@ -456,7 +507,7 @@ We enforce this by requiring
 all our new employees to sign a
 Non disclosure agreement.
 
-=== 14.2 Certified hackers
+=== 12.2 Certified hackers
 
 We continuously encourage our hackers
 to certify their knowledge.
@@ -467,15 +518,7 @@ in the company.
 you can find a comprenhensive list of certifications
 our hackers team currently has.
 
-=== 14.3 Poligraph tests
-
-We continuously run poligraph checks on all
-employees with access to sensitive information.
-The test fully focuses on identifying
-if an employee disclosed such data
-to a third party.
-
-=== 14.4 Extensive hiring process
+=== 12.3 Extensive hiring process
 
 All job applicans must go through
 an extense [inner]#link:../careers[testing process]# in order to prove
@@ -493,16 +536,7 @@ going to the office during a training
 phase to work alongside the team,
 job inverviews, among others.
 
-=== 14.5 Employee time tracking software
-
-We use a time tracking system that takes periodical
-screnshots from laptop screens when
-employees are working. Only managers have access to such
-screenshots in case an incident happens. Employees
-have control over the software, which means once they
-stop working, no screen recording occurs.
-
-=== 14.6 Audit reports of every employee
+=== 12.4 Audit reports of every employee
 
 Our collaboration systems,
 like mail, document editors, calendar, etc.
@@ -510,7 +544,7 @@ Have detailed reports on employees activities,
 allowing us to keep full track
 of what they do within the collaboration platforms.
 
-=== 14.7 Everyone has a standard laptop
+=== 12.5 Everyone has a standard laptop
 
 A standard laptop is given to every employee,
 allowing us to sieze the computer should the
@@ -519,7 +553,7 @@ link:https://docs.microsoft.com/en-us/windows/security/information-protection/tp
 hardware and biometric fingerprint reader.
 BYOD is not allowed.
 
-=== 14.8 Secure policies for enrolled mobile devices
+=== 12.6 Secure policies for enrolled mobile devices
 
 Our collaboration systems also provide security requirements
 mobile devices must comply with
@@ -528,55 +562,21 @@ This is especially useful,
 as personal mobile devices
 are common targets for malicious hackers.
 
-=== 14.9 No physical keys to our offices
+=== 12.7 No physical keys to our offices
 
 All our offices have digital locks.
 Employees have their own password to open the doors.
 All successful and failed access attempts are logged.
 
-=== 14.10 Only Wifi
+=== 12.8 Only Wifi
 
 We only use wifi connections with strong random generated passwords.
 Connections are always encrypted using WPA2-AES
 
-=== 14.11 We only hire directly
+=== 12.9 We only hire directly
 
 All our employees have indefinite time contracts
 directly with the company.
 Due to the nature of our business, we never
 hire through contractors, freelance or any
 other third parties.
-
-== 15. Data policies
-
-The following policies apply to all the information
-provided by a client in a project context.
-
-=== 15.1 Data use policy
-
-We are commited to use our clients data
-exclusively for vulnerability seeking
-in the context of the service we are providing.
-No other activities will be executed
-over the provided information.
-
-=== 15.2 Data retention policy
-
-All the data related to a project
-can be deleted from
-[inner]#link:../products/integrates[Integrates]#
-by a user with a project manager role.
-Once this action is triggered, a deletion window of 30 days begins.
-Any project manager can undo the deletion action.
-After the 30 days waiting period, the project,
-source code, secrets, metadata and any other project related
-data is completely removed from all our infrastructure.
-
-=== 15.3 Data leakeage policy
-
-In case Fluid Attacks detects a breach,
-emails notyifing the involved parties will be sent.
-Emails will contain information on what data was leaked or compromised,
-when and for how long (to the extent this information is available).
-For a breach that exposes private data for a large number of users,
-the public will also be informed via email.
