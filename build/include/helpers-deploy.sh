@@ -164,6 +164,7 @@ function helper_deploy_compile_new {
   &&  rsync -av --progress content/pages/services/ new/content/pages/use-cases/ \
         --exclude continuous-hacking --exclude one-shot-hacking \
   &&  sed -i "s|:slug: services/|:slug: use-cases/|g" new/content/pages/use-cases/*/index.adoc \
+  &&  rsync -av --progress content/blog/ new/content/blog/ \
   &&  pushd new/ || return 1 \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \

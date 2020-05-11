@@ -1,36 +1,43 @@
 {% extends "default.html" %}
 
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
 {% block meta %}
   <meta name="description"
-        content="{{ page.description }}">
+        content="{{ article.description }}">
   <meta name="keywords"
-        content="{{ page.keywords }}">
+        content="{{ article.keywords }}">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ article.url }}cover.png">
 {% endblock meta %}
 
 {% block title %}
   {% set TITLE = 0 %}
-  {% if DEFAULT_LANG == "en" and not TITLE %}
-    {% if page.title|length < 23 %}
-{{ page.title }} | {{ SITENAME }}
+  {% if DEFAULT_LANG == "en" %}
+    {% if article.title|length < 23 %}
+{{ article.title }} | {{ SITENAME }}
       {% set TITLE = 1 %}
     {% endif %}
   {% elif DEFAULT_LANG == "es" %}
-    {% if page.title|length < 11 and not TITLE %}
-{{ page.title }} | {{ SITENAME }}
+    {% if article.title|length < 11 %}
+{{ article.title }} | {{ SITENAME }}
       {% set TITLE =1 %}
     {% endif %}
   {% endif %}
   {% if TITLE == 0 %}
-{{ page.title }} | {{ AUTHOR }}
+{{ article.title }} | {{ AUTHOR }}
   {% endif %}
 {% endblock title %}
 
 {% block canonical %}
-<link rel="canonical"
-      href="{{ SITEURL }}/{{ page.url }}">
+  <link rel="canonical"
+        href="{{ SITEURL }}/{{ article.url }}">
 {% endblock canonical %}
 
-{% block breadcrumb %}
+{% block breadcrumb%}
+  <!-- navcontent-container -->
 <div class="pv0">
   <!-- navcontent-info -->
   <div class="df ma-auto bg-fluid-black">
@@ -44,8 +51,17 @@
           <span class="c-fluid-gray v-mid b"> / </span>
         </li>
         <li class="dib mt0">
+          <a class="c-fluid-gray hv-fluid-rd no-underline"
+             href="{{ SITEURL }}/">
+            Blog
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
           <a class="white hv-fluid-rd no-underline"
-              href=".">{{ page.title }}</a>
+             href="{{ SITEURL }}/">
+            {{ article.title }}
+          </a>
         </li>
       </ul>
     </div>
@@ -53,30 +69,11 @@
 </div>
 {% endblock breadcrumb %}
 
-{% block header %}
-{% if page.banner %}
-<div class="bg-graylight">
-  <div
-    class="{{ page.banner }} coverm cover-s banner-height justify-center items-center flex bg-center mw-banner ml-auto mr-auto">
-    <div class="w-100 center">
-      <h1 class="white fw6 f1-l f2 roboto tc ma0">
-        {{ page.subtitle }}
-      </h1>
-      {% if page.subtext %}
-      <h2 class="white f3-l f4 fw3 roboto tc ma0">
-        {{ page.subtext }}
-      </h2>
-      {% endif %}
-    </div>
-  </div>
-</div>
-{% endif %}
-{% endblock header %}
 {% block content %}
 <div class="bg-graylight">
   <div class="roboto internal mw-banner ml-auto mr-auto roboto bg-white ph5-l ph4 pt5-l pt4 pb5">
-    <h1 class="roboto f2 fw6 tc">{{ page.title }}</h1>
-    {{ page.content }}
+    <h1 class="roboto f2 fw6 tc">{{ article.title }}</h1>
+    {{ article.content }}
   </div>
 </div>
 {% endblock content %}

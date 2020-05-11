@@ -20,10 +20,16 @@ OUTPUT_PATH = 'output/web/de'
 PATH = 'content'
 ARTICLE_PATHS = ['blog-de']
 PAGE_PATHS = ['pages-de']
+ARTICLE_URL = 'blog/{slug}'
+ARTICLE_SAVE_AS = 'blog/{slug}index.html'
 PAGE_URL = '{slug}'
 PAGE_SAVE_AS = 'pages/{slug}index.html'
+DRAFT_URL = 'drafts/{slug}'
+DRAFT_SAVE_AS = 'drafts/{slug}index.html'
 USE_FOLDER_AS_CATEGORY = False
+INDEX_SAVE_AS = 'blog/index.html'
 LANDING_SAVE_AS = 'index.html'
+ERROR_SAVE_AS = 'error/index.html'
 
 # Plugins configuration
 PLUGIN_PATHS = ['pelican-plugins']
@@ -35,7 +41,7 @@ PLUGINS = [
     'sitemap'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = ['landing']
+DIRECT_TEMPLATES = ['default', 'landing']
 SITEMAP = {
     'format': 'xml',
     'priorities': {
