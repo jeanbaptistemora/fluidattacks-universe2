@@ -393,10 +393,12 @@ Currently, we store logs for:
   Logs here expire after 7 days.
 - Collaboration systems activity:
   Our collaboration systems like mail, calendar, etc.
-  Store comprehensive logs of spam mails,
+  Store comprehensive logs of employee activity,
+  spam mails,
   suspicious login attempts,
   and other possible threats.
-  Logs here expire after 30 days.
+  Employee activity logs never expire.
+  Other security logs expire after 30 days.
 - CI job logs:
   All our CI jobs provide full logging
   of who triggerd them, when,
@@ -499,14 +501,57 @@ for as long as we decide them to exist.
 Thus providing us full traceability
 and recoverability.
 
-== 9. Information security culture
+== 9. Resilency
+
+By resilency,
+we refer to the organizational capability
+of adapting to unexpected circumstances
+that would affect the way our team
+usually work.
+
+=== 9.1 Redundand roles
+
+Every role within the organization
+has a minimum of two different employees
+executing its tasks.
+This allows us to be able to fill the gap
+in case an employee goes on sick leave,
+vacations, etc.
+
+=== 9.2 Everything is in the cloud
+
+As all our infrastrucutre is in the cloud,
+No hardware maintainance is needed,
+making our operation fully descentralized.
+No local networks are used,
+we only use wifi connections with strong random generated passwords
+with the sole purpose of accessing the Internet.
+Connections are always encrypted using WPA2-AES.
+
+=== 9.3 One laptop for every employee
+
+A standard laptop is given to every employee.
+Going to the office is the rule,
+but employees can always fill out an exception form
+to do telework in case they need to.
+Also, in case our offices close
+(link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19]),
+everyone can still to their job seamlessly.
+All laptops have a password-secured BIOS,
+link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
+hardware and biometric fingerprint reader.
+By owning the laptops, siezing the computer should the
+need arise becomes possible.
+BYOD is not allowed.
+
+== 10. Information security culture
 
 This section provides details
 regarding all the best practices
 we follow in order to have a strong
 information security culture.
 
-=== 9.1 We hack ourselves
+=== 10.1 We hack ourselves
 
 We have full-time projects focused on hacking our own software.
 To us, seting an example of secure software is essential,
@@ -522,7 +567,7 @@ Including Forces exploits and strict linters
 to ensure that no known vulnerabilities
 are released to production.
 
-=== 9.2 All our hired personnel must accept a NDA
+=== 10.2 All our hired personnel must accept a NDA
 
 Everyone within our company knows
 how important it is to keep our
@@ -531,7 +576,7 @@ We enforce this by requiring
 all our new employees to sign a
 Non disclosure agreement.
 
-=== 9.3 Certified hackers
+=== 10.3 Certified hackers
 
 We continuously encourage our hackers
 to certify their knowledge.
@@ -542,7 +587,7 @@ in the company.
 you can find a comprenhensive list of certifications
 our hackers team currently has.
 
-=== 9.4 Extensive hiring process
+=== 10.4 Extensive hiring process
 
 All job applicans must go through
 an extense [inner]#link:../careers[testing process]# in order to prove
@@ -560,24 +605,7 @@ going to the office during a training
 phase to work alongside the team,
 job inverviews, among others.
 
-=== 9.5 Audit reports of every employee
-
-Our collaboration systems,
-like mail, document editors, calendar, etc.
-Have detailed reports on employees activities,
-allowing us to keep full track
-of what they do within the collaboration platforms.
-
-=== 9.6 Everyone has a standard laptop
-
-A standard laptop is given to every employee,
-allowing us to sieze the computer should the
-need arise. All laptops have a password-secured BIOS,
-link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
-hardware and biometric fingerprint reader.
-BYOD is not allowed.
-
-=== 9.7 Secure policies for enrolled mobile devices
+=== 10.5 Secure policies for enrolled mobile devices
 
 Our collaboration systems also provide security requirements
 mobile devices must comply with
@@ -586,18 +614,13 @@ This is especially useful,
 as personal mobile devices
 are common targets for malicious hackers.
 
-=== 9.8 No physical keys to our offices
+=== 10.6 No physical keys to our offices
 
 All our offices have digital locks.
 Employees have their own password to open the doors.
 All successful and failed access attempts are logged.
 
-=== 9.9 Only Wifi
-
-We only use wifi connections with strong random generated passwords.
-Connections are always encrypted using WPA2-AES
-
-=== 9.10 We only hire directly
+=== 10.7 We only hire directly
 
 All our employees have indefinite time contracts
 directly with the company.
