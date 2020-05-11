@@ -250,7 +250,7 @@ input RepositoryInput {
     "Repository branch"
     branch: String!
     "Repository protocol for cloning"
-    protocol: String!
+    protocol: RepoProtocol!
     "Repository URL"
     urlRepo: String!
 }
@@ -263,6 +263,11 @@ enum CallerOrigin {
 enum ResourceState {
     ACTIVE
     INACTIVE
+}
+
+enum RepoProtocol {
+    HTTPS
+    SSH
 }
 
 enum DeleteVulnerabilityJustification {

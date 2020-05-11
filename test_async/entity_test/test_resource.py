@@ -80,17 +80,17 @@ class ResourceTests(TestCase):
             {
               urlRepo: "https://gitlab.com/fluidattacks/new_repo1.git",
               branch: "master",
-              protocol: "HTTPS"
+              protocol: HTTPS
             },
             {
               urlRepo: "git@gitlab.com:fluidattacks/new_repo2.git",
               branch: "master",
-              protocol: "SSH"
+              protocol: SSH
             },
             {
               urlRepo: "https://gitlab.com/fluidattacks/new_repo3.git",
               branch: "master",
-              protocol: "HTTPS"
+              protocol: HTTPS
             }
           ]) {
             success
@@ -206,7 +206,7 @@ class ResourceTests(TestCase):
           updateRepository(projectName: "unittesting", state: INACTIVE, repo: {
             urlRepo: "https://gitlab.com/fluidattacks/integrates.git",
             branch: "master",
-            protocol: "HTTPS"
+            protocol: HTTPS
           }) {
             success
           }

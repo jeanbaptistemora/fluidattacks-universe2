@@ -55,7 +55,8 @@ class ResourcesTests(TestCase):
         repeated_repos = [
             {
                 'urlRepo': 'https://gitlab.com/fluidsignal/unittest',
-                'branch': 'master'
+                'branch': 'master',
+                'protocol': 'HTTPS'
             }
         ]
 
