@@ -31,7 +31,13 @@ the ones that provide the highest
 value to our customers in
 terms of security.
 
-== 1. Open Source
+== 1. Transparency
+
+This section focuses on what we do to keep our client informed
+about the status of all our services
+and their data.
+
+=== 1.1 Open Source
 
 The source code of all our applications
 is available to the entire Internet.
@@ -40,13 +46,41 @@ The code is transparent and can be reviewed by anyone.
 All our source code can be found
 link:https://gitlab.com/fluidattacks[here].
 
-Commit history for all repositories:
+Commit history of all repositories:
 
 - link:https://gitlab.com/fluidattacks/web/-/commits/master[Web]
 - link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
 - link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
 - link:https://gitlab.com/fluidattacks/public/-/commits/master[Public]
 - link:https://gitlab.com/fluidattacks/writeups/-/commits/master[Writeups]
+
+=== 1.2 Public incidents
+
+Every public incident is reported in our
+link:https://community.fluidattacks.com/c/announce/[Community Site]
+with details like *_what happened_*, *_what we've done_*,
+*_what's the impact_* and *_what are we doing to help_*.
+
+=== 1.3 Data leakeage policy
+
+In case Fluid Attacks detects a breach,
+emails notyifing the involved parties will be sent.
+Emails will contain information on what data was leaked or compromised,
+when and for how long (to the extent this information is available).
+For a breach that exposes private data for a large number of users,
+the public will also be informed via email.leaked or compromised,
+when and for how long (to the extent this information is available).
+For a breach that exposes private data for a large number of users,
+the public will also be informed via email.
+
+=== 1.4 Status page
+
+We continuous monitor
+[inner]#link:../products/integrates[Integrates]#,
+its [inner]#link:../../integrates/api[API]#
+and [inner]#link:../[Web]#.
+This information is real-time and available on our
+link:http://status.fluidattacks.com/[Status Site].
 
 == 2. Encryption
 
@@ -281,15 +315,6 @@ After the 30 days waiting period, the project,
 source code, secrets, metadata and any other project related
 data is completely removed from all our infrastructure.
 
-==== 5.4.3 Data leakeage policy
-
-In case Fluid Attacks detects a breach,
-emails notyifing the involved parties will be sent.
-Emails will contain information on what data was leaked or compromised,
-when and for how long (to the extent this information is available).
-For a breach that exposes private data for a large number of users,
-the public will also be informed via email.
-
 === 5.5 Secret rotation
 
 Key rotation is of the essence when dealing with
@@ -339,7 +364,7 @@ By doing so, we are capable of having
 comprenhensive logs of:
 
 - What was exactly changed
-- Who changed
+- Who changed it
 - When was it changed
 - Who approved a change
 
@@ -352,7 +377,7 @@ Currently, we keep the following systems as code:
 - <<IAC, Infrastructure>>
 - General documentation
 
-=== 6.2 Logs
+=== 6.2 Extensive logs
 
 Typical logs are also essential
 for a non-repudiation policy to be successful.
