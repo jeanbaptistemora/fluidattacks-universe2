@@ -15,11 +15,12 @@ Fluid Attacks is aware of the importance of:
 . Developing products
   that comply with the highest worldwide
   [inner]#link:../products/rules/[security standards]#.
-. Aquiring only compliant services and products for internal use.
+. Aquiring only
+  [inner]#link:../rules/262/[compliant services and products for internal use]#.
 . Implementing best security practices within our organization.
 . Being completely transparent with our clients,
-  especially regarding their data: how we use it,
-  and what we do to protect it.
+  especially regarding their data:
+  [inner]#link:../rules/315/[how we use it, and what we do to protect it]#.
 
 These concerns,
 concieved since the early days of the company,
@@ -85,8 +86,7 @@ link:http://status.fluidattacks.com/[Status Site].
 == 2. Encryption
 
 We offer both
-encryption at rest
-and encryption in transit
+[inner]#link:../rules/224/[encryption at rest and encryption in transit]#
 with cutting-edge industry standards.
 
 === 2.1 Encryption at rest
@@ -96,13 +96,16 @@ industry-standard encryption at rest.
 
 - All the sesitive data provided by our clients
   (Repo access keys, vpn credentials, etc)
-  is ciphered using our key management system KMS
+  is ciphered using key management system KMS
   symmetric algorithm
   based on Advanced Encryption Standard (AES)
   in Galois Counter Mode (GCM)
-  with 256-bit keys.
+  with
+  [inner]#link:../rules/150/[256-bit]#
+  [inner]#link:../rules/145/[private keys]#.
 - All our clients repositories are
-  stored in a private, AES256 ciphered
+  stored in a private,
+  [inner]#link:../rules/185/[AES256 ciphered]#
   cloud storage system.
 - Forces exploits are stored encrypted using AES256 keys.
 - All
@@ -126,8 +129,9 @@ All our applications and services have
 industry-standard encryption in transit.
 
 - The [inner]#link:../../[Fluid Attacks]# domain
-  uses the latest TLSv1.3 cryptographic
-  protocol for maximum in transit protection.
+  uses the latest
+  [inner]#link:../rules/181/[TLSv1.3]#
+  cryptographic protocol for maximum in transit protection.
 - [inner]#link:../products/integrates[Integrates]#'s
   DynamoDB database uses TLSv1.2
   for in transit protection.
@@ -140,14 +144,16 @@ industry-standard encryption in transit.
   and
   link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
   for communication within the organization.
-  Also, all chat histories reset on a weekly basis as
-  an extra measure to avoid leaks.
+  Also, all chat histories
+  [inner]#link:../rules/183/[reset on a weekly basis]#
+  as an extra measure to avoid leaks.
 - Instead of having long-term development environments like
   staging, we use testing environments that get created
   during a pipeline. We call them ephemeral environments,
   as they only exist in pipeline time. These environments
   get created on demand and always bring a digital certificate,
-  validated with ACME protocol and not self-signed.
+  validated with ACME protocol and
+  [inner]#link:../rules/092/[not self-signed]#.
   Once a change reaches production, its ephemeral environment
   is destroyed forever.
 
@@ -171,9 +177,12 @@ The only personal information we store of our clients are:
 - Company and cellphone (Only if shared, user can decide).
 
 It is also worth noting that once users lose their
-corporate email, they also lose access to their
+corporate email,
+[inner]#link:../rules/114/[they also lose access]#
+to their
 [inner]#link:../products/integrates[Integrates]#
-account. Allowing clients to easily manage
+account. Allowing clients to
+[inner]#link:../rules/034/[easily manage]#
 who has and who does not have access to
 their projects.
 
@@ -185,19 +194,23 @@ we internally use from just one place. Our employees do
 not know any of the passwords of the managed applications,
 they only know their own IAM passphrase.
 Once they log in to IAM,
-they can access applications assigned to them.
+they can access applications
+[inner]#link:../rules/096/[assigned to them]#.
 
 Some of our IAM specifications and requirements are:
 
-- Passphrases instead of passwords
+- [inner]#link:../rules/132/[Passphrases instead of passwords]#
   (More information [inner]#link:../blog/requiem-password/[here]#).
-- Passphrases expire every 30 days.
-- Previous passphrases can only be reused after a 24 reset cycle.
-- Multi-factor authentication from a mobile device must be
-  set. Our MFA uses
-  link:https://doubleoctopus.com/security-wiki/authentication/out-of-band-authentication/[OOB],
+- [inner]#link:../rules/130/[Passphrases expire every 30 days]#.
+- Previous passphrases can only be reused after a
+  [inner]#link:../rules/129/[24 reset cycle]#.
+- [inner]#link:../rules/328/[Multi-factor authentication]#
+  from a mobile device must be set.
+  Our MFA uses
+  [inner]#link:../rules/153/[OOB]#,
   which reduces risk in case a comunnication channel becomes compromised.
-- In case a mobile phone supports biometric authentication,
+- In case a mobile phone supports
+  [inner]#link:../rules/231/[biometric authentication]#,
   our IAM enforces its usage.
 - All successful sessions have a duration of 9 hours.
 
@@ -205,16 +218,22 @@ Some of our IAM specifications and requirements are:
 
 Authorization refers to the ability of giving
 users within an application,
-the minimum privileges they need to do
+the
+[inner]#link:../rules/186/[minimum privileges]#
+they need to do
 their work. No users should have the ability
 to do what they should not.
 
 === 4.1 For Clients
 
 [inner]#link:../products/integrates[Integrates]#
-has a set of roles that are necessary on every hacking project,
-providing project managers with the ability
-to assign the minimum required permissions
+has a set of
+[inner]#link:../rules/096/[roles]#
+that are necessary on every hacking project,
+providing project managers with the
+[inner]#link:../rules/035/[ability to assign]#
+the
+[inner]#link:../rules/186/[minimum required permissions]#
 to each team member.
 Some of these roles are:
 hacker, admin, releaser, escaper,
@@ -226,7 +245,7 @@ Every application we use must have user-granular authorization settings
 in order to grant minimum-privilege policy at all times.
 Some examples are:
 
-- IAM and KMS:
+- *IAM and KMS:*
   These two tools are widely used within Fluid Attacks.
   They allow us to ensure
   that hackers can only access source code,
@@ -238,11 +257,12 @@ Some examples are:
   These tools also let us keep application
   production secrets hidden from developers
   (Production-Development secrets separation).
-- IAM:
+- *IAM:*
   we can grant application access on a user level.
   Granting us the ability to give employees access
-  only to what they need to execute their tasks.
-  Giving or removing access to applications
+  [inner]#link:../rules/176/[only to what they need]#
+  to execute their tasks.
+  [inner]#link:../rules/034/[Giving or removing access to applications]#
   is simple, and no users/passwords are leaked.
 
 == 5. Privacy
@@ -254,7 +274,8 @@ briging with it advantages like:
 
 - Employees without direct access to the project do not
   know the client's name or any other information
-  that can help them vinculate a project with the client.
+  that can help them
+  [inner]#link:../rules/313/[vinculate a project with the client]#.
 - Internal analytics charts and other documents
   never use the clients name, they user their pseudonym.
 
@@ -309,21 +330,25 @@ All the data related to a project
 can be deleted from
 [inner]#link:../products/integrates[Integrates]#
 by a user with a project manager role.
-Once this action is triggered, a deletion window of 30 days begins.
+Once this action is triggered,
+a [inner]#link:../rules/317/[deletion window]# of 30 days begins.
 Any project manager can undo the deletion action.
 After the 30 days waiting period, the project,
 source code, secrets, metadata and any other project related
-data is completely removed from all our infrastructure.
+[inner]#link:../rules/183/[data is completely removed]#
+from all our infrastructure.
 
 === 5.5 Secret rotation
 
-Key rotation is of the essence when dealing with
+[inner]#link:../rules/130/[Key rotation]#
+is of the essence when dealing with
 sensitive data. The best way to prevent a key leakage is by
 regularily changing it. We continuously rotate:
 
 - KMS keys change on a yearly basis or before in case it is needed.
 - JWT Tokens change on a daily basis.
-- Digital Certificates change every three months.
+- Digital Certificates
+  [inner]#link:../rules/089/[change every three months]#.
 - IAM passphrases change every three months.
 
 === 5.6 Employee time tracking software
@@ -383,26 +408,26 @@ Typical logs are also essential
 for a non-repudiation policy to be successful.
 Currently, we store logs for:
 
-- [inner]#link:../products/integrates[Integrates]#'s
-  logging system:
+- *[inner]#link:../products/integrates[Integrates]#'s*
+  *logging system:*
   Integrates stores a historic state
   of projects, findings, vulnerabilities
   and other critical components.
   Changes made to these components
   are always tied to a user and a date.
   The historic state never expires.
-- [inner]#link:../products/integrates[Integrates]#'s
-  error tracking system:
+- *[inner]#link:../products/integrates[Integrates]#'s*
+  *error tracking system:*
   It provides real-time logging
   of errors that occur in its production environments.
   It is especially useful for quickly detecting
   new errors and hacking attempts.
   These logs never expire.
-- Cloud logging system:
+- *Cloud logging system:*
   It stores comprehensive logs
   of all our cloud infrastrucutre components.
   Logs here never expire.
-- Forces executions:
+- *Forces executions:*
   Every time a CI pipeline runs Forces,
   logs containing information like who ran it,
   vulnerability status and other relevant data
@@ -410,13 +435,13 @@ Currently, we store logs for:
   allowing us to always know the current status
   of our client's Forces service.
   Logs here never expire.
-- IAM authentication:
+- *IAM authentication:*
   Our IAM stores logs of
   login attempts made by users,
   accessed applications
   and possible threats.
   Logs here expire after 7 days.
-- Collaboration systems activity:
+- *Collaboration systems activity:*
   Our collaboration systems like mail, calendar, etc.
   Store comprehensive logs of employee activity,
   spam mails,
@@ -424,7 +449,7 @@ Currently, we store logs for:
   and other possible threats.
   Employee activity logs never expire.
   Other security logs expire after 30 days.
-- CI job logs:
+- *CI job logs:*
   All our CI jobs provide full logging
   of who triggerd them, when,
   and console output.
@@ -472,9 +497,11 @@ brings the following advantages:
 
 ==== 7.1.2 Immutable
 
-The infrastructure code can be audited and changes can only be made
-by changing such code. This provides full transparency
-on what was changed, when and who did it.
+The infrastructure code can be audited
+and changes can only be made by
+[inner]#link:../rules/265/[changing such code]#.
+This provides full transparency on
+[inner]#link:../rules/046/[what was changed, when and who did it]#.
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
@@ -549,9 +576,11 @@ As all our infrastrucutre is in the cloud,
 No hardware maintainance is needed,
 making our operation fully descentralized.
 No local networks are used,
-we only use wifi connections with strong random generated passwords
+we only use wifi connections with
+[inner]#link:../rules/253/[strong random generated passwords]#
 with the sole purpose of accessing the Internet.
-Connections are always encrypted using WPA2-AES.
+Connections are always encrypted
+[inner]#link:../rules/252/[using WPA2-AES]#.
 
 === 9.3 One laptop for every employee
 
@@ -564,7 +593,8 @@ Also, in case our offices close
 everyone can still to their job seamlessly.
 All laptops have a password-secured BIOS,
 link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
-hardware and biometric fingerprint reader.
+hardware and
+[inner]#link:../rules/231/[biometric fingerprint reader]#.
 By owning the laptops, siezing the computer should the
 need arise becomes possible.
 BYOD is not allowed.
@@ -589,7 +619,8 @@ Aditionally, all our development projects run
 link:https://en.wikipedia.org/wiki/Continuous_integration[Continuous Integration]
 pipelines,
 Including Forces exploits and strict linters
-to ensure that no known vulnerabilities
+to ensure that
+[inner]#link:../rules/155/[no known vulnerabilities]#
 are released to production.
 
 === 10.2 All our hired personnel must accept a NDA
