@@ -13,4 +13,4 @@ of the associated organization (service, server, among others).
 
 == Findings
 
-* link:/web/findings/049/[F049. Insecure digital certificates]
+* [inner]#link:/web/findings/049/[F049. Insecure digital certificates]#

@@ -21,11 +21,11 @@ redirected to trusted sites.
 
 == Findings
 
-* link:/web/findings/023/[F023. Uncontrolled external site redirect]
+* [inner]#link:/web/findings/023/[F023. Uncontrolled external site redirect]#
 
-* link:/web/findings/097/[F097. Reverse tabnabbing]
+* [inner]#link:/web/findings/097/[F097. Reverse tabnabbing]#
 
-* link:/web/findings/100/[F100. Server-side request forgery (SSRF)]
+* [inner]#link:/web/findings/100/[F100. Server-side request forgery (SSRF)]#
 
 == References
 

@@ -14,7 +14,7 @@ Their source code must not be directly included in the repository.
 
 == Findings
 
-* link:/web/findings/079/[F079. Non-upgradable dependencies]
+* [inner]#link:/web/findings/079/[F079. Non-upgradable dependencies]#
 
 == References
 

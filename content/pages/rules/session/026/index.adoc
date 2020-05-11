@@ -13,7 +13,7 @@ client-side session information (ViewState).
 
 == Findings
 
-* link:/web/findings/036/[F036. ViewState not encrypted]
+* [inner]#link:/web/findings/036/[F036. ViewState not encrypted]#
 
 == References
 

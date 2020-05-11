@@ -22,7 +22,7 @@ user about the associated risks, or prevent its own execution.
 
 == Findings
 
-* link:/web/findings/048/[F048. Lack of root detection]
+* [inner]#link:/web/findings/048/[F048. Lack of root detection]#
 
 == References
 

@@ -12,7 +12,7 @@ The symmetric encryption mechanism must use a minimum key size of **128 bits**.
 
 == Findings
 
-* link:/web/findings/052/[F052. Insecure encryption algorithm]
+* [inner]#link:/web/findings/052/[F052. Insecure encryption algorithm]#
 
 == References
 

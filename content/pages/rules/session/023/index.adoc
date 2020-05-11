@@ -58,7 +58,7 @@ by deploying and maintaining session objects.
 
 == Findings
 
-* link:/web/findings/068/[F068. Insecure session expiration time]
+* [inner]#link:/web/findings/068/[F068. Insecure session expiration time]#
 
 == References
 

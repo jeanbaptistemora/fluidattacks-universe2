@@ -59,7 +59,7 @@ in order to perform deeper and more detailed attacks.
 
 == Findings
 
-* link:/web/findings/054/[F054. Exposed administrative services]
+* [inner]#link:/web/findings/054/[F054. Exposed administrative services]#
 
 == References
 

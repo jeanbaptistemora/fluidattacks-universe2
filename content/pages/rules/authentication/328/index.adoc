@@ -22,7 +22,7 @@ the protection offered by multi-factor authentication (*MFA*).
 
 == Findings
 
-* link:/web/findings/081/[F081. Lack of multi-factor authentication]
+* [inner]#link:/web/findings/081/[F081. Lack of multi-factor authentication]#
 
 == References
 

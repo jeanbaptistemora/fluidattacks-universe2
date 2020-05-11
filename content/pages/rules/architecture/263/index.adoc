@@ -24,9 +24,9 @@ whenever automated attacks or unusual activities are detected.
 
 == Findings
 
-* link:/web/findings/047/[F047. Automatic information enumeration]
+* [inner]#link:/web/findings/047/[F047. Automatic information enumeration]#
 
-* link:/web/findings/053/[F053. Lack of protection against brute force attacks]
+* [inner]#link:/web/findings/053/[F053. Lack of protection against brute force attacks]#
 
 == References
 

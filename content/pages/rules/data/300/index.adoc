@@ -21,7 +21,7 @@ Masking is a mechanism that contributes to this protection.
 
 == Findings
 
-* link:/web/findings/038/[F038. Business information leak]
+* [inner]#link:/web/findings/038/[F038. Business information leak]#
 
 == References
 

@@ -14,9 +14,9 @@ version of the chosen programming language.
 
 == Findings
 
-* link:/web/findings/067/[F067. Improper resource allocation]
+* [inner]#link:/web/findings/067/[F067. Improper resource allocation]#
 
-* link:/web/findings/070/[F070. Inappropriate coding practices]
+* [inner]#link:/web/findings/070/[F070. Inappropriate coding practices]#
 
 == References
 

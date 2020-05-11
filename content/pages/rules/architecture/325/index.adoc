@@ -22,7 +22,7 @@ then it must not contain any sensitive information.
 
 == Findings
 
-* link:/web/findings/040/[F040. Exposed web services]
+* [inner]#link:/web/findings/040/[F040. Exposed web services]#
 
 == References
 

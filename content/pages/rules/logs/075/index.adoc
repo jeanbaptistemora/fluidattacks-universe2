@@ -68,9 +68,9 @@ can prove to be very difficult or impossible.
 
 == Findings
 
-* link:/web/findings/061/[F061. Errors without traceability]
+* [inner]#link:/web/findings/061/[F061. Errors without traceability]#
 
-* link:/web/findings/064/[F064. Traceability loss]
+* [inner]#link:/web/findings/064/[F064. Traceability loss]#
 
 == References
 

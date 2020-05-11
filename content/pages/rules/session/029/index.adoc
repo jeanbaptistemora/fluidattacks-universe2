@@ -103,13 +103,13 @@ and extracting the session *cookie* used for session theft.
 
 == Findings
 
-* link:/web/findings/007/[F007. Cross-site request forgery]
+* [inner]#link:/web/findings/007/[F007. Cross-site request forgery]#
 
-* link:/web/findings/008/[F008. Reflected cross-site scripting (XSS)]
+* [inner]#link:/web/findings/008/[F008. Reflected cross-site scripting (XSS)]#
 
-* link:/web/findings/010/[F010. Stored cross-site scripting (XSS)]
+* [inner]#link:/web/findings/010/[F010. Stored cross-site scripting (XSS)]#
 
-* link:/web/findings/042/[F042. Insecurely generated cookies]
+* [inner]#link:/web/findings/042/[F042. Insecurely generated cookies]#
 
 == References
 

@@ -22,9 +22,9 @@ which it is interacting is a human being.
 
 == Findings
 
-* link:/web/findings/053/[F053. Lack of protection against brute force attacks]
+* [inner]#link:/web/findings/053/[F053. Lack of protection against brute force attacks]#
 
-* link:/web/findings/069/[F069. Weak CAPTCHA]
+* [inner]#link:/web/findings/069/[F069. Weak CAPTCHA]#
 
 == References
 

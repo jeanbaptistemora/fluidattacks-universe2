@@ -13,7 +13,7 @@ The asymmetric encryption mechanism must use a minimum key size of
 
 == Findings
 
-* link:/web/findings/052/[F052. Insecure encryption algorithm]
+* [inner]#link:/web/findings/052/[F052. Insecure encryption algorithm]#
 
 == References
 

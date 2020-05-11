@@ -13,7 +13,7 @@ production environment.
 
 == Findings
 
-* link:/web/findings/074/[F074. Commented-out code]
+* [inner]#link:/web/findings/074/[F074. Commented-out code]#
 
 == References
 

@@ -21,13 +21,13 @@ number of concurrent users reaches its peak.
 
 == Findings
 
-* link:/web/findings/002/[F002. Asymmetric denial of service]
+* [inner]#link:/web/findings/002/[F002. Asymmetric denial of service]#
 
-* link:/web/findings/003/[F003. Symmetric denial of service]
+* [inner]#link:/web/findings/003/[F003. Symmetric denial of service]#
 
-* link:/web/findings/067/[F067. Improper resource allocation]
+* [inner]#link:/web/findings/067/[F067. Improper resource allocation]#
 
-* link:/web/findings/108/[F108. Improper control of interaction frequency]
+* [inner]#link:/web/findings/108/[F108. Improper control of interaction frequency]#
 
 == References
 

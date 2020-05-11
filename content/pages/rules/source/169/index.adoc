@@ -13,9 +13,9 @@ to create dynamic sentences (e.g *java.sql.PreparedStatement*).
 
 == Findings
 
-* link:/web/findings/001/[F001. SQL injection]
+* [inner]#link:/web/findings/001/[F001. SQL injection]#
 
-* link:/web/findings/105/[F105. Apache Lucene query injection]
+* [inner]#link:/web/findings/105/[F105. Apache Lucene query injection]#
 
 == References
 

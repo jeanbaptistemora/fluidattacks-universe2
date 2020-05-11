@@ -24,25 +24,25 @@ points such as access control gateways, severs and serverless functions.
 
 == Findings
 
-* link:/web/findings/014/[F014. Insecure functionality]
+* [inner]#link:/web/findings/014/[F014. Insecure functionality]#
 
-* link:/web/findings/044/[F044. Insecure HTTP methods enabled]
+* [inner]#link:/web/findings/044/[F044. Insecure HTTP methods enabled]#
 
-* link:/web/findings/047/[F047. Automatic information enumeration]
+* [inner]#link:/web/findings/047/[F047. Automatic information enumeration]#
 
-* link:/web/findings/055/[F055. Insecure service configuration]
+* [inner]#link:/web/findings/055/[F055. Insecure service configuration]#
 
-* link:/web/findings/056/[F056. Anonymous connection]
+* [inner]#link:/web/findings/056/[F056. Anonymous connection]#
 
-* link:/web/findings/101/[F101. Lack of protection against deletion]
+* [inner]#link:/web/findings/101/[F101. Lack of protection against deletion]#
 
-* link:/web/findings/110/[F110. HTTP request smuggling]
+* [inner]#link:/web/findings/110/[F110. HTTP request smuggling]#
 
-* link:/web/findings/111/[F111. Out-of-bounds Read]
+* [inner]#link:/web/findings/111/[F111. Out-of-bounds Read]#
 
-* link:/web/findings/115/[F115. Security controls bypass]
+* [inner]#link:/web/findings/115/[F115. Security controls bypass]#
 
-* link:/web/findings/116/[F116. XS-Leaks]
+* [inner]#link:/web/findings/116/[F116. XS-Leaks]#
 
 == References
 

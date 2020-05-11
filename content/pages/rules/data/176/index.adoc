@@ -25,21 +25,21 @@ be implemented having these restrictions in consideration.
 
 == Findings
 
-* link:/web/findings/013/[F013. Insecure object reference]
+* [inner]#link:/web/findings/013/[F013. Insecure object reference]#
 
-* link:/web/findings/032/[F032. Spoofing]
+* [inner]#link:/web/findings/032/[F032. Spoofing]#
 
-* link:/web/findings/037/[F037. Technical information leak]
+* [inner]#link:/web/findings/037/[F037. Technical information leak]#
 
-* link:/web/findings/038/[F038. Business information leak]
+* [inner]#link:/web/findings/038/[F038. Business information leak]#
 
-* link:/web/findings/039/[F039. Improper authorization control for web services]
+* [inner]#link:/web/findings/039/[F039. Improper authorization control for web services]#
 
-* link:/web/findings/040/[F040. Exposed web services]
+* [inner]#link:/web/findings/040/[F040. Exposed web services]#
 
-* link:/web/findings/075/[F075. Unauthorized access to files]
+* [inner]#link:/web/findings/075/[F075. Unauthorized access to files]#
 
-* link:/web/findings/116/[F116. XS-Leaks]
+* [inner]#link:/web/findings/116/[F116. XS-Leaks]#
 
 == References
 

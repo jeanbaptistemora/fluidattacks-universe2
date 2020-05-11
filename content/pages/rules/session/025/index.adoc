@@ -50,7 +50,7 @@ without traceability nor authorization.
 
 == Findings
 
-* link:/web/findings/062/[F062. Concurrent sessions]
+* [inner]#link:/web/findings/062/[F062. Concurrent sessions]#
 
 == References
 

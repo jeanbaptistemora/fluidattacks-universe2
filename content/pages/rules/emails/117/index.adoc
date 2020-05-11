@@ -13,4 +13,4 @@ must not display *HTML* code by default.
 
 == Findings
 
-* link:/web/findings/114/[F114. Phishing]
+* [inner]#link:/web/findings/114/[F114. Phishing]#

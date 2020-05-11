@@ -13,4 +13,4 @@ in malicious sites (*clickjacking*).
 
 == Findings
 
-* link:/web/findings/043/[F043. Improperly set HTTP headers]
+* [inner]#link:/web/findings/043/[F043. Improperly set HTTP headers]#

@@ -13,7 +13,7 @@ all data related to user session must be discarded.
 
 == Findings
 
-* link:/web/findings/076/[F076. Insecure session management]
+* [inner]#link:/web/findings/076/[F076. Insecure session management]#
 
 == References
 

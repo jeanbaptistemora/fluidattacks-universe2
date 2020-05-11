@@ -13,4 +13,4 @@ must be checked with an *anti-spam* filter.
 
 == Findings
 
-* link:/web/findings/114/[F114. Phishing]
+* [inner]#link:/web/findings/114/[F114. Phishing]#

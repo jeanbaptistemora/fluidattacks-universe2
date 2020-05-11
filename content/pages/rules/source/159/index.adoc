@@ -12,7 +12,7 @@ Source code must be obfuscated in production environments.
 
 == Findings
 
-* link:/web/findings/046/[F046. Missing secure obfuscation]
+* [inner]#link:/web/findings/046/[F046. Missing secure obfuscation]#
 
 == References
 

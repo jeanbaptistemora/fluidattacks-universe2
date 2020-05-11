@@ -21,7 +21,7 @@ from obtaining the information.
 
 == Findings
 
-* link:/web/findings/020/[F020. Non-encrypted confidential information]
+* [inner]#link:/web/findings/020/[F020. Non-encrypted confidential information]#
 
 == References
 

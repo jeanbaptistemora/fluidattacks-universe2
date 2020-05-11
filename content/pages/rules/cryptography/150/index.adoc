@@ -12,9 +12,9 @@ Hash functions must be used with a minimum size of *256* bits.
 
 == Findings
 
-* link:/web/findings/051/[F051. Cracked weak credentials]
+* [inner]#link:/web/findings/051/[F051. Cracked weak credentials]#
 
-* link:/web/findings/052/[F052. Insecure encryption algorithm]
+* [inner]#link:/web/findings/052/[F052. Insecure encryption algorithm]#
 
 == References
 

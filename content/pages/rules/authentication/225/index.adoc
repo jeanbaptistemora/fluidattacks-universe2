@@ -13,4 +13,4 @@ must not indicate which part of the authentication was incorrect.
 
 == Findings
 
-* link:/web/findings/026/[F026. User enumeration]
+* [inner]#link:/web/findings/026/[F026. User enumeration]#

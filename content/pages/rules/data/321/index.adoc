@@ -23,7 +23,7 @@ it can lead to deserialization attacks such as object injection.
 
 == Findings
 
-* link:/web/findings/096/[F096. Insecure deserialization]
+* [inner]#link:/web/findings/096/[F096. Insecure deserialization]#
 
 == Rereferences
 

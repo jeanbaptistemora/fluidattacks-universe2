@@ -13,9 +13,9 @@ and messages presented to the user.
 
 == Findings
 
-* link:/web/findings/017/[F017. Sensitive information sent insecurely]
+* [inner]#link:/web/findings/017/[F017. Sensitive information sent insecurely]#
 
-* link:/web/findings/030/[F030. Sensitive information sent via URL parameters]
+* [inner]#link:/web/findings/030/[F030. Sensitive information sent via URL parameters]#
 
 == Reference
 

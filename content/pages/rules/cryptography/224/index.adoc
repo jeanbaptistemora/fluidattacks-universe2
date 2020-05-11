@@ -25,9 +25,9 @@ which have often already been implemented by the platform.
 
 == Findings
 
-* link:/web/findings/034/[F034. Insecure generation of random numbers]
+* [inner]#link:/web/findings/034/[F034. Insecure generation of random numbers]#
 
-* link:/web/findings/078/[F078. Insecurely generated token]
+* [inner]#link:/web/findings/078/[F078. Insecurely generated token]#
 
 == References
 

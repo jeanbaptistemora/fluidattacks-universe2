@@ -76,9 +76,9 @@ must be invalidated in client and server side.
 
 == Findings
 
-* link:/web/findings/015/[F015. Insecure authentication method]
+* [inner]#link:/web/findings/015/[F015. Insecure authentication method]#
 
-* link:/web/findings/076/[F076. Insecure session management]
+* [inner]#link:/web/findings/076/[F076. Insecure session management]#
 
 == References
 

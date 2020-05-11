@@ -13,4 +13,4 @@ publicly accessible.
 
 == Findings
 
-* link:/web/findings/038/[F038. Business information leak]
+* [inner]#link:/web/findings/038/[F038. Business information leak]#

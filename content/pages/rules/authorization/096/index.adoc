@@ -20,13 +20,13 @@ should also be clearly stated.
 
 == Findings
 
-* link:/web/findings/031/[F031. Excessive privileges]
+* [inner]#link:/web/findings/031/[F031. Excessive privileges]#
 
-* link:/web/findings/032/[F032. Spoofing]
+* [inner]#link:/web/findings/032/[F032. Spoofing]#
 
-* link:/web/findings/039/[F039. Improper authorization control for web services]
+* [inner]#link:/web/findings/039/[F039. Improper authorization control for web services]#
 
-* link:/web/findings/075/[F075. Unauthorized access to files]
+* [inner]#link:/web/findings/075/[F075. Unauthorized access to files]#
 
 == References
 

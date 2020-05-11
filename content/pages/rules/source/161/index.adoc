@@ -65,9 +65,9 @@ to validate and discard false positives.
 
 == Findings
 
-* link:/web/findings/060/[F060. Insecure exceptions]
+* [inner]#link:/web/findings/060/[F060. Insecure exceptions]#
 
-* link:/web/findings/073/[F073. Conditional statement without a default option]
+* [inner]#link:/web/findings/073/[F073. Conditional statement without a default option]#
 
 
 == References

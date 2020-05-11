@@ -13,7 +13,7 @@ must allow access only to the necessary ports.
 
 == Findings
 
-* link:/web/findings/024/[F024. Unrestricted access between network segments]
+* [inner]#link:/web/findings/024/[F024. Unrestricted access between network segments]#
 
 == References
 

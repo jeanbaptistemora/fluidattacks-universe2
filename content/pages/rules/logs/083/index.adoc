@@ -37,7 +37,7 @@ he might be able to compromise other systems using the sensitive information.
 
 == Findings
 
-* link:/web/findings/059/[F059. Sensitive information stored in logs]
+* [inner]#link:/web/findings/059/[F059. Sensitive information stored in logs]#
 
 == References
 

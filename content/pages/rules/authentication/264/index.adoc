@@ -21,15 +21,15 @@ prevents unauthorized actors from accessing them.
 
 == Findings
 
-* link:/web/findings/006/[F006. Authentication mechanism absence or evasion]
+* [inner]#link:/web/findings/006/[F006. Authentication mechanism absence or evasion]#
 
-* link:/web/findings/018/[F018. Improper authentication for shared folders]
+* [inner]#link:/web/findings/018/[F018. Improper authentication for shared folders]#
 
-* link:/web/findings/056/[F056. Anonymous connection]
+* [inner]#link:/web/findings/056/[F056. Anonymous connection]#
 
-* link:/web/findings/075/[F075. Unauthorized access to files]
+* [inner]#link:/web/findings/075/[F075. Unauthorized access to files]#
 
-* link:/web/findings/081/[F081. Lack of two-factor authentication]
+* [inner]#link:/web/findings/081/[F081. Lack of two-factor authentication]#
 
 == References
 

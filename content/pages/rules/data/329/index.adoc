@@ -24,7 +24,7 @@ client-side storage.
 
 == Findings
 
-* link:/web/findings/085/[F085. Sensitive data stored in the client-side storage]
+* [inner]#link:/web/findings/085/[F085. Sensitive data stored in the client-side storage]#
 
 == Rereferences
 

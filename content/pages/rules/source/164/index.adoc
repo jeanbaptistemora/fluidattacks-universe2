@@ -12,6 +12,6 @@ The code must use optimized data containers or structures.
 
 == Findings
 
-* link:/web/findings/067/[F067. Improper resource allocation]
+* [inner]#link:/web/findings/067/[F067. Improper resource allocation]#
 
-* link:/web/findings/113/[F113. Improper type assignation]
+* [inner]#link:/web/findings/113/[F113. Improper type assignation]#

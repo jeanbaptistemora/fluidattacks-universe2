@@ -25,11 +25,11 @@ request flow between a host and the server.
 
 == Findings
 
-* link:/web/findings/047/[F047. Automatic information enumeration]
+* [inner]#link:/web/findings/047/[F047. Automatic information enumeration]#
 
-* link:/web/findings/053/[F053. Lack of protection against brute force attacks]
+* [inner]#link:/web/findings/053/[F053. Lack of protection against brute force attacks]#
 
-* link:/web/findings/108/[F108. Improper control of interaction frequency]
+* [inner]#link:/web/findings/108/[F108. Improper control of interaction frequency]#
 
 == References
 

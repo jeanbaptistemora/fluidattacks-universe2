@@ -22,7 +22,7 @@ mechanisms that guarantee a random distribution,
 
 == Findings
 
-* link:/web/findings/034/[F034. Insecure generation of random numbers]
+* [inner]#link:/web/findings/034/[F034. Insecure generation of random numbers]#
 
 == References
 
