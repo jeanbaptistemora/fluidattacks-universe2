@@ -87,7 +87,7 @@ def create_project(
     description = str(kwargs.get('description', ''))
     validations.validate_project_name(project_name)
     validations.validate_fields([description])
-    validations.validate_field_length(project_name, 50)
+    validations.validate_field_length(project_name, 20)
     validations.validate_field_length(description, 200)
     is_user_admin = user_role == 'admin'
     if is_user_admin or \
