@@ -290,6 +290,14 @@ class EventAlreadyClosed(Exception):
         super(EventAlreadyClosed, self).__init__(msg)
 
 
+class UnexpectedUserRole(Exception):
+    """Exception to control that roles attached to an user are valid."""
+
+    def __init__(self, msg):
+        """ Constructor """
+        super(UnexpectedUserRole, self).__init__(f'Exception - {msg}')
+
+
 class UserNotFound(Exception):
     """Exception to control user search"""
 

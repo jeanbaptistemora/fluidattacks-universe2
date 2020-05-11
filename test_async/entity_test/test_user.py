@@ -13,7 +13,6 @@ pytestmark = pytest.mark.asyncio
 
 class UserTests(TestCase):
 
-    @pytest.mark.asyncio
     async def test_get_user(self):
         """Check for user."""
         query = '''
@@ -118,7 +117,7 @@ class UserTests(TestCase):
         assert 'success' in result['data']['addUser']
         assert 'email' in result['data']['addUser']
 
-    async def test_grant_user_access(self):
+    async def test_grant_user_access_1(self):
         """Check for grantUserAccess mutation."""
         query = '''
             mutation {
@@ -139,6 +138,99 @@ class UserTests(TestCase):
                     firstLogin
                     lastLogin
                 }
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'username': 'unittest',
+                'company': 'unittest',
+                'user_email': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = await graphql(SCHEMA, data, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['grantUserAccess']
+        assert 'grantedUser' in result['data']['grantUserAccess']
+        assert 'email' in result['data']['grantUserAccess']['grantedUser']
+
+    async def test_grant_user_access_2(self):
+        """Check for grantUserAccess mutation."""
+        query = '''
+            mutation {
+                grantUserAccess (
+                email: "test@test.test",
+                organization: "test",
+                phoneNumber: "3453453453"
+                projectName: "unittesting",
+                responsibility: "test",
+                role: ANALYST) {
+                    success
+                    grantedUser {
+                        email
+                        role
+                        responsibility
+                        phoneNumber
+                        organization
+                        firstLogin
+                        lastLogin
+                    }
+                }
+            }
+        '''
+        data = {'query': query}
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'username': 'unittest',
+                'company': 'unittest',
+                'user_email': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        _, result = await graphql(SCHEMA, data, context_value=request)
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == (
+            'Exception - Groups with an active Drills service can '
+            'only have Hackers provided by Fluid Attacks'
+        )
+
+    async def test_grant_user_access_3(self):
+        """Check for grantUserAccess mutation."""
+        query = '''
+            mutation {
+                grantUserAccess (
+                email: "test@fluidattacks.com",
+                organization: "test",
+                phoneNumber: "3453453453"
+                projectName: "unittesting",
+                responsibility: "test",
+                role: ANALYST) {
+                    success
+                    grantedUser {
+                        email
+                        role
+                        responsibility
+                        phoneNumber
+                        organization
+                        firstLogin
+                        lastLogin
+                    }
                 }
             }
         '''

@@ -13,7 +13,10 @@ from backend.decorators import (
     enforce_user_level_auth_async,
 )
 from backend.domain import project as project_domain, user as user_domain
-from backend.exceptions import UserNotFound
+from backend.exceptions import (
+    UnexpectedUserRole,
+    UserNotFound,
+)
 from backend.mailer import send_mail_access_granted
 from backend.typing import (
     User as UserType,
@@ -40,17 +43,23 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from __init__ import BASE_URL
 
 # Constants
+INTERNAL_EMAIL_SUFFIX = '@fluidattacks.com'
+
 BASIC_ROLES = ['customer', 'customeradmin']
 INTERNAL_ROLES = ['analyst']
 ADMIN_ROLES = ['admin', 'closer', 'group_manager', 'internal_manager',
                'reviewer']
 
 
-# pylint: disable=too-many-arguments
-@sync_to_async
-def _create_new_user(context: object, email: str, organization: str,
-                     responsibility: str, role: str, phone_number: str,
-                     group: str) -> bool:
+async def _create_new_user(  # pylint: disable=too-many-arguments
+    context: object,
+    email: str,
+    organization: str,
+    responsibility: str,
+    role: str,
+    phone_number: str,
+    group: str,
+) -> bool:
     valid = validate_alphanumeric_field(organization) \
         and validate_alphanumeric_field(responsibility) \
         and validate_alphanumeric_field(role) \
@@ -59,6 +68,16 @@ def _create_new_user(context: object, email: str, organization: str,
 
     if not valid:
         return False
+
+    group_has_drills: bool = await project_domain.does_group_has_drills(group)
+    new_user_has_internal_role: bool = role in INTERNAL_ROLES
+    new_user_has_internal_email: bool = email.endswith(INTERNAL_EMAIL_SUFFIX)
+
+    if group_has_drills \
+            and new_user_has_internal_role \
+            and not new_user_has_internal_email:
+        raise UnexpectedUserRole('Groups with an active Drills service can '
+                                 'only have Hackers provided by Fluid Attacks')
 
     success = user_domain.grant_group_level_role(email, group, role)
 
