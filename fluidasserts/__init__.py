@@ -113,7 +113,7 @@ def trim(docstring):
 
 def reindent(string):
     """Reindent string."""
-    return "\n".join(l.strip() for l in string.strip().split("\n"))
+    return "\n".join([s.strip() for s in string.strip().split("\n")])
 
 
 def parse_docstring(docstring):

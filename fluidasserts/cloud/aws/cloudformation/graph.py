@@ -14,6 +14,35 @@ from fluidasserts.helper.aws import get_line, _random_string
 from fluidasserts.utils.parsers.json import standardize_objects
 from fluidasserts.utils.parsers.json import CustomDict
 
+INTRINSIC_FUNCS = [
+    'Fn::Base64',
+    'Fn::Cidr',
+    'Fn::FindInMap',
+    'Fn::GetAtt',
+    'Fn::GetAZs',
+    'Fn::ImportValue',
+    'Fn::Join',
+    'Fn::Select',
+    'Fn::Split',
+    'Fn::Sub',
+    'Fn::Transform',
+    'Ref'
+]
+
+
+def create_alias(name: str, randoms=False) -> str:
+    """
+    Create an alias for Cipher statement.
+
+    :param randoms: Add random chars to alias.
+    """
+    alias = name.replace('-', '_').lower()
+    alias = alias.replace('::', '_')
+    alias = alias.replace(':', '_')
+    if randoms:
+        alias = f'{alias}_{_random_string(5)}'
+    return alias
+
 
 class Batcher():
     """A class to convert a cloudformation template to graphs."""
@@ -33,6 +62,7 @@ class Batcher():
         self._load_template_data()
         self.statement_params = {}
         with database(connection) as session:
+            session.run('match (n) detach delete n')
             with runner(session) as transactor:
                 self.create_constraints(transactor)
             with runner(session) as transactor:
@@ -64,12 +94,12 @@ class Batcher():
     def _load_parameter_attributes(self, parameter: tuple) -> str:
         """Create a statement to create the attribute nodes of a parameter."""
         param_name, param_attrs = parameter
-        alias_param = param_name.replace('-', '_').lower()
+        alias_param = create_alias(param_name)
         statement = ""
         for attr_name, attr_value in param_attrs.items():
             if attr_name.startswith('__'):
                 continue
-            alias_attr_name = attr_name.replace('-', '_').lower()
+            alias_attr_name = create_alias(attr_name)
             attr_properties = (
                 f"{{name: $param_{alias_param}_{alias_attr_name}_name, "
                 f"value: $param_{alias_param}_{alias_attr_name}_value}}")
@@ -100,12 +130,12 @@ class Batcher():
     def _load_map_options(self, map_: tuple):
         """Create a statement to create the option nodes of a Mapping."""
         map_name, map_options = map_
-        alias_map = map_name.replace('-', '_').lower()
+        alias_map = create_alias(map_name)
         statement = ""
         for opt_name, opt_values in map_options.items():
             if opt_name.startswith('__'):
                 continue
-            alias_opt = opt_name.replace('-', '_').lower()
+            alias_opt = create_alias(opt_name)
             map_properties = (f"{{name: $map_{alias_map}_{alias_opt}_name}}")
 
             statement += (
@@ -176,7 +206,7 @@ class Batcher():
         for param_name, param_attrs in self.template['Parameters'].items():
             if param_name.startswith('__'):
                 continue
-            alias_param = param_name.replace('-', '_').lower()
+            alias_param = create_alias(param_name)
             # create the node for the parameter
             param_statement = (
                 f"CREATE ({alias_parameters})-"
@@ -220,7 +250,7 @@ class Batcher():
         for map_name, map_options in self.template['Mappings'].items():
             if map_name.startswith('__'):
                 continue
-            alias_map = map_name.replace('-', '_').lower()
+            alias_map = create_alias(map_name)
             map_statement = (
                 f"CREATE ({alias_mappings})-[rel_{alias_map}:DECLARE_MAP]->"
                 f"(map_{alias_map}:Mapping {{name: $map_name_{alias_map}}})\n"
@@ -260,15 +290,14 @@ class Batcher():
         for condition_name, condition in self.template['Conditions'].items():
             if condition_name.startswith('__'):
                 continue
-            alias_con = f"con_{condition_name.replace('-', '_').lower()}"
+            alias_con = create_alias(f"con_{condition_name}")
             statement += (
                 f"CREATE ({alias_conditions})-"
                 f"[rel_{alias_con}:DECLARE_CONDITION]->"
                 f"({alias_con}:Condition "
                 f"{{name: $con_name_{alias_con}}})\n"
                 f"SET rel_{alias_con}.line = $rel_{alias_con}_line\n")
-            self.statement_params[
-                f'con_name_{alias_con}'] = condition_name
+            self.statement_params[f'con_name_{alias_con}'] = condition_name
             self.statement_params[f'rel_{alias_con}_line'] = get_line(
                 self.template['Conditions'][condition_name])
 
@@ -279,13 +308,13 @@ class Batcher():
         for condition_name, condition in self.template['Conditions'].items():
             if condition_name.startswith('__'):
                 continue
-            alias_condition = f"con_{condition_name.replace('-', '_').lower()}"
+            alias_condition = create_alias(f"con_{condition_name}")
             # create reference to condition
             statement_condition = (
                 f"MATCH ({alias_condition}:Condition)\n"
-                f"WHERE {alias_condition}.name = ${condition_name}_value\n"
+                f"WHERE {alias_condition}.name = ${alias_condition}_value\n"
                 f"WITH {alias_condition}\n")
-            self.statement_params[f'{condition_name}_value'] = condition_name
+            self.statement_params[f'{alias_condition}_value'] = condition_name
             # create relationship between the condition and the function it
             #  executes
             statement_condition += self._load_condition_funcs(
@@ -303,36 +332,18 @@ class Batcher():
         alias_f, func_exc = func
         fn_name = list(func_exc.keys())[0]
 
-        # if the function is a reference it creates the relationship with
-        # the parameter
-        if fn_name == 'Ref':
-            reference = func_exc['Ref']
-            self.statement_params[
-                f'ref_{alias_f}_{reference}_name'] = reference
-            # add node to context
-            context.update([f'ref_{alias_f}_{reference}', alias_f])
-            contexts_str = ', '.join(context)
+        if fn_name in INTRINSIC_FUNCS:
             try:
-                line = func_exc['Ref.line']
+                line = func_exc[f'{fn_name}.line']
             except KeyError:
                 line = 'unknown'
-            self.statement_params[f'rel_{alias_f}_{reference}_line'] = line
-            return (
-                f"MATCH (ref_{alias_f}_{reference}: Parameter)\n"
-                f"WHERE ref_{alias_f}_{reference}.name = "
-                f"$ref_{alias_f}_{reference}_name\n"
-                f"WITH {contexts_str}\n"
-                f"CREATE ({alias_f})-"
-                f"[rel_{alias_f}_{reference}:REFERENCE_TO]->"
-                f"(ref_{alias_f}_{reference})\n"
-                f"SET rel_{alias_f}_{reference}.line = "
-                f"$rel_{alias_f}_{reference}_line\n"
-                f"WITH {contexts_str}\n")
+            return self.load_intrinsic_func(alias_f, fn_name,
+                                            func_exc[fn_name], context, line)
 
         fn_name_node = fn_name.replace('::', ':')
-        alias_fn_name = fn_name_node.lower().replace(':', '_')
-        alias_fn_node = f'fn_{alias_f}_{alias_fn_name}_{_random_string(5)}'
-        alias_rel = f'rel_{alias_f}_{alias_fn_name}_{_random_string(5)}'
+        alias_fn_name = create_alias(fn_name_node)
+        alias_fn_node = create_alias(f'fn_{alias_f}_{alias_fn_name}', True)
+        alias_rel = create_alias(f'rel_{alias_f}_{alias_fn_name}', True)
         # add node to context
         context.update([alias_fn_node, alias_f])
         contexts_str = ', '.join(context)
@@ -373,3 +384,70 @@ class Batcher():
     def create_constraints(self, trans: Transaction):
         """Create attribute constraints for nodes."""
         self._create_constraints_template(trans)
+
+    def load_intrinsic_func(self,
+                            resource_alias: str,
+                            func_name,
+                            attrs,
+                            contexts: set = None,
+                            line='unknown'):
+        """
+        Create a statement to load clodformation intrinsic functions.
+
+        :param resource_alias: Resource that is related to the function.
+        :param func_name: Name of intrinsic function.
+        :param attrs: Attributes of function.
+        """
+        statement = ""
+        if func_name == 'Fn::Base64':
+            alias_fn, statement_fn = self._fn_base64(attrs)
+            statement = (
+                f"{statement_fn}"
+                f'CREATE ({resource_alias})-[:EXECUTE_FN]->({alias_fn})\n')
+        elif func_name == 'Ref':
+            statement = self._fn_reference(
+                resource_alias, attrs, contexts, line)
+        return statement
+
+    def _fn_base64(self, attrs, contexts: set = None):
+        """Load intrinsic function Fn::Base64."""
+        contexts = contexts or set({})
+        alias_fn = create_alias("fn_base_base64", True)
+        statement = f"CREATE ({alias_fn}: Fn:Base64)\n"
+        if isinstance(attrs, (str)):
+            statement += (f"SET {alias_fn}.param = ${alias_fn}_value\n")
+            self.statement_params[f'{alias_fn}_value'] = attrs
+        elif isinstance(attrs, (OrderedDict, list)):
+            for key, _ in attrs.items():
+                if key in INTRINSIC_FUNCS:
+                    try:
+                        line = attrs[f'{key}.line']
+                    except KeyError:
+                        line = 'unknown'
+                    statement += self.load_intrinsic_func(
+                        alias_fn, key,
+                        attrs[key], contexts, line)
+        return (alias_fn, statement)
+
+    def _fn_reference(self,
+                      resource_id: str,
+                      logical_id: str,
+                      contexts: set = None,
+                      line='unknown'):
+        """Loaf intrinsic function Ref."""
+        contexts.add(f'ref_{resource_id}_{logical_id}')
+        contexts_str = ', '.join(contexts)
+        statement = (f"MATCH (ref_{resource_id}_{logical_id}: Parameter)\n"
+                     f"WHERE ref_{resource_id}_{logical_id}.name = "
+                     f"$ref_{resource_id}_{logical_id}_name\n"
+                     f"WITH {contexts_str}\n"
+                     f"CREATE ({resource_id})-"
+                     f"[rel_{resource_id}_{logical_id}:REFERENCE_TO]->"
+                     f"(ref_{resource_id}_{logical_id})\n"
+                     f"SET rel_{resource_id}_{logical_id}.line = "
+                     f"$rel_{resource_id}_{logical_id}_line\n")
+
+        self.statement_params[f'rel_{resource_id}_{logical_id}_line'] = line
+        self.statement_params[
+            f'ref_{resource_id}_{logical_id}_name'] = logical_id
+        return statement
