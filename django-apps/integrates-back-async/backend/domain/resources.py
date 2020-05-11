@@ -72,13 +72,15 @@ def validate_file_size(uploaded_file, file_size: int) -> bool:
 
 def create_file(files_data: List[Dict[str, str]], uploaded_file,
                 project_name: str, user_email: str) -> bool:
-    validations.validate_fields(cast(List[str], [files_data[0]['description']]))
     project_name = project_name.lower()
     json_data: List[resources_dal.ResourceType] = []
     for file_info in files_data:
+        description = file_info['description']
+        validations.validate_fields(cast(List[str], [description]))
+        validations.validate_field_length(description, 200)
         json_data.append({
             'fileName': file_info.get('fileName', file_info['fileName']),
-            'description': file_info['description'],
+            'description': description,
             'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
             'uploader': user_email,
         })
