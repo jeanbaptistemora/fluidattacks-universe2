@@ -17,7 +17,7 @@ import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import { maxLength, required } from "../../../../utils/validations";
+import { alphaNumeric, maxLength, required } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
 import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "./queries";
@@ -34,7 +34,7 @@ import { IAddProjectModal, IProjectName } from "./types";
   */
 
 const maxDescriptionLength: ConfigurableValidator = maxLength(200);
-const maxProjectNameLength: ConfigurableValidator = maxLength(50);
+const maxProjectNameLength: ConfigurableValidator = maxLength(20);
 const maxCompanyLength: ConfigurableValidator = maxLength(50);
 const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAddProjectModal): JSX.Element => {
   // State management
@@ -121,8 +121,9 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
               >
                 {(createProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
 
-                  const handleSubmit: ((values: { company: string; description: string; type: string }) => void) = (
-                    values: { company: string; description: string; type: string },
+                  const handleSubmit: (
+                    (values: { company: string; description: string; name: string; type: string }) => void) = (
+                    values: { company: string; description: string; name: string; type: string },
                   ): void => {
                     const companies: string[] = values.company.split(",");
 
@@ -132,7 +133,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                         description: values.description,
                         hasDrills,
                         hasForces,
-                        projectName,
+                        projectName: values.name,
                         subscription: values.type,
                       },
                     })
@@ -162,10 +163,9 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 <ControlLabel>{translate.t("home.newProject.name")}</ControlLabel>
                                 <Field
                                   component={textField}
-                                  disabled={true}
                                   name="name"
                                   type="text"
-                                  validate={[required, maxProjectNameLength]}
+                                  validate={[alphaNumeric, maxProjectNameLength, required]}
                                 />
                               </FormGroup>
                               <FormGroup>
