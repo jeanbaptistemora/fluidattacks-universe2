@@ -174,6 +174,14 @@ class InvalidField(Exception):
         super(InvalidField, self).__init__(msg)
 
 
+class InvalidFieldLength(Exception):
+    """Exception to control invalid field length in forms"""
+    def __init__(self):
+        """Constructor"""
+        msg = 'Exception - Invalid field length in form'
+        super(InvalidFieldLength, self).__init__(msg)
+
+
 class InvalidProject(Exception):
     """Exception to control a valid project."""
     def __init__(self):

@@ -202,17 +202,23 @@ def create_resource(res_data: List[Dict[str, str]], project_name: str,
                 'state': 'ACTIVE'
             }
             if res_type == 'repository':
+                url_repo = res.get('urlRepo', '')
+                branch = res.get('branch', '')
+                validations.validate_field_length(url_repo, 150)
+                validations.validate_field_length(branch, 30)
                 res_object: resources_dal.ResourceType = {
-                    'urlRepo': res.get('urlRepo', ''),
-                    'branch': res.get('branch', ''),
+                    'urlRepo': url_repo,
+                    'branch': branch,
                     'protocol': res.get('protocol', ''),
                     'uploadDate': str(
                         datetime.now().replace(second=0, microsecond=0))[:-3],
                     'historic_state': [new_state],
                 }
             elif res_type == 'environment':
+                url_env = res.get('urlEnv', '')
+                validations.validate_field_length(url_env, 400)
                 res_object = {
-                    'urlEnv': res.get('urlEnv', ''),
+                    'urlEnv': url_env,
                     'historic_state': [new_state],
                 }
             json_data.append(res_object)

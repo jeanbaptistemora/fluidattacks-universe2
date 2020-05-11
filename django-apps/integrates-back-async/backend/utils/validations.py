@@ -2,7 +2,7 @@ import re
 from typing import List
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from backend.exceptions import InvalidField
+from backend.exceptions import InvalidField, InvalidFieldLength
 
 
 def validate_email_address(email: str) -> bool:
@@ -20,6 +20,11 @@ def validate_fields(fields: List[str]):
         if field and (str(field)[0] in risk_start_chars or
            any(char for char in risk_chars if char in str(field))):
             raise InvalidField()
+
+
+def validate_field_length(field: str, limit: int):
+    if len(field) >= limit:
+        raise InvalidFieldLength()
 
 
 def validate_project_name(project_name: str):
