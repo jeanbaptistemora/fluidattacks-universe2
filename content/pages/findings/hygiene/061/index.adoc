@@ -14,4 +14,4 @@ which causes a loss of traceability.
 
 == Rules
 
-. [[r1]] link:/web/rules/075/[R075. Record exceptional events in logs]
+. [[r1]] [inner]#link:/web/rules/075/[R075. Record exceptional events in logs]#

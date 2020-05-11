@@ -13,6 +13,6 @@ which can cause technical information leaks when an error occurs.
 
 == Rules
 
-. [[r1]] link:/web/rules/077/[R077. Avoid disclosing technical information]
+. [[r1]] [inner]#link:/web/rules/077/[R077. Avoid disclosing technical information]#
 
-. [[r2]] link:/web/rules/078/[R078. Disable debugging events]
+. [[r2]] [inner]#link:/web/rules/078/[R078. Disable debugging events]#

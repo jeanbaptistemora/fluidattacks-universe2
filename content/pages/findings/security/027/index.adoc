@@ -15,6 +15,6 @@ malicious code.
 
 == Rules
 
-. [[r1]] link:/web/rules/040/[R040. Validate file format and extension]
+. [[r1]] [inner]#link:/web/rules/040/[R040. Validate file format and extension]#
 
-. [[r2]] link:/web/rules/041/[R041. Scan files for malicious code]
+. [[r2]] [inner]#link:/web/rules/041/[R041. Scan files for malicious code]#

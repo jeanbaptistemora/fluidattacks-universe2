@@ -13,4 +13,4 @@ memory.
 
 == Rules
 
-. [[r1]] link:/web/rules/177/[R177. Avoid caching and temporary files]
+. [[r1]] [inner]#link:/web/rules/177/[R177. Avoid caching and temporary files]#

@@ -12,6 +12,6 @@ It is possible to modify the path to which an uploaded file will be saved.
 
 == Rules
 
-. [[r1]] link:/web/rules/037/[R037. Parameters without sensitive data]
+. [[r1]] [inner]#link:/web/rules/037/[R037. Parameters without sensitive data]#
 
-. [[r2]] link:/web/rules/320/[R320. Avoid client-side control enforcement]
+. [[r2]] [inner]#link:/web/rules/320/[R320. Avoid client-side control enforcement]#

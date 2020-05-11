@@ -16,12 +16,12 @@ access those resources.
 
 == Rules
 
-. [[r1]] link:/web/rules/229/[R229. Request access credentials]
+. [[r1]] [inner]#link:/web/rules/229/[R229. Request access credentials]#
 
-. [[r2]] link:/web/rules/231/[R231. Define a biometric verification component]
+. [[r2]] [inner]#link:/web/rules/231/[R231. Define a biometric verification component]#
 
-. [[r3]] link:/web/rules/264/[R264. Request authentication]
+. [[r3]] [inner]#link:/web/rules/264/[R264. Request authentication]#
 
-. [[r4]] link:/web/rules/319/[R319. Make authentication options equally secure]
+. [[r4]] [inner]#link:/web/rules/319/[R319. Make authentication options equally secure]#
 
-. [[r5]] link:/web/rules/328/[R328. Request MFA for critical systems]
+. [[r5]] [inner]#link:/web/rules/328/[R328. Request MFA for critical systems]#

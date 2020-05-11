@@ -15,6 +15,6 @@ time or predict results using probabilistic methods.
 
 == Rules
 
-. [[r1]] link:/web/rules/223/[R223. Uniform distribution in random numbers]
+. [[r1]] [inner]#link:/web/rules/223/[R223. Uniform distribution in random numbers]#
 
-. [[r2]] link:/web/rules/224/[R224. Use secure cryptographic mechanisms]
+. [[r2]] [inner]#link:/web/rules/224/[R224. Use secure cryptographic mechanisms]#

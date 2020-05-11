@@ -12,4 +12,4 @@ User sessions do not expire after 5 minutes of inactivity.
 
 == Rules
 
-. [[r1]] link:/web/rules/023/[R023. Close inactive users sessions]
+. [[r1]] [inner]#link:/web/rules/023/[R023. Close inactive users sessions]#

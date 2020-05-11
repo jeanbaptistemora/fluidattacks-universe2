@@ -13,6 +13,6 @@ into executing actions without their consent.
 
 == Rules
 
-. [[r1]] link:/web/rules/029/[R029. Cookies with security attributes]
+. [[r1]] [inner]#link:/web/rules/029/[R029. Cookies with security attributes]#
 
-. [[r2]] link:/web/rules/174/[R174. Transactions without distinguishable pattern]
+. [[r2]] [inner]#link:/web/rules/174/[R174. Transactions without distinguishable pattern]#

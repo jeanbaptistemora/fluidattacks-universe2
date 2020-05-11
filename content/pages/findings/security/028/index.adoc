@@ -13,6 +13,6 @@ Alternatively, deploys sensitive temporary files to the production environment.
 
 == Rules
 
-. [[r1]] link:/web/rules/036/[R036. Do not deploy temporary files]
+. [[r1]] [inner]#link:/web/rules/036/[R036. Do not deploy temporary files]#
 
-. [[r2]] link:/web/rules/177/[R177. Avoid caching and temporary files]
+. [[r2]] [inner]#link:/web/rules/177/[R177. Avoid caching and temporary files]#

@@ -13,4 +13,4 @@ can be uploaded to the server.
 
 == Rules
 
-. [[r1]] link:/web/rules/039/[R039. Define maximum file size]
+. [[r1]] [inner]#link:/web/rules/039/[R039. Define maximum file size]#

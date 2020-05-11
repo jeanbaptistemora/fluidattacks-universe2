@@ -13,8 +13,8 @@ be used to post requests afterwards.
 
 == Rules
 
-. [[r1]] link:/web/rules/030/[R030. Avoid object reutilization]
+. [[r1]] [inner]#link:/web/rules/030/[R030. Avoid object reutilization]#
 
-. [[r2]] link:/web/rules/031/[R031. Discard user session data]
+. [[r2]] [inner]#link:/web/rules/031/[R031. Discard user session data]#
 
-. [[r3]] link:/web/rules/141/[R141. Force re-authentication]
+. [[r3]] [inner]#link:/web/rules/141/[R141. Force re-authentication]#

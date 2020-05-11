@@ -17,4 +17,4 @@ location.
 
 == Rules
 
-. [[r1]] link:/web/rules/025/[R025. Manage concurrent sessions]
+. [[r1]] [inner]#link:/web/rules/025/[R025. Manage concurrent sessions]#

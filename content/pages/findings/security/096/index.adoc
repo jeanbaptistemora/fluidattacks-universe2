@@ -13,6 +13,6 @@ casting them to a specific type.
 
 == Rules
 
-. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+. [[r1]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#
 
-. [[r2]] link:/web/rules/321/[R321. Avoid deserializing untrusted data]
+. [[r2]] [inner]#link:/web/rules/321/[R321. Avoid deserializing untrusted data]#

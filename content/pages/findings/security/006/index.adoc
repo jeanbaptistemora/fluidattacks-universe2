@@ -14,16 +14,16 @@ having an active session.
 
 == Rules
 
-. [[r1]] link:/web/rules/227/[R227. Display access notification]
+. [[r1]] [inner]#link:/web/rules/227/[R227. Display access notification]#
 
-. [[r2]] link:/web/rules/228/[R228. Authenticate using standard protocols]
+. [[r2]] [inner]#link:/web/rules/228/[R228. Authenticate using standard protocols]#
 
-. [[r3]] link:/web/rules/229/[R229. Request access credentials]
+. [[r3]] [inner]#link:/web/rules/229/[R229. Request access credentials]#
 
-. [[r4]] link:/web/rules/231/[R231. Define a biometric verification component]
+. [[r4]] [inner]#link:/web/rules/231/[R231. Define a biometric verification component]#
 
-. [[r5]] link:/web/rules/235/[R235. Define credentials interface]
+. [[r5]] [inner]#link:/web/rules/235/[R235. Define credentials interface]#
 
-. [[r6]] link:/web/rules/264/[R264. Request authentication]
+. [[r6]] [inner]#link:/web/rules/264/[R264. Request authentication]#
 
-. [[r7]] link:/web/rules/319/[R319. Make authentication options equally secure]
+. [[r7]] [inner]#link:/web/rules/319/[R319. Make authentication options equally secure]#

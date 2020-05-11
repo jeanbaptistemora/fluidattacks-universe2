@@ -14,10 +14,10 @@ Alternatively, the application uses insecure encryption algorithms.
 
 == Rules
 
-. [[r1]] link:/web/rules/148/[R148. Set minimum size of asymmetric encryption]
+. [[r1]] [inner]#link:/web/rules/148/[R148. Set minimum size of asymmetric encryption]#
 
-. [[r2]] link:/web/rules/149/[R149. Set minimum size of symmetric encryption]
+. [[r2]] [inner]#link:/web/rules/149/[R149. Set minimum size of symmetric encryption]#
 
-. [[r3]] link:/web/rules/150/[R150. Set minimum size for hash functions]
+. [[r3]] [inner]#link:/web/rules/150/[R150. Set minimum size for hash functions]#
 
-. [[r4]] link:/web/rules/181/[R181. Transmit data using secure protocols]
+. [[r4]] [inner]#link:/web/rules/181/[R181. Transmit data using secure protocols]#

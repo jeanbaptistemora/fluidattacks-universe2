@@ -13,6 +13,6 @@ receives, thus it accepts invalid data.
 
 == Rules
 
-. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+. [[r1]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#
 
-. [[r2]] link:/web/rules/320/[R320. Avoid client-side control enforcement]
+. [[r2]] [inner]#link:/web/rules/320/[R320. Avoid client-side control enforcement]#

@@ -17,12 +17,12 @@ email clients.
 
 == Rules
 
-. [[r1]] link:/web/rules/115/[R115. Filter malicious emails]
+. [[r1]] [inner]#link:/web/rules/115/[R115. Filter malicious emails]#
 
-. [[r2]] link:/web/rules/116/[R116. Disable images of unknown origin]
+. [[r2]] [inner]#link:/web/rules/116/[R116. Disable images of unknown origin]#
 
-. [[r3]] link:/web/rules/117/[R117. Do not interpret HTML code]
+. [[r3]] [inner]#link:/web/rules/117/[R117. Do not interpret HTML code]#
 
-. [[r4]] link:/web/rules/118/[R118. Inspect attachments]
+. [[r4]] [inner]#link:/web/rules/118/[R118. Inspect attachments]#
 
-. [[r5]] link:/web/rules/144/[R144. Purge accounts periodically]
+. [[r5]] [inner]#link:/web/rules/144/[R144. Purge accounts periodically]#

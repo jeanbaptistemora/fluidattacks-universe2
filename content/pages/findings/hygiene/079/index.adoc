@@ -14,4 +14,4 @@ They are directly included in the source code repositories.
 
 == Rules
 
-. [[r1]] link:/web/rules/302/[R302. Declare dependencies explicitly]
+. [[r1]] [inner]#link:/web/rules/302/[R302. Declare dependencies explicitly]#

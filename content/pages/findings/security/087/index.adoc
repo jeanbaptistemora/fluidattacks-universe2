@@ -13,4 +13,4 @@ effectively blocking users from accessing the system.
 
 == Rules
 
-. [[r1]] link:/web/rules/226/[R226. Avoid account lockouts]
+. [[r1]] [inner]#link:/web/rules/226/[R226. Avoid account lockouts]#

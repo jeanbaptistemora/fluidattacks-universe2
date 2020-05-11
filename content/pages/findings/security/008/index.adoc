@@ -13,6 +13,6 @@ This could allow an attacker to compromise a user's session.
 
 == Rules
 
-. [[r1]] link:/web/rules/029/[R029. Cookies with security attributes]
+. [[r1]] [inner]#link:/web/rules/029/[R029. Cookies with security attributes]#
 
-. [[r2]] link:/web/rules/173/[R173. Discard unsafe inputs]
+. [[r2]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#

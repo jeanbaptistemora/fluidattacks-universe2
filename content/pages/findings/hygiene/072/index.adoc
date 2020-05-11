@@ -13,4 +13,4 @@ which may cause unexpected behaviors.
 
 == Rules
 
-. [[r1]] link:/web/rules/162/[R162. Avoid duplicate code]
+. [[r1]] [inner]#link:/web/rules/162/[R162. Avoid duplicate code]#

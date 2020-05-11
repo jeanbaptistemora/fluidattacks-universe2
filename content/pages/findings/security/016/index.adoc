@@ -13,6 +13,6 @@ obtained from a source that guarantees its confidentiality.
 
 == Rules
 
-. [[r1]] link:/web/rules/145/[R145. Protect system cryptographic keys]
+. [[r1]] [inner]#link:/web/rules/145/[R145. Protect system cryptographic keys]#
 
-. [[r2]] link:/web/rules/156/[R156. Source code without sensitive information]
+. [[r2]] [inner]#link:/web/rules/156/[R156. Source code without sensitive information]#

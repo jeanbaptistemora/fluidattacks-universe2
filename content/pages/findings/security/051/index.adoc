@@ -13,8 +13,8 @@ the amount of time required to crack them.
 
 == Rules
 
-. [[r1]] link:/web/rules/134/[R134. Store passwords with salt]
+. [[r1]] [inner]#link:/web/rules/134/[R134. Store passwords with salt]#
 
-. [[r2]] link:/web/rules/135/[R135. Passwords with random salt]
+. [[r2]] [inner]#link:/web/rules/135/[R135. Passwords with random salt]#
 
-. [[r3]] link:/web/rules/150/[R150. Set minimum size for hash functions]
+. [[r3]] [inner]#link:/web/rules/150/[R150. Set minimum size for hash functions]#

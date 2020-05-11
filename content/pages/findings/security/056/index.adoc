@@ -16,12 +16,12 @@ protected resources.
 
 == Rules
 
-. [[r1]] link:/web/rules/142/[R142. Change system default credentials]
+. [[r1]] [inner]#link:/web/rules/142/[R142. Change system default credentials]#
 
-. [[r2]] link:/web/rules/264/[R264. Request authentication]
+. [[r2]] [inner]#link:/web/rules/264/[R264. Request authentication]#
 
-. [[r3]] link:/web/rules/265/[R265. Restrict access to critical processes]
+. [[r3]] [inner]#link:/web/rules/265/[R265. Restrict access to critical processes]#
 
-. [[r4]] link:/web/rules/266/[R266. Disable insecure functionalities]
+. [[r4]] [inner]#link:/web/rules/266/[R266. Disable insecure functionalities]#
 
-. [[r5]] link:/web/rules/319/[R319. Make authentication options equally secure]
+. [[r5]] [inner]#link:/web/rules/319/[R319. Make authentication options equally secure]#

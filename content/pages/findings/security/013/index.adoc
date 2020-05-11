@@ -13,4 +13,4 @@ another user's data by modifying the key value that identifies it.
 
 == Rules
 
-. [[r1]] link:/web/rules/176/[R176. Restrict system objects]
+. [[r1]] [inner]#link:/web/rules/176/[R176. Restrict system objects]#

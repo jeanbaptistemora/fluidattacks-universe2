@@ -13,4 +13,4 @@ application's valid usernames.
 
 == Rules
 
-. [[r1]] link:/web/rules/225/[R225. Proper authentication responses]
+. [[r1]] [inner]#link:/web/rules/225/[R225. Proper authentication responses]#

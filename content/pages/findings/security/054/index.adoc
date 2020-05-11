@@ -14,4 +14,4 @@ which may lead to unauthorized access attempts.
 
 == Rules
 
-. [[r1]] link:/web/rules/033/[R033. Restrict administrative access]
+. [[r1]] [inner]#link:/web/rules/033/[R033. Restrict administrative access]#

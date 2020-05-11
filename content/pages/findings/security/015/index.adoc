@@ -12,8 +12,8 @@ The system uses insecure authentication methods such as Basic HTTP.
 
 == Rules
 
-. [[r1]] link:/web/rules/030/[R030. Avoid object reutilization]
+. [[r1]] [inner]#link:/web/rules/030/[R030. Avoid object reutilization]#
 
-. [[r2]] link:/web/rules/228/[R228. Authenticate using standard protocols]
+. [[r2]] [inner]#link:/web/rules/228/[R228. Authenticate using standard protocols]#
 
-. [[r3]] link:/web/rules/319/[R319. Make authentication options equally secure]
+. [[r3]] [inner]#link:/web/rules/319/[R319. Make authentication options equally secure]#

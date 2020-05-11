@@ -15,4 +15,4 @@ type and cast it to it every time it will be used.
 
 == Rules
 
-. [[r1]] link:/web/rules/164/[R164. Use optimized structures]
+. [[r1]] [inner]#link:/web/rules/164/[R164. Use optimized structures]#

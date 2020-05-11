@@ -13,4 +13,4 @@ previous one or enforcing another identity verification mechanism.
 
 == Rules
 
-. [[r1]] link:/web/rules/238/[R238. Establish safe recovery]
+. [[r1]] [inner]#link:/web/rules/238/[R238. Establish safe recovery]#

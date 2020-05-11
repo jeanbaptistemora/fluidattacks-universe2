@@ -17,6 +17,6 @@ information about the connected devices.
 
 == Rules
 
-. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
+. [[r1]] [inner]#link:/web/rules/062/[R062. Define standard configurations]#
 
-. [[r2]] link:/web/rules/273/[R273. Define fixed security suite]
+. [[r2]] [inner]#link:/web/rules/273/[R273. Define fixed security suite]#

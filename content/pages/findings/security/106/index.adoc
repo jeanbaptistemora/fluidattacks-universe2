@@ -13,4 +13,4 @@ untrusted inputs.
 
 == Rules
 
-. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+. [[r1]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#

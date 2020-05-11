@@ -14,6 +14,6 @@ This exposes the information to unauthorized read and write operations.
 
 == Rules
 
-. [[r1]] link:/web/rules/177/[R177. Avoid caching and temporary files]
+. [[r1]] [inner]#link:/web/rules/177/[R177. Avoid caching and temporary files]#
 
-. [[r2]] link:/web/rules/329/[R329. Keep sensitive data out of the localStorage]
+. [[r2]] [inner]#link:/web/rules/329/[R329. Keep sensitive data out of the localStorage]#

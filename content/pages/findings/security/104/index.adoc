@@ -14,4 +14,4 @@ This which may allow an attacker to infect it with malicious software.
 
 == Rules
 
-. [[r1]] link:/web/rules/273/[R273. Define fixed security suite]
+. [[r1]] [inner]#link:/web/rules/273/[R273. Define fixed security suite]#

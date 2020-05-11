@@ -15,8 +15,8 @@ attack.
 
 == Rules
 
-. [[r1]] link:/web/rules/132/[R132. Passphrases with at least 4 words]
+. [[r1]] [inner]#link:/web/rules/132/[R132. Passphrases with at least 4 words]#
 
-. [[r2]] link:/web/rules/133/[R133. Passwords with at least 20 characters]
+. [[r2]] [inner]#link:/web/rules/133/[R133. Passwords with at least 20 characters]#
 
-. [[r3]] link:/web/rules/139/[R139. Set minimum password length]
+. [[r3]] [inner]#link:/web/rules/139/[R139. Set minimum password length]#

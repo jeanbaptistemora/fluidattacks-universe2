@@ -13,4 +13,4 @@ of optical recognition tools to automatically pass it.
 
 == Rules
 
-. [[r1]] link:/web/rules/237/[R237. Ascertain human interaction]
+. [[r1]] [inner]#link:/web/rules/237/[R237. Ascertain human interaction]#

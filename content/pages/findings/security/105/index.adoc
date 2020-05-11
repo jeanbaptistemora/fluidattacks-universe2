@@ -15,6 +15,6 @@ procedures.
 
 == Rules
 
-. [[r1]] link:/web/rules/169/[R169. Use parameterized queries]
+. [[r1]] [inner]#link:/web/rules/169/[R169. Use parameterized queries]#
 
-. [[r2]] link:/web/rules/173/[R173. Discard unsafe inputs]
+. [[r2]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#

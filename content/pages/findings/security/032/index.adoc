@@ -15,14 +15,14 @@ modifying data in the name of other users (who may have more privileges).
 
 == Rules
 
-. [[r1]] link:/web/rules/035/[R035. Manage privilege modifications]
+. [[r1]] [inner]#link:/web/rules/035/[R035. Manage privilege modifications]#
 
-. [[r2]] link:/web/rules/096/[R096. Set user required privileges]
+. [[r2]] [inner]#link:/web/rules/096/[R096. Set user required privileges]#
 
-. [[r3]] link:/web/rules/173/[R173. Discard unsafe inputs]
+. [[r3]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#
 
-. [[r4]] link:/web/rules/176/[R176. Restrict system objects]
+. [[r4]] [inner]#link:/web/rules/176/[R176. Restrict system objects]#
 
-. [[r5]] link:/web/rules/265/[R265. Restrict access to critical processes]
+. [[r5]] [inner]#link:/web/rules/265/[R265. Restrict access to critical processes]#
 
-. [[r6]] link:/web/rules/320/[R320. Avoid client-side control enforcement]
+. [[r6]] [inner]#link:/web/rules/320/[R320. Avoid client-side control enforcement]#

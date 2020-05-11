@@ -13,10 +13,10 @@ one in place can be bypassed.
 
 == Rules
 
-. [[r1]] link:/web/rules/096/[R096. Set user required privileges]
+. [[r1]] [inner]#link:/web/rules/096/[R096. Set user required privileges]#
 
-. [[r2]] link:/web/rules/176/[R176. Restrict system objects]
+. [[r2]] [inner]#link:/web/rules/176/[R176. Restrict system objects]#
 
-. [[r3]] link:/web/rules/265/[R265. Restrict access to critical processes]
+. [[r3]] [inner]#link:/web/rules/265/[R265. Restrict access to critical processes]#
 
-. [[r4]] link:/web/rules/320/[R320. Avoid client-side control enforcement]
+. [[r4]] [inner]#link:/web/rules/320/[R320. Avoid client-side control enforcement]#

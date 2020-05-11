@@ -17,10 +17,10 @@ without any restriction.
 
 == Rules
 
-. [[r1]] link:/web/rules/072/[R072. Set maximum response time]
+. [[r1]] [inner]#link:/web/rules/072/[R072. Set maximum response time]#
 
-. [[r2]] link:/web/rules/158/[R158. Define secure programming language]
+. [[r2]] [inner]#link:/web/rules/158/[R158. Define secure programming language]#
 
-. [[r3]] link:/web/rules/164/[R164. Use optimized structures]
+. [[r3]] [inner]#link:/web/rules/164/[R164. Use optimized structures]#
 
-. [[r4]] link:/web/rules/173/[R173. Discard unsafe inputs]
+. [[r4]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#

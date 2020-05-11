@@ -13,6 +13,6 @@ settings, out of date software, unsafe functions or a lack of data validation.
 
 == Rules
 
-. [[r1]] link:/web/rules/173/[R173. Discard unsafe inputs]
+. [[r1]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#
 
-. [[r2]] link:/web/rules/265/[R265. Restrict access to critical processes]
+. [[r2]] [inner]#link:/web/rules/265/[R265. Restrict access to critical processes]#

@@ -13,12 +13,12 @@ security practices.
 
 == Rules
 
-. [[r1]] link:/web/rules/089/[R089. Limit validity of certificates]
+. [[r1]] [inner]#link:/web/rules/089/[R089. Limit validity of certificates]#
 
-. [[r2]] link:/web/rules/090/[R090. Use valid certificates]
+. [[r2]] [inner]#link:/web/rules/090/[R090. Use valid certificates]#
 
-. [[r3]] link:/web/rules/091/[R091. Use internally signed certificates]
+. [[r3]] [inner]#link:/web/rules/091/[R091. Use internally signed certificates]#
 
-. [[r4]] link:/web/rules/092/[R092. Use externally signed certificates]
+. [[r4]] [inner]#link:/web/rules/092/[R092. Use externally signed certificates]#
 
-. [[r5]] link:/web/rules/093/[R093. Use consistent certificates]
+. [[r5]] [inner]#link:/web/rules/093/[R093. Use consistent certificates]#

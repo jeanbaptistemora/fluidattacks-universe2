@@ -13,8 +13,8 @@ of the users.
 
 == Rules
 
-. [[r1]] link:/web/rules/062/[R062. Define standard configurations]
+. [[r1]] [inner]#link:/web/rules/062/[R062. Define standard configurations]#
 
-. [[r2]] link:/web/rules/176/[R176. Restrict system objects]
+. [[r2]] [inner]#link:/web/rules/176/[R176. Restrict system objects]#
 
-. [[r2]] link:/web/rules/266/[R266. Disable insecure functionalities]
+. [[r2]] [inner]#link:/web/rules/266/[R266. Disable insecure functionalities]#
