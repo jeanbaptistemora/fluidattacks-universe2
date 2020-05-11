@@ -17,7 +17,6 @@ from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
 from graphql.type import GraphQLResolveInfo
 from rediscluster.nodemanager import RedisClusterException
-from simpleeval import AttributeDoesNotExist
 
 from backend.dal import finding as finding_dal
 
@@ -152,14 +151,8 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> Callable[..., An
 
         enforcer = authorization_utils.get_group_level_enforcer(subject)
 
-        try:
-            if not await enforcer(subject, object_, action):
-                util.cloudwatch_log(
-                    context, UNAUTHORIZED_ROLE_MSG)
-                raise GraphQLError('Access denied')
-        except AttributeDoesNotExist:
-            util.cloudwatch_log(
-                context, UNAUTHORIZED_ROLE_MSG)
+        if not await enforcer(subject, object_, action):
+            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
@@ -184,14 +177,8 @@ def enforce_user_level_auth_async(func: Callable[..., Any]) -> Callable[..., Any
 
         enforcer = authorization_utils.get_user_level_enforcer(subject)
 
-        try:
-            if not await enforcer(subject, object_, action):
-                util.cloudwatch_log(
-                    context, UNAUTHORIZED_ROLE_MSG)
-                raise GraphQLError('Access denied')
-        except AttributeDoesNotExist:
-            util.cloudwatch_log(
-                context, UNAUTHORIZED_ROLE_MSG)
+        if not await enforcer(subject, object_, action):
+            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
@@ -228,20 +215,15 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
             await sync_to_async(rollbar.report_message)(
                 'Error: Empty fields in project', 'error', context)
             raise GraphQLError('Access denied')
-        try:
-            enforcer = authorization_utils.get_group_access_enforcer()
 
-            if not await enforcer(user_data, project_name):
-                util.cloudwatch_log(
-                    context, 'Security: Attempted to retrieve '
-                    f'{kwargs.get("project_name")} project info '
-                    'without permission')
-                raise GraphQLError('Access denied')
+        enforcer = authorization_utils.get_group_access_enforcer()
+
+        if not await enforcer(user_data, project_name):
             util.cloudwatch_log(
-                context, 'Security: Access to '
-                f'{kwargs.get("project_name")} project')
-        except AttributeDoesNotExist:
-            return GraphQLError('Access denied')
+                context, 'Security: Attempted to retrieve '
+                f'{kwargs.get("project_name")} project info '
+                'without permission')
+            raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
 
@@ -273,16 +255,14 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
             await sync_to_async(rollbar.report_message)(
                 'Error: Invalid finding id format', 'error', context)
             raise GraphQLError('Invalid finding id format')
-        try:
-            enforcer = authorization_utils.get_group_access_enforcer()
 
-            if not await enforcer(user_data, finding_project):
-                util.cloudwatch_log(
-                    context, 'Security:  Attempted to retrieve '
-                    'finding-related info without permission')
-                raise GraphQLError('Access denied')
-        except AttributeDoesNotExist:
-            return GraphQLError('Access denied')
+        enforcer = authorization_utils.get_group_access_enforcer()
+
+        if not await enforcer(user_data, finding_project):
+            util.cloudwatch_log(
+                context, 'Security:  Attempted to retrieve '
+                'finding-related info without permission')
+            raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
 
@@ -315,16 +295,14 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
             await sync_to_async(rollbar.report_message)(
                 'Error: Invalid event id format', 'error', context)
             raise GraphQLError('Invalid event id format')
-        try:
-            enforcer = authorization_utils.get_group_access_enforcer()
 
-            if not await enforcer(user_data, event_project):
-                util.cloudwatch_log(
-                    context, 'Security: Attempted to retrieve '
-                    'event-related info without permission')
-                raise GraphQLError('Access denied')
-        except AttributeDoesNotExist:
-            return GraphQLError('Access denied: Missing attributes')
+        enforcer = authorization_utils.get_group_access_enforcer()
+
+        if not await enforcer(user_data, event_project):
+            util.cloudwatch_log(
+                context, 'Security: Attempted to retrieve '
+                'event-related info without permission')
+            raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
 
