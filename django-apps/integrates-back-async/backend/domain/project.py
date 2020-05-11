@@ -33,6 +33,13 @@ from backend import util
 from __init__ import FI_MAIL_REVIEWERS
 
 
+async def does_group_has_drills(group: str) -> bool:
+    """Return True if the provided group has drills."""
+    attrs = get_attributes(group, ['has_drills'])
+
+    return bool(attrs.get('has_drills', False))
+
+
 def get_email_recipients(project_name: str) -> List[str]:
     """Get the recipients of the comment email."""
     recipients = [str(user) for user in get_users(project_name)]
