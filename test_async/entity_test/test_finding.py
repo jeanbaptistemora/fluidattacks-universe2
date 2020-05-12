@@ -12,6 +12,7 @@ from django.conf import settings
 from graphql import GraphQLError
 from jose import jwt
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
@@ -40,6 +41,7 @@ class FindingTests(TestCase):
         )
         request.loaders = {
             'finding': FindingLoader(),
+            'project': ProjectLoader(),
             'vulnerability': VulnerabilityLoader()
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
@@ -555,3 +557,35 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['handleAcceptation']
         assert result['data']['handleAcceptation']['success']
+
+    @pytest.mark.changes_db
+    async def test_filter_deleted_findings(self):
+        """Check if vuln of deleted vulns are filter out."""
+        query = '''
+          query {
+            project(projectName: "unittesting"){
+              openVulnerabilities
+            }
+          }
+        '''
+        mutation = '''
+          mutation {
+            deleteFinding(findingId: "988493279", justification: NOT_REQUIRED) {
+              success
+            }
+          }
+        '''
+        data = {'query': query}
+        result = await self._get_result(data)
+        assert 'errors' not in result
+        open_vulns = result['data']['project']['openVulnerabilities']
+
+        data = {'query': mutation}
+        result = await self._get_result(data)
+        assert 'errors' not in result
+        assert 'success' in result['data']['deleteFinding']
+        assert result['data']['deleteFinding']['success']
+
+        data = {'query': query}
+        result = await self._get_result(data)
+        assert result['data']['project']['openVulnerabilities'] < open_vulns
