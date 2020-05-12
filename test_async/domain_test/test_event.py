@@ -8,7 +8,7 @@ from django.test import TestCase
 from backend.domain import event as event_domain
 from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
-    InvalidFileType
+    InvalidFileType, InvalidFileSize
 )
 
 
@@ -161,3 +161,16 @@ class EventTests(TestCase):
         with self.assertRaises(InvalidFileType) as context:
             event_domain.validate_evidence(evidence_type, uploaded_file)
         self.assertTrue('Exception - Invalid File Type: EVENT_IMAGE' in str(context.exception))
+
+    @pytest.mark.no_changes_db
+    def test_validate_evidence_invalid_file_size(self):
+        evidence_type = 'evidence'
+        filename = os.path.dirname(os.path.abspath(__file__))
+        filename = os.path.join(filename, '../mock/test-big-image.jpg')
+        with open(filename, 'rb') as test_file:
+            uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                                content=test_file.read(),
+                                                content_type='image/jpg')
+        with self.assertRaises(InvalidFileSize) as context:
+            event_domain.validate_evidence(evidence_type, uploaded_file)
+        self.assertTrue('Exception - Invalid File Size' in str(context.exception))
