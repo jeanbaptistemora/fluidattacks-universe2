@@ -24,6 +24,18 @@ import { GET_USER } from "./queries";
 import { IAddUserModalProps, IUserDataAttr } from "./types";
 
 const requiredIndicator: JSX.Element = <label style={{ color: "#f22" }}>* </label>;
+const userLevelRoles: string[] = [
+  "admin",
+  "customer",
+  "customeradmin",
+  "internal_manager",
+];
+const groupLevelRoles: string[] = [
+  "analyst",
+  "customer",
+  "customeradmin",
+  "group_manager",
+];
 
 export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalProps): JSX.Element => {
   const { onClose, onSubmit } = props;
@@ -31,12 +43,6 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
     ? translate.t("search_findings.tab_users.title")
     : translate.t("search_findings.tab_users.edit_user_title");
   title = props.projectName === undefined ? translate.t("sidebar.user") : title;
-  const adminOption: JSX.Element | undefined = props.projectName === undefined ?
-    <option value="ADMIN">{translate.t("search_findings.tab_users.admin")}</option> :
-    undefined;
-  const groupManagerOption: JSX.Element | undefined = props.projectName !== undefined ?
-    <option value="GROUP_MANAGER">{translate.t("search_findings.tab_users.group_manager")}</option> :
-    undefined;
   const selector: (state: {}, ...field: string[]) => string = formValueSelector("addUser");
   const userEmail: string = useSelector((state: {}) => selector(state, "email"));
 
@@ -108,21 +114,20 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                     <ControlLabel>{requiredIndicator}{translate.t("search_findings.tab_users.role")}</ControlLabel>
                     <Field name="role" component={dropdownField} validate={[required]}>
                       <option value="" />
-                      <Can do="backend_api_resolvers_user__do_grant_user_access_internal_roles">
-                        <option value="ANALYST">{translate.t("search_findings.tab_users.analyst")}</option>
-                        {adminOption}
-                        {groupManagerOption}
-                      </Can>
-                      <option value="CUSTOMER">{translate.t("search_findings.tab_users.customer")}</option>
-                      {props.projectName !== undefined ? (
-                        <option value="CUSTOMERADMIN">
-                          {translate.t("search_findings.tab_users.customeradmin")}
-                        </option>
-                      ) : (
-                        <option value="INTERNAL_MANAGER">
-                          {translate.t("search_findings.tab_users.internal_manager")}
-                        </option>
-                      )}
+                      {(props.projectName !== undefined ? groupLevelRoles : []).map((role: string) => (
+                        <Can do={`grant_group_level_role:${role}`}>
+                          <option value={role.toUpperCase()}>
+                            {translate.t(`search_findings.tab_users.${role}`)}
+                          </option>
+                        </Can>
+                      ))}
+                      {(props.projectName !== undefined ? [] : userLevelRoles).map((role: string) => (
+                        <Can do={`grant_user_level_role:${role}`}>
+                          <option value={role.toUpperCase()}>
+                            {translate.t(`search_findings.tab_users.${role}`)}
+                          </option>
+                        </Can>
+                      ))}
                     </Field>
                   </FormGroup>
                   {props.projectName !== undefined ? (

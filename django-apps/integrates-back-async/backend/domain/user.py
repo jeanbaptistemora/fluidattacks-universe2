@@ -61,7 +61,9 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
 
     # If there is no user-level role for this user add one
     if not get_user_level_role(email):
-        success = success and grant_user_level_role(email, role)
+        user_level_roles = authorization_util.ROLES['user_level']
+        user_level_role: str = role if role in user_level_roles else 'customer'
+        success = success and grant_user_level_role(email, user_level_role)
 
     return success \
         and user_dal.put_subject_policy(policy) \

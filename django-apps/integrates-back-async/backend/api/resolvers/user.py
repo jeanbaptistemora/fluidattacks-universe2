@@ -4,7 +4,6 @@ from typing import (
     cast,
     Dict,
     List,
-    Tuple,
 )
 
 import asyncio
@@ -55,25 +54,6 @@ BASIC_ROLES = ['customer', 'customeradmin']
 INTERNAL_ROLES = ['analyst']
 ADMIN_ROLES = ['admin', 'closer', 'group_manager', 'internal_manager',
                'reviewer']
-
-
-async def _get_group_level_roles_a_user_can_grant(
-    *,
-    group: str,
-    requester_email: str,
-) -> Tuple[str, ...]:
-    """Return a tuple of roles that users can grant based on their role."""
-    enforcer = authorization_utils.get_group_level_enforcer(requester_email)
-
-    roles_the_user_can_grant: Tuple[str, ...] = tuple([
-        role
-        for role in authorization_utils.ROLES['group_level']
-        if await enforcer(
-            requester_email, group, f'grant_group_level_role:{role}'
-        )
-    ])
-
-    return roles_the_user_can_grant
 
 
 async def _create_new_user(  # pylint: disable=too-many-arguments
@@ -281,21 +261,42 @@ async def resolve_user_mutation(obj, info, **parameters):
 @enforce_user_level_auth_async
 async def _do_add_user(_, info, **parameters) -> AddUserPayloadType:
     """Resolve add_user mutation."""
-    email = parameters.get('email', '')
-    success = \
-        await sync_to_async(user_domain.create_without_project)(parameters)
-    if success:
-        util.cloudwatch_log(
-            info.context, f'Security: Add user {email}')  # pragma: no cover
-        mail_to = [email]
-        context = {'admin': email}
-        email_send_thread = threading.Thread(
-            name='Access granted email thread',
-            target=send_mail_access_granted,
-            args=(mail_to, context,)
+    success: bool = False
+
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+
+    new_user_email = parameters.get('email', '')
+    new_user_role = parameters.get('role', '')
+
+    allowed_roles_to_grant = \
+        await authorization_utils.get_user_level_roles_a_user_can_grant(
+            requester_email=user_email,
         )
-        email_send_thread.start()
-    return AddUserPayloadType(success=success, email=email)
+
+    if new_user_role in allowed_roles_to_grant:
+        if await sync_to_async(user_domain.create_without_project)(parameters):
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Add user {new_user_email}')  # pragma: no cover
+            mail_to = [new_user_email]
+            context = {'admin': new_user_email}
+            email_send_thread = threading.Thread(
+                name='Access granted email thread',
+                target=send_mail_access_granted,
+                args=(mail_to, context,)
+            )
+            email_send_thread.start()
+            success = True
+        else:
+            rollbar.report_message(
+                'Error: Couldn\'t grant user access', 'error', info.context)
+    else:
+        rollbar.report_message(
+            f'Error: Invalid role provided: {new_user_role}',
+            f'error', info.context)
+
+    return AddUserPayloadType(success=success, email=new_user_email)
 
 
 @require_login
@@ -312,10 +313,11 @@ async def _do_grant_user_access(
     new_user_role = query_args.get('role')
     new_user_email = query_args.get('email', '')
 
-    allowed_roles_to_grant = await _get_group_level_roles_a_user_can_grant(
-        group=project_name,
-        requester_email=user_email,
-    )
+    allowed_roles_to_grant = \
+        await authorization_utils.get_group_level_roles_a_user_can_grant(
+            group=project_name,
+            requester_email=user_email,
+        )
 
     if new_user_role in allowed_roles_to_grant:
         if await _create_new_user(
@@ -403,10 +405,11 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
-    allowed_roles_to_grant = await _get_group_level_roles_a_user_can_grant(
-        group=project_name,
-        requester_email=user_email,
-    )
+    allowed_roles_to_grant = \
+        await authorization_utils.get_group_level_roles_a_user_can_grant(
+            group=project_name,
+            requester_email=user_email,
+        )
 
     if modified_role in allowed_roles_to_grant:
         if await sync_to_async(user_domain.grant_group_level_role)(

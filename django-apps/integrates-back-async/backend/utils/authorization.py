@@ -31,6 +31,7 @@ ROLES: Dict[str, Dict[str, List[str]]] = dict(
     user_level=dict(
         admin=[],
         customer=[],
+        customeradmin=[],
         internal_manager=['drills'],
     ),
 )
@@ -134,6 +135,8 @@ CUSTOMERADMIN_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_vulnerability__do_delete_tags',
     'backend_api_resolvers_vulnerability__do_request_verification_vuln',
     'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+    'grant_user_level_role:customer',
+    'grant_user_level_role:customeradmin',
     'grant_group_level_role:customer',
     'grant_group_level_role:customeradmin',
 )
@@ -180,6 +183,8 @@ GROUP_MANAGER_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_vulnerability__do_delete_tags',
     'backend_api_resolvers_vulnerability__do_request_verification_vuln',
     'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+    'grant_user_level_role:customer',
+    'grant_user_level_role:customeradmin',
     'grant_group_level_role:analyst',
     'grant_group_level_role:customer',
     'grant_group_level_role:customeradmin',
@@ -311,6 +316,10 @@ ADMIN_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_vulnerability__do_verify_request_vuln',
     'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
     'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+    'grant_user_level_role:admin',
+    'grant_user_level_role:customer',
+    'grant_user_level_role:customeradmin',
+    'grant_user_level_role:internal_manager',
     'grant_group_level_role:analyst',
     'grant_group_level_role:closer',
     'grant_group_level_role:customer',
@@ -384,6 +393,43 @@ def get_group_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
         return should_grant_access
 
     return enforcer
+
+
+async def get_user_level_roles_a_user_can_grant(
+    *,
+    requester_email: str,
+) -> Tuple[str, ...]:
+    """Return a tuple of roles that users can grant based on their role."""
+    enforcer = get_user_level_enforcer(requester_email)
+
+    roles_the_user_can_grant: Tuple[str, ...] = tuple([
+        role
+        for role in ROLES['user_level']
+        if await enforcer(
+            requester_email, 'self', f'grant_user_level_role:{role}'
+        )
+    ])
+
+    return roles_the_user_can_grant
+
+
+async def get_group_level_roles_a_user_can_grant(
+    *,
+    group: str,
+    requester_email: str,
+) -> Tuple[str, ...]:
+    """Return a tuple of roles that users can grant based on their role."""
+    enforcer = get_group_level_enforcer(requester_email)
+
+    roles_the_user_can_grant: Tuple[str, ...] = tuple([
+        role
+        for role in ROLES['group_level']
+        if await enforcer(
+            requester_email, group, f'grant_group_level_role:{role}'
+        )
+    ])
+
+    return roles_the_user_can_grant
 
 
 def get_group_access_enforcer() -> Callable[[dict, str], Coroutine]:
