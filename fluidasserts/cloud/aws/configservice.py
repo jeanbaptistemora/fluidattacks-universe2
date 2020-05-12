@@ -22,6 +22,9 @@ def no_configservice_enabled(key_id: str,
     """
     Check if AWS Config Service is enabled.
 
+    https://www.cloudconformity.com/knowledge-base/aws/
+    Config/aws-config-enabled.html
+
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
