@@ -287,7 +287,6 @@ CRONJOBS = [
     ('30 5,16 * * 1-5', 'backend.scheduler.get_remediated_findings'),
     ('30 5,15 * * 1-5', 'backend.scheduler.get_new_releases'),
     ('0 5 * * 1', 'backend.scheduler.weekly_report'),
-    ('0 4 * * *', 'backend.scheduler.inactive_users'),
     ('0 15 * * 1',
         'backend.scheduler.send_unsolved_to_all'),
     ('0 6,13 * * 1-5', 'backend.scheduler.update_indicators'),
