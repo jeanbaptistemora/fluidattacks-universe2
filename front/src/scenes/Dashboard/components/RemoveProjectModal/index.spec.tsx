@@ -41,10 +41,14 @@ describe("RemoveProjectModal component", () => {
         </Provider>
       </MemoryRouter>,
     );
-
+    const inputField: ReactWrapper = wrapper
+      .find("input");
     const cancelButton: ReactWrapper = wrapper
       .find("Button")
       .filterWhere((element: ReactWrapper) => element.contains("Cancel"));
+
+    expect(inputField)
+      .toHaveLength(1);
     cancelButton.simulate("click");
     expect(wrapper)
       .toHaveLength(1);
