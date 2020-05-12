@@ -1,10 +1,12 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { Action, createStore, Store } from "redux";
 import wait from "waait";
+import store from "../../../../../store";
 import { addUserModal as AddUserModal } from "./index";
 import { GET_USER } from "./queries";
 import { IAddUserModalProps } from "./types";
@@ -31,8 +33,6 @@ describe("Add user modal", () => {
     type: "edit",
   };
 
-  const store: Store<{}, Action<{}>> = createStore(() => ({}));
-
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
@@ -52,7 +52,28 @@ describe("Add user modal", () => {
           },
         },
       },
-  }];
+
+    },
+    {
+      request: {
+        query: GET_USER,
+        variables: {
+          projectName: "TEST",
+          userEmail: "unittest@test.com",
+        },
+      },
+      result: {
+        data: {
+          user: {
+            __typename: "User",
+            organization: "unittesting",
+            phoneNumber: "+573123210123",
+            responsibility: "edited",
+          },
+        },
+      },
+    },
+  ];
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -110,5 +131,41 @@ describe("Add user modal", () => {
     await wait(0);
     expect(wrapper)
       .toHaveLength(1);
+  });
+
+  it("should auto fill data on inputs", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={true}>
+          <AddUserModal {...mockPropsAdd} />
+        </MockedProvider>
+      </Provider>,
+    );
+    const emailInput: ReactWrapper = wrapper
+      .find({name: "email", type: "text"})
+      .at(0)
+      .find("input");
+    emailInput.simulate("change", { target: { value: "unittest@test.com", name: "email" } });
+    emailInput.simulate("blur");
+    await act(async () => { await wait(0); wrapper.update(); });
+
+    const organizationInput: ReactWrapper = wrapper
+      .find({name: "organization", type: "text"})
+      .at(0)
+      .find("input");
+    const phoneNumberInput: ReactWrapper = wrapper
+      .find({name: "phoneNumber", type: "text"})
+      .at(0)
+      .find("input");
+    const responsibilityInput: ReactWrapper = wrapper
+      .find({name: "responsibility", type: "text"})
+      .at(0)
+      .find("input");
+    expect(organizationInput.prop("value"))
+      .toEqual("unittesting");
+    expect(phoneNumberInput.prop("value"))
+      .toEqual("+573123210123");
+    expect(responsibilityInput.prop("value"))
+      .toEqual("edited");
   });
 });
