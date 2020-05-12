@@ -12,7 +12,10 @@ from typing import (
 import rollbar
 from django.core.cache import cache
 from rediscluster.nodemanager import RedisClusterException
-from backend.dal import user as user_dal
+from backend.dal import (
+    project as project_dal,
+    user as user_dal,
+)
 
 
 # Typing aliases
@@ -38,7 +41,11 @@ ROLES: Dict[str, Dict[str, List[str]]] = dict(
 
 
 def get_subject_cache_key(subject: str) -> str:
-    return f'authorization.{subject.lower().encode().hex()}'
+    return f'authorization.subject.{subject.lower().encode().hex()}'
+
+
+def get_group_cache_key(group: str) -> str:
+    return f'authorization.group.{group.lower().encode().hex()}'
 
 
 def get_cached_subject_policies(subject: str):
@@ -59,6 +66,29 @@ def get_cached_subject_policies(subject: str):
 
     # Put the data in the cache
     cache.set(cache_key, fetched_data, timeout=300)
+
+    return fetched_data
+
+
+def get_cached_group_features_policies(group: str):
+    """Cached function to get 1 group features authorization policies."""
+    cache_key: str = get_group_cache_key(group)
+
+    # Attempt to retrieve data from the cache
+    with contextlib.suppress(RedisClusterException):
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            return cached_data
+
+    # Let's fetch the data from the database
+    fetched_data = tuple(
+        # group, feature
+        (policy.group, policy.feature)
+        for policy in project_dal.get_features_policies(group))
+
+    # Put the data in the cache
+    cache.set(cache_key, fetched_data, timeout=60 * 60)
 
     return fetched_data
 

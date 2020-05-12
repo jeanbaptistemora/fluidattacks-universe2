@@ -1,7 +1,13 @@
 """DAL functions for projects."""
 
 from datetime import datetime
-from typing import Dict, List, Union, cast
+from typing import (
+    cast,
+    Dict,
+    List,
+    NamedTuple,
+    Union,
+)
 import rollbar
 from botocore.exceptions import ClientError
 import pytz
@@ -28,6 +34,56 @@ TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
 TABLE_WEEKLY_REPORT = DYNAMODB_RESOURCE.Table('FI_weekly_report')
+
+FEATURE_POLICY = NamedTuple('FEATURE_POLICY', [
+    ('group', str),
+    ('feature', str),
+])
+
+
+def get_features_policies(group: str) -> List[FEATURE_POLICY]:
+    """Return a list of policies for the given group."""
+    policies: List[FEATURE_POLICY] = []
+
+    group_attributes: dict = TABLE.get_item(
+        AttributesToGet=[
+            'has_forces',
+            'has_drills',
+            'type',
+        ],
+        ConsistentRead=True,
+        Key=dict(
+            project_name=group.lower(),
+        ),
+    )
+
+    # There is no such group, let's make an early return
+    if 'Item' not in group_attributes:
+        return policies
+
+    group_attributes = group_attributes['Item']
+    has_drills: bool = group_attributes.get('has_drills', False)
+    has_forces: bool = group_attributes.get('has_forces', False)
+    type_: str = group_attributes.get('type', 'oneshot')
+
+    # This may be false if the group is scheduled for deletion
+    #   but let's mark it as True for now to see what is more convenient
+    policies.append(FEATURE_POLICY(group=group, feature='integrates'))
+
+    if has_drills:
+        if type_ == 'continuous':
+            policies.append(FEATURE_POLICY(group=group, feature='drills-white'))
+            if has_forces:
+                policies.append(FEATURE_POLICY(group=group, feature='forces'))
+
+        elif type_ == 'oneshot':
+            policies.append(FEATURE_POLICY(group=group, feature='drills-black'))
+
+        else:
+            rollbar.report_message(
+                'Group has invalid type attribute',
+                level='critical', extra_data=dict(group=group))
+    return policies
 
 
 def get_current_month_information(project_name: str, query_db: str) -> str:

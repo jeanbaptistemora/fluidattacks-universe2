@@ -8,6 +8,7 @@ from backend.domain.user import (
     grant_user_level_role,
 )
 from backend.utils.authorization import (
+    get_cached_group_features_policies,
     get_group_access_enforcer,
     get_group_level_enforcer,
     get_user_level_enforcer,
@@ -419,3 +420,20 @@ class UserAbacTest(TestCase):
 
         for act in self.all_actions:
             self.assertTrue(await UserAbacTest.enforcer(sub)(sub, obj, act))
+
+
+class FeaturesAbacTest(TestCase):
+
+    @pytest.mark.no_changes_db
+    async def get_cached_group_features_policies(self):
+        assert sorted(get_cached_group_features_policies('not-exists... probably')) == [
+        ]
+        assert sorted(get_cached_group_features_policies('oneshottest')) == [
+            ('unittesting', 'integrates'),
+            ('unittesting', 'drills-black'),
+        ]
+        assert sorted(get_cached_group_features_policies('unittesting')) == [
+            ('unittesting', 'integrates'),
+            ('unittesting', 'drills-white'),
+            ('unittesting', 'forces'),
+        ]
