@@ -388,6 +388,9 @@ class Batcher():
         elif func_name == 'Fn::GetAtt':
             statement += self._fn_getatt(resource_alias, attrs, contexts,
                                          **kwargs)
+        elif func_name == 'Fn::Cidr':
+            statement += self._fn_cidr(resource_alias, attrs, contexts,
+                                       **kwargs)
         elif func_name in CONDITIONAL_FUNCS:
             statement += self._fn_conditional(func_name, resource_alias, attrs,
                                               contexts, **kwargs)
@@ -485,6 +488,63 @@ class Batcher():
                                                       contexts, line)
         statement += (
             f"({resource_id})-[{rel_resource}:EXECUTE_FN]->({alias_fn})\n")
+
+        if rel_kwargs:
+            contexts.add(rel_resource)
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
+        return statement
+
+    def _fn_cidr(self,
+                 resource_id: str,
+                 attrs,
+                 contexts: set = None,
+                 line='unknown',
+                 **rel_kwargs):
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_getatt", True)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        statement = (f"CREATE ({alias_fn}:Fn:Cidr)\n")
+        contexts.add(alias_fn)
+        # load ipBlock
+        if isinstance(attrs[0], str):
+            statement += f"SET {alias_fn}.ipBlock = ${alias_fn}_ipblock\n"
+            self.statement_params[f'{alias_fn}_ipblock'] = attrs[0]
+        else:
+            func_name = list(attrs[0].keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn,
+                func_name,
+                attrs[0][func_name],
+                alias_fn,
+                ipBlock=True)
+        # load count
+        if isinstance(attrs[1], (str, int)):
+            statement += f"SET {alias_fn}.count = ${alias_fn}_count\n"
+            self.statement_params[f'{alias_fn}_count'] = attrs[1]
+        else:
+            func_name = list(attrs[1].keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn, func_name, attrs[1][func_name], contexts, count=True)
+        # load cidrBits
+        if isinstance(attrs[2], (str, int)):
+            statement += f"SET {alias_fn}.cidrBits = ${alias_fn}_cidrbits\n"
+            self.statement_params[f'{alias_fn}_cidrbits'] = attrs[2]
+        else:
+            func_name = list(attrs[2].keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn,
+                func_name,
+                attrs[2][func_name],
+                alias_fn,
+                cidrBits=True)
+
+        contexts_str = ', '.join(contexts)
+        statement += (
+            f"WITH {contexts_str}\n"
+            f"({resource_id})-[{rel_resource}:EXECUTE_FN]->({alias_fn})\n"
+            f"SET {rel_resource}.line = ${rel_resource}_line")
+        self.statement_params[f'{rel_resource}_line'] = line
 
         if rel_kwargs:
             contexts.add(rel_resource)
