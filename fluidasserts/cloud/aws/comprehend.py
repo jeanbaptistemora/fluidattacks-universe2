@@ -19,7 +19,7 @@ def no_encryption_on_analysis_job(key_id: str,
                                   session_token: str = None,
                                   retry: bool = True) -> tuple:
     """
-    Check if alarms are set for AWS console login without MFA.
+    Check if entity analysis jobs have their output encrypted.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
