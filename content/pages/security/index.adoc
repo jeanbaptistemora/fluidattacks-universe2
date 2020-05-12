@@ -557,9 +557,7 @@ of:
 [IAC]
 === 7.1 Infrastructure as code (IaC)
 
-All our infrastructure is in the cloud.
-The only hardware we manage are our employee's laptops.
-The entire infrastructure is versioned
+Our entire infrastructure is versioned
 in a Git repository written as code.
 Such code can be deployed anywhere
 and has all the properties of any
@@ -669,7 +667,7 @@ instance running in it.
 
 === 8.2 Forever-lasting backups
 
-As all our backups are stored in the cloud,
+As all our backups stored in descentralized datacenters,
 problems like hard drive lifespans
 are not a concern to us.
 Backups seamlessly exist
@@ -694,9 +692,9 @@ This allows us to be able to fill the gap
 in case an employee goes on sick leave,
 vacation, etc.
 
-=== 9.2 Everything is in the cloud
+=== 9.2 Everything is descentralized
 
-As all our infrastrucutre is in the cloud,
+As all our infrastrucutre is descentralized,
 No hardware maintainance is needed,
 making our operation fully descentralized.
 No local networks are used,
