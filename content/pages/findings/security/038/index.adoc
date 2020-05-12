@@ -22,10 +22,12 @@ It is possible to obtain business information such as:
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/176/[R176. Restrict system objects]#
+. [[r1]] [inner]#link:/web/rules/123/[R123. Restrict reading of emails]#
 
-. [[r2]] [inner]#link:/web/rules/177/[R177. Avoid caching and temporary files]#
+. [[r2]] [inner]#link:/web/rules/176/[R176. Restrict system objects]#
 
-. [[r3]] [inner]#link:/web/rules/261/[R261. Avoid exposing sensitive information]#
+. [[r3]] [inner]#link:/web/rules/177/[R177. Avoid caching and temporary files]#
 
-. [[r4]] [inner]#link:/web/rules/300/[R300. Mask sensitive data]#
+. [[r4]] [inner]#link:/web/rules/261/[R261. Avoid exposing sensitive information]#
+
+. [[r5]] [inner]#link:/web/rules/300/[R300. Mask sensitive data]#

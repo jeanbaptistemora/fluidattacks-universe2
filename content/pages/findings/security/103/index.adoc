@@ -13,8 +13,10 @@ receives, thus it accepts invalid data.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#
+. [[r1]] [inner]#link:/web/rules/122/[R122. Validate email ownership]#
 
-. [[r2]] [inner]#link:/web/rules/178/[R178. Use digital signatures]#
+. [[r2]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#
 
-. [[r3]] [inner]#link:/web/rules/320/[R320. Avoid client-side control enforcement]#
+. [[r3]] [inner]#link:/web/rules/178/[R178. Use digital signatures]#
+
+. [[r4]] [inner]#link:/web/rules/320/[R320. Avoid client-side control enforcement]#

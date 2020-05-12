@@ -1,12 +1,34 @@
 :slug: rules/123/
 :category: emails
-:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. In this case, it is recommended that business email accounts be only viewed by authorized people and not by programs.
-:keywords: Person, Email, Guarantee, Human, View, Electronic
+:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. In this case, it is recommended that exposed corporate email addresses be only visible to humans and not to robots.
+:keywords: Person, Email, Robot, Human, Scrapper, ASVS
 :rules: yes
 
 = REQ.123 Restrict reading of emails
 
 == Requirement
 
-The system must guarantee that
-the viewing of exposed emails is only performed by humans.
+The system must guarantee that exposed email addresses can only be viewed by
+humans.
+
+== Description
+
+Sometimes, corporate email addresses are exposed on the company's website or
+another overly public medium.
+These emails should only be visible to human beings,
+which can be accomplished by, for instance, publishing them as images instead
+of as plain text.
+This prevents automatic tools from collecting them and adding them to bulk
+email distribution lists.
+
+== Findings
+
+* [inner]#link:/web/findings/038/[F038. Business information leak]#
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.4)]
+Verify the application has sufficient anti-automation controls to detect and
+protect against data exfiltration, excessive business logic requests, excessive
+file uploads or denial of service attacks.
