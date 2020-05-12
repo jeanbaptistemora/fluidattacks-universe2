@@ -3,6 +3,8 @@ import contextlib
 from typing import (
     Callable,
     Coroutine,
+    Dict,
+    List,
     Tuple,
 )
 
@@ -15,6 +17,23 @@ from backend.dal import user as user_dal
 
 # Typing aliases
 ENFORCER_FUNCTION = Callable[[str, str, str], Coroutine]
+
+# Map(role_level -> Map(role_name -> tags))
+ROLES: Dict[str, Dict[str, List[str]]] = dict(
+    group_level=dict(
+        analyst=['drills'],
+        closer=['drills'],
+        customer=[],
+        customeradmin=[],
+        group_manager=['drills'],
+        reviewer=['drills'],
+    ),
+    user_level=dict(
+        admin=[],
+        customer=[],
+        internal_manager=['drills'],
+    ),
+)
 
 
 def get_subject_cache_key(subject: str) -> str:
@@ -115,6 +134,8 @@ CUSTOMERADMIN_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_vulnerability__do_delete_tags',
     'backend_api_resolvers_vulnerability__do_request_verification_vuln',
     'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+    'grant_group_level_role:customer',
+    'grant_group_level_role:customeradmin',
 )
 
 
@@ -153,13 +174,15 @@ GROUP_MANAGER_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_resource_resolve_add_resources',
     'backend_api_resolvers_resource_resolve_resources',
     'backend_api_resolvers_user__do_edit_user',
-    'backend_api_resolvers_user__do_grant_user_access_internal_roles',
     'backend_api_resolvers_user__do_grant_user_access',
     'backend_api_resolvers_user__do_remove_user_access',
     'backend_api_resolvers_user_resolve_user',
     'backend_api_resolvers_vulnerability__do_delete_tags',
     'backend_api_resolvers_vulnerability__do_request_verification_vuln',
     'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+    'grant_group_level_role:analyst',
+    'grant_group_level_role:customer',
+    'grant_group_level_role:customeradmin',
 )
 
 
@@ -277,8 +300,6 @@ ADMIN_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_tag_resolve_tag',
     'backend_api_resolvers_user__do_add_user',
     'backend_api_resolvers_user__do_edit_user',
-    'backend_api_resolvers_user__do_grant_user_access_admin_roles',
-    'backend_api_resolvers_user__do_grant_user_access_internal_roles',
     'backend_api_resolvers_user__do_grant_user_access',
     'backend_api_resolvers_user__do_remove_user_access',
     'backend_api_resolvers_user_resolve_user_list_projects',
@@ -290,6 +311,12 @@ ADMIN_ACTIONS: Tuple[str, ...] = (
     'backend_api_resolvers_vulnerability__do_verify_request_vuln',
     'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
     'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+    'grant_group_level_role:analyst',
+    'grant_group_level_role:closer',
+    'grant_group_level_role:customer',
+    'grant_group_level_role:customeradmin',
+    'grant_group_level_role:group_manager',
+    'grant_group_level_role:reviewer',
 )
 
 

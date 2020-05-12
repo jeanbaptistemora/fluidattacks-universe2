@@ -1,6 +1,12 @@
 # pylint: disable=too-many-locals
 from datetime import datetime
-from typing import Dict, List, cast
+from typing import (
+    cast,
+    Dict,
+    List,
+    Tuple,
+)
+
 import asyncio
 import sys
 import threading
@@ -49,6 +55,25 @@ BASIC_ROLES = ['customer', 'customeradmin']
 INTERNAL_ROLES = ['analyst']
 ADMIN_ROLES = ['admin', 'closer', 'group_manager', 'internal_manager',
                'reviewer']
+
+
+async def _get_group_level_roles_a_user_can_grant(
+    *,
+    group: str,
+    requester_email: str,
+) -> Tuple[str, ...]:
+    """Return a tuple of roles that users can grant based on their role."""
+    enforcer = authorization_utils.get_group_level_enforcer(requester_email)
+
+    roles_the_user_can_grant: Tuple[str, ...] = tuple([
+        role
+        for role in authorization_utils.ROLES['group_level']
+        if await enforcer(
+            requester_email, group, f'grant_group_level_role:{role}'
+        )
+    ])
+
+    return roles_the_user_can_grant
 
 
 async def _create_new_user(  # pylint: disable=too-many-arguments
@@ -287,19 +312,10 @@ async def _do_grant_user_access(
     new_user_role = query_args.get('role')
     new_user_email = query_args.get('email', '')
 
-    admin_roles_action: str = \
-        'backend_api_resolvers_user__do_grant_user_access_admin_roles'
-    internal_roles_action: str = \
-        'backend_api_resolvers_user__do_grant_user_access_internal_roles'
-
-    enforcer = authorization_utils.get_group_level_enforcer(user_email)
-
-    if await enforcer(user_email, project_name, admin_roles_action):
-        allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES + ADMIN_ROLES
-    elif await enforcer(user_email, project_name, internal_roles_action):
-        allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES
-    else:
-        allowed_roles_to_grant = BASIC_ROLES
+    allowed_roles_to_grant = await _get_group_level_roles_a_user_can_grant(
+        group=project_name,
+        requester_email=user_email,
+    )
 
     if new_user_role in allowed_roles_to_grant:
         if await _create_new_user(
@@ -387,22 +403,10 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
-    enforcer = authorization_utils.get_group_level_enforcer(user_email)
-
-    matches_admin_roles: bool = await enforcer(
-        user_email, project_name,
-        'backend_api_resolvers_user__do_grant_user_access_admin_roles')
-
-    matches_internal_roles: bool = await enforcer(
-        user_email, project_name,
-        'backend_api_resolvers_user__do_grant_user_access_internal_roles')
-
-    if matches_admin_roles:
-        allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES + ADMIN_ROLES
-    elif matches_internal_roles:
-        allowed_roles_to_grant = BASIC_ROLES + INTERNAL_ROLES
-    else:
-        allowed_roles_to_grant = BASIC_ROLES
+    allowed_roles_to_grant = await _get_group_level_roles_a_user_can_grant(
+        group=project_name,
+        requester_email=user_email,
+    )
 
     if modified_role in allowed_roles_to_grant:
         if await sync_to_async(user_domain.grant_group_level_role)(
