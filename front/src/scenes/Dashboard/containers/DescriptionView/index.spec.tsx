@@ -1,10 +1,12 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import store from "../../../../store";
+import { authzContext } from "../../../../utils/authz/config";
 import { DescriptionView, DescriptionViewProps } from "./index";
 import { GET_FINDING_DESCRIPTION } from "./queries";
 
@@ -96,5 +98,53 @@ describe("Finding Description", () => {
           .text()
           .includes("Edit")))
       .toHaveLength(1);
+  });
+
+  it("should set the description as editable", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_finding__do_update_description" },
+      { action: "backend_api_resolvers_finding__do_update_client_description" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={[descriptionQuery]} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <DescriptionView {...mockedProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(50); wrapper.update(); });
+    const editButton: ReactWrapper = wrapper
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.contains("Edit"));
+    editButton.simulate("click");
+
+    let editingComponents: ReactWrapper = wrapper.find({isEditing: true});
+    let fieldsAsEditable: ReactWrapper = wrapper.find({renderAsEditable: true});
+    expect(editingComponents)
+      .toHaveLength(2);
+    expect(fieldsAsEditable)
+      .toHaveLength(13);
+
+    const titleInput: ReactWrapper = wrapper
+      .find({name: "title", type: "text"})
+      .at(0)
+      .find("input");
+    titleInput.simulate("change", { target: { value: "test" } });
+
+    const btsUrlInput: ReactWrapper = wrapper
+      .find({name: "btsUrl", type: "text"})
+      .at(0)
+      .find("input");
+    btsUrlInput.simulate("change", { target: { value: "test" } });
+
+    editButton.simulate("click");
+    editingComponents = wrapper.find({isEditing: true});
+    fieldsAsEditable = wrapper.find({renderAsEditable: true});
+    expect(editingComponents)
+      .toHaveLength(0);
+    expect(fieldsAsEditable)
+      .toHaveLength(0);
   });
 });
