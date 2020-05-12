@@ -22,7 +22,6 @@ class EventTests(TestCase):
         with pytest.raises(EventNotFound):
             event_domain.get_event('000001111')
 
-
     def test_create_event(self):
         attrs = {
             'action_after_blocking': 'TRAINING',
@@ -36,7 +35,6 @@ class EventTests(TestCase):
             'project_name': 'unittesting'
         }
         assert event_domain.create_event(**attrs)
-
 
     def test_create_event_file_image(self):
         attrs = {
@@ -67,7 +65,6 @@ class EventTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-
     def test_solve_event(self):
         assert event_domain.solve_event(
             event_id='538745942',
@@ -82,7 +79,6 @@ class EventTests(TestCase):
                 affectation=1,
                 analyst_email='unittesting@fluidattacks.com',
                 date=parse_datetime('2019-12-09T05:00:00.000Z'))
-
 
     def test_add_comment(self):
         comment_id = int(round(time() * 1000))
@@ -135,6 +131,14 @@ class EventTests(TestCase):
                                                 content_type='text/csv')
         test_data = event_domain.update_evidence(event_id, evidence_type, uploaded_file)
         expected_output = True
+        assert isinstance(test_data, bool)
+        assert test_data == expected_output
+
+    def test_update_evidence_attribute_error(self):
+        event_id = '418900978'
+        evidence_type = 'records'
+        test_data = event_domain.update_evidence(event_id, evidence_type, '')
+        expected_output = False
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
