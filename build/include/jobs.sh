@@ -118,7 +118,7 @@ function job_test_generic {
   local touched_adoc_files
   local max_columns='81'
   local min_words='10'
-  local max_words='3500'
+  local max_words='4000'
   local max_lix='65'
 
       all_content_files="$(find content/ -type f)" \
