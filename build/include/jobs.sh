@@ -404,22 +404,6 @@ function job_analytics_zoho {
         < .singer
 }
 
-function job_deploy_docker_image_exams {
-  local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
-  local context='containers/exams'
-  local dockerfile='containers/exams/Dockerfile'
-
-      aws_login \
-  &&  sops_env 'secrets-prod.yaml' 'default' \
-        ANSIBLE_VAULT \
-  &&  build_arg_1='ANSIBLE_VAULT' \
-  &&  helper_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}" \
-        "${build_arg_1}" "${!build_arg_1}"
-}
-
 function job_deploy_docker_image_nix {
   local tag="${CI_REGISTRY_IMAGE}:nix"
   local context='.'

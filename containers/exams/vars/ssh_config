@@ -1,7 +1,0 @@
-Host *
-  StrictHostKeyChecking no
-  UserKnownHostsFile /dev/null
-  PasswordAuthentication no
-  IdentityFile ~/.ssh/exams_facont_id_rsa
-  IdentitiesOnly yes
-  LogLevel ERROR
