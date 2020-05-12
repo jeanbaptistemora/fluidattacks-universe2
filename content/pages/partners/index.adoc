@@ -11,10 +11,10 @@
 
 Partners facilitate the delivery of our services to our end customers
 located in a variety of geographic areas (Germany link:#teraport[^1^],
-Australia link:#the-missing-link[^2^] and the United States link:#arroyo-consulting[^3^] link:#sba[^4^])
+Australia link:#the-missing-link[^2^], and the United States link:#arroyo-consulting[^3^] link:#sba[^4^])
 and sectors (Government, Defense) link:#evolution-it[^5^].
-In addition to our services, they complete their own portfolio
-(functional testing link:#choucair[^6^] link:#greensqa[^7^], software development)
+In addition to our services, they complete their portfolio
+(functional testing link:#choucair[^6^] link:#greensqa[^7^], software development),
 providing integrated solutions.
 If you are interested in partnering with `Fluid Attacks`,
 please start by reading the [button]#link:terms/[terms]#
@@ -28,19 +28,19 @@ a|image::logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
 
 a|== Arroyo Consulting
 
-{usa} Agile nearshore information technology development firm formed in `2009`.
-They have offices located in the United States
-and low-cost operation centers located across Latin America in Mexico City,
-Mexico, and Medellín and Bogotá, Colombia.
+{usa} Arroyo Consulting is an agile `IT` development firm formed in `2009`.
+They have offices in the United States
+and low-cost operation centers located in Mexico City, Mexico,
+and Medellín and Bogotá, Colombia.
 They have successfully delivered over `1000` projects internationally,
 with partners in a variety of industries and sectors.
 
 a|== Choucair
 
-Colombian company, a pioneer in software testing.
-Created in 1999, with international scope,
+Choucair is a Colombian company, a pioneer in software testing.
+It was created in `1999`, with an international scope,
 offering services related to software testing to reduce operational risks.
-The success of their services is based on research
+The success of its services is based on research
 and qualified human resources,
 supported by a certified and effective methodology.
 
@@ -50,22 +50,21 @@ a|image::ediligence-logo.png[alt="Logo Ediligence",link="http://ediligence.co/"]
 
 a|== Ediligence
 
-Company that provides information security services,
-forensics and technologies consulting.
+Ediligence is a company that provides information security services,
+forensics, and technologies consulting.
 By aligning legal and technical concepts,
 support is given to litigation,
 administrative investigations,
 and consultancy in the areas of compliance such as competence,
-protection of personal data and intellectual property.
+protection of personal data, and intellectual property.
 
 a|== Evolution IT
 
-Company that promotes, implements, and strengthens
-the effective management of information technology.
-Helps companies improve their competitiveness
-through better quality services
-resulting in an increase in their profitability.
-Employs world-class practices and successfully establishes
+Evolution is a company that promotes, implements, and strengthens
+the effective management of `IT`.
+It helps companies improve their competitiveness
+through better quality services, increasing their profitability.
+It employs world-class practices and successfully establishes
 business relationships with customers, business partners,
 and collaborators based on mutual trust.
 
@@ -75,17 +74,19 @@ a|image::gamma-logo.png[alt="Logo Gamma Ingenieros",link="https://www.gammaingen
 
 a|== Gamma Ingenieros
 
-Colombian company focused on satisfying their customers' needs
+Gamma Ingenieros is a Colombian company
+focused on satisfying its customers' needs
 regarding `IT` services and solutions.
-Consulting and auditing of construction works and telecommunications
-with a proven track record of fostering customer confidence
-and improving the customer experience.
+It is a company that performs consulting and auditing
+of construction and telecommunications works.
+It has a proven track record of fostering customer confidence
+and improving their experience.
 
 a|== GreenSQA
 
-Company with `15` years of experience in software testing,
+GreenSQA ia a company with `15` years of experience in software testing,
 such as performance tests and tests on different mobile devices.
-Tests automation throughout the product development life-cycle.
+It tests automation throughout the product development life-cycle.
 
 a|image::logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
 
@@ -93,12 +94,13 @@ a|image::logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
 
 a|== NewNet
 
-Colombian company dedicated to providing IT services and solutions.
-A pioneer in information technology,
+NewNet is a Colombian company
+dedicated to providing `IT` services and solutions.
+It is a pioneer in information technology,
 with more than `20` years of experience.
 NewNet's objective is to plan, establish, implement, operate,
-review, maintain, and improve technology management
-within the framework of security, service,
+review, maintain, and improve technology management.
+All this within the framework of security, service,
 and support according to each organization's needs.
 
 a|== Proximiteam
@@ -111,58 +113,49 @@ Headquartered in Toronto, Canada,
 with a solid nearshore network of development centers and global partners,
 Proximiteam has defined efficient service delivery models
 that focus on value and productivity.
-Their services include custom software development,
+Its services include custom software development,
 systems integration, data analytics, testing, and support.
 
 a|image::logo-proximiteam.png[alt="Logo SBA",link="https://www.proximiteam.com/"]
 
-a|image::logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
-
-a|== SBA
-
-{usa} Partner firm focused on obtaining rapid sales
-while laying the foundation for sustained business growth.
-Providing advice and help in implementing what is needed
-to efficiently succeed in a target market,
-both in the short and long-term.
-SBA services include marketing, sales, operational support,
-and capital fundraising.
+a|image::logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
 
 a|== Teraport
 
-{germany} German company specializing in software development,
+{germany} Teraport is a German company specializing in software development,
 and in services in virtual product development.
 Experts in the automotive, aerospace, and manufacturing industries.
-Offering specific solutions and standardized products in development,
+It offers specific solutions and standardized products in development,
 simulation, and quality assurance,
-as well as, services and consulting in product development engineering.
+as well as services and consulting in product development engineering.
 
-a|image::logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
+a|== The Missing Link
+
+{australia} The Missing Link is an Australian company
+providing information technology solutions,
+infrastructure services, security, backup, disaster recovery,
+communications, and cloud services.
+It is recognized as an accredited industry leader
+at the highest levels of design and delivery
+of cutting-edge technological support.
 
 a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
-a|== The missing link
-
-{australia} Australian company providing information technology solutions,
-infrastructure services, security, backup, disaster recovery,
-communications, and cloud services.
-Recognized as an industry leader accredited at the highest levels in design,
-delivery, and cutting-edge technology support.
+a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
 
 a|== Zenda
 
-{peru} Peruvian company providing technology solutions.
-Focused on designing value propositions aligned to the strategic objectives
-of your company and management of the `IT` area services.
-Seeking to improve `IT` services impact
+{peru} Zenda is a Peruvian company providing technology solutions.
+It focuses on designing value proposals
+aligned with the strategic objectives of companies
+and the management of services in the `IT` area.
+Zenda seeks to improve `IT` services' impact
 by focusing on the insights of each customer,
 and fostering continuous business growth
 through the delivery of a simple, scalable, and convergent solution.
 
-a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
-
 |====
 
 If you agree with the [inner]#link:terms/[terms]#
-of our general partner agreement, and would like to become a partner,
+of our general partner agreement and would like to become a partner,
 please submit the following contact [inner]#link:../contact-us/[form]#.
