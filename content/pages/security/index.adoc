@@ -38,6 +38,7 @@ This section focuses on what we do to keep our client informed
 about the status of all our services
 and their data.
 
+[OPENSOURCE]
 === 1.1 Open Source
 
 The source code of all our applications
@@ -80,8 +81,13 @@ We continuous monitor
 [inner]#link:../products/integrates[Integrates]#,
 its [inner]#link:../../integrates/api[API]#
 and [inner]#link:../[Web]#.
+Monitoring checks run every minute
+for all aplications
+from North America and Europe servers.
+They send HTTP GET requests.
 This information is real-time and available on our
 link:http://status.fluidattacks.com/[Status Site].
+
 
 == 2. Encryption
 
@@ -177,6 +183,8 @@ their projects.
 
 === 3.2 Internal
 
+=== 3.2.1 Centralized authentication
+
 Our IAM is a centralized authentication platform,
 allowing us to manage all the applications
 we internally use from just one place. Our employees do
@@ -195,9 +203,12 @@ Some of our IAM specifications and requirements are:
   [inner]#link:../rules/129/[24 reset cycle]#.
 - [inner]#link:../rules/328/[Multi-factor authentication]#
   from a mobile device must be set.
-  Our MFA uses
-  [inner]#link:../rules/153/[OOB]#,
-  which reduces risk in case a comunnication channel becomes compromised.
+- Our MFA uses
+  [inner]#link:../rules/153/[OOB]#.
+  OBB is a mechanism that transports all the MFA data
+  through a different channel than the application's channel itself.
+  Text messages and emails are examples of OBB.
+  OBB reduces risk in case a comunnication channel becomes compromised.
 - We use both
   link:https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language[SAML]
   and
@@ -210,6 +221,16 @@ Some of our IAM specifications and requirements are:
   [inner]#link:../rules/231/[biometric authentication]#,
   our IAM enforces its usage.
 - All successful sessions have a duration of 9 hours.
+
+=== 3.2.2 GPG signature for repository commits
+
+In order to avoid identity hijacking,
+all our source code repositories
+require developers to use a
+link:https://en.wikipedia.org/wiki/GNU_Privacy_Guard[GPG digital signature]
+that verifies the developer's identity on the Internet.
+Signatures can be found on the repository commit histories linked in the
+<<OPENSOURCE, Open Source section>>.
 
 == 4. Authorization
 
@@ -323,6 +344,9 @@ on making this process as simple as possible.
 
 == 5. Privacy
 
+This section talks about our efforts to protect
+both Fluid Attacks's and the client's privacy.
+
 === 5.1 Client and project pseudonymization
 
 Both clients and projects have a pseudonym within our systems,
@@ -346,7 +370,19 @@ link:https://en.wikipedia.org/wiki/Data_loss_prevention_software[DPL]
 when sending any sensitive information to our clients.
 This includes contracts, portfolios and other sensitive documents.
 
-=== 5.3 Transparent cookie usage
+=== 5.3 Email unsusbcribe
+
+In order to be respectful with users
+regarding what information they want to recieve,
+for all commercial and informative emails,
+receptors have the possibility
+to stop getting them by clicking on
+the *_unsubscribe from this list_* link.
+By doing so, their email is placed in a
+list of unsubscribed emails
+and new emails will no longer be sent to it.
+
+=== 5.4 Transparent cookie usage
 
 Both [inner]#link:../products/integrates[Integrates]#
 and [inner]#link:../[Web]#
@@ -367,23 +403,12 @@ security rules like:
 - [inner]#link:../rules/312/[Allow user consent revocation]#
 - [inner]#link:../rules/315/[Provide processed data information]#
 
-=== 5.4 OTR Messaging
-
-We use a messaging system with
-link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
-and
-link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
-for communication within the organization.
-Also, all chat histories
-[inner]#link:../rules/183/[reset on a weekly basis]#
-as an extra measure to avoid leaks.
-
-=== 5.4 Data policies
+=== 5.5 Data policies
 
 The following policies apply to all the information
 provided by a client in a project context.
 
-==== 5.4.1 Data use policy
+==== 5.5.1 Data use policy
 
 We are commited to use our clients data
 exclusively for vulnerability seeking
@@ -391,7 +416,7 @@ in the context of the service we are providing.
 No other activities will be executed
 over the provided information.
 
-==== 5.4.2 Data retention policy
+==== 5.5.2 Data retention policy
 
 All the data related to a project
 can be deleted from
@@ -405,7 +430,18 @@ source code, secrets, metadata and any other project related
 [inner]#link:../rules/183/[data is completely removed]#
 from all our infrastructure.
 
-=== 5.5 Employee time tracking software
+=== 5.6 OTR Messaging
+
+We use a messaging system with
+link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
+and
+link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
+for communication within the organization.
+Also, all chat histories
+[inner]#link:../rules/183/[reset on a weekly basis]#
+as an extra measure to avoid leaks.
+
+=== 5.7 Employee time tracking software
 
 We use a time tracking system that takes periodical
 screnshots from laptop screens when
@@ -414,7 +450,7 @@ screenshots in case an incident happens. Employees
 have control over the software, which means once they
 stop working, no screen recording occurs.
 
-=== 5.6 Poligraph tests
+=== 5.8 Poligraph tests
 
 We continuously run poligraph checks on all
 employees with access to sensitive information.
@@ -498,7 +534,7 @@ Currently, we store logs for:
 - *Collaboration systems activity:*
   Our collaboration systems like mail, calendar, etc.
   Store comprehensive logs of employee activity,
-  spam mails,
+  spam, phising and malware emails,
   suspicious login attempts,
   and other possible threats.
   Employee activity logs never expire.
@@ -580,7 +616,23 @@ Once a change reaches production,
 its ephemeral environment
 is destroyed forever.
 
-=== 7.3 Everything is backed up
+=== 7.3 No dependency auto-update
+
+All external dependencies are pinned to a specific version
+(this is highly related to the immutability property).
+Meaning that in order to update a dependency,
+a developer must:
+
+. Change the version in the source code.
+. Run all CI tests on the generated ephemeral environment
+  with the new dependency version.
+. Get the change approved from a colleague
+  after running a peer review.
+. In case all tests and peer review pass,
+  a new production version with the updated
+  dependency will be automatically deployed.
+
+=== 7.4 Everything is backed up
 
 As data is most likely our most important asset,
 we have strong backup policies for everything.
@@ -758,3 +810,19 @@ directly with the company.
 Due to the nature of our business, we never
 hire through contractors, freelance or any
 other third parties.
+
+=== 10.8 Laptop rotation
+
+We continuously renew the laptops of our employees.
+There are two main reasons for this:
+
+. *Hardware Improvement:*
+  As usual, older laptops get
+  replaced with new ones due to
+  performance reasons.
+. *Information flow:*
+  As laptops continuously rotate
+  among different employees,
+  formatting happens often
+  and information does not accumulate
+  in a single hard drive.
