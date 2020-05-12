@@ -70,9 +70,6 @@ emails notyifing the involved parties will be sent.
 Emails will contain information on what data was leaked or compromised,
 when and for how long (to the extent this information is available).
 For a breach that exposes private data for a large number of users,
-the public will also be informed via email.leaked or compromised,
-when and for how long (to the extent this information is available).
-For a breach that exposes private data for a large number of users,
 the public will also be informed via email.
 
 === 1.4 Status page
