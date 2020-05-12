@@ -26,8 +26,15 @@ INTRINSIC_FUNCS = [
     'Fn::Split',
     'Fn::Sub',
     'Fn::Transform',
-    'Ref'
+    'Ref',
+    'Fn::And',
+    'Fn::Equals',
+    'Fn::If',
+    'Fn::Not',
+    'Fn::Or'
 ]
+
+CONDITIONAL_FUNCS = ['Fn::And', 'Fn::Equals', 'Fn::If', 'Fn::Not', 'Fn::Or']
 
 
 def create_alias(name: str, randoms=False) -> str:
@@ -213,7 +220,7 @@ class Batcher():
                 f"[rel_{alias_param}:DECLARE_PARAMETER]->"
                 f"(param_{alias_param}:Parameter"
                 # set attributes of node
-                f" {{name: $param_name_{alias_param}}})\n"
+                f" {{logicalName: $param_name_{alias_param}}})\n"
                 f"SET rel_{alias_param}.line = $line_rel_{alias_param}\n")
             self.statement_params[f'param_name_{alias_param}'] = param_name
             self.statement_params[f'line_rel_{alias_param}'] = get_line(
@@ -332,45 +339,15 @@ class Batcher():
         alias_f, func_exc = func
         fn_name = list(func_exc.keys())[0]
 
-        if fn_name in INTRINSIC_FUNCS:
-            try:
-                line = func_exc[f'{fn_name}.line']
-            except KeyError:
-                line = 'unknown'
-            return self.load_intrinsic_func(alias_f, fn_name,
-                                            func_exc[fn_name], context, line)
-
-        fn_name_node = fn_name.replace('::', ':')
-        alias_fn_name = create_alias(fn_name_node)
-        alias_fn_node = create_alias(f'fn_{alias_f}_{alias_fn_name}', True)
-        alias_rel = create_alias(f'rel_{alias_f}_{alias_fn_name}', True)
-        # add node to context
-        context.update([alias_fn_node, alias_f])
-        contexts_str = ', '.join(context)
-
-        # create relationship with condition
-        statement = (f"CREATE ({alias_f})-"
-                     f"[{alias_rel}:EXECUTE_FN]->"
-                     f"({alias_fn_node}:{fn_name_node})\n"
-                     f"SET {alias_rel}.line = ${alias_rel}_line\n"
-                     f"WITH {contexts_str}\n")
         try:
             line = func_exc[f'{fn_name}.line']
         except KeyError:
             line = 'unknown'
-        self.statement_params[f'{alias_rel}_line'] = line
-        # add function parameters
-        for param in func_exc[fn_name]:
-            if not isinstance(param, (OrderedDict, dict, list, CustomDict)):
-                statement += (f"SET {alias_fn_node}.param_value = "
-                              f"$fn_{alias_f}_{alias_fn_name}_value\n")
-                self.statement_params[
-                    f'fn_{alias_f}_{alias_fn_name}_value'] = param
-            else:
-                # if the parameter is a function it makes a recursive call
-                statement += self._load_condition_funcs(
-                    (f'{alias_fn_node}', param), context)
-        return statement
+        if fn_name not in INTRINSIC_FUNCS:
+            raise Exception(f'{fn_name} function is not supported.')
+
+        return self.load_intrinsic_func(alias_f, fn_name,
+                                        func_exc[fn_name], context, line)
 
     def _create_constraints_template(self, trans: Transaction):
         self.template['__node_name__'] = 'CloudFormationTemplate'
@@ -398,26 +375,31 @@ class Batcher():
         :param func_name: Name of intrinsic function.
         :param attrs: Attributes of function.
         """
-        statement = ""
+        contexts = contexts or set([])
+        contexts_str = ', '.join(contexts)
+        statement = f"WITH {contexts_str}\n"
         if func_name == 'Fn::Base64':
-            alias_fn, statement_fn = self._fn_base64(attrs)
-            statement = (
-                f"{statement_fn}"
-                f'CREATE ({resource_alias})-[:EXECUTE_FN]->({alias_fn})\n')
+            statement += self._fn_base64(resource_alias, attrs, contexts)
         elif func_name == 'Ref':
-            statement = self._fn_reference(
+            statement += self._fn_reference(
                 resource_alias, attrs, contexts, line)
+        elif func_name == 'Fn::GetAtt':
+            statement += self._fn_getatt(resource_alias, attrs, contexts)
+        elif func_name in CONDITIONAL_FUNCS:
+            statement += self._fn_conditional(func_name, resource_alias, attrs,
+                                              contexts)
         return statement
 
-    def _fn_base64(self, attrs, contexts: set = None):
-        """Load intrinsic function Fn::Base64."""
+    def _fn_base64(self, resource_id, attrs, contexts: set = None):
+        """Create a statement to load intrinsic function Fn::Base64."""
         contexts = contexts or set({})
         alias_fn = create_alias("fn_base_base64", True)
         statement = f"CREATE ({alias_fn}: Fn:Base64)\n"
+        contexts.add(alias_fn)
         if isinstance(attrs, (str)):
-            statement += (f"SET {alias_fn}.param = ${alias_fn}_value\n")
+            statement += f"SET {alias_fn}.valueToEncode = ${alias_fn}_value\n"
             self.statement_params[f'{alias_fn}_value'] = attrs
-        elif isinstance(attrs, (OrderedDict, list)):
+        elif isinstance(attrs, (OrderedDict, CustomDict)):
             for key, _ in attrs.items():
                 if key in INTRINSIC_FUNCS:
                     try:
@@ -425,29 +407,86 @@ class Batcher():
                     except KeyError:
                         line = 'unknown'
                     statement += self.load_intrinsic_func(
-                        alias_fn, key,
-                        attrs[key], contexts, line)
-        return (alias_fn, statement)
+                        alias_fn, key, attrs[key], contexts, line)
+        statement += f"CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn})\n"
+        return statement
 
     def _fn_reference(self,
                       resource_id: str,
-                      logical_id: str,
+                      logical_name: str,
                       contexts: set = None,
                       line='unknown'):
         """Loaf intrinsic function Ref."""
-        contexts.add(f'ref_{resource_id}_{logical_id}')
+        contexts = contexts or set([])
+        ref_alias = create_alias(f'ref_{resource_id}_{logical_name}', True)
+        param_alias = create_alias(f'ref_{resource_id}_{logical_name}')
+        contexts.add(ref_alias)
         contexts_str = ', '.join(contexts)
-        statement = (f"MATCH (ref_{resource_id}_{logical_id}: Parameter)\n"
-                     f"WHERE ref_{resource_id}_{logical_id}.name = "
-                     f"$ref_{resource_id}_{logical_id}_name\n"
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN]->"
+                     f"({ref_alias}:Ref {{logicalName: "
+                     f"${ref_alias}_log_name}})\n"
                      f"WITH {contexts_str}\n"
-                     f"CREATE ({resource_id})-"
-                     f"[rel_{resource_id}_{logical_id}:REFERENCE_TO]->"
-                     f"(ref_{resource_id}_{logical_id})\n"
-                     f"SET rel_{resource_id}_{logical_id}.line = "
-                     f"$rel_{resource_id}_{logical_id}_line\n")
+                     f"MATCH ({param_alias}: Parameter)\n"
+                     f"WHERE {param_alias}.logicalName = ${param_alias}_name\n"
+                     f"WITH {contexts_str}, {param_alias}\n"
+                     f"CREATE ({ref_alias})-[rel_{param_alias}:REFERENCE_TO]->"
+                     f"({param_alias})\n"
+                     f"SET rel_{param_alias}.line = $rel_{param_alias}_line\n")
 
-        self.statement_params[f'rel_{resource_id}_{logical_id}_line'] = line
-        self.statement_params[
-            f'ref_{resource_id}_{logical_id}_name'] = logical_id
+        contexts.add(param_alias)
+        self.statement_params[f'rel_{param_alias}_line'] = line
+        self.statement_params[f'{ref_alias}_log_name'] = logical_name
+        self.statement_params[f'{param_alias}_name'] = logical_name
+        return statement
+
+    def _fn_getatt(self,
+                   resource_id: str,
+                   attrs,
+                   contexts: set = None,
+                   line='unknown'):
+        """Create a statement to load intrinsic function Fn::GettAtt."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_getatt", True)
+        statement = (f"CREATE ({alias_fn}:Fn:Getatt "
+                     f"{{logicalNameOfResource: ${alias_fn}_log_name}})\n")
+        contexts.add(alias_fn)
+
+        self.statement_params[f'{alias_fn}_log_name'] = attrs[0]
+        if not isinstance(attrs[1], (OrderedDict, CustomDict)):
+            statement += (
+                f"SET {alias_fn}.attributeName = ${alias_fn}_att_name\n")
+            self.statement_params[f'{alias_fn}_log_name'] = attrs[1]
+        else:
+            for key, value in attrs[1].items():
+                statement += self.load_intrinsic_func(alias_fn, key, value,
+                                                      contexts, line)
+        statement += f"({resource_id})-[:EXECUTE_FN]->({alias_fn})\n"
+        return statement
+
+    def _fn_conditional(self,
+                        fn_name: str,
+                        resource_id: str,
+                        conditions,
+                        contexts: set = None,
+                        line='unknown'):
+        """Create a statement to load conditional funcs."""
+        contexts = contexts or set([])
+        fn_name_node = fn_name.replace('::', ':')
+        alias_fn = create_alias(f'fn_name_node_{resource_id}', True)
+        alias_rel = create_alias(f'rel_{alias_fn}', True)
+        contexts.add(alias_fn)
+        statement = (f"CREATE ({resource_id})-"
+                     f"[{alias_rel}:EXECUTE_FN]->"
+                     f"({alias_fn}:{fn_name_node})\n"
+                     f"SET {alias_rel}.line = ${alias_rel}_line\n")
+        self.statement_params[f'{alias_rel}_line'] = line
+        for index, con in enumerate(conditions):
+            if not isinstance(con, (OrderedDict, dict, list, CustomDict)):
+                statement += (f"SET {alias_fn}.value{index+1} = "
+                              f"$fn_{alias_fn}_value{index+1}\n")
+                self.statement_params[f'fn_{alias_fn}_value{index+1}'] = con
+            else:
+                func_name = list(con.keys())[0]
+                statement += self.load_intrinsic_func(alias_fn, func_name,
+                                                      con[func_name], contexts)
         return statement
