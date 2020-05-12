@@ -212,7 +212,7 @@ class UserTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result
         assert result['errors'][0]['message'] == (
-            'Exception - Groups with an active Drills service can '
+            'Exception - Groups with any active Fluid Attacks service can '
             'only have Hackers provided by Fluid Attacks'
         )
 

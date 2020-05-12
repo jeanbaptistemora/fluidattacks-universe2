@@ -19,7 +19,6 @@ from backend.decorators import (
 )
 from backend.domain import project as project_domain, user as user_domain
 from backend.exceptions import (
-    UnexpectedUserRole,
     UserNotFound,
 )
 from backend.mailer import send_mail_access_granted
@@ -37,6 +36,7 @@ from backend.services import (
 )
 from backend.utils import authorization as authorization_utils
 from backend.utils.validations import (
+    validate_fluidattacks_staff_on_group,
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
 from backend import util
@@ -46,14 +46,6 @@ import rollbar
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 from __init__ import BASE_URL
-
-# Constants
-INTERNAL_EMAIL_SUFFIX = '@fluidattacks.com'
-
-BASIC_ROLES = ['customer', 'customeradmin']
-INTERNAL_ROLES = ['analyst']
-ADMIN_ROLES = ['admin', 'closer', 'group_manager', 'internal_manager',
-               'reviewer']
 
 
 async def _create_new_user(  # pylint: disable=too-many-arguments
@@ -69,20 +61,11 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
         and validate_alphanumeric_field(responsibility) \
         and validate_alphanumeric_field(role) \
         and validate_phone_field(phone_number) \
-        and validate_email_address(email)
+        and validate_email_address(email) \
+        and await validate_fluidattacks_staff_on_group(group, email, role)
 
     if not valid:
         return False
-
-    group_has_drills: bool = await project_domain.does_group_has_drills(group)
-    new_user_has_internal_role: bool = role in INTERNAL_ROLES
-    new_user_has_internal_email: bool = email.endswith(INTERNAL_EMAIL_SUFFIX)
-
-    if group_has_drills \
-            and new_user_has_internal_role \
-            and not new_user_has_internal_email:
-        raise UnexpectedUserRole('Groups with an active Drills service can '
-                                 'only have Hackers provided by Fluid Attacks')
 
     success = user_domain.grant_group_level_role(email, group, role)
 
@@ -410,6 +393,9 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
             group=project_name,
             requester_email=user_email,
         )
+
+    await validate_fluidattacks_staff_on_group(
+        project_name, modified_email, modified_role)
 
     if modified_role in allowed_roles_to_grant:
         if await sync_to_async(user_domain.grant_group_level_role)(
