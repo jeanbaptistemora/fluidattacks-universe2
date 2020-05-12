@@ -17,7 +17,8 @@ from backend.domain.project import (
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     list_drafts, list_comments, get_active_projects,
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
-    get_mean_remediate_severity, remove_access, validate_project_services_config
+    get_mean_remediate_severity, remove_access, validate_project_services_config,
+    get_current_month_authors
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -349,3 +350,10 @@ class ProjectTest(TestCase):
             project_name, min_severity, max_severity)
         expected_output = 287
         assert mean_remediate_medium_severity == expected_output
+
+    @pytest.mark.no_changes_db
+    def test_get_current_month_authors(self):
+        project_name = 'unittesting'
+        test_data = get_current_month_authors(project_name)
+        expected_output = 0
+        assert  test_data == expected_output
