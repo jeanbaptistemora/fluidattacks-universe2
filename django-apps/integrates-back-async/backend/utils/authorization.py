@@ -5,6 +5,7 @@ from typing import (
     Coroutine,
     Dict,
     List,
+    Set,
     Tuple,
 )
 
@@ -16,10 +17,6 @@ from backend.dal import (
     project as project_dal,
     user as user_dal,
 )
-
-
-# Typing aliases
-ENFORCER_FUNCTION = Callable[[str, str, str], Coroutine]
 
 # Map(role_level -> Map(role_name -> tags))
 ROLES: Dict[str, Dict[str, List[str]]] = dict(
@@ -37,6 +34,23 @@ ROLES: Dict[str, Dict[str, List[str]]] = dict(
         customeradmin=[],
         internal_manager=['drills'],
     ),
+)
+
+# Map(service -> feature)
+SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
+    drills_black={
+        'is_fluidattacks_customer',
+        'must_only_have_fluidattacks_hackers',
+    },
+    drills_white={
+        'is_fluidattacks_customer',
+        'must_only_have_fluidattacks_hackers',
+    },
+    forces={
+        'is_fluidattacks_customer',
+        'must_only_have_fluidattacks_hackers',
+    },
+    integrates=set(),
 )
 
 
@@ -70,7 +84,7 @@ def get_cached_subject_policies(subject: str):
     return fetched_data
 
 
-def get_cached_group_features_policies(group: str):
+def get_cached_group_service_attributes_policies(group: str):
     """Cached function to get 1 group features authorization policies."""
     cache_key: str = get_group_cache_key(group)
 
@@ -83,9 +97,8 @@ def get_cached_group_features_policies(group: str):
 
     # Let's fetch the data from the database
     fetched_data = tuple(
-        # group, feature
-        (policy.group, policy.feature)
-        for policy in project_dal.get_features_policies(group))
+        (policy.group, policy.service)
+        for policy in project_dal.get_service_policies(group))
 
     # Put the data in the cache
     cache.set(cache_key, fetched_data, timeout=60 * 60)
@@ -389,7 +402,11 @@ def matches_permission(subject: str, role: str, action: str) -> bool:
     return matches
 
 
-def get_user_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
+def get_group_level_roles_with_tag(tag: str) -> Set[str]:
+    return {role for role, tags in ROLES['group_level'].items() if tag in tags}
+
+
+def get_user_level_enforcer(subject: str) -> Callable[[str, str, str], Coroutine]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
 
@@ -407,7 +424,7 @@ def get_user_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
     return enforcer
 
 
-def get_group_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
+def get_group_level_enforcer(subject: str) -> Callable[[str, str, str], Coroutine]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
 
@@ -418,6 +435,22 @@ def get_group_level_enforcer(subject: str) -> ENFORCER_FUNCTION:
                  (p_level == 'group' and r_object == p_object))
             and matches_permission(r_subject, p_role, r_action)
             for p_level, p_subject, p_object, p_role in policies
+        )
+
+        return should_grant_access
+
+    return enforcer
+
+
+def get_group_service_attributes_enforcer(group: str) -> Callable[[str, str], Coroutine]:
+    """Return a filtered group authorization for the provided group."""
+    policies = get_cached_group_service_attributes_policies(group)
+
+    async def enforcer(r_group: str, r_action: str) -> bool:
+        should_grant_access: bool = any(
+            r_group == p_group
+            and r_action in SERVICE_ATTRIBUTES[p_service]
+            for p_group, p_service in policies
         )
 
         return should_grant_access

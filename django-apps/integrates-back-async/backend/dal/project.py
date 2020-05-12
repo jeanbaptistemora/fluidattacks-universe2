@@ -35,15 +35,15 @@ TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
 TABLE_WEEKLY_REPORT = DYNAMODB_RESOURCE.Table('FI_weekly_report')
 
-FEATURE_POLICY = NamedTuple('FEATURE_POLICY', [
+SERVICE_POLICY = NamedTuple('SERVICE_POLICY', [
     ('group', str),
-    ('feature', str),
+    ('service', str),
 ])
 
 
-def get_features_policies(group: str) -> List[FEATURE_POLICY]:
+def get_service_policies(group: str) -> List[SERVICE_POLICY]:
     """Return a list of policies for the given group."""
-    policies: List[FEATURE_POLICY] = []
+    policies: List[SERVICE_POLICY] = []
 
     group_attributes: dict = TABLE.get_item(
         AttributesToGet=[
@@ -68,21 +68,22 @@ def get_features_policies(group: str) -> List[FEATURE_POLICY]:
 
     # This may be false if the group is scheduled for deletion
     #   but let's mark it as True for now to see what is more convenient
-    policies.append(FEATURE_POLICY(group=group, feature='integrates'))
+    policies.append(SERVICE_POLICY(group=group, service='integrates'))
 
     if has_drills:
         if type_ == 'continuous':
-            policies.append(FEATURE_POLICY(group=group, feature='drills-white'))
+            policies.append(SERVICE_POLICY(group=group, service='drills_white'))
             if has_forces:
-                policies.append(FEATURE_POLICY(group=group, feature='forces'))
+                policies.append(SERVICE_POLICY(group=group, service='forces'))
 
         elif type_ == 'oneshot':
-            policies.append(FEATURE_POLICY(group=group, feature='drills-black'))
+            policies.append(SERVICE_POLICY(group=group, service='drills_black'))
 
         else:
             rollbar.report_message(
                 'Group has invalid type attribute',
                 level='critical', extra_data=dict(group=group))
+
     return policies
 
 

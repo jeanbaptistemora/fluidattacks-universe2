@@ -45,6 +45,9 @@
                "project_name" : {
                   "S" : "oneshottest"
                },
+               "has_drills": {
+                  "S" : "true"
+               },
                "project_status" : {
                   "S" : "ACTIVE"
                },

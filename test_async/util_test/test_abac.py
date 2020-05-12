@@ -8,10 +8,12 @@ from backend.domain.user import (
     grant_user_level_role,
 )
 from backend.utils.authorization import (
-    get_cached_group_features_policies,
+    get_cached_group_service_attributes_policies,
     get_group_access_enforcer,
     get_group_level_enforcer,
+    get_group_service_attributes_enforcer,
     get_user_level_enforcer,
+    SERVICE_ATTRIBUTES,
 )
 
 # Constants
@@ -422,18 +424,49 @@ class UserAbacTest(TestCase):
             self.assertTrue(await UserAbacTest.enforcer(sub)(sub, obj, act))
 
 
-class FeaturesAbacTest(TestCase):
+@pytest.mark.no_changes_db
+class ServiceAttributesAbacTest(TestCase):
 
-    @pytest.mark.no_changes_db
-    async def get_cached_group_features_policies(self):
-        assert sorted(get_cached_group_features_policies('not-exists... probably')) == [
+    async def test_get_cached_group_service_attributes_policies(self):
+        assert sorted(get_cached_group_service_attributes_policies('not-exists... probably')) == [
         ]
-        assert sorted(get_cached_group_features_policies('oneshottest')) == [
-            ('unittesting', 'integrates'),
-            ('unittesting', 'drills-black'),
+        assert sorted(get_cached_group_service_attributes_policies('oneshottest')) == [
+            ('oneshottest', 'drills_black'),
+            ('oneshottest', 'integrates'),
         ]
-        assert sorted(get_cached_group_features_policies('unittesting')) == [
-            ('unittesting', 'integrates'),
-            ('unittesting', 'drills-white'),
+        assert sorted(get_cached_group_service_attributes_policies('unittesting')) == [
+            ('unittesting', 'drills_white'),
             ('unittesting', 'forces'),
+            ('unittesting', 'integrates'),
         ]
+
+    async def test_service_attributes(self):
+        # All attributes must be tested for this test to succeed
+        # This prevents someone to add a new attribute without testing it
+
+        attributes_remaining_to_test: Set[str] = {
+            (group, attr)
+            for group in ('unittesting', 'oneshottest', 'non_existing')
+            for attrs in SERVICE_ATTRIBUTES.values()
+            for attr in set(attrs).union({'non_existing_attribute'})
+        }
+
+        for group, attribute, result in [
+            ('unittesting', 'is_fluidattacks_customer', True),
+            ('unittesting', 'must_only_have_fluidattacks_hackers', True),
+            ('unittesting', 'non_existing_attribute', False),
+
+            ('oneshottest', 'is_fluidattacks_customer', True),
+            ('oneshottest', 'must_only_have_fluidattacks_hackers', True),
+            ('oneshottest', 'non_existing_attribute', False),
+
+            ('non_existing', 'is_fluidattacks_customer', False),
+            ('non_existing', 'must_only_have_fluidattacks_hackers', False),
+            ('non_existing', 'non_existing_attribute', False),
+        ]:
+
+            enforcer = get_group_service_attributes_enforcer(group)
+            assert await enforcer(group, attribute) == result
+            attributes_remaining_to_test.remove((group, attribute))
+
+        assert not attributes_remaining_to_test, 'Please add more tests here!!'
