@@ -98,7 +98,7 @@ describe("Welcome view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("modal")
       .text())
-      .toContain("Integrates, Copyright (c) 2019 Fluid Attacks");
+      .toContain("Integrates, Copyright (c) 2020 Fluid Attacks");
   });
 
   it("should render already logged in", () => {
