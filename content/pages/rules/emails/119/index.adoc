@@ -8,5 +8,9 @@
 
 == Requirement
 
-The field +BCC+ must be used instead of +TO+
-when sending bulk emails.
+The *BCC* field must be used instead of the *TO* field when sending bulk
+emails.
+
+== Findings
+
+* [inner]#link:/web/findings/055/[F055. Insecure service configuration]#

@@ -13,4 +13,6 @@ enables the exploitation of other vulnerabilities.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/266/[R266. Disable insecure functionalities]#
+. [[r1]] [inner]#link:/web/rules/119/[R119. Hide recipients]#
+
+. [[r2]] [inner]#link:/web/rules/266/[R266. Disable insecure functionalities]#
