@@ -86,11 +86,7 @@ This information is real-time and available on our
 link:http://status.fluidattacks.com/[Status Site].
 
 
-== 2. Encryption
-
-We offer both
-[inner]#link:../rules/224/[encryption at rest and encryption in transit]#
-with cutting-edge industry standards.
+== 2. Confidentiality
 
 === 2.1 Encryption at rest
 
@@ -98,7 +94,7 @@ All our applications and services have
 industry-standard encryption at rest.
 
 - All the sesitive data provided by our clients
-  (Repo access keys, VPN credentials, etc)
+  (Repository access keys, VPN credentials, etc)
   is ciphered using key management system KMS
   symmetric algorithm
   based on Advanced Encryption Standard (AES)
@@ -145,6 +141,46 @@ industry-standard encryption in transit.
   validated with ACME protocol and
   [inner]#link:../rules/092/[not self-signed]#.
 
+=== 2.3 We hack ourselves
+
+We have full-time projects focused on hacking our own software.
+To us, seting an example of secure software is essential,
+that is why today,
+our entire technological stack goes through a
+[inner]#link:../services/continuous-hacking[Continuous Hacking]#
+process.
+
+Aditionally, all our development projects run
+link:https://en.wikipedia.org/wiki/Continuous_integration[Continuous Integration]
+pipelines,
+Including Forces exploits and strict linters
+to ensure that
+[inner]#link:../rules/155/[no known vulnerabilities]#
+are released to production.
+
+=== 2.4 All our hired personnel must accept a NDA
+
+Everyone within our company knows
+how important it is to keep our
+clients's information secure.
+We enforce this by requiring
+all our new employees to sign a
+Non disclosure agreement.
+
+=== 2.5 No physical keys to our offices
+
+All our offices have digital locks.
+Employees have their own password to open the doors.
+All successful and failed access attempts are logged.
+
+=== 2.6 We only hire directly
+
+All our employees have indefinite time contracts
+directly with the company.
+Due to the nature of our business, we never
+hire through contractors, freelance or any
+other third parties.
+
 == 3. Authentication
 
 Authentication refers to the process
@@ -180,7 +216,7 @@ their projects.
 
 === 3.2 Internal
 
-=== 3.2.1 Centralized authentication
+==== 3.2.1 Centralized authentication
 
 Our IAM is a centralized authentication platform,
 allowing us to manage all the applications
@@ -219,7 +255,7 @@ Some of our IAM specifications and requirements are:
   our IAM enforces its usage.
 - All successful sessions have a duration of 9 hours.
 
-=== 3.2.2 GPG signature for repository commits
+==== 3.2.2 GPG signature for repository commits
 
 In order to avoid identity hijacking,
 all our source code repositories
@@ -344,9 +380,9 @@ on making this process as simple as possible.
 This section talks about our efforts to protect
 both Fluid Attacks's and the client's privacy.
 
-=== 5.1 Client and project pseudonymization
+=== 5.1 Project pseudonymization
 
-Both clients and projects have a pseudonym within our systems,
+All projects have a pseudonym within our systems,
 briging with it advantages like:
 
 - Employees without direct access to the project do not
@@ -354,18 +390,17 @@ briging with it advantages like:
   that can help them
   [inner]#link:../rules/313/[vinculate a project with the client]#.
 - Internal analytics charts and other documents
-  never use the clients name, they user their pseudonym.
+  never use client names, they user their projects pseudonyms.
 
 Generally speaking, only the people who need to know
-whose whose client a pseudonym is and
-whose client a project is, do actually know it.
+whose whose client a project is, do actually know it.
 
 === 5.2 Secure delivery of sensitive data
 
 ==== 5.2.1 Secure information sharing system
 
 We use an information sharing system with
-link:https://en.wikipedia.org/wiki/Data_loss_prevention_software[DPL]
+link:https://en.wikipedia.org/wiki/Data_loss_prevention_software[DLP]
 when sending any sensitive information to our clients.
 This includes contracts, portfolios and other sensitive documents.
 
@@ -625,7 +660,7 @@ into smaller repositories, we get get:
   (folder structure, naming conventions, etc)
   is a lot easier when there is only one repo
   where everyone works, as no duplicated
-  efforts or repo synchronization is needed.
+  efforts or repository synchronization is needed.
 
 ==== 7.2.2 Everything as code
 
@@ -638,7 +673,43 @@ variable affecting an application,
 integrity becomes a matter of
 keeping a healthy source code.
 
-==== 7.2.3 Continuous Integration
+[IAC]
+==== 7.2.3 Infrastructure as code (IaC)
+
+Our entire infrastructure is versioned
+in a Git repository written as code.
+Such code can be deployed anywhere
+and has all the properties of any
+other source code,
+such as auditability, history,
+revert capabilities, etc.
+
+==== 7.2.4 Regenerable infrastrucutre
+
+By having our infrastrucutre written as code,
+we can recreate it
+in a daily basis.
+Regenerating our infrastrcture everyday
+brings the following advantages:
+
+- Any injected trojans or malicious scripts are removed.
+- Having fresh new servers every 24 hours let us avoid
+  availability and performance issues generated by
+  memory leaks and non-released resources.
+- The capability of deploying our infrastructure
+  from 0 to production in an automated process.
+
+==== 7.2.5 Immutable infrastructure
+
+The infrastructure code can be audited
+and changes can only be made by
+[inner]#link:../rules/265/[changing such code]#.
+This provides full transparency on
+[inner]#link:../rules/046/[what was changed, when and who did it]#.
+Also, no administrative protocols like ssh
+or administrative accounts are needed.
+
+==== 7.2.6 Continuous Integration
 
 We run an application build process to every change a
 developer wants to introduce to the source
@@ -659,7 +730,7 @@ Such tests include:
 By doing so we can guarantee that every introduced change
 is compliant with the application's quality standards.
 
-==== 7.2.4 Peer review
+==== 7.2.7 Peer review
 
 We recognize that not all the steps of
 a building process can be automatized,
@@ -672,7 +743,7 @@ Reviewers usually evaluate code quality,
 commit message coherence,
 and other semantic properties of the change.
 
-==== 7.2.5 Continuous Deployment
+==== 7.2.8 Continuous Deployment
 
 In addition to running an automated building process
 for every change,
@@ -682,7 +753,7 @@ an aditional Continuous Deployment pipeline triggers,
 automatically deploying the new source code version to production.
 
 [EPH]
-==== 7.2.6 Ephemeral environments
+==== 7.2.9 Ephemeral environments
 
 Instead of having long-term development environments
 like *_staging_*,
@@ -702,7 +773,7 @@ Once a change reaches production,
 its ephemeral environment
 is destroyed forever.
 
-==== 7.2.7 Trunk based development
+==== 7.2.10 Trunk based development
 
 We use
 link:https://trunkbaseddevelopment.com/[Trunk based develoment]
@@ -710,7 +781,7 @@ in order to keep only one long-term master branch.
 Such branch is the source of truth regarding
 what code is running in the production environments.
 
-==== 7.2.8 One branch per developer
+==== 7.2.11 One branch per developer
 
 Developers can only have one short-term branch
 with their names (employeeatfluid) for every application.
@@ -722,7 +793,7 @@ merged to the master branch,
 their change is deployed to production
 and the developer's short-term branch is deleted.
 
-==== 7.2.9 No dependency auto-update
+==== 7.2.12 No dependency auto-update
 
 All external dependencies are pinned to a specific version
 (this is highly related to the immutability property).
@@ -737,42 +808,6 @@ a developer must:
 . In case all tests and peer review pass,
   a new production version with the updated
   dependency will be automatically deployed.
-
-[IAC]
-==== 7.2.10 Infrastructure as code (IaC)
-
-Our entire infrastructure is versioned
-in a Git repository written as code.
-Such code can be deployed anywhere
-and has all the properties of any
-other source code,
-such as auditability, history,
-revert capabilities, etc.
-
-===== 7.2.10.1 Regenerable
-
-It provides us with the ability
-to recreate our infrastructure
-in a daily basis.
-Regenerating our infrastrcture everyday
-brings the following advantages:
-
-- Any injected trojans or malicious scripts are removed.
-- Having fresh new servers every 24 hours let us avoid
-  availability and performance issues generated by
-  memory leaks and non-released resources.
-- The capability of deploying our infrastructure
-  from 0 to production in an automated process.
-
-===== 7.2.10.2 Immutable
-
-The infrastructure code can be audited
-and changes can only be made by
-[inner]#link:../rules/265/[changing such code]#.
-This provides full transparency on
-[inner]#link:../rules/046/[what was changed, when and who did it]#.
-Also, no administrative protocols like ssh
-or administrative accounts are needed.
 
 === 7.3 Static website
 
@@ -854,32 +889,38 @@ vacation, etc.
 
 === 9.2 Everything is descentralized
 
-As all our infrastrucutre is descentralized,
-No hardware maintainance is needed,
-making our operation fully descentralized.
+All our infrastructure is descentralized,
+meaning that we have independent datacenters
+spread across multiple regions.
+No hardware maintainance is needed
+as it is done by a third party.
 No local networks are used,
-we only use wifi connections with
+we only use Wifi connections with
 [inner]#link:../rules/253/[strong random generated passwords]#
 with the sole purpose of accessing the Internet.
 Connections are always encrypted
 [inner]#link:../rules/252/[using WPA2-AES]#.
 
-=== 9.3 One laptop for every employee
+=== 9.3 Only laptops
 
 A standard laptop is given to every employee.
 Going to the office is the rule,
 but employees can always fill out an exception form
 to do telework in case they need to.
+Employees are encouraged to take their laptops home,
+as not keeping them in the same place
+decreases the risk of massive thefts.
 Also, in case our offices close
 (link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19]),
-everyone can still to their job seamlessly.
+everyone can still do their job seamlessly.
 All laptops have a password-secured BIOS,
 link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
 hardware and
 [inner]#link:../rules/231/[biometric fingerprint reader]#.
 By owning the laptops, siezing the computer should the
 need arise becomes possible.
-BYOD is not allowed.
+link:https://en.wikipedia.org/wiki/Bring_your_own_device[BYOD]
+is not allowed.
 
 == 10. Information security culture
 
@@ -888,33 +929,7 @@ regarding all the best practices
 we follow in order to have a strong
 information security culture.
 
-=== 10.1 We hack ourselves
-
-We have full-time projects focused on hacking our own software.
-To us, seting an example of secure software is essential,
-that is why today,
-our entire technological stack goes through a
-[inner]#link:../services/continuous-hacking[Continuous Hacking]#
-process.
-
-Aditionally, all our development projects run
-link:https://en.wikipedia.org/wiki/Continuous_integration[Continuous Integration]
-pipelines,
-Including Forces exploits and strict linters
-to ensure that
-[inner]#link:../rules/155/[no known vulnerabilities]#
-are released to production.
-
-=== 10.2 All our hired personnel must accept a NDA
-
-Everyone within our company knows
-how important it is to keep our
-clients's information secure.
-We enforce this by requiring
-all our new employees to sign a
-Non disclosure agreement.
-
-=== 10.3 Certified hackers
+=== 10.1 Certified hackers
 
 We continuously encourage our hackers
 to certify their knowledge.
@@ -925,7 +940,7 @@ in the company.
 you can find a comprenhensive list of certifications
 our hackers team currently has.
 
-=== 10.4 Extensive hiring process
+=== 10.2 Extensive hiring process
 
 All job applicans must go through
 an extense [inner]#link:../careers[testing process]# in order to prove
@@ -943,7 +958,7 @@ going to the office during a training
 phase to work alongside the team,
 job inverviews, among others.
 
-=== 10.5 Secure policies for enrolled mobile devices
+=== 10.3 Secure policies for enrolled mobile devices
 
 Our collaboration systems also provide security requirements
 mobile devices must comply with
@@ -952,21 +967,7 @@ This is especially useful,
 as personal mobile devices
 are common targets for malicious hackers.
 
-=== 10.6 No physical keys to our offices
-
-All our offices have digital locks.
-Employees have their own password to open the doors.
-All successful and failed access attempts are logged.
-
-=== 10.7 We only hire directly
-
-All our employees have indefinite time contracts
-directly with the company.
-Due to the nature of our business, we never
-hire through contractors, freelance or any
-other third parties.
-
-=== 10.8 Laptop rotation
+=== 10.4 Laptop rotation
 
 We continuously renew the laptops of our employees.
 There are two main reasons for this:
