@@ -113,13 +113,13 @@ build_front:
 
 build_mobile_android:
   <<: *with_nix
-  <<: *in_everywhere_except_build_nix_caches
+  <<: *in_master_branch
   stage: build
   tags: [autoscaling-large]
   artifacts:
     expire_in: 1 day
     paths:
-      - output/
+      - mobile/output/
     when: on_success
 
 build_lambdas:

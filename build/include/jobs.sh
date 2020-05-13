@@ -18,69 +18,68 @@ function job_build_front {
 function job_build_mobile_android {
   export EXPO_ANDROID_KEYSTORE_PASSWORD
   export EXPO_ANDROID_KEY_PASSWORD
-  export TURTLE_ANDROID_DEPENDENCIES_DIR
+  export TURTLE_ANDROID_DEPENDENCIES_DIR="${HOME}/.turtle/androidDependencies"
   export JAVA_OPTS="-Xmx7G -XX:+HeapDumpOnOutOfMemoryError -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseG1GC"
   export GRADLE_OPTS="-Dorg.gradle.parallel=true -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=\"${JAVA_OPTS}\""
   export GRADLE_DAEMON_DISABLED="1"
 
-      helper_use_pristine_workdir \
-  &&  if  helper_have_any_file_changed \
-        'mobile/app.json'
-      then
-            echo '[INFO] Logging in to AWS' \
-        &&  aws_login "${ENVIRONMENT_NAME}" \
-        &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-              EXPO_USER \
-              EXPO_PASS \
-        &&  sops \
-              --aws-profile default \
-              --decrypt \
-              --extract '["GOOGLE_SERVICES_APP"]' \
-              --output 'mobile/google-services.json' \
-              --output-type 'json' \
-              "secrets-development.yaml" \
-        &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
-        &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
-        &&  echo '[INFO] Installing deps' \
-        &&  pushd mobile \
-          &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-          &&  echo '[INFO] Using Java '"$(java -version 2>&1)"'' \
-          &&  npm install \
-          &&  npx --no-install expo login \
-                --username "${EXPO_USER}" \
-                --password "${EXPO_PASS}" \
-          &&  aws s3 cp \
-                --recursive \
-                "s3://fluidintegrates.build/mobile/certs" \
-                ./certs \
-          &&  echo '[INFO] Patching android sdk' \
-          &&  TURTLE_ANDROID_DEPENDENCIES_DIR="${PWD}/androidDependencies" \
-          &&  mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-          &&  ln -s \
-                "${androidSdk}"/libexec/android-sdk/* \
-                "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-          &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
-          &&  echo '[INFO] Patching turtle shell app' \
-          &&  npx --no-install turtle setup:android \
-                --sdk-version=37.0.0 \
-          &&  echo \
-                "android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/28.0.3/aapt2" \
-                >> "${HOME}/.turtle/workingdir/android/sdk37/android/gradle.properties" \
-          &&  echo '[INFO] Building android app' \
-          &&  npx --no-install turtle build:android \
-                --username "${EXPO_USER}" \
-                --password "${EXPO_PASS}" \
-                --keystore-alias fluidintegrates-keystore \
-                --keystore-path ./certs/keystore-dev.jks \
-                --output output/integrates.aab \
-                --release-channel "${CI_COMMIT_REF_NAME}" \
-                --type app-bundle \
-        &&  popd \
-        ||  return 1
-      else
-            echo '[INFO] No relevant files were modified, skipping deploy' \
-        &&  return 0
-      fi
+  if  helper_have_any_file_changed \
+    'mobile/app.json'
+  then
+        echo '[INFO] Logging in to AWS' \
+    &&  aws_login "${ENVIRONMENT_NAME}" \
+    &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+          EXPO_USER \
+          EXPO_PASS \
+    &&  sops \
+          --aws-profile default \
+          --decrypt \
+          --extract '["GOOGLE_SERVICES_APP"]' \
+          --output 'mobile/google-services.json' \
+          --output-type 'json' \
+          "secrets-development.yaml" \
+    &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
+    &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
+    &&  pushd mobile \
+      &&  echo '[INFO] Installing deps' \
+      &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
+      &&  echo '[INFO] Using Java '"$(java -version 2>&1)"'' \
+      &&  npm install \
+      &&  npx --no-install expo login \
+            --username "${EXPO_USER}" \
+            --password "${EXPO_PASS}" \
+      &&  aws s3 cp \
+            --recursive \
+            "s3://fluidintegrates.build/mobile/certs" \
+            ./certs \
+      &&  echo '[INFO] Patching android sdk' \
+      &&  mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
+      &&  ln -s \
+            "${androidSdk}"/libexec/android-sdk/* \
+            "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
+      &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
+      &&  echo '[INFO] Patching turtle shell app' \
+      &&  npx --no-install turtle setup:android \
+            --sdk-version=37.0.0 \
+      &&  echo \
+            "android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/28.0.3/aapt2" \
+            >> "${HOME}/.turtle/workingdir/android/sdk37/android/gradle.properties" \
+      &&  echo '[INFO] Building android app' \
+      &&  npx --no-install turtle build:android \
+            --username "${EXPO_USER}" \
+            --password "${EXPO_PASS}" \
+            --keystore-alias fluidintegrates-keystore \
+            --keystore-path ./certs/keystore-dev.jks \
+            --output output/integrates.aab \
+            --release-channel "${CI_COMMIT_REF_NAME}" \
+            --type app-bundle \
+      &&  rm -rf ./certs \
+    &&  popd \
+    ||  return 1
+  else
+        echo '[INFO] No relevant files were modified, skipping deploy' \
+    &&  return 0
+  fi
 }
 
 function job_build_lambdas {
