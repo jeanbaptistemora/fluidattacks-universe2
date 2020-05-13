@@ -3,9 +3,11 @@
 
 # standar imports
 from collections import OrderedDict
+from copy import copy
 
 # 3rd party imports
 from neo4j import Transaction
+from pyparsing import Suppress, nestedExpr, printables, Word, Optional, Char
 
 # local imports
 from fluidasserts.helper.aws import load_cfn_template
@@ -55,6 +57,15 @@ def _fn_reference_logincal_id(logical_id: str) -> tuple:
     id_node = logical_id.replace('::', ':')
     alias_id = create_alias(id_node, True)
     return (alias_id, f"MERGE ({alias_id}:{id_node})\n")
+
+
+def _scan_sub_expresion(expresion) -> tuple:
+    printables1 = copy(printables).replace('$', '')
+    printables2 = copy(printables).replace('}', '')
+    grammar = Suppress(Optional(Word(printables1))) + Suppress(
+        Char('$')) + Optional(
+            nestedExpr(opener='{', closer='}', content=Word(printables2)))
+    return (i[0][0][0] for i in grammar.scanString(expresion))
 
 
 class Batcher():
@@ -403,6 +414,9 @@ class Batcher():
         elif func_name == 'Fn::FindInMap':
             statement += self._fn_find_in_map(resource_alias, attrs, contexts,
                                               **kwargs)
+        elif func_name == 'Fn::Sub':
+            statement += self._fn_sub(resource_alias, attrs, contexts,
+                                      **kwargs)
         elif func_name in CONDITIONAL_FUNCS:
             statement += self._fn_conditional(func_name, resource_alias, attrs,
                                               contexts, **kwargs)
@@ -445,19 +459,27 @@ class Batcher():
                       logical_name: str,
                       contexts: set = None,
                       line='unknown',
+                      direct_reference=False,
                       **rel_kwargs):
         """Loaf intrinsic function Ref."""
         contexts = contexts or set([])
         ref_alias = create_alias(f'ref_{resource_id}_{logical_name}', True)
         param_alias = create_alias(f'ref_{resource_id}_{logical_name}')
         rel_resource = create_alias(f'rel_{resource_id}', True)
-        contexts.update([ref_alias, rel_resource])
-        contexts_str = ', '.join(contexts)
+        statement = ""
+        if not direct_reference:
+            contexts.update([ref_alias, rel_resource])
+            contexts_str = ', '.join(contexts)
+            statement += (
+                f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN]->"
+                f"({ref_alias}:Ref {{logicalName: "
+                f"${ref_alias}_log_name}})\n"
+                f"WITH {contexts_str}\n")
+        else:
+            ref_alias = resource_id
+            contexts.add(ref_alias)
+
         contexts_str1 = ', '.join([*contexts, param_alias])
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN]->"
-                     f"({ref_alias}:Ref {{logicalName: "
-                     f"${ref_alias}_log_name}})\n"
-                     f"WITH {contexts_str}\n")
         if not logical_name.startswith('AWS::'):
             statement += (
                 f"MATCH ({param_alias}: Parameter)\n"
@@ -669,6 +691,65 @@ class Batcher():
                       f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN]->"
                       f"({alias_fn})\n"
                       f"SET {rel_resource}.line = ${rel_resource}_line\n")
+        self.statement_params[f'{rel_resource}_line'] = line
+
+        if rel_kwargs:
+            contexts.add(rel_resource)
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
+        return statement
+
+    def _fn_sub(self,
+                resource_id: str,
+                attrs,
+                contexts: set = None,
+                line='unknown',
+                **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::Sub."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_getazs", True)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        statement = (f"CREATE ({alias_fn}:Fn:Sub)\n"
+                     f"SET {alias_fn}.String = ${alias_fn}_string\n")
+        contexts.add(alias_fn)
+        if isinstance(attrs, str):
+            self.statement_params[f'{alias_fn}_string'] = attrs
+            references = _scan_sub_expresion(attrs)
+            for ref in references:
+                contexts_str = ', '.join(contexts)
+                # pending handling references to resource attributes
+                ref_sts = self._fn_reference(
+                    alias_fn, ref, contexts, direct_reference=True)
+                statement += f"WITH {contexts_str}\n" + ref_sts
+        else:
+            self.statement_params[f'{alias_fn}_string'] = attrs[0]
+            references = _scan_sub_expresion(attrs[0])
+            for key, value in attrs[1].items():
+                if key.startswith('__'):
+                    continue
+                alias_var = create_alias(f'{alias_fn}_{key}', True)
+                statement += (
+                    f"CREATE ({alias_fn})-[:REFERENCE_TO]->"
+                    f"({alias_var }:Var {{name: ${alias_fn}_{key}_name}})\n")
+                contexts.add(alias_var)
+                self.statement_params[f'{alias_fn}_{key}_name'] = key
+
+                if isinstance(value, (bool, str, int)):
+                    statement += (
+                        f"SET {alias_var}.value = ${alias_fn}_{key}\n")
+                    self.statement_params[f'{alias_fn}_{key}'] = value
+                else:
+                    func_name = list(attrs[1][key].keys())[0]
+                    statement += self.load_intrinsic_func(
+                        alias_var, func_name, attrs[1][key][func_name],
+                        contexts)
+
+        contexts_str = ', '.join(contexts)
+        statement += (f"WITH {contexts_str}\n"
+                      f"CREATE ({resource_id})-"
+                      f"[{rel_resource}:EXECUTE_FN]->({alias_fn})"
+                      f"SET {rel_resource}.line = ${rel_resource}_line\n")
+
         self.statement_params[f'{rel_resource}_line'] = line
 
         if rel_kwargs:
