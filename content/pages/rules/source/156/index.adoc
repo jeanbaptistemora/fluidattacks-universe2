@@ -1,7 +1,7 @@
 :slug: rules/156/
 :category: source
-:description: This documents contains the details of the security requirements related to source code security in the applications. This requirement establishes the importance of developing source code without sensitive information in order to avoid security breaches in the application.
-:keywords: Requirement, Security, Source Code, Sensitive information, Data, Secure Programming.
+:description: This documents contains the details of the security requirements related to source code security in applications. This requirement establishes the importance of developing source code without sensitive information in order to avoid security breaches in the application.
+:keywords: Source Code, Sensitive information, Data, ASVS, CWE, GDPR
 :rules: yes
 
 = REQ.156 Source code without sensitive information
@@ -9,6 +9,16 @@
 == Requirement
 
 The source code must not contain sensitive information.
+
+== Description
+
+Sensitive data is often included in the source code during early development
+stages for practicality or due to a lack of early architecture.
+This data includes credentials, secrets, cryptographic keys, personal
+identification numbers and other personal information.
+Following secure programming practices, none of this information should be
+present in the source code,
+as it could lead a source code leak to putting critical systems in jeopardy.
 
 == Findings
 
@@ -18,11 +28,46 @@ The source code must not contain sensitive information.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
-Security is addressed within all parts
-of the software development lifecycle.
+. [[r1]] link:https://cwe.mitre.org/data/definitions/259.html[CWE-259: Use of Hard-coded Password]
+The software contains a hard-coded password,
+which it uses for its own inbound authentication or for outbound communication
+to external components.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.29+]
-Verify that secrets, API keys, and passwords
-are not included in the source code,
-or online source code repositories.
+. [[r2]] link:https://cwe.mitre.org/data/definitions/321.html[CWE-321: Use of Hard-coded Cryptographic Key]
+The use of a hard-coded cryptographic key significantly increases the
+possibility that encrypted data may be recovered.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/540.html[CWE-540: Inclusion of Sensitive Information in Source Code]
+Source code on a web server or repository often contains sensitive information
+and should generally not be accessible to users.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/615.html[CWE-615: Inclusion of Sensitive Information in Source Code Comments]
+While adding general comments is very useful,
+some programmers tend to leave important data,
+such as: filenames related to the web application,
+old links or links which were not meant to be browsed by users,
+old code fragments, etc.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/798.html[CWE-798: Use of Hard-coded Credentials]
+The software contains hard-coded credentials,
+such as a password or cryptographic key,
+which it uses for its own inbound authentication,
+outbound communication to external components, or encryption of internal data.
+
+. [[r6]] link:https://gdpr-info.eu/art-25-gdpr/[GDPR. Art. 25: Data protection by design and by default.(1)]
+The controller shall,
+both at the time of the determination of the means for processing and at the
+time of the processing itself,
+implement appropriate technical and organizational measures.
+
+. [[r7]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 51:  Protecting sensitive personal data].
+Personal data which are, by their nature, particularly sensitive in relation to
+fundamental rights and freedoms merit specific protection as the context of
+their processing could create significant risks to the fundamental rights and
+freedoms.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.10 Service Authentication Requirements.(2.10.4)]
+Verify passwords, integrations with databases and third-party systems, seeds
+and internal secrets, and API keys are managed securely and not included in the
+source code or stored within source code repositories.
