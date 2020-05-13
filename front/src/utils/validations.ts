@@ -54,6 +54,19 @@ export const validEvidenceDescription: Validator = (
       : undefined;
 };
 
+export const validTextField: Validator = (value: string): string | undefined => {
+  const riskStartChars: string[] = ["=", "?", "<", "`"];
+  const riskChars: string[] = ["'", "`"];
+  let ret: string | undefined;
+  if (!_.isNil(value) && riskChars.some((char: string) => value.includes(char))) {
+    ret = translate.t("validations.invalidTextField", { chars: riskChars });
+  } else if (!_.isNil(value) && riskStartChars.includes(value[0])) {
+    ret = translate.t("validations.invalidTextFieldStart", { chars: riskStartChars });
+  }
+
+  return ret;
+};
+
 export const numberBetween: ((min: number, max: number) => Validator) =
   (min: number, max: number): Validator =>
     (value: number): string | undefined =>

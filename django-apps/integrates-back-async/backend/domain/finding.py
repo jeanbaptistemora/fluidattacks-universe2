@@ -583,6 +583,7 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
 
 
 def update_evidence_description(finding_id: str, evidence_type: str, description: str) -> bool:
+    validations.validate_fields(cast(List[str], [description]))
     finding = get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
     success = False

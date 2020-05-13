@@ -59,7 +59,21 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
   const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
 
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
-  const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION);
+  const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION, {
+    onError: (updateError: ApolloError): void => {
+      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Invalid field in form":
+            msgError(translate.t("validations.invalidValueInField"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred updating finding evidence", updateError);
+        }
+      });
+    },
+  });
+
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {

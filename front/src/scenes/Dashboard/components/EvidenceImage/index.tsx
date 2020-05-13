@@ -9,7 +9,7 @@ import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { validEvidenceDescription } from "../../../../utils/validations";
+import { validEvidenceDescription, validTextField } from "../../../../utils/validations";
 import { default as style } from "./index.css";
 
 interface IEvidenceImageProps {
@@ -38,7 +38,12 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
         validate={props.validate}
       />
       {props.isDescriptionEditable
-        ? <Field name="description" component={textAreaField} validate={validEvidenceDescription} />
+        ?
+          <Field
+            name="description"
+            component={textAreaField}
+            validate={[validEvidenceDescription, validTextField]}
+          />
         : <p>{props.description}</p>}
       {props.isRemovable === true
         ? <Button bsStyle="success" block={true} onClick={onDelete}>
