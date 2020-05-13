@@ -640,6 +640,9 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             cloudtrail.is_trail_bucket_public('{key}', '{secret}')
             cloudtrail.trails_not_multiregion('{key}', '{secret}')
             """,
+        ('cognito', 'Cognito'): """
+                cognito.mfa_disabled('{key}', '{secret}')
+                """,
         ('dynamodb', 'DynamoDB'): """
             dynamodb.encrypted_with_aws_master_keys('{key}', '{secret}')
             dynamodb.has_disabled_continuous_backups('{key}', '{secret}')

@@ -14,10 +14,10 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def no_mfa_enabled(key_id: str,
-                   secret: str,
-                   session_token: str = None,
-                   retry: bool = True) -> tuple:
+def mfa_disabled(key_id: str,
+                 secret: str,
+                 session_token: str = None,
+                 retry: bool = True) -> tuple:
     """
     Check if Cognito has Multi-factor Authentication.
 
@@ -28,18 +28,45 @@ def no_mfa_enabled(key_id: str,
     :param secret: AWS Key Secret
     """
     vulns, safes = [], []
-    mfa = aws.run_boto3_func(
+    pools = []
+    data = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        service='cognito',
-        func='get_user_pool_mfa_config',
+        service='cognito-idp',
+        func='list_user_pools',
         boto3_client_kwargs={'aws_session_token': session_token},
-        param='MfaConfiguration',
+        MaxResults=50,
         retry=retry)
 
-    if not mfa == 'ON':
-        vulns.append(('Multi-Factor Authentication',
-                      f'Must be enabled'))
+    pools += data.get('UserPools', [])
+    next_token = data.get('NextToken', '')
+    while next_token:
+        data = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='cognito-idp',
+            func='list_user_pools',
+            boto3_client_kwargs={'aws_session_token': session_token},
+            MaxResults=50,
+            NextToken=next_token,
+            retry=retry)
+        pools.append += data['UserPools']
+        next_token = data.get('NextToken', '')
+    for pool in pools:
+        mfa = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='cognito-idp',
+            func='get_user_pool_mfa_config',
+            boto3_client_kwargs={'aws_session_token': session_token},
+            param='MfaConfiguration',
+            UserPoolId=pool['Id'],
+            retry=retry)
+
+        if not mfa == 'ON':
+            vulns.append((pool['Id'],
+                          ('User Pools must have Multi-Factor '
+                           'Authentication enabled')))
 
     msg_open: str = f'Multi-Factor Authentication is not enabled'
     msg_closed: str = f'Multi-Factor Authentication is enabled'

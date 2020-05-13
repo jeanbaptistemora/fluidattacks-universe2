@@ -17,7 +17,7 @@ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_SECRET_ACCESS_KEY_BAD = "bad"
 
-def test_no_mfa_enabled_open():
-    """Search network ACLs that allow all ingress traffic."""
-    assert cognito.no_mfa_enabled(
+def test_mfa_disabled_open():
+    """Is multi-factor authentication disabled."""
+    assert cognito.mfa_disabled(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
