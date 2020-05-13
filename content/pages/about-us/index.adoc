@@ -1,5 +1,4 @@
 :slug: about-us/
-:category: about-us
 :description: The purpose of the following page is to present our applicants basic information about our organization. Next, we will introduce ourselves as a company in order to enable you to make an informed decision about where you will potentially continue your career.
 :keywords: Fluid Attacks, About us, Company, Presentation, Information, Careers.
 
