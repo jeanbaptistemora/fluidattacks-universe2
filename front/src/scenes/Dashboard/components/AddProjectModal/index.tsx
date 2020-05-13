@@ -17,7 +17,7 @@ import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import { alphaNumeric, maxLength, required } from "../../../../utils/validations";
+import { alphaNumeric, maxLength, required, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
 import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "./queries";
@@ -156,7 +156,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                   component={textField}
                                   name="company"
                                   type="text"
-                                  validate={[required, maxCompanyLength]}
+                                  validate={[required, maxCompanyLength, validTextField]}
                                 />
                               </FormGroup>
                               <FormGroup>
@@ -165,7 +165,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                   component={textField}
                                   name="name"
                                   type="text"
-                                  validate={[alphaNumeric, maxProjectNameLength, required]}
+                                  validate={[alphaNumeric, maxProjectNameLength, required, validTextField]}
                                 />
                               </FormGroup>
                               <FormGroup>
@@ -174,7 +174,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                   component={textField}
                                   name="description"
                                   type="text"
-                                  validate={[required, maxDescriptionLength]}
+                                  validate={[required, maxDescriptionLength, validTextField]}
                                 />
                               </FormGroup>
                               <FormGroup>

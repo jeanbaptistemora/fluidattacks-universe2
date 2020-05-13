@@ -14,6 +14,7 @@ import { selectFilter } from "react-bootstrap-table2-filter";
 import { useSelector } from "react-redux";
 import { RouteComponentProps, useHistory } from "react-router";
 import { Field, FormSection, formValueSelector, InjectedFormProps, Validator } from "redux-form";
+import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
@@ -29,14 +30,15 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import {
-  dateTimeBeforeToday, isValidFileSize, numeric, required, someRequired, validDatetime, validEventFile,
-  validEvidenceImage,
+  dateTimeBeforeToday, isValidFileSize, maxLength, numeric, required, someRequired, validDatetime,
+  validEventFile, validEvidenceImage, validTextField,
 } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 
 type EventsViewProps = RouteComponentProps<{ projectName: string }>;
 
+const maxEventDetailsLength: ConfigurableValidator = maxLength(300);
 const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: EventsViewProps): JSX.Element => {
   const { push } = useHistory();
   const selectOptionsStatus: optionSelectFilterProps[] = [
@@ -464,7 +466,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       className={globalStyle.noResize}
                                       component={textAreaField}
                                       name="detail"
-                                      validate={required}
+                                      validate={[required, validTextField, maxEventDetailsLength]}
                                     />
                                   </FormGroup>
                                 </Col>

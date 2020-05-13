@@ -18,7 +18,7 @@ import { handleErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";
 import { msgError } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
-import { required, validAlphanumericSpace, validEmail } from "../../../../../utils/validations";
+import { required, validAlphanumericSpace, validEmail, validTextField } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm/index";
 import { GET_USER } from "./queries";
 import { IAddUserModalProps, IUserDataAttr } from "./types";
@@ -107,7 +107,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                       name="organization"
                       component={textField}
                       type="text"
-                      validate={[required, validAlphanumericSpace]}
+                      validate={[required, validAlphanumericSpace, validTextField]}
                     />
                   </FormGroup>
                   <FormGroup>
@@ -141,7 +141,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                         component={textField}
                         type="text"
                         placeholder={translate.t("search_findings.tab_users.responsibility_placeholder")}
-                        validate={[required]}
+                        validate={[required, validTextField]}
                       />
                     </FormGroup>
                   ) : undefined}

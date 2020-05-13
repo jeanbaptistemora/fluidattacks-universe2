@@ -10,7 +10,9 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { isValidFileName, isValidFileSize, maxLength, required, validField } from "../../../../utils/validations";
+import {
+  isValidFileName, isValidFileSize, maxLength, required, validField, validTextField,
+} from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 
 export interface IAddFilesModalProps {
@@ -71,7 +73,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
                     component={textAreaField}
                     name="description"
                     type="text"
-                    validate={[required, validField, maxFileDescriptionLength]}
+                    validate={[required, validField, maxFileDescriptionLength, validTextField]}
                   />
                 </Col>
               </Row>

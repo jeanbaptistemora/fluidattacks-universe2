@@ -11,7 +11,7 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { maxLength, required, validField } from "../../../../utils/validations";
+import { maxLength, required, validField, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 
 export interface IAddEnvironmentsModalProps {
@@ -42,7 +42,7 @@ const renderEnvsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
                 component={textAreaField}
                 name={`${fieldName}.urlEnv`}
                 type="text"
-                validate={[required, validField, maxEnvUrlLength]}
+                validate={[required, validField, maxEnvUrlLength, validTextField]}
               />
             </Col>
             {index > 0 ? (
