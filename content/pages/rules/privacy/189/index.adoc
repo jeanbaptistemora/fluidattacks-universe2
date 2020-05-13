@@ -1,16 +1,15 @@
 :slug: rules/189/
-:category: data
+:category: privacy
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of specifying the purpose of personal data collection in order to fulfill all legal requirements
-:keywords: Requirement, Security, Data, Privileges, System, GDPR
+:keywords: Data, Collection, Personal, Information, System, GDPR
 :rules: yes
-:extended: yes
 
 = REQ.189 Specify the purpose of data collection
 
 == Requirement
 
 The system must specify the purpose
-of the personal data collection (+OECD.9+, +ISACA.G31.3.+).
+of personal data collection (**OECD.9**, **ISACA.G31.3.**).
 
 == Description
 
