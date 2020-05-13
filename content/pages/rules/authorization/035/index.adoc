@@ -1,7 +1,7 @@
 :slug: rules/035/
 :category: authorization
 :description: This document details the security guidelines and requirements related to the administration of the system. The objective of this requirement is to define the importance of implementing measures to prevent system actors from increasing privileges for themselves.
-:keywords: Requirement, Security, System, Privileges, Actor, Administration
+:keywords: System, Privileges, Modification, Administration, ASVS, CWE
 :rules: yes
 
 = REQ.035 Manage privilege modifications
@@ -15,3 +15,22 @@ The system must not allow system actors to modify privileges for themselves.
 * [inner]#link:/web/findings/005/[F005. Privilege escalation]#
 
 * [inner]#link:/web/findings/032/[F032. Spoofing]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/267.html[CWE-267: Privilege Defined With Unsafe Actions]
+A particular privilege, role, capability, or right can be used to perform
+unsafe actions that were not intended,
+even when it is assigned to the correct entity.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/269.html[CWE-269: Improper Privilege Management]
+The software does not properly assign, modify, track, or check privileges for
+an actor,
+creating an unintended sphere of control for that actor.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.2.3)]
+Verify that the principle of least privilege exists - users should only be able
+to access functions, data files, URLs, controllers, services, and other
+resources, for which they possess specific authorization.
+This implies protection against spoofing and elevation of privilege.
