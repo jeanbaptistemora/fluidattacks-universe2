@@ -40,7 +40,7 @@ REGEX_LOGS_NAME = re.compile(
     r'^(?P<group>[a-z]+)'
     r'/(?P<execution_id>[0-9a-f]+)'
     r'/(?P<date>[0-9]+)'
-    r'/(?P<kind>[a-z]+)'
+    r'(?:/(?P<kind>[a-z]+))?'
     r'/(?P<name>.+)$')
 REGEX_BUILD_ENV = re.compile(r'^BUILD_ENV=(.*)$', flags=re.MULTILINE)
 REGEX_BUILD_TRIGGER_SOURCE = \
@@ -276,7 +276,7 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
     group = execution_group_match.group('group')
     execution_id = execution_group_match.group('execution_id')
     date = execution_group_match.group('date')
-    kind = execution_group_match.group('kind')
+    kind = execution_group_match.group('kind') or 'other'
 
     s3_execution_folder = f'{group}/{execution_id}/{date}'
     s3_prefix = f'{s3_execution_folder}/{kind}'
