@@ -127,11 +127,18 @@ def create_project(
             resp = project_dal.create(project)
             if resp:
                 internal_project_domain.remove_project_name(project_name)
+                # Admins are not granted access to the project
+                # they are omnipresent
                 if not is_user_admin:
+                    user_role = {
+                        # Internal managers are turned into group_managers
+                        'internal_manager': 'group_manager'
+                        # Other roles are turned into customeradmins
+                    }.get(user_role, 'customeradmin')
                     add_user_access = user_domain.update_project_access(
                         user_email, project_name, True)
                     add_user_manager = user_domain.grant_group_level_role(
-                        user_email, project_name, 'group_manager')
+                        user_email, project_name, user_role)
                     resp = all([add_user_access, add_user_manager])
         else:
             raise InvalidProjectName()
