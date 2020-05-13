@@ -59,7 +59,6 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
 ) -> bool:
     valid = validate_alphanumeric_field(organization) \
         and validate_alphanumeric_field(responsibility) \
-        and validate_alphanumeric_field(role) \
         and validate_phone_field(phone_number) \
         and validate_email_address(email) \
         and await validate_fluidattacks_staff_on_group(group, email, role)
