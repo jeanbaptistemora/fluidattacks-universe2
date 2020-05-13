@@ -18,7 +18,7 @@ from backend.domain.project import (
     list_drafts, list_comments, get_active_projects,
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config,
-    get_current_month_authors
+    get_current_month_authors, create_project
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -356,4 +356,20 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         test_data = get_current_month_authors(project_name)
         expected_output = 0
+        assert  test_data == expected_output
+
+    @pytest.mark.changes_db
+    def test_create_project_not_user_admin(self):
+        user_email = 'integratesuser@gmail.com'
+        user_role = 'customeradmin'
+        project_data = {
+            'companies': ["fluid"],
+            'description': 'This is a new project',
+            'project_name': 'testproject',
+            'subscription': 'continuous',
+            'has_drills': True,
+            'has_forces': True
+        }
+        test_data = create_project(user_email, user_role, **project_data)
+        expected_output = True
         assert  test_data == expected_output
