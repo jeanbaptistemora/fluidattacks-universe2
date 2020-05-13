@@ -146,7 +146,9 @@ function helper_deploy_pages {
   &&  sed -i "s|:slug: partners/terms|:slug: about-us/partners/terms|g" \
         new/content/pages/about-us/partners/terms/index.adoc \
   &&  sed -i "s|:category: services|:category: about us|g" new/content/pages/about-us/*/index.adoc \
-  &&  rsync -av --progress content/blog/ new/content/blog/
+  &&  rsync -av --progress content/blog/ new/content/blog/ \
+  &&  rsync -av --progress content/images new/content/ \
+  &&  sed -i "s|image:../images|image:../../images|g" new/content/pages/about-us/partners/index.adoc
 }
 
 function helper_deploy_compile_old {
