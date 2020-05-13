@@ -238,7 +238,7 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions
 
         for action in should_deny:
-            self.assertFalse(await UserAbacTest.enforcer(sub)(sub, obj, action))
+            self.assertFalse(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
     @pytest.mark.changes_db
     async def test_action_customer_role(self):
