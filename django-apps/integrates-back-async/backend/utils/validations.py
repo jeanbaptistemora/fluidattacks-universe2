@@ -40,6 +40,8 @@ async def validate_fluidattacks_staff_on_group(group, email, role) -> bool:
 
 
 def validate_email_address(email: str) -> bool:
+    if '+' in email:
+        raise InvalidField('email address')
     try:
         validate_email(email)
         return True

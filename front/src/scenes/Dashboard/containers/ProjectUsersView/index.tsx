@@ -127,7 +127,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
             msgError(translate.t("validations.invalidPhoneNumberInField"));
             break;
           case "Exception - Invalid email address in form":
-            msgError(translate.t("validations.invalidPhoneNumberInField"));
+            msgError(translate.t("validations.invalidEmailInField"));
             break;
           default:
             msgError(translate.t("proj_alerts.error_textsad"));

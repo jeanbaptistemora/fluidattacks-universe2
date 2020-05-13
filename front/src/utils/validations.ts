@@ -96,7 +96,7 @@ export const validAlphanumericSpace: Validator = matchesPattern(
 });
 
 export const validEmail: Validator = matchesPattern(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+  /^[a-zA-Z0-9.!#$%&’*/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 )({
   message: translate.t("validations.email"),
 });
