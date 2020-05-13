@@ -331,19 +331,31 @@ class ActionAbacTest(TestCase):
 class UserAbacTest(TestCase):
     enforcer = get_user_level_enforcer
 
-    customeradmin_actions: Set[str] = {
-        'backend_api_resolvers_me__get_tags',
-        'backend_api_resolvers_tag_resolve_tag',
-        'backend_api_resolvers_user_resolve_user_list_projects'
+    customer_actions: Set[str] = {
+        'backend_api_resolvers_internal_project_resolve_project_name',
+        'backend_api_resolvers_project__do_create_project',
     }
 
-    customeratfluid_actions: Set[str] = {
+    customeradmin_actions: Set[str] = {
+        'backend_api_resolvers_internal_project_resolve_project_name',
+        'backend_api_resolvers_me__get_tags',
         'backend_api_resolvers_project__do_create_project',
-        'backend_api_resolvers_user_resolve_user_list_projects'
+        'backend_api_resolvers_tag_resolve_tag',
+        'backend_api_resolvers_user_resolve_user_list_projects',
+    }
+
+    internal_manager_actions: Set[str] = {
+        'backend_api_resolvers_internal_project_resolve_project_name',
+        'backend_api_resolvers_me__get_tags',
+        'backend_api_resolvers_project__do_create_project',
+        'backend_api_resolvers_tag_resolve_tag',
+        'backend_api_resolvers_user_resolve_user_list_projects',
     }
 
     analyst_actions: Set[str] = {
         'backend_api_resolvers_cache_resolve_invalidate_cache',
+        'backend_api_resolvers_internal_project_resolve_project_name',
+        'backend_api_resolvers_project__do_create_project',
     }
 
     admin_actions: Set[str] = {
@@ -352,8 +364,10 @@ class UserAbacTest(TestCase):
         'backend_api_resolvers_subscription__do_post_broadcast_message',
         'backend_api_resolvers_project_resolve_alive_projects'
     }
+    admin_actions = admin_actions.union(customer_actions)
+    admin_actions = admin_actions.union(customeradmin_actions)
+    admin_actions = admin_actions.union(internal_manager_actions)
     admin_actions = admin_actions.union(analyst_actions)
-    admin_actions = admin_actions.union(customeratfluid_actions)
 
     all_actions = admin_actions
 
@@ -364,8 +378,10 @@ class UserAbacTest(TestCase):
         sub = 'someone@guest.com'
         obj = 'self'
 
-        for act in self.all_actions:
-            self.assertFalse(await UserAbacTest.enforcer(sub)(sub, obj, act))
+        enforcer = UserAbacTest.enforcer(sub)
+
+        for action in self.all_actions:
+            assert not await enforcer(sub, obj, action), action
 
     @pytest.mark.changes_db
     async def test_action_analyst_role(self):
@@ -373,9 +389,13 @@ class UserAbacTest(TestCase):
         obj = 'self'
 
         self._grant_user_level_access(sub, 'analyst')
+        enforcer = UserAbacTest.enforcer(sub)
 
-        for act in self.analyst_actions:
-            self.assertTrue(await UserAbacTest.enforcer(sub)(sub, obj, act))
+        for action in self.analyst_actions:
+            assert await enforcer(sub, obj, action), action
+
+        for action in self.all_actions - self.analyst_actions:
+            assert not await enforcer(sub, obj, action), action
 
     @pytest.mark.changes_db
     async def test_action_customer_role(self):
@@ -383,20 +403,27 @@ class UserAbacTest(TestCase):
         obj = 'self'
 
         self._grant_user_level_access(sub, 'customer')
+        enforcer = UserAbacTest.enforcer(sub)
 
-        for act in self.customeratfluid_actions.union(
-            self.customeradmin_actions):
-            self.assertFalse(await UserAbacTest.enforcer(sub)(sub, obj, act))
+        for action in self.customer_actions:
+            assert await enforcer(sub, obj, action), action
+
+        for action in self.all_actions - self.customer_actions:
+            assert not await enforcer(sub, obj, action), action
 
     @pytest.mark.changes_db
-    async def test_action_customeratfluid_role(self):
-        sub = 'test_action_customeratfluid_role@fluidattacks.com'
+    async def test_action_internal_manager_role(self):
+        sub = 'test_action_internal_manager_role@fluidattacks.com'
         obj = 'self'
 
         self._grant_user_level_access(sub, 'internal_manager')
+        enforcer = UserAbacTest.enforcer(sub)
 
-        for act in self.customeratfluid_actions:
-            self.assertTrue(await UserAbacTest.enforcer(sub)(sub, obj, act))
+        for action in self.internal_manager_actions:
+            assert await enforcer(sub, obj, action), action
+
+        for action in self.all_actions - self.internal_manager_actions:
+            assert not await enforcer(sub, obj, action), action
 
     @pytest.mark.changes_db
     async def test_action_customeradmin_role(self):
@@ -404,9 +431,13 @@ class UserAbacTest(TestCase):
         obj = 'self'
 
         self._grant_user_level_access(sub, 'customeradmin')
+        enforcer = UserAbacTest.enforcer(sub)
 
-        for act in self.customeradmin_actions:
-            self.assertTrue(await UserAbacTest.enforcer(sub)(sub, obj, act))
+        for action in self.customeradmin_actions:
+            assert await enforcer(sub, obj, action), action
+
+        for action in self.all_actions - self.customeradmin_actions:
+            assert not await enforcer(sub, obj, action), action
 
     @pytest.mark.changes_db
     async def test_action_admin_role(self):
@@ -414,9 +445,10 @@ class UserAbacTest(TestCase):
         obj = 'self'
 
         self._grant_user_level_access(sub, 'admin')
+        enforcer = UserAbacTest.enforcer(sub)
 
-        for act in self.all_actions:
-            self.assertTrue(await UserAbacTest.enforcer(sub)(sub, obj, act))
+        for action in self.all_actions:
+            assert await enforcer(sub, obj, action), action
 
 
 class ServiceAttributesAbacTest(TestCase):
