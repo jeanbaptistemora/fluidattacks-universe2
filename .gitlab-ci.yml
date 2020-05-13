@@ -196,12 +196,6 @@ deploy_mobile:
     name: "mobile/$CI_COMMIT_REF_NAME"
     url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
 
-deploy_container_deps_mobile:
-  <<: *with_nix
-  <<: *in_everywhere_except_build_nix_caches
-  tags: [autoscaling-large]
-  stage: build
-
 build_container_app:
   <<: *with_nix
   <<: *in_everywhere_except_build_nix_caches

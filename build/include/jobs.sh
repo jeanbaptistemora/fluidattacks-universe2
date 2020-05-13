@@ -173,18 +173,6 @@ function job_build_nix_caches {
       done
 }
 
-function job_deploy_container_deps_mobile {
-  local context='.'
-  local dockerfile='deploy/containers/deps-mobile/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/deps-mobile:${CI_COMMIT_REF_NAME}"
-
-      helper_use_pristine_workdir \
-  &&  helper_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}"
-}
-
 function job_build_container_app {
   local context='.'
   local dockerfile='deploy/containers/app/Dockerfile'

@@ -64,7 +64,6 @@
     "waait": "1.0.5"
   },
   "scripts": {
-    "build": "npm run publish && ./buildApp.sh",
     "lint": "tslint -p tsconfig.json -t codeFrame",
     "start": "expo start",
     "test": "jest"
