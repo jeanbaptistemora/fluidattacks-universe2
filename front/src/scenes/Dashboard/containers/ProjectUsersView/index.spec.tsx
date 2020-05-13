@@ -151,4 +151,39 @@ describe("Project users view", () => {
     expect(addUserModal)
       .toHaveLength(1);
   });
+
+  it("should open a modal to edit user", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_user__do_edit_user" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <ProjectUsersView {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    let editUserModal: ReactWrapper = wrapper
+      .find("modal")
+      .find({open: true, headerTitle: "Edit user information"});
+    expect(editUserModal)
+      .toHaveLength(0);
+    const userInfo: ReactWrapper = wrapper.find("tr")
+      .findWhere((element: ReactWrapper) => element.contains("user@gmail.com"))
+      .at(0);
+    userInfo.simulate("click");
+    const addButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Edit"))
+      .at(0);
+    addButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
+    editUserModal = wrapper
+      .find("modal")
+      .find({open: true, headerTitle: "Edit user information"});
+    expect(editUserModal)
+      .toHaveLength(1);
+  });
 });
