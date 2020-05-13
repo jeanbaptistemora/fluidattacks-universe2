@@ -417,6 +417,9 @@ class Batcher():
         elif func_name == 'Fn::Sub':
             statement += self._fn_sub(resource_alias, attrs, contexts,
                                       **kwargs)
+        elif func_name == 'Fn::Join':
+            statement += self._fn_join(resource_alias, attrs, contexts,
+                                       **kwargs)
         elif func_name in CONDITIONAL_FUNCS:
             statement += self._fn_conditional(func_name, resource_alias, attrs,
                                               contexts, **kwargs)
@@ -707,7 +710,7 @@ class Batcher():
                 **rel_kwargs):
         """Create a statement to load intrinsic function Fn::Sub."""
         contexts = contexts or set([])
-        alias_fn = create_alias("fn_getazs", True)
+        alias_fn = create_alias("fn_sub", True)
         rel_resource = create_alias(f'rel_{resource_id}', True)
         statement = (f"CREATE ({alias_fn}:Fn:Sub)\n"
                      f"SET {alias_fn}.String = ${alias_fn}_string\n")
@@ -756,6 +759,46 @@ class Batcher():
             contexts.add(rel_resource)
             statement += self._add_attributes_relationship(
                 rel_resource, contexts, **rel_kwargs)
+        return statement
+
+    def _fn_join(self,
+                 resource_id: str,
+                 attrs,
+                 contexts: set = None,
+                 line='unknown',
+                 **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::Join."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_join", True)
+        contexts.add(alias_fn)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        contexts_str = ', '.join(contexts)
+        statement = (f"CREATE ({alias_fn}:Fn:Join)\n"
+                     f"SET {alias_fn}.delimiter = ${alias_fn}_delimiter\n"
+                     f"WITH {contexts_str}\n"
+                     f"CREATE ({resource_id})-"
+                     f"[{rel_resource}:EXECUTE_FN]->({alias_fn})"
+                     f"SET {rel_resource}.line = ${rel_resource}_line\n")
+        self.statement_params[f'{alias_fn}_delimiter'] = attrs[0]
+        self.statement_params[f'{rel_resource}_line'] = line
+
+        for idx, value in enumerate(attrs[1]):
+            if isinstance(value, (str, bool, int)):
+                statement += (
+                    f"SET {alias_fn}.value{idx+1} = ${alias_fn}_val{idx+1}\n")
+                self.statement_params[f'{alias_fn}_val{idx+1}'] = value
+            else:
+                func_name = list(value.keys())[0]
+                statement += self.load_intrinsic_func(
+                    alias_fn, func_name, value[func_name], contexts, line, **{
+                        f'value{idx+1}': True
+                    })
+
+        if rel_kwargs:
+            contexts.add(rel_resource)
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
+
         return statement
 
     def _fn_conditional(self,
