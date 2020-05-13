@@ -81,6 +81,55 @@
                     }
                 }
             }
+        },
+        {
+            "PutRequest" : {
+                "Item" : {
+                    "last_closing_date": {
+                        "N": "45"
+                    },
+                    "max_open_severity": {
+                        "N": "6.3"
+                    },
+                    "max_severity": {
+                        "N": "6.3"
+                    },
+                    "mean_remediate": {
+                        "N": "73"
+                    },
+                    "mean_remediate_critical_severity": {
+                        "N": "83"
+                    },
+                    "mean_remediate_high_severity": {
+                        "N": "93"
+                    },
+                    "mean_remediate_low_severity": {
+                        "N": "103"
+                    },
+                    "mean_remediate_medium_severity": {
+                        "N": "113"
+                    },
+                    "organization": {
+                        "S": "unittest"
+                    },
+                    "projects" : {
+                        "SS" : [
+                           "project1", "project10", "project19", "project28", "project37",
+                           "project2", "project11", "project20", "project29", "project38",
+                           "project3", "project12", "project21", "project30", "project39",
+                           "project4", "project13", "project22", "project31", "project40",
+                           "project5", "project14", "project23", "project32", "project41",
+                           "project6", "project15", "project24", "project33", "project42",
+                           "project7", "project16", "project25", "project34", "project43",
+                           "project8", "project17", "project26", "project35", "project44",
+                           "project9", "project18", "project27", "project36", "project45"
+                        ]
+                    },
+                    "tag": {
+                        "S": "test-tag"
+                    }
+                }
+            }
         }
     ]
 }
