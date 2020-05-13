@@ -286,10 +286,6 @@ def send_mail_accepted_finding(email_to: List[str], context: Dict[str, Union[str
     _send_mail('acceptedfinding', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_updated_vulns(email_to: List[str], context: Dict[str, Union[str, int]]):
-    _send_mail('updated-vulns', email_to, context=context, tags=GENERAL_TAG)
-
-
 def send_mail_project_deletion(email_to: List[str], context: Dict[str, Union[str, int]]):
     _send_mail('projectdeletion', email_to, context=context, tags=GENERAL_TAG)
 
