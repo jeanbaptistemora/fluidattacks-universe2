@@ -7,10 +7,18 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../../store";
+import { msgError } from "../../../../../utils/notifications";
 import { addUserModal as AddUserModal } from "./index";
 import { GET_USER } from "./queries";
 import { IAddUserModalProps } from "./types";
 
+jest.mock("../../../../../utils/notifications", () => {
+  const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");
+  mockedNotifications.msgError = jest.fn();
+  mockedNotifications.msgSuccess = jest.fn();
+
+  return mockedNotifications;
+});
 const functionMock: (() => void) = (): void => undefined;
 
 describe("Add user modal", () => {
@@ -87,7 +95,20 @@ describe("Add user modal", () => {
       result: {
         errors: [new GraphQLError("Access denied")],
       },
-  }];
+    },
+    {
+      request: {
+        query: GET_USER,
+        variables: {
+          projectName: "TEST",
+          userEmail: "unittest@test.com",
+        },
+      },
+      result: {
+        errors: [new GraphQLError("Access denied")],
+      },
+    },
+  ];
 
   it("should return a function", () => {
     expect(typeof (AddUserModal))
@@ -167,5 +188,24 @@ describe("Add user modal", () => {
       .toEqual("+573123210123");
     expect(responsibilityInput.prop("value"))
       .toEqual("edited");
+  });
+
+  it("should handle errors when auto fill data", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mockError} addTypename={true}>
+          <AddUserModal {...mockPropsAdd} />
+        </MockedProvider>
+      </Provider>,
+    );
+    const emailInput: ReactWrapper = wrapper
+      .find({name: "email", type: "text"})
+      .at(0)
+      .find("input");
+    emailInput.simulate("change", { target: { value: "unittest@test.com", name: "email" } });
+    emailInput.simulate("blur");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgError)
+      .toHaveBeenCalled();
   });
 });
