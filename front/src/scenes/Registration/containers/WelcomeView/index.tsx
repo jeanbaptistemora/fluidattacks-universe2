@@ -86,7 +86,7 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
                   <React.Fragment>
                     {data.me.authorized
                       ? data.me.remember
-                        ? <Redirect to={initialUrl} />
+                        ? <Redirect to={initialUrl === "/registration" ? "/home" : initialUrl}/>
                         :
                         <Mutation mutation={ACCEPT_LEGAL_MUTATION} onCompleted={loadDashboard}>
                           {(acceptLegal: MutationFunction): JSX.Element => {
