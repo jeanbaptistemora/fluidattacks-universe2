@@ -107,6 +107,15 @@ industry-standard
   with
   [inner]#link:../rules/150/[256-bit]#
   [inner]#link:../rules/145/[private keys]#.
+  AES256 is the
+  link:https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf[US government standard]
+  encryption algorithm,
+  used to protect top secret information.
+  Aditionally, client data is also
+  protected using
+  link:https://en.wikipedia.org/wiki/HMAC[HMAC]
+  with link:https://en.wikipedia.org/wiki/SHA-2[SHA-256]
+  hashes.
 - All our clients repositories are
   stored in private,
   [inner]#link:../rules/185/[AES256 ciphered]#
@@ -115,6 +124,14 @@ industry-standard
 - All
   [inner]#link:../products/integrates[Integrates]#
   data is stored in a AES256 encrypted database.
+- Most of our encrypted-at-rest secrets
+  are only decrypted in memory,
+  meaning that they never
+  are stored in a hard drive when decrypted.
+  This highly reduces the possibility of
+  data leakage by leaving unprotected
+  files with decrypted secrets stored
+  in hard drives.
 - All our products use our KMS
   for both development and production secrets.
 - All our Windows laptops
@@ -122,7 +139,7 @@ industry-standard
   using Bitlocker.
   Adherence to this policy is continuously checked
   by a domain controller.
-- All our Linux laptos
+- All our Linux laptops
   have their hard drives encrypted
   from bootloader using LUKS.
 
@@ -205,6 +222,8 @@ There are two main reasons for this:
   formatting happens often
   and information does not accumulate
   in local storages.
+  The rotation average time for a laptop
+  is six months.
 
 == 3. Authentication
 
@@ -337,6 +356,12 @@ Some examples are:
   These tools also let us keep application
   production secrets hidden from developers
   (Production-Development secrets separation).
+- *Infrastrcture:*
+  Infrastructure components always provide
+  minimum privileges only to the applications
+  that need to use them.
+  We never give any service full permissions
+  over all of our infrastructure.
 - *IAM:*
   It is possible to give application access on a user level.
   Granting us the ability to give employees access
@@ -919,11 +944,16 @@ a building process can be automatized,
 especially some tests.
 That is why developers also need
 to ask a peer to review their code changes
-before their Merge Request can be merged
-to production.
+before their Merge Request can go to production.
 Reviewers usually evaluate code quality,
 commit message coherence,
 and other semantic properties of the change.
+
+Peer reviewing also becomes an activity
+where product teams discuss philosophies,
+standards and future plans for the application.
+This space is ideal for senior developers to
+guide juniors on the right path.
 
 ==== 9.4.8 Continuous Deployment
 
@@ -998,7 +1028,19 @@ merged to the master branch,
 their change is deployed to production
 and the developer's short-term branch is deleted.
 
-==== 9.4.13 No dependency auto-update
+==== 9.4.13 Isolated and sudo-less dependencies
+
+Some of our dependencies
+do not require OS libraries like libc.
+Instead, they are completely built from scratch,
+thus guarantying total reproducibility.
+
+Aditionally,
+these dependencies do not require any administrative privileges like sudo.
+They are completely build in user space,
+considerabily reducing the possibility of compromising OS core files.
+
+==== 9.4.14 No dependency auto-update
 
 All external dependencies are pinned to a specific version
 (this is highly related to the immutability property).
