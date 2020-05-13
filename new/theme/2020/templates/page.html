@@ -39,14 +39,50 @@
         <li class="dib mt0">
           <a class="c-fluid-gray hv-fluid-rd no-underline"
              href="{{ SITEURL }}/">
-            <strong>Home</strong>
+             Home
           </a>
           <span class="c-fluid-gray v-mid b"> / </span>
         </li>
-        <li class="dib mt0">
+        {% if "misc" not in page.category.name and not page.defends %}
+        <li class="dib mt0" >
+          {% if page.rules %}
+            {% if page.extended %}
+              <a class="c-fluid-gray hv-fluid-rd no-underline"
+                  href="{{ SITEURL }}/rules/out-of-scope/#{{ page.category.name }}">
+                  {{ page.category|capitalize|replace('-', ' ') }}
+            {% else %}
+              <a class="c-fluid-gray hv-fluid-rd no-underline"
+                  href="{{ SITEURL }}/rules/#{{ page.category.name }}">
+                  {{ page.category|capitalize|replace('-', ' ') }}
+            {% endif %}
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+          {% else %}
+          <a class="c-fluid-gray hv-fluid-rd no-underline"
+              href="{{ SITEURL }}/{{ page.category.name }}/">
+              {{ page.category|capitalize|replace('-', ' ') }}
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+          {% endif %}
+        </li>
+        {% if page.category2 %}
+          <li class="dib mt0" >
+            <a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">
+                {{ page.category2|replace('-', ' ') }}
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+        {% endif %}
+        <li class="dib mt0" >
+          <a class="c-fluid-gray hv-fluid-rd no-underline"
+              href=".">{{ page.title }}</a>
+        </li>
+      {% elif not page.rulesindex %}
+        <li class="dib mt0" >
           <a class="white hv-fluid-rd no-underline"
               href=".">{{ page.title }}</a>
         </li>
+      {% endif %}
       </ul>
     </div>
   </div>

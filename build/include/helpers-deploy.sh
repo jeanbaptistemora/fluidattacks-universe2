@@ -123,6 +123,32 @@ function helper_deploy_sync_s3 {
         --delete
 }
 
+function helper_deploy_pages {
+      rsync -av --progress content/pages/ new/content/pages/ --exclude contact-us \
+        --exclude products --exclude services --exclude careers/* \
+        --exclude defends --exclude findings --exclude location --exclude rules \
+        --exclude subscription --exclude values --exclude reviews --exclude events \
+        --exclude people --exclude partners \
+  &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
+  &&  sed -i "s|:template: faq||g" new/content/pages/careers/faq/index.adoc \
+  &&  rsync -av --progress content/pages/services/certifications content/pages/services/differentiators \
+        content/pages/values content/pages/reviews content/pages/events \
+        content/pages/people content/pages/partners new/content/pages/about-us/ \
+  &&  sed -i "s|:slug: services/|:slug: about-us/|g" new/content/pages/about-us/*/index.adoc \
+  &&  sed -i "s|:slug: values/|:slug: about-us/values/|g" new/content/pages/about-us/*/index.adoc \
+  &&  sed -i "s|:slug: reviews/|:slug: about-us/reviews/|g" new/content/pages/about-us/*/index.adoc \
+  &&  sed -i "s|:slug: certifications/|:slug: about-us/certifications/|g" new/content/pages/about-us/*/index.adoc \
+  &&  sed -i "s|:slug: events/|:slug: about-us/events/|g" new/content/pages/about-us/*/index.adoc \
+  &&  sed -i "s|:slug: events/|:slug: about-us/events/|g" new/content/pages/about-us/events/*/index.adoc \
+  &&  sed -i "s|:slug: people/|:slug: about-us/people/|g" new/content/pages/about-us/*/index.adoc \
+  &&  sed -i "s|:slug: people/|:slug: about-us/people/|g" new/content/pages/about-us/people/*/index.adoc \
+  &&  sed -i "s|:slug: partners/|:slug: about-us/partners/|g" new/content/pages/about-us/*/index.adoc \
+  &&  sed -i "s|:slug: partners/terms|:slug: about-us/partners/terms|g" \
+        new/content/pages/about-us/partners/terms/index.adoc \
+  &&  sed -i "s|:category: services|:category: about us|g" new/content/pages/about-us/*/index.adoc \
+  &&  rsync -av --progress content/blog/ new/content/blog/
+}
+
 function helper_deploy_compile_old {
   local target="${1}"
 
@@ -150,22 +176,10 @@ function helper_deploy_compile_old {
 
 function helper_deploy_compile_new {
   local target="${1}"
-
-      pushd new/ || return 1 \
+      helper_deploy_pages \
+  &&  pushd new/ || return 1 \
   &&  env_prepare_python_packages \
   &&  helper_deploy_install_plugins_new \
-  &&  popd || return 1 \
-  &&  rsync -av --progress content/pages/ new/content/pages/ --exclude contact-us \
-        --exclude products --exclude services --exclude careers/* \
-        --exclude defends --exclude findings --exclude location --exclude rules \
-        --exclude subscription \
-  &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
-  &&  sed -i "s|:template: faq||g" new/content/pages/careers/faq/index.adoc \
-  &&  rsync -av --progress content/pages/services/ new/content/pages/use-cases/ \
-        --exclude continuous-hacking --exclude one-shot-hacking \
-  &&  sed -i "s|:slug: services/|:slug: use-cases/|g" new/content/pages/use-cases/*/index.adoc \
-  &&  rsync -av --progress content/blog/ new/content/blog/ \
-  &&  pushd new/ || return 1 \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
   &&  npm run --prefix theme/2020/ build \

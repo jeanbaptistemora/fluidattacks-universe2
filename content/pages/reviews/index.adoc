@@ -1,5 +1,5 @@
 :slug: reviews/
-:category: reviews
+:category: about-us
 :description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our customer reviews related to our services and products.
 :keywords: Fluid Attacks, Customers, Reviews, Services, Products, Evaluation.
 

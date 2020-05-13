@@ -1,4 +1,5 @@
 :slug: people/
+:category: about-us
 :description: Fluid Attacks is a company focused on ethical hacking, pentesting and vulnerabilities detection in applications with over 18 year of experience providing our services to the Colombian market. The purpose of this page is to present the members that make up our work team.
 :keywords: Fluid Attacks, Team, People, Profiles, Experience, Members.
 

@@ -1,4 +1,5 @@
 :slug: values/
+:category: about-us
 :description: This page sets the expectations regarding the behaviour of partners, employees and allies in everyday situations. Fluid Attacks is committed to always having an integral and correct behaviour and expects all members to act in accordance with the law and company policies.
 :keywords: Fluid Attacks, Values, Policies, Ethics, Protection, Information.
 

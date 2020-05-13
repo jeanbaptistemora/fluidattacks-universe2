@@ -1,4 +1,5 @@
 :slug: partners/
+:category: about-us
 :description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection with over 18 years providing its services to the Colombian market. The purpose of this page is to present our  business partners in the market.
 :keywords: Fluid Attacks, Partners, Pentesting, Ethical Hacking, Information Security, Company.
 :germany: image:../images/icons/germany-flag.png[Germany Flag]
