@@ -1,7 +1,5 @@
 let
   pkgs = import ../pkgs/stable.nix;
-
-  builders.turtleShell = import ../builders/turtle-shell pkgs;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -12,12 +10,13 @@ in
       buildInputs = [
         pkgs.awscli
         pkgs.git
+        pkgs.glibc
         pkgs.jq
         pkgs.nodejs
         pkgs.openjdk
         pkgs.sops
       ];
 
-      turtleShell = builders.turtleShell "37.0.0";
+      androidSdk = pkgs.androidenv.androidPkgs_9_0.androidsdk;
     })
   )

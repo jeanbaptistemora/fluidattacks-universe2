@@ -1,4 +1,6 @@
 let
   src = import ./stable-src.nix;
 in
-  import src { }
+  import src {
+    config.android_sdk.accept_license = true;
+  }
