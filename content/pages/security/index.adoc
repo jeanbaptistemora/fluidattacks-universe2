@@ -58,7 +58,7 @@ Commit history of all repositories:
 
 === 1.2 Public incidents
 
-Every public incident is reported in our
+All incidents are reported in our
 link:https://community.fluidattacks.com/tag/transparency/[Community Site]
 with details like *_what happened_*, *_what we've done_*,
 *_what's the impact_* and *_what are we doing to help_*.
@@ -74,13 +74,14 @@ the public will also be informed via email.
 
 === 1.4 Status page
 
-We continuous monitor
+We continuously monitor
 [inner]#link:../products/integrates[Integrates]#,
 its [inner]#link:../../integrates/api[API]#
-and [inner]#link:../[Web]#.
-Monitoring checks run every minute
-for all aplications
-from North America and Europe servers.
+and [inner]#link:../[our website]#.
+Monitoring checks run
+in North America and Europe servers
+every minute
+for all aplications.
 They send HTTP GET requests.
 This information is real-time and available on our
 link:http://status.fluidattacks.com/[Status Site].
@@ -88,14 +89,18 @@ link:http://status.fluidattacks.com/[Status Site].
 
 == 2. Confidentiality
 
+This section provides details on what we do
+to keep confidential information always protected.
+
 === 2.1 Encryption at rest
 
 All our applications and services have
-industry-standard encryption at rest.
+industry-standard
+[inner]#link:../rules/224/[encryption at rest]#.
 
 - All the sesitive data provided by our clients
   (Repository access keys, VPN credentials, etc)
-  is ciphered using key management system KMS
+  is ciphered using a key management system KMS
   symmetric algorithm
   based on Advanced Encryption Standard (AES)
   in Galois Counter Mode (GCM)
@@ -124,7 +129,8 @@ industry-standard encryption at rest.
 === 2.2 Encryption in transit
 
 All our applications and services have
-industry-standard encryption in transit.
+industry-standard
+[inner]#link:../rules/224/[encryption in transit]#.
 
 - The [inner]#link:../../[Fluid Attacks]# domain
   uses the latest
@@ -132,7 +138,7 @@ industry-standard encryption in transit.
   cryptographic protocol for maximum in transit protection.
 - [inner]#link:../products/integrates[Integrates]#'s
   database uses TLSv1.2 for in transit protection.
-- We possess fully dedicated channels with some of our biggest clients,
+- We possess fully dedicated network channels with some of our biggest clients,
   allowing us to isolate all unwanted traffic. This is especially useful
   for running secure dynamic application hacking.
 - For the rest of our clients, we use fully encrypted VPNs.
@@ -151,7 +157,7 @@ our entire technological stack goes through a
 process.
 
 Aditionally, all our development projects run
-link:https://en.wikipedia.org/wiki/Continuous_integration[Continuous Integration]
+<<CI, Continuous Integration>>
 pipelines,
 Including Forces exploits and strict linters
 to ensure that
@@ -196,10 +202,10 @@ only uses
 link:https://en.wikipedia.org/wiki/Single_sign-on[SSO]
 with Google and Microsoft Accounts.
 link:https://oauth.net/2/[Oauth2] protocol is used.
-Such protocol only accepts login attempts from trusted urls
+Such protocol only accepts login attempts from trusted URLs
 and has industry-standard 2048 bytes access tokens.
 We do not store any account passwords.
-The only personal information we store of our clients are:
+The only personal information we store of our clients is:
 
 - Full name (Provided by Google or Microsoft).
 - Company and cellphone (Only if shared, user can decide).
@@ -218,8 +224,8 @@ their projects.
 
 ==== 3.2.1 Centralized authentication
 
-Our IAM is a centralized authentication platform,
-allowing us to manage all the applications
+We use a centralized authentication platform (IAM),
+that allows us to manage all the applications
 we internally use from just one place. Our employees do
 not know any of the passwords of the managed applications,
 they only know their own IAM passphrase.
@@ -237,11 +243,11 @@ Some of our IAM specifications and requirements are:
 - [inner]#link:../rules/328/[Multi-factor authentication]#
   from a mobile device must be set.
 - Our MFA uses
-  [inner]#link:../rules/153/[OOB]#.
-  OBB is a mechanism that transports all the MFA data
+  [inner]#link:../rules/153/[OOB]#,
+  which is a mechanism that transports all the MFA data
   through a different channel than the application's channel itself.
   Text messages and emails are examples of OBB.
-  OBB reduces risk in case a comunnication channel becomes compromised.
+  It reduces risk in case a comunnication channel becomes compromised.
 - We use both
   link:https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language[SAML]
   and
@@ -289,10 +295,10 @@ providing them with the
 [inner]#link:../rules/035/[ability to assign]#
 the
 [inner]#link:../rules/186/[minimum required permissions]#
-to other members of the client's team.
+to other members of their team.
 Some of the available roles are:
-hacker, admin, releaser, escaper,
-user, project manager, etc.
+_hacker_, _admin_, _releaser_, _escaper_,
+_user_, _project manager_, etc.
 
 === 4.2 Internal
 
@@ -313,7 +319,7 @@ Some examples are:
   production secrets hidden from developers
   (Production-Development secrets separation).
 - *IAM:*
-  we can grant application access on a user level.
+  It is possible to give application access on a user level.
   Granting us the ability to give employees access
   [inner]#link:../rules/176/[only to what they need]#
   to execute their tasks.
@@ -327,18 +333,21 @@ is of the essence when dealing with
 sensitive data. The best way to prevent a key leakage is by
 regularily changing it. We continuously rotate:
 
-- KMS keys change on a yearly basis or before in case it is needed.
-- JWT Tokens change on a daily basis.
-- Digital Certificates
-  [inner]#link:../rules/089/[change every three months]#.
-- IAM passphrases change every three months.
+- *KMS keys:*
+  They rotate on a yearly basis or before in case it is needed.
+- *JWT Tokens:*
+  They rotate on a daily basis.
+- *Digital Certificates:*
+  They rotate [inner]#link:../rules/089/[every three months]#.
+- *IAM passphrases:*
+  They rotate every three months.
 
 Rotations are done in two different ways:
 
 - *Automatic rotation:*
-  Stored stored in secret vaults only
-  accesible by administrators are rotated
-  on a daily basis.
+  Some secrets are stored in secret vaults.
+  They are only accesible by administrators
+  and are rotated on a daily basis.
   These secrets include JWT Tokens,
   IAM passphrases and digital certificates.
 
@@ -347,7 +356,7 @@ Rotations are done in two different ways:
   in git repositories using AES256 symmetric keys.
   They are treated as code,
   meaning that in order to be rotated,
-  a manual approval needs to be done.
+  a <<PR, manual approval>> needs to be done.
   These secrets include KMS keys and
   other application credentials.
 
@@ -355,7 +364,7 @@ Rotations are done in two different ways:
 
 When employees go on vacation or leave the company,
 revocating access to the systems and information
-the had access to is essential.
+they had access to is essential.
 In Fluid Attacks we have a two-step process for
 access revocation:
 
@@ -368,7 +377,8 @@ access revocation:
   . *Removing git repository access:*
     Users can no longer see repository confidential information
     like registry images, confidential issues,
-    merge requests, etc.
+    link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge requests],
+    etc.
 
 It is worth noting that ease of access revocation
 is fundamental when dealing with sensitive data in an organization,
@@ -393,9 +403,12 @@ briging with it advantages like:
   never use client names, they user their projects pseudonyms.
 
 Generally speaking, only the people who need to know
-whose whose client a project is, do actually know it.
+whose client a project is, do actually know it.
 
 === 5.2 Secure delivery of sensitive data
+
+What we do to reduce information leakage
+when delivering data to the client.
 
 ==== 5.2.1 Secure information sharing system
 
@@ -407,7 +420,7 @@ This includes contracts, portfolios and other sensitive documents.
 ==== 5.2.2 Signed URLs
 
 [inner]#link:../products/integrates[Integrates]#
-has the feature of creating signed download urls
+has the feature of creating signed download URLs
 with expiration date when downloading reports,
 meaning that links expire
 and can only be used
@@ -417,9 +430,9 @@ by the user who requested the download.
 
 All downloaded reports via
 [inner]#link:../products/integrates[Integrates]#
-have a four-word randomly generated passphrase,
-such passphrase is shown only once
-to the individual that requested the download.
+have a four-word randomly generated passphrase.
+Such passphrase is sent to the email of the
+user that requested the download.
 This applies for both XLS and PDF formats.
 
 ==== 5.2.4 Watermarked reports
@@ -451,15 +464,17 @@ and new emails will no longer be sent to it.
 
 Both [inner]#link:../products/integrates[Integrates]#
 and [inner]#link:../[Web]#
-utilize a GDPR module that:
+utilize a
+link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR]
+module that:
 
 - Informs the user about
-  every cookie the page creates
+  every cookie the site creates.
 - Lets users specify
   which ones to allow,
   thus giving them full control
   over what information we're creating
-  and manipulating within their browser
+  and manipulating within their browser.
 
 By doing this, we become compliant with
 security rules like:
@@ -486,14 +501,14 @@ over the provided information.
 All the data related to a project
 can be deleted from
 [inner]#link:../products/integrates[Integrates]#
-by a user with a project manager role.
+by a user with a *_project manager_* role.
 Once this action is triggered,
 a [inner]#link:../rules/317/[deletion window]# of 30 days begins.
-Any project manager can undo the deletion action.
+Any *_project manager_* can undo the deletion action.
 After the 30 days waiting period, the project,
 source code, secrets, metadata and any other project related
 [inner]#link:../rules/183/[data is completely removed]#
-from all our infrastructure.
+from all our systems.
 
 === 5.6 OTR Messaging
 
@@ -517,12 +532,12 @@ stop working, no screen recording occurs.
 
 === 5.8 Poligraph tests
 
-We continuously run poligraph checks on all
+We regularily run poligraph tests on all
 employees with access to sensitive information.
-The test fully focuses on identifying
-if an employee disclosed such data
-to a third party,
-and personal questions are never aksed.
+Tests fully focus on identifying
+if an employee disclosed sensitive information
+to a third party.
+Personal questions are never aksed.
 
 == 6. Non-repudiation
 
@@ -584,13 +599,13 @@ Currently, we store logs for:
   of all our infrastrucutre components.
   Logs here never expire.
 - *Forces executions:*
-  Every time a CI pipeline runs Forces,
+  Every time a client's <<CI, CI pipeline>> runs Forces,
   logs containing information like who ran it,
   vulnerability status and other relevant data
   are uploaded to our datacenters,
   allowing us to always know the current status
   of our client's Forces service.
-  Logs here never expire.
+  These logs never expire.
 - *IAM authentication:*
   Our IAM stores logs of
   login attempts made by users,
@@ -606,7 +621,7 @@ Currently, we store logs for:
   Employee activity logs never expire.
   Other security logs expire after 30 days.
 - *CI job logs:*
-  All our CI jobs provide full logging
+  All our <<CI, CI pipelines>> provide full logging
   of who triggerd them, when,
   and console output.
   These logs never expire.
@@ -622,6 +637,9 @@ of:
   within the organization
   and making sure
   such definitions are followed.
+- Having a clear developing cycle
+  that ensures applications are
+  secure and true to their source code.
 
 === 7.1 Secure emails
 
@@ -638,14 +656,14 @@ phising and fake emails.
 === 7.2 Developing for integrity
 
 This section describes everything
-we do at our development process
+we do in our development cycle
 in order to reach a high integrity level.
 
 ==== 7.2.1 Monorepo
 
 We have a Git repository for each one of our applications.
 By taking this approach instead of dividing applications
-into smaller repositories, we get get:
+into smaller repositories, we get:
 
 - *A centralized source of truth:*
   Everything regarding the application
@@ -654,7 +672,7 @@ into smaller repositories, we get get:
   Teams have traversal knowledge of
   the application, as they spend
   their time working in the same
-  repository
+  repository.
 - *Standarization:*
   Standarizing a project
   (folder structure, naming conventions, etc)
@@ -670,7 +688,7 @@ we try to keep everything we can
 versioned in a Git repository.
 By making the source code the only
 variable affecting an application,
-integrity becomes a matter of
+application integrity becomes a matter of
 keeping a healthy source code.
 
 [IAC]
@@ -695,7 +713,7 @@ brings the following advantages:
 - Any injected trojans or malicious scripts are removed.
 - Having fresh new servers every 24 hours let us avoid
   availability and performance issues generated by
-  memory leaks and non-released resources.
+  memory leaks and not released resources.
 - The capability of deploying our infrastructure
   from 0 to production in an automated process.
 
@@ -709,15 +727,16 @@ This provides full transparency on
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
+[#CI]
 ==== 7.2.6 Continuous Integration
 
-We run an application build process to every change a
+We run an Application Build Process for every change a
 developer wants to introduce to the source
 code of the application via
 link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge request].
-Such tests include:
+The Application Build Process includes steps like:
 
-- Forces tests
+- Forces exploits tests
 - Linting tests
 - Compilation tests
 - Unit tests
@@ -727,9 +746,11 @@ Such tests include:
 - Creation of <<EPH, Ephemeral environment>>
 - <<EPH, Ephemeral environment>> tests
 
-By doing so we can guarantee that every introduced change
+By always building and testing everything,
+we can guarantee that every change
 is compliant with the application's quality standards.
 
+[#PR]
 ==== 7.2.7 Peer review
 
 We recognize that not all the steps of
@@ -750,9 +771,10 @@ for every change,
 we also run an automated deploying process.
 Once a Merge Request is accepted,
 an aditional Continuous Deployment pipeline triggers,
-automatically deploying the new source code version to production.
+automatically deploying a new production version
+based on the new source code.
 
-[EPH]
+[#EPH]
 ==== 7.2.9 Ephemeral environments
 
 Instead of having long-term development environments
@@ -763,7 +785,7 @@ We call them ephemeral environments,
 as they only exist in pipeline time.
 These environments get created on demand
 when a developer triggers a CI pipeline.
-These environments are also written as code,
+They are also written as code,
 regenerable and immutable,
 allowing us to certify
 that a new version of an application
@@ -781,11 +803,33 @@ in order to keep only one long-term master branch.
 Such branch is the source of truth regarding
 what code is running in the production environments.
 
-==== 7.2.11 One branch per developer
+==== 7.2.11 Microchanges
+
+Merge requests made by developers
+can not be bigger than 200 deltas of code.
+A consists of
+either a removed or an added line of code.
+Some advantages of working with microchanges are:
+
+- Merge requests are small and easy to review
+  by peer reviewers.
+- Introducing critical bugs to production
+  becomes harder as changes are smaller.
+- In case something goes wrong with
+  a deployment, identifying the error
+  within those 200 deltas is
+  easier.
+- Developers go to production
+  multiple times in a day and
+  no code goes stale.
+- Users of the application
+  see it evolve in a daily basis.
+
+==== 7.2.12 One branch per developer
 
 Developers can only have one short-term branch
 with their names (employeeatfluid) for every application.
-Once they develop a portion of code,
+Once they develop a portion of code (200 deltas maximum),
 they run the Continuous Integration phase,
 create a Merge Request and ask for peer review.
 If everything goes well, their branch is
@@ -793,7 +837,7 @@ merged to the master branch,
 their change is deployed to production
 and the developer's short-term branch is deleted.
 
-==== 7.2.12 No dependency auto-update
+==== 7.2.13 No dependency auto-update
 
 All external dependencies are pinned to a specific version
 (this is highly related to the immutability property).
@@ -833,9 +877,9 @@ For example:
 - [inner]#link:../products/integrates[Integrates]#'s
   database has point-in-time
   recovery with the capability of recovering
-  the database to a state it was during
-  the current day. It creates a backup every
-  five minutes.
+  the database to the state it was
+  in a specific datetime (hours, minutes and seconds)
+  during the last 35 days.
 - All Forces exploits are versioned.
 
 == 8. Availability
@@ -847,7 +891,7 @@ Avoiding service interruptions is crucial here.
 === 8.1 Distributed applications
 
 [inner]#link:../products/integrates[Integrates]#
-is hosted in a Kubernetes cluster with
+is hosted in an application cluster with
 autoscaling policies and distributed
 replicas. This ensures high availability,
 as the there is always an instance ready to
@@ -862,12 +906,12 @@ providing maximum speed and availability across the globe.
 
 === 8.2 Forever-lasting backups
 
-As all our backups stored in descentralized datacenters,
+As all our backups are stored in descentralized datacenters,
 problems like hard drive lifespans
 are not a concern to us.
 Backups seamlessly exist
-for as long as we decide them to exist.
-Thus providing us full traceability
+for as long as we want to,
+Giving us full traceability
 and recoverability.
 
 == 9. Resilency
@@ -878,7 +922,7 @@ of adapting to unexpected circumstances
 that would affect the way our team
 usually work.
 
-=== 9.1 Redundand roles
+=== 9.1 Redundant roles
 
 Every role within the organization
 has a minimum of two different employees
@@ -894,8 +938,8 @@ meaning that we have independent datacenters
 spread across multiple regions.
 No hardware maintainance is needed
 as it is done by a third party.
-No local networks are used,
-we only use Wifi connections with
+No local networks are used.
+We only use Wifi connections with
 [inner]#link:../rules/253/[strong random generated passwords]#
 with the sole purpose of accessing the Internet.
 Connections are always encrypted
@@ -949,7 +993,7 @@ their technical capabilities and human values.
 The technical part of the testing process
 consists of solving programming and hacking challenges,
 upload them to a git repository with highly strict linters and compilers,
-and ascend in a [inner]#link:../training/[organizational ranking]#
+and ascend in a [inner]#link:../training/[organizational ranking]#.
 
 The human values part of the testing process
 includes creating a portfolio with the five most
