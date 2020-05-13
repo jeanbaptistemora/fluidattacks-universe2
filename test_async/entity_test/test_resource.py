@@ -38,7 +38,6 @@ class ResourceTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
-    @pytest.mark.no_changes_db
     async def test_get_resources(self):
         """Check for project resources"""
         query = '''{

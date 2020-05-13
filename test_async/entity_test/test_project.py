@@ -55,7 +55,6 @@ class ProjectTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
-    @pytest.mark.no_changes_db
     async def test_project(self):
         """Check for project mutation."""
         query = '''
@@ -131,7 +130,6 @@ class ProjectTests(TestCase):
         assert result['data']['project']['comments'][0]['content'] == 'Now we can post comments on projects'
         assert len(result['data']['project']['users']) == 4
 
-    @pytest.mark.no_changes_db
     async def test_project_filtered(self):
         """Check for project mutation."""
         query = '''
@@ -149,7 +147,6 @@ class ProjectTests(TestCase):
         assert len(result['data']['project']['findings']) == 1
         assert result['data']['project']['findings'][0]['id'] == "463461507"
 
-    @pytest.mark.no_changes_db
     async def test_project_filter_not_match(self):
         """Check for project mutation."""
         query = '''
@@ -166,7 +163,6 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert len(result['data']['project']['findings']) == 0
 
-    @pytest.mark.no_changes_db
     async def test_alive_projects(self):
         """Check for projects mutation."""
         query = '''
@@ -188,7 +184,6 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert result['data']['projects'] == expected_projects
 
-    @pytest.mark.no_changes_db
     async def test_alive_projects_filtered(self):
         """Check for projects mutation."""
         query = '''

@@ -16,14 +16,12 @@ from backend.domain.user import (
 
 class UserTests(TestCase):
 
-    @pytest.mark.no_changes_db
     def test_get_all_users_report(self):
         finish_date = \
             (datetime.today() - timedelta(days=1)).date().strftime('%Y-%m-%d')
         users = get_all_users_report('FLUID', finish_date)
         assert users >= 1
 
-    @pytest.mark.no_changes_db
     def test_get_group_level_role(self):
         assert get_group_level_role('continuoushacking@gmail.com', 'unittesting') == 'customeradmin'
         assert get_group_level_role('integratesanalyst@gmail.com', 'unittesting') == 'analyst'
@@ -31,7 +29,6 @@ class UserTests(TestCase):
         assert get_group_level_role('unittest@fluidattacks.com', 'any-group') == 'admin'
         assert not get_group_level_role('asdfasdfasdfasdf@gmail.com', 'unittesting')
 
-    @pytest.mark.no_changes_db
     def test_get_user_level_role(self):
         assert get_user_level_role('continuoushacking@gmail.com') == 'customeradmin'
         assert get_user_level_role('integratesanalyst@gmail.com') == 'analyst'
@@ -76,7 +73,6 @@ class UserTests(TestCase):
         assert not get_group_level_role('revoKe_group_level_role@gmail.com', 'other-group')
         assert not get_group_level_role('revokE_group_level_role@gmail.com', 'yet-other-group')
 
-    @pytest.mark.no_changes_db
     def test_get_current_date(self):
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today()

@@ -13,7 +13,6 @@ pytestmark = pytest.mark.asyncio
 
 class UserTests(TestCase):
 
-    @pytest.mark.no_changes_db
     @pytest.mark.asyncio
     async def test_get_user(self):
         """Check for user."""
@@ -57,7 +56,6 @@ class UserTests(TestCase):
         assert 'responsibility' in result['data']['user']
         assert 'phoneNumber' in result['data']['user']
 
-    @pytest.mark.no_changes_db
     async def test_user_list_projects(self):
         """Check for user."""
         query = '''

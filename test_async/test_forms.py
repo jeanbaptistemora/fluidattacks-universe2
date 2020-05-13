@@ -11,7 +11,6 @@ from numpy import arange
 
 class FormsTests(TestCase):
 
-    @pytest.mark.no_changes_db
     def test_dict_concatenation(self):
         dict_1 = {'element': 'hi', 'element2': 'how are'}
         dict_2 = {'element3': 'you'}
@@ -22,7 +21,6 @@ class FormsTests(TestCase):
             'element3': 'you'}
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_is_exploitable(self):
         version = '3.1'
         for exploitability in arange(0.0, 0.96, 0.2):

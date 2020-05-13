@@ -47,7 +47,6 @@ class FindingTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
-    @pytest.mark.no_changes_db
     async def test_finding(self):
         """Check for finding query."""
         query = '''{

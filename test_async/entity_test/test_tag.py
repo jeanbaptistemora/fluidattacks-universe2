@@ -19,7 +19,6 @@ pytestmark = pytest.mark.asyncio
 
 class TagTests(TestCase):
 
-    @pytest.mark.no_changes_db
     @pytest.mark.asyncio
     async def test_get_tag_query(self):
         """Check for project alert."""
@@ -76,7 +75,6 @@ class TagTests(TestCase):
         assert result['data']['tag']['maxOpenSeverity'] == 4.9
         assert result['data']['tag']['maxSeverity'] == 6.3
 
-    @pytest.mark.no_changes_db
     async def test_get_tag_query_access_denied(self):
         query = '''
             query{

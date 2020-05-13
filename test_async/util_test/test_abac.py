@@ -30,7 +30,6 @@ class BasicAbacTest(TestCase):
         'unittesting',
     }
 
-    @pytest.mark.no_changes_db
     async def test_basic_enforcer_user_wrong_role(self):
         """Tests for an user with a wrong role."""
         sub = {
@@ -44,7 +43,6 @@ class BasicAbacTest(TestCase):
         for project in should_deny:
             self.assertFalse(await BasicAbacTest.enforcer(sub, project))
 
-    @pytest.mark.no_changes_db
     async def test_basic_enforcer_customer(self):
         """Tests for an customer user."""
         sub = {
@@ -61,7 +59,6 @@ class BasicAbacTest(TestCase):
         for project in should_deny:
             self.assertFalse(await BasicAbacTest.enforcer(sub, project))
 
-    @pytest.mark.no_changes_db
     async def test_basic_enforcer_admin(self):
         """Tests for an admin user."""
         sub = {
@@ -233,7 +230,6 @@ class ActionAbacTest(TestCase):
     def _grant_group_level_access(self, sub: str, obj: str, role: str):
         grant_group_level_role(sub, obj, role)
 
-    @pytest.mark.no_changes_db
     async def test_action_wrong_role(self):
         """Tests for an user with a wrong role."""
         sub = 'someone@guest.com'
@@ -364,7 +360,6 @@ class UserAbacTest(TestCase):
     def _grant_user_level_access(self, sub: str, role: str):
         grant_user_level_role(sub, role)
 
-    @pytest.mark.no_changes_db
     async def test_action_wrong_role(self):
         sub = 'someone@guest.com'
         obj = 'self'
@@ -424,7 +419,6 @@ class UserAbacTest(TestCase):
             self.assertTrue(await UserAbacTest.enforcer(sub)(sub, obj, act))
 
 
-@pytest.mark.no_changes_db
 class ServiceAttributesAbacTest(TestCase):
 
     async def test_get_cached_group_service_attributes_policies(self):

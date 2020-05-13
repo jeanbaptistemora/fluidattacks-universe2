@@ -8,7 +8,6 @@ from backend.utils import cvss, findings as finding_utils
 
 class CvssTests(TestCase):
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss2_basescore(self):
         severity = {'confidentialityImpact': 0, 'integrityImpact': 0.275,
                     'availabilityImpact': 0, 'accessComplexity': 0.61,
@@ -20,7 +19,6 @@ class CvssTests(TestCase):
         cvss_basescore_test = Decimal(4.3).quantize(Decimal('0.1'))
         assert cvss_basescore == cvss_basescore_test
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss2_temporal(self):
         severity = {'confidentialityImpact': 0, 'integrityImpact': 0.275,
                     'availabilityImpact': 0, 'accessComplexity': 0.61,
@@ -36,7 +34,6 @@ class CvssTests(TestCase):
         cvss_temporal_test = Decimal(3.7).quantize(Decimal('0.1'))
         assert cvss_temporal == cvss_temporal_test
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss2_environment(self):
         severity = {'accessComplexity': 0.61, 'authentication': 0.704,
                     'accessVector': 1, 'confidentialityImpact': 0,
@@ -52,7 +49,6 @@ class CvssTests(TestCase):
         cvss_environment_test = Decimal(0.9).quantize(Decimal('0.1'))
         assert cvss_environment == cvss_environment_test
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss3_scope_changed_basescore(self):
         severity = {'confidentialityImpact': 0.22, 'integrityImpact': 0.22,
                     'availabilityImpact': 0, 'severityScope': 1,
@@ -65,7 +61,6 @@ class CvssTests(TestCase):
         cvss_basescore_test = Decimal(6.4).quantize(Decimal('0.1'))
         assert cvss_basescore == cvss_basescore_test
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss3_scope_unchanged_basescore(self):
         severity = {'confidentialityImpact': 0.22, 'integrityImpact': 0.22,
                     'availabilityImpact': 0, 'severityScope': 0,
@@ -78,7 +73,6 @@ class CvssTests(TestCase):
         cvss_basescore_test = Decimal(5.4).quantize(Decimal('0.1'))
         assert cvss_basescore == cvss_basescore_test
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss3_scope_changed_temporal(self):
         severity = {'confidentialityImpact': 0.22, 'integrityImpact': 0.22,
                     'availabilityImpact': 0, 'severityScope': 1,
@@ -95,7 +89,6 @@ class CvssTests(TestCase):
         cvss_temporal_test = Decimal(6.1).quantize(Decimal('0.1'))
         assert cvss_temporal == cvss_temporal_test
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss3_scope_unchanged_temporal(self):
         severity = {'confidentialityImpact': 0.22, 'integrityImpact': 0.22,
                     'availabilityImpact': 0, 'severityScope': 0,
@@ -112,7 +105,6 @@ class CvssTests(TestCase):
         cvss_temporal_test = Decimal(5.1).quantize(Decimal('0.1'))
         assert cvss_temporal == cvss_temporal_test
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss3_scope_changed_environment(self):
         severity = {'modifiedConfidentialityImpact': 0.22, 'reportConfidence': 1,
                     'modifiedIntegrityImpact': 0.22, 'modifiedAvailabilityImpact': 0.22,
@@ -128,7 +120,6 @@ class CvssTests(TestCase):
         cvss_environment_test = Decimal(5.3).quantize(Decimal('0.1'))
         assert cvss_environment == cvss_environment_test
 
-    @pytest.mark.no_changes_db
     def test_calculate_cvss3_scope_unchanged_environment(self):
         severity = {'modifiedConfidentialityImpact': 0.22, 'reportConfidence': 1,
                     'modifiedIntegrityImpact': 0.22, 'modifiedAvailabilityImpact': 0.22,

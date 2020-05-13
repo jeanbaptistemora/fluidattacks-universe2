@@ -26,7 +26,6 @@ from backend.dal.finding import get_finding
 
 class UtilTests(TestCase):
 
-    @pytest.mark.no_changes_db
     def test_response(self):
         data = 'this is data'
         message = 'this is a test'
@@ -37,7 +36,6 @@ class UtilTests(TestCase):
                             'error': '500'}
         assert json.loads(test_data.content.decode('utf-8')) == expected_output
 
-    @pytest.mark.no_changes_db
     def test_ord_asc_by_criticality(self):
         sortable_data = [
             {'severityCvss': 40}, {'severityCvss': 13}, {'severityCvss': 20},
@@ -51,7 +49,6 @@ class UtilTests(TestCase):
             {'severityCvss': 1}]
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_user_email_filter(self):
         emails = ['test@test.com', 'test@fluidattacks.com', 'test2@test.test']
         fluid_user = 'test@fluidattacks.com'
@@ -65,7 +62,6 @@ class UtilTests(TestCase):
         expected_output = ['test@test.com', 'test2@test.test']
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_assert_file_mime(self):
         path = os.path.dirname(__file__)
         filename = os.path.join(path, 'mock/test-vulns.yaml')
@@ -74,28 +70,24 @@ class UtilTests(TestCase):
         assert assert_file_mime(filename, allowed_mimes)
         assert not assert_file_mime(non_included_filename, allowed_mimes)
 
-    @pytest.mark.no_changes_db
     def test_has_release(self):
         test_dict = {'releaseDate': 'date'}
         test_dict_with_no_release_date = {'noReleaseDate': 'date'}
         assert has_release(test_dict)
         assert not has_release(test_dict_with_no_release_date)
 
-    @pytest.mark.no_changes_db
     def test_get_last_vuln(self):
         finding = get_finding('422286126')
         test_data = get_last_vuln(finding)
         expected_output = datetime(2018, 7, 9).date()
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_validate_release_date(self):
         finding = get_finding('422286126')
         unreleased_finding = get_finding('560175507')
         assert validate_release_date(finding)
         assert not validate_release_date(unreleased_finding)
 
-    @pytest.mark.no_changes_db
     def test_get_jwt_content(self):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
@@ -118,7 +110,6 @@ class UtilTests(TestCase):
         }
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_list_s3_objects(self):
         s3_client = client(
             service_name='s3',
@@ -132,7 +123,6 @@ class UtilTests(TestCase):
         for item in test_data:
             assert key in item
 
-    @pytest.mark.no_changes_db
     def test_replace_all(self):
         data = {'a': 'a', 'b': 'b', 'c': 'c'}
         text = 'replaced'
@@ -140,7 +130,6 @@ class UtilTests(TestCase):
         expected_output = 'replaced'
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_list_to_dict(self):
         keys = ['item', 'item2', 'item3']
         values = ['hi', 'this is a', 'item']
@@ -154,21 +143,18 @@ class UtilTests(TestCase):
         assert second_test_data == second_expected_output
         assert third_test_data == third_expected_output
 
-    @pytest.mark.no_changes_db
     def test_camelcase_to_snakecase(self):
         camelcase_string = 'thisIsATest'
         test_data = camelcase_to_snakecase(camelcase_string)
         expected_output = 'this_is_a_test'
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_is_valid_file_name(self):
         name = 'test123.py'
         invalid_name = 'test.test.py'
         assert is_valid_file_name(name)
         assert not is_valid_file_name(invalid_name)
 
-    @pytest.mark.no_changes_db
     def test_is_valid_format(self):
         date = '2019-03-30 00:00:00'
         invalid_date = '2019/03/30 00:00:00'

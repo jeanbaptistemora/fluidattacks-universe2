@@ -75,7 +75,8 @@ function job_build_mobile_android {
                 --output output/integrates.aab \
                 --release-channel "${CI_COMMIT_REF_NAME}" \
                 --type app-bundle \
-        &&  popd
+        &&  popd \
+        ||  return 1
       else
             echo '[INFO] No relevant files were modified, skipping deploy' \
         &&  return 0
@@ -265,7 +266,8 @@ function job_deploy_mobile {
                       --form "revision=${CI_COMMIT_SHA}" \
                       --form "local_username=${CI_COMMIT_AUTHOR}"
               fi \
-        &&  popd
+        &&  popd \
+        ||  return 1
       else
             echo '[INFO] No relevant files were modified, skipping deploy' \
         &&  return 0
@@ -658,12 +660,16 @@ function job_test_back {
     --cov 'fluidintegrates'
     --cov 'app'
     --cov "${pyPkgIntegratesBack}/site-packages/backend"
+    --cov-report 'term'
+    --cov-report 'html:build/coverage/html'
+    --cov-report 'xml:build/coverage/results.xml'
+    --cov-report 'annotate:build/coverage/annotate'
     --disable-warnings
   )
-  local full_args=()
+  local extra_args=()
   local markers=(
-    no_changes_db
-    changes_db
+    'not changes_db'
+    'changes_db'
   )
   local processes_to_kill=()
   local port_dynamo='8022'
@@ -672,12 +678,8 @@ function job_test_back {
   function kill_processes {
     for process in "${processes_to_kill[@]}"
     do
-          echo "[INFO] Killing PID: ${process}" \
-      &&  (
-            set +o errexit
-            kill -9 "${process}"
-          ) \
-      && redis-cli KEYS "*" | xargs -d "\n" redis-cli DEL
+      echo "[INFO] Killing PID: ${process}"
+      kill -9 "${process}" || true
     done
   }
 
@@ -710,26 +712,17 @@ function job_test_back {
   &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
   &&  for i in "${!markers[@]}"
       do
-        if [[ "${i}" = 0 ]]
-        then
-          full_args=(
-            "${common_args[@]}"
-            --cov-report 'term'
-            --cov-report 'html:build/coverage/html'
-            --cov-report 'xml:build/coverage/results.xml'
-            --cov-report 'annotate:build/coverage/annotate'
-          )
-        else
-          full_args=(
-            "${common_args[@]}"
-            --cov-append
-          )
-        fi
-        pytest \
-          -m "${markers[i]}" \
-          "${full_args[@]}" \
-          'test_async/' \
-        || return 1
+            echo "[INFO] Running marker: ${markers[i]}" \
+        &&  if [[ "${i}" != 0 ]]
+            then
+              extra_args=( --cov-append )
+            fi \
+        &&  pytest \
+              -m "${markers[i]}" \
+              "${common_args[@]}" \
+              "${extra_args[@]}" \
+              'test_async' \
+        ||  return 1
       done \
   &&  cp -a 'build/coverage/results.xml' "coverage.xml"
 }

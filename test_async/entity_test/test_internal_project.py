@@ -11,7 +11,6 @@ from backend.api.schema import SCHEMA
 
 class InternalProjectTests(TestCase):
 
-    @pytest.mark.no_changes_db
     @pytest.mark.asyncio
     async def test_internal_project(self):
         """Check for internal project"""

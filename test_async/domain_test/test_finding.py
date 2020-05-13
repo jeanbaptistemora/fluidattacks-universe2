@@ -24,7 +24,6 @@ from backend.exceptions import (
 
 class FindingTests(TestCase):
 
-    @pytest.mark.no_changes_db
     def test_get_email_recipients(self):
         comment_type = 'comment'
         finding_id = '436992569'
@@ -33,7 +32,6 @@ class FindingTests(TestCase):
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], str)
 
-    @pytest.mark.no_changes_db
     def test_get_tracking_vulnerabilities(self):
         finding_id = '436992569'
         vulnerabilities = get_vulnerabilities(finding_id)
@@ -42,7 +40,6 @@ class FindingTests(TestCase):
                            'open': 1, 'closed': 0, 'cycle': 0}
         assert test_data[0] == expected_output
 
-    @pytest.mark.no_changes_db
     def test_get_findings(self):
         finding_ids = ['436992569', '422286126']
         test_data = get_findings(finding_ids)
@@ -140,7 +137,6 @@ class FindingTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_validate_evidence_exploit(self):
         evidence_id = 'exploit'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -154,7 +150,6 @@ class FindingTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_validate_evidence_exploit_invalid_type(self):
         evidence_id = 'exploit'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -167,7 +162,6 @@ class FindingTests(TestCase):
             validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
-    @pytest.mark.no_changes_db
     def test_validate_evidence_records(self):
         evidence_id = 'fileRecords'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -181,7 +175,6 @@ class FindingTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_validate_evidence_records_invalid_type(self):
         evidence_id = 'fileRecords'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -194,7 +187,6 @@ class FindingTests(TestCase):
             validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
-    @pytest.mark.no_changes_db
     def test_get_finding_historic_treatment(self):
         finding_id = '457497318'
         test_data = get_finding_historic_treatment(finding_id)

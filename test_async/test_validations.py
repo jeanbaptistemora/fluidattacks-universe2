@@ -12,7 +12,6 @@ from backend.exceptions import InvalidField
 
 class ValidationsTests(TestCase):
 
-    @pytest.mark.no_changes_db
     def test_validate_fields(self):
         assert validate_fields(['testfield', 'testfield2']) == None
         with pytest.raises(InvalidField):
@@ -20,25 +19,21 @@ class ValidationsTests(TestCase):
             assert validate_fields(['testfield', 'testfiel\'d'])
             assert validate_fields(['testfield', '<testfield2'])
 
-    @pytest.mark.no_changes_db
     def test_validate_email_address(self):
         assert validate_email_address('test@unittesting.com')
         with pytest.raises(InvalidField):
             assert validate_email_address('testunittesting.com')
 
-    @pytest.mark.no_changes_db
     def test_validate_project_name(self):
         assert validate_project_name('test') == None
         with pytest.raises(InvalidField):
             assert validate_project_name('=test2@')
 
-    @pytest.mark.no_changes_db
     def test_validate_alphanumeric_field(self):
         assert validate_alphanumeric_field('one test')
         with pytest.raises(InvalidField):
             assert validate_alphanumeric_field('=test2@')
 
-    @pytest.mark.no_changes_db
     def test_validate_phone_field(self):
         assert validate_phone_field('+57123')
         with pytest.raises(InvalidField):

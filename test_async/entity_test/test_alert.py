@@ -13,7 +13,6 @@ pytestmark = pytest.mark.asyncio
 
 class AlertTests(TestCase):
 
-    @pytest.mark.no_changes_db
     async def test_get_alert(self):
         """Check for project alert"""
         query = '''{

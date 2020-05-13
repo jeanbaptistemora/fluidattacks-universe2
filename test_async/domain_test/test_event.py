@@ -14,7 +14,6 @@ from backend.exceptions import (
 
 class EventTests(TestCase):
 
-    @pytest.mark.no_changes_db
     def test_get_event(self):
         event_id = '418900971'
         test_data = event_domain.get_event(event_id)
@@ -149,7 +148,6 @@ class EventTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-    @pytest.mark.no_changes_db
     def test_validate_evidence_invalid_image_type(self):
         evidence_type = 'evidence'
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -162,7 +160,6 @@ class EventTests(TestCase):
             event_domain.validate_evidence(evidence_type, uploaded_file)
         self.assertTrue('Exception - Invalid File Type: EVENT_IMAGE' in str(context.exception))
 
-    @pytest.mark.no_changes_db
     def test_validate_evidence_invalid_file_size(self):
         evidence_type = 'evidence'
         filename = os.path.dirname(os.path.abspath(__file__))

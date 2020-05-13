@@ -63,7 +63,6 @@ class SubscriptionTest(TestCase):
         assert 'errors' not in result
         assert result['data']['postBroadcastMessage']['success']
 
-    @pytest.mark.no_changes_db
     def test_websocket_connection(self):
         """Test websocket consumer."""
         client = TestClient(GraphQL(SCHEMA))

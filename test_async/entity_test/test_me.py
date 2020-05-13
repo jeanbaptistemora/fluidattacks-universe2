@@ -16,7 +16,6 @@ pytestmark = pytest.mark.asyncio
 
 class MeTests(TestCase):
 
-    @pytest.mark.no_changes_db
     async def test_me(self):
         """Check Me query"""
         query = '''{

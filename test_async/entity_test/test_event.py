@@ -17,7 +17,6 @@ pytestmark = pytest.mark.asyncio
 
 class EventTests(TestCase):
 
-    @pytest.mark.no_changes_db
     async def test_event(self):
         """Check for event."""
         query = '''{
@@ -68,7 +67,6 @@ class EventTests(TestCase):
         assert result['data']['event']['projectName'] == 'unittesting'
         assert result['data']['event']['detail'] == 'Integrates unit test'
 
-    @pytest.mark.no_changes_db
     async def test_events(self):
         """Check for events."""
         query = '''{
