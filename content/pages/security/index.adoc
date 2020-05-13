@@ -38,7 +38,7 @@ This section focuses on what we do to keep our client informed
 about the status of all our services
 and their data.
 
-[OPENSOURCE]
+[#OPENSOURCE]
 === 1.1 Open Source
 
 The source code of all our applications
@@ -186,6 +186,25 @@ directly with the company.
 Due to the nature of our business, we never
 hire through contractors, freelance or any
 other third parties.
+
+=== 2.7 Laptop rotation
+
+We continuously renew the laptops of our employees.
+There are two main reasons for this:
+
+. *Hardware Improvement:*
+  As usual, older laptops get
+  replaced with new ones due to
+  performance reasons.
+. *Information flow:*
+  Everytime a laptop
+  rotates from one employee to another,
+  a total hard drive format is demanded.
+  As laptops continuously rotate
+  among different employees,
+  formatting happens often
+  and information does not accumulate
+  in local storages.
 
 == 3. Authentication
 
@@ -385,6 +404,15 @@ is fundamental when dealing with sensitive data in an organization,
 that is why we have put so much effort
 on making this process as simple as possible.
 
+=== 4.5 Secure policies for enrolled mobile devices
+
+Our collaboration systems also provide security requirements
+mobile devices must comply with
+before being enrolled with the organization systems.
+This is especially useful,
+as personal mobile devices
+are common targets for malicious hackers.
+
 == 5. Privacy
 
 This section talks about our efforts to protect
@@ -551,7 +579,7 @@ no one can deny their actions.
 We implement this in several ways
 depending of the context.
 
-[EAC]
+[#EAC]
 === 6.1 Everything as code
 
 At Fluid Attacks we try to keep everything we can
@@ -626,7 +654,111 @@ Currently, we store logs for:
   and console output.
   These logs never expire.
 
-== 7. Integrity
+== 7. Availability
+
+Availability refers to the capacity
+of keeping all our systems up and running.
+Avoiding service interruptions is crucial here.
+
+=== 7.1 Distributed applications
+
+[inner]#link:../products/integrates[Integrates]#
+is hosted in an application cluster with
+autoscaling policies and distributed
+replicas. This ensures high availability,
+as the there is always an instance ready to
+recieve user requests in case another stops
+working. Every cluster node has at least one
+[inner]#link:../products/integrates[Integrates]#
+instance running in it.
+Aditionally,
+its front side is served via a region-distributed
+link:https://en.wikipedia.org/wiki/Content_delivery_network[CDN],
+providing maximum speed and availability across the globe.
+
+=== 7.2 Forever-lasting backups
+
+As all our backups are stored in descentralized datacenters,
+problems like hard drive lifespans
+are not a concern to us.
+Backups seamlessly exist
+for as long as we want to,
+Giving us full traceability
+and recoverability.
+
+=== 7.3 Everything is backed up
+
+As data is most likely our most important asset,
+we have strong backup policies for everything.
+For example:
+
+- Our redundant datacenters are fully versioned,
+  meaning that any file can be recovered
+  or returned to a previous version.
+- [inner]#link:../products/integrates[Integrates]#'s
+  database has weekly, trimestral
+  and annual full backup schedules.
+- [inner]#link:../products/integrates[Integrates]#'s
+  database has point-in-time
+  recovery with the capability of recovering
+  the database to the state it was
+  in a specific datetime (hours, minutes and seconds)
+  during the last 35 days.
+- All Forces exploits are versioned.
+
+== 8. Resilency
+
+By resilency,
+we refer to the organizational capability
+of adapting to unexpected circumstances
+that would affect the way our team
+usually work.
+
+=== 8.1 Redundant roles
+
+Every role within the organization
+has a minimum of two different employees
+executing its tasks.
+This allows us to be able to fill the gap
+in case an employee goes on sick leave,
+vacation, etc.
+
+=== 8.2 Everything is descentralized
+
+All our infrastructure is descentralized,
+meaning that we have independent datacenters
+spread across multiple regions.
+No hardware maintainance is needed
+as it is done by a third party.
+No local networks are used.
+We only use Wifi connections with
+[inner]#link:../rules/253/[strong random generated passwords]#
+with the sole purpose of accessing the Internet.
+Connections are always encrypted
+[inner]#link:../rules/252/[using WPA2-AES]#.
+
+=== 8.3 Only laptops
+
+A standard laptop is given to every employee.
+Going to the office is the rule,
+but employees can always fill out an exception form
+to do telework in case they need to.
+Employees are encouraged to take their laptops home,
+as not keeping them in the same place
+decreases the risk of massive thefts.
+Also, in case our offices close
+(link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19]),
+everyone can still do their job seamlessly.
+All laptops have a password-secured BIOS,
+link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
+hardware and
+[inner]#link:../rules/231/[biometric fingerprint reader]#.
+By owning the laptops, siezing the computer should the
+need arise becomes possible.
+link:https://en.wikipedia.org/wiki/Bring_your_own_device[BYOD]
+is not allowed.
+
+== 9. Integrity
 
 Integrity refers to the ability
 of:
@@ -641,7 +773,36 @@ of:
   that ensures applications are
   secure and true to their source code.
 
-=== 7.1 Secure emails
+=== 9.1 Certified hackers
+
+We continuously encourage our hackers
+to certify their knowledge.
+Usually, hackers start applying for
+certificates after spending 6 months
+in the company.
+[inner]#link:../services/certifications/[Here]#
+you can find a comprenhensive list of certifications
+our hackers team currently has.
+
+=== 9.2 Extensive hiring process
+
+All job applicans must go through
+an extense [inner]#link:../careers[testing process]# in order to prove
+their technical capabilities and human values.
+
+The technical part of the testing process
+consists of solving programming and hacking challenges,
+upload them to a git repository with highly strict linters and compilers,
+and ascend in a [inner]#link:../training/[organizational ranking]#.
+
+The human values part of the testing process
+includes creating a portfolio with the five most
+important achievements of the candidate,
+going to the office during a training
+phase to work alongside the team,
+job inverviews, among others.
+
+=== 9.3 Secure emails
 
 The [inner]#link:../../[Fluid Attacks]# domain
 has DKIM and SPF protocols enabled.
@@ -653,13 +814,13 @@ to verify if an email comes from a trusted source,
 thus helping them to avoid
 phising and fake emails.
 
-=== 7.2 Developing for integrity
+=== 9.4 Developing for integrity
 
 This section describes everything
 we do in our development cycle
 in order to reach a high integrity level.
 
-==== 7.2.1 Monorepo
+==== 9.4.1 Monorepo
 
 We have a Git repository for each one of our applications.
 By taking this approach instead of dividing applications
@@ -680,7 +841,7 @@ into smaller repositories, we get:
   where everyone works, as no duplicated
   efforts or repository synchronization is needed.
 
-==== 7.2.2 Everything as code
+==== 9.4.2 Everything as code
 
 As mentioned in the
 <<EAC, Everything as code previous section>>,
@@ -691,8 +852,8 @@ variable affecting an application,
 application integrity becomes a matter of
 keeping a healthy source code.
 
-[IAC]
-==== 7.2.3 Infrastructure as code (IaC)
+[#IAC]
+==== 9.4.3 Infrastructure as code (IaC)
 
 Our entire infrastructure is versioned
 in a Git repository written as code.
@@ -702,7 +863,7 @@ other source code,
 such as auditability, history,
 revert capabilities, etc.
 
-==== 7.2.4 Regenerable infrastrucutre
+==== 9.4.4 Regenerable infrastrucutre
 
 By having our infrastrucutre written as code,
 we can recreate it
@@ -717,7 +878,7 @@ brings the following advantages:
 - The capability of deploying our infrastructure
   from 0 to production in an automated process.
 
-==== 7.2.5 Immutable infrastructure
+==== 9.4.5 Immutable infrastructure
 
 The infrastructure code can be audited
 and changes can only be made by
@@ -728,7 +889,7 @@ Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
 [#CI]
-==== 7.2.6 Continuous Integration
+==== 9.4.6 Continuous Integration
 
 We run an Application Build Process for every change a
 developer wants to introduce to the source
@@ -751,7 +912,7 @@ we can guarantee that every change
 is compliant with the application's quality standards.
 
 [#PR]
-==== 7.2.7 Peer review
+==== 9.4.7 Peer review
 
 We recognize that not all the steps of
 a building process can be automatized,
@@ -764,7 +925,7 @@ Reviewers usually evaluate code quality,
 commit message coherence,
 and other semantic properties of the change.
 
-==== 7.2.8 Continuous Deployment
+==== 9.4.8 Continuous Deployment
 
 In addition to running an automated building process
 for every change,
@@ -775,7 +936,7 @@ automatically deploying a new production version
 based on the new source code.
 
 [#EPH]
-==== 7.2.9 Ephemeral environments
+==== 9.4.9 Ephemeral environments
 
 Instead of having long-term development environments
 like *_staging_*,
@@ -795,7 +956,7 @@ Once a change reaches production,
 its ephemeral environment
 is destroyed forever.
 
-==== 7.2.10 Trunk based development
+==== 9.4.10 Trunk based development
 
 We use
 link:https://trunkbaseddevelopment.com/[Trunk based develoment]
@@ -803,7 +964,7 @@ in order to keep only one long-term master branch.
 Such branch is the source of truth regarding
 what code is running in the production environments.
 
-==== 7.2.11 Microchanges
+==== 9.4.11 Microchanges
 
 Merge requests made by developers
 can not be bigger than 200 deltas of code.
@@ -825,7 +986,7 @@ Some advantages of working with microchanges are:
 - Users of the application
   see it evolve in a daily basis.
 
-==== 7.2.12 One branch per developer
+==== 9.4.12 One branch per developer
 
 Developers can only have one short-term branch
 with their names (employeeatfluid) for every application.
@@ -837,7 +998,7 @@ merged to the master branch,
 their change is deployed to production
 and the developer's short-term branch is deleted.
 
-==== 7.2.13 No dependency auto-update
+==== 9.4.13 No dependency auto-update
 
 All external dependencies are pinned to a specific version
 (this is highly related to the immutability property).
@@ -853,7 +1014,7 @@ a developer must:
   a new production version with the updated
   dependency will be automatically deployed.
 
-=== 7.3 Static website
+=== 9.5 Static website
 
 Our [inner]#link:../[Website]# is a
 link:https://en.wikipedia.org/wiki/Static_web_page[Static website],
@@ -861,168 +1022,3 @@ meaning that it only serves plain HTML files.
 As it does not have any complex functionality
 that would require an application server,
 it cannot be hacked.
-
-=== 7.4 Everything is backed up
-
-As data is most likely our most important asset,
-we have strong backup policies for everything.
-For example:
-
-- Our redundant datacenters are fully versioned,
-  meaning that any file can be recovered
-  or returned to a previous version.
-- [inner]#link:../products/integrates[Integrates]#'s
-  database has weekly, trimestral
-  and annual full backup schedules.
-- [inner]#link:../products/integrates[Integrates]#'s
-  database has point-in-time
-  recovery with the capability of recovering
-  the database to the state it was
-  in a specific datetime (hours, minutes and seconds)
-  during the last 35 days.
-- All Forces exploits are versioned.
-
-== 8. Availability
-
-Availability refers to the capacity
-of keeping all our systems up and running.
-Avoiding service interruptions is crucial here.
-
-=== 8.1 Distributed applications
-
-[inner]#link:../products/integrates[Integrates]#
-is hosted in an application cluster with
-autoscaling policies and distributed
-replicas. This ensures high availability,
-as the there is always an instance ready to
-recieve user requests in case another stops
-working. Every cluster node has at least one
-[inner]#link:../products/integrates[Integrates]#
-instance running in it.
-Aditionally,
-its front side is served via a region-distributed
-link:https://en.wikipedia.org/wiki/Content_delivery_network[CDN],
-providing maximum speed and availability across the globe.
-
-=== 8.2 Forever-lasting backups
-
-As all our backups are stored in descentralized datacenters,
-problems like hard drive lifespans
-are not a concern to us.
-Backups seamlessly exist
-for as long as we want to,
-Giving us full traceability
-and recoverability.
-
-== 9. Resilency
-
-By resilency,
-we refer to the organizational capability
-of adapting to unexpected circumstances
-that would affect the way our team
-usually work.
-
-=== 9.1 Redundant roles
-
-Every role within the organization
-has a minimum of two different employees
-executing its tasks.
-This allows us to be able to fill the gap
-in case an employee goes on sick leave,
-vacation, etc.
-
-=== 9.2 Everything is descentralized
-
-All our infrastructure is descentralized,
-meaning that we have independent datacenters
-spread across multiple regions.
-No hardware maintainance is needed
-as it is done by a third party.
-No local networks are used.
-We only use Wifi connections with
-[inner]#link:../rules/253/[strong random generated passwords]#
-with the sole purpose of accessing the Internet.
-Connections are always encrypted
-[inner]#link:../rules/252/[using WPA2-AES]#.
-
-=== 9.3 Only laptops
-
-A standard laptop is given to every employee.
-Going to the office is the rule,
-but employees can always fill out an exception form
-to do telework in case they need to.
-Employees are encouraged to take their laptops home,
-as not keeping them in the same place
-decreases the risk of massive thefts.
-Also, in case our offices close
-(link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19]),
-everyone can still do their job seamlessly.
-All laptops have a password-secured BIOS,
-link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
-hardware and
-[inner]#link:../rules/231/[biometric fingerprint reader]#.
-By owning the laptops, siezing the computer should the
-need arise becomes possible.
-link:https://en.wikipedia.org/wiki/Bring_your_own_device[BYOD]
-is not allowed.
-
-== 10. Information security culture
-
-This section provides details
-regarding all the best practices
-we follow in order to have a strong
-information security culture.
-
-=== 10.1 Certified hackers
-
-We continuously encourage our hackers
-to certify their knowledge.
-Usually, hackers start applying for
-certificates after spending 6 months
-in the company.
-[inner]#link:../services/certifications/[Here]#
-you can find a comprenhensive list of certifications
-our hackers team currently has.
-
-=== 10.2 Extensive hiring process
-
-All job applicans must go through
-an extense [inner]#link:../careers[testing process]# in order to prove
-their technical capabilities and human values.
-
-The technical part of the testing process
-consists of solving programming and hacking challenges,
-upload them to a git repository with highly strict linters and compilers,
-and ascend in a [inner]#link:../training/[organizational ranking]#.
-
-The human values part of the testing process
-includes creating a portfolio with the five most
-important achievements of the candidate,
-going to the office during a training
-phase to work alongside the team,
-job inverviews, among others.
-
-=== 10.3 Secure policies for enrolled mobile devices
-
-Our collaboration systems also provide security requirements
-mobile devices must comply with
-before being enrolled with the organization systems.
-This is especially useful,
-as personal mobile devices
-are common targets for malicious hackers.
-
-=== 10.4 Laptop rotation
-
-We continuously renew the laptops of our employees.
-There are two main reasons for this:
-
-. *Hardware Improvement:*
-  As usual, older laptops get
-  replaced with new ones due to
-  performance reasons.
-. *Information flow:*
-  As laptops continuously rotate
-  among different employees,
-  formatting happens often
-  and information does not accumulate
-  in a single hard drive.
