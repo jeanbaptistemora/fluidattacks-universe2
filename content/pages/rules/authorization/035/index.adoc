@@ -10,6 +10,16 @@
 
 The system must not allow system actors to modify privileges for themselves.
 
+== Description
+
+Systems should usually have a set of roles with different levels of
+privilege for accessing resources.
+The privileges of each role must be clearly defined and the role of each user
+should also be clearly stated.
+Furthermore, users should not be allowed to modify their own privileges,
+as this could be leveraged to access otherwise restricted functionalities and
+resources.
+
 == Findings
 
 * [inner]#link:/web/findings/005/[F005. Privilege escalation]#
