@@ -51,6 +51,12 @@ def create_alias(name: str, randoms=False) -> str:
     return alias
 
 
+def _fn_reference_logincal_id(logical_id: str) -> tuple:
+    id_node = logical_id.replace('::', ':')
+    alias_id = create_alias(id_node, True)
+    return (alias_id, f"MERGE ({alias_id}:{id_node})\n")
+
+
 class Batcher():
     """A class to convert a cloudformation template to graphs."""
 
@@ -391,6 +397,12 @@ class Batcher():
         elif func_name == 'Fn::Cidr':
             statement += self._fn_cidr(resource_alias, attrs, contexts,
                                        **kwargs)
+        elif func_name == 'Fn::GetAZs':
+            statement += self._fn_get_azs(resource_alias, attrs, contexts,
+                                          **kwargs)
+        elif func_name == 'Fn::FindInMap':
+            statement += self._fn_find_in_map(resource_alias, attrs, contexts,
+                                              **kwargs)
         elif func_name in CONDITIONAL_FUNCS:
             statement += self._fn_conditional(func_name, resource_alias, attrs,
                                               contexts, **kwargs)
@@ -441,18 +453,27 @@ class Batcher():
         rel_resource = create_alias(f'rel_{resource_id}', True)
         contexts.update([ref_alias, rel_resource])
         contexts_str = ', '.join(contexts)
-        contexts.add(param_alias)
-        contexts_str1 = ', '.join(contexts)
+        contexts_str1 = ', '.join([*contexts, param_alias])
         statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN]->"
                      f"({ref_alias}:Ref {{logicalName: "
                      f"${ref_alias}_log_name}})\n"
-                     f"WITH {contexts_str}\n"
-                     f"MATCH ({param_alias}: Parameter)\n"
-                     f"WHERE {param_alias}.logicalName = ${param_alias}_name\n"
-                     f"WITH {contexts_str1}\n"
-                     f"CREATE ({ref_alias})-[rel_{param_alias}:REFERENCE_TO]->"
-                     f"({param_alias})\n"
-                     f"SET rel_{param_alias}.line = $rel_{param_alias}_line\n")
+                     f"WITH {contexts_str}\n")
+        if not logical_name.startswith('AWS::'):
+            statement += (
+                f"MATCH ({param_alias}: Parameter)\n"
+                f"WHERE {param_alias}.logicalName = ${param_alias}_name\n"
+                f"WITH {contexts_str1}\n"
+                f"CREATE ({ref_alias})-[rel_{param_alias}:REFERENCE_TO]->"
+                f"({param_alias})\n")
+        else:
+            log_id, log_sts = _fn_reference_logincal_id(logical_name)
+            statement += (
+                f"{log_sts}"
+                f"CREATE ({ref_alias})-[rel_{param_alias}:REFERENCE_TO]->"
+                f"({log_id})\n")
+
+        statement += f"SET rel_{param_alias}.line = $rel_{param_alias}_line\n"
+
         if rel_kwargs:
             contexts.add(rel_resource)
             statement += self._add_attributes_relationship(
@@ -501,6 +522,7 @@ class Batcher():
                  contexts: set = None,
                  line='unknown',
                  **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::Cidr."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_getatt", True)
         rel_resource = create_alias(f'rel_{resource_id}', True)
@@ -552,6 +574,109 @@ class Batcher():
                 rel_resource, contexts, **rel_kwargs)
         return statement
 
+    def _fn_find_in_map(self,
+                        resource_id: str,
+                        attrs,
+                        contexts: set = None,
+                        line='unknown',
+                        **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::FindInMap."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_findinmap", True)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        statement = (f"CREATE ({alias_fn}:Fn:FindInMap)\n")
+        contexts.add(alias_fn)
+
+        # load mapname
+        statement += f"SET ({alias_fn}).MapName = ${alias_fn}_mapname\n"
+        self.statement_params[f'{alias_fn}_mapname'] = attrs[0]
+
+        if isinstance(attrs[1], (str)):
+            statement += f"SET {alias_fn}.TopLevelKey = ${alias_fn}_top\n"
+            self.statement_params[f'{alias_fn}_top'] = attrs[1]
+        else:
+            func_name = list(attrs[1].keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn,
+                func_name,
+                attrs[1][func_name],
+                contexts,
+                TopLevelKey=True)
+
+        if isinstance(attrs[2], (str)):
+            statement += f"SET {alias_fn}.SecondLevelKey = ${alias_fn}_sec\n"
+            self.statement_params[f'{alias_fn}_sec'] = attrs[2]
+        else:
+            func_name = list(attrs[2].keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn,
+                func_name,
+                attrs[2][func_name],
+                contexts,
+                SecondLevelKey=True)
+
+        contexts_str = ', '.join(contexts)
+        statement += (f"WITH {contexts_str}\n"
+                      f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN]->"
+                      f"({alias_fn})\n"
+                      f"SET {rel_resource}.line = ${rel_resource}_line\n")
+
+        alias_mapping = create_alias(f'{attrs[0]}_mapping', True)
+        contexts1 = contexts
+        contexts1.add(alias_mapping)
+        contexts_str1 = ', '.join(contexts1)
+        statement += (
+            f"WITH {contexts_str}\n"
+            f"MATCH ({alias_mapping}:Mapping)\n"
+            f"WHERE {alias_mapping}.name = ${alias_mapping}_name\n"
+            f"WITH {contexts_str1}\n"
+            f"CREATE ({alias_fn})-[:REFERENCE_TO]->({alias_mapping})\n")
+        self.statement_params[f'{rel_resource}_line'] = line
+
+        if rel_kwargs:
+            contexts.add(rel_resource)
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
+        return statement
+
+    def _fn_get_azs(self,
+                    resource_id: str,
+                    attrs,
+                    contexts: set = None,
+                    line='unknown',
+                    **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::GetAZs."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_getazs", True)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        statement = (f"CREATE ({alias_fn}:Fn:GetZAs)\n")
+        contexts.add(alias_fn)
+        if isinstance(attrs, str):
+            statement += f"SET {alias_fn}.region = ${alias_fn}_region\n"
+            self.statement_params[f'{alias_fn}_region'] = attrs
+        else:
+            func_name = list(attrs.keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn,
+                func_name,
+                attrs[func_name],
+                contexts,
+                line,
+                region=True)
+
+        contexts_str = ', '.join(contexts)
+        statement += (f"WITH {contexts_str}\n"
+                      f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN]->"
+                      f"({alias_fn})\n"
+                      f"SET {rel_resource}.line = ${rel_resource}_line\n")
+        self.statement_params[f'{rel_resource}_line'] = line
+
+        if rel_kwargs:
+            contexts.add(rel_resource)
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
+        return statement
+
     def _fn_conditional(self,
                         fn_name: str,
                         resource_id: str,
@@ -562,7 +687,7 @@ class Batcher():
         """Create a statement to load conditional funcs."""
         contexts = contexts or set([])
         fn_name_node = fn_name.replace('::', ':')
-        alias_fn = create_alias(f'fn_name_node_{resource_id}')
+        alias_fn = create_alias(f'fn_name_node_{resource_id}', True)
         alias_rel = create_alias(f'rel_{alias_fn}', True)
         contexts.add(alias_fn)
         statement = (f"CREATE ({resource_id})-"
