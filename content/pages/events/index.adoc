@@ -13,13 +13,13 @@ on a variety of topics.
 Pick a topic below and contact us.
 Let's explore what we can do together.
 
-. link:burn-the-datacenter/[Burn the Datacenter: from Pets to Cattle.]
+. link:burn-the-datacenter/[Burn the Datacenter: from Pets to Cattle.,role=link-4]
 
-. link:breaking-the-build/[Breaking the Build: Our `SecDevOps` Habits.]
+. link:breaking-the-build/[Breaking the Build: Our `SecDevOps` Habits.,role=link-4]
 
-. link:securing-device/[Securing Your Mobile Device.]
+. link:securing-device/[Securing Your Mobile Device.,role=link-4]
 
-. link:live-hacking/[Live Hacking.]
+. link:live-hacking/[Live Hacking.,role=link-4]
 
 == When?
 
