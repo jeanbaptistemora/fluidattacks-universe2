@@ -1,7 +1,7 @@
 :slug: rules/072/
 :category: architecture
 :description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of defining an adequate maximum response time with the maximum expected concurrence.
-:keywords: Time, Response, Concurrency, GDPR, Requirement, Security
+:keywords: Time, Response, Concurrency, ASVS, CWE, GDPR
 :rules: yes
 
 = REQ.072 Set maximum response time
@@ -31,8 +31,20 @@ number of concurrent users reaches its peak.
 
 == References
 
-. [[r1]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(c).]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/400.html[CWE-400: Uncontrolled Resource Consumption]
+The software does not properly control the allocation and maintenance of a
+limited resource thereby enabling an actor to influence the amount of resources
+consumed,
+eventually leading to the exhaustion of available resources.
+
+. [[r2]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(c).]
 The controller and the processor shall implement appropriate technical and
 organizational measures to ensure an appropriate level of security,
 including the the ability to restore the availability and access to personal
 data in a timely manner in the event of a physical or technical incident.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.4)]
+Verify the application has sufficient anti-automation controls to detect and
+protect against data exfiltration, excessive business logic requests,
+excessive file uploads or denial of service attacks.

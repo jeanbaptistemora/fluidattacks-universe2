@@ -24,6 +24,8 @@ whenever automated attacks or unusual activities are detected.
 
 == Findings
 
+* [inner]#link:/web/findings/003/[F003. Symmetric denial of service]#
+
 * [inner]#link:/web/findings/047/[F047. Automatic information enumeration]#
 
 * [inner]#link:/web/findings/053/[F053. Lack of protection against brute force attacks]#

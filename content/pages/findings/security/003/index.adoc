@@ -14,3 +14,7 @@ consumes a lot of resources or takes too long to be processed.
 == Rules
 
 . [[r1]] [inner]#link:/web/rules/072/[R072. Set maximum response time]#
+
+. [[r2]] [inner]#link:/web/rules/263/[R263. Establish mechanisms against robot attacks]#
+
+. [[r3]] [inner]#link:/web/rules/327/[R327. Set rate limit]#
