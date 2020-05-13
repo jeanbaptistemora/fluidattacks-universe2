@@ -10,11 +10,6 @@ stages:
   - post-deploy
   - external
 
-.in_branches_and_mrs: &in_branches_and_mrs
-  only:
-    - branches
-    - merge_requests
-
 .in_everywhere_except_build_nix_caches: &in_everywhere_except_build_nix_caches
   except:
     refs:
@@ -39,14 +34,6 @@ stages:
       - merge_requests
       - schedules
       - triggers
-
-.in_dev_branch_mrs_and_master: &in_dev_branch_mrs_and_master
-  only:
-    - branches
-    - merge_requests
-  except:
-    - schedules
-    - triggers
 
 .in_dev_and_master_branch: &in_dev_and_master_branch
   except:
@@ -136,7 +123,7 @@ build_lambdas:
 
 coverage_report:
   <<: *with_nix
-  <<: *in_mrs_and_master_branch
+  <<: *in_dev_and_master_branch
   needs:
     - test_back
     - test_front
@@ -366,7 +353,7 @@ send_new_release_email:
 
 test_back:
   <<: *with_nix
-  <<: *in_dev_branch_mrs_and_master
+  <<: *in_dev_and_master_branch
   stage: test-code
   retry: 1
   artifacts:
@@ -377,7 +364,7 @@ test_back:
 
 test_front:
   <<: *with_nix
-  <<: *in_dev_branch_mrs_and_master
+  <<: *in_dev_and_master_branch
   stage: test-code
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
@@ -387,7 +374,7 @@ test_front:
 
 test_mobile:
   <<: *with_nix
-  <<: *in_dev_branch_mrs_and_master
+  <<: *in_dev_and_master_branch
   stage: test-code
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
