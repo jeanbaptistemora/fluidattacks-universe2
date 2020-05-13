@@ -21,3 +21,9 @@ def test_mfa_disabled_open():
     """Is multi-factor authentication disabled."""
     assert cognito.mfa_disabled(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_advanced_security_disabled_open():
+    """Is Advanced Security disabled."""
+    assert cognito.advanced_security_disabled(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
