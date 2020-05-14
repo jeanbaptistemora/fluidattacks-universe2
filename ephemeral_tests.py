@@ -540,15 +540,17 @@ class ViewTestCase(unittest.TestCase):
         selenium.execute_script('window.scrollTo(800, 1200);')
         selenium.save_screenshot(SCR_PATH + '18-04-tag_indicators.png')
 
-        selenium.execute_script('window.scrollTo(1200, 1600);')
+        selenium.execute_script('window.scrollTo(1300, 1700);')
         selenium.save_screenshot(SCR_PATH + '18-05-tag_indicators.png')
 
-        selenium.execute_script('window.scrollTo(1700, 2100);')
+        selenium.execute_script('window.scrollTo(1900, 2300);')
         selenium.save_screenshot(SCR_PATH + '18-06-tag_indicators.png')
 
-        selenium.execute_script('window.scrollTo(2100, 2500);')
+        selenium.execute_script('window.scrollTo(2300, 2700);')
         selenium.save_screenshot(SCR_PATH + '18-07-tag_indicators.png')
 
+        total_tables = len(selenium.find_elements_by_tag_name("table"))
+        assert total_tables == 1
         assert 'Open vulnerabilities by project' in selenium.page_source
         assert 'Findings by project' in selenium.page_source
         assert 'Open findings by project' in selenium.page_source

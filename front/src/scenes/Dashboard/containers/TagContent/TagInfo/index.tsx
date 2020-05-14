@@ -13,7 +13,9 @@ import "chartjs-plugin-doughnutlabel";
 import _ from "lodash";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
+import { DataTableNext } from "../../../../../components/DataTableNext";
+import { IHeader } from "../../../../../components/DataTableNext/types";
 import { default as globalStyle } from "../../../../../styles/global.css";
 import {
   calcPercent, IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph,
@@ -44,6 +46,10 @@ interface IStatusGraphName extends IStatusGraph {
 
 interface IProjectTag {
   closedVulnerabilities: number;
+  description: string;
+  lastClosingVuln: number;
+  maxOpenSeverity: number;
+  maxSeverity: number;
   name: string;
   openFindings: number;
   openVulnerabilities: number;
@@ -68,6 +74,10 @@ interface ITag {
     projects: IProjectTag[];
   };
 }
+interface IProjectTable {
+  description: string;
+  name: string;
+}
 const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const { tagName } = props.match.params;
   const { data } = useQuery<ITag>(TAG_QUERY, {
@@ -77,6 +87,24 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     },
     variables: { tag: tagName },
   });
+  const { push } = useHistory();
+
+  const tableHeaders: IHeader[] = [
+    { dataField: "name", header: "Project Name" },
+    { dataField: "description", header: "Description" },
+  ];
+
+  const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
+    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string },
+  ): void => {
+    push(`/project/${rowInfo.name.toLowerCase()}/indicators`);
+  };
+
+  const formatTableData: ((projects: IProjectTag[]) => IProjectTable[]) = (
+    projects: IProjectTag[],
+  ): IProjectTable[] => (
+    projects.map((project: IProjectTag) => ({ name: project.name, description: project.description }))
+  );
 
   const formatStatusGraphData: ((projects: ITreatmentGraph[]) => IStatusGraph) = (
     projects: ITreatmentGraph[],
@@ -353,6 +381,27 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     },
   });
 
+  const getMaxSeverityProject: ((projects: IProjectTag[]) => string) = (projects: IProjectTag[]): string => (
+    projects.reduce(
+      (maxValue: IProjectTag, project: IProjectTag) =>
+        (project.maxSeverity > maxValue.maxSeverity ? project : maxValue),
+      projects[0]).name
+  );
+
+  const getMaxOpenSeverityProject: ((projects: IProjectTag[]) => string) = (projects: IProjectTag[]): string => (
+    projects.reduce(
+      (maxValue: IProjectTag, project: IProjectTag) =>
+        (project.maxOpenSeverity > maxValue.maxOpenSeverity ? project : maxValue),
+      projects[0]).name
+  );
+
+  const getLastClosingVulnProject: ((projects: IProjectTag[]) => string) = (projects: IProjectTag[]): string => (
+    projects.reduce(
+      (maxValue: IProjectTag, project: IProjectTag) =>
+        (project.lastClosingVuln < maxValue.lastClosingVuln ? project : maxValue),
+      projects[0]).name
+  );
+
   const sortBoxInfo: ((aObject: IBoxInfo, bObject: IBoxInfo) => number) = (
     aObject: IBoxInfo, bObject: IBoxInfo,
   ): number => (
@@ -465,9 +514,34 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   }
 
   const randomColors: Dictionary<string> = getRandomColor(data.tag.projects);
+  const projectWithMaxSeverity: string = getMaxSeverityProject(data.tag.projects);
+  const projectWithMaxOpenSeverity: string = getMaxOpenSeverityProject(data.tag.projects);
+  const projectWithLastClosingVuln: string = getLastClosingVulnProject(data.tag.projects);
+  const goToProjectMaxSeverityFindings: (() => void) = (): void => {
+    push(`/project/${projectWithMaxSeverity.toLowerCase()}/findings`);
+  };
+  const goToProjectMaxOpenSeverityFindings: (() => void) = (): void => {
+    push(`/project/${projectWithMaxOpenSeverity.toLowerCase()}/findings`);
+  };
+  const goToProjectLastClosingVuln: (() => void) = (): void => {
+    push(`/project/${projectWithLastClosingVuln.toLowerCase()}/indicators`);
+  };
 
   return (
     <React.Fragment>
+      <Row>
+        <DataTableNext
+          bordered={true}
+          dataset={formatTableData(data.tag.projects)}
+          exportCsv={false}
+          headers={tableHeaders}
+          id="tblProjectsTag"
+          pageSize={10}
+          remote={false}
+          rowEvents={{ onClick: handleRowTagClick }}
+          search={true}
+        />
+      </Row>
       <Row>
         <Col md={3} sm={12} xs={12}>
           <IndicatorBox
@@ -486,6 +560,8 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             title=""
             total="/10"
             small={true}
+            description={projectWithMaxSeverity.toLowerCase()}
+            onClick={goToProjectMaxSeverityFindings}
           />
         </Col>
         <Col md={3} sm={12} xs={12}>
@@ -496,6 +572,8 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             title=""
             total="/10"
             small={true}
+            description={projectWithMaxOpenSeverity.toLowerCase()}
+            onClick={goToProjectMaxOpenSeverityFindings}
           />
         </Col>
         <Col md={3} sm={12} xs={12}>
@@ -505,6 +583,9 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             quantity={_.round(data.tag.lastClosingVuln, 1)}
             title=""
             total=""
+            small={true}
+            description={projectWithLastClosingVuln.toLowerCase()}
+            onClick={goToProjectLastClosingVuln}
           />
         </Col>
       </Row>

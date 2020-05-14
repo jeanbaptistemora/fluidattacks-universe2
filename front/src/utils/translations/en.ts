@@ -46,6 +46,7 @@ const enTranslations: Dictionary = {
         title: "Project Type",
       },
     },
+    tagResume: " and {{remaining}} more",
     tags: "My Portfolios",
     title: "My Projects",
   },

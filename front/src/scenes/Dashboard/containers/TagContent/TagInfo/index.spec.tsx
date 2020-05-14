@@ -5,6 +5,7 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 import store from "../../../../../store";
 import { TagsInfo, TagsProps } from "./index";
 import { TAG_QUERY } from "./queries";
@@ -56,6 +57,10 @@ describe("Tag Info", () => {
           projects: [
             {
               closedVulnerabilities: 1,
+              description: "test1 description",
+              lastClosingVuln: 10,
+              maxOpenSeverity: 5,
+              maxSeverity: 6,
               name: "test1",
               openFindings: 1,
               openVulnerabilities: 3,
@@ -64,6 +69,10 @@ describe("Tag Info", () => {
             },
             {
               closedVulnerabilities: 3,
+              description: "test2 description",
+              lastClosingVuln: 13,
+              maxOpenSeverity: 6,
+              maxSeverity: 6,
               name: "test2",
               openFindings: 2,
               openVulnerabilities: 5,
@@ -95,11 +104,13 @@ describe("Tag Info", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={[tagQuery]} addTypename={false}>
-          <TagsInfo {...baseMockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/portfolio/test-projects"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[tagQuery]} addTypename={false}>
+            <TagsInfo {...baseMockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
 
     await act(async () => { await wait(10); wrapper.update(); });
@@ -110,11 +121,13 @@ describe("Tag Info", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={[tagQueryError]} addTypename={false}>
-          <TagsInfo {...baseMockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/portfolio/test-projects"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[tagQueryError]} addTypename={false}>
+            <TagsInfo {...baseMockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
 
     await act(async () => { await wait(10); wrapper.update(); });

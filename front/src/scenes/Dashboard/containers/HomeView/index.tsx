@@ -103,10 +103,14 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
 
   const formatTagDescription: ((projects: Array<{ name: string }>) => string) = (
     projects: Array<{ name: string }>,
-  ): string =>
-    projects.map((project: { name: string }) => project.name)
+  ): string => {
+    const projectsDescription: string = projects.map((project: { name: string }) => project.name)
+      .slice(0, 2)
       .join(", ");
+    const remaining: number = projects.length - 2;
 
+    return projectsDescription + (remaining > 0 ? translate.t("home.tagResume", {remaining}) : "");
+  };
   const formatTagTableData: ((tags: ITagData[]) => ITagDataTable[]) = (tags: ITagData[]): ITagDataTable[] => (
     tags.map((tagMap: ITagData) =>
       ({ name: tagMap.name, projects: formatTagDescription(tagMap.projects) }))

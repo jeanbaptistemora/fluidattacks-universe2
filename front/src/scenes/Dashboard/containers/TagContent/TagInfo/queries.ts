@@ -15,6 +15,10 @@ export const TAG_QUERY: DocumentNode = gql`
       name
       projects {
         closedVulnerabilities
+        description
+        lastClosingVuln
+        maxOpenSeverity
+        maxSeverity
         name
         openFindings
         openVulnerabilities
