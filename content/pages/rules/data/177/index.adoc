@@ -1,7 +1,7 @@
 :slug: rules/177/
 :category: data
 :description: This document contains the details of the security requirements related to the definition and management of sensitive information in the organization. This requirement establishes the importance of storing sensitive data securely, avoiding temporary files and cache memory.
-:keywords: Requirement, Security, Data, Storage, GDPR, Cache
+:keywords: Data, Storage, Cache, ASVS, CWE, GDPR
 :rules: yes
 
 = REQ.177 Avoid caching and temporary files
@@ -36,12 +36,38 @@ information.
 
 == References
 
-. [[r1]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/524.html[CWE-524: Use of Cache Containing Sensitive Information]
+The code uses a cache that contains sensitive information,
+but the cache can be read by an actor outside of the intended control sphere.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/525.html[CWE-525: Use of Web Browser Cache Containing Sensitive Information]
+The web application does not use an appropriate caching policy that specifies
+the extent to which each web page and associated form fields should be cached.
+
+. [[r3]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]
 Personal data shall be processed in a manner that ensures appropriate security
 of the personal data,
 including protection against unauthorised or unlawful processing and against
 accidental loss, destruction or damage.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.1+]
-Verify that all forms containing sensitive information
-have disabled client side caching, including autocomplete features.
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.1 General Data Protection.(8.1.1)]
+Verify the application protects sensitive data from being cached in server
+components such as load balancers and application caches.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.1 General Data Protection.(8.1.2)]
+Verify that all cached or temporary copies of sensitive data stored on the
+server are protected from unauthorized access or purged/invalidated after the
+authorized user accesses the sensitive data.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.2 Client-side Data Protection.(8.2.1)]
+Verify the application sets sufficient anti-caching headers so that sensitive
+data is not cached in modern browsers.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.2 Client-side Data Protection.(8.2.2)]
+Verify that data stored in client side storage (such as HTML5 local storage,
+session storage, IndexedDB, regular cookies or Flash cookies) does not contain
+sensitive data or PII.
