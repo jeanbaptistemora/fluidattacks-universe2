@@ -89,7 +89,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
                         <Col md={12} sm={12}>
                           <FormGroup>
                             <Trans>
-                              <p>{translate.t("search_findings.tab_resources.projectToRemove")}</p>
+                              <p>{translate.t("search_findings.tab_resources.projectToRemove", { projectName })}</p>
                             </Trans>
                             <Field
                               component={textField}

@@ -622,7 +622,7 @@ const enTranslations: Dictionary = {
       modal_repo_title: "Add repository information",
       no_file_upload: "Failed to upload the file",
       no_selection: "You must select an item from the table.",
-      projectToRemove: "Please type the <strong>project name</strong> to proceed",
+      projectToRemove: "Please type: <strong>{{projectName}}</strong>, to proceed",
       protocol: "Protocol",
       removeProject: "Delete Project",
       remove_repository: "Remove",
