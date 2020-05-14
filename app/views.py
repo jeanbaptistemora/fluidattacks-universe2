@@ -173,7 +173,10 @@ def logout(request):
 @never_cache
 @csrf_exempt
 def get_evidence(request, project, evidence_type, findingid, fileid):
-    allowed_roles = ['analyst', 'customer', 'customeradmin', 'admin']
+    allowed_roles = [
+        'analyst', 'customer', 'customeradmin', 'admin', 'group_manager',
+        'internal_manager'
+    ]
 
     error = enforce_group_level_role(request, project, *allowed_roles)
 
