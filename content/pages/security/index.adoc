@@ -38,9 +38,9 @@ This section focuses on what we do to keep our client informed
 about the status of all our services
 and their data.
 
-[#OPENSOURCE]
 === 1.1 Open Source
 
+[[OPENSOURCE]]
 The source code of all our applications
 is available to the entire Internet.
 There are no backdoors or exposed sensitive data.
@@ -610,9 +610,9 @@ no one can deny their actions.
 We implement this in several ways
 depending of the context.
 
-[#EAC]
 === 6.1 Everything as code
 
+[[EAC]]
 At Fluid Attacks we try to keep everything we can
 versioned in a Git repository.
 By doing so, we are capable of having
@@ -887,9 +887,9 @@ variable affecting an application,
 application integrity becomes a matter of
 keeping a healthy source code.
 
-[#IAC]
 ==== 9.4.3 Infrastructure as code (IaC)
 
+[[IAC]]
 Our entire infrastructure is versioned
 in a Git repository written as code.
 Such code can be deployed anywhere
@@ -923,9 +923,9 @@ This provides full transparency on
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
-[#CI]
 ==== 9.4.6 Continuous Integration
 
+[[CI]]
 We run an Application Build Process for every change a
 developer wants to introduce to the source
 code of the application via
@@ -946,9 +946,9 @@ By always building and testing everything,
 we can guarantee that every change
 is compliant with the application's quality standards.
 
-[#PR]
 ==== 9.4.7 Peer review
 
+[[PR]]
 We recognize that not all the steps of
 a building process can be automatized,
 especially some tests.
@@ -975,9 +975,9 @@ an aditional Continuous Deployment pipeline triggers,
 automatically deploying a new production version
 based on the new source code.
 
-[#EPH]
 ==== 9.4.9 Ephemeral environments
 
+[[EPH]]
 Instead of having long-term development environments
 like *_staging_*,
 we use testing environments
