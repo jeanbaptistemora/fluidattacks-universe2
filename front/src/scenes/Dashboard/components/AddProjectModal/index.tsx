@@ -171,6 +171,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 <ControlLabel>{translate.t("home.newProject.name")}</ControlLabel>
                                 <Field
                                   component={textField}
+                                  disabled={true}
                                   name="name"
                                   type="text"
                                   validate={[alphaNumeric, maxProjectNameLength, required, validTextField]}

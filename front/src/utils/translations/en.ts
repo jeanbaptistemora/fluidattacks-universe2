@@ -33,7 +33,7 @@ const enTranslations: Dictionary = {
       invalidProject: "Invalid project name",
       name: "Project Name",
       new: "New Project",
-      noProjectName: "Currently you cannot create projects",
+      noProjectName: "There are no project names available at the moment",
       success: "Project created successfully",
       switch: {
         no: "No",

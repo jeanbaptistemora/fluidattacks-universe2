@@ -114,7 +114,8 @@ def create_project(
             has_drills,
             has_forces)
 
-        if not project_dal.exists(project_name):
+        if internal_project_domain.does_project_name_exist(project_name) \
+                and not project_dal.exists(project_name):
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,

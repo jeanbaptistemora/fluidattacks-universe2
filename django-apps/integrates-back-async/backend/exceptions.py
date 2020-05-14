@@ -154,7 +154,7 @@ class EmptyPoolProjectName(Exception):
     """Exception to control an empty pool of project name"""
     def __init__(self):
         """ Constructor """
-        msg = 'Exception - Currently you cannot create projects'
+        msg = 'Exception - There are no project names available at the moment'
         super(EmptyPoolProjectName, self).__init__(msg)
 
 
