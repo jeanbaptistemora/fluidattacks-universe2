@@ -276,10 +276,17 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
     group = execution_group_match.group('group')
     execution_id = execution_group_match.group('execution_id')
     date = execution_group_match.group('date')
-    kind = execution_group_match.group('kind') or 'other'
 
-    s3_execution_folder = f'{group}/{execution_id}/{date}'
-    s3_prefix = f'{s3_execution_folder}/{kind}'
+    s3_exec_folder = f'{group}/{execution_id}/{date}'
+
+    if does_s3_file_exists(s3_client, f'{s3_exec_folder}/static/full.yaml'):
+        kind = 'static'
+    elif does_s3_file_exists(s3_client, f'{s3_exec_folder}/dynamic/full.yaml'):
+        kind = 'dynamic'
+    else:
+        kind = 'other'
+
+    s3_prefix = f'{s3_exec_folder}/{kind}'
 
     full = \
         get_execution_attr_full(s3_client, s3_prefix)
@@ -290,9 +297,9 @@ def get_execution_object(s3_client, execution_group_match) -> Execution:
             s3_client, s3_prefix, metadata_attrs['git_repo'])
 
     trace_init: bool = \
-        does_s3_file_exists(s3_client, f'{s3_execution_folder}/trace_init')
+        does_s3_file_exists(s3_client, f'{s3_exec_folder}/trace_init')
     trace_end: bool = \
-        does_s3_file_exists(s3_client, f'{s3_execution_folder}/trace_end')
+        does_s3_file_exists(s3_client, f'{s3_exec_folder}/trace_end')
 
     return Execution(
         subscription=group,
@@ -354,7 +361,6 @@ def yield_execution_groups(s3_client):
             execution_group_match.group('group'),
             execution_group_match.group('execution_id'),
             execution_group_match.group('date'),
-            execution_group_match.group('kind'),
         )
 
         if primary_key not in seen_groups:
