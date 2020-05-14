@@ -390,14 +390,40 @@ $codeyellow: rgba(230, 219, 116, 1);
 // Styles for articles
 
 .internal {
+  font-weight: 600;
+  text-align: left;
+
   b, strong {
     font-weight: 600;
   }
 
+  h1 {
+    font-size: 3rem;
+  }
   h2 {
+    font-size: 2.25rem;
+  }
+
+  h3 {
     font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  a {
+    color: $fluid-black;
     font-weight: 600;
-    text-align: left;
+    text-decoration: none;
+    &:hover {
+      color: $button-hover;
+    }
+  }
+
+  p {
+    font-size: 1.25rem;
+    font-weight: 400;
   }
 }
 
