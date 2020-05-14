@@ -65,6 +65,12 @@ def test_public_buckets_open():
     assert \
         s3.has_public_buckets(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 
+def test_bucket_has_authenticated_access_open():
+    """Check if account has buckets accesible to anyone authenticated."""
+    assert \
+        s3.bucket_has_authenticated_access(AWS_ACCESS_KEY_ID,
+                                           AWS_SECRET_ACCESS_KEY)
+
 
 def test_has_buckets_without_default_encryption_open():
     """Search S3 buckets without default encryption."""
