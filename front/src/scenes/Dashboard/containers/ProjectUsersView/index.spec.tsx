@@ -11,7 +11,7 @@ import store from "../../../../store/index";
 import { authzContext } from "../../../../utils/authz/config";
 import { msgSuccess } from "../../../../utils/notifications";
 import { ProjectUsersView } from "./index";
-import { ADD_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
+import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
 import { IProjectUsersViewProps } from "./types";
 
 jest.mock("../../../../utils/notifications", () => {
@@ -342,6 +342,84 @@ describe("Project users view", () => {
       .at(0);
     removeButton.simulate("click");
     await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgSuccess)
+      .toHaveBeenCalled();
+  });
+
+  it("should edit user from the project", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: EDIT_USER_MUTATION,
+        variables: {
+          email: "user@gmail.com",
+          firstLogin: "2017-09-05",
+          lastLogin: "3 days ago",
+          organization: "unittesting",
+          phoneNumber: "+573123210123",
+          projectName: "TEST",
+          responsibility: "Project Manager",
+          role: "ANALYST",
+          uniqueId: 0,
+        },
+      },
+      result: { data: { editUser : { success: true } } },
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_user__do_edit_user" },
+      { action: "grant_group_level_role:analyst" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <ProjectUsersView {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const userInfo: ReactWrapper = wrapper.find("tr")
+      .findWhere((element: ReactWrapper) => element.contains("user@gmail.com"))
+      .at(0);
+    userInfo.simulate("click");
+    const editButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Edit"))
+      .at(0);
+    editButton.simulate("click");
+    let editUserModal: ReactWrapper = wrapper
+      .find("modal")
+      .find({open: true, headerTitle: "Edit user information"});
+    expect(editUserModal)
+      .toHaveLength(1);
+    const organizationInput: ReactWrapper = editUserModal
+      .find({name: "organization", type: "text"})
+      .at(0)
+      .find("input");
+    organizationInput.simulate("change", { target: { value: "unittesting" } });
+    const phoneNumberInput: ReactWrapper = editUserModal
+      .find({name: "phoneNumber", type: "text"})
+      .at(0)
+      .find("input");
+    phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
+    const responsibilityInput: ReactWrapper = editUserModal
+      .find({name: "responsibility", type: "text"})
+      .at(0)
+      .find("input");
+    responsibilityInput.simulate("change", { target: { value: "Project Manager" } });
+    const select: ReactWrapper = editUserModal.find("select")
+      .findWhere((element: ReactWrapper) => element.contains("Analyst"))
+      .at(0);
+    select.simulate("change", { target: { value: "ANALYST" } });
+    const form: ReactWrapper = editUserModal
+      .find("genericForm")
+      .at(0);
+    form.simulate("submit");
+    await act(async () => { await wait(0); wrapper.update(); });
+    editUserModal = wrapper
+      .find("modal")
+      .find({open: true, headerTitle: "Edit user information"});
+    expect(editUserModal)
+      .toHaveLength(0);
     expect(msgSuccess)
       .toHaveBeenCalled();
   });
