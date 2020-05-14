@@ -9,9 +9,17 @@ import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
 import { authzContext } from "../../../../utils/authz/config";
+import { msgSuccess } from "../../../../utils/notifications";
 import { ProjectUsersView } from "./index";
-import { GET_USERS } from "./queries";
+import { ADD_USER_MUTATION, GET_USERS } from "./queries";
 import { IProjectUsersViewProps } from "./types";
+
+jest.mock("../../../../utils/notifications", () => {
+  const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
+  mockedNotifications.msgSuccess = jest.fn();
+
+  return mockedNotifications;
+});
 
 describe("Project users view", () => {
 
@@ -61,7 +69,42 @@ describe("Project users view", () => {
           },
         },
       },
-    }];
+    },
+    {
+      request: {
+        query: GET_USERS,
+        variables: {
+          projectName: "TEST",
+        },
+      },
+      result: {
+        data: {
+          project: {
+            users: [
+              {
+                email: "user@gmail.com",
+                firstLogin: "2017-09-05 15:00:00",
+                lastLogin: "[3, 81411]",
+                organization: "TEST",
+                phoneNumber: "-",
+                responsibility: "-",
+                role: "customer",
+              },
+              {
+                email: "unittest@test.com",
+                firstLogin: "2017-09-05 15:00:00",
+                lastLogin: "[3, 81411]",
+                organization: "TEST",
+                phoneNumber: "+573123210123",
+                responsibility: "Project Manager",
+                role: "analyst",
+              },
+            ],
+          },
+        },
+      },
+    },
+  ];
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -185,5 +228,81 @@ describe("Project users view", () => {
       .find({open: true, headerTitle: "Edit user information"});
     expect(editUserModal)
       .toHaveLength(1);
+  });
+
+  it("should add user to the project", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: ADD_USER_MUTATION,
+        variables: {
+          email: "unittest@test.com",
+          organization: "unittesting",
+          phoneNumber: "+573123210123",
+          projectName: "TEST",
+          responsibility: "Project Manager",
+          role: "ANALYST",
+        },
+      },
+      result: { data: { grantUserAccess : { success: true, grantedUser: {email: "unittest@test.com"} } } },
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_user__do_grant_user_access" },
+      { action: "grant_group_level_role:analyst" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <ProjectUsersView {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const addButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Add"))
+      .at(0);
+    addButton.simulate("click");
+    let addUserModal: ReactWrapper = wrapper
+      .find("modal")
+      .find({open: true, headerTitle: "Add user to this project"});
+    expect(addUserModal)
+      .toHaveLength(1);
+    const emailInput: ReactWrapper = addUserModal
+      .find({name: "email", type: "text"})
+      .at(0)
+      .find("input");
+    emailInput.simulate("change", { target: { value: "unittest@test.com" } });
+    const organizationInput: ReactWrapper = addUserModal
+      .find({name: "organization", type: "text"})
+      .at(0)
+      .find("input");
+    organizationInput.simulate("change", { target: { value: "unittesting" } });
+    const phoneNumberInput: ReactWrapper = addUserModal
+      .find({name: "phoneNumber", type: "text"})
+      .at(0)
+      .find("input");
+    phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
+    const responsibilityInput: ReactWrapper = addUserModal
+      .find({name: "responsibility", type: "text"})
+      .at(0)
+      .find("input");
+    responsibilityInput.simulate("change", { target: { value: "Project Manager" } });
+    const select: ReactWrapper = addUserModal.find("select")
+      .findWhere((element: ReactWrapper) => element.contains("Analyst"))
+      .at(0);
+    select.simulate("change", { target: { value: "ANALYST" } });
+    const form: ReactWrapper = addUserModal
+      .find("genericForm")
+      .at(0);
+    form.simulate("submit");
+    await act(async () => { await wait(0); wrapper.update(); });
+    addUserModal = wrapper
+      .find("modal")
+      .find({open: true, headerTitle: "Add user to this project"});
+    expect(addUserModal)
+      .toHaveLength(0);
+    expect(msgSuccess)
+      .toHaveBeenCalled();
   });
 });
