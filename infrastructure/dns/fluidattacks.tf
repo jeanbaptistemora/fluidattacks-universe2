@@ -12,6 +12,63 @@ resource "aws_route53_record" "web" {
 
 # CNAME records
 
+
+resource "aws_route53_record" "zd1_domainkey" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "zendesk1.domainkey.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["zendesk1.domainkey.zendesk.com"]
+}
+
+resource "aws_route53_record" "zd2_domainkey" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "zendesk2.domainkey.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["zendesk2.domainkey.zendesk.com"]
+}
+
+resource "aws_route53_record" "help" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "help.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["fluidattacks.zendesk.com"]
+}
+
+resource "aws_route53_record" "zd_mail1" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "zendesk1.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["mail1.zendesk.com"]
+}
+
+resource "aws_route53_record" "zd_mail2" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "zendesk2.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["mail2.zendesk.com"]
+}
+
+resource "aws_route53_record" "zd_mail3" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "zendesk3.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["mail3.zendesk.com"]
+}
+
+resource "aws_route53_record" "zd_mail4" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "zendesk4.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["mail4.zendesk.com"]
+}
+
 resource "aws_route53_record" "mail" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "mail.${aws_route53_zone.fs_maindomain.name}"
@@ -188,13 +245,22 @@ resource "aws_route53_record" "mailgunMX" {
 }
 
 # TXT Records
+
+resource "aws_route53_record" "zd_verify" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "zendeskverification.${aws_route53_zone.fs_maindomain.name}"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["27f6e2e3b646cce6"]
+}
+
 resource "aws_route53_record" "mainTXT" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = aws_route53_zone.fs_maindomain.name
   type    = "TXT"
   ttl     = "300"
   records = [
-    "v=spf1 include:_spf.google.com include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com include:_spf.salesforce.com -all",
+    "v=spf1 include:_spf.google.com include:mail.zendesk.com include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com include:_spf.salesforce.com -all",
     "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g",
     "google-site-verification=zVcDOWOKonibpIrLLyFEuy8jbpTJyOPiA39vngIpEvI",
     "MS=ms97836067",
