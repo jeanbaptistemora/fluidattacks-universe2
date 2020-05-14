@@ -20,6 +20,10 @@ consent and that this consent be demonstrable afterwards.
 Therefore, consent must always be requested in a clear manner and using an easy
 to understand language before collecting any personal information.
 
+== Findings
+
+* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(1).]

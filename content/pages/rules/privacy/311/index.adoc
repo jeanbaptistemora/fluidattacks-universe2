@@ -20,6 +20,10 @@ consent and that this consent be demonstrable afterwards.
 Therefore, the system must have a mechanism that allows demonstrating the
 grant of the consent.
 
+== Findings
+
+* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(1).]

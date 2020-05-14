@@ -1,0 +1,33 @@
+:slug: findings/088/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from including unverifiable files in the repository, recommendations to avoid them and related security requirements.
+:keywords: Privacy, Violation, Personal, Data, Information, GDPR
+:findings: yes
+:type: hygiene
+
+= F088. Privacy violation
+
+== Description
+
+The system violates one or more privacy requirements.
+
+== Rules
+
+. [[r1]] [inner]#link:/web/rules/189/[R189. Specify the purpose of data collection]#
+
+. [[r2]] [inner]#link:/web/rules/310/[R310. Request user consent]#
+
+. [[r3]] [inner]#link:/web/rules/311/[R311. Demonstrate user consent]#
+
+. [[r4]] [inner]#link:/web/rules/312/[R312. Allow user consent revocation]#
+
+. [[r5]] [inner]#link:/web/rules/313/[R313. Inform inability to identify users]#
+
+. [[r6]] [inner]#link:/web/rules/314/[R314. Provide processing confirmation]#
+
+. [[r7]] [inner]#link:/web/rules/315/[R315. Provide processed data information]#
+
+. [[r8]] [inner]#link:/web/rules/316/[R316. Allow rectification requests]#
+
+. [[r9]] [inner]#link:/web/rules/317/[R317. Allow erasure requests]#
+
+. [[r10]] [inner]#link:/web/rules/318/[R318. Notify third parties of changes]#

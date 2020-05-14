@@ -21,6 +21,10 @@ at any given time,
 whatever consent they may have granted regarding the collection and
 processing of their information.
 
+== Findings
+
+* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(3).]

@@ -20,6 +20,10 @@ They should have a mechanism that allows users to request confirmation of
 whether or not the system is managing their personal information,
 even if it was not obtained from the users but from a third party.
 
+== Findings
+
+* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+
 == Exceptions
 
 . If the system is able to demonstrate that it is not possible to individually

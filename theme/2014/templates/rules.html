@@ -69,7 +69,7 @@
       <img class="dn" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
            alt="Fluid Arrow">
     </div>
-    {% set categorder = ["credentials", "authentication", "authorization", "session", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "mobile", "social"] %}
+    {% set categorder = ["credentials", "authentication", "authorization", "session", "legal", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "mobile", "social"] %}
     {% for categ in categorder %}
       <div class="rulescat hover-bg-light-gray flex">
         <h3 class="w-90">{{ categ |replace('-', ' ') | capitalize }}</h3>

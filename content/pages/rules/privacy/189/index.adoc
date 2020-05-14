@@ -19,6 +19,10 @@ of each nation.
 These reasons must be accessible for the user in a clear manner and in an easy
 to understand language.
 
+== Findings
+
+* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-13-gdpr/[GDPR. Art. 13: Information to be provided where personal

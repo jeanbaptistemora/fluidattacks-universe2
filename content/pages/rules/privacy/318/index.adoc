@@ -35,6 +35,10 @@ If the system properly safeguards this information and if complying with this
 requirement seriously impairs those purposes,
 this requirement is not applicable.
 
+== Findings
+
+* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+
 == References
 
 . [[r1]] link:https://gdpr-info.eu/art-19-gdpr/[GDPR. Art. 19: Notification obligation regarding rectification

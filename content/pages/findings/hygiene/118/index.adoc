@@ -1,0 +1,15 @@
+:slug: findings/118/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from violating regulations, recommendations to avoid them and related security requirements.
+:keywords: Regulation, Violation, Infringement, Jurisdiction, Legal, Law
+:findings: yes
+:type: hygiene
+
+= F118. Regulation infringement
+
+== Description
+
+The system violates regulations of a jurisdiction to which it is subject.
+
+== Rules
+
+. [[r1]] [inner]#link:/web/rules/331/[R331. Guarantee legal compliance]#

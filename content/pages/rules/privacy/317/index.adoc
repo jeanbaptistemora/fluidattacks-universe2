@@ -21,6 +21,10 @@ information and guarantees its complete deletion.
 Furthermore, the erasure should also occur if the user decides to revoke their
 consent.
 
+== Findings
+
+* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+
 == Exceptions
 
 . If the system is able to demonstrate that it is not possible to individually
