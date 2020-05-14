@@ -1,7 +1,7 @@
 # pylint: disable=method-hidden
 
 from collections import defaultdict
-from typing import Dict, List
+from typing import cast, Dict, List
 
 from backend.domain import finding as finding_domain
 
@@ -19,7 +19,8 @@ async def _batch_load_fn(
     fins = await finding_domain.get_findings_async(finding_ids)
 
     for finding in fins:
-        findings[finding['findingId']] = dict(
+        finding_id: str = cast(str, finding['findingId'])
+        findings[finding_id] = dict(
             actor=finding.get('actor', ''),
             affected_systems=finding.get('affectedSystems', ''),
             age=finding.get('age', 0),
@@ -31,14 +32,14 @@ async def _batch_load_fn(
             cvss_version=finding.get('cvssVersion', '3.1'),
             cwe_url=finding.get('cwe', ''),
             description=finding.get('vulnerability', ''),
-            evidence=finding.get('evidence', {}),
-            exploit=finding.get('exploit', {}),
+            evidence=finding.get('evidence', {}),  # type: ignore
+            exploit=finding.get('exploit', {}),  # type: ignore
             id=finding.get('findingId', ''),
             is_exploitable=finding.get('exploitable', ''),
             last_vulnerability=finding.get('lastVulnerability', 0),
             project_name=finding.get('projectName', ''),
             recommendation=finding.get('effectSolution', ''),
-            records=finding.get('records', {}),
+            records=finding.get('records', {}),  # type: ignore
             release_date=finding.get('releaseDate', ''),
             remediated=finding.get('remediated', False),
             new_remediated=finding.get('newRemediated', False),
@@ -47,15 +48,15 @@ async def _batch_load_fn(
             requirements=finding.get('requirements', ''),
             risk=finding.get('risk', ''),
             scenario=finding.get('scenario', ''),
-            severity=finding.get('severity', {}),
+            severity=finding.get('severity', {}),  # type: ignore
             severity_score=finding.get('severityCvss', 0.0),
             threat=finding.get('threat', ''),
             title=finding.get('finding', ''),
             type=finding.get('findingType', ''),
             historic_state=finding.get('historicState', []),
             historic_treatment=finding.get('historicTreatment', []),
-            current_state=finding.get(
-                'historicState', [{}])[-1].get('state', '')
+            current_state=finding.get(  # type: ignore
+                'historicState', [{}])[-1].get('state', '')  # type: ignore
         )
 
     return [findings.get(finding_id, dict()) for finding_id in finding_ids]

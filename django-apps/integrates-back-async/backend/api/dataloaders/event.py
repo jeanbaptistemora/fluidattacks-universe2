@@ -15,7 +15,8 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
     evnts = await event_domain.get_events(event_ids)
     for event in evnts:
         history: Historic = cast(Historic, event.get('historic_state', []))
-        events[event['event_id']] = dict(
+        event_id: str = cast(str, event['event_id'])
+        events[event_id] = dict(
             accessibility=event.get('accessibility', ''),
             affectation=history[-1].get('affectation', ''),
             affected_components=event.get('affected_components', ''),

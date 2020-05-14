@@ -462,18 +462,7 @@ function job_serve_back_prod {
 function job_lint_back {
       env_prepare_python_packages \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
-        django-apps/integrates-back-async/backend/mailer.py \
-        django-apps/integrates-back-async/backend/scheduler.py \
-        django-apps/integrates-back-async/backend/services.py \
-        django-apps/integrates-back-async/backend/util.py \
-        django-apps/integrates-back-async/backend/exceptions.py \
-        django-apps/integrates-back-async/backend/decorators.py \
-        django-apps/integrates-back-async/backend/typing.py \
-        django-apps/integrates-back-async/backend/domain/*py \
-        django-apps/integrates-back-async/backend/dal/* \
-        django-apps/integrates-back-async/backend/utils/* \
-        django-apps/integrates-back-async/backend/api/dataloaders/vulnerability.py \
-        django-apps/integrates-back-async/backend/api/resolvers/* \
+        django-apps/integrates-back-async \
   &&  prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/api \
   &&  prospector -F -s high -u django -i node_modules -i django-apps/integrates-back-async/backend/api django-apps/integrates-back-async/backend/ \
