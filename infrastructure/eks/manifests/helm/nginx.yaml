@@ -4,6 +4,7 @@ controller:
     tag: 0.24.1
   config:
     hsts-include-subdomains: "false"
+    hsts-max-age: "31536000"
     proxy-body-size: "100m"
     server-tokens: "false"
     use-gzip: "false"
