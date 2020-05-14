@@ -73,11 +73,12 @@ function job_build_mobile_android {
             --output output/integrates.aab \
             --release-channel "${CI_COMMIT_REF_NAME}" \
             --type app-bundle \
+      &&  rm google-services.json \
       &&  rm -rf ./certs \
     &&  popd \
     ||  return 1
   else
-        echo '[INFO] No relevant files were modified, skipping deploy' \
+        echo '[INFO] No relevant files were modified, skipping build' \
     &&  return 0
   fi
 }
@@ -208,7 +209,7 @@ function job_deploy_front {
   &&  ./manage.py collectstatic --no-input
 }
 
-function job_deploy_mobile {
+function job_deploy_mobile_ota {
       helper_use_pristine_workdir \
   &&  if  helper_have_any_file_changed \
             'mobile/'
@@ -271,6 +272,40 @@ function job_deploy_mobile {
             echo '[INFO] No relevant files were modified, skipping deploy' \
         &&  return 0
       fi
+}
+
+function job_deploy_mobile_playstore {
+  export LC_ALL=en_US.UTF-8
+  export LANG=en_US.UTF-8
+
+  if  helper_have_any_file_changed \
+    'mobile/app.json'
+  then
+        echo '[INFO] Logging in to AWS' \
+    &&  aws_login "${ENVIRONMENT_NAME}" \
+    &&  sops \
+          --aws-profile default \
+          --decrypt \
+          --extract '["PLAYSTORE_CREDENTIALS"]' \
+          --output 'mobile/playstore-credentials.json' \
+          --output-type 'json' \
+          "secrets-${ENVIRONMENT_NAME}.yaml" \
+    &&  pushd mobile \
+      &&  echo '[INFO] Installing deps' \
+      &&  bundle install \
+      &&  echo '[INFO] Deploying to Google Play Store' \
+      &&  bundle exec fastlane supply \
+            --aab ./output/integrates.aab \
+            --json_key ./playstore-credentials.json \
+            --package_name "com.fluidattacks.integrates" \
+            --track internal \
+      &&  rm playstore-credentials.json \
+    &&  popd \
+    ||  return 1
+  else
+        echo '[INFO] No relevant files were modified, skipping deploy' \
+    &&  return 0
+  fi
 }
 
 function job_functional_tests_local {

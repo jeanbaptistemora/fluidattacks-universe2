@@ -1,5 +1,7 @@
 let
   pkgs = import ../pkgs/stable.nix;
+
+  builders.rubyGem = import ../builders/ruby-gem pkgs;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -8,8 +10,13 @@ in
       name = "builder";
 
       buildInputs = [
+        pkgs.awscli
         pkgs.git
-        pkgs.docker
+        pkgs.ruby
+        pkgs.sops
       ];
+
+      rubyGemBundler =
+        builders.rubyGem "bundler:2.1.4";
     })
   )

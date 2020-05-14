@@ -1,7 +1,5 @@
 let
   pkgs = import ../pkgs/stable.nix;
-
-  builders.rubyGem = import ../builders/ruby-gem pkgs;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -10,17 +8,14 @@ in
       name = "builder";
 
       buildInputs = [
-        pkgs.jq
-        pkgs.sysctl
-        pkgs.nodejs
         pkgs.awscli
-        pkgs.curl
         pkgs.cacert
-        pkgs.sops
+        pkgs.curl
         pkgs.git
+        pkgs.jq
+        pkgs.nodejs
+        pkgs.sops
+        pkgs.sysctl
       ];
-
-      rubyGemFastlane =
-        builders.rubyGem "fastlane:2.146.1";
     })
   )

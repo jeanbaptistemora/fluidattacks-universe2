@@ -187,7 +187,7 @@ deploy_k8s_stop_ephemeral:
     name: "review/$CI_COMMIT_REF_SLUG"
     action: stop
 
-deploy_mobile:
+deploy_mobile_ota:
   <<: *with_nix
   <<: *in_everywhere_except_build_nix_caches
   stage: deploy-app
@@ -195,6 +195,15 @@ deploy_mobile:
   environment:
     name: "mobile/$CI_COMMIT_REF_NAME"
     url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
+
+deploy_mobile_playstore:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy-app
+  needs: [build_mobile_android]
+  dependencies:
+    - build_mobile_android
+
 
 build_container_app:
   <<: *with_nix
