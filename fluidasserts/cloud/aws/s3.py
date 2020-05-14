@@ -535,3 +535,53 @@ def buckets_has_permissive_acl_permissions(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def bucket_has_object_lock_disabled(key_id: str,
+                                    secret: str,
+                                    bucket_name: str,
+                                    session_token: str = None,
+                                    retry: bool = True):
+    """
+    Check if S3 buckets has Object Lock enabled.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    :returns: - ``OPEN`` if there are buckets without object lock.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'S3 bucket doesnt have object lock.'
+    msg_closed: str = 'S3 buckets has object lock.'
+    vulns, safes = [], []
+    is_vuln = False
+    try:
+        conf = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            boto3_client_kwargs={'aws_session_token': session_token},
+            service='s3',
+            func='get_object_lock_configuration',
+            param='ObjectLockConfiguration',
+            Bucket=bucket_name,
+            retry=retry,
+            retry_times=3)
+        if conf.get('ObjectLockEnabled') == 'Enabled':
+            is_vuln = True
+    except ClientError:
+        is_vuln = True
+    if is_vuln:
+        vulns.append(
+            (bucket_name, 'do not have Object Lock enabled.'))
+
+    return _get_result_as_tuple(
+        service='S3',
+        objects='Buckets',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

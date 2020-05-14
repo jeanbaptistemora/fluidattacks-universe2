@@ -107,6 +107,11 @@ def test_buckets_has_permissive_acl_permissions_open():
     assert s3.buckets_has_permissive_acl_permissions(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
+def test_bucket_has_object_lock_disabled_open():
+    """Search S3 buckets with permissive ACL permissions."""
+    assert s3.bucket_has_object_lock_disabled(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, bucket_name='df1test').is_open()
+
 
 #
 # Closing tests
