@@ -82,7 +82,7 @@ class ViewTestCase(unittest.TestCase):
 
     def __check_legal_notice(self):
         selenium = self.selenium
-        WebDriverWait(selenium, self.delay/5).until(
+        WebDriverWait(selenium, self.delay/10).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Legal notice')]")))
         checkbox = selenium.find_element_by_xpath("//*[@name='remember']")
@@ -90,6 +90,11 @@ class ViewTestCase(unittest.TestCase):
         accept_btn = selenium.find_element_by_xpath(
             "//*[contains(text(), 'Accept and continue')]")
         self.__click(accept_btn)
+
+    def __choose_gmail_account(self):
+        gmail_account = WebDriverWait(self.selenium, self.delay/10).until(
+            expected.presence_of_element_located((By.ID, 'profileIdentifier')))
+        self.__click(gmail_account)
 
     def __click(self, element):
         try:
@@ -107,6 +112,12 @@ class ViewTestCase(unittest.TestCase):
         google_login = selenium.find_element_by_xpath(
             "//*[contains(text(), 'Access with Google')]")
         self.__click(google_login)
+
+        try:
+            self.__choose_gmail_account()
+        except TimeoutException:
+            # There was no need to choose Gmail account
+            pass
 
         try:
             self.__check_legal_notice()
