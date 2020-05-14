@@ -128,10 +128,10 @@
     "waait": "1.0.5",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11",
-    "webpack-dev-server": "3.10.3"
+    "webpack-dev-server": "3.11.0"
   },
   "scripts": {
-    "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
+    "audit": "npm set audit-level high && npm config set audit-level high && npm audit --production",
     "build": "npm run css && webpack --config webpack.prod.config.ts",
     "css": "tcm src/ --silent",
     "lint": "npm run css && tsc -p tsconfig.json && tslint -p tsconfig.json -t codeFrame",
