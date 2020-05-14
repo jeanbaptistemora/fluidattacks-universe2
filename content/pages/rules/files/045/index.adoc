@@ -1,7 +1,7 @@
 :slug: rules/045/
 :category: files
 :description: This document details the security guidelines and requirements related to files management within the organization or company. Therefore, in this requirement it is strongly recommended that the metadata be removed from any file before sharing it with others.
-:keywords: System, Metadata, File, Remove, Security, Sharing
+:keywords: Metadata, File, Remove, ASVS, CWE, GDPR
 :rules: yes
 
 = REQ.045 Remove metadata when sharing files
@@ -10,3 +10,34 @@
 
 The organization must remove file metadata
 before sharing it or making it public.
+
+== Findings
+
+* [inner]#link:/web/findings/119/[F119. Metadata with sensitive information]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/230.html[CWE-1230: Exposure of Sensitive Information Through Metadata]
+The product prevents direct access to a resource containing sensitive
+information,
+but it does not sufficiently limit access to metadata that is derived from the
+original, sensitive information.
+
+. [[r2]] link:https://gdpr-info.eu/art-25-gdpr/[GDPR. Art. 25: Data protection by design and by default.(1)]
+The controller shall,
+both at the time of the determination of the means for processing and at the
+time of the processing itself,
+implement appropriate technical and organizational measures.
+
+. [[r3]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 51:  Protecting sensitive personal data].
+Personal data which are, by their nature, particularly sensitive in relation to
+fundamental rights and freedoms merit specific protection as the context of
+their processing could create significant risks to the fundamental rights and
+freedoms.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.3 Other Access Control Considerations.(4.3.2)]
+Verify that directory browsing is disabled unless deliberately desired.
+Additionally, applications should not allow discovery or disclosure of file or
+directory metadata,
+such as Thumbs.db, .DS_Store, .git or .svn folders.
