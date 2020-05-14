@@ -11,7 +11,7 @@ import store from "../../../../store/index";
 import { authzContext } from "../../../../utils/authz/config";
 import { msgSuccess } from "../../../../utils/notifications";
 import { ProjectUsersView } from "./index";
-import { ADD_USER_MUTATION, GET_USERS } from "./queries";
+import { ADD_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
 import { IProjectUsersViewProps } from "./types";
 
 jest.mock("../../../../utils/notifications", () => {
@@ -22,6 +22,9 @@ jest.mock("../../../../utils/notifications", () => {
 });
 
 describe("Project users view", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   const mockProps: IProjectUsersViewProps = {
     history: {
@@ -302,6 +305,43 @@ describe("Project users view", () => {
       .find({open: true, headerTitle: "Add user to this project"});
     expect(addUserModal)
       .toHaveLength(0);
+    expect(msgSuccess)
+      .toHaveBeenCalled();
+  });
+
+  it("should remove user from the project", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: REMOVE_USER_MUTATION,
+        variables: {
+          projectName: "TEST",
+          userEmail: "user@gmail.com",
+        },
+      },
+      result: { data: { removeUserAccess : { success: true, removedEmail: "user@gmail.com" } } },
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_user__do_remove_user_access" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <ProjectUsersView {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const userInfo: ReactWrapper = wrapper.find("tr")
+      .findWhere((element: ReactWrapper) => element.contains("user@gmail.com"))
+      .at(0);
+    userInfo.simulate("click");
+    const removeButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Remove"))
+      .at(0);
+    removeButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(msgSuccess)
       .toHaveBeenCalled();
   });
