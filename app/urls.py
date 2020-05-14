@@ -32,6 +32,7 @@ def api_dispatcher(request):
         response = HttpResponse()
     else:
         response = verify_csrf(APIView.as_view(schema=SCHEMA))(request)
+        response['Content-Type'] += '; charset=utf-8'
 
     response['Access-Control-Allow-Origin'] = '*'
     response['Access-Control-Allow-Headers'] = '*'
