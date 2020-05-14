@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+# pylint: disable=too-many-lines
 """This module provide tools to convert Cloudformation templates in graphs."""
 
 # standar imports
@@ -132,7 +134,7 @@ class Batcher():
                 f" {attr_properties})\n"
                 # create relationship between attribute and parameter
                 f"MERGE (param_{alias_param})-"
-                f"[rel_{alias_param}_{alias_attr_name}:HAS_ATTRIBUTES]->"
+                f"[rel_{alias_param}_{alias_attr_name}:HAS_ATTRIBUTE]->"
                 f"({alias_param}_{alias_attr_name}_)\n"
                 f"SET rel_{alias_param}_{alias_attr_name}.line ="
                 f" $param_{alias_param}_{alias_attr_name}_line\n")
@@ -396,39 +398,33 @@ class Batcher():
         contexts = contexts or set([])
         contexts_str = ', '.join(contexts)
         statement = f"WITH {contexts_str}\n"
-        if func_name == 'Fn::Base64':
-            statement += self._fn_base64(resource_alias, attrs, contexts,
-                                         **kwargs)
-        elif func_name == 'Ref':
-            statement += self._fn_reference(resource_alias, attrs, contexts,
-                                            line, **kwargs)
-        elif func_name == 'Fn::GetAtt':
-            statement += self._fn_getatt(resource_alias, attrs, contexts,
-                                         **kwargs)
-        elif func_name == 'Fn::Cidr':
-            statement += self._fn_cidr(resource_alias, attrs, contexts,
-                                       **kwargs)
-        elif func_name == 'Fn::GetAZs':
-            statement += self._fn_get_azs(resource_alias, attrs, contexts,
-                                          **kwargs)
-        elif func_name == 'Fn::FindInMap':
-            statement += self._fn_find_in_map(resource_alias, attrs, contexts,
-                                              **kwargs)
-        elif func_name == 'Fn::Sub':
-            statement += self._fn_sub(resource_alias, attrs, contexts,
-                                      **kwargs)
-        elif func_name == 'Fn::Join':
-            statement += self._fn_join(resource_alias, attrs, contexts,
-                                       **kwargs)
+        functions = {
+            'Fn::Base64': self._fn_base64,
+            'Ref': self._fn_reference,
+            'Fn::GetAtt': self._fn_getatt,
+            'Fn::Cidr': self._fn_cidr,
+            'Fn::GetAZs': self._fn_get_azs,
+            'Fn::FindInMap': self._fn_find_in_map,
+            'Fn::Sub': self._fn_sub,
+            'Fn::Join': self._fn_join,
+            'Fn::Split': self._fn_split,
+            'Fn::Select': self._fn_select,
+            'Fn::Transform': self._fn_transform,
+        }
+
+        if functions.get(func_name, None):
+            statement += functions.get(func_name)(resource_alias, attrs,
+                                                  contexts, line, **kwargs)
         elif func_name in CONDITIONAL_FUNCS:
             statement += self._fn_conditional(func_name, resource_alias, attrs,
-                                              contexts, **kwargs)
+                                              contexts, line, **kwargs)
         return statement
 
     def _fn_base64(self,
                    resource_id,
                    attrs,
                    contexts: set = None,
+                   line='unknown',
                    **rel_kwargs):
         """Create a statement to load intrinsic function Fn::Base64."""
         contexts = contexts or set({})
@@ -793,6 +789,153 @@ class Batcher():
                     alias_fn, func_name, value[func_name], contexts, line, **{
                         f'value{idx+1}': True
                     })
+
+        if rel_kwargs:
+            contexts.add(rel_resource)
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
+
+        return statement
+
+    def _fn_split(self,
+                  resource_id: str,
+                  attrs,
+                  contexts: set = None,
+                  line='unknown',
+                  **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::Split."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_split", True)
+        contexts.add(alias_fn)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        contexts_str = ', '.join(contexts)
+        statement = (f"CREATE ({alias_fn}:Fn:Split)\n"
+                     f"SET {alias_fn}.delimiter = ${alias_fn}_delimiter\n"
+                     f"WITH {contexts_str}\n"
+                     f"CREATE ({resource_id})-"
+                     f"[{rel_resource}:EXECUTE_FN]->({alias_fn})"
+                     f"SET {rel_resource}.line = ${rel_resource}_line\n")
+        self.statement_params[f'{alias_fn}_delimiter'] = attrs[0]
+        self.statement_params[f'{rel_resource}_line'] = line
+
+        if isinstance(attrs[1], (str, bool, int)):
+            statement += (f"SET {alias_fn}.source_string = ${alias_fn}_val\n")
+            self.statement_params[f'{alias_fn}_val'] = attrs[1]
+        else:
+            func_name = list(attrs[1].keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn, func_name, attrs[1][func_name], contexts, line)
+
+        if rel_kwargs:
+            contexts.add(rel_resource)
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
+
+        return statement
+
+    def _fn_select(self,
+                   resource_id: str,
+                   attrs,
+                   contexts: set = None,
+                   line='unknown',
+                   **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::Select."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_select", True)
+        contexts.add(alias_fn)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        contexts_str = ', '.join(contexts)
+        statement = (f"CREATE ({alias_fn}:Fn:Select)\n"
+                     f"WITH {contexts_str}\n"
+                     f"CREATE ({resource_id})-"
+                     f"[{rel_resource}:EXECUTE_FN]->({alias_fn})"
+                     f"SET {rel_resource}.line = ${rel_resource}_line\n")
+        self.statement_params[f'{rel_resource}_line'] = line
+
+        if isinstance(attrs[0], (str, int)):
+            statement += (f"SET {alias_fn}.index = ${alias_fn}_val\n")
+            self.statement_params[f'{alias_fn}_val'] = attrs[0]
+        else:
+            func_name = list(attrs[0].keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn,
+                func_name,
+                attrs[0][func_name],
+                contexts,
+                line,
+                index=True)
+
+        if isinstance(attrs[1], (OrderedDict, CustomDict)):
+            func_name = list(attrs[1].keys())[0]
+            statement += self.load_intrinsic_func(
+                alias_fn,
+                func_name,
+                attrs[1][func_name],
+                contexts,
+                line,
+                index=True)
+
+        elif isinstance(attrs[1], list):
+            for idx, value in enumerate(attrs[1]):
+                if isinstance(value, (str, bool, int)):
+                    statement += (f"SET {alias_fn}.value{idx+1} ="
+                                  f" ${alias_fn}_val{idx+1}\n")
+                    self.statement_params[f'{alias_fn}_val{idx+1}'] = value
+                else:
+                    func_name = list(value.keys())[0]
+                    statement += self.load_intrinsic_func(
+                        alias_fn, func_name, value[func_name], contexts, line,
+                        **{
+                            f'value{idx+1}': True
+                        })
+
+        if rel_kwargs:
+            contexts.add(rel_resource)
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
+
+        return statement
+
+    def _fn_transform(self,
+                      resource_id: str,
+                      attrs,
+                      contexts: set = None,
+                      line='unknown',
+                      **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::Transform."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_transform", True)
+        contexts.add(alias_fn)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        contexts_str = ', '.join(contexts)
+        statement = (f"CREATE ({alias_fn}:Fn:Transform)\n"
+                     f"SET {alias_fn}.Name = ${alias_fn}_name\n"
+                     f"WITH {contexts_str}\n"
+                     f"CREATE ({resource_id})-"
+                     f"[{rel_resource}:EXECUTE_FN]->({alias_fn})\n"
+                     f"SET {rel_resource}.line = ${rel_resource}_line\n")
+        self.statement_params[f'{rel_resource}_line'] = line
+        self.statement_params[f'{alias_fn}_name'] = attrs['Name']
+        alias_params = create_alias(f'{alias_fn}_parameters', True)
+        statement += (
+            f"CREATE ({alias_fn})-[:HAS]->({alias_params}:Parameters)\n")
+
+        for key, value in attrs['Parameters'].items():
+            if key.startswith('__'):
+                continue
+            param_alias = create_alias(f'{alias_params}_{key}', True)
+            statement += (
+                f"CREATE ({alias_params})-[:HAS_ATTRIBUTE]->"
+                f"({param_alias}:FnAttribute {{name: ${param_alias}_name}})\n")
+            self.statement_params[f'{param_alias}_name'] = key
+            if isinstance(value, (str, int, bool)):
+                statement += (
+                    f"SET {param_alias}.value = ${param_alias}_val\n")
+                self.statement_params[f'{param_alias}_val'] = value
+            else:
+                func_name = list(value.keys())[0]
+                statement += self.load_intrinsic_func(
+                    alias_fn, func_name, value[func_name], contexts, line)
 
         if rel_kwargs:
             contexts.add(rel_resource)
