@@ -34,7 +34,7 @@ from backend.services import (
     has_responsibility, has_phone_number,
     has_access_to_project
 )
-from backend.utils import authorization as authorization_utils
+from backend import authz
 from backend.utils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_email_address, validate_alphanumeric_field, validate_phone_field
@@ -251,10 +251,9 @@ async def _do_add_user(_, info, **parameters) -> AddUserPayloadType:
     new_user_email = parameters.get('email', '')
     new_user_role = parameters.get('role', '')
 
-    allowed_roles_to_grant = \
-        await authorization_utils.get_user_level_roles_a_user_can_grant(
-            requester_email=user_email,
-        )
+    allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
+        requester_email=user_email,
+    )
 
     if new_user_role in allowed_roles_to_grant:
         if await sync_to_async(user_domain.create_without_project)(parameters):
@@ -296,7 +295,7 @@ async def _do_grant_user_access(
     new_user_email = query_args.get('email', '')
 
     allowed_roles_to_grant = \
-        await authorization_utils.get_group_level_roles_a_user_can_grant(
+        await authz.get_group_level_roles_a_user_can_grant(
             group=project_name,
             requester_email=user_email,
         )
@@ -388,7 +387,7 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     user_email = user_data['user_email']
 
     allowed_roles_to_grant = \
-        await authorization_utils.get_group_level_roles_a_user_can_grant(
+        await authz.get_group_level_roles_a_user_can_grant(
             group=project_name,
             requester_email=user_email,
         )

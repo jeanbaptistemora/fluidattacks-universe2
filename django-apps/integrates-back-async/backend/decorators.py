@@ -27,11 +27,7 @@ from backend.domain import (
 from backend.services import (
     has_valid_access_token
 )
-
-from backend import util
-from backend.utils import (
-    authorization as authorization_utils
-)
+from backend import authz, util
 from backend.exceptions import InvalidAuthorization
 
 # Constants
@@ -149,7 +145,7 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> Callable[..., An
                     'action': action,
                 })
 
-        enforcer = authorization_utils.get_group_level_enforcer(subject)
+        enforcer = authz.get_group_level_enforcer(subject)
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
@@ -175,7 +171,7 @@ def enforce_user_level_auth_async(func: Callable[..., Any]) -> Callable[..., Any
         object_ = 'self'
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
-        enforcer = authorization_utils.get_user_level_enforcer(subject)
+        enforcer = authz.get_user_level_enforcer(subject)
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
@@ -216,7 +212,7 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 'Error: Empty fields in project', 'error', context)
             raise GraphQLError('Access denied')
 
-        enforcer = authorization_utils.get_group_access_enforcer()
+        enforcer = authz.get_group_access_enforcer()
 
         if not await enforcer(user_data, project_name):
             util.cloudwatch_log(
@@ -256,7 +252,7 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 'Error: Invalid finding id format', 'error', context)
             raise GraphQLError('Invalid finding id format')
 
-        enforcer = authorization_utils.get_group_access_enforcer()
+        enforcer = authz.get_group_access_enforcer()
 
         if not await enforcer(user_data, finding_project):
             util.cloudwatch_log(
@@ -296,7 +292,7 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 'Error: Invalid event id format', 'error', context)
             raise GraphQLError('Invalid event id format')
 
-        enforcer = authorization_utils.get_group_access_enforcer()
+        enforcer = authz.get_group_access_enforcer()
 
         if not await enforcer(user_data, event_project):
             util.cloudwatch_log(

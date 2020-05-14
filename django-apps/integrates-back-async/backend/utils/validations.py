@@ -2,12 +2,13 @@ import re
 from typing import List
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+
+from backend import authz
 from backend.exceptions import (
     InvalidField,
     InvalidFieldLength,
     UnexpectedUserRole,
 )
-from backend.utils import authorization as authz_utils
 
 # Constants
 FLUIDATTACKS_EMAIL_SUFFIX = '@fluidattacks.com'
@@ -15,11 +16,11 @@ FLUIDATTACKS_EMAIL_SUFFIX = '@fluidattacks.com'
 
 async def validate_fluidattacks_staff_on_group(group, email, role) -> bool:
     """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
-    enforcer = authz_utils.get_group_service_attributes_enforcer(group)
+    enforcer = authz.get_group_service_attributes_enforcer(group)
 
     is_user_at_fluidattacks: bool = email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
     user_has_hacker_role: bool = \
-        role in authz_utils.get_group_level_roles_with_tag('drills')
+        role in authz.get_group_level_roles_with_tag('drills')
 
     group_must_only_have_fluidattacks_hackers: bool = \
         await enforcer(group, 'must_only_have_fluidattacks_hackers')

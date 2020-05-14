@@ -19,8 +19,8 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
-from backend.utils import authorization as authorization_utils
 from backend import util
+from backend import authz
 
 from django.conf import settings
 from google.auth.transport import requests
@@ -86,13 +86,14 @@ async def _get_permissions(
     """Get the actions the user is allowed to perform."""
     subject = user_email
     object_ = project_name.lower() if project_name else 'self'
-    enforcer = \
-        authorization_utils.get_group_level_enforcer(subject) \
-        if project_name else \
-        authorization_utils.get_user_level_enforcer(subject)
+    enforcer = (
+        authz.get_group_level_enforcer(subject)
+        if project_name
+        else authz.get_user_level_enforcer(subject)
+    )
     permissions = tuple([
         action
-        for action in authorization_utils.ALL_ACTIONS
+        for action in authz.ALL_ACTIONS
         if await enforcer(subject, object_, action)])
     return permissions
 

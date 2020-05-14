@@ -7,7 +7,7 @@ from backend.domain.user import (
     grant_group_level_role,
     grant_user_level_role,
 )
-from backend.utils.authorization import (
+from backend.authz import (
     get_cached_group_service_attributes_policies,
     get_group_access_enforcer,
     get_group_level_enforcer,

@@ -7,9 +7,8 @@ from backend.typing import User as UserType
 from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
-from backend.utils import (
-    authorization as authorization_util
-)
+from backend import authz
+
 VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin',
                          'group_manager', 'internal_manager'}
 
@@ -42,7 +41,7 @@ def grant_user_level_role(email: str, role: str) -> bool:
     )
 
     return user_dal.put_subject_policy(policy) \
-        and authorization_util.revoke_cached_subject_policies(email)
+        and authz.revoke_cached_subject_policies(email)
 
 
 def grant_group_level_role(email: str, group: str, role: str) -> bool:
@@ -61,13 +60,13 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
 
     # If there is no user-level role for this user add one
     if not get_user_level_role(email):
-        user_level_roles = authorization_util.ROLES['user_level']
+        user_level_roles = authz.ROLES['user_level']
         user_level_role: str = role if role in user_level_roles else 'customer'
         success = success and grant_user_level_role(email, user_level_role)
 
     return success \
         and user_dal.put_subject_policy(policy) \
-        and authorization_util.revoke_cached_subject_policies(email)
+        and authz.revoke_cached_subject_policies(email)
 
 
 def revoke_group_level_role(email: str, group: str) -> bool:
@@ -75,7 +74,7 @@ def revoke_group_level_role(email: str, group: str) -> bool:
     subject: str = email
     object_: str = group
     return user_dal.delete_subject_policy(subject, object_) \
-        and authorization_util.revoke_cached_subject_policies(subject)
+        and authz.revoke_cached_subject_policies(subject)
 
 
 def add_phone_to_user(email: str, phone: str) -> bool:
