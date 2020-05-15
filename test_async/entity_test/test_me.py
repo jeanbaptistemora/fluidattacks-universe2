@@ -78,8 +78,7 @@ class MeTests(TestCase):
             mutation {
                 signIn(
                     authToken: "badtoken",
-                    provider: "google",
-                    pushToken: "badpushtoken"
+                    provider: "google"
                 ) {
                     authorized
                     sessionJwt

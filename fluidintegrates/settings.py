@@ -15,8 +15,6 @@ import subprocess
 import sys
 from uuid import uuid4
 
-import i18n
-
 from boto3.session import Session
 from botocore.exceptions import ClientError
 
@@ -159,13 +157,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
-i18n.set('file_format', 'json')
-i18n.set('locale', 'en')
-i18n.set('fallback', 'en')
-i18n.set('skip_locale_root_data', True)
-i18n.set('filename_format', '{locale}.{format}')
-i18n.set('load_path', [os.path.join(
-    os.path.dirname(__file__), 'translations/')])
 
 USE_L10N = True
 

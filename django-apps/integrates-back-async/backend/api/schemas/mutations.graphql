@@ -271,8 +271,7 @@ type Mutation {
     ): SimplePayload!
     signIn(
         authToken: String!,
-        provider: String!,
-        pushToken: String
+        provider: String!
     ): SignInPayload!
 
     invalidateCache(pattern: String!): SimplePayload!

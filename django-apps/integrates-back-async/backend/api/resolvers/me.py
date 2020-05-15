@@ -10,7 +10,6 @@ from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
 from backend.domain import tag as tag_domain
 from backend.exceptions import InvalidExpirationTime
-from backend.dal import user as user_dal
 from backend.typing import (
     Me as MeType,
     Project as ProjectType,
@@ -189,8 +188,8 @@ async def resolve_me_mutation(obj, info, **parameters):
     return await resolver_func(obj, info, **parameters)
 
 
-async def _do_sign_in(_, info, auth_token: str, provider: str,
-                      push_token: str) -> SignInPayloadType:
+async def _do_sign_in(
+        _, info, auth_token: str, provider: str) -> SignInPayloadType:
     """Resolve sign_in mutation."""
     authorized = False
     session_jwt = ''
@@ -215,11 +214,6 @@ async def _do_sign_in(_, info, auth_token: str, provider: str,
                 raise GraphQLError('INVALID_AUTH_TOKEN')
             email = user_info['email']
             authorized = await sync_to_async(user_domain.is_registered)(email)
-            if push_token:
-                await \
-                    sync_to_async(user_dal.update)(
-                        email, {'devices_to_notify': set(push_token)}
-                    )
             session_jwt = jwt.encode(
                 {
                     'user_email': email,

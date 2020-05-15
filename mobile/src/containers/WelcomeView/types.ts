@@ -6,7 +6,6 @@ import { GoogleUser } from "expo-google-app-auth";
 export interface IAuthResult {
   authProvider: string;
   authToken: string;
-  pushToken: string;
   userInfo: GoogleUser;
 }
 

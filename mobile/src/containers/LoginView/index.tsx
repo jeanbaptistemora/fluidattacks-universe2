@@ -16,7 +16,6 @@ import {
   GOOGLE_LOGIN_KEY_IOS_DEV,
   GOOGLE_LOGIN_KEY_IOS_PROD,
 } from "../../utils/constants";
-import { getPushToken } from "../../utils/notifications";
 import { rollbar } from "../../utils/rollbar";
 import { checkVersion } from "../../utils/version";
 
@@ -72,7 +71,6 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
         history.replace("/Welcome", {
           authProvider: "google",
           authToken: String(result.idToken),
-          pushToken: await getPushToken(),
           userInfo: result.user,
         });
       } else {
