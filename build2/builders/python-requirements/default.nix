@@ -15,5 +15,7 @@ path:
         setuptools
         pip
       ]))
+      pkgs.postgresql
+      pkgs.unixODBC
     ];
   }

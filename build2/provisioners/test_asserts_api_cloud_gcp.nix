@@ -11,8 +11,6 @@ in
     // (rec {
       name = "builder";
 
-      inherit odbcIniContents;
-
       buildInputs = [
         pkgs.git
         pkgs.gnupg
