@@ -26,7 +26,7 @@ import { dropdownField, textAreaField, textField } from "../../../../utils/forms
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { numeric, required, validDraftTitle } from "../../../../utils/validations";
+import { numeric, required, validDraftTitle, validTextField } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
 import { UpdateVerificationModal } from "../../components/UpdateVerificationModal";
@@ -254,7 +254,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                         component={textField}
                         name="title"
                         type="text"
-                        validate={[required, validDraftTitle]}
+                        validate={[required, validDraftTitle, validTextField]}
                       />
                     </FormGroup>
                   </Col>
@@ -272,7 +272,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="description"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={required}
+                      validate={[required, validTextField]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -290,7 +290,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="requirements"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={required}
+                      validate={[required, validTextField]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -330,7 +330,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="attackVectorDesc"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={required}
+                      validate={[required, validTextField]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -346,7 +346,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="affectedSystems"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={required}
+                      validate={[required, validTextField]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -364,7 +364,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="threat"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={required}
+                      validate={[required, validTextField]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -398,7 +398,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="recommendation"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={required}
+                      validate={[required, validTextField]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
