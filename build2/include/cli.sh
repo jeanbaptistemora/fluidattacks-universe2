@@ -14,7 +14,7 @@ function cli {
       || test "${function_to_call}" = '--help'
   then
     echo
-    echo "Use: ./build.sh [job-name]"
+    echo "Use: ./build2.sh [job-name]"
     echo
     echo 'List of jobs:'
     helper_list_declared_jobs | sed -e 's/^/  * /g'
@@ -36,7 +36,7 @@ function cli {
     echo
     echo 'We have found some problems :('
     echo '  You can replicate this by running:'
-    echo "    services $ ./build.sh ${function_to_call}"
+    echo "    asserts $ ./build.sh ${function_to_call}"
     return 1
   fi
 }

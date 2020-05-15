@@ -63,6 +63,7 @@ sphinx/source/example/*.out
 ephemeral-runner*
 secrets/development.sh
 secrets/production.sh
+TEMP_FD
 
 # Build
 ephemeral-test-runner*

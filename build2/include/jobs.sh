@@ -9,7 +9,7 @@ function job_build_nix_caches {
   local provisioners
 
       helper_use_pristine_workdir \
-  &&  provisioners=(./build/provisioners/*) \
+  &&  provisioners=(./build2/provisioners/*) \
   &&  helper_build_nix_caches_parallel \
   &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
       do
@@ -22,4 +22,12 @@ function job_build_nix_caches {
               'PROVISIONER' "${provisioner}" \
         ||  return 1
       done
+}
+
+function job_test_asserts_api_cloud_aws_cloudformation {
+  local marker_name='cloud_aws_cloudformation'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
 }

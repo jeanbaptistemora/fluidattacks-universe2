@@ -116,9 +116,6 @@ test_commit_message:
 .test_api_cloud_aws_api:
   <<: *test_template
 
-test_api_cloud_aws_cloudformation:
-  <<: *test_template
-
 test_api_cloud_aws_terraform:
   <<: *test_template
 
@@ -247,3 +244,18 @@ danger:
     - npm install --unsafe-perm
   script:
     - danger --verbose --fail-on-errors=true
+
+# Build2
+
+.with_nix_2: &with_nix_2
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/nix:$CI_JOB_NAME"
+  needs: []
+  script:
+    - ./build2.sh "${CI_JOB_NAME% *}"
+  interruptible: true
+
+test_asserts_api_cloud_aws_cloudformation:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test

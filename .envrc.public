@@ -1,3 +1,35 @@
 export CACHIX_CACHE_NAME='fluidattacks-asserts'
 export CI_REGISTRY_IMAGE='registry.gitlab.com/fluidattacks/asserts'
 export DOCKER_HUB_URL='https://index.docker.io/v1/'
+
+export CI_PROJECT_NAME='asserts'
+export CI_PROJECT_NAMESPACE='fluidattacks'
+export CI_PROJECT_URL="https://gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
+export CI_REGISTRY='registry.gitlab.com'
+export CI_REGISTRY_IMAGE="${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
+export FALSE=''
+export TRUE='true'
+export NIX_YES='1'
+export NIX_NO='0'
+
+export NIXPKGS_ALLOW_UNFREE="${NIX_YES}"
+
+export CI
+export CI_COMMIT_REF_NAME
+export CI_COMMIT_BEFORE_SHA
+export CI_COMMIT_SHA
+export CI_NODE_INDEX
+export CI_NODE_TOTAL
+
+test -n "${CI:-}" \
+  || CI=''
+test -n "${CI_COMMIT_REF_NAME:-}" \
+  || CI_COMMIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
+test -n "${CI_COMMIT_BEFORE_SHA:-}" \
+  || CI_COMMIT_BEFORE_SHA=$(git log -n 1 --format=%H HEAD~1)
+test -n "${CI_COMMIT_SHA:-}" \
+  || CI_COMMIT_SHA=$(git log -n 1 --format=%H HEAD)
+test -n "${CI_NODE_INDEX:-}" \
+  || CI_NODE_INDEX='1'
+test -n "${CI_NODE_TOTAL:-}" \
+  || CI_NODE_TOTAL='1'

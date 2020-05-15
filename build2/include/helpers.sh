@@ -92,3 +92,71 @@ function helper_list_vars_with_regex {
   local regex="${1}"
   printenv | grep -oP "${regex}" | sort
 }
+
+function helper_with_development_secrets {
+  export ENCRYPTION_KEY
+  helper_decrypt_and_source "${ENCRYPTION_KEY}" './secrets/development.sh.asc'
+}
+
+function helper_with_production_secrets {
+  export ENCRYPTION_KEY_PROD
+  helper_decrypt_and_source "${ENCRYPTION_KEY_PROD}" './secrets/production.sh.asc'
+}
+
+function helper_decrypt_and_source {
+  local encryption_key="${1}"
+  local encrypted_file="${2}"
+
+  echo "Unencrypting and sourcing: ${encrypted_file}"
+  # shellcheck disable=SC1090
+  source <( \
+    gpg \
+      --batch \
+      --passphrase-fd 0 \
+      --decrypt "${encrypted_file}" \
+    <<< "${encryption_key}")
+  echo
+}
+
+function helper_test_fluidasserts {
+  helper_with_development_secrets
+
+  local marker_name="${1}"
+
+  function mocks_ctl {
+    local action="${1}"
+    local marker_name="${2}"
+
+    pytest \
+        -m "${action}" \
+        --asserts-module "${marker_name}" \
+        --capture=no \
+        --no-cov \
+        --reruns 10 \
+        --reruns-delay 1 \
+      "test/test_others_${action}.py"
+  }
+  trap "mocks_ctl shutdown ${marker_name}" 'EXIT'
+
+  function compute_needed_test_modules_for {
+    grep -lrP "'${1}'" "test/test_"*
+  }
+
+  function execute_tests_for {
+    local marker_name="${1}"
+    local test_modules
+
+    mapfile -t test_modules \
+      < <(compute_needed_test_modules_for "${marker_name}")
+
+    pytest \
+        --cov-branch \
+        --asserts-module "${marker_name}" \
+        --random-order-bucket=global \
+      "${test_modules[@]}"
+  }
+
+  mocks_ctl prepare  "${marker_name}"
+
+  execute_tests_for "${marker_name}"
+}
