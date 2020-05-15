@@ -605,7 +605,7 @@ async def _do_add_tags(_, info, project_name: str,
             project_attrs = project_attrs['attrs']
             project_tags = cast(ProjectType, project_attrs.get('tag', {}))
             project_tags = {'tag': project_tags}
-            if not project_tags:
+            if not project_tags['tag']:
                 project_tags = {'tag': set(tags)}
             else:
                 cast(Set[str], project_tags.get('tag')).update(tags)
