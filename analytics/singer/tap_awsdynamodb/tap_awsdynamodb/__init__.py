@@ -476,7 +476,7 @@ def denest(table_name: str, kind: str) -> None:
         nested_obj_len: int = len(nested_obj)
 
         for forward_index, elem in enumerate(nested_obj):
-            backward_index: int = 1 + forward_index - nested_obj_len
+            backward_index: int = nested_obj_len - 1 - forward_index
 
             if kind in ["set", "list"]:
                 singer_record = denest__list_record(
