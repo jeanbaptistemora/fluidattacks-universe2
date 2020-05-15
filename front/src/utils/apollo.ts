@@ -137,47 +137,47 @@ const apiLink: ApolloLink = ApolloLink.split(
 
 // Top-level error handling
 const errorLink: ApolloLink =
-    onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
-      if (networkError !== undefined) {
-        const errorDetails: Dictionary | undefined = _.get(networkError, "extraInfo");
+  onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
+    if (networkError !== undefined) {
+      const errorDetails: Dictionary | undefined = _.get(networkError, "extraInfo");
 
-        if (_.isUndefined(errorDetails) || _.isUndefined(errorDetails.statusCode)) {
-          msgError(translate.t("proj_alerts.error_network"), "Offline");
-        } else {
-          const { statusCode } = errorDetails;
+      if (_.isUndefined(errorDetails) || _.isUndefined(errorDetails.statusCode)) {
+        msgError(translate.t("proj_alerts.error_network"), "Offline");
+      } else {
+        const { statusCode } = errorDetails;
 
-          switch (statusCode) {
-            case 403:
-              // Django CSRF expired
-              location.reload();
-              break;
-            default:
-              msgError(translate.t("proj_alerts.error_textsad"));
-              rollbar.error("A network error occurred", networkError);
-          }
+        switch (statusCode) {
+          case 403:
+            // Django CSRF expired
+            location.reload();
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("A network error occurred", networkError);
         }
-      } else if (graphQLErrors !== undefined) {
-        graphQLErrors.forEach(({ message }: GraphQLError) => {
-          if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
-            if (response !== undefined) {
-              response.data = {};
-              response.errors = [];
-            }
-            location.assign("/integrates/logout");
-          } else if ([
-            "Access denied",
-            "Exception - Event not found",
-            "Exception - Finding not found",
-            "Exception - Project does not exist",
-          ].includes(message)) {
-            if (response !== undefined) {
-              response.data = {};
-              response.errors = [];
-            }
-            msgError(translate.t("proj_alerts.access_denied"));
-          }
-        });
       }
+    } else if (graphQLErrors !== undefined) {
+      graphQLErrors.forEach(({ message }: GraphQLError) => {
+        if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
+          if (response !== undefined) {
+            response.data = {};
+            response.errors = [];
+          }
+          location.assign("/integrates/logout");
+        } else if ([
+          "Access denied",
+          "Exception - Event not found",
+          "Exception - Finding not found",
+          "Exception - Project does not exist",
+        ].includes(message)) {
+          if (response !== undefined) {
+            response.data = {};
+            response.errors = [];
+          }
+          msgError(translate.t("proj_alerts.access_denied"));
+        }
+      });
+    }
 });
 
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
