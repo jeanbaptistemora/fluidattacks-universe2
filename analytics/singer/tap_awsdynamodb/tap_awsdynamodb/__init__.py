@@ -473,13 +473,19 @@ def denest(table_name: str, kind: str) -> None:
 
     # records
     for source_id, nested_obj in records:
-        for elem in nested_obj:
+        nested_obj_len: int = len(nested_obj)
+
+        for forward_index, elem in enumerate(nested_obj):
+            backward_index: int = 1 + forward_index - nested_obj_len
+
             if kind in ["set", "list"]:
                 singer_record = denest__list_record(
-                    table_name, source_id, elem)
+                    table_name, source_id, elem,
+                    forward_index, backward_index)
             elif kind in ["list<dict>"]:
                 singer_record = denest__list_dict_record(
-                    table_name, source_id, elem)
+                    table_name, source_id, elem,
+                    forward_index, backward_index)
             logs.log_json_obj(f"{table_name}.stdout", singer_record)
             logs.stdout_json_obj(singer_record)
 
@@ -525,21 +531,32 @@ def denest__list_schema(
     """
 
     properties: Set[Tuple[str, str]] = set()
+    properties.add(('__forward_index', 'int'))
+    properties.add(('__backward_index', 'int'))
     for _, nested_obj in records:
         for elem in nested_obj:
             elem_type: str = type_as_string(elem)
             field_name: str = f"{table_name}__{elem_type}"
             properties.add((field_name, elem_type))
-    return {f: map_ptype(t) for f, t in properties if not t == 'NoneType'}
+
+    return {f: map_ptype(t) for f, t in properties if t != 'NoneType'}
 
 
-def denest__list_record(table_name: str, source_id: str, elem: JSON) -> JSON:
+def denest__list_record(
+    table_name: str,
+    source_id: str,
+    elem: JSON,
+    forward_index: int,
+    backward_index: int,
+) -> JSON:
     """Denests a set or list given its elements are any primitive types.
     """
 
     singer_record: JSON = denest__base_singer_record(table_name, source_id)
     field_name: str = f"{table_name}__{type_as_string(elem)}"
     singer_record["record"][field_name] = elem
+    singer_record['record']['__forward_index'] = forward_index
+    singer_record['record']['__backward_index'] = backward_index
     return singer_record
 
 
@@ -548,22 +565,28 @@ def denest__list_dict_schema(records: List[Tuple[str, JSON]]) -> JSON:
     """
 
     properties: Set[Tuple[str, str]] = set()
+    properties.add(('__forward_index', 'int'))
+    properties.add(('__backward_index', 'int'))
     for _, nested_obj in records:
         for elem in nested_obj:
             for field, value in elem.items():
                 value_type = type_as_string(value)
                 properties.add((f"{field}__{value_type}", value_type))
-    return {f: map_ptype(t) for f, t in properties if not t == 'NoneType'}
+
+    return {f: map_ptype(t) for f, t in properties if t != 'NoneType'}
 
 
 def denest__list_dict_record(
         table_name: str,
         source_id: str,
-        elem: JSON) -> JSON:
+        elem: JSON,
+        forward_index: int,
+        backward_index: int) -> JSON:
     """Denests a list<dict> given its elements are any primitive types.
     """
-
     singer_record: JSON = denest__base_singer_record(table_name, source_id)
+    singer_record['record']['__forward_index'] = forward_index
+    singer_record['record']['__backward_index'] = backward_index
     for field, value in elem.items():
         value_type: str = type_as_string(value)
         field_name: str = f"{field}__{value_type}"
