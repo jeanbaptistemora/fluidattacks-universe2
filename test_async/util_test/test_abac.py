@@ -13,11 +13,9 @@ from backend.authz import (
     get_group_level_enforcer,
     get_group_service_attributes_enforcer,
     get_user_level_enforcer,
+    GROUP_LEVEL_ROLES,
     SERVICE_ATTRIBUTES,
-)
-
-from backend.authz.model import (
-    REVIEWER_ACTIONS
+    USER_LEVEL_ROLES,
 )
 
 # Constants
@@ -231,7 +229,7 @@ class ActionAbacTest(TestCase):
     customeradminfluid_allowed_actions.update(customer_allowed_actions)
     customeradminfluid_allowed_actions.update(customeradmin_allowed_actions)
 
-    reviewer_allowed_actions = REVIEWER_ACTIONS
+    reviewer_allowed_actions = GROUP_LEVEL_ROLES['reviewer']['actions']
 
     def _grant_group_level_access(self, sub: str, obj: str, role: str):
         grant_group_level_role(sub, obj, role)

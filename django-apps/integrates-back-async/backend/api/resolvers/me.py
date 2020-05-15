@@ -85,16 +85,22 @@ async def _get_permissions(
         project_name: str = '') -> Tuple[str, ...]:
     """Get the actions the user is allowed to perform."""
     subject = user_email
-    object_ = project_name.lower() if project_name else 'self'
-    enforcer = (
-        authz.get_group_level_enforcer(subject)
-        if project_name
-        else authz.get_user_level_enforcer(subject)
-    )
+
+    if project_name:
+        roles = authz.GROUP_LEVEL_ROLES
+        object_ = project_name.lower()
+        enforcer = authz.get_group_level_enforcer(subject)
+    else:
+        roles = authz.USER_LEVEL_ROLES
+        object_ = 'self'
+        enforcer = authz.get_user_level_enforcer(subject)
+
     permissions = tuple([
         action
-        for action in authz.ALL_ACTIONS
+        for role_definition in roles.values()
+        for action in role_definition['actions']
         if await enforcer(subject, object_, action)])
+
     return permissions
 
 

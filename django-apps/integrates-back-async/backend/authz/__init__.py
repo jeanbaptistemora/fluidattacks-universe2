@@ -11,9 +11,9 @@ from .enforcer import (
     get_user_level_enforcer,
 )
 from .model import (
-    ALL_ACTIONS,
-    ROLES,
+    GROUP_LEVEL_ROLES,
     SERVICE_ATTRIBUTES,
+    USER_LEVEL_ROLES,
 )
 from .policy import (
     get_cached_group_service_attributes_policies,
@@ -34,9 +34,9 @@ __all__ = [
     'get_user_level_enforcer',
 
     # model
-    'ALL_ACTIONS',
-    'ROLES',
+    'GROUP_LEVEL_ROLES',
     'SERVICE_ATTRIBUTES',
+    'USER_LEVEL_ROLES',
 
     # policy
     'get_cached_group_service_attributes_policies',

@@ -10,21 +10,23 @@ from .policy import (
     get_cached_subject_policies,
 )
 from .model import (
-    ACTIONS,
+    GROUP_LEVEL_ROLES,
     SERVICE_ATTRIBUTES,
+    USER_LEVEL_ROLES,
 )
 
 
 def get_user_level_enforcer(subject: str) -> Callable[[str, str, str], Coroutine]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
+    roles = USER_LEVEL_ROLES
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
         should_grant_access: bool = any(
             p_level == 'user'
             and r_subject == p_subject
             and r_object == p_object
-            and r_action in ACTIONS.get(p_role, set())
+            and r_action in roles.get(p_role, {}).get('actions', set())
             for p_level, p_subject, p_object, p_role in policies
         )
 
@@ -51,13 +53,14 @@ def get_group_access_enforcer() -> Callable[[dict, str], Coroutine]:
 def get_group_level_enforcer(subject: str) -> Callable[[str, str, str], Coroutine]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
+    roles = GROUP_LEVEL_ROLES
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
         should_grant_access: bool = any(
             r_subject == p_subject
             and ((p_level == 'user' and p_role == 'admin') or
                  (p_level == 'group' and r_object == p_object))
-            and r_action in ACTIONS.get(p_role, set())
+            and r_action in roles.get(p_role, {}).get('actions', set())
             for p_level, p_subject, p_object, p_role in policies
         )
 

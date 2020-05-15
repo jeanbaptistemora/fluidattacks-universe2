@@ -10,7 +10,8 @@ from .enforcer import (
     get_user_level_enforcer,
 )
 from .model import (
-    ROLES
+    GROUP_LEVEL_ROLES,
+    USER_LEVEL_ROLES,
 )
 
 
@@ -23,7 +24,7 @@ async def get_user_level_roles_a_user_can_grant(
 
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
-        for role in ROLES['user_level']
+        for role in USER_LEVEL_ROLES
         if await enforcer(
             requester_email, 'self', f'grant_user_level_role:{role}'
         )
@@ -42,7 +43,7 @@ async def get_group_level_roles_a_user_can_grant(
 
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
-        for role in ROLES['group_level']
+        for role in GROUP_LEVEL_ROLES
         if await enforcer(
             requester_email, group, f'grant_group_level_role:{role}'
         )
@@ -52,4 +53,8 @@ async def get_group_level_roles_a_user_can_grant(
 
 
 def get_group_level_roles_with_tag(tag: str) -> Set[str]:
-    return {role for role, tags in ROLES['group_level'].items() if tag in tags}
+    return {
+        role_name
+        for role_name, role_definition in GROUP_LEVEL_ROLES.items()
+        if tag in role_definition.get('tags', [])
+    }

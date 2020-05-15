@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict, List, Union, cast, Set
+from typing import Dict, List, Union, cast
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
@@ -8,9 +8,6 @@ from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
 from backend import authz
-
-VALID_ROLES: Set[str] = {'analyst', 'customer', 'customeradmin', 'admin',
-                         'group_manager', 'internal_manager', 'reviewer'}
 
 
 def get_user_level_role(email: str) -> str:
@@ -30,7 +27,7 @@ def get_group_level_role(email: str, group: str) -> str:
 
 def grant_user_level_role(email: str, role: str) -> bool:
     """Grant a user-level role to a user."""
-    if role not in VALID_ROLES:
+    if role not in authz.USER_LEVEL_ROLES:
         raise ValueError(f'Invalid role value: {role}')
 
     policy = user_dal.SUBJECT_POLICY(
@@ -46,7 +43,7 @@ def grant_user_level_role(email: str, role: str) -> bool:
 
 def grant_group_level_role(email: str, group: str, role: str) -> bool:
     """Grant a group-level role to a user."""
-    if role not in VALID_ROLES:
+    if role not in authz.GROUP_LEVEL_ROLES:
         raise ValueError(f'Invalid role value: {role}')
 
     policy = user_dal.SUBJECT_POLICY(
@@ -60,8 +57,8 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
 
     # If there is no user-level role for this user add one
     if not get_user_level_role(email):
-        user_level_roles = authz.ROLES['user_level']
-        user_level_role: str = role if role in user_level_roles else 'customer'
+        user_level_role: str = \
+            role if role in authz.USER_LEVEL_ROLES else 'customer'
         success = success and grant_user_level_role(email, user_level_role)
 
     return success \
