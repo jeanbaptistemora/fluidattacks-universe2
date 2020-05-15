@@ -189,7 +189,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                         const matchingSuggestion: ISuggestion = suggestions.filter((
                           suggestion: ISuggestion): boolean => suggestion.title === values.title)[0];
 
-                        createDraft({ variables: { title: values.title, projectName, ...matchingSuggestion } })
+                        createDraft({ variables: { ...matchingSuggestion, title: values.title, projectName } })
                           .catch();
                       };
 

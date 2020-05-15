@@ -177,10 +177,10 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
     closeUserModal();
     if (userModalType === "add") {
-      grantUserAccess({ variables: { projectName, ...values } })
+      grantUserAccess({ variables: {...values, projectName } })
         .catch();
     } else {
-      editUser({ variables: { projectName, ...values } })
+      editUser({ variables: {...values, projectName } })
         .catch();
     }
   };
