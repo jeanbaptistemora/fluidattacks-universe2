@@ -275,7 +275,6 @@ function job_deploy_mobile_ota {
 }
 
 function job_deploy_mobile_playstore {
-  export LC_ALL=en_US.UTF-8
   export LANG=en_US.UTF-8
 
   if  helper_have_any_file_changed \
@@ -298,7 +297,7 @@ function job_deploy_mobile_playstore {
             --aab ./output/integrates.aab \
             --json_key ./playstore-credentials.json \
             --package_name "com.fluidattacks.integrates" \
-            --track internal \
+            --track production \
       &&  rm playstore-credentials.json \
     &&  popd \
     ||  return 1
