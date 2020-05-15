@@ -11,6 +11,7 @@ in
 
       buildInputs = [
         pkgs.awscli
+        pkgs.cacert
         pkgs.git
         pkgs.ruby
         pkgs.sops
