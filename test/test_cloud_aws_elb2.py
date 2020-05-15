@@ -44,6 +44,13 @@ def test_has_access_logging_disabled_open():
         AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_listeners_not_using_https_open():
+    """Test elb2.listener_not_using_https."""
+    assert elb2.listeners_not_using_https(
+        AWS_ACCESS_KEY_ID,
+        AWS_SECRET_ACCESS_KEY).is_open()
+
+
 def test_has_not_deletion_protection_unknown():
     """Test elb2.has_not_deletion_protection."""
     with no_connection():
