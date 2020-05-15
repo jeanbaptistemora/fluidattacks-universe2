@@ -185,7 +185,7 @@ describe("Add user modal", () => {
     expect(organizationInput.prop("value"))
       .toEqual("unittesting");
     expect(phoneNumberInput.prop("value"))
-      .toEqual("+573123210123");
+      .toEqual("+57 (312) 321 0123");
     expect(responsibilityInput.prop("value"))
       .toEqual("edited");
   });

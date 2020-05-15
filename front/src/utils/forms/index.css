@@ -93,7 +93,7 @@
 
 .formControl {
   display: block;
-  width: 100%;
+  width: 100% !important;
   height: 44px;
   padding: 10px 12px;
   font-size: 16px !important;
@@ -101,7 +101,7 @@
   color: #777777;
   background-color: #FFFFFF;
   background-image: none;
-  border: 2px solid #EAEAEA;
+  border: 2px solid #EAEAEA !important;
   border-radius: 0 !important;
   box-shadow: none;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -137,10 +137,6 @@
   text-align: center;
   background-color: #777777;
   border-radius: 10px;
-}
-
-.phone_number {
-  padding-left: 50px;
 }
 
 .suggestionList {

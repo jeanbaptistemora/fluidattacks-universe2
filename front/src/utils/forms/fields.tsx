@@ -10,13 +10,11 @@ import { default as Datetime } from "react-datetime";
  * to display properly even if some of them are overridden later
  */
 import "react-datetime/css/react-datetime.css";
-/**
- * Disabling here is necessary because
- * there are currently no available type definitions for
- * neither this nor any other 3rd-party react phone input components
+import PhoneInput, { PhoneInputProps } from "react-phone-input-2";
+/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
+ * Necessary to import react-phone-input-2 default styles
  */
-// @ts-ignore
-import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 import { Tag, WithContext as ReactTags } from "react-tag-input";
 import { WrappedFieldProps } from "redux-form";
 import { default as style } from "./index.css";
@@ -100,7 +98,7 @@ export const tagInputField: React.FC<tagFieldProps> =
     const onMount: (() => void) = (): void => {
       const tags: Tag[] = fieldProps.input.value.split(",")
         .filter((inputTag: string) => !_.isEmpty(inputTag))
-        .map((inputTag: string) => ({id: inputTag.trim(), text: inputTag.trim()}));
+        .map((inputTag: string) => ({ id: inputTag.trim(), text: inputTag.trim() }));
       setTagsInput(tags);
     };
     React.useEffect(onMount, []);
@@ -120,7 +118,7 @@ export const tagInputField: React.FC<tagFieldProps> =
       newTags = newTags.filter((_0: Tag, indexFilter: number) => indexFilter !== index);
       const deletedTags: string = tagsInput.reduce(
         (tagValue: string, currentTag: Tag, indexFilter: number) =>
-        (indexFilter === index ? currentTag.text : tagValue),
+          (indexFilter === index ? currentTag.text : tagValue),
         "");
       setTagsInput(newTags);
       onDeletion(deletedTags);
@@ -137,7 +135,8 @@ export const tagInputField: React.FC<tagFieldProps> =
     };
     const keyCodes: Dictionary<number> = { comma: 188, enter: 13, space: 32 };
     const styles: Dictionary<string> = {
-      remove: style.tagRemove, tag: style.inputTags, tagInput: style.tagInput, tagInputField: style.formControl };
+      remove: style.tagRemove, tag: style.inputTags, tagInput: style.tagInput, tagInputField: style.formControl,
+    };
 
     return (
       <ReactTags
@@ -155,17 +154,21 @@ export const tagInputField: React.FC<tagFieldProps> =
     );
   };
 
-export const phoneNumberField: React.FC<CustomFieldProps> =
-  (fieldProps: CustomFieldProps): JSX.Element => (
-    <ReactPhoneInput
-      defaultCountry="co"
-      inputClass={`${style.formControl} ${style.phone_number}`}
-      inputExtraProps={{ type: "" }}
-      onChange={fieldProps.input.onChange}
+export const phoneNumberField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
+  const handlePhoneChange: PhoneInputProps["onChange"] = (value: string): void => {
+    fieldProps.input.onChange(`+${value}`);
+  };
+
+  return (
+    <PhoneInput
+      country="co"
+      masks={{ co: "(...) ... ...." }}
+      inputClass={style.formControl}
+      onChange={handlePhoneChange}
       value={fieldProps.input.value}
-      {...fieldProps}
     />
   );
+};
 
 export const dropdownField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
   const handleDropdownChange: React.FormEventHandler<FormControl> = (event: React.FormEvent<FormControl>): void => {
