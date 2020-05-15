@@ -1,6 +1,10 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import CircularProgressbar, { ProgressbarClasses } from "react-circular-progressbar";
+import { CircularProgressbar } from "react-circular-progressbar";
+/* tslint:disable-next-line: no-submodule-imports
+ * Necessary because react-circular-progressbar doesn't export its props indexed
+ */
+import { CircularProgressbarDefaultProps } from "react-circular-progressbar/dist/types";
 import { default as calendarIcon } from "../../../../resources/calendar.svg";
 import { default as defaultIcon } from "../../../../resources/default_finding_state.svg";
 import { default as failIcon } from "../../../../resources/fail.svg";
@@ -39,7 +43,7 @@ const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps
             : "NONE";
   const { color: severityColor, text: severityText } = severityConfigs[severityLevel];
   const { icon: statusIcon, text: statusText } = statusConfigs[props.status];
-  const severityStyles: ProgressbarClasses = {
+  const severityStyles: CircularProgressbarDefaultProps["classes"] = {
     background: style.severityCircleBg,
     path: style.severityCirclePath,
     root: style.severityCircle,
@@ -55,9 +59,8 @@ const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps
             <Row>
               <Col md={3} sm={6} xs={6} className={style.headerIcon}>
                 <CircularProgressbar
-                  percentage={props.severity / 10 * 100}
+                  value={props.severity / 10 * 100}
                   text={`${props.severity}`}
-                  initialAnimation={true}
                   styles={{ text: { fill: severityColor }, path: { stroke: severityColor } }}
                   classes={severityStyles}
                 />
