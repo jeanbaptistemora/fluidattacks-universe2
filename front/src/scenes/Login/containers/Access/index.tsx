@@ -5,7 +5,7 @@ import { Button, Col, Grid, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import NotificationSystem from "react-notification-system";
 // @ts-ignore Disable next line is necessary to run the unit tests
-import { default as logo } from "../../../../resources/logo.png";
+import { default as logo } from "../../../../resources/integrates.svg";
 import { default as style } from "./index.css";
 
 interface ILoginState {
@@ -177,7 +177,7 @@ class Access extends React.Component<{}, ILoginState, {}> {
           <Row className={`show-grid ${style.text_center} ${style.first_row}`}>
             <Col md={4} lg={4}/>
             <Col md={4} lg={4} lgOffset={4} mdOffset={4}>
-              <img  src={logo} alt="logo"/>
+              <img className={style.logo} src={logo} alt="logo"/>
             </Col>
           </Row>
           <Row className={`show-grid ${style.white} ${style.top_space}`}>

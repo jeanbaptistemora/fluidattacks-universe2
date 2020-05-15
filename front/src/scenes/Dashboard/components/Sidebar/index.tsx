@@ -3,7 +3,7 @@ import React from "react";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
 import { useHistory } from "react-router-dom";
-import { default as logo } from "../../../../resources/integrates.png";
+import { default as logo } from "../../../../resources/integrates.svg";
 import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
