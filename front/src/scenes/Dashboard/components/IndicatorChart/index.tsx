@@ -1,6 +1,6 @@
 import { AxisProps } from "@nivo/axes";
 import { LegendProps } from "@nivo/legends";
-import { LineDatum, LineSerieData, ResponsiveLine } from "@nivo/line";
+import { Datum, ResponsiveLine, Serie } from "@nivo/line";
 import React from "react";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
@@ -9,14 +9,14 @@ import { default as style } from "./index.css";
  * Indicator's Chart properties
  */
 interface IChartProps {
-    dataChart: LineDatum[][];
+    dataChart: Datum[][];
 }
 /**
  * Project Indicator Chart
  */
 const indicatorChart: React.FunctionComponent<IChartProps> =
     (props: IChartProps): JSX.Element => {
-        const dataPoints: LineSerieData[] = [
+        const dataPoints: Serie[] = [
             {
                 color: style.styleColorFound,
                 data: props.dataChart[0],

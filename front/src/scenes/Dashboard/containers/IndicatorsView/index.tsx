@@ -5,7 +5,7 @@
  */
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
-import { LineDatum } from "@nivo/line";
+import { Datum } from "@nivo/line";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -60,7 +60,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
             const totalVulnerabilities: number =
               _.sum([data.project.openVulnerabilities, data.project.closedVulnerabilities]);
             const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
-            const dataChart: LineDatum[][] = JSON.parse(data.project.remediatedOverTime);
+            const dataChart: Datum[][] = JSON.parse(data.project.remediatedOverTime);
             const activeRepositories: IRepositoriesAttr[] = JSON.parse(data.resources.repositories)
               .filter((repo: IRepositoriesAttr) =>
               !("historic_state" in repo) ||
