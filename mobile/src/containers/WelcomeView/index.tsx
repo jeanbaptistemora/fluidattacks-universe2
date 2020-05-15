@@ -5,7 +5,7 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Image, Text, View } from "react-native";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-native";
 
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";

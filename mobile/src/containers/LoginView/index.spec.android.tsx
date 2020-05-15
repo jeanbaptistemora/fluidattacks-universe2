@@ -18,7 +18,7 @@ interface IMockedVersion {
 }
 
 jest.mock("../../utils/version", (): IMockedVersion => {
-  const mockedVersion: IMockedVersion = jest.requireActual("../../utils/version") as IMockedVersion;
+  const mockedVersion: IMockedVersion = jest.requireActual("../../utils/version");
   mockedVersion.checkVersion = jest.fn();
 
   return mockedVersion;

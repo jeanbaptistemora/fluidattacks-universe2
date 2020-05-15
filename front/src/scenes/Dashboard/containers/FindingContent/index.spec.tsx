@@ -27,7 +27,7 @@ jest.mock("../../../../utils/notifications", () => {
 const mockHistoryReplace: jest.Mock = jest.fn();
 
 jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+  ...jest.requireActual<Dictionary>("react-router-dom"),
   useHistory: (): { replace(path: string): void} => ({
     replace: mockHistoryReplace,
   }),
