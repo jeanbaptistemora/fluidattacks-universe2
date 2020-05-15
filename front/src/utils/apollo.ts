@@ -107,6 +107,7 @@ const httpLink: ApolloLink = createUploadLink({
   fetch: extendedFetch,
   headers: {
     "X-CSRFToken": getCookie("csrftoken"),
+    "accept": "application/json",
   },
   uri: `${window.location.origin}/integrates/api`,
 });
