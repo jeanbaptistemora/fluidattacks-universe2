@@ -39,6 +39,44 @@ async def test_group_level_enforcer():
                     f'{role} should not be able to do {action}'
 
 
+@pytest.mark.parametrize(
+    ['request_role', 'request_subscribed_projects', 'request_object', 'result'],
+    [
+        # People not member of a project
+        ('admin', {}, 'testgroup', True),
+        ('nonadmin', {}, 'testgroup', False),
+
+        # People members of 'testgroup'
+        ('admin', {'testgroup'}, 'testgroup', True),
+        ('admin', {'testgroup'}, 'TESTGROUP', True),
+        ('admin', {'testgroup'}, 'othertestgroup', True),
+        ('admin', {'testgroup'}, 'OTHERTESTGROUP', True),
+        ('nonadmin', {'testgroup'}, 'testgroup', True),
+        ('nonadmin', {'testgroup'}, 'TESTGROUP', True),
+        ('nonadmin', {'testgroup'}, 'othertestgroup', False),
+        ('nonadmin', {'testgroup'}, 'OTHERTESTGROUP', False),
+    ]
+)
+async def test_group_access_enforcer(
+    request_role: str,
+    request_subscribed_projects: Set[str],
+    request_object: str,
+    result: bool,
+):
+    enforcer = authz.get_group_access_enforcer()
+
+    request_data: dict = {
+        'role': request_role,
+        'subscribed_projects': request_subscribed_projects,
+    }
+
+    assert await enforcer(request_data, request_object) == result, (
+        f'request with params: {request_data}'
+        f', to object: {request_object}'
+        f', should return: {result}'
+    )
+
+
 async def test_user_level_enforcer():
     model = authz.USER_LEVEL_ROLES
     subject = 'test@tests.com'
