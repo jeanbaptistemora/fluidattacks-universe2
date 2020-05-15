@@ -425,25 +425,12 @@ $codeyellow: rgba(230, 219, 116, 1);
   }
 
   a {
+    text-decoration: underline;
     color: $fluid-black;
-    font-weight: 600;
-    text-decoration: none;
-    &:hover {
-      color: $button-hover;
-    }
   }
 
   p {
     font-size: 1.125rem;
     font-weight: 400;
-  }
-}
-
-.link-4 {
-  color: $fluid-black;
-  font-weight: 800;
-  text-decoration: none;
-  &:hover {
-    color: $button-hover;
   }
 }
