@@ -16,6 +16,10 @@ from backend.authz import (
     SERVICE_ATTRIBUTES,
 )
 
+from backend.authz.model import (
+    REVIEWER_ACTIONS
+)
+
 # Constants
 pytestmark = pytest.mark.asyncio
 
@@ -227,6 +231,8 @@ class ActionAbacTest(TestCase):
     customeradminfluid_allowed_actions.update(customer_allowed_actions)
     customeradminfluid_allowed_actions.update(customeradmin_allowed_actions)
 
+    reviewer_allowed_actions = REVIEWER_ACTIONS
+
     def _grant_group_level_access(self, sub: str, obj: str, role: str):
         grant_group_level_role(sub, obj, role)
 
@@ -300,6 +306,22 @@ class ActionAbacTest(TestCase):
         should_deny = self.global_actions - self.analyst_allowed_actions
 
         for action in self.analyst_allowed_actions:
+            self.assertTrue(await ActionAbacTest.enforcer(sub)(sub, obj, action))
+
+        for action in should_deny:
+            self.assertFalse(await ActionAbacTest.enforcer(sub)(sub, obj, action))
+
+    @pytest.mark.changes_db
+    async def test_action_reviewer_role(self):
+        """Tests for an user with a expected role."""
+        sub = 'reviewer@reviewer.com'
+        obj = 'unittesting'
+
+        self._grant_group_level_access(sub, obj, 'reviewer')
+
+        should_deny = self.global_actions - self.reviewer_allowed_actions
+
+        for action in self.reviewer_allowed_actions:
             self.assertTrue(await ActionAbacTest.enforcer(sub)(sub, obj, action))
 
         for action in should_deny:

@@ -225,6 +225,42 @@ ANALYST_ACTIONS: Set[str] = {
     'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
 }
 
+# Actions reviewers can perform
+REVIEWER_ACTIONS: Set[str] = {
+    'backend_api_resolvers_alert_resolve_alert',
+    'backend_api_resolvers_cache_resolve_invalidate_cache',
+    'backend_api_resolvers_event__do_add_event_comment',
+    'backend_api_resolvers_event__do_download_event_file',
+    'backend_api_resolvers_event_resolve_event',
+    'backend_api_resolvers_event_resolve_events',
+    'backend_api_resolvers_finding__do_add_finding_comment',
+    'backend_api_resolvers_finding__do_approve_draft',
+    'backend_api_resolvers_finding__do_delete_finding',
+    'backend_api_resolvers_finding__do_reject_draft',
+    'backend_api_resolvers_finding__do_update_description',
+    'backend_api_resolvers_finding__do_update_evidence_description',
+    'backend_api_resolvers_finding__do_update_severity',
+    'backend_api_resolvers_finding__get_analyst',
+    'backend_api_resolvers_finding__get_historic_state',
+    'backend_api_resolvers_finding__get_observations',
+    'backend_api_resolvers_finding__get_pending_vulns',
+    'backend_api_resolvers_finding_resolve_finding',
+    'backend_api_resolvers_forces_resolve_forces_executions',
+    'backend_api_resolvers_project__do_add_project_comment',
+    'backend_api_resolvers_project__get_comments',
+    'backend_api_resolvers_project__get_drafts',
+    'backend_api_resolvers_project__get_events',
+    'backend_api_resolvers_project_resolve_project',
+    'backend_api_resolvers_resource__do_download_file',
+    'backend_api_resolvers_resource_resolve_resources',
+    'backend_api_resolvers_vulnerability__do_approve_vulnerability',
+    'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+    'backend_api_resolvers_vulnerability__do_upload_file',
+    'backend_api_resolvers_vulnerability__do_verify_request_vuln',
+    'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
+    'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+}
+
 # Actions Administrators can perform
 ADMIN_ACTIONS: Set[str] = {
     'backend_api_resolvers_alert_resolve_alert',
@@ -314,6 +350,7 @@ ACTIONS: Dict[str, Set[str]] = {
     'customeradmin': CUSTOMERADMIN_ACTIONS,
     'group_manager': GROUP_MANAGER_ACTIONS,
     'internal_manager': INTERNAL_MANAGER_ACTIONS,
+    'reviewer': REVIEWER_ACTIONS,
 }
 
 ALL_ACTIONS: Set[str] = {
