@@ -83,6 +83,11 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
     }
   }
 
+  custom_error_response {
+    error_code = 404
+    error_caching_min_ttl = 0
+  }
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
