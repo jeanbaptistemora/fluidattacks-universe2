@@ -1,7 +1,7 @@
 import { ApolloProvider } from "@apollo/react-hooks";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ApolloNetworkStatusProvider, useApolloNetworkStatus } from "react-apollo-network-status";
+import { NetworkStatus } from "react-apollo-network-status";
 import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -16,11 +16,11 @@ import { Preloader } from "./components/Preloader";
 import { Dashboard } from "./scenes/Dashboard";
 import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
-import { client } from "./utils/apollo";
+import { client, networkStatusNotifier } from "./utils/apollo";
 import { authzContext, userLevelPermissions } from "./utils/authz/config";
 
 const globalPreloader: React.FC = (): JSX.Element => {
-  const status: { numPendingMutations: number; numPendingQueries: number } = useApolloNetworkStatus();
+  const status: NetworkStatus = networkStatusNotifier.useApolloNetworkStatus();
   const isLoading: boolean = status.numPendingQueries > 0 || status.numPendingMutations > 0;
 
   return (
@@ -37,13 +37,11 @@ const app: React.FC = (): JSX.Element => (
         <ApolloProvider client={client}>
           <ReduxProvider store={store}>
             <authzContext.Provider value={userLevelPermissions}>
-              <ApolloNetworkStatusProvider>
-                <Switch>
-                  <Route path="/registration" component={Registration} />
-                  <Route path="/" component={Dashboard} />
-                </Switch>
-                {React.createElement(globalPreloader)}
-              </ApolloNetworkStatusProvider>
+              <Switch>
+                <Route path="/registration" component={Registration} />
+                <Route path="/" component={Dashboard} />
+              </Switch>
+              {React.createElement(globalPreloader)}
             </authzContext.Provider>
           </ReduxProvider>
         </ApolloProvider>

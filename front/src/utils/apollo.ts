@@ -7,6 +7,7 @@ import { createUploadLink } from "apollo-upload-client";
 import { getMainDefinition } from "apollo-utilities";
 import { FragmentDefinitionNode, GraphQLError, OperationDefinitionNode } from "graphql";
 import _ from "lodash";
+import { createNetworkStatusNotifier } from "react-apollo-network-status";
 import { getEnvironment } from "./environment";
 import { msgError } from "./notifications";
 import rollbar from "./rollbar";
@@ -120,6 +121,7 @@ const wsLink: ApolloLink = new WebSocketLink({
   uri: `wss://${window.location.host}/integrates/api`,
 });
 
+export const networkStatusNotifier: ReturnType<typeof createNetworkStatusNotifier> = createNetworkStatusNotifier();
 const apiLink: ApolloLink = ApolloLink.split(
   ({ query }: Operation): boolean => {
     const definition: OperationDefinitionNode | FragmentDefinitionNode = getMainDefinition(query);
@@ -130,7 +132,7 @@ const apiLink: ApolloLink = ApolloLink.split(
     );
   },
   wsLink,
-  httpLink,
+  networkStatusNotifier.link.concat(httpLink),
 );
 
 // Top-level error handling
