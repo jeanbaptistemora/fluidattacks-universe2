@@ -71,19 +71,6 @@ def get_cached_subject_policies(
     return fetched_data
 
 
-def revoke_cached_group_service_attributes_policies(group: str) -> bool:
-    """Revoke the cached policies for the provided group."""
-    cache_key: str = get_group_cache_key(group)
-
-    # Delete the cache key from the cache
-    cache.delete_pattern(f'*{cache_key}*')
-
-    # Refresh the cache key as the user is probably going to use it soon :)
-    get_cached_group_service_attributes_policies(group)
-
-    return True
-
-
 def revoke_cached_subject_policies(subject: str) -> bool:
     """Revoke the cached policies for the provided subject."""
     cache_key: str = get_subject_cache_key(subject)

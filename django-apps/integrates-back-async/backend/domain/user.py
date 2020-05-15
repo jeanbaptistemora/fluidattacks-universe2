@@ -66,6 +66,14 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
         and authz.revoke_cached_subject_policies(email)
 
 
+def revoke_user_level_role(email: str) -> bool:
+    """Revoke a user-level role from a user."""
+    subject: str = email
+    object_: str = 'self'
+    return user_dal.delete_subject_policy(subject, object_) \
+        and authz.revoke_cached_subject_policies(subject)
+
+
 def revoke_group_level_role(email: str, group: str) -> bool:
     """Revoke a group-level role from a user."""
     subject: str = email

@@ -17,7 +17,6 @@ from .model import (
 )
 from .policy import (
     get_cached_group_service_attributes_policies,
-    revoke_cached_group_service_attributes_policies,
     revoke_cached_subject_policies,
 )
 
@@ -40,6 +39,5 @@ __all__ = [
 
     # policy
     'get_cached_group_service_attributes_policies',
-    'revoke_cached_group_service_attributes_policies',
     'revoke_cached_subject_policies',
 ]

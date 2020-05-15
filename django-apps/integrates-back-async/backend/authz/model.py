@@ -75,6 +75,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:group_manager',
             'grant_group_level_role:reviewer',
         },
+        tags=set(),
     ),
     analyst=dict(
         actions={
@@ -152,6 +153,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_vulnerability__do_request_verification_vuln',
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
         },
+        tags=set(),
     ),
     customeradmin=dict(
         actions={
@@ -196,6 +198,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:customer',
             'grant_group_level_role:customeradmin',
         },
+        tags=set(),
     ),
     group_manager=dict(
         actions={
@@ -307,6 +310,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_user_level_role:customeradmin',
             'grant_user_level_role:internal_manager',
         },
+        tags=set(),
     ),
     analyst=dict(
         actions={
@@ -323,6 +327,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_internal_project_resolve_project_name',
             'backend_api_resolvers_project__do_create_project',
         },
+        tags=set(),
     ),
     customeradmin=dict(
         actions={
@@ -332,6 +337,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_tag_resolve_tag',
             'backend_api_resolvers_user_resolve_user_list_projects',
         },
+        tags=set(),
     ),
     internal_manager=dict(
         actions={
