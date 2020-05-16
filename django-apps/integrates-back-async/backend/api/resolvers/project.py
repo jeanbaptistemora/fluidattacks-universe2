@@ -7,11 +7,11 @@ import simplejson as json
 from asgiref.sync import sync_to_async
 import rollbar
 
+from backend import authz
 from backend.api.resolvers import (
     finding as finding_loader,
     user as user_loader
 )
-
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, require_login,
     require_project_access, enforce_user_level_auth_async
@@ -19,7 +19,6 @@ from backend.decorators import (
 from backend.domain import (
     finding as finding_domain,
     project as project_domain,
-    user as user_domain
 )
 from backend.typing import (
     Comment as CommentType,
@@ -412,7 +411,7 @@ async def _get_users(info, project_name: str,
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     user_role = await \
-        sync_to_async(user_domain.get_group_level_role)(
+        sync_to_async(authz.get_group_level_role)(
             user_email, project_name
         )
 
@@ -436,7 +435,7 @@ async def _get_users(info, project_name: str,
         await user_loader.resolve(info, email, project_name,
                                   as_field, selection_set)
         for email in user_email_list
-        if user_domain.get_group_level_role(email, project_name)
+        if authz.get_group_level_role(email, project_name)
         in user_roles_to_retrieve]
     return users
 
@@ -506,7 +505,7 @@ async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     user_role = \
-        await sync_to_async(user_domain.get_user_level_role)(user_email)
+        await sync_to_async(authz.get_user_level_role)(user_email)
     success = await sync_to_async(project_domain.create_project)(
         user_data['user_email'], user_role, **kwargs)
     if success:

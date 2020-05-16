@@ -204,7 +204,7 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
         user_data['subscribed_projects'] += await \
             sync_to_async(user_domain.get_projects)(user_email, active=False)
         user_data['role'] = await \
-            sync_to_async(user_domain.get_group_level_role)(
+            sync_to_async(authz.get_group_level_role)(
                 user_email, project_name)
 
         if not project_name:
@@ -244,7 +244,7 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
         finding_project = await \
             sync_to_async(project_domain.get_finding_project_name)(finding_id)
         user_data['role'] = \
-            await sync_to_async(user_domain.get_group_level_role)(
+            await sync_to_async(authz.get_group_level_role)(
                 user_email, finding_project)
 
         if not re.match('^[0-9]*$', finding_id):
@@ -284,7 +284,7 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
         event_project = await sync_to_async(event_domain.get_event)(event_id)
         event_project = event_project.get('project_name')
         user_data['role'] = await \
-            sync_to_async(user_domain.get_group_level_role)(
+            sync_to_async(authz.get_group_level_role)(
                 user_email, event_project)
 
         if not re.match('^[0-9]*$', event_id):

@@ -10,78 +10,6 @@ from backend.utils.validations import (
 from backend import authz
 
 
-def get_user_level_role(email: str) -> str:
-    """Return the user-level role of a user."""
-    object_: str = 'self'
-    return user_dal.get_subject_policy(email, object_).role
-
-
-def get_group_level_role(email: str, group: str) -> str:
-    """Return the group-level role of a user."""
-    # Admins are granted access to all groups
-    if get_user_level_role(email) == 'admin':
-        return 'admin'
-
-    return user_dal.get_subject_policy(email, group).role
-
-
-def grant_user_level_role(email: str, role: str) -> bool:
-    """Grant a user-level role to a user."""
-    if role not in authz.USER_LEVEL_ROLES:
-        raise ValueError(f'Invalid role value: {role}')
-
-    policy = user_dal.SUBJECT_POLICY(
-        level='user',
-        subject=email,
-        object='self',
-        role=role,
-    )
-
-    return user_dal.put_subject_policy(policy) \
-        and authz.revoke_cached_subject_policies(email)
-
-
-def grant_group_level_role(email: str, group: str, role: str) -> bool:
-    """Grant a group-level role to a user."""
-    if role not in authz.GROUP_LEVEL_ROLES:
-        raise ValueError(f'Invalid role value: {role}')
-
-    policy = user_dal.SUBJECT_POLICY(
-        level='group',
-        subject=email,
-        object=group,
-        role=role,
-    )
-
-    success: bool = True
-
-    # If there is no user-level role for this user add one
-    if not get_user_level_role(email):
-        user_level_role: str = \
-            role if role in authz.USER_LEVEL_ROLES else 'customer'
-        success = success and grant_user_level_role(email, user_level_role)
-
-    return success \
-        and user_dal.put_subject_policy(policy) \
-        and authz.revoke_cached_subject_policies(email)
-
-
-def revoke_user_level_role(email: str) -> bool:
-    """Revoke a user-level role from a user."""
-    subject: str = email
-    object_: str = 'self'
-    return user_dal.delete_subject_policy(subject, object_) \
-        and authz.revoke_cached_subject_policies(subject)
-
-
-def revoke_group_level_role(email: str, group: str) -> bool:
-    """Revoke a group-level role from a user."""
-    subject: str = email
-    object_: str = group
-    return user_dal.delete_subject_policy(subject, object_) \
-        and authz.revoke_cached_subject_policies(subject)
-
-
 def add_phone_to_user(email: str, phone: str) -> bool:
     """ Update user phone number. """
     return user_dal.update(email, {'phone': phone})
@@ -121,13 +49,13 @@ def get_projects(user_email: str, active: bool = True,
     projects = user_dal.get_projects(user_email, active)
     projects = [project for project in projects
                 if project_dal.can_user_access_pending_deletion(
-                    project, get_group_level_role(user_email, project),
+                    project, authz.get_group_level_role(user_email, project),
                     access_pending_projects)]
     return projects
 
 
 def get_group_access(email: str, group: str) -> bool:
-    group_level_role = get_group_level_role(email, group)
+    group_level_role = authz.get_group_level_role(email, group)
     return bool(group_level_role)
 
 
@@ -213,7 +141,7 @@ def create_without_project(user_data: UserType) -> bool:
         if phone_number:
             new_user_data['phone'] = phone_number
 
-        success = grant_user_level_role(email, role)
+        success = authz.grant_user_level_role(email, role)
         success = success and create(email, new_user_data)
 
     return success

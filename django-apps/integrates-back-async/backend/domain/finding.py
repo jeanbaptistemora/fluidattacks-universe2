@@ -19,7 +19,7 @@ from backend.domain import (
 
 from backend.mailer import send_comment_mail
 
-from backend import util
+from backend import authz, util
 from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, EvidenceNotFound,
     FindingNotFound, IncompleteDraft, InvalidCommentParent, InvalidDraftTitle,
@@ -222,7 +222,7 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
                 treatment,
                 email,
                 finding,
-                user_domain.get_group_level_role(email, group) == 'customeradmin',
+                authz.get_group_level_role(email, group) == 'customeradmin',
                 email,
             )
         result_update_treatment = vuln_dal.update(

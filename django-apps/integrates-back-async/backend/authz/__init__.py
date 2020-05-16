@@ -19,7 +19,13 @@ from .model import (
 )
 from .policy import (
     get_cached_group_service_attributes_policies,
+    get_group_level_role,
+    get_user_level_role,
+    grant_group_level_role,
+    grant_user_level_role,
     revoke_cached_subject_policies,
+    revoke_group_level_role,
+    revoke_user_level_role,
 )
 
 __all__ = [
@@ -43,5 +49,12 @@ __all__ = [
 
     # policy
     'get_cached_group_service_attributes_policies',
+    'get_group_level_role',
+    'get_user_level_role',
+    'grant_group_level_role',
+    'grant_user_level_role',
     'revoke_cached_subject_policies',
+    'revoke_cached_subject_policies',
+    'revoke_group_level_role',
+    'revoke_user_level_role',
 ]

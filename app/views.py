@@ -22,7 +22,7 @@ from jose import jwt
 from magic import Magic
 from openpyxl import load_workbook, Workbook
 
-from backend import util
+from backend import authz, util
 from backend.domain import (
     finding as finding_domain, project as project_domain, user as user_domain)
 from backend.domain.vulnerability import get_vulnerabilities_by_type
@@ -65,7 +65,7 @@ def enforce_user_level_role(request, *allowed_roles):
             </script>
             """)
 
-    requester_role = user_domain.get_user_level_role(email)
+    requester_role = authz.get_user_level_role(email)
     if requester_role not in allowed_roles:
         response = HttpResponse("Access Denied")
         response.status_code = 403
@@ -89,7 +89,7 @@ def enforce_group_level_role(request, group, *allowed_roles):
             </script>
             """)
 
-    requester_role = user_domain.get_group_level_role(email, group)
+    requester_role = authz.get_group_level_role(email, group)
     if requester_role not in allowed_roles:
         response = HttpResponse("Access Denied")
         response.status_code = 403

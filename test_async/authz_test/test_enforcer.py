@@ -8,9 +8,6 @@ import pytest
 
 # Local libraries
 from backend import authz
-from backend.domain import (
-    user as user_domain,
-)
 
 # Constants
 pytestmark = [
@@ -24,9 +21,9 @@ async def test_group_level_enforcer():
     group = 'test'
 
     for role in model:
-        user_domain.revoke_user_level_role(subject)
-        user_domain.revoke_group_level_role(subject, group)
-        user_domain.grant_group_level_role(subject, group, role)
+        authz.revoke_user_level_role(subject)
+        authz.revoke_group_level_role(subject, group)
+        authz.grant_group_level_role(subject, group, role)
         enforcer = authz.get_group_level_enforcer(subject)
 
         for action in model[role]['actions']:
@@ -83,8 +80,8 @@ async def test_user_level_enforcer():
     object_ = 'self'
 
     for role in model:
-        user_domain.revoke_user_level_role(subject)
-        user_domain.grant_user_level_role(subject, role)
+        authz.revoke_user_level_role(subject)
+        authz.grant_user_level_role(subject, role)
         enforcer = authz.get_user_level_enforcer(subject)
 
         for action in model[role]['actions']:

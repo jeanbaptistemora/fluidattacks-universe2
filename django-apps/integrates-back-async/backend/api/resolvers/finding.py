@@ -17,7 +17,6 @@ from backend.domain import (
     comment as comment_domain,
     finding as finding_domain,
     project as project_domain,
-    user as user_domain,
     vulnerability as vuln_domain
 )
 from backend.typing import (
@@ -30,7 +29,7 @@ from backend.typing import (
     Vulnerability as VulnerabilityType,
 )
 from backend.utils import findings as finding_utils
-from backend import util
+from backend import authz, util
 
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 
@@ -153,7 +152,7 @@ async def _get_release_date(info, identifier: str) -> str:
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     curr_user_role = await \
-        sync_to_async(user_domain.get_group_level_role)(
+        sync_to_async(authz.get_group_level_role)(
             user_email, finding['project_name'])
     if not release_date and curr_user_role not in allowed_roles:
         raise GraphQLError('Access denied')
@@ -630,7 +629,7 @@ async def _do_add_finding_comment(_, info,
         finding = await finding_loader.load(finding_id)
         group = finding.get('project_name')
         role = \
-            user_domain.get_group_level_role(user_email, group)
+            authz.get_group_level_role(user_email, group)
         if param_type == 'observation' and \
                 role not in ['analyst', 'admin']:
             util.cloudwatch_log(info.context, 'Security: \

@@ -14,7 +14,7 @@ import pytz
 from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
-from backend import util
+from backend import authz, util
 from backend.dal.event import TABLE as EVENTS_TABLE
 from backend.dal.helpers import dynamodb
 from backend.typing import (
@@ -26,9 +26,7 @@ from backend.dal.finding import (
 )
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
-from backend.domain import (
-    user as user_domain,
-)
+
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
@@ -298,7 +296,7 @@ def list_project_managers(group: str) -> List[str]:
     all_users = users_active + users_inactive
     managers = \
         [user for user in all_users
-         if user_domain.get_group_level_role(user, group) == 'customeradmin']
+         if authz.get_group_level_role(user, group) == 'customeradmin']
     return managers
 
 

@@ -1,3 +1,4 @@
+from backend import authz
 from backend.domain import user as user_domain
 from backend.mailer import send_mail_new_user
 
@@ -47,7 +48,7 @@ def autoenroll_user(strategy, email: str) -> bool:
                 was_granted_access \
                 and user_domain.update_project_access(
                     email, group, access=True) \
-                and user_domain.grant_group_level_role(
+                and authz.grant_group_level_role(
                     email, group, new_user_group_level_role)
 
     return is_registered and was_granted_access
@@ -100,7 +101,7 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     is_registered = user_domain.is_registered(email)
     last_login = user_domain.get_data(email, 'last_login')
     company = user_domain.get_data(email, 'company')
-    role = user_domain.get_user_level_role(email)
+    role = authz.get_user_level_role(email)
     strategy.session_set('role', role)
     strategy.session_set('username', email)
     strategy.session_set('registered', is_registered)

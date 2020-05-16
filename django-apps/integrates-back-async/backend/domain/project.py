@@ -28,7 +28,7 @@ from backend.exceptions import (
 )
 from backend.mailer import send_comment_mail
 from backend.utils import validations
-from backend import util
+from backend import authz, util
 
 from __init__ import FI_MAIL_REVIEWERS
 
@@ -138,7 +138,7 @@ def create_project(
                     }.get(user_role, 'customeradmin')
                     add_user_access = user_domain.update_project_access(
                         user_email, project_name, True)
-                    add_user_manager = user_domain.grant_group_level_role(
+                    add_user_manager = authz.grant_group_level_role(
                         user_email, project_name, user_role)
                     resp = all([add_user_access, add_user_manager])
         else:
@@ -276,7 +276,7 @@ def remove_all_users_access(project: str) -> bool:
 
 def remove_user_access(group: str, email: str) -> bool:
     """Remove user access to project."""
-    return user_domain.revoke_group_level_role(email, group) \
+    return authz.revoke_group_level_role(email, group) \
         and project_dal.remove_access(email, group)
 
 
@@ -609,6 +609,6 @@ def get_managers(project_name: str) -> List[str]:
     return [
         user_email
         for user_email in get_users(project_name, active=True)
-        if user_domain.get_group_level_role(
+        if authz.get_group_level_role(
             user_email, project_name) == 'customeradmin'
     ]

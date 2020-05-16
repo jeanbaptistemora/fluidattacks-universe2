@@ -26,7 +26,7 @@ pytestmark = [
     ]
 )
 async def test_get_user_level_actions(email):
-    user_level_role = user_domain.get_user_level_role(email)
+    user_level_role = authz.get_user_level_role(email)
 
     assert await authz.get_user_level_actions(email) \
         == authz.USER_LEVEL_ROLES.get(user_level_role, {}).get('actions')
@@ -42,7 +42,7 @@ async def test_get_user_level_actions(email):
     ]
 )
 async def test_get_group_level_actions(email, group):
-    group_level_role = user_domain.get_group_level_role(email, group)
+    group_level_role = authz.get_group_level_role(email, group)
 
     assert await authz.get_group_level_actions(email, group) \
         == authz.GROUP_LEVEL_ROLES.get(group_level_role, {}).get('actions')

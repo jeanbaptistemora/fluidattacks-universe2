@@ -8,7 +8,7 @@ from backend.domain import (
     event as event_domain, finding as finding_domain, user as user_domain
 )
 
-from backend import util
+from backend import authz, util
 from backend.dal import project as project_dal
 
 
@@ -27,7 +27,7 @@ def is_registered(user: str) -> bool:
 
 def has_access_to_project(email: str, group: str) -> bool:
     """ Verify if the user has access to a project. """
-    return bool(user_domain.get_group_level_role(email, group))
+    return bool(authz.get_group_level_role(email, group))
 
 
 def has_access_to_finding(email: str, finding_id: str) -> bool:

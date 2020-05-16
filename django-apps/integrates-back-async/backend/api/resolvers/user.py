@@ -66,7 +66,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
     if not valid:
         return False
 
-    success = user_domain.grant_group_level_role(email, group, role)
+    success = authz.grant_group_level_role(email, group, role)
 
     if not user_domain.get_data(email, 'email'):
         user_domain.create(email.lower(), {
@@ -76,7 +76,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
 
     if not user_domain.is_registered(email):
         user_domain.register(email)
-        user_domain.grant_user_level_role(email, 'customer')
+        authz.grant_user_level_role(email, 'customer')
         user_domain.update(email, organization.lower(), 'company')
 
     if group and responsibility and len(responsibility) <= 50:
@@ -122,11 +122,9 @@ def _get_email(_, email: str, **__) -> str:
 def _get_role(_, email: str, project_name: str, **__) -> str:
     """Get role."""
     if project_name:
-        role = user_domain.get_group_level_role(email, project_name)
-    else:
-        role = user_domain.get_user_level_role(email)
+        return authz.get_group_level_role(email, project_name)
 
-    return role
+    return authz.get_user_level_role(email)
 
 
 @sync_to_async
@@ -396,7 +394,7 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
         project_name, modified_email, modified_role)
 
     if modified_role in allowed_roles_to_grant:
-        if await sync_to_async(user_domain.grant_group_level_role)(
+        if await sync_to_async(authz.grant_group_level_role)(
                 modified_email, project_name, modified_role):
             success = \
                 await modify_user_information(

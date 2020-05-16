@@ -5,9 +5,7 @@ from datetime import datetime
 import pytz
 from django.conf import settings
 
-from backend.domain import user as user_domain
-
-from backend import util
+from backend import authz, util
 from backend.dal import comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
 from backend.typing import Comment as CommentType, User as UserType
 
@@ -71,7 +69,7 @@ def get_fullname(
         name_to_show = real_name
     else:
         objective_role = \
-            user_domain.get_group_level_role(objective_email, project_name)
+            authz.get_group_level_role(objective_email, project_name)
 
         name_to_show = {
             'analyst': 'Hacker at Fluid Attacks',

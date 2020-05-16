@@ -8,6 +8,7 @@ import boto3
 import botocore
 import rollbar
 
+from backend import authz
 from backend.domain import user as user_domain
 from backend.dal import project as project_dal
 from backend.dal.comment import CommentType
@@ -178,15 +179,15 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
 
     recipients_customers = [
         recipient for recipient in recipients
-        if user_domain.get_group_level_role(
+        if authz.get_group_level_role(
             recipient, project_name) in ['customer', 'customeradmin']]
     recipients_not_customers = [
         recipient for recipient in recipients
-        if user_domain.get_group_level_role(
+        if authz.get_group_level_role(
             recipient, project_name) not in ['customer', 'customeradmin']]
 
     email_context_customers = email_context.copy()
-    if user_domain.get_group_level_role(
+    if authz.get_group_level_role(
             user_mail, project_name) not in ['customer', 'customeradmin']:
         email_context_customers['user_email'] = \
             'Hacker at ' + str(user_domain.get_data(user_mail, 'company')).capitalize()
@@ -209,7 +210,7 @@ def get_email_recipients(group: str, comment_type: Union[str, bool]) -> List[str
         analysts = [
             email
             for email in project_users
-            if user_domain.get_group_level_role(email, group) == 'analyst']
+            if authz.get_group_level_role(email, group) == 'analyst']
         recipients += analysts
     else:
         recipients += project_users

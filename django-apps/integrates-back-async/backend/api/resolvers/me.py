@@ -38,11 +38,11 @@ async def _get_role(_, user_email: str,
     """Get role."""
     if project_name:
         role = await \
-            sync_to_async(user_domain.get_group_level_role)(
+            sync_to_async(authz.get_group_level_role)(
                 user_email, project_name)
     else:
         role = await \
-            sync_to_async(user_domain.get_user_level_role)(user_email)
+            sync_to_async(authz.get_user_level_role)(user_email)
     return role
 
 

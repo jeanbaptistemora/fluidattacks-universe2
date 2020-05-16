@@ -10,7 +10,7 @@ from asgiref.sync import sync_to_async
 from django.conf import settings
 from magic import Magic
 
-from backend import util
+from backend import authz, util
 from backend.dal import (
     comment as comment_dal, event as event_dal, project as project_dal
 )
@@ -138,10 +138,10 @@ def _send_new_event_mail(
 
     recipients_customers = [
         recipient for recipient in recipients
-        if user_domain.get_group_level_role(recipient, project) == 'customeradmin']
+        if authz.get_group_level_role(recipient, project) == 'customeradmin']
     recipients_not_customers = [
         recipient for recipient in recipients
-        if user_domain.get_group_level_role(recipient, project) != 'customeradmin']
+        if authz.get_group_level_role(recipient, project) != 'customeradmin']
     email_context_customers = email_context.copy()
     email_context_customers['analyst_email'] = \
         'Hacker at ' + str(user_domain.get_data(analyst, 'company')).capitalize()
