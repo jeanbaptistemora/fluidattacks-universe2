@@ -174,7 +174,7 @@ class ViewTestCase(unittest.TestCase):
     def test_05_finding(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/project/unittesting/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -243,7 +243,7 @@ class ViewTestCase(unittest.TestCase):
     def test_07_evidence(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/project/unittesting/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -292,7 +292,7 @@ class ViewTestCase(unittest.TestCase):
     def test_09_tracking(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/project/unittesting/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -339,7 +339,7 @@ class ViewTestCase(unittest.TestCase):
     def test_11_techpdf(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/project/unittesting/findings')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -367,7 +367,7 @@ class ViewTestCase(unittest.TestCase):
     def test_13_events(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/events')
+        selenium.get(self.url + '/project/unittesting/events')
         event_tab = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -387,7 +387,7 @@ class ViewTestCase(unittest.TestCase):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
 
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/resources')
+        selenium.get(self.url + '/project/unittesting/resources')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Repositories')]")))
@@ -466,7 +466,7 @@ class ViewTestCase(unittest.TestCase):
     def test_15_project_comments(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/comments')
+        selenium.get(self.url + '/project/unittesting/comments')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,

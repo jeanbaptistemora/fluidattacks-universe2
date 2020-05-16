@@ -1,7 +1,9 @@
 # Local imports
 from .boundary import (
+    get_group_level_actions,
     get_group_level_roles_with_tag,
     get_group_level_roles_a_user_can_grant,
+    get_user_level_actions,
     get_user_level_roles_a_user_can_grant,
 )
 from .enforcer import (
@@ -22,8 +24,10 @@ from .policy import (
 
 __all__ = [
     # boundary
+    'get_group_level_actions',
     'get_group_level_roles_with_tag',
     'get_group_level_roles_a_user_can_grant',
+    'get_user_level_actions',
     'get_user_level_roles_a_user_can_grant',
 
     # enforcer

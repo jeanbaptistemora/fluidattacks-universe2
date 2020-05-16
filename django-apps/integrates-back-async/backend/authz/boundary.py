@@ -15,6 +15,18 @@ from .model import (
 )
 
 
+async def get_user_level_actions(subject: str) -> Set[str]:
+    enforcer = get_user_level_enforcer(subject)
+    object_ = 'self'
+
+    return set(tuple([
+        action
+        for role_definition in USER_LEVEL_ROLES.values()
+        for action in role_definition['actions']
+        if await enforcer(subject, object_, action)
+    ]))
+
+
 async def get_user_level_roles_a_user_can_grant(
     *,
     requester_email: str,
@@ -31,6 +43,17 @@ async def get_user_level_roles_a_user_can_grant(
     ])
 
     return roles_the_user_can_grant
+
+
+async def get_group_level_actions(subject: str, group: str) -> Set[str]:
+    enforcer = get_group_level_enforcer(subject)
+
+    return set(tuple([
+        action
+        for role_definition in GROUP_LEVEL_ROLES.values()
+        for action in role_definition['actions']
+        if await enforcer(subject, group, action)
+    ]))
 
 
 async def get_group_level_roles_a_user_can_grant(
