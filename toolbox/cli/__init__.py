@@ -261,9 +261,15 @@ def analytics_management(analytics_forces_logs):
     '--get-data',
     is_flag=True,
     help='get group commit data')
-def sorts_management(group, get_data):
+@click.option(
+    '--predict',
+    is_flag=True,
+    help="predict vuln likelihood in group's commits")
+def sorts_management(group, get_data, predict):
     if get_data:
         sys.exit(0 if sorts.get_data.get_project_data(group) else 1)
+    if predict:
+        sys.exit(0 if sorts.predict.predict(group) else 1)
 
 
 entrypoint.add_command(resources_management)
