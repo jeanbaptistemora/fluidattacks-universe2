@@ -237,6 +237,8 @@ def update_client_description(finding_id: str, updated_values: Dict[str, str],
     validations.validate_fields(list(updated_values.values()))
     success_treatment, success_external_bts = True, True
     if update.bts_changed:
+        validations.validate_fields([updated_values['bts_url']])
+        validations.validate_field_length(updated_values['bts_url'], 80)
         success_external_bts = finding_dal.update(
             finding_id,
             {'external_bts': updated_values['bts_url'] if updated_values['bts_url'] else None}
@@ -265,6 +267,8 @@ def update_treatment(
     if user_mail:
         new_state['user'] = user_mail
     if new_treatment != 'NEW':
+        validations.validate_fields([updated_values['justification']])
+        validations.validate_field_length(updated_values['justification'], 200)
         new_state['justification'] = updated_values['justification']
         if new_treatment == 'ACCEPTED':
             new_state['acceptance_date'] = updated_values['acceptance_date']
