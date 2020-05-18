@@ -29,7 +29,7 @@ export const App: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
     <PaperProvider theme={theme}>
       <I18nextProvider i18n={i18next}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
         <NativeRouter>
           <BackButton>
             <Switch>
