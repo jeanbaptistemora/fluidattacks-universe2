@@ -23,6 +23,7 @@ $greenyellow: rgba(173, 255, 47, 1);
 $button-hover: rgba(255, 52, 53, 1);
 $button-red: rgba(191, 38, 38, 1);
 $shadowblack: rgba(0, 0, 0, .2);
+$nearwhite: rgba(246, 246, 246, 1);
 //Monokai theme colors
 $codeblack: rgba(39, 40, 43, 1);
 $codebrown: rgba(117, 113, 94, 1);
@@ -443,5 +444,13 @@ $codeyellow: rgba(230, 219, 116, 1);
     font-size: .875rem;
     font-weight: 400;
     padding-bottom: 4rem;
+  }
+
+  blockquote {
+    background-color: $nearwhite;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.8rem;
+    padding: 1.5rem;
   }
 }
