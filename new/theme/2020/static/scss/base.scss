@@ -433,4 +433,9 @@ $codeyellow: rgba(230, 219, 116, 1);
     font-size: 1.125rem;
     font-weight: 400;
   }
+
+  .imageblock .content img {
+    display: block;
+    margin: auto;
+  }
 }
