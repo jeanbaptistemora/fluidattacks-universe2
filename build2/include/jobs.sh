@@ -111,3 +111,35 @@ function job_test_asserts_api_iot {
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}"
 }
+
+function job_test_asserts_api_lang_core {
+  local marker_name='lang_core'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_lang_csharp {
+  local marker_name='lang_csharp'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_lang_docker {
+  local marker_name='lang_docker'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_lang_dotnetconfig {
+  local marker_name='lang_dotnetconfig'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
