@@ -363,7 +363,7 @@ export const formatTreatment: ((treatment: string, findingState: string) => stri
   };
 
 export const formatCompromisedRecords: ((records: number) => string) = (records: number): string =>
-  records === 0 ? "" : records.toString();
+  records.toString();
 
 type IFindingsDataset = IProjectFindingsAttr["project"]["findings"];
 export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =

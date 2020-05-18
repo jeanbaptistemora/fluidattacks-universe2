@@ -77,7 +77,7 @@ const editableField: React.FC<EditableFieldProps> = (props: EditableFieldProps):
 
   const shouldRender: boolean = props.renderAsEditable
     ? visibleWhileEditing
-    : !_.isEmpty(props.currentValue);
+    : !_.isEmpty(props.currentValue) && props.currentValue !== "0";
 
   return shouldRender ? (render) : <React.Fragment />;
 };
