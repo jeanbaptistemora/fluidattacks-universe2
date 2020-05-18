@@ -6,6 +6,7 @@ export const enTranslations: ResourceLanguage = {
       msg: "There is an error :(",
       title: "Oops!",
     },
+    logout: "Logout",
   },
   login: {
     authLoadingText: "Authenticating...",

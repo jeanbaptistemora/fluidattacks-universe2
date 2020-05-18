@@ -5,6 +5,7 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Image, Text, View } from "react-native";
+import { Button } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
 import { Preloader } from "../../components/Preloader";
@@ -18,6 +19,11 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
   const history: ReturnType<typeof useHistory> = useHistory();
   const { authProvider, authToken, userInfo } = history.location.state as IAuthResult;
+
+  const handleLogout: (() => void) = async (): Promise<void> => {
+    await SecureStore.deleteItemAsync("integrates_session");
+    history.replace("/");
+  };
 
   // State management
   const [isAuthorized, setAuthorized] = React.useState(false);
@@ -61,7 +67,10 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
       <Image style={styles.profilePicture} source={{ uri: userInfo.photoUrl }} />
       <Text style={styles.greeting}>{t("welcome.greetingText")} {userInfo.givenName}!</Text>
       {loading || isAuthorized ? undefined : (
-        <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>
+        <React.Fragment>
+          <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>
+          <Button onPress={handleLogout}>{t("common.logout")}</Button>
+        </React.Fragment>
       )}
       <Preloader visible={loading} />
     </View>
