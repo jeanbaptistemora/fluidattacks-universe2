@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime
 import sys
 import time
@@ -408,36 +409,42 @@ async def _get_events(info,
 async def _get_users(info, project_name: str,
                      requested_fields: list) -> List[UserType]:
     """Get users."""
-    user_data = util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-    user_role = await \
-        sync_to_async(authz.get_group_level_role)(
-            user_email, project_name
-        )
+    requester_email = util.get_jwt_content(info.context)['user_email']
 
-    init_email_list = await \
+    group_user_emails = await \
         sync_to_async(project_domain.get_users)(project_name)
-    user_email_list = util.user_email_filter(
-        init_email_list, user_email)
-    user_roles_to_retrieve = ['customer', 'customeradmin']
-    if user_role == 'group_manager':
-        user_roles_to_retrieve.append('group_manager')
-        user_roles_to_retrieve.append('reviewer')
-    elif user_role == 'admin':
-        user_roles_to_retrieve.append('admin')
-        user_roles_to_retrieve.append('analyst')
-        user_roles_to_retrieve.append('group_manager')
-        user_roles_to_retrieve.append('reviewer')
+
     as_field = True
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields
-    users = [
-        await user_loader.resolve(info, email, project_name,
-                                  as_field, selection_set)
-        for email in user_email_list
-        if authz.get_group_level_role(email, project_name)
-        in user_roles_to_retrieve]
-    return users
+
+    if '@fluidattacks.com' in requester_email:
+        filtered_group_user_emails = group_user_emails
+    else:
+        # All non Fluid Attacks users
+        filtered_group_user_emails = [
+            user_email
+            for user_email in group_user_emails
+            if '@fluidattacks.com' not in user_email
+        ]
+        # Plus the Fluid Attacks manager
+        filtered_group_user_emails += [
+            user_email
+            for user_email in group_user_emails
+            if user_email.endswith('@fluidattacks.com')
+            and authz.get_group_level_role(
+                user_email, project_name) == 'group_manager'
+        ]
+
+    # Load users concurrently
+    return await asyncio.gather(*[
+        asyncio.create_task(
+            user_loader.resolve(
+                info, user_email, project_name, as_field, selection_set,
+            )
+        )
+        for user_email in filtered_group_user_emails
+    ])
 
 
 async def resolve(
