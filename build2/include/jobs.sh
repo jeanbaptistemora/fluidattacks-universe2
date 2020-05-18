@@ -5,7 +5,7 @@ source "${srcEnv}"
 
 function job_build_nix_caches {
   local context='.'
-  local dockerfile='build/Dockerfile'
+  local dockerfile='build2/Dockerfile'
   local provisioners
 
       helper_use_pristine_workdir \
