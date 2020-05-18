@@ -420,10 +420,15 @@ async def _get_users(info, project_name: str,
         sync_to_async(project_domain.get_users)(project_name)
     user_email_list = util.user_email_filter(
         init_email_list, user_email)
-    user_roles_to_retrieve = ['customer', 'customeradmin', 'group_manager']
-    if user_role == 'admin':
+    user_roles_to_retrieve = ['customer', 'customeradmin']
+    if user_role == 'group_manager':
+        user_roles_to_retrieve.append('group_manager')
+        user_roles_to_retrieve.append('reviewer')
+    elif user_role == 'admin':
         user_roles_to_retrieve.append('admin')
         user_roles_to_retrieve.append('analyst')
+        user_roles_to_retrieve.append('group_manager')
+        user_roles_to_retrieve.append('reviewer')
     as_field = True
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields

@@ -825,6 +825,7 @@ const enTranslations: Dictionary = {
       remove_user: "Remove",
       responsibility_placeholder: "Product Owner, Project Manager, " +
         "Tester, ...",
+      reviewer: "Reviewer",
       role: "Role",
       success: " now has access to this project.",
       success_admin: "User information updated.",

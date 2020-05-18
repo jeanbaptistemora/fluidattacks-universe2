@@ -246,6 +246,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:analyst',
             'grant_group_level_role:customer',
             'grant_group_level_role:customeradmin',
+            'grant_group_level_role:reviewer',
         },
         tags={
             'drills',
