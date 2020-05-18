@@ -18,6 +18,7 @@ import "react-phone-input-2/lib/bootstrap.css";
 import { Tag, WithContext as ReactTags } from "react-tag-input";
 import { WrappedFieldProps } from "redux-form";
 import { validTextField } from "../../utils/validations";
+import translate from "./../translations/translate";
 import { default as style } from "./index.css";
 
 type CustomFieldProps = WrappedFieldProps & FormControlProps;
@@ -95,6 +96,7 @@ export const tagInputField: React.FC<tagFieldProps> =
     const tagsEmpty: Tag[] = [];
     const { onDeletion } = fieldProps;
     const [tagsInput, setTagsInput] = React.useState(tagsEmpty);
+    const [tagsError, setTagsError] = React.useState(false);
 
     const onMount: (() => void) = (): void => {
       const tags: Tag[] = fieldProps.input.value.split(",")
@@ -114,6 +116,9 @@ export const tagInputField: React.FC<tagFieldProps> =
         const newTag: string = tagToString([...tagsInput, tag]);
         fieldProps.input.onChange(newTag);
         fieldProps.input.value = newTag;
+        setTagsError(false);
+      } else {
+        setTagsError(true);
       }
     };
     const handleDelete: ((index: number) => void) = (index: number): void => {
@@ -142,19 +147,22 @@ export const tagInputField: React.FC<tagFieldProps> =
     };
 
     return (
-      <ReactTags
-        allowDragDrop={false}
-        classNames={styles}
-        delimiters={Object.values(keyCodes)}
-        handleDelete={handleDelete}
-        handleAddition={handleAddition}
-        handleInputBlur={handleInputBlur}
-        inputFieldPosition="inline"
-        maxLength={25}
-        name="tags"
-        placeholder=""
-        tags={tagsInput}
-      />
+      <div>
+        <ReactTags
+          allowDragDrop={false}
+          classNames={styles}
+          delimiters={Object.values(keyCodes)}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
+          handleInputBlur={handleInputBlur}
+          inputFieldPosition="inline"
+          maxLength={25}
+          name="tags"
+          placeholder=""
+          tags={tagsInput}
+        />
+        {tagsError ? renderError(translate.t("validations.alphanumeric")) : undefined}
+      </div>
     );
   };
 
