@@ -116,21 +116,6 @@ test_commit_message:
 .test_api_cloud_aws_api:
   <<: *test_template
 
-test_api_lang_python:
-  <<: *test_template
-
-test_api_lang_rpgle:
-  <<: *test_template
-
-test_api_lang_times:
-  <<: *test_template
-
-test_api_ot:
-  <<: *test_template
-
-test_api_proto_dns:
-  <<: *test_template
-
 test_api_proto_ftp:
   <<: *test_template
 
@@ -308,6 +293,31 @@ test_asserts_api_lang_javascript:
   stage: test
 
 test_asserts_api_lang_php:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_lang_python:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_lang_rpgle:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_lang_times:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_ot:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_proto_dns:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test

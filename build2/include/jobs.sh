@@ -175,3 +175,43 @@ function job_test_asserts_api_lang_php {
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}"
 }
+
+function job_test_asserts_api_lang_python {
+  local marker_name='lang_python'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_lang_rpgle {
+  local marker_name='lang_rpgle'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_lang_times {
+  local marker_name='lang_times'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_ot {
+  local marker_name='ot'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_dns {
+  local marker_name='proto_dns'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
