@@ -116,9 +116,6 @@ test_commit_message:
 .test_api_cloud_aws_api:
   <<: *test_template
 
-test_api_cloud_azure:
-  <<: *test_template
-
 test_api_cloud_kubernetes:
   <<: *test_template
 
@@ -255,6 +252,11 @@ test_asserts_api_cloud_aws_cloudformation:
   stage: test
 
 test_asserts_api_cloud_aws_terraform:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_cloud_azure:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test

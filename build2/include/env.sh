@@ -57,7 +57,7 @@ function env_prepare_python_packages {
   while read -r pkg
   do
     echo "  [${pkg}] ${!pkg}"
-    PATH="${!pkg}/site-packages/bin:${PATH}"
-    PYTHONPATH="${!pkg}/site-packages:${PYTHONPATH:-}"
+    PATH="${PATH}:${!pkg}/site-packages/bin"
+    PYTHONPATH="${PYTHONPATH:-}:${!pkg}/site-packages"
   done < "${TEMP_FILE1}"
 }
