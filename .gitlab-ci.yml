@@ -116,19 +116,6 @@ test_commit_message:
 .test_api_cloud_aws_api:
   <<: *test_template
 
-test_api_db_postgres:
-  <<: *test_template
-
-test_api_format:
-  <<: *test_template
-  tags: [autoscaling-large]
-
-test_api_helper:
-  <<: *test_template
-
-test_api_iot:
-  <<: *test_template
-
 test_api_lang_core:
   <<: *test_template
 
@@ -268,6 +255,27 @@ test_asserts_api_db_mssql:
   stage: test
 
 test_asserts_api_db_mysql:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_db_postgres:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_format:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+  tags: [autoscaling-large]
+
+test_asserts_api_helper:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_iot:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test
