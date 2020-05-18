@@ -255,3 +255,43 @@ function job_test_asserts_api_proto_ldap {
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}"
 }
+
+function job_test_asserts_api_proto_rest {
+  local marker_name='proto_rest'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_smb {
+  local marker_name='proto_smb'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_smtp {
+  local marker_name='proto_smtp'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_ssh {
+  local marker_name='proto_ssh'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_ssl {
+  local marker_name='proto_ssl'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
