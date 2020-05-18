@@ -175,3 +175,84 @@ def listeners_not_using_https(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def uses_insecure_ssl_protocol(key_id: str,
+                               secret: str,
+                               load_balancer_arn: str,
+                               session_token: str = None,
+                               retry: bool = True) -> tuple:
+    """
+    Check if Listeners uses unsafe SSL protocol.
+
+    https://www.cloudconformity.com/knowledge-base/aws/ELB/
+    elb-insecure-ssl-protocols.html#
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    acceptable = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='elbv2',
+        func='describe_ssl_policies',
+        param='SslPolicies',
+        Names=['ELBSecurityPolicy-2016-08'],
+        retry=retry)
+
+    acceptable_protos = acceptable.get('SslProtocols', [])
+
+    balancers = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='elbv2',
+        func='describe_load_balancers',
+        param='LoadBalancers',
+        retry=retry)
+
+    msg_open: str = 'ELB Load Balancers use insecure SSL protocols'
+    msg_closed: str = 'ELB Load Balancers do not use insecure SSL protocols'
+
+    vulns, safes = [], []
+
+    if balancers:
+        for balancer in balancers:
+            load_balancer_arn = balancer['LoadBalancerArn']
+
+            for listener in aws.run_boto3_func(
+                    key_id=key_id,
+                    secret=secret,
+                    boto3_client_kwargs={'aws_session_token': session_token},
+                    service='elbv2',
+                    func='describe_listeners',
+                    param='Listeners',
+                    LoadBalancerArn=load_balancer_arn,
+                    retry=retry):
+
+                policy = aws.run_boto3_func(
+                    key_id=key_id,
+                    secret=secret,
+                    boto3_client_kwargs={'aws_session_token': session_token},
+                    service='elbv2',
+                    func='describe_ssl_policies',
+                    param='Listeners',
+                    Names=[listener['SslPolicy']],
+                    retry=retry)
+
+                for protocol in policy['SslProtocols']:
+                    (vulns if protocol not in acceptable_protos
+                     else safes).append(
+                         (f'{listener["LoadBalancerArn"]}/{protocol["Name"]}',
+                          'protocol is unsafe'))
+
+    return _get_result_as_tuple(
+        service='ELBv2',
+        objects='Application Load Balancers version 2',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
