@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
@@ -7,6 +8,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../../store";
+import { authzContext } from "../../../../../utils/authz/config";
 import { msgError } from "../../../../../utils/notifications";
 import { addUserModal as AddUserModal } from "./index";
 import { GET_USER } from "./queries";
@@ -207,5 +209,37 @@ describe("Add user modal", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgError)
       .toHaveBeenCalled();
+  });
+
+  it("should render user level role options", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "grant_user_level_role:admin" },
+      { action: "grant_user_level_role:customer" },
+      { action: "grant_user_level_role:customeradmin" },
+      { action: "grant_user_level_role:internal_manager" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={true}>
+          <authzContext.Provider value={mockedPermissions}>
+            <AddUserModal {...mockPropsAdd} projectName={undefined} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const options: ReactWrapper = wrapper.find("option");
+    const adminOption: ReactWrapper = options.find({value: "ADMIN"});
+    expect(adminOption)
+      .toHaveLength(1);
+    const userOption: ReactWrapper = options.find({value: "CUSTOMER"});
+    expect(userOption)
+      .toHaveLength(1);
+    const userManagerOption: ReactWrapper = options.find({value: "CUSTOMERADMIN"});
+    expect(userManagerOption)
+      .toHaveLength(1);
+    const managerOption: ReactWrapper = options.find({value: "INTERNAL_MANAGER"});
+    expect(managerOption)
+      .toHaveLength(1);
   });
 });
