@@ -62,6 +62,8 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         } else {
           msgError(translate.t("proj_alerts.invalid_schema"));
         }
+      } else if (message === "Exception - Invalid characters") {
+        msgError(translate.t("validations.invalid_char"));
       } else if (message === "Exception - Invalid File Size") {
         msgError(translate.t("validations.file_size", { count: 1 }));
       } else if (message === "Exception - Invalid File Type") {

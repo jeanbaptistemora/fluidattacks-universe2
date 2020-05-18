@@ -5,6 +5,7 @@ from django.core.validators import validate_email
 
 from backend import authz
 from backend.exceptions import (
+    InvalidChar,
     InvalidField,
     InvalidFieldLength,
     UnexpectedUserRole,
@@ -51,12 +52,18 @@ def validate_email_address(email: str) -> bool:
 
 
 def validate_fields(fields: List[str]):
-    risk_start_chars = ['=', '?', '<', '`']
-    risk_chars = ['\'', '`']
-    for field in fields:
-        if field and (str(field)[0] in risk_start_chars or
-           any(char for char in risk_chars if char in str(field))):
-            raise InvalidField()
+    whitelist: str = (
+        '0123456789'
+        'abcdefghijklmnopqrstuvwxyzñáéíóúäëïöü'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜ'
+        ' \t\n\r\x0b\x0c'
+        '(),-./:;@_'
+    )
+
+    for field in map(str, fields):
+        for char in field:
+            if char not in whitelist:
+                raise InvalidChar()
 
 
 def validate_field_length(field: str, limit: int):

@@ -174,6 +174,14 @@ class InvalidField(Exception):
         super(InvalidField, self).__init__(msg)
 
 
+class InvalidChar(Exception):
+    """Exception to control invalid characters in forms"""
+
+    def __init__(self):
+        msg = f'Exception - Invalid characters'
+        super(InvalidChar, self).__init__(msg)
+
+
 class InvalidFieldLength(Exception):
     """Exception to control invalid field length in forms"""
     def __init__(self):

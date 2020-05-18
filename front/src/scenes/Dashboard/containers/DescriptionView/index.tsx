@@ -147,6 +147,9 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
           case "Exception - Invalid field in form":
             msgError(translate.t("validations.invalidValueInField"));
             break;
+          case "Exception - Invalid characters":
+            msgError(translate.t("validations.invalid_char"));
+            break;
           default:
             msgError(translate.t("proj_alerts.error_textsad"));
             rollbar.error("An error occurred updating treatment", updateError);

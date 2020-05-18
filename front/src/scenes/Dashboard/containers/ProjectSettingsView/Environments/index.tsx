@@ -54,6 +54,9 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
           case "Exception - One or more values already exist":
             msgError(translate.t("search_findings.tab_resources.repeated_item"));
             break;
+          case "Exception - Invalid characters":
+            msgError(translate.t("validations.invalid_char"));
+            break;
           default:
             msgError(translate.t("proj_alerts.error_textsad"));
             rollbar.error("An error occurred adding environments", envsError);

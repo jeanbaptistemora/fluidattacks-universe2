@@ -95,6 +95,7 @@ def create_project(
         companies = [company.lower() for company in kwargs.get('companies', [])]
     else:
         companies = [str(user_domain.get_data(user_email, 'company'))]
+    validations.validate_fields(companies)
     has_drills = cast(bool, kwargs.get('has_drills', False))
     has_forces = cast(bool, kwargs.get('has_forces', False))
     if kwargs.get('subscription'):

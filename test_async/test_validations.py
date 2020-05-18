@@ -7,14 +7,14 @@ from backend.utils.validations import (
     validate_email_address, validate_fields, validate_project_name,
     validate_alphanumeric_field, validate_phone_field
 )
-from backend.exceptions import InvalidField
+from backend.exceptions import InvalidChar, InvalidField
 
 
 class ValidationsTests(TestCase):
 
     def test_validate_fields(self):
         assert validate_fields(['testfield', 'testfield2']) == None
-        with pytest.raises(InvalidField):
+        with pytest.raises(InvalidChar):
             assert validate_fields(['=testfield', 'testfield2'])
             assert validate_fields(['testfield', 'testfiel\'d'])
             assert validate_fields(['testfield', '<testfield2'])

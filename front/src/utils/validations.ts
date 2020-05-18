@@ -55,16 +55,26 @@ export const validEvidenceDescription: Validator = (
 };
 
 export const validTextField: Validator = (value: string): string | undefined => {
-  const riskStartChars: string[] = ["=", "?", "<", "`"];
-  const riskChars: string[] = ["'", "`"];
-  let ret: string | undefined;
-  if (!_.isNil(value) && riskChars.some((char: string) => value.includes(char))) {
-    ret = translate.t("validations.invalidTextField", { chars: riskChars });
-  } else if (!_.isNil(value) && riskStartChars.includes(value[0])) {
-    ret = translate.t("validations.invalidTextFieldStart", { chars: riskStartChars });
+  let error: string | undefined;
+
+  if (!_.isNil(value)) {
+    const digits: string = "0123456789";
+    const asciiLettersLower: string = "abcdefghijklmnopqrstuvwxyzñáéíóúäëïöü";
+    const asciiLettersUpper: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜ";
+    const whitespace: string = " \t\n\r\x0b\x0c";
+    const other: string = "(),-./:;@_";
+
+    const whitelist: string[] = (digits + asciiLettersLower + asciiLettersUpper + whitespace + other).split("");
+
+    const invalidChars: string[] = value.split("")
+                                        .filter((char: string) => !whitelist.includes(char));
+
+    if (invalidChars.length > 0) {
+      error = translate.t("validations.invalidTextField", { chars: invalidChars[0] });
+    }
   }
 
-  return ret;
+  return error;
 };
 
 export const numberBetween: ((min: number, max: number) => Validator) =

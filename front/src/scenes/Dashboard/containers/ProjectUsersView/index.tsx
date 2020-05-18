@@ -123,6 +123,9 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
           case "Exception - Invalid field in form":
             msgError(translate.t("validations.invalidValueInField"));
             break;
+          case "Exception - Invalid characters":
+            msgError(translate.t("validations.invalid_char"));
+            break;
           case "Exception - Invalid phone number in form":
             msgError(translate.t("validations.invalidPhoneNumberInField"));
             break;
