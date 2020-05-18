@@ -129,7 +129,7 @@
     "webpack-dev-server": "3.11.0"
   },
   "scripts": {
-    "audit": "npm set audit-level high && npm config set audit-level high && npm audit --production",
+    "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
     "build": "npm run css && webpack --config webpack.prod.config.ts",
     "css": "tcm src/ --silent",
     "lint": "npm run css && tsc -p tsconfig.json && tslint -p tsconfig.json -t codeFrame",
