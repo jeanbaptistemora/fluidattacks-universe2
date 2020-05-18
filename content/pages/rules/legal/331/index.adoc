@@ -1,7 +1,7 @@
 :slug: rules/331/
 :category: legal
 :description: This document contains the details of the security requirements related to the definition and management of compliance with legal regulations in the organization. This requirement establishes the importance of guaranteeing compliance with applicable legal regulations.
-:keywords: Requirement, Legal, Compliance, Law, Regulation, ASVS
+:keywords: Requirement, Legal, Law, Regulation, ASVS, GDPR
 :rules: yes
 
 = REQ.331 Guarantee legal compliance
@@ -17,19 +17,24 @@ it is subject.
 
 == References
 
-. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r1]] link:https://gdpr-info.eu/recitals/no-45/[GDPR. Recital 45: Fulfillment of legal obligations].
+Where processing is carried out in accordance with a legal obligation to which
+the controller is subject, the processing should have a basis in Union or
+Member State law.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.1)]
 Verify that input and output requirements clearly define how to handle and
 process data based on type, content, and applicable laws, regulations, and
 other policy compliance.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.1 Data Classification.(6.1.1)]
 Verify that regulated private data is stored encrypted while at rest,
 such as personally identifiable information (PII), sensitive personal
 information, or data assessed likely to be subject to EU's GDPR.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(1.7.2)]
 Verify that the application does not log other sensitive data as defined under
 local privacy laws or relevant security policy.
