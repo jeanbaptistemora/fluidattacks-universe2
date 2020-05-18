@@ -116,15 +116,6 @@ test_commit_message:
 .test_api_cloud_aws_api:
   <<: *test_template
 
-test_api_cloud_kubernetes:
-  <<: *test_template
-
-test_api_db_mssql:
-  <<: *test_template
-
-test_api_db_mysql:
-  <<: *test_template
-
 test_api_db_postgres:
   <<: *test_template
 
@@ -262,6 +253,21 @@ test_asserts_api_cloud_azure:
   stage: test
 
 test_asserts_api_cloud_gcp:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_cloud_kubernetes:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_db_mssql:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_db_mysql:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test

@@ -11,7 +11,7 @@ in
         pkgs.git
         pkgs.gnupg
         pkgs.cacert
-        pkgs.python37Packages.selenium
+        pkgs.unixODBC
       ];
 
       pyPkgTestrequirements = builders.pythonRequirements ../dependencies/tests.lst;
