@@ -17,6 +17,7 @@ import PhoneInput, { PhoneInputProps } from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import { Tag, WithContext as ReactTags } from "react-tag-input";
 import { WrappedFieldProps } from "redux-form";
+import { validTextField } from "../../utils/validations";
 import { default as style } from "./index.css";
 
 type CustomFieldProps = WrappedFieldProps & FormControlProps;
@@ -108,10 +109,12 @@ export const tagInputField: React.FC<tagFieldProps> =
         .join(","));
 
     const handleAddition: ((tag: Tag) => void) = (tag: Tag): void => {
-      setTagsInput([...tagsInput, tag]);
-      const newTag: string = tagToString([...tagsInput, tag]);
-      fieldProps.input.onChange(newTag);
-      fieldProps.input.value = newTag;
+      if (validTextField(tag.text) === undefined) {
+        setTagsInput([...tagsInput, tag]);
+        const newTag: string = tagToString([...tagsInput, tag]);
+        fieldProps.input.onChange(newTag);
+        fieldProps.input.value = newTag;
+      }
     };
     const handleDelete: ((index: number) => void) = (index: number): void => {
       let newTags: Tag[] = tagsInput;
@@ -147,6 +150,7 @@ export const tagInputField: React.FC<tagFieldProps> =
         handleAddition={handleAddition}
         handleInputBlur={handleInputBlur}
         inputFieldPosition="inline"
+        maxLength={25}
         name="tags"
         placeholder=""
         tags={tagsInput}
