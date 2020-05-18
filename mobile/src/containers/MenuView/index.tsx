@@ -25,6 +25,10 @@ import { IProject, IProjectsResult } from "./types";
 const menuView: React.FunctionComponent = (): JSX.Element => {
   const { colors } = useTheme();
   const { t } = useTranslation();
+  /* tslint:disable-next-line: no-null-keyword
+   * React refs cannot be initialized as 'undefined'
+   */
+  const drawer: React.RefObject<DrawerLayout> = React.useRef(null);
 
   // GraphQL operations
   const { data, loading, networkStatus, refetch } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
@@ -41,16 +45,22 @@ const menuView: React.FunctionComponent = (): JSX.Element => {
     ? []
     : data.me.projects;
 
+  const openDrawer: (() => void) = (): void => {
+    drawer.current?.openDrawer();
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <DrawerLayout
-        drawerWidth={200}
+        drawerBackgroundColor="#DDDDDD"
         drawerPosition="left"
         drawerType={Platform.select({ android: "front", ios: "slide" })}
-        drawerBackgroundColor="#DDDDDD"
+        drawerWidth={200}
+        ref={drawer}
         renderNavigationView={Sidebar}
       >
         <Appbar.Header>
+          <Appbar.Action icon="menu" onPress={openDrawer} />
           <Appbar.Content title={t("menu.myProjects")} />
         </Appbar.Header>
         <ScrollView
