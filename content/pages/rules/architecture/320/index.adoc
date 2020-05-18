@@ -46,19 +46,25 @@ from an unauthorized actor.
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 4: Security of processing.(1a)]
+The measures referred to in paragraph 1 shall at least ensure that personal
+data can be accessed only by authorized personnel for legally authorized
+purposes.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.1)]
 Verify that trusted enforcement points such as at access control gateways,
 servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.4)]
 Verify the application uses a single and well-vetted access control mechanism
 for accessing protected data and resources.
 All requests must pass through this single mechanism to avoid copy and paste or
 insecure alternative paths.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
