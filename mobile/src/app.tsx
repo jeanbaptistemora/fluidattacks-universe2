@@ -21,7 +21,11 @@ const theme: Theme = {
   dark: false,
 };
 
-const app: React.FunctionComponent = (): JSX.Element => (
+/* tslint:disable-next-line: variable-name
+ * The root component name must be 'App' for fast refresh to work properly
+ * export/import aliases won't work
+ */
+export const App: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
     <PaperProvider theme={theme}>
       <I18nextProvider i18n={i18next}>
@@ -39,5 +43,3 @@ const app: React.FunctionComponent = (): JSX.Element => (
     </PaperProvider>
   </ApolloProvider>
 );
-
-export { app as App };

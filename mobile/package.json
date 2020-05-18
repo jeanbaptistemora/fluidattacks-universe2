@@ -2,7 +2,7 @@
   "name": "integrates",
   "version": "1.0.0",
   "description": "",
-  "main": "./AppEntry.js",
+  "main": "./appEntry.ts",
   "repository": {
     "type": "git",
     "url": "git+https://gitlab.com/fluidattacks/integrates.git"
