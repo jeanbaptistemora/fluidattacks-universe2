@@ -473,4 +473,9 @@ $codeyellow: rgba(230, 219, 116, 1);
       background-color: $graylight;
     }
   }
+
+  pre {
+    white-space: pre;
+    overflow-y: hidden;
+  }
 }
