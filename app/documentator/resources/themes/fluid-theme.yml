@@ -52,7 +52,7 @@ page:
   layout: portrait
   margin: [3cm, 3cm, 3cm, 3cm]
   size: letter
-  background_image: image:background.jpg[]
+  background_image: image:background.png[]
 # FIXME vertical_rhythm is weird; we should think in terms of ems
 #vertical_rhythm: $base_line_height_length * 2 / 3
 vertical_rhythm: $base_line_height_length

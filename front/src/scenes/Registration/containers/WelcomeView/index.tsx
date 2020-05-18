@@ -11,7 +11,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Button } from "../../../../components/Button";
-import { default as logo } from "../../../../resources/logo.png";
+import { default as logo } from "../../../../resources/integrates.svg";
 import { default as globalStyle } from "../../../../styles/global.css";
 import translate from "../../../../utils/translations/translate";
 import { CompulsoryNotice } from "../../components/CompulsoryNotice";
