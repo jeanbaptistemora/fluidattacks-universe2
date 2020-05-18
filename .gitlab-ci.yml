@@ -116,18 +116,6 @@ test_commit_message:
 .test_api_cloud_aws_api:
   <<: *test_template
 
-test_api_lang_html:
-  <<: *test_template
-
-test_api_lang_java:
-  <<: *test_template
-
-test_api_lang_javascript:
-  <<: *test_template
-
-test_api_lang_php:
-  <<: *test_template
-
 test_api_lang_python:
   <<: *test_template
 
@@ -300,6 +288,26 @@ test_asserts_api_lang_docker:
   stage: test
 
 test_asserts_api_lang_dotnetconfig:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_lang_html:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_lang_java:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_lang_javascript:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_lang_php:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test

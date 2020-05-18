@@ -91,7 +91,7 @@ function helper_build_nix_caches_parallel {
   export lower_limit
   export upper_limit
 
-      num_provisioners=$(find build/provisioners/ -type f | wc -l) \
+      num_provisioners=$(find build2/provisioners/ -type f | wc -l) \
   &&  num_provisioners_per_group=$(( num_provisioners/CI_NODE_TOTAL )) \
   &&  num_provisioners_remaining=$(( num_provisioners%CI_NODE_TOTAL )) \
   &&  if [ "${num_provisioners_remaining}" -gt '0' ]

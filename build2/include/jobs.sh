@@ -143,3 +143,35 @@ function job_test_asserts_api_lang_dotnetconfig {
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}"
 }
+
+function job_test_asserts_api_lang_html {
+  local marker_name='lang_html'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_lang_java {
+  local marker_name='lang_java'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_lang_javascript {
+  local marker_name='lang_javascript'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_lang_php {
+  local marker_name='lang_php'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
