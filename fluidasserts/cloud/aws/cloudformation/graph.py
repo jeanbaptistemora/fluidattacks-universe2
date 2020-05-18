@@ -242,7 +242,7 @@ class Batcher():
             param_statement = (
                 f"CREATE ({alias_parameters})-"
                 f"[rel_{alias_param}:DECLARE_PARAMETER]->"
-                f"(param_{alias_param}:Parameter"
+                f"(param_{alias_param}:Reference:Parameter"
                 # set attributes of node
                 f" {{logicalName: $param_name_{alias_param}}})\n"
                 f"SET rel_{alias_param}.line = $line_rel_{alias_param}\n")
@@ -352,8 +352,7 @@ class Batcher():
             # create reference to condition
             statement_condition = (
                 f"MATCH ({alias_condition}:Condition)\n"
-                f"WHERE {alias_condition}.name = ${alias_condition}_value\n"
-                f"WITH {alias_condition}\n")
+                f"WHERE {alias_condition}.name = ${alias_condition}_value\n")
             self.statement_params[f'{alias_condition}_value'] = condition_name
             # create relationship between the condition and the function it
             #  executes
@@ -396,8 +395,8 @@ class Batcher():
                 f'WHERE {alias_template}.path = "{self.path}"\n'
                 f"CREATE ({alias_resources})-[:DECLARE_RESOURCE "
                 f"{{line: ${alias_resources}_line}}]->"
-                f"({res_alias}:{resource_node}:{resource_name} {{"
-                f"Name: ${res_alias}_name}})\n")
+                f"({res_alias}:Reference:{resource_node}:{resource_name} {{"
+                f"Name:${res_alias}_name, logicalName:${res_alias}_name}})\n")
             self.statement_params[f'{res_alias}_name'] = resource_name
             line = _get_line(self.template['Resources'], resource_name)
             self.statement_params[f'{alias_resources}_line'] = line
@@ -406,11 +405,12 @@ class Batcher():
                     continue
                 prop_alias = create_alias(f'{res_alias}_{prop_name}', True)
                 line = _get_line(resource['Properties'], prop_name) or line
+                contexts.add(prop_alias)
+
                 statement += (
                     f"CREATE ({res_alias})-[:HAS {{line: ${prop_alias}_line}}]"
                     f"->({prop_alias}:Property:{prop_name} {{"
                     f"name: ${prop_alias}_name}})\n")
-                contexts.add(prop_alias)
                 self.statement_params[f'{prop_alias}_name'] = prop_name
                 self.statement_params[f'{prop_alias}_line'] = line
                 statement += self._load_resource_property(
@@ -438,7 +438,7 @@ class Batcher():
                 attr_alias = create_alias(f'{prop_alias}_{key}', True)
                 contexts.add(attr_alias)
                 line = _get_line(prop_value, key) or line
-                statement += (f"MERGE ({prop_alias})-"
+                statement += (f"CREATE ({prop_alias})-"
                               f"[:HAS {{line: ${attr_alias}_line}}]->"
                               f"({attr_alias}:PropertyAttribute:{key})\n")
                 self.statement_params[f'{attr_alias}_line'] = line
@@ -454,6 +454,7 @@ class Batcher():
                     f"[:HAS {{line: ${alias_item}_line}}]->({alias_item}:Item"
                     f" {{index: {idx}}})\n")
                 self.statement_params[f'{alias_item}_line'] = line
+                contexts.add(alias_item)
                 statement += self._load_resource_property((alias_item, value),
                                                           contexts, line)
         return statement
@@ -584,12 +585,10 @@ class Batcher():
             ref_alias = resource_id
             contexts.add(ref_alias)
 
-        contexts_str1 = ', '.join([*contexts, param_alias])
         if not logical_name.startswith('AWS::'):
             statement += (
-                f"MATCH ({param_alias}: Parameter)\n"
+                f"MATCH ({param_alias}: Reference)\n"
                 f"WHERE {param_alias}.logicalName = ${param_alias}_name\n"
-                f"WITH {contexts_str1}\n"
                 f"CREATE ({ref_alias})-[rel_{param_alias}:REFERENCE_TO"
                 f" {{line: $rel_{param_alias}_line}}]->"
                 f"({param_alias})\n")
@@ -828,10 +827,16 @@ class Batcher():
             references = _scan_sub_expresion(attrs)
             for ref in references:
                 contexts_str = ', '.join(contexts)
-                # pending handling references to resource attributes
-                ref_sts = self._fn_reference(
-                    alias_fn, ref, contexts, direct_reference=True)
-                statement += f"WITH {contexts_str}\n" + ref_sts
+                statement += f"WITH {contexts_str}\n"
+                if '.' in ref:
+                    resource = ref.split('.')[0]
+                    statement += self._fn_reference(
+                        alias_fn, resource, direct_reference=True)
+                    # pending handling references to resource attributes
+                else:
+                    ref_sts = self._fn_reference(
+                        alias_fn, ref, contexts, direct_reference=True)
+                    statement += ref_sts
         else:
             self.statement_params[f'{alias_fn}_string'] = attrs[0]
             references = _scan_sub_expresion(attrs[0])
