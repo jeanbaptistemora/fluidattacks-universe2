@@ -901,6 +901,9 @@ const enTranslations: Dictionary = {
     draftTitle: "The title format is not valid",
     email: "The email format is not valid",
     file_size: "The file size must be less than {{count}}MB",
+    fluid_attacks_staff_without_fluid_attacks_service:
+      "Groups without an active Fluid Attacks service "
+      + "can not have Fluid Attacks staff",
     greater_date: "The date must be today or before",
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
@@ -911,6 +914,9 @@ const enTranslations: Dictionary = {
     lower_date: "Invalid date",
     maxLength: "This field requires less than {{count}} characters",
     minLength: "This field requires at least {{count}} characters",
+    no_fluid_attacks_hackers_in_fluid_attacks_service:
+      "Groups with any active Fluid Attacks service "
+      + "can only have Hackers provided by Fluid Attacks",
     numeric: "This field can only contain numbers",
     required: "Required field",
     some_required: "Select at least one value",

@@ -132,6 +132,14 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
           case "Exception - Invalid email address in form":
             msgError(translate.t("validations.invalidEmailInField"));
             break;
+          case "Exception - Groups without an active Fluid Attacks service "
+            + "can not have Fluid Attacks staff":
+            msgError(translate.t("validations.fluid_attacks_staff_without_fluid_attacks_service"));
+            break;
+          case "Exception - Groups with any active Fluid Attacks service "
+            + "can only have Hackers provided by Fluid Attacks":
+            msgError(translate.t("validations.no_fluid_attacks_hackers_in_fluid_attacks_service"));
+            break;
           default:
             msgError(translate.t("proj_alerts.error_textsad"));
             rollbar.error("An error occurred adding user to project", grantError);
@@ -153,8 +161,30 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
       }
     },
     onError: (editError: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred editing user", editError);
+      editError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Invalid field in form":
+            msgError(translate.t("validations.invalidValueInField"));
+            break;
+          case "Exception - Invalid characters":
+            msgError(translate.t("validations.invalid_char"));
+            break;
+          case "Exception - Invalid phone number in form":
+            msgError(translate.t("validations.invalidPhoneNumberInField"));
+            break;
+          case "Exception - Groups without an active Fluid Attacks service "
+            + "can not have Fluid Attacks staff":
+            msgError(translate.t("validations.fluid_attacks_staff_without_fluid_attacks_service"));
+            break;
+          case "Exception - Groups with any active Fluid Attacks service "
+            + "can only have Hackers provided by Fluid Attacks":
+            msgError(translate.t("validations.no_fluid_attacks_hackers_in_fluid_attacks_service"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred editing user", editError);
+        }
+      });
     },
   });
 
