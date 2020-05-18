@@ -12,6 +12,7 @@ import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { formValueSelector } from "redux-form";
+import { ConfigurableValidator } from "revalidate";
 import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
 import { Can } from "../../../../../utils/authz/Can";
 import { formatDropdownField, getLastTreatment } from "../../../../../utils/formatHelpers";
@@ -19,7 +20,7 @@ import { dateField, dropdownField, textAreaField, textField } from "../../../../
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
-import { isLowerDate, isValidDate, required } from "../../../../../utils/validations";
+import { isLowerDate, isValidDate, maxLength, required, validTextField } from "../../../../../utils/validations";
 import { EditableField } from "../../../components/EditableField";
 import { GenericForm } from "../../../components/GenericForm";
 import { RemediationModal } from "../../../components/RemediationModal";
@@ -36,6 +37,8 @@ export interface ITreatmentViewProps {
   setEditing(value: boolean): void;
 }
 
+const maxBtsLength: ConfigurableValidator = maxLength(80);
+const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(200);
 const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps): JSX.Element => {
   const { onCloseApproval } = props;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
@@ -177,6 +180,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                         renderAsEditable={props.isEditing}
                         type="text"
                         visibleWhileEditing={canEdit}
+                        validate={[validTextField, maxBtsLength]}
                       />
                     )}
                   </Can>
@@ -232,7 +236,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                         name="justification"
                         renderAsEditable={props.isEditing}
                         type="text"
-                        validate={required}
+                        validate={[required, validTextField, maxTreatmentJustificationLength]}
                         visibleWhileEditing={canEdit}
                       />
                     )}
