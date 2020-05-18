@@ -215,3 +215,43 @@ function job_test_asserts_api_proto_dns {
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}"
 }
+
+function job_test_asserts_api_proto_ftp {
+  local marker_name='proto_ftp'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_git {
+  local marker_name='proto_git'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_graphql {
+  local marker_name='proto_graphql'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_http {
+  local marker_name='proto_http'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_ldap {
+  local marker_name='proto_ldap'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
