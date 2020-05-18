@@ -58,6 +58,13 @@ def test_uses_insecure_ssl_protocol_open():
         AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_uses_insecure_ssl_cipher_open():
+    """Test elb2.uses_insecure_ssl_cipher."""
+    assert elb2.uses_insecure_ssl_cipher(
+        AWS_ACCESS_KEY_ID,
+        AWS_SECRET_ACCESS_KEY).is_open()
+
+
 def test_has_not_deletion_protection_unknown():
     """Test elb2.has_not_deletion_protection."""
     with no_connection():
