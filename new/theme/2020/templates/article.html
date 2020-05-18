@@ -69,6 +69,21 @@
 </div>
 {% endblock breadcrumb %}
 
+{% block header %}
+<div class="bg-graylight">
+  <div
+    class="coverm cover-s h-auto justify-center items-center flex bg-center mw-banner ml-auto mr-auto">
+    <div class="w-100 center">
+      <div class="w-100">
+        <img src="{{ SITEURL }}/{{ article.url}}{{ article.image }}"
+             alt="{{ article.alt }}"
+             class="w-100 db">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock header %}
+
 {% block content %}
 <div class="bg-graylight">
   <div class="roboto internal mw-banner ml-auto mr-auto roboto bg-white ph4 pt5-l pt4 pb5">
