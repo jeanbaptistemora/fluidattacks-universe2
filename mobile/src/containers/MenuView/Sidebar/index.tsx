@@ -10,7 +10,12 @@ import { default as FluidLogo } from "../../../../assets/logo.png";
 
 import { styles } from "./styles";
 
-const sidebar: React.FunctionComponent<Animated.Value> = (): JSX.Element => {
+/** Drawer menu */
+interface ISidebarProps {
+  progressAnimatedValue?: Animated.Value;
+}
+
+const sidebar: React.FunctionComponent<ISidebarProps> = (): JSX.Element => {
   const { t } = useTranslation();
   const history: ReturnType<typeof useHistory> = useHistory();
 
@@ -34,8 +39,8 @@ const sidebar: React.FunctionComponent<Animated.Value> = (): JSX.Element => {
   );
 };
 
-const renderSidebar: ((progressAnimatedValue: Animated.Value) => JSX.Element) = (
+export const renderSidebar: ((progressAnimatedValue: Animated.Value) => JSX.Element) = (
   progressAnimatedValue: Animated.Value,
-): JSX.Element => React.createElement(sidebar, progressAnimatedValue);
+): JSX.Element => React.createElement(sidebar, { progressAnimatedValue });
 
-export { renderSidebar as Sidebar };
+export { sidebar as Sidebar };

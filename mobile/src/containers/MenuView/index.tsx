@@ -18,7 +18,7 @@ import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
 
 import { PROJECTS_QUERY } from "./queries";
-import { Sidebar } from "./Sidebar";
+import { renderSidebar } from "./Sidebar";
 import { styles } from "./styles";
 import { IProject, IProjectsResult } from "./types";
 
@@ -57,7 +57,7 @@ const menuView: React.FunctionComponent = (): JSX.Element => {
         drawerType={Platform.select({ android: "front", ios: "slide" })}
         drawerWidth={200}
         ref={drawer}
-        renderNavigationView={Sidebar}
+        renderNavigationView={renderSidebar}
       >
         <Appbar.Header>
           <Appbar.Action icon="menu" onPress={openDrawer} />
