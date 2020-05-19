@@ -57,7 +57,7 @@ def validate_fields(fields: List[str]):
         'abcdefghijklmnopqrstuvwxyzñáéíóúäëïöü'
         'ABCDEFGHIJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜ'
         ' \t\n\r\x0b\x0c'
-        '(),-./:;@_$'
+        '(),-./:;@_$#'
     )
 
     for field in map(str, fields):
