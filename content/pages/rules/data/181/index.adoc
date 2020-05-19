@@ -74,7 +74,7 @@ and unauthorized or unlawful storage, processing, access or disclosure.
 
 . [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[OWASP-ASVS v3.1-2.16]
 Verify that all application data is transmitted
-over an encrypted channel (e.g. TLS).
+over an encrypted channel (e.g. *TLS*).
 
 . [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[OWASP-ASVS v3.1-9.3]
 Verify that all sensitive data is sent to the server

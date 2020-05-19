@@ -45,13 +45,20 @@ he might be able to compromise other systems using the sensitive information.
 Information written to log files can be of a sensitive nature and give valuable
 guidance to an attacker or expose sensitive user information.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[OWASP-ASVS v3.1-8.7]
+. [[r2]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 4: Security of processing.(1a)]
+The measures referred to in paragraph 1 shall at least protect personal data
+stored or transmitted against accidental or unlawful destruction,
+accidental loss or alteration,
+and unauthorized or unlawful storage, processing, access or disclosure.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[OWASP-ASVS v3.1-8.7]
 Verify that the application does not log sensitive data
 as defined under local privacy laws or regulations,
 organizational sensitive data as defined by a risk assessment,
 or sensitive authentication data that could assist an attacker,
 including user’s session identifiers, passwords, hashes, or *API* tokens.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
 Verify that a common logging format and approach is used across the system.

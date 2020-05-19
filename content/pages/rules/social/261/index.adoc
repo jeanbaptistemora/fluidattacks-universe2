@@ -1,16 +1,43 @@
 :slug: rules/261/
 :category: social
-:description: This document details the security requirements related to the proper use of social networks by the staff of a given organization or company. In this case, it is recommended that corporate information not be exposed on personal social networks in order to guarantee data safety.
-:keywords: Corporate, Personal, Social Network, Account, Register, Security.
+:description: This document details the security requirements related to the proper use of social networks by the staff of a given organization or company. In this case, it is recommended that corporate information not be exposed on publicly accessible web pages and application sections.
+:keywords: Corporate, Personal, Security, Sensitive, CWE, GDPR
 :rules: yes
 
 = REQ.261 Avoid exposing sensitive information
 
 == Requirement
 
-The application must not expose sensitive information on sections that are
-publicly accessible.
+The application must not expose sensitive information on sections that
+are publicly accessible.
+
+== Description
+
+Some applications have sections such as web pages and endpoints that are
+publicly exposed or do not require an initiated session to be accessed.
+These sections should contain neither sensitive corporate information nor
+users' or employees' personal data.
+Furthermore, corporate sensitive information should not be exposed on personal
+social network accounts either.
 
 == Findings
 
 * [inner]#link:/web/findings/038/[F038. Business information leak]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor]
+The product exposes sensitive information to an actor that is not explicitly
+authorized to have access to that information.
+
+. [[r2]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 4: Security of processing.(1a)]
+The measures referred to in paragraph 1 shall at least ensure that personal
+data can be accessed only by authorized personnel for legally authorized
+purposes.
+
+. [[r3]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]
+Personal data shall be processed in a manner that ensures appropriate security
+of the personal data,
+including protection against unauthorized or unlawful processing and against
+accidental loss, destruction or damage.

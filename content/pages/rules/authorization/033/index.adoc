@@ -63,11 +63,11 @@ in order to perform deeper and more detailed attacks.
 
 == References
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel].
 The software uses a primary channel for administration or restricted
 functionality,
 but it does not properly protect the channel.
 
-. [[r4]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.32+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[OWASP-ASVS v3.1-2.32]
 Verify that access to administrative interfaces
 is strictly controlled and not allowed for untrusted parties.
