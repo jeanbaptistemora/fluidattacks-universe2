@@ -49,6 +49,14 @@ function job_test_commit_message {
       done
 }
 
+function job_test_asserts_api_cloud_aws_api {
+  local marker_name='cloud_aws_api'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
 function job_test_asserts_api_cloud_aws_cloudformation {
   local marker_name='cloud_aws_cloudformation'
 
@@ -315,6 +323,38 @@ function job_test_asserts_api_proto_ssh {
 
 function job_test_asserts_api_proto_ssl {
   local marker_name='proto_ssl'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_proto_tcp {
+  local marker_name='proto_tcp'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_sca {
+  local marker_name='sca'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_syst {
+  local marker_name='syst'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
+function job_test_asserts_api_utils {
+  local marker_name='utils'
 
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \

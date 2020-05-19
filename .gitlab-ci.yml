@@ -106,23 +106,6 @@ send_new_version_mail:
   <<: *in_prod_branch
   stage: notify
 
-# For some reason our innovation account is empty!
-#   disabling until we recreate it or found how to revert changes
-.test_api_cloud_aws_api:
-  <<: *test_template
-
-test_api_proto_tcp:
-  <<: *test_template
-
-test_api_sca:
-  <<: *test_template
-
-test_api_syst:
-  <<: *test_template
-
-test_api_utils:
-  <<: *test_template
-
 # Build2
 
 .with_nix_2: &with_nix_2
@@ -150,6 +133,13 @@ build_nix_caches:
   interruptible: false
 
 test_commit_message:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+# For some reason our innovation account is empty!
+#   disabling until we recreate it or found how to revert changes
+.test_asserts_api_cloud_aws_api:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test
@@ -321,6 +311,26 @@ test_asserts_api_proto_ssh:
   stage: test
 
 test_asserts_api_proto_ssl:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_proto_tcp:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_sca:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_syst:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_asserts_api_utils:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test
