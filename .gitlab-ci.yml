@@ -42,13 +42,6 @@ stages:
     - ./build/scripts/odbc/set.sh
   stage: test
 
-build_fluidasserts_release:
-  <<: *with_nix
-  <<: *in_dev_branch
-  artifacts:
-    paths: [result.build_fluidasserts_release/]
-  stage: test
-
 demo_fluidasserts_output:
   <<: *with_nix
   <<: *in_dev_branch
@@ -60,16 +53,6 @@ pages:
   stage: deploy
   artifacts:
     paths: [public/]
-
-release_to_pypi:
-  <<: *with_nix
-  <<: *in_prod_branch
-  stage: release_to_pypi
-
-release_to_docker_hub:
-  <<: *with_nix
-  <<: *in_prod_branch
-  stage: release_to_docker
 
 # Build2
 
@@ -96,6 +79,13 @@ build_nix_caches:
     - apk add --no-cache bash
   parallel: 30
   interruptible: false
+
+build_asserts:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  artifacts:
+    paths: [asserts-release/]
+  stage: test
 
 # For some reason our innovation account is empty!
 #   disabling until we recreate it or found how to revert changes
@@ -347,3 +337,14 @@ danger:
     - npm install @commitlint/{config-conventional,cli}
   script:
     - danger --verbose --fail-on-errors=true
+
+release_to_pypi:
+  <<: *with_nix_2
+  <<: *in_prod_branch
+  stage: release_to_pypi
+
+release_to_docker_hub:
+  <<: *with_nix_2
+  <<: *in_prod_branch
+  needs: [release_to_pypi]
+  stage: release_to_docker

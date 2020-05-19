@@ -96,6 +96,48 @@ function helper_list_touched_files {
   done
 }
 
+function helper_minutes_of_month {
+  local minutes_of_passed_days
+  local minutes_of_passed_hours
+  local minutes_of_current_hour
+  local minutes_of_month
+
+      minutes_of_passed_days=$((
+        ($(TZ=GMT date +%d | sed 's/^0//') -1) * 1440
+      )) \
+  &&  minutes_of_passed_hours=$((
+        $(TZ=GMT date +%H | sed 's/^0//') * 60
+      )) \
+  &&  minutes_of_current_hour=$((
+        $(TZ=GMT date +%M | sed 's/^0//')
+      )) \
+  &&  minutes_of_month=$((
+        minutes_of_passed_days +
+        minutes_of_passed_hours +
+        minutes_of_current_hour
+      )) \
+  &&  echo "${minutes_of_month}"
+}
+
+function helper_asserts_version {
+  local minutes
+
+      minutes=$(helper_minutes_of_month) \
+  &&  echo "$(TZ=GMT date +%y.%m.)${minutes}"
+}
+
+function helper_build_asserts {
+  local version
+  local release_folder='asserts-release'
+
+      version=$(helper_asserts_version) \
+  &&  echo "Version: ${version}" \
+  &&  sed -i "s/_get_version(),/'${version}',/g" setup.py \
+  &&  python3 setup.py sdist --formats=gztar \
+  &&  python3 setup.py bdist_wheel \
+  &&  mv dist "${release_folder}"
+}
+
 function helper_config_precommit {
   export PRE_COMMIT_HOME
 
