@@ -9,7 +9,7 @@ import wait from "waait";
 import store from "../../../../../store/index";
 import { authzContext } from "../../../../../utils/authz/config";
 import { msgSuccess } from "../../../../../utils/notifications";
-import { GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
+import { DOWNLOAD_FILE_MUTATION, GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
 import { Files, IFilesProps } from "./index";
 
 jest.mock("../../../../../utils/notifications", () => {
@@ -210,5 +210,47 @@ describe("Files", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgSuccess)
       .toHaveBeenCalled();
+  });
+
+  it("should download a file", async () => {
+    const open: jest.Mock = jest.fn();
+    open.mockReturnValue({opener: ""});
+    window.open = open;
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: DOWNLOAD_FILE_MUTATION,
+        variables: {
+          filesData: JSON.stringify("test.zip"),
+          projectName: "TEST",
+        },
+      },
+      result: { data: { downloadFile : { success: true, url: "https://test.com/file" } } },
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_remove_files" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksFiles.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Files {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const fileInfo: ReactWrapper = wrapper.find("tr")
+      .findWhere((element: ReactWrapper) => element.contains("test.zip"))
+      .at(0);
+    fileInfo.simulate("click");
+    const fileOptionsModal: ReactWrapper = wrapper.find("fileOptionsModal");
+    const downloadButton: ReactWrapper = fileOptionsModal
+      .find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Download"))
+      .at(0);
+    downloadButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(open)
+      .toBeCalledWith("https://test.com/file");
   });
 });
