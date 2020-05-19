@@ -461,16 +461,27 @@ $codeyellow: rgba(230, 219, 116, 1);
     border-spacing: 0;
     border-style: solid;
     border-width: 1px;
-    text-align: center;
+    display: block;
+    overflow-x: auto;
+    text-align: left;
     thead {
+      font-size: 1.125rem;
       background-color: $headergray;
+      th{
+        padding: 2rem;
+        text-align: center;
+      }
     }
     tbody tr {
-      background-color: $fluid-light-gray;
+      background-color: $graylight;
     }
 
     tbody tr:nth-child(even){
-      background-color: $graylight;
+      background-color: $fluid-light-gray;
+    }
+
+    tbody td {
+      padding: 2rem;
     }
   }
 
