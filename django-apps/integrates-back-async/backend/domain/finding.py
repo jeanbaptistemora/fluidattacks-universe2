@@ -399,11 +399,6 @@ def reject_draft(draft_id: str, reviewer_email: str) -> bool:
     return success
 
 
-def filter_deleted_findings(findings_ids: List[str]) -> List[str]:
-    return [finding_id for finding_id in findings_ids
-            if validate_finding(finding_id)]
-
-
 def delete_finding(finding_id: str, project_name: str, justification: str, context) -> bool:
     finding_data = get_finding(finding_id)
     submission_history = cast(List[Dict[str, str]], finding_data.get('historicState', [{}]))
@@ -494,8 +489,7 @@ def get_finding_historic_treatment(finding_id: str) -> List[Dict[str, str]]:
 
 def get_findings(finding_ids: List[str]) -> List[Dict[str, FindingType]]:
     """Retrieves all attributes for the requested findings"""
-    findings = [get_finding(finding_id) for finding_id in finding_ids
-                if validate_finding(finding_id=finding_id)]
+    findings = [get_finding(finding_id) for finding_id in finding_ids]
     if not findings and finding_ids:
         raise FindingNotFound()
     return findings
@@ -507,11 +501,8 @@ async def get_findings_async(
     findings_tasks = [
         asyncio.create_task(sync_to_async(get_finding)(finding_id))
         for finding_id in finding_ids
-        if validate_finding(finding_id=finding_id)
     ]
     findings = await asyncio.gather(*findings_tasks)
-    if not findings and finding_ids:
-        raise FindingNotFound()
     return findings
 
 

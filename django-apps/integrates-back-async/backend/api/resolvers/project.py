@@ -18,7 +18,6 @@ from backend.decorators import (
     require_project_access, enforce_user_level_auth_async
 )
 from backend.domain import (
-    finding as finding_domain,
     project as project_domain,
 )
 from backend.typing import (
@@ -135,10 +134,8 @@ async def _get_open_findings(info,
     project_findings = \
         await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    finding_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(project_findings)
     finding_vulns = \
-        await info.context.loaders['vulnerability'].load_many(finding_ids)
+        await info.context.loaders['vulnerability'].load_many(project_findings)
     open_findings = \
         await sync_to_async(project_domain.get_open_findings)(finding_vulns)
     return open_findings
@@ -380,10 +377,8 @@ async def _get_drafts(
     project_drafts = \
         await info.context.loaders['project'].load(project_name)
     project_drafts = project_drafts['drafts']
-    drafts_ids = await \
-        sync_to_async(finding_domain.filter_deleted_findings)(project_drafts)
     findings = \
-        await info.context.loaders['finding'].load_many(drafts_ids)
+        await info.context.loaders['finding'].load_many(project_drafts)
 
     drafts = [draft for draft in findings
               if 'current_state' in draft and

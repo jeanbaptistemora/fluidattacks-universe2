@@ -417,7 +417,7 @@ def get_new_releases():
         if project not in test_projects:
             try:
                 finding_requests = finding_domain.get_findings(
-                    finding_domain.filter_deleted_findings(project_domain.list_drafts(project)))
+                    project_domain.list_drafts(project))
                 for finding in finding_requests:
                     if 'releaseDate' not in finding:
                         submission = finding.get('historicState')
@@ -514,8 +514,7 @@ def reset_expired_accepted_findings():
     projects = project_domain.get_active_projects()
     for project in projects:
         findings = finding_domain.get_findings(
-            finding_domain.filter_deleted_findings(
-                project_domain.list_findings(project)))
+            project_domain.list_findings(project))
         for finding in findings:
             finding_id = finding.get('findingId')
             historic_treatment = finding.get('historicTreatment', [{}])

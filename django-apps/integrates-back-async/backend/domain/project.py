@@ -507,8 +507,6 @@ def get_mean_remediate_severity(project_name: str, min_severity: float,
     tzn = pytz.timezone('America/Bogota')
     project_name = project_name.lower()
     finding_ids = list_findings(project_name)
-    finding_ids = [finding_id for finding_id in finding_ids
-                   if finding_domain.validate_finding(finding_id)]
     findings = finding_domain.get_findings(finding_ids)
     for finding in findings:
         if min_severity <= cast(float, finding.get('severityCvss', 0)) <= max_severity:

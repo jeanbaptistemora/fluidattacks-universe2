@@ -147,7 +147,7 @@ def list_drafts(project_name: str) -> List[str]:
         FilterExpression=filter_exp,
         IndexName='project_findings',
         KeyConditionExpression=key_exp,
-        ProjectionExpression='finding_id')
+        ProjectionExpression='finding_id, historic_state')
     drafts = response.get('Items', [])
 
     while response.get('LastEvaluatedKey'):
@@ -159,7 +159,10 @@ def list_drafts(project_name: str) -> List[str]:
             ProjectionExpression='finding_id')
         drafts += response.get('Items', [])
 
-    return [draft['finding_id'] for draft in drafts]
+    return [
+        draft['finding_id'] for draft in drafts
+        if draft.get('historic_state', [{}])[-1].get('state') != 'DELETED'
+    ]
 
 
 def list_findings(project_name: str) -> List[str]:
@@ -171,7 +174,7 @@ def list_findings(project_name: str) -> List[str]:
         FilterExpression=filter_exp,
         IndexName='project_findings',
         KeyConditionExpression=key_exp,
-        ProjectionExpression='finding_id')
+        ProjectionExpression='finding_id, historic_state')
     findings = response.get('Items', [])
 
     while response.get('LastEvaluatedKey'):
@@ -183,7 +186,10 @@ def list_findings(project_name: str) -> List[str]:
             ProjectionExpression='finding_id')
         findings += response.get('Items', [])
 
-    return [finding['finding_id'] for finding in findings]
+    return [
+        finding['finding_id'] for finding in findings
+        if finding.get('historic_state', [{}])[-1].get('state') != 'DELETED'
+    ]
 
 
 def list_events(project_name: str) -> List[str]:

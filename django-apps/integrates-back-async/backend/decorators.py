@@ -22,13 +22,13 @@ from backend.dal import finding as finding_dal
 
 from backend.domain import (
     user as user_domain, event as event_domain,
-    project as project_domain
+    finding as finding_domain, project as project_domain
 )
 from backend.services import (
     has_valid_access_token
 )
 from backend import authz, util
-from backend.exceptions import InvalidAuthorization
+from backend.exceptions import InvalidAuthorization, FindingNotFound
 
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -253,6 +253,9 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
             raise GraphQLError('Invalid finding id format')
 
         enforcer = authz.get_group_access_enforcer()
+
+        if not finding_domain.validate_finding(finding_id):
+            raise FindingNotFound()
 
         if not await enforcer(user_data, finding_project):
             util.cloudwatch_log(

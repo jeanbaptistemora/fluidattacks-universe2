@@ -15,8 +15,7 @@ def update_organization_indicators(company: str,
     tags_dict: Dict[str, List[Dict[str, Union[str, float]]]] = defaultdict(list)
     for project in company_projects:
         findings = finding_domain.get_findings(
-            finding_domain.filter_deleted_findings(
-                project_domain.list_findings(project.get('project_name', ''))))
+            project_domain.list_findings(project.get('project_name', '')))
         project_data: Dict[str, Union[str, float]] = cast(
             Dict[str, Union[str, float]],
             project_domain.get_attributes(project.get('project_name', ''), [
