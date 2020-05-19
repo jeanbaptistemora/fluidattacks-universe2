@@ -28,7 +28,7 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --global-secondary-indexes \
     IndexName=project_findings,\
 KeySchema=["{AttributeName=project_name,KeyType=HASH}"],\
-Projection="{ProjectionType=INCLUDE,NonKeyAttributes=["releaseDate"]}",\
+Projection="{ProjectionType=INCLUDE,NonKeyAttributes=["releaseDate", "historic_state"]}",\
 ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
