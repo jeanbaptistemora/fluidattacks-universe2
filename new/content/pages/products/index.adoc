@@ -33,6 +33,8 @@ image::product-forces.png[link="../products/forces/"]
 == Forces
 
 [role="mb-products"]
+*Forces* is a precise and very fast robot
+built to exploit what is found in exact locations in the systems.
 *Forces* automates attacks with the goal of verifying the status
 (open or closed) of vulnerabilities, and breaks the build to force the
 remediation of open vulnerabilities.
