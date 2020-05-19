@@ -62,7 +62,7 @@ export const validTextField: Validator = (value: string): string | undefined => 
     const asciiLettersLower: string = "abcdefghijklmnopqrstuvwxyzñáéíóúäëïöü";
     const asciiLettersUpper: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜ";
     const whitespace: string = " \t\n\r\x0b\x0c";
-    const other: string = "(),-./:;@_";
+    const other: string = "(),-./:;@_$";
 
     const whitelist: string[] = (digits + asciiLettersLower + asciiLettersUpper + whitespace + other).split("");
 
