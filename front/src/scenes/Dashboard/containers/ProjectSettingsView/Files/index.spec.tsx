@@ -9,7 +9,7 @@ import wait from "waait";
 import store from "../../../../../store/index";
 import { authzContext } from "../../../../../utils/authz/config";
 import { msgSuccess } from "../../../../../utils/notifications";
-import { GET_FILES, UPLOAD_FILE_MUTATION } from "../queries";
+import { GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
 import { Files, IFilesProps } from "./index";
 
 jest.mock("../../../../../utils/notifications", () => {
@@ -20,6 +20,9 @@ jest.mock("../../../../../utils/notifications", () => {
 });
 
 describe("Files", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   const mockProps: IFilesProps = {
     projectName: "TEST",
@@ -37,20 +40,20 @@ describe("Files", () => {
         data: {
           resources: {
             environments: "",
-            files: `[
+            files: JSON.stringify([
               {
-                \"description\": \"Test\",
-                \"fileName\": \"test.zip\",
-                \"uploadDate\": \"2019-03-01 15:21\",
-                \"uploader\": \"unittest@fluidattacks.com\"
+                description: "Test",
+                fileName: "test.zip",
+                uploadDate: "2019-03-01 15:21",
+                uploader: "unittest@fluidattacks.com",
               },
               {
-                \"description\": \"shell\",
-                \"fileName\": \"shell.exe\",
-                \"uploadDate\": \"2019-04-24 14:56\",
-                \"uploader\": \"unittest@fluidattacks.com\"
-              }
-            ]`,
+                description: "shell",
+                fileName: "shell.exe",
+                uploadDate: "2019-04-24 14:56",
+                uploader: "unittest@fluidattacks.com",
+              },
+            ]),
             projectName: "TEST",
             repositories: "",
           },
@@ -68,14 +71,14 @@ describe("Files", () => {
         data: {
           resources: {
             environments: "",
-            files: `[
+            files: JSON.stringify([
               {
-                \"description\": \"Test\",
-                \"fileName\": \"test.zip\",
-                \"uploadDate\": \"2019-03-01 15:21\",
-                \"uploader\": \"unittest@fluidattacks.com\"
-              }
-            ]`,
+                description: "Test",
+                fileName: "test.zip",
+                uploadDate: "2019-03-01 15:21",
+                uploader: "unittest@fluidattacks.com",
+              },
+            ]),
             projectName: "TEST",
             repositories: "",
           },
@@ -165,5 +168,47 @@ describe("Files", () => {
       .at(0);
     expect(firstRowInfo.text())
       .toEqual("shell.exeshell2019-04-24 14:56");
+  });
+
+  it("should remove a file", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: REMOVE_FILE_MUTATION,
+        variables: {
+          filesData: JSON.stringify({
+            fileName: "test.zip",
+          }),
+          projectName: "TEST",
+        },
+      },
+      result: { data: { removeFiles : { success: true } } },
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_remove_files" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksFiles.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Files {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const fileInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper) => element.contains("test.zip"))
+      .at(0);
+    fileInfo.simulate("click");
+    const fileOptionsModal: ReactWrapper = wrapper.find("fileOptionsModal");
+    const removeButton: ReactWrapper = fileOptionsModal
+      .find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Remove"))
+      .at(0);
+    removeButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgSuccess)
+      .toHaveBeenCalled();
   });
 });
