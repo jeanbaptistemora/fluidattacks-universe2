@@ -375,13 +375,19 @@ def update(project_name: str, data: ProjectType) -> bool:
             del data[attr]
 
         if data:
-            attributes = ['{attr} = :{attr}'.format(attr=attr) for attr in data]
-            values = {':{}'.format(attr): data[attr] for attr in data}
+            attributes = [f'#{attr} = :{attr}' for attr in data]
+            names = {f'#{attr}': attr for attr in data}
+            values = {f':{attr}': data[attr] for attr in data}
 
             response = TABLE.update_item(
                 Key=primary_keys,
                 UpdateExpression='SET {}'.format(','.join(attributes)),
-                ExpressionAttributeValues=values)
+                # By default updates on non-existent items create a new item
+                # This condition disables that effect
+                ConditionExpression=Attr('project_name').exists(),
+                ExpressionAttributeNames=names,
+                ExpressionAttributeValues=values,
+            )
             success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError:
         rollbar.report_message('Error: Couldn\'nt update project', 'error')

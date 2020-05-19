@@ -11,6 +11,7 @@ from backend.dal.helpers import dynamodb
 from backend.domain.project import (
     add_comment,
     does_group_has_drills,
+    edit,
     get_email_recipients, validate_tags, is_alive, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
     is_vulnerability_closed, get_max_open_severity,
@@ -351,3 +352,27 @@ class ProjectTest(TestCase):
         test_data = create_project(user_email, user_role, **project_data)
         expected_output = True
         assert  test_data == expected_output
+
+
+@pytest.mark.changes_db
+@pytest.mark.parametrize(
+    ['group_name', 'subscription', 'has_drills', 'has_forces', 'expected'],
+    [
+        ['unittesting', 'continuous', True, True, True],
+        ['oneshottest', 'oneshot', False, False, True],
+        ['not-exists', 'continuous', True, True, False],
+    ]
+)
+def test_edit(
+    group_name: str,
+    subscription: str,
+    has_drills: bool,
+    has_forces: bool,
+    expected: bool,
+):
+    assert expected == edit(
+        group_name=group_name,
+        subscription=subscription,
+        has_drills=has_drills,
+        has_forces=has_forces,
+    )

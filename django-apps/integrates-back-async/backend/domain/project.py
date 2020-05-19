@@ -165,6 +165,32 @@ def create_project(
     return success
 
 
+def edit(
+    *,
+    group_name: str,
+    subscription: str,
+    has_drills: bool,
+    has_forces: bool,
+) -> bool:
+    is_continuous_type: bool = subscription == 'continuous'
+
+    validate_project_services_config(
+        is_continuous_type,
+        has_drills,
+        has_forces)
+
+    success: bool = project_dal.update(
+        data={
+            'has_drills': has_drills,
+            'has_forces': has_forces,
+            'type': subscription,
+        },
+        project_name=group_name,
+    )
+
+    return success
+
+
 def add_access(user_email: str, project_name: str,
                project_attr: str, attr_value: Union[str, bool]) -> bool:
     return project_dal.add_access(user_email, project_name, project_attr, attr_value)
