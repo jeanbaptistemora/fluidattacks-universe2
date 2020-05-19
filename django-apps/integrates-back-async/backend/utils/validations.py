@@ -66,8 +66,9 @@ def validate_fields(fields: List[str]):
                 raise InvalidChar()
 
 
-def validate_field_length(field: str, limit: int):
-    if len(field) >= limit:
+def validate_field_length(field: str, limit: int, is_greater_than_limit=True):
+    """if is_greater_than_limit equals False, it means we are checking if field < limit"""
+    if (len(field) >= limit) == is_greater_than_limit:
         raise InvalidFieldLength()
 
 
