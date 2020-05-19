@@ -160,6 +160,7 @@ def create_project(
             has_drills=has_drills,
             has_forces=has_forces,
             requester_email=user_email,
+            subscription=subscription,
         )
 
     return success

@@ -11,18 +11,27 @@ def new_group(
     has_drills: bool,
     has_forces: bool,
     requester_email: str,
+    subscription: str,
 ) -> bool:
+    translations: dict = {
+        'continuous': 'Continuous Hacking',
+        'oneshot': 'One-Shot Hacking',
+        True: 'Active',
+        False: 'Inactive',
+    }
+
     return notifications_dal.create_ticket(
         subject=f'[Integrates] Group created: {group_name}',
         description=f"""
             You are receiving this email because you have created a group
-            through integrates by Fluid Attacks.
+            through Integrates by Fluid Attacks.
 
             Here are the details of the group:
             - Name: {group_name}
             - Description: {description}
-            - Has Drills: {has_drills}
-            - Has Forces: {has_forces}
+            - Type: {translations.get(subscription, subscription)}
+            - Drills: {translations[has_drills]}
+            - Forces: {translations[has_forces]}
 
             If you require any further information,
             do not hesitate to contact us.
