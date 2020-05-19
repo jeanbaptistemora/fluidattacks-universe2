@@ -156,6 +156,12 @@ type Mutation {
         hasDrills: Boolean,
         hasForces: Boolean
     ): SimplePayload!
+    editGroup(
+        groupName: String!,
+        subscription: SubscriptionType!,
+        hasDrills: Boolean!,
+        hasForces: Boolean!,
+    ): SimplePayload!
     addFindingComment(
         content: String!,
         findingId: String!,

@@ -15,6 +15,7 @@ from backend.api.resolvers import (
 )
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, require_login,
+    turn_args_into_kwargs,
     require_project_access, enforce_user_level_auth_async
 )
 from backend.domain import (
@@ -518,6 +519,37 @@ async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
         util.cloudwatch_log(
             info.context,
             f'Security: Created project {project_name} successfully',
+        )
+
+    return SimplePayloadType(success=success)
+
+
+@require_login
+@turn_args_into_kwargs
+@enforce_group_level_auth_async
+@require_project_access
+async def _do_edit_group(
+    _, info,
+    group_name: str,
+    subscription: str,
+    has_drills: bool,
+    has_forces: bool,
+) -> SimplePayloadType:
+    group_name = group_name.lower()
+    requester_email = util.get_jwt_content(info.context)['user_email']
+
+    success = await sync_to_async(project_domain.edit)(
+        group_name=group_name,
+        subscription=subscription,
+        has_drills=has_drills,
+        has_forces=has_forces,
+    )
+
+    if success:
+        util.invalidate_cache(requester_email)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Edited group {group_name} successfully',
         )
 
     return SimplePayloadType(success=success)

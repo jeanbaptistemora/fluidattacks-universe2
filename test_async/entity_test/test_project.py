@@ -426,3 +426,83 @@ class ProjectTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['addProjectComment']
         assert result['data']['addProjectComment']['success']
+
+
+@pytest.mark.parametrize(
+    ['group_name', 'subscription', 'has_drills', 'has_forces', 'expected'],
+    [
+        ['UNITTESTING', 'CONTINUOUS', 'true', 'true', True],
+        ['ONESHOTTEST', 'ONESHOT', 'false', 'false', True],
+        # You cannot edit a non-existing group
+        # this will usually raise 'Access Denied', but the requester is Admin
+        ['NOT-EXIST', 'CONTINUOUS', 'true', 'true', False],
+    ]
+)
+async def test_edit_group_good(
+    group_name,
+    subscription,
+    has_drills,
+    has_forces,
+    expected,
+):
+    query = f"""
+        mutation {{
+            editGroup(
+                groupName: "{group_name}",
+                subscription: {subscription},
+                hasDrills: {has_drills},
+                hasForces: {has_forces},
+            ) {{
+                success
+            }}
+        }}
+      """
+    result = await ProjectTests._get_result_async(None, {
+        'query': query,
+    })
+
+    assert 'errors' not in result
+    assert 'success' in result['data']['editGroup']
+    assert result['data']['editGroup']['success'] == expected
+
+
+@pytest.mark.parametrize(
+    ['group_name', 'subscription', 'has_drills', 'has_forces', 'expected'],
+    [
+        # Configuration error, Forces requires Drills
+        ['ONESHOTTEST', 'CONTINUOUS', 'false', 'true',
+         'Exception - Forces is only available when Drills is too'],
+        # Configuration error, Forces requires CONTINUOUS
+        ['ONESHOTTEST', 'ONESHOT', 'false', 'true',
+         'Exception - Forces is only available in projects of type Continuous'],
+        # Configuration error, Drills requires CONTINUOUS
+        ['ONESHOTTEST', 'ONESHOT', 'true', 'false',
+         'Exception - Drills is only available in projects of type Continuous'],
+    ]
+)
+async def test_edit_group_bad(
+    group_name,
+    subscription,
+    has_drills,
+    has_forces,
+    expected,
+):
+    query = f"""
+        mutation {{
+            editGroup(
+                groupName: "{group_name}",
+                subscription: {subscription},
+                hasDrills: {has_drills},
+                hasForces: {has_forces},
+            ) {{
+                success
+            }}
+        }}
+      """
+    result = await ProjectTests._get_result_async(None, {
+        'query': query,
+    })
+
+    assert 'errors' in result
+    assert result['errors'][0]['message'] \
+        == expected

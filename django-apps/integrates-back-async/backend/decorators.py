@@ -4,6 +4,7 @@
 from datetime import datetime
 import asyncio
 import functools
+import inspect
 import re
 from typing import Any, Callable, Dict
 
@@ -88,7 +89,7 @@ def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
     return verify_and_call
 
 
-def resolve_project_name(args, kwargs) -> str:
+def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
     """Get project name based on args passed."""
     if args and hasattr(args[0], 'name'):
         project_name = args[0].name
@@ -99,6 +100,8 @@ def resolve_project_name(args, kwargs) -> str:
             finding_dal.get_attributes(args[0].finding_id, ['project_name']).get('project_name')
     elif 'project_name' in kwargs:
         project_name = kwargs['project_name']
+    elif 'group_name' in kwargs:
+        project_name = kwargs['group_name']
     elif 'finding_id' in kwargs:
         project_name = \
             finding_dal.get_attributes(kwargs['finding_id'], ['project_name']).get('project_name')
@@ -194,7 +197,7 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
-        project_name = kwargs.get('project_name')
+        project_name = kwargs.get('project_name') or kwargs.get('group_name')
 
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
@@ -392,3 +395,27 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[..., Any]:
         return decorated
 
     return wrapped
+
+
+def turn_args_into_kwargs(function: Callable):
+    """Turn function's positional-arguments into keyword-arguments.
+
+    Very useful when you want to keep an strongly typed signature in your
+    function while using another decorators from this module that work on
+    keyword arguments only for backwards compatibility reasons.
+
+    This avoids functions with a typeless **parameters, and then 50 lines
+    unpacking the arguments and casting them to the expected types.
+    """
+    @functools.wraps(function)
+    async def new_function(*args, **kwargs):
+        # The first two arguments are django's self, and info references
+        #   They can be safely left intact
+
+        args_as_kwargs = dict(zip(
+            inspect.getfullargspec(function).args[2:], args[2:]
+        ))
+
+        return await function(*args[0:2], **args_as_kwargs, **kwargs)
+
+    return new_function
