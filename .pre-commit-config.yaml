@@ -26,7 +26,7 @@
   hooks:
     - id: pylint
       args:
-        - --rcfile=conf/pylintrc
+        - --rcfile=.pylintrc
 - repo: git://github.com/Lucas-C/pre-commit-hooks
   rev: ffbd448645bad2e7ca13f96fca5830058d27ccd5
   hooks:

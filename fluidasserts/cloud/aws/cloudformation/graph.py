@@ -8,14 +8,23 @@ from collections import OrderedDict
 from copy import copy
 
 # 3rd party imports
-from pyparsing import Suppress, nestedExpr, printables, Word, Optional, Char
+from pyparsing import Char
+from pyparsing import nestedExpr
+from pyparsing import Optional
+from pyparsing import printables
+from pyparsing import Suppress
+from pyparsing import Word
 
 # local imports
+from fluidasserts.db.neo4j_connection import ConnectionString
+from fluidasserts.db.neo4j_connection import database
+from fluidasserts.db.neo4j_connection import runner
+from fluidasserts.helper.aws import _random_string
+from fluidasserts.helper.aws import get_line
 from fluidasserts.helper.aws import load_cfn_template
-from fluidasserts.db.neo4j_connection import ConnectionString, database, runner
-from fluidasserts.helper.aws import get_line, _random_string
-from fluidasserts.utils.parsers.json import standardize_objects
 from fluidasserts.utils.parsers.json import CustomDict
+from fluidasserts.utils.parsers.json import CustomList
+from fluidasserts.utils.parsers.json import standardize_objects
 
 INTRINSIC_FUNCS = [
     'Fn::Base64',
@@ -43,14 +52,14 @@ CONDITIONAL_FUNCS = ['Fn::And', 'Fn::Equals',
 
 
 def create_alias(name: str, randoms=False) -> str:
-    """
-    Create an alias for Cipher statement.
+    """Create an alias for Cipher statement.
 
     :param randoms: Add random chars to alias.
     """
     alias = name.replace('-', '_').lower()
     alias = alias.replace('::', '_')
     alias = alias.replace(':', '_')
+    alias = alias.replace('.', '_')
     if randoms:
         alias = f'{alias}_{_random_string(5)}'
     return alias
@@ -82,12 +91,11 @@ def _get_line(object_, key):
     return line if line != 0 else None
 
 
-class Batcher():
+class Batcher:  # noqa: H238
     """A class to convert a cloudformation template to graphs."""
 
     def __init__(self, template_path: str, connection: ConnectionString):
-        """
-        Convert an load template.
+        """Convert an load template.
 
         Load the template and loop through all the nodes in the document
         to create a statement that loads the nodes to neo4j with their
@@ -111,6 +119,7 @@ class Batcher():
                 self.load_mappings()
                 self.load_conditions()
                 self.load_resources()
+                self.load_outputs()
 
     def _load_template_data(self):
         self.template = load_cfn_template(self.path)
@@ -174,7 +183,7 @@ class Batcher():
         for opt_name, opt_values in map_options.items():
             if opt_name.startswith('__'):
                 continue
-            alias_opt = create_alias(opt_name)
+            alias_opt = create_alias(opt_name, True)
             map_properties = (f"{{name: $map_{alias_map}_{alias_opt}_name}}")
 
             statement += (f"MERGE ({alias_map}_{alias_opt}_:MapOption"
@@ -215,8 +224,7 @@ class Batcher():
         return statement
 
     def load_parameters(self):
-        """
-        Execute a statement that creates the nodes for the template params.
+        """Execute a statement that creates the nodes for the template params.
 
         :param trans: Transaction to execute the statement.
         """
@@ -244,7 +252,7 @@ class Batcher():
             # create the node for the parameter
             param_statement = (
                 f"CREATE ({alias_parameters})-"
-                f"[rel_{alias_param}:DECLARE_PARAMETER]->"
+                f"[rel_{alias_param}:DECLARE]->"
                 f"(param_{alias_param}:Reference:Parameter"
                 # set attributes of node
                 f" {{logicalName: $param_name_{alias_param}}})\n"
@@ -261,8 +269,7 @@ class Batcher():
         return self.transactor.run(statement, **self.statement_params)
 
     def load_mappings(self):
-        """
-        Execute a statement that creates the nodes for the template Mappings.
+        """Execute a statement that creates nodes for the template Mappings.
 
         :param trans: Transaction to execute the statement.
         """
@@ -294,7 +301,7 @@ class Batcher():
                 continue
             alias_map = create_alias(map_name)
             map_statement = (
-                f"CREATE ({alias_mappings})-[rel_{alias_map}:DECLARE_MAP]->"
+                f"CREATE ({alias_mappings})-[rel_{alias_map}:DECLARE]->"
                 f"(map_{alias_map}:Mapping {{name: $map_name_{alias_map}}})\n"
                 f"SET rel_{alias_map}.line = $rel_{alias_map}_line\n")
             self.statement_params[f'map_name_{alias_map}'] = map_name
@@ -306,8 +313,7 @@ class Batcher():
         return self.transactor.run(statement, **self.statement_params)
 
     def load_conditions(self):
-        """
-        Execute a statement that creates the nodes for the template Conditions.
+        """Execute a statement that creates nodes for the template Conditions.
 
         :param trans: Transaction to execute the statement.
         """
@@ -339,7 +345,7 @@ class Batcher():
                 continue
             alias_con = create_alias(f"con_{condition_name}")
             statement += (f"CREATE ({alias_conditions})-"
-                          f"[rel_{alias_con}:DECLARE_CONDITION"
+                          f"[rel_{alias_con}:DECLARE"
                           f" {{line: $rel_{alias_con}_line}}]->"
                           f"({alias_con}:Condition "
                           f"{{name: $con_name_{alias_con}}})\n")
@@ -370,8 +376,7 @@ class Batcher():
         return True
 
     def load_resources(self):
-        """
-        Execute a statement that creates the nodes for the template Resources.
+        """Execute a statement that creates nodes for the template Resources.
 
         :param trans: Transaction to execute the statement.
         """
@@ -391,9 +396,65 @@ class Batcher():
         self.transactor.run(statement, **self.statement_params)
 
         for resource_name in self.template['Resources'].keys():
-            if resource_name.startswith('__'):
+            if resource_name.startswith(
+                    '__') or self.template['Resources'][resource_name].get(
+                        '__loaded__', False):
                 continue
             self._load_resource(resource_name)
+
+    def load_outputs(self):
+        """Execute a statement that creates the nodes for the template Outputs.
+
+        :param trans: Transaction to execute the statement.
+        """
+        if 'Outputs' not in self.template.keys():
+            return False
+        alias_outputs = self.template['Outputs'][
+            '__node_alias__'] = "resources_node"
+        alias_template = self.template['__node_alias__']
+        node_template_name = self.template['__node_name__']
+
+        statement = (
+            f"MATCH ({alias_template}:{node_template_name})\n"
+            f'WHERE {alias_template}.path = "{self.path}"\n'
+            f"CREATE ({alias_template})-[rel_{alias_outputs}:CONTAINS "
+            f"{{line: $rel_{alias_outputs}_line}}]->"
+            f"({alias_outputs}:Outputs)\n")
+        self.statement_params[f'rel_{alias_outputs}_line'] = get_line(
+            self.template['Outputs'])
+        self.transactor.run(statement, **self.statement_params)
+        contexts = {alias_outputs}
+        for out_name, out_value in self.template['Outputs'].items():
+            if out_name.startswith('__'):
+                continue
+            if out_name.startswith('Fn::'):
+                statement += self.load_intrinsic_func(alias_outputs, out_name,
+                                                      out_value, contexts)
+                continue
+            alias_out = create_alias(out_name, True)
+            statement += (f"CREATE ({alias_outputs})-"
+                          f"[rel_{alias_out}:DECLARE"
+                          f" {{line: $rel_{alias_out}_line}}]->"
+                          f"({alias_out}:Output "
+                          f"{{name: $out_name{alias_out}, "
+                          f"Description: $out_desc{alias_out}}})\n")
+            contexts.update([alias_out, f'rel_{alias_out}'])
+            self.statement_params[f'out_name{alias_out}'] = out_name
+            line = _get_line(self.template['Outputs'], out_name)
+            self.statement_params[f'rel_{alias_out}_line'] = line
+            self.statement_params[f'out_desc{alias_out}'] = out_value.get(
+                'Description', 'nothing')
+            if isinstance(out_value['Value'], (int, str, bool)):
+                statement += f'SET {alias_out}.Value = ${alias_out}_value\n'
+                self.statement_params[f'{alias_out}_value'] = out_value[
+                    'Value']
+            else:
+                func_name = list(out_value['Value'].keys())[0]
+                line = _get_line(out_value['Value'], func_name)
+                statement += self.load_intrinsic_func(
+                    alias_out, func_name, out_value['Value'][func_name],
+                    contexts, line)
+        return self.transactor.run(statement, **self.statement_params)
 
     def _load_resource(self, resource_name):
         alias_resources = self.template['Resources'][
@@ -408,14 +469,15 @@ class Batcher():
             f"MATCH ({alias_template}:{node_template_name})-[:CONTAINS]->"
             f"({alias_resources}:Resources)"
             f'WHERE {alias_template}.path = "{self.path}"\n'
-            f"CREATE ({alias_resources})-[:DECLARE_RESOURCE "
+            f"CREATE ({alias_resources})-[:DECLARE "
             f"{{line: ${alias_resources}_line}}]->"
             f"({res_alias}:Reference:{resource_node}:{resource_name} {{"
             f"Name:${res_alias}_name, logicalName:${res_alias}_name}})\n")
         self.statement_params[f'{res_alias}_name'] = resource_name
         line = _get_line(self.template['Resources'], resource_name)
         self.statement_params[f'{alias_resources}_line'] = line
-        for prop_name, prop_value in resource['Properties'].items():
+        for prop_name, prop_value in resource.get('Properties',
+                                                  dict()).items():
             if prop_name.startswith('__'):
                 continue
             prop_alias = create_alias(f'{res_alias}_{prop_name}', True)
@@ -431,7 +493,7 @@ class Batcher():
             statement += self._load_resource_property((prop_alias, prop_value),
                                                       contexts, line)
         self.transactor.run(statement, **self.statement_params)
-        resource['__loaded__'] = True
+        self.template['Resources'][resource_name]['__loaded__'] = True
 
     def _load_resource_property(self,
                                 property_: tuple,
@@ -460,7 +522,7 @@ class Batcher():
                 self.statement_params[f'{attr_alias}_line'] = line
                 statement += self._load_resource_property((attr_alias, value),
                                                           contexts, line)
-        elif isinstance(prop_value, (list)):
+        elif isinstance(prop_value, (list, CustomList)):
             statement += f"SET {prop_alias} :Array\n"
             for idx, value in enumerate(prop_value):
                 alias_item = create_alias(f'{prop_alias}_{idx}', True)
@@ -476,8 +538,7 @@ class Batcher():
         return statement
 
     def _load_condition_funcs(self, func: tuple, context: set, line=0) -> str:
-        """
-        Create a statement to load a function.
+        """Create a statement to load a function.
 
         Context lets inherit contexts from top nodes to create relationships.
         :param func: Function to load.
@@ -513,8 +574,7 @@ class Batcher():
                             contexts: set = None,
                             line='unknown',
                             **kwargs):
-        """
-        Create a statement to load clodformation intrinsic functions.
+        """Create a statement to load clodformation intrinsic functions.
 
         :param resource_alias: Resource that is related to the function.
         :param func_name: Name of intrinsic function.
@@ -589,8 +649,7 @@ class Batcher():
         rel_resource = create_alias(f'rel_{resource_id}', True)
         statement = ""
         if logical_name in self.template['Resources'].keys(
-        ) and not self.template['Resources'][logical_name].get('__loaded__',
-                                                               None):
+        ) and '__loaded__' not in self.template['Resources'][logical_name]:
             self._load_resource(logical_name)
         if not direct_reference:
             contexts.update([ref_alias, rel_resource])
@@ -641,13 +700,16 @@ class Batcher():
         contexts = contexts or set([])
         alias_fn = create_alias("fn_getatt", True)
         rel_resource = create_alias(f'rel_{resource_id}', True)
+        contexts.update([alias_fn, rel_resource])
+        contexts_str = ', '.join(contexts)
         statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN"
                      f" {{line: ${rel_resource}_line}}]->"
                      f"({alias_fn}:Fn:GetAtt "
-                     f"{{logicalNameOfResource: ${alias_fn}_log_name}})\n")
+                     f"{{logicalNameOfResource: ${alias_fn}_log_name}})\n"
+                     f"WITH {contexts_str}\n")
         self.statement_params[f'{rel_resource}_line'] = line
-        contexts.update([alias_fn, rel_resource])
-
+        statement += self._fn_reference(
+            alias_fn, attrs[0], contexts, line, direct_reference=True)
         self.statement_params[f'{alias_fn}_log_name'] = attrs[0]
         if not isinstance(attrs[1], (OrderedDict, CustomDict)):
             statement += (
@@ -740,7 +802,7 @@ class Batcher():
                      f"{{line: ${rel_resource}_line}}]->"
                      f"({alias_fn}:Fn:FindInMap)\n")
         self.statement_params[f'{rel_resource}_line'] = line
-        contexts.add(alias_fn)
+        contexts.update([alias_fn, rel_resource])
 
         # load mapname
         statement += f"SET ({alias_fn}).MapName = ${alias_fn}_mapname\n"
@@ -996,7 +1058,7 @@ class Batcher():
                 _get_line(attrs[1], func_name) or line,
                 index=True)
 
-        elif isinstance(attrs[1], list):
+        elif isinstance(attrs[1], (list, CustomList)):
             for idx, value in enumerate(attrs[1]):
                 if isinstance(value, (str, bool, int)):
                     statement += (f"SET {alias_fn}.value{idx+1} ="
@@ -1120,7 +1182,8 @@ class Batcher():
             return statement
 
         for index, con in enumerate(conditions):
-            if not isinstance(con, (OrderedDict, dict, list, CustomDict)):
+            if not isinstance(
+                    con, (OrderedDict, dict, list, CustomDict, CustomList)):
                 statement += (f"SET {alias_fn}.value{index+1} = "
                               f"$fn_{alias_fn}_value{index+1}\n")
                 self.statement_params[f'fn_{alias_fn}_value{index+1}'] = con
