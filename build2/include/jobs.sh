@@ -86,7 +86,7 @@ function job_lint_nix {
 }
 
 function job_lint_asserts {
-  config_file='.pylintrc'
+  local config_file='.pylintrc'
 
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
@@ -100,6 +100,33 @@ function job_lint_asserts {
         --output-format text \
         --pylint-config-file="${config_file}" \
         fluidasserts/
+}
+
+function job_lint_asserts_bandit {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  bandit \
+        -ii \
+        -s B501,B601,B402,B105,B321,B102,B107,B307 \
+        -r \
+        fluidasserts
+}
+
+function job_lint_asserts_tests {
+  local config_file='.pylintrc'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_config_precommit \
+  &&  helper_list_touched_files | xargs pre-commit run -v --files \
+  &&  prospector \
+        --full-pep8 \
+        --without-tool pep257 \
+        --with-tool pyroma \
+        --strictness veryhigh \
+        --output-format text \
+        --pylint-config-file="${config_file}" \
+        test/
 }
 
 function job_send_new_release_email {

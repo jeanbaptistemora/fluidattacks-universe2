@@ -94,8 +94,6 @@ function set_environment_info {
 
   test "${current_job}" = '__undefined__' \
     && CURRENT_JOBS=(
-      'lint_fluidasserts_test_code'
-      'lint_with_bandit'
       'demo_fluidasserts_output'
     ) \
     || CURRENT_JOBS=(
@@ -152,16 +150,6 @@ function job_build_fluidasserts_release {
 function job_demo_fluidasserts_output {
   use_cachix
   build demoFluidassertsOutput
-}
-
-function job_lint_fluidasserts_test_code {
-  use_cachix
-  build lintFluidassertsTestCode
-}
-
-function job_lint_with_bandit {
-  use_cachix
-  build lintWithBandit
 }
 
 function job_pages {
