@@ -472,6 +472,11 @@ $codeyellow: rgba(230, 219, 116, 1);
         text-align: center;
       }
     }
+
+    tbody {
+      vertical-align: top;
+    }
+
     tbody tr {
       background-color: $graylight;
     }
