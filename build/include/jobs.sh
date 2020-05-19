@@ -19,8 +19,20 @@ function job_build_mobile_android {
   export EXPO_ANDROID_KEYSTORE_PASSWORD
   export EXPO_ANDROID_KEY_PASSWORD
   export TURTLE_ANDROID_DEPENDENCIES_DIR="${HOME}/.turtle/androidDependencies"
-  export JAVA_OPTS="-Xmx7G -XX:+HeapDumpOnOutOfMemoryError -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseG1GC"
-  export GRADLE_OPTS="-Dorg.gradle.parallel=true -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=\"${JAVA_OPTS}\""
+  export JAVA_OPTS="
+    -Xmx7G
+    -XX:+HeapDumpOnOutOfMemoryError
+    -XX:+UnlockExperimentalVMOptions
+    -XX:+UseCGroupMemoryLimitForHeap
+    -XX:+UseG1GC
+  "
+  export GRADLE_OPTS="
+    -Dorg.gradle.configureondemand=true
+    -Dorg.gradle.daemon=false
+    -Dorg.gradle.jvmargs=\"${JAVA_OPTS}\"
+    -Dorg.gradle.parallel=true
+    -Dorg.gradle.project.android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/28.0.3/aapt2
+  "
   export GRADLE_DAEMON_DISABLED="1"
 
   if  helper_have_any_file_changed \
@@ -58,12 +70,6 @@ function job_build_mobile_android {
             "${androidSdk}"/libexec/android-sdk/* \
             "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
       &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
-      &&  echo '[INFO] Patching turtle shell app' \
-      &&  npx --no-install turtle setup:android \
-            --sdk-version=37.0.0 \
-      &&  echo \
-            "android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/28.0.3/aapt2" \
-            >> "${HOME}/.turtle/workingdir/android/sdk37/android/gradle.properties" \
       &&  echo '[INFO] Building android app' \
       &&  npx --no-install turtle build:android \
             --username "${EXPO_USER}" \

@@ -24,7 +24,7 @@
     "updates": {
       "checkAutomatically": "ON_LOAD",
       "enabled": true,
-      "fallbackToCacheTimeout": 3000
+      "fallbackToCacheTimeout": 10000
     },
     "assetBundlePatterns": [
       "**/*"
