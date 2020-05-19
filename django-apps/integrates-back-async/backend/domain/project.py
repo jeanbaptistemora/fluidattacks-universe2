@@ -20,6 +20,7 @@ from backend.typing import (
 from backend.domain import (
     comment as comment_domain, resources as resources_domain,
     finding as finding_domain, user as user_domain,
+    notifications as notifications_domain,
     vulnerability as vuln_domain, internal_project as internal_project_domain
 )
 from backend.exceptions import (
@@ -105,7 +106,8 @@ def create_project(
 
     is_continuous_type = subscription == 'continuous'
 
-    resp = False
+    success: bool = False
+
     if not (not description.strip() or not project_name.strip() or
        not all([company.strip() for company in companies]) or
        not companies):
@@ -126,8 +128,9 @@ def create_project(
                 'type': subscription,
                 'project_status': 'ACTIVE'
             }
-            resp = project_dal.create(project)
-            if resp:
+
+            success = project_dal.create(project)
+            if success:
                 internal_project_domain.remove_project_name(project_name)
                 # Admins are not granted access to the project
                 # they are omnipresent
@@ -137,16 +140,29 @@ def create_project(
                         'internal_manager': 'group_manager'
                         # Other roles are turned into customeradmins
                     }.get(user_role, 'customeradmin')
-                    add_user_access = user_domain.update_project_access(
-                        user_email, project_name, True)
-                    add_user_manager = authz.grant_group_level_role(
-                        user_email, project_name, user_role)
-                    resp = all([add_user_access, add_user_manager])
+
+                    success = success and all([
+                        user_domain.update_project_access(
+                            user_email, project_name, True),
+                        authz.grant_group_level_role(
+                            user_email, project_name, user_role),
+                    ])
+
         else:
             raise InvalidProjectName()
     else:
         raise InvalidParameter()
-    return resp
+
+    if success:
+        notifications_domain.new_group(
+            description=description,
+            group_name=project_name,
+            has_drills=has_drills,
+            has_forces=has_forces,
+            requester_email=user_email,
+        )
+
+    return success
 
 
 def add_access(user_email: str, project_name: str,

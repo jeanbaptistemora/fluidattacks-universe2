@@ -511,17 +511,20 @@ async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
     """Resolve create_project mutation."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    user_role = \
-        await sync_to_async(authz.get_user_level_role)(user_email)
+    user_role = await sync_to_async(authz.get_user_level_role)(user_email)
+
     success = await sync_to_async(project_domain.create_project)(
-        user_data['user_email'], user_role, **kwargs)
+        user_email, user_role, **kwargs)
+
     if success:
-        project = kwargs.get('project_name', '').lower()
-        util.invalidate_cache(user_data['user_email'])
+        project_name: str = kwargs.get('project_name', '').lower()
+
+        util.invalidate_cache(user_email)
         util.cloudwatch_log(
             info.context,
-            f'Security: Created project {project} '
-            'successfully')  # pragma: no cover
+            f'Security: Created project {project_name} successfully',
+        )
+
     return SimplePayloadType(success=success)
 
 
