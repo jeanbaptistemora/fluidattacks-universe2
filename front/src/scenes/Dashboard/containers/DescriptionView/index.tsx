@@ -42,7 +42,7 @@ export type DescriptionViewProps = RouteComponentProps<{ findingId: string; proj
 
 const maxTitleLength: ConfigurableValidator = maxLength(90);
 const maxDescriptionLength: ConfigurableValidator = maxLength(500);
-const maxRequirementsLength: ConfigurableValidator = maxLength(300);
+const maxRequirementsLength: ConfigurableValidator = maxLength(500);
 const maxImpactsLength: ConfigurableValidator = maxLength(300);
 const maxAffectedSystemsLength: ConfigurableValidator = maxLength(200);
 const maxThreatLength: ConfigurableValidator = maxLength(300);
