@@ -19,7 +19,7 @@ import { AddFilesModal } from "../../../components/AddFilesModal";
 import { FileOptionsModal } from "../../../components/FileOptionsModal";
 import { DOWNLOAD_FILE_MUTATION, GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
 
-interface IFilesProps {
+export interface IFilesProps {
   projectName: string;
 }
 
