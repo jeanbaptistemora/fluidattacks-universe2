@@ -83,7 +83,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
-  const handleUpdateButtonClick: (() => Promise<void>) = async (): Promise<void> => {
+  const handleUpdateButtonClick: (() => void) = async (): Promise<void> => {
     await Linking.openURL(`market://details?id=${manifest.android.package}`);
   };
 
