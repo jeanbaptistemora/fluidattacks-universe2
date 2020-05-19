@@ -43,6 +43,12 @@ describe("Files", () => {
                 \"fileName\": \"test.zip\",
                 \"uploadDate\": \"2019-03-01 15:21\",
                 \"uploader\": \"unittest@fluidattacks.com\"
+              },
+              {
+                \"description\": \"shell\",
+                \"fileName\": \"shell.exe\",
+                \"uploadDate\": \"2019-04-24 14:56\",
+                \"uploader\": \"unittest@fluidattacks.com\"
               }
             ]`,
             projectName: "TEST",
@@ -134,5 +140,30 @@ describe("Files", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgSuccess)
       .toHaveBeenCalled();
+  });
+
+  it("should sort files", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksFiles} addTypename={false}>
+          <Files {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    let firstRowInfo: ReactWrapper = wrapper
+      .find("SimpleRow")
+      .at(0);
+    expect(firstRowInfo.text())
+      .toEqual("test.zipTest2019-03-01 15:21");
+    const fileNameHeader: ReactWrapper = wrapper
+      .find({"aria-label": "File sortable"});
+    fileNameHeader.simulate("click");
+    fileNameHeader.simulate("click");
+    firstRowInfo = wrapper
+      .find("SimpleRow")
+      .at(0);
+    expect(firstRowInfo.text())
+      .toEqual("shell.exeshell2019-04-24 14:56");
   });
 });
