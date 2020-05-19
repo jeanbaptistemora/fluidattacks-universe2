@@ -49,6 +49,21 @@ function job_test_commit_message {
       done
 }
 
+function job_send_new_release_email {
+  export MANDRILL_EMAIL_TO='engineering@fluidattacks.com'
+
+      env_prepare_python_packages \
+  &&  helper_with_production_secrets \
+  &&  curl -Lo \
+        "${TEMP_FILE1}" \
+        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
+  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
+        context={'project': PROJECT, 'project_url': '${CI_PROJECT_URL}',
+          'version': _get_version_date(), 'message': _get_message()},
+        tags=['general'])" >> "${TEMP_FILE1}" \
+  &&  python3 "${TEMP_FILE1}"
+}
+
 function job_test_asserts_api_cloud_aws_api {
   local marker_name='cloud_aws_api'
 

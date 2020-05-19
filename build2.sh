@@ -40,6 +40,7 @@ function decide_and_call_provisioner {
         --keep CI_REGISTRY_PASSWORD \
         --keep CI_REGISTRY_USER \
         --keep NIXPKGS_ALLOW_UNFREE \
+        --keep ENCRYPTION_KEY_PROD \
         --keep ENCRYPTION_KEY \
         --keep subs \
         --max-jobs auto \

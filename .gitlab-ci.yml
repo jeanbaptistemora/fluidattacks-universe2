@@ -86,11 +86,6 @@ pages:
   artifacts:
     paths: [public/]
 
-populate_caches:
-  <<: *with_nix
-  <<: *in_prod_branch
-  stage: deploy
-
 release_to_pypi:
   <<: *with_nix
   <<: *in_prod_branch
@@ -100,11 +95,6 @@ release_to_docker_hub:
   <<: *with_nix
   <<: *in_prod_branch
   stage: release_to_docker
-
-send_new_version_mail:
-  <<: *with_nix
-  <<: *in_prod_branch
-  stage: notify
 
 # Build2
 
@@ -131,11 +121,6 @@ build_nix_caches:
     - apk add --no-cache bash
   parallel: 20
   interruptible: false
-
-test_commit_message:
-  <<: *with_nix_2
-  <<: *in_dev_branch
-  stage: test
 
 # For some reason our innovation account is empty!
 #   disabling until we recreate it or found how to revert changes
@@ -334,6 +319,16 @@ test_asserts_api_utils:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test
+
+test_commit_message:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+send_new_release_email:
+  <<: *with_nix_2
+  <<: *in_prod_branch
+  stage: notify
 
 danger:
   image: fluidattacks/danger-ruby
