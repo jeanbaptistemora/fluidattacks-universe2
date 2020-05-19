@@ -442,8 +442,13 @@ describe("Project users view", () => {
         new GraphQLError("Access denied"),
         new GraphQLError("Exception - Email is not valid"),
         new GraphQLError("Exception - Invalid field in form"),
+        new GraphQLError("Exception - Invalid characters"),
         new GraphQLError("Exception - Invalid phone number in form"),
         new GraphQLError("Exception - Invalid email address in form"),
+        new GraphQLError("Exception - Groups without an active Fluid Attacks service "
+                         + "can not have Fluid Attacks staff"),
+        new GraphQLError("Exception - Groups with any active Fluid Attacks service "
+                         + "can only have Hackers provided by Fluid Attacks"),
       ]},
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
@@ -504,7 +509,7 @@ describe("Project users view", () => {
     expect(addUserModal)
       .toHaveLength(0);
     expect(msgError)
-      .toHaveBeenCalledTimes(5);
+      .toHaveBeenCalledTimes(8);
   });
 
   it("should handle error when remove user from the project", async () => {
@@ -560,7 +565,16 @@ describe("Project users view", () => {
           uniqueId: 0,
         },
       },
-      result: { errors: [new GraphQLError("Access denied")] },
+      result: { errors: [
+        new GraphQLError("Access denied"),
+        new GraphQLError("Exception - Invalid field in form"),
+        new GraphQLError("Exception - Invalid characters"),
+        new GraphQLError("Exception - Invalid phone number in form"),
+        new GraphQLError("Exception - Groups without an active Fluid Attacks service "
+                         + "can not have Fluid Attacks staff"),
+        new GraphQLError("Exception - Groups with any active Fluid Attacks service "
+                         + "can only have Hackers provided by Fluid Attacks"),
+      ]},
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_user__do_edit_user" },
@@ -619,6 +633,6 @@ describe("Project users view", () => {
     expect(editUserModal)
       .toHaveLength(0);
     expect(msgError)
-      .toHaveBeenCalled();
+      .toHaveBeenCalledTimes(6);
   });
 });
