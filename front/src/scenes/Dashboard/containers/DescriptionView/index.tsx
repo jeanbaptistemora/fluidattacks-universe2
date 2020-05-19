@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
+import { ConfigurableValidator } from "revalidate";
 import { Can } from "../../../../utils/authz/Can";
 import { authzContext } from "../../../../utils/authz/config";
 import {
@@ -26,7 +27,7 @@ import { dropdownField, textAreaField, textField } from "../../../../utils/forms
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { numeric, required, validDraftTitle, validTextField } from "../../../../utils/validations";
+import { maxLength, numeric, required, validDraftTitle, validTextField } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
 import { UpdateVerificationModal } from "../../components/UpdateVerificationModal";
@@ -39,6 +40,14 @@ import { IFinding, IHistoricTreatment } from "./types";
 
 export type DescriptionViewProps = RouteComponentProps<{ findingId: string; projectName: string }>;
 
+const maxTitleLength: ConfigurableValidator = maxLength(90);
+const maxDescriptionLength: ConfigurableValidator = maxLength(500);
+const maxRequirementsLength: ConfigurableValidator = maxLength(300);
+const maxImpactsLength: ConfigurableValidator = maxLength(300);
+const maxAffectedSystemsLength: ConfigurableValidator = maxLength(200);
+const maxThreatLength: ConfigurableValidator = maxLength(300);
+const maxRecommendationLength: ConfigurableValidator = maxLength(300);
+const maxCompromisedAttributesLength: ConfigurableValidator = maxLength(200);
 const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
@@ -257,7 +266,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                         component={textField}
                         name="title"
                         type="text"
-                        validate={[required, validDraftTitle, validTextField]}
+                        validate={[required, validDraftTitle, validTextField, maxTitleLength]}
                       />
                     </FormGroup>
                   </Col>
@@ -275,7 +284,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="description"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={[required, validTextField]}
+                      validate={[required, validTextField, maxDescriptionLength]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -293,7 +302,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="requirements"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={[required, validTextField]}
+                      validate={[required, validTextField, maxRequirementsLength]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -333,7 +342,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="attackVectorDesc"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={[required, validTextField]}
+                      validate={[required, validTextField, maxImpactsLength]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -349,7 +358,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="affectedSystems"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={[required, validTextField]}
+                      validate={[required, validTextField, maxAffectedSystemsLength]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -367,7 +376,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="threat"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={[required, validTextField]}
+                      validate={[required, validTextField, maxThreatLength]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -401,7 +410,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="recommendation"
                       renderAsEditable={isEditing}
                       type="text"
-                      validate={[required, validTextField]}
+                      validate={[required, validTextField, maxRecommendationLength]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
@@ -419,6 +428,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                       name="compromisedAttributes"
                       renderAsEditable={isEditing}
                       type="text"
+                      validate={[validTextField, maxCompromisedAttributesLength]}
                       visibleWhileEditing={canEdit}
                     />
                   )}
