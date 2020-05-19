@@ -24,7 +24,7 @@ function job_build_nix_caches {
       done
 }
 
-function job_test_commit_message {
+function job_lint_commit_message {
   local commit_diff
   local commit_hashes
   local parser_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js'
@@ -47,6 +47,59 @@ function job_test_commit_message {
             git log -1 --pretty=%B "${commit_hash}" | npx commitlint \
         ||  return 1
       done
+}
+
+function job_lint_shell {
+  local path_to_check='build2'
+
+      echo "Verifying shell code in: ${path_to_check}" \
+  &&  find "${path_to_check}" -name '*.sh' \
+        -exec shellcheck --exclude=SC1090,SC2154,SC2164,SC2064 -x {} + \
+  &&  shellcheck -x --exclude=SC2015,SC2064 ./build2.sh
+}
+
+function job_lint_nix {
+  local path_to_check='build2'
+
+      echo "Verifying nix code in: ${path_to_check}" \
+  &&  nix-linter \
+        --check=DIYInherit \
+        --check=EmptyInherit \
+        --check=EmptyLet \
+        --check=EtaReduce \
+        --check=FreeLetInFunc \
+        --check=LetInInheritRecset \
+        --check=ListLiteralConcat \
+        --check=NegateAtom \
+        --check=SequentialLet \
+        --check=SetLiteralUpdate \
+        --check=UnfortunateArgName \
+        --check=UnneededRec \
+        --check=UnusedArg \
+        --check=UnusedLetBind \
+        --check=UpdateEmptySet \
+        --check=BetaReduction \
+        --check=EmptyVariadicParamSet \
+        --check=UnneededAntiquote \
+        --recursive \
+        "${path_to_check}"
+}
+
+function job_lint_asserts {
+  config_file='.pylintrc'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_config_precommit \
+  &&  helper_list_touched_files | xargs pre-commit run -v --files \
+  &&  prospector \
+        --full-pep8 \
+        --without-tool pep257 \
+        --with-tool pyroma \
+        --strictness veryhigh \
+        --output-format text \
+        --pylint-config-file="${config_file}" \
+        fluidasserts/
 }
 
 function job_send_new_release_email {

@@ -1,33 +1,33 @@
 ---
 - repo: https://github.com/pre-commit/pre-commit.git
-  sha: bbf1f62ed686a3e321280703a227fbd957e76151
+  rev: f32bc648f034a2466f5d3326be66cd94c4c1c2f6
   hooks:
-      - id: validate_config
-      - id: validate_manifest
+    - id: validate_manifest
 - repo: git://github.com/pre-commit/pre-commit-hooks
-  sha: 18d7035de5388cc7775be57f529c154bf541aab9
+  rev: e37b2795ff01adeb76edd6fe808f8540b692160c
   hooks:
-      - id: check-docstring-first
-      - id: check-added-large-files
-      - id: check-ast
-      - id: check-json
-      - id: check-case-conflict
-      - id: check-merge-conflict
-      - id: check-symlinks
-      - id: detect-private-key
-      - id: check-xml
-      - id: check-yaml
-      - id: flake8
+    - id: check-docstring-first
+    - id: check-added-large-files
+    - id: check-ast
+    - id: check-json
+    - id: check-case-conflict
+    - id: check-merge-conflict
+    - id: check-symlinks
+    - id: detect-private-key
+    - id: check-xml
+    - id: check-yaml
+      exclude: ^.gitlab-ci.yml$
+- repo: https://gitlab.com/pycqa/flake8.git
+  rev: c8494e7ac0d017d032edc0a402c569b2fddb8a7f
+  hooks:
+    - id: flake8
 - repo: git://github.com/pre-commit/mirrors-pylint
-  sha: 29c787c152552c93bdc59c45c23a155cb0570feb
+  rev: a9e0b1a08cec19691247fc26a0f51e5f48801e18
   hooks:
-      - id: pylint
-        args:
-            - --rcfile=conf/pylintrc
+    - id: pylint
+      args:
+        - --rcfile=conf/pylintrc
 - repo: git://github.com/Lucas-C/pre-commit-hooks
-  sha: 0f5055d31f39ea3ac1f5335a0cca320200cd0c51
+  rev: ffbd448645bad2e7ca13f96fca5830058d27ccd5
   hooks:
-      - id: forbid-crlf
-      - id: forbid-html-img-without-alt-text
-      - id: forbid-non-std-html-attributes
-      - id: detect-missing-css-classes
+    - id: forbid-crlf

@@ -84,6 +84,25 @@ function helper_docker_build_and_push {
   &&  docker image remove "${tag}"
 }
 
+function helper_list_touched_files {
+  local path
+
+  git show --format= --name-only HEAD | while read -r path
+  do
+    if test -e "${path}"
+    then
+      echo "${path}"
+    fi
+  done
+}
+
+function helper_config_precommit {
+  export PRE_COMMIT_HOME
+
+      mkdir -p .cache/pre-commit \
+  &&  PRE_COMMIT_HOME="${PWD}/.cache/pre-commit"
+}
+
 function helper_build_nix_caches_parallel {
   local num_provisioners
   local num_provisioners_per_group

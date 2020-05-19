@@ -94,12 +94,8 @@ function set_environment_info {
 
   test "${current_job}" = '__undefined__' \
     && CURRENT_JOBS=(
-      'lint_fluidasserts_code'
       'lint_fluidasserts_test_code'
-      'lint_nix_code'
-      'lint_shell_code'
       'lint_with_bandit'
-      'test_commit_message'
       'demo_fluidasserts_output'
     ) \
     || CURRENT_JOBS=(
@@ -158,24 +154,9 @@ function job_demo_fluidasserts_output {
   build demoFluidassertsOutput
 }
 
-function job_lint_fluidasserts_code {
-  use_cachix
-  build lintFluidassertsCode
-}
-
 function job_lint_fluidasserts_test_code {
   use_cachix
   build lintFluidassertsTestCode
-}
-
-function job_lint_nix_code {
-  use_cachix
-  build lintNixCode
-}
-
-function job_lint_shell_code {
-  use_cachix
-  build lintShellCode
 }
 
 function job_lint_with_bandit {
@@ -196,28 +177,6 @@ function job_pages {
   rm -f result.pages
 }
 
-function job_populate_caches {
-  use_cachix
-
-  (
-    job_demo_fluidasserts_output
-    job_lint_fluidasserts_code
-    job_lint_fluidasserts_test_code
-    job_lint_nix_code
-    job_lint_shell_code
-    job_lint_with_bandit
-    build fluidassertsDependenciesCache
-    build nodePkgCommitlint
-    build pyPkgFluidassertsBasic
-    build pyPkgGitFame
-    build pyPkgGitPython
-    build pyPkgGroupLint
-    build pyPkgGroupTest
-    build pyPkgMandrill
-    build pyPkgSphinx
-  ) | push_to_cachix
-}
-
 function job_release_to_docker_hub {
   use_cachix
   ./build/shell.sh --release-to-docker-hub
@@ -228,51 +187,6 @@ function job_release_to_pypi {
   job_build_fluidasserts_release
   ./build/shell.sh --release-to-pypi
 }
-
-function job_send_new_version_mail {
-  use_cachix
-
-  ./build/shell.sh \
-    --env 'CI_COMMIT_SHA'        "${CI_COMMIT_SHA:-}"        \
-    --env 'CI_COMMIT_BEFORE_SHA' "${CI_COMMIT_BEFORE_SHA:-}" \
-    --send-new-version-mail
-}
-
-function job_test_commit_message {
-  use_cachix
-  build testCommitMessage
-}
-
-function job_test_api {
-  # Just execute all markers by calling the respective distpatch functions
-  for marker in "${TEST_MARKERS[@]}"
-  do
-    test "${marker}" = "all" || "job_test_api_${marker}"
-  done
-}
-
-function _job_test_api__generic_dispatcher {
-  local caller_function
-  local marker_name
-
-  echo 'If this is the first time you are running the tests for DB module do:'
-  echo '  $ ./build/scripts/odbc/set.sh'
-  echo
-
-  # Inspect the stack and get the name of the function that called this function
-  caller_function="${FUNCNAME[1]}"
-
-  # The caller function without the 'job_test_api_' prefix
-  marker_name="${caller_function#job_test_api_}"
-
-  ./build/shell.sh --test-fluidasserts "${marker_name}"
-}
-
-# Populate the context with functions for every test marker
-for marker in "${TEST_MARKERS[@]}"
-do
-  eval "function job_test_api_${marker} { _job_test_api__generic_dispatcher; }"
-done
 
 function cli {
   # A small interface to parse arguments like --job and --branch.
