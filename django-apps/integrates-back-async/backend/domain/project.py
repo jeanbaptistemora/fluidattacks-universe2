@@ -34,13 +34,6 @@ from backend import authz, util
 from __init__ import FI_MAIL_REVIEWERS
 
 
-async def does_group_has_drills(group: str) -> bool:
-    """Return True if the provided group has drills."""
-    attrs = get_attributes(group, ['has_drills'])
-
-    return bool(attrs.get('has_drills', False))
-
-
 def get_email_recipients(project_name: str) -> List[str]:
     """Get the recipients of the comment email."""
     recipients = [str(user) for user in get_users(project_name)]
@@ -122,11 +115,15 @@ def create_project(
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
-                'has_drills': has_drills,
-                'has_forces': has_forces,
                 'companies': companies,
-                'type': subscription,
-                'project_status': 'ACTIVE'
+                'historic_configuration': [{
+                    'date': util.get_current_time_as_iso_str(),
+                    'has_drills': has_drills,
+                    'has_forces': has_forces,
+                    'requester': user_email,
+                    'type': subscription,
+                }],
+                'project_status': 'ACTIVE',
             }
 
             success = project_dal.create(project)
@@ -181,11 +178,23 @@ def edit(
         has_drills,
         has_forces)
 
+    item = cast(Dict[str, List[dict]], project_dal.get_attributes(
+        project_name=group_name,
+        attributes=[
+            'historic_configuration',
+        ]
+    ))
+    item.setdefault('historic_configuration', [])
+
     success: bool = project_dal.update(
         data={
-            'has_drills': has_drills,
-            'has_forces': has_forces,
-            'type': subscription,
+            'historic_configuration': item['historic_configuration'] + [{
+                'date': util.get_current_time_as_iso_str(),
+                'has_drills': has_drills,
+                'has_forces': has_forces,
+                'requester': requester_email,
+                'type': subscription,
+            }],
         },
         project_name=group_name,
     )

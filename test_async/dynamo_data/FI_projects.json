@@ -45,8 +45,28 @@
                "project_name" : {
                   "S" : "oneshottest"
                },
-               "has_drills": {
-                  "S" : "true"
+               "historic_configuration" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "date" : {
+                              "S" : "2020-05-20 17:00:00"
+                           },
+                           "has_forces" : {
+                              "BOOL" : false
+                           },
+                           "has_drills": {
+                              "BOOL" : true
+                           },
+                           "requester" : {
+                              "S" : "unknown"
+                           },
+                           "type": {
+                              "S" : "oneshot"
+                           }
+                        }
+                     }
+                  ]
                },
                "project_status" : {
                   "S" : "ACTIVE"
@@ -522,9 +542,6 @@
                         "N" : "0"
                      }
                   }
-               },
-               "type" : {
-                  "S" : "oneshot"
                }
             }
          }
@@ -547,6 +564,29 @@
                },
                "description" : {
                   "S" : "Integrates unit test project"
+               },
+               "historic_configuration" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "date" : {
+                              "S" : "2020-05-20 17:00:00"
+                           },
+                           "has_forces" : {
+                              "BOOL" : true
+                           },
+                           "has_drills": {
+                              "BOOL" : true
+                           },
+                           "requester" : {
+                              "S" : "unknown"
+                           },
+                           "type": {
+                              "S" : "continuous"
+                           }
+                        }
+                     }
+                  ]
                },
                "environments" : {
                   "L" : [
@@ -727,12 +767,6 @@
                         }
                      }
                   ]
-               },
-               "has_drills": {
-                  "BOOL": true
-               },
-               "has_forces": {
-                  "BOOL": true
                },
                "hasRelease" : {
                   "BOOL" : true
@@ -1807,9 +1841,6 @@
                         "N" : "25"
                      }
                   }
-               },
-               "type" : {
-                  "S" : "continuous"
                }
             }
          }
@@ -1831,6 +1862,29 @@
               },
               "description" : {
                  "S" : "Integrates continuous project"
+              },
+              "historic_configuration" : {
+                 "L" : [
+                    {
+                       "M" : {
+                          "date" : {
+                             "S" : "2020-05-20 17:00:00"
+                          },
+                          "has_forces" : {
+                             "BOOL" : false
+                          },
+                          "has_drills": {
+                             "BOOL" : false
+                          },
+                          "requester" : {
+                             "S" : "unknown"
+                          },
+                          "type": {
+                             "S" : "continuous"
+                          }
+                       }
+                    }
+                 ]
               },
               "environments" : {
                  "L" : [
@@ -2144,9 +2198,6 @@
                        "N" : "65"
                     }
                  }
-              },
-              "type" : {
-                 "S" : "continuous"
               }
            }
         }
@@ -2168,6 +2219,29 @@
                },
                "description" : {
                   "S" : "Integrates continuous project"
+               },
+               "historic_configuration" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "date" : {
+                              "S" : "2020-05-20 17:00:00"
+                           },
+                           "has_forces" : {
+                              "BOOL" : false
+                           },
+                           "has_drills": {
+                              "BOOL" : false
+                           },
+                           "requester" : {
+                              "S" : "unknown"
+                           },
+                           "type": {
+                              "S" : "continuous"
+                           }
+                        }
+                     }
+                  ]
                },
                "environments" : {
                   "L" : [
@@ -2464,9 +2538,6 @@
                         "N" : "65"
                      }
                   }
-               },
-               "type" : {
-                  "S" : "continuous"
                }
             }
          }
@@ -2488,6 +2559,29 @@
                },
                "description" : {
                   "S" : "test project pending to deleted"
+               },
+               "historic_configuration" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "date" : {
+                              "S" : "2020-05-20 17:00:00"
+                           },
+                           "has_forces" : {
+                              "BOOL" : false
+                           },
+                           "has_drills": {
+                              "BOOL" : false
+                           },
+                           "requester" : {
+                              "S" : "unknown"
+                           },
+                           "type": {
+                              "S" : "continuous"
+                           }
+                        }
+                     }
+                  ]
                },
                "historic_deletion": {
                   "L": [

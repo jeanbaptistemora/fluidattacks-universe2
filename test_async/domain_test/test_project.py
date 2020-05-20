@@ -10,7 +10,6 @@ import pytest
 from backend.dal.helpers import dynamodb
 from backend.domain.project import (
     add_comment,
-    does_group_has_drills,
     edit,
     get_email_recipients, validate_tags, is_alive, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
@@ -30,12 +29,6 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
 class ProjectTest(TestCase):
-
-    @pytest.mark.asyncio
-    async def does_group_has_drills(self):
-        assert await does_group_has_drills('unittesting')
-        assert not await does_group_has_drills('oneshottest')
-        assert not await does_group_has_drills('asdfasdf')
 
     def test_get_email_recipients(self):
         recipients = get_email_recipients('unittesting')

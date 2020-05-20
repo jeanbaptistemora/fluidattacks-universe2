@@ -18,6 +18,7 @@ Finding = Union[
 ]
 Project = Dict[str, Union[
     str, object,
+    List[Dict[str, str]],
     List[str],
     Set[str]
 ]]

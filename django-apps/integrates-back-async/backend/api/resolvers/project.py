@@ -60,19 +60,17 @@ async def _get_remediated_over_time(info, project_name: str,
 @get_entity_cache_async
 async def _get_has_drills(info, project_name: str, **__) -> Dict[str, bool]:
     """Get has_drills."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    return project_attrs.get('has_drills', False)
+    project_attrs = await info.context.loaders['project'].load(project_name)
+
+    return project_attrs['attrs']['historic_configuration'][-1]['has_drills']
 
 
 @get_entity_cache_async
 async def _get_has_forces(info, project_name: str, **__) -> Dict[str, bool]:
     """Get has_forces."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    return project_attrs.get('has_forces', False)
+    project_attrs = await info.context.loaders['project'].load(project_name)
+
+    return project_attrs['attrs']['historic_configuration'][-1]['has_forces']
 
 
 async def _get_findings(
@@ -311,10 +309,9 @@ async def _get_current_month_commits(_, project_name: str,
 @get_entity_cache_async
 async def _get_subscription(info, project_name: str, **__) -> Dict[str, str]:
     """Get subscription."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    return project_attrs.get('type', '')
+    project_attrs = await info.context.loaders['project'].load(project_name)
+
+    return project_attrs['attrs']['historic_configuration'][-1]['type']
 
 
 @get_entity_cache_async
@@ -547,6 +544,7 @@ async def _do_edit_group(
     )
 
     if success:
+        util.invalidate_cache(group_name)
         util.invalidate_cache(requester_email)
         util.cloudwatch_log(
             info.context,

@@ -45,9 +45,7 @@ def get_service_policies(group: str) -> List[SERVICE_POLICY]:
 
     group_attributes: dict = TABLE.get_item(
         AttributesToGet=[
-            'has_forces',
-            'has_drills',
-            'type',
+            'historic_configuration',
         ],
         ConsistentRead=True,
         Key=dict(
@@ -60,9 +58,10 @@ def get_service_policies(group: str) -> List[SERVICE_POLICY]:
         return policies
 
     group_attributes = group_attributes['Item']
-    has_drills: bool = group_attributes.get('has_drills', False)
-    has_forces: bool = group_attributes.get('has_forces', False)
-    type_: str = group_attributes.get('type', 'oneshot')
+    historic_config: dict = group_attributes['historic_configuration']
+    has_drills: bool = historic_config[-1]['has_drills']
+    has_forces: bool = historic_config[-1]['has_forces']
+    type_: str = historic_config[-1]['type']
 
     # This may be false if the group is scheduled for deletion
     #   but let's mark it as True for now to see what is more convenient
