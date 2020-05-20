@@ -5,7 +5,7 @@
 :tags: security, web, vulnerability, ethical hacking
 :image: cover.png
 :alt: Blacksmith. Photo by Hannah Gibbs on Unsplash: https://unsplash.com/photos/BINLgyrG_fI
-:description: Server Side Request Forgery is a vulnerability that lets the hacker perform requests outside the scope of the application. Here we will see why this happens, how it works, how we can exploit it, and what are the best ways to protect against this attack.
+:description: Server Side Request Forgery is a vulnerability that lets the hacker perform requests outside the scope of the application. Here we will see why this happens, how it works, how we can exploit it, and what the best ways to protect against this attack are.
 :keywords: Web, Security, Vulnerability, Hacking, SSRF, Input Validation.
 :author: Jonathan Armas
 :writer: johna
@@ -22,19 +22,19 @@ This is beneficial for the developers and maintainers
 because it keeps separation of duties in their infrastructure,
 one for managing the view and another for the data.
 When it is done right, these applications are easier to maintain
-and to add features,
+and to add features to,
 but there are some intrinsic risks
-of getting information through the internet using web services.
+in getting information through the internet using web services.
 
 `Server Side Request Forgery`, `SSRF`, occurs when
 an attacker can create requests
 from the vulnerable server to the internet/intranet.
-Typically the vulnerable server has functionality
-that reads data from an URL, publishes data to an URL,
-or imports data from an URL.
+Typically, the vulnerable server has a functionality
+that reads data from a URL, publishes data to a URL,
+or imports data from a URL.
 An attacker could abuse this functionality
 to read or update internal resources,
-also could bypass access controls
+or bypass access controls
 like firewalls that prevent the attackers from accessing them directly.
 
 In a normal use case,
@@ -43,8 +43,8 @@ the vulnerable application works like this:
 .normal use case
 image::normal-case.png[normal-case]
 
-. The user requests information from the Web Server
-to an internal or external server, for example,
+. The user requests information from an external server
+through the Web Server. For example,
 `GET /?url=http://external.server/data HTTP/1.1`
 . The server makes the request to the external server
 . If the request is to an intranet server,
@@ -82,7 +82,7 @@ and save the `Vagrantfile` there.
 ----
 $ mkdir ssrf
 $ cd ssrf
-ssrf$ nano Vagrantfile #Add here the content
+ssrf$ nano Vagrantfile #Add the content here
 ----
 
 .Vagrantfile
@@ -124,7 +124,7 @@ These are the tools that we are going to use:
 * link:https://tools.kali.org/web-applications/dirbuster[Dirbuster]
 * link:https://www.python.org/[Python]
 
-If you are using `Kali`, then everything is installed by default.
+If you are using `Kali`, then everything has already been installed by default.
 
 We are ready to go.
 
@@ -224,8 +224,8 @@ Upgrade-Insecure-Requests: 1
 product_id=5&url=http%3A%2F%2F127.0.0.1%2Fcode%2Fproducts.php%3Fproduct_id%3D&s=OK
 ----
 
-There we can see that it makes a request with an URL to retrieve the data,
-so what happens when we modify the URL?
+There we can see that it makes a request with a URL to retrieve the data.
+So, what happens when we modify the URL?
 Let's change it to `https://owasp.org/`:
 
 .simple SSRF
@@ -233,12 +233,12 @@ Let's change it to `https://owasp.org/`:
 product_id=&url=https%3a//owasp.org/&s=OK
 ----
 
-Then it will load the `OWASP` web page there:
+Then it will load the `OWASP` web page on our site:
 
 .ssrf vulnerable
 image::ssrf-vulnerable.png[ssrf-vulnerable]
 
-Now we have several options to work with here.
+Now we have several options to work with.
 
 Reflected XSS::
 
@@ -278,7 +278,7 @@ image::xss.png[xss-vulnerable]
 
 Bypassing controls::
 
-As we saw, we could not access to the admin section of the server;
+As we saw earlier, we could not access the admin section of the server;
 this can be bypassed with this vulnerability:
 
 .SSRF to admin payload
@@ -289,7 +289,7 @@ product_id=&url=http%3A%2F%2F127.0.0.1%2Fcode%2Fadmin.php&s=OK
 .SSRF to admin result
 image::admin.png[control-bypass]
 
-If the server has some local HTTP servers
+If the server had some local HTTP servers
 like a `mongodb` database,
 we could bypass the access controls with this vulnerability.
 
@@ -310,7 +310,7 @@ sync:x:4:65534:sync:/bin:/bin/sync
 ...
 ----
 
-Also, we can use `dict://` URL schema to connect to a server and send data:
+We can also use the `dict://` URL schema to connect to a server and send data:
 
 .dict usage
 ----
@@ -325,8 +325,8 @@ QUIT
 ...
 ----
 
-This is useful when we found another vulnerable server or service
-to send data to it and maybe execute commands.
+This is useful when we find another vulnerable server or service,
+because we can send data to it and maybe even execute commands.
 
 Port enumeration::
 
@@ -377,9 +377,9 @@ using a whitelist.
 With this, if the attacker tries to access more resources,
 it will be impossible for him.
 
-Also if it is possible to avoid sending URLs
-using user input, even if it is hidden
-an attacker can modify it and exploit the vulnerability.
+Besides, if it is possible, avoid querying URLs using user input.
+Even if they are hidden fields,
+an attacker can modify them and exploit a SSRF vulnerability.
 It is better to request resources
 directly on the web server
 whenever it is possible.
@@ -390,6 +390,6 @@ by segregating the network.
 This will prevent access to other resources in the network,
 but it does not work against local access.
 
-If you want more information about protecting against SSRF,
+If you want more information about protections against SSRF,
 you can check link:https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html[OWASP]
 or our [inner]#link:../../rules/#architecture[rules]#.
