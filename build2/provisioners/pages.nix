@@ -10,6 +10,7 @@ in
       buildInputs = [
         pkgs.git
         pkgs.perl
+        pkgs.cacert
         pkgs.python37
         pkgs.python37Packages.selenium
         pkgs.python37Packages.brotli

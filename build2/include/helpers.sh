@@ -284,7 +284,7 @@ function helper_pages_generate_doc {
 
       mkdir -p public/ \
   &&  sphinx-apidoc -efM fluidasserts -o sphinx/source \
-  &&  version=$(python3 ./build/scripts/get_version.py) \
+  &&  version=$(helper_asserts_version) \
   &&  checks_number=$(grep -rIE '@(track|api)' fluidasserts/ | wc -l) \
   &&  sed -i "s/<CHECKS>/${checks_number}/" sphinx/source/index.rst \
   &&  sphinx-build -D version="v.${version}" -D release="v.${version}" \

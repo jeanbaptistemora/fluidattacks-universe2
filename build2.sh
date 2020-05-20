@@ -21,7 +21,7 @@ function decide_and_call_provisioner {
   # shellcheck disable=2016
       if echo "${job}" | grep -q 'test_asserts_'
       then
-        ./build/scripts/odbc/set.sh
+        ./build2/scripts/odbc/set.sh
       fi \
   &&  provisioner="./build2/provisioners/${job}.nix" \
   &&  if [ ! -f "${provisioner}" ]
