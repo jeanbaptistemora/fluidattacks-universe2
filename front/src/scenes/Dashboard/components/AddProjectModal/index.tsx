@@ -62,7 +62,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
     <React.StrictMode>
       <Modal
         footer={<div />}
-        headerTitle={translate.t("home.newProject.new")}
+        headerTitle={translate.t("home.newGroup.new")}
         onClose={closeNewProjectModal}
         open={props.isOpen}
       >
@@ -82,8 +82,8 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
               if (result.createProject.success) {
                 closeNewProjectModal();
                 msgSuccess(
-                  translate.t("home.newProject.success"),
-                  translate.t("home.newProject.titleSuccess"),
+                  translate.t("home.newGroup.success"),
+                  translate.t("home.newGroup.titleSuccess"),
                 );
               }
             };
@@ -150,7 +150,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
 
                   return (
                     <GenericForm
-                      name="newProject"
+                      name="newGroup"
                       initialValues={{ name: projectName.toUpperCase() }}
                       onSubmit={handleSubmit}
                     >
@@ -159,7 +159,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                           <Row>
                             <Col md={12} sm={12}>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newProject.company")}</ControlLabel>
+                                <ControlLabel>{translate.t("home.newGroup.company")}</ControlLabel>
                                 <Field
                                   component={textField}
                                   name="company"
@@ -168,7 +168,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 />
                               </FormGroup>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newProject.name")}</ControlLabel>
+                                <ControlLabel>{translate.t("home.newGroup.name")}</ControlLabel>
                                 <Field
                                   component={textField}
                                   disabled={true}
@@ -178,7 +178,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 />
                               </FormGroup>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newProject.description")}</ControlLabel>
+                                <ControlLabel>{translate.t("home.newGroup.description")}</ControlLabel>
                                 <Field
                                   component={textField}
                                   name="description"
@@ -187,14 +187,14 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 />
                               </FormGroup>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newProject.type.title")}</ControlLabel>
+                                <ControlLabel>{translate.t("home.newGroup.type.title")}</ControlLabel>
                                 <Field
                                   component={dropdownField}
                                   name="type"
                                   onChange={handleSubscriptionTypeChange}
                                 >
-                                  <option value="CONTINUOUS">{translate.t("home.newProject.type.continuous")}</option>
-                                  <option value="ONESHOT">{translate.t("home.newProject.type.one_shot")}</option>
+                                  <option value="CONTINUOUS">{translate.t("home.newGroup.type.continuous")}</option>
+                                  <option value="ONESHOT">{translate.t("home.newGroup.type.one_shot")}</option>
                                 </Field>
                               </FormGroup>
                             </Col>
@@ -202,12 +202,12 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                           <Row>
                             <Col md={5} sm={5}>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newProject.integrates")}</ControlLabel>
+                                <ControlLabel>{translate.t("home.newGroup.integrates")} *</ControlLabel>
                                 <BootstrapSwitchButton
                                   checked={true}
                                   disabled={true}
-                                  offlabel={translate.t("home.newProject.switch.no")}
-                                  onlabel={translate.t("home.newProject.switch.yes")}
+                                  offlabel={translate.t("home.newGroup.switch.no")}
+                                  onlabel={translate.t("home.newGroup.switch.yes")}
                                   onstyle="danger"
                                   style="btn-block"
                                 />
@@ -218,12 +218,12 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                             <Row>
                               <Col md={5} sm={5}>
                                 <FormGroup>
-                                  <ControlLabel>{translate.t("home.newProject.drills")}</ControlLabel>
+                                  <ControlLabel>{translate.t("home.newGroup.drills")} *</ControlLabel>
                                   <BootstrapSwitchButton
                                     checked={hasDrills}
-                                    offlabel={translate.t("home.newProject.switch.no")}
+                                    offlabel={translate.t("home.newGroup.switch.no")}
                                     onChange={handleDrillsBtnChange}
-                                    onlabel={translate.t("home.newProject.switch.yes")}
+                                    onlabel={translate.t("home.newGroup.switch.yes")}
                                     onstyle="danger"
                                     style="btn-block"
                                   />
@@ -235,12 +235,12 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                             <Row>
                               <Col md={5} sm={5}>
                                 <FormGroup>
-                                  <ControlLabel>{translate.t("home.newProject.forces")}</ControlLabel>
+                                  <ControlLabel>{translate.t("home.newGroup.forces")} *</ControlLabel>
                                   <BootstrapSwitchButton
                                     checked={hasForces}
-                                    offlabel={translate.t("home.newProject.switch.no")}
+                                    offlabel={translate.t("home.newGroup.switch.no")}
                                     onChange={handleForcesBtnChange}
-                                    onlabel={translate.t("home.newProject.switch.yes")}
+                                    onlabel={translate.t("home.newGroup.switch.yes")}
                                     onstyle="danger"
                                     style="btn-block"
                                   />
@@ -248,6 +248,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                               </Col>
                             </Row>
                           ) : undefined}
+                          * {translate.t("home.newGroup.extra_charges_may_apply")}
                           <br />
                           <ButtonToolbar className="pull-right">
                             <Button bsStyle="success" onClick={closeNewProjectModal}>

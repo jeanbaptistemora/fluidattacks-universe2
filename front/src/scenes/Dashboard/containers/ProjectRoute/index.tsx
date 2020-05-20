@@ -72,7 +72,7 @@ const projectRoute: React.FC = (): JSX.Element => {
         closeRejectProjectModal();
         msgSuccess(
           translate.t("search_findings.tab_indicators.success"),
-          translate.t("home.newProject.titleSuccess"),
+          translate.t("home.newGroup.titleSuccess"),
         );
       }
     },

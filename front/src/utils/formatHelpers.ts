@@ -427,9 +427,9 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
           missingFields: err.message.split("fields: ")[1],
         }));
       } else if (_.includes(err.message, "Exception - There are no project names available at the moment")) {
-        msgError(translate.t("home.newProject.noProjectName"));
+        msgError(translate.t("home.newGroup.noGroupName"));
       } else if (_.includes(err.message, "Exception - Error invalid project name")) {
-        msgError(translate.t("home.newProject.invalidProject"));
+        msgError(translate.t("home.newGroup.invalidGroup"));
       } else if (_.includes(err.message, "Exception - Error permission denied")) {
         msgError(translate.t("search_findings.tab_resources.cannotRemove"));
       } else {

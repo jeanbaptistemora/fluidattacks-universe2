@@ -143,7 +143,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
             <Col md={2} mdOffset={5}>
               <ButtonToolbar>
                 <Button onClick={openNewProjectModal}>
-                  <Glyphicon glyph="plus" />&nbsp;{translate.t("home.newProject.new")}
+                  <Glyphicon glyph="plus" />&nbsp;{translate.t("home.newGroup.new")}
                 </Button>
               </ButtonToolbar>
             </Col>

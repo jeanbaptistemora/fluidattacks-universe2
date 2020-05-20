@@ -24,16 +24,17 @@ const enTranslations: Dictionary = {
     progress: "Progress",
   },
   home: {
-    newProject: {
+    newGroup: {
       company: "Company",
       description: "Description",
       drills: "Include Drills Service?",
+      extra_charges_may_apply: "Extra charges may apply",
       forces: "Include Forces Service?",
       integrates: "Include Integrates?",
-      invalidProject: "Invalid project name",
-      name: "Project Name",
-      new: "New Project",
-      noProjectName: "There are no project names available at the moment",
+      invalidGroup: "Invalid project name",
+      name: "Group Name",
+      new: "New Group",
+      noGroupName: "There are no group names available at the moment",
       success: "Project created successfully",
       switch: {
         no: "No",
