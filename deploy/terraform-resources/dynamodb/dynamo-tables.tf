@@ -242,11 +242,11 @@ resource "aws_dynamodb_table" "findings" {
     hash_key           = "project_name"
     projection_type    = "INCLUDE"
     non_key_attributes = [
-      "historic_state",
       "historic_treatment",
+      "releaseDate",
       "historic_verification",
       "cvss_temporal",
-      "releaseDate",
+      "historic_state",
       "finding"
     ]
   }
