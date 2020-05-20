@@ -9,7 +9,7 @@ import wait from "waait";
 import store from "../../../../../store/index";
 import { authzContext } from "../../../../../utils/authz/config";
 import { msgSuccess } from "../../../../../utils/notifications";
-import { ADD_TAGS_MUTATION, GET_TAGS } from "../queries";
+import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "../queries";
 import { IPortfolioProps, Portfolio } from "./index";
 
 jest.mock("../../../../../utils/notifications", () => {
@@ -114,5 +114,44 @@ describe("Portfolio", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgSuccess)
       .toBeCalled();
+  });
+
+  it("should remove a tag", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: REMOVE_TAG_MUTATION,
+        variables:  {
+          projectName: "TEST",
+          tagToRemove: "test-tag1",
+        },
+      },
+      result: { data: { removeTag : { success: true } } },
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_project__do_remove_tag" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksTags.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Portfolio {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const fileInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper) => element.contains("test-tag1"))
+      .at(0);
+    fileInfo.simulate("click");
+    const removeButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Remove"))
+      .at(0);
+    removeButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgSuccess)
+      .toHaveBeenCalled();
   });
 });
