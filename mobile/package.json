@@ -23,6 +23,7 @@
     "apollo-link-context": "1.0.20",
     "apollo-link-error": "1.1.13",
     "apollo-link-http": "1.5.17",
+    "babel-plugin-inline-import": "3.0.0",
     "expo": "37.0.11",
     "expo-constants": "9.0.0",
     "expo-google-app-auth": "8.1.0",
@@ -38,6 +39,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-gesture-handler": "1.6.1",
     "react-native-paper": "3.10.1",
+    "react-native-svg": "11.0.1",
     "react-router-native": "5.2.0",
     "rollbar": "2.16.1"
   },

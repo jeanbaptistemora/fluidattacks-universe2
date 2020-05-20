@@ -10,3 +10,8 @@ declare module "*.gif" {
   const value: number;
   export = value;
 }
+
+declare module "*.svg" {
+  const value: string;
+  export = value;
+}

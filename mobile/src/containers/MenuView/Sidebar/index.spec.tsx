@@ -33,7 +33,7 @@ describe("MenuView", (): void => {
     expect(wrapper
       .dive()
       .dive()
-      .find("Image"))
+      .find("logo"))
       .toHaveLength(1);
   });
 

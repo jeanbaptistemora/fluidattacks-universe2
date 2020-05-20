@@ -1,12 +1,11 @@
 import * as SecureStore from "expo-secure-store";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Animated, Image, View } from "react-native";
+import { Animated, View } from "react-native";
 import { Drawer } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
-// tslint:disable-next-line: no-default-import
-import { default as FluidLogo } from "../../../../assets/logo.png";
+import { Logo } from "../../../components/Logo";
 
 import { styles } from "./styles";
 
@@ -26,7 +25,7 @@ const sidebar: React.FunctionComponent<ISidebarProps> = (): JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <Image source={FluidLogo} style={styles.logo} />
+      <Logo width={180} height={50} fill="#FFFFFF" />
       <View style={styles.bottom}>
         <Drawer.Item
           theme={{ colors: { text: "white" } }}

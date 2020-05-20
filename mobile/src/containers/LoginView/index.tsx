@@ -3,12 +3,11 @@ import * as Google from "expo-google-app-auth";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Image, Linking, Platform, View } from "react-native";
+import { Alert, Linking, Platform, View } from "react-native";
 import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
-// tslint:disable-next-line: no-default-import
-import { default as FluidLogo } from "../../../assets/logo.png";
+import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import {
   GOOGLE_LOGIN_KEY_ANDROID_DEV,
@@ -89,7 +88,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <Image source={FluidLogo} style={styles.logo} />
+      <Logo width={300} height={70} fill="#FFFFFF" />
       <View style={styles.buttonsContainer}>
         <Button
           disabled={isLoading ? true : isOutdated}
