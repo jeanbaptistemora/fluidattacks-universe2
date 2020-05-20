@@ -5,11 +5,11 @@ source "${srcEnv}"
 
 function job_build_nix_caches {
   local context='.'
-  local dockerfile='build2/Dockerfile'
+  local dockerfile='build/Dockerfile'
   local provisioners
 
       helper_use_pristine_workdir \
-  &&  provisioners=(./build2/provisioners/*) \
+  &&  provisioners=(./build/provisioners/*) \
   &&  helper_build_nix_caches_parallel \
   &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
       do
@@ -56,16 +56,16 @@ function job_lint_commit_message {
 }
 
 function job_lint_shell {
-  local path_to_check='build2'
+  local path_to_check='build'
 
       echo "Verifying shell code in: ${path_to_check}" \
   &&  find "${path_to_check}" -name '*.sh' \
         -exec shellcheck --exclude=SC1090,SC2154,SC2164,SC2064 -x {} + \
-  &&  shellcheck -x --exclude=SC2015,SC2064 ./build2.sh
+  &&  shellcheck -x --exclude=SC2015,SC2064 ./build.sh
 }
 
 function job_lint_nix {
-  local path_to_check='build2'
+  local path_to_check='build'
 
       echo "Verifying nix code in: ${path_to_check}" \
   &&  nix-linter \

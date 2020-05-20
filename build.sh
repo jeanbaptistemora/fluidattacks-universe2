@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-source ./build2/include/generic/shell-options.sh
+source ./build/include/generic/shell-options.sh
 source ./.envrc.public
 
 function check_nix_version {
@@ -21,12 +21,12 @@ function decide_and_call_provisioner {
   # shellcheck disable=2016
       if echo "${job}" | grep -q 'test_asserts_'
       then
-        ./build2/scripts/odbc/set.sh
+        ./build/scripts/odbc/set.sh
       fi \
-  &&  provisioner="./build2/provisioners/${job}.nix" \
+  &&  provisioner="./build/provisioners/${job}.nix" \
   &&  if [ ! -f "${provisioner}" ]
       then
-        provisioner='./build2/provisioners/build_nix_caches.nix'
+        provisioner='./build/provisioners/build_nix_caches.nix'
       fi \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
   &&  nix-shell \

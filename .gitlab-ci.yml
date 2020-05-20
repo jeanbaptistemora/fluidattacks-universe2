@@ -24,12 +24,12 @@ stages:
       - triggers
       - schedules
 
-.with_nix_2: &with_nix_2
+.with_nix: &with_nix
   tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/nix:$CI_JOB_NAME"
   needs: []
   script:
-    - ./build2.sh "${CI_JOB_NAME% *}"
+    - ./build.sh "${CI_JOB_NAME% *}"
   interruptible: true
 
 .in_schedule_nightly_build: &in_schedule_nightly_build
@@ -38,7 +38,7 @@ stages:
       when: always
 
 build_nix_caches:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_nightly_build
   tags: [autoscaling-large]
   image: nixos/nix:2.3
@@ -49,7 +49,7 @@ build_nix_caches:
   interruptible: false
 
 build_asserts:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   artifacts:
     paths: [asserts-release/]
@@ -58,238 +58,238 @@ build_asserts:
 # For some reason our innovation account is empty!
 #   disabling until we recreate it or found how to revert changes
 .test_asserts_api_cloud_aws_api:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_cloud_aws_cloudformation:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_cloud_aws_terraform:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_cloud_azure:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_cloud_gcp:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_cloud_kubernetes:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_db_mssql:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_db_mysql:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_db_postgres:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_format:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
   tags: [autoscaling-large]
 
 test_asserts_api_helper:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_iot:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_core:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_csharp:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_docker:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_dotnetconfig:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_html:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_java:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_javascript:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_php:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_python:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_rpgle:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_lang_times:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_ot:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_dns:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_ftp:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_git:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_graphql:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_http:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_ldap:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_rest:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_smb:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_smtp:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_ssh:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_ssl:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_proto_tcp:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_sca:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_syst:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_asserts_api_utils:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 test_output_asserts:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 lint_shell:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 lint_nix:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 lint_asserts:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 lint_asserts_bandit:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 lint_asserts_tests:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 lint_commit_message:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
 send_new_release_email:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_prod_branch
   stage: notify
 
@@ -312,18 +312,18 @@ danger:
     - danger --verbose --fail-on-errors=true
 
 release_to_pypi:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_prod_branch
   stage: release_to_pypi
 
 release_to_docker_hub:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_prod_branch
   needs: [release_to_pypi]
   stage: release_to_docker
 
 pages:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_prod_branch
   stage: deploy
   artifacts:

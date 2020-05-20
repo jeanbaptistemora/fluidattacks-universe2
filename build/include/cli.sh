@@ -14,7 +14,7 @@ function cli {
       || test "${function_to_call}" = '--help'
   then
     echo
-    echo "Use: ./build2.sh [job-name]"
+    echo "Use: ./build.sh [job-name]"
     echo
     echo 'List of jobs:'
     helper_list_declared_jobs | sed -e 's/^/  * /g'

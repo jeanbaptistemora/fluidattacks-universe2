@@ -8,5 +8,5 @@ ARG PROVISIONER
 
 COPY ./ /code/
 
-RUN   nix-shell --run ':' "/code/build2/provisioners/${PROVISIONER}.nix" \
+RUN   nix-shell --run ':' "/code/build/provisioners/${PROVISIONER}.nix" \
   &&  nix-store --optimise
