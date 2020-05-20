@@ -15,19 +15,27 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_SECRET_ACCESS_KEY_BAD = "bad"
 
 
+pytestmark = pytest.mark.asserts_module('cloud_aws_api')  # pylint: disable=C0103,C0301 # noqa: E501
+
+
 #
 # Open tests
 #
 
-@pytest.mark.asserts_module('cloud_aws_api')
 def test_can_anyone_publish_open():
     """Test sns.can_anyone_publish."""
     assert sns.can_anyone_publish(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
                                   AWS_SECRET_ACCESS_KEY).is_open()
 
 
-@pytest.mark.asserts_module('cloud_aws_api')
 def test_can_anyone_subscribe_open():
     """Test sns.can_anyone_subscribe."""
     assert sns.can_anyone_subscribe(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
                                     AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_is_server_side_encryption_disabled_open():
+    """Test sns.is_server_side_encryption_disabled."""
+    assert sns.\
+        is_server_side_encryption_disabled(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101,C0301 # noqa: E501
+                                           AWS_SECRET_ACCESS_KEY).is_open()

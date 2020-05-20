@@ -136,3 +136,55 @@ def can_anyone_subscribe(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_server_side_encryption_disabled(key_id: str,
+                                       secret: str,
+                                       session_token: str = None,
+                                       retry: bool = True) -> tuple:
+    """Check if a ``SNS Topic`` has no serverside encryption.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    topics = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='sns',
+        func='list_topics',
+        param='Topics',
+        retry=retry)
+
+    msg_open: str = 'SNS Topics have serverside encryption disabled'
+    msg_closed: str = 'SNS Topics do not have serverside encryption disabled'
+
+    vulns, safes = [], []
+    if topics:
+        for topic in topics:
+            topic_arn = topic['TopicArn']
+
+            attrs = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
+                service='sns',
+                func='get_topic_attributes',
+                param='Attributes',
+                TopicArn=topic_arn,
+                retry=retry)
+
+            (vulns if not attrs.get('KmsMasterKeyId', '')
+             else safes).append(
+                 (topic_arn,
+                  'has serverside encryption disabled'))
+
+    return _get_result_as_tuple(
+        service='SNS',
+        objects='SNS Topics',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
