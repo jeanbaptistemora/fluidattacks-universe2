@@ -11,7 +11,7 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { maxLength, required, validField, validTextField } from "../../../../utils/validations";
+import { maxLength, required, validField, validUrlField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";
 
@@ -58,7 +58,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   component={textField}
                   placeholder={translate.t("search_findings.tab_resources.base_url_placeholder")}
                   type="text"
-                  validate={[required, validField, maxRepoUrlLength, validTextField]}
+                  validate={[required, validField, maxRepoUrlLength, validUrlField]}
                 />
               </Col>
             </Row>
@@ -73,7 +73,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   component={textField}
                   placeholder={translate.t("search_findings.tab_resources.branch_placeholder")}
                   type="text"
-                  validate={[required, validField, maxRepoBranchLength, validTextField]}
+                  validate={[required, validField, maxRepoBranchLength, validUrlField]}
                 />
               </Col>
               {index > 0 ? (

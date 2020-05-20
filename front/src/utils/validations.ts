@@ -58,19 +58,25 @@ export const validTextField: Validator = (value: string): string | undefined => 
   let error: string | undefined;
 
   if (!_.isNil(value)) {
-    const digits: string = "0123456789";
-    const asciiLettersLower: string = "abcdefghijklmnopqrstuvwxyzñáéíóúäëïöü";
-    const asciiLettersUpper: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜ";
-    const whitespace: string = " \t\n\r\x0b\x0c";
-    const other: string = "(),-./:;@_$#";
+    const match: RegExpMatchArray | null = value.match(
+      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),-./:;@_$#]/);
+    if (match !== null) {
+      const invalidChar: string = match[0];
+      error = translate.t("validations.invalidTextField", { chars: invalidChar });
+    }
+  }
 
-    const whitelist: string[] = (digits + asciiLettersLower + asciiLettersUpper + whitespace + other).split("");
+  return error;
+};
 
-    const invalidChars: string[] = value.split("")
-                                        .filter((char: string) => !whitelist.includes(char));
+export const validUrlField: Validator = (value: string): string | undefined => {
+  let error: string | undefined;
 
-    if (invalidChars.length > 0) {
-      error = translate.t("validations.invalidTextField", { chars: invalidChars[0] });
+  if (!_.isNil(value)) {
+    const match: RegExpMatchArray | null = value.match(/[^a-zA-Z0-9(),-./:;@_$#]/);
+    if (match !== null) {
+      const invalidChar: string = match[0];
+      error = translate.t("validations.invalidTextField", { chars: invalidChar });
     }
   }
 
