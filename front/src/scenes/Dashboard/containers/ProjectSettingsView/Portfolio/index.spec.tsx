@@ -154,4 +154,28 @@ describe("Portfolio", () => {
     expect(msgSuccess)
       .toHaveBeenCalled();
   });
+
+  it("should sort tags", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksTags} addTypename={false}>
+          <Portfolio {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    let firstRowInfo: ReactWrapper = wrapper
+      .find("RowPureContent")
+      .at(0);
+    expect(firstRowInfo.text())
+      .toEqual("test-tag1");
+    const tagHeader: ReactWrapper = wrapper
+      .find({"aria-label": "Portfolio sortable"});
+    tagHeader.simulate("click");
+    firstRowInfo = wrapper
+      .find("RowPureContent")
+      .at(0);
+    expect(firstRowInfo.text())
+      .toEqual("test-tag2");
+  });
 });
