@@ -1,7 +1,7 @@
 :slug: rules/032/
 :category: session
 :description: This document contains the details of the security requirements related to the definition and management of sessions and session variables in the organization. This requirement establishes the importance of managing session IDs securely in order to avoid session hijacking attacks.
-:keywords: Requirement, Security, Session ID, Leakage, URL, Messages
+:keywords: Session ID, Leakage, URL, Messages, ASVS, CWE
 :rules: yes
 
 = REQ.032 Avoid session ID leakages
@@ -11,6 +11,22 @@
 The system must not expose session IDs in URLs
 and messages presented to the user.
 
+== Description
+
+Session IDs are sensitive information that may allow an attacker to steal,
+modify and/or destroy information once they get one.
+Information sent via URL parameters is:
+
+* stored in cleartext in the browser history.
+* sent to external sites via the referrer HTTP header.
+* sent to external sites via the search bar if the browser interprets the
+URL as query.
+* visible to scripts running on the browser that may belong to
+third-parties.
+
+Therefore, session IDs should neither be sent via URL parameters,
+nor displayed as messages presented to the user nor stored in logs.
+
 == Findings
 
 * [inner]#link:/web/findings/017/[F017. Sensitive information sent insecurely]#
@@ -19,7 +35,15 @@ and messages presented to the user.
 
 == Reference
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.6+].
-Test that the session ID is never disclosed in URLs, error messages, or logs.
-This includes verifying that the application does not support
-URL rewriting of session cookies.
+. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor]
+The product exposes sensitive information to an actor that is not explicitly
+authorized to have access to that information.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/598.html[CWE-598: Use of GET Request Method With Sensitive Query Strings]
+The web application uses the HTTP GET method to process a request and includes
+sensitive information in the query string of that request.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.1 Client-side Data Protection.(3.1.1)]
+Verify the application never reveals session tokens in URL parameters or error
+messages.
