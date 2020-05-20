@@ -16,6 +16,7 @@ in
         pkgs.cacert
         pkgs.sops
         pkgs.jq
+        (builders.pythonRequirements pkgs).propagatedBuildInputs
       ];
 
       pyPkgIntegratesBack =

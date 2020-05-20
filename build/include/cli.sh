@@ -6,8 +6,10 @@ source "${srcIncludeJobs}"
 
 function cli {
   local function_to_call
+  local arguments_1
 
   function_to_call="${1:-}"
+  arguments_1="${2:-}"
 
   if test -z "${function_to_call}" \
       || test "${function_to_call}" = '-h' \
@@ -24,11 +26,11 @@ function cli {
   echo '---'
   env_prepare_environment_variables "${function_to_call}"
   env_prepare_ephemeral_vars
-  echo "[INFO] Executing function: job_${function_to_call}"
-  if "job_${function_to_call}"
+  echo "[INFO] Executing function: job_${function_to_call} ${arguments_1}"
+  if "job_${function_to_call}" "${arguments_1}"
   then
     echo
-    echo "Successfully executed: ${function_to_call}"
+    echo "Successfully executed: ${function_to_call} ${arguments_1}"
     echo '  Congratulations!'
     return 0
   else

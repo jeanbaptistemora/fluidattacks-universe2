@@ -464,6 +464,42 @@ function job_serve_back_prod {
   helper_serve_back prod
 }
 
+function _job_make_migration {
+  local env="${1}"
+  local stage="${2}"
+  local migration_file="${3}"
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+
+      env_prepare_python_packages \
+  &&  "helper_set_${env}_secrets" \
+  &&  STAGE="${stage}" python3 "${migration_file}" \
+
+}
+
+function job_make_migration_dev_test {
+  local migration_file="${1}"
+
+  _job_make_migration 'dev' 'test' "${migration_file}"
+}
+
+function job_make_migration_prod_test {
+  local migration_file="${1}"
+
+  _job_make_migration 'prod' 'test' "${migration_file}"
+}
+
+function job_make_migration_dev_apply {
+  local migration_file="${1}"
+
+  _job_make_migration 'dev' 'apply' "${migration_file}"
+}
+
+function job_make_migration_prod_apply {
+  local migration_file="${1}"
+
+  _job_make_migration 'prod' 'apply' "${migration_file}"
+}
+
 function job_lint_back {
       env_prepare_python_packages \
   &&  mypy --ignore-missing-imports --follow-imports=skip \

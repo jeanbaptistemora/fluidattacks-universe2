@@ -15,6 +15,7 @@ function check_nix_version {
 
 function decide_and_call_provisioner {
   local job="${1:-}"
+  local arg1="${2:-}"
   local provisioner
 
   # shellcheck disable=2016
@@ -58,7 +59,7 @@ function decide_and_call_provisioner {
           source "${srcIncludeGenericShellOptions}"
           source "${srcIncludeCli}"
         '"
-          cli ${job}
+          cli ${job} ${arg1}
         " \
         --show-trace \
         "${provisioner}"
