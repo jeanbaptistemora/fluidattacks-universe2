@@ -169,9 +169,10 @@ def create_project(
 def edit(
     *,
     group_name: str,
-    subscription: str,
     has_drills: bool,
     has_forces: bool,
+    requester_email: str,
+    subscription: str,
 ) -> bool:
     is_continuous_type: bool = subscription == 'continuous'
 
@@ -188,6 +189,15 @@ def edit(
         },
         project_name=group_name,
     )
+
+    if success:
+        notifications_domain.edit_group(
+            group_name=group_name,
+            has_drills=has_drills,
+            has_forces=has_forces,
+            requester_email=requester_email,
+            subscription=subscription,
+        )
 
     return success
 

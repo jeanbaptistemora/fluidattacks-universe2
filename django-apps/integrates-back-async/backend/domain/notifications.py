@@ -38,3 +38,37 @@ def new_group(
         """,
         requester_email=requester_email,
     )
+
+
+def edit_group(
+    *,
+    group_name: str,
+    has_drills: bool,
+    has_forces: bool,
+    requester_email: str,
+    subscription: str,
+) -> bool:
+    translations: dict = {
+        'continuous': 'Continuous Hacking',
+        'oneshot': 'One-Shot Hacking',
+        True: 'Active',
+        False: 'Inactive',
+    }
+
+    return notifications_dal.create_ticket(
+        subject=f'[Integrates] Group edited: {group_name}',
+        description=f"""
+            You are receiving this email because you have edited a group
+            through Integrates by Fluid Attacks.
+
+            Here are the details of the group:
+            - Name: {group_name}
+            - Type: {translations.get(subscription, subscription)}
+            - Drills: {translations[has_drills]}
+            - Forces: {translations[has_forces]}
+
+            If you require any further information,
+            do not hesitate to contact us.
+        """,
+        requester_email=requester_email,
+    )

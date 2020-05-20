@@ -540,9 +540,10 @@ async def _do_edit_group(
 
     success = await sync_to_async(project_domain.edit)(
         group_name=group_name,
-        subscription=subscription,
         has_drills=has_drills,
         has_forces=has_forces,
+        requester_email=requester_email,
+        subscription=subscription,
     )
 
     if success:

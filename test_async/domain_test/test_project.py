@@ -375,4 +375,5 @@ def test_edit(
         subscription=subscription,
         has_drills=has_drills,
         has_forces=has_forces,
+        requester_email='test@test.test'
     )
