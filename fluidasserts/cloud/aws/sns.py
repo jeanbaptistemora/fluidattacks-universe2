@@ -22,7 +22,7 @@ def can_anyone_publish(key_id: str,
                        secret: str,
                        session_token: str = None,
                        retry: bool = True) -> tuple:
-    """Check if ``SNS Topic`` have is publically accessible.
+    """Check if anyone can publish to a ``SNS Topic``.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
@@ -36,8 +36,8 @@ def can_anyone_publish(key_id: str,
         param='Topics',
         retry=retry)
 
-    msg_open: str = 'SNS Topics have public permissions'
-    msg_closed: str = 'SNS Topics no not have public permissions'
+    msg_open: str = 'SNS Topics have public publishing permissions'
+    msg_closed: str = 'SNS Topics do not have public publishing permissions'
 
     vulns, safes = [], []
     if topics:
@@ -59,13 +59,75 @@ def can_anyone_publish(key_id: str,
             for statement in policy['Statement']:
                 if statement.get('Effect', '') == 'Allow' \
                         and statement.get('Principal', {}).\
-                        get('AWS', '') == '*' \
-                        and statement.get('Action', '') == 'SNS:Publish'\
+                        get('AWS', '') == '*'\
+                        and {'SNS:Publish'}.\
+                        issubset(statement.get('Action', {}))\
                         and statement.get('Resource', '') == topic_arn:
                     (vulns if not statement.get('Condition', {})
                      else safes).append(
                          (topic_arn,
-                          'is publically accessible'))
+                          'is publishable by anyone'))
+
+    return _get_result_as_tuple(
+        service='SNS',
+        objects='SNS Topics',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def can_anyone_subscribe(key_id: str,
+                         secret: str,
+                         session_token: str = None,
+                         retry: bool = True) -> tuple:
+    """Check if anyone can subscribe to a ``SNS Topic``.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    topics = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='sns',
+        func='list_topics',
+        param='Topics',
+        retry=retry)
+
+    msg_open: str = 'SNS Topics have public subscribing permissions'
+    msg_closed: str = 'SNS Topics do not have public subscribing permissions'
+
+    vulns, safes = [], []
+    if topics:
+        for topic in topics:
+            topic_arn = topic['TopicArn']
+
+            attrs = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
+                service='sns',
+                func='get_topic_attributes',
+                param='Attributes',
+                TopicArn=topic_arn,
+                retry=retry)
+
+            policy = json.loads(attrs.get('Policy', ''))
+
+            for statement in policy['Statement']:
+                if statement.get('Effect', '') == 'Allow' \
+                        and statement.get('Principal', {}).\
+                        get('AWS', '') == '*'\
+                        and {"SNS:Subscribe", "SNS:Receive"}.\
+                        issubset(statement.get('Action', {}))\
+                        and statement.get('Resource', '') == topic_arn:
+                    (vulns if not statement.get('Condition', {})
+                     else safes).append(
+                         (topic_arn,
+                          'is subscribable by anyone'))
 
     return _get_result_as_tuple(
         service='SNS',

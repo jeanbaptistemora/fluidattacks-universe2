@@ -24,3 +24,10 @@ def test_can_anyone_publish_open():
     """Test sns.can_anyone_publish."""
     assert sns.can_anyone_publish(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
                                   AWS_SECRET_ACCESS_KEY).is_open()
+
+
+@pytest.mark.asserts_module('cloud_aws_api')
+def test_can_anyone_subscribe_open():
+    """Test sns.can_anyone_subscribe."""
+    assert sns.can_anyone_subscribe(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
+                                    AWS_SECRET_ACCESS_KEY).is_open()
