@@ -819,6 +819,7 @@ const enTranslations: Dictionary = {
       no_selection: "You must select an email from the table.",
       phone_number: "Phone Number",
       remove_user: "Remove",
+      resourcer: "Resourcer",
       responsibility_placeholder: "Product Owner, Project Manager, " +
         "Tester, ...",
       reviewer: "Reviewer",

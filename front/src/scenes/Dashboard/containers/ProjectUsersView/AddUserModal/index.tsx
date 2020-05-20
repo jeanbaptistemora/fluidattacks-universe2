@@ -35,6 +35,7 @@ const groupLevelRoles: string[] = [
   "customer",
   "customeradmin",
   "group_manager",
+  "resourcer",
   "reviewer",
 ];
 
