@@ -6,37 +6,36 @@
 = Security
 
 As a security company,
-Fluid Attacks is aware of the importance of:
+`Fluid Attacks` is aware of the importance of:
 
-. Having honesty, team work and discipline
+. Have honesty, teamwork, and discipline
   as immovable principles.
   Our full manifest can be found
   [inner]#link:../values/[here]#
-. Developing products
+. Develop products
   that comply with the highest worldwide
   [inner]#link:../products/rules/[security standards]#.
-. Aquiring only
+. Acquire only
   [inner]#link:../rules/262/[compliant services and products for internal use]#.
-. Implementing best security practices within our organization.
-. Being completely transparent with our clients,
+. Implement best security practices within our organization.
+. Be completely transparent with our clients,
   especially regarding their data:
   [inner]#link:../rules/315/[how we use it, and what we do to protect it]#.
 
 These concerns,
-concieved since the early days of the company,
+conceived since the early days of the company,
 have allowed us to implement
-a big number of measures
+a large number of measures
 throughout the years.
-In this page we will mention
+In this page, we will mention
 the ones that provide the highest
 value to our customers in
 terms of security.
 
 == 1. Transparency
 
-This section focuses on what we do to keep our client informed
-about the status of all our services
-and their data.
+This section focuses on what we do to keep our clients informed
+about their data and our services' status.
 
 === 1.1 Open Source
 
@@ -61,29 +60,29 @@ Commit history of all repositories:
 All incidents are reported in our
 link:https://community.fluidattacks.com/tag/transparency/[Community Site]
 with details like *_what happened_*, *_what we've done_*,
-*_what's the impact_* and *_what are we doing to help_*.
+*_what's the impact_*, and *_what we're doing to help_*.
 
 === 1.3 Data leakeage policy
 
-In case Fluid Attacks detects a breach,
-emails notyifing the involved parties will be sent.
+In case `Fluid Attacks` detects a breach,
+emails notifying the involved parties will be sent.
 Emails will contain information on what data was leaked or compromised,
-when and for how long (to the extent this information is available).
-For a breach that exposes private data for a large number of users,
+when, and for how long (to the extent this information is available).
+For a breach that exposes private data of a large number of users,
 the public will also be informed via email.
 
 === 1.4 Status page
 
 We continuously monitor
 [inner]#link:../products/integrates[Integrates]#,
-its [inner]#link:../../integrates/api[API]#
+its [inner]#link:../../integrates/api[API]#,
 and [inner]#link:../[our website]#.
 Monitoring checks run
 in North America and Europe servers
 every minute
-for all aplications.
-They send HTTP GET requests.
-This information is real-time and available on our
+for all applications.
+They send HTTP GET requests,
+and this information is real-time and available on our
 link:http://status.fluidattacks.com/[Status Site].
 
 
@@ -98,36 +97,36 @@ All our applications and services have
 industry-standard
 [inner]#link:../rules/224/[encryption at rest]#.
 
-- All the sesitive data provided by our clients
-  (Repository access keys, VPN credentials, etc)
-  is ciphered using a key management system KMS
-  symmetric algorithm
-  based on Advanced Encryption Standard (AES)
+- All the sensitive data provided by our clients
+  (Repository access keys, VPN credentials, etc.)
+  is encrypted using the symmetric algorithm
+  of our key management system (KMS).
+  This algorithm is based on Advanced Encryption Standard (AES)
   in Galois Counter Mode (GCM)
   with
   [inner]#link:../rules/150/[256-bit]#
   [inner]#link:../rules/145/[private keys]#.
   AES256 is the
   link:https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf[US government standard]
-  encryption algorithm,
-  used to protect top secret information.
-  Aditionally, client data is also
+  encryption algorithm
+  used to protect top-secret information.
+  Additionally, client data is also
   protected using
   link:https://en.wikipedia.org/wiki/HMAC[HMAC]
   with link:https://en.wikipedia.org/wiki/SHA-2[SHA-256]
   hashes.
-- All our clients repositories are
+- All our clients' repositories are
   stored in private,
   [inner]#link:../rules/185/[AES256 ciphered]#
   redundant datacenters.
 - Forces exploits are stored encrypted using AES256 keys.
 - All
   [inner]#link:../products/integrates[Integrates]#
-  data is stored in a AES256 encrypted database.
+  data is stored in an AES256 encrypted database.
 - Most of our encrypted-at-rest secrets
   are only decrypted in memory,
-  meaning that they never
-  are stored in a hard drive when decrypted.
+  meaning that they are never stored
+  in a hard drive when decrypted.
   This highly reduces the possibility of
   data leakage by leaving unprotected
   files with decrypted secrets stored
@@ -137,8 +136,8 @@ industry-standard
 - All our Windows laptops
   have their hard drives encrypted
   using Bitlocker.
-  Adherence to this policy is continuously checked
-  by a domain controller.
+  A domain controller continuously checks
+  adherence to this policy.
 - All our Linux laptops
   have their hard drives encrypted
   from bootloader using LUKS.
@@ -153,7 +152,7 @@ industry-standard
   uses the latest
   [inner]#link:../rules/181/[TLSv1.3]#
   cryptographic protocol for maximum in transit protection.
-- We mantain a SSL A+ score from
+- We maintain an SSL A+ score from
   link:https://www.ssllabs.com/ssltest/analyze.html?d=fluidattacks.com&latest[SSL Labs].
 - We use the
   link:https://es.wikipedia.org/wiki/HTTP_Strict_Transport_Security[HSTS]
@@ -167,48 +166,46 @@ industry-standard
 - For the rest of our clients, we use fully encrypted VPNs.
 - <<EPH, Ephemeral environments>>
   always bring a digital certificate,
-  validated with ACME protocol and
-  [inner]#link:../rules/092/[not self-signed]#.
+  validated with ACME protocol,
+  and [inner]#link:../rules/092/[not self-signed]#.
 
 === 2.3 We hack ourselves
 
-We have full-time projects focused on hacking our own software.
-To us, seting an example of secure software is essential,
-that is why today,
-our entire technological stack goes through a
-[inner]#link:../services/continuous-hacking[Continuous Hacking]#
-process.
+We have full-time projects focused on hacking our software.
+For us, it is essential to set an example of secure software,
+that is why today our entire technology stack
+goes through a process of [inner]#link:../services/continuous-hacking[Continuous Hacking]#
 
-Aditionally, all our development projects run
+All our development projects run
 <<CI, Continuous Integration>>
 pipelines,
-Including Forces exploits and strict linters
+including Forces exploits and strict linters
 to ensure that
 [inner]#link:../rules/155/[no known vulnerabilities]#
 are released to production.
 
-=== 2.4 All our hired personnel must accept a NDA
+=== 2.4 All our hired personnel must accept an NDA
 
 Everyone within our company knows
 how important it is to keep our
-clients's information secure.
+clients' information secure.
 We enforce this by requiring
 all our new employees to sign a
-Non disclosure agreement.
+non-disclosure agreement (NDA).
 
 === 2.5 No physical keys to our offices
 
 All our offices have digital locks.
-Employees have their own password to open the doors.
+Employees have their passwords to open the doors.
 All successful and failed access attempts are logged.
 
 === 2.6 We only hire directly
 
 All our employees have indefinite time contracts
 directly with the company.
-Due to the nature of our business, we never
-hire through contractors, freelance or any
-other third parties.
+Due to our business nature,
+we never hire through contractors,
+freelance, or any other third parties.
 
 === 2.7 Laptop rotation
 
@@ -220,15 +217,15 @@ There are two main reasons for this:
   replaced with new ones due to
   performance reasons.
 . *Information flow:*
-  Everytime a laptop
+  Whenever a laptop
   rotates from one employee to another,
   a total hard drive format is demanded.
-  As laptops continuously rotate
+  As laptops continuously switch
   among different employees,
-  formatting happens often
+  formatting happens often,
   and information does not accumulate
   in local storages.
-  The rotation average time for a laptop
+  The average rotation time for a laptop
   is six months.
 
 == 3. Authentication
@@ -236,10 +233,10 @@ There are two main reasons for this:
 Authentication refers to the process
 of validating your identity within a service or platform.
 In this context,
-we talk about our own services
-and other third party services we use.
+we talk about our services
+and third-party services we use.
 
-=== 3.1 For Clients
+=== 3.1 For clients
 
 [inner]#link:../products/integrates[Integrates]#
 only uses
@@ -251,15 +248,15 @@ and has industry-standard 2048 bytes access tokens.
 We do not store any account passwords.
 The only personal information we store of our clients is:
 
-- Full name (Provided by Google or Microsoft).
-- Company and cellphone (Only if shared, user can decide).
+- Full name (provided by Google or Microsoft).
+- Company and cellphone (only if shared, user can decide).
 
 It is also worth noting that once users lose their
 corporate email,
 [inner]#link:../rules/114/[they also lose access]#
 to their
 [inner]#link:../products/integrates[Integrates]#
-account. Allowing clients to
+account. Clients can
 [inner]#link:../rules/034/[easily manage]#
 who has and who does not have access to
 their projects.
@@ -268,10 +265,10 @@ their projects.
 
 ==== 3.2.1 Centralized authentication
 
-We use a centralized authentication platform (IAM),
+We use a centralized authentication platform (IAM)
 that allows us to manage all the applications
 we internally use from just one place. Our employees do
-not know any of the passwords of the managed applications,
+not know any of the passwords of the managed applications;
 they only know their own IAM passphrase.
 Once they log in to IAM,
 they can access applications
@@ -280,7 +277,7 @@ they can access applications
 Some of our IAM specifications and requirements are:
 
 - [inner]#link:../rules/132/[Passphrases instead of passwords]#
-  (More information [inner]#link:../blog/requiem-password/[here]#).
+  (more information [inner]#link:../blog/requiem-password/[here]#).
 - [inner]#link:../rules/130/[Passphrases expire every 30 days]#.
 - Previous passphrases can only be reused after a
   [inner]#link:../rules/129/[24 reset cycle]#.
@@ -288,16 +285,16 @@ Some of our IAM specifications and requirements are:
   from a mobile device must be set.
 - Our MFA uses
   [inner]#link:../rules/153/[OOB]#,
-  which is a mechanism that transports all the MFA data
+  a mechanism that transports all the MFA data
   through a different channel than the application's channel itself.
   Text messages and emails are examples of OBB.
-  It reduces risk in case a comunnication channel becomes compromised.
+  It reduces the risk in case a communication channel becomes compromised.
 - We use both
   link:https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language[SAML]
   and
   link:https://oauth.net/2/[Oauth2]
   for logging in.
-  These two protocols allow us to login to external applications
+  These two protocols allow us to log in to external applications
   by only having our IAM active account.
   No passwords or users are needed.
 - In case a mobile phone supports
@@ -317,15 +314,15 @@ Signatures can be found on the repository commit histories linked in the
 
 == 4. Authorization
 
-Authorization refers to the ability of giving
-users within an application,
+Authorization refers to the ability to give users
+within an application
 the
 [inner]#link:../rules/186/[minimum privileges]#
 they need to do
 their work. No users should have the ability
 to do what they should not.
 
-=== 4.1 For Clients
+=== 4.1 For clients
 
 [inner]#link:../products/integrates[Integrates]#
 has a set of
@@ -334,7 +331,7 @@ that are necessary on every hacking project.
 Once the client decides
 which members of its team
 should be *_project managers_*,
-Fluid Attacks assigns them to such role,
+`Fluid Attacks` assigns them to such role,
 providing them with the
 [inner]#link:../rules/035/[ability to assign]#
 the
@@ -351,7 +348,7 @@ in order to grant minimum-privilege policy at all times.
 Some examples are:
 
 - *IAM and KMS:*
-  These two tools are widely used within Fluid Attacks.
+  These two tools are widely used within `Fluid Attacks`.
   They allow us to ensure
   that hackers can only access source code,
   environments, exploits and secrets
@@ -415,7 +412,7 @@ Rotations are done in two different ways:
 When employees go on vacation or leave the company,
 revocating access to the systems and information
 they had access to is essential.
-In Fluid Attacks we have a two-step process for
+In `Fluid Attacks` we have a two-step process for
 access revocation:
 
   . *Deactivating IAM account:*
@@ -447,7 +444,7 @@ are common targets for malicious hackers.
 == 5. Privacy
 
 This section talks about our efforts to protect
-both Fluid Attacks's and the client's privacy.
+both `Fluid Attacks'` and the client's privacy.
 
 === 5.1 Project pseudonymization
 
@@ -613,7 +610,7 @@ depending of the context.
 === 6.1 Everything as code
 
 [[EAC]]
-At Fluid Attacks we try to keep everything we can
+At `Fluid Attacks` we try to keep everything we can
 versioned in a Git repository.
 By doing so, we are capable of having
 comprenhensive logs of:
@@ -702,7 +699,7 @@ recieve user requests in case another stops
 working. Every cluster node has at least one
 [inner]#link:../products/integrates[Integrates]#
 instance running in it.
-Aditionally,
+Additionally,
 its front side is served via a region-distributed
 link:https://en.wikipedia.org/wiki/Content_delivery_network[CDN],
 providing maximum speed and availability across the globe.
@@ -841,7 +838,7 @@ job inverviews, among others.
 
 The [inner]#link:../../[Fluid Attacks]# domain
 has DKIM and SPF protocols enabled.
-Aditionally, it has the DMARCv1 protocol
+Additionally, it has the DMARCv1 protocol
 enabled in verbose mode
 for running advanced diagnostics.
 These protocols help email receptors
@@ -971,7 +968,7 @@ In addition to running an automated building process
 for every change,
 we also run an automated deploying process.
 Once a Merge Request is accepted,
-an aditional Continuous Deployment pipeline triggers,
+an additional Continuous Deployment pipeline triggers,
 automatically deploying a new production version
 based on the new source code.
 
@@ -1045,7 +1042,7 @@ do not require OS libraries like libc.
 Instead, they are completely built from scratch,
 thus guarantying total reproducibility.
 
-Aditionally,
+Additionally,
 these dependencies do not require any administrative privileges like sudo.
 They are completely build in user space,
 considerabily reducing the possibility of compromising OS core files.
