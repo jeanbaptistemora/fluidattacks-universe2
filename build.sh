@@ -142,38 +142,9 @@ function push_to_cachix {
 # Gitlab Jobs
 #
 
-function job_build_fluidasserts_release {
-  use_cachix
-  build_and_link buildFluidassertsRelease result.build_fluidasserts_release
-}
-
 function job_demo_fluidasserts_output {
   use_cachix
   build demoFluidassertsOutput
-}
-
-function job_pages {
-  # Build our hosted GitLab Pages
-  use_cachix
-
-  build_and_link generateDoc result.pages
-
-  ./build/shell.sh -c 'rm -rf public; mkdir public'
-  ./build/shell.sh -c 'cp -r --no-preserve=mode,ownership result.pages/* public'
-
-  echo 'Check the docs at public/index.html!'
-  rm -f result.pages
-}
-
-function job_release_to_docker_hub {
-  use_cachix
-  ./build/shell.sh --release-to-docker-hub
-}
-
-function job_release_to_pypi {
-  use_cachix
-  job_build_fluidasserts_release
-  ./build/shell.sh --release-to-pypi
 }
 
 function cli {

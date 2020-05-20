@@ -13,14 +13,9 @@
     - id: check-case-conflict
     - id: check-merge-conflict
     - id: check-symlinks
-    - id: detect-private-key
     - id: check-xml
     - id: check-yaml
       exclude: ^.gitlab-ci.yml$
-- repo: https://gitlab.com/pycqa/flake8.git
-  rev: c8494e7ac0d017d032edc0a402c569b2fddb8a7f
-  hooks:
-    - id: flake8
 - repo: git://github.com/pre-commit/mirrors-pylint
   rev: a9e0b1a08cec19691247fc26a0f51e5f48801e18
   hooks:

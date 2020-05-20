@@ -10,7 +10,7 @@ include requirements.txt
 # Include Python source files
 recursive-include fluidasserts *.py
 recursive-include fluidasserts/static *.lst
-recursive-include fluidasserts/static/mock_data_proxy/* *
+recursive-include fluidasserts/static/mock_data_proxy *
 
 # Include build files
 include build.sh

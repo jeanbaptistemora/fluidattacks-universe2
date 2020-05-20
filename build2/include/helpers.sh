@@ -240,3 +240,55 @@ function helper_test_fluidasserts {
 
   execute_tests_for "${marker_name}"
 }
+
+function helper_pages_striprun {
+  $1 "$2" \
+    | perl -pe 's/\e([^\[\]]|\[.*?[a-zA-Z]|\].*?\a)//g' \
+    | tee "$2".out
+}
+
+function helper_pages_execute_example_exploits {
+  export yaml_key_b64='dGVzdHN0ZXN0c3Rlc3RzdGVzdHN0ZXN0c3Rlc3RzCg=='
+
+      mkdir resources \
+  &&  cp sphinx/source/example/resources/secrets.yml ./resources/secrets.yml \
+  &&  for example in sphinx/source/example/*.py; do
+            helper_pages_striprun "python3" "$example" \
+        ||  return 1
+      done \
+  &&  for example in sphinx/source/example/*.exp; do
+            helper_pages_striprun "asserts" "$example" \
+        ||  return 1
+      done
+}
+
+function helper_pages_generate_credits {
+      echo >> sphinx/source/credits.rst \
+  &&  echo 'running git-fame... this may take a loooong time' \
+  &&  git-fame \
+        -C \
+        --log=ERROR \
+        --silent-progress \
+        --ignore-whitespace \
+        --cost=cocomo \
+      | grep -viE '^total [a-z]+: [0-9]+(\.[0-9]+)?$' \
+      | grep -vP '^\D+?\d+\D+?0' \
+      | grep -vP 'Jane Doe' \
+      | tee -a sphinx/source/credits.rst \
+  &&  cat sphinx/source/credits.rst.footer >> sphinx/source/credits.rst
+}
+
+function helper_pages_generate_doc {
+  local version
+  local checks_number
+
+      mkdir -p public/ \
+  &&  sphinx-apidoc -efM fluidasserts -o sphinx/source \
+  &&  version=$(python3 ./build/scripts/get_version.py) \
+  &&  checks_number=$(grep -rIE '@(track|api)' fluidasserts/ | wc -l) \
+  &&  sed -i "s/<CHECKS>/${checks_number}/" sphinx/source/index.rst \
+  &&  sphinx-build -D version="v.${version}" -D release="v.${version}" \
+        -b dirhtml -a sphinx/source/ public/ \
+  &&  sphinx-build -b linkcheck sphinx/source public/review/ \
+  &&  sphinx-build -b coverage  sphinx/source public/review/
+}

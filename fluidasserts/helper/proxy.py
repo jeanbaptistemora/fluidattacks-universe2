@@ -2,11 +2,10 @@
 """This module provide a man in the middle Proxy."""
 
 # standard imports
-import os
 import random
 from typing import List
 import string
-from contextlib import contextmanager, suppress
+from contextlib import contextmanager
 from multiprocessing import Process
 from collections import namedtuple
 import pkg_resources
@@ -97,9 +96,6 @@ def _refact_addon(addon: AddOn):
 
 def _get_config_path():
     static_path = pkg_resources.resource_filename('fluidasserts', 'static/')
-    with suppress(FileNotFoundError):
-        os.rename(f'{static_path}mock_data_proxy/mitmproxy-ca',
-                  f'{static_path}mock_data_proxy/mitmproxy-ca.pem')
     return f'{static_path}mock_data_proxy'
 
 
@@ -112,9 +108,6 @@ def get_firefox_profile_path():
 def get_certificate_path():
     """Proxy certificate path in pem format."""
     static_path = pkg_resources.resource_filename('fluidasserts', 'static/')
-    with suppress(FileNotFoundError):
-        os.rename(f'{static_path}mock_data_proxy/mitmproxy-ca',
-                  f'{static_path}mock_data_proxy/mitmproxy-ca.pem')
     return f'{static_path}mock_data_proxy/mitmproxy-ca.pem'
 
 

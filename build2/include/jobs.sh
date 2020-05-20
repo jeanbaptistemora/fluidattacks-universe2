@@ -510,3 +510,12 @@ function job_release_to_docker_hub {
         'full' \
         'debian.Dockerfile'
 }
+
+function job_pages {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_pages_execute_example_exploits \
+  &&  helper_pages_generate_credits \
+  &&  helper_pages_generate_doc \
+  &&  mv public/ "${STARTDIR}"
+}

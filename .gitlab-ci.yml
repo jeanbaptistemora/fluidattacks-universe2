@@ -47,13 +47,6 @@ demo_fluidasserts_output:
   <<: *in_dev_branch
   stage: test
 
-pages:
-  <<: *with_nix
-  <<: *in_prod_branch
-  stage: deploy
-  artifacts:
-    paths: [public/]
-
 # Build2
 
 .with_nix_2: &with_nix_2
@@ -348,3 +341,10 @@ release_to_docker_hub:
   <<: *in_prod_branch
   needs: [release_to_pypi]
   stage: release_to_docker
+
+pages:
+  <<: *with_nix_2
+  <<: *in_prod_branch
+  stage: deploy
+  artifacts:
+    paths: [public/]
