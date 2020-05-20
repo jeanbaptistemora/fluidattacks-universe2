@@ -3,36 +3,41 @@
 """AWS cloud helper."""
 
 # standard imports
+from contextlib import suppress
 import csv
-import time
 import functools
+from io import StringIO
 import random
 import string
-from io import StringIO
-from contextlib import suppress
-from typing import Any, Callable, Dict, Iterator, Tuple, List, Set, NoReturn
+import time
+from typing import Any
+from typing import Callable
+from typing import Dict
+from typing import Iterator
+from typing import List
+from typing import NoReturn
+from typing import Set
+from typing import Tuple
 
 # 3rd party imports
-import yaml
 import boto3
 import botocore
 import cfn_tools
 import hcl
 from lark import LarkError
+import yaml
 
 # local imports
-from fluidasserts.utils.generic import get_paths
-from fluidasserts.helper.yaml_loader_alt import LineLoader
 from fluidasserts.cloud.aws.cloudformation import (
-    CloudFormationError,
-    CloudFormationInvalidTypeError,
-    CloudFormationInvalidTemplateError,
-    services,
-)
-from fluidasserts.cloud.aws.terraform import (
-    TerraformError,
-    TerraformInvalidTemplateError,
-)
+    CloudFormationInvalidTemplateError)
+from fluidasserts.cloud.aws.cloudformation import (
+    CloudFormationInvalidTypeError)
+from fluidasserts.cloud.aws.cloudformation import CloudFormationError
+from fluidasserts.cloud.aws.cloudformation import services
+from fluidasserts.cloud.aws.terraform import TerraformError
+from fluidasserts.cloud.aws.terraform import TerraformInvalidTemplateError
+from fluidasserts.helper.yaml_loader_alt import LineLoader
+from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.parsers import json as l_json
 
 # Constants
@@ -45,16 +50,14 @@ TERRAFORM_EXTENSIONS = ('.tf',)
 
 
 class ConnError(botocore.vendored.requests.exceptions.ConnectionError):
-    """
-    A connection error occurred.
+    """A connection error occurred.
 
     :py:exc:`ConnectionError` wrapper exception.
     """
 
 
 class ClientErr(botocore.exceptions.BotoCoreError):
-    """
-    A connection error occurred.
+    """A connection error occurred.
 
     :py:exc:`ClientError` wrapper exception.
     """
@@ -86,8 +89,7 @@ def get_aws_client(service: str,
                    secret: str,
                    retry: bool = True,
                    **kwargs) -> object:
-    """
-    Get AWS client object.
+    """Get AWS client object.
 
     :param service: AWS Service
     :param key_id: AWS Key Id
@@ -114,8 +116,7 @@ def validate_access_controls(access_controls: Set[str],
 
 @retry_on_errors
 def client_get_user(client, username):
-    """
-    Get AWS user from a provided Client.
+    """Get AWS user from a provided Client.
 
     :param client: AWS Client instance
     :param username: Username to query for
@@ -125,8 +126,7 @@ def client_get_user(client, username):
 
 @retry_on_errors
 def client_get_login_profile(client, username):
-    """
-    Get AWS login profile from a provided Client.
+    """Get AWS login profile from a provided Client.
 
     :param client: AWS Client instance
     :param username: Username to query for
@@ -143,8 +143,7 @@ def run_boto3_func(key_id: str,
                    retry: bool = True,
                    boto3_client_kwargs: dict = None,
                    **kwargs) -> dict:
-    """
-    Run arbitrary boto3 function.
+    """Run arbitrary boto3 function.
 
     :param service: AWS client
     :param func: AWS client's method to call
@@ -173,8 +172,7 @@ def assume_role_credential(key_id: str,
                            retry: bool = True,
                            boto3_client_kwargs: dict = None,
                            **kwargs) -> Tuple:
-    """
-    Allow a user to assume an IAM role.
+    """Allow a user to assume an IAM role.
 
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.
@@ -203,8 +201,7 @@ def credentials_report(
         secret: str,
         retry: bool = True,
         boto3_client_kwargs: dict = None) -> Tuple[Dict[str, str]]:
-    """
-    Get IAM credentials report.
+    """Get IAM credentials report.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
@@ -454,7 +451,7 @@ def force_list(obj: Any) -> List[Any]:
 
 def get_line(obj: any):
     """Return the line of an cloudformation node."""
-    line = getattr(obj, '_line_', None)
+    line = getattr(obj, '__line__', None)
     with suppress(AttributeError):
         line = line or obj.get('__line__')
     with suppress(KeyError, TypeError):
@@ -465,8 +462,7 @@ def get_line(obj: any):
 
 
 def policy_statement_privilege(statement, effect: str, action: str):
-    """
-    Check if a statement of a policy allow an action in all resources.
+    """Check if a statement of a policy allow an action in all resources.
 
     :param statemet: policy statement.
     :param effect: (Allow | Deny)

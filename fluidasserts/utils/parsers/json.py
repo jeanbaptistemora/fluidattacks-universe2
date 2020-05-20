@@ -2,11 +2,15 @@
 """Fluid Asserts JSON parser."""
 
 # standard imports
-from collections import UserDict, UserList
+from collections import UserDict
+from collections import UserList
 from typing import Any
 
 # 3rd party imports
-from lark import Lark, Transformer, v_args, Tree
+from lark import Lark
+from lark import Transformer
+from lark import Tree
+from lark import v_args
 
 
 class CustomList(UserList):  # pylint: disable=too-many-ancestors
@@ -16,7 +20,7 @@ class CustomList(UserList):  # pylint: disable=too-many-ancestors
         """Initialize a custom list."""
         super().__init__(initlist)
         if line:
-            setattr(self, '_line_', line)
+            setattr(self, '__line__', line)
 
     def __getitem__(self, index):
         """Change behavior when getting an object."""
@@ -26,14 +30,14 @@ class CustomList(UserList):  # pylint: disable=too-many-ancestors
             tokens = index.split('.')
             index = int(tokens[0])
         if len(tokens) == 2 and tokens[1] == 'line':
-            if '_line_' in self.data[index]:
-                result = self.data[index]['_line_']
+            if '__line__' in self.data[index]:
+                result = self.data[index]['__line__']
             else:
-                result = self.data[index]._line_
+                result = self.data[index].__line__
         elif isinstance(self.data[index], (CustomList, list)):
             result = self.data[index]
-        elif '_item_' in self.data[index]:
-            return self.data[index]['_item_']
+        elif '__item__' in self.data[index]:
+            return self.data[index]['__item__']
         else:
             return self.data[index]
 
@@ -51,11 +55,11 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
             key = key[0]
         if isinstance(item, Tree):
             if item.data == 'false':
-                self.data[key] = {'_item_': False, '_line_': item.line}
+                self.data[key] = {'__item__': False, '__line__': item.line}
             elif item.data == 'true':
-                self.data[key] = {'_item_': True, '_line_': item.line}
+                self.data[key] = {'__item__': True, '__line__': item.line}
             elif item.data == 'null':
-                self.data[key] = {'_item_': None, '_line_': item.line}
+                self.data[key] = {'__item__': None, '__line__': item.line}
             elif item.data == 'array':
                 for index, element in enumerate(item.children):
                     item.children[index] = CustomList(
@@ -64,7 +68,7 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
                 self.data[key] = CustomList(item.children, item.line)
         elif isinstance(item, (dict, CustomDict, CustomList, list)):
             if line:
-                setattr(item, '_line_', line)
+                setattr(item, '__line__', line)
             super().__setitem__(key, item)
         else:
             super().__setitem__(key, item)
@@ -72,8 +76,8 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
     def get(self, key, default=None):
         """Change behavior when getting an object."""
         result = None
-        if key in self.data and '_item_' in self.data[key]:
-            result = self.data[key]['_item_']
+        if key in self.data and '__item__' in self.data[key]:
+            result = self.data[key]['__item__']
         elif key in self.data:
             result = self.data[key]
         else:
@@ -86,17 +90,17 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
         if isinstance(
                 key,
                 str) and '.line' in key and key.split('.')[0] in self.data:
-            if '_line_' in self.data[key.split('.')[0]]:
-                result = self.data[key.split('.')[0]]['_line_']
+            if '__line__' in self.data[key.split('.')[0]]:
+                result = self.data[key.split('.')[0]]['__line__']
             else:
-                result = self.data[key.split('.')[0]]._line_
+                result = self.data[key.split('.')[0]].__line__
         if key in self.data:
-            if key == '_line_':
-                result = self.data.get('_line_')
-            elif '_item_' in self.data:
-                result = self.data['_item_']
-            elif '_item_' in self.data[key]:
-                result = self.data[key]['_item_']
+            if key == '__line__':
+                result = self.data.get('__line__')
+            elif '__item__' in self.data:
+                result = self.data['__item__']
+            elif '__item__' in self.data[key]:
+                result = self.data[key]['__item__']
             else:
                 result = self.data[key]
         return result
@@ -109,8 +113,8 @@ class TreeToJson(Transformer):
     def string(self, tree):  # pylint: disable=no-self-use
         """Convert string values."""
         return CustomDict({
-            '_item_': tree[1:-1].replace('\\"', '"'),
-            '_line_': tree.line
+            '__item__': tree[1:-1].replace('\\"', '"'),
+            '__line__': tree.line
         })
 
     @v_args(inline=True)
@@ -124,7 +128,7 @@ class TreeToJson(Transformer):
     @v_args(inline=True)
     def number(self, tree):  # pylint: disable=no-self-use
         """Convert number values."""
-        return CustomDict({'_item_': float(tree), '_line_': tree.line})
+        return CustomDict({'__item__': float(tree), '__line__': tree.line})
 
 
 def parse(json_string: str):

@@ -84,7 +84,7 @@ def _get_line(object_, key):
     line = None
     try:
         line = object_[f'{key}.line']
-    except (KeyError, TypeError):
+    except (KeyError, TypeError, AttributeError):
         line = get_line(object_[key])
         if line == 0:
             line = get_line(object_)
