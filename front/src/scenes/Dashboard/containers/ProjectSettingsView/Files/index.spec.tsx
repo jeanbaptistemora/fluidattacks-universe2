@@ -312,4 +312,43 @@ describe("Files", () => {
     expect(msgError)
       .toHaveBeenCalledTimes(3);
   });
+
+  it("should handle error when there are repeated files", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_add_files" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksFiles} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Files {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const addButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Add"))
+      .at(0);
+    addButton.simulate("click");
+    const addFilesModal: ReactWrapper = wrapper.find("addFilesModal");
+    const file: File = new File([""], "test.zip", { type: "application/zip" });
+    const fileInput: ReactWrapper = addFilesModal
+      .find({name: "file"})
+      .at(0)
+      .find("input");
+    fileInput.simulate("change", { target: { files: [ file ] } });
+    const descriptionInput: ReactWrapper = addFilesModal
+      .find({name: "description", type: "text"})
+      .at(0)
+      .find("textarea");
+    descriptionInput.simulate("change", { target: { value: "Test description" } });
+    const form: ReactWrapper = addFilesModal
+      .find("genericForm")
+      .at(0);
+    form.simulate("submit");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgError)
+      .toHaveBeenCalled();
+  });
 });
