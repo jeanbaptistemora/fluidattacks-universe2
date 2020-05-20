@@ -2,4 +2,4 @@ include requirements.txt
 include toolbox/rules.def
 include toolbox/sorts/extensions.lst
 include toolbox/sorts/composites.lst
-include toolbox/sorts/svm.pickle
+include toolbox/sorts/model_parameters.json

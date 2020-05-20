@@ -66,7 +66,7 @@ def get_files(row):
             authors = gitrepo.log('--follow', '--pretty=%aE', '--', file)
             num_file_touchers = len(set(authors.split('\n')))
             touchers.append(num_file_touchers)
-            touchers = np.array(touchers)
+        touchers = np.array(touchers)
     except GitCommandError:
         print(f'error with repo {repo}')
         print('commit', comm)
@@ -127,7 +127,7 @@ def predict(subs):
     dataset = dataset.dropna()
     x_test = dataset.loc[:, 'hunks':]
     model = LinearSVC()
-    with open('model_parameters.json', 'r') as modfile:
+    with open('toolbox/toolbox/sorts/model_parameters.json', 'r') as modfile:
         params = json.load(modfile)
     model.coef_ = np.array(params['coef'])
     model.intercept_ = np.array(params['intercept'])
