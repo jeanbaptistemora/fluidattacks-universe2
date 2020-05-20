@@ -243,10 +243,10 @@ resource "aws_dynamodb_table" "findings" {
     projection_type    = "INCLUDE"
     non_key_attributes = [
       "historic_treatment",
-      "releaseDate",
       "historic_verification",
       "cvss_temporal",
       "historic_state",
+      "releaseDate",
       "finding"
     ]
   }
