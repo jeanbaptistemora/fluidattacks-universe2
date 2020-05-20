@@ -1,0 +1,702 @@
+[INFO] Preparing python packages
+  [pyPkgIntegratesBack] /nix/store/djsrwj4xbrz56vpvk9v6zk70yck32kvx-integrates-back-async
+  [pyPkgReqsApp] /nix/store/fkqxkvk6cqci6a2f4wbpmvzp8dr232fp-python-requirements
+[INFO] Exporting development secrets
+Exporting: AWS_DEFAULT_REGION
+Exporting: AWS_REDSHIFT_DBNAME
+Exporting: AWS_REDSHIFT_HOST
+Exporting: AWS_REDSHIFT_PASSWORD
+Exporting: AWS_REDSHIFT_USER
+Exporting: AZUREAD_OAUTH2_KEY
+Exporting: AZUREAD_OAUTH2_SECRET
+Exporting: COMMUNITY_PROJECTS
+Exporting: CLOUDFRONT_ACCESS_KEY
+Exporting: CLOUDFRONT_PRIVATE_KEY
+Exporting: CLOUDFRONT_RESOURCES_DOMAIN
+Exporting: CLOUDFRONT_REPORTS_DOMAIN
+Exporting: DB_HOST
+Exporting: DB_PASSWD
+Exporting: DB_USER
+Exporting: DEBUG
+Exporting: DJANGO_SECRET_KEY
+Exporting: DYNAMODB_HOST
+Exporting: DYNAMODB_PORT
+Exporting: ENVIRONMENT
+Exporting: FORCES_TRIGGER_REF
+Exporting: FORCES_TRIGGER_TOKEN
+Exporting: FORCES_TRIGGER_URL
+Exporting: GOOGLE_OAUTH2_KEY
+Exporting: GOOGLE_OAUTH2_KEY_ANDROID
+Exporting: GOOGLE_OAUTH2_KEY_IOS
+Exporting: GOOGLE_OAUTH2_SECRET
+Exporting: JWT_SECRET
+Exporting: JWT_SECRET_API
+Exporting: MAIL_CONTINUOUS
+Exporting: MAIL_PRODUCTION
+Exporting: MAIL_PROJECTS
+Exporting: MAIL_REVIEWERS
+Exporting: MAIL_RESOURCERS
+Exporting: MANDRILL_APIKEY
+Exporting: MIXPANEL_API_TOKEN
+Exporting: NEW_RELIC_API_KEY
+Exporting: NEW_RELIC_APP_ID
+Exporting: NEW_RELIC_LICENSE_KEY
+Exporting: NEW_RELIC_ENVIRONMENT
+Exporting: REDIS_SERVER
+Exporting: ROLLBAR_ACCESS_TOKEN
+Exporting: SQS_QUEUE_URL
+Exporting: TEST_PROJECTS
+Exporting: ZENDESK_EMAIL
+Exporting: ZENDESK_SUBDOMAIN
+Exporting: ZENDESK_TOKEN
+Starting migration 0003
+project2
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project19
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project8
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project16
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project23
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project40
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project36
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project34
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+suspendedtest
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project3
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project31
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project5
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project20
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project33
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project25
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project44
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project39
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project15
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project17
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project26
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+oneshottest
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:37",
+      "has_forces": false,
+      "has_drills": "true",
+      "requester": "continuoushacking@gmail.com",
+      "type": "oneshot"
+    }
+  ]
+}
+---
+project13
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project14
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+pendingproject
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "continuoushacking@gmail.com",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project35
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project22
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project41
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project18
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project38
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+unittesting
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": true,
+      "has_drills": true,
+      "requester": "integratesuser@gmail.com",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project27
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project10
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project42
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project4
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project12
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project1
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project30
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project24
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project32
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project37
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:44",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project7
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project11
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project9
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project28
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project43
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project45
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project29
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+continuoustesting
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project6
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project21
+new data would be: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:05:45",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---

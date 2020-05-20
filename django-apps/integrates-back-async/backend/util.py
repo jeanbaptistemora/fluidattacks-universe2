@@ -85,6 +85,10 @@ def get_current_time_minus_delta(*, weeks: int) -> datetime:
     return now_minus_delta
 
 
+def get_current_time_as_iso_str() -> str:
+    return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+
+
 def user_email_filter(emails: List[str], actual_user: str) -> List[str]:
     if "@fluidattacks.com" in actual_user:
         final_users = emails

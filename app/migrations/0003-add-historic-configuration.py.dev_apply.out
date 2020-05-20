@@ -1,0 +1,702 @@
+[INFO] Preparing python packages
+  [pyPkgIntegratesBack] /nix/store/djsrwj4xbrz56vpvk9v6zk70yck32kvx-integrates-back-async
+  [pyPkgReqsApp] /nix/store/fkqxkvk6cqci6a2f4wbpmvzp8dr232fp-python-requirements
+[INFO] Exporting development secrets
+Exporting: AWS_DEFAULT_REGION
+Exporting: AWS_REDSHIFT_DBNAME
+Exporting: AWS_REDSHIFT_HOST
+Exporting: AWS_REDSHIFT_PASSWORD
+Exporting: AWS_REDSHIFT_USER
+Exporting: AZUREAD_OAUTH2_KEY
+Exporting: AZUREAD_OAUTH2_SECRET
+Exporting: COMMUNITY_PROJECTS
+Exporting: CLOUDFRONT_ACCESS_KEY
+Exporting: CLOUDFRONT_PRIVATE_KEY
+Exporting: CLOUDFRONT_RESOURCES_DOMAIN
+Exporting: CLOUDFRONT_REPORTS_DOMAIN
+Exporting: DB_HOST
+Exporting: DB_PASSWD
+Exporting: DB_USER
+Exporting: DEBUG
+Exporting: DJANGO_SECRET_KEY
+Exporting: DYNAMODB_HOST
+Exporting: DYNAMODB_PORT
+Exporting: ENVIRONMENT
+Exporting: FORCES_TRIGGER_REF
+Exporting: FORCES_TRIGGER_TOKEN
+Exporting: FORCES_TRIGGER_URL
+Exporting: GOOGLE_OAUTH2_KEY
+Exporting: GOOGLE_OAUTH2_KEY_ANDROID
+Exporting: GOOGLE_OAUTH2_KEY_IOS
+Exporting: GOOGLE_OAUTH2_SECRET
+Exporting: JWT_SECRET
+Exporting: JWT_SECRET_API
+Exporting: MAIL_CONTINUOUS
+Exporting: MAIL_PRODUCTION
+Exporting: MAIL_PROJECTS
+Exporting: MAIL_REVIEWERS
+Exporting: MAIL_RESOURCERS
+Exporting: MANDRILL_APIKEY
+Exporting: MIXPANEL_API_TOKEN
+Exporting: NEW_RELIC_API_KEY
+Exporting: NEW_RELIC_APP_ID
+Exporting: NEW_RELIC_LICENSE_KEY
+Exporting: NEW_RELIC_ENVIRONMENT
+Exporting: REDIS_SERVER
+Exporting: ROLLBAR_ACCESS_TOKEN
+Exporting: SQS_QUEUE_URL
+Exporting: TEST_PROJECTS
+Exporting: ZENDESK_EMAIL
+Exporting: ZENDESK_SUBDOMAIN
+Exporting: ZENDESK_TOKEN
+Starting migration 0003
+project2
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:17",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project19
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:17",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project8
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:17",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project16
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:17",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project23
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:17",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project40
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:17",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project36
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project34
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+suspendedtest
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project3
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project31
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project5
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project20
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project33
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project25
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project44
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project39
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project15
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project17
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project26
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+oneshottest
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:18",
+      "has_forces": false,
+      "has_drills": "true",
+      "requester": "continuoushacking@gmail.com",
+      "type": "oneshot"
+    }
+  ]
+}
+---
+project13
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project14
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+pendingproject
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "continuoushacking@gmail.com",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project35
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project22
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project41
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project18
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project38
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+unittesting
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": true,
+      "has_drills": true,
+      "requester": "integratesuser@gmail.com",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project27
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project10
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project42
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project4
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:24",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project12
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project1
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project30
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project24
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project32
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project37
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project7
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project11
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project9
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project28
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project43
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project45
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project29
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+continuoustesting
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project6
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---
+project21
+applied: {
+  "historic_configuration": [
+    {
+      "date": "2020-05-20 20:06:25",
+      "has_forces": false,
+      "has_drills": false,
+      "requester": "unknown",
+      "type": "continuous"
+    }
+  ]
+}
+---

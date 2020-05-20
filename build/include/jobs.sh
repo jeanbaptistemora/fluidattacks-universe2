@@ -472,14 +472,17 @@ function _job_make_migration {
 
       env_prepare_python_packages \
   &&  "helper_set_${env}_secrets" \
-  &&  STAGE="${stage}" python3 "${migration_file}" \
+  &&  PYTHONPATH="${PWD}:${PYTHONPATH}" \
+      STAGE="${stage}" \
+      python3 "${migration_file}" \
 
 }
 
 function job_make_migration_dev_test {
   local migration_file="${1}"
 
-  _job_make_migration 'dev' 'test' "${migration_file}"
+  _job_make_migration 'dev' 'test' "${migration_file}" \
+    | tee "${migration_file}.dev_test.out"
 }
 
 function job_make_migration_prod_test {
@@ -491,7 +494,8 @@ function job_make_migration_prod_test {
 function job_make_migration_dev_apply {
   local migration_file="${1}"
 
-  _job_make_migration 'dev' 'apply' "${migration_file}"
+  _job_make_migration 'dev' 'apply' "${migration_file}" \
+    | tee "${migration_file}.dev_apply.out"
 }
 
 function job_make_migration_prod_apply {
