@@ -185,11 +185,14 @@ def create_resource(res_data: List[Dict[str, str]], project_name: str,
     validations.validate_fields(list(res_data[0].values()))
     project_name = project_name.lower()
     if res_type == 'repository':
+        validations.validate_fields([res_data[0].get('branch', '')])
+        validations.validate_url(res_data[0].get('urlRepo', ''))
         res_id = 'urlRepo'
         res_name = 'repositories'
         if has_repeated_repos(project_name, res_data):
             raise RepeatedValues()
     elif res_type == 'environment':
+        validations.validate_fields([res_data[0].get('urlEnv', '')])
         res_id = 'urlEnv'
         res_name = 'environments'
         if has_repeated_envs(project_name, res_data):
