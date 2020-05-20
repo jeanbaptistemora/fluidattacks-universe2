@@ -158,6 +158,14 @@ function job_test_asserts_api_cloud_aws_api {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
+function job_test_asserts_api_cloud_aws_new {
+  local marker_name='cloud_aws_new'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_fluidasserts "${marker_name}"
+}
+
 function job_test_asserts_api_cloud_aws_cloudformation {
   local marker_name='cloud_aws_cloudformation'
 

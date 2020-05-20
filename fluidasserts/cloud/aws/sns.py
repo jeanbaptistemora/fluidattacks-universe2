@@ -11,7 +11,7 @@ from botocore.vendored.requests.exceptions import RequestException
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts import DAST
 from fluidasserts.helper import aws
-from fluidasserts import MEDIUM
+from fluidasserts import MEDIUM, HIGH
 from fluidasserts.utils.decorators import api
 from fluidasserts.utils.decorators import unknown_if
 
@@ -60,8 +60,9 @@ def can_anyone_publish(key_id: str,
                 if statement.get('Effect', '') == 'Allow' \
                         and statement.get('Principal', {}).\
                         get('AWS', '') == '*'\
-                        and {'SNS:Publish'}.\
-                        issubset(statement.get('Action', {}))\
+                        and ({'SNS:Publish'}.
+                             issubset(statement.get('Action', {})) or
+                             statement.get('Action', '') == 'SNS:Publish')\
                         and statement.get('Resource', '') == topic_arn:
                     (vulns if not statement.get('Condition', {})
                      else safes).append(
@@ -138,7 +139,7 @@ def can_anyone_subscribe(key_id: str,
         safes=safes)
 
 
-@api(risk=MEDIUM, kind=DAST)
+@api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def is_server_side_encryption_disabled(key_id: str,
                                        secret: str,
@@ -180,6 +181,58 @@ def is_server_side_encryption_disabled(key_id: str,
              else safes).append(
                  (topic_arn,
                   'has serverside encryption disabled'))
+
+    return _get_result_as_tuple(
+        service='SNS',
+        objects='SNS Topics',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_default_kms_key(key_id: str,
+                        secret: str,
+                        session_token: str = None,
+                        retry: bool = True) -> tuple:
+    """Check if a ``SNS Topic`` uses default KMS key.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    topics = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='sns',
+        func='list_topics',
+        param='Topics',
+        retry=retry)
+
+    msg_open: str = 'SNS Topics use default KMS key'
+    msg_closed: str = 'SNS Topics do not use default KMS key'
+
+    vulns, safes = [], []
+    if topics:
+        for topic in topics:
+            topic_arn = topic['TopicArn']
+
+            attrs = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
+                service='sns',
+                func='get_topic_attributes',
+                param='Attributes',
+                TopicArn=topic_arn,
+                retry=retry)
+
+            (vulns if attrs.get('KmsMasterKeyId', '') == "alias/aws/sns"
+             else safes).append(
+                 (topic_arn,
+                  'uses default KMS key'))
 
     return _get_result_as_tuple(
         service='SNS',

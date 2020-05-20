@@ -60,6 +60,11 @@ build_asserts:
   <<: *in_dev_branch
   stage: test
 
+test_asserts_api_cloud_aws_new:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
 test_asserts_api_cloud_aws_cloudformation:
   <<: *with_nix
   <<: *in_dev_branch
