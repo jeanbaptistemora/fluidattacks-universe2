@@ -59,9 +59,9 @@ export const validTextField: Validator = (value: string): string | undefined => 
 
   if (!_.isNil(value)) {
     const match: RegExpMatchArray | null = value.match(
-      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),-./:;@_$#]/);
+      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#-]/);
     if (match !== null) {
-      const invalidChar: string = match[0];
+      const invalidChar: string = `'${match[0]}'`;
       error = translate.t("validations.invalidTextField", { chars: invalidChar });
     }
   }
@@ -73,9 +73,9 @@ export const validUrlField: Validator = (value: string): string | undefined => {
   let error: string | undefined;
 
   if (!_.isNil(value)) {
-    const match: RegExpMatchArray | null = value.match(/[^a-zA-Z0-9(),-./:;@_$#]/);
+    const match: RegExpMatchArray | null = value.match(/[^a-zA-Z0-9(),./:;@_$#-]/);
     if (match !== null) {
-      const invalidChar: string = match[0];
+      const invalidChar: string = `'${match[0]}'`;
       error = translate.t("validations.invalidTextField", { chars: invalidChar });
     }
   }
