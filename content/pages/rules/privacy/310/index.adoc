@@ -10,13 +10,18 @@
 
 The system must request the user's consent whenever it will collect any
 information about them or their actions.
+This consent should not be requested before informing the user about the types
+of data that will be collected and the purpose for which they will be
+processed.
 
 == Description
 
-Systems usually request information from the users or collect it based
+Systems usually request information from their users or collect it based
 on their interactions with the application.
 Regulations demand that none of these collections occur without the user's
-consent and that this consent be demonstrable afterwards.
+consent, that this consent be demonstrable afterwards and that it only be
+requested after having informed the user of the types and purposes of data
+collection.
 Therefore, consent must always be requested in a clear manner and using an easy
 to understand language before collecting any personal information.
 
@@ -26,7 +31,24 @@ to understand language before collecting any personal information.
 
 == References
 
-. [[r1]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(1).]
+. [[r1]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 6: Traffic data.(4)]
+The service provider must inform the subscriber or user of the types of traffic
+data which are processed and of the duration of such processing for the
+purposes mentioned in paragraph 2 and,
+prior to obtaining consent,
+for the purposes mentioned in paragraph 3.
+
+. [[r2]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 9: Location data other than traffic data.(1)]
+The service provider must inform the users or subscribers,
+prior to obtaining their consent,
+of the type of location data other than traffic data which will be processed,
+of the purposes and duration of the processing
+and whether the data will be transmitted to a third party for the purpose of
+providing the value added service.
+
+. [[r3]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(1).]
 Where processing is based on consent, the controller shall be able to
 demonstrate that the data subject has consented to processing of his or her
 personal data.

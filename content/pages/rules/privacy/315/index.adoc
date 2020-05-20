@@ -9,6 +9,8 @@
 == Requirement
 
 The system must provide information about the personal data that it processes.
+Additionally, this information should be presented to the user before
+requesting their consent for its collection or processing.
 
 == Description
 
@@ -53,24 +55,41 @@ this requirement is not applicable.
 
 == References
 
-. [[r1]] link:https://gdpr-info.eu/art-11-gdpr/[GDPR. Art. 11: Processing which does not require identification.(2).]
+. [[r1]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 6: Traffic data.(4)]
+The service provider must inform the subscriber or user of the types of traffic
+data which are processed and of the duration of such processing for the
+purposes mentioned in paragraph 2 and,
+prior to obtaining consent,
+for the purposes mentioned in paragraph 3.
+
+. [[r2]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 9: Location data other than traffic data.(1)]
+The service provider must inform the users or subscribers,
+prior to obtaining their consent,
+of the type of location data other than traffic data which will be processed,
+of the purposes and duration of the processing
+and whether the data will be transmitted to a third party for the purpose of
+providing the value added service.
+
+. [[r3]] link:https://gdpr-info.eu/art-11-gdpr/[GDPR. Art. 11: Processing which does not require identification.(2).]
 Where the controller is able to demonstrate that it is not in a position to
 identify the data subject,
 articles 15 to 20 shall not apply.
 
-. [[r2]] link:https://gdpr-info.eu/art-15-gdpr/[GDPR. Art. 15: Right of access by the data subject.(1)(a-g).]
+. [[r4]] link:https://gdpr-info.eu/art-15-gdpr/[GDPR. Art. 15: Right of access by the data subject.(1)(a-g).]
 The data subject shall have the right to obtain from the controller
 confirmation as to whether or not personal data concerning him or her are being
 processed,
 and, where that is the case, access to the personal data.
 
-. [[r3]]  link:https://gdpr-info.eu/art-20-gdpr/[GDPR. Art. 20: Right to data portability.(1).]
+. [[r5]] link:https://gdpr-info.eu/art-20-gdpr/[GDPR. Art. 20: Right to data portability.(1).]
 The data subject shall have the right to receive the personal data concerning
 him or her,
 which he or she has provided to a controller,
 in a structured, commonly used and machine-readable format.
 
-. [[r4]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
+. [[r6]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
 for archiving purposes in the public interest,
 scientific or historical research purposes or statistical purposes.(2).]
 Where personal data are processed for scientific or historical research
@@ -78,7 +97,7 @@ purposes or statistical purposes,
 Union or Member State law may provide for derogations from the rights referred
 to in Articles 15, 16, 18 and 21.
 
-. [[r5]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
+. [[r7]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
 for archiving purposes in the public interest,
 scientific or historical research purposes or statistical purposes.(3).]
 Where personal data are processed for archiving purposes in the public
