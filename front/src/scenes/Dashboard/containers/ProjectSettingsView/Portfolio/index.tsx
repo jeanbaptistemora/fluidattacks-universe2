@@ -19,7 +19,7 @@ import translate from "../../../../../utils/translations/translate";
 import { AddTagsModal } from "../../../components/AddTagsModal/index";
 import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "../queries";
 
-interface IPortfolioProps {
+export interface IPortfolioProps {
   projectName: string;
 }
 
