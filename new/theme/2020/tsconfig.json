@@ -5,7 +5,9 @@
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "dom",
-      "es2018"
+      "es2018",
+      "DOM",
+      "DOM.Iterable"
     ],
     "module": "CommonJS",
     "moduleResolution": "node",

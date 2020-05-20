@@ -1,6 +1,6 @@
 import { default as $ } from "jquery";
 
-import { addClasses, removeClasses } from "./jqueryFunctions";
+import { addClasses } from "./jqueryFunctions";
 
 const dynClasses: (() => void) = (): void => {
   $(() => {
@@ -19,6 +19,7 @@ const dynClasses: (() => void) = (): void => {
     addClasses(".forces-feature > .paragraph > p > a", "c-lightblack no-underline");
 
     addClasses(".intl-tel-input", "db");
+
   });
 };
 
