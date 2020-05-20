@@ -146,7 +146,7 @@ async def _get_closed_vulnerabilities(info, identifier: str) -> int:
 @get_entity_cache_async
 async def _get_release_date(info, identifier: str) -> str:
     """Get release date."""
-    allowed_roles = ['admin', 'analyst', 'reviewer']
+    allowed_roles = ['admin', 'analyst', 'group_manager', 'reviewer']
     finding = await info.context.loaders['finding'].load(identifier)
     release_date = finding['release_date']
     user_data = util.get_jwt_content(info.context)
