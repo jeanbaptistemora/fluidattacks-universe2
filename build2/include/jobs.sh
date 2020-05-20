@@ -462,6 +462,20 @@ function job_test_asserts_api_utils {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
+function job_test_output_asserts {
+  export FA_NOTRACK='true'
+  export FA_STRICT='false'
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  asserts \
+        --kiss \
+        --multiprocessing \
+        --show-method-stats \
+        --cloudformation \
+        test
+}
+
 function job_release_to_pypi {
   local release_folder='asserts-release'
 

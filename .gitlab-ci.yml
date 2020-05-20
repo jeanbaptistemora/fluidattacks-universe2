@@ -1,7 +1,3 @@
----
-
-image: "${CI_REGISTRY_IMAGE}:builder"
-
 stages:
   - build
   - test
@@ -27,27 +23,6 @@ stages:
     refs:
       - triggers
       - schedules
-
-.with_nix: &with_nix
-  tags: [autoscaling]
-  image: fluidattacks/nix
-  script:
-    - ./build.sh
-  interruptible: true
-
-.test_template: &test_template
-  <<: *with_nix
-  <<: *in_dev_branch
-  before_script:
-    - ./build/scripts/odbc/set.sh
-  stage: test
-
-demo_fluidasserts_output:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-# Build2
 
 .with_nix_2: &with_nix_2
   tags: [autoscaling]
@@ -274,6 +249,11 @@ test_asserts_api_syst:
   stage: test
 
 test_asserts_api_utils:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: test
+
+test_output_asserts:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: test
