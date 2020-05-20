@@ -143,7 +143,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
     await refetch();
   };
 
-  const maxFileSize: Validator = isValidFileSize(10);
+  const maxFileSize: Validator = isValidFileSize(15);
 
   return (
     <React.StrictMode>
