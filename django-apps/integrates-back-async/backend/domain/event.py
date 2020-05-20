@@ -123,9 +123,7 @@ def _send_new_event_mail(
         recipients.append(FI_MAIL_PROJECTS)
     elif subscription == 'continuous':
         recipients += [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-    if event_type in ['CLIENT_APPROVES_CHANGE_TOE',
-                      'CLIENT_CANCELS_PROJECT_MILESTONE',
-                      'CLIENT_EXPLICITLY_SUSPENDS_PROJECT']:
+    if event_type in ['CLIENT_APPROVES_CHANGE_TOE']:
         recipients.append(FI_MAIL_PRODUCTION)
         recipients += FI_MAIL_REVIEWERS.split(',')
 

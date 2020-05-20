@@ -194,12 +194,10 @@ const enTranslations: Dictionary = {
         other: "Other",
         responsible: "Person in charge (client)",
         type: {
-          cancel_project: "Client cancels the project / milestone",
           detects_attack: "Client detects the attack",
           high_availability: "High availability approval",
           missing_supplies: "Incorrect or missing supplies",
           special_attack: "Authorization for special attack",
-          suspends_project: "Client suspends explicitly",
           title: "Type",
           toe_change: "Client approves ToE change",
           toe_differs: "ToE different than agreed upon",
@@ -496,9 +494,7 @@ const enTranslations: Dictionary = {
       type_values: {
         approv_change: "Client approves the change of ToE",
         auth_attack: "Authorization for special attack",
-        cancel_proj: "Client cancels the project/milestone",
         det_attack: "Client detects an attack",
-        explic_suspend: "Client explicitly suspends project",
         high_approval: "High availability approval",
         inacc_ambient: "Inaccessible environment",
         incor_supplies: "Incorrect or missing supplies",

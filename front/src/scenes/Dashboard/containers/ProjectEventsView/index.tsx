@@ -59,10 +59,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       value: translate.t(castEventType("CLIENT_DETECTS_ATTACK")),
     },
     {
-      label: translate.t("project.events.form.type.suspends_project"),
-      value: translate.t(castEventType("CLIENT_EXPLICITLY_SUSPENDS_PROJECT")),
-    },
-    {
       label: translate.t("project.events.form.type.high_availability"),
       value: translate.t(castEventType("HIGH_AVAILABILITY_APPROVAL")),
     },
@@ -303,14 +299,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       <option value="CLIENT_APPROVES_CHANGE_TOE">
                                         {translate.t("project.events.form.type.toe_change")}
                                       </option>
-                                      <option value="CLIENT_CANCELS_PROJECT_MILESTONE">
-                                        {translate.t("project.events.form.type.cancel_project")}
-                                      </option>
                                       <option value="CLIENT_DETECTS_ATTACK">
                                         {translate.t("project.events.form.type.detects_attack")}
-                                      </option>
-                                      <option value="CLIENT_EXPLICITLY_SUSPENDS_PROJECT">
-                                        {translate.t("project.events.form.type.suspends_project")}
                                       </option>
                                       <option value="HIGH_AVAILABILITY_APPROVAL">
                                         {translate.t("project.events.form.type.high_availability")}
