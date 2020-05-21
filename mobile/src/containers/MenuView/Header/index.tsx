@@ -39,7 +39,7 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
         </View>
         <Text style={styles.greeting}>{t("menu.greetingText")} {fullName.split(" ")[0]}</Text>
         <View style={styles.actions}>
-          <Text style={styles.logout} onPress={onLogout}>Logout</Text>
+          <Text style={styles.logout} onPress={onLogout}>{t("common.logout")}</Text>
         </View>
       </View>
     </React.StrictMode>

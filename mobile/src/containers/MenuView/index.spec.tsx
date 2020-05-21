@@ -7,8 +7,8 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
 import { Alert } from "react-native";
-import { Appbar, Provider as PaperProvider } from "react-native-paper";
-import { NativeRouter } from "react-router-native";
+import { Provider as PaperProvider, Text } from "react-native-paper";
+import { MemoryRouter } from "react-router-native";
 import wait from "waait";
 
 import { i18next } from "../../utils/translations/translate";
@@ -21,6 +21,20 @@ jest.mock("react-native", (): Dictionary => {
   Object.assign(mockedRN.Alert, { alert: jest.fn() });
 
   return mockedRN;
+});
+
+const mockHistoryReplace: jest.Mock = jest.fn();
+
+jest.mock("react-router-native", (): Dictionary => {
+  const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual("react-router-native");
+
+  return {
+    ...mockedRouter,
+    useHistory: (): Dictionary => ({
+      ...mockedRouter.useHistory(),
+      replace: mockHistoryReplace,
+    }),
+  };
 });
 
 describe("MenuView", (): void => {
@@ -49,11 +63,11 @@ describe("MenuView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <NativeRouter initialEntries={["/Menu"]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Menu", state: { userInfo: {} } }]}>
             <MockedProvider mocks={[projectMock]} addTypename={false}>
               <MenuView />
             </MockedProvider>
-          </NativeRouter>
+          </MemoryRouter>
         </I18nextProvider>
       </PaperProvider>,
     );
@@ -79,11 +93,11 @@ describe("MenuView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <NativeRouter initialEntries={["/Menu"]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Menu", state: { userInfo: {} } }]}>
             <MockedProvider mocks={[errorMock]} addTypename={false}>
               <MenuView />
             </MockedProvider>
-          </NativeRouter>
+          </MemoryRouter>
         </I18nextProvider>
       </PaperProvider>,
     );
@@ -95,15 +109,15 @@ describe("MenuView", (): void => {
       .toHaveBeenCalled();
   });
 
-  it("should render drawer menu", async (): Promise<void> => {
+  it("should perform logout", async (): Promise<void> => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <NativeRouter initialEntries={["/Menu"]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Menu", state: { userInfo: {} } }]}>
             <MockedProvider>
               <MenuView />
             </MockedProvider>
-          </NativeRouter>
+          </MemoryRouter>
         </I18nextProvider>
       </PaperProvider>,
     );
@@ -112,19 +126,15 @@ describe("MenuView", (): void => {
     expect(wrapper)
       .toHaveLength(1);
 
-    const menuBtn: ReactWrapper<React.ComponentProps<typeof Appbar.Action>> = wrapper
-      .find({ icon: "menu" })
+    const logoutBtn: ReactWrapper<React.ComponentProps<typeof Text>> = wrapper
+      .find({ children: "Logout" })
       .at(0);
-    expect(menuBtn)
+
+    expect(logoutBtn)
       .toHaveLength(1);
 
-    const drawer: ReactWrapper<{}, { drawerTranslation: { _value: number } }> = wrapper.find("DrawerLayout");
-    expect(drawer.state().drawerTranslation._value)
-      .toEqual(0);
-
-    (menuBtn.invoke("onPress") as () => void)();
-    await act(async (): Promise<void> => { await wait(1); wrapper.update(); });
-    expect(drawer.state().drawerTranslation._value)
-      .toBeGreaterThan(0);
+    await (logoutBtn.invoke("onPress") as () => Promise<void>)();
+    expect(mockHistoryReplace)
+      .toHaveBeenCalled();
   });
 });

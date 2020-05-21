@@ -3,7 +3,7 @@ import * as Google from "expo-google-app-auth";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Linking, Platform, View } from "react-native";
+import { Alert, Linking, Platform, StatusBar, View } from "react-native";
 import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
@@ -87,6 +87,8 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   };
 
   return (
+    <React.StrictMode>
+    <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
     <View style={styles.container}>
       <Logo width={300} height={70} fill="#FFFFFF" />
       <View style={styles.buttonsContainer}>
@@ -111,6 +113,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
       </Portal>
       <Preloader visible={isLoading} />
     </View>
+    </React.StrictMode>
   );
 };
 

@@ -16,6 +16,7 @@ const theme: Theme = {
   colors: {
     ...DefaultTheme.colors,
     accent: "#FF3435",
+    background: "#FFFFFF",
     primary: "#FF3435",
   },
   dark: false,
@@ -29,7 +30,7 @@ export const App: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
     <PaperProvider theme={theme}>
       <I18nextProvider i18n={i18next}>
-        <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
+        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent={true} />
         <NativeRouter>
           <BackButton>
             <Switch>

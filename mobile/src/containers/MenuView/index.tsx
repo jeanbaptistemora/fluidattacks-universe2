@@ -1,34 +1,27 @@
 import { useQuery } from "@apollo/react-hooks";
 import { ApolloError, NetworkStatus } from "apollo-client";
+import { GoogleUser } from "expo-google-app-auth";
+import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Platform, RefreshControl, ScrollView, View } from "react-native";
-/* tslint:disable-next-line: no-import-side-effect
- * Necessary for importing unindexed module definitions
- */
-import "react-native-gesture-handler";
-/* tslint:disable-next-line: no-submodule-imports
- * Necessary for importing unindexed types
- */
-import DrawerLayout from "react-native-gesture-handler/DrawerLayout";
-import { Appbar, Card, Paragraph, Title, useTheme } from "react-native-paper";
+import { Alert, RefreshControl, ScrollView, View } from "react-native";
+import { Card, Paragraph, Title, useTheme } from "react-native-paper";
+import { useHistory } from "react-router-native";
 
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
 
+import { Header } from "./Header";
 import { PROJECTS_QUERY } from "./queries";
-import { renderSidebar } from "./Sidebar";
 import { styles } from "./styles";
 import { IProject, IProjectsResult } from "./types";
 
 const menuView: React.FunctionComponent = (): JSX.Element => {
+  const history: ReturnType<typeof useHistory> = useHistory();
+  const { userInfo } = history.location.state as { userInfo: GoogleUser };
   const { colors } = useTheme();
   const { t } = useTranslation();
-  /* tslint:disable-next-line: no-null-keyword
-   * React refs cannot be initialized as 'undefined'
-   */
-  const drawer: React.RefObject<DrawerLayout> = React.useRef(null);
 
   // GraphQL operations
   const { data, loading, networkStatus, refetch } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
@@ -45,24 +38,16 @@ const menuView: React.FunctionComponent = (): JSX.Element => {
     ? []
     : data.me.projects;
 
-  const openDrawer: (() => void) = (): void => {
-    drawer.current?.openDrawer();
+  // Event handlers
+  const handleLogout: (() => void) = async (): Promise<void> => {
+    await SecureStore.deleteItemAsync("integrates_session");
+    history.replace("/");
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <DrawerLayout
-        drawerBackgroundColor="#DDDDDD"
-        drawerPosition="left"
-        drawerType={Platform.select({ android: "front", ios: "slide" })}
-        drawerWidth={200}
-        ref={drawer}
-        renderNavigationView={renderSidebar}
-      >
-        <Appbar.Header>
-          <Appbar.Action icon="menu" onPress={openDrawer} />
-          <Appbar.Content title={t("menu.myProjects")} />
-        </Appbar.Header>
+    <React.StrictMode>
+      <Header photoUrl={userInfo.photoUrl} userName={userInfo.name} onLogout={handleLogout} />
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
         <ScrollView
           contentContainerStyle={styles.projectList}
           refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
@@ -77,8 +62,8 @@ const menuView: React.FunctionComponent = (): JSX.Element => {
           ))}
           <Preloader visible={loading && !isRefetching} />
         </ScrollView>
-      </DrawerLayout>
-    </View>
+      </View>
+    </React.StrictMode>
   );
 };
 

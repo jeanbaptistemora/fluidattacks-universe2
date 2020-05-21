@@ -19,7 +19,6 @@ export const enTranslations: ResourceLanguage = {
   },
   menu: {
     greetingText: "Welcome",
-    myProjects: "My projects",
   },
   welcome: {
     greetingText: "Hello",

@@ -36,7 +36,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
         SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt)
           .then((): void => {
             if (result.signIn.authorized) {
-              history.replace("/Menu");
+              history.replace("/Menu", { userInfo });
             }
           })
           .catch((error: Error): void => {
