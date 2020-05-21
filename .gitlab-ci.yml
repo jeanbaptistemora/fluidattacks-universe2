@@ -1,12 +1,10 @@
 stages:
   - build
   - test
-  - before-mr
   - at-mr
   - deploy
   - release_to_pypi
   - release_to_docker
-  - notify
 
 .in_dev_branch: &in_dev_branch
   except:
@@ -291,7 +289,7 @@ lint_commit_message:
 send_new_release_email:
   <<: *with_nix
   <<: *in_prod_branch
-  stage: notify
+  stage: deploy
 
 danger:
   image: fluidattacks/danger-ruby

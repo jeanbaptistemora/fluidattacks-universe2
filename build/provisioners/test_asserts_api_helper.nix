@@ -1,22 +1,9 @@
 let
   pkgs = import ../pkgs/stable.nix;
-  builders.pythonRequirements = import ../builders/python-requirements pkgs;
+  inputs = [
+    pkgs.firefox
+    pkgs.python37Packages.selenium
+    pkgs.python37Packages.brotli
+  ];
 in
-  pkgs.stdenv.mkDerivation (
-       (import ../src/basic.nix)
-    // (rec {
-      name = "builder";
-
-      buildInputs = [
-        pkgs.git
-        pkgs.gnupg
-        pkgs.cacert
-        pkgs.firefox
-        pkgs.python37Packages.selenium
-        pkgs.python37Packages.brotli
-      ];
-
-      pyPkgTestrequirements = builders.pythonRequirements ../dependencies/tests.lst;
-      pyPkgAsserts = import ../.. pkgs;
-    })
-  )
+  import ../dependencies/tests.nix { inherit pkgs; inherit inputs; }

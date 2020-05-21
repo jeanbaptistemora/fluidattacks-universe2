@@ -1,20 +1,7 @@
 let
   pkgs = import ../pkgs/stable.nix;
-  builders.pythonRequirements = import ../builders/python-requirements pkgs;
+  inputs = [
+    pkgs.python37Packages.selenium
+  ];
 in
-  pkgs.stdenv.mkDerivation (
-       (import ../src/basic.nix)
-    // (rec {
-      name = "builder";
-
-      buildInputs = [
-        pkgs.git
-        pkgs.gnupg
-        pkgs.cacert
-        pkgs.python37Packages.selenium
-      ];
-
-      pyPkgTestrequirements = builders.pythonRequirements ../dependencies/tests.lst;
-      pyPkgAsserts = import ../.. pkgs;
-    })
-  )
+  import ../dependencies/tests.nix { inherit pkgs; inherit inputs; }
