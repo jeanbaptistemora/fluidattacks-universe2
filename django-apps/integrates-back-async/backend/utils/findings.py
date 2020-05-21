@@ -11,7 +11,7 @@ from magic import Magic
 from backend import util
 from backend.utils import cvss, forms as forms_utils
 
-from backend.dal import finding as finding_dal, project as project_dal, vulnerability as vuln_dal
+from backend.dal import finding as finding_dal, project as project_dal
 from backend.typing import Finding as FindingType
 from backend.mailer import (
     send_mail_verified_finding, send_mail_remediate_finding, send_mail_delete_finding,
@@ -115,17 +115,6 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
         (historic_verification[-1].get('status') == 'REQUESTED' and
          not historic_verification[-1].get('vulns', []))
 
-    vulns = vuln_dal.get_vulnerabilities(str(finding.get('findingId', '')))
-    open_vulns = \
-        [vuln for vuln in vulns
-         if cast(List[Dict[str, str]], vuln.get('historic_state', [{}]))[-1].get(
-             'state') == 'open']
-    remediated_vulns = \
-        [vuln for vuln in open_vulns
-         if cast(List[Dict[str, str]], vuln.get('historic_verification', [{}]))[-1].get(
-             'status') == 'REQUESTED']
-    finding['newRemediated'] = len(open_vulns) == len(remediated_vulns)
-    finding['verified'] = len(remediated_vulns) == 0
     finding_files = cast(List[Dict[str, str]], finding.get('files'))
     finding['evidence'] = {
         'animation': _get_evidence('animation', finding_files),

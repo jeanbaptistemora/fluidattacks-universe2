@@ -452,15 +452,23 @@ async def _get_current_state(info, identifier: str) -> str:
 @get_entity_cache_async
 async def _get_new_remediated(info, identifier: str) -> bool:
     """Get new_remediated."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return finding['new_remediated']
+    vulns = await info.context.loaders['vulnerability'].load(identifier)
+    open_vulns = [vuln for vuln in vulns
+                  if vuln['last_approved_status'] == 'open']
+    remediated_vulns = [vuln for vuln in vulns if vuln['remediated']]
+    new_remediated = len(remediated_vulns) == len(open_vulns)
+    return new_remediated
 
 
 @get_entity_cache_async
 async def _get_verified(info, identifier: str) -> bool:
     """Get verified."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return finding['verified']
+    vulns = await info.context.loaders['vulnerability'].load(identifier)
+    remediated_vulns = \
+        [vuln for vuln in vulns
+         if vuln['last_approved_status'] == 'open' and vuln['remediated']]
+    verified = len(remediated_vulns) == 0
+    return verified
 
 
 async def resolve(
