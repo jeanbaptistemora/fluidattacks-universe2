@@ -142,19 +142,6 @@ of cutting-edge technological support.
 
 a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
-a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
-
-a|== Zenda
-
-{peru} Zenda is a Peruvian company providing technology solutions.
-It focuses on designing value proposals
-aligned with the strategic objectives of companies
-and the management of services in the `IT` area.
-Zenda seeks to improve `IT` services' impact
-by focusing on the insights of each customer,
-and fostering continuous business growth
-through the delivery of a simple, scalable, and convergent solution.
-
 |====
 
 If you agree with the [inner]#link:terms/[terms]#
