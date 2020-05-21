@@ -346,10 +346,12 @@ async def _get_tags(info, project_name: str, **__) -> Dict[str, List[str]]:
 
 
 @get_entity_cache_async
-async def _get_description(_, project_name: str, **__) -> Dict[str, str]:
+async def _get_description(info, project_name: str, **__) -> Dict[str, str]:
     """Get description."""
-    return await \
-        sync_to_async(project_domain.get_description)(project_name)
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    return project_attrs.get('description', '')
 
 
 @enforce_group_level_auth_async
