@@ -2,7 +2,8 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
 import { I18nextProvider } from "react-i18next";
 import { StatusBar } from "react-native";
-import { DefaultTheme, Provider as PaperProvider, Theme } from "react-native-paper";
+import { Appearance } from "react-native-appearance";
+import { DarkTheme, DefaultTheme, Provider as PaperProvider, Theme } from "react-native-paper";
 import { BackButton, NativeRouter, Route, Switch } from "react-router-native";
 
 import { LoginView } from "./containers/LoginView";
@@ -19,8 +20,18 @@ const theme: Theme = {
     background: "#FFFFFF",
     primary: "#FF3435",
   },
-  dark: false,
 };
+
+const darkTheme: Theme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    accent: "#FF3435",
+    primary: "#FF3435",
+  },
+};
+
+const isDarkMode: boolean = Appearance.getColorScheme() === "dark";
 
 /* tslint:disable-next-line: variable-name
  * The root component name must be 'App' for fast refresh to work properly
@@ -28,9 +39,13 @@ const theme: Theme = {
  */
 export const App: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={isDarkMode ? darkTheme : theme}>
       <I18nextProvider i18n={i18next}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent={true} />
+        <StatusBar
+          backgroundColor="transparent"
+          barStyle={isDarkMode ? "light-content" : "dark-content"}
+          translucent={true}
+        />
         <NativeRouter>
           <BackButton>
             <Switch>

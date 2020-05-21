@@ -7,6 +7,7 @@ export const enTranslations: ResourceLanguage = {
       title: "Oops!",
     },
     logout: "Logout",
+    slogan: "We hack your software",
   },
   login: {
     authLoadingText: "Authenticating...",

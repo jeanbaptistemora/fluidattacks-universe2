@@ -4,7 +4,7 @@ import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Image, Text, View } from "react-native";
+import { Alert, Image, StatusBar, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
@@ -63,6 +63,8 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
   React.useEffect(onMount, []);
 
   return (
+    <React.StrictMode>
+    <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
     <View style={styles.container}>
       <Image style={styles.profilePicture} source={{ uri: userInfo.photoUrl }} />
       <Text style={styles.greeting}>{t("welcome.greetingText")} {userInfo.givenName}!</Text>
@@ -74,6 +76,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
       )}
       <Preloader visible={loading} />
     </View>
+    </React.StrictMode>
   );
 };
 

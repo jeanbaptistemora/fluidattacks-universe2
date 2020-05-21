@@ -4,7 +4,7 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Linking, Platform, StatusBar, View } from "react-native";
-import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
+import { Button, Dialog, Paragraph, Portal, Text } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
 import { Logo } from "../../components/Logo";
@@ -100,6 +100,10 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
             {t(isLoading ? "login.authLoadingText" : "login.btnGoogleText")}
           </Button>
         </View>
+        <Preloader visible={isLoading} />
+        <View style={styles.bottom}>
+          <Text style={styles.slogan}>{t("common.slogan")}</Text>
+        </View>
         <Portal>
           <Dialog dismissable={false} visible={isOutdated}>
             <Dialog.Title>{t("login.newVersion.title")}</Dialog.Title>
@@ -111,7 +115,6 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
             </Dialog.Actions>
           </Dialog>
         </Portal>
-        <Preloader visible={isLoading} />
       </View>
     </React.StrictMode>
   );
