@@ -13,7 +13,7 @@ from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, get_findings, update_treatment,
     handle_acceptation, mask_finding, validate_evidence,
-    get_finding_historic_treatment, approve_draft
+    get_finding_historic_treatment, approve_draft, compare_historic_treatments
 )
 from backend.mailer import get_email_recipients
 from backend.dal.vulnerability import get_vulnerabilities
@@ -209,3 +209,19 @@ class FindingTests(TestCase):
         assert isinstance(test_success, bool)
         assert isinstance(test_date, str)
         assert test_success, test_date[-3] == expected_output
+
+    def test_compare_historic_treatments(self):
+        test_last_state = {
+            'treatment': 'ACCEPTED',
+            'date': '2020-01-03 12:46:10',
+            'acceptance_date': '2020-01-03 12:46:10',
+            'acceptance_status': 'SUBMITTED',
+        }
+        test_new_state = {
+            'treatment': 'IN PROGRESS',
+            'date': '2020-01-03 12:46:10',
+        }
+        test_new_state_date = test_last_state.copy()
+        test_new_state_date['acceptance_date'] = '2020-02-03 12:46:10'
+        assert compare_historic_treatments(test_last_state, test_new_state)
+        assert compare_historic_treatments(test_last_state, test_new_state_date)
