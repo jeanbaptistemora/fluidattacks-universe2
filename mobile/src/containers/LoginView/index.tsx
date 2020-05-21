@@ -88,31 +88,31 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-    <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
-    <View style={styles.container}>
-      <Logo width={300} height={70} fill="#FFFFFF" />
-      <View style={styles.buttonsContainer}>
-        <Button
-          disabled={isLoading ? true : isOutdated}
-          mode="contained"
-          onPress={handleGoogleButtonClick}
-        >
-          {t(isLoading ? "login.authLoadingText" : "login.btnGoogleText")}
-        </Button>
+      <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
+      <View style={styles.container}>
+        <Logo width={300} height={70} fill="#FFFFFF" />
+        <View style={styles.buttonsContainer}>
+          <Button
+            disabled={isLoading ? true : isOutdated}
+            mode="contained"
+            onPress={handleGoogleButtonClick}
+          >
+            {t(isLoading ? "login.authLoadingText" : "login.btnGoogleText")}
+          </Button>
+        </View>
+        <Portal>
+          <Dialog dismissable={false} visible={isOutdated}>
+            <Dialog.Title>{t("login.newVersion.title")}</Dialog.Title>
+            <Dialog.Content>
+              <Paragraph>{t("login.newVersion.content")}</Paragraph>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={handleUpdateButtonClick}>{t("login.newVersion.btn")}</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+        <Preloader visible={isLoading} />
       </View>
-      <Portal>
-        <Dialog dismissable={false} visible={isOutdated}>
-          <Dialog.Title>{t("login.newVersion.title")}</Dialog.Title>
-          <Dialog.Content>
-            <Paragraph>{t("login.newVersion.content")}</Paragraph>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={handleUpdateButtonClick}>{t("login.newVersion.btn")}</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
-      <Preloader visible={isLoading} />
-    </View>
     </React.StrictMode>
   );
 };
