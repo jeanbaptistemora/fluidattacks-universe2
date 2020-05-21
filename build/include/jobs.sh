@@ -749,6 +749,29 @@ function job_user_provision_asserts_dev_deploy {
         services/user-provision/asserts/dev/terraform
 }
 
+function job_user_provision_asserts_dev_rotate_keys {
+  local terraform_dir='services/user-provision/asserts/dev/terraform'
+  local resource_to_taint='aws_iam_access_key.asserts-dev-key'
+  local output_key_id_name='asserts-dev-secret-key-id'
+  local output_secret_key_name='asserts-dev-secret-key'
+  local gitlab_repo_id='4593516'
+  local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='false'
+
+      helper_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${resource_to_taint}" \
+        "${output_key_id_name}" \
+        "${output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" \
+        "${gitlab_secret_key_name}" \
+        "${gitlab_masked}" \
+        "${gitlab_protected}"
+}
+
 function job_user_provision_asserts_prod_test {
       helper_terraform_init \
         services/user-provision/asserts/prod/terraform \
@@ -759,6 +782,29 @@ function job_user_provision_asserts_prod_test {
 function job_user_provision_asserts_prod_deploy {
       helper_terraform_apply \
         services/user-provision/asserts/prod/terraform
+}
+
+function job_user_provision_asserts_prod_rotate_keys {
+  local terraform_dir='services/user-provision/asserts/prod/terraform'
+  local resource_to_taint='aws_iam_access_key.asserts-prod-key'
+  local output_key_id_name='asserts-prod-secret-key-id'
+  local output_secret_key_name='asserts-prod-secret-key'
+  local gitlab_repo_id='4593516'
+  local gitlab_key_id_name='PROD_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='true'
+
+      helper_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${resource_to_taint}" \
+        "${output_key_id_name}" \
+        "${output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" \
+        "${gitlab_secret_key_name}" \
+        "${gitlab_masked}" \
+        "${gitlab_protected}"
 }
 
 function job_user_provision_services_dev_test {

@@ -271,6 +271,11 @@ user_provision_asserts_dev_deploy:
   <<: *in_master_branch
   stage: deploy
 
+user_provision_asserts_dev_rotate_keys:
+  <<: *with_nix
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
 user_provision_asserts_prod_test:
   <<: *with_nix
   <<: *in_dev_branch
@@ -280,6 +285,11 @@ user_provision_asserts_prod_deploy:
   <<: *with_nix
   <<: *in_master_branch
   stage: deploy
+
+user_provision_services_prod_rotate_keys:
+  <<: *with_nix
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
 
 user_provision_services_dev_test:
   <<: *with_nix
