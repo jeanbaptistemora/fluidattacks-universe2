@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+source "${srcExternalSops}"
+
 function helper_use_pristine_workdir {
   export WORKDIR
   export STARTDIR
@@ -174,28 +176,29 @@ function helper_list_vars_with_regex {
 }
 
 function helper_with_development_secrets {
-  export ENCRYPTION_KEY
-  helper_decrypt_and_source "${ENCRYPTION_KEY}" './secrets/development.sh.asc'
+      helper_set_dev_secrets \
+  &&  sops_env 'secrets/development.yaml' 'default' \
+        AZURE_CLIENT_ID \
+        AZURE_CLIENT_SECRET \
+        AZURE_SUBSCRIPTION_ID \
+        AZURE_TENANT_ID \
+        GOOGLE_APPLICATION_CREDENTIALS_CONTENT \
+        AWS_EC2_INSTANCE \
+        KUBERNETES_API_TOKEN \
+        WEBBOT_GMAIL_PASS \
+        WEBBOT_GMAIL_USER \
+        AWS_ACCESS_KEY_ID \
+        AWS_SECRET_ACCESS_KEY
 }
 
 function helper_with_production_secrets {
-  export ENCRYPTION_KEY_PROD
-  helper_decrypt_and_source "${ENCRYPTION_KEY_PROD}" './secrets/production.sh.asc'
-}
-
-function helper_decrypt_and_source {
-  local encryption_key="${1}"
-  local encrypted_file="${2}"
-
-  echo "Unencrypting and sourcing: ${encrypted_file}"
-  # shellcheck disable=SC1090
-  source <( \
-    gpg \
-      --batch \
-      --passphrase-fd 0 \
-      --decrypt "${encrypted_file}" \
-    <<< "${encryption_key}")
-  echo
+      helper_set_prod_secrets \
+  &&  sops_env 'secrets/production.yaml' 'default' \
+        TWINE_USERNAME \
+        TWINE_PASSWORD \
+        DOCKER_HUB_USER \
+        DOCKER_HUB_PASS \
+        MANDRILL_APIKEY
 }
 
 function helper_test_fluidasserts {

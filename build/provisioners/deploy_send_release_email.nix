@@ -4,12 +4,15 @@ let
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
+    // (import ../src/external.nix pkgs)
     // (rec {
       name = "builder";
 
       buildInputs = [
         pkgs.git
-        pkgs.gnupg
+        pkgs.awscli
+        pkgs.sops
+        pkgs.jq
         pkgs.curl
         pkgs.cacert
         pkgs.python37
