@@ -269,4 +269,37 @@ describe("Portfolio", () => {
     expect(msgError)
       .toBeCalled();
   });
+
+  it("should handle error when there are repeated tags", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_project__do_add_tags" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksTags} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Portfolio {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const addButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Add"))
+      .at(0);
+    addButton.simulate("click");
+    const addTagsModal: ReactWrapper = wrapper.find("addTagsModal");
+    const tagInput: ReactWrapper = addTagsModal
+      .find({name: "tags[0]", type: "text"})
+      .at(0)
+      .find("input");
+    tagInput.simulate("change", { target: { value: "test-tag1" } });
+    const form: ReactWrapper = addTagsModal
+      .find("genericForm")
+      .at(0);
+    form.simulate("submit");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgError)
+      .toBeCalled();
+  });
 });
