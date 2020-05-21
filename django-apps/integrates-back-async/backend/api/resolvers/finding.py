@@ -631,7 +631,7 @@ async def _do_add_finding_comment(_, info,
         role = \
             authz.get_group_level_role(user_email, group)
         if param_type == 'observation' and \
-                role not in ['analyst', 'admin', 'group_manager']:
+                role not in ['analyst', 'admin', 'group_manager', 'reviewer']:
             util.cloudwatch_log(info.context, 'Security: \
 Unauthorized role attempted to add observation')  # pragma: no cover
             raise GraphQLError('Access denied')
