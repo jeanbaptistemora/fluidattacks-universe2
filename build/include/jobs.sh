@@ -737,6 +737,30 @@ function job_send_new_version_email {
   &&  python "${source_file}"
 }
 
+function job_user_provision_asserts_dev_test {
+      helper_terraform_init \
+        services/user-provision/asserts/dev/terraform \
+  &&  helper_terraform_plan \
+        services/user-provision/asserts/dev/terraform
+}
+
+function job_user_provision_asserts_dev_deploy {
+      helper_terraform_apply \
+        services/user-provision/asserts/dev/terraform
+}
+
+function job_user_provision_asserts_prod_test {
+      helper_terraform_init \
+        services/user-provision/asserts/prod/terraform \
+  &&  helper_terraform_plan \
+        services/user-provision/asserts/prod/terraform
+}
+
+function job_user_provision_services_prod_deploy {
+      helper_terraform_apply \
+        services/user-provision/services/prod/terraform
+}
+
 function job_user_provision_services_dev_test {
       helper_terraform_init \
         services/user-provision/services/dev/terraform \

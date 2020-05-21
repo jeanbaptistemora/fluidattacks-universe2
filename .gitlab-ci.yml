@@ -261,6 +261,26 @@ send_new_version_email:
   when: always
   stage: postdeploy
 
+user_provision_asserts_dev_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: build-and-test
+
+user_provision_asserts_dev_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
+user_provision_asserts_prod_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: build-and-test
+
+user_provision_asserts_prod_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
 user_provision_services_dev_test:
   <<: *with_nix
   <<: *in_dev_branch
