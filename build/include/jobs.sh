@@ -594,6 +594,35 @@ function job_infra_backup_test {
   || return 1
 }
 
+function job_infra_database_deploy {
+  export TF_VAR_db_user
+  export TF_VAR_db_password
+
+      echo '[INFO] Logging in to AWS production' \
+  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  sops_env 'secrets-production.yaml' 'default' \
+        DB_USER \
+        DB_PASSWD \
+  &&  TF_VAR_db_user="${DB_USER}" \
+  &&  TF_VAR_db_password="${DB_PASSWD}" \
+  &&  pushd deploy/database/terraform \
+    &&  terraform init \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function job_infra_database_test {
+      echo '[INFO] Logging in to AWS development' \
+  &&  aws_login development \
+  &&  pushd deploy/database/terraform \
+    &&  terraform init \
+    &&  tflint --deep --module \
+    &&  terraform plan -refresh=true \
+  &&  popd \
+  || return 1
+}
+
 function job_infra_cache_db_deploy {
       echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
