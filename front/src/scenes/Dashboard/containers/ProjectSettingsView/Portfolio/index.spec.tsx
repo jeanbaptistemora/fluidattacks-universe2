@@ -228,4 +228,45 @@ describe("Portfolio", () => {
     expect(msgError)
       .toBeCalledTimes(2);
   });
+
+  it("should handle error when remove a tag", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: REMOVE_TAG_MUTATION,
+        variables:  {
+          projectName: "TEST",
+          tagToRemove: "test-tag1",
+        },
+      },
+      result: { errors: [
+        new GraphQLError("Access denied"),
+      ]},
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_project__do_remove_tag" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksTags.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Portfolio {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const fileInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper) => element.contains("test-tag1"))
+      .at(0);
+    fileInfo.simulate("click");
+    const removeButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Remove"))
+      .at(0);
+    removeButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgError)
+      .toBeCalled();
+  });
 });
