@@ -44,8 +44,6 @@ function decide_and_call_provisioner {
         --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep PROD_AWS_ACCESS_KEY_ID \
         --keep PROD_AWS_SECRET_ACCESS_KEY \
-        --keep ENCRYPTION_KEY_PROD \
-        --keep ENCRYPTION_KEY \
         --keep subs \
         --max-jobs auto \
         --option restrict-eval false \
