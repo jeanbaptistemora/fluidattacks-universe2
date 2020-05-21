@@ -237,7 +237,7 @@ def update_client_description(finding_id: str, updated_values: Dict[str, str],
     validations.validate_fields(list(updated_values.values()))
     success_treatment, success_external_bts = True, True
     if update.bts_changed:
-        validations.validate_fields([updated_values['bts_url']])
+        validations.validate_url(updated_values['bts_url'])
         validations.validate_field_length(updated_values['bts_url'], 80)
         success_external_bts = finding_dal.update(
             finding_id,
