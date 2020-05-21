@@ -13,12 +13,6 @@ from backend.exceptions import (
 
 # Constants
 FLUIDATTACKS_EMAIL_SUFFIX = '@fluidattacks.com'
-DIGITS: str = '0123456789'
-ASCII_LETTERS_LOWER: str = 'abcdefghijklmnopqrstuvwxyz'
-ASCII_LETTERS_UPPER: str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-ASCII_LETTERS_ACCENTS: str = 'ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ'
-WHITESPACE: str = ' \t\n\r\x0b\x0c'
-OTHER: str = '(),-./:;@_$#'
 
 
 async def validate_fluidattacks_staff_on_group(group, email, role) -> bool:
@@ -58,32 +52,17 @@ def validate_email_address(email: str) -> bool:
 
 
 def validate_fields(fields: List[str]):
-    whitelist: str = (
-        DIGITS +
-        ASCII_LETTERS_LOWER +
-        ASCII_LETTERS_UPPER +
-        ASCII_LETTERS_ACCENTS +
-        WHITESPACE +
-        OTHER
-    )
     for field in map(str, fields):
-        check_field(field, whitelist)
+        check_field(field, r'^$|^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#-]+$')
 
 
 def validate_url(url: str):
-    whitelist: str = (
-        DIGITS +
-        ASCII_LETTERS_LOWER +
-        ASCII_LETTERS_UPPER +
-        OTHER
-    )
-    check_field(url, whitelist)
+    check_field(url, r'^$|^[a-zA-Z0-9(),./:;@_$#-]+$')
 
 
-def check_field(field: str, whitelist: str):
-    for char in field:
-        if char not in whitelist:
-            raise InvalidChar()
+def check_field(field: str, regexp: str):
+    if not re.match(regexp, field):
+        raise InvalidChar()
 
 
 def validate_field_length(field: str, limit: int, is_greater_than_limit=True):
