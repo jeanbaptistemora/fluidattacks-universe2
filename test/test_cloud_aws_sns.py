@@ -41,7 +41,7 @@ def test_is_server_side_encryption_disabled_open():
                                            AWS_SECRET_ACCESS_KEY).is_open()
 
 
-def test_has_default_kms_key_open():
-    """Test sns.has_default_kms_key."""
-    assert sns.has_default_kms_key(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
-                                   AWS_SECRET_ACCESS_KEY).is_open()
+def test_uses_default_kms_key_open():
+    """Test sns.uses_default_kms_key."""
+    assert sns.uses_default_kms_key(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
+                                    AWS_SECRET_ACCESS_KEY).is_open()

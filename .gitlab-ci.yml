@@ -85,7 +85,7 @@ test_asserts_api_cloud_gcp:
   <<: *in_dev_branch
   stage: test
 
-test_asserts_api_cloud_kubernetes:
+.test_asserts_api_cloud_kubernetes:
   <<: *with_nix
   <<: *in_dev_branch
   stage: test

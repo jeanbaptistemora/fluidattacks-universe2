@@ -193,10 +193,10 @@ def is_server_side_encryption_disabled(key_id: str,
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_default_kms_key(key_id: str,
-                        secret: str,
-                        session_token: str = None,
-                        retry: bool = True) -> tuple:
+def uses_default_kms_key(key_id: str,
+                         secret: str,
+                         session_token: str = None,
+                         retry: bool = True) -> tuple:
     """Check if a ``SNS Topic`` uses default KMS key.
 
     :param key_id: AWS Key Id
