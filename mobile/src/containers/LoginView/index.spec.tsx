@@ -29,12 +29,17 @@ jest.mock("react-native", (): Dictionary => {
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
-jest.mock("react-router-native", (): Dictionary => ({
-  ...jest.requireActual("react-router-native"),
-  useHistory: (): Dictionary => ({
-    replace: mockHistoryReplace,
-  }),
-}));
+jest.mock("react-router-native", (): Dictionary => {
+  const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual("react-router-native");
+
+  return {
+    ...mockedRouter,
+    useHistory: (): Dictionary => ({
+      ...mockedRouter.useHistory(),
+      replace: mockHistoryReplace,
+    }),
+  };
+});
 
 jest.mock("../../utils/version", (): Dictionary => {
   const mockedVersion: Dictionary = jest.requireActual("../../utils/version");
