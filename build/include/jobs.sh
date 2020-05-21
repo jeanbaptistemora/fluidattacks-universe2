@@ -756,9 +756,9 @@ function job_user_provision_asserts_prod_test {
         services/user-provision/asserts/prod/terraform
 }
 
-function job_user_provision_services_prod_deploy {
+function job_user_provision_asserts_prod_deploy {
       helper_terraform_apply \
-        services/user-provision/services/prod/terraform
+        services/user-provision/asserts/prod/terraform
 }
 
 function job_user_provision_services_dev_test {
