@@ -6,19 +6,19 @@
 = Security
 
 As a security company,
-`Fluid Attacks` is aware of the importance of:
+`Fluid Attacks` is aware of the importance of
 
-. Have honesty, teamwork, and discipline
-  as immovable principles.
-  Our full manifest can be found
-  [inner]#link:../values/[here]#
-. Develop products
+- Having honesty, teamwork, and discipline
+  as immovable principles
+  (our full manifest can be found
+  [inner]#link:../values/[here]#);
+- Developing products
   that comply with the highest worldwide
-  [inner]#link:../products/rules/[security standards]#.
-. Acquire only
-  [inner]#link:../rules/262/[compliant services and products for internal use]#.
-. Implement best security practices within our organization.
-. Be completely transparent with our clients,
+  [inner]#link:../products/rules/[security standards]#;
+- Acquiring only
+  [inner]#link:../rules/262/[compliant services and products for internal use]#;
+- Implementing best security practices within our organization;
+- Being completely transparent with our clients,
   especially regarding their data:
   [inner]#link:../rules/315/[how we use it, and what we do to protect it]#.
 
@@ -318,8 +318,8 @@ Authorization refers to the ability to give users
 within an application
 the
 [inner]#link:../rules/186/[minimum privileges]#
-they need to do
-their work. No users should have the ability
+they need to do their work.
+No users should be allowed
 to do what they should not.
 
 === 4.1 For clients
@@ -327,47 +327,47 @@ to do what they should not.
 [inner]#link:../products/integrates[Integrates]#
 has a set of
 [inner]#link:../rules/096/[roles]#
-that are necessary on every hacking project.
+that are necessary for every hacking project.
 Once the client decides
-which members of its team
+which members of her team
 should be *_project managers_*,
-`Fluid Attacks` assigns them to such role,
+`Fluid Attacks` assigns the roles to them,
 providing them with the
 [inner]#link:../rules/035/[ability to assign]#
 the
 [inner]#link:../rules/186/[minimum required permissions]#
 to other members of their team.
-Some of the available roles are:
+Some of the available roles are
 _hacker_, _admin_, _releaser_, _escaper_,
 _user_, _project manager_, etc.
 
 === 4.2 Internal
 
 Every application we use must have user-granular authorization settings
-in order to grant minimum-privilege policy at all times.
+to grant minimum-privilege policy at all times.
 Some examples are:
 
 - *IAM and KMS:*
   These two tools are widely used within `Fluid Attacks`.
   They allow us to ensure
-  that hackers can only access source code,
-  environments, exploits and secrets
-  from projects they have access to.
+  that hackers can only access the source code,
+  environments, exploits, and secrets
+  of the projects they have access to.
   Access can be easily removed
   should the need arise,
   with no users/passwords leaked.
   These tools also let us keep application
   production secrets hidden from developers
   (Production-Development secrets separation).
-- *Infrastrcture:*
+- *Infrastructure:*
   Infrastructure components always provide
   minimum privileges only to the applications
   that need to use them.
   We never give any service full permissions
-  over all of our infrastructure.
+  over our entire infrastructure.
 - *IAM:*
-  It is possible to give application access on a user level.
-  Granting us the ability to give employees access
+  It is possible to give application access at the user level,
+  which allows us to give employees access
   [inner]#link:../rules/176/[only to what they need]#
   to execute their tasks.
   [inner]#link:../rules/034/[Giving or removing access to applications]#
@@ -378,14 +378,14 @@ Some examples are:
 [inner]#link:../rules/130/[Key rotation]#
 is of the essence when dealing with
 sensitive data. The best way to prevent a key leakage is by
-regularily changing it. We continuously rotate:
+changing the keys regularly. We continuously rotate
 
 - *KMS keys:*
-  They rotate on a yearly basis or before in case it is needed.
+  They rotate every year or before in case it is needed;
 - *JWT Tokens:*
-  They rotate on a daily basis.
+  They rotate daily;
 - *Digital Certificates:*
-  They rotate [inner]#link:../rules/089/[every three months]#.
+  They rotate [inner]#link:../rules/089/[every three months]#;
 - *IAM passphrases:*
   They rotate every three months.
 
@@ -393,16 +393,16 @@ Rotations are done in two different ways:
 
 - *Automatic rotation:*
   Some secrets are stored in secret vaults.
-  They are only accesible by administrators
-  and are rotated on a daily basis.
+  They are only accessible by administrators
+  and are rotated daily.
   These secrets include JWT Tokens,
-  IAM passphrases and digital certificates.
+  IAM passphrases, and digital certificates.
 
 - *Manual rotation:*
   Some secrets are stored versioned and encrypted
   in git repositories using AES256 symmetric keys.
   They are treated as code,
-  meaning that in order to be rotated,
+  meaning that to be rotated
   a <<PR, manual approval>> needs to be done.
   These secrets include KMS keys and
   other application credentials.
@@ -410,33 +410,33 @@ Rotations are done in two different ways:
 === 4.4 Access revocation
 
 When employees go on vacation or leave the company,
-revocating access to the systems and information
-they had access to is essential.
+it is essential to revoke their access
+to the systems and information that were accessible to them.
 In `Fluid Attacks` we have a two-step process for
 access revocation:
 
   . *Deactivating IAM account:*
     By doing this, users lose
-    access to all the company applications and client's
-    data they used to have.
+    access to all the company applications
+    and client data.
     This includes
     Integrates, Forces, mail, etc.
   . *Removing git repository access:*
-    Users can no longer see repository confidential information
-    like registry images, confidential issues,
+    Users can no longer see confidential information from the repository,
+    such as registry images, confidential issues,
     link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge requests],
     etc.
 
 It is worth noting that ease of access revocation
-is fundamental when dealing with sensitive data in an organization,
+is fundamental when dealing with sensitive data in an organization;
 that is why we have put so much effort
-on making this process as simple as possible.
+into making this process as simple as possible.
 
 === 4.5 Secure policies for enrolled mobile devices
 
 Our collaboration systems also provide security requirements
-mobile devices must comply with
-before being enrolled with the organization systems.
+that mobile devices must comply with
+before enrolling in the organization's systems.
 This is especially useful,
 as personal mobile devices
 are common targets for malicious hackers.
@@ -444,96 +444,96 @@ are common targets for malicious hackers.
 == 5. Privacy
 
 This section talks about our efforts to protect
-both `Fluid Attacks'` and the client's privacy.
+both `Fluid Attacks'` and clients' privacy.
 
 === 5.1 Project pseudonymization
 
-All projects have a pseudonym within our systems,
-briging with it advantages like:
+Every project has a pseudonym within our systems,
+which brings advantages such as the following:
 
-- Employees without direct access to the project do not
-  know the client's name or any other information
-  that can help them
-  [inner]#link:../rules/313/[vinculate a project with the client]#.
+- Employees without direct access to the project
+  do not know the client's name or any other information
+  that can help them to
+  [inner]#link:../rules/313/[connect the project with the client]#.
 - Internal analytics charts and other documents
-  never use client names, they user their projects pseudonyms.
+  never use the client's name; they use the project's pseudonym.
 
 Generally speaking, only the people who need to know
-whose client a project is, do actually know it.
+who the client of a project is,
+are the people who actually know it.
 
 === 5.2 Secure delivery of sensitive data
 
-What we do to reduce information leakage
+Here is what we do to reduce information leakage
 when delivering data to the client.
 
 ==== 5.2.1 Secure information sharing system
 
-We use an information sharing system with
+We use an information-sharing system with
 link:https://en.wikipedia.org/wiki/Data_loss_prevention_software[DLP]
 when sending any sensitive information to our clients.
-This includes contracts, portfolios and other sensitive documents.
+This includes contracts, portfolios, and other sensitive documents.
 
 ==== 5.2.2 Signed URLs
 
 [inner]#link:../products/integrates[Integrates]#
 has the feature of creating signed download URLs
-with expiration date when downloading reports,
+with an expiration date when downloading reports,
 meaning that links expire
 and can only be used
 by the user who requested the download.
 
 ==== 5.2.3 Passphrase protected reports
 
-All downloaded reports via
+All reports downloaded via
 [inner]#link:../products/integrates[Integrates]#
-have a four-word randomly generated passphrase.
-Such passphrase is sent to the email of the
-user that requested the download.
-This applies for both XLS and PDF formats.
+have a randomly generated four-word passphrase.
+This passphrase is sent to the email of the user
+who requested the download.
+This applies to both XLS and PDF formats.
 
 ==== 5.2.4 Watermarked reports
 
-All downloaded reports via
+Every report downloaded via
 [inner]#link:../products/integrates[Integrates]#
-come with a watermark in all its pages
-specifying that only the individual who
-generated such report is allowed to read it.
+comes with a watermark on all its pages,
+specifying that only the individual
+who generated it is allowed to read it.
 This is used as a measure to identify
 who generated the report in the first place
-and discourage its share across other channels
-different than
-[inner]#link:../products/integrates[Integrates]# itself.
+and discourage its distribution through channels
+other than
+[inner]#link:../products/integrates[Integrates]#.
 
-=== 5.3 Email unsusbcribe
+=== 5.3 Email unsubscribe
 
-In order to be respectful with users
-regarding what information they want to recieve,
+To be respectful to users
+regarding what information they want to receive,
 for all commercial and informative emails,
-receptors have the possibility
-to stop getting them by clicking on
-the *_unsubscribe from this list_* link.
-By doing so, their email is placed in a
-list of unsubscribed emails
-and new emails will no longer be sent to it.
+receptors can stop getting them
+by clicking on the *_unsubscribe from this list_* link.
+By doing so, their emails are placed on a list
+of unsubscribed emails,
+and no new emails will be sent to them.
 
 === 5.4 Transparent cookie usage
 
 Both [inner]#link:../products/integrates[Integrates]#
 and [inner]#link:../[Web]#
-utilize a
+use a
 link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR]
-module that:
+module that
 
 - Informs the user about
-  every cookie the site creates.
+  every cookie the site creates;
 - Lets users specify
   which ones to allow,
   thus giving them full control
-  over what information we're creating
+  over what information we are creating
   and manipulating within their browser.
 
 By doing this, we become compliant with
-security rules like:
+security rules such as the following:
 
 - [inner]#link:../rules/310/[Request user consent]#
 - [inner]#link:../rules/312/[Allow user consent revocation]#
