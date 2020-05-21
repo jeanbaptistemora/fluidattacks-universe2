@@ -4,3 +4,6 @@
 # Front approvers
 /front/ @dacevedoatfluid @mnorenaatfluid
 /mobile/ @dacevedoatfluid @mnorenaatfluid
+
+# Back approvers
+/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @mnorenaatfluid
