@@ -1,6 +1,34 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
+export const GET_GROUP_DATA: DocumentNode = gql`
+  query GetGroupData($groupName: String!) {
+    project(projectName: $groupName) {
+      hasDrills
+      hasForces
+      subscription
+    }
+  }
+  `;
+
+export const EDIT_GROUP_DATA: DocumentNode = gql`
+  mutation EditGroupData(
+    $groupName: String!
+    $hasDrills: Boolean!
+    $hasForces: Boolean!
+    $subscription: SubscriptionType!
+  ) {
+    editGroup(
+      groupName: $groupName
+      hasDrills: $hasDrills
+      hasForces: $hasForces
+      subscription: $subscription
+    ) {
+      success
+    }
+  }
+  `;
+
 export const REMOVE_TAG_MUTATION: DocumentNode = gql`
   mutation RemoveTagMutation($tagToRemove: String!, $projectName: String!) {
     removeTag (

@@ -1,5 +1,13 @@
 import { RouteComponentProps } from "react-router";
 
+export interface IGroupData {
+  project: {
+    hasDrills: boolean;
+    hasForces: boolean;
+    subscription: string;
+  };
+}
+
 export interface IProjectTagsAttr {
   project: {
     deletionDate: string;
