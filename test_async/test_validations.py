@@ -20,8 +20,11 @@ class ValidationsTests(TestCase):
             assert validate_fields(['testfield', '<testfield2'])
     
     def test_validate_field_length(self):
+        assert not bool(validate_field_length('testlength', limit=12))
+        assert not bool(validate_field_length('testlength', limit=2, is_greater_than_limit= False))
         with pytest.raises(InvalidFieldLength):
             assert validate_field_length('testlength', limit=9)
+            assert validate_field_length('testlength', limit=11, is_greater_than_limit=False)
 
     def test_validate_email_address(self):
         assert validate_email_address('test@unittesting.com')
