@@ -1,15 +1,30 @@
 import { StyleSheet } from "react-native";
 
 export const styles: Dictionary = StyleSheet.create({
+  bottom: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginBottom: 15,
+  },
   container: {
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 10,
+    paddingTop: 30,
   },
-  projectCard: {
-    margin: 4,
+  percentageContainer: {
+    alignItems: "center",
+    justifyContent: "center",
   },
-  projectList: {
-    padding: 4,
+  percentageText: {
+    fontSize: 30,
+    position: "absolute",
+  },
+  remediatedText: {
+    fontWeight: "bold",
+  },
+  remediationContainer: {
+    alignItems: "center",
+    marginTop: 20,
   },
 });

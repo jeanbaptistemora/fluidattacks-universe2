@@ -10,7 +10,7 @@ export const styles: Dictionary = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    elevation: 4,
+    elevation: 0,
     flexDirection: "row",
     height: 80,
     paddingHorizontal: 20,

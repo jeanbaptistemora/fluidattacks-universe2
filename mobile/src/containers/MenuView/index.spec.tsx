@@ -53,7 +53,7 @@ describe("MenuView", (): void => {
         data: {
           me: {
             projects: [
-              { name: "unittesting", description: "Integrates unit test project" },
+              { openVulnerabilities: 0, closedVulnerabilities: 0 },
             ],
           },
         },

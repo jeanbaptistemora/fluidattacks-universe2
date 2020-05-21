@@ -2,8 +2,8 @@
  * Project attributes
  */
 export interface IProject {
-  description: string;
-  name: string;
+  closedVulnerabilities: number;
+  openVulnerabilities: number;
 }
 
 /**

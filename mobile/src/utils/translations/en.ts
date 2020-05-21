@@ -19,6 +19,9 @@ export const enTranslations: ResourceLanguage = {
   },
   menu: {
     greetingText: "Welcome",
+    remediated: "Remediated vulnerabilities",
+    vulnsFound: "from <0>{{totalVulns}}</0> found in <0>{{count}}</0> system",
+    vulnsFound_plural: "from <0>{{totalVulns}}</0> found in <0>{{count}}</0> systems",
   },
   welcome: {
     greetingText: "Hello",
