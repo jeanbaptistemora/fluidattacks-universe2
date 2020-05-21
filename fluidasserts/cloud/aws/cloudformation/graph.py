@@ -443,16 +443,36 @@ class Batcher:  # noqa: H238
             self.statement_params[f'rel_{alias_out}_line'] = line
             self.statement_params[f'out_desc{alias_out}'] = out_value.get(
                 'Description', 'nothing')
+            alias_value = create_alias(f'{alias_out}_value')
+            statement += (f"CREATE ({alias_out})-[:HAS]->"
+                          f"({alias_value}:Attribute:Value)\n")
+            contexts.add(alias_value)
             if isinstance(out_value['Value'], (int, str, bool)):
-                statement += f'SET {alias_out}.Value = ${alias_out}_value\n'
-                self.statement_params[f'{alias_out}_value'] = out_value[
+                statement += (
+                    f'SET {alias_value}.value = ${alias_value}_value\n')
+                self.statement_params[f'{alias_value}_value'] = out_value[
                     'Value']
             else:
                 func_name = list(out_value['Value'].keys())[0]
                 line = _get_line(out_value['Value'], func_name)
                 statement += self.load_intrinsic_func(
-                    alias_out, func_name, out_value['Value'][func_name],
+                    alias_value, func_name, out_value['Value'][func_name],
                     contexts, line)
+            if 'Export' in out_value:
+                alias_export = create_alias(f'{alias_out}_export')
+                contexts.add(alias_export)
+                statement += (f"CREATE ({alias_out})-[:HAS]->"
+                              f"({alias_export}:Attribute:Export)\n")
+                if isinstance(out_value['Export'], (int, str, bool)):
+                    statement += (
+                        f'SET {alias_export}.value = ${alias_export}_value\n')
+                    self.statement_params[f'{alias_export}_value'] = out_value[
+                        'Export']
+                else:
+                    line = _get_line(out_value, 'Export')
+                    statement += self._load_resource_property(
+                        (alias_export, out_value['Export']), contexts, line)
+
         return self.transactor.run(statement, **self.statement_params)
 
     def _load_resource(self, resource_name):
@@ -583,6 +603,7 @@ class Batcher:  # noqa: H238
             'Fn::Split': self._fn_split,
             'Fn::Select': self._fn_select,
             'Fn::Transform': self._fn_transform,
+            'Fn::ImportValue': self._fn_importvalue,
         }
 
         if functions.get(func_name, None):
@@ -1113,6 +1134,38 @@ class Batcher:  # noqa: H238
             statement += self._add_attributes_relationship(
                 rel_resource, contexts, **rel_kwargs)
 
+        return statement
+
+    def _fn_importvalue(self,
+                        resource_id: str,
+                        attrs,
+                        contexts: set = None,
+                        line='unknown',
+                        **rel_kwargs):
+        """Create a statement to load intrinsic function Fn::ImportValue."""
+        contexts = contexts or set([])
+        alias_fn = create_alias("fn_importvalue", True)
+        rel_resource = create_alias(f'rel_{resource_id}', True)
+        contexts.update([alias_fn, rel_resource])
+        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
+                     f"{{line: ${rel_resource}_line}}]->"
+                     f"({alias_fn}:Fn:ImportValue)\n")
+        self.statement_params[f'{rel_resource}_line'] = line
+        contexts.add(alias_fn)
+        if isinstance(attrs, str):
+            statement += (f" SET {alias_fn} += "
+                          f" {{sharedValueToImport: ${alias_fn}_value,"
+                          f" value: ${alias_fn}_value}}")
+            self.statement_params[f'{alias_fn}_value'] = attrs
+        else:
+            func_name = list(attrs.keys())[0]
+            line = _get_line(attrs, func_name) or line
+            statement += self.load_intrinsic_func(
+                alias_fn, func_name, attrs[func_name], contexts, line)
+
+        if rel_kwargs:
+            statement += self._add_attributes_relationship(
+                rel_resource, contexts, **rel_kwargs)
         return statement
 
     def _fn_conditional(self,
