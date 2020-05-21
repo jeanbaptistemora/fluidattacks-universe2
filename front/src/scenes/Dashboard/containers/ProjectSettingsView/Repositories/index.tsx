@@ -23,7 +23,7 @@ import { AddRepositoriesModal } from "../../../components/AddRepositoriesModal/i
 import { ADD_REPOSITORIES_MUTATION, GET_REPOSITORIES, UPDATE_REPOSITORY_MUTATION } from "../queries";
 import { IHistoricState, IRepositoriesAttr } from "../types";
 
-interface IRepositoriesProps {
+export interface IRepositoriesProps {
   projectName: string;
 }
 
