@@ -450,7 +450,7 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '14-07-resources.png')
 
         del_project = selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[10]/div/div/button')
+            '//*[@id="resources"]/div[11]/div/div/button')
         self.__click(del_project)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -460,7 +460,7 @@ class ViewTestCase(unittest.TestCase):
         self.__cancel_modal()
 
         total_tables = len(selenium.find_elements_by_tag_name("table"))
-        assert total_tables == 4
+        assert total_tables == 5
         assert 'https://fluidattacks.com' in selenium.page_source
 
     def test_15_project_comments(self):

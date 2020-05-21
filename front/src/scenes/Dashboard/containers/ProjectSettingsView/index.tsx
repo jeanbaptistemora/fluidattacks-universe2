@@ -17,6 +17,7 @@ import { Environments } from "./Environments";
 import { Files } from "./Files";
 import { Portfolio } from "./Portfolio";
 import { Repositories } from "./Repositories";
+import { Services } from "./Services";
 import { ISettingsViewProps } from "./types";
 
 const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewProps): JSX.Element => {
@@ -44,6 +45,12 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
         <Files projectName={props.match.params.projectName} />
         <hr />
         <Portfolio projectName={props.match.params.projectName} />
+        <Can do="backend_api_resolvers_project__do_edit_group">
+          <React.Fragment>
+            <hr />
+            <Services groupName={props.match.params.projectName} />
+          </React.Fragment>
+        </Can>
         <Can do="backend_api_resolvers_project__do_request_remove_project">
           <React.Fragment>
             <React.Fragment>
