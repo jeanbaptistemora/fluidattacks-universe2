@@ -21,6 +21,7 @@ variable "region" {
 
 variable "dynamodb-tables" {
   default = [
+    "fi_authz",
     "FI_alerts_by_company",
     "FI_comments",
     "fi_events",
@@ -34,5 +35,6 @@ variable "dynamodb-tables" {
     "FI_users",
     "FI_vulnerabilities",
     "FI_weekly_report",
+    "integrates"
   ]
 }
