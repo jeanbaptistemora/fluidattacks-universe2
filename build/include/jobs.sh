@@ -135,7 +135,15 @@ function job_lint_asserts_tests {
         test/
 }
 
-function job_send_new_release_email {
+function job_test_infra_secret_management {
+  local dir='deploy/secret-management/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_set_dev_secrets \
+  &&  helper_terraform_test "${dir}"
+}
+
+function job_deploy_send_release_email {
   export MANDRILL_EMAIL_TO='engineering@fluidattacks.com'
 
       env_prepare_python_packages \
@@ -482,6 +490,14 @@ function job_test_output_asserts {
         --show-method-stats \
         --cloudformation \
         test
+}
+
+function job_deploy_infra_secret_management {
+  local dir='deploy/secret-management/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_set_prod_secrets \
+  &&  helper_terraform_apply "${dir}"
 }
 
 function job_release_to_pypi {

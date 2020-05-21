@@ -40,6 +40,10 @@ function decide_and_call_provisioner {
         --keep CI_REGISTRY_PASSWORD \
         --keep CI_REGISTRY_USER \
         --keep NIXPKGS_ALLOW_UNFREE \
+        --keep DEV_AWS_ACCESS_KEY_ID \
+        --keep DEV_AWS_SECRET_ACCESS_KEY \
+        --keep PROD_AWS_ACCESS_KEY_ID \
+        --keep PROD_AWS_SECRET_ACCESS_KEY \
         --keep ENCRYPTION_KEY_PROD \
         --keep ENCRYPTION_KEY \
         --keep subs \

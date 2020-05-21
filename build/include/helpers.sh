@@ -292,3 +292,55 @@ function helper_pages_generate_doc {
   &&  sphinx-build -b linkcheck sphinx/source public/review/ \
   &&  sphinx-build -b coverage  sphinx/source public/review/
 }
+
+function helper_set_dev_secrets {
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_DEFAULT_REGION
+
+      AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
+  &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}" \
+  &&  AWS_DEFAULT_REGION='us-east-1' \
+  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set region 'us-east-1'
+}
+
+function helper_set_prod_secrets {
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_DEFAULT_REGION
+
+      AWS_ACCESS_KEY_ID=${PROD_AWS_ACCESS_KEY_ID} \
+  &&  AWS_SECRET_ACCESS_KEY=${PROD_AWS_SECRET_ACCESS_KEY} \
+  &&  AWS_DEFAULT_REGION='us-east-1' \
+  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set region 'us-east-1'
+}
+
+function helper_terraform_login {
+  export TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
+  export TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
+}
+
+function helper_terraform_test {
+  local dir="${1}"
+
+      helper_terraform_login \
+  &&  pushd "${dir}" || return 1 \
+  &&  terraform init \
+  &&  terraform plan -refresh=true \
+  &&  tflint --deep --module \
+  &&  popd || return 1
+}
+
+function helper_terraform_apply {
+  local dir="${1}"
+
+      helper_terraform_login \
+  &&  pushd "${dir}" || return 1 \
+  &&  terraform init \
+  &&  terraform apply -auto-approve -refresh=true \
+  &&  popd || return 1
+}

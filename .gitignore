@@ -66,3 +66,6 @@ TEMP_FD
 
 # Build
 ephemeral-test-runner*
+
+# Terraform
+.terraform
