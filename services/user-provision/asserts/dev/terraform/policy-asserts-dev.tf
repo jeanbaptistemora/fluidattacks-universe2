@@ -14,6 +14,25 @@ data "aws_iam_policy_document" "asserts-dev-policy-data" {
     ]
   }
 
+  # IAM read over owned users, roles and policies
+  statement {
+    effect  = "Allow"
+    actions = [
+      "iam:GetUser",
+      "iam:GetRole",
+      "iam:GetPolicy",
+      "iam:GetPolicyVersion",
+      "iam:ListAttachedUserPolicies",
+      "iam:ListAttachedRolePolicies"
+    ]
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/asserts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/asserts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/asserts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/asserts-*",
+    ]
+  }
+
   # KMS read keys
   statement {
     effect = "Allow"

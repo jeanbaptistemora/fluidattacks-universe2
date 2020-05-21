@@ -15,6 +15,20 @@ data "aws_iam_policy_document" "asserts-prod-policy-data" {
     ]
   }
 
+  # IAM full permissions over owned users, roles and policies
+  statement {
+    effect  = "Allow"
+    actions = [
+      "iam:*"
+    ]
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/asserts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/asserts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/asserts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/asserts-*",
+    ]
+  }
+
   # KMS create Keys
   statement {
     effect = "Allow"
