@@ -1,11 +1,21 @@
 :slug: rules/051/
 :category: architecture
-:description: This document details the security guidelines and requirements related to the management of the source code that makes up any system. Therefore, it is recommended to the organization or company that the source code always be stored in a central repository.
-:keywords: Store, Source Code, System, Repository, Requirement, Security
+:description: This document details the security guidelines and requirements related to the management of the source code of a system or application. In this case, it is recommended that the organization or company always store the source code in a central repository.
+:keywords: Store, Source Code, System, Repository, Requirement, ASVS
 :rules: yes
 
-= REQ.051 Store source code in repository
+= REQ.051 Store source code in a repository
 
 == Requirement
 
 The organization must store the source code in a central repository.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.10 Malicious Software Architectural Requirements.(1.10.1)]
+Verify that a source code control system is in use,
+with procedures to ensure that check-ins are accompanied by issues or change
+tickets.
+The source code control system should have access control and identifiable
+users to allow traceability of any changes.
