@@ -26,3 +26,9 @@ def test_is_encryption_disabled_open():
     """Test ebs.is_encryption_disabled."""
     assert ebs.is_encryption_disabled(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
                                       AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_uses_default_kms_key_open():
+    """Test ebs.uses_default_kms_key."""
+    assert ebs.uses_default_kms_key(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
+                                    AWS_SECRET_ACCESS_KEY).is_open()
