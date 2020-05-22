@@ -26,6 +26,7 @@
       "enabled": true,
       "fallbackToCacheTimeout": 10000
     },
+    "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
     ],

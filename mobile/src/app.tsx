@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
 import { I18nextProvider } from "react-i18next";
 import { StatusBar } from "react-native";
-import { Appearance } from "react-native-appearance";
+import { ColorSchemeName, useColorScheme } from "react-native-appearance";
 import { DarkTheme, DefaultTheme, Provider as PaperProvider, Theme } from "react-native-paper";
 import { BackButton, NativeRouter, Route, Switch } from "react-router-native";
 
@@ -31,19 +31,21 @@ const darkTheme: Theme = {
   },
 };
 
-const isDarkMode: boolean = Appearance.getColorScheme() === "dark";
-
 /* tslint:disable-next-line: variable-name
- * The root component name must be 'App' for fast refresh to work properly
- * export/import aliases won't work
- */
-export const App: React.FunctionComponent = (): JSX.Element => (
+* The root component name must be 'App' for fast refresh to work properly
+* export/import aliases won't work
+*/
+export const App: React.FunctionComponent = (): JSX.Element => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
+  return (
+    <React.StrictMode>
   <ApolloProvider client={client}>
-    <PaperProvider theme={isDarkMode ? darkTheme : theme}>
+    <PaperProvider theme={colorScheme === "dark" ? darkTheme : theme}>
       <I18nextProvider i18n={i18next}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle={isDarkMode ? "light-content" : "dark-content"}
+          barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
           translucent={true}
         />
         <NativeRouter>
@@ -58,4 +60,6 @@ export const App: React.FunctionComponent = (): JSX.Element => (
       </I18nextProvider>
     </PaperProvider>
   </ApolloProvider>
-);
+    </React.StrictMode>
+  );
+};
