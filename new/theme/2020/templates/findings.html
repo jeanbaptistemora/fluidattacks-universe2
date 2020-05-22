@@ -39,10 +39,29 @@
             </a>
             <span class="c-fluid-gray v-mid b"> / </span>
           </li>
+          {% if page.findingsindex %}
           <li class="dib mt0">
             <a class="white hover-white no-underline"
                 href=".">Findings</a>
           </li>
+          {% endif %}
+          {% if page.rulesindex and page.slug == "rules/" %}
+          <li class="dib mt0">
+            <a class="white hover-white no-underline"
+                href=".">Rules</a>
+          </li>
+          {% endif %}
+          {% if page.slug == "rules/out-of-scope/" %}
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/rules/">Rules</a>
+          </li>
+          <span class="c-fluid-gray v-mid b"> / </span>
+          <li class="dib mt0">
+            <a class="white hover-white no-underline"
+                href=".">{{ page.title }}</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -55,6 +74,7 @@
 {% endblock canonical %}
 
 {% block content %}
+  {% if page.findingsindex %}
   <article class="internal roboto ma-auto tl mw8 pb4">
     <h1 class="tc pb3">
       {{ page.title }}
@@ -93,4 +113,108 @@
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
   </article>
+  {% endif %}
+  {% if page.rulesindex and page.slug == "rules/" %}
+  <article class="internal roboto ma-auto tl mw8 pb4">
+    <h1 class="tc pb3">
+      {{ page.title }}
+    </h1>
+    <div class="expall hover-bg-light-gray flex">
+      <h3 class="w-90">Expand all</h3>
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+           alt="Fluid Arrow">
+    </div>
+    <div class="collall hover-bg-light-gray flex">
+      <h3 class="w-90 dn">Collapse all</h3>
+      <img class="dn" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+           alt="Fluid Arrow">
+    </div>
+    {% set categorder = ["credentials", "authentication", "authorization", "session", "legal", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "mobile", "social"] %}
+    {% for categ in categorder %}
+      <div class="rulescat hover-bg-light-gray flex">
+        <h3 class="w-90">{{ categ |replace('-', ' ') | capitalize }}</h3>
+        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+             alt="Fluid Arrow">
+      </div>
+      <div class="ruleslist dn">
+      {% for ruleart in pages if ruleart.rules and not ruleart.extended and ruleart.category == categ %}
+        <ul class="pl4">
+           <li>
+             <a class="f4"
+                href="../{{ ruleart.slug }}">
+                {{ ruleart.title }}
+             </a><br>
+           </li>
+         </ul>
+      {% endfor %}
+      </div>
+    {% endfor %}
+    {% assets output="static/js/rules.min.js", "js/tmp/rules.min.js" %}
+      <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets %}
+    <p class="pt4"> Looking for more security checks? Take a look at our
+      <a class="fw6 f5 no-underline c-fluid-bk hv-fluid-dkred"
+         href="{{ SITEURL }}/rules/out-of-scope/">
+               Out of Scope Security Rules
+      </a>
+    </p>
+  </article>
+  {% endif %}
+  {% if page.rulesindex and page.slug == "rules/out-of-scope/" %}
+  <article class="internal roboto ma-auto tl mw8 pb4">
+    <h1 class="tc pb3">
+      {{ page.title }}
+    </h1>
+    {{ page.content }}
+    {% set rendered = [] %}
+    {% for rulepath in pages if rulepath.rules and rulepath.extended %}
+      {% if loop.first %}
+        {% do rendered.append( rulepath.category ) %}
+          <div class="rulescat hover-bg-light-gray flex">
+            <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+                 alt="Fluid Arrow">
+          </div>
+        {% set cat = rulepath.category %}
+        <div class="ruleslist dn">
+        {% for ruleart in pages if ruleart.rules and ruleart.category == cat %}
+          <ul class="pl4">
+             <li>
+               <a class="f4"
+                  href="../../{{ ruleart.slug }}">
+                  {{ ruleart.title }}
+               </a><br>
+             </li>
+           </ul>
+        {% endfor %}
+        </div>
+      {% else %}
+        {% if rulepath.category != loop.previtem.category and rulepath.category not in rendered %}
+          {% do rendered.append( rulepath.category ) %}
+          <div class="rulescat hover-bg-light-gray flex">
+            <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+                 alt="Fluid Arrow">
+          </div>
+          {% set cat = rulepath.category %}
+          <div class="ruleslist dn">
+          {% for ruleart in pages if ruleart.rules and ruleart.extended and ruleart.category == cat %}
+           <ul class="pl4">
+              <li>
+                <a class="f4"
+                 href="../../{{ ruleart.slug }}">
+                    {{ ruleart.title }}
+                </a><br>
+              </li>
+            </ul>
+          {% endfor %}
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% assets output="static/js/rules.min.js", "js/tmp/rules.min.js" %}
+      <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets %}
+  </article>
+  {% endif %}
 {% endblock content %}
