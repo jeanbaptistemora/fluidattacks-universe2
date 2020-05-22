@@ -32,3 +32,9 @@ def test_uses_default_kms_key_open():
     """Test sqs.uses_default_kms_key."""
     assert sqs.uses_default_kms_key(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
                                     AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_is_public_open():
+    """Test sqs.is_public."""
+    assert sqs.is_public(AWS_ACCESS_KEY_ID,  # pylint: disable=E1101
+                         AWS_SECRET_ACCESS_KEY).is_open()

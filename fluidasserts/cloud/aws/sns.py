@@ -54,7 +54,7 @@ def can_anyone_publish(key_id: str,
                 TopicArn=topic_arn,
                 retry=retry)
 
-            policy = json.loads(attrs.get('Policy', ''))
+            policy = json.loads(attrs.get('Policy', '{}'))
 
             for statement in policy['Statement']:
                 if statement.get('Effect', '') == 'Allow' \
