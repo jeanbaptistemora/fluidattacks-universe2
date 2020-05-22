@@ -1,7 +1,7 @@
 :slug: rules/273/
 :category: system
 :description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of installing a fixed and unalterable security suite in all production workstations.
-:keywords: Fixed, Security, Suite, Workstation, Antivirus, Firewall.
+:keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall.
 :rules: yes
 
 = REQ.273 Define fixed security suite
@@ -21,3 +21,17 @@ must count with an unalterable security suite
 * [inner]#link:/web/findings/104/[F104. USB flash drive attacks]#
 
 * [inner]#link:/web/findings/115/[F115. Security controls bypass]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/923.html[CWE-923: Improper Restriction of Communication Channel to Intended Endpoints]
+The software establishes a communication channel to (or from) an endpoint for
+privileged or protected operations,
+but it does not properly ensure that it is communicating with the correct
+endpoint.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.14 Configuration Architectural Requirements.(1.14.1)]
+Verify the segregation of components of differing trust levels through
+well-defined security controls, firewall rules, API gateways, reverse proxies,
+cloud-based security groups, or similar mechanisms.
