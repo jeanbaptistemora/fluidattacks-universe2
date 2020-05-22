@@ -77,7 +77,7 @@ const menuView: React.FunctionComponent = (): JSX.Element => {
           <Headline style={styles.remediatedText}>{t("menu.remediated")}</Headline>
           <Text>
             <Trans i18nKey="menu.vulnsFound" count={projects.length}>
-              <Title>{{ totalVulns }}</Title>
+              <Title>{{ totalVulns: totalVulns.toLocaleString() }}</Title>
             </Trans>
           </Text>
         </View>

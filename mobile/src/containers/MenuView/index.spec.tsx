@@ -53,7 +53,7 @@ describe("MenuView", (): void => {
         data: {
           me: {
             projects: [
-              { openVulnerabilities: 0, closedVulnerabilities: 0 },
+              { openVulnerabilities: 5, closedVulnerabilities: 7 },
             ],
           },
         },
@@ -75,6 +75,46 @@ describe("MenuView", (): void => {
 
     expect(wrapper)
       .toHaveLength(1);
+    expect(wrapper.text())
+      .toContain("58.3%");
+    expect(wrapper.text())
+      .toContain("from 12 found in 1 system");
+  });
+
+  it("should render empty", async (): Promise<void> => {
+
+    const emptyMock: Readonly<MockedResponse> = {
+      request: {
+        query: PROJECTS_QUERY,
+      },
+      result: {
+        data: {
+          me: {
+            projects: [],
+          },
+        },
+      },
+    };
+
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <MemoryRouter initialEntries={[{ pathname: "/Menu", state: { userInfo: {} } }]}>
+            <MockedProvider mocks={[emptyMock]} addTypename={false}>
+              <MenuView />
+            </MockedProvider>
+          </MemoryRouter>
+        </I18nextProvider>
+      </PaperProvider>,
+    );
+    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
+
+    expect(wrapper)
+      .toHaveLength(1);
+    expect(wrapper.text())
+      .toContain("0%");
+    expect(wrapper.text())
+      .toContain("from 0 found in 0 systems");
   });
 
   it("should handle errors", async (): Promise<void> => {
