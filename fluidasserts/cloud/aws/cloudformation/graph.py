@@ -7,6 +7,7 @@
 from collections import OrderedDict
 from contextlib import suppress
 from copy import copy
+from timeit import default_timer as timer
 
 # 3rd party imports
 from pyparsing import Char
@@ -15,14 +16,19 @@ from pyparsing import Optional
 from pyparsing import printables
 from pyparsing import Suppress
 from pyparsing import Word
+import docker
 
 # local imports
 from fluidasserts.db.neo4j_connection import ConnectionString
 from fluidasserts.db.neo4j_connection import database
 from fluidasserts.db.neo4j_connection import runner
 from fluidasserts.helper.aws import _random_string
+from fluidasserts.helper.aws import CLOUDFORMATION_EXTENSIONS
+from fluidasserts.helper.aws import CloudFormationInvalidTemplateError
 from fluidasserts.helper.aws import get_line
+from fluidasserts.utils.generic import get_paths
 from fluidasserts.helper.aws import load_cfn_template
+from fluidasserts.helper.aws import retry_on_errors
 from fluidasserts.utils.parsers.json import CustomDict
 from fluidasserts.utils.parsers.json import CustomList
 from fluidasserts.utils.parsers.json import standardize_objects
@@ -104,23 +110,40 @@ def _get_line(object_, key):
 class Batcher:  # noqa: H238
     """A class to convert a cloudformation template to graphs."""
 
-    def __init__(self, template_path: str, connection: ConnectionString):
-        """Convert an load template.
+    def __init__(self, template_path: str, session=None, auto_commit=True):
+        """Convert and load a clodformation template.
 
         Load the template and loop through all the nodes in the document
         to create a statement that loads the nodes to neo4j with their
         relationships.
 
         :param template_path: File path of CloudFormation template.
-        :param connection: Connection parameter and credentials.
+        :param session: Session that is already connected to the database.
+        :param auto_commit: Load template automatically.
         """
         self.path = template_path
         self._load_template_data()
         self.statement_params = {}
         self.template['__node_name__'] = 'CloudFormationTemplate'
         self.template['__node_alias__'] = 'template'
+        self.transactor = session.begin_transaction()
+        self.create_template()
+        self.load_parameters()
+        self.load_mappings()
+        self.load_conditions()
+        self.load_resources()
+        self.load_outputs()
+        if auto_commit:
+            self.commit()
+
+    def __call__(self, template_path: str, connection: ConnectionString):
+        self.path = template_path
+        self._load_template_data()
+        self.statement_params = {}
+        self.template['__node_name__'] = 'CloudFormationTemplate'
+        self.template['__node_alias__'] = 'template'
         with database(connection) as session:
-            session.run('match (n) detach delete n')
+            session.run('MATCH (n) DETACH DELETE n')
             with runner(session) as transactor:
                 self.transactor = transactor
                 self.create_template()
@@ -129,6 +152,10 @@ class Batcher:  # noqa: H238
                 self.load_conditions()
                 self.load_resources()
                 self.load_outputs()
+
+    def commit(self):
+        """Execute transaction."""
+        self.transactor.commit()
 
     def _load_template_data(self):
         self.template = load_cfn_template(self.path)
@@ -662,7 +689,8 @@ class Batcher:  # noqa: H238
         ) and '__loaded__' not in self.template['Resources'][logical_name]:
             self._load_resource(logical_name)
 
-        line_sts = f'{{line: ${ref_alias}_lien}}'
+        line_sts = f'{{line: ${ref_alias}_line}}'
+        self.statement_params[f'{ref_alias}_line'] = line
         if not direct_reference:
             contexts.update([ref_alias])
             contexts_str = ', '.join(contexts)
@@ -670,7 +698,6 @@ class Batcher:  # noqa: H238
                           f"({ref_alias}:Ref {{logicalName: "
                           f"${ref_alias}_log_name}})\n"
                           f"WITH {contexts_str}\n")
-            self.statement_params[f'{ref_alias}_lien'] = line
         else:
             ref_alias = resource_id
             contexts.add(ref_alias)
@@ -729,6 +756,7 @@ class Batcher:  # noqa: H238
             statement += self._fn_reference(
                 alias_fn, resource, contexts, line, direct_reference=True)
         else:
+            contexts_str = ', '.join(contexts)
             statement += (f"SET {alias_fn}log.value = ${alias_fn}_log\n"
                           f"WITH {contexts_str}\n")
             self.statement_params[f'{alias_fn}_log'] = attrs[0]
@@ -1142,7 +1170,7 @@ class Batcher:  # noqa: H238
         self.statement_params[f'{alias_fn}_line'] = line
         contexts.update([alias_fn, f'{alias_fn}shared'])
         if isinstance(attrs, str):
-            statement += f" SET {alias_fn}shared.value: ${alias_fn}_value\n"
+            statement += f" SET {alias_fn}shared.value = ${alias_fn}_value\n"
             self.statement_params[f'{alias_fn}_value'] = attrs
         else:
             func_name = list(attrs.keys())[0]
@@ -1185,7 +1213,7 @@ class Batcher:  # noqa: H238
             contexts.update([alias_false, alias_true])
             if not isinstance(conditions[1], (OrderedDict, CustomDict)):
                 statement += (f"SET {alias_true}.value = "
-                              f"$fn_{alias_true}_value\n")
+                              f"${alias_true}_value\n")
                 self.statement_params[f'{alias_true}_value'] = conditions[1]
             else:
                 statement += self._load_resource_property(
@@ -1193,7 +1221,7 @@ class Batcher:  # noqa: H238
             # manage value_if_false
             if not isinstance(conditions[2], (OrderedDict, CustomDict)):
                 statement += (f"SET {alias_false}.value = "
-                              f"$fn_{alias_false}_value\n")
+                              f"${alias_false}_value\n")
                 self.statement_params[f'{alias_false}_value'] = conditions[2]
             else:
                 statement += self._load_resource_property(
@@ -1226,3 +1254,103 @@ class Batcher:  # noqa: H238
                           f"SET {rel_id}.{key} = ${rel_id}_{key}_value\n")
             self.statement_params[f'{rel_id}_{key}_value'] = value
         return statement
+
+
+class Loader:
+    """Class to load cloudformation templates to neo4j."""
+
+    def __init__(self,
+                 connect_to_db=False,
+                 user: str = None,
+                 passwd: str = None,
+                 host: str = None,
+                 port: int = None):
+        """Load cloudformation templates to Neo4j.
+
+        If you do not want to connect to a database, a docker container will
+        be created with an instance of the database. I was able to get the
+        ``connection`` object for ses used in post-database queries.
+        After using the database you must destroy it with the
+        ``delete_database`` function.
+
+        If you set the ``passwd`` parameter this will be the password that the
+        database of the opposite will have, a random one will be created.
+
+        :param connect_to_db: Connect to existant database.
+        :param user: User to connect to the database.
+        :param passwd: User password to connect to the database.
+        :param host: Database host dir.
+        :param port: Database port.
+        """
+        self.user = user or 'neo4j'
+        self.password = passwd or _random_string(16)
+        self.host = host
+        self.port = port or 11009
+
+        self.templates = []
+        if not connect_to_db:
+            self.create_db()
+        else:
+            if not all(user, passwd, host, port):
+                raise Exception(
+                    (f"If you are trying to connect to a database"
+                     " you must specify(user, passwd, host, port)"))
+            self.connection = ConnectionString(
+                user=self.password,
+                passwd=self.user,
+                host=self.host,
+                port=self.port)
+
+    def create_db(self):
+        """Create a container with an instance of the database."""
+        client = docker.from_env()
+        environment = {
+            'NEO4J_AUTH': f'{self.user}/{self.password}',
+            'NEO4J_dbms_memory_heap_max__size': '2G',
+            'NEO4J_dbms_memory_heap_initial__size': '1G'
+        }
+        ports = {'7687/tcp': f'{self.port}'}
+        container_id = client.containers.run(
+            'neo4j:latest',
+            name=create_alias(f'asserts_neo4j', True),
+            detach=True,
+            environment=environment,
+            ports=ports).attrs['Id']
+        self.container_database = client.containers.get(container_id)
+        self.host = self.container_database.attrs['NetworkSettings'][
+            'IPAddress']
+        self.connection = ConnectionString(
+            user=self.user,
+            passwd=self.password,
+            host='localhost',
+            port=self.port)
+
+    def delete_database(self):
+        """Delete the database"""
+        self.container_database.stop()
+        self.container_database.remove()
+
+    @retry_on_errors
+    def load_templates(self,
+                       path: str,
+                       exclude: list = None,
+                       retry: bool = False):  # pylint: disable=unused-argument
+        """Load all templates to the database.
+
+        If you did not connect to a database use ``retry=True``.
+
+        :param path: Path of cloudformation templates.
+        :param exclude: Paths to exclude.
+        """
+        with database(self.connection) as session:
+            for template_path in get_paths(
+                    path, exclude=exclude,
+                    endswith=CLOUDFORMATION_EXTENSIONS):
+                with suppress(CloudFormationInvalidTemplateError):
+                    start_time = timer()
+                    transaction = Batcher(
+                        template_path, session=session, auto_commit=False)
+                    print(f'Loading: {template_path}')
+                    transaction.commit()
+                    elapsed_time = timer() - start_time
+                    print('    [SUCCESS] time: %.4f seconds' % elapsed_time)

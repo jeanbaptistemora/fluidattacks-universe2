@@ -25,6 +25,7 @@ import botocore
 import cfn_tools
 import hcl
 from lark import LarkError
+from neo4j.exceptions import ServiceUnavailable
 import yaml
 
 # local imports
@@ -75,7 +76,7 @@ def retry_on_errors(func: Callable) -> Callable:
             for _ in range(retry_times):
                 try:
                     return func(*args, **kwargs)
-                except (ConnError, ClientErr):
+                except (ConnError, ClientErr, ServiceUnavailable):
                     # Wait some seconds and retry
                     time.sleep(retry_sleep_seconds)
         return func(*args, **kwargs)

@@ -30,6 +30,7 @@ def database(connection_string: ConnectionString) -> Session:
         yield driver.session()
     finally:
         driver.close()
+        del driver
 
 
 @contextmanager
