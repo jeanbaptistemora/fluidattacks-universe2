@@ -78,6 +78,8 @@ interface IProjectTable {
   description: string;
   name: string;
 }
+const maxNumberOfDisplayedProjects: number = 6;
+
 const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const { tagName } = props.match.params;
   const { data } = useQuery<ITag>(TAG_QUERY, {
@@ -422,11 +424,9 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     ({ value: project.openVulnerabilities + project.closedVulnerabilities, name: project.name })
   );
 
-  const getRandomColor: ((projects: IProjectTag[]) => Dictionary<string>) = (
-    projects: IProjectTag[],
-  ): Dictionary<string> => (
-    Object.assign({}, ...projects.map((project: IProjectTag) => ({
-      [`${project.name}`]:
+  const getRandomColor: ((projects: string[]) => Dictionary<string>) = (projects: string[]): Dictionary<string> => (
+    Object.assign({}, ...projects.map((project: string) => ({
+      [`${project}`]:
         `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`,
     })))
   );
@@ -441,14 +441,19 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     const totalUndefinedVulnerabilities: number = getNumberOfUndefinedVulns(projects);
     const dataGraphs: IBoxInfo[] = projects.map(getPercentUndefinedVulnerabilities);
     const dataGraphSorted: IBoxInfo[] = dataGraphs.sort(sortBoxInfo);
+    let dataGraphSortedSliced: IBoxInfo[] = dataGraphSorted.slice(0, maxNumberOfDisplayedProjects);
+    const remainingVulns: number = totalUndefinedVulnerabilities - dataGraphSortedSliced.reduce(
+      (acc: number, dataGraph: IBoxInfo) => acc + dataGraph.value, 0);
+    dataGraphSortedSliced = remainingVulns > 0 ?
+      [...dataGraphSortedSliced, {name: translate.t("home.tagOther"), value: remainingVulns}] : dataGraphSortedSliced;
     const chartData: ChartData = {
       datasets: [{
-        backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
-        data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
-        hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
+        backgroundColor: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
+        data: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => dataGraph.value),
+        hoverBackgroundColor: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
         ...customDoughnutBorder,
       }],
-      labels: dataGraphSorted.map(
+      labels: dataGraphSortedSliced.map(
         (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalUndefinedVulnerabilities)}% ${dataGraph.name}`),
     };
 
@@ -461,14 +466,19 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     const totalVulnerabilities: number = getNumberOfVulns(projects);
     const dataGraphs: IBoxInfo[] = projects.map(getTotalVulnsByProject);
     const dataGraphSorted: IBoxInfo[] = dataGraphs.sort(sortBoxInfo);
+    let dataGraphSortedSliced: IBoxInfo[] = dataGraphSorted.slice(0, maxNumberOfDisplayedProjects);
+    const remainingVulns: number = totalVulnerabilities - dataGraphSortedSliced.reduce(
+      (acc: number, dataGraph: IBoxInfo) => acc + dataGraph.value, 0);
+    dataGraphSortedSliced = remainingVulns > 0 ?
+      [...dataGraphSortedSliced, {name: translate.t("home.tagOther"), value: remainingVulns}] : dataGraphSortedSliced;
     const chartData: ChartData = {
       datasets: [{
-        backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
-        data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
-        hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
+        backgroundColor: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
+        data: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => dataGraph.value),
+        hoverBackgroundColor: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
         ...customDoughnutBorder,
       }],
-      labels: dataGraphSorted.map(
+      labels: dataGraphSortedSliced.map(
         (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalVulnerabilities)}% ${dataGraph.name}`),
     };
 
@@ -482,14 +492,19 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     const dataGraphs: IBoxInfo[] = projects.map(
       (project: IProjectTag) => ({ value: project.openVulnerabilities, name: project.name }));
     const dataGraphSorted: IBoxInfo[] = dataGraphs.sort(sortBoxInfo);
+    let dataGraphSortedSliced: IBoxInfo[] = dataGraphSorted.slice(0, maxNumberOfDisplayedProjects);
+    const remainingVulns: number = totalVulnerabilities - dataGraphSortedSliced.reduce(
+      (acc: number, dataGraph: IBoxInfo) => acc + dataGraph.value, 0);
+    dataGraphSortedSliced = remainingVulns > 0 ?
+      [...dataGraphSortedSliced, {name: translate.t("home.tagOther"), value: remainingVulns}] : dataGraphSortedSliced;
     const chartData: ChartData = {
       datasets: [{
-        backgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
-        data: dataGraphSorted.map((dataGraph: IBoxInfo) => dataGraph.value),
-        hoverBackgroundColor: dataGraphSorted.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
+        backgroundColor: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 0.75)`),
+        data: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => dataGraph.value),
+        hoverBackgroundColor: dataGraphSortedSliced.map((dataGraph: IBoxInfo) => `rgb(${colors[dataGraph.name]}, 1)`),
         ...customDoughnutBorder,
       }],
-      labels: dataGraphSorted.map(
+      labels: dataGraphSortedSliced.map(
         (dataGraph: IBoxInfo) => `${calcPercent(dataGraph.value, totalVulnerabilities)}% ${dataGraph.name}`),
     };
 
@@ -513,7 +528,8 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     );
   }
 
-  const randomColors: Dictionary<string> = getRandomColor(data.tag.projects);
+  const randomColors: Dictionary<string> = getRandomColor(
+    [...data.tag.projects.map((project: IProjectTag) => project.name), translate.t("home.tagOther")]);
   const projectWithMaxSeverity: string = getMaxSeverityProject(data.tag.projects);
   const projectWithMaxOpenSeverity: string = getMaxOpenSeverityProject(data.tag.projects);
   const projectWithLastClosingVuln: string = getLastClosingVulnProject(data.tag.projects);
