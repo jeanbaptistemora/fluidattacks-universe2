@@ -1,22 +1,22 @@
 :slug: rules/262/
 :category: services
 :description: This document contains the details of the security requirements related to the definition and management of third-party services in the organization. This requirement establishes the importance of verifying that third-party components are always up to date in a stable and tested version.
-:keywords: Requirement, Security, Product, Stable, Updated, Tested.
+:keywords: Third-party, Dependency, Up-to-date, Stable, ASVS, OWASP
 :rules: yes
 
 = REQ.262 Verify third-party components
 
 == Requirement
 
-The components provided by third-parties
-must be implemented in stable, tested and updated versions.
+The system must use stable, tested and up-to-date versions of third-party
+components.
 
 == Description
 
-. The organization must ensure that all its products
+. The organization must ensure the version of all of its products
 and the products provided by third-parties
-are up to date to the latest stable and tested version,
-reducing the risk of exploiting vulnerabilities
+is up to date, stable and tested.
+This reduces the risk of including vulnerabilities
 reported in previous versions.
 
 . When a product changes its version,
@@ -27,24 +27,24 @@ related to recently discovered vulnerabilities.
 == Implementation
 
 . Identify all the products that compose the technology stack,
-including operating systems, versions, dependencies,
-logical and physical authentication, features and person in charge.
-This inventory must be kept updated.
+including operating systems, versions, dependencies, and
+logical and physical authentication features.
+This inventory must be constantly updated.
 
 . Monitor the security of all identified components in public databases,
 implementing alerts when public vulnerabilities are disclosed
-in the products used by the organization
+for the products used by the organization
 and determining the affectation level
-caused by the reported vulnerability.
+caused by the reported vulnerabilities.
 
 . Apply the necessary updates taking into account the vulnerability type,
 the affected components,
-and the risk classification within the organization.
+and its risk classification within the organization.
 
 . Define security policies for the used components,
 requiring updated versions, specific software,
 ethical hacking and product licenses;
-include internal policies  to disable unused features
+include internal policies to disable unused features
 and update default settings
 that may pose a risk to the organization.
 
@@ -52,9 +52,9 @@ that may pose a risk to the organization.
 
 . An attacker obtains technical information about a specific product.
 If the service/software is out of date,
-there could be public exploits <<r1, ^[1]^>>
+there could be public exploits <<r2, ^[1]^>>
 designed to attack known vulnerabilities
-present in previous versions of the product.
+present in the in-use version of the product.
 
 == Attributes
 
@@ -72,4 +72,10 @@ present in previous versions of the product.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.14 Configuration Architectural Requirements.(1.14.1)]
+Verify the application does not use unsupported, insecure, or deprecated
+client-side technologies such as NSAPI plugins, Flash, Shockwave, ActiveX,
+Silverlight, NACL, or client-side Java applets.
+
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].
