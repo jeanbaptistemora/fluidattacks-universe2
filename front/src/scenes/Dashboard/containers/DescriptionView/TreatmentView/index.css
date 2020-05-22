@@ -1,0 +1,17 @@
+:local .historicTreatment {
+    cursor: pointer !important;
+    font-weight: bold !important;
+}
+
+:local .tableHeader > th {
+	padding: 2px 3px !important;
+	white-space: unset !important;
+	text-align: center !important;
+}
+
+:local .tableBody > td {
+	white-space: unset !important;
+	padding: 2px 3px !important;
+	word-break: break-all !important;
+	border: none !important;
+}

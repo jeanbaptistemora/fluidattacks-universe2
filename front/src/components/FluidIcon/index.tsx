@@ -5,6 +5,8 @@ import { default as avabilityHighIcon } from "../../resources/availability_high.
 import { default as avabilityLowIcon } from "../../resources/availability_low.svg";
 import { default as avabilityNoneIcon } from "../../resources/availability_none.svg";
 import { default as calendarIcon } from "../../resources/calendar.svg";
+import { default as caretDownIcon } from "../../resources/caret_down.svg";
+import { default as caretRightIcon } from "../../resources/caret_right.svg";
 import { default as complexityHighIcon } from "../../resources/complexity_high.svg";
 import { default as complexityLowIcon } from "../../resources/complexity_low.svg";
 import { default as confidentialityHighIcon } from "../../resources/confidentiality_high.svg";
@@ -57,6 +59,8 @@ const getIcon: { [value: string]: string } = {
   availabilityLow: avabilityLowIcon,
   availabilityNone: avabilityNoneIcon,
   calendar: calendarIcon,
+  caretDown: caretDownIcon,
+  caretRight: caretRightIcon,
   circle: defaultIcon,
   complexityHigh: complexityHighIcon,
   complexityLow: complexityLowIcon,

@@ -468,6 +468,7 @@ const enTranslations: Dictionary = {
         rejected: "Rejected",
         title: "Treatment",
       },
+      treatment_historic: "Historic Treatment",
       treatment_just: "Treatment justification",
       treatment_mgr: "Treatment manager",
       type: {

@@ -453,6 +453,36 @@ export const formatEvents: ((dataset: IEventsDataset) => IEventsDataset) =
     return { ...event, eventType, eventStatus };
   });
 
+const formatHistoricTreatment: (
+  (treatmentEvent: IHistoricTreatment, translateTreatment: boolean) => IHistoricTreatment) = (
+  treatmentEvent: IHistoricTreatment, translateTreatment: boolean,
+): IHistoricTreatment => {
+
+  const acceptanceDate: string = _.get(treatmentEvent, "acceptance_date", "")
+    .split(" ")[0];
+  const acceptanceStatus: string = _.get(treatmentEvent, "acceptance_status", "")
+    .split(" ")[0];
+  const treatment: string = translateTreatment
+    ? formatTreatment(
+        _.get(treatmentEvent, "treatment")
+          .replace(" ", "_"),
+        "open",
+      )
+    : _.get(treatmentEvent, "treatment")
+        .replace(" ", "_");
+  const justification: string = _.get(treatmentEvent, "justification", "");
+  const acceptationUser: string = _.get(treatmentEvent, "user", "");
+
+  return {
+    acceptanceDate,
+    acceptanceStatus,
+    date: treatmentEvent.date,
+    justification,
+    treatment,
+    user: acceptationUser,
+  };
+};
+
 export const getLastTreatment: ((historic: IHistoricTreatment[]) => IHistoricTreatment) = (
   historic: IHistoricTreatment[],
 ): IHistoricTreatment => {
@@ -460,23 +490,17 @@ export const getLastTreatment: ((historic: IHistoricTreatment[]) => IHistoricTre
     ? _.last(historic) as IHistoricTreatment
     : { date: "", treatment: "", user: "" };
 
-  const acceptanceDate: string = _.get(lastTreatment, "acceptance_date", "")
-    .split(" ")[0];
-  const acceptanceStatus: string = _.get(lastTreatment, "acceptance_status", "")
-    .split(" ")[0];
-  const treatment: string = _.get(lastTreatment, "treatment")
-    .replace(" ", "_");
-  const justification: string = _.get(lastTreatment, "justification", "");
-  const acceptationUser: string = _.get(lastTreatment, "user", "");
+  return formatHistoricTreatment(lastTreatment, false);
+};
 
-  return {
-    acceptanceDate,
-    acceptanceStatus,
-    date: lastTreatment.date,
-    justification,
-    treatment,
-    user: acceptationUser,
-  };
+export const getPreviousTreatment: ((historic: IHistoricTreatment[]) => IHistoricTreatment[]) = (
+  historic: IHistoricTreatment[],
+): IHistoricTreatment[] => {
+  const previousTreatment: IHistoricTreatment[] = historic.length > 1
+    ? historic.slice(0, -1)
+    : [];
+
+  return previousTreatment.map((treatment: IHistoricTreatment) => formatHistoricTreatment(treatment, true));
 };
 
 export interface IStatusGraph {

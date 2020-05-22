@@ -14,8 +14,11 @@ import { useSelector } from "react-redux";
 import { formValueSelector } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
+import { DataTableNext } from "../../../../../components/DataTableNext";
+import { IHeader } from "../../../../../components/DataTableNext/types";
+import { FluidIcon } from "../../../../../components/FluidIcon";
 import { Can } from "../../../../../utils/authz/Can";
-import { formatDropdownField, getLastTreatment } from "../../../../../utils/formatHelpers";
+import { formatDropdownField, getLastTreatment, getPreviousTreatment } from "../../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
@@ -26,6 +29,7 @@ import { GenericForm } from "../../../components/GenericForm";
 import { RemediationModal } from "../../../components/RemediationModal";
 import { HANDLE_ACCEPTATION } from "../queries";
 import { IHistoricTreatment } from "../types";
+import { default as style } from "./index.css";
 import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "./queries";
 
 export interface ITreatmentViewProps {
@@ -46,6 +50,11 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   // State management
   const formValues: Dictionary<string> = useSelector((state: {}) =>
     formValueSelector("editTreatment")(state, "treatment", ""));
+  const [isTreatmentExpanded, toggleTreatmentExpansion] = React.useState(false);
+
+  const expandHistoricTreatment: (() => void) = (): void => {
+    toggleTreatmentExpansion(!isTreatmentExpanded);
+  };
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FINDING_TREATMENT, {
@@ -136,6 +145,28 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   }
 
   const lastTreatment: IHistoricTreatment = getLastTreatment(data.finding.historicTreatment);
+  const historicTreatment: IHistoricTreatment[] = getPreviousTreatment(data.finding.historicTreatment);
+  const historicTreatmentHeaders: IHeader[] = [
+    {
+      align: "center",
+      dataField: "treatment",
+      header: translate.t("search_findings.tab_description.treatment.title"),
+    },
+    {
+      align: "center",
+      dataField: "acceptanceDate",
+      header: translate.t("search_findings.tab_description.acceptance_date"),
+    },
+    {
+      align: "left",
+      dataField: "justification",
+      header: translate.t("search_findings.tab_description.treatment_just"),
+    },
+    {
+      align: "center",
+      dataField: "user",
+      header: translate.t("search_findings.tab_description.treatment_mgr"),
+    }];
 
   let treatmentLabel: string = translate.t(formatDropdownField(lastTreatment.treatment));
   if (lastTreatment.treatment === "ACCEPTED_UNDEFINED" && lastTreatment.acceptanceStatus !== "APPROVED") {
@@ -263,6 +294,40 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                         />
                       )}
                     </Can>
+                  </Col>
+                </Row>
+              ) : undefined}
+              {!_.isEmpty(historicTreatment) && !props.isEditing ? (
+                <Row>
+                  <Col md={12}>
+                    {isTreatmentExpanded ? (
+                      <React.Fragment>
+                        <label className={style.historicTreatment} onClick={expandHistoricTreatment}>
+                          <FluidIcon icon="caretDown" />
+                            &nbsp; {translate.t("search_findings.tab_description.treatment_historic")}
+                        </label>
+                        <DataTableNext
+                          id="historicTreatment"
+                          bordered={false}
+                          dataset={historicTreatment}
+                          exportCsv={false}
+                          headers={historicTreatmentHeaders}
+                          onClickRow={undefined}
+                          pageSize={5}
+                          remote={false}
+                          search={false}
+                          tableHeader={style.tableHeader}
+                          tableBody={style.tableBody}
+                          title=""
+                        />
+                      </React.Fragment>
+                    ) :
+                      <React.Fragment>
+                        <label className={style.historicTreatment} onClick={expandHistoricTreatment}>
+                          <FluidIcon icon="caretRight" />
+                            &nbsp; {translate.t("search_findings.tab_description.treatment_historic")}
+                        </label>
+                      </React.Fragment>}
                   </Col>
                 </Row>
               ) : undefined}
