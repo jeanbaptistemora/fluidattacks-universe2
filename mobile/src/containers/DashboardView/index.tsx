@@ -2,6 +2,14 @@ import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GoogleUser } from "expo-google-app-auth";
 import * as SecureStore from "expo-secure-store";
+/* tslint:disable: no-import-side-effect no-submodule-imports
+ * Necessary polyfill due to a bug in RN for android
+ * @see https://github.com/facebook/react-native/issues/19410
+ */
+import "intl";
+import "intl/locale-data/jsonp/en-US";
+import "intl/locale-data/jsonp/es-CO";
+// tslint:enable
 import _ from "lodash";
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
