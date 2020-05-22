@@ -5,6 +5,7 @@
 
 # standar imports
 from collections import OrderedDict
+from contextlib import suppress
 from copy import copy
 
 # 3rd party imports
@@ -65,6 +66,11 @@ def create_alias(name: str, randoms=False) -> str:
     return alias
 
 
+def create_label(name: str) -> str:
+    """Create an Label for Cipher statement."""
+    return name.replace('-', '_')
+
+
 def _fn_reference_logincal_id(logical_id: str) -> tuple:
     id_node = logical_id.replace('::', ':')
     alias_id = create_alias(id_node, True)
@@ -77,7 +83,11 @@ def _scan_sub_expresion(expresion) -> tuple:
     grammar = Suppress(Optional(Word(printables1))) + Suppress(
         Char('$')) + Optional(
             nestedExpr(opener='{', closer='}', content=Word(printables2)))
-    return (i[0][0][0] for i in grammar.scanString(expresion))
+    result = []
+    for reference in grammar.scanString(expresion):
+        with suppress(IndexError):
+            result.append(reference[0][0][0])
+    return result
 
 
 def _get_line(object_, key):
@@ -130,10 +140,12 @@ class Batcher:  # noqa: H238
         alias = self.template['__node_alias__']
         node_name = self.template['__node_name__']
 
-        statement = (f"MERGE ({alias}:{node_name} "
-                     "{path: $path, "
-                     "AWSTemplateFormatVersion: $version, "
-                     "Description: $description})\n")
+        statement = (f"CREATE ({alias}:{node_name} {{path: $path}})\n")
+        statement += (
+            f"CREATE ({alias})-[:HAS]->(:Attribute:AWSTemplateFormatVersion"
+            " {value: $version})\n"
+            f"CREATE ({alias})-[:HAS]->(:Attribute:Description"
+            " {value: $description})\n")
         self.transactor.run(statement, **{
             'path': self.path,
             'version': version,
@@ -153,14 +165,11 @@ class Batcher:  # noqa: H238
                 f"{{name: $param_{alias_param}_{alias_attr_name}_name, "
                 f"value: $param_{alias_param}_{alias_attr_name}_value}}")
             statement += (
-                f"MERGE ({alias_param}_{alias_attr_name}_:ParameterAttribute"
-                f" {attr_properties})\n"
                 # create relationship between attribute and parameter
-                f"MERGE (param_{alias_param})-"
-                f"[rel_{alias_param}_{alias_attr_name}:HAS_ATTRIBUTE]->"
-                f"({alias_param}_{alias_attr_name}_)\n"
-                f"SET rel_{alias_param}_{alias_attr_name}.line ="
-                f" $param_{alias_param}_{alias_attr_name}_line\n")
+                f"CREATE (param_{alias_param})-"
+                f"[rel_{alias_param}_{alias_attr_name}:HAS"
+                f" {{line: $param_{alias_param}_{alias_attr_name}_line\n}}]->"
+                f"(:Attribute:{create_label(attr_name)} {attr_properties})\n")
 
             line = _get_line(param_attrs, attr_name)
 
@@ -185,13 +194,11 @@ class Batcher:  # noqa: H238
             alias_opt = create_alias(opt_name, True)
             map_properties = (f"{{name: $map_{alias_map}_{alias_opt}_name}}")
 
-            statement += (f"MERGE ({alias_map}_{alias_opt}_:MapOption"
-                          f" {map_properties})\n"
-                          f"MERGE (map_{alias_map})-"
-                          f"[rel_{alias_map}_{alias_opt}:HAS_OPTION]->"
-                          f"({alias_map}_{alias_opt}_)\n"
-                          f"SET rel_{alias_map}_{alias_opt}.line ="
-                          f" $map_{alias_map}_{alias_opt}_line\n")
+            statement += (f"CREATE (map_{alias_map})-"
+                          f"[rel_{alias_map}_{alias_opt}:HAS"
+                          f" {{line: $map_{alias_map}_{alias_opt}_line}}]->"
+                          f"({alias_map}_{alias_opt}_:MapOption:"
+                          f"{create_label(opt_name)} {map_properties})\n")
 
             line = _get_line(map_options, opt_name)
             self.statement_params[f'map_{alias_map}_{alias_opt}_line'] = line
@@ -206,9 +213,9 @@ class Batcher:  # noqa: H238
 
                 statement += (
                     f"MERGE ({alias_map}_{alias_opt}_)-"
-                    f"[rel_{alias_map}_{alias_opt}_{var_name}:HAS_VAR "
+                    f"[rel_{alias_map}_{alias_opt}_{var_name}:HAS"
                     f"{{line: $rel_{alias_map}_{alias_opt}_{var_name}_line}}]-"
-                    f"(:MapVar "
+                    f"(:MapVar:{create_alias(var_name)} "
                     f"{{name: ${alias_map}_{alias_opt}_{var_name}_name,"
                     f" value: ${alias_map}_{alias_opt}_{var_name}_value}})\n")
                 self.statement_params[
@@ -237,11 +244,9 @@ class Batcher:  # noqa: H238
         statement = (f"MATCH ({alias_template}:{node_template_name})\n"
                      f'WHERE {alias_template}.path = "{self.path}"\n'
                      f"CREATE ({alias_template})-"
-                     f"[rel_{alias_parameters}:CONTAINS]->"
-                     f"({alias_parameters}:Parameters)\n"
-                     f"SET rel_{alias_parameters}.line ="
-                     f" $rel_{alias_parameters}_line\n")
-        self.statement_params[f'rel_{alias_parameters}_line'] = get_line(
+                     f"[:CONTAINS {{line: ${alias_parameters}_line}}]->"
+                     f"({alias_parameters}:Parameters)\n")
+        self.statement_params[f'{alias_parameters}_line'] = get_line(
             self.template['Parameters'])
 
         for param_name, param_attrs in self.template['Parameters'].items():
@@ -251,18 +256,17 @@ class Batcher:  # noqa: H238
             # create the node for the parameter
             param_statement = (
                 f"CREATE ({alias_parameters})-"
-                f"[rel_{alias_param}:DECLARE]->"
-                f"(param_{alias_param}:Reference:Parameter"
+                f"[:DECLARE {{line: $rel_{alias_param}_line}}]->"
+                f"(param_{alias_param}:Reference:Parameter:"
+                f"{create_label(param_name)}"
                 # set attributes of node
-                f" {{logicalName: $param_name_{alias_param}}})\n"
-                f"SET rel_{alias_param}.line = $line_rel_{alias_param}\n")
-            self.statement_params[f'param_name_{alias_param}'] = param_name
-            self.statement_params[f'line_rel_{alias_param}'] = get_line(
+                f" {{logicalName: $param_{alias_param}}})\n")
+            self.statement_params[f'param_{alias_param}'] = param_name
+            self.statement_params[f'rel_{alias_param}_line'] = get_line(
                 self.template['Parameters'][param_name])
             # add parameter attributes
             param_statement += self._load_parameter_attributes((param_name,
                                                                 param_attrs))
-
             statement += param_statement
 
         return self.transactor.run(statement, **self.statement_params)
@@ -282,10 +286,8 @@ class Batcher:  # noqa: H238
         statement = (f"MATCH ({alias_template}:{node_template_name})\n"
                      f'WHERE {alias_template}.path = "{self.path}"\n'
                      f"CREATE ({alias_template})-"
-                     f"[rel_{alias_mappings}:CONTAINS]->"
-                     f"({alias_mappings}:Mappings)\n"
-                     f"SET rel_{alias_mappings}.line = "
-                     f"$rel_{alias_mappings}_line\n")
+                     f"[:CONTAINS {{line: $rel_{alias_mappings}_line}}]->"
+                     f"({alias_mappings}:Mappings)\n")
         self.statement_params[f'rel_{alias_mappings}_line'] = get_line(
             self.template['Mappings'])
 
@@ -300,9 +302,10 @@ class Batcher:  # noqa: H238
                 continue
             alias_map = create_alias(map_name)
             map_statement = (
-                f"CREATE ({alias_mappings})-[rel_{alias_map}:DECLARE]->"
-                f"(map_{alias_map}:Mapping {{name: $map_name_{alias_map}}})\n"
-                f"SET rel_{alias_map}.line = $rel_{alias_map}_line\n")
+                f"CREATE ({alias_mappings})-[:DECLARE"
+                f" {{line: $rel_{alias_map}_line}}]->"
+                f"(map_{alias_map}:Mapping:{create_label(map_name)}"
+                f" {{name: $map_name_{alias_map}}})\n")
             self.statement_params[f'map_name_{alias_map}'] = map_name
             self.statement_params[f'rel_{alias_map}_line'] = line
 
@@ -323,52 +326,49 @@ class Batcher:  # noqa: H238
         alias_template = self.template['__node_alias__']
         node_template_name = self.template['__node_name__']
         # create relationship between templeate and node conditions
-        statement = (
-            f"MATCH ({alias_template}:{node_template_name})\n"
-            f'WHERE {alias_template}.path = "{self.path}"\n'
-            f"CREATE ({alias_template})-[rel_{alias_conditions}:CONTAINS"
-            f" {{line: $rel_{alias_conditions}_line}}]->"
-            f"({alias_conditions}:Conditions)\n")
+        statement = (f"MATCH ({alias_template}:{node_template_name})\n"
+                     f'WHERE {alias_template}.path = "{self.path}"\n'
+                     f"CREATE ({alias_template})-[:CONTAINS"
+                     f" {{line: $rel_{alias_conditions}_line}}]->"
+                     f"({alias_conditions}:Conditions)\n")
 
         self.statement_params[f'rel_{alias_conditions}_line'] = get_line(
             self.template['Conditions'])
 
         # Create create relationship between contition nodes and each condition
-        for condition_name, condition in self.template['Conditions'].items():
-            if condition_name.startswith('__'):
+        for con_name, condition in self.template['Conditions'].items():
+            if con_name.startswith('__'):
                 continue
-            if condition_name.startswith('Fn::'):
+            if con_name.startswith('Fn::'):
                 contexts = {alias_conditions}
                 statement += self.load_intrinsic_func(
-                    alias_conditions, condition_name, condition, contexts)
+                    alias_conditions, con_name, condition, contexts)
                 continue
-            alias_con = create_alias(f"con_{condition_name}")
+            alias_con = create_alias(f"con_{con_name}")
             statement += (f"CREATE ({alias_conditions})-"
-                          f"[rel_{alias_con}:DECLARE"
-                          f" {{line: $rel_{alias_con}_line}}]->"
-                          f"({alias_con}:Condition "
+                          f"[:DECLARE {{line: $rel_{alias_con}_line}}]->"
+                          f"({alias_con}:Condition:{create_label(con_name)} "
                           f"{{name: $con_name_{alias_con}}})\n")
-            self.statement_params[f'con_name_{alias_con}'] = condition_name
-            line = _get_line(self.template['Conditions'], condition_name)
+            self.statement_params[f'con_name_{alias_con}'] = con_name
+            line = _get_line(self.template['Conditions'], con_name)
             self.statement_params[f'rel_{alias_con}_line'] = line
 
         self.transactor.run(statement, **self.statement_params)
 
         # create relationship between the conditions and the functions that
         # each one executes
-        for condition_name, condition in self.template['Conditions'].items():
-            if condition_name.startswith('__') or condition_name.startswith(
-                    'Fn::'):
+        for con_name, condition in self.template['Conditions'].items():
+            if con_name.startswith('__') or con_name.startswith('Fn::'):
                 continue
-            alias_condition = create_alias(f"con_{condition_name}")
+            alias_condition = create_alias(f"con_{con_name}")
             # create reference to condition
             statement_condition = (
                 f"MATCH ({alias_condition}:Condition)\n"
                 f"WHERE {alias_condition}.name = ${alias_condition}_value\n")
-            self.statement_params[f'{alias_condition}_value'] = condition_name
+            self.statement_params[f'{alias_condition}_value'] = con_name
             # create relationship between the condition and the function it
             #  executes
-            line = _get_line(self.template['Conditions'], condition_name)
+            line = _get_line(self.template['Conditions'], con_name)
             statement_condition += self._load_condition_funcs(
                 (alias_condition, condition), {alias_condition}, line)
             self.transactor.run(statement_condition, **self.statement_params)
@@ -384,12 +384,11 @@ class Batcher:  # noqa: H238
         alias_template = self.template['__node_alias__']
         node_template_name = self.template['__node_name__']
         # create relationship between templeate and node conditions
-        statement = (
-            f"MATCH ({alias_template}:{node_template_name})\n"
-            f'WHERE {alias_template}.path = "{self.path}"\n'
-            f"CREATE ({alias_template})-[rel_{alias_resources}:CONTAINS "
-            f"{{line: $rel_{alias_resources}_line}}]->"
-            f"({alias_resources}:Resources)\n")
+        statement = (f"MATCH ({alias_template}:{node_template_name})\n"
+                     f'WHERE {alias_template}.path = "{self.path}"\n'
+                     f"CREATE ({alias_template})-[:CONTAINS "
+                     f"{{line: $rel_{alias_resources}_line}}]->"
+                     f"({alias_resources}:Resources)\n")
         self.statement_params[f'rel_{alias_resources}_line'] = get_line(
             self.template['Resources'])
         self.transactor.run(statement, **self.statement_params)
@@ -399,7 +398,13 @@ class Batcher:  # noqa: H238
                     '__') or self.template['Resources'][resource_name].get(
                         '__loaded__', False):
                 continue
-            self._load_resource(resource_name)
+            if resource_name.startswith('Fn::'):
+                contexts = {alias_resources}
+                statement += self.load_intrinsic_func(
+                    alias_resources, resource_name,
+                    self.template['Resources'][resource_name], contexts)
+            else:
+                self._load_resource(resource_name)
 
     def load_outputs(self):
         """Execute a statement that creates the nodes for the template Outputs.
@@ -413,12 +418,11 @@ class Batcher:  # noqa: H238
         alias_template = self.template['__node_alias__']
         node_template_name = self.template['__node_name__']
 
-        statement = (
-            f"MATCH ({alias_template}:{node_template_name})\n"
-            f'WHERE {alias_template}.path = "{self.path}"\n'
-            f"CREATE ({alias_template})-[rel_{alias_outputs}:CONTAINS "
-            f"{{line: $rel_{alias_outputs}_line}}]->"
-            f"({alias_outputs}:Outputs)\n")
+        statement = (f"MATCH ({alias_template}:{node_template_name})\n"
+                     f'WHERE {alias_template}.path = "{self.path}"\n'
+                     f"CREATE ({alias_template})-[:CONTAINS "
+                     f"{{line: $rel_{alias_outputs}_line}}]->"
+                     f"({alias_outputs}:Outputs)\n")
         self.statement_params[f'rel_{alias_outputs}_line'] = get_line(
             self.template['Outputs'])
         self.transactor.run(statement, **self.statement_params)
@@ -432,12 +436,10 @@ class Batcher:  # noqa: H238
                 continue
             alias_out = create_alias(out_name, True)
             statement += (f"CREATE ({alias_outputs})-"
-                          f"[rel_{alias_out}:DECLARE"
-                          f" {{line: $rel_{alias_out}_line}}]->"
-                          f"({alias_out}:Output "
-                          f"{{name: $out_name{alias_out}, "
-                          f"Description: $out_desc{alias_out}}})\n")
-            contexts.update([alias_out, f'rel_{alias_out}'])
+                          f"[:DECLARE {{line: $rel_{alias_out}_line}}]->"
+                          f"({alias_out}:Output:{create_label(out_name)} "
+                          f"{{Description: $out_desc{alias_out}}})\n")
+            contexts.add(alias_out)
             self.statement_params[f'out_name{alias_out}'] = out_name
             line = _get_line(self.template['Outputs'], out_name)
             self.statement_params[f'rel_{alias_out}_line'] = line
@@ -612,36 +614,37 @@ class Batcher:  # noqa: H238
         elif func_name in CONDITIONAL_FUNCS:
             statement += self._fn_conditional(func_name, resource_alias, attrs,
                                               contexts, line, **kwargs)
+        else:
+            print(func_name)
         return statement
 
     def _fn_base64(self,
                    resource_id,
                    attrs,
                    contexts: set = None,
-                   line='unknown',
-                   **rel_kwargs):
+                   line='unknown'):
         """Create a statement to load intrinsic function Fn::Base64."""
         contexts = contexts or set({})
         alias_fn = create_alias("fn_base_base64", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-                     f" {{line: ${alias_fn}_line}}]->"
-                     f"({alias_fn}: Fn:Base64)\n")
+        alias_value = create_alias(f'{alias_fn}_value')
+
+        line_sts = f'{{line: ${alias_fn}_line}}'
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}: Fn:Base64)-[:HAS {line_sts}]->"
+                     f"({alias_value}:Value:ValueToEncode)\n")
         self.statement_params[f'{alias_fn}_line'] = line
-        contexts.update([alias_fn, rel_resource])
+        contexts.update([alias_fn, alias_value])
+
         if isinstance(attrs, (str, int, bool)):
-            statement += (f"SET {alias_fn} += {{valueToEncode = "
-                          f"${alias_fn}_value, value: ${alias_fn}_value}}\n")
-            self.statement_params[f'{alias_fn}_value'] = attrs
+            statement += f"SET {alias_value}.value = ${alias_value}_value\n"
+            self.statement_params[f'{alias_value}_value'] = attrs
         elif isinstance(attrs, (OrderedDict, CustomDict)):
             for key, _ in attrs.items():
+                if key.startswith('__'):
+                    continue
                 line = _get_line(attrs, key) or line
                 statement += self.load_intrinsic_func(
-                    alias_fn, key, attrs[key], contexts, line)
-        if rel_kwargs:
-            contexts.add(rel_resource)
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
+                    alias_value, key, attrs[key], contexts, line)
 
         return statement
 
@@ -650,54 +653,44 @@ class Batcher:  # noqa: H238
                       logical_name: str,
                       contexts: set = None,
                       line='unknown',
-                      direct_reference=False,
-                      **rel_kwargs):
+                      direct_reference=False):
         """Loaf intrinsic function Ref."""
         contexts = contexts or set([])
         ref_alias = create_alias(f'ref_{resource_id}_{logical_name}', True)
-        param_alias = create_alias(f'ref_{resource_id}_{logical_name}')
-        rel_resource = create_alias(f'rel_{resource_id}', True)
         statement = ""
         if logical_name in self.template['Resources'].keys(
         ) and '__loaded__' not in self.template['Resources'][logical_name]:
             self._load_resource(logical_name)
+
+        line_sts = f'{{line: ${ref_alias}_lien}}'
         if not direct_reference:
-            contexts.update([ref_alias, rel_resource])
+            contexts.update([ref_alias])
             contexts_str = ', '.join(contexts)
-            statement += (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN"
-                          f" {{line: ${rel_resource}_lien}}]->"
+            statement += (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
                           f"({ref_alias}:Ref {{logicalName: "
                           f"${ref_alias}_log_name}})\n"
                           f"WITH {contexts_str}\n")
-            self.statement_params[f'{rel_resource}_lien'] = line
+            self.statement_params[f'{ref_alias}_lien'] = line
         else:
             ref_alias = resource_id
             contexts.add(ref_alias)
 
+        param_alias = create_alias(f'ref_{resource_id}_{logical_name}')
         if not logical_name.startswith('AWS::'):
             statement += (
                 f"MATCH ({param_alias}: Reference)\n"
                 f"WHERE {param_alias}.logicalName = ${param_alias}_name\n"
-                f"CREATE ({ref_alias})-[rel_{param_alias}:REFERENCE_TO"
-                f" {{line: $rel_{param_alias}_line}}]->"
+                f"CREATE ({ref_alias})-[:REFERENCE_TO {line_sts}]->"
                 f"({param_alias})\n")
-            contexts.update([param_alias, f'rel_{param_alias}'])
-            self.statement_params[f'rel_{param_alias}_line'] = line
+            contexts.update([param_alias])
+            self.statement_params[f'{param_alias}_line'] = line
         else:
-            contexts.add(f'rel_{param_alias}')
             log_id, log_sts = _fn_reference_logincal_id(logical_name)
-            statement += (
-                f"{log_sts}"
-                f"CREATE ({ref_alias})-[rel_{param_alias}:REFERENCE_TO"
-                f" {{line: $rel_{param_alias}_line}}]->"
-                f"({log_id})\n")
+            statement += (f"{log_sts}"
+                          f"CREATE ({ref_alias})-[:REFERENCE_TO {line_sts}]->"
+                          f"({log_id})\n")
 
-        if rel_kwargs:
-            contexts.add(rel_resource)
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
-
-        self.statement_params[f'rel_{param_alias}_line'] = line
+        self.statement_params[f'{param_alias}_line'] = line
         self.statement_params[f'{ref_alias}_log_name'] = logical_name
         self.statement_params[f'{param_alias}_name'] = logical_name
         return statement
@@ -706,219 +699,226 @@ class Batcher:  # noqa: H238
                    resource_id: str,
                    attrs,
                    contexts: set = None,
-                   line='unknown',
-                   **rel_kwargs):
+                   line='unknown'):
         """Create a statement to load intrinsic function Fn::GettAtt."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_getatt", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        contexts.update([alias_fn, rel_resource])
+        contexts.add(alias_fn)
         contexts_str = ', '.join(contexts)
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN"
-                     f" {{line: ${rel_resource}_line}}]->"
-                     f"({alias_fn}:Fn:GetAtt "
-                     f"{{logicalNameOfResource: ${alias_fn}_log_name}})\n"
+
+        line_sts = f'{{line: ${alias_fn}_line}}'
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}:Fn:GetAtt)\n"
                      f"WITH {contexts_str}\n")
-        self.statement_params[f'{rel_resource}_line'] = line
-        self.statement_params[f'{alias_fn}_log_name'] = attrs[0]
+        self.statement_params[f'{alias_fn}_line'] = line
+
+        # load logical name of resource
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}log:Value:LogicalNameOfResource)\n"
+                      f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}att:Value:AttributeName)\n")
+        contexts.update([f'{alias_fn}log', f'{alias_fn}att'])
         if isinstance(attrs, str):
-            statement += f"WITH {contexts_str}\n"
-            resource = attrs.split('.')[0]
-            statement += self._fn_reference(alias_fn, resource,
-                                            contexts, line,
-                                            direct_reference=True)
+            contexts_str = ', '.join(contexts)
+            resource, attr = attrs.split('.')
+            statement += (f"SET {alias_fn}log.value = ${alias_fn}_log\n"
+                          f"SET {alias_fn}att.value = ${alias_fn}_att\n"
+                          f"WITH {contexts_str}\n")
+            self.statement_params[f'{alias_fn}_log'] = resource
+            self.statement_params[f'{alias_fn}_att'] = attr
+            statement += self._fn_reference(
+                alias_fn, resource, contexts, line, direct_reference=True)
         else:
+            statement += (f"SET {alias_fn}log.value = ${alias_fn}_log\n"
+                          f"WITH {contexts_str}\n")
+            self.statement_params[f'{alias_fn}_log'] = attrs[0]
             statement += self._fn_reference(
                 alias_fn, attrs[0], contexts, line, direct_reference=True)
             if not isinstance(attrs[1], (OrderedDict, CustomDict)):
-                statement += (
-                    f"SET {alias_fn}.attributeName = ${alias_fn}_att_name\n")
-                self.statement_params[f'{alias_fn}_att_name'] = attrs[1]
+                statement += f"SET {alias_fn}att.value = ${alias_fn}_att\n"
+                self.statement_params[f'{alias_fn}_att'] = attrs[1]
             else:
                 func_name = list(attrs[1].keys())[0]
                 line = _get_line(attrs[1], func_name) or line
-                statement += self.load_intrinsic_func(alias_fn,
-                                                      func_name,
-                                                      attrs[1][func_name],
-                                                      contexts,
-                                                      line)
-        if rel_kwargs:
-            contexts.add(rel_resource)
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
+                statement += self.load_intrinsic_func(
+                    f'{alias_fn}att', func_name, attrs[1][func_name], contexts,
+                    line)
         return statement
 
     def _fn_cidr(self,
                  resource_id: str,
                  attrs,
                  contexts: set = None,
-                 line='unknown',
-                 **rel_kwargs):
+                 line='unknown'):
         """Create a statement to load intrinsic function Fn::Cidr."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_getatt", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN]->"
-                     f"({alias_fn}:Fn:Cidr)\n"
-                     f"SET {rel_resource}.line = ${rel_resource}_line\n")
-        contexts.update([alias_fn, rel_resource])
+
+        line_sts = f'{{line: ${alias_fn}_line}}'
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}:Fn:Cidr)\n")
+        contexts.add(alias_fn)
+
         # load ipBlock
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}ipblock:Value:IpBlock)\n")
+        contexts.add(f'{alias_fn}ipblock')
         if isinstance(attrs[0], str):
-            statement += f"SET {alias_fn}.ipBlock = ${alias_fn}_ipblock\n"
-            self.statement_params[f'{alias_fn}_ipblock'] = attrs[0]
+            statement += f"SET {alias_fn}_ipblock.value = ${alias_fn}ipblock\n"
+            self.statement_params[f'{alias_fn}ipblock'] = attrs[0]
         else:
             func_name = list(attrs[0].keys())[0]
             statement += self.load_intrinsic_func(
-                alias_fn,
+                f'{alias_fn}ipblock',
                 func_name,
                 attrs[0][func_name],
                 contexts,
-                _get_line(attrs[0], func_name) or line,
-                ipBlock=True)
+                _get_line(attrs[0], func_name) or line)
+
         # load count
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}count:Value:Count)\n")
+        contexts.add(f'{alias_fn}count')
         if isinstance(attrs[1], (str, int)):
-            statement += f"SET {alias_fn}.count = ${alias_fn}_count\n"
-            self.statement_params[f'{alias_fn}_count'] = attrs[1]
+            statement += f"SET {alias_fn}count.value = ${alias_fn}count\n"
+            self.statement_params[f'{alias_fn}count'] = attrs[1]
         else:
             func_name = list(attrs[1].keys())[0]
             statement += self.load_intrinsic_func(
-                alias_fn,
+                f'{alias_fn}count',
                 func_name,
                 attrs[1][func_name],
                 contexts,
-                _get_line(attrs, 1) or line,
-                count=True)
+                _get_line(attrs, 1) or line)
+
         # load cidrBits
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}cidr:Value:CidrBits)\n")
+        contexts.add(f'{alias_fn}cidr')
         if isinstance(attrs[2], (str, int)):
-            statement += f"SET {alias_fn}.cidrBits = ${alias_fn}_cidrbits\n"
-            self.statement_params[f'{alias_fn}_cidrbits'] = attrs[2]
+            statement += f"SET {alias_fn}cidr.value = ${alias_fn}cidrbits\n"
+            self.statement_params[f'{alias_fn}cidrbits'] = attrs[2]
         else:
             func_name = list(attrs[2].keys())[0]
             statement += self.load_intrinsic_func(
-                alias_fn,
+                f'{alias_fn}cidr',
                 func_name,
                 attrs[2][func_name],
                 contexts,
-                _get_line(attrs[2], func_name) or line,
-                cidrBits=True)
+                _get_line(attrs[2], func_name) or line)
 
-        self.statement_params[f'{rel_resource}_line'] = line
+        self.statement_params[f'{alias_fn}_line'] = line
 
-        if rel_kwargs:
-            contexts.add(rel_resource)
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
         return statement
 
     def _fn_find_in_map(self,
                         resource_id: str,
                         attrs,
                         contexts: set = None,
-                        line='unknown',
-                        **rel_kwargs):
+                        line='unknown'):
         """Create a statement to load intrinsic function Fn::FindInMap."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_findinmap", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-
         alias_mapping = create_alias(f'{attrs[0]}_mapping', True)
         contexts.add(alias_mapping)
         contexts_str = ', '.join(contexts)
+
+        line_sts = f'{{line: ${alias_fn}_line}}'
         statement = (f"MATCH ({alias_mapping}:Mapping)\n"
                      f"WHERE {alias_mapping}.name = ${alias_mapping}_name\n"
                      f"WITH {contexts_str}\n"
-                     f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-                     f"{{line: ${rel_resource}_line}}]->"
+                     f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
                      f"({alias_fn}:Fn:FindInMap)-[:REFERENCE_TO]->"
                      f"({alias_mapping})\n")
         self.statement_params[f'{alias_mapping}_name'] = attrs[0]
-        self.statement_params[f'{rel_resource}_line'] = line
-        contexts.update([alias_fn, rel_resource])
+        self.statement_params[f'{alias_fn}_line'] = line
+        contexts.add(alias_fn)
 
         # load mapname
-        statement += f"SET ({alias_fn}).MapName = ${alias_fn}_mapname\n"
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}map:Value:MapName "
+                      f"{{value: ${alias_fn}_mapname}})\n")
+        contexts.add(f'{alias_fn}map')
         self.statement_params[f'{alias_fn}_mapname'] = attrs[0]
 
+        # load toplevel key
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}top:Value:TopLevelKey)\n")
+        contexts.add(f'{alias_fn}top')
         if isinstance(attrs[1], (str)):
-            statement += f"SET {alias_fn}.TopLevelKey = ${alias_fn}_top\n"
+            statement += f"SET {alias_fn}top.value = ${alias_fn}_top\n"
             self.statement_params[f'{alias_fn}_top'] = attrs[1]
         else:
             func_name = list(attrs[1].keys())[0]
             statement += self.load_intrinsic_func(
-                alias_fn,
+                f'{alias_fn}top',
                 func_name,
                 attrs[1][func_name],
                 contexts,
-                _get_line(attrs[1], func_name) or line,
-                TopLevelKey=True)
+                _get_line(attrs[1], func_name) or line)
 
+        # load second level key
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}sec:Value:SecondLevelKey)\n")
+        contexts.add(f'{alias_fn}sec')
         if isinstance(attrs[2], (str)):
-            statement += f"SET {alias_fn}.SecondLevelKey = ${alias_fn}_sec\n"
+            statement += f"SET {alias_fn}sec.value = ${alias_fn}_sec\n"
             self.statement_params[f'{alias_fn}_sec'] = attrs[2]
         else:
             func_name = list(attrs[2].keys())[0]
             statement += self.load_intrinsic_func(
-                alias_fn,
+                f'{alias_fn}sec',
                 func_name,
                 attrs[2][func_name],
                 contexts,
-                _get_line(attrs[2], func_name) or line,
-                SecondLevelKey=True)
+                _get_line(attrs[2], func_name) or line)
 
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
         return statement
 
     def _fn_get_azs(self,
                     resource_id: str,
                     attrs,
                     contexts: set = None,
-                    line='unknown',
-                    **rel_kwargs):
+                    line='unknown'):
         """Create a statement to load intrinsic function Fn::GetAZs."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_getazs", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        statement = (
-            f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-            f"{{line: ${rel_resource}_line}}]->({alias_fn}:Fn:GetZAs)\n")
-        self.statement_params[f'{rel_resource}_line'] = line
-        contexts.update([alias_fn, rel_resource])
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN "
+                     f"{{line: ${alias_fn}_line}}]->({alias_fn}:Fn:GetZAs)-"
+                     f"[:HAS {{line: ${alias_fn}_line}}]->"
+                     f"({alias_fn}reg:Value:Region)\n")
+        self.statement_params[f'{alias_fn}_line'] = line
+        contexts.update([alias_fn, f'{alias_fn}reg'])
         if isinstance(attrs, str):
-            statement += f"SET {alias_fn}.region = ${alias_fn}_region\n"
+            statement += f"SET {alias_fn}reg.region = ${alias_fn}_region\n"
             self.statement_params[f'{alias_fn}_region'] = attrs
         else:
             func_name = list(attrs.keys())[0]
             line = _get_line(attrs, func_name) or line
             statement += self.load_intrinsic_func(
-                alias_fn,
+                f'{alias_fn}reg',
                 func_name,
                 attrs[func_name],
                 contexts,
-                line,
-                region=True)
+                line)
 
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
         return statement
 
     def _fn_sub(self,
                 resource_id: str,
                 attrs,
                 contexts: set = None,
-                line='unknown',
-                **rel_kwargs):
+                line='unknown'):
         """Create a statement to load intrinsic function Fn::Sub."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_sub", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-                     f"{{line: ${rel_resource}_line}}]->({alias_fn}:Fn:Sub"
-                     f" {{String: ${alias_fn}_string}})\n")
-        self.statement_params[f'{rel_resource}_line'] = line
-        contexts.update([alias_fn, rel_resource])
+
+        line_sts = f"{{line: ${alias_fn}_line}}"
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}:Fn:Sub)-[:HAS {line_sts}]->(:Value:String"
+                     f" {{value: ${alias_fn}_string}})\n")
+        self.statement_params[f'{alias_fn}_line'] = line
+        contexts.add(alias_fn)
         if isinstance(attrs, str):
             self.statement_params[f'{alias_fn}_string'] = attrs
             references = _scan_sub_expresion(attrs)
@@ -929,7 +929,6 @@ class Batcher:  # noqa: H238
                     resource = ref.split('.')[0]
                     statement += self._fn_reference(
                         alias_fn, resource, direct_reference=True)
-                    # pending handling references to resource attributes
                 else:
                     ref_sts = self._fn_reference(
                         alias_fn, ref, contexts, direct_reference=True)
@@ -941,12 +940,9 @@ class Batcher:  # noqa: H238
                 if key.startswith('__'):
                     continue
                 alias_var = create_alias(f'{alias_fn}_{key}', True)
-                statement += (
-                    f"CREATE ({alias_fn})-[:REFERENCE_TO]->"
-                    f"({alias_var }:Var {{name: ${alias_fn}_{key}_name}})\n")
+                statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                              f"({alias_var}:Value:Var:{create_label(key)})")
                 contexts.add(alias_var)
-                self.statement_params[f'{alias_fn}_{key}_name'] = key
-
                 if isinstance(value, (bool, str, int)):
                     statement += (
                         f"SET {alias_var}.value = ${alias_fn}_{key}\n")
@@ -958,44 +954,41 @@ class Batcher:  # noqa: H238
                         alias_var, func_name, attrs[1][key][func_name],
                         contexts, line)
 
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
         return statement
 
     def _fn_join(self,
                  resource_id: str,
                  attrs,
                  contexts: set = None,
-                 line='unknown',
-                 **rel_kwargs):
+                 line='unknown'):
         """Create a statement to load intrinsic function Fn::Join."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_join", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        contexts.update([alias_fn, rel_resource])
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-                     f"{{line: ${rel_resource}_line}}]->({alias_fn}:Fn:Join"
-                     f" {{delimiter: ${alias_fn}_delimiter}})\n")
-        self.statement_params[f'{alias_fn}_delimiter'] = attrs[0]
-        self.statement_params[f'{rel_resource}_line'] = line
+        contexts.add(alias_fn)
 
+        line_sts = f'{{line: ${alias_fn}_line}}'
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}:Fn:Join)-[:HAS {line_sts}]->"
+                     f"(:Value:Delimiter {{value: ${alias_fn}_delimiter }})\n")
+        self.statement_params[f'{alias_fn}_delimiter'] = attrs[0]
+        self.statement_params[f'{alias_fn}_line'] = line
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}list:Value:List)\n")
         for idx, value in enumerate(attrs[1]):
+            statement += (f"CREATE ({alias_fn}list)-[:HAS {line_sts}]->"
+                          f"({alias_fn}list{idx}:Value:Item"
+                          f" {{index: {idx}}})\n")
             if isinstance(value, (str, bool, int)):
                 statement += (
-                    f"SET {alias_fn}.value{idx+1} = ${alias_fn}_val{idx+1}\n")
+                    f"SET {alias_fn}list{idx}.value = ${alias_fn}_val{idx+1}\n"
+                )
                 self.statement_params[f'{alias_fn}_val{idx+1}'] = value
             else:
                 func_name = list(value.keys())[0]
                 line = _get_line(attrs[1][idx], func_name) or line
                 statement += self.load_intrinsic_func(
-                    alias_fn, func_name, value[func_name], contexts, line, **{
-                        f'value{idx+1}': True
-                    })
-
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
+                    f'{alias_fn}list{idx}', func_name, value[func_name],
+                    contexts, line)
 
         return statement
 
@@ -1003,31 +996,31 @@ class Batcher:  # noqa: H238
                   resource_id: str,
                   attrs,
                   contexts: set = None,
-                  line='unknown',
-                  **rel_kwargs):
+                  line='unknown'):
         """Create a statement to load intrinsic function Fn::Split."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_split", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        contexts.update([alias_fn, rel_resource])
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-                     f"{{line: ${rel_resource}_line}}]->({alias_fn}:Fn:Split"
-                     f" {{delimiter: ${alias_fn}_delimiter}})\n")
-        self.statement_params[f'{alias_fn}_delimiter'] = attrs[0]
-        self.statement_params[f'{rel_resource}_line'] = line
+        contexts.add(alias_fn)
 
+        line_sts = f'{{line: ${alias_fn}_line}}'
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}:Fn:Split)-[:HAS {line_sts}]->"
+                     f"(:Value:Delimiter {{value: ${alias_fn}_delimiter}})\n")
+        self.statement_params[f'{alias_fn}_delimiter'] = attrs[0]
+        self.statement_params[f'{alias_fn}_line'] = line
+
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}str:Value:SourceString)\n")
         if isinstance(attrs[1], (str, bool, int)):
-            statement += (f"SET {alias_fn}.source_string = ${alias_fn}_val\n")
+            statement += (f"SET {alias_fn}str.value = ${alias_fn}_val\n")
             self.statement_params[f'{alias_fn}_val'] = attrs[1]
         else:
+            contexts.add(f'{alias_fn}str')
             func_name = list(attrs[1].keys())[0]
             line = _get_line(attrs[1], func_name) or line
-            statement += self.load_intrinsic_func(
-                alias_fn, func_name, attrs[1][func_name], contexts, line)
-
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
+            statement += self.load_intrinsic_func(f'{alias_fn}str', func_name,
+                                                  attrs[1][func_name],
+                                                  contexts, line)
 
         return statement
 
@@ -1035,58 +1028,59 @@ class Batcher:  # noqa: H238
                    resource_id: str,
                    attrs,
                    contexts: set = None,
-                   line='unknown',
-                   **rel_kwargs):
+                   line='unknown'):
         """Create a statement to load intrinsic function Fn::Select."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_select", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        contexts.update([alias_fn, rel_resource])
-        statement = (
-            f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-            f"{{line: ${rel_resource}_line}}]->({alias_fn}:Fn:Select)")
-        self.statement_params[f'{rel_resource}_line'] = line
+        contexts.add(alias_fn)
+
+        line_sts = f'{{line: ${alias_fn}_line}}'
+        statement = (f"CREATE ({resource_id})-[EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}:Fn:Select)-[:HAS {line_sts}]->"
+                     f"({alias_fn}idx:Value:Index)\n")
+        self.statement_params[f'{alias_fn}_line'] = line
 
         if isinstance(attrs[0], (str, int)):
-            statement += (f"SET {alias_fn}.index = ${alias_fn}_val\n")
-            self.statement_params[f'{alias_fn}_val'] = attrs[0]
+            statement += (f"SET {alias_fn}idx.value = ${alias_fn}_idx\n")
+            self.statement_params[f'{alias_fn}_idx'] = attrs[0]
         else:
+            contexts.add(f'{alias_fn}idx')
             func_name = list(attrs[0].keys())[0]
             statement += self.load_intrinsic_func(
-                alias_fn,
+                f'{alias_fn}idx',
                 func_name,
                 attrs[0][func_name],
                 contexts,
-                _get_line(attrs[0], func_name) or line,
-                index=True)
+                _get_line(attrs[0], func_name) or line)
 
+        # add list of values
+        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                      f"({alias_fn}list:Value:List:ListOfObjects)\n")
+        contexts.add(f'{alias_fn}list')
         if isinstance(attrs[1], (OrderedDict, CustomDict)):
             func_name = list(attrs[1].keys())[0]
             statement += self.load_intrinsic_func(
-                alias_fn,
+                f'{alias_fn}list',
                 func_name,
                 attrs[1][func_name],
                 contexts,
-                _get_line(attrs[1], func_name) or line,
-                index=True)
+                _get_line(attrs[1], func_name) or line)
 
         elif isinstance(attrs[1], (list, CustomList)):
             for idx, value in enumerate(attrs[1]):
+                statement += (f"CREATE ({alias_fn}list)-[:HAS {line_sts}]->"
+                              f"({alias_fn}{idx}:Value:Item {{index: {idx}}})")
                 if isinstance(value, (str, bool, int)):
-                    statement += (f"SET {alias_fn}.value{idx+1} ="
+                    statement += (f"SET {alias_fn}{idx}.value{idx+1} ="
                                   f" ${alias_fn}_val{idx+1}\n")
                     self.statement_params[f'{alias_fn}_val{idx+1}'] = value
                 else:
+                    contexts.add(f'{alias_fn}{idx}')
                     func_name = list(value.keys())[0]
                     statement += self.load_intrinsic_func(
-                        alias_fn, func_name, value[func_name], contexts,
-                        _get_line(attrs[1][idx], func_name) or line, **{
-                            f'value{idx+1}': True
-                        })
-
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
+                        f'{alias_fn}{idx}', func_name, value[func_name],
+                        contexts,
+                        _get_line(attrs[1][idx], func_name) or line)
 
         return statement
 
@@ -1094,30 +1088,29 @@ class Batcher:  # noqa: H238
                       resource_id: str,
                       attrs,
                       contexts: set = None,
-                      line='unknown',
-                      **rel_kwargs):
+                      line='unknown'):
         """Create a statement to load intrinsic function Fn::Transform."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_transform", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        contexts.update([alias_fn, rel_resource])
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-                     f"{{line: ${rel_resource}_line}}]->"
-                     f"({alias_fn}:Fn:Transform {{Name: ${alias_fn}_name}})\n")
-        self.statement_params[f'{rel_resource}_line'] = line
+        contexts.add(alias_fn)
+
+        line_sts = f'{{line: ${alias_fn}_line}}'
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}:Fn:Transform)-[:HAS {line_sts}]->"
+                     f"(:Value:Name {{value: ${alias_fn}_name}})\n")
+        self.statement_params[f'{alias_fn}_line'] = line
         self.statement_params[f'{alias_fn}_name'] = attrs['Name']
         alias_params = create_alias(f'{alias_fn}_parameters', True)
         statement += (
-            f"CREATE ({alias_fn})-[:HAS]->({alias_params}:Parameters)\n")
+            f"CREATE ({alias_fn})-[:HAS]->({alias_params}:Value:Parameters)\n")
         contexts.add(alias_params)
 
         for key, value in attrs['Parameters'].items():
             if key.startswith('__'):
                 continue
             param_alias = create_alias(f'{alias_params}_{key}', True)
-            statement += (
-                f"CREATE ({alias_params})-[:HAS_ATTRIBUTE]->"
-                f"({param_alias}:FnAttribute {{name: ${param_alias}_name}})\n")
+            statement += (f"CREATE ({alias_params})-[:HAS {line_sts}]->"
+                          f"({param_alias}:Value:{create_label(key)})\n")
             contexts.add(param_alias)
             self.statement_params[f'{param_alias}_name'] = key
             if isinstance(value, (str, int, bool)):
@@ -1128,11 +1121,7 @@ class Batcher:  # noqa: H238
                 func_name = list(value.keys())[0]
                 line = _get_line(attrs['Parameters'][key], func_name)
                 statement += self.load_intrinsic_func(
-                    alias_fn, func_name, value[func_name], contexts, line)
-
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
+                    param_alias, func_name, value[func_name], contexts, line)
 
         return statement
 
@@ -1140,32 +1129,28 @@ class Batcher:  # noqa: H238
                         resource_id: str,
                         attrs,
                         contexts: set = None,
-                        line='unknown',
-                        **rel_kwargs):
+                        line='unknown'):
         """Create a statement to load intrinsic function Fn::ImportValue."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_importvalue", True)
-        rel_resource = create_alias(f'rel_{resource_id}', True)
-        contexts.update([alias_fn, rel_resource])
-        statement = (f"CREATE ({resource_id})-[{rel_resource}:EXECUTE_FN "
-                     f"{{line: ${rel_resource}_line}}]->"
-                     f"({alias_fn}:Fn:ImportValue)\n")
-        self.statement_params[f'{rel_resource}_line'] = line
         contexts.add(alias_fn)
+
+        line_sts = f'{{line: ${alias_fn}_line}}'
+        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+                     f"({alias_fn}:Fn:ImportValue)-[:HAS {line_sts}]->"
+                     f"({alias_fn}shared:Value:SharedValueToImport)\n")
+        self.statement_params[f'{alias_fn}_line'] = line
+        contexts.update([alias_fn, f'{alias_fn}shared'])
         if isinstance(attrs, str):
-            statement += (f" SET {alias_fn} += "
-                          f" {{sharedValueToImport: ${alias_fn}_value,"
-                          f" value: ${alias_fn}_value}}")
+            statement += f" SET {alias_fn}shared.value: ${alias_fn}_value\n"
             self.statement_params[f'{alias_fn}_value'] = attrs
         else:
             func_name = list(attrs.keys())[0]
             line = _get_line(attrs, func_name) or line
-            statement += self.load_intrinsic_func(
-                alias_fn, func_name, attrs[func_name], contexts, line)
+            statement += self.load_intrinsic_func(f'{alias_fn}shared',
+                                                  func_name, attrs[func_name],
+                                                  contexts, line)
 
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                rel_resource, contexts, **rel_kwargs)
         return statement
 
     def _fn_conditional(self,
@@ -1173,38 +1158,35 @@ class Batcher:  # noqa: H238
                         resource_id: str,
                         conditions,
                         contexts: set = None,
-                        line='unknown',
-                        **rel_kwargs):
+                        line='unknown'):
         """Create a statement to load conditional funcs."""
         contexts = contexts or set([])
         fn_name_node = fn_name.replace('::', ':')
         alias_fn = create_alias(f'fn_name_node_{resource_id}', True)
-        alias_rel = create_alias(f'rel_{alias_fn}', True)
-        contexts.update([alias_fn, alias_rel])
+        contexts.add(alias_fn)
+
+        line_sts = f'{{line: ${alias_fn}_line}}'
         statement = (f"CREATE ({resource_id})-"
-                     f"[{alias_rel}:EXECUTE_FN {{line: ${alias_rel}_line}}]->"
+                     f"[:EXECUTE_FN {line_sts}]->"
                      f"({alias_fn}:{fn_name_node})\n")
-        self.statement_params[f'{alias_rel}_line'] = line
-        if rel_kwargs:
-            statement += self._add_attributes_relationship(
-                alias_rel, contexts, **rel_kwargs)
+        self.statement_params[f'{alias_fn}_line'] = line
         if fn_name in ('Fn::if', 'Fn::If'):
             self.statement_params[f'{alias_fn}_con_name'] = conditions[0]
             alias_true = create_alias('true', True)
             alias_false = create_alias('false', True)
             statement += (
                 f"SET {alias_fn}.condition_name = ${alias_fn}_con_name\n"
-                f"CREATE ({alias_fn})-[:RETURN]->({alias_true}:ValueIfTrue)\n"
-                f"CREATE ({alias_fn})-[:RETURN]->"
-                f"({alias_false}:ValueIfFalse)\n")
-            contexts.update(alias_true, alias_false)
+                f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                f"({alias_true}:Value:ValueIfTrue)\n"
+                f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
+                f"({alias_false}:ValueValueIfFalse)\n")
+            contexts.update([alias_true, alias_false])
             # manage value_if_true
             contexts.update([alias_false, alias_true])
             if not isinstance(conditions[1], (OrderedDict, CustomDict)):
                 statement += (f"SET {alias_true}.value = "
                               f"$fn_{alias_true}_value\n")
-                self.statement_params[
-                    f'fn_{alias_true}_value'] = conditions[1]
+                self.statement_params[f'{alias_true}_value'] = conditions[1]
             else:
                 statement += self._load_resource_property(
                     (alias_true, conditions[1]), contexts, line)
@@ -1212,8 +1194,7 @@ class Batcher:  # noqa: H238
             if not isinstance(conditions[2], (OrderedDict, CustomDict)):
                 statement += (f"SET {alias_false}.value = "
                               f"$fn_{alias_false}_value\n")
-                self.statement_params[
-                    f'fn_{alias_false}_value'] = conditions[2]
+                self.statement_params[f'{alias_false}_value'] = conditions[2]
             else:
                 statement += self._load_resource_property(
                     (alias_false, conditions[2]), contexts, line)
