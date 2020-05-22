@@ -350,4 +350,49 @@ describe("Repositories", () => {
     expect(msgError)
       .toHaveBeenCalledTimes(4);
   });
+
+  it("should handle error when update a repository", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: UPDATE_REPOSITORY_MUTATION,
+        variables: {
+          projectName: "TEST",
+          repo: {
+            branch: "develop",
+            protocol: "HTTPS",
+            urlRepo: "pruebarepo/git",
+          },
+          state: "ACTIVE",
+        },
+      },
+      result: { errors: [
+        new GraphQLError("Access denied"),
+      ]},
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_update_repository" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksRepositories.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Repositories {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const stateSwitch: ReactWrapper = wrapper
+      .find(".switch")
+      .at(0);
+    stateSwitch.simulate("click");
+    const proceedButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Proceed"))
+      .at(0);
+    proceedButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgError)
+      .toHaveBeenCalled();
+  });
 });
