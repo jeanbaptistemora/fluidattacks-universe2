@@ -15,10 +15,11 @@ from backend.domain.project import (
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
     is_vulnerability_closed, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
-    list_drafts, list_comments, get_active_projects,
+    get_users, get_description,
+    list_drafts, list_comments, get_active_projects, get_managers, list_events,
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config,
-    get_current_month_authors, create_project
+    get_current_month_authors, create_project, total_vulnerabilities
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -296,6 +297,29 @@ class ProjectTest(TestCase):
             '988493279', '422286126', '436992569', '463461507', '463558592', '457497316'
         ]
         assert expected_output == test_data
+
+    def test_list_events(self):
+        project_name = 'unittesting'
+        expected_output = ['540462628', '538745942', '463578352', '484763304', '418900971']
+        assert expected_output == list_events(project_name)
+
+    def test_get_managers(self):
+        project_name = 'unittesting'
+        expected_output = ['integratesuser@gmail.com', 'continuoushacking@gmail.com']
+        assert expected_output == get_managers(project_name)
+    
+    def test_get_description(self):
+        project_name = 'unittesting'
+        expected_output = 'Integrates unit test project'
+        assert expected_output == get_description(project_name)
+    
+    def test_get_users(self):
+        project_name = 'unittesting'
+        expected_output = [
+            'integratesmanager@gmail.com', 'unittest@fluidattacks.com', 'integratesanalyst@gmail.com',
+            'integratesuser@gmail.com', 'continuoushacking@gmail.com'
+        ]
+        assert expected_output == get_users(project_name)
 
     def test_get_finding_project_name(self):
         finding_id = '475041513'
