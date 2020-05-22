@@ -395,4 +395,47 @@ describe("Repositories", () => {
     expect(msgError)
       .toHaveBeenCalled();
   });
+
+  it("should handle error when there are repeated repositories", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_add_repositories" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksRepositories} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Repositories {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const addButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Add"))
+      .at(0);
+    addButton.simulate("click");
+    const addRepositoriesModal: ReactWrapper = wrapper.find("addRepositoriesModal");
+    const repositoryInput: ReactWrapper = addRepositoriesModal
+    .find({name: "resources[0].urlRepo", type: "text"})
+    .at(0)
+    .find("input");
+    repositoryInput.simulate("change", { target: { value: "pruebarepo/git" } });
+    const protocolSelect: ReactWrapper = addRepositoriesModal
+      .find("select")
+      .findWhere((element: ReactWrapper) => element.contains("HTTPS"))
+      .at(0);
+    protocolSelect.simulate("change", { target: { value: "HTTPS" } });
+    const branchInput: ReactWrapper = addRepositoriesModal
+    .find({name: "resources[0].branch", type: "text"})
+    .at(0)
+    .find("input");
+    branchInput.simulate("change", { target: { value: "develop" } });
+    const form: ReactWrapper = addRepositoriesModal
+      .find("genericForm")
+      .at(0);
+    form.simulate("submit");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgError)
+      .toHaveBeenCalled();
+  });
 });
