@@ -379,6 +379,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     reviewer=dict(
         actions={
             'backend_api_resolvers_cache_resolve_invalidate_cache',
+            'backend_api_resolvers_project_resolve_alive_projects',
         },
         tags={
             'drills',
