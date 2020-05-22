@@ -13,7 +13,7 @@ import wait from "waait";
 
 import { i18next } from "../../utils/translations/translate";
 
-import { MenuView } from "./index";
+import { DashboardView } from "./index";
 import { PROJECTS_QUERY } from "./queries";
 
 jest.mock("react-native", (): Dictionary => {
@@ -37,9 +37,9 @@ jest.mock("react-router-native", (): Dictionary => {
   };
 });
 
-describe("MenuView", (): void => {
+describe("DashboardView", (): void => {
   it("should return a function", (): void => {
-    expect(typeof (MenuView))
+    expect(typeof (DashboardView))
       .toEqual("function");
   });
 
@@ -63,9 +63,9 @@ describe("MenuView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <MemoryRouter initialEntries={[{ pathname: "/Menu", state: { userInfo: {} } }]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { userInfo: {} } }]}>
             <MockedProvider mocks={[projectMock]} addTypename={false}>
-              <MenuView />
+              <DashboardView />
             </MockedProvider>
           </MemoryRouter>
         </I18nextProvider>
@@ -99,9 +99,9 @@ describe("MenuView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <MemoryRouter initialEntries={[{ pathname: "/Menu", state: { userInfo: {} } }]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { userInfo: {} } }]}>
             <MockedProvider mocks={[emptyMock]} addTypename={false}>
-              <MenuView />
+              <DashboardView />
             </MockedProvider>
           </MemoryRouter>
         </I18nextProvider>
@@ -133,9 +133,9 @@ describe("MenuView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <MemoryRouter initialEntries={[{ pathname: "/Menu", state: { userInfo: {} } }]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { userInfo: {} } }]}>
             <MockedProvider mocks={[errorMock]} addTypename={false}>
-              <MenuView />
+              <DashboardView />
             </MockedProvider>
           </MemoryRouter>
         </I18nextProvider>
@@ -153,9 +153,9 @@ describe("MenuView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <MemoryRouter initialEntries={[{ pathname: "/Menu", state: { userInfo: {} } }]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { userInfo: {} } }]}>
             <MockedProvider>
-              <MenuView />
+              <DashboardView />
             </MockedProvider>
           </MemoryRouter>
         </I18nextProvider>

@@ -37,7 +37,7 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
             ? <Avatar.Text size={40} label={getInitials(fullName)} />
             : <Avatar.Image size={40} source={{ uri: props.photoUrl }} />}
         </View>
-        <Text style={styles.greeting}>{t("menu.greetingText")} {fullName.split(" ")[0]}</Text>
+        <Text style={styles.greeting}>{t("dashboard.greetingText")} {fullName.split(" ")[0]}</Text>
         <View style={styles.actions}>
           <Text style={styles.logout} onPress={onLogout}>{t("common.logout")}</Text>
         </View>

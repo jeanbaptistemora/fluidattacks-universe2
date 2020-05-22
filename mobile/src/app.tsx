@@ -6,8 +6,8 @@ import { ColorSchemeName, useColorScheme } from "react-native-appearance";
 import { DarkTheme, DefaultTheme, Provider as PaperProvider, Theme } from "react-native-paper";
 import { BackButton, NativeRouter, Route, Switch } from "react-router-native";
 
+import { DashboardView } from "./containers/DashboardView";
 import { LoginView } from "./containers/LoginView";
-import { MenuView } from "./containers/MenuView";
 import { WelcomeView } from "./containers/WelcomeView";
 import { client } from "./utils/apollo";
 import { i18next } from "./utils/translations/translate";
@@ -40,26 +40,26 @@ export const App: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-  <ApolloProvider client={client}>
-    <PaperProvider theme={colorScheme === "dark" ? darkTheme : theme}>
-      <I18nextProvider i18n={i18next}>
-        <StatusBar
-          backgroundColor="transparent"
-          barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
-          translucent={true}
-        />
-        <NativeRouter>
-          <BackButton>
-            <Switch>
-              <Route path="/" component={LoginView} exact={true} />
-              <Route path="/Welcome" component={WelcomeView} exact={true} />
-              <Route path="/Menu" component={MenuView} exact={true} />
-            </Switch>
-          </BackButton>
-        </NativeRouter>
-      </I18nextProvider>
-    </PaperProvider>
-  </ApolloProvider>
+      <ApolloProvider client={client}>
+        <PaperProvider theme={colorScheme === "dark" ? darkTheme : theme}>
+          <I18nextProvider i18n={i18next}>
+            <StatusBar
+              backgroundColor="transparent"
+              barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
+              translucent={true}
+            />
+            <NativeRouter>
+              <BackButton>
+                <Switch>
+                  <Route path="/" component={LoginView} exact={true} />
+                  <Route path="/Welcome" component={WelcomeView} exact={true} />
+                  <Route path="/Dashboard" component={DashboardView} exact={true} />
+                </Switch>
+              </BackButton>
+            </NativeRouter>
+          </I18nextProvider>
+        </PaperProvider>
+      </ApolloProvider>
     </React.StrictMode>
   );
 };

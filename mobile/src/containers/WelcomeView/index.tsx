@@ -36,7 +36,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
         SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt)
           .then((): void => {
             if (result.signIn.authorized) {
-              history.replace("/Menu", { userInfo });
+              history.replace("/Dashboard", { userInfo });
             }
           })
           .catch((error: Error): void => {
@@ -64,18 +64,18 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-    <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
-    <View style={styles.container}>
-      <Image style={styles.profilePicture} source={{ uri: userInfo.photoUrl }} />
-      <Text style={styles.greeting}>{t("welcome.greetingText")} {userInfo.givenName}!</Text>
-      {loading || isAuthorized ? undefined : (
-        <React.Fragment>
-          <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>
-          <Button onPress={handleLogout}>{t("common.logout")}</Button>
-        </React.Fragment>
-      )}
-      <Preloader visible={loading} />
-    </View>
+      <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
+      <View style={styles.container}>
+        <Image style={styles.profilePicture} source={{ uri: userInfo.photoUrl }} />
+        <Text style={styles.greeting}>{t("welcome.greetingText")} {userInfo.givenName}!</Text>
+        {loading || isAuthorized ? undefined : (
+          <React.Fragment>
+            <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>
+            <Button onPress={handleLogout}>{t("common.logout")}</Button>
+          </React.Fragment>
+        )}
+        <Preloader visible={loading} />
+      </View>
     </React.StrictMode>
   );
 };

@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/react-hooks";
-import { ApolloError, NetworkStatus } from "apollo-client";
+import { ApolloError } from "apollo-client";
 import { GoogleUser } from "expo-google-app-auth";
 import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
@@ -21,22 +21,19 @@ import { PROJECTS_QUERY } from "./queries";
 import { styles } from "./styles";
 import { IProject, IProjectsResult } from "./types";
 
-const menuView: React.FunctionComponent = (): JSX.Element => {
+const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
   const { userInfo } = history.location.state as { userInfo: GoogleUser };
   const { colors } = useTheme();
   const { t } = useTranslation();
 
   // GraphQL operations
-  const { data, loading, networkStatus, refetch } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
-    notifyOnNetworkStatusChange: true,
+  const { data, loading } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
     onError: (error: ApolloError): void => {
       rollbar.error("An error occurred loading projects", error);
       Alert.alert(t("common.error.title"), t("common.error.msg"));
     },
   });
-
-  const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
 
   const projects: IProject[] = _.isUndefined(data) || _.isEmpty(data)
     ? []
@@ -74,14 +71,14 @@ const menuView: React.FunctionComponent = (): JSX.Element => {
           </Text>
         </View>
         <View style={styles.remediationContainer}>
-          <Headline style={styles.remediatedText}>{t("menu.remediated")}</Headline>
+          <Headline style={styles.remediatedText}>{t("dashboard.remediated")}</Headline>
           <Text>
-            <Trans i18nKey="menu.vulnsFound" count={projects.length}>
+            <Trans i18nKey="dashboard.vulnsFound" count={projects.length}>
               <Title>{{ totalVulns: totalVulns.toLocaleString() }}</Title>
             </Trans>
           </Text>
         </View>
-        <Preloader visible={loading && !isRefetching} />
+        <Preloader visible={loading} />
         <View style={styles.bottom}>
           <Logo width={180} height={40} fill={colors.text} />
         </View>
@@ -90,4 +87,4 @@ const menuView: React.FunctionComponent = (): JSX.Element => {
   );
 };
 
-export { menuView as MenuView };
+export { dashboardView as DashboardView };

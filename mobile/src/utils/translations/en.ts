@@ -9,6 +9,12 @@ export const enTranslations: ResourceLanguage = {
     logout: "Logout",
     slogan: "We hack your software",
   },
+  dashboard: {
+    greetingText: "Welcome",
+    remediated: "Remediated vulnerabilities",
+    vulnsFound: "from <0>{{totalVulns}}</0> found in <0>{{count}}</0> system",
+    vulnsFound_plural: "from <0>{{totalVulns}}</0> found in <0>{{count}}</0> systems",
+  },
   login: {
     authLoadingText: "Authenticating...",
     btnGoogleText: "Sign in with Google",
@@ -17,12 +23,6 @@ export const enTranslations: ResourceLanguage = {
       content: "Get the latest features and improvements",
       title: "New version available",
     },
-  },
-  menu: {
-    greetingText: "Welcome",
-    remediated: "Remediated vulnerabilities",
-    vulnsFound: "from <0>{{totalVulns}}</0> found in <0>{{count}}</0> system",
-    vulnsFound_plural: "from <0>{{totalVulns}}</0> found in <0>{{count}}</0> systems",
   },
   welcome: {
     greetingText: "Hello",
