@@ -456,7 +456,7 @@ $codeyellow: rgba(230, 219, 116, 1);
     line-height: 1.8rem;
     padding: 1.5rem;
   }
-  table {
+  table.tableblock {
     border-collapse: collapse;
     border-color: $bordertable;
     border-spacing: 0;
@@ -464,7 +464,9 @@ $codeyellow: rgba(230, 219, 116, 1);
     border-width: 1px;
     display: block;
     overflow-x: auto;
+    overflow-y: hidden;
     text-align: left;
+    width: fit-content;
     thead {
       font-size: 1.125rem;
       background-color: $headergray;
