@@ -126,7 +126,7 @@ function helper_deploy_sync_s3 {
 function helper_deploy_pages {
       rsync -av --progress content/pages/ new/content/pages/ --exclude contact-us \
         --exclude products --exclude services --exclude careers/* \
-        --exclude defends --exclude findings --exclude location --exclude rules \
+        --exclude defends --exclude location --exclude rules \
         --exclude subscription --exclude values --exclude reviews --exclude events \
         --exclude people --exclude partners \
   &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
@@ -148,7 +148,9 @@ function helper_deploy_pages {
   &&  sed -i "s|:category: services|:category: about us|g" new/content/pages/about-us/*/index.adoc \
   &&  rsync -av --progress content/blog/ new/content/blog/ \
   &&  rsync -av --progress content/images new/content/ \
-  &&  sed -i "s|image:../images|image:../../images|g" new/content/pages/about-us/partners/index.adoc
+  &&  sed -i "s|image:../images|image:../../images|g" new/content/pages/about-us/partners/index.adoc \
+  &&  cp theme/2014/static/js/rules.ts new/theme/2020/static/js/ \
+  &&  cp theme/2014/static/images/arrow.svg new/theme/2020/static/images/
 }
 
 function helper_deploy_compile_old {

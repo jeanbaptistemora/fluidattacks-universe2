@@ -10,6 +10,7 @@ export const commonConfig: webpack.Configuration = {
     dynClasses: "./static/js/dynClasses.ts",
     form: "./static/js/form.ts",
     progressBar: "./static/js/progressBar.ts",
+    rules: "./static/js/rules.ts",
   },
   module: {
     rules: [
