@@ -5,7 +5,7 @@
 :tags: security, web, vulnerability, ethical hacking
 :image: cover.png
 :alt: Plague doctor injection. Photo by Sara Kurfeß on Unsplash: https://unsplash.com/photos/55HNtDVObk8
-:description: When is presented SQL injection can be one of the most dangerous vulnerabilities. Not only because it can go unnoticed for a long time but it can also lead to remote code execution. Here we will see how to bypass certain controls that developers put in their code.
+:description: When SQL injection is present, it can be one of the most dangerous vulnerabilities. Not only because it can go unnoticed for a long time, but also because it can lead to remote code execution. Here we will see how to bypass certain controls that developers put in their code.
 :keywords: Web, Security, Vulnerability, Hacking, SQLi, Input Validation.
 :author: Jonathan Armas
 :writer: johna
@@ -14,25 +14,25 @@
 :about2: "Be formless, shapeless like water" Bruce Lee
 :source: https://unsplash.com/photos/55HNtDVObk8
 
-= Manual SQLi bypass
+= Manual SQLi Bypass
 
-One of the most recurring vulnerabilities are injection flaws,
+Among the most recurring vulnerabilities are injection flaws,
 not for nothing they are first in the link:https://owasp.org/www-project-top-ten/[OWASP Top Ten list].
-This type of vulnerabilities
-can disrupt all of your security and infrastructure,
+This type of vulnerability
+can disrupt your entire security and infrastructure;
 almost any input can be an injection vector
-and all must be controlled. Here `SQL injections` plays a big role,
+and all must be controlled. Here, `SQL injection` plays a big role,
 not only because of the risk of information leakage
-but also it can lead to remote command execution
+but also because it can lead to remote command execution
 or access to the internal network.
 
 This vulnerability works when an attacker
 injects code into the queries
 that the application makes to the database
-interfering with it’s normal operation.
+interfering with its normal operation.
 This happens because the developers
 did not validate data input properly
-and also did not apply the best practices
+and did not apply the best practices
 to retrieve data from the database.
 Let me give you an example; imagine this piece of code:
 
@@ -45,15 +45,15 @@ $sql = "select id from users where user='$user' and passwd='$passwd'";
 ----
 
 Here I created a common login page code
-that checks for username and password.
-The variables are introduced through a `POST` request
+that checks the username and password.
+The variables are introduced through a `POST` request,
 and there is no input validation.
 An attacker could simply put
 the well known `SQLi` payload `1' or '1'='1`
 and bypass the login form.
 But if I filter some characters like the `OR keyword`
-or the `single quote` character
-then it will be ok? Not so much.
+or the `single quote` character,
+then will it be ok? Not so much.
 
 == SQLi Bypass lab
 
@@ -68,7 +68,7 @@ and save the `Vagrantfile` there.
 ----
 $ mkdir sqli
 $ cd sqli
-sqli$ nano Vagrantfile #Add here the content
+sqli$ nano Vagrantfile #Add the content here
 ----
 
 .Vagrantfile
@@ -86,7 +86,7 @@ Vagrant.configure("2") do |config|
 end
 ----
 
-Then run the environment using:
+Then run the environment using
 
 .vagrant up
 [source, bash]
@@ -97,7 +97,7 @@ sqli$ vagrant up
 This will create a `Linux` machine
 with `LAMP` installed and configured.
 At this point, everything we need has been completed
-and is ready for us to launch an attack.
+and is ready to launch an attack.
 
 Now we can set up our attacking machine.
 Here we are using link:https://www.kali.org/[Kali Linux] with `Vagrant` too,
@@ -110,7 +110,7 @@ These are the tools that we are going to use:
 * link:https://tools.kali.org/web-applications/dirbuster[Dirbuster]
 * link:https://www.python.org/[Python]
 
-If you are using `Kali`, then everything is installed by default.
+If you are using `Kali`, then everything has already been installed by default.
 
 We are ready to go.
 
@@ -179,12 +179,12 @@ END_TIME: Mon May 20 11:26:25 2020
 DOWNLOADED: 9224 - FOUND: 4
 ----
 
-As we can see, there is an admin site to which we do not have access,
-and a normal site were are our test cases.
+As we can see, there is an admin site to which we do not have access
+and a normal site where our test cases are.
 
 == SQLi bypass attacks
 
-There are three test cases,
+There are three test cases;
 the first one is the simplest.
 It filters the `OR|AND` keywords
 and also the space character.
@@ -198,17 +198,18 @@ if(preg_match('/or|and| /i',$pass)) exit("<script type='text/javascript'>alert('
 The username is not injectable
 because it uses a prepared statement
 (this was intended to show the correct way of doing queries).
-If we put any of those characters into the query
+If we put any of those characters into the query,
 it should respond with a `Wrong` alert.
 
-To bypass this we need to substitute those keywords,
+To bypass this, we need to substitute those keywords:
 the `OR` keyword with the double pipe character `||`,
-the `AND` keyword with the double ampersand character `&&`,
-in this case we need to `URL encode` it
+and the `AND` keyword with the double ampersand character `&&`.
+In this case, we need to `URL encode` it
 because of the content type of the web application
-resulting in `%26%26`,
-finally the space character
-can be bypassed using several substitutions:
+resulting in `%26%26`.
+Finally, the space character
+can be bypassed using several substitutions,
+such as the following:
 
 . The block comment `/&#42;&#42;/`
 . The ascii `%09` horizontal tab character
@@ -217,8 +218,8 @@ can be bypassed using several substitutions:
 . The ascii `%0c` new page character
 . The ascii `%0d` carriage return character
 
-So our well known SQLi payload
-will change to someting like
+So, our well known SQLi payload
+will change to something like
 `'/&#42;&#42;/||/&#42;&#42;/1=1#`
 
 .first bypass
@@ -239,7 +240,7 @@ Upgrade-Insecure-Requests: 1
 user=admin&password='/**/||/**/1%3d1%23&s=OK
 ----
 
-The next one is a little trickier,
+The next test case is a little trickier,
 it filters the same characters as before
 plus the single quote character.
 Also, it removes the use of the prepared statement
@@ -254,14 +255,14 @@ if(preg_match('/or|and| |\'/i',$pass)) exit("<script type='text/javascript'>aler
 $sql = "SELECT * FROM users WHERE user = '$user' and passwd = '$pass'";
 ----
 
-So, what we can do to bypass this?
+So, what can we do to bypass this?
 The backslash character `\` is a special escape character
 used to indicate other special characters in strings.
 This is useful in our case
-because if we inject that character into the username input
+because if we inject that character into the username input,
 then the single quote character next to it
-will act like a literal one
-then the username string will end next to the password input:
+will act as a literal one,
+and the username string will end next to the password input:
 
 .Backslash example
 [source, PHP]
@@ -269,9 +270,10 @@ then the username string will end next to the password input:
 $sql = "SELECT * FROM users WHERE user = '$user\' and passwd = '$pass'";
 ----
 
-And is only matter of injecting our code there,
-the payload in the username is going to be `\`
-and in the password field `/&#42;&#42;/||/&#42;&#42;/1=1/&#42;&#42;/--`
+It's just a matter of injecting our code there;
+the payload in the username will be `\`,
+and in the password field it will be
+`/&#42;&#42;/||/&#42;&#42;/1=1/&#42;&#42;/--`
 
 .second bypass
 ----
@@ -287,10 +289,10 @@ Upgrade-Insecure-Requests: 1
 
 ----
 
-The last example combines it all
-and adds more filters to the code,
-also is a different type of vulnerability
-because here we are going to bypass the filter
+The last example combines everything
+and adds more filters to the code;
+it is a different type of vulnerability
+because we are going to bypass the filter
 into an `ORDER BY` keyword.
 
 .Third SQLi filter
@@ -301,39 +303,40 @@ if(preg_match('/\'|"|=|admin|substr|concat|group|ascii|or|and| |-|#|\s|\/\\\\|li
 $stmt = $link->prepare("SELECT * FROM product where name like ? order by $order desc");
 ----
 
-Here we can't use almost any keyword or function
+Here we can hardly use any keywords or functions,
 and the `union select` won't work either.
-In order to collect data from the database
-from an `ORDER BY` keyword we need to use
-an error based `SQLi` or a time based one.
+To collect data from the database
+from an `ORDER BY` keyword, we need to use
+an error-based `SQLi` or a time-based one.
 
-So the first injection will be for testing the vulnerability,
-let's inject a simple error based `SQLi`
-where if it is true then it will order items using the id
-and if it is false using the name:
+So, the first injection will be for testing the vulnerability,
+let's inject a simple error-based `SQLi`
+where, if it is true, then it will order the items using the id,
+and if it is false, it will order them using the name:
 
 . `?by=if(false,id,name)`
 . `?by=if(true,id,name)`
 
-Now let's add another layer,
-we want to get information out of this
+Now, let's add another layer.
+We want to get information out of this
 and in order to do that we need to make some queries.
-In this example we are going to get the `guest` password
-(if you want to get the admin password you should try it yourself).
-Because the characters `=`, single and double quote are filtered
+In this example, we will get the `guest` password
+(if you want to get the admin password, you should try it yourself).
+Because the characters `=`, single and double quotes are filtered,
 we need another way to get the information of the user that we want.
-Here comes the `IN` operator and the `CHAR` function;
-the `IN` operator allows us to specify multiple values in a `where` clause
+Here we have the `IN` operator and the `CHAR` function.
+The `IN` operator allows us to specify multiple values in a `WHERE` clause
 but we can use only one if we want it,
 and the `CHAR` function returns the `ASCII` character based on a number.
-With those two a query for the guest password will be something like:
+Using both elements, a query for the guest password
+will be something like this:
 
 .guest password query
 ----
 select passwd from users where user in(CHAR(103,117,101,115,116))
 ----
 
-Where the string `guest`
+Here the string `guest`
 is the combination of `103,117,101,115,116` `ASCII` characters.
 Now the `MID` function will help us
 to strip characters from that query
@@ -345,7 +348,7 @@ This query will get the first character of the password:
 mid((select passwd from users where user in(CHAR(103,117,101,115,116))),1,1)
 ----
 
-Next we need to compare it against another character,
+Next, we need to compare it against another character;
 here we are going to use `IN` and `CHAR` again:
 
 .guest password comparison
@@ -361,10 +364,10 @@ and replace the spaces with the block comment:
 ?by=if(mid((select/**/passwd/**/from/**/users/**/where/**/user/**/in(CHAR(103,117,101,115,116))),1,1)/**/in(CHAR(49)),id,name)
 ----
 
-With this we are able to get the `guest` password
+With this, we can get the `guest` password
 using the `ORDER BY` function.
-Doing this manually will take quite a while,
-let's automatize this using `Python`.
+Doing this manually would take quite a while,
+let's automatize it using `Python`.
 The first thing that we need
 is a function that makes our queries
 and returns the response:
@@ -383,7 +386,7 @@ def make_request(parms):
 
 Then we need to iterate
 through each element of the password
-and through each `ASCII` character:
+and each `ASCII` character:
 
 .iterative query
 [source, Python]
@@ -396,7 +399,7 @@ for i in range(8):
 
 ----
 
-And finally check whether the list
+And finally, we check whether the list
 is ordered by id:
 
 .iterative query
@@ -409,38 +412,37 @@ if check in resp:
 
 ----
 
-And that's it, create the exploit,
-execute it and wait for the result.
+That's it, create the exploit,
+execute it, and wait for the result.
 This could be done using any other query,
-for example getting the `MySQL` user password hash.
+for example, getting the `MySQL` user password hash.
 
 == Solution
 
-The first thing that someone with this problem need to do
-is to implement prepared statements,
+The first thing that someone with this problem needs to do
+is to implement prepared statements;
 there is no way out of it.
-Injections could occur in almost any database provider
-(if not all of them).
-With this the software will present a robust data querying
+Injections can occur at almost any (if not all) database provider.
+With these statements, the software will present a robust data querying
 and discard the use of dynamic queries.
 
-Next, is to implement whitelists
-to validate the user input.
-When the developers uses blacklist filtering
-like the examples above
+The next step is to execute whitelists
+to validate user input.
+When the developers use blacklist filtering,
+as in the examples above,
 there is a risk of missing some parameter
 that can allow the injection.
 Whitelists are a better approach
-because it only allows what is in there and nothing else.
+because they only allow what is in them and nothing else.
 
-Finally, implement the principle of least privilege.
+Finally, there is the implementation of the principle of least privilege.
 I've encountered several databases executing queries
-using the root user,
+using the root user;
 it is better to use limited users in our applications
 because it limits the range of action
-for the attackers that, in the worst scenario,
-got access to the database.
+of the attackers that, in the worst scenario,
+get access to the database.
 
-If you want more information about protecting against `SQLi`,
+If you want more information about protections against `SQLi`,
 you can check link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP]
 or our [inner]#link:../../rules/#source[rules]#.
