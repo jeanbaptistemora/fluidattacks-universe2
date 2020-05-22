@@ -29,7 +29,12 @@ in case those systems are compromised.
 The software uses a transmission protocol that does not include a mechanism for
 verifying the integrity of the data during transmission, such as a checksum.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://cwe.mitre.org/data/definitions/494.html[CWE-494: Download of Code Without Integrity Check]
+The product downloads source code or an executable from a remote location and
+executes the code without sufficiently verifying the origin and integrity of
+the code.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.3)]
 Verify that if application assets, such as *JavaScript* libraries, *CSS*
 stylesheets or web fonts, are hosted externally on a content delivery
