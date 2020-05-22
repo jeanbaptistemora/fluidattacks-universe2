@@ -1,0 +1,64 @@
+{
+    "integrates": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "MANILA"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "PRAGA"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "BUDAPEST"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "BARRANCABERMEJA"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "BIELEFIELD"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -133,6 +133,16 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --key-schema AttributeName=project_name,KeyType=HASH \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
+aws dynamodb create-table --endpoint-url http://localhost:8022 \
+--table-name integrates \
+--attribute-definitions \
+    AttributeName=pk,AttributeType=S \
+    AttributeName=sk,AttributeType=S \
+--key-schema \
+    AttributeName=pk,KeyType=HASH \
+    AttributeName=sk,KeyType=SORT \
+--provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+
 aws dynamodb create-table \
     --endpoint-url \
         http://localhost:8022 \
