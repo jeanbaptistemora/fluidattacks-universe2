@@ -1,3 +1,4 @@
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import _ from "lodash";
 import React from "react";
 import {
@@ -278,3 +279,34 @@ export const checkboxField: React.FC<CustomFieldProps> = (fieldProps: CustomFiel
     {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
   </React.Fragment>
 );
+
+export interface ISwitchButtonProps extends React.ComponentProps<typeof BootstrapSwitchButton> {
+  input: {
+    // Redux-form managed value
+    checked: boolean;
+    // Redux-form onChange function, required to alter the state
+    onChange(checked: boolean): void;
+  };
+}
+
+// Custom BootstrapSwitchButton whose state can be managed by redux-form
+export const switchButton: React.FC<ISwitchButtonProps> = (props: ISwitchButtonProps): JSX.Element => {
+  const onChange: (checked: boolean) => void = (checked: boolean): void => {
+    props.input.onChange(checked);
+    if (!_.isUndefined(props.onChange)) {
+      props.onChange(checked);
+    }
+  };
+
+  return (
+    <BootstrapSwitchButton
+      checked={props.input.checked}
+      disabled={props.disabled}
+      onChange={onChange}
+      offlabel={props.offlabel}
+      onlabel={props.onlabel}
+      onstyle={props.onstyle}
+      style={props.style}
+    />
+  );
+};
