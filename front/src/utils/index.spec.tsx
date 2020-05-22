@@ -1,8 +1,9 @@
 import { ConfigurableValidator } from "revalidate";
 import {
   alphaNumeric, isLowerDate, isValidDate, isValidFileName, isValidFileSize,
-  minLength, numberBetween, numeric, required, validEmail, validEvidenceImage,
-  validExploitFile, validRecordsFile, validTag,
+  maxLength, minLength, numberBetween, numeric, required, validEmail,
+  validEvidenceImage, validExploitFile, validRecordsFile, validTag, validTextField,
+  validUrlField,
 } from "./validations";
 
 describe("Validations", () => {
@@ -17,6 +18,12 @@ describe("Validations", () => {
     const severityBetween: ((value: number) => string | undefined) = numberBetween(0, 5);
     expect(severityBetween(6))
       .toEqual("This value must be between 0 and 5");
+  });
+
+  it("should required at least 10 characters", () => {
+    const length: ConfigurableValidator = maxLength(10);
+    expect(length("testmaxlength"))
+      .toEqual("This field requires less than 10 characters");
   });
 
   it("should required 4 minimum characters", () => {
@@ -267,6 +274,39 @@ describe("Validations", () => {
     const email: string | undefined = validEmail("usertest.com");
     expect(email)
       .toEqual("The email format is not valid");
+  });
+
+  it("should be a valid text field", () => {
+    const textField: string | undefined = validTextField("t3 stfíel#-d");
+    expect(textField)
+      .toEqual(undefined);
+  });
+
+  it("shouldn't be a valid text field", () => {
+    let textField: string | undefined = validTextField("testf=ield");
+    expect(textField)
+      .toEqual("Field cannot contain the following characters: '='");
+    textField = validTextField("testf'ield");
+    expect(textField)
+      .toEqual("Field cannot contain the following characters: '\''");
+    textField = validTextField("<testfield");
+    expect(textField)
+      .toEqual("Field cannot contain the following characters: '<'");
+  });
+
+  it("should be a valid url", () => {
+    const url: string | undefined = validUrlField("test/url/field#1");
+    expect(url)
+      .toEqual(undefined);
+  });
+
+  it("shouldn't be a valid url", () => {
+    let url: string | undefined = validUrlField("test/url/fi eld#1");
+    expect(url)
+      .toEqual("Field cannot contain the following characters: ' '");
+    url = validUrlField("test/url/fiéld");
+    expect(url)
+      .toEqual("Field cannot contain the following characters: 'é'");
   });
 
   it("should be a valid tag", () => {
