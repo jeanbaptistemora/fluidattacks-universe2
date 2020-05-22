@@ -59,6 +59,24 @@ describe("Repositories", () => {
                 uploadDate: "2020-02-13 10:15",
                 urlRepo: "pruebarepo/git",
               },
+              {
+                branch: "master",
+                historic_state: [
+                  {
+                    date: "2020/02/13 10:15:26",
+                    state: "ACTIVE",
+                    user: "test@gmail.com",
+                  },
+                  {
+                    date: "2020/03/24 09:16:19",
+                    state: "ACTIVE",
+                    user: "test@gmail.com",
+                  },
+                ],
+                protocol: "SSH",
+                uploadDate: "2020-02-13 10:15",
+                urlRepo: "pruebarepo/git2",
+              },
             ]),
           },
         },
@@ -242,5 +260,29 @@ describe("Repositories", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgSuccess)
       .toHaveBeenCalled();
+  });
+
+  it("should sort repositories", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksRepositories} addTypename={false}>
+          <Repositories {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    let firstRowInfo: ReactWrapper = wrapper
+      .find("RowPureContent")
+      .at(0);
+    expect(firstRowInfo.text())
+      .toEqual("HTTPSpruebarepo/gitdevelopInactive");
+    const repositoryHeader: ReactWrapper = wrapper
+      .find({"aria-label": "Protocol sortable"});
+    repositoryHeader.simulate("click");
+    firstRowInfo = wrapper
+      .find("RowPureContent")
+      .at(0);
+    expect(firstRowInfo.text())
+      .toEqual("SSHpruebarepo/git2masterActive");
   });
 });
