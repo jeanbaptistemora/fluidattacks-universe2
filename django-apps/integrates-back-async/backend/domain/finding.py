@@ -165,18 +165,19 @@ def get_tracking_vulnerabilities(
 
 
 def handle_acceptation(finding_id: str, observations: str, user_mail: str, response: str) -> bool:
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     new_state = {
         'acceptance_status': response,
         'treatment': 'ACCEPTED_UNDEFINED',
         'justification': observations,
         'user': user_mail,
+        'date': today
     }
     historic_treatment = cast(
         List[Dict[str, str]], get_finding(finding_id).get('historicTreatment'))
     historic_treatment.append(new_state)
     if response == 'REJECTED':
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         historic_treatment.append({'treatment': 'NEW', 'date': today})
     return finding_dal.update(finding_id, {'historic_treatment': historic_treatment})
 
