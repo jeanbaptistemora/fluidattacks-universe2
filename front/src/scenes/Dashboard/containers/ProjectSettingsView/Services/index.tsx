@@ -65,12 +65,9 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const handleDrillsBtnChange: ((withDrills: boolean) => void) = (withDrills: boolean): void => {
     dispatch(change("editGroup", "drills", canHaveDrills() && withDrills));
 
-    if (!canHaveForces()) {
+    if (!withDrills) {
       dispatch(change("editGroup", "forces", false));
     }
-  };
-  const handleForcesBtnChange: ((withForces: boolean) => void) = (withForces: boolean): void => {
-    dispatch(change("editGroup", "forces", canHaveForces() && withForces));
   };
 
   // GraphQL Logic
@@ -118,7 +115,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     {
       canHave: canHaveForces(),
       disabled: false,
-      onChange: handleForcesBtnChange,
       service: "forces",
     },
   ].filter((element: IServicesDataSet): boolean => element.canHave);
