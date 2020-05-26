@@ -36,7 +36,9 @@ function job_build_mobile_android {
   export GRADLE_DAEMON_DISABLED="1"
 
   if  helper_have_any_file_changed \
-    'mobile/app.json'
+    'mobile/app.json' \
+    'mobile/assets/icon.png' \
+    'mobile/assets/splash.png'
   then
         echo '[INFO] Logging in to AWS' \
     &&  aws_login "${ENVIRONMENT_NAME}" \
