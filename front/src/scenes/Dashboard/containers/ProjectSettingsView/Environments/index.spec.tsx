@@ -29,7 +29,7 @@ describe("Environments", () => {
     projectName: "TEST",
   };
 
-  const mocksRepositories: ReadonlyArray<MockedResponse> = [
+  const mocksEnvironments: ReadonlyArray<MockedResponse> = [
     {
       request: {
         query: GET_ENVIRONMENTS,
@@ -152,7 +152,7 @@ describe("Environments", () => {
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksRepositories.concat(mocksMutation)} addTypename={false}>
+        <MockedProvider mocks={mocksEnvironments.concat(mocksMutation)} addTypename={false}>
           <authzContext.Provider value={mockedPermissions}>
             <Environments {...mockProps} />
           </authzContext.Provider>
@@ -198,7 +198,7 @@ describe("Environments", () => {
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksRepositories.concat(mocksMutation)} addTypename={false}>
+        <MockedProvider mocks={mocksEnvironments.concat(mocksMutation)} addTypename={false}>
           <authzContext.Provider value={mockedPermissions}>
             <Environments {...mockProps} />
           </authzContext.Provider>
@@ -218,5 +218,30 @@ describe("Environments", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgSuccess)
       .toHaveBeenCalled();
+  });
+
+  it("should sort environments", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksEnvironments} addTypename={false}>
+          <Environments {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    let firstRowInfo: ReactWrapper = wrapper
+      .find("RowPureContent")
+      .at(0);
+    expect(firstRowInfo.text())
+      .toEqual("https://test/testInactive");
+    const tagHeader: ReactWrapper = wrapper
+      .find({"aria-label": "Environment sortable"});
+    tagHeader.simulate("click");
+    tagHeader.simulate("click");
+    firstRowInfo = wrapper
+      .find("RowPureContent")
+      .at(0);
+    expect(firstRowInfo.text())
+      .toEqual("Docker image found at: https://test/testActive");
   });
 });
