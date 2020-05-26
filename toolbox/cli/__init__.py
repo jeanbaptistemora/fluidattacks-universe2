@@ -3,6 +3,7 @@
 
 # Standard library
 import functools
+import os
 import sys
 
 # Third parties imports
@@ -168,6 +169,12 @@ def forces_management(
     if not toolbox.has_forces(group):
         raise click.BadArgumentUsage(
             f'{group} group has no forces')
+
+    # This allows linters to see the resources folder
+    sys.path.append(os.path.join(
+        os.getcwd(), 'groups', group, 'forces', 'dynamic', 'resources'))
+    sys.path.append(os.path.join(
+        os.getcwd(), 'groups', group, 'forces', 'static', 'resources'))
 
     if run_exps:
         if dynamic is not None:
