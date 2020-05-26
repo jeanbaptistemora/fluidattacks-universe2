@@ -30,23 +30,26 @@ You can access the product [button]#link:../../rules/[here]#
 Rules is based on several standards
 related to information security, including:
 
-. [inner]#link:../../search.html?q=HIPAA[HIPAA]#
-link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act.]
-
 . [inner]#link:../../search.html?q=ASVS[ASVS]#
 link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[`OWASP` Application Security Verification Standard].
-
-. [inner]#link:../../search.html?q=CWE[CWE]#
-link:https://cwe.mitre.org/[Common Weakness Enumeration].
-
-. [inner]#link:../../search.html?q=NIST+800-53[NIST]#
-link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4)].
 
 . [inner]#link:../../search.html?q=bssim9[BSSIM9]#
 link:https://www.bsimm.com/download.html[Building Security In Maturity Model].
 
+. [inner]#link:../../search.html?q=CWE[CWE]#
+link:https://cwe.mitre.org/[Common Weakness Enumeration].
+
+. [inner]#link:../../search.html?q=directive[EPR]#
+link:https://edps.europa.eu/data-protection/our-work/subjects/eprivacy-directive_en[E-privacy Directive].
+
 . [inner]#link:../../search.html?q=GDPR[GDPR]#
 link:https://gdpr-info.eu/[General Data Protection Regulation].
+
+. [inner]#link:../../search.html?q=HIPAA[HIPAA]#
+link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act.]
+
+. [inner]#link:../../search.html?q=NIST+800-53[NIST]#
+link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4)].
 
 Want to know more about our products?
 Do not hesitate to
