@@ -1,9 +1,9 @@
 # Default approvers
-* @mnorenaatfluid @aroldanatfluid @acuberosatfluid @jrestrepoatfluid @ralvarezatfluid
+* @mnorenaatfluid @aroldanatfluid @dacevedoatfluid @acuberosatfluid @jrestrepoatfluid @ralvarezatfluid
 
 # Front approvers
-/front/ @dacevedoatfluid @mnorenaatfluid
-/mobile/ @dacevedoatfluid @mnorenaatfluid
+/front/ @dacevedoatfluid @mnorenaatfluid @acuberosatfluid
+/mobile/ @dacevedoatfluid @mnorenaatfluid @acuberosatfluid
 
 # Back approvers
 /django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @mnorenaatfluid
