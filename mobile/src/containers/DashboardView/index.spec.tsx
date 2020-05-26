@@ -78,7 +78,7 @@ describe("DashboardView", (): void => {
     expect(wrapper.text())
       .toContain("58.3%");
     expect(wrapper.text())
-      .toContain("from 12 found in 1 system");
+      .toContain("of 12 found in 1 system");
   });
 
   it("should render empty", async (): Promise<void> => {
@@ -114,7 +114,7 @@ describe("DashboardView", (): void => {
     expect(wrapper.text())
       .toContain("0%");
     expect(wrapper.text())
-      .toContain("from 0 found in 0 systems");
+      .toContain("of 0 found in 0 systems");
   });
 
   it("should handle errors", async (): Promise<void> => {

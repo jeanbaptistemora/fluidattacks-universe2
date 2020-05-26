@@ -12,8 +12,8 @@ export const enTranslations: ResourceLanguage = {
   dashboard: {
     greetingText: "Welcome",
     remediated: "Remediated vulnerabilities",
-    vulnsFound: "from <0>{{totalVulns}}</0> found in <0>{{count}}</0> system",
-    vulnsFound_plural: "from <0>{{totalVulns}}</0> found in <0>{{count}}</0> systems",
+    vulnsFound: "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> system",
+    vulnsFound_plural: "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> systems",
   },
   login: {
     authLoadingText: "Authenticating...",
