@@ -26,6 +26,8 @@ $shadowblack: rgba(0, 0, 0, .2);
 $nearwhite: rgba(246, 246, 246, 1);
 $headergray: rgba(230, 228, 228, 1);
 $bordertable: rgba(0, 0, 0, .1);
+$warningyellow: rgba(255, 200, 44, 1);
+$noteblue: rgba(224, 230, 237, 1);
 //Monokai theme colors
 $codeblack: rgba(39, 40, 43, 1);
 $codebrown: rgba(117, 113, 94, 1);
@@ -497,4 +499,24 @@ $codeyellow: rgba(230, 219, 116, 1);
     white-space: pre;
     overflow-y: hidden;
   }
+}
+
+.admonitionblock {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 30px;
+  .icon {
+    display: none;
+  }
+  .content {
+    font-weight: 400;
+  }
+}
+
+.admonitionblock.warning, .caution, .important {
+  background-color: $warningyellow;
+}
+
+.admonitionblock.note, .tip {
+  background-color: $noteblue;
 }
