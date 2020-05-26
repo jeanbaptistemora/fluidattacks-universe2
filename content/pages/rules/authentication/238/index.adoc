@@ -1,7 +1,7 @@
 :slug: rules/238/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that the system guarantees that the owner of the account is the one who recovers the password.
-:keywords: Authentication, Time, Security, Seconds, Users, Limit
+:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that the system guarantees that the owner of the account is the one who resets and recovers the password.
+:keywords: Password, Recovery, Change, Authenticity, ASVS, CWE
 :rules: yes
 
 = REQ.238 Establish safe recovery
@@ -9,9 +9,44 @@
 == Requirement
 
 The system must guarantee that
-the person performing the password recovery process
+the person performing the password recovery or reset process
 is actually the owner.
+
+Description
+
+Systems must have mechanisms that enable users to update and recover their
+passwords while guaranteeing the authenticity of the request.
+In the case of a password update,
+the system must request both the new and the old passwords.
+If the user wants to recover a lost or forgotten password,
+the system must ascertain the user's ownership of the corresponding account.
 
 == Findings
 
 * [inner]#link:/web/findings/033/[F033. Password change without identity check]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/345.html[CWE-345: Insufficient Verification of Data Authenticity]
+The software does not sufficiently verify the origin or authenticity of data,
+in a way that causes it to accept invalid data.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security]
+The software is composed of a server that relies on the client to implement a
+mechanism that is intended to protect the server.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/620.html[CWE-620: Unverified Password Change]
+When setting a new password for a user,
+the product does not require knowledge of the original password,
+or using another form of authentication.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.1)]
+Verify that trusted enforcement points such as at access control gateways,
+servers, and serverless functions enforce access controls.
+Never enforce access controls on the client.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.1 Password Security Requirements.(2.1.6)]
+Verify that password change functionality requires the user's current and new
+password.
