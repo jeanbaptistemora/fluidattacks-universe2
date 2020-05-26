@@ -67,6 +67,7 @@ disable=missing-super-argument,
         locally-disabled,
         too-many-arguments,
         too-many-locals,
+        no-member
 
 [REPORTS]
 

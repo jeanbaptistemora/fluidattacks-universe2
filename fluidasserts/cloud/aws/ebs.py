@@ -14,6 +14,34 @@ from fluidasserts.utils.decorators import api
 from fluidasserts.utils.decorators import unknown_if
 
 
+def _get_snapshots(key_id, retry, secret, session_token, acc_id):
+    snaps = []
+    data = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_snapshots',
+        boto3_client_kwargs={'aws_session_token': session_token},
+        OwnerIds=[acc_id],
+        MaxResults=50,
+        retry=retry)
+    snaps += data.get('Snapshots', [])
+    next_token = data.get('NextToken', '')
+    while next_token:
+        data = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ec2',
+            func='describe_snapshots',
+            boto3_client_kwargs={'aws_session_token': session_token},
+            MaxResults=50,
+            NextToken=next_token,
+            retry=retry)
+        snaps += data['Snapshots']
+        next_token = data.get('NextToken', '')
+    return snaps
+
+
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def is_encryption_disabled(key_id: str,
@@ -98,6 +126,48 @@ def uses_default_kms_key(key_id: str,
     return _get_result_as_tuple(
         service='EBS',
         objects='Volumes',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_snapshot_not_encrypted(key_id: str,
+                              secret: str,
+                              session_token: str = None,
+                              retry: bool = True) -> tuple:
+    """Check if an ``EBS snapshot`` is not encrypted.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+
+    acc_id = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='sts',
+        func='get_caller_identity',
+        param='Account',
+        retry=retry)
+
+    snapshots = _get_snapshots(key_id, retry, secret, session_token, acc_id)
+
+    msg_open: str = 'EBS snapshots are not encrypted'
+    msg_closed: str = 'EBS snapshots are encrypted'
+
+    vulns, safes = [], []
+    for snapshot in snapshots:
+        (vulns if not snapshot.get('Encrypted', False)
+         else safes).append(
+             (snapshot['SnapshotId'],
+              'is not encrypted'))
+
+    return _get_result_as_tuple(
+        service='EBS',
+        objects='Snapshots',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
