@@ -369,7 +369,18 @@ const enTranslations: Dictionary = {
       forces: "Forces",
       inactive: "Inactive",
       integrates: "Integrates",
+      modal: {
+        diff: {
+          as: "as",
+          from: "from",
+          keep: "Keep",
+          mod: "Modify",
+          to: "to",
+        },
+        title: "Change contracted services",
+      },
       one_shot: "One-Shot Hacking",
+      oneshot: "One-Shot Hacking",
       service: "Service",
       services: "Services",
       status: "Status",

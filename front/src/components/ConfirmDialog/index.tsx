@@ -5,7 +5,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { ButtonToolbar } from "react-bootstrap";
 import translate from "../../utils/translations/translate";
 import { Button } from "../Button/index";
 import { Modal } from "../Modal/index";
@@ -41,6 +41,9 @@ export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDial
     confirmCallback();
   };
 
+  const message: string = _.isUndefined(props.message) ? translate.t("confirmmodal.message") : props.message;
+  const messageLines: string[] = message.split("\n");
+
   return (
     <React.StrictMode>
       <Modal
@@ -53,11 +56,7 @@ export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDial
           </ButtonToolbar>
         }
       >
-        <Row>
-          <Col md={12}>
-            <p>{props.message === undefined ? translate.t("confirmmodal.message") : props.message}</p>
-          </Col>
-        </Row>
+        {messageLines.map((line: string) => <p key={line}>{line}</p>)}
       </Modal>
       {props.children(confirm)}
     </React.StrictMode>

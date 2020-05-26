@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import { Modal, Sizes } from "react-bootstrap";
 import { default as style } from "./index.css";

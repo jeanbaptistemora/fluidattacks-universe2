@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { change, EventWithDataHandler, Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
+import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { handleGraphQLErrors } from "../../../../../utils/formatHelpers";
@@ -120,6 +121,49 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     return <React.Fragment />;
   }
 
+  // Contract difference
+  const serviceStateToString: ((value: boolean | string | undefined) => string) =
+    (value: boolean | string | undefined): string => {
+      let service: string;
+
+      switch (typeof(value)) {
+        case "boolean":
+          service = value ? "active" : "inactive";
+          break;
+        case "string":
+          service = value.toLowerCase();
+          break;
+        default:
+          service = "";
+      }
+
+      return service;
+    };
+  const serviceDiff: ((msg: string, old: string, now: string) => string) =
+    (msg: string, old: string, now: string): string => {
+      const as: string = translate.t("search_findings.services_table.modal.diff.as");
+      const from: string = translate.t("search_findings.services_table.modal.diff.from");
+      const keep: string = translate.t("search_findings.services_table.modal.diff.keep");
+      const mod: string = translate.t("search_findings.services_table.modal.diff.mod");
+      const to: string = translate.t("search_findings.services_table.modal.diff.to");
+
+      const msgString: string = translate.t(`search_findings.services_table.${msg}`);
+      const nowString: string = translate.t(`search_findings.services_table.${now}`);
+      const oldString: string = translate.t(`search_findings.services_table.${old}`);
+
+      return now === old
+        ? `${keep} ${msgString} ${as} ${nowString}`
+        : `${mod} ${msgString} ${from} ${oldString} ${to} ${nowString}`;
+    };
+  const computeConfirmationMessage: (() => string) = (): string => ([
+      serviceDiff("type", serviceStateToString(data.project.subscription), serviceStateToString(formValues.type)),
+      serviceDiff("integrates", serviceStateToString(true), serviceStateToString(formValues.integrates)),
+      serviceDiff("drills", serviceStateToString(data.project.hasDrills), serviceStateToString(formValues.drills)),
+      serviceDiff("forces", serviceStateToString(data.project.hasForces), serviceStateToString(formValues.forces)),
+    ].filter((line: string): boolean => line.length > 0)
+     .join("\n")
+  );
+
   // Action handlers
   const handleSubmit: ((values: IFormData) => void) = (values: IFormData): void => {
     editGroupData({
@@ -219,44 +263,59 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
           <h3>{translate.t("search_findings.services_table.services")}</h3>
         </Col>
       </Row>
-      <GenericForm
-        name="editGroup"
-        onSubmit={handleSubmit}
-        initialValues={{
-          drills: data.project.hasDrills,
-          forces: data.project.hasForces,
-          integrates: true,
-          type: data.project.subscription.toUpperCase(),
-        }}
+      <ConfirmDialog
+        message={computeConfirmationMessage()}
+        title={translate.t("search_findings.services_table.modal.title")}
       >
-        {({ pristine }: InjectedFormProps): JSX.Element => (
-          <React.Fragment>
-            <DataTableNext
-              bordered={true}
-              dataset={servicesDataSet}
-              exportCsv={false}
-              search={false}
-              headers={tableHeaders}
-              id="tblServices"
-              pageSize={5}
-              remote={false}
-              striped={true}
-            />
-            {/* Intentionally hidden while loading/submitting to offer a better UX
-              *   this way the button does not twinkle and is visually stable
-              */}
-            {pristine || loadingGroupData || submittingGroupData ? undefined : (
-              <ButtonToolbar className="pull-right">
-                <Button bsStyle="success" type="submit">
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
-            )}
-            <br/>
-            <br/>
-          </React.Fragment>
-        )}
-      </GenericForm>
+        {(confirm: ConfirmFn): React.ReactNode => {
+          const confirmAndHandleSubmit: (() => void) = (): void => {
+            confirm((): void => {
+              handleSubmit(formValues);
+            });
+          };
+
+          return (
+            <GenericForm
+              name="editGroup"
+              onSubmit={confirmAndHandleSubmit}
+              initialValues={{
+                drills: data.project.hasDrills,
+                forces: data.project.hasForces,
+                integrates: true,
+                type: data.project.subscription.toUpperCase(),
+              }}
+            >
+              {({ pristine }: InjectedFormProps): JSX.Element => (
+                <React.Fragment>
+                  <DataTableNext
+                    bordered={true}
+                    dataset={servicesDataSet}
+                    exportCsv={false}
+                    search={false}
+                    headers={tableHeaders}
+                    id="tblServices"
+                    pageSize={5}
+                    remote={false}
+                    striped={true}
+                  />
+                  {/* Intentionally hidden while loading/submitting to offer a better UX
+                    *   this way the button does not twinkle and is visually stable
+                    */}
+                  {pristine || loadingGroupData || submittingGroupData ? undefined : (
+                    <ButtonToolbar className="pull-right">
+                      <Button bsStyle="success" type="submit">
+                        {translate.t("confirmmodal.proceed")}
+                      </Button>
+                    </ButtonToolbar>
+                  )}
+                  <br/>
+                  <br/>
+                </React.Fragment>
+              )}
+            </GenericForm>
+          );
+        }}
+      </ConfirmDialog>
       <br />
     </React.StrictMode>
   );
