@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../../store/index";
 import { authzContext } from "../../../../../utils/authz/config";
-import { GET_GROUP_DATA } from "../queries";
+import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
 import { Services } from "./index";
 
 interface IFormValues {
@@ -45,6 +45,23 @@ describe("Services", () => {
       request: {
         query: GET_GROUP_DATA,
         variables: {
+          groupName: "unittesting",
+        },
+      },
+      result: {
+        data: {
+          project: {
+            hasDrills: true,
+            hasForces: true,
+            subscription: "CoNtInUoUs",
+          },
+        },
+      },
+    },
+    {
+      request: {
+        query: GET_GROUP_DATA,
+        variables: {
           groupName : "oneshottest",
         },
       },
@@ -54,6 +71,24 @@ describe("Services", () => {
             hasDrills: false,
             hasForces: false,
             subscription: "OnEsHoT",
+          },
+        },
+      },
+    },
+    {
+      request: {
+        query: EDIT_GROUP_DATA,
+        variables: {
+          groupName: "unittesting",
+          hasDrills: false,
+          hasForces: false,
+          subscription: "CONTINUOUS",
+        },
+      },
+      result: {
+        data: {
+          editGroup: {
+            success: true,
           },
         },
       },
@@ -200,6 +235,23 @@ describe("Services", () => {
         integrates: true,
         type: "CONTINUOUS",
       });
+
+    const proceedButton: (() => ReactWrapper) = (): ReactWrapper =>
+      wrapper
+        .find("ButtonToolbar")
+        .first();
+    const genericForm: (() => ReactWrapper) = (): ReactWrapper =>
+      wrapper
+        .find("genericForm")
+        .first();
+
+    expect(
+      proceedButton()
+        .exists())
+          .toEqual(true);
+
+    genericForm()
+      .simulate("submit");
 
     drillsSwitch()
       .simulate("click");

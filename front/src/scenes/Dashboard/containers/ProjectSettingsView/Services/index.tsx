@@ -2,21 +2,26 @@
  *
  * Disabling this rule is necessary for using components with render props
  */
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, FormGroup, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, FormGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { change, EventWithDataHandler, Field, formValueSelector, InjectedFormProps } from "redux-form";
+import { Button } from "../../../../../components/Button/index";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { handleGraphQLErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, switchButton } from "../../../../../utils/forms/fields";
+import { msgError, msgSuccess } from "../../../../../utils/notifications";
+import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { GenericForm } from "../../../components/GenericForm";
-import { GET_GROUP_DATA } from "../queries";
+import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
 
 export interface IServicesProps {
   groupName: string;
@@ -71,11 +76,45 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   };
 
   // GraphQL Logic
-  const { data } = useQuery(GET_GROUP_DATA, {
+  const { data, loading: loadingGroupData, refetch: refetchGroupData } = useQuery(GET_GROUP_DATA, {
     onError: (error: ApolloError): void => {
       handleGraphQLErrors("An error occurred getting group data", error);
     },
     variables: { groupName },
+  });
+
+  const [editGroupData, { loading: submittingGroupData }] = useMutation(EDIT_GROUP_DATA, {
+    onCompleted: (): void => {
+      mixpanel.track("EditGroupData", formValues);
+      msgSuccess(
+        translate.t("search_findings.services_table.success"),
+        translate.t("search_findings.services_table.success_title"),
+      );
+
+      refetchGroupData({ groupName });
+    },
+    onError: (error: ApolloError): void => {
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        let msg: string;
+
+        switch (message) {
+          case "Exception - Forces is only available when Drills is too":
+            msg = "search_findings.services_table.errors.forces_only_if_drills";
+            break;
+          case "Exception - Drills is only available in projects of type Continuous":
+            msg = "search_findings.services_table.errors.drills_only_if_continuous";
+            break;
+          case "Exception - Forces is only available in projects of type Continuous":
+            msg = "search_findings.services_table.errors.forces_only_if_continuous";
+            break;
+          default:
+            msg = "proj_alerts.error_textsad";
+            rollbar.error("An error occurred editing group services", error);
+        }
+
+        msgError(translate.t(msg));
+      });
+    },
   });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -83,7 +122,16 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   }
 
   // Action handlers
-  const handleSubmit: ((values: { }) => void) = (values: { }): void => undefined;
+  const handleSubmit: ((values: IFormData) => void) = (values: IFormData): void => {
+    editGroupData({
+      variables: {
+        groupName,
+        hasDrills: values.drills,
+        hasForces: values.forces,
+        subscription: values.type,
+      },
+    });
+  };
 
   // Rendered elements
   const tableHeaders: IHeader[] = [
@@ -194,6 +242,18 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
               remote={false}
               striped={true}
             />
+            {/* Intentionally hidden while loading/submitting to offer a better UX
+              *   this way the button does not twinkle and is visually stable
+              */}
+            {pristine || loadingGroupData || submittingGroupData ? undefined : (
+              <ButtonToolbar className="pull-right">
+                <Button bsStyle="success" type="submit">
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ButtonToolbar>
+            )}
+            <br/>
+            <br/>
           </React.Fragment>
         )}
       </GenericForm>
