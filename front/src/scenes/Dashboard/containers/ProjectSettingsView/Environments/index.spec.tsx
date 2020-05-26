@@ -1,6 +1,7 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
 import { mount, ReactWrapper } from "enzyme";
+import { GraphQLError } from "graphql";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -267,5 +268,55 @@ describe("Environments", () => {
       .toHaveLength(1);
     expect(environmentRows.contains("Inactive"))
       .toEqual(true);
+  });
+
+  it("should handle errors when add an environment", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: ADD_ENVIRONMENTS_MUTATION,
+        variables: {
+          envs: [{
+            urlEnv: "test-new-environment",
+          }],
+          projectName: "TEST",
+        },
+      },
+      result: { errors: [
+        new GraphQLError("Access denied"),
+        new GraphQLError("Exception - Invalid field in form"),
+        new GraphQLError("Exception - One or more values already exist"),
+        new GraphQLError("Exception - Invalid characters"),
+      ]},
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_add_environments" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksEnvironments.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Environments {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const addButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Add"))
+      .at(0);
+    addButton.simulate("click");
+    const addEnvironmentsModal: ReactWrapper = wrapper.find("addEnvironmentsModal");
+    const environmentInput: ReactWrapper = addEnvironmentsModal
+      .find({name: "resources[0].urlEnv", type: "text"})
+      .at(0)
+      .find("textarea");
+    environmentInput.simulate("change", { target: { value: "test-new-environment" } });
+    const form: ReactWrapper = addEnvironmentsModal
+      .find("genericForm")
+      .at(0);
+    form.simulate("submit");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgError)
+      .toBeCalledTimes(4);
   });
 });
