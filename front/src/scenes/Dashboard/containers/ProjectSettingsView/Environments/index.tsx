@@ -23,7 +23,7 @@ import { AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/i
 import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_ENVIRONMENT_MUTATION } from "../queries";
 import { IEnvironmentsAttr, IHistoricState } from "../types";
 
-interface IEnvironmentsProps {
+export interface IEnvironmentsProps {
   projectName: string;
 }
 
