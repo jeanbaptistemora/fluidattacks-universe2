@@ -244,4 +244,28 @@ describe("Environments", () => {
     expect(firstRowInfo.text())
       .toEqual("Docker image found at: https://test/testActive");
   });
+
+  it("should filter environments by state", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksEnvironments} addTypename={false}>
+          <Environments {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    let environmentRows: ReactWrapper = wrapper
+      .find("SimpleRow");
+    expect(environmentRows)
+      .toHaveLength(2);
+    const stateSelect: ReactWrapper = wrapper
+      .find({id: "select-filter-column-state"});
+    stateSelect.simulate("change", { target: { value: "Inactive" } });
+    environmentRows = wrapper
+      .find("SimpleRow");
+    expect(environmentRows)
+      .toHaveLength(1);
+    expect(environmentRows.contains("Inactive"))
+      .toEqual(true);
+  });
 });
