@@ -8,17 +8,17 @@
 As a security company,
 `Fluid Attacks` is aware of the importance of
 
-- Having honesty, teamwork, and discipline
+- having honesty, teamwork, and discipline
   as immovable principles
   (our full manifest can be found
   [inner]#link:../values/[here]#);
-- Developing products
+- developing products
   that comply with the highest worldwide
   [inner]#link:../products/rules/[security standards]#;
-- Acquiring only
+- acquiring only
   [inner]#link:../rules/262/[compliant services and products for internal use]#;
-- Implementing best security practices within our organization;
-- Being completely transparent with our clients,
+- implementing best security practices within our organization;
+- being completely transparent with our clients,
   especially regarding their data:
   [inner]#link:../rules/315/[how we use it, and what we do to protect it]#.
 
@@ -118,7 +118,7 @@ industry-standard
 - All our clients' repositories are
   stored in private,
   [inner]#link:../rules/185/[AES256 ciphered]#
-  redundant datacenters.
+  redundant data centers.
 - Forces exploits are stored encrypted using AES256 keys.
 - All
   [inner]#link:../products/integrates[Integrates]#
@@ -546,8 +546,8 @@ provided by a client in a project context.
 
 ==== 5.5.1 Data use policy
 
-We are commited to use our clients data
-exclusively for vulnerability seeking
+We are committed to using our clients' data
+exclusively for vulnerability scanning
 in the context of the service we are providing.
 No other activities will be executed
 over the provided information.
@@ -558,12 +558,12 @@ All the data related to a project
 can be deleted from
 [inner]#link:../products/integrates[Integrates]#
 by a user with a *_project manager_* role.
-Once this action is triggered,
-a [inner]#link:../rules/317/[deletion window]# of 30 days begins.
+Once this action is performed,
+a 30 days [inner]#link:../rules/317/[deletion window]# begins.
 Any *_project manager_* can undo the deletion action.
-After the 30 days waiting period, the project,
-source code, secrets, metadata and any other project related
-[inner]#link:../rules/183/[data is completely removed]#
+After the 30 days waiting period, the project source code,
+secrets, metadata, and other project-related
+[inner]#link:../rules/183/[data are completely removed]#
 from all our systems.
 
 === 5.6 OTR Messaging
@@ -574,51 +574,51 @@ and
 link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
 for communication within the organization.
 Also, all chat histories
-[inner]#link:../rules/183/[reset on a weekly basis]#
+[inner]#link:../rules/183/[are reset every week]#
 as an extra measure to avoid leaks.
 
 === 5.7 Employee time tracking software
 
-We use a time tracking system that takes periodical
-screnshots from laptop screens when
-employees are working. Only managers have access to such
+We use a time tracking system that periodically takes
+screenshots from laptop screens
+when employees are working. Only managers have access to such
 screenshots in case an incident happens. Employees
-have control over the software, which means once they
-stop working, no screen recording occurs.
+have control over the software, which means that once they
+stop working, no screenshots are taken.
 
-=== 5.8 Poligraph tests
+=== 5.8 Polygraph tests
 
-We regularily run poligraph tests on all
+We regularly run polygraph tests on all
 employees with access to sensitive information.
 Tests fully focus on identifying
-if an employee disclosed sensitive information
+whether an employee disclosed sensitive information
 to a third party.
-Personal questions are never aksed.
+Personal questions are never asked.
 
 == 6. Non-repudiation
 
 Non-repudiation refers to the capability
 of keeping a log of every action
-taken in a system.
-What was done, who did it and when.
-By knowing this,
+performed on a system.
+What was done, who did it, and when.
+Knowing this,
 no one can deny their actions.
 
 We implement this in several ways
-depending of the context.
+depending on the context.
 
 === 6.1 Everything as code
 
 [[EAC]]
-At `Fluid Attacks` we try to keep everything we can
+At `Fluid Attacks`, we try to keep as much as possible
 versioned in a Git repository.
-By doing so, we are capable of having
-comprenhensive logs of:
+By doing so, we are able to have
+comprehensive logs of
 
-- What was exactly changed
-- Who changed it
-- When was it changed
-- Who approved a change
+- what exactly was changed;
+- who changed it;
+- when it was changed;
+- who approved a change.
 
 Currently, we keep the following systems as code:
 
@@ -637,12 +637,12 @@ Currently, we store logs for:
 
 - *[inner]#link:../products/integrates[Integrates]#'s*
   *logging system:*
-  Integrates stores a historic state
-  of projects, findings, vulnerabilities
+  Integrates stores a historical status
+  of projects, findings, vulnerabilities,
   and other critical components.
   Changes made to these components
   are always tied to a user and a date.
-  The historic state never expires.
+  The historical status never expires.
 - *[inner]#link:../products/integrates[Integrates]#'s*
   *error tracking system:*
   It provides real-time logging
@@ -650,42 +650,42 @@ Currently, we store logs for:
   It is especially useful for quickly detecting
   new errors and hacking attempts.
   These logs never expire.
-- *Redundant datacenters:*
+- *Redundant data centers:*
   They store comprehensive logs
-  of all our infrastrucutre components.
+  of all our infrastructure components.
   Logs here never expire.
 - *Forces executions:*
-  Every time a client's <<CI, CI pipeline>> runs Forces,
+  Whenever a client's <<CI, CI pipeline>> runs Forces,
   logs containing information like who ran it,
-  vulnerability status and other relevant data
-  are uploaded to our datacenters,
-  allowing us to always know the current status
+  vulnerability status, and other relevant data
+  are uploaded to our data centers,
+  allowing us always to know the current status
   of our client's Forces service.
   These logs never expire.
 - *IAM authentication:*
   Our IAM stores logs of
   login attempts made by users,
-  accessed applications
+  accessed applications,
   and possible threats.
-  Logs here expire after 7 days.
+  Logs here expire after seven (7) days.
 - *Collaboration systems activity:*
-  Our collaboration systems like mail, calendar, etc.
-  Store comprehensive logs of employee activity,
-  spam, phising and malware emails,
+  Our collaboration systems such as email, calendar, etc.,
+  store comprehensive logs of employee activity,
+  spam, phishing and malware emails,
   suspicious login attempts,
-  and other possible threats.
+  and other potential threats.
   Employee activity logs never expire.
   Other security logs expire after 30 days.
 - *CI job logs:*
-  All our <<CI, CI pipelines>> provide full logging
-  of who triggerd them, when,
-  and console output.
+  All our <<CI, CI pipelines>> provide a full record
+  of who triggered them, when,
+  and the console output.
   These logs never expire.
 
 == 7. Availability
 
 Availability refers to the capacity
-of keeping all our systems up and running.
+to keep all our systems up and running.
 Avoiding service interruptions is crucial here.
 
 === 7.1 Distributed applications
@@ -694,8 +694,8 @@ Avoiding service interruptions is crucial here.
 is hosted in an application cluster with
 autoscaling policies and distributed
 replicas. This ensures high availability,
-as the there is always an instance ready to
-recieve user requests in case another stops
+as there is always one instance ready to
+receive user requests if another stops
 working. Every cluster node has at least one
 [inner]#link:../products/integrates[Integrates]#
 instance running in it.
@@ -706,45 +706,45 @@ providing maximum speed and availability across the globe.
 
 === 7.2 Forever-lasting backups
 
-As all our backups are stored in descentralized datacenters,
+As all our backups are stored in decentralized data centers,
 problems like hard drive lifespans
 are not a concern to us.
-Backups seamlessly exist
+The backups exist seamlessly
 for as long as we want to,
-Giving us full traceability
+giving us full traceability
 and recoverability.
 
 === 7.3 Everything is backed up
 
-As data is most likely our most important asset,
+As data is likely our most valuable asset,
 we have strong backup policies for everything.
 For example:
 
-- Our redundant datacenters are fully versioned,
+- Our redundant data centers are fully versioned,
   meaning that any file can be recovered
   or returned to a previous version.
 - [inner]#link:../products/integrates[Integrates]#'s
-  database has daily, weekly, trimestral
+  database has daily, weekly, quarterly,
   and annual full backup schedules.
-  Daily backups last one week,
-  weekly backups last twelve weeks,
-  trimestral backups last three years
-  and yearly backups last fifteen years.
+  The daily backups last one week,
+  the weekly ones twelve weeks,
+  the quarterly ones three years,
+  and the annual ones fifteen years.
 - [inner]#link:../products/integrates[Integrates]#'s
   database has point-in-time
-  recovery with the capability of recovering
+  recovery with the ability to recover
   the database to the state it was
-  in a specific datetime (hours, minutes and seconds)
+  at a specific date and time (hours, minutes, and seconds)
   during the last 35 days.
-- All Forces exploits are versioned.
+- All Forces's exploits are versioned.
 
-== 8. Resilency
+== 8. Resilience
 
-By resilency,
-we refer to the organizational capability
-of adapting to unexpected circumstances
+By resilience,
+we refer to the organization's ability
+to adapt to unexpected circumstances
 that would affect the way our team
-usually work.
+usually works.
 
 === 8.1 Redundant roles
 
@@ -755,13 +755,13 @@ This allows us to be able to fill the gap
 in case an employee goes on sick leave,
 vacation, etc.
 
-=== 8.2 Everything is descentralized
+=== 8.2 Everything is decentralized
 
-All our infrastructure is descentralized,
-meaning that we have independent datacenters
+All our infrastructure is decentralized,
+meaning that we have independent data centers
 spread across multiple regions.
-No hardware maintainance is needed
-as it is done by a third party.
+No hardware maintenance is needed
+as a third party does it.
 No local networks are used.
 We only use Wifi connections with
 [inner]#link:../rules/253/[strong random generated passwords]#
@@ -774,18 +774,18 @@ Connections are always encrypted
 A standard laptop is given to every employee.
 Going to the office is the rule,
 but employees can always fill out an exception form
-to do telework in case they need to.
+to telework in case they need to.
 Employees are encouraged to take their laptops home,
 as not keeping them in the same place
-decreases the risk of massive thefts.
+decreases the risk of massive theft.
 Also, in case our offices close
 (link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19]),
 everyone can still do their job seamlessly.
 All laptops have a password-secured BIOS,
 link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
-hardware and
+hardware, and
 [inner]#link:../rules/231/[biometric fingerprint reader]#.
-By owning the laptops, siezing the computer should the
+By owning the laptops, seizing the computer should the
 need arise becomes possible.
 link:https://en.wikipedia.org/wiki/Bring_your_own_device[BYOD]
 is not allowed.
@@ -793,15 +793,15 @@ is not allowed.
 == 9. Integrity
 
 Integrity refers to the ability
-of:
+to
 
-- Avoiding data loss or corruption.
-- Having clear definitions
+- avoid data loss or corruption;
+- have clear definitions
   of all technological components
   within the organization
-  and making sure
-  such definitions are followed.
-- Having a clear developing cycle
+  and make sure
+  such definitions are followed;
+- have a clear development cycle
   that ensures applications are
   secure and true to their source code.
 
@@ -810,29 +810,29 @@ of:
 We continuously encourage our hackers
 to certify their knowledge.
 Usually, hackers start applying for
-certificates after spending 6 months
+certificates after spending six (6) months
 in the company.
 [inner]#link:../services/certifications/[Here]#
-you can find a comprenhensive list of certifications
-our hackers team currently has.
+you can find a comprehensive list of certifications
+that our team of hackers currently holds.
 
 === 9.2 Extensive hiring process
 
-All job applicans must go through
-an extense [inner]#link:../careers[testing process]# in order to prove
+All job applicants must undergo
+an extensive [inner]#link:../careers[testing process]# to prove
 their technical capabilities and human values.
 
 The technical part of the testing process
-consists of solving programming and hacking challenges,
-upload them to a git repository with highly strict linters and compilers,
-and ascend in a [inner]#link:../training/[organizational ranking]#.
+involves solving programming and hacking challenges,
+uploading them to a git repository with highly strict linters and compilers,
+and ascending in a [inner]#link:../training/[organizational ranking]#.
 
-The human values part of the testing process
+The human values section of the testing process
 includes creating a portfolio with the five most
 important achievements of the candidate,
 going to the office during a training
 phase to work alongside the team,
-job inverviews, among others.
+and job interviews, among other things.
 
 === 9.3 Secure emails
 
@@ -844,45 +844,45 @@ for running advanced diagnostics.
 These protocols help email receptors
 to verify if an email comes from a trusted source,
 thus helping them to avoid
-phising and fake emails.
+phishing and fake emails.
 
 === 9.4 Developing for integrity
 
 This section describes everything
 we do in our development cycle
-in order to reach a high integrity level.
+to reach a high integrity level.
 
 ==== 9.4.1 Monorepo
 
 We have a Git repository for each one of our applications.
 By taking this approach instead of dividing applications
-into smaller repositories, we get:
+into smaller repositories, we get the following:
 
 - *A centralized source of truth:*
   Everything regarding the application
   can be found in a single place.
 - *Centralized knowledge:*
-  Teams have traversal knowledge of
+  Teams have an all-inclusive knowledge of
   the application, as they spend
   their time working in the same
   repository.
-- *Standarization:*
-  Standarizing a project
-  (folder structure, naming conventions, etc)
-  is a lot easier when there is only one repo
-  where everyone works, as no duplicated
-  efforts or repository synchronization is needed.
+- *Standardization:*
+  Standardizing a project
+  (folder structure, naming conventions, etc.)
+  is easier when there is only one repo
+  where everyone works, as there is no need
+  to duplicate efforts or synchronize repositories.
 
 ==== 9.4.2 Everything as code
 
 As mentioned in the
-<<EAC, Everything as code previous section>>,
-we try to keep everything we can
+<<EAC, "Everything as code" previous section>>,
+we try to keep as much as possible
 versioned in a Git repository.
-By making the source code the only
-variable affecting an application,
-application integrity becomes a matter of
-keeping a healthy source code.
+The application integrity becomes a matter
+of keeping a healthy source code,
+after making the source code the only
+variable affecting an application.
 
 ==== 9.4.3 Infrastructure as code (IaC)
 
@@ -895,28 +895,28 @@ other source code,
 such as auditability, history,
 revert capabilities, etc.
 
-==== 9.4.4 Regenerable infrastrucutre
+==== 9.4.4 Regenerative infrastructure
 
-By having our infrastrucutre written as code,
+By having our infrastructure written as code,
 we can recreate it
-in a daily basis.
-Regenerating our infrastrcture everyday
+on a daily basis.
+Regenerating our infrastructure every day
 brings the following advantages:
 
 - Any injected trojans or malicious scripts are removed.
 - Having fresh new servers every 24 hours let us avoid
   availability and performance issues generated by
   memory leaks and not released resources.
-- The capability of deploying our infrastructure
-  from 0 to production in an automated process.
+- To have the capability of deploying our infrastructure
+  from zero (0) to production in an automated process.
 
 ==== 9.4.5 Immutable infrastructure
 
-The infrastructure code can be audited
+The infrastructure code can be audited,
 and changes can only be made by
 [inner]#link:../rules/265/[changing such code]#.
 This provides full transparency on
-[inner]#link:../rules/046/[what was changed, when and who did it]#.
+[inner]#link:../rules/046/[what was changed, when, and who did it]#.
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
@@ -926,8 +926,8 @@ or administrative accounts are needed.
 We run an Application Build Process for every change a
 developer wants to introduce to the source
 code of the application via
-link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge request].
-The Application Build Process includes steps like:
+link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge Request].
+The Application Build Process includes steps like the following:
 
 - Forces exploits tests
 - Linting tests
@@ -951,7 +951,7 @@ a building process can be automatized,
 especially some tests.
 That is why developers also need
 to ask a peer to review their code changes
-before their Merge Request can go to production.
+before their Merge Requests can go to production.
 Reviewers usually evaluate code quality,
 commit message coherence,
 and other semantic properties of the change.
@@ -962,13 +962,13 @@ standards and future plans for the application.
 This space is ideal for senior developers to
 guide juniors on the right path.
 
-==== 9.4.8 Continuous Deployment
+==== 9.4.8 Continuous Deployment (CD)
 
 In addition to running an automated building process
 for every change,
-we also run an automated deploying process.
+we also run an automatic deployment process.
 Once a Merge Request is accepted,
-an additional Continuous Deployment pipeline triggers,
+an additional Continuous Deployment pipeline is triggered,
 automatically deploying a new production version
 based on the new source code.
 
@@ -978,13 +978,13 @@ based on the new source code.
 Instead of having long-term development environments
 like *_staging_*,
 we use testing environments
-that get created during a CI pipeline.
+that are created during a CI pipeline.
 We call them ephemeral environments,
 as they only exist in pipeline time.
-These environments get created on demand
+These environments are created on demand
 when a developer triggers a CI pipeline.
 They are also written as code,
-regenerable and immutable,
+regenerable, and immutable,
 allowing us to certify
 that a new version of an application
 is stable and secure
@@ -996,18 +996,18 @@ is destroyed forever.
 ==== 9.4.10 Trunk based development
 
 We use
-link:https://trunkbaseddevelopment.com/[Trunk based develoment]
-in order to keep only one long-term master branch.
-Such branch is the source of truth regarding
+link:https://trunkbaseddevelopment.com/[Trunk based development]
+to keep only one long-term master branch.
+That branch is the source of truth regarding
 what code is running in the production environments.
 
-==== 9.4.11 Microchanges
+==== 9.4.11 Micro-changes
 
 Merge requests made by developers
 can not be bigger than 200 deltas of code.
-A consists of
+A delta consists of
 either a removed or an added line of code.
-Some advantages of working with microchanges are:
+The following are some advantages of working with micro-changes:
 
 - Merge requests are small and easy to review
   by peer reviewers.
@@ -1018,10 +1018,10 @@ Some advantages of working with microchanges are:
   within those 200 deltas is
   easier.
 - Developers go to production
-  multiple times in a day and
-  no code goes stale.
+  multiple times in a day,
+  and no code goes stale.
 - Users of the application
-  see it evolve in a daily basis.
+  see it evolve on a daily basis.
 
 ==== 9.4.12 One branch per developer
 
@@ -1029,11 +1029,11 @@ Developers can only have one short-term branch
 with their names (employeeatfluid) for every application.
 Once they develop a portion of code (200 deltas maximum),
 they run the Continuous Integration phase,
-create a Merge Request and ask for peer review.
+create a Merge Request, and ask for peer review.
 If everything goes well, their branch is
 merged to the master branch,
-their change is deployed to production
-and the developer's short-term branch is deleted.
+their changes are deployed to production
+and their short-term branch is deleted.
 
 ==== 9.4.13 Isolated and sudo-less dependencies
 
@@ -1044,29 +1044,30 @@ thus guarantying total reproducibility.
 
 Additionally,
 these dependencies do not require any administrative privileges like sudo.
-They are completely build in user space,
-considerabily reducing the possibility of compromising OS core files.
+They are entirely built on user space,
+considerably reducing the possibility of compromising OS core files.
 
 ==== 9.4.14 No dependency auto-update
 
 All external dependencies are pinned to a specific version
 (this is highly related to the immutability property).
-Meaning that in order to update a dependency,
-a developer must:
+Meaning that to update a dependency,
+a developer must do the following:
 
 . Change the version in the source code.
 . Run all CI tests on the generated ephemeral environment
   with the new dependency version.
-. Get the change approved from a colleague
+. Get the change approved by a colleague
   after running a peer review.
-. In case all tests and peer review pass,
-  a new production version with the updated
-  dependency will be automatically deployed.
+
+In case all tests and peer review pass,
+a new production version with the updated
+dependency will be automatically deployed.
 
 === 9.5 Static website
 
 Our [inner]#link:../[Website]# is a
-link:https://en.wikipedia.org/wiki/Static_web_page[Static website],
+link:https://en.wikipedia.org/wiki/Static_web_page[static website],
 meaning that it only serves plain HTML files.
 As it does not have any complex functionality
 that would require an application server,
