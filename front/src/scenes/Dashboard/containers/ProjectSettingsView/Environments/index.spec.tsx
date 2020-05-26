@@ -8,12 +8,13 @@ import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../../store/index";
 import { authzContext } from "../../../../../utils/authz/config";
-import { msgError } from "../../../../../utils/notifications";
-import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS } from "../queries";
+import { msgError, msgSuccess } from "../../../../../utils/notifications";
+import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_ENVIRONMENT_MUTATION } from "../queries";
 import { Environments, IEnvironmentsProps } from "./index";
 
 jest.mock("../../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");
+  mockedNotifications.msgSuccess = jest.fn();
   mockedNotifications.msgError = jest.fn();
 
   return mockedNotifications;
@@ -94,6 +95,38 @@ describe("Environments", () => {
         },
       },
     },
+    {
+      request: {
+        query: GET_ENVIRONMENTS,
+        variables: {
+          projectName: "TEST",
+        },
+      },
+      result: {
+        data: {
+          resources: {
+            environments: JSON.stringify([
+              {
+                historic_state: [{
+                  date: "2000/03/24 15:43:48",
+                  state: "INACTIVE",
+                  user: "test@gmail.com",
+                }],
+                urlEnv: "https://test/test",
+              },
+              {
+                historic_state: [{
+                  date: "2000/03/24 15:45:00",
+                  state: "ACTIVE",
+                  user: "test@gmail.com",
+                }],
+                urlEnv: "Docker image found at: https://test/test",
+              },
+            ]),
+          },
+        },
+      },
+    },
   ];
 
   it("should return a function", () => {
@@ -144,5 +177,46 @@ describe("Environments", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(msgError)
       .toHaveBeenCalledTimes(0);
+  });
+
+  it("should update an environment", async () => {
+    const mocksMutation: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: UPDATE_ENVIRONMENT_MUTATION,
+        variables: {
+          env : {
+            urlEnv: "https://test/test",
+          },
+          projectName: "TEST",
+          state: "ACTIVE",
+        },
+      },
+      result: { data: { updateEnvironment : { success: true } } },
+    }];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_resource__do_update_environment" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksRepositories.concat(mocksMutation)} addTypename={false}>
+          <authzContext.Provider value={mockedPermissions}>
+            <Environments {...mockProps} />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const stateSwitch: ReactWrapper = wrapper
+      .find(".switch")
+      .at(0);
+    stateSwitch.simulate("click");
+    const proceedButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Proceed"))
+      .at(0);
+    proceedButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgSuccess)
+      .toHaveBeenCalled();
   });
 });
