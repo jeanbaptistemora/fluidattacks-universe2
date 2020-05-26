@@ -24,6 +24,16 @@
         </script>
       <!-- End Google Analytics -->
 
+      <!-- Highlight.js syntax highlighter -->
+      <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/color-brewer.min.css">
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/gherkin.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/xml.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+      <!-- End Highlight.js -->
+
       {% if GOOGLE_SITE_VERIFICATION %}
         <meta name="google-site-verification"
               content="{{ GOOGLE_SITE_VERIFICATION }}">
