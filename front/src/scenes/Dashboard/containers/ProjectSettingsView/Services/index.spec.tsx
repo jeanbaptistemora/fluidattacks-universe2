@@ -274,5 +274,28 @@ describe("Services", () => {
         integrates: true,
         type: "CONTINUOUS",
       });
+
+    drillsSwitch()
+      .simulate("click");
+
+    expect(formValues())
+      .toEqual({
+        drills: false,
+        forces: false,
+        integrates: true,
+        type: "CONTINUOUS",
+      });
+
+    forcesSwitch()
+      .simulate("click");
+
+    expect(formValues())
+      .toEqual({
+        drills: true,
+        forces: true,
+        integrates: true,
+        type: "CONTINUOUS",
+      });
+
   });
 });

@@ -52,14 +52,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const selector: (state: {}, ...fields: string[]) => IFormData = formValueSelector("editGroup");
   const formValues: IFormData = useSelector((state: {}) => selector(state, "type", "drills", "forces", "integrates"));
 
-  // GraphQL Logic
-  const canHaveDrills: () => boolean = (): boolean => (
-    isContinuousType(formValues.type)
-  );
-  const canHaveForces: () => boolean = (): boolean => (
-    isContinuousType(formValues.type) && formValues.drills
-  );
-
   // Business Logic handlers
   const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> = (
     event: React.ChangeEvent<string> | undefined, subsType: string,
@@ -68,10 +60,17 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     dispatch(change("editGroup", "forces", isContinuousType(subsType)));
   };
   const handleDrillsBtnChange: ((withDrills: boolean) => void) = (withDrills: boolean): void => {
-    dispatch(change("editGroup", "drills", canHaveDrills() && withDrills));
+    dispatch(change("editGroup", "drills", isContinuousType(formValues.type) && withDrills));
 
     if (!withDrills) {
       dispatch(change("editGroup", "forces", false));
+    }
+  };
+  const handleForcesBtnChange: ((withForces: boolean) => void) = (withForces: boolean): void => {
+    dispatch(change("editGroup", "forces", isContinuousType(formValues.type) && withForces));
+
+    if (withForces) {
+      dispatch(change("editGroup", "drills", true));
     }
   };
 
@@ -155,14 +154,15 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       service: "integrates",
     },
     {
-      canHave: canHaveDrills(),
+      canHave: isContinuousType(formValues.type),
       disabled: false,
       onChange: handleDrillsBtnChange,
       service: "drills",
     },
     {
-      canHave: canHaveForces(),
+      canHave: isContinuousType(formValues.type),
       disabled: false,
+      onChange: handleForcesBtnChange,
       service: "forces",
     },
   ].filter((element: IServicesDataSet): boolean => element.canHave);
