@@ -8,6 +8,8 @@ source "${srcExternalSops}"
 function job_build_front {
       pushd front \
     &&  npm install \
+    &&  < ../build/patches/jquery-comments.diff \
+        patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
     &&  npm run build \
   &&  popd \
   &&  sed --in-place \
