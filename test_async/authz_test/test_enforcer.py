@@ -120,7 +120,7 @@ async def test_group_service_attributes_enforcer():
     ]:
         enforcer = authz.get_group_service_attributes_enforcer(group)
 
-        assert await enforcer(group, attribute) == result, \
+        assert await enforcer(attribute) == result, \
             f'{group} attribute: {attribute}, should have value {result}'
 
         attributes_remaining_to_test.remove((group, attribute))
