@@ -161,6 +161,7 @@ type Mutation {
         subscription: SubscriptionType!,
         hasDrills: Boolean!,
         hasForces: Boolean!,
+        hasIntegrates: Boolean!,
     ): SimplePayload!
     addFindingComment(
         content: String!,

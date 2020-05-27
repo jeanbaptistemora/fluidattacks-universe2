@@ -5,6 +5,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../../store/index";
 import { authzContext } from "../../../../../utils/authz/config";
@@ -114,7 +115,9 @@ describe("Services", () => {
         <Provider store={store}>
           <MockedProvider mocks={mockResponses} addTypename={false}>
             <authzContext.Provider value={mockedPermissions}>
-              <Services groupName={test.group} />
+              <MemoryRouter initialEntries={["/home"]}>
+                <Services groupName={test.group} />
+              </MemoryRouter>
             </authzContext.Provider>
           </MockedProvider>
         </Provider>,
@@ -135,7 +138,9 @@ describe("Services", () => {
       <Provider store={store}>
         <MockedProvider mocks={mockResponses} addTypename={false}>
           <authzContext.Provider value={mockedPermissions}>
-            <Services groupName="unittesting" />
+            <MemoryRouter initialEntries={["/home"]}>
+              <Services groupName="unittesting" />
+            </MemoryRouter>
           </authzContext.Provider>
         </MockedProvider>
       </Provider>,

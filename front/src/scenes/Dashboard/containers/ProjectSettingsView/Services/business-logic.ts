@@ -42,6 +42,7 @@ const serviceDiff: ((msg: string, old: string, now: string) => string) =
 export const computeConfirmationMessage: ((data: IGroupData, form: IFormData) => string) =
   (data: IGroupData, form: IFormData): string => ([
       serviceDiff("type", serviceStateToString(data.project.subscription), serviceStateToString(form.type)),
+      serviceDiff("group", serviceStateToString(true), serviceStateToString(form.integrates ? true : "deleted_soon")),
       serviceDiff("integrates", serviceStateToString(true), serviceStateToString(form.integrates)),
       serviceDiff("drills", serviceStateToString(data.project.hasDrills), serviceStateToString(form.drills)),
       serviceDiff("forces", serviceStateToString(data.project.hasForces), serviceStateToString(form.forces)),

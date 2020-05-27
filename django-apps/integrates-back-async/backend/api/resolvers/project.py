@@ -527,12 +527,13 @@ async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
 @turn_args_into_kwargs
 @enforce_group_level_auth_async
 @require_project_access
-async def _do_edit_group(
+async def _do_edit_group(  # pylint: disable=too-many-arguments
     _, info,
     group_name: str,
     subscription: str,
     has_drills: bool,
     has_forces: bool,
+    has_integrates: bool,
 ) -> SimplePayloadType:
     group_name = group_name.lower()
     requester_email = util.get_jwt_content(info.context)['user_email']
@@ -541,6 +542,7 @@ async def _do_edit_group(
         group_name=group_name,
         has_drills=has_drills,
         has_forces=has_forces,
+        has_integrates=has_integrates,
         requester_email=requester_email,
         subscription=subscription,
     )

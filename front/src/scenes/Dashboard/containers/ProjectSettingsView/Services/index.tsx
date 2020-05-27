@@ -10,6 +10,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, FormGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Dispatch } from "redux";
 import { change, EventWithDataHandler, Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
@@ -33,6 +34,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const { groupName } = props;
 
   // State management
+  const { push } = useHistory();
   const dispatch: Dispatch = useDispatch();
   const selector: (state: {}, ...fields: string[]) => IFormData = formValueSelector("editGroup");
   const formValues: IFormData = useSelector((state: {}) => selector(state, "type", "drills", "forces", "integrates"));
@@ -44,10 +46,20 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     dispatch(change("editGroup", "drills", isContinuousType(subsType)));
     dispatch(change("editGroup", "forces", isContinuousType(subsType)));
   };
+  const handleIntegratesBtnChange: ((withIntegrates: boolean) => void) = (withIntegrates: boolean): void => {
+    dispatch(change("editGroup", "integrates", withIntegrates));
+
+    if (!withIntegrates) {
+      dispatch(change("editGroup", "forces", false));
+      dispatch(change("editGroup", "drills", false));
+    }
+  };
   const handleDrillsBtnChange: ((withDrills: boolean) => void) = (withDrills: boolean): void => {
     dispatch(change("editGroup", "drills", isContinuousType(formValues.type) && withDrills));
 
-    if (!withDrills) {
+    if (withDrills) {
+      dispatch(change("editGroup", "integrates", true));
+    } else {
       dispatch(change("editGroup", "forces", false));
     }
   };
@@ -55,6 +67,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     dispatch(change("editGroup", "forces", isContinuousType(formValues.type) && withForces));
 
     if (withForces) {
+      dispatch(change("editGroup", "integrates", true));
       dispatch(change("editGroup", "drills", true));
     }
   };
@@ -75,7 +88,11 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
         translate.t("search_findings.services_table.success_title"),
       );
 
-      refetchGroupData({ groupName });
+      if (formValues.integrates) {
+        refetchGroupData({ groupName });
+      } else {
+        push("/home");
+      }
     },
     onError: (error: ApolloError): void => {
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
@@ -112,6 +129,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
         groupName,
         hasDrills: values.drills,
         hasForces: values.forces,
+        hasIntegrates: values.integrates,
         subscription: values.type,
       },
     });
@@ -135,18 +153,16 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const servicesList: IServicesDataSet[] = [
     {
       canHave: true,
-      disabled: true,
+      onChange: handleIntegratesBtnChange,
       service: "integrates",
     },
     {
       canHave: isContinuousType(formValues.type),
-      disabled: false,
       onChange: handleDrillsBtnChange,
       service: "drills",
     },
     {
       canHave: isContinuousType(formValues.type),
-      disabled: false,
       onChange: handleForcesBtnChange,
       service: "forces",
     },
@@ -183,7 +199,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             component={switchButton}
             name={element.service}
             props={{
-              disabled: element.disabled,
+              disabled: false,
               offlabel: translate.t("search_findings.services_table.inactive"),
               onChange: _.isUndefined(element.onChange) ? undefined : element.onChange,
               onlabel: translate.t("search_findings.services_table.active"),

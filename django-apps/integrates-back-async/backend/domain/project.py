@@ -57,13 +57,25 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> boo
 
 
 def validate_project_services_config(
-        is_continuous_type: bool,
-        has_drills: bool,
-        has_forces: bool):
+    is_continuous_type: bool,
+    has_drills: bool,
+    has_forces: bool,
+    has_integrates: bool,
+):
     if is_continuous_type:
-        if has_forces and not has_drills:
-            raise InvalidProjectServicesConfig(
-                'Forces is only available when Drills is too')
+        if has_drills:
+            if not has_integrates:
+                raise InvalidProjectServicesConfig(
+                    'Drills is only available when Integrates is too')
+
+        if has_forces:
+            if not has_integrates:
+                raise InvalidProjectServicesConfig(
+                    'Forces is only available when Integrates is too')
+            if not has_drills:
+                raise InvalidProjectServicesConfig(
+                    'Forces is only available when Drills is too')
+
     else:
         if has_drills:
             raise InvalidProjectServicesConfig(
@@ -108,7 +120,8 @@ def create_project(
         validate_project_services_config(
             is_continuous_type,
             has_drills,
-            has_forces)
+            has_forces,
+            has_integrates=True)
 
         if internal_project_domain.does_project_name_exist(project_name) \
                 and not project_dal.exists(project_name):
@@ -168,6 +181,7 @@ def edit(
     group_name: str,
     has_drills: bool,
     has_forces: bool,
+    has_integrates: bool,
     requester_email: str,
     subscription: str,
 ) -> bool:
@@ -176,7 +190,8 @@ def edit(
     validate_project_services_config(
         is_continuous_type,
         has_drills,
-        has_forces)
+        has_forces,
+        has_integrates)
 
     item = cast(Dict[str, List[dict]], project_dal.get_attributes(
         project_name=group_name,
@@ -198,12 +213,18 @@ def edit(
         },
         project_name=group_name,
     )
+    if not has_integrates:
+        success = success and request_deletion(
+            project_name=group_name,
+            user_email=requester_email,
+        )
 
     if success:
         notifications_domain.edit_group(
             group_name=group_name,
             has_drills=has_drills,
             has_forces=has_forces,
+            has_integrates=has_integrates,
             requester_email=requester_email,
             subscription=subscription,
         )

@@ -360,6 +360,7 @@ const enTranslations: Dictionary = {
     services_table: {
       active: "Active",
       continuous: "Continuous Hacking",
+      deletedsoon: "Scheduled to be deleted in 1 month",
       drills: "Drills",
       errors: {
         drills_only_if_continuous: "Drills is only available in projects of type Continuous-Hacking",
@@ -367,6 +368,7 @@ const enTranslations: Dictionary = {
         forces_only_if_drills: "Forces is only available when Drills is too",
       },
       forces: "Forces",
+      group: "Group",
       inactive: "Inactive",
       integrates: "Integrates",
       modal: {

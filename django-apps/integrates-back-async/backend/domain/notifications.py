@@ -45,6 +45,7 @@ def edit_group(
     group_name: str,
     has_drills: bool,
     has_forces: bool,
+    has_integrates: bool,
     requester_email: str,
     subscription: str,
 ) -> bool:
@@ -64,6 +65,7 @@ def edit_group(
             Here are the details of the group:
             - Name: {group_name}
             - Type: {translations.get(subscription, subscription)}
+            - Integrates: {translations[has_integrates]}
             - Drills: {translations[has_drills]}
             - Forces: {translations[has_forces]}
 

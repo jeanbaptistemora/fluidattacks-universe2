@@ -16,12 +16,14 @@ export const EDIT_GROUP_DATA: DocumentNode = gql`
     $groupName: String!
     $hasDrills: Boolean!
     $hasForces: Boolean!
+    $hasIntegrates: Boolean!
     $subscription: SubscriptionType!
   ) {
     editGroup(
       groupName: $groupName
       hasDrills: $hasDrills
       hasForces: $hasForces
+      hasIntegrates: $hasIntegrates
       subscription: $subscription
     ) {
       success

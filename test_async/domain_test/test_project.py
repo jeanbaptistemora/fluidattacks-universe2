@@ -38,11 +38,15 @@ class ProjectTest(TestCase):
 
     def test_validate_project_services_config(self):
         with pytest.raises(InvalidProjectServicesConfig):
-            validate_project_services_config(True, False, True)
+            validate_project_services_config(True, True, False, False)
         with pytest.raises(InvalidProjectServicesConfig):
-            validate_project_services_config(False, False, True)
+            validate_project_services_config(True, False, True, True)
         with pytest.raises(InvalidProjectServicesConfig):
-            validate_project_services_config(False, True, False)
+            validate_project_services_config(True, True, True, False)
+        with pytest.raises(InvalidProjectServicesConfig):
+            validate_project_services_config(False, False, True, True)
+        with pytest.raises(InvalidProjectServicesConfig):
+            validate_project_services_config(False, True, False, True)
 
     @pytest.mark.changes_db
     def test_remove_access(self):
@@ -307,12 +311,12 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         expected_output = ['integratesuser@gmail.com', 'continuoushacking@gmail.com']
         assert expected_output == get_managers(project_name)
-    
+
     def test_get_description(self):
         project_name = 'unittesting'
         expected_output = 'Integrates unit test project'
         assert expected_output == get_description(project_name)
-    
+
     def test_get_users(self):
         project_name = 'unittesting'
         expected_output = [
@@ -373,11 +377,12 @@ class ProjectTest(TestCase):
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills', 'has_forces', 'expected'],
+    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
     [
-        ['unittesting', 'continuous', True, True, True],
-        ['oneshottest', 'oneshot', False, False, True],
-        ['not-exists', 'continuous', True, True, False],
+        ['unittesting', 'continuous', True, True, True, True],
+        ['oneshottest', 'oneshot', False, False, True, True],
+        ['not-exists', 'continuous', True, True, True, False],
+        ['not-exists', 'continuous', False, False, False, False],
     ]
 )
 def test_edit(
@@ -385,6 +390,7 @@ def test_edit(
     subscription: str,
     has_drills: bool,
     has_forces: bool,
+    has_integrates: bool,
     expected: bool,
 ):
     assert expected == edit(
@@ -392,5 +398,6 @@ def test_edit(
         subscription=subscription,
         has_drills=has_drills,
         has_forces=has_forces,
+        has_integrates=has_integrates,
         requester_email='test@test.test'
     )

@@ -429,13 +429,13 @@ class ProjectTests(TestCase):
 
 
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills', 'has_forces', 'expected'],
+    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
     [
-        ['UNITTESTING', 'CONTINUOUS', 'true', 'true', True],
-        ['ONESHOTTEST', 'ONESHOT', 'false', 'false', True],
+        ['UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', True],
+        ['ONESHOTTEST', 'ONESHOT', 'false', 'false', 'true', True],
         # You cannot edit a non-existing group
         # this will usually raise 'Access Denied', but the requester is Admin
-        ['NOT-EXIST', 'CONTINUOUS', 'true', 'true', False],
+        ['NOT-EXIST', 'CONTINUOUS', 'true', 'true', 'true', False],
     ]
 )
 async def test_edit_group_good(
@@ -443,6 +443,7 @@ async def test_edit_group_good(
     subscription,
     has_drills,
     has_forces,
+    has_integrates,
     expected,
 ):
     query = f"""
@@ -452,6 +453,7 @@ async def test_edit_group_good(
                 subscription: {subscription},
                 hasDrills: {has_drills},
                 hasForces: {has_forces},
+                hasIntegrates: {has_integrates},
             ) {{
                 success
             }}
@@ -467,16 +469,22 @@ async def test_edit_group_good(
 
 
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills', 'has_forces', 'expected'],
+    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
     [
+        # Configuration error, Drills requires Integrates
+        ['ONESHOTTEST', 'CONTINUOUS', 'true', 'false', 'false',
+         'Exception - Drills is only available when Integrates is too'],
+        # Configuration error, Forces requires Integrates
+        ['ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'false',
+         'Exception - Forces is only available when Integrates is too'],
         # Configuration error, Forces requires Drills
-        ['ONESHOTTEST', 'CONTINUOUS', 'false', 'true',
+        ['ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'true',
          'Exception - Forces is only available when Drills is too'],
         # Configuration error, Forces requires CONTINUOUS
-        ['ONESHOTTEST', 'ONESHOT', 'false', 'true',
+        ['ONESHOTTEST', 'ONESHOT', 'false', 'true', 'true',
          'Exception - Forces is only available in projects of type Continuous'],
         # Configuration error, Drills requires CONTINUOUS
-        ['ONESHOTTEST', 'ONESHOT', 'true', 'false',
+        ['ONESHOTTEST', 'ONESHOT', 'true', 'false', 'true',
          'Exception - Drills is only available in projects of type Continuous'],
     ]
 )
@@ -485,6 +493,7 @@ async def test_edit_group_bad(
     subscription,
     has_drills,
     has_forces,
+    has_integrates,
     expected,
 ):
     query = f"""
@@ -494,6 +503,7 @@ async def test_edit_group_bad(
                 subscription: {subscription},
                 hasDrills: {has_drills},
                 hasForces: {has_forces},
+                hasIntegrates: {has_integrates},
             ) {{
                 success
             }}

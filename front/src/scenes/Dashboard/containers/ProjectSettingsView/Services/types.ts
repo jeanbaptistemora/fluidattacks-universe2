@@ -19,7 +19,6 @@ export interface IServicesProps {
 
 export interface IServicesDataSet {
   canHave: boolean;
-  disabled: boolean;
   onChange?: ((checked: boolean) => void);
   service: string;
 }
