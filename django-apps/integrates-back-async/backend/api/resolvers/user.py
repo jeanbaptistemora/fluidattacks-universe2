@@ -178,10 +178,12 @@ async def _get_projects(info, email: str,
     inactive = \
         await sync_to_async(user_domain.get_projects)(email, active=False)
     user_projects = active + inactive
-    list_projects = \
-        [await project_resolver.resolve(
-            info, project, as_field=project_as_field)
-         for project in user_projects]
+    list_projects = await asyncio.gather(*[
+        asyncio.create_task(
+            project_resolver.resolve(info, project, as_field=project_as_field)
+        )
+        for project in user_projects
+    ])
     return list_projects
 
 
