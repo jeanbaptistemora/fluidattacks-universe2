@@ -53,11 +53,16 @@ def validate_email_address(email: str) -> bool:
 
 def validate_fields(fields: List[str]):
     for field in map(str, fields):
-        check_field(field, r'^$|^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#-]+$')
+        check_field(field, r'^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#-]*$')
 
 
 def validate_url(url: str):
-    check_field(url, r'^$|^[a-zA-Z0-9(),./:;@_$#-]+$')
+    clean_url: str = url
+    encoded_chars_whitelist: List[str] = ['%20']
+    for encoded_char in encoded_chars_whitelist:
+        clean_url = clean_url.replace(encoded_char, '')
+
+    check_field(clean_url, r'^[a-zA-Z0-9(),./:;@_$#-]*$')
 
 
 def check_field(field: str, regexp: str):

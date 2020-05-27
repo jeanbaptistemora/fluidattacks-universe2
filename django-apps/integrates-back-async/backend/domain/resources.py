@@ -182,7 +182,6 @@ def has_repeated_repos(
 
 def create_resource(res_data: List[Dict[str, str]], project_name: str,
                     res_type: str, user_email: str) -> bool:
-    validations.validate_fields(list(res_data[0].values()))
     project_name = project_name.lower()
     if res_type == 'repository':
         validations.validate_url(res_data[0].get('branch', ''))
@@ -197,6 +196,8 @@ def create_resource(res_data: List[Dict[str, str]], project_name: str,
         res_name = 'environments'
         if has_repeated_envs(project_name, res_data):
             raise RepeatedValues()
+    else:
+        validations.validate_fields(list(res_data[0].values()))
     json_data: List[resources_dal.ResourceType] = []
     for res in res_data:
         if res_id in res:

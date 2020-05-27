@@ -71,9 +71,14 @@ export const validTextField: Validator = (value: string): string | undefined => 
 
 export const validUrlField: Validator = (value: string): string | undefined => {
   let error: string | undefined;
+  let cleanValue: string = value;
+  const encodedCharWhitelist: string[] = ["%20"];
+  for (const encodedChar of encodedCharWhitelist) {
+    cleanValue = cleanValue.replace(encodedChar, "");
+  }
 
-  if (!_.isNil(value)) {
-    const match: RegExpMatchArray | null = value.match(/[^a-zA-Z0-9(),./:;@_$#-]/);
+  if (!_.isNil(cleanValue)) {
+    const match: RegExpMatchArray | null = cleanValue.match(/[^a-zA-Z0-9(),./:;@_$#-]/);
     if (match !== null) {
       const invalidChar: string = `'${match[0]}'`;
       error = translate.t("validations.invalidTextField", { chars: invalidChar });
