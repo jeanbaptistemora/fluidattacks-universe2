@@ -74,7 +74,7 @@ export const validUrlField: Validator = (value: string): string | undefined => {
   let cleanValue: string = value;
   const encodedCharWhitelist: string[] = ["%20"];
   for (const encodedChar of encodedCharWhitelist) {
-    cleanValue = cleanValue.replace(encodedChar, "");
+    cleanValue = cleanValue.replace(new RegExp(encodedChar, "g"), "");
   }
 
   if (!_.isNil(cleanValue)) {
