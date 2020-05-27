@@ -301,7 +301,7 @@ def list_project_managers(group: str) -> List[str]:
     all_users = users_active + users_inactive
     managers = \
         [user for user in all_users
-         if authz.get_group_level_role(user, group) == 'customeradmin']
+         if authz.get_group_level_role(user, group) == 'group_manager']
     return managers
 
 
