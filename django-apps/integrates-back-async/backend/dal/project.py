@@ -67,19 +67,17 @@ def get_service_policies(group: str) -> List[SERVICE_POLICY]:
     #   but let's mark it as True for now to see what is more convenient
     policies.append(SERVICE_POLICY(group=group, service='integrates'))
 
-    if has_drills:
-        if type_ == 'continuous':
+    if type_ == 'continuous':
+        if has_drills:
             policies.append(SERVICE_POLICY(group=group, service='drills_white'))
             if has_forces:
                 policies.append(SERVICE_POLICY(group=group, service='forces'))
-
-        elif type_ == 'oneshot':
-            policies.append(SERVICE_POLICY(group=group, service='drills_black'))
-
-        else:
-            rollbar.report_message(
-                'Group has invalid type attribute',
-                level='critical', extra_data=dict(group=group))
+    elif type_ == 'oneshot':
+        policies.append(SERVICE_POLICY(group=group, service='drills_black'))
+    else:
+        rollbar.report_message(
+            'Group has invalid type attribute',
+            level='critical', extra_data=dict(group=group))
 
     return policies
 

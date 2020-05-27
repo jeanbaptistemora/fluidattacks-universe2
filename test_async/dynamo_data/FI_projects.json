@@ -56,7 +56,7 @@
                               "BOOL" : false
                            },
                            "has_drills": {
-                              "BOOL" : true
+                              "BOOL" : false
                            },
                            "requester" : {
                               "S" : "unknown"
