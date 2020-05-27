@@ -207,6 +207,13 @@ describe("Services", () => {
         .text())
           .toEqual("Forces");
 
+    const integratesSwitch: (() => ReactWrapper) = (): ReactWrapper =>
+      integratesRow()
+        .find("td")
+        .at(1)
+        .find("e")
+        .find("div")
+        .first();
     const drillsSwitch: (() => ReactWrapper) = (): ReactWrapper =>
       drillsRow()
         .find("td")
@@ -226,6 +233,28 @@ describe("Services", () => {
       .toEqual({
         drills: true,
         forces: true,
+        integrates: true,
+        type: "CONTINUOUS",
+      });
+
+    integratesSwitch()
+      .simulate("click");
+
+    expect(formValues())
+      .toEqual({
+        drills: false,
+        forces: false,
+        integrates: false,
+        type: "CONTINUOUS",
+      });
+
+    drillsSwitch()
+      .simulate("click");
+
+    expect(formValues())
+      .toEqual({
+        drills: true,
+        forces: false,
         integrates: true,
         type: "CONTINUOUS",
       });
@@ -257,17 +286,6 @@ describe("Services", () => {
 
     genericForm()
       .simulate("submit");
-
-    drillsSwitch()
-      .simulate("click");
-
-    expect(formValues())
-      .toEqual({
-        drills: true,
-        forces: false,
-        integrates: true,
-        type: "CONTINUOUS",
-      });
 
     forcesSwitch()
       .simulate("click");
