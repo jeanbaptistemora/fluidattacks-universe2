@@ -410,6 +410,17 @@ $codeyellow: rgba(230, 219, 116, 1);
     padding: 5px;
     font-weight: 400;
   }
+  .listingblock {
+    padding-top: 2rem;
+  }
+
+  code.hljs {
+    background-color: white;
+    font-family: monospace;
+    padding: 30px;
+    font-weight: 400;
+    font-size: 16px;
+  }
 
   h1 {
     font-size: 3rem;
