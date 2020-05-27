@@ -17,6 +17,7 @@ export const enTranslations: ResourceLanguage = {
   },
   login: {
     btnGoogleText: "Sign in with Google",
+    btnMicrosoftText: "Sign in with Microsoft",
     newVersion: {
       btn: "Update",
       content: "Get the latest features and improvements",

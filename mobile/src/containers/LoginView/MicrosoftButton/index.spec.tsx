@@ -5,19 +5,19 @@ import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
 import { i18next } from "../../../utils/translations/translate";
 
-import { GoogleButton, IGoogleButtonProps } from "./index";
+import { IMicrosoftButtonProps, MicrosoftButton } from "./index";
 
-describe("GoogleButton", (): void => {
+describe("MicrosoftButton", (): void => {
 
   it("should return a function", (): void => {
-    expect(typeof (GoogleButton))
+    expect(typeof (MicrosoftButton))
       .toEqual("function");
   });
 
   it("should render", (): void => {
     const wrapper: ReactWrapper = mount(
       <I18nextProvider i18n={i18next}>
-        <GoogleButton onPress={jest.fn()} disabled={true} />
+        <MicrosoftButton onPress={jest.fn()} disabled={true} />
       </I18nextProvider>,
     );
 
@@ -25,14 +25,14 @@ describe("GoogleButton", (): void => {
       .toHaveLength(1);
     expect(wrapper
       .text())
-      .toContain("Google");
+      .toContain("Microsoft");
   });
 
   it("should execute callbacks", (): void => {
     const performAuth: jest.Mock = jest.fn();
-    const wrapper: ReactWrapper<IGoogleButtonProps> = mount(
+    const wrapper: ReactWrapper<IMicrosoftButtonProps> = mount(
       <I18nextProvider i18n={i18next}>
-        <GoogleButton onPress={performAuth} disabled={false} />
+        <MicrosoftButton onPress={performAuth} disabled={false} />
       </I18nextProvider>,
     );
 

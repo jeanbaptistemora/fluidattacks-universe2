@@ -4,23 +4,21 @@ export const styles: Dictionary = StyleSheet.create({
   container: {
     alignItems: "center",
     backgroundColor: "#FFFFFF",
-    borderRadius: 2,
-    elevation: 1,
+    borderColor: "#8C8C8C",
+    borderWidth: 1,
     flexDirection: "row",
     marginBottom: 10,
   },
   disabled: {
     backgroundColor: "#BDBDBD",
-    elevation: 0,
   },
   icon: {
     height: 21,
     marginLeft: 12,
-    resizeMode: "contain",
     width: 21,
   },
   label: {
-    color: "#757575",
+    color: "#5E5E5E",
     fontSize: 14,
     marginHorizontal: 12,
     marginVertical: 9,
