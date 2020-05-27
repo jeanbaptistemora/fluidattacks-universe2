@@ -365,7 +365,7 @@ class ProjectTest(TestCase):
         project_data = {
             'companies': ["fluid"],
             'description': 'This is a new project',
-            'project_name': 'NAMEONE',
+            'project_name': 'PRAGA',
             'subscription': 'continuous',
             'has_drills': True,
             'has_forces': True

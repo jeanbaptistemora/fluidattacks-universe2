@@ -14,7 +14,6 @@ def test_get_one():
     assert isinstance(group_available, str)
 
 
-
 def test_get_all():
     all_groups = available_group_dal.get_all()
     assert isinstance(all_groups, list)
