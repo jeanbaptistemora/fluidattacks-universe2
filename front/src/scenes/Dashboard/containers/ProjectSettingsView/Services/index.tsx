@@ -23,24 +23,8 @@ import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { GenericForm } from "../../../components/GenericForm";
 import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
-
-export interface IServicesProps {
-  groupName: string;
-}
-
-export interface IServicesDataSet {
-  canHave: boolean;
-  disabled: boolean;
-  onChange?: ((checked: boolean) => void);
-  service: string;
-}
-
-export interface IFormData {
-  drills: boolean;
-  forces: boolean;
-  integrates: boolean;
-  type: string;
-}
+import { computeConfirmationMessage  } from "./business-logic";
+import { IFormData, IServicesDataSet, IServicesProps } from "./types";
 
 const isContinuousType: (type: string) => boolean = (type: string): boolean =>
   _.isUndefined(type) ? false : type.toLowerCase() === "continuous";
@@ -120,49 +104,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.Fragment />;
   }
-
-  // Contract difference
-  const serviceStateToString: ((value: boolean | string | undefined) => string) =
-    (value: boolean | string | undefined): string => {
-      let service: string;
-
-      switch (typeof(value)) {
-        case "boolean":
-          service = value ? "active" : "inactive";
-          break;
-        case "string":
-          service = value.toLowerCase();
-          break;
-        default:
-          service = "";
-      }
-
-      return service;
-    };
-  const serviceDiff: ((msg: string, old: string, now: string) => string) =
-    (msg: string, old: string, now: string): string => {
-      const as: string = translate.t("search_findings.services_table.modal.diff.as");
-      const from: string = translate.t("search_findings.services_table.modal.diff.from");
-      const keep: string = translate.t("search_findings.services_table.modal.diff.keep");
-      const mod: string = translate.t("search_findings.services_table.modal.diff.mod");
-      const to: string = translate.t("search_findings.services_table.modal.diff.to");
-
-      const msgString: string = translate.t(`search_findings.services_table.${msg}`);
-      const nowString: string = translate.t(`search_findings.services_table.${now}`);
-      const oldString: string = translate.t(`search_findings.services_table.${old}`);
-
-      return now === old
-        ? `${keep} ${msgString} ${as} ${nowString}`
-        : `${mod} ${msgString} ${from} ${oldString} ${to} ${nowString}`;
-    };
-  const computeConfirmationMessage: (() => string) = (): string => ([
-      serviceDiff("type", serviceStateToString(data.project.subscription), serviceStateToString(formValues.type)),
-      serviceDiff("integrates", serviceStateToString(true), serviceStateToString(formValues.integrates)),
-      serviceDiff("drills", serviceStateToString(data.project.hasDrills), serviceStateToString(formValues.drills)),
-      serviceDiff("forces", serviceStateToString(data.project.hasForces), serviceStateToString(formValues.forces)),
-    ].filter((line: string): boolean => line.length > 0)
-     .join("\n")
-  );
 
   // Action handlers
   const handleSubmit: ((values: IFormData) => void) = (values: IFormData): void => {
@@ -264,7 +205,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
         </Col>
       </Row>
       <ConfirmDialog
-        message={computeConfirmationMessage()}
+        message={computeConfirmationMessage(data, formValues)}
         title={translate.t("search_findings.services_table.modal.title")}
       >
         {(confirm: ConfirmFn): React.ReactNode => {
