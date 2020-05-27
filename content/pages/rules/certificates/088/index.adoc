@@ -1,7 +1,7 @@
 :slug: rules/088/
 :category: certificates
 :description: This document contains the details of the security requirements related to the definition, management and usage of digital certificates. In this case, it is recommended that the system require digital certificates from the client during the authentication process.
-:keywords: Digital certificate, Abuse case, Client certificate, Authentication, Expiration, Relevant information.
+:keywords: Certificate, Digital, Client, ASVS, CWE, NIST
 :rules: yes
 
 = R088. Request client certificates
@@ -11,3 +11,25 @@
 Systems that manage business-critical information must require digital
 certificates from the client.
 This must be done especially during the authentication process.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/521.html[CWE-521: Weak Password Requirements]
+The product does not require that users should have strong passwords,
+which makes it easier for attackers to compromise user accounts.
+
+. [[r2]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 5.2.5 Verifier Impersonation Resistance]
+A verifier impersonation-resistant authentication protocol SHALL establish an
+authenticated protected channel with the verifier.
+It SHALL then strongly and irreversibly bind a channel identifier that was
+negotiated in establishing the authenticated protected channel to the
+authenticator output
+(e.g., by signing the two values together using a private key controlled by the
+claimant for which the public key is known to the verifier).
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.2 General Authenticator Requirements.(2.2.4)]
+Verify impersonation resistance against phishing,
+such as the use of multi-factor authentication, cryptographic devices with
+intent (such as connected keys with a push to authenticate),
+or at higher AAL levels, client-side certificates.
