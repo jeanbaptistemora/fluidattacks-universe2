@@ -18,6 +18,7 @@ import {
 import { rollbar } from "../../utils/rollbar";
 import { checkVersion } from "../../utils/version";
 
+import { GoogleButton } from "./GoogleButton";
 import { styles } from "./styles";
 
 type manifestStructure = NativeConstants["manifest"] & { android: { package: string } };
@@ -92,13 +93,10 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
       <View style={styles.container}>
         <Logo width={300} height={70} fill="#FFFFFF" />
         <View style={styles.buttonsContainer}>
-          <Button
+          <GoogleButton
             disabled={isLoading ? true : isOutdated}
-            mode="contained"
             onPress={handleGoogleButtonClick}
-          >
-            {t(isLoading ? "login.authLoadingText" : "login.btnGoogleText")}
-          </Button>
+          />
         </View>
         <Preloader visible={isLoading} />
         <View style={styles.bottom}>

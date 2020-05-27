@@ -16,7 +16,6 @@ export const enTranslations: ResourceLanguage = {
     vulnsFound_plural: "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> systems",
   },
   login: {
-    authLoadingText: "Authenticating...",
     btnGoogleText: "Sign in with Google",
     newVersion: {
       btn: "Update",

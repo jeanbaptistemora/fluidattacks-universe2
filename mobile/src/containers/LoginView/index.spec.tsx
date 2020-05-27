@@ -11,6 +11,7 @@ import { NativeRouter } from "react-router-native";
 import { i18next } from "../../utils/translations/translate";
 import { checkVersion } from "../../utils/version";
 
+import { GoogleButton, IGoogleButtonProps } from "./GoogleButton";
 import { LoginView } from "./index";
 
 jest.mock("expo-google-app-auth", (): Dictionary => {
@@ -72,7 +73,7 @@ describe("LoginView", (): void => {
     expect(wrapper.find("logo")
       .length)
       .toBeGreaterThan(0);
-    expect(wrapper.find("Button"))
+    expect(wrapper.find("googleButton"))
       .toHaveLength(1);
   });
 
@@ -102,8 +103,8 @@ describe("LoginView", (): void => {
     expect(wrapper)
       .toHaveLength(1);
 
-    const googleBtn: ReactWrapper<React.ComponentProps<typeof Button>> = wrapper
-      .find<React.ComponentProps<typeof Button>>(Button);
+    const googleBtn: ReactWrapper<IGoogleButtonProps> = wrapper
+      .find<IGoogleButtonProps>(GoogleButton);
     expect(googleBtn)
       .toHaveLength(1);
 
@@ -141,8 +142,8 @@ describe("LoginView", (): void => {
     expect(wrapper)
       .toHaveLength(1);
 
-    const googleBtn: ReactWrapper<React.ComponentProps<typeof Button>> = wrapper
-      .find<React.ComponentProps<typeof Button>>(Button);
+    const googleBtn: ReactWrapper<IGoogleButtonProps> = wrapper
+      .find<IGoogleButtonProps>(GoogleButton);
     expect(googleBtn)
       .toHaveLength(1);
 
@@ -173,8 +174,8 @@ describe("LoginView", (): void => {
     expect(wrapper)
       .toHaveLength(1);
 
-    const googleBtn: ReactWrapper<React.ComponentProps<typeof Button>> = wrapper
-      .find<React.ComponentProps<typeof Button>>(Button);
+    const googleBtn: ReactWrapper<IGoogleButtonProps> = wrapper
+      .find<IGoogleButtonProps>(GoogleButton);
     expect(googleBtn)
       .toHaveLength(1);
 
