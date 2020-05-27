@@ -29,60 +29,118 @@ describe("Vulnerabilities view", () => {
           finding: {
             __typename: "Finding",
             id: "480857698",
-            inputsVulns: [{
-              __typename: "Vulnerability",
-              analyst: "user@test.com",
-              currentApprovalStatus: "",
-              currentState: "open",
-              findingId: "480857698",
-              historicState: [{
+            inputsVulns: [
+              {
+                __typename: "Vulnerability",
                 analyst: "user@test.com",
-                date: "2019-07-05 09:56:40",
-                state: "open",
-              }],
-              historicVerification: [{
-                __typename: "Verification",
-                date: "2020-04-01 12:32:24",
-                status: "VERIFIED",
-              }],
-              id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-              lastAnalyst: "user@test.com",
-              lastApprovedStatus: "open",
-              remediated: false,
-              severity: -1,
-              specific: "password",
-              tag: "hello, Times used",
-              tags: undefined,
-              treatmentManager: "",
-              verification: "Verified",
-              vulnType: "inputs",
-              where: "https://example.com/inputs",
-            }],
-            linesVulns: [{
-              __typename: "Vulnerability",
-              analyst: "user@test.com",
-              currentApprovalStatus: "",
-              currentState: "open",
-              findingId: "480857698",
-              historicState: [{
+                currentApprovalStatus: "",
+                currentState: "open",
+                findingId: "480857698",
+                historicState: [{
+                  analyst: "user@test.com",
+                  date: "2019-07-05 09:56:40",
+                  state: "open",
+                }],
+                historicVerification: [{
+                  __typename: "Verification",
+                  date: "2020-04-01 12:32:24",
+                  status: "VERIFIED",
+                }],
+                id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
+                lastAnalyst: "user@test.com",
+                lastApprovedStatus: "open",
+                remediated: false,
+                severity: -1,
+                specific: "specific-1",
+                tag: "tag-1, tag-2",
+                tags: undefined,
+                treatmentManager: "treatment-manager-1",
+                verification: "Verified",
+                vulnType: "inputs",
+                where: "https://example.com/inputs",
+              },
+              {
+                __typename: "Vulnerability",
                 analyst: "user@test.com",
-                date: "2020-03-16 11:36:40",
-                state: "open",
-              }],
-              historicVerification: [],
-              id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
-              lastAnalyst: "user@test.com",
-              lastApprovedStatus: "open",
-              remediated: false,
-              severity: 1,
-              specific: "62",
-              tag: "Token",
-              tags: undefined,
-              treatmentManager: "",
-              verification: "",
-              vulnType: "lines",
-              where: "https://example.com/lines",
-            }],
+                currentApprovalStatus: "",
+                currentState: "open",
+                findingId: "480857698",
+                historicState: [{
+                  analyst: "user@test.com",
+                  date: "2019-07-05 09:56:40",
+                  state: "open",
+                }],
+                historicVerification: [{
+                  __typename: "Verification",
+                  date: "2020-04-01 12:32:24",
+                  status: "VERIFIED",
+                }],
+                id: "41b18ce2-a039-11ea-bb37-0242ac130002",
+                lastAnalyst: "user@test.com",
+                lastApprovedStatus: "open",
+                remediated: false,
+                severity: 2,
+                specific: "specific-2",
+                tag: "tag-3, tag-4",
+                tags: undefined,
+                treatmentManager: "treatment-manager-2",
+                verification: "Verified",
+                vulnType: "inputs",
+                where: "https://example.com/inputs",
+              },
+            ],
+            linesVulns: [
+              {
+                __typename: "Vulnerability",
+                analyst: "user@test.com",
+                currentApprovalStatus: "",
+                currentState: "open",
+                findingId: "480857698",
+                historicState: [{
+                  analyst: "user@test.com",
+                  date: "2020-03-16 11:36:40",
+                  state: "open",
+                }],
+                historicVerification: [],
+                id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
+                lastAnalyst: "user@test.com",
+                lastApprovedStatus: "open",
+                remediated: false,
+                severity: 1,
+                specific: "62",
+                tag: "tag-5, tag-6",
+                tags: undefined,
+                treatmentManager: "treatment-manager-3",
+                verification: "",
+                vulnType: "lines",
+                where: "https://example.com/lines",
+              },
+              {
+                __typename: "Vulnerability",
+                analyst: "user@test.com",
+                currentApprovalStatus: "",
+                currentState: "open",
+                findingId: "480857698",
+                historicState: [{
+                  analyst: "user@test.com",
+                  date: "2020-03-16 11:36:40",
+                  state: "open",
+                }],
+                historicVerification: [],
+                id: "2feaf502-a039-11ea-bb37-0242ac130002",
+                lastAnalyst: "user@test.com",
+                lastApprovedStatus: "open",
+                remediated: false,
+                severity: 2,
+                specific: "63",
+                tag: "tag-7, tag-8",
+                tags: undefined,
+                treatmentManager: "treatment-manager-4",
+                verification: "",
+                vulnType: "lines",
+                where: "https://example.com/lines",
+              },
+            ],
             pendingVulns: [{
               __typename: "Vulnerability",
               analyst: "user@test.com",
@@ -237,6 +295,62 @@ describe("Vulnerabilities view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(editVulnModal)
       .toHaveLength(0);
+  });
+
+  it("should group vulnerabilities", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={[mocks]} addTypename={true}>
+          <VulnerabilitiesView
+            separatedRow={true}
+            isRequestVerification={false}
+            isVerifyRequest={false}
+            editMode={false}
+            findingId="480857698"
+            state="open"
+          />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const inputsVulns: ReactWrapper = wrapper
+      .find({id: "inputsVulns"})
+      .at(0);
+    const inputSpecifics: ReactWrapper = inputsVulns
+      .find({columnIndex: 1});
+    expect(inputSpecifics.text())
+      .toEqual("specific-1, specific-2");
+    const inputTags: ReactWrapper = inputsVulns
+      .find({columnIndex: 3});
+    expect(inputTags.text())
+      .toEqual("tag-1, tag-2, tag-3, tag-4");
+    const inputSeverities: ReactWrapper = inputsVulns
+      .find({columnIndex: 4});
+    expect(inputSeverities.text())
+      .toEqual("-1, 2");
+    const inputTreatmentManagers: ReactWrapper = inputsVulns
+      .find({columnIndex: 5});
+    expect(inputTreatmentManagers.text())
+      .toEqual("treatment-manager-1, treatment-manager-2");
+    const linesVulns: ReactWrapper = wrapper
+      .find({id: "linesVulns"})
+      .at(0);
+    const linesSpecifics: ReactWrapper = linesVulns
+      .find({columnIndex: 1});
+    expect(linesSpecifics.text())
+      .toEqual("62-63");
+    const linesTags: ReactWrapper = linesVulns
+      .find({columnIndex: 3});
+    expect(linesTags.text())
+      .toEqual("tag-5, tag-6, tag-7, tag-8");
+    const linesSeverities: ReactWrapper = linesVulns
+      .find({columnIndex: 4});
+    expect(linesSeverities.text())
+      .toEqual("1, 2");
+    const linesTreatmentManagers: ReactWrapper = linesVulns
+      .find({columnIndex: 5});
+    expect(linesTreatmentManagers.text())
+      .toEqual("treatment-manager-3, treatment-manager-4");
   });
 
   it("should render update treatment", async () => {
