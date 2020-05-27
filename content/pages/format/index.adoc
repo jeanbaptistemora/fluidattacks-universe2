@@ -12,18 +12,24 @@
 * Source
 +
 ....
- = AsciiDoc Format -> Level 0 Header
+ == AsciiDoc Format -> Level 1 Header
 
- == Headers -> Level 1 Header
+ === Headers -> Level 2 Header
 
- === Level 2 Header
+ ==== Level 3 Header
 
 ...
 ....
 
 * Render
 
+== Level 1 Header
+
 === Level 2 Header
+
+==== Level 3 Header
+
+---
 
 == Anchors
 
@@ -58,6 +64,8 @@ Create a link to the previously created anchor.
 * Render
 +
 <<test-anchor, Header>>
+
+---
 
 == Text Format
 
@@ -128,234 +136,12 @@ Give emphasis to a word.
 * Source
 +
 ....
-Give emphasis to a 'word'
+Give emphasis to a _word_
 ....
 
 * Render
 +
-'word'
-
-=== Color
-
-==== Complete Color
-
-Change the color of a word from black text to something else.
-Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]
-. It can be combined with the formats:
-`size`, `background`, `overline`, `underline`, and `line-through`.
-
-* Source
-+
-....
-[red]#word#
-....
-
-* Render
-+
-[red]#word#
-
-==== Partial Color
-
-Change the color of part of a word from black text to something else.
-Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors].
-It can be combined with the formats:
-`size`, `background`, `overline`, `underline`, and `line-through`.
-
-* Source
-+
-....
-w[blue]##or##d
-....
-
-* Render
-+
-w[blue]##or##d
-
-=== Size
-
-==== Complete Size
-
-Change the size of a word. +
-It can be combined with the formats:
-`color`, `background`, `overline`, `underline`, and `line-through`.
-
-* Source
-+
-....
-[big]#word#
-....
-
-* Render
-+
-[big]#word#
-
-==== Partial Size
-
-Change the size of part of a word. +
-It can be combined with the formats:
-`color`, `background`, `overline`, `underline`, and `line-through`.
-
-* Source
-+
-....
-w[small]##or##d
-....
-
-* Render
-+
-w[small]##or##d
-
-=== Background
-
-==== Complete Background
-
-Change the background color of a word from one color to another.
-Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors].
-It can be combined with the formats:
-`size`, `background`, `overline`, `underline`, and `line-through`.
-
-* Source
-+
-....
-[aqua-background]#word#
-....
-
-* Render
-+
-[aqua-background]#word#
-
-==== Partial Background
-
-Change the background color of part a word,
-which can be chosen from the
-link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
-It can be combined with the formats:
-color, size, overline, underline and line-through
-
-* Source
-+
-....
-w[aqua-background]##or##d
-....
-
-* Render
-+
-w[aqua-background]##or##d
-
-=== Overlines
-
-==== Complete Overline
-
-Add line over a word. +
-It can be combined with the formats:
-`color`, `size`, `background`, `underline`, and `line-through`.
-
-* Source
-+
-....
-[overline]#word#
-....
-
-* Render
-+
-[overline]#word#
-
-==== Partial Overline
-
-Add line over part of a word. +
-It can be combined with the formats:
-`color`, `size`, `background`, `underline`, and `line-through`.
-
-* Source
-+
-....
-w[overline]##or##d
-....
-
-* Render
-+
-w[overline]##or##d
-
-=== Underline
-
-==== Complete Underline
-
-Add line under a word. +
-It can be combined with the formats:
-`color`, `size`, `background`, `overline`, and `line-through`.
-
-* Source
-+
-....
-[underline]#word#
-....
-
-* Render
-+
-[underline]#word#
-
-==== Partial Underline
-
-Add line under part of a word. +
-It can be combined with the formats:
-`color`, `size`, `background`, `overline`, and `line-through`.
-
-* Source
-+
-....
-w[underline]##or##d
-....
-
-* Render
-+
-w[underline]##or##d
-
-=== Line-through
-
-==== Complete Line-through
-
-Add line through a word. +
-It can be combined with the formats:
-`color`, `size`, `background`, `overline`, and `underline`.
-
-* Source
-+
-....
-[line-through]#word#
-....
-
-* Render
-+
-[line-through]#word#
-
-==== Partial Line-through
-
-Add line through part of a word. +
-It can be combined with the formats:
-`color`, `size`, `background`, `overline`, and `underline`s.
-
-* Source
-+
-....
-w[line-through]##or##d
-....
-
-* Render
-+
-w[line-through]##or##d
-
-
-=== Style Combination
-
-* Source
-+
-....
-[green yellow-background overline]##wo##[blue purple-background underline]#rd#
-....
-
-* Render
-+
-[green yellow-background overline]##wo##[blue purple-background underline]#rd#
+_word_
 
 === Single Quotes
 
@@ -364,12 +150,12 @@ Place a word in single quotes.
 * Source
 +
 ....
-`word'
+'`word`'
 ....
 
 * Render
 +
-`word'
+'`word`'
 
 === Double Quotes
 
@@ -378,12 +164,12 @@ Place a word in double quotes.
 * Source
 +
 ....
-``word''
+"`word`"
 ....
 
 * Render
 +
-``word''
+"`word`"
 
 === Superscripts
 
@@ -421,19 +207,7 @@ as a subscript
 
 Use monospaced font.
 
-==== Monospaced - Option 1
-
-* Source
-+
-....
-`word`
-....
-
-* Render
-+
-`word`
-
-==== Monospaced - Option 2 - Do not use
+==== Monospaced
 
 * Source
 +
@@ -533,6 +307,8 @@ Focus only on content in the `.adocs`.
 * Render
 +
 (C), (R), (TM)
+
+---
 
 == Media and links
 
@@ -742,6 +518,8 @@ link:https://google.com[Google].
 * Render
 +
 [button]#link:https://google.com[Google]#.
+
+---
 
 == Special Blocks
 
@@ -1527,28 +1305,6 @@ Text
 
 === Tooltips
 
-==== Using text
-
-* Source
-+
-....
-This sentence has a very important tooltip:Additional information about the term[Term]. Hover
-over it to see more details!
-
-In this one, tooltip:More details[the sentence itself] is the center of attention.
-
-You could also use links, tooltip:Great Search Engine[link:https://google.com[Google]]
-....
-
-* Render
-+
-This sentence has a very important tooltip:Additional information about the term[Term]. Hover
-over it to see more details!
-+
-In this one, tooltip:More details[the sentence itself] is the center of attention.
-+
-You could also use links, link:https://google.com[tooltip:Great Search Engine[Google]].
-
 ==== Using images
 
 * Source
@@ -1566,6 +1322,8 @@ Term image:{tooltip}[alt="Tooltip icon",title="Additional information about the 
 +
 Term2 image:{tooltip}[alt="Tooltip icon",title="The description can have
 line breaks in the source code"]
+
+---
 
 == References
 
