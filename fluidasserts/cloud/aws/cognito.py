@@ -34,7 +34,7 @@ def _get_pools(key_id, retry, secret, session_token):
             MaxResults=50,
             NextToken=next_token,
             retry=retry)
-        pools.append += data['UserPools']
+        pools += data['UserPools']
         next_token = data.get('NextToken', '')
     return pools
 

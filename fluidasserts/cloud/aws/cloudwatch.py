@@ -13,6 +13,33 @@ from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
 
 
+def _get_buses(key_id, retry, secret, session_token):
+    pools = []
+    data = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='events',
+        func='list_event_buses',
+        boto3_client_kwargs={'aws_session_token': session_token},
+        MaxResults=50,
+        retry=retry)
+    pools += data.get('EventBuses', [])
+    next_token = data.get('NextToken', '')
+    while next_token:
+        data = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='events',
+            func='list_event_buses',
+            boto3_client_kwargs={'aws_session_token': session_token},
+            MaxResults=50,
+            NextToken=next_token,
+            retry=retry)
+        pools += data['EventBuses']
+        next_token = data.get('NextToken', '')
+    return pools
+
+
 def _check_for_alarm(key_id, retry, secret, session_token, metric, subject):
     alarms = aws.run_boto3_func(
         key_id=key_id,
@@ -27,12 +54,15 @@ def _check_for_alarm(key_id, retry, secret, session_token, metric, subject):
     msg_open: str = f'There are no alarms set for {subject}'
     msg_closed: str = f'There are alarms set for {subject}'
     vulns, safes = [], []
-    if not alarms:
-        vulns.append(('CloudWatch',
-                      f'Must have alarms on {subject}'))
+
+    (vulns if alarms
+     else safes).append(
+         ('CloudWatch',
+          f'Must have alarms on {subject}'))
+
     return _get_result_as_tuple(
         service='CloudWatch',
-        objects='',
+        objects='Alarms',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
@@ -84,8 +114,6 @@ def no_alarm_on_single_fa_login(key_id: str,
 def is_event_bus_exposed(key_id: str,
                          secret: str,
                          session_token: str = None,
-                         region_name: str = None,
-                         bus_name: str = 'default',
                          retry: bool = True) -> tuple:
     """
     Check if CloudWatch Event Bus is open to everyone.
@@ -95,29 +123,22 @@ def is_event_bus_exposed(key_id: str,
     :param region_name: AWS Region name
     :param bus_name: (Optional) Event Bus name
     """
-    policy = json.loads(aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        service='events',
-        func='describe_event_bus',
-        boto3_client_kwargs={'aws_session_token': session_token,
-                             'region_name': region_name},
-        Name=bus_name,
-        param='Policy',
-        retry=retry))
-
+    vulns, safes = [], []
+    buses = _get_buses(key_id, retry, secret, session_token)
     msg_open: str = 'The event bus is exposed to the public'
     msg_closed: str = 'The event bus is not exposed to the public'
 
-    principal = policy['Statement'][0]['Principal']
-    vulns, safes = [], []
-
-    if principal == '*':
-        vulns.append((bus_name, 'Must not be exposed to the public'))
+    for bus in buses:
+        policy = json.loads(bus.get('Policy', '{}'))
+        if policy:
+            principal = policy['Statement'][0]['Principal']
+            if principal == '*':
+                vulns.append((bus['Name'],
+                              'Must not be exposed to the public'))
 
     return _get_result_as_tuple(
         service='CloudWatch',
-        objects=bus_name,
+        objects='Event bus',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
