@@ -12,7 +12,7 @@ The system must guarantee that
 the person performing the password recovery or reset process
 is actually the owner.
 
-Description
+== Description
 
 Systems must have mechanisms that enable users to update and recover their
 passwords while guaranteeing the authenticity of the request.
