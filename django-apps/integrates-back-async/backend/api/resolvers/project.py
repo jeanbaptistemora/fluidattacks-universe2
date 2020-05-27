@@ -764,8 +764,12 @@ async def _get_alive_projects(info, filters) -> List[ProjectType]:
         filters = util.dict_to_object_field_node(filters)
         req_fields.extend(filters)
     selection_set.selections = req_fields
-    projects = [
-        await resolve(info, project, selection_set=selection_set)
+
+    projects = await asyncio.gather(*[
+        asyncio.create_task(
+            resolve(info, project, selection_set=selection_set)
+        )
         for project in alive_projects
-    ]
+    ])
+
     return await util.get_filtered_elements(projects, filters)

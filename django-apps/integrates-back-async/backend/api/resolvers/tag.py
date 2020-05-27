@@ -1,3 +1,4 @@
+import asyncio
 import sys
 from typing import List
 from asgiref.sync import sync_to_async
@@ -73,9 +74,12 @@ async def get_list_projects(info, user_email: str, tag: str) -> List[str]:
 
 async def _get_projects(info, projects: List[str], **__) -> List[ProjectType]:
     """Async resolve fields."""
-    projects_list = [await project_loader.resolve(info, project, as_field=True)
-                     for project in projects]
-    return projects_list
+    return await asyncio.gather(*[
+        asyncio.create_task(
+            project_loader.resolve(info, project, as_field=True)
+        )
+        for project in projects
+    ])
 
 
 async def _get_name(_, tag: str, **__) -> str:

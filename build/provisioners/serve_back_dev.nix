@@ -1,5 +1,6 @@
 let
   pkgs = import ../pkgs/stable.nix;
+  builders.pythonPackage = import ../builders/python-package pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
 in
   pkgs.stdenv.mkDerivation (
@@ -24,6 +25,9 @@ in
 
       pyPkgReqsApp =
         builders.pythonRequirements ../../deploy/containers/app/requirements.txt;
+
+      pyPkgTracers =
+        builders.pythonPackage "tracers==20.5.23574";
 
       srcDerivationsCerts = import ../derivations/certs pkgs;
     })
