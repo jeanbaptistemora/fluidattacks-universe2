@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.094 Specify rules in declarative mood
+= R094. Specify rules in declarative mood
 
 == Requirement
 

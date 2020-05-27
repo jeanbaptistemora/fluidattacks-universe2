@@ -4,7 +4,7 @@
 :keywords: Cryptographic, Encryption, Mechanisms, HIPAA, NIST, ASVS
 :rules: yes
 
-= REQ.147 Use pre-existent mechanisms
+= R147. Use pre-existent mechanisms
 
 == Requirement
 

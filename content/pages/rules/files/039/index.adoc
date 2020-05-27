@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Files, Size, Limit, DoS
 :rules: yes
 
-= REQ.039 Define maximum file size
+= R039. Define maximum file size
 
 == Requirement
 

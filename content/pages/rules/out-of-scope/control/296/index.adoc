@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.296 Install physical intrusion alarms
+= R296. Install physical intrusion alarms
 
 == Requirement
 

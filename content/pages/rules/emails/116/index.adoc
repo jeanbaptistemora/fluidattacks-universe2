@@ -4,7 +4,7 @@
 :keywords: Images, Email, Display, Security, Requirement, Client
 :rules: yes
 
-= REQ.116 Disable images of unknown origin
+= R116. Disable images of unknown origin
 
 == Requirement
 

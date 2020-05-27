@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.240 Check code with automated tools
+= R240. Check code with automated tools
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Sensitive Information, Management, Mobile Device, Loss
 :rules: yes
 
-= REQ.214 Allow data destruction
+= R214. Allow data destruction
 
 == Requirement
 

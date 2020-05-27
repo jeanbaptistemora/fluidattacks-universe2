@@ -4,7 +4,7 @@
 :keywords: Private Resources, Authentication, Public Resources, Access, ASVS, CWE
 :rules: yes
 
-= REQ.264 Request authentication
+= R264. Request authentication
 
 == Requirement
 

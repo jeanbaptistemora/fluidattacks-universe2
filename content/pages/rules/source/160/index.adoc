@@ -4,7 +4,7 @@
 :keywords: Encoding, Outputs, Escaping, BSSIM9, ASVS, CWE
 :rules: yes
 
-= REQ.160 Encode system outputs
+= R160. Encode system outputs
 
 == Requirement
 

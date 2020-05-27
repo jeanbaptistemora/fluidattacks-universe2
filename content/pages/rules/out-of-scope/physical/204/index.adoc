@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.204 Allow perpendicular viewing
+= R204. Allow perpendicular viewing
 
 == Requirement
 

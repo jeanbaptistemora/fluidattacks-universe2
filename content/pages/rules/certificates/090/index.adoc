@@ -4,7 +4,7 @@
 :keywords: Security, Requirement, Digital, Certificates, Validation, Expired.
 :rules: yes
 
-= REQ.090 Use valid certificates
+= R090. Use valid certificates
 
 == Requirement
 

@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.101 Assign ID cards to workforce members
+= R101. Assign ID cards to workforce members
 
 == Requirement
 

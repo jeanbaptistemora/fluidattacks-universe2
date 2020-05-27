@@ -4,7 +4,7 @@
 :keywords: Control, Redirect, External, Site, ASVS, CWE
 :rules: yes
 
-= REQ.324 Control redirects
+= R324. Control redirects
 
 == Requirement
 

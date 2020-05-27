@@ -4,7 +4,7 @@
 :keywords: Digital certificate, Abuse case, Client certificate, Authentication, Expiration, Relevant information.
 :rules: yes
 
-= REQ.088 Request client certificates
+= R088. Request client certificates
 
 == Requirement
 

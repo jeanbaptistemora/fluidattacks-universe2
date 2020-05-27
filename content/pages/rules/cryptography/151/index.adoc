@@ -4,7 +4,7 @@
 :keywords: Security, Asymmetric, Encryption, Keys, Signatures, ASVS
 :rules: yes
 
-= REQ.151 Separate keys for encryption and signatures
+= R151. Separate keys for encryption and signatures
 
 == Requirement
 

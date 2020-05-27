@@ -4,7 +4,7 @@
 :keywords: Process, Configuration, SO, Directory, Root, Files
 :rules: yes
 
-= REQ.280 Restrict service root directory
+= R280. Restrict service root directory
 
 == Requirement
 

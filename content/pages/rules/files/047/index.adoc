@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Critical, Components, Application, Identification
 :rules: yes
 
-= REQ.047 Classify critical files for monitoring
+= R047. Classify critical files for monitoring
 
 == Requirement
 

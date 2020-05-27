@@ -4,7 +4,7 @@
 :keywords: BCC, Mails, Recipient, Information, Disclosure, Bulk
 :rules: yes
 
-= REQ.119 Hide recipients
+= R119. Hide recipients
 
 == Requirement
 

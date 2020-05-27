@@ -4,7 +4,7 @@
 :keywords: Store, Source Code, System, Repository, Requirement, ASVS
 :rules: yes
 
-= REQ.051 Store source code in a repository
+= R051. Store source code in a repository
 
 == Requirement
 

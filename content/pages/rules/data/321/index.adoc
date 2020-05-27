@@ -4,7 +4,7 @@
 :keywords: Deserizlization, Untrusted, Object, Injection, ASVS, CWE
 :rules: yes
 
-= REQ.321 Avoid deserializing untrusted data
+= R321. Avoid deserializing untrusted data
 
 == Requirement
 

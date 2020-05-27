@@ -4,7 +4,7 @@
 :keywords: Device, Cellular network, Requirement, PIN, SIM Card, Security
 :rules: yes
 
-= REQ.205 Configure PIN
+= R205. Configure PIN
 
 == Requirement
 

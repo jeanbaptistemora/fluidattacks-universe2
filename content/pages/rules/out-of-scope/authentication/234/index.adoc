@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.234 Protect authentication credentials
+= R234. Protect authentication credentials
 
 == Requirement
 

@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.289 Secure system images and media
+= R289. Secure system images and media
 
 == Requirement
 

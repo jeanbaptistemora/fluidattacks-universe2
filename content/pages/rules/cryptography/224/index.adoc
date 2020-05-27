@@ -4,7 +4,7 @@
 :keywords: Cryptographic, Mechanism, Random Number, CWE, NIST, ASVS
 :rules: yes
 
-= REQ.224 Use secure cryptographic mechanisms
+= R224. Use secure cryptographic mechanisms
 
 == Requirement
 

@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.049 Use interfaces in components
+= R049. Use interfaces in components
 
 == Requirement
 

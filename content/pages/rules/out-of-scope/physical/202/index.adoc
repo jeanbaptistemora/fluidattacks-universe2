@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.202 Delete sensitive information
+= R202. Delete sensitive information
 
 == Requirement
 

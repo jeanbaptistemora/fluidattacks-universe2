@@ -4,7 +4,7 @@
 :keywords: Metadata, File, Remove, ASVS, CWE, GDPR
 :rules: yes
 
-= REQ.045 Remove metadata when sharing files
+= R045. Remove metadata when sharing files
 
 == Requirement
 

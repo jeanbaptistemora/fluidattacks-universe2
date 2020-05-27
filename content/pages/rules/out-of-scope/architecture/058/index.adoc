@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.058 Document security events
+= R058. Document security events
 
 == Requirement
 

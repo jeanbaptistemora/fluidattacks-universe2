@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.243 Manage security events
+= R243. Manage security events
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Parameterized, Sentences, SQLi, Injection
 :rules: yes
 
-= REQ.169 Use parameterized queries
+= R169. Use parameterized queries
 
 == Requirement
 

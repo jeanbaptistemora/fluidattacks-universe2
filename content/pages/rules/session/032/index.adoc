@@ -4,7 +4,7 @@
 :keywords: Session ID, Leakage, URL, Messages, ASVS, CWE
 :rules: yes
 
-= REQ.032 Avoid session ID leakages
+= R032. Avoid session ID leakages
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, GDPR, User Identification, Regulation
 :rules: yes
 
-= REQ.313 Inform inability to identify users
+= R313. Inform inability to identify users
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Private, Network, Credentials, Wireless, MAC, Address.
 :rules: yes
 
-= REQ.253 Restrict network access
+= R253. Restrict network access
 
 == Requirement
 

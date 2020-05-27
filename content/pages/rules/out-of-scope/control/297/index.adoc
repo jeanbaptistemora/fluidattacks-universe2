@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.297 Install sensors on information assets
+= R297. Install sensors on information assets
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Access Control, Privileges, ASVS, HIPAA, NIST, CWE
 :rules: yes
 
-= REQ.096 Set user required privileges
+= R096. Set user required privileges
 
 == Requirement
 

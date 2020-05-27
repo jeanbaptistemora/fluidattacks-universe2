@@ -4,7 +4,7 @@
 :keywords: Mobile Device, System, Encryption, Disks, Partitions, Requirement
 :rules: yes
 
-= REQ.207 Encrypt disk partitions
+= R207. Encrypt disk partitions
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Logs, Events, Tracking, CWE, GDPR, ASVS
 :rules: yes
 
-= REQ.075 Record exceptional events in logs
+= R075. Record exceptional events in logs
 
 == Requirement
 

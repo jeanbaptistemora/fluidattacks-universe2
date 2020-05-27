@@ -4,7 +4,7 @@
 :keywords: Data, Authorization, Restriction, GDPR, ASVS, CWE
 :rules: yes
 
-= REQ.176 Restrict system objects
+= R176. Restrict system objects
 
 == Requirement
 

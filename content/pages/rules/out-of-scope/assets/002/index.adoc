@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.002 Identify dependencies or components
+= R002. Identify dependencies or components
 
 == Requirement
 

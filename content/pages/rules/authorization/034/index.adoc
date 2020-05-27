@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, User, Accounts, Management, Administration
 :rules: yes
 
-= REQ.034 Manage user accounts
+= R034. Manage user accounts
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, GDPR, Consent Demonstration, Regulation
 :rules: yes
 
-= REQ.311 Demonstrate user consent
+= R311. Demonstrate user consent
 
 == Requirement
 

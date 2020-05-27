@@ -4,7 +4,7 @@
 :keywords: Services, Server, Digital, Certificates, Consistent, Organization
 :rules: yes
 
-= REQ.093 Use consistent certificates
+= R093. Use consistent certificates
 
 == Requirement
 

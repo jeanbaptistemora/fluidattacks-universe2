@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.098 Safeguard information assets
+= R098. Safeguard information assets
 
 == Requirement
 

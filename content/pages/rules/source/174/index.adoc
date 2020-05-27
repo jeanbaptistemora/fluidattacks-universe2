@@ -4,7 +4,7 @@
 :keywords: Security, Requirement, Transactions, Request, Pattern, Application.
 :rules: yes
 
-= REQ.174 Transactions without distinguishable pattern
+= R174. Transactions without distinguishable pattern
 
 == Requirement
 

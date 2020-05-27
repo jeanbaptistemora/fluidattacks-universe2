@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Logs, Transaction, History, GDPR
 :rules: yes
 
-= REQ.084 Allow transaction history queries
+= R084. Allow transaction history queries
 
 == Requirement
 

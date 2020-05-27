@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, GDPR, Information, Personal
 :rules: yes
 
-= REQ.315 Provide processed data information
+= R315. Provide processed data information
 
 == Requirement
 

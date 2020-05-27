@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.287 Generate alerts in resources
+= R287. Generate alerts in resources
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Principle, Least, Privilege, NIST, ASVS, CWE
 :rules: yes
 
-= REQ.186 Use the principle of least privilege
+= R186. Use the principle of least privilege
 
 == Requirement
 

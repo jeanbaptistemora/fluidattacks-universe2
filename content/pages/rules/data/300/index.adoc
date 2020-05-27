@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, Information, Business, Mask
 :rules: yes
 
-= REQ.300 Mask sensitive data
+= R300. Mask sensitive data
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Inputs, Application, Validation, Discard, ASVS, CWE
 :rules: yes
 
-= REQ.173 Discard unsafe inputs
+= R173. Discard unsafe inputs
 
 == Requirement
 

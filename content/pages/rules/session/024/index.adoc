@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Session, Transfer, Information, Objects
 :rules: yes
 
-= REQ.024 Transfer information using session objects
+= R024. Transfer information using session objects
 
 == Requirement
 

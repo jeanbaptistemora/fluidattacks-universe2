@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Character Set, Encoding, Files, Dynamic
 :rules: yes
 
-= REQ.044 Define explicit charset
+= R044. Define explicit charset
 
 == Requirement
 

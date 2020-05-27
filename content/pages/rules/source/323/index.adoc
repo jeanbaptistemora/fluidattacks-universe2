@@ -4,7 +4,7 @@
 :keywords: Files, Source Code, Binary, Repository, CWE, ASVS
 :rules: yes
 
-= REQ.323 Exclude unverifiable files
+= R323. Exclude unverifiable files
 
 == Requirement
 

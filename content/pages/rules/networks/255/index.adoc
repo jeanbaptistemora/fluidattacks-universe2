@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Ports, Access, Restricted, Servers.
 :rules: yes
 
-= REQ.255 Allow access only to the necessary ports
+= R255. Allow access only to the necessary ports
 
 == Requirement
 

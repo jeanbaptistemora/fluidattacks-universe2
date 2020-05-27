@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Logs, Events, Modification, Alteration
 :rules: yes
 
-= REQ.080 Prevent log modification
+= R080. Prevent log modification
 
 == Requirement
 

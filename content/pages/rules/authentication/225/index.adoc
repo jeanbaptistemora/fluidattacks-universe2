@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Authentication, Failure, Response, Information
 :rules: yes
 
-= REQ.225 Proper authentication responses
+= R225. Proper authentication responses
 
 == Requirement
 

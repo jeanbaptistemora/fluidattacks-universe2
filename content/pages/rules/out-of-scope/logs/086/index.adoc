@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.086 Generate alarms on security events
+= R086. Generate alarms on security events
 
 == Requirement
 

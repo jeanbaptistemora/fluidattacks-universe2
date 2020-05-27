@@ -4,7 +4,7 @@
 :keywords: WSDL, File, Web, Services, ASVS, CWE
 :rules: yes
 
-= REQ.325 Protect WSDL files
+= R325. Protect WSDL files
 
 == Requirement
 

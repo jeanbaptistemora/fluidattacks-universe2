@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Manage, Concurrent, Session, Configuration
 :rules: yes
 
-= REQ.025 Manage concurrent sessions
+= R025. Manage concurrent sessions
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Organization, Email, Social Network, Account, Register, LinkedIn
 :rules: yes
 
-= REQ.260 Use alternative emails
+= R260. Use alternative emails
 
 == Requirement
 

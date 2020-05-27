@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.203 Hide information entry
+= R203. Hide information entry
 
 == Requirement
 

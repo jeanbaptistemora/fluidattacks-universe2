@@ -4,7 +4,7 @@
 :keywords: Password, Recovery, Change, Authenticity, ASVS, CWE
 :rules: yes
 
-= REQ.238 Establish safe recovery
+= R238. Establish safe recovery
 
 == Requirement
 

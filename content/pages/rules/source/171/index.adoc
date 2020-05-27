@@ -4,7 +4,7 @@
 :keywords: Commented-out, Code, Source, Production, Environment, CWE
 :rules: yes
 
-= REQ.171 Remove commented-out code
+= R171. Remove commented-out code
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Logs, Sensitive, Events, Information, CWE, ASVS
 :rules: yes
 
-= REQ.083 Avoid logging sensitive data
+= R083. Avoid logging sensitive data
 
 == Requirement
 

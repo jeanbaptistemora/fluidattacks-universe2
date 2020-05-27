@@ -4,7 +4,7 @@
 :keywords: Credit Card, Token, Data, Storage, Sensitive, Information.
 :rules: yes
 
-= REQ.305 Prioritize token usage
+= R305. Prioritize token usage
 
 == Requirement
 

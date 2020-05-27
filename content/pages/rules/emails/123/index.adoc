@@ -4,7 +4,7 @@
 :keywords: Person, Email, Robot, Human, Scrapper, ASVS
 :rules: yes
 
-= REQ.123 Restrict reading of emails
+= R123. Restrict reading of emails
 
 == Requirement
 

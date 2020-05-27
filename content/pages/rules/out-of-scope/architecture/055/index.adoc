@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.055 Document system security cases
+= R055. Document system security cases
 
 == Requirement
 

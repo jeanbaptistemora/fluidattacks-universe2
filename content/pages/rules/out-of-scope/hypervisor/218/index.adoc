@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.218 Control access to virtual machines
+= R218. Control access to virtual machines
 
 == Requirement
 

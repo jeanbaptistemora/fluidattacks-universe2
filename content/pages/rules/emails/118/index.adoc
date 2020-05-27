@@ -4,7 +4,7 @@
 :keywords: Files, Email, Attachment, Malware, Analyze, Tool
 :rules: yes
 
-= REQ.118 Inspect attachments
+= R118. Inspect attachments
 
 == Requirement
 

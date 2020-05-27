@@ -5,13 +5,13 @@
 :rules: yes
 :extended: yes
 
-= REQ.111 Define suitable physical controls
+= R111. Define suitable physical controls
 
 == Requirement
 
 The organization must have detective and deterrent
-physical controls in the periphery of the facilities
-(lightings, cameras, security workforce, etc).
+physical controls in the periphery of its facilities.
+E.g. lightings, cameras, security workforce, etc.
 
 == References
 

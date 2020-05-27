@@ -4,7 +4,7 @@
 :keywords: Person, Email, Guarantee, Owner, Security, Electronic
 :rules: yes
 
-= REQ.122 Validate email ownership
+= R122. Validate email ownership
 
 == Requirement
 

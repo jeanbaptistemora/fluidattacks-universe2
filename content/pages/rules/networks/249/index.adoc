@@ -4,7 +4,7 @@
 :keywords: Network, SSID, Access point, Wireless, Location, Security.
 :rules: yes
 
-= REQ.249 Locate access points
+= R249. Locate access points
 
 == Requirement
 

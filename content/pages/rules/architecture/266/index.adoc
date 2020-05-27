@@ -4,7 +4,7 @@
 :keywords: Insecure, Functionality, System, Hardening, ASVS, CWE
 :rules: yes
 
-= REQ.266 Disable insecure functionalities
+= R266. Disable insecure functionalities
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Protection, Mechanism, Robot, Attack, CWE, ASVS
 :rules: yes
 
-= REQ.263 Establish mechanisms against robot attacks
+= R263. Establish mechanisms against robot attacks
 
 == Requirement
 

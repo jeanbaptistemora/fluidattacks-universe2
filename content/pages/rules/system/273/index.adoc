@@ -4,7 +4,7 @@
 :keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall.
 :rules: yes
 
-= REQ.273 Define fixed security suite
+= R273. Define fixed security suite
 
 == Requirement
 

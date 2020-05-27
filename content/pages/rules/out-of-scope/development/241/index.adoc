@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.241 Define security requirements
+= R241. Define security requirements
 
 == Requirement
 

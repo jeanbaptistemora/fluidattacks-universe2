@@ -4,7 +4,7 @@
 :keywords: Authentication, Time, Seconds, Users, Limit, ASVS
 :rules: yes
 
-= REQ.236 Establish authentication time
+= R236. Establish authentication time
 
 == Requirement
 

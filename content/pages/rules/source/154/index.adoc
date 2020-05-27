@@ -4,7 +4,7 @@
 :keywords: Source Code, Functional Requirements, Rootkit, Back Doors, CWE, ASVS
 :rules: yes
 
-= REQ.154 Eliminate back doors
+= R154. Eliminate back doors
 
 == Requirement
 

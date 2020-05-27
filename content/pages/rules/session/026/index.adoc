@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Session, Information, ViewState, Client side
 :rules: yes
 
-= REQ.026 Encrypt client-side session information
+= R026. Encrypt client-side session information
 
 == Requirement
 

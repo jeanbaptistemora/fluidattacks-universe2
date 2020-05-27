@@ -4,7 +4,7 @@
 :keywords: Network, IP, Access Point, Wireless, Address, Requirement
 :rules: yes
 
-= REQ.251 Change access point IP
+= R251. Change access point IP
 
 == Requirement
 

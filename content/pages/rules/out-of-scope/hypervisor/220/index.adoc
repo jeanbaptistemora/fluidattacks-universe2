@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.220 Manage machine profiles
+= R220. Manage machine profiles
 
 == Requirement
 

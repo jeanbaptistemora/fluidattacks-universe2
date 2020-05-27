@@ -4,7 +4,7 @@
 :keywords: Duplicate, Code, Source, Method, Class, CWE
 :rules: yes
 
-= REQ.162 Avoid duplicate code
+= R162. Avoid duplicate code
 
 == Requirement
 

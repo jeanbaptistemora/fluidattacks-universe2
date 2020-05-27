@@ -4,7 +4,7 @@
 :keywords: Source Code, Sensitive information, Data, ASVS, CWE, GDPR
 :rules: yes
 
-= REQ.156 Source code without sensitive information
+= R156. Source code without sensitive information
 
 == Requirement
 

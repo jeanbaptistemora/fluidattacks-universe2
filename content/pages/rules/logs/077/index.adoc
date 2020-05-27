@@ -4,7 +4,7 @@
 :keywords: Information, Disclosure, SQL, Database, Security, Requirement
 :rules: yes
 
-= REQ.077 Avoid disclosing technical information
+= R077. Avoid disclosing technical information
 
 == Requirement
 

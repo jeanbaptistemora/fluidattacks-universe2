@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, GDPR, Rectification, Personal
 :rules: yes
 
-= REQ.316 Allow rectification requests
+= R316. Allow rectification requests
 
 == Requirement
 

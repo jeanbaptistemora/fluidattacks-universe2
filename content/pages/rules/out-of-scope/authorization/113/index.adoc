@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.113 Manage access points
+= R113. Manage access points
 
 == Requirement
 

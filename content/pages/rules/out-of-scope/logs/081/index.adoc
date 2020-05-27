@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.081 Store logs according to legislation
+= R081. Store logs according to legislation
 
 == Requirement
 

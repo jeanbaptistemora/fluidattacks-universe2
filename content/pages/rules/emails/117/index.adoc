@@ -4,7 +4,7 @@
 :keywords: HTML, Email, Business, Security, Requirement, Code injection.
 :rules: yes
 
-= REQ.117 Do not interpret HTML code
+= R117. Do not interpret HTML code
 
 == Requirement
 

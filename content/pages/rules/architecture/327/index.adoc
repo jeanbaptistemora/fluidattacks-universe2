@@ -4,7 +4,7 @@
 :keywords: Rate, Limit, Interaction, Frequency, ASVS, CWE
 :rules: yes
 
-= REQ.327 Set rate limit
+= R327. Set rate limit
 
 == Requirement
 

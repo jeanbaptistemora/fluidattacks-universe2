@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.060 Identify attack components
+= R060. Identify attack components
 
 == Requirement
 

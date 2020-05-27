@@ -4,7 +4,7 @@
 :keywords: Random, Numbers, Distribution, CWE, NIST, ASVS
 :rules: yes
 
-= REQ.223 Uniform distribution in random numbers
+= R223. Uniform distribution in random numbers
 
 == Requirement
 

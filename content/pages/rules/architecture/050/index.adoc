@@ -4,7 +4,7 @@
 :keywords: Code, System, Security, Requirement, Interpreted, JavaScript
 :rules: yes
 
-= REQ.050 Control calls to interpreted code
+= R050. Control calls to interpreted code
 
 == Requirement
 

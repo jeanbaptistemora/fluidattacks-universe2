@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Source Code, Strict, Compilation, Interpretation
 :rules: yes
 
-= REQ.157 Use strict compilation
+= R157. Use strict compilation
 
 == Requirement
 

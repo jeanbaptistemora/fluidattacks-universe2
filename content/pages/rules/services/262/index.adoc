@@ -4,7 +4,7 @@
 :keywords: Third-party, Dependency, Up-to-date, Stable, ASVS, OWASP
 :rules: yes
 
-= REQ.262 Verify third-party components
+= R262. Verify third-party components
 
 == Requirement
 

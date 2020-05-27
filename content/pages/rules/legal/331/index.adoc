@@ -4,7 +4,7 @@
 :keywords: Requirement, Legal, Law, Regulation, ASVS, GDPR
 :rules: yes
 
-= REQ.331 Guarantee legal compliance
+= R331. Guarantee legal compliance
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Logs, Session, History, GDPR
 :rules: yes
 
-= REQ.085 Allow session history queries
+= R085. Allow session history queries
 
 == Requirement
 

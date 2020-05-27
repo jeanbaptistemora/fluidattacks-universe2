@@ -4,7 +4,7 @@
 :keywords: Virtual Machine, Information, Host, Requirement, Security, Access
 :rules: yes
 
-= REQ.222 Deny access to the host machine
+= R222. Deny access to the host machine
 
 == Requirement
 

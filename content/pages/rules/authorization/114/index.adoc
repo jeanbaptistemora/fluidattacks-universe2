@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Credentials, Inactive Users, Access, Information
 :rules: yes
 
-= REQ.114 Deny access with inactive credentials
+= R114. Deny access with inactive credentials
 
 == Requirement
 

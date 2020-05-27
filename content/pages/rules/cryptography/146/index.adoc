@@ -4,7 +4,7 @@
 :keywords: Security, Requirement, Timeout, Cryptographic Keys, RAM, ASVS
 :rules: yes
 
-= REQ.146 Set timeout to cryptographic keys
+= R146. Set timeout to cryptographic keys
 
 == Requirement
 

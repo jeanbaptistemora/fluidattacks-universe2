@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.105 Avoid assets leakage
+= R105. Avoid assets leakage
 
 == Requirement
 

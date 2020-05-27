@@ -5,12 +5,12 @@
 :rules: yes
 :extended: yes
 
-= REQ.109 Monitor restricted areas
+= R109. Monitor restricted areas
 
 == Requirement
 
 Restricted areas must have physical detection control access mechanisms
-(cameras, security workforce, heat sensors, etc)
+(cameras, security workforce, heat sensors, etc.).
 
 == References
 

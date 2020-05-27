@@ -4,7 +4,7 @@
 :keywords: Default, Source Code, Conditional, Programming, ASVS, CWE
 :rules: yes
 
-= REQ.161 Define secure default options
+= R161. Define secure default options
 
 == Requirement
 

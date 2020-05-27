@@ -4,7 +4,7 @@
 :keywords: Data, Storage, Cache, ASVS, CWE, GDPR
 :rules: yes
 
-= REQ.177 Avoid caching and temporary files
+= R177. Avoid caching and temporary files
 
 == Requirement
 

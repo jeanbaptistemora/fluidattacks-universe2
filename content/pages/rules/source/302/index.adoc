@@ -4,7 +4,7 @@
 :keywords: Security, Files, Dependencies, Source Code, Libraries, CWE
 :rules: yes
 
-= REQ.302 Declare dependencies explicitly
+= R302. Declare dependencies explicitly
 
 == Requirement
 

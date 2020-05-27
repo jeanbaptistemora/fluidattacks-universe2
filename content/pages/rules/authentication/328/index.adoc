@@ -4,7 +4,7 @@
 :keywords: MFA, Authentication, Multi, Factor, ASVS, CWE
 :rules: yes
 
-= REQ.328 Request MFA for critical systems
+= R328. Request MFA for critical systems
 
 == Requirement
 

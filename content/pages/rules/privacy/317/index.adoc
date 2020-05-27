@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, GDPR, Erasure, Personal
 :rules: yes
 
-= REQ.317 Allow erasure requests
+= R317. Allow erasure requests
 
 == Requirement
 

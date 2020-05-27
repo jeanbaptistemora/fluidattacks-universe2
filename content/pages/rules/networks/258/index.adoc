@@ -4,7 +4,7 @@
 :keywords: Security, Requirement,  Content, Filter, Proxy, Network.
 :rules: yes
 
-= REQ.258 Filter website content
+= R258. Filter website content
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Security, Hash, Function, Size, Cryptography, ASVS
 :rules: yes
 
-= REQ.150 Set minimum size for hash functions
+= R150. Set minimum size for hash functions
 
 == Requirement
 

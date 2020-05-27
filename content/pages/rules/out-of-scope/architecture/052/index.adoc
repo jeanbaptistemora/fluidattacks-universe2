@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.052 Identify critical components
+= R052. Identify critical components
 
 == Requirement
 

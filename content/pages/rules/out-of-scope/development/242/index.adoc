@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.242 Avoid production support in applications
+= R242. Avoid production support in applications
 
 == Requirement
 

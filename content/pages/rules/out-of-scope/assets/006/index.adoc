@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.006 Identify threats to assets
+= R006. Identify threats to assets
 
 == Name
 

@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.103 Manage access cards
+= R103. Manage access cards
 
 == Requirement
 

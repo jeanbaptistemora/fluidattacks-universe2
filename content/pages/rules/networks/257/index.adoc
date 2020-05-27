@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Physical, Access, Network, Credentials
 :rules: yes
 
-= REQ.257 Access based on user credentials
+= R257. Access based on user credentials
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Restrict, Administrative, Access Control, Network, CWE, ASVS
 :rules: yes
 
-= REQ.033 Restrict administrative access
+= R033. Restrict administrative access
 
 == Requirement
 

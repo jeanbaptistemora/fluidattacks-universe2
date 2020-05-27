@@ -4,7 +4,7 @@
 :keywords: Account, Authentication, Attempt, Lockout, ASVS, CWE
 :rules: yes
 
-= REQ.226 Avoid account lockouts
+= R226. Avoid account lockouts
 
 == Requirement
 

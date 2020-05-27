@@ -4,7 +4,7 @@
 :keywords: Mobile Device, Protocol, Exchange, Data, Bluetooth, NFC
 :rules: yes
 
-= REQ.206 Configure communication protocols
+= R206. Configure communication protocols
 
 == Requirement
 

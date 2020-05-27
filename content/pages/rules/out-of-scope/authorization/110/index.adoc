@@ -5,13 +5,13 @@
 :rules: yes
 :extended: yes
 
-= REQ.110 Prevent theft in facilities
+= R110. Prevent theft in facilities
 
 == Requirement
 
 Restricted areas must have
 preventive physical access control mechanisms
-(locks, doors, security workforce, etc)
+(locks, doors, security workforce, etc.).
 
 == References
 

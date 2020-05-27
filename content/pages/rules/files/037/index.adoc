@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Path, Directory, Parameter, File
 :rules: yes
 
-= REQ.037 Parameters without sensitive data
+= R037. Parameters without sensitive data
 
 == Requirement
 

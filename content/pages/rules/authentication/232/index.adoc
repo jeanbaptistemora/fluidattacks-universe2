@@ -4,7 +4,7 @@
 :keywords: System, Information, Business, Identification, Equipment, Authentication
 :rules: yes
 
-= REQ.232 Require equipment identity
+= R232. Require equipment identity
 
 == Requirement
 

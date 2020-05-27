@@ -4,7 +4,7 @@
 :keywords: Wireless, Network, Access Point, Ports, Security, Management
 :rules: yes
 
-= REQ.250 Manage access points
+= R250. Manage access points
 
 == Requirement
 

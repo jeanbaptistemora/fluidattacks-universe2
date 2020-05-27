@@ -4,7 +4,7 @@
 :keywords: Asymmetric, Symmetric, Cryptography, Keys, ASVS, CWE
 :rules: yes
 
-= REQ.145 Protect system cryptographic keys
+= R145. Protect system cryptographic keys
 
 == Requirement
 

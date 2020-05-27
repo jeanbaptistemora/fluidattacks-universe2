@@ -4,7 +4,7 @@
 :keywords: Authentication Attempt, Human Interaction, User, Limit, CWE, ASVS
 :rules: yes
 
-= REQ.237 Ascertain human interaction
+= R237. Ascertain human interaction
 
 == Requirement
 

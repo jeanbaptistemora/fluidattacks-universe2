@@ -4,7 +4,7 @@
 :keywords: Detection, Root, Device, Rooting, Mobile Device, CWE
 :rules: yes
 
-= REQ.326 Detect rooted devices
+= R326. Detect rooted devices
 
 == Requirement
 

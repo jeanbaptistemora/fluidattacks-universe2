@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Session, Logout, User, Resources
 :rules: yes
 
-= REQ.028 Allow user logout
+= R028. Allow user logout
 
 == Requirement
 

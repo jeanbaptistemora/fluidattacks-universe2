@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.198 Authorize foreign device usage
+= R198. Authorize foreign device usage
 
 == Requirement
 

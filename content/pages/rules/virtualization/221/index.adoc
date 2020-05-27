@@ -4,7 +4,7 @@
 :keywords: Virtual Machine, Input, Devices, USB, CD/DVD, IDE
 :rules: yes
 
-= REQ.221 Disconnect unnecessary input devices
+= R221. Disconnect unnecessary input devices
 
 == Requirement
 

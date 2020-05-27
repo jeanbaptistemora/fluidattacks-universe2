@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.001 Identify information assets
+= R001. Identify information assets
 
 == Name
 
@@ -46,11 +46,11 @@ and gradually broaden the scope to the remaining processes.
 
 * Severity of the process it belongs to.
 
-* Owner, person in charge of the asset (link:../004/[REQ. 004]).
+* Owner, person in charge of the asset (link:../004/[R004]).
 
 * Asset classification in terms of confidentiality, availability and integrity.
 
-* Asset value according to its classification (link:../005/[REQ. 005]).
+* Asset value according to its classification (link:../005/[R005]).
 
 . It is recommended that the asset identification
 be done by the responsible of each process of the organization

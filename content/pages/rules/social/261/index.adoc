@@ -4,7 +4,7 @@
 :keywords: Corporate, Personal, Security, Sensitive, CWE, GDPR
 :rules: yes
 
-= REQ.261 Avoid exposing sensitive information
+= R261. Avoid exposing sensitive information
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Users, Privileges, Root, Administrator
 :rules: yes
 
-= REQ.095 Define users with privileges
+= R095. Define users with privileges
 
 == Requirement
 

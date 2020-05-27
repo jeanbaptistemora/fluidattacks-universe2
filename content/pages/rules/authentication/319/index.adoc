@@ -4,7 +4,7 @@
 :keywords: Control Strength, Identity, Authentication, Access, ASVS, CWE
 :rules: yes
 
-= REQ.319 Make authentication options equally secure
+= R319. Make authentication options equally secure
 
 == Requirement
 

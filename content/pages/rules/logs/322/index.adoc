@@ -4,7 +4,7 @@
 :keywords: Logs, Data, Events, Information, CWE, ASVS
 :rules: yes
 
-= REQ.322 Avoid excessive logging
+= R322. Avoid excessive logging
 
 == Requirement
 

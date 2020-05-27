@@ -4,7 +4,7 @@
 :keywords: Cryptographic, Asymmetric, Encryption, Size, HIPAA, ASVS
 :rules: yes
 
-= REQ.148 Set minimum size of asymmetric encryption
+= R148. Set minimum size of asymmetric encryption
 
 == Requirement
 

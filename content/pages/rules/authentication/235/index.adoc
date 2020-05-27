@@ -4,7 +4,7 @@
 :keywords: Authentication, Interface, Credentials, Security, Users, Requirement
 :rules: yes
 
-= REQ.235 Define credentials interface
+= R235. Define credentials interface
 
 == Requirement
 

@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.201 Detect device tampering
+= R201. Detect device tampering
 
 == Requirement
 

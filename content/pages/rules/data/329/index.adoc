@@ -4,7 +4,7 @@
 :keywords: Local, Session, Storage, ASVS, CWE, GDPR
 :rules: yes
 
-= REQ.329 Keep sensitive data out of the localStorage
+= R329. Keep sensitive data out of the localStorage
 
 
 == Requirement

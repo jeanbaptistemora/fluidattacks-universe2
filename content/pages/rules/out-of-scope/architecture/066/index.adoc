@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.066 Define components to be tested
+= R066. Define components to be tested
 
 == Requirement
 

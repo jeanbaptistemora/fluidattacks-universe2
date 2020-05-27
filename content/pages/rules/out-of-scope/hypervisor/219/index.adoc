@@ -5,12 +5,12 @@
 :rules: yes
 :extended: yes
 
-= REQ.219 Manage hypervisors through software
+= R219. Manage hypervisors through software
 
 == Requirement
 
-The management of hypervisors in virtualization environments,
-must be done through a central management software.
+The management of hypervisors in virtualization environments
+must be done using a central management software.
 
 == References
 

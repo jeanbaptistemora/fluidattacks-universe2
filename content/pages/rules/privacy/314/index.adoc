@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, GDPR, Confirmation, Personal
 :rules: yes
 
-= REQ.314 Provide processing confirmation
+= R314. Provide processing confirmation
 
 == Requirement
 

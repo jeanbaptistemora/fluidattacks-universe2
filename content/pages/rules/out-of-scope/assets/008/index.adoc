@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.008 Generate system threat model
+= R008. Generate system threat model
 
 == Requirement
 

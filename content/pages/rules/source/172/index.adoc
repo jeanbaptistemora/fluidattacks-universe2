@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Source Code, Databases, Connection, Encryption
 :rules: yes
 
-= REQ.172 Encrypt connection strings
+= R172. Encrypt connection strings
 
 == Requirement
 

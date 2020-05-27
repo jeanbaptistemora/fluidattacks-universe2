@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Session, Cookies, Attributes, HttpOnly.
 :rules: yes
 
-= REQ.023 Close inactive users sessions
+= R023. Close inactive users sessions
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Mobile Device, Attempts, Password, Information, Authentication, Failed
 :rules: yes
 
-= REQ.210 Delete information from mobile devices
+= R210. Delete information from mobile devices
 
 == Requirement
 

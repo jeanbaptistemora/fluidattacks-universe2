@@ -4,7 +4,7 @@
 :keywords: System, Privileges, Modification, Administration, ASVS, CWE
 :rules: yes
 
-= REQ.035 Manage privilege modifications
+= R035. Manage privilege modifications
 
 == Requirement
 

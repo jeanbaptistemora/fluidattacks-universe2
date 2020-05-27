@@ -4,7 +4,7 @@
 :keywords: Time, Logs, Events, Occurrence, CWE, ASVS
 :rules: yes
 
-= REQ.079 Record exact occurrence time of events
+= R079. Record exact occurrence time of events
 
 == Requirement
 

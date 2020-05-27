@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.244 Manage information backup
+= R244. Manage information backup
 
 == Requirement
 

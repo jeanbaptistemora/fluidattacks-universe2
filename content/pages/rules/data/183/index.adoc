@@ -4,7 +4,7 @@
 :keywords: Security, Data, Removal, Information, ASVS, GDPR
 :rules: yes
 
-= REQ.183 Delete sensitive data securely
+= R183. Delete sensitive data securely
 
 == Requirement
 

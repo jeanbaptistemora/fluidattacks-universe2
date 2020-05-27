@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.097 Define control access model
+= R097. Define control access model
 
 == Requirement
 

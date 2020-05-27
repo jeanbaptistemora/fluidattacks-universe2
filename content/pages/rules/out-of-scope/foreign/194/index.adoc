@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.194 Authorize device access to resources
+= R194. Authorize device access to resources
 
 == Requirement
 

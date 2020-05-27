@@ -4,7 +4,7 @@
 :keywords: Data, Digital Signatures, Authenticity, Information, ASVS, CWE
 :rules: yes
 
-= REQ.178 Use digital signatures
+= R178. Use digital signatures
 
 == Requirement
 

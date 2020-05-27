@@ -4,7 +4,7 @@
 :keywords: Symmetric, Encryption, Cryptographic, Size, HIPAA, ASVS
 :rules: yes
 
-= REQ.149 Set minimum size of symmetric encryption
+= R149. Set minimum size of symmetric encryption
 
 == Requirement
 

@@ -4,7 +4,7 @@
 :keywords: Subresource, Integrity, External, Hosting, ASVS, CWE
 :rules: yes
 
-= REQ.330 Verify Subresource Integrity
+= R330. Verify Subresource Integrity
 
 == Requirement
 

@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.020 Set penalties for SLA infringements
+= R020. Set penalties for SLA infringements
 
 == Requirement
 

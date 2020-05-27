@@ -4,7 +4,7 @@
 :keywords: Mobile Device, Location, Remote, Geographic, Loss, Requirement
 :rules: yes
 
-= REQ.213 Allow geographic location
+= R213. Allow geographic location
 
 == Requirement
 

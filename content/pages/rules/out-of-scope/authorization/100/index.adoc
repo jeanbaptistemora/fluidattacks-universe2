@@ -5,7 +5,7 @@
 :rules: yes
 :extended: yes
 
-= REQ.100 Seal windows containing assets
+= R100. Seal windows containing assets
 
 == Requirement
 

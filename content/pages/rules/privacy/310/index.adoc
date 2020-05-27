@@ -4,7 +4,7 @@
 :keywords: Requirement, Security, Data, GDPR, Consent Request, Regulation
 :rules: yes
 
-= REQ.310 Request user consent
+= R310. Request user consent
 
 == Requirement
 

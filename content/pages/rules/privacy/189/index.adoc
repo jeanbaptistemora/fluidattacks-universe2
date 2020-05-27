@@ -4,7 +4,7 @@
 :keywords: Data, Collection, Personal, Information, System, GDPR
 :rules: yes
 
-= REQ.189 Specify the purpose of data collection
+= R189. Specify the purpose of data collection
 
 == Requirement
 

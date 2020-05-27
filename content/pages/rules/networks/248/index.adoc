@@ -4,7 +4,7 @@
 :keywords: SSID, Network, Security, Wireless, Dictionary, Words
 :rules: yes
 
-= REQ.248 SSID without dictionary words
+= R248. SSID without dictionary words
 
 == Requirement
 
