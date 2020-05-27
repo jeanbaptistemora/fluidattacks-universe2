@@ -142,6 +142,7 @@ def app(request):
         )
         response.set_cookie(
             key=settings.JWT_COOKIE_NAME,
+            samesite=settings.JWT_COOKIE_SAMESITE,
             value=token,
             secure=True,
             # Temporary while ariadne migration is finished
