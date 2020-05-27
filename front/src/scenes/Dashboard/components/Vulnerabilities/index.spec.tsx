@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
@@ -7,6 +8,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store";
+import { authzContext } from "../../../../utils/authz/config";
 import { compareNumbers, VulnerabilitiesView } from "./index";
 import { GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IUpdateVulnTreatment, IVulnDataType } from "./types";
@@ -29,69 +31,109 @@ describe("Vulnerabilities view", () => {
             id: "480857698",
             inputsVulns: [{
               __typename: "Vulnerability",
+              analyst: "user@test.com",
               currentApprovalStatus: "",
               currentState: "open",
-              externalBts: "",
               findingId: "480857698",
+              historicState: [{
+                analyst: "user@test.com",
+                date: "2019-07-05 09:56:40",
+                state: "open",
+              }],
+              historicVerification: [{
+                __typename: "Verification",
+                date: "2020-04-01 12:32:24",
+                status: "VERIFIED",
+              }],
               id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-              lastApprovedStatus: "",
+              lastAnalyst: "user@test.com",
+              lastApprovedStatus: "open",
               remediated: false,
-              severity: 1,
-              specific: "email",
-              tag: "",
-              treatmentManager: "user@test.com",
-              verification: "",
+              severity: -1,
+              specific: "password",
+              tag: "hello, Times used",
+              tags: undefined,
+              treatmentManager: "",
+              verification: "Verified",
               vulnType: "inputs",
-              where: "https://example.com/contact",
+              where: "https://example.com/inputs",
             }],
             linesVulns: [{
               __typename: "Vulnerability",
+              analyst: "user@test.com",
               currentApprovalStatus: "",
               currentState: "open",
-              externalBts: "",
               findingId: "480857698",
+              historicState: [{
+                analyst: "user@test.com",
+                date: "2020-03-16 11:36:40",
+                state: "open",
+              }],
+              historicVerification: [],
               id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
-              lastApprovedStatus: "",
+              lastAnalyst: "user@test.com",
+              lastApprovedStatus: "open",
               remediated: false,
               severity: 1,
-              specific: "12",
-              tag: "",
-              treatmentManager: "user@test.com",
+              specific: "62",
+              tag: "Token",
+              tags: undefined,
+              treatmentManager: "",
               verification: "",
               vulnType: "lines",
-              where: "path/to/file2.ext",
+              where: "https://example.com/lines",
             }],
             pendingVulns: [{
               __typename: "Vulnerability",
+              analyst: "user@test.com",
               currentApprovalStatus: "PENDING",
               currentState: "open",
-              externalBts: "",
               findingId: "480857698",
+              historicState: [{
+                analyst: "user@test.com",
+                date: "2020-03-16 11:36:40",
+                state: "open",
+              }],
+              historicVerification: [],
               id: "c83cd8a8-f3a7-4421-ad1f-20d2e63afd48",
-              lastApprovedStatus: "",
+              lastAnalyst: "user@test.com",
+              lastApprovedStatus: "open",
+              remediated: false,
+              severity: 1,
               specific: "6",
+              tag: "Token",
+              tags: undefined,
               treatment: "New",
               treatmentJustification: "",
               treatmentManager: "user@test.com",
               verification: "",
-              vulnType: "ports",
-              where: "192.168.0.0",
+              vulnType: "pending",
+              where: "https://example.com/pending",
             }],
             portsVulns: [{
               __typename: "Vulnerability",
+              analyst: "user@test.com",
               currentApprovalStatus: "",
               currentState: "open",
-              externalBts: "",
               findingId: "480857698",
+              historicState: [{
+                analyst: "user@test.com",
+                date: "2020-03-16 11:36:40",
+                state: "open",
+              }],
+              historicVerification: [],
               id: "c83cda8a-f3a7-4421-ad1f-20d2e63afd48",
-              lastApprovedStatus: "",
+              lastAnalyst: "user@test.com",
+              lastApprovedStatus: "open",
+              remediated: false,
+              severity: 1,
               specific: "4",
-              treatment: "New",
-              treatmentJustification: "",
-              treatmentManager: "user@test.com",
+              tag: "Token",
+              tags: undefined,
+              treatmentManager: "",
               verification: "",
               vulnType: "ports",
-              where: "192.168.0.0",
+              where: "https://example.com/ports",
             }],
             releaseDate: "2019-03-12 00:00:00",
           },
@@ -146,6 +188,55 @@ describe("Vulnerabilities view", () => {
     await wait(0);
     expect(wrapper.find("Query"))
       .toBeTruthy();
+  });
+
+  it("should open a modal to edit vulnerabilities", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_vulnerability__do_update_treatment_vuln" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={[mocks]} addTypename={true}>
+          <authzContext.Provider value={mockedPermissions}>
+            <VulnerabilitiesView
+              separatedRow={false}
+              isRequestVerification={true}
+              isVerifyRequest={true}
+              editMode={true}
+              findingId="480857698"
+              state="open"
+            />
+          </authzContext.Provider>
+        </MockedProvider>
+      </Provider>,
+      );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const vulnInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper) => element.contains("https://example.com/inputs"))
+      .at(0);
+    const input: ReactWrapper = vulnInfo.find("input");
+    input.simulate("click");
+    const editButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Edit vulnerabilites"))
+      .at(0);
+    editButton.simulate("click");
+    let editVulnModal: ReactWrapper = wrapper
+      .find("modal")
+      .find({open: true, headerTitle: "Edit vulnerabilites"});
+    expect(editVulnModal)
+      .toHaveLength(1);
+    const closeButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Close"))
+      .at(0);
+    closeButton.simulate("click");
+    editVulnModal = wrapper
+      .find("modal")
+      .find({open: true, headerTitle: "Edit vulnerabilites"});
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(editVulnModal)
+      .toHaveLength(0);
   });
 
   it("should render update treatment", async () => {
