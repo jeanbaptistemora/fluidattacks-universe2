@@ -32,6 +32,7 @@ const userLevelRoles: string[] = [
 ];
 const groupLevelRoles: string[] = [
   "analyst",
+  "closer",
   "customer",
   "customeradmin",
   "group_manager",

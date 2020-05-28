@@ -837,6 +837,7 @@ const enTranslations: Dictionary = {
       add_button: "Add",
       admin: "Admin",
       analyst: "Analyst",
+      closer: "Closer",
       customer: "User",
       customeradmin: "User Manager",
       days_ago: "{{count}} day ago",

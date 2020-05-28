@@ -399,6 +399,7 @@ enum ReportLang {
 enum UserRole {
     ADMIN
     ANALYST
+    CLOSER
     CUSTOMER
     CUSTOMERADMIN
     GROUP_MANAGER

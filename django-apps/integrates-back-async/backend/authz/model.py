@@ -125,6 +125,26 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'drills',
         },
     ),
+    closer=dict(
+        actions={
+            'backend_api_resolvers_alert_resolve_alert',
+            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_resolvers_event_resolve_event',
+            'backend_api_resolvers_event_resolve_events',
+            'backend_api_resolvers_finding_resolve_finding',
+            'backend_api_resolvers_forces_resolve_forces_executions',
+            'backend_api_resolvers_project__get_comments',
+            'backend_api_resolvers_project__get_events',
+            'backend_api_resolvers_project_resolve_project',
+            'backend_api_resolvers_resource__do_download_file',
+            'backend_api_resolvers_resource_resolve_resources',
+            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            'backend_api_resolvers_vulnerability__do_verify_request_vuln',
+        },
+        tags={
+            'drills',
+        },
+    ),
     customer=dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
@@ -250,9 +270,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
             'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
             'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+            'grant_group_level_role:analyst',
+            'grant_group_level_role:closer',
             'grant_user_level_role:customer',
             'grant_user_level_role:customeradmin',
-            'grant_group_level_role:analyst',
             'grant_group_level_role:customer',
             'grant_group_level_role:customeradmin',
             'grant_group_level_role:reviewer',

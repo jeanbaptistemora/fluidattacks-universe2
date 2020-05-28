@@ -18,6 +18,7 @@ pytestmark = [
         (authz.GROUP_LEVEL_ROLES, [
             'admin',
             'analyst',
+            'closer',
             'customer',
             'customeradmin',
             'group_manager',
