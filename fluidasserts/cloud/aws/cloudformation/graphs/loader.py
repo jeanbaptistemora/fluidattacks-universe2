@@ -64,10 +64,8 @@ def create_alias(name: str, randoms=False) -> str:
 
     :param randoms: Add random chars to alias.
     """
-    alias = name.replace('-', '_').lower()
-    alias = alias.replace('::', '_')
-    alias = alias.replace(':', '_')
-    alias = alias.replace('.', '_')
+    alias = name.replace('-', '_').lower().replace('::', '_').replace(
+        ':', '_').replace('.', '_')
     if randoms:
         alias = f'{alias}_{_random_string(5)}'
     return alias
@@ -75,7 +73,7 @@ def create_alias(name: str, randoms=False) -> str:
 
 def create_label(name: str) -> str:
     """Create an Label for Cipher statement."""
-    return name.replace('-', '_')
+    return name.replace('-', '_').replace('::', ':')
 
 
 def _fn_reference_logincal_id(logical_id: str) -> tuple:
@@ -448,9 +446,11 @@ class Batcher:  # noqa: H238
 
         self.statements.append(statement)
         for resource_name in self.template['Resources'].keys():
-            if resource_name.startswith(
-                    '__') or self.template['Resources'][resource_name].get(
-                        '__loaded__', False):
+            loaded = False
+            with suppress(KeyError, TypeError):
+                loaded = self.template['Resources'][resource_name][
+                    '__loaded__'] or loaded
+            if resource_name.startswith('__') or loaded:
                 continue
 
             if resource_name.startswith('Fn::'):
@@ -592,7 +592,8 @@ class Batcher:  # noqa: H238
         if isinstance(prop_value, (str, int, bool)):
             statement += (f"SET {prop_alias}.value = ${prop_alias}_value\n")
             self.statement_params[f'{prop_alias}_value'] = prop_value
-        elif isinstance(prop_value, (OrderedDict, CustomDict)):
+        elif isinstance(prop_value, (OrderedDict, CustomDict)) and len(
+                prop_value) > 0:
             func_name = list(prop_value.keys())[0]
             if func_name in INTRINSIC_FUNCS:
                 return self.load_intrinsic_func(
@@ -608,7 +609,8 @@ class Batcher:  # noqa: H238
                 statement += (
                     f"CREATE ({prop_alias})-"
                     f"[:HAS {{line: ${attr_alias}_line}}]->"
-                    f"({attr_alias}:PropertyAttribute:{property_name})\n")
+                    f"({attr_alias}:PropertyAttribute:"
+                    f"{create_label(property_name)})\n")
                 self.statement_params[f'{attr_alias}_line'] = line
                 statement += self._load_resource_property((attr_alias, value),
                                                           contexts, line)
@@ -1290,11 +1292,12 @@ class Loader:
     """Class to load cloudformation templates to neo4j."""
 
     def __init__(self,
-                 connect_to_db=False,
+                 create_db=True,
                  user: str = None,
                  passwd: str = None,
                  host: str = None,
-                 port: int = None):
+                 port: int = None,
+                 **kwargs):
         """Load cloudformation templates to Neo4j.
 
         If you do not want to connect to a database, a docker container will
@@ -1315,51 +1318,58 @@ class Loader:
         self.user = user or 'neo4j'
         self.password = passwd or _random_string(16)
         self.host = host
-        self.port = port or 11009
+        self.port = port or 7687
 
         self.templates = []
-        if not connect_to_db:
-            self.create_db()
+        if create_db:
+            self.create_db(retry=True, **kwargs)
         else:
-            if not all((bool(user), bool(passwd), bool(host), bool(port))):
-                raise Exception(
-                    (f"If you are trying to connect to a database"
-                     " you must specify(user, passwd, host, port)"))
             self.connection = ConnectionString(
                 passwd=self.password,
                 user=self.user,
                 host=self.host,
-                port=self.port)
+                port=self.port,
+                database=kwargs.get('database', None))
 
-    def create_db(self):
+    def create_db(self, **kwargs):
         """Create a container with an instance of the database."""
         client = docker.from_env()
         environment = {
             'NEO4J_AUTH': f'{self.user}/{self.password}',
             'NEO4J_dbms_memory_heap_max__size': '4G',
             'NEO4J_dbms_memory_heap_initial__size': '2G',
-            'NEO4J_dbms_memory_pagecache_size': '2G'
+            'NEO4J_dbms_memory_pagecache_size': '2G',
+            'NEO4J_ACCEPT_LICENSE_AGREEMENT': 'yes',
         }
-        ports = {'7687/tcp': f'{self.port}'}
-        container_id = client.containers.run(
-            'neo4j:latest',
-            name=create_alias(f'asserts_neo4j', True),
-            detach=True,
-            environment=environment,
-            ports=ports).attrs['Id']
-        self.container_database = client.containers.get(container_id)
+        container_name = kwargs.get(
+            'container_name', None) or create_alias(f'asserts_neo4j', True)
+        try:
+            container_id = client.containers.run(
+                'neo4j:enterprise',
+                name=container_name,
+                detach=True,
+                environment=environment).attrs['Id']
+            self.container_database = client.containers.get(container_id)
+        except docker.errors.APIError as exc:
+            if 'is already in use by container' in exc.explanation:
+                self.container_database = client.containers.get(container_name)
+                self.delete_database()
+                self.create_db()
+            else:
+                raise exc
+
         self.host = self.container_database.attrs['NetworkSettings'][
-            'IPAddress']
+            'Networks']['bridge']['IPAddress']
         self.connection = ConnectionString(
             user=self.user,
             passwd=self.password,
-            host='localhost',
-            port=self.port)
+            host=self.host,
+            port=self.port,
+            database=kwargs.get('database', None))
 
     def delete_database(self):
         """Delete the database"""
-        self.container_database.stop()
-        self.container_database.remove()
+        self.container_database.remove(force=True)
 
     @retry_on_errors
     def load_templates(self,

@@ -7,13 +7,16 @@ from contextlib import contextmanager
 
 # 3rd party imports
 from neo4j import GraphDatabase, Session
+from neo4j.api import DEFAULT_DATABASE
 
-ConnectionString = NamedTuple(
-    'ConnectionString', [
-        ('user', str),
-        ('passwd', str),
-        ('host', str),
-        ('port', int)])
+
+class ConnectionString(NamedTuple):
+    """Connection string for neo4j."""
+    user: str
+    passwd: str
+    host: str
+    port: int
+    database: str = DEFAULT_DATABASE
 
 
 @contextmanager
@@ -27,10 +30,22 @@ def database(connection_string: ConnectionString) -> Session:
         f"bolt://{connection_string.host}:{connection_string.port}",
         auth=(connection_string.user, connection_string.passwd))
     try:
-        yield driver.session()
+        yield driver.session(database=connection_string.database)
     finally:
         driver.close()
         del driver
+
+
+def driver_session(connection_string: ConnectionString) -> Session:
+    """
+    Context manager to get a safe session.
+
+    :param connection_string: Connection parameter and credentials.
+    """
+    return GraphDatabase.driver(
+        f"bolt://{connection_string.host}:{connection_string.port}",
+        auth=(connection_string.user, connection_string.passwd
+              )).session(database=connection_string.database)
 
 
 @contextmanager
