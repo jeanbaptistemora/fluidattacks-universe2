@@ -279,9 +279,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:reviewer',
             'grant_group_level_role:resourcer',
         },
-        tags={
-            'drills',
-        },
+        tags=set(),
     ),
     resourcer=dict(
         actions={
