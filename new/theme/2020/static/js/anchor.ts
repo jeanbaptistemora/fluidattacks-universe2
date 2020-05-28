@@ -9,8 +9,6 @@ const setAnchors: (() => void) = (): void => {
 
     for (const title of pageTitles) {
         let titleContent: string = (title as HTMLElement).innerText.toLowerCase();
-        // tslint:disable-next-line: no-console
-        console.log(titleContent);
         titleContent = titleContent.replace(/^[0-9.]*\s/, "");
         titleContent = titleContent.replace(/[¡!¿?,':\.]/g, "");
         titleContent = titleContent.replace(/\s+/g, "-");
