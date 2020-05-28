@@ -416,8 +416,10 @@ class Batcher:  # noqa: H238
             alias_condition = create_alias(f"con_{con_name}")
             # create reference to condition
             statement_condition = (
-                f"MATCH ({alias_condition}:Condition)\n"
-                f"WHERE {alias_condition}.name = ${alias_condition}_value\n")
+                f"MATCH (template:{node_template_name})-[*]->"
+                f"({alias_condition}:Condition)\n"
+                f"WHERE template.path = '{self.path}' AND "
+                f" {alias_condition}.name = ${alias_condition}_value\n")
             self.statement_params[f'{alias_condition}_value'] = con_name
             # create relationship between the condition and the function it
             #  executes
@@ -723,6 +725,7 @@ class Batcher:  # noqa: H238
                       line='unknown',
                       direct_reference=False) -> str:
         """Loaf intrinsic function Ref."""
+        node_template_name = self.template['__node_name__']
         contexts = contexts or set([])
         ref_alias = create_alias(f'ref_{resource_id}_{logical_name}', True)
         statement = ""
@@ -746,8 +749,10 @@ class Batcher:  # noqa: H238
         param_alias = create_alias(f'ref_{resource_id}_{logical_name}')
         if not logical_name.startswith('AWS::'):
             statement += (
-                f"MATCH ({param_alias}: Reference)\n"
-                f"WHERE {param_alias}.logicalName = ${param_alias}_name\n"
+                f"MATCH (template:{node_template_name})-[*]->"
+                f"({param_alias}: Reference)\n"
+                f"WHERE template.path = '{self.path}' AND "
+                f"{param_alias}.logicalName = ${param_alias}_name\n"
                 f"CREATE ({ref_alias})-[:REFERENCE_TO {line_sts}]->"
                 f"({param_alias})\n")
             contexts.update([param_alias])
@@ -883,6 +888,7 @@ class Batcher:  # noqa: H238
                         contexts: set = None,
                         line='unknown') -> str:
         """Create a statement to load intrinsic function Fn::FindInMap."""
+        node_template_name = self.template['__node_name__']
         contexts = contexts or set([])
         alias_fn = create_alias("fn_findinmap", True)
         alias_mapping = create_alias(f'{attrs[0]}_mapping', True)
@@ -890,12 +896,15 @@ class Batcher:  # noqa: H238
         contexts_str = ', '.join(contexts)
 
         line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"MATCH ({alias_mapping}:Mapping)\n"
-                     f"WHERE {alias_mapping}.name = ${alias_mapping}_name\n"
-                     f"WITH {contexts_str}\n"
-                     f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:Fn:FindInMap)-[:REFERENCE_TO]->"
-                     f"({alias_mapping})\n")
+        statement = (
+            f"MATCH (template:{node_template_name})-[*]->"
+            f"({alias_mapping}:Mapping)\n"
+            f"WHERE template.path = '{self.path}' AND "
+            f"{alias_mapping}.name = ${alias_mapping}_name\n"
+            f"WITH {contexts_str}\n"
+            f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
+            f"({alias_fn}:Fn:FindInMap)-[:REFERENCE_TO]->"
+            f"({alias_mapping})\n")
         contexts.add(alias_fn)
         self.statement_params.update({
             f'{alias_mapping}_name': attrs[0],
@@ -1354,7 +1363,7 @@ class Loader:
             if 'is already in use by container' in exc.explanation:
                 self.container_database = client.containers.get(container_name)
                 self.delete_database()
-                self.create_db()
+                self.create_db(**kwargs)
             else:
                 raise exc
 

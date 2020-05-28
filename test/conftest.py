@@ -386,8 +386,8 @@ def run_mocks(request):
     if should_run_mock(
             current_module=asserts_module,
             modules_where_should_run=['cloud_aws_cloudformation']):
-        safe_pah: str = 'test/static/cloudformation/safe'
-        vuln_path: str = 'test/static/cloudformation/vulnerable'
+        safe_pah: str = 'test/static/cloudformation/code_as_data_safe'
+        vuln_path: str = 'test/static/cloudformation/code_as_data_vulnerable'
         loader_ = Loader(passwd='12345678',
                          container_name='asserts_neo4j', database='system')
         availabele = False

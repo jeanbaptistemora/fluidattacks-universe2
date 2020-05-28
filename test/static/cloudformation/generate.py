@@ -1,6 +1,9 @@
 #! /usr/bin/env python3
-
 """Generate CloudFormation tests."""
+
+# pylint: disable=E0401
+# pylint: disable=C0103
+# pylint: disable=W0621
 
 import os
 import textwrap
@@ -31,8 +34,8 @@ def write_template(template: troposphere.Template) -> bool:
             ('json', {
                 'indent': 2
             })):
-        target_file_path: str = os.path.join(
-            target_dir_path, f'template.{extension}')
+        target_file_path: str = os.path.join(target_dir_path,
+                                             f'template.{extension}')
         print(target_file_path)
         content: str = getattr(template, f'to_{extension}')(**kwargs)
         print(textwrap.indent(content, prefix='+   '))
@@ -44,13 +47,12 @@ def write_template(template: troposphere.Template) -> bool:
 # Safe
 #
 
-template = troposphere.Template(
-    Description='safe',
-)
+template = troposphere.Template(Description='safe', )
 role = troposphere.iam.Role(
     title='role1',
     AssumeRolePolicyDocument={
-        'Version': '2012-10-17',
+        'Version':
+        '2012-10-17',
         'Statement': [
             {
                 'Effect': 'Deny',
@@ -108,7 +110,8 @@ role = troposphere.iam.Role(
             title='policy1',
             PolicyName='policy1',
             PolicyDocument={
-                'Version': '2012-10-17',
+                'Version':
+                '2012-10-17',
                 'Statement': [
                     {
                         'Effect': 'Deny',
@@ -181,7 +184,8 @@ policy = troposphere.iam.PolicyType(
     title='policy1',
     PolicyName='policy1',
     PolicyDocument={
-        'Version': '2012-10-17',
+        'Version':
+        '2012-10-17',
         'Statement': [
             {
                 # F4: IAM managed policy should not allow * action
@@ -202,13 +206,13 @@ policy = troposphere.iam.PolicyType(
     },
     # F11: IAM managed policy should not apply directly to users.
     #   Should be on group
-    Users=[
-    ],
+    Users=[],
 )
 managed_policy = troposphere.iam.ManagedPolicy(
     title='mangedPolicy1',
     PolicyDocument={
-        'Version': '2012-10-17',
+        'Version':
+        '2012-10-17',
         'Statement': [
             {
                 # F5: IAM managed policy should not allow * action
@@ -229,8 +233,7 @@ managed_policy = troposphere.iam.ManagedPolicy(
     },
     # F12: IAM managed policy should not apply directly to users.
     #   Should be on group
-    Users=[
-    ],
+    Users=[],
 )
 user = troposphere.iam.User(
     title='user1',
@@ -242,8 +245,7 @@ user = troposphere.iam.User(
 )
 key = troposphere.kms.Key(
     title='key1',
-    KeyPolicy={
-    },
+    KeyPolicy={},
     EnableKeyRotation='true',
 )
 security_group = troposphere.ec2.SecurityGroup(
@@ -313,10 +315,11 @@ dynamodb_table = troposphere.dynamodb.Table(
         ),
     ],
     BillingMode='PAY_PER_REQUEST',
-    PointInTimeRecoverySpecification=troposphere.dynamodb.PointInTimeRecoverySpecification(
+    PointInTimeRecoverySpecification=troposphere.dynamodb.
+    PointInTimeRecoverySpecification(
         title='pointInTimeRecoverySpecification1',
         PointInTimeRecoveryEnabled=True,
-        ),
+    ),
 )
 fsx_filesystem = troposphere.fsx.FileSystem(
     title='fileSystem1',
@@ -325,8 +328,7 @@ fsx_filesystem = troposphere.fsx.FileSystem(
         'sn-123',
     ],
     LustreConfiguration=troposphere.fsx.LustreConfiguration(
-        title='lustreConfiguration',
-    ),
+        title='lustreConfiguration', ),
     KmsKeyId='kms-123',
 )
 cloudfront_distribution = troposphere.cloudfront.Distribution(
@@ -335,8 +337,7 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
         CacheBehaviors=[
             troposphere.cloudfront.CacheBehavior(
                 ForwardedValues=troposphere.cloudfront.ForwardedValues(
-                    QueryString=False,
-                ),
+                    QueryString=False, ),
                 TargetOriginId='target-origin-id',
                 ViewerProtocolPolicy='redirect-to-https',
                 PathPattern='test',
@@ -344,8 +345,7 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
         ],
         DefaultCacheBehavior=troposphere.cloudfront.DefaultCacheBehavior(
             ForwardedValues=troposphere.cloudfront.ForwardedValues(
-                QueryString=False,
-            ),
+                QueryString=False, ),
             TargetOriginId='target-origin-id',
             ViewerProtocolPolicy='redirect-to-https',
         ),
@@ -363,8 +363,7 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
             ),
         ],
         ViewerCertificate=troposphere.cloudfront.ViewerCertificate(
-            MinimumProtocolVersion='TLSv1.2_2018',
-        ),
+            MinimumProtocolVersion='TLSv1.2_2018', ),
     ),
 )
 s3_bucket = troposphere.s3.Bucket(
@@ -374,8 +373,7 @@ s3_bucket = troposphere.s3.Bucket(
 elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
     title='elasticLoadBalancer',
     AccessLoggingPolicy=troposphere.elasticloadbalancing.AccessLoggingPolicy(
-        Enabled=True,
-    ),
+        Enabled=True, ),
     Listeners=[
         troposphere.elasticloadbalancing.Listener(
             InstancePort=443,
@@ -401,8 +399,7 @@ elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
             AllocationId='mock',
             SubnetId='mock',
         ),
-    ]
-)
+    ])
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(rds_cluster)
@@ -428,13 +425,12 @@ write_template(template)
 # Vulnerable
 #
 
-template = troposphere.Template(
-    Description='vulnerable',
-)
+template = troposphere.Template(Description='vulnerable', )
 role = troposphere.iam.Role(
     title='role1',
     AssumeRolePolicyDocument={
-        'Version': '2012-10-17',
+        'Version':
+        '2012-10-17',
         'Statement': [
             {
                 'Effect': 'Allow',
@@ -450,15 +446,13 @@ role = troposphere.iam.Role(
                 # W14: IAM role should not allow Allow+NotAction on trust
                 #   permissions
                 'Effect': 'Allow',
-                'NotAction': [
-                ],
+                'NotAction': [],
             },
             {
                 # F6: IAM role should not allow Allow+NotPrincipal in its trust
                 #   policy
                 'Effect': 'Allow',
-                'NotPrincipal': [
-                ],
+                'NotPrincipal': [],
             },
             {
                 'Effect': 'Allow',
@@ -492,7 +486,8 @@ role = troposphere.iam.Role(
             title='policy1',
             PolicyName='policy1',
             PolicyDocument={
-                'Version': '2012-10-17',
+                'Version':
+                '2012-10-17',
                 'Statement': [
                     {
                         'Effect': 'Allow',
@@ -522,14 +517,12 @@ role = troposphere.iam.Role(
                     {
                         # W15: IAM role should not allow Allow+NotAction
                         'Effect': 'Allow',
-                        'NotAction': [
-                        ],
+                        'NotAction': [],
                     },
                     {
                         # W21: IAM role should not allow Allow+NotResource
                         'Effect': 'Allow',
-                        'NotResource': [
-                        ],
+                        'NotResource': [],
                     },
                 ],
             },
@@ -552,9 +545,7 @@ secret = troposphere.secretsmanager.Secret(
         RequireEachIncludedType='false',
     ),
 )
-secret2 = troposphere.secretsmanager.Secret(
-    title='secret2',
-)
+secret2 = troposphere.secretsmanager.Secret(title='secret2', )
 rds_cluster = troposphere.rds.DBCluster(
     title='cluster1',
     Engine='postgres',
@@ -582,7 +573,8 @@ policy = troposphere.iam.PolicyType(
     title='policy1',
     PolicyName='policy1',
     PolicyDocument={
-        'Version': '2012-10-17',
+        'Version':
+        '2012-10-17',
         'Statement': [
             {
                 # F4: IAM managed policy should not allow * action
@@ -605,14 +597,12 @@ policy = troposphere.iam.PolicyType(
             {
                 # W16: IAM managed policy should not allow Allow+NotAction
                 'Effect': 'Allow',
-                'NotAction': [
-                ],
+                'NotAction': [],
             },
             {
                 # W22: IAM managed policy should not allow Allow+NotResource
                 'Effect': 'Allow',
-                'NotResource': [
-                ],
+                'NotResource': [],
             },
         ],
     },
@@ -625,7 +615,8 @@ policy = troposphere.iam.PolicyType(
 managed_policy = troposphere.iam.ManagedPolicy(
     title='mangedPolicy1',
     PolicyDocument={
-        'Version': '2012-10-17',
+        'Version':
+        '2012-10-17',
         'Statement': [
             {
                 'Effect': 'Deny',
@@ -653,14 +644,12 @@ managed_policy = troposphere.iam.ManagedPolicy(
             {
                 # W17: IAM managed policy should not allow Allow+NotAction
                 'Effect': 'Allow',
-                'NotAction': [
-                ],
+                'NotAction': [],
             },
             {
                 # W23: IAM managed policy should not allow Allow+NotResource
                 'Effect': 'Allow',
-                'NotResource': [
-                ],
+                'NotResource': [],
             },
         ],
     },
@@ -680,8 +669,7 @@ user = troposphere.iam.User(
 )
 key = troposphere.kms.Key(
     title='key1',
-    KeyPolicy={
-    },
+    KeyPolicy={},
     EnableKeyRotation='false',
 )
 security_group = troposphere.ec2.SecurityGroup(
@@ -741,8 +729,7 @@ ec2_launch_template = troposphere.ec2.LaunchTemplate(
     LaunchTemplateData=troposphere.ec2.LaunchTemplateData(
         DisableApiTermination=False,
         InstanceInitiatedShutdownBehavior='terminate',
-    )
-)
+    ))
 ec2_launch_template2 = troposphere.ec2.LaunchTemplate(
     title='launchTemplate2',
     LaunchTemplateName='launchTemplate2',
@@ -779,10 +766,11 @@ dynamodb_table = troposphere.dynamodb.Table(
         ),
     ],
     BillingMode='PAY_PER_REQUEST',
-    PointInTimeRecoverySpecification=troposphere.dynamodb.PointInTimeRecoverySpecification(
+    PointInTimeRecoverySpecification=troposphere.dynamodb.
+    PointInTimeRecoverySpecification(
         title='pointInTimeRecoverySpecification1',
         PointInTimeRecoveryEnabled=False,
-        ),
+    ),
 )
 dynamodb_table2 = troposphere.dynamodb.Table(
     title='dynamoDBTable2',
@@ -809,17 +797,14 @@ fsx_filesystem = troposphere.fsx.FileSystem(
         'sn-123',
     ],
     LustreConfiguration=troposphere.fsx.LustreConfiguration(
-        title='lustreConfiguration',
-    )
-)
+        title='lustreConfiguration', ))
 cloudfront_distribution = troposphere.cloudfront.Distribution(
     title='distribution1',
     DistributionConfig=troposphere.cloudfront.DistributionConfig(
         CacheBehaviors=[
             troposphere.cloudfront.CacheBehavior(
                 ForwardedValues=troposphere.cloudfront.ForwardedValues(
-                    QueryString=False,
-                ),
+                    QueryString=False, ),
                 TargetOriginId='target-origin-id',
                 ViewerProtocolPolicy='allow-all',
                 PathPattern='test',
@@ -827,8 +812,7 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
         ],
         DefaultCacheBehavior=troposphere.cloudfront.DefaultCacheBehavior(
             ForwardedValues=troposphere.cloudfront.ForwardedValues(
-                QueryString=False,
-            ),
+                QueryString=False, ),
             TargetOriginId='target-origin-id',
             ViewerProtocolPolicy='allow-all',
         ),
@@ -846,8 +830,7 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
             ),
         ],
         ViewerCertificate=troposphere.cloudfront.ViewerCertificate(
-            MinimumProtocolVersion='TLSv1.1_2016',
-        ),
+            MinimumProtocolVersion='TLSv1.1_2016', ),
     ),
 )
 s3_bucket = troposphere.s3.Bucket(
@@ -857,8 +840,7 @@ s3_bucket = troposphere.s3.Bucket(
 elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
     title='elasticLoadBalancer',
     AccessLoggingPolicy=troposphere.elasticloadbalancing.AccessLoggingPolicy(
-        Enabled=False,
-    ),
+        Enabled=False, ),
     Listeners=[
         troposphere.elasticloadbalancing.Listener(
             InstancePort=443,
@@ -884,8 +866,7 @@ elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
             AllocationId='mock',
             SubnetId='mock',
         ),
-    ]
-)
+    ])
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -910,4 +891,101 @@ template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
 template.add_resource(elb_entity)
 template.add_resource(elb2_entity)
+write_template(template)
+
+#
+# Code as data
+#
+
+# Safe
+
+template = troposphere.Template(Description='code_as_data_safe', )
+
+param_ip_security_group = troposphere.Parameter(
+    'IpSecurityGroup',
+    Description="Ip of SecurityGroup",
+    Type="String",
+    Default="111.123.123.0/32")
+template.add_parameter(param_ip_security_group)
+
+security_group = troposphere.ec2.SecurityGroup(
+    title='securityGroup1',
+    GroupDescription='groupDescription1',
+    SecurityGroupIngress=[{
+        'IpProtocol': 'tcp',
+        'CidrIp': troposphere.Ref(param_ip_security_group),
+        'FromPort': 22,
+        'ToPort': 22
+    }, {
+        'IpProtocol': 'tcp',
+        'CidrIp': '123.123.123.0/32',
+        'FromPort': 22,
+        'ToPort': 22
+    }, {
+        'IpProtocol': 'udp',
+        'CidrIpv6': '2001:db8:a0b:12f0::64/128',
+        'FromPort': 22,
+        'ToPort': 22
+    }])
+
+security_group2 = troposphere.ec2.SecurityGroup(
+    title='securityGroup2',
+    GroupDescription='groupDescription1',
+    SecurityGroupIngress=[{
+        'IpProtocol': 'tcp',
+        'CidrIp': '123.123.123.0/32',
+        'FromPort': 22,
+        'ToPort': 22
+    }],
+    SecurityGroupEgress=[{
+        'IpProtocol': 'tcp',
+        'CidrIp': '127.0.0.1/32',
+        'FromPort': 8000,
+        'ToPort': 8000
+    }])
+
+security_group_egress = troposphere.ec2.SecurityGroupEgress(
+    title='securityGroupEgress1',
+    IpProtocol='tcp',
+    FromPort=22,
+    ToPort=22,
+    GroupId=troposphere.Ref(security_group),
+    DestinationSecurityGroupId=troposphere.GetAtt('securityGroup1', 'GroupId'))
+
+template.add_resource(security_group)
+template.add_resource(security_group2)
+template.add_resource(security_group_egress)
+write_template(template)
+
+# vulnerable
+template = troposphere.Template(Description='code_as_data_vulnerable')
+
+param_ip_security_group = troposphere.Parameter(
+    'IpSecurityGroup',
+    Description="Ip of SecurityGroup",
+    Type="String",
+    Default="12.34.12.43/16")
+template.add_parameter(param_ip_security_group)
+
+security_group = troposphere.ec2.SecurityGroup(
+    title='securityGroup1',
+    GroupDescription='groupDescription1',
+    SecurityGroupIngress=[{
+        'IpProtocol': '-1',
+        'CidrIp': '0.0.0.0/0',
+        'FromPort': 1,
+        'ToPort': 65535
+    }, {
+        'IpProtocol': '-1',
+        'CidrIp': troposphere.Ref(param_ip_security_group),
+        'FromPort': 1,
+        'ToPort': 65535
+    }, {
+        'IpProtocol': '-1',
+        'CidrIpv6': '::/0',
+        'FromPort': 1,
+        'ToPort': 65535
+    }])
+
+template.add_resource(security_group)
 write_template(template)
