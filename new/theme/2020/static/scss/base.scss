@@ -487,7 +487,6 @@ $codeyellow: rgba(230, 219, 116, 1);
     overflow-x: auto;
     overflow-y: hidden;
     text-align: left;
-    width: fit-content;
     thead {
       font-size: 1.125rem;
       background-color: $headergray;
@@ -538,4 +537,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 .admonitionblock.note, .tip {
   background-color: $noteblue;
+}
+
+video {
+  width: 100%;
 }
