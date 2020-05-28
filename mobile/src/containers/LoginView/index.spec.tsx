@@ -115,15 +115,16 @@ describe("LoginView", (): void => {
     expect(mockHistoryReplace)
       .toHaveBeenCalledWith("/Welcome", {
         authProvider: "google",
-        authToken: "abc123",
-        userInfo: {
+        idToken: "abc123",
+        type: "success",
+        user: {
           email: "test@fluidattacks.com",
-          givenName: "Unit test",
+          firstName: "Unit test",
         },
       });
   });
 
-  it("should handle auth cancel", async (): Promise<void> => {
+  it("should handle google auth cancel", async (): Promise<void> => {
     (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.resolve({
       type: "cancel",

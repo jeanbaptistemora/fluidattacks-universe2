@@ -13,12 +13,12 @@ import { rollbar } from "../../utils/rollbar";
 
 import { SIGN_IN_MUTATION } from "./queries";
 import { styles } from "./styles";
-import { IAuthResult, ISignInResult } from "./types";
+import { IAuthState, ISignInResult } from "./types";
 
 const welcomeView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
   const history: ReturnType<typeof useHistory> = useHistory();
-  const { authProvider, authToken, userInfo } = history.location.state as IAuthResult;
+  const { authProvider, idToken, user } = history.location.state as IAuthState;
 
   const handleLogout: (() => void) = async (): Promise<void> => {
     await SecureStore.deleteItemAsync("integrates_session");
@@ -36,7 +36,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
         SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt)
           .then((): void => {
             if (result.signIn.authorized) {
-              history.replace("/Dashboard", { userInfo });
+              history.replace("/Dashboard", { user });
             }
           })
           .catch((error: Error): void => {
@@ -50,7 +50,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
       rollbar.error("API auth failed", error);
       Alert.alert(t("common.error.title"), t("common.error.msg"));
     },
-    variables: { authToken, provider: authProvider },
+    variables: { authToken: idToken, provider: authProvider },
   });
 
   // Side effects
@@ -66,8 +66,8 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
     <React.StrictMode>
       <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
       <View style={styles.container}>
-        <Image style={styles.profilePicture} source={{ uri: userInfo.photoUrl }} />
-        <Text style={styles.greeting}>{t("welcome.greetingText")} {userInfo.givenName}!</Text>
+        <Image style={styles.profilePicture} source={{ uri: user.photoUrl }} />
+        <Text style={styles.greeting}>{t("welcome.greetingText")} {user.firstName}!</Text>
         {loading || isAuthorized ? undefined : (
           <React.Fragment>
             <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>

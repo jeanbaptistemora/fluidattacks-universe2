@@ -31,6 +31,7 @@ jest.mock("expo-constants", (): Dictionary => ({
 }));
 
 describe("LoginView", (): void => {
+
   it("should display update dialog", async (): Promise<void> => {
     (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(true));
 

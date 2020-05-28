@@ -23,6 +23,7 @@ import { default as Border } from "../../../assets/percentBorder.svg";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
+import { IUser } from "../LoginView/socialAuth";
 
 import { Header } from "./Header";
 import { PROJECTS_QUERY } from "./queries";
@@ -31,7 +32,7 @@ import { IProject, IProjectsResult } from "./types";
 
 const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
-  const { userInfo } = history.location.state as { userInfo: GoogleUser };
+  const { user } = history.location.state as { user: IUser };
   const { colors } = useTheme();
   const { t } = useTranslation();
 
@@ -70,7 +71,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Header photoUrl={userInfo.photoUrl} userName={userInfo.name} onLogout={handleLogout} />
+      <Header photoUrl={user.photoUrl} userName={user.fullName} onLogout={handleLogout} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.percentageContainer}>
           <SvgCss xml={Border} width={220} height={220} />

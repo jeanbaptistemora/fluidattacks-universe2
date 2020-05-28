@@ -1,12 +1,12 @@
-import { GoogleUser } from "expo-google-app-auth";
+import { IUser } from "../LoginView/socialAuth";
 
 /**
- * Social auth response
+ * Auth data provided after login
  */
-export interface IAuthResult {
+export interface IAuthState {
   authProvider: string;
-  authToken: string;
-  userInfo: GoogleUser;
+  idToken: string;
+  user: IUser;
 }
 
 /**

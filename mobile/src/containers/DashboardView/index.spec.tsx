@@ -63,7 +63,7 @@ describe("DashboardView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { userInfo: {} } }]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { user: {} } }]}>
             <MockedProvider mocks={[projectMock]} addTypename={false}>
               <DashboardView />
             </MockedProvider>
@@ -99,7 +99,7 @@ describe("DashboardView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { userInfo: {} } }]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { user: {} } }]}>
             <MockedProvider mocks={[emptyMock]} addTypename={false}>
               <DashboardView />
             </MockedProvider>
@@ -133,7 +133,7 @@ describe("DashboardView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { userInfo: {} } }]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { user: {} } }]}>
             <MockedProvider mocks={[errorMock]} addTypename={false}>
               <DashboardView />
             </MockedProvider>
@@ -153,7 +153,7 @@ describe("DashboardView", (): void => {
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
-          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { userInfo: {} } }]}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { user: {} } }]}>
             <MockedProvider>
               <DashboardView />
             </MockedProvider>
