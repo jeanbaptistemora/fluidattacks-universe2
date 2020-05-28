@@ -35,8 +35,8 @@ or requiring them to leave their development toolchain environment.
 
 Ok, that information might be enough. See you in the next post!
 
-.Ah? (image taken from link:https://i.imgur.com/YezxAlA.png[imgur.com])
-image::ah.png[Ah?]
+.Huh? (image taken from link:https://i.imgur.com/YezxAlA.png[imgur.com])
+image::ah.png[Huh?]
 
 What? I was just kidding! Let's talk a little more about it.
 
@@ -55,7 +55,7 @@ But many others have come to see security as a _necessity_
 in an ample shared virtual space,
 where the intentions of a lot turn out not to be the best
 (you can read our posts on [inner]#link:../phishing/[phishing]# and [inner]#link:../ransomware/[ransomware]#).
-The most attentive regarding this issue
+The most attentive to this issue
 have been those wishing to maintain the prestige of their companies,
 which may be handling personal data of huge amounts of users.
 
@@ -94,20 +94,25 @@ What are the gaps that we must not allow in our applications?
 What will be the countermeasures and solutions to establish?
 
 Following those security requirements,
-security checks for finding vulnerabilities
-are performed continuously and automatically by the tools,
+security checks for finding vulnerabilities are performed continuously.
+These checks are carried out through automatic tools
+combined with teams of security experts
+that use their knowledge to detect security gaps,
 keeping pace with `DevOps`.
-The use of these tools integrated into the pipelines,
+The use of these tools and human capabilities integrated into the pipelines,
 employing `SAST` and `DAST` techniques,
 makes it possible to minimize the number of the software's vulnerabilities.
 These weaknesses can be found early, while the code is under construction,
 and their remediation can also be done promptly.
-The timely activity of the tools,
+The timely activity of experts and tools,
 which should generate continuous information logging and quick feedback,
 allows companies to stay one step ahead of attackers
 and maintain security control.
 
-*Tip:* _Perform the security checks gradually,
+*Caution:* (1) *_Relying heavily on tools and their automatic work
+can lead to high rates of false positives and false negatives;
+for that reason, involve human intelligence more in your security testing._*
+(2) _Perform the security checks gradually,
 starting link:https://medium.com/hackernoon/the-future-of-security-is-devsecops-9166db1d8a03[with high-priority areas],
 trying not to overload the developers with work
 as they are usually responsible for closing the gaps._
@@ -122,7 +127,8 @@ a constant search for vulnerabilities or gaps in `IT` systems.
 But although some tools are used in this process,
 at `Fluid Attacks`, it is not entirely automatic or tool-dependent,
 contrary to what other companies do.
-Here more value is placed on the manual work of ethical hackers.
+Here we place more value on the manual work of ethical hackers
+to ensure greater accuracy in testing.
 Their work can begin "from the moment the first commit is uploaded,"
 with every new change being reviewed.
 That work can continue after the application has been deployed to production.
@@ -173,7 +179,7 @@ carried out continuously in the `SDLC`.
 
 Regardless of the name we give
 to the inclusion of security into the `DevOps` methodology,
-from this new business culture,
+within this new business culture,
 security is expected to play an essential role
 in software production and maintenance from the beginning.
 It is intended that all those involved in the projects
@@ -184,6 +190,6 @@ there shouldn't be separate teams by function but by product.
 In the end, everyone must be responsible for security.
 
 Companies that decide to implement the `DevSecOps` approach
-(perhaps better `SecDevOps`) will achieve significant benefits,
+(or, perhaps better said, `SecDevOps`) will achieve significant benefits,
 especially in the quality and security of their processes and products.
 Would you like advice on how to do it? [inner]#link:../../contact-us/[Get in touch with our team!]#
