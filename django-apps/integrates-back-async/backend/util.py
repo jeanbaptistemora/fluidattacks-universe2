@@ -10,7 +10,7 @@ import logging
 import logging.config
 import re
 import secrets
-from typing import Any, Dict, List, Union, cast
+from typing import Any, Dict, Iterator, List, Union, cast
 import httpx
 import pytz
 import rollbar
@@ -204,16 +204,18 @@ def get_jwt_content(context) -> Dict[str, str]:
         raise InvalidAuthorization()
 
 
-def list_s3_objects(client_s3, bucket_s3: object, key: str) -> List[str]:
-    resp = client_s3.list_objects_v2(
-        Bucket=bucket_s3,
-        Prefix=key,
+def iterate_s3_keys(client, bucket: str, prefix: str) -> Iterator[str]:
+    yield from (
+        content['Key']
+        for response in client.get_paginator('list_objects_v2').paginate(
+            Bucket=bucket,
+            PaginationConfig={
+                'PageSize': 1000,
+            },
+            Prefix=prefix,
+        )
+        for content in response.get('Contents', [])
     )
-    key_list = []
-    for obj in resp.get('Contents', []):
-        key_list.append(obj['Key'])
-
-    return key_list
 
 
 def replace_all(text: str, dic: Dict[str, str]) -> str:

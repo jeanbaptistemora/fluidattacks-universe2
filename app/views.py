@@ -4,10 +4,15 @@
 # pylint: disable=too-many-lines
 """Views and services for FluidIntegrates."""
 
+# Standard library
 import os
 import sys
 from datetime import datetime, timedelta
+from typing import (
+    List,
+)
 
+# Third party libraries
 import boto3
 import rollbar
 import yaml
@@ -22,6 +27,7 @@ from jose import jwt
 from magic import Magic
 from openpyxl import load_workbook, Workbook
 
+# Local libraries
 from backend import authz, util
 from backend.domain import (
     finding as finding_domain, project as project_domain, user as user_domain)
@@ -33,13 +39,12 @@ from backend.dal import (
 from backend.services import (
     has_access_to_finding, has_access_to_event
 )
-
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
-
 from app.documentator.all_vulns import generate_all_vulns_xlsx
 
+# Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 CLIENT_S3 = boto3.client('s3',
@@ -194,7 +199,7 @@ def get_evidence(request, project, evidence_type, findingid, fileid):
                                    'error', request)
             return HttpResponse('Error - Unsent image ID',
                                 content_type='text/html')
-        key_list = key_existing_list(f'{project.lower()}/{findingid}/{fileid}')
+        key_list = list_s3_evidences(f'{project.lower()}/{findingid}/{fileid}')
         if key_list:
             for k in key_list:
                 start = k.find(findingid) + len(findingid)
@@ -226,9 +231,9 @@ def retrieve_image(request, img_file):
                             content_type='text/html')
 
 
-def key_existing_list(key):
-    """return the key's list if it exist, else list empty"""
-    return util.list_s3_objects(CLIENT_S3, BUCKET_S3, key)
+def list_s3_evidences(prefix) -> List[str]:
+    """return keys that begin with prefix from the evidences folder."""
+    return list(util.iterate_s3_keys(CLIENT_S3, BUCKET_S3, prefix))
 
 
 @cache_content

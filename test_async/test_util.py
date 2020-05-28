@@ -18,7 +18,7 @@ import json
 from backend.util import (
     response, ord_asc_by_criticality, user_email_filter,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
-    get_jwt_content, list_s3_objects, replace_all,
+    get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_file_name, is_valid_format)
 
 from backend.dal.finding import get_finding
@@ -110,15 +110,15 @@ class UtilTests(TestCase):
         }
         assert test_data == expected_output
 
-    def test_list_s3_objects(self):
+    def test_iterate_s3_keys(self):
         s3_client = client(
             service_name='s3',
             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
             aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
             aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
         bucket = FI_AWS_S3_BUCKET
-        key = 'oneshot'
-        test_data = list_s3_objects(s3_client, bucket, key)
+        key = 'oneshottest'
+        test_data = list(iterate_s3_keys(s3_client, bucket, key))
         assert isinstance(test_data, list)
         for item in test_data:
             assert key in item
