@@ -28,7 +28,14 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --global-secondary-indexes \
     IndexName=project_findings,\
 KeySchema=["{AttributeName=project_name,KeyType=HASH}"],\
-Projection="{ProjectionType=INCLUDE,NonKeyAttributes=["releaseDate", "historic_state"]}",\
+Projection="{ProjectionType=INCLUDE,NonKeyAttributes=[
+      "historic_treatment",
+      "historic_verification",
+      "cvss_temporal",
+      "historic_state",
+      "releaseDate",
+      "finding"
+    ]}",\
 ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
@@ -62,7 +69,8 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --global-secondary-indexes \
     IndexName=project_events,\
 KeySchema=["{AttributeName=project_name,KeyType=HASH}"],\
-Projection="{ProjectionType=KEYS_ONLY}",ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
+Projection="{ProjectionType=KEYS_ONLY}",\
+ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
@@ -76,7 +84,11 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --global-secondary-indexes \
     IndexName=project_access_users,\
 KeySchema=["{AttributeName=project_name,KeyType=HASH}"],\
-Projection="{ProjectionType=KEYS_ONLY}",ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
+Projection="{ProjectionType=INCLUDE,NonKeyAttributes=[
+      "responsibility",
+      "has_access",
+      "project_name"
+    ]}",ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
