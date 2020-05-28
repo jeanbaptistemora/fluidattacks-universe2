@@ -10,7 +10,6 @@
 
 image:https://img.shields.io/lgtm/grade/python/g/fluidattacks/asserts.svg?logo=lgtm&logoWidth=18[link="https://lgtm.com/projects/g/fluidattacks/asserts/context:python", title="Language grade: Python"]
 image:https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_asserts&metric=alert_status[link="https://sonarcloud.io/dashboard?id=fluidattacks_asserts", title="Quality Gate Status"]
-image:https://ci.appveyor.com/api/projects/status/jpa4vqob49wqedig?svg=true[link="https://ci.appveyor.com/project/technologyatfluid87536/asserts", title="appveyor"]
 image:https://gitlab.com/fluidattacks/asserts/badges/master/pipeline.svg[link="https://gitlab.com/fluidattacks/asserts/commits/master",title="pipeline status"]
 image:https://img.shields.io/docker/pulls/fluidattacks/asserts.svg[link="https://hub.docker.com/r/fluidattacks/asserts"]
 image:https://codecov.io/gl/fluidattacks/asserts/branch/master/graph/badge.svg[link="https://codecov.io/gl/fluidattacks/asserts"]
