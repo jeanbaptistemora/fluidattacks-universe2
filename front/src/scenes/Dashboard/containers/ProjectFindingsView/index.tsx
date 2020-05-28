@@ -126,13 +126,19 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     };
 
   const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {
-    let findingOptions: string[] = Array.from(new Set(qrResult.project.findings.map(
-      (finding: { treatment: string }) => finding.treatment)));
-    findingOptions = findingOptions.map((option: string) => translate.t(formatTreatment(option, "open")));
-    const filterOptions: optionSelectFilterProps[] = selectOptionsTreatment.filter(
-      (option: optionSelectFilterProps) => (_.includes(findingOptions, option.value)));
-    setOptionTreatment(filterOptions);
-    mixpanel.track("ProjectFindings", { Organization: userOrganization, User: userName });
+    if (!_.isUndefined(qrResult)) {
+      let findingOptions: string[] = Array.from(new Set(qrResult.project.findings.map(
+        (finding: { treatment: string }) => finding.treatment)));
+      findingOptions = findingOptions.map((option: string) => translate.t(formatTreatment(option, "open")));
+      const filterOptions: optionSelectFilterProps[] = selectOptionsTreatment.filter(
+        (option: optionSelectFilterProps) => (_.includes(findingOptions, option.value)));
+      setOptionTreatment(filterOptions);
+      mixpanel.track("ProjectFindings", { Organization: userOrganization, User: userName });
+    }
+  };
+  const handleQryErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading project data", error);
   };
   const onSortState: ((dataField: string, order: SortOrder) => void) =
     (dataField: string, order: SortOrder): void => {
@@ -255,7 +261,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   ];
 
   return (
-    <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult}>
+    <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult} onError={handleQryErrors}>
       {({ error, data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
         if (_.isUndefined(data) || _.isEmpty(data)) {
 

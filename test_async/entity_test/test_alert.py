@@ -47,7 +47,7 @@ class AlertTests(TestCase):
         """Check for set_alert mutation."""
         query = '''
             mutation {
-                setAlert(company: "fluid", message: "Test", projectName: "unittest") {
+                setAlert(company: "fluid", message: "Test", projectName: "unittesting") {
                     success
                 }
             }

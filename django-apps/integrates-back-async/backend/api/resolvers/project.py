@@ -16,6 +16,7 @@ from backend.api.resolvers import (
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, require_login,
     turn_args_into_kwargs,
+    require_integrates,
     require_project_access, enforce_user_level_auth_async
 )
 from backend.domain import (
@@ -36,12 +37,12 @@ from backend import util
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
-@sync_to_async
-def _get_name(_, project_name: str, **__) -> str:
+async def _get_name(_, project_name: str, **__) -> str:
     """Get name."""
     return project_name
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_remediated_over_time(info, project_name: str,
                                     **__) -> str:
@@ -57,6 +58,7 @@ async def _get_remediated_over_time(info, project_name: str,
     return remediated_over_time
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_has_drills(info, project_name: str, **__) -> Dict[str, bool]:
     """Get has_drills."""
@@ -65,6 +67,7 @@ async def _get_has_drills(info, project_name: str, **__) -> Dict[str, bool]:
     return project_attrs['attrs']['historic_configuration'][-1]['has_drills']
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_has_forces(info, project_name: str, **__) -> Dict[str, bool]:
     """Get has_forces."""
@@ -73,6 +76,7 @@ async def _get_has_forces(info, project_name: str, **__) -> Dict[str, bool]:
     return project_attrs['attrs']['historic_configuration'][-1]['has_forces']
 
 
+@require_integrates
 async def _get_findings(
         info, project_name: str, requested_fields: list,
         filters=None) -> Dict[str, List[Dict[str, FindingType]]]:
@@ -103,6 +107,7 @@ async def _get_findings(
     return await util.get_filtered_elements(findings, filters)
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_open_vulnerabilities(info, project_name: str,
                                     **__) -> int:
@@ -126,6 +131,7 @@ async def _get_open_vulnerabilities(info, project_name: str,
     return open_vulnerabilities
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_open_findings(info,
                              project_name: str, **__) -> int:
@@ -140,6 +146,7 @@ async def _get_open_findings(info,
     return open_findings
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_closed_vulnerabilities(
         info, project_name: str, **__) -> int:
@@ -163,6 +170,7 @@ async def _get_closed_vulnerabilities(
     return closed_vulnerabilities
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_pending_closing_check(_, project_name: str,
                                      **__) -> int:
@@ -172,6 +180,7 @@ async def _get_pending_closing_check(_, project_name: str,
     return pending_closing_check
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_last_closing_vuln(info, project_name: str, **__) -> int:
     """Get last_closing_vuln."""
@@ -182,6 +191,7 @@ async def _get_last_closing_vuln(info, project_name: str, **__) -> int:
     return last_closing_vuln
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_max_severity(info, project_name: str, **__) -> float:
     """Get max_severity."""
@@ -198,6 +208,7 @@ async def _get_max_severity(info, project_name: str, **__) -> float:
     return max_severity
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_max_open_severity(info, project_name: str,
                                  **__) -> float:
@@ -208,6 +219,7 @@ async def _get_max_open_severity(info, project_name: str,
     return project_attrs.get('max_open_severity', 0)
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate(info, project_name: str, **__) -> Dict[str, int]:
     """Get mean_remediate."""
@@ -217,6 +229,7 @@ async def _get_mean_remediate(info, project_name: str, **__) -> Dict[str, int]:
     return project_attrs.get('mean_remediate', 0)
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate_low_severity(
         info, project_name: str, **__) -> int:
@@ -227,6 +240,7 @@ async def _get_mean_remediate_low_severity(
     return project_attrs.get('mean_remediate_low_severity', 0)
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate_medium_severity(
         info, project_name: str, **__) -> int:
@@ -237,6 +251,7 @@ async def _get_mean_remediate_medium_severity(
     return project_attrs.get('mean_remediate_medium_severity', 0)
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate_high_severity(
         info, project_name: str, **__) -> int:
@@ -247,6 +262,7 @@ async def _get_mean_remediate_high_severity(
     return project_attrs.get('mean_remediate_high_severity', 0)
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate_critical_severity(
         info, project_name: str, **__) -> int:
@@ -257,6 +273,7 @@ async def _get_mean_remediate_critical_severity(
     return project_attrs.get('mean_remediate_critical_severity', 0)
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_total_findings(info, project_name: str, **__) -> int:
     """Get total_findings."""
@@ -272,6 +289,7 @@ async def _get_total_findings(info, project_name: str, **__) -> int:
     return total_findings
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_total_treatment(info, project_name: str, **__) -> str:
     """Get total_treatment."""
@@ -284,6 +302,7 @@ async def _get_total_treatment(info, project_name: str, **__) -> str:
     return total_treatment
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_current_month_authors(_, project_name: str,
                                      **__) -> Dict[str, int]:
@@ -295,6 +314,7 @@ async def _get_current_month_authors(_, project_name: str,
     return current_month_authors
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_current_month_commits(_, project_name: str,
                                      **__) -> Dict[str, int]:
@@ -306,6 +326,7 @@ async def _get_current_month_commits(_, project_name: str,
     return current_month_commits
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_subscription(info, project_name: str, **__) -> Dict[str, str]:
     """Get subscription."""
@@ -314,6 +335,7 @@ async def _get_subscription(info, project_name: str, **__) -> Dict[str, str]:
     return project_attrs['attrs']['historic_configuration'][-1]['type']
 
 
+# Intentionally not @require_integrates
 @get_entity_cache_async
 async def _get_deletion_date(_, project_name: str, **__) -> Dict[str, str]:
     """Get deletion_date."""
@@ -325,6 +347,7 @@ async def _get_deletion_date(_, project_name: str, **__) -> Dict[str, str]:
     return deletion_date
 
 
+# Intentionally not @require_integrates
 @get_entity_cache_async
 async def _get_user_deletion(_, project_name: str, **__) -> str:
     """Get user_deletion."""
@@ -336,6 +359,7 @@ async def _get_user_deletion(_, project_name: str, **__) -> str:
     return user_deletion
 
 
+@require_integrates
 @get_entity_cache_async
 async def _get_tags(info, project_name: str, **__) -> Dict[str, List[str]]:
     """Get tags."""
@@ -345,6 +369,7 @@ async def _get_tags(info, project_name: str, **__) -> Dict[str, List[str]]:
     return project_attrs.get('tag', [])
 
 
+# Intentionally not @require_integrates
 @get_entity_cache_async
 async def _get_description(info, project_name: str, **__) -> Dict[str, str]:
     """Get description."""
@@ -355,6 +380,7 @@ async def _get_description(info, project_name: str, **__) -> Dict[str, str]:
 
 
 @enforce_group_level_auth_async
+@require_integrates
 async def _get_comments(
         info, project_name: str, **__) -> Dict[str, List[CommentType]]:
     """Get comments."""
@@ -367,6 +393,7 @@ async def _get_comments(
 
 
 @enforce_group_level_auth_async
+@require_integrates
 async def _get_drafts(
         info, project_name: str, **__) -> \
         List[Dict[str, FindingType]]:
@@ -387,6 +414,7 @@ async def _get_drafts(
 
 
 @enforce_group_level_auth_async
+@require_integrates
 async def _get_events(info,
                       project_name: str, **__) -> Dict[str, List[EventType]]:
     """Get events."""
@@ -401,6 +429,7 @@ async def _get_events(info,
 
 
 @enforce_group_level_auth_async
+@require_integrates
 async def _get_users(info, project_name: str,
                      requested_fields: list) -> List[UserType]:
     """Get users."""
@@ -526,6 +555,7 @@ async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
 @require_login
 @turn_args_into_kwargs
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_edit_group(  # pylint: disable=too-many-arguments
     _, info,
@@ -560,6 +590,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_request_remove_project(
         _, info, project_name: str) -> SimplePayloadType:
@@ -580,6 +611,7 @@ async def _do_request_remove_project(
 
 @require_login
 @enforce_group_level_auth_async
+# Intentionally not @require_integrates
 @require_project_access
 async def _do_reject_remove_project(_, info,
                                     project_name: str) -> SimplePayloadType:
@@ -600,6 +632,7 @@ async def _do_reject_remove_project(_, info,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_add_project_comment(_, info,
                                   **parameters) -> AddCommentPayloadType:
@@ -635,6 +668,7 @@ async def _do_add_project_comment(_, info,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_add_tags(_, info, project_name: str,
                        tags: List[str]) -> SimpleProjectPayloadType:
@@ -678,6 +712,7 @@ Attempted to upload tags without the allowed validations')  # pragma: no cover
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_remove_tag(_, info, project_name: str,
                          tag: str) -> SimpleProjectPayloadType:
@@ -717,6 +752,7 @@ An error occurred removing a tag', 'error', info.context)
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 async def _do_add_all_project_access(_, info,
                                      project_name: str) -> SimplePayloadType:
     """Resolve add_all_project_access mutation."""
@@ -734,6 +770,7 @@ async def _do_add_all_project_access(_, info,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 async def _do_remove_all_project_access(
         _, info, project_name: str) -> SimplePayloadType:
     """Resolve remove_all_project_access mutation."""

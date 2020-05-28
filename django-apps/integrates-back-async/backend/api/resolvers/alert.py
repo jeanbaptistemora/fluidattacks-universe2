@@ -1,6 +1,7 @@
 from asgiref.sync import sync_to_async
 from backend.decorators import (
     enforce_group_level_auth_async, require_login,
+    require_integrates,
     require_project_access, get_entity_cache_async
 )
 from backend.domain import alert as alert_domain
@@ -34,6 +35,7 @@ def _get_alert_fields(project_name: str, organization: str) -> AlertType:
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
     """Resolve alert query."""
@@ -43,6 +45,7 @@ async def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 async def resolve_set_alert(_, info, company: str, message: str,
                             project_name: str) -> SimplePayloadType:
     """Resolve set_alert mutation."""

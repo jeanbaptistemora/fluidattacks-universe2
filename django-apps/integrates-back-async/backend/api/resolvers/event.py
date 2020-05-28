@@ -8,6 +8,7 @@ from asgiref.sync import sync_to_async
 from backend.api.dataloaders.event import EventLoader
 from backend.decorators import (
     get_entity_cache_async, require_login, require_event_access, rename_kwargs,
+    require_integrates,
     require_project_access, enforce_group_level_auth_async
 )
 from backend.domain import comment as comment_domain
@@ -206,6 +207,7 @@ async def resolve(info, identifier: str = '',
 @require_login
 @rename_kwargs({'identifier': 'event_id'})
 @enforce_group_level_auth_async
+@require_integrates
 @require_event_access
 @rename_kwargs({'event_id': 'identifier'})
 @convert_kwargs_to_snake_case
@@ -223,6 +225,7 @@ async def _resolve_events_async(event_ids: List[str]) -> List[EventType]:
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def resolve_events(_, info, project_name: str) -> List[EventType]:
     """Resolve events query."""
@@ -235,6 +238,7 @@ async def resolve_events(_, info, project_name: str) -> List[EventType]:
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_create_event(_, info, project_name: str, image=None, file=None,
                            **kwa) -> SimplePayloadType:
@@ -252,6 +256,7 @@ async def _do_create_event(_, info, project_name: str, image=None, file=None,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_event_access
 async def _do_solve_event(_, info, event_id: str, affectation: str,
                           date: datetime) -> SimplePayloadType:
@@ -279,6 +284,7 @@ async def _do_solve_event(_, info, event_id: str, affectation: str,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_event_access
 async def _do_add_event_comment(_, info, content: str, event_id: str,
                                 parent: str) -> AddCommentPayloadType:
@@ -304,6 +310,7 @@ async def _do_add_event_comment(_, info, content: str, event_id: str,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_event_access
 async def _do_update_event_evidence(_, info, event_id: str, evidence_type: str,
                                     file) -> SimplePayloadType:
@@ -329,6 +336,7 @@ async def _do_update_event_evidence(_, info, event_id: str, evidence_type: str,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_event_access
 async def _do_download_event_file(_, info, event_id: str,
                                   file_name: str) -> DownloadFilePayloadType:
@@ -352,6 +360,7 @@ async def _do_download_event_file(_, info, event_id: str,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_event_access
 async def _do_remove_event_evidence(_, info, event_id: str,
                                     evidence_type: str) -> SimplePayloadType:

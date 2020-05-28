@@ -9,6 +9,7 @@ from mixpanel import Mixpanel
 
 from backend.decorators import (
     require_login, require_project_access,
+    require_integrates,
     enforce_group_level_auth_async, get_entity_cache_async
 )
 from backend.domain import resources
@@ -104,6 +105,7 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def resolve_resources(_, info, project_name: str) -> ResourcesType:
     """Resolve resources query."""
@@ -120,6 +122,7 @@ async def resolve_resources_mutation(obj, info, **parameters):
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
                                project_name: str) -> SimplePayloadType:
@@ -151,6 +154,7 @@ async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_add_environments(_, info, envs: List[Dict[str, str]],
                                project_name: str) -> SimplePayloadType:
@@ -182,6 +186,7 @@ async def _do_add_environments(_, info, envs: List[Dict[str, str]],
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_add_files(_, info, **parameters) -> SimplePayloadType:
     """Resolve add_files mutation."""
@@ -218,6 +223,7 @@ from {project_name} project')  # pragma: no cover
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_remove_files(_, info, files_data: Dict[str, Any],
                            project_name: str) -> SimplePayloadType:
@@ -250,6 +256,7 @@ from {project_name} project')  # pragma: no cover
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_download_file(_, info, **parameters) -> DownloadFilePayloadType:
     """Resolve download_file mutation."""
@@ -286,6 +293,7 @@ An error occurred generating signed URL', 'error', info.context)
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_update_environment(_, info, project_name: str,
                                  env: Dict[str, str],
@@ -321,6 +329,7 @@ async def _do_update_environment(_, info, project_name: str,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_update_repository(_, info, project_name: str,
                                 repo: Dict[str, str],

@@ -11,6 +11,7 @@ from graphql import GraphQLError
 
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs,
+    require_integrates,
     require_login, require_finding_access, require_project_access
 )
 from backend.domain import (
@@ -90,6 +91,7 @@ async def _get_lines_vulns(info, identifier: str) -> List[VulnerabilityType]:
 
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async
+@require_integrates
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_pending_vulns(info, identifier: str) -> List[VulnerabilityType]:
@@ -238,6 +240,7 @@ async def _get_comments(info, identifier: str) -> List[CommentType]:
 
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async
+@require_integrates
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_observations(info, identifier: str) -> List[CommentType]:
@@ -276,6 +279,7 @@ async def _get_last_vulnerability(info, identifier: str) -> int:
 
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async
+@require_integrates
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_historic_state(info, identifier: str) -> List[Dict[str, str]]:
@@ -426,6 +430,7 @@ async def _get_report_date(info, identifier: str) -> str:
 
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async
+@require_integrates
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_analyst(info, identifier: str) -> str:
@@ -514,6 +519,7 @@ def resolve_finding_mutation(obj, info, **parameters):
 @require_login
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 @rename_kwargs({'finding_id': 'identifier'})
 async def resolve_finding(_, info, identifier: str) -> Dict[str, FindingType]:
@@ -523,6 +529,7 @@ async def resolve_finding(_, info, identifier: str) -> Dict[str, FindingType]:
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_remove_evidence(_, info, evidence_id: str,
                               finding_id: str) -> SimpleFindingPayloadType:
@@ -542,6 +549,7 @@ Removed evidence in finding {finding_id}')  # pragma: no cover
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
                               file) -> SimplePayloadType:
@@ -568,6 +576,7 @@ async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_update_evidence_description(
         _, info, finding_id: str, evidence_id: str,
@@ -595,6 +604,7 @@ An error occurred updating evidence description', 'error', info.context)
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_update_severity(_, info,
                               **parameters) -> SimpleFindingPayloadType:
@@ -624,6 +634,7 @@ async def _do_update_severity(_, info,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_add_finding_comment(_, info,
                                   **parameters) -> AddCommentPayloadType:
@@ -677,6 +688,7 @@ comment in finding {finding_id}')  # pragma: no cover
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
     """Resolve handle_acceptation mutation."""
@@ -709,6 +721,7 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_update_description(_, info, finding_id: str,
                                  **parameters) -> SimpleFindingPayloadType:
@@ -738,6 +751,7 @@ finding {finding_id} successfully')  # pragma: no cover
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_update_client_description(
         _, info, finding_id: str, **parameters) -> SimpleFindingPayloadType:
@@ -791,6 +805,7 @@ async def _do_update_client_description(
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_reject_draft(_, info, finding_id: str) -> SimplePayloadType:
     """Resolve reject_draft mutation."""
@@ -818,6 +833,7 @@ draft {finding_id}')  # pragma: no cover
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_delete_finding(_, info, finding_id: str,
                              justification: str) -> SimplePayloadType:
@@ -848,6 +864,7 @@ finding: {finding_id}')  # pragma: no cover
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
     """Resolve approve_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
@@ -879,6 +896,7 @@ async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_create_draft(_, info, project_name: str, title: str,
                            **kwargs) -> SimplePayloadType:
@@ -895,6 +913,7 @@ async def _do_create_draft(_, info, project_name: str, title: str,
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_finding_access
 async def _do_submit_draft(_, info, finding_id: str) -> SimplePayloadType:
     """Resolve submit_draft mutation."""

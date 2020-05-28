@@ -130,16 +130,22 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
   const { projectName } = props.match.params;
   interface IEventsDataset { project: { events: Array<{ eventType: string }> }; }
   const handleQryResult: ((data: IEventsDataset) => void) = (data: IEventsDataset): void => {
-    let eventOptions: string[] = Array.from(new Set(data.project.events.map(
-      (event: { eventType: string }) => event.eventType)));
-    eventOptions = eventOptions.map((option: string) => translate.t(castEventType(option)));
-    const filterOptions: optionSelectFilterProps[] = selectOptionType.filter(
-      (option: optionSelectFilterProps) => (_.includes(eventOptions, option.value)));
-    setOptionType(filterOptions);
-    mixpanel.track("ProjectEvents", {
-      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-      User: (window as typeof window & { userName: string }).userName,
-    });
+    if (!_.isUndefined(data)) {
+      let eventOptions: string[] = Array.from(new Set(data.project.events.map(
+        (event: { eventType: string }) => event.eventType)));
+      eventOptions = eventOptions.map((option: string) => translate.t(castEventType(option)));
+      const filterOptions: optionSelectFilterProps[] = selectOptionType.filter(
+        (option: optionSelectFilterProps) => (_.includes(eventOptions, option.value)));
+      setOptionType(filterOptions);
+      mixpanel.track("ProjectEvents", {
+        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+        User: (window as typeof window & { userName: string }).userName,
+      });
+    }
+  };
+  const handleQryErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error("An error occurred loading project data", error);
   };
 
   const goToEvent: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
@@ -172,6 +178,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       query={GET_EVENTS}
       variables={{ projectName }}
       onCompleted={handleQryResult}
+      onError={handleQryErrors}
     >
       {
         ({ data, error, refetch }: QueryResult): JSX.Element => {

@@ -6,6 +6,7 @@ from typing import Any, Dict, List
 from asgiref.sync import sync_to_async
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, require_login,
+    require_integrates,
     require_project_access
 )
 from backend.dal import forces as forces_dal
@@ -95,6 +96,7 @@ async def _resolve_fields(info, project_name: str, from_date: datetime,
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def resolve_forces_executions(
         _, info, project_name: str, from_date: datetime = None,

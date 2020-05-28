@@ -67,7 +67,7 @@ def enforce_user_level_role(request, *allowed_roles):
 
     requester_role = authz.get_user_level_role(email)
     if requester_role not in allowed_roles:
-        response = HttpResponse("Access Denied")
+        response = HttpResponse("Access denied")
         response.status_code = 403
         return response
 
@@ -91,7 +91,7 @@ def enforce_group_level_role(request, group, *allowed_roles):
 
     requester_role = authz.get_group_level_role(email, group)
     if requester_role not in allowed_roles:
-        response = HttpResponse("Access Denied")
+        response = HttpResponse("Access denied")
         response.status_code = 403
         return response
 

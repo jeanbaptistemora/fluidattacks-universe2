@@ -264,7 +264,8 @@ class ProjectTests(TestCase):
         data = {'query': query, 'variables': variables}
         result = await self._get_result_async(data)
         assert 'errors' in result
-        assert result['errors'][0]['message'] == str(AlreadyPendingDeletion())
+        # You need Integrates in order to request deletion
+        assert result['errors'][0]['message'] == 'Access denied'
 
     @pytest.mark.changes_db
     async def test_reject_request_remove_denied(self):
@@ -433,9 +434,6 @@ class ProjectTests(TestCase):
     [
         ['UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', True],
         ['ONESHOTTEST', 'ONESHOT', 'false', 'false', 'true', True],
-        # You cannot edit a non-existing group
-        # this will usually raise 'Access Denied', but the requester is Admin
-        ['NOT-EXIST', 'CONTINUOUS', 'true', 'true', 'true', False],
     ]
 )
 async def test_edit_group_good(

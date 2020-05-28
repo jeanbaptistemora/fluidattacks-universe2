@@ -100,7 +100,7 @@ class EventTests(TestCase):
         """Check for createEvent mutation."""
         query = '''
             mutation {
-                createEvent(projectName: "unittest",
+                createEvent(projectName: "unittesting",
                             actionAfterBlocking: TRAINING,
                             actionBeforeBlocking: DOCUMENT_PROJECT,
                             accessibility: ENVIRONMENT,

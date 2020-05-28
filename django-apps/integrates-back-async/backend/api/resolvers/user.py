@@ -13,6 +13,7 @@ import threading
 from asgiref.sync import sync_to_async
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
+    require_integrates,
     require_login, require_project_access,
     enforce_group_level_auth_async,
     enforce_user_level_auth_async,
@@ -223,6 +224,7 @@ async def resolve(info, email: str, project_name: str, as_field: bool = False,
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def resolve_user(
         _, info, project_name: str, user_email: str) -> UserType:
@@ -281,6 +283,7 @@ async def _do_add_user(_, info, **parameters) -> AddUserPayloadType:
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_grant_user_access(
         _, info, **query_args) -> GrantUserAccessPayloadType:
@@ -340,6 +343,7 @@ async def _do_grant_user_access(
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_remove_user_access(
         _, info,
@@ -374,6 +378,7 @@ async def _do_remove_user_access(
 
 @require_login
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     """Resolve edit_user mutation."""
