@@ -174,9 +174,8 @@ async def _get_projects(info, email: str,
                         project_as_field: bool, **__) -> List[ProjectType]:
     """Get list projects."""
     list_projects = list()
-    active = await sync_to_async(user_domain.get_projects)(email)
-    inactive = \
-        await sync_to_async(user_domain.get_projects)(email, active=False)
+    active = await user_domain.get_projects(email)
+    inactive = await user_domain.get_projects(email, active=False)
     user_projects = active + inactive
     list_projects = await asyncio.gather(*[
         asyncio.create_task(

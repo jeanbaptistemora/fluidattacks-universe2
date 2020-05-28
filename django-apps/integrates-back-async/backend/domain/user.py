@@ -1,5 +1,7 @@
+import asyncio
 from datetime import datetime
 from typing import Dict, List, Union, cast
+from asgiref.sync import sync_to_async
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
@@ -44,13 +46,20 @@ def get_data(email: str, attr: str) -> Union[str, UserType]:
     return str()
 
 
-def get_projects(user_email: str, active: bool = True,
-                 access_pending_projects: bool = True) -> List[str]:
+async def get_projects(user_email: str, active: bool = True,
+                       access_pending_projects: bool = True) -> List[str]:
     projects = user_dal.get_projects(user_email, active)
-    projects = [project for project in projects
-                if project_dal.can_user_access_pending_deletion(
-                    project, authz.get_group_level_role(user_email, project),
-                    access_pending_projects)]
+    can_user_access_tasks = [
+        asyncio.create_task(
+            sync_to_async(project_dal.can_user_access_pending_deletion)(
+                project, authz.get_group_level_role(user_email, project),
+                access_pending_projects)
+        )
+        for project in projects
+    ]
+    can_user_access = await asyncio.gather(*can_user_access_tasks)
+    projects = [project for index, project in enumerate(projects)
+                if can_user_access[index]]
     return projects
 
 

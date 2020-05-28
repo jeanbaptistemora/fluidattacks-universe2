@@ -59,7 +59,7 @@ async def resolve(info, tag: str) -> TagType:
 
 async def get_list_projects(info, user_email: str, tag: str) -> List[str]:
     projects = []
-    user_projects = await sync_to_async(user_domain.get_projects)(
+    user_projects = await user_domain.get_projects(
         user_email, access_pending_projects=False)
     for project in user_projects:
         project_attrs = \

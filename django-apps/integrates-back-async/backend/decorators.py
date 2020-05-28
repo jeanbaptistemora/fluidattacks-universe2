@@ -6,7 +6,7 @@ import asyncio
 import functools
 import inspect
 import re
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, cast
 
 import rollbar
 from asgiref.sync import sync_to_async
@@ -219,9 +219,9 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
         user_email = user_data['user_email']
 
         user_data['subscribed_projects'] = \
-            await sync_to_async(user_domain.get_projects)(user_email)
-        user_data['subscribed_projects'] += await \
-            sync_to_async(user_domain.get_projects)(user_email, active=False)
+            cast(str, await user_domain.get_projects(user_email))
+        user_data['subscribed_projects'] +=  \
+            cast(str, await user_domain.get_projects(user_email, active=False))
         user_data['role'] = await \
             sync_to_async(authz.get_group_level_role)(
                 user_email, project_name)
@@ -257,9 +257,9 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
         user_data['subscribed_projects'] = \
-            await sync_to_async(user_domain.get_projects)(user_email)
-        user_data['subscribed_projects'] += await \
-            sync_to_async(user_domain.get_projects)(user_email, active=False)
+            cast(str, await user_domain.get_projects(user_email))
+        user_data['subscribed_projects'] += \
+            cast(str, await user_domain.get_projects(user_email, active=False))
         finding_project = await \
             sync_to_async(project_domain.get_finding_project_name)(finding_id)
         user_data['role'] = \
@@ -299,10 +299,10 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
         user_data['subscribed_projects'] = \
-            await sync_to_async(user_domain.get_projects)(user_email)
-        user_data['subscribed_projects'] += await \
-            sync_to_async(user_domain.get_projects)(
-                user_data['user_email'], active=False)
+            cast(str, await user_domain.get_projects(user_email))
+        user_data['subscribed_projects'] += \
+            cast(str, await user_domain.get_projects(
+                user_data['user_email'], active=False))
         event_project = await sync_to_async(event_domain.get_event)(event_id)
         event_project = event_project.get('project_name')
         user_data['role'] = await \

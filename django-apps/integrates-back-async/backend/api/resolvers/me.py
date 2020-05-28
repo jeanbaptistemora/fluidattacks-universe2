@@ -49,7 +49,7 @@ async def _get_role(_, user_email: str,
 async def _get_projects(info, user_email: str) -> List[ProjectType]:
     """Get projects."""
     projects = []
-    for _project in await sync_to_async(user_domain.get_projects)(user_email):
+    for _project in await user_domain.get_projects(user_email):
         project = await project_resolver.resolve(info, _project, as_field=True)
         projects.append(project)
     return projects
@@ -92,7 +92,7 @@ async def _get_permissions(
 @enforce_user_level_auth_async
 async def _get_tags(info, user_email: str) -> List[TagType]:
     """Get tags."""
-    projects = await sync_to_async(user_domain.get_projects)(
+    projects = await user_domain.get_projects(
         user_email, access_pending_projects=False)
     tags_dict: Dict[str, List] = defaultdict(list)
     organization: str = '-'
