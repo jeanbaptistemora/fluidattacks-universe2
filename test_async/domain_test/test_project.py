@@ -19,7 +19,8 @@ from backend.domain.project import (
     list_drafts, list_comments, get_active_projects, get_managers, list_events,
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config,
-    get_current_month_authors, create_project, total_vulnerabilities
+    get_current_month_authors, create_project, total_vulnerabilities,
+    get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -174,6 +175,21 @@ class ProjectTest(TestCase):
         test_data = get_max_open_severity(findings)
         expected_output = Decimal(4.3).quantize(Decimal('0.1'))
         assert test_data == expected_output
+
+    def test_get_open_vulnerabilities(self):
+        project_name = 'unittesting'
+        expected_output = 31
+        assert get_open_vulnerabilities(project_name) == expected_output
+
+    def test_get_closed_vulnerabilities(self):
+        project_name = 'unittesting'
+        expected_output = 8
+        assert get_closed_vulnerabilities(project_name) == expected_output
+    
+    def test_get_open_finding(self):
+        project_name = 'unittesting'
+        expected_output = 5
+        assert get_open_finding(project_name) == expected_output
 
     def test_get_open_vulnerability_date(self):
         closed_vulnerability = {

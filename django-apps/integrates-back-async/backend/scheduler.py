@@ -466,6 +466,7 @@ def get_project_indicators(project: str) -> Dict[str, object]:
     findings = project_domain.get_released_findings(
         project, 'finding_id, historic_treatment, cvss_temporal')
     indicators = {
+        'closed_vulnerabilities': project_domain.get_closed_vulnerabilities(project),
         'last_closing_date': project_domain.get_last_closing_vuln(findings),
         'mean_remediate': project_domain.get_mean_remediate(findings),
         'mean_remediate_critical_severity': project_domain.get_mean_remediate_severity(
@@ -477,6 +478,8 @@ def get_project_indicators(project: str) -> Dict[str, object]:
         'mean_remediate_medium_severity': project_domain.get_mean_remediate_severity(
             project, 4, 6.9),
         'max_open_severity': project_domain.get_max_open_severity(findings),
+        'open_findings': project_domain.get_open_finding(project),
+        'open_vulnerabilities': project_domain.get_open_vulnerabilities(project),
         'total_treatment': project_domain.get_total_treatment(findings),
         'remediated_over_time': create_register_by_week(project)
     }

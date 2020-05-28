@@ -1,7 +1,7 @@
 """Domain functions for projects."""
 
 from typing import Dict, List, NamedTuple, Union, cast
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 import re
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -698,3 +698,33 @@ def get_managers(project_name: str) -> List[str]:
         if authz.get_group_level_role(
             user_email, project_name) == 'customeradmin'
     ]
+
+
+def get_open_vulnerabilities(project_name: str) -> int:
+    findings = list_findings(project_name)
+    vulns = vuln_domain.list_vulnerabilities(findings)
+    open_vulnerabilities = [
+        1 for vuln in vulns
+        if vuln_domain.get_last_approved_status(vuln) == 'open'
+    ]
+    return len(open_vulnerabilities)
+
+
+def get_closed_vulnerabilities(project_name: str) -> int:
+    findings = list_findings(project_name)
+    vulns = vuln_domain.list_vulnerabilities(findings)
+    closed_vulnerabilities = [
+        1 for vuln in vulns
+        if vuln_domain.get_last_approved_status(vuln) == 'closed'
+    ]
+    return len(closed_vulnerabilities)
+
+
+def get_open_finding(project_name: str) -> int:
+    findings = list_findings(project_name)
+    vulns = vuln_domain.list_vulnerabilities(findings)
+    finding_vulns_dict = defaultdict(list)
+    for vuln in vulns:
+        finding_vulns_dict[vuln['finding_id']].append(vuln)
+    finding_vulns = list(finding_vulns_dict.values())
+    return get_open_findings(finding_vulns)
