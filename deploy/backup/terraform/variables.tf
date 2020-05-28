@@ -29,7 +29,6 @@ variable "dynamodb-tables" {
     "fi_portfolios",
     "FI_project_access",
     "fi_project_comments",
-    "fi_project_names",
     "FI_projects",
     "FI_toe",
     "FI_users",

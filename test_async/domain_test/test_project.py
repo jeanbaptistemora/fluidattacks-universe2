@@ -25,7 +25,10 @@ from backend.domain.project import (
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
 )
-import backend.dal.vulnerability as vuln_dal
+from backend.dal import (
+    vulnerability as vuln_dal,
+    available_group as available_group_dal
+)
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
@@ -376,6 +379,7 @@ class ProjectTest(TestCase):
 
     @pytest.mark.changes_db
     def test_create_project_not_user_admin(self):
+        available_group_dal.create('PRAGA')
         user_email = 'integratesuser@gmail.com'
         user_role = 'customeradmin'
         project_data = {

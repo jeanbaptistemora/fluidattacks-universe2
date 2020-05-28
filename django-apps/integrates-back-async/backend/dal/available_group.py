@@ -2,10 +2,27 @@ from typing import List
 import rollbar
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
+from backend.exceptions import EmptyPoolGroupName
 from backend.dal.helpers import dynamodb
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('integrates')
+
+
+def create(group_name: str) -> bool:
+    """
+    Create an available group
+    """
+    new_item = {'pk': 'AVAILABLE_GROUP',
+                'sk': group_name.upper()}
+    resp = False
+    try:
+        response = TABLE.put_item(Item=new_item)
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as ex:
+        rollbar.report_message('Error: Couldn\'nt create group name',
+                               'error', extra_data=ex, payload_data=locals())
+    return resp
 
 
 def remove(group_name: str) -> bool:
@@ -28,12 +45,17 @@ def get_one() -> str:
     """
     Returns the first group name available
     """
+    group_name = ''
     key_exp = Key('pk').eq('AVAILABLE_GROUP')
     response = TABLE.query(
         KeyConditionExpression=key_exp,
         ProjectionExpression='sk',
-        Limit=1)
-    return response.get('Items', [])[0].get('sk', '').lower()
+        Limit=1).get('Items', [])
+    if response:
+        group_name = response[0].get('sk', '').lower()
+    else:
+        raise EmptyPoolGroupName()
+    return group_name
 
 
 def get_all() -> List[str]:

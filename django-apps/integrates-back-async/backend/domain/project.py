@@ -21,7 +21,7 @@ from backend.domain import (
     comment as comment_domain, resources as resources_domain,
     finding as finding_domain, user as user_domain,
     notifications as notifications_domain,
-    vulnerability as vuln_domain, internal_project as internal_project_domain
+    vulnerability as vuln_domain, available_group as available_group_domain
 )
 from backend.exceptions import (
     AlreadyPendingDeletion, InvalidCommentParent, InvalidParameter, InvalidProjectName,
@@ -123,7 +123,7 @@ def create_project(
             has_forces,
             has_integrates=True)
 
-        if internal_project_domain.does_project_name_exist(project_name) \
+        if available_group_domain.exists(project_name) \
                 and not project_dal.exists(project_name):
             project: ProjectType = {
                 'project_name': project_name,
@@ -141,7 +141,7 @@ def create_project(
 
             success = project_dal.create(project)
             if success:
-                internal_project_domain.remove_project_name(project_name)
+                available_group_domain.remove(project_name)
                 # Admins are not granted access to the project
                 # they are omnipresent
                 if not is_user_admin:

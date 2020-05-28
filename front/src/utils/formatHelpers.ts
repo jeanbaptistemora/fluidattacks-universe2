@@ -426,7 +426,7 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
         msgError(translate.t("project.drafts.error_submit", {
           missingFields: err.message.split("fields: ")[1],
         }));
-      } else if (_.includes(err.message, "Exception - There are no project names available at the moment")) {
+      } else if (_.includes(err.message, "Exception - There are no group names available at the moment")) {
         msgError(translate.t("home.newGroup.noGroupName"));
       } else if (_.includes(err.message, "Exception - Error invalid project name")) {
         msgError(translate.t("home.newGroup.invalidGroup"));
