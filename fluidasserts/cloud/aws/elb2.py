@@ -201,7 +201,7 @@ def uses_insecure_ssl_protocol(key_id: str,
         Names=['ELBSecurityPolicy-2016-08'],
         retry=retry)
 
-    acceptable_protos = acceptable.get('SslProtocols', [])
+    acceptable_protos = acceptable[0].get('SslProtocols', [])
 
     balancers = aws.run_boto3_func(
         key_id=key_id,
@@ -238,11 +238,11 @@ def uses_insecure_ssl_protocol(key_id: str,
                             'aws_session_token': session_token},
                         service='elbv2',
                         func='describe_ssl_policies',
-                        param='Listeners',
+                        param='SslPolicies',
                         Names=[listener['SslPolicy']],
                         retry=retry)
 
-                    for protocol in policy['SslProtocols']:
+                    for protocol in policy[0]['SslProtocols']:
                         (vulns if protocol not in acceptable_protos
                          else safes).append(
                              (f'{listener["LoadBalancerArn"]}/{protocol}',
@@ -282,7 +282,7 @@ def uses_insecure_ssl_cipher(key_id: str,
         Names=['ELBSecurityPolicy-2016-08'],
         retry=retry)
 
-    acceptable_protos = acceptable.get('Ciphers', [])
+    acceptable_protos = acceptable[0].get('Ciphers', [])
 
     balancers = aws.run_boto3_func(
         key_id=key_id,
@@ -319,11 +319,11 @@ def uses_insecure_ssl_cipher(key_id: str,
                             'aws_session_token': session_token},
                         service='elbv2',
                         func='describe_ssl_policies',
-                        param='Listeners',
+                        param='SslPolicies',
                         Names=[listener['SslPolicy']],
                         retry=retry)
 
-                    for cipher in policy['Ciphers']:
+                    for cipher in policy[0]['Ciphers']:
                         (vulns if cipher not in acceptable_protos
                          else safes).append(
                              (f'{listener["LoadBalancerArn"]}/'

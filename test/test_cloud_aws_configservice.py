@@ -5,13 +5,11 @@
 # standard imports
 import os
 from contextlib import contextmanager
+from fluidasserts.cloud.aws import configservice
 
 # 3rd party imports
-import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_api')
-
-# local imports
-from fluidasserts.cloud.aws import configservice
+import pytest  # pylint: disable=E0401
+pytestmark = pytest.mark.asserts_module('cloud_aws_new')  # pylint: disable=C0103,C0301 # noqa: E501
 
 
 # Constants
@@ -45,4 +43,4 @@ def no_connection():
 def test_no_configservice_enabled_open():
     """Check if configservice is enabled."""
     assert configservice.no_configservice_enabled(AWS_ACCESS_KEY_ID,
-                                                       AWS_SECRET_ACCESS_KEY)
+                                                  AWS_SECRET_ACCESS_KEY)

@@ -111,10 +111,13 @@ def advanced_security_disabled(key_id: str,
             param='UserPool',
             UserPoolId=pool['Id'],
             retry=retry)
+        addons = userpool.get('UserPoolAddOns', {})
 
-        if userpool['UserPoolAddOns']['AdvancedSecurityMode'] == 'OFF':
-            vulns.append((pool['Id'],
-                          'User Pools must have Advanced Security enabled '))
+        (vulns if not (addons
+                       and (addons.get('AdvancedSecurityMode', '') == 'ON'))
+         else safes).append((pool['Id'],
+                             'User Pools must have Advanced '
+                             'Security enabled '))
 
     msg_open: str = f'Advanced Security is not enabled'
     msg_closed: str = f'Advanced Security is enabled'

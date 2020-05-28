@@ -3,12 +3,12 @@
 """Test methods of fluidasserts.cloud packages."""
 
 # standard imports
-from fluidasserts.cloud.aws import cognito
 import os
+from fluidasserts.cloud.aws import cognito
 
 # 3rd party imports
-import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_api')
+import pytest  # pylint: disable=E0401
+pytestmark = pytest.mark.asserts_module('cloud_aws_new')  # pylint: disable=C0103,C0301 # noqa: E501
 
 # local imports
 

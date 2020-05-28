@@ -32,7 +32,7 @@ def no_configservice_enabled(key_id: str,
     recorders = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        service='configservice',
+        service='config',
         func='describe_configuration_recorder_status',
         boto3_client_kwargs={'aws_session_token': session_token,
                              'region_name': region_name},
