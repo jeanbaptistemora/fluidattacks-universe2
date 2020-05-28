@@ -57,7 +57,7 @@ def _check_for_alarm(key_id, retry, secret, session_token, metric, subject):
 
     (vulns if alarms
      else safes).append(
-         ('CloudWatch',
+         (f'CloudWatch/{subject}',
           f'Must have alarms on {subject}'))
 
     return _get_result_as_tuple(
