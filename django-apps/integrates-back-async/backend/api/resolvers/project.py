@@ -97,13 +97,17 @@ async def _get_findings(
     project_findings = project_findings['findings']
     findings = \
         await info.context.loaders['finding'].load_many(project_findings)
-
     findings = [
-        await finding_loader.resolve(info, finding['id'], as_field=True,
-                                     selection_set=selection_set)
-        for finding in findings
+        finding for finding in findings
         if 'current_state' in finding and finding['current_state'] != 'DELETED'
     ]
+    findings = await asyncio.gather(*[
+        asyncio.create_task(
+            finding_loader.resolve(info, finding['id'], as_field=True,
+                                   selection_set=selection_set)
+        )
+        for finding in findings
+    ])
     return await util.get_filtered_elements(findings, filters)
 
 
