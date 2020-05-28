@@ -404,5 +404,7 @@ SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
         'is_fluidattacks_customer',
         'must_only_have_fluidattacks_hackers',
     },
-    integrates=set(),
+    integrates={
+        'has_integrates',
+    },
 )

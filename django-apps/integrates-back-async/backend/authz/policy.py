@@ -46,7 +46,7 @@ def get_cached_group_service_attributes_policies(
         for policy in project_dal.get_service_policies(group))
 
     # Put the data in the cache
-    cache.set(cache_key, fetched_data, timeout=60 * 60)
+    cache.set(cache_key, fetched_data, timeout=3600)
 
     return fetched_data
 
@@ -124,6 +124,19 @@ def grant_user_level_role(email: str, role: str) -> bool:
 
     return user_dal.put_subject_policy(policy) \
         and revoke_cached_subject_policies(email)
+
+
+def revoke_cached_group_service_attributes_policies(group: str) -> bool:
+    """Revoke the cached policies for the provided group."""
+    cache_key: str = get_group_cache_key(group)
+
+    # Delete the cache key from the cache
+    cache.delete_pattern(f'*{cache_key}*')
+
+    # Refresh the cache key as the user is probably going to use it soon :)
+    get_cached_group_service_attributes_policies(group)
+
+    return True
 
 
 def revoke_cached_subject_policies(subject: str) -> bool:

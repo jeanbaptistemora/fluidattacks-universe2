@@ -46,6 +46,7 @@ def get_service_policies(group: str) -> List[SERVICE_POLICY]:
     group_attributes: dict = TABLE.get_item(
         AttributesToGet=[
             'historic_configuration',
+            'project_status',
         ],
         ConsistentRead=True,
         Key=dict(
@@ -58,22 +59,31 @@ def get_service_policies(group: str) -> List[SERVICE_POLICY]:
         return policies
 
     group_attributes = group_attributes['Item']
-    historic_config: dict = group_attributes['historic_configuration']
+
+    historic_config: list = group_attributes['historic_configuration']
+
     has_drills: bool = historic_config[-1]['has_drills']
     has_forces: bool = historic_config[-1]['has_forces']
+    has_integrates: bool = group_attributes['project_status'] == 'ACTIVE'
     type_: str = historic_config[-1]['type']
 
-    # This may be false if the group is scheduled for deletion
-    #   but let's mark it as True for now to see what is more convenient
-    policies.append(SERVICE_POLICY(group=group, service='integrates'))
-
     if type_ == 'continuous':
-        if has_drills:
-            policies.append(SERVICE_POLICY(group=group, service='drills_white'))
-            if has_forces:
-                policies.append(SERVICE_POLICY(group=group, service='forces'))
+
+        if has_integrates:
+            policies.append(SERVICE_POLICY(group=group, service='integrates'))
+
+            if has_drills:
+                policies.append(SERVICE_POLICY(group=group, service='drills_white'))
+
+                if has_forces:
+                    policies.append(SERVICE_POLICY(group=group, service='forces'))
+
     elif type_ == 'oneshot':
-        policies.append(SERVICE_POLICY(group=group, service='drills_black'))
+
+        if has_integrates:
+            policies.append(SERVICE_POLICY(group=group, service='integrates'))
+            policies.append(SERVICE_POLICY(group=group, service='drills_black'))
+
     else:
         rollbar.report_message(
             'Group has invalid type attribute',

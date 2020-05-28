@@ -106,14 +106,17 @@ async def test_group_service_attributes_enforcer():
     }
 
     for group, attribute, result in [
+        ('unittesting', 'has_integrates', True),
         ('unittesting', 'is_fluidattacks_customer', True),
         ('unittesting', 'must_only_have_fluidattacks_hackers', True),
         ('unittesting', 'non_existing_attribute', False),
 
+        ('oneshottest', 'has_integrates', True),
         ('oneshottest', 'is_fluidattacks_customer', True),
         ('oneshottest', 'must_only_have_fluidattacks_hackers', True),
         ('oneshottest', 'non_existing_attribute', False),
 
+        ('non_existing', 'has_integrates', False),
         ('non_existing', 'is_fluidattacks_customer', False),
         ('non_existing', 'must_only_have_fluidattacks_hackers', False),
         ('non_existing', 'non_existing_attribute', False),
