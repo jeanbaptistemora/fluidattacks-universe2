@@ -71,13 +71,13 @@ Blog | {{ SITENAME }}
         </a>
         {% if article.subtitle %}
           <!-- Subtitle -->
-          <h4 class="c-fluid-bk tc b">
+          <h4 class="c-fluid-bk tc b mb0">
             {{ article.subtitle }}
           </h4>
         {% endif %}<br/>
         <div class='post-info tl pl2'>
           <!-- Author -->
-          <p class="c-fluid-bk fw4 f-key-features">Author:
+          <p class="c-fluid-bk fw4 f-key-features mv0">Author:
           {% for author in article.authors %}
             <a class="c-fluid-gray hover-black no-underline"
                href="{{ SITEURL }}/{{ author.url }}">
@@ -86,14 +86,14 @@ Blog | {{ SITENAME }}
           {% endfor %}
           </p>
           <!-- Category -->
-          <p class="c-fluid-bk fw4 f-key-features">Category:
+          <p class="c-fluid-bk fw4 f-key-features mv0">Category:
             <a class="c-fluid-gray hover-black no-underline"
               href="{{ SITEURL }}/{{ article.category.url }}">
               {{ article.category|replace("-", " ") }}
             </a><br/>
           </p>
           <!-- Tags -->
-          <p class="c-fluid-bk fw4 f-key-features">Tags:
+          <p class="c-fluid-bk fw4 f-key-features mv0">Tags:
           {% for tag in article.tags %}
             {% if loop.last %}
               <a class="c-fluid-gray hover-black no-underline"
@@ -106,7 +106,7 @@ Blog | {{ SITENAME }}
           </p>
         </div>
         <!-- Summary -->
-        <p class="article-summary f5 pl2 mt0 pt1 mt2 mb3 overflow-hidden ">
+        <p class="article-summary f5 pl2 mt0 pt1 mt2 mb0 overflow-hidden ">
           {% if article.has_summary %}
             {{ article.summary }}
           {% elif article.summary %}
