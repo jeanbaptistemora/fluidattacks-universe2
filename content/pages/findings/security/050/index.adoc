@@ -19,4 +19,4 @@ attack.
 
 . [[r2]] [inner]#link:/web/rules/133/[R133. Passwords with at least 20 characters]#
 
-. [[r3]] [inner]#link:/web/rules/139/[R139. Set minimum password length]#
+. [[r3]] [inner]#link:/web/rules/139/[R139. Set minimum OTP length]#
