@@ -15,7 +15,7 @@ def get_upn(strategy, details, backend, *args, **kwargs):
     del strategy
     del details
     del args
-    if (getattr(backend, 'name', None) == 'azuread-oauth2' and
+    if (getattr(backend, 'name', None) == 'azuread-tenant-oauth2' and
             not kwargs['response'].get('upn')):
         kwargs['response']['upn'] = kwargs.get('response')['email']
 

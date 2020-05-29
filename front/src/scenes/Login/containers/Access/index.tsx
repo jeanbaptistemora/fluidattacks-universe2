@@ -80,7 +80,7 @@ class Access extends React.Component<{}, ILoginState, {}> {
       mixpanel.track(
         "Login Azure");
     }
-    window.location.href = "/integrates/oauth/login/azuread-oauth2/?username=&registered=&role=";
+    window.location.href = "/integrates/oauth/login/azuread-tenant-oauth2/?username=&registered=&role=";
   }
 
   /**
