@@ -81,10 +81,9 @@ the security element has to cover the cycle from its beginning to its end.
 image::devsecops.png[DevSecOps]
 
 In this approach, companies have to establish security requirements
-they must comply with, which are initially encoded,
-and then verified during the `SDLC`
-through open source or proprietary software.
-The security requirements can be link:https://medium.com/faun/what-is-devsecops-the-6-steps-to-secure-your-software-delivery-447906a6bd9f[based on system infrastructure assessments].
+(to be continuously verified)
+that they must meet during the `SDLC`.
+These requirements can be link:https://medium.com/faun/what-is-devsecops-the-6-steps-to-secure-your-software-delivery-447906a6bd9f[based on system infrastructure assessments].
 Such evaluations carried out manually and from the attacker's point of view
 detect potential security issues.
 In other words, these assessments are intended to answer questions such as:
@@ -146,21 +145,21 @@ and the deployment process will be automatically stopped.
 "This way, security is prioritized, and our security testing
 is integrated into the client's `SDLC`," Oscar concludes.
 
-*Parenthesis:* _It is important to note that some problems may arise
-in relation to security requirements.
-Based on link:https://medium.com/@aditi.chaudhry92/what-is-devsecops-cb14cfd457b2[Aditi Chaudhry]'s examples,
-one can be the case where a company decides to break the build_
-only _because of the presence of high or critical vulnerabilities.
-That decision can pose a risk
-as vulnerabilities of lesser severity
-end up becoming part of the product delivered to users.
-It is indeed good to have some priorities,
-but finding and remedying the most urgent problems
-is not going to stop the existence of minor issues,
-to which attention must then be paid._
-
 .'Break the build' means to stop the software deployment process (link:https://www.citymetric.com/sites/default/files/article_2015/01/149818154.jpg[photo-link])
 image::build.png[Break the build]
+
+*Bonus:* `Fluid Attacks` has solved a significant challenge.
+`Fluid Attacks` has given up on the idea
+of delivering automated products to its clients.
+Many cybersecurity companies offer fast, automatic tools
+that are highly prone to false positives and negatives
+when searching for vulnerabilities.
+`Fluid Attacks` has recognized that
+there must be manual work involved in these processes
+to ensure accuracy and efficiency.
+Furthermore, `Fluid Attacks` has not forgotten the value of speed
+but has always kept it in parallel
+with high-quality testing and excellent results.
 
 === SecDevOps?
 
