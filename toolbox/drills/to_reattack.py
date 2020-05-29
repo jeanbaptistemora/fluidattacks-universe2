@@ -58,8 +58,9 @@ def to_reattack(subs_name: str, with_exp: bool) -> tuple:
     param: with_exp: Show findings with or without exploits
     """
     message: str = ''
-    findings_raw: List[Dict] = \
-        get_subs_unverified_findings(subs_name).data['project']['findings']
+    findings_raw = get_subs_unverified_findings(subs_name)
+    findings_raw = findings_raw.data['project'][
+        'findings'] if findings_raw.ok else []
     findings_parsed: List[Dict] = []
     findings_ret: List[Dict] = []
     for finding in findings_raw:
