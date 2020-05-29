@@ -34,7 +34,7 @@ then
   then
     echo '[INFO] Please allow sudo privileges here'
     sudo mkdir -p /git
-    sudo chown -R "${USER}" /git
+    sudo chown -R "${USER}:${USER}" /git
   else
     mkdir -p /git
   fi

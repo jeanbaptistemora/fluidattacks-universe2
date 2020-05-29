@@ -1,6 +1,7 @@
 stages:
   - terraform-backend
   - build-and-test
+  - analytics-prepare
   - analytics
   - mr-check
   - deploy
@@ -106,6 +107,21 @@ analytics_git:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GIT]
+
+analytics_git__clone_repositories:
+  <<: *with_nix
+  tags: [autoscaling-large]
+  stage: analytics-prepare
+  script:
+    - ./build.sh 'services_repositories_cache'
+  artifacts:
+    paths:
+      - artifacts/
+    when: always
+    expire_in: 1 day
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
 
 analytics_mandrill:
   <<: *with_nix

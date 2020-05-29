@@ -24,7 +24,13 @@ function cli {
   echo
   prepare_environment_variables
   prepare_ephemeral_vars
-  prepare_workdir
+  case "${function_to_call}" in
+    'services_repositories_cache')
+      ;;
+    *)
+      prepare_workdir
+      ;;
+  esac
   prepare_python_packages
 
   if test "${function_to_call}" = 'all'

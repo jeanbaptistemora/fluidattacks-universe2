@@ -72,6 +72,30 @@ function helper_list_touched_files_in_last_commit {
       done
 }
 
+function helper_move_artifacts_to_git {
+  local artifacts="${PWD}/artifacts"
+  local git="/git"
+
+  if test -e "${artifacts}"
+  then
+    # shellcheck disable=SC2015
+        echo '[INFO] Moving repositories from the artifacts to git' \
+    &&  mv "${artifacts}/"* "${git}" \
+    &&  ls "${git}" \
+    ||  true
+  fi
+}
+
+function helper_move_git_to_artifacts {
+  local artifacts="${PWD}/artifacts"
+  local git="/git"
+
+      echo '[INFO] Moving repositories from git to artifacts' \
+  &&  mkdir -p "${artifacts}" \
+  &&  mv "${git}/"* "${artifacts}" \
+
+}
+
 function helper_run_break_build {
   local kind="${1}"
 

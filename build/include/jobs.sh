@@ -149,6 +149,7 @@ function job_services_repositories_cache {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
 
       aws_login \
+  &&  helper_move_artifacts_to_git \
   &&  sops_env secrets-prod.yaml default \
         analytics_gitlab_user \
         analytics_gitlab_token \
@@ -163,6 +164,7 @@ function job_services_repositories_cache {
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       python3 analytics/git/clone_them.py \
+  &&  helper_move_git_to_artifacts \
 
 }
 
