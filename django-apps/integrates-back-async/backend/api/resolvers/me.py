@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime, timedelta
 import json
 import sys
@@ -48,10 +49,13 @@ async def _get_role(_, user_email: str,
 
 async def _get_projects(info, user_email: str) -> List[ProjectType]:
     """Get projects."""
-    projects = []
-    for _project in await user_domain.get_projects(user_email):
-        project = await project_resolver.resolve(info, _project, as_field=True)
-        projects.append(project)
+    project_names = await user_domain.get_projects(user_email)
+    projects = await asyncio.gather(*[
+        asyncio.create_task(
+            project_resolver.resolve(info, project_name, as_field=True)
+        )
+        for project_name in project_names
+    ])
     return projects
 
 
