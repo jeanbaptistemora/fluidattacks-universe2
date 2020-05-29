@@ -128,6 +128,8 @@ def error401(request, _):
 def app(request):
     """App view for authenticated users."""
     try:
+        util.check_concurrent_sessions(
+            request.session['username'], request.session.session_key)
         parameters = {
             'debug': settings.DEBUG,
             'username': request.session['username']
