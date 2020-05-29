@@ -17,7 +17,7 @@ from any resource protected by authentication.
 . [[r1]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (2)]
 El sistema de información automáticamente remueve o deshabilita
 las cuentas temporales y de emergencia luego de un periodo de tiempo
-definido por la organización para  cada tipo de cuenta.
+definido por la organización para cada tipo de cuenta.
 
 . [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (13)]
 The organization disables accounts of users posing a significant risk

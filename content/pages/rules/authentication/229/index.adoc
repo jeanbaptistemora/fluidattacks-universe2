@@ -49,7 +49,7 @@ that have been granted access rights as specified in link:https://www.law.cornel
 
 . [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(d):]
 Person or Entity Authentication:
-Implement procedures to verify  that a person or entity
+Implement procedures to verify that a person or entity
 seeking access to electronic protected health information
 is the one claimed.
 

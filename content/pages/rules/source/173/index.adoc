@@ -149,7 +149,7 @@ could modify the intended OS command.
 . [[r7]] link:https://cwe.mitre.org/data/definitions/79.html[​CWE-79: Cross-site Scripting].
 The software does not neutralize or incorrectly neutralizes user-controllable
 input before it is placed in output that is used as a web page that is served
-  to other users.
+ to other users.
 
 . [[r8]] link:https://cwe.mitre.org/data/definitions/80.html[CWE-80: Basic XSS].
 The software receives input from an upstream component,

@@ -1,6 +1,6 @@
 :slug: rules/226/
 :category: authentication
-:description: This document contains the details of the security requirements related to the definition and management of authentication process in the organization. This requirement establishes the importance of preventing denial of service  attacks by avoiding account lockouts.
+:description: This document contains the details of the security requirements related to the definition and management of authentication process in the organization. This requirement establishes the importance of preventing denial of service attacks by avoiding account lockouts.
 :keywords: Account, Authentication, Attempt, Lockout, ASVS, CWE
 :rules: yes
 

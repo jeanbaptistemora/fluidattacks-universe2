@@ -28,7 +28,7 @@ the control flow or data flow of a program.
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2  Use code protection].
+. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2 Use code protection].
 
 . [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]

@@ -16,4 +16,4 @@ Source code must be obfuscated in production environments.
 
 == References
 
-. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2  Use code protection].
+. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2 Use code protection].

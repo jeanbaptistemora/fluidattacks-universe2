@@ -4,13 +4,14 @@
 :keywords: Local, Session, Storage, ASVS, CWE, GDPR
 :rules: yes
 
-= R329. Keep sensitive data out of the localStorage
-
+= R329. Keep client-side storage without sensitive data
 
 == Requirement
 
-Sensitive and session data must not be stored in the *localStorage* nor in the
-*sessionStorage*.
+Personal, sensitive and session data must not be stored in the client-side
+storage
+(*localStorage*, *sessionStorage*, cookies without security attributes, mobile
+device unencrypted storage, etc.).
 
 == Description
 
@@ -45,7 +46,7 @@ of the personal data,
 including protection against unauthorized or unlawful processing and against
 accidental loss, destruction or damage.
 
-. [[r4]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 51:  Protecting sensitive personal data].
+. [[r4]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 51: Protecting sensitive personal data].
 Personal data which are, by their nature, particularly sensitive in relation to
 fundamental rights and freedoms merit specific protection as the context of
 their processing could create significant risks to the fundamental rights and
