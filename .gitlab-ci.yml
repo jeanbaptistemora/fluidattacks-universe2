@@ -116,8 +116,6 @@ analytics_git__clone_repositories:
   <<: *with_nix_serial
   tags: [autoscaling-large]
   stage: analytics-prepare
-  script:
-    - ./build.sh 'services_repositories_cache'
   artifacts:
     paths:
       - artifacts/

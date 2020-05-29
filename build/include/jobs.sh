@@ -170,6 +170,10 @@ function job_services_repositories_cache {
 
 }
 
+function job_analytics_git__clone_repositories {
+  CLONE_CMD='fluid drills --pull-repos' job_services_repositories_cache
+}
+
 function job_analytics_git__process {
   local artifacts="${PWD}/artifacts"
   export CI_NODE_INDEX
