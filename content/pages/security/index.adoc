@@ -27,8 +27,8 @@ conceived since the early days of the company,
 have allowed us to implement
 a large number of measures
 throughout the years.
-In this page, we will mention
-the ones that provide the highest
+On this page, we will mention
+those that provide the highest
 value to our customers in
 terms of security.
 
@@ -42,12 +42,12 @@ about their data and our services' status.
 [[OPENSOURCE]]
 The source code of all our applications
 is available to the entire Internet.
-There are no backdoors or exposed sensitive data.
+There are no backdoors or sensitive data exposed.
 The code is transparent and can be reviewed by anyone.
 All our source code can be found
 link:https://gitlab.com/fluidattacks[here].
 
-Commit history of all repositories:
+Besides, here is the commit history of all our repositories:
 
 - link:https://gitlab.com/fluidattacks/web/-/commits/master[Web]
 - link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
@@ -62,9 +62,9 @@ link:https://community.fluidattacks.com/tag/transparency/[Community Site]
 with details like *_what happened_*, *_what we've done_*,
 *_what's the impact_*, and *_what we're doing to help_*.
 
-=== 1.3 Data leakeage policy
+=== 1.3 Data leakage policy
 
-In case `Fluid Attacks` detects a breach,
+In case that `Fluid Attacks` detects a breach,
 emails notifying the involved parties will be sent.
 Emails will contain information on what data was leaked or compromised,
 when, and for how long (to the extent this information is available).
@@ -174,12 +174,12 @@ industry-standard
 We have full-time projects focused on hacking our software.
 For us, it is essential to set an example of secure software,
 that is why today our entire technology stack
-goes through a process of [inner]#link:../services/continuous-hacking[Continuous Hacking]#
+goes through a process of [inner]#link:../services/continuous-hacking[Continuous Hacking]#.
 
 All our development projects run
 <<CI, Continuous Integration>>
 pipelines,
-including Forces exploits and strict linters
+including Forces exploits and strict linters,
 to ensure that
 [inner]#link:../rules/155/[no known vulnerabilities]#
 are released to production.
@@ -212,7 +212,7 @@ freelance, or any other third parties.
 We continuously renew the laptops of our employees.
 There are two main reasons for this:
 
-. *Hardware Improvement:*
+. *Hardware improvement:*
   As usual, older laptops get
   replaced with new ones due to
   performance reasons.
@@ -246,10 +246,10 @@ link:https://oauth.net/2/[Oauth2] protocol is used.
 Such protocol only accepts login attempts from trusted URLs
 and has industry-standard 2048 bytes access tokens.
 We do not store any account passwords.
-The only personal information we store of our clients is:
+The only personal information we store of our clients is
 
-- Full name (provided by Google or Microsoft).
-- Company and cellphone (only if shared, user can decide).
+- full name (provided by Google or Microsoft);
+- company and cellphone (only if shared, user can decide).
 
 It is also worth noting that once users lose their
 corporate email,
@@ -266,7 +266,7 @@ their projects.
 ==== 3.2.1 Centralized authentication
 
 We use a centralized authentication platform (IAM)
-that allows us to manage all the applications
+to manage all the applications
 we internally use from just one place. Our employees do
 not know any of the passwords of the managed applications;
 they only know their own IAM passphrase.
@@ -274,20 +274,20 @@ Once they log in to IAM,
 they can access applications
 [inner]#link:../rules/096/[assigned to them]#.
 
-Some of our IAM specifications and requirements are:
+Some of our IAM specifications and requirements are listed below:
 
 - [inner]#link:../rules/132/[Passphrases instead of passwords]#
   (more information [inner]#link:../blog/requiem-password/[here]#).
 - [inner]#link:../rules/130/[Passphrases expire every 30 days]#.
 - Previous passphrases can only be reused after a
   [inner]#link:../rules/129/[24 reset cycle]#.
-- [inner]#link:../rules/328/[Multi-factor authentication]#
+- [inner]#link:../rules/328/[Multi-factor authentication]# (MFA)
   from a mobile device must be set.
 - Our MFA uses
   [inner]#link:../rules/153/[OOB]#,
   a mechanism that transports all the MFA data
   through a different channel than the application's channel itself.
-  Text messages and emails are examples of OBB.
+  Text messages and emails are examples of OOB.
   It reduces the risk in case a communication channel becomes compromised.
 - We use both
   link:https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language[SAML]
@@ -345,7 +345,7 @@ _user_, _project manager_, etc.
 
 Every application we use must have user-granular authorization settings
 to grant minimum-privilege policy at all times.
-Some examples are:
+Some examples are as follows:
 
 - *IAM and KMS:*
   These two tools are widely used within `Fluid Attacks`.
@@ -376,7 +376,7 @@ Some examples are:
 === 4.3 Secret rotation
 
 [inner]#link:../rules/130/[Key rotation]#
-is of the essence when dealing with
+is essential when dealing with
 sensitive data. The best way to prevent a key leakage is by
 changing the keys regularly. We continuously rotate
 
@@ -389,7 +389,7 @@ changing the keys regularly. We continuously rotate
 - *IAM passphrases:*
   They rotate every three months.
 
-Rotations are done in two different ways:
+Rotations are done in these two different ways:
 
 - *Automatic rotation:*
   Some secrets are stored in secret vaults.
@@ -412,7 +412,7 @@ Rotations are done in two different ways:
 When employees go on vacation or leave the company,
 it is essential to revoke their access
 to the systems and information that were accessible to them.
-In `Fluid Attacks` we have a two-step process for
+At `Fluid Attacks`, we have a two-step process for
 access revocation:
 
   . *Deactivating IAM account:*
@@ -421,7 +421,7 @@ access revocation:
     and client data.
     This includes
     Integrates, Forces, mail, etc.
-  . *Removing git repository access:*
+  . *Removing Git repository access:*
     Users can no longer see confidential information from the repository,
     such as registry images, confidential issues,
     link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge requests],
@@ -444,7 +444,7 @@ are common targets for malicious hackers.
 == 5. Privacy
 
 This section talks about our efforts to protect
-both `Fluid Attacks'` and clients' privacy.
+both `Fluid Attacks's` and clients' privacy.
 
 === 5.1 Project pseudonymization
 
@@ -505,7 +505,7 @@ and discourage its distribution through channels
 other than
 [inner]#link:../products/integrates[Integrates]#.
 
-=== 5.3 Email unsubscribe
+=== 5.3 Unsubscribe email
 
 To be respectful to users
 regarding what information they want to receive,
@@ -524,9 +524,9 @@ use a
 link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR]
 module that
 
-- Informs the user about
+- informs the user about
   every cookie the site creates;
-- Lets users specify
+- lets users specify
   which ones to allow,
   thus giving them full control
   over what information we are creating
@@ -583,15 +583,15 @@ We use a time tracking system that periodically takes
 screenshots from laptop screens
 when employees are working. Only managers have access to such
 screenshots in case an incident happens. Employees
-have control over the software, which means that once they
-stop working, no screenshots are taken.
+have control over the software, which means that
+no screenshots are taken once they stop working.
 
 === 5.8 Polygraph tests
 
 We regularly run polygraph tests on all
 employees with access to sensitive information.
 Tests fully focus on identifying
-whether an employee disclosed sensitive information
+whether an employee disclosed confidential information
 to a third party.
 Personal questions are never asked.
 
@@ -625,7 +625,7 @@ Currently, we keep the following systems as code:
 - link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
 - link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
 - link:https://gitlab.com/fluidattacks/web/-/commits/master[Website]
-- [inner]#link:../services/continuous-hacking[Continuous Hacking]#
+- [inner]#link:../services/continuous-hacking[Continuous hacking]#
 - <<IAC, Infrastructure>>
 - General documentation
 
@@ -708,7 +708,7 @@ providing maximum speed and availability across the globe.
 
 As all our backups are stored in decentralized data centers,
 problems like hard drive lifespans
-are not a concern to us.
+are not a concern.
 The backups exist seamlessly
 for as long as we want to,
 giving us full traceability
@@ -717,8 +717,8 @@ and recoverability.
 === 7.3 Everything is backed up
 
 As data is likely our most valuable asset,
-we have strong backup policies for everything.
-For example:
+we have strong backup policies for everything;
+for example
 
 - Our redundant data centers are fully versioned,
   meaning that any file can be recovered
@@ -779,7 +779,7 @@ Employees are encouraged to take their laptops home,
 as not keeping them in the same place
 decreases the risk of massive theft.
 Also, in case our offices close
-(link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19]),
+(e.g., due to link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19] pandemic),
 everyone can still do their job seamlessly.
 All laptops have a password-secured BIOS,
 link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM]
@@ -824,8 +824,8 @@ their technical capabilities and human values.
 
 The technical part of the testing process
 involves solving programming and hacking challenges,
-uploading them to a git repository with highly strict linters and compilers,
-and ascending in a [inner]#link:../training/[organizational ranking]#.
+uploading them to a Git repository with highly strict linters and compilers,
+and ascending in an [inner]#link:../training/[organizational ranking]#.
 
 The human values section of the testing process
 includes creating a portfolio with the five most
@@ -837,7 +837,7 @@ and job interviews, among other things.
 === 9.3 Secure emails
 
 The [inner]#link:../../[Fluid Attacks]# domain
-has DKIM and SPF protocols enabled.
+has DKIM, and SPF protocols enabled.
 Additionally, it has the DMARCv1 protocol
 enabled in verbose mode
 for running advanced diagnostics.
@@ -854,11 +854,11 @@ to reach a high integrity level.
 
 ==== 9.4.1 Monorepo
 
-We have a Git repository for each one of our applications.
+We have a Git repository for all our applications.
 By taking this approach instead of dividing applications
 into smaller repositories, we get the following:
 
-- *A centralized source of truth:*
+- *Centralized source of truth:*
   Everything regarding the application
   can be found in a single place.
 - *Centralized knowledge:*
@@ -884,7 +884,7 @@ of keeping a healthy source code,
 after making the source code the only
 variable affecting an application.
 
-==== 9.4.3 Infrastructure as code (IaC)
+==== 9.4.3 Infrastructure as Code (IaC)
 
 [[IAC]]
 Our entire infrastructure is versioned
@@ -958,7 +958,7 @@ and other semantic properties of the change.
 
 Peer reviewing also becomes an activity
 where product teams discuss philosophies,
-standards and future plans for the application.
+standards, and future plans for the application.
 This space is ideal for senior developers to
 guide juniors on the right path.
 
@@ -1032,7 +1032,7 @@ they run the Continuous Integration phase,
 create a Merge Request, and ask for peer review.
 If everything goes well, their branch is
 merged to the master branch,
-their changes are deployed to production
+their changes are deployed to production,
 and their short-term branch is deleted.
 
 ==== 9.4.13 Isolated and sudo-less dependencies
