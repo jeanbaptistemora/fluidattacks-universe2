@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Class for generate an xlsx file with findings information. """
+import os
 import re
 import uuid
 
@@ -15,10 +16,11 @@ class ITReport():
     lang = None
     row = 3
     result_filename = ''
-    result_path = '/usr/src/app/app/techdoc/results/'
+    base = os.path.dirname(os.path.abspath(__file__))
+    result_path = os.path.join(base, 'results')
     templates = {
         'es': {
-            'TECHNICAL': '/usr/src/app/app/techdoc/templates/TECHNICAL.xlsx',
+            'TECHNICAL': os.path.join(base, 'templates', 'TECHNICAL.xlsx'),
         },
         'en': {}}
     sheet_names = {

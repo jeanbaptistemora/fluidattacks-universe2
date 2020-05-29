@@ -1,4 +1,5 @@
 # Standard library
+import os
 from typing import (
     cast,
     Dict,
@@ -97,6 +98,12 @@ def generate_xls_report(
 
 
 def pdf_evidences(findings: List[Dict[str, FindingType]]) -> List[Dict[str, FindingType]]:
+    path: str = (
+        '/usr/src/app/app/documentator/images'
+        if os.path.exists('/usr/src/app/app/documentator/images')
+        else os.path.join(os.getcwd(), 'app', 'documentator', 'images')
+    )
+
     for finding in findings:
         folder_name = str(finding['projectName']) + '/' + str(finding['findingId'])
         evidences = cast(Dict[str, Dict[str, str]], finding['evidence'])
@@ -110,7 +117,7 @@ def pdf_evidences(findings: List[Dict[str, FindingType]]) -> List[Dict[str, Find
             for evidence in evidence_set:
                 finding_dal.download_evidence(
                     evidence['id'],
-                    '/usr/src/app/app/documentator/images/' +
+                    path + '/' +
                     str(evidence['id']).split('/')[2])
                 evidence['name'] = 'image::../images/' + \
                     str(evidence['id']).split('/')[2] + '[align="center"]'

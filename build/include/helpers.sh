@@ -230,11 +230,14 @@ function helper_serve_back {
   local workers='5'
   local worker_class='fluidintegrates.asgi.IntegratesWorker'
   local common_args=(
+    --timeout "3600"
     --workers "${workers}"
     --worker-class "${worker_class}"
   )
 
       env_prepare_python_packages \
+  &&  env_prepare_ruby_modules \
+  &&  env_prepare_node_modules \
   &&  "helper_set_${1}_secrets" \
   &&  echo "[INFO] Serving HTTP on port ${http_port}" \
   &&  {

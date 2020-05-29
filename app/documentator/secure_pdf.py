@@ -33,7 +33,7 @@ class SecurePDF():
 
     def __init__(self, passphrase: str):
         """Class constructor."""
-        self.base = '/usr/src/app/app/documentator/'
+        self.base = os.path.dirname(os.path.abspath(__file__))
         self.watermark_tpl = os.path.join(
             self.base,
             'resources/themes/watermark_integrates_en.pdf')

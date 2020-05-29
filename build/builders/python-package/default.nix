@@ -12,7 +12,7 @@ in
       srcIncludeGenericDirStructure = ../../include/generic/dir-structure.sh;
 
       builder = ./builder.sh;
-      buildInputs = [
+      propagatedBuildInputs = [
         (pkgs.python37.withPackages (ps: with ps; [
           wheel
           setuptools

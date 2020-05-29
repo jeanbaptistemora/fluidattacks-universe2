@@ -12,6 +12,9 @@ mkdir root/python
 mkdir root/python/cache-dir
 mkdir root/python/site-packages
 
+# where node modules will be stored
+mkdir root/nodejs
+
 # where turtle shell will be stored
 mkdir root/.turtle
 

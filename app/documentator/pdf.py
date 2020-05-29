@@ -24,6 +24,7 @@ class CreatorPDF():
     style_dir = '/resources/themes'
     tpl_dir = '/tpls/'
     font_dir = '/resources/fonts'
+    images_dir = '/images/'
     result_dir = '/results/'
     proj_tpl = 'templates/executive.adoc'
     style = 'fluid'
@@ -40,7 +41,7 @@ class CreatorPDF():
         self.result_dir = self.path + self.result_dir
         self.font_dir = self.path + self.font_dir
         self.tpl_dir = self.path + self.tpl_dir
-        self.tpl_img_path = '/usr/src/app/app/documentator/images/'
+        self.tpl_img_path = self.path + self.images_dir
         self.lang = lang
         self.doctype = doctype
         self.style_dir = self.path + self.style_dir
