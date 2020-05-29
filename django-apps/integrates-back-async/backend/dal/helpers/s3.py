@@ -3,6 +3,7 @@
 #  type: ignore
 
 import os
+from tempfile import _TemporaryFileWrapper
 
 import boto3
 import rollbar
@@ -64,8 +65,16 @@ def _send_to_s3(bucket, file_object, file_name):
 
 
 def upload_memory_file(bucket, file_object, file_name):
+    valid_in_memory_files = (
+        ContentFile,
+        InMemoryUploadedFile,
+        TemporaryUploadedFile,
+        _TemporaryFileWrapper,
+    )
+
     success = False
-    if isinstance(file_object, (InMemoryUploadedFile, TemporaryUploadedFile, ContentFile)):
+
+    if isinstance(file_object, valid_in_memory_files):
         success = _send_to_s3(bucket, file_object.file, file_name)
     else:
         rollbar.report_message('Error: Attempt to upload invalid memory file',

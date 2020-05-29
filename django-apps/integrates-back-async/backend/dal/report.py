@@ -14,3 +14,12 @@ def upload_report(file_name: str) -> str:
     if not success:
         raise ErrorUploadingFileS3()
     return uploaded_file_name
+
+
+def upload_report_from_file_descriptor(file_descriptor) -> str:
+    success, uploaded_file_name = \
+        reports.upload_report_from_file_descriptor(file_descriptor)
+
+    if not success:
+        raise ErrorUploadingFileS3()
+    return uploaded_file_name

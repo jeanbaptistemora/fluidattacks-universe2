@@ -388,6 +388,7 @@ enum EventEvidenceType {
 }
 
 enum ReportType {
+    DATA
     PDF
     XLS
 }

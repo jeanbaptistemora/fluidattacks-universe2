@@ -3,8 +3,8 @@ import threading
 from typing import Tuple
 from datetime import datetime
 from django.core.files.base import ContentFile
-from backend.mailer import send_mail_project_report
 from backend.dal.helpers import s3
+from backend.mailer import send_mail_project_report
 from __init__ import FI_AWS_S3_REPORTS_BUCKET
 
 
@@ -41,6 +41,15 @@ def send_project_report_email(
 def upload_report(file_path: str) -> Tuple[bool, str]:
     file_content = open(file_path, 'rb')
     report = ContentFile(file_content.read())
+    return upload_report_from_file_descriptor(report)
+
+
+def upload_report_from_file_descriptor(report) -> Tuple[bool, str]:
+    file_path = report.name
     file_name = file_path.split('_')[-1]
-    return s3.upload_memory_file(  # type: ignore
-        FI_AWS_S3_REPORTS_BUCKET, report, file_name), file_name
+
+    # Mypy false positive
+    result = \
+        s3.upload_memory_file(FI_AWS_S3_REPORTS_BUCKET, report, file_name)  # type: ignore
+
+    return bool(result), file_name
