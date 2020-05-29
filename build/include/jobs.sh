@@ -145,6 +145,27 @@ function job_analytics_git {
   &&  ./analytics/git/taint_all.sh
 }
 
+function job_services_repositories_cache {
+  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_gitlab_user \
+        analytics_gitlab_token \
+  &&  echo '[INFO] Cloning our own repositories' \
+  &&  python3 analytics/git/clone_us.py \
+  &&  echo '[INFO] Cloning customer repositories' \
+  &&  \
+      CI=true \
+      DEV_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+      DEV_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+      INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+      PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+      PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+      python3 analytics/git/clone_them.py \
+
+}
+
 function job_analytics_infrastructure {
       aws_login \
   &&  sops_env secrets-prod.yaml default \

@@ -261,6 +261,14 @@ send_new_version_email:
   when: always
   stage: postdeploy
 
+services_repositories_cache:
+  <<: *with_nix
+  tags: [autoscaling-large]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_SERVICES_REPOSITORIES_CACHE]
+
 user_provision_asserts_dev_test:
   <<: *with_nix
   <<: *in_dev_branch

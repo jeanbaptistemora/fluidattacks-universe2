@@ -26,7 +26,7 @@ def clone(subs_name: str, subs_path: str) -> None:
     """Clone a subs_path."""
     _, output = run_command(
         'fluid resources --clone-from-customer-git', cwd=subs_path)
-    print(f'INFO: {subs_path}')
+    print(f'INFO: git clone {subs_path}')
     print(f'      output:')
     print(textwrap.indent(output, ' ' * 16))
 
@@ -42,15 +42,7 @@ def clone(subs_name: str, subs_path: str) -> None:
 
 def sync_to_s3(subs_path):
     _, output = run_command('fluid drills --push-repos', cwd=subs_path)
-    print(f'INFO: {subs_path}')
-    print(f'      output:')
-    print(textwrap.indent(output, ' ' * 16))
-
-
-def open_vpn(subs_path) -> None:
-    """Clone a subs_path which requires a vpn connection."""
-    _, output = run_command('yes 2 | fluid drills --vpn', cwd=subs_path)
-    print(f'INFO: {subs_path}')
+    print(f'INFO: sync to S3 {subs_path}')
     print(f'      output:')
     print(textwrap.indent(output, ' ' * 16))
 
