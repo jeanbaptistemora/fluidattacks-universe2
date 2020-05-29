@@ -48,13 +48,14 @@ Blog | {{ SITENAME }}
 
 {% block content %}
  <!-- Div Index -->
- <div class="roboto flex-ns flex-wrap-ns justify-between-m pt3 pb3 pl2 pr0">
+ <div class="roboto flex-ns flex-wrap-ns justify-between-m pt5 pb3 pl2 pr0 bg-graylight">
   <!-- Blog Posts -->
   {% for article in articles_page.object_list %}
-    <div class="ba1 shadow-1 mb3 relative dt-ns mt0-ns w-100 w-75-m w-30-l pr3-ns pl3-ns pt3 ma-auto">
+    <div class="br3 shadowbox-blog mb5 relative dt-ns mt0-ns w-100 w-75-m w-30-l ma-auto bg-white">
       {% if  article.featured_image %}
         <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}"
-             alt="{{ article.alt }}">
+             alt="{{ article.alt }}"
+             class="br3 br--top">
       {% endif %}
       <!-- Article Preview: Title, Description, Author, Tags ... -->
       <div class="h-28em-l h-auto-vl">
