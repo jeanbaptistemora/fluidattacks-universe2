@@ -158,13 +158,47 @@ function job_services_repositories_cache {
   &&  echo '[INFO] Cloning customer repositories' \
   &&  \
       CI=true \
-      DEV_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-      DEV_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+      CI_COMMIT_REF_NAME='master' \
       INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       python3 analytics/git/clone_them.py \
+  &&  helper_move_services_fusion_to_master_git \
+  &&  echo '[INFO] Generating stats' \
+  &&  { python3 analytics/git/generate_stats.py || true; } \
   &&  helper_move_git_to_artifacts \
+
+}
+
+function job_analytics_git__process {
+  local artifacts="${PWD}/artifacts"
+  export CI_NODE_INDEX
+  export CI_NODE_TOTAL
+
+      echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
+  &&  python3 analytics/git/generate_config.py \
+  &&  mkdir -p "${artifacts}" \
+  &&  echo "[INFO] Running tap" \
+  &&  tap-git \
+        --conf './config.json' \
+        --with-metrics > "${artifacts}/git.${CI_NODE_INDEX}" \
+
+}
+
+function job_analytics_git__upload {
+  local artifacts="${PWD}/artifacts"
+
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE1}" \
+  &&  echo '[INFO] Running target' \
+  &&  cat "${artifacts}/git."* \
+        | target-redshift \
+            --auth "${TEMP_FILE1}" \
+            --drop-schema \
+            --schema-name "git" \
 
 }
 

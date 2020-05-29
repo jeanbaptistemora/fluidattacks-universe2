@@ -21,6 +21,18 @@ FLUID_SUBS = (
 )
 
 
+CI_NODE_INDEX: int = int(os.environ.get('CI_NODE_INDEX', 1))
+CI_NODE_TOTAL: int = int(os.environ.get('CI_NODE_TOTAL', 1))
+
+
+def get_bucket_to_do(elements: list) -> list:
+    return [
+        element
+        for index, element in enumerate(elements, start=1)
+        if index % CI_NODE_TOTAL + 1 == CI_NODE_INDEX
+    ]
+
+
 def get_config_path(subs_name: str) -> str:
     """Return the config path from the group name."""
     return (f'/git/fluidattacks/services/'
@@ -70,7 +82,7 @@ def main():
     config = []
     branches: Dict[str, Dict[str, str]] = get_repos_and_branches()
 
-    for subs_path in glob.glob('/git/*'):
+    for subs_path in get_bucket_to_do(glob.glob('/git/*')):
         subs_name = os.path.basename(subs_path)
 
         if subs_name in FLUID_SUBS:

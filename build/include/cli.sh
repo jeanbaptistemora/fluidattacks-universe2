@@ -25,6 +25,8 @@ function cli {
   prepare_environment_variables
   prepare_ephemeral_vars
   case "${function_to_call}" in
+    'analytics_git__'*)
+      ;;
     'services_repositories_cache')
       ;;
     *)
