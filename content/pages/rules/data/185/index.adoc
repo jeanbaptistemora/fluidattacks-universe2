@@ -1,7 +1,7 @@
 :slug: rules/185/
 :category: data
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of protecting sensitive data using safe cryptographic mechanisms in order to avoid information leakages.
-:keywords: Requirement, Security, GDPR, Sensitive, Information, Encrypt
+:keywords: GDPR, Sensitive, Information, Encrypt, ASVS, CWE
 :rules: yes
 
 = R185. Encrypt sensitive information
@@ -16,8 +16,10 @@ Systems usually store personal data, credentials and other types of sensitive
 information.
 All of these must be encrypted before being stored using safe cryptographic
 mechanisms.
-Doing so prevents unauthorized actors that may have accessed the storage system
-from obtaining the information.
+This is also applicable when personal information must be temporarily stored
+in the client-side storage.
+The encryption prevents unauthorized actors that may have accessed the storage
+system from obtaining the information.
 
 == Findings
 
@@ -25,20 +27,30 @@ from obtaining the information.
 
 == References
 
-. [[r1]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+. [[r1]] link:https://cwe.mitre.org/data/definitions/311.html[CWE-311: Missing Encryption of Sensitive Data].
+The software does not encrypt sensitive or critical information before storage
+or transmission.
+
+. [[r2]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
 Art. 4: Security of processing.(1a)]
 The measures referred to in paragraph 1 shall at least protect personal data
 stored or transmitted against accidental or unlawful destruction,
 accidental loss or alteration,
 and unauthorized or unlawful storage, processing, access or disclosure.
 
-. [[r2]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(a).]
+. [[r3]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(a).]
 The controller and the processor shall implement appropriate technical and
 organizational measures to ensure an appropriate level of security,
 including the pseudonymization and encryption of personal data.
 
-. [[r3]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 45: Protecting sensitive personal data].
+. [[r4]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 45: Protecting sensitive personal data].
 Personal data which are, by their nature, particularly sensitive in relation to
 fundamental rights and freedoms merit specific protection as the context of
 their processing could create significant risks to the fundamental rights and
 freedoms.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.1 Data Classification.(6.1.1)]
+Verify that regulated private data is stored encrypted while at rest,
+such as personally identifiable information (PII), sensitive personal
+information, or data assessed likely to be subject to EU's GDPR.
