@@ -32,7 +32,7 @@ Blog | {{ SITENAME }}
         <li class="dib mt0">
           <a class="c-fluid-gray hover-white no-underline"
              href="{{ SITEURL }}/">
-            <strong>Home</strong>
+            Home
           </a>
           <span class="c-fluid-gray v-mid b"> / </span>
         </li>
@@ -51,71 +51,74 @@ Blog | {{ SITENAME }}
  <div class="roboto flex-ns flex-wrap-ns justify-between-m pt5 pb3 pl2 pr0 bg-graylight">
   <!-- Blog Posts -->
   {% for article in articles_page.object_list %}
-    <div class="br3 shadowbox-blog mb5 relative dt-ns mt0-ns w-100 w-75-m w-30-l ma-auto bg-white">
+    <div
+      class="br3 shadowbox-blog hover-card mb5 relative dt-ns mt0-ns w-100 w-75-m w-30-l ma-auto bg-white">
       {% if  article.featured_image %}
         <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}"
              alt="{{ article.alt }}"
              class="br3 br--top">
       {% endif %}
       <!-- Article Preview: Title, Description, Author, Tags ... -->
-      <div class="h-28em-l h-auto-vl">
+      <div class="h-34em-l ph4">
         <a href="{{ SITEURL }}/{{ article.url }}"
            rel="bookmark"
-           title="Permalink to {{ article.title|striptags }}">
+           title="Permalink to {{ article.title|striptags }}"
+           class="no-underline">
           <!-- Title -->
-          <h1 class="post-title c-fluid-bk mb0 tc hv-fluid-dkred f4">
+          <h1 class="post-title c-fluid-bk mb0 tc hv-fluid-rd lh-solid">
             {{ article.title }}
           </h1>
         </a>
         {% if article.subtitle %}
           <!-- Subtitle -->
-          <span class="db f5 c-fluid-bk db i tc b pt3">
+          <h4 class="c-fluid-bk tc b">
             {{ article.subtitle }}
-          </span>
+          </h4>
         {% endif %}<br/>
         <div class='post-info tl pl2'>
           <!-- Author -->
-          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"
-               alt="Quill icon">
+          <p class="c-fluid-bk fw4 f-key-features">Author:
           {% for author in article.authors %}
-            <a class=" c-fluid-bk ttc hv-fluid-dkred "
+            <a class="c-fluid-gray hover-black no-underline"
                href="{{ SITEURL }}/{{ author.url }}">
                {{ author }}
             </a><br/>
           {% endfor %}
+          </p>
           <!-- Category -->
-          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"
-               alt="Folder icon">
-          <a class=" c-fluid-bk ttc hv-fluid-dkred "
-             href="{{ SITEURL }}/{{ article.category.url }}">
-             {{ article.category|replace("-", " ") }}
-          </a><br/>
+          <p class="c-fluid-bk fw4 f-key-features">Category:
+            <a class="c-fluid-gray hover-black no-underline"
+              href="{{ SITEURL }}/{{ article.category.url }}">
+              {{ article.category|replace("-", " ") }}
+            </a><br/>
+          </p>
           <!-- Tags -->
-          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"
-               alt="Tag icon">
+          <p class="c-fluid-bk fw4 f-key-features">Tags:
           {% for tag in article.tags %}
             {% if loop.last %}
-              <a class=" c-fluid-bk ttc hv-fluid-dkred "
+              <a class="c-fluid-gray hover-black no-underline"
                  href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
             {% else %}
-              <a class=" c-fluid-bk ttc hv-fluid-dkred "
+              <a class="c-fluid-gray hover-black no-underline"
                  href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
             {% endif %}
           {% endfor %}
+          </p>
         </div>
         <!-- Summary -->
-        <p class="article-summary f5 pl2 mt0 pt1 mt2 mb4 overflow-hidden ">
+        <p class="article-summary f5 pl2 mt0 pt1 mt2 mb3 overflow-hidden ">
           {% if article.has_summary %}
             {{ article.summary }}
           {% elif article.summary %}
-            {{ article.summary|striptags|truncate(200) }}
+            {{ article.summary|striptags|truncate(100) }}
           {% endif %}
         </p>
         <br><br>
         <!-- Read More Button -->
-        <div class="divread absolute bottom-2">
-          <span class="button f4 pa2">
-            <a href="{{ SITEURL }}/{{ article.url }}">
+        <div class="divread bottom-2 pb3 tc">
+          <span class="br2 bannerbt hv-bt-fluid-rd ph4-l ph5 pv2 bt-trans white b roboto pointer">
+            <a href="{{ SITEURL }}/{{ article.url }}"
+               class="b f5 no-underline white">
                Read More
             </a>
           </span>
