@@ -16,6 +16,8 @@ from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
+from backend.domain.project import get_open_vulnerabilities, list_findings
+from backend.domain.vulnerability import list_vulnerabilities
 from backend.exceptions import FindingNotFound, NotVerificationRequested
 
 pytestmark = pytest.mark.asyncio
@@ -560,13 +562,6 @@ class FindingTests(TestCase):
     @pytest.mark.changes_db
     async def test_filter_deleted_findings(self):
         """Check if vuln of deleted vulns are filter out."""
-        query = '''
-          query {
-            project(projectName: "unittesting"){
-              openVulnerabilities
-            }
-          }
-        '''
         mutation = '''
           mutation {
             deleteFinding(findingId: "988493279", justification: NOT_REQUIRED) {
@@ -574,10 +569,7 @@ class FindingTests(TestCase):
             }
           }
         '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        open_vulns = result['data']['project']['openVulnerabilities']
+        open_vulns = get_open_vulnerabilities('unittesting')
 
         data = {'query': mutation}
         result = await self._get_result(data)
@@ -585,6 +577,4 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['deleteFinding']
         assert result['data']['deleteFinding']['success']
 
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert result['data']['project']['openVulnerabilities'] < open_vulns
+        assert get_open_vulnerabilities('unittesting') < open_vulns

@@ -271,6 +271,9 @@ then
         {
           "PutRequest" : {
             "Item" : {
+              "closed_vulnerabilities": {
+                "N" : "\(($n_findings * $n_vulns) - (($n_findings * $n_vulns / 2) | floor))"
+              },
               "companies" : {
                 "L" : [
                   {
@@ -283,6 +286,29 @@ then
               },
               "hasRelease" : {
                 "BOOL" : true
+              },
+              "historic_configuration" : {
+                "L" : [
+                  {
+                    "M" : {
+                      "date" : {
+                        "S" : "2020-05-20 17:00:00"
+                      },
+                      "has_forces" : {
+                        "BOOL" : true
+                      },
+                      "has_drills": {
+                        "BOOL" : true
+                      },
+                      "requester" : {
+                        "S" : "unknown"
+                      },
+                      "type": {
+                        "S" : "continuous"
+                      }
+                    }
+                  }
+                ]
               },
               "last_closing_date" : {
                 "N" : "45"
@@ -304,6 +330,12 @@ then
               },
               "mean_remediate_medium_severity" : {
                 "N" : "113"
+              },
+              "open_findings": {
+                "N" : "\($n_findings)"
+              },
+              "open_vulnerabilities": {
+                "N" : "\(($n_findings * $n_vulns / 2) | floor)"
               },
               "project_name" : {
                 "S" : "project\(env.index)"
@@ -332,9 +364,6 @@ then
                   }
                 }
               },
-              "type" : {
-                "S" : "continuous"
-              }
             }
           }
         }]

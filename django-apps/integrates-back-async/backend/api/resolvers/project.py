@@ -116,22 +116,9 @@ async def _get_findings(
 async def _get_open_vulnerabilities(info, project_name: str,
                                     **__) -> int:
     """Get open_vulnerabilities."""
-    project_findings = \
-        await info.context.loaders['project'].load(project_name)
-    project_findings = project_findings['findings']
-    finding_vulns = \
-        await info.context.loaders['vulnerability'].load_many(project_findings)
-
-    # This should be a list comprehension in the future, but there's a known
-    # bug of Python that prevents it: https://bugs.python.org/issue39562
-    open_vulnerabilities = 0
-    for vulns in finding_vulns:
-        for vuln in vulns:
-            if 'current_state' in vuln and \
-                vuln['current_state'] == 'open' and \
-                (vuln['current_approval_status'] != 'PENDING' or
-                 vuln['last_approved_status']):
-                open_vulnerabilities += 1
+    project_attrs = await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    open_vulnerabilities = project_attrs.get('open_vulnerabilities', 0)
     return open_vulnerabilities
 
 
@@ -140,13 +127,9 @@ async def _get_open_vulnerabilities(info, project_name: str,
 async def _get_open_findings(info,
                              project_name: str, **__) -> int:
     """Get open_findings."""
-    project_findings = \
-        await info.context.loaders['project'].load(project_name)
-    project_findings = project_findings['findings']
-    finding_vulns = \
-        await info.context.loaders['vulnerability'].load_many(project_findings)
-    open_findings = \
-        await sync_to_async(project_domain.get_open_findings)(finding_vulns)
+    project_attrs = await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    open_findings = project_attrs.get('open_findings', 0)
     return open_findings
 
 
@@ -155,22 +138,9 @@ async def _get_open_findings(info,
 async def _get_closed_vulnerabilities(
         info, project_name: str, **__) -> int:
     """Get closed_vulnerabilities."""
-    project_findings = \
-        await info.context.loaders['project'].load(project_name)
-    project_findings = project_findings['findings']
-    finding_vulns = \
-        await info.context.loaders['vulnerability'].load_many(project_findings)
-
-    # This should be a list comprehension in the future, but there's a known
-    # bug of Python that prevents it: https://bugs.python.org/issue39562
-    closed_vulnerabilities = 0
-    for vulns in finding_vulns:
-        for vuln in vulns:
-            if 'current_state' in vuln and \
-                vuln['current_state'] == 'closed' and \
-                (vuln['current_approval_status'] != 'PENDING' or
-                 vuln['last_approved_status']):
-                closed_vulnerabilities += 1
+    project_attrs = await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    closed_vulnerabilities = project_attrs.get('closed_vulnerabilities', 0)
     return closed_vulnerabilities
 
 

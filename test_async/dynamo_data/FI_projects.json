@@ -3,6 +3,9 @@
       {
          "PutRequest" : {
             "Item" : {
+               "closed_vulnerabilities": {
+                  "N" : "0"
+               },
                "companies" : {
                   "L" : [
                      {
@@ -40,6 +43,12 @@
                   "N" : "0"
                },
                "mean_remediate_medium_severity" : {
+                  "N" : "0"
+               },
+               "open_findings": {
+                  "N" : "0"
+               },
+               "open_vulnerabilities": {
                   "N" : "0"
                },
                "project_name" : {
@@ -549,6 +558,9 @@
       {
          "PutRequest" : {
             "Item" : {
+               "closed_vulnerabilities": {
+                  "N" : "8"
+               },
                "companies" : {
                   "L" : [
                      {
@@ -791,6 +803,12 @@
                },
                "mean_remediate_medium_severity" : {
                   "N" : "287"
+               },
+               "open_findings": {
+                  "N" : "5"
+               },
+               "open_vulnerabilities": {
+                  "N" : "31"
                },
                "project_name" : {
                   "S" : "unittesting"
@@ -1848,6 +1866,9 @@
       {
         "PutRequest" : {
            "Item" : {
+              "closed_vulnerabilities": {
+                 "N" : "0"
+              },
               "companies" : {
                  "L" : [
                     {
@@ -2006,6 +2027,12 @@
                  "N" : "0"
               },
               "mean_remediate_medium_severity" : {
+                 "N" : "0"
+              },
+              "open_findings": {
+                 "N" : "0"
+              },
+              "open_vulnerabilities": {
                  "N" : "0"
               },
               "project_name" : {
@@ -2205,6 +2232,9 @@
       {
          "PutRequest" : {
             "Item" : {
+               "closed_vulnerabilities": {
+                  "N" : "0"
+               },
                "companies" : {
                   "L" : [
                      {
@@ -2363,6 +2393,12 @@
                   "N" : "0"
                },
                "mean_remediate_medium_severity" : {
+                  "N" : "0"
+               },
+               "open_findings": {
+                  "N" : "0"
+               },
+               "open_vulnerabilities": {
                   "N" : "0"
                },
                "project_name" : {
@@ -2545,6 +2581,9 @@
       {
          "PutRequest" : {
             "Item" : {
+               "closed_vulnerabilities": {
+                  "N" : "0"
+               },
                "companies" : {
                   "L" : [
                      {
@@ -2599,7 +2638,13 @@
                         }
                     }
                   ]
-                },
+               },
+               "open_findings": {
+                  "N" : "0"
+               },
+               "open_vulnerabilities": {
+                  "N" : "0"
+               },
                "project_name" : {
                   "S" : "pendingproject"
                },
