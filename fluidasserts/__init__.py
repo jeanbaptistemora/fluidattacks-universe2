@@ -253,6 +253,15 @@ class Unit():
 
         return result
 
+    def __eq__(self, value):
+        return self.__hash__() == hash(value)
+
+    def __hash__(self):
+        objects = [self.where, self.source,
+                   self.fingerprint, self.as_dict().get('specific')]
+        str_hash = ''.join([str(x) for x in objects if x])
+        return hash(str_hash)
+
 
 class Result():
     """API response class."""
@@ -316,12 +325,12 @@ class Result():
 
     def set_vulns(self, vulns: List[Unit]) -> bool:
         """Set the vulns."""
-        self.vulns: List[Unit] = vulns
+        self.vulns: List[Unit] = list(set(vulns))
         return True
 
     def set_safes(self, safes: List[Unit]) -> bool:
         """Set the safes."""
-        self.safes: List[Unit] = safes
+        self.safes: List[Unit] = list(set(safes))
         return True
 
     def get_vulns_number(self) -> int:

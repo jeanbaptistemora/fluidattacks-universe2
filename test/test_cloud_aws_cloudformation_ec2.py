@@ -4,8 +4,8 @@
 from fluidasserts.cloud.aws.cloudformation import ec2
 
 # 3rd party imports
-import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')
+import pytest  # pylint: disable=E0401
+pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')  # pylint: disable=C0103,C0301 # noqa: E501
 
 # Constants
 SAFE: str = 'test/static/cloudformation/safe'
@@ -35,7 +35,7 @@ def test_has_unrestricted_ip_protocols():
     """test ec2.has_unrestricted_ip_protocols."""
     result = ec2.has_unrestricted_ip_protocols(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 6
+    assert result.get_vulns_number() == 2 * 3
     assert ec2.has_unrestricted_ip_protocols(SAFE).is_closed()
     assert ec2.has_unrestricted_ip_protocols(NOT_EXISTS).is_unknown()
 
@@ -44,7 +44,7 @@ def test_has_unrestricted_ports():
     """test ec2.has_unrestricted_ports."""
     result = ec2.has_unrestricted_ports(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 4
+    assert result.get_vulns_number() == 2 * 3
     assert ec2.has_unrestricted_ports(SAFE).is_closed()
     assert ec2.has_unrestricted_ports(NOT_EXISTS).is_unknown()
 
