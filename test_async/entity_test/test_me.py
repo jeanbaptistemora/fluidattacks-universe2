@@ -78,7 +78,7 @@ class MeTests(TestCase):
             mutation {
                 signIn(
                     authToken: "badtoken",
-                    provider: "google"
+                    provider: GOOGLE
                 ) {
                     authorized
                     sessionJwt
@@ -102,8 +102,8 @@ class MeTests(TestCase):
             key=settings.JWT_SECRET,
         )
         _, result = await graphql(SCHEMA, data, context_value=request)
-        assert 'errors' in result
-        assert result['errors'][0]['message'] == 'INVALID_AUTH_TOKEN'
+        assert 'errors' not in result
+        assert not result['data']['signIn']['success']
 
     @pytest.mark.changes_db
     async def test_update_access_token(self):

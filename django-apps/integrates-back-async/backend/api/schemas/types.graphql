@@ -408,3 +408,7 @@ enum UserRole {
     RESOURCER
     REVIEWER
 }
+
+enum AuthProvider {
+    GOOGLE
+}

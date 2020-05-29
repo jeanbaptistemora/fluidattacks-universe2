@@ -56,12 +56,12 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
     const result: IAuthResult = await authWithGoogle();
     if (result.type === "success") {
       history.replace("/Welcome", {
-        authProvider: "google",
+        authProvider: "GOOGLE",
         ...result,
       });
+    } else {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const handleUpdateButtonClick: (() => void) = async (): Promise<void> => {

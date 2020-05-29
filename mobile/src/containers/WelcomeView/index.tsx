@@ -18,7 +18,7 @@ import { IAuthState, ISignInResult } from "./types";
 const welcomeView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
   const history: ReturnType<typeof useHistory> = useHistory();
-  const { authProvider, idToken, user } = history.location.state as IAuthState;
+  const { authProvider, authToken, user } = history.location.state as IAuthState;
 
   const handleLogout: (() => void) = async (): Promise<void> => {
     await SecureStore.deleteItemAsync("integrates_session");
@@ -50,7 +50,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
       rollbar.error("API auth failed", error);
       Alert.alert(t("common.error.title"), t("common.error.msg"));
     },
-    variables: { authToken: idToken, provider: authProvider },
+    variables: { authToken, provider: authProvider },
   });
 
   // Side effects

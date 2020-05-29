@@ -9,12 +9,11 @@ from __init__ import (
 )
 
 
-def get_upn(strategy, details, backend, user, *args, **kwargs):
+def get_upn(strategy, details, backend, *args, **kwargs):
     # When using a personal Microsoft account,
     # upn does not exist in response
     del strategy
     del details
-    del user
     del args
     if (getattr(backend, 'name', None) == 'azuread-oauth2' and
             not kwargs['response'].get('upn')):

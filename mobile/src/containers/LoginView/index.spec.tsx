@@ -86,7 +86,9 @@ describe("LoginView", (): void => {
       type: "success",
       user: {
         email: "test@fluidattacks.com",
-        givenName: "Unit test",
+        familyName: "Doe",
+        givenName: "John",
+        name: "JOHN DOE",
       },
     }));
 
@@ -114,12 +116,14 @@ describe("LoginView", (): void => {
     });
     expect(mockHistoryReplace)
       .toHaveBeenCalledWith("/Welcome", {
-        authProvider: "google",
-        idToken: "abc123",
+        authProvider: "GOOGLE",
+        authToken: "abc123",
         type: "success",
         user: {
           email: "test@fluidattacks.com",
-          firstName: "Unit test",
+          firstName: "John",
+          fullName: "John Doe",
+          lastName: "Doe",
         },
       });
   });

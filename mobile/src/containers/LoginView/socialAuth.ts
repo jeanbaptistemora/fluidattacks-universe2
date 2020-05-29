@@ -1,4 +1,5 @@
 import * as Google from "expo-google-app-auth";
+import _ from "lodash";
 import { Alert, Platform } from "react-native";
 
 import {
@@ -38,14 +39,14 @@ export interface IUser {
   firstName: string;
   fullName: string;
   id: string;
-  lastName: string;
+  lastName?: string;
   photoUrl?: string;
 }
 
 export type IAuthResult = {
   type: "cancel";
 } | {
-  idToken: string | null;
+  authToken: string | null;
   type: "success";
   user: IUser;
 };
@@ -64,14 +65,14 @@ export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IA
 
     if (logInResult.type === "success") {
       authResult = {
-        idToken: logInResult.idToken,
+        authToken: logInResult.accessToken,
         type: "success",
         user: {
           email: logInResult.user.email as string,
-          firstName: logInResult.user.givenName as string,
-          fullName: logInResult.user.name as string,
+          firstName: _.capitalize(logInResult.user.givenName),
+          fullName: _.startCase(logInResult.user.name?.toLowerCase()),
           id: logInResult.user.id as string,
-          lastName: logInResult.user.familyName as string,
+          lastName: logInResult.user.familyName,
           photoUrl: logInResult.user.photoUrl,
         },
       };

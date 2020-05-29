@@ -1,10 +1,12 @@
 import asyncio
-from datetime import datetime, timedelta
 import json
 import sys
-
+from datetime import datetime, timedelta
 from collections import defaultdict
 from typing import Dict, List, Set
+
+import rollbar
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import require_login, enforce_user_level_auth_async
@@ -21,17 +23,11 @@ from backend.typing import (
 )
 from backend import util
 from backend import authz
-
 from django.conf import settings
-from google.auth.transport import requests
-from google.oauth2 import id_token
-from graphql import GraphQLError
 from jose import jwt
-import rollbar
-
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
-
-from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
+from social_core.exceptions import AuthException
+from social_django.utils import load_strategy
+from social_django.utils import load_backend
 
 
 async def _get_role(_, user_email: str,
@@ -180,53 +176,36 @@ async def resolve_me_mutation(obj, info, **parameters):
 
 async def _do_sign_in(
         _, info, auth_token: str, provider: str) -> SignInPayloadType:
-    """Resolve sign_in mutation."""
+    """ Sign in with an OAuth2 access token """
     authorized = False
     session_jwt = ''
     success = False
 
-    if provider == 'google':
-        try:
-            user_info = await sync_to_async(id_token.verify_oauth2_token)(
-                auth_token, requests.Request())
-
-            if user_info['iss'] not in ['accounts.google.com',
-                                        'https://accounts.google.com']:
-                await sync_to_async(rollbar.report_message)(
-                    'Error: Invalid oauth2 issuer',
-                    'error', info.context, user_info['iss'])
-                raise GraphQLError('INVALID_AUTH_TOKEN')
-            if user_info['aud'] not in [FI_GOOGLE_OAUTH2_KEY_ANDROID,
-                                        FI_GOOGLE_OAUTH2_KEY_IOS]:
-                await sync_to_async(rollbar.report_message)(
-                    'Error: Invalid oauth2 audience',
-                    'error', info.context, user_info['aud'])
-                raise GraphQLError('INVALID_AUTH_TOKEN')
-            email = user_info['email']
-            authorized = await sync_to_async(user_domain.is_registered)(email)
-            session_jwt = jwt.encode(
-                {
-                    'user_email': email,
-                    'company': user_domain.get_data(email, 'company'),
-                    'first_name': user_info['given_name'],
-                    'last_name': user_info['family_name'],
-                    'exp': datetime.utcnow() +
-                    timedelta(seconds=settings.SESSION_COOKIE_AGE)
-                },
-                algorithm='HS512',
-                key=settings.JWT_SECRET,
-            )
-            success = True
-        except ValueError:
-            util.cloudwatch_log(
-                info.context,
-                'Security: Sign in attempt '
-                'using invalid Google token')  # pragma: no cover
-            raise GraphQLError('INVALID_AUTH_TOKEN')
-    else:
-        await sync_to_async(rollbar.report_message)(
-            'Error: Unknown auth provider' + provider, 'error')
-        raise GraphQLError('UNKNOWN_AUTH_PROVIDER')
+    try:
+        strategy = load_strategy(info.context)
+        auth_backend = load_backend(
+            strategy=strategy, name=provider, redirect_uri=None)
+        user = await sync_to_async(auth_backend.do_auth)(auth_token)
+        authorized = await sync_to_async(user_domain.is_registered)(user.email)
+        session_jwt = jwt.encode(
+            {
+                'user_email': user.email,
+                'company': user_domain.get_data(user.email, 'company'),
+                'first_name': getattr(user, 'first_name'),
+                'last_name': getattr(user, 'last_name'),
+                'exp': datetime.utcnow() +
+                timedelta(seconds=settings.SESSION_COOKIE_AGE)
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        success = True
+    except AuthException as ex:
+        rollbar.report_message(
+            f'Couldn\'t perform social auth with {provider}',
+            level='error',
+            extra_data=ex,
+            payload_data=locals())
 
     return SignInPayloadType(
         authorized=authorized,

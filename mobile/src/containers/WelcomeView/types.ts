@@ -5,7 +5,7 @@ import { IUser } from "../LoginView/socialAuth";
  */
 export interface IAuthState {
   authProvider: string;
-  idToken: string;
+  authToken: string;
   user: IUser;
 }
 
