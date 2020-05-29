@@ -4,7 +4,6 @@ import os
 from fpdf import FPDF
 from PyPDF4 import PdfFileWriter, PdfFileReader
 from backend.dal import project as project_dal
-from backend.utils.passphrase import get_passphrase
 
 
 class PDF(FPDF):
@@ -32,7 +31,7 @@ class SecurePDF():
     secure_pdf_filename = ''
     passphrase = ''
 
-    def __init__(self):
+    def __init__(self, passphrase: str):
         """Class constructor."""
         self.base = '/usr/src/app/app/documentator/'
         self.watermark_tpl = os.path.join(
@@ -42,6 +41,7 @@ class SecurePDF():
             self.base,
             'resources/themes/overlay_footer.pdf')
         self.result_dir = os.path.join(self.base, 'results/')
+        self.passphrase = passphrase
 
     def create_full(self, usermail: str, basic_pdf_name: str, project: str) -> str:
         """ Execute the security process in a PDF. """
@@ -84,7 +84,6 @@ class SecurePDF():
     def lock(self, in_filename: str) -> str:
         """  Add a passphrase to a PDF. """
         pdf_foutname = self.secure_pdf_username + '_' + in_filename
-        self.passphrase = get_passphrase(4)
         output = PdfFileWriter()
         input = PdfFileReader(open(self.result_dir + in_filename, 'rb')) # noqa
         for i in range(0, input.getNumPages()):

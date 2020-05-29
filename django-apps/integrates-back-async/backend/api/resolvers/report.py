@@ -44,8 +44,11 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
     if report_type == 'PDF':
         asyncio.create_task(
             sync_to_async(report_domain.generate_pdf_report)(
-                project_name, user_email, parameters.get('lang', 'en'),
-                findings_ord, description
+                description=description,
+                findings_ord=findings_ord,
+                group_name=project_name,
+                lang=parameters.get('lang', 'en'),
+                user_email=user_email,
             )
         )
         success = True
@@ -55,7 +58,9 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
     elif report_type == 'XLS':
         asyncio.create_task(
             sync_to_async(report_domain.generate_xls_report)(
-                project_name, user_email, findings_ord
+                findings_ord=findings_ord,
+                group_name=project_name,
+                user_email=user_email,
             )
         )
         success = True

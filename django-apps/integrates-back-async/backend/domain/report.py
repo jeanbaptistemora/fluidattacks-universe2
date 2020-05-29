@@ -1,42 +1,98 @@
+# Standard library
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
-from typing import cast, Dict, List
+# Local libraries
 from backend.typing import Finding as FindingType
 from backend.utils import reports
-from backend.dal import finding as finding_dal, report as report_dal
+from backend.dal import (
+    finding as finding_dal,
+    report as report_dal,
+)
 from backend.utils.passphrase import get_passphrase
 from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
 from app.techdoc.it_report import ITReport
 
 
-def generate_pdf_report(project_name: str, user_email: str, lang: str,
-                        findings_ord: List[Dict[str, FindingType]], description: str):
+def _generate_pdf_report_file(
+    *,
+    description: str,
+    findings_ord: List[Dict[str, FindingType]],
+    group_name: str,
+    lang: str,
+    passphrase: str,
+    user_email: str,
+) -> str:
     pdf_maker = CreatorPDF(lang, 'tech')
-    secure_pdf = SecurePDF()
+    secure_pdf = SecurePDF(passphrase)
     findings = pdf_evidences(findings_ord)
     report_filename = ''
-    pdf_maker.tech(findings, project_name, description, user_email)
+    pdf_maker.tech(findings, group_name, description, user_email)
     report_filename = secure_pdf.create_full(user_email,
                                              pdf_maker.out_name,
-                                             project_name)
+                                             group_name)
+
+    return report_filename
+
+
+def generate_pdf_report(
+    *,
+    description: str,
+    findings_ord: List[Dict[str, FindingType]],
+    group_name: str,
+    lang: str,
+    user_email: str,
+):
+    passphrase = get_passphrase(4)
+
+    report_filename = _generate_pdf_report_file(
+        description=description,
+        findings_ord=findings_ord,
+        group_name=group_name,
+        lang=lang,
+        passphrase=passphrase,
+        user_email=user_email,
+    )
+
     uploaded_file_name = report_dal.upload_report(report_filename)
     signed_url = report_dal.sign_url(uploaded_file_name)
     reports.send_project_report_email(user_email,
-                                      project_name.lower(),
-                                      secure_pdf.passphrase, 'PDF',
+                                      group_name,
+                                      passphrase, 'PDF',
                                       signed_url)
 
 
-def generate_xls_report(project_name: str, user_email: str,
-                        findings_ord: List[Dict[str, FindingType]]):
+def _generate_xls_report(
+    findings_ord: List[Dict[str, FindingType]],
+    passphrase: str,
+):
     it_report = ITReport(data=findings_ord)
     filepath = it_report.result_filename
+    reports.set_xlsx_passphrase(filepath, passphrase)
+
+    return filepath
+
+
+def generate_xls_report(
+    findings_ord: List[Dict[str, FindingType]],
+    group_name: str,
+    user_email: str,
+):
     passphrase = get_passphrase(4)
-    reports.set_xlsx_passphrase(filepath, str(passphrase))
-    uploaded_file_name = report_dal.upload_report(filepath)
+
+    report_filename = _generate_xls_report(
+        findings_ord=findings_ord,
+        passphrase=passphrase,
+    )
+
+    uploaded_file_name = report_dal.upload_report(report_filename)
     signed_url = report_dal.sign_url(uploaded_file_name)
     reports.send_project_report_email(user_email,
-                                      project_name.lower(),
+                                      group_name,
                                       passphrase, 'XLS', signed_url)
 
 
