@@ -190,8 +190,10 @@ async def _get_projects(info, email: str,
 async def resolve(info, email: str, project_name: str, as_field: bool = False,
                   selection_set: object = None) -> UserType:
     """Async resolve of fields."""
-    email = await _get_email(info, email)
-    role: dict = await _get_role(info, email, project_name=project_name)
+    email_task = asyncio.create_task(_get_email(info, email))
+    role_task = asyncio.create_task(_get_role(info, email,
+                                              project_name=project_name))
+    email, role = tuple(await asyncio.gather(email_task, role_task))
 
     if project_name and role:
         if not user_domain.get_data(email, 'email') or \
