@@ -182,11 +182,13 @@ class Batcher:  # noqa: H238
         node_name = self.template['__node_name__']
 
         statement = (f"CREATE ({alias}:{node_name} {{path: $path}})\n")
-        statement += (
-            f"CREATE ({alias})-[:HAS]->(:Attribute:AWSTemplateFormatVersion"
-            " {value: $version})\n"
-            f"CREATE ({alias})-[:HAS]->(:Attribute:Description"
-            " {value: $description})\n")
+        statement += f"""
+            CREATE ({alias})-[:HAS]->(:Attribute:AWSTemplateFormatVersion
+                {{value: $version}})
+            CREATE ({alias})-[:HAS]->(:Attribute:Description
+             {{value: $description}})
+             """
+
         self.statement_params.update({
             'path': self.path,
             'version': version,
@@ -203,15 +205,15 @@ class Batcher:  # noqa: H238
             if attr_name.startswith('__'):
                 continue
             alias_attr_name = create_alias(attr_name)
-            attr_properties = (
-                f"{{name: $param_{alias_param}_{alias_attr_name}_name, "
-                f"value: $param_{alias_param}_{alias_attr_name}_value}}")
-            statement += (
-                # create relationship between attribute and parameter
-                f"CREATE (param_{alias_param})-"
-                f"[rel_{alias_param}_{alias_attr_name}:HAS"
-                f" {{line: $param_{alias_param}_{alias_attr_name}_line\n}}]->"
-                f"(:Attribute:{create_label(attr_name)} {attr_properties})\n")
+
+            statement += f"""
+                // create relationship between attribute and parameter
+                CREATE (param_{alias_param})-[:HAS]->
+                (:Attribute:{create_label(attr_name)}
+                {{name: $param_{alias_param}_{alias_attr_name}_name,
+                value: $param_{alias_param}_{alias_attr_name}_value,
+                line: $param_{alias_param}_{alias_attr_name}_line}})
+                """
 
             line = _get_line(param_attrs, attr_name)
 
@@ -236,13 +238,14 @@ class Batcher:  # noqa: H238
             if opt_name.startswith('__'):
                 continue
             alias_opt = create_alias(opt_name, True)
-            map_properties = (f"{{name: $map_{alias_map}_{alias_opt}_name}}")
 
-            statement += (f"CREATE (map_{alias_map})-"
-                          f"[rel_{alias_map}_{alias_opt}:HAS"
-                          f" {{line: $map_{alias_map}_{alias_opt}_line}}]->"
-                          f"({alias_map}_{alias_opt}_:MapOption:"
-                          f"{create_label(opt_name)} {map_properties})\n")
+            statement += f"""
+                        CREATE (map_{alias_map})-[:HAS]->
+                        ({alias_map}_{alias_opt}_:MapOption:
+                        {create_label(opt_name)} {{name:
+                            $map_{alias_map}_{alias_opt}_name,
+                            line: $map_{alias_map}_{alias_opt}_line}})
+                        """
 
             line = _get_line(map_options, opt_name)
             self.statement_params.update({
@@ -258,19 +261,19 @@ class Batcher:  # noqa: H238
                     continue
                 line_var = _get_line(map_options[opt_name], var_name)
 
-                statement += (
-                    f"MERGE ({alias_map}_{alias_opt}_)-"
-                    f"[rel_{alias_map}_{alias_opt}_{var_name}:HAS"
-                    f"{{line: $rel_{alias_map}_{alias_opt}_{var_name}_line}}]-"
-                    f"(:MapVar:{create_alias(var_name)} "
-                    f"{{name: ${alias_map}_{alias_opt}_{var_name}_name,"
-                    f" value: ${alias_map}_{alias_opt}_{var_name}_value}})\n")
+                statement += f"""
+                    MERGE ({alias_map}_{alias_opt}_)-[:HAS]-
+                    (:MapVar:{create_alias(var_name)}
+                    {{name: ${alias_map}_{alias_opt}_{var_name}_name,
+                     value: ${alias_map}_{alias_opt}_{var_name}_value,
+                    line: ${alias_map}_{alias_opt}_{var_name}_line}})
+                    """
                 self.statement_params.update({
                     f'{alias_map}_{alias_opt}_{var_name}_name':
                     var_name,
                     f'{alias_map}_{alias_opt}_{var_name}_value':
                     var_value,
-                    f'rel_{alias_map}_{alias_opt}_{var_name}_line':
+                    f'{alias_map}_{alias_opt}_{var_name}_line':
                     line_var
                 })
 
@@ -287,11 +290,12 @@ class Batcher:  # noqa: H238
             '__node_alias__'] = "params"
 
         node_template_name = self.template['__node_name__']
-        statement = (f"MATCH (template:{node_template_name})\n"
-                     f'WHERE template.path = "{self.path}"\n'
-                     f"CREATE (template)-"
-                     f"[:CONTAINS {{line: ${alias_parameters}_line}}]->"
-                     f"({alias_parameters}:Parameters)\n")
+        statement = f"""
+                    MATCH (template:{node_template_name})
+                    WHERE template.path = "{self.path}"
+                    CREATE (template)-[:HAS]->({alias_parameters}:Parameters
+                    {{line: ${alias_parameters}_line}})
+                    """
         self.statement_params[f'{alias_parameters}_line'] = get_line(
             self.template['Parameters'])
 
@@ -300,17 +304,18 @@ class Batcher:  # noqa: H238
                 continue
             alias_param = create_alias(param_name)
             # create the node for the parameter
-            param_statement = (
-                f"CREATE ({alias_parameters})-"
-                f"[:DECLARE {{line: $rel_{alias_param}_line}}]->"
-                f"(param_{alias_param}:Reference:Parameter:"
-                f"{create_label(param_name)}"
-                # set attributes of node
-                f" {{logicalName: $param_{alias_param}}})\n")
+            param_statement = f"""
+                CREATE ({alias_parameters})-[:HAS]->
+                (param_{alias_param}:Reference:Parameter:
+                {create_label(param_name)}
+                // set attributes of nod
+                 {{logicalName: $param_{alias_param},
+                 line: ${alias_param}_line}})
+                """
             self.statement_params.update({
                 f'param_{alias_param}':
                 param_name,
-                f'rel_{alias_param}_line':
+                f'{alias_param}_line':
                 get_line(self.template['Parameters'][param_name])
             })
             # add parameter attributes
@@ -331,12 +336,14 @@ class Batcher:  # noqa: H238
             '__node_alias__'] = "mappings"
         node_template_name = self.template['__node_name__']
 
-        statement = (f"MATCH (template:{node_template_name})\n"
-                     f'WHERE template.path = "{self.path}"\n'
-                     f"CREATE (template)-"
-                     f"[:CONTAINS {{line: $rel_{alias_mappings}_line}}]->"
-                     f"({alias_mappings}:Mappings)\n")
-        self.statement_params[f'rel_{alias_mappings}_line'] = get_line(
+        statement = f"""
+                    MATCH (template:{node_template_name})
+                    WHERE template.path = "{self.path}"
+                    CREATE (template)-[:HAS ]->
+                    ({alias_mappings}:Mappings
+                    {{line: ${alias_mappings}_line}})
+                    """
+        self.statement_params[f'{alias_mappings}_line'] = get_line(
             self.template['Mappings'])
 
         for map_name, map_options in self.template['Mappings'].items():
@@ -349,14 +356,15 @@ class Batcher:  # noqa: H238
                     alias_mappings, map_name, map_options, contexts, line)
                 continue
             alias_map = create_alias(map_name)
-            map_statement = (
-                f"CREATE ({alias_mappings})-[:DECLARE"
-                f" {{line: $rel_{alias_map}_line}}]->"
-                f"(map_{alias_map}:Mapping:{create_label(map_name)}"
-                f" {{name: $map_name_{alias_map}}})\n")
+            map_statement = f"""
+                CREATE ({alias_mappings})-[:HAS]->
+                (map_{alias_map}:Mapping:{create_label(map_name)}
+                {{name: $map_name_{alias_map}, line: ${alias_map}_line}})
+                """
+
             self.statement_params.update({
                 f'map_name_{alias_map}': map_name,
-                f'rel_{alias_map}_line': line
+                f'{alias_map}_line': line
             })
 
             map_statement += self._load_map_options((map_name, map_options))
@@ -377,13 +385,14 @@ class Batcher:  # noqa: H238
             '__node_alias__'] = "conditions_node"
         node_template_name = self.template['__node_name__']
         # create relationship between templeate and node conditions
-        statement = (f"MATCH (template:{node_template_name})\n"
-                     f'WHERE template.path = "{self.path}"\n'
-                     f"CREATE (template)-[:CONTAINS"
-                     f" {{line: $rel_{alias_conditions}_line}}]->"
-                     f"({alias_conditions}:Conditions)\n")
+        statement = f"""
+                MATCH (template:{node_template_name})
+                WHERE template.path = "{self.path}"
+                CREATE (template)-[:HAS]->({alias_conditions}:Conditions
+                {{line: ${alias_conditions}_line}})
+                """
 
-        self.statement_params[f'rel_{alias_conditions}_line'] = get_line(
+        self.statement_params[f'{alias_conditions}_line'] = get_line(
             self.template['Conditions'])
         # Create create relationship between contition nodes and each condition
         for con_name, condition in self.template['Conditions'].items():
@@ -395,14 +404,16 @@ class Batcher:  # noqa: H238
                     alias_conditions, con_name, condition, contexts)
                 continue
             alias_con = create_alias(f"con_{con_name}")
-            statement += (f"CREATE ({alias_conditions})-"
-                          f"[:DECLARE {{line: $rel_{alias_con}_line}}]->"
-                          f"({alias_con}:Condition:{create_label(con_name)} "
-                          f"{{name: $con_name_{alias_con}}})\n")
+            statement += f"""
+                    CREATE ({alias_conditions})-[:HAS]->
+                    ({alias_con}:Condition:{create_label(con_name)}
+                    {{name: $con_name_{alias_con},
+                    line: ${alias_con}_line}})
+                    """
             self.statement_params.update({
                 f'con_name_{alias_con}':
                 con_name,
-                f'rel_{alias_con}_line':
+                f'{alias_con}_line':
                 _get_line(self.template['Conditions'], con_name)
             })
 
@@ -415,11 +426,12 @@ class Batcher:  # noqa: H238
                 continue
             alias_condition = create_alias(f"con_{con_name}")
             # create reference to condition
-            statement_condition = (
-                f"MATCH (template:{node_template_name})-[*]->"
-                f"({alias_condition}:Condition)\n"
-                f"WHERE template.path = '{self.path}' AND "
-                f" {alias_condition}.name = ${alias_condition}_value\n")
+            statement_condition = f"""
+                MATCH (template:{node_template_name})-[*]->
+                ({alias_condition}:Condition)
+                WHERE template.path = '{self.path}' AND
+                {alias_condition}.name = ${alias_condition}_value
+                """
             self.statement_params[f'{alias_condition}_value'] = con_name
             # create relationship between the condition and the function it
             #  executes
@@ -438,11 +450,12 @@ class Batcher:  # noqa: H238
         node_template_name = self.template['__node_name__']
         # create relationship between templeate and node conditions
         sts = []
-        statement = (f"MATCH (template:{node_template_name})\n"
-                     f'WHERE template.path = "{self.path}"\n'
-                     f"MERGE (template)-[:CONTAINS "
-                     f"{{line: ${alias_resours}_line}}]->"
-                     f"({alias_resours}:Resources)\n")
+        statement = f"""
+            MATCH (template:{node_template_name})
+            WHERE template.path = "{self.path}"
+            MERGE (template)-[:HAS]->({alias_resours}:Resources
+            {{line: ${alias_resours}_line}})
+                """
         self.statement_params[f'{alias_resours}_line'] = get_line(
             self.template['Resources'])
 
@@ -462,7 +475,7 @@ class Batcher:  # noqa: H238
                     self.template['Resources'][resource_name], contexts)
                 sts.append(statement)
             else:
-                sts.append(self._load_resource(resource_name))
+                sts.extend(self._load_resource(resource_name))
         return sts
 
     def load_outputs(self) -> str:
@@ -475,13 +488,14 @@ class Batcher:  # noqa: H238
         alias_outputs = self.template['Outputs'][
             '__node_alias__'] = "resources_node"
         node_template_name = self.template['__node_name__']
-        statement = (f"MATCH (template:{node_template_name})\n"
-                     f'WHERE template.path = $template_path\n'
-                     f"CREATE (template)-[:CONTAINS "
-                     f"{{line: $rel_{alias_outputs}_line}}]->"
-                     f"({alias_outputs}:Outputs)\n")
+        statement = f"""
+                MATCH (template:{node_template_name})
+                WHERE template.path = $template_path
+                CREATE (template)-[:HAS]->({alias_outputs}:Outputs
+                 {{line: ${alias_outputs}_line}})
+                     """
         self.statement_params.update({
-            f'rel_{alias_outputs}_line':
+            f'{alias_outputs}_line':
             get_line(self.template['Outputs']),
             'template_path':
             self.path
@@ -496,24 +510,28 @@ class Batcher:  # noqa: H238
                                                       out_value, contexts)
                 continue
             alias_out = create_alias(out_name, True)
-            statement += (f"CREATE ({alias_outputs})-"
-                          f"[:DECLARE {{line: $rel_{alias_out}_line}}]->"
-                          f"({alias_out}:Output:{create_label(out_name)} "
-                          f"{{Description: $out_desc{alias_out}}})\n")
+            statement += f"""
+                CREATE ({alias_outputs})-[:HAS]->(
+                    {alias_out}:Output:{create_label(out_name)}
+                {{Description: $out_desc{alias_out},
+                 line: ${alias_out}_line}})\n
+                          """
             contexts.add(alias_out)
             line = _get_line(self.template['Outputs'], out_name)
             self.statement_params.update({
                 f'out_name{alias_out}':
                 out_name,
-                f'rel_{alias_out}_line':
+                f'{alias_out}_line':
                 line,
                 f'out_desc{alias_out}':
                 out_value.get('Description', 'nothing')
             })
 
             alias_value = create_alias(f'{alias_out}_value')
-            statement += (f"CREATE ({alias_out})-[:HAS]->"
-                          f"({alias_value}:Attribute:Value)\n")
+            statement += f"""
+                CREATE ({alias_out})-[:HAS]->({alias_value}:Attribute:Value)
+                    """
+
             contexts.add(alias_value)
             if isinstance(out_value['Value'], (int, str, bool)):
                 statement += (
@@ -529,8 +547,10 @@ class Batcher:  # noqa: H238
             if 'Export' in out_value:
                 alias_export = create_alias(f'{alias_out}_export')
                 contexts.add(alias_export)
-                statement += (f"CREATE ({alias_out})-[:HAS]->"
-                              f"({alias_export}:Attribute:Export)\n")
+                statement += f"""
+                    CREATE ({alias_out})-[:HAS]->(
+                        {alias_export}:Attribute:Export)
+                        """
                 if isinstance(out_value['Export'], (int, str, bool)):
                     statement += (
                         f'SET {alias_export}.value = ${alias_export}_value\n')
@@ -542,25 +562,26 @@ class Batcher:  # noqa: H238
                         (alias_export, out_value['Export']), contexts, line)
         return statement
 
-    def _load_resource(self, resource_name) -> str:
+    def _load_resource(self, resource_name) -> List[str]:
         alias_resources = "resources_node"
         alias_template = self.template['__node_alias__']
         node_template_name = self.template['__node_name__']
         resource = self.template['Resources'][resource_name]
         resource_node = resource['Type'].replace('::', ':')
         res_alias = create_alias(resource_name, True)
-        contexts = {res_alias}
-        statement = (
-            f"MATCH ({alias_template}:{node_template_name})-[:CONTAINS]->"
-            f"({alias_resources}:Resources)"
-            f'WHERE {alias_template}.path = "{self.path}"\n'
-            f"CREATE ({alias_resources})-[:DECLARE "
-            f"{{line: ${res_alias}_line}}]->"
-            f"({res_alias}:Reference:{resource_node}:{resource_name} {{"
-            f"Name:${res_alias}_name, logicalName:${res_alias}_name}})-"
-            f"[:HAS {{line: ${res_alias}props_line}}]->"
-            f"({res_alias}props:Properties)\n")
 
+        sts = []
+        statement = f"""
+            MATCH ({alias_template}:{node_template_name})-[:HAS]->
+            ({alias_resources}:Resources)
+            WHERE {alias_template}.path = "{self.path}"
+            CREATE ({alias_resources})-[:HAS]->({res_alias}:Reference:
+                {resource_node}:{resource_name} {{
+            Name:${res_alias}_name, logicalName:${res_alias}_name,
+             line: ${res_alias}_line}})-[:HAS]->({res_alias}props:Properties
+                {{line: ${res_alias}props_line}})
+            """
+        sts.append(statement)
         self.statement_params.update({f'{res_alias}_name': resource_name})
         line = _get_line(self.template['Resources'], resource_name)
         self.statement_params[f'{res_alias}_line'] = line
@@ -572,18 +593,23 @@ class Batcher:  # noqa: H238
                 continue
             prop_alias = create_alias(f'{res_alias}_{prop_name}', True)
             line = _get_line(resource['Properties'], prop_name) or line
-            contexts.add(prop_alias)
+            contexts = {prop_alias}
 
-            statement += (
-                f"CREATE ({res_alias}props)-[:HAS "
-                f"{{line: ${prop_alias}_line}}]->({prop_alias}:{prop_name} {{"
-                f"name: ${prop_alias}_name}})\n")
+            statement = f"""
+                MATCH (template:{node_template_name})-[*]->
+                (resource: Reference)-[*]->(properties:Properties)
+                WHERE template.path = '{self.path}' AND
+                resource.logicalName = ${res_alias}_name
+                CREATE (properties)-[:HAS]->({prop_alias}:{prop_name} {{
+                name: ${prop_alias}_name, line: ${prop_alias}_line}})
+                """
             self.statement_params[f'{prop_alias}_name'] = prop_name
             self.statement_params[f'{prop_alias}_line'] = line
             statement += self._load_resource_property((prop_alias, prop_value),
                                                       contexts, line)
+            sts.append(statement)
         self.template['Resources'][resource_name]['__loaded__'] = True
-        return statement
+        return sts
 
     def _load_resource_property(self,
                                 property_: tuple,
@@ -608,11 +634,11 @@ class Batcher:  # noqa: H238
                 contexts.add(attr_alias)
                 line = _get_line(prop_value, key) or line
                 property_name = key.replace('-', '__')
-                statement += (
-                    f"CREATE ({prop_alias})-"
-                    f"[:HAS {{line: ${attr_alias}_line}}]->"
-                    f"({attr_alias}:PropertyAttribute:"
-                    f"{create_label(property_name)})\n")
+                statement += f"""
+                    CREATE ({prop_alias})-[:HAS]->(
+                        {attr_alias}:PropertyAttribute:
+                    {create_label(property_name)} {{line: ${attr_alias}_line}})
+                    """
                 self.statement_params[f'{attr_alias}_line'] = line
                 statement += self._load_resource_property((attr_alias, value),
                                                           contexts, line)
@@ -621,10 +647,10 @@ class Batcher:  # noqa: H238
             for idx, value in enumerate(prop_value):
                 alias_item = create_alias(f'{prop_alias}_{idx}', True)
                 line = _get_line(prop_value, idx) or line
-                statement += (
-                    f"CREATE ({prop_alias})-"
-                    f"[:HAS {{line: ${alias_item}_line}}]->({alias_item}:Item"
-                    f" {{index: {idx}}})\n")
+                statement += f"""
+                    CREATE ({prop_alias})-[:HAS]->({alias_item}:Item
+                        {{index: {idx}, line: ${alias_item}_line}})
+                    """
                 self.statement_params[f'{alias_item}_line'] = line
                 contexts.add(alias_item)
                 statement += self._load_resource_property((alias_item, value),
@@ -698,10 +724,11 @@ class Batcher:  # noqa: H238
         alias_fn = create_alias("fn_base_base64", True)
         alias_value = create_alias(f'{alias_fn}_value')
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}: Fn:Base64)-[:HAS {line_sts}]->"
-                     f"({alias_value}:Value:ValueToEncode)\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:Base64
+                {{line: ${alias_fn}_line}})-[:HAS]->
+            ({alias_value}:Value:ValueToEncode {{line: ${alias_fn}_line}})
+                """
         self.statement_params[f'{alias_fn}_line'] = line
         contexts.update([alias_fn, alias_value])
 
@@ -731,36 +758,36 @@ class Batcher:  # noqa: H238
         statement = ""
         if logical_name in self.template['Resources'].keys(
         ) and '__loaded__' not in self.template['Resources'][logical_name]:
-            self.statements.append(self._load_resource(logical_name))
+            self.statements.extend(self._load_resource(logical_name))
 
-        line_sts = f'{{line: ${ref_alias}_line}}'
         self.statement_params[f'{ref_alias}_line'] = line
         if not direct_reference:
             contexts.update([ref_alias])
             contexts_str = ', '.join(contexts)
-            statement += (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                          f"({ref_alias}:Ref {{logicalName: "
-                          f"${ref_alias}_log_name}})\n"
-                          f"WITH {contexts_str}\n")
+            statement += f"""
+                CREATE ({resource_id})-[:EXECUTE_FN]->({ref_alias}:Ref
+                {{logicalName:${ref_alias}_log_name, line:${ref_alias}_line}})
+                WITH {contexts_str}
+                """
         else:
             ref_alias = resource_id
             contexts.add(ref_alias)
 
         param_alias = create_alias(f'ref_{resource_id}_{logical_name}')
         if not logical_name.startswith('AWS::'):
-            statement += (
-                f"MATCH (template:{node_template_name})-[*]->"
-                f"({param_alias}: Reference)\n"
-                f"WHERE template.path = '{self.path}' AND "
-                f"{param_alias}.logicalName = ${param_alias}_name\n"
-                f"CREATE ({ref_alias})-[:REFERENCE_TO {line_sts}]->"
-                f"({param_alias})\n")
+            statement += f"""
+                MATCH (template:{node_template_name})-[*]->
+                ({param_alias}: Reference)
+                WHERE template.path = '{self.path}' AND
+                {param_alias}.logicalName = ${param_alias}_name
+                CREATE ({ref_alias})-[:REFERENCE_TO]->({param_alias})
+                """
             contexts.update([param_alias])
         else:
             log_id, log_sts = _fn_reference_logincal_id(logical_name)
-            statement += (f"{log_sts}"
-                          f"CREATE ({ref_alias})-[:REFERENCE_TO {line_sts}]->"
-                          f"({log_id})\n")
+            statement += f"""
+                {log_sts} CREATE ({ref_alias})-[:REFERENCE_TO]->({log_id})
+                """
         self.statement_params.update({
             f'{param_alias}_line': line,
             f'{ref_alias}_log_name': logical_name,
@@ -780,26 +807,32 @@ class Batcher:  # noqa: H238
         contexts.add(alias_fn)
         contexts_str = ', '.join(contexts)
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:Fn:GetAtt)\n"
-                     f"WITH {contexts_str}\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:GetAtt
+                {{line: ${alias_fn}_line}})
+            WITH {contexts_str}
+            """
         self.statement_params[f'{alias_fn}_line'] = line
 
         # load logical name of resource
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}log:Value:LogicalNameOfResource)\n"
-                      f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}att:Value:AttributeName)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->(
+                {alias_fn}log:Value:LogicalNameOfResource {{
+                    line: ${alias_fn}_line}})
+            CREATE ({alias_fn})-[:HAS]->({alias_fn}att:Value:AttributeName {{
+                line: ${alias_fn}_line}})
+                """
         contexts.update([f'{alias_fn}log', f'{alias_fn}att'])
         if isinstance(attrs, str):
             contexts_str = ', '.join(contexts)
             resource_attr = attrs.split('.')[0]
             resource = resource_attr[0]
             attr = resource_attr[1] if len(resource_attr) > 1 else 'nothing'
-            statement += (f"SET {alias_fn}log.value = ${alias_fn}_log\n"
-                          f"SET {alias_fn}att.value = ${alias_fn}_att\n"
-                          f"WITH {contexts_str}\n")
+            statement += f"""
+                SET {alias_fn}log.value = ${alias_fn}_log
+                SET {alias_fn}att.value = ${alias_fn}_att
+                WITH {contexts_str}
+                    """
             self.statement_params.update({
                 f'{alias_fn}_log': resource,
                 f'{alias_fn}_att': attr
@@ -809,8 +842,10 @@ class Batcher:  # noqa: H238
                 alias_fn, resource, contexts, line, direct_reference=True)
         else:
             contexts_str = ', '.join(contexts)
-            statement += (f"SET {alias_fn}log.value = ${alias_fn}_log\n"
-                          f"WITH {contexts_str}\n")
+            statement += f"""
+                SET {alias_fn}log.value = ${alias_fn}_log
+                WITH {contexts_str}
+                """
             self.statement_params[f'{alias_fn}_log'] = attrs[0]
             statement += self._fn_reference(
                 alias_fn, attrs[0], contexts, line, direct_reference=True)
@@ -834,14 +869,17 @@ class Batcher:  # noqa: H238
         contexts = contexts or set([])
         alias_fn = create_alias("fn_getatt", True)
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:Fn:Cidr)\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:Cidr
+                {{line: ${alias_fn}_line}})
+                """
         contexts.add(alias_fn)
 
         # load ipBlock
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}ipblock:Value:IpBlock)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->({alias_fn}ipblock:Value:IpBlock {{
+                line: ${alias_fn}_line}})
+            """
         contexts.add(f'{alias_fn}ipblock')
         if isinstance(attrs[0], str):
             statement += f"SET {alias_fn}_ipblock.value = ${alias_fn}ipblock\n"
@@ -853,8 +891,10 @@ class Batcher:  # noqa: H238
                 _get_line(attrs[0], func_name) or line)
 
         # load count
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}count:Value:Count)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->({alias_fn}count:Value:Count {{
+                line: ${alias_fn}_line}})
+            """
         contexts.add(f'{alias_fn}count')
         if isinstance(attrs[1], (str, int)):
             statement += f"SET {alias_fn}count.value = ${alias_fn}count\n"
@@ -866,8 +906,10 @@ class Batcher:  # noqa: H238
                 _get_line(attrs, 1) or line)
 
         # load cidrBits
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}cidr:Value:CidrBits)\n")
+        statement += f"""
+                CREATE ({alias_fn})-[:HAS]->({alias_fn}cidr:Value:CidrBits {{
+                    line: ${alias_fn}_line}})
+                """
         contexts.add(f'{alias_fn}cidr')
         if isinstance(attrs[2], (str, int)):
             statement += f"SET {alias_fn}cidr.value = ${alias_fn}cidrbits\n"
@@ -895,16 +937,15 @@ class Batcher:  # noqa: H238
         contexts.add(alias_mapping)
         contexts_str = ', '.join(contexts)
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (
-            f"MATCH (template:{node_template_name})-[*]->"
-            f"({alias_mapping}:Mapping)\n"
-            f"WHERE template.path = '{self.path}' AND "
-            f"{alias_mapping}.name = ${alias_mapping}_name\n"
-            f"WITH {contexts_str}\n"
-            f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-            f"({alias_fn}:Fn:FindInMap)-[:REFERENCE_TO]->"
-            f"({alias_mapping})\n")
+        statement = f"""
+            MATCH (template:{node_template_name})-[*]->
+            ({alias_mapping}:Mapping)
+            WHERE template.path = '{self.path}' AND
+            {alias_mapping}.name = ${alias_mapping}_name
+            WITH {contexts_str}
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:FindInMap
+                {{line: ${alias_fn}_line}})-[:REFERENCE_TO]->({alias_mapping})
+            """
         contexts.add(alias_fn)
         self.statement_params.update({
             f'{alias_mapping}_name': attrs[0],
@@ -913,14 +954,17 @@ class Batcher:  # noqa: H238
         })
 
         # load mapname
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}map:Value:MapName "
-                      f"{{value: ${alias_fn}_mapname}})\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->({alias_fn}map:Value:MapName
+                {{value: ${alias_fn}_mapname, line: ${alias_fn}_line}})
+            """
         contexts.add(f'{alias_fn}map')
 
         # load toplevel key
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}top:Value:TopLevelKey)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->({alias_fn}top:Value:TopLevelKey {{
+                line: ${alias_fn}_line}})
+            """
         contexts.add(f'{alias_fn}top')
         if isinstance(attrs[1], (str)):
             statement += f"SET {alias_fn}top.value = ${alias_fn}_top\n"
@@ -932,8 +976,10 @@ class Batcher:  # noqa: H238
                 _get_line(attrs[1], func_name) or line)
 
         # load second level key
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}sec:Value:SecondLevelKey)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->(
+                {alias_fn}sec:Value:SecondLevelKey {{line: ${alias_fn}_line}})
+                """
         contexts.add(f'{alias_fn}sec')
         if isinstance(attrs[2], (str)):
             statement += f"SET {alias_fn}sec.value = ${alias_fn}_sec\n"
@@ -954,10 +1000,11 @@ class Batcher:  # noqa: H238
         """Create a statement to load intrinsic function Fn::GetAZs."""
         contexts = contexts or set([])
         alias_fn = create_alias("fn_getazs", True)
-        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN "
-                     f"{{line: ${alias_fn}_line}}]->({alias_fn}:Fn:GetZAs)-"
-                     f"[:HAS {{line: ${alias_fn}_line}}]->"
-                     f"({alias_fn}reg:Value:Region)\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:GetZAs {{
+                line: ${alias_fn}_line}})-[:HAS]->({alias_fn}reg:Value:Region
+            {{line: ${alias_fn}_line}})
+            """
         self.statement_params[f'{alias_fn}_line'] = line
         contexts.update([alias_fn, f'{alias_fn}reg'])
         if isinstance(attrs, str):
@@ -980,10 +1027,11 @@ class Batcher:  # noqa: H238
         contexts = contexts or set([])
         alias_fn = create_alias("fn_sub", True)
 
-        line_sts = f"{{line: ${alias_fn}_line}}"
-        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:Fn:Sub)-[:HAS {line_sts}]->(:Value:String"
-                     f" {{value: ${alias_fn}_string}})\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:Sub {{
+                line: ${alias_fn}_line}})-[:HAS]->(:Value:String {{
+                    value: ${alias_fn}_string, line: ${alias_fn}_line}})
+            """
         self.statement_params[f'{alias_fn}_line'] = line
         contexts.add(alias_fn)
         if isinstance(attrs, str):
@@ -1007,8 +1055,11 @@ class Batcher:  # noqa: H238
                 if key.startswith('__'):
                     continue
                 alias_var = create_alias(f'{alias_fn}_{key}', True)
-                statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                              f"({alias_var}:Value:Var:{create_label(key)})")
+                statement += f"""
+                    CREATE ({alias_fn})-[:HAS]->(
+                        {alias_var}:Value:Var:{create_label(key)} {{
+                            line: ${alias_fn}_line}})
+                        """
                 contexts.add(alias_var)
                 if isinstance(value, (bool, str, int)):
                     statement += (
@@ -1032,22 +1083,26 @@ class Batcher:  # noqa: H238
         contexts = contexts or set([])
         alias_fn = create_alias("fn_join", True)
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:Fn:Join)-[:HAS {line_sts}]->"
-                     f"(:Value:Delimiter {{value: ${alias_fn}_delimiter }})\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:Join {{
+                line: ${alias_fn}_line}})-[:HAS]->(:Value:Delimiter {{
+                    value:${alias_fn}_delimiter, line:${alias_fn}_line }})
+            """
         self.statement_params.update({
             f'{alias_fn}_delimiter': attrs[0],
             f'{alias_fn}_line': line
         })
 
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}list:Value:List)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->({alias_fn}list:Value:List {{
+                line: ${alias_fn}_line}})
+                      """
         contexts.update([alias_fn, f'{alias_fn}list'])
         for idx, value in enumerate(attrs[1]):
-            statement += (f"CREATE ({alias_fn}list)-[:HAS {line_sts}]->"
-                          f"({alias_fn}list{idx}:Value:Item"
-                          f" {{index: {idx}}})\n")
+            statement += f"""
+                CREATE ({alias_fn}list)-[:HAS]->({alias_fn}list{idx}:Value:Item
+                    {{index: {idx}, line:${alias_fn}_line}})
+                """
             contexts.add(f'{alias_fn}list{idx}')
             if isinstance(value, (str, bool, int)):
                 statement += (
@@ -1073,17 +1128,20 @@ class Batcher:  # noqa: H238
         alias_fn = create_alias("fn_split", True)
         contexts.add(alias_fn)
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:Fn:Split)-[:HAS {line_sts}]->"
-                     f"(:Value:Delimiter {{value: ${alias_fn}_delimiter}})\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:Split {{
+                line: ${alias_fn}_line}})-[:HAS]->(:Value:Delimiter {{
+                    value: ${alias_fn}_delimiter, line:${alias_fn}_line}})
+            """
         self.statement_params.update({
             f'{alias_fn}_delimiter': attrs[0],
             f'{alias_fn}_line': line
         })
 
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}str:Value:SourceString)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->({alias_fn}str:Value:SourceString {{
+                line: ${alias_fn}_line}})\
+            """
         if isinstance(attrs[1], (str, bool, int)):
             statement += (f"SET {alias_fn}str.value = ${alias_fn}_val\n")
             self.statement_params[f'{alias_fn}_val'] = attrs[1]
@@ -1107,14 +1165,15 @@ class Batcher:  # noqa: H238
         alias_fn = create_alias("fn_select", True)
         contexts.add(alias_fn)
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"CREATE ({resource_id})-[EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:Fn:Select)-[:HAS {line_sts}]->"
-                     f"({alias_fn}idx:Value:Index)\n")
+        statement = f"""
+            CREATE ({resource_id})-[EXECUTE_FN]->({alias_fn}:Fn:Select {{
+                line: ${alias_fn}_line}})-[:HAS]->({alias_fn}idx:Value:Index {{
+                    line: ${alias_fn}_line}})
+            """
         self.statement_params[f'{alias_fn}_line'] = line
 
         if isinstance(attrs[0], (str, int)):
-            statement += (f"SET {alias_fn}idx.value = ${alias_fn}_idx\n")
+            statement += f"SET {alias_fn}idx.value = ${alias_fn}_idx\n"
             self.statement_params[f'{alias_fn}_idx'] = attrs[0]
         else:
             contexts.add(f'{alias_fn}idx')
@@ -1124,8 +1183,11 @@ class Batcher:  # noqa: H238
                 _get_line(attrs[0], func_name) or line)
 
         # add list of values
-        statement += (f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                      f"({alias_fn}list:Value:List:ListOfObjects)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->(
+                {alias_fn}list:Value:List:ListOfObjects {{
+                    line: ${alias_fn}_line}})
+            """
         contexts.add(f'{alias_fn}list')
         if isinstance(attrs[1], (OrderedDict, CustomDict)):
             func_name = list(attrs[1].keys())[0]
@@ -1135,11 +1197,15 @@ class Batcher:  # noqa: H238
 
         elif isinstance(attrs[1], (list, CustomList)):
             for idx, value in enumerate(attrs[1]):
-                statement += (f"CREATE ({alias_fn}list)-[:HAS {line_sts}]->"
-                              f"({alias_fn}{idx}:Value:Item {{index: {idx}}})")
+                statement += f"""
+                    CREATE ({alias_fn}list)-[:HAS]->(
+                        {alias_fn}{idx}:Value:Item {{
+                            index: {idx}, line:${alias_fn}_line}})
+                    """
                 if isinstance(value, (str, bool, int)):
-                    statement += (f"SET {alias_fn}{idx}.value{idx+1} ="
-                                  f" ${alias_fn}_val{idx+1}\n")
+                    statement += f"""
+                    SET {alias_fn}{idx}.value{idx+1} =${alias_fn}_val{idx+1}
+                    """
                     self.statement_params[f'{alias_fn}_val{idx+1}'] = value
                 else:
                     contexts.add(f'{alias_fn}{idx}')
@@ -1161,30 +1227,35 @@ class Batcher:  # noqa: H238
         alias_fn = create_alias("fn_transform", True)
         contexts.add(alias_fn)
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"CREATE ({resource_id})-[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:Fn:Transform)-[:HAS {line_sts}]->"
-                     f"(:Value:Name {{value: ${alias_fn}_name}})\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:Fn:Transform {{
+                line:${alias_fn}_line}})-[:HAS]->(:Value:Name {{
+                    value:${alias_fn}_name, line:${alias_fn}_line}})
+            """
         self.statement_params.update({
             f'{alias_fn}_line': line,
             f'{alias_fn}_name': attrs['Name']
         })
         alias_params = create_alias(f'{alias_fn}_parameters', True)
-        statement += (
-            f"CREATE ({alias_fn})-[:HAS]->({alias_params}:Value:Parameters)\n")
+        statement += f"""
+            CREATE ({alias_fn})-[:HAS]->({alias_params}:Value:Parameters {{
+                line:${alias_fn}_line}})
+            """
         contexts.add(alias_params)
 
         for key, value in attrs['Parameters'].items():
             if key.startswith('__'):
                 continue
             param_alias = create_alias(f'{alias_params}_{key}', True)
-            statement += (f"CREATE ({alias_params})-[:HAS {line_sts}]->"
-                          f"({param_alias}:Value:{create_label(key)})\n")
+            statement += f"""
+                CREATE ({alias_params})-[:HAS]->(
+                    {param_alias}:Value:{create_label(key)} {{
+                        line: ${alias_fn}_line}})
+                """
             contexts.add(param_alias)
             self.statement_params[f'{param_alias}_name'] = key
             if isinstance(value, (str, int, bool)):
-                statement += (
-                    f"SET {param_alias}.value = ${param_alias}_val\n")
+                statement += f"SET {param_alias}.value = ${param_alias}_val\n"
                 self.statement_params[f'{param_alias}_val'] = value
             else:
                 func_name = list(value.keys())[0]
@@ -1234,35 +1305,38 @@ class Batcher:  # noqa: H238
         alias_fn = create_alias(f'fn_name_node_{resource_id}', True)
         contexts.add(alias_fn)
 
-        line_sts = f'{{line: ${alias_fn}_line}}'
-        statement = (f"CREATE ({resource_id})-"
-                     f"[:EXECUTE_FN {line_sts}]->"
-                     f"({alias_fn}:{fn_name_node})\n")
+        statement = f"""
+            CREATE ({resource_id})-[:EXECUTE_FN]->({alias_fn}:{fn_name_node} {{
+                line: ${alias_fn}_line}})
+            """
         self.statement_params[f'{alias_fn}_line'] = line
         if fn_name in ('Fn::if', 'Fn::If'):
             self.statement_params[f'{alias_fn}_con_name'] = conditions[0]
             alias_true = create_alias('true', True)
             alias_false = create_alias('false', True)
-            statement += (
-                f"SET {alias_fn}.condition_name = ${alias_fn}_con_name\n"
-                f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                f"({alias_true}:Value:ValueIfTrue)\n"
-                f"CREATE ({alias_fn})-[:HAS {line_sts}]->"
-                f"({alias_false}:ValueValueIfFalse)\n")
+            statement += f"""
+                SET {alias_fn}.condition_name = ${alias_fn}_con_name
+                CREATE ({alias_fn})-[:HAS]->({alias_true}:Value:ValueIfTrue {{
+                    line:${alias_fn}_line}})
+                CREATE ({alias_fn})-[:HAS]->
+                ({alias_false}:ValueValueIfFalse {{line:${alias_fn}_line}})
+            """
             contexts.update([alias_true, alias_false])
             # manage value_if_true
             contexts.update([alias_false, alias_true])
             if not isinstance(conditions[1], (OrderedDict, CustomDict)):
-                statement += (f"SET {alias_true}.value = "
-                              f"${alias_true}_value\n")
+                statement += f"""
+                            SET {alias_true}.value = ${alias_true}_value
+                        """
                 self.statement_params[f'{alias_true}_value'] = conditions[1]
             else:
                 statement += self._load_resource_property(
                     (alias_true, conditions[1]), contexts, line)
             # manage value_if_false
             if not isinstance(conditions[2], (OrderedDict, CustomDict)):
-                statement += (f"SET {alias_false}.value = "
-                              f"${alias_false}_value\n")
+                statement += f"""
+                        SET {alias_false}.value = ${alias_false}_value
+                    """
                 self.statement_params[f'{alias_false}_value'] = conditions[2]
             else:
                 statement += self._load_resource_property(
@@ -1272,8 +1346,10 @@ class Batcher:  # noqa: H238
         for index, con in enumerate(conditions):
             if not isinstance(
                     con, (OrderedDict, dict, list, CustomDict, CustomList)):
-                statement += (f"SET {alias_fn}.value{index+1} = "
-                              f"$fn_{alias_fn}_value{index+1}\n")
+                statement += f"""
+                        SET {alias_fn}.value{index+1} =
+                            $fn_{alias_fn}_value{index+1}
+                    """
                 self.statement_params[f'fn_{alias_fn}_value{index+1}'] = con
             else:
                 func_name = list(con.keys())[0]
@@ -1291,8 +1367,10 @@ class Batcher:  # noqa: H238
         contexts_str = ', '.join(contexts)
         statement = ''
         for key, value in kwargs.items():
-            statement += (f"WITH {contexts_str}\n"
-                          f"SET {rel_id}.{key} = ${rel_id}_{key}_value\n")
+            statement += f"""
+                    WITH {contexts_str}
+                    SET {rel_id}.{key} = ${rel_id}_{key}_value
+                """
             self.statement_params[f'{rel_id}_{key}_value'] = value
         return statement
 

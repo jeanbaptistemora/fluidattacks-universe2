@@ -42,11 +42,11 @@ def allows_all_outbound_traffic(connection: ConnectionString) -> tuple:
     vulnerabilities: list = []
     query = """
         MATCH (template:CloudFormationTemplate)-[*]->(
-            group:EC2:SecurityGroup)-[rel:HAS]->(:Properties)
+            group:EC2:SecurityGroup)-[:HAS]->(prop:Properties)
         WHERE NOT EXISTS { (group)-[*]->(:SecurityGroupEgress) } AND
         NOT EXISTS { (:DestinationSecurityGroupId)-[*]->(group) }
         RETURN group.logicalName as resource, template.path as path,
-        rel.line as line
+        prop.line as line
      """
     with database(connection) as session:
         for record in session.run(query):
@@ -89,9 +89,9 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
         MATCH (template:CloudFormationTemplate)-[*]->(
             group:EC2:SecurityGroup)-[:HAS*]->(rule)
         WHERE rule:SecurityGroupIngress OR rule:SecurityGroupEgress
-        MATCH (rule)-[relip:HAS*]->(ip:CidrIp{version})
+        MATCH (rule)-[:HAS*]->(ip:CidrIp{version})
         WHERE exists(ip.value)
-        RETURN template.path as path, relip[-1].line as line,
+        RETURN template.path as path, ip.line as line,
           group.logicalName as resource, [x IN labels(rule) WHERE x IN [
               'SecurityGroupEgres', 'SecurityGroupIngress']] [-1] as type,
           ip.value as ip
@@ -100,11 +100,10 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
         MATCH (template:CloudFormationTemplate)-[*]->(
             group:EC2:SecurityGroup)-[:HAS*]->(rule)
         WHERE rule:SecurityGroupIngress OR rule:SecurityGroupEgress
-        MATCH (rule)-[relip:HAS*]->(:CidrIp{version})-[*]->(ref_ip)
+        MATCH (rule)-[:HAS*]->(:CidrIp{version})-[*]->(ref_ip)
         WHERE (ref_ip: Default OR ref_ip: MapVar) AND
             exists(ref_ip.value)
-        RETURN template.path as path, collect(
-            DISTINCT relip[-1].line)[0] as line,
+        RETURN template.path as path, ref_ip.line as line,
           group.logicalName as resource, [x IN labels(rule) WHERE x IN [
               'SecurityGroupEgres', 'SecurityGroupIngress']] [-1] as type,
           ref_ip.value as ip
