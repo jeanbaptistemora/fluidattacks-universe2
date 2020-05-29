@@ -291,8 +291,13 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
           const target: HTMLElement = event.currentTarget as HTMLElement;
           const span: HTMLSpanElement | null = target.querySelector("span");
           if (span !== null) {
-            const reportType: string = span.className
-                                           .includes("pdf") ? "PDF" : "XLS";
+            const reportType: string =
+              span.className.includes("pdf")
+                ? "PDF"
+                : span.className.includes("excel")
+                  ? "XLS"
+                  : "DATA";
+
             requestProjectReport({variables: {
               projectName, reportType,
             }})
@@ -351,6 +356,10 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                             <FontAwesome name="file-excel-o" />
                               {translate.t("project.findings.report.xls")}
                               </Button>
+                          <Button onClick={handleRequestProjectReport}>
+                            <FontAwesome name="file-zip-o" />
+                            {translate.t("project.findings.report.data")}
+                          </Button>
                         </ButtonToolbar>
                       </Col>
                     </Row>

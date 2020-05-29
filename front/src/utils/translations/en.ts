@@ -234,6 +234,7 @@ const enTranslations: Dictionary = {
       },
       report: {
         btn: "Reports",
+        data: "  DATA",
         modal_close: "Close",
         modal_title: "Reports",
         pdf: "  PDF",

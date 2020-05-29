@@ -6,6 +6,7 @@ from typing import (
     Dict,
     List,
 )
+from uuid import uuid4
 from zipfile import ZipFile
 
 # Local libraries
@@ -113,7 +114,7 @@ def generate_data_report(
 ):
     passphrase = get_passphrase(4)
 
-    with tempfile.NamedTemporaryFile(mode='w+b') as file:
+    with tempfile.NamedTemporaryFile(mode='w+b', suffix=f'_{uuid4()}.zip') as file:
         with ZipFile(file, mode='w') as data_file:
             _generate_data_report__add_pdf(
                 data_file=data_file,

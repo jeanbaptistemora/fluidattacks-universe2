@@ -38,10 +38,11 @@ def send_project_report_email(
     email_send_thread.start()
 
 
-def upload_report(file_path: str) -> Tuple[bool, str]:
-    file_content = open(file_path, 'rb')
-    report = ContentFile(file_content.read())
-    return upload_report_from_file_descriptor(report)
+def upload_report(path: str) -> Tuple[bool, str]:
+    with open(path, 'rb') as file:
+        report = ContentFile(file.read(), name=path)
+
+        return upload_report_from_file_descriptor(report)
 
 
 def upload_report_from_file_descriptor(report) -> Tuple[bool, str]:
