@@ -1,0 +1,209 @@
+#!/usr/bin/env python3
+#-.- coding: utf-8 -.-
+"""
+This migration browses through the findings and removes the unsafe characters
+introduced by the Google spreadsheet that autocompletes the finding information
+
+Execution Time: 2020-05-29 22:03 UTC-5
+Finalization Time: 2020-05-29 22:24 UTC-5
+"""
+
+import argparse
+import hashlib
+import os
+import re
+import sys
+from collections import OrderedDict
+from typing import (
+    Dict,
+    List
+)
+
+import rollbar
+
+
+# Setup Django environment to import functions
+PROJECT_PATH: str = '/usr/src/app'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
+sys.path.append(PROJECT_PATH)
+os.chdir(PROJECT_PATH)
+
+
+from backend import util
+from backend.dal.finding import (
+    TABLE as FINDINGS_TABLE
+)
+
+
+STRINGS_TO_REPLACE: Dict[str, Dict[str, str]] = {
+    'vulnerability': OrderedDict({
+        '**Especificar': '__Especificar',
+        "IP's": 'direcciones IP',
+        "'catch'": '_catch_',
+        "'Exception'": '_Exception_',
+        "'ValueError'": '_ValueError_',
+        "'ConnectionError'": '_ConnectionError_' ,
+        "'NullPointerException'": '_NullPointerException_',
+        "'catch Exception'": '_catch Exception_',
+        '"+"': '(signo más)',
+        '"usuario@ejemplo.com"': 'usuario@ejemplo.com',
+        '"usuario+1@ejemplo.com"': 'usuario(signo más)1@ejemplo.com',
+        '"usuario+2000@ejemplo.com"': 'usuario(signo más)2000@ejemplo.com',
+        '"."': '(punto)',
+        "'catch statement'": '_catch statement_'
+    }),
+    'effect_solution': OrderedDict({
+        'Usar autocomplete=off': 'Deshabilitar el campo _autocomplete_',
+        "JavaScript's LocalStorage": 'LocalStorage en JavaScript',
+        'rel=noopener': 'el atributo _rel_ con el valor _noopener_',
+        'HTTPS + TLS': 'HTTPS utilizando TLS',
+        'SRTP + TLS': 'SRTP y TLS'
+    })
+}
+STRING_REGEX: str = '^[\^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \\t\\n\\r\\x0b\\x0c(),./:;@_\$#-]*$'
+
+
+def clean_unsafe_characters(finding: Dict[str, str], dry_run: bool) -> None:
+    finding_id = finding['finding_id']
+    original_description = finding.get('vulnerability', '')
+    original_recommendation = finding.get('effect_solution', '')
+
+    new_description = replace_unsafe_strings(original_description, 'vulnerability')
+    new_recommendation = replace_unsafe_strings(original_recommendation, 'effect_solution')
+
+    info_to_update = {}
+    for field, values in {
+        'vulnerability': [original_description, new_description],
+        'effect_solution': [original_recommendation, new_recommendation]
+    }.items():
+        if values[0] != values[1]:
+            info_to_update.update({
+                field+'_new': values[1],
+                field+'_hash': hashlib.sha512(values[0].encode()).hexdigest()
+            })
+
+    if info_to_update:
+        if dry_run:
+            print('Changes in finding {}\n\t{}'.format(finding_id, info_to_update))
+        else:
+            update_finding(finding_id, info_to_update)
+            rollbar_log(
+                'Migration 0005: fields {} were updated in finding {}'.format(
+                    ', '.join(list(info_to_update.keys())), finding_id
+                ),
+                dry_run
+            )
+
+
+def get_all_findings() -> List[Dict[str, str]]:
+    response = FINDINGS_TABLE.scan(
+        ProjectionExpression='finding_id,effect_solution,effect_solution_new,'
+            'effect_solution_hash,vulnerability,vulnerability_new,vulnerability_hash'
+    )
+    items = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = FINDINGS_TABLE.scan(
+            ExclusiveStartKey=response['LastEvaluatedKey'],
+            ProjectionExpression='finding_id,effect_solution,effect_solution_new,'
+                'effect_solution_hash,vulnerability,vulnerability_new,vulnerability_hash'
+        )
+        items += response['Items']
+    return items
+
+
+def persist_changes(finding: Dict[str, str], dry_run: bool) -> None:
+    info_to_update = {
+        'effect_solution_hash': None,
+        'effect_solution_new': None,
+        'vulnerability_hash': None,
+        'vulnerability_new': None
+    }
+    finding_id = finding['finding_id']
+    current_description_hash = hashlib.sha512(finding.get('vulnerability', '').encode()).hexdigest()
+    current_recommendation_hash = hashlib.sha512(finding.get('effect_solution', '').encode()).hexdigest()
+    old_description_hash = finding.get('vulnerability_hash', '')
+    old_recommendation_hash = finding.get('effect_solution_hash', '')
+
+    for field, hashes in {
+        'vulnerability': [old_description_hash, current_description_hash],
+        'effect_solution': [old_recommendation_hash, current_recommendation_hash]
+    }.items():
+        if hashes[0]:
+            if hashes[0] != hashes[1]:
+                field_value = replace_unsafe_strings(finding[field], field)
+            else:
+                field_value = finding[field+'_new']
+            info_to_update.update({field: field_value})
+
+    if dry_run:
+        print('Changes in finding {}\n\t{}'.format(finding_id, info_to_update))
+    else:
+        update_finding(finding_id, info_to_update)
+        util.invalidate_cache(finding_id)
+        rollbar_log(
+            'Migration 0005: changes were applied to finding {}'.format(finding_id),
+            dry_run
+        )
+
+
+def replace_unsafe_strings(original_string: str, field: str) -> str:
+    safe_string = original_string
+    for tainted_string, clean_string in STRINGS_TO_REPLACE[field].items():
+        if tainted_string in safe_string:
+            safe_string = safe_string.replace(tainted_string, clean_string)
+    if safe_string != original_string and not re.match(STRING_REGEX, safe_string):
+        print('Missing unsafe characters in {}'.format(safe_string))
+    return safe_string
+
+
+def rollbar_log(message: str, dry_run: bool) -> None:
+    if not dry_run:
+        rollbar.report_message(message, level='debug')
+
+
+def update_finding(finding_id: str, data: Dict[str, str]) -> bool:
+    success = False
+    primary_keys = {'finding_id': finding_id}
+    attrs_to_remove = [attr for attr in data if data[attr] is None]
+    for attr in attrs_to_remove:
+        response = FINDINGS_TABLE.update_item(
+            Key=primary_keys,
+            UpdateExpression='REMOVE #attr',
+            ExpressionAttributeNames={'#attr': attr}
+        )
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        del data[attr]
+
+    if data:
+        attributes = [f'{attr} = :{attr}' for attr in data]
+        values = {f':{attr}': data[attr] for attr in data}
+
+        response = FINDINGS_TABLE.update_item(
+            Key=primary_keys,
+            UpdateExpression='SET {}'.format(','.join(attributes)),
+            ExpressionAttributeValues=values)
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    return success
+
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--dry-run', required=False, action='store_true')
+    ap.add_argument('--execute', required=False, action='store_true')
+
+    args: Dict[str, bool] = vars(ap.parse_args())
+    dry_run: bool = args['dry_run']
+    execute: bool = args['execute']
+
+    rollbar_log(
+        'Starting migration 0005 to clean unsafe characters from '
+        'autocompleted fields.',
+        dry_run
+    )
+
+    for finding in get_all_findings():
+        if execute:
+            if finding.get('vulnerability_new', '') or finding.get('effect_solution_new', ''):
+                persist_changes(finding, dry_run)
+        else:
+            clean_unsafe_characters(finding, dry_run)
