@@ -3,39 +3,39 @@
 :description: This documents contains the details of the security requirements related to file management in the organization. This requirement establishes the importance of classify critical files and establish tools to monitor them in order to detect any alteration that may result in a security breach.
 :keywords: Requirement, Security, Critical, Components, Application, Identification
 :rules: yes
+:extended: yes
 
 = R047. Classify critical files for monitoring
 
 == Requirement
 
-The critical files must be established for each system
-in order to follow up its integrity.
+The system's critical files must be identified in order to monitor their
+integrity.
 
 == Description
 
 Each system has files that are necessary for its operation
-(master files, setting files, among others),
-each one of these files must be identified
+(master files, setting files, among others).
+Each one of these files must be identified
 and tracked using tools that permanently monitor the activities
 carried out on them.
 
 == Implementation
 
 Each system has a file structure
-that contains information about its configuration and operation,
-if these files are modified they can alter the execution of the system
-and for this reason it is important to establish a permanent monitoring
-of the integrity of these.
-The monitoring should notify the system administrator
-of the changes made immediately,
-and enable a record of the activities carried out.
+that contains information about its configuration and operation.
+If these files are modified,
+they can alter the execution of the system and, for this reason,
+it is important to permanently monitor their integrity.
+The monitoring should immediately notify the system administrator of any
+changes,
+and keep a record of the activities.
 
 == Attacks
 
-. An incident occurs in which a modification of critical files is identified,
-however it was not possible to detect in advance
-by not having a tool that registers the modifications
-in the compromised files.
+. An attacker modifies one or more of the critical files and the malicious
+activity is not detected on time due to a lack of detection or monitoring
+mechanisms.
 
 == Attributes
 
@@ -51,6 +51,6 @@ in the compromised files.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.4+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[OWASP-ASVS v3.1-1.4]
 Data considered sensitive
 in the context of the application is clearly identified.
