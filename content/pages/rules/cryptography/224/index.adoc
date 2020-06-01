@@ -11,7 +11,7 @@
 The system must use the most secure cryptographic mechanism
 provided by the platform (e.g **java.security.SecureRandom**)
 for random number generation used in critical processes
-(e.g ID generation, code mapping, cryptographic keys)
+(e.g ID generation, code mapping, cryptographic keys).
 
 == Descriptions
 
