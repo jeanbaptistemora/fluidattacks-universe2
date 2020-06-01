@@ -5,16 +5,17 @@ import os
 import json
 import glob
 import shutil
-import textwrap
 from urllib.parse import unquote
 
-from typing import Dict
+from typing import Dict, List
 
 import yaml
 
+# Local libraries
+from clone_them import clone
 
 # Constants
-FLUID_SUBS = (
+FLUID_GROUPS = (
     'autonomicmind',
     'fluidattacks',
     'fluidsignal',
@@ -25,23 +26,23 @@ CI_NODE_INDEX: int = int(os.environ.get('CI_NODE_INDEX', 1))
 CI_NODE_TOTAL: int = int(os.environ.get('CI_NODE_TOTAL', 1))
 
 
-def get_bucket_to_do(elements: list) -> list:
+def get_current_job_assignments(elements: list) -> list:
     return [
         element
-        for index, element in enumerate(elements, start=1)
+        for index, element in enumerate(sorted(elements), start=1)
         if index % CI_NODE_TOTAL + 1 == CI_NODE_INDEX
     ]
 
 
-def get_config_path(subs_name: str) -> str:
+def get_config_path(group: str) -> str:
     """Return the config path from the group name."""
     return (f'/git/fluidattacks/services/'
-            f'groups/{subs_name}/config/config.yml')
+            f'groups/{group}/config/config.yml')
 
 
-def get_customer_name(subs_name: str) -> str:
+def get_customer_name(group: str) -> str:
     """Return the customer name for a group."""
-    with open(get_config_path(subs_name), 'r') as config_file:
+    with open(get_config_path(group), 'r') as config_file:
         return yaml.safe_load(config_file).get('customer', '__')
 
 
@@ -51,13 +52,13 @@ def get_repos_and_branches(
     branches: Dict[str, Dict[str, str]] = {}
     for subs_path in glob.glob('/git/fluidattacks/services/groups/*'
                                if all_subs else '/git/*'):
-        subs_name = os.path.basename(subs_path)
-        if subs_name in FLUID_SUBS:
+        group = os.path.basename(subs_path)
+        if group in FLUID_GROUPS:
             continue
 
-        branches[subs_name] = {}
+        branches[group] = {}
 
-        with open(get_config_path(subs_name), 'r') as config_file:
+        with open(get_config_path(group), 'r') as config_file:
             yml_file = yaml.safe_load(config_file)
 
         for block in yml_file.get('code', []):
@@ -72,50 +73,64 @@ def get_repos_and_branches(
             for repo_branch in this_branches:
                 repo = unquote(repo_branch.rsplit('/')[-2])
                 branch = unquote(repo_branch.rsplit('/')[-1])
-                branches[subs_name].update({repo: branch})
+                branches[group].update({repo: branch})
 
     return branches
 
 
 def main():
     """Usual entry point."""
-    config = []
+    services_assignments: List[str] = get_current_job_assignments(
+        glob.glob('/git/fluidattacks/services/groups/*')
+    )
+    fluid_assignments: List[str] = get_current_job_assignments([
+        'autonomicmind',
+        'fluidattacks',
+    ])
+
+    # Clone the repositories for this job
+    for group_path in services_assignments:
+        group = os.path.basename(group_path)
+        clone(group, group_path, clone_cmd='fluid drills --pull-repos')
+
     branches: Dict[str, Dict[str, str]] = get_repos_and_branches()
 
-    for subs_path in get_bucket_to_do(glob.glob('/git/*')):
-        subs_name = os.path.basename(subs_path)
+    # Generate a config file for the groups in this job
+    config = []
+    for group_path in fluid_assignments + services_assignments:
+        group = os.path.basename(group_path)
 
-        if subs_name in FLUID_SUBS:
-            organization = 'fluidattacks'
-        else:
-            organization = get_customer_name(subs_name)
+        organization = (
+            'fluidattacks'
+            if group in FLUID_GROUPS
+            else get_customer_name(group)
+        )
 
-        for repo_path in glob.glob(f'{subs_path}/*'):
-            repo_name = os.path.basename(repo_path)
+        for repo_path in glob.glob(f'/git/{group}/*'):
+            repo = os.path.basename(repo_path)
 
             mailmap_target_path = f'{repo_path}/.mailmap'
             mailmap_path = (f'/git/fluidattacks/'
-                            f'services/groups/{subs_name}/.mailmap')
+                            f'services/groups/{group}/.mailmap')
             if os.path.exists(mailmap_path):
                 shutil.copyfile(mailmap_path, mailmap_target_path)
 
-            if subs_name in FLUID_SUBS or repo_name in branches[subs_name]:
+            if group in FLUID_GROUPS or repo in branches[group]:
                 config.append(
                     {
                         'organization': organization,
-                        'subscription': subs_name,
-                        'repository': repo_name,
+                        'subscription': group,
+                        'repository': repo,
                         'location': repo_path,
                         'branches': [
-                            'master' if subs_name in FLUID_SUBS
-                            else branches[subs_name][repo_name]
+                            'master' if group in FLUID_GROUPS
+                            else branches[group][repo]
                         ],
                     }
                 )
             else:
-                print(f'ERROR: {repo_name} not in branches[{subs_name}]')
-                print(textwrap.indent(
-                    json.dumps(branches[subs_name], indent=2), ' ' * 8))
+                print(f'ERROR: {repo} not in branches[{group}]')
+                print(json.dumps(branches[group], indent=2))
 
     with open(f'./config.json', 'w') as file:
         json.dump(config, file, indent=2)

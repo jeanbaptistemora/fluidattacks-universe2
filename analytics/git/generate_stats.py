@@ -5,7 +5,7 @@ import glob
 
 from typing import List
 
-from generate_config import FLUID_SUBS, get_repos_and_branches
+from generate_config import FLUID_GROUPS, get_repos_and_branches
 
 
 def main():  # noqa
@@ -16,7 +16,7 @@ def main():  # noqa
     for subs_path in glob.glob('/git/fluidattacks/services/groups/*'):
         subs_name = os.path.basename(subs_path)
 
-        if subs_name in FLUID_SUBS:
+        if subs_name in FLUID_GROUPS:
             continue
 
         stats[subs_name] = {'CLONED': [], 'ERROR': []}

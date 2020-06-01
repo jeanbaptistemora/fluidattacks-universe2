@@ -170,17 +170,26 @@ function job_services_repositories_cache {
 
 }
 
-function job_analytics_git__clone_repositories {
-  CLONE_CMD='fluid drills --pull-repos' job_services_repositories_cache
-}
-
 function job_analytics_git__process {
   local artifacts="${PWD}/artifacts"
+  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
 
-      echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
-  &&  python3 analytics/git/generate_config.py \
+      echo '[INFO] Exporting secrets' \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_gitlab_user \
+        analytics_gitlab_token \
+  &&  echo '[INFO] Cloning our own repositories' \
+  &&  python3 analytics/git/clone_us.py \
+  &&  echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
+  &&  \
+      CI=true \
+      CI_COMMIT_REF_NAME='master' \
+      INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+      PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+      PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+      python3 analytics/git/generate_config.py \
   &&  mkdir -p "${artifacts}" \
   &&  echo "[INFO] Running tap" \
   &&  tap-git \

@@ -9,10 +9,6 @@ import subprocess
 from typing import Tuple
 
 
-CLONE_CMD: str = \
-    os.environ.get('CLONE_CMD', 'fluid resources --clone-from-customer-git')
-
-
 def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
     """Run a command and return exit code and output."""
     # pylint: disable=subprocess-run-check
@@ -26,9 +22,13 @@ def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
     return proc.returncode, proc.stdout
 
 
-def clone(subs_name: str, subs_path: str) -> None:
+def clone(
+    subs_name: str,
+    subs_path: str,
+    clone_cmd: str = 'fluid resources --clone-from-customer-git',
+) -> None:
     """Clone a subs_path."""
-    _, output = run_command(CLONE_CMD, cwd=subs_path)
+    _, output = run_command(clone_cmd, cwd=subs_path)
     print(f'INFO: git clone {subs_path}')
     print(f'      output:')
     print(textwrap.indent(output, ' ' * 16))
