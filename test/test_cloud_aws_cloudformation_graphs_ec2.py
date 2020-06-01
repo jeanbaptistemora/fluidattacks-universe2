@@ -22,5 +22,12 @@ def test_has_unrestricted_cidrs(safe_loader, vuln_loader):
     """test ec2.has_unrestricted_cidrs."""
     result = ec2.has_unrestricted_cidrs(vuln_loader)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 5
+    assert result.get_vulns_number() == 2 * 13
     assert ec2.has_unrestricted_cidrs(safe_loader).is_closed()
+
+def test_has_unrestricted_ip_protocols(safe_loader, vuln_loader):
+    """test ec2.has_unrestricted_ip_protocols."""
+    result = ec2.has_unrestricted_ip_protocols(vuln_loader)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 7
+    assert ec2.has_unrestricted_ip_protocols(safe_loader).is_closed()

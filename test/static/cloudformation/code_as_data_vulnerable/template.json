@@ -1,6 +1,11 @@
 {
   "Description": "code_as_data_vulnerable",
   "Parameters": {
+    "IpInsecureProtocol": {
+      "Default": "-1",
+      "Description": "Insecure ip protocol",
+      "Type": "String"
+    },
     "IpSecurityGroup": {
       "Default": "12.34.12.43/16",
       "Description": "Ip of SecurityGroup",
@@ -29,12 +34,56 @@
           {
             "CidrIpv6": "::/0",
             "FromPort": 1,
-            "IpProtocol": "-1",
+            "IpProtocol": {
+              "Ref": "IpInsecureProtocol"
+            },
             "ToPort": 65535
           }
         ]
       },
       "Type": "AWS::EC2::SecurityGroup"
+    },
+    "securityGroup2": {
+      "Properties": {
+        "GroupDescription": "groupDescription2"
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
+    "securityGroupEgress1": {
+      "Properties": {
+        "CidrIp": "34.229.161.227/16",
+        "FromPort": 22,
+        "GroupId": {
+          "Ref": "securityGroup2"
+        },
+        "IpProtocol": "-1",
+        "ToPort": 8080
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress"
+    },
+    "securityGroupIngress1": {
+      "Properties": {
+        "CidrIp": "110.229.161.227/16",
+        "FromPort": 22,
+        "GroupName": "securityGroup2",
+        "IpProtocol": {
+          "Ref": "IpInsecureProtocol"
+        },
+        "ToPort": 8080
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress"
+    },
+    "securityGroupIngress2": {
+      "Properties": {
+        "CidrIp": {
+          "Ref": "IpSecurityGroup"
+        },
+        "FromPort": 22,
+        "GroupName": "securityGroup2",
+        "IpProtocol": "-1",
+        "ToPort": 8080
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress"
     }
   }
 }

@@ -21,7 +21,7 @@
             "ToPort": 22
           },
           {
-            "CidrIp": "123.123.123.0/32",
+            "CidrIp": "32.45.123.0/32",
             "FromPort": 22,
             "IpProtocol": "tcp",
             "ToPort": 22
@@ -49,7 +49,7 @@
         ],
         "SecurityGroupIngress": [
           {
-            "CidrIp": "123.123.123.0/32",
+            "CidrIp": "20.123.123.0/32",
             "FromPort": 22,
             "IpProtocol": "tcp",
             "ToPort": 22

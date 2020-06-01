@@ -186,3 +186,69 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
         vulnerabilities=vulnerabilities,
         msg_open='EC2 security groups have unrestricted CIDRs',
         msg_closed='EC2 security groups do not have unrestricted CIDRs')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unrestricted_ip_protocols(connection: ConnectionString) -> tuple:
+    """
+    Avoid ``EC2::SecurityGroup`` ingress/egress rules with any ip protocol.
+
+    The following checks are performed:
+
+    * W40 Security Groups egress with an IpProtocol of -1 found
+    * W42 Security Groups ingress with an ipProtocol of -1 found
+
+    :param connection: Connection String to neo4j.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    queries = [
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(group)
+        WHERE group:SecurityGroupIngress OR group:SecurityGroupEgress OR
+            group:SecurityGroup
+        MATCH (group)-[:HAS*1..6]->(ip:IpProtocol)
+        WHERE ip.value = -1 OR ip.value = '-1'
+        RETURN template.path as path, ip.line as line,
+          group.name as resource, [x IN labels(group) WHERE x IN [
+              'SecurityGroupEgress', 'SecurityGroupIngress']][0]  as type,
+          ip.value as ipProtocol
+        """, """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            group)-[:HAS*1..6]->(rule)
+        WHERE group:SecurityGroupIngress OR group:SecurityGroupEgress OR
+            group:SecurityGroup
+        MATCH (rule)-[:HAS*]->(:IpProtocol)-[:REFERENCE]->(
+            )-[:HAS*1..3]->(proto)
+        WHERE exists(proto.value) AND
+            (proto.value = -1 OR proto.value = '-1')
+        RETURN template.path as path, proto.line as line,
+          group.name as resource, [x IN labels(rule) WHERE x IN [
+              'SecurityGroupEgress', 'SecurityGroupIngress']][0]  as type,
+          proto.value as ipProtocol
+        """
+    ]
+    session = driver_session(connection)
+
+    for query in queries:
+        for record in session.run(query):
+            vulnerabilities.append(
+                Vulnerability(
+                    path=record['path'],
+                    entity=(f"AWS::EC2::{record['type']}/IpProtocol/"
+                            f"{record['ipProtocol']}"),
+                    identifier=record['resource'],
+                    line=record['line'],
+                    reason='Authorize all IP protocols'))
+    session.close()
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open=('EC2 security groups have ingress/egress rules '
+                  'with unrestricted IP protocols'),
+        msg_closed=('EC2 security groups do not have ingress/egress rules '
+                    'with unrestricted IP protocols'))

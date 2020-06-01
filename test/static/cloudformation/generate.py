@@ -4,6 +4,7 @@
 # pylint: disable=E0401
 # pylint: disable=C0103
 # pylint: disable=W0621
+# pylint: disable=too-many-lines
 
 import os
 import textwrap
@@ -918,7 +919,7 @@ security_group = troposphere.ec2.SecurityGroup(
         'ToPort': 22
     }, {
         'IpProtocol': 'tcp',
-        'CidrIp': '123.123.123.0/32',
+        'CidrIp': '32.45.123.0/32',
         'FromPort': 22,
         'ToPort': 22
     }, {
@@ -933,7 +934,7 @@ security_group2 = troposphere.ec2.SecurityGroup(
     GroupDescription='groupDescription1',
     SecurityGroupIngress=[{
         'IpProtocol': 'tcp',
-        'CidrIp': '123.123.123.0/32',
+        'CidrIp': '20.123.123.0/32',
         'FromPort': 22,
         'ToPort': 22
     }],
@@ -966,8 +967,14 @@ param_ip_security_group = troposphere.Parameter(
     Type="String",
     Default="12.34.12.43/16")
 template.add_parameter(param_ip_security_group)
+param_insecure_ip_protocol = troposphere.Parameter(
+    'IpInsecureProtocol',
+    Description="Insecure ip protocol",
+    Type="String",
+    Default="-1")
+template.add_parameter(param_insecure_ip_protocol)
 
-security_group = troposphere.ec2.SecurityGroup(
+security_group1 = troposphere.ec2.SecurityGroup(
     title='securityGroup1',
     GroupDescription='groupDescription1',
     SecurityGroupIngress=[{
@@ -981,11 +988,39 @@ security_group = troposphere.ec2.SecurityGroup(
         'FromPort': 1,
         'ToPort': 65535
     }, {
-        'IpProtocol': '-1',
+        'IpProtocol': troposphere.Ref(param_insecure_ip_protocol),
         'CidrIpv6': '::/0',
         'FromPort': 1,
         'ToPort': 65535
     }])
+security_group2 = troposphere.ec2.SecurityGroup(
+    title='securityGroup2',
+    GroupDescription='groupDescription2')
+security_group_egress1 = troposphere.ec2.SecurityGroupEgress(
+    title='securityGroupEgress1',
+    IpProtocol='-1',
+    FromPort=22,
+    ToPort=8080,
+    CidrIp='34.229.161.227/16',
+    GroupId=troposphere.Ref(security_group2))
+security_group_ingress1 = troposphere.ec2.SecurityGroupIngress(
+    title='securityGroupIngress1',
+    IpProtocol=troposphere.Ref(param_insecure_ip_protocol),
+    FromPort=22,
+    ToPort=8080,
+    CidrIp='110.229.161.227/16',
+    GroupName='securityGroup2')
+security_group_ingress2 = troposphere.ec2.SecurityGroupIngress(
+    title='securityGroupIngress2',
+    IpProtocol='-1',
+    FromPort=22,
+    ToPort=8080,
+    CidrIp=troposphere.Ref(param_ip_security_group),
+    GroupName='securityGroup2')
 
-template.add_resource(security_group)
+template.add_resource(security_group1)
+template.add_resource(security_group2)
+template.add_resource(security_group_egress1)
+template.add_resource(security_group_ingress1)
+template.add_resource(security_group_ingress2)
 write_template(template)
