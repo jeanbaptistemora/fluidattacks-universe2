@@ -25,3 +25,10 @@ def test_uses_default_port_open():
     """Test elasticache.uses_default_port."""
     assert elasticache.uses_default_port(AWS_ACCESS_KEY_ID,
                                          AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_uses_unsafe_engine_version_open():
+    """Test elasticache.uses_unsafe_engine_version."""
+    assert elasticache.uses_unsafe_engine_version(AWS_ACCESS_KEY_ID,
+                                                  AWS_SECRET_ACCESS_KEY).\
+        is_open()
