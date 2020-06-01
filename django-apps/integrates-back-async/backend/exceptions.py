@@ -198,13 +198,6 @@ class InvalidProject(Exception):
         super(InvalidProject, self).__init__(msg)
 
 
-class ConcurrentSession(Exception):
-    """Exception to control if an user has another active session when logging"""
-    def __init__(self):
-        msg = 'Exception - User had a previous active session'
-        super(ConcurrentSession, self).__init__(msg)
-
-
 class QueryDepthExceeded(Exception):
     """Exception to control graphql max query depth"""
 
