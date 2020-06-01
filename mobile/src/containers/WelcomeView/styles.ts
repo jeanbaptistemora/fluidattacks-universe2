@@ -19,9 +19,7 @@ export const styles: Dictionary = StyleSheet.create({
     borderColor: "rgba(0,0,0,0.2)",
     borderRadius: 50,
     borderWidth: 3,
-    height: 100,
     marginTop: 15,
-    width: 100,
   },
   unauthorized: {
     color: "#ffffff",

@@ -33,27 +33,6 @@ describe("Header", (): void => {
       .toContain("Welcome Test");
   });
 
-  it("should render user initials", (): void => {
-    const wrapper: ReactWrapper = mount(
-      <I18nextProvider i18n={i18next}>
-        <Header
-          photoUrl={undefined}
-          userName="Simón José Antonio de la Santísima Trinidad Bolívar y Palacios Ponte-Andrade y Blanco"
-          onLogout={jest.fn()}
-        />
-      </I18nextProvider>,
-    );
-
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(wrapper
-      .find(Avatar.Text)
-      .text())
-      .toEqual("SJ");
-    expect(wrapper.text())
-      .toContain("Welcome Simón");
-  });
-
   it("should execute logout callback", (): void => {
     const logoutMock: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(

@@ -4,10 +4,11 @@ import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Image, StatusBar, Text, View } from "react-native";
+import { Alert, StatusBar, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
+import { Avatar } from "../../components/Avatar";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
 
@@ -66,7 +67,9 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
     <React.StrictMode>
       <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
       <View style={styles.container}>
-        <Image style={styles.profilePicture} source={{ uri: user.photoUrl }} />
+        <View style={styles.profilePicture}>
+          <Avatar photoUrl={user.photoUrl} size={100} userName={user.fullName} />
+        </View>
         <Text style={styles.greeting}>{t("welcome.greetingText")} {user.firstName}!</Text>
         {loading || isAuthorized ? undefined : (
           <React.Fragment>
