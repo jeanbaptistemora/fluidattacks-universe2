@@ -34,8 +34,12 @@ from django.core.cache import cache
 from jose import jwt, JWTError
 
 
-from backend.exceptions import (InvalidAuthorization, InvalidDate,
-                                InvalidDateFormat)
+from backend.dal import session as session_dal
+from backend.exceptions import (
+    InvalidAuthorization,
+    InvalidDate, InvalidDateFormat,
+)
+
 from backend.typing import Finding as FindingType, User as UserType
 from __init__ import (
     FI_ENVIRONMENT,
@@ -563,3 +567,10 @@ async def get_filtered_elements(elements, filters):
     else:
         filtered = elements
     return filtered
+
+
+def check_concurrent_sessions(email: str, session_key: str):
+    """ This method checks if current user already has an active session and if so, removes it"""
+    previous_session_key = session_dal.get_previous_session(email, session_key)
+    if previous_session_key:
+        session_dal.invalidate_session(previous_session_key)
