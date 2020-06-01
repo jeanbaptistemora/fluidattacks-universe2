@@ -127,7 +127,7 @@ function helper_deploy_pages {
       rsync -av --progress content/pages/ new/content/pages/ --exclude contact-us \
         --exclude products --exclude services --exclude careers/* \
         --exclude defends --exclude location \
-        --exclude subscription --exclude values --exclude reviews --exclude events \
+        --exclude subscription --exclude reviews --exclude events \
         --exclude people --exclude partners \
   &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
   &&  sed -i "s|:template: faq||g" new/content/pages/careers/faq/index.adoc \
