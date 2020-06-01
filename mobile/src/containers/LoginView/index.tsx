@@ -12,7 +12,8 @@ import { rollbar } from "../../utils/rollbar";
 import { checkVersion } from "../../utils/version";
 
 import { GoogleButton } from "./GoogleButton";
-import { authWithGoogle, IAuthResult } from "./socialAuth";
+import { MicrosoftButton } from "./MicrosoftButton";
+import { authWithGoogle, authWithMicrosoft, IAuthResult } from "./socialAuth";
 import { styles } from "./styles";
 
 type manifestStructure = NativeConstants["manifest"] & { android: { package: string } };
@@ -64,6 +65,20 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
+  const handleMicrosoftButtonClick: (() => void) = async (): Promise<void> => {
+    setLoading(true);
+
+    const result: IAuthResult = await authWithMicrosoft();
+    if (result.type === "success") {
+      history.replace("/Welcome", {
+        authProvider: "MICROSOFT",
+        ...result,
+      });
+    } else {
+      setLoading(false);
+    }
+  };
+
   const handleUpdateButtonClick: (() => void) = async (): Promise<void> => {
     await Linking.openURL(`market://details?id=${manifest.android.package}`);
   };
@@ -77,6 +92,10 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
           <GoogleButton
             disabled={isLoading ? true : isOutdated}
             onPress={handleGoogleButtonClick}
+          />
+          <MicrosoftButton
+            disabled={isLoading ? true : isOutdated}
+            onPress={handleMicrosoftButtonClick}
           />
         </View>
         <Preloader visible={isLoading} />

@@ -209,6 +209,7 @@ AUTH_PROVIDER = EnumType(
     'AuthProvider',
     {
         'GOOGLE': 'google-oauth2',
+        'MICROSOFT': 'azuread-tenant-oauth2'
     }
 )
 

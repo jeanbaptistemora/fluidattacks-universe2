@@ -1,5 +1,7 @@
 import { mount, ReactWrapper } from "enzyme";
+import * as AppAuth from "expo-app-auth";
 import * as Google from "expo-google-app-auth";
+import { FetchMockStatic } from "fetch-mock";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -13,12 +15,20 @@ import { checkVersion } from "../../utils/version";
 
 import { GoogleButton, IGoogleButtonProps } from "./GoogleButton";
 import { LoginView } from "./index";
+import { IMicrosoftButtonProps, MicrosoftButton } from "./MicrosoftButton";
 
 jest.mock("expo-google-app-auth", (): Dictionary => {
   const mockedGoogleAuth: Dictionary = jest.requireActual("expo-google-app-auth");
   mockedGoogleAuth.logInAsync = jest.fn();
 
   return mockedGoogleAuth;
+});
+
+jest.mock("expo-app-auth", (): Dictionary => {
+  const mockedMicrosoftAuth: Dictionary = jest.requireActual("expo-app-auth");
+  mockedMicrosoftAuth.authAsync = jest.fn();
+
+  return mockedMicrosoftAuth;
 });
 
 jest.mock("react-native", (): Dictionary => {
@@ -131,9 +141,69 @@ describe("LoginView", (): void => {
       });
   });
 
+  it("should auth with microsoft", async (): Promise<void> => {
+    (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> => Promise.resolve({
+      accessToken: "abc123",
+      accessTokenExpirationDate: "",
+      additionalParameters: {},
+      idToken: "def456",
+      refreshToken: "",
+      tokenType: "",
+    }));
+    const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
+    mockedFetch.mock("https://graph.microsoft.com/v1.0/me", {
+      body: {
+        displayName: "JOHN DOE",
+        givenName: "JOHN",
+        mail: "test@fluidattacks.com",
+        surname: "DOE",
+      },
+      status: 200,
+    });
+
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <NativeRouter initialEntries={["/"]}>
+            <LoginView />
+          </NativeRouter>
+        </I18nextProvider>
+      </PaperProvider>,
+    );
+
+    expect(wrapper)
+      .toHaveLength(1);
+
+    const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> = wrapper
+      .find<IMicrosoftButtonProps>(MicrosoftButton);
+    expect(microsoftBtn)
+      .toHaveLength(1);
+
+    await act(async (): Promise<void> => {
+      await (microsoftBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
+    expect(mockHistoryReplace)
+      .toHaveBeenCalledWith("/Welcome", {
+        authProvider: "MICROSOFT",
+        authToken: "def456",
+        type: "success",
+        user: {
+          email: "test@fluidattacks.com",
+          firstName: "John",
+          fullName: "John Doe",
+          lastName: "DOE",
+        },
+      });
+  });
+
   it("should handle auth cancel", async (): Promise<void> => {
     (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.reject({
+      code: Platform.select({ android: 2, ios: -3 }),
+    }));
+    (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> => Promise.reject({
       code: Platform.select({ android: 2, ios: -3 }),
     }));
 
@@ -168,6 +238,16 @@ describe("LoginView", (): void => {
       wrapper.update();
     });
 
+    const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> = wrapper
+      .find<IMicrosoftButtonProps>(MicrosoftButton);
+    expect(microsoftBtn)
+      .toHaveLength(1);
+
+    await act(async (): Promise<void> => {
+      await (microsoftBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
+
     expect(wrapper
       .find("preloader")
       .prop("visible"))
@@ -177,6 +257,8 @@ describe("LoginView", (): void => {
   it("should handle errors", async (): Promise<void> => {
     (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.reject("Oops :("));
     (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.reject("Oops :("));
+    (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> =>
+      Promise.reject("Oops :("));
 
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
@@ -200,7 +282,19 @@ describe("LoginView", (): void => {
       await (googleBtn.invoke("onPress") as () => Promise<void>)();
       wrapper.update();
     });
+
+    const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> = wrapper
+      .find<IMicrosoftButtonProps>(MicrosoftButton);
+    expect(microsoftBtn)
+      .toHaveLength(1);
+
+    await act(async (): Promise<void> => {
+      await (microsoftBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
+
+    const expectedErrors: number = 2;
     expect(Alert.alert)
-      .toHaveBeenCalled();
+      .toHaveBeenCalledTimes(expectedErrors);
   });
 });

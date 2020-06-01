@@ -411,4 +411,5 @@ enum UserRole {
 
 enum AuthProvider {
     GOOGLE
+    MICROSOFT
 }

@@ -7,14 +7,14 @@ export const styles: Dictionary = StyleSheet.create({
     marginBottom: 15,
   },
   buttonsContainer: {
-    marginTop: 150,
+    marginTop: 125,
   },
   container: {
     alignItems: "center",
     backgroundColor: "#272727",
     flex: 1,
     flexDirection: "column",
-    paddingTop: 150,
+    paddingTop: 100,
   },
   slogan: {
     color: "#FFFFFF",
