@@ -3,7 +3,6 @@
 # Standard library
 import base64
 import os
-import re
 import sys
 import json
 import platform
@@ -304,53 +303,6 @@ def read_secrets(group: str, suffix: str, profile: str) -> bool:
             shell=True
         )
     return status
-
-
-def check_mailmap(subs: str) -> bool:
-    """ verify if mailmap is sorted and .
-    """
-    flag = True
-    filename = '.mailmap'
-    path = 'groups/' + subs
-    logger.info(f'Checking {subs} mailmap')
-    if not os.path.exists(path) or not subs:
-        failuremsg = f"Please run inside a project or use --subs\n"
-        failuremsg += 'services/group/..\n'
-        logger.error(failuremsg)
-        flag = False
-    elif not os.path.exists(f'{path}/{filename}'):
-        failuremsg = f"No mailmap in {subs} \n"
-        logger.error(failuremsg)
-        flag = False
-    else:
-        with open(f'{path}/{filename}', 'r+') as mailmap:
-            linelist = mailmap.readlines()
-            sort = sorted(linelist)
-            if linelist == []:
-                flag = False
-                logger.error("Mailmap is empty \n")
-            elif linelist != sort:
-                logger.error("Mailmap is not properly sorted \n")
-                mailmap.seek(0)
-                mailmap.truncate(0)
-                for sorted_lines in sort:
-                    mailmap.write(str(sorted_lines) + '\n')
-                logger.info("^ Mailmap was sorted, I did it for you ;) \n")
-                flag = False
-            else:
-                logger.info("Mailmap sorted")
-
-            mailmap.seek(0)
-            regex = re.compile(r'^[A-Z][a-z]*\s[A-z][a-z]*\s<')
-            for line in mailmap:
-                # Check if all authors start with Single name
-                # and Last name on Title case:
-                if not regex.match(line):
-                    failuremsg = f" Author {line} is not properly formatted \n"
-                    logger.error(failuremsg)
-                    flag = False
-        logger.info("Done!")
-    return flag
 
 
 def get_fingerprint(subs: str) -> bool:

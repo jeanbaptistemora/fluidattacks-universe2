@@ -23,12 +23,6 @@ def test_resources_1(relocate, cli_runner):
     assert result.exit_code == 0
 
 
-def test_resources_2(relocate, cli_runner):
-    result = cli_runner(f'resources --mailmap {GROUP}'.split())
-    assert result.exit_code == 0
-    assert 'Mailmap sorted' in result.output
-
-
 def test_resources_3(relocate, cli_runner):
     result = cli_runner(f'resources --read-dev {GROUP}'.split())
     assert result.exit_code == 0

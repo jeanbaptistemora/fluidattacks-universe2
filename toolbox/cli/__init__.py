@@ -60,11 +60,6 @@ def entrypoint():
     help='get the fingerprint of a group')
 @click.option('--login', is_flag=True, help='login to AWS through OKTA')
 @click.option(
-    '--mailmap',
-    '-mp',
-    is_flag=True,
-    help='check if the mailmap of a group is valid')
-@click.option(
     '--edit-dev', is_flag=True, help='edit the dev secrets of a group')
 @click.option(
     '--read-dev', is_flag=True, help='read the dev secrets of a group')
@@ -77,7 +72,6 @@ def resources_management(
     check_repos,
     clone,
     fingerprint,
-    mailmap,
     login,
     edit_dev,
     read_dev,
@@ -87,9 +81,7 @@ def resources_management(
     """Allows administration tasks within groups"""
     success: bool = True
 
-    if mailmap:
-        success = resources.check_mailmap(group)
-    elif clone:
+    if clone:
         success = resources.repo_cloning(group)
     elif fingerprint:
         success = resources.get_fingerprint(group)
