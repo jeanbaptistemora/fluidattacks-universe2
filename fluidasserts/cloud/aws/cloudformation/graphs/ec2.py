@@ -43,9 +43,13 @@ def allows_all_outbound_traffic(connection: ConnectionString) -> tuple:
     query = """
         MATCH (template:CloudFormationTemplate)-[*]->(
             group:EC2:SecurityGroup)-[:HAS]->(prop:Properties)
-        WHERE NOT EXISTS { (group)-[*]->(:SecurityGroupEgress) } AND
-        NOT EXISTS { (:DestinationSecurityGroupId)-[*]->(group) }
-        RETURN group.logicalName as resource, template.path as path,
+        WHERE NOT EXISTS { (prop)-[:HAS]->(:SecurityGroupEgress) }
+        AND NOT EXISTS (
+            (template)-[*]->(:DestinationSecurityGroupId)-[*]->(group) )
+        AND NOT EXISTS (
+            (template)-[*]->(:GroupName {value: group.name}) )
+        WITH DISTINCT group, template, prop
+        RETURN group.name as resource, template.path as path,
         prop.line as line
      """
     with database(connection) as session:
@@ -85,18 +89,17 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
     vulnerabilities: list = []
     unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
     unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
-    query_simple = """
+    queries = ["""
         MATCH (template:CloudFormationTemplate)-[*]->(
-            group:EC2:SecurityGroup)-[:HAS*]->(rule)
+            group:EC2:SecurityGroup)-[*]-(rule)
         WHERE rule:SecurityGroupIngress OR rule:SecurityGroupEgress
         MATCH (rule)-[:HAS*]->(ip:CidrIp{version})
         WHERE exists(ip.value)
         RETURN template.path as path, ip.line as line,
-          group.logicalName as resource, [x IN labels(rule) WHERE x IN [
+          group.name as resource, [x IN labels(rule) WHERE x IN [
               'SecurityGroupEgres', 'SecurityGroupIngress']] [-1] as type,
           ip.value as ip
-        """
-    query_reference = """
+        """, """
         MATCH (template:CloudFormationTemplate)-[*]->(
             group:EC2:SecurityGroup)-[:HAS*]->(rule)
         WHERE rule:SecurityGroupIngress OR rule:SecurityGroupEgress
@@ -104,16 +107,36 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
         WHERE (ref_ip: Default OR ref_ip: MapVar) AND
             exists(ref_ip.value)
         RETURN template.path as path, ref_ip.line as line,
-          group.logicalName as resource, [x IN labels(rule) WHERE x IN [
+          group.name as resource, [x IN labels(rule) WHERE x IN [
               'SecurityGroupEgres', 'SecurityGroupIngress']] [-1] as type,
           ref_ip.value as ip
+        """,
+               """
+        MATCH (template:CloudFormationTemplate)-[*]->(
+            group:EC2:SecurityGroup)<-[*]-(rule)-[*]-(ip:CidrIp{version})
+        WHERE (
+            rule:SecurityGroupIngress OR rule:SecurityGroupEgress) AND exists(
+                ip.value)
+        RETURN template.path as path,
+          group.name as resource, [x IN labels(rule) WHERE x IN [
+              'SecurityGroupEgress', 'SecurityGroupIngress']][0] as type,
+          ip.value as ip, ip.line as line
+        """,
+               """
+        MATCH (template:CloudFormationTemplate)-[*]->(
+            group:EC2:SecurityGroup)<-[*]-(rule)-[*]-(
+                ip:CidrIp{version})-[*]->(ref_ip)
+        WHERE (
+            rule:SecurityGroupIngress OR rule:SecurityGroupEgress)
+             AND (ref_ip: Default OR ref_ip: MapVar) AND exists(ref_ip.value)
+        RETURN template.path as path,
+          group.name as resource, [x IN labels(rule) WHERE x IN [
+              'SecurityGroupEgress', 'SecurityGroupIngress']][0]  as type,
+          ref_ip.value as ip,  ref_ip.line as line
         """
-    queries_ipv4 = [
-        query_simple.format(version=''),
-        query_reference.format(version='')]
-    queries_ipv6 = [
-        query_simple.format(version='v6'),
-        query_reference.format(version='v6')]
+               ]
+    queries_ipv4 = [query.format(version='') for query in queries]
+    queries_ipv6 = [query.format(version='v6') for query in queries]
     session = driver_session(connection)
 
     for query in queries_ipv4:

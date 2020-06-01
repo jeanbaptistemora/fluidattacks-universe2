@@ -22,9 +22,9 @@ from docker.models.containers import Image, Container
 from neo4j.exceptions import ServiceUnavailable
 
 # local imports
-from fluidasserts.cloud.aws.cloudformation.graphs.loader import database
-from fluidasserts.cloud.aws.cloudformation.graphs.loader import ConnectionString
 from fluidasserts.cloud.aws.cloudformation.graphs.loader import Loader
+from fluidasserts.db.neo4j_connection import ConnectionString
+from fluidasserts.db.neo4j_connection import database
 from test.mock import sip_server
 from test.mock import http_server
 from test.mock import graphql_server
