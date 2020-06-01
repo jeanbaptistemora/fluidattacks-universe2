@@ -7,9 +7,9 @@ from botocore.vendored.requests.exceptions import RequestException
 
 # Local imports
 from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts import DAST
+from fluidasserts import DAST, SCA
 from fluidasserts.helper import aws
-from fluidasserts import LOW, MEDIUM
+from fluidasserts import LOW, MEDIUM, HIGH
 from fluidasserts.utils.decorators import api
 from fluidasserts.utils.decorators import unknown_if
 
@@ -56,7 +56,7 @@ def uses_default_port(key_id: str,
         safes=safes)
 
 
-@api(risk=MEDIUM, kind=DAST)
+@api(risk=MEDIUM, kind=SCA)
 @unknown_if(BotoCoreError, RequestException)
 def uses_unsafe_engine_version(key_id: str,
                                secret: str,
@@ -113,6 +113,47 @@ def uses_unsafe_engine_version(key_id: str,
          else safes).append(
              (f'{cluster["CacheClusterId"]}/{cluster["EngineVersion"]}',
               'uses unsafe engine version'))
+
+    return _get_result_as_tuple(
+        service='Elasticache',
+        objects='Clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_transit_encryption_disabled(key_id: str,
+                                   secret: str,
+                                   session_token: str = None,
+                                   retry: bool = True) -> tuple:
+    """Check if an ``ElastiCache`` cluster has transit encryption disabled.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    caches = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='elasticache',
+        func='describe_cache_clusters',
+        param='CacheClusters',
+        retry=retry)
+
+    msg_open: str = 'Elasticache clusters have transit encryption disabled'
+    msg_closed: str = ('Elasticache clusters do not have transit '
+                       'encryption disabled')
+
+    vulns, safes = [], []
+    for cluster in caches:
+        (vulns if cluster.get('Engine') == 'redis'
+         and not cluster.get('TransitEncryptionEnabled', '') == "True"
+         else safes).append(
+             (cluster['CacheClusterId'],
+              'has transit encryption disabled'))
 
     return _get_result_as_tuple(
         service='Elasticache',

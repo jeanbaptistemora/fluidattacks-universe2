@@ -32,3 +32,10 @@ def test_uses_unsafe_engine_version_open():
     assert elasticache.uses_unsafe_engine_version(AWS_ACCESS_KEY_ID,
                                                   AWS_SECRET_ACCESS_KEY).\
         is_open()
+
+
+def test_is_transit_encryption_disabled_open():
+    """Test elasticache.is_transit_encryption_disabled."""
+    assert elasticache.is_transit_encryption_disabled(AWS_ACCESS_KEY_ID,
+                                                      AWS_SECRET_ACCESS_KEY).\
+        is_open()
