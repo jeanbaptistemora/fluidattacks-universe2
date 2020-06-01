@@ -13,8 +13,7 @@ import { i18next } from "../../utils/translations/translate";
 
 /**
  * AppAuth Error codes
- * @see https://git.io/JforO for android
- * @see https://git.io/JforG for iOS
+ * @see https://git.io/JforO
  */
 enum AppAuthError {
   InvalidDiscoveryDocument,
@@ -26,6 +25,11 @@ enum AppAuthError {
   TokenResponseConstructionError,
 }
 
+/**
+ * Adjust iOS AppAuth error code offset
+ * to match the android AppAuth ones
+ * @see https://git.io/JfimI
+ */
 const iOSErrorCodeOffset: number = 2;
 const getStandardErrorCode: ((code: number) => number) = (code: number): number => Platform.select({
   android: code,

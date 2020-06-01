@@ -4,8 +4,8 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
-import { Alert } from "react-native";
-import { Button, Provider as PaperProvider } from "react-native-paper";
+import { Alert, Platform } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
 import { NativeRouter } from "react-router-native";
 
 import { i18next } from "../../utils/translations/translate";
@@ -50,6 +50,9 @@ jest.mock("../../utils/version", (): Dictionary => {
 });
 
 describe("LoginView", (): void => {
+  afterEach((): void => {
+    jest.clearAllMocks();
+  });
 
   it("should return a function", (): void => {
     expect(typeof (LoginView))
@@ -128,10 +131,10 @@ describe("LoginView", (): void => {
       });
   });
 
-  it("should handle google auth cancel", async (): Promise<void> => {
+  it("should handle auth cancel", async (): Promise<void> => {
     (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
-    (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.resolve({
-      type: "cancel",
+    (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.reject({
+      code: Platform.select({ android: 2, ios: -3 }),
     }));
 
     const wrapper: ReactWrapper = mount(
@@ -156,6 +159,15 @@ describe("LoginView", (): void => {
       await (googleBtn.invoke("onPress") as () => Promise<void>)();
       wrapper.update();
     });
+
+    (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.resolve({
+      type: "cancel",
+    }));
+    await act(async (): Promise<void> => {
+      await (googleBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
+
     expect(wrapper
       .find("preloader")
       .prop("visible"))
