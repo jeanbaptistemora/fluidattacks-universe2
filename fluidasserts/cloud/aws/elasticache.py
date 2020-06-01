@@ -162,3 +162,44 @@ def is_transit_encryption_disabled(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_at_rest_encryption_disabled(key_id: str,
+                                   secret: str,
+                                   session_token: str = None,
+                                   retry: bool = True) -> tuple:
+    """Check if an ``ElastiCache`` cluster has at rest encryption disabled.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    caches = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='elasticache',
+        func='describe_cache_clusters',
+        param='CacheClusters',
+        retry=retry)
+
+    msg_open: str = 'Elasticache clusters have at rest encryption disabled'
+    msg_closed: str = ('Elasticache clusters do not have at rest '
+                       'encryption disabled')
+
+    vulns, safes = [], []
+    for cluster in caches:
+        (vulns if cluster.get('Engine') == 'redis'
+         and not cluster.get('AtRestEncryptionEnabled', '') == "True"
+         else safes).append(
+             (cluster['CacheClusterId'],
+              'has At Rest encryption disabled'))
+
+    return _get_result_as_tuple(
+        service='Elasticache',
+        objects='Clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

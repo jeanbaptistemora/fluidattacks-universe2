@@ -39,3 +39,10 @@ def test_is_transit_encryption_disabled_open():
     assert elasticache.is_transit_encryption_disabled(AWS_ACCESS_KEY_ID,
                                                       AWS_SECRET_ACCESS_KEY).\
         is_open()
+
+
+def test_is_at_rest_encryption_disabled_open():
+    """Test elasticache.is_at_rest_encryption_disabled."""
+    assert elasticache.is_at_rest_encryption_disabled(AWS_ACCESS_KEY_ID,
+                                                      AWS_SECRET_ACCESS_KEY).\
+        is_open()
