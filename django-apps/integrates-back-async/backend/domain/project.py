@@ -1,10 +1,12 @@
 """Domain functions for projects."""
 
+import asyncio
 from typing import Dict, List, NamedTuple, Union, cast
 from collections import namedtuple, defaultdict
 import re
 from datetime import datetime, timedelta
 from decimal import Decimal
+from asgiref.sync import sync_to_async, async_to_sync
 import pytz
 
 from django.conf import settings
@@ -603,11 +605,19 @@ def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int
     return treatment
 
 
-def get_open_findings(finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
+async def get_open_findings(finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
+    last_approved_status = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(vuln_domain.get_last_approved_status)(
+                vuln
+            )
+        )
+        for vulns in finding_vulns for vuln in vulns
+    ])
     open_findings = [
         vulns for vulns in finding_vulns
         if [vuln for vuln in vulns
-            if vuln_domain.get_last_approved_status(vuln) == 'open']
+            if last_approved_status.pop(0) == 'open']
     ]
     return len(open_findings)
 
@@ -727,4 +737,4 @@ def get_open_finding(project_name: str) -> int:
     for vuln in vulns:
         finding_vulns_dict[vuln['finding_id']].append(vuln)
     finding_vulns = list(finding_vulns_dict.values())
-    return get_open_findings(finding_vulns)
+    return async_to_sync(get_open_findings)(finding_vulns)
