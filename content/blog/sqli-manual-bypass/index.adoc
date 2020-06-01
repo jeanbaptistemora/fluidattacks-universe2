@@ -4,7 +4,7 @@
 :subtitle: Bypassing SQLi filters manually
 :tags: security, web, vulnerability, ethical hacking
 :image: cover.png
-:alt: Plague doctor injection. Photo by Sara Kurfeß on Unsplash: https://unsplash.com/photos/55HNtDVObk8
+:alt: Photo by Kuma Kum on Unsplash
 :description: When SQL injection is present, it can be one of the most dangerous vulnerabilities. Not only because it can go unnoticed for a long time, but also because it can lead to remote code execution. Here we will see how to bypass certain controls that developers put in their code.
 :keywords: Web, Security, Vulnerability, Hacking, SQLi, Input Validation.
 :author: Jonathan Armas
@@ -12,7 +12,7 @@
 :name: Jonathan Armas
 :about1: Systems Engineer, OSCP - Security+
 :about2: "Be formless, shapeless like water" Bruce Lee
-:source: https://unsplash.com/photos/55HNtDVObk8
+:source: https://unsplash.com/photos/oBLk_2Iyisg
 
 = Manual SQLi Bypass
 
