@@ -109,11 +109,10 @@ def main():
         for repo_path in glob.glob(f'/git/{group}/*'):
             repo = os.path.basename(repo_path)
 
-            mailmap_target_path = f'{repo_path}/.mailmap'
-            mailmap_path = (f'/git/fluidattacks/'
-                            f'services/groups/{group}/.mailmap')
-            if os.path.exists(mailmap_path):
-                shutil.copyfile(mailmap_path, mailmap_target_path)
+            shutil.copyfile(
+                '/git/fluidattacks/services/.groups-mailmap',
+                f'{repo_path}/.mailmap',
+            )
 
             if group in FLUID_GROUPS or repo in branches[group]:
                 config.append(
