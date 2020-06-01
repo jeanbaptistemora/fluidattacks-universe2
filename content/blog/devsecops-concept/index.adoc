@@ -109,8 +109,12 @@ allows companies to stay one step ahead of attackers
 and maintain security control.
 
 *Caution:* (1) *_Relying heavily on tools and their automatic work
-can lead to high rates of false positives and false negatives;
-for that reason, involve human intelligence more in your security testing._*
+can lead to high rates of false positives and false negatives.
+For that reason, human experts' role is fundamental to achieve precision
+and avoid developers wasting time confirming if vulnerabilities are real.
+The main risk is the existence of false negatives or escapes.
+Organizations may not be aware of certain security vulnerabilities
+that current technology is unable to identify._*
 (2) _Perform the security checks gradually,
 starting link:https://medium.com/hackernoon/the-future-of-security-is-devsecops-9166db1d8a03[with high-priority areas],
 trying not to overload the developers with work
@@ -121,14 +125,16 @@ as they are usually responsible for closing the gaps._
 Now, to have a clearer idea of the role of security within `DevOps`,
 let's briefly outline what Oscar Prado, Cybersecurity Analyst,
 shared with us about what `Fluid Attacks` does for its clients.
-Our company offers continuous hacking service,
+Our company offers continuous hacking services,
 a constant search for vulnerabilities or gaps in `IT` systems.
 But although some tools are used in this process,
-at `Fluid Attacks`, it is not entirely automatic or tool-dependent,
+at `Fluid Attacks`, our reliance on tools is for specific cases
+that support our hackers' activities,
 contrary to what other companies do.
-Here we place more value on the manual work of ethical hackers
+Here we place more value on the knowledge and skills of ethical hackers
 to ensure greater accuracy in testing.
-Their work can begin "from the moment the first commit is uploaded,"
+Their work can begin
+"from the moment the first commit is uploaded by developers,"
 with every new change being reviewed.
 That work can continue after the application has been deployed to production.
 
@@ -148,14 +154,16 @@ is integrated into the client's `SDLC`," Oscar concludes.
 .'Break the build' means to stop the software deployment process (link:https://www.citymetric.com/sites/default/files/article_2015/01/149818154.jpg[photo-link])
 image::build.png[Break the build]
 
-*Bonus:* `Fluid Attacks` has solved a significant challenge.
-`Fluid Attacks` has given up on the idea
-of delivering automated products to its clients.
+*Bonus:* `Fluid Attacks` has solved a significant challenge
+as we are convinced that speed without precision is useless.
+Therefore, we have combined the best of each end:
+technology and knowledge that produce a good balance
+between speed and precision.
 Many cybersecurity companies offer fast, automatic tools
 that are highly prone to false positives and negatives
 when searching for vulnerabilities.
 `Fluid Attacks` has recognized that
-there must be manual work involved in these processes
+there must be human work involved in these processes
 to ensure accuracy and efficiency.
 Furthermore, `Fluid Attacks` has not forgotten the value of speed
 but has always kept it in parallel
