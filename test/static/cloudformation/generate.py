@@ -952,7 +952,14 @@ security_group_egress = troposphere.ec2.SecurityGroupEgress(
     ToPort=22,
     GroupId=troposphere.Ref(security_group),
     DestinationSecurityGroupId=troposphere.GetAtt('securityGroup1', 'GroupId'))
-
+volume_1 = troposphere.ec2.Volume(
+    title='volume1',
+    VolumeType='gp2',
+    AvailabilityZone=troposphere.Ref('AWS::Region'),
+    Encrypted=True,
+    Size=120
+)
+template.add_resource(volume_1)
 template.add_resource(security_group)
 template.add_resource(security_group2)
 template.add_resource(security_group_egress)
@@ -966,12 +973,17 @@ param_ip_security_group = troposphere.Parameter(
     Description="Ip of SecurityGroup",
     Type="String",
     Default="12.34.12.43/16")
-template.add_parameter(param_ip_security_group)
 param_insecure_ip_protocol = troposphere.Parameter(
     'IpInsecureProtocol',
     Description="Insecure ip protocol",
     Type="String",
     Default="-1")
+param_encryption = troposphere.Parameter(
+    'DiskEncryption',
+    Type='String',
+    Default=False)
+template.add_parameter(param_encryption)
+template.add_parameter(param_ip_security_group)
 template.add_parameter(param_insecure_ip_protocol)
 
 security_group1 = troposphere.ec2.SecurityGroup(
@@ -1017,10 +1029,30 @@ security_group_ingress2 = troposphere.ec2.SecurityGroupIngress(
     ToPort=8080,
     CidrIp=troposphere.Ref(param_ip_security_group),
     GroupName='securityGroup2')
+volume_1 = troposphere.ec2.Volume(
+    title='volume1',
+    VolumeType='gp2',
+    AvailabilityZone=troposphere.Ref('AWS::Region'),
+    Encrypted=False,
+    Size=120
+)
+volume_2 = troposphere.ec2.Volume(
+    title='volume2',
+    VolumeType='gp2',
+    AvailabilityZone=troposphere.Ref('AWS::Region'),
+    Encrypted=troposphere.Ref(param_encryption),
+    Size=120
+)
+ec2_instance = troposphere.ec2.Instance(
+    title='ec2instance1',
+    DisableApiTermination=False)
 
 template.add_resource(security_group1)
 template.add_resource(security_group2)
 template.add_resource(security_group_egress1)
 template.add_resource(security_group_ingress1)
 template.add_resource(security_group_ingress2)
+template.add_resource(volume_1)
+template.add_resource(volume_2)
+template.add_resource(ec2_instance)
 write_template(template)

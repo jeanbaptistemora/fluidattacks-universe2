@@ -1,5 +1,8 @@
 Description: code_as_data_vulnerable
 Parameters:
+  DiskEncryption:
+    Default: false
+    Type: String
   IpInsecureProtocol:
     Default: '-1'
     Description: Insecure ip protocol
@@ -9,6 +12,10 @@ Parameters:
     Description: Ip of SecurityGroup
     Type: String
 Resources:
+  ec2instance1:
+    Properties:
+      DisableApiTermination: 'false'
+    Type: AWS::EC2::Instance
   securityGroup1:
     Properties:
       GroupDescription: groupDescription1
@@ -59,3 +66,20 @@ Resources:
       IpProtocol: '-1'
       ToPort: 8080
     Type: AWS::EC2::SecurityGroupIngress
+  volume1:
+    Properties:
+      AvailabilityZone:
+        Ref: AWS::Region
+      Encrypted: 'false'
+      Size: 120
+      VolumeType: gp2
+    Type: AWS::EC2::Volume
+  volume2:
+    Properties:
+      AvailabilityZone:
+        Ref: AWS::Region
+      Encrypted:
+        Ref: DiskEncryption
+      Size: 120
+      VolumeType: gp2
+    Type: AWS::EC2::Volume

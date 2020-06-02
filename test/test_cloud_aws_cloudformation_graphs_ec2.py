@@ -25,6 +25,7 @@ def test_has_unrestricted_cidrs(safe_loader, vuln_loader):
     assert result.get_vulns_number() == 2 * 13
     assert ec2.has_unrestricted_cidrs(safe_loader).is_closed()
 
+
 def test_has_unrestricted_ip_protocols(safe_loader, vuln_loader):
     """test ec2.has_unrestricted_ip_protocols."""
     result = ec2.has_unrestricted_ip_protocols(vuln_loader)
@@ -39,3 +40,19 @@ def test_has_unrestricted_ports(safe_loader, vuln_loader):
     assert result.is_open()
     assert result.get_vulns_number() == 11
     assert ec2.has_unrestricted_ports(safe_loader).is_closed()
+
+
+def test_has_unencrypted_volumes(safe_loader, vuln_loader):
+    """test ec2.has_unencrypted_volumes."""
+    result = ec2.has_unencrypted_volumes(vuln_loader)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 2
+    assert ec2.has_unencrypted_volumes(safe_loader).is_closed()
+
+
+def test_has_not_an_iam_instance_profile(safe_loader, vuln_loader):
+    """test ec2.has_not_an_iam_instance_profile."""
+    result = ec2.has_not_an_iam_instance_profile(vuln_loader)
+    assert result.is_open()
+    assert result.get_vulns_number() == 1 + 1
+    assert ec2.has_not_an_iam_instance_profile(safe_loader).is_closed()
