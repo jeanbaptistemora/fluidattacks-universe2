@@ -1,8 +1,21 @@
 :slug: resources/
-:description: The purpose of this page is to present resources of Fluid Attacks. Here are the datasheets of our products: Drills, Forces, and Integrates. Besides, all the annual reports will appear. Users who visit our website can download all the elements presented here.
+:description: The purpose of this page is to present resources of Fluid Attacks. Here are Rules and Asserts, and the datasheets of our products: Drills, Forces, and Integrates. Besides, all the annual reports will appear. Users who visit our website can download all the elements presented here.
 :keywords: Fluid Attacks, Products, Software, Documentation, Security, Information.
 
 = Resources
+
+== link:[Rules]
+
+*Rules* is a set of security requirements
+that allows you to parameterize a pentest
+according to your organization's risk appetite.
+
+== link:[Asserts]
+
+*Asserts* is an open-source tool
+that looks for deterministic and peripheral vulnerabilities,
+and that automates attacks
+to verify the status of vulnerabilities on your system.
 
 == link:[Annual Report 2020]
 

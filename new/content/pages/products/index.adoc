@@ -39,27 +39,3 @@ built to exploit what is found in exact locations in the systems.
 (open or closed) of vulnerabilities, and breaks the build to force the
 remediation of open vulnerabilities.
 Fluid Attacks creates personalized exploits that perform these attacks.
-
-[role="w-products center pt3"]
-image::work-asserts.png[link="#"]
-
-== Asserts
-
-*Asserts* is an open-source tool
-that looks for deterministic and peripheral vulnerabilities
-performing Dynamic and Static Application Security Testing (`DAST` - `SAST`).
-*Asserts* also automates attacks
-to verify the status (open/closed) of vulnerabilities on your system
-and gives you fast feedback on the proposed solutions.
-
-[role="w-products center pt3"]
-image::use-cases-rules.png[link="#"]
-
-== Rules
-
-*Rules* is a set of security requirements that allows you to parameterize a
-pentest according to the risk appetite of your organization.
-Rules allows you to determine what is tested and what is not,
-and what is considered a vulnerability or not.
-It is also the basis for determining how rigorous a pentest was,
-based on tested and untested requirements.
