@@ -22,3 +22,20 @@ const setAnchors: (() => void) = (): void => {
 };
 
 setAnchors();
+
+// Fix issues with anchors in Chrome
+const fixAnchors: (() => void) = (): void => {
+  $(() => {
+    const isChrome: boolean = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    // tslint:disable-next-line: strict-boolean-expressions
+    if (window.location.hash && isChrome) {
+        setTimeout(() => {
+            const hash: string = window.location.hash;
+            window.location.hash = "";
+            window.location.hash = hash;
+        },         300);
+    }
+  });
+};
+
+fixAnchors();
