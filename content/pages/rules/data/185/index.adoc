@@ -12,8 +12,8 @@ All stored sensitive information must be encrypted.
 
 == Description
 
-Systems usually store personal data, credentials and other types of sensitive
-information.
+Systems usually store personal data, e.i. Personally Identifiable Information
+(*PII*), credentials and other types of sensitive information.
 All of these must be encrypted before being stored using safe cryptographic
 mechanisms.
 This is also applicable when personal information must be temporarily stored
