@@ -405,13 +405,20 @@ def can_user_access_pending_deletion(project: str, role: str) -> bool:
     return project_dal.can_user_access_pending_deletion(project, role)
 
 
-def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
+async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     if finding_domain.validate_finding(finding_id):
         vulnerabilities = vuln_dal.get_vulnerabilities(finding_id)
-        for vuln in vulnerabilities:
-            current_state = vuln_domain.get_last_approved_status(vuln)
+        last_approved_status = await asyncio.gather(*[
+            asyncio.create_task(
+                sync_to_async(vuln_domain.get_last_approved_status)(
+                    vuln
+                )
+            )
+            for vuln in vulnerabilities
+        ])
+        for current_state in last_approved_status:
             if current_state == 'open':
                 finding['openVulnerabilities'] += 1
             elif current_state == 'closed':
@@ -425,7 +432,7 @@ def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
 def get_vulnerabilities(findings: List[Dict[str, FindingType]], vuln_type: str) -> int:
     """Get total vulnerabilities by type."""
     vulnerabilities = \
-        [total_vulnerabilities(str(fin.get('finding_id', ''))).get(vuln_type)
+        [async_to_sync(total_vulnerabilities)(str(fin.get('finding_id', ''))).get(vuln_type)
          for fin in findings]
     vulnerabilities_sum = sum(vulnerabilities)
     return vulnerabilities_sum if vulnerabilities_sum else 0
@@ -493,7 +500,7 @@ def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decimal:
     total_severity: List[float] = \
         cast(List[float],
              [fin.get('cvss_temporal', '') for fin in findings
-              if int(total_vulnerabilities(str(fin.get('finding_id', '')))
+              if int(async_to_sync(total_vulnerabilities)(str(fin.get('finding_id', '')))
               .get('openVulnerabilities', '')) > 0])
     if total_severity:
         max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))
@@ -586,7 +593,7 @@ def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int
         fin_treatment = cast(List[Dict[str, str]],
                              finding.get('historic_treatment', [{}]))[-1].get('treatment')
         if finding_domain.validate_finding(str(finding['finding_id'])):
-            open_vulns = int(total_vulnerabilities(
+            open_vulns = int(async_to_sync(total_vulnerabilities)(
                 str(finding['finding_id'])).get('openVulnerabilities', ''))
             if fin_treatment == 'ACCEPTED':
                 accepted_vuln += open_vulns
