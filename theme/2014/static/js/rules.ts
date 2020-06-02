@@ -66,9 +66,7 @@ $(() => {
       span = document.getElementById(anchor.replace("#", "")) as HTMLElement;
       let category: HTMLElement;
       category = span.parentNode as HTMLElement;
-      category.classList.toggle("bg-fluid-lightgray");
       category.children[1].classList.toggle("rotate-90");
       const list: HTMLElement = category.nextElementSibling as HTMLElement;
-      list.classList.toggle("dn");
     }
 });
