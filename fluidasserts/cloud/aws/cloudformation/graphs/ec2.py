@@ -252,3 +252,81 @@ def has_unrestricted_ip_protocols(connection: ConnectionString) -> tuple:
                   'with unrestricted IP protocols'),
         msg_closed=('EC2 security groups do not have ingress/egress rules '
                     'with unrestricted IP protocols'))
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unrestricted_ports(connection: ConnectionString) -> tuple:
+    """
+    Avoid ``EC2::SecurityGroup`` ingress/egress rules with port ranges.
+
+    The following checks are performed:
+
+    * W27 Security Groups found ingress with port range
+        instead of just a single port
+    * W29 Security Groups found egress with port range
+        instead of just a single port
+
+    :param connection: Connection String to neo4j.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    queries = [
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(group)-[*1..5]->(rule)
+        WHERE group:SecurityGroupIngress OR group:SecurityGroupEgress OR
+            group:SecurityGroup
+        MATCH (rule)-[*1..2]->(:FromPort)-[:REFERENCE]->(
+            )-[:HAS*1..3]->(from), (rule)-[*1..2]->(:ToPort)-[:REFERENCE]->(
+            )-[:HAS*1..3]->(to)
+        WHERE toInteger(from.value) <> toInteger(to.value)
+        WITH DISTINCT rule, template, group, from, to
+        RETURN template.path as path, rule.line as line,
+          group.name as resource, [x IN labels(group) WHERE x IN [
+              'SecurityGroupEgress', 'SecurityGroupIngress',
+              'SecurityGroup']][0]  as type,
+           from.value as fromPort, to.value as toPort
+        """,
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(group)-[*1..5]->(rule)
+        WHERE group:SecurityGroupIngress OR group:SecurityGroupEgress OR
+            group:SecurityGroup
+        MATCH (rule)-[*1..2]->(from:FromPort), (rule)-[*1..2]->(to:ToPort)
+        WHERE toInteger(from.value) <> toInteger(to.value)
+        WITH DISTINCT rule, template, group, from, to
+        RETURN template.path as path, rule.line as line,
+          group.name as resource, [x IN labels(group) WHERE x IN [
+              'SecurityGroupEgress', 'SecurityGroupIngress',
+              'SecurityGroup']][0]  as type,
+           from.value as fromPort, to.value as toPort
+        """
+    ]
+    session = driver_session(connection)
+    vulnerabilities: list = []
+    for query in queries:
+        for record in session.run(query):
+            entities = []
+            from_port, to_port = tuple(map(
+                str, (record['fromPort'], record['toPort'])))
+
+            if float(from_port) != float(to_port):
+                entities.append(f'{from_port}->{to_port}')
+
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=record['path'],
+                    entity=(f"AWS::EC2::{record['type']}/"
+                            f"FromPort->ToPort/{entity}"),
+                    identifier=record['resource'],
+                    line=record['line'],
+                    reason='Grants access over a port range')
+                for entity in entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open=('EC2 security groups have ingress/egress rules '
+                  'that allow access over a range of ports'),
+        msg_closed=('EC2 security groups have ingress/egress rules '
+                    'that allow access over single ports'))
