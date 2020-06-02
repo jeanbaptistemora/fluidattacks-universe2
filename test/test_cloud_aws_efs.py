@@ -22,3 +22,9 @@ def test_uses_default_kms_key_open():
     """Test efs.uses_default_kms_key."""
     assert efs.uses_default_kms_key(AWS_ACCESS_KEY_ID,
                                     AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_is_encryption_disabled_open():
+    """Test efs.is_encryption_disabled."""
+    assert efs.is_encryption_disabled(AWS_ACCESS_KEY_ID,
+                                      AWS_SECRET_ACCESS_KEY).is_open()

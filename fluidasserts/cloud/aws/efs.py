@@ -84,3 +84,35 @@ def uses_default_kms_key(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_encryption_disabled(key_id: str,
+                           secret: str,
+                           session_token: str = None,
+                           retry: bool = True) -> tuple:
+    """Check if an ``EFS filesystem`` has encryption disabled.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    filesystems = _get_filesystems(key_id, retry, secret, session_token)
+
+    msg_open: str = 'EFS filesystems have encryption disabled'
+    msg_closed: str = 'EFS filesystems have encryption enabled'
+
+    vulns, safes = [], []
+    for filesystem in filesystems:
+        (vulns if not filesystem.get('Encrypted')
+         else safes).append(
+             (filesystem['FileSystemId'],
+              'has encryption disabled'))
+
+    return _get_result_as_tuple(
+        service='EFS',
+        objects='Filesystems',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
