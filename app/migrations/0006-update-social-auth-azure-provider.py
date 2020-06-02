@@ -4,6 +4,9 @@ of all the users that authenticate to the platform using the Azure button.
 
 It is necessary so the new provider can resolve existing users and does not
 end up creating duplicate ones.
+
+Execution Time: 2020-06-02 14:32:00 UTC-5
+Finalitzation Time: 2020-06-02 14:35:00 UTC-5
 """
 
 import os
