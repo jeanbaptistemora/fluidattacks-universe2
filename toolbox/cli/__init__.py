@@ -291,9 +291,9 @@ def retry_debugging_on_failure(func):
             from toolbox import constants
             from toolbox.api import integrates
             integrates.clear_cache()
-
+            utils.generic.clear_credentials()
             constants.LOGGER_DEBUG = True
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
     return wrapped
 
 

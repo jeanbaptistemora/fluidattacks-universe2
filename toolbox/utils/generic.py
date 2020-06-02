@@ -448,3 +448,18 @@ def glob_re(pattern, paths='.'):
             file_path = os.path.join(dirpath, path)
             if re.match(pattern, file_path):
                 yield file_path
+
+
+def clear_credentials():
+    """Clear old aws credentials."""
+    aws_credentials = f"{os.environ['HOME']}/.aws/credentials"
+    with open(aws_credentials, "r") as reader:
+        lines = reader.readlines()
+    with open(aws_credentials, "w") as write:
+        profiles = []
+        for idx, line in enumerate(lines):
+            if 'continuous-' in line.strip("\n"):
+                profiles.append(list(range(idx, idx + 5)))
+        for idx, line in enumerate(lines):
+            if not any([idx in ran for ran in profiles]):
+                write.write(line)
