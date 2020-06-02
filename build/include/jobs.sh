@@ -317,6 +317,16 @@ function job_deploy_mobile_playstore {
   fi
 }
 
+function job_django_console {
+ export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+
+      env_prepare_python_packages \
+  &&  env_prepare_ruby_modules \
+  &&  env_prepare_node_modules \
+  &&  "helper_set_dev_secrets" \
+  && ./manage.py shell
+}
+
 function job_functional_tests_local {
   helper_functional_tests
 }
