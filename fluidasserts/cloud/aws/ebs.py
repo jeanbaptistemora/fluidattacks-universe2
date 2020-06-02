@@ -119,6 +119,7 @@ def uses_default_kms_key(key_id: str,
         if vol_key:
             for alias in kms_aliases:
                 (vulns if alias.get('TargetKeyId', '') == vol_key.split("/")[1]
+                 and alias.get('AliasName') == "alias/aws/ebs"
                  else safes).append(
                      (volume['VolumeId'],
                       'uses default KMS key'))
