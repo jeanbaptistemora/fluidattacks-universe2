@@ -103,14 +103,6 @@ analytics_intercom:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_INTERCOM]
 
-analytics_git:
-  <<: *with_nix
-  tags: [autoscaling-large]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_GIT]
-
 analytics_git__process:
   <<: *with_nix_serial
   tags: [autoscaling-large]
