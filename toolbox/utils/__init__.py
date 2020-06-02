@@ -7,6 +7,7 @@ from toolbox.utils import (
     does_subs_exist,
     generic,
     get_commit_subs,
+    postgres,
 )
 
 # Imported but unused
@@ -17,3 +18,4 @@ assert forces
 assert integrates
 assert generic
 assert get_commit_subs
+assert postgres
