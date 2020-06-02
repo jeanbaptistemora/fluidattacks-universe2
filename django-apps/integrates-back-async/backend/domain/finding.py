@@ -8,7 +8,7 @@ from decimal import Decimal
 from typing import Dict, List, Optional, Tuple, Union, cast
 import pytz
 
-from asgiref.sync import sync_to_async
+from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from django.core.files.base import ContentFile
 from magic import Magic
@@ -202,7 +202,7 @@ def update_description(finding_id: str, updated_values: Dict[str, FindingType]) 
     raise InvalidDraftTitle()
 
 
-def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) -> bool:
+async def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) -> bool:
     new_values = cast(Dict[str, FindingType], {
         'treatment': updated_values.get('treatment', ''),
         'treatment_justification': updated_values.get('justification'),
@@ -211,7 +211,6 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
     if new_values['treatment'] == 'NEW':
         new_values['treatment_manager'] = None
     vulns = get_vulnerabilities(finding_id)
-    resp = True
     for vuln in vulns:
         if not any('treatment_manager' in dicts for dicts in [new_values, vuln]):
             finding = finding_dal.get_finding(finding_id)
@@ -226,10 +225,16 @@ def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) ->
                 authz.get_group_level_role(email, group) == 'customeradmin',
                 email,
             )
-        result_update_treatment = vuln_dal.update(
-            finding_id, str(vuln.get('UUID', '')), new_values.copy())
-        if not result_update_treatment:
-            resp = False
+            break
+
+    update_treatment_result = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(vuln_dal.update)(
+                finding_id, str(vuln.get('UUID', '')), new_values.copy())
+        )
+        for vuln in vulns
+    ])
+    resp = all(update_treatment_result)
     return resp
 
 
@@ -284,7 +289,8 @@ def update_treatment(
         finding_id,
         {'historic_treatment': historic_treatment}
     )
-    result_update_vuln = update_treatment_in_vuln(finding_id, historic_treatment[-1])
+    result_update_vuln = async_to_sync(update_treatment_in_vuln)(
+        finding_id, historic_treatment[-1])
     if result_update_finding and result_update_vuln:
         should_send_mail(finding, updated_values)
         success = True
