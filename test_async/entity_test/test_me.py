@@ -47,11 +47,11 @@ class MeTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'integratesmanager@gmail.com'
+        request.session['username'] = 'integratesuser@gmail.com'
         request.session['company'] = 'fluid'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'integratesmanager@gmail.com',
+                'user_email': 'integratesuser@gmail.com',
                 'company': 'fluid'
             },
             algorithm='HS512',
@@ -60,13 +60,17 @@ class MeTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'me' in result['data']
         assert 'role' in result['data']['me']
-        assert result['data']['me']['role'] == 'admin'
+        assert result['data']['me']['role'] == 'customeradmin'
         assert result['data']['me']['callerOrigin'] == 'API'
         assert 'projects' in result['data']['me']
         assert 'tags' in result['data']['me']
         for tag in result['data']['me']['tags']:
             assert 'name' in tag
             assert 'projects' in tag
+            if tag['name'] == 'test-projects':
+                expected_prjs = ['unittesting', 'oneshottest']
+                output = [proj['name'] for proj in tag['projects']]
+                assert sorted(output) == sorted(expected_prjs)
         for project in result['data']['me']['projects']:
             assert 'name' in project
             assert 'description' in project

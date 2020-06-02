@@ -100,14 +100,18 @@ async def _get_tags(info, user_email: str) -> List[TagType]:
         project_attrs = \
             await info.context.loaders['project'].load(projects[0])
         organization = project_attrs['attrs'].get('companies', ['-'])[0]
-    allowed_tags = await sync_to_async(tag_domain.filter_allowed_tags)(
-        organization, projects)
+    projects_filtered: List[str] = []
     for project in projects:
         project_attrs = await info.context.loaders['project'].load(project)
-        project_tag = project_attrs['attrs'].get('tag', [])
-        for tag in project_tag:
-            tags_dict[tag].append(dict(name=project))
+        project_attrs = project_attrs['attrs']
+        if project_attrs.get('project_status', '') == 'ACTIVE':
+            projects_filtered.append(project_attrs.get('project_name', ''))
+            project_tag = project_attrs.get('tag', [])
+            for tag in project_tag:
+                tags_dict[tag].append(dict(name=project))
     tags = []
+    allowed_tags = await sync_to_async(tag_domain.filter_allowed_tags)(
+        organization, projects_filtered)
     for tag, projects in tags_dict.items():
         tags.append(dict(name=tag, projects=projects))
     tags = [tag for tag in tags if tag.get('name', '') in allowed_tags]

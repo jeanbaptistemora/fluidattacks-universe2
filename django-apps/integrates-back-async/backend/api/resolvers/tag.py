@@ -67,7 +67,8 @@ async def get_list_projects(info, user_email: str, tag: str) -> List[str]:
         project_attrs = project_attrs['attrs']
         project_tag = project_attrs.get('tag', [])
         project_tag = [proj_tag.lower() for proj_tag in project_tag]
-        if tag in project_tag:
+        if tag in project_tag and \
+           project_attrs.get('project_status') == 'ACTIVE':
             projects.append(project.lower())
     return projects
 

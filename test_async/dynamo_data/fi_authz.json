@@ -139,6 +139,16 @@
           "role": {"S": "customeradmin"}
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "integratesuser@gmail.com"},
+          "object": {"S": "suspendedtest"},
+          "role": {"S": "customeradmin"}
+        }
+      }
     }
   ]
 }
