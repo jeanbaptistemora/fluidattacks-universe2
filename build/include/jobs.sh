@@ -113,6 +113,7 @@ function job_services_repositories_cache {
 function job_analytics_git__process {
   local artifacts="${PWD}/artifacts"
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+  local num_threads='4'
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
 
@@ -131,10 +132,17 @@ function job_analytics_git__process {
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       python3 analytics/git/generate_config.py \
   &&  mkdir -p "${artifacts}" \
-  &&  echo "[INFO] Running tap" \
-  &&  tap-git \
-        --conf './config.json' \
-        --with-metrics > "${artifacts}/git.${CI_NODE_INDEX}" \
+  &&  echo "[INFO] Running tap in ${num_threads} threads" \
+  &&  for fork in $(seq 1 "${num_threads}")
+      do
+        ( tap-git \
+            --conf './config.json' \
+            --with-metrics \
+            --threads "${num_threads}" \
+            --fork-id "${fork}" > "${artifacts}/git.${CI_NODE_INDEX}.${fork}" \
+        ) &
+      done \
+  &&  wait \
 
 }
 
