@@ -78,13 +78,6 @@ you just have to follow these detailed [inner]#link:https://fluidattacks.com/for
 
 == 7. Evaluations
 
-. *Character:* The goal of this stage
-Is to determine preponderant features of your temperament and their balance.
-This is mandatory and requires an estimated effort of 8 to 10 minutes.
-To do this you do not need to finish the previous stage.
-To begin,
-You just have to follow these detailed [inner]#link:character-test/[instructions]#
-
 . *Knowledge:* The goal of this stage
 is to assess your skills and abilities in different areas.
 This is mandatory and requires an estimated effort of 2 to 3 hours
@@ -92,7 +85,7 @@ depending on your knowledge,
 with an average time of `1` minute to answer each question.
 To do this you must first complete the previous stage.
 To begin,
-You just have to follow these detailed [inner]#link:knowledge-test/[instructions]#
+You just have to follow these detailed [inner]#link:knowledge-test/[instructions]#.
 
 . *Strengths:* The goal of this stage
 Is to assess your strengths through the Clifton Strengths Finder test.
