@@ -121,6 +121,14 @@ const enTranslations: Dictionary = {
     vuln_closed: "Vulnerability has already been closed",
   },
   project: {
+    authors: {
+      actor: "Author",
+      commit: "Commit",
+      groups_contributed: "Groups Contributed",
+      repository: "Repository",
+      table_advice: "Below you'll find the list of authors that have contributed "
+      + "to your group in the current month, and one example commit",
+    },
     drafts: {
       approve: "Approve draft",
       error_submit: "Please provide {{missingFields}} before submitting",
@@ -291,6 +299,7 @@ const enTranslations: Dictionary = {
       table_advice: "Click on an execution to see more details",
     },
     tabs: {
+      authors: "Authors",
       comments: "Comments",
       drafts: "Drafts",
       events: "Events",

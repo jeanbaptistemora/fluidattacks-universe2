@@ -6,6 +6,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
+import { ProjectAuthorsView } from "../ProjectAuthorsView";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
 import { ProjectDraftsView } from "../ProjectDraftsView";
 import { ProjectEventsView } from "../ProjectEventsView/index";
@@ -71,6 +72,14 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                       </NavLink>
                     </li>
                   </Can>
+                  <Can do="backend_api_resolvers_project__get_bill">
+                    <li id="authorsTab" className={globalStyle.tab}>
+                      <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/authors`}>
+                        <i className="icon pe-7s-users" />
+                        &nbsp;{translate.t("project.tabs.authors")}
+                      </NavLink>
+                    </li>
+                  </Can>
                   <li id="resourcesTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/resources`}>
                       <i className="icon pe-7s-box1" />
@@ -82,6 +91,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
 
               <div className={globalStyle.tabContent}>
                 <Switch>
+                  <Route path={`${props.match.path}/authors`} component={ProjectAuthorsView} exact={true} />
                   <Route path={`${props.match.path}/indicators`} component={ProjectIndicatorsView} exact={true} />
                   <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
