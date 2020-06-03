@@ -54,6 +54,7 @@ try:
     FI_AWS_S3_BUCKET = 'fluidintegrates.evidences'
     FI_AWS_S3_RESOURCES_BUCKET = 'fluidintegrates.resources'
     FI_AWS_S3_REPORTS_BUCKET = 'fluidintegrates.reports'
+    SERVICES_AWS_S3_DATA_BUCKET = 'continuous-data'
 except KeyError as e:
     print("Environment variable " + e.args[0] + " doesn't exist")
     raise

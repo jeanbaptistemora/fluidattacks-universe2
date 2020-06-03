@@ -106,6 +106,7 @@ type User {
 
 "Project type definition"
 type Project {
+    bill: Bill
     name: String
     findings(filters: GenericScalar): [Finding]
     hasDrills: Boolean
@@ -136,6 +137,20 @@ type Project {
     remediatedOverTime: String
     events: [Event!]
     userDeletion: String
+}
+
+"Bill type definition"
+type Bill {
+    developers: [BillDeveloper]
+}
+
+"BillDeveloper type definition"
+type BillDeveloper {
+    actor: String
+    commit: String
+    groups: String
+    organization: String
+    repository: String
 }
 
 "ForcesExecutions type definition"

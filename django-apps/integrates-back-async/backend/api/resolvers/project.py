@@ -1,13 +1,21 @@
+# Standard library
 import asyncio
 from datetime import datetime
 import sys
 import time
 from typing import Dict, List, Set, cast, Union
+
+# Third party libraries
+from ariadne import (
+    convert_camel_case_to_snake,
+    convert_kwargs_to_snake_case,
+)
 from graphql.language.ast import FieldNode, SelectionSetNode, ObjectFieldNode
 import simplejson as json
 from asgiref.sync import sync_to_async
 import rollbar
 
+# Local libraries
 from backend import authz
 from backend.api.resolvers import (
     finding as finding_loader,
@@ -20,6 +28,7 @@ from backend.decorators import (
     require_project_access, enforce_user_level_auth_async
 )
 from backend.domain import (
+    bill as bill_domain,
     project as project_domain,
 )
 from backend.typing import (
@@ -33,8 +42,6 @@ from backend.typing import (
     SimpleProjectPayload as SimpleProjectPayloadType,
 )
 from backend import util
-
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 async def _get_name(_, project_name: str, **__) -> str:
@@ -364,6 +371,14 @@ async def _get_comments(
     comments = await sync_to_async(project_domain.list_comments)(
         project_name, user_email)
     return comments
+
+
+@enforce_group_level_auth_async
+@require_integrates
+async def _get_bill(_, project_name: str, **__):
+    return {
+        'developers': await bill_domain.get_authors_data(group=project_name),
+    }
 
 
 @enforce_group_level_auth_async
