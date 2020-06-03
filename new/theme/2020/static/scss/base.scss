@@ -140,7 +140,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   &:focus { color: $fluid-black; } }
 .menu-trans { transform: translateY(-25%) rotateX(35deg);
   transition: transform .5s, opacity .5s; }
-.t-50 { top: 50%; }
+.t-30 { top: 30%; }
 .ty-50 { transform: translateY(-50%); }
 .mt-menu { margin-top: 1.25rem; }
 .f-small { font-size: .8rem; }
