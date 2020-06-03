@@ -204,6 +204,16 @@ deploy_mobile_playstore:
   dependencies:
     - build_mobile_android
 
+deploy_permissions_matrix:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: deploy-app
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - deploy/permissions-matrix/group_level.html
+      - deploy/permissions-matrix/user_level.html
+    when: on_success
 
 build_container_app:
   <<: *with_nix

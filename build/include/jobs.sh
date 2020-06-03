@@ -361,6 +361,19 @@ function job_deploy_mobile_playstore {
   fi
 }
 
+function job_deploy_permissions_matrix {
+  export PYTHONPATH="${pyPkgPandas}/lib/python3.7/site-packages"
+  export PYTHONPATH="${pyPkgNumpy}/lib/python3.7/site-packages:${PYTHONPATH}"
+  export PYTHONPATH="${pyPkgMagic}/lib/python3.7/site-packages:${PYTHONPATH}"
+  export PYTHONPATH=".:${PYTHONPATH}"
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+
+      env_prepare_python_packages \
+  &&  helper_set_dev_secrets \
+  &&  echo '[INFO] Deploying permissions matrix' \
+  &&  python3 deploy/permissions-matrix/matrix.py
+}
+
 function job_django_console {
  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
@@ -571,6 +584,7 @@ function job_lint_back {
   &&  prospector -F -s high -u django -i node_modules -i django-apps/integrates-back-async/backend/api django-apps/integrates-back-async/backend/ \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
+  &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
   &&  npx graphql-schema-linter \
         --except 'enum-values-all-caps,enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,type-fields-sorted-alphabetically,arguments-have-descriptions,type-fields-sorted-alphabetically' \
         django-apps/integrates-back-async/backend/api/schemas/*
