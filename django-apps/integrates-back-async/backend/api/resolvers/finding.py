@@ -168,8 +168,7 @@ async def _get_tracking(info, identifier: str) -> List[Dict[str, int]]:
     release_date = finding['release_date']
     if release_date:
         vulns = await info.context.loaders['vulnerability'].load(identifier)
-        tracking = await \
-            sync_to_async(finding_domain.get_tracking_vulnerabilities)(vulns)
+        tracking = await finding_domain.get_tracking_vulnerabilities(vulns)
     else:
         tracking = []
     return tracking

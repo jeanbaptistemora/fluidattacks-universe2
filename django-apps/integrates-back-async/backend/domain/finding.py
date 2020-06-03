@@ -144,17 +144,29 @@ def get_age_finding(act_finding: Dict[str, FindingType]) -> int:
     return age
 
 
-def get_tracking_vulnerabilities(
+async def get_tracking_vulnerabilities(
         vulnerabilities: List[Dict[str, FindingType]]) -> List[Dict[str, int]]:
     """get tracking vulnerabilities dictionary"""
+    last_approved_status = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(vuln_domain.get_last_approved_status)(
+                vuln
+            )
+        )
+        for vuln in vulnerabilities
+    ])
     vulns_filtered = [vuln for vuln in vulnerabilities
                       if cast(List[Dict[str, str]],
                               vuln['historic_state'])[-1].get('approval_status')
-                      != 'PENDING' or vuln_domain.get_last_approved_status(
-                          vuln)]
-
+                      != 'PENDING' or last_approved_status.pop(0)]
+    filter_deleted_status = await asyncio.gather(*[
+        sync_to_async(vuln_domain.filter_deleted_status)(
+            vuln
+        )
+        for vuln in vulns_filtered
+    ])
     vulns_filtered = [vuln for vuln in vulns_filtered
-                      if vuln_domain.filter_deleted_status(vuln)]
+                      if filter_deleted_status.pop(0)]
     vuln_casted = remove_repeated(vulns_filtered)
     unique_dict = get_unique_dict(vuln_casted)
     tracking = get_tracking_dict(unique_dict)

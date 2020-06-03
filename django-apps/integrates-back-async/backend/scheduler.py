@@ -290,7 +290,7 @@ def get_new_vulnerabilities():
 
 def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
     vulns = vuln_dal.get_vulnerabilities(act_finding['finding_id'])
-    all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
+    all_tracking = async_to_sync(finding_domain.get_tracking_vulnerabilities)(vulns)
     delta_total = 0
     if len(all_tracking) > 1:
         if (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) \
