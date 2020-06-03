@@ -224,6 +224,20 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
       "arn:aws:route53:::hostedzone/${data.aws_route53_zone.fluidattacks.zone_id}",
     ]
   }
+
+  # S3 read over continuous data buckets
+  statement {
+    sid = "s3ContinuousDataRead"
+    effect = "Allow"
+    actions = [
+      "s3:Get*",
+      "s3:ListBucket"
+    ]
+    resources = [
+      "arn:aws:s3:::continuous-data",
+      "arn:aws:s3:::continuous-data/*",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-dev-policy" {
