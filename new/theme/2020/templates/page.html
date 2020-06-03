@@ -123,9 +123,11 @@
     <h1 class="roboto tc">{{ page.title }}</h1>
     <div class="lh-2 tl">
       {{ page.content }}
-      {% for faqpage in pages if faqpage.faq %}
-        {{ faqpage.content }}
-      {% endfor %}
+      {% if page.faqindex %}
+        {% for faqpage in pages if faqpage.faq %}
+          {{ faqpage.content }}
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>
