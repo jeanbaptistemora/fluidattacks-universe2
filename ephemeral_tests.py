@@ -480,12 +480,12 @@ class ViewTestCase(unittest.TestCase):
             project_name = 'BWAPP'
             expected_description = 'a Buggy-Web-Application'
             expected_exploitability =\
-                '1 Exploitable, 0 Accepted, 1 Not exploitable'
+                'Running Fluid Asserts'
         else:
             project_name = 'UNITTESTING'
             expected_description = 'Integrates unit test project'
             expected_exploitability =\
-                '1 Exploitable, 1 Accepted, 1 Not exploitable'
+                'Running Fluid Asserts'
 
         selenium = self.__login()
         self.__access_project_by_description(expected_description)
