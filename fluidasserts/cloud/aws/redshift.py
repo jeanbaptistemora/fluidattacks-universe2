@@ -160,3 +160,47 @@ def uses_default_kms_key(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_audit_logging_disabled(key_id: str,
+                              secret: str,
+                              session_token: str = None,
+                              retry: bool = True) -> tuple:
+    """Check if Redshift clusters have audit logging disabled.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    """
+
+    clusters = _get_clusters(key_id, retry, secret, session_token)
+
+    msg_open: str = 'Redshift clusters use default KMS key.'
+    msg_closed: str = 'Redshift clusters use default KMS key.'
+
+    vulns, safes = [], []
+
+    for cluster in clusters:
+        cluster_id = cluster['ClusterIdentifier']
+        logging = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='redshift',
+            func='describe_logging_status',
+            boto3_client_kwargs={'aws_session_token': session_token},
+            param='LoggingEnabled',
+            ClusterIdentifier=cluster_id,
+            retry=retry)
+
+        (vulns if not logging
+         else safes).append(
+             (cluster_id,
+              'uses default KMS key'))
+    return _get_result_as_tuple(
+        service='RedShift',
+        objects='clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
