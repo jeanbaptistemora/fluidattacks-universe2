@@ -16,7 +16,7 @@ To access, complete, and submit the exam do the following:
 
 == Create an account
 
-. Click on link. [inner]#link:https://fluidattacks.com/courses/login/index.php[link]#
+. Click on this link:https://autonomicgeneralknowledgetest.thinkexam.com/startTest/MTA1NjA4/NA[link].
 . Click on *`CREATE NEW ACCOUNT`* and fill in the form.
 Please note that your username is case-sensitive and must be
 in lowercase letters only.
