@@ -26,7 +26,7 @@ def get_rolling_month_actors_data():
         with open(file_path) as file:
             for row in csv.DictReader(file):
                 group = row['subscription']
-                actor = row['author_name'] + '<' + row['author_email'] + '>'
+                actor = row['author_name'] + ' <' + row['author_email'] + '>'
 
                 data.setdefault(actor, {})
                 data[actor].setdefault(group, [])
@@ -61,10 +61,16 @@ def create_bills():
 
             for actor, actor_groups in data.items():
                 if group in actor_groups:
+                    groups_contributed = [
+                        group_contributed
+                        for group_contributed in actor_groups
+                        if actor_groups[group][-1]['organization']
+                        == actor_groups[group_contributed][-1]['organization']
+                    ]
                     writer.writerow({
                         'actor': actor,
-                        'groups': ','.join(actor_groups),
-                        '# groups': len(actor_groups),
+                        'groups': ', '.join(groups_contributed),
+                        '# groups': len(groups_contributed),
                         **{
                             key: actor_groups[group][-1][key]
                             for key in get_common_columns()
