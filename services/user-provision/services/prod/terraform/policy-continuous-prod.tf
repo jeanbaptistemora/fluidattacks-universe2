@@ -28,16 +28,16 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     ]
   }
 
-  # S3 cache of repositories
+  # S3 admin over continuous buckets
   statement {
-    sid = "s3RepositoriesCacheAdmin"
+    sid = "s3ContinuousRepositoriesAdmin"
     effect = "Allow"
     actions = [
       "s3:*"
     ]
     resources = [
-      "arn:aws:s3:::continuous-repositories",
-      "arn:aws:s3:::continuous-repositories/*"
+      "arn:aws:s3:::continuous-*",
+      "arn:aws:s3:::continuous-*/*"
     ]
   }
 

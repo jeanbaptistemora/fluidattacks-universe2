@@ -26,16 +26,17 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     ]
   }
 
-  # S3 read continuoustest bucket continuous-repositories
+  # S3 read over continuous buckets
   statement {
+    sid = "s3ContinuousRepositoriesRead"
     effect = "Allow"
     actions = [
       "s3:Get*",
       "s3:ListBucket"
     ]
     resources = [
-      "arn:aws:s3:::continuous-repositories",
-      "arn:aws:s3:::continuous-repositories/*",
+      "arn:aws:s3:::continuous-*",
+      "arn:aws:s3:::continuous-*/*",
     ]
   }
 
