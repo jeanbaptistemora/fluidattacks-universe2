@@ -2,6 +2,7 @@ import time
 from decimal import Decimal
 from datetime import datetime
 
+from asgiref.sync import async_to_sync
 from django.test import TestCase
 from pytz import timezone
 from freezegun import freeze_time
@@ -234,7 +235,7 @@ class ProjectTest(TestCase):
             )['Item']
             for finding_id in open_vuln_finding]
 
-        test_data = get_mean_remediate(open_finding)
+        test_data = async_to_sync(get_mean_remediate)(open_finding)
         expected_output = Decimal('212.0')
         assert test_data == expected_output
 
@@ -246,7 +247,7 @@ class ProjectTest(TestCase):
             )['Item']
             for finding_id in closed_vuln_finding]
 
-        test_data = get_mean_remediate(closed_finding)
+        test_data = async_to_sync(get_mean_remediate)(closed_finding)
         expected_output = 293
         assert test_data == expected_output
 
