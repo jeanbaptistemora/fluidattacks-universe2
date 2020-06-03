@@ -449,23 +449,43 @@ def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, 
     return project_dal.get_released_findings(project_name, attrs)
 
 
-def get_last_closing_vuln(findings: List[Dict[str, FindingType]]) -> Decimal:
+async def get_last_closing_vuln(findings: List[Dict[str, FindingType]]) -> Decimal:
     """Get day since last vulnerability closing."""
-    closing_dates = []
-    for fin in findings:
-        if finding_domain.validate_finding(str(fin['finding_id'])):
-            vulnerabilities = vuln_dal.get_vulnerabilities(
-                str(fin.get('finding_id', '')))
-            closing_vuln_date = [get_last_closing_date(vuln)
-                                 for vuln in vulnerabilities
-                                 if is_vulnerability_closed(vuln)]
-            if closing_vuln_date:
-                closing_dates.append(max(closing_vuln_date))
-            else:
-                # Vulnerability does not have closing date
-                pass
-    if closing_dates:
-        current_date = max(closing_dates)
+    validate_findings = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(finding_domain.validate_finding)(
+                str(finding['finding_id']))
+        )
+        for finding in findings
+    ])
+    validated_findings = [
+        finding for finding in findings
+        if validate_findings.pop(0)
+    ]
+    finding_vulns = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(vuln_dal.get_vulnerabilities)(
+                str(finding['finding_id']))
+        )
+        for finding in validated_findings
+    ])
+    are_vuln_closed = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(is_vulnerability_closed)(
+                vuln)
+        )
+        for vulns in finding_vulns for vuln in vulns
+    ])
+    closing_vuln_dates = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(get_last_closing_date)(
+                vuln)
+        )
+        for vulns in finding_vulns for vuln in vulns
+        if are_vuln_closed.pop(0)
+    ])
+    if closing_vuln_dates:
+        current_date = max(closing_vuln_dates)
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         last_closing = \
             Decimal((datetime.now(tz=tzn).date() -
