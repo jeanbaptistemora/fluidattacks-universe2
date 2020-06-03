@@ -40,7 +40,7 @@ When setting a new password for a user,
 the product does not require knowledge of the original password,
 or using another form of authentication.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/640.html[CWE-640: Unverified Password Change]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/640.html[CWE-640: Weak Password Recovery Mechanism for Forgotten Password]
 The software contains a mechanism for users to recover or change their
 passwords without knowing the original password,
 but the mechanism is weak.
@@ -55,3 +55,10 @@ Never enforce access controls on the client.
 V2.1 Password Security Requirements.(2.1.6)]
 Verify that password change functionality requires the user's current and new
 password.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.5 Credential Recovery Requirements.(2.5.6)]
+Verify forgotten password, and other recovery paths use a secure recovery
+mechanism,
+such as TOTP or other soft token, mobile push, or another offline recovery
+mechanism.

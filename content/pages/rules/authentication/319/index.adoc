@@ -44,3 +44,9 @@ V1.2 Authentication Architectural Requirements.(1.2.4)]
 Verify that all authentication pathways and identity management APIs implement
 consistent authentication security control strength,
 such that there are no weaker alternatives per the risk of the application.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.5 Credential Recovery Requirements.(2.5.7)]
+Verify that if OTP or multi-factor authentication factors are lost,
+evidence of identity proofing is performed at the same level as during
+enrollment.
