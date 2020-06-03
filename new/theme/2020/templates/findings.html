@@ -217,4 +217,15 @@
     {% endassets %}
   </article>
   {% endif %}
+  <div class="divpage internal roboto mb4">
+    <article class="ma-auto tl mw8">
+      <h1 class="tc pb4">
+        {{ page.title }}
+      </h1>
+      {{ page.content }}
+      {% for faqpage in pages if faqpage.faq %}
+        {{ faqpage.content }}
+      {% endfor %}
+    </article>
+  </div>
 {% endblock content %}
