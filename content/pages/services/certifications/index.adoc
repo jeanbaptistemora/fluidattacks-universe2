@@ -11,100 +11,100 @@
 
 a|image::logo-oscp.png[logo oscp]
 
-a|== Offensive Security Certified Professional (OSCP)
+a|== Offensive Security Certified Professional (OSCP).
 
-Professional certification in ethical hacking
+`OSCP` is a professional certification in ethical hacking
 developed by `Offensive Security`.
-It’s the world’s first completely hands-on
+It's the world's first completely hands-on
 offensive information security certification.
 It requires the professional to prove that they have a clear
 and practical understanding of the penetration testing process
-and life-cycle through an arduous twenty-four (`24`)
-hour certification exam.
+and life-cycle through an arduous
+twenty-four (`24`) hours exam.
 
-a|== Offensive Security Wireless Professional (OSWP)
+a|== Offensive Security Wireless Professional (OSWP).
 
-The only professional certification
+`OSWP` is the only professional certification
 in practical wireless attacks in the security field today.
-Through a hands-on certification exam an `OSWP` must prove
+Through a hands-on exam, an `OSWP` must prove
 they have the skills to perform `802.11`
 wireless audits using open source tools.
 
-a|image::logo-oswp.png[logo oswp, width=50%]
+a|image::logo-oswp.png[logo oswp]
 
-a|image::logo-ceh.png[logo ceh, width=50%]
+a|image::logo-ceh.png[logo ceh]
 
-a|== Certified Ethical Hacker (CEH)
+a|== Certified Ethical Hacker (CEH).
 
-Professional certification
+`CEH` is a professional certification
 by the International Electronic Commerce Council (`EC-Council`).
-The International Electronic Commerce Council
-certifies professionals in the security discipline of ethical hacking.
+This council certifies professionals
+in the security discipline of ethical hacking.
 It is unaffiliated with any commercial entity
 and is considered independent and impartial.
 
-a|== Certified Information Systems Security Professional (CISSP)
+a|== Certified Information Systems Security Professional (CISSP).
 
-Professional advanced certification awarded by the (`ISC`)
+`CISSP` is a professional advanced certification awarded by the (`ISC`)
 International Information Systems Security Certification Consortium, Inc.
 to help companies acknowledge professionals
-who obtain expertise in information security.
-`CISSP` certification is a requirement for the `ISSEP` program
+who obtain information security expertise.
+`CISSP` certification is required for the `ISSEP` program
 of the United States National Security Agency (`NSA`).
 
-a|image::logo-cissp.png[logo cissp, width=50%]
+a|image::logo-cissp.png[logo cissp]
 
-a|image::logo-cism.png[logo cism, width=50%]
+a|image::logo-cism.png[logo cism]
 
-a|== Certified Information Security Manager (CISM)
+a|== Certified Information Security Manager (CISM).
 
-Management focused certification
+`CISM` is a certification focused on management,
 promoting international security standard practices.
-This certification accredits management professionals
+This one accredits management professionals
 who manage, design, supervise,
-and assess the information security of a company.
+and assess the security of the information of a company.
 
-a|== Certified Information Systems Auditor (CISA)
+a|== Certified Information Systems Auditor (CISA).
 
 Internationally recognized certification
 for Information Systems audit control, assurance,
 and security professionals.
-`CISA` certification recognizes a professional's skills,
-experience, and ability to evaluate vulnerabilities,
-report on compliance, and enhance existing controls,
-or establish controls within a business.
+`CISA` certification recognizes a professional's skills and experience
+to evaluate vulnerabilities, report on compliance,
+and enhance existing or establish new controls within a business.
 
-a|image::logo-cisa.png[logo cisa, width=50%]
+a|image::logo-cisa.png[logo cisa]
 
 a|image::logo-comptia.png[logo comptia]
 
-a|== CompTIA Security+
+a|== CompTIA Security+.
 
-An internationally recognized certification
+This one is an internationally recognized certification
 by the Computing Technology Industry Association,
-a non-profit trade association, certifying a professional
-possesses the core knowledge and skills necessary
-for practical security problem-solving.
+a non-profit trade association.
+It certifies a professional has the core knowledge and skills
+necessary for practical security problem-solving.
 Typically, the starting point for a career in `IT` security.
 
-a|== GIAC Information Security Professional (GISP)
+a|== GIAC Information Security Professional (GISP).
 
-Certification for security professionals
-who want to expand their knowledge
-beyond simple terminology and concepts
-to include practical applications,
-as well as demonstrating qualifications for `IT` systems'
-hands-on roles involving security tasks.
+`GISP` is a certification for security professionals
+who want to expand their knowledge.
+It means to go beyond simple terminology and concepts
+to include practical applications and also demonstrate qualifications
+for `IT` systems' hands-on roles involving security tasks.
 
 a|image::logo-gisp.png[logo gisp]
 
 a|image::logo-itil.png[logo itil]
 
-a|== Information Technology Infrastructure Library Certification (ITIL)
+a|== Information Technology Infrastructure Library Certification (ITIL).
 
-Set of detailed practices for `IT` service management (`ITSM`)
-that focuses on aligning `IT` services with the needs of business.
-`ITIL` gives detailed descriptions of an extensive set of management procedures
+`ITIL` is linked to a set of detailed practices
+for `IT` service management (`ITSM`)
+that focuses on aligning `IT` services with the needs of businesses.
+`ITIL` gives detailed descriptions
+of an extensive set of management procedures
 designed to help organizations
 achieve quality and efficiency in `IT` operations.
 
