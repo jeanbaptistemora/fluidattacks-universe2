@@ -36,6 +36,7 @@ from backend.decorators import authenticate, cache_content
 from backend.dal import (
     finding as finding_dal, user as user_dal
 )
+from backend.exceptions import ConcurrentSession
 from backend.services import (
     has_access_to_finding, has_access_to_event
 )
@@ -160,6 +161,13 @@ def app(request):
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return redirect('/integrates/error500')
+    except ConcurrentSession:
+        return HttpResponse("""
+            <script>
+                localStorage.setItem("concurrentSession","1");
+                location.assign("/integrates/registration");
+            </script>
+            """)
     return response
 
 

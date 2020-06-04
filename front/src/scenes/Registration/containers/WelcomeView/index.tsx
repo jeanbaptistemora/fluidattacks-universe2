@@ -46,6 +46,7 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
   const initialUrl: string = _.get(localStorage, "start_url", "/home");
   const loadDashboard: (() => void) = (): void => {
     localStorage.removeItem("showAlreadyLoggedin");
+    localStorage.removeItem("concurrentSession");
     localStorage.removeItem("start_url");
     location.assign(`/integrates${initialUrl}`);
   };
@@ -72,11 +73,26 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
               <Row>
                 <Col md={12}>
                   <Button bsStyle="primary" block={true} onClick={loadDashboard}>
-                    {translate.t("registration.continue_btn")} {userEmail}
+                    {translate.t("registration.continue_as_btn")} {userEmail}
                   </Button>
                 </Col>
               </Row>
             </div>
+            :
+            localStorage.getItem("concurrentSession") === "1"
+              ?
+              <div>
+                <Row>
+                  <h3>{translate.t("registration.concurrent_session_message")}</h3>
+                </Row>
+                <Row>
+                  <Col md={12}>
+                    <Button bsStyle="primary" block={true} onClick={loadDashboard}>
+                      {translate.t("registration.continue_btn")}
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
             :
             <Query query={GET_USER_AUTHORIZATION} fetchPolicy="network-only">
               {({ data, loading }: QueryResult): JSX.Element => {

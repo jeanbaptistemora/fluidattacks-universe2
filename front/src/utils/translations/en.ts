@@ -311,7 +311,10 @@ const enTranslations: Dictionary = {
     },
   },
   registration: {
-    continue_btn: "Continue as",
+    concurrent_session_message: "You already have an active session. If you proceed, that session will " +
+      "be terminated.",
+    continue_as_btn: "Continue as",
+    continue_btn: "Continue",
     greeting: "Hello",
     logged_in_message: "Please log out before trying to access with another account.",
     logged_in_title: "You are already logged in",

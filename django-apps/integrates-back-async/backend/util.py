@@ -36,7 +36,7 @@ from jose import jwt, JWTError
 
 from backend.dal import session as session_dal
 from backend.exceptions import (
-    InvalidAuthorization,
+    ConcurrentSession, InvalidAuthorization,
     InvalidDate, InvalidDateFormat,
 )
 
@@ -574,3 +574,4 @@ def check_concurrent_sessions(email: str, session_key: str):
     previous_session_key = session_dal.get_previous_session(email, session_key)
     if previous_session_key:
         session_dal.invalidate_session(previous_session_key)
+        raise ConcurrentSession()
