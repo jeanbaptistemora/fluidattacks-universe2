@@ -652,26 +652,41 @@ async def get_mean_remediate_severity(project_name: str, min_severity: float,
     return mean_vulnerabilities
 
 
-def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int]:
+async def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int]:
     """Get the total treatment of all the vulnerabilities"""
     accepted_vuln: int = 0
     indefinitely_accepted_vuln: int = 0
     in_progress_vuln: int = 0
     undefined_treatment: int = 0
-    for finding in findings:
+    validate_findings = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(finding_domain.validate_finding)(
+                str(finding['finding_id']))
+        )
+        for finding in findings
+    ])
+    validated_findings = [
+        finding for finding in findings
+        if validate_findings.pop(0)
+    ]
+    total_vulns = await asyncio.gather(*[
+        asyncio.create_task(
+            total_vulnerabilities(str(finding['finding_id']))
+        )
+        for finding in validated_findings
+    ])
+    for finding in validated_findings:
         fin_treatment = cast(List[Dict[str, str]],
                              finding.get('historic_treatment', [{}]))[-1].get('treatment')
-        if finding_domain.validate_finding(str(finding['finding_id'])):
-            open_vulns = int(async_to_sync(total_vulnerabilities)(
-                str(finding['finding_id'])).get('openVulnerabilities', ''))
-            if fin_treatment == 'ACCEPTED':
-                accepted_vuln += open_vulns
-            elif fin_treatment == 'ACCEPTED_UNDEFINED':
-                indefinitely_accepted_vuln += open_vulns
-            elif fin_treatment == 'IN PROGRESS':
-                in_progress_vuln += open_vulns
-            else:
-                undefined_treatment += open_vulns
+        open_vulns = int(total_vulns.pop(0).get('openVulnerabilities', ''))
+        if fin_treatment == 'ACCEPTED':
+            accepted_vuln += open_vulns
+        elif fin_treatment == 'ACCEPTED_UNDEFINED':
+            indefinitely_accepted_vuln += open_vulns
+        elif fin_treatment == 'IN PROGRESS':
+            in_progress_vuln += open_vulns
+        else:
+            undefined_treatment += open_vulns
     treatment = {
         'accepted': accepted_vuln,
         'acceptedUndefined': indefinitely_accepted_vuln,

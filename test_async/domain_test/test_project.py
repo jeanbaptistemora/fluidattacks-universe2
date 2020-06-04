@@ -259,7 +259,7 @@ class ProjectTest(TestCase):
                 Key={'finding_id': finding_id}
             )['Item']
             for finding_id in findings_to_get]
-        test_data = get_total_treatment(findings)
+        test_data = async_to_sync(get_total_treatment)(findings)
         expected_output = \
             {'inProgress': 1, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
         assert test_data == expected_output
