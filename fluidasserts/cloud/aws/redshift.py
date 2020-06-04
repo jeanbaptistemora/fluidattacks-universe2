@@ -6,7 +6,7 @@ from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import DAST, MEDIUM
+from fluidasserts import DAST, MEDIUM, LOW
 from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
@@ -283,6 +283,57 @@ def not_requires_ssl(key_id: str,
              else safes).append(
                  (f'{cluster_id}/{group["ParameterGroupName"]}',
                   'does not require SSL'))
+    return _get_result_as_tuple(
+        service='RedShift',
+        objects='clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_user_activity_logging_disabled(key_id: str,
+                                      secret: str,
+                                      session_token: str = None,
+                                      retry: bool = True) -> tuple:
+    """Check if Redshift clusters does not log user activity.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    """
+
+    clusters = _get_clusters(key_id, retry, secret, session_token)
+
+    msg_open: str = 'Redshift clusters do not log user activity.'
+    msg_closed: str = 'Redshift clusters log user activity.'
+
+    vulns, safes = [], []
+
+    for cluster in clusters:
+        vulnerable = False
+        cluster_id = cluster['ClusterIdentifier']
+        param_groups = cluster.get('ClusterParameterGroups', [])
+
+        for group in param_groups:
+            params = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                service='redshift',
+                func='describe_cluster_parameters',
+                boto3_client_kwargs={'aws_session_token': session_token},
+                param='Parameters',
+                ParameterGroupName=group['ParameterGroupName'],
+                retry=retry)
+            for param in params:
+                if param['ParameterName'] == 'enable_user_activity_logging' \
+                        and param['ParameterValue'] == "false":
+                    vulnerable = True
+            (vulns if vulnerable
+             else safes).append(
+                 (f'{cluster_id}/{group["ParameterGroupName"]}',
+                  'has user activity logging disabled'))
     return _get_result_as_tuple(
         service='RedShift',
         objects='clusters',
