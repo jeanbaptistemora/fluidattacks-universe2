@@ -470,14 +470,14 @@ def get_project_indicators(project: str) -> Dict[str, object]:
         'closed_vulnerabilities': project_domain.get_closed_vulnerabilities(project),
         'last_closing_date': async_to_sync(project_domain.get_last_closing_vuln)(findings),
         'mean_remediate': async_to_sync(project_domain.get_mean_remediate)(findings),
-        'mean_remediate_critical_severity': project_domain.get_mean_remediate_severity(
-            project, 9, 10),
-        'mean_remediate_high_severity': project_domain.get_mean_remediate_severity(
+        'mean_remediate_critical_severity': async_to_sync(
+            project_domain.get_mean_remediate_severity)(project, 9, 10),
+        'mean_remediate_high_severity': async_to_sync(project_domain.get_mean_remediate_severity)(
             project, 7, 8.9),
-        'mean_remediate_low_severity': project_domain.get_mean_remediate_severity(
+        'mean_remediate_low_severity': async_to_sync(project_domain.get_mean_remediate_severity)(
             project, 0.1, 3.9),
-        'mean_remediate_medium_severity': project_domain.get_mean_remediate_severity(
-            project, 4, 6.9),
+        'mean_remediate_medium_severity': async_to_sync(
+            project_domain.get_mean_remediate_severity)(project, 4, 6.9),
         'max_open_severity': project_domain.get_max_open_severity(findings),
         'open_findings': project_domain.get_open_finding(project),
         'open_vulnerabilities': project_domain.get_open_vulnerabilities(project),

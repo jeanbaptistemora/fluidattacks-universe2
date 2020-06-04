@@ -603,29 +603,47 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
     return mean_vulnerabilities
 
 
-def get_mean_remediate_severity(project_name: str, min_severity: float,
-                                max_severity: float) -> Decimal:
+async def get_mean_remediate_severity(project_name: str, min_severity: float,
+                                      max_severity: float) -> Decimal:
     """Get mean time to remediate."""
-    total_vuln = 0
     total_days = 0
     tzn = pytz.timezone('America/Bogota')
-    project_name = project_name.lower()
-    finding_ids = list_findings(project_name)
-    findings = finding_domain.get_findings(finding_ids)
-    for finding in findings:
-        if min_severity <= cast(float, finding.get('severityCvss', 0)) <= max_severity:
-            vulnerabilities = vuln_dal.get_vulnerabilities(str(finding.get('findingId', '')))
-            for vuln in vulnerabilities:
-                open_vuln_date = get_open_vulnerability_date(vuln)
-                closed_vuln_date = get_last_closing_date(vuln)
-                if open_vuln_date:
-                    if closed_vuln_date:
-                        total_days += int(
-                            (closed_vuln_date - open_vuln_date).days)
-                    else:
-                        current_day = datetime.now(tz=tzn).date()
-                        total_days += int((current_day - open_vuln_date).days)
-                    total_vuln += 1
+    finding_ids = list_findings(project_name.lower())
+    finding_vulns = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(vuln_dal.get_vulnerabilities)(
+                str(finding.get('findingId', '')))
+        )
+        for finding in finding_domain.get_findings(finding_ids)
+        if min_severity <= cast(float, finding.get('severityCvss', 0)) <= max_severity
+    ])
+    open_vuln_dates = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(get_open_vulnerability_date)(
+                vuln)
+        )
+        for vulns in finding_vulns for vuln in vulns
+    ])
+    filtered_open_vuln_dates = [
+        vuln for vuln in open_vuln_dates
+        if vuln
+    ]
+    closed_vuln_dates = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(get_last_closing_date)(
+                vuln)
+        )
+        for vulns in finding_vulns for vuln in vulns
+        if open_vuln_dates.pop(0)
+    ])
+    for index, closed_vuln_date in enumerate(closed_vuln_dates):
+        if closed_vuln_date:
+            total_days += int(
+                (closed_vuln_date - filtered_open_vuln_dates[index]).days)
+        else:
+            current_day = datetime.now(tz=tzn).date()
+            total_days += int((current_day - filtered_open_vuln_dates[index]).days)
+    total_vuln = len(filtered_open_vuln_dates)
     if total_vuln:
         mean_vulnerabilities = Decimal(
             round(total_days / float(total_vuln))).quantize(Decimal('0.1'))
