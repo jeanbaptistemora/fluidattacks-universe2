@@ -428,7 +428,7 @@ const enTranslations: Dictionary = {
         title: "Actor",
       },
       affected_systems: "Affected systems",
-      analyst: "Analyst",
+      analyst: "Hacker",
       approval_message:
         "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
       approval_title: "Confirmation",
@@ -521,7 +521,7 @@ const enTranslations: Dictionary = {
     tab_events: {
       affectation: "Affectation",
       affected_components: "Affected components",
-      analyst: "Analyst",
+      analyst: "Hacker",
       client: "Client",
       client_project: "Client's Project",
       closing_date: "Closing date",
