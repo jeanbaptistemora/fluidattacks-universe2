@@ -29,7 +29,6 @@ pytestmark = [
             'admin',
             'analyst',
             'customer',
-            'customeradmin',
             'internal_manager',
             'reviewer',
         ]),

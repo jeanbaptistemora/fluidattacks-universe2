@@ -27,7 +27,6 @@ const requiredIndicator: JSX.Element = <label style={{ color: "#f22" }}>* </labe
 const userLevelRoles: string[] = [
   "admin",
   "customer",
-  "customeradmin",
   "internal_manager",
 ];
 const groupLevelRoles: string[] = [

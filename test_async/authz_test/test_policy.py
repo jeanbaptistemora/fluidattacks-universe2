@@ -43,9 +43,9 @@ async def test_get_group_level_role():
 
 
 async def test_get_user_level_role():
-    assert get_user_level_role('continuoushacking@gmail.com') == 'customeradmin'
+    assert get_user_level_role('continuoushacking@gmail.com') == 'internal_manager'
     assert get_user_level_role('integratesanalyst@gmail.com') == 'analyst'
-    assert get_user_level_role('integratesuser@gmail.com') == 'customeradmin'
+    assert get_user_level_role('integratesuser@gmail.com') == 'internal_manager'
     assert get_user_level_role('unittest@fluidattacks.com') == 'admin'
     assert not get_user_level_role('asdfasdfasdfasdf@gmail.com')
 

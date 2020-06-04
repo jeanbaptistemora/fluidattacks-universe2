@@ -36,7 +36,7 @@
           "level": {"S": "user"},
           "subject": {"S": "integratesuser@gmail.com"},
           "object": {"S": "self"},
-          "role": {"S": "customeradmin"}
+          "role": {"S": "internal_manager"}
         }
       }
     },
@@ -66,7 +66,7 @@
           "level": {"S": "user"},
           "subject": {"S": "continuoushacking@gmail.com"},
           "object": {"S": "self"},
-          "role": {"S": "customeradmin"}
+          "role": {"S": "internal_manager"}
         }
       }
     },

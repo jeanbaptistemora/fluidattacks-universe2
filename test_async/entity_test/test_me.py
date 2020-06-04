@@ -60,7 +60,7 @@ class MeTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'me' in result['data']
         assert 'role' in result['data']['me']
-        assert result['data']['me']['role'] == 'customeradmin'
+        assert result['data']['me']['role'] == 'internal_manager'
         assert result['data']['me']['callerOrigin'] == 'API'
         assert 'projects' in result['data']['me']
         assert 'tags' in result['data']['me']
