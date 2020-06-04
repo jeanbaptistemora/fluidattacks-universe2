@@ -190,7 +190,7 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
 
         verify_btn = selenium.find_element_by_xpath(
-            '//*/button[text()[contains(., "Request verification")]]')
+            '//*/button[text()[contains(., "Request Reattack")]]')
         self.__click(verify_btn)
         selenium.save_screenshot(SCR_PATH + '05-03-finding.png')
 

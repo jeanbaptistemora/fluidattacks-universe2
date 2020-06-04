@@ -472,7 +472,7 @@ const enTranslations: Dictionary = {
         title_observations: "Observations",
         title_request: "Justification",
       },
-      request_verify: "Request verification",
+      request_verify: "Request Reattack",
       requirements: "Requirements",
       risk: "Risk",
       scenario: {
