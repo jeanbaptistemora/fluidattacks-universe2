@@ -7,6 +7,6 @@
 
 = Frequently Asked Questions (FAQ)
 
-If you have a question about the selection process,
-please read through the FAQ list before you contact us.
-You might find the answer to your question is already here.
+If you have questions about `Fluid Attacks` products or the selection process,
+please read through the `FAQ` list.
+You might find the answer to your question here:
