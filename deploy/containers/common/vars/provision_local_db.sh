@@ -144,6 +144,8 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --attribute-definitions \
     AttributeName=pk,AttributeType=S \
     AttributeName=sk,AttributeType=S \
+    AttributeName=gsi-2-pk,AttributeType=S \
+    AttributeName=gsi-2-sk,AttributeType=S \
 --key-schema \
     AttributeName=pk,KeyType=HASH \
     AttributeName=sk,KeyType=RANGE \
@@ -151,6 +153,10 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --global-secondary-indexes \
     IndexName=gsi-1,\
 KeySchema=["{AttributeName=sk,KeyType=HASH},{AttributeName=pk,KeyType=RANGE}"],\
+Projection="{ProjectionType=ALL}",\
+ProvisionedThroughput="{ReadCapacityUnits=1,WriteCapacityUnits=1}"\
+    IndexName=gsi-2,\
+KeySchema=["{AttributeName=gsi-2-pk,KeyType=HASH},{AttributeName=gsi-2-sk,KeyType=RANGE}"],\
 Projection="{ProjectionType=ALL}",\
 ProvisionedThroughput="{ReadCapacityUnits=1,WriteCapacityUnits=1}"
 

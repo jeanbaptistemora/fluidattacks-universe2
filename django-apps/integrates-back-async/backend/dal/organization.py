@@ -55,7 +55,7 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
 
 def create(organization_name: str) -> OrganizationType:
     """
-    Create an organization and returns it key
+    Create an organization and returns its key
     """
     if exists(organization_name):
         raise InvalidOrganization()

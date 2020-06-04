@@ -14,10 +14,27 @@ resource "aws_dynamodb_table" "integrates" {
     type = "S"
   }
 
+  attribute {
+    name = "gsi-2-pk"
+    type = "S"
+  }
+
+  attribute {
+    name = "gsi-2-sk"
+    type = "S"
+  }
+
   global_secondary_index {
     name               = "gsi-1"
     hash_key           = "sk"
     range_key          = "pk"
+    projection_type    = "ALL"
+  }
+
+  global_secondary_index {
+    name               = "gsi-2"
+    hash_key           = "gsi-2-pk"
+    range_key          = "gsi-2-sk"
     projection_type    = "ALL"
   }
 
