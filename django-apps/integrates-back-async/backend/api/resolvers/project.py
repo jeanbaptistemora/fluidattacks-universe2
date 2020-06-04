@@ -363,13 +363,12 @@ async def _get_description(info, project_name: str, **__) -> Dict[str, str]:
 @enforce_group_level_auth_async
 @require_integrates
 async def _get_comments(
-        info, project_name: str, **__) -> Dict[str, List[CommentType]]:
+        info, project_name: str, **__) -> List[CommentType]:
     """Get comments."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
-    comments = await sync_to_async(project_domain.list_comments)(
-        project_name, user_email)
+    comments = await project_domain.list_comments(project_name, user_email)
     return comments
 
 

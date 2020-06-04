@@ -272,7 +272,7 @@ class ProjectTest(TestCase):
 
     def test_list_comments(self):
         project_name = 'unittesting'
-        test_data = list_comments(project_name, 'admin')
+        test_data = async_to_sync(list_comments)(project_name, 'admin')
         expected_output = {
             'content': 'Now we can post comments on projects',
             'parent': 0,
