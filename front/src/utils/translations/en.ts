@@ -475,6 +475,7 @@ const enTranslations: Dictionary = {
       request_verify: "Request Reattack",
       requirements: "Requirements",
       risk: "Risk",
+      save: "Save",
       scenario: {
         anon_inter: "Anonymous from Internet",
         anon_intra: "Anonymous from Intranet",
@@ -510,7 +511,6 @@ const enTranslations: Dictionary = {
         security: "Security",
         title: "Finding type",
       },
-      update: "Update",
       update_vulnerabilities: "Update Vulnerabilities",
       verification: "Verification",
       vulnDeleted: "Vulnerability deleted",

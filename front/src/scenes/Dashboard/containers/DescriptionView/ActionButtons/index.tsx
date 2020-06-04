@@ -90,7 +90,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
         {props.isEditing ? (
           <Button onClick={onUpdate} disabled={props.isPristine}>
             <FluidIcon icon="loading" />&nbsp;
-            {translate.t("search_findings.tab_description.update")}
+            {translate.t("search_findings.tab_description.save")}
           </Button>
         ) : undefined}
         <Button onClick={onEdit}>
