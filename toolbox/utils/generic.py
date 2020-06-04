@@ -1,4 +1,5 @@
 # Standard libraries
+import json
 import os
 import io
 import re
@@ -10,10 +11,11 @@ from glob import glob
 from datetime import datetime
 from functools import lru_cache
 from configparser import ConfigParser
-from pathlib import Path
 from typing import (
     List,
     Tuple,
+    Optional,
+    Dict
 )
 
 # Third party libraries
@@ -26,6 +28,8 @@ from pykwalify.errors import SchemaError
 
 # Local libraries
 from toolbox import logger
+
+DEFAULT_PROFILE: str = 'continuous-unspecified-subs'
 
 
 def run_command_old(
@@ -325,46 +329,152 @@ def get_change_request_touched_and_existing_files(
     )
 
 
-def okta_aws_configure_role(role: str, profile: str = 'default'):
+def _write_aws_credentials(profile: str,
+                           key_info: Dict,
+                           delete_default: bool = False):
     """
-    Set okta-awscli profile in ~/.okta-aws config file
-    for logging in as a specific role.
+    Add profile credentials in aws credential file.
+
+    :param profile: Profile name.
+    :param key_info: AWS credentials for profile.
+    :param delete_default: Delete default credentials.
     """
-    url = 'fluidattacks.okta.com'
-    applink = f'https://{url}/home/amazon_aws/0oa1ju1nmaERwnuYW357/272'
-    config_role = f'arn:aws:iam::205810638802:role/{role}'
-    okta_aws_config = ConfigParser()
-    Path(f"{os.environ['HOME']}/.okta-aws").touch()
-    with open(f"{os.environ['HOME']}/.okta-aws", 'r') as store_file:
-        okta_aws_config.read_file(store_file)
-        if not okta_aws_config.has_section(profile):
-            okta_aws_config.add_section(profile)
-        okta_aws_config[profile]['base-url'] = url
-        okta_aws_config[profile]['app-link'] = applink
-        okta_aws_config[profile]['role'] = config_role
-    with open(f"{os.environ['HOME']}/.okta-aws", 'w') as store_file:
-        okta_aws_config.write(store_file)
+    creds_file: str = f"{os.environ['HOME']}/.aws/credentials"
+    config: ConfigParser = ConfigParser()
+    config.read(creds_file)
+    if not config.has_section(profile):
+        config.add_section(profile)
+    if delete_default and config.has_section(DEFAULT_PROFILE):
+        del config[DEFAULT_PROFILE]
+    config[profile]['AWS_ACCESS_KEY_ID'] = key_info['AccessKeyId']
+    config[profile]['AWS_SECRET_ACCESS_KEY'] = key_info['SecretAccessKey']
+    config[profile]['AWS_SESSION_TOKEN'] = key_info['SessionToken']
+    config[profile]['AWS_SESSION_TOKEN_EXPIRATION'] = key_info['Expiration']
+
+    with open(creds_file, 'w') as file:
+        config.write(file)
+
+
+def _get_aws_credentials(profile: str) -> Dict:
+    """
+    Returns aws credentials of the profile by reading the aws credentials file.
+    """
+    creds_file: str = f"{os.environ['HOME']}/.aws/credentials"
+    config: ConfigParser = ConfigParser()
+    config.read(creds_file)
+    if not config.has_section(profile):
+        creds: Dict = {}
+    else:
+        profile_data = config[profile]
+        creds = {
+            'AccessKeyId': profile_data['aws_access_key_id'],
+            'SecretAccessKey': profile_data['aws_secret_access_key'],
+            'SessionToken': profile_data['aws_session_token'],
+            'Expiration': profile_data['aws_session_token_expiration']
+        }
+    return creds
+
+
+def _get_okta_user() -> Optional[str]:
+    """Returns the okta user."""
+    user: Optional[str] = os.environ.get('AWS_OKTA_USER')
+    if not user:
+        logger.info("Set the variable AWS_OKTA_USER in your shell profile")
+        try:
+            path: str = f"{os.environ['HOME']}/.aws-okta-processor/cache/"
+            users: List[str] = os.listdir(path)
+            if users:
+                with open(path + users[0], 'r') as reader:
+                    session: Dict = json.load(reader)
+                    user = session['login']
+                    logger.info(f'Using {user}')
+            else:
+                user = input("Username: ")
+        except FileNotFoundError as exc:
+            logger.error(exc)
+            user = input("Username: ")
+
+    return user
+
+
+def _set_aws_env_creds(profile: str):
+    """
+    Set aws credentials as environment variables.
+
+    :param profile: Profile name credentials are extracted.
+    """
+    os.environ['AWS_ACCESS_KEY_ID'] = os.popen(
+        f'aws configure get {profile}.aws_access_key_id').read().rstrip()
+    os.environ['AWS_SECRET_ACCESS_KEY'] = os.popen(
+        f'aws configure get {profile}.aws_secret_access_key').read().rstrip()
+    os.environ['AWS_SESSION_TOKEN'] = os.popen(
+        f'aws configure get {profile}.aws_session_token').read().rstrip()
+
+
+def _get_okta_aws_credentials(profile: str) -> Dict:
+    """Login in okta to get the aws credentials of the profile."""
+    creds_file: str = f"{os.environ['HOME']}/.aws/credentials"
+    config: ConfigParser = ConfigParser()
+    config.read(creds_file)
+    url: str = 'fluidattacks.okta.com'
+    applink: str = f'https://{url}/home/amazon_aws/0oa1ju1nmaERwnuYW357/272'
+    envs: Dict = {
+        'AWS_OKTA_APPLICATION': applink,
+        'AWS_OKTA_ORGANIZATION': 'fluidattacks.okta.com',
+        'AWS_OKTA_USER': _get_okta_user(),
+        'AWS_OKTA_DURATION': '32400'
+    }
+    if profile != DEFAULT_PROFILE:
+        envs['AWS_OKTA_ROLE'] = f'arn:aws:iam::205810638802:role/{profile}'
+    command: List[str] = [
+        'aws-okta-processor', 'authenticate', '--no-aws-cache', '--silent'
+    ]
+    success: int
+    out: str
+    error: str
+    success, out, error = run_command(command, cwd='.', env=envs)
+    if success > 0:
+        logger.error(error)
+        if config.has_section('continuous-admin'):
+            logger.info('Using the continuous-admin credentials')
+            out = json.dumps(_get_aws_credentials('continuous-admin'))
+        else:
+            envs.pop('AWS_OKTA_ROLE')
+            success, out, error = run_command(command, cwd='.', env=envs)
+    return json.loads(out)
 
 
 def okta_aws_login(profile: str = 'default') -> bool:
     """
-    Login to AWS through OKTA using a specific profile
+    Login to AWS through OKTA using a specific profile.
     """
     logger.info('Logging in to Okta.')
-    okta_aws_configure_role(profile, profile)
-    success = subprocess.call(
-        f'okta-awscli --profile {profile} --okta-profile {profile}',
-        shell=True
-    )
-    os.environ['AWS_ACCESS_KEY_ID'] = \
-        os.popen(f'aws configure get {profile}.aws_access_key_id') \
-        .read().rstrip()
-    os.environ['AWS_SECRET_ACCESS_KEY'] = \
-        os.popen(f'aws configure get {profile}.aws_secret_access_key') \
-        .read().rstrip()
-    os.environ['AWS_SESSION_TOKEN'] = \
-        os.popen(f'aws configure get {profile}.aws_session_token') \
-        .read().rstrip()
+
+    success: int = 0
+    expired: bool = False
+    key_info: Dict = _get_aws_credentials(profile)
+
+    if key_info:
+        now: datetime = datetime.utcnow()
+        expire: datetime = datetime.strptime(key_info['Expiration'],
+                                             "%Y-%m-%dT%H:%M:%SZ")
+        expired = now > expire
+
+    if not key_info or expired:
+        key_info = _get_okta_aws_credentials(profile)
+
+    _write_aws_credentials(profile, key_info)
+    if profile == DEFAULT_PROFILE:
+        command: List[str] = [
+            'aws', 'sts', 'get-caller-identity', '--profile',
+            DEFAULT_PROFILE
+        ]
+        out: str
+        _, out, _ = run_command(command, cwd='.', env={})
+        profile = json.loads(out)['Arn'].split('/')[1]
+        _write_aws_credentials(profile, key_info, delete_default=True)
+    _set_aws_env_creds(profile)
+
     return success == 0
 
 
@@ -448,18 +558,3 @@ def glob_re(pattern, paths='.'):
             file_path = os.path.join(dirpath, path)
             if re.match(pattern, file_path):
                 yield file_path
-
-
-def clear_credentials():
-    """Clear old aws credentials."""
-    aws_credentials = f"{os.environ['HOME']}/.aws/credentials"
-    with open(aws_credentials, "r") as reader:
-        lines = reader.readlines()
-    with open(aws_credentials, "w") as write:
-        profiles = []
-        for idx, line in enumerate(lines):
-            if 'continuous-' in line.strip("\n"):
-                profiles.append(list(range(idx, idx + 5)))
-        for idx, line in enumerate(lines):
-            if not any([idx in ran for ran in profiles]):
-                write.write(line)
