@@ -9,7 +9,7 @@
 = Vulnerability Management Platform
 
 You can check the status of findings during the execution of the project using
-*Integrates*.
+link:../../../products/integrates/[*Integrates*].
 Each project must have a manager so that he or she can express the needs of your
 company before, during, and after the performance.
 Daily progress reports are sent by email. These include coverage, strictness,
