@@ -183,7 +183,7 @@ class ProjectTest(TestCase):
     def test_get_open_vulnerabilities(self):
         project_name = 'unittesting'
         expected_output = 31
-        assert get_open_vulnerabilities(project_name) == expected_output
+        assert async_to_sync(get_open_vulnerabilities)(project_name) == expected_output
 
     def test_get_closed_vulnerabilities(self):
         project_name = 'unittesting'

@@ -480,7 +480,7 @@ def get_project_indicators(project: str) -> Dict[str, object]:
             project_domain.get_mean_remediate_severity)(project, 4, 6.9),
         'max_open_severity': project_domain.get_max_open_severity(findings),
         'open_findings': project_domain.get_open_finding(project),
-        'open_vulnerabilities': project_domain.get_open_vulnerabilities(project),
+        'open_vulnerabilities': async_to_sync(project_domain.get_open_vulnerabilities)(project),
         'total_treatment':  async_to_sync(project_domain.get_total_treatment)(findings),
         'remediated_over_time': create_register_by_week(project)
     }

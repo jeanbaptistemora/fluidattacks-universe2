@@ -569,7 +569,7 @@ class FindingTests(TestCase):
             }
           }
         '''
-        open_vulns = get_open_vulnerabilities('unittesting')
+        open_vulns = await get_open_vulnerabilities('unittesting')
 
         data = {'query': mutation}
         result = await self._get_result(data)
@@ -577,4 +577,4 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['deleteFinding']
         assert result['data']['deleteFinding']['success']
 
-        assert get_open_vulnerabilities('unittesting') < open_vulns
+        assert await get_open_vulnerabilities('unittesting') < open_vulns
