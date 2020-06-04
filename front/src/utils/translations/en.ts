@@ -82,7 +82,7 @@ const enTranslations: Dictionary = {
   proj_alerts: {
     acceptation_approved: "Indefinite acceptation has been approved",
     acceptation_rejected: "Indefinite acceptation has been rejected",
-    access_denied: "Access denied or project not found",
+    access_denied: "Access denied",
     draft_already_approved: "This finding has already been approved",
     draft_already_submitted: "This finding has already been submitted",
     draft_not_submitted: "This finding has not been submitted yet or it might've been rejected by someone else",
