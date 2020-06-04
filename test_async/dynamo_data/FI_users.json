@@ -44,7 +44,7 @@
               "S": "Miguel"
             },
             "date_joined": {
-              "S": "2018-02-28 11:54:12"
+              "S": "2019-02-28 11:54:12"
             },
             "legal_remember": {
               "BOOL": true
@@ -80,7 +80,7 @@
               "BOOL": true
             },
             "last_login": {
-              "S": "2019-10-29 13:40:37"
+              "S": "2019-12-29 11:50:17"
             },
             "email": {
               "S": "integratesmanager@gmail.com"
@@ -164,13 +164,13 @@
               "S": "Integrates2"
             },
             "date_joined": {
-              "S": "2018-02-28 11:54:12"
+              "S": "2012-12-21 23:59:59"
             },
             "legal_remember": {
               "BOOL": true
             },
             "last_login": {
-              "S": "2019-10-29 13:40:37"
+              "S": "2017-11-20 15:22:37"
             },
             "email": {
               "S": "integratesanalyst2@gmail.com"
@@ -200,7 +200,7 @@
               "BOOL": true
             },
             "last_login": {
-              "S": "2019-10-29 13:40:37"
+              "S": "2020-03-23 10:45:37"
             },
             "email": {
               "S": "continuoushacking@gmail.com"
@@ -208,6 +208,51 @@
             "registered": {
               "BOOL": true
             }
+          }
+        }
+      },
+      {
+        "PutRequest" : {
+           "Item" : {
+              "company" : {
+                 "S" : "unittest"
+              },
+              "date_joined": {
+               "S": "2018-11-28 18:24:10"
+              },
+              "email" : {
+                 "S" : "unittest2"
+              },
+              "legal_remember" : {
+                 "BOOL" : true
+              },
+              "registered" : {
+                 "BOOL" : false
+              }
+           }
+        }
+      },
+      {
+       "PutRequest" : {
+          "Item" : {
+             "company" : {
+                "S" : "unittest"
+             },
+             "date_joined": {
+              "S": "2017-12-28 23:54:55"
+             },
+             "last_login": {
+               "S": "2019-10-29 13:40:37"
+             },
+             "email" : {
+                "S" : "unittest3"
+             },
+             "legal_remember" : {
+                "BOOL" : true
+             },
+             "registered" : {
+                "BOOL" : false
+             }
           }
         }
       }
