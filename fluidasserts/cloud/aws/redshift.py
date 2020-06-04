@@ -204,3 +204,38 @@ def is_audit_logging_disabled(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_not_upgrade_allowed(key_id: str,
+                           secret: str,
+                           session_token: str = None,
+                           retry: bool = True) -> tuple:
+    """Check if Redshift clusters have version upgrading disabled.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    """
+
+    clusters = _get_clusters(key_id, retry, secret, session_token)
+
+    msg_open: str = 'Redshift clusters do not allow version upgrade.'
+    msg_closed: str = 'Redshift clusters allow version upgrade.'
+
+    vulns, safes = [], []
+
+    for cluster in clusters:
+        cluster_id = cluster['ClusterIdentifier']
+
+        (vulns if not cluster.get('AllowVersionUpgrade', False)
+         else safes).append(
+             (cluster_id,
+              'have Allow Version Upgrade disabled'))
+    return _get_result_as_tuple(
+        service='RedShift',
+        objects='clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
