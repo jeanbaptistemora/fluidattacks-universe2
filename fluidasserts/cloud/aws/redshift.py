@@ -239,3 +239,54 @@ def is_not_upgrade_allowed(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def not_requires_ssl(key_id: str,
+                     secret: str,
+                     session_token: str = None,
+                     retry: bool = True) -> tuple:
+    """Check if Redshift clusters do not require use of SSL.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    """
+
+    clusters = _get_clusters(key_id, retry, secret, session_token)
+
+    msg_open: str = 'Redshift clusters do not require using SSL.'
+    msg_closed: str = 'Redshift clusters require using SSL.'
+
+    vulns, safes = [], []
+
+    for cluster in clusters:
+        vulnerable = False
+        cluster_id = cluster['ClusterIdentifier']
+        param_groups = cluster.get('ClusterParameterGroups', [])
+
+        for group in param_groups:
+            params = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                service='redshift',
+                func='describe_cluster_parameters',
+                boto3_client_kwargs={'aws_session_token': session_token},
+                param='Parameters',
+                ParameterGroupName=group['ParameterGroupName'],
+                retry=retry)
+            for param in params:
+                if param['ParameterName'] == 'require_ssl' \
+                        and param['ParameterValue'] == "false":
+                    vulnerable = True
+            (vulns if vulnerable
+             else safes).append(
+                 (f'{cluster_id}/{group["ParameterGroupName"]}',
+                  'does not require SSL'))
+    return _get_result_as_tuple(
+        service='RedShift',
+        objects='clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
