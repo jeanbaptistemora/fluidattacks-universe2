@@ -9,3 +9,15 @@
   padding-top: 10%;
   width: 350px;
 }
+
+:local .row {
+  padding-bottom: 20px;
+}
+
+:local .imgDiv {
+  padding-bottom: 50px;
+}
+
+:local .img {
+  padding-bottom: 30px;
+}

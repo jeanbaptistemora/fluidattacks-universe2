@@ -57,14 +57,14 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
     <React.StrictMode>
       <div className={`${style.container} ${globalStyle.lightFg}`}>
         <div className={style.content}>
-          <div style={{ paddingBottom: "50px" }}>
-            <img style={{ paddingBottom: "30px" }} src={logo} alt="logo" /><br />
+          <div className={style.imgDiv}>
+            <img className={style.img} src={logo} alt="logo" /><br />
             <h1>{translate.t("registration.greeting")} {userName}!</h1>
           </div>
           {localStorage.getItem("showAlreadyLoggedin") === "1"
             ?
             <div>
-              <Row style={{ paddingBottom: "20px" }}><h3>{translate.t("registration.logged_in_title")}</h3></Row>
+              <Row className={style.row}><h3>{translate.t("registration.logged_in_title")}</h3></Row>
               <Row>
                 <Col md={12}>
                   <p>{translate.t("registration.logged_in_message")}</p>
@@ -82,7 +82,7 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
             localStorage.getItem("concurrentSession") === "1"
               ?
               <div>
-                <Row>
+                <Row className={style.row}>
                   <h3>{translate.t("registration.concurrent_session_message")}</h3>
                 </Row>
                 <Row>
