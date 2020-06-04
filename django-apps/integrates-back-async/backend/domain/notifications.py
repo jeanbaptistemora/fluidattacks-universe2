@@ -1,7 +1,12 @@
+# Standard library
+from datetime import datetime
+import threading
+
 # Local imports
 from backend.dal import (
     notifications as notifications_dal,
 )
+from backend.mailer import send_mail_project_report
 
 
 def new_group(
@@ -74,3 +79,25 @@ def edit_group(
         """,
         requester_email=requester_email,
     )
+
+
+def new_password_protected_report(
+    user_email: str,
+    project_name: str,
+    passphrase: str,
+    file_type: str,
+    file_link: str = '',
+):
+    email_send_thread = threading.Thread(
+        name='Report passphrase email thread',
+        target=send_mail_project_report,
+        args=([user_email], {
+            'filetype': file_type,
+            'date': datetime.today().strftime('%Y-%m-%d'),
+            'time': datetime.today().strftime('%H:%M'),
+            'projectname': project_name,
+            'passphrase': passphrase,
+            'filelink': file_link
+        }))
+
+    email_send_thread.start()

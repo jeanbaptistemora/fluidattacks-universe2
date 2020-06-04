@@ -4,7 +4,11 @@ from asgiref.sync import sync_to_async
 from backend.decorators import require_login, require_project_access
 from backend.domain import (
     finding as finding_domain, project as project_domain,
-    report as report_domain, vulnerability as vuln_domain
+    vulnerability as vuln_domain
+)
+from backend.reports import (
+    data as data_report,
+    technical as technical_report,
 )
 from backend.typing import SimplePayload as SimplePayloadType
 from backend import util
@@ -43,7 +47,7 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
     findings_ord = util.ord_asc_by_criticality(findings)
     if report_type == 'PDF':
         asyncio.create_task(
-            sync_to_async(report_domain.generate_pdf_report)(
+            sync_to_async(technical_report.generate_pdf)(
                 description=description,
                 findings_ord=findings_ord,
                 group_name=project_name,
@@ -57,7 +61,7 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
             'Security: PDF report successfully requested')
     elif report_type == 'XLS':
         asyncio.create_task(
-            sync_to_async(report_domain.generate_xls_report)(
+            sync_to_async(technical_report.generate_xls)(
                 findings_ord=findings_ord,
                 group_name=project_name,
                 user_email=user_email,
@@ -69,7 +73,7 @@ async def _do_request_project_report(info, **parameters) -> SimplePayloadType:
             'Security: XLS report successfully requested')
     elif report_type == 'DATA':
         asyncio.create_task(
-            sync_to_async(report_domain.generate_data_report)(
+            sync_to_async(data_report.generate)(
                 findings_ord=findings_ord,
                 group=project_name,
                 group_description=description,

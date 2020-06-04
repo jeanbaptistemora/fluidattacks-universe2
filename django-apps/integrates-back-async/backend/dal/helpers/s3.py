@@ -3,7 +3,7 @@
 #  type: ignore
 
 import os
-from tempfile import _TemporaryFileWrapper
+from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
 
 import boto3
 import rollbar
@@ -68,8 +68,8 @@ def upload_memory_file(bucket, file_object, file_name):
     valid_in_memory_files = (
         ContentFile,
         InMemoryUploadedFile,
+        TemporaryFileWrapper,
         TemporaryUploadedFile,
-        _TemporaryFileWrapper,
     )
 
     success = False
