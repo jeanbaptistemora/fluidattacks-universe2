@@ -15,8 +15,8 @@ device unencrypted storage, etc.).
 
 == Description
 
-Data placed in the *localStorage* persists after a session is closed,
-thus any actor with access to the browser will be able to get it.
+Data placed in the *localStorage* persists after a session is closed;
+thus, any actor with access to the browser will be able to obtain it.
 Furthermore, data in the *localStorage* or in the *sessionStorage* is visible to
 scripts that are running on the browser,
 and these scripts could belong to malicious third-parties.
