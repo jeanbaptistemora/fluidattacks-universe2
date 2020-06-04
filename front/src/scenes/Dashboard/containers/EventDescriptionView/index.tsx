@@ -47,7 +47,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
   };
 
   const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    msgError(translate.t("group_alerts.error_textsad"));
     rollbar.error("An error occurred loading event description", error);
   };
 
@@ -68,10 +68,10 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
             updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
               switch (message) {
                 case "Exception - The event has already been closed":
-                  msgError(translate.t("project.events.alreadyClosed"));
+                  msgError(translate.t("group.events.alreadyClosed"));
                   break;
                 default:
-                  msgError(translate.t("proj_alerts.error_textsad"));
+                  msgError(translate.t("group_alerts.error_textsad"));
                   rollbar.error("An error occurred updating event", updateError);
               }
             });
@@ -104,7 +104,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             <Row>
                               <Col md={6}>
                                 <FormGroup>
-                                  <ControlLabel>{translate.t("project.events.description.solved.date")}</ControlLabel>
+                                  <ControlLabel>{translate.t("group.events.description.solved.date")}</ControlLabel>
                                   <Field
                                     component={dateTimeField}
                                     name="date"
@@ -115,7 +115,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                               <Col md={6}>
                                 <FormGroup>
                                   <ControlLabel>
-                                    {translate.t("project.events.description.solved.affectation")}
+                                    {translate.t("group.events.description.solved.affectation")}
                                   </ControlLabel>
                                   <Field
                                     component={textField}

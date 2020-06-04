@@ -38,7 +38,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_REPOSITORIES, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading project repos", error);
     },
     variables: { projectName: props.projectName },
@@ -58,7 +58,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
             msgError(translate.t("validations.invalid_char"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred adding repositories", reposError);
         }
       });
@@ -75,7 +75,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
       );
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred updating repository state", error);
     },
   });

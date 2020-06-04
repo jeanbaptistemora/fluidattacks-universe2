@@ -37,14 +37,14 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
           msgError(translate.t("validations.invalidCommentParent", { count: 1 }));
           break;
         default:
-          msgError(translate.t("proj_alerts.error_textsad"));
+          msgError(translate.t("group_alerts.error_textsad"));
           rollbar.error("An error occurred updating exploit", addCommentError);
       }
     });
   };
 
   const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    msgError(translate.t("group_alerts.error_textsad"));
     rollbar.error("An error occurred loading project comments", error);
   };
 

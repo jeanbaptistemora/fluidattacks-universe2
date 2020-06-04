@@ -47,7 +47,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FILES, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading project files", error);
     },
     variables: { projectName: props.projectName },
@@ -110,7 +110,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         } else if (message === "Exception - Invalid characters") {
           msgError(translate.t("validations.invalid_char"));
         } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
+          msgError(translate.t("group_alerts.error_textsad"));
           rollbar.error("An error occurred adding files to project", filesError);
         }
       });

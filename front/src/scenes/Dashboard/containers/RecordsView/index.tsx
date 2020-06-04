@@ -42,7 +42,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
   const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    msgError(translate.t("group_alerts.error_textsad"));
     rollbar.error("An error occurred loading finding records", error);
   };
 
@@ -60,16 +60,16 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
             updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
               switch (message) {
                 case "Exception - Wrong File Structure":
-                  msgError(translate.t("proj_alerts.invalid_structure"));
+                  msgError(translate.t("group_alerts.invalid_structure"));
                   break;
                 case "Exception - Invalid File Size":
                   msgError(translate.t("validations.file_size", { count: 1 }));
                   break;
                 case "Exception - Invalid File Type":
-                  msgError(translate.t("proj_alerts.file_type_csv"));
+                  msgError(translate.t("group_alerts.file_type_csv"));
                   break;
                 default:
-                  msgError(translate.t("proj_alerts.error_textsad"));
+                  msgError(translate.t("group_alerts.error_textsad"));
                   rollbar.error("An error occurred updating records", updateError);
               }
             });
@@ -159,7 +159,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                 {_.isEmpty(JSON.parse(data.finding.records)) ? (
                   <div className={globalStyle.noData}>
                     <Glyphicon glyph="list" />
-                    <p>{translate.t("project.findings.records.no_data")}</p>
+                    <p>{translate.t("group.findings.records.no_data")}</p>
                   </div>
                 ) : (
                     <DataTableNext

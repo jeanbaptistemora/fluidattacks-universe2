@@ -97,7 +97,7 @@ const renderExportCsvButton: ((toolkitProps: ToolkitProviderProps) => JSX.Elemen
   return (
     <ExportCSVButton {...toolkitProps.csvProps} className={style.exportCsv}>
       <FluidIcon icon="export" />
-      &nbsp;{translate.t("project.findings.exportCsv")}
+      &nbsp;{translate.t("group.findings.exportCsv")}
     </ExportCSVButton>
   );
 };
@@ -114,7 +114,7 @@ const CustomToggleList: ((props: ICustomToggle) => JSX.Element) =
   };
   const tableModalFooter: JSX.Element = (
     <ButtonToolbar className="pull-right">
-      <Button onClick={handleCloseTableSetClick}>{translate.t("project.findings.report.modal_close")}</Button>
+      <Button onClick={handleCloseTableSetClick}>{translate.t("group.findings.report.modal_close")}</Button>
     </ButtonToolbar>
   );
 
@@ -155,12 +155,12 @@ const CustomToggleList: ((props: ICustomToggle) => JSX.Element) =
     <div>
       <Button onClick={handleOpenTableSetClick}>
         <Glyphicon glyph="glyphicon glyphicon-cog" />&nbsp;
-        {translate.t("project.findings.tableSet.btn")}
+        {translate.t("group.findings.tableSet.btn")}
       </Button>
       <Modal
         open={hidden}
         footer={tableModalFooter}
-        headerTitle={translate.t("project.findings.tableSet.modal_title")}
+        headerTitle={translate.t("group.findings.tableSet.modal_title")}
       >
         <Col mdOffset={5}>
           <RenderToggle />

@@ -298,7 +298,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_description.vulnDeleted"),
-                    translate.t("proj_alerts.title_success"));
+                    translate.t("group_alerts.title_success"));
                 } else {
                   msgError(
                     translate.t("delete_vulns.not_success"),
@@ -322,7 +322,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_description.vuln_approval"),
-                    translate.t("proj_alerts.title_success"));
+                    translate.t("group_alerts.title_success"));
                 }
               }
             };

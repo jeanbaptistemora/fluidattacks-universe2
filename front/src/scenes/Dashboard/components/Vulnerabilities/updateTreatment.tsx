@@ -59,10 +59,10 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       switch (message) {
         case "Invalid treatment manager":
-          msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
+          msgError(translate.t("group_alerts.invalid_treatment_mgr"));
           break;
         default:
-          msgError(translate.t("proj_alerts.error_textsad"));
+          msgError(translate.t("group_alerts.error_textsad"));
           rollbar.error("An error occurred updating vuln treatment", updateError);
       }
     });
@@ -78,7 +78,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
           });
         msgSuccess(
           translate.t("search_findings.tab_description.update_vulnerabilities"),
-          translate.t("proj_alerts.title_success"));
+          translate.t("group_alerts.title_success"));
         props.handleCloseModal();
       }
     }
@@ -137,7 +137,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
           };
 
           const handleDeleteError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
           };
           const handleDeleteResult: ((mtResult: IDeleteTagResult) => void) =
           (mtResult: IDeleteTagResult): void => {
@@ -145,7 +145,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
               if (mtResult.deleteTags.success) {
                 msgSuccess(
                   translate.t("search_findings.tab_description.update_vulnerabilities"),
-                  translate.t("proj_alerts.title_success"));
+                  translate.t("group_alerts.title_success"));
               }
             }
           };
@@ -193,7 +193,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                     footer={
                       <ButtonToolbar className="pull-right">
                         <Button onClick={handleClose}>
-                          {translate.t("project.findings.report.modal_close")}
+                          {translate.t("group.findings.report.modal_close")}
                         </Button>
                         <Button
                           disabled={updateResult.loading || tagsResult.loading}

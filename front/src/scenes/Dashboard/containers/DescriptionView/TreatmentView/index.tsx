@@ -67,8 +67,8 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
     onCompleted: async (result: { updateClientDescription: { success: boolean } }): Promise<void> => {
       if (result.updateClientDescription.success) {
         msgSuccess(
-          translate.t("proj_alerts.updated"),
-          translate.t("proj_alerts.updated_title"),
+          translate.t("group_alerts.updated"),
+          translate.t("group_alerts.updated_title"),
         );
         await refetch();
       }
@@ -77,10 +77,10 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Invalid treatment manager":
-            msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
+            msgError(translate.t("group_alerts.invalid_treatment_mgr"));
             break;
           case "Exception - The inserted date is invalid":
-            msgError(translate.t("proj_alerts.invalid_date"));
+            msgError(translate.t("group_alerts.invalid_date"));
             break;
           case "Exception - Invalid field in form":
             msgError(translate.t("validations.invalidValueInField"));
@@ -89,7 +89,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             msgError(translate.t("validations.invalid_char"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred updating treatment", updateError);
         }
       });
@@ -117,7 +117,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
       }
     },
     onError: (acceptationError: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred approving acceptation", acceptationError);
     },
   });
@@ -136,9 +136,9 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
     props.onCloseApproval();
     msgSuccess(
       props.approvalModalConfig.type === "APPROVED"
-        ? translate.t("proj_alerts.acceptation_approved")
-        : translate.t("proj_alerts.acceptation_rejected"),
-      translate.t("proj_alerts.updated_title"),
+        ? translate.t("group_alerts.acceptation_approved")
+        : translate.t("group_alerts.acceptation_rejected"),
+      translate.t("group_alerts.updated_title"),
     );
   };
 

@@ -22,7 +22,7 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
   const { eventId } = props.match.params;
 
   const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    msgError(translate.t("group_alerts.error_textsad"));
     rollbar.error("An error occurred loading event comments", error);
   };
 
@@ -50,7 +50,7 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
                   msgError(translate.t("validations.invalidCommentParent", { count: 1 }));
                   break;
                 default:
-                  msgError(translate.t("proj_alerts.error_textsad"));
+                  msgError(translate.t("group_alerts.error_textsad"));
                   rollbar.error("An error occurred posting event comment", addCommentError);
               }
             });

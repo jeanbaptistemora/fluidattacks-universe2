@@ -70,7 +70,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
               <React.StrictMode>
                 <Row>
                   <Col md={12} sm={12} xs={12}>
-                    <h1 className={style.title}>{translate.t("search_findings.tab_indicators.project_title")}</h1>
+                    <h1 className={style.title}>{translate.t("search_findings.tab_indicators.group_title")}</h1>
                     {dataChart.length > 0 ? (
                       <IndicatorChart
                         dataChart={dataChart}

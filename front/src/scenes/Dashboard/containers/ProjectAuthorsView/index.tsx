@@ -35,7 +35,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
       align: "center",
       dataField: "actor",
       formatter: formatText,
-      header: translate.t("project.authors.actor"),
+      header: translate.t("group.authors.actor"),
       width: "40%",
       wrapped: true,
     },
@@ -43,7 +43,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
       align: "center",
       dataField: "groups",
       formatter: formatText,
-      header: translate.t("project.authors.groups_contributed"),
+      header: translate.t("group.authors.groups_contributed"),
       width: "20%",
       wrapped: true,
     },
@@ -51,7 +51,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
       align: "center",
       dataField: "commit",
       formatter: formatCommit,
-      header: translate.t("project.authors.commit"),
+      header: translate.t("group.authors.commit"),
       width: "10%",
       wrapped: true,
     },
@@ -59,7 +59,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
       align: "center",
       dataField: "repository",
       formatter: formatText,
-      header: translate.t("project.authors.repository"),
+      header: translate.t("group.authors.repository"),
       width: "20%",
       wrapped: true,
     },
@@ -69,7 +69,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
 
   const { data } = useQuery(GET_BILL, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred getting bill data", error);
     },
     variables: { projectName },
@@ -83,7 +83,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
 
   return (
     <React.StrictMode>
-      <p>{translate.t("project.authors.table_advice")}</p>
+      <p>{translate.t("group.authors.table_advice")}</p>
       <DataTableNext
         bordered={true}
         columnToggle={true}

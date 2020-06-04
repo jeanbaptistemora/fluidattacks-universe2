@@ -38,7 +38,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_ENVIRONMENTS, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading project envs", error);
     },
     variables: { projectName: props.projectName },
@@ -58,7 +58,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
             msgError(translate.t("validations.invalid_char"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred adding environments", envsError);
         }
       });
@@ -75,7 +75,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
       );
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred updating environment state", error);
     },
   });

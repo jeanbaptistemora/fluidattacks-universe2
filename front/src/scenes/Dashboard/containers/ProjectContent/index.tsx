@@ -29,46 +29,46 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <li id="indicatorsTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/indicators`}>
                       <i className="icon pe-7s-graph3" />
-                      &nbsp;{translate.t("project.tabs.indicators")}
+                      &nbsp;{translate.t("group.tabs.indicators")}
                     </NavLink>
                   </li>
                   <li id="findingsTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/findings`}>
                       <i className="icon pe-7s-light" />
-                      &nbsp;{translate.t("project.tabs.findings")}
+                      &nbsp;{translate.t("group.tabs.findings")}
                     </NavLink>
                   </li>
                   <Can do="backend_api_resolvers_project__get_drafts">
                     <li id="draftsTab" className={globalStyle.tab}>
                       <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/drafts`}>
                         <i className="icon pe-7s-stopwatch" />
-                        &nbsp;{translate.t("project.tabs.drafts")}
+                        &nbsp;{translate.t("group.tabs.drafts")}
                       </NavLink>
                     </li>
                   </Can>
                   <li id="forcesTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/forces`}>
                       <i className="icon pe-7s-light" />
-                      &nbsp;{translate.t("project.tabs.forces")}
+                      &nbsp;{translate.t("group.tabs.forces")}
                     </NavLink>
                   </li>
                   <li id="eventsTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/events`}>
                       <i className="icon pe-7s-star" />
-                      &nbsp;{translate.t("project.tabs.events")}
+                      &nbsp;{translate.t("group.tabs.events")}
                     </NavLink>
                   </li>
                   <li id="commentsTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/comments`}>
                       <i className="icon pe-7s-comment" />
-                      &nbsp;{translate.t("project.tabs.comments")}
+                      &nbsp;{translate.t("group.tabs.comments")}
                     </NavLink>
                   </li>
                   <Can do="backend_api_resolvers_project__get_users">
                     <li id="usersTab" className={globalStyle.tab}>
                       <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/users`}>
                         <i className="icon pe-7s-users" />
-                        &nbsp;{translate.t("project.tabs.users")}
+                        &nbsp;{translate.t("group.tabs.users")}
                       </NavLink>
                     </li>
                   </Can>
@@ -76,14 +76,14 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     <li id="authorsTab" className={globalStyle.tab}>
                       <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/authors`}>
                         <i className="icon pe-7s-users" />
-                        &nbsp;{translate.t("project.tabs.authors")}
+                        &nbsp;{translate.t("group.tabs.authors")}
                       </NavLink>
                     </li>
                   </Can>
                   <li id="resourcesTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/resources`}>
                       <i className="icon pe-7s-box1" />
-                      &nbsp;{translate.t("project.tabs.resources")}
+                      &nbsp;{translate.t("group.tabs.resources")}
                     </NavLink>
                   </li>
                 </ul>

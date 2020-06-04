@@ -44,8 +44,8 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
         if (mtResult.requestRemoveProject.success) {
           push("/home");
           msgSuccess(
-            translate.t("proj_alerts.request_remove"),
-            translate.t("proj_alerts.title_success"),
+            translate.t("group_alerts.request_remove"),
+            translate.t("group_alerts.title_success"),
           );
         }
       },
@@ -75,7 +75,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
       <React.StrictMode>
         <Modal
           footer={<div />}
-          headerTitle={translate.t("search_findings.tab_resources.removeProject")}
+          headerTitle={translate.t("search_findings.tab_resources.removeGroup")}
           onClose={onClose}
           open={props.isOpen}
         >
@@ -89,7 +89,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
                         <Col md={12} sm={12}>
                           <FormGroup>
                             <Trans>
-                              <p>{translate.t("search_findings.tab_resources.projectToRemove", { projectName })}</p>
+                              <p>{translate.t("search_findings.tab_resources.groupToRemove", { projectName })}</p>
                             </Trans>
                             <Field
                               component={textField}

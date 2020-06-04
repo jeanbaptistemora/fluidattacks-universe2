@@ -57,7 +57,7 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
               <hr />
               <Row>
                 <Col md={12}>
-                  <h3 className={globalStyle.title}>{translate.t("search_findings.tab_resources.removeProject")}</h3>
+                  <h3 className={globalStyle.title}>{translate.t("search_findings.tab_resources.removeGroup")}</h3>
                 </Col>
                 <Col md={12}>
                   <Trans>
@@ -70,7 +70,7 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
                 <Col md={4} mdOffset={5}>
                   <ButtonToolbar>
                     <Button onClick={openRemoveModal}>
-                      <Glyphicon glyph="minus" />&nbsp;{translate.t("search_findings.tab_resources.removeProject")}
+                      <Glyphicon glyph="minus" />&nbsp;{translate.t("search_findings.tab_resources.removeGroup")}
                     </Button>
                   </ButtonToolbar>
                   <RemoveProjectModal

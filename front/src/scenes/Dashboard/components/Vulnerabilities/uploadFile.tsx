@@ -34,8 +34,8 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
       if (mtResult.uploadFile.success) {
         store.dispatch(submit("editDescription"));
         msgSuccess(
-          translate.t("proj_alerts.file_updated"),
-          translate.t("proj_alerts.title_success"));
+          translate.t("group_alerts.file_updated"),
+          translate.t("group_alerts.title_success"));
       }
     }
   };
@@ -43,45 +43,45 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
     interface IErrorInfo { keys: string[]; msg: string; values: string & string[]; }
     const formatError: (errorName: string, errorValue: string) => string =
       (errorName: string, errorValue: string): string =>
-        (` ${translate.t(errorName)} "${errorValue}" ${translate.t("proj_alerts.invalid")}. `);
+        (` ${translate.t(errorName)} "${errorValue}" ${translate.t("group_alerts.invalid")}. `);
 
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       if (message.includes("Exception - Error in range limit numbers")) {
         const errorObject: IErrorInfo = JSON.parse(message);
-        msgError(`${translate.t("proj_alerts.range_error")} ${errorObject.values}`);
+        msgError(`${translate.t("group_alerts.range_error")} ${errorObject.values}`);
       } else if (message.includes("Exception - Invalid Schema")) {
         const errorObject: IErrorInfo = JSON.parse(message);
         if (errorObject.values.length > 0 || errorObject.keys.length > 0) {
           const listValuesFormated: string[] = errorObject.values.map(
-            (x: string) => formatError("proj_alerts.value", x));
+            (x: string) => formatError("group_alerts.value", x));
           const listKeysFormated: string[] = errorObject.keys.map(
-            (x: string) => formatError("proj_alerts.key", x));
+            (x: string) => formatError("group_alerts.key", x));
           msgErrorStick(
             listKeysFormated.join("") + listValuesFormated.join(""),
-            translate.t("proj_alerts.invalid_schema"));
+            translate.t("group_alerts.invalid_schema"));
         } else {
-          msgError(translate.t("proj_alerts.invalid_schema"));
+          msgError(translate.t("group_alerts.invalid_schema"));
         }
       } else if (message === "Exception - Invalid characters") {
         msgError(translate.t("validations.invalid_char"));
       } else if (message === "Exception - Invalid File Size") {
         msgError(translate.t("validations.file_size", { count: 1 }));
       } else if (message === "Exception - Invalid File Type") {
-        msgError(translate.t("proj_alerts.file_type_yaml"));
+        msgError(translate.t("group_alerts.file_type_yaml"));
       } else if (message.includes("Exception - Error in path value")) {
         const errorObject: IErrorInfo = JSON.parse(message);
-        msgErrorStick(`${translate.t("proj_alerts.path_value")}
-          ${formatError("proj_alerts.value", errorObject.values)}`);
+        msgErrorStick(`${translate.t("group_alerts.path_value")}
+          ${formatError("group_alerts.value", errorObject.values)}`);
       } else if (message.includes("Exception - Error in port value")) {
         const errorObject: IErrorInfo = JSON.parse(message);
-        msgErrorStick(`${translate.t("proj_alerts.port_value")}
-          ${formatError("proj_alerts.value", errorObject.values)}`);
+        msgErrorStick(`${translate.t("group_alerts.port_value")}
+          ${formatError("group_alerts.value", errorObject.values)}`);
       } else if (message === "Exception - Error in specific value") {
-        msgError(translate.t("proj_alerts.invalid_specific"));
+        msgError(translate.t("group_alerts.invalid_specific"));
       } else if (message === "Exception - Error Uploading File to S3") {
-        msgError(translate.t("proj_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.error_textsad"));
       } else {
-        msgError(translate.t("proj_alerts.invalid_specific"));
+        msgError(translate.t("group_alerts.invalid_specific"));
         rollbar.error(message);
       }
     });

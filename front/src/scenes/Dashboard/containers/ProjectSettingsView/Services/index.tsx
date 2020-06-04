@@ -109,7 +109,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             msg = "search_findings.services_table.errors.forces_only_if_continuous";
             break;
           default:
-            msg = "proj_alerts.error_textsad";
+            msg = "group_alerts.error_textsad";
             rollbar.error("An error occurred editing group services", error);
         }
 

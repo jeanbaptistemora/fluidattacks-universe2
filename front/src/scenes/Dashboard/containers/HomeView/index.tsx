@@ -85,7 +85,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   // GraphQL operations
   const { data } = useQuery(PROJECTS_QUERY, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading projects", error);
     },
     variables: { tagsField: permissions.can("backend_api_resolvers_me__get_tags") },

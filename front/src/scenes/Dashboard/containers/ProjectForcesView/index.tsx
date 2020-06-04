@@ -109,10 +109,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   const getVulnerabilitySummary:
     ((exploitable: number, accepted: number, notExploitable: number, total: number) => string) =
   (exploitable: number, accepted: number, notExploitable: number, total: number): string => {
-    const exploitableTrans: string = translate.t("project.forces.found_vulnerabilities.exploitable");
-    const acceptedTrans: string = translate.t("project.forces.found_vulnerabilities.accepted");
-    const notExploitableTrans: string = translate.t("project.forces.found_vulnerabilities.not_exploitable");
-    const totalTrans: string = translate.t("project.forces.found_vulnerabilities.total");
+    const exploitableTrans: string = translate.t("group.forces.found_vulnerabilities.exploitable");
+    const acceptedTrans: string = translate.t("group.forces.found_vulnerabilities.accepted");
+    const notExploitableTrans: string = translate.t("group.forces.found_vulnerabilities.not_exploitable");
+    const totalTrans: string = translate.t("group.forces.found_vulnerabilities.total");
 
     const exploitableStr: string = `${exploitable} ${exploitableTrans}`;
     const acceptedStr: string = `${accepted} ${acceptedTrans}`;
@@ -126,13 +126,13 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     vulnerabilities: IVulnerabilities,
   ): Dictionary[] => {
     const exploits: Dictionary[] = vulnerabilities.exploits.map((elem: IExploitResult) => ({
-      ...elem, riskState: translate.t("project.forces.found_vulnerabilities.exploitable"),
+      ...elem, riskState: translate.t("group.forces.found_vulnerabilities.exploitable"),
     }));
     const acceptedExploits: Dictionary[] = vulnerabilities.acceptedExploits.map((elem: IExploitResult) => ({
-      ...elem, riskState: translate.t("project.forces.found_vulnerabilities.accepted"),
+      ...elem, riskState: translate.t("group.forces.found_vulnerabilities.accepted"),
     }));
     const integratesExploits: Dictionary[] = vulnerabilities.integratesExploits.map((elem: IExploitResult) => ({
-      ...elem, riskState: translate.t("project.forces.found_vulnerabilities.not_exploitable"),
+      ...elem, riskState: translate.t("group.forces.found_vulnerabilities.not_exploitable"),
     }));
 
     return exploits.concat(acceptedExploits.concat(integratesExploits));
@@ -161,32 +161,32 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
 
   const headersExecutionTable: IHeader[] = [
     {
-      align: "center", dataField: "date", header: translate.t("project.forces.date"),
+      align: "center", dataField: "date", header: translate.t("group.forces.date"),
       onSort: onSortState, width: "13%", wrapped: true,
     },
     {
-      align: "center", dataField: "status", header: translate.t("project.forces.status.title"),
+      align: "center", dataField: "status", header: translate.t("group.forces.status.title"),
       onSort: onSortState, width: "13%", wrapped: true,
     },
     {
       align: "center", dataField: "foundVulnerabilities.total",
-      header: translate.t("project.forces.status.vulnerabilities"),
+      header: translate.t("group.forces.status.vulnerabilities"),
       onSort: onSortState, width: "6%", wrapped: true,
     },
     {
-      align: "center", dataField: "strictness", header: translate.t("project.forces.strictness.title"),
+      align: "center", dataField: "strictness", header: translate.t("group.forces.strictness.title"),
       onSort: onSortState, width: "5%", wrapped: true,
     },
     {
-      align: "center", dataField: "kind", header: translate.t("project.forces.kind.title"),
+      align: "center", dataField: "kind", header: translate.t("group.forces.kind.title"),
       onSort: onSortState, width: "13%", wrapped: true,
     },
     {
-      align: "center", dataField: "gitRepo", header: translate.t("project.forces.git_repo"),
+      align: "center", dataField: "gitRepo", header: translate.t("group.forces.git_repo"),
       onSort: onSortState, width: "13%", wrapped: true,
     },
     {
-      align: "center", dataField: "execution_id", header: translate.t("project.forces.identifier"),
+      align: "center", dataField: "execution_id", header: translate.t("group.forces.identifier"),
       onSort: onSortState, width: "13%", wrapped: true,
     },
   ];
@@ -194,27 +194,27 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     {
       dataField: "riskState",
       formatter: formatText,
-      header: translate.t("project.forces.compromised_toe.risk_state"),
+      header: translate.t("group.forces.compromised_toe.risk_state"),
       width: "15%",
       wrapped: true,
     },
     {
       dataField: "kind",
       formatter: formatText,
-      header: translate.t("project.forces.compromised_toe.type"),
+      header: translate.t("group.forces.compromised_toe.type"),
       width: "10%",
       wrapped: true,
     },
     {
       dataField: "who",
       formatter: formatText,
-      header: translate.t("project.forces.compromised_toe.what"),
+      header: translate.t("group.forces.compromised_toe.what"),
       wrapped: true,
     },
     {
       dataField: "where",
       formatter: formatText,
-      header: translate.t("project.forces.compromised_toe.where"),
+      header: translate.t("group.forces.compromised_toe.where"),
       wrapped: true,
     },
   ];
@@ -250,10 +250,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
             const executions: IExecution[] = data.forcesExecutions.executions.map((execution: IExecution) => {
               const date: string = formatDate(execution.date);
               const kind: string = toTitleCase(translate.t(
-                execution.kind === "static" ? "project.forces.kind.static" : "project.forces.kind.dynamic"));
+                execution.kind === "static" ? "group.forces.kind.static" : "group.forces.kind.dynamic"));
               const strictness: string = toTitleCase(translate.t(
-                execution.strictness === "lax" ? "project.forces.strictness.tolerant" :
-                "project.forces.strictness.strict"));
+                execution.strictness === "lax" ? "group.forces.strictness.tolerant" :
+                "group.forces.strictness.strict"));
               const foundVulnerabilities: IFoundVulnerabilities = {
                 accepted: execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
                 exploitable: execution.vulnerabilities.numOfVulnerabilitiesInExploits,
@@ -264,8 +264,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               };
               const status: ReactElement = statusFormatter(translate.t(
                 foundVulnerabilities.total === 0
-                  ? "project.forces.status.secure"
-                  : "project.forces.status.vulnerable"));
+                  ? "group.forces.status.secure"
+                  : "group.forces.status.vulnerable"));
 
               return { ...execution, date, foundVulnerabilities, kind, status, strictness };
             });
@@ -274,7 +274,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
 
             return (
               <React.StrictMode>
-                <p>{translate.t("project.forces.table_advice")}</p>
+                <p>{translate.t("group.forces.table_advice")}</p>
                 <DataTableNext
                   bordered={true}
                   dataset={executions}
@@ -291,37 +291,37 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               <Modal
                   bsSize="large"
                   footer={<div />}
-                  headerTitle={translate.t("project.forces.execution_details_modal.title")}
+                  headerTitle={translate.t("group.forces.execution_details_modal.title")}
                   open={isExecutionDetailsModalOpen}
                   onClose={closeSeeExecutionDetailsModal}
               >
                 <div>
                   <Row>
-                    <Col md={4}><p><b>{translate.t("project.forces.date")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("group.forces.date")}</b></p></Col>
                     <Col md={8}><p>{currentRow.date}</p></Col>
                   </Row>
                   <Row>
-                    <Col md={4}><p><b>{translate.t("project.forces.status.title")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("group.forces.status.title")}</b></p></Col>
                     <Col md={8}><p>{currentRow.status}</p></Col>
                   </Row>
                   <Row>
-                    <Col md={4}><p><b>{translate.t("project.forces.strictness.title")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("group.forces.strictness.title")}</b></p></Col>
                     <Col md={8}><p>{currentRow.strictness}</p></Col>
                   </Row>
                   <Row>
-                    <Col md={4}><p><b>{translate.t("project.forces.kind.title")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("group.forces.kind.title")}</b></p></Col>
                     <Col md={8}><p>{currentRow.kind}</p></Col>
                   </Row>
                   <Row>
-                    <Col md={4}><p><b>{translate.t("project.forces.git_repo")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("group.forces.git_repo")}</b></p></Col>
                     <Col md={8}><p>{currentRow.gitRepo}</p></Col>
                   </Row>
                   <Row>
-                    <Col md={4}><p><b>{translate.t("project.forces.identifier")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("group.forces.identifier")}</b></p></Col>
                     <Col md={8}><p>{currentRow.execution_id}</p></Col>
                   </Row>
                   <Row>
-                    <Col md={4}><p><b>{translate.t("project.forces.found_vulnerabilities.title")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("group.forces.found_vulnerabilities.title")}</b></p></Col>
                     <Col md={8}>
                       <text className={styles.wrapped}>
                         {getVulnerabilitySummary(
@@ -349,7 +349,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   </SyntaxHighlighter>
                   <ButtonToolbar className="pull-right">
                     <Button bsStyle="success" onClick={closeSeeExecutionDetailsModal}>
-                      {translate.t("project.forces.execution_details_modal.close")}
+                      {translate.t("group.forces.execution_details_modal.close")}
                     </Button>
                   </ButtonToolbar>
                 </div>

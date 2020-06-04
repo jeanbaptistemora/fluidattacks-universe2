@@ -378,9 +378,9 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
     const treatment: string = translate.t(formatTreatment(finding.treatment, finding.state));
     const type: string = translate.t(typeParameters[finding.type]);
     const isExploitable: string = translate.t(Boolean(finding.isExploitable)
-      ? "project.findings.boolean.True" : "project.findings.boolean.False");
+      ? "group.findings.boolean.True" : "group.findings.boolean.False");
     const remediated: string = translate.t(Boolean(finding.remediated) || !finding.verified
-    ? "project.findings.remediated.True" : "project.findings.remediated.False");
+    ? "group.findings.remediated.True" : "group.findings.remediated.False");
 
     const where: string = _.uniqBy(finding.vulnerabilities, "where")
       .map((vuln: { where: string }): string => vuln.where)
@@ -406,7 +406,7 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
     const currentState: string = translate.t(status[draft.currentState]);
     const type: string = translate.t(typeParameters[draft.type]);
     const isExploitable: string = translate.t(Boolean(draft.isExploitable)
-      ? "project.findings.boolean.True" : "project.findings.boolean.False");
+      ? "group.findings.boolean.True" : "group.findings.boolean.False");
 
     return { ...draft, reportDate, type, isExploitable, currentState };
   });
@@ -423,7 +423,7 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
       } else if (_.includes("Exception - Invalid Expiration Time", err.message)) {
         msgError(translate.t("update_access_token.invalid_exp_time"));
       } else if (_.includes(err.message, "Exception - This draft has missing fields")) {
-        msgError(translate.t("project.drafts.error_submit", {
+        msgError(translate.t("group.drafts.error_submit", {
           missingFields: err.message.split("fields: ")[1],
         }));
       } else if (_.includes(err.message, "Exception - There are no group names available at the moment")) {
@@ -433,7 +433,7 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
       } else if (_.includes(err.message, "Exception - Error permission denied")) {
         msgError(translate.t("search_findings.tab_resources.cannotRemove"));
       } else {
-        msgError(translate.t("proj_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.error_textsad"));
         rollbar.error(errorText, err);
       }
     });

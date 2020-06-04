@@ -84,7 +84,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const { tagName } = props.match.params;
   const { data } = useQuery<ITag>(TAG_QUERY, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading tag info", error);
     },
     variables: { tag: tagName },
@@ -633,7 +633,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
           <IndicatorStack
             data={formatTotalFindings(data.tag.projects)}
             height={100}
-            name={translate.t("tag_indicator.findings_project")}
+            name={translate.t("tag_indicator.findings_group")}
             options={chartBarOptions}
           />
         </Col>
@@ -644,7 +644,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
           <IndicatorStack
             data={formatOpenFindings(data.tag.projects)}
             height={100}
-            name={translate.t("tag_indicator.open_findings_project")}
+            name={translate.t("tag_indicator.open_findings_group")}
             options={chartBarOptions}
           />
         </Col>
@@ -701,7 +701,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
           <IndicatorGraph
             chartClass={style.box_size}
             data={formatVulnsGraph(data.tag.projects, randomColors)}
-            name={translate.t("tag_indicator.vulns_projects")}
+            name={translate.t("tag_indicator.vulns_groups")}
             options={{
               ...chartGraphOptions,
               ...formatDoughnutOptions(
@@ -714,7 +714,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
           <IndicatorGraph
             chartClass={style.box_size}
             data={formatOpenVulnsGraph(data.tag.projects, randomColors)}
-            name={translate.t("tag_indicator.open_vulns_projects")}
+            name={translate.t("tag_indicator.open_vulns_groups")}
             options={{
               ...chartGraphOptions,
               ...formatDoughnutOptions(

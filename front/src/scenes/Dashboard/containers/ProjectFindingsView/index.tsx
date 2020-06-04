@@ -42,11 +42,11 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const [requestProjectReport] = useMutation(REQUEST_PROJECT_REPORT, {
     onCompleted: (): void => {
       msgSuccess(
-        translate.t("proj_alerts.report_requested"),
-        translate.t("proj_alerts.title_success"));
+        translate.t("group_alerts.report_requested"),
+        translate.t("group_alerts.title_success"));
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred requesting project report", error);
     },
   });
@@ -137,7 +137,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     }
   };
   const handleQryErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    msgError(translate.t("group_alerts.error_textsad"));
     rollbar.error("An error occurred loading project data", error);
   };
   const onSortState: ((dataField: string, order: SortOrder) => void) =
@@ -311,11 +311,11 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             <Row>
               <Col md={2} mdOffset={5}>
                 <ButtonToolbar className={style.reportsBtn}>
-                  <Button onClick={openReportsModal}>{translate.t("project.findings.report.btn")}</Button>
+                  <Button onClick={openReportsModal}>{translate.t("group.findings.report.btn")}</Button>
                 </ButtonToolbar>
               </Col>
             </Row>
-            <p>{translate.t("project.findings.help_label")}</p>
+            <p>{translate.t("group.findings.help_label")}</p>
             <DataTableNext
               bordered={true}
               columnToggle={true}
@@ -336,13 +336,13 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
               <Modal
                 open={isReportsModalOpen}
                 footer={<div />}
-                headerTitle={translate.t("project.findings.report.modal_title")}
+                headerTitle={translate.t("group.findings.report.modal_title")}
               >
                 <Row className={style.modalContainer}>
                   <Col md={12} id="techReport">
-                    <h3>{translate.t("project.findings.report.tech_title")}</h3>
+                    <h3>{translate.t("group.findings.report.tech_title")}</h3>
                     <Trans>
-                      <p>{translate.t("project.findings.report.tech_description")}</p>
+                      <p>{translate.t("group.findings.report.tech_description")}</p>
                     </Trans>
                     <br />
                     <Row>
@@ -350,15 +350,15 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                         <ButtonToolbar>
                           <Button onClick={handleRequestProjectReport}>
                             <FontAwesome name="file-pdf-o" />
-                              {translate.t("project.findings.report.pdf")}
+                              {translate.t("group.findings.report.pdf")}
                               </Button>
                           <Button onClick={handleRequestProjectReport}>
                             <FontAwesome name="file-excel-o" />
-                              {translate.t("project.findings.report.xls")}
+                              {translate.t("group.findings.report.xls")}
                               </Button>
                           <Button onClick={handleRequestProjectReport}>
                             <FontAwesome name="file-zip-o" />
-                            {translate.t("project.findings.report.data")}
+                            {translate.t("group.findings.report.data")}
                           </Button>
                         </ButtonToolbar>
                       </Col>
@@ -367,7 +367,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                 </Row>
                 <ButtonToolbar className="pull-right">
                   <Button onClick={closeReportsModal}>
-                    {translate.t("project.findings.report.modal_close")}
+                    {translate.t("group.findings.report.modal_close")}
                   </Button>
                 </ButtonToolbar>
               </Modal>

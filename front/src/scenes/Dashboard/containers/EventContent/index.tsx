@@ -27,7 +27,7 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
   const { eventId } = props.match.params;
 
   const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    msgError(translate.t("group_alerts.error_textsad"));
     rollbar.error("An error occurred loading event header", error);
   };
 

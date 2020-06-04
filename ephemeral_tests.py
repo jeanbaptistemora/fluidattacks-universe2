@@ -454,7 +454,7 @@ class ViewTestCase(unittest.TestCase):
         self.__click(del_project)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Delete Project')]")))
+                (By.XPATH, "//*[contains(text(), 'Delete Group')]")))
         time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-08-resources.png')
         self.__cancel_modal()
@@ -518,20 +518,20 @@ class ViewTestCase(unittest.TestCase):
         selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/resources')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Cancel project deletion')]")))
+                (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
         time.sleep(2)
         selenium.save_screenshot(SCR_PATH + '17-02-pending_to_delete.png')
 
         cancel_modal_text = selenium.find_element_by_xpath(
-            "//*[contains(text(), 'This project is expected to be removed')]").text
-        assert 'Project pending to delete' in selenium.page_source
+            "//*[contains(text(), 'This group is expected to be removed')]").text
+        assert 'Group pending to delete' in selenium.page_source
 
         selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/findings')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Cancel project deletion')]")))
+                (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
         selenium.save_screenshot(SCR_PATH + '17-03-pending_to_delete.png')
-        assert 'Project pending to delete' in selenium.page_source
+        assert 'Group pending to delete' in selenium.page_source
 
     def test_18_tag_indicators(self):
         selenium = self.__login()
@@ -562,14 +562,14 @@ class ViewTestCase(unittest.TestCase):
 
         total_tables = len(selenium.find_elements_by_tag_name("table"))
         assert total_tables == 1
-        assert 'Open vulnerabilities by project' in selenium.page_source
-        assert 'Findings by project' in selenium.page_source
-        assert 'Open findings by project' in selenium.page_source
+        assert 'Open vulnerabilities by group' in selenium.page_source
+        assert 'Findings by group' in selenium.page_source
+        assert 'Open findings by group' in selenium.page_source
         assert 'Mean time to remediate' in selenium.page_source
         assert 'remediated' in selenium.page_source
         assert 'Status' in selenium.page_source
         assert 'Treatment' in selenium.page_source
-        assert 'Treatmentless by project' in selenium.page_source
+        assert 'Treatmentless by group' in selenium.page_source
 
         selenium.get(self.url + '/dashboard#!/portfolio/DOESNOTEXIST/indicators')
         WebDriverWait(selenium, self.delay).until(

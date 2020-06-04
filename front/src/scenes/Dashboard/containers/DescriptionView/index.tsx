@@ -130,7 +130,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FINDING_DESCRIPTION, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading finding description", error);
     },
     variables: {
@@ -144,8 +144,8 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
     onCompleted: async (result: { updateDescription: { success: boolean } }): Promise<void> => {
       if (result.updateDescription.success) {
         msgSuccess(
-          translate.t("proj_alerts.updated"),
-          translate.t("proj_alerts.updated_title"),
+          translate.t("group_alerts.updated"),
+          translate.t("group_alerts.updated_title"),
         );
         await refetch();
       }
@@ -160,7 +160,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
             msgError(translate.t("validations.invalid_char"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred updating treatment", updateError);
         }
       });

@@ -49,7 +49,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   const { data, networkStatus, refetch } = useQuery(GET_EVENT_EVIDENCES, {
     notifyOnNetworkStatusChange: true,
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading event evidences", error);
     },
     variables: { eventId },
@@ -62,14 +62,14 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       (newTab as Window).opener = undefined;
     },
     onError: (downloadError: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred downloading event file", downloadError);
     },
   });
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, {
     onCompleted: refetch,
     onError: (removeError: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred removing event evidence", removeError);
     },
   });
@@ -78,19 +78,19 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - The event has already been closed":
-            msgError(translate.t("project.events.alreadyClosed"));
+            msgError(translate.t("group.events.alreadyClosed"));
             break;
           case "Exception - Invalid File Size":
             msgError(translate.t("validations.file_size", { count: 10 }));
             break;
           case "Exception - Invalid File Type: EVENT_IMAGE":
-            msgError(translate.t("project.events.form.wrong_image_type"));
+            msgError(translate.t("group.events.form.wrong_image_type"));
             break;
           case "Exception - Invalid File Type: EVENT_FILE":
-            msgError(translate.t("project.events.form.wrong_file_type"));
+            msgError(translate.t("group.events.form.wrong_file_type"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred updating event evidence", updateError);
         }
       });
@@ -150,7 +150,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
           <Col md={2} mdOffset={10} xs={12} sm={12}>
             <Can do="backend_api_resolvers_event__do_update_event_evidence">
               <Button block={true} disabled={data.event.eventStatus === "SOLVED"} onClick={handleEditClick}>
-                <FluidIcon icon="edit" />&nbsp;{translate.t("project.events.evidence.edit")}
+                <FluidIcon icon="edit" />&nbsp;{translate.t("group.events.evidence.edit")}
               </Button>
             </Can>
           </Col>
@@ -159,7 +159,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
         {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
           <div className={globalStyle.noData}>
             <Glyphicon glyph="picture" />
-            <p>{translate.t("project.events.evidence.no_data")}</p>
+            <p>{translate.t("group.events.evidence.no_data")}</p>
           </div>
         ) : undefined}
         <GenericForm name="editEvidences" onSubmit={handleUpdate}>

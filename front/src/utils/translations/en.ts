@@ -23,104 +23,7 @@ const enTranslations: Dictionary = {
     findings: "Findings",
     progress: "Progress",
   },
-  home: {
-    newGroup: {
-      company: "Company",
-      description: "Description",
-      drills: "Include Drills Service?",
-      extra_charges_may_apply: "Extra charges may apply",
-      forces: "Include Forces Service?",
-      integrates: "Include Integrates?",
-      invalidGroup: "Invalid project name",
-      name: "Group Name",
-      new: "New Group",
-      noGroupName: "There are no group names available at the moment",
-      success: "Project created successfully",
-      switch: {
-        no: "No",
-        yes: "Yes",
-      },
-      titleSuccess: "Success",
-      type: {
-        continuous: "Continuous Hacking",
-        one_shot: "One-Shot Hacking",
-        title: "Project Type",
-      },
-    },
-    tagOther: "others",
-    tagResume: " and {{remaining}} more",
-    tags: "My Portfolios",
-    title: "My Projects",
-  },
-  legalNotice: {
-    acceptBtn: {
-      text: "Accept and continue",
-      tooltip: "Click if you understand and accept the terms above",
-    },
-    description: "Integrates, Copyright (c) 2020 Fluid Attacks. This platform contains " +
-    "information property of Fluid Attacks. The client is only allowed " +
-    "to use such information for documentation purposes and without disclosing " +
-    "its content to third parties because it may contain ideas, concepts, prices " +
-    "and/or structures property of Fluid Attacks. Its 'proprietary' " +
-    "classification means that this information will only be used by those for " +
-    "whom it was meant. In case of requiring total or partial reproductions they " +
-    "must be done with express and written authorization of Fluid Attacks. " +
-    "The rules that fundament the classification of information are " +
-    "articles 72, Cartagena's agreement 344 of 1.993, article 238 of penal code " +
-    "and articles 16 and its following ones from 256 law of 1.996.",
-    rememberCbo: {
-      text: "Remember my decision",
-      tooltip: "Mark the checkbox if you want this decision to be permanent",
-    },
-    title: "Legal notice",
-  },
-  logout: "Log out",
-  navbar: {
-    breadcrumbRoot: "Home",
-    searchPlaceholder: "Project Name",
-  },
-  proj_alerts: {
-    acceptation_approved: "Indefinite acceptation has been approved",
-    acceptation_rejected: "Indefinite acceptation has been rejected",
-    access_denied: "Access denied",
-    draft_already_approved: "This finding has already been approved",
-    draft_already_submitted: "This finding has already been submitted",
-    draft_not_submitted: "This finding has not been submitted yet or it might've been rejected by someone else",
-    draft_without_vulns: "This finding can not been approved without vulnerabilities",
-    error_network: "Check your network connection",
-    error_textsad: "There is an error :(",
-    file_type_csv: "The file must have .csv extension",
-    file_type_evidence: "The image must be .png or .gif type",
-    file_type_py: "The file must have .py or .exp extension",
-    file_type_wrong: "The file has an unknown or non-allowed format",
-    file_type_yaml: "The file must be .yaml or .yml type",
-    file_updated: "File updated ;)",
-    invalid: "is invalid",
-    invalid_date: "The date must be minor than six month and greater than current date",
-    invalid_schema: "The uploaded file does not match the schema",
-    invalid_specific: "Invalid field/line/port",
-    invalid_structure: "The provided file has a wrong structure",
-    invalid_treatment_mgr: "Please select a treatment manager",
-    key: "Key",
-    no_file_selected: "No file selected",
-    no_file_update: "Failed to update the file",
-    no_found: "Vulnerabilities in the request not found",
-    no_verification_requested: "No verification requested",
-    path_value: "Path value should not use backslash.",
-    port_value: "Port value should be between 0 and 65535.",
-    range_error: "Range limits are wrong.",
-    records_removed: "Records have been removed successfully",
-    report_requested: "You will be receiving a mail with the link of the report in the next minutes",
-    request_remove: "Project deletion request has been sent successfully",
-    title_success: "Congratulations",
-    updated: "Updated",
-    updated_title: "Correct!",
-    value: "Value",
-    verification_already_requested: "Verification already requested",
-    verified_success: "This finding was marked as verified.",
-    vuln_closed: "Vulnerability has already been closed",
-  },
-  project: {
+  group: {
     authors: {
       actor: "Author",
       commit: "Commit",
@@ -158,13 +61,13 @@ const enTranslations: Dictionary = {
           title: "Accessibility",
         },
         action_after: {
-          other_other: "Excecute another project of a different client",
-          other_same: "Excecute another project of the same client",
+          other_other: "Execute another group of a different client",
+          other_same: "Execute another group of the same client",
           title: "Action after getting blocked",
           training: "Training",
         },
         action_before: {
-          document: "Document project",
+          document: "Document group",
           test_other: "Test other part of ToE",
           title: "Action before blocking",
         },
@@ -172,7 +75,7 @@ const enTranslations: Dictionary = {
         components: {
           client_station: "Client's test station",
           compile_error: "Compilation error",
-          documentation: "Project documentation",
+          documentation: "Group documentation",
           fluid_station: "FLUID's test station",
           internet_conn: "Internet connectivity",
           local_conn: "Local connectivity (LAN, WiFi)",
@@ -310,6 +213,103 @@ const enTranslations: Dictionary = {
       users: "Users",
     },
   },
+  group_alerts: {
+    acceptation_approved: "Indefinite acceptation has been approved",
+    acceptation_rejected: "Indefinite acceptation has been rejected",
+    access_denied: "Access denied",
+    draft_already_approved: "This finding has already been approved",
+    draft_already_submitted: "This finding has already been submitted",
+    draft_not_submitted: "This finding has not been submitted yet or it might've been rejected by someone else",
+    draft_without_vulns: "This finding can not been approved without vulnerabilities",
+    error_network: "Check your network connection",
+    error_textsad: "There is an error :(",
+    file_type_csv: "The file must have .csv extension",
+    file_type_evidence: "The image must be .png or .gif type",
+    file_type_py: "The file must have .py or .exp extension",
+    file_type_wrong: "The file has an unknown or non-allowed format",
+    file_type_yaml: "The file must be .yaml or .yml type",
+    file_updated: "File updated ;)",
+    invalid: "is invalid",
+    invalid_date: "The date must be minor than six month and greater than current date",
+    invalid_schema: "The uploaded file does not match the schema",
+    invalid_specific: "Invalid field/line/port",
+    invalid_structure: "The provided file has a wrong structure",
+    invalid_treatment_mgr: "Please select a treatment manager",
+    key: "Key",
+    no_file_selected: "No file selected",
+    no_file_update: "Failed to update the file",
+    no_found: "Vulnerabilities in the request not found",
+    no_verification_requested: "No verification requested",
+    path_value: "Path value should not use backslash.",
+    port_value: "Port value should be between 0 and 65535.",
+    range_error: "Range limits are wrong.",
+    records_removed: "Records have been removed successfully",
+    report_requested: "You will be receiving a mail with the link of the report in the next minutes",
+    request_remove: "Group deletion request has been sent successfully",
+    title_success: "Congratulations",
+    updated: "Updated",
+    updated_title: "Correct!",
+    value: "Value",
+    verification_already_requested: "Verification already requested",
+    verified_success: "This finding was marked as verified.",
+    vuln_closed: "Vulnerability has already been closed",
+  },
+  home: {
+    newGroup: {
+      company: "Company",
+      description: "Description",
+      drills: "Include Drills Service?",
+      extra_charges_may_apply: "Extra charges may apply",
+      forces: "Include Forces Service?",
+      integrates: "Include Integrates?",
+      invalidGroup: "Invalid group name",
+      name: "Group Name",
+      new: "New Group",
+      noGroupName: "There are no group names available at the moment",
+      success: "Group created successfully",
+      switch: {
+        no: "No",
+        yes: "Yes",
+      },
+      titleSuccess: "Success",
+      type: {
+        continuous: "Continuous Hacking",
+        one_shot: "One-Shot Hacking",
+        title: "Group Type",
+      },
+    },
+    tagOther: "others",
+    tagResume: " and {{remaining}} more",
+    tags: "My Portfolios",
+    title: "My Groups",
+  },
+  legalNotice: {
+    acceptBtn: {
+      text: "Accept and continue",
+      tooltip: "Click if you understand and accept the terms above",
+    },
+    description: "Integrates, Copyright (c) 2020 Fluid Attacks. This platform contains " +
+    "information property of Fluid Attacks. The client is only allowed " +
+    "to use such information for documentation purposes and without disclosing " +
+    "its content to third parties because it may contain ideas, concepts, prices " +
+    "and/or structures property of Fluid Attacks. Its 'proprietary' " +
+    "classification means that this information will only be used by those for " +
+    "whom it was meant. In case of requiring total or partial reproductions they " +
+    "must be done with express and written authorization of Fluid Attacks. " +
+    "The rules that fundament the classification of information are " +
+    "articles 72, Cartagena's agreement 344 of 1.993, article 238 of penal code " +
+    "and articles 16 and its following ones from 256 law of 1.996.",
+    rememberCbo: {
+      text: "Remember my decision",
+      tooltip: "Mark the checkbox if you want this decision to be permanent",
+    },
+    title: "Legal notice",
+  },
+  logout: "Log out",
+  navbar: {
+    breadcrumbRoot: "Home",
+    searchPlaceholder: "Group Name",
+  },
   registration: {
     concurrent_session_message: "You already have an active session. If you proceed, that session will " +
       "be terminated.",
@@ -318,11 +318,11 @@ const enTranslations: Dictionary = {
     greeting: "Hello",
     logged_in_message: "Please log out before trying to access with another account.",
     logged_in_title: "You are already logged in",
-    unauthorized: "You are not authorized to log in yet. Please contact Fluid Attacks's staff or your project " +
+    unauthorized: "You are not authorized to log in yet. Please contact Fluid Attacks's staff or your group " +
       "administrator to get access.",
   },
   route: {
-    pendingToDelete: "Project pending to delete",
+    pendingToDelete: "Group pending to delete",
   },
   search_findings: {
     acceptation_buttons: {
@@ -376,8 +376,8 @@ const enTranslations: Dictionary = {
       deletedsoon: "Scheduled to be deleted in 1 month",
       drills: "Drills",
       errors: {
-        drills_only_if_continuous: "Drills is only available in projects of type Continuous-Hacking",
-        forces_only_if_continuous: "Forces is only available in projects of type Continuous-Hacking",
+        drills_only_if_continuous: "Drills is only available in groups of type Continuous-Hacking",
+        forces_only_if_continuous: "Forces is only available in groups of type Continuous-Hacking",
         forces_only_if_drills: "Forces is only available when Drills is too",
       },
       forces: "Forces",
@@ -523,7 +523,6 @@ const enTranslations: Dictionary = {
       affected_components: "Affected components",
       analyst: "Hacker",
       client: "Client",
-      client_project: "Client's Project",
       closing_date: "Closing date",
       comments: "Comments",
       date: "Date",
@@ -531,7 +530,7 @@ const enTranslations: Dictionary = {
       edit: "Edit",
       event_in: "Event present in",
       evidence: "Evidence",
-      fluid_project: "Fluid Attacks' Project",
+      fluid_group: "Fluid Attacks' Group",
       id: "ID",
       resume: "Resume",
       status: "Status",
@@ -568,7 +567,7 @@ const enTranslations: Dictionary = {
     tab_indicators: {
       authors: "Current month authors",
       cancelDeletion: "Cancel deletion",
-      cancelProjectDeletion: "Cancel project deletion",
+      cancelGroupDeletion: "Cancel group deletion",
       closed: "Closed",
       closed_percentage: "Closed vulnerabilities",
       commits: "Current month commits",
@@ -617,18 +616,18 @@ const enTranslations: Dictionary = {
         title: "Forces Indicators",
       },
       git_title: "Git Indicators",
+      groupIsRemoving: "This group is expected to be removed on <strong>{{deletionDate}}</strong>" +
+        "<br />Requested by <strong>{{userEmail}}</strong>",
+      group_title: "Group Indicators",
       last_closing_vuln: "Days since last closed vulnerability",
       max_open_severity: "Max open severity",
       max_severity: "Max severity found",
       mean_remediate: "Mean time to remediate",
       open: "Open",
       pending_closing_check: "Pending closing verification",
-      projectIsRemoving: "This project is expected to be removed on <strong>{{deletionDate}}</strong>" +
-        "<br />Requested by <strong>{{userEmail}}</strong>",
-      project_title: "Project Indicators",
       repositories: "Analyzed Repositories",
       status_graph: "Status",
-      success: "Project deletion was cancelled successfully",
+      success: "Group deletion was cancelled successfully",
       tags: {
         modal_title: "Add tags information",
       },
@@ -652,13 +651,14 @@ const enTranslations: Dictionary = {
       base_url_placeholder: "gitlab.com/fluidattacks/integrates.git",
       branch: "Branch",
       branch_placeholder: "master",
-      cannotRemove: "Cannot remove project, permission denied",
+      cannotRemove: "Cannot remove group, permission denied",
       change_state: "Change state",
       description: "Description",
       download: "Download",
       environment: "Environment",
       environments_title: "Environments",
       files_title: "Files",
+      groupToRemove: "Please type: <strong>{{projectName}}</strong>, to proceed",
       https: "HTTPS",
       invalid_chars: "File name has invalid characters.",
       modal_env_title: "Add environment information",
@@ -668,9 +668,8 @@ const enTranslations: Dictionary = {
       modal_repo_title: "Add repository information",
       no_file_upload: "Failed to upload the file",
       no_selection: "You must select an item from the table.",
-      projectToRemove: "Please type: <strong>{{projectName}}</strong>, to proceed",
       protocol: "Protocol",
-      removeProject: "Delete Project",
+      removeGroup: "Delete Group",
       remove_repository: "Remove",
       repeated_input: "There are repeated values in the form",
       repeated_item: "One or more items to add exist already.",
@@ -685,8 +684,8 @@ const enTranslations: Dictionary = {
       total_files: "Total files: ",
       total_repos: "Total repositories: ",
       uploading_progress: "Uploading file...",
-      warningMessage: "Deleting the project will remove its findings and related vulnerabilities." +
-        "<br /> Deleted projects cannot be restored.",
+      warningMessage: "Deleting the group will remove its findings and related vulnerabilities." +
+        "<br /> Deleted groups cannot be restored.",
     },
     tab_severity: {
       attack_complexity: "Attack Complexity",
@@ -871,16 +870,16 @@ const enTranslations: Dictionary = {
       phone_number: "Phone Number",
       remove_user: "Remove",
       resourcer: "Resourcer",
-      responsibility_placeholder: "Product Owner, Project Manager, " +
+      responsibility_placeholder: "Product Owner, Group Manager, " +
         "Tester, ...",
       reviewer: "Reviewer",
       role: "Role",
-      success: " now has access to this project.",
+      success: " now has access to this group.",
       success_admin: "User information updated.",
-      success_delete: " was removed from this project.",
+      success_delete: " was removed from this group.",
       textbox: "Enter the email of the person you wish to add, it must be " +
         "an Office 365 or Google email",
-      title: "Add user to this project",
+      title: "Add user to this group",
       title_success: "Congratulations",
       user_organization: "Organization",
       user_responsibility: "Responsibility",
@@ -906,20 +905,20 @@ const enTranslations: Dictionary = {
   },
   tag_indicator: {
     critical_severity: "Critical Severity",
-    findings_project: "Findings by project",
+    findings_group: "Findings by group",
     high_severity: "High Severity",
     low_severity: "Low Severity",
     mean_remediate: "Mean (average) days to remediate",
     medium_severity: "Medium Severity",
-    open_findings_project: "Open findings by project",
+    open_findings_group: "Open findings by group",
     open_vuln: "open vulns.",
-    open_vulns_projects: "Open vulnerabilities by project",
+    open_vulns_groups: "Open vulnerabilities by group",
     remediated_accepted_vuln: "How many vulnerabilities are remediated and accepted?",
     remediated_vuln: "How many vulnerabilities are remediated (closed)?",
     total_vuln: "vulnerabilities",
-    undefined_title: "Treatmentless by project",
+    undefined_title: "Treatmentless by group",
     undefined_vuln: "undefined",
-    vulns_projects: "Vulnerabilities by project",
+    vulns_groups: "Vulnerabilities by group",
   },
   update_access_token: {
     access_token: "Personal Access Token",

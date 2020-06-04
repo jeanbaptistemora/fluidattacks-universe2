@@ -159,8 +159,8 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
               if (result.createDraft.success) {
                 closeNewDraftModal();
                 msgSuccess(
-                  translate.t("project.drafts.success_create"),
-                  translate.t("project.drafts.title_success"),
+                  translate.t("group.drafts.success_create"),
+                  translate.t("group.drafts.title_success"),
                 );
                 refetch()
                   .catch();
@@ -173,14 +173,14 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
                       <Button onClick={openNewDraftModal}>
-                        <Glyphicon glyph="plus" />&nbsp;{translate.t("project.drafts.new")}
+                        <Glyphicon glyph="plus" />&nbsp;{translate.t("group.drafts.new")}
                       </Button>
                     </ButtonToolbar>
                   </Col>
                 </Row>
                 <Modal
                   footer={<div />}
-                  headerTitle={translate.t("project.drafts.new")}
+                  headerTitle={translate.t("group.drafts.new")}
                   open={isDraftModalOpen}
                 >
                   <Mutation mutation={CREATE_DRAFT_MUTATION} onCompleted={handleMutationResult}>
@@ -199,7 +199,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                             <React.Fragment>
                               <Row>
                                 <Col md={12}>
-                                  <label>{translate.t("project.drafts.title")}</label>
+                                  <label>{translate.t("group.drafts.title")}</label>
                                   <Field
                                     component={autocompleteTextField}
                                     name="title"
@@ -225,7 +225,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                     }}
                   </Mutation>
                 </Modal>
-                <p>{translate.t("project.findings.help_label")}</p>
+                <p>{translate.t("group.findings.help_label")}</p>
                 <DataTableNext
                   bordered={true}
                   dataset={formatDrafts(data.project.drafts)}

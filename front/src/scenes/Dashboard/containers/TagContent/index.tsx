@@ -20,7 +20,7 @@ const tagContent: React.FC<IProjectContentProps> = (props: IProjectContentProps)
                   <li id="tagIndicatorsTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/indicators`}>
                       <i className="icon pe-7s-graph3" />
-                      &nbsp;{translate.t("project.tabs.indicators")}
+                      &nbsp;{translate.t("group.tabs.indicators")}
                     </NavLink>
                   </li>
                 </ul>

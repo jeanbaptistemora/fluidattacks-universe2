@@ -56,7 +56,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
     GET_FINDING_HEADER, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading finding header", error);
     },
     variables: {
@@ -70,8 +70,8 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     onCompleted: (result: { submitDraft: { success: boolean } }): void => {
       if (result.submitDraft.success) {
         msgSuccess(
-          translate.t("project.drafts.success_submit"),
-          translate.t("project.drafts.title_success"),
+          translate.t("group.drafts.success_submit"),
+          translate.t("group.drafts.title_success"),
         );
         headerRefetch()
           .catch();
@@ -80,19 +80,19 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     onError: (submitError: ApolloError): void => {
       submitError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         if (_.includes(message, "Exception - This draft has missing fields")) {
-          msgError(translate.t("project.drafts.error_submit", {
+          msgError(translate.t("group.drafts.error_submit", {
             missingFields: message.split("fields: ")[1],
           }));
         } else if (message === "Exception - This draft has already been submitted") {
-          msgError(translate.t("proj_alerts.draft_already_submitted"));
+          msgError(translate.t("group_alerts.draft_already_submitted"));
           headerRefetch()
             .catch();
         } else if (message === "Exception - This draft has already been approved") {
-          msgError(translate.t("proj_alerts.draft_already_approved"));
+          msgError(translate.t("group_alerts.draft_already_approved"));
           headerRefetch()
             .catch();
         } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
+          msgError(translate.t("group_alerts.error_textsad"));
           rollbar.error("An error occurred submitting draft", submitError);
         }
       });
@@ -106,7 +106,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
       if (result.approveDraft.success) {
         msgSuccess(
           translate.t("search_findings.draft_approved"),
-          translate.t("project.drafts.title_success"),
+          translate.t("group.drafts.title_success"),
         );
         headerRefetch()
           .catch();
@@ -116,20 +116,20 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
       approveError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - This draft has already been approved":
-            msgError(translate.t("proj_alerts.draft_already_approved"));
+            msgError(translate.t("group_alerts.draft_already_approved"));
             headerRefetch()
               .catch();
             break;
           case "Exception - The draft has not been submitted yet":
-            msgError(translate.t("proj_alerts.draft_not_submitted"));
+            msgError(translate.t("group_alerts.draft_not_submitted"));
             headerRefetch()
               .catch();
             break;
           case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
-            msgError(translate.t("proj_alerts.draft_without_vulns"));
+            msgError(translate.t("group_alerts.draft_without_vulns"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred approving draft", approveError);
         }
       });
@@ -143,7 +143,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
       if (result.rejectDraft.success) {
         msgSuccess(
           translate.t("search_findings.finding_rejected", { findingId }),
-          translate.t("project.drafts.title_success"),
+          translate.t("group.drafts.title_success"),
         );
         headerRefetch()
           .catch();
@@ -153,17 +153,17 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
       rejectError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - This draft has already been approved":
-            msgError(translate.t("proj_alerts.draft_already_approved"));
+            msgError(translate.t("group_alerts.draft_already_approved"));
             headerRefetch()
               .catch();
             break;
           case "Exception - The draft has not been submitted yet":
-            msgError(translate.t("proj_alerts.draft_not_submitted"));
+            msgError(translate.t("group_alerts.draft_not_submitted"));
             headerRefetch()
               .catch();
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred rejecting draft", rejectError);
         }
       });
@@ -177,13 +177,13 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
       if (result.deleteFinding.success) {
         msgSuccess(
           translate.t("search_findings.finding_deleted", { findingId }),
-          translate.t("project.drafts.title_success"),
+          translate.t("group.drafts.title_success"),
         );
         replace(`/project/${projectName}/findings`);
       }
     },
     onError: (rejectError: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred deleting finding", rejectError);
     },
   });

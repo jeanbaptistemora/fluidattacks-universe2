@@ -48,7 +48,7 @@ export const validEvidenceDescription: Validator = (
       ? undefined
       : hasFileSelected
         ? undefined
-        : translate.t("proj_alerts.no_file_selected")
+        : translate.t("group_alerts.no_file_selected")
     : hasFileSelected
       ? translate.t("validations.required")
       : undefined;
@@ -169,25 +169,25 @@ const hasExtension: ((allowedExtensions: string | string[], file?: File) => bool
 export const validEventFile: Validator = (value: FileList): string | undefined => (
   _.isEmpty(value) || hasExtension(["pdf", "zip", "csv", "txt"], _.first(value))
     ? undefined
-    : translate.t("project.events.form.wrong_file_type")
+    : translate.t("group.events.form.wrong_file_type")
 );
 
 export const validEvidenceImage: Validator = (value: FileList): string | undefined => (
   _.isEmpty(value) || hasExtension(["gif", "jpg", "jpeg", "png"], _.first(value))
     ? undefined
-    : translate.t("project.events.form.wrong_image_type")
+    : translate.t("group.events.form.wrong_image_type")
 );
 
 export const validExploitFile: Validator = (value: FileList): string | undefined => (
   hasExtension(["exp", "py"], _.first(value))
     ? undefined
-    : translate.t("proj_alerts.file_type_py")
+    : translate.t("group_alerts.file_type_py")
 );
 
 export const validRecordsFile: Validator = (value: FileList): string | undefined => (
   hasExtension("csv", _.first(value))
     ? undefined
-    : translate.t("proj_alerts.file_type_csv")
+    : translate.t("group_alerts.file_type_csv")
 );
 
 export const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
@@ -201,7 +201,7 @@ export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string
   let valid: boolean; valid = false;
 
   if (_.isNil(selected) || selected.length === 0) {
-    msgError(translate.t("proj_alerts.no_file_selected"));
+    msgError(translate.t("group_alerts.no_file_selected"));
   } else {
     const file: File = selected[0];
     let MIB: number; MIB = 1048576;
@@ -210,7 +210,7 @@ export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string
     if (file.size > MIB * 1) {
       msgError(translate.t("validations.file_size", { count: 1 }));
     } else if (!_.includes([".yml", ".yaml"], fileType)) {
-      msgError(translate.t("proj_alerts.file_type_yaml"));
+      msgError(translate.t("group_alerts.file_type_yaml"));
     } else {
       valid = true;
     }

@@ -52,7 +52,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
     state, "cvssVersion", "severityScope", "modifiedSeverityScope"));
 
   const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    msgError(translate.t("group_alerts.error_textsad"));
     rollbar.error("An error occurred loading finding severity", error);
   };
 
@@ -77,7 +77,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                     if (mtResult.updateSeverity.success) {
                       refetch()
                         .catch();
-                      msgSuccess(translate.t("proj_alerts.updated"), translate.t("proj_alerts.updated_title"));
+                      msgSuccess(translate.t("group_alerts.updated"), translate.t("group_alerts.updated_title"));
                       mixpanel.track("UpdateSeverity", { Organization: userOrganization, User: userName });
                     }
                   }

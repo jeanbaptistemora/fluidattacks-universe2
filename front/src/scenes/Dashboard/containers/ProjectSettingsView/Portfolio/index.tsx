@@ -37,7 +37,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
   const { data, refetch, networkStatus } = useQuery(GET_TAGS, {
     notifyOnNetworkStatusChange: true,
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading project tags", error);
     },
     variables: { projectName: props.projectName },
@@ -60,7 +60,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
             msgError(translate.t("search_findings.tab_resources.repeated_item"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred adding tags", error);
         }
       });
@@ -78,7 +78,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       );
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred removing tags", error);
     },
   });

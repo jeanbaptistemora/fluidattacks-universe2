@@ -142,7 +142,7 @@ const errorLink: ApolloLink =
       const errorDetails: Dictionary | undefined = _.get(networkError, "extraInfo");
 
       if (_.isUndefined(errorDetails) || _.isUndefined(errorDetails.statusCode)) {
-        msgError(translate.t("proj_alerts.error_network"), "Offline");
+        msgError(translate.t("group_alerts.error_network"), "Offline");
       } else {
         const { statusCode } = errorDetails;
 
@@ -152,7 +152,7 @@ const errorLink: ApolloLink =
             location.reload();
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("A network error occurred", networkError);
         }
       }
@@ -174,7 +174,7 @@ const errorLink: ApolloLink =
             response.data = {};
             response.errors = [];
           }
-          msgError(translate.t("proj_alerts.access_denied"));
+          msgError(translate.t("group_alerts.access_denied"));
         }
       });
     }

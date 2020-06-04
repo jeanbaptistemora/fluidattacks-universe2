@@ -53,8 +53,8 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     onCompleted: (data: IRequestVerificationVulnResult): void => {
       if (data.requestVerificationVuln.success) {
         msgSuccess(
-          translate.t("proj_alerts.verified_success"),
-          translate.t("proj_alerts.updated_title"),
+          translate.t("group_alerts.verified_success"),
+          translate.t("group_alerts.updated_title"),
         );
         props.refetchData();
         props.clearSelected();
@@ -65,16 +65,16 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - Request verification already requested":
-            msgError(translate.t("proj_alerts.verification_already_requested"));
+            msgError(translate.t("group_alerts.verification_already_requested"));
             break;
           case "Exception - The vulnerability has already been closed":
-            msgError(translate.t("proj_alerts."));
+            msgError(translate.t("group_alerts."));
             break;
           case "Exception - Vulnerability not found":
-            msgError(translate.t("proj_alerts.no_found"));
+            msgError(translate.t("group_alerts.no_found"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred requesting verification", error);
         }
       });
@@ -88,8 +88,8 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     onCompleted: (data: IVerifyRequestVulnResult): void => {
       if (data.verifyRequestVuln.success) {
         msgSuccess(
-          translate.t("proj_alerts.verified_success"),
-          translate.t("proj_alerts.updated_title"),
+          translate.t("group_alerts.verified_success"),
+          translate.t("group_alerts.updated_title"),
         );
         props.refetchData();
         props.clearSelected();
@@ -100,13 +100,13 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - Error verification not requested":
-            msgError(translate.t("proj_alerts.no_verification_requested"));
+            msgError(translate.t("group_alerts.no_verification_requested"));
             break;
           case "Exception - Vulnerability not found":
-            msgError(translate.t("proj_alerts.no_found"));
+            msgError(translate.t("group_alerts.no_found"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred verifying a request", error);
         }
       });

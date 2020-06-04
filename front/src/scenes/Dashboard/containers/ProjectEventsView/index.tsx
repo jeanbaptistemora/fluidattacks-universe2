@@ -47,11 +47,11 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
   ];
   const selectOptionType: optionSelectFilterProps[] = [
     {
-      label: translate.t("project.events.form.type.special_attack"),
+      label: translate.t("group.events.form.type.special_attack"),
       value: translate.t(castEventType("AUTHORIZATION_SPECIAL_ATTACK")),
     },
     {
-      label: translate.t("project.events.form.type.toe_change"),
+      label: translate.t("group.events.form.type.toe_change"),
       value: translate.t(castEventType("CLIENT_APPROVES_CHANGE_TOE")),
     },
     {
@@ -59,19 +59,19 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       value: translate.t(castEventType("CLIENT_DETECTS_ATTACK")),
     },
     {
-      label: translate.t("project.events.form.type.high_availability"),
+      label: translate.t("group.events.form.type.high_availability"),
       value: translate.t(castEventType("HIGH_AVAILABILITY_APPROVAL")),
     },
     {
-      label: translate.t("project.events.form.type.missing_supplies"),
+      label: translate.t("group.events.form.type.missing_supplies"),
       value: translate.t(castEventType("INCORRECT_MISSING_SUPPLIES")),
     },
     {
-      label: translate.t("project.events.form.type.toe_differs"),
+      label: translate.t("group.events.form.type.toe_differs"),
       value: translate.t(castEventType("TOE_DIFFERS_APPROVED")),
     },
     {
-      label: translate.t("project.events.form.other"),
+      label: translate.t("group.events.form.other"),
       value: translate.t(castEventType("OTHER")),
     },
   ];
@@ -144,7 +144,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     }
   };
   const handleQryErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("proj_alerts.error_textsad"));
+    msgError(translate.t("group_alerts.error_textsad"));
     rollbar.error("An error occurred loading project data", error);
   };
 
@@ -198,8 +198,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
               if (result.createEvent.success) {
                 closeNewEventModal();
                 msgSuccess(
-                  translate.t("project.events.success_create"),
-                  translate.t("project.events.title_success"),
+                  translate.t("group.events.success_create"),
+                  translate.t("group.events.title_success"),
                 );
                 refetch()
                   .catch();
@@ -213,13 +213,13 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                     msgError(translate.t("validations.file_size", { count: 10 }));
                     break;
                   case "Exception - Invalid File Type: EVENT_IMAGE":
-                    msgError(translate.t("project.events.form.wrong_image_type"));
+                    msgError(translate.t("group.events.form.wrong_image_type"));
                     break;
                   case "Exception - Invalid File Type: EVENT_FILE":
-                    msgError(translate.t("project.events.form.wrong_file_type"));
+                    msgError(translate.t("group.events.form.wrong_file_type"));
                     break;
                   default:
-                    msgError(translate.t("proj_alerts.error_textsad"));
+                    msgError(translate.t("group_alerts.error_textsad"));
                     rollbar.error("An error occurred updating event evidence", creationError);
                 }
               });
@@ -232,7 +232,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                     <ButtonToolbar>
                       <Can do="backend_api_resolvers_event__do_create_event">
                         <Button onClick={openNewEventModal}>
-                          <Glyphicon glyph="plus" />&nbsp;{translate.t("project.events.new")}
+                          <Glyphicon glyph="plus" />&nbsp;{translate.t("group.events.new")}
                         </Button>
                       </Can>
                     </ButtonToolbar>
@@ -240,7 +240,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                 </Row>
                 <Modal
                   footer={<div />}
-                  headerTitle={translate.t("project.events.new")}
+                  headerTitle={translate.t("group.events.new")}
                   open={isEventModalOpen}
                 >
                   <Mutation
@@ -287,7 +287,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                               <Row>
                                 <Col md={5}>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("project.events.form.date")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.date")}</ControlLabel>
                                     <Field
                                       component={dateTimeField}
                                       name="eventDate"
@@ -297,29 +297,29 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 </Col>
                                 <Col md={7}>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("project.events.form.type.title")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.type.title")}</ControlLabel>
                                     <Field component={dropdownField} name="eventType" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="AUTHORIZATION_SPECIAL_ATTACK">
-                                        {translate.t("project.events.form.type.special_attack")}
+                                        {translate.t("group.events.form.type.special_attack")}
                                       </option>
                                       <option value="CLIENT_APPROVES_CHANGE_TOE">
-                                        {translate.t("project.events.form.type.toe_change")}
+                                        {translate.t("group.events.form.type.toe_change")}
                                       </option>
                                       <option value="CLIENT_DETECTS_ATTACK">
-                                        {translate.t("project.events.form.type.detects_attack")}
+                                        {translate.t("group.events.form.type.detects_attack")}
                                       </option>
                                       <option value="HIGH_AVAILABILITY_APPROVAL">
-                                        {translate.t("project.events.form.type.high_availability")}
+                                        {translate.t("group.events.form.type.high_availability")}
                                       </option>
                                       <option value="INCORRECT_MISSING_SUPPLIES">
-                                        {translate.t("project.events.form.type.missing_supplies")}
+                                        {translate.t("group.events.form.type.missing_supplies")}
                                       </option>
                                       <option value="TOE_DIFFERS_APPROVED">
-                                        {translate.t("project.events.form.type.toe_differs")}
+                                        {translate.t("group.events.form.type.toe_differs")}
                                       </option>
                                       <option value="OTHER">
-                                        {translate.t("project.events.form.other")}
+                                        {translate.t("group.events.form.other")}
                                       </option>
                                     </Field>
                                   </FormGroup>
@@ -328,23 +328,23 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                               <Row>
                                 <Col md={6}>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("project.events.form.context.title")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.context.title")}</ControlLabel>
                                     <Field component={dropdownField} name="context" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="CLIENT">
-                                        {translate.t("project.events.form.context.client")}
+                                        {translate.t("group.events.form.context.client")}
                                       </option>
                                       <option value="FLUID">
-                                        {translate.t("project.events.form.context.fluid")}
+                                        {translate.t("group.events.form.context.fluid")}
                                       </option>
                                       <option value="PLANNING">
-                                        {translate.t("project.events.form.context.planning")}
+                                        {translate.t("group.events.form.context.planning")}
                                       </option>
                                       <option value="TELECOMMUTING">
-                                        {translate.t("project.events.form.context.telecommuting")}
+                                        {translate.t("group.events.form.context.telecommuting")}
                                       </option>
                                       <option value="OTHER">
-                                        {translate.t("project.events.form.other")}
+                                        {translate.t("group.events.form.other")}
                                       </option>
                                     </Field>
                                   </FormGroup>
@@ -352,14 +352,14 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 <Col md={6}>
                                   <FormGroup>
                                     <ControlLabel>
-                                      {translate.t("project.events.form.accessibility.title")}
+                                      {translate.t("group.events.form.accessibility.title")}
                                     </ControlLabel>
                                     <FormSection name="accessibility">
                                       <Field component={checkboxField} name="environment" validate={someRequired}>
-                                        {translate.t("project.events.form.accessibility.environment")}
+                                        {translate.t("group.events.form.accessibility.environment")}
                                       </Field>
                                       <Field component={checkboxField} name="repository" validate={someRequired}>
-                                        {translate.t("project.events.form.accessibility.repository")}
+                                        {translate.t("group.events.form.accessibility.repository")}
                                       </Field>
                                     </FormSection>
                                   </FormGroup>
@@ -369,7 +369,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 <Row>
                                   <Col md={6}>
                                     <FormGroup>
-                                      <ControlLabel>{translate.t("project.events.form.blocking_hours")}</ControlLabel>
+                                      <ControlLabel>{translate.t("group.events.form.blocking_hours")}</ControlLabel>
                                       <Field
                                         component={textField}
                                         name="blockingHours"
@@ -381,74 +381,74 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                   <Col md={6}>
                                     <FormGroup>
                                       <ControlLabel>
-                                        {translate.t("project.events.form.components.title")}
+                                        {translate.t("group.events.form.components.title")}
                                       </ControlLabel>
                                       <FormSection name="affectedComponents">
                                         <Field component={checkboxField} name="FLUID_STATION" validate={someRequired}>
-                                          {translate.t("project.events.form.components.fluid_station")}
+                                          {translate.t("group.events.form.components.fluid_station")}
                                         </Field>
                                         <Field component={checkboxField} name="CLIENT_STATION" validate={someRequired}>
-                                          {translate.t("project.events.form.components.client_station")}
+                                          {translate.t("group.events.form.components.client_station")}
                                         </Field>
                                         <Field component={checkboxField} name="TOE_EXCLUSSION" validate={someRequired}>
-                                          {translate.t("project.events.form.components.toe_exclussion")}
+                                          {translate.t("group.events.form.components.toe_exclussion")}
                                         </Field>
                                         <Field component={checkboxField} name="DOCUMENTATION" validate={someRequired}>
-                                          {translate.t("project.events.form.components.documentation")}
+                                          {translate.t("group.events.form.components.documentation")}
                                         </Field>
                                         <Field
                                           component={checkboxField}
                                           name="LOCAL_CONNECTION"
                                           validate={someRequired}
                                         >
-                                          {translate.t("project.events.form.components.local_conn")}
+                                          {translate.t("group.events.form.components.local_conn")}
                                         </Field>
                                         <Field
                                           component={checkboxField}
                                           name="INTERNET_CONNECTION"
                                           validate={someRequired}
                                         >
-                                          {translate.t("project.events.form.components.internet_conn")}
+                                          {translate.t("group.events.form.components.internet_conn")}
                                         </Field>
                                         <Field component={checkboxField} name="VPN_CONNECTION" validate={someRequired}>
-                                          {translate.t("project.events.form.components.vpn_conn")}
+                                          {translate.t("group.events.form.components.vpn_conn")}
                                         </Field>
                                         <Field component={checkboxField} name="TOE_LOCATION" validate={someRequired}>
-                                          {translate.t("project.events.form.components.toe_location")}
+                                          {translate.t("group.events.form.components.toe_location")}
                                         </Field>
                                         <Field component={checkboxField} name="TOE_CREDENTIALS" validate={someRequired}>
-                                          {translate.t("project.events.form.components.toe_credentials")}
+                                          {translate.t("group.events.form.components.toe_credentials")}
                                         </Field>
                                         <Field component={checkboxField} name="TOE_PRIVILEGES" validate={someRequired}>
-                                          {translate.t("project.events.form.components.toe_privileges")}
+                                          {translate.t("group.events.form.components.toe_privileges")}
                                         </Field>
                                         <Field component={checkboxField} name="TEST_DATA" validate={someRequired}>
-                                          {translate.t("project.events.form.components.test_data")}
+                                          {translate.t("group.events.form.components.test_data")}
                                         </Field>
                                         <Field component={checkboxField} name="TOE_UNSTABLE" validate={someRequired}>
-                                          {translate.t("project.events.form.components.toe_unstability")}
+                                          {translate.t("group.events.form.components.toe_unstability")}
                                         </Field>
                                         <Field
                                           component={checkboxField}
                                           name="TOE_UNACCESSIBLE"
                                           validate={someRequired}
                                         >
-                                          {translate.t("project.events.form.components.toe_unaccessible")}
+                                          {translate.t("group.events.form.components.toe_unaccessible")}
                                         </Field>
                                         <Field component={checkboxField} name="TOE_UNAVAILABLE" validate={someRequired}>
-                                          {translate.t("project.events.form.components.toe_unavailable")}
+                                          {translate.t("group.events.form.components.toe_unavailable")}
                                         </Field>
                                         <Field component={checkboxField} name="TOE_ALTERATION" validate={someRequired}>
-                                          {translate.t("project.events.form.components.toe_alteration")}
+                                          {translate.t("group.events.form.components.toe_alteration")}
                                         </Field>
                                         <Field component={checkboxField} name="SOURCE_CODE" validate={someRequired}>
-                                          {translate.t("project.events.form.components.source_code")}
+                                          {translate.t("group.events.form.components.source_code")}
                                         </Field>
                                         <Field component={checkboxField} name="COMPILE_ERROR" validate={someRequired}>
-                                          {translate.t("project.events.form.components.compile_error")}
+                                          {translate.t("group.events.form.components.compile_error")}
                                         </Field>
                                         <Field component={checkboxField} name="OTHER" validate={someRequired}>
-                                          {translate.t("project.events.form.other")}
+                                          {translate.t("group.events.form.other")}
                                         </Field>
                                       </FormSection>
                                     </FormGroup>
@@ -458,7 +458,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                               <Row>
                                 <Col md={12}>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("project.events.form.details")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.details")}</ControlLabel>
                                     <Field
                                       className={globalStyle.noResize}
                                       component={textAreaField}
@@ -472,44 +472,44 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 <Col md={5}>
                                   <FormGroup>
                                     <ControlLabel>
-                                      {translate.t("project.events.form.action_before.title")}
+                                      {translate.t("group.events.form.action_before.title")}
                                     </ControlLabel>
                                     <Field component={dropdownField} name="actionBeforeBlocking" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="DOCUMENT_PROJECT">
-                                        {translate.t("project.events.form.action_before.document")}
+                                        {translate.t("group.events.form.action_before.document")}
                                       </option>
                                       <option value="TEST_OTHER_PART_TOE">
-                                        {translate.t("project.events.form.action_before.test_other")}
+                                        {translate.t("group.events.form.action_before.test_other")}
                                       </option>
                                       <option value="NONE">
-                                        {translate.t("project.events.form.none")}
+                                        {translate.t("group.events.form.none")}
                                       </option>
                                       <option value="OTHER">
-                                        {translate.t("project.events.form.other")}
+                                        {translate.t("group.events.form.other")}
                                       </option>
                                     </Field>
                                   </FormGroup>
                                 </Col>
                                 <Col md={7}>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("project.events.form.action_after.title")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.action_after.title")}</ControlLabel>
                                     <Field component={dropdownField} name="actionAfterBlocking" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="EXECUTE_OTHER_PROJECT_SAME_CLIENT">
-                                        {translate.t("project.events.form.action_after.other_same")}
+                                        {translate.t("group.events.form.action_after.other_same")}
                                       </option>
                                       <option value="EXECUTE_OTHER_PROJECT_OTHER_CLIENT">
-                                        {translate.t("project.events.form.action_after.other_other")}
+                                        {translate.t("group.events.form.action_after.other_other")}
                                       </option>
                                       <option value="TRAINING">
-                                        {translate.t("project.events.form.action_after.training")}
+                                        {translate.t("group.events.form.action_after.training")}
                                       </option>
                                       <option value="NONE">
-                                        {translate.t("project.events.form.none")}
+                                        {translate.t("group.events.form.none")}
                                       </option>
                                       <option value="OTHER">
-                                        {translate.t("project.events.form.other")}
+                                        {translate.t("group.events.form.other")}
                                       </option>
                                     </Field>
                                   </FormGroup>
@@ -518,7 +518,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                               <Row>
                                 <Col md={6}>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("project.events.form.evidence")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.evidence")}</ControlLabel>
                                     <Field
                                       accept="image/gif,image/png"
                                       component={fileInputField}
@@ -530,7 +530,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 </Col>
                                 <Col md={6}>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("project.events.form.evidence_file")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.evidence_file")}</ControlLabel>
                                     <Field
                                       accept="application/pdf,application/zip,text/csv,text/plain"
                                       component={fileInputField}

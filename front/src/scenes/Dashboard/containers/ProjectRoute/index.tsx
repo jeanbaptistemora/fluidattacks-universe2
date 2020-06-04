@@ -53,7 +53,7 @@ const projectRoute: React.FC = (): JSX.Element => {
 
   const { data: alertData } = useQuery(GET_PROJECT_ALERT, {
     onError: (alertError: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading alerts", alertError);
     },
     variables: { projectName, organization: userOrganization },
@@ -61,7 +61,7 @@ const projectRoute: React.FC = (): JSX.Element => {
 
   const { data, error } = useQuery<IProjectData>(GET_PROJECT_DATA, {
     onError: (alertError: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading deletion date", alertError);
     },
     variables: { projectName },
@@ -107,7 +107,7 @@ const projectRoute: React.FC = (): JSX.Element => {
           </div>
           <Modal
             footer={<div />}
-            headerTitle={translate.t("search_findings.tab_indicators.cancelProjectDeletion")}
+            headerTitle={translate.t("search_findings.tab_indicators.cancelGroupDeletion")}
             open={true}
           >
             <Row>
@@ -115,7 +115,7 @@ const projectRoute: React.FC = (): JSX.Element => {
                 <Trans>
                   <p>
                     {translate.t(
-                      "search_findings.tab_indicators.projectIsRemoving",
+                      "search_findings.tab_indicators.groupIsRemoving",
                       { deletionDate: data.project.deletionDate, userEmail: data.project.userDeletion })}
                   </p>
                 </Trans>

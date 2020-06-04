@@ -184,7 +184,7 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     let addUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this project"});
+      .find({open: true, headerTitle: "Add user to this group"});
     expect(addUserModal)
       .toHaveLength(0);
     const addButton: ReactWrapper = wrapper.find("button")
@@ -194,7 +194,7 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this project"});
+      .find({open: true, headerTitle: "Add user to this group"});
     expect(addUserModal)
       .toHaveLength(1);
   });
@@ -269,7 +269,7 @@ describe("Project users view", () => {
     addButton.simulate("click");
     let addUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this project"});
+      .find({open: true, headerTitle: "Add user to this group"});
     expect(addUserModal)
       .toHaveLength(1);
     const emailInput: ReactWrapper = addUserModal
@@ -303,7 +303,7 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this project"});
+      .find({open: true, headerTitle: "Add user to this group"});
     expect(addUserModal)
       .toHaveLength(0);
     expect(msgSuccess)
@@ -471,7 +471,7 @@ describe("Project users view", () => {
     addButton.simulate("click");
     let addUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this project"});
+      .find({open: true, headerTitle: "Add user to this group"});
     expect(addUserModal)
       .toHaveLength(1);
     const emailInput: ReactWrapper = addUserModal
@@ -505,7 +505,7 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this project"});
+      .find({open: true, headerTitle: "Add user to this group"});
     expect(addUserModal)
       .toHaveLength(0);
     expect(msgError)

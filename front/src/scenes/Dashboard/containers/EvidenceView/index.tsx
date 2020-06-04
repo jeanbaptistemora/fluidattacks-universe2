@@ -51,7 +51,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
   const { data, networkStatus, refetch } = useQuery(GET_FINDING_EVIDENCES, {
     notifyOnNetworkStatusChange: true,
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading finding evidences", error);
     },
     variables: { findingId },
@@ -70,7 +70,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
             msgError(translate.t("validations.invalid_char"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred updating finding evidence", updateError);
         }
       });
@@ -85,10 +85,10 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
             msgError(translate.t("validations.file_size", { count: 10 }));
             break;
           case "Exception - Invalid File Type":
-            msgError(translate.t("project.events.form.wrong_image_type"));
+            msgError(translate.t("group.events.form.wrong_image_type"));
             break;
           default:
-            msgError(translate.t("proj_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred updating finding evidence", updateError);
         }
       });
@@ -151,7 +151,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
         <Col md={2} mdOffset={10} xs={12} sm={12}>
           <Can do="backend_api_resolvers_finding__do_update_evidence">
             <Button block={true} onClick={handleEditClick}>
-              <FluidIcon icon="edit" />&nbsp;{translate.t("project.findings.evidence.edit")}
+              <FluidIcon icon="edit" />&nbsp;{translate.t("group.findings.evidence.edit")}
             </Button>
           </Can>
         </Col>
@@ -161,7 +161,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
         ? (
           <div className={globalStyle.noData}>
             <Glyphicon glyph="picture" />
-            <p>{translate.t("project.findings.evidence.no_data")}</p>
+            <p>{translate.t("group.findings.evidence.no_data")}</p>
           </div>
         )
         : (
