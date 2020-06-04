@@ -18,6 +18,7 @@ in
         pkgs.curl
         pkgs.cacert
         pkgs.nodejs
+        pkgs.p7zip
         pkgs.sops
         pkgs.jq
         (builders.rubyGem pkgs).propagatedBuildInputs

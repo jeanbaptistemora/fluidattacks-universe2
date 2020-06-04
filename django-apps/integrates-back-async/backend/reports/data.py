@@ -1,12 +1,14 @@
 # Standard library
+import contextlib
 import os
+import subprocess
 import tempfile
 from typing import (
     Dict,
+    Iterator,
     List,
 )
 from uuid import uuid4
-from zipfile import ZipFile
 
 # Local libraries
 from backend import util
@@ -34,45 +36,45 @@ def generate(
 ):
     passphrase = get_passphrase(4)
 
-    with tempfile.NamedTemporaryFile(mode='w+b', suffix=f'_{uuid4()}.zip') as file:
-        with ZipFile(file, mode='w') as data_file:
-            _append_pdf_report(
-                data_file=data_file,
-                findings_ord=findings_ord,
-                group=group,
-                group_description=group_description,
-                passphrase=passphrase,
-                requester_email=requester_email,
-            )
-            _append_xls_report(
-                data_file=data_file,
-                findings_ord=findings_ord,
-                passphrase=passphrase,
-            )
-            _append_evidences(
-                data_file=data_file,
-                group=group,
-            )
-
-        # Reset pointer to begin of file
-        file.seek(0)
-
-        signed_url = reports_utils.sign_url(
-            reports_utils.upload_report_from_file_descriptor(file)
+    with tempfile.TemporaryDirectory() as directory:
+        _append_pdf_report(
+            directory=directory,
+            findings_ord=findings_ord,
+            group=group,
+            group_description=group_description,
+            passphrase=passphrase,
+            requester_email=requester_email,
+        )
+        _append_xls_report(
+            directory=directory,
+            findings_ord=findings_ord,
+            passphrase=passphrase,
+        )
+        _append_evidences(
+            directory=directory,
+            group=group,
         )
 
-    notifications_domain.new_password_protected_report(
-        file_link=signed_url,
-        file_type='Group Data',
-        passphrase=passphrase,
-        project_name=group,
-        user_email=requester_email,
-    )
+        with _encrypted_zip_file(
+            passphrase=passphrase,
+            source_contents=_get_directory_contents(directory),
+        ) as file:
+            signed_url = reports_utils.sign_url(
+                reports_utils.upload_report(file)
+            )
+
+            notifications_domain.new_password_protected_report(
+                file_link=signed_url,
+                file_type='Group Data',
+                passphrase=passphrase,
+                project_name=group,
+                user_email=requester_email,
+            )
 
 
 def _append_pdf_report(
     *,
-    data_file: ZipFile,
+    directory: str,
     findings_ord: List[Dict[str, FindingType]],
     group: str,
     group_description: str,
@@ -88,13 +90,13 @@ def _append_pdf_report(
         passphrase=passphrase,
         user_email=requester_email,
     )
-    with data_file.open('report.pdf', mode='w') as file:
+    with open(os.path.join(directory, 'report.pdf'), mode='wb') as file:
         with open(report_filename, 'rb') as report:
             file.write(report.read())
 
 
 def _append_xls_report(
-    data_file: ZipFile,
+    directory: str,
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
 ):
@@ -102,14 +104,14 @@ def _append_xls_report(
         findings_ord=findings_ord,
         passphrase=passphrase,
     )
-    with data_file.open('report.xls', mode='w') as file:
+    with open(os.path.join(directory, 'report.xls'), mode='wb') as file:
         with open(report_filename, 'rb') as report:
             file.write(report.read())
 
 
 def _append_evidences(
     *,
-    data_file: ZipFile,
+    directory: str,
     group: str,
 ):
     target_folders: Dict[str, str] = {
@@ -129,8 +131,52 @@ def _append_evidences(
         _, extension = os.path.splitext(key)
 
         if extension in target_folders:
-            target_name = \
-                os.path.join(target_folders[extension], os.path.basename(key))
+            target_name = os.path.join(directory, target_folders[extension])
+            os.makedirs(target_name, exist_ok=True)
+            target_name = os.path.join(target_name, os.path.basename(key))
 
-            with data_file.open(target_name, mode='w') as file:
+            with open(target_name, mode='wb') as file:
                 S3_CLIENT.download_fileobj(EVIDENCES_BUCKET, key, file)
+
+
+@contextlib.contextmanager
+def _encrypted_zip_file(
+    *,
+    passphrase: str,
+    source_contents: List[str],
+) -> Iterator[str]:
+    # This value must be sanitized because it needs to be passed as OS command
+    if not all(word.isalpha() for word in passphrase.split(' ')):
+        raise ValueError(f'Expected words separated by spaces as passphrase: {passphrase}')
+
+    # If there are no source contents the current working directory is assumed
+    #   by default.
+    # We don't want to leave the sandbox at any point
+    if not source_contents:
+        raise RuntimeError('Nothing to pack into the final file')
+
+    # Impossible to predict with this uuid4
+    target = tempfile.mktemp(suffix=f'_{uuid4()}.7z')
+
+    subprocess.run(
+        [
+            '7z', 'a', f'-p{passphrase}', '-mhe', '-t7z',
+            '--', target, *source_contents
+        ],
+        check=True,
+    )
+
+    try:
+        yield target
+    finally:
+        os.unlink(target)
+
+
+def _get_directory_contents(directory):
+    return [
+        absolute
+        for relative in os.listdir(directory)
+        for absolute in [os.path.join(directory, relative)]
+        if os.path.isfile(absolute)
+        or os.path.isdir(absolute) and os.listdir(absolute)
+    ]
