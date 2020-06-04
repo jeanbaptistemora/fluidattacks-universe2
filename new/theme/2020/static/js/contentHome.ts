@@ -25,11 +25,13 @@ const contentHome: (() => void) = (): void => {
     $('input:radio[name="menu3"]')
     .on("change", () => {
 
-      animationById("#products-title", "checked", ".products-list", ".usecases-list, .aboutus-list",
+      animationById("#products-title", "checked", ".products-list", ".usecases-list, .aboutus-list, .careers-list",
                     "dn fadein active", "dn", "fadein");
-      animationById("#usecases-title", "checked", ".usecases-list", ".products-list, .aboutus-list",
+      animationById("#usecases-title", "checked", ".usecases-list", ".products-list, .aboutus-list, careers-list",
                     "dn fadein active", "dn", "fadein");
-      animationById("#aboutus-title", "checked", ".aboutus-list", ".products-list, .usecases-list",
+      animationById("#aboutus-title", "checked", ".aboutus-list", ".products-list, .usecases-list, .careers-list",
+                    "dn fadein active", "dn", "fadein");
+      animationById("#careers-title", "checked", ".careers-list", ".products-list, .usecases-list, .aboutus-list",
                     "dn fadein active", "dn", "fadein");
     });
   });
