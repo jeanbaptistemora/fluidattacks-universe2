@@ -419,3 +419,12 @@ class InvalidCommentParent(Exception):
         """ Constructor """
         msg = 'Exception - Comment parent is invalid'
         super(InvalidCommentParent, self).__init__(msg)
+
+
+class InvalidOrganization(Exception):
+    """Exception to prevent repeated organizations"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Organization name is invalid'
+        super(InvalidOrganization, self).__init__(msg)

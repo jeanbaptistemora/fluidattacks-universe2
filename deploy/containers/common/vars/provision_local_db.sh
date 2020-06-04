@@ -146,8 +146,13 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
     AttributeName=sk,AttributeType=S \
 --key-schema \
     AttributeName=pk,KeyType=HASH \
-    AttributeName=sk,KeyType=SORT \
---provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+    AttributeName=sk,KeyType=RANGE \
+--provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+--global-secondary-indexes \
+    IndexName=gsi-1,\
+KeySchema=["{AttributeName=sk,KeyType=HASH},{AttributeName=pk,KeyType=RANGE}"],\
+Projection="{ProjectionType=ALL}",\
+ProvisionedThroughput="{ReadCapacityUnits=1,WriteCapacityUnits=1}"
 
 aws dynamodb create-table \
     --endpoint-url \
