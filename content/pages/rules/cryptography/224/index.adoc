@@ -71,19 +71,13 @@ to a cryptographic module that meet the requirements
 of applicable federal laws, Executive Orders, directives, policies,
 regulations, standards, and guidance for such authentication.
 
-. [[r10]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[OWASP-ASVS v3.1-7.6]
-Verify that all random numbers, random file names, random GUIDs,
-and random strings are generated using the cryptographic module’s
-approved random number generator
-when these random values are intended to be not guessable by an attacker.
-
-. [[r11]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[OWASP-ASVS v3.1-7.15]
-Verify that random numbers are created with proper entropy
-even when the application is under heavy load,
-or that the application degrades gracefully in such circumstances.
-
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.1)]
 Verify that there is an explicit policy for management of cryptographic keys
 and that a cryptographic key lifecycle follows a key management standard such
 as **NIST SP 800-57**.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.8 Single or Multi Factor One Time Verifier Requirements.(2.8.3)]
+Verify that approved cryptographic algorithms are used in the generation,
+seeding, and verification.
