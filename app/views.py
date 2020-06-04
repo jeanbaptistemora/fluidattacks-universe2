@@ -40,7 +40,7 @@ from backend.services import (
     has_access_to_finding, has_access_to_event
 )
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET, FI_ENVIRONMENT
 )
 from app.documentator.all_vulns import generate_all_vulns_xlsx
 
@@ -128,6 +128,9 @@ def error401(request, _):
 def app(request):
     """App view for authenticated users."""
     try:
+        if FI_ENVIRONMENT == 'production':
+            util.check_concurrent_sessions(
+                request.session['username'], request.session.session_key)
         parameters = {
             'debug': settings.DEBUG,
             'username': request.session['username']
