@@ -1,10 +1,10 @@
 import _ from "lodash";
-import React from "react";
+import React, { TextareaHTMLAttributes } from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { BaseFieldProps, Field } from "redux-form";
 import { default as style } from "./index.css";
 
-type EditableFieldProps = BaseFieldProps & {
+type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaElement> & {
   alignField?: string;
   className?: string;
   currentValue: string;

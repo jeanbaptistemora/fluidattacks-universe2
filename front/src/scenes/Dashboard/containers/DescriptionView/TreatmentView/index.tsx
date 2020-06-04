@@ -23,7 +23,9 @@ import { dateField, dropdownField, textAreaField, textField } from "../../../../
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
-import { isLowerDate, isValidDate, maxLength, required, validTextField } from "../../../../../utils/validations";
+import {
+  isLowerDate, isValidDate, maxLength, required, validTextField, validUrlField,
+} from "../../../../../utils/validations";
 import { EditableField } from "../../../components/EditableField";
 import { GenericForm } from "../../../components/GenericForm";
 import { RemediationModal } from "../../../components/RemediationModal";
@@ -211,10 +213,11 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                         currentValue={data.finding.btsUrl}
                         label={translate.t("search_findings.tab_description.bts")}
                         name="btsUrl"
+                        placeholder={translate.t("search_findings.tab_description.bts_placeholder")}
                         renderAsEditable={props.isEditing}
                         type="text"
                         visibleWhileEditing={canEdit}
-                        validate={[validTextField, maxBtsLength]}
+                        validate={[validUrlField, maxBtsLength]}
                       />
                     )}
                   </Can>

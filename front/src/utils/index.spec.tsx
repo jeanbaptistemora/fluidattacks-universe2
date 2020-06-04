@@ -303,10 +303,10 @@ describe("Validations", () => {
   it("shouldn't be a valid url", () => {
     let url: string | undefined = validUrlField("test/url/fi eld#1");
     expect(url)
-      .toEqual("Field cannot contain the following characters: ' '");
+      .toEqual("URL value cannot contain the following characters: ' '");
     url = validUrlField("test/url/fiéld");
     expect(url)
-      .toEqual("Field cannot contain the following characters: 'é'");
+      .toEqual("URL value cannot contain the following characters: 'é'");
   });
 
   it("should be a valid tag", () => {

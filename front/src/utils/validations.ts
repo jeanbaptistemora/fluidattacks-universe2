@@ -81,7 +81,7 @@ export const validUrlField: Validator = (value: string): string | undefined => {
     const match: RegExpMatchArray | null = cleanValue.match(/[^a-zA-Z0-9(),./:;@_$#-]/);
     if (match !== null) {
       const invalidChar: string = `'${match[0]}'`;
-      error = translate.t("validations.invalidTextField", { chars: invalidChar });
+      error = translate.t("validations.invalidUrlField", { chars: invalidChar });
     }
   }
 
