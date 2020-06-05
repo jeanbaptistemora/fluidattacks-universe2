@@ -22,7 +22,7 @@ def test_has_unrestricted_cidrs(safe_loader, vuln_loader):
     """test ec2.has_unrestricted_cidrs."""
     result = ec2.has_unrestricted_cidrs(vuln_loader)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 13
+    assert result.get_vulns_number() == 2 * 7
     assert ec2.has_unrestricted_cidrs(safe_loader).is_closed()
 
 
@@ -54,5 +54,13 @@ def test_has_not_an_iam_instance_profile(safe_loader, vuln_loader):
     """test ec2.has_not_an_iam_instance_profile."""
     result = ec2.has_not_an_iam_instance_profile(vuln_loader)
     assert result.is_open()
-    assert result.get_vulns_number() == 1 + 1
+    assert result.get_vulns_number() == 2 * 3
     assert ec2.has_not_an_iam_instance_profile(safe_loader).is_closed()
+
+
+def test_has_not_termination_protection(safe_loader, vuln_loader):
+    """test ec2.has_not_termination_protection."""
+    result = ec2.has_not_termination_protection(vuln_loader)
+    assert result.is_open()
+    assert result.get_vulns_number() == 4 * 3
+    assert ec2.has_not_termination_protection(safe_loader).is_closed()

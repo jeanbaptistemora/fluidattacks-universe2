@@ -1,6 +1,6 @@
 Description: code_as_data_vulnerable
 Parameters:
-  DiskEncryption:
+  DisableFeature:
     Default: false
     Type: String
   IpInsecureProtocol:
@@ -16,6 +16,50 @@ Resources:
     Properties:
       DisableApiTermination: 'false'
     Type: AWS::EC2::Instance
+  ec2instance2:
+    Properties:
+      DisableApiTermination: 'true'
+      IamInstanceProfile: iamInstanceProfile1
+      LaunchTemplate:
+        LaunchTemplateId:
+          Ref: launchTemplate
+        LaunchTemplateName: launchTemplate
+        Version:
+          Fn::GetAtt:
+            - launchTemplate
+            - LatestVersionNumber
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: 'false'
+          DeviceIndex: 0
+      SecurityGroups:
+        - security-group-test
+    Type: AWS::EC2::Instance
+  ec2instance3:
+    Type: AWS::EC2::Instance
+  ec2instance4:
+    Properties:
+      DisableApiTermination:
+        Ref: DisableFeature
+    Type: AWS::EC2::Instance
+  launchTemplate:
+    Properties:
+      LaunchTemplateData:
+        DisableApiTermination: 'false'
+        InstanceInitiatedShutdownBehavior: terminate
+      LaunchTemplateName: launchTemplate
+    Type: AWS::EC2::LaunchTemplate
+  launchTemplate1:
+    Properties:
+      LaunchTemplateData:
+        DisableApiTermination:
+          Ref: DisableFeature
+        InstanceInitiatedShutdownBehavior: terminate
+      LaunchTemplateName: launchTemplate1
+    Type: AWS::EC2::LaunchTemplate
+  launchTemplate2:
+    Properties:
+      LaunchTemplateName: launchTemplate2
+    Type: AWS::EC2::LaunchTemplate
   securityGroup1:
     Properties:
       GroupDescription: groupDescription1
@@ -52,6 +96,8 @@ Resources:
     Properties:
       CidrIp: 110.229.161.227/16
       FromPort: 22
+      GroupId:
+        Ref: securityGroup2
       GroupName: securityGroup2
       IpProtocol:
         Ref: IpInsecureProtocol
@@ -79,7 +125,7 @@ Resources:
       AvailabilityZone:
         Ref: AWS::Region
       Encrypted:
-        Ref: DiskEncryption
+        Ref: DisableFeature
       Size: 120
       VolumeType: gp2
     Type: AWS::EC2::Volume

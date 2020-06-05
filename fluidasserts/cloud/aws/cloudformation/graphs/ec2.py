@@ -5,6 +5,7 @@ AWS CloudFormation checks for ``EC2`` (Elastic Cloud Compute).
 # Standard imports
 import ipaddress
 from contextlib import suppress
+from typing import List
 
 # Local imports
 from fluidasserts import MEDIUM
@@ -94,7 +95,7 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
     queries = [
         """
         MATCH (template:CloudFormationTemplate)-[*2]->(
-            group:EC2:SecurityGroup)-[*]-(rule)
+            group:EC2:SecurityGroup)-[*1..3]->(rule)
         WHERE rule:SecurityGroupIngress OR rule:SecurityGroupEgress
         MATCH (rule)-[:HAS*1..3]->(ip:CidrIp{version})
         WHERE exists(ip.value)
@@ -116,7 +117,7 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
           ref_ip.value as ip
         """, """
         MATCH (template:CloudFormationTemplate)-[*2]->(
-            group:EC2:SecurityGroup)<-[*1..4]-(rule)-[*]-(
+            group:EC2:SecurityGroup)<-[*1..6]-(rule)-[*1..6]-(
                 ip:CidrIp{version})
         WHERE (
             rule:SecurityGroupIngress OR rule:SecurityGroupEgress) AND exists(
@@ -128,11 +129,11 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
           ip.value as ip, ip.line as line
         """, """
         MATCH (template:CloudFormationTemplate)-[*2]->(
-            group:EC2:SecurityGroup)<-[*1..4]-(rule)-[*]-(
-                ip:CidrIp)-[*]->(ref_ip)
+            group:EC2:SecurityGroup)<-[*1..4]-(rule)-[*1..6]-(
+                ip:CidrIp)-[*1..6]->(ref_ip)
         WHERE (
             rule:SecurityGroupIngress OR rule:SecurityGroupEgress)
-             AND (ref_ip: Default OR ref_ip: MapVar) AND exists(ref_ip.value)
+             AND exists(ref_ip.value)
         WITH DISTINCT group, template, rule, ref_ip
         RETURN template.path as path,
           group.name as resource, [x IN labels(rule) WHERE x IN [
@@ -430,3 +431,99 @@ def has_not_an_iam_instance_profile(connection: ConnectionString) -> tuple:
         vulnerabilities=vulnerabilities,
         msg_open='EC2 instances have not an IamInstanceProfile set',
         msg_closed='EC2 instances have an IamInstanceProfile set')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_not_termination_protection(connection: ConnectionString) -> tuple:
+    """
+    Verify if ``EC2`` has not deletion protection enabled.
+
+    By default EC2 Instances can be terminated using the Amazon EC2 console,
+    CLI, or API.
+
+    This is not desirable, as terminated instances are deleted from the account
+    automatically after some time,
+    personal may take-down the service without intention,
+    and volumes attached to the instance may be lost and therefore wiped.
+
+    :param connection: Connection String to neo4j.
+    :returns: - ``OPEN`` if the instance has not the **DisableApiTermination**
+                parameter set to **true**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    queries: List[str] = [
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            launch:EC2:LaunchTemplate)
+        WHERE NOT exists{ (launch)-[*1..3]->(:DisableApiTermination)}
+        RETURN template.path as path, launch.line as line, launch.name
+            as resource, 'LaunchTemplate' as type
+        """,
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            launch:EC2:LaunchTemplate)-[*1..3]->(
+                    termination:DisableApiTermination)
+        WHERE  exists(termination.value) AND (termination.value = 'false'
+            OR termination.value = false)
+        RETURN template.path as path, termination.line as line, launch.name
+            as resource, 'LaunchTemplate' as type
+        """,
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            launch:EC2:LaunchTemplate)-[*1..3]->(
+                    :DisableApiTermination)-[*1..6]->(termination)
+        WHERE  exists(termination.value) AND (termination.value = 'false'
+            OR termination.value = false)
+        RETURN template.path as path, termination.line as line, launch.name
+            as resource, 'LaunchTemplate' as type
+        """,
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            instance:EC2:Instance)
+        WHERE NOT exists{ (instance)-[*1..3]->(:DisableApiTermination)}
+        AND NOT exists{(instance)-[*1..4]->()-[*1..3]->(:EC2:LaunchTemplate)}
+        RETURN template.path as path, instance.line as line, instance.name
+            as resource, 'Instance'  as type
+        """,
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            instance:EC2:Instance)-[*1..3]->(
+                    termination:DisableApiTermination)
+        WHERE  exists(termination.value) AND (termination.value = 'false'
+            OR termination.value = false)
+        RETURN template.path as path, termination.line as line, instance.name
+            as resource, 'Instance' as type
+        """,
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            instance:EC2:Instance)-[*1..3]->(
+                    :DisableApiTermination)-[*1..6]->(termination)
+        WHERE  exists(termination.value) AND (termination.value = 'false'
+            OR termination.value = false)
+        RETURN template.path as path, termination.line as line, instance.name
+            as resource, 'Instance' as type
+        """
+    ]
+    session = driver_session(connection)
+    query_result = [
+        record for query in queries
+        for record in list(session.run(query))
+    ]
+    for record in query_result:
+        vulnerabilities.append(
+            Vulnerability(
+                path=record['path'],
+                entity=(f'AWS::EC2::{record["type"]}/'
+                        'DisableApiTermination/'),
+                identifier=record['resource'],
+                line=record['line'],
+                reason='has not disabled api termination'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 Launch Templates have API termination enabled',
+        msg_closed='EC2 Launch Templates have API termination disabled')
