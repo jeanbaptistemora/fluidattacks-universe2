@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store";
+import translate from "../../../../utils/translations/translate";
 import { WelcomeView } from "./index";
 import { GET_USER_AUTHORIZATION } from "./queries";
 
@@ -109,6 +110,17 @@ describe("Welcome view", () => {
     expect(wrapper.find("h3")
       .text())
       .toContain("You are already logged in");
+  });
+
+  it("should render concurrent session", () => {
+    localStorage.setItem("showAlreadyLoggedin", "0");
+    localStorage.setItem("concurrentSession", "1");
+    const wrapper: ShallowWrapper = shallow(
+      <WelcomeView {...routeProps} />,
+    );
+    expect(wrapper.find("h3")
+      .text())
+      .toContain(translate.t("registration.concurrent_session_message"));
   });
 
   it("should clear localstorage before redirect", () => {
