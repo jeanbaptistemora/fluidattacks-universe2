@@ -26,6 +26,7 @@ from backend.dal.finding import (
 )
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
+from backend.dal.organization import get_or_create as get_or_create_org
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
@@ -409,6 +410,10 @@ def update(project_name: str, data: ProjectType) -> bool:
 
 def create(project: ProjectType) -> bool:
     """Add project to dynamo."""
+    org_name = cast(List[str], project.get('companies'))[0]
+    org_dict = get_or_create_org(org_name)
+    project['organization'] = org_dict['id']
+
     resp = False
     try:
         response = TABLE.put_item(Item=project)

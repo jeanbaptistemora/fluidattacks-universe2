@@ -60,8 +60,8 @@ def create(organization_name: str) -> OrganizationType:
     if exists(organization_name):
         raise InvalidOrganization()
 
-    new_item = {'pk': str(uuid.uuid4()),
-                'sk': organization_name}
+    new_item = {'pk': 'ORG#{}'.format(str(uuid.uuid4())),
+                'sk': organization_name.lower()}
     try:
         TABLE.put_item(Item=new_item)
     except ClientError as ex:
@@ -87,7 +87,8 @@ def get(org_name: str,
     Get an organization info given its name
     Return specified attributes or all if not setted
     """
-    key_exp = Key('sk').eq(org_name)
+    key_exp = Key('sk').eq(org_name) & \
+        Key('pk').begins_with('ORG#')
     query_attrs = {
         'KeyConditionExpression': key_exp,
         'IndexName': 'gsi-1',

@@ -75,7 +75,7 @@ def test_get_or_create():
     not_ex_org_name = 'new-org'
     existing_org = org_dal.get_or_create(ex_org_name)
     assert isinstance(existing_org, dict)
-    assert existing_org['id'] == '38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    assert existing_org['id'] == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     assert existing_org['name'] == ex_org_name
     
     not_existent_org = org_dal.get_or_create(not_ex_org_name)

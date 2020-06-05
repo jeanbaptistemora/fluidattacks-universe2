@@ -46,7 +46,7 @@ def remove(group_name: str) -> bool:
 
 def get_one() -> str:
     """
-    Returns a random group name available
+    Returns a random available group name
     """
     group_name = ''
     random_uuid = str(uuid.uuid4())
