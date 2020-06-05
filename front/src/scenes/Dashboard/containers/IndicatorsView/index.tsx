@@ -27,11 +27,11 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   const { push } = useHistory();
 
   const goToProjectFindings: (() => void) = (): void => {
-    push(`/project/${projectName}/findings`);
+    push(`/groups/${projectName}/findings`);
   };
 
   const goToProjectSettings: (() => void) = (): void => {
-    push(`/project/${projectName}/resources`);
+    push(`/groups/${projectName}/resources`);
   };
 
   const handleQryResult: ((qrResult: IIndicatorsProps) => void) = (qrResult: IIndicatorsProps): void => {

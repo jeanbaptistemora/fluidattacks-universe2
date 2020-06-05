@@ -72,7 +72,7 @@ describe("TagContent", () => {
 
   it("should render a component", () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/portfolio/TEST-PROJECTS/indicators"]}>
+      <MemoryRouter initialEntries={["/portfolios/TEST-PROJECTS/indicators"]}>
         <Provider store={store}>
           <MockedProvider mocks={[mocks]} addTypename={false}>
             <TagContent {...mockProps} />

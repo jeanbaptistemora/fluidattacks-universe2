@@ -99,7 +99,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
     _0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string },
   ): void => {
-    push(`/project/${rowInfo.name.toLowerCase()}/indicators`);
+    push(`/groups/${rowInfo.name.toLowerCase()}/indicators`);
   };
 
   const formatTableData: ((projects: IProjectTag[]) => IProjectTable[]) = (
@@ -534,13 +534,13 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const projectWithMaxOpenSeverity: string = getMaxOpenSeverityProject(data.tag.projects);
   const projectWithLastClosingVuln: string = getLastClosingVulnProject(data.tag.projects);
   const goToProjectMaxSeverityFindings: (() => void) = (): void => {
-    push(`/project/${projectWithMaxSeverity.toLowerCase()}/findings`);
+    push(`/groups/${projectWithMaxSeverity.toLowerCase()}/findings`);
   };
   const goToProjectMaxOpenSeverityFindings: (() => void) = (): void => {
-    push(`/project/${projectWithMaxOpenSeverity.toLowerCase()}/findings`);
+    push(`/groups/${projectWithMaxOpenSeverity.toLowerCase()}/findings`);
   };
   const goToProjectLastClosingVuln: (() => void) = (): void => {
-    push(`/project/${projectWithLastClosingVuln.toLowerCase()}/indicators`);
+    push(`/groups/${projectWithLastClosingVuln.toLowerCase()}/indicators`);
   };
 
   return (

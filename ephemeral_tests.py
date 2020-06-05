@@ -173,7 +173,7 @@ class ViewTestCase(unittest.TestCase):
     def test_04_findings(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/project/UNITTESTING/findings')
+        selenium.get(self.url + '/groups/UNITTESTING/findings')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -229,7 +229,7 @@ class ViewTestCase(unittest.TestCase):
     def test_06_severity(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/project/UNITTESTING/findings')
+        selenium.get(self.url + '/groups/UNITTESTING/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -279,7 +279,7 @@ class ViewTestCase(unittest.TestCase):
     def test_08_exploit(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/project/UNITTESTING/findings')
+        selenium.get(self.url + '/groups/UNITTESTING/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -326,7 +326,7 @@ class ViewTestCase(unittest.TestCase):
     def test_10_comments(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/project/UNITTESTING/findings')
+        selenium.get(self.url + '/groups/UNITTESTING/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -377,7 +377,7 @@ class ViewTestCase(unittest.TestCase):
     def test_13_events(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
-        selenium.get(self.url + '/project/unittesting/events')
+        selenium.get(self.url + '/groups/unittesting/events')
         event_tab = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,

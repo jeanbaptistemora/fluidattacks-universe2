@@ -130,7 +130,7 @@ def _send_new_event_mail(
     email_context = {
         'analyst_email': analyst,
         'event_id': event_id,
-        'event_url': f'{BASE_URL}/project/{project}/events/{event_id}',
+        'event_url': f'{BASE_URL}/groups/{project}/events/{event_id}',
         'project': project
     }
 

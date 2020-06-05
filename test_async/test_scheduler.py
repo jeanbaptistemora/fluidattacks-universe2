@@ -90,7 +90,7 @@ class SchedulerTests(TestCase):
         dumb_finding_dict = {'project_name': 'test', 'finding_id': 'test'}
         test_data = get_finding_url(dumb_finding_dict)
         expected_output = 'https://fluidattacks.com/integrates\
-/project/test/test/description'
+/groups/test/test/description'
         assert test_data == expected_output
 
     def test_get_status_vulns_by_time_range(self):

@@ -55,6 +55,10 @@ urlpatterns = [
     url(r'^/?project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',
         views.get_evidence),
+    # intentionally duplicate to give support to old evidence url
+    url(r'^/?groups/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
+        r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',
+        views.get_evidence),
     url(r'^/?(?P<findingid>[0-9]+)/download_vulnerabilities?$',
         views.download_vulnerabilities),
     # Documentation.

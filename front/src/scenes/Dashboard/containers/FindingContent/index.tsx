@@ -179,7 +179,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           translate.t("search_findings.finding_deleted", { findingId }),
           translate.t("group.drafts.title_success"),
         );
-        replace(`/project/${projectName}/findings`);
+        replace(`/groups/${projectName}/findings`);
       }
     },
     onError: (rejectError: ApolloError): void => {

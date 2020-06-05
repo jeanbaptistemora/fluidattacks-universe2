@@ -37,7 +37,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
-    push(`/project/${projectName}/drafts/${rowInfo.id}/description`);
+    push(`/groups/${projectName}/drafts/${rowInfo.id}/description`);
   };
 
   const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (): void => {

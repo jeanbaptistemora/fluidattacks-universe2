@@ -83,7 +83,7 @@ def send_unsolved_events_email(project: str):
     context_event: Dict[str, Union[str, int]] = {
         'project': project.capitalize(),
         'events_len': int(len(events_info_for_email)),
-        'event_url': f'{BASE_URL}/project/{project}/events'}
+        'event_url': f'{BASE_URL}/groups/{project}/events'}
     if context_event['events_len'] and mail_to:
         send_mail_unsolved_events(mail_to, context_event)
 
@@ -94,7 +94,7 @@ def get_external_recipients(project: str) -> List[str]:
 
 
 def get_finding_url(finding: Dict[str, str]) -> str:
-    url = '{url!s}/project/{project!s}/' '{finding!s}/description' \
+    url = '{url!s}/groups/{project!s}/' '{finding!s}/description' \
         .format(url=BASE_URL,
                 project=finding['project_name'],
                 finding=finding['finding_id'])
@@ -276,7 +276,7 @@ def get_new_vulnerabilities():
                     context['updated_findings'].append({'finding_name': finding_text,
                                                         'finding_url': finding_url})
                 context['project'] = str.upper(str(act_finding['project_name']))
-                context['project_url'] = '{url!s}/project/' \
+                context['project_url'] = '{url!s}/groups/' \
                     '{project!s}/indicators' \
                     .format(url=BASE_URL, project=act_finding['project_name'])
         except (TypeError, KeyError):
@@ -364,7 +364,7 @@ def get_remediated_findings():
                 context['findings'].append({
                     'finding_name': finding['finding'],
                     'finding_url':
-                    '{url!s}/project/{project!s}/{finding!s}/description'
+                    '{url!s}/groups/{project!s}/{finding!s}/description'
                         .format(url=BASE_URL,
                                 project=str.lower(str(finding['project_name'])),
                                 finding=finding['finding_id']),
@@ -430,7 +430,7 @@ def get_new_releases():
                         email_context[category].append({
                             'finding_name': finding.get('finding'),
                             'finding_url':
-                            '{url!s}/project/{project!s}/drafts/'
+                            '{url!s}/groups/{project!s}/drafts/'
                             '{finding!s}/description'
                                 .format(url=BASE_URL,
                                         project=project,

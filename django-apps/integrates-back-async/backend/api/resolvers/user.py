@@ -96,7 +96,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
     if group and user_domain.update_project_access(email, group, True):
         description = project_domain.get_description(group.lower())
         project_url = \
-            f'{BASE_URL}/project/{group.lower()}/indicators'
+            f'{BASE_URL}/groups/{group.lower()}/indicators'
         mail_to = [email]
         context = {
             'admin': email,

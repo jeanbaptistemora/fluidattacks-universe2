@@ -55,7 +55,7 @@ def send_mail(project_name: str, user_email: str,
         'action': action,
         'resource_type': resource_type,
         'resource_list': resource_description,
-        'project_url': f'{BASE_URL}/project/{project_name}/resources'
+        'project_url': f'{BASE_URL}/groups/{project_name}/resources'
     }
     threading.Thread(name='Remove repositories email thread',
                      target=send_mail_resources,

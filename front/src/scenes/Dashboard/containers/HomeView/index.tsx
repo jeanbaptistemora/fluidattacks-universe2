@@ -48,7 +48,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   const { push } = useHistory();
 
   const goToProject: ((projectName: string) => void) = (projectName: string): void => {
-    push(`/project/${projectName.toLowerCase()}/indicators`);
+    push(`/groups/${projectName.toLowerCase()}/indicators`);
   };
 
   const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
@@ -92,7 +92,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   });
 
   const displayTag: ((choosedTag: string) => void) = (choosedTag: string): void => {
-    push(`/portfolio/${choosedTag.toLowerCase()}/indicators`);
+    push(`/portfolios/${choosedTag.toLowerCase()}/indicators`);
   };
 
   const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (

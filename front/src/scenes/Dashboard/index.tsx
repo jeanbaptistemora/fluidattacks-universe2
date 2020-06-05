@@ -100,14 +100,17 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
               <Switch>
                 <Route path="/home" exact={true} component={HomeView} />
                 <Route path="/reports" component={ReportsView} />
-                <Route path="/project/:projectName">
+                <Route path="/groups/:projectName">
                   <authzContext.Provider value={groupLevelPermissions}>
                     <ProjectRoute />
                   </authzContext.Provider>
                 </Route>
-                <Route path="/portfolio/:tagName" component={TagContent} />
+                <Route path="/portfolios/:tagName" component={TagContent} />
                 {/* Necessary to support hashrouter URLs */}
                 <Redirect path="/dashboard" to={hash.replace("#!", "")} />
+                {/* Necessary to support old URLs with entities in singular */}
+                <Redirect path="/portfolio/:tagName/*" to="/portfolios/:tagName/*" />
+                <Redirect path="/project/:projectName/*" to="/groups/:projectName/*" />
                 <Redirect to="/home" />
               </Switch>
             </div>

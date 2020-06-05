@@ -16,7 +16,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   const { push } = useHistory();
   const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
     const projectName: string = values.projectName.toLowerCase();
-    if (!_.isEmpty(projectName)) { push(`/project/${projectName}/indicators`); }
+    if (!_.isEmpty(projectName)) { push(`/groups/${projectName}/indicators`); }
   };
 
   const pathData: string[] = props.location.pathname.split("/")

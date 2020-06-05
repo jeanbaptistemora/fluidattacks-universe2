@@ -155,7 +155,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
-    push(`/project/${projectName}/events/${rowInfo.id}/description`);
+    push(`/groups/${projectName}/events/${rowInfo.id}/description`);
   };
 
   const [isEventModalOpen, setEventModalOpen] = React.useState(false);

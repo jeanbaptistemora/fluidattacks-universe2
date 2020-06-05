@@ -23,7 +23,7 @@ const forcesIndicatorsView: React.FC<IForcesIndicatorsViewBaseProps> =
   const { push } = useHistory();
 
   const goToProjectForces: (() => void) = (): void => {
-    push(`/project/${projectName}/forces`);
+    push(`/groups/${projectName}/forces`);
   };
 
   const handleQryResult: ((qrResult: IForcesIndicatorsProps) => void) = (qrResult: IForcesIndicatorsProps): void => {

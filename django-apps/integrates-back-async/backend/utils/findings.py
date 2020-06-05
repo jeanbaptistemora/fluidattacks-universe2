@@ -170,7 +170,7 @@ def send_finding_verified_email(finding_id: str, finding_name: str, project_name
             'project': project_name,
             'finding_name': finding_name,
             'finding_url':
-                f'{BASE_URL}/project/{project_name}/findings/{finding_id}/tracking',
+                f'{BASE_URL}/groups/{project_name}/findings/{finding_id}/tracking',
             'finding_id': finding_id
         }))
 
@@ -206,7 +206,7 @@ def send_remediation_email(user_email: str, finding_id: str, finding_name: str,
             'project': project_name.lower(),
             'finding_name': finding_name,
             'finding_url':
-                f'{BASE_URL}/project/{project_name}/{finding_id}/description',
+                f'{BASE_URL}/groups/{project_name}/{finding_id}/description',
             'finding_id': finding_id,
             'user_email': user_email,
             'solution_description': justification
@@ -246,7 +246,7 @@ def send_draft_reject_mail(draft_id: str, project_name: str, discoverer_email: s
         'admin_mail': reviewer_email,
         'analyst_mail': discoverer_email,
         'draft_url':
-            f'{BASE_URL}/project/{project_name}/drafts/{draft_id}/description',
+            f'{BASE_URL}/groups/{project_name}/drafts/{draft_id}/description',
         'finding_id': draft_id,
         'finding_name': finding_name,
         'project': project_name
@@ -269,7 +269,7 @@ def send_new_draft_mail(
         'finding_id': finding_id,
         'finding_name': finding_title,
         'finding_url':
-            f'{BASE_URL}/project/{project_name}/drafts/{finding_id}/description',
+            f'{BASE_URL}/groups/{project_name}/drafts/{finding_id}/description',
         'project': project_name
     }
     email_send_thread = threading.Thread(

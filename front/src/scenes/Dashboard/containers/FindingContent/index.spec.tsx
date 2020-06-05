@@ -622,7 +622,7 @@ describe("FindingContent", () => {
     expect(msgSuccess)
       .toHaveBeenCalled();
     expect(mockHistoryReplace)
-      .toHaveBeenCalledWith("/project/test/findings");
+      .toHaveBeenCalledWith("/groups/test/findings");
   });
 
   it("should handle deletion errors", async () => {

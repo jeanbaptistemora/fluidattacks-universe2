@@ -152,7 +152,7 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
         email_context['finding_name'] = str(finding.get('finding', ''))
         comment_url = (
             BASE_URL +
-            '/project/{project}/{finding_type}/{id}/{comment_type}s'.format(
+            '/groups/{project}/{finding_type}/{id}/{comment_type}s'.format(
                 comment_type=comment_type,
                 finding_type='findings' if is_draft else 'drafts',
                 id=finding.get('findingId'),
@@ -166,13 +166,13 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
         email_context['finding_id'] = event_id
         email_context['finding_name'] = f'Event #{event_id}'
         comment_url = (
-            f'{BASE_URL}/project/{project_name}/events/{event_id}/comments')
+            f'{BASE_URL}/groups/{project_name}/events/{event_id}/comments')
 
     elif entity_name == 'project':
         project_name = str(entity)
         recipients = get_email_recipients(project_name, True)
         comment_url = (
-            f'{BASE_URL}/project/{project_name}/comments')
+            f'{BASE_URL}/groups/{project_name}/comments')
 
     email_context['comment_url'] = comment_url
     email_context['project'] = project_name
