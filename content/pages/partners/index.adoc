@@ -146,4 +146,4 @@ a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissingli
 
 If you agree with the [inner]#link:terms/[terms]#
 of our general partner agreement and would like to become a partner,
-please submit the following contact [inner]#link:../contact-us/[form]#.
+please submit the following link:../../contact-us/[Contact Form].
