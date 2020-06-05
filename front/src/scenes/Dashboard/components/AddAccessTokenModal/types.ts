@@ -23,5 +23,5 @@ export interface IGetAccessTokenAttr {
 
 export interface IGetAccessTokenDictAttr {
   hasAccessToken: boolean;
-  issuedAt: number;
+  issuedAt: string;
 }
