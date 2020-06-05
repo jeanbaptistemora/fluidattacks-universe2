@@ -340,6 +340,10 @@ def _write_aws_credentials(profile: str,
     :param delete_default: Delete default credentials.
     """
     creds_file: str = f"{os.environ['HOME']}/.aws/credentials"
+    if not os.path.exists(creds_file):
+        with contextlib.suppress(FileExistsError):
+            os.mkdir(f"{os.environ['HOME']}/.aws/")
+        open(creds_file, 'w').close()
     config: ConfigParser = ConfigParser()
     config.read(creds_file)
     if not config.has_section(profile):
@@ -366,12 +370,16 @@ def _get_aws_credentials(profile: str) -> Dict:
         creds: Dict = {}
     else:
         profile_data = config[profile]
-        creds = {
-            'AccessKeyId': profile_data['aws_access_key_id'],
-            'SecretAccessKey': profile_data['aws_secret_access_key'],
-            'SessionToken': profile_data['aws_session_token'],
-            'Expiration': profile_data['aws_session_token_expiration']
-        }
+        if profile_data.get('aws_session_token_expiration', None):
+            creds = {
+                'AccessKeyId': profile_data['aws_access_key_id'],
+                'SecretAccessKey': profile_data['aws_secret_access_key'],
+                'SessionToken': profile_data['aws_session_token'],
+                'Expiration': profile_data['aws_session_token_expiration']
+            }
+        else:
+            creds = {}
+
     return creds
 
 
