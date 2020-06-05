@@ -568,7 +568,7 @@ def update_tags_indicators():
     }
     for organization in all_organization:
         try:
-            tag_domain.update_organization_indicators(organization, projects)
+            async_to_sync(tag_domain.update_organization_indicators)(organization, projects)
         except ClientError:
             rollbar.report_message(
                 'Error: An error ocurred updating tag '

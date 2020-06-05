@@ -1,24 +1,35 @@
+import asyncio
 from collections import defaultdict
 from typing import Dict, List, Union, cast
 from decimal import Decimal
+from asgiref.sync import sync_to_async
 from backend.dal import tag as tag_dal
 from backend.domain import finding as finding_domain, project as project_domain
 
 
-def update_organization_indicators(company: str,
-                                   projects: List[Dict[str, str]]) -> bool:
+async def update_organization_indicators(company: str,
+                                         projects: List[Dict[str, str]]) -> bool:
     success = []
     company_projects = \
         [project for project in projects
          if company in
          [proj_company.lower() for proj_company in project.get('companies', [])]]
     tags_dict: Dict[str, List[Dict[str, Union[str, float]]]] = defaultdict(list)
-    for project in company_projects:
-        findings = finding_domain.get_findings(
-            project_domain.list_findings(project.get('project_name', '')))
-        project_data: Dict[str, Union[str, float]] = cast(
-            Dict[str, Union[str, float]],
-            project_domain.get_attributes(project.get('project_name', ''), [
+    finding_lists = await asyncio.gather(*[
+        sync_to_async(project_domain.list_findings)(
+            project.get('project_name', '')
+        )
+        for project in company_projects
+    ])
+    project_findings = await asyncio.gather(*[
+        sync_to_async(finding_domain.get_findings)(
+            finding_list
+        )
+        for finding_list in finding_lists
+    ])
+    project_datas = await asyncio.gather(*[
+        sync_to_async(project_domain.get_attributes)(
+            project.get('project_name', ''), [
                 'max_open_severity',
                 'mean_remediate',
                 'mean_remediate_critical_severity',
@@ -26,15 +37,21 @@ def update_organization_indicators(company: str,
                 'mean_remediate_low_severity',
                 'mean_remediate_medium_severity',
                 'last_closing_date',
-            ])
+            ]
         )
-        max_severity: float = max(
+        for project in company_projects
+    ])
+    max_severities = [
+        max(
             [cast(float, finding.get('severityCvss', 0)) for finding in findings]
         ) if findings else 0
-        project_data['max_severity'] = max_severity
-        project_data['name'] = project.get('project_name', '')
+        for findings in project_findings
+    ]
+    for index, project in enumerate(company_projects):
+        project_datas[index]['max_severity'] = max_severities[index]
+        project_datas[index]['name'] = project.get('project_name', '')
         for tag in project.get('tag', []):
-            tags_dict[tag].append(project_data)
+            tags_dict[tag].append(project_datas[index])
     for tag in tags_dict:
         tag_info: Dict[str, Union[List[str], Decimal]] = {
             'max_open_severity': max(
