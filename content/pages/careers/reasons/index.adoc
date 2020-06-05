@@ -81,19 +81,19 @@ The first three `Debian` developers in Colombia work with `Fluid Attacks`.
 Compared to other companies,
 `Fluid Attacks` has the highest percentage
 of employees certified in
-link:../../services/certifications/#certified-ethical-hacker-(ceh)[`CEH`] and
-link:../../services/certifications/#offensive-security-wireless-professional-(oswp)[`OSCP`]
+link:../../about-us/certifications/#certified-ethical-hacker-(ceh)[`CEH`] and
+link:../../about-us/certifications/#offensive-security-wireless-professional-(oswp)[`OSWP`].
 The majority of the team members
 of the Latin American Security Wargames Championship work with us.
 Additionally, our employees have important certifications such as
-link:../../services/certifications/#certified-ethical-hacker-(ceh)[`CEH`],
-link:../../services/certifications/#offensive-security-wireless-professional-(oswp)[`OSCP`],
-link:../../services/certifications/#certified-information-systems-auditor-(cisa)[`CISA`],
-link:../../services/certifications/#certified-information-security-manager-(cism)[`CISM`],
-link:../../services/certifications/#giac-information-security-professional-(gisp)[`GISP`],
-link:../../services/certifications/#certified-information-systems-security-professional-(cissp)[`CISSP`]
-link:../../services/certifications/#comptia-security`[`CompTIA Security``] and
-link:../../services/certifications/#information-technology-infrastructure-library-certification-(itil)[`ITIL`].
+link:../../about-us/certifications/#certified-ethical-hacker-(ceh)[`CEH`],
+link:../../about-us/certifications/#offensive-security-certified-professional-(oscp)[`OSCP`],
+link:../../about-us/certifications/#certified-information-systems-auditor-(cisa)[`CISA`],
+link:../../about-us/certifications/#certified-information-security-manager-(cism)[`CISM`],
+link:../../about-us/certifications/#giac-information-security-professional-(gisp)[`GISP`],
+link:../../about-us/certifications/#certified-information-systems-security-professional-(cissp)[`CISSP`]
+link:../../about-us/certifications/#comptia-security+[`CompTIA Security+`] and
+link:../../about-us/certifications/#information-technology-infrastructure-library-certification-(itil)[`ITIL`].
 
 == Socially responsible
 
