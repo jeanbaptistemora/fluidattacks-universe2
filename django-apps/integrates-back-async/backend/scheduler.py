@@ -467,7 +467,8 @@ def get_project_indicators(project: str) -> Dict[str, object]:
     findings = project_domain.get_released_findings(
         project, 'finding_id, historic_treatment, cvss_temporal')
     indicators = {
-        'closed_vulnerabilities': project_domain.get_closed_vulnerabilities(project),
+        'closed_vulnerabilities': async_to_sync(
+            project_domain.get_closed_vulnerabilities)(project),
         'last_closing_date': async_to_sync(project_domain.get_last_closing_vuln)(findings),
         'mean_remediate': async_to_sync(project_domain.get_mean_remediate)(findings),
         'mean_remediate_critical_severity': async_to_sync(

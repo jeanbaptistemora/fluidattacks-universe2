@@ -821,12 +821,18 @@ async def get_open_vulnerabilities(project_name: str) -> int:
     return len(open_vulnerabilities)
 
 
-def get_closed_vulnerabilities(project_name: str) -> int:
+async def get_closed_vulnerabilities(project_name: str) -> int:
     findings = list_findings(project_name)
     vulns = vuln_domain.list_vulnerabilities(findings)
+    last_approved_status = await asyncio.gather(*[
+        sync_to_async(vuln_domain.get_last_approved_status)(
+            vuln
+        )
+        for vuln in vulns
+    ])
     closed_vulnerabilities = [
         1 for vuln in vulns
-        if vuln_domain.get_last_approved_status(vuln) == 'closed'
+        if last_approved_status.pop(0) == 'closed'
     ]
     return len(closed_vulnerabilities)
 
