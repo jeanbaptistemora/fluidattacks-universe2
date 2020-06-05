@@ -72,7 +72,7 @@ and always know what component or part of this methodology we are referring to.
 == Exploring a bit of DevOps
 
 So, for instance, let's expand what is said in *C1*, *C2*, and *C3*.
-As our `CTO`, Rafael Alvarez, explains in [inner]#link:../../events/burn-the-datacenter/[one of his conferences]#,
+As our `CTO`, Rafael Alvarez, explains in [inner]#link:../../about-us/events/burn-the-datacenter/[one of his conferences]#,
 there are typically two teams in companies
 where software is created and sold as a product or as a service.
 A team of developers and a team of operators.
