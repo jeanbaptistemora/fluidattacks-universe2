@@ -4,7 +4,7 @@
 
 = Resources
 
-== link:[Rules]
+== link:../rules/[Rules]
 
 *Rules* is a set of security requirements
 that allows you to parameterize a pentest
@@ -17,7 +17,7 @@ that looks for deterministic and peripheral vulnerabilities,
 and that automates attacks
 to verify the status of vulnerabilities on your system.
 
-== link:[Annual Report 2020]
+== link:https://report2020.fluidattacks.com/[Annual Report 2020]
 
 == link:[Drills Datasheet]
 
