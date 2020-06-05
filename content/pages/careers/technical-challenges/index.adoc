@@ -213,8 +213,8 @@ of why these challenges are important,
 you can proceed to the [inner]#link:https://gitlab.com/fluidattacks/writeups/wikis/Submission[Submission guide]#
 and start posting your solutions. Good luck!
 
-== 10. keywords
+== 10. Keywords
 
-. `ToE`: link:https://csrc.nist.gov/glossary/term/target-of-evaluation[Target Of Evaluation]
+. `ToE`: link:https://csrc.nist.gov/glossary/term/target_of_evaluation[Target of Evaluation]
 . `VBD`: Vulnerable by design
 . `CTF`: link:https://ctftime.org/ctf-wtf/[Capture The Flag]
