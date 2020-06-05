@@ -10,7 +10,7 @@
 
 The system transmits information through a channel without encryption.
 This allows attackers to capture confidential information and credentials in
-cleartext.
+clear text.
 
 == Rules
 

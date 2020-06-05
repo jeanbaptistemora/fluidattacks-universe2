@@ -8,7 +8,7 @@
 
 == Description
 
-A cryptographic key can be found in cleartext in the source code and it is not
+A cryptographic key can be found in clear text in the source code and it is not
 obtained from a source that guarantees its confidentiality.
 
 == Rules

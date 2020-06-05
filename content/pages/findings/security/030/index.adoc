@@ -12,7 +12,7 @@ The system sends sensitive information via URL parameters using the GET
 method.
 These parameters:
 
-* are stored in cleartext in the browser history.
+* are stored in clear text in the browser history.
 * are sent to external sites via the referrer HTTP header.
 * are sent to external sites via the search bar if the browser interprets the
 URL as query.

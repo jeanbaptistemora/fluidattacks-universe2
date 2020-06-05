@@ -17,7 +17,7 @@ Session IDs are sensitive information that may allow an attacker to steal,
 modify and/or destroy information once they get one.
 Information sent via URL parameters is:
 
-* stored in cleartext in the browser history.
+* stored in clear text in the browser history.
 * sent to external sites via the referrer HTTP header.
 * sent to external sites via the search bar if the browser interprets the
 URL as query.
