@@ -110,9 +110,11 @@ def get_status_vulns_by_time_range(
         historic_states = cast(List[Dict[str, str]], vuln['historic_state'])
         last_state = vuln_domain.get_last_approved_state(vuln)
 
-        if last_state and first_day <= last_state['date'] <= last_day and \
-           last_state['state'] == 'closed':
-            resp['closed'] += 1
+        if last_state and first_day <= last_state['date'] <= last_day:
+            if last_state['state'] == 'closed':
+                resp['closed'] += 1
+            elif last_state['state'] == 'DELETED':
+                resp['found'] -= 1
         if first_day <= historic_states[0]['date'] <= last_day:
             resp['found'] += 1
     resp['accepted'] = get_accepted_vulns(
