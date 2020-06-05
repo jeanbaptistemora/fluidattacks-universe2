@@ -75,18 +75,18 @@ link:http://www.uniminuto.edu/[Uniminuto Bogotá]
 
 * *IT Vendor Enterprises*
 link:https://www.arus.com.co/[ARUS],
-link:http://www.cadena.com.co/es/home.aspx[Cadena],
+link:https://www.cadena.com.co/[Cadena],
 link:https://www.choucairtesting.com/[Choucair Testing],
-link:https://outsourcing.cidenet.com.co/home/[Cidenet],
-link:http://www.cognox.co/sitios/Cognox/default.aspx[Cognox],
+link:https://cidenet.com.co/[Cidenet],
+link:http://www.cognox.com/[Cognox],
 link:http://flypass.com.co/[Flypass],
-link:http://gluky.co/[Gluky],
+link:http://gluky.com/[Gluky],
 link:http://www.internexa.com/Paginas/Home.aspx[Internexa],
 link:https://www.kometsales.com/[Komet Sales],
 link:http://perceptio.co/[Perceptio],
 link:http://www.mareigua.com/[Mareigua],
 link:http://novit.pe/[NovitIT Peru],
-link:http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[SETI],
+link:https://seti.com.co/[SETI],
 link:https://www.todo1services.com/[Todo1].
 
 * *Open spaces* link:https://www.rutanmedellin.org/es/[RutaN],

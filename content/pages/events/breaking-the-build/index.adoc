@@ -28,8 +28,7 @@ or *habits* that allow us to implement a `SecDevOps` culture
 in the execution of our projects;
 from the infrastructure management
 to the development of our orchestration platform
-for vulnerabilities remediation:
-[button]#link:../../products/integrates/[Integrates]#.
+for vulnerabilities remediation: link:../../../products/integrates/[Integrates].
 
 These habits allow us not only to increase our productivity,
 and daily generate value to our customers,
@@ -151,7 +150,7 @@ link:https://www.avianca.com/co/es/[`Avianca`],
 link:https://www.grupobancolombia.com/wps/portal/personas[`Bancolombia`],
 link:https://www.banistmo.com/[`Banitsmo`],
 link:https://www.biva.mx/en/web/portal-biva/home[`BIVA`],
-link:http://www.cadena.com.co/es/home.aspx[`Cadena`],
+link:https://www.cadena.com.co/[`Cadena`],
 link:http://cidenet.com.co/[`Cidenet`],
 link:https://www.colpatria.com/[`Colpatria`],
 link:http://www.cognox.co[`Cognox`],
@@ -164,10 +163,10 @@ link:https://www.grupoaval.com/wps/portal/grupo-aval/aval/[`Grupo AVAL`],
 link:https://www.grupoexito.com.co/es/[`Grupo Éxito`],
 link:https://interbank.pe/[`Interbank`],
 link:https://www.kometsales.com/[`Komet Sales`],
-link:https://www.payvalida.com/co/es/[`Pay valida`],
+link:https://www.payvalida.com/[`Pay valida`],
 link:https://www.proteccion.com/wps/portal/proteccion/[`Protección`],
 link:https://www.runt.com.co/[`RUNT`],
-link:http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[`Seti`]
+link:https://seti.com.co/[`Seti`]
 and link:http://www.techandsolve.com/[`Tech and Solve`].
 
 == 4. Where?
