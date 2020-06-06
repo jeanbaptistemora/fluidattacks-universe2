@@ -21,3 +21,5 @@ Alternatively, the application uses insecure encryption algorithms.
 . [[r3]] [inner]#link:/web/rules/150/[R150. Set minimum size for hash functions]#
 
 . [[r4]] [inner]#link:/web/rules/181/[R181. Transmit data using secure protocols]#
+
+. [[r5]] [inner]#link:/web/rules/336/[R336. Disable insecure TLS versions]#
