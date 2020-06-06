@@ -92,7 +92,7 @@ Is to assess your strengths through the Clifton Strengths Finder test.
 This is mandatory and requires an estimated effort of 40 to 45 minutes.
 To do this you must first finish the previous stage.
 To begin,
-you must write us an email at careers@autonomicmind.com
+you must write us an email at careers@fluidattacks.com
 
 == 8. Challenges
 
@@ -127,13 +127,13 @@ through a video interview.
 Requires an estimated effort of 25 to 30 minutes.
 To do this you must first finish the previous stage.
 To begin,
-write us an email at careers@autonomicmind.com
+write us an email at careers@fluidattacks.com
 . *On-site Interview:* The goal of this stage
 is to set up a meeting where we can get to know you personally.
 Requires an estimated effort of 25 to 30 minutes.
 To do this you must first finish the previous stage.
 To begin,
-write us an email at careers@autonomicmind.com
+write us an email at careers@fluidattacks.com
 
 == 10. Immersion
 
@@ -143,7 +143,7 @@ in programming and hacking challenges,
 paid for by `Fluid Attacks`.
 This is mandatory and requires an effort
 that is determined based on your knowledge.
-To begin, write us an email at careers@autonomicmind.com
+To begin, write us an email at careers@fluidattacks.com
 and read these detailed [inner]#link:immersion/[instructions]#
 
 == 11. References
@@ -164,7 +164,7 @@ for this reason, we may require you to take this kind of test
 during the selection process.
 This step is optional and requires an average effort of `2` hours.
 To start, you must have finished the previous stage,
-write us an email at careers@autonomicmind.com
+write us an email at careers@fluidattacks.com
 and we will provide further information about the test.
 
 == 13. Audition
@@ -177,7 +177,7 @@ This is optional and requires an estimated effort of 4 hours
 to prepare a 20 minute presentation.
 To do this you do not need to finish the previous stage.
 To begin,
-write us an email at careers@autonomicmind.com
+write us an email at careers@fluidattacks.com
 
 == 14. Offer
 

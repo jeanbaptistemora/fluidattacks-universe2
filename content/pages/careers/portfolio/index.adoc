@@ -25,7 +25,7 @@ Requirements for the portfolio:
 . The portfolio must be delivered in a `PDF` format
 through the application form.
 In case you experience any trouble,
-you can also submit it via email to careers@autonomicmind.com.
+you can also submit it via email to careers@fluidattacks.com.
 . The portfolio is not a `CV`.
 Do not use your `CV` as a substitute for the portfolio.
 . The portfolio must contain your top `5` achievements,

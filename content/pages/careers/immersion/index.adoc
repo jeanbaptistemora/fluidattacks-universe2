@@ -206,7 +206,7 @@ Your training minimum is `8` hours per week.
 This stage begins when:
 
 . You finish the link:../technical-challenges/[technical challenge stage]
-. Send us an email (careers@autonomicmind.com) with the following:
+. Send us an email (careers@fluidattacks.com) with the following:
 .
 [quote]
 ____________________________________________________________________
@@ -240,4 +240,4 @@ The immersion stage ends if:
 link:#criteria[criteria] defined in this stage.
 
 If you have any questions,
-don’t hesitate to contact us at careers@autonomicmind.com.
+don't hesitate to contact us at careers@fluidattacks.com.

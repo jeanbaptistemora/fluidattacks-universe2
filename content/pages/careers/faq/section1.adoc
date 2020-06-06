@@ -17,7 +17,7 @@ classify them, and send invitations via email.
 If you apply and have not received an invitation
 or other notification after 2 consecutive business days,
 and you believe your profile fits the position,
-send us an email query at careers@autonomicmind.com.
+send us an email query at careers@fluidattacks.com.
 
 ==== 2. The test application won't allow me to exit Moodle. What should I do?
 
@@ -35,14 +35,14 @@ if you already have one.
 
 ==== 4. I don’t know what position I applied for. How can I find out?
 
-Ask us via email at careers@autonomicmind.com.
+Ask us via email at careers@fluidattacks.com.
 
 ==== 5. If I already applied for a specific position, can I apply again?
 
 *Using the same application but for different positions?*
 
 Yes. If it has not been more than six months,
-you can send us an email at career@autonomicmind.com
+you can send us an email at careers@fluidattacks.com
 telling us you want to apply for a different position
 using your original application.
 If it has been more than six months since your last application
@@ -52,7 +52,7 @@ you must apply again starting at the beginning.
 ==== 6. Can I apply for two different positions at the same time?
 
 Yes. You can apply for as many positions as you believe you qualify for;
-just send us an email via careers@autonomicmind.com
+just send us an email via careers@fluidattacks.com
 telling us which positions you want to apply for.
 
 ==== 7. What experience should I already have in order to apply for positions?
@@ -91,7 +91,7 @@ since all of these are necessary for any role in our organization.
 Try executing the test as an administrator.
 If the problem persists,
 you should try accessing the test from a different computer.
-If you still have problems send us an email via careers@autonomicmind.com.
+If you still have problems send us an email via careers@fluidattacks.com.
 
 ==== 11. I didn’t receive the attached file for data analysis. How do I get it?
 
@@ -101,7 +101,7 @@ Try downloading the file from [inner]#link:../non-technical-challenges/hallazgos
 
 If you have a valid reason
 (application lockouts, unexpected restarts, connection issues),
-send us an email at careers@autonomicmind.com
+send us an email at careers@fluidattacks.com
 explaining what happened
 and we will tell you how to proceed.
 
@@ -109,7 +109,7 @@ and we will tell you how to proceed.
 
 If you believe you have a valid reason
 for not meeting the data analysis deadline,
-send us an email at careers@autonomicmind.com
+send us an email at careers@fluidattacks.com
 telling us why you didn't meet it,
 and ask for a new delivery date.
 
