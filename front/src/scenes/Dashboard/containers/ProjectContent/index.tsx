@@ -81,7 +81,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     </li>
                   </Can>
                   <li id="resourcesTab" className={globalStyle.tab}>
-                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/resources`}>
+                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/settings`}>
                       <i className="icon pe-7s-box1" />
                       &nbsp;{translate.t("group.tabs.resources")}
                     </NavLink>
@@ -97,9 +97,11 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
                   <Route path={`${props.match.path}/forces`} component={ProjectForcesView} exact={true} />
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
-                  <Route path={`${props.match.path}/resources`} component={ProjectSettingsView} exact={true} />
+                  <Route path={`${props.match.path}/settings`} component={ProjectSettingsView} exact={true} />
                   <Route path={`${props.match.path}/users`} component={ProjectUsersView} exact={true} />
                   <Route path={`${props.match.path}/comments`} component={ProjectCommentsView} exact={true} />
+                  {/* Necessary to support old resources URLs */}
+                  <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/settings`} />
                   <Redirect to={`${props.match.path}/indicators`} />
                 </Switch>
               </div>
