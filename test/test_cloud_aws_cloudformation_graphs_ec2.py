@@ -1,6 +1,7 @@
 """Test methods of fluidasserts.cloud.cloudformation.graphs.ec2 module."""
 
 # pylint: disable=W0621
+# pylint: disable=wrong-import-order
 
 # local imports
 from fluidasserts.cloud.aws.cloudformation.graphs import ec2
@@ -38,7 +39,7 @@ def test_has_unrestricted_ports(safe_loader, vuln_loader):
     """test ec2.has_unrestricted_ip_protocols."""
     result = ec2.has_unrestricted_ports(vuln_loader)
     assert result.is_open()
-    assert result.get_vulns_number() == 11
+    assert result.get_vulns_number() == 2 * 3
     assert ec2.has_unrestricted_ports(safe_loader).is_closed()
 
 
@@ -64,3 +65,11 @@ def test_has_not_termination_protection(safe_loader, vuln_loader):
     assert result.is_open()
     assert result.get_vulns_number() == 4 * 3
     assert ec2.has_not_termination_protection(safe_loader).is_closed()
+
+
+def test_has_terminate_shutdown_behavior(safe_loader, vuln_loader):
+    """test ec2.has_terminate_shutdown_behavior."""
+    result = ec2.has_not_termination_protection(vuln_loader)
+    assert result.is_open()
+    assert result.get_vulns_number() == 4 * 3
+    assert ec2.has_terminate_shutdown_behavior(safe_loader).is_closed()

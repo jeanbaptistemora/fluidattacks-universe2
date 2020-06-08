@@ -3,6 +3,9 @@ Parameters:
   DisableFeature:
     Default: false
     Type: String
+  EnablePublicIp:
+    Default: true
+    Type: Boolean
   IpInsecureProtocol:
     Default: '-1'
     Description: Insecure ip protocol
@@ -11,10 +14,17 @@ Parameters:
     Default: 12.34.12.43/16
     Description: Ip of SecurityGroup
     Type: String
+  TerminateInstance:
+    Default: terminate
+    Type: String
 Resources:
   ec2instance1:
     Properties:
       DisableApiTermination: 'false'
+      NetworkInterfaces:
+        - AssociatePublicIpAddress:
+            Ref: EnablePublicIp
+          DeviceIndex: 0
     Type: AWS::EC2::Instance
   ec2instance2:
     Properties:
@@ -29,17 +39,21 @@ Resources:
             - launchTemplate
             - LatestVersionNumber
       NetworkInterfaces:
-        - AssociatePublicIpAddress: 'false'
+        - AssociatePublicIpAddress: 'true'
           DeviceIndex: 0
       SecurityGroups:
         - security-group-test
     Type: AWS::EC2::Instance
   ec2instance3:
+    Properties:
+      InstanceInitiatedShutdownBehavior:
+        Ref: TerminateInstance
     Type: AWS::EC2::Instance
   ec2instance4:
     Properties:
       DisableApiTermination:
         Ref: DisableFeature
+      InstanceInitiatedShutdownBehavior: terminate
     Type: AWS::EC2::Instance
   launchTemplate:
     Properties:

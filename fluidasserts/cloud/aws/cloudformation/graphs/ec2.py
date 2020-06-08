@@ -284,28 +284,30 @@ def has_unrestricted_ports(connection: ConnectionString) -> tuple:
     """
     queries = [
         """
-        MATCH (template:CloudFormationTemplate)-[*2]->(group)-[*1..5]->(rule)
+        MATCH (template:CloudFormationTemplate)-[*2]->(group)-[*1..5]->()-[
+            *1]->(rule)
         WHERE group:SecurityGroupIngress OR group:SecurityGroupEgress OR
             group:SecurityGroup
-        MATCH (rule)-[*1..2]->(:FromPort)-[:REFERENCE]->(
-            )-[:HAS*1..3]->(from), (rule)-[*1..2]->(:ToPort)-[:REFERENCE]->(
+        MATCH (rule)-[*1]->(:FromPort)-[:REFERENCE]->(
+            )-[:HAS*1..3]->(from), (rule)-[*1]->(:ToPort)-[:REFERENCE]->(
             )-[:HAS*1..3]->(to)
         WHERE toInteger(from.value) <> toInteger(to.value)
         WITH DISTINCT rule, template, group, from, to
-        RETURN template.path as path, rule.line as line,
+        RETURN template.path as path, from.line as line,
           group.name as resource, [x IN labels(group) WHERE x IN [
               'SecurityGroupEgress', 'SecurityGroupIngress',
               'SecurityGroup']][0]  as type,
            from.value as fromPort, to.value as toPort
         """,
         """
-        MATCH (template:CloudFormationTemplate)-[*2]->(group)-[*1..5]->(rule)
+        MATCH (template:CloudFormationTemplate)-[*2]->(group)-[*1..5]->()-[
+            *1]->(rule)
         WHERE group:SecurityGroupIngress OR group:SecurityGroupEgress OR
             group:SecurityGroup
-        MATCH (rule)-[*1..2]->(from:FromPort), (rule)-[*1..2]->(to:ToPort)
+        MATCH (rule)-[*1]->(from:FromPort), (rule)-[*1]->(to:ToPort)
         WHERE toInteger(from.value) <> toInteger(to.value)
         WITH DISTINCT rule, template, group, from, to
-        RETURN template.path as path, rule.line as line,
+        RETURN template.path as path, from.line as line,
           group.name as resource, [x IN labels(group) WHERE x IN [
               'SecurityGroupEgress', 'SecurityGroupIngress',
               'SecurityGroup']][0]  as type,
@@ -459,7 +461,7 @@ def has_not_termination_protection(connection: ConnectionString) -> tuple:
         """
         MATCH (template:CloudFormationTemplate)-[*2]->(
             launch:EC2:LaunchTemplate)
-        WHERE NOT exists{ (launch)-[*1..3]->(:DisableApiTermination)}
+        WHERE NOT exists{ (launch)-[*1..3]->(:DisableApiTermination) }
         RETURN template.path as path, launch.line as line, launch.name
             as resource, 'LaunchTemplate' as type
         """,
@@ -527,3 +529,72 @@ def has_not_termination_protection(connection: ConnectionString) -> tuple:
         vulnerabilities=vulnerabilities,
         msg_open='EC2 Launch Templates have API termination enabled',
         msg_closed='EC2 Launch Templates have API termination disabled')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_terminate_shutdown_behavior(connection: ConnectionString) -> tuple:
+    """
+    Verify if ``EC2::LaunchTemplate`` has **Terminate** as Shutdown Behavior.
+
+    By default EC2 Instances can be terminated using the shutdown command,
+    from the underlying operative system.
+
+    This is not desirable, as terminated instances are deleted from the account
+    automatically after some time,
+    personal may take-down the service without intention,
+    and volumes attached to the instance may be lost and therefore wiped.
+
+    :param connection: Connection String to neo4j.
+    :returns: - ``OPEN`` if the instance has not the
+                **InstanceInitiatedShutdownBehavior** attribute set to
+                **terminate**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    queries = [
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            launch:EC2)
+        WHERE launch:LaunchTemplate OR launch:Instance
+        MATCH (launch)-[*1..6]->(behavior:InstanceInitiatedShutdownBehavior)
+        WHERE behavior.value = 'terminate'
+        WITH DISTINCT template, launch, behavior
+        RETURN template.path as path, behavior.line as line, launch.name
+            as resource, [x IN labels(launch) WHERE x IN [
+              'Instance', 'LaunchTemplate']][0] as type
+        """, """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            launch:EC2)
+        WHERE launch:LaunchTemplate OR launch:Instance
+        MATCH (launch)-[*1..6]->(
+            :InstanceInitiatedShutdownBehavior)-[*1..3]->(behavior)
+        WHERE behavior.value = 'terminate'
+        WITH DISTINCT template, launch, behavior
+        RETURN template.path as path, behavior.line as line, launch.name
+            as resource, [x IN labels(launch) WHERE x IN [
+              'Instance', 'LaunchTemplate']][0] as type
+        """
+    ]
+    session = driver_session(connection)
+    query_result = [
+        record for query in queries for record in list(session.run(query))
+    ]
+    for record in query_result:
+        vulnerabilities.append(
+            Vulnerability(
+                path=record['path'],
+                entity=(f'AWS::EC2::{record["type"]}/'
+                        'InstanceInitiatedShutdownBehavior/'),
+                identifier=record['resource'],
+                line=record['line'],
+                reason='has -terminate- as shutdown behavior'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open=('EC2 Launch Templates allows the shutdown command to'
+                  ' terminate the instance'),
+        msg_closed=('EC2 Launch Templates disallow the shutdown command to'
+                    ' terminate the instance'))
