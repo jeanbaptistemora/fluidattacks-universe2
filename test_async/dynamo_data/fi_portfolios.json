@@ -1,5 +1,46 @@
 {
-    "fi_portfolios" : [  
+    "fi_portfolios" : [
+        {
+            "PutRequest" : {
+                "Item" : {
+                    "last_closing_date": {
+                        "N": "20"
+                    },
+                    "mean_remediate": {
+                        "N": "132"
+                    },
+                    "max_open_severity": {
+                        "N": "4.7"
+                    },
+                    "max_severity": {
+                        "N": "6.0"
+                    },
+                    "mean_remediate_critical_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_high_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_low_severity": {
+                        "N": "126"
+                    },
+                    "mean_remediate_medium_severity": {
+                        "N": "113.5"
+                    },
+                    "organization": {
+                        "S": "fluid"
+                    },
+                    "projects" : {
+                        "SS" : [
+                           "unittesting", "oneshottest"
+                        ]
+                     },
+                    "tag": {
+                        "S": "test-updates"
+                    }
+                }
+            }
+        },
         {
             "PutRequest" : {
                 "Item" : {
