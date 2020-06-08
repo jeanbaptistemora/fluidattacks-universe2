@@ -990,13 +990,23 @@ param_insecure_ip_protocol = troposphere.Parameter(
     Description="Insecure ip protocol",
     Type="String",
     Default="-1")
-param_encryption = troposphere.Parameter(
-    'DiskEncryption',
+param_disable = troposphere.Parameter(
+    'DisableFeature',
     Type='String',
     Default=False)
-template.add_parameter(param_encryption)
+param_terminate = troposphere.Parameter(
+    'TerminateInstance',
+    Type='String',
+    Default='terminate')
+param_enable_public_ip = troposphere.Parameter(
+    'EnablePublicIp',
+    Type='Boolean',
+    Default=True)
+template.add_parameter(param_disable)
 template.add_parameter(param_ip_security_group)
 template.add_parameter(param_insecure_ip_protocol)
+template.add_parameter(param_terminate)
+template.add_parameter(param_enable_public_ip)
 
 security_group1 = troposphere.ec2.SecurityGroup(
     title='securityGroup1',
@@ -1033,7 +1043,8 @@ security_group_ingress1 = troposphere.ec2.SecurityGroupIngress(
     FromPort=22,
     ToPort=8080,
     CidrIp='110.229.161.227/16',
-    GroupName='securityGroup2')
+    GroupName='securityGroup2',
+    GroupId=troposphere.Ref(security_group2))
 security_group_ingress2 = troposphere.ec2.SecurityGroupIngress(
     title='securityGroupIngress2',
     IpProtocol='-1',
@@ -1052,13 +1063,48 @@ volume_2 = troposphere.ec2.Volume(
     title='volume2',
     VolumeType='gp2',
     AvailabilityZone=troposphere.Ref('AWS::Region'),
-    Encrypted=troposphere.Ref(param_encryption),
+    Encrypted=troposphere.Ref(param_disable),
     Size=120
 )
-ec2_instance = troposphere.ec2.Instance(
+ec2_instance1 = troposphere.ec2.Instance(
     title='ec2instance1',
-    DisableApiTermination=False)
-
+    DisableApiTermination=False,
+    NetworkInterfaces=[
+        troposphere.ec2.NetworkInterfaceProperty(
+            DeviceIndex=0,
+            AssociatePublicIpAddress=troposphere.Ref(param_enable_public_ip))])
+ec2_instance2 = troposphere.ec2.Instance(
+    title='ec2instance2',
+    DisableApiTermination=True,
+    IamInstanceProfile='iamInstanceProfile1',
+    LaunchTemplate=troposphere.ec2.LaunchTemplateSpecification(
+        LaunchTemplateId=troposphere.Ref(ec2_launch_template),
+        LaunchTemplateName='launchTemplate',
+        Version=troposphere.GetAtt('launchTemplate', 'LatestVersionNumber'),
+    ),
+    NetworkInterfaces=[
+        troposphere.ec2.NetworkInterfaceProperty(
+            DeviceIndex=0,
+            AssociatePublicIpAddress=True,
+        ),
+    ],
+    SecurityGroups=[
+        'security-group-test',
+    ])
+ec2_instance3 = troposphere.ec2.Instance(
+    InstanceInitiatedShutdownBehavior=troposphere.Ref(param_terminate),
+    title='ec2instance3')
+ec2_instance4 = troposphere.ec2.Instance(
+    title='ec2instance4',
+    InstanceInitiatedShutdownBehavior='terminate',
+    DisableApiTermination=troposphere.Ref(param_disable))
+ec2_launch_template1 = troposphere.ec2.LaunchTemplate(
+    title='launchTemplate1',
+    LaunchTemplateName='launchTemplate1',
+    LaunchTemplateData=troposphere.ec2.LaunchTemplateData(
+        DisableApiTermination=troposphere.Ref(param_disable),
+        InstanceInitiatedShutdownBehavior='terminate',
+    ))
 template.add_resource(security_group1)
 template.add_resource(security_group2)
 template.add_resource(security_group_egress1)
@@ -1066,5 +1112,11 @@ template.add_resource(security_group_ingress1)
 template.add_resource(security_group_ingress2)
 template.add_resource(volume_1)
 template.add_resource(volume_2)
-template.add_resource(ec2_instance)
+template.add_resource(ec2_instance1)
+template.add_resource(ec2_instance2)
+template.add_resource(ec2_instance3)
+template.add_resource(ec2_instance4)
+template.add_resource(ec2_launch_template)
+template.add_resource(ec2_launch_template1)
+template.add_resource(ec2_launch_template2)
 write_template(template)

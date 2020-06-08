@@ -11,11 +11,14 @@ from typing import List
 from fluidasserts import MEDIUM
 from fluidasserts import LOW
 from fluidasserts import SAST
+from fluidasserts.cloud.aws.cloudformation import (
+    CloudFormationInvalidTypeError)
 from fluidasserts.cloud.aws.cloudformation import _get_result_as_tuple
 from fluidasserts.cloud.aws.cloudformation import Vulnerability
 from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.db.neo4j_connection import ConnectionString
 from fluidasserts.db.neo4j_connection import database, driver_session
+from fluidasserts.helper import aws as helper
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -598,3 +601,62 @@ def has_terminate_shutdown_behavior(connection: ConnectionString) -> tuple:
                   ' terminate the instance'),
         msg_closed=('EC2 Launch Templates disallow the shutdown command to'
                     ' terminate the instance'))
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def is_associate_public_ip_address_enabled(
+        connection: ConnectionString) -> tuple:
+    """
+    Verify if ``EC2::Instance`` has **NetworkInterfaces** with public IPs.
+
+    :param connection: Connection String to neo4j.
+    :returns: - ``OPEN`` if instance's **NetworkInterfaces** attribute has the
+                **AssociatePublicIpAddress** parameter set to **true**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    queries = [
+        """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            instance:EC2:Instance)-[*1..3]->(:NetworkInterfaces)-[*1..3]->(
+                ip:AssociatePublicIpAddress)
+        WHERE exists(ip.value)
+        RETURN template.tah as path, ip.line as line, instance.name
+          as resource, ip.value as ip_value
+        """, """
+        MATCH (template:CloudFormationTemplate)-[*2]->(
+            instance:EC2:Instance)-[*1..3]->(:NetworkInterfaces)-[*1..3]->(
+                :AssociatePublicIpAddress)-[*1..6]->(ip)
+        WHERE exists(ip.value)
+        RETURN template.tah as path, ip.line as line, instance.name
+          as resource, ip.value as ip_value
+        """
+    ]
+    session = driver_session(connection)
+    query_result = [
+        record for query in queries for record in list(session.run(query))
+    ]
+    for record in query_result:
+        public_ip = record['ip_value']
+        with suppress(CloudFormationInvalidTypeError):
+            public_ip = helper.to_boolean(public_ip)
+
+            if public_ip:
+                vulnerabilities.append(
+                    Vulnerability(
+                        path=record['path'],
+                        entity=('AWS::EC2::Instance/'
+                                'NetworkInterfaces/'
+                                'AssociatePublicIpAddress/'
+                                f'{public_ip}'),
+                        identifier=record['resource'],
+                        line=record['line'],
+                        reason='associates public IP on launch'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 instances will be launched with public ip addresses',
+        msg_closed='EC2 instances won\'t be launched with public ip addresses')
