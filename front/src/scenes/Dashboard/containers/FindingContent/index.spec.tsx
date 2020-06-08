@@ -71,6 +71,7 @@ describe("FindingContent", () => {
         data: {
           finding: {
             closedVulns: 0,
+            exploit: "Asserts Code",
             historicState: [
               {
                 analyst: "someone@fluidattacks.com",
@@ -108,6 +109,7 @@ describe("FindingContent", () => {
       data: {
         finding: {
           closedVulns: 0,
+          exploit: "",
           historicState: [
             {
               analyst: "someone@fluidattacks.com",

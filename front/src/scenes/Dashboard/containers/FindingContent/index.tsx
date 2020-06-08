@@ -14,7 +14,7 @@ import { useAbility } from "@casl/react";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
@@ -25,6 +25,8 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
+import { ContentTab } from "../../components/ContentTab";
+import { default as style } from "../../components/ContentTab/index.css";
 import { FindingActions } from "../../components/FindingActions";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
@@ -35,7 +37,6 @@ import { ExploitView } from "../ExploitView/index";
 import { RecordsView } from "../RecordsView/index";
 import { SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
-import { default as style } from "./index.css";
 import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER,
   REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
@@ -196,6 +197,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   if (_.isUndefined(headerData) || _.isEmpty(headerData)) { return <React.Fragment />; }
 
   const isDraft: boolean = _.isEmpty(headerData.finding.releaseDate);
+  const hasExploit: boolean = !_.isEmpty(headerData.finding.exploit);
   const hasVulns: boolean = _.sum([headerData.finding.openVulns, headerData.finding.closedVulns]) > 0;
   const hasHistory: boolean = !_.isEmpty(headerData.finding.historicState);
   const hasSubmission: boolean = hasHistory
@@ -234,55 +236,57 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   status={headerData.finding.state}
                 />
                 <ul className={style.tabsContainer}>
-                  <li id="infoItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/description`}>
-                      <i className="icon pe-7s-note2" />
-                      &nbsp;{translate.t("search_findings.tab_description.tab_title")}
-                    </NavLink>
-                  </li>
-                  <li id="cssv2Item" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/severity`}>
-                      <i className="icon pe-7s-calculator" />
-                      &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
-                    </NavLink>
-                  </li>
-                  <li id="evidenceItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/evidence`}>
-                      <i className="icon pe-7s-photo" />
-                      &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
-                    </NavLink>
-                  </li>
-                  <li id="exploitItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/exploit`}>
-                      <i className="icon pe-7s-file" />
-                      &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
-                    </NavLink>
-                  </li>
-                  <li id="trackingItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/tracking`}>
-                      <i className="icon pe-7s-graph1" />
-                      &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
-                    </NavLink>
-                  </li>
-                  <li id="recordsItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/records`}>
-                      <i className="icon pe-7s-notebook" />
-                      &nbsp;{translate.t("search_findings.tab_records.tab_title")}
-                    </NavLink>
-                  </li>
-                  <li id="commentItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
-                      <i className="icon pe-7s-comment" />
-                      &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
-                    </NavLink>
-                  </li>
+                  <ContentTab
+                    icon="icon pe-7s-note"
+                    id="infoItem"
+                    link={`${props.match.url}/description`}
+                    title={translate.t("search_findings.tab_description.tab_title")}
+                  />
+                  <ContentTab
+                    icon="icon pe-7s-calculator"
+                    id="cssv2Item"
+                    link={`${props.match.url}/severity`}
+                    title={translate.t("search_findings.tab_severity.tab_title")}
+                  />
+                  <ContentTab
+                    icon="icon pe-7s-photo"
+                    id="evidenceItem"
+                    link={`${props.match.url}/evidence`}
+                    title={translate.t("search_findings.tab_evidence.tab_title")}
+                  />
+                  { hasExploit || permissions.can("backend_api_resolvers_finding__do_update_evidence")
+                    ? <ContentTab
+                        icon="icon pe-7s-file"
+                        id="exploitItem"
+                        link={`${props.match.url}/exploit`}
+                        title={translate.t("search_findings.tab_exploit.tab_title")}
+                    />
+                   : undefined }
+                  <ContentTab
+                    icon="icon pe-7s-graph1"
+                    id="trackingItem"
+                    link={`${props.match.url}/tracking`}
+                    title={translate.t("search_findings.tab_tracking.tab_title")}
+                  />
+                  <ContentTab
+                    icon="icon pe-7s-notebook"
+                    id="recordsItem"
+                    link={`${props.match.url}/records`}
+                    title={translate.t("search_findings.tab_records.tab_title")}
+                  />
+                  <ContentTab
+                    icon="icon pe-7s-comment"
+                    id="commentItem"
+                    link={`${props.match.url}/comments`}
+                    title={translate.t("search_findings.tab_comments.tab_title")}
+                  />
                   <Can do="backend_api_resolvers_finding__get_observations">
-                    <li id="observationsItem" className={style.tab}>
-                      <NavLink activeClassName={style.active} to={`${props.match.url}/observations`}>
-                        <i className="icon pe-7s-note" />
-                        &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
-                      </NavLink>
-                    </li>
+                    <ContentTab
+                      icon="icon pe-7s-note"
+                      id="observationsItem"
+                      link={`${props.match.url}/observations`}
+                      title={translate.t("search_findings.tab_observations.tab_title")}
+                    />
                   </Can>
                 </ul>
               </div>

@@ -5,6 +5,7 @@ export const GET_FINDING_HEADER: DocumentNode = gql`
   query GetFindingHeader($findingId: String!, $canGetHistoricState: Boolean!) {
     finding(identifier: $findingId) {
       closedVulns: closedVulnerabilities
+      exploit
       id
       openVulns: openVulnerabilities
       releaseDate

@@ -14,11 +14,11 @@ import { NavLink } from "react-router-dom";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
+import { default as style } from "../../components/ContentTab/index.css";
 import { EventHeader } from "../../components/EventHeader";
 import { EventCommentsView } from "../EventCommentsView";
 import { EventDescriptionView } from "../EventDescriptionView/index";
 import { EventEvidenceView } from "../EventEvidenceView";
-import { default as style } from "../FindingContent/index.css";
 import { GET_EVENT_HEADER } from "./queries";
 
 type EventContentProps = RouteComponentProps<{ eventId: string }>;
