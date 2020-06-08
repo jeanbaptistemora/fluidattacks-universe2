@@ -374,9 +374,14 @@ async def _get_comments(
 
 @enforce_group_level_auth_async
 @require_integrates
-async def _get_bill(_, project_name: str, **__):
+async def _get_bill(_, project_name: str, date: datetime = None, **__):
+    date = date or datetime.utcnow()
+
     return {
-        'developers': await bill_domain.get_authors_data(group=project_name),
+        'developers': await bill_domain.get_authors_data(
+            date=date,
+            group=project_name,
+        ),
     }
 
 

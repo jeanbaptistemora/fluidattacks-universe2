@@ -12,15 +12,20 @@ DYNAMO_DB_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f%z'
 def serialize_datetime(value):
     if isinstance(value, str):
         value = datetime.strptime(value, DYNAMO_DB_DATE_FORMAT)
+
     return value.isoformat()
 
 
 @DATETIME_SCALAR.value_parser
 def parse_datetime_value(value):
-    return dateutil.parser.parse(value)
+    if value:
+        return dateutil.parser.parse(value)
+
+    return value
 
 
 @DATETIME_SCALAR.literal_parser
 def parse_datetime_literal(ast):
-    value = str(ast.value)
+    value = str(ast.value) if ast.value else ast.value
+
     return parse_datetime_value(value)

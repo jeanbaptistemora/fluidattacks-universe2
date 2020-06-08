@@ -106,7 +106,7 @@ type User {
 
 "Project type definition"
 type Project {
-    bill: Bill
+    bill(date: DateTime): Bill
     name: String
     findings(filters: GenericScalar): [Finding]
     hasDrills: Boolean

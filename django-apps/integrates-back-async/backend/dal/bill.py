@@ -14,11 +14,9 @@ from __init__ import (
 )
 
 
-def get_bill_buffer(*, group: str) -> io.BytesIO:
-    now: datetime = datetime.utcnow()
-
-    year: str = now.strftime('%Y')
-    month: str = now.strftime('%m')
+def get_bill_buffer(*, date: datetime, group: str) -> io.BytesIO:
+    year: str = date.strftime('%Y')
+    month: str = date.strftime('%m')
 
     buffer = io.BytesIO()
 

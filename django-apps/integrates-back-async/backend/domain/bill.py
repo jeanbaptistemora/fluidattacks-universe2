@@ -1,4 +1,5 @@
 # Standard library
+from datetime import datetime
 import io
 import csv
 from typing import (
@@ -26,8 +27,8 @@ COLUMNS: Dict[str, str] = {
 
 
 @sync_to_async
-def get_authors_data(*, group: str) -> List[Dict[str, str]]:
-    buffer: io.BytesIO = bill_dal.get_bill_buffer(group=group)
+def get_authors_data(*, date: datetime, group: str) -> List[Dict[str, str]]:
+    buffer: io.BytesIO = bill_dal.get_bill_buffer(date=date, group=group)
     buffer_str: io.StringIO = io.StringIO(buffer.read().decode())
 
     return [

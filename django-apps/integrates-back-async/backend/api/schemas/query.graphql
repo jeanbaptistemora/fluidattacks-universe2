@@ -3,9 +3,6 @@ type Query {
     "Get alerts from project"
     alert(projectName: String!, organization: String!): Alert
 
-    "Get bill"
-    bill(groupName: String!): Bill
-
     "Get event"
     event(identifier: String!): Event
 
