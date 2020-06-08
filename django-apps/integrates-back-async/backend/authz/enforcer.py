@@ -56,13 +56,27 @@ def get_group_level_enforcer(subject: str) -> Callable[[str, str, str], Coroutin
     roles = GROUP_LEVEL_ROLES
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
-        should_grant_access: bool = any(
-            r_subject == p_subject
-            and ((p_level == 'user' and p_role == 'admin') or
-                 (p_level == 'group' and r_object == p_object))
+        has_group_level: bool = any(
+            p_level == 'group'
+            and r_subject == p_subject
+            and r_object == p_object
+            for p_level, p_subject, p_object, _ in policies
+        )
+        can_do: bool = any(
+            p_level == 'group'
+            and r_subject == p_subject
+            and r_object == p_object
             and r_action in roles.get(p_role, {}).get('actions', set())
             for p_level, p_subject, p_object, p_role in policies
         )
+        is_an_admin: bool = any(
+            p_level == 'user' and p_role == 'admin'
+            and r_subject == p_subject
+            and r_action in roles.get(p_role, {}).get('actions', set())
+            for p_level, p_subject, p_object, p_role in policies
+        )
+        should_grant_access: bool = (can_do if has_group_level
+                                     else is_an_admin)
 
         return should_grant_access
 

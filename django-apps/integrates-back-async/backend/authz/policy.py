@@ -77,10 +77,11 @@ def get_cached_subject_policies(
 
 def get_group_level_role(email: str, group: str) -> str:
     # Admins are granted access to all groups
-    if get_user_level_role(email) == 'admin':
+    group_role = user_dal.get_subject_policy(email, group).role
+    if get_user_level_role(email) == 'admin' and not group_role:
         return 'admin'
 
-    return user_dal.get_subject_policy(email, group).role
+    return group_role
 
 
 def get_user_level_role(email: str) -> str:
