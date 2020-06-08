@@ -60,3 +60,8 @@ module "lambda" {
   source = "./lambda"
   sqs_id = module.sqs.sqs_id
 }
+
+module "antivirus" {
+  source = "./antivirus"
+  resources_bucket = var.aws_s3_resources_bucket
+}
