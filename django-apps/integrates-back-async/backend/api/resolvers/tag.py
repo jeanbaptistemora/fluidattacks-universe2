@@ -29,7 +29,7 @@ async def resolve(info, tag: str) -> TagType:
             await info.context.loaders['project'].load(projects[0])
         project_attrs = project_attrs['attrs']
         organization = project_attrs.get('companies', ['-'])[0]
-    allowed_tags = await sync_to_async(tag_domain.filter_allowed_tags)(
+    allowed_tags = await tag_domain.filter_allowed_tags(
         organization, projects)
     if tag not in allowed_tags:
         raise GraphQLError('Access denied')

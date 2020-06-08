@@ -104,12 +104,21 @@ def is_tag_allowed(user_projects: List[Dict[str, Union[str, List[str]]]],
                for project in all_projects_tag.get('projects', []))
 
 
-def filter_allowed_tags(organization: str, user_projects: List[str]) -> List[str]:
-    tags = []
-    projects = [project_domain.get_attributes(project, ['tag', 'project_name'])
-                for project in user_projects]
+async def filter_allowed_tags(organization: str, user_projects: List[str]) -> List[str]:
+    projects = await asyncio.gather(*[
+        sync_to_async(project_domain.get_attributes)(
+            project, ['tag', 'project_name']
+        )
+        for project in user_projects
+    ])
     all_tags = {tag.lower() for project in projects
                 for tag in project.get('tag', [])}
+    are_tags_allowed = await asyncio.gather(*[
+        sync_to_async(is_tag_allowed)(
+            projects, organization, tag
+        )
+        for tag in all_tags
+    ])
     tags = [tag for tag in all_tags
-            if is_tag_allowed(projects, organization, tag)]
+            if are_tags_allowed.pop(0)]
     return tags

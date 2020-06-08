@@ -48,7 +48,7 @@ def get_data(email: str, attr: str) -> Union[str, UserType]:
 
 async def get_projects(user_email: str, active: bool = True,
                        access_pending_projects: bool = True) -> List[str]:
-    projects = user_dal.get_projects(user_email, active)
+    projects = await sync_to_async(user_dal.get_projects)(user_email, active)
     can_user_access_tasks = [
         asyncio.create_task(
             sync_to_async(project_dal.can_user_access_pending_deletion)(

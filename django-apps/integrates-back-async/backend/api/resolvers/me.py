@@ -110,7 +110,7 @@ async def _get_tags(info, user_email: str) -> List[TagType]:
             for tag in project_tag:
                 tags_dict[tag].append(dict(name=project))
     tags = []
-    allowed_tags = await sync_to_async(tag_domain.filter_allowed_tags)(
+    allowed_tags = await tag_domain.filter_allowed_tags(
         organization, projects_filtered)
     for tag, projects in tags_dict.items():
         tags.append(dict(name=tag, projects=projects))
