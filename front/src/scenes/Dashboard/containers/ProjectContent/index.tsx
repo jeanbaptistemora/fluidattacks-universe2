@@ -1,11 +1,12 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { Have } from "../../../../utils/authz/Have";
 import translate from "../../../../utils/translations/translate";
+import { ContentTab } from "../../components/ContentTab";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
 import { ProjectAuthorsView } from "../ProjectAuthorsView";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
@@ -27,68 +28,68 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
             <React.Fragment>
               <div className={globalStyle.stickyContainer}>
                 <ul className={globalStyle.tabsContainer}>
-                  <li id="indicatorsTab" className={globalStyle.tab}>
-                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/indicators`}>
-                      <i className="icon pe-7s-graph3" />
-                      &nbsp;{translate.t("group.tabs.indicators")}
-                    </NavLink>
-                  </li>
-                  <li id="findingsTab" className={globalStyle.tab}>
-                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/findings`}>
-                      <i className="icon pe-7s-light" />
-                      &nbsp;{translate.t("group.tabs.findings")}
-                    </NavLink>
-                  </li>
+                  <ContentTab
+                    icon="icon pe-7s-graph3"
+                    id="indicatorsTab"
+                    link={`${props.match.url}/indicators`}
+                    title={translate.t("group.tabs.indicators")}
+                  />
+                  <ContentTab
+                    icon="icon pe-7s-light"
+                    id="findingsTab"
+                    link={`${props.match.url}/findings`}
+                    title={translate.t("group.tabs.findings")}
+                  />
                   <Can do="backend_api_resolvers_project__get_drafts">
-                    <li id="draftsTab" className={globalStyle.tab}>
-                      <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/drafts`}>
-                        <i className="icon pe-7s-stopwatch" />
-                        &nbsp;{translate.t("group.tabs.drafts")}
-                      </NavLink>
-                    </li>
+                    <ContentTab
+                      icon="icon pe-7s-stopwatch"
+                      id="draftsTab"
+                      link={`${props.match.url}/drafts`}
+                      title={translate.t("group.tabs.drafts")}
+                    />
                   </Can>
-                  <li id="forcesTab" className={globalStyle.tab}>
-                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/forces`}>
-                      <i className="icon pe-7s-light" />
-                      &nbsp;{translate.t("group.tabs.forces")}
-                    </NavLink>
-                  </li>
-                  <li id="eventsTab" className={globalStyle.tab}>
-                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/events`}>
-                      <i className="icon pe-7s-star" />
-                      &nbsp;{translate.t("group.tabs.events")}
-                    </NavLink>
-                  </li>
-                  <li id="commentsTab" className={globalStyle.tab}>
-                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/comments`}>
-                      <i className="icon pe-7s-comment" />
-                      &nbsp;{translate.t("group.tabs.comments")}
-                    </NavLink>
-                  </li>
+                  <ContentTab
+                    icon="icon pe-7s-light"
+                    id="forcesTab"
+                    link={`${props.match.url}/forces`}
+                    title={translate.t("group.tabs.forces")}
+                  />
+                  <ContentTab
+                    icon="icon pe-7s-star"
+                    id="eventsTab"
+                    link={`${props.match.url}/events`}
+                    title={translate.t("group.tabs.events")}
+                  />
+                  <ContentTab
+                    icon="icon pe-7s-comment"
+                    id="commentsTab"
+                    link={`${props.match.url}/comments`}
+                    title={translate.t("group.tabs.comments")}
+                  />
                   <Can do="backend_api_resolvers_project__get_users">
-                    <li id="usersTab" className={globalStyle.tab}>
-                      <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/users`}>
-                        <i className="icon pe-7s-users" />
-                        &nbsp;{translate.t("group.tabs.users")}
-                      </NavLink>
-                    </li>
+                    <ContentTab
+                      icon="icon pe-7s-users"
+                      id="usersTab"
+                      link={`${props.match.url}/users`}
+                      title={translate.t("group.tabs.users")}
+                    />
                   </Can>
                   <Have I="has_drills_white">
                     <Can do="backend_api_resolvers_project__get_bill">
-                      <li id="authorsTab" className={globalStyle.tab}>
-                        <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/authors`}>
-                          <i className="icon pe-7s-users" />
-                          &nbsp;{translate.t("group.tabs.authors")}
-                        </NavLink>
-                      </li>
+                      <ContentTab
+                        icon="icon pe-7s-users"
+                        id="authorsTab"
+                        link={`${props.match.url}/authors`}
+                        title={translate.t("group.tabs.authors")}
+                      />
                     </Can>
                   </Have>
-                  <li id="resourcesTab" className={globalStyle.tab}>
-                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/settings`}>
-                      <i className="icon pe-7s-box1" />
-                      &nbsp;{translate.t("group.tabs.resources")}
-                    </NavLink>
-                  </li>
+                  <ContentTab
+                    icon="icon pe-7s-box1"
+                    id="resourcesTab"
+                    link={`${props.match.url}/settings`}
+                    title={translate.t("group.tabs.resources")}
+                  />
                 </ul>
               </div>
 
