@@ -188,6 +188,69 @@ describe("FindingContent", () => {
       .toContain("FIN.S.0050. Weak passwords discovered");
   });
 
+  it("should render header with Exploit tab", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_finding__get_historic_state" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[findingMock]} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <FindingContent {...mockProps} />
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.find("#exploitItem")
+        .hostNodes())
+      .toHaveLength(1);
+  });
+
+  it("should render header without Exploit tab", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_finding__get_historic_state" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[draftMock]} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <FindingContent {...mockProps} />
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.find("#exploitItem"))
+      .toHaveLength(0);
+  });
+
+  it("should render empty Exploit tab for analyst", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_finding__do_update_evidence" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[draftMock]} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <FindingContent {...mockProps} />
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.find("#exploitItem")
+        .hostNodes())
+      .toHaveLength(1);
+  });
+
   it("should render unsubmitted draft actions", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_finding__get_historic_state" },
