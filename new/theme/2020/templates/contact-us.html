@@ -189,8 +189,10 @@
           function selectedValue() {
             var opt = document.getElementById("00N1I00000NEIK7");
             var sel = opt.options[opt.selectedIndex].value;
-            var poi = document.getElementById("poi")
-            var selpoi = document.getElementById("00N1I00000Lfv4l")
+            var poi = document.getElementById("poi");
+            var selpoi = document.getElementById("00N1I00000Lfv4l");
+            var msg = document.getElementById("msg");
+            var msgtext = document.getElementById("00N1I00000O9iJ6")
             if (sel != "Quiero una propuesta de servicios"){
               poi.style.display="none";
               selpoi.style.display="none";
@@ -198,6 +200,15 @@
             else {
               poi.style.display="block";
               selpoi.style.display="block";
+            }
+
+            if (sel == "Quiero una propuesta de servicios" || sel == "Quiero una Demo"){
+              msg.style.display="block";
+              msgtext.style.display="block";
+            }
+            else {
+              msg.style.display="none";
+              msgtext.style.display="none";
             }
           }
         </script>
@@ -224,6 +235,13 @@
                 Please select an option
           </span>
         </div>
+        <label id="msg" class="dn"></label>
+        <textarea  id="00N1I00000O9iJ6"
+                   name="00N1I00000O9iJ6"
+                   wrap="soft"
+                   class="w-50-l dn h4 ml-auto mr-auto"
+                   placeholder="Message"></textarea><br>
+        <br>
         <script src="https://www.google.com/recaptcha/api.js?hl=en"
                 async
                 defer>
