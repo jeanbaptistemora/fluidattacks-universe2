@@ -1,13 +1,14 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
+import { GraphQLError } from "graphql";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import store from "../../../../store";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./index";
-import { GET_ACCESS_TOKEN } from "./queries";
-import { IGetAccessTokenDictAttr } from "./types";
+import { GET_ACCESS_TOKEN, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";
+import { IGetAccessTokenDictAttr, IUpdateAccessTokenAttr } from "./types";
 
 describe("Update access token modal", () => {
   const handleOnClose: jest.Mock = jest.fn();
@@ -134,5 +135,112 @@ describe("Update access token modal", () => {
       .toHaveLength(1);
     expect(revokeButton)
       .toHaveLength(1);
-  }, 15000);
+  }, 20000);
+
+  it("should render a new access token", async (): Promise<void> => {
+    const expirationTime: string = "2020-07-11";
+
+    const updatedAccessToken: IUpdateAccessTokenAttr = {
+      updateAccessToken: {
+        sessionJwt: "dummyJwt",
+        success: true,
+      },
+    };
+
+    const mockMutation: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_ACCESS_TOKEN_MUTATION,
+          variables: {
+            expirationTime: Math.floor(new Date(expirationTime).getTime() / 1000),
+          },
+        },
+        result: {
+          data: {
+            ...updatedAccessToken,
+          },
+        },
+      },
+    ];
+
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mockMutation} addTypename={false}>
+          <UpdateAccessTokenModal onClose={handleOnClose} open={true} />
+        </MockedProvider>
+      </Provider>,
+    );
+
+    const dateField: ReactWrapper = wrapper
+      .find({ type: "date" })
+      .find("input");
+    dateField.simulate("change", { target: { value: expirationTime } });
+
+    const form: ReactWrapper = wrapper.find("genericForm");
+    form.simulate("submit");
+
+    await act(async () => {
+      await wait(0);
+      wrapper.update();
+    });
+
+    const newTokenLabel: ReactWrapper = wrapper
+      .find("label")
+      .filterWhere((element: ReactWrapper) => element.contains("Personal Access Token"));
+
+    const copyTokenButton: ReactWrapper = wrapper
+      .find("button")
+      .filterWhere((element: ReactWrapper) => element.contains("Copy"))
+      .first();
+    copyTokenButton.simulate("click");
+
+    expect(wrapper)
+      .toHaveLength(1);
+    expect(newTokenLabel)
+      .toHaveLength(1);
+    expect(copyTokenButton)
+      .toHaveLength(1);
+  }, 20000);
+
+  it("should render error", async (): Promise<void> => {
+    const expirationTime: string = "2020-07-11";
+
+    const mockMutationError: ReadonlyArray<MockedResponse> = [
+      {
+        request: {
+          query: UPDATE_ACCESS_TOKEN_MUTATION,
+          variables: {
+            expirationTime: Math.floor(new Date(expirationTime).getTime() / 1000),
+          },
+        },
+        result: {
+          errors: [new GraphQLError("Access denied")],
+        },
+      },
+    ];
+
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mockMutationError} addTypename={false}>
+          <UpdateAccessTokenModal onClose={handleOnClose} open={true} />
+        </MockedProvider>
+      </Provider>,
+    );
+
+    const dateField: ReactWrapper = wrapper
+      .find({ type: "date" })
+      .find("input");
+    dateField.simulate("change", { target: { value: expirationTime } });
+
+    const form: ReactWrapper = wrapper.find("genericForm");
+    form.simulate("submit");
+
+    await act(async () => {
+      await wait(0);
+      wrapper.update();
+    });
+
+    expect(wrapper)
+      .toHaveLength(1);
+  });
 });
