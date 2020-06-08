@@ -4,6 +4,7 @@ import { Col, Row } from "react-bootstrap";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
+import { Have } from "../../../../utils/authz/Have";
 import translate from "../../../../utils/translations/translate";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
 import { ProjectAuthorsView } from "../ProjectAuthorsView";
@@ -72,14 +73,16 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                       </NavLink>
                     </li>
                   </Can>
-                  <Can do="backend_api_resolvers_project__get_bill">
-                    <li id="authorsTab" className={globalStyle.tab}>
-                      <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/authors`}>
-                        <i className="icon pe-7s-users" />
-                        &nbsp;{translate.t("group.tabs.authors")}
-                      </NavLink>
-                    </li>
-                  </Can>
+                  <Have I="has_drills_white">
+                    <Can do="backend_api_resolvers_project__get_bill">
+                      <li id="authorsTab" className={globalStyle.tab}>
+                        <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/authors`}>
+                          <i className="icon pe-7s-users" />
+                          &nbsp;{translate.t("group.tabs.authors")}
+                        </NavLink>
+                      </li>
+                    </Can>
+                  </Have>
                   <li id="resourcesTab" className={globalStyle.tab}>
                     <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/settings`}>
                       <i className="icon pe-7s-box1" />

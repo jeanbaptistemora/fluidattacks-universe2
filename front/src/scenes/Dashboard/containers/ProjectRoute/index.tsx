@@ -12,7 +12,7 @@ import { Trans } from "react-i18next";
 import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -23,7 +23,12 @@ import { EventContent } from "../EventContent";
 import { FindingContent } from "../FindingContent";
 import { ProjectContent } from "../ProjectContent";
 import { default as style } from "./index.css";
-import { GET_PROJECT_ALERT, GET_PROJECT_DATA, REJECT_REMOVE_PROJECT_MUTATION } from "./queries";
+import {
+  GET_GROUP_SERVICE_ATTRIBUTES,
+  GET_PROJECT_ALERT,
+  GET_PROJECT_DATA,
+  REJECT_REMOVE_PROJECT_MUTATION,
+} from "./queries";
 import { IProjectData, IRejectRemoveProject } from "./types";
 
 const projectRoute: React.FC = (): JSX.Element => {
@@ -36,9 +41,12 @@ const projectRoute: React.FC = (): JSX.Element => {
     push("/home");
   };
 
+  const attributes: PureAbility<string> = React.useContext(authzGroupContext);
   const permissions: PureAbility<string> = React.useContext(authzPermissionsContext);
+
   // Side effects
   const onProjectChange: (() => void) = (): void => {
+    attributes.update([]);
     permissions.update([]);
   };
   React.useEffect(onProjectChange, [projectName]);
@@ -47,6 +55,12 @@ const projectRoute: React.FC = (): JSX.Element => {
   useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (permData: { me: { permissions: string[] } }): void => {
       permissions.update(permData.me.permissions.map((action: string) => ({ action })));
+    },
+    variables: { projectName },
+  });
+  useQuery(GET_GROUP_SERVICE_ATTRIBUTES, {
+    onCompleted: (permData: { project: { serviceAttributes: string[] } }): void => {
+      attributes.update(permData.project.serviceAttributes.map((attribute: string) => ({ action: attribute })));
     },
     variables: { projectName },
   });

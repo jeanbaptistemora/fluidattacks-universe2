@@ -15,7 +15,9 @@ import { BrowserRouter, Redirect, Route, Switch, useLocation } from "react-route
 import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import {
+  authzGroupContext,
   authzPermissionsContext,
+  groupAttributes,
   groupLevelPermissions,
 } from "../../utils/authz/config";
 import { handleGraphQLErrors } from "../../utils/formatHelpers";
@@ -108,9 +110,11 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
                 <Route path="/home" exact={true} component={HomeView} />
                 <Route path="/reports" component={ReportsView} />
                 <Route path="/groups/:projectName">
-                  <authzPermissionsContext.Provider value={groupLevelPermissions}>
-                    <ProjectRoute />
-                  </authzPermissionsContext.Provider>
+                  <authzGroupContext.Provider value={groupAttributes}>
+                    <authzPermissionsContext.Provider value={groupLevelPermissions}>
+                      <ProjectRoute />
+                    </authzPermissionsContext.Provider>
+                  </authzGroupContext.Provider>
                 </Route>
                 <Route path="/portfolios/:tagName" component={TagContent} />
                 {/* Necessary to support hashrouter URLs */}
