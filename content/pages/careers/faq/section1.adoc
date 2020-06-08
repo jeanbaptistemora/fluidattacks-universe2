@@ -27,17 +27,11 @@ If this doesn’t work, try restarting your machine.
 Don’t worry, you have already sent the test
 and there won’t be any data loss.
 
-==== 3. I don't have a RUT. How can I complete the third party form?
-
-On the link:http://www.dian.gov.co/contenidos/servicios/rut.html[`DIAN` webpage]
-you can find out how to get your `RUT`, or how to update it,
-if you already have one.
-
-==== 4. I don’t know what position I applied for. How can I find out?
+==== 3. I don’t know what position I applied for. How can I find out?
 
 Ask us via email at careers@fluidattacks.com.
 
-==== 5. If I already applied for a specific position, can I apply again?
+==== 4. If I already applied for a specific position, can I apply again?
 
 *Using the same application but for different positions?*
 
@@ -49,19 +43,19 @@ If it has been more than six months since your last application
 you cannot use your original application;
 you must apply again starting at the beginning.
 
-==== 6. Can I apply for two different positions at the same time?
+==== 5. Can I apply for two different positions at the same time?
 
 Yes. You can apply for as many positions as you believe you qualify for;
 just send us an email via careers@fluidattacks.com
 telling us which positions you want to apply for.
 
-==== 7. What experience should I already have in order to apply for positions?
+==== 6. What experience should I already have in order to apply for positions?
 
 You don’t need to have any experience.
 What is essential is the ability to do research,
 solve issues, and be capable of teaching yourself.
 
-==== 8. What do I need to know to apply for positions?
+==== 7. What do I need to know to apply for positions?
 
 We look for talented people with great potential and flexibility.
 It doesn’t matter what your career currently is
@@ -74,7 +68,7 @@ more than your professional degrees.
 Our selection process is designed to encourage you
 to acquire knowledge yourself and then use it to problem-solve.
 
-==== 9. Does the company offer on-the-job training?
+==== 8. Does the company offer on-the-job training?
 
 At `Fluid Attacks` we do not require work experience,
 nor do we certify the knowledge you acquire while working with us.
@@ -86,18 +80,18 @@ We evaluate all your abilities, including the attitude,
 perseverance, and productivity you exhibit during the selection process
 since all of these are necessary for any role in our organization.
 
-==== 10. The application test doesn’t work. What should I do?
+==== 9. The application test doesn’t work. What should I do?
 
 Try executing the test as an administrator.
 If the problem persists,
 you should try accessing the test from a different computer.
 If you still have problems send us an email via careers@fluidattacks.com.
 
-==== 11. I didn’t receive the attached file for data analysis. How do I get it?
+==== 10. I didn’t receive the attached file for data analysis. How do I get it?
 
 Try downloading the file from [inner]#link:../non-technical-challenges/hallazgos-open-data.tar.bz2[here]#.
 
-==== 12. I ran out of time for the test. Can I get more time?
+==== 11. I ran out of time for the test. Can I get more time?
 
 If you have a valid reason
 (application lockouts, unexpected restarts, connection issues),
@@ -105,7 +99,7 @@ send us an email at careers@fluidattacks.com
 explaining what happened
 and we will tell you how to proceed.
 
-==== 13. I couldn’t send my data analysis. What should I do?
+==== 12. I couldn’t send my data analysis. What should I do?
 
 If you believe you have a valid reason
 for not meeting the data analysis deadline,
@@ -113,59 +107,45 @@ send us an email at careers@fluidattacks.com
 telling us why you didn't meet it,
 and ask for a new delivery date.
 
-==== 14. What should I put in my portfolio?
+==== 13. What should I put in my portfolio?
 
 You can find instructions and
 advice for creating your portfolio [inner]#link:../portfolio/[here]#.
 
-==== 15. I do not have a VISA. What should I put in that field?
-
-This field is not mandatory.
-Do not fill it in if you don’t have a `VISA`.
-
-==== 16. What should I do after I've finished the character test?
+==== 14. What should I do after I've finished the character test?
 
 Once the character test is completed,
 you will receive your test results within minutes.
 While you wait, we suggest you go to the next stage
 and begin the knowledge test.
 
-==== 17. Do I have to take the polygraph test?
+==== 15. Do I have to take the polygraph test?
 
 In most cases, this test is not mandatory during the selection process.
 However, since our business is information security,
 it may be necessary for you to take this test
 depending on the position you are applying for.
 
-==== 18. Do I have to take the Gallup test?
+==== 16. Do I have to take the Gallup test?
 
 This test is only required in certain cases.
 Please notify us via email when you reach this stage,
 and we will tell you whether or not you need to take it.
 
-==== 19. Does this process perform a risk analysis with my data?
+==== 17. Does this process perform a risk analysis with my data?
 
 Yes, in the stage before hiring,
 confirmation is made on the central risk
 concerning any of your candidate data.
 
-==== 20. I haven’t notified my current employer that I am applying for a job
+==== 18. I haven’t notified my current employer that I am applying for a job
 
 *with another company. Is the reverse references stage mandatory?*
 
 Because this is an advanced stage in the selection process,
 yes, it is mandatory.
 
-==== 21. I’m very shy when presenting in public.
-
-*Is it mandatory to do the audition?*
-
-During the selection process this stage is optional.
-However, if you work at `Fluid Attacks`,
-we expect you to have excellent communication skills,
-regardless of the position you are hired for.
-
-==== 22. Is it mandatory to complete all of the stages in the process?
+==== 19. Is it mandatory to complete all of the stages in the process?
 
 Not necessarily.
 
@@ -173,7 +153,7 @@ It depends on the position you applied for and your selection process.
 We will tell you how to proceed,
 and as always, if you have any questions, contact us.
 
-==== 23. What does offer validity time mean?
+==== 20. What does offer validity time mean?
 
 It is the length of time `Fluid Attacks`
 will hold open a job offer made to a specific candidate.
@@ -183,7 +163,7 @@ the offer will become invalid.
 Another candidate will then be offered the job.
 This allows us to fill positions as soon as possible.
 
-==== 24. If I do not accept the offer, what happens to my immersion process?
+==== 21. If I do not accept the offer, what happens to my immersion process?
 
 Your immersion process ends immediately.
 
