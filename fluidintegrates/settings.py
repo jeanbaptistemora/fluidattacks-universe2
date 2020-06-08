@@ -358,14 +358,6 @@ SESSION_REDIS = {
     'cluster': CLUSTER_SESSION
 }
 
-# GraphQL API
-GRAPHQL = {
-    'depth': {
-        'max': 4,
-        'whitelist': ['__schema', '__type']
-    }
-}
-
 
 # Social
 SOCIAL_AUTH_PIPELINE = (
