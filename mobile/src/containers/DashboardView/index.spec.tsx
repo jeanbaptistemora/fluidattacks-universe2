@@ -38,6 +38,7 @@ jest.mock("react-router-native", (): Dictionary => {
 });
 
 describe("DashboardView", (): void => {
+
   it("should return a function", (): void => {
     expect(typeof (DashboardView))
       .toEqual("function");

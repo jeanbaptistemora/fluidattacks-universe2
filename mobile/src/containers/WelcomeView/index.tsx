@@ -31,18 +31,17 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
 
   // GraphQL operations
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
-    onCompleted: (result: ISignInResult): void => {
+    onCompleted: async (result: ISignInResult): Promise<void> => {
       if (result.signIn.success) {
         setAuthorized(result.signIn.authorized);
-        SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt)
-          .then((): void => {
-            if (result.signIn.authorized) {
-              history.replace("/Dashboard", { user });
-            }
-          })
-          .catch((error: Error): void => {
-            rollbar.error("An error occurred storing JWT", error);
-          });
+        try {
+          await SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt);
+          if (result.signIn.authorized) {
+            history.replace("/Dashboard", { user });
+          }
+        } catch (error) {
+          rollbar.error("An error occurred storing JWT", error as Error);
+        }
       } else {
         rollbar.error("Unsuccessful API auth", result);
       }

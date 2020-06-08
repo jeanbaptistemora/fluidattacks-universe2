@@ -69,7 +69,7 @@
     "waait": "1.0.5"
   },
   "scripts": {
-    "lint": "tslint -p tsconfig.json -t codeFrame",
+    "lint": "tsc -p tsconfig.json && tslint -p tsconfig.json -t codeFrame",
     "start": "expo start",
     "test": "jest"
   }

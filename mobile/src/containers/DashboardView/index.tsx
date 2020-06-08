@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
-import { GoogleUser } from "expo-google-app-auth";
 import * as SecureStore from "expo-secure-store";
 /* tslint:disable: no-import-side-effect no-submodule-imports
  * Necessary polyfill due to a bug in RN for android

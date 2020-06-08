@@ -12,7 +12,7 @@ export const styles: Dictionary = StyleSheet.create({
     alignItems: "center",
     elevation: 0,
     flexDirection: "row",
-    height: 80,
+    height: 85,
     paddingHorizontal: 20,
     paddingTop: Constants.statusBarHeight,
   },
