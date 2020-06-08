@@ -63,7 +63,6 @@ type SimpleProjectPayload implements Payload {
 
 type SignInPayload implements Payload {
     success: Boolean!
-    authorized: Boolean
     sessionJwt: String
 }
 

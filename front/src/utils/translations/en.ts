@@ -318,8 +318,6 @@ const enTranslations: Dictionary = {
     greeting: "Hello",
     logged_in_message: "Please log out before trying to access with another account.",
     logged_in_title: "You are already logged in",
-    unauthorized: "You are not authorized to log in yet. Please contact Fluid Attacks's staff or your group " +
-      "administrator to get access.",
   },
   route: {
     pendingToDelete: "Group pending to delete",

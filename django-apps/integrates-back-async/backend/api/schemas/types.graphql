@@ -165,7 +165,6 @@ type ForcesExecutions {
 "Me type definition"
 type Me {
     accessToken: String
-    authorized: Boolean
     projects: [Project]
     remember: Boolean
     role(projectName: String): String

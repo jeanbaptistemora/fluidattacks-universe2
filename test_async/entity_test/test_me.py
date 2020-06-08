@@ -21,7 +21,6 @@ class MeTests(TestCase):
         query = '''{
             me(callerOrigin: "API") {
                 accessToken
-                authorized
                 projects {
                     name
                     description
@@ -84,7 +83,6 @@ class MeTests(TestCase):
                     authToken: "badtoken",
                     provider: GOOGLE
                 ) {
-                    authorized
                     sessionJwt
                     success
                 }

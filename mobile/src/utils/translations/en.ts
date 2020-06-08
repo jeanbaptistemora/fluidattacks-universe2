@@ -26,7 +26,5 @@ export const enTranslations: ResourceLanguage = {
   },
   welcome: {
     greetingText: "Hello",
-    unauthorized: "You do not have authorization for login yet. "
-      + "Please contact Fluid Attacks's staff or your project administrator to get access.",
   },
 };

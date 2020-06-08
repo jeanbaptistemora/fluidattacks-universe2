@@ -5,7 +5,6 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, StatusBar, Text, View } from "react-native";
-import { Button } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
 import { Avatar } from "../../components/Avatar";
@@ -26,19 +25,13 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
     history.replace("/");
   };
 
-  // State management
-  const [isAuthorized, setAuthorized] = React.useState(false);
-
   // GraphQL operations
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: async (result: ISignInResult): Promise<void> => {
       if (result.signIn.success) {
-        setAuthorized(result.signIn.authorized);
         try {
           await SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt);
-          if (result.signIn.authorized) {
-            history.replace("/Dashboard", { user });
-          }
+          history.replace("/Dashboard", { user });
         } catch (error) {
           rollbar.error("An error occurred storing JWT", error as Error);
         }
@@ -49,6 +42,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
     onError: (error: ApolloError): void => {
       rollbar.error("API auth failed", error);
       Alert.alert(t("common.error.title"), t("common.error.msg"));
+      handleLogout();
     },
     variables: { authToken, provider: authProvider },
   });
@@ -70,12 +64,6 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
           <Avatar photoUrl={user.photoUrl} size={100} userName={user.fullName} />
         </View>
         <Text style={styles.greeting}>{t("welcome.greetingText")} {user.firstName}!</Text>
-        {loading || isAuthorized ? undefined : (
-          <React.Fragment>
-            <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>
-            <Button onPress={handleLogout}>{t("common.logout")}</Button>
-          </React.Fragment>
-        )}
         <Preloader visible={loading} />
       </View>
     </React.StrictMode>

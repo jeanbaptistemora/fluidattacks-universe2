@@ -121,7 +121,6 @@ SimpleProjectPayload = NamedTuple('SimpleProjectPayload', [
 ])
 SignInPayload = NamedTuple('SignInPayload', [
     ('success', bool),
-    ('authorized', bool),
     ('session_jwt', str),
 ])
 UpdateAccessTokenPayload = NamedTuple('UpdateAccessTokenPayload', [

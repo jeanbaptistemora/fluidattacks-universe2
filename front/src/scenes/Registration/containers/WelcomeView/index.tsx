@@ -20,25 +20,6 @@ import { ACCEPT_LEGAL_MUTATION, GET_USER_AUTHORIZATION } from "./queries";
 
 type WelcomeViewProps = RouteComponentProps;
 
-const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
-  const handleLogoutClick: (() => void) = (): void => { location.assign("/integrates/logout"); };
-
-  return (
-    <React.Fragment>
-      <Row>
-        <Col md={12}>
-          <p>{translate.t("registration.unauthorized")}</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12}>
-          <Button bsStyle="primary" block={true} onClick={handleLogoutClick}>{translate.t("logout")}</Button>
-        </Col>
-      </Row>
-    </React.Fragment>
-  );
-};
-
 const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
 
   const [isLegalModalOpen, setLegalModalOpen] = React.useState(true);
@@ -100,8 +81,7 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
 
                 return (
                   <React.Fragment>
-                    {data.me.authorized
-                      ? data.me.remember
+                    {data.me.remember
                         ? <Redirect to={initialUrl === "/registration" ? "/home" : initialUrl}/>
                         :
                         <Mutation mutation={ACCEPT_LEGAL_MUTATION} onCompleted={loadDashboard}>
@@ -122,7 +102,6 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
                             );
                           }}
                         </Mutation>
-                      : renderUnauthorized()
                     }
                   </React.Fragment>
                 );

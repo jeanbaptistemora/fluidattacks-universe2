@@ -14,7 +14,6 @@ export interface IAuthState {
  */
 export interface ISignInResult {
   signIn: {
-    authorized: boolean;
     sessionJwt: string;
     success: boolean;
   };

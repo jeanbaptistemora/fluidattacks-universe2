@@ -4,7 +4,6 @@ import gql from "graphql-tag";
 export const GET_USER_AUTHORIZATION: DocumentNode = gql`
   query GetUserAuthorization {
     me(callerOrigin: "FRONT") {
-      authorized
       remember
     }
   }

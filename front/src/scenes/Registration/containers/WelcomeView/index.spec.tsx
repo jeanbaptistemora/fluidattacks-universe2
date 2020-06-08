@@ -55,38 +55,11 @@ describe("Welcome view", () => {
       .toContain("Hello Test!");
   });
 
-  it("should render unauthorized message", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [{
-      request: { query: GET_USER_AUTHORIZATION },
-      result: {
-        data: { me: { authorized: false, remember: false } },
-      },
-    }];
-    delete window.location;
-    const locationMock: jest.Mock = jest.fn();
-    window.location = { ...window.location, assign: locationMock };
-
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <WelcomeView {...routeProps} />
-      </MockedProvider>,
-    );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.text())
-      .toContain("You are not authorized to log in yet. Please contact " +
-        "Fluid Attacks's staff or your group administrator to get access.");
-    wrapper.find("Button")
-      .filterWhere((btn: ReactWrapper) => btn.contains("Log out"))
-      .simulate("click");
-    expect(locationMock)
-      .toHaveBeenCalledWith("/integrates/logout");
-  });
-
   it("should render legal notice", async () => {
     const mocks: ReadonlyArray<MockedResponse> = [{
       request: { query: GET_USER_AUTHORIZATION },
       result: {
-        data: { me: { authorized: true, remember: false } },
+        data: { me: { remember: false } },
       },
     }];
     const wrapper: ReactWrapper = mount(
@@ -127,7 +100,7 @@ describe("Welcome view", () => {
     const mocks: ReadonlyArray<MockedResponse> = [{
       request: { query: GET_USER_AUTHORIZATION },
       result: {
-        data: { me: { authorized: false, remember: false } },
+        data: { me: { remember: false } },
       },
     }];
     localStorage.setItem("showAlreadyLoggedin", "1");

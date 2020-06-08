@@ -67,11 +67,6 @@ async def _get_access_token(_, user_email: str) -> str:
     return json.dumps(access_token_dict)
 
 
-async def _get_authorized(_, user_email: str) -> bool:
-    """Get user authorization."""
-    return await sync_to_async(user_domain.is_registered)(user_email)
-
-
 async def _get_remember(_, user_email: str) -> bool:
     """Get remember preference."""
     remember = await \
@@ -181,7 +176,6 @@ async def resolve_me_mutation(obj, info, **parameters):
 async def _do_sign_in(
         _, info, auth_token: str, provider: str) -> SignInPayloadType:
     """ Sign in with an OAuth2 access token """
-    authorized = False
     session_jwt = ''
     success = False
 
@@ -190,7 +184,6 @@ async def _do_sign_in(
         auth_backend = load_backend(
             strategy=strategy, name=provider, redirect_uri=None)
         user = await sync_to_async(auth_backend.do_auth)(auth_token)
-        authorized = await sync_to_async(user_domain.is_registered)(user.email)
         session_jwt = jwt.encode(
             {
                 'user_email': user.email,
@@ -212,7 +205,6 @@ async def _do_sign_in(
             payload_data=locals())
 
     return SignInPayloadType(
-        authorized=authorized,
         session_jwt=session_jwt,
         success=success
     )
@@ -287,14 +279,9 @@ async def _do_accept_legal(_, info,
                            remember: bool = False) -> SimplePayloadType:
     """Resolve accept_legal mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
-    is_registered = await sync_to_async(user_domain.is_registered)(user_email)
 
-    if is_registered:
-        await \
-            sync_to_async(user_domain.update_legal_remember)(
-                user_email, remember
-            )
-        success = True
-    else:
-        success = False
+    success = await sync_to_async(user_domain.update_legal_remember)(
+        user_email, remember
+    )
+
     return SimplePayloadType(success=success)
