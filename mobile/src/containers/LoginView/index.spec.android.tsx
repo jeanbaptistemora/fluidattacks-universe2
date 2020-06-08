@@ -24,8 +24,8 @@ jest.mock("expo-constants", (): Dictionary => ({
     android: {
       package: "com.fluidattacks.integrates",
     },
-    version: "20.06.1337",
   },
+  nativeAppVersion: "20.06.1337",
 }));
 
 const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;

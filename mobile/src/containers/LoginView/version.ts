@@ -15,8 +15,8 @@ export const checkPlayStoreVersion: (() => Promise<boolean>) = async (): Promise
     rollbar.error("Couldn't retrieve play store version", html);
   } else {
     const remoteVersion: string = match[0].slice(1, -1);
-    const localVersion: string = String(Constants.manifest.version);
-    isOutdated = remoteVersion.localeCompare(localVersion) > 0;
+    const localVersion: string = String(Constants.nativeAppVersion);
+    isOutdated = remoteVersion.localeCompare(localVersion) !== 0;
   }
 
   return isOutdated;
