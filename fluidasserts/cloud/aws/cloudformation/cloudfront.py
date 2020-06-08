@@ -4,7 +4,7 @@
 from typing import List, Optional
 
 # Local imports
-from fluidasserts import SAST, MEDIUM
+from fluidasserts import SAST, MEDIUM, LOW
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
@@ -171,3 +171,59 @@ def serves_content_over_insecure_protocols(
         vulnerabilities=vulnerabilities,
         msg_open='Distributions are using weak protocols',
         msg_closed='Distributions use the strongest protocol provided by AWS')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_not_geo_restrictions(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if ``Distributions`` has geo restrictions.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if **GeoRestriction** attribute is set
+                to **none**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::CloudFront::Distribution',
+            ],
+            exclude=exclude):
+        found_issues: list = []
+
+        geo_restriction = _index(
+            dictionary=res_props,
+            indexes=(
+                'DistributionConfig',
+                'Restrictions',
+                'GeoRestriction'))
+
+        if not geo_restriction \
+                or geo_restriction['RestrictionType'] == 'none':
+            found_issues.append(('GeoRestriction', geo_restriction))
+
+        for issue in found_issues:
+            locations = issue[1].get("Locations", [])[0] \
+                if geo_restriction else None
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=(f'AWS::CloudFront::Distribution'
+                            f'/DistributionConfig'
+                            f'/Restrictions'
+                            f'/GeoRestriction/'
+                            f'{locations}'),
+                    identifier=res_name,
+                    line=helper.get_line(res_props),
+                    reason='has no GeoRestriction'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Distributions have no geo restrictions',
+        msg_closed='Distributions have geo restrictions')

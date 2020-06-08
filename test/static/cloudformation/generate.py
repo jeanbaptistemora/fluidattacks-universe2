@@ -363,6 +363,12 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
                 ),
             ),
         ],
+        Restrictions=troposphere.cloudfront.Restrictions(
+            GeoRestriction=troposphere.cloudfront.GeoRestriction(
+                Locations=['Colombia'],
+                RestrictionType='whitelist'
+            )
+        ),
         ViewerCertificate=troposphere.cloudfront.ViewerCertificate(
             MinimumProtocolVersion='TLSv1.2_2018', ),
     ),
@@ -830,6 +836,12 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
                 ),
             ),
         ],
+        Restrictions=troposphere.cloudfront.Restrictions(
+            GeoRestriction=troposphere.cloudfront.GeoRestriction(
+                Locations=['Colombia'],
+                RestrictionType='none'
+            )
+        ),
         ViewerCertificate=troposphere.cloudfront.ViewerCertificate(
             MinimumProtocolVersion='TLSv1.1_2016', ),
     ),

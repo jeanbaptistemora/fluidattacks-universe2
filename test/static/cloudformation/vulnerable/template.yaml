@@ -38,6 +38,11 @@ Resources:
                 - SSLv3
             DomainName: domain-name
             Id: id
+        Restrictions:
+          GeoRestriction:
+            Locations:
+              - Colombia
+            RestrictionType: none
         ViewerCertificate:
           MinimumProtocolVersion: TLSv1.1_2016
     Type: AWS::CloudFront::Distribution

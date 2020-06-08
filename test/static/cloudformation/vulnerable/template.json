@@ -56,6 +56,14 @@
               "Id": "id"
             }
           ],
+          "Restrictions": {
+            "GeoRestriction": {
+              "Locations": [
+                "Colombia"
+              ],
+              "RestrictionType": "none"
+            }
+          },
           "ViewerCertificate": {
             "MinimumProtocolVersion": "TLSv1.1_2016"
           }
