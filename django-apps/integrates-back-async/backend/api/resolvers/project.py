@@ -417,6 +417,11 @@ async def _get_events(info,
 
 
 @enforce_group_level_auth_async
+async def _get_service_attributes(_, project_name: str, **__) -> Set[str]:
+    return await authz.get_group_service_attributes(project_name)
+
+
+@enforce_group_level_auth_async
 @require_integrates
 async def _get_users(info, project_name: str,
                      requested_fields: list) -> List[UserType]:
