@@ -58,6 +58,9 @@ async def test_grant_user_level_role():
     assert grant_user_level_role('..TEST@gmail.com', 'admin')
     assert get_user_level_role('..test@gmail.com') == 'admin'
     assert get_group_level_role('..tEst@gmail.com', 'a-group') == 'admin'
+    with pytest.raises(ValueError) as test_raised_err:
+        grant_user_level_role('..TEST@gmail.com', 'breakall')
+    assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
 async def test_grant_group_level_role():
@@ -66,6 +69,9 @@ async def test_grant_group_level_role():
     assert get_user_level_role('..tESt2@gmail.com') == 'customer'
     assert get_group_level_role('..test2@gmail.com', 'GROUP') == 'customer'
     assert not get_group_level_role('..test2@gmail.com', 'other-group')
+    with pytest.raises(ValueError) as test_raised_err:
+        grant_group_level_role('..TEST2@gmail.com', 'group', 'breakall')
+    assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
 async def test_revoke_group_level_role():
