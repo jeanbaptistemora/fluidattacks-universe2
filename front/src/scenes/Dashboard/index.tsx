@@ -14,7 +14,10 @@ import { RouteComponentProps } from "react-router";
 import { BrowserRouter, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
-import { authzContext, groupLevelPermissions } from "../../utils/authz/config";
+import {
+  authzPermissionsContext,
+  groupLevelPermissions,
+} from "../../utils/authz/config";
 import { handleGraphQLErrors } from "../../utils/formatHelpers";
 import { msgSuccess } from "../../utils/notifications";
 import translate from "../../utils/translations/translate";
@@ -28,7 +31,11 @@ import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
 import { TagContent } from "./containers/TagContent/index";
 import { default as style } from "./index.css";
-import { ADD_USER_MUTATION, GET_BROADCAST_MESSAGES, GET_PERMISSIONS } from "./queries";
+import {
+  ADD_USER_MUTATION,
+  GET_BROADCAST_MESSAGES,
+  GET_USER_PERMISSIONS,
+} from "./queries";
 import { IAddUserAttr } from "./types";
 
 type IDashboardProps = RouteComponentProps;
@@ -60,9 +67,9 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
     }
   };
 
-  const permissions: PureAbility<string> = React.useContext(authzContext);
+  const permissions: PureAbility<string> = React.useContext(authzPermissionsContext);
 
-  useQuery(GET_PERMISSIONS, {
+  useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (data: { me: { permissions: string[] } }): void => {
       permissions.update(data.me.permissions.map((action: string) => ({ action })));
     },
@@ -101,9 +108,9 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
                 <Route path="/home" exact={true} component={HomeView} />
                 <Route path="/reports" component={ReportsView} />
                 <Route path="/groups/:projectName">
-                  <authzContext.Provider value={groupLevelPermissions}>
+                  <authzPermissionsContext.Provider value={groupLevelPermissions}>
                     <ProjectRoute />
-                  </authzContext.Provider>
+                  </authzPermissionsContext.Provider>
                 </Route>
                 <Route path="/portfolios/:tagName" component={TagContent} />
                 {/* Necessary to support hashrouter URLs */}

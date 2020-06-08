@@ -6,7 +6,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import store from "../../../../store";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { DescriptionView, DescriptionViewProps } from "./index";
 import { GET_FINDING_DESCRIPTION } from "./queries";
 
@@ -108,9 +108,9 @@ describe("Finding Description", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[descriptionQuery]} addTypename={false}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <DescriptionView {...mockedProps} />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );

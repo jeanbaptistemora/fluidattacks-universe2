@@ -12,13 +12,13 @@ import { Trans } from "react-i18next";
 import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { AlertBox } from "../../components/AlertBox";
-import { GET_PERMISSIONS } from "../../queries";
+import { GET_USER_PERMISSIONS } from "../../queries";
 import { EventContent } from "../EventContent";
 import { FindingContent } from "../FindingContent";
 import { ProjectContent } from "../ProjectContent";
@@ -36,7 +36,7 @@ const projectRoute: React.FC = (): JSX.Element => {
     push("/home");
   };
 
-  const permissions: PureAbility<string> = React.useContext(authzContext);
+  const permissions: PureAbility<string> = React.useContext(authzPermissionsContext);
   // Side effects
   const onProjectChange: (() => void) = (): void => {
     permissions.update([]);
@@ -44,7 +44,7 @@ const projectRoute: React.FC = (): JSX.Element => {
   React.useEffect(onProjectChange, [projectName]);
 
   // GraphQL operations
-  useQuery(GET_PERMISSIONS, {
+  useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (permData: { me: { permissions: string[] } }): void => {
       permissions.update(permData.me.permissions.map((action: string) => ({ action })));
     },

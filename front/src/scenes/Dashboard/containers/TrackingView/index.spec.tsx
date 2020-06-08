@@ -6,7 +6,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { TrackingView } from "./index";
 import { GET_FINDING_TRACKING } from "./queries";
 
@@ -80,9 +80,9 @@ describe("FindingExploitView", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <authzContext.Provider value={mockedPermissions}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
           <TrackingView {...mockProps} />
-        </authzContext.Provider>
+        </authzPermissionsContext.Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });

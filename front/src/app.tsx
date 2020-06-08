@@ -17,7 +17,7 @@ import { Dashboard } from "./scenes/Dashboard";
 import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
 import { client, networkStatusNotifier } from "./utils/apollo";
-import { authzContext, userLevelPermissions } from "./utils/authz/config";
+import { authzPermissionsContext, userLevelPermissions } from "./utils/authz/config";
 
 const globalPreloader: React.FC = (): JSX.Element => {
   const status: NetworkStatus = networkStatusNotifier.useApolloNetworkStatus();
@@ -36,13 +36,13 @@ const app: React.FC = (): JSX.Element => (
       <React.Fragment>
         <ApolloProvider client={client}>
           <ReduxProvider store={store}>
-            <authzContext.Provider value={userLevelPermissions}>
+            <authzPermissionsContext.Provider value={userLevelPermissions}>
               <Switch>
                 <Route path="/registration" component={Registration} />
                 <Route path="/" component={Dashboard} />
               </Switch>
               {React.createElement(globalPreloader)}
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </ReduxProvider>
         </ApolloProvider>
       </React.Fragment>

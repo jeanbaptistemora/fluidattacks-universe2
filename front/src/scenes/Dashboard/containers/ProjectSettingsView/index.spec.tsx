@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { ProjectSettingsView } from "./index";
 import { GET_ENVIRONMENTS, GET_REPOSITORIES, GET_TAGS } from "./queries";
 import { ISettingsViewProps } from "./types";
@@ -132,9 +132,9 @@ describe("ProjectSettingsView", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mocksRepositories]} addTypename={false}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <ProjectSettingsView {...mockProps} />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );
@@ -174,9 +174,9 @@ describe("ProjectSettingsView", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mocksEnvironments]} addTypename={false}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <ProjectSettingsView {...mockProps} />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );

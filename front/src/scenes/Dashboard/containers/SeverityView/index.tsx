@@ -18,7 +18,7 @@ import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { calcCVSSv3 } from "../../../../utils/cvss";
 import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
@@ -38,7 +38,7 @@ type SeverityViewProps = RouteComponentProps<{ findingId: string }>;
 const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JSX.Element => {
   const { findingId } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
-  const permissions: PureAbility<string> = useAbility(authzContext);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingSeverity", { Organization: userOrganization, User: userName });

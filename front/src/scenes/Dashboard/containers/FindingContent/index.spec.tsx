@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { FindingContent } from "./index";
 import {
@@ -174,9 +174,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -195,9 +195,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -221,9 +221,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -277,9 +277,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitMutationMock, submittedDraftMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -327,9 +327,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitErrorMock, draftMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -371,9 +371,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveMutationMock, findingMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -431,9 +431,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -485,9 +485,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectMutationMock, findingMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -544,9 +544,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -599,9 +599,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/test/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -649,9 +649,9 @@ describe("FindingContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <FindingContent {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,

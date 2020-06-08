@@ -2,7 +2,10 @@ import { mount, ReactWrapper } from "enzyme";
 import _ from "lodash";
 import React from "react";
 import { Can } from "./Can/index";
-import { authzContext, userLevelPermissions } from "./config";
+import {
+  authzPermissionsContext,
+  userLevelPermissions,
+} from "./config";
 
 describe("Authorization", () => {
 
@@ -18,7 +21,7 @@ describe("Authorization", () => {
         <p>someone@fluidattacks.com</p>
       </Can>,
       {
-        wrappingComponent: authzContext.Provider,
+        wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: userLevelPermissions },
       },
     );
@@ -36,7 +39,7 @@ describe("Authorization", () => {
         <p>someone@fluidattacks.com</p>
       </Can>,
       {
-        wrappingComponent: authzContext.Provider,
+        wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: userLevelPermissions },
       },
     );

@@ -14,7 +14,7 @@ import { submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -26,7 +26,7 @@ import { IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps } from "./types
 
 const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
 (props: IVulnerabilitiesViewProps): JSX.Element => {
-  const permissions: PureAbility<string> = useAbility(authzContext);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const handleUploadResult: ((mtResult: IUploadVulnerabilitiesResult) => void) =
   (mtResult: IUploadVulnerabilitiesResult): void => {

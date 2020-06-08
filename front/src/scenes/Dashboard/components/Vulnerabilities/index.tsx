@@ -19,7 +19,7 @@ import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
@@ -210,7 +210,7 @@ interface ICalculateRowsSelected {
 
 const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
-    const permissions: PureAbility<string> = useAbility(authzContext);
+    const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
     // State management
     const [modalHidden, setModalHidden] = useState(false);

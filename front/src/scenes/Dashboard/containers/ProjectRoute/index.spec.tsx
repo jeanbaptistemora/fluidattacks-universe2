@@ -5,7 +5,7 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { ProjectRoute } from "./index";
 import { GET_PROJECT_ALERT, GET_PROJECT_DATA } from "./queries";
 
@@ -69,9 +69,9 @@ describe("ProjectRoute", () => {
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
         <MockedProvider mocks={[projectMock, alertMock]} addTypename={false}>
           <Route path="/project/:projectName">
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <ProjectRoute />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </Route>
         </MockedProvider>
       </MemoryRouter>,

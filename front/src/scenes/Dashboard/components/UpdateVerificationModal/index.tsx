@@ -11,7 +11,7 @@ import React from "react";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../components/DataTableNext/types";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -41,7 +41,7 @@ export interface IUpdateVerificationModal {
 }
 
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
-  const permissions: PureAbility<string> = useAbility(authzContext);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_finding__get_analyst");
 
   // State management

@@ -19,7 +19,7 @@ import { Field } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { Can } from "../../../../utils/authz/Can";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { dropdownField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -44,7 +44,7 @@ import { IFindingContentProps, IHeaderQueryResult } from "./types";
 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
-  const permissions: PureAbility<string> = useAbility(authzContext);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { replace } = useHistory();
 
   // State management

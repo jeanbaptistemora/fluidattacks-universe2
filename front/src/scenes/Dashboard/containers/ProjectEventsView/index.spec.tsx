@@ -11,7 +11,7 @@ import { RouteComponentProps } from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store/index";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { ProjectEventsView } from "./index";
 import { GET_EVENTS } from "./queries";
 
@@ -145,9 +145,9 @@ describe("EventsView", () => {
       <MemoryRouter initialEntries={["/project/test/events"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <ProjectEventsView {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,

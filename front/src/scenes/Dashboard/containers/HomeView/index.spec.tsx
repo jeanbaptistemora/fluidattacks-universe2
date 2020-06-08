@@ -6,7 +6,7 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import store from "../../../../store/index";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { HomeView } from "./index";
 import { PROJECTS_QUERY } from "./queries";
 import { IHomeViewProps } from "./types";
@@ -115,9 +115,9 @@ describe("HomeView", () => {
       <MemoryRouter initialEntries={["/home"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={true}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <HomeView {...mockProps} />
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,

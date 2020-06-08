@@ -17,7 +17,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatUserlist } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -69,7 +69,7 @@ const tableHeaders: IHeader[] = [
 const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
-  const permissions: PureAbility<string> = useAbility(authzContext);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {

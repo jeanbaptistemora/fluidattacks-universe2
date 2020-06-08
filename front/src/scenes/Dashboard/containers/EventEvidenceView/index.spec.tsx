@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import store from "../../../../store";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { EventEvidenceView } from "./index";
 import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES } from "./queries";
 
@@ -179,9 +179,9 @@ describe("EventEvidenceView", () => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <Provider store={store}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <EventEvidenceView {...mockProps} />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </Provider>
       </MockedProvider>,
     );

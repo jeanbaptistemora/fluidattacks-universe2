@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../../store/index";
-import { authzContext } from "../../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_ENVIRONMENT_MUTATION } from "../queries";
 import { Environments, IEnvironmentsProps } from "./index";
@@ -154,9 +154,9 @@ describe("Environments", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksEnvironments.concat(mocksMutation)} addTypename={false}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <Environments {...mockProps} />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );
@@ -200,9 +200,9 @@ describe("Environments", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksEnvironments.concat(mocksMutation)} addTypename={false}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <Environments {...mockProps} />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );
@@ -294,9 +294,9 @@ describe("Environments", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksEnvironments.concat(mocksMutation)} addTypename={false}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <Environments {...mockProps} />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );

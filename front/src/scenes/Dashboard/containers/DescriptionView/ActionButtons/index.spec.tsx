@@ -3,7 +3,7 @@ import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { authzContext } from "../../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../../utils/authz/config";
 import { ActionButtons, IActionButtonsProps } from "./index";
 
 describe("ActionButtons", () => {
@@ -70,7 +70,7 @@ describe("ActionButtons", () => {
     const wrapper: ReactWrapper = mount(
       <ActionButtons {...requestMockProps} />,
       {
-        wrappingComponent: authzContext.Provider,
+        wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
       },
     );

@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../../store/index";
-import { authzContext } from "../../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../../utils/authz/config";
 import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
 import { Services } from "./index";
 
@@ -114,11 +114,11 @@ describe("Services", () => {
       const wrapper: ReactWrapper = mount(
         <Provider store={store}>
           <MockedProvider mocks={mockResponses} addTypename={false}>
-            <authzContext.Provider value={mockedPermissions}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <MemoryRouter initialEntries={["/home"]}>
                 <Services groupName={test.group} />
               </MemoryRouter>
-            </authzContext.Provider>
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>,
       );
@@ -137,11 +137,11 @@ describe("Services", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockResponses} addTypename={false}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <MemoryRouter initialEntries={["/home"]}>
               <Services groupName="unittesting" />
             </MemoryRouter>
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );

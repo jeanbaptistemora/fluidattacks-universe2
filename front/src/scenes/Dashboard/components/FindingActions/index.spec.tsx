@@ -1,7 +1,7 @@
 import { PureAbility } from "@casl/ability";
 import { mount, ReactWrapper } from "enzyme";
 import * as React from "react";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { FindingActions } from "./index";
 
 describe("FindingActions", (): void => {
@@ -48,7 +48,7 @@ describe("FindingActions", (): void => {
         onSubmit={jest.fn()}
       />,
       {
-        wrappingComponent: authzContext.Provider,
+        wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
       },
     );
@@ -80,7 +80,7 @@ describe("FindingActions", (): void => {
         onSubmit={jest.fn()}
       />,
       {
-        wrappingComponent: authzContext.Provider,
+        wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
       },
     );
@@ -118,7 +118,7 @@ describe("FindingActions", (): void => {
         onSubmit={jest.fn()}
       />,
       {
-        wrappingComponent: authzContext.Provider,
+        wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
       },
     );
@@ -158,7 +158,7 @@ describe("FindingActions", (): void => {
         onSubmit={jest.fn()}
       />,
       {
-        wrappingComponent: authzContext.Provider,
+        wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
       },
     );

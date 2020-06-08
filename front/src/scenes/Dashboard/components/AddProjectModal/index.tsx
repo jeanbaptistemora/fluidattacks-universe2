@@ -15,7 +15,7 @@ import { EventWithDataHandler, Field, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -115,7 +115,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
               setHasForces(withForces);
             };
 
-            const permissions: PureAbility<string> = useAbility(authzContext);
+            const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
             const variables: { tagsField: boolean } = {
               tagsField: permissions.can("backend_api_resolvers_me__get_tags"),
             };

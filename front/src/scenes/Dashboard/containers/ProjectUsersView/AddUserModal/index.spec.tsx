@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../../store";
-import { authzContext } from "../../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../../utils/authz/config";
 import { msgError } from "../../../../../utils/notifications";
 import { addUserModal as AddUserModal } from "./index";
 import { GET_USER } from "./queries";
@@ -220,9 +220,9 @@ describe("Add user modal", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <AddUserModal {...mockPropsAdd} projectName={undefined} />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );

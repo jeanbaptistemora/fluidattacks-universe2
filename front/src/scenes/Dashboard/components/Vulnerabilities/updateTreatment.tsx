@@ -17,7 +17,7 @@ import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import store from "../../../../store";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { dropdownField, tagInputField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -44,7 +44,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
   props: IUpdateTreatmentModal,
 ): JSX.Element => {
   const { userEmail } = window as typeof window & Dictionary<string>;
-  const permissions: PureAbility<string> = useAbility(authzContext);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const sortTags: ((tags: string) => string[]) = (tags: string): string[] => {
     const tagSplit: string[] = tags.trim()

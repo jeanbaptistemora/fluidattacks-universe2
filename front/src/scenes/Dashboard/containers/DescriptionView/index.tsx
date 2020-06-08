@@ -19,7 +19,7 @@ import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { Can } from "../../../../utils/authz/Can";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import {
   formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
 } from "../../../../utils/formatHelpers";
@@ -51,7 +51,7 @@ const maxCompromisedAttributesLength: ConfigurableValidator = maxLength(200);
 const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
-  const permissions: PureAbility<string> = useAbility(authzContext);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {

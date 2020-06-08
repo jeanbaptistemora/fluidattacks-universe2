@@ -16,7 +16,7 @@ import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -32,7 +32,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
     const { push } = useHistory();
     const { onClose } = props;
     const projectName: string = props.projectName.toLowerCase();
-    const permissions: PureAbility<string> = useAbility(authzContext);
+    const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
     const sameProjectName: ConfigurableValidator = sameValue(projectName);
     const selector: (state: {}, ...fields: string[]) => string = formValueSelector("removeProject");

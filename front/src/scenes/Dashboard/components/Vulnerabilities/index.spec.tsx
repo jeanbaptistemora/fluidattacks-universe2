@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { compareNumbers, VulnerabilitiesView } from "./index";
 import { GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IUpdateVulnTreatment, IVulnDataType } from "./types";
@@ -255,7 +255,7 @@ describe("Vulnerabilities view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mocks]} addTypename={true}>
-          <authzContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
             <VulnerabilitiesView
               separatedRow={false}
               isRequestVerification={true}
@@ -264,7 +264,7 @@ describe("Vulnerabilities view", () => {
               findingId="480857698"
               state="open"
             />
-          </authzContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
       );

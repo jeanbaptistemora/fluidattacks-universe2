@@ -18,7 +18,7 @@ import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Can } from "../../../../utils/authz/Can";
-import { authzContext } from "../../../../utils/authz/config";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -44,7 +44,7 @@ const tableHeadersTags: IHeader[] = [
 ];
 
 const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
-  const permissions: PureAbility<string> = useAbility(authzContext);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { push } = useHistory();
 
   const goToProject: ((projectName: string) => void) = (projectName: string): void => {
