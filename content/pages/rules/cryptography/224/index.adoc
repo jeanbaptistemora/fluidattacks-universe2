@@ -31,53 +31,62 @@ which have often already been implemented by the platform.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/330.html[CWE-330: Use of Insufficiently Random Values]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/327.html[CWE-327: Use of a Broken or Risky Cryptographic Algorithm]
+The use of a broken or risky cryptographic algorithm is an unnecessary risk
+that may result in the exposure of sensitive information.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/330.html[CWE-330: Use of Insufficiently Random Values]
 The software uses insufficiently random numbers or values in a security context
 that depends on unpredictable numbers.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/331.html[CWE-331: Insufficient Entropy]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/331.html[CWE-331: Insufficient Entropy]
 The software uses an algorithm or scheme that produces insufficient entropy,
 leaving patterns or clusters of values that are more likely to occur than
 others.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/332.html[CWE-332: Insufficient Entropy in PRNG]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/332.html[CWE-332: Insufficient Entropy in PRNG]
 The lack of entropy available for, or used by, a Pseudo-Random Number Generator
 (PRNG) can be a stability and security threat.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/333.html[CWE-333: Improper Handling of Insufficient Entropy in TRNG]
+. [[r5]] link:https://cwe.mitre.org/data/definitions/333.html[CWE-333: Improper Handling of Insufficient Entropy in TRNG]
 True random number generators (TRNG) generally have a limited source of entropy
 and therefore can fail or block.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/334.html[CWE-334: Small Space of Random Values]
+. [[r6]] link:https://cwe.mitre.org/data/definitions/334.html[CWE-334: Small Space of Random Values]
 The number of possible random values is smaller than needed by the product,
 making it more susceptible to brute force attacks.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/335.html[CWE-335: Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)]
+. [[r7]] link:https://cwe.mitre.org/data/definitions/335.html[CWE-335: Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)]
 The software uses a Pseudo-Random Number Generator (PRNG) that does not
 correctly manage seeds.
 
-. [[r7]] link:https://cwe.mitre.org/data/definitions/338.html[CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)]
+. [[r8]] link:https://cwe.mitre.org/data/definitions/338.html[CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)]
 The product uses a Pseudo-Random Number Generator (PRNG) in a security context,
 but the PRNG's algorithm is not cryptographically strong.
 
-. [[r8]] link:https://cwe.mitre.org/data/definitions/340.html[CWE-340: Generation of Predictable Numbers or Identifiers]
+. [[r9]] link:https://cwe.mitre.org/data/definitions/340.html[CWE-340: Generation of Predictable Numbers or Identifiers]
 The product uses a scheme that generates numbers or identifiers that are more
 predictable than required.
 
-. [[r9]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[NIST 800-53 IA-7]
+. [[r10]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[NIST 800-53 IA-7]
 Cryptographic module authentication:
 The information system implements mechanisms for authentication
 to a cryptographic module that meet the requirements
 of applicable federal laws, Executive Orders, directives, policies,
 regulations, standards, and guidance for such authentication.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.1)]
 Verify that there is an explicit policy for management of cryptographic keys
 and that a cryptographic key lifecycle follows a key management standard such
 as **NIST SP 800-57**.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.8 Single or Multi Factor One Time Verifier Requirements.(2.8.3)]
+Verify that approved cryptographic algorithms are used in the generation,
+seeding, and verification.
+
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.3)]
 Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.

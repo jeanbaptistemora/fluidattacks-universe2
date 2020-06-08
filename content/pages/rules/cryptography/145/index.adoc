@@ -38,10 +38,10 @@ identity of that actor.
 . [[r3]] link:https://cwe.mitre.org/data/definitions/323.html[CWE-323: Reusing a Nonce, Key Pair in Encryption]
 Nonces should be used for the present occasion and only once.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/324.html[CWE-324: Use of a Key Past its Expiration Date]
-The product uses a cryptographic key or password past its expiration date,
-which diminishes its safety significantly by increasing the timing window for
-cracking attacks against that key.
+. [[r4]] link:https://cwe.mitre.org/data/definitions/522.html[CWE-522: Insufficiently Protected Credentials]
+The product transmits or stores authentication credentials,
+but it uses an insecure method that is susceptible to unauthorized interception
+and/or retrieval.
 
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.1)]
@@ -68,6 +68,14 @@ obfuscation.
 
 . [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.8 Single or Multi Factor One Time Verifier Requirements.(2.8.2)]
-Verify that symmetric keys used to verify submitted OTPs are highly protected,
+Verify that symmetric keys used to verify submitted **OTP**s are highly
+protected,
 such as by using a hardware security module or secure operating system based
 key storage.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.1)]
+Verify that cryptographic keys used in verification are stored securely
+and protected against disclosure,
+such as using a *TPM* or *HSM*, or an *OS* service that can use this secure
+storage.
