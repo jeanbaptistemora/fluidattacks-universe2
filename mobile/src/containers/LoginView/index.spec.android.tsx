@@ -1,4 +1,5 @@
 import { mount, ReactWrapper } from "enzyme";
+import { FetchMockStatic } from "fetch-mock";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -9,16 +10,12 @@ import { NativeRouter } from "react-router-native";
 import wait from "waait";
 
 import { i18next } from "../../utils/translations/translate";
-import { checkVersion } from "../../utils/version";
 
 import { LoginView } from "./index";
+import { checkPlayStoreVersion } from "./version";
 
-jest.mock("../../utils/version", (): Dictionary => {
-  const mockedVersion: Dictionary = jest.requireActual("../../utils/version");
-  mockedVersion.checkVersion = jest.fn();
-
-  return mockedVersion;
-});
+jest.mock("./version", (): Dictionary => ({ checkPlayStoreVersion: jest.fn() }));
+const originalVersion: { checkPlayStoreVersion(): Promise<boolean> } = jest.requireActual("./version");
 
 jest.mock("expo-constants", (): Dictionary => ({
   ...jest.requireActual("expo-constants"),
@@ -27,13 +24,20 @@ jest.mock("expo-constants", (): Dictionary => ({
     android: {
       package: "com.fluidattacks.integrates",
     },
+    version: "20.06.1337",
   },
 }));
 
+const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
+
 describe("LoginView", (): void => {
+  afterEach((): void => {
+    jest.clearAllMocks();
+    mockedFetch.reset();
+  });
 
   it("should display update dialog", async (): Promise<void> => {
-    (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(true));
+    (checkPlayStoreVersion as jest.Mock).mockResolvedValue(true);
 
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
@@ -62,7 +66,7 @@ describe("LoginView", (): void => {
   });
 
   it("should not display update dialog", async (): Promise<void> => {
-    (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (checkPlayStoreVersion as jest.Mock).mockResolvedValue(false);
 
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
@@ -91,7 +95,7 @@ describe("LoginView", (): void => {
   });
 
   it("should open google play store", async (): Promise<void> => {
-    (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(true));
+    (checkPlayStoreVersion as jest.Mock).mockResolvedValue(true);
     (Linking.openURL as jest.Mock).mockImplementation((): Promise<void> => Promise.resolve());
 
     const wrapper: ReactWrapper = mount(
@@ -118,5 +122,38 @@ describe("LoginView", (): void => {
     const { openURL } = Linking;
     expect(openURL)
       .toHaveBeenCalled();
+  });
+
+  it("should report up to date", async (): Promise<void> => {
+    mockedFetch.mock("https://play.google.com/store/apps/details?id=com.fluidattacks.integrates", {
+      body: "<html><body><span>20.06.1337</span></body></html>",
+      status: 200,
+    });
+    const isOutdated: boolean = await originalVersion.checkPlayStoreVersion();
+
+    expect(isOutdated)
+      .toBe(false);
+  });
+
+  it("should report outdated", async (): Promise<void> => {
+    mockedFetch.mock("https://play.google.com/store/apps/details?id=com.fluidattacks.integrates", {
+      body: "<html><body><span>20.07.1337</span></body></html>",
+      status: 200,
+    });
+    const isOutdated: boolean = await originalVersion.checkPlayStoreVersion();
+
+    expect(isOutdated)
+      .toBe(true);
+  });
+
+  it("should gracefully fallback when it fails to retrieve version", async (): Promise<void> => {
+    mockedFetch.mock("https://play.google.com/store/apps/details?id=com.fluidattacks.integrates", {
+      body: "<html><body><span>thereisanerror</span></body></html>",
+      status: 200,
+    });
+    const isOutdated: boolean = await originalVersion.checkPlayStoreVersion();
+
+    expect(isOutdated)
+      .toBe(false);
   });
 });

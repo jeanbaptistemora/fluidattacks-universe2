@@ -1,3 +1,4 @@
+// tslint:disable: no-magic-numbers
 import { mount, ReactWrapper } from "enzyme";
 import * as AppAuth from "expo-app-auth";
 import * as Google from "expo-google-app-auth";
@@ -11,11 +12,11 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { NativeRouter } from "react-router-native";
 
 import { i18next } from "../../utils/translations/translate";
-import { checkVersion } from "../../utils/version";
 
 import { GoogleButton, IGoogleButtonProps } from "./GoogleButton";
 import { LoginView } from "./index";
 import { IMicrosoftButtonProps, MicrosoftButton } from "./MicrosoftButton";
+import { checkPlayStoreVersion } from "./version";
 
 jest.mock("expo-google-app-auth", (): Dictionary => {
   const mockedGoogleAuth: Dictionary = jest.requireActual("expo-google-app-auth");
@@ -52,9 +53,9 @@ jest.mock("react-router-native", (): Dictionary => {
   };
 });
 
-jest.mock("../../utils/version", (): Dictionary => {
-  const mockedVersion: Dictionary = jest.requireActual("../../utils/version");
-  mockedVersion.checkVersion = jest.fn();
+jest.mock("./version", (): Dictionary => {
+  const mockedVersion: Dictionary = jest.requireActual("./version");
+  mockedVersion.checkPlayStoreVersion = jest.fn();
 
   return mockedVersion;
 });
@@ -91,7 +92,7 @@ describe("LoginView", (): void => {
   });
 
   it("should auth with google", async (): Promise<void> => {
-    (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.resolve({
       accessToken: "abc123",
       idToken: "abc123",
@@ -142,7 +143,7 @@ describe("LoginView", (): void => {
   });
 
   it("should auth with microsoft", async (): Promise<void> => {
-    (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> => Promise.resolve({
       accessToken: "abc123",
       accessTokenExpirationDate: "",
@@ -199,7 +200,7 @@ describe("LoginView", (): void => {
   });
 
   it("should handle auth cancel", async (): Promise<void> => {
-    (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.reject({
       code: Platform.select({ android: 2, ios: -3 }),
     }));
@@ -255,7 +256,7 @@ describe("LoginView", (): void => {
   });
 
   it("should handle errors", async (): Promise<void> => {
-    (checkVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.reject("Oops :("));
+    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.reject("Oops :("));
     (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.reject("Oops :("));
     (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> =>
       Promise.reject("Oops :("));
@@ -293,8 +294,7 @@ describe("LoginView", (): void => {
       wrapper.update();
     });
 
-    const expectedErrors: number = 2;
     expect(Alert.alert)
-      .toHaveBeenCalledTimes(expectedErrors);
+      .toHaveBeenCalledTimes(2);
   });
 });

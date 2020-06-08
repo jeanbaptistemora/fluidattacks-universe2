@@ -8,13 +8,12 @@ import { useHistory } from "react-router-native";
 
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
-import { rollbar } from "../../utils/rollbar";
-import { checkVersion } from "../../utils/version";
 
 import { GoogleButton } from "./GoogleButton";
 import { MicrosoftButton } from "./MicrosoftButton";
 import { authWithGoogle, authWithMicrosoft, IAuthResult } from "./socialAuth";
 import { styles } from "./styles";
+import { checkPlayStoreVersion } from "./version";
 
 type manifestStructure = NativeConstants["manifest"] & { android: { package: string } };
 const manifest: manifestStructure = (Constants.manifest as manifestStructure);
@@ -30,19 +29,16 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   // Side effects
   const onMount: (() => void) = (): void => {
     const executeCheckVersion: (() => void) = async (): Promise<void> => {
-      try {
-        const shouldSkipCheck: boolean =
-          Platform.OS === "ios"
-          || Constants.appOwnership === AppOwnership.Expo;
+      const shouldSkipCheck: boolean =
+        Platform.OS === "ios"
+        || Constants.appOwnership === AppOwnership.Expo;
 
-        if (shouldSkipCheck) {
-          setOutdated(false);
-        } else {
-          setOutdated(await checkVersion());
-        }
-      } catch (error) {
-        rollbar.error("An error occurred getting latest version", error as Error);
+      if (shouldSkipCheck) {
+        setOutdated(false);
+      } else {
+        setOutdated(await checkPlayStoreVersion());
       }
+
       setLoading(false);
     };
 
