@@ -9,11 +9,13 @@
 
 # standar imports
 import re
+from concurrent.futures import ThreadPoolExecutor
 from collections import OrderedDict
 from collections import UserDict
 from collections import UserList
 from contextlib import suppress
 from copy import copy
+from multiprocessing import cpu_count
 from timeit import default_timer as timer
 from typing import Tuple
 
@@ -24,6 +26,7 @@ from pyparsing import Optional
 from pyparsing import printables
 from pyparsing import Suppress
 from pyparsing import Word
+from neo4j.exceptions import ClientError
 import docker
 
 # local imports
@@ -139,7 +142,8 @@ class List(UserList):
         if is_primitive(item):
             self.data[index] = item
         elif isinstance(item, (list, CustomList)):
-            self.data[index] = List(item, item_id, self.session, **attrs)
+            self.data[index] = List(
+                item, item_id, self.session, line=line, **attrs)
         elif isinstance(item, (dict, CustomDict)):
             self.data[index] = Dict(
                 item, session=self.session, node_id=item_id, **attrs)
@@ -336,7 +340,7 @@ class Dict(UserDict):
                 line=self.__line__,
                 **attrs)
         elif isinstance(item, (list, CustomList, List)):
-            self.data[key] = List(item, item_id, self.session, self.__line__,
+            self.data[key] = List(item, item_id, self.session, line,
                                   **attrs)
 
     def __create_node__(self, key: str, item, line: int):
@@ -460,15 +464,27 @@ class Loader:
         :param path: Path of cloudformation templates.
         :param exclude: Paths to exclude.
         """
-        count = 1
-        for template_path in get_paths(
-                path, exclude=exclude, endswith=CLOUDFORMATION_EXTENSIONS):
+        def load(_path_):
             with suppress(CloudFormationInvalidTemplateError):
-                template = load_cfn_template(template_path)
+                template = load_cfn_template(_path_)
                 start_time = timer()
-                print(f'Loading: {template_path}')
-                Dict(template, path=template_path, connection=self.connection)
+                success = True
+                try:
+                    Dict(template, path=_path_, connection=self.connection)
+                except ClientError as exc:
+                    error = str(exc)
+                    success = False
+
                 elapsed_time = timer() - start_time
-                print('    [SUCCESS]    [%d]  time: %.4f seconds' %
-                      (count, elapsed_time))
-                count += 1
+                print(f'Loading: {_path_}')
+                if success:
+                    print((f'    [SUCCESS]    time: %.4f seconds') %
+                          (elapsed_time))
+                else:
+                    print(f'    [ERROR] {error}')
+        init_time = timer()
+        with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
+            worker.map(load, get_paths(
+                path, exclude=exclude, endswith=CLOUDFORMATION_EXTENSIONS))
+        end_time = timer() - init_time
+        print(f'[SUCCESS]    Total: %.4f seconds' % (end_time))
