@@ -11,6 +11,7 @@ import pytz
 
 from django.conf import settings
 
+from backend.authz.policy import get_group_level_role
 from backend.dal import (
     finding as finding_dal,
     project as project_dal,
@@ -38,7 +39,7 @@ from __init__ import FI_MAIL_REVIEWERS
 
 def get_email_recipients(project_name: str) -> List[str]:
     """Get the recipients of the comment email."""
-    recipients = [str(user) for user in get_users(project_name)]
+    recipients = async_to_sync(get_users_to_notify)(project_name)
     approvers = FI_MAIL_REVIEWERS.split(',')
     recipients += approvers
 
@@ -794,6 +795,17 @@ def get_description(project_name: str) -> str:
 
 def get_users(project_name: str, active: bool = True) -> List[str]:
     return project_dal.get_users(project_name, active)
+
+
+async def get_users_to_notify(project_name: str, active: bool = True) -> List[str]:
+    users = get_users(project_name, active)
+    user_roles = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(get_group_level_role)(user, project_name)
+        )
+        for user in users
+    ])
+    return [str(user) for user in users if user_roles.pop(0) != 'executive']
 
 
 def add_all_access_to_project(project: str) -> bool:

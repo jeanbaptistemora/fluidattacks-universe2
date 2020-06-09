@@ -191,7 +191,7 @@ def logout(request):
 @csrf_exempt
 def get_evidence(request, project, evidence_type, findingid, fileid):
     allowed_roles = [
-        'admin', 'analyst', 'closer', 'customer', 'customeradmin',
+        'admin', 'analyst', 'closer', 'customer', 'customeradmin', 'executive',
         'group_manager', 'internal_manager', 'resourcer', 'reviewer'
     ]
 

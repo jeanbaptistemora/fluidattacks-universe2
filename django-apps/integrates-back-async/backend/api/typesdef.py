@@ -191,6 +191,7 @@ GROUP_LEVEL_ROLE = EnumType(
         'CLOSER': 'closer',
         'CUSTOMER': 'customer',
         'CUSTOMERADMIN': 'customeradmin',
+        'EXECUTIVE': 'executive',
         'GROUP_MANAGER': 'group_manager',
         'RESOURCER': 'resourcer',
         'REVIEWER': 'reviewer'
