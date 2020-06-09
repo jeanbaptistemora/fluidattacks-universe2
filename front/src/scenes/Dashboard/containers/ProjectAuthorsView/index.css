@@ -1,3 +1,13 @@
 :local .wrapped {
   word-wrap: break-word;
 }
+
+:local .dateCol {
+  padding-bottom: 10px;
+}
+
+:local .selectDate {
+  width: 155px;
+  height: 35px;
+  background-color: white;
+}

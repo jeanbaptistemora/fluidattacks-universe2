@@ -29,8 +29,8 @@ const enTranslations: Dictionary = {
       commit: "Commit",
       groups_contributed: "Groups Contributed",
       repository: "Repository",
-      table_advice: "Below you'll find the list of authors that have contributed "
-      + "to your group in the current month, and one example commit",
+      table_advice: "Below you'll find the authors that have contributed "
+      + "to your group in the selected month, and one example commit",
     },
     drafts: {
       approve: "Approve draft",

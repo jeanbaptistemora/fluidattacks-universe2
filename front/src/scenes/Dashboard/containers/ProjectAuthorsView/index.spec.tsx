@@ -2,6 +2,7 @@ import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
+import MockDate from "mockdate";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -13,6 +14,15 @@ import { ProjectAuthorsView } from "./index";
 import { GET_BILL } from "./queries";
 
 describe("AuthorsView", () => {
+  const date: Date = new Date(2020, 0);
+
+  beforeEach(() => {
+    MockDate.set(date);
+  });
+
+  afterEach(() => {
+    MockDate.reset();
+  });
 
   const mockProps: RouteComponentProps<{ projectName: string }> = {
     history: {
@@ -42,6 +52,7 @@ describe("AuthorsView", () => {
       request: {
         query: GET_BILL,
         variables: {
+          date: date.toISOString(),
           projectName: "unittesting",
         },
       },
@@ -126,5 +137,4 @@ describe("AuthorsView", () => {
       .filterWhere((td: ReactWrapper) => _.includes(td.text(), "test")))
       .toHaveLength(3);
   });
-
 });

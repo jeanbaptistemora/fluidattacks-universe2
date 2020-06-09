@@ -24,6 +24,7 @@ from backend.api.resolvers import (
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, require_login,
     turn_args_into_kwargs,
+    require_attribute,
     require_integrates,
     require_project_access, enforce_user_level_auth_async
 )
@@ -373,7 +374,7 @@ async def _get_comments(
 
 
 @enforce_group_level_auth_async
-@require_integrates
+@require_attribute('has_drills_white')
 async def _get_bill(_, project_name: str, date: datetime = None, **__):
     date = date or datetime.utcnow()
 
@@ -495,7 +496,9 @@ async def resolve(
             'project_name': project_name,
             'requested_fields': req_fields
         }
-        field_params = util.get_field_parameters(requested_field)
+        field_params = \
+            util.get_field_parameters(requested_field, info.variable_values)
+
         if field_params:
             params.update(field_params)
         requested_field = \

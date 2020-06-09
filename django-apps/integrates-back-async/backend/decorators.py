@@ -188,20 +188,28 @@ def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
         raise InvalidAuthorization()
 
 
-def require_integrates(function: Callable) -> Callable:
+def require_attribute(attribute: str):
 
-    @functools.wraps(function)
-    async def wrapper(*args, **kwargs):
-        group = resolve_project_name(args, kwargs)
+    def wrapper(function: Callable) -> Callable:
 
-        enforcer = authz.get_group_service_attributes_enforcer(group)
+        @functools.wraps(function)
+        async def resolve_and_call(*args, **kwargs):
+            group = resolve_project_name(args, kwargs)
 
-        if not await enforcer('has_integrates'):
-            raise GraphQLError('Access denied')
+            enforcer = authz.get_group_service_attributes_enforcer(group)
 
-        return await function(*args, **kwargs)
+            if not await enforcer(attribute):
+                raise GraphQLError('Access denied')
+
+            return await function(*args, **kwargs)
+
+        return resolve_and_call
 
     return wrapper
+
+
+def require_integrates(function: Callable) -> Callable:
+    return require_attribute('has_integrates')(function)
 
 
 def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
