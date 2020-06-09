@@ -5,7 +5,7 @@
 """Functions to connect to dynamodb database."""
 
 import os
-
+from typing import Dict
 import boto3
 import botocore
 
@@ -18,7 +18,8 @@ CLIENT_CONFIG = botocore.config.Config(
     max_pool_connections=30,
 )
 
-RESOURCE_OPTIONS = {}
+RESOURCE_OPTIONS: Dict[str, str] = {}
+
 if FI_ENVIRONMENT == 'development' and FI_DYNAMODB_HOST:
     ENDPOINT_URL = 'http://{}:{}'.format(FI_DYNAMODB_HOST, FI_DYNAMODB_PORT)
     RESOURCE_OPTIONS = {

@@ -1,4 +1,3 @@
-from asgiref.sync import sync_to_async
 from backend.decorators import (
     enforce_user_level_auth_async,
     require_login,
@@ -11,7 +10,7 @@ from ariadne import convert_kwargs_to_snake_case
 
 async def _resolve_fields() -> InternalProjectType:
     """Async resolve fields."""
-    name = await sync_to_async(available_group_domain.get_name)()
+    name = await available_group_domain.get_name()
     result: InternalProjectType = dict()
     result['project_name'] = name
     return result

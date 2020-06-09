@@ -122,8 +122,10 @@ def create_project(
             has_forces,
             has_integrates=True)
 
-        if available_group_domain.exists(project_name) \
-                and not project_dal.exists(project_name):
+        is_group_avail = async_to_sync(
+            available_group_domain.exists)(project_name)
+
+        if is_group_avail and not project_dal.exists(project_name):
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
@@ -140,7 +142,8 @@ def create_project(
 
             success = project_dal.create(project)
             if success:
-                available_group_domain.remove(project_name)
+                async_to_sync(
+                    available_group_domain.remove)(project_name)
                 # Admins are not granted access to the project
                 # they are omnipresent
                 if not is_user_admin:
