@@ -485,8 +485,8 @@ def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, 
         response = FINDINGS_TABLE.query(**query_attrs)
         findings += response.get('Items', [])
     findings = [get_finding(finding.get('finding_id')) for finding in findings]
-    findings_released = [get_finding(finding.get('finding_id'))
-                         for finding in findings if util.validate_release_date(finding)]
+    findings_released = [finding for finding in findings if util.validate_release_date(finding) and
+                         finding.get('historic_state', [{}])[-1].get('state') != 'DELETED']
     return findings_released
 
 
