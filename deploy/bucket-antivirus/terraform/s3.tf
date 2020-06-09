@@ -1,10 +1,8 @@
-variable "resources_bucket" {}
-
 module "antivirus" {
   source = "gchamon/bucket-antivirus/aws"
-  version = "1.1.2"
+  version = "1.1.1"
 
-  buckets-to-scan = [var.resources_bucket]
+  buckets-to-scan = [aws_s3_bucket.fi_resources_bucket]
 
   scanner-environment-variables = {
     AV_DELETE_INFECTED_FILES = "False"
