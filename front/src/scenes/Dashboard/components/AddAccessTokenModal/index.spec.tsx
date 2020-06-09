@@ -5,6 +5,7 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./index";
 import { GET_ACCESS_TOKEN, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";
@@ -13,53 +14,32 @@ import { IGetAccessTokenDictAttr, IUpdateAccessTokenAttr } from "./types";
 describe("Update access token modal", () => {
   const handleOnClose: jest.Mock = jest.fn();
 
-  const accessToken: IGetAccessTokenDictAttr = {
-    hasAccessToken: true,
-    issuedAt: Date.now()
-      .toString(),
-  };
-
-  const noAccessToken: IGetAccessTokenDictAttr = {
-    hasAccessToken: false,
-    issuedAt: "",
-  };
-
-  const mockQueryTrue: ReadonlyArray<MockedResponse> = [
-    {
-      request: {
-        query: GET_ACCESS_TOKEN,
-      },
-      result: {
-        data: {
-          me: {
-            accessToken: JSON.stringify(accessToken),
-          },
-        },
-      },
-    },
-  ];
-
-  const mockQueryFalse: ReadonlyArray<MockedResponse> = [
-    {
-      request: {
-        query: GET_ACCESS_TOKEN,
-      },
-      result: {
-        data: {
-          me: {
-            accessToken: JSON.stringify(noAccessToken),
-          },
-        },
-      },
-    },
-  ];
-
   it("should return a function", () => {
     expect(typeof UpdateAccessTokenModal)
       .toEqual("function");
   });
 
   it("should render an add access token modal", async (): Promise<void> => {
+    const noAccessToken: IGetAccessTokenDictAttr = {
+      hasAccessToken: false,
+      issuedAt: "",
+    };
+
+    const mockQueryFalse: ReadonlyArray<MockedResponse> = [
+      {
+        request: {
+          query: GET_ACCESS_TOKEN,
+        },
+        result: {
+          data: {
+            me: {
+              accessToken: JSON.stringify(noAccessToken),
+            },
+          },
+        },
+      },
+    ];
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockQueryFalse} addTypename={false}>
@@ -102,6 +82,27 @@ describe("Update access token modal", () => {
   });
 
   it("should render a token creation date", async (): Promise<void> => {
+    const accessToken: IGetAccessTokenDictAttr = {
+      hasAccessToken: true,
+      issuedAt: Date.now()
+        .toString(),
+    };
+
+    const mockQueryTrue: ReadonlyArray<MockedResponse> = [
+      {
+        request: {
+          query: GET_ACCESS_TOKEN,
+        },
+        result: {
+          data: {
+            me: {
+              accessToken: JSON.stringify(accessToken),
+            },
+          },
+        },
+      },
+    ];
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockQueryTrue} addTypename={false}>
@@ -110,32 +111,36 @@ describe("Update access token modal", () => {
       </Provider>,
     );
 
-    await act(async () => {
-      await wait(0);
-      wrapper.update();
-    });
-
-    const tokenCreationLabel: ReactWrapper = wrapper.find("label");
-
-    const submitButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper) => element.contains("Proceed") && element.prop("disabled") === true)
-      .first();
-
-    const revokeButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper) => element.contains("Revoke current token"))
-      .first();
-
     expect(wrapper)
       .toHaveLength(1);
-    expect(tokenCreationLabel.text())
-      .toMatch(/Token created at:/);
-    expect(submitButton)
-      .toHaveLength(1);
-    expect(revokeButton)
-      .toHaveLength(1);
-  }, 20000);
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        const tokenCreationLabel: ReactWrapper = wrapper.find("label");
+
+        const submitButton: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper) => element.contains("Proceed") && element.prop("disabled") === true)
+          .first();
+
+        const revokeButton: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper) => element.contains("Revoke current token"))
+          .first();
+
+        expect(wrapper)
+          .toHaveLength(1);
+        expect(tokenCreationLabel.text())
+          .toMatch(/Token created at:/);
+        expect(submitButton)
+          .toHaveLength(1);
+        expect(revokeButton)
+          .toHaveLength(1);
+      });
+    });
+  });
 
   it("should render a new access token", async (): Promise<void> => {
     const expirationTime: string = "2020-07-11";
@@ -200,9 +205,9 @@ describe("Update access token modal", () => {
       .toHaveLength(1);
     expect(copyTokenButton)
       .toHaveLength(1);
-  }, 20000);
+  });
 
-  it("should render error", async (): Promise<void> => {
+  it("should reset the GenericForm component", async (): Promise<void> => {
     const expirationTime: string = "2020-07-11";
 
     const mockMutationError: ReadonlyArray<MockedResponse> = [
@@ -235,12 +240,24 @@ describe("Update access token modal", () => {
     const form: ReactWrapper = wrapper.find("genericForm");
     form.simulate("submit");
 
-    await act(async () => {
-      await wait(0);
-      wrapper.update();
-    });
-
     expect(wrapper)
       .toHaveLength(1);
+    expect(dateField.prop("value"))
+      .toBe(expirationTime);
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        const dateFieldOnReset: ReactWrapper = wrapper
+          .find({ type: "date" })
+          .find("input");
+
+        expect(wrapper)
+          .toHaveLength(1);
+        expect(dateFieldOnReset.prop("value"))
+          .toBe("");
+      });
+    });
   });
 });
