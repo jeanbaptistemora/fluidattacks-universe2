@@ -45,7 +45,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
 
   const projects: IProject[] = _.isUndefined(data) || _.isEmpty(data)
     ? []
-    : data.me.projects;
+    : data.me.projects.filter((project: IProject): boolean => !project.isCommunity);
 
   const closedVulns: number = projects.reduce(
     (previousValue: number, project: IProject): number =>

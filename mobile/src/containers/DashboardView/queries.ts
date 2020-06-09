@@ -4,8 +4,9 @@ import gql from "graphql-tag";
 export const PROJECTS_QUERY: DocumentNode = gql`{
   me {
     projects {
-      openVulnerabilities
       closedVulnerabilities
+      isCommunity
+      openVulnerabilities
     }
   }
 }`;

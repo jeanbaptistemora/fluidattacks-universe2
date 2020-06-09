@@ -111,6 +111,7 @@ type Project {
     findings(filters: GenericScalar): [Finding]
     hasDrills: Boolean
     hasForces: Boolean
+    isCommunity: Boolean
     openVulnerabilities: Int
     closedVulnerabilities: Int
     currentMonthAuthors: Int

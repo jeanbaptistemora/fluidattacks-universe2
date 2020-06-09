@@ -44,6 +44,8 @@ from backend.typing import (
 )
 from backend import util
 
+from __init__ import FI_COMMUNITY_PROJECTS
+
 
 async def _get_name(_, project_name: str, **__) -> str:
     """Get name."""
@@ -420,6 +422,10 @@ async def _get_events(info,
     events = \
         await info.context.loaders['event'].load_many(event_ids)
     return events
+
+
+async def _get_is_community(_, project_name: str, **__) -> bool:
+    return project_name in FI_COMMUNITY_PROJECTS
 
 
 @enforce_group_level_auth_async

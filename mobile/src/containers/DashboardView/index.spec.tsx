@@ -54,7 +54,16 @@ describe("DashboardView", (): void => {
         data: {
           me: {
             projects: [
-              { openVulnerabilities: 5, closedVulnerabilities: 7 },
+              {
+                closedVulnerabilities: 7,
+                isCommunity: false,
+                openVulnerabilities: 5,
+              },
+              {
+                closedVulnerabilities: 1,
+                isCommunity: true,
+                openVulnerabilities: 2,
+              },
             ],
           },
         },
