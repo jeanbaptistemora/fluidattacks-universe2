@@ -413,6 +413,7 @@ def test_edit(
     expected: bool,
 ):
     assert expected == edit(
+        comments='',
         group_name=group_name,
         subscription=subscription,
         has_drills=has_drills,

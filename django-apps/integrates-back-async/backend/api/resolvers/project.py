@@ -571,11 +571,13 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
+    comments: str,
 ) -> SimplePayloadType:
     group_name = group_name.lower()
     requester_email = util.get_jwt_content(info.context)['user_email']
 
     success = await sync_to_async(project_domain.edit)(
+        comments=comments,
         group_name=group_name,
         has_drills=has_drills,
         has_forces=has_forces,

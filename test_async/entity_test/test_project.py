@@ -447,6 +447,7 @@ async def test_edit_group_good(
     query = f"""
         mutation {{
             editGroup(
+                comments: "",
                 groupName: "{group_name}",
                 subscription: {subscription},
                 hasDrills: {has_drills},
@@ -467,23 +468,31 @@ async def test_edit_group_good(
 
 
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
+    ['comments', 'group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
     [
         # Configuration error, Drills requires Integrates
-        ['ONESHOTTEST', 'CONTINUOUS', 'true', 'false', 'false',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'true', 'false', 'false',
          'Exception - Drills is only available when Integrates is too'],
         # Configuration error, Forces requires Integrates
-        ['ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'false',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'false',
          'Exception - Forces is only available when Integrates is too'],
         # Configuration error, Forces requires Drills
-        ['ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'true',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'true',
          'Exception - Forces is only available when Drills is too'],
         # Configuration error, Forces requires CONTINUOUS
-        ['ONESHOTTEST', 'ONESHOT', 'false', 'true', 'true',
+        ['', 'ONESHOTTEST', 'ONESHOT', 'false', 'true', 'true',
          'Exception - Forces is only available in projects of type Continuous'],
+        # Input validation error, weird chars
+        ['\xFF', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true',
+         'Exception - Invalid characters'],
+        # Input validation error, too long string
+        [' ' * 251, 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true',
+         'Exception - Invalid field length in form'],
+
     ]
 )
 async def test_edit_group_bad(
+    comments,
     group_name,
     subscription,
     has_drills,
@@ -494,6 +503,7 @@ async def test_edit_group_bad(
     query = f"""
         mutation {{
             editGroup(
+                comments: "{comments}"
                 groupName: "{group_name}",
                 subscription: {subscription},
                 hasDrills: {has_drills},

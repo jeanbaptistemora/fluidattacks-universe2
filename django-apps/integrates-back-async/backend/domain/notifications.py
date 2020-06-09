@@ -1,5 +1,6 @@
 # Standard library
 from datetime import datetime
+import html
 import threading
 
 # Local imports
@@ -47,6 +48,7 @@ def new_group(
 
 def edit_group(
     *,
+    comments: str,
     group_name: str,
     has_drills: bool,
     has_forces: bool,
@@ -73,6 +75,7 @@ def edit_group(
             - Integrates: {translations[has_integrates]}
             - Drills: {translations[has_drills]}
             - Forces: {translations[has_forces]}
+            - Comments: {html.escape(comments, quote=True)}
 
             If you require any further information,
             do not hesitate to contact us.

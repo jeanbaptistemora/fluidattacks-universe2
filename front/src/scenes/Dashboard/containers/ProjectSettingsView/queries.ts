@@ -13,6 +13,7 @@ export const GET_GROUP_DATA: DocumentNode = gql`
 
 export const EDIT_GROUP_DATA: DocumentNode = gql`
   mutation EditGroupData(
+    $comments: String!
     $groupName: String!
     $hasDrills: Boolean!
     $hasForces: Boolean!
@@ -20,6 +21,7 @@ export const EDIT_GROUP_DATA: DocumentNode = gql`
     $subscription: SubscriptionType!
   ) {
     editGroup(
+      comments: $comments
       groupName: $groupName
       hasDrills: $hasDrills
       hasForces: $hasForces

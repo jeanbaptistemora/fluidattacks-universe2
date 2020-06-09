@@ -157,6 +157,7 @@ type Mutation {
         hasForces: Boolean
     ): SimplePayload!
     editGroup(
+        comments: String!,
         groupName: String!,
         subscription: SubscriptionType!,
         hasDrills: Boolean!,

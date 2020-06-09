@@ -178,6 +178,7 @@ def create_project(
 
 def edit(
     *,
+    comments: str,
     group_name: str,
     has_drills: bool,
     has_forces: bool,
@@ -187,6 +188,8 @@ def edit(
 ) -> bool:
     is_continuous_type: bool = subscription == 'continuous'
 
+    validations.validate_fields([comments])
+    validations.validate_string_length_between(comments, 0, 250)
     validate_project_services_config(
         is_continuous_type,
         has_drills,
@@ -204,6 +207,7 @@ def edit(
     success: bool = project_dal.update(
         data={
             'historic_configuration': item['historic_configuration'] + [{
+                'comments': comments,
                 'date': util.get_current_time_as_iso_str(),
                 'has_drills': has_drills,
                 'has_forces': has_forces,
@@ -221,6 +225,7 @@ def edit(
 
     if success:
         notifications_domain.edit_group(
+            comments=comments,
             group_name=group_name,
             has_drills=has_drills,
             has_forces=has_forces,

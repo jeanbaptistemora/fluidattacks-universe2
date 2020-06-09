@@ -81,6 +81,15 @@ def validate_project_name(project_name: str):
         raise InvalidField('project name')
 
 
+def validate_string_length_between(
+    string: str,
+    inclusive_lower_bound: int,
+    inclusive_upper_bound: int,
+) -> None:
+    if not inclusive_lower_bound <= len(string) <= inclusive_upper_bound:
+        raise InvalidFieldLength()
+
+
 def validate_alphanumeric_field(field: str) -> bool:
     """Optional whitespace separated string, with alphanumeric characters."""
     is_alnum = all([word.isalnum() for word in field.split()])

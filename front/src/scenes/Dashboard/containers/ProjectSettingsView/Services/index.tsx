@@ -123,6 +123,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const handleSubmit: ((values: IFormData) => void) = (values: IFormData): void => {
     editGroupData({
       variables: {
+        comments: "",
         groupName,
         hasDrills: values.drills,
         hasForces: values.forces,
