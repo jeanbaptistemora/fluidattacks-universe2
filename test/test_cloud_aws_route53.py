@@ -24,3 +24,9 @@ def test_is_privacy_protection_disabled_open():
     assert route53.is_privacy_protection_disabled(AWS_ACCESS_KEY_ID,
                                                   AWS_SECRET_ACCESS_KEY).\
         is_open()
+
+
+def test_has_not_spf_record_open():
+    """Test route53.has_not_spf_record."""
+    assert route53.has_not_spf_record(AWS_ACCESS_KEY_ID,
+                                      AWS_SECRET_ACCESS_KEY).is_open()
