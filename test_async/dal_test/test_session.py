@@ -3,13 +3,13 @@ import pytest
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
+from operator import itemgetter
 
 from backend.dal.session import (
     get_all_logged_users, get_previous_session,
     invalidate_session
 )
 
-@pytest.mark.skip(reason="This is a helper")
 def create_dummy_session(username):
     request = RequestFactory().get('/')
     middleware = SessionMiddleware()
@@ -39,7 +39,7 @@ def test_get_previous_session():
     def unpack_sessions(active_users):
         return sorted(
             [tuple(*a_user.items()) for a_user in active_users],
-            key = lambda x: x[1]
+            key = itemgetter(1)
         )
 
     for session in unpack_sessions(get_all_logged_users()):
