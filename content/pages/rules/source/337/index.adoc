@@ -1,0 +1,51 @@
+:slug: rules/337/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of safely managing threads to avoid race conditions, especially in critical logic flows.
+:keywords: Thread, Safe, Race, Condition, ASVS, CWE
+:rules: yes
+
+= R337. Make critical logic flows thread safe
+
+== Requirement
+
+Critical and high-value business logic flows must be thread safe and resistant
+to time-of-check and time-of-use (*TOCTOU*) **race conditions**.
+
+== Description
+
+A **race condition** occurs when a code sequence requires exclusive access to a
+resource but another code sequence can modify the same resource before the
+first one has released it.
+This can have security implications if it occurs during high-value business
+logic flows such as authentication, authorization and session management.
+Therefore, threads and concurrent processes must be managed carefully in order
+to prevent **race conditions** from arising.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/362.html[CWE-362: Concurrent Execution using Shared Resource with
+Improper Synchronization ('Race Condition').]
+The program contains a code sequence that can run concurrently with other code,
+and the code sequence requires temporary, exclusive access to a shared
+resource,
+but a timing window exists in which the shared resource can be modified by
+another code sequence that is operating concurrently.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/362.html[CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition.]
+The software checks the state of a resource before using that resource,
+but the resource's state can change between the check and the use in a way that
+invalidates the results of the check.
+This can cause the software to perform invalid actions when the resource is in
+an unexpected state. 
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.11 Business Logic Architectural Requirements.(1.11.2)]
+Verify that all high-value business logic flows,
+including authentication, session management and access control,
+do not share unsynchronized state.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.11 Business Logic Architectural Requirements.(1.11.3)]
+Verify that all high-value business logic flows,
+including authentication, session management and access control,
+are thread safe and resistant to time-of-check and time-of-use race conditions.
