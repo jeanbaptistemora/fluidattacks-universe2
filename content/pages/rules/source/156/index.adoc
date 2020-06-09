@@ -37,43 +37,54 @@ to external components.
 The use of a hard-coded cryptographic key significantly increases the
 possibility that encrypted data may be recovered.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/540.html[CWE-540: Inclusion of Sensitive Information in Source Code]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/522.html[CWE-522: Insufficiently Protected Credentials]
+The product transmits or stores authentication credentials,
+but it uses an insecure method that is susceptible to unauthorized interception
+and/or retrieval.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/540.html[CWE-540: Inclusion of Sensitive Information in Source Code]
 Source code on a web server or repository often contains sensitive information
 and should generally not be accessible to users.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/615.html[CWE-615: Inclusion of Sensitive Information in Source Code Comments]
+. [[r5]] link:https://cwe.mitre.org/data/definitions/615.html[CWE-615: Inclusion of Sensitive Information in Source Code Comments]
 While adding general comments is very useful,
 some programmers tend to leave important data,
 such as: filenames related to the web application,
 old links or links which were not meant to be browsed by users,
 old code fragments, etc.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/798.html[CWE-798: Use of Hard-coded Credentials]
+. [[r6]] link:https://cwe.mitre.org/data/definitions/798.html[CWE-798: Use of Hard-coded Credentials]
 The software contains hard-coded credentials,
 such as a password or cryptographic key,
 which it uses for its own inbound authentication,
 outbound communication to external components, or encryption of internal data.
 
-. [[r6]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+. [[r7]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
 Art. 4: Security of processing.(1a)]
 The measures referred to in paragraph 1 shall at least protect personal data
 stored or transmitted against accidental or unlawful destruction,
 accidental loss or alteration,
 and unauthorized or unlawful storage, processing, access or disclosure.
 
-. [[r7]] link:https://gdpr-info.eu/art-25-gdpr/[GDPR. Art. 25: Data protection by design and by default.(1)]
+. [[r8]] link:https://gdpr-info.eu/art-25-gdpr/[GDPR. Art. 25: Data protection by design and by default.(1)]
 The controller shall,
 both at the time of the determination of the means for processing and at the
 time of the processing itself,
 implement appropriate technical and organizational measures.
 
-. [[r8]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 51: Protecting sensitive personal data].
+. [[r9]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 51: Protecting sensitive personal data].
 Personal data which are, by their nature, particularly sensitive in relation to
 fundamental rights and freedoms merit specific protection as the context of
 their processing could create significant risks to the fundamental rights and
 freedoms.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.10 Service Authentication Requirements.(2.10.3)]
+Verify that passwords are stored with sufficient protection to prevent offline
+recovery attacks,
+including local system access.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.10 Service Authentication Requirements.(2.10.4)]
 Verify passwords, integrations with databases and third-party systems, seeds
 and internal secrets, and API keys are managed securely and not included in the
