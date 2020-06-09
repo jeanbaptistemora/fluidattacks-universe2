@@ -1105,6 +1105,19 @@ ec2_launch_template1 = troposphere.ec2.LaunchTemplate(
         DisableApiTermination=troposphere.Ref(param_disable),
         InstanceInitiatedShutdownBehavior='terminate',
     ))
+rds_cluster1 = troposphere.rds.DBCluster(
+    title='cluster1',
+    Engine='postgres',
+    StorageEncrypted=False,
+    BackupRetentionPeriod=0,
+    DeletionProtection='true')
+rds_cluster2 = troposphere.rds.DBCluster(
+    title='cluster2',
+    Engine='postgres',
+    StorageEncrypted=troposphere.Ref(param_disable),
+    BackupRetentionPeriod=0,
+    DeletionProtection='true')
+
 template.add_resource(security_group1)
 template.add_resource(security_group2)
 template.add_resource(security_group_egress1)
@@ -1119,4 +1132,6 @@ template.add_resource(ec2_instance4)
 template.add_resource(ec2_launch_template)
 template.add_resource(ec2_launch_template1)
 template.add_resource(ec2_launch_template2)
+template.add_resource(rds_cluster1)
+template.add_resource(rds_cluster2)
 write_template(template)

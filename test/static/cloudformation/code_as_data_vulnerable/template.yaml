@@ -18,6 +18,21 @@ Parameters:
     Default: terminate
     Type: String
 Resources:
+  cluster1:
+    Properties:
+      BackupRetentionPeriod: 0
+      DeletionProtection: 'true'
+      Engine: postgres
+      StorageEncrypted: 'false'
+    Type: AWS::RDS::DBCluster
+  cluster2:
+    Properties:
+      BackupRetentionPeriod: 0
+      DeletionProtection: 'true'
+      Engine: postgres
+      StorageEncrypted:
+        Ref: DisableFeature
+    Type: AWS::RDS::DBCluster
   ec2instance1:
     Properties:
       DisableApiTermination: 'false'
