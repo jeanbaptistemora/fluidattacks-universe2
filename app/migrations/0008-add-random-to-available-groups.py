@@ -20,6 +20,9 @@ import uuid
 from boto3.dynamodb.conditions import Key
 import rollbar
 import django
+from typing import (
+    List,
+)
 
 django.setup()
 
@@ -30,12 +33,12 @@ from backend.dal.available_group import (
 
 STAGE: str = os.environ['STAGE']
 
-def log(message):
+def log(message: str) -> None:
     print(message)
     rollbar.report_message(message, level='debug')
 
 
-def get_availabe_without_uuid():
+def get_availabe_without_uuid() -> List[str]:
     key_exp = Key('pk').eq('AVAILABLE_GROUP')
     response = INTEGRATES_TABLE.query(
         KeyConditionExpression=key_exp,
@@ -58,7 +61,7 @@ def get_availabe_without_uuid():
     return [available['sk'] for available in all_available]
 
 
-def main():
+def main() -> None:
     """
     Get all available group names and assign an uuid
     """

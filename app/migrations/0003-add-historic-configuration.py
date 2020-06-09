@@ -28,7 +28,7 @@ from backend import authz
 STAGE: str = os.environ['STAGE']
 
 
-def log(message):
+def log(message: str) -> None:
     print(message)
     rollbar.report_message(message, level='debug')
 
@@ -49,7 +49,7 @@ def guess_owner(group: str) -> str:
     return possible_owner
 
 
-def main():
+def main() -> None:
     log('Starting migration 0003')
 
     for group in project_dal.get_all():

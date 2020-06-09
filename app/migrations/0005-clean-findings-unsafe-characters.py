@@ -16,7 +16,8 @@ import sys
 from collections import OrderedDict
 from typing import (
     Dict,
-    List
+    List,
+    Optional,
 )
 
 import rollbar
@@ -71,7 +72,7 @@ def clean_unsafe_characters(finding: Dict[str, str], dry_run: bool) -> None:
     new_description = replace_unsafe_strings(original_description, 'vulnerability')
     new_recommendation = replace_unsafe_strings(original_recommendation, 'effect_solution')
 
-    info_to_update = {}
+    info_to_update: Dict[str, Optional[str]] = {}
     for field, values in {
         'vulnerability': [original_description, new_description],
         'effect_solution': [original_recommendation, new_recommendation]
@@ -100,7 +101,7 @@ def get_all_findings() -> List[Dict[str, str]]:
         ProjectionExpression='finding_id,effect_solution,effect_solution_new,'
             'effect_solution_hash,vulnerability,vulnerability_new,vulnerability_hash'
     )
-    items = response['Items']
+    items: List[Dict[str, str]] = response['Items']
     while response.get('LastEvaluatedKey'):
         response = FINDINGS_TABLE.scan(
             ExclusiveStartKey=response['LastEvaluatedKey'],
@@ -112,11 +113,11 @@ def get_all_findings() -> List[Dict[str, str]]:
 
 
 def persist_changes(finding: Dict[str, str], dry_run: bool) -> None:
-    info_to_update = {
+    info_to_update: Dict[str, Optional[str]] = {
         'effect_solution_hash': None,
         'effect_solution_new': None,
         'vulnerability_hash': None,
-        'vulnerability_new': None
+        'vulnerability_new': None,
     }
     finding_id = finding['finding_id']
     current_description_hash = hashlib.sha512(finding.get('vulnerability', '').encode()).hexdigest()
@@ -161,7 +162,7 @@ def rollbar_log(message: str, dry_run: bool) -> None:
         rollbar.report_message(message, level='debug')
 
 
-def update_finding(finding_id: str, data: Dict[str, str]) -> bool:
+def update_finding(finding_id: str, data: Dict[str, Optional[str]]) -> bool:
     success = False
     primary_keys = {'finding_id': finding_id}
     attrs_to_remove = [attr for attr in data if data[attr] is None]

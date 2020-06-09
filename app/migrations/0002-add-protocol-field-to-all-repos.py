@@ -19,11 +19,12 @@ import os
 import rollbar
 import sys
 from typing import (
+    cast,
     Dict,
     List,
     Tuple
 )
-from urllib.parse import urlparse
+from urllib.parse import ParseResult, urlparse
 
 # Setup Django environment to import functions
 PROJECT_PATH: str = '/usr/src/app'
@@ -50,8 +51,8 @@ def get_default_protocol(project: ProjectType) -> str:
         'HTTPS': 0,
         'SSH': 0
     }
-    for repo in project['repositories']:
-        protocol: str = repo.get('protocol', '')
+    for repo in cast(List[ResourceType], project['repositories']):
+        protocol: str = cast(str, repo.get('protocol', ''))
         if protocol:
             protocol_count[protocol] += 1
     return max(protocol_count, key=protocol_count.get)
@@ -63,7 +64,7 @@ def get_repositories_hash(repositories: List[ResourceType]) -> str:
 
 def has_repos_without_protocol(project: ProjectType) -> bool:
     result: bool = False
-    for repo in project.get('repositories', []):
+    for repo in cast(List[ResourceType], project.get('repositories', [])):
         if not repo.get('protocol', ''):
             result = True
             break
@@ -71,9 +72,9 @@ def has_repos_without_protocol(project: ProjectType) -> bool:
 
 
 def process_repos(project: ProjectType, default_protocol: str,
-        execute: bool) -> List[ResourceType]:
+        execute: bool) -> Tuple[List[ResourceType], str]:
     allowed_protocols: List[str] = ['SSH', 'HTTPS']
-    repos: List[ResourceType] = project['repositories']
+    repos: List[ResourceType] = cast(List[ResourceType], project['repositories'])
 
     field_hash: str = ''
     if not execute:
@@ -81,7 +82,7 @@ def process_repos(project: ProjectType, default_protocol: str,
 
     for repo in repos:
         if not repo.get('protocol', ''):
-            repo_url: Tuple = urlparse(repo['urlRepo'])
+            repo_url: ParseResult = urlparse(cast(str, repo['urlRepo']))
             protocol: str = default_protocol
             if repo_url.scheme and \
                     repo_url.scheme.upper() in allowed_protocols:
@@ -93,11 +94,13 @@ def process_repos(project: ProjectType, default_protocol: str,
 
 def add_protocol_to_repos(project: ProjectType, default_protocol: str,
         execute: bool, dry_run: bool) -> None:
-    project_name: str = project['project_name']
+    project_name: str = cast(str, project['project_name'])
     if execute:
-        old_field_hash: str = project['repositories-hash']
-        current_field_hash: str = get_repositories_hash(project['repositories'])
-        processed_repos: List[ResourceType] = project['repositories-new']
+        old_field_hash: str = cast(str, project['repositories-hash'])
+        current_field_hash: str = get_repositories_hash(
+            cast(List[ResourceType], project['repositories']))
+        processed_repos: List[ResourceType] = cast(
+            List[ResourceType], project['repositories-new'])
         if old_field_hash != current_field_hash:
             processed_repos, _ = process_repos(project, default_protocol, execute)
         response = PROJECT_TABLE.update_item(
@@ -149,7 +152,7 @@ def add_protocol_to_repos(project: ProjectType, default_protocol: str,
                 )
 
 
-def rollbar_log(message, dry_run):
+def rollbar_log(message: str, dry_run: bool) -> None:
     if not dry_run:
         rollbar.report_message(message, level='debug')
 

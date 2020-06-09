@@ -579,6 +579,7 @@ function job_lint_back {
       env_prepare_python_packages \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         django-apps/integrates-back-async \
+  &&  mypy --strict --ignore-missing-imports app/migrations/ \
   &&  prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/api \
   &&  prospector -F -s high -u django -i node_modules -i django-apps/integrates-back-async/backend/api django-apps/integrates-back-async/backend/ \

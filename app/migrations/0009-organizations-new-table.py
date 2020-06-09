@@ -25,12 +25,12 @@ from backend.dal import (
 
 STAGE: str = os.environ['STAGE']
 
-def log(message):
+def log(message: str) -> None:
     print(message)
     rollbar.report_message(message, level='debug')
 
 
-def main():
+def main() -> None:
     """
     Assign organization to every group
     """

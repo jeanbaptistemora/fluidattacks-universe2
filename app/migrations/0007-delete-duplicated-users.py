@@ -10,6 +10,11 @@ import os
 import django
 import rollbar
 from boto3.dynamodb.conditions import Attr
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 from backend.dal.user import (
     delete as delete_dynamo_user,
@@ -60,7 +65,7 @@ def delete_duplicated_users_mysql() -> None:
         fix_users_created_with_errors(users_created_with_errors)
 
 
-def fix_users_created_with_errors(email_list):
+def fix_users_created_with_errors(email_list: List[str]) -> None:
     for email in email_list:
         users = User.objects.filter(email=email).order_by('id')
         if len(users) == 2:

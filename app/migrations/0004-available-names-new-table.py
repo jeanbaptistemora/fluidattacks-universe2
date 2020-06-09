@@ -29,7 +29,7 @@ from backend.dal.available_group import (
     TABLE as INTEGRATES_TABLE
 )
 
-def migrate_all_names(dry_run: bool) -> bool:
+def migrate_all_names(dry_run: bool) -> None:
     """
     Get all groups from fi_project_names and save to integrates
     """
@@ -53,7 +53,7 @@ def migrate_all_names(dry_run: bool) -> bool:
         )
 
 
-def rollbar_log(message: str, dry_run: bool):
+def rollbar_log(message: str, dry_run: bool) -> None:
     if not dry_run:
         rollbar.report_message(message, level='debug')
 
