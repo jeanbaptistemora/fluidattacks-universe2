@@ -11,6 +11,6 @@
 Multiple finding validation cycles are done during the subscription period.
 You can check at any time if any of the findings have been closed.
 To perform remediation validation: First, you must define the treatment used to
-remediate the vulnerability. Then, you must request, through Integrates,
+remediate the vulnerability. Then, you must request, through link:../../../products/integrates/[*Integrates*],
 a finding validation. You can always solve any doubt by contacting
 Fluid Attacks directly.

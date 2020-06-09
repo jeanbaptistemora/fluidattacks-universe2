@@ -8,7 +8,8 @@
 
 = Mock Attacks Reproduction
 
-*Fluid Attacks* can play mock attacks with *Forces*.
-*Forces* breaks the build and calls for the remediation of the known deep,
+*Fluid Attacks* can play mock attacks with link:../../../products/forces/[*Forces*].
+link:../../../products/forces/[*Forces*] breaks the build
+and calls for the remediation of the known deep,
 the re-opened, and the new peripheral vulnerabilities.
 That call to action is for the development team.

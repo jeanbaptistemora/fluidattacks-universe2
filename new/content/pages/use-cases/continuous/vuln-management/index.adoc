@@ -8,7 +8,8 @@
 
 = Vulnerability Management Platform
 
-*Integrates* is the project communication, monitoring, and reporting platform.
+link:../../../products/integrates/[*Integrates*] is the project communication,
+monitoring, and reporting platform.
 It can be used to access general data on each finding.
 It also allows you to check their remediation status and classify them by age.
 In addition, it displays stats and project progress in real-time,
