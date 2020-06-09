@@ -371,32 +371,6 @@ def forces_trigger_deployment(project_name: str) -> bool:
 
     success = False
 
-    # pylint: disable=protected-access
-    exceptions = (
-        httpx._exceptions.ConnectTimeout,
-        httpx._exceptions.ConnectionClosed,
-        httpx._exceptions.CookieConflict,
-        httpx._exceptions.DecodingError,
-        httpx._exceptions.HTTPError,
-        httpx._exceptions.InvalidURL,
-        httpx._exceptions.NetworkError,
-        httpx._exceptions.NotRedirectResponse,
-        httpx._exceptions.PoolTimeout,
-        httpx._exceptions.ProtocolError,
-        httpx._exceptions.ProxyError,
-        httpx._exceptions.ReadTimeout,
-        httpx._exceptions.RedirectError,
-        httpx._exceptions.RequestBodyUnavailable,
-        httpx._exceptions.RequestNotRead,
-        httpx._exceptions.ResponseClosed,
-        httpx._exceptions.ResponseNotRead,
-        httpx._exceptions.StreamConsumed,
-        httpx._exceptions.StreamError,
-        httpx._exceptions.TimeoutException,
-        httpx._exceptions.TooManyRedirects,
-        httpx._exceptions.WriteTimeout,
-    )
-
     # cast it to string, just in case
     project_name = str(project_name).lower()
 
@@ -419,7 +393,30 @@ def forces_trigger_deployment(project_name: str) -> bool:
             task = asyncio.create_task(req_coro)
             task.add_done_callback(functools.partial(callback, client))
 
-    except exceptions:
+    except (  # pylint: disable=protected-access
+        httpx._exceptions.ConnectTimeout,
+        httpx._exceptions.ConnectionClosed,
+        httpx._exceptions.CookieConflict,
+        httpx._exceptions.DecodingError,
+        httpx._exceptions.HTTPError,
+        httpx._exceptions.InvalidURL,
+        httpx._exceptions.NetworkError,
+        httpx._exceptions.NotRedirectResponse,
+        httpx._exceptions.PoolTimeout,
+        httpx._exceptions.ProtocolError,
+        httpx._exceptions.ProxyError,
+        httpx._exceptions.ReadTimeout,
+        httpx._exceptions.RedirectError,
+        httpx._exceptions.RequestBodyUnavailable,
+        httpx._exceptions.RequestNotRead,
+        httpx._exceptions.ResponseClosed,
+        httpx._exceptions.ResponseNotRead,
+        httpx._exceptions.StreamConsumed,
+        httpx._exceptions.StreamError,
+        httpx._exceptions.TimeoutException,
+        httpx._exceptions.TooManyRedirects,
+        httpx._exceptions.WriteTimeout,
+    ):
         rollbar.report_exc_info()
     else:
         success = True
