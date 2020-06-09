@@ -1,6 +1,10 @@
 {
   "Description": "code_as_data_vulnerable",
   "Parameters": {
+    "BackupPeriod": {
+      "Default": 0,
+      "Type": "Integer"
+    },
     "DisableFeature": {
       "Default": false,
       "Type": "String"
@@ -27,7 +31,9 @@
   "Resources": {
     "cluster1": {
       "Properties": {
-        "BackupRetentionPeriod": 0,
+        "BackupRetentionPeriod": {
+          "Ref": "BackupPeriod"
+        },
         "DeletionProtection": "true",
         "Engine": "postgres",
         "StorageEncrypted": "false"

@@ -1002,11 +1002,16 @@ param_enable_public_ip = troposphere.Parameter(
     'EnablePublicIp',
     Type='Boolean',
     Default=True)
+param_backup_period = troposphere.Parameter(
+    'BackupPeriod',
+    Type='Integer',
+    Default=0)
 template.add_parameter(param_disable)
 template.add_parameter(param_ip_security_group)
 template.add_parameter(param_insecure_ip_protocol)
 template.add_parameter(param_terminate)
 template.add_parameter(param_enable_public_ip)
+template.add_parameter(param_backup_period)
 
 security_group1 = troposphere.ec2.SecurityGroup(
     title='securityGroup1',
@@ -1109,7 +1114,7 @@ rds_cluster1 = troposphere.rds.DBCluster(
     title='cluster1',
     Engine='postgres',
     StorageEncrypted=False,
-    BackupRetentionPeriod=0,
+    BackupRetentionPeriod=troposphere.Ref(param_backup_period),
     DeletionProtection='true')
 rds_cluster2 = troposphere.rds.DBCluster(
     title='cluster2',

@@ -17,3 +17,11 @@ def test_has_unencrypted_storage(safe_loader, vuln_loader):
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 2
     assert rds.has_unencrypted_storage(safe_loader).is_closed()
+
+
+def test_has_not_automated_backups(safe_loader, vuln_loader):
+    """test rds.has_not_automated_backups."""
+    result = rds.has_not_automated_backups(vuln_loader)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 2
+    assert rds.has_not_automated_backups(safe_loader).is_closed()
