@@ -29,14 +29,12 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: async (result: ISignInResult): Promise<void> => {
       if (result.signIn.success) {
-        try {
-          await SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt);
-          history.replace("/Dashboard", { user });
-        } catch (error) {
-          rollbar.error("An error occurred storing JWT", error as Error);
-        }
+        await SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt);
+        history.replace("/Dashboard", { user });
       } else {
         rollbar.error("Unsuccessful API auth", result);
+        Alert.alert(t("common.error.title"), t("common.error.msg"));
+        handleLogout();
       }
     },
     onError: (error: ApolloError): void => {
