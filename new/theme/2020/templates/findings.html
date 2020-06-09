@@ -35,7 +35,7 @@
           <li class="dib mt0">
             <a class="c-fluid-gray hover-white no-underline"
                href="{{ SITEURL }}/">
-              <strong>Home</strong>
+              Home
             </a>
             <span class="c-fluid-gray v-mid b"> / </span>
           </li>
@@ -60,6 +60,12 @@
           <li class="dib mt0">
             <a class="white hover-white no-underline"
                 href=".">{{ page.title }}</a>
+          </li>
+          {% endif %}
+          {% if page.defendsindex and page.slug == "defends/" %}
+          <li class="dib mt0">
+            <a class="white hover-white no-underline"
+                href=".">Defends</a>
           </li>
           {% endif %}
         </ul>
@@ -216,5 +222,54 @@
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
   </article>
+  {% endif %}
+  {% if page.defendsindex and page.slug == "defends/" %}
+  <article class="internal defendspage roboto ma-auto tl mw8">
+    <h1 class="tc pb4">
+      {{ page.title }}
+    </h1>
+    {% for defendspage in pages if defendspage.defends %}
+      {% if loop.first %}
+        <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer ttc no-underline">
+          <h2 class="w6">
+            {{ defendspage.category }}
+          </h2>
+        </a>
+        {% set cat = defendspage.category %}
+        <div class="defendspanel overflow-hidden bg-white mb2 pl4-l">
+          {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
+            <a class="c-fluid-bk hv-fluid-dkred no-underline"
+               href="../{{ defendsarticle.slug }}">
+               <h3 class="ml4">
+                 {{ defendsarticle.title }}
+               </h3>
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        {% if defendspage.category != loop.previtem.category %}
+          <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer ttc no-underline">
+            <h2 class="w6">
+              {{ defendspage.category }}
+            </h2>
+          </a>
+          {% set cat = defendspage.category %}
+          <div class="defendspanel overflow-hidden bg-white mb2 pl4-l">
+            {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
+              <a class="c-fluid-bk hv-fluid-dkred no-underline"
+                 href="../{{ defendsarticle.slug }}">
+                 <h3 class="ml4">
+                   {{ defendsarticle.title }}
+                 </h3>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% assets output="static/js/defends.min.js", "js/tmp/defends.min.js" %}
+      <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets %}
+    </article>
   {% endif %}
 {% endblock content %}

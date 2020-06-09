@@ -7,6 +7,7 @@ export const commonConfig: webpack.Configuration = {
     carousel: "./static/js/carousel.ts",
     contactSlides: "./static/js/contactSlides.ts",
     contentHome: "./static/js/contentHome.ts",
+    defends: "./static/js/defends.ts",
     dynClasses: "./static/js/dynClasses.ts",
     form: "./static/js/form.ts",
     progressBar: "./static/js/progressBar.ts",

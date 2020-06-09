@@ -455,7 +455,7 @@ $codeyellow: rgba(230, 219, 116, 1);
     line-height: 1.25rem;
   }
 
-  a {
+  a :not(.defendspage) {
     text-decoration: underline;
     color: $fluid-black;
   }
@@ -548,4 +548,34 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 video {
   width: 100%;
+}
+
+// Defends custom styles
+.defends-category {
+
+  &::after {
+    color: $fluid-black;
+    content: '\02795';
+    font-size: 25px;
+    margin: 17px 20px 0;
+    text-align: right;
+    width: 100%;
+  }
+
+  &:hover {
+    &::after {
+      color: $fluid-black;
+    }
+  }
+
+  &.active {
+    &::after {
+      content: '\2796';
+    }
+  }
+}
+
+.defendspanel {
+  max-height: 0;
+  transition: max-height .2s ease-out;
 }

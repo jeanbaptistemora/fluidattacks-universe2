@@ -52,6 +52,21 @@
           <span class="c-fluid-gray v-mid b"> / </span>
         </li>
         {% endif %}
+        {% if page.defends %}
+        <li class="dib mt0" >
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/defends/">
+             Defends
+          </a>
+        </li>
+        <span class="c-fluid-gray v-mid b"> / </span>
+        <li class="dib mt0" >
+          <a class="white hover-white no-underline"
+             href="{{ SITEURL }}/defends/#{{ page.category.name }}">
+             {{ page.category|capitalize }}
+          </a>
+        </li>
+        {% endif %}
         {% if "misc" not in page.category.name and not page.defends %}
         <li class="dib mt0" >
           {% if page.rules %}
