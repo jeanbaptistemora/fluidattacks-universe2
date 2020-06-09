@@ -24,13 +24,13 @@ Technical Director at Software Engineering Institute at Carnegie Mellon,
 and Altaz Valani, Director of Research at Security Compass.
 When I watched it,
 I found some similarities with the information that I shared
-in [inner]#link:../devsecops-concept/[a post on DevSecops/SecDevOps]# that I wrote a while ago.
-However, these authors spoke on a broader spectrum,
+in [inner]#link:../devsecops-concept/[a post on DevSecops/SecDevOps]#.
+However, these authors spoke on a broader sense,
 considering the business risks of companies offering software.
 I want to recap some of their ideas,
 grouped here into five general recommendations,
 and expand a little on another one
-(sixth recommendation): the Security Champions.
+(a sixth recommendation): the Security Champions.
 This last section is supported by a SAFECode.org paper
 called "link:http://safecode.org/wp-content/uploads/2019/02/Security-Champions-2019-.pdf[Software Security Takes a Champion,]"
 in which Altaz Valani also participated.
@@ -55,7 +55,7 @@ Companies can manage risk from different perspectives.
 For example, the "cyber-resiliency perspective"
 and the "compliance perspective."
 In the former, considering possible impacts
-due to future vulnerabilities attacked,
+due to future vulnerabilities being attacked,
 the main concern is to find rapid solutions to those problems every time.
 In the latter, usually from a highly regulated environment,
 more thought is given to the evaluation of compliance with rules.
@@ -70,7 +70,7 @@ Besides, some must mean translating your business risks to technical language.
 === 3. Keep the security requirements as obligatory.
 
 The security requirements may indeed be in constant remodeling.
-But be clear that if you define requirements to be met in your company,
+But be aware that if you define requirements to be met in your company,
 which can be re-evaluated, the idea is that they should be obligatory.
 If at any point they haven't been met,
 then any workflow before the software deployment must be stopped.
@@ -125,7 +125,7 @@ can be favored by the presence of 'champions' of each area.
 In the inclusion of security in software engineering for business,
 having one or more 'Security Champions' (`SC`) can be quite useful.
 
-=== What is a Security Champion, and what does he do?
+=== What is a Security Champion, and what does he or she do?
 
 In short, the `SC` is a software developer
 who possesses and applies extensive security knowledge
@@ -140,8 +140,8 @@ Therefore, the `SC` interacts closely with these groups,
 gets along with the experts on each side, and builds a bridge between them.
 
 The `SC` can prioritize security issues based on business risks,
-of which he has a full understanding.
-He also assists in the selection and use of assessment tools
+of which she has a full understanding.
+She also assists in the selection and use of assessment tools
 and the interpretation of results.
 As an outcome of education at universities,
 there are usually few security-educated software engineers
