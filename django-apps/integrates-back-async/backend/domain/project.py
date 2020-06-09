@@ -408,8 +408,8 @@ def can_user_access_pending_deletion(project: str, role: str) -> bool:
 async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
-    if finding_domain.validate_finding(finding_id):
-        vulnerabilities = vuln_dal.get_vulnerabilities(finding_id)
+    if await sync_to_async(finding_domain.validate_finding)(finding_id):
+        vulnerabilities = await sync_to_async(vuln_dal.get_vulnerabilities)(finding_id)
         last_approved_status = await asyncio.gather(*[
             asyncio.create_task(
                 sync_to_async(vuln_domain.get_last_approved_status)(
@@ -515,12 +515,18 @@ def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     return vuln_domain.get_last_approved_status(vuln) == 'closed'
 
 
-def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decimal:
+async def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decimal:
     """Get maximum severity of project with open vulnerabilities."""
+    total_vulns = await asyncio.gather(*[
+        asyncio.create_task(
+            total_vulnerabilities(str(fin.get('finding_id', '')))
+        )
+        for fin in findings
+    ])
     total_severity: List[float] = \
         cast(List[float],
              [fin.get('cvss_temporal', '') for fin in findings
-              if int(async_to_sync(total_vulnerabilities)(str(fin.get('finding_id', '')))
+              if int(total_vulns.pop(0)
               .get('openVulnerabilities', '')) > 0])
     if total_severity:
         max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))
@@ -608,13 +614,13 @@ async def get_mean_remediate_severity(project_name: str, min_severity: float,
     """Get mean time to remediate."""
     total_days = 0
     tzn = pytz.timezone('America/Bogota')
-    finding_ids = list_findings(project_name.lower())
+    finding_ids = await sync_to_async(list_findings)(project_name.lower())
     finding_vulns = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(vuln_dal.get_vulnerabilities)(
                 str(finding.get('findingId', '')))
         )
-        for finding in finding_domain.get_findings(finding_ids)
+        for finding in await sync_to_async(finding_domain.get_findings)(finding_ids)
         if min_severity <= cast(float, finding.get('severityCvss', 0)) <= max_severity
     ])
     open_vuln_dates = await asyncio.gather(*[
@@ -806,8 +812,8 @@ def get_managers(project_name: str) -> List[str]:
 
 
 async def get_open_vulnerabilities(project_name: str) -> int:
-    findings = list_findings(project_name)
-    vulns = vuln_domain.list_vulnerabilities(findings)
+    findings = await sync_to_async(list_findings)(project_name)
+    vulns = await sync_to_async(vuln_domain.list_vulnerabilities)(findings)
     last_approved_status = await asyncio.gather(*[
         sync_to_async(vuln_domain.get_last_approved_status)(
             vuln
@@ -822,8 +828,8 @@ async def get_open_vulnerabilities(project_name: str) -> int:
 
 
 async def get_closed_vulnerabilities(project_name: str) -> int:
-    findings = list_findings(project_name)
-    vulns = vuln_domain.list_vulnerabilities(findings)
+    findings = await sync_to_async(list_findings)(project_name)
+    vulns = await sync_to_async(vuln_domain.list_vulnerabilities)(findings)
     last_approved_status = await asyncio.gather(*[
         sync_to_async(vuln_domain.get_last_approved_status)(
             vuln
@@ -837,11 +843,11 @@ async def get_closed_vulnerabilities(project_name: str) -> int:
     return len(closed_vulnerabilities)
 
 
-def get_open_finding(project_name: str) -> int:
-    findings = list_findings(project_name)
-    vulns = vuln_domain.list_vulnerabilities(findings)
+async def get_open_finding(project_name: str) -> int:
+    findings = await sync_to_async(list_findings)(project_name)
+    vulns = await sync_to_async(vuln_domain.list_vulnerabilities)(findings)
     finding_vulns_dict = defaultdict(list)
     for vuln in vulns:
         finding_vulns_dict[vuln['finding_id']].append(vuln)
     finding_vulns = list(finding_vulns_dict.values())
-    return async_to_sync(get_open_findings)(finding_vulns)
+    return await get_open_findings(finding_vulns)

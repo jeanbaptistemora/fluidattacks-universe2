@@ -176,7 +176,7 @@ class ProjectTest(TestCase):
                 Key={'finding_id': finding_id}
             )['Item']
             for finding_id in findings_to_get]
-        test_data = get_max_open_severity(findings)
+        test_data = async_to_sync(get_max_open_severity)(findings)
         expected_output = Decimal(4.3).quantize(Decimal('0.1'))
         assert test_data == expected_output
 
@@ -193,7 +193,7 @@ class ProjectTest(TestCase):
     def test_get_open_finding(self):
         project_name = 'unittesting'
         expected_output = 5
-        assert get_open_finding(project_name) == expected_output
+        assert async_to_sync(get_open_finding)(project_name) == expected_output
 
     def test_get_open_vulnerability_date(self):
         closed_vulnerability = {
