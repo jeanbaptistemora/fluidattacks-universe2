@@ -1,5 +1,14 @@
 Description: vulnerable
 Resources:
+  TargetGroup1:
+    Properties:
+      HealthCheckEnabled: 'false'
+      Name: MyTargets
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId: Test
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
   cluster1:
     Properties:
       BackupRetentionPeriod: 0
@@ -108,14 +117,6 @@ Resources:
         - AllocationId: mock
           SubnetId: mock
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
-  TargetGroup1:
-    Properties:
-      HealthCheckEnabled: false
-      Name: MyTargets
-      TargetType: ip
-      Port: '80'
-      Protocol: 'HTTP'
-    Type: AWS::ElasticLoadBalancingV2::TargetGroup
   fileSystem1:
     Properties:
       FileSystemType: LUSTRE

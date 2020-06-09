@@ -227,3 +227,49 @@ def has_not_geo_restrictions(
         vulnerabilities=vulnerabilities,
         msg_open='Distributions have no geo restrictions',
         msg_closed='Distributions have geo restrictions')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_logging_disabled(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if ``Distributions`` have logging disabled.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if **GeoRestriction** attribute is set
+                to **none**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::CloudFront::Distribution',
+            ],
+            exclude=exclude):
+
+        logging = _index(
+            dictionary=res_props,
+            indexes=(
+                'DistributionConfig',
+                'Logging'))
+
+        if not logging:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=(f'AWS::CloudFront::Distribution'
+                            f'/DistributionConfig'
+                            f'/Logging'),
+                    identifier=res_name,
+                    line=helper.get_line(res_props),
+                    reason='has no GeoRestriction'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Distributions have no geo restrictions',
+        msg_closed='Distributions have geo restrictions')

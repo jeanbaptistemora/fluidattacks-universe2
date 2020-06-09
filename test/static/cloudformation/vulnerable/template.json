@@ -1,6 +1,17 @@
 {
   "Description": "vulnerable",
   "Resources": {
+    "TargetGroup1": {
+      "Properties": {
+        "HealthCheckEnabled": "false",
+        "Name": "MyTargets",
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetType": "ip",
+        "VpcId": "Test"
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+    },
     "cluster1": {
       "Properties": {
         "BackupRetentionPeriod": 0,
@@ -176,16 +187,6 @@
         ]
       },
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
-    },
-    "TargetGroup1": {
-      "Properties": {
-        "Name": "MyTargets",
-        "TargetType": "ip",
-        "Port": 80,
-        "Protocol": "HTTP",
-        "HealthCheckEnabled": false
-      },
-      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
     },
     "fileSystem1": {
       "Properties": {

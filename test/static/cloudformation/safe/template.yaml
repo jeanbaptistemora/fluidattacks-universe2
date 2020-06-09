@@ -1,5 +1,14 @@
 Description: safe
 Resources:
+  TargetGroup1:
+    Properties:
+      HealthCheckEnabled: 'true'
+      Name: MyTargets
+      Port: 443
+      Protocol: HTTPS
+      TargetType: ip
+      VpcId: test
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
   cluster1:
     Properties:
       BackupRetentionPeriod: 32
@@ -24,6 +33,10 @@ Resources:
           TargetOriginId: target-origin-id
           ViewerProtocolPolicy: redirect-to-https
         Enabled: 'true'
+        Logging:
+          Bucket: buckettest
+          IncludeCookies: 'false'
+          Prefix: log_
         Origins:
           - CustomOriginConfig:
               OriginProtocolPolicy: https-only
@@ -98,14 +111,6 @@ Resources:
         - AllocationId: mock
           SubnetId: mock
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
-  TargetGroup1:
-    Properties:
-      HealthCheckEnabled: true
-      Name: MyTargets
-      TargetType: ip
-      Port: '443'
-      Protocol: 'HTTPS'
-    Type: AWS::ElasticLoadBalancingV2::TargetGroup
   fileSystem1:
     Properties:
       FileSystemType: LUSTRE

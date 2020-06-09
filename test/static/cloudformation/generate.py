@@ -351,6 +351,11 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
             ViewerProtocolPolicy='redirect-to-https',
         ),
         Enabled=True,
+        Logging=troposphere.cloudfront.Logging(
+            Bucket='buckettest',
+            IncludeCookies=False,
+            Prefix='log_'
+            ),
         Origins=[
             troposphere.cloudfront.Origin(
                 DomainName='domain-name',
@@ -407,6 +412,15 @@ elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
             SubnetId='mock',
         ),
     ])
+ebl2_target_group = troposphere.elasticloadbalancingv2.TargetGroup(
+    title='TargetGroup1',
+    Name='MyTargets',
+    TargetType='ip',
+    Port=443,
+    Protocol="HTTPS",
+    HealthCheckEnabled=True,
+    VpcId='test'
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(rds_cluster)
@@ -421,6 +435,7 @@ template.add_resource(ec2_volume2)
 template.add_resource(ec2_instance)
 template.add_resource(ec2_launch_template)
 template.add_resource(dynamodb_table)
+template.add_resource(ebl2_target_group)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
@@ -880,6 +895,15 @@ elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
             SubnetId='mock',
         ),
     ])
+ebl2_target_group = troposphere.elasticloadbalancingv2.TargetGroup(
+    title='TargetGroup1',
+    Name='MyTargets',
+    TargetType='ip',
+    Port=80,
+    Protocol="HTTP",
+    HealthCheckEnabled=False,
+    VpcId='Test'
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -899,6 +923,7 @@ template.add_resource(ec2_launch_template)
 template.add_resource(ec2_launch_template2)
 template.add_resource(dynamodb_table)
 template.add_resource(dynamodb_table2)
+template.add_resource(ebl2_target_group)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)

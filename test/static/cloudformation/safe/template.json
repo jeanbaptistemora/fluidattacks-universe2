@@ -1,6 +1,17 @@
 {
   "Description": "safe",
   "Resources": {
+    "TargetGroup1": {
+      "Properties": {
+        "HealthCheckEnabled": "true",
+        "Name": "MyTargets",
+        "Port": 443,
+        "Protocol": "HTTPS",
+        "TargetType": "ip",
+        "VpcId": "test"
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+    },
     "cluster1": {
       "Properties": {
         "BackupRetentionPeriod": 32,
@@ -34,6 +45,11 @@
             "ViewerProtocolPolicy": "redirect-to-https"
           },
           "Enabled": "true",
+          "Logging": {
+            "Bucket": "buckettest",
+            "IncludeCookies": "false",
+            "Prefix": "log_"
+          },
           "Origins": [
             {
               "CustomOriginConfig": {
@@ -166,16 +182,6 @@
         ]
       },
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
-    },
-    "TargetGroup1": {
-      "Properties": {
-        "Name": "MyTargets",
-        "TargetType": "ip",
-        "Port": 443,
-        "Protocol": "HTTPS",
-        "HealthCheckEnabled": true
-      },
-      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
     },
     "fileSystem1": {
       "Properties": {
