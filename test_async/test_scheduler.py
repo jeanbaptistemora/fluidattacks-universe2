@@ -3,6 +3,7 @@ import pytest
 from collections import OrderedDict
 from decimal import Decimal
 
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -213,7 +214,7 @@ class SchedulerTests(TestCase):
 
     def test_get_project_indicators(self):
         project_name = 'unittesting'
-        test_data = get_project_indicators(project_name)
+        test_data = async_to_sync(get_project_indicators)(project_name)
         assert isinstance(test_data, dict)
         assert len(test_data) == 12
         assert test_data['max_open_severity'] == Decimal(6.3).quantize(Decimal('0.1'))

@@ -1,6 +1,7 @@
 """ Asynchronous task execution scheduler for FLUIDIntegrates """
 
 
+import asyncio
 import logging
 import logging.config
 from collections import OrderedDict, defaultdict
@@ -9,7 +10,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Tuple, Union, cast
 import rollbar
 from botocore.exceptions import ClientError
-from asgiref.sync import async_to_sync
+from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 
 from backend.domain import (
@@ -465,40 +466,46 @@ def send_unsolved_to_all() -> List[bool]:
     return [send_unsolved_events_email(x) for x in projects]
 
 
-def get_project_indicators(project: str) -> Dict[str, object]:
-    findings = project_domain.get_released_findings(
+async def get_project_indicators(project: str) -> Dict[str, object]:
+    findings = await sync_to_async(project_domain.get_released_findings)(
         project, 'finding_id, historic_treatment, cvss_temporal')
     indicators = {
-        'closed_vulnerabilities': async_to_sync(
-            project_domain.get_closed_vulnerabilities)(project),
-        'last_closing_date': async_to_sync(project_domain.get_last_closing_vuln)(findings),
-        'mean_remediate': async_to_sync(project_domain.get_mean_remediate)(findings),
-        'mean_remediate_critical_severity': async_to_sync(
-            project_domain.get_mean_remediate_severity)(project, 9, 10),
-        'mean_remediate_high_severity': async_to_sync(project_domain.get_mean_remediate_severity)(
+        'closed_vulnerabilities': await project_domain.get_closed_vulnerabilities(project),
+        'last_closing_date': await project_domain.get_last_closing_vuln(findings),
+        'mean_remediate': await project_domain.get_mean_remediate(findings),
+        'mean_remediate_critical_severity': await project_domain.get_mean_remediate_severity(
+            project, 9, 10),
+        'mean_remediate_high_severity': await project_domain.get_mean_remediate_severity(
             project, 7, 8.9),
-        'mean_remediate_low_severity': async_to_sync(project_domain.get_mean_remediate_severity)(
+        'mean_remediate_low_severity': await project_domain.get_mean_remediate_severity(
             project, 0.1, 3.9),
-        'mean_remediate_medium_severity': async_to_sync(
-            project_domain.get_mean_remediate_severity)(project, 4, 6.9),
-        'max_open_severity': async_to_sync(project_domain.get_max_open_severity)(findings),
-        'open_findings': async_to_sync(project_domain.get_open_finding)(project),
-        'open_vulnerabilities': async_to_sync(project_domain.get_open_vulnerabilities)(project),
-        'total_treatment':  async_to_sync(project_domain.get_total_treatment)(findings),
-        'remediated_over_time': create_register_by_week(project)
+        'mean_remediate_medium_severity': await project_domain.get_mean_remediate_severity(
+            project, 4, 6.9),
+        'max_open_severity': await project_domain.get_max_open_severity(findings),
+        'open_findings': await project_domain.get_open_finding(project),
+        'open_vulnerabilities': await project_domain.get_open_vulnerabilities(project),
+        'total_treatment': await project_domain.get_total_treatment(findings),
+        'remediated_over_time': await sync_to_async(create_register_by_week)(project)
     }
     return indicators
 
 
-def update_indicators():
+@async_to_sync
+async def update_indicators():
     """Update in dynamo indicators."""
     rollbar.report_message(
         'Warning: Function to update indicators in DynamoDB is running', 'warning')
-    projects = project_domain.get_active_projects()
+    projects = await sync_to_async(project_domain.get_active_projects)()
+    project_indicators = await asyncio.gather(*[
+        asyncio.create_task(
+            get_project_indicators(project)
+        )
+        for project in projects
+    ])
     for project in projects:
-        indicators = get_project_indicators(project)
+        indicators = project_indicators.pop(0)
         try:
-            response = project_dal.update(project, indicators)
+            response = await sync_to_async(project_dal.update)(project, indicators)
             if response:
                 util.invalidate_cache(project)
             else:
