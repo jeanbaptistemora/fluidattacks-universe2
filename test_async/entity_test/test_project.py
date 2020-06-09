@@ -481,9 +481,6 @@ async def test_edit_group_good(
         # Configuration error, Forces requires CONTINUOUS
         ['ONESHOTTEST', 'ONESHOT', 'false', 'true', 'true',
          'Exception - Forces is only available in projects of type Continuous'],
-        # Configuration error, Drills requires CONTINUOUS
-        ['ONESHOTTEST', 'ONESHOT', 'true', 'false', 'true',
-         'Exception - Drills is only available in projects of type Continuous'],
     ]
 )
 async def test_edit_group_bad(

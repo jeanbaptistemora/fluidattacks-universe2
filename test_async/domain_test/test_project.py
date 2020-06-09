@@ -50,8 +50,6 @@ class ProjectTest(TestCase):
             validate_project_services_config(True, True, True, False)
         with pytest.raises(InvalidProjectServicesConfig):
             validate_project_services_config(False, False, True, True)
-        with pytest.raises(InvalidProjectServicesConfig):
-            validate_project_services_config(False, True, False, True)
 
     @pytest.mark.changes_db
     def test_remove_access(self):
@@ -189,7 +187,7 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         expected_output = 8
         assert async_to_sync(get_closed_vulnerabilities)(project_name) == expected_output
-    
+
     def test_get_open_finding(self):
         project_name = 'unittesting'
         expected_output = 5

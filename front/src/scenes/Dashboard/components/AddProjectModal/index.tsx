@@ -44,7 +44,6 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
   const [hasDrills, setHasDrills] = React.useState(true);
   const [hasForces, setHasForces] = React.useState(true);
 
-  const [canHaveDrills, setCanHaveDrills] = React.useState(true);
   const [canHaveForces, setCanHaveForces] = React.useState(true);
 
   const [subscriptionType, setSubscriptionType] = React.useState("CONTINUOUS");
@@ -96,10 +95,9 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
             ): void => {
               setSubscriptionType(subsType);
 
-              setHasDrills(isContinuousType(subsType));
+              setHasDrills(true);
               setHasForces(isContinuousType(subsType));
 
-              setCanHaveDrills(isContinuousType(subsType));
               setCanHaveForces(isContinuousType(subsType));
             };
             const handleDrillsBtnChange: ((withDrills: boolean) => void) = (withDrills: boolean): void => {
@@ -214,23 +212,21 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                               </FormGroup>
                             </Col>
                           </Row>
-                          {canHaveDrills ? (
-                            <Row>
-                              <Col md={5} sm={5}>
-                                <FormGroup>
-                                  <ControlLabel>{translate.t("home.newGroup.drills")} *</ControlLabel>
-                                  <BootstrapSwitchButton
-                                    checked={hasDrills}
-                                    offlabel={translate.t("home.newGroup.switch.no")}
-                                    onChange={handleDrillsBtnChange}
-                                    onlabel={translate.t("home.newGroup.switch.yes")}
-                                    onstyle="danger"
-                                    style="btn-block"
-                                  />
-                                </FormGroup>
-                              </Col>
-                            </Row>
-                          ) : undefined}
+                          <Row>
+                            <Col md={5} sm={5}>
+                              <FormGroup>
+                                <ControlLabel>{translate.t("home.newGroup.drills")} *</ControlLabel>
+                                <BootstrapSwitchButton
+                                  checked={hasDrills}
+                                  offlabel={translate.t("home.newGroup.switch.no")}
+                                  onChange={handleDrillsBtnChange}
+                                  onlabel={translate.t("home.newGroup.switch.yes")}
+                                  onstyle="danger"
+                                  style="btn-block"
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
                           {canHaveForces ? (
                             <Row>
                               <Col md={5} sm={5}>

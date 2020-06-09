@@ -43,7 +43,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> = (
     event: React.ChangeEvent<string> | undefined, subsType: string,
   ): void => {
-    dispatch(change("editGroup", "drills", isContinuousType(subsType)));
+    dispatch(change("editGroup", "drills", true));
     dispatch(change("editGroup", "forces", isContinuousType(subsType)));
   };
   const handleIntegratesBtnChange: ((withIntegrates: boolean) => void) = (withIntegrates: boolean): void => {
@@ -55,7 +55,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     }
   };
   const handleDrillsBtnChange: ((withDrills: boolean) => void) = (withDrills: boolean): void => {
-    dispatch(change("editGroup", "drills", isContinuousType(formValues.type) && withDrills));
+    dispatch(change("editGroup", "drills", withDrills));
 
     if (withDrills) {
       dispatch(change("editGroup", "integrates", true));
@@ -101,9 +101,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
         switch (message) {
           case "Exception - Forces is only available when Drills is too":
             msg = "search_findings.services_table.errors.forces_only_if_drills";
-            break;
-          case "Exception - Drills is only available in projects of type Continuous":
-            msg = "search_findings.services_table.errors.drills_only_if_continuous";
             break;
           case "Exception - Forces is only available in projects of type Continuous":
             msg = "search_findings.services_table.errors.forces_only_if_continuous";
@@ -157,7 +154,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       service: "integrates",
     },
     {
-      canHave: isContinuousType(formValues.type),
+      canHave: true,
       onChange: handleDrillsBtnChange,
       service: "drills",
     },

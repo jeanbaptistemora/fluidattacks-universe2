@@ -46,6 +46,6 @@ export const computeConfirmationMessage: ((data: IGroupData, form: IFormData) =>
       serviceDiff("integrates", serviceStateToString(true), serviceStateToString(form.integrates)),
       serviceDiff("drills", serviceStateToString(data.project.hasDrills), serviceStateToString(form.drills)),
       serviceDiff("forces", serviceStateToString(data.project.hasForces), serviceStateToString(form.forces)),
-    ].filter((line: string): boolean => line.length > 0)
-      .join("\n")
+      `* ${translate.t("home.newGroup.extra_charges_may_apply")}`,
+    ].join("\n")
   );

@@ -107,7 +107,7 @@ describe("Services", () => {
 
   [
     { group: "unittesting", rows: 4 },
-    { group: "oneshottest", rows: 2 },
+    { group: "oneshottest", rows: 3 },
     { group: "not-exists", rows: 0},
   ].forEach((test: { group: string; rows: number}) => {
     it(`should render services for: ${test.group}`, async () => {

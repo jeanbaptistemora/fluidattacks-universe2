@@ -79,9 +79,6 @@ def validate_project_services_config(
                     'Forces is only available when Drills is too')
 
     else:
-        if has_drills:
-            raise InvalidProjectServicesConfig(
-                'Drills is only available in projects of type Continuous')
         if has_forces:
             raise InvalidProjectServicesConfig(
                 'Forces is only available in projects of type Continuous')
@@ -165,7 +162,8 @@ def create_project(
     else:
         raise InvalidParameter()
 
-    if success:
+    # Notify us in case the user wants any Fluid Service
+    if success and (has_drills or has_forces):
         notifications_domain.new_group(
             description=description,
             group_name=project_name,

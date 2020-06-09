@@ -114,7 +114,7 @@ describe("AddProjectModal component", () => {
 
     expect(wrapper.find({ checked: true })
       .find(".switch-group"))
-      .toHaveLength(1);
+      .toHaveLength(2);
   });
 
   it("should remove Forces Service switch", () => {
