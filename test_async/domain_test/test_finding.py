@@ -17,6 +17,7 @@ from backend.domain.finding import (
     handle_acceptation, mask_finding, validate_evidence,
     get_finding_historic_treatment, approve_draft, compare_historic_treatments
 )
+from backend.dal import finding as finding_dal
 from backend.dal.vulnerability import get_vulnerabilities
 from backend.exceptions import (
     InvalidDateFormat, InvalidDate, InvalidFileType
@@ -137,6 +138,9 @@ class FindingTests(TestCase):
         expected_output = True
         assert isinstance(test_data, bool)
         assert test_data == expected_output
+
+        finding = finding_dal.get_finding(finding_id)
+        assert finding.get('historic_treatment', [{}])[-1].get('user') == 'Masked'
 
     def test_validate_evidence_exploit(self):
         evidence_id = 'exploit'

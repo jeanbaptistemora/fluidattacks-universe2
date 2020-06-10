@@ -735,9 +735,27 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
     return success
 
 
+def mask_treatment(
+        finding_id: str, historic_treatment: List[Dict[str, str]]) -> bool:
+    historic = [{**treatment, 'user': 'Masked', 'justification': 'Masked'}
+                for treatment in historic_treatment]
+    return finding_dal.update(finding_id, {'historic_treatment': historic})
+
+
+def mask_verification(
+        finding_id: str, historic_verification: List[Dict[str, str]]) -> bool:
+    historic = [{**treatment, 'user': 'Masked'}
+                for treatment in historic_verification]
+    return finding_dal.update(finding_id, {'historic_verification': historic})
+
+
 def mask_finding(finding_id: str) -> bool:
     finding = finding_dal.get_finding(finding_id)
     finding = finding_utils.format_data(finding)
+    historic_treatment = cast(
+        List[Dict[str, str]], finding.get('historicTreatment', []))
+    historic_verification = cast(
+        List[Dict[str, str]], finding.get('historicVerification', []))
 
     attrs_to_mask = [
         'affected_systems', 'attack_vector_desc', 'effect_solution',
@@ -746,7 +764,9 @@ def mask_finding(finding_id: str) -> bool:
     ]
     finding_result = finding_dal.update(finding_id, {
         attr: 'Masked' for attr in attrs_to_mask
-    })
+    }) and \
+        mask_treatment(finding_id, historic_treatment) and \
+        mask_verification(finding_id, historic_verification)
 
     evidence_prefix = '{}/{}'.format(finding['projectName'], finding_id)
     evidence_result = all([
