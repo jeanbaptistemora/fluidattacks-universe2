@@ -8,6 +8,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
+import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -28,7 +29,7 @@ const mockHistoryReplace: jest.Mock = jest.fn();
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual<Dictionary>("react-router-dom"),
-  useHistory: (): { replace(path: string): void} => ({
+  useHistory: (): { replace(path: string): void } => ({
     replace: mockHistoryReplace,
   }),
 }));
@@ -152,7 +153,7 @@ describe("FindingContent", () => {
     },
   };
 
-  it("should return a object", () => {
+  it("should return a function", () => {
     expect(typeof (FindingContent))
       .toEqual("function");
   });
@@ -205,7 +206,7 @@ describe("FindingContent", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("#exploitItem")
-        .hostNodes())
+      .hostNodes())
       .toHaveLength(1);
   });
 
@@ -247,7 +248,7 @@ describe("FindingContent", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("#exploitItem")
-        .hostNodes())
+      .hostNodes())
       .toHaveLength(1);
   });
 
@@ -349,20 +350,24 @@ describe("FindingContent", () => {
         </Provider>
       </MemoryRouter>,
     );
-    await act(async () => { await wait(50); wrapper.update(); });
-    let submitButton: ReactWrapper = wrapper.find("ButtonToolbar")
-      .at(0)
-      .find("Button")
-      .filterWhere((element: ReactWrapper) => element.text()
-        .includes("Submit"));
-    submitButton.simulate("click");
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+        const submitButton: ReactWrapper = wrapper.find("ButtonToolbar")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper) => element.text()
+            .includes("Submit"));
+        submitButton.simulate("click");
+      });
+    });
     await act(async () => { await wait(0); });
-    submitButton = wrapper.find("ButtonToolbar")
+    const submitButtonAfterSubmit: ReactWrapper = wrapper.find("ButtonToolbar")
       .at(0)
       .find("Button")
       .filterWhere((element: ReactWrapper) => element.text()
         .includes("Submit"));
-    expect(submitButton.prop("disabled"))
+    expect(submitButtonAfterSubmit.prop("disabled"))
       .toEqual(true);
   });
 
@@ -443,13 +448,17 @@ describe("FindingContent", () => {
         </Provider>
       </MemoryRouter>,
     );
-    await act(async () => { await wait(50); wrapper.update(); });
-    let approveButton: ReactWrapper = wrapper.find("ButtonToolbar")
-      .at(0)
-      .find("Button")
-      .filterWhere((element: ReactWrapper) => element.text()
-        .includes("Approve"));
-    approveButton.simulate("click");
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+        const approveButton: ReactWrapper = wrapper.find("ButtonToolbar")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper) => element.text()
+            .includes("Approve"));
+        approveButton.simulate("click");
+      });
+    });
     await act(async () => { wrapper.update(); });
     const confirmDialog: ReactWrapper = wrapper.find("findingActions")
       .find("Modal")
@@ -460,14 +469,18 @@ describe("FindingContent", () => {
       .find("Button")
       .at(1);
     proceedButton.simulate("click");
-    await act(async () => { await wait(50); wrapper.update(); });
-    approveButton = wrapper.find("ButtonToolbar")
-      .at(0)
-      .find("Button")
-      .filterWhere((element: ReactWrapper) => element.text()
-        .includes("Approve"));
-    expect(approveButton)
-      .toHaveLength(0);
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+        const approveButtonAfterProceed: ReactWrapper = wrapper.find("ButtonToolbar")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper) => element.text()
+            .includes("Approve"));
+        expect(approveButtonAfterProceed)
+          .toHaveLength(0);
+      });
+    });
   });
 
   it("should handle approval errors", async () => {
@@ -557,13 +570,17 @@ describe("FindingContent", () => {
         </Provider>
       </MemoryRouter>,
     );
-    await act(async () => { await wait(50); wrapper.update(); });
-    let rejectButton: ReactWrapper = wrapper.find("ButtonToolbar")
-      .at(0)
-      .find("Button")
-      .filterWhere((element: ReactWrapper) => element.text()
-        .includes("Reject"));
-    rejectButton.simulate("click");
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+        const rejectButton: ReactWrapper = wrapper.find("ButtonToolbar")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper) => element.text()
+            .includes("Reject"));
+        rejectButton.simulate("click");
+      });
+    });
     await act(async () => { wrapper.update(); });
     const confirmDialog: ReactWrapper = wrapper.find("findingActions")
       .find("Modal")
@@ -574,14 +591,18 @@ describe("FindingContent", () => {
       .find("Button")
       .at(1);
     proceedButton.simulate("click");
-    await act(async () => { await wait(100); wrapper.update(); });
-    rejectButton = wrapper.find("ButtonToolbar")
-      .at(0)
-      .find("Button")
-      .filterWhere((element: ReactWrapper) => element.text()
-        .includes("Reject"));
-    expect(rejectButton)
-      .toHaveLength(0);
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+        const rejectButtonAfterProceed: ReactWrapper = wrapper.find("ButtonToolbar")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper) => element.text()
+            .includes("Reject"));
+        expect(rejectButtonAfterProceed)
+          .toHaveLength(0);
+      });
+    });
   });
 
   it("should handle rejection errors", async () => {
