@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import * as SecureStore from "expo-secure-store";
+import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
  * Necessary polyfill due to a bug in RN for android
  * @see https://github.com/facebook/react-native/issues/19410
@@ -37,15 +38,26 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
 
   // GraphQL operations
   const { data, loading } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
-    onError: (error: ApolloError): void => {
-      rollbar.error("An error occurred loading projects", error);
-      Alert.alert(t("common.error.title"), t("common.error.msg"));
+    errorPolicy: "all",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
+          case "Access denied":
+            break;
+          default:
+            rollbar.log("An error occurred loading projects", error);
+            Alert.alert(t("common.error.title"), t("common.error.msg"));
+        }
+      });
     },
   });
 
   const projects: IProject[] = _.isUndefined(data) || _.isEmpty(data)
     ? []
-    : data.me.projects.filter((project: IProject): boolean => !project.isCommunity);
+    : data.me.projects.filter((project: IProject): boolean =>
+      !project.isCommunity
+      && !_.isNil(project.serviceAttributes)
+      && project.serviceAttributes.includes("has_integrates"));
 
   const closedVulns: number = projects.reduce(
     (previousValue: number, project: IProject): number =>

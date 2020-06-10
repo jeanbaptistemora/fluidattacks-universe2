@@ -7,6 +7,7 @@ export const PROJECTS_QUERY: DocumentNode = gql`{
       closedVulnerabilities
       isCommunity
       openVulnerabilities
+      serviceAttributes
     }
   }
 }`;

@@ -5,6 +5,7 @@ export interface IProject {
   closedVulnerabilities: number;
   isCommunity: boolean;
   openVulnerabilities: number;
+  serviceAttributes?: string[];
 }
 
 /**

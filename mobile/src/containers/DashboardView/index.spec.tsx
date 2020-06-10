@@ -58,11 +58,13 @@ describe("DashboardView", (): void => {
                 closedVulnerabilities: 7,
                 isCommunity: false,
                 openVulnerabilities: 5,
+                serviceAttributes: ["has_integrates"],
               },
               {
                 closedVulnerabilities: 1,
                 isCommunity: true,
                 openVulnerabilities: 2,
+                serviceAttributes: ["has_integrates"],
               },
             ],
           },
