@@ -23,7 +23,7 @@ from backend.typing import (
 from backend.domain import (
     comment as comment_domain, resources as resources_domain,
     finding as finding_domain, user as user_domain,
-    notifications as notifications_domain,
+    notifications as notifications_domain, event as event_domain,
     vulnerability as vuln_domain, available_group as available_group_domain
 )
 from backend.exceptions import (
@@ -318,38 +318,37 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
     return response
 
 
-def remove_project(project_name: str, user_email: str) -> NamedTuple:
+def remove_project(project_name: str) -> NamedTuple:
     """Delete project information."""
-    project = project_name.lower()
     Status: NamedTuple = namedtuple(
         'Status',
-        'are_findings_masked are_users_removed is_project_finished are_resources_removed'
+        'are_findings_masked are_users_removed is_project_finished '
+        'are_events_masked are_resources_removed'
     )
-    response = Status(False, False, False, False)
-    data = project_dal.get_attributes(project, ['project_status'])
-    validation = False
-    if user_email:
-        validation = is_alive(project) and user_domain.get_group_access(user_email, project)
-    if (not user_email and data.get('project_status') == 'PENDING_DELETION') or validation:
+    data = project_dal.get_attributes(project_name, ['project_status'])
+    if data.get('project_status') == 'PENDING_DELETION':
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-        are_users_removed = remove_all_users_access(project)
-        findings_and_drafts = list_findings(project, should_list_deleted=True) + \
-            list_drafts(project, should_list_deleted=True)
-        are_findings_masked: Union[bool, List[bool]] = [
+        are_users_removed = remove_all_users_access(project_name)
+        findings_and_drafts = list_findings(project_name, should_list_deleted=True) + \
+            list_drafts(project_name, should_list_deleted=True)
+        are_findings_masked = all([
             finding_domain.mask_finding(finding_id)
-            for finding_id in findings_and_drafts]
-        if are_findings_masked == []:
-            are_findings_masked = True
+            for finding_id in findings_and_drafts])
+        events = list_events(project_name)
+        are_events_masked = all([
+            event_domain.mask(event_id) for event_id in events
+        ])
         update_data: Dict[str, Union[str, List[str], object]] = {
             'project_status': 'FINISHED',
             'deletion_date': today
         }
-        is_project_finished = project_dal.update(project, update_data)
-        are_resources_removed = all(list(cast(List[bool], resources_domain.mask(project))))
-        util.invalidate_cache(project)
+        is_project_finished = project_dal.update(project_name, update_data)
+        are_resources_removed = all(
+            list(cast(List[bool], resources_domain.mask(project_name))))
         response = Status(
-            are_findings_masked, are_users_removed, is_project_finished, are_resources_removed
+            are_findings_masked, are_users_removed, is_project_finished,
+            are_events_masked, are_resources_removed
         )
     else:
         raise PermissionDenied()

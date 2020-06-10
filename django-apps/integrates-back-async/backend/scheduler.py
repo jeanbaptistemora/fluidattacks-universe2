@@ -609,7 +609,7 @@ def delete_pending_projects():
             'deletion_date', today.strftime('%Y-%m-%d %H:%M:%S'))
         deletion_date = datetime.strptime(deletion_date, '%Y-%m-%d %H:%M:%S')
         if deletion_date < today:
-            project_domain.remove_project(project.get('project_name'), '')
+            project_domain.remove_project(project.get('project_name'))
             util.invalidate_cache(project.get('project_name'))
 
 

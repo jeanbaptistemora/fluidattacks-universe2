@@ -21,7 +21,8 @@ from backend.domain.project import (
     get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config,
     get_current_month_authors, create_project, total_vulnerabilities,
-    get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding
+    get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
+    remove_project
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -401,7 +402,12 @@ class ProjectTest(TestCase):
         test_data = create_project(user_email, user_role, **project_data)
         expected_output = True
         assert  test_data == expected_output
-
+    
+    @pytest.mark.changes_db
+    def test_remove_group(self):
+        project_name = 'pendingproject'
+        test_data = remove_project(project_name)
+        assert all(test_data)
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(
