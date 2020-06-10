@@ -16,6 +16,7 @@ from typing import (
 import boto3
 import rollbar
 import yaml
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpResponse
@@ -31,7 +32,9 @@ from openpyxl import load_workbook, Workbook
 from backend import authz, util
 from backend.domain import (
     finding as finding_domain, project as project_domain, user as user_domain)
-from backend.domain.vulnerability import get_vulnerabilities_by_type
+from backend.domain.vulnerability import (
+    get_vulnerabilities_by_type, get_vulnerabilities
+)
 from backend.decorators import authenticate, cache_content
 from backend.dal import (
     finding as finding_dal, user as user_dal
@@ -303,7 +306,7 @@ Attempted to retrieve vulnerabilities without permission')
 # pylint: disable=too-many-locals
 def generate_complete_report(request):
     user_data = util.get_jwt_content(request)
-    projects = user_domain.get_projects(user_data['user_email'])
+    projects = async_to_sync(user_domain.get_projects)(user_data['user_email'])
     book = load_workbook('/usr/src/app/app/techdoc/templates/COMPLETE.xlsx')
     sheet = book.active
 
@@ -318,9 +321,9 @@ def generate_complete_report(request):
     row_index = row_offset
     for project in projects:
         findings = project_domain.get_released_findings(
-            project, 'finding_id, finding, treatment')
+            project, 'finding_id, finding, historic_treatment')
         for finding in findings:
-            vulns = finding_dal.get_vulnerabilities(finding['finding_id'])
+            vulns = get_vulnerabilities(finding['finding_id'])
             for vuln in vulns:
                 sheet.cell(row_index, vuln_where_col, vuln['where'])
                 sheet.cell(row_index, vuln_specific_col, vuln['specific'])
@@ -329,7 +332,9 @@ def generate_complete_report(request):
                 sheet.cell(row_index, finding_col, '{name!s} (#{id!s})'.format(
                            name=finding['finding'].encode('utf-8'),
                            id=finding['finding_id']))
-                sheet.cell(row_index, treatment_col, finding['treatment'])
+                historic_treatment = finding.get('historic_treatment', [{}])
+                sheet.cell(row_index, treatment_col,
+                           historic_treatment[-1].get('treatment', ''))
                 sheet.cell(row_index, treatment_mgr_col,
                            vuln.get('treatment_manager', 'Unassigned'))
 
