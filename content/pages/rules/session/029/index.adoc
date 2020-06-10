@@ -1,7 +1,7 @@
 :slug: rules/029/
 :category: session
 :description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of using cookies with the required security attributes such as HttpOnly and Secure.
-:keywords: Session, Cookies, Attributes, HttpOnly, ASVS, CWE
+:keywords: Session, Cookies, Attributes, ASVS, CWE, NIST
 :rules: yes
 
 = R029. Cookies with security attributes
@@ -122,10 +122,16 @@ HTTP session.
 The software uses a cookie to store sensitive information,
 but the cookie is not marked with the HttpOnly flag.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
+Cookies SHALL be tagged to be accessible only on secure (HTTPS) sessions.
+
+. [[r4]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
+Cookies SHOULD be tagged to be inaccessible via JavaScript (HttpOnly).
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.2 Session Binding Requirements.(3.2.3)]
 Verify the application only stores session tokens in the browser using secure
 methods such as appropriately secured cookies (see section 3.4) or HTML 5
 session storage.
 
-. [[r4]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r6]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].

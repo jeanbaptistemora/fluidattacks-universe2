@@ -1,7 +1,7 @@
 :slug: rules/329/
 :category: data
 :description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of avoiding the storage of sensitive information in the localStorage.
-:keywords: Local, Session, Storage, ASVS, CWE, GDPR
+:keywords: Local, Session, Storage, ASVS, GDPR, NIST
 :rules: yes
 
 = R329. Keep client-side storage without sensitive data
@@ -52,7 +52,12 @@ fundamental rights and freedoms merit specific protection as the context of
 their processing could create significant risks to the fundamental rights and
 freedoms.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
+Secrets used for session binding SHOULD NOT be placed in insecure locations
+such as HTML5 Local Storage due to the potential exposure of local storage to
+cross-site scripting (XSS) attacks.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.2 Client-side Data Protection.(8.2.2)]
 Verify that data stored in client side storage (such as HTML5 local storage,
 session storage, IndexedDB, regular cookies or Flash cookies) does not contain
