@@ -41,7 +41,7 @@ PLUGINS = [
     'sitemap'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = ['index', 'landing', 'authors']
+DIRECT_TEMPLATES = ['index', 'landing', 'authors', 'categories']
 SITEMAP = {
     'format': 'xml',
     'priorities': {
