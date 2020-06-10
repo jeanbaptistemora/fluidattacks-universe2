@@ -498,6 +498,31 @@ def policy_actions_has_privilege(action, privilege) -> bool:
     return success
 
 
+def get_paginated_items(key_id, retry, secret, session_token, service_name,
+                        func_name, max_name, token_name, object_name,
+                        next_token_name=None, extra_args=None):
+    """Get all items in paginated API calls."""
+    pools = []
+    args = {'key_id': key_id,
+            'secret': secret,
+            'service': service_name,
+            'func': func_name,
+            max_name: 50,
+            'retry': retry,
+            'boto3_client_kwargs': {'aws_session_token': session_token}}
+    if extra_args:
+        args.update(extra_args)
+    data = run_boto3_func(**args)
+    pools += data.get(object_name, [])
+    next_token = data.get(token_name, '')
+    args[next_token_name if next_token_name else token_name] = next_token
+    while next_token:
+        data = run_boto3_func(**args)
+        pools += data[object_name]
+        next_token = data.get(next_token_name, '')
+    return pools
+
+
 def _random_string(string_length=5):
     """Generate a random string of fixed length."""
     letters = string.ascii_lowercase

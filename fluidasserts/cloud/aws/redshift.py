@@ -13,30 +13,18 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 
 def _get_clusters(key_id, retry, secret, session_token):
-    pools = []
-    data = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        service='redshift',
-        func='describe_clusters',
-        boto3_client_kwargs={'aws_session_token': session_token},
-        MaxRecords=50,
-        retry=retry)
-    pools += data.get('Clusters', [])
-    next_token = data.get('Marker', '')
-    while next_token:
-        data = aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            service='redshift',
-            func='describe_clusters',
-            boto3_client_kwargs={'aws_session_token': session_token},
-            MaxRecords=50,
-            Marker=next_token,
-            retry=retry)
-        pools += data['Clusters']
-        next_token = data.get('NextMarker', '')
-    return pools
+    return aws.get_paginated_items(  # nosec
+        key_id,
+        retry,
+        secret,
+        session_token,
+        'redshift',
+        'describe_clusters',
+        'MaxRecords',
+        'Marker',
+        'Clusters',
+        next_token_name='NextMarker'
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)

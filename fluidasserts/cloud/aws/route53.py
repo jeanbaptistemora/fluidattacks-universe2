@@ -15,30 +15,18 @@ from fluidasserts.utils.decorators import unknown_if
 
 
 def _get_domains(key_id, retry, secret, session_token):
-    domains = []
-    data = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        service='route53domains',
-        func='list_domains',
-        boto3_client_kwargs={'aws_session_token': session_token},
-        MaxItems=50,
-        retry=retry)
-    domains += data.get('Domains', [])
-    next_token = data.get('NextPageMarker', '')
-    while next_token:
-        data = aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            service='route53domains',
-            func='list_domains',
-            boto3_client_kwargs={'aws_session_token': session_token},
-            MaxRecords=50,
-            Marker=next_token,
-            retry=retry)
-        domains += data['Domains']
-        next_token = data.get('NextPageMarker', '')
-    return domains
+    return aws.get_paginated_items(  # nosec
+        key_id,
+        retry,
+        secret,
+        session_token,
+        'route53domains',
+        'list_domains',
+        'MaxItems',
+        'MaxRecords',
+        'Domains',
+        next_token_name='NextPageMarker'
+    )
 
 
 @api(risk=LOW, kind=DAST)

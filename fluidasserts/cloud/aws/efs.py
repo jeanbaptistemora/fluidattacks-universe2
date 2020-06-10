@@ -15,30 +15,18 @@ from fluidasserts.utils.decorators import unknown_if
 
 
 def _get_filesystems(key_id, retry, secret, session_token):
-    pools = []
-    data = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        service='efs',
-        func='describe_file_systems',
-        boto3_client_kwargs={'aws_session_token': session_token},
-        MaxItems=50,
-        retry=retry)
-    pools += data.get('FileSystems', [])
-    next_token = data.get('Marker', '')
-    while next_token:
-        data = aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            service='efs',
-            func='describe_file_systems',
-            boto3_client_kwargs={'aws_session_token': session_token},
-            MaxItems=50,
-            Marker=next_token,
-            retry=retry)
-        pools += data['FileSystems']
-        next_token = data.get('NextMarker', '')
-    return pools
+    return aws.get_paginated_items(  # nosec
+        key_id,
+        retry,
+        secret,
+        session_token,
+        'efs',
+        'describe_file_systems',
+        'MaxItems',
+        'Marker',
+        'FileSystems',
+        next_token_name='NextMarker'
+    )
 
 
 @api(risk=HIGH, kind=DAST)

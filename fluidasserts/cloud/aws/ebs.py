@@ -15,31 +15,18 @@ from fluidasserts.utils.decorators import unknown_if
 
 
 def _get_snapshots(key_id, retry, secret, session_token, acc_id):
-    snaps = []
-    data = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        service='ec2',
-        func='describe_snapshots',
-        boto3_client_kwargs={'aws_session_token': session_token},
-        OwnerIds=[acc_id],
-        MaxResults=50,
-        retry=retry)
-    snaps += data.get('Snapshots', [])
-    next_token = data.get('NextToken', '')
-    while next_token:
-        data = aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            service='ec2',
-            func='describe_snapshots',
-            boto3_client_kwargs={'aws_session_token': session_token},
-            MaxResults=50,
-            NextToken=next_token,
-            retry=retry)
-        snaps += data['Snapshots']
-        next_token = data.get('NextToken', '')
-    return snaps
+    return aws.get_paginated_items(
+        key_id,
+        retry,
+        secret,
+        session_token,
+        'ec2',
+        'describe_snapshots',
+        'MaxResults',
+        'NextToken',
+        'Snapshots',
+        extra_args={"OwnerIds": [acc_id]}
+    )
 
 
 @api(risk=HIGH, kind=DAST)

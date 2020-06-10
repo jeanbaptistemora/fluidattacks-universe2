@@ -14,30 +14,17 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 
 def _get_buses(key_id, retry, secret, session_token):
-    pools = []
-    data = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        service='events',
-        func='list_event_buses',
-        boto3_client_kwargs={'aws_session_token': session_token},
-        MaxResults=50,
-        retry=retry)
-    pools += data.get('EventBuses', [])
-    next_token = data.get('NextToken', '')
-    while next_token:
-        data = aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            service='events',
-            func='list_event_buses',
-            boto3_client_kwargs={'aws_session_token': session_token},
-            MaxResults=50,
-            NextToken=next_token,
-            retry=retry)
-        pools += data['EventBuses']
-        next_token = data.get('NextToken', '')
-    return pools
+    return aws.get_paginated_items(
+        key_id,
+        retry,
+        secret,
+        session_token,
+        'events',
+        'list_event_buses',
+        'MaxResults',
+        'NextToken',
+        'EventBuses'
+    )
 
 
 def _check_for_alarm(key_id, retry, secret, session_token, metric, subject):

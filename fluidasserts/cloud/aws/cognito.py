@@ -13,30 +13,17 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 
 def _get_pools(key_id, retry, secret, session_token):
-    pools = []
-    data = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        service='cognito-idp',
-        func='list_user_pools',
-        boto3_client_kwargs={'aws_session_token': session_token},
-        MaxResults=50,
-        retry=retry)
-    pools += data.get('UserPools', [])
-    next_token = data.get('NextToken', '')
-    while next_token:
-        data = aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            service='cognito-idp',
-            func='list_user_pools',
-            boto3_client_kwargs={'aws_session_token': session_token},
-            MaxResults=50,
-            NextToken=next_token,
-            retry=retry)
-        pools += data['UserPools']
-        next_token = data.get('NextToken', '')
-    return pools
+    return aws.get_paginated_items(
+        key_id,
+        retry,
+        secret,
+        session_token,
+        'cognito-idp',
+        'list_user_pools',
+        'MaxResults',
+        'NextToken',
+        'UserPools'
+    )
 
 
 @api(risk=HIGH, kind=DAST)
