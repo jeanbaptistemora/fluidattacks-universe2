@@ -7,6 +7,14 @@ export const enTranslations: ResourceLanguage = {
       title: "Oops!",
     },
     logout: "Logout",
+    networkError: {
+      msg: "Check your network connection and try again",
+      title: "Offline",
+    },
+    sessionExpired: {
+      msg: "Session expired",
+      title: "Your have been logged out",
+    },
     slogan: "We hack your software",
   },
   dashboard: {

@@ -1,4 +1,3 @@
-import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
 import { I18nextProvider } from "react-i18next";
 import { StatusBar } from "react-native";
@@ -9,7 +8,7 @@ import { BackButton, NativeRouter, Route, Switch } from "react-router-native";
 import { DashboardView } from "./containers/DashboardView";
 import { LoginView } from "./containers/LoginView";
 import { WelcomeView } from "./containers/WelcomeView";
-import { client } from "./utils/apollo";
+import { ApolloProvider } from "./utils/apollo";
 import { i18next } from "./utils/translations/translate";
 
 const theme: Theme = {
@@ -40,7 +39,7 @@ export const App: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <ApolloProvider client={client}>
+      <NativeRouter>
         <PaperProvider theme={colorScheme === "dark" ? darkTheme : theme}>
           <I18nextProvider i18n={i18next}>
             <StatusBar
@@ -48,7 +47,7 @@ export const App: React.FunctionComponent = (): JSX.Element => {
               barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
               translucent={true}
             />
-            <NativeRouter>
+            <ApolloProvider>
               <BackButton>
                 <Switch>
                   <Route path="/" component={LoginView} exact={true} />
@@ -56,10 +55,10 @@ export const App: React.FunctionComponent = (): JSX.Element => {
                   <Route path="/Dashboard" component={DashboardView} exact={true} />
                 </Switch>
               </BackButton>
-            </NativeRouter>
+            </ApolloProvider>
           </I18nextProvider>
         </PaperProvider>
-      </ApolloProvider>
+      </NativeRouter>
     </React.StrictMode>
   );
 };
