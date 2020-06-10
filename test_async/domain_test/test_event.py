@@ -6,6 +6,7 @@ from aniso8601 import parse_datetime
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from backend.domain import event as event_domain
+from backend.dal import comment as comment_dal
 from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
@@ -171,3 +172,29 @@ class EventTests(TestCase):
         with self.assertRaises(InvalidFileSize) as context:
             event_domain.validate_evidence(evidence_type, uploaded_file)
         self.assertTrue('Exception - Invalid File Size' in str(context.exception))
+
+    @pytest.mark.changes_db
+    def test_mask_event(self):
+        event_id = '418900971'
+        comment_id = int(round(time() * 1000))
+        comment_id, success = event_domain.add_comment(
+            comment_id=comment_id,
+            content='comment test',
+            event_id=event_id,
+            parent='0',
+            user_info={
+                'user_email': 'unittesting@fluidattacks.com',
+                'first_name': 'Unit',
+                'last_name': 'test'
+            })
+        assert success
+        assert len(comment_dal.get_comments('event', int(event_id))) >= 1
+
+        test_data = event_domain.mask(event_id)
+        expected_output = True
+        assert isinstance(test_data, bool)
+        assert test_data == expected_output
+        assert len(comment_dal.get_comments('event', int(event_id))) == 0
+
+        event = event_domain.get_event(event_id)
+        assert event.get('detail') == 'Masked'

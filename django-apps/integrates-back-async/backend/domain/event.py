@@ -278,3 +278,27 @@ def remove_evidence(evidence_type: str, event_id: str) -> bool:
         success = event_dal.update(event_id, {evidence_type: None})
 
     return success
+
+
+def mask(event_id: str) -> bool:
+    event = event_dal.get_event(event_id)
+
+    attrs_to_mask = ['client', 'detail', 'evidence', 'evidence_file']
+    event_result = event_dal.update(event_id, {
+        attr: 'Masked' for attr in attrs_to_mask
+    })
+
+    evidence_prefix = '{}/{}'.format(event.get('project_name', ''), event_id)
+    evidence_result = all([
+        event_dal.remove_evidence(file_name)
+        for file_name in event_dal.search_evidence(evidence_prefix)])
+
+    comments_result = all([
+        comment_dal.delete(comment['finding_id'], comment['user_id'])
+        for comment in comment_dal.get_comments('event', int(event_id))])
+
+    success = all([
+        event_result, evidence_result, comments_result])
+    util.invalidate_cache(event_id)
+
+    return success

@@ -1,5 +1,5 @@
 """DAL functions for events."""
-
+from typing import List
 import rollbar
 from botocore.exceptions import ClientError
 from backend.dal.helpers import cloudfront, dynamodb, s3
@@ -72,3 +72,7 @@ def remove_evidence(file_name: str) -> bool:
 
 def sign_url(file_url: str) -> str:
     return cloudfront.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN, file_url, 1.0 / 6)
+
+
+def search_evidence(file_name: str) -> List[str]:
+    return s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
