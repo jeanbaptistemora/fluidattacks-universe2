@@ -9,6 +9,7 @@ from typing import (
     Union,
 )
 import rollbar
+from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
 import pytz
 from boto3.dynamodb.conditions import Attr, Key
@@ -413,7 +414,7 @@ def update(project_name: str, data: ProjectType) -> bool:
 def create(project: ProjectType) -> bool:
     """Add project to dynamo."""
     org_name = cast(List[str], project.get('companies'))[0]
-    org_dict = get_or_create_org(org_name)
+    org_dict = async_to_sync(get_or_create_org)(org_name)
     project['organization'] = org_dict['id']
 
     resp = False

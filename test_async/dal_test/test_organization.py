@@ -44,41 +44,41 @@ def test__map_attributes_to_dal():
     assert 'name' not in mapped_list
 
 @pytest.mark.changes_db
-def test_create():
+async def test_create():
     org_name = 'test-org-creating'
-    new_org = org_dal.create(org_name)
+    new_org = await org_dal.create(org_name)
     assert isinstance(new_org, dict)
     assert 'id' in new_org
     assert new_org['name'] == org_name
     with pytest.raises(InvalidOrganization):
-        org_dal.create(org_name)
+        await org_dal.create(org_name)
 
-def test_exists():
-    existing_group = org_dal.exists('test-org')
+async def test_exists():
+    existing_group = await org_dal.exists('test-org')
     assert existing_group
-    non_existent_group = org_dal.exists('no-exists')
+    non_existent_group = await org_dal.exists('no-exists')
     assert not non_existent_group
 
-def test_get():
+async def test_get():
     ex_org_name = 'test-org'
     not_ex_org_name = 'no-exists'
-    existing_org = org_dal.get(ex_org_name)
+    existing_org = await org_dal.get(ex_org_name)
     assert isinstance(existing_org, dict)
     assert 'id' in existing_org
     assert existing_org['name'] == ex_org_name
-    not_existent_org = org_dal.get(not_ex_org_name)
+    not_existent_org = await org_dal.get(not_ex_org_name)
     assert not not_existent_org
 
 @pytest.mark.changes_db
-def test_get_or_create():
+async def test_get_or_create():
     ex_org_name = 'test-org'
     not_ex_org_name = 'new-org'
-    existing_org = org_dal.get_or_create(ex_org_name)
+    existing_org = await org_dal.get_or_create(ex_org_name)
     assert isinstance(existing_org, dict)
     assert existing_org['id'] == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     assert existing_org['name'] == ex_org_name
     
-    not_existent_org = org_dal.get_or_create(not_ex_org_name)
+    not_existent_org = await org_dal.get_or_create(not_ex_org_name)
     assert isinstance(not_existent_org, dict)
     assert 'id' in not_existent_org
     assert not_existent_org['name'] == not_ex_org_name

@@ -42,3 +42,4 @@ else:
     }
 
 DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
+TABLE_NAME: str = 'integrates'

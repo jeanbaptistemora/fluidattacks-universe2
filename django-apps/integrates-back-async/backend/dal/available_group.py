@@ -13,7 +13,7 @@ from backend.exceptions import EmptyPoolGroupName
 from backend.dal.helpers import dynamodb
 
 RESOURCE_OPTIONS: Dict[str, str] = dynamodb.RESOURCE_OPTIONS  # type: ignore
-TABLE_NAME = 'integrates'
+TABLE_NAME: str = dynamodb.TABLE_NAME  # type: ignore
 
 
 async def create(group_name: str) -> bool:
@@ -73,7 +73,7 @@ async def get_one() -> str:
     # Make two attempts to return a name using the random uuid
     # First attempt with greater than operator
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table('integrates')
+        table = await dynamodb_resource.Table(TABLE_NAME)
         response = await table.query(**query_attrs)
         response_items = response.get('Items', [])
         if response_items:
@@ -97,7 +97,7 @@ async def get_all() -> List[str]:
     key_exp = Key('pk').eq('AVAILABLE_GROUP')
     all_names = []
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table('integrates')
+        table = await dynamodb_resource.Table(TABLE_NAME)
         response = await table.query(
             KeyConditionExpression=key_exp,
             ProjectionExpression='sk')
@@ -118,7 +118,7 @@ async def exists(group_name: str) -> bool:
     """
     item_exists = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table('integrates')
+        table = await dynamodb_resource.Table(TABLE_NAME)
         response = await table.get_item(Key={
             'pk': 'AVAILABLE_GROUP',
             'sk': group_name.upper()})

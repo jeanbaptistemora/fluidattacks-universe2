@@ -1,17 +1,22 @@
-import uuid
+# standard imports
 from typing import Optional, List
+import uuid
+
+# third-party imports
+import aioboto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-
 import rollbar
+
+# local imports
 from backend.dal.helpers import dynamodb
 from backend.exceptions import InvalidOrganization
 from backend.typing import (
     Organization as OrganizationType
 )
 
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
-TABLE = DYNAMODB_RESOURCE.Table('integrates')
+RESOURCE_OPTIONS = dynamodb.RESOURCE_OPTIONS  # type: ignore
+TABLE_NAME: str = dynamodb.TABLE_NAME  # type: ignore
 
 
 def _map_keys_to_domain(org: OrganizationType) -> OrganizationType:
@@ -53,36 +58,39 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
     return mapped_attrs
 
 
-def create(organization_name: str) -> OrganizationType:
+async def create(organization_name: str) -> OrganizationType:
     """
     Create an organization and returns its key
     """
-    if exists(organization_name):
+    org_exists = await exists(organization_name)
+    if org_exists:
         raise InvalidOrganization()
 
     new_item = {'pk': 'ORG#{}'.format(str(uuid.uuid4())),
                 'sk': organization_name.lower()}
-    try:
-        TABLE.put_item(Item=new_item)
-    except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt create organization',
-                               'error', extra_data=ex, payload_data=locals())
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        table = await dynamodb_resource.Table(TABLE_NAME)
+        try:
+            await table.put_item(Item=new_item)
+        except ClientError as ex:
+            rollbar.report_message('Error: Couldn\'nt create organization',
+                                   'error', extra_data=ex, payload_data=locals())
     return _map_keys_to_domain(new_item)
 
 
-def exists(org_name: str) -> bool:
+async def exists(org_name: str) -> bool:
     """
     Returns True if the organization key exists
     """
-    org = get(org_name)
+    org = await get(org_name)
     resp = False
     if org:
         resp = True
     return resp
 
 
-def get(org_name: str,
-        attributes: List[str] = None) -> Optional[OrganizationType]:
+async def get(org_name: str,
+              attributes: List[str] = None) -> Optional[OrganizationType]:
     """
     Get an organization info given its name
     Return specified attributes or all if not setted
@@ -97,19 +105,22 @@ def get(org_name: str,
     if attributes:
         projection = ','.join(_map_attributes_to_dal(attributes))
         query_attrs['ProjectionExpression'] = projection
-    response = TABLE.query(**query_attrs).get('Items', [])
     org = None
-    if response:
-        org = _map_keys_to_domain(response[0])
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        table = await dynamodb_resource.Table(TABLE_NAME)
+        response = await table.query(**query_attrs)
+        response_items = response.get('Items', [])
+        if response_items:
+            org = _map_keys_to_domain(response_items[0])
     return org
 
 
-def get_or_create(organization_name: str) -> OrganizationType:
+async def get_or_create(organization_name: str) -> OrganizationType:
     """
     Return an organization, even if it does not exists,
     in which case it will be created
     """
-    org = get(organization_name, ['id', 'name'])
+    org = await get(organization_name, ['id', 'name'])
     if not org:
-        org = create(organization_name)
+        org = await create(organization_name)
     return org
