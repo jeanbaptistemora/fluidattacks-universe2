@@ -1,0 +1,71 @@
+{% extends "index.html" %}
+
+{% block meta %}
+  <meta name="description"
+        content="Here you can find all the articles written by the author {{ author }}.The articles are ordered by publishing date, starting with the last one.
+        They offer information about the different topics in the field of
+        Information Security.">
+  <meta name="keywords"
+        content="Author, Article, Information, Security, Blog, Publising, Date">
+{% endblock meta %}
+
+{% block title %} {{ author }} | {{ AUTHOR }}{% endblock %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/blog/">
+{% endblock canonical %}
+
+
+{% block opengraph %}
+  {{ super() }}
+  <meta property="og:title"
+        content="{{ SITENAME }} - Articles by {{ author }}">
+  <meta property="og:type"
+        content="profile">
+  <meta property="profile:first_name"
+        content="{{ author.name.split(' ')[0] }}">
+  <meta property="profile:last_name"
+        content="{{ author.name.split(' ')[1:]|join(' ') }}">
+  <meta property="profile:username"
+        content="{{ author.slug }}">
+{% endblock opengraph %}
+
+{% block breadcrumb %}
+  <!-- navcontent-container -->
+  <div class="pv0">
+    <!-- navcontent-info -->
+    <div class="df ma-auto bg-fluid-black">
+      <div class="roboto f6-l f7 tl mw-banner">
+        <ul class="dib list w-100">
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+               href="{{ SITEURL }}/">
+              Home
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/blog/">Blog</a>
+          </li>
+          <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+               href="{{ SITEURL }}/blog/authors/">
+              Authors
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="white hover-white no-underline"
+               href=".">
+               {{ author }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}

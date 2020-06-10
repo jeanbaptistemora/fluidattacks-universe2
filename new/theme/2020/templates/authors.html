@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block meta %}
+  <meta name="description"
+        content="Here you can find the list of all the authors that have contributed to
+        the blog by publishing an article which may have an opinion, a solution
+        to a challenge, or just general information related to many topics in the
+        field of Information Security.">
+  <meta name="keywords"
+        content="Authors, Blog, Publish, Article, Information, Security">
+{% endblock meta %}
+
+{% block title %} Authors | {{ SITENAME }}{% endblock title %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/blog/">
+{% endblock canonical %}
+
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+  <div class="pv0">
+    <!-- navcontent-info -->
+    <div class="df ma-auto bg-fluid-black">
+      <div class="roboto f6-l f7 tl mw-banner">
+        <ul class="dib list w-100">
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+               href="{{ SITEURL }}/">
+              Home
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/blog/">Blog</a>
+          </li>
+          <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="white hover-white no-underline"
+               href="{{ SITEURL }}/blog/authors/">
+              Authors
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
+{% block content %}
+  <div class="divpage internal roboto">
+    <article class="ma-auto tl-ns tc mw8">
+      <h1 class="tc">
+        Authors:
+      </h1>
+      <div class="ml6-l ml4-m">
+        <ul class="fluid-bullet three-columns-l two-columns-m bullet-inside">
+          {% for author, articles in authors|sort %}
+            <li class="pv2">
+              <a href="{{SITEURL}}/{{ author.url }}"
+                 rel="bookmark">
+                <p class="di ttc">
+                  {{ author }} ({{ articles|count }})
+                </p>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </article>
+  </div>
+{% endblock content %}
