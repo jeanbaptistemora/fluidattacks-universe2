@@ -231,6 +231,7 @@ describe("Services", () => {
 
     expect(formValues())
       .toEqual({
+        comments: "",
         drills: true,
         forces: true,
         integrates: true,
@@ -242,6 +243,7 @@ describe("Services", () => {
 
     expect(formValues())
       .toEqual({
+        comments: "",
         drills: false,
         forces: false,
         integrates: false,
@@ -253,6 +255,7 @@ describe("Services", () => {
 
     expect(formValues())
       .toEqual({
+        comments: "",
         drills: true,
         forces: false,
         integrates: true,
@@ -264,6 +267,7 @@ describe("Services", () => {
 
     expect(formValues())
       .toEqual({
+        comments: "",
         drills: false,
         forces: false,
         integrates: true,
@@ -292,6 +296,7 @@ describe("Services", () => {
 
     expect(formValues())
       .toEqual({
+        comments: "",
         drills: true,
         forces: true,
         integrates: true,
@@ -303,6 +308,7 @@ describe("Services", () => {
 
     expect(formValues())
       .toEqual({
+        comments: "",
         drills: false,
         forces: false,
         integrates: true,
@@ -314,6 +320,7 @@ describe("Services", () => {
 
     expect(formValues())
       .toEqual({
+        comments: "",
         drills: true,
         forces: true,
         integrates: true,

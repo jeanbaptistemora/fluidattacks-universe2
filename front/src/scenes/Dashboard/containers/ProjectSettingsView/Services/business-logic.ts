@@ -36,16 +36,15 @@ const serviceDiff: ((msg: string, old: string, now: string) => string) =
 
     return now === old
       ? `${keep} ${msgString} ${as} ${nowString}`
-      : `${mod} ${msgString} ${from} ${oldString} ${to} ${nowString}`;
+      : `${mod} ${msgString} ${from} ${oldString} ${to} ${nowString} *`;
   };
 
-export const computeConfirmationMessage: ((data: IGroupData, form: IFormData) => string) =
-  (data: IGroupData, form: IFormData): string => ([
+export const computeConfirmationMessage: ((data: IGroupData, form: IFormData) => string[]) =
+  (data: IGroupData, form: IFormData): string[] => ([
       serviceDiff("type", serviceStateToString(data.project.subscription), serviceStateToString(form.type)),
       serviceDiff("group", serviceStateToString(true), serviceStateToString(form.integrates ? true : "deleted_soon")),
       serviceDiff("integrates", serviceStateToString(true), serviceStateToString(form.integrates)),
       serviceDiff("drills", serviceStateToString(data.project.hasDrills), serviceStateToString(form.drills)),
       serviceDiff("forces", serviceStateToString(data.project.hasForces), serviceStateToString(form.forces)),
-      `* ${translate.t("home.newGroup.extra_charges_may_apply")}`,
-    ].join("\n")
+    ]
   );

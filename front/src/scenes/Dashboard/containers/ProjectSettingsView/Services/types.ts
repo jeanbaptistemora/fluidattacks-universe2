@@ -1,4 +1,5 @@
 export interface IFormData {
+  comments: string;
   drills: boolean;
   forces: boolean;
   integrates: boolean;

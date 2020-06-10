@@ -383,6 +383,8 @@ const enTranslations: Dictionary = {
       inactive: "Inactive",
       integrates: "Integrates",
       modal: {
+        changes_to_apply: "Changes to apply",
+        continue: "Continue",
         diff: {
           as: "as",
           from: "from",
@@ -390,6 +392,8 @@ const enTranslations: Dictionary = {
           mod: "Modify",
           to: "to",
         },
+        observations: "Observations",
+        observations_placeholder: "Please type here any observation you may have",
         title: "Change contracted services",
       },
       one_shot: "One-Shot Hacking",
