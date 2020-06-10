@@ -1,7 +1,5 @@
-variable "antivirus_bucket_name" {}
-
 resource "aws_s3_bucket" "fi_antivirus_bucket" {
-  bucket = var.antivirus_bucket_name
+  bucket = var.aws_s3_antivirus_bucket
   acl    = "private"
 
   versioning {
