@@ -90,3 +90,8 @@ seeding, and verification.
 V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.3)]
 Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.
+
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.2 Session Binding Requirements.(3.2.4)]
+Verify that session token are generated using approved cryptographic
+algorithms.
