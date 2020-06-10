@@ -254,21 +254,53 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
     return first_day
 
 
-def get_new_vulnerabilities():
+@async_to_sync
+async def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
     rollbar.report_message(
         'Warning: Function to get new vulnerabilities is running', 'warning')
-    projects = project_domain.get_active_projects()
+    projects = await sync_to_async(project_domain.get_active_projects)()
     fin_attrs = 'finding_id, historic_treatment, project_name, finding'
+    released_findings = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(project_domain.get_released_findings)(
+                project, fin_attrs
+            )
+        )
+        for project in projects
+    ])
+    finding_urls = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(get_finding_url)(
+                act_finding
+            )
+        )
+        for finding_requests in released_findings for act_finding in finding_requests
+    ])
+    msj_finding_pendings = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(create_msj_finding_pending)(
+                act_finding
+            )
+        )
+        for finding_requests in released_findings for act_finding in finding_requests
+    ])
+    deltas = await asyncio.gather(*[
+        asyncio.create_task(
+            calculate_vulnerabilities(
+                act_finding
+            )
+        )
+        for finding_requests in released_findings for act_finding in finding_requests
+    ])
     for project in projects:
         context = {'updated_findings': list(), 'no_treatment_findings': list()}
         try:
-            finding_requests = project_domain.get_released_findings(project, fin_attrs)
+            finding_requests = released_findings.pop(0)
             for act_finding in finding_requests:
-                finding_url = get_finding_url(act_finding)
-                msj_finding_pending = \
-                    create_msj_finding_pending(act_finding)
-                delta = calculate_vulnerabilities(act_finding)
+                finding_url = finding_urls.pop(0)
+                msj_finding_pending = msj_finding_pendings.pop(0)
+                delta = deltas.pop(0)
                 finding_text = format_vulnerabilities(delta, act_finding)
                 if msj_finding_pending:
                     context['no_treatment_findings'].append({'finding_name': msj_finding_pending,
@@ -287,13 +319,13 @@ def get_new_vulnerabilities():
                 'error', payload_data=locals())
             raise
         if context['updated_findings']:
-            mail_to = project_domain.get_users(project)
-            send_mail_new_vulnerabilities(mail_to, context)
+            mail_to = await sync_to_async(project_domain.get_users)(project)
+            await sync_to_async(send_mail_new_vulnerabilities)(mail_to, context)
 
 
-def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
-    vulns = vuln_dal.get_vulnerabilities(act_finding['finding_id'])
-    all_tracking = async_to_sync(finding_domain.get_tracking_vulnerabilities)(vulns)
+async def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
+    vulns = await sync_to_async(vuln_dal.get_vulnerabilities)(act_finding['finding_id'])
+    all_tracking = await finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
     if len(all_tracking) > 1:
         if (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) \
