@@ -1,3 +1,4 @@
+import tempfile
 from typing import Any, Dict, List, cast
 import re
 import sys
@@ -20,6 +21,7 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
 )
 from backend.exceptions import InvalidProject
+from backend.utils import virus_scan
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
@@ -194,6 +196,11 @@ async def _do_add_files(_, info, **parameters) -> SimplePayloadType:
     files_data = parameters['files_data']
     new_files_data = util.camel_case_list_dict(files_data)
     uploaded_file = parameters['file']
+
+    tmp_file = tempfile.NamedTemporaryFile()
+    tmp_file.write(uploaded_file.file.read())
+    virus_scan.scan_file(tmp_file.name)
+
     project_name = parameters['project_name']
     user_email = util.get_jwt_content(info.context)['user_email']
     add_file = await sync_to_async(resources.create_file)(new_files_data,

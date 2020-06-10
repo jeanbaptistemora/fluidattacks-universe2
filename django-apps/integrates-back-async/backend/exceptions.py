@@ -214,6 +214,14 @@ class QueryDepthExceeded(Exception):
         super(QueryDepthExceeded, self).__init__(msg)
 
 
+class FileInfected(Exception):
+    """Exception if an uploaded file is infected"""
+
+    def __init__(self):
+        msg = 'Exception - File infected'
+        super(FileInfected, self).__init__(msg)
+
+
 class FindingNotFound(Exception):
     """Exception to control finding data availability"""
 
