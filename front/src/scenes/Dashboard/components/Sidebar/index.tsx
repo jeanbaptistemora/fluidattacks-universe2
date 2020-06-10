@@ -3,6 +3,7 @@ import React from "react";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
 import { useHistory } from "react-router-dom";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as logo } from "../../../../resources/integrates.svg";
 import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
@@ -33,16 +34,20 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
       <img className={style.logo} src={logo} alt="integrates-logo" onClick={handleLogoClick} />
       <ul className={style.menuList}>
         <Can do="backend_api_resolvers_user__do_add_user">
-          <li onClick={onOpenAddUserModal}>
+        <li onClick={onOpenAddUserModal}>
+          <TooltipWrapper message={translate.t("sidebar.user.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-plus" />
-              <span className={style.label}>{translate.t("sidebar.user")}</span>
+              <span className={style.label}>{translate.t("sidebar.user.text")}</span>
             </div>
-          </li>
+          </TooltipWrapper>
+        </li>
         </Can>
         <li onClick={onOpenAccessTokenModal}>
-          <div className={style.item}><i className="icon pe-7s-user" />
-            <span className={style.label}>{translate.t("sidebar.token")}</span>
-          </div>
+          <TooltipWrapper message={translate.t("sidebar.token.tooltip")} placement="right">
+            <div className={style.item}><i className="icon pe-7s-user" />
+              <span className={style.label}>{translate.t("sidebar.token.text")}</span>
+            </div>
+          </TooltipWrapper>
         </li>
       </ul>
       <div className={style.bottomBar}>

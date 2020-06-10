@@ -1,0 +1,20 @@
+:local .tooltip [class$="inner"] {
+  background-color: #272727;
+  border: 1px solid #272727;
+}
+
+:local .tooltip[class$="top"] [class$="arrow"] {
+  border-top: 5px solid #272727 !important;
+}
+
+:local .tooltip[class$="bottom"] [class$="arrow"] {
+  border-bottom: 5px solid #272727 !important;
+}
+
+:local .tooltip[class$="right"] [class$="arrow"] {
+  border-right: 5px solid #272727 !important;
+}
+
+:local .tooltip[class$="left"] [class$="arrow"] {
+  border-left: 5px solid #272727 !important;
+}

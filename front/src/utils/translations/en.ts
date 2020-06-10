@@ -900,8 +900,14 @@ const enTranslations: Dictionary = {
   sidebar: {
     forms: "Formstack",
     reports: "Reports",
-    token: "Token",
-    user: "Add User",
+    token: {
+      text: "Token",
+      tooltip: "Get an Integrates API Token",
+    },
+    user: {
+      text: "Add User",
+      tooltip: "Add a site user",
+    },
     userModal: {
       success: "{{email}} was added successfully",
     },

@@ -45,7 +45,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
   let title: string = props.type === "add"
     ? translate.t("search_findings.tab_users.title")
     : translate.t("search_findings.tab_users.edit_user_title");
-  title = props.projectName === undefined ? translate.t("sidebar.user") : title;
+  title = props.projectName === undefined ? translate.t("sidebar.user.text") : title;
   const selector: (state: {}, ...field: string[]) => string = formValueSelector("addUser");
   const userEmail: string = useSelector((state: {}) => selector(state, "email"));
 
