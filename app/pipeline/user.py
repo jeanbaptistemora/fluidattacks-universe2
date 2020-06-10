@@ -1,6 +1,5 @@
-from backend import authz
+from backend import authz, mailer
 from backend.domain import user as user_domain
-from backend.mailer import send_mail_new_user
 
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
@@ -88,7 +87,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
             'name_user': name,
             'mail_user': email,
         }
-        send_mail_new_user(mail_to, context)
+        mailer.send_mail_new_user(mail_to, context)
         user_domain.update_multiple_user_attributes(email, data_dict)
 
 

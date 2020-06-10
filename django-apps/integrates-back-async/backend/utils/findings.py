@@ -1,22 +1,19 @@
 import io
 import itertools
-
 import threading
 from datetime import datetime
 from typing import Dict, List, cast
+
 import rollbar
+from asgiref.sync import async_to_sync
 from backports import csv  # type: ignore
 from magic import Magic
 
-from backend import util
+from backend import mailer, util
 from backend.utils import cvss, forms as forms_utils
-
 from backend.dal import finding as finding_dal, project as project_dal
+from backend.domain import project as project_domain
 from backend.typing import Finding as FindingType
-from backend.mailer import (
-    send_mail_verified_finding, send_mail_remediate_finding, send_mail_delete_finding,
-    send_mail_accepted_finding, send_mail_reject_draft, send_mail_new_draft
-)
 from __init__ import (
     BASE_URL, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
@@ -161,11 +158,11 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
 
 
 def send_finding_verified_email(finding_id: str, finding_name: str, project_name: str):
-    recipients = project_dal.get_users(project_name)
+    recipients = async_to_sync(project_domain.get_users_to_notify)(project_name)
 
     email_send_thread = threading.Thread(
         name='Verified finding email thread',
-        target=send_mail_verified_finding,
+        target=mailer.send_mail_verified_finding,
         args=(recipients, {
             'project': project_name,
             'finding_name': finding_name,
@@ -185,7 +182,7 @@ def send_finding_delete_mail(finding_id: str, finding_name: str, project_name: s
 
     email_send_thread = threading.Thread(
         name='Delete finding email thread',
-        target=send_mail_delete_finding,
+        target=mailer.send_mail_delete_finding,
         args=(recipients, {
             'mail_analista': discoverer_email,
             'name_finding': finding_name,
@@ -198,10 +195,10 @@ def send_finding_delete_mail(finding_id: str, finding_name: str, project_name: s
 
 def send_remediation_email(user_email: str, finding_id: str, finding_name: str,
                            project_name: str, justification: str):
-    recipients = project_dal.get_users(project_name)
+    recipients = async_to_sync(project_domain.get_users_to_notify)(project_name)
     email_send_thread = threading.Thread(
         name='Remediate finding email thread',
-        target=send_mail_remediate_finding,
+        target=mailer.send_mail_remediate_finding,
         args=(recipients, {
             'project': project_name.lower(),
             'finding_name': finding_name,
@@ -219,13 +216,13 @@ def send_accepted_email(finding: Dict[str, FindingType], justification: str):
     project_name = str(finding.get('projectName', ''))
     finding_name = str(finding.get('finding', ''))
     last_historic_treatment = cast(List[Dict[str, str]], finding.get('historicTreatment'))[-1]
-    recipients = project_dal.get_users(project_name)
+    recipients = async_to_sync(project_domain.get_users_to_notify)(project_name)
     treatment = 'Temporarily accepted'
     if last_historic_treatment['treatment'] == 'ACCEPTED_UNDEFINED':
         treatment = 'Eternally accepted'
     email_send_thread = threading.Thread(
         name='Accepted finding email thread',
-        target=send_mail_accepted_finding,
+        target=mailer.send_mail_accepted_finding,
         args=(recipients, {
             'finding_name': finding_name,
             'finding_id': finding.get('finding_id'),
@@ -253,7 +250,7 @@ def send_draft_reject_mail(draft_id: str, project_name: str, discoverer_email: s
     }
     email_send_thread = threading.Thread(
         name='Reject draft email thread',
-        target=send_mail_reject_draft,
+        target=mailer.send_mail_reject_draft,
         args=(recipients, email_context))
 
     email_send_thread.start()
@@ -274,6 +271,6 @@ def send_new_draft_mail(
     }
     email_send_thread = threading.Thread(
         name='New draft email thread',
-        target=send_mail_new_draft,
+        target=mailer.send_mail_new_draft,
         args=(recipients, email_context))
     email_send_thread.start()

@@ -10,7 +10,7 @@ from asgiref.sync import sync_to_async
 from django.conf import settings
 from magic import Magic
 
-from backend import authz, util
+from backend import authz, mailer, util
 from backend.dal import (
     comment as comment_dal, event as event_dal, project as project_dal
 )
@@ -22,7 +22,6 @@ from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent, InvalidDate,
     InvalidFileSize, InvalidFileType
 )
-from backend.mailer import send_comment_mail, send_mail_new_event
 from backend.typing import Event as EventType, User as UserType
 from backend.utils import events as event_utils, validations
 
@@ -146,7 +145,7 @@ def _send_new_event_mail(
 
     email_send_thread = threading.Thread(
         name='New event email thread',
-        target=send_mail_new_event,
+        target=mailer.send_mail_new_event,
         args=([recipients_not_customers, recipients_customers],
               [email_context, email_context_customers]))
     email_send_thread.start()
@@ -256,7 +255,7 @@ def add_comment(comment_id: int, content: str, event_id: str, parent: str,
     success = comment_domain.create(event_id, comment_data, user_info)
     del comment_data['user_id']
     if success:
-        send_comment_mail(
+        mailer.send_comment_mail(
             comment_data, 'event', str(user_info['user_email']), 'event', get_event(event_id))
 
     return success

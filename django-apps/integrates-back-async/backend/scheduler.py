@@ -13,24 +13,18 @@ from botocore.exceptions import ClientError
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 
-from backend.domain import (
-    finding as finding_domain, project as project_domain,
-    user as user_domain, vulnerability as vuln_domain,
-    event as event_domain, tag as tag_domain
-)
-from backend.mailer import (
-    send_mail_new_vulnerabilities, send_mail_new_remediated,
-    send_mail_new_releases, send_mail_unsolved_events
-)
-
-from backend import util
+from backend import mailer, util
 from backend.dal import (
     finding as finding_dal,
     project as project_dal,
     vulnerability as vuln_dal
 )
+from backend.domain import (
+    finding as finding_domain, project as project_domain,
+    user as user_domain, vulnerability as vuln_domain,
+    event as event_domain, tag as tag_domain
+)
 from backend.typing import Event as EventType, Finding as FindingType
-
 from __init__ import (
     BASE_URL, FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS
@@ -86,7 +80,7 @@ def send_unsolved_events_email(project: str):
         'events_len': int(len(events_info_for_email)),
         'event_url': f'{BASE_URL}/groups/{project}/events'}
     if context_event['events_len'] and mail_to:
-        send_mail_unsolved_events(mail_to, context_event)
+        mailer.send_mail_unsolved_events(mail_to, context_event)
 
 
 def get_external_recipients(project: str) -> List[str]:
@@ -319,8 +313,8 @@ async def get_new_vulnerabilities():
                 'error', payload_data=locals())
             raise
         if context['updated_findings']:
-            mail_to = await sync_to_async(project_domain.get_users)(project)
-            await sync_to_async(send_mail_new_vulnerabilities)(mail_to, context)
+            mail_to = await project_domain.get_users_to_notify(project)
+            await sync_to_async(mailer.send_mail_new_vulnerabilities)(mail_to, context)
 
 
 async def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
@@ -412,7 +406,7 @@ async def get_remediated_findings():
                                 finding=finding['finding_id']),
                     'project': str.upper(str(finding['project_name']))})
             context['total'] = len(findings)
-            await sync_to_async(send_mail_new_remediated)(mail_to, context)
+            await sync_to_async(mailer.send_mail_new_remediated)(mail_to, context)
         except (TypeError, KeyError) as ex:
             rollbar.report_message(
                 'Warning: An error ocurred getting data for remediated email',
@@ -493,7 +487,7 @@ def get_new_releases():
         approvers = FI_MAIL_REVIEWERS.split(',')
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
-        send_mail_new_releases(mail_to, email_context)
+        mailer.send_mail_new_releases(mail_to, email_context)
     else:
         rollbar.report_message('Warning: There are no new drafts',
                                'warning')

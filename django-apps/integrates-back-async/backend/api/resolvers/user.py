@@ -22,7 +22,6 @@ from backend.domain import project as project_domain, user as user_domain
 from backend.exceptions import (
     UserNotFound,
 )
-from backend.mailer import send_mail_access_granted
 from backend.typing import (
     User as UserType,
     AddUserPayload as AddUserPayloadType,
@@ -35,7 +34,7 @@ from backend.services import (
     has_responsibility, has_phone_number,
     has_access_to_project
 )
-from backend import authz
+from backend import authz, mailer
 from backend.utils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_email_address, validate_alphanumeric_field, validate_phone_field
@@ -106,7 +105,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
         }
         email_send_thread = \
             threading.Thread(name='Access granted email thread',
-                             target=send_mail_access_granted,
+                             target=mailer.send_mail_access_granted,
                              args=(mail_to, context,))
         email_send_thread.start()
         success = True
@@ -269,7 +268,7 @@ async def _do_add_user(_, info, **parameters) -> AddUserPayloadType:
             context = {'admin': new_user_email}
             email_send_thread = threading.Thread(
                 name='Access granted email thread',
-                target=send_mail_access_granted,
+                target=mailer.send_mail_access_granted,
                 args=(mail_to, context,)
             )
             email_send_thread.start()

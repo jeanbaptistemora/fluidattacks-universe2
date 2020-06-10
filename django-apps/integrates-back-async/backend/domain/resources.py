@@ -7,13 +7,13 @@ from typing import Dict, List, NamedTuple, cast
 import threading
 import rollbar
 
+from backend import mailer
 from backend import util
 from backend.dal import (
     project as project_dal, resources as resources_dal
 )
 from backend.typing import Resource as ResourceType
 from backend.exceptions import InvalidFileSize, RepeatedValues
-from backend.mailer import send_mail_resources
 from backend.utils import validations
 
 from __init__ import BASE_URL, FI_MAIL_RESOURCERS
@@ -58,7 +58,7 @@ def send_mail(project_name: str, user_email: str,
         'project_url': f'{BASE_URL}/groups/{project_name}/resources'
     }
     threading.Thread(name='Remove repositories email thread',
-                     target=send_mail_resources,
+                     target=mailer.send_mail_resources,
                      args=(list(recipients), context,)).start()
 
 

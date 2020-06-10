@@ -1,16 +1,19 @@
 import os
-from html import escape
 import json
 import threading
-
+from html import escape
 from typing import Dict, List, Union, cast
+
 import boto3
 import botocore
 import rollbar
+from asgiref.sync import async_to_sync
 
 from backend import authz
-from backend.domain import user as user_domain
-from backend.dal import project as project_dal
+from backend.domain import (
+    project as project_domain,
+    user as user_domain
+)
 from backend.dal.comment import CommentType
 from backend.typing import (
     Event as EventType, Finding as FindingType, Project as ProjectType
@@ -162,7 +165,7 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
         event = cast(EventType, entity)
         event_id = str(event.get('event_id', ''))
         project_name = str(event.get('project_name', ''))
-        recipients = project_dal.get_users(project_name, True)
+        recipients = async_to_sync(project_domain.get_users_to_notify)(project_name, True)
         email_context['finding_id'] = event_id
         email_context['finding_name'] = f'Event #{event_id}'
         comment_url = (
@@ -200,7 +203,7 @@ def send_comment_mail(comment_data: CommentType, entity_name: str,
 
 
 def get_email_recipients(group: str, comment_type: Union[str, bool]) -> List[str]:
-    project_users = project_dal.get_users(group)
+    project_users = async_to_sync(project_domain.get_users_to_notify)(group)
     recipients: List[str] = []
 
     approvers = FI_MAIL_REVIEWERS.split(',')

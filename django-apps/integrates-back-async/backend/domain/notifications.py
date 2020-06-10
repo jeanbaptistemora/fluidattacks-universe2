@@ -4,10 +4,10 @@ import html
 import threading
 
 # Local imports
+from backend import mailer
 from backend.dal import (
     notifications as notifications_dal,
 )
-from backend.mailer import send_mail_project_report
 
 
 def new_group(
@@ -93,7 +93,7 @@ def new_password_protected_report(
 ):
     email_send_thread = threading.Thread(
         name='Report passphrase email thread',
-        target=send_mail_project_report,
+        target=mailer.send_mail_project_report,
         args=([user_email], {
             'filetype': file_type,
             'date': datetime.today().strftime('%Y-%m-%d'),

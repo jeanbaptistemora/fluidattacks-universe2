@@ -2,6 +2,7 @@ import os
 import pytest
 import pytz
 import time
+from datetime import datetime, timedelta
 
 from asgiref.sync import async_to_sync
 from collections import namedtuple
@@ -9,14 +10,13 @@ from django.conf import settings
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from datetime import datetime, timedelta
+from backend import mailer
 from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, get_findings, update_treatment,
     handle_acceptation, mask_finding, validate_evidence,
     get_finding_historic_treatment, approve_draft, compare_historic_treatments
 )
-from backend.mailer import get_email_recipients
 from backend.dal.vulnerability import get_vulnerabilities
 from backend.exceptions import (
     InvalidDateFormat, InvalidDate, InvalidFileType
@@ -29,7 +29,7 @@ class FindingTests(TestCase):
         comment_type = 'comment'
         finding_id = '436992569'
 
-        test_data = get_email_recipients(comment_type, finding_id)
+        test_data = mailer.get_email_recipients(comment_type, finding_id)
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], str)
 

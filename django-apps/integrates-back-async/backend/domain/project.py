@@ -30,9 +30,8 @@ from backend.exceptions import (
     AlreadyPendingDeletion, InvalidCommentParent, InvalidParameter, InvalidProjectName,
     NotPendingDeletion, PermissionDenied, RepeatedValues, InvalidProjectServicesConfig
 )
-from backend.mailer import send_comment_mail
 from backend.utils import validations
-from backend import authz, util
+from backend import authz, mailer, util
 
 from __init__ import FI_MAIL_REVIEWERS
 
@@ -55,7 +54,7 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> boo
              for comment in project_dal.get_comments(project_name)]
         if parent not in project_comments:
             raise InvalidCommentParent()
-    send_comment_mail(comment_data, 'project', email, 'project', project_name)
+    mailer.send_comment_mail(comment_data, 'project', email, 'project', project_name)
     return project_dal.add_comment(project_name, email, comment_data)
 
 

@@ -17,9 +17,7 @@ from backend.domain import (
     comment as comment_domain, user as user_domain, vulnerability as vuln_domain
 )
 
-from backend.mailer import send_comment_mail
-
-from backend import authz, util
+from backend import authz, mailer, util
 from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, EvidenceNotFound,
     FindingNotFound, IncompleteDraft, InvalidCommentParent, InvalidDraftTitle,
@@ -128,7 +126,7 @@ def add_comment(user_email: str, comment_data: CommentType,
     comment_data['modified'] = current_time
 
     if not is_remediation_comment:
-        send_comment_mail(
+        mailer.send_comment_mail(
             comment_data, 'finding', user_email, str(comment_data.get('comment_type')),
             get_finding(finding_id))
     user_data = user_domain.get(user_email)
