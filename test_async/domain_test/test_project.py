@@ -319,6 +319,15 @@ class ProjectTest(TestCase):
             '988493279', '422286126', '436992569', '463461507', '463558592', '457497316'
         ]
         assert expected_output == test_data
+    
+    def test_list_drafts_deleted(self):
+        project_name = 'continuoustesting'
+        test_data = list_drafts(project_name)
+        expected_output = ['818828206', '836530833', '475041524']
+        assert sorted(expected_output) == sorted(test_data)
+        test_data = list_drafts(project_name, should_list_deleted=True)
+        expected_output = ['818828206', '836530833', '475041524', '991607942']
+        assert sorted(expected_output) == sorted(test_data)
 
     def test_list_events(self):
         project_name = 'unittesting'

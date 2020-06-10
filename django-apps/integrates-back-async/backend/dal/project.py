@@ -145,7 +145,7 @@ def get_alive_projects() -> List[str]:
     return cast(List[str], [prj['project_name'] for prj in projects])
 
 
-def list_drafts(project_name: str) -> List[str]:
+def list_drafts(project_name: str, should_list_deleted: bool = False) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
@@ -170,10 +170,11 @@ def list_drafts(project_name: str) -> List[str]:
     return [
         draft['finding_id'] for draft in drafts
         if draft.get('historic_state', [{}])[-1].get('state') != 'DELETED'
+        or should_list_deleted
     ]
 
 
-def list_findings(project_name: str) -> List[str]:
+def list_findings(project_name: str, should_list_deleted: bool = False) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
@@ -197,6 +198,7 @@ def list_findings(project_name: str) -> List[str]:
     return [
         finding['finding_id'] for finding in findings
         if finding.get('historic_state', [{}])[-1].get('state') != 'DELETED'
+        or should_list_deleted
     ]
 
 

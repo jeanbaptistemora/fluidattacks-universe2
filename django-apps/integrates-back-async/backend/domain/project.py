@@ -335,9 +335,11 @@ def remove_project(project_name: str, user_email: str) -> NamedTuple:
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         are_users_removed = remove_all_users_access(project)
+        findings_and_drafts = list_findings(project, should_list_deleted=True) + \
+            list_drafts(project, should_list_deleted=True)
         are_findings_masked: Union[bool, List[bool]] = [
             finding_domain.mask_finding(finding_id)
-            for finding_id in list_findings(project) + list_drafts(project)]
+            for finding_id in findings_and_drafts]
         if are_findings_masked == []:
             are_findings_masked = True
         update_data: Dict[str, Union[str, List[str], object]] = {
@@ -738,8 +740,8 @@ def update(project_name: str, data: ProjectType) -> bool:
     return project_dal.update(project_name, data)
 
 
-def list_drafts(project_name: str) -> List[str]:
-    return project_dal.list_drafts(project_name)
+def list_drafts(project_name: str, should_list_deleted: bool = False) -> List[str]:
+    return project_dal.list_drafts(project_name, should_list_deleted)
 
 
 async def list_comments(project_name: str, user_email: str) -> List[CommentType]:
@@ -767,9 +769,9 @@ def get_alive_projects() -> List[str]:
     return projects
 
 
-def list_findings(project_name: str) -> List[str]:
+def list_findings(project_name: str, should_list_deleted: bool = False) -> List[str]:
     """ Returns the list of finding ids associated with the project"""
-    return project_dal.list_findings(project_name)
+    return project_dal.list_findings(project_name, should_list_deleted)
 
 
 def list_events(project_name: str) -> List[str]:
