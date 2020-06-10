@@ -29,6 +29,9 @@ jest.mock("react-router-native", (): Dictionary => {
 });
 
 describe("WelcomeView", (): void => {
+  afterEach((): void => {
+    jest.clearAllMocks();
+  });
 
   it("should return a function", (): void => {
     expect(typeof (WelcomeView))

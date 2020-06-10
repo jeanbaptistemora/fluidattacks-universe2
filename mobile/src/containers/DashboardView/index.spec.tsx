@@ -38,6 +38,9 @@ jest.mock("react-router-native", (): Dictionary => {
 });
 
 describe("DashboardView", (): void => {
+  afterEach((): void => {
+    jest.clearAllMocks();
+  });
 
   it("should return a function", (): void => {
     expect(typeof (DashboardView))
@@ -158,6 +161,70 @@ describe("DashboardView", (): void => {
     expect(wrapper)
       .toHaveLength(1);
     expect(Alert.alert)
+      .toHaveBeenCalled();
+  });
+
+  it("should ignore projects without service", async (): Promise<void> => {
+
+    const errorMock: Readonly<MockedResponse> = {
+      request: {
+        query: PROJECTS_QUERY,
+      },
+      result: {
+        data: {
+          me: {
+            projects: [
+              {
+                closedVulnerabilities: 7,
+                isCommunity: false,
+                openVulnerabilities: 5,
+                serviceAttributes: ["has_integrates"],
+              },
+              {
+                // tslint:disable-next-line: no-null-keyword
+                closedVulnerabilities: null,
+                isCommunity: false,
+                // tslint:disable-next-line: no-null-keyword
+                openVulnerabilities: null,
+                serviceAttributes: [],
+              },
+              {
+                closedVulnerabilities: 0,
+                isCommunity: false,
+                openVulnerabilities: 0,
+                // tslint:disable-next-line: no-null-keyword
+                serviceAttributes: null,
+              },
+            ],
+          },
+        },
+        errors: [
+          new GraphQLError("Access denied"),
+        ],
+      },
+    };
+
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <MemoryRouter initialEntries={[{ pathname: "/Dashboard", state: { user: { fullName: "Test" } } }]}>
+            <MockedProvider mocks={[errorMock]} addTypename={false}>
+              <DashboardView />
+            </MockedProvider>
+          </MemoryRouter>
+        </I18nextProvider>
+      </PaperProvider>,
+    );
+    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
+
+    expect(wrapper)
+      .toHaveLength(1);
+    expect(wrapper.text())
+      .toContain("58.3%");
+    expect(wrapper.text())
+      .toContain("of 12 found in 1 system");
+    expect(Alert.alert)
+      .not
       .toHaveBeenCalled();
   });
 

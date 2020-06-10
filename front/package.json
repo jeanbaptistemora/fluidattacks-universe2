@@ -123,7 +123,7 @@
     "tslint": "5.10.0",
     "tslint-react": "3.6.0",
     "typed-css-modules": "0.6.4",
-    "typescript": "3.9.3",
+    "typescript": "3.9.5",
     "waait": "1.0.5",
     "wait-for-expect": "3.0.2",
     "webpack": "4.43.0",
