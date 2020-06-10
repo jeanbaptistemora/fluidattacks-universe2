@@ -112,3 +112,7 @@ authentication message.
 V2.2 General Authenticator Requirements.(2.2.6)]
 Verify replay resistance through the mandated use of OTP devices,
 cryptographic authenticators, or lookup codes.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.2 Session Binding Requirements.(3.2.1)]
+Verify the application generates a new session token on user authentication.
