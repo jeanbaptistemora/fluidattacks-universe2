@@ -1,7 +1,7 @@
 :slug: rules/029/
 :category: session
 :description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of using cookies with the required security attributes such as HttpOnly and Secure.
-:keywords: Requirement, Security, Session, Cookies, Attributes, HttpOnly.
+:keywords: Session, Cookies, Attributes, HttpOnly, ASVS, CWE
 :rules: yes
 
 = R029. Cookies with security attributes
@@ -113,21 +113,19 @@ and extracting the session *cookie* used for session theft.
 
 == References
 
-. [[r1]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-0462[CVE-2004-0462 HTTP cookie vulnerability].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/614.html[CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute].
+The Secure attribute for sensitive cookies in HTTPS sessions is not set,
+which could cause the user agent to send those cookies in plaintext over an
+HTTP session.
 
-. [[r2]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-0128[CVE-2008-0128 Apache Tomcat 4.x vulnerability].
+. [[r2]] link:https://cwe.mitre.org/data/definitions/1004.html[CWE-1004: Sensitive Cookie Without 'HttpOnly' Flag].
+The software uses a cookie to store sensitive information,
+but the cookie is not marked with the HttpOnly flag.
 
-. [[r3]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-3662[CVE-2008-3662 Session hijacking vulnerability].
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.2 Session Binding Requirements.(3.2.3)]
+Verify the application only stores session tokens in the browser using secure
+methods such as appropriately secured cookies (see section 3.4) or HTML 5
+session storage.
 
-. [[r4]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-3663[CVE-2008-3663 Session hijacking vulnerability].
-
-. [[r5]] link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0053[CVE-2012-0053 Information Disclosure vulnerability in Apache HTTP Server].
-
-. [[r6]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[OWASP-ASVS v3.1-3.12].
-Verify that session IDs stored in cookies
-are scoped using the *path* attribute;
-and have the *HttpOnly* and *Secure* cookie flags enabled.
-
-. [[r7]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
-
-. [[r8]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r4]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
