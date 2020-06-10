@@ -444,19 +444,36 @@ def all_users_formatted(company: str) -> Dict[str, int]:
     return all_users_by_company
 
 
-def get_new_releases():
+@async_to_sync
+async def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
     rollbar.report_message('Warning: Function to get new releases is running',
                            'warning')
     test_projects = FI_TEST_PROJECTS.split(',')
-    projects = project_domain.get_active_projects()
+    projects = await sync_to_async(project_domain.get_active_projects)()
     email_context = defaultdict(list)
     cont = 0
+    list_drafts = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(project_domain.list_drafts)(
+                project
+            )
+        )
+        for project in projects
+        if project not in test_projects
+    ])
+    project_drafts = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(finding_domain.get_findings)(
+                drafts
+            )
+        )
+        for drafts in list_drafts
+    ])
     for project in projects:
         if project not in test_projects:
             try:
-                finding_requests = finding_domain.get_findings(
-                    project_domain.list_drafts(project))
+                finding_requests = project_drafts.pop(0)
                 for finding in finding_requests:
                     if 'releaseDate' not in finding:
                         submission = finding.get('historicState')
@@ -487,7 +504,7 @@ def get_new_releases():
         approvers = FI_MAIL_REVIEWERS.split(',')
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
-        mailer.send_mail_new_releases(mail_to, email_context)
+        await sync_to_async(mailer.send_mail_new_releases)(mail_to, email_context)
     else:
         rollbar.report_message('Warning: There are no new drafts',
                                'warning')
