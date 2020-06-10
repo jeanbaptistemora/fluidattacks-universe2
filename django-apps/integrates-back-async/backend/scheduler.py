@@ -380,14 +380,23 @@ def create_msj_finding_pending(act_finding: Dict[str, FindingType]) -> str:
     return result
 
 
-def get_remediated_findings():
+@async_to_sync
+async def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
     rollbar.report_message(
         'Warning: Function to get remediated findings is running', 'warning')
-    active_projects = project_domain.get_active_projects()
+    active_projects = await sync_to_async(project_domain.get_active_projects)()
     findings = []
-    for project in active_projects:
-        findings += project_dal.get_pending_verification_findings(project)
+    pending_verification_findings = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(project_dal.get_pending_verification_findings)(
+                project
+            )
+        )
+        for project in active_projects
+    ])
+    for project_findings in pending_verification_findings:
+        findings += project_findings
 
     if findings:
         try:
@@ -403,7 +412,7 @@ def get_remediated_findings():
                                 finding=finding['finding_id']),
                     'project': str.upper(str(finding['project_name']))})
             context['total'] = len(findings)
-            send_mail_new_remediated(mail_to, context)
+            await sync_to_async(send_mail_new_remediated)(mail_to, context)
         except (TypeError, KeyError) as ex:
             rollbar.report_message(
                 'Warning: An error ocurred getting data for remediated email',
