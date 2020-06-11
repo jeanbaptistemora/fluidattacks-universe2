@@ -25,7 +25,7 @@ type wrappedForm = DecoratedComponentClass<{}, Pick<IFormProps, "children">
  * and PascalCase rule for naming JSX elements
  */
 const WrappedForm: wrappedForm = reduxForm<{}, Pick<IFormProps, "children">>({})((props: formProps) => (
-  <Form onSubmit={props.handleSubmit} >
+  <Form onSubmit={props.handleSubmit}>
     {typeof props.children === "function" ? props.children(props) : props.children}
   </Form>
 ));

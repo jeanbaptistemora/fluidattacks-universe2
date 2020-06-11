@@ -601,27 +601,6 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
 
 @require_login
 @enforce_group_level_auth_async
-@require_integrates
-@require_project_access
-async def _do_request_remove_project(
-        _, info, project_name: str) -> SimplePayloadType:
-    """Resolve request_remove_project mutation."""
-    user_info = util.get_jwt_content(info.context)
-    success = \
-        await sync_to_async(project_domain.request_deletion)(
-            project_name, user_info['user_email'])
-    if success:
-        project = project_name.lower()
-        util.invalidate_cache(project)
-        util.cloudwatch_log(
-            info.context,
-            'Security: '
-            f'Pending to remove project {project}')  # pragma: no cover
-    return SimplePayloadType(success=success)
-
-
-@require_login
-@enforce_group_level_auth_async
 # Intentionally not @require_integrates
 @require_project_access
 async def _do_reject_remove_project(_, info,

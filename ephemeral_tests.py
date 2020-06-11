@@ -459,16 +459,6 @@ class ViewTestCase(unittest.TestCase):
         selenium.execute_script('window.scrollTo(680, 980);')
         selenium.save_screenshot(SCR_PATH + '14-07-resources.png')
 
-        del_project = selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[11]/div/div/button')
-        self.__click(del_project)
-        WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Delete Group')]")))
-        time.sleep(1)
-        selenium.save_screenshot(SCR_PATH + '14-08-resources.png')
-        self.__cancel_modal()
-
         total_tables = len(selenium.find_elements_by_tag_name("table"))
         assert total_tables == 5
         assert 'https://fluidattacks.com' in selenium.page_source

@@ -171,7 +171,6 @@ type Mutation {
         parent: GenericScalar!,
         type: FindingCommentType!
     ): AddCommentPayload!
-    requestRemoveProject(projectName: String!): SimplePayload!
     rejectRemoveProject(projectName: String!): SimplePayload!
 
     handleAcceptation(

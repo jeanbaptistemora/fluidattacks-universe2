@@ -229,45 +229,6 @@ class ProjectTests(TestCase):
             pytest.skip("Expected error")
 
     @pytest.mark.changes_db
-    async def test_request_remove_denied(self):
-        """Check for createProject mutation."""
-        query = '''
-        mutation RequestRemoveProjectMutation(
-                $projectName: String!,
-            ){
-            requestRemoveProject(projectName: $projectName) {
-            success
-           }
-        }'''
-        variables = {
-            'projectName': 'OneshottesT'
-        }
-        data = {'query': query, 'variables': variables}
-        result = await self._get_result_async(data)
-        assert 'errors' in result
-        assert result['errors'][0]['message'] == str(PermissionDenied())
-
-    @pytest.mark.changes_db
-    async def test_request_remove_pending(self):
-        """Check for requestRemoveProject mutation."""
-        query = '''
-        mutation RequestRemoveProjectMutation(
-                $projectName: String!,
-            ){
-            requestRemoveProject(projectName: $projectName) {
-            success
-           }
-        }'''
-        variables = {
-            'projectName': 'pendingproject'
-        }
-        data = {'query': query, 'variables': variables}
-        result = await self._get_result_async(data)
-        assert 'errors' in result
-        # You need Integrates in order to request deletion
-        assert result['errors'][0]['message'] == 'Access denied'
-
-    @pytest.mark.changes_db
     async def test_reject_request_remove_denied(self):
         """Check for rejectRemoveProject mutation."""
         query = '''
