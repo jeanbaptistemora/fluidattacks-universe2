@@ -29,6 +29,7 @@ docker==4.2.0               # fluidasserts.cloud.aws.cloudformation.graph
 gitpython==3.1.1            # fluidasserts.proto.git
 google-api-python-client==1.8.0     # fluidasserts.cloud.gcp
 google-auth-httplib2==0.0.3    # fluidasserts.cloud.gcp
+grapheekdb==0.0.24
 jmespath==0.9.5             # fluidasserts.lang.python
 kubernetes==11.0.0          # fluidasserts.cloud.kubernetes
 lark-parser==0.8.5          # fluidasserts.parsers
