@@ -675,3 +675,57 @@ def security_group_allows_anyone_to_admin_ports(
                   'that allow access to admin ports over the internet'),
         msg_closed=('EC2 security groups have ingress/egress rules '
                     'that deny access to admin ports over the internet'))
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unrestricted_dns_access(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if inbound rules that allow unrestricted access to port 53.
+
+    TCP/UDP port 53 is used by the Domain Name Service during DNS resolution.
+    Restrict access to TCP and UDP port 53 only those IP addresses that
+    require, to implement the principle of least privilege and reduce the
+    possibility of a attack.
+
+    Allowing unrestricted  to DNS access can give chance of an attack such as
+    Denial of Services (DOS) or Distributed Denial of Service Syn Flood (DDoS).
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
+            _iterate_security_group_rules(path, exclude):
+
+        entities = []
+        with contextlib.suppress(KeyError, TypeError, ValueError):
+            from_port, to_port = tuple(map(
+                float, (sg_rule['FromPort'], sg_rule['ToPort'])))
+            if from_port <= 53 <= to_port \
+                    and sg_rule['CidrIp'] == '0.0.0.0/0':
+                entities.append(f'{sg_name}/{53}')
+
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'{sg_path}/{entity}',
+                identifier=sg_name,
+                line=sg_line,
+                reason=('Group must restrict access to TCP port'
+                        ' and UDP 53 to the necessary IP addresses.'))
+            for entity in entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Security groups allow access to DNS without restrictions.',
+        msg_closed=('Security groups allow access to DNS to'
+                    ' the necessary IP addresses.'))

@@ -506,7 +506,7 @@ def has_unrestricted_dns_access(key_id: str,
         retry=retry,
         Filters=filters)
     for group in security_groups:
-        vulnerable = _check_port_in_seggroup(85, group)
+        vulnerable = _check_port_in_seggroup(53, group)
         (vulns if vulnerable else safes).append(
             (group['GroupId'], ('Group must restrict access to TCP port'
                                 ' and UDP 53 to the necessary IP addresses.')))
