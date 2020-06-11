@@ -21,5 +21,5 @@ def scan_file(file_object: IO):
         file_object.seek(0)
         if not api_response.clean_result:
             raise FileInfected()
-    except ApiException:
-        rollbar.report_message('Error: Cloudmersive VirusScan API error')
+    except ApiException as api_error:
+        rollbar.report_message('Error: Cloudmersive VirusScan API error: %s' % api_error)
