@@ -579,3 +579,8 @@ video {
   max-height: 0;
   transition: max-height .2s ease-out;
 }
+
+.fluid-qanda ol li {
+  font-style: italic;
+  list-style-type: none;
+}
