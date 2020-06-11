@@ -20,11 +20,6 @@ def login(request) -> JsonResponse:
     return util.response([], 'Bienvenido ' + username, False)
 
 
-def is_registered(user: str) -> bool:
-    """ Verify if the user is registered. """
-    return user_domain.is_registered(user)
-
-
 def has_access_to_project(email: str, group: str) -> bool:
     """ Verify if the user has access to a project. """
     return bool(authz.get_group_level_role(email, group))
@@ -72,7 +67,3 @@ def has_phone_number(email: str) -> str:
     user_info = str(user_domain.get_data(email, 'phone'))
     user_phone = user_info if user_info else '-'
     return user_phone
-
-
-def project_exists(project_name: str) -> bool:
-    return project_dal.exists(project_name)

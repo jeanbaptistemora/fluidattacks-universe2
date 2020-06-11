@@ -6,20 +6,12 @@ from backend.exceptions import (
     FindingNotFound
 )
 from backend.services import (
-    is_registered,
     has_access_to_finding,
     has_access_to_event,
     has_valid_access_token
 )
 
 class ServicesTests(TestCase):
-
-    def test_is_registered(self):
-        wrong_user = ['unregistered', 'user0000', '1111000','user>**']
-        right_user = 'unittest'
-        for user in wrong_user:
-            assert not is_registered(user)
-        assert is_registered(right_user)
 
     def test_has_access_to_finding(self):
         wrong_data = ['unittest@fluidattacks.com', '000000000']
