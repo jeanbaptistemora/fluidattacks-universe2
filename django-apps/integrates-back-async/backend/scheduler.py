@@ -624,12 +624,14 @@ async def reset_expired_accepted_findings():
     await asyncio.gather(*update_treatment_tasks)
 
 
-def delete_pending_projects():
+@async_to_sync
+async def delete_pending_projects():
     """ Delete pending to delete projects """
     rollbar.report_message('Warning: Function to delete projects if '
                            'deletion_date expires is running', 'warning')
     today = datetime.now()
-    projects = project_domain.get_pending_to_delete()
+    projects = await sync_to_async(project_domain.get_pending_to_delete)()
+    remove_project_tasks = []
     for project in projects:
         historic_deletion = project.get('historic_deletion', [{}])
         last_state = historic_deletion[-1]
@@ -637,8 +639,14 @@ def delete_pending_projects():
             'deletion_date', today.strftime('%Y-%m-%d %H:%M:%S'))
         deletion_date = datetime.strptime(deletion_date, '%Y-%m-%d %H:%M:%S')
         if deletion_date < today:
-            project_domain.remove_project(project.get('project_name'))
+            task = asyncio.create_task(
+                sync_to_async(project_domain.remove_project)(
+                    project.get('project_name')
+                )
+            )
+            remove_project_tasks.append(task)
             util.invalidate_cache(project.get('project_name'))
+    await asyncio.gather(*remove_project_tasks)
 
 
 @async_to_sync
