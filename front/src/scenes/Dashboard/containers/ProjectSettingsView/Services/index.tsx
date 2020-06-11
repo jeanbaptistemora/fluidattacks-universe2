@@ -8,7 +8,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, ControlLabel, FormGroup, Row, Well } from "react-bootstrap";
+import { Alert, ButtonToolbar, Col, ControlLabel, FormGroup, Row, Well } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Dispatch } from "redux";
@@ -18,14 +18,14 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { Modal } from "../../../../../components/Modal/index";
 import { handleGraphQLErrors } from "../../../../../utils/formatHelpers";
-import { dropdownField, switchButton, textAreaField } from "../../../../../utils/forms/fields";
+import { dropdownField, switchButton, textAreaField, textField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
-import { maxLength, validTextField } from "../../../../../utils/validations";
+import { maxLength, required, validTextField } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm";
 import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
-import { computeConfirmationMessage, isDowngradingServices } from "./business-logic";
+import { computeConfirmationMessage, isDowngrading, isDowngradingServices } from "./business-logic";
 import styles from "./index.css";
 import { IFormData, IServicesDataSet, IServicesProps } from "./types";
 
@@ -50,7 +50,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const dispatch: Dispatch = useDispatch();
   const selector: (state: {}, ...fields: string[]) => IFormData = formValueSelector("editGroup");
   const formValues: IFormData = useSelector((state: {}) =>
-    selector(state, "comments", "drills", "forces", "integrates", "reason", "type"));
+    selector(state, "comments", "confirmation", "drills", "forces", "integrates", "reason", "type"));
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   // Business Logic handlers
@@ -231,6 +231,19 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     ),
    })));
 
+  // Using form validation instead of field validation to avoid an infinite-loop error
+  const formValidations: (values: { confirmation: string }) => { confirmation?: string } =
+    (values: { confirmation: string }): { confirmation?: string } => {
+      const errorsFound: { confirmation?: string } = {};
+
+      if (values.confirmation !== groupName) {
+        errorsFound.confirmation =
+          translate.t("search_findings.services_table.errors.expected_group_name", { groupName });
+      }
+
+      return errorsFound;
+    };
+
   return (
     <React.StrictMode>
       <div className={styles.wrapper}>
@@ -244,12 +257,14 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
           onSubmit={handleFormSubmit}
           initialValues={{
             comments: "",
+            confirmation: "",
             drills: data.project.hasDrills,
             forces: data.project.hasForces,
             integrates: true,
             reason: "NONE",
             type: data.project.subscription.toUpperCase(),
           }}
+          validate={formValidations}
         >
           {({ handleSubmit, pristine, valid }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
@@ -306,7 +321,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                   />
                 </FormGroup>
                 {isDowngradingServices(data, formValues) ? (
-                  <React.Fragment>
+                  <FormGroup>
                     <ControlLabel>{translate.t("search_findings.services_table.modal.downgrading")}</ControlLabel>
                     <Field
                       name="reason"
@@ -319,9 +334,29 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                         </option>
                       ))}
                     </Field>
-                  </React.Fragment>
+                  </FormGroup>
                 ) : undefined}
-                <p className={styles.extraCharges}>* {translate.t("home.newGroup.extra_charges_may_apply")}</p>
+                {isDowngrading(true, formValues.integrates) ? (
+                  <FormGroup>
+                    <ControlLabel>{translate.t("search_findings.services_table.modal.warning")}</ControlLabel>
+                    <Alert bsStyle="danger">
+                      {translate.t("search_findings.services_table.modal.warning_downgrade_integrates")}
+                    </Alert>
+                  </FormGroup>
+                ) : undefined}
+                <FormGroup>
+                  <ControlLabel>{translate.t("search_findings.services_table.modal.type_group_name")}</ControlLabel>
+                  <Field
+                    name="confirmation"
+                    component={textField}
+                    placeholder={groupName.toLowerCase()}
+                    type="text"
+                    validate={required}
+                  />
+                </FormGroup>
+                <Alert bsStyle="warning">
+                  * {translate.t("home.newGroup.extra_charges_may_apply")}
+                </Alert>
               </Modal>
             </React.Fragment>
           )}

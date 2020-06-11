@@ -1,3 +1,5 @@
+// tslint:disable:max-file-line-count
+
 const enTranslations: Dictionary = {
   confirmmodal: {
     cancel: "Cancel",
@@ -375,6 +377,7 @@ const enTranslations: Dictionary = {
       drills: "Drills",
       errors: {
         drills_only_if_continuous: "Drills is only available in groups of type Continuous-Hacking",
+        expected_group_name: "Expected: {{groupName}}",
         forces_only_if_continuous: "Forces is only available in groups of type Continuous-Hacking",
         forces_only_if_drills: "Forces is only available when Drills is too",
       },
@@ -385,6 +388,7 @@ const enTranslations: Dictionary = {
       modal: {
         budget: "Budget",
         changes_to_apply: "Changes to apply",
+        confirm_changes: "Confirm Changes",
         continue: "Continue",
         diff: {
           as: "as",
@@ -401,6 +405,11 @@ const enTranslations: Dictionary = {
         project_finalization: "Project Finalization",
         project_suspension: "Project Suspension",
         title: "Change contracted services",
+        type_group_name: "Please type the group name to proceed",
+        warning: "Warning",
+        warning_downgrade_integrates: "Disabling Integrates will schedule the group for deletion. "
+          + "This will remove all of its data including findings and related vulnerabilities. "
+          + "This is a destructive action and cannot be undone.",
       },
       one_shot: "One-Shot Hacking",
       oneshot: "One-Shot Hacking",

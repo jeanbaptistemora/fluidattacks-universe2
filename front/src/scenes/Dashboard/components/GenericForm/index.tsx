@@ -5,7 +5,10 @@ import { focusError } from "../../../../utils/forms/events";
 
 type FormChildren = React.ReactNode | ((props: formProps) => React.ReactNode);
 
-interface IFormProps extends Pick<ConfigProps<{}, Pick<IFormProps, "children">>, "initialValues" | "onChange"> {
+interface IFormProps extends Pick<
+  ConfigProps<{}, Pick<IFormProps, "children">>,
+  "initialValues" | "onChange" | "validate"
+> {
   children: FormChildren;
   name: string;
   onSubmit(values: {}): void;
@@ -22,7 +25,7 @@ type wrappedForm = DecoratedComponentClass<{}, Pick<IFormProps, "children">
  * and PascalCase rule for naming JSX elements
  */
 const WrappedForm: wrappedForm = reduxForm<{}, Pick<IFormProps, "children">>({})((props: formProps) => (
-  <Form onSubmit={props.handleSubmit}>
+  <Form onSubmit={props.handleSubmit} >
     {typeof props.children === "function" ? props.children(props) : props.children}
   </Form>
 ));
@@ -38,6 +41,7 @@ const genericForm: ((props: IFormProps) => JSX.Element) = (props: IFormProps): J
       onSubmit={handleSubmit}
       onSubmitFail={focusError}
       onChange={props.onChange}
+      validate={props.validate}
     >
       {props.children}
     </WrappedForm>
