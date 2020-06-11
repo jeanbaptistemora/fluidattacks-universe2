@@ -32,8 +32,6 @@ in completing the assignments.
 . Solve `30` unique `programming` challenges.
 . Solve `30` unique `ctf-hacking` challenges.
 . Solve `30` unique `vbd-hacking` challenges.
-. Publish `3` blog articles.
-. Finish `3` training projects.
 
 == 3. Terms
 
