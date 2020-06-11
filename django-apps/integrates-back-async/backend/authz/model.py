@@ -285,6 +285,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_forces_resolve_forces_executions',
             'backend_api_resolvers_project__do_add_project_comment',
             'backend_api_resolvers_project__do_add_tags',
+            'backend_api_resolvers_project__do_edit_group',
             'backend_api_resolvers_project__do_reject_remove_project',
             'backend_api_resolvers_project__do_remove_tag',
             'backend_api_resolvers_project__get_bill',
