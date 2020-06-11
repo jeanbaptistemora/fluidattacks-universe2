@@ -1,15 +1,27 @@
 :slug: rules/031/
 :category: session
-:description: This document contains the details of the security requirements related to the definition and management of sessions and session variables in the organization. This requirement establishes the importance of defining controls to manage object sessions securely to avoid common attacks.
-:keywords: Requirement, Security, Session, Authentication, Objects, Control
+:description: This document contains the details of the security requirements related to the definition and management of sessions and session variables in the organization. This requirement establishes the importance discarding all related data when a session is terminated.
+:keywords: Session, Objects, Discard, ASVS, CWE, NIST
 :rules: yes
 
 = R031. Discard user session data
 
 == Requirement
 
-When closing a session (automatic or manual),
-all data related to user session must be discarded.
+When a session is terminated, either manually or automatically,
+the system must discard all related data and the session tokens must lose their
+validity.
+
+== Description
+
+Session tokens have associated permissions that allow any actor who possesses
+them to perform actions in a system.
+If session tokens are not removed from the client-side storage nor from the
+server,
+it increases the chances that they will be compromised.
+Furthermore, if they are not invalidated once a session is closed,
+the time during which a compromised session can be used maliciously is
+increased.
 
 == Findings
 
@@ -17,23 +29,29 @@ all data related to user session must be discarded.
 
 == References
 
-. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[BSSIM9 SM2.6:]
 Require security sign-off.
 
-. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-12[+NIST+ 800-53 AC-12]
-Session termination: The information system automatically terminates
-a user session after organization-defined conditions
-or trigger events requiring session disconnect.
+. [[r2]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration]
+According to WASC, "Insufficient Session Expiration is when a web site permits
+an attacker to reuse old session credentials or session IDs for authorization."
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.12+]
-Verify that all authentication decisions can be logged,
-without storing sensitive session identifiers or passwords.
-This should include requests with relevant metadata
-needed for security investigations.
+. [[r3]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
+Secrets used for session binding SHALL be erased or invalidated by the session
+subject when the subscriber logs out.
 
-. [[r4]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.2+].
-Verify that sessions are invalidated when the user logs out.
+. [[r4]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
+Secrets used for session binding SHOULD be erased on the subscriber endpoint
+when the user logs out or when the secret is deemed to have expired.
 
-. [[r5]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.14+]
-Verify that authenticated data is cleared from client storage,
-such as the browser DOM, after the client or session is terminated.
+. [[r5]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
+Secrets used for session binding SHALL time out and not be accepted after the
+times specified in Sections 4.1.4, 4.2.4, and 4.3.4,
+as appropriate for the AAL.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.3 Session Logout and Timeout Requirements.(3.3.1)]
+Verify that logout and expiration invalidate the session token,
+such that the back button or a downstream relying party does not resume an
+authenticated session,
+including across relying parties.
