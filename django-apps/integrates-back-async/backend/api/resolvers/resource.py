@@ -1,4 +1,3 @@
-import tempfile
 from typing import Any, Dict, List, cast
 import re
 import sys
@@ -197,9 +196,7 @@ async def _do_add_files(_, info, **parameters) -> SimplePayloadType:
     new_files_data = util.camel_case_list_dict(files_data)
     uploaded_file = parameters['file']
 
-    tmp_file = tempfile.NamedTemporaryFile()
-    tmp_file.write(uploaded_file.file.read())
-    virus_scan.scan_file(tmp_file.name)
+    virus_scan.scan_file(uploaded_file.file)
 
     project_name = parameters['project_name']
     user_email = util.get_jwt_content(info.context)['user_email']
