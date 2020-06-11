@@ -4,7 +4,7 @@
 :subtitle: From zero to shell
 :tags: challenge, ethical hacking, pentesting, security, training, exploit
 :image: cover.png
-:alt: Man sitting facing laptop. Photo by Clint Patterson on Unsplash: https://unsplash.com/photos/dYEuFB8KQJk
+:alt: Photo by David Rangel on Unsplash
 :description: Vulnserver is a VbD application focused to help people practice the exploiting skills. This post will describe the steps taken to exploit the TRUN command. There will be a series of posts showing how to exploit other vulnserver commands and related information.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
