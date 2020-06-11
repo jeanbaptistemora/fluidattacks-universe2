@@ -113,8 +113,8 @@ a|== Certified Red Teaming Expert (CRTE).
 The Certified (Windows) Red Teaming Expert
 is an entirely hands-on certification awarded by the Pentester Academy.
 This certification guarantees an individual with the expertise
-to evaluate the security of an unknown windows infrastructure,
-and recognize misconfigurations and functionality and trust abuses.
+to evaluate the security of an unknown Windows infrastructure
+and recognize misconfigurations, and functionality and trust abuses.
 
 a|image::logo-crte.png[logo crte]
 
