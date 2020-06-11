@@ -21,10 +21,6 @@ def get_all_companies() -> List[str]:
     return user_dal.get_all_companies()
 
 
-def get_all_inactive_users(final_date: str) -> List[str]:
-    return user_dal.get_all_inactive_users(final_date)
-
-
 def get_all_users(company_name: str) -> int:
     return user_dal.get_all_users(company_name.lower())
 

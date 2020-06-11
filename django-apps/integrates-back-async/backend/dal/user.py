@@ -129,15 +129,6 @@ def get_all_companies() -> List[str]:
     return list(set(companies))
 
 
-def get_all_inactive_users(final_date: str) -> List[str]:
-    filtering_exp = Attr('registered').exists() & \
-        Attr('registered').eq(False) & \
-        (Attr('last_login').not_exists() |
-         (Attr('last_login').exists() & Attr('last_login').lte(final_date)))
-    users = get_all(filtering_exp)
-    return [user.get('email', '') for user in users]
-
-
 def get_all_users(company_name: str) -> int:
     filter_exp = Attr('company').exists() & \
         Attr('company').eq(company_name) & Attr('registered').exists() & \
