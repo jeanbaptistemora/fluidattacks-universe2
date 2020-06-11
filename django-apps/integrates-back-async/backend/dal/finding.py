@@ -86,18 +86,6 @@ def list_append(finding_id: str, attr: str, data: List[FindingType]) -> bool:
     return success
 
 
-def delete(finding_id: str) -> bool:
-    success = False
-    try:
-        response = TABLE.delete_item(Key={'finding_id': finding_id})
-        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt delete finding',
-                               'error', extra_data=ex, payload_data=locals())
-
-    return success
-
-
 def get_attributes(finding_id: str, attributes: List[str]) -> Dict[str, FindingType]:
     """ Get a group of attributes of a finding. """
     item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
