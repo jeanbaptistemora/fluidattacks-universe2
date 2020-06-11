@@ -578,15 +578,31 @@ async def update_indicators():
                 'error')
 
 
-def reset_expired_accepted_findings():
+@async_to_sync
+async def reset_expired_accepted_findings():
     """ Update treatment if acceptance date expires """
     rollbar.report_message('Warning: Function to update treatment if'
                            'acceptance date expires is running', 'warning')
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    projects = project_domain.get_active_projects()
-    for project in projects:
-        findings = finding_domain.get_findings(
-            project_domain.list_findings(project))
+    projects = await sync_to_async(project_domain.get_active_projects)()
+    list_findings = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(project_domain.list_findings)(
+                project
+            )
+        )
+        for project in projects
+    ])
+    project_findings = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(finding_domain.get_findings)(
+                findings
+            )
+        )
+        for findings in list_findings
+    ])
+    update_treatment_tasks = []
+    for findings in project_findings:
         for finding in findings:
             finding_id = finding.get('findingId')
             historic_treatment = finding.get('historicTreatment', [{}])
@@ -598,8 +614,14 @@ def reset_expired_accepted_findings():
                 + timedelta(days=5) <= datetime.strptime(today, "%Y-%m-%d %H:%M:%S"))
             if is_accepted_expired or is_undefined_accepted_expired:
                 updated_values = {'treatment': 'NEW'}
-                finding_domain.update_treatment(finding_id, updated_values, '')
+                task = asyncio.create_task(
+                    sync_to_async(finding_domain.update_treatment)(
+                        finding_id, updated_values, ''
+                    )
+                )
+                update_treatment_tasks.append(task)
                 util.invalidate_cache(finding_id)
+    await asyncio.gather(*update_treatment_tasks)
 
 
 def delete_pending_projects():
