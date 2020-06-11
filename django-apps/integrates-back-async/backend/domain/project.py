@@ -408,10 +408,6 @@ def is_alive(project: str) -> bool:
     return project_dal.is_alive(project)
 
 
-def can_user_access_pending_deletion(project: str, role: str) -> bool:
-    return project_dal.can_user_access_pending_deletion(project, role)
-
-
 async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
@@ -783,10 +779,6 @@ def get_attributes(project_name: str, attributes: List[str]) -> Dict[str, Union[
 
 def get_finding_project_name(finding_id: str) -> str:
     return str(finding_dal.get_attributes(finding_id, ['project_name']).get('project_name', ''))
-
-
-def list_internal_managers(project_name: str) -> List[str]:
-    return project_dal.list_internal_managers(project_name.lower())
 
 
 def get_description(project_name: str) -> str:
