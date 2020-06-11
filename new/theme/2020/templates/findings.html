@@ -238,7 +238,7 @@
         {% set cat = defendspage.category %}
         <div class="defendspanel overflow-hidden bg-white mb2 pl4-l">
           {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
-            <a class="c-fluid-bk hv-fluid-dkred no-underline"
+            <a class="c-fluid-bk hv-fluid-dkred no-underline defendslink"
                href="../{{ defendsarticle.slug }}">
                <h3 class="ml4">
                  {{ defendsarticle.title }}

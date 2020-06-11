@@ -455,9 +455,12 @@ $codeyellow: rgba(230, 219, 116, 1);
     line-height: 1.25rem;
   }
 
-  a :not(.defendspage) {
-    text-decoration: underline;
-    color: $fluid-black;
+  a {
+    text-decoration: none;
+    color: $fluid-gray;
+    &:hover {
+      color: $fluid-black;
+    }
   }
 
   p {
@@ -523,6 +526,16 @@ $codeyellow: rgba(230, 219, 116, 1);
   pre {
     white-space: pre;
     overflow-y: hidden;
+  }
+}
+
+.defendspage {
+  a {
+    text-decoration: none;
+    color: $fluid-black;
+    &:hover {
+      color: $fluid-dark-red;
+    }
   }
 }
 
