@@ -511,6 +511,22 @@ def get_comments(project_name: str) -> List[Dict[str, str]]:
     return items
 
 
+def delete_comment(group_name: str, user_id: str) -> bool:
+    resp = False
+    try:
+        response = TABLE_COMMENTS.delete_item(
+            Key={
+                'project_name': group_name,
+                'user_id': user_id
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as ex:
+        rollbar.report_message('Error: Couldn\'nt delete group comment',
+                               'error', extra_data=ex)
+    return resp
+
+
 def get(project: str) -> List[ProjectType]:
     """Get a project info."""
     filter_value = project.lower()

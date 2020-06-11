@@ -321,17 +321,31 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
     return response
 
 
+def mask(group_name: str) -> bool:
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    comments = project_dal.get_comments(group_name)
+    comments_result = all([
+        project_dal.delete_comment(comment['project_name'], comment['user_id'])
+        for comment in comments])
+
+    update_data: Dict[str, Union[str, List[str], object]] = {
+        'project_status': 'FINISHED',
+        'deletion_date': today
+    }
+    is_group_finished = project_dal.update(group_name, update_data)
+    return comments_result and is_group_finished
+
+
 def remove_project(project_name: str) -> NamedTuple:
     """Delete project information."""
     Status: NamedTuple = namedtuple(
         'Status',
-        'are_findings_masked are_users_removed is_project_finished '
+        'are_findings_masked are_users_removed is_group_masked '
         'are_events_masked are_resources_removed'
     )
     data = project_dal.get_attributes(project_name, ['project_status'])
     if data.get('project_status') == 'PENDING_DELETION':
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         are_users_removed = remove_all_users_access(project_name)
         findings_and_drafts = list_findings(project_name, should_list_deleted=True) + \
             list_drafts(project_name, should_list_deleted=True)
@@ -342,15 +356,11 @@ def remove_project(project_name: str) -> NamedTuple:
         are_events_masked = all([
             event_domain.mask(event_id) for event_id in events
         ])
-        update_data: Dict[str, Union[str, List[str], object]] = {
-            'project_status': 'FINISHED',
-            'deletion_date': today
-        }
-        is_project_finished = project_dal.update(project_name, update_data)
+        is_group_masked = mask(project_name)
         are_resources_removed = all(
             list(cast(List[bool], resources_domain.mask(project_name))))
         response = Status(
-            are_findings_masked, are_users_removed, is_project_finished,
+            are_findings_masked, are_users_removed, is_group_masked,
             are_events_masked, are_resources_removed
         )
     else:

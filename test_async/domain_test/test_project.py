@@ -28,6 +28,7 @@ from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
 )
 from backend.dal import (
+    project as project_dal,
     vulnerability as vuln_dal,
     available_group as available_group_dal
 )
@@ -405,9 +406,11 @@ class ProjectTest(TestCase):
 
     @pytest.mark.changes_db
     def test_remove_group(self):
-        project_name = 'pendingproject'
-        test_data = remove_project(project_name)
+        group_name = 'pendingproject'
+        assert len(project_dal.get_comments(group_name)) >= 1
+        test_data = remove_project(group_name)
         assert all(test_data)
+        assert len(project_dal.get_comments(group_name)) == 0
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(

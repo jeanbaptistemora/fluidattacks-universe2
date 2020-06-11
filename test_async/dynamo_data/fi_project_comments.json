@@ -179,6 +179,36 @@
                }
             }
          }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "content" : {
+                  "S" : "This is a test comment"
+               },
+               "created" : {
+                  "S" : "2019-05-28 15:09:37"
+               },
+               "email" : {
+                  "S" : "integratesmanager@gmail.com"
+               },
+               "fullname" : {
+                  "S" : "integrates manager"
+               },
+               "modified" : {
+                  "S" : "2019-05-28 15:09:37"
+               },
+               "parent" : {
+                  "N" : "0"
+               },
+               "project_name" : {
+                  "S" : "pendingproject"
+               },
+               "user_id" : {
+                  "N" : "1559074177400"
+               }
+            }
+         }
       }
    ]
 }
