@@ -5,33 +5,32 @@
 :tags: challenge, ethical hacking, pentesting, security, training, exploit
 :image: cover.png
 :alt: Photo by David Rangel on Unsplash
-:description: Vulnserver is a VbD application focused to help people practice the exploiting skills. This post will describe the steps taken to exploit the TRUN command. There will be a series of posts showing how to exploit other vulnserver commands and related information.
+:description: Vulnserver is a VbD application focused on helping people practice exploiting skills. This post will describe the steps taken to exploit the TRUN command. There will be a series of posts showing how to exploit other Vulnserver commands and related information.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM
-:source: https://unsplash.com/photos/dYEuFB8KQJk
+:source: https://unsplash.com/photos/4m7gmLNr3M0
 
-= Vulnserver TRUN exploitation
+= Vulnserver TRUN Exploitation
 
-Vulnserver is the natural next step to follow after finishing the
-Offsec CTP course.
-It's a VbD (Vulnerable-by-Design) application that was designed to help you
-sharp the Windows exploitation skills.
+Vulnserver is the natural next step to follow
+after finishing the Offsec `CTP` course.
+It's a `VbD` (Vulnerable-by-Design) application designed
+to help you sharpen the Windows exploitation skills.
 You can download the executable link:https://github.com/stephenbradshaw/vulnserver[here]
-along with the source code. Remind that you must grab the `essfunc.dll` file
-as well.
+along with the source code.
+Remember that you must grab the `essfunc.dll` file as well.
 However, this post (and the others to come) will try to replicate a
 link:../../services/continuous-hacking/[grey box]
-scenario that is the most common scenario in real explotation, in which we
-only will have access to the binary and we must start doing thinks like
-recognizance, enumeration and fuzzing.
+scenario that is the most common in real exploitation.
+In which we only will have access to the binary,
+and we must start doing things like recognizance, enumeration, and fuzzing.
 
-
-WARNING: Do NOT run `vulnserver.exe` on a sensitive machine or on 
-a non-secure network.
+*WARNING:*
+Do NOT run `vulnserver.exe` on a sensitive machine or a non-secure network.
 It will be a backdoor that may be used by others to break into your system.
 
 == Enumerating Vulnserver
@@ -41,7 +40,7 @@ be *TCP/9999*.
 
 image::vulnserver1.png[vulnserver]
 
-If we type `HELP` we can see the available commands. The commands commonly
+If we type `HELP`, we can see the available commands. The commands commonly
 receive a single parameter and will return a simple answer.
 In this post, we are going to check the `TRUN` command.
 
@@ -77,14 +76,14 @@ Now we can send the fuzz attack to the victim machine:
 
 image::trun2.png[Running spike]
 
-Look at that: After only 3 iterations `vulnserver.exe` stopped working
+Look at that: After only 3 iterations, `vulnserver.exe` stopped working,
 and it seems that it happened when we sent 5000 bytes of data.
 We can see this in `Wireshark`:
 
 image::trun3.png[Wireshark capture]
 
-With that, we can start replicating the crash. For that we create the
-first PoC (Proof-of-Concept) file:
+With that, we can start replicating the crash. For that, we create the
+first `PoC` (Proof-of-Concept) file:
 
 .exploit.py
 [source,python]
@@ -111,18 +110,18 @@ So, let's run the initial exploit and see what happens:
 
 image::trun4.gif[Exploit: take 1]
 
-Great! We can replicate the crash of `vulnserver` and see what happened.
+Great! We can replicate the crash of `Vulnserver` and see what happened.
 
 image::trun5.png[Controlling EIP]
 
-If you look carefully at the image, you can see that the EIP register has the
+If you look carefully at the image, you can see that the `EIP` register has the
 value of `41414141` which is the hex representation of our payload of `A`.
 That means that we can control the execution flow of the whole application
-just by overwritting those 4 bytes.
-But remember that we injected 5000 `A` so we must know the exact offset
-on where EIP gets overwritten.
+just by overwriting those 4 bytes.
+But remember that we injected 5000 `A`, so we must know the exact offset
+on where `EIP` gets overwritten.
 To do that, we can create a cyclic pattern of chars that will help us identify
-the exact offset that we must inject to the buffer in order to control EIP.
+the exact offset that we must inject to the buffer in order to control `EIP`.
 We will use a tool from `Metasploit` called `pattern_create.rb`:
 
 .Running pattern_create.rb
@@ -160,14 +159,13 @@ image::trun6.gif[Exploit: take 2]
 
 image::trun7.png[Cyclic pattern on EIP]
 
-As you can see, the EIP register now holds the value `386F4337`. 
-Given that we have a cyclic pattern, we can check the exact 
-offset of that string.
-To do that, we can use `Metasploit` again:
+As you can see, the `EIP` register now holds the value `386F4337`.
+We can check the exact offset of that string on our unique cyclic pattern.
+To do that, we can use `Metasploit`:
 
 image::pattern2.png[Pattern offset]
 
-Great, that tells us that the EIP gets overwritten starting on the *2003*
+Great, it tells us that the `EIP` gets overwritten starting on the *2003*
 byte of our buffer. Let's update the exploit to verify that:
 
 .exploit.py
@@ -191,13 +189,13 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 In this updated exploit, we will send a buffer of 2003 `A`,
 then a single 4 byte string of `B` (whose hex representation is `42`) and
-fill the rest of our 5000 buffer with `C`. If the offset is correct, EIP will
+fill the rest of our 5000 buffer with `C`. If the offset is correct, `EIP` will
 hold the value of `42424242` which are the four bytes of our `B` buffer:
 
 image::trun8.gif[Correct offset to EIP]
 
-Awesome! We know now the exact structure of the vulnerability and we can now
-proceed to exploit it.
+Awesome! We now know the exact structure of the vulnerability,
+and we can proceed to exploit it.
 
 == Exploiting
 
@@ -205,15 +203,15 @@ Let's look at the value of the registers at the time of the crash.
 
 image::trun9.png[Registers]
 
-As you can see, there are three register that points to our injected buffer:
-`EAX`, `EBP` and `ESP`.
-`EAX` points at the exact beginning of our injected buffer, but includes the
-chars `TRUN /.:/`. Those may be translated to harmless ASM instructions but
+As you can see, three registers point to our injected buffer:
+`EAX`, `EBP`, and `ESP`.
+`EAX` points at the exact beginning of our injected buffer but includes the
+chars `TRUN /.:/`. Those may be translated to harmless `ASM` instructions but
 we must not risk our exploitation, besides we have the other register `ESP`
 which points directly to our controlled buffer.
 
 Using `!mona findmsp` inside the debugger, we can find this information,
-along with the continuous available space for us to inject our shellcode
+along with the continuous space available for us to inject our shellcode.
 
 .findmsp
 [source,bash]
@@ -223,22 +221,22 @@ along with the continuous available space for us to inject our shellcode
 
 image::mona1.png[Mona output]
 
-Note that we have 984 bytes after ESP available for us to run anything
+Note that we have 984 bytes after `ESP` available for us to run anything
 we'd want. First, we must search on `vulnserver.exe` and its runtime
 dependencies, an instruction that can lead us to execute code starting on
 the memory region pointed by `ESP`.
 
-First, let's find the `vulnserver` runtime dependencies:
+First, let's find the `Vulnserver` runtime dependencies:
 
 image::deps1.png[Runtime dependencies]
 
-It is always a good idea to look for instructions on files that are not part of
-of the OS because the address of those instructions will likely change over
-different Windows versions and that make the exploit less portable.
-Also, a null byte (`0x00`) on the the address of the desired instruction can
-stop our attack.
+It is always a good idea to look for instructions on files that are not part
+of the `OS` because the address of those instructions will likely change over
+different Windows versions, and that makes the exploit less portable.
+Also, a null byte (`0x00`) on the address of the desired instruction
+can stop our attack.
 
-`mona.py` cal also help us to indentify the desired instructions on the desired
+`mona.py` can also help us to identify the desired instructions on the desired
 modules, by running:
 
 .mona
@@ -249,8 +247,8 @@ modules, by running:
 
 image::esp1.png[JMP ESP instructions]
 
-As you can see, there are several `JMP ESP` instructions we can pick. We
-are going to pick the one at `62501205`. 
+As you can see, there are several `JMP ESP` instructions we can pick.
+We are going to pick the one on `62501205`.
 Let's update the exploit and replace the four `B` with that address:
 
 .exploit.py
@@ -290,11 +288,11 @@ image::msfvenom1.png[Generating reverse shell]
 
 It is always a good idea to generate shellcodes without bad chars that
 may break the execution flow of our attack, such as null bytes (`0x0`),
-line feed (`\r or 0xa`) and carriage return (`\n or 0xd`).
+line feed (`\r or 0xa`), and carriage return (`\n or 0xd`).
 
 Also, note that our `JMP ESP` led us to our `C` but not exactly at the
 beginning, so we must pad the exploit with some `C` chars to make the
-payload gracefully slide to the start of our reverse shell.
+payload slide gracefully to the start of our reverse shell.
 
 Let's update the exploit:
 
@@ -353,7 +351,7 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-And let's check it
+And let's check it:
 
 image::success.gif[Our reverse shell]
 
@@ -361,6 +359,6 @@ Great! We got our shell!
 
 == Conclusion
 
-This was one the most straightforward exploits for vulnserver. Other commands
-will pose a little more effort but fear not, we will post here how to
-successfully exploit them.
+This was one of the most straightforward exploits for Vulnserver.
+Other commands will pose a little more effort, but fear not;
+we will post here how to exploit them successfully.
