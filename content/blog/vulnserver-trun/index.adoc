@@ -79,7 +79,7 @@ image::trun2.png[Running spike]
 
 Look at that: After only 3 iterations `vulnserver.exe` stopped working
 and it seems that it happened when we sent 5000 bytes of data.
-We can see this `Wireshark`:
+We can see this in `Wireshark`:
 
 image::trun3.png[Wireshark capture]
 
@@ -207,16 +207,28 @@ Let's look at the value of the registers at the time of the crash.
 
 image::trun9.png[Registers]
 
-As you can see, there are two register that points to our injected buffer:
-`EAX` and `ESP`.
+As you can see, there are three register that points to our injected buffer:
+`EAX`, `EBP` and `ESP`.
 `EAX` points at the exact beginning of our injected buffer, but includes the
 chars `TRUN /.:/`. Those may be translated to harmless ASM instructions but
 we must not risk our exploitation, besides we have the other register `ESP`
 which points directly to our controlled buffer.
 
-Given that, we must search on `vulnserver.exe` and its runtime dependencies
-an instruction that can lead us to execute code starting on the memory region
-pointed by `ESP`.
+Using `!mona findmsp` inside the debugger, we can find this information,
+along with the continuous available space for us to inject our shellcode
+
+.findmsp
+[source,bash]
+----
+!mona findmsp
+----
+
+image::mona1.png[Mona output]
+
+Note that we have 984 bytes after ESP available for us to run anything
+we'd want. First, we must search on `vulnserver.exe` and its runtime
+dependencies, an instruction that can lead us to execute code starting on
+the memory region pointed by `ESP`.
 
 First, let's find the `vulnserver` runtime dependencies:
 
@@ -241,7 +253,7 @@ image::esp1.png[JMP ESP instructions]
 
 As you can see, there are several `JMP ESP` instructions we can pick. We
 are going to pick the one at `62501205`. Let's update the exploit and replace
-the `B` with that address:
+the four `B` with that address:
 
 .exploit.py
 [source,python]
@@ -285,7 +297,7 @@ line feed (`\r or 0xa`) and carriage return (`\n or 0xd`).
 
 Also, note that our `JMP ESP` led us to our `C` but not exactly at the
 beginning, so we must pad the exploit with some `C` chars to make the
-payload gracefully slides to the start of our reverse shell.
+payload gracefully slide to the start of our reverse shell.
 
 Let's update the exploit:
 
