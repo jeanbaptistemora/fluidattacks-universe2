@@ -206,6 +206,7 @@ Given that we have access to the search products site,
 then we can make a request and intercept it:
 
 .products request
+[source, bash]
 ----
 POST /code/ HTTP/1.1
 Host: 192.168.56.2
