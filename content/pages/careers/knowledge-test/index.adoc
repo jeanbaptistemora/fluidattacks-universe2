@@ -5,81 +5,36 @@
 
 = Knowledge Test
 
-To continue in the candidate selection process complete the knowledge exam.
-This exam contains questions in several areas of knowledge.
-Some will apply to your profile, and others will not.
-Nevertheless,
-you should answer all of them conscientiously
-because we will use the exam to determine your level of expertise.
+To continue in the selection process, complete the knowledge test.
+This test contains questions in several areas of knowledge.
+Some will apply to your profile, and some will not.
+However, you must answer all of them thoroughly
+because we will use the test to determine your level of experience.
 
-To access, complete, and submit the exam do the following:
+To access, complete, and submit the test, please do the following:
 
 == Create an account
 
-. Click on this link:https://autonomicgeneralknowledgetest.thinkexam.com/startTest/MTA1NjA4/NA[link].
-. Click on *`CREATE NEW ACCOUNT`* and fill in the form.
-Please note that your username is case-sensitive and must be
-in lowercase letters only.
-Please note that your password must have at least 8 characters,
-including at least 1 number, 1 lowercase letter, 1 uppercase letter,
-and 1 non-alphanumeric character such as \ * - #.
-. After you fill in the form, click on *`Create My New Account`*.
-You will then receive an email with instructions on how to confirm your e-mail
-address.
-If you don't receive this email in your inbox, check your *SPAM* folder.
-If it is not there, contact us.
+. Click on this link:https://autonomicgeneralknowledgetest.thinkexam.com/startTest/NjEwNDI=/NA[link].
+. Fill out the form with your data.
+. Select a group according to the vacancy you are applying for:
+.. For Accounting Assistant or similar vacancies,
+select the 'Finance General Knowledge Test' group.
+.. For Ethical Hacker, QA, Developer, DevOps, or similar vacancies,
+select the 'General Knowledge Test' group.
 
-== Install SafeExamBrowser
+== Important
 
-. Download the following [inner]#link:../../files/fluidexams.zip[security software]#
-to access the exam.
-[IMPORTANT]
-Please, finish reading all the steps before you attempt to open the program.
+. *You only have one chance to take the test.*
+Make sure you have the time and willingness to take it.
+. Enter your full name.
+. The test lasts a maximum of *3 hours* and *20 minutes*,
+so you should have enough time to take it without interruption.
+. Avoid exiting the main screen of the test.
+If you do it, the test will be automatically canceled,
+and there will not be a second attempt.
+. If you have any questions regarding this test,
+please contact careers@fluidattacks.com.
+. *Send us an email notifying us that you finished the test.*
 
-. Decompress the `.ZIP` file downloaded and
-then install *`SafeExamBrowserInstaller.exe`*.
-If the keyboard changes its configuration to English
-and you want the Spanish version,
-simply change it back to Spanish from English.
-. Verify your internet connection and make sure it is stable.
-. You can close the program at any time by using the button
-on the right side, at the bottom of the screen.
-. To open the exam,
-you must go to the folder and execute the fluidexams file.
-Once executed the only program that will be active on the computer will be the
-knowledge test.
-
-== Taking the knowledge test
-
-. Log in using the credentials you registered in step 2 under,
-Create an account.
-. When you click on Attempt Quiz Now,
-you will have `24` hours to submit `1` attempt only.
-If you are unable to complete your attempt within that time period,
-please let us know via email and propose a new date to take it.
-The test takes approximately 3 hours and 20 minutes to complete
-based on an average time of 1 minute per question.
-Please, take the test when you have enough time to complete it
-without interruption.
-
-Have Fun! … and good luck!
-
-. After successfully logging in,
-go to the left-side navigation bar and click on the *`Sites Home tab`*.
-. Scroll down to the end of the page and select *`General Knowledge Exam`*.
-. Click the *`ENROLL ME`* button next to the course name, then,
-on the next page, click the *`ATTEMPT QUIZ NOW`* button to begin.
-+
-[IMPORTANT]
-Please be aware that once you answer or skip a question,
-you will not be able to return to it!
-
-. Once you are done,
-look for the *`FINISH ATTEMPT`* button
-at the bottom of the page.
-Click it to validate you have completed the knowledge test.
-. Click the *`SUBMIT ALL AND FINISH`* button located at the bottom of the page.
-. To exit the program,
-use the button on the right side,
-at the bottom of the screen.
-. Send an e-mail letting us know that you have finished.
+Have fun! And good luck, although you don't need it.
