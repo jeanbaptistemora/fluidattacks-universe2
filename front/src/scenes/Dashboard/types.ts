@@ -4,3 +4,9 @@ export interface IAddUserAttr {
     success: boolean;
   };
 }
+
+export interface IGetUserPermissionsAttr {
+  me: {
+    permissions: string[];
+  };
+}
