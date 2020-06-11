@@ -274,10 +274,6 @@ def send_mail_access_granted(email_to: List[str], context: Dict[str, Union[str, 
     _send_mail('accessgrantedintegrates', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_new_version(email_to: List[str], context: Dict[str, Union[str, int]]):
-    _send_mail('new_version', email_to, context=context, tags=GENERAL_TAG)
-
-
 def send_mail_resources(email_to: List[str], context: Dict[str, Union[str, int]]):
     _send_mail('resources-changes', email_to, context=context, tags=GENERAL_TAG)
 
