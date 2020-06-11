@@ -38,10 +38,11 @@ PLUGINS = [
     'assets',
     'neighbors',
     'representative_image',
-    'sitemap'
+    'sitemap',
+    'tag_cloud'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = ['index', 'landing', 'authors', 'categories']
+DIRECT_TEMPLATES = ['index', 'landing', 'authors', 'categories', 'tags']
 SITEMAP = {
     'format': 'xml',
     'priorities': {

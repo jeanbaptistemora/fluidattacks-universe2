@@ -39,7 +39,7 @@ function helper_deploy_install_plugins_new {
   local asciidoc='asciidoc_reader'
   local asciidoc_version='ad6d407'
 
-  local others='assets neighbors representative_image sitemap'
+  local others='assets neighbors representative_image sitemap tag_cloud'
   local others_version='666716e'
 
   local pelican_plugins_path='pelican-plugins'
