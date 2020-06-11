@@ -426,6 +426,14 @@ enum UserRole {
     REVIEWER
 }
 
+enum EditGroupReason {
+  BUDGET
+  NONE
+  OTHER
+  PROJECT_FINALIZATION
+  PROJECT_SUSPENSION
+}
+
 enum AuthProvider {
     GOOGLE
     MICROSOFT

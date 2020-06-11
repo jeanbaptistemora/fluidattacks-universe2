@@ -159,6 +159,7 @@ type Mutation {
     editGroup(
         comments: String!,
         groupName: String!,
+        reason: EditGroupReason!,
         subscription: SubscriptionType!,
         hasDrills: Boolean!,
         hasForces: Boolean!,

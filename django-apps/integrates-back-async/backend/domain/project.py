@@ -186,6 +186,7 @@ def edit(
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
+    reason: str,
     requester_email: str,
     subscription: str,
 ) -> bool:
@@ -214,6 +215,7 @@ def edit(
                 'date': util.get_current_time_as_iso_str(),
                 'has_drills': has_drills,
                 'has_forces': has_forces,
+                'reason': reason,
                 'requester': requester_email,
                 'type': subscription,
             }],
@@ -233,6 +235,7 @@ def edit(
             has_drills=has_drills,
             has_forces=has_forces,
             has_integrates=has_integrates,
+            reason=reason,
             requester_email=requester_email,
             subscription=subscription,
         )

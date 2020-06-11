@@ -3,6 +3,7 @@ export interface IFormData {
   drills: boolean;
   forces: boolean;
   integrates: boolean;
+  reason: string;
   type: string;
 }
 

@@ -235,6 +235,7 @@ describe("Services", () => {
         drills: true,
         forces: true,
         integrates: true,
+        reason: "NONE",
         type: "CONTINUOUS",
       });
 
@@ -247,6 +248,7 @@ describe("Services", () => {
         drills: false,
         forces: false,
         integrates: false,
+        reason: "NONE",
         type: "CONTINUOUS",
       });
 
@@ -259,6 +261,7 @@ describe("Services", () => {
         drills: true,
         forces: false,
         integrates: true,
+        reason: "NONE",
         type: "CONTINUOUS",
       });
 
@@ -271,6 +274,7 @@ describe("Services", () => {
         drills: false,
         forces: false,
         integrates: true,
+        reason: "NONE",
         type: "CONTINUOUS",
       });
 
@@ -300,6 +304,7 @@ describe("Services", () => {
         drills: true,
         forces: true,
         integrates: true,
+        reason: "NONE",
         type: "CONTINUOUS",
       });
 
@@ -312,6 +317,7 @@ describe("Services", () => {
         drills: false,
         forces: false,
         integrates: true,
+        reason: "NONE",
         type: "CONTINUOUS",
       });
 
@@ -324,6 +330,7 @@ describe("Services", () => {
         drills: true,
         forces: true,
         integrates: true,
+        reason: "NONE",
         type: "CONTINUOUS",
       });
 

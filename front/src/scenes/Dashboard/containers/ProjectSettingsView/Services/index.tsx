@@ -25,9 +25,17 @@ import translate from "../../../../../utils/translations/translate";
 import { maxLength, validTextField } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm";
 import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
-import { computeConfirmationMessage  } from "./business-logic";
+import { computeConfirmationMessage, isDowngradingServices } from "./business-logic";
 import styles from "./index.css";
 import { IFormData, IServicesDataSet, IServicesProps } from "./types";
+
+const downgradeReasons: string[] = [
+  "NONE",
+  "PROJECT_SUSPENSION",
+  "PROJECT_FINALIZATION",
+  "BUDGET",
+  "OTHER",
+];
 
 const isContinuousType: (type: string) => boolean = (type: string): boolean =>
   _.isUndefined(type) ? false : type.toLowerCase() === "continuous";
@@ -42,7 +50,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const dispatch: Dispatch = useDispatch();
   const selector: (state: {}, ...fields: string[]) => IFormData = formValueSelector("editGroup");
   const formValues: IFormData = useSelector((state: {}) =>
-    selector(state, "comments", "drills", "forces", "integrates", "type"));
+    selector(state, "comments", "drills", "forces", "integrates", "reason", "type"));
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   // Business Logic handlers
@@ -125,6 +133,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       hasDrills: formValues.drills,
       hasForces: formValues.forces,
       hasIntegrates: formValues.integrates,
+      reason: formValues.reason,
       subscription: formValues.type,
     },
   });
@@ -238,6 +247,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             drills: data.project.hasDrills,
             forces: data.project.hasForces,
             integrates: true,
+            reason: "NONE",
             type: data.project.subscription.toUpperCase(),
           }}
         >
@@ -295,7 +305,23 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                     validate={[validTextField, maxLength250]}
                   />
                 </FormGroup>
-                <p>* {translate.t("home.newGroup.extra_charges_may_apply")}</p>
+                {isDowngradingServices(data, formValues) ? (
+                  <React.Fragment>
+                    <ControlLabel>{translate.t("search_findings.services_table.modal.downgrading")}</ControlLabel>
+                    <Field
+                      name="reason"
+                      component={dropdownField}
+                      type="text"
+                    >
+                      {downgradeReasons.map((reason: string) => (
+                        <option value={reason}>
+                          {translate.t(`search_findings.services_table.modal.${reason.toLowerCase()}`)}
+                        </option>
+                      ))}
+                    </Field>
+                  </React.Fragment>
+                ) : undefined}
+                <p className={styles.extraCharges}>* {translate.t("home.newGroup.extra_charges_may_apply")}</p>
               </Modal>
             </React.Fragment>
           )}

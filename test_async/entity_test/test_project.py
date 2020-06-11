@@ -453,6 +453,7 @@ async def test_edit_group_good(
                 hasDrills: {has_drills},
                 hasForces: {has_forces},
                 hasIntegrates: {has_integrates},
+                reason: NONE,
             ) {{
                 success
             }}
@@ -468,26 +469,38 @@ async def test_edit_group_good(
 
 
 @pytest.mark.parametrize(
-    ['comments', 'group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
+    [
+        'comments',
+        'group_name',
+        'subscription',
+        'has_drills',
+        'has_forces',
+        'has_integrates',
+        'reason',
+        'expected',
+    ],
     [
         # Configuration error, Drills requires Integrates
-        ['', 'ONESHOTTEST', 'CONTINUOUS', 'true', 'false', 'false',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'true', 'false', 'false', 'NONE',
          'Exception - Drills is only available when Integrates is too'],
         # Configuration error, Forces requires Integrates
-        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'false',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'false', 'NONE',
          'Exception - Forces is only available when Integrates is too'],
         # Configuration error, Forces requires Drills
-        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'true',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'true', 'NONE',
          'Exception - Forces is only available when Drills is too'],
         # Configuration error, Forces requires CONTINUOUS
-        ['', 'ONESHOTTEST', 'ONESHOT', 'false', 'true', 'true',
+        ['', 'ONESHOTTEST', 'ONESHOT', 'false', 'true', 'true', 'NONE',
          'Exception - Forces is only available in projects of type Continuous'],
         # Input validation error, weird chars
-        ['\xFF', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true',
+        ['\xFF', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'NONE',
          'Exception - Invalid characters'],
         # Input validation error, too long string
-        [' ' * 251, 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true',
+        [' ' * 251, 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'NONE',
          'Exception - Invalid field length in form'],
+        # Invalid reason
+        [' ', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'ASDF',
+         'Expected type EditGroupReason, found ASDF.'],
 
     ]
 )
@@ -498,6 +511,7 @@ async def test_edit_group_bad(
     has_drills,
     has_forces,
     has_integrates,
+    reason,
     expected,
 ):
     query = f"""
@@ -505,10 +519,11 @@ async def test_edit_group_bad(
             editGroup(
                 comments: "{comments}"
                 groupName: "{group_name}",
-                subscription: {subscription},
                 hasDrills: {has_drills},
                 hasForces: {has_forces},
                 hasIntegrates: {has_integrates},
+                reason: {reason},
+                subscription: {subscription},
             ) {{
                 success
             }}

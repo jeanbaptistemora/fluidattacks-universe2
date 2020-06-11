@@ -320,7 +320,7 @@ class ProjectTest(TestCase):
             '988493279', '422286126', '436992569', '463461507', '463558592', '457497316'
         ]
         assert expected_output == test_data
-    
+
     def test_list_drafts_deleted(self):
         project_name = 'continuoustesting'
         test_data = list_drafts(project_name)
@@ -402,7 +402,7 @@ class ProjectTest(TestCase):
         test_data = create_project(user_email, user_role, **project_data)
         expected_output = True
         assert  test_data == expected_output
-    
+
     @pytest.mark.changes_db
     def test_remove_group(self):
         project_name = 'pendingproject'
@@ -434,5 +434,6 @@ def test_edit(
         has_drills=has_drills,
         has_forces=has_forces,
         has_integrates=has_integrates,
+        reason='',
         requester_email='test@test.test'
     )

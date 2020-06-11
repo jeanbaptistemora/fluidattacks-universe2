@@ -566,12 +566,13 @@ async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
 @require_project_access
 async def _do_edit_group(  # pylint: disable=too-many-arguments
     _, info,
+    comments: str,
     group_name: str,
-    subscription: str,
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
-    comments: str,
+    reason: str,
+    subscription: str,
 ) -> SimplePayloadType:
     group_name = group_name.lower()
     requester_email = util.get_jwt_content(info.context)['user_email']
@@ -582,6 +583,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
         has_drills=has_drills,
         has_forces=has_forces,
         has_integrates=has_integrates,
+        reason=reason,
         requester_email=requester_email,
         subscription=subscription,
     )

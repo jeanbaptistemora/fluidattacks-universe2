@@ -1,3 +1,4 @@
+import _ from "lodash";
 import translate from "../../../../../utils/translations/translate";
 import { IFormData, IGroupData } from "./types";
 
@@ -48,3 +49,14 @@ export const computeConfirmationMessage: ((data: IGroupData, form: IFormData) =>
       serviceDiff("forces", serviceStateToString(data.project.hasForces), serviceStateToString(form.forces)),
     ]
   );
+
+export const isDowngrading: ((before: boolean | undefined, after: boolean | undefined) => boolean) =
+  (before: boolean | undefined, after: boolean | undefined): boolean =>
+    before === true && after === false;
+
+export const isDowngradingServices: ((data: IGroupData, form: IFormData) => boolean) =
+  (data: IGroupData, form: IFormData): boolean => ([
+    isDowngrading(true, form.integrates),
+    isDowngrading(data.project.hasDrills, form.drills),
+    isDowngrading(data.project.hasForces, form.forces),
+  ].some((result: boolean) => result));

@@ -53,6 +53,7 @@ def edit_group(
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
+    reason: str,
     requester_email: str,
     subscription: str,
 ) -> bool:
@@ -76,6 +77,7 @@ def edit_group(
             - Drills: {translations[has_drills]}
             - Forces: {translations[has_forces]}
             - Comments: {html.escape(comments, quote=True)}
+            - Reason: {reason}
 
             If you require any further information,
             do not hesitate to contact us.
