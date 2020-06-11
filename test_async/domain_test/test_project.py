@@ -12,7 +12,7 @@ from backend.dal.helpers import dynamodb
 from backend.domain.project import (
     add_comment,
     edit,
-    get_email_recipients, validate_tags, is_alive, get_vulnerabilities,
+    get_email_recipients, validate_tags, is_alive,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
     is_vulnerability_closed, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
@@ -73,23 +73,6 @@ class ProjectTest(TestCase):
     def test_is_alive(self):
         assert is_alive('unittesting')
         assert not is_alive('unexisting_project')
-
-    def test_get_vulnerabilities(self):
-        findings_to_get = ['463558592', '422286126']
-        findings = [
-            DYNAMODB_RESOURCE.Table('FI_findings').get_item(
-                TableName='FI_findings',
-                Key={'finding_id': finding_id}
-            )['Item']
-            for finding_id in findings_to_get]
-
-        test_data = get_vulnerabilities(findings, 'openVulnerabilities')
-        expected_output = 5
-        assert test_data == expected_output
-
-        test_data = get_vulnerabilities(findings, 'closedVulnerabilities')
-        expected_output = 2
-        assert test_data == expected_output
 
     def test_get_pending_closing_checks(self):
         test_data = get_pending_closing_check('unittesting')

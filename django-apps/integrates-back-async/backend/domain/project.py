@@ -445,15 +445,6 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     return finding
 
 
-def get_vulnerabilities(findings: List[Dict[str, FindingType]], vuln_type: str) -> int:
-    """Get total vulnerabilities by type."""
-    vulnerabilities = \
-        [async_to_sync(total_vulnerabilities)(str(fin.get('finding_id', ''))).get(vuln_type)
-         for fin in findings]
-    vulnerabilities_sum = sum(vulnerabilities)
-    return vulnerabilities_sum if vulnerabilities_sum else 0
-
-
 def get_pending_closing_check(project: str) -> int:
     """Check for pending closing checks."""
     pending_closing = len(
