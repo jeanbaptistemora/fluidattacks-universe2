@@ -37,7 +37,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
 
   // GraphQL operations
-  const { data, loading } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
+  const { client, data, loading } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
     errorPolicy: "all",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -77,6 +77,8 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   // Event handlers
   const handleLogout: (() => void) = async (): Promise<void> => {
     await SecureStore.deleteItemAsync("integrates_session");
+    await client.clearStore();
+    rollbar.clearPerson();
     history.replace("/");
   };
 

@@ -8,6 +8,7 @@ import { useHistory } from "react-router-native";
 
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
+import { rollbar } from "../../utils/rollbar";
 
 import { GoogleButton } from "./GoogleButton";
 import { MicrosoftButton } from "./MicrosoftButton";
@@ -52,6 +53,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
     const result: IAuthResult = await authWithGoogle();
     if (result.type === "success") {
+      rollbar.setPerson({ id: result.user.email });
       history.replace("/Welcome", {
         authProvider: "GOOGLE",
         ...result,
@@ -66,6 +68,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
     const result: IAuthResult = await authWithMicrosoft();
     if (result.type === "success") {
+      rollbar.setPerson({ id: result.user.email });
       history.replace("/Welcome", {
         authProvider: "MICROSOFT",
         ...result,
