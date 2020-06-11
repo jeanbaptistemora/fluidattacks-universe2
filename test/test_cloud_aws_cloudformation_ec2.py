@@ -1,10 +1,8 @@
 """Test methods of fluidasserts.cloud.cloudformation.ec2 module."""
 
-# local imports
+import pytest  # pylint: disable=E0401
 from fluidasserts.cloud.aws.cloudformation import ec2
 
-# 3rd party imports
-import pytest  # pylint: disable=E0401
 pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')  # pylint: disable=C0103,C0301 # noqa: E501
 
 # Constants
@@ -101,3 +99,13 @@ def test_uses_default_security_group():
     assert result.get_vulns_number() == 2 * 3
     assert ec2.uses_default_security_group(SAFE).is_closed()
     assert ec2.uses_default_security_group(NOT_EXISTS).is_unknown()
+
+
+def test_security_group_allows_anyone_to_admin_ports():
+    """test ec2.security_group_allows_anyone_to_admin_ports."""
+    result = ec2.security_group_allows_anyone_to_admin_ports(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 14
+    assert ec2.security_group_allows_anyone_to_admin_ports(SAFE).is_closed()
+    assert ec2.security_group_allows_anyone_to_admin_ports(NOT_EXISTS).\
+        is_unknown()
