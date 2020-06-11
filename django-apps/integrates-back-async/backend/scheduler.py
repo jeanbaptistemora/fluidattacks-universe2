@@ -415,7 +415,8 @@ async def get_remediated_findings():
         LOGGER.info('There are no findings to verificate')
 
 
-def weekly_report():
+@async_to_sync
+async def weekly_report():
     """Save weekly report in dynamo."""
     rollbar.report_message(
         'Warning: Function to do weekly report in DynamoDB is running', 'warning')
@@ -423,12 +424,17 @@ def weekly_report():
         (datetime.today() - timedelta(days=7)).date().strftime('%Y-%m-%d')
     final_date = \
         (datetime.today() - timedelta(days=1)).date().strftime('%Y-%m-%d')
-    all_companies = user_domain.get_all_companies()
-    all_users = [all_users_formatted(x) for x in all_companies]
-    registered_users = user_domain.get_all_users_report('FLUID', final_date)
-    logged_users = user_domain.logging_users_report(
+    all_companies = await sync_to_async(user_domain.get_all_companies)()
+    all_users = await asyncio.gather(*[
+        asyncio.create_task(
+            all_users_formatted(x)
+        )
+        for x in all_companies
+    ])
+    registered_users = await sync_to_async(user_domain.get_all_users_report)('FLUID', final_date)
+    logged_users = await sync_to_async(user_domain.logging_users_report)(
         'FLUID', init_date, final_date)
-    project_dal.get_weekly_report(
+    await sync_to_async(project_dal.get_weekly_report)(
         init_date,
         final_date,
         registered_users,
@@ -437,9 +443,9 @@ def weekly_report():
     )
 
 
-def all_users_formatted(company: str) -> Dict[str, int]:
+async def all_users_formatted(company: str) -> Dict[str, int]:
     """Format total users by company."""
-    total_users = user_domain.get_all_users(company)
+    total_users = await sync_to_async(user_domain.get_all_users)(company)
     all_users_by_company = {company: total_users}
     return all_users_by_company
 

@@ -208,7 +208,7 @@ class SchedulerTests(TestCase):
 
     def test_all_user_formatted(self):
         company = '_test_'
-        test_data = all_users_formatted(company)
+        test_data = async_to_sync(all_users_formatted)(company)
         expected_output = {company: 0}
         assert test_data == expected_output
 
