@@ -967,6 +967,7 @@ const enTranslations: Dictionary = {
       "Groups without an active Fluid Attacks service "
       + "can not have Fluid Attacks staff",
     greater_date: "The date must be today or before",
+    infectedFile: "Our system detected that the uploaded file is infected",
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
     invalidPhoneNumberInField: "The phone number inserted is not valid",

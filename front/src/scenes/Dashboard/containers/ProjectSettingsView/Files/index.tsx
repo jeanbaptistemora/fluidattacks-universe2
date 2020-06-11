@@ -105,13 +105,19 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     onError: (filesError: ApolloError): void => {
       filesError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        if (message === "Exception - Invalid field in form") {
-          msgError(translate.t("validations.invalidValueInField"));
-        } else if (message === "Exception - Invalid characters") {
-          msgError(translate.t("validations.invalid_char"));
-        } else {
-          msgError(translate.t("group_alerts.error_textsad"));
-          rollbar.error("An error occurred adding files to project", filesError);
+        switch (message) {
+          case "Exception - Invalid field in form":
+            msgError(translate.t("validations.invalidValueInField"));
+            break;
+          case "Exception - Invalid characters":
+            msgError(translate.t("validations.invalid_char"));
+            break;
+          case "Exception - File infected":
+            msgError(translate.t("validations.infectedFile"));
+            break;
+          default:
+            msgError(translate.t("group_alerts.error_textsad"));
+            rollbar.error("An error occurred adding files to project", filesError);
         }
       });
     },
