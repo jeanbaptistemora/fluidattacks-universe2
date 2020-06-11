@@ -87,6 +87,9 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
           case "Exception - Invalid File Type":
             msgError(translate.t("group.events.form.wrong_image_type"));
             break;
+          case "Exception - File infected":
+            msgError(translate.t("validations.infectedFile"));
+            break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred updating finding evidence", updateError);

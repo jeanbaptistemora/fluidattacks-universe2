@@ -29,7 +29,7 @@ from backend.typing import (
     AddCommentPayload as AddCommentPayloadType,
     Vulnerability as VulnerabilityType,
 )
-from backend.utils import findings as finding_utils
+from backend.utils import findings as finding_utils, virus_scan
 from backend import authz, util
 
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
@@ -554,6 +554,8 @@ async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
                               file) -> SimplePayloadType:
     """Resolve update_evidence mutation."""
     success = False
+
+    virus_scan.scan_file(file.file)
 
     if await \
             sync_to_async(finding_domain.validate_evidence)(evidence_id, file):

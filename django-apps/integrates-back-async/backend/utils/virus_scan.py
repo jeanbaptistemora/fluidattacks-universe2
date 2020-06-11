@@ -17,6 +17,8 @@ def scan_file(file_object: IO):
         tmp_file = tempfile.NamedTemporaryFile()
         tmp_file.write(file_object.read())
         api_response = API_CLIENT.scan_file(tmp_file.name)
+        tmp_file.close()
+        file_object.seek(0)
         if not api_response.clean_result:
             raise FileInfected()
     except ApiException:
