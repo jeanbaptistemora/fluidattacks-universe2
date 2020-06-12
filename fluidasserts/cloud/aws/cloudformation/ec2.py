@@ -729,3 +729,56 @@ def has_unrestricted_dns_access(
         msg_open='Security groups allow access to DNS without restrictions.',
         msg_closed=('Security groups allow access to DNS to'
                     ' the necessary IP addresses.'))
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unrestricted_ftp_access(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if security groups allow unrestricted access to TCP ports 20 and 21.
+
+    Restrict access to TCP ports 20 y 21 to only IP addresses that require,
+    it in order to implement the principle of least privilege.
+    TCP ports 20 and 21 are used for data transfer and communication by the
+    File Transfer Protocol (FTP) client-server applications:
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
+            _iterate_security_group_rules(path, exclude):
+
+        entities = []
+        with contextlib.suppress(KeyError, TypeError, ValueError):
+            from_port, to_port = tuple(map(
+                float, (sg_rule['FromPort'], sg_rule['ToPort'])))
+            for port in range(20, 22):
+                if from_port <= port <= to_port \
+                        and sg_rule['CidrIp'] == '0.0.0.0/0'\
+                        and str(sg_rule['IpProtocol']) in ('tcp', '-1'):
+                    entities.append(f'{sg_name}/{port}')
+
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'{sg_path}/{entity}',
+                identifier=sg_name,
+                line=sg_line,
+                reason=('Group must restrict access to TCP port'
+                        ' 20/21 to the necessary IP addresses.'))
+            for entity in entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Security groups allow access to FTP without restrictions.',
+        msg_closed=('Security groups allow access to FTP to'
+                    ' the necessary IP addresses.'))
