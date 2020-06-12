@@ -4,7 +4,7 @@
 :subtitle: Hunting eggs
 :tags: challenge, ethical hacking, pentesting, security, training, exploit
 :image: cover.png
-:alt: Photo by Gabe Pierce on Unsplash
+:alt: Photo by Pel on Unsplash
 :description: Vulnserver is a VbD application focused to help people practice the exploiting skills. This post will describe the steps taken to exploit the GTER command. This post describes a technique called "Egghunting" used when there are space restrictions for our exploitation.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
@@ -12,7 +12,7 @@
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM
-:source: https://unsplash.com/photos/2w46Lv6EYT4
+:source: https://unsplash.com/photos/DxD3LvfanuM
 
 = Vulnserver GTER Exploitation
 
@@ -45,7 +45,7 @@ Ok, it's fuzz time.
 
 == Fuzzing GTER
 
-As we did with the `TRUN` command before, we know now the syntax needed for
+As we did with the `TRUN` command before, we now know the syntax needed for
 the `GTER` command. And again, 
 we'll be using link:https://github.com/guilhermeferreira/spikepp:[Spike]
 to help us with our fuzzing.
@@ -116,7 +116,7 @@ However, if we look at the dump window (bottom left), we have a broader
 space (around 0x90 or 144 bytes) at the beggining of our buffer, which 
 is again not enough for something like a reverse shell, so we need to 
 be creative here. Actually, we can fit a reverse shell in that space,
-but we need to carve it manually by reusing already loaded WinSock
+but we need to carve it manually by reusing already loaded `WinSock`
 modules of `vulnserver`, but that will be part of another post.
 
 First things first.
@@ -202,9 +202,9 @@ Whoohooo! Now we can start exploiting this.
 == Exploiting
 
 If we check the state of the application after the crash, we can see that
-we can jump to ESP to gain control of the execution flow. 
+we can jump to ESP to gain control of the execution flow.
 
-Let's use `mona.py` plugin to do that.
+Let's use `mona.py` plugin to find that instruction:
 
 .mona looking for JMP ESP
 [source,bash]
@@ -323,7 +323,7 @@ An egghunter is a little shellcode (commonly around 32 bytes) that can
 be injected on our payload.
 It's an special shellcode because it will not execute anything, but also
 will search the entire memory for the location of the desired code
-to execute.
+and once it's found, it will be executed.
 
 But how will it know what to execute? It will look for a tag that
 will be prepended to our shellcode, also called the `egg` and once
@@ -331,7 +331,7 @@ it find that `egg`, it will execute any code that follows.
 
 Let's look it in action.
 
-First, we need to create or egghunter shellcode:
+First, we need to create our egghunter shellcode:
 
 .Creating egghunter
 [source,bash]
@@ -344,8 +344,10 @@ EGGHUNTER += b"\x89\xd7\xaf\x75\xea\xaf\x75\xe7\xff\xe7"
 ----
 
 Note that the configured egg is `w00t`. However, to make the
-searching more effective, it is designed to  look for
-a double instance of that tag, that means `w00tw00t`.
+searching more effective, that egghunter was designed to  look for
+a double instance of that tag, that means `w00tw00t` and run 
+the actual shellcode.
+
 Let's update our exploit:
 
 .exploit.py
@@ -389,7 +391,8 @@ the tag `w00tw00t`.
 . When the egghunter finds the tag, it will execute anything that
 follows that tag.
 
-So, the only thing that's missing is our shellcode. Let's create one:
+So, the only thing that's missing is our shellcode. Let's create one
+that will bind a shell on port `4444`:
 
 
 .Creating shellcode
@@ -512,7 +515,7 @@ with socket.create_connection((HOST, PORT)) as fd:
     print('Boom! Check the port 4444 of the victim.')
 ----
 
-And look the egghunter in action:
+Now, let's look the egghunter in action:
 
 image::shell1.gif[Success]
 
@@ -521,7 +524,7 @@ Awesome! We got our shell again!
 == Conclusion
 
 The egghunter technique is very useful when dealing with
-short space for sending complex payloads. You must be
-carefull to inject the correct tag because it will
-start using all the available resources searching for the
+short space for sending complex payloads. However, you 
+must be careful to inject the correct tag because it will
+start using all the available CPU for searching the
 egg on the entire system memory.
