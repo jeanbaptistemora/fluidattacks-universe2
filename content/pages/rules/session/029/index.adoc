@@ -134,4 +134,17 @@ Verify the application only stores session tokens in the browser using secure
 methods such as appropriately secured cookies (see section 3.4) or HTML 5
 session storage.
 
-. [[r6]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.4 Cookie-based Session Management.(3.4.1)]
+Verify that cookie-based session tokens have the 'Secure' attribute set.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.4 Cookie-based Session Management.(3.4.2)]
+Verify that cookie-based session tokens have the 'HttpOnly' attribute set.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.4 Cookie-based Session Management.(3.4.3)]
+Verify that cookie-based session tokens utilize the 'SameSite' attribute to
+limit exposure to cross-site request forgery attacks.
+
+. [[r9]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
