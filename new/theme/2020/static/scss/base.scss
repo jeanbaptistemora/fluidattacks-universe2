@@ -401,6 +401,15 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 // Styles for articles
 
+
+.tb-ppl {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  white-space: nowrap;
+  width: max-content;
+}
+
 .internal {
   font-weight: 600;
   text-align: left;
@@ -419,13 +428,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   }
   .listingblock {
     padding-top: 2rem;
-  }
-
-  .tb-ppl {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    white-space: nowrap;
   }
 
   code.hljs {

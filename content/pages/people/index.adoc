@@ -11,7 +11,7 @@ Technology and security is part of our DNA;
 we are always attacking, testing, and developing new applications.
 Meet some of our team:
 
-[role= "tb-ppl"]
+[role= "tb-ppl tc"]
 [cols=3]
 |===
 
