@@ -9,7 +9,8 @@
 == Requirement
 
 The session *cookies* of web applications
-must have security attributes (*HttpOnly*, *Secure*).
+must have security attributes (*HttpOnly*, *Secure*, *SameSite*) and prefixes
+(e.g. **__Host-**).
 
 == Description
 
@@ -72,7 +73,7 @@ the *CSRF* cookie must not have *HttpOnly* attribute,
 as it is intended to be read by the JavaScript by design.
 However, the protection provided by this technique
 can be thwarted if the target website disables its same-origin policy
-using one of the following techniques <<r8,^[8]^>>:
+using one of the following techniques:
 
 * Access-Control-Allow-Origin header set to ***.
 * *clientaccesspolicy.xml* file granting unintended access
@@ -85,7 +86,7 @@ to Silverlight controls.
 by a valid authenticated user
 without their knowledge,
 without the *HTTPOnly* and *Secure* attributes
-the *script* sends information to the attacker^<<r1,[1]>>,<<r2,[2]>>^
+the *script* sends information to the attacker
 containing the session *cookie* used for session theft.
 
 . An attacker link:https://puppet.com/security/cve/cve-2013-4964[captures]
@@ -147,4 +148,9 @@ V3.4 Cookie-based Session Management.(3.4.3)]
 Verify that cookie-based session tokens utilize the 'SameSite' attribute to
 limit exposure to cross-site request forgery attacks.
 
-. [[r9]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.4 Cookie-based Session Management.(3.4.4)]
+Verify that cookie-based session tokens use "**__Host-**" prefix
+(see references) to provide session cookie confidentiality.
+
+. [[r10]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
