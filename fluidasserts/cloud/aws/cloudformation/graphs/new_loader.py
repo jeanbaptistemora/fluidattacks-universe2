@@ -4,7 +4,6 @@
 # pylint: disable=too-many-ancestors
 # pylint: disable=unexpected-special-method-signature
 # pylint: disable=super-init-not-called
-
 """This module provide tools to convert Cloudformation templates in graphs."""
 
 # standar imports
@@ -13,7 +12,7 @@ from concurrent.futures import ThreadPoolExecutor
 from collections import OrderedDict
 from collections import UserDict
 from collections import UserList
-from contextlib import suppress
+from contextlib import (suppress, contextmanager)
 from copy import copy
 import datetime
 from multiprocessing import cpu_count
@@ -27,8 +26,8 @@ from pyparsing import Optional
 from pyparsing import printables
 from pyparsing import Suppress
 from pyparsing import Word
-from grapheekdb.client.api import ProxyGraph
-from grapheekdb.client.api import ProxyNode
+from networkx import DiGraph
+from networkx.algorithms import dfs_preorder_nodes
 
 # local imports
 from fluidasserts.helper.aws import _random_string
@@ -93,8 +92,8 @@ def _create_label(key: str) -> Tuple[str]:
 class List(UserList):
     """Custom list that passes items to grapheekdb nodes."""
 
-    def __init__(self, initlist, father_node: ProxyNode, graph: ProxyGraph,
-                 line, **kwargs):
+    def __init__(self, initlist, father_node: int, graph: DiGraph, line,
+                 **kwargs):
         """Convert input list to grapheekdb nodes.
 
         :param initlist: Input list.
@@ -104,8 +103,9 @@ class List(UserList):
         for key, value in kwargs.items():
             setattr(self, key, value)
         self.graph = graph
-        self.__node__ = self.graph.add_node(kind='Array', line=line)
-        self.graph.add_edge(father_node, self.__node__, action='HAS')
+        self.__id__ = id(initlist)
+        self.graph.add_node(self.__id__, kind='Array', line=line)
+        self.graph.add_edge(father_node, self.__id__, action='HAS')
 
         super().__init__(initlist)
         for index, item in enumerate(initlist):
@@ -113,7 +113,7 @@ class List(UserList):
             self.__setitem__(index, item, line)
 
     def __setitem__(self, index, item, line):
-        node = self.__create_node__(index, item, line)
+        node_id = self.__create_node__(index, item, line)
         attrs = {
             '__references__': self.__references__,
             '__path__': self.__path__
@@ -122,10 +122,14 @@ class List(UserList):
             self.data[index] = item
         elif isinstance(item, (list, CustomList)):
             self.data[index] = List(
-                item, father_node=node, graph=self.graph, line=line, **attrs)
+                item,
+                father_node=node_id,
+                graph=self.graph,
+                line=line,
+                **attrs)
         elif isinstance(item, (dict, CustomDict)):
             self.data[index] = Dict(
-                item, graph=self.graph, node=node, line=line, **attrs)
+                item, graph=self.graph, node_id=node_id, line=line, **attrs)
 
     def __setreferences__(self):
         """Create references between nodes."""
@@ -142,9 +146,10 @@ class List(UserList):
         attrs = {'line': line, 'index': index}
         if is_primitive(item):
             attrs.update({'value': item})
-        node = self.graph.add_node(kind='Item', **attrs)
-        self.graph.add_edge(self.__node__, node, action='HAS')
-        return node
+        _id = id(item)
+        self.graph.add_node(_id, kind='Item', **attrs)
+        self.graph.add_edge(self.__id__, _id, action='HAS')
+        return _id
 
 
 class Dict(UserDict):
@@ -152,9 +157,9 @@ class Dict(UserDict):
 
     def __init__(self,
                  initial_dict,
-                 graph: ProxyGraph,
+                 graph: DiGraph,
                  path: str = None,
-                 node: int = None,
+                 node_id: int = 0,
                  line: int = 0,
                  **kwargs):
         """Convert input dictionary to grapheekdb nodes.
@@ -174,11 +179,12 @@ class Dict(UserDict):
 
         # create template node
         if path:
+            self.__id__ = id(initial_dict)
             self.__path__ = path
-            self.__node__ = self.graph.add_node(
-                kind='CloudFormationTemplate', path=self.__path__)
+            self.graph.add_node(
+                self.__id__, kind='CloudFormationTemplate', path=self.__path__)
         else:
-            self.__node__ = node
+            self.__id__ = node_id
 
         for key, value in initial_dict.items():
             self.__line__ = _get_line(initial_dict, key) or self.__line__
@@ -193,11 +199,13 @@ class Dict(UserDict):
         """
         if dest not in self.__references__ and re.fullmatch(
                 r'AWS::(\w+|::)+', dest):
-            node = self.graph.add_node(kind=_create_label(dest)[0])
-            self.graph.add_edge(self.__node__, node, action='REFERENCE')
+            label = _create_label(dest)[0]
+            _id = id(label)
+            self.graph.add_node(_id, kind=label)
+            self.graph.add_edge(self.__id__, _id, action='REFERENCE')
         elif dest in self.__references__:
             ref = self.__references__[dest]
-            self.graph.add_edge(self.__node__, ref, action='REFERENCE')
+            self.graph.add_edge(self.__id__, ref, action='REFERENCE')
 
     def __setreferences__(self):
         """Create references between nodes."""
@@ -228,11 +236,20 @@ class Dict(UserDict):
     def __fn_findinmap__(self, item):
         if isinstance(item[0], (str)):
             label = _create_label(item[0])[0]
-            node = list(
-                self.graph.V(
-                    kind='CloudFormationTemplate', path=self.__path__).outV(
-                        kind='Mappings').outV(kind=label))[-1]
-            self.graph.add_edge(self.__node__, node, action="REFERENCE")
+            template = [
+                _id for _id, node in self.graph.nodes.data()
+                if node['kind'] == 'CloudFormationTemplate'
+                and node['path'] == self.__path__
+            ][0]
+            mappings = [
+                node for node in dfs_preorder_nodes(self.graph, template, 1)
+                if self.graph.nodes[node]['kind'] == 'Mappings'
+            ][0]
+            mapping = [
+                node for node in dfs_preorder_nodes(self.graph, mappings, 1)
+                if self.graph.nodes[node]['kind'] == label
+            ][0]
+            self.graph.add_edge(self.__id__, mapping, action="REFERENCE")
 
     def __fn_getatt(self, item):
         ref = item.split('.')[0] if isinstance(item, (str)) else item[0]
@@ -246,20 +263,28 @@ class Dict(UserDict):
             '__references__': self.__references__,
             '__path__': self.__path__
         }
-        node = self.__create_node__(key, item, line)
+        node_id = self.__create_node__(key, item, line)
         if is_primitive(item):
             if key == 'Type' and hasattr(self, '__node_name__'):
-                self.__references__[self.__node_name__] = self.__node__
+                self.__references__[self.__node_name__] = self.__id__
                 if re.fullmatch(r'AWS::(\w+|::)+', item):
                     label = _create_label(item)[0]
-                    self.__node__.update(kind=label)
+                    self.graph.nodes[self.__id__].update(kind=label)
             self.data[key] = item
         elif isinstance(item, (OrderedDict, CustomDict)):
             self.data[key] = Dict(
-                item, graph=self.graph, node=node, line=self.__line__, **attrs)
+                item,
+                graph=self.graph,
+                node_id=node_id,
+                line=self.__line__,
+                **attrs)
         elif isinstance(item, (list, CustomList, List)):
             self.data[key] = List(
-                item, father_node=node, graph=self.graph, line=line, **attrs)
+                item,
+                father_node=self.__id__,
+                graph=self.graph,
+                line=line,
+                **attrs)
 
     def __create_node__(self, key: str, item, line: int):
         """Converts a dictionary node to a grapheekdb node."""
@@ -272,14 +297,15 @@ class Dict(UserDict):
             attrs.update({'value': item})
         if key.startswith('Fn::') or key == 'Ref':
             relation = 'EXECUTE'
-        node = self.graph.add_node(kind=label, **attrs)
-        self.graph.add_edge(self.__node__, node, action=relation)
-        return node
+        _id = id(key)
+        self.graph.add_node(_id, kind=label, **attrs)
+        self.graph.add_edge(self.__id__, _id, action=relation)
+        return _id
 
     @staticmethod
     def load_templates(path: str,
-                       exclude: list = None,
-                       connection_str: str = 'tcp://127.0.0.1:5555'):
+                       graph: DiGraph,
+                       exclude: list = None):
         """Load all templates to the database.
 
         If you did not connect to a database use ``retry=True``.
@@ -287,14 +313,12 @@ class Dict(UserDict):
         :param path: Path of cloudformation templates.
         :param exclude: Paths to exclude.
         """
-
         def load(_path_):
             with suppress(CloudFormationInvalidTemplateError):
                 template = load_cfn_template(_path_)
                 start_time = timer()
                 success = True
                 try:
-                    graph = ProxyGraph(connection_str)
                     Dict(template, path=_path_, graph=graph)
                 except Exception as exc:  # pylint: disable=broad-except
                     error = str(exc)
@@ -317,3 +341,11 @@ class Dict(UserDict):
                            endswith=CLOUDFORMATION_EXTENSIONS))
         end_time = timer() - init_time
         print(f'[SUCCESS]    Total: %.4f seconds' % (end_time))
+
+
+@contextmanager
+def templates_as_graph(path: str) -> DiGraph:
+    """Yield a graph with all the templates inside the path."""
+    _graph = DiGraph()
+    Dict.load_templates(path, _graph)
+    yield _graph

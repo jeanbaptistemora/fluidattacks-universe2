@@ -29,7 +29,6 @@ docker==4.2.0               # fluidasserts.cloud.aws.cloudformation.graph
 gitpython==3.1.1            # fluidasserts.proto.git
 google-api-python-client==1.8.0     # fluidasserts.cloud.gcp
 google-auth-httplib2==0.0.3    # fluidasserts.cloud.gcp
-grapheekdb==0.0.24
 jmespath==0.9.5             # fluidasserts.lang.python
 kubernetes==11.0.0          # fluidasserts.cloud.kubernetes
 lark-parser==0.8.5          # fluidasserts.parsers
@@ -39,6 +38,7 @@ mixpanel==4.5.0             # fluidasserts.utils.decorators
 mysql-connector-python==8.0.19  # fluidasserts.db.mysql_db
 names==0.3.0                # fluidasserts.helper.http
 neo4j==4.0.0a4
+networkx==2.4
 ntplib==0.3.4               # fluidasserts.proto.http
 oyaml==0.9                  # fluidasserts
 paramiko==2.7.1             # fluidasserts.helper.ssh_helper
