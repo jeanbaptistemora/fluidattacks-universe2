@@ -210,7 +210,8 @@ then
               "date_joined": {"S": "2018-02-28 11:54:12"},
               "email": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
               "legal_remember": {"BOOL": true},
-              "registered": {"BOOL": true}
+              "registered": {"BOOL": true},
+              "organization": {"S": "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"}
             }
           }
         }]) | flatten(2)

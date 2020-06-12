@@ -1,5 +1,5 @@
 # standard imports
-from typing import Optional, List
+from typing import Optional, List, Dict
 import uuid
 
 # third-party imports
@@ -15,7 +15,7 @@ from backend.typing import (
     Organization as OrganizationType
 )
 
-RESOURCE_OPTIONS = dynamodb.RESOURCE_OPTIONS  # type: ignore
+RESOURCE_OPTIONS: Dict[str, str] = dynamodb.RESOURCE_OPTIONS  # type: ignore
 TABLE_NAME: str = dynamodb.TABLE_NAME  # type: ignore
 
 

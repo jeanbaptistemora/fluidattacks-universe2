@@ -127,7 +127,7 @@ def get(email: str) -> UserType:
 
 def create_without_project(user_data: UserType) -> bool:
     email: str = str(user_data.get('email', '')).lower()
-    organization: str = str(user_data.get('organization', ''))
+    organization: str = str(user_data.get('company', ''))
     phone_number: str = str(user_data.get('phone_number', ''))
     role: str = str(user_data.get('role', ''))
 
@@ -142,7 +142,7 @@ def create_without_project(user_data: UserType) -> bool:
         new_user_data['authorized'] = True
         new_user_data['registered'] = True
         if organization:
-            new_user_data['organization'] = organization
+            new_user_data['company'] = organization
         if phone_number:
             new_user_data['phone'] = phone_number
 

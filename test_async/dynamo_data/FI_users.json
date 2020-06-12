@@ -6,6 +6,9 @@
                "company" : {
                   "S" : "unittest"
                },
+               "organization": {
+                  "S" : "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"
+               },
                "date_joined": {
                 "S": "2018-02-28 11:54:12"
                },
@@ -37,6 +40,9 @@
             "company": {
               "S": "fluid"
             },
+            "organization": {
+              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+            },
             "last_name": {
               "S": "de Orellana"
             },
@@ -66,6 +72,9 @@
           "Item": {
             "company": {
               "S": "fluid"
+            },
+            "organization": {
+              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
             },
             "last_name": {
               "S": "Manager"
@@ -97,6 +106,9 @@
             "company": {
               "S": "fluid"
             },
+            "organization": {
+              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+            },
             "last_name": {
               "S": "User"
             },
@@ -126,6 +138,9 @@
           "Item": {
             "company": {
               "S": "fluid"
+            },
+            "organization": {
+              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
             },
             "last_name": {
               "S": "Analyst"
@@ -157,6 +172,9 @@
             "company": {
               "S": "fluid"
             },
+            "organization": {
+              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+            },
             "last_name": {
               "S": "Analyst2"
             },
@@ -186,6 +204,9 @@
           "Item": {
             "company": {
               "S": "fluid"
+            },
+            "organization": {
+              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
             },
             "last_name": {
               "S": "Hacking"
@@ -238,6 +259,9 @@
              "company" : {
                 "S" : "unittest"
              },
+             "organization": {
+              "S" : "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"
+            },
              "date_joined": {
               "S": "2017-12-28 23:54:55"
              },

@@ -14,7 +14,9 @@ class UserTests(TestCase):
         assert {
              'company' : 'unittest', 'date_joined': '2017-12-28 23:54:55',
              'last_login': '2019-10-29 13:40:37', 'email' : 'unittest3',
-             'legal_remember' : True, 'registered' : False
+             'legal_remember' : True,
+             'organization': 'ORG#6ee4c12b-7881-4490-a851-07357fff1d64',
+             'registered' : False
           } == get(test_1)
         assert delete(test_1)
         assert {} == get(test_1)
