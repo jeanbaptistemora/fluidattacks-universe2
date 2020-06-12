@@ -403,11 +403,9 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 
 .tb-ppl {
-  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   white-space: nowrap;
-  width: max-content;
 }
 
 .internal {
@@ -496,9 +494,11 @@ $codeyellow: rgba(230, 219, 116, 1);
     border-style: solid;
     border-width: 1px;
     display: block;
+    max-width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     text-align: left;
+    width: max-content;
     thead {
       font-size: 1.125rem;
       background-color: $headergray;
