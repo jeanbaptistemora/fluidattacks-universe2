@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 import { GeneratorType } from "../types";
+import { defaultIfUndefined } from "../utils";
 
 interface IPoint {
   x: number;
@@ -8,9 +9,6 @@ interface IPoint {
 }
 declare type D3PointType = [number, number];
 declare type Data = IPoint[];
-
-const defaultIfUndefined: (value: number | undefined, defaultValue: number) => number =
-  (value: number | undefined, defaultValue: number): number => _.isUndefined(value) ? defaultValue : value;
 
 const generator: GeneratorType = (data: Data, width: number, height: number): HTMLDivElement => {
   const node: HTMLDivElement = document.createElement("div");
