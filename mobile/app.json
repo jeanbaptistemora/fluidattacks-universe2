@@ -20,6 +20,7 @@
       "color": "#FE3435",
       "icon": "./assets/notification.png"
     },
+    "primaryColor": "#272727",
     "updates": {
       "checkAutomatically": "ON_LOAD",
       "enabled": true,
