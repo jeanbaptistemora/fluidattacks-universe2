@@ -10,7 +10,7 @@
 that allows you to parameterize a pentest
 according to your organization's risk appetite.
 
-== link:[Asserts]
+== link:../asserts/[Asserts]
 
 *Asserts* is an open-source tool
 that looks for deterministic and peripheral vulnerabilities,
