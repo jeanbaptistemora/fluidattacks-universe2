@@ -1,4 +1,4 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import * as React from "react";
@@ -6,7 +6,6 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import wait from "waait";
 import store from "../../../../store/index";
 import { ForcesIndicatorsView } from "./index";
 import { GET_INDICATORS } from "./queries";
@@ -16,10 +15,15 @@ import {
 
 describe("ForcesIndicatorsView", () => {
 
-  const mockProps: IForcesIndicatorsViewBaseProps = { projectName: "TEST" };
+  it("should return an function", () => {
+    expect(typeof (ForcesIndicatorsView))
+      .toEqual("function");
+  });
 
-  const mockError: ReadonlyArray<MockedResponse> = [
-    {
+  it("should render an empty component", async () => {
+    const mockProps: IForcesIndicatorsViewBaseProps = { projectName: "TEST" };
+
+    const mockError: ReadonlyArray<MockedResponse> = [{
       request: {
         query: GET_INDICATORS,
         variables: {
@@ -31,27 +35,25 @@ describe("ForcesIndicatorsView", () => {
       },
     }];
 
-  it("should return an function", () => {
-    expect(typeof (ForcesIndicatorsView))
-      .toEqual("function");
-  });
-
-  it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/forces"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mockError} addTypename={true}>
+          <MockedProvider mocks={mockError} addTypename={false}>
             <ForcesIndicatorsView {...mockProps} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
     );
-    await wait(0);
+
+    await act(async () => { await wait(0); wrapper.update(); });
+
     expect(wrapper)
       .toHaveLength(1);
   });
 
   it("should render Forces Indicators", async () => {
+    const mockProps: IForcesIndicatorsViewBaseProps = { projectName: "TEST" };
+
     const forcesVulnerabilities: IForcesVulnerabilities = {
       numOfVulnerabilitiesInAcceptedExploits: 1,
       numOfVulnerabilitiesInExploits: 2,
