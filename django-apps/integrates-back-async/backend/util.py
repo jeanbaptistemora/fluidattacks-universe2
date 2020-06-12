@@ -93,15 +93,6 @@ def get_current_time_as_iso_str() -> str:
     return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
 
 
-def user_email_filter(emails: List[str], actual_user: str) -> List[str]:
-    if "@fluidattacks.com" in actual_user:
-        final_users = emails
-    else:
-        final_users = list([email for email in emails if not(
-            email.endswith('@fluidattacks.com'))])
-    return final_users
-
-
 def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
     mime = Magic(mime=True)
     mime_type = mime.from_file(filename)

@@ -16,7 +16,7 @@ from __init__ import (
 import json
 
 from backend.util import (
-    response, ord_asc_by_criticality, user_email_filter,
+    response, ord_asc_by_criticality,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
     get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_format)
@@ -47,19 +47,6 @@ class UtilTests(TestCase):
             {'severityCvss': 54}, {'severityCvss': 40}, {'severityCvss': 30},
             {'severityCvss': 20}, {'severityCvss': 13}, {'severityCvss': 12},
             {'severityCvss': 1}]
-        assert test_data == expected_output
-
-    def test_user_email_filter(self):
-        emails = ['test@test.com', 'test@fluidattacks.com', 'test2@test.test']
-        fluid_user = 'test@fluidattacks.com'
-        external_user = 'test@external.com'
-
-        test_data = user_email_filter(emails, fluid_user)
-        expected_output = emails
-        assert test_data == expected_output
-
-        test_data = user_email_filter(emails, external_user)
-        expected_output = ['test@test.com', 'test2@test.test']
         assert test_data == expected_output
 
     def test_assert_file_mime(self):
