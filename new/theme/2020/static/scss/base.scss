@@ -162,6 +162,8 @@ $codeyellow: rgba(230, 219, 116, 1);
   transition: all ease-in-out .5s; } }
 .feature-button-r { &:hover { transform: translateX(1rem);
   transition: all ease-in-out .5s; } }
+.download-btn { &:hover { transform: translateY(.6em);
+  transition: all ease .3s; } }
 .f-sub { font-size: 1.9rem; }
 .right-small { right: .6rem; }
 .nbs {margin-bottom: -.15rem; }
@@ -599,3 +601,4 @@ video {
   font-style: italic;
   list-style-type: none;
 }
+
