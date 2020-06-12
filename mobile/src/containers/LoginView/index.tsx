@@ -1,4 +1,5 @@
 import { AppOwnership, default as Constants, NativeConstants } from "expo-constants";
+import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
@@ -31,21 +32,28 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   // Side effects
   const onMount: (() => void) = (): void => {
     const executeStartupChecks: (() => void) = async (): Promise<void> => {
+      const shouldSkipCheck: boolean =
+        Platform.OS === "ios"
+        || Constants.appOwnership === AppOwnership.Expo;
+
+      if (shouldSkipCheck) {
+        setOutdated(false);
+      } else {
+        setOutdated(await checkPlayStoreVersion());
+      }
+
       const token: string | null = await SecureStore.getItemAsync("integrates_session");
       const authState: string | null = await SecureStore.getItemAsync("authState");
 
       if (!_.isNil(token) && !_.isNil(authState)) {
-        history.replace("/Dashboard", JSON.parse(authState));
-      } else {
-        const shouldSkipCheck: boolean =
-          Platform.OS === "ios"
-          || Constants.appOwnership === AppOwnership.Expo;
+        const { success } = await LocalAuthentication.authenticateAsync();
 
-        if (shouldSkipCheck) {
-          setOutdated(false);
+        if (success) {
+          history.replace("/Dashboard", JSON.parse(authState));
         } else {
-          setOutdated(await checkPlayStoreVersion());
+          setLoading(false);
         }
+      } else {
         setLoading(false);
       }
     };
