@@ -47,7 +47,7 @@ Ok, it's fuzz time.
 
 As we did with the `TRUN` command before, we now know the syntax needed for
 the `GTER` command. And again,
-we'll be using link:https://github.com/guilhermeferreira/spikepp:[Spike]
+we'll be using link:https://github.com/guilhermeferreira/spikepp[Spike]
 to help us with our fuzzing.
 
 As `GTER` uses a similar syntax as the `TRUN` command, we can reuse
@@ -74,7 +74,7 @@ Let's check the offending payload on `Wireshark`:
 
 image::wireshark1.png[Wireshark capture]
 
-Let's create a PoC (Proof-of-Concept) file with that information:
+We can now create a PoC (Proof-of-Concept) file with that information:
 
 .exploit.py
 [source,python]
@@ -94,9 +94,9 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-This time, let's attach `vulnserver.exe` to Immunity Debugger.
+This time, we'll attach `vulnserver.exe` to Immunity Debugger.
 
-So, let's run the initial exploit and see what happens:
+Let's run the initial exploit and see what happens:
 
 image::gter2.gif[Exploit: take 1]
 
@@ -134,7 +134,7 @@ $ msf-pattern_create -l 400
 
 image::pattern1.png[Cyclic pattern]
 
-Let's update the exploit with that pattern:
+We need now to update the exploit with that pattern:
 
 .exploit.py
 [source,python]
@@ -159,7 +159,7 @@ And we run the exploit again:
 image::offset1.png[Exploit: take 2]
 
 This time, EIP has the value `41396541`. Let's check
-the offset on our cyclic pattern
+the offset on our cyclic pattern:
 
 .Running pattern_offset.rb
 [source,bash]
@@ -170,7 +170,7 @@ $ msf-pattern_offset -q 41396541
 ----
 
 Great, that tells us that the EIP gets overwritten starting on the *147*
-byte of our buffer. Let's update the exploit to check the offset:
+byte of our buffer. Update the exploit to check the offset:
 
 .exploit.py
 [source,python]
@@ -192,7 +192,7 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-Let's run the exploit. If EIP gets the value `42424242` which are the
+Now run the exploit. If EIP gets the value `42424242` which are the
 four bytes of our `B` buffer, we got it right:
 
 image::offset2.png[Correct offset to EIP]
@@ -204,7 +204,7 @@ Whoohooo! Now we can start exploiting this.
 If we check the state of the application after the crash, we can see that
 we can jump to ESP to gain control of the execution flow.
 
-Let's use `mona.py` plugin to find that instruction:
+We can use `mona.py` plugin to find that instruction:
 
 .mona looking for JMP ESP
 [source,bash]
@@ -218,7 +218,8 @@ exclude DLL from the OS.
 image::mona1.png[JMP ESP]
 
 We will pick the `JMP ESP` instruction at `625011C7`.
-Let's update the exploit and replace the four `B` with that address:
+Now we can proceed to update the exploit and replace the four `B`
+with that address:
 
 .exploit.py
 [source,python]
@@ -262,7 +263,7 @@ For jumping, we can use the unconditional jump instruction found in
 X86 architecture called `JMP` that will divert the execution flow
 to the desired address. We also need to know where to jump.
 
-Let's look at the next image which is the resulting location after
+Now look at the next image which is the resulting location after
 our `JMP ESP` execution:
 
 image::jmp1.png[Location of our execution flow]
@@ -309,7 +310,7 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-And let's check it
+And check the result:
 
 image::jmp4.gif[Jumped back]
 
@@ -328,8 +329,6 @@ and once it's found, it will be executed.
 But how will it know what to execute? It will look for a tag that
 will be prepended to our shellcode, also called the `egg` and once
 it find that `egg`, it will execute any code that follows.
-
-Let's look it in action.
 
 First, we need to create our egghunter shellcode:
 
@@ -391,7 +390,7 @@ the tag `w00tw00t`.
 . When the egghunter finds the tag, it will execute anything that
 follows that tag.
 
-So, the only thing that's missing is our shellcode. Let's create one
+So, the only thing that's missing is our shellcode. We will create one
 that will bind a shell on port `4444`:
 
 
@@ -448,7 +447,7 @@ will surely multiplex connections. Well, we can create a different connection
 to send the shellcode over! This will store it on memory where our
 egghunter will be able to find it.
 
-Let's update our exploit. Remember to prepend the `w00tw00t`
+We can now finish our exploit. Remember to prepend the `w00tw00t`
 egg to the shellcode, or the egghunter won't be able to find it!
 
 .exploit.py
