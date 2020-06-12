@@ -24,6 +24,7 @@
     "@types/chart.js": "2.9.21",
     "@types/d3": "5.7.2",
     "@types/jquery": "3.3.38",
+    "@types/jsdom": "16.2.3",
     "@types/lodash": "4.14.153",
     "@types/mixpanel-browser": "2.35.2",
     "@types/react": "16.9.35",
@@ -40,6 +41,7 @@
     "@types/react-textarea-autosize": "4.3.5",
     "@types/redux-form": "8.2.3",
     "@types/revalidate": "1.1.2",
+    "@types/yargs": "15.0.5",
     "apollo-cache-inmemory": "1.6.6",
     "apollo-client": "2.6.10",
     "apollo-link": "1.2.14",
@@ -58,6 +60,7 @@
     "i18next": "19.4.5",
     "jquery": "3.5.1",
     "jquery-comments_brainkit": "1.2.8",
+    "jsdom": "16.2.2",
     "lodash": "4.17.15",
     "mixpanel-browser": "2.36.0",
     "moment": "2.26.0",
@@ -95,7 +98,8 @@
     "redux-form": "8.3.2",
     "revalidate": "1.2.0",
     "rollbar": "2.16.2",
-    "subscriptions-transport-ws": "0.9.16"
+    "subscriptions-transport-ws": "0.9.16",
+    "yargs": "15.3.1"
   },
   "devDependencies": {
     "@apollo/react-testing": "3.1.4",
