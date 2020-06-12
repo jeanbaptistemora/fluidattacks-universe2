@@ -3,16 +3,8 @@ from decimal import Decimal
 import rollbar
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
-from backend.typing import Tag as TagType
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('fi_portfolios')
-
-
-def get(organization: str, tag: str) -> Dict[str, TagType]:
-    """Get a tag info."""
-    response = TABLE.get_item(
-        Key={'organization': organization.lower(), 'tag': tag.lower()})
-    return response.get('Item', {})
 
 
 def update(organization: str, tag: str,

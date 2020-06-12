@@ -15,7 +15,8 @@ class TagTest(TestCase):
         projects = [project_domain.get_attributes(project, ['companies', 'project_name', 'tag'])
                 for project in projects]
         assert async_to_sync(update_organization_indicators)('fluid', projects)
-        tag_info = tag_dal.get('fluid', 'test-projects')
+        tag_info = tag_dal.get_attributes(
+            'fluid', 'test-projects', ['mean_remediate_low_severity', 'projects'])
         expected_projects = ['oneshottest', 'unittesting']
         assert tag_info['mean_remediate_low_severity'] == 116
         assert sorted(tag_info.get('projects', [])) == sorted(expected_projects)
