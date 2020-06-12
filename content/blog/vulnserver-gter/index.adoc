@@ -16,16 +16,16 @@
 
 = Vulnserver GTER Exploitation
 
-As we saw on the link:../vulnserver-trun/[previous post], vulnserver is a 
+As we saw on the link:../vulnserver-trun/[previous post], vulnserver is a
 VbD (Vulnerable-by-Design) application that was designed to help you
 sharpen the Windows exploitation skills.
 
 Our link:../vulnserver-trun/[previous post] described the exploitation
 of TRUN command using a simple EIP overwrite technique, as we had
-virtually no constrains for our payload. However, exploiting the 
+virtually no constrains for our payload. However, exploiting the
 GTER command will not be as straightforward.
 
-WARNING: Do NOT run `vulnserver.exe` on a sensitive machine or on 
+WARNING: Do NOT run `vulnserver.exe` on a sensitive machine or on
 a non-secure network.
 It will be a backdoor that may be used by others to break into your system.
 
@@ -46,7 +46,7 @@ Ok, it's fuzz time.
 == Fuzzing GTER
 
 As we did with the `TRUN` command before, we now know the syntax needed for
-the `GTER` command. And again, 
+the `GTER` command. And again,
 we'll be using link:https://github.com/guilhermeferreira/spikepp:[Spike]
 to help us with our fuzzing.
 
@@ -60,7 +60,7 @@ command
 s_string("GTER ");
 s_string_variable("*");
 ----
-Remember that the `s_string` command will send an immutable string to 
+Remember that the `s_string` command will send an immutable string to
 the fuzzed protocol and `s_string_variable` tells `Spike` to use
 that string as a fuzz point.
 
@@ -68,7 +68,7 @@ Now we can send the fuzz attack to the victim machine:
 
 image::fuzz1.gif[Running spike]
 
-Ugh! After a few iterations `vulnserver.exe` crashed and it seems 
+Ugh! After a few iterations `vulnserver.exe` crashed and it seems
 that it happened when we sent 5060 bytes of data.
 Let's check the offending payload on `Wireshark`:
 
@@ -109,12 +109,12 @@ The first thing to notice is that the EIP register has the value `41414141`
 which means that we effectively overwrote it with our buffer of `A`.
 That's good news. However if you see in the stack window (bottom right),
 we only have 20 bytes after the ESP pointer, so if we do a `JMP ESP`, we
-will only have 20 bytes for working. That's simply not enough space for 
+will only have 20 bytes for working. That's simply not enough space for
 anything complex.
 
 However, if we look at the dump window (bottom left), we have a broader
-space (around 0x90 or 144 bytes) at the beggining of our buffer, which 
-is again not enough for something like a reverse shell, so we need to 
+space (around 0x90 or 144 bytes) at the beggining of our buffer, which
+is again not enough for something like a reverse shell, so we need to
 be creative here. Actually, we can fit a reverse shell in that space,
 but we need to carve it manually by reusing already loaded `WinSock`
 modules of `vulnserver`, but that will be part of another post.
@@ -122,7 +122,7 @@ modules of `vulnserver`, but that will be part of another post.
 First things first.
 
 We need to calculate the exact offset on which EIP gets overwritten.
-To do that, we will use `pattern_create.rb` from `Metasploit` to create a 
+To do that, we will use `pattern_create.rb` from `Metasploit` to create a
 cyclic pattern.
 
 .Running pattern_create.rb
@@ -192,7 +192,7 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-Let's run the exploit. If EIP gets the value `42424242` which are the 
+Let's run the exploit. If EIP gets the value `42424242` which are the
 four bytes of our `B` buffer, we got it right:
 
 image::offset2.png[Correct offset to EIP]
@@ -212,12 +212,12 @@ Let's use `mona.py` plugin to find that instruction:
 ! mona jmp -r esp -o -cp nonull
 ----
 
-This will tell `mona` to look for the instruction `JMP ESP` and will 
+This will tell `mona` to look for the instruction `JMP ESP` and will
 exclude DLL from the OS.
 
 image::mona1.png[JMP ESP]
 
-We will pick the `JMP ESP` instruction at `625011C7`
+We will pick the `JMP ESP` instruction at `625011C7`.
 Let's update the exploit and replace the four `B` with that address:
 
 .exploit.py
@@ -262,17 +262,17 @@ For jumping, we can use the unconditional jump instruction found in
 X86 architecture called `JMP` that will divert the execution flow
 to the desired address. We also need to know where to jump.
 
-Let's look at the follow image which is the resulting location after
+Let's look at the next image which is the resulting location after
 our `JMP ESP` execution:
 
 image::jmp1.png[Location of our execution flow]
 
 As we can see, we are in the next instruction after the `JMP ESP`
 at the address `00CBF9C8` (This is a stack address so it will change
-everytime we run the application), and we see that we have only 
+everytime we run the application), and we see that we have only
 20 bytes to work.
 
-If we scroll up, we can see that the buffer of `A`, starts at 
+If we scroll up, we can see that the buffer of `A`, starts at
 `00CBF931`:
 
 image::jmp2.png[Start of buffer]
@@ -440,8 +440,16 @@ SHELL += b"\x2c\xf4\xce\x22\xcd\x03\xce\x47\xc8\x48\x48\xb4"
 SHELL += b"\xa0\xc1\x3d\xba\x17\xe1\x17"
 ----
 
-And add it to our exploit. Remember to prepend the `w00tw00t`
-tag, or the egghunter won't be able to find it!
+But where can we fit it? This shellcode is 355 bytes long but we only
+have 140 bytes as much to work.
+
+We have to think out of the box: `Vulnserver` is a server (really!) and it
+will surely multiplex connections. Well, we can create a different connection
+to send the shellcode over! This will store it on memory where our
+egghunter will be able to find it.
+
+Let's update our exploit. Remember to prepend the `w00tw00t`
+egg to the shellcode, or the egghunter won't be able to find it!
 
 .exploit.py
 [source,python]
@@ -524,7 +532,7 @@ Awesome! We got our shell again!
 == Conclusion
 
 The egghunter technique is very useful when dealing with
-short space for sending complex payloads. However, you 
+short space for sending complex payloads. However, you
 must be careful to inject the correct tag because it will
 start using all the available CPU for searching the
 egg on the entire system memory.
