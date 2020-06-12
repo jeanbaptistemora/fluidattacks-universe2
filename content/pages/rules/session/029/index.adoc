@@ -23,8 +23,7 @@ by denying the browser visibility and access to it
 (even when *Cross Site Scripting [XSS]* attacks are used)
 and allow the *cookie* to be sent
 only when the request is encrypted (using *HTTPS*),
-in this manner, session theft is greatly mitigated
-and therefore increases the integrity of the application.
+in this manner, session theft is greatly mitigated.
 
 == Implementation
 
@@ -127,30 +126,42 @@ but the cookie is not marked with the HttpOnly flag.
 Cookies SHALL be tagged to be accessible only on secure (HTTPS) sessions.
 
 . [[r4]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
+Cookies SHALL be accessible to the minimum practical set of hostnames and
+paths.
+
+. [[r5]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
 Cookies SHOULD be tagged to be inaccessible via JavaScript (HttpOnly).
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.2 Session Binding Requirements.(3.2.3)]
 Verify the application only stores session tokens in the browser using secure
 methods such as appropriately secured cookies (see section 3.4) or HTML 5
 session storage.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.1)]
 Verify that cookie-based session tokens have the 'Secure' attribute set.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.2)]
 Verify that cookie-based session tokens have the 'HttpOnly' attribute set.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.3)]
 Verify that cookie-based session tokens utilize the 'SameSite' attribute to
 limit exposure to cross-site request forgery attacks.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.4)]
 Verify that cookie-based session tokens use "**__Host-**" prefix
 (see references) to provide session cookie confidentiality.
 
-. [[r10]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.4 Cookie-based Session Management.(3.4.5)]
+Verify that if the application is published under a domain name with other
+applications that set or use session cookies that might override or disclose
+the session cookies,
+the path attribute in cookie-based session tokens is set using the most precise
+path possible.
+
+. [[r12]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
