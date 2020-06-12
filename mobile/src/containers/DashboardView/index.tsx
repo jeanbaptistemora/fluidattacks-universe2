@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
-import * as SecureStore from "expo-secure-store";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
  * Necessary polyfill due to a bug in RN for android
@@ -23,7 +22,7 @@ import { default as Border } from "../../../assets/percentBorder.svg";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
-import { IUser } from "../LoginView/socialAuth";
+import { IAuthState, logout } from "../LoginView/socialAuth";
 
 import { Header } from "./Header";
 import { PROJECTS_QUERY } from "./queries";
@@ -32,7 +31,7 @@ import { IProject, IProjectsResult } from "./types";
 
 const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
-  const { user } = history.location.state as { user: IUser };
+  const { user } = history.location.state as IAuthState;
   const { colors } = useTheme();
   const { t } = useTranslation();
 
@@ -76,9 +75,8 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
 
   // Event handlers
   const handleLogout: (() => void) = async (): Promise<void> => {
-    await SecureStore.deleteItemAsync("integrates_session");
+    await logout();
     await client.clearStore();
-    rollbar.clearPerson();
     history.replace("/");
   };
 

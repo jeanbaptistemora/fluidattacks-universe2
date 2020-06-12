@@ -12,6 +12,8 @@ import React from "react";
 import { Alert } from "react-native";
 import { useHistory } from "react-router-native";
 
+import { logout } from "../containers/LoginView/socialAuth";
+
 import { getEnvironment } from "./environment";
 import { rollbar } from "./rollbar";
 import { i18next } from "./translations/translate";
@@ -70,7 +72,7 @@ const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (errorHandler: Err
 
 // Top-level error handling
 const errorLink: ((history: History) => ApolloLink) = (history: History): ApolloLink =>
-  onError(({ graphQLErrors, networkError }: ErrorResponse): void => {
+  onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
     if (networkError !== undefined) {
       const { statusCode } = networkError as { statusCode: number | undefined };
 
@@ -88,8 +90,13 @@ const errorLink: ((history: History) => ApolloLink) = (history: History): Apollo
       }
     } else {
       if (graphQLErrors !== undefined) {
-        graphQLErrors.forEach((error: GraphQLError): void => {
+        graphQLErrors.forEach(async (error: GraphQLError): Promise<void> => {
           if (error.message === "Login required") {
+            if (response !== undefined) {
+              response.data = undefined;
+              response.errors = [];
+            }
+            await logout();
             Alert.alert(
               i18next.t("common.sessionExpired.title"),
               i18next.t("common.sessionExpired.msg"));

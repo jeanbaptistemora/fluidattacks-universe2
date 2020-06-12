@@ -1,5 +1,6 @@
 import * as AppAuth from "expo-app-auth";
 import * as Google from "expo-google-app-auth";
+import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import { Alert, Platform } from "react-native";
 
@@ -25,6 +26,7 @@ enum AppAuthError {
   ServerError,
   JSONDeserializationError,
   TokenResponseConstructionError,
+  AccessDenied = 1002,
 }
 
 /**
@@ -40,7 +42,7 @@ const getStandardErrorCode: ((code: number) => number) = (code: number): number 
 });
 
 /** Normalized user properties */
-export interface IUser {
+interface IUser {
   email: string;
   firstName: string;
   fullName: string;
@@ -49,29 +51,33 @@ export interface IUser {
   photoUrl?: string;
 }
 
-export type IAuthResult = {
-  type: "cancel";
-} | {
-  authToken: string | null;
-  type: "success";
+/** Auth data provided after login */
+export interface IAuthState {
+  authProvider: "GOOGLE" | "MICROSOFT";
+  authToken: string;
   user: IUser;
+}
+
+export type IAuthResult = { type: "cancel" } | IAuthState & { type: "success" };
+
+const googleConfig: Google.GoogleLogInConfig = {
+  androidClientId: GOOGLE_LOGIN_KEY_ANDROID_DEV,
+  androidStandaloneAppClientId: GOOGLE_LOGIN_KEY_ANDROID_PROD,
+  iosClientId: GOOGLE_LOGIN_KEY_IOS_DEV,
+  iosStandaloneAppClientId: GOOGLE_LOGIN_KEY_IOS_PROD,
+  scopes: ["profile", "email"],
 };
 
 export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IAuthResult> => {
   let authResult: IAuthResult = { type: "cancel" };
 
   try {
-    const logInResult: Google.LogInResult = await Google.logInAsync({
-      androidClientId: GOOGLE_LOGIN_KEY_ANDROID_DEV,
-      androidStandaloneAppClientId: GOOGLE_LOGIN_KEY_ANDROID_PROD,
-      iosClientId: GOOGLE_LOGIN_KEY_IOS_DEV,
-      iosStandaloneAppClientId: GOOGLE_LOGIN_KEY_IOS_PROD,
-      scopes: ["profile", "email"],
-    });
+    const logInResult: Google.LogInResult = await Google.logInAsync(googleConfig);
 
     if (logInResult.type === "success") {
       authResult = {
-        authToken: logInResult.accessToken,
+        authProvider: "GOOGLE",
+        authToken: logInResult.accessToken as string,
         type: "success",
         user: {
           email: logInResult.user.email as string,
@@ -99,20 +105,23 @@ export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IA
   return authResult;
 };
 
+const microsoftConfig: AppAuth.OAuthProps = {
+  clientId: MICROSOFT_LOGIN_KEY,
+  issuer: "https://login.microsoftonline.com/common/v2.0",
+  redirectUrl: `${AppAuth.OAuthRedirect}://oauth2redirect/microsoft`,
+  scopes: ["openid", "profile", "email"],
+  serviceConfiguration: {
+    authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+    revocationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/logout",
+    tokenEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+  },
+};
+
 export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise<IAuthResult> => {
   let authResult: IAuthResult = { type: "cancel" };
 
   try {
-    const logInResult: AppAuth.TokenResponse = await AppAuth.authAsync({
-      clientId: MICROSOFT_LOGIN_KEY,
-      issuer: "https://login.microsoftonline.com/common/v2.0",
-      redirectUrl: `${AppAuth.OAuthRedirect}://oauth2redirect/microsoft`,
-      scopes: ["openid", "profile", "email"],
-      serviceConfiguration: {
-        authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
-        tokenEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/token",
-      },
-    });
+    const logInResult: AppAuth.TokenResponse = await AppAuth.authAsync(microsoftConfig);
 
     const userResponse: Response = await fetch("https://graph.microsoft.com/v1.0/me", {
       headers: { Authorization: `Bearer ${logInResult.accessToken}` },
@@ -125,7 +134,8 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
     const userProps: Record<string, string> = await userResponse.json() as Record<string, string>;
 
     authResult = {
-      authToken: logInResult.idToken,
+      authProvider: "MICROSOFT",
+      authToken: logInResult.idToken as string,
       type: "success",
       user: {
         email: userProps.mail,
@@ -136,11 +146,11 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
       },
     };
   } catch (error) {
-    const errorCode: AppAuthError = getStandardErrorCode((error as { code: AppAuthError }).code);
-
+    const errorCode: AppAuthError = getStandardErrorCode(Number((error as { code: AppAuthError }).code));
     switch (errorCode) {
       case AppAuthError.UserCanceledAuthorizationFlow:
       case AppAuthError.ProgramCanceledAuthorizationFlow:
+      case AppAuthError.AccessDenied:
         break;
       default:
         rollbar.error("An error occurred authenticating with Microsoft", error as Error);
@@ -149,4 +159,26 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
   }
 
   return authResult;
+};
+
+export const logout: (() => Promise<void>) = async (): Promise<void> => {
+  await SecureStore.deleteItemAsync("integrates_session");
+  const authState: string | null = await SecureStore.getItemAsync("authState");
+  const { authProvider, authToken }: IAuthState = JSON.parse(authState as string) as IAuthState;
+
+  switch (authProvider) {
+    case "GOOGLE":
+      Google.logOutAsync({ accessToken: authToken, ...googleConfig })
+        .catch((error: Error): void => {
+          rollbar.error("Couldn't revoke google session", { ...error });
+        });
+    case "MICROSOFT":
+      AppAuth.revokeAsync(microsoftConfig, { isClientIdProvided: true, token: authToken })
+        .catch((error: Error): void => {
+          rollbar.error("Couldn't revoke microsoft session", { ...error });
+        });
+    default:
+  }
+  await SecureStore.deleteItemAsync("authState");
+  rollbar.clearPerson();
 };

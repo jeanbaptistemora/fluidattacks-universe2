@@ -1,4 +1,5 @@
 import { AppOwnership, default as Constants, NativeConstants } from "expo-constants";
+import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -29,21 +30,27 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    const executeCheckVersion: (() => void) = async (): Promise<void> => {
-      const shouldSkipCheck: boolean =
-        Platform.OS === "ios"
-        || Constants.appOwnership === AppOwnership.Expo;
+    const executeStartupChecks: (() => void) = async (): Promise<void> => {
+      const token: string | null = await SecureStore.getItemAsync("integrates_session");
+      const authState: string | null = await SecureStore.getItemAsync("authState");
 
-      if (shouldSkipCheck) {
-        setOutdated(false);
+      if (!_.isNil(token) && !_.isNil(authState)) {
+        history.replace("/Dashboard", JSON.parse(authState));
       } else {
-        setOutdated(await checkPlayStoreVersion());
-      }
+        const shouldSkipCheck: boolean =
+          Platform.OS === "ios"
+          || Constants.appOwnership === AppOwnership.Expo;
 
-      setLoading(false);
+        if (shouldSkipCheck) {
+          setOutdated(false);
+        } else {
+          setOutdated(await checkPlayStoreVersion());
+        }
+        setLoading(false);
+      }
     };
 
-    executeCheckVersion();
+    executeStartupChecks();
   };
   React.useEffect(onMount, []);
 
@@ -54,10 +61,8 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
     const result: IAuthResult = await authWithGoogle();
     if (result.type === "success") {
       rollbar.setPerson({ id: result.user.email });
-      history.replace("/Welcome", {
-        authProvider: "GOOGLE",
-        ...result,
-      });
+      await SecureStore.setItemAsync("authState", JSON.stringify(result));
+      history.replace("/Welcome", result);
     } else {
       setLoading(false);
     }
@@ -69,10 +74,8 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
     const result: IAuthResult = await authWithMicrosoft();
     if (result.type === "success") {
       rollbar.setPerson({ id: result.user.email });
-      history.replace("/Welcome", {
-        authProvider: "MICROSOFT",
-        ...result,
-      });
+      await SecureStore.setItemAsync("authState", JSON.stringify(result));
+      history.replace("/Welcome", result);
     } else {
       setLoading(false);
     }

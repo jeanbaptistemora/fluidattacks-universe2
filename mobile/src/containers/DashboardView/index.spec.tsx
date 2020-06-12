@@ -37,6 +37,8 @@ jest.mock("react-router-native", (): Dictionary => {
   };
 });
 
+jest.mock("../LoginView/socialAuth");
+
 describe("DashboardView", (): void => {
   afterEach((): void => {
     jest.clearAllMocks();

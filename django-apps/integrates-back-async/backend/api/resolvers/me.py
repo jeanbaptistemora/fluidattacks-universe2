@@ -191,7 +191,7 @@ async def _do_sign_in(
                 'first_name': getattr(user, 'first_name'),
                 'last_name': getattr(user, 'last_name'),
                 'exp': datetime.utcnow() +
-                timedelta(seconds=settings.SESSION_COOKIE_AGE)
+                timedelta(seconds=settings.MOBILE_SESSION_AGE)
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,

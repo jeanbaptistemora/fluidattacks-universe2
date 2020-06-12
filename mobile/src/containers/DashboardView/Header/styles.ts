@@ -22,5 +22,8 @@ export const styles: Dictionary = StyleSheet.create({
   logout: {
     color: "lightgray",
     fontWeight: "500",
+    padding: 15,
+    paddingRight: 0,
+    textAlign: "right",
   },
 });

@@ -23,8 +23,7 @@
     "primaryColor": "#272727",
     "updates": {
       "checkAutomatically": "ON_LOAD",
-      "enabled": true,
-      "fallbackToCacheTimeout": 10000
+      "enabled": true
     },
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [

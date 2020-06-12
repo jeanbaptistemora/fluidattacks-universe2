@@ -12,8 +12,8 @@ export const enTranslations: ResourceLanguage = {
       title: "Offline",
     },
     sessionExpired: {
-      msg: "Session expired",
-      title: "Your have been logged out",
+      msg: "Your have been logged out",
+      title: "Session expired",
     },
     slogan: "We hack your software",
   },
