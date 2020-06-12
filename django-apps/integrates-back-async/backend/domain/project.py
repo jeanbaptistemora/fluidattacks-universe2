@@ -33,17 +33,6 @@ from backend.exceptions import (
 from backend.utils import validations
 from backend import authz, mailer, util
 
-from __init__ import FI_MAIL_REVIEWERS
-
-
-def get_email_recipients(project_name: str) -> List[str]:
-    """Get the recipients of the comment email."""
-    recipients = async_to_sync(get_users_to_notify)(project_name)
-    approvers = FI_MAIL_REVIEWERS.split(',')
-    recipients += approvers
-
-    return recipients
-
 
 def add_comment(project_name: str, email: str, comment_data: CommentType) -> bool:
     """Add comment in a project."""

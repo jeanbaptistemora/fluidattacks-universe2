@@ -11,8 +11,7 @@ import pytest
 from backend.dal.helpers import dynamodb
 from backend.domain.project import (
     add_comment,
-    edit,
-    get_email_recipients, validate_tags, is_alive,
+    edit, validate_tags, is_alive,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
     is_vulnerability_closed, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
@@ -37,11 +36,6 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
 class ProjectTest(TestCase):
-
-    def test_get_email_recipients(self):
-        recipients = get_email_recipients('unittesting')
-        assert isinstance(recipients, list)
-        assert isinstance(recipients[0], str)
 
     def test_validate_project_services_config(self):
         with pytest.raises(InvalidProjectServicesConfig):

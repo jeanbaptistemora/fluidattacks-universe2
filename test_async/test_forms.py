@@ -1,25 +1,13 @@
 import pytest
 from datetime import datetime
 
-from backend.utils.forms import (
-    dict_concatenation, is_exploitable
-)
+from backend.utils.forms import is_exploitable
 
 from django.test import TestCase
 from numpy import arange
 
 
 class FormsTests(TestCase):
-
-    def test_dict_concatenation(self):
-        dict_1 = {'element': 'hi', 'element2': 'how are'}
-        dict_2 = {'element3': 'you'}
-        test_data = dict_concatenation(dict_1, dict_2)
-        expected_output = {
-            'element': 'hi',
-            'element2': 'how are',
-            'element3': 'you'}
-        assert test_data == expected_output
 
     def test_is_exploitable(self):
         version = '3.1'
