@@ -65,6 +65,17 @@ def validate_url(url: str):
     check_field(clean_url, r'^[a-zA-Z0-9(),./:;@_$#-]*$')
 
 
+def validate_file_name(name: str) -> bool:
+    """ Verify that filename has valid characters. """
+    name = str(name)
+    name_len = len(name.split('.'))
+    if name_len <= 2:
+        is_valid = bool(re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name)))
+    else:
+        is_valid = False
+    return is_valid
+
+
 def check_field(field: str, regexp: str):
     if not re.match(regexp, field):
         raise InvalidChar()

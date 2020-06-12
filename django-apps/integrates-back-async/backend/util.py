@@ -274,17 +274,6 @@ def invalidate_cache(key_pattern: str) -> None:
     cache.delete_pattern('*' + str(key_pattern).lower() + '*')
 
 
-def is_valid_file_name(name: str) -> bool:
-    """ Verify that filename has valid characters. """
-    name = str(name)
-    name_len = len(name.split('.'))
-    if name_len <= 2:
-        is_valid = bool(re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name)))
-    else:
-        is_valid = False
-    return is_valid
-
-
 def format_comment_date(date_string: str) -> str:
     date = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
     formatted_date = date.strftime('%Y/%m/%d %H:%M:%S')

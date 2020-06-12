@@ -19,7 +19,7 @@ from backend.util import (
     response, ord_asc_by_criticality, user_email_filter,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
     get_jwt_content, iterate_s3_keys, replace_all,
-    list_to_dict, camelcase_to_snakecase, is_valid_file_name, is_valid_format)
+    list_to_dict, camelcase_to_snakecase, is_valid_format)
 
 from backend.dal.finding import get_finding
 
@@ -148,12 +148,6 @@ class UtilTests(TestCase):
         test_data = camelcase_to_snakecase(camelcase_string)
         expected_output = 'this_is_a_test'
         assert test_data == expected_output
-
-    def test_is_valid_file_name(self):
-        name = 'test123.py'
-        invalid_name = 'test.test.py'
-        assert is_valid_file_name(name)
-        assert not is_valid_file_name(invalid_name)
 
     def test_is_valid_format(self):
         date = '2019-03-30 00:00:00'

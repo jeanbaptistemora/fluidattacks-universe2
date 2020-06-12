@@ -106,7 +106,7 @@ File already exists', 'error')
     else:
         # Project doesn't have files
         pass
-    if util.is_valid_file_name(uploaded_file):
+    if validations.validate_file_name(uploaded_file):
         return (
             resources_dal.save_file(uploaded_file, file_id)
             and resources_dal.create(json_data, project_name, 'files'))

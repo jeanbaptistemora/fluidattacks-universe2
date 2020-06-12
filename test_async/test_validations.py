@@ -5,7 +5,8 @@ from django.test import TestCase
 
 from backend.utils.validations import (
     validate_email_address, validate_fields, validate_field_length,
-    validate_project_name, validate_alphanumeric_field, validate_phone_field
+    validate_file_name, validate_project_name, validate_alphanumeric_field,
+    validate_phone_field
 )
 from backend.exceptions import InvalidChar, InvalidField, InvalidFieldLength
 
@@ -46,3 +47,9 @@ class ValidationsTests(TestCase):
         assert validate_phone_field('+57123')
         with pytest.raises(InvalidField):
             assert validate_phone_field('+')
+
+    def test_validate_file_name(self):
+        name = 'test123.py'
+        invalid_name = 'test.test.py'
+        assert validate_file_name(name)
+        assert not validate_file_name(invalid_name)
