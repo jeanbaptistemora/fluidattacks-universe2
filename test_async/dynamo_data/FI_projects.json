@@ -2655,9 +2655,6 @@
                   "SS" : [
                      "test-tag"
                   ]
-               },
-               "type" : {
-                  "S" : "continuous"
                }
             }
          }

@@ -48,12 +48,16 @@ def is_a_unsolved_event(event: EventType) -> bool:
                 event.get('historic_state', [{}]))[-1].get('state', '') == 'CREATED'
 
 
-def get_unsolved_events(project: str) -> List[EventType]:
-    events = project_domain.list_events(project)
-    event_list = []
-    for event in events:
-        event_attr = event_domain.get_event(event)
-        event_list.append(event_attr)
+async def get_unsolved_events(project: str) -> List[EventType]:
+    events = await sync_to_async(project_domain.list_events)(project)
+    event_list = await asyncio.gather(*[
+        asyncio.create_task(
+            sync_to_async(event_domain.get_event)(
+                event
+            )
+        )
+        for event in events
+    ])
     unsolved_events = list(filter(is_a_unsolved_event, event_list))
     return unsolved_events
 
@@ -63,18 +67,18 @@ def extract_info_from_event_dict(event_dict: EventType) -> EventType:
     return event_dict
 
 
-def send_unsolved_events_email(project: str):
-    unsolved_events = get_unsolved_events(project)
-    mail_to = get_external_recipients(project)
-    project_info = project_domain.get_project_info(project)
-    if project_info and \
-            project_info[0].get('type') == 'continuous':
+async def send_unsolved_events_email(project: str):
+    mail_to = []
+    events_info_for_email = []
+    project_info = await sync_to_async(project_domain.get_project_info)(project)
+    historic_configuration = project_info[0].get('historic_configuration', [{}])
+    if project_info and historic_configuration[-1].get('type', '') == 'continuous':
+        mail_to = await sync_to_async(get_external_recipients)(project)
         mail_to.append(FI_MAIL_CONTINUOUS)
         mail_to.append(FI_MAIL_PROJECTS)
-    else:
-        mail_to = []
-    events_info_for_email = [extract_info_from_event_dict(x)
-                             for x in unsolved_events]
+        unsolved_events = await get_unsolved_events(project)
+        events_info_for_email = [extract_info_from_event_dict(x)
+                                 for x in unsolved_events]
     context_event: Dict[str, Union[str, int]] = {
         'project': project.capitalize(),
         'events_len': int(len(events_info_for_email)),
@@ -516,12 +520,16 @@ async def get_new_releases():
                                'warning')
 
 
-def send_unsolved_to_all() -> List[bool]:
+@async_to_sync
+async def send_unsolved_to_all() -> List[bool]:
     """Send email with unsolved events to all projects """
     rollbar.report_message('Warning: Function to send email with unsolved events is running',
                            'warning')
-    projects = project_domain.get_active_projects()
-    return [send_unsolved_events_email(x) for x in projects]
+    projects = await sync_to_async(project_domain.get_active_projects)()
+    return await asyncio.gather(*[
+        send_unsolved_events_email(project)
+        for project in projects
+    ])
 
 
 async def get_project_indicators(project: str) -> Dict[str, object]:

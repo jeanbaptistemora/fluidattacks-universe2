@@ -74,7 +74,7 @@ class SchedulerTests(TestCase):
             key=settings.JWT_SECRET,
         )
         project_name = 'unittesting'
-        test_data = get_unsolved_events(project_name)
+        test_data = async_to_sync(get_unsolved_events)(project_name)
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], dict)
         assert [ev for ev in test_data if ev['event_id'] == '540462628']

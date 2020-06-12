@@ -220,21 +220,22 @@ async def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, st
     })
     if new_values['treatment'] == 'NEW':
         new_values['treatment_manager'] = None
-    vulns = get_vulnerabilities(finding_id)
+    vulns = await sync_to_async(get_vulnerabilities)(finding_id)
     for vuln in vulns:
         if not any('treatment_manager' in dicts for dicts in [new_values, vuln]):
-            finding = finding_dal.get_finding(finding_id)
+            finding = await sync_to_async(finding_dal.get_finding)(finding_id)
             group: str = cast(str, finding.get('project_name', ''))
             email: str = updated_values.get('user', '')
             treatment: str = cast(str, new_values.get('treatment', ''))
+            group_level_role: str = await sync_to_async(authz.get_group_level_role)(email, group)
 
-            new_values['treatment_manager'] = vuln_domain.set_treatment_manager(
-                treatment,
-                email,
-                finding,
-                authz.get_group_level_role(email, group) == 'customeradmin',
-                email,
-            )
+            new_values['treatment_manager'] = \
+                await sync_to_async(vuln_domain.set_treatment_manager)(
+                    treatment,
+                    email,
+                    finding,
+                    group_level_role == 'customeradmin',
+                    email)
             break
 
     update_treatment_result = await asyncio.gather(*[
