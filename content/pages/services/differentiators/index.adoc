@@ -152,7 +152,7 @@ a|{yes} Integrable with any development method, such as:
 {sp} +
 [button]#link:../../products/integrates/[Integrates]# +
 {sp} +
-and [button]#link:../../products/asserts/[Asserts]# +
+and [button]#link:../../asserts/[Asserts]# +
 {sp} +
 fit perfect for the last 2 use cases.
 a|{no} Integrable with a single development method:
@@ -162,7 +162,7 @@ a|{no} Integrable with a single development method:
 a|==== Environments
 a|* Integration:
 [button]#link:../../use-cases/continuous/[Continuous Hacking]#
-and [button]#link:../../products/asserts/[Asserts]#
+and [button]#link:../../asserts/[Asserts]#
 fit perfectly in this use case
 link:../../use-cases/continuous/environments/[^13^]
 link:../../use-cases/one-shot/environments/[^14^].
@@ -244,7 +244,7 @@ link:../../use-cases/one-shot/infection/[^21^]:
 
 a|==== Custom Exploits
 | {yes} Using our own exploitation engine
-[button]#link:../../products/asserts/[Asserts]#.
+[button]#link:../../asserts/[Asserts]#.
 | {no} Unable to create and execute exploits.
 
 a|==== link:../../blog/importance-pentesting/#diagram[Correlation]
