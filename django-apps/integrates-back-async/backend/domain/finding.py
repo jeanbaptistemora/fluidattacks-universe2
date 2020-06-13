@@ -584,6 +584,16 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
                   if item['name'] == evidence_type), [])
         if evidence:
             index = files.index(cast(Dict[str, str], evidence))
+            if files[index].get('file_url', evidence_id) != evidence_id:
+                # old evidence that does not comply the
+                # namestyle will not be replaced and be orphan
+                finding_dal.remove_evidence(
+                    '{group_name}/{finding_id}/{file_url}'.format(
+                        group_name=project_name,
+                        finding_id=finding_id,
+                        file_url=files[index].get('file_url', '')
+                    )
+                )
             success = finding_dal.update(
                 finding_id, {f'files[{index}].file_url': evidence_id})
         else:
