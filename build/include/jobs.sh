@@ -615,13 +615,24 @@ function job_analytics_prod {
 
 function _job_analytics_all {
   local env="${1}"
+  local extra_flags=()
+  local remote_bucket='fluidintegrates.analytics'
 
-  find 'analytics/generators' -wholename '*.py' \
-    | while read -r generator
-      do
-            echo "[INFO] Running: ${generator}" \
-        &&  _job_analytics "${generator}"
-      done
+      find 'analytics/generators' -wholename '*.py' \
+        | while read -r generator
+          do
+                echo "[INFO] Running: ${generator}" \
+            &&  _job_analytics "${generator}"
+          done \
+  &&  if test "${env}" = 'prod'
+      then
+        # Delete stale groups and documents
+        extra_flags+=('--delete')
+      else
+        # Dev works in put-only mode
+        :
+      fi \
+  &&  aws s3 sync "${extra_flags[@]}" 'analytics/generators' "s3://${remote_bucket}"
 }
 
 function job_analytics_dev_all {

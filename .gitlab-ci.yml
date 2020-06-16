@@ -265,7 +265,7 @@ deploy_front:
   stage: deploy-app
   needs: [build_front]
 
-functional_tests_dev:
+.functional_tests_dev:
   <<: *with_nix
   <<: *in_dev_branch
   image: "${CI_REGISTRY_IMAGE}/nix:functional_tests_dev"

@@ -53,6 +53,7 @@ try:
     BASE_URL = 'https://fluidattacks.com/integrates'
     FI_AWS_REDSHIFT_PORT = 5439
     FI_AWS_S3_BUCKET = 'fluidintegrates.evidences'
+    FI_AWS_S3_ANALYTICS_BUCKET = 'fluidintegrates.analytics'
     FI_AWS_S3_RESOURCES_BUCKET = 'fluidintegrates.resources'
     FI_AWS_S3_REPORTS_BUCKET = 'fluidintegrates.reports'
     SERVICES_AWS_S3_DATA_BUCKET = 'continuous-data'

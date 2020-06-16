@@ -2,9 +2,11 @@
 # disable MyPy due to error "boto module has no attribute client"
 #  type: ignore
 
+import contextlib
 import os
 from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
 
+import aioboto3
 import boto3
 import rollbar
 from botocore.exceptions import ClientError
@@ -18,11 +20,26 @@ from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
 )
 
-CLIENT = boto3.client(
-    service_name='s3',
+OPTIONS = dict(
     aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
     aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
-    aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),)
+    aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),
+    region_name='us-east-1',
+    service_name='s3',
+)
+CLIENT = boto3.client(**OPTIONS)
+
+
+@contextlib.asynccontextmanager
+async def aio_client():
+    async with aioboto3.client(**OPTIONS) as client:
+        yield client
+
+
+@contextlib.asynccontextmanager
+async def aio_resource():
+    async with aioboto3.resource(**OPTIONS) as resource:
+        yield resource
 
 
 def download_file(bucket, file_name, file_path):
