@@ -3,7 +3,7 @@ import pytest
 from backend.dal.project import get
 
 from backend.dal.resources import (
-    create, update
+    create, update, remove
 )
 
 
@@ -67,5 +67,51 @@ def test_update():
         [{'project_name':'unittesting_project_2',
         'files':[
             {'description':'this is a test2', 'filename':'nonexistentfile2'}],
+        'repositories':[
+            {'branch':'unittesting', 'urlRepo':'nonexistent.repo'}]}]
+
+
+@pytest.mark.changes_db
+def test_remove():
+    assert get('unittesting_project_3') == []
+
+    create(
+        [{'description':'this is a test','filename':'nonexistentfile'}],
+        'unittesting_project_3','files')
+
+    create(
+        [{'description':'this is a test2', 'filename':'nonexistentfile2'}],
+        'unittesting_project_3', 'files')
+
+    create(
+        [{'branch':'unittesting', 'urlRepo':'nonexistent.repo'}],
+        'unittesting_project_3', 'repositories')
+    assert get('unittesting_project_3') == \
+        [{'project_name':'unittesting_project_3',
+        'files':[
+            {'description':'this is a test', 'filename':'nonexistentfile'},
+            {'description':'this is a test2', 'filename':'nonexistentfile2'}],
+        'repositories':[
+            {'branch':'unittesting', 'urlRepo':'nonexistent.repo'}]}]
+
+    remove('unittesting_project_3', 'files', '0')
+    assert get('unittesting_project_3') == \
+        [{'project_name':'unittesting_project_3',
+        'files':[
+            {'description':'this is a test2', 'filename':'nonexistentfile2'}],
+        'repositories':[
+            {'branch':'unittesting', 'urlRepo':'nonexistent.repo'}]}]
+
+    remove('unittesting_project_3', 'files', '0')
+    assert get('unittesting_project_3') == \
+        [{'project_name':'unittesting_project_3',
+        'files':[],
+        'repositories':[
+            {'branch':'unittesting', 'urlRepo':'nonexistent.repo'}]}]
+
+    remove('unittesting_project_3', 'files', '2')
+    assert get('unittesting_project_3') == \
+        [{'project_name':'unittesting_project_3',
+        'files':[],
         'repositories':[
             {'branch':'unittesting', 'urlRepo':'nonexistent.repo'}]}]

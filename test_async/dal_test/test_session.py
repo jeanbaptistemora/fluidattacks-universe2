@@ -1,5 +1,6 @@
 import pytest
 
+from asgiref.sync import async_to_sync
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -19,11 +20,11 @@ def create_dummy_session(username):
     request.session.save()
     return request.session.session_key
 
-def test_get_all_logged_users():
+def _test_get_all_logged_users():
     def unpack_sessions(active_users):
         return sorted(
             [tuple(*a_user.items()) for a_user in active_users],
-            key = lambda x: x[1]
+            key = itemgetter(1)
         )
 
     for session in unpack_sessions(get_all_logged_users()):
@@ -35,7 +36,7 @@ def test_get_all_logged_users():
     users, _ = zip(*unpack_sessions(get_all_logged_users()))
     assert sorted(users) == ['unittest', 'unittest2']
 
-def test_get_previous_session():
+def _test_get_previous_session():
     def unpack_sessions(active_users):
         return sorted(
             [tuple(*a_user.items()) for a_user in active_users],
@@ -55,11 +56,11 @@ def test_get_previous_session():
         f'fi_session:{test_1[-1]}' == \
         get_previous_session('unittest4', create_dummy_session('unittest4'))
 
-def test_invalidate_session():
+def _test_invalidate_session():
     def unpack_sessions(active_users):
         return sorted(
             [tuple(*a_user.items()) for a_user in active_users],
-            key = lambda x: x[1]
+            key = itemgetter(1)
         )
 
     for session in unpack_sessions(get_all_logged_users()):
@@ -83,3 +84,9 @@ def test_invalidate_session():
         invalidate_session(to_invalidate)
     _, result_1 = zip(*unpack_sessions(get_all_logged_users()))
     assert sorted(result_1) == expected
+
+@pytest.mark.changes_sessions
+def test_sessions():
+    _test_get_all_logged_users()
+    _test_get_previous_session()
+    _test_invalidate_session()
