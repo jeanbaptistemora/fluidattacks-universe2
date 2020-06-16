@@ -156,7 +156,8 @@ def _encrypted_zip_file(
         raise RuntimeError('Nothing to pack into the final file')
 
     # Impossible to predict with this uuid4
-    target = tempfile.mktemp(suffix=f'_{uuid4()}.7z')
+    with tempfile.NamedTemporaryFile() as temp_file:
+        target = temp_file.name + f'_{uuid4()}.7z'
 
     subprocess.run(
         [
