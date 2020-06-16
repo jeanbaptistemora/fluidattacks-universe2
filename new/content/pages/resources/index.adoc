@@ -17,11 +17,11 @@ that looks for deterministic and peripheral vulnerabilities,
 and that automates attacks
 to verify the status of vulnerabilities on your system.
 
-== link:[Drills Datasheet]
+== link:https://fluidattacks.docsend.com/view/dwz4jbxryn54k4mc[Drills Datasheet]
 
-== link:[Forces Datasheet]
+== link:https://fluidattacks.docsend.com/view/utsh7u7hdef453fw[Forces Datasheet]
 
-== link:[Integrates Datasheet]
+== link:https://fluidattacks.docsend.com/view/ymup7742z3wkkzex[Integrates Datasheet]
 
 == link:https://report2020.fluidattacks.com/[Annual Report 2020]
 
