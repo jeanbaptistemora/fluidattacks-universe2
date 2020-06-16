@@ -465,7 +465,7 @@ function job_reset {
     'front/coverage.lcov'
     'front/node_modules'
     'lambda/.venv.*'
-	  'mobile/.expo/'
+    'mobile/.expo/'
     'mobile/google-services.json'
     'TEMP_FD'
     'test_async/dynamo_data/bb_executions.json.now'
@@ -586,14 +586,10 @@ function job_make_migration_prod_test {
 }
 
 function _job_analytics {
-  local env="${1}"
-  local results_dir
-  local generator="${2}"
+  local generator="${1}"
+  local results_dir="${generator//.py/}"
 
-      env_prepare_python_packages \
-  &&  "helper_set_${env}_secrets" \
-  &&  results_dir="${generator//.py/}" \
-  &&  mkdir -p "${results_dir}" \
+      mkdir -p "${results_dir}" \
   &&  DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
       PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
       RESULTS_DIR="${results_dir}" \
@@ -604,13 +600,44 @@ function _job_analytics {
 function job_analytics_dev {
   local generator="${1}"
 
-  _job_analytics 'dev' "${generator}"
+      env_prepare_python_packages \
+  &&  helper_set_dev_secrets \
+  &&  _job_analytics "${generator}"
 }
 
 function job_analytics_prod {
   local generator="${1}"
 
-  _job_make_migration 'prod' "${generator}"
+      env_prepare_python_packages \
+  &&  helper_set_prod_secrets \
+  &&  _job_analytics "${generator}"
+}
+
+function _job_analytics_all {
+  local env="${1}"
+
+  find 'analytics/generators' -wholename '*.py' \
+    | while read -r generator
+      do
+            echo "[INFO] Running: ${generator}" \
+        &&  _job_analytics "${generator}"
+      done
+}
+
+function job_analytics_dev_all {
+      env_prepare_python_packages \
+  &&  helper_set_dev_secrets \
+  &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
+      then
+        helper_set_local_dynamo_and_redis
+      fi \
+  &&  _job_analytics_all 'dev'
+}
+
+function job_analytics_prod_all {
+      env_prepare_python_packages \
+  &&  helper_set_prod_secrets \
+  &&  _job_analytics_all 'prod'
 }
 
 function job_make_migration_dev_apply {
@@ -894,45 +921,11 @@ function job_test_back {
     'not changes_db'
     'changes_db'
   )
-  local processes_to_kill=()
-  local port_dynamo='8022'
-  local port_redis='6379'
-
-  function kill_processes {
-    for process in "${processes_to_kill[@]}"
-    do
-      echo "[INFO] Killing PID: ${process}"
-      kill -9 "${process}" || true
-    done
-  }
-
-  trap kill_processes EXIT
 
   # shellcheck disable=SC2015
       env_prepare_python_packages \
-  &&  env_prepare_dynamodb_local \
   &&  helper_set_dev_secrets \
-  &&  echo '[INFO] Launching Redis' \
-  &&  {
-        redis-server --port "${port_redis}" \
-          &
-        processes_to_kill+=( "$!" )
-      } \
-  &&  echo '[INFO] Launching DynamoDB local' \
-  &&  {
-        java \
-          -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
-          -jar "${STARTDIR}/.DynamoDB/DynamoDBLocal.jar" \
-          -inMemory \
-          -port "${port_dynamo}" \
-          -sharedDb \
-          &
-        processes_to_kill+=( "$!" )
-      } \
-  &&  echo '[INFO] Waiting 5 seconds to leave DynamoDB start' \
-  &&  sleep 5 \
-  &&  echo '[INFO] Populating DynamoDB local' \
-  &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
+  &&  helper_set_local_dynamo_and_redis \
   &&  for i in "${!markers[@]}"
       do
             echo "[INFO] Running marker: ${markers[i]}" \

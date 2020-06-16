@@ -171,6 +171,46 @@ function helper_list_vars_with_regex {
   printenv | grep -oP "${regex}" | sort
 }
 
+function helper_set_local_dynamo_and_redis {
+  local processes_to_kill=()
+  local port_dynamo='8022'
+  local port_redis='6379'
+
+  function kill_processes {
+    for process in "${processes_to_kill[@]}"
+    do
+      echo "[INFO] Killing PID: ${process}"
+      kill -9 "${process}" || true
+    done
+  }
+
+  trap kill_processes EXIT
+
+      echo '[INFO] Launching Redis' \
+  &&  {
+        redis-server --port "${port_redis}" \
+          &
+        processes_to_kill+=( "$!" )
+      } \
+  &&  echo '[INFO] Launching DynamoDB local' \
+  &&  env_prepare_dynamodb_local \
+  &&  {
+        java \
+          -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
+          -jar "${STARTDIR}/.DynamoDB/DynamoDBLocal.jar" \
+          -inMemory \
+          -port "${port_dynamo}" \
+          -sharedDb \
+          &
+        processes_to_kill+=( "$!" )
+      } \
+  &&  echo '[INFO] Waiting 5 seconds to leave DynamoDB start' \
+  &&  sleep 5 \
+  &&  echo '[INFO] Populating DynamoDB local' \
+  &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
+
+}
+
 function helper_set_dev_secrets {
   export JWT_TOKEN
   export AWS_ACCESS_KEY_ID

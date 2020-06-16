@@ -45,7 +45,7 @@ def generate_one(group: str):
 
 
 def generate_all():
-    for group in group_domain.get_alive_projects():
+    for group in utils.iterate_groups():
         data = generate_one(group)
         utils.json_dump(f'group-{group}.json', data)
 

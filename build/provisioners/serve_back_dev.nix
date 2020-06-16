@@ -7,6 +7,7 @@ let
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
+    // (import ../src/dynamodb-local.nix pkgs)
     // (import ../src/external.nix pkgs)
     // (rec {
       name = "builder";
@@ -18,7 +19,9 @@ in
         pkgs.curl
         pkgs.cacert
         pkgs.nodejs
+        pkgs.openjdk
         pkgs.p7zip
+        pkgs.redis
         pkgs.sops
         pkgs.jq
         (builders.rubyGem pkgs).propagatedBuildInputs

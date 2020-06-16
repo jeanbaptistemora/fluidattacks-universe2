@@ -5,9 +5,13 @@ import os
 from typing import (
     Any,
     Dict,
+    Iterable,
 )
 
 # Third party libraries
+from backend.domain import (
+    project as group_domain,
+)
 from frozendict import frozendict
 
 
@@ -40,6 +44,12 @@ def get_vulnerability_root(vulnerability: Dict[str, str]) -> str:
     return root
 
 
+def iterate_groups() -> Iterable[str]:
+    for group in sorted(group_domain.get_alive_projects()):
+        log_info(f'Working on {group}')
+        yield group
+
+
 def json_dump(name: str, data: object) -> None:
     result_path = get_result_path(name)
 
@@ -67,3 +77,8 @@ def json_encoder(obj: Any) -> Any:
         casted_obj = obj
 
     return casted_obj
+
+
+# Using Any because this is a generic-input function
+def log_info(*args: Any, **kwargs: Any) -> None:
+    print('[INFO]', *args, **kwargs)
