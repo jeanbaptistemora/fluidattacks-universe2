@@ -453,15 +453,32 @@ function job_renew_certificates {
 
 function job_reset {
   local files_to_delete=(
-    'app/assets/dashboard/app-bundle.min.js'
-    'app/assets/dashboard/login-bundle.min.js'
+    'app/assets/dashboard/'
+    'app/documentator/images/*'
+    'app/documentator/tpls/*'
+    'app/documentator/results/*'
     'build/coverage'
     'django-apps/*/*.egg-info'
     'front/coverage'
+    'geckodriver.log'
     'mobile/coverage'
+    'front/coverage.lcov'
     'front/node_modules'
     'lambda/.venv.*'
-    '*coverage*'
+	  'mobile/.expo/'
+    'mobile/google-services.json'
+    'TEMP_FD'
+    'test_async/dynamo_data/bb_executions.json.now'
+    'version.txt'
+    '*.xlsx'
+    '.tmp'
+    '.DynamoDB'
+  )
+  local globs_to_delete=(
+    '*.coverage*'
+    '*package-lock.json'
+    '*__pycache__*'
+    '*.terraform'
   )
 
   for file in "${files_to_delete[@]}"
@@ -470,6 +487,12 @@ function job_reset {
     # shellcheck disable=SC2086
         echo "[INFO] Deleting: ${file}" \
     &&  rm -rf ${file}
+  done
+
+  for glob in "${globs_to_delete[@]}"
+  do
+        echo "[INFO] Deleting: ${glob}" \
+    &&  find . -wholename "${glob}" -exec rm -rf {} +
   done
 }
 
@@ -562,6 +585,34 @@ function job_make_migration_prod_test {
   _job_make_migration 'prod' 'test' "${migration_file}"
 }
 
+function _job_analytics {
+  local env="${1}"
+  local results_dir
+  local generator="${2}"
+
+      env_prepare_python_packages \
+  &&  "helper_set_${env}_secrets" \
+  &&  results_dir="${generator//.py/}" \
+  &&  mkdir -p "${results_dir}" \
+  &&  DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
+      PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
+      RESULTS_DIR="${results_dir}" \
+      python3 "${generator}" \
+
+}
+
+function job_analytics_dev {
+  local generator="${1}"
+
+  _job_analytics 'dev' "${generator}"
+}
+
+function job_analytics_prod {
+  local generator="${1}"
+
+  _job_make_migration 'prod' "${generator}"
+}
+
 function job_make_migration_dev_apply {
   local migration_file="${1}"
 
@@ -577,9 +628,11 @@ function job_make_migration_prod_apply {
 
 function job_lint_back {
       env_prepare_python_packages \
+  &&  mypy --strict --ignore-missing-imports analytics/ \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         django-apps/integrates-back-async \
   &&  mypy --strict --ignore-missing-imports app/migrations/ \
+  &&  prospector -F -s veryhigh analytics/ \
   &&  prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/api \
   &&  prospector -F -s high -u django -i node_modules -i django-apps/integrates-back-async/backend/api django-apps/integrates-back-async/backend/ \

@@ -16,6 +16,7 @@ django-debreach==2.0.1
 django-redis==4.12.1
 django-redis-sessions==0.6.1
 django-storages==1.9.1
+frozendict==1.2
 # You cannot update graphql-core without updating ariadne first
 #   https://github.com/mirumee/ariadne/blob/0.11.0/requirements.txt#L7
 graphql-core==3.0.3
