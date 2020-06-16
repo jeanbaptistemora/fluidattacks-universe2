@@ -20,8 +20,9 @@ This is the fourth article on the series of exploiting `Vulnserver`,
 a VbD (Vulnerable-by-Design) application in which you can practice Windows
 exploit development.
 
-In our previous posts, we have successfully exploited `TRUN` and `GTER`
-commands. Both of them had something in common: direct EIP overwrite, in which
+In our previous posts, we have successfully exploited link:../vulnserver-trun/[TRUN]
+and link:../vulnserver-gter-no-egghunter/[GTER] commands.
+Both of them had something in common: direct EIP overwrite, in which
 our buffer directly overwrote the `return address` on the stack frame
 of the affected function with a `JMP` instruction to execute the code on
 our controlled buffer.
@@ -154,7 +155,7 @@ Now run our exploit with `vulnserver.exe` attached to a debugger:
 image::crash1.gif[PoC]
 
 As you can see, we effectively crashed `vulnserver.exe` but EIP does not
-seem to mangled by our buffer.
+seem to be mangled by our buffer.
 
 However, if we look at the SEH chain table, we will see this:
 
@@ -276,14 +277,14 @@ instruction will pop exactly 4 bytes off of the stack.
 
 With that in mind, and knowning that we need to remove 8 bytes off of the
 stack to then return to our controlled buffer, we need to find an
-address of a sequence of these instructions:
+address that contains a sequence of these instructions:
 
 [source,asm]
----
+----
 POP R32           ; R32 can be any 32 bits register
 POP R32
 RET
----
+----
 
 The first `POP` will remove the first 4 bytes of the stack, the next `POP` the
 other 4 bytes. The `RET` will redirect the execution flow to our buffer.
