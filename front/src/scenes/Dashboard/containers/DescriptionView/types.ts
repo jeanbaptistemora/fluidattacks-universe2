@@ -20,19 +20,18 @@ export interface IHistoricTreatment {
 export interface IFinding {
   actor: string;
   affectedSystems: string;
-  analyst: string;
+  analyst?: string;
   attackVectorDesc: string;
   btsUrl: string;
   compromisedAttributes: string;
-  compromisedRecords: string;
+  compromisedRecords: number;
   cweUrl: string;
   description: string;
   historicTreatment: IHistoricTreatment[];
+  id: string;
   newRemediated: boolean;
   openVulnerabilities: number;
   recommendation: string;
-  releaseDate: string;
-  remediated: boolean;
   requirements: string;
   scenario: string;
   state: "open" | "closed";
@@ -40,4 +39,19 @@ export interface IFinding {
   title: string;
   type: string;
   verified: boolean;
+}
+
+export interface IProject {
+  subscription: string;
+}
+
+export interface IFindingDescriptionData {
+  finding: IFinding;
+  project: IProject;
+}
+
+export interface IFindingDescriptionVars {
+  canRetrieveAnalyst: boolean;
+  findingId: string;
+  projectName: string;
 }

@@ -14,7 +14,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router";
 import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
@@ -36,9 +36,7 @@ import { IVulnDataType } from "../../components/Vulnerabilities/types";
 import { ActionButtons } from "./ActionButtons";
 import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 import { TreatmentView } from "./TreatmentView";
-import { IFinding, IHistoricTreatment } from "./types";
-
-export type DescriptionViewProps = RouteComponentProps<{ findingId: string; projectName: string }>;
+import { IFinding, IFindingDescriptionData, IFindingDescriptionVars, IHistoricTreatment } from "./types";
 
 const maxTitleLength: ConfigurableValidator = maxLength(90);
 const maxDescriptionLength: ConfigurableValidator = maxLength(500);
@@ -48,8 +46,9 @@ const maxAffectedSystemsLength: ConfigurableValidator = maxLength(200);
 const maxThreatLength: ConfigurableValidator = maxLength(300);
 const maxRecommendationLength: ConfigurableValidator = maxLength(300);
 const maxCompromisedAttributesLength: ConfigurableValidator = maxLength(200);
-const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewProps): JSX.Element => {
-  const { findingId, projectName } = props.match.params;
+
+const descriptionView: React.FC = (): JSX.Element => {
+  const { findingId, projectName } = useParams<{ findingId: string; projectName: string }>();
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
@@ -128,7 +127,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
   };
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_FINDING_DESCRIPTION, {
+  const { data, refetch } = useQuery<IFindingDescriptionData, IFindingDescriptionVars>(GET_FINDING_DESCRIPTION, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
       rollbar.error("An error occurred loading finding description", error);
@@ -195,7 +194,6 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
 
   const dataset: IFinding = {
     ...data.finding,
-    compromisedRecords: formatCompromisedRecords(data.finding.compromisedRecords),
   };
   const lastTreatment: IHistoricTreatment = getLastTreatment(dataset.historicTreatment);
 
@@ -439,7 +437,7 @@ const descriptionView: React.FC<DescriptionViewProps> = (props: DescriptionViewP
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={textAreaField}
-                      currentValue={dataset.compromisedRecords}
+                      currentValue={formatCompromisedRecords(dataset.compromisedRecords)}
                       label={translate.t("search_findings.tab_description.compromised_records")}
                       name="compromisedRecords"
                       renderAsEditable={isEditing}
