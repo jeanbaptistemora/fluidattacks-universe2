@@ -782,3 +782,54 @@ def has_unrestricted_ftp_access(
         msg_open='Security groups allow access to FTP without restrictions.',
         msg_closed=('Security groups allow access to FTP to'
                     ' the necessary IP addresses.'))
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_security_groups_ip_ranges_in_rfc1918(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if inbound rules access from IP address ranges specified in RFC-1918.
+
+    Using RFC-1918 CIDRs within your EC2 security groups allow an entire
+    private network to access EC2 instancess. Restrict access to only those
+    private IP addresses that require, it in order to implement the principle
+    of least privilege.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+
+    rfc1918 = {'10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', }
+
+    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
+            _iterate_security_group_rules(path, exclude):
+
+        entities = []
+        with contextlib.suppress(KeyError, TypeError, ValueError):
+            if sg_rule['CidrIp'] in rfc1918 \
+                    and 'SecurityGroupIngress' in sg_path:
+                entities.append(f'{sg_name}')
+
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'{sg_path}/{entity}',
+                identifier=sg_name,
+                line=sg_line,
+                reason=('Group must restrict access to TCP port'
+                        ' 20/21 to the necessary IP addresses.'))
+            for entity in entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Security groups contain RFC-1918 CIDRs open.',
+        msg_closed='Security groups do not contain RFC-1918 CIDRs open.')

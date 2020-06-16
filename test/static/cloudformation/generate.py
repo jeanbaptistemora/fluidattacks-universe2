@@ -717,6 +717,12 @@ security_group = troposphere.ec2.SecurityGroup(
             'ToPort': 22
         },
         {
+            'IpProtocol': 'tcp',
+            'CidrIp': '10.0.0.0/8',
+            'FromPort': 69,
+            'ToPort': 69
+        },
+        {
             'IpProtocol': '-1',
             'CidrIpv6': '2001:db8:a0b:12f0::64/16',
             'FromPort': 22,

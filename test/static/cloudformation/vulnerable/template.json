@@ -443,6 +443,12 @@
             "ToPort": 22
           },
           {
+            "CidrIp": "10.0.0.0/8",
+            "FromPort": 69,
+            "IpProtocol": "tcp",
+            "ToPort": 69
+          },
+          {
             "CidrIpv6": "2001:db8:a0b:12f0::64/16",
             "FromPort": 22,
             "IpProtocol": "-1",
