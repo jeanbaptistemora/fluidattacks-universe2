@@ -4,6 +4,11 @@ variable "region" {
   default = "us-east-1"
 }
 
+variable "aws_s3_analytics_bucket" {
+  type    = string
+  default = "fluidintegrates.analytics"
+}
+
 variable "aws_s3_evidences_bucket" {
   type    = string
   default = "fluidintegrates.evidences"
@@ -50,6 +55,11 @@ module "cloudfront" {
   evidences_bucket_name = var.aws_s3_evidences_bucket
   reports_bucket_name   = var.aws_s3_reports_bucket
   build_bucket_name     = var.aws_s3_build_bucket
+}
+
+module "s3" {
+  source = "./s3"
+  analytics_bucket_name = var.aws_s3_analytics_bucket
 }
 
 module "sqs" {
