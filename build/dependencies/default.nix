@@ -41,7 +41,6 @@ in rec {
       python.analytics.singer.streamerRingcentral
       python.analytics.singer.tapAwsdynamodb
       python.analytics.singer.tapCsv
-      python.analytics.singer.tapCurrrencyconverterapi
       python.analytics.singer.tapFormstack
       python.analytics.singer.tapGit
       python.analytics.singer.tapJson
@@ -80,9 +79,6 @@ in rec {
 
     python.analytics.singer.tapCsv =
       modules.build.pythonPackageLocal ../../analytics/singer/tap_csv;
-
-    python.analytics.singer.tapCurrrencyconverterapi =
-      modules.build.pythonPackageLocal ../../analytics/singer/tap_currencyconverterapi;
 
     python.analytics.singer.tapFormstack =
       modules.build.pythonPackageLocal ../../analytics/singer/tap_formstack;

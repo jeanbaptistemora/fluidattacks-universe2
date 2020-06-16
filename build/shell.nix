@@ -17,7 +17,6 @@ in
     pyPkgAnalyticsStreamerRingcentral = dependencies.python.analytics.singer.streamerRingcentral;
     pyPkgAnalyticsTapAwsdynamodb = dependencies.python.analytics.singer.tapAwsdynamodb;
     pyPkgAnalyticsTapCsv = dependencies.python.analytics.singer.tapCsv;
-    pyPkgAnalyticsTapCurrrencyconverterapi = dependencies.python.analytics.singer.tapCurrrencyconverterapi;
     pyPkgAnalyticsTapFormstack = dependencies.python.analytics.singer.tapFormstack;
     pyPkgAnalyticsTapGit = dependencies.python.analytics.singer.tapGit;
     pyPkgAnalyticsTapJson = dependencies.python.analytics.singer.tapJson;

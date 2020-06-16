@@ -153,7 +153,7 @@ check_interval = 20
       BucketName = "autonomic-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 5
+    IdleCount = 10
     IdleTime = 1800
     MaxBuilds = 20
     MachineDriver = "amazonec2"
@@ -172,7 +172,7 @@ check_interval = 20
       "amazonec2-ami=ami-075b5fce6712726ed",
       "amazonec2-instance-type=t3a.medium",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=30"
+      "amazonec2-root-size=40"
     ]
     OffPeakPeriods = [
       "* * 0-6,18-23 * * mon-fri *",
