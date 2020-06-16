@@ -7,6 +7,12 @@ import ipaddress
 from contextlib import suppress
 from typing import List
 
+# Treed imports
+from networkx.algorithms import dfs_preorder_nodes
+from networkx.algorithms import all_simple_paths
+import networkx as nx
+from networkx import DiGraph
+
 # Local imports
 from fluidasserts import MEDIUM
 from fluidasserts import LOW
@@ -17,13 +23,13 @@ from fluidasserts.cloud.aws.cloudformation import _get_result_as_tuple
 from fluidasserts.cloud.aws.cloudformation import Vulnerability
 from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.db.neo4j_connection import ConnectionString
-from fluidasserts.db.neo4j_connection import database, driver_session
+from fluidasserts.db.neo4j_connection import driver_session
 from fluidasserts.helper import aws as helper
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def allows_all_outbound_traffic(connection: ConnectionString) -> tuple:
+def allows_all_outbound_traffic(graph: DiGraph) -> tuple:
     """
     Check if any ``EC2::SecurityGroup`` allows all outbound traffic.
 
@@ -46,27 +52,51 @@ def allows_all_outbound_traffic(connection: ConnectionString) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    query = """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-            group:EC2:SecurityGroup)-[:HAS]->(prop:Properties)
-        WHERE NOT EXISTS { (prop)-[:HAS]->(:SecurityGroupEgress) }
-        AND NOT EXISTS (
-            (template)-[*]->(:DestinationSecurityGroupId)-[*]->(group) )
-        AND NOT EXISTS (
-            (template)-[*]->(:GroupName {value: group.name}) )
-        WITH DISTINCT group, template, prop
-        RETURN group.name as resource, template.path as path,
-        prop.line as line
-     """
-    with database(connection) as session:
-        for record in session.run(query):
-            vulnerabilities.append(
-                Vulnerability(
-                    path=record['path'],
-                    entity='AWS::EC2::SecurityGroup',
-                    identifier=record['resource'],
-                    line=record['line'],
-                    reason='allows all outbound traffic'))
+    templates: List[int] = [
+        _id for _id, node in graph.nodes.data()
+        if node['kind'] == 'CloudFormationTemplate'
+    ]
+    for template in templates:
+        security_groups = [
+            node for node in dfs_preorder_nodes(graph, template, 2)
+            if graph.nodes[node]['kind'] == 'SecurityGroup'
+        ]
+        destination_groups = [
+            node for group in dfs_preorder_nodes(graph, template, 4)
+            if graph.nodes[group]['kind'] == 'SecurityGroupEgress'
+            for node in dfs_preorder_nodes(graph, group, 3) if graph.nodes[
+                node]['kind'] in ['DestinationSecurityGroupId', 'GroupId']
+        ]
+        group_names = [
+            graph.nodes[node]['value']
+            for group in dfs_preorder_nodes(graph, template, 4)
+            if graph.nodes[group]['kind'] == 'SecurityGroupEgress'
+            for node in dfs_preorder_nodes(graph, group, 3)
+            if graph.nodes[node]['kind'] == 'GroupName'
+        ]
+        for group in security_groups:
+            _group = graph.nodes[group]
+            group_egress = [
+                graph.nodes[node]
+                for node in dfs_preorder_nodes(graph, group, 3)
+                if graph.nodes[node]['kind'] == 'SecurityGroupEgress'
+            ]
+            group_destination = nx.utils.flatten([
+                list(all_simple_paths(graph, node, group))
+                for node in destination_groups
+            ])
+
+            if not group_egress and not group_destination \
+                    and _group['name'] not in group_names:
+                path = graph.nodes[template]['path']
+                resource = graph.nodes[group]
+                vulnerabilities.append(
+                    Vulnerability(
+                        path=path,
+                        entity='AWS::EC2::SecurityGroup',
+                        identifier=resource['name'],
+                        line=resource['line'],
+                        reason='allows all outbound traffic'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

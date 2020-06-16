@@ -5,18 +5,28 @@
 
 # local imports
 from fluidasserts.cloud.aws.cloudformation.graphs import ec2
+from fluidasserts.cloud.aws.cloudformation.graphs.new_loader import (
+    templates_as_graph)
 
 # 3rd party imports
 import pytest  # pylint: disable=E0401
 pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')  # pylint: disable=C0103,C0301 # noqa: E501
 
+# constants
+with templates_as_graph(
+        'test/static/cloudformation/code_as_data_vulnerable') as graph:
+    VULN = graph
+with templates_as_graph(
+        'test/static/cloudformation/code_as_data_safe') as graph:
+    SAFE = graph
 
-def test_allows_all_outbound_traffic(safe_loader, vuln_loader):
+
+def test_allows_all_outbound_traffic():
     """test ec2.allows_all_outbound_traffic."""
-    result = ec2.allows_all_outbound_traffic(vuln_loader)
+    result = ec2.allows_all_outbound_traffic(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 1
-    assert ec2.allows_all_outbound_traffic(safe_loader).is_closed()
+    assert ec2.allows_all_outbound_traffic(SAFE).is_closed()
 
 
 def test_has_unrestricted_cidrs(safe_loader, vuln_loader):
@@ -81,6 +91,7 @@ def test_is_associate_public_ip_address_enabled(safe_loader, vuln_loader):
     assert result.is_open()
     assert result.get_vulns_number() == 2 + 2
     assert ec2.is_associate_public_ip_address_enabled(safe_loader).is_closed()
+
 
 def test_uses_default_security_group(safe_loader, vuln_loader):
     """test ec2.uses_default_security_group."""
