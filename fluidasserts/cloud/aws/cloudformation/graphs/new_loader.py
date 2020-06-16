@@ -18,6 +18,7 @@ import datetime
 from multiprocessing import cpu_count
 from timeit import default_timer as timer
 from typing import Tuple
+from typing import Set
 
 # 3rd party imports
 from pyparsing import Char
@@ -52,7 +53,7 @@ def create_alias(name: str, randoms=False) -> str:
     return alias
 
 
-def _scan_sub_expresion(expresion) -> tuple:
+def _scan_sub_expresion(expresion) -> Tuple:
     printables1 = copy(printables).replace('$', '')
     printables2 = copy(printables).replace('}', '')
     grammar = Suppress(Optional(Word(printables1))) + Suppress(
@@ -84,9 +85,10 @@ def is_primitive(item) -> bool:
     return not hasattr(item, '__dict__') and not isinstance(item, (list))
 
 
-def _create_label(key: str) -> Tuple[str]:
-    return (key.replace('-', '_').replace('::', ':').replace(' ', '_').replace(
-        '.', '__').split(':')[-1], key)
+def _create_label(key: str) -> Tuple[Set[str], str]:
+    return (set(
+        key.replace('-', '_').replace('::', ':').replace(' ', '_').replace(
+            '.', '__').split(':')), key)
 
 
 class List(UserList):
@@ -104,7 +106,7 @@ class List(UserList):
             setattr(self, key, value)
         self.graph = graph
         self.__id__ = id(initlist)
-        self.graph.add_node(self.__id__, kind='Array', line=line)
+        self.graph.add_node(self.__id__, labels={'Array'}, line=line)
         self.graph.add_edge(father_node, self.__id__, action='HAS')
 
         super().__init__(initlist)
@@ -147,7 +149,7 @@ class List(UserList):
         if is_primitive(item):
             attrs.update({'value': item})
         _id = id(item)
-        self.graph.add_node(_id, kind='Item', **attrs)
+        self.graph.add_node(_id, labels={'Item'}, **attrs)
         self.graph.add_edge(self.__id__, _id, action='HAS')
         return _id
 
@@ -182,7 +184,9 @@ class Dict(UserDict):
             self.__id__ = id(initial_dict)
             self.__path__ = path
             self.graph.add_node(
-                self.__id__, kind='CloudFormationTemplate', path=self.__path__)
+                self.__id__,
+                labels={'CloudFormationTemplate'},
+                path=self.__path__)
         else:
             self.__id__ = node_id
 
@@ -201,7 +205,7 @@ class Dict(UserDict):
                 r'AWS::(\w+|::)+', dest):
             label = _create_label(dest)[0]
             _id = id(label)
-            self.graph.add_node(_id, kind=label)
+            self.graph.add_node(_id, labels=label)
             self.graph.add_edge(self.__id__, _id, action='REFERENCE')
         elif dest in self.__references__:
             ref = self.__references__[dest]
@@ -238,16 +242,16 @@ class Dict(UserDict):
             label = _create_label(item[0])[0]
             template = [
                 _id for _id, node in self.graph.nodes.data()
-                if node['kind'] == 'CloudFormationTemplate'
+                if 'CloudFormationTemplate' in node['labels']
                 and node['path'] == self.__path__
             ][0]
             mappings = [
                 node for node in dfs_preorder_nodes(self.graph, template, 1)
-                if self.graph.nodes[node]['kind'] == 'Mappings'
+                if 'Mappings' in self.graph.nodes[node]['labels']
             ][0]
             mapping = [
                 node for node in dfs_preorder_nodes(self.graph, mappings, 1)
-                if self.graph.nodes[node]['kind'] == label
+                if self.graph.nodes[node]['labels'].intersection(label)
             ][0]
             self.graph.add_edge(self.__id__, mapping, action="REFERENCE")
 
@@ -269,7 +273,9 @@ class Dict(UserDict):
                 self.__references__[self.__node_name__] = self.__id__
                 if re.fullmatch(r'AWS::(\w+|::)+', item):
                     label = _create_label(item)[0]
-                    self.graph.nodes[self.__id__].update(kind=label)
+                    labels = self.graph.nodes[self.__id__]['labels']
+                    self.graph.nodes[self.__id__].update(
+                        labels={*labels, *label})
             self.data[key] = item
         elif isinstance(item, (OrderedDict, CustomDict)):
             self.data[key] = Dict(
@@ -298,14 +304,12 @@ class Dict(UserDict):
         if key.startswith('Fn::') or key == 'Ref':
             relation = 'EXECUTE'
         _id = id(key)
-        self.graph.add_node(_id, kind=label, **attrs)
+        self.graph.add_node(_id, labels=label, **attrs)
         self.graph.add_edge(self.__id__, _id, action=relation)
         return _id
 
     @staticmethod
-    def load_templates(path: str,
-                       graph: DiGraph,
-                       exclude: list = None):
+    def load_templates(path: str, graph: DiGraph, exclude: list = None):
         """Load all templates to the database.
 
         If you did not connect to a database use ``retry=True``.

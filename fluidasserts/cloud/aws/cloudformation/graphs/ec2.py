@@ -54,32 +54,33 @@ def allows_all_outbound_traffic(graph: DiGraph) -> tuple:
     vulnerabilities: list = []
     templates: List[int] = [
         _id for _id, node in graph.nodes.data()
-        if node['kind'] == 'CloudFormationTemplate'
+        if 'CloudFormationTemplate' in node['labels']
     ]
     for template in templates:
         security_groups = [
             node for node in dfs_preorder_nodes(graph, template, 2)
-            if graph.nodes[node]['kind'] == 'SecurityGroup'
+            if 'SecurityGroup' in graph.nodes[node]['labels']
         ]
         destination_groups = [
             node for group in dfs_preorder_nodes(graph, template, 4)
-            if graph.nodes[group]['kind'] == 'SecurityGroupEgress'
-            for node in dfs_preorder_nodes(graph, group, 3) if graph.nodes[
-                node]['kind'] in ['DestinationSecurityGroupId', 'GroupId']
+            if 'SecurityGroupEgress' in graph.nodes[group]['labels']
+            for node in dfs_preorder_nodes(graph, group, 3)
+            if graph.nodes[node]['labels'].intersection(
+                {'DestinationSecurityGroupId', 'GroupId'})
         ]
         group_names = [
             graph.nodes[node]['value']
             for group in dfs_preorder_nodes(graph, template, 4)
-            if graph.nodes[group]['kind'] == 'SecurityGroupEgress'
+            if 'SecurityGroupEgress' in graph.nodes[group]['labels']
             for node in dfs_preorder_nodes(graph, group, 3)
-            if graph.nodes[node]['kind'] == 'GroupName'
+            if 'GroupName' in graph.nodes[node]['labels']
         ]
         for group in security_groups:
             _group = graph.nodes[group]
             group_egress = [
                 graph.nodes[node]
                 for node in dfs_preorder_nodes(graph, group, 3)
-                if graph.nodes[node]['kind'] == 'SecurityGroupEgress'
+                if 'SecurityGroupEgress' in graph.nodes[node]['labels']
             ]
             group_destination = nx.utils.flatten([
                 list(all_simple_paths(graph, node, group))
