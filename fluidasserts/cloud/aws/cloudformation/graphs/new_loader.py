@@ -287,7 +287,7 @@ class Dict(UserDict):
         elif isinstance(item, (list, CustomList, List)):
             self.data[key] = List(
                 item,
-                father_node=self.__id__,
+                father_node=node_id,
                 graph=self.graph,
                 line=line,
                 **attrs)

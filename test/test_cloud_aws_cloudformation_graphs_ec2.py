@@ -29,12 +29,12 @@ def test_allows_all_outbound_traffic():
     assert ec2.allows_all_outbound_traffic(SAFE).is_closed()
 
 
-def test_has_unrestricted_cidrs(safe_loader, vuln_loader):
+def test_has_unrestricted_cidrs():
     """test ec2.has_unrestricted_cidrs."""
-    result = ec2.has_unrestricted_cidrs(vuln_loader)
+    result = ec2.has_unrestricted_cidrs(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 7
-    assert ec2.has_unrestricted_cidrs(safe_loader).is_closed()
+    assert ec2.has_unrestricted_cidrs(SAFE).is_closed()
 
 
 def test_has_unrestricted_ip_protocols(safe_loader, vuln_loader):

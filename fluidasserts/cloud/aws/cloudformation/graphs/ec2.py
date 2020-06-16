@@ -1,11 +1,14 @@
 """
 AWS CloudFormation checks for ``EC2`` (Elastic Cloud Compute).
 """
+# pylint: disable=bad-continuation
 
 # Standard imports
 import ipaddress
 from contextlib import suppress
-from typing import List
+from ipaddress import IPv4Network
+from ipaddress import IPv6Network
+from typing import List, Tuple, Dict
 
 # Treed imports
 from networkx.algorithms import dfs_preorder_nodes
@@ -45,7 +48,7 @@ def allows_all_outbound_traffic(graph: DiGraph) -> tuple:
     The default rule is removed only when you specify one or more egress
     rules in the **SecurityGroupEgress** directive.
 
-    :param connection: Connection String to neo4j.
+    :param graph: Templates converted into a DiGraph.
     :returns: - ``OPEN`` if any of the referenced rules is not followed.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -107,7 +110,7 @@ def allows_all_outbound_traffic(graph: DiGraph) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
+def has_unrestricted_cidrs(graph: DiGraph) -> Tuple:
     """
     Check if any ``EC2::SecurityGroup`` has ``0.0.0.0/0`` or ``::/0`` CIDRs.
 
@@ -117,7 +120,7 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
     * W5 Security Groups found with cidr open to world on egress
     * W9 Security Groups found with ingress cidr that is not /32
 
-    :param connection: Connection String to neo4j.
+    :param graph: Templates converted into a DiGraph.
     :returns: - ``OPEN`` if any of the referenced rules is not followed.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -126,105 +129,99 @@ def has_unrestricted_cidrs(connection: ConnectionString) -> tuple:
     vulnerabilities: list = []
     unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
     unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
-    queries = [
-        """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-            group:EC2:SecurityGroup)-[*1..3]->(rule)
-        WHERE rule:SecurityGroupIngress OR rule:SecurityGroupEgress
-        MATCH (rule)-[:HAS*1..3]->(ip:CidrIp{version})
-        WHERE exists(ip.value)
-        WITH DISTINCT group, template, rule, ip
-        RETURN template.path as path, ip.line as line,
-          group.name as resource, [x IN labels(rule) WHERE x IN [
-              'SecurityGroupEgress', 'SecurityGroupIngress']] [-1] as type,
-          ip.value as ip
-        """, """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-            group:EC2:SecurityGroup)-[*1..3]->(rule)
-        WHERE rule:SecurityGroupIngress OR rule:SecurityGroupEgress
-        MATCH (rule)-[:HAS*1..3]->(:CidrIp{version})-[*1..6]->(ref_ip)
-        WHERE exists(ref_ip.value)
-        WITH DISTINCT group, template, rule, ref_ip
-        RETURN template.path as path, ref_ip.line as line,
-          group.name as resource, [x IN labels(rule) WHERE x IN [
-              'SecurityGroupEgress', 'SecurityGroupIngress']] [-1] as type,
-          ref_ip.value as ip
-        """, """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-            group:EC2:SecurityGroup)<-[*1..6]-(rule)-[*1..6]-(
-                ip:CidrIp{version})
-        WHERE (
-            rule:SecurityGroupIngress OR rule:SecurityGroupEgress) AND exists(
-                ip.value)
-        WITH DISTINCT group, template, rule, ip
-        RETURN template.path as path,
-          group.name as resource, [x IN labels(rule) WHERE x IN [
-              'SecurityGroupEgress', 'SecurityGroupIngress']][0] as type,
-          ip.value as ip, ip.line as line
-        """, """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-            group:EC2:SecurityGroup)<-[*1..4]-(rule)-[*1..6]-(
-                ip:CidrIp)-[*1..6]->(ref_ip)
-        WHERE (
-            rule:SecurityGroupIngress OR rule:SecurityGroupEgress)
-             AND exists(ref_ip.value)
-        WITH DISTINCT group, template, rule, ref_ip
-        RETURN template.path as path,
-          group.name as resource, [x IN labels(rule) WHERE x IN [
-              'SecurityGroupEgress', 'SecurityGroupIngress']][0]  as type,
-          ref_ip.value as ip,  ref_ip.line as line
-        """
-    ]
-    queries_ipv4 = [query.format(version='') for query in queries]
-    queries_ipv6 = [query.format(version='v6') for query in queries]
-    session = driver_session(connection)
-    query_result = [
-        record for query in queries_ipv4
-        for record in list(session.run(query))
-    ]
-    for record in query_result:
-        entities = []
-        ipv4 = record['ip']
-        with suppress(ipaddress.AddressValueError):
-            ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
 
-            if ipv4_obj == unrestricted_ipv4:
-                entities.append((f'CidrIp/{ipv4}', 'must not be 0.0.0.0/0'))
-            if record['type'] == 'SecurityGroupIngress' \
-                    and ipv4_obj.num_addresses > 1:
-                entities.append((f'CidrIp/{ipv4}', 'must use /32 subnet mask'))
-            vulnerabilities.extend(
-                Vulnerability(
-                    path=record['path'],
-                    entity=(
-                        f"AWS::EC2::SecurityGroup/{record['type']}/{entity}')"
-                    ),
-                    identifier=record['resource'],
-                    line=record['line'],
-                    reason=reason) for entity, reason in entities)
-    query_result = [
-        record for query in queries_ipv6
-        for record in list(session.run(query))
+    allow_groups = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    templates: List[int] = [
+        _id for _id, node in graph.nodes.data()
+        if 'CloudFormationTemplate' in node['labels']
     ]
-    for record in query_result:
-        entities = []
-        ipv6 = record['ip']
-        with suppress(ipaddress.AddressValueError):
-            ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
-            if ipv6_obj == unrestricted_ipv6:
-                entities.append((f'CidrIpv6/{ipv6}', 'must not be ::/0'))
-            if record['type'] == 'SecurityGroupIngress' \
-                    and ipv6_obj.num_addresses > 1:
-                entities.append((f'CidrIpv6/{ipv6}',
-                                 'must use /128 subnet mask'))
-            vulnerabilities.extend(
-                Vulnerability(
-                    path=record['path'],
-                    entity=f"{record['type']}/{entity}'",
-                    identifier=record['resource'],
-                    line=record['line'],
-                    reason=reason) for entity, reason in entities)
-    session.close()
+    security_groups: List[Dict] = [
+        {
+            'node': node,
+            'template': template,
+            'type': graph.nodes[node]['labels'].intersection(allow_groups)
+        }
+        for template in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if graph.nodes[node]['labels'].intersection(
+            {'SecurityGroup', *allow_groups})
+    ]
+    for group in security_groups:
+        template: Dict = graph.nodes[group['template']]
+        resource: Dict = graph.nodes[group['node']]
+        rules: List[Dict] = [{
+            'node': node,
+            'type': graph.nodes[node]['labels'].intersection(allow_groups)
+        } for node in dfs_preorder_nodes(graph, group['node'], 3)
+            if graph.nodes[node]['labels'].intersection(
+            {*allow_groups, 'Properties'})]
+
+        for rule in rules:
+            cidr_ips: List[int] = [
+                node for node in dfs_preorder_nodes(graph, rule['node'], 3)
+                if graph.nodes[node]['labels'].intersection(
+                    {'CidrIp', 'CidrIpv6'})
+            ]
+            ips: List[Dict] = []
+            for node in cidr_ips:
+                if 'value' in graph.nodes[node]:
+                    ips.append({
+                        'node': node,
+                        'type': rule['type'] if rule['type'].intersection(
+                            allow_groups) else group['type']})
+                else:
+                    ips.extend([{
+                        'node': ref,
+                        'type': rule['type'] if rule['type'].intersection(
+                            allow_groups) else group['type']
+                    } for ref in dfs_preorder_nodes(graph, node, 3)
+                        if 'value' in graph.nodes[ref]])
+        for _ip in ips:
+            entities: List[Tuple] = []
+            ip_node: int = graph.nodes[_ip['node']]
+            ipv4: str = ip_node['value']
+            _type: str = list(_ip['type'])[-1]
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}' if _type !=
+                             resource_type else f'{resource_type}')
+            with suppress(ipaddress.AddressValueError):
+                ipv4_obj: IPv4Network = IPv4Network(ipv4, strict=False)
+
+                if ipv4_obj == unrestricted_ipv4:
+                    entities.append((f'CidrIp/{ipv4}',
+                                     'must not be 0.0.0.0/0'))
+                if 'SecurityGroupIngress' in _ip['type'] and \
+                        ipv4_obj.num_addresses > 1:
+                    entities.append((f'CidrIp/{ipv4}',
+                                     'must use /32 subnet mask'))
+                vulnerabilities.extend(
+                    Vulnerability(
+                        path=template['path'],
+                        entity=f"AWS::EC2::{resource_type}/{entity}')",
+                        identifier=resource['name'],
+                        line=ip_node['line'],
+                        reason=reason) for entity, reason in entities)
+            entities = []
+            ipv6 = ip_node['value']
+            with suppress(ipaddress.AddressValueError):
+                ipv6_obj: IPv6Network = IPv6Network(ipv6, strict=False)
+                if ipv6_obj == unrestricted_ipv6:
+                    entities.append((f'CidrIpv6/{ipv6}', 'must not be ::/0'))
+                if 'SecurityGroupIngress' in _ip['type'] and \
+                        ipv6_obj.num_addresses > 1:
+                    entities.append((f'CidrIpv6/{ipv6}',
+                                     'must use /128 subnet mask'))
+                vulnerabilities.extend(
+                    Vulnerability(
+                        path=template['path'],
+                        entity=f"AWS::EC2::{resource_type}/{entity}'",
+                        identifier=resource['name'],
+                        line=ip_node['line'],
+                        reason=reason) for entity, reason in entities)
+
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 security groups have unrestricted CIDRs',
