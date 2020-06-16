@@ -41,7 +41,7 @@ VALID_REASONS: Tuple[str, ...] = \
         'inputs-have-no-corresponding-lines',
         'i-think-lines-have-more-vulns-than-inputs',
         'i-think-inputs-have-more-vulns-than-lines',
-        'other: <please specify here>',
+        'other: ',
     )))
 
 
