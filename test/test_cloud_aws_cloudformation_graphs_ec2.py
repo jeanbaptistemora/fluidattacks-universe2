@@ -37,12 +37,12 @@ def test_has_unrestricted_cidrs():
     assert ec2.has_unrestricted_cidrs(SAFE).is_closed()
 
 
-def test_has_unrestricted_ip_protocols(safe_loader, vuln_loader):
+def test_has_unrestricted_ip_protocols():
     """test ec2.has_unrestricted_ip_protocols."""
-    result = ec2.has_unrestricted_ip_protocols(vuln_loader)
+    result = ec2.has_unrestricted_ip_protocols(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 7
-    assert ec2.has_unrestricted_ip_protocols(safe_loader).is_closed()
+    assert result.get_vulns_number() == 2 * 6
+    assert ec2.has_unrestricted_ip_protocols(SAFE).is_closed()
 
 
 def test_has_unrestricted_ports(safe_loader, vuln_loader):

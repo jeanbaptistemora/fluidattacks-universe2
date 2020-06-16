@@ -8,7 +8,7 @@ import ipaddress
 from contextlib import suppress
 from ipaddress import IPv4Network
 from ipaddress import IPv6Network
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Set
 
 # Treed imports
 from networkx.algorithms import dfs_preorder_nodes
@@ -28,6 +28,25 @@ from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.db.neo4j_connection import ConnectionString
 from fluidasserts.db.neo4j_connection import driver_session
 from fluidasserts.helper import aws as helper
+
+
+def _get_securitygroups(graph: DiGraph) -> List[Dict]:
+    templates: List[int] = [
+        _id for _id, node in graph.nodes.data()
+        if 'CloudFormationTemplate' in node['labels']
+    ]
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    return [
+        {
+            'node': node,
+            'template': template,
+            'type': graph.nodes[node]['labels'].intersection(allow_groups)
+        }
+        for template in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if graph.nodes[node]['labels'].intersection(
+            {'SecurityGroup', *allow_groups})
+    ]
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -129,23 +148,8 @@ def has_unrestricted_cidrs(graph: DiGraph) -> Tuple:
     vulnerabilities: list = []
     unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
     unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
-
     allow_groups = {'SecurityGroupEgress', 'SecurityGroupIngress'}
-    templates: List[int] = [
-        _id for _id, node in graph.nodes.data()
-        if 'CloudFormationTemplate' in node['labels']
-    ]
-    security_groups: List[Dict] = [
-        {
-            'node': node,
-            'template': template,
-            'type': graph.nodes[node]['labels'].intersection(allow_groups)
-        }
-        for template in templates
-        for node in dfs_preorder_nodes(graph, template, 2)
-        if graph.nodes[node]['labels'].intersection(
-            {'SecurityGroup', *allow_groups})
-    ]
+    security_groups: List[Dict] = _get_securitygroups(graph)
     for group in security_groups:
         template: Dict = graph.nodes[group['template']]
         resource: Dict = graph.nodes[group['node']]
@@ -230,7 +234,7 @@ def has_unrestricted_cidrs(graph: DiGraph) -> Tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_unrestricted_ip_protocols(connection: ConnectionString) -> tuple:
+def has_unrestricted_ip_protocols(graph: DiGraph) -> tuple:
     """
     Avoid ``EC2::SecurityGroup`` ingress/egress rules with any ip protocol.
 
@@ -246,45 +250,61 @@ def has_unrestricted_ip_protocols(connection: ConnectionString) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    queries = [
-        """
-        MATCH (template:CloudFormationTemplate)-[*2]->(group)
-        WHERE group:SecurityGroupIngress OR group:SecurityGroupEgress OR
-            group:SecurityGroup
-        MATCH (group)-[:HAS*1..6]->(ip:IpProtocol)
-        WHERE ip.value = -1 OR ip.value = '-1'
-        RETURN template.path as path, ip.line as line,
-          group.name as resource, [x IN labels(group) WHERE x IN [
-              'SecurityGroupEgress', 'SecurityGroupIngress']][0]  as type,
-          ip.value as ipProtocol
-        """, """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-            group)-[:HAS*1..6]->(rule)
-        WHERE group:SecurityGroupIngress OR group:SecurityGroupEgress OR
-            group:SecurityGroup
-        MATCH (rule)-[:HAS*]->(:IpProtocol)-[:REFERENCE]->(
-            )-[:HAS*1..3]->(proto)
-        WHERE exists(proto.value) AND
-            (proto.value = -1 OR proto.value = '-1')
-        RETURN template.path as path, proto.line as line,
-          group.name as resource, [x IN labels(rule) WHERE x IN [
-              'SecurityGroupEgress', 'SecurityGroupIngress']][0]  as type,
-          proto.value as ipProtocol
-        """
-    ]
-    session = driver_session(connection)
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    security_groups: List[Dict] = _get_securitygroups(graph)
+    for group in security_groups:
+        resource: Dict = graph.nodes[group['node']]
+        protocol_nodes: List[Dict] = [
+            {
+                'node': node,
+                'type': graph.nodes[node]['labels'].intersection(allow_groups)
+            } for node in dfs_preorder_nodes(graph, group['node'], 3)
+            if graph.nodes[node]['labels'].intersection(
+                {*allow_groups, 'Properties'})
+        ]
 
-    for query in queries:
-        for record in session.run(query):
-            vulnerabilities.append(
-                Vulnerability(
-                    path=record['path'],
-                    entity=(f"AWS::EC2::{record['type']}/IpProtocol/"
-                            f"{record['ipProtocol']}"),
-                    identifier=record['resource'],
-                    line=record['line'],
-                    reason='Authorize all IP protocols'))
-    session.close()
+        for protocol_node in protocol_nodes:
+            protocol_values: List[int] = [
+                node
+                for node in dfs_preorder_nodes(graph, protocol_node['node'], 3)
+                if 'IpProtocol' in graph.nodes[node]['labels']
+            ]
+            protocols: List[Dict] = []
+            for node in protocol_values:
+                if 'value' in graph.nodes[node]:
+                    protocols.append({
+                        'node': node,
+                        'type': protocol_node['type']
+                        if protocol_node['type'].intersection(allow_groups)
+                        else group['type']
+                    })
+                else:
+                    protocols.extend([{
+                        'node': ref,
+                        'type': protocol_node['type']
+                        if protocol_node['type'].intersection(allow_groups)
+                        else group['type']
+                    } for ref in dfs_preorder_nodes(graph, node, 3)
+                        if 'value' in graph.nodes[ref]])
+            for node in protocols:
+                _type: str = list(node['type'])[-1]
+                resource_type: str = [
+                    res for res in resource['labels']
+                    if res in {'SecurityGroup', *allow_groups}
+                ][-1]
+                resource_type = (f'{resource_type}/{_type}'
+                                 if _type != resource_type else
+                                 f'{resource_type}')
+                protocol_value = graph.nodes[node['node']]['value']
+                if protocol_value in ('-1', -1):
+                    vulnerabilities.append(
+                        Vulnerability(
+                            path=resource['name'],
+                            entity=(f"AWS::EC2::{resource_type}/IpProtocol/"
+                                    f"{protocol_value}"),
+                            identifier=resource['name'],
+                            line=graph.nodes[node['node']]['line'],
+                            reason='Authorize all IP protocols'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
