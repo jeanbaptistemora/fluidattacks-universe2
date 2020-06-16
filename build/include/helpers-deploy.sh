@@ -153,7 +153,8 @@ function helper_deploy_pages {
   &&  sed -i "s|:template: extended|:template: findings|g" new/content/pages/rules/out-of-scope/index.adoc \
   &&  sed -i "s|:template: defends|:template: findings|g" new/content/pages/defends/index.adoc \
   &&  cp theme/2014/static/js/rules.ts new/theme/2020/static/js/ \
-  &&  cp theme/2014/static/images/arrow.svg new/theme/2020/static/images/
+  &&  cp theme/2014/static/images/arrow.svg new/theme/2020/static/images/ \
+  &&  sed -i "s|:category: people|:category: about-us|g" new/content/pages/about-us/people/*/index.adoc
 }
 
 function helper_deploy_compile_old {

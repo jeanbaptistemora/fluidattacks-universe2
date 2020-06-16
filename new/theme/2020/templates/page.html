@@ -89,10 +89,11 @@
           <span class="c-fluid-gray v-mid b"> / </span>
           {% endif %}
         </li>
-        {% if page.category2 %}
+        {% if page.peoplepage %}
           <li class="dib mt0" >
-            <a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">
-                {{ page.category2|replace('-', ' ') }}
+            <a class="c-fluid-gray hover-white no-underline"
+               href="{{ SITEURL }}/{{ page.category.name }}/people/">
+                People
             </a>
             <span class="c-fluid-gray v-mid b"> / </span>
           </li>
