@@ -185,4 +185,4 @@ Integrates makes it easier for our customers
 to keep track of their security weaknesses as well as fixes.
 
 We hope you have enjoyed this post, and we look forward to hearing from you.
-#link:../web/contact-us/[Do get in touch with us!]#
+#link:../../contact-us/[Do get in touch with us!]#

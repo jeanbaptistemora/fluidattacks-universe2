@@ -54,7 +54,7 @@ the answer.
 Now that we know that the `TRUN` command receives a single parameter, we can
 start fuzzing it.
 
-For that, we'll be using link:https://github.com/guilhermeferreira/spikepp:[Spike],
+For that, we'll be using link:https://github.com/guilhermeferreira/spikepp/[Spike],
 a protocol fuzzer.
 More info on `Spike` can be found link:https://resources.infosecinstitute.com/intro-to-fuzzing/[here].
 

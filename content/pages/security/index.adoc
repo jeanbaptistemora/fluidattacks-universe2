@@ -174,7 +174,7 @@ industry-standard
 We have projects focused on hacking our software.
 For us, it is essential to set an example of secure software,
 that is why today our entire technology stack
-goes through a process of comprehensive [inner]#link:../services/continuous-hacking[Continuous Hacking]#.
+goes through a process of comprehensive [inner]#link:../services/continuous-hacking/[Continuous Hacking]#.
 
 All our development projects run
 <<CI, Continuous Integration>>
@@ -603,7 +603,7 @@ Currently, we keep the following systems as code:
 - link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
 - link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
 - link:https://gitlab.com/fluidattacks/web/-/commits/master[Website]
-- [inner]#link:../services/continuous-hacking[Continuous hacking]#
+- [inner]#link:../services/continuous-hacking/[Continuous hacking]#
 - <<IAC, Infrastructure>>
 - General documentation
 
@@ -794,7 +794,7 @@ their technical capabilities and human values.
 The technical part of the testing process
 involves solving programming and hacking challenges,
 uploading them to a Git repository with highly strict linters and compilers,
-and ascending in an [inner]#link:../training/[organizational ranking]#.
+and ascending in an [inner]#link:../careers/technical-challenges/[organizational ranking]#.
 
 The human values section of the testing process
 includes creating a portfolio with the five most

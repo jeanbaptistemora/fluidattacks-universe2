@@ -219,4 +219,4 @@ And don't forget that here at `Fluid Attacks`
 we can identify and report
 the vulnerabilities of your organization's systems and networks,
 with our penetration testing service.
-#link:../web/contact-us/[Simply get in touch with us!]#
+#link:../../contact-us/[Simply get in touch with us!]#

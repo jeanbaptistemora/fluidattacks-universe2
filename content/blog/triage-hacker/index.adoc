@@ -50,7 +50,7 @@ have been used by the authors we have reviewed here:
 [inner]#link:../natural-code/[n-grams]#.
 The actual algorithm to be used
 is one of the variables that we can experiment with.
-For starters, we used a [inner]#link:../crash-course-machine-learning/artificial-neural-networks-and-deep-learning[neural network]#
+For starters, we used a [inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[neural network]#
 with a single hidden layer for simplicity.
 Still, this gave us [inner]#link:../vulnerability-classifier[good results]# for a first iteration.
 Regardless of the algorithm to be chosen,

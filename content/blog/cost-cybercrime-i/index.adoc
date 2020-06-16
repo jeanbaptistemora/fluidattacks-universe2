@@ -183,4 +183,4 @@ In an upcoming post, we will continue discussing some other frauds
 studied by this remarkable group of cybersecurity researchers.
 
 We hope you enjoy reading this post! Want to say something?
-#link:../web/contact-us/[Do get in touch with us!]#
+#link:../../contact-us/[Do get in touch with us!]#

@@ -43,7 +43,7 @@ i.e., a simple assignment of words to numbers and
 then making up a vector around that saying which tokens occurr in a snippet.
 And, by the way, we skip the neural network encoder.
 This is what we did
-[inner]#link:vulnerability-classifier[initially]#,
+[inner]#link:../vulnerability-classifier/[initially]#,
 but it is clear even from the foundations
 that this leaves room for improvement.
 
