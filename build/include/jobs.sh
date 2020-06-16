@@ -696,27 +696,6 @@ function job_infra_database_test {
   || return 1
 }
 
-function job_infra_antivirus_deploy {
-  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master aws_login production \
-  &&  pushd deploy/antivirus/terraform \
-    &&  terraform init \
-    &&  terraform apply -auto-approve -refresh=true \
-  &&  popd \
-  || return 1
-}
-
-function job_infra_antivirus_test {
-      echo '[INFO] Logging in to AWS development' \
-  &&  aws_login development \
-  &&  pushd deploy/antivirus/terraform \
-    &&  terraform init \
-    &&  tflint --deep --module \
-    &&  terraform plan -refresh=true \
-  &&  popd \
-  || return 1
-}
-
 function job_infra_cache_db_deploy {
       echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
