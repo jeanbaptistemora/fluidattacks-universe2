@@ -1,6 +1,7 @@
 import { AppOwnership, default as Constants, NativeConstants } from "expo-constants";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
+import * as Updates from "expo-updates";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -110,7 +111,8 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
         </View>
         <Preloader visible={isLoading} />
         <View style={styles.bottom}>
-          <Text style={styles.slogan}>{t("common.slogan")}</Text>
+          <Text style={styles.text}>{t("common.slogan")}</Text>
+          <Text style={styles.text}>v. {(Updates.manifest as Updates.Manifest).version}</Text>
         </View>
         <Portal>
           <Dialog dismissable={false} visible={isOutdated}>
