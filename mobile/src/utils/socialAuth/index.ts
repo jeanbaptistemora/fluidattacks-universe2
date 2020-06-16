@@ -164,7 +164,9 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
 export const logout: (() => Promise<void>) = async (): Promise<void> => {
   await SecureStore.deleteItemAsync("integrates_session");
   const authState: string | null = await SecureStore.getItemAsync("authState");
-  const { authProvider, authToken }: IAuthState = JSON.parse(authState as string) as IAuthState;
+  const { authProvider, authToken }: Record<string, string> = _.isNil(authState)
+    ? { authProvider: "", authToken: "" }
+    : JSON.parse(authState) as Record<string, string>;
 
   switch (authProvider) {
     case "GOOGLE":
