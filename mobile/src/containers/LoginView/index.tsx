@@ -11,10 +11,10 @@ import { useHistory } from "react-router-native";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
+import { authWithGoogle, authWithMicrosoft, IAuthResult } from "../../utils/socialAuth";
 
 import { GoogleButton } from "./GoogleButton";
 import { MicrosoftButton } from "./MicrosoftButton";
-import { authWithGoogle, authWithMicrosoft, IAuthResult } from "./socialAuth";
 import { styles } from "./styles";
 import { checkPlayStoreVersion } from "./version";
 

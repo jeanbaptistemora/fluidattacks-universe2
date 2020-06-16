@@ -10,9 +10,9 @@ import {
   GOOGLE_LOGIN_KEY_IOS_DEV,
   GOOGLE_LOGIN_KEY_IOS_PROD,
   MICROSOFT_LOGIN_KEY,
-} from "../../utils/constants";
-import { rollbar } from "../../utils/rollbar";
-import { i18next } from "../../utils/translations/translate";
+} from "../constants";
+import { rollbar } from "../rollbar";
+import { i18next } from "../translations/translate";
 
 /**
  * AppAuth Error codes

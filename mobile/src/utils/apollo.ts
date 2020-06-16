@@ -12,10 +12,9 @@ import React from "react";
 import { Alert } from "react-native";
 import { useHistory } from "react-router-native";
 
-import { logout } from "../containers/LoginView/socialAuth";
-
 import { getEnvironment } from "./environment";
 import { rollbar } from "./rollbar";
+import { logout } from "./socialAuth";
 import { i18next } from "./translations/translate";
 
 type History = ReturnType<typeof useHistory>;
@@ -23,7 +22,7 @@ type History = ReturnType<typeof useHistory>;
 const apiHost: string = getEnvironment().url;
 
 /**
- * Custom error link implementation to prevent propagation of handled errors
+ * Custom error link implementation to prevent propagation of handled network errors
  * @see https://github.com/apollographql/react-apollo/issues/1548
  * @see https://github.com/apollographql/apollo-link/issues/855
  */

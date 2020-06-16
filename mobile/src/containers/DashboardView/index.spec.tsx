@@ -37,7 +37,7 @@ jest.mock("react-router-native", (): Dictionary => {
   };
 });
 
-jest.mock("../LoginView/socialAuth");
+jest.mock("../../utils/socialAuth");
 
 describe("DashboardView", (): void => {
   afterEach((): void => {

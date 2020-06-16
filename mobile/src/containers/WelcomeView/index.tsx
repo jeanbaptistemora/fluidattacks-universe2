@@ -10,7 +10,7 @@ import { useHistory } from "react-router-native";
 import { Avatar } from "../../components/Avatar";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
-import { IAuthState } from "../LoginView/socialAuth";
+import { IAuthState } from "../../utils/socialAuth";
 
 import { SIGN_IN_MUTATION } from "./queries";
 import { styles } from "./styles";

@@ -22,7 +22,7 @@ import { default as Border } from "../../../assets/percentBorder.svg";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
-import { IAuthState, logout } from "../LoginView/socialAuth";
+import { IAuthState, logout } from "../../utils/socialAuth";
 
 import { Header } from "./Header";
 import { PROJECTS_QUERY } from "./queries";
