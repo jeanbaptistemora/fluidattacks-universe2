@@ -1,34 +1,5 @@
 {
   "expo": {
-    "name": "Integrates",
-    "slug": "integrates",
-    "privacy": "public",
-    "sdkVersion": "37.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "description": "At Integrates a project’s stakeholders (developers, technicians, management, etc.) can interface with Fluid Attacks hackers. Through Integrates, Fluid Attacks communicates all identified security risks to a client’s systems for prompt, efficient and effective remediation by the client company. It also provides the client company’s decision-makers with real time information regarding their systems’ security and Fluid Attacks project progress.",
-    "version": "integrates_version",
-    "orientation": "portrait",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#272727"
-    },
-    "notification": {
-      "color": "#FE3435",
-      "icon": "./assets/notification.png"
-    },
-    "primaryColor": "#272727",
-    "updates": {
-      "checkAutomatically": "ON_LOAD",
-      "enabled": true
-    },
-    "userInterfaceStyle": "automatic",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "android": {
       "adaptiveIcon": {
         "backgroundImage": "./assets/adaptiveBackground.png",
@@ -41,10 +12,42 @@
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates",
       "versionCode": 0
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "description": "At Integrates a project’s stakeholders (developers, technicians, management, etc.) can interface with Fluid Attacks hackers. Through Integrates, Fluid Attacks communicates all identified security risks to a client’s systems for prompt, efficient and effective remediation by the client company. It also provides the client company’s decision-makers with real time information regarding their systems’ security and Fluid Attacks project progress.",
+    "icon": "./assets/icon.png",
     "ios": {
       "bundleIdentifier": "com.fluidattacks.integrates",
-      "icon": "./assets/icon.png",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Quick access to your session using device biometrics"
+      },
       "supportsTablet": true
-    }
+    },
+    "name": "Integrates",
+    "notification": {
+      "color": "#FE3435",
+      "icon": "./assets/notification.png"
+    },
+    "orientation": "portrait",
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "primaryColor": "#272727",
+    "privacy": "public",
+    "sdkVersion": "37.0.0",
+    "slug": "integrates",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#272727"
+    },
+    "updates": {
+      "checkAutomatically": "ON_LOAD",
+      "enabled": true
+    },
+    "userInterfaceStyle": "automatic",
+    "version": "integrates_version"
   }
 }
