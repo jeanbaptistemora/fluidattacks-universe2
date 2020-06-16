@@ -20,7 +20,7 @@ spec:
   replicas: 4
   strategy:
     rollingUpdate:
-      maxSurge: 2
+      maxSurge: 1
       maxUnavailable: 2
   template:
     metadata:
@@ -33,11 +33,11 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 1500m
-            memory: 3Gi
+            cpu: 2500m
+            memory: 6Gi
           limits:
             cpu: 3000m
-            memory: 6Gi
+            memory: 8Gi
         envFrom:
           - secretRef:
               name: integrates-env
