@@ -147,7 +147,8 @@ def app(request):
                 'first_name': request.session['first_name'],
                 'last_name': request.session['last_name'],
                 'exp': datetime.utcnow() +
-                timedelta(seconds=settings.SESSION_COOKIE_AGE)
+                timedelta(seconds=settings.SESSION_COOKIE_AGE),
+                'sub': 'django_session',
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,

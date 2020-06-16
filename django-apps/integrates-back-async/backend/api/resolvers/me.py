@@ -191,7 +191,8 @@ async def _do_sign_in(
                 'first_name': getattr(user, 'first_name'),
                 'last_name': getattr(user, 'last_name'),
                 'exp': datetime.utcnow() +
-                timedelta(seconds=settings.MOBILE_SESSION_AGE)
+                timedelta(seconds=settings.MOBILE_SESSION_AGE),
+                'sub': 'api_token',
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -230,7 +231,8 @@ async def _do_update_access_token(
                 'last_name': user_info['last_name'],
                 'jti': token_data['jti'],
                 'iat': datetime.utcnow().timestamp(),
-                'exp': expiration_time
+                'exp': expiration_time,
+                'sub': 'api_token',
             },
             algorithm='HS512',
             key=settings.JWT_SECRET_API
