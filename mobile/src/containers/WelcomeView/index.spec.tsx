@@ -1,4 +1,4 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
@@ -7,7 +7,6 @@ import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
 import { Provider as PaperProvider } from "react-native-paper";
 import { MemoryRouter } from "react-router-native";
-import wait from "waait";
 
 import { i18next } from "../../utils/translations/translate";
 

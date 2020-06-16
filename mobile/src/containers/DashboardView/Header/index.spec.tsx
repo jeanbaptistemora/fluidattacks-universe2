@@ -1,7 +1,7 @@
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { I18nextProvider } from "react-i18next";
-import { Avatar, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 
 import { i18next } from "../../../utils/translations/translate";
 

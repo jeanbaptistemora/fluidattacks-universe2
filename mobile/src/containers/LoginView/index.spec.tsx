@@ -1,4 +1,5 @@
 // tslint:disable: no-magic-numbers
+import { wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import * as AppAuth from "expo-app-auth";
 import * as Google from "expo-google-app-auth";

@@ -1,5 +1,4 @@
-// tslint:disable-next-line: no-submodule-imports
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
@@ -9,7 +8,6 @@ import { I18nextProvider } from "react-i18next";
 import { Alert } from "react-native";
 import { Provider as PaperProvider, Text } from "react-native-paper";
 import { MemoryRouter } from "react-router-native";
-import wait from "waait";
 
 import { i18next } from "../../utils/translations/translate";
 

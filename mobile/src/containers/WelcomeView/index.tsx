@@ -10,7 +10,7 @@ import { useHistory } from "react-router-native";
 import { Avatar } from "../../components/Avatar";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
-import { IAuthState } from "../../utils/socialAuth";
+import { IAuthState, logout } from "../../utils/socialAuth";
 
 import { SIGN_IN_MUTATION } from "./queries";
 import { styles } from "./styles";
@@ -22,7 +22,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
   const { authProvider, authToken, user } = history.location.state as IAuthState;
 
   const handleLogout: (() => void) = async (): Promise<void> => {
-    await SecureStore.deleteItemAsync("integrates_session");
+    await logout();
     history.replace("/");
   };
 
