@@ -1,6 +1,6 @@
 :slug: rules/336/
 :category: cryptography
-:description: This document contains the details of the security requirements related to the definition and management of random numbers in the organization. This requirement establishes the importance of disabling out-of-date or insecure versions of TLS and SSL protocols.
+:description: This document contains the details of the security requirements related to the definition and management of cryptographic mechanisms in the organization. This requirement establishes the importance of disabling out-of-date or insecure versions of TLS and SSL protocols.
 :keywords: SSL, Version, Protocol, TLS, CWE, ASVS
 :rules: yes
 
@@ -27,8 +27,8 @@ allowed to fall back to insecure or unencrypted protocols.
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information]
-The software uses insufficiently random numbers or values in a security context
-that depends on unpredictable numbers.
+The software transmits sensitive or security-critical data in cleartext in a
+communication channel that can be sniffed by unauthorized actors.
 
 . [[r2]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength]
 The software stores or transmits sensitive data using an encryption scheme that
