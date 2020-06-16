@@ -16,12 +16,14 @@ describe("ContentTab", () => {
         id="test-id"
         link="test-link"
         title="Tab-Title"
+        tooltip="Tab-Tooltip"
       />,
     );
     expect(wrapper.find("#test-id")
         .hostNodes())
       .toHaveLength(1);
-    expect(wrapper.text())
+    expect(wrapper.find("#test-id")
+        .text())
       .toContain("Tab-Title");
   });
 });

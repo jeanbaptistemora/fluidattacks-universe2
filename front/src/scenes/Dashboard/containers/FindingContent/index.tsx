@@ -241,18 +241,21 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     id="infoItem"
                     link={`${props.match.url}/description`}
                     title={translate.t("search_findings.tab_description.tab_title")}
+                    tooltip={translate.t("search_findings.tab_description.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-calculator"
                     id="cssv2Item"
                     link={`${props.match.url}/severity`}
                     title={translate.t("search_findings.tab_severity.tab_title")}
+                    tooltip={translate.t("search_findings.tab_severity.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-photo"
                     id="evidenceItem"
                     link={`${props.match.url}/evidence`}
                     title={translate.t("search_findings.tab_evidence.tab_title")}
+                    tooltip={translate.t("search_findings.tab_evidence.tooltip")}
                   />
                   { hasExploit || permissions.can("backend_api_resolvers_finding__do_update_evidence")
                     ? <ContentTab
@@ -260,6 +263,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                         id="exploitItem"
                         link={`${props.match.url}/exploit`}
                         title={translate.t("search_findings.tab_exploit.tab_title")}
+                        tooltip={translate.t("search_findings.tab_exploit.tooltip")}
                     />
                    : undefined }
                   <ContentTab
@@ -267,18 +271,21 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     id="trackingItem"
                     link={`${props.match.url}/tracking`}
                     title={translate.t("search_findings.tab_tracking.tab_title")}
+                    tooltip={translate.t("search_findings.tab_tracking.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-notebook"
                     id="recordsItem"
                     link={`${props.match.url}/records`}
                     title={translate.t("search_findings.tab_records.tab_title")}
+                    tooltip={translate.t("search_findings.tab_records.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-comment"
                     id="commentItem"
                     link={`${props.match.url}/comments`}
                     title={translate.t("search_findings.tab_comments.tab_title")}
+                    tooltip={translate.t("search_findings.tab_comments.tooltip")}
                   />
                   <Can do="backend_api_resolvers_finding__get_observations">
                     <ContentTab
@@ -286,6 +293,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                       id="observationsItem"
                       link={`${props.match.url}/observations`}
                       title={translate.t("search_findings.tab_observations.tab_title")}
+                      tooltip={translate.t("search_findings.tab_observations.tooltip")}
                     />
                   </Can>
                 </ul>

@@ -126,7 +126,7 @@ describe("HomeView", () => {
     displayList.simulate("change", { target: { checked: true } });
     const projectButton: ReactWrapper = wrapper
       .find("Button")
-      .filterWhere((element: ReactWrapper) => element.contains("New Group"));
+      .filterWhere((element: ReactWrapper) => element.contains("New"));
     projectButton.simulate("click");
     expect(projectButton)
       .toHaveLength(1);

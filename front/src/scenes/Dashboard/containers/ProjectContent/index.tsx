@@ -32,46 +32,53 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     icon="icon pe-7s-graph3"
                     id="indicatorsTab"
                     link={`${props.match.url}/indicators`}
-                    title={translate.t("group.tabs.indicators")}
+                    title={translate.t("group.tabs.indicators.text")}
+                    tooltip={translate.t("group.tabs.indicators.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-light"
                     id="findingsTab"
                     link={`${props.match.url}/findings`}
-                    title={translate.t("group.tabs.findings")}
+                    title={translate.t("group.tabs.findings.text")}
+                    tooltip={translate.t("group.tabs.findings.tooltip")}
                   />
                   <Can do="backend_api_resolvers_project__get_drafts">
                     <ContentTab
                       icon="icon pe-7s-stopwatch"
                       id="draftsTab"
                       link={`${props.match.url}/drafts`}
-                      title={translate.t("group.tabs.drafts")}
+                      title={translate.t("group.tabs.drafts.text")}
+                      tooltip={translate.t("group.tabs.drafts.tooltip")}
                     />
                   </Can>
                   <ContentTab
                     icon="icon pe-7s-light"
                     id="forcesTab"
                     link={`${props.match.url}/forces`}
-                    title={translate.t("group.tabs.forces")}
+                    title={translate.t("group.tabs.forces.text")}
+                    tooltip={translate.t("group.tabs.forces.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-star"
                     id="eventsTab"
                     link={`${props.match.url}/events`}
-                    title={translate.t("group.tabs.events")}
+                    title={translate.t("group.tabs.events.text")}
+                    tooltip={translate.t("group.tabs.events.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-comment"
                     id="commentsTab"
                     link={`${props.match.url}/comments`}
-                    title={translate.t("group.tabs.comments")}
+                    title={translate.t("group.tabs.comments.text")}
+                    tooltip={translate.t("group.tabs.comments.tooltip")}
                   />
                   <Can do="backend_api_resolvers_project__get_users">
                     <ContentTab
                       icon="icon pe-7s-users"
                       id="usersTab"
                       link={`${props.match.url}/users`}
-                      title={translate.t("group.tabs.users")}
+                      title={translate.t("group.tabs.users.text")}
+                      tooltip={translate.t("group.tabs.users.tooltip")}
                     />
                   </Can>
                   <Have I="has_drills_white">
@@ -80,7 +87,8 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                         icon="icon pe-7s-users"
                         id="authorsTab"
                         link={`${props.match.url}/authors`}
-                        title={translate.t("group.tabs.authors")}
+                        title={translate.t("group.tabs.authors.text")}
+                        tooltip={translate.t("group.tabs.authors.tooltip")}
                       />
                     </Can>
                   </Have>
@@ -88,7 +96,8 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     icon="icon pe-7s-box1"
                     id="resourcesTab"
                     link={`${props.match.url}/settings`}
-                    title={translate.t("group.tabs.resources")}
+                    title={translate.t("group.tabs.resources.text")}
+                    tooltip={translate.t("group.tabs.resources.tooltip")}
                   />
                 </ul>
               </div>

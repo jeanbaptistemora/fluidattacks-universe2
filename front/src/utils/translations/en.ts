@@ -204,15 +204,43 @@ const enTranslations: Dictionary = {
       table_advice: "Click on an execution to see more details",
     },
     tabs: {
-      authors: "Authors",
-      comments: "Comments",
-      drafts: "Drafts",
-      events: "Events",
-      findings: "Findings",
-      forces: "Forces",
-      indicators: "Indicators",
-      resources: "Settings",
-      users: "Users",
+      authors: {
+        text: "Authors",
+        tooltip: "People that have contributed to your group",
+      },
+      comments: {
+        text: "Comments",
+        tooltip: "Space where all interested parties can share information about the group",
+      },
+      drafts: {
+        text: "Drafts",
+        tooltip: "Add new findings and review ones yet to be approved",
+      },
+      events: {
+        text: "Events",
+        tooltip: "Keep track of all the situations that are affecting the group",
+      },
+      findings: {
+        text: "Findings",
+        tooltip: "Keep track of the status of all the approved findings",
+      },
+      forces: {
+        text: "Forces",
+        tooltip: "Check the state of the Forces jobs in your CI/CD",
+      },
+      indicators: {
+        text: "Indicators",
+        tooltip: "Summary of the Group status",
+      },
+      resources: {
+        text: "Settings",
+        tooltip: "Configure the resources needed by the security tests and the services that will be hired," +
+        " if applicable",
+      },
+      users: {
+        text: "Users",
+        tooltip: "Add, edit and remove users from this group",
+      },
     },
   },
   group_alerts: {
@@ -266,7 +294,11 @@ const enTranslations: Dictionary = {
       integrates: "Include Integrates?",
       invalidGroup: "Invalid group name",
       name: "Group Name",
-      new: "New Group",
+      new: {
+        group: "New Group",
+        text: "New",
+        tooltip: "Create a new group",
+      },
       noGroupName: "There are no group names available at the moment",
       success: "Group created successfully",
       switch: {
@@ -428,6 +460,7 @@ const enTranslations: Dictionary = {
     statusLabel: "Status",
     tab_comments: {
       tab_title: "Comments",
+      tooltip: "Space where all interested parties can share information about the finding",
     },
     tab_description: {
       acceptance_date: "Temporarily accepted until",
@@ -510,6 +543,7 @@ const enTranslations: Dictionary = {
       tag: "Tags",
       threat: "Threat",
       title: "Title",
+      tooltip: "Overall information about the finding: explanation, location, impacts, threats",
       treatment: {
         accepted: "Temporarily accepted",
         accepted_undefined: "Eternally accepted",
@@ -576,10 +610,13 @@ const enTranslations: Dictionary = {
       evidence_exploit: "Exploitation evidence",
       remove: "Delete",
       tab_title: "Evidence",
+      tooltip: "Images or animation about the exploitation process to support the existence" +
+        " of the finding",
       update: "Update",
     },
     tab_exploit: {
       tab_title: "Exploit",
+      tooltip: "Script to replicate the exploitation process using Asserts",
     },
     tab_indicators: {
       authors: "Current month authors",
@@ -659,9 +696,11 @@ const enTranslations: Dictionary = {
     },
     tab_observations: {
       tab_title: "Observations",
+      tooltip: "Space to review the finding and suggest adjustments. For internal purposes only",
     },
     tab_records: {
       tab_title: "Records",
+      tooltip: "Information that will be compromised or disclosed by exploiting the vulnerability",
     },
     tab_resources: {
       add_repository: "Add",
@@ -841,6 +880,7 @@ const enTranslations: Dictionary = {
       },
       solve: "Mark as solved",
       tab_title: "Severity",
+      tooltip: "Assigned scoring according to CVSS 3.1 metrics",
       update: "Update",
       user_interaction: "User Interaction",
       user_interaction_options: {
@@ -862,6 +902,8 @@ const enTranslations: Dictionary = {
       open: "Open",
       pending: "Pending",
       tab_title: "Tracking",
+      tooltip: "Finding evolution over time: Historic records, Open/Closed vulnerabilities," +
+        " Solution effectiveness on Reattacks",
     },
     tab_users: {
       add_button: "Add",

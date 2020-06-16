@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError } from "../../../../utils/notifications";
@@ -142,9 +143,11 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
           <Row>
             <Col md={2} mdOffset={5}>
               <ButtonToolbar>
-                <Button onClick={openNewProjectModal}>
-                  <Glyphicon glyph="plus" />&nbsp;{translate.t("home.newGroup.new")}
-                </Button>
+                <TooltipWrapper message={translate.t("home.newGroup.new.tooltip")} placement="bottom">
+                  <Button onClick={openNewProjectModal}>
+                    <Glyphicon glyph="plus" />&nbsp;{translate.t("home.newGroup.new.text")}
+                  </Button>
+                </TooltipWrapper>
               </ButtonToolbar>
             </Col>
           </Row>

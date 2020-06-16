@@ -61,7 +61,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
     <React.StrictMode>
       <Modal
         footer={<div />}
-        headerTitle={translate.t("home.newGroup.new")}
+        headerTitle={translate.t("home.newGroup.new.group")}
         onClose={closeNewProjectModal}
         open={props.isOpen}
       >
