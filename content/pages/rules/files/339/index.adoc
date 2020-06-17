@@ -1,0 +1,35 @@
+:slug: rules/339/
+:category: files
+:description: This document details the security guidelines and requirements related to files management within the organization or company. In this case, it is strongly recommended that the system not store user-uploaded files or files containing sensitive information in the web root.
+:keywords: Web, Root, File, Directory, ASVS, CWE
+:rules: yes
+
+= R339. Avoid storing sensitive files in the web root
+
+== Requirement
+
+The system should store newither user-uploaded files nor files containing
+sensitive information in the **web root**.
+
+== Description
+
+The **web root** is the topmost directory on a web server.
+If there is no sufficient access control,
+any file in this directory will be publicly available.
+Therefore, user-uploaded files and files containing sensitive information
+should not be stored in it.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/219.html[CWE-219: Storage of File with Sensitive Data Under Web Root].
+The application stores sensitive data under the web document root with
+insufficient access control,
+which might make it accessible to untrusted parties.
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/552.html[CWE-552: Files or Directories Accessible to External Parties].
+The product makes files or directories accessible to unauthorized actors,
+even though they should not be.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.12 Secure File Upload Architectural Requirements.(1.12.2)]
+Verify that user-uploaded files are stored outside of the web root.
