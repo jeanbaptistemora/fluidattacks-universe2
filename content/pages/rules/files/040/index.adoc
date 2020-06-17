@@ -1,7 +1,7 @@
 :slug: rules/040/
 :category: files
 :description: This document details the security guidelines and requirements related to files management within the organization or company. In this case, it is recommended that the the system validates that the format of the files correspond to the extension specified by them.
-:keywords: System, Size, File, MB, Security, User
+:keywords: System, Size, File, MB, Security, CWE
 :rules: yes
 
 = R040. Validate file format and extension
@@ -14,3 +14,12 @@ the format (structure) of the files corresponds to their extension.
 == Findings
 
 * [inner]#link:/web/findings/027/[F027. Insecure file upload]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/646.html[CWE-646: Reliance on File Name or Extension of Externally-Supplied File].
+The software allows a file to be uploaded,
+but it relies on the file name or extension of the file to determine the
+appropriate behaviors.
+This could be used by attackers to cause the file to be misclassified and
+processed in a dangerous fashion.

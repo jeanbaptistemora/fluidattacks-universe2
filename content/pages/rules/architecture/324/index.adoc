@@ -54,6 +54,12 @@ V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
 . [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.1)]
+Verify that the application enforces access control rules on a trusted service
+layer,
+especially if client-side access control is present and could be bypassed.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.5)]
 Verify that URL redirects and forwards only allow whitelisted destinations,
 or show a warning when redirecting to potentially untrusted content.

@@ -67,6 +67,12 @@ servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.1)]
+Verify that the application enforces access control rules on a trusted service
+layer,
+especially if client-side access control is present and could be bypassed.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.3)]
 Verify that old versions of SSL and TLS protocols, algorithms, ciphers, and
 configuration are disabled,

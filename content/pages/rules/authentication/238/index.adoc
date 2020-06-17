@@ -62,3 +62,9 @@ Verify forgotten password, and other recovery paths use a secure recovery
 mechanism,
 such as TOTP or other soft token, mobile push, or another offline recovery
 mechanism.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.1)]
+Verify that the application enforces access control rules on a trusted service
+layer,
+especially if client-side access control is present and could be bypassed.
