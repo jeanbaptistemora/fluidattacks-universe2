@@ -1,7 +1,7 @@
 /**
- * Project attributes
+ * Group attributes
  */
-export interface IProject {
+export interface IGroup {
   closedVulnerabilities: number;
   isCommunity: boolean;
   openVulnerabilities: number;
@@ -11,8 +11,8 @@ export interface IProject {
 /**
  * Query data response type
  */
-export interface IProjectsResult {
+export interface IGroupsResult {
   me: {
-    projects: IProject[];
+    groups: IGroup[];
   };
 }

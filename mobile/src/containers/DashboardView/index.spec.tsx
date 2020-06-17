@@ -12,7 +12,7 @@ import { MemoryRouter } from "react-router-native";
 import { i18next } from "../../utils/translations/translate";
 
 import { DashboardView } from "./index";
-import { PROJECTS_QUERY } from "./queries";
+import { GROUPS_QUERY } from "./queries";
 
 jest.mock("react-native", (): Dictionary => {
   const mockedRN: Dictionary = jest.requireActual("react-native");
@@ -51,12 +51,12 @@ describe("DashboardView", (): void => {
 
     const projectMock: Readonly<MockedResponse> = {
       request: {
-        query: PROJECTS_QUERY,
+        query: GROUPS_QUERY,
       },
       result: {
         data: {
           me: {
-            projects: [
+            groups: [
               {
                 closedVulnerabilities: 7,
                 isCommunity: false,
@@ -100,12 +100,12 @@ describe("DashboardView", (): void => {
 
     const emptyMock: Readonly<MockedResponse> = {
       request: {
-        query: PROJECTS_QUERY,
+        query: GROUPS_QUERY,
       },
       result: {
         data: {
           me: {
-            projects: [],
+            groups: [],
           },
         },
       },
@@ -136,7 +136,7 @@ describe("DashboardView", (): void => {
 
     const errorMock: Readonly<MockedResponse> = {
       request: {
-        query: PROJECTS_QUERY,
+        query: GROUPS_QUERY,
       },
       result: {
         errors: [
@@ -168,12 +168,12 @@ describe("DashboardView", (): void => {
 
     const errorMock: Readonly<MockedResponse> = {
       request: {
-        query: PROJECTS_QUERY,
+        query: GROUPS_QUERY,
       },
       result: {
         data: {
           me: {
-            projects: [
+            groups: [
               {
                 closedVulnerabilities: 7,
                 isCommunity: false,

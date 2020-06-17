@@ -25,9 +25,9 @@ import { rollbar } from "../../utils/rollbar";
 import { IAuthState, logout } from "../../utils/socialAuth";
 
 import { Header } from "./Header";
-import { PROJECTS_QUERY } from "./queries";
+import { GROUPS_QUERY } from "./queries";
 import { styles } from "./styles";
-import { IProject, IProjectsResult } from "./types";
+import { IGroup, IGroupsResult } from "./types";
 
 const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
@@ -36,39 +36,43 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
 
   // GraphQL operations
-  const { client, data, loading } = useQuery<IProjectsResult>(PROJECTS_QUERY, {
+  const { client, data, loading } = useQuery<IGroupsResult>(GROUPS_QUERY, {
     errorPolicy: "all",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         switch (error.message) {
           case "Access denied":
+            // Ignore groups without integrates service
             break;
           default:
-            rollbar.log("An error occurred loading projects", error);
+            rollbar.error("An error occurred loading groups", error);
             Alert.alert(t("common.error.title"), t("common.error.msg"));
         }
       });
     },
   });
 
-  const projects: IProject[] = _.isUndefined(data) || _.isEmpty(data)
-    ? []
-    : data.me.projects.filter((project: IProject): boolean =>
-      !project.isCommunity
-      && !_.isNil(project.serviceAttributes)
-      && project.serviceAttributes.includes("has_integrates"));
+  const hasIntegrates: ((group: IGroup) => boolean) = (group: IGroup): boolean =>
+    !_.isNil(group.serviceAttributes)
+    && group.serviceAttributes.includes("has_integrates");
 
-  const closedVulns: number = projects.reduce(
-    (previousValue: number, project: IProject): number =>
+  const groups: IGroup[] = _.isUndefined(data) || _.isEmpty(data)
+    ? []
+    : data.me.groups.filter((group: IGroup): boolean =>
+      !group.isCommunity
+      && hasIntegrates(group));
+
+  const closedVulns: number = groups.reduce(
+    (previousValue: number, group: IGroup): number =>
       previousValue
-      + project.closedVulnerabilities,
+      + group.closedVulnerabilities,
     0);
 
-  const totalVulns: number = projects.reduce(
-    (previousValue: number, project: IProject): number =>
+  const totalVulns: number = groups.reduce(
+    (previousValue: number, group: IGroup): number =>
       previousValue
-      + project.openVulnerabilities
-      + project.closedVulnerabilities,
+      + group.openVulnerabilities
+      + group.closedVulnerabilities,
     0);
 
   const remediatedPercentage: number = (closedVulns / totalVulns * 100);
@@ -93,7 +97,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
         <View style={styles.remediationContainer}>
           <Headline style={styles.remediatedText}>{t("dashboard.remediated")}</Headline>
           <Text>
-            <Trans i18nKey="dashboard.vulnsFound" count={projects.length}>
+            <Trans i18nKey="dashboard.vulnsFound" count={groups.length}>
               <Title>{{ totalVulns: totalVulns.toLocaleString() }}</Title>
             </Trans>
           </Text>
