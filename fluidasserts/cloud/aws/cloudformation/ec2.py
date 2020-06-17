@@ -6,9 +6,9 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
 # Standard imports
-import ipaddress
+from ipaddress import IPv4Network, IPv6Network, AddressValueError
 import contextlib
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 # Local imports
 from fluidasserts import SAST, LOW, MEDIUM, HIGH
@@ -54,7 +54,7 @@ def _iterate_security_group_rules(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def allows_all_outbound_traffic(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Check if any ``EC2::SecurityGroup`` allows all outbound traffic.
 
@@ -104,7 +104,7 @@ def allows_all_outbound_traffic(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unrestricted_cidrs(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Check if any ``EC2::SecurityGroup`` has ``0.0.0.0/0`` or ``::/0`` CIDRs.
 
@@ -122,8 +122,8 @@ def has_unrestricted_cidrs(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
-    unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
+    unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
+    unrestricted_ipv6 = IPv6Network('::/0')
     for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
             _iterate_security_group_rules(path, exclude):
         entities = []
@@ -131,9 +131,9 @@ def has_unrestricted_cidrs(
         with contextlib.suppress(KeyError,
                                  ValueError,
                                  TypeError,
-                                 ipaddress.AddressValueError):
+                                 AddressValueError):
             ipv4 = sg_rule['CidrIp']
-            ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
+            ipv4_obj = IPv4Network(ipv4, strict=False)
             if ipv4_obj == unrestricted_ipv4:
                 entities.append(
                     (f'CidrIp/{ipv4}', 'must not be 0.0.0.0/0'))
@@ -145,9 +145,9 @@ def has_unrestricted_cidrs(
         with contextlib.suppress(KeyError,
                                  ValueError,
                                  TypeError,
-                                 ipaddress.AddressValueError):
+                                 AddressValueError):
             ipv6 = sg_rule['CidrIpv6']
-            ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
+            ipv6_obj = IPv6Network(ipv6, strict=False)
             if ipv6_obj == unrestricted_ipv6:
                 entities.append(
                     (f'CidrIpv6/{ipv6}', 'must not be ::/0'))
@@ -174,7 +174,7 @@ def has_unrestricted_cidrs(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unrestricted_ip_protocols(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Avoid ``EC2::SecurityGroup`` ingress/egress rules with any ip protocol.
 
@@ -219,7 +219,7 @@ def has_unrestricted_ip_protocols(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unrestricted_ports(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Avoid ``EC2::SecurityGroup`` ingress/egress rules with port ranges.
 
@@ -269,7 +269,7 @@ def has_unrestricted_ports(
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unencrypted_volumes(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Verify if ``EC2::Volume`` has the encryption attribute set to **true**.
 
@@ -309,7 +309,7 @@ def has_unencrypted_volumes(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_not_an_iam_instance_profile(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Verify if ``EC2::Instance`` uses an IamInstanceProfile.
 
@@ -356,7 +356,7 @@ def has_not_an_iam_instance_profile(
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_not_termination_protection(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Verify if ``EC2`` has not deletion protection enabled.
 
@@ -436,7 +436,7 @@ def has_not_termination_protection(
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_terminate_shutdown_behavior(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Verify if ``EC2::LaunchTemplate`` has **Terminate** as Shutdown Behavior.
 
@@ -494,7 +494,7 @@ def has_terminate_shutdown_behavior(
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_associate_public_ip_address_enabled(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Verify if ``EC2::Instance`` has **NetworkInterfaces** with public IPs.
 
@@ -540,7 +540,7 @@ def is_associate_public_ip_address_enabled(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def uses_default_security_group(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Verify if ``EC2`` have not **Security Groups** explicitely set.
 
@@ -619,7 +619,7 @@ def uses_default_security_group(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def security_group_allows_anyone_to_admin_ports(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Check if ``EC2::SecurityGroup`` allows connection from internet
     to admin services.
@@ -680,7 +680,7 @@ def security_group_allows_anyone_to_admin_ports(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unrestricted_dns_access(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Check if inbound rules that allow unrestricted access to port 53.
 
@@ -734,7 +734,7 @@ def has_unrestricted_dns_access(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unrestricted_ftp_access(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Check if security groups allow unrestricted access to TCP ports 20 and 21.
 
@@ -787,7 +787,7 @@ def has_unrestricted_ftp_access(
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_security_groups_ip_ranges_in_rfc1918(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Check if inbound rules access from IP address ranges specified in RFC-1918.
 
@@ -838,7 +838,7 @@ def has_security_groups_ip_ranges_in_rfc1918(
 @api(risk=HIGH, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_open_all_ports_to_the_public(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+        path: str, exclude: Optional[List[str]] = None) -> Tuple:
     """
     Check if security groups has all ports or protocols open to the public..
 
@@ -849,24 +849,24 @@ def has_open_all_ports_to_the_public(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
-    unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
+    vulnerabilities: List = []
+    unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
+    unrestricted_ipv6 = IPv6Network('::/0')
     for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
             _iterate_security_group_rules(path, exclude):
 
-        entities = []
+        entities: List = []
 
         with contextlib.suppress(KeyError, TypeError, ValueError,
-                                 ipaddress.AddressValueError):
+                                 AddressValueError):
             from_port, to_port = tuple(map(
                 float, (sg_rule['FromPort'], sg_rule['ToPort'])))
-            ipv4 = sg_rule.get('CidrIp', '')
-            ipv6 = sg_rule.get('CidrIpv6', '')
+            ipv4: str = sg_rule.get('CidrIp', '')
+            ipv6: str = sg_rule.get('CidrIpv6', '')
             if ipv4:
-                ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
+                ipv4_obj: IPv4Network = IPv4Network(ipv4, strict=False)
             else:
-                ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
+                ipv6_obj: IPv6Network = IPv6Network(ipv6, strict=False)
             if (from_port == 1 and to_port == 65535) \
                     and (ipv4_obj == unrestricted_ipv4
                          or ipv6_obj == unrestricted_ipv6):
