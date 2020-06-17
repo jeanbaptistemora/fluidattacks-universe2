@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
+import * as Updates from "expo-updates";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
  * Necessary polyfill due to a bug in RN for android
@@ -105,6 +106,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
         <Preloader visible={loading} />
         <View style={styles.bottom}>
           <Logo width={180} height={40} fill={colors.text} />
+          <Text style={styles.text}>v. {(Updates.manifest as Updates.Manifest).version}</Text>
         </View>
       </View>
     </React.StrictMode>
