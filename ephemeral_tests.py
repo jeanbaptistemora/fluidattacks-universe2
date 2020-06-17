@@ -83,7 +83,7 @@ class ViewTestCase(unittest.TestCase):
     def __check_existing_session(self):
         try:
             selenium = self.selenium
-            continue_btn = WebDriverWait(selenium, self.delay/10).until(
+            continue_btn = WebDriverWait(selenium, self.delay/4).until(
                 expected.presence_of_element_located(
                     (By.XPATH, "//*[contains(text(), 'Continue')]")))
             self.__click(continue_btn)
@@ -116,9 +116,9 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Access with Azure')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
-        google_login = selenium.find_element_by_xpath(
+        azure_login = selenium.find_element_by_xpath(
             "//*[contains(text(), 'Access with Azure')]")
-        self.__click(google_login)
+        self.__click(azure_login)
         self.__check_existing_session()
         self.__check_legal_notice()
 
