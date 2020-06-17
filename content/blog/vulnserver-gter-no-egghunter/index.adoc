@@ -14,7 +14,7 @@
 :about2: "We don't need the key, we'll break in" RATM
 :source: https://unsplash.com/photos/mk7D-4UCfmg
 
-= GTER Exploit by Reusing Sockets
+= GTER Exploit: Reusing Socket Stack
 
 This is the third article on the series of exploiting `Vulnserver`,
 a `VbD` (Vulnerable-by-Design) application in which you can practice Windows
@@ -49,8 +49,9 @@ and where the `STDIN`, `STDOUT`, and `STDERR`
 are redirected to the previously generated socket handle.
 
 However, if we are exploiting a `TCP/IP` server like `Vulnserver`,
-the chances are that the 'WinSock' DLL library is already loaded
-and initialized. So we can skip the first point on our custom shellcode.
+chances are that the 'WinSock' DLL library is already loaded
+and initialized. That means that we can spare `WinSock` rutines initialization
+from our shellcode that can save us a great amount of bytes. Every byte counts.
 
 As a reference, let's create a reverse shellcode using `msfvenom`:
 
