@@ -1,0 +1,11 @@
+:slug: faq/
+:description: In this page we present a recompilation of questions and answers that help understand the Continuous Hacking service and how it can benefit an organization. Also to inform potential talents and people interested in working with us about our selection process.
+:keywords: Fluid Attacks, Careers, Selection, Process, Continuos Hacking, Ethical Hacking, FAQ, Questions.
+
+= Frequently Asked Questions (FAQ)
+
+Frequently asked questions about our services can be found link:../faq/clients/[*here*].
+
+If you have questions about `Fluid Attacks` products or the selection process,
+please read through the `FAQ` list.
+You might find the answer to your question link:../careers/faq/[*here*]

@@ -154,7 +154,11 @@ function helper_deploy_pages {
   &&  sed -i "s|:template: defends|:template: findings|g" new/content/pages/defends/index.adoc \
   &&  cp theme/2014/static/js/rules.ts new/theme/2020/static/js/ \
   &&  cp theme/2014/static/images/arrow.svg new/theme/2020/static/images/ \
-  &&  sed -i "s|:category: people|:category: about-us|g" new/content/pages/about-us/people/*/index.adoc
+  &&  sed -i "s|:category: people|:category: about-us|g" new/content/pages/about-us/people/*/index.adoc \
+  &&  rsync -av --progress content/pages/services/faq/index.adoc new/content/pages/faq/clients/ \
+  &&  sed -i "s|:slug: services/faq|:slug: faq/clients|g" new/content/pages/faq/clients/index.adoc \
+  &&  sed -i "s|:category: services|:category: faq|g" new/content/pages/faq/clients/index.adoc \
+  &&  sed -i "s|= Frequently asked questions|= Clients FAQ|g" new/content/pages/faq/clients/index.adoc
 }
 
 function helper_deploy_compile_old {
