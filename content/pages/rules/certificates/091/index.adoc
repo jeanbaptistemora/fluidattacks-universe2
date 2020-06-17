@@ -1,7 +1,7 @@
 :slug: rules/091/
 :category: certificates
 :description: This document details the security guidelines and requirements related to the use of certificates (within the organizations), which, it is highly recommended, must be signed by valid internal certification bodies when they are for internal applications.
-:keywords: Certificate, Certification Bodies, Applications, Signature, Requirement, Security
+:keywords: Certificate, Certification Bodies, Applications, Signature, ASVS, CWE
 :rules: yes
 
 = R091. Use internally signed certificates
@@ -15,3 +15,16 @@ when these are for internal applications.
 == Findings
 
 * [inner]#link:/web/findings/049/[F049. Insecure digital certificates]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/295.html[CWE-295: Improper Certificate Validation].
+The software does not validate, or incorrectly validates, a certificate.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.1)]
+Verify that connections to and from the server use trusted TLS certificates.
+Where internally generated or self-signed certificates are used,
+the server must be configured to only trust specific internal CAs and specific
+self-signed certificates.
+All others should be rejected.
