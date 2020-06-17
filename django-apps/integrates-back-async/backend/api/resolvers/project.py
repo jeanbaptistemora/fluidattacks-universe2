@@ -43,6 +43,9 @@ from backend.typing import (
     SimpleProjectPayload as SimpleProjectPayloadType,
 )
 from backend import util
+from backend.utils import (
+    apm,
+)
 
 from __init__ import FI_COMMUNITY_PROJECTS
 
@@ -375,6 +378,7 @@ async def _get_comments(
     return comments
 
 
+@apm.trace()
 @enforce_group_level_auth_async
 @require_attribute('has_drills_white')
 async def _get_bill(_, project_name: str, date: datetime = None, **__):

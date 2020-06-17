@@ -171,6 +171,7 @@ async def cloudwatch_log_queue(request, msg: str) -> None:
     asyncio.create_task(sync_to_async(LOGGER.info)(":".join(info)))
 
 
+@apm.trace()
 def get_jwt_content(context) -> Dict[str, str]:
     try:
         cookies = context.COOKIES \

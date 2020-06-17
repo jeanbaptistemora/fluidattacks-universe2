@@ -9,11 +9,15 @@ import rollbar
 
 # Local libraries
 from backend.dal.helpers.s3 import CLIENT as S3_CLIENT  # type: ignore
+from backend.utils import (
+    apm,
+)
 from __init__ import (
     SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,
 )
 
 
+@apm.trace()
 def get_bill_buffer(*, date: datetime, group: str) -> io.BytesIO:
     year: str = date.strftime('%Y')
     month: str = date.strftime('%m')

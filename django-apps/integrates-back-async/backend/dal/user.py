@@ -12,6 +12,9 @@ from backend.dal.organization import (
     get_or_create as get_or_create_org
 )
 from backend.typing import User as UserType
+from backend.utils import (
+    apm,
+)
 
 # Local libraries
 from __init__ import FI_TEST_PROJECTS
@@ -268,6 +271,7 @@ def delete(email: str) -> bool:
     return resp
 
 
+@apm.trace()
 def get_projects(user_email: str, active: bool) -> List[str]:
     """ Get projects of a user """
     filtering_exp = Key('user_email').eq(user_email.lower())

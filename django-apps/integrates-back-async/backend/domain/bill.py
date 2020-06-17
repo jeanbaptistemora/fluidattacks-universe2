@@ -14,6 +14,9 @@ from asgiref.sync import sync_to_async
 from backend.dal import (
     bill as bill_dal,
 )
+from backend.utils import (
+    apm,
+)
 
 # Constants
 COLUMNS: Dict[str, str] = {
@@ -26,6 +29,7 @@ COLUMNS: Dict[str, str] = {
 }
 
 
+@apm.trace()
 @sync_to_async
 def get_authors_data(*, date: datetime, group: str) -> List[Dict[str, str]]:
     buffer: io.BytesIO = bill_dal.get_bill_buffer(date=date, group=group)

@@ -302,9 +302,13 @@ def remove_all_project_access(project: str) -> bool:
     return resp
 
 
-def exists(project_name: str) -> bool:
+def exists(project_name: str, pre_computed_project_data: dict = None) -> bool:
     project = project_name.lower()
-    return bool(get_attributes(project, ['project_name']))
+    project_data = pre_computed_project_data or get_attributes(project, [
+        'project_name',
+    ])
+
+    return bool(project_data)
 
 
 def list_project_managers(group: str) -> List[str]:
@@ -344,12 +348,12 @@ def get_filtered_list(
     return projects
 
 
-def is_alive(project: str) -> bool:
+def is_alive(project: str, pre_computed_project_data: dict = None) -> bool:
     """Validate if a project exist and is not deleted."""
     project_name = project.lower()
     is_valid_project = True
-    if exists(project_name):
-        project_data = get_attributes(
+    if exists(project_name, pre_computed_project_data):
+        project_data = pre_computed_project_data or get_attributes(
             project_name.lower(),
             ['deletion_date', 'project_status']
         )
@@ -363,13 +367,16 @@ def is_alive(project: str) -> bool:
 
 def can_user_access_pending_deletion(
         project: str, role: str, should_access_pending: bool = True) -> bool:
+    project_data = get_attributes(project.lower(), [
+        'deletion_date',
+        'historic_deletion',
+        'project_name',
+        'project_status',
+    ])
+
     allow_roles = ['admin', 'customeradmin']
     is_user_allowed = False
-    if not is_alive(project):
-        project_data = get_attributes(
-            project.lower(),
-            ['historic_deletion', 'project_status']
-        )
+    if not is_alive(project, project_data):
         if project_data.get('project_status') == 'PENDING_DELETION':
             is_user_allowed = role in allow_roles and should_access_pending
     else:

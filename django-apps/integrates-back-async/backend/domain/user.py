@@ -1,13 +1,15 @@
-import asyncio
 from datetime import datetime
 from typing import Dict, List, Union, cast
-from asgiref.sync import sync_to_async
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
 from backend.typing import User as UserType
 from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
+)
+from backend.utils import (
+    aio,
+    apm,
 )
 from backend import authz
 
@@ -42,21 +44,32 @@ def get_data(email: str, attr: str) -> Union[str, UserType]:
     return str()
 
 
+@apm.trace()
 async def get_projects(user_email: str, active: bool = True,
                        access_pending_projects: bool = True) -> List[str]:
-    projects = await sync_to_async(user_dal.get_projects)(user_email, active)
-    can_user_access_tasks = [
-        asyncio.create_task(
-            sync_to_async(project_dal.can_user_access_pending_deletion)(
-                project, authz.get_group_level_role(user_email, project),
-                access_pending_projects)
+    projects = await aio.ensure_io_bound(aio.PyCallable(
+        instance=user_dal.get_projects,
+        args=(user_email, active),
+    ))
+
+    group_level_roles = await aio.ensure_io_bound(aio.PyCallable(
+        instance=authz.get_group_level_roles,
+        args=(user_email, projects),
+    ))
+
+    can_access_list = await aio.ensure_many_io_bound([
+        aio.PyCallable(
+            instance=project_dal.can_user_access_pending_deletion,
+            args=(project, role, access_pending_projects),
         )
-        for project in projects
+        for role, project in zip(group_level_roles, projects)
+    ])
+
+    return [
+        project
+        for can_access, project in zip(can_access_list, projects)
+        if can_access
     ]
-    can_user_access = await asyncio.gather(*can_user_access_tasks)
-    projects = [project for index, project in enumerate(projects)
-                if can_user_access[index]]
-    return projects
 
 
 def get_group_access(email: str, group: str) -> bool:

@@ -21,6 +21,7 @@ from .model import (
 from .policy import (
     get_cached_group_service_attributes_policies,
     get_group_level_role,
+    get_group_level_roles,
     get_user_level_role,
     grant_group_level_role,
     grant_user_level_role,
@@ -53,6 +54,7 @@ __all__ = [
     # policy
     'get_cached_group_service_attributes_policies',
     'get_group_level_role',
+    'get_group_level_roles',
     'get_user_level_role',
     'grant_group_level_role',
     'grant_user_level_role',

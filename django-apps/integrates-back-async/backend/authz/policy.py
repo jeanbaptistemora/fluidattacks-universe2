@@ -1,6 +1,8 @@
 # Standard library
 import contextlib
 from typing import (
+    Dict,
+    List,
     Tuple,
 )
 
@@ -12,6 +14,9 @@ from rediscluster.nodemanager import RedisClusterException
 from backend.dal import (
     project as project_dal,
     user as user_dal,
+)
+from backend.utils import (
+    apm,
 )
 from .model import (
     USER_LEVEL_ROLES,
@@ -75,6 +80,7 @@ def get_cached_subject_policies(
     return fetched_data
 
 
+@apm.trace()
 def get_group_level_role(email: str, group: str) -> str:
     # Admins are granted access to all groups
     group_role = user_dal.get_subject_policy(email, group).role
@@ -82,6 +88,24 @@ def get_group_level_role(email: str, group: str) -> str:
         return 'admin'
 
     return group_role
+
+
+def get_group_level_roles(email: str, groups: List[str]) -> Dict[str, str]:
+    is_admin: bool = get_user_level_role(email) == 'admin'
+
+    db_roles: Dict[str, str] = {
+        object_: role
+        for level, subject, object_, role in get_cached_subject_policies(email)
+        if level == 'group'
+        and subject == email
+    }
+
+    return {
+        group: 'admin'
+        if is_admin and group not in db_roles
+        else db_roles.get(group, '')
+        for group in groups
+    }
 
 
 def get_user_level_role(email: str) -> str:
