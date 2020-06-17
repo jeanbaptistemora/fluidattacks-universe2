@@ -1,4 +1,3 @@
-
 # disable MyPy due to error "boto module has no attribute client"
 #  type: ignore
 
@@ -15,7 +14,10 @@ from django.core.files.uploadedfile import (
     InMemoryUploadedFile, TemporaryUploadedFile
 )
 
-
+# Local libraries
+from backend.utils import (
+    apm,
+)
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
 )
@@ -30,12 +32,14 @@ OPTIONS = dict(
 CLIENT = boto3.client(**OPTIONS)
 
 
+@apm.trace()
 @contextlib.asynccontextmanager
 async def aio_client():
     async with aioboto3.client(**OPTIONS) as client:
         yield client
 
 
+@apm.trace()
 @contextlib.asynccontextmanager
 async def aio_resource():
     async with aioboto3.resource(**OPTIONS) as resource:

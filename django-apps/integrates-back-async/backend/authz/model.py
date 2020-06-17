@@ -11,6 +11,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
             'backend_api_resolvers_alert_resolve_set_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_create_event',
             'backend_api_resolvers_event__do_download_event_file',
@@ -84,6 +85,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     analyst=dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_create_event',
             'backend_api_resolvers_event__do_download_event_file',
@@ -131,6 +133,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     closer=dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
             'backend_api_resolvers_event_resolve_events',
@@ -152,6 +155,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
@@ -187,6 +191,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customeradmin=dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
@@ -234,6 +239,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     executive=dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
@@ -269,6 +275,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
             'backend_api_resolvers_alert_resolve_set_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_create_event',
             'backend_api_resolvers_event__do_download_event_file',
@@ -327,6 +334,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     resourcer=dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
             'backend_api_resolvers_event_resolve_events',
@@ -347,6 +355,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     reviewer=dict(
         actions={
             'backend_api_resolvers_alert_resolve_alert',
+            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',

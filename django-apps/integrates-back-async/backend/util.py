@@ -41,6 +41,9 @@ from backend.exceptions import (
 )
 
 from backend.typing import Finding as FindingType, User as UserType
+from backend.utils import (
+    apm,
+)
 from __init__ import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -452,6 +455,7 @@ def get_requested_fields(field_name: str, selection_set: SelectionSetNode) -> Li
     return selections
 
 
+@apm.trace()
 def get_field_parameters(field: FieldNode,
                          variable_values: Dict[str, Any] = None) -> Dict[str, Any]:
     """Get a dict of parameters for field."""

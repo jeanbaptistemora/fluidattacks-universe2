@@ -30,6 +30,9 @@ from backend.services import (
 )
 from backend import authz, util
 from backend.exceptions import InvalidAuthorization, FindingNotFound
+from backend.utils import (
+    apm,
+)
 
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -74,6 +77,8 @@ def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
 
     Verifies that the user is logged in with a valid JWT
     """
+
+    @apm.trace(display_name='require_login')
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
@@ -124,6 +129,8 @@ def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
 
 def enforce_group_level_auth_async(func: Callable[..., Any]) -> Callable[..., Any]:
     """Enforce authorization using the group-level role."""
+
+    @apm.trace(display_name='enforce_group_level_auth_async')
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         if hasattr(args[0], 'context'):
@@ -192,6 +199,7 @@ def require_attribute(attribute: str):
 
     def wrapper(function: Callable) -> Callable:
 
+        @apm.trace(display_name='require_attribute')
         @functools.wraps(function)
         async def resolve_and_call(*args, **kwargs):
             group = resolve_project_name(args, kwargs)
@@ -218,6 +226,8 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
 
     Verifies that the current user has access to a given project
     """
+
+    @apm.trace(display_name='require_project_access')
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context

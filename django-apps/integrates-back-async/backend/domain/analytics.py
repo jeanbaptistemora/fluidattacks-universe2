@@ -6,8 +6,12 @@ import os
 from backend.dal import (
     analytics as analytics_dal,
 )
+from backend.utils import (
+    apm,
+)
 
 
+@apm.trace()
 async def get_document(
     *,
     document_name: str,

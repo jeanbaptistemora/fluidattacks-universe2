@@ -41,9 +41,6 @@ in
       pyPkgReqsApp =
         builders.pythonRequirements ../../deploy/containers/app/requirements.txt;
 
-      pyPkgTracers =
-        builders.pythonPackage "tracers==20.5.23574";
-
       rubyGemAsciiDoctor =
         builders.rubyGem "asciidoctor:2.0.10";
 

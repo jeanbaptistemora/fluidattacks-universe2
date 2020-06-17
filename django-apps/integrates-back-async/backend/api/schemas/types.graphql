@@ -1,3 +1,12 @@
+"Analytics type definition"
+type Analytics {
+    groupDocument(
+        documentName: String!
+        documentType: String!
+        groupName: String!
+    ): GenericScalar
+}
+
 "Alert type definition"
 type Alert {
     message: String

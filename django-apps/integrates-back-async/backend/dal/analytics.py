@@ -4,10 +4,16 @@ import io
 # Local libraries
 from backend.dal.helpers.s3 import (  # type: ignore
     aio_client,
-    BUCKET_ANALYTICS,
+)
+from backend.utils import (
+    apm,
+)
+from __init__ import (
+    FI_AWS_S3_ANALYTICS_BUCKET as BUCKET_ANALYTICS,
 )
 
 
+@apm.trace()
 async def get_document(key: str) -> str:
     with io.BytesIO() as stream:
 
