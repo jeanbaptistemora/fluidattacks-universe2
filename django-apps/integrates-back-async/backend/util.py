@@ -334,9 +334,7 @@ def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> bool:
 
 
 def is_api_token(user_data: UserType) -> bool:
-    is_api = bool(user_data.get('jti'))
-
-    return is_api
+    return user_data.get('sub') == 'api_token' if 'sub' in user_data else 'jti' in user_data
 
 
 def is_valid_format(date: str) -> bool:
