@@ -8,8 +8,7 @@ export type NodeType = HTMLDivElement;
 export type GeneratorType = (data: DataType, width: number, height: number) => NodeType;
 
 export interface IGraphicProps {
+  bsClass?: string;
   data: DataType;
   generator: GeneratorType;
-  height: number;
-  width: number;
 }
