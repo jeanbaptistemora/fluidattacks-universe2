@@ -22,9 +22,8 @@ from fluidasserts import LOW
 from fluidasserts import SAST
 from fluidasserts.cloud.aws.cloudformation import (
     CloudFormationInvalidTypeError)
-from fluidasserts.cloud.aws.cloudformation.graphs.new_loader import (
-    get_ref_nodes)
-from fluidasserts.cloud.aws.cloudformation.graphs.new_loader import get_type
+from fluidasserts.cloud.aws.cloudformation.graphs import get_ref_nodes
+from fluidasserts.cloud.aws.cloudformation.graphs import get_type
 from fluidasserts.cloud.aws.cloudformation import _get_result_as_tuple
 from fluidasserts.cloud.aws.cloudformation import Vulnerability
 from fluidasserts.utils.decorators import api, unknown_if

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# pylint: disable=too-many-lines
 # pylint: disable=too-many-ancestors
 # pylint: disable=unexpected-special-method-signature
 # pylint: disable=super-init-not-called

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# pylint: disable=too-many-lines
 # pylint: disable=too-many-ancestors
 # pylint: disable=unexpected-special-method-signature
 # pylint: disable=super-init-not-called
@@ -12,18 +11,15 @@ from concurrent.futures import ThreadPoolExecutor
 from collections import OrderedDict
 from collections import UserDict
 from collections import UserList
-from contextlib import (suppress, contextmanager)
+from contextlib import suppress
 from copy import copy
 import datetime
 from multiprocessing import cpu_count
 from timeit import default_timer as timer
-from typing import Callable
-from typing import List as TList
 from typing import Tuple
 from typing import Set
 
 # 3rd party imports
-import networkx as nx
 from pyparsing import Char
 from pyparsing import nestedExpr
 from pyparsing import Optional
@@ -42,47 +38,6 @@ from fluidasserts.utils.generic import get_paths
 from fluidasserts.helper.aws import load_cfn_template
 from fluidasserts.utils.parsers.json import CustomDict
 from fluidasserts.utils.parsers.json import CustomList
-
-
-def get_ref_nodes(graph: DiGraph, node: int,
-                  condition: Callable = None) -> TList[int]:
-    """
-    Returns the value of a node the value of its reference.
-
-    If the node already has a value, the same node is returned, otherwise the
-    references that meet the condition are searched.
-
-    :param graph: Templates converted into a DiGraph.
-    :param node: Id of node.
-    :param condition: Condition that the reference value must meet,
-        a boolean must return.
-    """
-    if not condition:
-        def condition(  # noqa pylint: disable=function-redefined
-            value): return True  # noqa pylint: disable=unused-argument,multiple-statements
-    nodes = [node] if 'value' in graph.nodes[node] else [
-        ref for ref in dfs_preorder_nodes(graph, node, 3)
-        if 'value' in graph.nodes[ref] and condition(graph.nodes[ref]['value'])
-    ]
-    return nx.utils.flatten(nodes)
-
-
-def get_type(graph: DiGraph, node: int, allowed_types: Set) -> str:
-    """
-    Returns the predecessor that are within the allowed types.
-
-    :param graph: Templates converted into a DiGraph.
-    :param node: Id of node.
-    :param allowed_types: Nodes that can be found within the predecessors.
-    """
-    _type = None
-    for _ in range(5):
-        node = list(graph.predecessors(node))[0]
-        intersec = graph.nodes[node]['labels'].intersection(allowed_types)
-        if intersec:
-            _type = list(intersec)[-1]
-            break
-    return _type
 
 
 def create_alias(name: str, randoms=False) -> str:
@@ -389,11 +344,3 @@ class Dict(UserDict):
                            endswith=CLOUDFORMATION_EXTENSIONS))
         end_time = timer() - init_time
         print(f'[SUCCESS]    Total: %.4f seconds' % (end_time))
-
-
-@contextmanager
-def templates_as_graph(path: str) -> DiGraph:
-    """Yield a graph with all the templates inside the path."""
-    _graph = DiGraph()
-    Dict.load_templates(path, _graph)
-    yield _graph
