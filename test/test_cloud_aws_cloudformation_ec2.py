@@ -139,3 +139,13 @@ def test_has_security_groups_ip_ranges_in_rfc1918():
     assert ec2.has_security_groups_ip_ranges_in_rfc1918(SAFE).is_closed()
     assert ec2.has_security_groups_ip_ranges_in_rfc1918(NOT_EXISTS).\
         is_unknown()
+
+
+def test_has_open_all_ports_to_the_public():
+    """test ec2.has_open_all_ports_to_the_public."""
+    result = ec2.has_open_all_ports_to_the_public(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 1
+    assert ec2.has_open_all_ports_to_the_public(SAFE).is_closed()
+    assert ec2.has_open_all_ports_to_the_public(NOT_EXISTS).\
+        is_unknown()

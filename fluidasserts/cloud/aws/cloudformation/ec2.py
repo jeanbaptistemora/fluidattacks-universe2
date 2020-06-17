@@ -11,7 +11,7 @@ import contextlib
 from typing import List, Optional
 
 # Local imports
-from fluidasserts import SAST, LOW, MEDIUM
+from fluidasserts import SAST, LOW, MEDIUM, HIGH
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
@@ -833,3 +833,55 @@ def has_security_groups_ip_ranges_in_rfc1918(
         vulnerabilities=vulnerabilities,
         msg_open='Security groups contain RFC-1918 CIDRs open.',
         msg_closed='Security groups do not contain RFC-1918 CIDRs open.')
+
+
+@api(risk=HIGH, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_open_all_ports_to_the_public(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if security groups has all ports or protocols open to the public..
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
+    unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
+    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
+            _iterate_security_group_rules(path, exclude):
+
+        entities = []
+
+        with contextlib.suppress(KeyError, TypeError, ValueError,
+                                 ipaddress.AddressValueError):
+            from_port, to_port = tuple(map(
+                float, (sg_rule['FromPort'], sg_rule['ToPort'])))
+            ipv4 = sg_rule.get('CidrIp', '')
+            ipv6 = sg_rule.get('CidrIpv6', '')
+            if ipv4:
+                ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
+            else:
+                ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
+            if (from_port == 1 and to_port == 65535) \
+                    and (ipv4_obj == unrestricted_ipv4
+                         or ipv6_obj == unrestricted_ipv6):
+                entities.append(f'{from_port}->{to_port}')
+
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'{sg_path}/FromPort->ToPort/{entity}',
+                identifier=sg_name,
+                line=sg_line,
+                reason='Grants public access to all ports')
+            for entity in entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Security groups has all ports open to the pubic',
+        msg_closed='Security groups do not have all ports open to the pubic.')
