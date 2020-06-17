@@ -25,6 +25,8 @@ const dynClasses: (() => void) = (): void => {
       $(".footer-component")
         .addClass("db-l dn");
     }
+
+    addClasses(".feature-content a", "fw8 c-fluid-bk hv-fluid-rd no-underline");
   });
 };
 
