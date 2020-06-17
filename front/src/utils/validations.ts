@@ -58,11 +58,18 @@ export const validTextField: Validator = (value: string): string | undefined => 
   let error: string | undefined;
 
   if (!_.isNil(value)) {
-    const match: RegExpMatchArray | null = value.match(
-      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#\?-]/);
+    let invalidChar: string = "";
+    let match: RegExpMatchArray | null = value.match(
+      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=\?-]/);
     if (match !== null) {
-      const invalidChar: string = `'${match[0]}'`;
+      invalidChar = `'${match[0]}'`;
       error = translate.t("validations.invalidTextField", { chars: invalidChar });
+    }
+
+    match = value.match(/^=/);
+    if (match !== null) {
+      invalidChar = `'${match[0]}'`;
+      error = translate.t("validations.invalidTextBeginning", { chars: invalidChar });
     }
   }
 
@@ -78,10 +85,17 @@ export const validUrlField: Validator = (value: string): string | undefined => {
   }
 
   if (!_.isNil(cleanValue)) {
-    const match: RegExpMatchArray | null = cleanValue.match(/[^a-zA-Z0-9(),./:;@_$#\?-]/);
+    let invalidChar: string = "";
+    let match: RegExpMatchArray | null = cleanValue.match(/[^a-zA-Z0-9(),./:;@_$#=\?-]/);
     if (match !== null) {
-      const invalidChar: string = `'${match[0]}'`;
+      invalidChar = `'${match[0]}'`;
       error = translate.t("validations.invalidUrlField", { chars: invalidChar });
+    }
+
+    match = value.match(/^=/);
+    if (match !== null) {
+      invalidChar = `'${match[0]}'`;
+      error = translate.t("validations.invalidTextBeginning", { chars: invalidChar });
     }
   }
 

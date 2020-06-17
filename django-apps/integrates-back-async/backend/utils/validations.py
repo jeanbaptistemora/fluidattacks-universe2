@@ -52,8 +52,11 @@ def validate_email_address(email: str) -> bool:
 
 
 def validate_fields(fields: List[str]):
+    allowed_chars = r'a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=\?-'
+    regex = r'^[{}]+[{}]*$'.format(allowed_chars.replace('=', ''), allowed_chars)
     for field in map(str, fields):
-        check_field(field, r'^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#\?-]*$')
+        if field:
+            check_field(field, regex)
 
 
 def validate_url(url: str):
@@ -62,7 +65,12 @@ def validate_url(url: str):
     for encoded_char in encoded_chars_whitelist:
         clean_url = clean_url.replace(encoded_char, '')
 
-    check_field(clean_url, r'^[a-zA-Z0-9(),./:;@_$#\?-]*$')
+    if clean_url:
+        allowed_chars = r'a-zA-Z0-9(),./:;@_$#=\?-'
+        check_field(
+            clean_url,
+            r'^[{}]+[{}]*$'.format(allowed_chars.replace('=', ''), allowed_chars)
+        )
 
 
 def validate_file_name(name: str) -> bool:

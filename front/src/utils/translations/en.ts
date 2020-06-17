@@ -1049,6 +1049,7 @@ const enTranslations: Dictionary = {
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
     invalidPhoneNumberInField: "The phone number inserted is not valid",
+    invalidTextBeginning: "Field cannot begin with the followng character: {{ chars }}",
     invalidTextField: "Field cannot contain the following characters: {{chars}}",
     invalidUrlField: "URL value cannot contain the following characters: {{chars}}",
     invalidValueInField: "The value inserted in one of the fields is not valid",

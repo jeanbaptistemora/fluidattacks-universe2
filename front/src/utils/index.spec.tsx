@@ -283,9 +283,9 @@ describe("Validations", () => {
   });
 
   it("shouldn't be a valid text field", () => {
-    let textField: string | undefined = validTextField("testf=ield");
+    let textField: string | undefined = validTextField("=testfield");
     expect(textField)
-      .toEqual("Field cannot contain the following characters: '='");
+      .toEqual("Field cannot begin with the followng character: '='");
     textField = validTextField("testf'ield");
     expect(textField)
       .toEqual("Field cannot contain the following characters: '\''");
