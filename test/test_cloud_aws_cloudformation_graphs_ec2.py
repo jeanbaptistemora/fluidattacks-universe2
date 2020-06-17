@@ -60,12 +60,12 @@ def test_has_unencrypted_volumes(safe_loader, vuln_loader):
     assert ec2.has_unencrypted_volumes(safe_loader).is_closed()
 
 
-def test_has_not_an_iam_instance_profile(safe_loader, vuln_loader):
+def test_has_not_an_iam_instance_profile():
     """test ec2.has_not_an_iam_instance_profile."""
-    result = ec2.has_not_an_iam_instance_profile(vuln_loader)
+    result = ec2.has_not_an_iam_instance_profile(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 3
-    assert ec2.has_not_an_iam_instance_profile(safe_loader).is_closed()
+    assert ec2.has_not_an_iam_instance_profile(SAFE).is_closed()
 
 
 def test_has_not_termination_protection(safe_loader, vuln_loader):

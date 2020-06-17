@@ -48,7 +48,7 @@ def get_ref_nodes(graph: DiGraph, node: int,
     return nx.utils.flatten(nodes)
 
 
-def get_type(graph: DiGraph, node: int, allowed_types: Set) -> str:
+def get_type(graph: DiGraph, node: int, allowed_types: Set[str]) -> str:
     """
     Returns the predecessor that are within the allowed types.
 
@@ -64,3 +64,20 @@ def get_type(graph: DiGraph, node: int, allowed_types: Set) -> str:
             _type = list(intersec)[-1]
             break
     return _type
+
+
+def get_predecessor(graph: DiGraph, node: int, label: str) -> int:
+    """
+    Returns the node of the first predecessor that contains the label.
+
+    :param graph: Templates converted into a DiGraph.
+    :param node: Id of node.
+    :param label: Nodes that can be found within the predecessors.
+    """
+    predecessor = None
+    for _ in range(10):
+        node = list(graph.predecessors(node))[0]
+        if label in graph.nodes[node]['labels']:
+            predecessor = node
+            break
+    return predecessor

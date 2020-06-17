@@ -22,6 +22,7 @@ from fluidasserts import LOW
 from fluidasserts import SAST
 from fluidasserts.cloud.aws.cloudformation import (
     CloudFormationInvalidTypeError)
+from fluidasserts.cloud.aws.cloudformation.graphs import get_predecessor
 from fluidasserts.cloud.aws.cloudformation.graphs import get_ref_nodes
 from fluidasserts.cloud.aws.cloudformation.graphs import get_type
 from fluidasserts.cloud.aws.cloudformation import _get_result_as_tuple
@@ -245,7 +246,7 @@ def has_unrestricted_ip_protocols(graph: DiGraph) -> tuple:
     * W40 Security Groups egress with an IpProtocol of -1 found
     * W42 Security Groups ingress with an ipProtocol of -1 found
 
-    :param connection: Connection String to neo4j.
+    :param graph: Templates converted into a DiGraph.
     :returns: - ``OPEN`` if any of the referenced rules is not followed.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -329,7 +330,7 @@ def has_unrestricted_ports(graph: DiGraph) -> Tuple:
     * W29 Security Groups found egress with port range
         instead of just a single port
 
-    :param connection: Connection String to neo4j.
+    :param graph: Templates converted into a DiGraph.
     :returns: - ``OPEN`` if any of the referenced rules is not followed.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -456,7 +457,7 @@ def has_unencrypted_volumes(connection: ConnectionString) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_not_an_iam_instance_profile(connection: ConnectionString) -> tuple:
+def has_not_an_iam_instance_profile(graph: DiGraph) -> Tuple:
     """
     Verify if ``EC2::Instance`` uses an IamInstanceProfile.
 
@@ -469,30 +470,36 @@ def has_not_an_iam_instance_profile(connection: ConnectionString) -> tuple:
     See: https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide
     /iam-roles-for-amazon-ec2.html
 
-    :param connection: Connection String to neo4j.
+    :param graph: Templates converted into a DiGraph.
     :returns: - ``OPEN`` if the instance has not attached an
                 IamInstanceProfile.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    query = """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-           instance:EC2:Instance)
-        WHERE NOT EXISTS {(instance)-[*1..3]-(:IamInstanceProfile)}
-        RETURN template.path as path, instance.line as line,
-             instance.name as resource
-       """
-    session = driver_session(connection)
-    for record in session.run(query):
-        vulnerabilities.append(
-            Vulnerability(
-                path=record['path'],
-                entity='AWS::EC2::Instance/IamInstanceProfile',
-                identifier=record['resource'],
-                line=record['line'],
-                reason='is not present'))
+    vulnerabilities: List[Vulnerability] = []
+    templates: List[int] = [
+        _id for _id, node in graph.nodes.data()
+        if 'CloudFormationTemplate' in node['labels']
+    ]
+    instances: List[int] = [node for template in templates
+                            for node in dfs_preorder_nodes(graph, template, 2)
+                            if len(graph.nodes[node]['labels'].intersection(
+                                {'AWS', 'EC2', 'Instance'})) > 2]
+    for instance in instances:
+        instance_node = graph.nodes[instance]
+        profile = [node for node in dfs_preorder_nodes(graph, instance, 3)
+                   if 'IamInstanceProfile' in graph.nodes[node]['labels']]
+        if not profile:
+            template = graph.nodes[get_predecessor(
+                graph, instance, 'CloudFormationTemplate')]
+            vulnerabilities.append(
+                Vulnerability(
+                    path=template['path'],
+                    entity='AWS::EC2::Instance/IamInstanceProfile',
+                    identifier=instance_node['name'],
+                    line=instance_node['line'],
+                    reason='is not present'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
