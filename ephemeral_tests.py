@@ -29,7 +29,7 @@ class ViewTestCase(unittest.TestCase):
         self.firefox = f'{self.firefox}/bin/firefox'
 
         s3_bucket = 'fluidintegrates.build'
-        profile_path = './test/functional/profile'
+        profile_path = './test/functional/profile.selenium'
         if not os.path.exists(profile_path):
             session = boto3.Session(
                 aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
@@ -37,7 +37,7 @@ class ViewTestCase(unittest.TestCase):
                 aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
             resource = session.resource('s3')
             resource.Bucket(s3_bucket).download_file(
-                'selenium/firefox-selenium-profile.tar.gz',
+                'selenium/firefox-selenium-azure-profile.tar.gz',
                 './test/functional/profile.tar.gz')
             with tarfile.open('./test/functional/profile.tar.gz') as tar:
                 tar.extractall('./test/functional')
@@ -106,15 +106,6 @@ class ViewTestCase(unittest.TestCase):
             # User has already checked the legal notice
             pass
 
-    def __choose_gmail_account(self):
-        try:
-            gmail_account = WebDriverWait(self.selenium, self.delay/10).until(
-                expected.presence_of_element_located((By.ID, 'profileIdentifier')))
-            self.__click(gmail_account)
-        except TimeoutException:
-            # There was no need to choose Gmail account
-            pass
-
     def __click(self, element):
         try:
             element.click()
@@ -126,12 +117,11 @@ class ViewTestCase(unittest.TestCase):
         selenium.get(self.url)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Access with Google')]")))
+                (By.XPATH, "//*[contains(text(), 'Access with Azure')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
         google_login = selenium.find_element_by_xpath(
-            "//*[contains(text(), 'Access with Google')]")
+            "//*[contains(text(), 'Access with Azure')]")
         self.__click(google_login)
-        self.__choose_gmail_account()
         self.__check_existing_session()
         self.__check_legal_notice()
 
