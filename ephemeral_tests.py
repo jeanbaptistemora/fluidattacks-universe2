@@ -107,10 +107,7 @@ class ViewTestCase(unittest.TestCase):
             pass
 
     def __click(self, element):
-        try:
-            element.click()
-        except ElementClickInterceptedException:
-            self.selenium.execute_script('arguments[0].click()', element)
+        self.selenium.execute_script('arguments[0].click()', element)
 
     def __login(self):
         selenium = self.selenium
@@ -228,7 +225,8 @@ class ViewTestCase(unittest.TestCase):
 
         self.__click(finding_elem)
         sev_elem = WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located((By.ID, 'cssv2Item')))
+            expected.presence_of_element_located(
+                (By.XPATH, "//a[text()[contains(., 'Severity')]]")))
         selenium.save_screenshot(SCR_PATH + '06-02-severity.png')
 
         self.__click(sev_elem)
@@ -251,12 +249,12 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '07-01-evidence.png')
 
         self.__click(finding_elem)
-        sev_elem = WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located((By.ID, 'evidenceItem')))
+        evidence_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//a[text()[contains(., 'Evidence')]]")))
         selenium.save_screenshot(SCR_PATH + '07-02-evidence.png')
 
-        evidences = sev_elem.find_element_by_link_text('Evidence')
-        self.__click(evidences)
+        self.__click(evidence_elem)
         selenium.save_screenshot(SCR_PATH + '07-03-evidence.png')
 
         WebDriverWait(selenium, self.delay).until(
@@ -277,11 +275,12 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '08-01-exploit.png')
 
         self.__click(finding_elem)
-        sev_elem = WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located((By.ID, 'exploitItem')))
+        exploit_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//a[text()[contains(., 'Exploit')]]")))
         selenium.save_screenshot(SCR_PATH + '08-02-exploit.png')
 
-        self.__click(sev_elem)
+        self.__click(exploit_elem)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'It works')]")))
@@ -300,10 +299,11 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '09-01-tracking.png')
 
         self.__click(finding_elem)
-        sev_elem = WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located((By.ID, 'trackingItem')))
-        tracking = sev_elem.find_element_by_link_text('Tracking')
-        self.__click(tracking)
+        tracking_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//a[text()[contains(., 'Tracking')]]")))
+
+        self.__click(tracking_elem)
         selenium.save_screenshot(SCR_PATH + '09-02-tracking.png')
 
         WebDriverWait(selenium, self.delay).until(
@@ -324,11 +324,12 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '10-01-comments.png')
 
         self.__click(finding_elem)
-        sev_elem = WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located((By.ID, 'commentItem')))
+        comments_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//a[text()[contains(., 'Comments')]]")))
         selenium.save_screenshot(SCR_PATH + '10-02-comments.png')
 
-        self.__click(sev_elem)
+        self.__click(comments_elem)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Oldest')]")))

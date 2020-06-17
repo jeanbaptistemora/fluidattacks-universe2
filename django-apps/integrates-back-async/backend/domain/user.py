@@ -62,7 +62,7 @@ async def get_projects(user_email: str, active: bool = True,
             instance=project_dal.can_user_access_pending_deletion,
             args=(project, role, access_pending_projects),
         )
-        for role, project in zip(group_level_roles, projects)
+        for role, project in zip(group_level_roles.values(), projects)
     ])
 
     return [
