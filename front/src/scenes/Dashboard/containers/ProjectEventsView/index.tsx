@@ -20,6 +20,7 @@ import { statusFormatter } from "../../../../components/DataTableNext/formatters
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { castEventType, formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -231,9 +232,11 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
                       <Can do="backend_api_resolvers_event__do_create_event">
-                        <Button onClick={openNewEventModal}>
-                          <Glyphicon glyph="plus" />&nbsp;{translate.t("group.events.new")}
-                        </Button>
+                        <TooltipWrapper message={translate.t("group.events.btn.tooltip")} placement="bottom">
+                          <Button onClick={openNewEventModal}>
+                            <Glyphicon glyph="plus" />&nbsp;{translate.t("group.events.btn.text")}
+                          </Button>
+                        </TooltipWrapper>
                       </Can>
                     </ButtonToolbar>
                   </Col>

@@ -17,6 +17,7 @@ import { statusFormatter } from "../../../../components/DataTableNext/formatters
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { autocompleteTextField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -172,9 +173,11 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 <Row>
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
-                      <Button onClick={openNewDraftModal}>
-                        <Glyphicon glyph="plus" />&nbsp;{translate.t("group.drafts.new")}
-                      </Button>
+                      <TooltipWrapper message={translate.t("group.drafts.btn.tooltip")} placement="bottom">
+                        <Button onClick={openNewDraftModal}>
+                          <Glyphicon glyph="plus" />&nbsp;{translate.t("group.drafts.btn.text")}
+                        </Button>
+                      </TooltipWrapper>
                     </ButtonToolbar>
                   </Col>
                 </Row>

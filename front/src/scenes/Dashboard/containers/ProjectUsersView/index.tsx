@@ -16,6 +16,7 @@ import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatUserlist } from "../../../../utils/formatHelpers";
@@ -239,26 +240,41 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
               <Col md={12} sm={12}>
                 <ButtonToolbar className="pull-right md-12 sm-12">
                   <Can do="backend_api_resolvers_user__do_grant_user_access">
-                    <Button id="addUser" onClick={openAddUserModal}>
-                      <Glyphicon glyph="plus" />
-                      &nbsp;{translate.t("search_findings.tab_users.add_button")}
-                    </Button>
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_users.add_button.tooltip")}
+                      placement="bottom"
+                    >
+                      <Button id="addUser" onClick={openAddUserModal}>
+                        <Glyphicon glyph="plus" />
+                        &nbsp;{translate.t("search_findings.tab_users.add_button.text")}
+                      </Button>
+                    </TooltipWrapper>
                   </Can>
                   <Can do="backend_api_resolvers_user__do_edit_user">
-                    <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
-                      <FluidIcon icon="edit" />
-                      &nbsp;{translate.t("search_findings.tab_users.edit")}
-                    </Button>
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_users.edit_button.tooltip")}
+                      placement="bottom"
+                    >
+                      <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
+                        <FluidIcon icon="edit" />
+                        &nbsp;{translate.t("search_findings.tab_users.edit_button.text")}
+                      </Button>
+                    </TooltipWrapper>
                   </Can>
                   <Can do="backend_api_resolvers_user__do_remove_user_access">
-                    <Button
-                      id="removeUser"
-                      onClick={handleRemoveUser}
-                      disabled={_.isEmpty(currentRow) || removing}
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_users.remove_user_button.tooltip")}
+                      placement="bottom"
                     >
-                      <Glyphicon glyph="minus" />
-                      &nbsp;{translate.t("search_findings.tab_users.remove_user")}
-                    </Button>
+                      <Button
+                        id="removeUser"
+                        onClick={handleRemoveUser}
+                        disabled={_.isEmpty(currentRow) || removing}
+                      >
+                        <Glyphicon glyph="minus" />
+                        &nbsp;{translate.t("search_findings.tab_users.remove_user_button.text")}
+                      </Button>
+                    </TooltipWrapper>
                   </Can>
                 </ButtonToolbar>
               </Col>

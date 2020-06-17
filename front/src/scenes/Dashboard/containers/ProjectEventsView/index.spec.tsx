@@ -155,7 +155,7 @@ describe("EventsView", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     const newButton: ReactWrapper = wrapper
       .find("Button")
-      .filterWhere((button: ReactWrapper) => _.includes(button.text(), "New Event"));
+      .filterWhere((button: ReactWrapper) => _.includes(button.text(), "New"));
     expect(newButton)
       .toHaveLength(1);
     newButton.simulate("click");

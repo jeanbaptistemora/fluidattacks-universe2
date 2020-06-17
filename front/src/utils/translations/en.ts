@@ -13,6 +13,7 @@ const enTranslations: Dictionary = {
     filterEnabled: "Hide filters",
     more: "--More--",
     noDataIndication: "There is no data to display",
+    tooltip: "filters of search on the table",
   },
   delete_vulns: {
     not_success: "Vulnerability could not be eliminated",
@@ -36,6 +37,10 @@ const enTranslations: Dictionary = {
     },
     drafts: {
       approve: "Approve draft",
+      btn: {
+        text: "New",
+        tooltip: "Create a new finding",
+      },
       error_submit: "Please provide {{missingFields}} before submitting",
       new: "New Finding",
       reject: "Reject Draft",
@@ -46,6 +51,10 @@ const enTranslations: Dictionary = {
     },
     events: {
       alreadyClosed: "This event has already been closed",
+      btn: {
+        text: "New",
+        tooltip: "Create a new event",
+      },
       description: {
         solved: {
           affectation: "Affectation (hours)",
@@ -136,7 +145,10 @@ const enTranslations: Dictionary = {
       exploit: {
         no_data: "There is no exploit",
       },
-      exportCsv: "Export to CSV",
+      exportCsv: {
+        text: "Export to CSV",
+        tooltip: "Comma-separated values file",
+      },
       help_label: "Click on a finding to see more details",
       records: {
         no_data: "There are no records",
@@ -146,7 +158,10 @@ const enTranslations: Dictionary = {
         True: "Pending",
       },
       report: {
-        btn: "Reports",
+        btn: {
+          text: "Reports",
+          tooltip: "Generate a findings report and send it to your email",
+        },
         data: "  DATA",
         modal_close: "Close",
         modal_title: "Reports",
@@ -159,7 +174,10 @@ const enTranslations: Dictionary = {
         xls: "  XLS",
       },
       tableSet: {
-        btn: "Table settings",
+        btn: {
+          text: "Table settings",
+          tooltip: "Pick out the fields you would like to display",
+        },
         modal_title: "Columns Filter",
       },
     },
@@ -906,7 +924,10 @@ const enTranslations: Dictionary = {
         " Solution effectiveness on Reattacks",
     },
     tab_users: {
-      add_button: "Add",
+      add_button: {
+        text: "Add",
+        tooltip: "Add an user to this group",
+      },
       admin: "Admin",
       analyst: "Analyst",
       closer: "Closer",
@@ -914,7 +935,10 @@ const enTranslations: Dictionary = {
       customeradmin: "User Manager",
       days_ago: "{{count}} day ago",
       days_ago_plural: "{{count}} days ago",
-      edit: "Edit",
+      edit_button: {
+        text: "Edit",
+        tooltip: "Select an user and edit their information",
+      },
       edit_user_title: "Edit user information",
       email: "someone@domain.com",
       executive: "Executive",
@@ -928,7 +952,10 @@ const enTranslations: Dictionary = {
       months_ago_plural: "{{count}} months ago",
       no_selection: "You must select an email from the table.",
       phone_number: "Phone Number",
-      remove_user: "Remove",
+      remove_user_button: {
+        text: "Remove",
+        tooltip: "Remove an user from the group, first select one",
+      },
       resourcer: "Resourcer",
       responsibility_placeholder: "Product Owner, Group Manager, " +
         "Tester, ...",

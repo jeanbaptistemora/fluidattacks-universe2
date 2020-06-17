@@ -20,6 +20,7 @@ import { limitFormatter, statusFormatter } from "../../../../components/DataTabl
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatFindings, formatTreatment, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -311,7 +312,9 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             <Row>
               <Col md={2} mdOffset={5}>
                 <ButtonToolbar className={style.reportsBtn}>
-                  <Button onClick={openReportsModal}>{translate.t("group.findings.report.btn")}</Button>
+                  <TooltipWrapper message={translate.t("group.findings.report.btn.tooltip")} placement="bottom">
+                    <Button onClick={openReportsModal}>{translate.t("group.findings.report.btn.text")}</Button>
+                  </TooltipWrapper>
                 </ButtonToolbar>
               </Col>
             </Row>

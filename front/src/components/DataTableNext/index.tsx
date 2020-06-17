@@ -28,6 +28,7 @@ import translate from "../../utils/translations/translate";
 import { Button } from "../Button";
 import { FluidIcon } from "../FluidIcon";
 import { Modal } from "../Modal";
+import { TooltipWrapper } from "../TooltipWrapper/index";
 import { default as style } from "./index.css";
 import { ICustomToggle, IHeader, ITableProps } from "./types";
 
@@ -95,10 +96,12 @@ const renderExportCsvButton: ((toolkitProps: ToolkitProviderProps) => JSX.Elemen
   const { ExportCSVButton } = CSVExport;
 
   return (
-    <ExportCSVButton {...toolkitProps.csvProps} className={style.exportCsv}>
-      <FluidIcon icon="export" />
-      &nbsp;{translate.t("group.findings.exportCsv")}
-    </ExportCSVButton>
+    <TooltipWrapper message={translate.t("group.findings.exportCsv.tooltip")} placement="bottom">
+      <ExportCSVButton {...toolkitProps.csvProps} className={style.exportCsv}>
+        <FluidIcon icon="export" />
+        &nbsp;{translate.t("group.findings.exportCsv.text")}
+      </ExportCSVButton>
+    </TooltipWrapper>
   );
 };
 
@@ -153,10 +156,12 @@ const CustomToggleList: ((props: ICustomToggle) => JSX.Element) =
 
   return (
     <div>
-      <Button onClick={handleOpenTableSetClick}>
-        <Glyphicon glyph="glyphicon glyphicon-cog" />&nbsp;
-        {translate.t("group.findings.tableSet.btn")}
-      </Button>
+      <TooltipWrapper message={translate.t("group.findings.tableSet.btn.tooltip")} placement="bottom">
+        <Button onClick={handleOpenTableSetClick}>
+          <Glyphicon glyph="glyphicon glyphicon-cog" />&nbsp;
+          {translate.t("group.findings.tableSet.btn.text")}
+        </Button>
+      </TooltipWrapper>
       <Modal
         open={hidden}
         footer={tableModalFooter}
@@ -211,10 +216,12 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
       };
 
       return (
-        <Button onClick={handleUpdateEnableFilter} active={!isEnableFilter}>
-          {isEnableFilter ? <Glyphicon glyph="minus"/> : <Glyphicon glyph="plus"/>}&nbsp;
-          {isEnableFilter ? translate.t("dataTableNext.filterEnabled") : translate.t("dataTableNext.filterDisabled")}
-        </Button>
+        <TooltipWrapper message={translate.t("dataTableNext.tooltip")} placement="bottom">
+          <Button onClick={handleUpdateEnableFilter} active={!isEnableFilter}>
+            {isEnableFilter ? <Glyphicon glyph="minus"/> : <Glyphicon glyph="plus"/>}&nbsp;
+            {isEnableFilter ? translate.t("dataTableNext.filterEnabled") : translate.t("dataTableNext.filterDisabled")}
+          </Button>
+        </TooltipWrapper>
       );
     };
     const isPaginationEnable: boolean = !_.isEmpty(dataset) && dataset.length > props.pageSize;
