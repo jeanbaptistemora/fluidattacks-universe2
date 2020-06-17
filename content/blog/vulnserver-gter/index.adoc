@@ -79,7 +79,7 @@ We can now create a `PoC` (Proof-of-Concept) file with that information:
 .exploit.py
 [source,python]
 ----
-mport socket
+import socket
 
 HOST = '192.168.0.29'
 PORT = 9999
@@ -117,7 +117,8 @@ space (around 0x90 or 144 bytes) at the beginning of our buffer, which
 is again not enough for something like a reverse shell, so, we need to
 be creative here. Actually, we can fit a reverse shell in that space,
 but we need to carve it manually by reusing already loaded `WinSock`
-modules of `vulnserver`, but that will be part of another post.
+modules of `vulnserver`, but that technique is described in
+link:../vulnserver-gter-no-egghunter/[post].
 
 First things first:
 
@@ -320,7 +321,7 @@ However, there's a trick we can use that will have to do with eggs.
 
 == Egghunter
 
-An 'egghunter' is a little shellcode (commonly around 32 bytes)
+An `egghunter` is a little shellcode (commonly around 32 bytes)
 that can be injected on our payload.
 It's a special shellcode because it will not execute just anything
 but will search the entire memory for the location of the desired code,
@@ -328,7 +329,7 @@ and once it finds it, it will execute it.
 
 But how will it know what to execute? It will look for a tag that
 will be prepended to our shellcode, also called the `egg`, and once
-it find that `egg`, it will execute any code that follows.
+it finds that `egg`, it will execute any code that follows.
 
 First, we need to create our egghunter shellcode:
 
@@ -344,8 +345,9 @@ EGGHUNTER += b"\x89\xd7\xaf\x75\xea\xaf\x75\xe7\xff\xe7"
 
 Note that the configured egg is `w00t`. However, to make the
 searching more effective, that egghunter was designed to look for
-a double instance of that tag, which means `w00tw00t`.
-This will make the execution of the shellcode more effective.
+a double instance of that egg, which means `w00tw00t`.
+This will guarantee that the executed code is the one we injected and will
+avoid false positives.
 
 Let's update our exploit:
 
@@ -386,9 +388,9 @@ What will happen is the following:
 . The backward jump will be executed
 and land directly to our egghunter.
 . The egghunter will iterate through all the memory
-looking for the tag `w00tw00t`.
-. When the egghunter finds the tag,
-it will execute anything that follows that tag.
+looking for the egg `w00tw00t`.
+. When the egghunter finds the egg,
+it will execute anything that follows.
 
 So, the only thing that's missing is our shellcode. We will create one
 that will bind a shell on port `4444`:
