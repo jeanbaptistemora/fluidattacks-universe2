@@ -132,7 +132,7 @@ function helper_deploy_pages {
   &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
   &&  sed -i "s|:template: faq||g" new/content/pages/careers/faq/index.adoc \
   &&  rsync -av --progress content/pages/services/certifications content/pages/services/differentiators \
-        content/pages/values content/pages/reviews content/pages/events \
+        content/pages/services/comparative content/pages/values content/pages/reviews content/pages/events \
         content/pages/people content/pages/partners new/content/pages/about-us/ \
   &&  sed -i "s|:slug: services/|:slug: about-us/|g" new/content/pages/about-us/*/index.adoc \
   &&  sed -i "s|:slug: values/|:slug: about-us/values/|g" new/content/pages/about-us/*/index.adoc \
