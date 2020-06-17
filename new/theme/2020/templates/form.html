@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block meta %}
+  <meta name="description" content="{{ page.description }}">
+  <meta name="keywords" content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">{% endblock canonical %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+  <div class="pv0">
+    <!-- navcontent-info -->
+    <div class="df ma-auto bg-fluid-black">
+      <div class="roboto f6-l f7 tl mw-banner">
+        <ul class="dib list w-100">
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+               href="{{ SITEURL }}/">
+              Home
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="white hover-white no-underline"
+                href=".">{{ page.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
+{% block content %}
+  <div class="divpage">
+    <article class="ma-auto tl mw8">
+      {% if page.form == "salesforce" %}
+        <h1>{{ page.title }}</h1>
+        {{ page.content }}
+        <br/>
+        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" class="salesforce">
+          <input type=hidden name="oid" value="00D1I000001dGP6"/>
+          <input type=hidden name="retURL" value="https://fluidattacks.com"/>
+          <label for="first_name" class="form-label">Full Name</label>
+            <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" class="form-input" required /><br/>
+          <label for="last_name" class="form-label">Email</label>
+            <input  id="last_name" maxlength="80" name="last_name" size="20" type="text" class="form-input" required /><br/>
+          <label for="email" class="form-label">Mobile</label>
+            <input  id="email" maxlength="80" name="email" size="20" type="text" class="form-input" required /><br/>
+          <label for="company" class="form-label">How can we help you?</label>
+            <input  id="company" maxlength="40" name="company" size="20" type="text" class="form-input" required /><br/>
+          <label for="city" class="form-label">I want a service proposal</label>
+            <input  id="city" maxlength="40" name="city" size="20" type="text" class="form-input" required /><br>
+          <label for="state" class="form-label">I am looking for a job</label>
+            <input  id="state" maxlength="20" name="state" size="20" type="text" class="form-input" required /><br/>
+          <div class="form-button">
+            <input type="submit" name="submit" class="form-submit"/>
+          </div>
+        </form>
+      {% else %}
+        <iframe id="ifrmContact" onload="iFrameResize({log:false})" width="100%" src={{ page.form }} frameborder="0"></iframe>
+      {% endif %}
+      <br>
+    </article>
+  </div>
+{% endblock content %}
