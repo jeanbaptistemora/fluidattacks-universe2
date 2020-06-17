@@ -602,3 +602,11 @@ video {
   list-style-type: none;
 }
 
+.button-asserts {
+  a {
+    color: white;
+    &:hover {
+      color: white;;
+    }
+  }
+}

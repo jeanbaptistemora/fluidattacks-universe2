@@ -40,3 +40,5 @@ and enforce them across your software life cycle;
 - recognize the exact moment a vulnerability appeared
 (for every vulnerability check, *Asserts* prints the `ToE` fingerprint);
 - have an interactive cycle of vulnerability closing.
+
+[button-asserts]#link:https://fluidattacks.com/asserts/[Read API Documentation]#

@@ -27,6 +27,12 @@ const dynClasses: (() => void) = (): void => {
     }
 
     addClasses(".feature-content a", "fw8 c-fluid-bk hv-fluid-rd no-underline");
+    addClasses(".button-asserts", "br2 bannerbt hv-bt-fluid-rd ph4-l ph5 pv2 bt-trans white b roboto pointer");
+
+    $(".button-asserts")
+      .parent()
+      .parent()
+      .addClass("tc");
   });
 };
 
