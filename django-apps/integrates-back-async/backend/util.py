@@ -183,8 +183,7 @@ def get_jwt_content(context) -> Dict[str, str]:
             else dict(context['request'].scope['headers']).get('Authorization', '')
         token = header_token.split()[1] if header_token else cookie_token
         payload = jwt.get_unverified_claims(token)
-
-        if payload.get('jti'):
+        if is_api_token(payload):
             content = jwt.decode(
                 token=token, key=settings.JWT_SECRET_API, algorithms='HS512')  # type: ignore
         else:
@@ -555,3 +554,7 @@ def check_concurrent_sessions(email: str, session_key: str):
     if previous_session_key:
         session_dal.invalidate_session(previous_session_key)
         raise ConcurrentSession()
+
+
+def save_token(sub: str, token: str):
+    session_dal.add_element(sub, token)

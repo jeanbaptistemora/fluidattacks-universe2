@@ -25,3 +25,7 @@ def get_previous_session(user_mail: str, session_key: str) -> Optional[str]:
 
 def invalidate_session(session_key: str):
     REDIS_CLIENT.delete(session_key)
+
+
+def add_element(key: str, value: str):
+    REDIS_CLIENT.set(key, value)

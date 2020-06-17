@@ -84,7 +84,7 @@ def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
         context = args[1].context
         try:
             user_data = util.get_jwt_content(context)
-            if user_data.get('jti'):
+            if util.is_api_token(user_data):
                 verify_jti(user_data['user_email'],
                            context.META.get('HTTP_AUTHORIZATION'),
                            user_data['jti'])

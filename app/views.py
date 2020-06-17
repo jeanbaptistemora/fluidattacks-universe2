@@ -140,19 +140,22 @@ def app(request):
             'username': request.session['username']
         }
         response = render(request, 'app.html', parameters)
+        payload = {
+            'user_email': request.session['username'],
+            'company': request.session['company'],
+            'first_name': request.session['first_name'],
+            'last_name': request.session['last_name'],
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': util.calculate_hash_token()['jti'],
+        }
         token = jwt.encode(
-            {
-                'user_email': request.session['username'],
-                'company': request.session['company'],
-                'first_name': request.session['first_name'],
-                'last_name': request.session['last_name'],
-                'exp': datetime.utcnow() +
-                timedelta(seconds=settings.SESSION_COOKIE_AGE),
-                'sub': 'django_session',
-            },
+            payload,
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        util.save_token(payload['jti'], token)
         response.set_cookie(
             key=settings.JWT_COOKIE_NAME,
             samesite=settings.JWT_COOKIE_SAMESITE,
