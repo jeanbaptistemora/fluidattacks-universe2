@@ -30,6 +30,24 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
     push(`/groups/${projectName}/findings`);
   };
 
+  const goToProjectPendingFindings: (() => void) = (): void => {
+    localStorage.setItem("tableSet", JSON.stringify({
+      age: false,
+      description: true,
+      isExploitable: true,
+      lastVulnerability: true,
+      openVulnerabilities: true,
+      remediated: true,
+      severityScore: true,
+      state: true,
+      title: true,
+      treatment: true,
+      where: false,
+    }));
+    sessionStorage.setItem("verificationFilter", "Pending");
+    push(`/groups/${projectName}/findings`);
+  };
+
   const goToProjectSettings: (() => void) = (): void => {
     push(`/groups/${projectName}/resources`);
   };
@@ -109,7 +127,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.pendingClosingCheck}
                             title=""
                             total=""
-                            onClick={goToProjectFindings}
+                            onClick={goToProjectPendingFindings}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>
