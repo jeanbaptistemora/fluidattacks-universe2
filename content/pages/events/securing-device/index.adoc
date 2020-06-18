@@ -2,6 +2,7 @@
 :category: events
 :description: This page aims to inform the customer about the different talks offered by Fluid Attacks. Securing your Mobile Device conference aims to inform about the risks that smartphone users are constantly exposed and unaware of, as well as the implications and countermeasures to mitigate those risks.
 :keywords: Fluid Attacks, Talks, Mobile Device, Events, Security, Smartphone
+:eventspage: yes
 
 = Securing your Mobile Device
 

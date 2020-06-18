@@ -67,7 +67,39 @@
           </a>
         </li>
         {% endif %}
-        {% if "misc" not in page.category.name and not page.defends %}
+        {% if page.eventspage %}
+          <li class="dib mt0" >
+            <a class="c-fluid-gray hover-white no-underline"
+              href="{{ SITEURL }}/about-us/">
+                About Us
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0" >
+            <a class="c-fluid-gray hover-white no-underline"
+              href="{{ SITEURL }}/about-us/{{ page.category.name }}/">
+                Events
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+        {% endif %}
+        {% if page.partnerspage %}
+        <li class="dib mt0" >
+          <a class="c-fluid-gray hover-white no-underline"
+            href="{{ SITEURL }}/about-us/">
+              About Us
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0" >
+          <a class="c-fluid-gray hover-white no-underline"
+            href="{{ SITEURL }}/about-us/{{ page.category.name }}/">
+              Partners
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+      {% endif %}
+        {% if "misc" not in page.category.name and not page.defends and not page.eventspage and not page.partnerspage %}
         <li class="dib mt0" >
           {% if page.rules %}
             {% if page.extended %}
