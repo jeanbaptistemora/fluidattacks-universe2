@@ -5,7 +5,7 @@
 
 # local imports
 from fluidasserts.cloud.aws.cloudformation.graphs import ec2
-from fluidasserts.cloud.aws.cloudformation.graphs import templates_as_graph
+from fluidasserts.cloud.aws.cloudformation import templates_as_graph
 
 # 3rd party imports
 import pytest  # pylint: disable=E0401
