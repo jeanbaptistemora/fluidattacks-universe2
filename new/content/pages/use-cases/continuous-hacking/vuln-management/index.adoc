@@ -1,0 +1,16 @@
+:slug: use-cases/continuous-hacking/vuln-manage/
+:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:nextpage: use-cases/continuous-hacking/mock-attacks/
+:category: continuous-hacking
+:section: Continuous Hacking
+:template: use-cases/feature
+
+= Vulnerability Management Platform
+
+link:../../../products/integrates/[*Integrates*] is the project communication,
+monitoring, and reporting platform.
+It can be used to access general data on each finding.
+It also allows you to check their remediation status and classify them by age.
+In addition, it displays stats and project progress in real-time,
+among other things.

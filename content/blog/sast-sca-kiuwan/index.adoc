@@ -162,5 +162,5 @@ At `Fluid Attacks`, to keep false positive
 and false negative records near `ZERO`,
 we go beyond the use of automatic tools and employ human acumen and sagacity.
 
-We invite you to approach us to learn more about our [inner]#link:../../use-cases/continuous/[services]#.
+We invite you to approach us to learn more about our [inner]#link:../../use-cases/continuous-hacking/[services]#.
 [inner]#link:../../contact-us/[Contact us!]#
