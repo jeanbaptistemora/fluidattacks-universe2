@@ -155,8 +155,8 @@ def app(request):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        util.save_token(
-            'fi_jwt:{jti}'.format(jti=payload['jti']), token, settings.SESSION_COOKIE_AGE)
+        jti = payload['jti']
+        util.save_token(f'fi_jwt:{jti}', token, settings.SESSION_COOKIE_AGE)
         response.set_cookie(
             key=settings.JWT_COOKIE_NAME,
             samesite=settings.JWT_COOKIE_SAMESITE,
@@ -183,13 +183,19 @@ def app(request):
 @authenticate
 def logout(request):
     """Close a user's active session"""
-
     try:
+        cookie_content = jwt.decode(token=request.COOKIES.get(settings.JWT_COOKIE_NAME),
+                                    key=settings.JWT_SECRET,
+                                    algorithms='HS512')
+        jti = cookie_content.get('jti')
+        if jti:
+            util.remove_token(f'fi_jwt:{jti}')
+
         request.session.flush()
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
 
-    response = redirect("/integrates/index")
+    response = redirect('/integrates/index')
     response.delete_cookie(settings.JWT_COOKIE_NAME)
     return response
 

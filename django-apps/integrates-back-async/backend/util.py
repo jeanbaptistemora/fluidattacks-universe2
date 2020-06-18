@@ -556,5 +556,9 @@ def check_concurrent_sessions(email: str, session_key: str):
         raise ConcurrentSession()
 
 
-def save_token(sub: str, token: str, time: int):
-    session_dal.add_element(sub, token, time)
+def save_token(key: str, token: str, time: int):
+    session_dal.add_element(key, token, time)
+
+
+def remove_token(key: str):
+    session_dal.remove_element(key)
