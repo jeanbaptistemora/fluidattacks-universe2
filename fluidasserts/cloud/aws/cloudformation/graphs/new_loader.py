@@ -328,12 +328,12 @@ class Dict(UserDict):
                     success = False
 
                 elapsed_time = timer() - start_time
-                print(f'Loading: {_path_}')
+                print(f'# Loading: {_path_}')
                 if success:
-                    print((f'    [SUCCESS]    time: %.4f seconds') %
+                    print((f'#    [SUCCESS]    time: %.4f seconds') %
                           (elapsed_time))
                 else:
-                    print(f'    [ERROR] {error}')
+                    print(f'#    [ERROR] {error}')
 
         init_time = timer()
         with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
@@ -343,4 +343,4 @@ class Dict(UserDict):
                            exclude=exclude,
                            endswith=CLOUDFORMATION_EXTENSIONS))
         end_time = timer() - init_time
-        print(f'[SUCCESS]    Total: %.4f seconds' % (end_time))
+        print(f'# [SUCCESS]    Total: %.4f seconds' % (end_time))
