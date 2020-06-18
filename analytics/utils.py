@@ -30,7 +30,7 @@ def get_repo_from_where(where: str) -> str:
     return repo
 
 
-def get_vulnerability_root(vulnerability: Dict[str, str]) -> str:
+def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
     kind: str = vulnerability['vuln_type']
     where: str = vulnerability['where']
 

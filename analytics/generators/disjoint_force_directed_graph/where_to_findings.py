@@ -20,25 +20,28 @@ def generate_one(group: str):
 
     for finding_id in group_domain.list_findings(group):
         finding = finding_domain.get_finding(finding_id)
-
-        data['nodes'].add(frozendict({
-            'group': 'finding_id',
-            'id': finding_id,
-            'score': finding['severityCvss'],
-        }))
+        finding_title = finding['finding']
+        finding_cvss = finding['severityCvss']
 
         for vulnerability in vulnerability_domain.list_vulnerabilities([
             finding_id
         ]):
-            root = utils.get_vulnerability_root(vulnerability)
+            source = utils.get_vulnerability_source(vulnerability)
+            target = f'{finding_title} {source}'
 
             data['nodes'].add(frozendict({
-                'group': 'where',
-                'id': root,
+                'group': 'source',
+                'id': source,
+            }))
+            data['nodes'].add(frozendict({
+                'group': 'target',
+                'id': target,
+                'score': float(finding_cvss),
+                'display': f'[{finding_cvss}] {finding_title}',
             }))
             data['links'].add(frozendict({
-                'source': root,
-                'target': finding_id,
+                'source': source,
+                'target': target,
             }))
 
     return data

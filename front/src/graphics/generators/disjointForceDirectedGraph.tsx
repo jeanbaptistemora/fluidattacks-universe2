@@ -10,9 +10,11 @@ interface IPoint {
 }
 
 interface IDataBaseNode {
+  display: string;
   group: string;
   id: string;
   radius: number;
+  score: number;
 }
 
 interface IDataNode extends IDataBaseNode, IPoint {}
@@ -51,8 +53,9 @@ const generator: GeneratorType = (data: IData, width: number, height: number): H
   const links: IDataLink[] = data.links.map((datum: IDataLink): IDataLink => datum);
   const nodes: IDataNode[] = data.nodes.map((datum: IDataNode): IDataNode => datum);
 
-  const scale: d3.ScaleOrdinal<string, string> = d3.scaleOrdinal(d3.schemeCategory10);
-  const color: (node: IDataNode) => string = (datum: IDataNode) => scale(datum.group);
+  const scaleCvss: d3.ScaleLinear<number, number> = d3
+    .scaleLinear()
+      .domain([0, 10]);
 
   const simulation: SimulationType = d3
     .forceSimulation(nodes as d3.SimulationNodeDatum[])
@@ -100,7 +103,7 @@ const generator: GeneratorType = (data: IData, width: number, height: number): H
     .selectAll("line")
       .data(links)
       .join("line")
-        .attr("stroke-width", 2);
+        .attr("stroke-width", 1);
 
   const node: NodeSelectionType = svg
     .append("g")
@@ -109,8 +112,12 @@ const generator: GeneratorType = (data: IData, width: number, height: number): H
     .selectAll("circle")
     .data(nodes)
     .join("circle")
-      .attr("r", 5)
-      .attr("fill", color)
+      .attr("r", (datum: IDataNode) => (
+        datum.group === "source" ? 5 : scaleCvss(datum.score) * 10
+      ))
+      .attr("fill", (datum: IDataNode) => (
+        datum.group === "source" ? "#cccccc" : d3.interpolateReds(scaleCvss(datum.score))
+      ))
       .call(d3
         .drag()
           .on("start", dragStart as d3.ValueFn<Element, unknown, void>)
@@ -119,7 +126,7 @@ const generator: GeneratorType = (data: IData, width: number, height: number): H
 
   node
     .append("title")
-      .text((d: IDataNode) => d.id);
+      .text((datum: IDataNode) => datum.group === "source" ? datum.id : datum.display);
 
   simulation.on("tick", () => {
     link
