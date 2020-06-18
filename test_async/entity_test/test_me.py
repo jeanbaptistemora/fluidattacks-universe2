@@ -8,6 +8,7 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
+from backend import util
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.schema import SCHEMA
 
@@ -15,6 +16,31 @@ pytestmark = pytest.mark.asyncio
 
 
 class MeTests(TestCase):
+
+    def create_dummy_session(self, username='unittest'):
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = username
+        request.session['company'] = 'unittest'
+        payload = {
+            'user_email': username,
+            'company': 'unittest',
+            'first_name': 'Admin',
+            'last_name': 'At Fluid',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': util.calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        return request
 
     async def test_me(self):
         """Check Me query"""
@@ -39,23 +65,10 @@ class MeTests(TestCase):
             }
         }'''
         data = {'query': query}
-        request = RequestFactory().get('/')
+        request = self.create_dummy_session('integratesuser@gmail.com')
         request.loaders = {
             'project': ProjectLoader(),
         }
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'integratesuser@gmail.com'
-        request.session['company'] = 'fluid'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'integratesuser@gmail.com',
-                'company': 'fluid'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'me' in result['data']
         assert 'role' in result['data']['me']
@@ -89,20 +102,7 @@ class MeTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert not result['data']['signIn']['success']
@@ -127,22 +127,7 @@ class MeTests(TestCase):
                 'expirationTime': expiration_time
             }
         }
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest',
-                'first_name': 'Admin',
-                'last_name': 'At Fluid'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'updateAccessToken' in result['data']
@@ -159,20 +144,7 @@ class MeTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'invalidateAccessToken' in result['data']
         assert 'success' in result['data']['invalidateAccessToken']
@@ -188,20 +160,7 @@ class MeTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'acceptLegal' in result['data']
         assert 'success' in result['data']['acceptLegal']

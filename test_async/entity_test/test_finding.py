@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from datetime import datetime, timedelta
 import json
 import os
 import pytest
@@ -11,6 +12,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from graphql import GraphQLError
 from jose import jwt
+from backend import util
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
@@ -31,16 +33,22 @@ class FindingTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': user,
-                'company': 'fluid',
-                'first_name': 'unit',
-                'last_name': 'test'
-            },
+        payload = {
+            'user_email': user,
+            'company': 'fluid',
+            'first_name': 'unit',
+            'last_name': 'test',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': util.calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
         request.loaders = {
             'finding': FindingLoader(),
             'project': ProjectLoader(),

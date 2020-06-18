@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import os
 import pytest
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from boto3 import client
 from django.http import JsonResponse
@@ -19,7 +19,9 @@ from backend.util import (
     response, ord_asc_by_criticality,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
     get_jwt_content, iterate_s3_keys, replace_all,
-    list_to_dict, camelcase_to_snakecase, is_valid_format)
+    list_to_dict, camelcase_to_snakecase, is_valid_format,
+    calculate_hash_token
+)
 
 from backend.dal.finding import get_finding
 
@@ -82,18 +84,27 @@ class UtilTests(TestCase):
         request.session.save()
         request.session['username'] = 'unittest'
         request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
+        payload = {
+            'user_email': 'unittest',
+            'company': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
         test_data = get_jwt_content(request)
         expected_output = {
             u'company': u'unittest',
             u'user_email': u'unittest',
+            u'exp': payload['exp'],
+            u'sub': u'django_session',
+            u'jti': payload['jti'],
         }
         assert test_data == expected_output
 

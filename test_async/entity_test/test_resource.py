@@ -1,6 +1,7 @@
 from tempfile import NamedTemporaryFile
 import json
 import os
+from datetime import datetime, timedelta
 import pytest
 
 from ariadne import graphql, graphql_sync
@@ -11,6 +12,7 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
+from backend import util
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.schema import SCHEMA
 
@@ -19,22 +21,32 @@ pytestmark = pytest.mark.asyncio
 
 class ResourceTests(TestCase):
 
-    async def _get_result(self, data):
-        """Get result."""
+    def create_dummy_session(self):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
         request.session['username'] = 'user'
         request.session['company'] = 'fluid'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'integratesmanager@gmail.com',
-                'company': 'fluid'
-            },
+        payload = {
+            'user_email': 'integratesmanager@gmail.com',
+            'company': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': util.calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        return request
+
+    async def _get_result(self, data):
+        """Get result."""
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
@@ -50,20 +62,7 @@ class ResourceTests(TestCase):
           }
         }'''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'user'
-        request.session['company'] = 'fluid'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'integratesmanager@gmail.com',
-                'company': 'fluid'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         request.loaders = {
             'project': ProjectLoader(),
         }

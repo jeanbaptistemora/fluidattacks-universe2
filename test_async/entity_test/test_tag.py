@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import pytest
 
 from ariadne import graphql
@@ -7,6 +8,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from graphql.type import GraphQLResolveInfo
 from jose import jwt
+from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.project import ProjectLoader
@@ -18,6 +20,35 @@ pytestmark = pytest.mark.asyncio
 
 
 class TagTests(TestCase):
+
+    def create_dummy_session(self):
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'integratesuser@gmail.com'
+        request.session['company'] = 'unittest'
+        payload = {
+            'user_email': 'integratesuser@gmail.com',
+            'company': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': util.calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        request.loaders = {
+            'event': EventLoader(),
+            'finding': FindingLoader(),
+            'project': ProjectLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
+        return request
 
     @pytest.mark.asyncio
     async def test_get_tag_query(self):
@@ -42,29 +73,7 @@ class TagTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        request.loaders = {
-            'project': ProjectLoader(),
-        }
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'integratesuser@gmail.com'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'integratesuser@gmail.com',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {
-            'event': EventLoader(),
-            'finding': FindingLoader(),
-            'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader()
-        }
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'projects' in result['data']['tag']
@@ -93,26 +102,8 @@ class TagTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'integratesuser@gmail.com'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'integratesuser@gmail.com',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {
-            'event': EventLoader(),
-            'finding': FindingLoader(),
-            'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader()
-        }
+        
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'Access denied'

@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timedelta
 import pytest
 
 from ariadne import graphql_sync, graphql
@@ -8,6 +9,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from jose import jwt
+from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.schema import SCHEMA
 from backend.api.dataloaders.event import EventLoader
@@ -16,6 +18,31 @@ pytestmark = pytest.mark.asyncio
 
 
 class EventTests(TestCase):
+
+    def create_dummy_session(self):
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        payload = {
+            'user_email': 'unittest',
+            'company': 'unittest',
+            'first_name': 'Admin',
+            'last_name': 'At Fluid',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': util.calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        return request
 
     async def test_event(self):
         """Check for event."""
@@ -44,20 +71,7 @@ class EventTests(TestCase):
             }
         }'''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         request.loaders = {
             'event': EventLoader(),
         }
@@ -76,20 +90,7 @@ class EventTests(TestCase):
             }
         }'''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'events' in result['data']
         assert result['data']['events'][0]['projectName'] == 'unittesting'
@@ -113,20 +114,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['createEvent']
@@ -144,20 +132,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         if 'errors' not in result:
             assert 'errors' not in result
@@ -179,22 +154,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest',
-                'first_name': 'Admin',
-                'last_name': 'At Fluid'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['addEventComment']
@@ -226,22 +186,7 @@ class EventTests(TestCase):
                 'file': uploaded_file
             }
             data = {'query': query, 'variables': variables}
-            request = RequestFactory().get('/')
-            middleware = SessionMiddleware()
-            middleware.process_request(request)
-            request.session.save()
-            request.session['username'] = 'integratesmanager@gmail.com'
-            request.session['company'] = 'fluid'
-            request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-                {
-                    'user_email': 'integratesmanager@gmail.com',
-                    'company': 'fluid',
-                    'first_name': 'Admin',
-                    'last_name': 'At Fluid'
-                },
-                algorithm='HS512',
-                key=settings.JWT_SECRET,
-            )
+            request = self.create_dummy_session()
             _, result = await graphql(SCHEMA, data, context_value=request)
         if 'errors' not in result:
             assert 'errors' not in result
@@ -262,20 +207,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['downloadEventFile']
@@ -293,20 +225,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
+        request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['removeEventEvidence']
