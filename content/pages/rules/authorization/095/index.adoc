@@ -1,7 +1,7 @@
 :slug: rules/095/
 :category: authorization
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining the users with administrator and root privileges in the system.
-:keywords: Requirement, Security, Users, Privileges, Root, Administrator
+:keywords: Users, Privileges, Administrator, ASVS, HIPAA, NIST
 :rules: yes
 
 = R095. Define users with privileges
@@ -11,13 +11,26 @@
 The users that will access the system with administrator or root
 privileges must be defined.
 
+== Description
+
+Systems should usually have a set of roles with different levels of
+privilege for accessing resources.
+The privileges of each role must be clearly defined and the role of each user
+should also be clearly stated.
+That includes the set of users that will have administrator or root privileges,
+as this should not be a default role.
+
 == Findings
 
 * [inner]#link:/web/findings/031/[F031. Excessive privileges]#
 
 == References
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(3)(i):]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/276.html[CWE-276: Incorrect Default Permissions].
+The product, upon installation, sets incorrect permissions for an object that
+exposes it to an unintended actor.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[HIPAA Security Rules 164.308(a)(3)(i):]
 Workforce Security: Implement policies and procedures
 to ensure that all members of its workforce have appropriate access
 to electronic protected health information,
@@ -26,26 +39,32 @@ and to prevent those workforce members who do not have access
 under paragraph (a)(4) of this section
 from obtaining access to electronic protected health information.
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[HIPAA Security Rules 164.310(a)(2)(iii):]
 Access Control and Validation Procedures: Implement procedures
 to control and validate a person's access to facilities
 based on their role or function, including visitor control,
 and control of access to software programs for testing and revision.
 
-. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (6)]
 The information system implements the following
 dynamic privilege management capabilities:
 [Assignment: organization-defined list
 of dynamic privilege management capabilities].
 
-. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) a]
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) a]
 The organization establishes and administers privileged user accounts
 in accordance with a role-based access scheme
 that organizes allowed information system access and privileges into roles.
 
-. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) b]
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) b]
 The organization monitors privileged role assignments.
 
-. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) c]
+. [[r7]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) c]
 The organization Takes [Assignment: organization-defined actions]
 when privileged role assignments are no longer appropriate.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.4)]
+Verify that the principle of deny by default exists whereby new users/roles
+start with minimal or no permissions and users/roles do not receive access to
+new features until access is explicitly assigned.

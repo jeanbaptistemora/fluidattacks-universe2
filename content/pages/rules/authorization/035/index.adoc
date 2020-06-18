@@ -42,7 +42,7 @@ creating an unintended sphere of control for that actor.
 The software does not perform or incorrectly performs an authorization check
 when an actor attempts to access a resource or perform an action.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key].
 The system's authorization functionality does not prevent one user from gaining
 access to another user's data or record by modifying the key value identifying
 the data.
