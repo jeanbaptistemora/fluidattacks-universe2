@@ -3,13 +3,11 @@ import { StyleSheet } from "react-native";
 export const styles: Dictionary = StyleSheet.create({
   container: {
     alignContent: "center",
-    backgroundColor: "#272727",
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
   },
   greeting: {
-    color: "#ffffff",
     fontSize: 36,
     fontWeight: "700",
     textAlign: "center",
@@ -17,7 +15,7 @@ export const styles: Dictionary = StyleSheet.create({
   profilePicture: {
     alignSelf: "center",
     borderColor: "rgba(0,0,0,0.2)",
-    borderRadius: 50,
+    borderRadius: 60,
     borderWidth: 3,
     marginTop: 15,
   },

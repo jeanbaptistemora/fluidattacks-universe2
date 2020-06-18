@@ -12,12 +12,8 @@ export const styles: Dictionary = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    backgroundColor: "#272727",
     flex: 1,
     flexDirection: "column",
     paddingTop: 100,
-  },
-  text: {
-    color: "#FFFFFF",
   },
 });

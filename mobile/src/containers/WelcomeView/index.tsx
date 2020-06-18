@@ -4,7 +4,8 @@ import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, StatusBar, Text, View } from "react-native";
+import { Alert, View } from "react-native";
+import { Text, useTheme } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
 import { Avatar } from "../../components/Avatar";
@@ -17,9 +18,10 @@ import { styles } from "./styles";
 import { ISignInResult } from "./types";
 
 const welcomeView: React.FunctionComponent = (): JSX.Element => {
-  const { t } = useTranslation();
   const history: ReturnType<typeof useHistory> = useHistory();
   const { authProvider, authToken, user } = history.location.state as IAuthState;
+  const { colors } = useTheme();
+  const { t } = useTranslation();
 
   const handleLogout: (() => void) = async (): Promise<void> => {
     await logout();
@@ -57,8 +59,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.profilePicture}>
           <Avatar photoUrl={user.photoUrl} size={100} userName={user.fullName} />
         </View>

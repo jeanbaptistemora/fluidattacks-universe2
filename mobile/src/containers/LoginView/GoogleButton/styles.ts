@@ -5,9 +5,12 @@ export const styles: Dictionary = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFFFFF",
     borderRadius: 2,
-    elevation: 1,
+    elevation: 2,
     flexDirection: "row",
     marginBottom: 10,
+    shadowOffset: { height: 1, width: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   disabled: {
     backgroundColor: "#BDBDBD",

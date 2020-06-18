@@ -5,8 +5,8 @@ import * as Updates from "expo-updates";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Linking, Platform, StatusBar, View } from "react-native";
-import { Button, Dialog, Paragraph, Portal, Text } from "react-native-paper";
+import { Linking, Platform, View } from "react-native";
+import { Button, Dialog, Paragraph, Portal, Text, useTheme } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
 import { Logo } from "../../components/Logo";
@@ -23,8 +23,9 @@ type manifestStructure = NativeConstants["manifest"] & { android: { package: str
 const manifest: manifestStructure = (Constants.manifest as manifestStructure);
 
 const loginView: React.FunctionComponent = (): JSX.Element => {
-  const { t } = useTranslation();
   const history: ReturnType<typeof useHistory> = useHistory();
+  const { colors } = useTheme();
+  const { t } = useTranslation();
 
   // State management
   const [isLoading, setLoading] = React.useState(true);
@@ -96,9 +97,8 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <StatusBar backgroundColor="transparent" barStyle="light-content" translucent={true} />
-      <View style={styles.container}>
-        <Logo width={300} height={70} fill="#FFFFFF" />
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <Logo width={300} height={70} fill={colors.text} />
         <View style={styles.buttonsContainer}>
           <GoogleButton
             disabled={isLoading ? true : isOutdated}
@@ -111,8 +111,8 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
         </View>
         <Preloader visible={isLoading} />
         <View style={styles.bottom}>
-          <Text style={styles.text}>{t("common.slogan")}</Text>
-          <Text style={styles.text}>v. {(Updates.manifest as Updates.Manifest).version}</Text>
+          <Text>{t("common.slogan")}</Text>
+          <Text>v. {(Updates.manifest as Updates.Manifest).version}</Text>
         </View>
         <Portal>
           <Dialog dismissable={false} visible={isOutdated}>
