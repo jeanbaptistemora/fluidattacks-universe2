@@ -28,11 +28,22 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
 
   const [lastClosingVulnFindingId, setLastClosingVulnFindingId] = React.useState("");
 
+  const clearTableFilters: (() => void) = (): void => {
+    sessionStorage.removeItem("titleFilter");
+    sessionStorage.removeItem("whereFilter");
+    sessionStorage.removeItem("exploitableFilter");
+    sessionStorage.removeItem("statusFilter");
+    sessionStorage.removeItem("verificationFilter");
+    sessionStorage.removeItem("treatmentFilter");
+    sessionStorage.removeItem("severityFilter");
+  };
+
   const goToProjectFindings: (() => void) = (): void => {
     push(`/groups/${projectName}/findings`);
   };
 
   const goToProjectPendingFindings: (() => void) = (): void => {
+    clearTableFilters();
     localStorage.setItem("tableSet", JSON.stringify({
       age: false,
       description: true,
@@ -47,6 +58,25 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
       where: false,
     }));
     sessionStorage.setItem("verificationFilter", "Pending");
+    push(`/groups/${projectName}/findings`);
+  };
+
+  const goToProjectNewTreatmentFindings: (() => void) = (): void => {
+    clearTableFilters();
+    localStorage.setItem("tableSet", JSON.stringify({
+      age: false,
+      description: true,
+      isExploitable: true,
+      lastVulnerability: true,
+      openVulnerabilities: true,
+      remediated: false,
+      severityScore: true,
+      state: true,
+      title: true,
+      treatment: true,
+      where: false,
+    }));
+    sessionStorage.setItem("treatmentFilter", "New");
     push(`/groups/${projectName}/findings`);
   };
 
@@ -156,7 +186,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={undefinedTreatment}
                             title=""
                             total=""
-                            onClick={goToProjectFindings}
+                            onClick={goToProjectNewTreatmentFindings}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>
