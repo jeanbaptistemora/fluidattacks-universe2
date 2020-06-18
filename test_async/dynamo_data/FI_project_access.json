@@ -34,6 +34,24 @@
          }
       },
       {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : false
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "Tester"
+               },
+               "user_email" : {
+                  "S" : "unittest2@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
         "PutRequest": {
           "Item": {
             "responsibility": {

@@ -13,6 +13,16 @@
     {
       "PutRequest": {
         "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "unittest2@fluidattacks.com"},
+          "object": {"S": "unittesting"},
+          "role": {"S": "group_manager"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
           "level": {"S": "user"},
           "subject": {"S": "unittest"},
           "object": {"S": "self"},
