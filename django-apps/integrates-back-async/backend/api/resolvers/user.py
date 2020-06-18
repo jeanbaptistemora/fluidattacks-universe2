@@ -245,27 +245,37 @@ async def resolve_user_mutation(obj, info, **parameters):
 
 @require_login
 @enforce_user_level_auth_async
-async def _do_add_user(_, info, **parameters) -> AddUserPayloadType:
+async def _do_add_user(
+    _,
+    info,
+    email: str,
+    organization: str,
+    role: str,
+    phone_number: str = ''
+) -> AddUserPayloadType:
     """Resolve add_user mutation."""
     success: bool = False
 
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
-    new_user_email = parameters.get('email', '')
-    new_user_role = parameters.get('role', '')
-
     allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
         requester_email=user_email,
     )
 
-    if new_user_role in allowed_roles_to_grant:
-        if await sync_to_async(user_domain.create_without_project)(parameters):
+    if role in allowed_roles_to_grant:
+        new_user = await sync_to_async(user_domain.create_without_project)(
+            email=email,
+            organization=organization,
+            role=role,
+            phone_number=phone_number,
+        )
+        if new_user:
             util.cloudwatch_log(
                 info.context,
-                f'Security: Add user {new_user_email}')  # pragma: no cover
-            mail_to = [new_user_email]
-            context = {'admin': new_user_email}
+                f'Security: Add user {email}')  # pragma: no cover
+            mail_to = [email]
+            context = {'admin': email}
             email_send_thread = threading.Thread(
                 name='Access granted email thread',
                 target=mailer.send_mail_access_granted,
@@ -278,10 +288,10 @@ async def _do_add_user(_, info, **parameters) -> AddUserPayloadType:
                 'Error: Couldn\'t grant user access', 'error', info.context)
     else:
         rollbar.report_message(
-            f'Error: Invalid role provided: {new_user_role}',
+            f'Error: Invalid role provided: {role}',
             f'error', info.context)
 
-    return AddUserPayloadType(success=success, email=new_user_email)
+    return AddUserPayloadType(success=success, email=email)
 
 
 @require_login

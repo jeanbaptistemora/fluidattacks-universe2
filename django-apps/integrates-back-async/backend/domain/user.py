@@ -138,12 +138,12 @@ def get(email: str) -> UserType:
     return user_dal.get(email)
 
 
-def create_without_project(user_data: UserType) -> bool:
-    email: str = str(user_data.get('email', '')).lower()
-    organization: str = str(user_data.get('company', ''))
-    phone_number: str = str(user_data.get('phone_number', ''))
-    role: str = str(user_data.get('role', ''))
-
+def create_without_project(
+    email: str,
+    organization: str,
+    role: str,
+    phone_number: str = ''
+) -> bool:
     success = False
 
     if validate_alphanumeric_field(organization) \

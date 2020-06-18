@@ -31,11 +31,11 @@ def autoenroll_user(strategy, email: str) -> bool:
         new_user_group_level_role: str = 'customer'
 
         # Create the user into the community organization
-        is_registered = user_domain.create_without_project({
-            'email': email,
-            'company': 'Integrates Community',
-            'role': new_user_user_level_role,
-        })
+        is_registered = user_domain.create_without_project(
+            email=email,
+            organization='Integrates Community',
+            role=new_user_user_level_role,
+        )
 
         # Add a flag that may come handy later to ask for extra data
         strategy.session_set('is_new_user', True)
