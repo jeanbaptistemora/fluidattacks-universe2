@@ -4,8 +4,8 @@
 
 = Frequently Asked Questions (FAQ)
 
-Frequently asked questions about our services can be found link:../faq/clients/[*here*].
+Frequently asked questions about `Fluid Attacks'` products and solutions
+can be found link:../faq/clients/[*here*].
 
-If you have questions about `Fluid Attacks` products or the selection process,
-please read through the `FAQ` list.
-You might find the answer to your question link:../careers/faq/[*here*]
+If you have questions about `Fluid Attacks'` selection process,
+you might find the answers link:../careers/faq/[*here*].
