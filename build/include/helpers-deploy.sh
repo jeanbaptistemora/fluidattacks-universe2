@@ -132,7 +132,7 @@ function helper_deploy_pages {
   &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
   &&  sed -i "s|:template: faq||g" new/content/pages/careers/faq/index.adoc \
   &&  rsync -av --progress content/pages/services/certifications content/pages/services/differentiators \
-        content/pages/services/comparative content/pages/values content/pages/reviews content/pages/events \
+        content/pages/values content/pages/reviews content/pages/events \
         content/pages/people content/pages/partners new/content/pages/about-us/ \
   &&  sed -i "s|:slug: services/|:slug: about-us/|g" new/content/pages/about-us/*/index.adoc \
   &&  sed -i "s|:slug: values/|:slug: about-us/values/|g" new/content/pages/about-us/*/index.adoc \
@@ -158,7 +158,9 @@ function helper_deploy_pages {
   &&  rsync -av --progress content/pages/services/faq/index.adoc new/content/pages/faq/clients/ \
   &&  sed -i "s|:slug: services/faq|:slug: faq/clients|g" new/content/pages/faq/clients/index.adoc \
   &&  sed -i "s|:category: services|:category: faq|g" new/content/pages/faq/clients/index.adoc \
-  &&  sed -i "s|= Frequently asked questions|= Clients FAQ|g" new/content/pages/faq/clients/index.adoc
+  &&  sed -i "s|= Frequently asked questions|= Clients FAQ|g" new/content/pages/faq/clients/index.adoc \
+  &&  rsync -av --progress content/pages/services/comparative new/content/pages/use-cases/ \
+  &&  sed -i "s|:slug: services/|:slug: use-cases/|g" new/content/pages/use-cases/comparative/index.adoc
 }
 
 function helper_deploy_compile_old {
