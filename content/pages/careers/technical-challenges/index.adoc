@@ -106,28 +106,11 @@ therefore request access to the `git` `training` repository
 with my `GitLab` username.
 ____________________________________________________________________
 
-. Complete `three (3)` `programming` challenges
+. Complete `three (3)` `programming` challenges.
 
-. Complete `three (3)` `ctf-hacking` challenges
+. Complete `three (3)` `ctf-hacking` challenges.
 
-. Request permission to access the `Writeups` repository by filling out this
-[inner]#link:https://fluidattacks.com/forms/access[form]#.
-This time around, the Repo Access Message field should have the following:
-Request developer permissions to the `Writeups` repository through this
-.
-+
-This time around, the `Repo Access Message` field should have the following:
-+
-[quote]
-____________________________________________________________________
-I have completed three (3) `programming` and three (3) `ctf-hacking`
-unique challenges
-in the training repo and
-therefore request access to the `git` `writeups` repository
-with my `GitLab` username.
-____________________________________________________________________
-
-. Complete `three (3)` `vbd-hacking` challenges in the writeups repository.
+. Complete `three (3)` `vbd-hacking` challenges.
 
 == 5. Conditions
 
@@ -136,7 +119,7 @@ The challenge stage ends under any of the following conditions:
 . You have met all link:#objectives[objectives] and
 sent an `email` with the links to your solutions in the `master` branch.
 . If there has been no activity
-(`push` to the `git` repos) within 14 calendar days.
+(`push` to the `git` training repository) within 14 calendar days.
 . If you clearly state,
 via email,
 that you are no longer interested in continuing the process.
@@ -165,16 +148,14 @@ link:https://community.fluidattacks.com/[Forum].
 == 7. Property
 
 * The proprietary rights of all content
-in the repositories are defined in the files:
+in the training repository is defined in the
+link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT]
+file.
 
-** link:https://gitlab.com/fluidattacks/writeups/blob/master/COPYRIGHT.txt[writeups COPYRIGHT].
-** link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[training COPYRIGHT].
-
-* The license and privileges that users of the repositories have
-are defined in the files:
-
-** link:https://gitlab.com/fluidattacks/writeups/blob/master/LICENSE.txt[writeups LICENSE].
-** link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[training LICENSE].
+* The license and privileges that users have
+in the training repository is defined in the
+link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE]
+file.
 
 * Carrying out a `merge request` implies the transfer of copyrights.
 Therefore, all information contained herein may be used
@@ -210,7 +191,7 @@ to all solutions submitted. We use:
 Now that you know all the rules
 and have a general understanding
 of why these challenges are important,
-you can proceed to the [inner]#link:https://gitlab.com/fluidattacks/writeups/wikis/Submission[Submission guide]#
+you can proceed to the [inner]#link:https://gitlab.com/autonomicmind/training/wikis/Submission[Submission guide]#
 and start posting your solutions. Good luck!
 
 == 10. Keywords

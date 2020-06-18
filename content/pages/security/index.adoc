@@ -53,7 +53,6 @@ Besides, here is the commit history of all our repositories:
 - link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
 - link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
 - link:https://gitlab.com/fluidattacks/public/-/commits/master[Public]
-- link:https://gitlab.com/fluidattacks/writeups/-/commits/master[Writeups]
 
 === 1.2 Public incidents
 

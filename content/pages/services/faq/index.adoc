@@ -37,7 +37,7 @@ Frequently asked questions about Continuous Hacking.
 *How does Fluid Attacks stay on top of new techniques and changes?*::
   We ensure to constantly research and keep updated
   with the new techniques and changes related to cyber security and `IT`.
-  Either through link:../../blog[blog entries] or link:https://gitlab.com/fluidattacks/writeups[hacking/programming challenges]
+  Through link:../../blog[blog entries]
   we keep our team updated with the state of art.
 
 *What are the necessary inputs and requirements for Continuous Hacking?*::

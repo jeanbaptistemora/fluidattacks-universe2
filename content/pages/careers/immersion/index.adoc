@@ -96,7 +96,7 @@ perseverance, and performance.
 On this stage you will deal with three types of challenges:
 link:https://gitlab.com/autonomicmind/training/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=code[Programming],
 link:https://gitlab.com/autonomicmind/training/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=hack[Hacking]
-and link:https://gitlab.com/fluidattacks/writeups/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=vbd[Vulnerable by Design (`VbD`)].
+and link:https://gitlab.com/autonomicmind/training/-/merge_requests?scope=all&utf8=%E2%9C%93&state=merged&search=vbd[Vulnerable by Design (`VbD`)].
 The  purpose is to solve within a short time
 as many *unique challenges* as possible
 always seeking a balance between all categories.
