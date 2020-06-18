@@ -77,7 +77,7 @@ human resources areas.
 
 ++++
 <p style="text-align:center">
-<img class="tc w4 v-btm" src="logo-autonomic.png"> <a href="https://www.linkedin.com/company/autonomicmind/"><img style="vertical-align: bottom;padding-left: 30px;" src="logo-linkedin.png" alt="Linkedin logo"/></a>
+<img class="tc w4 v-btm" src="logo-autonomic.png" alt="Autonomic Mind logo"> <a href="https://www.linkedin.com/company/autonomicmind/"><img style="vertical-align: bottom;padding-left: 30px;" src="logo-linkedin.png" alt="Linkedin logo"/></a>
 </p>
 ++++
 
