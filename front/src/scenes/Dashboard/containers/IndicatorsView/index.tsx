@@ -27,6 +27,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   const { push } = useHistory();
 
   const [lastClosingVulnFindingId, setLastClosingVulnFindingId] = React.useState("");
+  const [maxOpenSeverityFindingId, setMaxOpenSeverityFindingId] = React.useState("");
 
   const clearTableFilters: (() => void) = (): void => {
     sessionStorage.removeItem("titleFilter");
@@ -86,6 +87,12 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
     }
   };
 
+  const goToProjectMaxOpenSeverityFinding: (() => void) = (): void => {
+    if (maxOpenSeverityFindingId !== "") {
+      push(`/groups/${projectName}/findings/${maxOpenSeverityFindingId}/description`);
+    }
+  };
+
   const goToProjectSettings: (() => void) = (): void => {
     push(`/groups/${projectName}/resources`);
   };
@@ -122,6 +129,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
               !("historic_state" in repo) ||
               repo.historic_state[repo.historic_state.length - 1].state === "ACTIVE");
             setLastClosingVulnFindingId(data.project.lastClosingVulnFinding.id);
+            setMaxOpenSeverityFindingId(data.project.maxOpenSeverityFinding.id);
 
             return (
               <React.StrictMode>
@@ -216,7 +224,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.maxOpenSeverity}
                             title=""
                             total="/10"
-                            onClick={goToProjectFindings}
+                            onClick={goToProjectMaxOpenSeverityFinding}
                           />
                         </Col>
                       </Col>

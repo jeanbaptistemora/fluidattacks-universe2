@@ -331,6 +331,9 @@ then
               "max_open_severity" : {
                 "N" : "3.9"
               },
+              "max_open_severity_finding" : {
+                "S" : ""
+              },
               "mean_remediate" : {
                 "N" : "73"
               },

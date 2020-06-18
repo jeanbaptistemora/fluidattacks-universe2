@@ -231,6 +231,29 @@ async def _get_max_open_severity(info, project_name: str,
 
 @require_integrates
 @get_entity_cache_async
+async def _get_max_open_severity_finding(
+        info, project_name: str, requested_fields: list) -> \
+        Dict[str, FindingType]:
+    """Resolve finding attribute."""
+    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+    req_fields.extend(
+        util.get_requested_fields('maxOpenSeverityFinding', selection_set))
+    selection_set.selections = req_fields
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    max_open_severity_finding = \
+        project_attrs.get('max_open_severity_finding', '')
+    finding = await asyncio.create_task(
+        finding_loader.resolve(info, max_open_severity_finding, as_field=True,
+                               selection_set=selection_set))
+    return finding
+
+
+@require_integrates
+@get_entity_cache_async
 async def _get_mean_remediate(info, project_name: str, **__) -> Dict[str, int]:
     """Get mean_remediate."""
     project_attrs = \

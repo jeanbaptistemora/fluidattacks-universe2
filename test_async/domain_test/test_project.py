@@ -155,8 +155,8 @@ class ProjectTest(TestCase):
             )['Item']
             for finding_id in findings_to_get]
         test_data = async_to_sync(get_max_open_severity)(findings)
-        expected_output = Decimal(4.3).quantize(Decimal('0.1'))
-        assert test_data == expected_output
+        assert test_data[0] == Decimal(4.3).quantize(Decimal('0.1'))
+        assert test_data[1]['finding_id'] == "463558592"
 
     def test_get_open_vulnerabilities(self):
         project_name = 'unittesting'

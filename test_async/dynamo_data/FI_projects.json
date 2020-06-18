@@ -33,6 +33,9 @@
                "max_open_severity" : {
                   "N" : "3.9"
                },
+               "max_open_severity_finding" : {
+                  "S" : ""
+               },
                "mean_remediate" : {
                   "N" : "103"
                },
@@ -794,6 +797,9 @@
                },
                "max_open_severity" : {
                   "N" : "4.9"
+               },
+               "max_open_severity_finding" : {
+                  "S" : "988493279"
                },
                "mean_remediate" : {
                   "N" : "245"
@@ -2023,6 +2029,9 @@
               "max_open_severity" : {
                  "N" : "4.9"
               },
+              "max_open_severity_finding" : {
+               "S" : ""
+              },
               "mean_remediate" : {
                  "N" : "245"
               },
@@ -2391,6 +2400,9 @@
                },
                "max_open_severity" : {
                   "N" : "4.9"
+               },
+               "max_open_severity_finding" : {
+                  "S" : ""
                },
                "mean_remediate" : {
                   "N" : "245"

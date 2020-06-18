@@ -13,6 +13,7 @@ export interface IIndicatorsProps {
     lastClosingVuln: number;
     lastClosingVulnFinding: IFindingAttr;
     maxOpenSeverity: number;
+    maxOpenSeverityFinding: IFindingAttr;
     maxSeverity: number;
     meanRemediate: number;
     openVulnerabilities: number;

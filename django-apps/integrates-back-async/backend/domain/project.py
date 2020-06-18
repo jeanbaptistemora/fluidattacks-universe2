@@ -521,7 +521,8 @@ def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     return vuln_domain.get_last_approved_status(vuln) == 'closed'
 
 
-async def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decimal:
+async def get_max_open_severity(
+        findings: List[Dict[str, FindingType]]) -> Tuple[Decimal, Dict[str, FindingType]]:
     """Get maximum severity of project with open vulnerabilities."""
     total_vulns = await asyncio.gather(*[
         asyncio.create_task(
@@ -529,16 +530,21 @@ async def get_max_open_severity(findings: List[Dict[str, FindingType]]) -> Decim
         )
         for fin in findings
     ])
+    opened_findings = [
+        finding for finding in findings
+        if int(total_vulns.pop(0).get('openVulnerabilities', '')) > 0
+    ]
     total_severity: List[float] = \
         cast(List[float],
-             [fin.get('cvss_temporal', '') for fin in findings
-              if int(total_vulns.pop(0)
-              .get('openVulnerabilities', '')) > 0])
+             [finding.get('cvss_temporal', '') for finding in opened_findings])
     if total_severity:
-        max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))
+        severity, severity_index = max((v, i) for i, v in enumerate(total_severity))
+        max_severity = Decimal(severity).quantize(Decimal('0.1'))
+        max_severity_finding = opened_findings[severity_index]
     else:
         max_severity = Decimal(0).quantize(Decimal('0.1'))
-    return max_severity
+        max_severity_finding = {}
+    return max_severity, max_severity_finding
 
 
 def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> Union[datetime, None]:
