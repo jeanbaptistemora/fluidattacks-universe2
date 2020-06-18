@@ -192,7 +192,7 @@ async def _do_sign_in(
                 'last_name': getattr(user, 'last_name'),
                 'exp': datetime.utcnow() +
                 timedelta(seconds=settings.MOBILE_SESSION_AGE),
-                'sub': 'api_token',
+                'sub': 'session_token',
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
