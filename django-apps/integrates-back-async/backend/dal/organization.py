@@ -1,22 +1,26 @@
 # standard imports
-from typing import Optional, List, Dict
+import asyncio
 import uuid
+from typing import Optional, List
 
 # third-party imports
-import aioboto3
+import rollbar
+from asgiref.sync import sync_to_async
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-import rollbar
 
 # local imports
-from backend.dal.helpers import dynamodb
+from backend.dal.helpers.dynamodb import (
+    async_query as dynamo_async_query,
+    async_put_item as dynamo_async_put_item,
+    TABLE_NAME as OLD_TABLE_NAME
+)
 from backend.exceptions import InvalidOrganization
 from backend.typing import (
     Organization as OrganizationType
 )
 
-RESOURCE_OPTIONS: Dict[str, str] = dynamodb.RESOURCE_OPTIONS  # type: ignore
-TABLE_NAME: str = dynamodb.TABLE_NAME  # type: ignore
+TABLE_NAME = 'fi_organizations'
 
 
 def _map_keys_to_domain(org: OrganizationType) -> OrganizationType:
@@ -82,6 +86,38 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
     return mapped_attrs
 
 
+async def add_group(organization_id: str, group: str) -> None:
+    new_item = {
+        'pk': organization_id,
+        'sk': f'GROUP#{group}'
+    }
+    try:
+        await dynamo_async_put_item(TABLE_NAME, new_item)
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error adding group to organization',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+
+
+async def add_user(organization_id: str, email: str) -> None:
+    new_item = {
+        'pk': organization_id,
+        'sk': f'USER#{email}'
+    }
+    try:
+        await dynamo_async_put_item(TABLE_NAME, new_item)
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error adding user to organization',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+
+
 async def create(organization_name: str) -> OrganizationType:
     """
     Create an organization and returns its key
@@ -94,17 +130,21 @@ async def create(organization_name: str) -> OrganizationType:
         'pk': 'ORG#{}'.format(str(uuid.uuid4())),
         'sk': organization_name.lower()
     }
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table(TABLE_NAME)
-        try:
-            await table.put_item(Item=new_item)
-        except ClientError as ex:
-            rollbar.report_message(
-                'Error: Couldn\'nt create organization',
-                'error',
-                extra_data=ex,
-                payload_data=locals()
+
+    try:
+        await asyncio.gather(*[
+            asyncio.create_task(
+                dynamo_async_put_item(table, new_item)
             )
+            for table in [OLD_TABLE_NAME, TABLE_NAME]
+        ])
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error creating organization',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
     return _map_keys_to_domain(new_item)
 
 
@@ -125,12 +165,9 @@ async def get(org_name: str,
     Get an organization info given its name
     Return specified attributes or all if not setted
     """
-    key_exp = (
-        Key('sk').eq(org_name) &
-        Key('pk').begins_with('ORG#')
-    )
     query_attrs = {
-        'KeyConditionExpression': key_exp,
+        'KeyConditionExpression': Key('sk').eq(org_name) &
+        Key('pk').begins_with('ORG#'),
         'IndexName': 'gsi-1',
         'Limit': 1
     }
@@ -138,12 +175,17 @@ async def get(org_name: str,
         projection = ','.join(_map_attributes_to_dal(attributes))
         query_attrs['ProjectionExpression'] = projection
     org = None
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table(TABLE_NAME)
-        response = await table.query(**query_attrs)
-        response_items = response.get('Items', [])
+    try:
+        response_items = await dynamo_async_query(OLD_TABLE_NAME, query_attrs)
         if response_items:
             org = _map_keys_to_domain(response_items[0])
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error fetching organization attributes',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
     return org
 
 
@@ -156,3 +198,51 @@ async def get_or_create(organization_name: str) -> OrganizationType:
     if not org:
         org = await create(organization_name)
     return org
+
+
+async def get_groups(organization_id: str) -> List[str]:
+    """
+    Return a list of the names of all the groups that belong to an
+    organization
+    """
+    groups: List[str] = []
+    query_attrs = {
+        'KeyConditionExpression': Key('pk').eq(organization_id) &
+        Key('sk').begins_with('GROUP#')
+    }
+    try:
+        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        if response_items:
+            groups = [item['sk'].split('#')[1] for item in response_items]
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error fetching groups from an organiation',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+    return groups
+
+
+async def get_users(organization_id: str) -> List[str]:
+    """
+    Return a list of the emails of all the users that belong to an
+    organization
+    """
+    users: List[str] = []
+    query_attrs = {
+        'KeyConditionExpression': Key('pk').eq(organization_id) &
+        Key('sk').begins_with('USER#')
+    }
+    try:
+        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        if response_items:
+            users = [item['sk'].split('#')[1] for item in response_items]
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error fetching users from an organiation',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+    return users

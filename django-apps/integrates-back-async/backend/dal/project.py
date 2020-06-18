@@ -27,7 +27,11 @@ from backend.dal.finding import (
 )
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
-from backend.dal.organization import get_or_create as get_or_create_org
+from backend.dal.organization import (
+    add_group as add_organization_group,
+    get_or_create as get_or_create_org
+)
+
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
@@ -395,6 +399,8 @@ def create(project: ProjectType) -> bool:
     try:
         response = TABLE.put_item(Item=project)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        if resp:
+            async_to_sync(add_organization_group)(org_dict['id'], project['project_name'])
     except ClientError:
         rollbar.report_exc_info()
     return resp

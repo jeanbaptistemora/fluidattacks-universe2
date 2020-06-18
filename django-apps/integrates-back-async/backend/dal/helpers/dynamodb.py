@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# disable MyPy due to error "boto module has no attribute client, resource"
-#  type: ignore
 
 """Functions to connect to dynamodb database."""
 
 import os
-from typing import Dict
+from typing import Any, Dict, List, Optional
+
+import aioboto3
 import boto3
 import botocore
 
@@ -14,11 +14,11 @@ from __init__ import (
     FI_DYNAMODB_HOST, FI_DYNAMODB_PORT
 )
 
+
 CLIENT_CONFIG = botocore.config.Config(
     max_pool_connections=30,
 )
-
-RESOURCE_OPTIONS: Dict[str, str] = {}
+RESOURCE_OPTIONS: Dict[str, Optional[str]] = {}
 
 if FI_ENVIRONMENT == 'development' and FI_DYNAMODB_HOST:
     ENDPOINT_URL = 'http://{}:{}'.format(FI_DYNAMODB_HOST, FI_DYNAMODB_PORT)
@@ -43,3 +43,17 @@ else:
 
 DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
 TABLE_NAME: str = 'integrates'
+
+
+async def async_put_item(table: str, item: Dict[str, str]) -> None:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        dynamo_table = await dynamodb_resource.Table(table)
+        await dynamo_table.put_item(Item=item)
+
+
+async def async_query(table: str, query_attrs: Dict[str, str]) -> List[Dict[str, Any]]:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        dynamo_table = await dynamodb_resource.Table(table)
+        response = await dynamo_table.query(**query_attrs)
+        response_items = response.get('Items', [])
+    return response_items

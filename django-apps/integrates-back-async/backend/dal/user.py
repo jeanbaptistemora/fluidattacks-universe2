@@ -9,6 +9,7 @@ from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
 from backend.dal.organization import (
+    add_user as add_organization_user,
     get_or_create as get_or_create_org
 )
 from backend.typing import User as UserType
@@ -211,6 +212,8 @@ def create(email: str, data: UserType) -> bool:
         data.update({'email': email})
         response = USERS_TABLE.put_item(Item=data)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        if resp:
+            async_to_sync(add_organization_user)(org_dict['id'], email)
     except ClientError:
         rollbar.report_exc_info()
     return resp

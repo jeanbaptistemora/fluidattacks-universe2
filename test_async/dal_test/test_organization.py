@@ -3,6 +3,12 @@ import pytest
 import backend.dal.organization as org_dal
 from backend.exceptions import InvalidOrganization
 
+# Run async tests
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
+
 def test__map_keys_to_domain():
     test_dict = {
         'pk': 'primary-key',
@@ -43,6 +49,33 @@ def test__map_attributes_to_dal():
     assert 'id' not in mapped_list
     assert 'name' not in mapped_list
 
+
+@pytest.mark.changes_db
+async def test_add_group():
+    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    groups = await org_dal.get_groups(org_id)
+    assert len(groups) == 1
+
+    group_name = 'testgroup'
+    await org_dal.add_group(org_id, group_name)
+    groups = await org_dal.get_groups(org_id)
+    assert len(groups) == 2
+    assert sorted(groups) == ['norway', group_name]
+
+
+@pytest.mark.changes_db
+async def test_add_user():
+    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    users = await org_dal.get_users(org_id)
+    assert len(users) == 1
+
+    email = 'test2@testemail.com'
+    await org_dal.add_user(org_id, email)
+    users = await org_dal.get_users(org_id)
+    assert len(users) == 2
+    assert sorted(users) == [email, 'test@testemail.com']
+
+
 @pytest.mark.changes_db
 async def test_create():
     org_name = 'test-org-creating'
@@ -69,6 +102,21 @@ async def test_get():
     not_existent_org = await org_dal.get(not_ex_org_name)
     assert not not_existent_org
 
+
+async def test_get_groups():
+    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    groups = await org_dal.get_groups(org_id)
+    assert len(groups) == 1
+    assert groups[0] == 'norway'
+
+
+async def test_get_users():
+    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    users = await org_dal.get_users(org_id)
+    assert len(users) == 1
+    assert users[0] == 'test@testemail.com'
+
+
 @pytest.mark.changes_db
 async def test_get_or_create():
     ex_org_name = 'test-org'
@@ -77,7 +125,7 @@ async def test_get_or_create():
     assert isinstance(existing_org, dict)
     assert existing_org['id'] == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     assert existing_org['name'] == ex_org_name
-    
+
     not_existent_org = await org_dal.get_or_create(not_ex_org_name)
     assert isinstance(not_existent_org, dict)
     assert 'id' in not_existent_org

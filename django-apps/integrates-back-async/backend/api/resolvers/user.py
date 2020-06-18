@@ -69,7 +69,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
     success = authz.grant_group_level_role(email, group, role)
 
     if not user_domain.get_data(email, 'email'):
-        sync_to_async(user_domain.create)(email.lower(), {
+        await sync_to_async(user_domain.create)(email.lower(), {
             'company': organization.lower(),
             'phone': phone_number
         })
