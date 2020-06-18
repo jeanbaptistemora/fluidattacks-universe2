@@ -64,11 +64,14 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user_resolve_user',
             'backend_api_resolvers_vulnerability__do_approve_vulnerability',
             'backend_api_resolvers_vulnerability__do_delete_vulnerability',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_upload_file',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
-            'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
-            'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_analyst'),
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_last_analyst'),
             'grant_group_level_role:analyst',
             'grant_group_level_role:closer',
             'grant_group_level_role:customer',
@@ -118,11 +121,14 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_resource_resolve_resources',
             'backend_api_resolvers_vulnerability__do_approve_vulnerability',
             'backend_api_resolvers_vulnerability__do_delete_vulnerability',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_upload_file',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
-            'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
-            'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_analyst'),
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_last_analyst'),
         },
         tags={
             'drills',
@@ -143,7 +149,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project_resolve_project',
             'backend_api_resolvers_resource__do_download_file',
             'backend_api_resolvers_resource_resolve_resources',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
         },
         tags={
@@ -181,7 +188,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_resource_resolve_add_resources',
             'backend_api_resolvers_resource_resolve_resources',
             'backend_api_resolvers_vulnerability__do_delete_tags',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
         },
         tags=set(),
@@ -225,7 +233,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_remove_user_access',
             'backend_api_resolvers_user_resolve_user',
             'backend_api_resolvers_vulnerability__do_delete_tags',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
             'grant_user_level_role:customer',
             'grant_group_level_role:customer',
@@ -264,7 +273,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_resource_resolve_add_resources',
             'backend_api_resolvers_resource_resolve_resources',
             'backend_api_resolvers_vulnerability__do_delete_tags',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
         },
         tags=set()
@@ -314,10 +324,13 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_remove_user_access',
             'backend_api_resolvers_user_resolve_user',
             'backend_api_resolvers_vulnerability__do_delete_tags',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
-            'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
-            'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_analyst'),
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_last_analyst'),
             'grant_group_level_role:analyst',
             'grant_group_level_role:closer',
             'grant_user_level_role:customer',
@@ -347,7 +360,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project_resolve_project',
             'backend_api_resolvers_resource__do_download_file',
             'backend_api_resolvers_resource_resolve_resources',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
         },
         tags={
             'drills',
@@ -383,10 +397,13 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_resource__do_download_file',
             'backend_api_resolvers_resource_resolve_resources',
             'backend_api_resolvers_vulnerability__do_approve_vulnerability',
-            'backend_api_resolvers_vulnerability__do_request_verification_vuln',
+            ('backend_api_resolvers_vulnerability__do_'
+                'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_upload_file',
-            'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_analyst',
-            'backend_api_resolvers_vulnerability_resolve_vulnerability_resolve_last_analyst',
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_analyst'),
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_last_analyst'),
         },
         tags={
             'drills',

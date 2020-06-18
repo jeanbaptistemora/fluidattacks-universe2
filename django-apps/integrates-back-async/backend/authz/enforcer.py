@@ -16,7 +16,8 @@ from .model import (
 )
 
 
-def get_user_level_enforcer(subject: str) -> Callable[[str, str, str], Coroutine]:
+def get_user_level_enforcer(subject: str) -> \
+        Callable[[str, str, str], Coroutine]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
     roles = USER_LEVEL_ROLES
@@ -50,7 +51,8 @@ def get_group_access_enforcer() -> Callable[[dict, str], Coroutine]:
     return enforcer
 
 
-def get_group_level_enforcer(subject: str) -> Callable[[str, str, str], Coroutine]:
+def get_group_level_enforcer(subject: str) -> \
+        Callable[[str, str, str], Coroutine]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
     roles = GROUP_LEVEL_ROLES
@@ -83,7 +85,8 @@ def get_group_level_enforcer(subject: str) -> Callable[[str, str, str], Coroutin
     return enforcer
 
 
-def get_group_service_attributes_enforcer(group: str) -> Callable[[str], Coroutine]:
+def get_group_service_attributes_enforcer(group: str) -> \
+        Callable[[str], Coroutine]:
     """Return a filtered group authorization for the provided group."""
     policies = get_cached_group_service_attributes_policies(group)
 
