@@ -68,4 +68,4 @@ export const fileInputComponent: React.FunctionComponent<IFileInputProps> =
     );
   };
 
-export { fileInputComponent as FileInput};
+export { fileInputComponent as FileInput };

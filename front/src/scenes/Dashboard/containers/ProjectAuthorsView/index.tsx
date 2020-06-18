@@ -113,8 +113,8 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
       <Row>
         <Col xs={2} className={styles.dateCol}>
           <select onChange={handleDateChange} className={styles.selectDate}>
-            {dateRange.map((date: Date): JSX.Element => (
-              <option value={date.toISOString()}>{formatDate(date)}</option>
+            {dateRange.map((date: Date, index: number): JSX.Element => (
+              <option value={date.toISOString()} key={index}>{formatDate(date)}</option>
             ))}
           </select>
         </Col>

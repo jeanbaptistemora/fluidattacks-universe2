@@ -25,7 +25,7 @@ import translate from "../../../../../utils/translations/translate";
 import { maxLength, required, validTextField } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm";
 import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
-import { computeConfirmationMessage, isDowngrading, isDowngradingServices } from "./business-logic";
+import { computeConfirmationMessage, isDowngrading, isDowngradingServices } from "./businessLogic";
 import styles from "./index.css";
 import { IFormData, IServicesDataSet, IServicesProps } from "./types";
 
@@ -329,7 +329,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                       type="text"
                     >
                       {downgradeReasons.map((reason: string) => (
-                        <option value={reason}>
+                        <option value={reason} key={reason}>
                           {translate.t(`search_findings.services_table.modal.${reason.toLowerCase()}`)}
                         </option>
                       ))}

@@ -2,13 +2,13 @@ import React from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { default as style } from "./index.css";
 
-interface ItooltipWrapperProps {
+interface ITooltipWrapperProps {
   children: React.ReactNode;
   message: string;
   placement: "top" | "bottom" | "right" | "left";
 }
 
-const tooltipWrapper: React.FunctionComponent<ItooltipWrapperProps> = (props: ItooltipWrapperProps): JSX.Element => (
+const tooltipWrapper: React.FunctionComponent<ITooltipWrapperProps> = (props: ITooltipWrapperProps): JSX.Element => (
   <React.StrictMode>
     <OverlayTrigger
       key={props.placement}
@@ -22,4 +22,4 @@ const tooltipWrapper: React.FunctionComponent<ItooltipWrapperProps> = (props: It
   </React.StrictMode>
 );
 
-export {tooltipWrapper as TooltipWrapper};
+export { tooltipWrapper as TooltipWrapper };

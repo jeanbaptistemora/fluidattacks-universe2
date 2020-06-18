@@ -118,14 +118,14 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                     <Field name="role" component={dropdownField} validate={[required]}>
                       <option value="" />
                       {(props.projectName !== undefined ? groupLevelRoles : []).map((role: string) => (
-                        <Can do={`grant_group_level_role:${role}`}>
+                        <Can do={`grant_group_level_role:${role}`} key={role}>
                           <option value={role.toUpperCase()}>
                             {translate.t(`search_findings.tab_users.${role}`)}
                           </option>
                         </Can>
                       ))}
                       {(props.projectName !== undefined ? [] : userLevelRoles).map((role: string) => (
-                        <Can do={`grant_user_level_role:${role}`}>
+                        <Can do={`grant_user_level_role:${role}`} key={role}>
                           <option value={role.toUpperCase()}>
                             {translate.t(`search_findings.tab_users.${role}`)}
                           </option>

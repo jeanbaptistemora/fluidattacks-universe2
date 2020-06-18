@@ -2,7 +2,7 @@ import fs from "fs";
 import { JSDOM } from "jsdom";
 import * as yargs from "yargs";
 import { exampleGenerator } from "./generators/example";
-import { hexbinMapGenerator } from "./generators/hexbin-map";
+import { hexbinMapGenerator } from "./generators/hexbinMap";
 import { DataType, NodeType } from "./types";
 
 // Required because node.js do not have a DOM yet D3 need it

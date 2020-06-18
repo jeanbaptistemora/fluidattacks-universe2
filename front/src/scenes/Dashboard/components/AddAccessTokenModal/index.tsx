@@ -206,8 +206,9 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                                       {!_.isEmpty(accessToken.issuedAt) ?
                                         <ControlLabel>
                                           <b>{translate.t("update_access_token.token_created")}</b>
-                                          &nbsp;{new Date(Number.parseInt(accessToken.issuedAt) * 1000).toISOString()
-                                                                                      .substring(0, 10)}
+                                          &nbsp;{new Date(Number.parseInt(accessToken.issuedAt, 10) * 1000)
+                                            .toISOString()
+                                            .substring(0, 10)}
                                         </ControlLabel>
                                       : undefined }
                                   </Col>
