@@ -16,7 +16,7 @@ from networkx import DiGraph
 from networkx.algorithms import dfs_preorder_nodes
 # local imports
 from fluidasserts import Unit, OPEN, CLOSED
-from fluidasserts.cloud.aws.cloudformation.graphs.new_loader import Dict \
+from fluidasserts.cloud.aws.cloudformation.loader import Dict \
     as ADict
 
 # Containers
