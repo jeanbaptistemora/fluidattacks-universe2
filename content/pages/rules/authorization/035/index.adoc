@@ -38,7 +38,17 @@ The software does not properly assign, modify, track, or check privileges for
 an actor,
 creating an unintended sphere of control for that actor.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key]
+The system's authorization functionality does not prevent one user from gaining
+access to another user's data or record by modifying the key value identifying
+the data.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.2)]
+Verify that all user and data attributes and policy information used by access
+controls cannot be manipulated by end users unless specifically authorized.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.2.3)]
 Verify that the principle of least privilege exists - users should only be able
 to access functions, data files, URLs, controllers, services, and other
