@@ -131,6 +131,7 @@ type Project {
     deletionDate: String
     pendingClosingCheck: Int
     lastClosingVuln: Int
+    lastClosingVulnFinding: Finding
     maxSeverity: Float
     maxOpenSeverity: Float
     meanRemediateCriticalSeverity: Int

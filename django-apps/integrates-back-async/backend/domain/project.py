@@ -1,7 +1,7 @@
 """Domain functions for projects."""
 
 import asyncio
-from typing import Dict, List, NamedTuple, Union, cast
+from typing import Dict, List, NamedTuple, Tuple, Union, cast
 from collections import namedtuple, defaultdict
 import re
 from datetime import datetime, timedelta
@@ -18,7 +18,8 @@ from backend.dal import (
     vulnerability as vuln_dal
 )
 from backend.typing import (
-    Comment as CommentType, Finding as FindingType, Project as ProjectType
+    Comment as CommentType, Finding as FindingType, Project as ProjectType,
+    Vulnerability as VulnerabilityType
 )
 from backend.domain import (
     comment as comment_domain, resources as resources_domain,
@@ -445,8 +446,10 @@ def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, 
     return project_dal.get_released_findings(project_name, attrs)
 
 
-async def get_last_closing_vuln(findings: List[Dict[str, FindingType]]) -> Decimal:
+async def get_last_closing_vuln_info(
+        findings: List[Dict[str, FindingType]]) -> Tuple[Decimal, VulnerabilityType]:
     """Get day since last vulnerability closing."""
+
     validate_findings = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(finding_domain.validate_finding)(
@@ -472,23 +475,30 @@ async def get_last_closing_vuln(findings: List[Dict[str, FindingType]]) -> Decim
         )
         for vulns in finding_vulns for vuln in vulns
     ])
+    closed_vulns = [
+        vuln
+        for vulns in finding_vulns for vuln in vulns
+        if are_vuln_closed.pop(0)
+    ]
     closing_vuln_dates = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(get_last_closing_date)(
                 vuln)
         )
-        for vulns in finding_vulns for vuln in vulns
-        if are_vuln_closed.pop(0)
+        for vuln in closed_vulns
     ])
     if closing_vuln_dates:
+        current_date, date_index = max((v, i) for i, v in enumerate(closing_vuln_dates))
+        last_closing_vuln = closed_vulns[date_index]
         current_date = max(closing_vuln_dates)
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        last_closing = \
+        last_closing_days = \
             Decimal((datetime.now(tz=tzn).date() -
                      current_date).days).quantize(Decimal('0.1'))
     else:
-        last_closing = Decimal(0)
-    return last_closing
+        last_closing_days = Decimal(0)
+        last_closing_vuln = {}
+    return last_closing_days, last_closing_vuln
 
 
 def get_last_closing_date(vulnerability: Dict[str, FindingType]) -> datetime:

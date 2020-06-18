@@ -180,6 +180,29 @@ async def _get_last_closing_vuln(info, project_name: str, **__) -> int:
 
 @require_integrates
 @get_entity_cache_async
+async def _get_last_closing_vuln_finding(
+        info, project_name: str, requested_fields: list) -> \
+        Dict[str, FindingType]:
+    """Resolve finding attribute."""
+    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+    req_fields.extend(
+        util.get_requested_fields('lastClosingVulnFinding', selection_set))
+    selection_set.selections = req_fields
+    project_attrs = \
+        await info.context.loaders['project'].load(project_name)
+    project_attrs = project_attrs['attrs']
+    last_closing_vuln_finding = \
+        project_attrs.get('last_closing_vuln_finding', '')
+    finding = await asyncio.create_task(
+        finding_loader.resolve(info, last_closing_vuln_finding, as_field=True,
+                               selection_set=selection_set))
+    return finding
+
+
+@require_integrates
+@get_entity_cache_async
 async def _get_max_severity(info, project_name: str, **__) -> float:
     """Get max_severity."""
     project_findings = \

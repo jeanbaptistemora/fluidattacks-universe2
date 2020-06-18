@@ -1,4 +1,5 @@
 import { RouteComponentProps } from "react-router";
+import { IFindingAttr } from "../ProjectFindingsView/types";
 
 export type IIndicatorsViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
@@ -10,6 +11,7 @@ export interface IIndicatorsProps {
     deletionDate: string;
     hasForces: boolean;
     lastClosingVuln: number;
+    lastClosingVulnFinding: IFindingAttr;
     maxOpenSeverity: number;
     maxSeverity: number;
     meanRemediate: number;

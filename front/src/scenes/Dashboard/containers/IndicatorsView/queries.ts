@@ -7,6 +7,9 @@ export const GET_INDICATORS: DocumentNode = gql`
       closedVulnerabilities
       hasForces
       lastClosingVuln
+      lastClosingVulnFinding{
+        id
+      }
       maxOpenSeverity
       maxSeverity
       meanRemediate

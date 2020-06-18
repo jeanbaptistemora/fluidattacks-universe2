@@ -535,9 +535,12 @@ async def send_unsolved_to_all() -> List[bool]:
 async def get_project_indicators(project: str) -> Dict[str, object]:
     findings = await sync_to_async(project_domain.get_released_findings)(
         project, 'finding_id, historic_treatment, cvss_temporal')
+    last_closing_vuln_days, last_closing_vuln = \
+        await project_domain.get_last_closing_vuln_info(findings)
     indicators = {
         'closed_vulnerabilities': await project_domain.get_closed_vulnerabilities(project),
-        'last_closing_date': await project_domain.get_last_closing_vuln(findings),
+        'last_closing_date': last_closing_vuln_days,
+        'last_closing_vuln_finding': last_closing_vuln.get('finding_id', ''),
         'mean_remediate': await project_domain.get_mean_remediate(findings),
         'mean_remediate_critical_severity': await project_domain.get_mean_remediate_severity(
             project, 9, 10),

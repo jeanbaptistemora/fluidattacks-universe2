@@ -27,6 +27,9 @@
                "last_closing_date" : {
                   "N" : "45"
                },
+               "last_closing_vuln_finding" : {
+                  "S" : "457497318"
+               },
                "max_open_severity" : {
                   "N" : "3.9"
                },
@@ -785,6 +788,9 @@
                },
                "last_closing_date" : {
                   "N" : "23"
+               },
+               "last_closing_vuln_finding" : {
+                  "S" : "457497316"
                },
                "max_open_severity" : {
                   "N" : "4.9"
@@ -2011,6 +2017,9 @@
               "last_closing_date" : {
                  "N" : "23"
               },
+              "last_closing_vuln_finding" : {
+                 "S" : ""
+              },
               "max_open_severity" : {
                  "N" : "4.9"
               },
@@ -2376,6 +2385,9 @@
                },
                "last_closing_date" : {
                   "N" : "23"
+               },
+               "last_closing_vuln_finding" : {
+                  "S" : ""
                },
                "max_open_severity" : {
                   "N" : "4.9"

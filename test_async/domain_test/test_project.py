@@ -12,7 +12,7 @@ from backend.dal.helpers import dynamodb
 from backend.domain.project import (
     add_comment,
     edit, validate_tags, is_alive,
-    get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
+    get_pending_closing_check, get_last_closing_vuln_info, get_last_closing_date,
     is_vulnerability_closed, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     get_users, get_description,
@@ -83,11 +83,12 @@ class ProjectTest(TestCase):
                 Key={'finding_id': finding_id}
             )['Item']
             for finding_id in findings_to_get]
-        test_data = get_last_closing_vuln(findings)
+        test_data = async_to_sync(get_last_closing_vuln_info)(findings)
         actual_date = datetime.now().date()
         initial_date = datetime(2019, 1, 15).date()
-        expected_output = actual_date - initial_date
-        assert test_data == expected_output.days
+        assert test_data[0] == (actual_date - initial_date).days
+        assert test_data[1]['UUID'] == '6f023c26-5b10-4ded-aa27-bb563c2206ab'
+        assert test_data[1]['finding_id'] == "463558592"
 
     def test_get_last_closing_date(self):
         closed_vulnerability = {

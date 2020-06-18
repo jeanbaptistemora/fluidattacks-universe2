@@ -26,6 +26,8 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   const projectName: string = props.match.params.projectName;
   const { push } = useHistory();
 
+  const [lastClosingVulnFindingId, setLastClosingVulnFindingId] = React.useState("");
+
   const goToProjectFindings: (() => void) = (): void => {
     push(`/groups/${projectName}/findings`);
   };
@@ -46,6 +48,12 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
     }));
     sessionStorage.setItem("verificationFilter", "Pending");
     push(`/groups/${projectName}/findings`);
+  };
+
+  const goToProjectFindingTracking: (() => void) = (): void => {
+    if (lastClosingVulnFindingId !== "") {
+      push(`/groups/${projectName}/findings/${lastClosingVulnFindingId}/tracking`);
+    }
   };
 
   const goToProjectSettings: (() => void) = (): void => {
@@ -83,6 +91,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
               .filter((repo: IRepositoriesAttr) =>
               !("historic_state" in repo) ||
               repo.historic_state[repo.historic_state.length - 1].state === "ACTIVE");
+            setLastClosingVulnFindingId(data.project.lastClosingVulnFinding.id);
 
             return (
               <React.StrictMode>
@@ -137,6 +146,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.lastClosingVuln}
                             title=""
                             total=""
+                            onClick={goToProjectFindingTracking}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>

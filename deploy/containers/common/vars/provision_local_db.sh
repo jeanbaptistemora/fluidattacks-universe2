@@ -325,6 +325,9 @@ then
               "last_closing_date" : {
                 "N" : "45"
               },
+              "last_closing_vuln_finding" : {
+                "S" : ""
+              },
               "max_open_severity" : {
                 "N" : "3.9"
               },
