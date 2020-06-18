@@ -17,6 +17,9 @@ export const TAG_QUERY: DocumentNode = gql`
         closedVulnerabilities
         description
         lastClosingVuln
+        lastClosingVulnFinding {
+          id
+        }
         maxOpenSeverity
         maxSeverity
         name

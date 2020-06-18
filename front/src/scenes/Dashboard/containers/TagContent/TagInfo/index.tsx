@@ -27,6 +27,7 @@ import { HorizontalBarIndicator } from "../../../components/HorizontalBarIndicat
 import { IndicatorBox } from "../../../components/IndicatorBox";
 import { IndicatorGraph } from "../../../components/IndicatorGraph";
 import { IndicatorStack } from "../../../components/IndicatorStack";
+import { IFindingAttr } from "../../ProjectFindingsView/types";
 import { default as style } from "./index.css";
 import { TAG_QUERY } from "./queries";
 
@@ -48,6 +49,7 @@ interface IProjectTag {
   closedVulnerabilities: number;
   description: string;
   lastClosingVuln: number;
+  lastClosingVulnFinding: IFindingAttr;
   maxOpenSeverity: number;
   maxSeverity: number;
   name: string;
@@ -404,6 +406,13 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       projects[0]).name
   );
 
+  const getLastClosingVulnFindingId: ((projects: IProjectTag[]) => string) = (projects: IProjectTag[]): string => (
+    projects.reduce(
+      (maxValue: IProjectTag, project: IProjectTag) =>
+        (project.lastClosingVuln < maxValue.lastClosingVuln ? project : maxValue),
+      projects[0]).lastClosingVulnFinding.id
+  );
+
   const sortBoxInfo: ((aObject: IBoxInfo, bObject: IBoxInfo) => number) = (
     aObject: IBoxInfo, bObject: IBoxInfo,
   ): number => (
@@ -533,14 +542,15 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const projectWithMaxSeverity: string = getMaxSeverityProject(data.tag.projects);
   const projectWithMaxOpenSeverity: string = getMaxOpenSeverityProject(data.tag.projects);
   const projectWithLastClosingVuln: string = getLastClosingVulnProject(data.tag.projects);
+  const findingIdWithLastClosingVuln: string = getLastClosingVulnFindingId(data.tag.projects);
   const goToProjectMaxSeverityFindings: (() => void) = (): void => {
     push(`/groups/${projectWithMaxSeverity.toLowerCase()}/findings`);
   };
   const goToProjectMaxOpenSeverityFindings: (() => void) = (): void => {
     push(`/groups/${projectWithMaxOpenSeverity.toLowerCase()}/findings`);
   };
-  const goToProjectLastClosingVuln: (() => void) = (): void => {
-    push(`/groups/${projectWithLastClosingVuln.toLowerCase()}/indicators`);
+  const goToProjectFindingTracking: (() => void) = (): void => {
+    push(`/groups/${projectWithLastClosingVuln.toLowerCase()}/findings/${findingIdWithLastClosingVuln}/tracking`);
   };
 
   return (
@@ -601,7 +611,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             total=""
             small={true}
             description={projectWithLastClosingVuln.toLowerCase()}
-            onClick={goToProjectLastClosingVuln}
+            onClick={goToProjectFindingTracking}
           />
         </Col>
       </Row>
