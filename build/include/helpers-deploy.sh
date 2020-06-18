@@ -180,11 +180,11 @@ function helper_deploy_compile_old {
   &&  echo '[INFO] Finished compiling site' \
   &&  cp -a cache/ "${STARTDIR}" || true \
   &&  rm -rf output/web/de \
-  &&  mv output/web/pages/* output/web/ \
-  &&  rm -rf output/web/pages \
+  &&  mv output/oldweb/pages/* output/oldweb/ \
+  &&  rm -rf output/oldweb/pages \
   &&  cp sitemap.xml output/sitemap.xml \
-  &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
-  &&  rm output/web/sitemap.xml \
+  &&  tail -n +6 output/oldweb/sitemap.xml >> output/sitemap.xml \
+  &&  rm output/oldweb/sitemap.xml \
   &&  cp robots.txt output/robots.txt
 }
 
@@ -203,9 +203,9 @@ function helper_deploy_compile_new {
   &&  pelican --fatal errors --fatal warnings content/ \
   &&  echo '[INFO] Finished compiling New site' \
   &&  cp -a cache/ "${STARTDIR}/new" || true \
-  &&  rm -rf output/web \
-  &&  mv output/newweb/pages/* output/newweb/ \
-  &&  rm -rf output/newweb/pages \
+  &&  rm -rf output/web/de \
+  &&  mv output/web/pages/* output/web/ \
+  &&  rm -rf output/web/pages \
   &&  popd || return 1
 }
 
@@ -214,5 +214,5 @@ function helper_deploy_compile_all {
 
       helper_deploy_compile_old "${target}" \
   &&  helper_deploy_compile_new "${target}" \
-  &&  cp -a new/output/newweb output/
+  &&  cp -a new/output/web output/
 }

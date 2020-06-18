@@ -6,7 +6,7 @@
 = Forces
 
 [role="forces-feature w-25-ns w-90 dib tl v-top pa3"]
-== link:../../../newweb/blog/stand-shoulders-giants/[Software Composition Analysis]
+== link:../../../web/blog/stand-shoulders-giants/[Software Composition Analysis]
 
 [role="fw1 f-key-features lh-key-features"]
 Now Forces searches your dependencies’ package managers for reported

@@ -73,8 +73,8 @@ DEFAULT_PAGINATION = 12
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n', 'jinja2.ext.do']}
 
 SITENAME = 'A Pentesting Company | Fluid Attacks'
-SITEURL = 'https://fluidattacks.com/web'
-OUTPUT_PATH = 'output/web'
+SITEURL = 'https://fluidattacks.com/oldweb'
+OUTPUT_PATH = 'output/oldweb'
 THEME = 'theme/2014'
 ARTICLE_PATHS = ['blog']
 PAGE_PATHS = ['pages']
@@ -97,7 +97,7 @@ ASCIIDOC_OPTIONS = ['-a icons', '-a iconsdir=/web/images/icons',
                     '-a tooltip=/web/images/icons/tooltip.png']
 
 SUBSITE_LANG = {
-    'en': 'https://fluidattacks.com/web',
+    'en': 'https://fluidattacks.com/oldweb',
 }
 ASSET_BUNDLES = (
     ('bundle', [
