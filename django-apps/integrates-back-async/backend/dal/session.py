@@ -27,5 +27,5 @@ def invalidate_session(session_key: str):
     REDIS_CLIENT.delete(session_key)
 
 
-def add_element(key: str, value: str):
-    REDIS_CLIENT.set(key, value)
+def add_element(key: str, value: str, time: int):
+    REDIS_CLIENT.setex(key, time, value)

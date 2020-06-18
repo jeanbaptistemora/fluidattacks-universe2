@@ -155,7 +155,8 @@ def app(request):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        util.save_token(payload['jti'], token)
+        util.save_token(
+            'fi_jwt:{jti}'.format(jti=payload['jti']), token, settings.SESSION_COOKIE_AGE)
         response.set_cookie(
             key=settings.JWT_COOKIE_NAME,
             samesite=settings.JWT_COOKIE_SAMESITE,
