@@ -194,7 +194,7 @@ def logout(request):
 
 
 @cache_content
-@never_cache
+@cache_control(private=True, max_age=31536000)
 @csrf_exempt
 def get_evidence(request, project, evidence_type, findingid, fileid):
     allowed_roles = [
