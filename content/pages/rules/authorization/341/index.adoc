@@ -1,0 +1,34 @@
+:slug: rules/341/
+:category: authorization
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of using the principle of deny by default when creating new users/roles or when adding new features.
+:keywords: Principle, Deny, Default, Permission, ASVS, CWE
+:rules: yes
+
+= R341. Use the principle of deny by default
+
+== Requirement
+
+The system should set minimal or no permissions for new users/roles
+and users/roles should not receive access to new features until it is
+explicitly granted.
+
+== Description
+
+Systems should usually have a set of roles with different levels of
+privilege for accessing resources.
+The privileges of each role must be clearly defined and the role of each user
+should also be clearly stated.
+Furthermore, permissions and access should be granted using the principle of
+**deny by default**.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/276.html[CWE-276: Incorrect Default Permissions].
+The product, upon installation, sets incorrect permissions for an object that
+exposes it to an unintended actor.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.4)]
+Verify that the principle of deny by default exists whereby new users/roles
+start with minimal or no permissions and users/roles do not receive access to
+new features until access is explicitly assigned.

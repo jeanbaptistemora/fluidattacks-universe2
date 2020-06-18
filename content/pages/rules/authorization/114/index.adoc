@@ -1,6 +1,6 @@
 :slug: rules/114/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of managing correctly inactive users and credentials in the system in order to avoid security breaches.
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of properly managing inactive users and credentials in the system in order to avoid security breaches.
 :keywords: Requirement, Security, Credentials, Inactive Users, Access, Information
 :rules: yes
 
