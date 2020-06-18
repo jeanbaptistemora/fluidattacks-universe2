@@ -324,6 +324,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:customer',
             'grant_group_level_role:customeradmin',
             'grant_group_level_role:executive',
+            'grant_group_level_role:group_manager',
             'grant_group_level_role:reviewer',
             'grant_group_level_role:resourcer',
         },
