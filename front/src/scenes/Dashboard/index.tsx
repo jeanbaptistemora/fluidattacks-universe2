@@ -81,6 +81,8 @@ const dashboard: React.FC = (): JSX.Element => {
     },
   });
 
+  const { userEmail } = window as typeof window & Dictionary<string>;
+
   return (
     <React.StrictMode>
       <BrowserRouter basename="/integrates">
@@ -93,6 +95,7 @@ const dashboard: React.FC = (): JSX.Element => {
 
               return (
                 <Sidebar
+                  userEmail={userEmail}
                   onLogoutClick={handleLogout}
                   onOpenAccessTokenModal={openTokenModal}
                   onOpenAddUserModal={openUserModal}

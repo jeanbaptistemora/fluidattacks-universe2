@@ -10,13 +10,14 @@ import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 
 interface ISidebarProps {
+  userEmail: string;
   onLogoutClick(): void;
   onOpenAccessTokenModal(): void;
   onOpenAddUserModal(): void;
 }
 
 const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
-  const { onOpenAddUserModal, onOpenAccessTokenModal, onLogoutClick } = props;
+  const { userEmail, onOpenAddUserModal, onOpenAccessTokenModal, onLogoutClick } = props;
   const { push } = useHistory();
 
   const handleLogoClick: (() => void) = (): void => { push("/home"); };
@@ -51,6 +52,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
         </li>
       </ul>
       <div className={style.bottomBar}>
+        <div className={style.version}><small>{userEmail}</small></div>
         <div className={style.version}><small>integrates_version</small></div>
         <ul>
           <li onClick={onLogoutClick}><a><span className="icon pe-7s-power" /></a></li>

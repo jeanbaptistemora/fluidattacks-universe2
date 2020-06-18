@@ -15,7 +15,12 @@ describe("Sidebar", () => {
   it("should render a sidebar", () => {
     const wrapper: ShallowWrapper = shallow(
       <MemoryRouter initialEntries={["/home"]}>
-        <Sidebar onLogoutClick={functionMock} onOpenAccessTokenModal={functionMock} onOpenAddUserModal={functionMock}/>
+        <Sidebar
+          userEmail="test@test.com"
+          onLogoutClick={functionMock}
+          onOpenAccessTokenModal={functionMock}
+          onOpenAddUserModal={functionMock}
+        />
       </MemoryRouter>,
     );
     expect(wrapper)
