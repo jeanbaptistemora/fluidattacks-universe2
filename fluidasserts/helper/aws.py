@@ -29,11 +29,6 @@ from neo4j.exceptions import ServiceUnavailable
 import yaml
 
 # local imports
-from fluidasserts.cloud.aws.cloudformation import (
-    CloudFormationInvalidTemplateError)
-from fluidasserts.cloud.aws.cloudformation import (
-    CloudFormationInvalidTypeError)
-from fluidasserts.cloud.aws.cloudformation import CloudFormationError
 from fluidasserts.cloud.aws.cloudformation import services
 from fluidasserts.cloud.aws.terraform import TerraformError
 from fluidasserts.cloud.aws.terraform import TerraformInvalidTemplateError
@@ -62,6 +57,18 @@ class ClientErr(botocore.exceptions.BotoCoreError):
 
     :py:exc:`ClientError` wrapper exception.
     """
+
+
+class CloudFormationError(Exception):
+    """Base class for all errors in this module."""
+
+
+class CloudFormationInvalidTypeError(CloudFormationError):
+    """The Value is not of recognized type."""
+
+
+class CloudFormationInvalidTemplateError(CloudFormationError):
+    """The template is not JSON or YAML compliant."""
 
 
 def retry_on_errors(func: Callable) -> Callable:

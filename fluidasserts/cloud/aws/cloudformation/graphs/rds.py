@@ -15,8 +15,7 @@ from neo4j import Session
 # Local imports
 from fluidasserts import MEDIUM
 from fluidasserts import SAST
-from fluidasserts.cloud.aws.cloudformation import (
-    CloudFormationInvalidTypeError)
+from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import _get_result_as_tuple
 from fluidasserts.cloud.aws.cloudformation import Vulnerability
 from fluidasserts.utils.decorators import api, unknown_if

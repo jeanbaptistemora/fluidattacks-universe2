@@ -13,11 +13,11 @@ from typing import List, Optional, Tuple
 # Local imports
 from fluidasserts import SAST, LOW, MEDIUM, HIGH
 from fluidasserts.helper import aws as helper
+from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
     _index,
-    _get_result_as_tuple,
-    CloudFormationInvalidTypeError,
+    _get_result_as_tuple
 )
 from fluidasserts.utils.decorators import api, unknown_if
 

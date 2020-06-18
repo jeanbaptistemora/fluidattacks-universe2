@@ -20,8 +20,7 @@ from networkx import DiGraph
 from fluidasserts import MEDIUM
 from fluidasserts import LOW
 from fluidasserts import SAST
-from fluidasserts.cloud.aws.cloudformation import (
-    CloudFormationInvalidTypeError)
+from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation.graphs import get_predecessor
 from fluidasserts.cloud.aws.cloudformation.graphs import get_ref_nodes
 from fluidasserts.cloud.aws.cloudformation.graphs import get_type

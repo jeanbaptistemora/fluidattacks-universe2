@@ -12,9 +12,9 @@ from typing import List, Optional
 # Local imports
 from fluidasserts import SAST, LOW, MEDIUM
 from fluidasserts.helper import aws as helper
+from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
-    CloudFormationInvalidTypeError,
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
