@@ -412,6 +412,15 @@ elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
             SubnetId='mock',
         ),
     ])
+elb2_listener = troposphere.elasticloadbalancingv2.Listener(
+    title='Elb2Listener',
+    Certificates=[],
+    DefaultActions=[],
+    LoadBalancerArn='loadbal',
+    Port=443,
+    Protocol='HTTPS',
+    SslPolicy='ELBSecurityPolicy-2016-08'
+)
 ebl2_target_group = troposphere.elasticloadbalancingv2.TargetGroup(
     title='TargetGroup1',
     Name='MyTargets',
@@ -436,6 +445,7 @@ template.add_resource(ec2_instance)
 template.add_resource(ec2_launch_template)
 template.add_resource(dynamodb_table)
 template.add_resource(ebl2_target_group)
+template.add_resource(elb2_listener)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
@@ -901,6 +911,15 @@ elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
             SubnetId='mock',
         ),
     ])
+elb2_listener = troposphere.elasticloadbalancingv2.Listener(
+    title='Elb2Listener',
+    Certificates=[],
+    DefaultActions=[],
+    LoadBalancerArn='loadbal',
+    Port=443,
+    Protocol='HTTPS',
+    SslPolicy='ELBSecurityPolicy-TLS-1-0-2015-04'
+)
 ebl2_target_group = troposphere.elasticloadbalancingv2.TargetGroup(
     title='TargetGroup1',
     Name='MyTargets',
@@ -935,6 +954,7 @@ template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
 template.add_resource(elb_entity)
 template.add_resource(elb2_entity)
+template.add_resource(elb2_listener)
 write_template(template)
 
 #

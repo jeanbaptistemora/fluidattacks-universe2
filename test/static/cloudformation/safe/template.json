@@ -1,6 +1,17 @@
 {
   "Description": "safe",
   "Resources": {
+    "Elb2Listener": {
+      "Properties": {
+        "Certificates": [],
+        "DefaultActions": [],
+        "LoadBalancerArn": "loadbal",
+        "Port": 443,
+        "Protocol": "HTTPS",
+        "SslPolicy": "ELBSecurityPolicy-2016-08"
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener"
+    },
     "TargetGroup1": {
       "Properties": {
         "HealthCheckEnabled": "true",
