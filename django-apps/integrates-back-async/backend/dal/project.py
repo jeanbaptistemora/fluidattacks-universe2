@@ -269,39 +269,6 @@ def get_users(project: str, active: bool = True) -> List[str]:
     return users_filtered
 
 
-def add_all_access_to_project(project: str) -> bool:
-    project_exists = exists(project)
-    resp = False
-    if project_exists:
-        users_active = get_users(project, True)
-        users_inactive = get_users(project, False)
-        all_users = users_active + users_inactive
-        users_response = \
-            [add_access(user, project, 'has_access', True)
-             for user in all_users]
-        resp = all(users_response)
-    else:
-        # project doesn't exists
-        pass
-    return resp
-
-
-def remove_all_project_access(project: str) -> bool:
-    project_exists = exists(project)
-    resp = False
-    if project_exists:
-        active = True
-        users = get_users(project, active)
-        users_response = \
-            [add_access(user, project, 'has_access', True)
-             for user in users]
-        resp = all(users_response)
-    else:
-        # project doesn't exists
-        pass
-    return resp
-
-
 def exists(project_name: str, pre_computed_project_data: dict = None) -> bool:
     project = project_name.lower()
     project_data = pre_computed_project_data or get_attributes(project, [

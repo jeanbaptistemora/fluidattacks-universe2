@@ -141,8 +141,6 @@ type Mutation {
         data: GenericScalar!
     ): SimpleFindingPayload!
 
-    addAllProjectAccess(projectName: String!): SimplePayload!
-    removeAllProjectAccess(projectName: String!): SimplePayload!
     addProjectComment(
         content: String!,
         parent: GenericScalar!,

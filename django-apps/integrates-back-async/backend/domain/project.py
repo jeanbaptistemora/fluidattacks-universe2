@@ -803,14 +803,6 @@ async def get_users_to_notify(project_name: str, active: bool = True) -> List[st
     return [str(user) for user in users if user_roles.pop(0) != 'executive']
 
 
-def add_all_access_to_project(project: str) -> bool:
-    return project_dal.add_all_access_to_project(project)
-
-
-def remove_all_project_access(project: str) -> bool:
-    return project_dal.remove_all_project_access(project)
-
-
 def get_project_info(project: str) -> List[ProjectType]:
     return project_dal.get(project)
 

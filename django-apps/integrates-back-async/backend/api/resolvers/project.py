@@ -767,42 +767,6 @@ An error occurred removing a tag', 'error', info.context)
     return SimpleProjectPayloadType(success=success, project=project)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-async def _do_add_all_project_access(_, info,
-                                     project_name: str) -> SimplePayloadType:
-    """Resolve add_all_project_access mutation."""
-    success = \
-        await sync_to_async(project_domain.add_all_access_to_project)(
-            project_name)
-    if success:
-        util.cloudwatch_log(
-            info.context,
-            'Security: '
-            f'Add all project access of {project_name}')  # pragma: no cover
-        util.invalidate_cache(project_name)
-    return SimplePayloadType(success=success)
-
-
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-async def _do_remove_all_project_access(
-        _, info, project_name: str) -> SimplePayloadType:
-    """Resolve remove_all_project_access mutation."""
-    success = \
-        await sync_to_async(project_domain.remove_all_project_access)(
-            project_name)
-    if success:
-        util.cloudwatch_log(
-            info.context,
-            'Security: Remove '
-            f'all project access of {project_name}')  # pragma: no cover
-        util.invalidate_cache(project_name)
-    return SimplePayloadType(success=success)
-
-
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_user_level_auth_async

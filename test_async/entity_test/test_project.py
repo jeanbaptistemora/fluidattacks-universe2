@@ -312,42 +312,6 @@ class ProjectTests(TestCase):
         assert result['data']['removeTag']['success']
 
     @pytest.mark.changes_db
-    async def test_add_all_project_access(self):
-        """Check for addAllProjectAccess mutation."""
-        query = '''
-            mutation {
-                addAllProjectAccess(projectName: "UNITTESTING")
-                    {
-                        success
-                    }
-            }
-
-        '''
-        data = {'query': query}
-        result = await self._get_result_async(data, user='unittest@fluidattacks.com')
-        assert 'errors' not in result
-        assert 'success' in result['data']['addAllProjectAccess']
-        assert result['data']['addAllProjectAccess']['success']
-
-    @pytest.mark.changes_db
-    async def test_remove_all_project_access(self):
-        """Check for removeAllProjectAccess mutation."""
-        query = '''
-            mutation {
-                removeAllProjectAccess(projectName: "ONESHOTTEST")
-                    {
-                        success
-                    }
-            }
-
-        '''
-        data = {'query': query}
-        result = await self._get_result_async(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['removeAllProjectAccess']
-        assert result['data']['removeAllProjectAccess']['success']
-
-    @pytest.mark.changes_db
     async def test_add_project_comment_parent_zero(self):
         """Check for addProjectComment mutation."""
         query = '''

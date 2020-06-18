@@ -38,10 +38,6 @@ MUTATION.set_field('addProjectComment',
                    project.resolve_project_mutation)
 MUTATION.set_field('addTags', project.resolve_project_mutation)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
-MUTATION.set_field('addAllProjectAccess',
-                   project.resolve_project_mutation)
-MUTATION.set_field('removeAllProjectAccess',
-                   project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', finding.resolve_finding_mutation)
 MUTATION.set_field('updateEvidence', finding.resolve_finding_mutation)
 MUTATION.set_field('updateEvidenceDescription',
