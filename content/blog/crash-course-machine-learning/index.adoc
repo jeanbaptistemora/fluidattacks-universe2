@@ -81,7 +81,7 @@ finding a lower-dimensional representation of our inputs
 (*dimensionality reduction*):
 
 .Dimensionality reduction.
-image::dim-reduction[width="60%",alt="Dimensionality reduction"]
+image::dim-reduction.png[width="60%",alt="Dimensionality reduction"]
 
 With these _classifications_ out of the way,
 let's go deeper into each particular technique

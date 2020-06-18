@@ -53,7 +53,7 @@ that could compromise the integrity of the information assets.
 
 == Diagram
 
-image::diag1-req002.png[Req002 Diagram]
+image::../out-of-scope/assets/004/diag1-req002.png[Req002 Diagram]
 
 == Solutions
 

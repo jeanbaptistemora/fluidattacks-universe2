@@ -62,7 +62,7 @@ so it can be used in the risks assessment.
 
 == Diagram
 
-image::diag1.png[Diagram 1]
+image::../out-of-scope/assets/006/diag1.png[Diagram 1]
 
 == Solutions
 

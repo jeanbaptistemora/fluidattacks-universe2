@@ -57,7 +57,7 @@ be done by the responsible of each process of the organization
 thus allowing for a proper classification of the asset
 as shown in the following diagram:
 
-image::diag1-req001.png[Diagram1]
+image::../out-of-scope/assets/001/diag1-req001.png[Diagram1]
 
 == Solutions
 

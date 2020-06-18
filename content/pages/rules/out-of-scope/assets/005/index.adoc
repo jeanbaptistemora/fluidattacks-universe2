@@ -68,7 +68,7 @@ to establish the monetary value of their assets.
 
 == Diagram
 
-image::diag1-req003.png[Req003 Diagram]
+image::../out-of-scope/assets/005/diag1-req003.png[Req003 Diagram]
 
 == Solutions
 
