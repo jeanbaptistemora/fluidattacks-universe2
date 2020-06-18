@@ -149,52 +149,52 @@ class EventTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-    def test_validate_evidence_invalid_image_type(self):
-        evidence_type = 'evidence'
-        filename = os.path.dirname(os.path.abspath(__file__))
-        filename = os.path.join(filename, '../mock/test-file-records.csv')
-        with open(filename, 'rb') as test_file:
-            uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                                content=test_file.read(),
-                                                content_type='text/csv')
-        with self.assertRaises(InvalidFileType) as context:
-            event_domain.validate_evidence(evidence_type, uploaded_file)
-        self.assertTrue('Exception - Invalid File Type: EVENT_IMAGE' in str(context.exception))
+def test_validate_evidence_invalid_image_type():
+    evidence_type = 'evidence'
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, '../mock/test-file-records.csv')
+    with open(filename, 'rb') as test_file:
+        uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                            content=test_file.read(),
+                                            content_type='text/csv')
+    with pytest.raises(InvalidFileType) as context:
+        event_domain.validate_evidence(evidence_type, uploaded_file)
+    assert 'Exception - Invalid File Type: EVENT_IMAGE' in str(context.value)
 
-    def test_validate_evidence_invalid_file_size(self):
-        evidence_type = 'evidence'
-        filename = os.path.dirname(os.path.abspath(__file__))
-        filename = os.path.join(filename, '../mock/test-big-image.jpg')
-        with open(filename, 'rb') as test_file:
-            uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                                content=test_file.read(),
-                                                content_type='image/jpg')
-        with self.assertRaises(InvalidFileSize) as context:
-            event_domain.validate_evidence(evidence_type, uploaded_file)
-        self.assertTrue('Exception - Invalid File Size' in str(context.exception))
+def test_validate_evidence_invalid_file_size():
+    evidence_type = 'evidence'
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, '../mock/test-big-image.jpg')
+    with open(filename, 'rb') as test_file:
+        uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                            content=test_file.read(),
+                                            content_type='image/jpg')
+    with pytest.raises(InvalidFileSize) as context:
+        event_domain.validate_evidence(evidence_type, uploaded_file)
+    assert 'Exception - Invalid File Size' in str(context.value)
 
-    @pytest.mark.changes_db
-    def test_mask_event(self):
-        event_id = '418900971'
-        comment_id = int(round(time() * 1000))
-        comment_id, success = event_domain.add_comment(
-            comment_id=comment_id,
-            content='comment test',
-            event_id=event_id,
-            parent='0',
-            user_info={
-                'user_email': 'unittesting@fluidattacks.com',
-                'first_name': 'Unit',
-                'last_name': 'test'
-            })
-        assert success
-        assert len(comment_dal.get_comments('event', int(event_id))) >= 1
+@pytest.mark.changes_db
+def test_mask_event():
+    event_id = '418900971'
+    comment_id = int(round(time() * 1000))
+    comment_id, success = event_domain.add_comment(
+        comment_id=comment_id,
+        content='comment test',
+        event_id=event_id,
+        parent='0',
+        user_info={
+            'user_email': 'unittesting@fluidattacks.com',
+            'first_name': 'Unit',
+            'last_name': 'test'
+        })
+    assert success
+    assert len(comment_dal.get_comments('event', int(event_id))) >= 1
 
-        test_data = event_domain.mask(event_id)
-        expected_output = True
-        assert isinstance(test_data, bool)
-        assert test_data == expected_output
-        assert len(comment_dal.get_comments('event', int(event_id))) == 0
+    test_data = event_domain.mask(event_id)
+    expected_output = True
+    assert isinstance(test_data, bool)
+    assert test_data == expected_output
+    assert len(comment_dal.get_comments('event', int(event_id))) == 0
 
-        event = event_domain.get_event(event_id)
-        assert event.get('detail') == 'Masked'
+    event = event_domain.get_event(event_id)
+    assert event.get('detail') == 'Masked'
