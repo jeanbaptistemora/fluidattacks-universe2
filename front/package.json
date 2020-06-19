@@ -116,9 +116,17 @@
     "@types/terser-webpack-plugin": "2.2.0",
     "@types/webpack": "4.41.13",
     "@types/webpack-dev-server": "3.11.0",
+    "@typescript-eslint/eslint-plugin": "3.3.0",
+    "@typescript-eslint/parser": "3.3.0",
     "css-loader": "3.5.3",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
+    "eslint": "7.2.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-fp": "2.3.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-react": "7.20.0",
+    "eslint-plugin-react-hooks": "4.0.4",
     "fetch-mock": "9.10.1",
     "file-loader": "6.0.0",
     "identity-obj-proxy": "3.0.0",
@@ -128,6 +136,7 @@
     "mockdate": "3.0.2",
     "open": "7.0.4",
     "optimize-css-assets-webpack-plugin": "5.0.3",
+    "prettier": "2.0.5",
     "terser-webpack-plugin": "3.0.2",
     "ts-jest": "26.0.0",
     "ts-loader": "7.0.5",
@@ -146,9 +155,10 @@
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
     "build": "npm run css && webpack --config webpack.prod.config.ts",
     "css": "tcm src/ --silent",
-    "lint": "npm run css && tsc -p tsconfig.json && tslint -p tsconfig.json -t codeFrame",
+    "lint:tslint": "npm run css && tsc -p tsconfig.json && tslint -p tsconfig.json -t codeFrame",
     "plot": "ts-node src/graphics/cli.ts",
     "start": "ts-node devserver.ts",
-    "test": "npm run css && jest"
+    "test": "npm run css && jest",
+    "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .ts,.tsx --format codeFrame"
   }
 }
