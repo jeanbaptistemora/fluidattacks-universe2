@@ -25,6 +25,9 @@ export const TAG_QUERY: DocumentNode = gql`
           id
         }
         maxSeverity
+        maxSeverityFinding {
+          id
+        }
         name
         openFindings
         openVulnerabilities

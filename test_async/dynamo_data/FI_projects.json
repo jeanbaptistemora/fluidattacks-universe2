@@ -31,7 +31,7 @@
                   "S" : "457497318"
                },
                "max_open_severity" : {
-                  "N" : "3.9"
+                  "N" : "0"
                },
                "max_open_severity_finding" : {
                   "S" : ""
@@ -796,7 +796,7 @@
                   "S" : "457497316"
                },
                "max_open_severity" : {
-                  "N" : "4.9"
+                  "N" : "6.3"
                },
                "max_open_severity_finding" : {
                   "S" : "988493279"

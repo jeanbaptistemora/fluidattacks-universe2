@@ -81,7 +81,7 @@ class TagTests(TestCase):
         assert result['data']['tag']['meanRemediateLowSeverity'] == 116
         assert result['data']['tag']['meanRemediateMediumSeverity'] == 143.5
         assert result['data']['tag']['meanRemediate'] == 174
-        assert result['data']['tag']['maxOpenSeverity'] == 4.9
+        assert result['data']['tag']['maxOpenSeverity'] == 6.3
         assert result['data']['tag']['maxSeverity'] == 6.3
 
     async def test_get_tag_query_access_denied(self):
