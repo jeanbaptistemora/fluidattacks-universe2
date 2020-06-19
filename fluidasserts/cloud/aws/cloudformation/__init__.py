@@ -143,7 +143,6 @@ def get_templates(graph: DiGraph, exclude: Optional[List[str]] = None
     templates = [(_id, node) for _id, node in graph.nodes.data()
                  if 'CloudFormationTemplate' in node['labels']]
     if exclude:
-        templates = filter(
-            lambda _id, node: not any(ex in node['path'] for ex in exclude),
-            templates)
+        templates = [(_id, node)for _id, node in templates if not any(
+            ex in node['path'] for ex in exclude)]
     return templates

@@ -8,7 +8,7 @@ import ipaddress
 from contextlib import suppress
 from ipaddress import IPv4Network
 from ipaddress import IPv6Network
-from typing import List, Tuple, Dict, Set, Union
+from typing import List, Tuple, Dict, Set, Union, Optional
 
 # Treed imports
 from networkx.algorithms import dfs_preorder_nodes
@@ -23,6 +23,8 @@ from fluidasserts import SAST
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import get_predecessor
 from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
 from fluidasserts.cloud.aws.cloudformation import get_type
 from fluidasserts.cloud.aws.cloudformation import _get_result_as_tuple
 from fluidasserts.cloud.aws.cloudformation import Vulnerability
@@ -32,28 +34,25 @@ from fluidasserts.db.neo4j_connection import driver_session
 from fluidasserts.helper import aws as helper
 
 
-def _get_securitygroups(graph: DiGraph) -> List[Dict]:
-    templates: List[int] = [
-        _id for _id, node in graph.nodes.data()
-        if 'CloudFormationTemplate' in node['labels']
-    ]
+def _get_securitygroups(graph: DiGraph,
+                        exclude: Optional[List[str]] = None) -> List[Dict]:
+    templates: List[Tuple[int, Dict]] = get_templates(graph, exclude)
     allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
-    return [
-        {
-            'node': node,
-            'template': template,
-            'type': graph.nodes[node]['labels'].intersection(allow_groups)
-        }
-        for template in templates
+    return [{
+        'node': node,
+        'template': template,
+        'type': graph.nodes[node]['labels'].intersection(allow_groups)
+    }
+        for template, _ in templates
         for node in dfs_preorder_nodes(graph, template, 2)
         if graph.nodes[node]['labels'].intersection(
-            {'SecurityGroup', *allow_groups})
-    ]
+        {'SecurityGroup', *allow_groups})]
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def allows_all_outbound_traffic(graph: DiGraph) -> tuple:
+def allows_all_outbound_traffic(
+        path: str, exclude: Optional[Tuple[str]] = None) -> Tuple:
     """
     Check if any ``EC2::SecurityGroup`` allows all outbound traffic.
 
@@ -75,12 +74,10 @@ def allows_all_outbound_traffic(graph: DiGraph) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
+    graph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, exclude)
     vulnerabilities: list = []
-    templates: List[int] = [
-        _id for _id, node in graph.nodes.data()
-        if 'CloudFormationTemplate' in node['labels']
-    ]
-    for template in templates:
+    for template, _ in templates:
         security_groups = [
             node for node in dfs_preorder_nodes(graph, template, 2)
             if 'SecurityGroup' in graph.nodes[node]['labels']
@@ -131,7 +128,8 @@ def allows_all_outbound_traffic(graph: DiGraph) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_unrestricted_cidrs(graph: DiGraph) -> Tuple:
+def has_unrestricted_cidrs(
+        path: str, exclude: Optional[Tuple[str]] = None) -> Tuple:
     """
     Check if any ``EC2::SecurityGroup`` has ``0.0.0.0/0`` or ``::/0`` CIDRs.
 
@@ -147,11 +145,12 @@ def has_unrestricted_cidrs(graph: DiGraph) -> Tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
+    graph = get_graph(path, exclude)
     vulnerabilities: list = []
     unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
     unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
     allow_groups = {'SecurityGroupEgress', 'SecurityGroupIngress'}
-    security_groups: List[Dict] = _get_securitygroups(graph)
+    security_groups: List[Dict] = _get_securitygroups(graph, exclude)
     for group in security_groups:
         template: Dict = graph.nodes[group['template']]
         resource: Dict = graph.nodes[group['node']]
@@ -236,7 +235,8 @@ def has_unrestricted_cidrs(graph: DiGraph) -> Tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_unrestricted_ip_protocols(graph: DiGraph) -> tuple:
+def has_unrestricted_ip_protocols(
+        path: str, exclude: Optional[Tuple[str]] = None) -> Tuple:
     """
     Avoid ``EC2::SecurityGroup`` ingress/egress rules with any ip protocol.
 
@@ -251,9 +251,10 @@ def has_unrestricted_ip_protocols(graph: DiGraph) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
+    graph = get_graph(path, exclude)
     vulnerabilities: list = []
     allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
-    security_groups: List[Dict] = _get_securitygroups(graph)
+    security_groups: List[Dict] = _get_securitygroups(graph, exclude)
     for group in security_groups:
         resource: Dict = graph.nodes[group['node']]
         protocol_nodes: List[Dict] = [
@@ -318,7 +319,8 @@ def has_unrestricted_ip_protocols(graph: DiGraph) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_unrestricted_ports(graph: DiGraph) -> Tuple:
+def has_unrestricted_ports(
+        path: str, exclude: Optional[Tuple[str]] = None) -> Tuple:
     """
     Avoid ``EC2::SecurityGroup`` ingress/egress rules with port ranges.
 
@@ -335,10 +337,11 @@ def has_unrestricted_ports(graph: DiGraph) -> Tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
+    graph = get_graph(path, exclude)
     vulnerabilities: list = []
     allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
     # all security groups in templates
-    security_groups: List[Dict] = _get_securitygroups(graph)
+    security_groups: List[Dict] = _get_securitygroups(graph, exclude)
     for group in security_groups:
         # node of resource
         resource: Dict = graph.nodes[group['node']]
@@ -456,7 +459,8 @@ def has_unencrypted_volumes(connection: ConnectionString) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_not_an_iam_instance_profile(graph: DiGraph) -> Tuple:
+def has_not_an_iam_instance_profile(
+        path: str, exclude: Optional[Tuple[str]] = None) -> Tuple:
     """
     Verify if ``EC2::Instance`` uses an IamInstanceProfile.
 
@@ -476,12 +480,10 @@ def has_not_an_iam_instance_profile(graph: DiGraph) -> Tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
+    graph = get_graph(path, exclude)
+    templates = get_templates(graph, exclude)
     vulnerabilities: List[Vulnerability] = []
-    templates: List[int] = [
-        _id for _id, node in graph.nodes.data()
-        if 'CloudFormationTemplate' in node['labels']
-    ]
-    instances: List[int] = [node for template in templates
+    instances: List[int] = [node for template, _ in templates
                             for node in dfs_preorder_nodes(graph, template, 2)
                             if len(graph.nodes[node]['labels'].intersection(
                                 {'AWS', 'EC2', 'Instance'})) > 2]

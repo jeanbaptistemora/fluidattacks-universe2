@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+# pylint: disable=import-outside-toplevel
 """AWS cloud helper."""
 
 # standard imports
@@ -29,7 +30,6 @@ from neo4j.exceptions import ServiceUnavailable
 import yaml
 
 # local imports
-from fluidasserts.cloud.aws.cloudformation import services
 from fluidasserts.cloud.aws.terraform import TerraformError
 from fluidasserts.cloud.aws.terraform import TerraformInvalidTemplateError
 from fluidasserts.helper.yaml_loader_alt import LineLoader
@@ -486,6 +486,7 @@ def policy_statement_privilege(statement, effect: str, action: str):
 
 def policy_actions_has_privilege(action, privilege) -> bool:
     """Check if an action have a privilege."""
+    from fluidasserts.cloud.aws.cloudformation import services
     write_actions: dict = services.ACTIONS
     success = False
     with suppress(KeyError):

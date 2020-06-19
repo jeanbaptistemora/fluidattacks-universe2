@@ -311,7 +311,7 @@ class Dict(UserDict):
     def load_templates(
             path: str,
             graph: DiGraph,
-            exclude: list = None) -> DiGraph:
+            exclude: Tuple[str] = None) -> DiGraph:
         """
         Load all templates to the database.
 

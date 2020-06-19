@@ -5,27 +5,21 @@
 
 # local imports
 from fluidasserts.cloud.aws.cloudformation.graphs import ec2
-from fluidasserts.cloud.aws.cloudformation import templates_as_graph
 
 # 3rd party imports
 import pytest  # pylint: disable=E0401
 pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')  # pylint: disable=C0103,C0301 # noqa: E501
 
 # constants
-with templates_as_graph(
-        'test/static/cloudformation/code_as_data_vulnerable') as graph:
-    VULN = graph
-with templates_as_graph(
-        'test/static/cloudformation/code_as_data_safe') as graph:
-    SAFE = graph
-
+VULN = 'test/static/cloudformation/code_as_data_vulnerable'
+SAFE = 'test/static/cloudformation/code_as_data_safe'
 
 def test_allows_all_outbound_traffic():
     """test ec2.allows_all_outbound_traffic."""
     result = ec2.allows_all_outbound_traffic(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 1
-    assert ec2.allows_all_outbound_traffic(SAFE).is_closed()
+    assert ec2.allows_all_outbound_traffic(SAFE, exclude=(VULN)).is_closed()
 
 
 def test_has_unrestricted_cidrs():
@@ -33,7 +27,7 @@ def test_has_unrestricted_cidrs():
     result = ec2.has_unrestricted_cidrs(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 7
-    assert ec2.has_unrestricted_cidrs(SAFE).is_closed()
+    assert ec2.has_unrestricted_cidrs(SAFE, exclude=(VULN)).is_closed()
 
 
 def test_has_unrestricted_ip_protocols():
@@ -41,7 +35,7 @@ def test_has_unrestricted_ip_protocols():
     result = ec2.has_unrestricted_ip_protocols(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 6
-    assert ec2.has_unrestricted_ip_protocols(SAFE).is_closed()
+    assert ec2.has_unrestricted_ip_protocols(SAFE, exclude=(VULN)).is_closed()
 
 
 def test_has_unrestricted_ports():
@@ -49,7 +43,7 @@ def test_has_unrestricted_ports():
     result = ec2.has_unrestricted_ports(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == (2 * 3) * 2
-    assert ec2.has_unrestricted_ports(SAFE).is_closed()
+    assert ec2.has_unrestricted_ports(SAFE, exclude=(VULN)).is_closed()
 
 
 def test_has_unencrypted_volumes(safe_loader, vuln_loader):
@@ -65,7 +59,7 @@ def test_has_not_an_iam_instance_profile():
     result = ec2.has_not_an_iam_instance_profile(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 3
-    assert ec2.has_not_an_iam_instance_profile(SAFE).is_closed()
+    assert ec2.has_not_an_iam_instance_profile(SAFE, exclude=(VULN)).is_closed()
 
 
 def test_has_not_termination_protection(safe_loader, vuln_loader):
