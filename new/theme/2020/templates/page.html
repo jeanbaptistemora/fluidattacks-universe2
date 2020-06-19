@@ -99,7 +99,17 @@
           <span class="c-fluid-gray v-mid b"> / </span>
         </li>
       {% endif %}
-        {% if "misc" not in page.category.name and not page.defends and not page.eventspage and not page.partnerspage %}
+      {% if page.usecasespage %}
+      <li class="dib mt0" >
+        <a class="c-fluid-gray hover-white no-underline"
+          href="{{ SITEURL }}/use-cases/continuous-hacking/">
+            Use Cases
+        </a>
+        <span class="c-fluid-gray v-mid b"> / </span>
+      </li>
+    {% endif %}
+        {% if "misc" not in page.category.name and not page.defends
+           and not page.eventspage and not page.partnerspage and not page.usecasespage %}
         <li class="dib mt0" >
           {% if page.rules %}
             {% if page.extended %}

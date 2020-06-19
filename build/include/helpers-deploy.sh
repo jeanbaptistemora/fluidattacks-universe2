@@ -160,7 +160,8 @@ function helper_deploy_pages {
   &&  sed -i "s|:category: services|:category: faq|g" new/content/pages/faq/clients/index.adoc \
   &&  sed -i "s|= Frequently asked questions|= Clients FAQ|g" new/content/pages/faq/clients/index.adoc \
   &&  rsync -av --progress content/pages/services/comparative new/content/pages/use-cases/ \
-  &&  sed -i "s|:slug: services/|:slug: use-cases/|g" new/content/pages/use-cases/comparative/index.adoc
+  &&  sed -i "s|:slug: services/|:slug: use-cases/|g" new/content/pages/use-cases/comparative/index.adoc \
+  &&  sed -i "s|:category: services|:category: use-cases|g" new/content/pages/use-cases/comparative/index.adoc
 }
 
 function helper_deploy_compile_old {

@@ -2,6 +2,7 @@
 :category: services
 :description: Our Ethical Hacking and Pentesting services seek to find and report all the present security vulnerabilities in your application. It is important to distinguish between the different services we offer in order to select the service that fits your needs.
 :keywords: Fluid Attacks, Ethical Hacking, Comparison, One-Shot Hacking, Continuous Hacking, Pentesting.
+:usecasespage: yes
 :yes: image:../../images/icons/yes.png[yes]
 :no: image:../../images/icons/no.png[no]
 :info: image:../../images/icons/info.png[info]
