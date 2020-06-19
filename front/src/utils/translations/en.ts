@@ -7,8 +7,8 @@ const enTranslations: Dictionary = {
         footer: "Each grey dot represents a system."
         + " Red dots represent the findings for that system.",
         title: "Systems Risk",
-      }
-    }
+      },
+    },
   },
   confirmmodal: {
     cancel: "Cancel",
