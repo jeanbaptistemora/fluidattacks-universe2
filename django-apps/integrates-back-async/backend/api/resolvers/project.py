@@ -504,7 +504,7 @@ async def _get_events(info,
 
 
 async def _get_is_community(_, project_name: str, **__) -> bool:
-    return project_name in FI_COMMUNITY_PROJECTS
+    return project_name.lower() in FI_COMMUNITY_PROJECTS.split(',')
 
 
 @enforce_group_level_auth_async

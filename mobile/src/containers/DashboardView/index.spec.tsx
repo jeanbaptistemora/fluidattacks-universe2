@@ -59,14 +59,7 @@ describe("DashboardView", (): void => {
             groups: [
               {
                 closedVulnerabilities: 7,
-                isCommunity: false,
                 openVulnerabilities: 5,
-                serviceAttributes: ["has_integrates"],
-              },
-              {
-                closedVulnerabilities: 1,
-                isCommunity: true,
-                openVulnerabilities: 2,
                 serviceAttributes: ["has_integrates"],
               },
             ],
@@ -176,21 +169,18 @@ describe("DashboardView", (): void => {
             groups: [
               {
                 closedVulnerabilities: 7,
-                isCommunity: false,
                 openVulnerabilities: 5,
                 serviceAttributes: ["has_integrates"],
               },
               {
                 // tslint:disable-next-line: no-null-keyword
                 closedVulnerabilities: null,
-                isCommunity: false,
                 // tslint:disable-next-line: no-null-keyword
                 openVulnerabilities: null,
                 serviceAttributes: [],
               },
               {
                 closedVulnerabilities: 0,
-                isCommunity: false,
                 openVulnerabilities: 0,
                 // tslint:disable-next-line: no-null-keyword
                 serviceAttributes: null,

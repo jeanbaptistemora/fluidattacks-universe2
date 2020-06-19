@@ -5,7 +5,6 @@ export const GROUPS_QUERY: DocumentNode = gql`{
   me {
     groups: projects {
       closedVulnerabilities
-      isCommunity
       openVulnerabilities
       serviceAttributes
     }

@@ -59,9 +59,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
 
   const groups: IGroup[] = _.isUndefined(data) || _.isEmpty(data)
     ? []
-    : data.me.groups.filter((group: IGroup): boolean =>
-      !group.isCommunity
-      && hasIntegrates(group));
+    : data.me.groups.filter(hasIntegrates);
 
   const closedVulns: number = groups.reduce(
     (previousValue: number, group: IGroup): number =>
