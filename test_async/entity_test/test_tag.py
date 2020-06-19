@@ -15,40 +15,12 @@ from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.api.resolvers import tag
+from test_async.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 
 
 class TagTests(TestCase):
-
-    def create_dummy_session(self):
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'integratesuser@gmail.com'
-        request.session['company'] = 'unittest'
-        payload = {
-            'user_email': 'integratesuser@gmail.com',
-            'company': 'unittest',
-            'exp': datetime.utcnow() +
-            timedelta(seconds=settings.SESSION_COOKIE_AGE),
-            'sub': 'django_session',
-            'jti': util.calculate_hash_token()['jti'],
-        }
-        token = jwt.encode(
-            payload,
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.COOKIES[settings.JWT_COOKIE_NAME] = token
-        request.loaders = {
-            'event': EventLoader(),
-            'finding': FindingLoader(),
-            'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader()
-        }
-        return request
 
     @pytest.mark.asyncio
     async def test_get_tag_query(self):
@@ -73,7 +45,13 @@ class TagTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session()
+        request = create_dummy_session('integratesuser@gmail.com')
+        request.loaders = {
+            'event': EventLoader(),
+            'finding': FindingLoader(),
+            'project': ProjectLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'projects' in result['data']['tag']
@@ -103,7 +81,13 @@ class TagTests(TestCase):
         '''
         data = {'query': query}
         
-        request = self.create_dummy_session()
+        request = create_dummy_session('integratesuser@gmail.com')
+        request.loaders = {
+            'event': EventLoader(),
+            'finding': FindingLoader(),
+            'project': ProjectLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result
         assert result['errors'][0]['message'] == 'Access denied'

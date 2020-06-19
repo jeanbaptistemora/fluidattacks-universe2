@@ -9,34 +9,12 @@ from django.conf import settings
 from jose import jwt
 from backend import util
 from backend.api.schema import SCHEMA
+from test_async.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 
 
 class UserTests(TestCase):
-
-    def create_dummy_session(self, username='unittest'):
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = username
-        request.session['company'] = 'unittest'
-        payload = {
-            'user_email': username,
-            'company': 'unittest',
-            'exp': datetime.utcnow() +
-            timedelta(seconds=settings.SESSION_COOKIE_AGE),
-            'sub': 'django_session',
-            'jti': util.calculate_hash_token()['jti'],
-        }
-        token = jwt.encode(
-            payload,
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.COOKIES[settings.JWT_COOKIE_NAME] = token
-        return request
 
     @pytest.mark.asyncio
     async def test_get_user(self):
@@ -60,7 +38,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session()
+        request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'user' in result['data']
@@ -78,7 +56,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session()
+        request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert result['data']['userListProjects'][0]['name'] == 'oneshottest'
@@ -98,7 +76,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session('integratesmanager@gmail.com')
+        request = create_dummy_session('integratesmanager@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'addUser' in result['data']
@@ -131,7 +109,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session()
+        request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
@@ -164,7 +142,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session()
+        request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result
         assert result['errors'][0]['message'] == (
@@ -198,7 +176,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session()
+        request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
@@ -221,7 +199,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session()
+        request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['removeUserAccess']
@@ -244,7 +222,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = self.create_dummy_session()
+        request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['editUser']
