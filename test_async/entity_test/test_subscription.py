@@ -36,7 +36,7 @@ class SubscriptionTest(TestCase):
         request.session['username'] = 'integratesmanager@gmail.com'
         request.session['company'] = 'fluid'
         payload = {
-            'user_email': 'integratesmanager@gmail.com',            
+            'user_email': 'integratesmanager@gmail.com',
             'company': 'fluid',
             'first_name': 'unit',
             'last_name': 'test',
@@ -58,42 +58,3 @@ class SubscriptionTest(TestCase):
         request = self.create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
-
-    @pytest.mark.changes_db
-    @pytest.mark.asyncio
-    async def test_post_broadcast(self):
-        """Check for post_broadcast_message mutation."""
-        query = '''
-            mutation {
-                postBroadcastMessage(message: "Hello from unittesting"){
-                    success
-                }
-            }
-        '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert result['data']['postBroadcastMessage']['success']
-
-    def test_websocket_connection(self):
-        """Test websocket consumer."""
-        client = TestClient(GraphQL(SCHEMA))
-        with client.websocket_connect("/api", "graphql-ws") as ws:
-            ws.send_json({"type": GQL_CONNECTION_INIT})
-            ws.send_json(
-                {
-                    "type": GQL_START,
-                    "id": "test1",
-                    "payload": {"query": "subscription { broadcast }"},
-                }
-            )
-            response = ws.receive_json()
-            assert response["type"] == GQL_CONNECTION_ACK
-            response = ws.receive_json()
-            assert response["type"] == GQL_DATA
-            assert response["id"] == "test1"
-            ws.send_json({"type": GQL_STOP, "id": "test1"})
-            response = ws.receive_json()
-            assert response["type"] in (GQL_COMPLETE, GQL_DATA)
-            assert response["id"] == "test1"
-            ws.send_json({"type": GQL_CONNECTION_TERMINATE})

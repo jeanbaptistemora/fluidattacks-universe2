@@ -419,7 +419,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_cache_resolve_invalidate_cache',
             'backend_api_resolvers_internal_project_resolve_project_name',
             'backend_api_resolvers_me__get_tags',
-            'backend_api_resolvers_subscription__do_post_broadcast_message',
             'backend_api_resolvers_project__do_create_project',
             'backend_api_resolvers_project_resolve_alive_projects',
             'backend_api_resolvers_tag_resolve_tag',

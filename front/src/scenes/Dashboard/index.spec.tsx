@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
 import store from "../../store/index";
 import { Dashboard } from "./index";
-import { GET_BROADCAST_MESSAGES, GET_USER_PERMISSIONS } from "./queries";
+import { GET_USER_PERMISSIONS } from "./queries";
 import { IGetUserPermissionsAttr } from "./types";
 
 describe("Dashboard", () => {
@@ -42,16 +42,6 @@ describe("Dashboard", () => {
         },
         result: {
           data: permissionsResult,
-        },
-      },
-      {
-        request: {
-          query: GET_BROADCAST_MESSAGES,
-        },
-        result: {
-          data: {
-            subscriptionData: subscriptionResult,
-          },
         },
       },
     ];

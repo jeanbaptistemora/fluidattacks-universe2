@@ -34,7 +34,6 @@ import { TagContent } from "./containers/TagContent/index";
 import { default as style } from "./index.css";
 import {
   ADD_USER_MUTATION,
-  GET_BROADCAST_MESSAGES,
   GET_USER_PERMISSIONS,
 } from "./queries";
 import { IAddUserAttr, IGetUserPermissionsAttr } from "./types";
@@ -71,13 +70,6 @@ const dashboard: React.FC = (): JSX.Element => {
   useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (data: IGetUserPermissionsAttr): void => {
       permissions.update(data.me.permissions.map((action: string) => ({ action })));
-    },
-  });
-
-  useSubscription(GET_BROADCAST_MESSAGES, {
-    onSubscriptionData: ({ subscriptionData }: OnSubscriptionDataOptions): void => {
-      const bcMessage: string = subscriptionData.data.broadcast;
-      msgSuccess(bcMessage, "Broadcast");
     },
   });
 

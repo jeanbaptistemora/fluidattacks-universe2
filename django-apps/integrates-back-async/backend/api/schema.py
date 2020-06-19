@@ -2,7 +2,6 @@ import os
 
 from backend.api.query import QUERY
 from backend.api.mutation import MUTATION
-from backend.api.subscription import SUBSCRIPTION
 from backend.api.typesdef import TYPES
 from backend.api.scalars import jsonstring, genericscalar, datetime
 
@@ -19,7 +18,6 @@ SCHEMA = make_executable_schema(
     TYPE_DEFS,
     QUERY,
     MUTATION,
-    SUBSCRIPTION,
     *TYPES,
     jsonstring.JSON_STRING_SCALAR,
     genericscalar.GENERIC_SCALAR,

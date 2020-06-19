@@ -1,5 +1,0 @@
-"Main Subscription object"
-type Subscription {
-    "Get broadcasts"
-    broadcast: String!
-}

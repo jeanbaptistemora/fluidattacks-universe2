@@ -20,12 +20,6 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
   }
 `;
 
-export const GET_BROADCAST_MESSAGES: DocumentNode = gql`
-  subscription GetBroadcastMessages {
-    broadcast
-  }
-`;
-
 export const GET_USER_PERMISSIONS: DocumentNode = gql`
   query GetPermissions($projectName: String) {
     me(callerOrigin: "FRONT") {
