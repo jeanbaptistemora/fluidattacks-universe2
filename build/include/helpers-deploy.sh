@@ -183,6 +183,7 @@ function helper_deploy_compile_old {
   &&  rm -rf output/web/de \
   &&  mv output/oldweb/pages/* output/oldweb/ \
   &&  rm -rf output/oldweb/pages \
+  &&  rm output/oldweb/sitemap.xml \
   &&  cp robots.txt output/robots.txt
 }
 
@@ -213,6 +214,7 @@ function helper_deploy_compile_all {
       helper_deploy_compile_old "${target}" \
   &&  helper_deploy_compile_new "${target}" \
   &&  cp -a new/output/web output/ \
-  &&  rm sitemap.xml \
-  &&  cp new/output/web/sitemap.xml .
+  &&  cp sitemap.xml output/sitemap.xml \
+  &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
+  &&  rm output/web/sitemap.xml
 }
