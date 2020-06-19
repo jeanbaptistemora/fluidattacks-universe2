@@ -8,11 +8,19 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 # Standard imports
 from ipaddress import IPv4Network, IPv6Network, AddressValueError
 import contextlib
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Dict
+
+# Treed imports
+from networkx import DiGraph
+from networkx.algorithms import dfs_preorder_nodes
+from networkx.algorithms import all_simple_paths
+import networkx as nx
 
 # Local imports
 from fluidasserts import SAST, LOW, MEDIUM, HIGH
 from fluidasserts.helper import aws as helper
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
@@ -77,23 +85,51 @@ def allows_all_outbound_traffic(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::SecurityGroup',
-            ],
-            exclude=exclude):
-        security_groups_egress = res_props.get('SecurityGroupEgress', [])
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    for template, _ in templates:
+        security_groups: List[int] = [
+            node for node in dfs_preorder_nodes(graph, template, 2)
+            if 'SecurityGroup' in graph.nodes[node]['labels']
+        ]
+        destination_groups: List[int] = [
+            node for group in dfs_preorder_nodes(graph, template, 4)
+            if 'SecurityGroupEgress' in graph.nodes[group]['labels']
+            for node in dfs_preorder_nodes(graph, group, 3)
+            if graph.nodes[node]['labels'].intersection(
+                {'DestinationSecurityGroupId', 'GroupId'})
+        ]
+        group_names: List[str] = [
+            graph.nodes[node]['value']
+            for group in dfs_preorder_nodes(graph, template, 4)
+            if 'SecurityGroupEgress' in graph.nodes[group]['labels']
+            for node in dfs_preorder_nodes(graph, group, 3)
+            if 'GroupName' in graph.nodes[node]['labels']
+        ]
+        for group in security_groups:
+            _group: Dict = graph.nodes[group]
+            group_egress: List[Dict] = [
+                graph.nodes[node]
+                for node in dfs_preorder_nodes(graph, group, 3)
+                if 'SecurityGroupEgress' in graph.nodes[node]['labels']
+            ]
+            group_destination: List[int] = nx.utils.flatten([
+                list(all_simple_paths(graph, node, group))
+                for node in destination_groups
+            ])
 
-        if not security_groups_egress:
-            vulnerabilities.append(
-                Vulnerability(
-                    path=yaml_path,
-                    entity='AWS::EC2::SecurityGroup',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
-                    reason='allows all outbound traffic'))
+            if not group_egress and not group_destination \
+                    and _group['name'] not in group_names:
+                path: str = graph.nodes[template]['path']
+                resource: Dict = graph.nodes[group]
+                vulnerabilities.append(
+                    Vulnerability(
+                        path=path,
+                        entity='AWS::EC2::SecurityGroup',
+                        identifier=resource['name'],
+                        line=resource['line'],
+                        reason='allows all outbound traffic'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

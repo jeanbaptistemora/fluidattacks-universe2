@@ -10,14 +10,17 @@ SAFE: str = 'test/static/cloudformation/safe'
 VULN: str = 'test/static/cloudformation/vulnerable'
 NOT_EXISTS: str = 'test/static/cloudformation/not-exists'
 
+VULN_DATA = 'test/static/cloudformation/code_as_data_vulnerable'
+SAFE_DATA = 'test/static/cloudformation/code_as_data_safe'
+
 
 def test_allows_all_outbound_traffic():
     """test ec2.allows_all_outbound_traffic."""
-    result = ec2.allows_all_outbound_traffic(VULN)
+    result = ec2.allows_all_outbound_traffic(VULN_DATA)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 1
-    assert ec2.allows_all_outbound_traffic(SAFE).is_closed()
-    assert ec2.allows_all_outbound_traffic(NOT_EXISTS).is_unknown()
+    assert ec2.allows_all_outbound_traffic(
+        SAFE_DATA, exclude=(VULN_DATA)).is_closed()
 
 
 def test_has_unrestricted_cidrs():

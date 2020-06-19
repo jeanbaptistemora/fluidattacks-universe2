@@ -14,13 +14,6 @@ pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')  # pylint: d
 VULN = 'test/static/cloudformation/code_as_data_vulnerable'
 SAFE = 'test/static/cloudformation/code_as_data_safe'
 
-def test_allows_all_outbound_traffic():
-    """test ec2.allows_all_outbound_traffic."""
-    result = ec2.allows_all_outbound_traffic(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert ec2.allows_all_outbound_traffic(SAFE, exclude=(VULN)).is_closed()
-
 
 def test_has_unrestricted_cidrs():
     """test ec2.has_unrestricted_cidrs."""

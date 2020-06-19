@@ -18,6 +18,7 @@ from multiprocessing import cpu_count
 from timeit import default_timer as timer
 from typing import Tuple
 from typing import Set
+from typing import List as TList
 
 # 3rd party imports
 from pyparsing import Char
@@ -311,7 +312,7 @@ class Dict(UserDict):
     def load_templates(
             path: str,
             graph: DiGraph,
-            exclude: Tuple[str] = None) -> DiGraph:
+            exclude: TList[str] = None) -> DiGraph:
         """
         Load all templates to the database.
 
@@ -320,6 +321,8 @@ class Dict(UserDict):
         :param path: Path of cloudformation templates.
         :param exclude: Paths to exclude.
         """
+        exclude = tuple(exclude) if exclude else None
+
         def load(_path_):
             with suppress(CloudFormationInvalidTemplateError):
                 template = load_cfn_template(_path_)
