@@ -2,7 +2,7 @@
 :date: 2020-06-16
 :category: attacks
 :subtitle: Exceptions are good
-:tags: challenge, ethical hacking, pentesting, security, training, exploit
+:tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Roberto Gomez Angel on Unsplash
 :description: In previous posts, we have seen different techniques to exploit Vulnserver commands. All of them have something in common: direct EIP overwrite. In this post, we will explore Structured Exception Handling (SEH) overwritting for taking control of the flow of our victim application.

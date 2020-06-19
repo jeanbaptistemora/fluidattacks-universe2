@@ -2,7 +2,7 @@
 :date: 2020-06-12
 :category: attacks
 :subtitle: Every byte counts
-:tags: challenge, ethical hacking, pentesting, security, training, exploit
+:tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Florian Klauer on Unsplash
 :description: In the previous post, we successfully exploited the GTER command of Vulnserver using a technique called 'Egghunting.' It was needed to use that approach because we had a reduced space to work. In this post, we will see an alternative way of exploiting this command.
