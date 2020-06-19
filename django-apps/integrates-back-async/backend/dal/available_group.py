@@ -20,10 +20,12 @@ async def create(group_name: str) -> bool:
     """
     Create an available group
     """
-    new_item = {'pk': 'AVAILABLE_GROUP',
-                'sk': group_name.upper(),
-                'gsi-2-pk': 'RANDOM_AVAILABLE_GROUP_SORT',
-                'gsi-2-sk': str(uuid.uuid4())}
+    new_item = {
+        'pk': 'AVAILABLE_GROUP',
+        'sk': group_name.upper(),
+        'gsi-2-pk': 'RANDOM_AVAILABLE_GROUP_SORT',
+        'gsi-2-sk': str(uuid.uuid4())
+    }
     resp = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(TABLE_NAME)
@@ -31,8 +33,12 @@ async def create(group_name: str) -> bool:
             response = await table.put_item(Item=new_item)
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         except ClientError as ex:
-            rollbar.report_message('Error: Couldn\'nt create group name',
-                                   'error', extra_data=ex, payload_data=locals())
+            rollbar.report_message(
+                'Error: Couldn\'nt create group name',
+                'error',
+                extra_data=ex,
+                payload_data=locals()
+            )
     return resp
 
 
@@ -49,8 +55,12 @@ async def remove(group_name: str) -> bool:
             response = await table.delete_item(Key=primary_keys)
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         except ClientError as ex:
-            rollbar.report_message('Error: Couldn\'nt remove group name',
-                                   'error', extra_data=ex, payload_data=locals())
+            rollbar.report_message(
+                'Error: Couldn\'nt remove group name',
+                'error',
+                extra_data=ex,
+                payload_data=locals()
+            )
     return resp
 
 
@@ -60,10 +70,14 @@ async def get_one() -> str:
     """
     group_name = ''
     random_uuid = str(uuid.uuid4())
-    key_exp_gt = Key('gsi-2-pk').eq('RANDOM_AVAILABLE_GROUP_SORT') & \
+    key_exp_gt = (
+        Key('gsi-2-pk').eq('RANDOM_AVAILABLE_GROUP_SORT') &
         Key('gsi-2-sk').gt(random_uuid)
-    key_exp_lt = Key('gsi-2-pk').eq('RANDOM_AVAILABLE_GROUP_SORT') & \
+    )
+    key_exp_lt = (
+        Key('gsi-2-pk').eq('RANDOM_AVAILABLE_GROUP_SORT') &
         Key('gsi-2-sk').lte(random_uuid)
+    )
     query_attrs = {
         'KeyConditionExpression': key_exp_gt,
         'IndexName': 'gsi-2',
@@ -100,13 +114,15 @@ async def get_all() -> List[str]:
         table = await dynamodb_resource.Table(TABLE_NAME)
         response = await table.query(
             KeyConditionExpression=key_exp,
-            ProjectionExpression='sk')
+            ProjectionExpression='sk'
+        )
         all_available = response['Items']
         while response.get('LastEvaluatedKey'):
             response = await table.query(
                 ExclusiveStartKey=response['LastEvaluatedKey'],
                 KeyConditionExpression=key_exp,
-                ProjectionExpression='sk')
+                ProjectionExpression='sk'
+            )
             all_available += response['Items']
         all_names = [available['sk'] for available in all_available]
     return all_names
@@ -119,8 +135,11 @@ async def exists(group_name: str) -> bool:
     item_exists = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(TABLE_NAME)
-        response = await table.get_item(Key={
-            'pk': 'AVAILABLE_GROUP',
-            'sk': group_name.upper()})
+        response = await table.get_item(
+            Key={
+                'pk': 'AVAILABLE_GROUP',
+                'sk': group_name.upper()
+            }
+        )
         item_exists = bool(response.get('Item', {}))
     return item_exists

@@ -15,10 +15,15 @@ TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 
 def _escape_alnum(string: str) -> str:
     """ Removes non-alphanumeric characters from a string """
-    return ''.join([char for char in string if char.isalnum()])
+    return ''.join([
+        char
+        for char in string
+        if char.isalnum()
+    ])
 
 
-def create(finding_id: str, project_name: str, finding_attrs: Dict[str, FindingType]) -> bool:
+def create(finding_id: str, project_name: str,
+           finding_attrs: Dict[str, FindingType]) -> bool:
     success = False
     try:
         finding_attrs.update({
@@ -28,8 +33,12 @@ def create(finding_id: str, project_name: str, finding_attrs: Dict[str, FindingT
         response = TABLE.put_item(Item=finding_attrs)
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt create draft',
-                               'error', extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Couldn\'nt create draft',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
     return success
 
 
@@ -37,7 +46,11 @@ def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
     success = False
     primary_keys = {'finding_id': finding_id}
     try:
-        attrs_to_remove = [attr for attr in data if data[attr] is None]
+        attrs_to_remove = [
+            attr
+            for attr in data
+            if data[attr] is None
+        ]
         for attr in attrs_to_remove:
             response = TABLE.update_item(
                 Key=primary_keys,
@@ -48,17 +61,28 @@ def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
             del data[attr]
 
         if data:
-            attributes = [f'{attr} = :{_escape_alnum(attr)}' for attr in data]
-            values = {f':{_escape_alnum(attr)}': data[attr] for attr in data}
+            attributes = [
+                f'{attr} = :{_escape_alnum(attr)}'
+                for attr in data
+            ]
+            values = {
+                f':{_escape_alnum(attr)}': data[attr]
+                for attr in data
+            }
 
             response = TABLE.update_item(
                 Key=primary_keys,
-                UpdateExpression='SET {}'.format(','.join(attributes)),
-                ExpressionAttributeValues=values)
+                UpdateExpression='SET ' + ','.join(attributes),
+                ExpressionAttributeValues=values
+            )
             success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt update finding',
-                               'error', extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Couldn\'nt update finding',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
 
     return success
 
@@ -77,16 +101,22 @@ def list_append(finding_id: str, attr: str, data: List[FindingType]) -> bool:
         response = TABLE.update_item(
             Key=primary_keys,
             UpdateExpression=f'SET {attr} = list_append({attr}, :data)',
-            ExpressionAttributeValues={':data': data})
+            ExpressionAttributeValues={':data': data}
+        )
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt update finding',
-                               'error', extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Couldn\'nt update finding',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
 
     return success
 
 
-def get_attributes(finding_id: str, attributes: List[str]) -> Dict[str, FindingType]:
+def get_attributes(finding_id: str, attributes: List[str]) -> \
+        Dict[str, FindingType]:
     """ Get a group of attributes of a finding. """
     item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
         'Key': {'finding_id': finding_id},
@@ -105,7 +135,8 @@ def get_finding(finding_id: str) -> Dict[str, FindingType]:
 
 
 def save_evidence(file_object: object, file_name: str) -> bool:
-    return s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)  # type: ignore
+    return s3.upload_memory_file(  # type: ignore
+        FI_AWS_S3_BUCKET, file_object, file_name)
 
 
 def search_evidence(file_name: str) -> List[str]:
@@ -122,19 +153,42 @@ def download_evidence(file_name: str, file_path: str):
 
 def is_pending_verification(finding_id: str) -> bool:
     finding = get_attributes(
-        finding_id, ['finding_id', 'historic_state', 'historic_verification'])
-    last_verification = cast(List[Dict[str, str]], finding.get('historic_verification', [{}]))[-1]
-    last_state = cast(List[Dict[str, str]], finding.get('historic_state', [{}]))[-1]
-    resp = last_verification.get('status') == 'REQUESTED' and not last_verification.get('vulns')
+        finding_id,
+        [
+            'finding_id',
+            'historic_state',
+            'historic_verification'
+        ]
+    )
+    last_verification = cast(
+        List[Dict[str, str]],
+        finding.get('historic_verification', [{}])
+    )[-1]
+    last_state = cast(
+        List[Dict[str, str]],
+        finding.get('historic_state', [{}])
+    )[-1]
+    resp = (
+        last_verification.get('status') == 'REQUESTED' and
+        not last_verification.get('vulns')
+    )
     if not resp:
         vulns = get_vulnerabilities(finding_id)
-        open_vulns = \
-            [vuln for vuln in vulns
-             if cast(List[Dict[str, str]],
-                     vuln.get('historic_state', [{}]))[-1].get('state') == 'open']
-        remediated_vulns = \
-            [vuln for vuln in open_vulns
-             if cast(List[Dict[str, str]],
-                     vuln.get('historic_verification', [{}]))[-1].get('status') == 'REQUESTED']
+        open_vulns = [
+            vuln
+            for vuln in vulns
+            if cast(
+                List[Dict[str, str]],
+                vuln.get('historic_state', [{}])
+            )[-1].get('state') == 'open'
+        ]
+        remediated_vulns = [
+            vuln
+            for vuln in open_vulns
+            if cast(
+                List[Dict[str, str]],
+                vuln.get('historic_verification', [{}])
+            )[-1].get('status') == 'REQUESTED'
+        ]
         resp = len(remediated_vulns) != 0
     return resp and last_state.get('state') != 'DELETED'

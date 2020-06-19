@@ -5,13 +5,17 @@ from botocore.exceptions import ClientError
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.typing import Event as EventType
 
-from __init__ import FI_AWS_S3_BUCKET, FI_CLOUDFRONT_RESOURCES_DOMAIN
+from __init__ import (
+    FI_AWS_S3_BUCKET,
+    FI_CLOUDFRONT_RESOURCES_DOMAIN
+)
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('fi_events')
 
 
-def create(event_id: str, project_name: str, event_attributes: EventType) -> bool:
+def create(event_id: str, project_name: str, event_attributes: EventType) -> \
+        bool:
     success = False
     try:
         event_attributes.update({
@@ -21,15 +25,23 @@ def create(event_id: str, project_name: str, event_attributes: EventType) -> boo
         response = TABLE.put_item(Item=event_attributes)
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt create event',
-                               'error', extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Couldn\'nt create event',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
     return success
 
 
 def update(event_id: str, data: EventType) -> bool:
     success = False
     try:
-        attrs_to_remove = [attr for attr in data if data[attr] is None]
+        attrs_to_remove = [
+            attr
+            for attr in data
+            if data[attr] is None
+        ]
         for attr in attrs_to_remove:
             response = TABLE.update_item(
                 Key={'event_id': event_id},
@@ -40,17 +52,28 @@ def update(event_id: str, data: EventType) -> bool:
             del data[attr]
 
         if data:
-            attributes = [f'{attr} = :{attr}' for attr in data]
-            values = {f':{attr}': value for attr, value in data.items()}
+            attributes = [
+                f'{attr} = :{attr}'
+                for attr in data
+            ]
+            values = {
+                f':{attr}': value
+                for attr, value in data.items()
+            }
 
             response = TABLE.update_item(
                 Key={'event_id': event_id},
-                UpdateExpression='SET {}'.format(','.join(attributes)),
-                ExpressionAttributeValues=values)
+                UpdateExpression='SET ' + ','.join(attributes),
+                ExpressionAttributeValues=values
+            )
             success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt update event',
-                               'error', extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Couldn\'nt update event',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
 
     return success
 
@@ -63,7 +86,11 @@ def get_event(event_id: str) -> EventType:
 
 
 def save_evidence(file_object: object, file_name: str) -> bool:
-    return s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)  # type: ignore
+    return s3.upload_memory_file(  # type: ignore
+        FI_AWS_S3_BUCKET,
+        file_object,
+        file_name
+    )
 
 
 def remove_evidence(file_name: str) -> bool:
@@ -71,7 +98,11 @@ def remove_evidence(file_name: str) -> bool:
 
 
 def sign_url(file_url: str) -> str:
-    return cloudfront.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN, file_url, 1.0 / 6)
+    return cloudfront.sign_url(
+        FI_CLOUDFRONT_RESOURCES_DOMAIN,
+        file_url,
+        1.0 / 6
+    )
 
 
 def search_evidence(file_name: str) -> List[str]:
