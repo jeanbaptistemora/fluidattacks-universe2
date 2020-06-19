@@ -543,6 +543,29 @@ function job_serve_front {
   ||  return 1
 }
 
+function job_serve_mobile {
+        echo '[INFO] Logging in to AWS' \
+    &&  aws_login "${ENVIRONMENT_NAME}" \
+    &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+          EXPO_USER \
+          EXPO_PASS \
+    &&  sops \
+          --aws-profile default \
+          --decrypt \
+          --extract '["GOOGLE_SERVICES_APP"]' \
+          --output 'mobile/google-services.json' \
+          --output-type 'json' \
+          "secrets-development.yaml" \
+    &&  pushd mobile \
+    &&  npm install \
+    &&  npx --no-install expo login \
+            --username "${EXPO_USER}" \
+            --password "${EXPO_PASS}" \
+    &&  npm start \
+  &&  popd \
+  ||  return 1
+}
+
 function job_serve_redis {
   local port=6379
 
