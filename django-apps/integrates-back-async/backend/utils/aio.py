@@ -1,5 +1,6 @@
 # Standard library
 from asyncio import (
+    create_task,
     Future,
     gather,
     get_running_loop,
@@ -11,6 +12,7 @@ from concurrent.futures import (
 import functools
 from multiprocessing import cpu_count
 from typing import (
+    Coroutine,
     Callable,
     List,
     NamedTuple,
@@ -36,23 +38,41 @@ class PyCallable(NamedTuple):
 
 
 @apm.trace()
-async def ensure_many_cpu_bound(py_callables: List[PyCallable]) -> Future:
+async def ensure_many_cpu_bound(py_callables: List[PyCallable]) -> Coroutine:
     return await _ensure_many(ProcessPoolExecutor, py_callables)
 
 
 @apm.trace()
-async def ensure_many_io_bound(py_callables: List[PyCallable]) -> Future:
+async def ensure_many_io_bound(py_callables: List[PyCallable]) -> Coroutine:
     return await _ensure_many(ThreadPoolExecutor, py_callables)
 
 
 @apm.trace()
-async def ensure_cpu_bound(py_callable: PyCallable) -> Future:
-    return (await _ensure_many(ProcessPoolExecutor, [py_callable]))[0]
+async def ensure_cpu_bound(py_callable: PyCallable) -> Coroutine:
+    return await _ensure_one(ProcessPoolExecutor, py_callable)
 
 
 @apm.trace()
-async def ensure_io_bound(py_callable: PyCallable) -> Future:
-    return (await _ensure_many(ThreadPoolExecutor, [py_callable]))[0]
+async def ensure_io_bound(py_callable: PyCallable) -> Coroutine:
+    return await _ensure_one(ThreadPoolExecutor, py_callable)
+
+
+@apm.trace()
+async def _ensure_one(
+    executor_class: Union[ProcessPoolExecutor, ThreadPoolExecutor],
+    py_callable: PyCallable,
+) -> Future:
+    with executor_class(max_workers=1) as pool:  # type: ignore
+        loop = get_running_loop()
+
+        return await loop.run_in_executor(
+            pool,
+            functools.partial(
+                py_callable.instance,
+                *py_callable.args,
+                **py_callable.kwargs,
+            ),
+        )
 
 
 @apm.trace()
@@ -75,3 +95,27 @@ async def _ensure_many(
             )
             for py_callable in py_callables
         ])
+
+
+@apm.trace()
+async def materialize(obj: object) -> object:
+    """Turn any awaitable and possibly nested-object into a real object.
+
+    It takes care of doing so concurrently, event for nested objects.
+
+    This function is particularly useful to cache values,
+    because non-materialized futures, coroutines or tasks cannot be sent
+    to redis.
+    """
+    materialized_obj: object
+
+    if isinstance(obj, (dict, frozendict)):
+        materialized_obj = \
+            dict(zip(obj, await materialize(tuple(obj.values()))))
+    elif isinstance(obj, (list, tuple)):
+        materialized_obj = \
+            await gather(*tuple(map(create_task, obj)))
+    else:
+        raise ValueError(f'Not implemented for type: {type(obj)}')
+
+    return materialized_obj

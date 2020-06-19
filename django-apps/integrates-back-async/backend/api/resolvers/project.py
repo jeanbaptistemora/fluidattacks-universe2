@@ -44,6 +44,7 @@ from backend.typing import (
 )
 from backend import util
 from backend.utils import (
+    aio,
     apm,
 )
 
@@ -195,10 +196,11 @@ async def _get_last_closing_vuln_finding(
     project_attrs = project_attrs['attrs']
     last_closing_vuln_finding = \
         project_attrs.get('last_closing_vuln_finding', '')
-    finding = await asyncio.create_task(
-        finding_loader.resolve(info, last_closing_vuln_finding, as_field=True,
-                               selection_set=selection_set))
-    return finding
+    finding = await finding_loader.resolve(
+        info, last_closing_vuln_finding,
+        as_field=True, selection_set=selection_set)
+
+    return await aio.materialize(finding)
 
 
 @require_integrates
@@ -241,10 +243,11 @@ async def _get_max_severity_finding(
         if 'current_state' in finding and
         finding['current_state'] != 'DELETED'
     ]) if findings else (0, '')
-    finding = await asyncio.create_task(
-        finding_loader.resolve(info, max_severity_finding, as_field=True,
-                               selection_set=selection_set))
-    return finding
+    finding = await finding_loader.resolve(
+        info, max_severity_finding,
+        as_field=True, selection_set=selection_set)
+
+    return await aio.materialize(finding)
 
 
 @require_integrates
@@ -275,10 +278,11 @@ async def _get_max_open_severity_finding(
     project_attrs = project_attrs['attrs']
     max_open_severity_finding = \
         project_attrs.get('max_open_severity_finding', '')
-    finding = await asyncio.create_task(
-        finding_loader.resolve(info, max_open_severity_finding, as_field=True,
-                               selection_set=selection_set))
-    return finding
+    finding = await finding_loader.resolve(
+        info, max_open_severity_finding,
+        as_field=True, selection_set=selection_set)
+
+    return await aio.materialize(finding)
 
 
 @require_integrates
