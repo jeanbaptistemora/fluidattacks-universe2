@@ -578,3 +578,24 @@ class FindingTests(TestCase):
         assert result['data']['deleteFinding']['success']
 
         assert await get_open_vulnerabilities('unittesting') < open_vulns
+
+    async def test_non_existing_finding(self):
+        query = '''
+          query GetFindingHeader($findingId: String!) {
+            finding(identifier: $findingId) {
+              closedVulns: closedVulnerabilities
+              exploit
+              id
+              openVulns: openVulnerabilities
+              releaseDate
+            }
+          }
+        '''
+        variables = {
+          'findingId': '777493279',
+        }
+        data = {'query': query, 'variables': variables}
+        result = await self._get_result(data)
+        assert 'errors' in result
+        expected_error = 'Exception - Finding not found'
+        assert result['errors'][0]['message'] == expected_error

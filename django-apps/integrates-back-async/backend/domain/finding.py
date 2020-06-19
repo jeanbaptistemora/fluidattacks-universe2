@@ -880,3 +880,13 @@ def cast_new_vulnerabilities(finding_new: Dict[str, FindingType],
         pass
     finding['where'] = where
     return finding
+
+
+def get_attributes(
+        finding_id: str, attributes: List[str]) -> Dict[str, FindingType]:
+    if 'finding_id' not in attributes:
+        attributes = [*attributes, 'finding_id']
+    response = finding_dal.get_attributes(finding_id, attributes)
+    if not response:
+        raise FindingNotFound()
+    return response

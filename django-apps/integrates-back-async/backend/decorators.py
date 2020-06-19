@@ -20,8 +20,6 @@ from graphql import GraphQLError
 from graphql.type import GraphQLResolveInfo
 from rediscluster.nodemanager import RedisClusterException
 
-from backend.dal import finding as finding_dal
-
 from backend.domain import (
     user as user_domain, event as event_domain,
     finding as finding_domain, project as project_domain
@@ -103,18 +101,18 @@ def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
     elif args and hasattr(args[0], 'project_name'):
         project_name = args[0].project_name
     elif args and hasattr(args[0], 'finding_id'):
-        project_name = \
-            finding_dal.get_attributes(args[0].finding_id, ['project_name']).get('project_name')
+        project_name = finding_domain.get_attributes(
+            args[0].finding_id, ['project_name']).get('project_name')
     elif 'project_name' in kwargs:
         project_name = kwargs['project_name']
     elif 'group_name' in kwargs:
         project_name = kwargs['group_name']
     elif 'finding_id' in kwargs:
-        project_name = \
-            finding_dal.get_attributes(kwargs['finding_id'], ['project_name']).get('project_name')
+        project_name = finding_domain.get_attributes(
+            kwargs['finding_id'], ['project_name']).get('project_name')
     elif 'draft_id' in kwargs:
-        project_name = \
-            finding_dal.get_attributes(kwargs['draft_id'], ['project_name']).get('project_name')
+        project_name = finding_domain.get_attributes(
+            kwargs['draft_id'], ['project_name']).get('project_name')
     elif 'event_id' in kwargs:
         project_name = \
             event_domain.get_event(kwargs['event_id']).get('project_name')
