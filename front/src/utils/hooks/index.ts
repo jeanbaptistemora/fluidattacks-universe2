@@ -19,7 +19,7 @@ export const useStoredState: StoredStateHook = <T>(
 
     return storedState === null
       ? defaultValue
-      : _.isObject(defaultValue)
+      : _.isObject(defaultValue) || _.isBoolean(defaultValue)
         ? JSON.parse(storedState)
         : storedState;
   };

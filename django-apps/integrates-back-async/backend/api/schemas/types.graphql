@@ -133,6 +133,7 @@ type Project {
     lastClosingVuln: Int
     lastClosingVulnFinding: Finding
     maxSeverity: Float
+    maxSeverityFinding: Finding
     maxOpenSeverity: Float
     maxOpenSeverityFinding: Finding
     meanRemediateCriticalSeverity: Int

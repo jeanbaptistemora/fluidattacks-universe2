@@ -15,6 +15,9 @@ export const GET_INDICATORS: DocumentNode = gql`
         id
       }
       maxSeverity
+      maxSeverityFinding{
+        id
+      }
       meanRemediate
       openVulnerabilities
       pendingClosingCheck

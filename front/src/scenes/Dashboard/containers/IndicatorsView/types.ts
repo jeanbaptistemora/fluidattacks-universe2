@@ -15,6 +15,7 @@ export interface IIndicatorsProps {
     maxOpenSeverity: number;
     maxOpenSeverityFinding: IFindingAttr;
     maxSeverity: number;
+    maxSeverityFinding: IFindingAttr;
     meanRemediate: number;
     openVulnerabilities: number;
     pendingClosingCheck: number;

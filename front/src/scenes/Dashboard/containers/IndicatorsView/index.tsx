@@ -38,6 +38,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   });
 
   const [lastClosingVulnFindingId, setLastClosingVulnFindingId] = React.useState("");
+  const [maxSeverityFindingId, setMaxSeverityFindingId] = React.useState("");
   const [maxOpenSeverityFindingId, setMaxOpenSeverityFindingId] = React.useState("");
 
   const clearTableFilters: (() => void) = (): void => {
@@ -69,6 +70,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
       treatment: true,
       where: false,
     }));
+    sessionStorage.setItem("findingsFilters", JSON.stringify(true));
     sessionStorage.setItem("verificationFilter", "Pending");
     push(`/groups/${projectName}/findings`);
   };
@@ -88,6 +90,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
       treatment: true,
       where: false,
     }));
+    sessionStorage.setItem("findingsFilters", JSON.stringify(true));
     sessionStorage.setItem("treatmentFilter", "New");
     push(`/groups/${projectName}/findings`);
   };
@@ -95,6 +98,12 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   const goToProjectFindingTracking: (() => void) = (): void => {
     if (lastClosingVulnFindingId !== "") {
       push(`/groups/${projectName}/findings/${lastClosingVulnFindingId}/tracking`);
+    }
+  };
+
+  const goToProjectMaxSeverityFinding: (() => void) = (): void => {
+    if (maxSeverityFindingId !== "") {
+      push(`/groups/${projectName}/findings/${maxSeverityFindingId}/description`);
     }
   };
 
@@ -140,6 +149,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
               !("historic_state" in repo) ||
               repo.historic_state[repo.historic_state.length - 1].state === "ACTIVE");
             setLastClosingVulnFindingId(data.project.lastClosingVulnFinding.id);
+            setMaxSeverityFindingId(data.project.maxSeverityFinding.id);
             setMaxOpenSeverityFindingId(data.project.maxOpenSeverityFinding.id);
 
             return (
@@ -225,7 +235,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.maxSeverity}
                             title=""
                             total="/10"
-                            onClick={goToProjectFindings}
+                            onClick={goToProjectMaxSeverityFinding}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>

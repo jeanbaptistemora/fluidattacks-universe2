@@ -220,6 +220,35 @@ async def _get_max_severity(info, project_name: str, **__) -> float:
 
 @require_integrates
 @get_entity_cache_async
+async def _get_max_severity_finding(
+        info, project_name: str, requested_fields: list) -> \
+        Dict[str, FindingType]:
+    """Resolve finding attribute."""
+    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+    req_fields.extend(
+        util.get_requested_fields('maxSeverityFinding', selection_set))
+    selection_set.selections = req_fields
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
+    findings = \
+        await info.context.loaders['finding'].load_many(project_findings)
+    _, max_severity_finding = max([
+        (finding['severity_score'], finding['id'])
+        for finding in findings
+        if 'current_state' in finding and
+        finding['current_state'] != 'DELETED'
+    ]) if findings else (0, '')
+    finding = await asyncio.create_task(
+        finding_loader.resolve(info, max_severity_finding, as_field=True,
+                               selection_set=selection_set))
+    return finding
+
+
+@require_integrates
+@get_entity_cache_async
 async def _get_max_open_severity(info, project_name: str,
                                  **__) -> float:
     """Resolve maximum severity in open vulnerability attribute."""
