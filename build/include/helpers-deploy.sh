@@ -207,7 +207,9 @@ function helper_deploy_compile_new {
   &&  rm -rf output/web/de \
   &&  mv output/web/pages/* output/web/ \
   &&  rm -rf output/web/pages \
-  &&  popd || return 1
+  &&  popd || return 1 \
+  &&  rm sitemap.xml \
+  &&  cp new/output/web/sitemap.xml .
 }
 
 function helper_deploy_compile_all {
