@@ -43,45 +43,57 @@ be implemented having these restrictions in consideration.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control].
 The software does not restrict or incorrectly restricts access to a resource
 from an unauthorized actor.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
+. [[r2]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
 When an actor claims to have a given identity,
 the software does not prove or insufficiently proves that the claim is correct.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function].
 The software does not perform any authentication for functionality that
 requires a provable user identity or consumes a significant amount of
 resources.
 
-. [[r4]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+. [[r4]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key].
+The system's authorization functionality does not prevent one user from gaining
+access to another user's data or record by modifying the key value identifying
+the data.
+
+. [[r5]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
 Art. 4: Security of processing.(1a)]
 The measures referred to in paragraph 1 shall at least ensure that personal
 data can be accessed only by authorized personnel for legally authorized
 purposes.
 
-. [[r5]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(4)]
+. [[r6]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(4)]
 The controller and processor shall take steps to ensure that any natural person
 acting under the authority of the controller or the processor who has access to
 personal data does not process them except on instructions from the controller.
 
-. [[r6]] link:https://gdpr-info.eu/recitals/no-2/[GDPR. Recital 6: Ensuring a High Level of Data Protection Despite
+. [[r7]] link:https://gdpr-info.eu/recitals/no-2/[GDPR. Recital 6: Ensuring a High Level of Data Protection Despite
 the Increased Exchange of Data].
 Technology has transformed both the economy and social life,
 and should further facilitate the free flow of personal data,
 while ensuring a high level of the protection of personal data.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.2)]
 Verify that communications between application components,
 including APIs, middleware and data layers, are authenticated.
 Components should have the least necessary privileges needed.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.5)]
 Verify that attribute or feature-based access control is used whereby the code
 checks the user's authorization for a feature/data item rather than just their
 role.
 Permissions should still be allocated using roles.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.2 Operation Level Access Control.(4.2.1)]
+Verify that sensitive data and APIs are protected against direct object attacks
+targeting creation, reading, updating and deletion of records,
+such as creating or updating someone else's record, viewing everyone's records,
+or deleting all records.

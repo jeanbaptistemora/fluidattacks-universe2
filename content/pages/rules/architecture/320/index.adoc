@@ -38,15 +38,15 @@ to being bypassed and/or tampered with.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control].
 The software does not restrict or incorrectly restricts access to a resource
 from an unauthorized actor.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security]
+. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security].
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key].
 The system's authorization functionality does not prevent one user from gaining
 access to another user's data or record by modifying the key value identifying
 the data.
@@ -84,3 +84,10 @@ especially if client-side access control is present and could be bypassed.
 V4.1 General Access Control Design.(4.1.2)]
 Verify that all user and data attributes and policy information used by access
 controls cannot be manipulated by end users unless specifically authorized.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.2 Operation Level Access Control.(4.2.1)]
+Verify that sensitive data and APIs are protected against direct object attacks
+targeting creation, reading, updating and deletion of records,
+such as creating or updating someone else's record, viewing everyone's records,
+or deleting all records.
