@@ -27,8 +27,16 @@ def _map_keys_to_domain(org: OrganizationType) -> OrganizationType:
         'pk': 'id',
         'sk': 'name'
     }
-    mapped_org = {key: org[key] for key in org if key not in mapping}
-    mapped_org.update({mapping[key]: org[key] for key in org if key in mapping})
+    mapped_org = {
+        key: org[key]
+        for key in org
+        if key not in mapping
+    }
+    mapped_org.update({
+        mapping[key]: org[key]
+        for key in org
+        if key in mapping
+    })
     return mapped_org
 
 
@@ -40,8 +48,16 @@ def _map_keys_to_dal(org: OrganizationType) -> OrganizationType:
         'id': 'pk',
         'name': 'sk'
     }
-    mapped_org = {key: org[key] for key in org if key not in mapping}
-    mapped_org.update({mapping[key]: org[key] for key in org if key in mapping})
+    mapped_org = {
+        key: org[key]
+        for key in org
+        if key not in mapping
+    }
+    mapped_org.update({
+        mapping[key]: org[key]
+        for key in org
+        if key in mapping
+    })
     return mapped_org
 
 
@@ -53,8 +69,16 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
         'id': 'pk',
         'name': 'sk'
     }
-    mapped_attrs = [attr for attr in attrs if attr not in mapping]
-    mapped_attrs.extend([mapping[attr] for attr in attrs if attr in mapping])
+    mapped_attrs = [
+        attr
+        for attr in attrs
+        if attr not in mapping
+    ]
+    mapped_attrs.extend([
+        mapping[attr]
+        for attr in attrs
+        if attr in mapping
+    ])
     return mapped_attrs
 
 
@@ -66,15 +90,21 @@ async def create(organization_name: str) -> OrganizationType:
     if org_exists:
         raise InvalidOrganization()
 
-    new_item = {'pk': 'ORG#{}'.format(str(uuid.uuid4())),
-                'sk': organization_name.lower()}
+    new_item = {
+        'pk': 'ORG#{}'.format(str(uuid.uuid4())),
+        'sk': organization_name.lower()
+    }
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(TABLE_NAME)
         try:
             await table.put_item(Item=new_item)
         except ClientError as ex:
-            rollbar.report_message('Error: Couldn\'nt create organization',
-                                   'error', extra_data=ex, payload_data=locals())
+            rollbar.report_message(
+                'Error: Couldn\'nt create organization',
+                'error',
+                extra_data=ex,
+                payload_data=locals()
+            )
     return _map_keys_to_domain(new_item)
 
 
@@ -95,8 +125,10 @@ async def get(org_name: str,
     Get an organization info given its name
     Return specified attributes or all if not setted
     """
-    key_exp = Key('sk').eq(org_name) & \
+    key_exp = (
+        Key('sk').eq(org_name) &
         Key('pk').begins_with('ORG#')
+    )
     query_attrs = {
         'KeyConditionExpression': key_exp,
         'IndexName': 'gsi-1',
