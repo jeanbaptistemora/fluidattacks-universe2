@@ -15,6 +15,7 @@ from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_protect
+from frozendict import frozendict
 from graphql import GraphQLError
 from graphql.type import GraphQLResolveInfo
 from rediscluster.nodemanager import RedisClusterException
@@ -31,6 +32,7 @@ from backend.services import (
 from backend import authz, util
 from backend.exceptions import InvalidAuthorization, FindingNotFound
 from backend.utils import (
+    aio,
     apm,
 )
 
@@ -375,6 +377,8 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
 
 def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
     """Get cached response of a GraphQL entity if it exists."""
+
+    @apm.trace(display_name='get_entity_cache_async')
     @functools.wraps(func)
     async def decorated(*args, **kwargs) -> Callable[..., Any]:
         """Get cached response from function if it exists."""
@@ -397,16 +401,24 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
             f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{complement}'
         key_name = key_name.lower()
         try:
-            ret = await sync_to_async(cache.get)(key_name)
+            ret = await aio.ensure_io_bound(aio.PyCallable(
+                instance=cache.get,
+                args=(key_name,),
+            ))
+
             if ret is None:
                 ret = await func(*args, **kwargs)
-                cache_set_coro = \
-                    sync_to_async(cache.set)(key_name, ret, timeout=CACHE_TTL)
-                asyncio.create_task(cache_set_coro)
+
+                asyncio.create_task(aio.ensure_io_bound(aio.PyCallable(
+                    instance=cache.set,
+                    args=(key_name, ret),
+                    kwargs=frozendict(timeout=CACHE_TTL)
+                )))
             return ret
         except RedisClusterException:
             rollbar.report_exc_info()
-            return func(*args, **kwargs)
+            return await func(*args, **kwargs)
+
     return decorated
 
 

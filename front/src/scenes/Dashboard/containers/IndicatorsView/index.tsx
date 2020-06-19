@@ -16,6 +16,7 @@ import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorChart } from "../../components/IndicatorChart";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
+import { D3GroupIndicatorsView } from "../D3GroupIndicatorsView/index";
 import { ForcesIndicatorsView } from "../ForcesIndicatorsView/index";
 import { IRepositoriesAttr } from "../ProjectSettingsView/types";
 import { default as style } from "./index.css";
@@ -25,6 +26,16 @@ import { IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
 const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsViewBaseProps): JSX.Element => {
   const projectName: string = props.match.params.projectName;
   const { push } = useHistory();
+
+  const {
+    userEmail,
+    userName,
+    userOrganization,
+  } = (window as typeof window & {
+    userEmail: string;
+    userName: string;
+    userOrganization: string;
+  });
 
   const [lastClosingVulnFindingId, setLastClosingVulnFindingId] = React.useState("");
   const [maxOpenSeverityFindingId, setMaxOpenSeverityFindingId] = React.useState("");
@@ -101,8 +112,8 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
     mixpanel.track(
       "ProjectIndicator",
       {
-        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-        User: (window as typeof window & { userName: string }).userName,
+        Organization: userOrganization,
+        User: userName,
       });
   };
 
@@ -247,6 +258,9 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                     </Row>
                   </Col>
                 </Row>
+                {userEmail.includes("@fluidattacks.com") ? (
+                  <D3GroupIndicatorsView groupName={projectName} />
+                ) : undefined}
                 <br />
                 <br />
                 <hr />

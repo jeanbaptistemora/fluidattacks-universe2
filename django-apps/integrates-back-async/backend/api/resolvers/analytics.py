@@ -17,10 +17,11 @@ from backend import (
     util,
 )
 from backend.decorators import (
+    enforce_group_level_auth_async,
+    get_entity_cache_async,
     require_integrates,
     require_login,
     require_project_access,
-    enforce_group_level_auth_async,
 )
 from backend.domain import (
     analytics as analytics_domain,
@@ -34,6 +35,7 @@ from backend.utils import (
 @enforce_group_level_auth_async
 @require_integrates
 @require_project_access
+@get_entity_cache_async
 async def _get_group_document(
     _, __, *,
     document_name: str,

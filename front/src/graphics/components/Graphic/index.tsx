@@ -6,9 +6,9 @@ import _ from "lodash";
 import React from "react";
 import { Glyphicon } from "react-bootstrap";
 import rd3 from "react-d3-library";
-import rollbar from "../utils/rollbar";
-import styles from "./index.css";
-import { IGraphicProps, NodeType } from "./types";
+import rollbar from "../../../utils/rollbar";
+import styles from "../../index.css";
+import { IGraphicProps, NodeType } from "../../types";
 
 /* D3 alters the DOM (a lot)
  *
@@ -24,7 +24,7 @@ import { IGraphicProps, NodeType } from "./types";
  * This is a work-around that forces a virtual DOM render,
  * which copies the current state of D3's DOM into Reacts DOM so it keeps in sync.
  */
-const useForcePeriodicUpdate: (intervalInSeconds: number) => void = (intervalInSeconds: number): void => {
+const useForcePeriodicUpdate: (intervalInMiliseconds: number) => void = (intervalInMiliseconds: number): void => {
   // A dummy state to trigger the render operation
   const [tick, setTick] = React.useState(0);
 
@@ -33,7 +33,7 @@ const useForcePeriodicUpdate: (intervalInSeconds: number) => void = (intervalInS
     const forceUpdate: () => void = (): void => {
       setTick(tick + 1);
     };
-    const intervalHandler: NodeJS.Timeout = setInterval(forceUpdate, intervalInSeconds);
+    const intervalHandler: NodeJS.Timeout | number = setInterval(forceUpdate, intervalInMiliseconds);
 
     // Triggered once component un-mounts
     return () => {
