@@ -7,6 +7,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { Have } from "../../../../utils/authz/Have";
 import translate from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
+import { D3GroupIndicatorsView } from "../D3GroupIndicatorsView";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
 import { ProjectAuthorsView } from "../ProjectAuthorsView";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
@@ -19,7 +20,10 @@ import { ProjectUsersView } from "../ProjectUsersView/index";
 
 type IProjectContentProps = RouteComponentProps<{ projectName: string }>;
 
-const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => (
+const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
+  const { userEmail } = (window as typeof window & { userEmail: string });
+
+  return (
   <React.StrictMode>
     <React.Fragment>
       <React.Fragment>
@@ -35,6 +39,15 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     title={translate.t("group.tabs.indicators.text")}
                     tooltip={translate.t("group.tabs.indicators.tooltip")}
                   />
+                  {userEmail.endsWith("@fluidattacks.com") ? (
+                    <ContentTab
+                      icon="icon pe-7s-graph3"
+                      id="chartsTab"
+                      link={`${props.match.url}/charts`}
+                      title={translate.t("group.tabs.charts.text")}
+                      tooltip={translate.t("group.tabs.indicators.tooltip")}
+                    />
+                  ) : undefined}
                   <ContentTab
                     icon="icon pe-7s-light"
                     id="findingsTab"
@@ -105,6 +118,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
               <div className={globalStyle.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/authors`} component={ProjectAuthorsView} exact={true} />
+                  <Route path={`${props.match.path}/charts`} component={D3GroupIndicatorsView} exact={true} />
                   <Route path={`${props.match.path}/indicators`} component={ProjectIndicatorsView} exact={true} />
                   <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
@@ -124,6 +138,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
       </React.Fragment>
     </React.Fragment>
   </React.StrictMode>
-);
+  );
+};
 
 export { projectContent as ProjectContent };

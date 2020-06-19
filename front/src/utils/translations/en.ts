@@ -1,6 +1,15 @@
 // tslint:disable:max-file-line-count
 
 const enTranslations: Dictionary = {
+  analytics: {
+    disjointForceDirectedGraphGenerator: {
+      whereToFindings: {
+        footer: "Each grey dot represents a system."
+        + " Red dots represent the findings for that system.",
+        title: "Systems Risk",
+      }
+    }
+  },
   confirmmodal: {
     cancel: "Cancel",
     message: "Are you sure?",
@@ -225,6 +234,10 @@ const enTranslations: Dictionary = {
       authors: {
         text: "Authors",
         tooltip: "People that have contributed to your group",
+      },
+      charts: {
+        text: "Charts",
+        tooltip: "Group status at a glance",
       },
       comments: {
         text: "Comments",

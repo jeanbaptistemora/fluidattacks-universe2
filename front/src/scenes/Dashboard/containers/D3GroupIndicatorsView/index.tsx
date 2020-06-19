@@ -1,18 +1,20 @@
 import { useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Grid, Row } from "react-bootstrap";
+import { useParams } from "react-router";
 import { Graphic } from "../../../../graphics/components/Graphic";
 import {
   dataType as disjointForceDirectedGraphGeneratorDataType,
   disjointForceDirectedGraphGenerator,
 } from "../../../../graphics/generators/disjointForceDirectedGraph";
+import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";
 import { GET_DOCUMENT } from "./queries";
 import { ID3GroupIndicatorsProps } from "./types";
 
 const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3GroupIndicatorsProps): JSX.Element => {
-  const groupName: string = props.groupName;
+  const { projectName: groupName } = useParams();
 
   const {
     data: whereToFindingsData,
@@ -34,21 +36,19 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
 
   return (
     <React.StrictMode>
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <Row>
-            <Col md={8} sm={12} xs={12}>
-              <Col md={6} sm={12} xs={12}>
-                <Graphic
-                  bsClass={styles.height160}
-                  data={whereToFindings}
-                  generator={disjointForceDirectedGraphGenerator}
-                />
-              </Col>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <Grid>
+        <Row>
+          <Col xs={2} sm={3} md={4}>
+            <Graphic
+              bsClass={styles.height160}
+              data={whereToFindings}
+              footer={translate.t("analytics.disjointForceDirectedGraphGenerator.whereToFindings.footer")}
+              generator={disjointForceDirectedGraphGenerator}
+              title={translate.t("analytics.disjointForceDirectedGraphGenerator.whereToFindings.title")}
+            />
+          </Col>
+        </Row>
+      </Grid>
     </React.StrictMode>
   );
 };

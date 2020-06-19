@@ -16,7 +16,6 @@ import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorChart } from "../../components/IndicatorChart";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
-import { D3GroupIndicatorsView } from "../D3GroupIndicatorsView/index";
 import { ForcesIndicatorsView } from "../ForcesIndicatorsView/index";
 import { IRepositoriesAttr } from "../ProjectSettingsView/types";
 import { default as style } from "./index.css";
@@ -28,11 +27,9 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   const { push } = useHistory();
 
   const {
-    userEmail,
     userName,
     userOrganization,
   } = (window as typeof window & {
-    userEmail: string;
     userName: string;
     userOrganization: string;
   });
@@ -268,9 +265,6 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                     </Row>
                   </Col>
                 </Row>
-                {userEmail.includes("@fluidattacks.com") ? (
-                  <D3GroupIndicatorsView groupName={projectName} />
-                ) : undefined}
                 <br />
                 <br />
                 <hr />

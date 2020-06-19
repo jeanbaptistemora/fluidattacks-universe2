@@ -64,6 +64,7 @@ describe("ProjectRoute", () => {
 
   it("should render alert", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility();
+    (window as typeof window & Dictionary<string>).userEmail = "test";
     (window as typeof window & Dictionary<string>).userOrganization = "Fluid";
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>

@@ -4,7 +4,7 @@
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 import _ from "lodash";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
+import { Glyphicon, Panel } from "react-bootstrap";
 import rd3 from "react-d3-library";
 import rollbar from "../../../utils/rollbar";
 import styles from "../../index.css";
@@ -43,7 +43,7 @@ const useForcePeriodicUpdate: (intervalInMiliseconds: number) => void = (interva
 };
 
 const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => {
-  const { bsClass, data, generator } = props;
+  const { bsClass, data, footer, generator, title } = props;
 
   // Hooks
   useForcePeriodicUpdate(1);
@@ -70,20 +70,54 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
     },
     [size.width, size.height],
   );
+  const [expanded, setExpanded] = React.useState(false);
+  const panelOnMouseEnter: () => void = () => {
+    setExpanded(true);
+  };
+  const panelOnMouseLeave: () => void = () => {
+    setExpanded(false);
+  };
 
   return (
     <React.StrictMode>
-      <div className={bsClass} ref={containerReference}>
-        {_.isUndefined(memoizedNode) ? (
-          <div
-            className={styles.errorComponent}
-            style={{ fontSize: _.min([size.height / 2, size.width / 2]) }}
-          >
-            <Glyphicon glyph="fire" />
-          </div>
-        ) : (
-          <rd3.Component data={memoizedNode} />
-        )}
+      <div className={styles.panel}>
+        <Panel
+          expanded={expanded}
+          onMouseEnter={panelOnMouseEnter}
+          onMouseLeave={panelOnMouseLeave}
+        >
+          {_.isUndefined(title) ? undefined : (
+            <Panel.Heading className={styles.panelTitle}>
+              <Panel.Title>
+                {title}
+              </Panel.Title>
+            </Panel.Heading>
+          )}
+          <Panel.Body>
+            <div
+              className={bsClass}
+              ref={containerReference}
+            >
+              {_.isUndefined(memoizedNode) ? (
+                <div
+                  className={styles.errorComponent}
+                  style={{ fontSize: _.min([size.height / 2, size.width / 2]) }}
+                >
+                  <Glyphicon glyph="fire" />
+                </div>
+              ) : (
+                <rd3.Component data={memoizedNode} />
+              )}
+            </div>
+          </Panel.Body>
+          {_.isUndefined(footer) ? undefined : (
+            <Panel.Collapse>
+              <Panel.Footer className={styles.panelFooter}>
+                {footer}
+              </Panel.Footer>
+            </Panel.Collapse>
+          )}
+        </Panel>
       </div>
     </React.StrictMode>
   );

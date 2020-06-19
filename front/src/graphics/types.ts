@@ -10,5 +10,7 @@ export type GeneratorType = (data: DataType, width: number, height: number) => N
 export interface IGraphicProps {
   bsClass?: string;
   data: DataType;
+  footer?: JSX.Element | string;
   generator: GeneratorType;
+  title?: JSX.Element | string;
 }
