@@ -464,6 +464,8 @@ you are not authorized to use or access the Website and its Services.
 If you would like to contact us to understand more about this Policy
 or wish to contact us concerning any matter
 relating to individual rights and your Personal Information,
-you may send an email to help@fluidattacks.com
+you may send an email to
+
+image::help.png["Help",width=200]
 
 _This document was last updated on June 18, 2020_
