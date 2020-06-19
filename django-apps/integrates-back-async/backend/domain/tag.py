@@ -3,6 +3,7 @@ from collections import defaultdict
 from typing import Dict, List, Union, cast
 from decimal import Decimal
 from asgiref.sync import sync_to_async
+from backend import util
 from backend.dal import tag as tag_dal
 from backend.domain import finding as finding_domain, project as project_domain
 
@@ -85,7 +86,10 @@ async def update_organization_indicators(company: str,
             ).quantize(Decimal('0.1')),
             'projects': [str(project.get('name', '')) for project in tags_dict[tag]],
         }
-        success.append(tag_dal.update(company, tag, tag_info))
+        response = await sync_to_async(tag_dal.update)(company, tag, tag_info)
+        if response:
+            util.invalidate_cache(tag)
+        success.append(response)
     return all(success)
 
 

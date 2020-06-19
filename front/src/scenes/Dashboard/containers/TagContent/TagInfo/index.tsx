@@ -51,6 +51,7 @@ interface IProjectTag {
   lastClosingVuln: number;
   lastClosingVulnFinding: IFindingAttr;
   maxOpenSeverity: number;
+  maxOpenSeverityFinding: IFindingAttr;
   maxSeverity: number;
   name: string;
   openFindings: number;
@@ -399,6 +400,13 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       projects[0]).name
   );
 
+  const getMaxOpenSeverityFindingId: ((projects: IProjectTag[]) => string) = (projects: IProjectTag[]): string => (
+    projects.reduce(
+      (maxValue: IProjectTag, project: IProjectTag) =>
+        (project.maxOpenSeverity > maxValue.maxOpenSeverity ? project : maxValue),
+      projects[0]).maxOpenSeverityFinding.id
+  );
+
   const getLastClosingVulnProject: ((projects: IProjectTag[]) => string) = (projects: IProjectTag[]): string => (
     projects.reduce(
       (maxValue: IProjectTag, project: IProjectTag) =>
@@ -541,13 +549,14 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     [...data.tag.projects.map((project: IProjectTag) => project.name), translate.t("home.tagOther")]);
   const projectWithMaxSeverity: string = getMaxSeverityProject(data.tag.projects);
   const projectWithMaxOpenSeverity: string = getMaxOpenSeverityProject(data.tag.projects);
+  const findingIdWithMaxOpenSeverity: string = getMaxOpenSeverityFindingId(data.tag.projects);
   const projectWithLastClosingVuln: string = getLastClosingVulnProject(data.tag.projects);
   const findingIdWithLastClosingVuln: string = getLastClosingVulnFindingId(data.tag.projects);
   const goToProjectMaxSeverityFindings: (() => void) = (): void => {
     push(`/groups/${projectWithMaxSeverity.toLowerCase()}/findings`);
   };
-  const goToProjectMaxOpenSeverityFindings: (() => void) = (): void => {
-    push(`/groups/${projectWithMaxOpenSeverity.toLowerCase()}/findings`);
+  const goToProjectMaxOpenSeverityFinding: (() => void) = (): void => {
+    push(`/groups/${projectWithMaxOpenSeverity.toLowerCase()}/findings/${findingIdWithMaxOpenSeverity}/description`);
   };
   const goToProjectFindingTracking: (() => void) = (): void => {
     push(`/groups/${projectWithLastClosingVuln.toLowerCase()}/findings/${findingIdWithLastClosingVuln}/tracking`);
@@ -599,7 +608,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
             total="/10"
             small={true}
             description={projectWithMaxOpenSeverity.toLowerCase()}
-            onClick={goToProjectMaxOpenSeverityFindings}
+            onClick={goToProjectMaxOpenSeverityFinding}
           />
         </Col>
         <Col md={3} sm={12} xs={12}>
