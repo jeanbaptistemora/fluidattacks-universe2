@@ -39,27 +39,31 @@ The use of single-factor authentication can lead to unnecessary risk of
 compromise when compared with the benefits of a dual-factor authentication
 scheme.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/654.html[CWE-654: Reliance on a Single Factor in a Security Decision]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel]
+The software uses a primary channel for administration or restricted
+functionality,
+but it does not properly protect the channel.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/654.html[CWE-654: Reliance on a Single Factor in a Security Decision]
 A protection mechanism relies exclusively, or to a large extent, on the
 evaluation of a single condition or the integrity of a single object or entity
 in order to make a decision about granting access to restricted resources or
 functionality.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.4)]
 Verify that all authentication pathways and identity management APIs implement
 consistent authentication security control strength,
 such that there are no weaker alternatives per the risk of the application.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.4)]
 Verify impersonation resistance against phishing,
 such as the use of multi-factor authentication, cryptographic devices with
 intent (such as connected keys with a push to authenticate),
 or at higher AAL levels, client-side certificates.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.3 Other Access Control Considerations.(4.3.1)]
-Verify that all authentication pathways and identity management APIs implement
-consistent authentication security control strength,
-such that there are no weaker alternatives per the risk of the application.
+Verify administrative interfaces use appropriate multi-factor authentication to
+prevent unauthorized use.
