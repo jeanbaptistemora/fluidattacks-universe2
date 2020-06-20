@@ -67,3 +67,10 @@ or at higher AAL levels, client-side certificates.
 V4.3 Other Access Control Considerations.(4.3.1)]
 Verify administrative interfaces use appropriate multi-factor authentication to
 prevent unauthorized use.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.3 Other Access Control Considerations.(4.3.3)]
+Verify the application has additional authorization
+(such as step up or adaptive authentication) for lower value systems,
+and/or segregation of duties for high value applications to enforce anti-fraud
+controls as per the risk of application and past fraud.
