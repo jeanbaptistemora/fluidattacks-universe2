@@ -19,10 +19,14 @@ from backend import authz, util
 from backend.dal.event import TABLE as EVENTS_TABLE
 from backend.dal.helpers import dynamodb
 from backend.typing import (
-    Comment as CommentType, Finding as FindingType, Project as ProjectType
+    Comment as CommentType,
+    Finding as FindingType,
+    Project as ProjectType
 )
 from backend.dal.finding import (
-    get_attributes as get_finding_attributes, get_finding, is_pending_verification,
+    get_attributes as get_finding_attributes,
+    get_finding,
+    is_pending_verification,
     TABLE as FINDINGS_TABLE
 )
 from backend.dal.helpers.analytics import query
@@ -39,10 +43,10 @@ TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
 TABLE_WEEKLY_REPORT = DYNAMODB_RESOURCE.Table('FI_weekly_report')
 
-SERVICE_POLICY = NamedTuple('SERVICE_POLICY', [
-    ('group', str),
-    ('service', str),
-])
+SERVICE_POLICY = NamedTuple(
+    'SERVICE_POLICY',
+    [('group', str), ('service', str)]
+)
 
 
 def get_service_policies(group: str) -> List[SERVICE_POLICY]:
@@ -76,24 +80,36 @@ def get_service_policies(group: str) -> List[SERVICE_POLICY]:
     if type_ == 'continuous':
 
         if has_integrates:
-            policies.append(SERVICE_POLICY(group=group, service='integrates'))
+            policies.append(
+                SERVICE_POLICY(group=group, service='integrates')
+            )
 
             if has_drills:
-                policies.append(SERVICE_POLICY(group=group, service='drills_white'))
+                policies.append(
+                    SERVICE_POLICY(group=group, service='drills_white')
+                )
 
                 if has_forces:
-                    policies.append(SERVICE_POLICY(group=group, service='forces'))
+                    policies.append(
+                        SERVICE_POLICY(group=group, service='forces')
+                    )
 
     elif type_ == 'oneshot':
 
         if has_integrates:
-            policies.append(SERVICE_POLICY(group=group, service='integrates'))
-            policies.append(SERVICE_POLICY(group=group, service='drills_black'))
+            policies.append(
+                SERVICE_POLICY(group=group, service='integrates')
+            )
+            policies.append(
+                SERVICE_POLICY(group=group, service='drills_black')
+            )
 
     else:
         rollbar.report_message(
             'Group has invalid type attribute',
-            level='critical', extra_data=dict(group=group))
+            level='critical',
+            extra_data=dict(group=group)
+        )
 
     return policies
 
@@ -102,7 +118,12 @@ def get_current_month_information(project_name: str, query_db: str) -> str:
     """Get information of the current month."""
     project = project_name.lower()
     init_date = datetime.today().replace(
-        day=1, hour=0, minute=0, second=0, microsecond=0)
+        day=1,
+        hour=0,
+        minute=0,
+        second=0,
+        microsecond=0
+    )
     today_date = datetime.today()
     params = (project, init_date, today_date)
     with query() as (curr, conn):
@@ -118,39 +139,59 @@ def get_current_month_information(project_name: str, query_db: str) -> str:
 
 def get_current_month_authors(project_name: str) -> str:
     """Get the authors of the current month."""
-    query_authors = '''SELECT COUNT(DISTINCT(
-            Commits.author_name || '_' || Commits.author_email))
-            FROM git.commits AS "Commits"
-            WHERE (Commits.subscription = %s AND
-                (Commits.integration_authored_at BETWEEN %s AND %s));'''
+    query_authors = (
+        'SELECT COUNT(DISTINCT('
+        'Commits.author_name || \'_\' || Commits.author_email'
+        ')) '
+        'FROM git.commits AS "Commits" '
+        'WHERE (Commits.subscription = %s AND ('
+        'Commits.integration_authored_at BETWEEN %s AND %s'
+        '));'
+    )
     return get_current_month_information(project_name, query_authors)
 
 
 def get_current_month_commits(project_name: str) -> str:
     """Get the commits of the current month."""
-    query_commits = '''SELECT COUNT(Commits.sha1)
-        FROM git.commits AS "Commits"
-        WHERE (Commits.subscription = %s AND
-            (Commits.authored_at BETWEEN %s AND %s))
-        LIMIT 100000;'''
+    query_commits = (
+        'SELECT COUNT(Commits.sha1) '
+        'FROM git.commits AS "Commits" '
+        'WHERE (Commits.subscription = %s AND ('
+        'Commits.authored_at BETWEEN %s AND %s'
+        ')) '
+        'LIMIT 100000;'
+    )
     return get_current_month_information(project_name, query_commits)
 
 
 def get_active_projects() -> List[str]:
     """Get active project in DynamoDB"""
-    filtering_exp = Attr('project_status').eq('ACTIVE') & Attr('project_status').exists()
+    filtering_exp = (
+        Attr('project_status').eq('ACTIVE') &
+        Attr('project_status').exists()
+    )
     projects = get_all(filtering_exp, 'project_name')
-    return cast(List[str], [prj['project_name'] for prj in projects])
+    return cast(
+        List[str],
+        [prj['project_name'] for prj in projects]
+    )
 
 
 def get_alive_projects() -> List[str]:
     """Get active and suspended projects in DynamoDB"""
-    filtering_exp = Attr('project_status').eq('ACTIVE') | Attr('project_status').eq('SUSPENDED')
+    filtering_exp = (
+        Attr('project_status').eq('ACTIVE') |
+        Attr('project_status').eq('SUSPENDED')
+    )
     projects = get_all(filtering_exp, 'project_name')
-    return cast(List[str], [prj['project_name'] for prj in projects])
+    return cast(
+        List[str],
+        [prj['project_name'] for prj in projects]
+    )
 
 
-def list_drafts(project_name: str, should_list_deleted: bool = False) -> List[str]:
+def list_drafts(project_name: str, should_list_deleted: bool = False) -> \
+        List[str]:
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
@@ -179,16 +220,21 @@ def list_drafts(project_name: str, should_list_deleted: bool = False) -> List[st
     ]
 
 
-def list_findings(project_name: str, should_list_deleted: bool = False) -> List[str]:
+def list_findings(project_name: str, should_list_deleted: bool = False) -> \
+        List[str]:
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    filter_exp = Attr('releaseDate').exists() & Attr('releaseDate').lte(today)
+    filter_exp = (
+        Attr('releaseDate').exists() &
+        Attr('releaseDate').lte(today)
+    )
     response = FINDINGS_TABLE.query(
         FilterExpression=filter_exp,
         IndexName='project_findings',
         KeyConditionExpression=key_exp,
-        ProjectionExpression='finding_id, historic_state')
+        ProjectionExpression='finding_id, historic_state'
+    )
     findings = response.get('Items', [])
 
     while response.get('LastEvaluatedKey'):
@@ -197,13 +243,17 @@ def list_findings(project_name: str, should_list_deleted: bool = False) -> List[
             FilterExpression=filter_exp,
             IndexName='project_findings',
             KeyConditionExpression=key_exp,
-            ProjectionExpression='finding_id')
+            ProjectionExpression='finding_id'
+        )
         findings += response.get('Items', [])
 
     return [
-        finding['finding_id'] for finding in findings
-        if finding.get('historic_state', [{}])[-1].get('state') != 'DELETED'
-        or should_list_deleted
+        finding['finding_id']
+        for finding in findings
+        if finding.get(
+            'historic_state', [{}]
+        )[-1].get('state') != 'DELETED' or
+        should_list_deleted
     ]
 
 
@@ -212,7 +262,8 @@ def list_events(project_name: str) -> List[str]:
     response = EVENTS_TABLE.query(
         IndexName='project_events',
         KeyConditionExpression=key_exp,
-        ProjectionExpression='event_id')
+        ProjectionExpression='event_id'
+    )
     events = response.get('Items', [])
 
     while response.get('LastEvaluatedKey'):
@@ -220,7 +271,8 @@ def list_events(project_name: str) -> List[str]:
             ExclusiveStartKey=response['LastEvaluatedKey'],
             IndexName='project_events',
             KeyConditionExpression=key_exp,
-            ProjectionExpression='event_id')
+            ProjectionExpression='event_id'
+        )
         events += response.get('Items', [])
 
     return [event['event_id'] for event in events]
@@ -228,8 +280,11 @@ def list_events(project_name: str) -> List[str]:
 
 def list_internal_managers(project_name: str) -> List[str]:
     all_managers = list_project_managers(project_name)
-    internal_managers = \
-        [user for user in all_managers if user.endswith('@fluidattacks.com')]
+    internal_managers = [
+        user
+        for user in all_managers
+        if user.endswith('@fluidattacks.com')
+    ]
     return internal_managers
 
 
@@ -249,13 +304,15 @@ def get_users(project: str, active: bool = True) -> List[str]:
     """Get users of a project."""
     project_name = project.lower()
     key_condition = Key('project_name').eq(project_name)
-    projection_expression = 'user_email, has_access, project_name, responsibility'
+    projection_expression = \
+        'user_email, has_access, project_name, responsibility'
     response = TABLE_ACCESS.query(
         IndexName='project_access_users',
         KeyConditionExpression=key_condition,
         ProjectionExpression=projection_expression
     )
     users = response['Items']
+
     while response.get('LastEvaluatedKey'):
         response = TABLE_ACCESS.query(
             IndexName='project_access_users',
@@ -265,19 +322,26 @@ def get_users(project: str, active: bool = True) -> List[str]:
         )
         users += response['Items']
     if active:
-        users_filtered = [user.get('user_email') for user in users
-                          if user.get('has_access', '')]
+        users_filtered = [
+            user.get('user_email')
+            for user in users
+            if user.get('has_access', '')
+        ]
     else:
-        users_filtered = [user.get('user_email') for user in users
-                          if not user.get('has_access', '')]
+        users_filtered = [
+            user.get('user_email')
+            for user in users
+            if not user.get('has_access', '')
+        ]
     return users_filtered
 
 
 def exists(project_name: str, pre_computed_project_data: dict = None) -> bool:
     project = project_name.lower()
-    project_data = pre_computed_project_data or get_attributes(project, [
-        'project_name',
-    ])
+    project_data = (
+        pre_computed_project_data or
+        get_attributes(project, ['project_name'])
+    )
 
     return bool(project_data)
 
@@ -286,14 +350,17 @@ def list_project_managers(group: str) -> List[str]:
     users_active = get_users(group, True)
     users_inactive = get_users(group, False)
     all_users = users_active + users_inactive
-    managers = \
-        [user for user in all_users
-         if authz.get_group_level_role(user, group) == 'group_manager']
+    managers = [
+        user
+        for user in all_users
+        if authz.get_group_level_role(user, group) == 'group_manager'
+    ]
     return managers
 
 
 def get_attributes(
-        project_name: str, attributes: List[str] = None) -> Dict[str, Union[str, List[str]]]:
+        project_name: str, attributes: List[str] = None) -> \
+        Dict[str, Union[str, List[str]]]:
     item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
         'Key': {'project_name': project_name},
     }
@@ -304,7 +371,8 @@ def get_attributes(
 
 
 def get_filtered_list(
-        attributes: str = '', filter_expresion: object = None) -> List[Dict[str, ProjectType]]:
+        attributes: str = '', filter_expresion: object = None) -> \
+        List[Dict[str, ProjectType]]:
     scan_attrs = {}
     if filter_expresion:
         scan_attrs['FilterExpression'] = filter_expresion
@@ -312,6 +380,7 @@ def get_filtered_list(
         scan_attrs['ProjectionExpression'] = attributes
     response = TABLE.scan(**scan_attrs)
     projects = response['Items']
+
     while response.get('LastEvaluatedKey'):
         scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
         response = TABLE.scan(**scan_attrs)
@@ -324,11 +393,15 @@ def is_alive(project: str, pre_computed_project_data: dict = None) -> bool:
     project_name = project.lower()
     is_valid_project = True
     if exists(project_name, pre_computed_project_data):
-        project_data = pre_computed_project_data or get_attributes(
-            project_name.lower(),
-            ['deletion_date', 'project_status']
+        project_data = (
+            pre_computed_project_data or
+            get_attributes(
+                project_name.lower(),
+                ['deletion_date', 'project_status']
+            )
         )
-        if project_data.get('project_status') in ['DELETED', 'PENDING_DELETION', 'FINISHED'] or \
+        if project_data.get('project_status') in \
+           ['DELETED', 'PENDING_DELETION', 'FINISHED'] or \
            project_data.get('deletion_date'):
             is_valid_project = False
     else:
@@ -338,12 +411,15 @@ def is_alive(project: str, pre_computed_project_data: dict = None) -> bool:
 
 def can_user_access_pending_deletion(
         project: str, role: str, should_access_pending: bool = True) -> bool:
-    project_data = get_attributes(project.lower(), [
-        'deletion_date',
-        'historic_deletion',
-        'project_name',
-        'project_status',
-    ])
+    project_data = get_attributes(
+        project.lower(),
+        [
+            'deletion_date',
+            'historic_deletion',
+            'project_name',
+            'project_status',
+        ]
+    )
 
     allow_roles = ['admin', 'customeradmin']
     is_user_allowed = False
@@ -359,7 +435,11 @@ def update(project_name: str, data: ProjectType) -> bool:
     success = False
     primary_keys = {'project_name': project_name}
     try:
-        attrs_to_remove = [attr for attr in data if data[attr] is None]
+        attrs_to_remove = [
+            attr
+            for attr in data
+            if data[attr] is None
+        ]
         for attr in attrs_to_remove:
             response = TABLE.update_item(
                 Key=primary_keys,
@@ -370,13 +450,22 @@ def update(project_name: str, data: ProjectType) -> bool:
             del data[attr]
 
         if data:
-            attributes = [f'#{attr} = :{attr}' for attr in data]
-            names = {f'#{attr}': attr for attr in data}
-            values = {f':{attr}': data[attr] for attr in data}
+            attributes = [
+                f'#{attr} = :{attr}'
+                for attr in data
+            ]
+            names = {
+                f'#{attr}': attr
+                for attr in data
+            }
+            values = {
+                f':{attr}': data[attr]
+                for attr in data
+            }
 
             response = TABLE.update_item(
                 Key=primary_keys,
-                UpdateExpression='SET {}'.format(','.join(attributes)),
+                UpdateExpression='SET ' + ','.join(attributes),
                 # By default updates on non-existent items create a new item
                 # This condition disables that effect
                 ConditionExpression=Attr('project_name').exists(),
@@ -400,13 +489,16 @@ def create(project: ProjectType) -> bool:
         response = TABLE.put_item(Item=project)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         if resp:
-            async_to_sync(add_organization_group)(org_dict['id'], project['project_name'])
+            async_to_sync(add_organization_group)(
+                org_dict['id'], project['project_name']
+            )
     except ClientError:
         rollbar.report_exc_info()
     return resp
 
 
-def add_comment(project_name: str, email: str, comment_data: CommentType) -> bool:
+def add_comment(project_name: str, email: str, comment_data: CommentType) -> \
+        bool:
     """ Add a comment in a project. """
     resp = False
     try:
@@ -424,7 +516,8 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> boo
     return resp
 
 
-def get_pending_verification_findings(project_name: str) -> List[Dict[str, FindingType]]:
+def get_pending_verification_findings(project_name: str) -> \
+        List[Dict[str, FindingType]]:
     """Gets findings pending for verification"""
     key_expression = Key('project_name').eq(project_name.lower())
     query_attrs = {
@@ -434,21 +527,29 @@ def get_pending_verification_findings(project_name: str) -> List[Dict[str, Findi
     }
     response = FINDINGS_TABLE.query(**query_attrs)
     findings = response['Items']
+
     while response.get('LastEvaluatedKey'):
         response['ExclusiveStartKey'] = response['LastEvaluatedKey']
         response = FINDINGS_TABLE.query(**query_attrs)
         findings += response['Items']
     findings = [finding.get('finding_id') for finding in findings]
-    pending_to_verify = \
-        [finding for finding in findings
-         if is_pending_verification(finding)]
-    pending_to_verify = \
-        [get_finding_attributes(finding, ['finding', 'finding_id', 'project_name'])
-         for finding in pending_to_verify]
+    pending_to_verify = [
+        finding
+        for finding in findings
+        if is_pending_verification(finding)
+    ]
+    pending_to_verify = [
+        get_finding_attributes(
+            finding,
+            ['finding', 'finding_id', 'project_name']
+        )
+        for finding in pending_to_verify
+    ]
     return pending_to_verify
 
 
-def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, FindingType]]:
+def get_released_findings(project_name: str, attrs: str = '') -> \
+        List[Dict[str, FindingType]]:
     """Get all the findings that has been released."""
     key_expression = Key('project_name').eq(project_name.lower())
     filtering_exp = Attr('releaseDate').exists()
@@ -463,13 +564,23 @@ def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, 
         query_attrs['ProjectionExpression'] = 'finding_id'
     response = FINDINGS_TABLE.query(**query_attrs)
     findings = response.get('Items', [])
+
     while response.get('LastEvaluatedKey'):
         query_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
         response = FINDINGS_TABLE.query(**query_attrs)
         findings += response.get('Items', [])
-    findings = [get_finding(finding.get('finding_id')) for finding in findings]
-    findings_released = [finding for finding in findings if util.validate_release_date(finding) and
-                         finding.get('historic_state', [{}])[-1].get('state') != 'DELETED']
+    findings = [
+        get_finding(finding.get('finding_id'))
+        for finding in findings
+    ]
+    findings_released = [
+        finding
+        for finding in findings
+        if util.validate_release_date(finding) and
+        finding.get(
+            'historic_state', [{}]
+        )[-1].get('state') != 'DELETED'
+    ]
     return findings_released
 
 
@@ -478,16 +589,29 @@ def get_comments(project_name: str) -> List[Dict[str, str]]:
     key_expression = Key('project_name').eq(project_name)
     response = TABLE_COMMENTS.query(KeyConditionExpression=key_expression)
     items = response['Items']
+
     while response.get('LastEvaluatedKey'):
         response = TABLE_COMMENTS.query(
             KeyConditionExpression=key_expression,
-            ExclusiveStartKey=response['LastEvaluatedKey'])
+            ExclusiveStartKey=response['LastEvaluatedKey']
+        )
         items += response['Items']
-    comment_fullnames = cast(Dict[str, List[str]], {
-        mail: list(get_user_attributes(mail, ['last_name', 'first_name']).values())
-        for mail in set(item['email'] for item in items)})
+    comment_fullnames = cast(
+        Dict[str, List[str]],
+        {
+            mail: list(
+                get_user_attributes(
+                    mail,
+                    ['last_name', 'first_name']
+                ).values()
+            )
+            for mail in set(item['email'] for item in items)
+        }
+    )
     for item in items:
-        item['fullname'] = ' '.join(filter(None, comment_fullnames[item['email']][::-1]))
+        item['fullname'] = ' '.join(
+            filter(None, comment_fullnames[item['email']][::-1])
+        )
     return items
 
 
@@ -502,8 +626,11 @@ def delete_comment(group_name: str, user_id: str) -> bool:
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt delete group comment',
-                               'error', extra_data=ex)
+        rollbar.report_message(
+            'Error: Couldn\'nt delete group comment',
+            'error',
+            extra_data=ex
+        )
     return resp
 
 
@@ -514,15 +641,18 @@ def get(project: str) -> List[ProjectType]:
     filtering_exp = Key(filter_key).eq(filter_value)
     response = TABLE.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
+
     while response.get('LastEvaluatedKey'):
         response = TABLE.query(
             KeyConditionExpression=filtering_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey'])
+            ExclusiveStartKey=response['LastEvaluatedKey']
+        )
         items += response['Items']
     return items
 
 
-def get_all(filtering_exp: object = '', data_attr: str = '') -> List[ProjectType]:
+def get_all(filtering_exp: object = '', data_attr: str = '') -> \
+        List[ProjectType]:
     """Get all projects"""
     scan_attrs = {}
     if filtering_exp:
@@ -531,6 +661,7 @@ def get_all(filtering_exp: object = '', data_attr: str = '') -> List[ProjectType
         scan_attrs['ProjectionExpression'] = data_attr
     response = TABLE.scan(**scan_attrs)
     items = response['Items']
+
     while response.get('LastEvaluatedKey'):
         scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
         response = TABLE.scan(**scan_attrs)
@@ -544,21 +675,26 @@ def get_pending_to_delete() -> List[Dict[str, ProjectType]]:
     return get_filtered_list('project_name, historic_deletion', filtering_exp)
 
 
-def get_user_access(user_email: str, project_name: str) -> List[Dict[str, ProjectType]]:
+def get_user_access(user_email: str, project_name: str) -> \
+        List[Dict[str, ProjectType]]:
     """Get user access of a project."""
     user_email = user_email.lower()
     project_name = project_name.lower()
     filter_key = 'user_email'
     filter_sort = 'project_name'
-    filtering_exp = Key(filter_key).eq(user_email) & \
+    filtering_exp = (
+        Key(filter_key).eq(user_email) &
         Key(filter_sort).eq(project_name)
+    )
     response = TABLE_ACCESS.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
+
     while True:
         if response.get('LastEvaluatedKey'):
             response = TABLE_ACCESS.query(
                 KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
+                ExclusiveStartKey=response['LastEvaluatedKey']
+            )
             items += response['Items']
         else:
             break
@@ -632,9 +768,13 @@ def update_access(user_email: str, project_name: str,
         return False
 
 
-def get_weekly_report(init_date: str, finish_date: str, registered_users: List[str],
+def get_weekly_report(init_date: str, finish_date: str,
+                      registered_users: List[str],
                       logged_users: List[str], companies: List[str]) -> bool:
-    """ Save the number of registered and logged users weekly (scheduler used function)."""
+    """
+    Save the number of registered and logged users
+    weekly (scheduler used function).
+    """
     resp = False
     try:
         response = TABLE_WEEKLY_REPORT.put_item(
