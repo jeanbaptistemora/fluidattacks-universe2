@@ -777,7 +777,7 @@ function job_infra_backup_test {
   &&  pushd deploy/backup/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
-    &&  terraform plan -refresh=true \
+    &&  terraform plan -lock=false -refresh=true \
   &&  popd \
   || return 1
 }
@@ -806,7 +806,7 @@ function job_infra_database_test {
   &&  pushd deploy/database/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
-    &&  terraform plan -refresh=true \
+    &&  terraform plan -lock=false -refresh=true \
   &&  popd \
   || return 1
 }
@@ -827,7 +827,7 @@ function job_infra_cache_db_test {
   &&  pushd deploy/cache-db/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
-    &&  terraform plan -refresh=true \
+    &&  terraform plan -lock=false -refresh=true \
   &&  popd \
   || return 1
 }
@@ -864,7 +864,7 @@ function job_infra_django_db_test {
   &&  pushd deploy/django-db/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
-    &&  terraform plan -refresh=true \
+    &&  terraform plan -lock=false -refresh=true \
   &&  popd \
   || return 1
 }
@@ -885,7 +885,7 @@ function job_infra_resources_test {
   &&  pushd deploy/terraform-resources \
     &&  terraform init \
     &&  tflint --deep --module \
-    &&  terraform plan -refresh=true \
+    &&  terraform plan -lock=false -refresh=true \
   &&  popd \
   || return 1
 }
@@ -906,7 +906,7 @@ function job_infra_secret_management_test {
   &&  pushd deploy/secret-management/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
-    &&  terraform plan -refresh=true \
+    &&  terraform plan -lock=false -refresh=true \
   &&  popd \
   || return 1
 }
