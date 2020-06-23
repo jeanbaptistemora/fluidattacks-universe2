@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 """
 AWS CloudFormation checks for ``EC2`` (Elastic Cloud Compute).
 
@@ -339,27 +340,75 @@ def has_unrestricted_ports(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
-            _iterate_security_group_rules(path, exclude):
+    graph: DiGraph = get_graph(path, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    # all security groups in templates
+    security_groups: List[int] = _get_securitygroups(graph, exclude)
+    for group in security_groups:
+        # node of resource
+        resource: Dict = graph.nodes[group]
+        template = graph.nodes[get_predecessor(graph, group,
+                                               'CloudFormationTemplate')]
+        # nodes that could be a rule within the security group
+        rules: List[int] = list(dfs_preorder_nodes(graph, group, 5))
+        ports = [
+            x for rule in rules
+            for x in dfs_preorder_nodes(graph, rule, 5)
+            if not graph.nodes[x]['labels'].intersection(
+                {'FromPort', 'ToPort'}
+            )
+        ]
+        for node in ports:
+            from_port_node: Union[List[int], int] = [
+                x for x in dfs_preorder_nodes(graph, node, 1)
+                if 'FromPort' in graph.nodes[x]['labels']
+            ]
 
-        entities = []
+            to_port_node: Union[List[int], int] = [
+                x for x in dfs_preorder_nodes(graph, node, 1)
+                if 'ToPort' in graph.nodes[x]['labels']
+            ]
+            # validate if there are nodes with labels FromPor and ToPort
+            if not from_port_node or not to_port_node:
+                continue
 
-        with contextlib.suppress(KeyError, TypeError, ValueError):
-            from_port, to_port = tuple(map(
-                float, (sg_rule['FromPort'], sg_rule['ToPort'])))
-            if from_port != to_port:
+            # get the FromPort reference if it exists
+            from_port_node = get_ref_nodes(
+                graph, from_port_node[0],
+                lambda x: isinstance(x, (int, float)))[0]
+            # get the ToPort reference if it exists
+            to_port_node = get_ref_nodes(
+                graph, to_port_node[0],
+                lambda x: isinstance(x, (int, float)))[0]
+            # get the type of rule (SecurityGroupEgress,
+            #                           SecurityGroupIngress)
+            _type: str = get_type(graph, node, allow_groups)
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}'
+                             if _type != resource_type else f'{resource_type}')
+            entities = []
+            from_port: str
+            to_port: str
+            from_port, to_port = tuple(
+                map(str, (graph.nodes[from_port_node]['value'],
+                          graph.nodes[to_port_node]['value'])))
+
+            if float(from_port) != float(to_port):
                 entities.append(f'{from_port}->{to_port}')
 
-        vulnerabilities.extend(
-            Vulnerability(
-                path=yaml_path,
-                entity=f'{sg_path}/FromPort->ToPort/{entity}',
-                identifier=sg_name,
-                line=sg_line,
-                reason='Grants access over a port range')
-            for entity in entities)
-
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=template['path'],
+                    entity=(f"AWS::EC2::{resource_type}/"
+                            f"FromPort->ToPort/{entity}"),
+                    identifier=resource['name'],
+                    line=graph.nodes[from_port_node]['line'],
+                    reason='Grants access over a port range')
+                for entity in entities)
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
         msg_open=('EC2 security groups have ingress/egress rules '

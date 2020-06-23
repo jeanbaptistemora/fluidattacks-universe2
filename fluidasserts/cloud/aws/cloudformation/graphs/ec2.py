@@ -5,7 +5,7 @@ AWS CloudFormation checks for ``EC2`` (Elastic Cloud Compute).
 
 # Standard imports
 from contextlib import suppress
-from typing import List, Tuple, Dict, Set, Union, Optional
+from typing import List, Tuple, Dict, Set, Optional
 
 # Treed imports
 from networkx.algorithms import dfs_preorder_nodes
@@ -17,10 +17,8 @@ from fluidasserts import LOW
 from fluidasserts import SAST
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import get_predecessor
-from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
 from fluidasserts.cloud.aws.cloudformation import get_templates
 from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_type
 from fluidasserts.cloud.aws.cloudformation import _get_result_as_tuple
 from fluidasserts.cloud.aws.cloudformation import Vulnerability
 from fluidasserts.utils.decorators import api, unknown_if
@@ -42,100 +40,6 @@ def _get_securitygroups(graph: DiGraph,
         for node in dfs_preorder_nodes(graph, template, 2)
         if graph.nodes[node]['labels'].intersection(
         {'SecurityGroup', *allow_groups})]
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
-def has_unrestricted_ports(
-        path: str, exclude: Optional[Tuple[str]] = None) -> Tuple:
-    """
-    Avoid ``EC2::SecurityGroup`` ingress/egress rules with port ranges.
-
-    The following checks are performed:
-
-    * W27 Security Groups found ingress with port range
-        instead of just a single port
-    * W29 Security Groups found egress with port range
-        instead of just a single port
-
-    :param graph: Templates converted into a DiGraph.
-    :returns: - ``OPEN`` if any of the referenced rules is not followed.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    graph = get_graph(path, exclude)
-    vulnerabilities: list = []
-    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
-    # all security groups in templates
-    security_groups: List[Dict] = _get_securitygroups(graph, exclude)
-    for group in security_groups:
-        # node of resource
-        resource: Dict = graph.nodes[group['node']]
-        # nodes that could be a rule within the security group
-        rules: List[int] = list(dfs_preorder_nodes(graph, group['node'], 5))
-        for node in [
-                x for rule in rules
-                for x in dfs_preorder_nodes(graph, rule, 5)
-                if not graph.nodes[x]['labels'].intersection(
-                    {'FromPort', 'ToPort'})
-        ]:
-            from_port_node: Union[List[int], int] = [
-                x for x in dfs_preorder_nodes(graph, node, 1)
-                if 'FromPort' in graph.nodes[x]['labels']
-            ]
-
-            to_port_node: Union[List[int], int] = [
-                x for x in dfs_preorder_nodes(graph, node, 1)
-                if 'ToPort' in graph.nodes[x]['labels']
-            ]
-            # validate if there are nodes with labels FromPor and ToPort
-            if not from_port_node or not to_port_node:
-                continue
-
-            # get the FromPort reference if it exists
-            from_port_node = get_ref_nodes(
-                graph, from_port_node[0],
-                lambda x: isinstance(x, (int, float)))[0]
-            # get the ToPort reference if it exists
-            to_port_node = get_ref_nodes(
-                graph, to_port_node[0],
-                lambda x: isinstance(x, (int, float)))[0]
-            # get the type of rule (SecurityGroupEgress,
-            #                           SecurityGroupIngress)
-            _type: str = get_type(graph, node, allow_groups) or list(
-                group['type'])[-1]
-            resource_type: str = [
-                res for res in resource['labels']
-                if res in {'SecurityGroup', *allow_groups}
-            ][-1]
-            resource_type = (f'{resource_type}/{_type}'
-                             if _type != resource_type else f'{resource_type}')
-            entities = []
-            from_port: str
-            to_port: str
-            from_port, to_port = tuple(
-                map(str, (graph.nodes[from_port_node]['value'],
-                          graph.nodes[to_port_node]['value'])))
-
-            if float(from_port) != float(to_port):
-                entities.append(f'{from_port}->{to_port}')
-
-            vulnerabilities.extend(
-                Vulnerability(
-                    path=graph.nodes[group['template']]['path'],
-                    entity=(f"AWS::EC2::{resource_type}/"
-                            f"FromPort->ToPort/{entity}"),
-                    identifier=resource['name'],
-                    line=graph.nodes[from_port_node]['line'],
-                    reason='Grants access over a port range')
-                for entity in entities)
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open=('EC2 security groups have ingress/egress rules '
-                  'that allow access over a range of ports'),
-        msg_closed=('EC2 security groups have ingress/egress rules '
-                    'that allow access over single ports'))
 
 
 @api(risk=LOW, kind=SAST)

@@ -42,12 +42,12 @@ def test_has_unrestricted_ip_protocols():
 
 
 def test_has_unrestricted_ports():
-    """test ec2.has_unrestricted_ports."""
-    result = ec2.has_unrestricted_ports(VULN)
+    """test ec2.has_unrestricted_ip_protocols."""
+    result = ec2.has_unrestricted_ports(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 3
-    assert ec2.has_unrestricted_ports(SAFE).is_closed()
-    assert ec2.has_unrestricted_ports(NOT_EXISTS).is_unknown()
+    assert result.get_vulns_number() == (2 * 3) * 2
+    assert ec2.has_unrestricted_ports(
+        SAFE_DATA, exclude=(VULN_DATA)).is_closed()
 
 
 def test_has_unencrypted_volumes():

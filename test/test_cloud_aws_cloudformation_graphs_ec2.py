@@ -15,14 +15,6 @@ VULN = 'test/static/cloudformation/code_as_data_vulnerable'
 SAFE = 'test/static/cloudformation/code_as_data_safe'
 
 
-def test_has_unrestricted_ports():
-    """test ec2.has_unrestricted_ip_protocols."""
-    result = ec2.has_unrestricted_ports(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == (2 * 3) * 2
-    assert ec2.has_unrestricted_ports(SAFE, exclude=(VULN)).is_closed()
-
-
 def test_has_unencrypted_volumes(safe_loader, vuln_loader):
     """test ec2.has_unencrypted_volumes."""
     result = ec2.has_unencrypted_volumes(vuln_loader)
@@ -36,7 +28,8 @@ def test_has_not_an_iam_instance_profile():
     result = ec2.has_not_an_iam_instance_profile(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 3
-    assert ec2.has_not_an_iam_instance_profile(SAFE, exclude=(VULN)).is_closed()
+    assert ec2.has_not_an_iam_instance_profile(
+        SAFE, exclude=(VULN)).is_closed()
 
 
 def test_has_not_termination_protection(safe_loader, vuln_loader):
