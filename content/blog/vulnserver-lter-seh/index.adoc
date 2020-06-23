@@ -1,7 +1,7 @@
 :slug: vulnserver-lter-seh/
 :date: 2020-06-23
 :category: attacks
-:subtitle: Exploiting in stages
+:subtitle: Bad chars everywhere
 :tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Kevin Ku on Unsplash
