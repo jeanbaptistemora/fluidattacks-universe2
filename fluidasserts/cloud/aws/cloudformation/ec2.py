@@ -496,21 +496,27 @@ def has_not_an_iam_instance_profile(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::Instance',
-            ],
-            exclude=exclude):
-
-        if 'IamInstanceProfile' not in res_props:
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    instances: List[int] = [node for template, _ in templates
+                            for node in dfs_preorder_nodes(graph, template, 2)
+                            if len(graph.nodes[node]['labels'].intersection(
+                                {'AWS', 'EC2', 'Instance'})) > 2]
+    for instance in instances:
+        instance_node: Dict = graph.nodes[instance]
+        profile: List[int] = [
+            node for node in dfs_preorder_nodes(graph, instance, 3)
+            if 'IamInstanceProfile' in graph.nodes[node]['labels']]
+        if not profile:
+            template: Dict = graph.nodes[get_predecessor(
+                graph, instance, 'CloudFormationTemplate')]
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity='AWS::EC2::Instance/IamInstanceProfile',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=instance_node['name'],
+                    line=instance_node['line'],
                     reason='is not present'))
 
     return _get_result_as_tuple(

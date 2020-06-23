@@ -16,9 +16,7 @@ from fluidasserts import MEDIUM
 from fluidasserts import LOW
 from fluidasserts import SAST
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
-from fluidasserts.cloud.aws.cloudformation import get_predecessor
 from fluidasserts.cloud.aws.cloudformation import get_templates
-from fluidasserts.cloud.aws.cloudformation import get_graph
 from fluidasserts.cloud.aws.cloudformation import _get_result_as_tuple
 from fluidasserts.cloud.aws.cloudformation import Vulnerability
 from fluidasserts.utils.decorators import api, unknown_if
@@ -40,57 +38,6 @@ def _get_securitygroups(graph: DiGraph,
         for node in dfs_preorder_nodes(graph, template, 2)
         if graph.nodes[node]['labels'].intersection(
         {'SecurityGroup', *allow_groups})]
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
-def has_not_an_iam_instance_profile(
-        path: str, exclude: Optional[Tuple[str]] = None) -> Tuple:
-    """
-    Verify if ``EC2::Instance`` uses an IamInstanceProfile.
-
-    EC2 instances need credentials to access other AWS services.
-
-    An IAM role attached to the instance provides these credentials in a secure
-    way. With this, you don't have to manage credentials because they are
-    temporarily provided by the IAM Role and are rotated automatically.
-
-    See: https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide
-    /iam-roles-for-amazon-ec2.html
-
-    :param graph: Templates converted into a DiGraph.
-    :returns: - ``OPEN`` if the instance has not attached an
-                IamInstanceProfile.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    graph = get_graph(path, exclude)
-    templates = get_templates(graph, exclude)
-    vulnerabilities: List[Vulnerability] = []
-    instances: List[int] = [node for template, _ in templates
-                            for node in dfs_preorder_nodes(graph, template, 2)
-                            if len(graph.nodes[node]['labels'].intersection(
-                                {'AWS', 'EC2', 'Instance'})) > 2]
-    for instance in instances:
-        instance_node = graph.nodes[instance]
-        profile = [node for node in dfs_preorder_nodes(graph, instance, 3)
-                   if 'IamInstanceProfile' in graph.nodes[node]['labels']]
-        if not profile:
-            template = graph.nodes[get_predecessor(
-                graph, instance, 'CloudFormationTemplate')]
-            vulnerabilities.append(
-                Vulnerability(
-                    path=template['path'],
-                    entity='AWS::EC2::Instance/IamInstanceProfile',
-                    identifier=instance_node['name'],
-                    line=instance_node['line'],
-                    reason='is not present'))
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open='EC2 instances have not an IamInstanceProfile set',
-        msg_closed='EC2 instances have an IamInstanceProfile set')
 
 
 @api(risk=LOW, kind=SAST)

@@ -15,15 +15,6 @@ VULN = 'test/static/cloudformation/code_as_data_vulnerable'
 SAFE = 'test/static/cloudformation/code_as_data_safe'
 
 
-def test_has_not_an_iam_instance_profile():
-    """test ec2.has_not_an_iam_instance_profile."""
-    result = ec2.has_not_an_iam_instance_profile(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 3
-    assert ec2.has_not_an_iam_instance_profile(
-        SAFE, exclude=(VULN)).is_closed()
-
-
 def test_has_not_termination_protection(safe_loader, vuln_loader):
     """test ec2.has_not_termination_protection."""
     result = ec2.has_not_termination_protection(vuln_loader)
