@@ -5,7 +5,8 @@ const enTranslations: Dictionary = {
     disjointForceDirectedGraphGenerator: {
       whereToFindings: {
         footer: "Each grey dot represents a system."
-        + " Red dots represent the findings for that system.",
+        + " Red and green dots represent the open and closed findings for that system,"
+        + " respectively.",
         title: "Systems Risk",
       },
     },

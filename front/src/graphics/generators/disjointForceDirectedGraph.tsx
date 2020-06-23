@@ -13,6 +13,7 @@ interface IDataBaseNode {
   display: string;
   group: string;
   id: string;
+  isOpen: boolean;
   radius: number;
   score: number;
 }
@@ -116,7 +117,11 @@ const generator: GeneratorType = (data: IData, width: number, height: number): H
         datum.group === "source" ? 5 : scaleCvss(datum.score) * 10
       ))
       .attr("fill", (datum: IDataNode) => (
-        datum.group === "source" ? "#cccccc" : d3.interpolateReds(scaleCvss(datum.score))
+        datum.group === "source" ? "#cccccc" : (
+          datum.isOpen
+            ? d3.interpolateReds(scaleCvss(datum.score))
+            : d3.interpolateGreens(scaleCvss(datum.score))
+        )
       ))
       .call(d3
         .drag()

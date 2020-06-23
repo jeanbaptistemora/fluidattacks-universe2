@@ -122,12 +122,9 @@ async def _get_open_vulnerabilities(info, identifier: str) -> int:
     """Get open_vulnerabilities."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
 
-    open_vulnerabilities = len([
-        vuln for vuln in vulns
-        if vuln['current_state'] == 'open'
-        and
-        (vuln['current_approval_status'] != 'PENDING' or
-            vuln['last_approved_status'])])
+    open_vulnerabilities = \
+        len(vuln_domain.filter_open_vulnerabilities(vulns))
+
     return open_vulnerabilities
 
 
