@@ -27,11 +27,11 @@ Furthermore, permissions and access should be granted using the principle of
 The product, upon installation, sets incorrect permissions for an object that
 exposes it to an unintended actor.
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/732.html[CWE-732: Incorrect Permission Assignment for Critical Resource].
+. [[r2]] link:https://cwe.mitre.org/data/definitions/732.html[CWE-732: Incorrect Permission Assignment for Critical Resource].
 The product specifies permissions for a security-critical resource in a way
 that allows that resource to be read or modified by unintended actors.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.4)]
 Verify that the principle of deny by default exists whereby new users/roles
 start with minimal or no permissions and users/roles do not receive access to
