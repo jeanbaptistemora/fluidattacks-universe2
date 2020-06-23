@@ -130,6 +130,7 @@ function helper_deploy_pages {
         --exclude reviews --exclude events \
         --exclude people --exclude partners \
   &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
+  &&  rsync -av --progress content/pages/rules/services new/content/pages/rules/ \
   &&  sed -i "s|:template: faq||g" new/content/pages/careers/faq/index.adoc \
   &&  rsync -av --progress content/pages/services/certifications content/pages/services/differentiators \
         content/pages/values content/pages/reviews content/pages/events \
