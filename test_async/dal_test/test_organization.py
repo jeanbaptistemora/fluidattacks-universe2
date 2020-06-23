@@ -69,11 +69,11 @@ async def test_add_user():
     users = await org_dal.get_users(org_id)
     assert len(users) == 1
 
-    email = 'test2@testemail.com'
+    email = 'test@testemail.com'
     await org_dal.add_user(org_id, email)
     users = await org_dal.get_users(org_id)
     assert len(users) == 2
-    assert sorted(users) == [email, 'test@testemail.com']
+    assert sorted(users) == ['integratesmanager@gmail.com', email]
 
 
 @pytest.mark.changes_db
@@ -87,13 +87,13 @@ async def test_create():
         await org_dal.create(org_name)
 
 async def test_exists():
-    existing_group = await org_dal.exists('test-org')
+    existing_group = await org_dal.exists('testorg')
     assert existing_group
     non_existent_group = await org_dal.exists('no-exists')
     assert not non_existent_group
 
 async def test_get():
-    ex_org_name = 'test-org'
+    ex_org_name = 'testorg'
     not_ex_org_name = 'no-exists'
     existing_org = await org_dal.get(ex_org_name)
     assert isinstance(existing_org, dict)
@@ -110,16 +110,38 @@ async def test_get_groups():
     assert groups[0] == 'norway'
 
 
+async def test_organizations_by_id():
+    org_ids = [
+        'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3',
+        'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
+    ]
+    orgs = await org_dal.get_by_id(org_ids)
+    assert len(orgs) == 2
+    assert orgs[0]['name'] == 'testorg'
+    assert orgs[1]['name'] == 'testorg2'
+
+
+async def test_get_user_organization_ids():
+    email = 'integratesmanager@gmail.com'
+    org_ids = await org_dal.get_for_user(email)
+    assert len(org_ids) == 2
+    assert sorted(org_ids) == \
+        [
+            'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3',
+            'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
+        ]
+
+
 async def test_get_users():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     users = await org_dal.get_users(org_id)
     assert len(users) == 1
-    assert users[0] == 'test@testemail.com'
+    assert users[0] == 'integratesmanager@gmail.com'
 
 
 @pytest.mark.changes_db
 async def test_get_or_create():
-    ex_org_name = 'test-org'
+    ex_org_name = 'testorg'
     not_ex_org_name = 'new-org'
     existing_org = await org_dal.get_or_create(ex_org_name)
     assert isinstance(existing_org, dict)

@@ -7,7 +7,7 @@
                         "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
                     },
                     "sk": {
-                        "S": "test-org"
+                        "S": "INFO#testorg"
                     }
                 }
             }
@@ -19,7 +19,7 @@
                         "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
                     },
                     "sk": {
-                        "S": "USER#test@testemail.com"
+                        "S": "USER#integratesmanager@gmail.com"
                     }
                 }
             }
@@ -32,6 +32,30 @@
                     },
                     "sk": {
                         "S": "GROUP#norway"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+                    },
+                    "sk": {
+                        "S": "INFO#testorg2"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+                    },
+                    "sk": {
+                        "S": "USER#integratesmanager@gmail.com"
                     }
                 }
             }

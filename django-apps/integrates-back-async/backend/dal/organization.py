@@ -189,6 +189,72 @@ async def get(org_name: str,
     return org
 
 
+async def get_by_id(
+    organization_ids: List[str],
+    attributes: List[str] = None
+) -> List[OrganizationType]:
+    """
+    Use the organization ID to fetch general information about it
+    """
+    organizations: List[OrganizationType] = []
+    queries_attrs = [
+        {
+            'KeyConditionExpression': (
+                Key('pk').eq(org_id) &
+                Key('sk').begins_with('INFO')
+            )
+        }
+        for org_id in organization_ids
+    ]
+    if attributes:
+        projection = ','.join(_map_attributes_to_dal(attributes))
+        for query in queries_attrs:
+            query.update({'ProjectionExpression': projection})
+    try:
+        response_items = await asyncio.gather(*[
+            asyncio.create_task(
+                dynamo_async_query(TABLE_NAME, query_attrs)
+            )
+            for query_attrs in queries_attrs
+        ])
+        orgs = [item[0] for item in response_items if item]
+        if orgs:
+            for org in orgs:
+                org.update({'sk': org['sk'].split('#')[1]})
+            organizations = [_map_keys_to_domain(org) for org in orgs]
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error fetching organization info by their ID',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+    return organizations
+
+
+async def get_for_user(email: str) -> List[str]:
+    """
+    Return all the organizations a user belongs to
+    """
+    organization_ids: List[str] = []
+    query_attrs = {
+        'KeyConditionExpression': Key('sk').eq(f'USER#{email}'),
+        'IndexName': 'gsi-1'
+    }
+    try:
+        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        if response_items:
+            organization_ids = [item['pk'] for item in response_items]
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error fetching user organizations',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+    return organization_ids
+
+
 async def get_or_create(organization_name: str) -> OrganizationType:
     """
     Return an organization, even if it does not exists,

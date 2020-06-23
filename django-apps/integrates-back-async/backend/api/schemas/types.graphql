@@ -93,6 +93,11 @@ type InternalProject {
     projectName: String
 }
 
+type Organization {
+    id: String
+    name: String
+}
+
 "Resource type definition"
 type Resource {
     projectName: String
@@ -178,6 +183,7 @@ type ForcesExecutions {
 "Me type definition"
 type Me {
     accessToken: String
+    organizations: [Organization!]
     projects: [Project]
     remember: Boolean
     role(projectName: String): String

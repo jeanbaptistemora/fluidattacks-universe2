@@ -9,12 +9,17 @@ import rollbar
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 from backend.api.resolvers import project as project_resolver
+from backend.dal.organization import (
+    get_by_id as get_organizations,
+    get_for_user as get_user_organizations
+)
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
 from backend.domain import tag as tag_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     Me as MeType,
+    Organization as OrganizationType,
     Project as ProjectType,
     Tag as TagType,
     SignInPayload as SignInPayloadType,
@@ -41,6 +46,12 @@ async def _get_role(_, user_email: str,
         role = await \
             sync_to_async(authz.get_user_level_role)(user_email)
     return role
+
+
+async def _get_organizations(_, user_email: str) -> List[OrganizationType]:
+    organization_ids = await get_user_organizations(user_email)
+    organizations = await get_organizations(organization_ids, ['id', 'name'])
+    return organizations
 
 
 async def _get_projects(info, user_email: str) -> List[ProjectType]:
