@@ -144,6 +144,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_event_resolve_event',
             'backend_api_resolvers_event_resolve_events',
             'backend_api_resolvers_finding__do_update_description',
+            'backend_api_resolvers_finding__get_analyst',
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
             'backend_api_resolvers_project__get_comments',
