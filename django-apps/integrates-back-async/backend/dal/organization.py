@@ -194,9 +194,10 @@ async def get_or_create(organization_name: str) -> OrganizationType:
     Return an organization, even if it does not exists,
     in which case it will be created
     """
-    org = await get(organization_name, ['id', 'name'])
+    org_name = organization_name.lower()
+    org = await get(org_name, ['id', 'name'])
     if not org:
-        org = await create(organization_name)
+        org = await create(org_name)
     return org
 
 
