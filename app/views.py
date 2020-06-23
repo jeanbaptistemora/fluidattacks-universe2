@@ -268,7 +268,7 @@ def list_s3_evidences(prefix) -> List[str]:
 @require_http_methods(['GET'])
 def download_vulnerabilities(request, findingid):
     """Download a file with all the vulnerabilities."""
-    allowed_roles = ['analyst', 'admin']
+    allowed_roles = ['analyst', 'admin', 'closer']
 
     if not has_access_to_finding(request.session['username'], findingid):
         util.cloudwatch_log(request,

@@ -143,6 +143,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
             'backend_api_resolvers_event_resolve_events',
+            'backend_api_resolvers_finding__do_update_description',
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
             'backend_api_resolvers_project__get_comments',
@@ -153,6 +154,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_resource_resolve_resources',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
+            'backend_api_resolvers_vulnerability__do_upload_file',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
         },
         tags={
