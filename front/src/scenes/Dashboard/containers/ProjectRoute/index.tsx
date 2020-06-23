@@ -59,8 +59,10 @@ const projectRoute: React.FC = (): JSX.Element => {
     variables: { projectName },
   });
   useQuery(GET_GROUP_SERVICE_ATTRIBUTES, {
-    onCompleted: (permData: { project: { serviceAttributes: string[] } }): void => {
-      attributes.update(permData.project.serviceAttributes.map((attribute: string) => ({ action: attribute })));
+    onCompleted: (permData: { project: { serviceAttributes: string[] } } | undefined): void => {
+      if (!_.isUndefined(permData)) {
+        attributes.update(permData.project.serviceAttributes.map((attribute: string) => ({ action: attribute })));
+      }
     },
     variables: { projectName },
   });
