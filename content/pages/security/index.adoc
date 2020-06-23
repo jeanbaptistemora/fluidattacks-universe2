@@ -14,7 +14,7 @@ As a security company,
   [inner]#link:../values/[here]#);
 - developing products
   that comply with the highest worldwide
-  [inner]#link:../products/rules/[security standards]#;
+  [inner]#link:../rules/[security standards]#;
 - acquiring only
   [inner]#link:../rules/262/[compliant services and products for internal use]#;
 - implementing best security practices within our organization;
