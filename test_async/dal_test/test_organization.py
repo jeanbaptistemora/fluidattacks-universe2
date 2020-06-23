@@ -115,7 +115,7 @@ async def test_organizations_by_id():
         'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3',
         'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
     ]
-    orgs = await org_dal.get_by_id(org_ids)
+    orgs = await org_dal.get_many_by_id(org_ids)
     assert len(orgs) == 2
     assert orgs[0]['name'] == 'testorg'
     assert orgs[1]['name'] == 'testorg2'

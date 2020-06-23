@@ -189,7 +189,7 @@ async def get(org_name: str,
     return org
 
 
-async def get_by_id(
+async def get_many_by_id(
     organization_ids: List[str],
     attributes: List[str] = None
 ) -> List[OrganizationType]:
@@ -239,7 +239,8 @@ async def get_for_user(email: str) -> List[str]:
     organization_ids: List[str] = []
     query_attrs = {
         'KeyConditionExpression': Key('sk').eq(f'USER#{email}'),
-        'IndexName': 'gsi-1'
+        'IndexName': 'gsi-1',
+        'ProjectionExpression': 'pk'
     }
     try:
         response_items = await dynamo_async_query(TABLE_NAME, query_attrs)

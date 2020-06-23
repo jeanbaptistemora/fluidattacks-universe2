@@ -10,8 +10,8 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 from backend.api.resolvers import project as project_resolver
 from backend.dal.organization import (
-    get_by_id as get_organizations,
-    get_for_user as get_user_organizations
+    get_for_user as get_user_organizations,
+    get_many_by_id as get_organizations
 )
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import user as user_domain
