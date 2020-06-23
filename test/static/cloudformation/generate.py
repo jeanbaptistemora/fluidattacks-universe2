@@ -702,7 +702,19 @@ user = troposphere.iam.User(
 )
 key = troposphere.kms.Key(
     title='key1',
-    KeyPolicy={},
+    KeyPolicy={
+        "Version": "2012-10-17",
+        "Id": "key-default-1",
+        "Statement": [
+            {
+                "Sid": "Enable IAM User Permissions",
+                "Effect": "Allow",
+                "Principal": {"AWS": "*"},
+                "Action": "kms:*",
+                "Resource": "*"
+            },
+        ]
+    },
     EnableKeyRotation='false',
 )
 security_group = troposphere.ec2.SecurityGroup(
