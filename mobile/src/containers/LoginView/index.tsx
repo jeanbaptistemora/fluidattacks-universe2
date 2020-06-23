@@ -32,35 +32,44 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   const [isOutdated, setOutdated] = React.useState(false);
 
   // Side effects
-  const onMount: (() => void) = (): void => {
-    const executeStartupChecks: (() => void) = async (): Promise<void> => {
-      const shouldSkipCheck: boolean =
-        Platform.OS === "ios"
-        || Constants.appOwnership === AppOwnership.Expo;
+  const promptBiometricAuth: (() => void) = async (): Promise<void> => {
+    const token: string | null = await SecureStore.getItemAsync("integrates_session");
+    const authState: string | null = await SecureStore.getItemAsync("authState");
 
-      if (shouldSkipCheck) {
-        setOutdated(false);
-      } else {
-        setOutdated(await checkPlayStoreVersion());
-      }
+    if (_.isNil(token) || _.isNil(authState)) {
+      setLoading(false);
+    } else {
+      const { success } = await LocalAuthentication.authenticateAsync();
 
-      const token: string | null = await SecureStore.getItemAsync("integrates_session");
-      const authState: string | null = await SecureStore.getItemAsync("authState");
-
-      if (!_.isNil(token) && !_.isNil(authState)) {
-        const { success } = await LocalAuthentication.authenticateAsync();
-
-        if (success) {
-          history.replace("/Dashboard", JSON.parse(authState));
-        } else {
-          setLoading(false);
-        }
+      if (success) {
+        history.replace("/Dashboard", JSON.parse(authState));
       } else {
         setLoading(false);
       }
-    };
+    }
+  };
 
-    executeStartupChecks();
+  const checkVersion: (() => void) = async (): Promise<void> => {
+    const shouldSkipCheck: boolean =
+      Platform.OS === "ios"
+      || Constants.appOwnership === AppOwnership.Expo;
+
+    if (shouldSkipCheck) {
+      setLoading(false);
+      promptBiometricAuth();
+    } else {
+      const outdated: boolean = await checkPlayStoreVersion();
+
+      if (outdated) {
+        setOutdated(true);
+      } else {
+        promptBiometricAuth();
+      }
+    }
+  };
+
+  const onMount: (() => void) = (): void => {
+    checkVersion();
   };
   React.useEffect(onMount, []);
 
