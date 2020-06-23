@@ -10,7 +10,9 @@ import boto3
 import botocore
 
 from __init__ import (
-    FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY, FI_ENVIRONMENT,
+    FI_AWS_DYNAMODB_ACCESS_KEY,
+    FI_AWS_DYNAMODB_SECRET_KEY,
+    FI_ENVIRONMENT,
     FI_DYNAMODB_HOST, FI_DYNAMODB_PORT
 )
 
@@ -51,7 +53,8 @@ async def async_put_item(table: str, item: Dict[str, str]) -> None:
         await dynamo_table.put_item(Item=item)
 
 
-async def async_query(table: str, query_attrs: Dict[str, str]) -> List[Dict[str, Any]]:
+async def async_query(table: str, query_attrs: Dict[str, str]) -> \
+        List[Dict[str, Any]]:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.query(**query_attrs)
