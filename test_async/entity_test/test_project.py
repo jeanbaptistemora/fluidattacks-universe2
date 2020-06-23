@@ -31,10 +31,9 @@ def random_project_name(string_length=8):
 
 class ProjectTests(TestCase):
 
-    async def _get_result_async(self, data, user=None):
+    async def _get_result_async(self, data, user='integratesmanager@gmail.com'):
         """Get result."""
-        user = user or 'integratesmanager@gmail.com'
-        request = create_dummy_session()
+        request = create_dummy_session(username=user)
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),
