@@ -27,13 +27,16 @@ AUTHZ_TABLE = DYNAMODB_RESOURCE.Table('fi_authz')
 USERS_TABLE = DYNAMODB_RESOURCE.Table('FI_users')
 
 # Typing
-SUBJECT_POLICY = NamedTuple('SUBJECT_POLICY', [
-    # interface for a row in fi_authz
-    ('level', str),
-    ('subject', str),
-    ('object', str),
-    ('role', str),
-])
+SUBJECT_POLICY = NamedTuple(
+    'SUBJECT_POLICY',
+    [
+        # interface for a row in fi_authz
+        ('level', str),
+        ('subject', str),
+        ('object', str),
+        ('role', str),
+    ]
+)
 
 
 def cast_subject_policy_into_dict(policy: SUBJECT_POLICY) -> dict:
@@ -110,22 +113,28 @@ def put_subject_policy(policy: SUBJECT_POLICY) -> bool:
 
     rollbar.report_message(
         'Error in user_dal.put_subject_policy',
-        level='error', payload_data=locals())
+        level='error',
+        payload_data=locals()
+    )
 
     return False
 
 
 def delete_subject_policy(subject: str, object_: str) -> bool:
     with contextlib.suppress(ClientError):
-        response = AUTHZ_TABLE.delete_item(Key={
-            'subject': subject.lower(),
-            'object': object_.lower(),
-        })
+        response = AUTHZ_TABLE.delete_item(
+            Key={
+                'subject': subject.lower(),
+                'object': object_.lower(),
+            }
+        )
         return response['ResponseMetadata']['HTTPStatusCode'] == 200
 
     rollbar.report_message(
         'Error in user_dal.delete_subject_policy',
-        level='error', payload_data=locals())
+        level='error',
+        payload_data=locals()
+    )
 
     return False
 
@@ -133,14 +142,20 @@ def delete_subject_policy(subject: str, object_: str) -> bool:
 def get_all_companies() -> List[str]:
     filter_exp = Attr('company').exists()
     users = get_all(filter_exp)
-    companies = [user.get('company', '').strip().upper() for user in users]
+    companies = [
+        user.get('company', '').strip().upper()
+        for user in users
+    ]
     return list(set(companies))
 
 
 def get_all_users(company_name: str) -> int:
-    filter_exp = Attr('company').exists() & \
-        Attr('company').eq(company_name) & Attr('registered').exists() & \
+    filter_exp = (
+        Attr('company').exists() &
+        Attr('company').eq(company_name) &
+        Attr('registered').exists() &
         Attr('registered').eq(True)
+    )
     users = get_all(filter_exp)
     return len(users)
 
@@ -148,12 +163,21 @@ def get_all_users(company_name: str) -> int:
 def get_all_users_report(company_name: str, finish_date: str) -> int:
     company_name = company_name.lower()
     project_access = get_platform_users()
-    project_users = {user.get('user_email') for user in project_access}
-    filter_exp = Attr('date_joined').lte(finish_date) & \
-        Attr('registered').eq(True) & Attr('company').ne(company_name)
+    project_users = {
+        user.get('user_email')
+        for user in project_access
+    }
+    filter_exp = (
+        Attr('date_joined').lte(finish_date) &
+        Attr('registered').eq(True) &
+        Attr('company').ne(company_name)
+    )
     attribute = 'email'
     users = get_all(filter_exp, data_attr=attribute)
-    users_mails = [user.get('email', '') for user in users]
+    users_mails = [
+        user.get('email', '')
+        for user in users
+    ]
     users_filtered = project_users.intersection(users_mails)
     return len(users_filtered)
 
@@ -182,17 +206,26 @@ def get_attributes(email: str, attributes: List[str]) -> UserType:
         )
         items = response.get('Item', {})
     except ClientError as ex:
-        rollbar.report_message('Error: Unable to get user attributes',
-                               'error', extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Unable to get user attributes',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
     return items
 
 
-def logging_users_report(company_name: str, init_date: str, finish_date: str) -> int:
-    filter_exp = Attr('last_login').exists() & \
-        Attr('last_login').lte(finish_date) & \
-        Attr('last_login').gte(init_date) & \
-        Attr('registered').exists() & Attr('registered').eq(True) & \
-        Attr('company').exists() & Attr('company').ne(company_name.lower())
+def logging_users_report(company_name: str,
+                         init_date: str, finish_date: str) -> int:
+    filter_exp = (
+        Attr('last_login').exists() &
+        Attr('last_login').lte(finish_date) &
+        Attr('last_login').gte(init_date) &
+        Attr('registered').exists() &
+        Attr('registered').eq(True) &
+        Attr('company').exists() &
+        Attr('company').ne(company_name.lower())
+    )
     users = get_all(filter_exp)
     return len(users)
 
@@ -223,7 +256,11 @@ def update(email: str, data: UserType) -> bool:
     success = False
     primary_key = {'email': email.lower()}
     try:
-        attrs_to_remove = [attr for attr in data if data[attr] is None]
+        attrs_to_remove = [
+            attr
+            for attr in data
+            if data[attr] is None
+        ]
         for attr in attrs_to_remove:
             response = USERS_TABLE.update_item(
                 Key=primary_key,
@@ -249,8 +286,12 @@ def update(email: str, data: UserType) -> bool:
                 if not success:
                     break
     except ClientError as ex:
-        rollbar.report_message('Error: Unable to update user',
-                               'error', extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Unable to update user',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
 
     return success
 
@@ -269,8 +310,12 @@ def delete(email: str) -> bool:
             response = USERS_TABLE.delete_item(Key=primary_keys)
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Unable to delete user',
-                               'error', extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Unable to delete user',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
     return resp
 
 
@@ -283,30 +328,38 @@ def get_projects(user_email: str, active: bool) -> List[str]:
     while response.get('LastEvaluatedKey'):
         response = ACCESS_TABLE.query(
             KeyConditionExpression=filtering_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey'])
+            ExclusiveStartKey=response['LastEvaluatedKey']
+        )
         projects += response['Items']
     if active:
-        projects_filtered = [project.get('project_name')
-                             for project in projects
-                             if project.get('has_access', '')]
+        projects_filtered = [
+            project.get('project_name')
+            for project in projects
+            if project.get('has_access', '')
+        ]
     else:
-        projects_filtered = [project.get('project_name')
-                             for project in projects
-                             if not project.get('has_access', '')]
+        projects_filtered = [
+            project.get('project_name')
+            for project in projects
+            if not project.get('has_access', '')
+        ]
     return projects_filtered
 
 
 def get_platform_users() -> List[Dict[str, UserType]]:
-    filter_exp = Attr('has_access').eq(True) \
-        & Not(Attr('user_email').contains('@fluidattacks.com')) \
-        & Not(Attr('project_name').is_in(FI_TEST_PROJECTS.split(',')))
+    filter_exp = (
+        Attr('has_access').eq(True) &
+        Not(Attr('user_email').contains('@fluidattacks.com')) &
+        Not(Attr('project_name').is_in(FI_TEST_PROJECTS.split(',')))
+    )
 
     response = ACCESS_TABLE.scan(FilterExpression=filter_exp)
     users = response['Items']
     while response.get('LastEvaluatedKey'):
         response = ACCESS_TABLE.scan(
             FilterExpression=filter_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey'])
+            ExclusiveStartKey=response['LastEvaluatedKey']
+        )
         users += response['Items']
 
     return users
