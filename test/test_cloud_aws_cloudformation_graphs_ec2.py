@@ -15,14 +15,6 @@ VULN = 'test/static/cloudformation/code_as_data_vulnerable'
 SAFE = 'test/static/cloudformation/code_as_data_safe'
 
 
-def test_has_unrestricted_ip_protocols():
-    """test ec2.has_unrestricted_ip_protocols."""
-    result = ec2.has_unrestricted_ip_protocols(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 6
-    assert ec2.has_unrestricted_ip_protocols(SAFE, exclude=(VULN)).is_closed()
-
-
 def test_has_unrestricted_ports():
     """test ec2.has_unrestricted_ip_protocols."""
     result = ec2.has_unrestricted_ports(VULN)

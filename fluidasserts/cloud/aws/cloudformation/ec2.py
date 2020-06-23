@@ -63,7 +63,7 @@ def _iterate_security_group_rules(
 
 
 def _get_securitygroups(graph: DiGraph,
-                        exclude: Optional[List[str]] = None) -> List[Dict]:
+                        exclude: Optional[List[str]] = None) -> List[int]:
     templates: List[int] = get_templates(graph, exclude)
     allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
     return [node
@@ -269,23 +269,46 @@ def has_unrestricted_ip_protocols(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
-            _iterate_security_group_rules(path, exclude):
-        entities = []
-        with contextlib.suppress(KeyError):
-            ip_protocol = sg_rule['IpProtocol']
-            if ip_protocol in (-1, '-1'):
-                entities.append(ip_protocol)
+    graph: DiGraph = get_graph(path, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    security_groups: List[int] = _get_securitygroups(graph, exclude)
+    for group in security_groups:
+        resource: Dict = graph.nodes[group]
+        template: Dict = graph.nodes[get_predecessor(graph, group,
+                                                     'CloudFormationTemplate')]
+        protocol_nodes: List[int] = [
+            node for node in dfs_preorder_nodes(graph, group, 3)
+            if graph.nodes[node]['labels'].intersection(
+                {*allow_groups, 'Properties'})
+        ]
 
-        vulnerabilities.extend(
-            Vulnerability(
-                path=yaml_path,
-                entity=f'{sg_path}/IpProtocol/{entity}',
-                identifier=sg_name,
-                line=sg_line,
-                reason='Authorize all IP protocols')
-            for entity in entities)
+        for protocol_node in protocol_nodes:
+            protocol_values: List[int] = [
+                node for node in dfs_preorder_nodes(graph, protocol_node, 3)
+                if 'IpProtocol' in graph.nodes[node]['labels']
+            ]
+            protocols: List[int] = nx.utils.flatten(
+                [get_ref_nodes(graph, node) for node in protocol_values])
+            for node in protocols:
+                _type: str = get_type(graph, protocol_node, allow_groups)
+                resource_type: str = [
+                    res for res in resource['labels']
+                    if res in {'SecurityGroup', *allow_groups}
+                ][-1]
+                resource_type = (f'{resource_type}/{_type}'
+                                 if _type != resource_type else
+                                 f'{resource_type}')
+                protocol_value: Union[str, int] = graph.nodes[node]['value']
+                if protocol_value in ('-1', -1):
+                    vulnerabilities.append(
+                        Vulnerability(
+                            path=template['path'],
+                            entity=(f"AWS::EC2::{resource_type}/IpProtocol/"
+                                    f"{protocol_value}"),
+                            identifier=resource['name'],
+                            line=graph.nodes[node]['line'],
+                            reason='Authorize all IP protocols'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

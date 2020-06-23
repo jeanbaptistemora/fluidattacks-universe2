@@ -34,11 +34,11 @@ def test_has_unrestricted_cidrs():
 
 def test_has_unrestricted_ip_protocols():
     """test ec2.has_unrestricted_ip_protocols."""
-    result = ec2.has_unrestricted_ip_protocols(VULN)
+    result = ec2.has_unrestricted_ip_protocols(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 3
-    assert ec2.has_unrestricted_ip_protocols(SAFE).is_closed()
-    assert ec2.has_unrestricted_ip_protocols(NOT_EXISTS).is_unknown()
+    assert result.get_vulns_number() == 2 * 6
+    assert ec2.has_unrestricted_ip_protocols(
+        SAFE_DATA, exclude=(VULN_DATA)).is_closed()
 
 
 def test_has_unrestricted_ports():
