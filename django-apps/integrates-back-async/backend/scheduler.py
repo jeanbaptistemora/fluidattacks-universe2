@@ -194,7 +194,8 @@ def create_register_by_week(project: str) -> List[List[Dict[str, Union[str, int]
                     'found': found,
                     'closed': closed,
                     'accepted': accepted,
-                    'assumed_closed': accepted + closed
+                    'assumed_closed': accepted + closed,
+                    'opened': found - closed - accepted,
                 }
             first_day = str(datetime.strptime(first_day, '%Y-%m-%d %H:%M:%S') +
                             timedelta(days=7))
@@ -210,7 +211,8 @@ def create_data_format_chart(
         'found': [],
         'closed': [],
         'accepted': [],
-        'assumed_closed': []}
+        'assumed_closed': [],
+        'opened': []}
     for week, dict_status in list(all_registers.items()):
         for status in plot_points:
             plot_points[status].append({'x': week, 'y': dict_status[status]})

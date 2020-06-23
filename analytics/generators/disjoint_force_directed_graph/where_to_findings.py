@@ -7,7 +7,6 @@ from backend.domain import (
     project as group_domain,
     vulnerability as vulnerability_domain,
 )
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from frozendict import frozendict
 
 # Local libraries
@@ -22,16 +21,10 @@ async def generate_one(group: str):
         'links': set(),
     }
 
-    vulnerability_loader = VulnerabilityLoader()
-
     for finding_id in group_domain.list_findings(group):
         finding = finding_domain.get_finding(finding_id)
         finding_title = finding['finding']
         finding_cvss = finding['severityCvss']
-        finding_vulns = await vulnerability_loader.load(finding_id)
-        finding_open_vulns = \
-            vulnerability_domain.filter_open_vulnerabilities(finding_vulns)
-        finding_is_open = len(finding_open_vulns) > 0
 
         for vulnerability in vulnerability_domain.list_vulnerabilities([
             finding_id
@@ -47,7 +40,7 @@ async def generate_one(group: str):
                 'group': 'target',
                 'id': target,
                 'score': float(finding_cvss),
-                'isOpen': finding_is_open,
+                'isOpen': vulnerability['current_state'] == 'open',
                 'display': f'[{finding_cvss}] {finding_title}',
             }))
             data['links'].add(frozendict({

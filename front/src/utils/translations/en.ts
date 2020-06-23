@@ -4,7 +4,7 @@ const enTranslations: Dictionary = {
   analytics: {
     disjointForceDirectedGraphGenerator: {
       whereToFindings: {
-        footer: "Each grey dot represents a system."
+        footer: "Each grey dot represents a resource (IP, URL, or repository)."
         + " Red and green dots represent the open and closed findings for that system,"
         + " respectively.",
         title: "Systems Risk",

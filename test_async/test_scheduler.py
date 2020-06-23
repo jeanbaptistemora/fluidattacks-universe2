@@ -145,14 +145,16 @@ class SchedulerTests(TestCase):
     def test_create_data_format_chart(self):
         registers = OrderedDict(
             [('Sep 24 - 30, 2018',
-              {'found': 2, 'accepted': 0, 'closed': 0, 'assumed_closed': 0})]
+              {'found': 2, 'accepted': 0, 'closed': 0, 'assumed_closed': 0,
+               'opened': 2})]
         )
         test_data = create_data_format_chart(registers)
         expected_output = [
             [{'y': 2, 'x': 'Sep 24 - 30, 2018'}],
             [{'y': 0, 'x': 'Sep 24 - 30, 2018'}],
             [{'y': 0, 'x': 'Sep 24 - 30, 2018'}],
-            [{'y': 0, 'x': 'Sep 24 - 30, 2018'}]
+            [{'y': 0, 'x': 'Sep 24 - 30, 2018'}],
+            [{'y': 2, 'x': 'Sep 24 - 30, 2018'}],
         ]
         assert test_data == expected_output
 
