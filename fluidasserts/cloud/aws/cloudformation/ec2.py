@@ -431,24 +431,39 @@ def has_unencrypted_volumes(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::Volume',
-            ],
-            exclude=exclude):
-        if 'Encrypted' not in res_props:
-            continue
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, exclude)
+    volumes: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'EC2', 'Volume'})) > 2
+    ]
 
+    vulnerabilities: List[Vulnerability] = []
+    for volume in volumes:
+        template: Dict = graph.nodes[get_predecessor(graph, volume,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[volume]
+        _encryption: List[int] = [
+            node for node in dfs_preorder_nodes(graph, volume, 3)
+            if 'Encrypted' in graph.nodes[node]['labels']
+        ]
+        if not _encryption:
+            continue
+        encryption: int = _encryption[0]
         with contextlib.suppress(CloudFormationInvalidTypeError):
-            if not helper.to_boolean(res_props['Encrypted']):
+            un_encryption: List[int] = get_ref_nodes(
+                graph, encryption,
+                lambda x: x in (False, 'false', 'False', '0', 0))
+            if un_encryption:
                 vulnerabilities.append(
                     Vulnerability(
-                        path=yaml_path,
+                        path=template['path'],
                         entity='AWS::EC2::Volume',
-                        identifier=res_name,
-                        line=helper.get_line(res_props),
+                        identifier=resource['name'],
+                        line=graph.nodes[un_encryption[0]]['line'],
                         reason='is not encrypted'))
 
     return _get_result_as_tuple(

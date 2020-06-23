@@ -42,52 +42,6 @@ def _get_securitygroups(graph: DiGraph,
         {'SecurityGroup', *allow_groups})]
 
 
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError)
-def has_unencrypted_volumes(connection: ConnectionString) -> tuple:
-    """
-    Verify if ``EC2::Volume`` has the encryption attribute set to **true**.
-
-    :param connection: Connection String to neo4j.
-    :returns: - ``OPEN`` if the volume is not encrypted.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    queries = [
-        """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-        volume:EC2:Volume)-[rel:HAS*1..3]->(encrypt:Encrypted)
-        WHERE encrypt.value = false or encrypt.value = 'false'
-        RETURN template.path as path, encrypt.line as line,
-          volume.name as resource
-        """, """
-        MATCH (template:CloudFormationTemplate)-[*2]->(
-        volume:EC2:Volume)-[:HAS*1..3]->(encrypt:Encrypted)-[*1..6]->(ref)
-        WHERE ref.value = false OR ref.value = 'false'
-        WITH DISTINCT ref, template, volume
-        RETURN template.path as path, ref.line as line,
-          volume.line as resource
-        """
-    ]
-    vulnerabilities: list = []
-    session = driver_session(connection)
-    for query in queries:
-        for record in session.run(query):
-            vulnerabilities.append(
-                Vulnerability(
-                    path=record['path'],
-                    entity='AWS::EC2::Volume',
-                    identifier=record['resource'],
-                    line=record['line'],
-                    reason='is not encrypted'))
-    session.close()
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open='EC2 volumes are not encrypted',
-        msg_closed='EC2 volumes are encrypted')
-
-
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_not_an_iam_instance_profile(
