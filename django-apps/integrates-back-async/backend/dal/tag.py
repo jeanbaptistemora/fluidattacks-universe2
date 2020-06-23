@@ -10,9 +10,16 @@ TABLE = DYNAMODB_RESOURCE.Table('fi_portfolios')
 def update(organization: str, tag: str,
            data: Dict[str, Union[List[str], Decimal]]) -> bool:
     success = False
-    primary_keys = {'organization': organization, 'tag': tag}
+    primary_keys = {
+        'organization': organization,
+        'tag': tag
+    }
     try:
-        attrs_to_remove = [attr for attr in data if data[attr] is None]
+        attrs_to_remove = [
+            attr
+            for attr in data
+            if data[attr] is None
+        ]
         for attr in attrs_to_remove:
             response = TABLE.update_item(
                 Key=primary_keys,
@@ -23,12 +30,18 @@ def update(organization: str, tag: str,
             del data[attr]
 
         if data:
-            attributes = ['{attr} = :{attr}'.format(attr=attr) for attr in data]
-            values = {':{}'.format(attr): data[attr] for attr in data}
+            attributes = [
+                f'{attr} = :{attr}'
+                for attr in data
+            ]
+            values = {
+                ':{}'.format(attr): data[attr]
+                for attr in data
+            }
 
             response = TABLE.update_item(
                 Key=primary_keys,
-                UpdateExpression='SET {}'.format(','.join(attributes)),
+                UpdateExpression='SET ' + ','.join(attributes),
                 ExpressionAttributeValues=values)
             success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError:
@@ -39,7 +52,10 @@ def update(organization: str, tag: str,
 def get_attributes(organization: str, tag: str,
                    attributes: List[str]) -> Dict[str, Union[List[str], str]]:
     item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
-        'Key': {'organization': organization.lower(), 'tag': tag.lower()},
+        'Key': {
+            'organization': organization.lower(),
+            'tag': tag.lower()
+        },
         'AttributesToGet': attributes
     }
     response = TABLE.get_item(**item_attrs)
