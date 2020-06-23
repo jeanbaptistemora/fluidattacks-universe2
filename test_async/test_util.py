@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import os
+import time
 import pytest
 from datetime import datetime, timedelta
 
@@ -15,15 +16,17 @@ from __init__ import (
 )
 import json
 
+from backend.exceptions import InvalidAuthorization
 from backend.util import (
     response, ord_asc_by_criticality,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
     get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_format,
-    calculate_hash_token, save_token
+    calculate_hash_token, remove_token, save_token
 )
 
 from backend.dal.finding import get_finding
+from test_async.utils import create_dummy_simple_session
 
 
 class UtilTests(TestCase):
@@ -78,12 +81,7 @@ class UtilTests(TestCase):
         assert not validate_release_date(unreleased_finding)
 
     def test_get_jwt_content(self):
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
+        request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
             'company': 'unittest',
@@ -108,6 +106,76 @@ class UtilTests(TestCase):
             u'jti': payload['jti'],
         }
         assert test_data == expected_output
+
+    def test_valid_token(self):
+        request = create_dummy_simple_session()
+        payload = {
+            'user_email': 'unittest',
+            'company': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'session_token',
+            'jti': calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+        test_data = get_jwt_content(request)
+        expected_output = {
+            u'company': u'unittest',
+            u'user_email': u'unittest',
+            u'exp': payload['exp'],
+            u'sub': u'session_token',
+            u'jti': payload['jti'],
+        }
+        assert test_data == expected_output
+
+    def test_expired_token(self):
+        request = create_dummy_simple_session()
+        payload = {
+            'user_email': 'unittest',
+            'company': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        save_token(f'fi_jwt:{payload["jti"]}', token, 5)
+        time.sleep(6)
+        with pytest.raises(InvalidAuthorization):
+            assert get_jwt_content(request)
+
+    def test_revoked_token(self):
+        request = create_dummy_simple_session()        
+        payload = {
+            'user_email': 'unittest',
+            'company': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        redis_token_name = f'fi_jwt:{payload["jti"]}'
+        save_token(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
+        remove_token(redis_token_name)
+        with pytest.raises(InvalidAuthorization):
+            assert get_jwt_content(request)
 
     def test_iterate_s3_keys(self):
         s3_client = client(

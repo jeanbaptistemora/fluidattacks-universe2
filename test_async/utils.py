@@ -7,16 +7,25 @@ from jose import jwt
 from backend import util
 
 
-def create_dummy_session(
+def create_dummy_simple_session(
     username: str = 'unittest',
-    company: str = 'unittest'
+    company: str = 'unittest',
 ) -> HttpResponseBase:
     request: HttpResponseBase = RequestFactory().get('/')
     middleware = SessionMiddleware()
     middleware.process_request(request)
     request.session.save()
+    middleware.process_request(request)
     request.session['username'] = username
     request.session['company'] = company
+    return request
+
+
+def create_dummy_session(
+    username: str = 'unittest',
+    company: str = 'unittest'
+) -> HttpResponseBase:
+    request = create_dummy_simple_session(username, company)
     payload = {
         'user_email': username,
         'company': company,
