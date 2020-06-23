@@ -1,3 +1,7 @@
 :local .height160 {
   height: 160px;
 }
+
+:local .height320 {
+  height: 320px;
+}

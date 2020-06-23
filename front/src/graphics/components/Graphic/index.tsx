@@ -7,8 +7,8 @@ import React from "react";
 import { Glyphicon, Panel } from "react-bootstrap";
 import rd3 from "react-d3-library";
 import rollbar from "../../../utils/rollbar";
-import styles from "../../index.css";
 import { IGraphicProps, NodeType } from "../../types";
+import styles from "./index.css";
 
 /* D3 alters the DOM (a lot)
  *
@@ -80,7 +80,7 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
 
   return (
     <React.StrictMode>
-      <div className={styles.panel}>
+      <div>
         <Panel
           expanded={expanded}
           onMouseEnter={panelOnMouseEnter}

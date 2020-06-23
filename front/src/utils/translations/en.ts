@@ -2,12 +2,18 @@
 
 const enTranslations: Dictionary = {
   analytics: {
-    disjointForceDirectedGraphGenerator: {
+    disjointForceDirectedGraph: {
       whereToFindings: {
-        footer: "Each grey dot represents a resource (IP, URL, or repository)."
-        + " Red and green dots represent the open and closed findings for that system,"
-        + " respectively.",
+        footer: {
+          grey: "Each grey dot represents a resource (IP, URL, or repository).",
+          redAndGreen: "Red and green dots represent the open and closed findings for that system, respectively.",
+        },
         title: "Systems Risk",
+      },
+    },
+    divergingStackedBarChart: {
+      riskOverTime: {
+        title: "Risk over time",
       },
     },
   },

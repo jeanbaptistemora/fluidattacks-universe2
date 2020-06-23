@@ -3,14 +3,23 @@ import gql from "graphql-tag";
 
 export const GET_DOCUMENT: DocumentNode = gql`
   query AnalyticsQuery(
-    $documentName: String!
-    $documentType: String!
     $groupName: String!
+    $riskOverTimeDocumentName: String!
+    $riskOverTimeDocumentType: String!
+    $whereToFindingsDocumentName: String!
+    $whereToFindingsDocumentType: String!
   ) {
-    analytics {
-      groupDocument(
-        documentName: $documentName
-        documentType: $documentType
+    riskOverTime: analytics {
+      document: groupDocument(
+        documentName: $riskOverTimeDocumentName
+        documentType: $riskOverTimeDocumentType
+        groupName: $groupName
+      )
+    }
+    whereToFindings: analytics {
+      document: groupDocument(
+        documentName: $whereToFindingsDocumentName
+        documentType: $whereToFindingsDocumentType
         groupName: $groupName
       )
     }
