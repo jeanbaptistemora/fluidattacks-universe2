@@ -281,3 +281,12 @@ def get_project_repos(project: str) -> list:
     repositories = json.loads(response.data['resources']['repositories'])
 
     return repositories
+
+
+def get_my_projects() -> List[str]:
+    """Returns all projects to which the analyst has access."""
+    return [
+        project.get('name')
+        for project in api.integrates.Queries.me(API_TOKEN).data.get(
+            'me', dict()).get('projects', list())
+    ]

@@ -1,12 +1,11 @@
 # Standard library
 from datetime import datetime as dt
 from glob import glob
-from os import listdir
 from os.path import relpath
 from typing import List, Dict
 
 # Local libraries
-from toolbox import api
+from toolbox import api, utils
 from toolbox.constants import API_TOKEN
 
 
@@ -110,10 +109,10 @@ def main(with_exp: bool):
 
     param: with_exp: Show findings with or without exploits
     """
-    subs_names: List[str] = listdir('groups')
     total_vulns: int = 0
     total_fin: int = 0
     oldest: tuple = (0, 'null')
+    subs_names: List[str] = utils.integrates.get_my_projects()
     for subs_name in subs_names:
         message, pending_findings = to_reattack(subs_name, with_exp)
         if message:
