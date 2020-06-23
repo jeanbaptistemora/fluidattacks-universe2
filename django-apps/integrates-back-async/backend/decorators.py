@@ -20,14 +20,19 @@ from graphql.type import GraphQLResolveInfo
 from rediscluster.nodemanager import RedisClusterException
 
 from backend.domain import (
-    user as user_domain, event as event_domain,
-    finding as finding_domain, project as project_domain
+    user as user_domain,
+    event as event_domain,
+    finding as finding_domain,
+    project as project_domain
 )
 from backend.services import (
     has_valid_access_token
 )
 from backend import authz, util
-from backend.exceptions import InvalidAuthorization, FindingNotFound
+from backend.exceptions import (
+    InvalidAuthorization,
+    FindingNotFound
+)
 from backend.utils import (
     aio,
     apm,
@@ -36,18 +41,25 @@ from backend.utils import (
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-UNAUTHORIZED_ROLE_MSG = 'Security: Unauthorized role attempted to perform operation'
+UNAUTHORIZED_ROLE_MSG = (
+    'Security: Unauthorized role '
+    'attempted to perform operation'
+)
 
 
 def authenticate(func: Callable[..., Any]) -> Callable[..., Any]:
     @functools.wraps(func)
     def authenticate_and_call(*args, **kwargs) -> Callable[..., Any]:
         request = args[0]
-        if "username" not in request.session or request.session["username"] is None:
-            return HttpResponse('Unauthorized \
-            <script>var getUrl=window.location.href.split(`${window.location.host}/integrates`);\
-            localStorage.setItem("start_url",getUrl[getUrl.length - 1]);\
-            location = "/integrates/index"; </script>')
+        if "username" not in request.session or \
+                request.session["username"] is None:
+            return HttpResponse(
+                'Unauthorized '
+                '<script>var getUrl=window.location.href'
+                '.split(`${window.location.host}/integrates`); '
+                'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
+                'location = "/integrates/index"; </script>'
+            )
         return func(*args, **kwargs)
     return authenticate_and_call
 
@@ -84,9 +96,11 @@ def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
         try:
             user_data = util.get_jwt_content(context)
             if util.is_api_token(user_data):
-                verify_jti(user_data['user_email'],
-                           context.META.get('HTTP_AUTHORIZATION'),
-                           user_data['jti'])
+                verify_jti(
+                    user_data['user_email'],
+                    context.META.get('HTTP_AUTHORIZATION'),
+                    user_data['jti']
+                )
         except InvalidAuthorization:
             raise GraphQLError('Login required')
         return func(*args, **kwargs)
@@ -113,8 +127,10 @@ def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
         project_name = finding_domain.get_attributes(
             kwargs['draft_id'], ['project_name']).get('project_name')
     elif 'event_id' in kwargs:
-        project_name = \
-            event_domain.get_event(kwargs['event_id']).get('project_name')
+        project_name = (
+            event_domain.get_event(kwargs['event_id'])
+            .get('project_name')
+        )
     elif settings.DEBUG:
         raise Exception('Unable to identify project')
     else:
@@ -126,7 +142,8 @@ def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
     return project_name
 
 
-def enforce_group_level_auth_async(func: Callable[..., Any]) -> Callable[..., Any]:
+def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
+        Callable[..., Any]:
     """Enforce authorization using the group-level role."""
 
     @apm.trace(display_name='enforce_group_level_auth_async')
@@ -143,7 +160,7 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> Callable[..., An
 
         subject = user_data['user_email']
         object_ = resolve_project_name(args, kwargs)
-        action = '{}.{}'.format(func.__module__, func.__qualname__).replace('.', '_')
+        action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
             rollbar.report_message(
@@ -152,7 +169,8 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> Callable[..., An
                 extra_data={
                     'subject': subject,
                     'action': action,
-                })
+                }
+            )
 
         enforcer = authz.get_group_level_enforcer(subject)
 
@@ -163,7 +181,8 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> Callable[..., An
     return verify_and_call
 
 
-def enforce_user_level_auth_async(func: Callable[..., Any]) -> Callable[..., Any]:
+def enforce_user_level_auth_async(func: Callable[..., Any]) -> \
+        Callable[..., Any]:
     """Enforce authorization using the user-level role."""
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
@@ -235,13 +254,16 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
 
-        user_data['subscribed_projects'] = \
-            cast(str, await user_domain.get_projects(user_email))
-        user_data['subscribed_projects'] +=  \
-            cast(str, await user_domain.get_projects(user_email, active=False))
-        user_data['role'] = await \
-            sync_to_async(authz.get_group_level_role)(
-                user_email, project_name)
+        user_data['subscribed_projects'] = cast(
+            str,
+            await user_domain.get_projects(user_email)
+        )
+        user_data['subscribed_projects'] += cast(
+            str,
+            await user_domain.get_projects(user_email, active=False)
+        )
+        user_data['role'] = await sync_to_async(authz.get_group_level_role)(
+            user_email, project_name)
 
         if not project_name:
             await sync_to_async(rollbar.report_message)(
@@ -252,9 +274,11 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
 
         if not await enforcer(user_data, project_name):
             util.cloudwatch_log(
-                context, 'Security: Attempted to retrieve '
+                context,
+                'Security: Attempted to retrieve '
                 f'{kwargs.get("project_name")} project info '
-                'without permission')
+                'without permission'
+            )
             raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
@@ -269,23 +293,32 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
-        finding_id = kwargs.get('finding_id', '') \
-            if kwargs.get('identifier') is None else kwargs.get('identifier')
+        finding_id = (
+            kwargs.get('finding_id', '')
+            if kwargs.get('identifier') is None
+            else kwargs.get('identifier')
+        )
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
-        user_data['subscribed_projects'] = \
-            cast(str, await user_domain.get_projects(user_email))
-        user_data['subscribed_projects'] += \
-            cast(str, await user_domain.get_projects(user_email, active=False))
-        finding_project = await \
-            sync_to_async(project_domain.get_finding_project_name)(finding_id)
-        user_data['role'] = \
-            await sync_to_async(authz.get_group_level_role)(
-                user_email, finding_project)
+        user_data['subscribed_projects'] = cast(
+            str,
+            await user_domain.get_projects(user_email)
+        )
+        user_data['subscribed_projects'] += cast(
+            str,
+            await user_domain.get_projects(user_email, active=False)
+        )
+        finding_project = await sync_to_async(
+            project_domain.get_finding_project_name)(finding_id)
+        user_data['role'] = await sync_to_async(
+            authz.get_group_level_role)(user_email, finding_project)
 
         if not re.match('^[0-9]*$', finding_id):
             await sync_to_async(rollbar.report_message)(
-                'Error: Invalid finding id format', 'error', context)
+                'Error: Invalid finding id format',
+                'error',
+                context
+            )
             raise GraphQLError('Invalid finding id format')
 
         enforcer = authz.get_group_access_enforcer()
@@ -295,8 +328,10 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
 
         if not await enforcer(user_data, finding_project):
             util.cloudwatch_log(
-                context, 'Security:  Attempted to retrieve '
-                'finding-related info without permission')
+                context,
+                'Security:  Attempted to retrieve '
+                'finding-related info without permission'
+            )
             raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
@@ -311,20 +346,28 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
-        event_id = kwargs.get('event_id', '') \
-            if kwargs.get('identifier') is None else kwargs.get('identifier')
+        event_id = (
+            kwargs.get('event_id', '')
+            if kwargs.get('identifier') is None
+            else kwargs.get('identifier')
+        )
         user_data = util.get_jwt_content(context)
         user_email = user_data['user_email']
-        user_data['subscribed_projects'] = \
-            cast(str, await user_domain.get_projects(user_email))
-        user_data['subscribed_projects'] += \
-            cast(str, await user_domain.get_projects(
-                user_data['user_email'], active=False))
+        user_data['subscribed_projects'] = cast(
+            str,
+            await user_domain.get_projects(user_email)
+        )
+        user_data['subscribed_projects'] += cast(
+            str,
+            await user_domain.get_projects(
+                user_data['user_email'],
+                active=False
+            )
+        )
         event_project = await sync_to_async(event_domain.get_event)(event_id)
         event_project = event_project.get('project_name')
-        user_data['role'] = await \
-            sync_to_async(authz.get_group_level_role)(
-                user_email, event_project)
+        user_data['role'] = await sync_to_async(authz.get_group_level_role)(
+            user_email, event_project)
 
         if not re.match('^[0-9]*$', event_id):
             await sync_to_async(rollbar.report_message)(
@@ -335,8 +378,10 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
 
         if not await enforcer(user_data, event_project):
             util.cloudwatch_log(
-                context, 'Security: Attempted to retrieve '
-                'event-related info without permission')
+                context,
+                'Security: Attempted to retrieve '
+                'event-related info without permission'
+            )
             raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
@@ -349,16 +394,41 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
         """Get cached content from a django view with a request object."""
         req = args[0]
         assert isinstance(req, HttpRequest)
-        keys = ['username', 'company', 'findingid', 'project']
-        uniq_id = '_'.join([req.session[x] for x in keys if x in req.session])
-        uniq_id += '_'.join([req.GET[x] for x in keys if x in req.GET])
-        uniq_id += '_'.join([req.POST[x] for x in keys if x in req.POST])
+        keys = [
+            'username',
+            'company',
+            'findingid',
+            'project'
+        ]
+        uniq_id = '_'.join([
+            req.session[x]
+            for x in keys
+            if x in req.session
+        ])
+        uniq_id += '_'.join([
+            req.GET[x]
+            for x in keys
+            if x in req.GET
+        ])
+        uniq_id += '_'.join([
+            req.POST[x]
+            for x in keys
+            if x in req.POST
+        ])
         if len(args) > 1:
-            uniq_id += '_'.join([str(x) for x in args[1:]])
+            uniq_id += '_'.join([
+                str(x)
+                for x in args[1:]
+            ])
         if kwargs:
-            uniq_id += '_'.join([str(kwargs[x]) for x in kwargs])
-        key_name = \
-            f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{uniq_id}'
+            uniq_id += '_'.join([
+                str(kwargs[x])
+                for x in kwargs
+            ])
+        key_name = (
+            f'{func.__module__.replace(".", "_")}_'
+            f'{func.__qualname__}_{uniq_id}'
+        )
         try:
             ret = cache.get(key_name)
             if ret:
@@ -382,35 +452,43 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
         gql_ent = args[0]
 
         if isinstance(gql_ent, GraphQLResolveInfo):
-            uniq_id = '_'.join(
-                [key + '_' + str(gql_ent.variable_values[key]) for
-                 key in gql_ent.variable_values]
-            )
+            uniq_id = '_'.join([
+                key + '_' + str(gql_ent.variable_values[key])
+                for key in gql_ent.variable_values
+            ])
         else:
             uniq_id = str(gql_ent)
-        params = '_'.join(
-            [str(kwargs[key])
-             if not isinstance(kwargs[key], datetime)
-             and not isinstance(kwargs[key], list) else str(kwargs[key])[:13]
-             for key in kwargs]) + '_'
+        params = '_'.join([
+            str(kwargs[key])
+            if not isinstance(kwargs[key], datetime) and
+            not isinstance(kwargs[key], list)
+            else str(kwargs[key])[:13]
+            for key in kwargs
+        ]) + '_'
         complement = (params if kwargs else '') + uniq_id
-        key_name = \
-            f'{func.__module__.replace(".", "_")}_{func.__qualname__}_{complement}'
+        key_name = (
+            f'{func.__module__.replace(".", "_")}_'
+            f'{func.__qualname__}_{complement}'
+        )
         key_name = key_name.lower()
         try:
-            ret = await aio.ensure_io_bound(aio.PyCallable(
-                instance=cache.get,
-                args=(key_name,),
-            ))
+            ret = await aio.ensure_io_bound(
+                aio.PyCallable(
+                    instance=cache.get,
+                    args=(key_name,),
+                )
+            )
 
             if ret is None:
                 ret = await func(*args, **kwargs)
 
-                await aio.ensure_io_bound(aio.PyCallable(
-                    instance=cache.set,
-                    args=(key_name, ret),
-                    kwargs=frozendict(timeout=CACHE_TTL)
-                ))
+                await aio.ensure_io_bound(
+                    aio.PyCallable(
+                        instance=cache.set,
+                        args=(key_name, ret),
+                        kwargs=frozendict(timeout=CACHE_TTL)
+                    )
+                )
             return ret
         except RedisClusterException:
             rollbar.report_exc_info()
