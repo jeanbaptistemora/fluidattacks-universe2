@@ -190,7 +190,7 @@ def get_jwt_content(context) -> Dict[str, str]:
             content = jwt.decode(
                 token=token, key=settings.JWT_SECRET, algorithms='HS512')  # type: ignore
         jti = content.get('jti')
-        if content.get('sub') != 'session_token' and not token_exists(f'fi_jwt:{jti}'):
+        if content.get('sub') == 'django_session' and not token_exists(f'fi_jwt:{jti}'):
             raise ExpiredToken()
 
         return content
