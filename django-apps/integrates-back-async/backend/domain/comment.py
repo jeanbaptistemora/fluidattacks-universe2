@@ -6,8 +6,15 @@ import pytz
 from django.conf import settings
 
 from backend import authz, util
-from backend.dal import comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
-from backend.typing import Comment as CommentType, User as UserType
+from backend.dal import (
+    comment as comment_dal,
+    finding as finding_dal,
+    vulnerability as vuln_dal
+)
+from backend.typing import (
+    Comment as CommentType,
+    User as UserType
+)
 
 
 def _get_comments(
@@ -16,7 +23,11 @@ def _get_comments(
         finding_id: str,
         user_email: str) -> List[CommentType]:
     comments = [
-        fill_comment_data(project_name, user_email, cast(Dict[str, str], comment))
+        fill_comment_data(
+            project_name,
+            user_email,
+            cast(Dict[str, str], comment)
+        )
         for comment in comment_dal.get_comments(comment_type, int(finding_id))
     ]
     return comments
@@ -26,28 +37,47 @@ def get_comments(
         project_name: str,
         finding_id: str,
         user_email: str) -> List[CommentType]:
-    comments = \
-        _get_comments('comment', project_name, finding_id, user_email)
+    comments = _get_comments('comment', project_name, finding_id, user_email)
 
-    historic_verification = \
-        cast(List[Dict[str, finding_dal.FindingType]], finding_dal.get_attributes(
-             finding_id, ['historic_verification']).get('historic_verification', []))
-    verified = [verification for verification in historic_verification
-                if cast(List[str], verification.get('vulns', []))]
+    historic_verification = cast(
+        List[Dict[str, finding_dal.FindingType]],
+        finding_dal.get_attributes(
+            finding_id,
+            ['historic_verification']
+        ).get('historic_verification', [])
+    )
+    verified = [
+        verification
+        for verification in historic_verification
+        if cast(List[str], verification.get('vulns', []))
+    ]
     if verified:
         vulns = vuln_dal.get_vulnerabilities(finding_id)
-        comments = [fill_vuln_info(cast(Dict[str, str], comment),
-                                   cast(List[str], verification.get('vulns', [])),
-                                   vulns)
-                    if comment.get('id') == verification.get('comment') else comment
-                    for comment in comments
-                    for verification in verified]
+        comments = [
+            fill_vuln_info(
+                cast(Dict[str, str], comment),
+                cast(List[str], verification.get('vulns', [])),
+                vulns
+            )
+            if comment.get('id') == verification.get('comment')
+            else comment
+            for comment in comments
+            for verification in verified
+        ]
 
     return comments
 
 
-def get_event_comments(project_name: str, finding_id: str, user_email: str) -> List[CommentType]:
-    comments = _get_comments('event', project_name, finding_id, user_email)
+def get_event_comments(
+        project_name: str,
+        finding_id: str,
+        user_email: str) -> List[CommentType]:
+    comments = _get_comments(
+        'event',
+        project_name,
+        finding_id,
+        user_email
+    )
 
     return comments
 
@@ -68,8 +98,9 @@ def get_fullname(
     if is_requester_at_fluid or not is_objective_at_fluid:
         name_to_show = real_name
     else:
-        objective_role = \
-            authz.get_group_level_role(objective_email, project_name)
+        objective_role = authz.get_group_level_role(
+            objective_email, project_name
+        )
 
         name_to_show = {
             'analyst': 'Hacker at Fluid Attacks',
@@ -80,12 +111,21 @@ def get_fullname(
     return name_to_show
 
 
-def fill_vuln_info(comment: Dict[str, str], vulns_ids: List[str],
-                   vulns: List[Dict[str, finding_dal.FindingType]]) -> CommentType:
-    selected_vulns = [vuln.get('where') for vuln in vulns if vuln.get('UUID') in vulns_ids]
+def fill_vuln_info(
+        comment: Dict[str, str],
+        vulns_ids: List[str],
+        vulns: List[Dict[str, finding_dal.FindingType]]) -> CommentType:
+    selected_vulns = [
+        vuln.get('where')
+        for vuln in vulns
+        if vuln.get('UUID') in vulns_ids
+    ]
     selected_vulns = list(set(selected_vulns))
     wheres = ', '.join(cast(List[str], selected_vulns))
-    comment['content'] = f'Regarding vulnerabilities {wheres}:\n\n' + comment.get('content', '')
+    comment['content'] = (
+        f'Regarding vulnerabilities {wheres}:\n\n' +
+        comment.get('content', '')
+    )
 
     return cast(CommentType, comment)
 
@@ -113,8 +153,11 @@ def get_observations(
         project_name: str,
         finding_id: str,
         user_email: str) -> List[CommentType]:
-    observations = \
-        _get_comments('observation', project_name, finding_id, user_email)
+    observations = _get_comments(
+        'observation',
+        project_name,
+        finding_id, user_email
+    )
 
     return observations
 
@@ -131,11 +174,18 @@ def create(element_id: str, comment_data: CommentType,
         'email': user_info['user_email'],
         'finding_id': int(element_id),
         'fullname': str.join(
-            ' ', [str(user_info['first_name']),
-                  str(user_info['last_name'])]),
+            ' ',
+            [
+                str(user_info['first_name']),
+                str(user_info['last_name'])
+            ]
+        ),
         'modified': today,
         'parent': comment_data.get('parent')
     }
-    success = comment_dal.create(comment_id, cast(CommentType, comment_attributes))
+    success = comment_dal.create(
+        comment_id,
+        cast(CommentType, comment_attributes)
+    )
 
     return (comment_id if success else None, success)
