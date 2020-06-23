@@ -6,7 +6,10 @@ from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.typing import Resource as ResourceType
 from backend.dal import project as project_dal
 
-from __init__ import FI_AWS_S3_RESOURCES_BUCKET, FI_CLOUDFRONT_RESOURCES_DOMAIN
+from __init__ import (
+    FI_AWS_S3_RESOURCES_BUCKET,
+    FI_CLOUDFRONT_RESOURCES_DOMAIN
+)
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
@@ -24,14 +27,17 @@ def save_file(file_object: object, file_name: str) -> bool:
 
 
 def remove_file(file_name: str) -> bool:
-    return s3.remove_file(FI_AWS_S3_RESOURCES_BUCKET, file_name)  # type: ignore
+    return s3.remove_file(  # type: ignore
+        FI_AWS_S3_RESOURCES_BUCKET, file_name)
 
 
 def download_file(file_info: str, project_name: str) -> str:
-    return cloudfront.download_file(file_info,
-                                    project_name,
-                                    FI_CLOUDFRONT_RESOURCES_DOMAIN,
-                                    1.0 / 6)
+    return cloudfront.download_file(
+        file_info,
+        project_name,
+        FI_CLOUDFRONT_RESOURCES_DOMAIN,
+        1.0 / 6
+    )
 
 
 def create(res_data: Union[List[ResourceType], ResourceType],
@@ -70,7 +76,9 @@ def create(res_data: Union[List[ResourceType], ResourceType],
                 Key={
                     primary_name_key: primary_key,
                 },
-                UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
+                UpdateExpression=(
+                    'SET #attrName = list_append(#attrName, :val1)'
+                ),
                 ExpressionAttributeNames={
                     '#attrName': attr_name
                 },
@@ -108,7 +116,8 @@ def remove(project_name: str, res_type: str, index: int) -> bool:
     return resp
 
 
-def update(res_data: List[ResourceType], project_name: str, res_type: str) -> bool:
+def update(res_data: List[ResourceType],
+           project_name: str, res_type: str) -> bool:
     table = TABLE
     primary_keys = ['project_name', project_name]
     attr_name = res_type
