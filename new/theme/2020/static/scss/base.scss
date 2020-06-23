@@ -408,6 +408,9 @@ $codeyellow: rgba(230, 219, 116, 1);
   margin-left: auto;
   margin-right: auto;
   white-space: nowrap;
+  tbody tr {
+    text-align: center;
+  }
 }
 
 .internal {
