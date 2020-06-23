@@ -14,7 +14,7 @@
 :about2: Data scientist in training.
 :source: https://unsplash.com/photos/uEcSKKDB1pg
 
-= We need more training in basic stuff
+= We Need More Training in Basics
 
 Ricardo is a `DevOps` engineer in Australia.
 Previously, he worked for `Fluid Attacks`
@@ -121,8 +121,8 @@ To our surprise, he wasn't that enthusiastic.
 
 Security, as part of the development process, is essential to `Fluid Attacks`.
 We are proud to be working with this approach for several years now.
-Our [inner]#link:../../services/continuous-hacking/[Continuous Hacking]#
-and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services
+Our [inner]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
+and [inner]#link:../../use-cases/one-shot-hacking/[One-shot Hacking]# services
 rely on `IaC` to support our customers consistently and faster.
 
 We turned into cybersecurity specifics,

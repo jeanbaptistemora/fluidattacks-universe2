@@ -153,5 +153,5 @@ Leaving that extraordinary possibility aside,
 we recommend keeping as a priority the proper securing of
 other people's information on any kind of system.
 
-Would you like to know about `Fluid Attacks` [inner]#link:../../services/continuous-hacking/[continuous hacking]# services?
+Would you like to know about `Fluid Attacks` [inner]#link:../../use-cases/continuous-hacking/[continuous hacking]# services?
 [inner]#link:../../contact-us/[Contact us]#.

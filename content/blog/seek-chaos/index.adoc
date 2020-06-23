@@ -249,10 +249,10 @@ We can help.
 Check out our services.
 We inject a mix of _“troubles”_ into your applications and `IT` infrastructure:
 
-* [inner]#link:../../services/continuous-hacking[Continuous hacking]#.
+* [inner]#link:../../use-cases/continuous-hacking[Continuous hacking]#.
 Think of it as a constant source of stressors.
 
-* [inner]#link:../../services/one-shot-hacking/[One-shot hacking]#.
+* [inner]#link:../../use-cases/one-shot-hacking/[One-shot hacking]#.
 This is like a one-shot stressor
 focused on your most valuable information assets
 (or on the target you want).

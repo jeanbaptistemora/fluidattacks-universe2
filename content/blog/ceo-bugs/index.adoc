@@ -129,12 +129,12 @@ At `Fluid Attacks`, we have blended robust technology, automation,
 and the best hacking skills in the market
 to address security quality issues
 in the whole software development lifecycle.
-Our [inner]#link:../../services/continuous-hacking/[hacking tests]# covers from static code analysis
+Our [inner]#link:../../use-cases/continuous-hacking/[hacking tests]# covers from static code analysis
 to attacks (controlled, of course) to production environments.
 We centralize every security hole in [inner]#link:../../products/integrates/[Integrates]#,
 our Vulnerability Management System.
 And along with processes and technology,
-our [inner]#link:../../products/rules/[Rules]# act as unifying chain;
+our [inner]#link:../../rules/[Rules]# act as unifying chain;
 a criteria to classify findings
 so customers can quickly identify and decide
 where to start fixing defects.

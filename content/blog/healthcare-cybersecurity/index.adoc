@@ -142,7 +142,7 @@ and his team found to lower mortality rates in `ICUs`:
 using checklists.
 However, we go some steps further:
 
-* We are capable of [inner]#link:../../services/continuous-hacking/[continuously hacking]# enterprise-level systems.
+* We are capable of [inner]#link:../../use-cases/continuous-hacking/[continuously hacking]# enterprise-level systems.
 This is like a smart checklist.
 As this is continuous, our services can detect small changes
 that could pose risks to your business.
@@ -154,11 +154,11 @@ They think and work all the time on how your system's flaws
 can be combined to configure attack vectors others cannot identify.
 
 * We are also capable of assessing valuable `IT`
-and information assets [inner]#link:../../services/one-shot-hacking/[in one shot]#.
+and information assets [inner]#link:../../use-cases/one-shot-hacking/[in one shot]#.
 Again, we rely on _"smart"_ checklists.
 
 * We automate almost everything we already know.
-[inner]#link:../../products/asserts/[Asserts]# is the product we have to assess
+[inner]#link:../../asserts/[Asserts]# is the product we have to assess
 how customers' systems are, quickly.
 It is like using a smart checklist,
 fed by all of our knowledge and experience.

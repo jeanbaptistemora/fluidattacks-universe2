@@ -158,17 +158,18 @@ this type of tool has during the process of vulnerability disclosure.
 It is also important to evaluate the possibility
 of integrating them
 into continuous software development
-via [inner]#link:../../products/asserts/[continuous integrations]#
+via [inner]#link:../../asserts/[continuous integrations]#
 to detect vulnerabilities in
-[inner]#link:../../services/continuous-hacking/[early stages]#
+[inner]#link:../../use-cases/continuous-hacking/[early stages]#
 and avoid the spread of known security issues
 on latter versions of the system.
 
 == References
 
-. [[r1]] link:https://arxiv.org/pdf/1807.04320.pdf[Automated Vulnerability Detection in Source
-Code Using Deep Representation Learning].
-. [[r2]] link:https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53[A Comprehensive Guide to Convolutional Neural Networks
--- the ELI5 way].
-. [[r3]] link:https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce[Recurrent Neural Networks].
-. [[r4]] link:https://towardsdatascience.com/understanding-random-forest-58381e0602d2[Random Forest].
+. [[r1]] link:https://arxiv.org/pdf/1807.04320.pdf[Russell et al. (2018).
+Automated Vulnerability Detection in Source Code
+Using Deep Representation Learning].
+. [[r2]] link:https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53[Saha (2018). A Comprehensive Guide
+to Convolutional Neural Networks -- the ELI5 way].
+. [[r3]] link:https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce[Venkatachalam (2019). Recurrent Neural Networks].
+. [[r4]] link:https://towardsdatascience.com/understanding-random-forest-58381e0602d2[Yiu (2019). Random Forest].

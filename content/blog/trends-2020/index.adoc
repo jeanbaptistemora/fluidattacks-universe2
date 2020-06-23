@@ -174,7 +174,7 @@ link:https://report2020.fluidattacks.com/[Click here to read it].
 Among our results in working with customers,
 you will find one key takeaway worth noting now,
 in line with this post:
-[inner]#link:../../services/continuous-hacking/[continuous hacking]# delivers more value.
+[inner]#link:../../use-cases/continuous-hacking/[continuous hacking]# delivers more value.
 If that is so, we could expect this to keep growing.
 We have evidence that customers
 continuously testing the robustness of their software and IT infrastructure

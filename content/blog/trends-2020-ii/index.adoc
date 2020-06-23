@@ -185,7 +185,7 @@ We hope you have enjoyed this post, and we look forward to hearing from you.
 [inner]#link:../../contact-us/[Do get in touch with us!]#
 
 In line with these posts about trends,
-we predict [inner]#link:../../services/continuous-hacking/[continuous hacking]# will grow in 2020
+we predict [inner]#link:../../use-cases/continuous-hacking/[continuous hacking]# will grow in 2020
 as it delivers more value to organizations.
 We have evidence that customers
 continuously testing the robustness of their software and IT infrastructure

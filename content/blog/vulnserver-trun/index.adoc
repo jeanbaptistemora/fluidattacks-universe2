@@ -24,7 +24,7 @@ You can download the executable link:https://github.com/stephenbradshaw/vulnserv
 along with the source code.
 Remember that you must grab the `essfunc.dll` file as well.
 However, this post (and the others to come) will try to replicate a
-link:../../services/continuous-hacking/[grey box]
+link:../../use-cases/continuous-hacking/[grey box]
 scenario that is the most common in real exploitation.
 In which we only will have access to the binary,
 and we must start doing things like recognizance, enumeration, and fuzzing.

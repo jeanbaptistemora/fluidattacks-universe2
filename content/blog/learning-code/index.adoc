@@ -44,7 +44,7 @@ of interesting debates at `Fluid Attacks` some time ago.
 as Ricardo mentioned, starting at the hiring process.
 Take a look at our products,
 like [inner]#link:../../products/integrates/[Integrates]#
-and [inner]#link:../../products/rules/[Rules]# (this one is *FREE!*).
+and [inner]#link:../../rules/[Rules]# (this one is *FREE!*).
 
 *In cybersecurity strategy, what should organizations start*
 *and what should they stop doing?*
@@ -124,8 +124,8 @@ link:https://www.geekwire.com/2014/nate-silver/[journalists should learn to code
 
 Indeed, `Fluid Attacks` has a `DevOps` approach.
 Want to know more?
-Visit our [inner]#link:../../services/continuous-hacking/[Continuous Hacking]#
-and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
+Visit our [inner]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
+and [inner]#link:../../use-cases/one-shot-hacking/[One-shot Hacking]# services.
 
 *Why do you think companies that know their weaknesses,*
 *do not fix them or do it too late?*

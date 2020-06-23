@@ -181,7 +181,7 @@ Do you want to share your thoughts?
 [inner]#link:../../contact-us/[Do get in touch with us!]#
 
 And remember our solutions. Take a look at our
-[inner]#link:../../services/continuous-hacking/[Continous Hacking]#
-and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]#
+[inner]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
+and [inner]#link:../../use-cases/one-shot-hacking/[One-shot Hacking]#
 services. We can help you with detecting improvements in your cybersecurity
 operations, as we do it with Corona.

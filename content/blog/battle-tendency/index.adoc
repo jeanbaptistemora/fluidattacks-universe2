@@ -68,7 +68,7 @@ the most common reason companies invest in new technology
 is to replace old technology
 and thus remain competitive,
 but security also plays an important role in this field,
-since it is the second most relevant reason companies invest in `IT`
+since it is the second most relevant reason companies invest in `IT`.
 
 .Source:<<r1, [1]>>
 [quote]
@@ -91,8 +91,8 @@ based on international security standards
 primarily in software,
 but also taking into consideration
 hardware and physical security measures.
-Check it out, it’s free,
-and I’m sure you’ll agree that
+Check it out, it is free,
+and I am sure you will agree that
 enhancing the security policies of your company
 should be a top priority.
 
@@ -148,12 +148,12 @@ are the most adopted technology for several companies.
 Some other trends, such as serverless computing,
 container technology, and hyperconverged infrastructure,
 are all technologies that we often use at `Fluid Attacks`.
-We're dabbling in [inner]#link:../categories/machine-learning/[artificial intelligence]#
+We are dabbling in [inner]#link:../categories/machine-learning/[artificial intelligence]#
 in a cybersecurity approach for vulnerabilities [inner]#link:../triage-hacker/[classification]#,
-and we already [inner]#link:../../products/asserts/[automate]#
+and we already [inner]#link:../../asserts/[automate]#
 the vulnerabilities closures
 on our customers' pipelines (`CI/CD`)
-with our [inner]#link:../../services/continuous-hacking/[continuous hacking service]#.
+with our [inner]#link:../../use-cases/continuous-hacking/[continuous hacking service]#.
 We are aware of the potential of some of these techniques,
 not only for cybersecurity and overall hardening
 but also for development and operations.

@@ -24,7 +24,7 @@ of how our `ML` for vulnerability discovery approach should work.
 First, what problem would this solve?
 I am repeating myself here
 but when one of our analysts has to audit
-a new [inner]#link:../../services/continuous-hacking/[continuous hacking]# project,
+a new [inner]#link:../../use-cases/continuous-hacking/[continuous hacking]# project,
 usually all they get is access to one or more big code repositories.
 And clients expect vulnerability reports as soon as possible.
 We would like our predictor to sort all the files in these repositories
