@@ -492,6 +492,8 @@ def has_full_access_to_ssm(
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
+                'AWS::IAM::ManagedPolicy',
+                'AWS::IAM::Policy',
                 'AWS::IAM::Role',
             ],
             exclude=exclude):
