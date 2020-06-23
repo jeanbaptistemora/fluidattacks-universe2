@@ -527,6 +527,7 @@ role = troposphere.iam.Role(
                         #   permissions policy
                         'Action': [
                             'ecr:*',
+                            'ssm:*',
                         ],
                         # W11: IAM role should not allow * resource on its
                         #   permissions policy

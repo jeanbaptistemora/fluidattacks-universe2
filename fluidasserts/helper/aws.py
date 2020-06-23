@@ -454,7 +454,13 @@ def resource_all(resource):
 
 def force_list(obj: Any) -> List[Any]:
     """Wrap the element in a list, or if list, leave it intact."""
-    return obj if isinstance(obj, (list, l_json.CustomList)) else [obj]
+    if not obj:
+        ret = []
+    elif isinstance(obj, (list, l_json.CustomList)):
+        ret = obj
+    else:
+        ret = [obj]
+    return ret
 
 
 def get_line(obj: any):
@@ -467,6 +473,11 @@ def get_line(obj: any):
     line = line or 0
 
     return line
+
+
+def get_items(obj: any):
+    """Return the items of a cloudformation node."""
+    return map(lambda x: x, obj)
 
 
 def policy_statement_privilege(statement, effect: str, action: str):

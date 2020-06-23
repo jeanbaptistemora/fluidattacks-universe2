@@ -374,7 +374,8 @@
               "Statement": [
                 {
                   "Action": [
-                    "ecr:*"
+                    "ecr:*",
+                    "ssm:*"
                   ],
                   "Effect": "Allow",
                   "Resource": [

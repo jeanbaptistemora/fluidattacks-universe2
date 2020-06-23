@@ -236,6 +236,7 @@ Resources:
             Statement:
               - Action:
                   - ecr:*
+                  - ssm:*
                 Effect: Allow
                 Resource:
                   - '*'

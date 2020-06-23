@@ -466,3 +466,79 @@ def has_privileges_over_iam(path: str,
         vulnerabilities=vulnerabilities,
         msg_open='Policies have privileges over iam.',
         msg_closed='Policies have no privileges over iam.')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_full_access_to_ssm(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if there are policy documents that allow full access to ssm agent.
+
+    SSM allows everyone with access to run commands as root on EC2 instances
+
+    https://cloudonaut.io/aws-ssm-is-a-trojan-horse-fix-it-now/
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    safes: list = []
+
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::IAM::Role',
+            ],
+            exclude=exclude):
+        vulnerable_entities: List[str] = []
+        type_ = res_props['../Type']
+
+        reason = 'allows full access to SSM.'
+
+        if res_props.get('PolicyDocument', []):
+            policy = res_props['PolicyDocument']
+            for sts in helper.force_list(policy['Statement']):
+                vulnerable = sts['Effect'] == 'Allow' \
+                    and 'Action' in sts \
+                    and 'ssm:*' in helper.get_items(sts['Action'])
+                type_name = res_props['../Type'].split('::')[-1]
+                try:
+                    name = res_props[f'{type_name}Name']
+                    entity = name if isinstance(name, str) else res_name
+                except KeyError:
+                    entity = res_name
+                (vulnerable_entities if vulnerable else safes).append(
+                    (entity, reason))
+
+        if res_props.get('Policies', []):
+            for policy in helper.force_list(res_props['Policies']):
+                policy_document = policy['PolicyDocument']
+                with suppress(KeyError):
+                    for sts in helper.force_list(policy_document['Statement']):
+                        vulnerable = sts['Effect'] == 'Allow' \
+                            and 'Action' in sts \
+                            and 'ssm:*' in \
+                            helper.get_items(sts['Action'])
+                        name = policy['PolicyName']
+                        entity = name if isinstance(name, str) else res_name
+                        (vulnerable_entities if vulnerable else safes).append(
+                            (entity, reason))
+
+        if vulnerable_entities:
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=f'{type_}/{entity}',
+                    identifier=res_name,
+                    line=helper.get_line(res_props),
+                    reason=reason) for entity, reason in vulnerable_entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Policy allows full access to SSM.',
+        msg_closed='Policy does not allow full access to SSM.')
