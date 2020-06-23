@@ -448,7 +448,7 @@ at the link:../vulnserver-gmon/[nSEH parameter]  and we need to get past over
 the injected SEH handler address. What we did before with the
 `GMON` command was to perform a short jump. That jump had the
 bytecode `\xeb\x08`. However, this time we are limited by
-instructions on the `\x00 - \x7f' range so the short jump opcode (`\xeb`) is
+instructions on the `\x00 - \x7f` range so the short jump opcode (`\xeb`) is
 not an option. We need to find an instruction that can perform a short jump
 an has an opcode in our allowed character set. That instruction must also fit
 in 4 bytes or less.
@@ -524,7 +524,7 @@ happen is to perform a long jump backwards to the start of our `A` buffer to
 make some more room to inject something larger like a shellcode.
 
 While that is certainly true, we can't perform a normal long jump because
-it will contain unallowed bytes ('\xff' for example).
+it will contain unallowed bytes (`\xff` for example).
 
 == Checking existant encoders
 
