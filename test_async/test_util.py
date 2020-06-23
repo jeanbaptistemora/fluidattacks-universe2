@@ -20,7 +20,7 @@ from backend.util import (
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
     get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_format,
-    calculate_hash_token
+    calculate_hash_token, save_token
 )
 
 from backend.dal.finding import get_finding
@@ -98,6 +98,7 @@ class UtilTests(TestCase):
             key=settings.JWT_SECRET,
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
         test_data = get_jwt_content(request)
         expected_output = {
             u'company': u'unittest',

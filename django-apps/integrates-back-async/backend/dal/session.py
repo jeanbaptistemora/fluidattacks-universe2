@@ -50,3 +50,7 @@ def add_element(key: str, value: str, time: int):
 
 def remove_element(key: str):
     REDIS_CLIENT.delete(key)
+
+
+def element_exists(key: str) -> bool:
+    return REDIS_CLIENT.get(key)

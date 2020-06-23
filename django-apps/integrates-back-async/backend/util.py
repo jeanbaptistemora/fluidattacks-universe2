@@ -36,8 +36,8 @@ from jose import jwt, JWTError
 
 from backend.dal import session as session_dal
 from backend.exceptions import (
-    ConcurrentSession, InvalidAuthorization,
-    InvalidDate, InvalidDateFormat,
+    ConcurrentSession, ExpiredToken, InvalidAuthorization,
+    InvalidDate, InvalidDateFormat
 )
 
 from backend.typing import Finding as FindingType, User as UserType
@@ -189,6 +189,9 @@ def get_jwt_content(context) -> Dict[str, str]:
         else:
             content = jwt.decode(
                 token=token, key=settings.JWT_SECRET, algorithms='HS512')  # type: ignore
+        jti = content.get('jti')
+        if content.get('sub') != 'session_token' and not token_exists(f'fi_jwt:{jti}'):
+            raise ExpiredToken()
 
         return content
     except AttributeError:
@@ -196,6 +199,8 @@ def get_jwt_content(context) -> Dict[str, str]:
     except IndexError:
         rollbar.report_message(
             'Error: Malformed auth header', 'error', context)
+        raise InvalidAuthorization()
+    except ExpiredToken:
         raise InvalidAuthorization()
     except JWTError:
         LOGGER.info('Security: Invalid token signature')
@@ -562,3 +567,7 @@ def save_token(key: str, token: str, time: int):
 
 def remove_token(key: str):
     session_dal.remove_element(key)
+
+
+def token_exists(key: str) -> bool:
+    return session_dal.element_exists(key)

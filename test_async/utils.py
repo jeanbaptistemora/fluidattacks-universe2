@@ -33,4 +33,5 @@ def create_dummy_session(
         key=settings.JWT_SECRET,
     )
     request.COOKIES[settings.JWT_COOKIE_NAME] = token
+    util.save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     return request

@@ -21,6 +21,7 @@ from backend.domain.finding import get_finding
 from backend.domain.project import get_open_vulnerabilities, list_findings
 from backend.domain.vulnerability import list_vulnerabilities
 from backend.exceptions import FindingNotFound, NotVerificationRequested
+from test_async.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 
@@ -28,27 +29,7 @@ class FindingTests(TestCase):
 
     async def _get_result(self, data, user='integratesmanager@gmail.com'):
         """Get result."""
-        request = RequestFactory().post('/',
-                                        {'data': 'finding(identifier: "422286126")'})
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        payload = {
-            'user_email': user,
-            'company': 'fluid',
-            'first_name': 'unit',
-            'last_name': 'test',
-            'exp': datetime.utcnow() +
-            timedelta(seconds=settings.SESSION_COOKIE_AGE),
-            'sub': 'django_session',
-            'jti': util.calculate_hash_token()['jti'],
-        }
-        token = jwt.encode(
-            payload,
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        request = create_dummy_session(username=user, company='fluid')
         request.loaders = {
             'finding': FindingLoader(),
             'project': ProjectLoader(),

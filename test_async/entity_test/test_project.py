@@ -19,6 +19,8 @@ from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
 
+from test_async.utils import create_dummy_session
+
 pytestmark = pytest.mark.asyncio
 
 
@@ -32,28 +34,7 @@ class ProjectTests(TestCase):
     async def _get_result_async(self, data, user=None):
         """Get result."""
         user = user or 'integratesmanager@gmail.com'
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        payload = {
-            'user_email': user,
-            'company': 'fluid',
-            'first_name': 'unit',
-            'last_name': 'test',
-            'exp': datetime.utcnow() +
-            timedelta(seconds=settings.SESSION_COOKIE_AGE),
-            'sub': 'django_session',
-            'jti': util.calculate_hash_token()['jti'],
-        }
-        token = jwt.encode(
-            payload,
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        request = create_dummy_session()
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),

@@ -205,6 +205,13 @@ class ConcurrentSession(Exception):
         super(ConcurrentSession, self).__init__(msg)
 
 
+class ExpiredToken(Exception):
+    """Exception to control if an user token exists, so has not expired"""
+    def __init__(self):
+        msg = 'Exception - User token has expired'
+        super(ExpiredToken, self).__init__(msg)
+
+
 class QueryDepthExceeded(Exception):
     """Exception to control graphql max query depth"""
 
