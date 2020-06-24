@@ -42,6 +42,7 @@ def api_dispatcher(request):
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Principal process.
+    url(r'^/?graphic/?', views.graphic, name='graphic'),
     url(r'^/?index/?$', views.index, name='index'),
     url(r'^/?error500/?$', views.error500, name='error500'),
     url(r'^/?error401/?$', views.error401, name='error401'),

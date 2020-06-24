@@ -270,7 +270,9 @@ STATICFILES_FINDERS = (
 STATICFILES_DIRS = [
     ('app', os.path.join(BASE_DIR, 'app', 'assets', 'app')),
     ('dashboard', os.path.join(BASE_DIR, 'app', 'assets', 'dashboard')),
+    ('graphics', os.path.join(BASE_DIR, 'app', 'assets', 'graphics')),
     ('img', os.path.join(BASE_DIR, 'app', 'assets', 'img')),
+    ('styles', os.path.join(BASE_DIR, 'app', 'assets', 'styles')),
 ]
 
 CRONJOBS = [

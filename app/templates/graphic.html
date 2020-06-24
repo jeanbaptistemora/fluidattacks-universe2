@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#json-script -->
+    {{ args | json_script:"args" }}
+
+    <!-- Includes -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/graphic.css' %}" media="screen"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+    <script src="{% static generator_src %}"></script>
+  </head>
+  <body onload="load()">
+    <svg id="root"></svg>
+  </body>
+</html>

@@ -16,6 +16,7 @@ shared-local-instance.db
 .bundle
 Gemfile.lock
 vendor
+app/assets/admin/
 app/assets/node_modules
 app/assets/package-lock.json
 deploy/.terraform

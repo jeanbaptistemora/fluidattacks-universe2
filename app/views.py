@@ -19,7 +19,7 @@ import yaml
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
@@ -31,6 +31,7 @@ from openpyxl import load_workbook, Workbook
 # Local libraries
 from backend import authz, util
 from backend.domain import (
+    analytics as analytics_domain,
     finding as finding_domain, project as project_domain, user as user_domain)
 from backend.domain.vulnerability import (
     get_vulnerabilities_by_type, get_vulnerabilities
@@ -177,6 +178,13 @@ def app(request):
             </script>
             """)
     return response
+
+
+@authenticate
+@require_http_methods(['GET'])
+@async_to_sync
+async def graphic(request: HttpRequest) -> HttpResponse:
+    return await analytics_domain.handle_graphic_request(request)
 
 
 @csrf_exempt
