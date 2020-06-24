@@ -350,6 +350,7 @@ const enTranslations: Dictionary = {
         title: "Group Type",
       },
     },
+    organizations: "My Organizations",
     tagOther: "others",
     tagResume: " and {{remaining}} more",
     tags: "My Portfolios",
@@ -381,6 +382,25 @@ const enTranslations: Dictionary = {
   navbar: {
     breadcrumbRoot: "Home",
     searchPlaceholder: "Group Name",
+  },
+  organization: {
+    tabs: {
+      settings: {
+        errors: {
+          acceptanceSeverityRange: "Minimum acceptance score should be lower than the maximum value",
+        },
+        rule: "Rule",
+        rules: {
+          acceptanceSeverityRange: "CSSV score range between which a finding can be accepted",
+          maxAcceptanceDays: "Maximum number of days a finding can be temporally accepted",
+          maxNumberAcceptations: "Maximum number of times a finding can be temporally accepted",
+        },
+        save: "Save",
+        text: "Settings",
+        tooltip: "Define common rules across all the groups of the organization",
+        value: "Value",
+      },
+    },
   },
   registration: {
     concurrent_session_message: "You already have an active session. If you proceed, that session will " +
