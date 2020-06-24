@@ -14,37 +14,55 @@ from django.core.files.base import ContentFile
 from magic import Magic
 
 from backend.domain import (
-    comment as comment_domain, user as user_domain, vulnerability as vuln_domain
+    comment as comment_domain,
+    user as user_domain,
+    vulnerability as vuln_domain
 )
 
 from backend import authz, mailer, util
 from backend.exceptions import (
-    AlreadyApproved, AlreadySubmitted, EvidenceNotFound,
-    FindingNotFound, IncompleteDraft, InvalidCommentParent, InvalidDraftTitle,
-    InvalidFileSize, InvalidFileStructure, InvalidFileType, NotSubmitted,
+    AlreadyApproved,
+    AlreadySubmitted,
+    EvidenceNotFound,
+    FindingNotFound,
+    IncompleteDraft,
+    InvalidCommentParent,
+    InvalidDraftTitle,
+    InvalidFileSize,
+    InvalidFileStructure,
+    InvalidFileType,
+    NotSubmitted,
 )
 from backend.utils import (
-    cvss, validations, findings as finding_utils,
+    cvss,
+    validations,
+    findings as finding_utils,
     vulnerabilities as vuln_utils
 )
 
 from backend.dal import (
-    comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
+    comment as comment_dal,
+    finding as finding_dal,
+    vulnerability as vuln_dal
 )
 from backend.typing import (
-    Comment as CommentType, Finding as FindingType, User as UserType
+    Comment as CommentType,
+    Finding as FindingType,
+    User as UserType
 )
 
 
-def remove_repeated(
-        vulnerabilities: List[Dict[str, FindingType]]) -> List[Dict[str, Dict[str, str]]]:
+def remove_repeated(vulnerabilities: List[Dict[str, FindingType]]) -> \
+        List[Dict[str, Dict[str, str]]]:
     """Remove vulnerabilities that changes in the same day."""
     vuln_casted = []
     for vuln in vulnerabilities:
         for state in cast(List[Dict[str, str]], vuln['historic_state']):
             vuln_without_repeated = {}
             format_date = str(state.get('date', '')).split(' ')[0]
-            vuln_without_repeated[format_date] = {str(vuln['UUID']): str(state.get('state', ''))}
+            vuln_without_repeated[format_date] = {
+                str(vuln['UUID']): str(state.get('state', ''))
+            }
             if state.get('approval_status') != 'PENDING':
                 vuln_casted.append(vuln_without_repeated)
             else:
@@ -53,7 +71,8 @@ def remove_repeated(
     return vuln_casted
 
 
-def get_unique_dict(list_dict: List[Dict[str, Dict[str, str]]]) -> Dict[str, Dict[str, str]]:
+def get_unique_dict(list_dict: List[Dict[str, Dict[str, str]]]) -> \
+        Dict[str, Dict[str, str]]:
     """Get unique dict."""
     unique_dict: Dict[str, Dict[str, str]] = {}
     for entry in list_dict:
@@ -65,7 +84,8 @@ def get_unique_dict(list_dict: List[Dict[str, Dict[str, str]]]) -> Dict[str, Dic
     return unique_dict
 
 
-def get_tracking_dict(unique_dict: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str]]:
+def get_tracking_dict(unique_dict: Dict[str, Dict[str, str]]) -> \
+        Dict[str, Dict[str, str]]:
     """Get tracking dictionary."""
     sorted_dates = sorted(unique_dict.keys())
     tracking_dict = {}
@@ -80,13 +100,16 @@ def get_tracking_dict(unique_dict: Dict[str, Dict[str, str]]) -> Dict[str, Dict[
     return tracking_dict
 
 
-def group_by_state(tracking_dict: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, int]]:
+def group_by_state(tracking_dict: Dict[str, Dict[str, str]]) -> \
+        Dict[str, Dict[str, int]]:
     """Group vulnerabilities by state."""
     tracking: Dict[str, Dict[str, int]] = {}
     for tracking_date, status in list(tracking_dict.items()):
         for vuln_state in list(status.values()):
-            status_dict = \
-                tracking.setdefault(tracking_date, {'open': 0, 'closed': 0})
+            status_dict = tracking.setdefault(
+                tracking_date,
+                {'open': 0, 'closed': 0}
+            )
             status_dict[vuln_state] += 1
     return tracking
 
@@ -96,9 +119,11 @@ def cast_tracking(tracking) -> List[Dict[str, int]]:
     cycle = 0
     tracking_casted = []
     for date, value in tracking:
-        effectiveness = \
-            int(round((int(value['closed']) / float((value['open'] +
-                       value['closed']))) * 100))
+        effectiveness = int(
+            round(
+                int(value['closed']) / float(value['open'] + value['closed'])
+            ) * 100
+        )
         closing_cicle = {
             'cycle': cycle,
             'open': value['open'],
@@ -115,10 +140,12 @@ def add_comment(user_email: str, comment_data: CommentType,
                 finding_id: str, is_remediation_comment: bool) -> bool:
     parent = str(comment_data.get('parent'))
     if parent != '0':
-        finding_comments = \
-            [str(comment.get('user_id')) for comment in
-             comment_dal.get_comments(
-                 str(comment_data.get('comment_type')), int(finding_id))]
+        finding_comments = [
+            str(comment.get('user_id'))
+            for comment in comment_dal.get_comments(
+                str(comment_data.get('comment_type')),
+                int(finding_id))
+        ]
         if parent not in finding_comments:
             raise InvalidCommentParent()
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -127,8 +154,12 @@ def add_comment(user_email: str, comment_data: CommentType,
 
     if not is_remediation_comment:
         mailer.send_comment_mail(
-            comment_data, 'finding', user_email, str(comment_data.get('comment_type')),
-            get_finding(finding_id))
+            comment_data,
+            'finding',
+            user_email,
+            str(comment_data.get('comment_type')),
+            get_finding(finding_id)
+        )
     user_data = user_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
     return comment_domain.create(finding_id, comment_data, user_data)[1]
@@ -153,18 +184,25 @@ async def get_tracking_vulnerabilities(
         )
         for vuln in vulnerabilities
     ])
-    vulns_filtered = [vuln for vuln in vulnerabilities
-                      if cast(List[Dict[str, str]],
-                              vuln['historic_state'])[-1].get('approval_status')
-                      != 'PENDING' or last_approved_status.pop(0)]
+    vulns_filtered = [
+        vuln for vuln in vulnerabilities
+        if cast(
+            List[Dict[str, str]],
+            vuln['historic_state']
+        )[-1].get('approval_status') != 'PENDING' or
+        last_approved_status.pop(0)
+    ]
     filter_deleted_status = await asyncio.gather(*[
         sync_to_async(vuln_domain.filter_deleted_status)(
             vuln
         )
         for vuln in vulns_filtered
     ])
-    vulns_filtered = [vuln for vuln in vulns_filtered
-                      if filter_deleted_status.pop(0)]
+    vulns_filtered = [
+        vuln
+        for vuln in vulns_filtered
+        if filter_deleted_status.pop(0)
+    ]
     vuln_casted = remove_repeated(vulns_filtered)
     unique_dict = get_unique_dict(vuln_casted)
     tracking = get_tracking_dict(unique_dict)
@@ -174,7 +212,11 @@ async def get_tracking_vulnerabilities(
     return tracking_casted
 
 
-def handle_acceptation(finding_id: str, observations: str, user_mail: str, response: str) -> bool:
+def handle_acceptation(
+        finding_id: str,
+        observations: str,
+        user_mail: str,
+        response: str) -> bool:
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     new_state = {
@@ -185,34 +227,53 @@ def handle_acceptation(finding_id: str, observations: str, user_mail: str, respo
         'date': today
     }
     historic_treatment = cast(
-        List[Dict[str, str]], get_finding(finding_id).get('historicTreatment'))
+        List[Dict[str, str]],
+        get_finding(finding_id).get('historicTreatment')
+    )
     historic_treatment.append(new_state)
     if response == 'REJECTED':
         historic_treatment.append({'treatment': 'NEW', 'date': today})
-    return finding_dal.update(finding_id, {'historic_treatment': historic_treatment})
+    return finding_dal.update(
+        finding_id,
+        {'historic_treatment': historic_treatment}
+    )
 
 
-def update_description(finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
-    validations.validate_fields(list(cast(Dict[str, str], updated_values.values())))
+def update_description(
+        finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
+    validations.validate_fields(
+        list(cast(Dict[str, str], updated_values.values()))
+    )
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
     updated_values['effect_solution'] = updated_values.get('recommendation')
-    updated_values['records_number'] = str(updated_values.get('records_number'))
+    updated_values['records_number'] = str(
+        updated_values.get('records_number')
+    )
     updated_values['id'] = finding_id
     del updated_values['title']
     del updated_values['description']
     del updated_values['recommendation']
-    updated_values = {key: None if not value else value for key, value in updated_values.items()}
-    updated_values = {util.camelcase_to_snakecase(k): updated_values.get(k)
-                      for k in updated_values}
+    updated_values = {
+        key: None
+        if not value
+        else value
+        for key, value in updated_values.items()
+    }
+    updated_values = {
+        util.camelcase_to_snakecase(k): updated_values.get(k)
+        for k in updated_values
+    }
 
-    if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', str(updated_values.get('finding', ''))):
+    if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+',
+                 str(updated_values.get('finding', ''))):
         return finding_dal.update(finding_id, updated_values)
 
     raise InvalidDraftTitle()
 
 
-async def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, str]) -> bool:
+async def update_treatment_in_vuln(
+        finding_id: str, updated_values: Dict[str, str]) -> bool:
     new_values = cast(Dict[str, FindingType], {
         'treatment': updated_values.get('treatment', ''),
         'treatment_justification': updated_values.get('justification'),
@@ -222,26 +283,34 @@ async def update_treatment_in_vuln(finding_id: str, updated_values: Dict[str, st
         new_values['treatment_manager'] = None
     vulns = await sync_to_async(get_vulnerabilities)(finding_id)
     for vuln in vulns:
-        if not any('treatment_manager' in dicts for dicts in [new_values, vuln]):
+        if not any('treatment_manager' in dicts
+                   for dicts in [new_values, vuln]):
             finding = await sync_to_async(finding_dal.get_finding)(finding_id)
             group: str = cast(str, finding.get('project_name', ''))
             email: str = updated_values.get('user', '')
             treatment: str = cast(str, new_values.get('treatment', ''))
-            group_level_role: str = await sync_to_async(authz.get_group_level_role)(email, group)
+            group_level_role: str = await sync_to_async(
+                authz.get_group_level_role
+            )(email, group)
 
-            new_values['treatment_manager'] = \
-                await sync_to_async(vuln_domain.set_treatment_manager)(
-                    treatment,
-                    email,
-                    finding,
-                    group_level_role == 'customeradmin',
-                    email)
+            new_values['treatment_manager'] = await sync_to_async(
+                vuln_domain.set_treatment_manager
+            )(
+                treatment,
+                email,
+                finding,
+                group_level_role == 'customeradmin',
+                email
+            )
             break
 
     update_treatment_result = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(vuln_dal.update)(
-                finding_id, str(vuln.get('UUID', '')), new_values.copy())
+                finding_id,
+                str(vuln.get('UUID', '')),
+                new_values.copy()
+            )
         )
         for vuln in vulns
     ])
@@ -258,23 +327,36 @@ def update_client_description(finding_id: str, updated_values: Dict[str, str],
         validations.validate_field_length(updated_values['bts_url'], 80)
         success_external_bts = finding_dal.update(
             finding_id,
-            {'external_bts': updated_values['bts_url'] if updated_values['bts_url'] else None}
+            {
+                'external_bts': updated_values['bts_url']
+                if updated_values['bts_url'] else None
+            }
         )
     if update.treatment_changed:
-        success_treatment = update_treatment(finding_id, updated_values, user_mail)
+        success_treatment = update_treatment(
+            finding_id, updated_values, user_mail
+        )
     return success_treatment and success_external_bts
 
 
 def update_treatment(
-        finding_id: str, updated_values: Dict[str, str], user_mail: str) -> bool:
+        finding_id: str,
+        updated_values: Dict[str, str],
+        user_mail: str) -> bool:
     success = False
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     finding = get_finding(finding_id)
-    historic_treatment = cast(List[Dict[str, str]], finding.get('historicTreatment', []))
-    if updated_values['treatment'] == 'ACCEPTED' and updated_values['acceptance_date'] == '-':
-        updated_values['acceptance_date'] = \
-            (datetime.now() + timedelta(days=180)).strftime('%Y-%m-%d %H:%M:%S')
+    historic_treatment = cast(
+        List[Dict[str, str]],
+        finding.get('historicTreatment', [])
+    )
+    if (updated_values['treatment'] == 'ACCEPTED' and
+            updated_values['acceptance_date'] == '-'):
+        updated_values['acceptance_date'] = (
+            (datetime.now() + timedelta(days=180))
+            .strftime('%Y-%m-%d %H:%M:%S')
+        )
     updated_values = util.update_treatment_values(updated_values)
     new_treatment = updated_values['treatment']
     new_state = {
@@ -290,7 +372,8 @@ def update_treatment(
         if new_treatment == 'ACCEPTED':
             new_state['acceptance_date'] = updated_values['acceptance_date']
         if new_treatment == 'ACCEPTED_UNDEFINED':
-            new_state['acceptance_status'] = updated_values['acceptance_status']
+            new_state['acceptance_status'] = \
+                updated_values['acceptance_status']
     if historic_treatment:
         if compare_historic_treatments(historic_treatment[-1], new_state):
             historic_treatment.append(new_state)
