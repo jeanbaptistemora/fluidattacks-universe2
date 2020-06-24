@@ -1,69 +1,57 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:all",
-        "tslint-react"
-    ],
-    "linterOptions": {
-        "exclude": [
-            "node_modules",
-            "*.ts"
-        ]
+  "defaultSeverity": "error",
+  "extends": ["tslint:all", "tslint-react"],
+  "linterOptions": {
+    "exclude": ["node_modules", "*.ts", "src/store", "src/app.tsx"]
+  },
+  "rules": {
+    "ban-ts-ignore": false,
+    "completed-docs": {
+      "options": ["classes", "functions"]
     },
-    "rules": {
-        "ban-ts-ignore": false,
-        "completed-docs": {
-            "options": [
-                "classes",
-                "functions"
-            ]
-        },
-        "increment-decrement": {
-            "options": "allow-post"
-        },
-        "invalid-void": false,
-        "match-default-export-name": false,
-        "no-async-without-await": false,
-        "no-default-import": false,
-        "no-floating-promises":false,
-        // Disabling this rule is necessary to avoid a conflict with another one that checks for all variables to be typed.
-        // View: https://github.com/palantir/tslint/issues/711
-        "no-inferrable-types": false,
-        "no-implicit-dependencies": {
-            "options": "dev"
-        },
-        "no-magic-numbers": false,
-        "no-null-undefined-union": false,
-        "no-tautology-expression": false,
-        "no-unsafe-any": false,
-        "ordered-imports": {
-            "options": [
-                {
-                    "grouped-imports": false,
-                    "import-sources-order": "case-insensitive",
-                    "named-imports-order": "case-insensitive",
-                    "module-source-path": "full"
-                }
-            ]
-        },
-        "strict-comparisons": false,
-        "strict-string-expressions": false,
-        "typedef": {
-            "options": [
-                "call-signature",
-                "parameter",
-                "arrow-parameter",
-                "property-declaration",
-                "variable-declaration",
-                "member-variable-declaration"
-            ]
-        },
-        "unnecessary-else": false,
-        "variable-name": {
-            "options": [
-                "ban-keywords",
-                "check-format"
-            ]
+    "increment-decrement": {
+      "options": "allow-post"
+    },
+    "invalid-void": false,
+    "match-default-export-name": false,
+    "no-async-without-await": false,
+    "no-default-import": false,
+    "no-floating-promises": false,
+    // Disabling this rule is necessary to avoid a conflict with another one that checks for all variables to be typed.
+    // View: https://github.com/palantir/tslint/issues/711
+    "no-inferrable-types": false,
+    "no-implicit-dependencies": {
+      "options": "dev"
+    },
+    "no-magic-numbers": false,
+    "no-null-undefined-union": false,
+    "no-tautology-expression": false,
+    "no-unsafe-any": false,
+    "ordered-imports": {
+      "options": [
+        {
+          "grouped-imports": false,
+          "import-sources-order": "case-insensitive",
+          "named-imports-order": "case-insensitive",
+          "module-source-path": "full"
         }
+      ]
+    },
+    "strict-comparisons": false,
+    "strict-string-expressions": false,
+    "typedef": {
+      "options": [
+        "call-signature",
+        "parameter",
+        "arrow-parameter",
+        "property-declaration",
+        "variable-declaration",
+        "member-variable-declaration"
+      ]
+    },
+    "unnecessary-else": false,
+    "variable-name": {
+      "options": ["ban-keywords", "check-format"]
     }
+  }
 }

@@ -1,7 +1,3 @@
-/* eslint-disable fp/no-nil, fp/no-unused-expression
-  --------
-  In order to use process, console and WebpackDevServer methods, we need to disable the above rules.
-*/
 import open from "open";
 import webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
@@ -10,14 +6,18 @@ import devConfig from "./webpack.dev.config";
 const HOST: string = "localhost";
 const PORT: number = 3000;
 
-process.on("unhandledRejection", (reason: Error | null | undefined, promise: Readonly<Promise<unknown>>): void => {
-  console.error("Unhandled Rejection at:", promise, "reason:", reason);
-});
+process.on(
+  "unhandledRejection",
+  (reason: Error | unknown, promise: Readonly<Promise<unknown>>): void => {
+    console.error("Unhandled Rejection at:", promise, "reason:", reason);
+  }
+);
 
 const compiler: webpack.Compiler = webpack(devConfig);
 const serverConfig: WebpackDevServer.Configuration = {
   compress: true,
-  // Access-Control-Allow-Origin response header tell the browser that the content on this page is accessible from all origins
+  // Access-Control-Allow-Origin response header tell the browser that the
+  // content on this page is accessible from all origins.
   // eslint-disable-next-line @typescript-eslint/naming-convention
   headers: { "Access-Control-Allow-Origin": "*" },
   historyApiFallback: true,
@@ -29,7 +29,10 @@ const serverConfig: WebpackDevServer.Configuration = {
   stats: devConfig.stats,
 };
 
-const devServer: WebpackDevServer = new WebpackDevServer(compiler, serverConfig);
+const devServer: WebpackDevServer = new WebpackDevServer(
+  compiler,
+  serverConfig
+);
 devServer.listen(PORT, HOST, (err?: Error): void => {
   if (err !== undefined) {
     console.log(err);
@@ -41,9 +44,11 @@ devServer.listen(PORT, HOST, (err?: Error): void => {
   });
 });
 
-(["SIGINT", "SIGTERM"] as NodeJS.Signals[]).forEach((sig: NodeJS.Signals): void => {
-  process.on(sig, (): void => {
-    devServer.close();
-    process.exit();
-  });
-});
+(["SIGINT", "SIGTERM"] as NodeJS.Signals[]).forEach(
+  (sig: NodeJS.Signals): void => {
+    process.on(sig, (): void => {
+      devServer.close();
+      process.exit();
+    });
+  }
+);

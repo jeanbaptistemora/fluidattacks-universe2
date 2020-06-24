@@ -6,54 +6,52 @@ import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
- * Disabling this two rules is necessary for
- * allowing the import of default styles that ReactToastify needs
- * to display properly even if some of them are overridden later
- */
 import "react-toastify/dist/ReactToastify.min.css";
 import { Preloader } from "./components/Preloader";
 import { Dashboard } from "./scenes/Dashboard";
 import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
 import { client, networkStatusNotifier } from "./utils/apollo";
-import { authzPermissionsContext, userLevelPermissions } from "./utils/authz/config";
+import {
+  authzPermissionsContext,
+  userLevelPermissions,
+} from "./utils/authz/config";
 
-const globalPreloader: React.FC = (): JSX.Element => {
+const app: React.FC = (): JSX.Element => {
   const status: NetworkStatus = networkStatusNotifier.useApolloNetworkStatus();
-  const isLoading: boolean = status.numPendingQueries > 0 || status.numPendingMutations > 0;
+  const isLoading: boolean =
+    status.numPendingQueries > 0 || status.numPendingMutations > 0;
 
   return (
     <React.StrictMode>
-      {isLoading ? <Preloader /> : undefined}
-    </React.StrictMode>
-  );
-};
-
-const app: React.FC = (): JSX.Element => (
-  <React.StrictMode>
-    <BrowserRouter basename="/integrates">
-      <React.Fragment>
+      <BrowserRouter basename="/integrates">
         <ApolloProvider client={client}>
           <ReduxProvider store={store}>
             <authzPermissionsContext.Provider value={userLevelPermissions}>
               <Switch>
-                <Route path="/registration" component={Registration} />
-                <Route path="/" component={Dashboard} />
+                <Route component={Registration} path="/registration" />
+                <Route component={Dashboard} path="/" />
               </Switch>
-              {React.createElement(globalPreloader)}
+              {isLoading ? <Preloader /> : undefined}
             </authzPermissionsContext.Provider>
           </ReduxProvider>
         </ApolloProvider>
-      </React.Fragment>
-    </BrowserRouter>
-    <ToastContainer position="top-right" autoClose={5000} hideProgressBar={true} closeOnClick={false} />
-  </React.StrictMode>
-);
+      </BrowserRouter>
+      <ToastContainer
+        autoClose={5000}
+        closeOnClick={false}
+        hideProgressBar={true}
+        position="top-right"
+      />
+    </React.StrictMode>
+  );
+};
 
-type HMRModule = NodeModule & { hot?: { accept(): void } };
-
-const extendedModule: HMRModule = (module as HMRModule);
+const extendedModule: NodeModule & {
+  hot?: { accept: () => void };
+} = module as NodeModule & {
+  hot?: { accept: () => void };
+};
 if (extendedModule.hot !== undefined) {
   extendedModule.hot.accept();
 }

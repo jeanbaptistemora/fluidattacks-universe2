@@ -1,3 +1,9 @@
 # List of ignored files/dirs by the new linter
 
-src/
+graphics/
+resources/
+scenes/
+styles/
+typings/
+utils/
+components/

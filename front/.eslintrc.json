@@ -39,6 +39,12 @@
       }
     ],
     "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/no-magic-numbers": [
+      "error",
+      {
+        "ignore": [0]
+      }
+    ],
     "@typescript-eslint/typedef": [
       "error",
       {
@@ -51,6 +57,13 @@
         "commonjs": true
       }
     ],
+    /* Since we need side effects to make our program meaningful, for instace:
+     * callbacks, DOM mutations, Node processes, etc. We need to disable the
+     * next TWO rules, the result is: from now on it should be inferred that
+     * any method call without an assignment, produce some kind of side effect.
+     */
+    "fp/no-unused-expression": "off",
+    "fp/no-nil": "off",
     "react/jsx-filename-extension": [
       "error",
       {

@@ -1,4 +1,4 @@
-/* eslint-disable fp/no-mutating-methods, fp/no-unused-expression
+/* eslint-disable fp/no-mutating-methods
   --------
   Since most Jest mocks override/mutate properties, we need to disable the above rules.
 */
