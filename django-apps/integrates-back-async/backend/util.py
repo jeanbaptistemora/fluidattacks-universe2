@@ -189,21 +189,25 @@ def get_jwt_content(context) -> Dict[str, str]:
         else:
             content = jwt.decode(
                 token=token, key=settings.JWT_SECRET, algorithms='HS512')  # type: ignore
-        jti = content.get('jti')
-        if content.get('sub') == 'django_session' and not token_exists(f'fi_jwt:{jti}'):
-            raise ExpiredToken()
+            jti = content.get('jti')
+            if content.get('sub') == 'django_session' and not token_exists(f'fi_jwt:{jti}'):
+                rollbar.report_message(
+                    'Error: Expired token', 'error', context)
+                raise ExpiredToken()
 
         return content
     except AttributeError:
+        rollbar.report_message(
+            'Error: Attribute error', 'error', context)
         raise InvalidAuthorization()
     except IndexError:
         rollbar.report_message(
             'Error: Malformed auth header', 'error', context)
         raise InvalidAuthorization()
-    except ExpiredToken:
-        raise InvalidAuthorization()
     except JWTError:
         LOGGER.info('Security: Invalid token signature')
+        rollbar.report_message(
+            'Error: Invalid token signature', 'error', context)
         raise InvalidAuthorization()
 
 

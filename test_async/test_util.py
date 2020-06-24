@@ -16,7 +16,7 @@ from __init__ import (
 )
 import json
 
-from backend.exceptions import InvalidAuthorization
+from backend.exceptions import ExpiredToken
 from backend.util import (
     response, ord_asc_by_criticality,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
@@ -134,6 +134,35 @@ class UtilTests(TestCase):
         }
         assert test_data == expected_output
 
+    def test_valid_api_token(self):
+        request = create_dummy_simple_session()
+        payload = {
+            'user_email': 'unittest',
+            'company': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'iat': datetime.utcnow().timestamp(),
+            'sub': 'api_token',
+            'jti': calculate_hash_token()['jti'],
+        }
+        token = jwt.encode(
+            payload,
+            algorithm='HS512',
+            key=settings.JWT_SECRET_API,
+        )
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+        test_data = get_jwt_content(request)
+        expected_output = {
+            u'company': u'unittest',
+            u'user_email': u'unittest',
+            u'exp': payload['exp'],
+            u'iat': payload['iat'],
+            u'sub': u'api_token',
+            u'jti': payload['jti'],
+        }
+        assert test_data == expected_output
+
     def test_expired_token(self):
         request = create_dummy_simple_session()
         payload = {
@@ -152,7 +181,7 @@ class UtilTests(TestCase):
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
         save_token(f'fi_jwt:{payload["jti"]}', token, 5)
         time.sleep(6)
-        with pytest.raises(InvalidAuthorization):
+        with pytest.raises(ExpiredToken):
             assert get_jwt_content(request)
 
     def test_revoked_token(self):
@@ -174,7 +203,7 @@ class UtilTests(TestCase):
         redis_token_name = f'fi_jwt:{payload["jti"]}'
         save_token(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
         remove_token(redis_token_name)
-        with pytest.raises(InvalidAuthorization):
+        with pytest.raises(ExpiredToken):
             assert get_jwt_content(request)
 
     def test_iterate_s3_keys(self):
