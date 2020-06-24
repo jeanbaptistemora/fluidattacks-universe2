@@ -29,37 +29,50 @@ redirected to trusted sites.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/601.html[CWE-601: URL Redirection to Untrusted Site ('Open Redirect')]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/601.html[CWE-601: URL Redirection to Untrusted Site ('Open Redirect')].
 A web application accepts a user-controlled input that specifies a link to an
 external site,
 and uses that link in a Redirect.
 This simplifies *phishing* attacks.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security]
+. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security].
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/1022.html[CWE-1022: Use of Web Link to Untrusted Target with window.opener Access]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/918.html[CWE-918: Server-Side Request Forgery (SSRF)].
+The web server receives a URL or similar request from an upstream component
+and retrieves the contents of this URL,
+but it does not sufficiently ensure that the request is being sent to the
+expected destination.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/1022.html[CWE-1022: Use of Web Link to Untrusted Target with window.opener Access].
 The software does not restrict or incorrectly restricts access to a resource
 from an unauthorized actor.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.1)]
 Verify that trusted enforcement points such as at access control gateways,
 servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.1)]
 Verify that the application enforces access control rules on a trusted service
 layer,
 especially if client-side access control is present and could be bypassed.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.5)]
 Verify that URL redirects and forwards only allow whitelisted destinations,
 or show a warning when redirecting to potentially untrusted content.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.2 Sanitization and Sandboxing Requirements.(5.2.6)]
+Verify that the application protects against *SSRF* attacks,
+by validating or sanitizing untrusted data or *HTTP* file metadata,
+such as filenames and URL input fields,
+or using whitelisting of protocols, domains, paths and ports.

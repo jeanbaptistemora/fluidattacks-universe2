@@ -1,6 +1,6 @@
 :slug: rules/343/
 :category: privacy
-:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of notifying third parties whenever data rectification or erasure occurs.
+:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of respecting the users' tracking preference indicated in the Do Not Track (DNT) header.
 :keywords: Track, Preference, Header, Data, Privacy, GDPR
 :rules: yes
 
