@@ -1232,6 +1232,8 @@ image::success.gif[Success]
 
 Wonderful! It was easy, isn't it? No, it was not, but we learned a lot!
 
+You can download the final exploit link:exploit.py[here]
+
 == Conclusion
 
 Dealing with bad chars when exploiting is very common. Commonly, encoders
