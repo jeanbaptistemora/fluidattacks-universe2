@@ -1,4 +1,4 @@
-import asyncio
+import asyncio  # pylint:disable=too-many-lines
 import io
 import re
 import random
@@ -391,25 +391,42 @@ def update_treatment(
     return success
 
 
-def compare_historic_treatments(last_state: Dict[str, str], new_state: Dict[str, str]) -> bool:
+def compare_historic_treatments(
+        last_state: Dict[str, str],
+        new_state: Dict[str, str]) -> bool:
     excluded_attrs = ['date', 'acceptance_date', 'acceptance_status']
-    last_values = [value for key, value in last_state.items() if key not in excluded_attrs]
-    new_values = [value for key, value in new_state.items() if key not in excluded_attrs]
-    date_change = 'acceptance_date' in new_state and \
-        'acceptance_date' in last_state and \
-        last_state['acceptance_date'].split(' ')[0] != \
+    last_values = [
+        value
+        for key, value in last_state.items()
+        if key not in excluded_attrs
+    ]
+    new_values = [
+        value
+        for key, value in new_state.items()
+        if key not in excluded_attrs
+    ]
+    date_change = (
+        'acceptance_date' in new_state and
+        'acceptance_date' in last_state and
+        last_state['acceptance_date'].split(' ')[0] !=
         new_state['acceptance_date'].split(' ')[0]
+    )
     return sorted(last_values) != sorted(new_values) or date_change
 
 
-def should_send_mail(finding: Dict[str, FindingType], updated_values: Dict[str, str]):
+def should_send_mail(
+        finding: Dict[str, FindingType],
+        updated_values: Dict[str, str]):
     if updated_values['treatment'] == 'ACCEPTED':
         finding_utils.send_accepted_email(
-            finding, str(updated_values.get('justification', '')))
+            finding, str(updated_values.get('justification', ''))
+        )
     if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-        finding_utils.send_accepted_email(finding,
-                                          'Treatment state approval is pending for finding '
-                                          + str(finding.get('finding', '')))
+        finding_utils.send_accepted_email(
+            finding,
+            ('Treatment state approval is pending '
+             f'''for finding {finding.get('finding', '')}''')
+        )
 
 
 def save_severity(finding: Dict[str, FindingType]) -> bool:
@@ -417,50 +434,72 @@ def save_severity(finding: Dict[str, FindingType]) -> bool:
     cvss_version: str = str(finding.get('cvssVersion', ''))
     cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
     if cvss_version == '3.1':
-        severity_fields = ['attackVector', 'attackComplexity',
-                           'privilegesRequired', 'userInteraction',
-                           'severityScope', 'confidentialityImpact',
-                           'integrityImpact', 'availabilityImpact',
-                           'exploitability', 'remediationLevel',
-                           'reportConfidence', 'confidentialityRequirement',
-                           'integrityRequirement', 'availabilityRequirement',
-                           'modifiedAttackVector', 'modifiedAttackComplexity',
-                           'modifiedPrivilegesRequired', 'modifiedUserInteraction',
-                           'modifiedSeverityScope', 'modifiedConfidentialityImpact',
-                           'modifiedIntegrityImpact', 'modifiedAvailabilityImpact']
-        severity: Dict[str, FindingType] = \
-            {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
-             for k in severity_fields}
-        unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
+        severity_fields = [
+            'attackVector', 'attackComplexity',
+            'privilegesRequired', 'userInteraction',
+            'severityScope', 'confidentialityImpact',
+            'integrityImpact', 'availabilityImpact',
+            'exploitability', 'remediationLevel',
+            'reportConfidence', 'confidentialityRequirement',
+            'integrityRequirement', 'availabilityRequirement',
+            'modifiedAttackVector', 'modifiedAttackComplexity',
+            'modifiedPrivilegesRequired', 'modifiedUserInteraction',
+            'modifiedSeverityScope', 'modifiedConfidentialityImpact',
+            'modifiedIntegrityImpact', 'modifiedAvailabilityImpact'
+        ]
+        severity: Dict[str, FindingType] = {
+            util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+            for k in severity_fields
+        }
+        unformatted_severity = {
+            k: float(str(finding.get(k)))
+            for k in severity_fields
+        }
         privileges = cvss.calculate_privileges(
             unformatted_severity['privilegesRequired'],
-            unformatted_severity['severityScope'])
+            unformatted_severity['severityScope']
+        )
         unformatted_severity['privilegesRequired'] = privileges
-        severity['privileges_required'] = \
-            Decimal(privileges).quantize(Decimal('0.01'))
+        severity['privileges_required'] = Decimal(
+            privileges
+        ).quantize(Decimal('0.01'))
         modified_priviles = cvss.calculate_privileges(
             unformatted_severity['modifiedPrivilegesRequired'],
-            unformatted_severity['modifiedSeverityScope'])
+            unformatted_severity['modifiedSeverityScope']
+        )
         unformatted_severity['modifiedPrivilegesRequired'] = modified_priviles
-        severity['modified_privileges_required'] = \
-            Decimal(modified_priviles).quantize(Decimal('0.01'))
+        severity['modified_privileges_required'] = Decimal(
+            modified_priviles
+        ).quantize(Decimal('0.01'))
     else:
-        severity_fields = ['accessVector', 'accessComplexity',
-                           'authentication', 'exploitability',
-                           'confidentialityImpact', 'integrityImpact',
-                           'availabilityImpact', 'resolutionLevel',
-                           'confidenceLevel', 'collateralDamagePotential',
-                           'findingDistribution', 'confidentialityRequirement',
-                           'integrityRequirement', 'availabilityRequirement']
-        severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
-                    for k in severity_fields}
-        unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
+        severity_fields = [
+            'accessVector', 'accessComplexity',
+            'authentication', 'exploitability',
+            'confidentialityImpact', 'integrityImpact',
+            'availabilityImpact', 'resolutionLevel',
+            'confidenceLevel', 'collateralDamagePotential',
+            'findingDistribution', 'confidentialityRequirement',
+            'integrityRequirement', 'availabilityRequirement'
+        ]
+        severity = {
+            util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+            for k in severity_fields
+        }
+        unformatted_severity = {
+            k: float(str(finding.get(k)))
+            for k in severity_fields
+        }
     severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
-        unformatted_severity, cvss_parameters, cvss_version)
+        unformatted_severity, cvss_parameters, cvss_version
+    )
     severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
-        unformatted_severity, float(cast(Decimal, severity['cvss_basescore'])), cvss_version)
+        unformatted_severity,
+        float(cast(Decimal, severity['cvss_basescore'])),
+        cvss_version
+    )
     severity['cvss_env'] = cvss.calculate_cvss_environment(
-        unformatted_severity, cvss_parameters, cvss_version)
+        unformatted_severity, cvss_parameters, cvss_version
+    )
     severity['cvss_version'] = cvss_version
     response = finding_dal.update(str(finding.get('id', '')), severity)
     return response
@@ -468,7 +507,10 @@ def save_severity(finding: Dict[str, FindingType]) -> bool:
 
 def reject_draft(draft_id: str, reviewer_email: str) -> bool:
     draft_data = get_finding(draft_id)
-    history = cast(List[Dict[str, str]], draft_data.get('historicState', [{}]))
+    history = cast(
+        List[Dict[str, str]],
+        draft_data.get('historicState', [{}])
+    )
     status = history[-1].get('state')
     success = False
 
@@ -489,9 +531,12 @@ def reject_draft(draft_id: str, reviewer_email: str) -> bool:
             })
             if success:
                 finding_utils.send_draft_reject_mail(
-                    draft_id, str(draft_data.get('projectName', '')),
-                    str(draft_data.get('analyst', '')), str(draft_data.get('finding', '')),
-                    reviewer_email)
+                    draft_id,
+                    str(draft_data.get('projectName', '')),
+                    str(draft_data.get('analyst', '')),
+                    str(draft_data.get('finding', '')),
+                    reviewer_email
+                )
         else:
             raise NotSubmitted()
     else:
@@ -500,9 +545,16 @@ def reject_draft(draft_id: str, reviewer_email: str) -> bool:
     return success
 
 
-def delete_finding(finding_id: str, project_name: str, justification: str, context) -> bool:
+def delete_finding(
+        finding_id: str,
+        project_name: str,
+        justification: str,
+        context) -> bool:
     finding_data = get_finding(finding_id)
-    submission_history = cast(List[Dict[str, str]], finding_data.get('historicState', [{}]))
+    submission_history = cast(
+        List[Dict[str, str]],
+        finding_data.get('historicState', [{}])
+    )
     success = False
 
     if submission_history[-1].get('state') != 'DELETED':
@@ -526,27 +578,37 @@ def delete_finding(finding_id: str, project_name: str, justification: str, conte
                 'NOT_REQUIRED': 'Finding not required',
             }
             finding_utils.send_finding_delete_mail(
-                finding_id, str(finding_data.get('finding', '')), project_name,
-                str(finding_data.get('analyst', '')), justification_dict[justification])
+                finding_id,
+                str(finding_data.get('finding', '')),
+                project_name,
+                str(finding_data.get('analyst', '')),
+                justification_dict[justification]
+            )
 
     return success
 
 
 def approve_draft(draft_id: str, reviewer_email: str) -> Tuple[bool, datetime]:
     draft_data = get_finding(draft_id)
-    submission_history = cast(List[Dict[str, str]], draft_data.get('historicState'))
+    submission_history = cast(
+        List[Dict[str, str]],
+        draft_data.get('historicState')
+    )
     release_date: Union[str, Optional[datetime]] = None
     success = False
 
-    if 'releaseDate' not in draft_data and \
-       submission_history[-1].get('state') != 'DELETED':
+    if ('releaseDate' not in draft_data and
+            submission_history[-1].get('state') != 'DELETED'):
         has_vulns = vuln_domain.list_vulnerabilities([draft_id])
         if has_vulns:
             if 'reportDate' in draft_data:
                 tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
                 today = datetime.now(tz=tzn).today()
                 release_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
-                history = cast(List[Dict[str, str]], draft_data.get('historicState', [{}]))
+                history = cast(
+                    List[Dict[str, str]],
+                    draft_data.get('historicState', [{}])
+                )
                 history.append({
                     'date': release_date,
                     'analyst': reviewer_email,
@@ -580,12 +642,20 @@ def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
 
 
 def get_project(finding_id: str) -> str:
-    return str(finding_dal.get_attributes(finding_id, ['project_name']).get('project_name', ''))
+    return str(
+        finding_dal.get_attributes(
+            finding_id,
+            ['project_name']
+        ).get('project_name', '')
+    )
 
 
 def get_finding_historic_treatment(finding_id: str) -> List[Dict[str, str]]:
     finding = finding_dal.get_attributes(finding_id, ['historic_treatment'])
-    return cast(List[Dict[str, str]], finding.get('historic_treatment'))
+    return cast(
+        List[Dict[str, str]],
+        finding.get('historic_treatment')
+    )
 
 
 def get_findings(finding_ids: List[str]) -> List[Dict[str, FindingType]]:
@@ -609,19 +679,33 @@ async def get_findings_async(
 
 def append_records_to_file(records: List[Dict[str, str]], new_file):
     header = records[0].keys()
-    values = [list(v) for v in [record.values() for record in records]]
+    values = [
+        list(v)
+        for v in [
+            record.values()
+            for record in records
+        ]
+    ]
     new_file_records = new_file.read()
     new_file_header = new_file_records.decode('utf-8').split('\n')[0]
-    new_file_records = r'\n'.join(new_file_records.decode('utf-8').split('\n')[1:])
+    new_file_records = r'\n'.join(
+        new_file_records.decode('utf-8').split('\n')[1:]
+    )
     records_str = ''
     for record in values:
         records_str += repr(str(','.join(record)) + '\n').replace('\'', '')
     aux = records_str
-    records_str = str(','.join(header)) + r'\n' + aux + str(new_file_records).replace('\'', '')
+    records_str = (
+        str(','.join(header)) +
+        r'\n' + aux +
+        str(new_file_records).replace('\'', '')
+    )
     if new_file_header != str(','.join(header)):
         raise InvalidFileStructure()
 
-    buff = io.BytesIO(records_str.encode('utf-8').decode('unicode_escape').encode('utf-8'))
+    buff = io.BytesIO(
+        records_str.encode('utf-8').decode('unicode_escape').encode('utf-8')
+    )
     content_file = ContentFile(buff.read())
     content_file.close()
     return content_file
@@ -634,14 +718,21 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
     success = False
 
     if evidence_type == 'fileRecords':
-        old_file_name: str = next((item['file_url']
-                                   for item in files
-                                   if item['name'] == 'fileRecords'), '')
+        old_file_name: str = next(
+            (
+                item['file_url']
+                for item in files
+                if item['name'] == 'fileRecords'
+            ), ''
+        )
         if old_file_name != '':
             old_records = finding_utils.get_records_from_file(
                 project_name, finding_id, old_file_name)
             if old_records:
-                file = append_records_to_file(cast(List[Dict[str, str]], old_records), file)
+                file = append_records_to_file(cast(
+                    List[Dict[str, str]],
+                    old_records
+                ), file)
                 file.open()
 
     try:
@@ -661,10 +752,13 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
     if finding_dal.save_evidence(file, full_name):
-        evidence: Union[Dict[str, str], list] = \
-            next((item
-                  for item in files
-                  if item['name'] == evidence_type), [])
+        evidence: Union[Dict[str, str], list] = next(
+            (
+                item
+                for item in files
+                if item['name'] == evidence_type
+            ), []
+        )
         if evidence:
             index = files.index(cast(Dict[str, str], evidence))
             if files[index].get('file_url', evidence_id) != evidence_id:
@@ -678,28 +772,44 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
                     )
                 )
             success = finding_dal.update(
-                finding_id, {f'files[{index}].file_url': evidence_id})
+                finding_id,
+                {f'files[{index}].file_url': evidence_id}
+            )
         else:
             success = finding_dal.list_append(
                 finding_id,
                 'files',
-                [{'name': evidence_type, 'file_url': evidence_id}])
+                [{'name': evidence_type, 'file_url': evidence_id}]
+            )
 
     return success
 
 
-def update_evidence_description(finding_id: str, evidence_type: str, description: str) -> bool:
+def update_evidence_description(
+        finding_id: str,
+        evidence_type: str,
+        description: str) -> bool:
     validations.validate_fields(cast(List[str], [description]))
     finding = get_finding(finding_id)
-    files = cast(List[Dict[str, str]], finding.get('files', []))
+    files = cast(
+        List[Dict[str, str]],
+        finding.get('files', [])
+    )
     success = False
 
-    evidence: Union[Dict[str, str], list] = \
-        next((item for item in files if item['name'] == evidence_type), [])
+    evidence: Union[Dict[str, str], list] = next(
+        (
+            item
+            for item in files
+            if item['name'] == evidence_type
+        ), []
+    )
     if evidence:
         index = files.index(cast(Dict[str, str], evidence))
         success = finding_dal.update(
-            finding_id, {f'files[{index}].description': description})
+            finding_id,
+            {f'files[{index}].description': description}
+        )
     else:
         raise EvidenceNotFound()
 
@@ -709,11 +819,19 @@ def update_evidence_description(finding_id: str, evidence_type: str, description
 def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     finding = get_finding(finding_id)
     project_name = finding['projectName']
-    files = cast(List[Dict[str, str]], finding.get('files', []))
+    files = cast(
+        List[Dict[str, str]],
+        finding.get('files', [])
+    )
     success = False
 
-    evidence: Dict[str, str] = \
-        next((item for item in files if item['name'] == evidence_name), dict())
+    evidence: Dict[str, str] = next(
+        (
+            item
+            for item in files
+            if item['name'] == evidence_name
+        ), dict()
+    )
     if not evidence:
         raise EvidenceNotFound()
 
@@ -737,9 +855,11 @@ def create_draft(info, project_name: str, title: str, **kwargs) -> bool:
     creation_date = today.strftime('%Y-%m-%d %H:%M:%S')
     user_data = cast(UserType, util.get_jwt_content(info.context))
     analyst_email = str(user_data.get('user_email', ''))
-    submission_history = {'analyst': analyst_email,
-                          'date': creation_date,
-                          'state': 'CREATED'}
+    submission_history = {
+        'analyst': analyst_email,
+        'date': creation_date,
+        'state': 'CREATED'
+    }
     if util.is_api_token(user_data):
         submission_history.update({
             'analyst': f'api-{analyst_email}',
@@ -764,9 +884,11 @@ def create_draft(info, project_name: str, title: str, **kwargs) -> bool:
         'finding': title,
         'report_date': creation_date,
         'historic_state': [submission_history],
-        'historic_treatment': [{'treatment': 'NEW',
-                                'date': creation_date,
-                                'user': analyst_email}]
+        'historic_treatment': [{
+            'treatment': 'NEW',
+            'date': creation_date,
+            'user': analyst_email
+        }]
     })
 
     if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', title):
@@ -778,26 +900,42 @@ def create_draft(info, project_name: str, title: str, **kwargs) -> bool:
 def submit_draft(finding_id: str, analyst_email: str) -> bool:
     success = False
     finding = get_finding(finding_id)
-    submission_history = cast(List[Dict[str, str]], finding.get('historicState'))
+    submission_history = cast(
+        List[Dict[str, str]],
+        finding.get('historicState')
+    )
 
-    if 'releaseDate' not in finding and \
-       submission_history[-1].get('state') != 'DELETED':
+    if ('releaseDate' not in finding and
+            submission_history[-1].get('state') != 'DELETED'):
         is_submitted = submission_history[-1].get('state') == 'SUBMITTED'
         if not is_submitted:
-            finding_evidence = cast(Dict[str, Dict[str, str]], finding['evidence'])
-            evidence_list = \
-                cast(List[Dict[str, Dict[str, str]]],
-                     [finding_evidence.get(ev_name)
-                      for ev_name in finding_evidence])
-            has_evidence = any([str(evidence.get('url', ''))
-                                for evidence in evidence_list])
+            finding_evidence = cast(
+                Dict[str, Dict[str, str]],
+                finding['evidence']
+            )
+            evidence_list = cast(
+                List[Dict[str, Dict[str, str]]],
+                [
+                    finding_evidence.get(ev_name)
+                    for ev_name in finding_evidence
+                ]
+            )
+            has_evidence = any([
+                str(evidence.get('url', ''))
+                for evidence in evidence_list
+            ])
             has_severity = float(str(finding['severityCvss'])) > Decimal(0)
             has_vulns = vuln_domain.list_vulnerabilities([finding_id])
 
             if all([has_evidence, has_severity, has_vulns]):
-                today = datetime.now(tz=pytz.timezone(settings.TIME_ZONE)).today()  # type: ignore
+                today = datetime.now(
+                    tz=pytz.timezone(settings.TIME_ZONE)
+                ).today()  # type: ignore
                 report_date = today.strftime('%Y-%m-%d %H:%M:%S')
-                history = cast(List[Dict[str, str]], finding.get('historicState', []))
+                history = cast(
+                    List[Dict[str, str]],
+                    finding.get('historicState', [])
+                )
                 history.append({
                     'analyst': analyst_email,
                     'date': report_date,
@@ -809,18 +947,23 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
                     'historic_state': history
                 })
                 if success:
-                    finding_utils.send_new_draft_mail(analyst_email,
-                                                      finding_id,
-                                                      str(finding.get('finding', '')),
-                                                      str(finding.get('projectName', '')))
+                    finding_utils.send_new_draft_mail(
+                        analyst_email,
+                        finding_id,
+                        str(finding.get('finding', '')),
+                        str(finding.get('projectName', ''))
+                    )
             else:
                 required_fields = {
                     'evidence': has_evidence,
                     'severity': has_severity,
                     'vulnerabilities': has_vulns
                 }
-                raise IncompleteDraft([field for field in required_fields
-                                       if not required_fields[field]])
+                raise IncompleteDraft([
+                    field
+                    for field in required_fields
+                    if not required_fields[field]
+                ])
         else:
             raise AlreadySubmitted()
     else:
@@ -830,16 +973,22 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
 
 
 def mask_treatment(
-        finding_id: str, historic_treatment: List[Dict[str, str]]) -> bool:
-    historic = [{**treatment, 'user': 'Masked', 'justification': 'Masked'}
-                for treatment in historic_treatment]
+        finding_id: str,
+        historic_treatment: List[Dict[str, str]]) -> bool:
+    historic = [
+        {**treatment, 'user': 'Masked', 'justification': 'Masked'}
+        for treatment in historic_treatment
+    ]
     return finding_dal.update(finding_id, {'historic_treatment': historic})
 
 
 def mask_verification(
-        finding_id: str, historic_verification: List[Dict[str, str]]) -> bool:
-    historic = [{**treatment, 'user': 'Masked'}
-                for treatment in historic_verification]
+        finding_id: str,
+        historic_verification: List[Dict[str, str]]) -> bool:
+    historic = [
+        {**treatment, 'user': 'Masked'}
+        for treatment in historic_verification
+    ]
     return finding_dal.update(finding_id, {'historic_verification': historic})
 
 
@@ -847,25 +996,33 @@ def mask_finding(finding_id: str) -> bool:
     finding = finding_dal.get_finding(finding_id)
     finding = finding_utils.format_data(finding)
     historic_treatment = cast(
-        List[Dict[str, str]], finding.get('historicTreatment', []))
+        List[Dict[str, str]],
+        finding.get('historicTreatment', [])
+    )
     historic_verification = cast(
-        List[Dict[str, str]], finding.get('historicVerification', []))
+        List[Dict[str, str]],
+        finding.get('historicVerification', [])
+    )
 
     attrs_to_mask = [
         'affected_systems', 'attack_vector_desc', 'effect_solution',
         'related_findings', 'risk', 'threat', 'treatment',
         'treatment_manager', 'vulnerability'
     ]
-    finding_result = finding_dal.update(finding_id, {
-        attr: 'Masked' for attr in attrs_to_mask
-    }) and \
-        mask_treatment(finding_id, historic_treatment) and \
+    finding_result = (
+        finding_dal.update(finding_id, {
+            attr: 'Masked'
+            for attr in attrs_to_mask
+        }) and
+        mask_treatment(finding_id, historic_treatment) and
         mask_verification(finding_id, historic_verification)
+    )
 
-    evidence_prefix = '{}/{}'.format(finding['projectName'], finding_id)
+    evidence_prefix = f'''{finding['projectName']}/{finding_id}'''
     evidence_result = all([
         finding_dal.remove_evidence(file_name)
-        for file_name in finding_dal.search_evidence(evidence_prefix)])
+        for file_name in finding_dal.search_evidence(evidence_prefix)
+    ])
     finding_dal.update(finding_id, {
         'files': [
             {'file_url': 'Masked', 'name': 'Masked', 'description': 'Masked'}
@@ -873,18 +1030,26 @@ def mask_finding(finding_id: str) -> bool:
         ]
     })
 
-    comments_and_observations = comment_dal.get_comments('comment', int(finding_id)) + \
+    comments_and_observations = (
+        comment_dal.get_comments('comment', int(finding_id)) +
         comment_dal.get_comments('observation', int(finding_id))
+    )
     comments_result = all([
         comment_dal.delete(comment['finding_id'], comment['user_id'])
-        for comment in comments_and_observations])
+        for comment in comments_and_observations
+    ])
 
     vulns_result = all([
         vuln_domain.mask_vuln(finding_id, str(vuln['UUID']))
-        for vuln in vuln_dal.get_vulnerabilities(finding_id)])
+        for vuln in vuln_dal.get_vulnerabilities(finding_id)
+    ])
 
     success = all([
-        finding_result, evidence_result, comments_result, vulns_result])
+        finding_result,
+        evidence_result,
+        comments_result,
+        vulns_result
+    ])
     util.invalidate_cache(finding_id)
 
     return success
@@ -900,8 +1065,8 @@ def validate_evidence(evidence_id: str, file) -> bool:
         'fileRecords': 1
     }
 
-    if evidence_id in ['animation', 'exploitation'] \
-            or evidence_id.startswith('evidence'):
+    if (evidence_id in ['animation', 'exploitation'] or
+            evidence_id.startswith('evidence')):
         allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
         if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType()
@@ -922,42 +1087,72 @@ def validate_evidence(evidence_id: str, file) -> bool:
 
 
 def validate_finding(
-        finding_id: Union[str, int] = 0, finding: Dict[str, FindingType] = None) -> bool:
+        finding_id: Union[str, int] = 0,
+        finding: Dict[str, FindingType] = None) -> bool:
     """Validate if a finding is not deleted."""
     if not finding:
         finding = finding_dal.get_finding(str(finding_id))
-    historic_state = cast(List[Dict[str, str]], finding.get('historic_state', [{}]))
+    historic_state = cast(
+        List[Dict[str, str]],
+        finding.get('historic_state', [{}])
+    )
     return historic_state[-1].get('state', '') != 'DELETED'
 
 
-def cast_new_vulnerabilities(finding_new: Dict[str, FindingType],
-                             finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
+def cast_new_vulnerabilities(
+        finding_new: Dict[str, FindingType],
+        finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     """Cast values for new format."""
     if int(str(finding_new.get('openVulnerabilities'))) >= 0:
-        finding['openVulnerabilities'] = \
-            str(finding_new.get('openVulnerabilities'))
+        finding['openVulnerabilities'] = str(
+            finding_new.get('openVulnerabilities')
+        )
     else:
         # This finding does not have open vulnerabilities
         pass
     where = '-'
     if finding_new.get('portsVulns'):
-        finding['portsVulns'] = \
-            vuln_utils.group_specific(cast(List[str], finding_new.get('portsVulns')), 'ports')
-        where = vuln_utils.format_where(where, cast(List[Dict[str, str]], finding['portsVulns']))
+        finding['portsVulns'] = vuln_utils.group_specific(
+            cast(
+                List[str],
+                finding_new.get('portsVulns')
+            ),
+            'ports'
+        )
+        where = vuln_utils.format_where(where, cast(
+            List[Dict[str, str]],
+            finding['portsVulns']
+        ))
     else:
         # This finding does not have ports vulnerabilities
         pass
     if finding_new.get('linesVulns'):
-        finding['linesVulns'] = \
-            vuln_utils.group_specific(cast(List[str], finding_new.get('linesVulns')), 'lines')
-        where = vuln_utils.format_where(where, cast(List[Dict[str, str]], finding['linesVulns']))
+        finding['linesVulns'] = vuln_utils.group_specific(
+            cast(
+                List[str],
+                finding_new.get('linesVulns')
+            ),
+            'lines'
+        )
+        where = vuln_utils.format_where(where, cast(
+            List[Dict[str, str]],
+            finding['linesVulns']
+        ))
     else:
         # This finding does not have lines vulnerabilities
         pass
     if finding_new.get('inputsVulns'):
-        finding['inputsVulns'] = \
-            vuln_utils.group_specific(cast(List[str], finding_new.get('inputsVulns')), 'inputs')
-        where = vuln_utils.format_where(where, cast(List[Dict[str, str]], finding['inputsVulns']))
+        finding['inputsVulns'] = vuln_utils.group_specific(
+            cast(
+                List[str],
+                finding_new.get('inputsVulns')
+            ),
+            'inputs'
+        )
+        where = vuln_utils.format_where(where, cast(
+            List[Dict[str, str]],
+            finding['inputsVulns']
+        ))
     else:
         # This finding does not have inputs vulnerabilities
         pass
@@ -966,7 +1161,8 @@ def cast_new_vulnerabilities(finding_new: Dict[str, FindingType],
 
 
 def get_attributes(
-        finding_id: str, attributes: List[str]) -> Dict[str, FindingType]:
+        finding_id: str,
+        attributes: List[str]) -> Dict[str, FindingType]:
     if 'finding_id' not in attributes:
         attributes = [*attributes, 'finding_id']
     response = finding_dal.get_attributes(finding_id, attributes)
