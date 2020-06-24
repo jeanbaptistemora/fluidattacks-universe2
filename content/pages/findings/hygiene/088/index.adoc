@@ -31,3 +31,5 @@ The system violates one or more privacy requirements.
 . [[r9]] [inner]#link:/web/rules/317/[R317. Allow erasure requests]#
 
 . [[r10]] [inner]#link:/web/rules/318/[R318. Notify third parties of changes]#
+
+. [[r11]] [inner]#link:/web/rules/343/[R343. Respect the Do Not Track header]#
