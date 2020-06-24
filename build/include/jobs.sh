@@ -729,6 +729,14 @@ function job_lint_front {
   ||  return 1
 }
 
+function job_lint_graphics {
+      env_prepare_node_modules \
+  &&  pushd app/assets/graphics \
+        &&  eslint --config .eslintrc . \
+  &&  popd \
+  ||  return 1
+}
+
 function job_lint_mobile {
       pushd mobile \
     &&  npm install \

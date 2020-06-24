@@ -24,10 +24,14 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
    * null is the right typing for this reference
    */
   const containerReference: React.MutableRefObject<null> = React.useRef(null);
+  /* tslint:disable-next-line:no-null-keyword
+   * null is the right typing for this reference
+   */
+  const iframeReference: React.MutableRefObject<HTMLIFrameElement | null> = React.useRef(null);
   const size: ComponentSize = useComponentSize(containerReference);
 
   const [expanded, setExpanded] = React.useState(false);
-  const [loaded, setLoaded] = React.useState(false);
+  const [iframeState, setIframeState] = React.useState("loading");
 
   const panelOnMouseEnter: () => void = () => {
     setExpanded(true);
@@ -36,7 +40,7 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
     setExpanded(false);
   };
   const frameOnLoad: () => void = () => {
-    setLoaded(true);
+    setIframeState("ready");
   };
 
   const url: URL = new URL("/integrates/graphic", window.location.origin);
@@ -47,6 +51,16 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
   url.searchParams.set("height", size.height.toString());
   url.searchParams.set("subject", subject);
   url.searchParams.set("width", size.width.toString());
+
+  if (
+    iframeState === "ready" &&
+    iframeReference.current !== null &&
+    iframeReference.current.contentDocument !== null &&
+    iframeReference.current.contentDocument.title.toLowerCase()
+                                                 .includes("error")
+  ) {
+    setIframeState("error");
+  }
 
   return (
     <React.StrictMode>
@@ -70,16 +84,20 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
             >
               <iframe
                 className={styles.frame}
-                hidden={!loaded}
+                hidden={iframeState !== "ready"}
+                ref={iframeReference}
                 onLoad={frameOnLoad}
                 src={url.toString()}
               />
-              {loaded ? undefined : (
+              {iframeState === "ready" ? undefined : (
                 <div
                   className={styles.loadingComponent}
-                  style={{ fontSize: _.min([size.height / 2, size.width / 2]) }}
+                  style={{
+                    fontSize: _.min([size.height / 2, size.width / 2]),
+                    top: size.height / 2,
+                  }}
                 >
-                  <Glyphicon glyph="hourglass" />
+                  <Glyphicon glyph={iframeState === "loading" ? "hourglass" : "wrench"} />
                 </div>
               )}
             </div>

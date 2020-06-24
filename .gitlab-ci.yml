@@ -370,6 +370,11 @@ lint_front:
   <<: *in_dev_and_master_branch
   stage: lint-code
 
+lint_graphics:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: lint-code
+
 lint_build_system:
   <<: *with_nix
   <<: *in_dev_and_master_branch

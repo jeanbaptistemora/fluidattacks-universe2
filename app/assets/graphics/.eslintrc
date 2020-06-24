@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "strict",
+    "strict/browser",
+    "strict/d3"
+  ],
+  "rules": {
+    // Camel case
+    "filenames/match-regex": [2, "^[a-z]+([A-Z][a-z]+)*$", true],
+    // Many D3 properties like force generators are 'fx', or 'fy'
+    "id-length": "off"
+  }
+}
