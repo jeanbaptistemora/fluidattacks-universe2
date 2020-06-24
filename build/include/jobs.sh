@@ -724,7 +724,7 @@ function job_lint_front {
     &&  npm install \
     &&  npm run audit \
     &&  npm run lint:tslint \
-    &&  (npm run lint:eslint || true) \
+    &&  npm run lint:eslint \
   &&  popd \
   ||  return 1
 }

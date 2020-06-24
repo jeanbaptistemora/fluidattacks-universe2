@@ -1,4 +1,7 @@
-// tslint:disable: no-console
+/* eslint-disable fp/no-nil, fp/no-unused-expression
+  --------
+  In order to use process, console and WebpackDevServer methods, we need to disable the above rules.
+*/
 import open from "open";
 import webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
@@ -7,13 +10,15 @@ import devConfig from "./webpack.dev.config";
 const HOST: string = "localhost";
 const PORT: number = 3000;
 
-process.on("unhandledRejection", (err: {} | null | undefined) => {
-  throw err;
+process.on("unhandledRejection", (reason: Error | null | undefined, promise: Readonly<Promise<unknown>>): void => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
 });
 
 const compiler: webpack.Compiler = webpack(devConfig);
 const serverConfig: WebpackDevServer.Configuration = {
   compress: true,
+  // Access-Control-Allow-Origin response header tell the browser that the content on this page is accessible from all origins
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   headers: { "Access-Control-Allow-Origin": "*" },
   historyApiFallback: true,
   hot: true,
@@ -31,8 +36,9 @@ devServer.listen(PORT, HOST, (err?: Error): void => {
   }
 
   console.log("Starting the development server...\n");
-  open(`https://${HOST}:8080/integrates`)
-    .catch();
+  open(`https://${HOST}:8080/integrates`).catch((err?: Error): void => {
+    console.error(err);
+  });
 });
 
 (["SIGINT", "SIGTERM"] as NodeJS.Signals[]).forEach((sig: NodeJS.Signals): void => {

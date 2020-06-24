@@ -4,9 +4,7 @@ import webpack from "webpack";
 import { commonConfig } from "./webpack.common.config";
 
 const bucketName: string = "fluidintegrates-static";
-const branchName: string = process.env.CI_COMMIT_REF_NAME === undefined
-  ? "master"
-  : process.env.CI_COMMIT_REF_NAME;
+const branchName: string = process.env.CI_COMMIT_REF_NAME === undefined ? "master" : process.env.CI_COMMIT_REF_NAME;
 
 const prodConfig: webpack.Configuration = {
   ...commonConfig,

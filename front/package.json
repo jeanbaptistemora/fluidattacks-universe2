@@ -154,6 +154,6 @@
     "plot": "ts-node src/graphics/cli.ts",
     "start": "ts-node devserver.ts",
     "test": "npm run css && jest",
-    "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .ts,.tsx --format codeFrame"
+    "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe"
   }
 }

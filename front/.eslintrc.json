@@ -30,6 +30,14 @@
         "usePrettierrc": true
       }
     ],
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowConciseArrowFunctionExpressionsStartingWithVoid": false,
+        "allowTypedFunctionExpressions": false,
+        "allowHigherOrderFunctions": false
+      }
+    ],
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/typedef": [
       "error",

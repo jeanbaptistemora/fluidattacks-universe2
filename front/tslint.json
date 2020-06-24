@@ -6,7 +6,8 @@
     ],
     "linterOptions": {
         "exclude": [
-            "node_modules"
+            "node_modules",
+            "*.ts"
         ]
     },
     "rules": {
@@ -24,9 +25,9 @@
         "match-default-export-name": false,
         "no-async-without-await": false,
         "no-default-import": false,
+        "no-floating-promises":false,
         // Disabling this rule is necessary to avoid a conflict with another one that checks for all variables to be typed.
         // View: https://github.com/palantir/tslint/issues/711
-        "no-floating-promises":false,
         "no-inferrable-types": false,
         "no-implicit-dependencies": {
             "options": "dev"
