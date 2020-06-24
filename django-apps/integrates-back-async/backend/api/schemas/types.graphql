@@ -94,8 +94,12 @@ type InternalProject {
 }
 
 type Organization {
-    id: String
-    name: String
+    id: String!
+    maxAcceptanceDays: Int
+    maxAcceptanceSeverity: Float!
+    maxNumberAcceptations: Int
+    minAcceptanceSeverity: Float!
+    name: String!
 }
 
 "Resource type definition"

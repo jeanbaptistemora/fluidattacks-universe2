@@ -47,7 +47,7 @@ DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
 TABLE_NAME: str = 'integrates'
 
 
-async def async_put_item(table: str, item: Dict[str, str]) -> None:
+async def async_put_item(table: str, item: Dict[str, Any]) -> None:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         await dynamo_table.put_item(Item=item)

@@ -1,7 +1,16 @@
 from backend.api.resolvers import (
     analytics,
-    alert, finding, internal_project, event,
-    forces, me, project, resource, tag, user
+    alert,
+    event,
+    finding,
+    forces,
+    internal_project,
+    me,
+    organization,
+    project,
+    resource,
+    tag,
+    user
 )
 
 from ariadne import QueryType
@@ -19,6 +28,7 @@ QUERY.set_field('resources', resource.resolve_resources)
 QUERY.set_field('user', user.resolve_user)
 QUERY.set_field('forcesExecutions', forces.resolve_forces_executions)
 QUERY.set_field('finding', finding.resolve_finding)
+QUERY.set_field('organization', organization.resolve_organization)
 QUERY.set_field('project', project.resolve_project)
 QUERY.set_field('aliveProjects', project.resolve_alive_projects)
 QUERY.set_field('projects', project.resolve_alive_projects)

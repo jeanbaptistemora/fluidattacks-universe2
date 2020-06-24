@@ -22,7 +22,10 @@ Project = Dict[str, Union[
     List[str],
     Set[str]
 ]]
-Organization = Dict[str, str]
+Organization = Dict[str, Union[
+    Decimal,
+    str
+]]
 Comment = Dict[str, Union[
     int, str, object
 ]]

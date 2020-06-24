@@ -1,7 +1,7 @@
 # standard imports
 import asyncio
 import uuid
-from typing import Optional, List
+from typing import cast, List, Optional
 
 # third-party imports
 import rollbar
@@ -126,7 +126,7 @@ async def create(organization_name: str) -> OrganizationType:
     if org_exists:
         raise InvalidOrganization()
 
-    new_item = {
+    new_item: OrganizationType = {
         'pk': 'ORG#{}'.format(str(uuid.uuid4())),
         'sk': organization_name.lower()
     }
@@ -189,39 +189,33 @@ async def get(org_name: str,
     return org
 
 
-async def get_many_by_id(
-    organization_ids: List[str],
+async def get_by_id(
+    organization_id: str,
     attributes: List[str] = None
-) -> List[OrganizationType]:
+) -> OrganizationType:
     """
     Use the organization ID to fetch general information about it
     """
-    organizations: List[OrganizationType] = []
-    queries_attrs = [
-        {
-            'KeyConditionExpression': (
-                Key('pk').eq(org_id) &
-                Key('sk').begins_with('INFO')
-            )
-        }
-        for org_id in organization_ids
-    ]
+    organization: OrganizationType = {}
+    query_attrs = {
+        'KeyConditionExpression': (
+            Key('pk').eq(organization_id) &
+            Key('sk').begins_with('INFO')
+        )
+    }
+
     if attributes:
         projection = ','.join(_map_attributes_to_dal(attributes))
-        for query in queries_attrs:
-            query.update({'ProjectionExpression': projection})
+        query_attrs.update({'ProjectionExpression': projection})
+
     try:
-        response_items = await asyncio.gather(*[
-            asyncio.create_task(
-                dynamo_async_query(TABLE_NAME, query_attrs)
-            )
-            for query_attrs in queries_attrs
-        ])
-        orgs = [item[0] for item in response_items if item]
-        if orgs:
-            for org in orgs:
-                org.update({'sk': org['sk'].split('#')[1]})
-            organizations = [_map_keys_to_domain(org) for org in orgs]
+        response_item = await dynamo_async_query(TABLE_NAME, query_attrs)
+        if response_item:
+            organization = response_item[0]
+            if 'sk' in organization:
+                organization.update({
+                    'sk': cast(str, organization['sk']).split('#')[1]
+                })
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error fetching organization info by their ID',
@@ -229,7 +223,22 @@ async def get_many_by_id(
             extra_data=ex,
             payload_data=locals()
         )
-    return organizations
+    return _map_keys_to_domain(organization)
+
+
+async def get_many_by_id(
+    organization_ids: List[str],
+    attributes: List[str] = None
+) -> List[OrganizationType]:
+    """
+    Use the organization ID to fetch general information about it
+    """
+    return await asyncio.gather(*[
+        asyncio.create_task(
+            get_by_id(org_id, attributes)
+        )
+        for org_id in organization_ids
+    ])
 
 
 async def get_for_user(email: str) -> List[str]:

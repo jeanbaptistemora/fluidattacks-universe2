@@ -8,6 +8,12 @@
                     },
                     "sk": {
                         "S": "INFO#testorg"
+                    },
+                    "max_acceptance_days": {
+                        "N": "60"
+                    },
+                    "max_number_acceptations": {
+                        "N": "2"
                     }
                 }
             }
@@ -44,6 +50,12 @@
                     },
                     "sk": {
                         "S": "INFO#testorg2"
+                    },
+                    "max_acceptance_severity": {
+                        "N": "6.9"
+                    },
+                    "min_acceptance_severity": {
+                        "N": "3.4"
                     }
                 }
             }
