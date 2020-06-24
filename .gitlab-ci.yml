@@ -126,6 +126,16 @@ deploy_mobile_ota:
   environment:
     name: "mobile/$CI_COMMIT_REF_NAME"
     url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
+    on_stop: deploy_mobile_ota_stop
+
+deploy_mobile_ota_stop:
+  <<: *in_dev_branch
+  stage: pre-build
+  when: manual
+  script: [""]
+  environment:
+    name: "mobile/$CI_COMMIT_REF_NAME"
+    action: stop
 
 build_front:
   <<: *with_nix
