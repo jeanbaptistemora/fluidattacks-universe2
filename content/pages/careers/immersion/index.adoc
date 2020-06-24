@@ -107,7 +107,7 @@ otherwise the `MR` will be closed.
 
 You can keep tracking of your metrics in the following page:
 ----
-https://fluidattacks.com/training/users/{$GITLAB_USERNAME}/
+https://autonomicmind.com/challenges/users/{$GITLAB_USERNAME}/
 ----
 
 Just replace your `{$GITLAB_USERNAME}`.
