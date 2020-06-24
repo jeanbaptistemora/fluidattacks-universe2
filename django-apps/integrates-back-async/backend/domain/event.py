@@ -12,31 +12,52 @@ from magic import Magic
 
 from backend import authz, mailer, util
 from backend.dal import (
-    comment as comment_dal, event as event_dal, project as project_dal
+    comment as comment_dal,
+    event as event_dal,
+    project as project_dal
 )
 from backend.domain import (
     comment as comment_domain,
     user as user_domain
 )
 from backend.exceptions import (
-    EventAlreadyClosed, EventNotFound, InvalidCommentParent, InvalidDate,
-    InvalidFileSize, InvalidFileType
+    EventAlreadyClosed,
+    EventNotFound,
+    InvalidCommentParent,
+    InvalidDate,
+    InvalidFileSize,
+    InvalidFileType
 )
-from backend.typing import Event as EventType, User as UserType
-from backend.utils import events as event_utils, validations
+from backend.typing import (
+    Event as EventType,
+    User as UserType
+)
+from backend.utils import (
+    events as event_utils,
+    validations
+)
 
 from __init__ import (
-    BASE_URL, FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS,
+    BASE_URL,
+    FI_MAIL_CONTINUOUS,
+    FI_MAIL_PRODUCTION,
+    FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS
 )
 
 
-def solve_event(event_id: str, affectation: str, analyst_email: str, date: datetime) -> bool:
+def solve_event(
+        event_id: str,
+        affectation: str,
+        analyst_email: str,
+        date: datetime) -> bool:
     event = get_event(event_id)
     success = False
 
-    if cast(List[Dict[str, str]],
-            event.get('historic_state', []))[-1].get('state') == 'SOLVED':
+    if cast(
+        List[Dict[str, str]],
+        event.get('historic_state', [])
+    )[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
@@ -65,8 +86,10 @@ def update_evidence(event_id: str, evidence_type: str, file) -> bool:
     event = get_event(event_id)
     success = False
 
-    if cast(List[Dict[str, str]],
-            event.get('historic_state', []))[-1].get('state') == 'SOLVED':
+    if cast(
+        List[Dict[str, str]],
+        event.get('historic_state', [])
+    )[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     project_name = str(event.get('project_name', ''))
@@ -101,7 +124,11 @@ def validate_evidence(evidence_type: str, file) -> bool:
             raise InvalidFileType('EVENT_IMAGE')
     else:
         allowed_mimes = [
-            'application/pdf', 'application/zip', 'text/csv', 'text/plain']
+            'application/pdf',
+            'application/zip',
+            'text/csv',
+            'text/plain'
+        ]
         if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType('EVENT_FILE')
 
@@ -115,7 +142,11 @@ def validate_evidence(evidence_type: str, file) -> bool:
 
 
 def _send_new_event_mail(
-        analyst: str, event_id: str, project: str, subscription: str, event_type: str):
+        analyst: str,
+        event_id: str,
+        project: str,
+        subscription: str,
+        event_type: str):
     recipients = project_dal.list_project_managers(project)
     recipients.append(analyst)
     if subscription == 'oneshot':
@@ -134,20 +165,27 @@ def _send_new_event_mail(
     }
 
     recipients_customers = [
-        recipient for recipient in recipients
-        if authz.get_group_level_role(recipient, project) == 'customeradmin']
+        recipient
+        for recipient in recipients
+        if authz.get_group_level_role(recipient, project) == 'customeradmin'
+    ]
     recipients_not_customers = [
-        recipient for recipient in recipients
-        if authz.get_group_level_role(recipient, project) != 'customeradmin']
+        recipient
+        for recipient in recipients
+        if authz.get_group_level_role(recipient, project) != 'customeradmin'
+    ]
     email_context_customers = email_context.copy()
-    email_context_customers['analyst_email'] = \
-        'Hacker at ' + str(user_domain.get_data(analyst, 'company')).capitalize()
+    company = str(user_domain.get_data(analyst, 'company')).capitalize()
+    email_context_customers['analyst_email'] = f'Hacker at {company}'
 
     email_send_thread = threading.Thread(
         name='New event email thread',
         target=mailer.send_mail_new_event,
-        args=([recipients_not_customers, recipients_customers],
-              [email_context, email_context_customers]))
+        args=(
+            [recipients_not_customers, recipients_customers],
+            [email_context, email_context_customers]
+        )
+    )
     email_send_thread.start()
 
 
@@ -164,8 +202,11 @@ def create_event(analyst_email: str, project_name: str, file=None,
     subscription = str(project.get('type'))
 
     event_attrs = kwargs.copy()
-    event_date = event_attrs['event_date'].astimezone(
-        tzn).replace(tzinfo=None)
+    event_date = (
+        event_attrs['event_date']
+        .astimezone(tzn)
+        .replace(tzinfo=None)
+    )
     del event_attrs['event_date']
     if event_date > today:
         raise InvalidDate()
@@ -194,8 +235,10 @@ def create_event(analyst_email: str, project_name: str, file=None,
 
     if any([file, image]):
         if file and image:
-            valid = validate_evidence('evidence_file', file) \
-                and validate_evidence('evidence', image)
+            valid = (
+                validate_evidence('evidence_file', file) and
+                validate_evidence('evidence', image)
+            )
         elif file:
             valid = validate_evidence('evidence_file', file)
         elif image:
@@ -209,13 +252,15 @@ def create_event(analyst_email: str, project_name: str, file=None,
             success = True
             _send_new_event_mail(
                 analyst_email, event_id, project_name, subscription,
-                event_attrs['event_type'])
+                event_attrs['event_type']
+            )
 
     else:
         success = event_dal.create(event_id, project_name, event_attrs)
         _send_new_event_mail(
             analyst_email, event_id, project_name, subscription,
-            event_attrs['event_type'])
+            event_attrs['event_type']
+        )
 
     return success
 
@@ -231,9 +276,7 @@ def get_event(event_id: str) -> EventType:
 async def get_events(event_ids: List[str]) -> List[EventType]:
     events_tasks = [
         asyncio.create_task(
-            sync_to_async(event_utils.format_data)(
-                get_event(event_id)
-            )
+            sync_to_async(event_utils.format_data)(get_event(event_id))
         )
         for event_id in event_ids
     ]
@@ -245,18 +288,27 @@ def add_comment(comment_id: int, content: str, event_id: str, parent: str,
                 user_info: UserType) -> Tuple[Union[int, None], bool]:
     parent = str(parent)
     if parent != '0':
-        event_comments = \
-            [str(comment.get('user_id')) for comment in
-             comment_dal.get_comments('event', int(event_id))]
+        event_comments = [
+            str(comment.get('user_id'))
+            for comment in comment_dal.get_comments('event', int(event_id))
+        ]
         if parent not in event_comments:
             raise InvalidCommentParent()
-    comment_data = {'comment_type': 'event', 'parent': parent,
-                    'content': content, 'user_id': comment_id}
+    comment_data = {
+        'comment_type': 'event',
+        'parent': parent,
+        'content': content,
+        'user_id': comment_id
+    }
     success = comment_domain.create(event_id, comment_data, user_info)
     del comment_data['user_id']
     if success:
         mailer.send_comment_mail(
-            comment_data, 'event', str(user_info['user_email']), 'event', get_event(event_id))
+            comment_data,
+            'event',
+            str(user_info['user_email']),
+            'event', get_event(event_id)
+        )
 
     return success
 
@@ -284,21 +336,24 @@ def mask(event_id: str) -> bool:
     event = event_dal.get_event(event_id)
 
     attrs_to_mask = ['client', 'detail', 'evidence', 'evidence_file']
-    event_result = event_dal.update(event_id, {
-        attr: 'Masked' for attr in attrs_to_mask
-    })
+    event_result = event_dal.update(
+        event_id,
+        {attr: 'Masked' for attr in attrs_to_mask}
+    )
 
-    evidence_prefix = '{}/{}'.format(event.get('project_name', ''), event_id)
+    project_name = str(event.get('project_name', ''))
+    evidence_prefix = f'{project_name}/{event_id}'
     evidence_result = all([
         event_dal.remove_evidence(file_name)
-        for file_name in event_dal.search_evidence(evidence_prefix)])
+        for file_name in event_dal.search_evidence(evidence_prefix)
+    ])
 
     comments_result = all([
         comment_dal.delete(comment['finding_id'], comment['user_id'])
-        for comment in comment_dal.get_comments('event', int(event_id))])
+        for comment in comment_dal.get_comments('event', int(event_id))
+    ])
 
-    success = all([
-        event_result, evidence_result, comments_result])
+    success = all([event_result, evidence_result, comments_result])
     util.invalidate_cache(event_id)
 
     return success
