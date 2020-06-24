@@ -14,6 +14,7 @@ from collections import UserList
 from contextlib import suppress
 from copy import copy
 import datetime
+import functools
 from multiprocessing import cpu_count
 from timeit import default_timer as timer
 from typing import Tuple
@@ -324,26 +325,23 @@ class Dict(UserDict):
         exclude = tuple(exclude) if exclude else None
 
         def load(_path_):
-            with suppress(CloudFormationInvalidTemplateError):
-                template = load_cfn_template(_path_)
+            template = _convert_template(_path_)
+            if template:
                 start_time = timer()
                 success = True
-                templates = [node['path'] for _id, node in graph.nodes.data()
-                             if 'CloudFormationTemplate' in node['labels']]
-                if _path_ not in templates:
-                    try:
-                        Dict(template, path=_path_, graph=graph)
-                    except Exception as exc:  # pylint: disable=broad-except
-                        error = str(exc)
-                        success = False
+                try:
+                    Dict(template, path=_path_, graph=graph)
+                except Exception as exc:  # pylint: disable=broad-except
+                    error = str(exc)
+                    success = False
+                elapsed_time = timer() - start_time
 
-                    elapsed_time = timer() - start_time
-                    print(f'# Loading: {_path_}')
-                    if success:
-                        print((f'#    [SUCCESS]    time: %.4f seconds') %
-                              (elapsed_time))
-                    else:
-                        print(f'#    [ERROR] {error}')
+                print(f'# Loading: {_path_}')
+                if success:
+                    print((f'#    [SUCCESS]    time: %.4f seconds') %
+                          (elapsed_time))
+                else:
+                    print(f'#    [ERROR] {error}')
 
         init_time = timer()
         with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
@@ -355,3 +353,11 @@ class Dict(UserDict):
         end_time = timer() - init_time
         print(f'# [SUCCESS]    Total: %.4f seconds' % (end_time))
         return graph
+
+
+@functools.lru_cache(maxsize=None)
+def _convert_template(path: str):
+    template = None
+    with suppress(CloudFormationInvalidTemplateError):
+        template = load_cfn_template(path)
+    return template

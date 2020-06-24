@@ -63,9 +63,9 @@ def _iterate_security_group_rules(
         yield yaml_path, sg_name, sg_rule, sg_path, sg_flow, sg_line
 
 
-def _get_securitygroups(graph: DiGraph,
+def _get_securitygroups(graph: DiGraph, path: str,
                         exclude: Optional[List[str]] = None) -> List[int]:
-    templates: List[int] = get_templates(graph, exclude)
+    templates: List[int] = get_templates(graph, path, exclude)
     allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
     return [node
             for template, _ in templates
@@ -101,7 +101,7 @@ def allows_all_outbound_traffic(
     :rtype: :class:`fluidasserts.Result`
     """
     graph: DiGraph = get_graph(path, exclude)
-    templates: List[Tuple[int, Dict]] = get_templates(graph, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     vulnerabilities: List[Vulnerability] = []
     for template, _ in templates:
         security_groups: List[int] = [
@@ -176,7 +176,7 @@ def has_unrestricted_cidrs(path: str,
     unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
     unrestricted_ipv6 = IPv6Network('::/0')
     allow_groups = {'SecurityGroupEgress', 'SecurityGroupIngress'}
-    security_groups: List[Dict] = _get_securitygroups(graph, exclude)
+    security_groups: List[Dict] = _get_securitygroups(graph, path, exclude)
     for group in security_groups:
         template: Dict = graph.nodes[get_predecessor(graph, group,
                                                      'CloudFormationTemplate')]
@@ -273,7 +273,7 @@ def has_unrestricted_ip_protocols(
     graph: DiGraph = get_graph(path, exclude)
     vulnerabilities: List[Vulnerability] = []
     allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
-    security_groups: List[int] = _get_securitygroups(graph, exclude)
+    security_groups: List[int] = _get_securitygroups(graph, path, exclude)
     for group in security_groups:
         resource: Dict = graph.nodes[group]
         template: Dict = graph.nodes[get_predecessor(graph, group,
@@ -344,7 +344,7 @@ def has_unrestricted_ports(
     vulnerabilities: List[Vulnerability] = []
     allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
     # all security groups in templates
-    security_groups: List[int] = _get_securitygroups(graph, exclude)
+    security_groups: List[int] = _get_securitygroups(graph, path, exclude)
     for group in security_groups:
         # node of resource
         resource: Dict = graph.nodes[group]
@@ -432,7 +432,7 @@ def has_unencrypted_volumes(
     :rtype: :class:`fluidasserts.Result`
     """
     graph: DiGraph = get_graph(path, exclude)
-    templates: List[Tuple[int, Dict]] = get_templates(graph, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     volumes: List[int] = [
         node
         for template, _ in templates
@@ -497,7 +497,7 @@ def has_not_an_iam_instance_profile(
     :rtype: :class:`fluidasserts.Result`
     """
     graph: DiGraph = get_graph(path, exclude)
-    templates: List[Tuple[int, Dict]] = get_templates(graph, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     vulnerabilities: List[Vulnerability] = []
     instances: List[int] = [node for template, _ in templates
                             for node in dfs_preorder_nodes(graph, template, 2)

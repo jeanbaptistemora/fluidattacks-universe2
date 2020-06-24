@@ -10,6 +10,7 @@ from typing import Any, List, Dict, Callable, Set, Optional, Tuple
 from collections import namedtuple
 from contextvars import ContextVar
 from contextlib import contextmanager
+
 # 3d imports
 import networkx as nx
 from networkx import DiGraph
@@ -83,10 +84,11 @@ def get_ref_nodes(graph: DiGraph, node: int,
     if not condition:
         def condition(  # noqa pylint: disable=function-redefined
             value): return True  # noqa pylint: disable=unused-argument,multiple-statements
-    nodes: List[int] = [node] if 'value' in graph.nodes[node] else [
-        ref for ref in dfs_preorder_nodes(graph, node, 3)
-        if 'value' in graph.nodes[ref] and condition(graph.nodes[ref]['value'])
-    ]
+    nodes: List[int] = [node] if 'value' in graph.nodes[node] and condition(
+        graph.nodes[node]['value']) else [
+            ref for ref in dfs_preorder_nodes(graph, node, 3)
+            if 'value' in graph.nodes[ref]
+            and condition(graph.nodes[ref]['value'])]
     return nx.utils.flatten(nodes)
 
 
@@ -137,12 +139,21 @@ def get_graph(path: str, exclude: Optional[List[str]] = None) -> DiGraph:
     return GRAPHS.get()
 
 
-def get_templates(graph: DiGraph, exclude: Optional[List[str]] = None
+def get_templates(graph: DiGraph,
+                  path: str,
+                  exclude: Optional[List[str]] = None
                   ) -> List[Tuple[int, Dict]]:
     """Returns the templates that are inside a graph."""
-    templates = [(_id, node) for _id, node in graph.nodes.data()
-                 if 'CloudFormationTemplate' in node['labels']]
+    result: List[Tuple[int, Dict]] = []
+    templates: List[Tuple[int, Dict]] = [
+        (_id, node) for _id, node in graph.nodes.data()
+        if 'CloudFormationTemplate' in node['labels']
+    ]
+    for _id, template in templates:
+        t_path: str = template['path']
+        if path in t_path:
+            result.append((_id, template))
     if exclude:
-        templates = [(_id, node)for _id, node in templates if not any(
-            ex in node['path'] for ex in exclude)]
-    return templates
+        result = [(_id, node) for _id, node in result
+                  if not any(ex in node['path'] for ex in exclude)]
+    return result
