@@ -38,7 +38,6 @@
 
 :local .exportCsv {
   composes: button from '../Button/index.css';
-  margin-bottom: 5px;
 }
 
 :local .tableModalContainer {
@@ -49,4 +48,12 @@
   overflow: inherit;
   text-overflow: inherit;
   white-space: inherit;
+}
+
+:local .buttonWrapper {
+  display: inline-block;
+}
+
+:local .tableOptions {
+  margin-bottom: 5px;
 }

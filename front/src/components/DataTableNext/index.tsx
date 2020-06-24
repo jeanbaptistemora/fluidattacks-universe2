@@ -97,10 +97,12 @@ const renderExportCsvButton: ((toolkitProps: ToolkitProviderProps) => JSX.Elemen
 
   return (
     <TooltipWrapper message={translate.t("group.findings.exportCsv.tooltip")} placement="bottom">
-      <ExportCSVButton {...toolkitProps.csvProps} className={style.exportCsv}>
-        <FluidIcon icon="export" />
-        &nbsp;{translate.t("group.findings.exportCsv.text")}
-      </ExportCSVButton>
+      <div className={style.buttonWrapper}>
+        <ExportCSVButton {...toolkitProps.csvProps} className={style.exportCsv}>
+          <FluidIcon icon="export" />
+          &nbsp;{translate.t("group.findings.exportCsv.text")}
+        </ExportCSVButton>
+      </div>
     </TooltipWrapper>
   );
 };
@@ -232,7 +234,7 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
 
     return (
       <div>
-        <Row>
+        <Row className={style.tableOptions}>
           <Col lg={3} md={3} sm={6} xs={12}>
           {props.exportCsv ? renderExportCsvButton(toolkitProps) : undefined}
           </Col>
