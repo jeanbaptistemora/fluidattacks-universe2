@@ -549,54 +549,41 @@ def has_not_termination_protection(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::LaunchTemplate',
-            ],
-            exclude=exclude):
-        disable_api_termination = _index(
-            dictionary=res_props,
-            indexes=('LaunchTemplateData', 'DisableApiTermination'),
-            default=False)
-
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            disable_api_termination = \
-                helper.to_boolean(disable_api_termination)
-
-        if not disable_api_termination:
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    launch_templates: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'EC2', 'LaunchTemplate', 'Instance'})) > 2
+    ]
+    for l_template in launch_templates:
+        _type = get_type(graph, l_template, {'LaunchTemplate', 'Instance'})
+        template = graph.nodes[get_predecessor(graph, l_template,
+                                               'CloudFormationTemplate')]
+        vulnerable = True
+        resource = graph.nodes[l_template]
+        line = resource['line']
+        termination = [
+            node for node in dfs_preorder_nodes(graph, l_template, 15)
+            if 'DisableApiTermination' in graph.nodes[node]['labels']
+        ]
+        if termination:
+            termination_node = get_ref_nodes(
+                graph, termination[0],
+                lambda x: x in (False, 'false', 'False', '0', 0))
+            if termination_node:
+                line = graph.nodes[termination_node[0]]['line']
+            else:
+                vulnerable = False
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=('AWS::EC2::LaunchTemplate/'
-                            'LaunchTemplateData/'
-                            'DisableApiTermination/'
-                            f'{disable_api_termination}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
-                    reason='has not disabled api termination'))
-
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::Instance',
-            ],
-            exclude=exclude):
-        disable_api_termination = res_props.get('DisableApiTermination', False)
-
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            disable_api_termination = \
-                helper.to_boolean(disable_api_termination)
-
-        if not disable_api_termination:
-            vulnerabilities.append(
-                Vulnerability(
-                    path=yaml_path,
-                    entity=('AWS::EC2::Instance/'
-                            'DisableApiTermination/'
-                            f'{disable_api_termination}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    path=template['path'],
+                    entity=f'AWS::EC2::{_type}/DisableApiTermination/',
+                    identifier=resource['name'],
+                    line=line,
                     reason='has not disabled api termination'))
 
     return _get_result_as_tuple(

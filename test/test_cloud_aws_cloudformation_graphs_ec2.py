@@ -15,22 +15,6 @@ VULN = 'test/static/cloudformation/code_as_data_vulnerable'
 SAFE = 'test/static/cloudformation/code_as_data_safe'
 
 
-def test_has_not_termination_protection(safe_loader, vuln_loader):
-    """test ec2.has_not_termination_protection."""
-    result = ec2.has_not_termination_protection(vuln_loader)
-    assert result.is_open()
-    assert result.get_vulns_number() == 4 * 3
-    assert ec2.has_not_termination_protection(safe_loader).is_closed()
-
-
-def test_has_terminate_shutdown_behavior(safe_loader, vuln_loader):
-    """test ec2.has_terminate_shutdown_behavior."""
-    result = ec2.has_not_termination_protection(vuln_loader)
-    assert result.is_open()
-    assert result.get_vulns_number() == 4 * 3
-    assert ec2.has_terminate_shutdown_behavior(safe_loader).is_closed()
-
-
 def test_is_associate_public_ip_address_enabled(safe_loader, vuln_loader):
     """test ec2.is_associate_public_ip_address_enabled."""
     result = ec2.is_associate_public_ip_address_enabled(vuln_loader)
