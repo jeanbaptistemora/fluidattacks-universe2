@@ -617,29 +617,39 @@ def has_terminate_shutdown_behavior(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::LaunchTemplate',
-            ],
-            exclude=exclude):
-        initiated_sd_behavior = _index(
-            dictionary=res_props,
-            indexes=(
-                'LaunchTemplateData',
-                'InstanceInitiatedShutdownBehavior'),
-            default='stop')
-
-        if str(initiated_sd_behavior).lower() == 'terminate':
+    graph = get_graph(path, exclude)
+    templates = get_templates(graph, path, exclude)
+    launch_templates: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'EC2', 'LaunchTemplate', 'Instance'})) > 2
+    ]
+    for l_templates in launch_templates:
+        resource = graph.nodes[l_templates]
+        template = graph.nodes[get_predecessor(graph, l_templates,
+                                               'CloudFormationTemplate')]
+        behavior = [
+            node for node in dfs_preorder_nodes(graph, l_templates, 12)
+            if 'InstanceInitiatedShutdownBehavior' in graph.nodes[node][
+                'labels']
+        ]
+        if not behavior:
+            continue
+        behavior_node = behavior[0]
+        behavior_node = get_ref_nodes(graph, behavior_node,
+                                      lambda x: x == 'terminate')
+        if behavior_node:
+            _type = get_type(graph, l_templates,
+                             {'Instance', 'LaunchTemplate'})
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=('AWS::EC2::LaunchTemplate/'
-                            'LaunchTemplateData/'
-                            'InstanceInitiatedShutdownBehavior/'
-                            f'{initiated_sd_behavior}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    path=template['path'],
+                    entity=(f'AWS::EC2::{_type}/'
+                            'InstanceInitiatedShutdownBehavior/'),
+                    identifier=resource['name'],
+                    line=graph.nodes[behavior_node[0]]['line'],
                     reason='has -terminate- as shutdown behavior'))
 
     return _get_result_as_tuple(

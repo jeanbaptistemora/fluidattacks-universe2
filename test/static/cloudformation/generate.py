@@ -1144,7 +1144,6 @@ ec2_instance1 = troposphere.ec2.Instance(
             AssociatePublicIpAddress=troposphere.Ref(param_enable_public_ip))])
 ec2_instance2 = troposphere.ec2.Instance(
     title='ec2instance2',
-    DisableApiTermination=True,
     IamInstanceProfile='iamInstanceProfile1',
     LaunchTemplate=troposphere.ec2.LaunchTemplateSpecification(
         LaunchTemplateId=troposphere.Ref(ec2_launch_template),

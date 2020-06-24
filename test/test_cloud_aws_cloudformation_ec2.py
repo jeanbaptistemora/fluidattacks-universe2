@@ -66,16 +66,16 @@ def test_has_not_termination_protection():
     """test ec2.has_not_termination_protection."""
     result = ec2.has_not_termination_protection(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 4 * 3
+    assert result.get_vulns_number() == 7 * 2
     assert ec2.has_not_termination_protection(SAFE_DATA).is_closed()
+
 
 def test_has_terminate_shutdown_behavior():
     """test ec2.has_terminate_shutdown_behavior."""
-    result = ec2.has_terminate_shutdown_behavior(VULN)
+    result = ec2.has_terminate_shutdown_behavior(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert ec2.has_terminate_shutdown_behavior(SAFE).is_closed()
-    assert ec2.has_terminate_shutdown_behavior(NOT_EXISTS).is_unknown()
+    assert result.get_vulns_number() == 5 * 2
+    assert ec2.has_terminate_shutdown_behavior(SAFE_DATA).is_closed()
 
 
 def test_is_associate_public_ip_address_enabled():

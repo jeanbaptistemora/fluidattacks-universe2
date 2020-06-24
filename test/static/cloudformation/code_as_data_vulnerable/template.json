@@ -67,7 +67,6 @@
     },
     "ec2instance2": {
       "Properties": {
-        "DisableApiTermination": "true",
         "IamInstanceProfile": "iamInstanceProfile1",
         "LaunchTemplate": {
           "LaunchTemplateId": {
