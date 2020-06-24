@@ -143,8 +143,12 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
             'backend_api_resolvers_event_resolve_events',
+            'backend_api_resolvers_finding__do_add_finding_comment',
             'backend_api_resolvers_finding__do_update_description',
+            'backend_api_resolvers_finding__do_update_evidence_description',
+            'backend_api_resolvers_finding__do_update_evidence',
             'backend_api_resolvers_finding__get_analyst',
+            'backend_api_resolvers_finding__get_historic_state',
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
             'backend_api_resolvers_project__get_comments',
@@ -157,6 +161,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_upload_file',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_analyst'),
+            ('backend_api_resolvers_vulnerability_resolve_'
+                'vulnerability_resolve_last_analyst'),
         },
         tags={
             'drills',
@@ -357,6 +365,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
             'backend_api_resolvers_event_resolve_events',
+            'backend_api_resolvers_event__do_solve_event',
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
             'backend_api_resolvers_project__get_comments',
