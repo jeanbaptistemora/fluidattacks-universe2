@@ -25,29 +25,19 @@ async def generate_one(group: str):
         group_found_over_time = group_over_time[0]
         group_closed_over_time = group_over_time[1]
         group_accepted_over_time = group_over_time[2]
-        group_opened_over_time = [
-            dict(x=found['x'], y=found['y'] - closed['y'] - accepted['y'])
-            for found, closed, accepted in zip(
-                group_found_over_time,
-                group_closed_over_time,
-                group_accepted_over_time
-            )
-        ]
-        min_iterable_len = len(group_opened_over_time)
 
-        for category, iterable in [
-            ('opened', group_opened_over_time[0:min_iterable_len]),
-            ('accepted', group_accepted_over_time[0:min_iterable_len]),
-            ('closed', group_closed_over_time[0:min_iterable_len]),
-        ]:
-            data.extend(
-                dict(
-                    category=category,
-                    count=element['y'],
-                    date=element['x'],
-                )
-                for element in iterable
-            )
+        for accepted, closed, found in zip(
+            group_accepted_over_time,
+            group_closed_over_time,
+            group_found_over_time,
+        ):
+            data.append(dict(
+                accepted=accepted['y'],
+                closed=closed['y'],
+                opened=found['y'] - closed['y'] - accepted['y'],
+                name=found['x'],
+                total=found['y'],
+            ))
     else:
         print(f'[WARNING] {group} has no remediated_over_time attribute')
 

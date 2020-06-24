@@ -11,7 +11,7 @@ const enTranslations: Dictionary = {
         title: "Systems Risk",
       },
     },
-    divergingStackedBarChart: {
+    stackedBarChart: {
       riskOverTime: {
         title: "Risk over time",
       },

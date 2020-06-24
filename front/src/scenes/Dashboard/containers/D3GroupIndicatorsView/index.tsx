@@ -14,6 +14,18 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
     <React.StrictMode>
       <Grid>
         <Row>
+          <Col xs={6} sm={8} md={10}>
+            <Graphic
+              bsClass={styles.height160}
+              documentName="riskOverTime"
+              documentType="stackedBarChart"
+              entity="group"
+              subject={groupName}
+              title={translate.t("analytics.stackedBarChart.riskOverTime.title")}
+            />
+          </Col>
+        </Row>
+        <Row>
           <Col xs={3} sm={4} md={5}>
             <Graphic
               bsClass={styles.height160}
