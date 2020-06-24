@@ -561,7 +561,7 @@ function job_serve_mobile {
     &&  npx --no-install expo login \
             --username "${EXPO_USER}" \
             --password "${EXPO_PASS}" \
-    &&  npm start \
+    &&  npm start -- --non-interactive \
   &&  popd \
   ||  return 1
 }
