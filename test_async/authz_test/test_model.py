@@ -30,8 +30,7 @@ pytestmark = [
             'admin',
             'analyst',
             'customer',
-            'internal_manager',
-            'reviewer',
+            'internal_manager'
         ]),
         (authz.SERVICE_ATTRIBUTES, [
             'drills_black',
