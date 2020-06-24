@@ -7,6 +7,7 @@ from typing import (
     Dict,
     Iterable,
 )
+from urllib.parse import urlparse
 
 # Third party libraries
 from backend.domain import (
@@ -32,14 +33,21 @@ def get_repo_from_where(where: str) -> str:
 
 def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
     kind: str = vulnerability['vuln_type']
-    where: str = vulnerability['where']
+    where: str = vulnerability['where'].strip()
 
     if kind == 'lines':
         root: str = get_repo_from_where(where)
     elif kind == 'ports':
         root = where
+    elif kind == 'inputs':
+        try:
+            url = urlparse(where)
+        except ValueError:
+            root = where
+        else:
+            root = url.hostname or where
     else:
-        root = ''
+        root = where
 
     return root
 
