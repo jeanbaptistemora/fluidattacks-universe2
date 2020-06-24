@@ -88,11 +88,10 @@ def test_is_associate_public_ip_address_enabled():
 
 def test_uses_default_security_group():
     """test ec2.uses_default_security_group."""
-    result = ec2.uses_default_security_group(VULN)
+    result = ec2.uses_default_security_group(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 3
-    assert ec2.uses_default_security_group(SAFE).is_closed()
-    assert ec2.uses_default_security_group(NOT_EXISTS).is_unknown()
+    assert result.get_vulns_number() == 2 * 6
+    assert ec2.uses_default_security_group(SAFE_DATA).is_closed()
 
 
 def test_security_group_allows_anyone_to_admin_ports():

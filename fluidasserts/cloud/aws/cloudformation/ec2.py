@@ -28,7 +28,6 @@ from fluidasserts.cloud.aws.cloudformation import get_type
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
-    _index,
     _get_result_as_tuple
 )
 from fluidasserts.utils.decorators import api, unknown_if
@@ -697,7 +696,7 @@ def is_associate_public_ip_address_enabled(
     ]
 
     for _ip in public_ips:
-        resource = template = graph.nodes[get_predecessor(
+        resource = graph.nodes[get_predecessor(
             graph, _ip, 'Instance')]
         template = graph.nodes[get_predecessor(graph, _ip,
                                                'CloudFormationTemplate')]
@@ -724,8 +723,8 @@ def is_associate_public_ip_address_enabled(
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def uses_default_security_group(
-        path: str, exclude: Optional[List[str]] = None) -> Tuple:
+def uses_default_security_group(path: str,
+                                exclude: Optional[List[str]] = None) -> Tuple:
     """
     Verify if ``EC2`` have not **Security Groups** explicitely set.
 
@@ -744,54 +743,35 @@ def uses_default_security_group(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::LaunchTemplate',
-            ],
-            exclude=exclude):
-        launch_template_sgs = _index(
-            dictionary=res_props,
-            indexes=('LaunchTemplateData', 'SecurityGroups'))
-        launch_template_sgs_ids = _index(
-            dictionary=res_props,
-            indexes=('LaunchTemplateData', 'SecurityGroupIds'))
-
-        if launch_template_sgs or launch_template_sgs_ids:
-            # Not vulnerable
-            continue
-
-        vulnerabilities.append(
-            Vulnerability(
-                path=yaml_path,
-                entity=('AWS::EC2::LaunchTemplate/'
-                        'LaunchTemplateData/'
-                        'SecurityGroups(Ids)'),
-                identifier=res_name,
-                line=helper.get_line(res_props),
-                reason='is empty, and therefore uses default security group'))
-
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::Instance',
-            ],
-            exclude=exclude):
-        instance_sgs = res_props.get('SecurityGroups')
-        instance_sgs_ids = res_props.get('SecurityGroupIds')
-
-        if instance_sgs or instance_sgs_ids:
-            # Not vulnerable
-            continue
-
-        vulnerabilities.append(
-            Vulnerability(
-                path=yaml_path,
-                entity=('AWS::EC2::Instance/'
-                        'SecurityGroups(Ids)'),
-                identifier=res_name,
-                line=helper.get_line(res_props),
-                reason='is empty, and therefore uses default security group'))
+    graph = get_graph(path, exclude)
+    templates = get_templates(graph, path, exclude)
+    launch_templates: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'EC2', 'Instance', 'LaunchTemplate'})) > 2
+    ]
+    for l_template in launch_templates:
+        resource = graph.nodes[l_template]
+        template = graph.nodes[get_predecessor(graph, l_template,
+                                               'CloudFormationTemplate')]
+        seg_group = [
+            node for node in dfs_preorder_nodes(graph, l_template, 6)
+            if graph.nodes[node]['labels'].intersection(
+                {'SecurityGroups', 'SecurityGroupIds'})
+        ]
+        if not seg_group:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=template['path'],
+                    entity=('AWS::EC2::Instance/'
+                            'SecurityGroups(Ids)'),
+                    identifier=resource['name'],
+                    line=resource['line'],
+                    reason=(
+                        'is empty, and therefore uses default security group')
+                ))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
