@@ -15,6 +15,8 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
     documentType,
     entity,
     footer,
+    generatorName,
+    generatorType,
     subject,
     title,
   } = props;
@@ -48,6 +50,8 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
   url.searchParams.set("documentName", documentName);
   url.searchParams.set("documentType", documentType);
   url.searchParams.set("entity", entity);
+  url.searchParams.set("generatorName", _.isUndefined(generatorName) ? documentName : generatorName);
+  url.searchParams.set("generatorType", _.isUndefined(generatorType) ? documentType : generatorType);
   url.searchParams.set("height", size.height.toString());
   url.searchParams.set("subject", subject);
   url.searchParams.set("width", size.width.toString());

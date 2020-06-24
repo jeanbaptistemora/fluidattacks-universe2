@@ -37,8 +37,10 @@ GRAPHIC_PARAMETERS = NamedTuple('GraphicParameters', [
     ('document_name', str),
     ('document_type', str),
     ('entity', str),
-    ('subject', str),
+    ('generator_name', str),
+    ('generator_type', str),
     ('height', int),
+    ('subject', str),
     ('width', int),
 ])
 
@@ -94,15 +96,19 @@ async def handle_graphic_request_parameters(
 ) -> GRAPHIC_PARAMETERS:
     document_name: str = request.GET['documentName']
     document_type: str = request.GET['documentType']
+    generator_name: str = request.GET['generatorName']
+    generator_type: str = request.GET['generatorType']
     entity: str = request.GET['entity']
-    subject: str = request.GET['subject']
     height: int = int(request.GET['height'])
+    subject: str = request.GET['subject']
     width: int = int(request.GET['width'])
 
     for param_name, param_value in [
         ('documentName', document_name),
         ('documentType', document_type),
         ('entity', entity),
+        ('generatorName', generator_name),
+        ('generatorType', generator_type),
         ('subject', subject),
     ]:
         if not param_value.isalpha():
@@ -112,6 +118,8 @@ async def handle_graphic_request_parameters(
         document_name=document_name,
         document_type=document_type,
         entity=entity,
+        generator_name=generator_name,
+        generator_type=generator_type,
         height=height,
         subject=subject,
         width=width,
@@ -148,8 +156,8 @@ async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
             generator_src=(
                 f'graphics/'
                 f'generators/'
-                f'{params.document_type}/'
-                f'{params.document_name}.js'
+                f'{params.generator_type}/'
+                f'{params.generator_name}.js'
             ),
         ))
 

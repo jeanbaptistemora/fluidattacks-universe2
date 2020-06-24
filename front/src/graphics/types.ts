@@ -4,6 +4,8 @@ export interface IGraphicProps {
   documentType: string;
   entity: string;
   footer?: JSX.Element | string;
+  generatorName?: string;
+  generatorType?: string;
   subject: string;
   title?: JSX.Element | string;
 }
