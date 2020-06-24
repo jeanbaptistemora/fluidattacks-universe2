@@ -676,29 +676,45 @@ def is_associate_public_ip_address_enabled(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::Instance',
-            ],
-            exclude=exclude):
-        for network_interface in res_props.get('NetworkInterfaces', []):
-            public_ip = network_interface.get('AssociatePublicIpAddress')
+    graph = get_graph(path, exclude)
+    templates = get_templates(graph, path)
+    instances: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'EC2', 'Instance'})) > 2
+    ]
+    networks = [
+        node
+        for instance in instances
+        for node in dfs_preorder_nodes(graph, instance, 3)
+        if 'NetworkInterfaces' in graph.nodes[node]['labels']
+    ]
+    public_ips = [
+        node for net in networks for node in dfs_preorder_nodes(graph, net, 3)
+        if 'AssociatePublicIpAddress' in graph.nodes[node]['labels']
+    ]
 
-            with contextlib.suppress(CloudFormationInvalidTypeError):
-                public_ip = helper.to_boolean(public_ip)
-
-            if public_ip:
-                vulnerabilities.append(
-                    Vulnerability(
-                        path=yaml_path,
-                        entity=('AWS::EC2::Instance/'
-                                'NetworkInterfaces/'
-                                'AssociatePublicIpAddress/'
-                                f'{public_ip}'),
-                        identifier=res_name,
-                        line=helper.get_line(res_props),
-                        reason='associates public IP on launch'))
+    for _ip in public_ips:
+        resource = template = graph.nodes[get_predecessor(
+            graph, _ip, 'Instance')]
+        template = graph.nodes[get_predecessor(graph, _ip,
+                                               'CloudFormationTemplate')]
+        _ip_node = get_ref_nodes(graph, _ip,
+                                 lambda x: x in (True, 'true', 'True', '1', 1))
+        if _ip_node:
+            public_ip = graph.nodes[_ip_node[0]]
+            vulnerabilities.append(
+                Vulnerability(
+                    path=template['path'],
+                    entity=('AWS::EC2::Instance/'
+                            'NetworkInterfaces/'
+                            'AssociatePublicIpAddress/'
+                            f'{public_ip["value"]}'),
+                    identifier=resource['name'],
+                    line=public_ip['line'],
+                    reason='associates public IP on launch'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

@@ -80,11 +80,10 @@ def test_has_terminate_shutdown_behavior():
 
 def test_is_associate_public_ip_address_enabled():
     """test ec2.is_associate_public_ip_address_enabled."""
-    result = ec2.is_associate_public_ip_address_enabled(VULN)
+    result = ec2.is_associate_public_ip_address_enabled(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert ec2.is_associate_public_ip_address_enabled(SAFE).is_closed()
-    assert ec2.is_associate_public_ip_address_enabled(NOT_EXISTS).is_unknown()
+    assert result.get_vulns_number() == 2 + 2
+    assert ec2.is_associate_public_ip_address_enabled(SAFE_DATA).is_closed()
 
 
 def test_uses_default_security_group():
