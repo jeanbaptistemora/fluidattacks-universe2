@@ -1,5 +1,12 @@
-:local .errorComponent {
-  color: #cccccc;
+:local .frame {
+  border-style: none;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+:local .loadingComponent {
+  color: #eeeeee;
   left: 50%;
   position: absolute;
   text-align: center;
