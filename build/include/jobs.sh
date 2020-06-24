@@ -242,7 +242,7 @@ function job_analytics_gitlab {
   local project
   local projects=(
     'autonomicmind/default'
-    'autonomicmind/training'
+    'autonomicmind/challenges'
     'fluidattacks/services'
     'fluidattacks/asserts'
     'fluidattacks/integrates'

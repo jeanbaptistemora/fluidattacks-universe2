@@ -32,7 +32,7 @@ def main():
     with Pool(processes=cpu_count()) as workers:
         workers.map(clone, [
             'autonomicmind/default',
-            'autonomicmind/training',
+            'autonomicmind/challenges',
             'fluidattacks/web',
             'fluidattacks/public',
             'fluidattacks/asserts',

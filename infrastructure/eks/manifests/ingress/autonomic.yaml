@@ -80,9 +80,9 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/upstream-vhost: "autonomicmind.gitlab.io"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/proxy-redirect-from: //autonomicmind.gitlab.io/training/
+    nginx.ingress.kubernetes.io/proxy-redirect-from: //autonomicmind.gitlab.io/challenges/
     nginx.ingress.kubernetes.io/proxy-redirect-to: /challenges/
-    nginx.ingress.kubernetes.io/rewrite-target: /training$1
+    nginx.ingress.kubernetes.io/rewrite-target: /challenges$1
     nginx.ingress.kubernetes.io/configuration-snippet: |
 
       more_set_headers "Expires: 0";
