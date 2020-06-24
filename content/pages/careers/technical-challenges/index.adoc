@@ -93,7 +93,7 @@ where you can interact with `Fluid Attacks` personnel and other candidates,
 who are working in the same stage that you are,
 to discuss questions or issues you may have.
 
-. Request permission to access the `Git Training` repository by filling out this
+. Request permission to access the `Git Challenges` repository by filling out this
 [inner]#link:https://fluidattacks.com/forms/access[form]#.
 
 . In the `Repo Access Message` field, paste the following message:
@@ -102,7 +102,7 @@ to discuss questions or issues you may have.
 ____________________________________________________________________
 I have read and understood all documentation pertaining to technical challenges,
 I agree to all of the terms and
-therefore request access to the `git` `training` repository
+therefore request access to the `git` `Challenges` repository
 with my `GitLab` username.
 ____________________________________________________________________
 
@@ -119,7 +119,7 @@ The challenge stage ends under any of the following conditions:
 . You have met all link:#objectives[objectives] and
 sent an `email` with the links to your solutions in the `master` branch.
 . If there has been no activity
-(`push` to the `git` training repository) within 14 calendar days.
+(`push` to the `git` Challenges repository) within 14 calendar days.
 . If you clearly state,
 via email,
 that you are no longer interested in continuing the process.
@@ -148,13 +148,13 @@ link:https://community.fluidattacks.com/[Forum].
 == 7. Property
 
 * The proprietary rights of all content
-in the training repository is defined in the
-link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT]
+in the Challenges repository is defined in the
+link:https://gitlab.com/autonomicmind/challenges/blob/master/COPYRIGHT.txt[COPYRIGHT]
 file.
 
 * The license and privileges that users have
-in the training repository is defined in the
-link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE]
+in the Challenges repository is defined in the
+link:https://gitlab.com/autonomicmind/challenges/blob/master/LICENSE.txt[LICENSE]
 file.
 
 * Carrying out a `merge request` implies the transfer of copyrights.
@@ -191,7 +191,7 @@ to all solutions submitted. We use:
 Now that you know all the rules
 and have a general understanding
 of why these challenges are important,
-you can proceed to the [inner]#link:https://gitlab.com/autonomicmind/training/wikis/Submission[Submission guide]#
+you can proceed to the [inner]#link:https://gitlab.com/autonomicmind/challenges/wikis/Submission[Submission guide]#
 and start posting your solutions. Good luck!
 
 == 10. Keywords

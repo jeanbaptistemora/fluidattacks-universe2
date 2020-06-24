@@ -134,8 +134,8 @@ lines of code?
 
 Let us take one of the many
 Vulnerable by Design (`VbD`) applications
-we use for training purposes in
-link:https://gitlab.com/fluidattacks/writeups[Writeups],
+we use for training purposes in our
+link:https://autonomicmind.com/challenges/sites-ranking-vbd/[challenges site],
 and see how many vulnerabilities come up
 by running `DeepCode` on them.
 By the way, they currently support
