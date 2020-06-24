@@ -1,7 +1,9 @@
 /* global d3 */
 
 const bottomMarginTranslation = 0.33;
-const marginPercentage = 0.15;
+const horizontalMarginPercentage = 0.05;
+const bottomMarginPercentage = 0.15;
+const topMarginPercentage = 0.025;
 const padding = 0.1;
 
 function formatValue(value) {
@@ -10,10 +12,10 @@ function formatValue(value) {
 
 function render(dataDocument, height, width) {
   const margin = {
-    top: height * marginPercentage,
-    right: width * marginPercentage,
-    bottom: height * marginPercentage,
-    left: width * marginPercentage,
+    top: height * topMarginPercentage,
+    right: width * horizontalMarginPercentage,
+    bottom: height * bottomMarginPercentage,
+    left: width * horizontalMarginPercentage,
   };
 
   const svg = d3
