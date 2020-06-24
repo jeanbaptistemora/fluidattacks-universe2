@@ -8,7 +8,7 @@
 
 == Requirement
 
-The system output must be encoded in the corresponding language (`escaping`).
+The system output must be encoded in the corresponding language (*escaping*).
 
 == Description
 
@@ -20,21 +20,50 @@ For this reason, enconding or escaping must occur before sending the messages.
 
 == References
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
+. [[r2]] link:https://cwe.mitre.org/data/definitions/79.html[CWE-79: Cross-site Scripting].
+The software does not neutralize or incorrectly neutralizes user-controllable
+input before it is placed in output that is used as a web page that is served
+to other users.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2 Use code protection].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/176.html[CWE-176: Improper Handling of Unicode Encoding].
+The product does not validate or incorrectly validates input that can affect
+the control flow or data flow of a program.
 
-. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2 Use code protection].
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
-. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.4)]
 Verify that output encoding occurs close to or by the interpreter for which it
 is intended.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.1)]
+Verify that output encoding is relevant for the interpreter and context
+required.
+For example, use encoders specifically for *HTML* values, *HTML* attributes,
+JavaScript, URL Parameters, *HTTP* headers, *SMTP*, and others as the context
+requires, especially from untrusted inputs
+(e.g. names with Unicode or apostrophes, such as ねこ or O'Hara).
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.2)]
+Verify that output encoding preserves the user's chosen character set and
+locale,
+such that any Unicode character point is valid and safely handled.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.3)]
+Verify that context-aware, preferably automated - or at worst, manual - output
+escaping protects against reflected, stored, and *DOM* based *XSS*.
