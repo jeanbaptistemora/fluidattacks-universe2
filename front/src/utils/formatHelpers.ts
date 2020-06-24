@@ -458,6 +458,8 @@ const formatHistoricTreatment: (
   treatmentEvent: IHistoricTreatment, translateTreatment: boolean,
 ): IHistoricTreatment => {
 
+  const date: string = _.get(treatmentEvent, "date", "")
+    .split(" ")[0];
   const acceptanceDate: string = _.get(treatmentEvent, "acceptance_date", "")
     .split(" ")[0];
   const acceptanceStatus: string = _.get(treatmentEvent, "acceptance_status", "")
@@ -476,7 +478,7 @@ const formatHistoricTreatment: (
   return {
     acceptanceDate,
     acceptanceStatus,
-    date: treatmentEvent.date,
+    date,
     justification,
     treatment,
     user: acceptationUser,
@@ -496,9 +498,8 @@ export const getLastTreatment: ((historic: IHistoricTreatment[]) => IHistoricTre
 export const getPreviousTreatment: ((historic: IHistoricTreatment[]) => IHistoricTreatment[]) = (
   historic: IHistoricTreatment[],
 ): IHistoricTreatment[] => {
-  const previousTreatment: IHistoricTreatment[] = historic.length > 1
-    ? historic.slice(0, -1)
-    : [];
+  const previousTreatment: IHistoricTreatment[] = [...historic];
+  previousTreatment.reverse();
 
   return previousTreatment.map((treatment: IHistoricTreatment) => formatHistoricTreatment(treatment, true));
 };

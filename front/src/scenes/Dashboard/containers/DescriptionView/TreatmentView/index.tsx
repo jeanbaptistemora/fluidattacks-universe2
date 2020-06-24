@@ -151,6 +151,11 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   const historicTreatmentHeaders: IHeader[] = [
     {
       align: "center",
+      dataField: "date",
+      header: translate.t("search_findings.tab_description.treatment_date"),
+    },
+    {
+      align: "center",
       dataField: "treatment",
       header: translate.t("search_findings.tab_description.treatment.title"),
     },

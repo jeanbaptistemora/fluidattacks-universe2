@@ -538,7 +538,7 @@ const enTranslations: Dictionary = {
       affected_systems: "Affected systems",
       analyst: "Hacker",
       approval_message:
-        "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
+      "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
       approval_title: "Confirmation",
       approve: "Approve",
       approve_all: "Approve all",
@@ -612,6 +612,7 @@ const enTranslations: Dictionary = {
         rejected: "Rejected",
         title: "Treatment",
       },
+      treatment_date: "Treatment Date",
       treatment_historic: "Historic Treatment",
       treatment_just: "Treatment justification",
       treatment_mgr: "Treatment manager",
