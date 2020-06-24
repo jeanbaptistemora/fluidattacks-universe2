@@ -10,15 +10,8 @@ from backend.dal.session import (
     get_all_logged_users, get_previous_session,
     invalidate_session
 )
+from test_async.utils import create_dummy_simple_session
 
-def create_dummy_session(username):
-    request = RequestFactory().get('/')
-    middleware = SessionMiddleware()
-    middleware.process_request(request)
-    request.session['username'] = username
-    request.session['company'] = username
-    request.session.save()
-    return request.session.session_key
 
 def _test_get_all_logged_users():
     def unpack_sessions(active_users):
@@ -31,8 +24,8 @@ def _test_get_all_logged_users():
         invalidate_session(session[1])
     assert not bool(get_all_logged_users())
 
-    create_dummy_session('unittest')
-    create_dummy_session('unittest2')
+    create_dummy_simple_session('unittest', 'unittest')
+    create_dummy_simple_session('unittest2', 'unittest2')
     users, _ = zip(*unpack_sessions(get_all_logged_users()))
     assert sorted(users) == ['unittest', 'unittest2']
 
@@ -47,14 +40,20 @@ def _test_get_previous_session():
         invalidate_session(session[1])
     assert not bool(get_all_logged_users())
 
-    test_1 = [create_dummy_session(f'unittest{i}') for i in range(5)]
+    test_1 = [
+        create_dummy_simple_session(
+            f'unittest{i}', f'unittest{i}').session.session_key
+        for i in range(5)]
     assert len(get_all_logged_users()) == len(test_1)
 
     assert not bool(get_previous_session('unittest4', test_1[-1]))
 
     assert \
         f'fi_session:{test_1[-1]}' == \
-        get_previous_session('unittest4', create_dummy_session('unittest4'))
+        get_previous_session(
+            'unittest4',
+            create_dummy_simple_session(
+                'unittest4', 'unittest4').session.session_key)
 
 def _test_invalidate_session():
     def unpack_sessions(active_users):
@@ -68,7 +67,9 @@ def _test_invalidate_session():
     assert not bool(get_all_logged_users())
 
     all_active_sessions = sorted(
-        [create_dummy_session(f'unittest{i}') for i in range(20)]
+        [create_dummy_simple_session(
+            f'unittest{i}', f'unittest{i}').session.session_key
+        for i in range(20)]
     )
     all_active_sessions = [f'fi_session:{s}' for s in all_active_sessions]
     assert len(get_all_logged_users()) == len(all_active_sessions)

@@ -14,10 +14,10 @@ def create_dummy_simple_session(
     request: HttpResponseBase = RequestFactory().get('/')
     middleware = SessionMiddleware()
     middleware.process_request(request)
-    request.session.save()
     middleware.process_request(request)
     request.session['username'] = username
     request.session['company'] = company
+    request.session.save()
     return request
 
 
