@@ -7,7 +7,11 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 
 # Standard imports
 import contextlib
-from typing import List, Optional
+from typing import List, Optional, Tuple, Dict
+
+# Treed imports
+from networkx import DiGraph
+from networkx.algorithms import dfs_preorder_nodes
 
 # Local imports
 from fluidasserts import SAST, LOW, MEDIUM
@@ -15,6 +19,11 @@ from fluidasserts.helper import aws as helper
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
+    get_templates,
+    get_graph,
+    get_predecessor,
+    get_ref_nodes,
+    get_type,
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
@@ -39,35 +48,50 @@ def has_unencrypted_storage(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::RDS::DBCluster',
-                'AWS::RDS::DBInstance',
-            ],
-            exclude=exclude):
-        res_type = res_props['../Type']
-        res_storage_encrypted = res_props.get('StorageEncrypted', False)
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    clusters: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
+    ]
+    vulnerable: bool = False
+    vulnerabilities: List[Vulnerability] = []
+    for cluster in clusters:
+        template: Dict = graph.nodes[get_predecessor(graph, cluster,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[cluster]
+        _encryption: List[int] = [
+            node for node in dfs_preorder_nodes(graph, cluster, 3)
+            if 'StorageEncrypted' in graph.nodes[node]['labels']
+        ]
 
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            res_storage_encrypted = helper.to_boolean(res_storage_encrypted)
-
-        is_vulnerable: bool = not res_storage_encrypted
-
-        if is_vulnerable:
+        if _encryption:
+            encryption: int = _encryption[0]
+            with contextlib.suppress(CloudFormationInvalidTypeError):
+                un_encryption: List[int] = get_ref_nodes(
+                    graph, encryption,
+                    lambda x: x not in (True, 'true', 'True', '1', 1))
+                if un_encryption:
+                    vulnerable = True
+        else:
+            vulnerable = True
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=f'AWS::RDS::{res_type}',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
-                    reason='uses unencrypted storage'))
+                    path=template['path'],
+                    entity=get_type(graph, encryption, {'DBCluster',
+                                                        'DBInstance'}),
+                    identifier=resource['name'],
+                    line=graph.nodes[un_encryption[0]]['line'],
+                    reason='is not encrypted'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS clusters or instances have unencrypted storage',
-        msg_closed='RDS clusters or instances have encrypted storage')
+        msg_open='RDS clusters are not encrypted',
+        msg_closed='RDS clusters are encrypted')
 
 
 @api(risk=MEDIUM, kind=SAST)
