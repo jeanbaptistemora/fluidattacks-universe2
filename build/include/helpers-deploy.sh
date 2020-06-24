@@ -165,7 +165,8 @@ function helper_deploy_pages {
   &&  sed -i "s|:category: services|:category: use-cases|g" new/content/pages/use-cases/comparative/index.adoc \
   &&  sed -i "s|services/continuous-hacking|use-cases/continuous-hacking|g" new/content/blog/*/index.adoc \
   &&  sed -i "s|services/one-shot-hacking|use-cases/one-shot-hacking|g" new/content/blog/*/index.adoc \
-  &&  sed -i "s|services/continuous-hacking|use-cases/continuous-hacking|g" new/content/pages/*/index.adoc
+  &&  sed -i "s|services/continuous-hacking|use-cases/continuous-hacking|g" new/content/pages/*/index.adoc \
+  &&  rsync -av --progress content/pages/products/rules new/content/pages/products/
 }
 
 function helper_deploy_compile_old {

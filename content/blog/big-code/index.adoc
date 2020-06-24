@@ -213,7 +213,7 @@ Now for a more realistic test,
 let's try running `DeepCode` on some of our own repos, namely,
 [inner]#link:../../products/integrates[Integrates]#,
 our platform for vulnerability centralization and management and
-[inner]#link:../../products/asserts[Asserts]#,
+[inner]#link:../../asserts[Asserts]#,
 our vulnerability automation framework.
 Both are
 link:https://gitlab.com/fluidattacks[open-source],
@@ -269,7 +269,7 @@ we have held in this
 [inner]#link:../tags/machine-learning[Machine Learning (`ML`) series]#
 and also
 [inner]#link:../replaced-machines/[elsewhere]#
-[inner]#link:../../services/differentiators/#method[on our]#
+[inner]#link:../../about-us/differentiators/#method[on our]#
 [inner]#link:../importance-pentesting/[website]#.
 While automated tools,
 even `ML`-powered ones,

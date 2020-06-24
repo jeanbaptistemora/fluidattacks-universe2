@@ -395,11 +395,11 @@ and its respective environment.
  All the hackers. all the team.
 
 *Can we see resumes?*::
- Yes, in our link:../../people[people] page
+ Yes, in our link:../../about-us/people[people] page
  you can check the `LinkedIn` profiles of some members of our team.
 
 *What certifications does Fluid Attacks have?*::
-Please refer to our link:../certifications/[certifications] page
+Please refer to our link:../../about-us/certifications/[certifications] page
 for further information.
 
 *Do I lose my property rights if Fluid Attacks reviews my source code?*::
@@ -408,9 +408,9 @@ your proprietary rights to that code.
 
 *Does Fluid Attacks have a tool that enables*::
 *automatic remediation and closing of previously confirmed vulnerabilities?*::
- Yes. link:../../products/asserts/[Asserts] is `Fluid Attacks'` automated engine,
+ Yes. link:../../asserts/[Asserts] is `Fluid Attacks'` automated engine,
  checking remediation of previously confirmed vulnerabilities.
- link:../../products/asserts/[Asserts] operates in the `JOB` of continuous integration.
+ link:../../asserts/[Asserts] operates in the `JOB` of continuous integration.
  It can break the build sent by the programmer in the event
  of a breach of security requirements.
  We have recently released link:https://gitlab.com/fluidattacks/asserts[`Asserts`]
@@ -495,8 +495,8 @@ your proprietary rights to that code.
  made by `1` active author in `1` previous month.
 
 *What options for retesting are available?*::
- link:../one-shot-hacking[One shot Hacking] includes one retest.
- link:../continuous-hacking/[Continuous Hacking] includes infinite retests
+ link:../../use-cases/one-shot-hacking[One shot Hacking] includes one retest.
+ link:../../use-cases/continuous-hacking/[Continuous Hacking] includes infinite retests
  during the subscription time.
 
 *What are the scheduled activities during the continuous hacking test?*::
