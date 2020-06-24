@@ -535,7 +535,10 @@ const enTranslations: Dictionary = {
         some_employee: "Only some employees",
         title: "Actor",
       },
-      affected_systems: "Affected systems",
+      affected_systems: {
+        text: "Affected systems",
+        tooltip: "Project or application that contains the vulnerability",
+      },
       analyst: "Hacker",
       approval_message:
       "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
@@ -543,7 +546,10 @@ const enTranslations: Dictionary = {
       approve: "Approve",
       approve_all: "Approve all",
       approve_all_vulns: "Approve all pending vulnerabilities",
-      attack_vectors: "Impacts",
+      attack_vectors: {
+        text: "Impacts",
+        tooltip: "Malicious actions that can be performed by exploiting the vulnerability",
+      },
       bts: "External BTS",
       bts_placeholder: "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
       business_criticality: "Business Criticality",
@@ -555,7 +561,10 @@ const enTranslations: Dictionary = {
       deleteTags: "Delete Tags",
       delete_all: "Delete All",
       delete_all_vulns: "Delete all pending vulnerabilities",
-      description: "Description",
+      description: {
+        text: "Description",
+        tooltip: "Brief explanation of the vulnerability and how it works",
+      },
       download_vulnerabilities: "Download Vulnerabilities",
       editVuln: "Edit vulnerabilites",
       editable: "Edit",
@@ -572,7 +581,10 @@ const enTranslations: Dictionary = {
       path: "Path",
       port: "Port",
       port_plural: "Ports",
-      recommendation: "Recommendation",
+      recommendation: {
+        text: "Recommendation",
+        tooltip: "General suggestion to solve the vulnerability",
+      },
       remediation_modal: {
         justification: "Which was the applied solution?",
         message: "Verification will be requested for {{vulns}} vulnerabilities",
@@ -581,7 +593,10 @@ const enTranslations: Dictionary = {
         title_request: "Justification",
       },
       request_verify: "Request Reattack",
-      requirements: "Requirements",
+      requirements: {
+        text: "Requirements",
+        tooltip: "Rules that are broken and lead to the existence of the vulnerability",
+      },
       risk: "Risk",
       save: "Save",
       scenario: {
@@ -599,7 +614,10 @@ const enTranslations: Dictionary = {
       state: "State",
       tab_title: "Description",
       tag: "Tags",
-      threat: "Threat",
+      threat: {
+        text: "Threat",
+        tooltip: "Actor and scenery where the vulnerability can be exploited",
+      },
       title: "Title",
       tooltip: "Overall information about the finding: explanation, location, impacts, threats",
       treatment: {

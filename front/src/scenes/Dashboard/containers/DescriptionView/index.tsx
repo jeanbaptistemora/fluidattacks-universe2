@@ -18,6 +18,7 @@ import { useParams } from "react-router";
 import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import {
@@ -275,16 +276,21 @@ const descriptionView: React.FC = (): JSX.Element => {
               <Col md={12}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={textAreaField}
-                      currentValue={dataset.description}
-                      label={translate.t("search_findings.tab_description.description")}
-                      name="description"
-                      renderAsEditable={isEditing}
-                      type="text"
-                      validate={[required, validTextField, maxDescriptionLength]}
-                      visibleWhileEditing={canEdit}
-                    />
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_description.description.tooltip")}
+                      placement="bottom"
+                    >
+                      <EditableField
+                        component={textAreaField}
+                        currentValue={dataset.description}
+                        label={translate.t("search_findings.tab_description.description.text")}
+                        name="description"
+                        renderAsEditable={isEditing}
+                        type="text"
+                        validate={[required, validTextField, maxDescriptionLength]}
+                        visibleWhileEditing={canEdit}
+                      />
+                    </TooltipWrapper>
                   )}
                 </Can>
               </Col>
@@ -293,16 +299,21 @@ const descriptionView: React.FC = (): JSX.Element => {
               <Col md={12}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={textAreaField}
-                      currentValue={dataset.requirements}
-                      label={translate.t("search_findings.tab_description.requirements")}
-                      name="requirements"
-                      renderAsEditable={isEditing}
-                      type="text"
-                      validate={[required, validTextField, maxRequirementsLength]}
-                      visibleWhileEditing={canEdit}
-                    />
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_description.requirements.tooltip")}
+                      placement="bottom"
+                    >
+                      <EditableField
+                        component={textAreaField}
+                        currentValue={dataset.requirements}
+                        label={translate.t("search_findings.tab_description.requirements.text")}
+                        name="requirements"
+                        renderAsEditable={isEditing}
+                        type="text"
+                        validate={[required, validTextField, maxRequirementsLength]}
+                        visibleWhileEditing={canEdit}
+                      />
+                    </TooltipWrapper>
                   )}
                 </Can>
               </Col>
@@ -333,32 +344,42 @@ const descriptionView: React.FC = (): JSX.Element => {
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={textAreaField}
-                      currentValue={dataset.attackVectorDesc}
-                      label={translate.t("search_findings.tab_description.attack_vectors")}
-                      name="attackVectorDesc"
-                      renderAsEditable={isEditing}
-                      type="text"
-                      validate={[required, validTextField, maxImpactsLength]}
-                      visibleWhileEditing={canEdit}
-                    />
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_description.attack_vectors.tooltip")}
+                      placement="bottom"
+                    >
+                      <EditableField
+                        component={textAreaField}
+                        currentValue={dataset.attackVectorDesc}
+                        label={translate.t("search_findings.tab_description.attack_vectors.text")}
+                        name="attackVectorDesc"
+                        renderAsEditable={isEditing}
+                        type="text"
+                        validate={[required, validTextField, maxImpactsLength]}
+                        visibleWhileEditing={canEdit}
+                      />
+                    </TooltipWrapper>
                   )}
                 </Can>
               </Col>
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={textAreaField}
-                      currentValue={dataset.affectedSystems}
-                      label={translate.t("search_findings.tab_description.affected_systems")}
-                      name="affectedSystems"
-                      renderAsEditable={isEditing}
-                      type="text"
-                      validate={[required, validTextField, maxAffectedSystemsLength]}
-                      visibleWhileEditing={canEdit}
-                    />
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_description.affected_systems.tooltip")}
+                      placement="bottom"
+                    >
+                      <EditableField
+                        component={textAreaField}
+                        currentValue={dataset.affectedSystems}
+                        label={translate.t("search_findings.tab_description.affected_systems.text")}
+                        name="affectedSystems"
+                        renderAsEditable={isEditing}
+                        type="text"
+                        validate={[required, validTextField, maxAffectedSystemsLength]}
+                        visibleWhileEditing={canEdit}
+                      />
+                    </TooltipWrapper>
                   )}
                 </Can>
               </Col>
@@ -367,16 +388,21 @@ const descriptionView: React.FC = (): JSX.Element => {
               <Col md={6}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={textAreaField}
-                      currentValue={dataset.threat}
-                      label={translate.t("search_findings.tab_description.threat")}
-                      name="threat"
-                      renderAsEditable={isEditing}
-                      type="text"
-                      validate={[required, validTextField, maxThreatLength]}
-                      visibleWhileEditing={canEdit}
-                    />
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_description.threat.tooltip")}
+                      placement="bottom"
+                    >
+                      <EditableField
+                        component={textAreaField}
+                        currentValue={dataset.threat}
+                        label={translate.t("search_findings.tab_description.threat.text")}
+                        name="threat"
+                        renderAsEditable={isEditing}
+                        type="text"
+                        validate={[required, validTextField, maxThreatLength]}
+                        visibleWhileEditing={canEdit}
+                      />
+                    </TooltipWrapper>
                   )}
                 </Can>
               </Col>
@@ -401,16 +427,21 @@ const descriptionView: React.FC = (): JSX.Element => {
               <Col md={12}>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={textAreaField}
-                      currentValue={dataset.recommendation}
-                      label={translate.t("search_findings.tab_description.recommendation")}
-                      name="recommendation"
-                      renderAsEditable={isEditing}
-                      type="text"
-                      validate={[required, validTextField, maxRecommendationLength]}
-                      visibleWhileEditing={canEdit}
-                    />
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_description.recommendation.tooltip")}
+                      placement="bottom"
+                    >
+                      <EditableField
+                        component={textAreaField}
+                        currentValue={dataset.recommendation}
+                        label={translate.t("search_findings.tab_description.recommendation.text")}
+                        name="recommendation"
+                        renderAsEditable={isEditing}
+                        type="text"
+                        validate={[required, validTextField, maxRecommendationLength]}
+                        visibleWhileEditing={canEdit}
+                      />
+                    </TooltipWrapper>
                   )}
                 </Can>
               </Col>
