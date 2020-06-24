@@ -107,13 +107,13 @@ export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IA
 
 const microsoftConfig: AppAuth.OAuthProps = {
   clientId: MICROSOFT_LOGIN_KEY,
-  issuer: "https://login.microsoftonline.com/common/v2.0",
+  issuer: "https://sts.windows.net/common/",
   redirectUrl: `${AppAuth.OAuthRedirect}://oauth2redirect/microsoft`,
   scopes: ["openid", "profile", "email"],
   serviceConfiguration: {
-    authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
-    revocationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/logout",
-    tokenEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+    authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/authorize",
+    revocationEndpoint: "https://login.microsoftonline.com/common/oauth2/logout",
+    tokenEndpoint: "https://login.microsoftonline.com/common/oauth2/token",
   },
 };
 
@@ -122,10 +122,10 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
 
   try {
     const logInResult: AppAuth.TokenResponse = await AppAuth.authAsync(microsoftConfig);
-
-    const userResponse: Response = await fetch("https://graph.microsoft.com/v1.0/me", {
-      headers: { Authorization: `Bearer ${logInResult.accessToken}` },
-    });
+    const userResponse: Response = await fetch(
+      "https://login.microsoftonline.com/common/openid/userinfo",
+      { headers: { Authorization: `Bearer ${logInResult.accessToken}` } },
+    );
 
     /**
      * User properties returned by Microsoft's Graph API
@@ -138,11 +138,11 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
       authToken: logInResult.idToken as string,
       type: "success",
       user: {
-        email: userProps.mail,
-        firstName: _.capitalize(userProps.givenName),
-        fullName: _.startCase(userProps.displayName?.toLowerCase()),
-        id: userProps.id,
-        lastName: userProps.surname,
+        email: _.get(userProps, "upn", userProps.email),
+        firstName: _.capitalize(userProps.given_name),
+        fullName: _.startCase(userProps.name.toLowerCase()),
+        id: userProps.oid,
+        lastName: userProps.family_name,
       },
     };
   } catch (error) {

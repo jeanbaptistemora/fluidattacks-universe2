@@ -159,12 +159,12 @@ describe("LoginView", (): void => {
       tokenType: "",
     }));
     const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
-    mockedFetch.mock("https://graph.microsoft.com/v1.0/me", {
+    mockedFetch.mock("https://login.microsoftonline.com/common/openid/userinfo", {
       body: {
-        displayName: "JOHN DOE",
-        givenName: "JOHN",
-        mail: "test@fluidattacks.com",
-        surname: "DOE",
+        email: "test@fluidattacks.com",
+        family_name: "DOE",
+        given_name: "JOHN",
+        name: "JOHN DOE",
       },
       status: 200,
     });
