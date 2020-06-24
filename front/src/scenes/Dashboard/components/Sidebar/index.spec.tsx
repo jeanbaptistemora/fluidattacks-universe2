@@ -17,6 +17,7 @@ describe("Sidebar", () => {
       <MemoryRouter initialEntries={["/home"]}>
         <Sidebar
           userEmail="test@test.com"
+          userRole="Unit role"
           onLogoutClick={functionMock}
           onOpenAccessTokenModal={functionMock}
           onOpenAddUserModal={functionMock}

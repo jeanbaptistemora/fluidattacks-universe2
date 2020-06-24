@@ -26,6 +26,7 @@ import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/A
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { HomeView } from "./containers/HomeView";
+import { IHomeViewProps } from "./containers/HomeView/types";
 import { ProjectRoute } from "./containers/ProjectRoute/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
@@ -40,6 +41,7 @@ import { IAddUserAttr, IGetUserPermissionsAttr } from "./types";
 
 const dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
+  const [userRole, setUserRole] = React.useState<string | undefined>(undefined);
   const [isTokenModalOpen, setTokenModalOpen] = React.useState(false);
   const openTokenModal: (() => void) = (): void => { setTokenModalOpen(true); };
   const closeTokenModal: (() => void) = (): void => { setTokenModalOpen(false); };
@@ -88,6 +90,7 @@ const dashboard: React.FC = (): JSX.Element => {
               return (
                 <Sidebar
                   userEmail={userEmail}
+                  userRole={userRole}
                   onLogoutClick={handleLogout}
                   onOpenAccessTokenModal={openTokenModal}
                   onOpenAddUserModal={openUserModal}
@@ -99,12 +102,14 @@ const dashboard: React.FC = (): JSX.Element => {
             <Navbar />
             <div id="dashboard" className={style.container}>
               <Switch>
-                <Route path="/home" exact={true} component={HomeView} />
+                <Route path="/home" exact={true}>
+                  <HomeView setUserRole={setUserRole}/>
+                </Route>
                 <Route path="/reports" component={ReportsView} />
                 <Route path="/groups/:projectName">
                   <authzGroupContext.Provider value={groupAttributes}>
                     <authzPermissionsContext.Provider value={groupLevelPermissions}>
-                      <ProjectRoute />
+                      <ProjectRoute setUserRole={setUserRole}/>
                     </authzPermissionsContext.Provider>
                   </authzGroupContext.Provider>
                 </Route>

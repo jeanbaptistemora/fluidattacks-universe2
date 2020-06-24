@@ -11,13 +11,14 @@ import { default as style } from "./index.css";
 
 interface ISidebarProps {
   userEmail: string;
+  userRole: string | undefined;
   onLogoutClick(): void;
   onOpenAccessTokenModal(): void;
   onOpenAddUserModal(): void;
 }
 
 const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
-  const { userEmail, onOpenAddUserModal, onOpenAccessTokenModal, onLogoutClick } = props;
+  const { userEmail, userRole, onOpenAddUserModal, onOpenAccessTokenModal, onLogoutClick } = props;
   const { push } = useHistory();
 
   const handleLogoClick: (() => void) = (): void => { push("/home"); };
@@ -53,6 +54,11 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
       </ul>
       <div className={style.bottomBar}>
         <div className={style.version}><small>{userEmail}</small></div>
+        {userRole === undefined ? (
+          undefined
+        ) :
+          <div className={style.version}><small>{translate.t(`search_findings.tab_users.${userRole}`)}</small></div>
+        }
         <div className={style.version}><small>integrates_version</small></div>
         <ul>
           <li onClick={onLogoutClick}><a><span className="icon pe-7s-power" /></a></li>

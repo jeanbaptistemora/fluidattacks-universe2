@@ -44,7 +44,8 @@ const tableHeadersTags: IHeader[] = [
   { dataField: "projects", header: "Projects" },
 ];
 
-const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
+const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element => {
+  const { setUserRole } = props;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { push } = useHistory();
 
@@ -68,6 +69,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
   React.useEffect(onMount, []);
 
   // State management
+  setUserRole(undefined);
   const [display, setDisplay] = React.useState(_.get(localStorage, "projectsDisplay", "grid"));
   const handleDisplayChange: ((value: string) => void) = (value: string): void => {
     setDisplay(value);

@@ -29,9 +29,10 @@ import {
   GET_PROJECT_DATA,
   REJECT_REMOVE_PROJECT_MUTATION,
 } from "./queries";
-import { IProjectData, IRejectRemoveProject } from "./types";
+import { IProjectData, IProjectRoute, IRejectRemoveProject } from "./types";
 
-const projectRoute: React.FC = (): JSX.Element => {
+const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Element => {
+  const { setUserRole } = props;
   const { push } = useHistory();
   const { projectName } = useParams<{ projectName: string }>();
   const { path } = useRouteMatch();
@@ -53,11 +54,13 @@ const projectRoute: React.FC = (): JSX.Element => {
 
   // GraphQL operations
   useQuery(GET_USER_PERMISSIONS, {
-    onCompleted: (permData: { me: { permissions: string[] } }): void => {
+    onCompleted: (permData: { me: { permissions: string[]; role: string | undefined } }): void => {
       permissions.update(permData.me.permissions.map((action: string) => ({ action })));
+      setUserRole(permData.me.role);
     },
     variables: { projectName },
   });
+
   useQuery(GET_GROUP_SERVICE_ATTRIBUTES, {
     onCompleted: (permData: { project: { serviceAttributes: string[] } } | undefined): void => {
       if (!_.isUndefined(permData)) {

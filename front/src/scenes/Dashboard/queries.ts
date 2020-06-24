@@ -24,6 +24,7 @@ export const GET_USER_PERMISSIONS: DocumentNode = gql`
   query GetPermissions($projectName: String) {
     me(callerOrigin: "FRONT") {
       permissions(projectName: $projectName)
+      role(projectName: $projectName)
     }
   }
 `;

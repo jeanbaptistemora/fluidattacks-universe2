@@ -52,9 +52,10 @@ describe("ProjectRoute", () => {
   });
 
   it("should render a component", async () => {
+    const setUserRoleCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
       <MockedProvider mocks={[projectMock]} addTypename={false}>
-        <ProjectRoute />
+        <ProjectRoute setUserRole={setUserRoleCallback}/>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); });
@@ -63,6 +64,7 @@ describe("ProjectRoute", () => {
   });
 
   it("should render alert", async () => {
+    const setUserRoleCallback: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility();
     (window as typeof window & Dictionary<string>).userEmail = "test";
     (window as typeof window & Dictionary<string>).userOrganization = "Fluid";
@@ -71,7 +73,7 @@ describe("ProjectRoute", () => {
         <MockedProvider mocks={[projectMock, alertMock]} addTypename={false}>
           <Route path="/project/:projectName">
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <ProjectRoute />
+              <ProjectRoute setUserRole={setUserRoleCallback}/>
             </authzPermissionsContext.Provider>
           </Route>
         </MockedProvider>

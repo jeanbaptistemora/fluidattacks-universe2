@@ -12,40 +12,7 @@ import { PROJECTS_QUERY } from "./queries";
 import { IHomeViewProps } from "./types";
 
 describe("HomeView", () => {
-
-  const mockProps: IHomeViewProps = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: {
-        hash: "",
-        pathname: "/",
-        search: "",
-        state: {},
-      },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: {
-      hash: "",
-      pathname: "/",
-      search: "",
-      state: {},
-    },
-    match: {
-      isExact: true,
-      params: { projectName: "TEST" },
-      path: "/",
-      url: "",
-    },
-  };
-
+  const setUserRoleCallback: jest.Mock = jest.fn();
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
@@ -85,7 +52,7 @@ describe("HomeView", () => {
       <MemoryRouter initialEntries={["/home"]}>
         <Provider store={store}>
           <MockedProvider mocks={mockError} addTypename={true}>
-            <HomeView {...mockProps} />
+            <HomeView setUserRole={setUserRoleCallback}/>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -99,7 +66,7 @@ describe("HomeView", () => {
       <MemoryRouter initialEntries={["/home"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={true}>
-            <HomeView {...mockProps} />
+            <HomeView setUserRole={setUserRoleCallback}/>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -116,7 +83,7 @@ describe("HomeView", () => {
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={true}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <HomeView {...mockProps} />
+              <HomeView setUserRole={setUserRoleCallback}/>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>

@@ -1,6 +1,6 @@
-import { RouteComponentProps } from "react-router";
-
-export type IHomeViewProps = RouteComponentProps;
+export interface IHomeViewProps {
+  setUserRole(userRole: string | undefined): void;
+}
 
 export interface ITagData {
   name: string;
