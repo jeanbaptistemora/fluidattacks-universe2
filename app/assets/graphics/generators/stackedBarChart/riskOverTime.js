@@ -1,5 +1,6 @@
 /* global d3 */
 
+const bottomMarginTranslation = 0.33;
 const marginPercentage = 0.15;
 const padding = 0.1;
 
@@ -21,7 +22,7 @@ function render(dataDocument, height, width) {
 
   const series = d3
     .stack()
-    .keys([ 'accepted', 'closed', 'opened' ])(dataDocument)
+    .keys([ 'opened', 'accepted', 'closed' ])(dataDocument)
     .map((datum) => {
       datum.forEach((val) => {
         val.key = datum.key;
@@ -30,11 +31,12 @@ function render(dataDocument, height, width) {
       return datum;
     });
 
+  // https://coolors.co/003049-d62828-f77f00-fcbf49-eae2b7
   const color = d3
     .scaleOrdinal()
-    .domain(series.map((datum) => datum.key))
-    .range(d3.schemeSpectral[series.length])
-    .unknown('#ccc');
+    .domain([ 'opened', 'accepted', 'closed' ])
+    .range([ '#d62828', '#fcbf49', '#eae2b7' ])
+    .unknown('#003049');
 
   const xScale = d3
     .scaleBand()
@@ -46,6 +48,16 @@ function render(dataDocument, height, width) {
     .scaleLinear()
     .domain([ 0, d3.max(series, (datum) => d3.max(datum, (value) => value[1])) ])
     .rangeRound([ height - margin.bottom, margin.top ]);
+
+  function xAxis(element) {
+    return element
+      .attr('transform', `translate(0, ${ height - margin.bottom })`)
+      .call(d3.axisBottom(xScale).tickSizeOuter(0))
+      .call((datum) => datum.selectAll('.domain').remove())
+      .call((datum) => datum
+        .selectAll('text')
+        .attr('transform', `translate(0, ${ bottomMarginTranslation * margin.bottom }) rotate(-15)`));
+  }
 
   function yAxis(element) {
     return element
@@ -67,7 +79,11 @@ function render(dataDocument, height, width) {
     .attr('height', (datum) => yScale(datum[0]) - yScale(datum[1]))
     .attr('width', xScale.bandwidth())
     .append('title')
-    .text((datum) => `${ datum.data.name } ${ datum.key } ${ formatValue(datum.data[datum.key]) }`);
+    .text((datum) => `${ formatValue(datum.data[datum.key]) } ${ datum.key }, ${ datum.data.name }`);
+
+  svg
+    .append('g')
+    .call(xAxis);
 
   svg
     .append('g')
