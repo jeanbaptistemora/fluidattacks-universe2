@@ -204,10 +204,10 @@ def get_jwt_content(context) -> Dict[str, str]:
         rollbar.report_message(
             'Error: Malformed auth header', 'error', context)
         raise InvalidAuthorization()
-    except JWTError:
+    except JWTError as ex:
         LOGGER.info('Security: Invalid token signature')
         rollbar.report_message(
-            'Error: Invalid token signature', 'error', context)
+            'Error: Invalid token signature: %s' % ex, 'error', context)
         raise InvalidAuthorization()
 
 
