@@ -79,6 +79,9 @@
              alt="{{ article.alt }}"
              class="w-100 db">
       </div>
+      <p class="f-key-features tc c-fluid-gray fw6 bg-white mw-banner ml-auto mr-auto mv0 pt2">
+        {{ article.locale_date }}
+     </p>
     </div>
   </div>
 </div>
@@ -86,10 +89,52 @@
 
 {% block content %}
 <div class="bg-graylight">
-  <div class="roboto internal mw-banner ml-auto mr-auto roboto bg-white ph4-l ph3 pt5-l pt4 pb5">
+  <div class="roboto internal mw-banner ml-auto mr-auto roboto bg-white ph4-l ph3 pt4 pb5">
     <h1 class="roboto tc">{{ article.title }}</h1>
+    {% if article.subtitle %}
+    <!-- Article subtitle -->
+      <span class="db tc c-fluid-bk b f3 mt0">{{ article.subtitle }}</span>
+    {% endif %}
+    <div class="blog-description lh-2 ph-10 pb4">
+      <p>{{ article.description }}</p>
+    </div>
     <div class="lh-2">
       {{ article.content }}
+    </div>
+    <div class="w-100 tl-l tc pt6-l pt5 mw6-m ml-auto mr-auto">
+      <img class="w4 br-100 dib-l"
+      src="{{ SITEURL }}/images/authors/{{ article.writer }}.png"
+      alt="Author picture">
+      <div class="dib-l tl v-top ph3">
+        <!-- Author -->
+        <p class="c-fluid-bk fw4 f-key-features mv0 pv2">Author:
+          {% for author in article.authors %}
+            <a class="c-fluid-gray hover-black no-underline"
+                href="{{ SITEURL }}/{{ author.url }}">
+                {{ author }}
+            </a><br/>
+          {% endfor %}
+          </p>
+          <!-- Category -->
+          <p class="c-fluid-bk fw4 f-key-features mv0 pv2">Category:
+            <a class="c-fluid-gray hover-black no-underline"
+              href="{{ SITEURL }}/{{ article.category.url }}">
+              {{ article.category|replace("-", " ") }}
+            </a><br/>
+          </p>
+          <!-- Tags -->
+          <p class="c-fluid-bk fw4 f-key-features mv0 pv2">Tags:
+          {% for tag in article.tags %}
+            {% if loop.last %}
+              <a class="c-fluid-gray hover-black no-underline"
+                  href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
+            {% else %}
+              <a class="c-fluid-gray hover-black no-underline"
+                  href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+            {% endif %}
+          {% endfor %}
+          </p>
+      </div>
     </div>
   </div>
 </div>
