@@ -110,27 +110,53 @@
     {% endif %}
         {% if "misc" not in page.category.name and not page.defends
            and not page.eventspage and not page.partnerspage and not page.usecasespage %}
-        <li class="dib mt0" >
           {% if page.rules %}
             {% if page.extended %}
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                 href="{{ SITEURL }}/rules/">
+                 Rules
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                  href="{{ SITEURL }}/rules/out-of-scope/">
+                  Out of Scope Security rules
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
                   href="{{ SITEURL }}/rules/out-of-scope/#{{ page.category.name }}">
                   {{ page.category|capitalize|replace('-', ' ') }}
+              </a>
+            </li>
             {% else %}
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                 href="{{ SITEURL }}/rules/">
+                 Rules
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
                   href="{{ SITEURL }}/rules/#{{ page.category.name }}">
                   {{ page.category|capitalize|replace('-', ' ') }}
+              </a>
+            </li>
             {% endif %}
-          </a>
           <span class="c-fluid-gray v-mid b"> / </span>
           {% else %}
-          <a class="c-fluid-gray hover-white no-underline"
-              href="{{ SITEURL }}/{{ page.category.name }}/">
-              {{ page.category|capitalize|replace('-', ' ') }}
-          </a>
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/{{ page.category.name }}/">
+                {{ page.category|capitalize|replace('-', ' ') }}
+            </a>
+          </li>
           <span class="c-fluid-gray v-mid b"> / </span>
           {% endif %}
-        </li>
         {% if page.peoplepage %}
           <li class="dib mt0" >
             <a class="c-fluid-gray hover-white no-underline"

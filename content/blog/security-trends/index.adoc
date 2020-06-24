@@ -113,7 +113,7 @@ link:https://www.terraform.io/[`terraform`]
 and link:https://www.docker.com/[`docker`]
 to configure our infrastructure,
 and link:https://gitlab.com/[`Gitlab as service`]
-to [inner]#link:../../events/burn-the-datacenter/[regenerate our datacenter]#
+to [inner]#link:../../about-us/events/burn-the-datacenter/[regenerate our datacenter]#
 on every new version of our products.
 We implement infrastructure hardening using link:https://www.hashicorp.com/blog/why-we-need-dynamic-secrets[ephemeral secrets]
 in a serverless approach.
