@@ -359,6 +359,8 @@ image::success.gif[Our reverse shell]
 
 Great! We got our shell!
 
+You can download the final exploit link:exploit.py[here]
+
 == Conclusion
 
 This was one of the most straightforward exploits for Vulnserver.

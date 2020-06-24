@@ -13,7 +13,7 @@ repos:
     entry: pylint
     language: system
     files: \.(py)$
-    args: []
+    args: [ "--ignore-imports=yes", "--disable=similarities" ]
     exclude: ^.*pelicanconf.py
   - id: flake8
     name: flake8
