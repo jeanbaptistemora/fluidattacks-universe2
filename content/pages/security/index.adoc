@@ -793,7 +793,8 @@ their technical capabilities and human values.
 The technical part of the testing process
 involves solving programming and hacking challenges,
 uploading them to a Git repository with highly strict linters and compilers,
-and ascending in an [inner]#link:../careers/technical-challenges/[organizational ranking]#.
+and ascending in an
+[inner]#link:https://autonomicmind.com/challenges/[organizational ranking]#.
 
 The human values section of the testing process
 includes creating a portfolio with the five most

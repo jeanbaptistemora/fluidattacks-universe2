@@ -107,7 +107,8 @@ requires an estimated effort of 4 to 16 hours
 according to your skills and knowledge.
 To do this you must first finish the previous stage.
 To begin,
-you just have to follow these detailed [inner]#link:technical-challenges/[instructions]#
+you just have to follow these detailed
+[inner]#link:https://gitlab.com/autonomicmind/challenges/-/wikis/technical-challenges[instructions]#
 
 . *Non-Technical Challenges*: The goal of this stage
 is to assess your ability to solve challenges
@@ -144,7 +145,8 @@ paid for by `Fluid Attacks`.
 This is mandatory and requires an effort
 that is determined based on your knowledge.
 To begin, write us an email at careers@fluidattacks.com
-and read these detailed [inner]#link:immersion/[instructions]#
+and read these detailed
+[inner]#link:https://gitlab.com/autonomicmind/challenges/-/wikis/immersion[instructions]#
 
 == 11. References
 
