@@ -62,6 +62,7 @@ function helper_blog_adoc_tags {
   local valid_tags=(
     'android'
     'application'
+    'backdoor'
     'blue team'
     'bug'
     'business'
