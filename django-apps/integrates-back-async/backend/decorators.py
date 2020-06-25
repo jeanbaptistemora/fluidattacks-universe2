@@ -398,7 +398,15 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
             'username',
             'company',
             'findingid',
-            'project'
+            'project',
+            'documentName',
+            'documentType',
+            'entity',
+            'generatorName',
+            'generatorType',
+            'height',
+            'subject',
+            'width',
         ]
         uniq_id = '_'.join([
             req.session[x]
@@ -516,6 +524,44 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[..., Any]:
         return decorated
 
     return wrapped
+
+
+def cache_idempotent(function: Callable) -> Callable:
+
+    @apm.trace(display_name='get_entity_cache_async')
+    @functools.wraps(function)
+    async def wrapper(*args, **kwargs) -> Callable[..., Any]:
+        signature = inspect.signature(function).bind(*args, **kwargs)
+
+        cache_key = (
+            f'{function.__module__}.{function.__qualname__}:' +
+            ''.join(f'{arg}_{val}' for arg, val in signature.arguments.items())
+        )
+
+        try:
+            ret = await aio.ensure_io_bound(
+                aio.PyCallable(
+                    instance=cache.get,
+                    args=(cache_key,),
+                )
+            )
+
+            if ret is None:
+                ret = await function(*args, **kwargs)
+
+                await aio.ensure_io_bound(
+                    aio.PyCallable(
+                        instance=cache.set,
+                        args=(cache_key, ret),
+                        kwargs=frozendict(timeout=CACHE_TTL)
+                    )
+                )
+            return ret
+        except RedisClusterException:
+            rollbar.report_exc_info()
+            return await function(*args, **kwargs)
+
+    return wrapper
 
 
 def turn_args_into_kwargs(function: Callable):

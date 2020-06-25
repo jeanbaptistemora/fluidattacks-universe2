@@ -24,6 +24,9 @@ import rollbar
 from backend.dal import (
     analytics as analytics_dal,
 )
+from backend.decorators import (
+    cache_idempotent,
+)
 from backend.services import (
     has_access_to_project as has_access_to_group,
 )
@@ -46,6 +49,7 @@ GRAPHIC_PARAMETERS = NamedTuple('GraphicParameters', [
 
 
 @apm.trace()
+@cache_idempotent
 async def get_document(
     *,
     document_name: str,
