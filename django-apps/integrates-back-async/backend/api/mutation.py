@@ -80,5 +80,7 @@ MUTATION.set_field('deleteVulnerability',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('downloadVulnFile',
+                   vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('requestProjectReport',
                    report.resolve_report_mutation)
