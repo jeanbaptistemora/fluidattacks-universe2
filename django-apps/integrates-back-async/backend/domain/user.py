@@ -2,10 +2,15 @@ from datetime import datetime
 from typing import Dict, List, Union, cast
 import pytz
 from django.conf import settings
-from backend.dal import project as project_dal, user as user_dal
+from backend.dal import (
+    project as project_dal,
+    user as user_dal
+)
 from backend.typing import User as UserType
 from backend.utils.validations import (
-    validate_email_address, validate_alphanumeric_field, validate_phone_field
+    validate_email_address,
+    validate_alphanumeric_field,
+    validate_phone_field
 )
 from backend.utils import (
     aio,
@@ -86,7 +91,10 @@ def is_registered(email: str) -> bool:
     return bool(get_data(email, 'registered'))
 
 
-def logging_users_report(company_name: str, init_date: str, finish_date: str) -> int:
+def logging_users_report(
+        company_name: str,
+        init_date: str,
+        finish_date: str) -> int:
     return user_dal.logging_users_report(company_name, init_date, finish_date)
 
 
@@ -146,9 +154,9 @@ def create_without_project(
 ) -> bool:
     success = False
 
-    if validate_alphanumeric_field(organization) \
-            and validate_phone_field(phone_number) \
-            and validate_email_address(email):
+    if (validate_alphanumeric_field(organization) and
+            validate_phone_field(phone_number) and
+            validate_email_address(email)):
 
         new_user_data: UserType = {}
         new_user_data['email'] = email
