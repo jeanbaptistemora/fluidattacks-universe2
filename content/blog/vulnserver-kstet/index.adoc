@@ -373,7 +373,7 @@ With all the needed values, it's time to write some Assembler!
 Remember that we need to avoid null bytes and we have to push the parameters
 in reverse order:
 
-[source,asm]
+[source,x86asm]
 ----
 sub esp,0x64            ; Move ESP pointer above our initial buffer to avoid
                         ; overwriting our shellcode
@@ -403,7 +403,7 @@ Having noted that, we can update our shellcode to brute force the value
 of the socket, starting from `0` until it finds the right one!:
 
 .shellcode.asm
-[source,asm]
+[source,x86asm]
 ----
 sub esp,0x64            ; Move ESP pointer above our initial buffer to avoid
                         ; overwriting our shellcode

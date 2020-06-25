@@ -283,7 +283,7 @@ With that in mind, and knowing that we need to remove 8 bytes of the
 stack to then return to our controlled buffer, we need to find an
 address that contains a sequence of these instructions:
 
-[source,asm]
+[source,x86asm]
 ----
 POP R32           ; R32 can be any 32 bits register
 POP R32

