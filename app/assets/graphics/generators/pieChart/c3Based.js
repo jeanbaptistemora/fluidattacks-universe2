@@ -2,14 +2,8 @@
 
 function render(dataDocument, height, width) {
   c3.generate({
+    ...dataDocument,
     bindto: 'div',
-    data: dataDocument,
-    pie: {
-      label: {
-        show: false,
-        threshold: 0.1,
-      },
-    },
     size: {
       height,
       width,

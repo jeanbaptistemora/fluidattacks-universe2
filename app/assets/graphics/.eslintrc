@@ -4,6 +4,9 @@
     "strict/browser",
     "strict/d3"
   ],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
   "rules": {
     // Camel case
     "filenames/match-regex": [2, "^[a-z]+([a-zA-Z0-9]+)*$", true],

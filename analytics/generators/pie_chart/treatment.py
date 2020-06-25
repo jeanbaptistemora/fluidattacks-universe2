@@ -30,11 +30,24 @@ async def generate_one(group: str):
     }
 
     return {
-        'columns': [
-            [translations[name], value]
-            for name, value in treatment.items()
-        ],
-        'type': 'pie',
+        'data': {
+            'columns': [
+                [translations[name], value]
+                for name, value in treatment.items()
+            ],
+            'type': 'pie',
+            'colors': {
+                'Accepted': '#999797',
+                'Eternally accepted': '#000000',
+                'In Progress': '#FF9034',
+                'Not defined': '#A70762',
+            },
+        },
+        'pie': {
+            'label': {
+                'show': False,
+            },
+        },
     }
 
 
