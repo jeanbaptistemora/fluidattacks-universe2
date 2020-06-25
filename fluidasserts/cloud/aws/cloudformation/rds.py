@@ -108,28 +108,42 @@ def has_not_automated_backups(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::RDS::DBCluster',
-                'AWS::RDS::DBInstance',
-            ],
-            exclude=exclude):
-        back_up_retention_period = res_props.get('BackupRetentionPeriod', 1)
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    clusters: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
+    ]
+    vulnerable: bool = False
+    vulnerabilities: List[Vulnerability] = []
+    for cluster in clusters:
+        template: Dict = graph.nodes[get_predecessor(graph, cluster,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[cluster]
+        _retention: List[int] = [
+            node for node in dfs_preorder_nodes(graph, cluster, 3)
+            if 'BackupRetentionPeriod' in graph.nodes[node]['labels']
+        ]
 
-        if not helper.is_scalar(back_up_retention_period):
-            continue
-
-        is_vulnerable: bool = back_up_retention_period in (0, '0')
-
-        if is_vulnerable:
+        if _retention:
+            retention: int = _retention[0]
+            with contextlib.suppress(CloudFormationInvalidTypeError):
+                no_retention: List[int] = get_ref_nodes(
+                    graph, retention,
+                    lambda x: x in ('0', 0))
+                if no_retention:
+                    vulnerable = True
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
-                    entity='AWS::RDS::(DBCluster,DBInstance)',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    path=template['path'],
+                    entity=get_type(graph, retention, {'DBCluster',
+                                                       'DBInstance'}),
+                    identifier=resource['name'],
+                    line=graph.nodes[no_retention[0]]['line'],
                     reason='has not automated backups enabled'))
 
     return _get_result_as_tuple(

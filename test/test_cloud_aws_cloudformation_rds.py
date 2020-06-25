@@ -1,11 +1,10 @@
 """Test methods of fluidasserts.cloud.cloudformation.rds module."""
 
-# local imports
+import pytest  # pylint: disable=E0401
+
 from fluidasserts.cloud.aws.cloudformation import rds
 
-# 3rd party imports
-import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')
+pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')  # pylint: disable=C0103,C0301 # noqa: E501
 
 # Constants
 SAFE: str = 'test/static/cloudformation/safe'
@@ -26,7 +25,7 @@ def test_has_not_automated_backups():
     """test rds.has_not_automated_backups."""
     result = rds.has_not_automated_backups(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
+    assert result.get_vulns_number() == 2 * 3
     assert rds.has_not_automated_backups(SAFE).is_closed()
     assert rds.has_not_automated_backups(NOT_EXISTS).is_unknown()
 
