@@ -87,9 +87,7 @@ class InvalidSchema(Exception):
     """Exception to control schema validation."""
     def __init__(self, expr=''):
         """ Constructor """
-        msg = '{{"msg": "Exception - Invalid Schema", {expr}}}'.format(
-            expr=expr
-        )
+        msg = f'{{"msg": "Exception - Invalid Schema", {expr}}}'
         super(InvalidSchema, self).__init__(msg)
 
 
@@ -147,9 +145,7 @@ class InvalidPath(Exception):
     """Exception to control valid path value in vulnerabilities."""
     def __init__(self, expr):
         """ Constructor """
-        msg = '{{"msg": "Exception - Error in path value", {expr}}}'.format(
-            expr=expr
-        )
+        msg = f'{{"msg": "Exception - Error in path value", {expr}}}'
         super(InvalidPath, self).__init__(msg)
 
 
@@ -157,9 +153,7 @@ class InvalidPort(Exception):
     """Exception to control valid port value in vulnerabilities."""
     def __init__(self, expr=''):
         """ Constructor """
-        msg = '{{"msg": "Exception - Error in port value", {expr}}}'.format(
-            expr=expr
-        )
+        msg = f'{{"msg": "Exception - Error in port value", {expr}}}'
         super(InvalidPort, self).__init__(msg)
 
 
@@ -207,7 +201,7 @@ class InvalidField(Exception):
     """Exception to control invalid fields in forms"""
     def __init__(self, field='field'):
         """Constructor"""
-        msg = 'Exception - Invalid {} in form'.format(field)
+        msg = f'Exception - Invalid {field} in form'
         super(InvalidField, self).__init__(msg)
 
 
@@ -236,7 +230,10 @@ class InvalidProject(Exception):
 
 
 class ConcurrentSession(Exception):
-    """Exception to control if an user has another active session when logging"""
+    """
+    Exception to control if an user
+    has another active session when logging
+    """
     def __init__(self):
         msg = 'Exception - User had a previous active session'
         super(ConcurrentSession, self).__init__(msg)
@@ -307,8 +304,7 @@ class IncompleteDraft(Exception):
 
     def __init__(self, fields):
         """ Constructor """
-        msg = 'Exception - This draft has missing fields: {}'.format(
-            ', '.join(fields))
+        msg = f'Exception - This draft has missing fields: {", ".join(fields)}'
         super(IncompleteDraft, self).__init__(msg)
 
 
@@ -379,7 +375,10 @@ class InvalidSeverity(Exception):
 
     def __init__(self, fields):
         """ Constructor """
-        msg = f'Exception - Severity value must be between {fields[0]} and {fields[1]}'
+        msg = (
+            'Exception - Severity value must be between '
+            f'{fields[0]} and {fields[1]}'
+        )
         super(InvalidSeverity, self).__init__(msg)
 
 
