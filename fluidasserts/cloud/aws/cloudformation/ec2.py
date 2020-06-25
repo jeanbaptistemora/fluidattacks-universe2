@@ -317,38 +317,25 @@ def has_unrestricted_ip_protocols(
         resource: Dict = graph.nodes[group]
         template: Dict = graph.nodes[get_predecessor(graph, group,
                                                      'CloudFormationTemplate')]
-        protocol_nodes: List[int] = [
-            node for node in dfs_preorder_nodes(graph, group, 3)
-            if graph.nodes[node]['labels'].intersection(
-                {*allow_groups, 'Properties'})
-        ]
-
-        for protocol_node in protocol_nodes:
-            protocol_values: List[int] = [
-                node for node in dfs_preorder_nodes(graph, protocol_node, 3)
-                if 'IpProtocol' in graph.nodes[node]['labels']
-            ]
-            protocols: List[int] = nx.utils.flatten(
-                [get_ref_nodes(graph, node) for node in protocol_values])
-            for node in protocols:
-                _type: str = get_type(graph, protocol_node, allow_groups)
-                resource_type: str = [
-                    res for res in resource['labels']
-                    if res in {'SecurityGroup', *allow_groups}
-                ][-1]
-                resource_type = (f'{resource_type}/{_type}'
-                                 if _type != resource_type else
-                                 f'{resource_type}')
-                protocol_value: Union[str, int] = graph.nodes[node]['value']
-                if protocol_value in ('-1', -1):
-                    vulnerabilities.append(
-                        Vulnerability(
-                            path=template['path'],
-                            entity=(f"AWS::EC2::{resource_type}/IpProtocol/"
-                                    f"{protocol_value}"),
-                            identifier=resource['name'],
-                            line=graph.nodes[node]['line'],
-                            reason='Authorize all IP protocols'))
+        for rule in _iterate_security_group_rules_(graph, group):
+            _type: str = rule['type']
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}'
+                             if _type != resource_type else f'{resource_type}')
+            protocol_value: Union[str, int] = graph.nodes[rule['IpProtocol']][
+                'value']
+            if protocol_value in ('-1', -1):
+                vulnerabilities.append(
+                    Vulnerability(
+                        path=template['path'],
+                        entity=(f"AWS::EC2::{resource_type}/IpProtocol/"
+                                f"{protocol_value}"),
+                        identifier=resource['name'],
+                        line=graph.nodes[rule['IpProtocol']]['line'],
+                        reason='Authorize all IP protocols'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
@@ -1030,28 +1017,48 @@ def has_unrestricted_ftp_access(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
-            _iterate_security_group_rules(path, exclude):
 
-        entities = []
-        with contextlib.suppress(KeyError, TypeError, ValueError):
-            from_port, to_port = tuple(map(
-                float, (sg_rule['FromPort'], sg_rule['ToPort'])))
+    graph: DiGraph = get_graph(path, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    security_groups: List[int] = _get_securitygroups(graph, path, exclude)
+
+    for group in security_groups:
+        resource: Dict = graph.nodes[group]
+        template = graph.nodes[get_predecessor(graph, group,
+                                               'CloudFormationTemplate')]
+        for rule in _iterate_security_group_rules_(graph, group):
+            cidr = rule.get('CidrIp', None) or rule.get('CidrIpv6', None)
+            is_public_cidr = graph.nodes[cidr]['value'] in ('::/0',
+                                                            '0.0.0.0/0')
+            if not is_public_cidr:
+                continue
+            entities = []
+            from_port, to_port = tuple(
+                map(float, (graph.nodes[rule['FromPort']]['value'],
+                            graph.nodes[rule['ToPort']]['value'])))
+            _type = rule['type']
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}'
+                             if _type != resource_type else f'{resource_type}')
             for port in range(20, 22):
-                if from_port <= port <= to_port \
-                        and sg_rule['CidrIp'] == '0.0.0.0/0'\
-                        and str(sg_rule['IpProtocol']) in ('tcp', '-1'):
-                    entities.append(f'{sg_name}/{port}')
+                if from_port <= port <= to_port and str(
+                        graph.nodes[rule['IpProtocol']]['value']) in ('tcp',
+                                                                      '-1'):
+                    entities.append(f'rule/port/{port}')
 
-        vulnerabilities.extend(
-            Vulnerability(
-                path=yaml_path,
-                entity=f'{sg_path}/{entity}',
-                identifier=sg_name,
-                line=sg_line,
-                reason=('Group must restrict access to TCP port'
-                        ' 20/21 to the necessary IP addresses.'))
-            for entity in entities)
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=template['path'],
+                    entity=f'{resource_type}/{entity}',
+                    identifier=resource['name'],
+                    line=graph.nodes[rule['FromPort']]['line'],
+                    reason=('Group must restrict access to TCP port'
+                            ' 20/21 to the necessary IP addresses.'))
+                for entity in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

@@ -113,12 +113,10 @@ def test_has_unrestricted_dns_access():
 
 def test_has_unrestricted_ftp_access():
     """test ec2.has_unrestricted_ftp_access."""
-    result = ec2.has_unrestricted_ftp_access(VULN)
+    result = ec2.has_unrestricted_ftp_access(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
-    assert ec2.has_unrestricted_ftp_access(SAFE).is_closed()
-    assert ec2.has_unrestricted_ftp_access(NOT_EXISTS).\
-        is_unknown()
+    assert result.get_vulns_number() == 2 * 4
+    assert ec2.has_unrestricted_ftp_access(SAFE_DATA).is_closed()
 
 
 def test_has_security_groups_ip_ranges_in_rfc1918():
