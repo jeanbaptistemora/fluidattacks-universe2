@@ -31,7 +31,15 @@ to do `802.11` wireless audits using open source tools.
 
 a|image::logo-oswp.png[logo oswp]
 
-a|image::logo-ceh.png[logo ceh]
+a|image::logo-crte.png[logo crte]
+
+a|== Certified Red Teaming Expert (CRTE)
+
+The Certified (Windows) Red Teaming Expert
+is an entirely hands-on certification awarded by the Pentester Academy.
+This certification guarantees a person with the expertise
+to assess the security of an unknown Windows infrastructure
+and recognize misconfigurations and abuses.
 
 a|== Certified Ethical Hacker (CEH)
 
@@ -42,6 +50,10 @@ in the security discipline of ethical hacking.
 It is unaffiliated with any commercial entity
 and is considered independent and impartial.
 
+a|image::logo-ceh.png[logo ceh]
+
+a|image::logo-cissp.png[logo cissp]
+
 a|== Certified Information Systems Security Professional (CISSP)
 
 `CISSP` is a professional advanced certification awarded by the
@@ -51,16 +63,16 @@ who obtain information security expertise.
 `CISSP` is required for the `ISSEP` program
 of the `US` National Security Agency (`NSA`).
 
-a|image::logo-cissp.png[logo cissp]
-
-a|image::logo-cism.png[logo cism]
-
 a|== Certified Information Security Manager (CISM)
 
 `CISM` is a certification focused on management,
 promoting global security standard practices.
 `CISM` accredits management professionals who lead, design, and assess
 the security of the information of a company.
+
+a|image::logo-cism.png[logo cism]
+
+a|image::logo-cisa.png[logo cisa]
 
 a|== Certified Information Systems Auditor (CISA)
 
@@ -70,10 +82,6 @@ Information Systems audit control, assurance, and security professionals.
 to assess vulnerabilities, report on compliance,
 and enhance existing or establish new controls in a business.
 
-a|image::logo-cisa.png[logo cisa]
-
-a|image::logo-comptia.png[logo comptia]
-
 a|== CompTIA Security+
 
 This one is an internationally recognized certification
@@ -81,6 +89,10 @@ by the Computing Technology Industry Association, a non-profit trade union.
 It certifies a professional has the core knowledge and skills necessary
 for practical security problem-solving.
 Typically, the point of origin for a career in `IT` security.
+
+a|image::logo-comptia.png[logo comptia]
+
+a|image::logo-gisp.png[logo gisp]
 
 a|== GIAC Information Security Professional (GISP)
 
@@ -90,10 +102,6 @@ It means to go beyond simple terminology and ideas
 to include practical applications.
 It is to get skills for `IT` systems' hands-on roles involving security tasks.
 
-a|image::logo-gisp.png[logo gisp]
-
-a|image::logo-itil.png[logo itil]
-
 a|== Information Technology Infrastructure Library Certification (ITIL)
 
 `ITIL` is linked to a set of practices for `IT` service management (`ITSM`)
@@ -102,14 +110,6 @@ that focuses on aligning `IT` services with the needs of businesses.
 designed to help organizations
 achieve quality and efficiency in `IT` operations.
 
-a|== Certified Red Teaming Expert (CRTE)
-
-The Certified (Windows) Red Teaming Expert
-is an entirely hands-on certification awarded by the Pentester Academy.
-This certification guarantees a person with the expertise
-to assess the security of an unknown Windows infrastructure
-and recognize misconfigurations and abuses.
-
-a|image::logo-crte.png[logo crte]
+a|image::logo-itil.png[logo itil]
 
 |====
