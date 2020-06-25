@@ -6,7 +6,7 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
 # standard imports
-from typing import Any, List, Dict, Callable, Set, Optional, Tuple
+from typing import Any, List, Dict, Callable, Set, Optional, Tuple, Union
 from collections import namedtuple
 from contextvars import ContextVar
 from contextlib import contextmanager
@@ -115,7 +115,8 @@ def get_type(graph: DiGraph, node: int, allowed_types: Set[str]) -> str:
     return _type
 
 
-def get_predecessor(graph: DiGraph, node: int, label: str) -> int:
+def get_predecessor(graph: DiGraph, node: int,
+                    labels: Union[Set[str], str]) -> int:
     """
     Returns the node of the first predecessor that contains the label.
 
@@ -124,11 +125,18 @@ def get_predecessor(graph: DiGraph, node: int, label: str) -> int:
     :param label: Nodes that can be found within the predecessors.
     """
     predecessor = None
-    for _ in range(10):
-        node = list(graph.predecessors(node))[0]
-        if label in graph.nodes[node]['labels']:
-            predecessor = node
+    for _ in range(12):
+        if 'CloudFormationTemplate' in graph.nodes[node]['labels']:
             break
+        node = list(graph.predecessors(node))[0]
+        if isinstance(labels, str):
+            if labels in graph.nodes[node]['labels']:
+                predecessor = node
+                break
+        elif isinstance(labels, set):
+            if graph.nodes[node]['labels'].intersection(labels):
+                predecessor = node
+                break
     return predecessor
 
 

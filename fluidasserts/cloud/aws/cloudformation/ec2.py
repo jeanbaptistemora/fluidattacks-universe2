@@ -813,26 +813,79 @@ def security_group_allows_anyone_to_admin_ports(
         445,  # CIFS
     }
     vulnerabilities: list = []
-    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
-            _iterate_security_group_rules(path, exclude):
 
-        entities = []
-        with contextlib.suppress(KeyError, TypeError, ValueError):
-            from_port, to_port = tuple(map(
-                float, (sg_rule['FromPort'], sg_rule['ToPort'])))
+    graph: DiGraph = get_graph(path, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    security_groups: List[int] = _get_securitygroups(graph, path, exclude)
+
+    for group in security_groups:
+        resource: Dict = graph.nodes[group]
+        template = graph.nodes[get_predecessor(graph, group,
+                                               'CloudFormationTemplate')]
+        cidrs: List[int] = [
+            node for node in dfs_preorder_nodes(graph, group, 10)
+            if graph.nodes[node]['labels'].intersection({'CidrIp', 'CidrIpv6'})
+        ]
+
+        for cidr in cidrs:
+            cidr_node = get_ref_nodes(graph, cidr, helper.is_cidr)
+            if not cidr_node:
+                continue
+            is_public_cidr = graph.nodes[cidr_node[0]]['value'] in (
+                '::/0', '0.0.0.0/0')
+            if not is_public_cidr:
+                continue
+
+            father = list(graph.predecessors(cidr))[0]
+            from_port_node: Union[List[int], int] = nx.utils.flatten([
+                get_ref_nodes(graph, node,
+                              lambda y: isinstance(y, (int, float)))
+                for node in dfs_preorder_nodes(graph, father, 1)
+                if 'FromPort' in graph.nodes[node]['labels']
+            ])
+
+            to_port_node: Union[List[int], int] = nx.utils.flatten([
+                get_ref_nodes(graph, node,
+                              lambda y: isinstance(y, (int, float)))
+                for node in dfs_preorder_nodes(graph, father, 1)
+                if 'ToPort' in graph.nodes[node]['labels']
+            ])
+
+            if not from_port_node or not to_port_node:
+                continue
+
+            from_port_node = from_port_node[0]
+            to_port_node = to_port_node[0]
+
+            _type: str = get_type(graph,
+                                  get_predecessor(graph, cidr, allow_groups),
+                                  allow_groups)
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}'
+                             if _type != resource_type else f'{resource_type}')
+            from_port: float
+            to_port: float
+            from_port, to_port = tuple(
+                map(float, (graph.nodes[from_port_node]['value'],
+                            graph.nodes[to_port_node]['value'])))
+
+            entities = []
             for port in admin_ports:
-                if from_port <= port <= to_port \
-                        and sg_rule['CidrIp'] == '0.0.0.0/0':
-                    entities.append(f'{sg_name}/{port}')
+                if from_port <= port <= to_port:
+                    entities.append(f'{resource["name"]}/{port}')
 
-        vulnerabilities.extend(
-            Vulnerability(
-                path=yaml_path,
-                entity=f'{sg_path}/{entity}',
-                identifier=sg_name,
-                line=sg_line,
-                reason='Grants access to admin ports from internet')
-            for entity in entities)
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=template['path'],
+                    entity=f'{resource_type}/{entity}',
+                    identifier=resource["name"],
+                    line=graph.nodes[from_port_node]['line'],
+                    reason='Grants access to admin ports from internet')
+                for entity in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

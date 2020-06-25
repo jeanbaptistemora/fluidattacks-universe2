@@ -96,12 +96,11 @@ def test_uses_default_security_group():
 
 def test_security_group_allows_anyone_to_admin_ports():
     """test ec2.security_group_allows_anyone_to_admin_ports."""
-    result = ec2.security_group_allows_anyone_to_admin_ports(VULN)
+    result = ec2.security_group_allows_anyone_to_admin_ports(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 14
-    assert ec2.security_group_allows_anyone_to_admin_ports(SAFE).is_closed()
-    assert ec2.security_group_allows_anyone_to_admin_ports(NOT_EXISTS).\
-        is_unknown()
+    assert result.get_vulns_number() == ((2 * 7) * 2) * 2
+    assert ec2.security_group_allows_anyone_to_admin_ports(
+        SAFE_DATA).is_closed()
 
 
 def test_has_unrestricted_dns_access():

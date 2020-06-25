@@ -8,6 +8,9 @@ from contextlib import suppress
 import csv
 import functools
 from io import StringIO
+from ipaddress import IPv4Network
+from ipaddress import IPv6Network
+from ipaddress import AddressValueError
 import random
 import string
 import time
@@ -546,3 +549,15 @@ def _random_string(string_length=5):
     """Generate a random string of fixed length."""
     letters = string.ascii_lowercase
     return ''.join(random.sample(letters, string_length))
+
+
+def is_cidr(cidr: str):
+    """Validate if a string is a valid CIDR."""
+    result = False
+    with suppress(AddressValueError, ValueError):
+        IPv4Network(cidr)
+        result = True
+    with suppress(AddressValueError, ValueError):
+        IPv6Network(cidr)
+        result = True
+    return result
