@@ -195,34 +195,27 @@ which could cause adverse effect on its behavior and integrity.
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
 
-. [[r16]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.10]
-Verify that all database queries are protected
-by the use of parameterized queries
-or proper *ORM* usage to avoid *SQL* injection.
+. [[r16]] link:https://cwe.mitre.org/data/definitions/643.html[CWE-643: XPath Injection].
+The software uses external input to dynamically construct an *XPath* expression
+used to retrieve data from an *XML* database,
+but it does not neutralize or incorrectly neutralizes that input.
 
-. [[r17]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.11]
-Verify that the application is not susceptible to *LDAP* Injection,
-or that security controls prevent *LDAP* Injection.
+. [[r17]] link:https://cwe.mitre.org/data/definitions/943.html[CWE-943: Improper Neutralization of Special Elements in Data Query Logic].
+The application generates a query intended to access or manipulate data in a
+data store such as a database,
+but it does not neutralize or incorrectly neutralizes special elements that can
+modify the intended logic of the query.
 
-. [[r18]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.12]
-Verify that the application is not susceptible to *OS* Command Injection,
-or that security controls prevent *OS* Command Injection.
-
-. [[r19]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.13]
-Verify that the application is not susceptible
-to Remote File Inclusion (*RFI*) or Local File Inclusion (*LFI*)
-when content is used that is a path to a file.
-
-. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
-. [[r21]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.4)]
 Verify that output encoding occurs close to or by the interpreter for which it
 is intended.
 
-. [[r22]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.1)]
 Verify that the application has defenses against HTTP parameter pollution
 attacks,
@@ -230,35 +223,35 @@ particularly if the application framework makes no distinction about the source
 of request parameters (*GET*, *POST*, cookies, headers,
 or environment variables).
 
-. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r21]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.3)]
 Verify that all input (*HTML* form fields, *REST* requests, *URL* parameters,
 *HTTP* headers, cookies, batch files, *RSS* feeds, etc) is validated using
 positive validation (*whitelisting*).
 
-. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r22]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.4)]
 Verify that structured data is strongly typed and validated against a defined
 schema including allowed characters, length and pattern
 (e.g. credit card numbers or telephone, or validating that two related fields
 are reasonable, such as checking that suburb and zip/postcode match).
 
-. [[r25]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.1)]
 Verify that all untrusted *HTML* input from *WYSIWYG* editors or similar is
 properly sanitized with an *HTML* sanitizer library or framework feature.
 
-. [[r26]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.2)]
 Verify that unstructured data is sanitized to enforce safety measures such as
 allowed characters and length.
 
-. [[r27]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r25]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.3)]
 Verify that the application sanitizes user input before passing to mail systems
 to protect against *SMTP* or *IMAP* injection.
 
-. [[r28]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r26]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.4)]
 Verify that the application avoids the use of **eval()** or other dynamic code
 execution features.
@@ -266,27 +259,61 @@ Where there is no alternative,
 any user input being included must be sanitized or sandboxed before being
 executed.
 
-. [[r29]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r27]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.5)]
 Verify that the application protects against template injection attacks by
 ensuring that any user input being included is sanitized or sandboxed.
 
-. [[r30]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r28]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.6)]
 Verify that the application protects against *SSRF* attacks,
 by validating or sanitizing untrusted data or *HTTP* file metadata,
 such as filenames and URL input fields,
 or using whitelisting of protocols, domains, paths and ports.
 
-. [[r31]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r29]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.7)]
 Verify that the application sanitizes, disables, or sandboxes user-supplied
 *SVG* scriptable content,
 especially as they relate to *XSS* resulting from inline scripts, and
 *foreignObject*.
 
-. [[r32]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r30]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.8)]
 Verify that the application sanitizes, disables, or sandboxes user-supplied
 scriptable or expression template language content,
 such as Markdown, *CSS* or *XSL* stylesheets, *BBCode*, or similar.
+
+. [[31]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.4)]
+Verify that data selection or database queries
+(e.g. *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,
+entity frameworks, or are otherwise protected from database injection attacks.
+
+. [[r32]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.5)]
+Verify that where parameterized or safer mechanisms are not present,
+context-specific output encoding is used to protect against injection attacks,
+such as the use of *SQL* escaping to protect against *SQL* injection.
+
+. [[r33]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.7)]
+Verify that the application protects against *LDAP* Injection vulnerabilities,
+or that specific security controls to prevent *LDAP* Injection have been
+implemented.
+
+. [[r34]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.8)]
+Verify that the application protects against *OS* command injection and that
+operating system calls use parameterized *OS* queries or use contextual command
+line output encoding.
+
+. [[r35]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.9)]
+Verify that the application protects against Local File Inclusion (*LFI*) or
+Remote File Inclusion (*RFI*) attacks.
+
+. [[r36]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.10)]
+Verify that the application protects against *XPath* injection or *XML*
+injection attacks.

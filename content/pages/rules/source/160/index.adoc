@@ -72,4 +72,17 @@ escaping protects against reflected, stored, and *DOM* based *XSS*.
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.5)]
 Verify that where parameterized or safer mechanisms are not present,
 context-specific output encoding is used to protect against injection attacks,
-such as the use of SQL escaping to protect against SQL injection.
+such as the use of *SQL* escaping to protect against *SQL* injection.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.6)]
+Verify that the application projects against JavaScript or *JSON* injection
+attacks,
+including for eval attacks, remote JavaScript includes, *CSP* bypasses,
+**DOM XSS**, and JavaScript expression evaluation.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.8)]
+Verify that the application protects against *OS* command injection and that
+operating system calls use parameterized *OS* queries or use contextual command
+line output encoding.
