@@ -6,6 +6,8 @@ from datetime import datetime
 from decimal import Decimal
 from typing import List, Dict, Union, Set, NamedTuple
 
+from boto3.dynamodb.conditions import Key
+
 Historic = List[Dict[str, str]]
 Evidence = Dict[str, Dict[str, str]]
 Finding = Union[
@@ -130,4 +132,5 @@ UpdateAccessTokenPayload = NamedTuple('UpdateAccessTokenPayload', [
     ('success', bool),
     ('session_jwt', str),
 ])
-Dynamo = Dict[str, Union[str, Organization]]
+Dynamo = Union[Organization, str]
+DynamoQuery = Dict[str, Union[Key, str]]

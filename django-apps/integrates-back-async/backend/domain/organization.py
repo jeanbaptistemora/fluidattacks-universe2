@@ -23,6 +23,10 @@ from backend.typing import (
 )
 
 
+async def get_id_for_group(group_name: str) -> str:
+    return await org_dal.get_id_for_group(group_name)
+
+
 async def get_max_acceptance_days(organization_id: str) -> Optional[Decimal]:
     result = cast(
         Dict[str, Decimal],

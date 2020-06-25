@@ -19,6 +19,7 @@ import rollbar
 from backend import authz
 from backend.api.resolvers import (
     finding as finding_loader,
+    organization as org_loader,
     user as user_loader
 )
 from backend.decorators import (
@@ -30,12 +31,14 @@ from backend.decorators import (
 )
 from backend.domain import (
     bill as bill_domain,
+    organization as org_domain,
     project as project_domain,
 )
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,
     Finding as FindingType,
+    Organization as OrganizationType,
     Project as ProjectType,
     User as UserType,
     AddCommentPayload as AddCommentPayloadType,
@@ -54,6 +57,21 @@ from __init__ import FI_COMMUNITY_PROJECTS
 async def _get_name(_, project_name: str, **__) -> str:
     """Get name."""
     return project_name
+
+
+async def _get_organization(
+    info,
+    project_name: str,
+    requested_fields: list
+) -> OrganizationType:
+    """
+    Get organization settings
+    """
+    org_id: str = await org_domain.get_id_for_group(project_name)
+    as_field = True
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+    return await org_loader.resolve(info, org_id, as_field, selection_set)
 
 
 @require_integrates

@@ -69,7 +69,7 @@ async def resolve(
     """Async resolve fields."""
     result = dict()
     requested_fields = (
-        selection_set.selections
+        util.get_requested_fields('organization', selection_set)
         if as_field
         else info.field_nodes[0].selection_set.selections
     )

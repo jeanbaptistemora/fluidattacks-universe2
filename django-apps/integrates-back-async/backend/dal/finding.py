@@ -130,7 +130,10 @@ async def get_attributes(
     if attributes:
         projection = ','.join(attributes)
         item_attrs.update({'ProjectionExpression': projection})
-    response_item = await dynamodb.async_query(TABLE_NAME, item_attrs)
+    response_item = cast(
+        List[Dict[str, FindingType]],
+        await dynamodb.async_query(TABLE_NAME, item_attrs)
+    )
     if response_item:
         finding_attrs = response_item[0]
     return finding_attrs

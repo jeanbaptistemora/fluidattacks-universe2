@@ -14,6 +14,11 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
+async def test_get_id_for_group():
+    group_name = 'unittesting'
+    org_id = await org_domain.get_id_for_group(group_name)
+    assert org_id == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+
 
 async def test_get_max_acceptance_days():
     org_with_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'

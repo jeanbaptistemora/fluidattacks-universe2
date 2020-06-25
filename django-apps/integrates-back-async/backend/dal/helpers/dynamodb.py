@@ -10,7 +10,10 @@ import aioboto3
 import boto3
 import botocore
 
-from backend.typing import Dynamo as DynamoType
+from backend.typing import (
+    Dynamo as DynamoType,
+    DynamoQuery as DynamoQueryType
+)
 from __init__ import (
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,
@@ -55,8 +58,8 @@ async def async_put_item(table: str, item: Dict[str, Any]) -> None:
         await dynamo_table.put_item(Item=item)
 
 
-async def async_query(table: str, query_attrs: Dict[str, str]) -> \
-        List[Dict[str, Any]]:
+async def async_query(table: str, query_attrs: DynamoQueryType) -> \
+        List[DynamoType]:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.query(**query_attrs)
@@ -64,7 +67,10 @@ async def async_query(table: str, query_attrs: Dict[str, str]) -> \
     return response_items
 
 
-async def async_update_item(table: str, update_attrs: DynamoType) -> bool:
+async def async_update_item(
+    table: str,
+    update_attrs: Dict[str, DynamoType]
+) -> bool:
     success: bool = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
