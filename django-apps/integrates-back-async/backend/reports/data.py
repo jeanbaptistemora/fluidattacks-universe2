@@ -147,7 +147,9 @@ def _encrypted_zip_file(
 ) -> Iterator[str]:
     # This value must be sanitized because it needs to be passed as OS command
     if not all(word.isalpha() for word in passphrase.split(' ')):
-        raise ValueError(f'Expected words separated by spaces as passphrase: {passphrase}')
+        raise ValueError(
+            f'Expected words separated by spaces as passphrase: {passphrase}'
+        )
 
     # If there are no source contents the current working directory is assumed
     #   by default.
