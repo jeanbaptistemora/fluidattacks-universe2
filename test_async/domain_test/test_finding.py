@@ -13,7 +13,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from backend import mailer
 from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
-    get_tracking_vulnerabilities, get_findings, update_treatment,
+    get_tracking_vulnerabilities, update_treatment,
     handle_acceptation, mask_finding, validate_evidence,
     get_finding_historic_treatment, approve_draft, compare_historic_treatments
 )
@@ -41,13 +41,6 @@ class FindingTests(TestCase):
         expected_output = {'date': '2019-08-30', 'effectiveness': 0,
                            'open': 1, 'closed': 0, 'cycle': 0}
         assert test_data[0] == expected_output
-
-    def test_get_findings(self):
-        finding_ids = ['436992569', '422286126']
-        test_data = get_findings(finding_ids)
-        assert isinstance(test_data, list)
-        assert isinstance(test_data[0], dict)
-        assert test_data[0]['findingId'] == '436992569'
 
     @pytest.mark.changes_db
     def test_update_treatment(self):

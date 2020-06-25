@@ -476,7 +476,7 @@ async def get_new_releases():
     ])
     project_drafts = await asyncio.gather(*[
         asyncio.create_task(
-            sync_to_async(finding_domain.get_findings)(
+            finding_domain.get_findings_async(
                 drafts
             )
         )

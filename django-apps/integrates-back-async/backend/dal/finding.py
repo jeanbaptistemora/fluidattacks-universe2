@@ -1,6 +1,8 @@
 """DAL functions for findings."""
 
 from typing import cast, Dict, List, Union
+
+import aioboto3
 import rollbar
 from botocore.exceptions import ClientError
 
@@ -11,6 +13,7 @@ from __init__ import FI_AWS_S3_BUCKET
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
+TABLE_NAME: str = 'FI_findings'
 
 
 def _escape_alnum(string: str) -> str:
@@ -131,6 +134,13 @@ def get_finding(finding_id: str) -> Dict[str, FindingType]:
     """ Retrieve all attributes from a finding """
     response = TABLE.get_item(Key={'finding_id': finding_id})
 
+    return response.get('Item', {})
+
+
+async def get(
+        finding_id: str,
+        table: aioboto3.session.Session.client) -> Dict[str, FindingType]:
+    response = await table.get_item(Key={'finding_id': finding_id})
     return response.get('Item', {})
 
 

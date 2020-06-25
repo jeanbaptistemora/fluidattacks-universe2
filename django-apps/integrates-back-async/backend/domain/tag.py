@@ -23,7 +23,7 @@ async def update_organization_indicators(company: str,
         for project in company_projects
     ])
     project_findings = await asyncio.gather(*[
-        sync_to_async(finding_domain.get_findings)(
+        finding_domain.get_findings_async(
             finding_list
         )
         for finding_list in finding_lists

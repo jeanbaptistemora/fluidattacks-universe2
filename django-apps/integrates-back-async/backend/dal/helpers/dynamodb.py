@@ -4,6 +4,7 @@
 
 import os
 from typing import Any, Dict, List, Optional
+from contextlib import asynccontextmanager
 
 import aioboto3
 import boto3
@@ -60,3 +61,9 @@ async def async_query(table: str, query_attrs: Dict[str, str]) -> \
         response = await dynamo_table.query(**query_attrs)
         response_items = response.get('Items', [])
     return response_items
+
+
+@asynccontextmanager
+async def start_context() -> aioboto3.session.Session.resource:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        yield dynamodb_resource

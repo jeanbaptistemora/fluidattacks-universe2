@@ -4,10 +4,12 @@ import re
 import random
 from datetime import datetime, timedelta
 from decimal import Decimal
+from contextlib import AsyncExitStack
 
 from typing import Dict, List, Optional, Tuple, Union, cast
 import pytz
 
+import aioboto3
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -40,6 +42,7 @@ from backend.utils import (
     vulnerabilities as vuln_utils
 )
 
+from backend.dal.helpers.dynamodb import start_context
 from backend.dal import (
     comment as comment_dal,
     finding as finding_dal,
@@ -658,22 +661,19 @@ def get_finding_historic_treatment(finding_id: str) -> List[Dict[str, str]]:
     )
 
 
-def get_findings(finding_ids: List[str]) -> List[Dict[str, FindingType]]:
-    """Retrieves all attributes for the requested findings"""
-    findings = [get_finding(finding_id) for finding_id in finding_ids]
-    if not findings and finding_ids:
-        raise FindingNotFound()
-    return findings
-
-
 async def get_findings_async(
         finding_ids: List[str]) -> List[Dict[str, FindingType]]:
     """Retrieves all attributes for the requested findings"""
-    findings_tasks = [
-        asyncio.create_task(sync_to_async(get_finding)(finding_id))
-        for finding_id in finding_ids
-    ]
-    findings = await asyncio.gather(*findings_tasks)
+    async with AsyncExitStack() as stack:
+        resource = await stack.enter_async_context(start_context())
+        table = await resource.Table(finding_dal.TABLE_NAME)
+        findings_tasks = [
+            asyncio.create_task(
+                get(finding_id, table)
+            )
+            for finding_id in finding_ids
+        ]
+        findings = await asyncio.gather(*findings_tasks)
     return findings
 
 
@@ -1169,3 +1169,13 @@ def get_attributes(
     if not response:
         raise FindingNotFound()
     return response
+
+
+async def get(
+        finding_id: str,
+        table: aioboto3.session.Session.client) -> Dict[str, FindingType]:
+    finding = await finding_dal.get(finding_id, table)
+    if not finding or not validate_finding(finding=finding):
+        raise FindingNotFound()
+
+    return finding_utils.format_data(finding)

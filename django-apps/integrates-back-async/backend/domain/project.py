@@ -722,7 +722,7 @@ async def get_mean_remediate_severity(
                 str(finding.get('findingId', ''))
             )
         )
-        for finding in await sync_to_async(finding_domain.get_findings)(
+        for finding in await finding_domain.get_findings_async(
             finding_ids
         )
         if (
