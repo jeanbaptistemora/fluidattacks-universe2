@@ -1,12 +1,35 @@
 :slug: rules/050/
 :category: architecture
 :description: This document contains the details of the security requirements related to the definition and management of software architecture in the organization. This requirement establishes the importance of controlling the calls to interpreted code in order to avoid malicious code injections.
-:keywords: Code, System, Security, Requirement, Interpreted, JavaScript
+:keywords: Code, System, Interpreted, JavaScript, ASVS, CWE
 :rules: yes
 
 = R050. Control calls to interpreted code
 
 == Requirement
 
-Calls to interpreted code (+Javascript+, +CSS+)
-must be performed to domains controlled by the organization.
+Interpreted code (*Javascript*, *CSS*) must be loaded from domains controlled
+by the organization.
+
+== Description
+
+Applications often use resources or have dependencies that are hosted on
+servers other than the one in which they reside.
+These resources should be hosted on domains controlled by the organization
+in order to prevent several types of injection attacks.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/830.html[CWE-830: Inclusion of Web Functionality from an Untrusted Source].
+The software includes web functionality (such as a web widget) from another
+domain,
+which causes it to operate within the domain of the software,
+potentially granting total access and control of the software to the untrusted
+source.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.6)]
+Verify that the application projects against *JavaScript* or *JSON* injection
+attacks,
+including for eval attacks, remote *JavaScript* includes, *CSP* bypasses,
+**DOM XSS**, and *JavaScript* expression evaluation.
