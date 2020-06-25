@@ -1,0 +1,58 @@
+:slug: rules/345/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of source in the organization. This requirement establishes the importance of avoiding the use of dynamic code execution features, especially when it requires user-supplied input.
+:keywords: Dynamic, Code, Execution, Eval, ASVS, CWE
+:rules: yes
+
+= R345. Avoid dynamic code execution
+
+== Requirement
+
+The system should not use dynamic code execution features such as **eval()**.
+
+== Description
+
+Dynamic code execution features, despite the flexibility they provide,
+should be used carefully and generally avoided.
+These features often open the door for remote code execution (*RCE*) and
+cross-site scripting (*XSS*) attacks.
+Therefore, if it is not possible to avoid dynamic code execution,
+any untrusted input being included (e.g. the one provided by the users) should
+be properly sanitized.
+
+== Rereferences
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
+The product does not validate or incorrectly validates input that can affect
+the control flow or data flow of a program.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/94.html[CWE-94: Code Injection].
+The software constructs all or part of a code segment using
+externally-influenced input from an upstream component,
+but it does not neutralize or incorrectly neutralizes special elements that
+could modify the syntax or behavior of the intended code segment.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/95.html[CWE-95: Eval Injection].
+The software receives input from an upstream component,
+but it does not neutralize or incorrectly neutralizes code syntax before using
+the input in a dynamic evaluation call (e.g. "*eval*").
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.1 Input Validation Requirements.(5.2.4)]
+Verify that the application avoids the use of **eval()** or other dynamic code
+execution features.
+Where there is no alternative, any user input being included must be sanitized
+or sandboxed before being executed.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.2 Sanitization and Sandboxing Requirements.(5.2.7)]
+Verify that the application sanitizes, disables, or sandboxes user-supplied
+*SVG* scriptable content,
+especially as they relate to *XSS* resulting from inline scripts, and
+*foreignObject*.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.2 Sanitization and Sandboxing Requirements.(5.2.8)]
+Verify that the application sanitizes, disables, or sandboxes user-supplied
+scriptable or expression template language content,
+such as Markdown, *CSS* or *XSL* stylesheets, *BBCode*, or similar.

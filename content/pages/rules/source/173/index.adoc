@@ -283,7 +283,7 @@ V5.2 Sanitization and Sandboxing Requirements.(5.2.7)]
 Verify that the application sanitizes, disables, or sandboxes user-supplied
 *SVG* scriptable content,
 especially as they relate to *XSS* resulting from inline scripts, and
-foreignObject.
+*foreignObject*.
 
 . [[r32]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.8)]
