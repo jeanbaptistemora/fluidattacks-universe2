@@ -1,7 +1,11 @@
 # standard imports
 import asyncio
 import uuid
-from typing import cast, List, Optional
+from typing import (
+    cast,
+    List,
+    Optional
+)
 
 # third-party imports
 import rollbar
@@ -13,10 +17,12 @@ from botocore.exceptions import ClientError
 from backend.dal.helpers.dynamodb import (
     async_query as dynamo_async_query,
     async_put_item as dynamo_async_put_item,
+    async_update_item as dynamo_async_update_item,
     TABLE_NAME as OLD_TABLE_NAME
 )
 from backend.exceptions import InvalidOrganization
 from backend.typing import (
+    Dynamo as DynamoType,
     Organization as OrganizationType
 )
 
@@ -323,3 +329,48 @@ async def get_users(organization_id: str) -> List[str]:
             payload_data=locals()
         )
     return users
+
+
+async def update(
+    organization_id: str,
+    organization_name: str,
+    values: OrganizationType
+) -> bool:
+    """
+    Updates the attributes of an organization
+    """
+    success: bool = False
+    set_expression: str = ''
+    remove_expression: str = ''
+    expression_values: OrganizationType = {}
+    for attr, value in values.items():
+        if value is None:
+            remove_expression += f'{attr}, '
+        else:
+            set_expression += f'{attr} = :{attr}, '
+            expression_values.update({f':{attr}': value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    try:
+        update_attrs: DynamoType = {
+            'Key': {
+                'pk': organization_id,
+                'sk': f'INFO#{organization_name}'
+            },
+            'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+            'ExpressionAttributeValues': expression_values
+        }
+        success = await dynamo_async_update_item(TABLE_NAME, update_attrs)
+    except ClientError as exe:
+        await sync_to_async(rollbar.report_message)(
+            'There was an error updating the settings of an organization',
+            'error',
+            extra_data=exe,
+            payload_data=locals()
+        )
+    return success

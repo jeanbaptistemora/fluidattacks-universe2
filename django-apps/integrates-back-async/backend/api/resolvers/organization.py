@@ -14,7 +14,31 @@ from backend.decorators import (
     require_login
 )
 from backend.domain import organization as org_domain
-from backend.typing import Organization as OrganizationType
+from backend.typing import (
+    Organization as OrganizationType,
+    SimplePayload as SimplePayloadType
+)
+
+
+async def _do_update_organization_settings(
+    _,
+    info,
+    identifier: str,
+    name: str,
+    **parameters
+) -> SimplePayloadType:
+    success: bool = await org_domain.update_settings(
+        identifier,
+        name,
+        parameters
+    )
+    if success:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Updated settings for organization {name} with ID'
+            f' {identifier}'
+        )
+    return SimplePayloadType(success=success)
 
 
 async def _get_max_acceptance_days(_, identifier: str) -> Optional[Decimal]:
@@ -77,5 +101,18 @@ async def resolve(
 @rename_kwargs({'organization_id': 'identifier'})
 @require_login
 async def resolve_organization(_, info, identifier: str) -> OrganizationType:
-    """Resolve Organization query."""
+    """Resolve Organization query """
     return await resolve(info, identifier)
+
+
+@convert_kwargs_to_snake_case
+@rename_kwargs({
+    'organization_id': 'identifier',
+    'organization_name': 'name'
+})
+@require_login
+async def resolve_organization_mutation(obj, info, **parameters):
+    """Resolve Organization mutation """
+    field = util.camelcase_to_snakecase(info.field_name)
+    resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
+    return await resolver_func(obj, info, **parameters)

@@ -10,6 +10,7 @@ import aioboto3
 import boto3
 import botocore
 
+from backend.typing import Dynamo as DynamoType
 from __init__ import (
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,
@@ -61,6 +62,15 @@ async def async_query(table: str, query_attrs: Dict[str, str]) -> \
         response = await dynamo_table.query(**query_attrs)
         response_items = response.get('Items', [])
     return response_items
+
+
+async def async_update_item(table: str, update_attrs: DynamoType) -> bool:
+    success: bool = False
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        dynamo_table = await dynamodb_resource.Table(table)
+        response = await dynamo_table.update_item(**update_attrs)
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    return success
 
 
 @asynccontextmanager

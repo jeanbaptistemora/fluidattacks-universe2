@@ -1,5 +1,14 @@
 from backend.api.resolvers import (
-    alert, cache, event, finding, me, user, report, resource, project,
+    alert,
+    cache,
+    event,
+    finding,
+    me,
+    organization,
+    project,
+    report,
+    resource,
+    user,
     vulnerability
 )
 
@@ -30,6 +39,8 @@ MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
 MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
 MUTATION.set_field('updateRepository', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
+MUTATION.set_field('updateOrganizationSettings',
+                   organization.resolve_organization_mutation)
 MUTATION.set_field('createProject', project.resolve_project_mutation)
 MUTATION.set_field('editGroup', project.resolve_project_mutation)
 MUTATION.set_field('rejectRemoveProject',

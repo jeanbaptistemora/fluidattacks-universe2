@@ -1,4 +1,5 @@
 import pytest
+from decimal import Decimal
 
 import backend.dal.organization as org_dal
 from backend.exceptions import InvalidOrganization
@@ -152,3 +153,26 @@ async def test_get_or_create():
     assert isinstance(not_existent_org, dict)
     assert 'id' in not_existent_org
     assert not_existent_org['name'] == not_ex_org_name
+
+@pytest.mark.changes_db
+async def test_update():
+    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    org_name = 'testorg'
+    org_details = await org_dal.get_by_id(org_id)
+    assert org_details['max_acceptance_days'] == 60
+    assert 'max_acceptance_severity' not in org_details
+    assert org_details['max_number_acceptations'] == 2
+    assert 'min_acceptance_severity' not in org_details
+
+    new_values = {
+        'max_acceptance_days': None,
+        'max_acceptance_severity': Decimal('8.0'),
+        'max_number_acceptations': 1,
+        'min_acceptance_severity': Decimal('2.5')
+    }
+    await org_dal.update(org_id, org_name, new_values)
+    org_details = await org_dal.get_by_id(org_id)
+    assert 'max_acceptance_days' not in org_details
+    assert org_details['max_acceptance_severity'] == Decimal('8.0')
+    assert org_details['max_number_acceptations'] == 1
+    assert org_details['min_acceptance_severity'] == Decimal('2.5')

@@ -6,7 +6,6 @@ from datetime import datetime
 from decimal import Decimal
 from typing import List, Dict, Union, Set, NamedTuple
 
-
 Historic = List[Dict[str, str]]
 Evidence = Dict[str, Dict[str, str]]
 Finding = Union[
@@ -24,6 +23,7 @@ Project = Dict[str, Union[
 ]]
 Organization = Dict[str, Union[
     Decimal,
+    None,
     str
 ]]
 Comment = Dict[str, Union[
@@ -130,3 +130,4 @@ UpdateAccessTokenPayload = NamedTuple('UpdateAccessTokenPayload', [
     ('success', bool),
     ('session_jwt', str),
 ])
+Dynamo = Dict[str, Union[str, Organization]]
