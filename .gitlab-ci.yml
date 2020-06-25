@@ -131,6 +131,7 @@ deploy_mobile_ota:
 deploy_mobile_ota_stop:
   <<: *in_dev_branch
   stage: pre-build
+  tags: [autoscaling]
   when: manual
   script: [""]
   environment:
