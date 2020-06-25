@@ -74,7 +74,8 @@ def get_service_policies(group: str) -> List[SERVICE_POLICY]:
 
     has_drills: bool = historic_config[-1]['has_drills']
     has_forces: bool = historic_config[-1]['has_forces']
-    has_integrates: bool = group_attributes['project_status'] == 'ACTIVE'
+    has_integrates: bool = \
+        group_attributes['project_status'] in ['ACTIVE', 'PENDING_DELETION']
     type_: str = historic_config[-1]['type']
 
     if type_ == 'continuous':
