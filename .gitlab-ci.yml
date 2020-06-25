@@ -113,6 +113,10 @@ analytics_dev_all:
 
 analytics_prod_all:
   <<: *analytics_template
+  <<: *in_master_branch
+
+analytics_prod_all_schedule:
+  <<: *analytics_template
   interruptible: false
   only:
     refs: [schedules]

@@ -675,6 +675,10 @@ function job_analytics_prod_all {
   &&  _job_analytics_all 'prod'
 }
 
+function job_analytics_prod_all_schedule {
+  job_analytics_prod_all
+}
+
 function job_make_migration_dev_apply {
   local migration_file="${1}"
 
