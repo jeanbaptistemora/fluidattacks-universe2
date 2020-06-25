@@ -2,6 +2,12 @@ import pytest
 from decimal import Decimal
 
 import backend.domain.organization as org_domain
+from backend.exceptions import (
+    InvalidAcceptanceDays,
+    InvalidAcceptanceSeverity,
+    InvalidAcceptanceSeverityRange,
+    InvalidNumberAcceptations
+)
 
 # Run async tests
 pytestmark = [
@@ -47,3 +53,31 @@ async def test_get_min_acceptance_severity():
     org_without_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     min_severity = await org_domain.get_min_acceptance_severity(org_without_data)
     assert min_severity == Decimal('0.0')
+
+
+async def test_validate_negative_values():
+    with pytest.raises(InvalidAcceptanceSeverity):
+        org_domain.validate_max_acceptance_severity(Decimal('-1'))
+
+    with pytest.raises(InvalidAcceptanceSeverity):
+        org_domain.validate_min_acceptance_severity(Decimal('-1'))
+
+    with pytest.raises(InvalidAcceptanceDays):
+        org_domain.validate_max_acceptance_days(-1)
+
+    with pytest.raises(InvalidNumberAcceptations):
+        org_domain.validate_max_number_acceptations(-1)
+
+
+async def test_validate_severity_range():
+    with pytest.raises(InvalidAcceptanceSeverity):
+        org_domain.validate_max_acceptance_severity(Decimal('10.1'))
+
+    with pytest.raises(InvalidAcceptanceSeverity):
+        org_domain.validate_min_acceptance_severity(Decimal('10.1'))
+
+    with pytest.raises(InvalidAcceptanceSeverityRange):
+        org_domain.validate_acceptance_severity_range(
+            Decimal('8.0'),
+            Decimal('5.0')
+        )
