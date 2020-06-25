@@ -17,17 +17,17 @@ Meet some of our team:
 
 a|=== Paula Vélez
 image::pvelez.png[alt="Paula Vélez", width=100 ]
-Architecture Team +
+Marketing Team +
 link:https://www.linkedin.com/in/pauveelez/[LinkedIn]
 
 a|=== link:ralvarez/[Rafael Alvarez]
 image::ralvarez.png[alt="Rafael Álvarez", width=100 ]
-Operations Team +
+Management Team +
 link:https://www.linkedin.com/in/rafael-alvarez-7b04a2177/[LinkedIn]
 
 a|=== link:jarmas/[Jonathan Armas]
 image::jarmas.png[alt="Jonathan Armas", width=100 ]
-Testing Team +
+Hacking Team +
 link:https://www.linkedin.com/in/jonathan-armas[LinkedIn]
 
 a|=== Diana Naspirán
@@ -37,7 +37,7 @@ link:https://www.linkedin.com/in/dianacarolinanaspiran/[LinkedIn]
 
 a|=== Juan Restrepo
 image::jrestrepo.png[alt="Juan Carlos Restrepo", width=100 ]
-Development Team +
+Product Team +
 link:https://www.linkedin.com/in/juancrestrepo[LinkedIn]
 
 a|=== Felipe Gómez
@@ -57,17 +57,17 @@ link:https://www.linkedin.com/in/mgomezarango/[LinkedIn]
 
 a|=== link:ccarrasco/[Carolina Carrasco]
 image::ccarrasco.png[alt="Carolina Carrasco", width=100 ]
-Project Team +
+Service Team +
 link:https://www.linkedin.com/in/carolina-carrasco-01612767/[LinkedIn]
 
 a|=== link:aroldan/[Andrés Roldán]
 image::aroldan.png[alt="Andrés Roldan", width=100 ]
-Architecture Team +
+Hacking Team +
 link:https://www.linkedin.com/in/andr%C3%A9s-rold%C3%A1n-0602702/[LinkedIn]
 
 a|=== David Cardona
 image::dcardona.png[alt="David Cardona", width=100 ]
-Operations Team +
+Finance Team +
 link:https://www.linkedin.com/in/david-145843146/[LinkedIn]
 
 a|=== Elkin Echeverri
