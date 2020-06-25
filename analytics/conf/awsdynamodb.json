@@ -175,6 +175,7 @@
         "findings_deleted": "list<dict>",
         "hasRelease": "string",
         "has_forces": "string",
+	"historic_configuration": "list<dict>",
         "last_closing_date": "number",
         "max_open_severity": "number",
         "mean_remediate": "number",
