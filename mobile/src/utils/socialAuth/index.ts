@@ -35,11 +35,13 @@ enum AppAuthError {
  * @see https://git.io/JfimI
  */
 const iOSErrorCodeOffset: number = 2;
-const getStandardErrorCode: ((code: number) => number) = (code: number): number => Platform.select({
+const getStandardErrorCode: ((code: number) => number) = (
+  code: number,
+): number => Number(Platform.select({
   android: code,
   default: code,
   ios: (code * -1) - iOSErrorCodeOffset,
-});
+}));
 
 /** Normalized user properties */
 interface IUser {
@@ -96,8 +98,13 @@ export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IA
       case AppAuthError.UserCanceledAuthorizationFlow:
       case AppAuthError.ProgramCanceledAuthorizationFlow:
         break;
+      case AppAuthError.NetworkError:
+        Alert.alert(
+          i18next.t("common.networkError.title"),
+          i18next.t("common.networkError.msg"));
+        break;
       default:
-        rollbar.error("An error occurred authenticating with Google", error as Error);
+        rollbar.error("An error occurred authenticating with Google", { ...error });
         Alert.alert(i18next.t("common.error.title"), i18next.t("common.error.msg"));
     }
   }
@@ -153,7 +160,7 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
       case AppAuthError.AccessDenied:
         break;
       default:
-        rollbar.error("An error occurred authenticating with Microsoft", error as Error);
+        rollbar.error("An error occurred authenticating with Microsoft", { ...error });
         Alert.alert(i18next.t("common.error.title"), i18next.t("common.error.msg"));
     }
   }
