@@ -18,33 +18,53 @@ from backend.dal import (
     vulnerability as vuln_dal
 )
 from backend.typing import (
-    Comment as CommentType, Finding as FindingType, Project as ProjectType,
+    Comment as CommentType,
+    Finding as FindingType,
+    Project as ProjectType,
     Vulnerability as VulnerabilityType
 )
 from backend.domain import (
-    comment as comment_domain, resources as resources_domain,
-    finding as finding_domain, user as user_domain,
-    notifications as notifications_domain, event as event_domain,
-    vulnerability as vuln_domain, available_group as available_group_domain
+    comment as comment_domain,
+    resources as resources_domain,
+    finding as finding_domain,
+    user as user_domain,
+    notifications as notifications_domain,
+    event as event_domain,
+    vulnerability as vuln_domain,
+    available_group as available_group_domain
 )
 from backend.exceptions import (
-    AlreadyPendingDeletion, InvalidCommentParent, InvalidParameter, InvalidProjectName,
-    NotPendingDeletion, PermissionDenied, RepeatedValues, InvalidProjectServicesConfig
+    AlreadyPendingDeletion,
+    InvalidCommentParent,
+    InvalidParameter,
+    InvalidProjectName,
+    InvalidProjectServicesConfig,
+    NotPendingDeletion,
+    PermissionDenied,
+    RepeatedValues
 )
 from backend.utils import validations
 from backend import authz, mailer, util
 
 
-def add_comment(project_name: str, email: str, comment_data: CommentType) -> bool:
+def add_comment(
+        project_name: str, email: str, comment_data: CommentType) -> bool:
     """Add comment in a project."""
     parent = str(comment_data.get('parent'))
     if parent != '0':
-        project_comments = \
-            [str(comment.get('user_id'))
-             for comment in project_dal.get_comments(project_name)]
+        project_comments = [
+            str(comment.get('user_id'))
+            for comment in project_dal.get_comments(project_name)
+        ]
         if parent not in project_comments:
             raise InvalidCommentParent()
-    mailer.send_comment_mail(comment_data, 'project', email, 'project', project_name)
+    mailer.send_comment_mail(
+        comment_data,
+        'project',
+        email,
+        'project',
+        project_name
+    )
     return project_dal.add_comment(project_name, email, comment_data)
 
 
@@ -85,9 +105,11 @@ def create_project(
     validations.validate_field_length(project_name, 20)
     validations.validate_field_length(description, 200)
     is_user_admin = user_role == 'admin'
-    if is_user_admin or \
-       cast(List[str], kwargs.get('companies', [])):
-        companies = [company.lower() for company in kwargs.get('companies', [])]
+    if is_user_admin or cast(List[str], kwargs.get('companies', [])):
+        companies = [
+            company.lower()
+            for company in kwargs.get('companies', [])
+        ]
     else:
         companies = [str(user_domain.get_data(user_email, 'company'))]
     validations.validate_fields(companies)
@@ -190,12 +212,15 @@ def edit(
         has_forces,
         has_integrates)
 
-    item = cast(Dict[str, List[dict]], project_dal.get_attributes(
-        project_name=group_name,
-        attributes=[
-            'historic_configuration',
-        ]
-    ))
+    item = cast(
+        Dict[str, List[dict]],
+        project_dal.get_attributes(
+            project_name=group_name,
+            attributes=[
+                'historic_configuration',
+            ]
+        )
+    )
     item.setdefault('historic_configuration', [])
 
     success: bool = project_dal.update(
@@ -235,7 +260,8 @@ def edit(
 
 def add_access(user_email: str, project_name: str,
                project_attr: str, attr_value: Union[str, bool]) -> bool:
-    return project_dal.add_access(user_email, project_name, project_attr, attr_value)
+    return project_dal.add_access(
+        user_email, project_name, project_attr, attr_value)
 
 
 def remove_access(user_email: str, project_name: str) -> bool:
@@ -255,13 +281,23 @@ def get_historic_deletion(project_name: str) -> Union[str, List[str]]:
 def request_deletion(project_name: str, user_email: str) -> bool:
     project = project_name.lower()
     response = False
-    if user_domain.get_group_access(user_email, project) and project_name == project:
-        data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
-        historic_deletion = cast(List[Dict[str, str]], data.get('historic_deletion', []))
+    if (user_domain.get_group_access(user_email, project) and
+            project_name == project):
+        data = project_dal.get_attributes(
+            project,
+            ['project_status', 'historic_deletion']
+        )
+        historic_deletion = cast(
+            List[Dict[str, str]],
+            data.get('historic_deletion', [])
+        )
         if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
             tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
             today = datetime.now(tz=tzn).today()
-            deletion_date = (today + timedelta(days=30)).strftime('%Y-%m-%d') + ' 23:59:59'
+            deletion_date = (
+                (today + timedelta(days=30))
+                .strftime('%Y-%m-%d') + ' 23:59:59'
+            )
             new_state = {
                 'date': today.strftime('%Y-%m-%d %H:%M:%S'),
                 'deletion_date': deletion_date,
@@ -288,8 +324,14 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
     response = False
     project = project_name.lower()
     if project_name == project:
-        data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
-        historic_deletion = cast(List[Dict[str, str]], data.get('historic_deletion', []))
+        data = project_dal.get_attributes(
+            project,
+            ['project_status', 'historic_deletion']
+        )
+        historic_deletion = cast(
+            List[Dict[str, str]],
+            data.get('historic_deletion', [])
+        )
         if data.get('project_status') == 'PENDING_DELETION':
             tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
             today = datetime.now(tz=tzn).today()
@@ -317,7 +359,8 @@ def mask(group_name: str) -> bool:
     comments = project_dal.get_comments(group_name)
     comments_result = all([
         project_dal.delete_comment(comment['project_name'], comment['user_id'])
-        for comment in comments])
+        for comment in comments
+    ])
 
     update_data: Dict[str, Union[str, List[str], object]] = {
         'project_status': 'FINISHED',
@@ -337,21 +380,28 @@ def remove_project(project_name: str) -> NamedTuple:
     data = project_dal.get_attributes(project_name, ['project_status'])
     if data.get('project_status') == 'PENDING_DELETION':
         are_users_removed = remove_all_users_access(project_name)
-        findings_and_drafts = list_findings(project_name, should_list_deleted=True) + \
+        findings_and_drafts = (
+            list_findings(project_name, should_list_deleted=True) +
             list_drafts(project_name, should_list_deleted=True)
+        )
         are_findings_masked = all([
             finding_domain.mask_finding(finding_id)
-            for finding_id in findings_and_drafts])
+            for finding_id in findings_and_drafts
+        ])
         events = list_events(project_name)
         are_events_masked = all([
-            event_domain.mask(event_id) for event_id in events
+            event_domain.mask(event_id)
+            for event_id in events
         ])
         is_group_masked = mask(project_name)
         are_resources_removed = all(
             list(cast(List[bool], resources_domain.mask(project_name))))
         response = Status(
-            are_findings_masked, are_users_removed, is_group_masked,
-            are_events_masked, are_resources_removed
+            are_findings_masked,
+            are_users_removed,
+            is_group_masked,
+            are_events_masked,
+            are_resources_removed
         )
     else:
         raise PermissionDenied()
@@ -376,8 +426,10 @@ def remove_all_users_access(project: str) -> bool:
 
 def remove_user_access(group: str, email: str) -> bool:
     """Remove user access to project."""
-    return authz.revoke_group_level_role(email, group) \
-        and project_dal.remove_access(email, group)
+    return (
+        authz.revoke_group_level_role(email, group) and
+        project_dal.remove_access(email, group)
+    )
 
 
 def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
@@ -415,7 +467,9 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     if await sync_to_async(finding_domain.validate_finding)(finding_id):
-        vulnerabilities = await sync_to_async(vuln_dal.get_vulnerabilities)(finding_id)
+        vulnerabilities = await sync_to_async(vuln_dal.get_vulnerabilities)(
+            finding_id
+        )
         last_approved_status = await asyncio.gather(*[
             asyncio.create_task(
                 sync_to_async(vuln_domain.get_last_approved_status)(
@@ -442,12 +496,14 @@ def get_pending_closing_check(project: str) -> int:
     return pending_closing
 
 
-def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, FindingType]]:
+def get_released_findings(project_name: str, attrs: str = '') -> \
+        List[Dict[str, FindingType]]:
     return project_dal.get_released_findings(project_name, attrs)
 
 
 async def get_last_closing_vuln_info(
-        findings: List[Dict[str, FindingType]]) -> Tuple[Decimal, VulnerabilityType]:
+        findings: List[Dict[str, FindingType]]) -> \
+        Tuple[Decimal, VulnerabilityType]:
     """Get day since last vulnerability closing."""
 
     validate_findings = await asyncio.gather(*[
@@ -473,11 +529,13 @@ async def get_last_closing_vuln_info(
             sync_to_async(is_vulnerability_closed)(
                 vuln)
         )
-        for vulns in finding_vulns for vuln in vulns
+        for vulns in finding_vulns
+        for vuln in vulns
     ])
     closed_vulns = [
         vuln
-        for vulns in finding_vulns for vuln in vulns
+        for vulns in finding_vulns
+        for vuln in vulns
         if are_vuln_closed.pop(0)
     ]
     closing_vuln_dates = await asyncio.gather(*[
@@ -488,13 +546,17 @@ async def get_last_closing_vuln_info(
         for vuln in closed_vulns
     ])
     if closing_vuln_dates:
-        current_date, date_index = max((v, i) for i, v in enumerate(closing_vuln_dates))
+        current_date, date_index = max(
+            (v, i)
+            for i, v in enumerate(closing_vuln_dates)
+        )
         last_closing_vuln = closed_vulns[date_index]
         current_date = max(closing_vuln_dates)
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        last_closing_days = \
-            Decimal((datetime.now(tz=tzn).date() -
-                     current_date).days).quantize(Decimal('0.1'))
+        last_closing_days = (
+            Decimal((datetime.now(tz=tzn).date() - current_date).days)
+            .quantize(Decimal('0.1'))
+        )
     else:
         last_closing_days = Decimal(0)
         last_closing_vuln = {}
@@ -512,7 +574,10 @@ def get_last_closing_date(vulnerability: Dict[str, FindingType]) -> datetime:
             '%Y-%m-%d'
         )
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        last_closing_date = cast(datetime, last_closing_date.replace(tzinfo=tzn).date())
+        last_closing_date = cast(
+            datetime,
+            last_closing_date.replace(tzinfo=tzn).date()
+        )
     return cast(datetime, last_closing_date)
 
 
@@ -522,7 +587,8 @@ def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
 
 
 async def get_max_open_severity(
-        findings: List[Dict[str, FindingType]]) -> Tuple[Decimal, Dict[str, FindingType]]:
+        findings: List[Dict[str, FindingType]]) -> \
+        Tuple[Decimal, Dict[str, FindingType]]:
     """Get maximum severity of project with open vulnerabilities."""
     total_vulns = await asyncio.gather(*[
         asyncio.create_task(
@@ -531,14 +597,22 @@ async def get_max_open_severity(
         for fin in findings
     ])
     opened_findings = [
-        finding for finding in findings
+        finding
+        for finding in findings
         if int(total_vulns.pop(0).get('openVulnerabilities', '')) > 0
     ]
-    total_severity: List[float] = \
-        cast(List[float],
-             [finding.get('cvss_temporal', '') for finding in opened_findings])
+    total_severity: List[float] = cast(
+        List[float],
+        [
+            finding.get('cvss_temporal', '')
+            for finding in opened_findings
+        ]
+    )
     if total_severity:
-        severity, severity_index = max((v, i) for i, v in enumerate(total_severity))
+        severity, severity_index = max(
+            (v, i)
+            for i, v in enumerate(total_severity)
+        )
         max_severity = Decimal(severity).quantize(Decimal('0.1'))
         max_severity_finding = opened_findings[severity_index]
     else:
@@ -547,13 +621,17 @@ async def get_max_open_severity(
     return max_severity, max_severity_finding
 
 
-def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> Union[datetime, None]:
+def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> \
+        Union[datetime, None]:
     """Get open vulnerability date of a vulnerability."""
-    all_states = cast(List[Dict[str, str]], vulnerability.get('historic_state', [{}]))
+    all_states = cast(
+        List[Dict[str, str]],
+        vulnerability.get('historic_state', [{}])
+    )
     current_state: Dict[str, str] = all_states[0]
     open_date = None
-    if current_state.get('state') == 'open' and \
-       not current_state.get('approval_status'):
+    if (current_state.get('state') == 'open' and
+            not current_state.get('approval_status')):
         open_date = datetime.strptime(
             current_state.get('date', '').split(' ')[0],
             '%Y-%m-%d'
@@ -563,7 +641,8 @@ def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> Union[
     return open_date
 
 
-async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
+async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
+        Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
@@ -576,7 +655,8 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
         for finding in findings
     ])
     validated_findings = [
-        finding for finding in findings
+        finding
+        for finding in findings
         if validate_findings.pop(0)
     ]
     finding_vulns = await asyncio.gather(*[
@@ -591,10 +671,12 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
             sync_to_async(get_open_vulnerability_date)(
                 vuln)
         )
-        for vulns in finding_vulns for vuln in vulns
+        for vulns in finding_vulns
+        for vuln in vulns
     ])
     filtered_open_vuln_dates = [
-        vuln for vuln in open_vuln_dates
+        vuln
+        for vuln in open_vuln_dates
         if vuln
     ]
     closed_vuln_dates = await asyncio.gather(*[
@@ -602,27 +684,34 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> Decimal:
             sync_to_async(get_last_closing_date)(
                 vuln)
         )
-        for vulns in finding_vulns for vuln in vulns
+        for vulns in finding_vulns
+        for vuln in vulns
         if open_vuln_dates.pop(0)
     ])
     for index, closed_vuln_date in enumerate(closed_vuln_dates):
         if closed_vuln_date:
             total_days += int(
-                (closed_vuln_date - filtered_open_vuln_dates[index]).days)
+                (closed_vuln_date - filtered_open_vuln_dates[index]).days
+            )
         else:
             current_day = datetime.now(tz=tzn).date()
-            total_days += int((current_day - filtered_open_vuln_dates[index]).days)
+            total_days += int(
+                (current_day - filtered_open_vuln_dates[index]).days
+            )
     total_vuln = len(filtered_open_vuln_dates)
     if total_vuln:
         mean_vulnerabilities = Decimal(
-            round(total_days / float(total_vuln))).quantize(Decimal('0.1'))
+            round(total_days / float(total_vuln))
+        ).quantize(Decimal('0.1'))
     else:
         mean_vulnerabilities = Decimal(0).quantize(Decimal('0.1'))
     return mean_vulnerabilities
 
 
-async def get_mean_remediate_severity(project_name: str, min_severity: float,
-                                      max_severity: float) -> Decimal:
+async def get_mean_remediate_severity(
+        project_name: str,
+        min_severity: float,
+        max_severity: float) -> Decimal:
     """Get mean time to remediate."""
     total_days = 0
     tzn = pytz.timezone('America/Bogota')
@@ -630,15 +719,23 @@ async def get_mean_remediate_severity(project_name: str, min_severity: float,
     finding_vulns = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(vuln_dal.get_vulnerabilities)(
-                str(finding.get('findingId', '')))
+                str(finding.get('findingId', ''))
+            )
         )
-        for finding in await sync_to_async(finding_domain.get_findings)(finding_ids)
-        if min_severity <= cast(float, finding.get('severityCvss', 0)) <= max_severity
+        for finding in await sync_to_async(finding_domain.get_findings)(
+            finding_ids
+        )
+        if (
+            min_severity <=
+            cast(float, finding.get('severityCvss', 0)) <=
+            max_severity
+        )
     ])
     open_vuln_dates = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(get_open_vulnerability_date)(
-                vuln)
+                vuln
+            )
         )
         for vulns in finding_vulns for vuln in vulns
     ])
@@ -651,26 +748,32 @@ async def get_mean_remediate_severity(project_name: str, min_severity: float,
             sync_to_async(get_last_closing_date)(
                 vuln)
         )
-        for vulns in finding_vulns for vuln in vulns
+        for vulns in finding_vulns
+        for vuln in vulns
         if open_vuln_dates.pop(0)
     ])
     for index, closed_vuln_date in enumerate(closed_vuln_dates):
         if closed_vuln_date:
             total_days += int(
-                (closed_vuln_date - filtered_open_vuln_dates[index]).days)
+                (closed_vuln_date - filtered_open_vuln_dates[index]).days
+            )
         else:
             current_day = datetime.now(tz=tzn).date()
-            total_days += int((current_day - filtered_open_vuln_dates[index]).days)
+            total_days += int(
+                (current_day - filtered_open_vuln_dates[index]).days
+            )
     total_vuln = len(filtered_open_vuln_dates)
     if total_vuln:
         mean_vulnerabilities = Decimal(
-            round(total_days / float(total_vuln))).quantize(Decimal('0.1'))
+            round(total_days / float(total_vuln))
+        ).quantize(Decimal('0.1'))
     else:
         mean_vulnerabilities = Decimal(0).quantize(Decimal('0.1'))
     return mean_vulnerabilities
 
 
-async def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[str, int]:
+async def get_total_treatment(
+        findings: List[Dict[str, FindingType]]) -> Dict[str, int]:
     """Get the total treatment of all the vulnerabilities"""
     accepted_vuln: int = 0
     indefinitely_accepted_vuln: int = 0
@@ -679,12 +782,14 @@ async def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[st
     validate_findings = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(finding_domain.validate_finding)(
-                str(finding['finding_id']))
+                str(finding['finding_id'])
+            )
         )
         for finding in findings
     ])
     validated_findings = [
-        finding for finding in findings
+        finding
+        for finding in findings
         if validate_findings.pop(0)
     ]
     total_vulns = await asyncio.gather(*[
@@ -694,8 +799,10 @@ async def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[st
         for finding in validated_findings
     ])
     for finding in validated_findings:
-        fin_treatment = cast(List[Dict[str, str]],
-                             finding.get('historic_treatment', [{}]))[-1].get('treatment')
+        fin_treatment = cast(
+            List[Dict[str, str]],
+            finding.get('historic_treatment', [{}])
+        )[-1].get('treatment')
         open_vulns = int(total_vulns.pop(0).get('openVulnerabilities', ''))
         if fin_treatment == 'ACCEPTED':
             accepted_vuln += open_vulns
@@ -714,19 +821,24 @@ async def get_total_treatment(findings: List[Dict[str, FindingType]]) -> Dict[st
     return treatment
 
 
-async def get_open_findings(finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
+async def get_open_findings(
+        finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
     last_approved_status = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(vuln_domain.get_last_approved_status)(
                 vuln
             )
         )
-        for vulns in finding_vulns for vuln in vulns
+        for vulns in finding_vulns
+        for vuln in vulns
     ])
     open_findings = [
-        vulns for vulns in finding_vulns
-        if [vuln for vuln in vulns
-            if last_approved_status.pop(0) == 'open']
+        vulns
+        for vulns in finding_vulns
+        if [
+            vuln for vuln in vulns
+            if last_approved_status.pop(0) == 'open'
+        ]
     ]
     return len(open_findings)
 
@@ -743,11 +855,15 @@ def update(project_name: str, data: ProjectType) -> bool:
     return project_dal.update(project_name, data)
 
 
-def list_drafts(project_name: str, should_list_deleted: bool = False) -> List[str]:
+def list_drafts(
+        project_name: str,
+        should_list_deleted: bool = False) -> List[str]:
     return project_dal.list_drafts(project_name, should_list_deleted)
 
 
-async def list_comments(project_name: str, user_email: str) -> List[CommentType]:
+async def list_comments(
+        project_name: str,
+        user_email: str) -> List[CommentType]:
     comments = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(comment_domain.fill_comment_data)(
@@ -772,7 +888,9 @@ def get_alive_projects() -> List[str]:
     return projects
 
 
-def list_findings(project_name: str, should_list_deleted: bool = False) -> List[str]:
+def list_findings(
+        project_name: str,
+        should_list_deleted: bool = False) -> List[str]:
     """ Returns the list of finding ids associated with the project"""
     return project_dal.list_findings(project_name, should_list_deleted)
 
@@ -782,12 +900,18 @@ def list_events(project_name: str) -> List[str]:
     return project_dal.list_events(project_name)
 
 
-def get_attributes(project_name: str, attributes: List[str]) -> Dict[str, Union[str, List[str]]]:
+def get_attributes(
+        project_name: str,
+        attributes: List[str]) -> Dict[str, Union[str, List[str]]]:
     return project_dal.get_attributes(project_name, attributes)
 
 
 def get_finding_project_name(finding_id: str) -> str:
-    return str(finding_dal.get_attributes(finding_id, ['project_name']).get('project_name', ''))
+    return str(
+        finding_dal.get_attributes(
+            finding_id, ['project_name']
+        ).get('project_name', '')
+    )
 
 
 def get_description(project_name: str) -> str:
@@ -798,7 +922,9 @@ def get_users(project_name: str, active: bool = True) -> List[str]:
     return project_dal.get_users(project_name, active)
 
 
-async def get_users_to_notify(project_name: str, active: bool = True) -> List[str]:
+async def get_users_to_notify(
+        project_name: str,
+        active: bool = True) -> List[str]:
     users = get_users(project_name, active)
     user_roles = await asyncio.gather(*[
         asyncio.create_task(
@@ -806,7 +932,11 @@ async def get_users_to_notify(project_name: str, active: bool = True) -> List[st
         )
         for user in users
     ])
-    return [str(user) for user in users if user_roles.pop(0) != 'executive']
+    return [
+        str(user)
+        for user in users
+        if user_roles.pop(0) != 'executive'
+    ]
 
 
 def get_project_info(project: str) -> List[ProjectType]:
@@ -818,7 +948,8 @@ def get_managers(project_name: str) -> List[str]:
         user_email
         for user_email in get_users(project_name, active=True)
         if authz.get_group_level_role(
-            user_email, project_name) == 'customeradmin'
+            user_email, project_name
+        ) == 'customeradmin'
     ]
 
 
@@ -831,11 +962,11 @@ async def get_open_vulnerabilities(project_name: str) -> int:
         )
         for vuln in vulns
     ])
-    open_vulnerabilities = [
-        1 for vuln in vulns
-        if last_approved_status.pop(0) == 'open'
-    ]
-    return len(open_vulnerabilities)
+    open_vulnerabilities = 0
+    for status in last_approved_status:
+        if status == 'open':
+            open_vulnerabilities += 1
+    return open_vulnerabilities
 
 
 async def get_closed_vulnerabilities(project_name: str) -> int:
@@ -847,11 +978,11 @@ async def get_closed_vulnerabilities(project_name: str) -> int:
         )
         for vuln in vulns
     ])
-    closed_vulnerabilities = [
-        1 for vuln in vulns
-        if last_approved_status.pop(0) == 'closed'
-    ]
-    return len(closed_vulnerabilities)
+    closed_vulnerabilities = 0
+    for status in last_approved_status:
+        if status == 'closed':
+            closed_vulnerabilities += 1
+    return closed_vulnerabilities
 
 
 async def get_open_finding(project_name: str) -> int:
