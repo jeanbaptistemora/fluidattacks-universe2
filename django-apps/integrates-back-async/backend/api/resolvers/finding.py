@@ -551,8 +551,12 @@ async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
                               file) -> SimplePayloadType:
     """Resolve update_evidence mutation."""
     success = False
+    user_email = util.get_jwt_content(info.context)['user_email']
+    finding_loader = info.context.loaders['finding']
+    finding_data = await finding_loader.load(finding_id)
+    project_name = finding_data['project_name']
 
-    virus_scan.scan_file(file.file)
+    virus_scan.scan_file(file, user_email, project_name)
 
     if await \
             sync_to_async(finding_domain.validate_evidence)(evidence_id, file):

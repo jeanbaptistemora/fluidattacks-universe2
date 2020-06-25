@@ -195,11 +195,11 @@ async def _do_add_files(_, info, **parameters) -> SimplePayloadType:
     files_data = parameters['files_data']
     new_files_data = util.camel_case_list_dict(files_data)
     uploaded_file = parameters['file']
-
-    virus_scan.scan_file(uploaded_file.file)
-
-    project_name = parameters['project_name']
     user_email = util.get_jwt_content(info.context)['user_email']
+    project_name = parameters['project_name']
+
+    virus_scan.scan_file(uploaded_file, user_email, project_name)
+
     add_file = await sync_to_async(resources.create_file)(new_files_data,
                                                           uploaded_file,
                                                           project_name,
