@@ -624,7 +624,9 @@ Let's see it in action:
 image::stage2payload.gif[Stage-2 payload]
 
 Beautiful! As you can see, the shellcode was injected below our execution flow
-so it will be eventually reached and triggered. Let's see if we got the shell:
+so it will be eventually reached and triggered. Also, the socket handle was
+now `0x151` which means that our brute forcer worked just as expected.
+Let's see if we got the shell:
 
 image::success.gif[Success]
 
