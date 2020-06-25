@@ -49,14 +49,8 @@ export const Graphic: React.FC<IGraphicProps> = (
   url.searchParams.set("documentName", documentName);
   url.searchParams.set("documentType", documentType);
   url.searchParams.set("entity", entity);
-  url.searchParams.set(
-    "generatorName",
-    _.isUndefined(generatorName) ? documentName : generatorName
-  );
-  url.searchParams.set(
-    "generatorType",
-    _.isUndefined(generatorType) ? documentType : generatorType
-  );
+  url.searchParams.set("generatorName", generatorName);
+  url.searchParams.set("generatorType", generatorType);
   url.searchParams.set("height", size.height.toString());
   url.searchParams.set("subject", subject);
   url.searchParams.set("width", size.width.toString());
@@ -82,17 +76,30 @@ export const Graphic: React.FC<IGraphicProps> = (
         >
           {_.isUndefined(title) ? undefined : (
             <Panel.Heading className={styles.panelTitle}>
-              <Panel.Title>{title}</Panel.Title>
+              <Panel.Title>
+                <a
+                  href={url.toString()}
+                  rel={"noopener noreferrer"}
+                  target={"_blank"}
+                >
+                  {title}
+                </a>
+              </Panel.Title>
             </Panel.Heading>
           )}
           <Panel.Body>
             <div className={bsClass} ref={containerReference}>
               <iframe
                 className={styles.frame}
-                hidden={iframeState !== "ready"}
                 onLoad={frameOnLoad}
                 ref={iframeReference}
                 src={url.toString()}
+                style={{
+                  /* The element must be rendered for C3 legends to work,
+                   * so lets just hide it from the user
+                   */
+                  opacity: iframeState === "ready" ? 1 : 0,
+                }}
               />
               {iframeState === "ready" ? undefined : (
                 <div

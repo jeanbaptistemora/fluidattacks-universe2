@@ -41,7 +41,41 @@ async def generate_one(group: str):
     else:
         print(f'[WARNING] {group} has no remediated_over_time attribute')
 
-    return data
+    return dict(
+        data=dict(
+            x='date',
+            columns=[
+                ['date'] + [datum['name'] for datum in data],
+                ['Accepted'] + [datum['accepted'] for datum in data],
+                ['Closed'] + [datum['closed'] for datum in data],
+                ['Opened'] + [datum['opened'] for datum in data],
+            ],
+            groups=[
+                ['Accepted', 'Closed', 'Opened'],
+            ],
+            colors={
+                'Closed': '#eae2b7',
+                'Accepted': '#fcbf49',
+                'Opened': '#d62828',
+            },
+            type='bar',
+        ),
+        axis=dict(
+            x=dict(
+                tick=dict(
+                    centered=True,
+                    multiline=False,
+                    rotate=8,
+                ),
+                type='category',
+            ),
+        ),
+        grid=dict(
+            y=dict(
+                show=True,
+            ),
+        ),
+    )
 
 
 async def generate_all():

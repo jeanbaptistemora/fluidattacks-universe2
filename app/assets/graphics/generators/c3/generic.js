@@ -1,9 +1,20 @@
 /* global c3 */
 
+const paddingRatio = 0.025;
+
 function render(dataDocument, height, width) {
   c3.generate({
     ...dataDocument,
     bindto: 'div',
+    legend: {
+      position: 'inset',
+    },
+    padding: {
+      bottom: paddingRatio * height,
+      left: paddingRatio * width,
+      right: paddingRatio * width,
+      top: paddingRatio * height,
+    },
     size: {
       height,
       width,

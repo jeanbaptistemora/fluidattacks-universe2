@@ -20,6 +20,8 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="riskOverTime"
               documentType="stackedBarChart"
               entity="group"
+              generatorName="generic"
+              generatorType="c3"
               subject={groupName}
               title={translate.t("analytics.stackedBarChart.riskOverTime.title")}
             />
@@ -38,6 +40,8 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
                   <li>{translate.t("analytics.disjointForceDirectedGraph.whereToFindings.footer.redAndGreen")}</li>
                 </ul>
               }
+              generatorName="whereToFindings"
+              generatorType="disjointForceDirectedGraph"
               subject={groupName}
               title={translate.t("analytics.disjointForceDirectedGraph.whereToFindings.title")}
             />
@@ -48,8 +52,8 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="treatment"
               documentType="pieChart"
               entity="group"
-              generatorName="c3Based"
-              generatorType="pieChart"
+              generatorName="generic"
+              generatorType="c3"
               subject={groupName}
               title={translate.t("analytics.pieChart.treatment.title")}
             />
