@@ -29,10 +29,13 @@ async def generate_one(group: str):
         'undefined': 'Not defined',
     }
 
-    return [
-        dict(name=translations[name], value=value)
-        for name, value in treatment.items()
-    ]
+    return {
+        'columns': [
+            [translations[name], value]
+            for name, value in treatment.items()
+        ],
+        'type': 'pie',
+    }
 
 
 async def generate_all():

@@ -10,7 +10,8 @@ function render(dataDocument, height, width) {
   const radius = Math.min(width, height) / 2;
 
   const svg = d3
-    .select('svg')
+    .select('div')
+    .append('svg')
     .attr('viewBox', `${ -width / 2 } ${ -height / 2 } ${ width } ${ height }`);
 
   const pie = d3.pie()

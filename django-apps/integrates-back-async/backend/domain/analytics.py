@@ -115,7 +115,7 @@ async def handle_graphic_request_parameters(
         ('generatorType', generator_type),
         ('subject', subject),
     ]:
-        if not param_value.isalpha():
+        if not param_value.isalnum():
             raise ValueError(f'Expected [a-zA-Z] in parameter: {param_name}')
 
     return GRAPHIC_PARAMETERS(

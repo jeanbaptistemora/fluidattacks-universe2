@@ -19,7 +19,8 @@ function render(dataDocument, height, width) {
   };
 
   const svg = d3
-    .select('svg')
+    .select('div')
+    .append('svg')
     .attr('viewBox', `0 0 ${ width } ${ height }`);
 
   const series = d3

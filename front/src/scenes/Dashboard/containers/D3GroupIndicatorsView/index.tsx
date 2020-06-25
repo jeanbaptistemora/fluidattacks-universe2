@@ -46,12 +46,12 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
             <Graphic
               bsClass={styles.height160}
               documentName="treatment"
-              documentType="donutChart"
+              documentType="pieChart"
               entity="group"
-              generatorName="generic"
-              generatorType="donutChart"
+              generatorName="c3Based"
+              generatorType="pieChart"
               subject={groupName}
-              title={translate.t("analytics.donutChart.treatment.title")}
+              title={translate.t("analytics.pieChart.treatment.title")}
             />
           </Col>
         </Row>

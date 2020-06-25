@@ -11,7 +11,7 @@ const enTranslations: Dictionary = {
         title: "Systems Risk",
       },
     },
-    donutChart: {
+    pieChart: {
       treatment: {
         title: "Treatment",
       },

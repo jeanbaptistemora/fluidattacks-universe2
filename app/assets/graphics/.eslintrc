@@ -6,8 +6,10 @@
   ],
   "rules": {
     // Camel case
-    "filenames/match-regex": [2, "^[a-z]+([A-Z][a-z]+)*$", true],
+    "filenames/match-regex": [2, "^[a-z]+([a-zA-Z0-9]+)*$", true],
     // Many D3 properties like force generators are 'fx', or 'fy'
-    "id-length": "off"
+    "id-length": "off",
+    // Many C3 arguments use 'data', which is black-listed
+    "id-blacklist": "warn"
   }
 }
