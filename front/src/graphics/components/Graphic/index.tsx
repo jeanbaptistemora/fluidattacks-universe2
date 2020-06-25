@@ -1,6 +1,7 @@
-/* tslint:disable:jsx-no-multiline-js
- * disabling for the sake of readability
- */
+/* eslint-disable react/forbid-component-props
+  --------
+  We need className to override default styles from react-bootstrap.
+*/
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 import _ from "lodash";
 import React from "react";
@@ -8,7 +9,9 @@ import { Glyphicon, Panel } from "react-bootstrap";
 import { IGraphicProps } from "../../types";
 import styles from "./index.css";
 
-const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => {
+export const Graphic: React.FC<IGraphicProps> = (
+  props: Readonly<IGraphicProps>
+): JSX.Element => {
   const {
     bsClass,
     documentName,
@@ -22,36 +25,38 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
   } = props;
 
   // Hooks
-  /* tslint:disable-next-line:no-null-keyword
-   * null is the right typing for this reference
-   */
   const containerReference: React.MutableRefObject<null> = React.useRef(null);
-  /* tslint:disable-next-line:no-null-keyword
-   * null is the right typing for this reference
-   */
-  const iframeReference: React.MutableRefObject<HTMLIFrameElement | null> = React.useRef(null);
+  const iframeReference: React.MutableRefObject<HTMLIFrameElement | null> = React.useRef(
+    null
+  );
   const size: ComponentSize = useComponentSize(containerReference);
 
   const [expanded, setExpanded] = React.useState(false);
   const [iframeState, setIframeState] = React.useState("loading");
 
-  const panelOnMouseEnter: () => void = () => {
+  function panelOnMouseEnter(): void {
     setExpanded(true);
-  };
-  const panelOnMouseLeave: () => void = () => {
+  }
+  function panelOnMouseLeave(): void {
     setExpanded(false);
-  };
-  const frameOnLoad: () => void = () => {
+  }
+  function frameOnLoad(): void {
     setIframeState("ready");
-  };
+  }
 
   const url: URL = new URL("/integrates/graphic", window.location.origin);
 
   url.searchParams.set("documentName", documentName);
   url.searchParams.set("documentType", documentType);
   url.searchParams.set("entity", entity);
-  url.searchParams.set("generatorName", _.isUndefined(generatorName) ? documentName : generatorName);
-  url.searchParams.set("generatorType", _.isUndefined(generatorType) ? documentType : generatorType);
+  url.searchParams.set(
+    "generatorName",
+    _.isUndefined(generatorName) ? documentName : generatorName
+  );
+  url.searchParams.set(
+    "generatorType",
+    _.isUndefined(generatorType) ? documentType : generatorType
+  );
   url.searchParams.set("height", size.height.toString());
   url.searchParams.set("subject", subject);
   url.searchParams.set("width", size.width.toString());
@@ -60,8 +65,9 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
     iframeState === "ready" &&
     iframeReference.current !== null &&
     iframeReference.current.contentDocument !== null &&
-    iframeReference.current.contentDocument.title.toLowerCase()
-                                                 .includes("error")
+    iframeReference.current.contentDocument.title
+      .toLowerCase()
+      .includes("error")
   ) {
     setIframeState("error");
   }
@@ -76,21 +82,16 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
         >
           {_.isUndefined(title) ? undefined : (
             <Panel.Heading className={styles.panelTitle}>
-              <Panel.Title>
-                {title}
-              </Panel.Title>
+              <Panel.Title>{title}</Panel.Title>
             </Panel.Heading>
           )}
           <Panel.Body>
-            <div
-              className={bsClass}
-              ref={containerReference}
-            >
+            <div className={bsClass} ref={containerReference}>
               <iframe
                 className={styles.frame}
                 hidden={iframeState !== "ready"}
-                ref={iframeReference}
                 onLoad={frameOnLoad}
+                ref={iframeReference}
                 src={url.toString()}
               />
               {iframeState === "ready" ? undefined : (
@@ -101,7 +102,9 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
                     top: size.height / 2,
                   }}
                 >
-                  <Glyphicon glyph={iframeState === "loading" ? "hourglass" : "wrench"} />
+                  <Glyphicon
+                    glyph={iframeState === "loading" ? "hourglass" : "wrench"}
+                  />
                 </div>
               )}
             </div>
@@ -118,5 +121,3 @@ const graphic: React.FC<IGraphicProps> = (props: IGraphicProps): JSX.Element => 
     </React.StrictMode>
   );
 };
-
-export { graphic as Graphic };

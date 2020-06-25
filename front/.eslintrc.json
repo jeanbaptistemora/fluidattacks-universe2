@@ -38,13 +38,28 @@
         "allowHigherOrderFunctions": false
       }
     ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variable",
+        "format": ["camelCase", "UPPER_CASE", "PascalCase"],
+        "leadingUnderscore": "allow",
+        "trailingUnderscore": "allow"
+      }
+    ],
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-magic-numbers": [
       "error",
       {
-        "ignore": [0]
+        "ignore": [0, 1, 2]
       }
     ],
+    /* Since we are working with external libraries that use any in there type
+     * definitions. We need to disable the next rule, until they update to the
+     * new unknown type.
+     */
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/prefer-function-type": "off",
     "@typescript-eslint/typedef": [
       "error",
       {
@@ -71,6 +86,7 @@
       }
     ],
     "react/jsx-boolean-value": ["error", "always"],
+    "react/jsx-curly-brace-presence": ["error", "always"],
     "react/jsx-max-depth": "off",
     "react/function-component-definition": [
       "error",

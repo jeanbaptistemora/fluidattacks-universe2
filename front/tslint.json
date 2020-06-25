@@ -2,7 +2,13 @@
   "defaultSeverity": "error",
   "extends": ["tslint:all", "tslint-react"],
   "linterOptions": {
-    "exclude": ["node_modules", "*.ts", "src/store", "src/app.tsx"]
+    "exclude": [
+      "node_modules",
+      "*.ts",
+      "src/app.tsx",
+      "src/graphics/**",
+      "src/components/+(Button)/**"
+    ]
   },
   "rules": {
     "ban-ts-ignore": false,

@@ -17,20 +17,20 @@ import {
   userLevelPermissions,
 } from "./utils/authz/config";
 
-const app: React.FC = (): JSX.Element => {
+const App: React.FC = (): JSX.Element => {
   const status: NetworkStatus = networkStatusNotifier.useApolloNetworkStatus();
   const isLoading: boolean =
     status.numPendingQueries > 0 || status.numPendingMutations > 0;
 
   return (
     <React.StrictMode>
-      <BrowserRouter basename="/integrates">
+      <BrowserRouter basename={"/integrates"}>
         <ApolloProvider client={client}>
           <ReduxProvider store={store}>
             <authzPermissionsContext.Provider value={userLevelPermissions}>
               <Switch>
-                <Route component={Registration} path="/registration" />
-                <Route component={Dashboard} path="/" />
+                <Route component={Registration} path={"/registration"} />
+                <Route component={Dashboard} path={"/"} />
               </Switch>
               {isLoading ? <Preloader /> : undefined}
             </authzPermissionsContext.Provider>
@@ -41,7 +41,7 @@ const app: React.FC = (): JSX.Element => {
         autoClose={5000}
         closeOnClick={false}
         hideProgressBar={true}
-        position="top-right"
+        position={"top-right"}
       />
     </React.StrictMode>
   );
@@ -57,4 +57,4 @@ if (extendedModule.hot !== undefined) {
 }
 
 mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
-ReactDOM.render(React.createElement(app), document.getElementById("root"));
+ReactDOM.render(React.createElement(App), document.getElementById("root"));

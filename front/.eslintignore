@@ -1,9 +1,16 @@
 # List of ignored files/dirs by the new linter
 
-graphics/
-resources/
-scenes/
-styles/
-typings/
-utils/
-components/
+src/resources/
+src/scenes/
+src/styles/
+src/typings/
+src/utils/
+src/**/*.css.d.ts
+src/components/ConfirmDialog
+src/components/DataTableNext
+src/components/FluidIcon
+src/components/Modal
+src/components/Notification
+src/components/Preloader
+src/components/ScrollUpButton
+src/components/TooltipWrapper
