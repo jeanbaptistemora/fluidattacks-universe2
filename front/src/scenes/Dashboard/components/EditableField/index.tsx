@@ -12,6 +12,7 @@ type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaEl
   label: string;
   renderAsEditable: boolean;
   tooltip?: string;
+  tooltipPlacement?: "left" | "right" | "top";
   type?: string;
   visibleWhileEditing?: boolean;
 };
@@ -54,7 +55,7 @@ const renderHorizontalWide: ((props: EditableFieldProps) => JSX.Element) =
 
 const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
   (props: EditableFieldProps): JSX.Element => {
-    const { label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
+    const { label, currentValue, renderAsEditable, tooltip, tooltipPlacement, ...fieldProps } = props;
 
     return (
       <FormGroup>
@@ -62,7 +63,7 @@ const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
         { tooltip === undefined ? (
           renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)
           ) : (
-          <TooltipWrapper message={tooltip} placement="bottom">
+          <TooltipWrapper message={tooltip} placement={ tooltipPlacement === undefined ? "bottom" : tooltipPlacement}>
             {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
           </TooltipWrapper>)
         }

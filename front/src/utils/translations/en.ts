@@ -560,8 +560,14 @@ const enTranslations: Dictionary = {
       business_criticality: "Business Criticality",
       cancel_verified: "Cancel Verify",
       cancel_verify: "Cancel Request",
-      compromised_attrs: "Compromised attributes",
-      compromised_records: "Compromised records",
+      compromised_attrs: {
+        text: "Compromised attributes",
+        tooltip: "Type of information that can be disclosed by the vulnerability",
+      },
+      compromised_records: {
+        text: "Compromised records",
+        tooltip: "Number of records in risk",
+      },
       delete: "Delete",
       deleteTags: "Delete Tags",
       delete_all: "Delete All",
@@ -623,7 +629,10 @@ const enTranslations: Dictionary = {
         text: "Threat",
         tooltip: "Actor and scenery where the vulnerability can be exploited",
       },
-      title: "Title",
+      title: {
+        text: "Title",
+        tooltip: "Finding number and name",
+      },
       tooltip: "Overall information about the finding: explanation, location, impacts, threats",
       treatment: {
         accepted: "Temporarily accepted",
@@ -648,7 +657,10 @@ const enTranslations: Dictionary = {
       verification: "Verification",
       vulnDeleted: "Vulnerability deleted",
       vuln_approval: "Vulnerability approval status was changed",
-      weakness: "Weakness",
+      weakness: {
+        text: "Weakness",
+        tooltip: "Related Common Weakness Enumeration (CWE) according to MITRE",
+      },
       where: "Where",
     },
     tab_events: {

@@ -256,18 +256,23 @@ const descriptionView: React.FC = (): JSX.Element => {
               {isEditing ? (
                 <Row>
                   <Col md={12}>
-                    <FormGroup>
-                      <ControlLabel>
-                        <b>{translate.t("search_findings.tab_description.title")}</b>
-                      </ControlLabel>
-                      <br />
-                      <Field
-                        component={textField}
-                        name="title"
-                        type="text"
-                        validate={[required, validDraftTitle, validTextField, maxTitleLength]}
-                      />
-                    </FormGroup>
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_description.title.tooltip")}
+                      placement="bottom"
+                    >
+                      <FormGroup>
+                        <ControlLabel>
+                          <b>{translate.t("search_findings.tab_description.title.text")}</b>
+                        </ControlLabel>
+                        <br />
+                        <Field
+                          component={textField}
+                          name="title"
+                          type="text"
+                          validate={[required, validDraftTitle, validTextField, maxTitleLength]}
+                        />
+                      </FormGroup>
+                    </TooltipWrapper>
                   </Col>
                 </Row>
               ) : undefined}
@@ -343,6 +348,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                       name="attackVectorDesc"
                       renderAsEditable={isEditing}
                       tooltip={translate.t("search_findings.tab_description.attack_vectors.tooltip")}
+                      tooltipPlacement="right"
                       type="text"
                       validate={[required, validTextField, maxImpactsLength]}
                       visibleWhileEditing={canEdit}
@@ -379,6 +385,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                       name="threat"
                       renderAsEditable={isEditing}
                       tooltip={translate.t("search_findings.tab_description.threat.tooltip")}
+                      tooltipPlacement="right"
                       type="text"
                       validate={[required, validTextField, maxThreatLength]}
                       visibleWhileEditing={canEdit}
@@ -390,11 +397,12 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textField}
+                      component={textAreaField}
                       currentValue={formatCweUrl(dataset.cweUrl)}
-                      label={translate.t("search_findings.tab_description.weakness")}
+                      label={translate.t("search_findings.tab_description.weakness.text")}
                       name="cweUrl"
                       renderAsEditable={isEditing}
+                      tooltip={translate.t("search_findings.tab_description.weakness.tooltip")}
                       type="number"
                       validate={[required, numeric]}
                       visibleWhileEditing={canEdit}
@@ -429,9 +437,11 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={textAreaField}
                       currentValue={dataset.compromisedAttributes}
-                      label={translate.t("search_findings.tab_description.compromised_attrs")}
+                      label={translate.t("search_findings.tab_description.compromised_attrs.text")}
                       name="compromisedAttributes"
                       renderAsEditable={isEditing}
+                      tooltip={translate.t("search_findings.tab_description.compromised_attrs.tooltip")}
+                      tooltipPlacement="right"
                       type="text"
                       validate={[validTextField, maxCompromisedAttributesLength]}
                       visibleWhileEditing={canEdit}
@@ -445,9 +455,10 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={textAreaField}
                       currentValue={formatCompromisedRecords(dataset.compromisedRecords)}
-                      label={translate.t("search_findings.tab_description.compromised_records")}
+                      label={translate.t("search_findings.tab_description.compromised_records.text")}
                       name="compromisedRecords"
                       renderAsEditable={isEditing}
+                      tooltip={translate.t("search_findings.tab_description.compromised_records.tooltip")}
                       type="number"
                       validate={[required, numeric]}
                       visibleWhileEditing={canEdit}
