@@ -5,7 +5,7 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
-import { Alert } from "react-native";
+import { Alert, AppState, AppStateEvent, AppStateStatus } from "react-native";
 import { Provider as PaperProvider, Text } from "react-native-paper";
 import { MemoryRouter } from "react-router-native";
 
@@ -13,13 +13,6 @@ import { i18next } from "../../utils/translations/translate";
 
 import { DashboardView } from "./index";
 import { GROUPS_QUERY } from "./queries";
-
-jest.mock("react-native", (): Dictionary => {
-  const mockedRN: Dictionary = jest.requireActual("react-native");
-  Object.assign(mockedRN.Alert, { alert: jest.fn() });
-
-  return mockedRN;
-});
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
@@ -126,6 +119,7 @@ describe("DashboardView", (): void => {
   });
 
   it("should handle errors", async (): Promise<void> => {
+    jest.mock("react-native/Libraries/Alert/Alert");
 
     const errorMock: Readonly<MockedResponse> = {
       request: {
@@ -158,6 +152,7 @@ describe("DashboardView", (): void => {
   });
 
   it("should ignore projects without service", async (): Promise<void> => {
+    jest.mock("react-native/Libraries/Alert/Alert");
 
     const errorMock: Readonly<MockedResponse> = {
       request: {
@@ -216,6 +211,115 @@ describe("DashboardView", (): void => {
     expect(Alert.alert)
       .not
       .toHaveBeenCalled();
+  });
+
+  it("should refresh on resume", async (): Promise<void> => {
+    let stateListener: (state: AppStateStatus) => Promise<void> =
+      async (): Promise<void> => undefined;
+
+    jest.mock(
+      "react-native",
+      (): Record<string, {}> => {
+        const mockedRN: Dictionary<() => Dictionary> =
+          jest.requireActual("react-native");
+
+        return {
+          ...mockedRN,
+          AppState: { addEventListener: jest.fn() },
+        };
+      },
+    );
+
+    (AppState.addEventListener as jest.Mock).mockImplementation((
+      _: AppStateEvent,
+      listener: (state: AppStateStatus) => Promise<void>,
+    ): void => {
+      stateListener = listener;
+    });
+
+    const projectMock: Readonly<MockedResponse> = {
+      request: {
+        query: GROUPS_QUERY,
+      },
+      result: {
+        data: {
+          me: {
+            groups: [
+              {
+                closedVulnerabilities: 7,
+                openVulnerabilities: 5,
+                serviceAttributes: ["has_integrates"],
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    const newProjectMock: Readonly<MockedResponse> = {
+      request: {
+        query: GROUPS_QUERY,
+      },
+      result: {
+        data: {
+          me: {
+            groups: [
+              {
+                closedVulnerabilities: 12,
+                openVulnerabilities: 0,
+                serviceAttributes: ["has_integrates"],
+              },
+              {
+                closedVulnerabilities: 8,
+                openVulnerabilities: 0,
+                serviceAttributes: ["has_integrates"],
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <MemoryRouter
+            initialEntries={[
+              {
+                pathname: "/Dashboard",
+                state: { user: { fullName: "Test" } },
+              },
+            ]}
+          >
+            <MockedProvider
+              mocks={[projectMock, newProjectMock]}
+              addTypename={false}
+            >
+              <DashboardView />
+            </MockedProvider>
+          </MemoryRouter>
+        </I18nextProvider>
+      </PaperProvider>,
+    );
+    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
+
+    expect(wrapper)
+      .toHaveLength(1);
+    expect(wrapper.text())
+      .toContain("58.3%");
+    expect(wrapper.text())
+      .toContain("of 12 found in 1 system");
+
+    await stateListener("background");
+    await stateListener("active");
+    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
+
+    expect(wrapper.text())
+      .toContain("100%");
+    expect(wrapper.text())
+      .toContain("of 20 found in 2 systems");
+
+    wrapper.unmount();
   });
 
   it("should perform logout", async (): Promise<void> => {

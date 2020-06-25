@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
+import { ApolloError, NetworkStatus } from "apollo-client";
 import * as Updates from "expo-updates";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
@@ -13,7 +13,7 @@ import "intl/locale-data/jsonp/es-CO";
 import _ from "lodash";
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { Alert, View } from "react-native";
+import { Alert, AppState, AppStateStatus, View } from "react-native";
 import { Headline, Text, Title, useTheme } from "react-native-paper";
 import { SvgCss } from "react-native-svg";
 import { useHistory } from "react-router-native";
@@ -37,8 +37,9 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
 
   // GraphQL operations
-  const { client, data, loading } = useQuery<IGroupsResult>(GROUPS_QUERY, {
+  const { client, data, networkStatus, refetch } = useQuery<IGroupsResult>(GROUPS_QUERY, {
     errorPolicy: "all",
+    notifyOnNetworkStatusChange: true,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         switch (error.message) {
@@ -52,6 +53,24 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
       });
     },
   });
+
+  // Side effects
+  const handleAppStateChange: (state: AppStateStatus) => void = async (
+    state: AppStateStatus,
+  ): Promise<void> => {
+    if (state === "active") {
+      await refetch();
+    }
+  };
+
+  const onMount: (() => void) = (): (() => void) => {
+    AppState.addEventListener("change", handleAppStateChange);
+
+    return (): void => {
+      AppState.removeEventListener("change", handleAppStateChange);
+    };
+  };
+  React.useEffect(onMount, []);
 
   const hasIntegrates: ((group: IGroup) => boolean) = (group: IGroup): boolean =>
     !_.isNil(group.serviceAttributes)
@@ -90,7 +109,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
         <View style={styles.percentageContainer}>
           <SvgCss xml={Border} width={220} height={220} />
           <Text style={styles.percentageText}>
-            {isNaN(remediatedPercentage) ? 0 : remediatedPercentage.toFixed(1)}%
+            {isNaN(remediatedPercentage) ? 0 : parseFloat(remediatedPercentage.toFixed(1))}%
           </Text>
         </View>
         <View style={styles.remediationContainer}>
@@ -101,7 +120,12 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
             </Trans>
           </Text>
         </View>
-        <Preloader visible={loading} />
+        <Preloader
+          visible={[
+            NetworkStatus.loading,
+            NetworkStatus.refetch,
+          ].includes(networkStatus)}
+        />
         <View style={styles.bottom}>
           <Logo width={180} height={40} fill={colors.text} />
           <Text style={styles.text}>v. {(Updates.manifest as Updates.Manifest).version}</Text>
