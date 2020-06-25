@@ -20,7 +20,8 @@ async def get_max_acceptance_severity(organization_id: str) -> Decimal:
     return result.get('max_acceptance_severity', Decimal('10.0'))
 
 
-async def get_max_number_acceptations(organization_id: str) -> Optional[Decimal]:
+async def get_max_number_acceptations(organization_id: str) -> \
+        Optional[Decimal]:
     result = cast(
         Dict[str, Decimal],
         await org_dal.get_by_id(organization_id, ['max_number_acceptations'])
