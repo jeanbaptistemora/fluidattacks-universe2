@@ -1,6 +1,7 @@
 """DAL functions for comments."""
 
 from typing import List
+from contextlib import AsyncExitStack
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
@@ -10,17 +11,26 @@ from backend.typing import Comment as CommentType
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_comments')
+TABLE_NAME: str = 'FI_comments'
 
 
-def create(comment_id: int, comment_attributes: CommentType) -> bool:
+async def create(comment_id: int, comment_attributes: CommentType) -> bool:
     success = False
-    try:
-        comment_attributes.update({'user_id': comment_id})
-        response = TABLE.put_item(Item=comment_attributes)
-        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt create comment',
-                               'error', extra_data=ex, payload_data=locals())
+    async with AsyncExitStack() as stack:
+        try:
+            comment_attributes.update({'user_id': comment_id})
+            resource = await stack.enter_async_context(
+                dynamodb.start_context())
+            table = await resource.Table(TABLE_NAME)
+            response = await table.put_item(Item=comment_attributes)
+            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        except ClientError as ex:
+            rollbar.report_message(
+                'Error: Couldn\'nt create comment',
+                'error',
+                extra_data=ex,
+                payload_data=locals()
+            )
     return success
 
 

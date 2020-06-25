@@ -641,7 +641,7 @@ async def _do_add_finding_comment(_, info,
     if param_type in ['comment', 'observation']:
         user_data = util.get_jwt_content(info.context)
         user_email = user_data['user_email']
-        finding_id = parameters.get('finding_id')
+        finding_id = str(parameters.get('finding_id'))
         finding_loader = info.context.loaders['finding']
         finding = await finding_loader.load(finding_id)
         group = finding.get('project_name')
@@ -663,7 +663,7 @@ Unauthorized role attempted to add observation')  # pragma: no cover
                                  user_data['last_name']]),
             'parent': parameters.get('parent'),
         }
-        success = await sync_to_async(finding_domain.add_comment)(
+        success = await finding_domain.add_comment(
             user_email=user_email,
             comment_data=comment_data,
             finding_id=finding_id,

@@ -23,6 +23,10 @@ from backend.exceptions import (
     InvalidDateFormat, InvalidDate, InvalidFileType
 )
 
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
 
 class FindingTests(TestCase):
 
@@ -92,7 +96,7 @@ class FindingTests(TestCase):
                 finding_id, values_accepted_format_error, 'unittesting@fluidattacks.com', update)
 
     @pytest.mark.changes_db
-    def test_add_comment(self):
+    async def test_add_comment(self):
         finding_id = '463461507'
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_id = int(round(time.time() * 1000))
@@ -105,13 +109,15 @@ class FindingTests(TestCase):
             'modified': current_time,
             'parent': '0'
         }
-        assert add_comment('unittest@fluidattacks.com', comment_data, finding_id, False)
+        assert await add_comment(
+            'unittest@fluidattacks.com', comment_data, finding_id, False)
 
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_data['created'] = current_time
         comment_data['modified'] = current_time
         comment_data['parent'] = str(comment_id)
-        assert add_comment('unittest@fluidattacks.com', comment_data, finding_id, False)
+        assert await add_comment(
+            'unittest@fluidattacks.com', comment_data, finding_id, False)
 
     @pytest.mark.changes_db
     def test_handle_acceptation(self):

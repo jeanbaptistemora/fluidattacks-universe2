@@ -3,6 +3,7 @@ from time import time
 import pytest
 from aniso8601 import parse_datetime
 
+from asgiref.sync import async_to_sync
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from backend.domain import event as event_domain
@@ -11,6 +12,10 @@ from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
 )
+
+pytestmark = [
+    pytest.mark.asyncio,
+]
 
 
 def test_get_event():
@@ -83,9 +88,9 @@ def test_solve_event():
             date=parse_datetime('2019-12-09T05:00:00.000Z'))
 
 @pytest.mark.changes_db
-def test_add_comment():
+async def test_add_comment():
     comment_id = int(round(time() * 1000))
-    comment_id, success = event_domain.add_comment(
+    comment_id, success = await event_domain.add_comment(
         comment_id=comment_id,
         content='comment test',
         event_id='538745942',
@@ -98,7 +103,7 @@ def test_add_comment():
     assert success
     assert comment_id
 
-    comment_id, success = event_domain.add_comment(
+    comment_id, success = await event_domain.add_comment(
         comment_id=int(round(time() * 1000)),
         content='comment test 2',
         event_id='538745942',
@@ -112,7 +117,7 @@ def test_add_comment():
     assert comment_id
 
     with pytest.raises(InvalidCommentParent):
-        assert event_domain.add_comment(
+        assert await event_domain.add_comment(
             comment_id=int(round(time() * 1000)),
             content='comment test 2',
             event_id='538745942',
@@ -172,10 +177,10 @@ def test_validate_evidence_invalid_file_size():
     assert 'Exception - Invalid File Size' in str(context.value)
 
 @pytest.mark.changes_db
-def test_mask_event():
+async def test_mask_event():
     event_id = '418900971'
     comment_id = int(round(time() * 1000))
-    comment_id, success = event_domain.add_comment(
+    comment_id, success = await event_domain.add_comment(
         comment_id=comment_id,
         content='comment test',
         event_id=event_id,

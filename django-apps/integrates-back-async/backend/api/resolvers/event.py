@@ -289,11 +289,11 @@ async def _do_solve_event(_, info, event_id: str, affectation: str,
 async def _do_add_event_comment(_, info, content: str, event_id: str,
                                 parent: str) -> AddCommentPayloadType:
     """Resolve add_event_comment mutation."""
-    comment_id = int(round(time() * 1000))
+    random_comment_id = int(round(time() * 1000))
     user_info = util.get_jwt_content(info.context)
     comment_id, success = await \
-        sync_to_async(event_domain.add_comment)(
-            comment_id, content, event_id, parent, user_info)
+        event_domain.add_comment(
+            random_comment_id, content, event_id, parent, user_info)
     if success:
         util.invalidate_cache(event_id)
         util.cloudwatch_log(

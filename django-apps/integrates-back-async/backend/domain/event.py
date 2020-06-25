@@ -284,8 +284,9 @@ async def get_events(event_ids: List[str]) -> List[EventType]:
     return events
 
 
-def add_comment(comment_id: int, content: str, event_id: str, parent: str,
-                user_info: UserType) -> Tuple[Union[int, None], bool]:
+async def add_comment(
+        comment_id: int, content: str, event_id: str, parent: str,
+        user_info: UserType) -> Tuple[Union[int, None], bool]:
     parent = str(parent)
     if parent != '0':
         event_comments = [
@@ -300,10 +301,10 @@ def add_comment(comment_id: int, content: str, event_id: str, parent: str,
         'content': content,
         'user_id': comment_id
     }
-    success = comment_domain.create(event_id, comment_data, user_info)
+    success = await comment_domain.create(event_id, comment_data, user_info)
     del comment_data['user_id']
     if success:
-        mailer.send_comment_mail(
+        await sync_to_async(mailer.send_comment_mail)(
             comment_data,
             'event',
             str(user_info['user_email']),

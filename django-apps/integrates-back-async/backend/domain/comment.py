@@ -162,8 +162,9 @@ def get_observations(
     return observations
 
 
-def create(element_id: str, comment_data: CommentType,
-           user_info: UserType) -> Tuple[Union[int, None], bool]:
+async def create(
+        element_id: str, comment_data: CommentType,
+        user_info: UserType) -> Tuple[Union[int, None], bool]:
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = cast(int, comment_data.get('user_id', 0))
@@ -183,7 +184,7 @@ def create(element_id: str, comment_data: CommentType,
         'modified': today,
         'parent': comment_data.get('parent')
     }
-    success = comment_dal.create(
+    success = await comment_dal.create(
         comment_id,
         cast(CommentType, comment_attributes)
     )

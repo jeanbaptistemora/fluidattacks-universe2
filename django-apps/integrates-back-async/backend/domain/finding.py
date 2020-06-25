@@ -139,8 +139,9 @@ def cast_tracking(tracking) -> List[Dict[str, int]]:
     return tracking_casted
 
 
-def add_comment(user_email: str, comment_data: CommentType,
-                finding_id: str, is_remediation_comment: bool) -> bool:
+async def add_comment(
+        user_email: str, comment_data: CommentType,
+        finding_id: str, is_remediation_comment: bool) -> bool:
     parent = str(comment_data.get('parent'))
     if parent != '0':
         finding_comments = [
@@ -156,7 +157,7 @@ def add_comment(user_email: str, comment_data: CommentType,
     comment_data['modified'] = current_time
 
     if not is_remediation_comment:
-        mailer.send_comment_mail(
+        await sync_to_async(mailer.send_comment_mail)(
             comment_data,
             'finding',
             user_email,
@@ -165,7 +166,8 @@ def add_comment(user_email: str, comment_data: CommentType,
         )
     user_data = user_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
-    return comment_domain.create(finding_id, comment_data, user_data)[1]
+    success = await comment_domain.create(finding_id, comment_data, user_data)
+    return success[1]
 
 
 def get_age_finding(act_finding: Dict[str, FindingType]) -> int:
