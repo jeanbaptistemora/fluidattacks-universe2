@@ -105,12 +105,10 @@ def test_security_group_allows_anyone_to_admin_ports():
 
 def test_has_unrestricted_dns_access():
     """test ec2.has_unrestricted_dns_access."""
-    result = ec2.has_unrestricted_dns_access(VULN)
+    result = ec2.has_unrestricted_dns_access(VULN_DATA)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert ec2.has_unrestricted_dns_access(SAFE).is_closed()
-    assert ec2.has_unrestricted_dns_access(NOT_EXISTS).\
-        is_unknown()
+    assert result.get_vulns_number() == 2 * 2
+    assert ec2.has_unrestricted_dns_access(SAFE_DATA).is_closed()
 
 
 def test_has_unrestricted_ftp_access():

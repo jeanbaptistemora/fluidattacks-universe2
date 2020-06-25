@@ -1048,7 +1048,7 @@ param_ip_security_group = troposphere.Parameter(
     'IpSecurityGroup',
     Description="Ip of SecurityGroup",
     Type="String",
-    Default="12.34.12.43/16")
+    Default="10.0.0.0/16")
 param_insecure_ip_protocol = troposphere.Parameter(
     'IpInsecureProtocol',
     Description="Insecure ip protocol",

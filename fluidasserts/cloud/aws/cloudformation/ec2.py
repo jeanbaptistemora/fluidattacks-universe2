@@ -62,6 +62,61 @@ def _iterate_security_group_rules(
         yield yaml_path, sg_name, sg_rule, sg_path, sg_flow, sg_line
 
 
+def _iterate_security_group_rules_(graph: DiGraph, group: int):
+    """Iterate over the different security groups entities in the template."""
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    cidrs: List[int] = [
+        node for node in dfs_preorder_nodes(graph, group, 10)
+        if graph.nodes[node]['labels'].intersection({'CidrIp', 'CidrIpv6'})
+    ]
+
+    rules = []
+    for cidr in cidrs:
+        cidr_node = get_ref_nodes(graph, cidr, helper.is_cidr)
+        if not cidr_node:
+            continue
+        cidr_node = cidr_node[0]
+
+        father = list(graph.predecessors(cidr))[0]
+        from_port_node: Union[List[int], int] = nx.utils.flatten([
+            get_ref_nodes(graph, node, lambda y: isinstance(y, (int, float)))
+            for node in dfs_preorder_nodes(graph, father, 1)
+            if 'FromPort' in graph.nodes[node]['labels']
+        ])
+
+        to_port_node: Union[List[int], int] = nx.utils.flatten([
+            get_ref_nodes(graph, node, lambda y: isinstance(y, (int, float)))
+            for node in dfs_preorder_nodes(graph, father, 1)
+            if 'ToPort' in graph.nodes[node]['labels']
+        ])
+
+        ip_protocol_node: Union[List[int], int] = nx.utils.flatten([
+            get_ref_nodes(graph, node, helper.is_ip_protocol)
+            for node in dfs_preorder_nodes(graph, father, 1)
+            if 'IpProtocol' in graph.nodes[node]['labels']
+        ])
+
+        if not from_port_node or not to_port_node or not ip_protocol_node:
+            continue
+
+        from_port_node = from_port_node[0]
+        to_port_node = to_port_node[0]
+        ip_protocol_node = ip_protocol_node[0]
+        _type: str = get_type(graph,
+                              get_predecessor(graph, cidr, allow_groups),
+                              allow_groups)
+        rule = {
+            'FromPort': from_port_node,
+            'ToPort': to_port_node,
+            get_type(graph, cidr, {'CidrIp', 'CidrIpv6'}): cidr_node,
+            'IpProtocol': ip_protocol_node,
+            'type': _type
+        }
+        rules.append(rule)
+
+    return rules
+
+
 def _get_securitygroups(graph: DiGraph, path: str,
                         exclude: Optional[List[str]] = None) -> List[int]:
     templates: List[int] = get_templates(graph, path, exclude)
@@ -180,69 +235,54 @@ def has_unrestricted_cidrs(path: str,
         template: Dict = graph.nodes[get_predecessor(graph, group,
                                                      'CloudFormationTemplate')]
         resource: Dict = graph.nodes[group]
-        rules: List[Dict] = [
-            node for node in dfs_preorder_nodes(graph, group, 3)
-            if graph.nodes[node]['labels'].intersection(
-                {*allow_groups, 'Properties'})
-        ]
+        rules: List[Dict] = _iterate_security_group_rules_(graph, group)
 
         for rule in rules:
-            cidr_ips: List[int] = [
-                node for node in dfs_preorder_nodes(graph, rule, 3)
-                if graph.nodes[node]['labels'].intersection(
-                    {'CidrIp', 'CidrIpv6'})
-            ]
-            ips: List[int] = nx.utils.flatten(
-                [get_ref_nodes(graph, node) for node in cidr_ips])
-            for _ip in ips:
-                entities: List[Tuple] = []
-                ip_node: int = graph.nodes[_ip]
-                _type: str = get_type(graph, rule, allow_groups)
-                resource_type: str = [
-                    res for res in resource['labels']
-                    if res in {'SecurityGroup', *allow_groups}
-                ][-1]
-                resource_type = (f'{resource_type}/{_type}'
-                                 if _type != resource_type else
-                                 f'{resource_type}')
+            cidr_ip = None
+            ip_object: [Union[IPv4Network, IPv6Network]] = None
+            _type: str = rule['type']
+            entities: List[Tuple] = []
+            if rule.get('CidrIp', None):
+                cidr_ip = rule['CidrIp']
+                ip_value = graph.nodes[rule['CidrIp']]['value']
+                ip_object: IPv4Network = IPv4Network(
+                    ip_value, strict=False)
+                if ip_object == unrestricted_ipv4:
+                    entities.append((f'CidrIp/{ip_value}',
+                                     'must not be 0.0.0.0/0'))
+                if _type == 'SecurityGroupIngress' and \
+                        ip_object.num_addresses > 1:
+                    entities.append((f'CidrIp/{ip_value}',
+                                     'must use /32 subnet mask'))
+            elif rule.get('CidrIpv6', None):
+                cidr_ip = rule['CidrIpv6']
+                ip_value = graph.nodes[rule['CidrIpv6']]['value']
+                ip_object: IPv4Network = IPv6Network(
+                    ip_value, strict=False)
+                if ip_object == unrestricted_ipv6:
+                    entities.append((f'CidrIpv6/{ip_value}',
+                                     'must not be ::/0'))
+                if _type == 'SecurityGroupIngress' and \
+                        ip_object.num_addresses > 1:
+                    entities.append((f'CidrIpv6/{ip_value}',
+                                     'must use /128 subnet mask'))
 
-                ip_object: [Union[IPv4Network, IPv6Network]] = None
-                ip_type = None
-                with contextlib.suppress(AddressValueError):
-                    ip_value = ip_node['value']
-                    ip_object: IPv4Network = IPv4Network(
-                        ip_value, strict=False)
-                    ip_type = 'ipv4'
-                with contextlib.suppress(AddressValueError):
-                    ip_value = ip_node['value']
-                    ip_object: IPv6Network = IPv6Network(
-                        ip_value, strict=False)
-                    ip_type = 'ipv6'
+            ip_node: int = graph.nodes[cidr_ip]
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}'
+                             if _type != resource_type else
+                             f'{resource_type}')
 
-                if ip_type == 'ipv4':
-                    if ip_object == unrestricted_ipv4:
-                        entities.append((f'CidrIp/{ip_value}',
-                                         'must not be 0.0.0.0/0'))
-                    if _type == 'SecurityGroupIngress' and \
-                            ip_object.num_addresses > 1:
-                        entities.append((f'CidrIp/{ip_value}',
-                                         'must use /32 subnet mask'))
-                if ip_type == 'ipv6':
-                    if ip_object == unrestricted_ipv6:
-                        entities.append((f'CidrIpv6/{ip_value}',
-                                         'must not be ::/0'))
-                    if _type == 'SecurityGroupIngress' and \
-                            ip_object.num_addresses > 1:
-                        entities.append((f'CidrIpv6/{ip_value}',
-                                         'must use /128 subnet mask'))
-
-                vulnerabilities.extend(
-                    Vulnerability(
-                        path=template['path'],
-                        entity=f"AWS::EC2::{resource_type}/{entity}'",
-                        identifier=resource['name'],
-                        line=ip_node['line'],
-                        reason=reason) for entity, reason in entities)
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=template['path'],
+                    entity=f"AWS::EC2::{resource_type}/{entity}'",
+                    identifier=resource['name'],
+                    line=ip_node['line'],
+                    reason=reason) for entity, reason in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
@@ -921,26 +961,44 @@ def has_unrestricted_dns_access(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
-            _iterate_security_group_rules(path, exclude):
 
-        entities = []
-        with contextlib.suppress(KeyError, TypeError, ValueError):
-            from_port, to_port = tuple(map(
-                float, (sg_rule['FromPort'], sg_rule['ToPort'])))
-            if from_port <= 53 <= to_port \
-                    and sg_rule['CidrIp'] == '0.0.0.0/0':
-                entities.append(f'{sg_name}/{53}')
+    graph: DiGraph = get_graph(path, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    security_groups: List[int] = _get_securitygroups(graph, path, exclude)
 
-        vulnerabilities.extend(
-            Vulnerability(
-                path=yaml_path,
-                entity=f'{sg_path}/{entity}',
-                identifier=sg_name,
-                line=sg_line,
-                reason=('Group must restrict access to TCP port'
-                        ' and UDP 53 to the necessary IP addresses.'))
-            for entity in entities)
+    for group in security_groups:
+        resource: Dict = graph.nodes[group]
+        template = graph.nodes[get_predecessor(graph, group,
+                                               'CloudFormationTemplate')]
+        for rule in _iterate_security_group_rules_(graph, group):
+            cidr = rule.get('CidrIp', None) or rule.get('CidrIpv6', None)
+            is_public_cidr = graph.nodes[cidr]['value'] in ('::/0',
+                                                            '0.0.0.0/0')
+            if not is_public_cidr:
+                continue
+            entities = []
+            from_port, to_port = tuple(
+                map(float, (graph.nodes[rule['FromPort']]['value'],
+                            graph.nodes[rule['ToPort']]['value'])))
+            if from_port <= 53 <= to_port:
+                entities.append(f'rule/port/53')
+            _type = rule['type']
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}'
+                             if _type != resource_type else f'{resource_type}')
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=template['path'],
+                    entity=f'{resource_type}/{entity}',
+                    identifier=resource['name'],
+                    line=graph.nodes[rule['FromPort']]['line'],
+                    reason=('Group must restrict access to TCP port'
+                            ' and UDP 53 to the necessary IP addresses.'))
+                for entity in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

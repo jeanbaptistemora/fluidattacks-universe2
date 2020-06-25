@@ -14,7 +14,7 @@ Parameters:
     Description: Insecure ip protocol
     Type: String
   IpSecurityGroup:
-    Default: 12.34.12.43/16
+    Default: 10.0.0.0/16
     Description: Ip of SecurityGroup
     Type: String
   TerminateInstance:

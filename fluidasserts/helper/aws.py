@@ -555,9 +555,21 @@ def is_cidr(cidr: str):
     """Validate if a string is a valid CIDR."""
     result = False
     with suppress(AddressValueError, ValueError):
-        IPv4Network(cidr)
+        IPv4Network(cidr, strict=False)
         result = True
     with suppress(AddressValueError, ValueError):
-        IPv6Network(cidr)
+        IPv6Network(cidr, strict=False)
         result = True
     return result
+
+
+def is_ip_protocol(protocol):
+    """Validate if a value is a valid ip protocol."""
+    if protocol in ('tcp', 'udp', 'icmp', 'icmpv6'):
+        return True
+    if isinstance(protocol, (int, float)):
+        return True
+    with suppress(ValueError):
+        int(protocol)
+        return True
+    return False
