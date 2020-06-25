@@ -258,6 +258,7 @@ function job_build_container_app {
 
 function job_deploy_front {
       env_prepare_python_packages \
+  &&  env_prepare_django_assets_external \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_vars "${ENVIRONMENT_NAME}" \
   &&  ./manage.py collectstatic --no-input

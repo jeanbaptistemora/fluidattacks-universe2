@@ -106,3 +106,12 @@ function env_prepare_dynamodb_local {
   && popd \
   ||  return 1
 }
+
+function env_prepare_django_assets_external {
+      echo '[INFO] Unzipping C3 local' \
+  &&  mkdir -p 'app/assets/external/C3' \
+  &&  pushd 'app/assets/external/C3' \
+    &&  unzip -ou "${srcExternalC3}" \
+  && popd \
+  ||  return 1
+}
