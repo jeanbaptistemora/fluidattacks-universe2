@@ -272,13 +272,14 @@ def delete_pending_vulns(finding_id: str) -> bool:
     return response.data['approveVulnerability']['success']
 
 
-def get_project_repos(project: str) -> list:
-    """Return the repositories for a porject"""
+def get_project_repos(project: str) -> List:
+    """Return the repositories for a project."""
+    repositories: List[str] = []
     response = api.integrates.Queries.resources(
         api_token=API_TOKEN,
         project_name=project)
-
-    repositories = json.loads(response.data['resources']['repositories'])
+    if response.ok:
+        repositories = json.loads(response.data['resources']['repositories'])
 
     return repositories
 
