@@ -67,3 +67,9 @@ such that any Unicode character point is valid and safely handled.
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.3)]
 Verify that context-aware, preferably automated - or at worst, manual - output
 escaping protects against reflected, stored, and *DOM* based *XSS*.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.5)]
+Verify that where parameterized or safer mechanisms are not present,
+context-specific output encoding is used to protect against injection attacks,
+such as the use of SQL escaping to protect against SQL injection.
