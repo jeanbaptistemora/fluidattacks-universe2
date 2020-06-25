@@ -7,5 +7,5 @@ export interface IGraphicProps {
   generatorName: string;
   generatorType: string;
   subject: string;
-  title?: JSX.Element | string;
+  title: string;
 }

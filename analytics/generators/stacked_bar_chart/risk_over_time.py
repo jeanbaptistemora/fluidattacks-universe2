@@ -46,19 +46,25 @@ async def generate_one(group: str):
             x='date',
             columns=[
                 ['date'] + [datum['name'] for datum in data],
-                ['Accepted'] + [datum['accepted'] for datum in data],
+                ['Accepted + Closed'] + [
+                    datum['accepted'] + datum['closed'] for datum in data
+                ],
                 ['Closed'] + [datum['closed'] for datum in data],
-                ['Opened'] + [datum['opened'] for datum in data],
+                ['Found'] + [datum['total'] for datum in data],
             ],
             groups=[
-                ['Accepted', 'Closed', 'Opened'],
+                ['Accepted', 'Closed', 'Found'],
             ],
             colors={
-                'Closed': '#eae2b7',
-                'Accepted': '#fcbf49',
-                'Opened': '#d62828',
+                'Accepted + Closed': '#FE7F2D',
+                'Closed': '#A1C181',
+                'Found': '#233D4D',
             },
-            type='bar',
+            types={
+                'Accepted + Closed': 'spline',
+                'Closed': 'spline',
+                'Found': 'spline',
+            },
         ),
         axis=dict(
             x=dict(
@@ -71,9 +77,20 @@ async def generate_one(group: str):
             ),
         ),
         grid=dict(
+            x=dict(
+                show=True,
+            ),
             y=dict(
                 show=True,
             ),
+        ),
+        point=dict(
+            focus=dict(
+                expand=dict(
+                    enabled=True,
+                ),
+            ),
+            r=5,
         ),
     )
 
