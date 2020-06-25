@@ -16,5 +16,5 @@ through a unique virtual machine of security support.
 
 == References
 
-. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.5 Use orchestration
+. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.5 Use orchestration
 for containers and virtualized environments].

@@ -89,7 +89,7 @@ the incident is not managed.
 
 == References
 
-. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM1.1:]
+. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[BSIMM9 SM1.1:]
 Publish process (roles, responsibilities, plan), evolve as necessary.
 
 . [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(2):]

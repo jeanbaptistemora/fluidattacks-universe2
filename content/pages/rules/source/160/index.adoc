@@ -1,7 +1,7 @@
 :slug: rules/160/
 :category: source
 :description: This document contains the details of the security requirements related to the definition and management of application source code the organization. This requirement establishes the importance of encoding system outputs in the corresponding language by using escaping.
-:keywords: Encoding, Outputs, Escaping, BSSIM9, ASVS, CWE
+:keywords: Encoding, Outputs, Escaping, BSIMM9, ASVS, CWE
 :rules: yes
 
 = R160. Encode system outputs
@@ -37,7 +37,7 @@ the control flow or data flow of a program.
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r5]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSSIM9 SE3.2 Use code protection].
+. [[r5]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 Use code protection].
 
 . [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]

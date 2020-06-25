@@ -23,7 +23,7 @@ session.
 
 == References
 
-. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[BSSIM9 SM2.6:]
+. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[BSIMM9 SM2.6:]
 Require security sign-off.
 
 . [[r2]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration]
