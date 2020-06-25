@@ -66,7 +66,8 @@ SITEMAP = {
         'articles': 'monthly',
         'indexes': 'daily',
         'pages': 'monthly'
-    }
+    },
+    'exclude': ['blog/tags/', 'blog/categories/', 'blog/authors/']
 }
 DEFAULT_PAGINATION = 12
 # Line that allows the localization of the site (traslation)
