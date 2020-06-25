@@ -42,6 +42,18 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               title={translate.t("analytics.disjointForceDirectedGraph.whereToFindings.title")}
             />
           </Col>
+          <Col xs={3} sm={4} md={5}>
+            <Graphic
+              bsClass={styles.height160}
+              documentName="treatment"
+              documentType="donutChart"
+              entity="group"
+              generatorName="generic"
+              generatorType="donutChart"
+              subject={groupName}
+              title={translate.t("analytics.donutChart.treatment.title")}
+            />
+          </Col>
         </Row>
       </Grid>
     </React.StrictMode>

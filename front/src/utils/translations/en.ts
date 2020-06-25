@@ -11,6 +11,11 @@ const enTranslations: Dictionary = {
         title: "Systems Risk",
       },
     },
+    donutChart: {
+      treatment: {
+        title: "Treatment",
+      },
+    },
     stackedBarChart: {
       riskOverTime: {
         title: "Risk over time",
