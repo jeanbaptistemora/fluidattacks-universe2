@@ -540,7 +540,7 @@ def get_pending_verification_findings(project_name: str) -> \
         if is_pending_verification(finding)
     ]
     pending_to_verify = [
-        get_finding_attributes(
+        async_to_sync(get_finding_attributes)(
             finding,
             ['finding', 'finding_id', 'project_name']
         )

@@ -13,7 +13,6 @@ from django.conf import settings
 
 from backend.authz.policy import get_group_level_role
 from backend.dal import (
-    finding as finding_dal,
     project as project_dal,
     vulnerability as vuln_dal
 )
@@ -904,14 +903,6 @@ def get_attributes(
         project_name: str,
         attributes: List[str]) -> Dict[str, Union[str, List[str]]]:
     return project_dal.get_attributes(project_name, attributes)
-
-
-def get_finding_project_name(finding_id: str) -> str:
-    return str(
-        finding_dal.get_attributes(
-            finding_id, ['project_name']
-        ).get('project_name', '')
-    )
 
 
 def get_description(project_name: str) -> str:

@@ -696,6 +696,47 @@
                     }
                }
             }
+        },
+        {
+           "PutRequest" : {
+                "Item" : {
+                    "UUID" : {
+                        "S" : "09afd608-aa53-4ccb-9094-0076181fa0ea"
+                    },
+                    "finding_id" : {
+                        "S" : "475041513"
+                    },
+                    "historic_state" : {
+                        "L" : [
+                            {
+                                "M" : {
+                                    "analyst" : {
+                                        "S" : "unittest@fluidattacks.com"
+                                    },
+                                    "date" : {
+                                        "S" : "2019-09-13 09:58:38"
+                                    },
+                                    "approval_status" : {
+                                        "S" : "PENDING"
+                                    },
+                                    "state" : {
+                                        "S" : "open"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "specific" : {
+                        "S" : "3636"
+                    },
+                    "vuln_type" : {
+                        "S" : "ports"
+                    },
+                    "where" : {
+                        "S" : "192.168.100.105"
+                    }
+                }
+            }
         }
     ]
 }

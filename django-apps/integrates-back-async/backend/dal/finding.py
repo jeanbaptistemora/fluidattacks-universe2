@@ -1,8 +1,10 @@
 """DAL functions for findings."""
 
-from typing import cast, Dict, List, Union
+from typing import cast, Dict, List
 
 import aioboto3
+from asgiref.sync import async_to_sync
+from boto3.dynamodb.conditions import Key
 import rollbar
 from botocore.exceptions import ClientError
 
@@ -118,16 +120,20 @@ def list_append(finding_id: str, attr: str, data: List[FindingType]) -> bool:
     return success
 
 
-def get_attributes(finding_id: str, attributes: List[str]) -> \
-        Dict[str, FindingType]:
+async def get_attributes(
+        finding_id: str, attributes: List[str]) -> Dict[str, FindingType]:
     """ Get a group of attributes of a finding. """
-    item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
-        'Key': {'finding_id': finding_id},
+    finding_attrs: Dict[str, FindingType] = {}
+    item_attrs = {
+        'KeyConditionExpression': Key('finding_id').eq(finding_id)
     }
     if attributes:
-        item_attrs['AttributesToGet'] = attributes
-    response = TABLE.get_item(**item_attrs)
-    return response.get('Item', {})
+        projection = ','.join(attributes)
+        item_attrs.update({'ProjectionExpression': projection})
+    response_item = await dynamodb.async_query(TABLE_NAME, item_attrs)
+    if response_item:
+        finding_attrs = response_item[0]
+    return finding_attrs
 
 
 def get_finding(finding_id: str) -> Dict[str, FindingType]:
@@ -162,7 +168,7 @@ def download_evidence(file_name: str, file_path: str):
 
 
 def is_pending_verification(finding_id: str) -> bool:
-    finding = get_attributes(
+    finding = async_to_sync(get_attributes)(
         finding_id,
         [
             'finding_id',

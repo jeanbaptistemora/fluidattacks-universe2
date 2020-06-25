@@ -2,6 +2,7 @@
 from typing import Dict, List, Tuple, Union, cast
 from datetime import datetime
 
+from asgiref.sync import async_to_sync
 import pytz
 from django.conf import settings
 
@@ -39,12 +40,13 @@ def get_comments(
         user_email: str) -> List[CommentType]:
     comments = _get_comments('comment', project_name, finding_id, user_email)
 
+    finding_attr = async_to_sync(finding_dal.get_attributes)(
+        finding_id,
+        ['historic_verification']
+    )
     historic_verification = cast(
         List[Dict[str, finding_dal.FindingType]],
-        finding_dal.get_attributes(
-            finding_id,
-            ['historic_verification']
-        ).get('historic_verification', [])
+        finding_attr.get('historic_verification', [])
     )
     verified = [
         verification

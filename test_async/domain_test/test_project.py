@@ -17,7 +17,7 @@ from backend.domain.project import (
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     get_users, get_description,
     list_drafts, list_comments, get_active_projects, get_managers, list_events,
-    get_alive_projects, list_findings, get_finding_project_name, get_pending_to_delete,
+    get_alive_projects, list_findings, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config,
     get_current_month_authors, create_project, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
@@ -331,11 +331,6 @@ class ProjectTest(TestCase):
             'integratesuser@gmail.com', 'continuoushacking@gmail.com'
         ]
         assert expected_output == get_users(project_name)
-
-    def test_get_finding_project_name(self):
-        finding_id = '475041513'
-        test_data = get_finding_project_name(finding_id)
-        assert test_data == 'oneshottest'
 
     def test_get_pending_to_delete(self):
         projects = get_pending_to_delete()

@@ -17,7 +17,6 @@ from backend.decorators import (
 from backend.domain import (
     comment as comment_domain,
     finding as finding_domain,
-    project as project_domain,
     vulnerability as vuln_domain
 )
 from backend.typing import (
@@ -870,8 +869,7 @@ finding: {finding_id}')  # pragma: no cover
 async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
     """Resolve approve_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
-    project_name = await \
-        sync_to_async(project_domain.get_finding_project_name)(draft_id)
+    project_name = await finding_domain.get_project(draft_id)
 
     has_vulns = [
         vuln for vuln in

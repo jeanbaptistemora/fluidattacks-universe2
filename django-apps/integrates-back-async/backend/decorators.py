@@ -22,8 +22,7 @@ from rediscluster.nodemanager import RedisClusterException
 from backend.domain import (
     user as user_domain,
     event as event_domain,
-    finding as finding_domain,
-    project as project_domain
+    finding as finding_domain
 )
 from backend.services import (
     has_valid_access_token
@@ -107,30 +106,26 @@ def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
     return verify_and_call
 
 
-def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
+async def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
     """Get project name based on args passed."""
     if args and hasattr(args[0], 'name'):
         project_name = args[0].name
     elif args and hasattr(args[0], 'project_name'):
         project_name = args[0].project_name
     elif args and hasattr(args[0], 'finding_id'):
-        project_name = finding_domain.get_attributes(
-            args[0].finding_id, ['project_name']).get('project_name')
+        project_name = await finding_domain.get_project(args[0].finding_id)
     elif 'project_name' in kwargs:
         project_name = kwargs['project_name']
     elif 'group_name' in kwargs:
         project_name = kwargs['group_name']
     elif 'finding_id' in kwargs:
-        project_name = finding_domain.get_attributes(
-            kwargs['finding_id'], ['project_name']).get('project_name')
+        project_name = await finding_domain.get_project(kwargs['finding_id'])
     elif 'draft_id' in kwargs:
-        project_name = finding_domain.get_attributes(
-            kwargs['draft_id'], ['project_name']).get('project_name')
+        project_name = await finding_domain.get_project(kwargs['draft_id'])
     elif 'event_id' in kwargs:
-        project_name = (
-            event_domain.get_event(kwargs['event_id'])
-            .get('project_name')
-        )
+        event = await sync_to_async(event_domain.get_event)(
+            kwargs['event_id'])
+        project_name = event.get('project_name')
     elif settings.DEBUG:
         raise Exception('Unable to identify project')
     else:
@@ -159,7 +154,7 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
         user_data = util.get_jwt_content(context)
 
         subject = user_data['user_email']
-        object_ = resolve_project_name(args, kwargs)
+        object_ = await resolve_project_name(args, kwargs)
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
@@ -220,7 +215,7 @@ def require_attribute(attribute: str):
         @apm.trace(display_name='require_attribute')
         @functools.wraps(function)
         async def resolve_and_call(*args, **kwargs):
-            group = resolve_project_name(args, kwargs)
+            group = await resolve_project_name(args, kwargs)
 
             enforcer = authz.get_group_service_attributes_enforcer(group)
 
@@ -308,8 +303,7 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
             str,
             await user_domain.get_projects(user_email, active=False)
         )
-        finding_project = await sync_to_async(
-            project_domain.get_finding_project_name)(finding_id)
+        finding_project = await finding_domain.get_project(finding_id)
         user_data['role'] = await sync_to_async(
             authz.get_group_level_role)(user_email, finding_project)
 

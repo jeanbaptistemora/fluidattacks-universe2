@@ -646,21 +646,10 @@ def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
     return vuln_dal.get_vulnerabilities(finding_id)
 
 
-def get_project(finding_id: str) -> str:
-    return str(
-        finding_dal.get_attributes(
-            finding_id,
-            ['project_name']
-        ).get('project_name', '')
-    )
+async def get_project(finding_id: str) -> str:
+    attribute = await get_attributes(finding_id, ['project_name'])
 
-
-def get_finding_historic_treatment(finding_id: str) -> List[Dict[str, str]]:
-    finding = finding_dal.get_attributes(finding_id, ['historic_treatment'])
-    return cast(
-        List[Dict[str, str]],
-        finding.get('historic_treatment')
-    )
+    return str(attribute.get('project_name'))
 
 
 async def get_findings_async(
@@ -1162,12 +1151,12 @@ def cast_new_vulnerabilities(
     return finding
 
 
-def get_attributes(
+async def get_attributes(
         finding_id: str,
         attributes: List[str]) -> Dict[str, FindingType]:
     if 'finding_id' not in attributes:
         attributes = [*attributes, 'finding_id']
-    response = finding_dal.get_attributes(finding_id, attributes)
+    response = await finding_dal.get_attributes(finding_id, attributes)
     if not response:
         raise FindingNotFound()
     return response
