@@ -1,7 +1,7 @@
 :slug: rules/169/
 :category: source
 :description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of using parameterized sentences in order to avoid injection attacks such as SQLi.
-:keywords: Requirement, Security, Parameterized, Sentences, SQLi, Injection
+:keywords: Parameterized, Sentences, SQLi, Injection, ASVS, CWE
 :rules: yes
 
 = R169. Use parameterized queries
@@ -19,7 +19,14 @@ to create dynamic sentences (e.g *java.sql.PreparedStatement*).
 
 == References
 
- . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[OWASP-ASVS v3.1-5.10]
-Verify that all database queries are protected
-by the use of parameterized queries
-or proper *ORM* usage to avoid *SQL* injection.
+. [[r1]] link:https://cwe.mitre.org/data/definitions/89.html[CWE-89: SQL Injection].
+The software constructs all or part of an SQL command using
+externally-influenced input from an upstream component,
+but it does not neutralize or incorrectly neutralizes special elements that
+could modify the intended SQL command.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.4)]
+Verify that data selection or database queries
+(e.g. *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,
+entity frameworks, or are otherwise protected from database injection attacks.
