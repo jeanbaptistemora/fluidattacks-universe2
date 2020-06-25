@@ -2,6 +2,7 @@ import _ from "lodash";
 import React, { TextareaHTMLAttributes } from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { BaseFieldProps, Field } from "redux-form";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as style } from "./index.css";
 
 type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaElement> & {
@@ -10,6 +11,7 @@ type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaEl
   currentValue: string;
   label: string;
   renderAsEditable: boolean;
+  tooltip?: string;
   type?: string;
   visibleWhileEditing?: boolean;
 };
@@ -52,12 +54,18 @@ const renderHorizontalWide: ((props: EditableFieldProps) => JSX.Element) =
 
 const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
   (props: EditableFieldProps): JSX.Element => {
-    const { label, currentValue, renderAsEditable, ...fieldProps } = props;
+    const { label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
 
     return (
       <FormGroup>
         <ControlLabel><b>{label}</b></ControlLabel><br />
-        {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
+        { tooltip === undefined ? (
+          renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)
+          ) : (
+          <TooltipWrapper message={tooltip} placement="bottom">
+            {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
+          </TooltipWrapper>)
+        }
       </FormGroup>
     );
   };
