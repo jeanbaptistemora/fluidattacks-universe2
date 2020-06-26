@@ -9,6 +9,7 @@ controller:
     server-tokens: "false"
     use-gzip: "false"
     ssl-protocols: "TLSv1.2 TLSv1.3"
+    http-redirect-code: "301"
   kind: DaemonSet
   extraArgs:
     default-ssl-certificate: serves/fluidattacks-cert
