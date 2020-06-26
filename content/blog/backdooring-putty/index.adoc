@@ -229,7 +229,7 @@ it's flagged as malicious.
 
 The first check is easy:
 
-image::working1.gif[Still working]
+image::working0.gif[Still working]
 
 It's still working.
 
@@ -567,7 +567,7 @@ The mutations we perform over the code must be reversible, so for the sake
 of this example I will use this encoder strategy:
 
 . `XOR` byte with key `0xD`.
-. Add `0x2` byte.
+. Add `0x2` to byte.
 . Bit-wise negate byte.
 . Rotate left 8 bits.
 
