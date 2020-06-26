@@ -2,7 +2,10 @@
 
 # Standard imports
 import contextlib
-from typing import List, Optional
+from typing import List, Optional, Dict
+
+# Treed imports
+from networkx import DiGraph
 
 # Local imports
 from fluidasserts import SAST, LOW
@@ -10,10 +13,14 @@ from fluidasserts.helper import aws as helper
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
-    _index,
     _get_result_as_tuple
 )
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_predecessor
+from fluidasserts.cloud.aws.cloudformation import get_resources
+from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
 
 
 @api(risk=LOW, kind=SAST)
@@ -31,32 +38,45 @@ def has_access_logging_disabled(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::ElasticLoadBalancing::LoadBalancer',
-            ],
-            exclude=exclude):
-        is_logging_enabled = _index(
-            dictionary=res_props,
-            indexes=('AccessLoggingPolicy', 'Enabled'),
-            default=False)
-
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            is_logging_enabled = helper.to_boolean(is_logging_enabled)
-
-        if not is_logging_enabled:
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[int] = get_templates(graph, path, exclude)
+    balancers: List[int] = get_resources(
+        graph, map(lambda x: x[0],
+                   templates), {'AWS', 'ElasticLoadBalancing', 'LoadBalancer'})
+    for balancer in balancers:
+        template: Dict = graph.nodes[get_predecessor(graph, balancer,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[get_predecessor(graph, balancer,
+                                                     'LoadBalancer')]
+        line: int = resource['line']
+        vulnerable: bool = True
+        logging_node: int = helper.get_index(
+            get_resources(graph, balancer, 'AccessLoggingPolicy', depth=4), 0)
+        if logging_node:
+            line = graph.nodes[logging_node]['line']
+            enabled_node: int = helper.get_index(
+                get_ref_nodes(graph,
+                              helper.get_index(
+                                  get_resources(graph, logging_node,
+                                                'Enabled'), 0)), 0)
+            if enabled_node:
+                line = graph.nodes[enabled_node]['line']
+                with contextlib.suppress(CloudFormationInvalidTypeError):
+                    enabled = helper.to_boolean(
+                        graph.nodes[enabled_node]['value'])
+                    vulnerable = not enabled
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=(f'AWS::ElasticLoadBalancing::LoadBalancer'
                             f'/AccessLoggingPolicy'
                             f'/Enabled'
-                            f'/{is_logging_enabled}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
-                    reason='access logging is disabled'),)
+                            f'/false'),
+                    identifier=resource['name'],
+                    line=line,
+                    reason='access logging is disabled'), )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
