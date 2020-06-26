@@ -1,4 +1,6 @@
-import { AppOwnership, default as Constants, NativeConstants } from "expo-constants";
+import {
+  AppOwnership, default as Constants, NativeConstants,
+} from "expo-constants";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import * as Updates from "expo-updates";
@@ -6,20 +8,26 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Linking, Platform, View } from "react-native";
-import { Button, Dialog, Paragraph, Portal, Text, useTheme } from "react-native-paper";
+import {
+  Button, Dialog, Paragraph, Portal, Text, useTheme,
+} from "react-native-paper";
 import { useHistory } from "react-router-native";
 
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
-import { authWithGoogle, authWithMicrosoft, IAuthResult } from "../../utils/socialAuth";
+import {
+  authWithGoogle, authWithMicrosoft, IAuthResult,
+} from "../../utils/socialAuth";
 
 import { GoogleButton } from "./GoogleButton";
 import { MicrosoftButton } from "./MicrosoftButton";
 import { styles } from "./styles";
 import { checkPlayStoreVersion } from "./version";
 
-type manifestStructure = NativeConstants["manifest"] & { android: { package: string } };
+type manifestStructure = NativeConstants["manifest"] & {
+  android: { package: string };
+};
 const manifest: manifestStructure = (Constants.manifest as manifestStructure);
 
 const loginView: React.FunctionComponent = (): JSX.Element => {
@@ -33,8 +41,10 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
   // Side effects
   const promptBiometricAuth: (() => void) = async (): Promise<void> => {
-    const token: string | null = await SecureStore.getItemAsync("integrates_session");
-    const authState: string | null = await SecureStore.getItemAsync("authState");
+    const token: string | null =
+      await SecureStore.getItemAsync("integrates_session");
+    const authState: string | null =
+      await SecureStore.getItemAsync("authState");
 
     if (_.isNil(token) || _.isNil(authState)) {
       setLoading(false);
@@ -120,17 +130,23 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
         </View>
         <Preloader visible={isLoading} />
         <View style={styles.bottom}>
-          <Text>{t("common.slogan")}</Text>
-          <Text>v. {(Updates.manifest as Updates.Manifest).version}</Text>
+          <Text accessibilityStates="">{t("common.slogan")}</Text>
+          <Text accessibilityStates="">
+            v. {(Updates.manifest as Updates.Manifest).version}
+          </Text>
         </View>
         <Portal>
           <Dialog dismissable={false} visible={isOutdated}>
-            <Dialog.Title>{t("login.newVersion.title")}</Dialog.Title>
+            <Dialog.Title accessibilityStates="">
+              {t("login.newVersion.title")}
+            </Dialog.Title>
             <Dialog.Content>
               <Paragraph>{t("login.newVersion.content")}</Paragraph>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={handleUpdateButtonClick}>{t("login.newVersion.btn")}</Button>
+              <Button accessibilityStates="" onPress={handleUpdateButtonClick}>
+                {t("login.newVersion.btn")}
+              </Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>

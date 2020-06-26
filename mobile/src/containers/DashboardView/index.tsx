@@ -37,7 +37,8 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
 
   // GraphQL operations
-  const { client, data, networkStatus, refetch } = useQuery<IGroupsResult>(GROUPS_QUERY, {
+  const { client, data, networkStatus, refetch } = useQuery<IGroupsResult>(
+    GROUPS_QUERY, {
     errorPolicy: "all",
     notifyOnNetworkStatusChange: true,
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -72,9 +73,10 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   };
   React.useEffect(onMount, []);
 
-  const hasIntegrates: ((group: IGroup) => boolean) = (group: IGroup): boolean =>
-    !_.isNil(group.serviceAttributes)
-    && group.serviceAttributes.includes("has_integrates");
+  const hasIntegrates: ((group: IGroup) => boolean) =
+    (group: IGroup): boolean =>
+      !_.isNil(group.serviceAttributes)
+      && group.serviceAttributes.includes("has_integrates");
 
   const groups: IGroup[] = _.isUndefined(data) || _.isEmpty(data)
     ? []
@@ -98,23 +100,32 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   // Event handlers
   const handleLogout: (() => void) = async (): Promise<void> => {
     await logout();
+    client.stop();
     await client.clearStore();
     history.replace("/");
   };
 
   return (
     <React.StrictMode>
-      <Header photoUrl={user.photoUrl} userName={user.fullName} onLogout={handleLogout} />
+      <Header
+        photoUrl={user.photoUrl}
+        userName={user.fullName}
+        onLogout={handleLogout}
+      />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.percentageContainer}>
           <SvgCss xml={Border} width={220} height={220} />
-          <Text style={styles.percentageText}>
-            {isNaN(remediatedPercentage) ? 0 : parseFloat(remediatedPercentage.toFixed(1))}%
+          <Text accessibilityStates="" style={styles.percentageText}>
+            {isNaN(remediatedPercentage)
+              ? 0
+              : parseFloat(remediatedPercentage.toFixed(1))}%
           </Text>
         </View>
         <View style={styles.remediationContainer}>
-          <Headline style={styles.remediatedText}>{t("dashboard.remediated")}</Headline>
-          <Text>
+          <Headline style={styles.remediatedText}>
+            {t("dashboard.remediated")}
+          </Headline>
+          <Text accessibilityStates="">
             <Trans i18nKey="dashboard.vulnsFound" count={groups.length}>
               <Title>{{ totalVulns: totalVulns.toLocaleString() }}</Title>
             </Trans>
@@ -128,7 +139,9 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
         />
         <View style={styles.bottom}>
           <Logo width={180} height={40} fill={colors.text} />
-          <Text style={styles.text}>v. {(Updates.manifest as Updates.Manifest).version}</Text>
+          <Text accessibilityStates="" style={styles.text}>
+            v. {(Updates.manifest as Updates.Manifest).version}
+          </Text>
         </View>
       </View>
     </React.StrictMode>

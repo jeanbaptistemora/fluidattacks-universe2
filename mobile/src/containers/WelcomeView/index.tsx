@@ -19,7 +19,9 @@ import { ISignInResult } from "./types";
 
 const welcomeView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
-  const { authProvider, authToken, user } = history.location.state as IAuthState;
+  const {
+    authProvider, authToken, user,
+  } = history.location.state as IAuthState;
   const { colors } = useTheme();
   const { t } = useTranslation();
 
@@ -32,7 +34,9 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: async (result: ISignInResult): Promise<void> => {
       if (result.signIn.success) {
-        await SecureStore.setItemAsync("integrates_session", result.signIn.sessionJwt);
+        await SecureStore.setItemAsync(
+          "integrates_session",
+          result.signIn.sessionJwt);
         history.replace("/Dashboard", { user });
       } else {
         rollbar.error("Unsuccessful API auth", result);
@@ -61,9 +65,14 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
     <React.StrictMode>
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.profilePicture}>
-          <Avatar photoUrl={user.photoUrl} size={100} userName={user.fullName} />
+          <Avatar
+            photoUrl={user.photoUrl}
+            size={100} userName={user.fullName}
+          />
         </View>
-        <Text style={styles.greeting}>{t("welcome.greetingText")} {user.firstName}!</Text>
+        <Text accessibilityStates="" style={styles.greeting} >
+          {t("welcome.greetingText")} {user.firstName}!
+           </Text>
         <Preloader visible={loading} />
       </View>
     </React.StrictMode>

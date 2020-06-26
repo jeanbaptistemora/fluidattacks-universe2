@@ -24,11 +24,23 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
     <React.StrictMode>
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.avatar}>
-          <Avatar photoUrl={props.photoUrl} size={40} userName={props.userName} />
+          <Avatar
+            photoUrl={props.photoUrl}
+            size={40}
+            userName={props.userName}
+          />
         </View>
-        <Text style={styles.greeting}>{t("dashboard.greetingText")} {props.userName.split(" ")[0]}</Text>
+        <Text accessibilityStates="" style={styles.greeting}>
+          {t("dashboard.greetingText")} {props.userName.split(" ")[0]}
+        </Text>
         <View style={styles.actions}>
-          <Text style={styles.logout} onPress={onLogout}>{t("common.logout")}</Text>
+          <Text
+            accessibilityStates=""
+            style={styles.logout}
+            onPress={onLogout}
+          >
+            {t("common.logout")}
+          </Text>
         </View>
       </View>
     </React.StrictMode>

@@ -1,7 +1,6 @@
 import React from "react";
 import { I18nextProvider } from "react-i18next";
-import { StatusBar } from "react-native";
-import { ColorSchemeName, useColorScheme } from "react-native-appearance";
+import { ColorSchemeName, StatusBar, useColorScheme } from "react-native";
 import { DarkTheme, DefaultTheme, Provider as PaperProvider, Theme } from "react-native-paper";
 import { BackButton, NativeRouter, Route, Switch } from "react-router-native";
 
