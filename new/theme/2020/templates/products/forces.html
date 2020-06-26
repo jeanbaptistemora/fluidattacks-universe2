@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 <!-- Tachyons stylesheet -->
-<link rel="stylesheet"
+<link rel="preload"
+      as="style"
+      onload="this.rel = 'stylesheet'"
       href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 
 {% block meta %}
@@ -56,7 +58,7 @@
       </a>
     </li>
     <li class="dib">
-      <img class="w1 h1 nbs"
+      <img loading="lazy" class="w1 h1 nbs"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
         alt="Young hacker smiling">
       <a href="{{ SITEURL }}/products/forces/"
@@ -158,7 +160,7 @@
       </h1>
       <a class="no-underline c-fluid-bk" href="https://fluidattacks.docsend.com/view/utsh7u7hdef453fw">
         <button class="f2-l fw1 tc f4 center roboto download-btn bg-transparent bn pointer">
-          Download Data Sheet  <span><img class="w2-ns w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/download.svg" alt="Young hacker smiling"></span>
+          Download Data Sheet  <span><img loading="lazy" class="w2-ns w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/download.svg" alt="Young hacker smiling"></span>
         </button>
       </a>
     </div>

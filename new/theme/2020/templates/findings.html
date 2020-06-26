@@ -87,19 +87,19 @@
     </h1>
     <div class="expall hover-bg-light-gray flex">
       <h3 class="w-90">Expand all</h3>
-      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+      <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
            alt="Fluid Arrow">
     </div>
     <div class="collall hover-bg-light-gray flex">
       <h3 class="w-90 dn">Collapse all</h3>
-      <img class="dn" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+      <img loading="lazy" class="dn" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
            alt="Fluid Arrow">
     </div>
     {% set types = ["security", "hygiene"] %}
     {% for typ in types %}
       <div class="rulescat hover-bg-light-gray flex">
         <h3 class="w-90">{{ typ |replace('-', ' ') | capitalize }}</h3>
-        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+        <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
              alt="Fluid Arrow">
       </div>
       <div class="ruleslist dn">
@@ -127,19 +127,19 @@
     </h1>
     <div class="expall hover-bg-light-gray flex">
       <h3 class="w-90">Expand all</h3>
-      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+      <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
            alt="Fluid Arrow">
     </div>
     <div class="collall hover-bg-light-gray flex">
       <h3 class="w-90 dn">Collapse all</h3>
-      <img class="dn" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+      <img loading="lazy" class="dn" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
            alt="Fluid Arrow">
     </div>
     {% set categorder = ["credentials", "authentication", "authorization", "session", "legal", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "mobile", "social"] %}
     {% for categ in categorder %}
       <div class="rulescat hover-bg-light-gray flex">
         <h3 class="w-90">{{ categ |replace('-', ' ') | capitalize }}</h3>
-        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+        <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
              alt="Fluid Arrow">
       </div>
       <div class="ruleslist dn">
@@ -178,7 +178,7 @@
         {% do rendered.append( rulepath.category ) %}
           <div class="rulescat hover-bg-light-gray flex">
             <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+            <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
                  alt="Fluid Arrow">
           </div>
         {% set cat = rulepath.category %}
@@ -199,7 +199,7 @@
           {% do rendered.append( rulepath.category ) %}
           <div class="rulescat hover-bg-light-gray flex">
             <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+            <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
                  alt="Fluid Arrow">
           </div>
           {% set cat = rulepath.category %}

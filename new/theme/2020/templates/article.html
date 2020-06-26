@@ -1,6 +1,8 @@
 {% extends "index.html" %}
 
-<link rel="stylesheet"
+<link rel="preload"
+      as="style"
+      onload="this.rel = 'stylesheet'"
       href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 
 {% block meta %}
@@ -75,7 +77,7 @@
     class="coverm cover-s h-auto justify-center items-center flex bg-center mw-banner ml-auto mr-auto">
     <div class="w-100 center">
       <div class="w-100">
-        <img src="{{ SITEURL }}/{{ article.url}}{{ article.image }}"
+        <img loading="lazy" src="{{ SITEURL }}/{{ article.url}}{{ article.image }}"
              alt="{{ article.alt }}"
              class="w-100 db">
       </div>
@@ -102,7 +104,7 @@
       {{ article.content }}
     </div>
     <div class="w-100 tl-l tc pt6-l pt5 mw6-m ml-auto mr-auto">
-      <img class="w4 br-100 dib-l"
+      <img loading="lazy" class="w4 br-100 dib-l"
       src="{{ SITEURL }}/images/authors/{{ article.writer }}.png"
       alt="Author picture">
       <div class="dib-l tl v-top ph3">

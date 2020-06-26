@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 <!-- Tachyons stylesheet -->
-<link rel="stylesheet"
+<link rel="preload"
+      as="style"
+      onload="this.rel = 'stylesheet'"
       href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 
 {% block meta %}
@@ -21,7 +23,7 @@
   <div class="ba1 mb3 relative dt-ns mt0-ns pr3-ns pl3-ns pt3 ma-auto pt6-l pt4 mw9 ml-auto mr-auto">
     <!-- Banner Image-->
     <div class="fr-l w-45-l w100-m w90-s tc ml-auto mr-auto">
-      <img class="new-banner"
+      <img loading="lazy" class="new-banner"
       src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/turbine-main.png"
       alt="Young hacker smiling">
     </div>
