@@ -154,29 +154,39 @@ def uses_insecure_port(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    safe_ports = (443,)
+    safe_ports = (443, )
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::ElasticLoadBalancingV2::TargetGroup',
-            ],
-            exclude=exclude):
+    graph: DiGraph = get_graph(path, exclude)
+    templates = get_templates(graph, path, exclude)
+    groups = get_resources(graph, map(lambda x: x[0], templates),
+                           {'AWS', 'ElasticLoadBalancingV2', 'TargetGroup'})
+    for group in groups:
+        template = graph.nodes[get_predecessor(graph, group,
+                                               'CloudFormationTemplate')]
+        resource = graph.nodes[get_predecessor(graph, group, 'TargetGroup')]
+        port_node = helper.get_index(
+            get_resources(graph, group, 'Port', depth=3), 0)
+        if not port_node:
+            port = 80
+        else:
+            port = graph.nodes[port_node]['value']
 
-        port = int(res_props.get('Port', 80))
         unsafe_port = port not in safe_ports
-
-        is_port_required = not res_props.get('TargetType', '') == 'lambda'
+        is_port_required = helper.get_index(
+            get_resources(graph, group, 'TargetType', depth=3), 0)
+        is_port_required = graph.nodes[
+            is_port_required] if is_port_required else ''
 
         if is_port_required and unsafe_port:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=(f'AWS::ElasticLoadBalancingV2::TargetGroup'
                             f'/Port'
                             f'/{port}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=graph.nodes[port_node]['line']
+                    if port_node else graph.nodes[group]['line'],
                     reason='is not secure'))
 
     return _get_result_as_tuple(
@@ -202,27 +212,34 @@ def uses_insecure_protocol(
     """
     unsafe_protos = ('HTTP',)
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::ElasticLoadBalancingV2::TargetGroup',
-            ],
-            exclude=exclude):
-
-        proto = res_props.get('Protocol', 'HTTP')
+    graph: DiGraph = get_graph(path, exclude)
+    templates = get_templates(graph, path, exclude)
+    groups = get_resources(graph, map(lambda x: x[0], templates),
+                           {'AWS', 'ElasticLoadBalancingV2', 'TargetGroup'})
+    for group in groups:
+        template = graph.nodes[get_predecessor(graph, group,
+                                               'CloudFormationTemplate')]
+        resource = graph.nodes[get_predecessor(graph, group, 'TargetGroup')]
+        port_node = helper.get_index(
+            get_resources(graph, group, 'Protocol', depth=3), 0)
+        proto = graph.nodes[port_node]['value'] if port_node else 'HTTP'
         unsafe_proto = proto in unsafe_protos
 
-        is_proto_required = not res_props.get('TargetType', '') == 'lambda'
-
+        target_type = helper.get_index(
+            get_resources(graph, group, 'TargetType', depth=3), 0)
+        target_type = graph.nodes[
+            target_type]['value'] if target_type else ''
+        is_proto_required = target_type != 'lambda'
         if is_proto_required and unsafe_proto:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=(f'AWS::ElasticLoadBalancingV2::TargetGroup'
                             f'/protocol'
                             f'/{proto}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=graph.nodes[port_node]['line']
+                    if port_node else graph.nodes[group]['line'],
                     reason='is not secure'))
 
     return _get_result_as_tuple(
@@ -254,22 +271,27 @@ def uses_insecure_security_policy(
                        'ELBSecurityPolicy-TLS-1-1-2017-01',
                        'ELBSecurityPolicy-FS-2018-06',
                        'ELBSecurityPolicy-TLS-1-2-Ext-2018-06'}
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::ElasticLoadBalancingV2::Listener',
-            ],
-            exclude=exclude):
-
-        policy: str = res_props.get('SslPolicy', '')
+    vulnerabilities: list = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates = get_templates(graph, path, exclude)
+    listeners = get_resources(graph, map(lambda x: x[0], templates),
+                              {'AWS', 'ElasticLoadBalancingV2', 'Listener'})
+    for listener in listeners:
+        template = graph.nodes[get_predecessor(graph, listener,
+                                               'CloudFormationTemplate')]
+        resource = graph.nodes[get_predecessor(graph, listener, 'Listener')]
+        policy_node = helper.get_index(
+            get_resources(graph, listener, 'SslPolicy', depth=3), 0)
+        policy = graph.nodes[policy_node]['value'] if policy_node else ''
         if policy not in acceptable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=(f'AWS::ElasticLoadBalancingV2::Listener'
                             f'/{policy}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=graph.nodes[policy_node]['line']
+                    if policy_node else graph.nodes[listener]['line'],
                     reason='is not secure'))
 
     return _get_result_as_tuple(

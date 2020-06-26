@@ -125,18 +125,17 @@ def get_predecessor(graph: DiGraph, node: int,
     :param label: Nodes that can be found within the predecessors.
     """
     predecessor = None
+    if isinstance(labels, str):
+        labels = {labels}
+    if graph.nodes[node]['labels'].intersection(labels):
+        return node
     for _ in range(12):
         if 'CloudFormationTemplate' in graph.nodes[node]['labels']:
             break
         node = list(graph.predecessors(node))[0]
-        if isinstance(labels, str):
-            if labels in graph.nodes[node]['labels']:
-                predecessor = node
-                break
-        elif isinstance(labels, set):
-            if graph.nodes[node]['labels'].intersection(labels):
-                predecessor = node
-                break
+        if graph.nodes[node]['labels'].intersection(labels):
+            predecessor = node
+            break
     return predecessor
 
 
