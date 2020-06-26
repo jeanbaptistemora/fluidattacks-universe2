@@ -7,21 +7,39 @@ const enTranslations: Dictionary = {
         footer: {
           grey: "Each grey dot represents a resource (IP, URL, or repository).",
           redAndGreen: "Red and green dots represent the open and closed findings for that system, respectively.",
+          size: "Size and darkness are proportional to the security impact on that system.",
         },
         title: "Systems Risk",
       },
     },
     pieChart: {
       status: {
+        footer: {
+          intro: "Ratio of open to closed vulnerabilities, ignoring treatments.",
+        },
         title: "Vulnerabilities status",
       },
       treatment: {
+        footer: {
+          accepted: "Accepted: A manager decided to temporarily coexist with the risk.",
+          eternally: "Eternally accepted: A vulnerability that will never be remediated.",
+          inProgress: "In progress: The system is currently being hardened by your developers.",
+          intro: "At Integrates you can plan and manage the remediation of security findings:",
+          notDefined: "Not defined: New vulnerabilities goes here until one of your managers generate an action plan.",
+        },
         title: "Vulnerabilities treatment",
       },
     },
     stackedBarChart: {
       riskOverTime: {
-        title: "Risk over time",
+        footer: {
+          accepted: "Accepted vulnerabilities are exactly as the open ones"
+            + ", except you decided to coexist with that risk.",
+          closed: "Closed vulnerabilities may be seen as security breaches your system no longer have.",
+          intro: "At Integrates you can track the evolution of your systems from a security point of view:",
+          opened: "Open vulnerabilities represent a risk currently impacting your end-users and systems.",
+        },
+        title: "Vulnerabilities over time",
       },
     },
   },

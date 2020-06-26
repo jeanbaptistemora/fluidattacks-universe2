@@ -20,6 +20,16 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="riskOverTime"
               documentType="stackedBarChart"
               entity="group"
+              footer={
+                <React.Fragment>
+                  <p>{translate.t("analytics.stackedBarChart.riskOverTime.footer.intro")}</p>
+                  <ul>
+                    <li>{translate.t("analytics.stackedBarChart.riskOverTime.footer.opened")}</li>
+                    <li>{translate.t("analytics.stackedBarChart.riskOverTime.footer.accepted")}</li>
+                    <li>{translate.t("analytics.stackedBarChart.riskOverTime.footer.closed")}</li>
+                  </ul>
+                </React.Fragment>
+              }
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
@@ -31,25 +41,39 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           <Col xs={3} sm={4} md={5}>
             <Graphic
               bsClass={styles.height160}
-              documentName="status"
+              documentName="treatment"
               documentType="pieChart"
               entity="group"
+              footer={
+                <React.Fragment>
+                  <p>{translate.t("analytics.pieChart.treatment.footer.intro")}</p>
+                  <ul>
+                    <li>{translate.t("analytics.pieChart.treatment.footer.notDefined")}</li>
+                    <li>{translate.t("analytics.pieChart.treatment.footer.inProgress")}</li>
+                    <li>{translate.t("analytics.pieChart.treatment.footer.accepted")}</li>
+                    <li>{translate.t("analytics.pieChart.treatment.footer.eternally")}</li>
+                  </ul>
+                </React.Fragment>
+              }
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
-              title={translate.t("analytics.pieChart.status.title")}
+              title={translate.t("analytics.pieChart.treatment.title")}
             />
           </Col>
           <Col xs={3} sm={4} md={5}>
             <Graphic
               bsClass={styles.height160}
-              documentName="treatment"
+              documentName="status"
               documentType="pieChart"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.pieChart.status.footer.intro")}</p>
+              }
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
-              title={translate.t("analytics.pieChart.treatment.title")}
+              title={translate.t("analytics.pieChart.status.title")}
             />
           </Col>
         </Row>
@@ -64,6 +88,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
                 <ul>
                   <li>{translate.t("analytics.disjointForceDirectedGraph.whereToFindings.footer.grey")}</li>
                   <li>{translate.t("analytics.disjointForceDirectedGraph.whereToFindings.footer.redAndGreen")}</li>
+                  <li>{translate.t("analytics.disjointForceDirectedGraph.whereToFindings.footer.size")}</li>
                 </ul>
               }
               generatorName="whereToFindings"

@@ -18,25 +18,20 @@ from analytics.colors import (
 async def generate_one(group: str):
     item = group_domain.get_attributes(group, ['total_treatment'])
 
-    treatment = item.get('total_treatment', {
-        'accepted': 0,
-        'inProgress': 0,
-        'acceptedUndefined': 0,
-        'undefined': 0,
-    })
+    treatment = item.get('total_treatment', {})
 
     translations = {
-        'accepted': 'Accepted',
-        'inProgress': 'In Progress',
-        'acceptedUndefined': 'Eternally accepted',
         'undefined': 'Not defined',
+        'inProgress': 'In Progress',
+        'accepted': 'Accepted',
+        'acceptedUndefined': 'Eternally accepted',
     }
 
     return {
         'data': {
             'columns': [
-                [translations[name], value]
-                for name, value in treatment.items()
+                [translations[column], treatment.get(column, 0)]
+                for column in translations
             ],
             'type': 'pie',
             'colors': {

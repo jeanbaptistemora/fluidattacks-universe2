@@ -52,10 +52,6 @@ async def generate_one(group: str):
                     datum['name']
                     for datum in data
                 ],
-                ['Found'] + [
-                    datum['total']
-                    for datum in data
-                ],
                 ['Closed + Accepted + Open'] + [
                     datum['closed'] + datum['accepted'] + datum['opened']
                     for datum in data
@@ -70,13 +66,11 @@ async def generate_one(group: str):
                 ],
             ],
             colors={
-                'Found': RISK.neutral,
                 'Closed + Accepted + Open': RISK.more_agressive,
                 'Closed + Accepted': RISK.agressive,
                 'Closed': RISK.more_passive,
             },
             types={
-                'Found': 'spline',
                 'Closed + Accepted + Open': 'spline',
                 'Closed + Accepted': 'spline',
                 'Closed': 'spline',

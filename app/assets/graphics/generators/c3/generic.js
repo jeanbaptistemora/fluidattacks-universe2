@@ -1,6 +1,6 @@
 /* global c3 */
 
-const paddingRatio = 0.025;
+const paddingRatio = 0.05;
 
 function render(dataDocument, height, width) {
   c3.generate({

@@ -7,7 +7,7 @@ const stoppedAlphaTarget = 0;
 const lineStrokeOpacity = 0.6;
 const circleStrokeWidth = 1.5;
 const circleSourceRadius = 5;
-const circleCvssBaseRadius = 10;
+const circleCvssBaseRadius = 15;
 
 function render(dataDocument, height, width) {
   const links = dataDocument.links.map((datum) => datum);
