@@ -93,12 +93,23 @@
         "ignoreTopLevelDescribe": true
       }
     ],
+    /* This rule has been deprecated in favor of jest/no-restricted-matchers.
+     */
+    "jest/no-truthy-falsy": "off",
+    "jest/no-restricted-matchers": [
+      "error",
+      {
+        "toBeTruthy": "Avoid `toBeTruthy`, use `toBe(true)` instead.",
+        "toBeFalsy": "Avoid `toBeFalsy`, use `toBe(false)` instead."
+      }
+    ],
     "react/jsx-filename-extension": [
       "error",
       {
         "extensions": [".tsx"]
       }
     ],
+    "react/jsx-fragments": ["error", "element"],
     "react/jsx-boolean-value": ["error", "always"],
     "react/jsx-curly-brace-presence": ["error", "always"],
     "react/jsx-max-depth": "off",

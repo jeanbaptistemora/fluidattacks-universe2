@@ -1,4 +1,7 @@
-import _ from "lodash";
+/* eslint-disable react/forbid-component-props
+  --------
+  We need className to override default styles from react-bootstrap
+*/
 import React from "react";
 import { Modal, Sizes } from "react-bootstrap";
 import { default as style } from "./index.css";
@@ -10,15 +13,27 @@ export interface IModalProps {
   footer: React.ReactNode;
   headerTitle: string;
   open: boolean;
-  onClose?(): void;
+  onClose?: () => void;
 }
 
-const modal: React.FC<IModalProps> = (props: IModalProps): JSX.Element => {
-  const handleModalClose: (() => void) = (): void => {
-    if (props.onClose !== undefined) { props.onClose(); }
-  };
+const modal: React.FC<IModalProps> = (
+  props: Readonly<IModalProps>
+): JSX.Element => {
+  const {
+    bsSize,
+    open,
+    headerTitle,
+    content,
+    children,
+    footer,
+    onClose,
+  } = props;
 
-  const bsSize: Sizes = props.bsSize === undefined ? "medium" : props.bsSize;
+  function handleModalClose(): void {
+    if (onClose !== undefined) {
+      onClose();
+    }
+  }
 
   return (
     <React.StrictMode>
@@ -27,17 +42,16 @@ const modal: React.FC<IModalProps> = (props: IModalProps): JSX.Element => {
         bsSize={bsSize}
         dialogClassName={style.dialog}
         onHide={handleModalClose}
-        show={props.open}
+        show={open}
       >
         <Modal.Header className={style.header}>
-          <Modal.Title className={style.title}>{props.headerTitle}</Modal.Title>
+          <Modal.Title className={style.title}>{headerTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {props.content}{props.children}
+          {content}
+          {children}
         </Modal.Body>
-        <Modal.Footer>
-          {props.footer}
-        </Modal.Footer>
+        <Modal.Footer>{footer}</Modal.Footer>
       </Modal>
     </React.StrictMode>
   );

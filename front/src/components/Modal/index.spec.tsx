@@ -1,89 +1,109 @@
+/* eslint-disable react/forbid-component-props
+  --------
+  Disable for testing purposes
+*/
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { Button, ModalBody, ModalFooter, ModalHeader, ModalTitle } from "react-bootstrap";
+import {
+  Button,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "react-bootstrap";
 import { Modal } from "./index";
 
-const functionMock: (() => void) = (): void => undefined;
-
-describe("Generic modal", () => {
-  it("should return a function", () => {
-    expect(typeof (Modal))
-      .toEqual("function");
+describe("Generic modal", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof Modal).toStrictEqual("function");
   });
 
-  it("should render modal title", () => {
+  it("should render modal title", (): void => {
+    expect.hasAssertions();
     const wrapper: ShallowWrapper = shallow(
       <Modal
-        open={true}
-        onClose={functionMock}
-        headerTitle="Unit test title"
         footer={<div />}
-      />,
+        headerTitle={"Unit test title"}
+        onClose={jest.fn()}
+        open={true}
+      />
     );
     expect(
       wrapper.contains(
-        <ModalHeader className="header" closeLabel="Close" closeButton={false} bsClass="modal-header">
-          <ModalTitle className="title" componentClass="h4">
-            Unit test title
+        <ModalHeader
+          bsClass={"modal-header"}
+          className={"header"}
+          closeButton={false}
+          closeLabel={"Close"}
+        >
+          <ModalTitle className={"title"} componentClass={"h4"}>
+            {"Unit test title"}
           </ModalTitle>
-        </ModalHeader>,
-    ))
-      .toBeTruthy();
+        </ModalHeader>
+      )
+    ).toBe(true);
   });
 
-  it("should render modal body", () => {
+  it("should render modal body", (): void => {
+    expect.hasAssertions();
     const wrapper: ShallowWrapper = shallow(
       <Modal
-        open={true}
-        onClose={functionMock}
-        headerTitle="Unit test title"
-        content={<p>Unit modal content</p>}
+        content={<p>{"Unit modal content"}</p>}
         footer={<div />}
-      />,
+        headerTitle={"Unit test title"}
+        onClose={jest.fn()}
+        open={true}
+      />
     );
     expect(
       wrapper.contains(
-        <ModalBody componentClass="div">
-          <p>
-            Unit modal content
-          </p>
-        </ModalBody>,
-    ))
-      .toBeTruthy();
+        <ModalBody componentClass={"div"}>
+          <p>{"Unit modal content"}</p>
+        </ModalBody>
+      )
+    ).toBe(true);
   });
 
-  it("should render modal footer", () => {
+  it("should render modal footer", (): void => {
+    expect.hasAssertions();
     const wrapper: ShallowWrapper = shallow(
       <Modal
+        content={<p>{"Unit modal content"}</p>}
+        footer={<Button>{"test btn"}</Button>}
+        headerTitle={"Unit test title"}
+        onClose={jest.fn()}
         open={true}
-        onClose={functionMock}
-        headerTitle="Unit test title"
-        content={<p>Unit modal content</p>}
-        footer={<Button>test btn</Button>}
-      />,
+      />
     );
     expect(
       wrapper.contains(
-        <ModalFooter componentClass="div">
-          <Button active={false} block={false} disabled={false} bsStyle="default" bsClass="btn">
-            test btn
+        <ModalFooter componentClass={"div"}>
+          <Button
+            active={false}
+            block={false}
+            bsClass={"btn"}
+            bsStyle={"default"}
+            disabled={false}
+          >
+            {"test btn"}
           </Button>
-        </ModalFooter>,
-    ))
-      .toBeTruthy();
+        </ModalFooter>
+      )
+    ).toBe(true);
   });
 
-  it("should render a modal", () => {
+  it("should render a modal", (): void => {
+    expect.hasAssertions();
     const wrapper: ShallowWrapper = shallow(
       <Modal
+        content={<p>{"Unit modal content"}</p>}
+        footer={<Button>{"test btn"}</Button>}
+        headerTitle={"Unit test title"}
+        onClose={jest.fn()}
         open={true}
-        onClose={functionMock}
-        headerTitle="Unit test title"
-        content={<p>Unit modal content</p>}
-        footer={<Button>test btn</Button>}
-      />,
+      />
     );
-    expect(wrapper)
-    .toHaveLength(1);
+    expect(wrapper).toHaveLength(1);
   });
 });

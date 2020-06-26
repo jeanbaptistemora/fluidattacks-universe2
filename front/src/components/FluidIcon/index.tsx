@@ -106,7 +106,7 @@ export const FluidIcon: React.FC<IFluidIconProps> = (
 ): JSX.Element => {
   const { icon, height = "16px", width = "16px" } = props;
 
-  // The ReactSVG beforeInjection prop works by mutating the SVGElement pass
+  // The ReactSVG beforeInjection prop works by mutating the SVGElement pass as
   // an argument, please refer to https://www.npmjs.com/package/react-svg#api.
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   function setStyles(svg: SVGElement): void {
