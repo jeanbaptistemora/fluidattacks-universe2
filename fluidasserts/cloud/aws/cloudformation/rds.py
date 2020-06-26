@@ -15,7 +15,6 @@ from networkx.algorithms import dfs_preorder_nodes
 
 # Local imports
 from fluidasserts import SAST, LOW, MEDIUM
-from fluidasserts.helper import aws as helper
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
@@ -287,29 +286,46 @@ def has_not_termination_protection(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::RDS::DBInstance',
-                'AWS::RDS::DBCluster',
-            ],
-            exclude=exclude):
-        res_type = res_props['../Type']
-        deletion_protection: bool = res_props.get('DeletionProtection', False)
 
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            deletion_protection = helper.to_boolean(deletion_protection)
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    clusters: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
+    ]
+    vulnerable: bool = False
+    vulnerabilities: List[Vulnerability] = []
+    for cluster in clusters:
+        template: Dict = graph.nodes[get_predecessor(graph, cluster,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[cluster]
+        _termination_protection: List[int] = [
+            node for node in dfs_preorder_nodes(graph, cluster, 3)
+            if 'DeletionProtection' in graph.nodes[node]['labels']
+        ]
 
-        if not deletion_protection:
+        if _termination_protection:
+            termination_protection: int = _termination_protection[0]
+            with contextlib.suppress(CloudFormationInvalidTypeError):
+                no_protection: List[int] = get_ref_nodes(
+                    graph, termination_protection,
+                    lambda x: x not in (True, 'true', 'True', '1', 1))
+                if no_protection:
+                    vulnerable = True
+        else:
+            vulnerable = True
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=(f'{res_type}/'
-                            f'DeletionProtection/'
-                            f'{deletion_protection}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    path=template['path'],
+                    entity=get_type(graph, cluster,
+                                    {'DBCluster',
+                                     'DBInstance'}),
+                    identifier=resource['name'],
+                    line=resource['line'],
                     reason='has not deletion protection'))
 
     return _get_result_as_tuple(
