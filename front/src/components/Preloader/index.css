@@ -1,6 +1,6 @@
 :local .loader {
-  bottom: 65px;
-  left: 0px;
+  bottom: 130px;
+  left: 50px;
   z-index: 30001;
   opacity: 0.8;
   position: fixed;
