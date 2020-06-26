@@ -615,9 +615,7 @@ function _job_analytics {
   local results_dir="${generator//.py/}"
 
       mkdir -p "${results_dir}" \
-  &&  DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
-      PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
-      RESULTS_DIR="${results_dir}" \
+  &&  RESULTS_DIR="${results_dir}" \
       python3 "${generator}" \
 
 }
@@ -639,8 +637,11 @@ function job_analytics_prod {
 }
 
 function _job_analytics_all {
-  local env="${1}"
-  local extra_flags=()
+  export CI_COMMIT_REF_NAME
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
+  export ENVIRONMENT
+  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
+  local env="${ENVIRONMENT}/${CI_COMMIT_REF_NAME}"
   local remote_bucket='fluidintegrates.analytics'
 
       find 'analytics/generators' -wholename '*.py' \
@@ -649,15 +650,13 @@ function _job_analytics_all {
                 echo "[INFO] Running: ${generator}" \
             &&  _job_analytics "${generator}"
           done \
-  &&  if test "${env}" = 'prod'
-      then
-        # Delete stale groups and documents
-        extra_flags+=('--delete')
-      else
-        # Dev works in put-only mode
-        :
-      fi \
-  &&  aws s3 sync "${extra_flags[@]}" 'analytics/generators' "s3://${remote_bucket}"
+  &&  echo '[INFO] Collecting snapshots' \
+  &&  python3 analytics/collector/execute.py \
+  &&  aws s3 sync --delete \
+        'analytics/collector' "s3://${remote_bucket}/${env}/snapshots" \
+  &&  aws s3 sync --delete \
+        'analytics/generators' "s3://${remote_bucket}/${env}/documents" \
+
 }
 
 function job_analytics_dev_all {
@@ -667,13 +666,13 @@ function job_analytics_dev_all {
       then
         helper_set_local_dynamo_and_redis
       fi \
-  &&  _job_analytics_all 'dev'
+  &&  _job_analytics_all
 }
 
 function job_analytics_prod_all {
       env_prepare_python_packages \
   &&  helper_set_prod_secrets \
-  &&  _job_analytics_all 'prod'
+  &&  _job_analytics_all
 }
 
 function job_analytics_prod_all_schedule {

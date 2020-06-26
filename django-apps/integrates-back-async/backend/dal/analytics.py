@@ -9,12 +9,16 @@ from backend.utils import (
     apm,
 )
 from __init__ import (
+    CI_COMMIT_REF_NAME,
     FI_AWS_S3_ANALYTICS_BUCKET as BUCKET_ANALYTICS,
+    FI_ENVIRONMENT,
 )
 
 
 @apm.trace()
 async def get_document(key: str) -> str:
+    key = f'{FI_ENVIRONMENT}/{CI_COMMIT_REF_NAME}/documents/{key}'
+
     with io.BytesIO() as stream:
 
         # Stream the download to an in-memory buffer

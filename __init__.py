@@ -1,6 +1,7 @@
 import os
 
 try:
+    CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
     FI_AWS_DYNAMODB_ACCESS_KEY = os.environ['AWS_ACCESS_KEY_ID']
     FI_AWS_DYNAMODB_SECRET_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     FI_COMMUNITY_PROJECTS = os.environ['COMMUNITY_PROJECTS']

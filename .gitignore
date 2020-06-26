@@ -1,4 +1,7 @@
+analytics/**/*.jpg
 analytics/**/*.json
+analytics/**/*.html
+analytics/**/*.png
 app/documentator/results/*.pdf
 app/documentator/tpls/*.tpl
 app/documentator/images/*.png
