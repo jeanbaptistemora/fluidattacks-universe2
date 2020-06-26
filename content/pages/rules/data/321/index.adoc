@@ -1,6 +1,6 @@
 :slug: rules/321/
 :category: data
-:description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of properly validating untrusted data before applying deserialization.
+:description: This requirement establishes the importance of properly validating untrusted data before applying deserialization.
 :keywords: Deserizlization, Untrusted, Object, Injection, ASVS, CWE
 :rules: yes
 
@@ -27,11 +27,22 @@ it can lead to deserialization attacks such as object injection.
 
 == Rereferences
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502: Deserialization of Untrusted Data]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/94.html[CWE-94: Code Injection].
+The software constructs all or part of a code segment using
+externally-influenced input from an upstream component,
+but it does not neutralize or incorrectly neutralizes special elements that
+could modify the syntax or behavior of the intended code segment.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/95.html[CWE-95: Eval Injection].
+The software receives input from an upstream component,
+but it does not neutralize or incorrectly neutralizes code syntax before using
+the input in a dynamic evaluation call (e.g. "*eval*").
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502: Deserialization of Untrusted Data]
 The application deserializes untrusted data without sufficiently verifying that
 the resulting data will be valid.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.2)]
 Verify that serialization is not used when communicating with untrusted
 clients.
@@ -39,3 +50,20 @@ If this is not possible,
 ensure that adequate integrity controls
 (and possibly encryption if sensitive data is sent)
 are enforced to prevent deserialization attacks including object injection.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.5 Deserialization Prevention Requirements.(5.5.1)]
+Verify that serialized objects use integrity checks or are encrypted to prevent
+hostile object creation or data tampering.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.5 Deserialization Prevention Requirements.(5.5.3)]
+Verify that deserialization of untrusted data is avoided or is protected in
+both custom code and third-party libraries
+(such as *JSON*, *XML* and *YAML* parsers).
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.5 Deserialization Prevention Requirements.(5.5.4)]
+Verify that when parsing *JSON* in browsers or JavaScript-based backends,
+**JSON.parse** is used to parse the *JSON* document.
+Do not use **eval()** to parse *JSON*.

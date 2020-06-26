@@ -1,6 +1,6 @@
 :slug: rules/173/
 :category: source
-:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of validating the application inputs and discarding harmful information to avoid common injection attacks.
+:description: This requirement establishes the importance of validating the application inputs and discarding harmful information to avoid common injection attacks.
 :keywords: Inputs, Application, Validation, Discard, ASVS, CWE
 :rules: yes
 
@@ -317,3 +317,13 @@ Remote File Inclusion (*RFI*) attacks.
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.10)]
 Verify that the application protects against *XPath* injection or *XML*
 injection attacks.
+
+. [[r37]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.2)]
+Verify that format strings do not take potentially hostile input,
+and are constant.
+
+. [[r38]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.3)]
+Verify that sign, range, and input validation techniques are used to prevent
+integer overflows.
