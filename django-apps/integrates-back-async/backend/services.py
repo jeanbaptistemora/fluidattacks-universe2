@@ -5,7 +5,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from backend.domain import (
-    event as event_domain, finding as finding_domain, user as user_domain
+    event as event_domain,
+    finding as finding_domain,
+    user as user_domain
 )
 
 from backend import authz, util
@@ -39,9 +41,13 @@ def has_access_to_event(email: str, event_id: str) -> bool:
     return has_access_to_project(email, group)
 
 
-def has_valid_access_token(email: str, context: Dict[str, str], jti: str) -> bool:
+def has_valid_access_token(email: str, context: Dict[str, str], jti: str) -> \
+        bool:
     """ Verify if has active access token and match. """
-    access_token = cast(Dict[str, str], user_domain.get_data(email, 'access_token'))
+    access_token = cast(
+        Dict[str, str],
+        user_domain.get_data(email, 'access_token')
+    )
     resp = False
     if context and access_token:
         resp = util.verificate_hash_token(access_token, jti)
