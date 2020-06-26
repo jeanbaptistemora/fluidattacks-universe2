@@ -1,6 +1,6 @@
 :slug: rules/
 :description: Rules is a compilation of several security criteria developed by Fluid Attacks to classify the requirements that systems must follow to keep security.
-:keywords: Fluid Attacks, Products, Rules, Criteria, Security, Information Security
+:keywords: Fluid Attacks, Products, Rules, Criteria, Security, Information Security, Pentesting, Ethical Hacking
 :rulesindex: yes
 :template: rules
 

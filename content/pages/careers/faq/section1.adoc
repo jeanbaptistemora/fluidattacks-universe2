@@ -1,7 +1,7 @@
 :slug: careers/faq/before/
 :category: before-entering
 :description: Here we present a Frequently Asked Questions (FAQ) section, which intends to guide our candidates through Fluid Attacks' selection process.
-:keywords: Fluid Attacks, Careers, Selection, Process, FAQ, Questions, Candidates
+:keywords: Fluid Attacks, Careers, Selection, Process, FAQ, Questions, Candidates, Pentesting, Ethical Hacking
 :faq: yes
 
 = Before Entering

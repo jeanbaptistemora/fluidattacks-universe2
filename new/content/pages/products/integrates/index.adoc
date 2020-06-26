@@ -1,6 +1,6 @@
 :slug: products/integrates/
 :description: Integrates is a platform that provides information such as security findings, criticality, occurrences, among other data to all project stakeholders.
-:keywords: Fluid Attacks, Products, Integrates, Stakeholders, Security, Red Team Platform
+:keywords: Fluid Attacks, Products, Integrates, Stakeholders, Security, Red Team Platform, Pentesting, Ethical Hacking
 :template: products/integrates
 
 = Integrates

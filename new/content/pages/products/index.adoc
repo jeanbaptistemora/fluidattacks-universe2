@@ -1,6 +1,6 @@
 :slug: products/
 :description: Fluid Attacks offers products focused on helping customers in the security testing process. Find here how Integrates, Drills, and Forces work.
-:keywords: Fluid Attacks, Security Testing, Integrates, Drills, Forces
+:keywords: Fluid Attacks, Security Testing, Integrates, Drills, Forces, Pentesting, Ethical Hacking
 :template: products/products
 
 = Products
