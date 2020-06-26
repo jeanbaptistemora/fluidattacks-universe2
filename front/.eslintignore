@@ -7,7 +7,6 @@ src/typings/
 src/utils/
 src/**/*.css.d.ts
 src/components/DataTableNext
-src/components/FluidIcon
 src/components/Modal
 src/components/Notification
 src/components/Preloader

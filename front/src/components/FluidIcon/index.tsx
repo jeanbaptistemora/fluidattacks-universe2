@@ -47,12 +47,6 @@ import { default as verifiedIcon } from "../../resources/verified.svg";
 import { default as vulnerabilitiesIcon } from "../../resources/vulnerabilities.svg";
 import { default as style } from "./index.css";
 
-interface IFluidIconProps {
-  height?: string;
-  icon: string;
-  width?: string;
-}
-
 const getIcon: { [value: string]: string } = {
   authors: authorsIcon,
   availabilityHigh: avabilityHighIcon,
@@ -101,28 +95,28 @@ const getIcon: { [value: string]: string } = {
   vulnerabilities: vulnerabilitiesIcon,
 };
 
-const fluidIcon: React.FunctionComponent<IFluidIconProps> = (props: IFluidIconProps): JSX.Element => {
-  const setStyles: ((svg: Element) => void) = (svg: Element): void => {
-    if (props.height !== undefined) {
-      svg.setAttribute("heigth", props.height);
-    }
-    if (props.width !== undefined) {
-      svg.setAttribute("width", props.width);
-    }
-  };
+interface IFluidIconProps {
+  height?: string;
+  icon: string;
+  width?: string;
+}
+
+export const FluidIcon: React.FC<IFluidIconProps> = (
+  props: Readonly<IFluidIconProps>
+): JSX.Element => {
+  const { icon, height = "16px", width = "16px" } = props;
+
+  // The ReactSVG beforeInjection prop works by mutating the SVGElement pass
+  // an argument, please refer to https://www.npmjs.com/package/react-svg#api.
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  function setStyles(svg: SVGElement): void {
+    svg.setAttribute("heigth", height);
+    svg.setAttribute("width", width);
+  }
 
   return (
-    <React.StrictMode>
-      <div className={style.container}>
-        <ReactSVG beforeInjection={setStyles} src={getIcon[props.icon]} />
-      </div>
-    </React.StrictMode>
+    <div className={style.container}>
+      <ReactSVG beforeInjection={setStyles} src={getIcon[icon]} />
+    </div>
   );
 };
-
-fluidIcon.defaultProps = {
-  height: "16px",
-  width: "16px",
-};
-
-export { fluidIcon as FluidIcon };

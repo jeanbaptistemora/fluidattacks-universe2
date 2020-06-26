@@ -56,7 +56,7 @@ export const ConfirmDialog: React.FC<IConfirmDialogProps> = (
   ).split("\n");
 
   return (
-    <React.StrictMode>
+    <>
       <Modal
         footer={
           // We need className to override default styles from react-bootstrap
@@ -80,6 +80,6 @@ export const ConfirmDialog: React.FC<IConfirmDialogProps> = (
         )}
       </Modal>
       {children(confirm)}
-    </React.StrictMode>
+    </>
   );
 };

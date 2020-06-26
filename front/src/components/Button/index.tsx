@@ -9,10 +9,6 @@ import { default as style } from "./index.css";
 
 const button: React.FC<Button.ButtonProps> = (
   props: Readonly<Button.ButtonProps>
-): JSX.Element => (
-  <React.StrictMode>
-    <Button className={style.button} {...props} />
-  </React.StrictMode>
-);
+): JSX.Element => <Button className={style.button} {...props} />;
 
 export { button as Button };
