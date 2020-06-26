@@ -413,15 +413,20 @@ const enTranslations: Dictionary = {
     tabs: {
       settings: {
         errors: {
+          acceptanceSeverity: "Acceptance severity score should be a positive floating number between 0.0 and 10.0",
           acceptanceSeverityRange: "Minimum acceptance score should be lower than the maximum value",
+          maxAcceptanceDays: "Maximum acceptations days should be a positive integer",
+          maxNumberAcceptations: "Maximum number of acceptations should be a positive integer",
         },
         rule: "Rule",
         rules: {
-          acceptanceSeverityRange: "CSSV score range between which a finding can be accepted",
+          acceptanceSeverityRange: "CVSS score range between which a finding can be accepted",
           maxAcceptanceDays: "Maximum number of days a finding can be temporally accepted",
           maxNumberAcceptations: "Maximum number of times a finding can be temporally accepted",
         },
         save: "Save",
+        success: "Organization settings updated successfully",
+        success_title: "Success",
         text: "Settings",
         tooltip: "Define common rules across all the groups of the organization",
         value: "Value",

@@ -1,28 +1,83 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar } from "react-bootstrap";
-import { useLocation } from "react-router";
-import { Field, InjectedFormProps } from "redux-form";
+import { useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router";
+import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm";
-import { GET_ORGANIZATION_SETTINGS } from "./queries";
+import { GET_ORGANIZATION_SETTINGS, UPDATE_ORGANIZATION_SETTINGS } from "./queries";
+import { ILocationState, ISettingsFormData } from "./types";
 
 const organizationSettings: React.FC = (): JSX.Element => {
-  const { state } = useLocation<{ organizationId: string }>();
-  const organizationId: string = state.organizationId;
 
-  const { data, loading: loadingSettings, refetch: refetchSettings } = useQuery(GET_ORGANIZATION_SETTINGS, {
+  // State management
+  const location: ILocationState = useLocation<{ organizationId: string }>();
+  const organizationId: string = location.state.organizationId;
+  const { organizationName } = useParams();
+  const selector: (state: {}, ...fields: string[]) => ISettingsFormData = formValueSelector("orgSettings");
+  const formValues: ISettingsFormData = useSelector((state: {}) =>
+    selector(state, "maxAcceptanceDays", "maxAcceptanceSeverity", "maxNumberAcceptations", "minAcceptanceSeverity"));
+
+  // GraphQL Operations
+  const { data, loading: loadingSettings } = useQuery(GET_ORGANIZATION_SETTINGS, {
     onError: (error: ApolloError): void => {
       handleGraphQLErrors("An error occurred fetching organization settings", error);
     },
-    variables: { organizationId },
+    variables: { identifier: organizationId },
+  });
+
+  const [saveSettings, { loading: savingSettings }] = useMutation(UPDATE_ORGANIZATION_SETTINGS, {
+    onCompleted: (): void => {
+      mixpanel.track("UpdateOrganizationSettings", formValues);
+      msgSuccess(
+        translate.t("organization.tabs.settings.success"),
+        translate.t("organization.tabs.settings.success_title"),
+      );
+    },
+    onError: (error: ApolloError): void => {
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        let msg: string;
+
+        switch (message) {
+          case "Exception - Acceptance days should be zero or positive":
+            msg = "organization.tabs.settings.errors.maxAcceptanceDays";
+            break;
+          case "Exception - Severity value should be a positive floating number between 0.0 a 10.0":
+            msg = "organization.tabs.settings.errors.acceptanceSeverity";
+            break;
+          case "Exception - Min acceptance severity value should not be higher than the max value":
+            msg = "organization.tabs.settings.errors.acceptanceSeverityRange";
+            break;
+          case "Exception - Number of acceptations should be zero or positive":
+            msg = "organization.tabs.settings.errors.maxNumberAcceptations";
+            break;
+          default:
+            msg = "group_alerts.error_textsad";
+            rollbar.error("An error occurred updating the organization settings", error);
+        }
+        msgError(translate.t(msg));
+      });
+    },
+    variables: {
+      maxAcceptanceDays: parseInt(formValues.maxAcceptanceDays, 10),
+      maxAcceptanceSeverity: parseFloat(formValues.maxAcceptanceSeverity),
+      maxNumberAcceptations: parseInt(formValues.maxNumberAcceptations, 10),
+      minAcceptanceSeverity: parseFloat(formValues.minAcceptanceSeverity),
+      organizationId,
+      organizationName,
+    },
   });
 
   const tableHeaders: IHeader[] = [
@@ -48,6 +103,7 @@ const organizationSettings: React.FC = (): JSX.Element => {
       value: (
         <Field
           component={textField}
+          name="maxAcceptanceDays"
           type="text"
         />
       ),
@@ -57,10 +113,19 @@ const organizationSettings: React.FC = (): JSX.Element => {
       <p>{translate.t("organization.tabs.settings.rules.acceptanceSeverityRange")}</p>
       ),
       value: (
-        <Field
-          component={textField}
-          type="text"
-        />
+        <React.Fragment>
+          <Field
+            component={textField}
+            name="minAcceptanceSeverity"
+            type="text"
+          />
+          <p> - </p>
+          <Field
+            component={textField}
+            name="maxAcceptanceSeverity"
+            type="text"
+          />
+        </React.Fragment>
       ),
     },
     {
@@ -70,14 +135,15 @@ const organizationSettings: React.FC = (): JSX.Element => {
       value: (
         <Field
           component={textField}
+          name="maxNumberAcceptations"
           type="text"
         />
       ),
     },
   ];
 
-  const saveSettings: (() => void) = (): void => {
-    const submit: boolean = true;
+  const handleFormSubmit: (() => void) = (): void => {
+    saveSettings();
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -88,12 +154,12 @@ const organizationSettings: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <GenericForm
         name="orgSettings"
-        onSubmit={saveSettings}
+        onSubmit={handleFormSubmit}
         initialValues={{
-          maxAcceptanceDays: data.organization.maxAcceptanceDays,
-          maxAcceptanceSeverity: data.organization.maxAcceptanceSeverity,
-          maxNumberAcceptations: data.organization.maxNumberAcceptations,
-          minAcceptanceSeverity: data.organization.minAcceptanceSeverity,
+          maxAcceptanceDays: data.organization.maxAcceptanceDays.toString(),
+          maxAcceptanceSeverity: data.organization.maxAcceptanceSeverity.toString(),
+          maxNumberAcceptations: data.organization.maxNumberAcceptations.toString(),
+          minAcceptanceSeverity: data.organization.minAcceptanceSeverity.toString(),
         }}
       >
         {({ handleSubmit, pristine, valid }: InjectedFormProps): JSX.Element => (
@@ -109,7 +175,7 @@ const organizationSettings: React.FC = (): JSX.Element => {
               search={false}
               striped={true}
             />
-            {pristine || loadingSettings ? undefined : (
+            {pristine || loadingSettings || savingSettings ? undefined : (
               <ButtonToolbar className="pull-right">
                 <Button bsStyle="success" onClick={handleSubmit}>
                   {translate.t("organization.tabs.settings.save")}

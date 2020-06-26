@@ -28,7 +28,7 @@ type Query {
     userListProjects(userEmail: String!): [Project]
 
     "Organization entity"
-    organization(organizationId: String!): Organization
+    organization(identifier: String!): Organization
 
     "Project entity"
     project(projectName: String!): Project

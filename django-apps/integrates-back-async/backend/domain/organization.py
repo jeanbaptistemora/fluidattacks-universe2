@@ -23,6 +23,10 @@ from backend.typing import (
 )
 
 
+async def get_id_by_name(organization_name: str) -> str:
+    return await org_dal.get_id_by_name(organization_name)
+
+
 async def get_id_for_group(group_name: str) -> str:
     return await org_dal.get_id_for_group(group_name)
 

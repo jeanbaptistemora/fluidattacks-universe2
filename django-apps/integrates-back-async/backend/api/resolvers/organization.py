@@ -41,23 +41,36 @@ async def _do_update_organization_settings(
     return SimplePayloadType(success=success)
 
 
+async def _get_id(_, identifier: str) -> str:
+    org_id = (
+        identifier
+        if identifier.startswith('ORG#')
+        else await org_domain.get_id_by_name(identifier)
+    )
+    return org_id
+
+
 async def _get_max_acceptance_days(_, identifier: str) -> Optional[Decimal]:
-    return await org_domain.get_max_acceptance_days(identifier)
+    org_id = await _get_id(_, identifier)
+    return await org_domain.get_max_acceptance_days(org_id)
 
 
 async def _get_max_acceptance_severity(_, identifier: str) -> Decimal:
-    return await org_domain.get_max_acceptance_severity(identifier)
+    org_id = await _get_id(_, identifier)
+    return await org_domain.get_max_acceptance_severity(org_id)
 
 
 async def _get_max_number_acceptations(
     _,
     identifier: str
 )-> Optional[Decimal]:
-    return await org_domain.get_max_number_acceptations(identifier)
+    org_id = await _get_id(_, identifier)
+    return await org_domain.get_max_number_acceptations(org_id)
 
 
 async def _get_min_acceptance_severity(_, identifier: str) -> Decimal:
-    return await org_domain.get_min_acceptance_severity(identifier)
+    org_id = await _get_id(_, identifier)
+    return await org_domain.get_min_acceptance_severity(org_id)
 
 
 async def resolve(
@@ -98,7 +111,6 @@ async def resolve(
 
 
 @convert_kwargs_to_snake_case
-@rename_kwargs({'organization_id': 'identifier'})
 @require_login
 async def resolve_organization(_, info, identifier: str) -> OrganizationType:
     """Resolve Organization query """

@@ -40,38 +40,32 @@ class LogicException(Exception):
 
 class InvalidAcceptanceDays(Exception):
     """ Exception to control correct input in organization settings """
-    def __init__(self, expr=''):
-        msg = (
-            f'{{"msg": "Exception - Acceptance days should be zero or '
-            f'positive", {expr}}}'
-        )
+    def __init__(self):
+        msg = 'Exception - Acceptance days should be zero or positive'
         super(InvalidAcceptanceDays, self).__init__(msg)
 
 
 class InvalidAcceptanceSeverity(Exception):
-    def __init__(self, expr=''):
+    def __init__(self):
         msg = (
-            f'{{"msg": "Exception - Severity value should be a positive '
-            f'floating number between 0.0 a 10.0", {expr}}}'
+            'Exception - Severity value should be a positive '
+            'floating number between 0.0 a 10.0'
         )
         super(InvalidAcceptanceSeverity, self).__init__(msg)
 
 
 class InvalidAcceptanceSeverityRange(Exception):
-    def __init__(self, expr=''):
+    def __init__(self):
         msg = (
-            f'{{"msg": "Exception - Min acceptance severity value should not '
-            f' be higher than the max value", {expr}}}'
+            'Exception - Min acceptance severity value should not '
+            'be higher than the max value'
         )
         super(InvalidAcceptanceSeverityRange, self).__init__(msg)
 
 
 class InvalidNumberAcceptations(Exception):
-    def __init__(self, expr=''):
-        msg = (
-            f'{{"msg": "Exception - Number of acceptations should be zero or '
-            f'positive", {expr}}}'
-        )
+    def __init__(self):
+        msg = 'Exception - Number of acceptations should be zero or positive'
         super(InvalidNumberAcceptations, self).__init__(msg)
 
 
